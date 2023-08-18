@@ -1,0 +1,19 @@
+# Node.js
+node_modules/
+
+# Build
+dist/
+
+# Editor
+.vscode/
+.vim/
+
+# VitePress
+docs/.vitepress/cache/
+docs/.vitepress/temp/
+
+# Test
+coverage/
+
+# Misc
+.DS_Store

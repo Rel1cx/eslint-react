@@ -1,0 +1,108 @@
+{
+    "name": "eslint-plugin-react-ts",
+    "version": "0.0.8",
+    "description": "ESLint plugin for React with TypeScript",
+    "keywords": [
+        "eslint",
+        "eslint-plugin",
+        "react",
+        "tsx",
+        "ts"
+    ],
+    "bugs": {
+        "url": "https://github.com/Rel1cx/eslint-plugin-react-ts/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Rel1cx/eslint-plugin-react-ts.git"
+    },
+    "license": "MIT",
+    "author": "Eva1ent<let@ik.me>",
+    "exports": {
+        ".": {
+            "require": "./dist/index.js",
+            "import": "./dist/index.mjs"
+        },
+        "./configs/all": {
+            "require": "./dist/configs/all.js",
+            "import": "./dist/configs/all.mjs"
+        },
+        "./configs/recommended": {
+            "require": "./dist/configs/recommended.js",
+            "import": "./dist/configs/recommended.mjs"
+        },
+        "./configs/recommended-requiring-type-checking": {
+            "require": "./dist/configs/recommended-requiring-type-checking.js",
+            "import": "./dist/configs/recommended-requiring-type-checking.mjs"
+        },
+        "./package.json": "./package.json"
+    },
+    "main": "./dist/index.js",
+    "files": [
+        "./dist"
+    ],
+    "scripts": {
+        "build": "pnpm build:libs && tsup",
+        "build:libs": "tsup --config ./tsup.libs.config.ts",
+        "fix:ts": "eslint --ext .ts --fix .",
+        "format:check": "prettier -u .",
+        "format:write": "prettier -w -u .",
+        "lint:check": "eslint --ext .ts .",
+        "lint:deps": "skott -m graph -e .ts -s",
+        "lint:ts": "eslint --ext .ts .",
+        "publish": "pnpm build",
+        "test": "vitest --run --single-thread --no-threads"
+    },
+    "devDependencies": {
+        "@effect/data": "0.17.5",
+        "@types/node": "20.5.1",
+        "@typescript-eslint/eslint-plugin": "6.4.0",
+        "@typescript-eslint/parser": "6.4.0",
+        "@typescript-eslint/rule-tester": "6.4.0",
+        "@typescript-eslint/scope-manager": "6.4.0",
+        "@typescript-eslint/utils": "6.4.0",
+        "clean-publish": "4.2.0",
+        "eslint": "8.47.0",
+        "eslint-doc-generator": "1.4.3",
+        "eslint-plugin-eslint-plugin": "5.1.1",
+        "eslint-plugin-n": "16.0.1",
+        "eslint-plugin-perfectionist": "1.5.1",
+        "eslint-plugin-regexp": "1.15.0",
+        "eslint-plugin-security": "1.7.1",
+        "eslint-plugin-simple-import-sort": "10.0.0",
+        "prettier-plugin-curly": "0.1.2",
+        "prettier-plugin-organize-attributes": "1.0.0",
+        "prettier-plugin-packagejson": "2.4.5",
+        "rambda": "8.3.0",
+        "simple-git-hooks": "2.9.0",
+        "skott": "0.28.1",
+        "ts-dedent": "2.2.0",
+        "ts-pattern": "5.0.5",
+        "tsup": "7.2.0",
+        "typescript": "5.1.6",
+        "vitest": "0.34.2"
+    },
+    "peerDependencies": {
+        "@typescript-eslint/utils": ">=6.4.0",
+        "eslint": ">=8.47.0",
+        "typescript": "5.1.6"
+    },
+    "packageManager": "pnpm@8.6.12",
+    "engines": {
+        "node": ">=20.4.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "pnpm": {
+        "overrides": {
+            "typescript": "5.1.6",
+            "@typescript-eslint/eslint-plugin": "6.4.0",
+            "@typescript-eslint/parser": "6.4.0",
+            "@typescript-eslint/utils": "6.4.0",
+            "@typescript-eslint/types": "6.4.0",
+            "@typescript-eslint/rule-tester": "6.4.0",
+            "@typescript-eslint/scope-manager": "6.4.0"
+        }
+    }
+}

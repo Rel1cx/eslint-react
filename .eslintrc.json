@@ -1,0 +1,58 @@
+{
+    "root": true,
+    "env": {
+        "es2021": true,
+        "node": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2021,
+        "project": "./tsconfig.json",
+        "sourceType": "module"
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:eslint-plugin/all",
+        "plugin:n/recommended",
+        "plugin:regexp/all",
+        "plugin:security/recommended"
+    ],
+    "plugins": ["@typescript-eslint", "perfectionist", "regexp", "security", "simple-import-sort"],
+    "rules": {
+        "@typescript-eslint/no-unused-vars": "warn",
+        "eslint-plugin/require-meta-docs-url": "off",
+        "n/no-missing-import": "off",
+        "perfectionist/sort-objects": [
+            "warn",
+            {
+                "always-on-top": [
+                    "id",
+                    "name",
+                    "key",
+                    "kind",
+                    "meta",
+                    "type",
+                    "docs",
+                    "schema",
+                    "message",
+                    "title",
+                    "description"
+                ],
+                "order": "asc",
+                "type": "natural"
+            }
+        ],
+        "regexp/no-unused-capturing-group": "off",
+        "simple-import-sort/exports": "warn",
+        "simple-import-sort/imports": "warn"
+    },
+    "overrides": [
+        {
+            "files": "*.test.ts",
+            "rules": {
+                "perfectionist/sort-objects": "off"
+            }
+        }
+    ]
+}
