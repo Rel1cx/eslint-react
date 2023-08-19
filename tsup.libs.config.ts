@@ -4,7 +4,7 @@ export default defineConfig(() => ({
     clean: true,
     dts: true,
     entry: ["libs/index.ts"],
-    format: ["esm"],
+    format: ["cjs", "esm"],
     minify: false,
     outDir: "libs/dist",
     platform: "node",

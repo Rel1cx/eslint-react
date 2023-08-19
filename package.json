@@ -53,8 +53,12 @@
         "publish": "pnpm build",
         "test": "vitest --run --single-thread --no-threads"
     },
+    "dependencies": {
+        "ts-pattern": "5.0.5"
+    },
     "devDependencies": {
         "@effect/data": "0.17.5",
+        "@tsconfig/strictest": "2.0.1",
         "@types/node": "20.5.1",
         "@typescript-eslint/eslint-plugin": "6.4.0",
         "@typescript-eslint/parser": "6.4.0",
@@ -70,26 +74,29 @@
         "eslint-plugin-regexp": "1.15.0",
         "eslint-plugin-security": "1.7.1",
         "eslint-plugin-simple-import-sort": "10.0.0",
+        "fast-glob": "3.3.1",
         "prettier-plugin-curly": "0.1.2",
         "prettier-plugin-organize-attributes": "1.0.0",
         "prettier-plugin-packagejson": "2.4.5",
         "rambda": "8.3.0",
         "simple-git-hooks": "2.9.0",
         "skott": "0.28.1",
-        "ts-dedent": "2.2.0",
-        "ts-pattern": "5.0.5",
         "tsup": "7.2.0",
         "typescript": "5.1.6",
         "vitest": "0.34.2"
     },
     "peerDependencies": {
+        "@typescript-eslint/eslint-plugin": ">=6.4.0",
+        "@typescript-eslint/parser": ">=6.4.0",
+        "@typescript-eslint/rule-tester": ">=6.4.0",
+        "@typescript-eslint/scope-manager": ">=6.4.0",
         "@typescript-eslint/utils": ">=6.4.0",
         "eslint": ">=8.47.0",
-        "typescript": "5.1.6"
+        "typescript": ">=5.1.6"
     },
     "packageManager": "pnpm@8.6.12",
     "engines": {
-        "node": ">=20.4.0"
+        "node": ">=16.18.0"
     },
     "publishConfig": {
         "access": "public"

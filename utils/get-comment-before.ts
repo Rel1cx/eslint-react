@@ -6,13 +6,18 @@ export const getCommentBefore = (
 ): TSESLintUtils.TSESTree.Comment | null => {
     const [tokenBefore, tokenOrCommentBefore] = source.getTokensBefore(node, {
         count: 2,
-        filter: ({ type, value }) => !(type === TSESLintUtils.AST_TOKEN_TYPES.Punctuator && [",", ";"].includes(value)),
+        filter: ({ type, value }) =>
+            !(
+                type === TSESLintUtils.AST_TOKEN_TYPES.Punctuator &&
+                [",", ";"].includes(value)
+            ),
         includeComments: true,
     }) as (TSESLintUtils.TSESTree.Token | null)[];
 
     if (
         (tokenOrCommentBefore?.type === TSESLintUtils.AST_TOKEN_TYPES.Block ||
-            tokenOrCommentBefore?.type === TSESLintUtils.AST_TOKEN_TYPES.Line) &&
+            tokenOrCommentBefore?.type ===
+                TSESLintUtils.AST_TOKEN_TYPES.Line) &&
         node.loc.start.line - tokenOrCommentBefore.loc.end.line <= 1 &&
         tokenBefore?.loc.end.line !== tokenOrCommentBefore.loc.start.line
     ) {

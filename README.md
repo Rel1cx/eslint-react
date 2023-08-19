@@ -1,26 +1,6 @@
 # eslint-plugin-react-ts
 
-Note: This plugin is still in development. It is not recommended to use it on a large scale for the time being.
-
-## Todo
-
-### Rules
-
-- [ ] react-ts/jsx-key
-- [ ] react-ts/jsx-uses-react
-- [x] react-ts/jsx-boolean-value
-- [ ] react-ts/jsx-no-comment-textnodes
-- [ ] react-ts/jsx-no-leaked-render
-- [ ] react-ts/no-children-prop
-- [ ] react-ts/no-danger-with-children
-- [ ] react-ts/no-direct-mutation-state
-- [ ] react-ts/no-is-mounted
-- [ ] react-ts/no-render-return-value
-- [ ] react-ts/no-string-refs
-- [ ] react-ts/no-unescaped-entities
-- [ ] react-ts/no-unknown-property
-- [ ] react-ts/no-unsafe
-- [ ] react-ts/require-render-return
+Note: This plugin is still in early development and is not ready for use.
 
 ## Installation
 
@@ -64,3 +44,89 @@ export default [
   },
 ];
 ```
+
+## Supported Engine Versions
+
+### Node.js
+
+- 16.x Maintenance
+- 18.x LTS Hydrogen
+- 20.x Current
+
+### Bun (planned)
+
+- 1.x
+
+## Todo
+
+### Rules
+
+- [ ] react-ts/jsx-key
+- [ ] react-ts/jsx-uses-react
+- [x] react-ts/jsx-boolean-value
+- [ ] react-ts/jsx-no-comment-textnodes
+- [ ] react-ts/jsx-no-leaked-render
+- [ ] react-ts/no-children-prop
+- [ ] react-ts/no-danger-with-children
+- [ ] react-ts/no-direct-mutation-state
+- [ ] react-ts/no-is-mounted
+- [ ] react-ts/no-render-return-value
+- [ ] react-ts/no-string-refs
+- [ ] react-ts/no-unescaped-entities
+- [ ] react-ts/no-unknown-property
+- [ ] react-ts/no-unsafe
+- [ ] react-ts/require-render-return
+- ...
+
+### Docs
+
+- [ ] react-ts/jsx-key
+- [ ] react-ts/jsx-uses-react
+- [x] react-ts/jsx-boolean-value
+- [ ] react-ts/jsx-no-comment-textnodes
+- [ ] react-ts/jsx-no-leaked-render
+- [ ] react-ts/no-children-prop
+- [ ] react-ts/no-danger-with-children
+- [ ] react-ts/no-direct-mutation-state
+- [ ] react-ts/no-is-mounted
+- [ ] react-ts/no-render-return-value
+- [ ] react-ts/no-string-refs
+- [ ] react-ts/no-unescaped-entities
+- [ ] react-ts/no-unknown-property
+- [ ] react-ts/no-unsafe
+- [ ] react-ts/require-render-return
+- ...
+
+### Tests
+
+- [ ] react-ts/jsx-key
+- [ ] react-ts/jsx-uses-react
+- [x] react-ts/jsx-boolean-value
+- [ ] react-ts/jsx-no-comment-textnodes
+- [ ] react-ts/jsx-no-leaked-render
+- [ ] react-ts/no-children-prop
+- [ ] react-ts/no-danger-with-children
+- [ ] react-ts/no-direct-mutation-state
+- [ ] react-ts/no-is-mounted
+- [ ] react-ts/no-render-return-value
+- [ ] react-ts/no-string-refs
+- [ ] react-ts/no-unescaped-entities
+- [ ] react-ts/no-unknown-property
+- [ ] react-ts/no-unsafe
+- [ ] react-ts/require-render-return
+- ...
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## THIRD-PARTY-LICENSE
+
+This project uses code from following third-party projects:
+
+- eslint-plugin-perfectionist (MIT)
+- eslint-plugin-react (MIT)
+- eslint-plugin-solid (MIT)
+- griffel (MIT)
+
+Licenses are list in [THIRD-PARTY-LICENSE](THIRD-PARTY-LICENSE)

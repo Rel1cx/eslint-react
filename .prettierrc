@@ -1,12 +1,16 @@
 {
-    "printWidth": 120,
+    "printWidth": 80,
     "endOfLine": "lf",
     "semi": true,
     "singleQuote": false,
     "tabWidth": 4,
     "trailingComma": "all",
     "arrowParens": "always",
-    "plugins": ["prettier-plugin-curly", "prettier-plugin-packagejson", "prettier-plugin-organize-attributes"],
+    "plugins": [
+        "prettier-plugin-curly",
+        "prettier-plugin-packagejson",
+        "prettier-plugin-organize-attributes"
+    ],
     "attributeGroups": ["^(id|type|name)$", "^class$", "$DEFAULT", "^aria-"],
     "attributeSort": "ASC",
     "overrides": [

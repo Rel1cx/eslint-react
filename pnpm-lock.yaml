@@ -13,10 +13,18 @@ overrides:
     "@typescript-eslint/rule-tester": 6.4.0
     "@typescript-eslint/scope-manager": 6.4.0
 
+dependencies:
+    ts-pattern:
+        specifier: 5.0.5
+        version: 5.0.5
+
 devDependencies:
     "@effect/data":
         specifier: 0.17.5
         version: 0.17.5
+    "@tsconfig/strictest":
+        specifier: 2.0.1
+        version: 2.0.1
     "@types/node":
         specifier: 20.5.1
         version: 20.5.1
@@ -62,6 +70,9 @@ devDependencies:
     eslint-plugin-simple-import-sort:
         specifier: 10.0.0
         version: 10.0.0(eslint@8.47.0)
+    fast-glob:
+        specifier: 3.3.1
+        version: 3.3.1
     prettier-plugin-curly:
         specifier: 0.1.2
         version: 0.1.2(prettier@3.0.2)
@@ -80,12 +91,6 @@ devDependencies:
     skott:
         specifier: 0.28.1
         version: 0.28.1(@types/node@20.5.1)
-    ts-dedent:
-        specifier: 2.2.0
-        version: 2.2.0
-    ts-pattern:
-        specifier: 5.0.5
-        version: 5.0.5
     tsup:
         specifier: 7.2.0
         version: 7.2.0(typescript@5.1.6)
@@ -814,6 +819,13 @@ packages:
         resolution:
             {
                 integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==,
+            }
+        dev: true
+
+    /@tsconfig/strictest@2.0.1:
+        resolution:
+            {
+                integrity: sha512-7JHHCbyCsGUxLd0pDbp24yz3zjxw2t673W5oAP6HCEdr/UUhaRhYd3SSnUsGCk+VnPVJVA4mXROzbhI+nyIk+w==,
             }
         dev: true
 
@@ -4998,14 +5010,6 @@ packages:
             typescript: 5.1.6
         dev: true
 
-    /ts-dedent@2.2.0:
-        resolution:
-            {
-                integrity: sha512-q5W7tVM71e2xjHZTlgfTDoPF/SmqKG5hddq9SzR49CH2hayqRKJtQ4mtRlSxKaJlR/+9rEM+mnBHf7I2/BQcpQ==,
-            }
-        engines: { node: ">=6.10" }
-        dev: true
-
     /ts-interface-checker@0.1.13:
         resolution:
             {
@@ -5018,7 +5022,7 @@ packages:
             {
                 integrity: sha512-tL0w8U/pgaacOmkb9fRlYzWEUDCfVjjv9dD4wHTgZ61MjhuMt46VNWTG747NqW6vRzoWIKABVhFSOJ82FvXrfA==,
             }
-        dev: true
+        dev: false
 
     /tslib@1.14.1:
         resolution:

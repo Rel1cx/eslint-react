@@ -1,23 +1,21 @@
 {
+    "extends": "@tsconfig/strictest/tsconfig.json",
     "compilerOptions": {
-        "forceConsistentCasingInFileNames": true,
         "moduleResolution": "Bundler",
         "isolatedModules": true,
         "verbatimModuleSyntax": true,
-        "esModuleInterop": true,
         "resolveJsonModule": true,
-        "skipLibCheck": true,
         "module": "esnext",
         "target": "esnext",
         "types": ["@types/node"],
         "allowJs": false,
-        "strict": true,
+        "checkJs": false,
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "noFallthroughCasesInSwitch": true,
-        "noUncheckedIndexedAccess": true,
-        "noPropertyAccessFromIndexSignature": true,
-        "noEmit": true
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "noEmit": true,
+        "strict": true
     },
     "include": ["**/*.ts"],
     "exclude": ["node_modules", "**/dist"]

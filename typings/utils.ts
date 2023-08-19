@@ -8,7 +8,11 @@ export type Remap<T> = {
 
 export type UnionFromTuple<T> = T extends (infer U)[] ? U : never;
 
-export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void ? I : never;
+export type UnionToIntersection<U> = (
+    U extends any ? (k: U) => void : never
+) extends (k: infer I) => void
+    ? I
+    : never;
 
 /**
  * Infers embedded primitive type of any type

@@ -15,6 +15,9 @@ export function Enum<T extends string[]>(...args: T) {
     );
 }
 
-export function isKeyOfEnum<T extends object>(e: T, value: unknown): value is Enum<T> {
+export function isKeyOfEnum<T extends object>(
+    e: T,
+    value: unknown,
+): value is Enum<T> {
     return Object.values(e).includes(value);
 }

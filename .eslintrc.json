@@ -14,15 +14,23 @@
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:eslint-plugin/all",
-        "plugin:n/recommended",
         "plugin:regexp/all",
         "plugin:security/recommended"
     ],
-    "plugins": ["@typescript-eslint", "perfectionist", "regexp", "security", "simple-import-sort"],
+    "plugins": [
+        "@typescript-eslint",
+        "perfectionist",
+        "regexp",
+        "security",
+        "simple-import-sort"
+    ],
     "rules": {
-        "@typescript-eslint/no-unused-vars": "warn",
+        "@typescript-eslint/no-unused-vars": [
+            "warn",
+            { "args": "all", "destructuredArrayIgnorePattern": "^_" }
+        ],
+        "@typescript-eslint/no-unused-expressions": "warn",
         "eslint-plugin/require-meta-docs-url": "off",
-        "n/no-missing-import": "off",
         "perfectionist/sort-objects": [
             "warn",
             {

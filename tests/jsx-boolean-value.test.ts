@@ -47,11 +47,17 @@ RuleTester.describe("jsx-boolean-value", () => {
                     errors: [
                         {
                             messageId: "omitBoolean",
-                            data: { exceptionsMessage: " for the following props: `foo`, `bar`" },
+                            data: {
+                                exceptionsMessage:
+                                    " for the following props: `foo`, `bar`",
+                            },
                         },
                         {
                             messageId: "omitBoolean",
-                            data: { exceptionsMessage: " for the following props: `foo`, `bar`" },
+                            data: {
+                                exceptionsMessage:
+                                    " for the following props: `foo`, `bar`",
+                            },
                         },
                     ],
                 },
@@ -78,11 +84,17 @@ RuleTester.describe("jsx-boolean-value", () => {
                     errors: [
                         {
                             messageId: "setBoolean",
-                            data: { exceptionsMessage: " for the following props: `foo`, `bar`" },
+                            data: {
+                                exceptionsMessage:
+                                    " for the following props: `foo`, `bar`",
+                            },
                         },
                         {
                             messageId: "setBoolean",
-                            data: { exceptionsMessage: " for the following props: `foo`, `bar`" },
+                            data: {
+                                exceptionsMessage:
+                                    " for the following props: `foo`, `bar`",
+                            },
                         },
                     ],
                 },

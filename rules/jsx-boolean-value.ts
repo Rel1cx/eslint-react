@@ -1,7 +1,8 @@
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
+import { match } from "ts-pattern";
 
-import { M, O, P, R } from "../libs";
+import { I, O, R } from "../libs";
 import { Applicability } from "../typings";
 import { createEslintRule } from "../utils/create-eslint-rule";
 
@@ -9,25 +10,40 @@ export const RULE_NAME = "jsx-boolean-value";
 
 type MessageIds = "omitBoolean" | "setBoolean";
 
-type Options = [Applicability, { [Applicability.always]?: string[]; [Applicability.never]?: string[] }?];
+type Options = readonly [
+    Applicability,
+    { [Applicability.always]?: string[]; [Applicability.never]?: string[] }?,
+];
 
 const optionSchema: JSONSchema4 = {
     anyOf: [
         {
             type: "array",
             additionalItems: false,
-            items: [{ type: "string", enum: [Applicability.always, Applicability.never] }],
+            items: [
+                {
+                    type: "string",
+                    enum: [Applicability.always, Applicability.never],
+                },
+            ],
         },
         {
             type: "array",
             additionalItems: false,
             items: [
-                { type: "string", enum: [Applicability.always, Applicability.never] },
+                {
+                    type: "string",
+                    enum: [Applicability.always, Applicability.never],
+                },
                 {
                     type: "object",
                     additionalProperties: false,
                     properties: {
-                        never: { type: "array", items: { type: "string", minLength: 1 }, uniqueItems: true },
+                        never: {
+                            type: "array",
+                            items: { type: "string", minLength: 1 },
+                            uniqueItems: true,
+                        },
                     },
                 },
             ],
@@ -44,7 +60,11 @@ const optionSchema: JSONSchema4 = {
                     type: "object",
                     additionalProperties: false,
                     properties: {
-                        always: { type: "array", items: { type: "string", minLength: 1 }, uniqueItems: true },
+                        always: {
+                            type: "array",
+                            items: { type: "string", minLength: 1 },
+                            uniqueItems: true,
+                        },
                     },
                 },
             ],
@@ -52,7 +72,7 @@ const optionSchema: JSONSchema4 = {
     ],
 };
 
-const defaultOptions: Options = [Applicability.never];
+const defaultOptions = [Applicability.never] satisfies Options;
 
 export default createEslintRule<Options, MessageIds>({
     name: RULE_NAME,
@@ -68,32 +88,38 @@ export default createEslintRule<Options, MessageIds>({
             setBoolean: "Set boolean value for prop '{{propName}}'.",
         },
     },
-    create(context) {
-        const configuration = context.options[0] || defaultOptions[0];
-        const configObject = context.options[1] || {};
+    create(context, [configuration = Applicability.never, configObject = {}]) {
+        const configExceptions =
+            configuration === Applicability.always
+                ? configObject.never
+                : configObject.always || [];
 
-        const exceptions = new Set(
-            (configuration === Applicability.always ? configObject.never : configObject.always) || [],
-        );
+        const exceptions = new Set(configExceptions);
 
         return {
             JSXAttribute(node) {
                 const { name, value } = node;
-                const propName = P.isString(name.name) ? name.name : name.name.name;
+                const propName = I.isString(name.name)
+                    ? name.name
+                    : name.name.name;
                 const isException = exceptions.has(propName);
 
                 if (isException) {
                     return;
                 }
 
-                const maybeMessageId = M.match(configuration)
+                const maybeMessageId = match(configuration)
                     .with(Applicability.always, () => {
-                        return R.isNil(value) ? O.some<MessageIds>("setBoolean") : O.none();
+                        return R.isNil(value)
+                            ? O.some<MessageIds>("setBoolean")
+                            : O.none();
                     })
                     .with(Applicability.never, () => {
                         if (
-                            node.value?.type === AST_NODE_TYPES.JSXExpressionContainer &&
-                            node.value.expression.type === AST_NODE_TYPES.Literal &&
+                            node.value?.type ===
+                                AST_NODE_TYPES.JSXExpressionContainer &&
+                            node.value.expression.type ===
+                                AST_NODE_TYPES.Literal &&
                             node.value.expression.value === true
                         ) {
                             return O.some<MessageIds>("omitBoolean");

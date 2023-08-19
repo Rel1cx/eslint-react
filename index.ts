@@ -1,5 +1,7 @@
 import { name } from "./package.json";
-import jsxBooleanValue, { RULE_NAME as jsxBooleanValueName } from "./rules/jsx-boolean-value";
+import jsxBooleanValue, {
+    RULE_NAME as jsxBooleanValueName,
+} from "./rules/jsx-boolean-value";
 
 type RuleSeverity = "error" | "warn" | "off";
 
@@ -14,7 +16,12 @@ const recommendedRules: {
 const createConfig = (rules = recommendedRules) => {
     return {
         plugins: ["react-ts"],
-        rules: Object.fromEntries(Object.entries(rules).map(([key, value]) => [`react-ts/${key}`, value])),
+        rules: Object.fromEntries(
+            Object.entries(rules).map(([key, value]) => [
+                `react-ts/${key}`,
+                value,
+            ]),
+        ),
     };
 };
 
