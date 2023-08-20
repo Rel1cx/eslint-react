@@ -4,34 +4,38 @@
         "es2021": true,
         "node": true
     },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/strict-type-checked",
+        "plugin:eslint-plugin/all",
+        "plugin:filenames-simple/recommended",
+        "plugin:regexp/all",
+        "plugin:security/recommended"
+    ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 2021,
         "project": "./tsconfig.json",
         "sourceType": "module"
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/strict-type-checked",
-        "plugin:eslint-plugin/all",
-        "plugin:regexp/all",
-        "plugin:security/recommended",
-        "plugin:filenames-simple/recommended"
-    ],
     "plugins": [
         "@typescript-eslint",
+        "filenames-simple",
         "perfectionist",
         "regexp",
         "security",
-        "simple-import-sort",
-        "filenames-simple"
+        "simple-import-sort"
     ],
     "rules": {
+        "@typescript-eslint/no-confusing-void-expression": "off",
+        "@typescript-eslint/no-unused-expressions": "warn",
         "@typescript-eslint/no-unused-vars": [
             "warn",
-            { "args": "all", "destructuredArrayIgnorePattern": "^_" }
+            {
+                "args": "all",
+                "destructuredArrayIgnorePattern": "^_"
+            }
         ],
-        "@typescript-eslint/no-unused-expressions": "warn",
         "eslint-plugin/require-meta-docs-url": "off",
         "perfectionist/sort-objects": [
             "warn",

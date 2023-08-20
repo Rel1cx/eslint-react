@@ -142,8 +142,11 @@ export default createEslintRule<Options, MessageIds>({
                     .exhaustive();
 
                 if (O.isSome(maybeMessageId)) {
-                    const messageId = maybeMessageId.value;
-                    context.report({ data: { propName }, messageId, node });
+                    return context.report({
+                        data: { propName },
+                        messageId: maybeMessageId.value,
+                        node,
+                    });
                 }
             },
         };
