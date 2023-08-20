@@ -3,7 +3,7 @@ import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { ASTUtils, TSESLint, TSESTree } from "@typescript-eslint/utils";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 
-import { R } from "../libs";
+import { I } from "../libs";
 import { uniqueBy } from "./unique-by";
 
 type IsHelper<NodeType extends AST_NODE_TYPES> = (
@@ -43,7 +43,7 @@ export const ASTHelper = {
         const { node, scopeManager, sourceCode } = params;
         const scope = scopeManager.acquire(node);
 
-        if (R.isNil(scope)) {
+        if (I.isNullable(scope)) {
             return [];
         }
 
@@ -69,7 +69,8 @@ export const ASTHelper = {
         );
 
         const externalRefs = references.filter(
-            (x) => R.isNil(x.variable.resolved) || !localRefIds.has(x.text),
+            (x) =>
+                I.isNullable(x.variable.resolved) || !localRefIds.has(x.text),
         );
 
         return uniqueBy(externalRefs, (x) => x.text).map((x) => x.variable);
@@ -108,7 +109,7 @@ export const ASTHelper = {
 
         if ("elements" in node) {
             for (const element of node.elements) {
-                if (!R.isNil(element)) {
+                if (!I.isNullable(element)) {
                     identifiers.push(
                         ...ASTHelper.getNestedIdentifiers(element),
                     );
@@ -165,7 +166,7 @@ export const ASTHelper = {
             returnStatements.push(node);
         }
 
-        if ("body" in node && !R.isNil(node.body)) {
+        if ("body" in node && !I.isNullable(node.body)) {
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             Array.isArray(node.body)
                 ? node.body.forEach((x) => {
@@ -191,7 +192,7 @@ export const ASTHelper = {
                   );
         }
 
-        if ("alternate" in node && !R.isNil(node.alternate)) {
+        if ("alternate" in node && !I.isNullable(node.alternate)) {
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             Array.isArray(node.alternate)
                 ? node.alternate.forEach((x: TSESTree.Node) => {
@@ -218,13 +219,13 @@ export const ASTHelper = {
             );
         }
 
-        if ("handler" in node && !R.isNil(node.handler)) {
+        if ("handler" in node && !I.isNullable(node.handler)) {
             returnStatements.push(
                 ...ASTHelper.getNestedReturnStatements(node.handler),
             );
         }
 
-        if ("finalizer" in node && !R.isNil(node.finalizer)) {
+        if ("finalizer" in node && !I.isNullable(node.finalizer)) {
             returnStatements.push(
                 ...ASTHelper.getNestedReturnStatements(node.finalizer),
             );
@@ -240,7 +241,7 @@ export const ASTHelper = {
             );
         }
 
-        if ("test" in node && !R.isNil(node.test)) {
+        if ("test" in node && !I.isNullable(node.test)) {
             returnStatements.push(
                 ...ASTHelper.getNestedReturnStatements(node.test),
             );
@@ -273,7 +274,7 @@ export const ASTHelper = {
         const { functionNode, reference, scopeManager } = params;
         const scope = scopeManager.acquire(functionNode);
 
-        if (R.isNil(scope)) {
+        if (I.isNullable(scope)) {
             return false;
         }
 
@@ -317,7 +318,10 @@ export const ASTHelper = {
     },
     isValidReactComponentOrHookName(identifier: TSESTree.Identifier | null) {
         // eslint-disable-next-line regexp/prefer-named-capture-group
-        return !R.isNil(identifier) && /^([A-Z]|use)/u.test(identifier.name);
+        return (
+            // eslint-disable-next-line regexp/prefer-named-capture-group
+            !I.isNullable(identifier) && /^([A-Z]|use)/u.test(identifier.name)
+        );
     },
     mapKeyNodeToText(
         node: TSESTree.Node,

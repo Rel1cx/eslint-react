@@ -2,7 +2,7 @@ import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { match } from "ts-pattern";
 
-import { I, O, R } from "../libs";
+import { I, O } from "../libs";
 import { Applicability } from "../typings";
 import { createEslintRule } from "../utils/create-eslint-rule";
 
@@ -15,7 +15,7 @@ type Options = readonly [
     { [Applicability.always]?: string[]; [Applicability.never]?: string[] }?,
 ];
 
-const optionSchema: JSONSchema4 = {
+const schema: JSONSchema4 = {
     anyOf: [
         {
             type: "array",
@@ -82,7 +82,7 @@ export default createEslintRule<Options, MessageIds>({
             description: "enforce boolean attributes notation in JSX",
             recommended: "recommended",
         },
-        schema: optionSchema,
+        schema,
         messages: {
             omitBoolean: "Omit boolean value for prop '{{propName}}'.",
             setBoolean: "Set boolean value for prop '{{propName}}'.",
@@ -110,7 +110,7 @@ export default createEslintRule<Options, MessageIds>({
 
                 const maybeMessageId = match(configuration)
                     .with(Applicability.always, () => {
-                        return R.isNil(value)
+                        return I.isNullable(value)
                             ? O.some<MessageIds>("setBoolean")
                             : O.none();
                     })

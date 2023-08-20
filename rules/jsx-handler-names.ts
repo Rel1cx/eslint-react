@@ -9,7 +9,7 @@ export const RULE_NAME = "jsx-handler-names";
 
 type MessageIds = "badHandlerName" | "badPropKey";
 
-const optionSchema: JSONSchema4 = {
+const schema: JSONSchema4 = {
     type: "object",
     additionalProperties: false,
     properties: {
@@ -46,7 +46,7 @@ export default createEslintRule<Options, MessageIds>({
             description: "enforce event handler naming conventions in JSX",
             recommended: "recommended",
         },
-        schema: optionSchema,
+        schema,
         messages: {
             badHandlerName:
                 "Handler function `{{ propKey }}` should be named `{{ handlerPrefix }}{{ propKey }}`",
