@@ -15,14 +15,16 @@
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:eslint-plugin/all",
         "plugin:regexp/all",
-        "plugin:security/recommended"
+        "plugin:security/recommended",
+        "plugin:filenames-simple/recommended"
     ],
     "plugins": [
         "@typescript-eslint",
         "perfectionist",
         "regexp",
         "security",
-        "simple-import-sort"
+        "simple-import-sort",
+        "filenames-simple"
     ],
     "rules": {
         "@typescript-eslint/no-unused-vars": [

@@ -1,6 +1,6 @@
 {
     "name": "eslint-plugin-react-ts",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "description": "ESLint plugin for React with TypeScript",
     "keywords": [
         "eslint",
@@ -67,6 +67,7 @@
         "eslint": "8.47.0",
         "eslint-doc-generator": "1.4.3",
         "eslint-plugin-eslint-plugin": "5.1.1",
+        "eslint-plugin-filenames-simple": "0.8.0",
         "eslint-plugin-n": "16.0.1",
         "eslint-plugin-perfectionist": "1.5.1",
         "eslint-plugin-regexp": "1.15.0",

@@ -9,22 +9,40 @@ export const RULE_NAME = "jsx-handler-names";
 type MessageIds = "badHandlerName" | "badPropKey";
 
 const schema: JSONSchema4 = {
-    type: "object",
-    additionalProperties: false,
-    properties: {
-        checkInlineFunction: { type: "boolean" },
-        checkLocalVariables: { type: "boolean" },
-        eventHandlerPrefix: { type: "string" },
-        eventHandlerPropPrefix: { type: "string" },
-    },
+    anyOf: [
+        {
+            type: "object",
+            additionalProperties: false,
+            properties: {
+                checkInlineFunction: { type: "boolean" },
+                checkLocalVariables: { type: "boolean" },
+                eventHandlerPrefix: { type: "string" },
+                eventHandlerPropPrefix: { type: "string" },
+            },
+        },
+        {
+            type: "object",
+            additionalProperties: false,
+            properties: {
+                checkLocalVariables: { type: "boolean" },
+            },
+        },
+        {
+            type: "object",
+            additionalProperties: false,
+            properties: {
+                checkInlineFunction: { type: "boolean" },
+            },
+        },
+    ],
 };
 
 type Options = readonly [
     {
-        checkInlineFunction: boolean;
-        checkLocalVariables: boolean;
-        eventHandlerPrefix: string;
-        eventHandlerPropPrefix: string;
+        checkInlineFunction?: boolean;
+        checkLocalVariables?: boolean;
+        eventHandlerPrefix?: string;
+        eventHandlerPropPrefix?: string;
     },
 ];
 
@@ -53,17 +71,16 @@ export default createEslintRule<Options, MessageIds>({
                 "Prop `{{ propValue }}` should be named `{{ handlerPropPrefix }}{{ propValue }}`",
         },
     },
-    create(
-        context,
-        [
+    create(context) {
+        const [
             {
                 checkInlineFunction,
                 checkLocalVariables,
                 eventHandlerPrefix,
                 eventHandlerPropPrefix,
             },
-        ],
-    ) {
+        ] = context.options;
+
         return {
             JSXAttribute(node) {
                 if (!node.value || !("expression" in node.value)) {

@@ -7,4 +7,13 @@ RuleTester.it = vitest.it;
 RuleTester.itOnly = vitest.it.only;
 RuleTester.describe = vitest.describe;
 
-export default RuleTester;
+export const ruleTester = new RuleTester({
+    parser: "@typescript-eslint/parser",
+    parserOptions: {
+        ecmaFeatures: {
+            jsx: true,
+        },
+        ecmaVersion: 2021,
+        sourceType: "module",
+    },
+});

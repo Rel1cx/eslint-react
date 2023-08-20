@@ -11,7 +11,7 @@ export const RULE_NAME = "jsx-boolean-value";
 type MessageIds = "omitBoolean" | "setBoolean";
 
 type Options = readonly [
-    Applicability,
+    Applicability?,
     { [Applicability.always]?: string[]; [Applicability.never]?: string[] }?,
 ];
 
@@ -33,13 +33,13 @@ const schema: JSONSchema4 = {
             items: [
                 {
                     type: "string",
-                    enum: [Applicability.always, Applicability.never],
+                    enum: [Applicability.always],
                 },
                 {
                     type: "object",
                     additionalProperties: false,
                     properties: {
-                        never: {
+                        [Applicability.never]: {
                             type: "array",
                             items: { type: "string", minLength: 1 },
                             uniqueItems: true,
@@ -60,7 +60,7 @@ const schema: JSONSchema4 = {
                     type: "object",
                     additionalProperties: false,
                     properties: {
-                        always: {
+                        [Applicability.always]: {
                             type: "array",
                             items: { type: "string", minLength: 1 },
                             uniqueItems: true,
@@ -88,7 +88,10 @@ export default createEslintRule<Options, MessageIds>({
             setBoolean: "Set boolean value for prop '{{propName}}'.",
         },
     },
-    create(context, [configuration = Applicability.never, configObject = {}]) {
+    create(context) {
+        const [configuration = Applicability.never, configObject = {}] =
+            context.options;
+
         const configExceptions =
             configuration === Applicability.always
                 ? configObject.never
@@ -102,27 +105,36 @@ export default createEslintRule<Options, MessageIds>({
                 const propName = I.isString(name.name)
                     ? name.name
                     : name.name.name;
+
                 const isException = exceptions.has(propName);
-
-                if (isException) {
-                    return;
-                }
-
                 const maybeMessageId = match(configuration)
                     .with(Applicability.always, () => {
-                        return I.isNullable(value)
-                            ? O.some<MessageIds>("setBoolean")
-                            : O.none();
+                        const hasValue = I.isNullable(value);
+
+                        if (hasValue && !isException) {
+                            return O.some<MessageIds>("setBoolean");
+                        }
+
+                        if (!hasValue && isException) {
+                            return O.some<MessageIds>("omitBoolean");
+                        }
+
+                        return O.none();
                     })
                     .with(Applicability.never, () => {
-                        if (
+                        const hasValueWithTrue =
                             node.value?.type ===
                                 AST_NODE_TYPES.JSXExpressionContainer &&
                             node.value.expression.type ===
                                 AST_NODE_TYPES.Literal &&
-                            node.value.expression.value === true
-                        ) {
+                            node.value.expression.value === true;
+
+                        if (hasValueWithTrue && !isException) {
                             return O.some<MessageIds>("omitBoolean");
+                        }
+
+                        if (!hasValueWithTrue && isException) {
+                            return O.some<MessageIds>("setBoolean");
                         }
 
                         return O.none();

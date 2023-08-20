@@ -52,6 +52,9 @@ devDependencies:
   eslint-plugin-eslint-plugin:
     specifier: 5.1.1
     version: 5.1.1(eslint@8.47.0)
+  eslint-plugin-filenames-simple:
+    specifier: 0.8.0
+    version: 0.8.0(eslint@8.47.0)
   eslint-plugin-n:
     specifier: 16.0.1
     version: 16.0.1(eslint@8.47.0)
@@ -79,9 +82,6 @@ devDependencies:
   prettier-plugin-packagejson:
     specifier: 2.4.5
     version: 2.4.5(prettier@3.0.2)
-  rambda:
-    specifier: 8.3.0
-    version: 8.3.0
   simple-git-hooks:
     specifier: 2.9.0
     version: 2.9.0
@@ -1795,6 +1795,16 @@ packages:
       estraverse: 5.3.0
     dev: true
 
+  /eslint-plugin-filenames-simple@0.8.0(eslint@8.47.0):
+    resolution: {integrity: sha512-8+uBzNBE5gSUMQv7bmMBiOD26eKzD4/5flPtD5Vl3dzZLXotSwXK3W7ZZqKQfU0Qyoborh+LqbN76EfmbBcU8A==}
+    engines: {node: ^14.17.0 || ^16.0.0 || ^18.0.0}
+    peerDependencies:
+      eslint: '>=7.0.0 <9.0.0'
+    dependencies:
+      eslint: 8.47.0
+      pluralize: 8.0.0
+    dev: true
+
   /eslint-plugin-n@16.0.1(eslint@8.47.0):
     resolution: {integrity: sha512-CDmHegJN0OF3L5cz5tATH84RPQm9kG+Yx39wIqIwPR2C0uhBGMWfbbOtetR83PQjjidA5aXMu+LEFw1jaSwvTA==}
     engines: {node: '>=16.0.0'}
@@ -2945,6 +2955,11 @@ packages:
       semver-compare: 1.0.0
     dev: true
 
+  /pluralize@8.0.0:
+    resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
+    engines: {node: '>=4'}
+    dev: true
+
   /polka@0.5.2:
     resolution: {integrity: sha512-FVg3vDmCqP80tOrs+OeNlgXYmFppTXdjD5E7I4ET1NjvtNmQrb1/mJibybKkb/d4NA7YWAr1ojxuhpL3FHqdlw==}
     dependencies:
@@ -3046,10 +3061,6 @@ packages:
 
   /queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
-    dev: true
-
-  /rambda@8.3.0:
-    resolution: {integrity: sha512-XN5B8zIB6efO9Y9SrzdLQyk6XX3U7OyWESIvNYnm7AH8KCbXBtzsUVFaJYpUcIx5VahmvNV7fNjevR/ohc90jw==}
     dev: true
 
   /react-is@18.2.0:
