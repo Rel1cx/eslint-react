@@ -76,7 +76,7 @@ export default [
 - [ ] react-ts/no-unknown-property
 - [ ] react-ts/no-unsafe
 - [ ] react-ts/require-render-return
-- ...
+- [ ] ...
 
 ### Docs
 
@@ -95,7 +95,7 @@ export default [
 - [ ] react-ts/no-unknown-property
 - [ ] react-ts/no-unsafe
 - [ ] react-ts/require-render-return
-- ...
+- [ ] ...
 
 ### Tests
 
@@ -114,7 +114,7 @@ export default [
 - [ ] react-ts/no-unknown-property
 - [ ] react-ts/no-unsafe
 - [ ] react-ts/require-render-return
-- ...
+- [ ] ...
 
 ## License
 
