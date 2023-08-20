@@ -46,10 +46,10 @@
         "fix:ts": "eslint --ext .ts --fix .",
         "format:check": "prettier -u .",
         "format:write": "prettier -w -u .",
-        "lint:check": "eslint --ext .ts .",
         "lint:deps": "skott -m graph -e .ts -s",
+        "lint:spell": "cspell lint --relative --no-progress '**'",
         "lint:ts": "eslint --ext .ts .",
-        "publish": "pnpm format:check && pnpm lint:check && pnpm test && pnpm build && pnpm publint",
+        "publish": "pnpm format:check && pnpm run '/^lint:/' && pnpm test && pnpm build && pnpm publint",
         "test": "vitest --run --single-thread --no-threads"
     },
     "dependencies": {
@@ -64,6 +64,7 @@
         "@typescript-eslint/rule-tester": "6.4.0",
         "@typescript-eslint/scope-manager": "6.4.0",
         "@typescript-eslint/utils": "6.4.0",
+        "cspell": "7.0.0",
         "eslint": "8.47.0",
         "eslint-doc-generator": "1.4.3",
         "eslint-plugin-eslint-plugin": "5.1.1",

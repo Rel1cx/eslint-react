@@ -63,7 +63,7 @@
     },
     "overrides": [
         {
-            "files": "*.test.ts",
+            "files": "*.spec.ts",
             "rules": {
                 "perfectionist/sort-objects": "off"
             }

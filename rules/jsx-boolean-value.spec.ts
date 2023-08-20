@@ -1,5 +1,5 @@
-import rule, { RULE_NAME } from "../../rules/jsx-boolean-value";
-import RuleTester, { getFixturesRootDir } from "../rule-tester";
+import RuleTester, { getFixturesRootDir } from "../tests/rule-tester";
+import rule, { RULE_NAME } from "./jsx-boolean-value";
 
 const rootDir = getFixturesRootDir();
 
