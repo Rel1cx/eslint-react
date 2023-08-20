@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "jsx": "preserve",
+        "target": "es5",
+        "module": "ESNext",
+        "strict": true,
+        "esModuleInterop": true,
+        "lib": ["ES2015", "ES2017", "ESNext"],
+        "experimentalDecorators": true
+    },
+    "include": ["file.ts", "react.tsx"]
+}

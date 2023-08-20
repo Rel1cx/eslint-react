@@ -1,3 +1,5 @@
+import path from "node:path";
+
 import { RuleTester } from "@typescript-eslint/rule-tester";
 import * as vitest from "vitest";
 
@@ -7,13 +9,8 @@ RuleTester.it = vitest.it;
 RuleTester.itOnly = vitest.it.only;
 RuleTester.describe = vitest.describe;
 
-export const ruleTester = new RuleTester({
-    parser: "@typescript-eslint/parser",
-    parserOptions: {
-        ecmaFeatures: {
-            jsx: true,
-        },
-        ecmaVersion: 2021,
-        sourceType: "module",
-    },
-});
+export function getFixturesRootDir(): string {
+    return path.join(__dirname, "fixtures");
+}
+
+export default RuleTester;
