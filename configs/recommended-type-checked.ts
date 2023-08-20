@@ -4,5 +4,5 @@ export default {
     plugins: {
         "react-ts": mod,
     },
-    rules: mod.configs["recommended-requiring-type-checking"].rules,
+    rules: mod.configs["recommended-type-checked"].rules,
 };

@@ -30,7 +30,7 @@ export default {
     configs: {
         all: createConfig(),
         recommended: createConfig(),
-        "recommended-requiring-type-checking": createConfig(),
+        "recommended-type-checked": createConfig(),
     },
     rules: {
         [jsxBooleanValueName]: jsxBooleanValue,

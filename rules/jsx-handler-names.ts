@@ -129,7 +129,7 @@ export default createEslintRule<Options, MessageIds>({
                 const propFnIsNamedCorrectly = /^handle[A-Z]/u.test(propValue);
 
                 if (propIsEventHandler && !propFnIsNamedCorrectly) {
-                    return context.report({
+                    context.report({
                         data: {
                             handlerPrefix: eventHandlerPrefix,
                             propKey,
@@ -137,10 +137,11 @@ export default createEslintRule<Options, MessageIds>({
                         messageId: "badHandlerName",
                         node,
                     });
+                    return;
                 }
 
                 if (propFnIsNamedCorrectly && !propIsEventHandler) {
-                    return context.report({
+                    context.report({
                         data: {
                             handlerPropPrefix: eventHandlerPropPrefix,
                             propValue,
@@ -148,6 +149,7 @@ export default createEslintRule<Options, MessageIds>({
                         messageId: "badPropKey",
                         node,
                     });
+                    return;
                 }
             },
         };

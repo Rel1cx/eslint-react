@@ -7,7 +7,7 @@ export default defineConfig(() => ({
     entry: [
         "configs/all.ts",
         "configs/recommended.ts",
-        "configs/recommended-requiring-type-checking.ts",
+        "configs/recommended-type-checked.ts",
         "index.ts",
         ...glob.sync("rules/**/*.ts", { ignore: ["**/*.test.ts"] }),
     ],

@@ -31,9 +31,9 @@
             "require": "./dist/configs/recommended.js",
             "import": "./dist/configs/recommended.mjs"
         },
-        "./configs/recommended-requiring-type-checking": {
-            "require": "./dist/configs/recommended-requiring-type-checking.js",
-            "import": "./dist/configs/recommended-requiring-type-checking.mjs"
+        "./configs/recommended-type-checked": {
+            "require": "./dist/configs/recommended-type-checked.js",
+            "import": "./dist/configs/recommended-type-checked.mjs"
         },
         "./package.json": "./package.json"
     },

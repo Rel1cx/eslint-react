@@ -12,7 +12,7 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:@typescript-eslint/strict-type-checked",
         "plugin:eslint-plugin/all",
         "plugin:regexp/all",
         "plugin:security/recommended",
