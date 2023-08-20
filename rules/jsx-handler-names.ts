@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-import { isMatching, P } from "ts-pattern";
 
-import { I } from "../lib/data";
+import { I, O } from "../lib/data";
 import { createEslintRule } from "../utils/create-eslint-rule";
+import * as JSXHelper from "../utils/jsx-helper";
 
 export const RULE_NAME = "jsx-handler-names";
 
@@ -59,7 +58,7 @@ export default createEslintRule<Options, MessageIds>({
         [
             {
                 checkInlineFunction,
-                // checkLocalVariables,
+                checkLocalVariables,
                 eventHandlerPrefix,
                 eventHandlerPropPrefix,
             },
@@ -67,24 +66,40 @@ export default createEslintRule<Options, MessageIds>({
     ) {
         return {
             JSXAttribute(node) {
-                if (!isMatching({ expression: P.not(P.nullish) }, node.value)) {
+                if (!node.value || !("expression" in node.value)) {
                     return;
                 }
 
-                const propKey = I.isObject(node.name)
-                    ? node.name.name
-                    : node.name;
-                const expression = node.value?.expression;
+                const expression = node.value.expression;
+
+                const maybeInnerExpression =
+                    "body" in expression && "callee" in expression.body
+                        ? O.fromNullable(expression.body.callee)
+                        : O.none();
+
+                const isInlineFunction = O.isSome(maybeInnerExpression);
+
+                if (!checkInlineFunction && isInlineFunction) {
+                    return;
+                }
+
+                const onlyLocalVariables = isInlineFunction
+                    ? !Reflect.has(maybeInnerExpression.value, "object")
+                    : !Reflect.has(expression, "object");
+
+                if (!checkLocalVariables && onlyLocalVariables) {
+                    return;
+                }
+
+                const propKey = JSXHelper.getPropKey(node.name);
+                const propValueNode =
+                    checkInlineFunction && isInlineFunction
+                        ? maybeInnerExpression.value
+                        : expression;
 
                 const propValue = context
                     .getSourceCode()
-                    .getText(
-                        checkInlineFunction &&
-                            "body" in expression &&
-                            "callee" in expression.body
-                            ? expression.body.callee
-                            : expression,
-                    )
+                    .getText(propValueNode)
                     .replace(/\s*/gu, "")
                     // eslint-disable-next-line regexp/no-super-linear-move
                     .replace(/^this\.|.*::/u, "");
