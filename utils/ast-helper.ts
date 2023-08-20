@@ -3,7 +3,7 @@ import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { ASTUtils, TSESLint, TSESTree } from "@typescript-eslint/utils";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 
-import { I } from "../libs";
+import { I } from "../lib/data";
 import { uniqueBy } from "./unique-by";
 
 type IsHelper<NodeType extends AST_NODE_TYPES> = (

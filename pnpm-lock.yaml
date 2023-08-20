@@ -14,14 +14,14 @@ overrides:
   '@typescript-eslint/scope-manager': 6.4.0
 
 dependencies:
+  '@effect/data':
+    specifier: 0.17.5
+    version: 0.17.5
   ts-pattern:
     specifier: 5.0.5
     version: 5.0.5
 
 devDependencies:
-  '@effect/data':
-    specifier: 0.17.5
-    version: 0.17.5
   '@tsconfig/strictest':
     specifier: 2.0.1
     version: 2.0.1
@@ -228,7 +228,7 @@ packages:
 
   /@effect/data@0.17.5:
     resolution: {integrity: sha512-D6hYM+IReoM6YR8okIS5dygcUDdXR+De3O2b8SHwenE0PRQrGnZ9O6kJFeqkkX6pIZwEWBnb1l9SKOrw7auI4A==}
-    dev: true
+    dev: false
 
   /@effect/data@0.4.1:
     resolution: {integrity: sha512-FdQ0qbYL7t+GP5eWdAPC+oeN2w3zqnujrdDLp/sj58UtMxFSHg21crprmbmiAJAWsL5EdB9aZzcisBGn382xHg==}

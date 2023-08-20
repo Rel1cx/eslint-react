@@ -42,8 +42,7 @@
         "./dist"
     ],
     "scripts": {
-        "build": "pnpm build:libs && tsup",
-        "build:libs": "tsup --config ./tsup.libs.config.ts",
+        "build": "tsup",
         "fix:ts": "eslint --ext .ts --fix .",
         "format:check": "prettier -u .",
         "format:write": "prettier -w -u .",
@@ -54,10 +53,10 @@
         "test": "vitest --run --single-thread --no-threads"
     },
     "dependencies": {
+        "@effect/data": "0.17.5",
         "ts-pattern": "5.0.5"
     },
     "devDependencies": {
-        "@effect/data": "0.17.5",
         "@tsconfig/strictest": "2.0.1",
         "@types/node": "20.5.1",
         "@typescript-eslint/eslint-plugin": "6.4.0",
@@ -77,7 +76,6 @@
         "prettier-plugin-curly": "0.1.2",
         "prettier-plugin-organize-attributes": "1.0.0",
         "prettier-plugin-packagejson": "2.4.5",
-        "rambda": "8.3.0",
         "simple-git-hooks": "2.9.0",
         "skott": "0.28.1",
         "tsup": "7.2.0",

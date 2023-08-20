@@ -2,7 +2,7 @@
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { isMatching, P } from "ts-pattern";
 
-import { I } from "../libs";
+import { I } from "../lib/data";
 import { createEslintRule } from "../utils/create-eslint-rule";
 
 export const RULE_NAME = "jsx-handler-names";
