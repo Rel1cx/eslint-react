@@ -65,7 +65,6 @@
         "@typescript-eslint/rule-tester": "6.4.0",
         "@typescript-eslint/scope-manager": "6.4.0",
         "@typescript-eslint/utils": "6.4.0",
-        "clean-publish": "4.2.0",
         "eslint": "8.47.0",
         "eslint-doc-generator": "1.4.3",
         "eslint-plugin-eslint-plugin": "5.1.1",
