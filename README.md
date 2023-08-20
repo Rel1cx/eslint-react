@@ -1,6 +1,20 @@
 # eslint-plugin-react-ts
 
-Note: This plugin is still in early development and is not ready for use.
+ESLint plugin for React built on top of the @typescript-eslint ecosystem.
+
+> Note: This plugin is still in early development and is not ready for use.\
+
+## Supported Engines
+
+### Node.js
+
+- 16.x Maintenance
+- 18.x LTS Hydrogen
+- 20.x Current
+
+### Bun (planned)
+
+- 1.x
 
 ## Installation
 
@@ -44,18 +58,6 @@ export default [
   },
 ];
 ```
-
-## Supported Engine Versions
-
-### Node.js
-
-- 16.x Maintenance
-- 18.x LTS Hydrogen
-- 20.x Current
-
-### Bun (planned)
-
-- 1.x
 
 ## Todo
 
