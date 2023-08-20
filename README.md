@@ -127,6 +127,6 @@ This project uses code from following third-party projects:
 - eslint-plugin-perfectionist (MIT)
 - eslint-plugin-react (MIT)
 - eslint-plugin-solid (MIT)
-- griffel (MIT)
+- @tanstack/eslint-plugin-query (MIT)
 
 Licenses are list in [THIRD-PARTY-LICENSE](THIRD-PARTY-LICENSE)
