@@ -80,11 +80,11 @@ export default [
 - [ ] react-ts/require-render-return
 - [ ] ...
 
-### Docs
+### Fixers
 
 - [ ] react-ts/jsx-key
 - [ ] react-ts/jsx-uses-react
-- [x] react-ts/jsx-boolean-value
+- [ ] react-ts/jsx-boolean-value
 - [ ] react-ts/jsx-no-comment-textnodes
 - [ ] react-ts/jsx-no-leaked-render
 - [ ] react-ts/no-children-prop
