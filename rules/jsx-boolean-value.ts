@@ -2,7 +2,7 @@ import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { match } from "ts-pattern";
 
-import { I, O } from "../primitives/data";
+import { I, O } from "../lib/primitives/data";
 import { createEslintRule } from "../tools/create-eslint-rule";
 import { Applicability } from "../types";
 

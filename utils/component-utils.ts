@@ -3,7 +3,7 @@ import { AST_NODE_TYPES, TSESLint, type TSESTree } from "@typescript-eslint/util
 import memo from "micro-memoize";
 import { isMatching, match, P } from "ts-pattern";
 
-import { E, F } from "../primitives/data";
+import { E, F } from "../lib/primitives/data";
 import { getCreateClassFromContext, getFromContext } from "./pragma-utils";
 
 const getCreateClass = memo(getCreateClassFromContext);

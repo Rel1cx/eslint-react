@@ -1,6 +1,6 @@
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 
-import { E, F, O } from "../primitives/data";
+import { E, F, O } from "../lib/primitives/data";
 
 /*
  * This helper is extract from eslint-plugin-react's pragma utils under the MIT license, with some enhancements.

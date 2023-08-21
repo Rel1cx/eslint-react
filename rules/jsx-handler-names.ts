@@ -1,8 +1,10 @@
 /* eslint-disable security/detect-non-literal-regexp */
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
-import { I, O } from "../primitives/data";
+import { O } from "../lib/primitives/data";
 import { createEslintRule } from "../tools/create-eslint-rule";
+import { ASTUtils } from "../utils/ast-utils";
 import * as JSXUtils from "../utils/jsx-utils";
 
 export const RULE_NAME = "jsx-handler-names";
@@ -118,23 +120,21 @@ export default createEslintRule<Options, MessageIds>({
                     return;
                 }
 
-                const expression = node.value.expression;
+                const { expression } = node.value;
 
-                const maybeInnerExpression =
-                    "body" in expression && "callee" in expression.body
-                        ? O.fromNullable(expression.body.callee)
-                        : O.none();
-
-                const isInlineFunction = O.isSome(maybeInnerExpression);
+                const isInlineFunction = ASTUtils.isNodeOfType(AST_NODE_TYPES.ArrowFunctionExpression)(expression);
 
                 // Early return when not checking inline functions but the expression is an inline function.
                 if (!checkInlineFunction && isInlineFunction) {
                     return;
                 }
 
-                const onlyLocalVariables = isInlineFunction
-                    ? !Reflect.has(maybeInnerExpression.value, "object")
-                    : !Reflect.has(expression, "object");
+                const maybeInnerFunction =
+                    "body" in expression && "callee" in expression.body
+                        ? O.fromNullable(expression.body.callee)
+                        : O.none();
+
+                const onlyLocalVariables = isInlineFunction ? O.isNone(maybeInnerFunction) : !("object" in expression);
 
                 // Early return when not checking local variables but the expression is a local variable.
                 if (!checkLocalVariables && onlyLocalVariables) {
@@ -142,7 +142,7 @@ export default createEslintRule<Options, MessageIds>({
                 }
 
                 const propKey = JSXUtils.getPropKey(node.name);
-                const propValueNode = checkInlineFunction && isInlineFunction ? maybeInnerExpression.value : expression;
+                const propValueNode = O.getOrElse(() => expression)(maybeInnerFunction);
 
                 const propValue = context
                     .getSourceCode()
@@ -159,6 +159,7 @@ export default createEslintRule<Options, MessageIds>({
                 const propIsEventHandler = checkEventHandlerPropPrefix && PROP_EVENT_HANDLER_REGEX.test(propKey);
                 const propFnIsNamedCorrectly = checkEventHandlerPrefix && EVENT_HANDLER_REGEX.test(propValue);
 
+                // Report if the prop key is an event handler but the function is not named correctly.
                 if (propIsEventHandler && !propFnIsNamedCorrectly) {
                     return context.report({
                         data: {
@@ -170,6 +171,7 @@ export default createEslintRule<Options, MessageIds>({
                     });
                 }
 
+                // Report if the prop key is not an event handler but the function is named correctly.
                 if (!propIsEventHandler && propFnIsNamedCorrectly) {
                     return context.report({
                         data: {
