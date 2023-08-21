@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-non-literal-regexp */
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import { I, O } from "../primitives/data";
@@ -25,6 +26,32 @@ const schema = [
                 type: "object",
                 additionalProperties: false,
                 properties: {
+                    checkInlineFunction: { type: "boolean" },
+                    checkLocalVariables: { type: "boolean" },
+                    eventHandlerPrefix: { type: "string" },
+                    eventHandlerPropPrefix: {
+                        type: "boolean",
+                        enum: [false],
+                    },
+                },
+            },
+            {
+                type: "object",
+                additionalProperties: false,
+                properties: {
+                    checkInlineFunction: { type: "boolean" },
+                    checkLocalVariables: { type: "boolean" },
+                    eventHandlerPrefix: {
+                        type: "boolean",
+                        enum: [false],
+                    },
+                    eventHandlerPropPrefix: { type: "string" },
+                },
+            },
+            {
+                type: "object",
+                additionalProperties: false,
+                properties: {
                     checkLocalVariables: { type: "boolean" },
                 },
             },
@@ -41,10 +68,10 @@ const schema = [
 
 type Options = [
     {
-        checkInlineFunction?: boolean;
+        eventHandlerPrefix?: string | false;
+        eventHandlerPropPrefix?: string | false;
         checkLocalVariables?: boolean;
-        eventHandlerPrefix?: string;
-        eventHandlerPropPrefix?: string;
+        checkInlineFunction?: boolean;
     },
 ];
 
@@ -67,13 +94,22 @@ export default createEslintRule<Options, MessageIds>({
         },
         schema,
         messages: {
-            badHandlerName: "Handler function `{{ propKey }}` should be named `{{ handlerPrefix }}{{ propKey }}`",
-            badPropKey: "Prop `{{ propValue }}` should be named `{{ handlerPropPrefix }}{{ propValue }}`",
+            badHandlerName:
+                "Handler function for {{propKey}} prop key must be a camelCase name beginning with '{{handlerPrefix}}' only",
+            badPropKey: "Prop key for {{propValue}} must begin with '{{handlerPropPrefix}}'",
         },
     },
-    create(context) {
-        const [{ checkInlineFunction, checkLocalVariables, eventHandlerPrefix, eventHandlerPropPrefix }] =
-            context.options;
+    create(context, [{ checkInlineFunction, checkLocalVariables, eventHandlerPrefix, eventHandlerPropPrefix }]) {
+        const checkEventHandlerPrefix = !!eventHandlerPrefix;
+        const checkEventHandlerPropPrefix = !!eventHandlerPropPrefix;
+
+        const handlerPrefix = eventHandlerPrefix || "handle";
+        const handlerPropPrefix = eventHandlerPropPrefix || "on";
+
+        const EVENT_HANDLER_REGEX = new RegExp(
+            `^((props\\.${handlerPropPrefix})|((.*\\.)?${handlerPrefix}))[0-9]*[A-Z].*$`,
+        );
+        const PROP_EVENT_HANDLER_REGEX = new RegExp(`^(${handlerPropPrefix}[A-Z].*|ref)$`);
 
         return {
             JSXAttribute(node) {
@@ -115,13 +151,13 @@ export default createEslintRule<Options, MessageIds>({
                     // eslint-disable-next-line regexp/no-super-linear-move
                     .replace(/^this\.|.*::/u, "");
 
-                // Early return if the prop key is not a string or if it is a ref.
-                if (!I.isString(propKey) || propKey === "ref") {
+                // Early return if the prop key a ref.
+                if (propKey === "ref") {
                     return;
                 }
 
-                const propIsEventHandler = /^on[A-Z]/u.test(propKey);
-                const propFnIsNamedCorrectly = /^handle[A-Z]/u.test(propValue);
+                const propIsEventHandler = checkEventHandlerPropPrefix && PROP_EVENT_HANDLER_REGEX.test(propKey);
+                const propFnIsNamedCorrectly = checkEventHandlerPrefix && EVENT_HANDLER_REGEX.test(propValue);
 
                 if (propIsEventHandler && !propFnIsNamedCorrectly) {
                     return context.report({
@@ -134,7 +170,7 @@ export default createEslintRule<Options, MessageIds>({
                     });
                 }
 
-                if (propFnIsNamedCorrectly && !propIsEventHandler) {
+                if (!propIsEventHandler && propFnIsNamedCorrectly) {
                     return context.report({
                         data: {
                             handlerPropPrefix: eventHandlerPropPrefix,
