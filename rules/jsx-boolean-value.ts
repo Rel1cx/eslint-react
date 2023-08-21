@@ -10,10 +10,7 @@ export const RULE_NAME = "jsx-boolean-value";
 
 type MessageIds = "omitBoolean" | "setBoolean";
 
-type Options = readonly [
-    Applicability?,
-    { [Applicability.always]?: string[]; [Applicability.never]?: string[] }?,
-];
+type Options = readonly [Applicability?, { [Applicability.always]?: string[]; [Applicability.never]?: string[] }?];
 
 const schema: JSONSchema4 = {
     anyOf: [
@@ -89,22 +86,17 @@ export default createEslintRule<Options, MessageIds>({
         },
     },
     create(context) {
-        const [configuration = Applicability.never, configObject = {}] =
-            context.options;
+        const [configuration = Applicability.never, configObject = {}] = context.options;
 
         const configExceptions =
-            configuration === Applicability.always
-                ? configObject.never
-                : configObject.always || [];
+            configuration === Applicability.always ? configObject.never : configObject.always || [];
 
         const exceptions = new Set(configExceptions);
 
         return {
             JSXAttribute(node) {
                 const { name, value } = node;
-                const propName = I.isString(name.name)
-                    ? name.name
-                    : name.name.name;
+                const propName = I.isString(name.name) ? name.name : name.name.name;
 
                 const isException = exceptions.has(propName);
                 const maybeMessageId = match(configuration)
@@ -123,10 +115,8 @@ export default createEslintRule<Options, MessageIds>({
                     })
                     .with(Applicability.never, () => {
                         const hasValueWithTrue =
-                            node.value?.type ===
-                                AST_NODE_TYPES.JSXExpressionContainer &&
-                            node.value.expression.type ===
-                                AST_NODE_TYPES.Literal &&
+                            node.value?.type === AST_NODE_TYPES.JSXExpressionContainer &&
+                            node.value.expression.type === AST_NODE_TYPES.Literal &&
                             node.value.expression.value === true;
 
                         if (hasValueWithTrue && !isException) {

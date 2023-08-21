@@ -1,18 +1,11 @@
-import {
-    AST_NODE_TYPES,
-    TSESLint,
-    type TSESTree,
-} from "@typescript-eslint/utils";
+import { AST_NODE_TYPES, TSESLint, type TSESTree } from "@typescript-eslint/utils";
 import { match, P } from "ts-pattern";
 
 import { E } from "../lib/data";
 import { getFromContext } from "./pragma-helper";
 
 // eslint-disable-next-line filenames-simple/named-export
-export function isES6Component(
-    node: TSESTree.Node,
-    context: TSESLint.RuleContext<string, unknown[]>,
-): boolean {
+export function isES6Component(node: TSESTree.Node, context: TSESLint.RuleContext<string, unknown[]>): boolean {
     if (!("superClass" in node) || !node.superClass) {
         return false;
     }
@@ -28,9 +21,7 @@ export function isES6Component(
     const { superClass } = node;
 
     return match(superClass)
-        .with({ name: P.string, type: AST_NODE_TYPES.Identifier }, ({ name }) =>
-            /^(Pure)?Component$/u.test(name),
-        )
+        .with({ name: P.string, type: AST_NODE_TYPES.Identifier }, ({ name }) => /^(Pure)?Component$/u.test(name))
         .with(
             {
                 type: AST_NODE_TYPES.MemberExpression,

@@ -49,7 +49,7 @@
         "lint:deps": "skott -m graph -e .ts -s",
         "lint:spell": "cspell lint --relative --no-progress '**'",
         "lint:ts": "eslint --ext .ts .",
-        "publish": "pnpm format:check && pnpm run '/^lint:/' && pnpm test && pnpm build && pnpm publint",
+        "publish": "pnpm format:write && pnpm run '/^lint:/' && pnpm test && pnpm build && pnpm publint",
         "test": "vitest --run --single-thread --no-threads"
     },
     "dependencies": {

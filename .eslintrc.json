@@ -18,14 +18,7 @@
         "project": "./tsconfig.json",
         "sourceType": "module"
     },
-    "plugins": [
-        "@typescript-eslint",
-        "filenames-simple",
-        "perfectionist",
-        "regexp",
-        "security",
-        "simple-import-sort"
-    ],
+    "plugins": ["@typescript-eslint", "filenames-simple", "perfectionist", "regexp", "security", "simple-import-sort"],
     "rules": {
         "@typescript-eslint/no-confusing-void-expression": "off",
         "@typescript-eslint/no-unused-expressions": "warn",

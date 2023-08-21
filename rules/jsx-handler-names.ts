@@ -65,21 +65,13 @@ export default createEslintRule<Options, MessageIds>({
         },
         schema,
         messages: {
-            badHandlerName:
-                "Handler function `{{ propKey }}` should be named `{{ handlerPrefix }}{{ propKey }}`",
-            badPropKey:
-                "Prop `{{ propValue }}` should be named `{{ handlerPropPrefix }}{{ propValue }}`",
+            badHandlerName: "Handler function `{{ propKey }}` should be named `{{ handlerPrefix }}{{ propKey }}`",
+            badPropKey: "Prop `{{ propValue }}` should be named `{{ handlerPropPrefix }}{{ propValue }}`",
         },
     },
     create(context) {
-        const [
-            {
-                checkInlineFunction,
-                checkLocalVariables,
-                eventHandlerPrefix,
-                eventHandlerPropPrefix,
-            },
-        ] = context.options;
+        const [{ checkInlineFunction, checkLocalVariables, eventHandlerPrefix, eventHandlerPropPrefix }] =
+            context.options;
 
         return {
             JSXAttribute(node) {
@@ -109,10 +101,7 @@ export default createEslintRule<Options, MessageIds>({
                 }
 
                 const propKey = JSXHelper.getPropKey(node.name);
-                const propValueNode =
-                    checkInlineFunction && isInlineFunction
-                        ? maybeInnerExpression.value
-                        : expression;
+                const propValueNode = checkInlineFunction && isInlineFunction ? maybeInnerExpression.value : expression;
 
                 const propValue = context
                     .getSourceCode()

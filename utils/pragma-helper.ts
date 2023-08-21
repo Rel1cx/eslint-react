@@ -20,49 +20,35 @@ type ReactSettings = {
     [key: string]: unknown;
 };
 
-export function getCreateClassFromContext<T extends RuleContext<string, []>>(
-    context: T,
-): E.Either<Error, string> {
+export function getCreateClassFromContext<T extends RuleContext<string, []>>(context: T): E.Either<Error, string> {
     const settings: { react?: ReactSettings } = context.settings;
 
     const pragma = settings.react?.createClass ?? "createReactClass";
 
     if (!JS_IDENTIFIER_REGEX.test(pragma)) {
-        return E.left(
-            new Error(
-                `createClass pragma ${pragma} is not a valid function name`,
-            ),
-        );
+        return E.left(new Error(`createClass pragma ${pragma} is not a valid function name`));
     }
 
     return E.right(pragma);
 }
 
-export function getFragmentFromContext<T extends RuleContext<string, []>>(
-    context: T,
-): E.Either<Error, string> {
+export function getFragmentFromContext<T extends RuleContext<string, []>>(context: T): E.Either<Error, string> {
     const settings: { react?: ReactSettings } = context.settings;
 
     const pragma = settings.react?.fragment ?? "Fragment";
 
     if (!JS_IDENTIFIER_REGEX.test(pragma)) {
-        return E.left(
-            new Error(`Fragment pragma ${pragma} is not a valid identifier`),
-        );
+        return E.left(new Error(`Fragment pragma ${pragma} is not a valid identifier`));
     }
 
     return E.right(pragma);
 }
 
-export function getFromContext<T extends RuleContext<string, unknown[]>>(
-    context: T,
-): E.Either<Error, string> {
+export function getFromContext<T extends RuleContext<string, unknown[]>>(context: T): E.Either<Error, string> {
     const settings: { react?: ReactSettings } = context.settings;
 
     const sourceCode = context.getSourceCode();
-    const pragmaNode = sourceCode
-        .getAllComments()
-        .find((node) => JSX_ANNOTATION_REGEX.test(node.value));
+    const pragmaNode = sourceCode.getAllComments().find((node) => JSX_ANNOTATION_REGEX.test(node.value));
 
     const pragma =
         settings.react?.pragma ??
@@ -75,9 +61,7 @@ export function getFromContext<T extends RuleContext<string, unknown[]>>(
         );
 
     if (!JS_IDENTIFIER_REGEX.test(pragma)) {
-        return E.left(
-            new Error(`React pragma ${pragma} is not a valid identifier`),
-        );
+        return E.left(new Error(`React pragma ${pragma} is not a valid identifier`));
     }
 
     return E.right(pragma);
