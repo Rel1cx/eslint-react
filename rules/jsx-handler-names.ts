@@ -79,8 +79,8 @@ type Options = [
 
 const defaultOptions = [
     {
-        checkInlineFunction: true,
-        checkLocalVariables: true,
+        checkInlineFunction: false,
+        checkLocalVariables: false,
         eventHandlerPrefix: "handle",
         eventHandlerPropPrefix: "on",
     },
