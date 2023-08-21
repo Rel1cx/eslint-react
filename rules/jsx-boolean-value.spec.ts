@@ -1,4 +1,4 @@
-import RuleTester, { getFixturesRootDir } from "../tests/rule-tester";
+import RuleTester, { getFixturesRootDir } from "../test/rule-tester";
 import rule, { RULE_NAME } from "./jsx-boolean-value";
 
 const rootDir = getFixturesRootDir();

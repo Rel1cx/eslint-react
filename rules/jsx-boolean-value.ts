@@ -2,15 +2,15 @@ import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { match } from "ts-pattern";
 
+import { createEslintRule } from "../helpers/create-eslint-rule";
 import { I, O } from "../lib/data";
 import { Applicability } from "../typings";
-import { createEslintRule } from "../utils/create-eslint-rule";
 
 export const RULE_NAME = "jsx-boolean-value";
 
 type MessageIds = "omitBoolean" | "setBoolean";
 
-type Options = readonly [Applicability?, { [Applicability.always]?: string[]; [Applicability.never]?: string[] }?];
+type Options = [Applicability?, { [Applicability.always]?: string[]; [Applicability.never]?: string[] }?];
 
 const schema = {
     anyOf: [

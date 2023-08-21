@@ -1,6 +1,6 @@
 import type TSESLintScopeManager from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
-import { ASTUtils, TSESLint, TSESTree } from "@typescript-eslint/utils";
+import { ASTUtils as TSESASTUtils, TSESLint, TSESTree } from "@typescript-eslint/utils";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 
 import { I } from "../lib/data";
@@ -10,23 +10,23 @@ type IsHelper<NodeType extends AST_NODE_TYPES> = (node: TSESTree.Node | null | u
     type: NodeType;
 };
 
-const isIdentifier: IsHelper<AST_NODE_TYPES.Identifier> = ASTUtils.isIdentifier;
+const isIdentifier: IsHelper<AST_NODE_TYPES.Identifier> = TSESASTUtils.isIdentifier;
 
-const isLiteral: IsHelper<AST_NODE_TYPES.Literal> = ASTUtils.isNodeOfType(AST_NODE_TYPES.Literal);
+const isLiteral: IsHelper<AST_NODE_TYPES.Literal> = TSESASTUtils.isNodeOfType(AST_NODE_TYPES.Literal);
 
-const isObjectExpression: IsHelper<AST_NODE_TYPES.ObjectExpression> = ASTUtils.isNodeOfType(
+const isObjectExpression: IsHelper<AST_NODE_TYPES.ObjectExpression> = TSESASTUtils.isNodeOfType(
     AST_NODE_TYPES.ObjectExpression,
 );
 
-const isProperty: IsHelper<AST_NODE_TYPES.Property> = ASTUtils.isNodeOfType(AST_NODE_TYPES.Property);
+const isProperty: IsHelper<AST_NODE_TYPES.Property> = TSESASTUtils.isNodeOfType(AST_NODE_TYPES.Property);
 
-export const ASTHelper = {
-    ...ASTUtils,
+export const ASTUtils = {
+    ...TSESASTUtils,
     findPropertyWithIdentifierKey(
         properties: TSESTree.ObjectLiteralElement[],
         key: string,
     ): TSESTree.Property | undefined {
-        return properties.find((x) => ASTHelper.isPropertyWithIdentifierKey(x, key)) as TSESTree.Property | undefined;
+        return properties.find((x) => ASTUtils.isPropertyWithIdentifierKey(x, key)) as TSESTree.Property | undefined;
     },
     getExternalRefs(params: {
         scopeManager: TSESLint.Scope.ScopeManager;
@@ -43,7 +43,7 @@ export const ASTHelper = {
         const references = scope.references
             .filter((x) => x.isRead() && !scope.set.has(x.identifier.name))
             .map((x) => {
-                const referenceNode = ASTHelper.traverseUpOnly(x.identifier, [
+                const referenceNode = ASTUtils.traverseUpOnly(x.identifier, [
                     AST_NODE_TYPES.MemberExpression,
                     AST_NODE_TYPES.Identifier,
                 ]);
@@ -63,14 +63,14 @@ export const ASTHelper = {
     },
     getFunctionAncestor(context: Readonly<RuleContext<string, readonly unknown[]>>) {
         return context.getAncestors().find((x) => {
-            if (x.type === AST_NODE_TYPES.FunctionDeclaration) {
+            if (ASTUtils.isNodeOfType(AST_NODE_TYPES.FunctionDeclaration)(x)) {
                 return true;
             }
 
             return (
-                x.parent?.type === AST_NODE_TYPES.VariableDeclarator &&
-                x.parent.id.type === AST_NODE_TYPES.Identifier &&
-                ASTHelper.isNodeOfOneOf(x, [
+                ASTUtils.isNodeOfType(AST_NODE_TYPES.VariableDeclarator)(x.parent) &&
+                ASTUtils.isNodeOfType(AST_NODE_TYPES.Identifier)(x.parent.id) &&
+                ASTUtils.isNodeOfOneOf(x, [
                     AST_NODE_TYPES.FunctionDeclaration,
                     AST_NODE_TYPES.FunctionExpression,
                     AST_NODE_TYPES.ArrowFunctionExpression,
@@ -87,52 +87,52 @@ export const ASTHelper = {
 
         if ("arguments" in node) {
             for (const arg of node.arguments) {
-                identifiers.push(...ASTHelper.getNestedIdentifiers(arg));
+                identifiers.push(...ASTUtils.getNestedIdentifiers(arg));
             }
         }
 
         if ("elements" in node) {
             for (const element of node.elements) {
                 if (!I.isNullable(element)) {
-                    identifiers.push(...ASTHelper.getNestedIdentifiers(element));
+                    identifiers.push(...ASTUtils.getNestedIdentifiers(element));
                 }
             }
         }
 
         if ("properties" in node) {
             for (const property of node.properties) {
-                identifiers.push(...ASTHelper.getNestedIdentifiers(property));
+                identifiers.push(...ASTUtils.getNestedIdentifiers(property));
             }
         }
 
         if ("expressions" in node) {
             for (const expression of node.expressions) {
-                identifiers.push(...ASTHelper.getNestedIdentifiers(expression));
+                identifiers.push(...ASTUtils.getNestedIdentifiers(expression));
             }
         }
 
-        if (node.type === AST_NODE_TYPES.Property) {
-            identifiers.push(...ASTHelper.getNestedIdentifiers(node.value));
+        if (ASTUtils.isProperty(node)) {
+            identifiers.push(...ASTUtils.getNestedIdentifiers(node.value));
         }
 
-        if (node.type === AST_NODE_TYPES.SpreadElement) {
-            identifiers.push(...ASTHelper.getNestedIdentifiers(node.argument));
+        if (ASTUtils.isNodeOfType(AST_NODE_TYPES.SpreadElement)(node)) {
+            identifiers.push(...ASTUtils.getNestedIdentifiers(node.argument));
         }
 
-        if (node.type === AST_NODE_TYPES.MemberExpression) {
-            identifiers.push(...ASTHelper.getNestedIdentifiers(node.object));
+        if (ASTUtils.isNodeOfType(AST_NODE_TYPES.MemberExpression)(node)) {
+            identifiers.push(...ASTUtils.getNestedIdentifiers(node.object));
         }
 
-        if (node.type === AST_NODE_TYPES.UnaryExpression) {
-            identifiers.push(...ASTHelper.getNestedIdentifiers(node.argument));
+        if (ASTUtils.isNodeOfType(AST_NODE_TYPES.UnaryExpression)(node)) {
+            identifiers.push(...ASTUtils.getNestedIdentifiers(node.argument));
         }
 
-        if (node.type === AST_NODE_TYPES.ChainExpression) {
-            identifiers.push(...ASTHelper.getNestedIdentifiers(node.expression));
+        if (ASTUtils.isNodeOfType(AST_NODE_TYPES.ChainExpression)(node)) {
+            identifiers.push(...ASTUtils.getNestedIdentifiers(node.expression));
         }
 
-        if (node.type === AST_NODE_TYPES.TSNonNullExpression) {
-            identifiers.push(...ASTHelper.getNestedIdentifiers(node.expression));
+        if (ASTUtils.isNodeOfType(AST_NODE_TYPES.TSNonNullExpression)(node)) {
+            identifiers.push(...ASTUtils.getNestedIdentifiers(node.expression));
         }
 
         return identifiers;
@@ -140,7 +140,7 @@ export const ASTHelper = {
     getNestedReturnStatements(node: TSESTree.Node): TSESTree.ReturnStatement[] {
         const returnStatements: TSESTree.ReturnStatement[] = [];
 
-        if (node.type === AST_NODE_TYPES.ReturnStatement) {
+        if (ASTUtils.isNodeOfType(AST_NODE_TYPES.ReturnStatement)(node)) {
             returnStatements.push(node);
         }
 
@@ -148,53 +148,53 @@ export const ASTHelper = {
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             Array.isArray(node.body)
                 ? node.body.forEach((x) => {
-                      returnStatements.push(...ASTHelper.getNestedReturnStatements(x));
+                      returnStatements.push(...ASTUtils.getNestedReturnStatements(x));
                   })
-                : returnStatements.push(...ASTHelper.getNestedReturnStatements(node.body));
+                : returnStatements.push(...ASTUtils.getNestedReturnStatements(node.body));
         }
 
         if ("consequent" in node) {
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             Array.isArray(node.consequent)
                 ? node.consequent.forEach((x) => {
-                      returnStatements.push(...ASTHelper.getNestedReturnStatements(x));
+                      returnStatements.push(...ASTUtils.getNestedReturnStatements(x));
                   })
-                : returnStatements.push(...ASTHelper.getNestedReturnStatements(node.consequent));
+                : returnStatements.push(...ASTUtils.getNestedReturnStatements(node.consequent));
         }
 
         if ("alternate" in node && !I.isNullable(node.alternate)) {
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             Array.isArray(node.alternate)
                 ? node.alternate.forEach((x: TSESTree.Node) => {
-                      returnStatements.push(...ASTHelper.getNestedReturnStatements(x));
+                      returnStatements.push(...ASTUtils.getNestedReturnStatements(x));
                   })
-                : returnStatements.push(...ASTHelper.getNestedReturnStatements(node.alternate));
+                : returnStatements.push(...ASTUtils.getNestedReturnStatements(node.alternate));
         }
 
         if ("cases" in node) {
             for (const x of node.cases) {
-                returnStatements.push(...ASTHelper.getNestedReturnStatements(x));
+                returnStatements.push(...ASTUtils.getNestedReturnStatements(x));
             }
         }
 
         if ("block" in node) {
-            returnStatements.push(...ASTHelper.getNestedReturnStatements(node.block));
+            returnStatements.push(...ASTUtils.getNestedReturnStatements(node.block));
         }
 
         if ("handler" in node && !I.isNullable(node.handler)) {
-            returnStatements.push(...ASTHelper.getNestedReturnStatements(node.handler));
+            returnStatements.push(...ASTUtils.getNestedReturnStatements(node.handler));
         }
 
         if ("finalizer" in node && !I.isNullable(node.finalizer)) {
-            returnStatements.push(...ASTHelper.getNestedReturnStatements(node.finalizer));
+            returnStatements.push(...ASTUtils.getNestedReturnStatements(node.finalizer));
         }
 
         if ("expression" in node && node.expression !== true && node.expression !== false) {
-            returnStatements.push(...ASTHelper.getNestedReturnStatements(node.expression));
+            returnStatements.push(...ASTUtils.getNestedReturnStatements(node.expression));
         }
 
         if ("test" in node && !I.isNullable(node.test)) {
-            returnStatements.push(...ASTHelper.getNestedReturnStatements(node.test));
+            returnStatements.push(...ASTUtils.getNestedReturnStatements(node.test));
         }
 
         return returnStatements;
@@ -208,7 +208,7 @@ export const ASTHelper = {
         const resolvedNode = context.getScope().references.find((ref) => ref.identifier === node)?.resolved?.defs[0]
             ?.node;
 
-        if (resolvedNode?.type !== AST_NODE_TYPES.VariableDeclarator) {
+        if (!ASTUtils.isNodeOfType(AST_NODE_TYPES.VariableDeclarator)(resolvedNode)) {
             return null;
         }
 
@@ -248,7 +248,7 @@ export const ASTHelper = {
     isObjectExpression,
     isProperty,
     isPropertyWithIdentifierKey(node: TSESTree.Node, key: string): node is TSESTree.Property {
-        return ASTHelper.isProperty(node) && ASTHelper.isIdentifierWithName(node.key, key);
+        return ASTUtils.isProperty(node) && ASTUtils.isIdentifierWithName(node.key, key);
     },
     isStringLiteral(node: TSESTree.Node | null | undefined): node is TSESTree.StringLiteral {
         return isLiteral(node) && typeof node.value === "string";
@@ -262,14 +262,14 @@ export const ASTHelper = {
     },
     mapKeyNodeToText(node: TSESTree.Node, sourceCode: Readonly<TSESLint.SourceCode>) {
         return sourceCode.getText(
-            ASTHelper.traverseUpOnly(node, [AST_NODE_TYPES.MemberExpression, AST_NODE_TYPES.Identifier]),
+            ASTUtils.traverseUpOnly(node, [AST_NODE_TYPES.MemberExpression, AST_NODE_TYPES.Identifier]),
         );
     },
     traverseUpOnly(identifier: TSESTree.Node, allowedNodeTypes: AST_NODE_TYPES[]): TSESTree.Node {
         const parent = identifier.parent;
 
         if (parent !== undefined && allowedNodeTypes.includes(parent.type)) {
-            return ASTHelper.traverseUpOnly(parent, allowedNodeTypes);
+            return ASTUtils.traverseUpOnly(parent, allowedNodeTypes);
         }
 
         return identifier;

@@ -1,8 +1,8 @@
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
+import { createEslintRule } from "../helpers/create-eslint-rule";
+import * as JSXUtils from "../helpers/jsx-utils";
 import { I, O } from "../lib/data";
-import { createEslintRule } from "../utils/create-eslint-rule";
-import * as JSXHelper from "../utils/jsx-helper";
 
 export const RULE_NAME = "jsx-handler-names";
 
@@ -37,9 +37,9 @@ const schema = [
             },
         ],
     },
-] satisfies readonly JSONSchema4[];
+] satisfies JSONSchema4[];
 
-type Options = readonly [
+type Options = [
     {
         checkInlineFunction?: boolean;
         checkLocalVariables?: boolean;
@@ -105,7 +105,7 @@ export default createEslintRule<Options, MessageIds>({
                     return;
                 }
 
-                const propKey = JSXHelper.getPropKey(node.name);
+                const propKey = JSXUtils.getPropKey(node.name);
                 const propValueNode = checkInlineFunction && isInlineFunction ? maybeInnerExpression.value : expression;
 
                 const propValue = context

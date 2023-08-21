@@ -54,6 +54,7 @@
     },
     "dependencies": {
         "@effect/data": "0.17.5",
+        "micro-memoize": "4.1.2",
         "ts-pattern": "5.0.5"
     },
     "devDependencies": {

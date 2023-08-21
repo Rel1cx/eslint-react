@@ -2,6 +2,6 @@
     "$schema": "https://cdn.jsdelivr.net/gh/streetsidesoftware/cspell/cspell.schema.json",
     "dictionaries": ["softwareTerms", "node", "html", "typescript", "misc"],
     "ignorePaths": [".vscode/**/*", "package.json", "pnpm-lock.yaml", "THIRD-PARTY-LICENSE"],
-    "ignoreWords": ["tsup", "treeshake", "TSES", "textnodes", "tanstack"],
+    "ignoreWords": ["tsup", "treeshake", "TSES", "TSESAST", "textnodes", "tanstack"],
     "useGitignore": true
 }
