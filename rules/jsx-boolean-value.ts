@@ -88,10 +88,14 @@ export default createEslintRule<Options, MessageIds>({
     create(context) {
         const [configuration = Applicability.never, configObject = {}] = context.options;
 
-        const configExceptions =
-            configuration === Applicability.always ? configObject.never : configObject.always || [];
+        const maybeExceptions = O.fromNullable(
+            match(configuration)
+                .with(Applicability.always, () => configObject.never)
+                .with(Applicability.never, () => configObject.always)
+                .exhaustive(),
+        );
 
-        const exceptions = new Set(configExceptions);
+        const exceptions = new Set(O.getOrElse(() => [])(maybeExceptions));
 
         return {
             JSXAttribute(node) {

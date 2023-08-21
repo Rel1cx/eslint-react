@@ -77,6 +77,7 @@ export default createEslintRule<Options, MessageIds>({
 
         return {
             JSXAttribute(node) {
+                // Early return if the attribute is not an event handler.
                 if (!node.value || !("expression" in node.value)) {
                     return;
                 }
@@ -90,6 +91,7 @@ export default createEslintRule<Options, MessageIds>({
 
                 const isInlineFunction = O.isSome(maybeInnerExpression);
 
+                // Early return when not checking inline functions but the expression is an inline function.
                 if (!checkInlineFunction && isInlineFunction) {
                     return;
                 }
@@ -98,6 +100,7 @@ export default createEslintRule<Options, MessageIds>({
                     ? !Reflect.has(maybeInnerExpression.value, "object")
                     : !Reflect.has(expression, "object");
 
+                // Early return when not checking local variables but the expression is a local variable.
                 if (!checkLocalVariables && onlyLocalVariables) {
                     return;
                 }
@@ -112,6 +115,7 @@ export default createEslintRule<Options, MessageIds>({
                     // eslint-disable-next-line regexp/no-super-linear-move
                     .replace(/^this\.|.*::/u, "");
 
+                // Early return if the prop key is not a string or if it is a ref.
                 if (!I.isString(propKey) || propKey === "ref") {
                     return;
                 }
