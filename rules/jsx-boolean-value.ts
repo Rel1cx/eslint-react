@@ -12,7 +12,7 @@ type MessageIds = "omitBoolean" | "setBoolean";
 
 type Options = readonly [Applicability?, { [Applicability.always]?: string[]; [Applicability.never]?: string[] }?];
 
-const schema: JSONSchema4 = {
+const schema = {
     anyOf: [
         {
             type: "array",
@@ -67,7 +67,7 @@ const schema: JSONSchema4 = {
             ],
         },
     ],
-};
+} satisfies JSONSchema4;
 
 const defaultOptions = [Applicability.never] satisfies Options;
 

@@ -8,34 +8,36 @@ export const RULE_NAME = "jsx-handler-names";
 
 type MessageIds = "badHandlerName" | "badPropKey";
 
-const schema: JSONSchema4 = {
-    anyOf: [
-        {
-            type: "object",
-            additionalProperties: false,
-            properties: {
-                checkInlineFunction: { type: "boolean" },
-                checkLocalVariables: { type: "boolean" },
-                eventHandlerPrefix: { type: "string" },
-                eventHandlerPropPrefix: { type: "string" },
+const schema = [
+    {
+        anyOf: [
+            {
+                type: "object",
+                additionalProperties: false,
+                properties: {
+                    checkInlineFunction: { type: "boolean" },
+                    checkLocalVariables: { type: "boolean" },
+                    eventHandlerPrefix: { type: "string" },
+                    eventHandlerPropPrefix: { type: "string" },
+                },
             },
-        },
-        {
-            type: "object",
-            additionalProperties: false,
-            properties: {
-                checkLocalVariables: { type: "boolean" },
+            {
+                type: "object",
+                additionalProperties: false,
+                properties: {
+                    checkLocalVariables: { type: "boolean" },
+                },
             },
-        },
-        {
-            type: "object",
-            additionalProperties: false,
-            properties: {
-                checkInlineFunction: { type: "boolean" },
+            {
+                type: "object",
+                additionalProperties: false,
+                properties: {
+                    checkInlineFunction: { type: "boolean" },
+                },
             },
-        },
-    ],
-};
+        ],
+    },
+] satisfies readonly JSONSchema4[];
 
 type Options = readonly [
     {
