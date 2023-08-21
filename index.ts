@@ -1,5 +1,6 @@
 import { name } from "./package.json";
 import jsxBooleanValue, { RULE_NAME as jsxBooleanValueName } from "./rules/jsx-boolean-value";
+import jsxHandlerNames, { RULE_NAME as jsxHandlerNamesName } from "./rules/jsx-handler-names";
 
 type RuleSeverity = "error" | "warn" | "off";
 
@@ -9,6 +10,7 @@ const recommendedRules: {
     [key: string]: RuleDeclaration;
 } = {
     [jsxBooleanValueName]: ["error"],
+    [jsxHandlerNamesName]: ["error"],
 };
 
 const createConfig = (rules = recommendedRules) => {
@@ -27,5 +29,6 @@ export default {
     },
     rules: {
         [jsxBooleanValueName]: jsxBooleanValue,
+        [jsxHandlerNamesName]: jsxHandlerNames,
     },
 };

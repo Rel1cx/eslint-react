@@ -66,6 +66,7 @@ export default [
 - [ ] react-ts/jsx-key
 - [ ] react-ts/jsx-uses-react
 - [x] react-ts/jsx-boolean-value
+- [x] react-ts/jsx-handler-names
 - [ ] react-ts/jsx-no-comment-textnodes
 - [ ] react-ts/jsx-no-leaked-render
 - [ ] react-ts/no-children-prop
@@ -85,6 +86,7 @@ export default [
 - [ ] react-ts/jsx-key
 - [ ] react-ts/jsx-uses-react
 - [ ] react-ts/jsx-boolean-value
+- [ ] react-ts/jsx-handler-names
 - [ ] react-ts/jsx-no-comment-textnodes
 - [ ] react-ts/jsx-no-leaked-render
 - [ ] react-ts/no-children-prop
@@ -104,6 +106,7 @@ export default [
 - [ ] react-ts/jsx-key
 - [ ] react-ts/jsx-uses-react
 - [x] react-ts/jsx-boolean-value
+- [ ] react-ts/jsx-handler-names
 - [ ] react-ts/jsx-no-comment-textnodes
 - [ ] react-ts/jsx-no-leaked-render
 - [ ] react-ts/no-children-prop
