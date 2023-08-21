@@ -58,6 +58,7 @@
             }
         ],
         "regexp/no-unused-capturing-group": "off",
+        "regexp/prefer-named-capture-group": "off",
         "simple-import-sort/exports": "warn",
         "simple-import-sort/imports": "warn"
     },

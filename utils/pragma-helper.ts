@@ -54,7 +54,7 @@ export function getFragmentFromContext<T extends RuleContext<string, []>>(
     return E.right(pragma);
 }
 
-export function getFromContext<T extends RuleContext<string, []>>(
+export function getFromContext<T extends RuleContext<string, unknown[]>>(
     context: T,
 ): E.Either<Error, string> {
     const settings: { react?: ReactSettings } = context.settings;

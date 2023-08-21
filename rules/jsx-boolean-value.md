@@ -55,7 +55,3 @@ Examples of **correct** code for this rule with the `"always"` option:
 ## When Not To Use It
 
 If you don't want to enforce a consistent style for boolean attributes in JSX, you can disable this rule.
-
-## Further Reading
-
-- [React JSX specification](https://facebook.github.io/jsx)
