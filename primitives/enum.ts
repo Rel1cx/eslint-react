@@ -1,4 +1,4 @@
-import type { UnionFromTuple } from "./utils";
+import type { UnionFromTuple } from "./union";
 
 export type Enum<T extends object> = T[keyof T];
 

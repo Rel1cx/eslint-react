@@ -1,15 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export type AnyObject = Record<string, any>;
-
-export type Remap<T> = {
-    [P in keyof T]: T[P];
-    // eslint-disable-next-line @typescript-eslint/ban-types
-} & {};
-
-export type UnionFromTuple<T> = T extends (infer U)[] ? U : never;
-
-export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void ? I : never;
-
 /**
  * Infers embedded primitive type of any type
  *
@@ -28,13 +16,6 @@ export type Narrow<TType> =
     | {
           [K in keyof TType]: Narrow<TType[K]>;
       };
-
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-export const noop = () => {};
-
-export const identity = <T>(a: T) => a;
-
-export const asConst = <const T>(a: T) => a;
 
 /**
  * Infers embedded primitive type of any type

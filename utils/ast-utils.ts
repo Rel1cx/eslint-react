@@ -3,8 +3,8 @@ import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { ASTUtils as TSESASTUtils, TSESLint, TSESTree } from "@typescript-eslint/utils";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 
-import { I } from "../lib/data";
-import { uniqueBy } from "./unique-by";
+import { I } from "../primitives/data";
+import { uniqueBy } from "../tools/unique-by";
 
 type IsHelper<NodeType extends AST_NODE_TYPES> = (node: TSESTree.Node | null | undefined) => node is TSESTree.Node & {
     type: NodeType;

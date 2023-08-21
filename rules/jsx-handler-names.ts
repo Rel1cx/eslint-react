@@ -1,8 +1,8 @@
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
-import { createEslintRule } from "../helpers/create-eslint-rule";
-import * as JSXUtils from "../helpers/jsx-utils";
-import { I, O } from "../lib/data";
+import { I, O } from "../primitives/data";
+import { createEslintRule } from "../tools/create-eslint-rule";
+import * as JSXUtils from "../utils/jsx-utils";
 
 export const RULE_NAME = "jsx-handler-names";
 
