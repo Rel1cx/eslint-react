@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/utils";
-import { match } from "ts-pattern";
+import { match, P } from "ts-pattern";
 
 import { I } from "../lib/primitives/data";
 import { ASTUtils } from "./ast-utils";
@@ -67,24 +67,29 @@ export function hasEveryProp(nodeProps: TSESTree.JSXAttribute[] = [], options: H
     };
 }
 
-function adjustRangeOfNode(node: Partial<TSESTree.Node> & { range?: [number, number]; start?: number; end?: number }) {
-    const [start, end] = node.range ?? [node.start, node.end];
+function adjustRangeOfNode<T extends TSESTree.Node>(node: T): T & { range: [number, number] } {
+    if (!("start" in node && "end" in node)) {
+        return node;
+    }
 
     return {
         ...node,
         end: undefined,
-        range: [start, end],
+        range: [node.start, node.end],
         start: undefined,
     };
 }
 
-function adjustExpressionRange({
-    expressions,
-    quasis,
-    ...rest
-}: TSESTree.Node & { expressions?: TSESTree.Node[]; quasis?: TSESTree.Node[] }) {
+function adjustExpressionRange<
+    T extends TSESTree.JSXExpressionContainer["expression"] & {
+        expressions?: TSESTree.Expression[];
+        quasis?: TSESTree.TemplateElement[];
+    },
+>(node: T) {
+    const { expressions, quasis } = node;
+
     return {
-        ...adjustRangeOfNode(rest),
+        ...adjustRangeOfNode<T>(node),
         ...(expressions ? { expressions: expressions.map(adjustRangeOfNode) } : {}),
         ...(quasis ? { quasis: quasis.map(adjustRangeOfNode) } : {}),
     };
