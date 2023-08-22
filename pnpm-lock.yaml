@@ -29,8 +29,8 @@ devDependencies:
     specifier: 2.0.1
     version: 2.0.1
   '@types/node':
-    specifier: 20.5.1
-    version: 20.5.1
+    specifier: 20.5.2
+    version: 20.5.2
   '@typescript-eslint/eslint-plugin':
     specifier: 6.4.0
     version: 6.4.0(@typescript-eslint/parser@6.4.0)(eslint@8.47.0)(typescript@5.1.6)
@@ -79,6 +79,9 @@ devDependencies:
   fast-glob:
     specifier: 3.3.1
     version: 3.3.1
+  husky:
+    specifier: 8.0.3
+    version: 8.0.3
   prettier-plugin-curly:
     specifier: 0.1.2
     version: 0.1.2(prettier@3.0.2)
@@ -91,12 +94,9 @@ devDependencies:
   publint:
     specifier: 0.2.2
     version: 0.2.2
-  simple-git-hooks:
-    specifier: 2.9.0
-    version: 2.9.0
   skott:
     specifier: 0.28.1
-    version: 0.28.1(@types/node@20.5.1)
+    version: 0.28.1(@types/node@20.5.2)
   tsup:
     specifier: 7.2.0
     version: 7.2.0(typescript@5.1.6)
@@ -941,7 +941,7 @@ packages:
     resolution: {integrity: sha512-MxObHvNl4A69ofaTRU8DFqvgzzv8s9yRtaPPm5gud9HDNvpB3GPQFvNuTWAI59B9huVGV5jXYJwbCsmBsOGYWA==}
     dependencies:
       '@types/jsonfile': 6.1.1
-      '@types/node': 20.5.1
+      '@types/node': 20.5.2
     dev: true
 
   /@types/hammerjs@2.0.41:
@@ -955,7 +955,7 @@ packages:
   /@types/jsonfile@6.1.1:
     resolution: {integrity: sha512-GSgiRCVeapDN+3pqA35IkQwasaCh/0YFH5dEF6S88iDvEn901DjOeH3/QPY+XYP1DFzDZPvIvfeEgk+7br5png==}
     dependencies:
-      '@types/node': 20.5.1
+      '@types/node': 20.5.2
     dev: true
 
   /@types/minimatch@3.0.5:
@@ -970,8 +970,8 @@ packages:
     resolution: {integrity: sha512-fGmT/P7z7ecA6bv/ia5DlaWCH4YeZvAQMNpUhrJjtAhOhZfoxS1VLUgU2pdk63efSjQaOJWdXMuAJsws+8I6dg==}
     dev: true
 
-  /@types/node@20.5.1:
-    resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
+  /@types/node@20.5.2:
+    resolution: {integrity: sha512-5j/lXt7unfPOUlrKC34HIaedONleyLtwkKggiD/0uuMfT8gg2EOpg0dz4lCD15Ga7muC+1WzJZAjIB9simWd6Q==}
     dev: true
 
   /@types/parse-json@4.0.0:
@@ -2862,6 +2862,12 @@ packages:
     engines: {node: '>=14.18.0'}
     dev: true
 
+  /husky@8.0.3:
+    resolution: {integrity: sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dev: true
+
   /ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
     dev: true
@@ -4043,12 +4049,6 @@ packages:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
     dev: true
 
-  /simple-git-hooks@2.9.0:
-    resolution: {integrity: sha512-waSQ5paUQtyGC0ZxlHmcMmD9I1rRXauikBwX31bX58l5vTOhCEcBC5Bi+ZDkPXTjDnZAF8TbCqKBY+9+sVPScw==}
-    hasBin: true
-    requiresBuild: true
-    dev: true
-
   /sirv@2.0.3:
     resolution: {integrity: sha512-O9jm9BsID1P+0HOi81VpXPoDxYP374pkOLzACAoyUQ/3OUVndNpsz6wMnY2z+yOxzbllCKZrM+9QrWsv4THnyA==}
     engines: {node: '>= 10'}
@@ -4058,7 +4058,7 @@ packages:
       totalist: 3.0.1
     dev: true
 
-  /skott-webapp@1.0.6(@types/node@20.5.1):
+  /skott-webapp@1.0.6(@types/node@20.5.2):
     resolution: {integrity: sha512-TgYY25Oj9gVRsY2BBS5rx7iMayGNijSOntLlwhHElTPu9w8DWYpgJgKGMdIbduWitkMBM5w5o00ZWHbZlHkvXQ==}
     dependencies:
       '@egjs/hammerjs': 2.0.17
@@ -4073,7 +4073,7 @@ packages:
       vis-data: 7.1.6(uuid@8.3.2)(vis-util@5.0.3)
       vis-network: 9.1.6(@egjs/hammerjs@2.0.17)(component-emitter@1.3.0)(keycharm@0.2.0)(timsort@0.3.0)(uuid@8.3.2)(vis-data@7.1.6)(vis-util@5.0.3)
       vis-util: 5.0.3(@egjs/hammerjs@2.0.17)(component-emitter@1.3.0)
-      vite: 3.2.7(@types/node@20.5.1)
+      vite: 3.2.7(@types/node@20.5.2)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -4083,7 +4083,7 @@ packages:
       - terser
     dev: true
 
-  /skott@0.28.1(@types/node@20.5.1):
+  /skott@0.28.1(@types/node@20.5.2):
     resolution: {integrity: sha512-X13g5Jo7uTnUSs7xDDwzKPbt00azau59FE4gDcS5aFbzzZ6AF27QmGX6YY2c8zDoA1Sw1EgIKIvV08veqDscug==}
     hasBin: true
     dependencies:
@@ -4108,7 +4108,7 @@ packages:
       polka: 0.5.2
       sade: 1.8.1
       sirv: 2.0.3
-      skott-webapp: 1.0.6(@types/node@20.5.1)
+      skott-webapp: 1.0.6(@types/node@20.5.2)
       typescript: 5.1.6
     transitivePeerDependencies:
       - '@types/node'
@@ -4563,7 +4563,7 @@ packages:
       component-emitter: 1.3.0
     dev: true
 
-  /vite-node@0.34.2(@types/node@20.5.1):
+  /vite-node@0.34.2(@types/node@20.5.2):
     resolution: {integrity: sha512-JtW249Zm3FB+F7pQfH56uWSdlltCo1IOkZW5oHBzeQo0iX4jtC7o1t9aILMGd9kVekXBP2lfJBEQt9rBh07ebA==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -4573,7 +4573,7 @@ packages:
       mlly: 1.4.0
       pathe: 1.1.1
       picocolors: 1.0.0
-      vite: 4.4.9(@types/node@20.5.1)
+      vite: 4.4.9(@types/node@20.5.2)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -4585,7 +4585,7 @@ packages:
       - terser
     dev: true
 
-  /vite@3.2.7(@types/node@20.5.1):
+  /vite@3.2.7(@types/node@20.5.2):
     resolution: {integrity: sha512-29pdXjk49xAP0QBr0xXqu2s5jiQIXNvE/xwd0vUizYT2Hzqe4BksNNoWllFVXJf4eLZ+UlVQmXfB4lWrc+t18g==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -4610,7 +4610,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.5.1
+      '@types/node': 20.5.2
       esbuild: 0.15.18
       postcss: 8.4.28
       resolve: 1.22.4
@@ -4619,7 +4619,7 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vite@4.4.9(@types/node@20.5.1):
+  /vite@4.4.9(@types/node@20.5.2):
     resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -4647,7 +4647,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.5.1
+      '@types/node': 20.5.2
       esbuild: 0.18.20
       postcss: 8.4.28
       rollup: 3.28.0
@@ -4688,7 +4688,7 @@ packages:
     dependencies:
       '@types/chai': 4.3.5
       '@types/chai-subset': 1.3.3
-      '@types/node': 20.5.1
+      '@types/node': 20.5.2
       '@vitest/expect': 0.34.2
       '@vitest/runner': 0.34.2
       '@vitest/snapshot': 0.34.2
@@ -4707,8 +4707,8 @@ packages:
       strip-literal: 1.3.0
       tinybench: 2.5.0
       tinypool: 0.7.0
-      vite: 4.4.9(@types/node@20.5.1)
-      vite-node: 0.34.2(@types/node@20.5.1)
+      vite: 4.4.9(@types/node@20.5.2)
+      vite-node: 0.34.2(@types/node@20.5.2)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less

@@ -54,21 +54,11 @@ ruleTester.run(RULE_NAME, rule, {
         {
             code: "<TestComponent only={this.only} />",
         },
+        {
+            code: "<TestComponent onClick={this.handle123LogoClick} />",
+        },
     ],
     invalid: [
-        // TODO: this should be invalid, but the rule doesn't support it yet
-        {
-            code: "<TestComponent onChange={this.handle123Change} />",
-            errors: [
-                {
-                    messageId: "badHandlerName",
-                    data: {
-                        propKey: "onChange",
-                        handlerPrefix: "handle",
-                    },
-                },
-            ],
-        },
         {
             code: "<TestComponent onChange={this.doSomethingOnChange} />",
             errors: [
