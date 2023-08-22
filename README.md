@@ -59,49 +59,18 @@ export default [
 ];
 ```
 
+## Rules
+
+<!-- begin auto-generated rules list -->
+
+| Name                                                                                                    | Description                                     |
+| :------------------------------------------------------------------------------------------------------ | :---------------------------------------------- |
+| [jsx-boolean-value](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/rules/jsx-boolean-value) | enforce boolean attributes notation in JSX      |
+| [jsx-handler-names](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/rules/jsx-handler-names) | enforce event handler naming conventions in JSX |
+
+<!-- end auto-generated rules list -->
+
 ## Todo
-
-### Rules
-
-- [ ] react-ts/jsx-key
-- [ ] react-ts/jsx-uses-react
-- [x] react-ts/jsx-boolean-value
-- [x] react-ts/jsx-handler-names
-- [ ] react-ts/jsx-no-comment-textnodes
-- [ ] react-ts/jsx-no-leaked-render
-- [ ] react-ts/no-children-prop
-- [ ] react-ts/no-danger-with-children
-- [ ] react-ts/no-direct-mutation-state
-- [ ] react-ts/no-is-mounted
-- [ ] react-ts/no-render-return-value
-- [ ] react-ts/no-string-refs
-- [ ] react-ts/no-unescaped-entities
-- [ ] react-ts/no-unknown-property
-- [ ] react-ts/no-unsafe
-- [ ] react-ts/require-render-return
-- [ ] ...
-
-### Fixers
-
-- [ ] react-ts/jsx-key
-- [ ] react-ts/jsx-uses-react
-- [ ] react-ts/jsx-boolean-value
-- [ ] react-ts/jsx-handler-names
-- [ ] react-ts/jsx-no-comment-textnodes
-- [ ] react-ts/jsx-no-leaked-render
-- [ ] react-ts/no-children-prop
-- [ ] react-ts/no-danger-with-children
-- [ ] react-ts/no-direct-mutation-state
-- [ ] react-ts/no-is-mounted
-- [ ] react-ts/no-render-return-value
-- [ ] react-ts/no-string-refs
-- [ ] react-ts/no-unescaped-entities
-- [ ] react-ts/no-unknown-property
-- [ ] react-ts/no-unsafe
-- [ ] react-ts/require-render-return
-- [ ] ...
-
-### Tests
 
 - [ ] react-ts/jsx-key
 - [ ] react-ts/jsx-uses-react

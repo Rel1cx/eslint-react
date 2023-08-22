@@ -1,5 +1,5 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
 
-export const documentBaseURL = "https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/rules";
+import { BASEURL_DOCS } from "../constants";
 
-export const createEslintRule = ESLintUtils.RuleCreator((ruleName) => `${documentBaseURL}/${ruleName}.md`);
+export const createEslintRule = ESLintUtils.RuleCreator((ruleName) => `${BASEURL_DOCS}/${ruleName}.md`);

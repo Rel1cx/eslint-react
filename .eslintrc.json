@@ -23,6 +23,7 @@
         "no-console": "warn",
         "@typescript-eslint/no-confusing-void-expression": "off",
         "@typescript-eslint/no-unused-expressions": "warn",
+        "@typescript-eslint/no-floating-promises": "off",
         "@typescript-eslint/no-unused-vars": [
             "warn",
             {
@@ -61,6 +62,14 @@
             "files": "*.spec.ts",
             "rules": {
                 "perfectionist/sort-objects": "off"
+            }
+        },
+        {
+            "files": "./scripts/**/*.ts",
+            "settings": {
+                "parserOptions": {
+                    "project": "./tsconfig.node.json"
+                }
             }
         }
     ]

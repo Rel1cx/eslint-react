@@ -1,5 +1,9 @@
 # jsx-boolean-value
 
+💼 This rule is enabled in the following [configs](/configs/): 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
+
+<!-- end auto-generated rule header -->
+
 Enforce boolean attributes notation in JSX.
 
 ## Rule Details

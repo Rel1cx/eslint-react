@@ -43,6 +43,7 @@
     ],
     "scripts": {
         "build": "tsup",
+        "docs:generate": "tsx ./scripts/doc-generator.ts",
         "fix:ts": "eslint --ext .ts --fix .",
         "format:check": "prettier -u .",
         "format:write": "prettier -w -u .",
@@ -84,7 +85,8 @@
         "skott": "0.28.1",
         "tsup": "7.2.0",
         "typescript": "5.1.6",
-        "vitest": "0.34.2"
+        "vitest": "0.34.2",
+        "zx": "7.2.3"
     },
     "peerDependencies": {
         "@typescript-eslint/parser": ">=6.4.1",
