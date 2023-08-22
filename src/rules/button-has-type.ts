@@ -1,9 +1,7 @@
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { isMatching } from "ts-pattern";
 
-import { createEslintRule } from "../tools/create-eslint-rule";
-
-export const RULE_NAME = "button-has-type";
+import { createEslintRule } from "../../tools/create-eslint-rule";
 
 type MessageIds = "complexType" | "forbiddenValue" | "invalidValue" | "missingType";
 
@@ -42,7 +40,7 @@ const defaultOptions = [
 ] satisfies Options;
 
 export default createEslintRule<Options, MessageIds>({
-    name: RULE_NAME,
+    name: "button-has-type",
     meta: {
         type: "suggestion",
         docs: {

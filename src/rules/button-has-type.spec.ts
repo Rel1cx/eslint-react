@@ -1,5 +1,5 @@
-import RuleTester, { getFixturesRootDir } from "../test/rule-tester";
-import rule, { RULE_NAME } from "./button-has-type";
+import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
+import rule from "./button-has-type";
 
 const rootDir = getFixturesRootDir();
 
@@ -15,6 +15,8 @@ const ruleTester = new RuleTester({
         tsconfigRootDir: rootDir,
     },
 });
+
+const RULE_NAME = "button-has-type";
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [

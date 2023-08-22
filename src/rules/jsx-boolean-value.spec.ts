@@ -1,5 +1,5 @@
-import RuleTester, { getFixturesRootDir } from "../test/rule-tester";
-import rule, { RULE_NAME } from "./jsx-boolean-value";
+import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
+import rule from "./jsx-boolean-value";
 
 const rootDir = getFixturesRootDir();
 
@@ -15,6 +15,8 @@ const ruleTester = new RuleTester({
         tsconfigRootDir: rootDir,
     },
 });
+
+const RULE_NAME = "jsx-boolean-value";
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [

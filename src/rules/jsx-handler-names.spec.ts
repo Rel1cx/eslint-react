@@ -1,6 +1,6 @@
 /* eslint-disable eslint-plugin/test-case-shorthand-strings */
-import rule, { RULE_NAME } from "../rules/jsx-handler-names";
-import RuleTester from "../test/rule-tester";
+import RuleTester from "../../test/rule-tester";
+import rule from "./jsx-handler-names";
 
 const ruleTester = new RuleTester({
     parser: "@typescript-eslint/parser",
@@ -12,6 +12,8 @@ const ruleTester = new RuleTester({
         },
     },
 });
+
+const RULE_NAME = "jsx-handler-names";
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [

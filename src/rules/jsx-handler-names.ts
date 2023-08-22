@@ -2,12 +2,10 @@
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
+import { createEslintRule } from "../../tools/create-eslint-rule";
 import { O } from "../lib/primitives/data";
-import { createEslintRule } from "../tools/create-eslint-rule";
 import { ASTUtils } from "../utils/ast-utils";
 import * as JSXUtils from "../utils/jsx-utils";
-
-export const RULE_NAME = "jsx-handler-names";
 
 type MessageIds = "badHandlerName" | "badPropKey";
 
@@ -87,7 +85,7 @@ const defaultOptions = [
 ] satisfies Options;
 
 export default createEslintRule<Options, MessageIds>({
-    name: RULE_NAME,
+    name: "jsx-handler-names",
     meta: {
         type: "suggestion",
         docs: {

@@ -2,11 +2,9 @@ import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { match } from "ts-pattern";
 
+import { createEslintRule } from "../../tools/create-eslint-rule";
+import { Applicability } from "../../typings";
 import { I, O } from "../lib/primitives/data";
-import { createEslintRule } from "../tools/create-eslint-rule";
-import { Applicability } from "../types";
-
-export const RULE_NAME = "jsx-boolean-value";
 
 type MessageIds = "omitBoolean" | "setBoolean";
 
@@ -72,7 +70,7 @@ const schema = {
 const defaultOptions = [Applicability.never] satisfies Options;
 
 export default createEslintRule<Options, MessageIds>({
-    name: RULE_NAME,
+    name: "jsx-boolean-value",
     meta: {
         type: "suggestion",
         docs: {

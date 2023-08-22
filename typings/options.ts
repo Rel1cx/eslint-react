@@ -1,4 +1,4 @@
-import { Enum } from "../lib/primitives/enum";
+import { Enum } from "../src/lib/primitives/enum";
 
 export const Applicability = Enum("always", "never");
 
