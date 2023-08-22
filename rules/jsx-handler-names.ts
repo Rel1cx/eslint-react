@@ -141,7 +141,7 @@ export default createEslintRule<Options, MessageIds>({
                     return;
                 }
 
-                const propKey = JSXUtils.getPropKey(node.name);
+                const propKey = JSXUtils.getPropName(node);
                 const propValueNode = O.getOrElse(() => expression)(maybeInnerFunction);
 
                 const propValue = context

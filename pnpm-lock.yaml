@@ -58,6 +58,9 @@ devDependencies:
   eslint-plugin-filenames-simple:
     specifier: 0.8.0
     version: 0.8.0(eslint@8.47.0)
+  eslint-plugin-import-access:
+    specifier: 2.1.1
+    version: 2.1.1(eslint@8.47.0)(typescript@5.1.6)
   eslint-plugin-n:
     specifier: 16.0.2
     version: 16.0.2(eslint@8.47.0)
@@ -2315,6 +2318,17 @@ packages:
     dependencies:
       eslint: 8.47.0
       pluralize: 8.0.0
+    dev: true
+
+  /eslint-plugin-import-access@2.1.1(eslint@8.47.0)(typescript@5.1.6):
+    resolution: {integrity: sha512-vRfBoOykOxha7Mmpix4K0t/yNuE9pBRyuZj2V5kqX6q3MqZ5nl4DI3WqOtdJGmlhOlRfMSxUIPqeKklOtj1knA==}
+    dependencies:
+      '@typescript-eslint/utils': 6.4.1(eslint@8.47.0)(typescript@5.1.6)
+      tsutils: 3.21.0(typescript@5.1.6)
+    transitivePeerDependencies:
+      - eslint
+      - supports-color
+      - typescript
     dev: true
 
   /eslint-plugin-n@16.0.2(eslint@8.47.0):

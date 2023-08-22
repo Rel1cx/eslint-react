@@ -18,7 +18,15 @@
         "project": "./tsconfig.json",
         "sourceType": "module"
     },
-    "plugins": ["@typescript-eslint", "filenames-simple", "perfectionist", "regexp", "security", "simple-import-sort"],
+    "plugins": [
+        "@typescript-eslint",
+        "filenames-simple",
+        "import-access",
+        "perfectionist",
+        "regexp",
+        "security",
+        "simple-import-sort"
+    ],
     "rules": {
         "no-console": "warn",
         "@typescript-eslint/no-confusing-void-expression": "off",
@@ -55,7 +63,9 @@
         "regexp/no-unused-capturing-group": "off",
         "regexp/prefer-named-capture-group": "off",
         "simple-import-sort/exports": "warn",
-        "simple-import-sort/imports": "warn"
+        "simple-import-sort/imports": "warn",
+        "no-multiple-empty-lines": ["error", { "max": 2, "maxBOF": 1 }],
+        "import-access/jsdoc": ["error"]
     },
     "overrides": [
         {

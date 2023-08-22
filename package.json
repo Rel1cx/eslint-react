@@ -72,6 +72,7 @@
         "eslint-doc-generator": "1.4.3",
         "eslint-plugin-eslint-plugin": "5.1.1",
         "eslint-plugin-filenames-simple": "0.8.0",
+        "eslint-plugin-import-access": "2.1.1",
         "eslint-plugin-n": "16.0.2",
         "eslint-plugin-perfectionist": "1.5.1",
         "eslint-plugin-regexp": "1.15.0",
