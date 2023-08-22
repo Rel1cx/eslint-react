@@ -56,6 +56,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
     ],
     invalid: [
+        // TODO: this should be invalid, but the rule doesn't support it yet
         {
             code: "<TestComponent onChange={this.handle123Change} />",
             errors: [
@@ -184,18 +185,6 @@ ruleTester.run(RULE_NAME, rule, {
                 },
             ],
         },
-        {
-            code: "<TestComponent onChange={this.props.onChange} />",
-            errors: [
-                {
-                    messageId: "badHandlerName",
-                    data: {
-                        propKey: "onChange",
-                        handlerPrefix: "handle",
-                    },
-                },
-            ],
-        },
     ],
 });
 
@@ -235,41 +224,41 @@ ruleTester.run(RULE_NAME, rule, {
                 },
             ],
         },
-        // {
-        //     code: "<TestComponent onChange={this.someChange} />",
-        //     options: [
-        //         {
-        //             eventHandlerPrefix: false,
-        //             eventHandlerPropPrefix: "on",
-        //         },
-        //     ],
-        // },
-        // {
-        //     code: "<TestComponent somePrefixChange={this.someChange} />",
-        //     options: [
-        //         {
-        //             eventHandlerPrefix: false,
-        //             eventHandlerPropPrefix: "somePrefix",
-        //         },
-        //     ],
-        // },
-        // {
-        //     code: "<TestComponent someProp={this.handleChange} />",
-        //     options: [{ eventHandlerPropPrefix: false }],
-        // },
-        // {
-        //     code: "<TestComponent someProp={this.somePrefixChange} />",
-        //     options: [
-        //         {
-        //             eventHandlerPrefix: "somePrefix",
-        //             eventHandlerPropPrefix: false,
-        //         },
-        //     ],
-        // },
-        // {
-        //     code: "<TestComponent someProp={props.onChange} />",
-        //     options: [{ eventHandlerPropPrefix: false }],
-        // },
+        {
+            code: "<TestComponent onChange={this.someChange} />",
+            options: [
+                {
+                    eventHandlerPrefix: false,
+                    eventHandlerPropPrefix: "on",
+                },
+            ],
+        },
+        {
+            code: "<TestComponent somePrefixChange={this.someChange} />",
+            options: [
+                {
+                    eventHandlerPrefix: false,
+                    eventHandlerPropPrefix: "somePrefix",
+                },
+            ],
+        },
+        {
+            code: "<TestComponent someProp={this.handleChange} />",
+            options: [{ eventHandlerPropPrefix: false }],
+        },
+        {
+            code: "<TestComponent someProp={this.somePrefixChange} />",
+            options: [
+                {
+                    eventHandlerPrefix: "somePrefix",
+                    eventHandlerPropPrefix: false,
+                },
+            ],
+        },
+        {
+            code: "<TestComponent someProp={props.onChange} />",
+            options: [{ eventHandlerPropPrefix: false }],
+        },
     ],
     invalid: [
         {

@@ -110,8 +110,9 @@ export default createEslintRule<Options, MessageIds>({
 
         const EVENT_HANDLER_REGEX = new RegExp(
             `^((props\\.${handlerPropPrefix})|((.*\\.)?${handlerPrefix}))[0-9]*[A-Z].*$`,
+            "u",
         );
-        const PROP_EVENT_HANDLER_REGEX = new RegExp(`^(${handlerPropPrefix}[A-Z].*|ref)$`);
+        const PROP_EVENT_HANDLER_REGEX = new RegExp(`^(${handlerPropPrefix}[A-Z].*|ref)$`, "u");
 
         return {
             JSXAttribute(node) {
@@ -156,14 +157,24 @@ export default createEslintRule<Options, MessageIds>({
                     return;
                 }
 
-                const propIsEventHandler = checkEventHandlerPropPrefix && PROP_EVENT_HANDLER_REGEX.test(propKey);
-                const propFnIsNamedCorrectly = checkEventHandlerPrefix && EVENT_HANDLER_REGEX.test(propValue);
+                const propIsEventHandler = PROP_EVENT_HANDLER_REGEX.test(propKey);
+                const propFnIsNamedCorrectly = EVENT_HANDLER_REGEX.test(propValue);
 
-                // Report if the prop key is an event handler but the function is not named correctly.
-                if (propIsEventHandler && !propFnIsNamedCorrectly) {
+                if (checkEventHandlerPropPrefix && !propIsEventHandler && propFnIsNamedCorrectly) {
+                    context.report({
+                        data: {
+                            handlerPropPrefix,
+                            propValue,
+                        },
+                        messageId: "badPropKey",
+                        node,
+                    });
+                }
+
+                if (checkEventHandlerPrefix && propIsEventHandler && !propFnIsNamedCorrectly) {
                     return context.report({
                         data: {
-                            handlerPrefix: eventHandlerPrefix,
+                            handlerPrefix,
                             propKey,
                         },
                         messageId: "badHandlerName",
@@ -171,17 +182,29 @@ export default createEslintRule<Options, MessageIds>({
                     });
                 }
 
-                // Report if the prop key is not an event handler but the function is named correctly.
-                if (!propIsEventHandler && propFnIsNamedCorrectly) {
-                    return context.report({
-                        data: {
-                            handlerPropPrefix: eventHandlerPropPrefix,
-                            propValue,
-                        },
-                        messageId: "badPropKey",
-                        node,
-                    });
-                }
+                // // Report if the prop key is an event handler but the function is not named correctly.
+                // if (propIsEventHandler && !propFnIsNamedCorrectly) {
+                //     return context.report({
+                //         data: {
+                //             handlerPrefix,
+                //             propKey,
+                //         },
+                //         messageId: "badHandlerName",
+                //         node,
+                //     });
+                // }
+
+                // // Report if the prop key is not an event handler but the function is named correctly.
+                // if (!propIsEventHandler && propFnIsNamedCorrectly) {
+                //     return context.report({
+                //         data: {
+                //             handlerPropPrefix,
+                //             propValue,
+                //         },
+                //         messageId: "badPropKey",
+                //         node,
+                //     });
+                // }
             },
         };
     },
