@@ -7,6 +7,7 @@
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/strict-type-checked",
+        "plugin:perfectionist/recommended-natural",
         "plugin:eslint-plugin/all",
         "plugin:filenames-simple/recommended",
         "plugin:regexp/all",
@@ -32,6 +33,8 @@
         "@typescript-eslint/no-confusing-void-expression": "off",
         "@typescript-eslint/no-unused-expressions": "warn",
         "@typescript-eslint/no-floating-promises": "off",
+        "perfectionist/sort-imports": "off",
+        "perfectionist/sort-named-imports": "off",
         "@typescript-eslint/no-unused-vars": [
             "warn",
             {
@@ -43,19 +46,7 @@
         "perfectionist/sort-objects": [
             "warn",
             {
-                "always-on-top": [
-                    "id",
-                    "name",
-                    "key",
-                    "kind",
-                    "meta",
-                    "type",
-                    "docs",
-                    "schema",
-                    "message",
-                    "title",
-                    "description"
-                ],
+                "always-on-top": ["id", "name", "key", "kind", "meta", "type", "title", "description"],
                 "order": "asc",
                 "type": "natural"
             }
@@ -68,6 +59,31 @@
         "import-access/jsdoc": ["error"]
     },
     "overrides": [
+        {
+            "files": "./src/rules/**/*.ts",
+            "rules": {
+                "perfectionist/sort-objects": [
+                    "warn",
+                    {
+                        "always-on-top": [
+                            "id",
+                            "name",
+                            "key",
+                            "kind",
+                            "meta",
+                            "type",
+                            "docs",
+                            "schema",
+                            "message",
+                            "title",
+                            "description"
+                        ],
+                        "order": "asc",
+                        "type": "natural"
+                    }
+                ]
+            }
+        },
         {
             "files": "*.spec.ts",
             "rules": {

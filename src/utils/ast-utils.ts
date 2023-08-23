@@ -1,6 +1,6 @@
 import type TSESLintScopeManager from "@typescript-eslint/scope-manager";
-import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { ASTUtils as TSESASTUtils, TSESLint, TSESTree } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 
 import { I } from "../lib/primitives/data";
@@ -29,9 +29,9 @@ export const ASTUtils = {
         return properties.find((x) => ASTUtils.isPropertyWithIdentifierKey(x, key)) as TSESTree.Property | undefined;
     },
     getExternalRefs(params: {
+        node: TSESTree.Node;
         scopeManager: TSESLint.Scope.ScopeManager;
         sourceCode: Readonly<TSESLint.SourceCode>;
-        node: TSESTree.Node;
     }): TSESLint.Scope.Reference[] {
         const { node, scopeManager, sourceCode } = params;
         const scope = scopeManager.acquire(node);
@@ -200,8 +200,8 @@ export const ASTUtils = {
         return returnStatements;
     },
     getReferencedExpressionByIdentifier(params: {
-        node: TSESTree.Node;
         context: Readonly<RuleContext<string, readonly unknown[]>>;
+        node: TSESTree.Node;
     }) {
         const { context, node } = params;
 

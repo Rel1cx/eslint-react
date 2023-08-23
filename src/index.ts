@@ -2,7 +2,7 @@ import { name } from "../package.json";
 import jsxBooleanValue from "./rules/jsx-boolean-value";
 import jsxHandlerNames from "./rules/jsx-handler-names";
 
-type RuleSeverity = "error" | "warn" | "off";
+type RuleSeverity = "error" | "off" | "warn";
 
 type RuleDeclaration = [RuleSeverity, { [key: string]: unknown }?];
 

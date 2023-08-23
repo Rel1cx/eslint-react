@@ -68,10 +68,10 @@ const schema = [
 
 type Options = [
     {
-        eventHandlerPrefix?: string | false;
-        eventHandlerPropPrefix?: string | false;
-        checkLocalVariables?: boolean;
         checkInlineFunction?: boolean;
+        checkLocalVariables?: boolean;
+        eventHandlerPrefix?: false | string;
+        eventHandlerPropPrefix?: false | string;
     },
 ];
 

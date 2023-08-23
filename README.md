@@ -73,7 +73,6 @@ export default [
 ## Todo
 
 - [x] react-ts/jsx-boolean-value
-- [ ] react-ts/jsx-filename-extension
 - [x] react-ts/jsx-handler-names
 - [ ] react-ts/jsx-key
 - [ ] react-ts/jsx-no-comment-textnodes

@@ -13,11 +13,11 @@ const JSX_ANNOTATION_REGEX = /@jsx\s+(\S+)/u;
 const JS_IDENTIFIER_REGEX = /^[$A-Z_a-z][\w$]*$/u;
 
 type ReactSettings = {
-    pragma?: string;
-    fragment?: string;
-    createClass?: string;
-    version?: string;
     [key: string]: unknown;
+    createClass?: string;
+    fragment?: string;
+    pragma?: string;
+    version?: string;
 };
 
 export function getCreateClassFromContext<T extends RuleContext<string, unknown[]>>(
