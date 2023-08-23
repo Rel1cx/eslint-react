@@ -56,7 +56,7 @@
         "test": "vitest --run --single-thread --no-threads"
     },
     "dependencies": {
-        "@effect/data": "0.17.5",
+        "@effect/data": "0.17.6",
         "@typescript-eslint/scope-manager": "6.4.1",
         "@typescript-eslint/type-utils": "6.4.1",
         "@typescript-eslint/utils": "6.4.1",

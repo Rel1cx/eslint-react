@@ -72,21 +72,25 @@ export default [
 
 ## Todo
 
-- [ ] react-ts/jsx-key
-- [ ] react-ts/jsx-uses-react
 - [x] react-ts/jsx-boolean-value
+- [ ] react-ts/jsx-filename-extension
 - [x] react-ts/jsx-handler-names
+- [ ] react-ts/jsx-key
 - [ ] react-ts/jsx-no-comment-textnodes
+- [ ] react-ts/jsx-no-constructed-context-values
 - [ ] react-ts/jsx-no-leaked-render
 - [ ] react-ts/no-children-prop
 - [ ] react-ts/no-danger-with-children
+- [ ] react-ts/no-deprecated
 - [ ] react-ts/no-direct-mutation-state
+- [ ] react-ts/no-find-dom-node
 - [ ] react-ts/no-is-mounted
+- [ ] react-ts/no-object-type-as-default-prop
 - [ ] react-ts/no-render-return-value
 - [ ] react-ts/no-string-refs
 - [ ] react-ts/no-unescaped-entities
-- [ ] react-ts/no-unknown-property
 - [ ] react-ts/no-unsafe
+- [ ] react-ts/react-in-jsx-scope
 - [ ] react-ts/require-render-return
 - [ ] ...
 
