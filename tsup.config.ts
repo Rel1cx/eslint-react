@@ -9,7 +9,7 @@ export default defineConfig(() => ({
         "src/configs/recommended.ts",
         "src/configs/recommended-type-checked.ts",
         "src/index.ts",
-        ...glob.sync("src/rules/**/*.ts", { ignore: ["**/*.test.ts"] }),
+        ...glob.sync("src/rules/**/*.ts", { ignore: ["**/*.spec.ts"] }),
     ],
     format: ["cjs", "esm"],
     minify: false,

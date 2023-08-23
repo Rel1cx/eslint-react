@@ -30,6 +30,8 @@ Examples of **correct** code for this rule:
 
 ## Rule Options
 
+### Type Signature
+
 ```ts
 type Options = {
     eventHandlerPrefix?: string | false;
@@ -40,9 +42,9 @@ type Options = {
 
 ```
 
-### Default option
+### Default Option
 
-```ts
+```json
 "react/jsx-handler-names": ["error", {
   "eventHandlerPrefix": "handle",
   "eventHandlerPropPrefix": "on",

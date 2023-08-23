@@ -43,7 +43,7 @@
     ],
     "scripts": {
         "build": "tsup",
-        "docs:generate": "tsx ./scripts/doc-generator.ts",
+        "docs:generate": "esno ./scripts/doc-generator.ts",
         "fix:ts": "eslint --ext .ts --fix .",
         "format:check": "prettier -u .",
         "format:write": "prettier -w -u .",
