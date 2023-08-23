@@ -1,7 +1,5 @@
 # jsx-boolean-value
 
-Enforce boolean attributes notation in JSX.
-
 ## Rule Details
 
 This rule checks all boolean attributes in JSX elements and verifies that they are not set to `true` or `false`.
@@ -20,10 +18,13 @@ Examples of **correct** code for this rule:
 
 ## Rule Options
 
+- rule - `"never"` or `"always"` (default: `"never"`)
+- excepts - an array of strings (default: `[]`)
+
 ### Type Signature
 
 ```ts
-type Options = [("never" | "always")?, { always?: string[]; never?: string[] }?];
+type Options = { rule?: "never" | "always"; excepts?: string[] };
 ```
 
 ### Default Option

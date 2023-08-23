@@ -1,6 +1,6 @@
 {
     "name": "eslint-plugin-react-ts",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "description": "ESLint plugin for React with TypeScript",
     "keywords": [
         "eslint",
@@ -79,6 +79,7 @@
         "eslint-plugin-regexp": "1.15.0",
         "eslint-plugin-security": "1.7.1",
         "eslint-plugin-simple-import-sort": "10.0.0",
+        "esno": "0.17.0",
         "fast-glob": "3.3.1",
         "husky": "8.0.3",
         "prettier-plugin-curly": "0.1.2",
@@ -87,6 +88,7 @@
         "publint": "0.2.2",
         "skott": "0.28.1",
         "tsup": "7.2.0",
+        "type-fest": "4.2.0",
         "typescript": "5.1.6",
         "vitest": "0.34.2",
         "zx": "7.2.3"

@@ -1,5 +1,7 @@
 import { name } from "../package.json";
 import jsxBooleanValue from "./rules/jsx-boolean-value";
+import jsxFilenameNamingConvention from "./rules/jsx-filename-naming-convention";
+import jsxFilenameNoMisuseJsx from "./rules/jsx-filename-no-misuse-jsx";
 import jsxHandlerNames from "./rules/jsx-handler-names";
 
 type RuleSeverity = "error" | "off" | "warn";
@@ -10,6 +12,8 @@ const recommendedRules: {
     [key: string]: RuleDeclaration;
 } = {
     "jsx-boolean-value": ["error"],
+    "jsx-filename-naming-convention": ["error"],
+    "jsx-filename-no-misuse-jsx": ["error"],
     "jsx-handler-names": ["error"],
 };
 
@@ -29,6 +33,8 @@ export default {
     },
     rules: {
         "jsx-boolean-value": jsxBooleanValue,
+        "jsx-filename-naming-convention": jsxFilenameNamingConvention,
+        "jsx-filename-no-misuse-jsx": jsxFilenameNoMisuseJsx,
         "jsx-handler-names": jsxHandlerNames,
     },
 };

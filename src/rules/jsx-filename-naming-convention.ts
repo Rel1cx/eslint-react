@@ -1,6 +1,8 @@
 import path from "node:path";
 
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
+import { match } from "ts-pattern";
+import type { ReadonlyDeep } from "type-fest";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import { getCaseValidator } from "../lib/case-validator/case-validator";
@@ -8,24 +10,32 @@ import { O } from "../lib/primitives/data";
 
 type MessageIds = "filenameCaseMismatch" | "filenameCaseMismatchWithSuggestion" | "filenameEmpty";
 
-type Options = [
+type Options = ReadonlyDeep<
+    [
+        {
+            excepts?: string[];
+            rule?: "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
+        }?,
+    ]
+>;
+
+const defaultOptions = [
     {
-        rule?: "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
-        // excepts?: string[];
-    }?,
-];
+        excepts: [],
+        rule: "PascalCase",
+    },
+] as const satisfies Options;
 
 const schema = [
     {
         type: "object",
         additionalProperties: false,
         properties: {
-            // TODO: implement excepts
-            // excepts: {
-            //     type: "array",
-            //     default: ["index"],
-            //     items: { type: "string", format: "regex" },
-            // },
+            excepts: {
+                type: "array",
+                default: ["index"],
+                items: { type: "string", format: "regex" },
+            },
             rule: {
                 type: "string",
                 default: "kebab-case",
@@ -34,13 +44,6 @@ const schema = [
         },
     },
 ] satisfies [JSONSchema4];
-
-const defaultOptions = [
-    {
-        rule: "PascalCase",
-        // excepts: [],
-    },
-] satisfies Options;
 
 export default createEslintRule<Options, MessageIds>({
     name: "jsx-filename-naming-convention",
@@ -62,6 +65,8 @@ export default createEslintRule<Options, MessageIds>({
         const [option] = context.options;
         const [defaultOption] = defaultOptions;
         const rule = option?.rule ?? defaultOption.rule;
+        const excepts = option?.excepts ?? defaultOption.excepts;
+
         const filename = context.getFilename();
         const fileNameExt = filename.slice(filename.lastIndexOf("."));
 
@@ -69,7 +74,7 @@ export default createEslintRule<Options, MessageIds>({
             return {};
         }
 
-        const validator = getCaseValidator(rule);
+        const validator = getCaseValidator(rule, [...excepts]);
         const validate = (n: string) => validator.validate(n);
         const getRecommendedName = (n: string) => validator.getRecommendedName(n);
 
@@ -87,28 +92,29 @@ export default createEslintRule<Options, MessageIds>({
 
                 const maybeSuggestion = O.liftThrowable(getRecommendedName)(basename);
 
-                if (O.isNone(maybeSuggestion)) {
-                    return context.report({
-                        data: {
-                            name: basename,
-                            rule,
-                        },
-                        messageId: "filenameCaseMismatch",
-                        node,
+                match(maybeSuggestion)
+                    .when(O.isSome, ({ value }) => {
+                        const suggestion = `${[value, ...rest].join(".")}`;
+                        return context.report({
+                            data: {
+                                name: filename,
+                                rule,
+                                suggestion,
+                            },
+                            messageId: "filenameCaseMismatchWithSuggestion",
+                            node,
+                        });
+                    })
+                    .otherwise(() => {
+                        return context.report({
+                            data: {
+                                name: basename,
+                                rule,
+                            },
+                            messageId: "filenameCaseMismatch",
+                            node,
+                        });
                     });
-                }
-
-                const suggestion = `${[maybeSuggestion.value, ...rest].join(".")}`;
-
-                return context.report({
-                    data: {
-                        name: filename,
-                        rule,
-                        suggestion,
-                    },
-                    messageId: "filenameCaseMismatchWithSuggestion",
-                    node,
-                });
             },
         };
     },

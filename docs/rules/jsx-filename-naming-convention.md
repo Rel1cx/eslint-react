@@ -1,5 +1,9 @@
 # jsx-filename-naming-convention
 
+💼 This rule is enabled in the following [configs](/configs/): 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
+
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 Examples of **correct** case for this rule:
@@ -42,6 +46,9 @@ src/components/example_component.tsx
 
 ## Rule Options
 
+- `rule`: The naming convention to enforce. Defaults to `PascalCase`
+- `excepts`: An array of regexp that should be ignored by the rule. Defaults to `[]`
+
 ### Type Signature
 
 ```ts
@@ -57,8 +64,6 @@ type Options = {
   "rule": "PascalCase"
 }]
 ```
-
-- `rule`: The naming convention to enforce. Defaults to `PascalCase`
 
 ## When Not To Use It
 

@@ -1,6 +1,7 @@
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { match } from "ts-pattern";
+import type { ReadonlyDeep } from "type-fest";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import { Applicability } from "../../typings";
@@ -8,66 +9,40 @@ import { I, O } from "../lib/primitives/data";
 
 type MessageIds = "omitBoolean" | "setBoolean";
 
-type Options = [Applicability?, { [Applicability.always]?: string[]; [Applicability.never]?: string[] }?];
+type Options = ReadonlyDeep<
+    [
+        {
+            excepts?: string[];
+            rule?: Applicability;
+        }?,
+    ]
+>;
 
-const schema = {
-    anyOf: [
-        {
-            type: "array",
-            additionalItems: false,
-            items: [
-                {
-                    type: "string",
-                    enum: [Applicability.always, Applicability.never],
-                },
-            ],
-        },
-        {
-            type: "array",
-            additionalItems: false,
-            items: [
-                {
-                    type: "string",
-                    enum: [Applicability.always],
-                },
-                {
-                    type: "object",
-                    additionalProperties: false,
-                    properties: {
-                        [Applicability.never]: {
-                            type: "array",
-                            items: { type: "string", minLength: 1 },
-                            uniqueItems: true,
-                        },
-                    },
-                },
-            ],
-        },
-        {
-            type: "array",
-            additionalItems: false,
-            items: [
-                {
-                    type: "string",
-                    enum: [Applicability.never],
-                },
-                {
-                    type: "object",
-                    additionalProperties: false,
-                    properties: {
-                        [Applicability.always]: {
-                            type: "array",
-                            items: { type: "string", minLength: 1 },
-                            uniqueItems: true,
-                        },
-                    },
-                },
-            ],
-        },
-    ],
-} satisfies JSONSchema4;
+const defaultOptions = [
+    {
+        excepts: [],
+        rule: Applicability.never,
+    },
+] as const satisfies Options;
 
-const defaultOptions = [Applicability.never] satisfies Options;
+const schema = [
+    {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+            excepts: {
+                type: "array",
+                default: ["index"],
+                items: { type: "string" },
+            },
+            rule: {
+                type: "string",
+                default: Applicability.never,
+                enum: [Applicability.always, Applicability.never],
+            },
+        },
+    },
+] satisfies [JSONSchema4];
 
 export default createEslintRule<Options, MessageIds>({
     name: "jsx-boolean-value",
@@ -84,24 +59,20 @@ export default createEslintRule<Options, MessageIds>({
         },
     },
     create(context) {
-        const [configuration = Applicability.never, configObject = {}] = context.options;
+        const [option] = context.options;
+        const [defaultOption] = defaultOptions;
 
-        const maybeExceptions = O.fromNullable(
-            match(configuration)
-                .with(Applicability.always, () => configObject.never)
-                .with(Applicability.never, () => configObject.always)
-                .exhaustive(),
-        );
-
-        const exceptions = new Set(O.getOrElse(() => [])(maybeExceptions));
+        const rule = option?.rule ?? defaultOption.rule;
+        const excepts = new Set(option?.excepts ?? defaultOption.excepts);
 
         return {
             JSXAttribute(node) {
                 const { name, value } = node;
                 const propName = I.isString(name.name) ? name.name : name.name.name;
 
-                const isException = exceptions.has(propName);
-                const maybeMessageId = match(configuration)
+                const isException = excepts.has(propName);
+
+                const maybeMessageId = match(rule)
                     .with(Applicability.always, () => {
                         const hasValue = I.isNullable(value);
 

@@ -1,6 +1,7 @@
 /* eslint-disable security/detect-non-literal-regexp */
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
+import type { ReadonlyDeep } from "type-fest";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import { O } from "../lib/primitives/data";
@@ -8,6 +9,26 @@ import { ASTUtils } from "../utils/ast-utils";
 import * as JSXUtils from "../utils/jsx-utils";
 
 type MessageIds = "badHandlerName" | "badPropKey";
+
+type Options = ReadonlyDeep<
+    [
+        {
+            checkInlineFunction?: boolean;
+            checkLocalVariables?: boolean;
+            eventHandlerPrefix?: false | string;
+            eventHandlerPropPrefix?: false | string;
+        },
+    ]
+>;
+
+const defaultOptions = [
+    {
+        checkInlineFunction: false,
+        checkLocalVariables: false,
+        eventHandlerPrefix: "handle",
+        eventHandlerPropPrefix: "on",
+    },
+] as const satisfies Options;
 
 const schema = [
     {
@@ -65,24 +86,6 @@ const schema = [
         ],
     },
 ] satisfies JSONSchema4[];
-
-type Options = [
-    {
-        checkInlineFunction?: boolean;
-        checkLocalVariables?: boolean;
-        eventHandlerPrefix?: false | string;
-        eventHandlerPropPrefix?: false | string;
-    },
-];
-
-const defaultOptions = [
-    {
-        checkInlineFunction: false,
-        checkLocalVariables: false,
-        eventHandlerPrefix: "handle",
-        eventHandlerPropPrefix: "on",
-    },
-] satisfies Options;
 
 export default createEslintRule<Options, MessageIds>({
     name: "jsx-handler-names",

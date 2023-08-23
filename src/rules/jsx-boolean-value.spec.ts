@@ -22,32 +22,59 @@ ruleTester.run(RULE_NAME, rule, {
     valid: [
         {
             code: "<App foo />;",
-            options: ["never"],
+            options: [
+                {
+                    rule: "never",
+                },
+            ],
         },
         {
             code: "<App foo bar={true} />;",
-            options: ["always", { never: ["foo"] }],
+            options: [
+                {
+                    rule: "always",
+                    excepts: ["foo"],
+                },
+            ],
         },
         {
             code: "<App foo={true} />;",
-            options: ["always"],
+            options: [
+                {
+                    rule: "always",
+                },
+            ],
         },
         {
             code: "<App foo={true} bar />;",
-            options: ["never", { always: ["foo"] }],
+            options: [
+                {
+                    rule: "never",
+                    excepts: ["foo"],
+                },
+            ],
         },
     ],
     invalid: [
         {
             code: "<App foo={true} />;",
             // output: "<App foo />;",
-            options: ["never"],
+            options: [
+                {
+                    rule: "never",
+                },
+            ],
             errors: [{ messageId: "omitBoolean" }],
         },
         {
             code: "<App foo={true} bar={true} baz={true} />;",
             // output: "<App foo bar baz={true} />;",
-            options: ["always", { never: ["foo", "bar"] }],
+            options: [
+                {
+                    rule: "always",
+                    excepts: ["foo", "bar"],
+                },
+            ],
             errors: [
                 {
                     messageId: "omitBoolean",
@@ -70,13 +97,22 @@ ruleTester.run(RULE_NAME, rule, {
         {
             code: "<App foo />;",
             // output: "<App foo={true} />;",
-            options: ["always"],
+            options: [
+                {
+                    rule: "always",
+                },
+            ],
             errors: [{ messageId: "setBoolean" }],
         },
         {
             code: "<App foo bar baz />;",
             // output: "<App foo={true} bar={true} baz />;",
-            options: ["never", { always: ["foo", "bar"] }],
+            options: [
+                {
+                    rule: "never",
+                    excepts: ["foo", "bar"],
+                },
+            ],
             errors: [
                 {
                     messageId: "setBoolean",
