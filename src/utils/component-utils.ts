@@ -10,6 +10,10 @@ const getCreateClass = memo(getCreateClassFromContext);
 
 const getPragma = memo(getFromContext);
 
+/**
+ * @package
+ * @deprecated Do not use this function. It will be removed in the future.
+ */
 export function isES5Component(node: TSESTree.Node, context: TSESLint.RuleContext<string, unknown[]>): boolean {
     const maybeReact = getPragma(context);
     const maybeCreateClass = getCreateClass(context);
@@ -40,7 +44,10 @@ export function isES5Component(node: TSESTree.Node, context: TSESLint.RuleContex
         .otherwise(F.constFalse);
 }
 
-// eslint-disable-next-line filenames-simple/named-export
+/**
+ * @package
+ * @deprecated Do not use this function. It will be removed in the future.
+ */
 export function isES6Component(node: TSESTree.Node, context: TSESLint.RuleContext<string, unknown[]>): boolean {
     if (!("superClass" in node) || !node.superClass) {
         return false;
@@ -69,6 +76,10 @@ export function isES6Component(node: TSESTree.Node, context: TSESLint.RuleContex
         .otherwise(() => false);
 }
 
+/**
+ * @package
+ * @deprecated Do not use this function. It will be removed in the future.
+ */
 export function getParentES6Component(context: TSESLint.RuleContext<string, unknown[]>) {
     let scope: Scope | null = context.getScope();
 
@@ -85,6 +96,10 @@ export function getParentES6Component(context: TSESLint.RuleContext<string, unkn
     return node;
 }
 
+/**
+ * @package
+ * @deprecated Do not use this function. It will be removed in the future.
+ */
 export function isPureComponent(node: TSESTree.Node, context: TSESLint.RuleContext<string, unknown[]>): boolean {
     const pragma = getPragma(context);
 
@@ -99,6 +114,10 @@ export function isPureComponent(node: TSESTree.Node, context: TSESLint.RuleConte
     return false;
 }
 
+/**
+ * @package
+ * @deprecated Do not use this function. It will be removed in the future.
+ */
 export const isStateMemberExpression: (node: TSESTree.Node) => boolean = isMatching({
     type: AST_NODE_TYPES.MemberExpression,
     object: { type: AST_NODE_TYPES.ThisExpression },
