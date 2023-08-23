@@ -28,7 +28,7 @@ type Options = [("never" | "always")?, { always?: string[]; never?: string[] }?]
 
 ### Default Option
 
-```js
+```json
 "react-ts/jsx-boolean-value": ["error", "never"]
 ```
 

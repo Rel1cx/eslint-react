@@ -105,5 +105,6 @@ This project uses code from following third-party projects:
 - eslint-plugin-react (MIT)
 - eslint-plugin-solid (MIT)
 - @tanstack/eslint-plugin-query (MIT)
+- eslint-plugin-filenames-simple (MIT)
 
 Licenses are list in [THIRD-PARTY-LICENSE](THIRD-PARTY-LICENSE)

@@ -8,5 +8,5 @@
         "esModuleInterop": true,
         "experimentalDecorators": true
     },
-    "include": ["file.ts", "react.tsx"]
+    "include": ["**/*.ts", "**/*.tsx"]
 }
