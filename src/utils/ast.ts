@@ -1,5 +1,5 @@
 import type TSESLintScopeManager from "@typescript-eslint/scope-manager";
-import { ASTUtils as TSESASTUtils, TSESLint, TSESTree } from "@typescript-eslint/utils";
+import { ASTUtils, TSESLint, TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 
@@ -10,23 +10,23 @@ type IsHelper<NodeType extends AST_NODE_TYPES> = (node: TSESTree.Node | null | u
     type: NodeType;
 };
 
-const isIdentifier: IsHelper<AST_NODE_TYPES.Identifier> = TSESASTUtils.isIdentifier;
+const isIdentifier: IsHelper<AST_NODE_TYPES.Identifier> = ASTUtils.isIdentifier;
 
-const isLiteral: IsHelper<AST_NODE_TYPES.Literal> = TSESASTUtils.isNodeOfType(AST_NODE_TYPES.Literal);
+const isLiteral: IsHelper<AST_NODE_TYPES.Literal> = ASTUtils.isNodeOfType(AST_NODE_TYPES.Literal);
 
-const isObjectExpression: IsHelper<AST_NODE_TYPES.ObjectExpression> = TSESASTUtils.isNodeOfType(
+const isObjectExpression: IsHelper<AST_NODE_TYPES.ObjectExpression> = ASTUtils.isNodeOfType(
     AST_NODE_TYPES.ObjectExpression,
 );
 
-const isProperty: IsHelper<AST_NODE_TYPES.Property> = TSESASTUtils.isNodeOfType(AST_NODE_TYPES.Property);
+const isProperty: IsHelper<AST_NODE_TYPES.Property> = ASTUtils.isNodeOfType(AST_NODE_TYPES.Property);
 
-export const ASTUtils = {
-    ...TSESASTUtils,
+export const AST = {
+    ...ASTUtils,
     findPropertyWithIdentifierKey(
         properties: TSESTree.ObjectLiteralElement[],
         key: string,
     ): TSESTree.Property | undefined {
-        return properties.find((x) => ASTUtils.isPropertyWithIdentifierKey(x, key)) as TSESTree.Property | undefined;
+        return properties.find((x) => AST.isPropertyWithIdentifierKey(x, key)) as TSESTree.Property | undefined;
     },
     getExternalRefs(params: {
         node: TSESTree.Node;
@@ -43,7 +43,7 @@ export const ASTUtils = {
         const references = scope.references
             .filter((x) => x.isRead() && !scope.set.has(x.identifier.name))
             .map((x) => {
-                const referenceNode = ASTUtils.traverseUpOnly(x.identifier, [
+                const referenceNode = AST.traverseUpOnly(x.identifier, [
                     AST_NODE_TYPES.MemberExpression,
                     AST_NODE_TYPES.Identifier,
                 ]);
@@ -63,14 +63,14 @@ export const ASTUtils = {
     },
     getFunctionAncestor(context: Readonly<RuleContext<string, readonly unknown[]>>) {
         return context.getAncestors().find((x) => {
-            if (ASTUtils.isNodeOfType(AST_NODE_TYPES.FunctionDeclaration)(x)) {
+            if (AST.isNodeOfType(AST_NODE_TYPES.FunctionDeclaration)(x)) {
                 return true;
             }
 
             return (
-                ASTUtils.isNodeOfType(AST_NODE_TYPES.VariableDeclarator)(x.parent) &&
-                ASTUtils.isNodeOfType(AST_NODE_TYPES.Identifier)(x.parent.id) &&
-                ASTUtils.isNodeOfOneOf(x, [
+                AST.isNodeOfType(AST_NODE_TYPES.VariableDeclarator)(x.parent) &&
+                AST.isNodeOfType(AST_NODE_TYPES.Identifier)(x.parent.id) &&
+                AST.isNodeOfOneOf(x, [
                     AST_NODE_TYPES.FunctionDeclaration,
                     AST_NODE_TYPES.FunctionExpression,
                     AST_NODE_TYPES.ArrowFunctionExpression,
@@ -81,58 +81,58 @@ export const ASTUtils = {
     getNestedIdentifiers(node: TSESTree.Node): TSESTree.Identifier[] {
         const identifiers: TSESTree.Identifier[] = [];
 
-        if (ASTUtils.isIdentifier(node)) {
+        if (AST.isIdentifier(node)) {
             identifiers.push(node);
         }
 
         if ("arguments" in node) {
             for (const arg of node.arguments) {
-                identifiers.push(...ASTUtils.getNestedIdentifiers(arg));
+                identifiers.push(...AST.getNestedIdentifiers(arg));
             }
         }
 
         if ("elements" in node) {
             for (const element of node.elements) {
                 if (!I.isNullable(element)) {
-                    identifiers.push(...ASTUtils.getNestedIdentifiers(element));
+                    identifiers.push(...AST.getNestedIdentifiers(element));
                 }
             }
         }
 
         if ("properties" in node) {
             for (const property of node.properties) {
-                identifiers.push(...ASTUtils.getNestedIdentifiers(property));
+                identifiers.push(...AST.getNestedIdentifiers(property));
             }
         }
 
         if ("expressions" in node) {
             for (const expression of node.expressions) {
-                identifiers.push(...ASTUtils.getNestedIdentifiers(expression));
+                identifiers.push(...AST.getNestedIdentifiers(expression));
             }
         }
 
-        if (ASTUtils.isProperty(node)) {
-            identifiers.push(...ASTUtils.getNestedIdentifiers(node.value));
+        if (AST.isProperty(node)) {
+            identifiers.push(...AST.getNestedIdentifiers(node.value));
         }
 
-        if (ASTUtils.isNodeOfType(AST_NODE_TYPES.SpreadElement)(node)) {
-            identifiers.push(...ASTUtils.getNestedIdentifiers(node.argument));
+        if (AST.isNodeOfType(AST_NODE_TYPES.SpreadElement)(node)) {
+            identifiers.push(...AST.getNestedIdentifiers(node.argument));
         }
 
-        if (ASTUtils.isNodeOfType(AST_NODE_TYPES.MemberExpression)(node)) {
-            identifiers.push(...ASTUtils.getNestedIdentifiers(node.object));
+        if (AST.isNodeOfType(AST_NODE_TYPES.MemberExpression)(node)) {
+            identifiers.push(...AST.getNestedIdentifiers(node.object));
         }
 
-        if (ASTUtils.isNodeOfType(AST_NODE_TYPES.UnaryExpression)(node)) {
-            identifiers.push(...ASTUtils.getNestedIdentifiers(node.argument));
+        if (AST.isNodeOfType(AST_NODE_TYPES.UnaryExpression)(node)) {
+            identifiers.push(...AST.getNestedIdentifiers(node.argument));
         }
 
-        if (ASTUtils.isNodeOfType(AST_NODE_TYPES.ChainExpression)(node)) {
-            identifiers.push(...ASTUtils.getNestedIdentifiers(node.expression));
+        if (AST.isNodeOfType(AST_NODE_TYPES.ChainExpression)(node)) {
+            identifiers.push(...AST.getNestedIdentifiers(node.expression));
         }
 
-        if (ASTUtils.isNodeOfType(AST_NODE_TYPES.TSNonNullExpression)(node)) {
-            identifiers.push(...ASTUtils.getNestedIdentifiers(node.expression));
+        if (AST.isNodeOfType(AST_NODE_TYPES.TSNonNullExpression)(node)) {
+            identifiers.push(...AST.getNestedIdentifiers(node.expression));
         }
 
         return identifiers;
@@ -140,7 +140,7 @@ export const ASTUtils = {
     getNestedReturnStatements(node: TSESTree.Node): TSESTree.ReturnStatement[] {
         const returnStatements: TSESTree.ReturnStatement[] = [];
 
-        if (ASTUtils.isNodeOfType(AST_NODE_TYPES.ReturnStatement)(node)) {
+        if (AST.isNodeOfType(AST_NODE_TYPES.ReturnStatement)(node)) {
             returnStatements.push(node);
         }
 
@@ -148,53 +148,53 @@ export const ASTUtils = {
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             Array.isArray(node.body)
                 ? node.body.forEach((x) => {
-                      returnStatements.push(...ASTUtils.getNestedReturnStatements(x));
+                      returnStatements.push(...AST.getNestedReturnStatements(x));
                   })
-                : returnStatements.push(...ASTUtils.getNestedReturnStatements(node.body));
+                : returnStatements.push(...AST.getNestedReturnStatements(node.body));
         }
 
         if ("consequent" in node) {
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             Array.isArray(node.consequent)
                 ? node.consequent.forEach((x) => {
-                      returnStatements.push(...ASTUtils.getNestedReturnStatements(x));
+                      returnStatements.push(...AST.getNestedReturnStatements(x));
                   })
-                : returnStatements.push(...ASTUtils.getNestedReturnStatements(node.consequent));
+                : returnStatements.push(...AST.getNestedReturnStatements(node.consequent));
         }
 
         if ("alternate" in node && !I.isNullable(node.alternate)) {
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             Array.isArray(node.alternate)
                 ? node.alternate.forEach((x: TSESTree.Node) => {
-                      returnStatements.push(...ASTUtils.getNestedReturnStatements(x));
+                      returnStatements.push(...AST.getNestedReturnStatements(x));
                   })
-                : returnStatements.push(...ASTUtils.getNestedReturnStatements(node.alternate));
+                : returnStatements.push(...AST.getNestedReturnStatements(node.alternate));
         }
 
         if ("cases" in node) {
             for (const x of node.cases) {
-                returnStatements.push(...ASTUtils.getNestedReturnStatements(x));
+                returnStatements.push(...AST.getNestedReturnStatements(x));
             }
         }
 
         if ("block" in node) {
-            returnStatements.push(...ASTUtils.getNestedReturnStatements(node.block));
+            returnStatements.push(...AST.getNestedReturnStatements(node.block));
         }
 
         if ("handler" in node && !I.isNullable(node.handler)) {
-            returnStatements.push(...ASTUtils.getNestedReturnStatements(node.handler));
+            returnStatements.push(...AST.getNestedReturnStatements(node.handler));
         }
 
         if ("finalizer" in node && !I.isNullable(node.finalizer)) {
-            returnStatements.push(...ASTUtils.getNestedReturnStatements(node.finalizer));
+            returnStatements.push(...AST.getNestedReturnStatements(node.finalizer));
         }
 
         if ("expression" in node && node.expression !== true && node.expression !== false) {
-            returnStatements.push(...ASTUtils.getNestedReturnStatements(node.expression));
+            returnStatements.push(...AST.getNestedReturnStatements(node.expression));
         }
 
         if ("test" in node && !I.isNullable(node.test)) {
-            returnStatements.push(...ASTUtils.getNestedReturnStatements(node.test));
+            returnStatements.push(...AST.getNestedReturnStatements(node.test));
         }
 
         return returnStatements;
@@ -208,7 +208,7 @@ export const ASTUtils = {
         const resolvedNode = context.getScope().references.find((ref) => ref.identifier === node)?.resolved?.defs[0]
             ?.node;
 
-        if (!ASTUtils.isNodeOfType(AST_NODE_TYPES.VariableDeclarator)(resolvedNode)) {
+        if (!AST.isNodeOfType(AST_NODE_TYPES.VariableDeclarator)(resolvedNode)) {
             return null;
         }
 
@@ -230,13 +230,13 @@ export const ASTUtils = {
     },
     isIdentifier,
     isIdentifierWithName(node: TSESTree.Node, name: string): node is TSESTree.Identifier {
-        return ASTUtils.isIdentifier(node) && node.name === name;
+        return AST.isIdentifier(node) && node.name === name;
     },
     isIdentifierWithOneOfNames<T extends string[]>(
         node: TSESTree.Node,
         name: T,
     ): node is TSESTree.Identifier & { name: T[number] } {
-        return ASTUtils.isIdentifier(node) && name.includes(node.name);
+        return AST.isIdentifier(node) && name.includes(node.name);
     },
     isLiteral,
     isNodeOfOneOf<T extends AST_NODE_TYPES>(
@@ -248,7 +248,7 @@ export const ASTUtils = {
     isObjectExpression,
     isProperty,
     isPropertyWithIdentifierKey(node: TSESTree.Node, key: string): node is TSESTree.Property {
-        return ASTUtils.isProperty(node) && ASTUtils.isIdentifierWithName(node.key, key);
+        return AST.isProperty(node) && AST.isIdentifierWithName(node.key, key);
     },
     isStringLiteral(node: TSESTree.Node | null | undefined): node is TSESTree.StringLiteral {
         return isLiteral(node) && typeof node.value === "string";
@@ -262,14 +262,14 @@ export const ASTUtils = {
     },
     mapKeyNodeToText(node: TSESTree.Node, sourceCode: Readonly<TSESLint.SourceCode>) {
         return sourceCode.getText(
-            ASTUtils.traverseUpOnly(node, [AST_NODE_TYPES.MemberExpression, AST_NODE_TYPES.Identifier]),
+            AST.traverseUpOnly(node, [AST_NODE_TYPES.MemberExpression, AST_NODE_TYPES.Identifier]),
         );
     },
     traverseUpOnly(identifier: TSESTree.Node, allowedNodeTypes: AST_NODE_TYPES[]): TSESTree.Node {
         const parent = identifier.parent;
 
         if (parent !== undefined && allowedNodeTypes.includes(parent.type)) {
-            return ASTUtils.traverseUpOnly(parent, allowedNodeTypes);
+            return AST.traverseUpOnly(parent, allowedNodeTypes);
         }
 
         return identifier;

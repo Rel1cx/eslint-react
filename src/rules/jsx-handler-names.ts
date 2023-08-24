@@ -5,7 +5,7 @@ import type { ReadonlyDeep } from "type-fest";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import { O } from "../lib/primitives/data";
-import { ASTUtils } from "../utils/ast-utils";
+import { AST } from "../utils/ast";
 import * as JSXUtils from "../utils/jsx";
 
 type MessageIds = "badHandlerName" | "badPropKey";
@@ -123,7 +123,7 @@ export default createEslintRule<Options, MessageIds>({
 
                 const { expression } = node.value;
 
-                const isInlineFunction = ASTUtils.isNodeOfType(AST_NODE_TYPES.ArrowFunctionExpression)(expression);
+                const isInlineFunction = AST.isNodeOfType(AST_NODE_TYPES.ArrowFunctionExpression)(expression);
 
                 // Early return when not checking inline functions but the expression is an inline function.
                 if (!checkInlineFunction && isInlineFunction) {

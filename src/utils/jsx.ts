@@ -2,16 +2,16 @@ import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/utils";
 import { match } from "ts-pattern";
 
 import { I } from "../lib/primitives/data";
-import { ASTUtils } from "./ast-utils";
+import { AST } from "./ast";
 
 type HasPropOptions = {
     ignoreCase?: boolean;
     spreadStrict?: boolean;
 };
 
-export const isJSXElement = ASTUtils.isNodeOfType(AST_NODE_TYPES.JSXElement);
+export const isJSXElement = AST.isNodeOfType(AST_NODE_TYPES.JSXElement);
 
-export const isJSXFragment = ASTUtils.isNodeOfType(AST_NODE_TYPES.JSXFragment);
+export const isJSXFragment = AST.isNodeOfType(AST_NODE_TYPES.JSXFragment);
 
 export function hasChildren(node: TSESTree.JSXElement | TSESTree.JSXFragment): boolean {
     return node.children.length > 0;
@@ -36,7 +36,7 @@ export default function hasProp(
                 return false;
             }
 
-            if (ASTUtils.isNodeOfType(AST_NODE_TYPES.JSXSpreadAttribute)(attribute)) {
+            if (AST.isNodeOfType(AST_NODE_TYPES.JSXSpreadAttribute)(attribute)) {
                 return !spreadStrict;
             }
 
