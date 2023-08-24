@@ -9,9 +9,9 @@ type HasPropOptions = {
     spreadStrict?: boolean;
 };
 
-export const isJSXElement = AST.isNodeOfType(AST_NODE_TYPES.JSXElement);
+export const isJSXElement = AST.is(AST_NODE_TYPES.JSXElement);
 
-export const isJSXFragment = AST.isNodeOfType(AST_NODE_TYPES.JSXFragment);
+export const isJSXFragment = AST.is(AST_NODE_TYPES.JSXFragment);
 
 export function hasChildren(node: TSESTree.JSXElement | TSESTree.JSXFragment): boolean {
     return node.children.length > 0;
@@ -36,7 +36,7 @@ export default function hasProp(
                 return false;
             }
 
-            if (AST.isNodeOfType(AST_NODE_TYPES.JSXSpreadAttribute)(attribute)) {
+            if (AST.is(AST_NODE_TYPES.JSXSpreadAttribute)(attribute)) {
                 return !spreadStrict;
             }
 

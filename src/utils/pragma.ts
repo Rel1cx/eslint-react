@@ -7,7 +7,6 @@ import { E, F, O } from "../lib/primitives/data";
  * Thank you for your work!
  */
 
-// eslint-disable-next-line regexp/prefer-named-capture-group
 const JSX_ANNOTATION_REGEX = /@jsx\s+(\S+)/u;
 // Does not check for reserved keywords or unicode characters
 const JS_IDENTIFIER_REGEX = /^[$A-Z_a-z][\w$]*$/u;

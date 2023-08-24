@@ -24,9 +24,9 @@ export type PossibleFunctionalComponent = FunctionNode & {};
 
 export const isPossibleFunctionalComponent = (exp: TSESTree.Node): exp is PossibleFunctionalComponent => {
     return match(exp)
-        .when(AST.isNodeOfType(AST_NODE_TYPES.ArrowFunctionExpression), F.constTrue)
-        .when(AST.isNodeOfType(AST_NODE_TYPES.CallExpression), (exp) => {
-            if (AST.isNodeOfType(AST_NODE_TYPES.Identifier)(exp.callee)) {
+        .when(AST.is(AST_NODE_TYPES.ArrowFunctionExpression), F.constTrue)
+        .when(AST.is(AST_NODE_TYPES.CallExpression), (exp) => {
+            if (AST.is(AST_NODE_TYPES.Identifier)(exp.callee)) {
                 return ["forwardRef", "memo"].includes(exp.callee.name);
             }
             return false;
@@ -47,9 +47,9 @@ export function make<Ctx extends RuleContext<string, unknown[]>>(_: Ctx) {
     const onFunctionExit = (node: FunctionNode) => {
         if (
             // eslint-disable-next-line regexp/prefer-regexp-exec
-            (AST.isNodeOfType(AST_NODE_TYPES.FunctionDeclaration)(node) && node.id?.name.match(/^[a-z]/u)) ||
+            (AST.is(AST_NODE_TYPES.FunctionDeclaration)(node) && node.id?.name.match(/^[a-z]/u)) ||
             // "render props" aren't components
-            AST.isNodeOfType(AST_NODE_TYPES.JSXExpressionContainer)(node.parent)
+            AST.is(AST_NODE_TYPES.JSXExpressionContainer)(node.parent)
         ) {
             const currentFn = currentFunction();
             invariant(currentFn, "Unexpected empty function stack");

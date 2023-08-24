@@ -123,7 +123,7 @@ export default createEslintRule<Options, MessageIds>({
 
                 const { expression } = node.value;
 
-                const isInlineFunction = AST.isNodeOfType(AST_NODE_TYPES.ArrowFunctionExpression)(expression);
+                const isInlineFunction = AST.is(AST_NODE_TYPES.ArrowFunctionExpression)(expression);
 
                 // Early return when not checking inline functions but the expression is an inline function.
                 if (!checkInlineFunction && isInlineFunction) {
