@@ -1,6 +1,5 @@
-import path from "node:path";
-
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
+import path from "pathe";
 import { match } from "ts-pattern";
 import type { ReadonlyDeep } from "type-fest";
 

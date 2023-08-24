@@ -60,12 +60,11 @@
         "@typescript-eslint/scope-manager": "6.4.1",
         "@typescript-eslint/type-utils": "6.4.1",
         "@typescript-eslint/utils": "6.4.1",
-        "micro-memoize": "4.1.2",
         "ts-pattern": "5.0.5"
     },
     "devDependencies": {
         "@tsconfig/strictest": "2.0.1",
-        "@types/node": "20.5.3",
+        "@types/node": "20.5.4",
         "@typescript-eslint/eslint-plugin": "6.4.1",
         "@typescript-eslint/rule-tester": "6.4.1",
         "cspell": "7.0.1",
@@ -74,7 +73,6 @@
         "eslint-plugin-eslint-plugin": "5.1.1",
         "eslint-plugin-filenames-simple": "0.8.0",
         "eslint-plugin-import-access": "2.1.1",
-        "eslint-plugin-n": "16.0.2",
         "eslint-plugin-perfectionist": "1.5.1",
         "eslint-plugin-regexp": "1.15.0",
         "eslint-plugin-security": "1.7.1",
@@ -82,6 +80,8 @@
         "esno": "0.17.0",
         "fast-glob": "3.3.1",
         "husky": "8.0.3",
+        "micro-memoize": "4.1.2",
+        "pathe": "1.1.1",
         "prettier-plugin-curly": "0.1.2",
         "prettier-plugin-organize-attributes": "1.0.0",
         "prettier-plugin-packagejson": "2.4.5",
@@ -108,7 +108,7 @@
     },
     "pnpm": {
         "overrides": {
-            "typescript": "5.1.6"
+            "typescript": "latest"
         }
     }
 }

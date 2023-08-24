@@ -13,7 +13,7 @@ export default defineConfig(() => ({
     ],
     format: ["cjs", "esm"],
     minify: false,
-    noExternal: ["tiny-invariant"],
+    noExternal: ["pathe", "tiny-invariant", "micro-memoize"],
     outDir: "dist",
     platform: "node",
     replaceNodeEnv: false,
