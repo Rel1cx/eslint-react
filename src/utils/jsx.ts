@@ -4,11 +4,6 @@ import { match } from "ts-pattern";
 import { I } from "../lib/primitives/data";
 import { AST } from "./ast";
 
-type HasPropOptions = {
-    ignoreCase?: boolean;
-    spreadStrict?: boolean;
-};
-
 export const isJSXElement = AST.is(AST_NODE_TYPES.JSXElement);
 
 export const isJSXFragment = AST.is(AST_NODE_TYPES.JSXFragment);
@@ -24,9 +19,14 @@ export function getPropName(node: TSESTree.JSXAttribute) {
         .exhaustive();
 }
 
-export default function hasProp(
+type PropCheckingOptions = {
+    ignoreCase?: boolean;
+    spreadStrict?: boolean;
+};
+
+export function hasProp(
     nodeProps: TSESTree.JSXAttribute[],
-    { ignoreCase = false, spreadStrict = true }: HasPropOptions = {},
+    { ignoreCase = false, spreadStrict = true }: PropCheckingOptions,
 ) {
     return (prop: string) => {
         const propToCheck = ignoreCase ? prop.toUpperCase() : prop;
@@ -51,18 +51,10 @@ export default function hasProp(
     };
 }
 
-export function hasAnyProp(nodeProps: TSESTree.JSXAttribute[] = [], options: HasPropOptions = {}) {
-    return (props: string | string[]) => {
-        const propsToCheck = I.isString(props) ? props.split(" ") : props;
-
-        return propsToCheck.some(hasProp(nodeProps, options));
-    };
+export function hasAnyProp(nodeProps: TSESTree.JSXAttribute[] = [], options: PropCheckingOptions) {
+    return (props: string[]) => props.some(hasProp(nodeProps, options));
 }
 
-export function hasEveryProp(nodeProps: TSESTree.JSXAttribute[] = [], options: HasPropOptions = {}) {
-    return (props: string | string[]) => {
-        const propsToCheck = I.isString(props) ? props.split(" ") : props;
-
-        return propsToCheck.every(hasProp(nodeProps, options));
-    };
+export function hasEveryProp(nodeProps: TSESTree.JSXAttribute[] = [], options: PropCheckingOptions) {
+    return (props: string[]) => props.every(hasProp(nodeProps, options));
 }
