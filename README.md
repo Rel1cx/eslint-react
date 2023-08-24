@@ -93,6 +93,7 @@ export default [
 - [ ] react-ts/no-string-refs
 - [ ] react-ts/no-unescaped-entities
 - [ ] react-ts/no-unsafe
+- [ ] react-ts/no-unstable-nested-components
 - [ ] react-ts/react-in-jsx-scope
 - [ ] react-ts/require-render-return
 - [ ] ...

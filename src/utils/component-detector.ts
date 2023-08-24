@@ -40,10 +40,11 @@ export function make<Ctx extends RuleContext<string, unknown[]>>(_: Ctx) {
 
     const ruleListener: RuleListener = {
         ArrowFunctionExpression: onFunctionEnter,
-        "ArrowFunctionExpression:exit": onFunctionExit,
         FunctionDeclaration: onFunctionEnter,
-        "FunctionDeclaration:exit": onFunctionExit,
         FunctionExpression: onFunctionEnter,
+        // eslint-disable-next-line perfectionist/sort-objects
+        "ArrowFunctionExpression:exit": onFunctionExit,
+        "FunctionDeclaration:exit": onFunctionExit,
         "FunctionExpression:exit": onFunctionExit,
         JSXElement() {
             if (!MutList.isEmpty(functionStack)) {

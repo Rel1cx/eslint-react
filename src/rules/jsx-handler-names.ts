@@ -6,7 +6,7 @@ import type { ReadonlyDeep } from "type-fest";
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import { O } from "../lib/primitives/data";
 import { ASTUtils } from "../utils/ast-utils";
-import * as JSXUtils from "../utils/jsx-utils";
+import * as JSXUtils from "../utils/jsx";
 
 type MessageIds = "badHandlerName" | "badPropKey";
 

@@ -4,7 +4,7 @@ import memo from "micro-memoize";
 import { isMatching, match, P } from "ts-pattern";
 
 import { E, F } from "../lib/primitives/data";
-import { getCreateClassFromContext, getFromContext } from "./pragma-utils";
+import { getCreateClassFromContext, getFromContext } from "./pragma";
 
 const getCreateClass = memo(getCreateClassFromContext);
 
