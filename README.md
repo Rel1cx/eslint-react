@@ -63,12 +63,12 @@ export default [
 
 <!-- begin auto-generated rules list -->
 
-| Name                                                                                                                              | Description                                                                      |
-| :-------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------- |
-| [jsx-boolean-value](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/rules/jsx-boolean-value)                           | enforce boolean attributes notation in JSX                                       |
-| [jsx-filename-naming-convention](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/rules/jsx-filename-naming-convention) | enforce naming convention for jsx files                                          |
-| [jsx-filename-no-misuse-jsx](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/rules/jsx-filename-no-misuse-jsx)         | enforce using `.ts` instead of `.tsx` extension when there is no JSX in the file |
-| [jsx-handler-names](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/rules/jsx-handler-names)                           | enforce event handler naming conventions in JSX                                  |
+| Name                                                                            | Description                                                                      |
+| :------------------------------------------------------------------------------ | :------------------------------------------------------------------------------- |
+| [jsx-boolean-value](/docs/rules/jsx-boolean-value.md)                           | enforce boolean attributes notation in JSX                                       |
+| [jsx-filename-naming-convention](/docs/rules/jsx-filename-naming-convention.md) | enforce naming convention for jsx files                                          |
+| [jsx-filename-no-misuse-jsx](/docs/rules/jsx-filename-no-misuse-jsx.md)         | enforce using `.ts` instead of `.tsx` extension when there is no JSX in the file |
+| [jsx-handler-names](/docs/rules/jsx-handler-names.md)                           | enforce event handler naming conventions in JSX                                  |
 
 <!-- end auto-generated rules list -->
 

@@ -2,8 +2,8 @@
     "extends": "@tsconfig/strictest/tsconfig.json",
     "compilerOptions": {
         "module": "ESNext",
-        "target": "ES2021",
-        "lib": ["ES2021"],
+        "target": "ES2022",
+        "lib": ["ES2022", "ESNext"],
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "moduleResolution": "Node",
