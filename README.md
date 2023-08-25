@@ -65,12 +65,12 @@ export default [
 - [ ] react-ts/no-constructed-context-value
 - [ ] react-ts/no-danger-with-children
 - [ ] react-ts/no-deprecated
+- [ ] react-ts/no-leaked-jsx-conditional-rendering
 - [ ] react-ts/no-misused-comment-in-textnode
 - [x] react-ts/no-misused-jsx-extension
 - [ ] react-ts/no-string-refs
 - [ ] react-ts/no-unescaped-entities
-- [ ] react-ts/no-unsafe-jsx-conditional-rendering
-- [ ] react-ts/no-unstable-default-prop
+- [ ] react-ts/no-unstable-default-props
 - [ ] react-ts/no-unstable-nested-components
 - [x] react-ts/prefer-shorthand-jsx-boolean
 - [ ] react-ts/require-jsx-key
