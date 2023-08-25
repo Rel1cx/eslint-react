@@ -57,6 +57,7 @@
     },
     "dependencies": {
         "@effect/data": "0.17.6",
+        "@eslint-community/eslint-utils": "4.4.0",
         "@typescript-eslint/scope-manager": "6.4.1",
         "@typescript-eslint/type-utils": "6.4.1",
         "@typescript-eslint/utils": "6.4.1",
@@ -92,7 +93,7 @@
         "ts-essentials": "9.3.2",
         "tsup": "7.2.0",
         "typescript": "5.2.2",
-        "vitest": "0.34.2",
+        "vitest": "0.34.3",
         "zx": "7.2.3"
     },
     "peerDependencies": {

@@ -49,6 +49,7 @@
         "unicorn/no-null": "off",
         "unicorn/no-array-reduce": "off",
         "unicorn/prefer-top-level-await": "off",
+
         "unicorn/no-array-callback-reference": "off",
         "eslint-plugin/require-meta-docs-url": "off",
         "perfectionist/sort-objects": [
