@@ -9,6 +9,17 @@
         "pnpm-lock.yaml",
         "THIRD-PARTY-LICENSE"
     ],
-    "ignoreWords": ["tsup", "treeshake", "TSES", "TSESAST", "textnodes", "tanstack", "quasis", "pathe"],
+    "ignoreWords": [
+        "tsup",
+        "treeshake",
+        "TSES",
+        "TSESAST",
+        "textnode",
+        "textnodes",
+        "tanstack",
+        "quasis",
+        "pathe",
+        "weakref"
+    ],
     "useGitignore": true
 }

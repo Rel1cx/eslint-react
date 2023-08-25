@@ -1,20 +1,20 @@
 import { name } from "../package.json";
-import jsxBooleanValue from "./rules/jsx-boolean-value";
-import jsxFilenameNamingConvention from "./rules/jsx-filename-naming-convention";
-import jsxFilenameNoMisuseJsx from "./rules/jsx-filename-no-misuse-jsx";
-import jsxHandlerNames from "./rules/jsx-handler-names";
+import consistentJsxFilenames from "./rules/consistent-jsx-filenames";
+import consistentJsxHandlerNames from "./rules/consistent-jsx-handler-names";
+import noMisusedJsxExtension from "./rules/no-misused-jsx-extension";
+import preferShorthandJsxBoolean from "./rules/prefer-shorthand-jsx-boolean";
 
 type RuleSeverity = "error" | "off" | "warn";
 
-type RuleDeclaration = [RuleSeverity, { [key: string]: unknown }?];
+type RuleDeclaration = [RuleSeverity, { [key: string]: unknown }?] | RuleSeverity;
 
 const recommendedRules: {
     [key: string]: RuleDeclaration;
 } = {
-    "jsx-boolean-value": ["error"],
-    "jsx-filename-naming-convention": ["error"],
-    "jsx-filename-no-misuse-jsx": ["error"],
-    "jsx-handler-names": ["error"],
+    "consistent-jsx-filenames": "error",
+    "consistent-jsx-handler-names": "error",
+    "no-misused-jsx-extension": "warn",
+    "prefer-shorthand-jsx-boolean": "warn",
 };
 
 const createConfig = (rules = recommendedRules) => {
@@ -32,9 +32,9 @@ export default {
         "recommended-type-checked": createConfig(),
     },
     rules: {
-        "jsx-boolean-value": jsxBooleanValue,
-        "jsx-filename-naming-convention": jsxFilenameNamingConvention,
-        "jsx-filename-no-misuse-jsx": jsxFilenameNoMisuseJsx,
-        "jsx-handler-names": jsxHandlerNames,
+        "consistent-jsx-filenames": consistentJsxFilenames,
+        "consistent-jsx-handler-names": consistentJsxHandlerNames,
+        "no-misused-jsx-extension": noMisusedJsxExtension,
+        "prefer-shorthand-jsx-boolean": preferShorthandJsxBoolean,
     },
 };

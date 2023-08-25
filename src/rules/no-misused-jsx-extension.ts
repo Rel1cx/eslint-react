@@ -1,17 +1,19 @@
 import type { TSESTree } from "@typescript-eslint/utils";
-import type { ReadonlyDeep } from "type-fest";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
+import type { RuleName } from "../../typings";
 import { O } from "../lib/primitives/data";
 
-type MessageIds = "misuseOfJsxExtension";
+const RULE_NAME: RuleName = "no-misused-jsx-extension";
 
-type Options = ReadonlyDeep<[]>;
+type MessageIds = "MISUSED_JSX_EXTENSION";
+
+type Options = readonly [];
 
 const defaultOptions = [] as const satisfies Options;
 
 export default createEslintRule<Options, MessageIds>({
-    name: "jsx-filename-no-misuse-jsx",
+    name: RULE_NAME,
     meta: {
         type: "suggestion",
         docs: {
@@ -20,7 +22,7 @@ export default createEslintRule<Options, MessageIds>({
         },
         schema: [],
         messages: {
-            misuseOfJsxExtension: "Potential misuse of the `.tsx` extension. Use `.ts` instead.",
+            MISUSED_JSX_EXTENSION: "Potential misuse of the `.tsx` extension. Use `.ts` instead.",
         },
     },
     create(context) {
@@ -42,7 +44,7 @@ export default createEslintRule<Options, MessageIds>({
 
                 if (fileNameExt === ".tsx" && O.isNone(jsxNodeRef.current)) {
                     return context.report({
-                        messageId: "misuseOfJsxExtension",
+                        messageId: "MISUSED_JSX_EXTENSION",
                         node,
                     });
                 }

@@ -1,5 +1,5 @@
 import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
-import rule from "./jsx-filename-naming-convention";
+import rule from "./consistent-jsx-filenames";
 
 const rootDir = getFixturesRootDir();
 
@@ -53,7 +53,7 @@ ruleTester.run(RULE_NAME, rule, {
             code,
             errors: [
                 {
-                    messageId: "filenameCaseMismatchWithSuggestion",
+                    messageId: "FILENAME_CASE_MISMATCH_SUGGESTION",
                     data: {
                         name: "pascalCase.tsx",
                         rule: "PascalCase",
@@ -68,7 +68,7 @@ ruleTester.run(RULE_NAME, rule, {
             options: [{ rule: "PascalCase" }],
             errors: [
                 {
-                    messageId: "filenameCaseMismatchWithSuggestion",
+                    messageId: "FILENAME_CASE_MISMATCH_SUGGESTION",
                     data: {
                         name: "camelCase.tsx",
                         rule: "PascalCase",
@@ -83,7 +83,7 @@ ruleTester.run(RULE_NAME, rule, {
             options: [{ rule: "PascalCase" }],
             errors: [
                 {
-                    messageId: "filenameCaseMismatchWithSuggestion",
+                    messageId: "FILENAME_CASE_MISMATCH_SUGGESTION",
                     data: {
                         name: "kebab-case.tsx",
                         rule: "PascalCase",
@@ -98,7 +98,7 @@ ruleTester.run(RULE_NAME, rule, {
             options: [{ rule: "PascalCase" }],
             errors: [
                 {
-                    messageId: "filenameCaseMismatchWithSuggestion",
+                    messageId: "FILENAME_CASE_MISMATCH_SUGGESTION",
                     data: {
                         name: "snake_case.tsx",
                         rule: "PascalCase",
@@ -113,7 +113,7 @@ ruleTester.run(RULE_NAME, rule, {
             options: [{ rule: "camelCase" }],
             errors: [
                 {
-                    messageId: "filenameCaseMismatchWithSuggestion",
+                    messageId: "FILENAME_CASE_MISMATCH_SUGGESTION",
                     data: {
                         name: "PascalCase.tsx",
                         rule: "camelCase",
@@ -128,7 +128,7 @@ ruleTester.run(RULE_NAME, rule, {
             options: [{ rule: "camelCase" }],
             errors: [
                 {
-                    messageId: "filenameCaseMismatchWithSuggestion",
+                    messageId: "FILENAME_CASE_MISMATCH_SUGGESTION",
                     data: {
                         name: "kebab-case.tsx",
                         rule: "camelCase",
@@ -143,7 +143,7 @@ ruleTester.run(RULE_NAME, rule, {
             options: [{ rule: "camelCase" }],
             errors: [
                 {
-                    messageId: "filenameCaseMismatchWithSuggestion",
+                    messageId: "FILENAME_CASE_MISMATCH_SUGGESTION",
                     data: {
                         name: "snake_case.tsx",
                         rule: "camelCase",

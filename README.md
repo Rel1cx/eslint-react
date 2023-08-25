@@ -8,7 +8,6 @@ ESLint plugin to lint React TypeScript apps using the @typescript-eslint ecosyst
 
 ### Node.js
 
-- 16.x Maintenance
 - 18.x LTS Hydrogen
 - 20.x Current
 
@@ -37,7 +36,7 @@ pnpm add --save-dev eslint-plugin-react-ts
 {
   "plugins": ["react-ts"],
   "rules": {
-    "react-ts/jsx-boolean-value": "error"
+    "react-ts/prefer-shorthand-attribute": "error"
   }
 }
 ```
@@ -53,50 +52,42 @@ export default [
       reactTs,
     },
     rules: {
-      "react-ts/jsx-boolean-value": "error",
+      "react-ts/prefer-shorthand-attribute": "error",
     },
   },
 ];
 ```
 
-## Rules
+## Todo
+
+- [x] react-ts/consistent-jsx-filenames
+- [x] react-ts/consistent-jsx-handler-names
+- [ ] react-ts/no-constructed-context-value
+- [ ] react-ts/no-danger-with-children
+- [ ] react-ts/no-deprecated
+- [ ] react-ts/no-misused-comment-in-textnode
+- [x] react-ts/no-misused-jsx-extension
+- [ ] react-ts/no-string-refs
+- [ ] react-ts/no-unescaped-entities
+- [ ] react-ts/no-unsafe-jsx-conditional-rendering
+- [ ] react-ts/no-unstable-default-prop
+- [ ] react-ts/no-unstable-nested-components
+- [x] react-ts/prefer-shorthand-jsx-boolean
+- [ ] react-ts/require-jsx-key
+- [ ] ...
+
+## Implemented Rules
 
 <!-- begin auto-generated rules list -->
 
-| Name                                                                            | Description                                                                      |
-| :------------------------------------------------------------------------------ | :------------------------------------------------------------------------------- |
-| [jsx-boolean-value](/docs/rules/jsx-boolean-value.md)                           | enforce boolean attributes notation in JSX                                       |
-| [jsx-filename-naming-convention](/docs/rules/jsx-filename-naming-convention.md) | enforce naming convention for jsx files                                          |
-| [jsx-filename-no-misuse-jsx](/docs/rules/jsx-filename-no-misuse-jsx.md)         | enforce using `.ts` instead of `.tsx` extension when there is no JSX in the file |
-| [jsx-handler-names](/docs/rules/jsx-handler-names.md)                           | enforce event handler naming conventions in JSX                                  |
+| Name                                                                        | Description                                                                      |
+| :-------------------------------------------------------------------------- | :------------------------------------------------------------------------------- |
+| [consistent-jsx-filenames](/docs/rules/consistent-jsx-filenames.md)         | enforce naming convention for jsx files                                          |
+| [consistent-jsx-handler-names](/docs/rules/consistent-jsx-handler-names.md) | enforce event handler naming conventions in JSX                                  |
+| [no-misused-jsx-extension](/docs/rules/no-misused-jsx-extension.md)         | enforce using `.ts` instead of `.tsx` extension when there is no JSX in the file |
+| [prefer-shorthand-jsx-boolean](/docs/rules/prefer-shorthand-jsx-boolean.md) | enforce boolean attributes notation in JSX                                       |
 
 <!-- end auto-generated rules list -->
-
-## Todo
-
-- [x] react-ts/jsx-boolean-value
-- [x] react-ts/jsx-handler-names
-- [x] react-ts/jsx-filename-naming-convention
-- [x] react-ts/jsx-filename-no-misuse-jsx
-- [ ] react-ts/jsx-key
-- [ ] react-ts/jsx-no-comment-textnodes
-- [ ] react-ts/jsx-no-constructed-context-values
-- [ ] react-ts/jsx-no-leaked-render
-- [ ] react-ts/no-children-prop
-- [ ] react-ts/no-danger-with-children
-- [ ] react-ts/no-deprecated
-- [ ] react-ts/no-direct-mutation-state
-- [ ] react-ts/no-find-dom-node
-- [ ] react-ts/no-is-mounted
-- [ ] react-ts/no-object-type-as-default-prop
-- [ ] react-ts/no-render-return-value
-- [ ] react-ts/no-string-refs
-- [ ] react-ts/no-unescaped-entities
-- [ ] react-ts/no-unsafe
-- [ ] react-ts/no-unstable-nested-components
-- [ ] react-ts/react-in-jsx-scope
-- [ ] react-ts/require-render-return
-- [ ] ...
 
 ## License
 

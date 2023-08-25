@@ -1,5 +1,5 @@
 import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
-import rule from "./jsx-filename-no-misuse-jsx";
+import rule from "./no-misused-jsx-extension";
 
 const rootDir = getFixturesRootDir();
 
@@ -16,7 +16,7 @@ const ruleTester = new RuleTester({
     },
 });
 
-const RULE_NAME = "jsx-filename-extension";
+const RULE_NAME = "no-misused-jsx-extension";
 
 const withJSXElement = "function App() { return <div><div /></div> }";
 const withJSXFragment = "function App() { return <></> }";
@@ -44,7 +44,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: withoutJSX,
             errors: [
                 {
-                    messageId: "misuseOfJsxExtension",
+                    messageId: "MISUSED_JSX_EXTENSION",
                 },
             ],
         },

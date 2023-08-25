@@ -1,6 +1,6 @@
 /* eslint-disable eslint-plugin/test-case-shorthand-strings */
 import RuleTester from "../../test/rule-tester";
-import rule from "./jsx-handler-names";
+import rule from "./consistent-jsx-handler-names";
 
 const ruleTester = new RuleTester({
     parser: "@typescript-eslint/parser",
@@ -65,7 +65,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: "<TestComponent onChange={this.doSomethingOnChange} />",
             errors: [
                 {
-                    messageId: "badHandlerName",
+                    messageId: "BAD_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -77,7 +77,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: "<TestComponent onChange={this.handlerChange} />",
             errors: [
                 {
-                    messageId: "badHandlerName",
+                    messageId: "BAD_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -89,7 +89,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: "<TestComponent onChange={this.handle} />",
             errors: [
                 {
-                    messageId: "badHandlerName",
+                    messageId: "BAD_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -101,7 +101,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: "<TestComponent onChange={this.handle2} />",
             errors: [
                 {
-                    messageId: "badHandlerName",
+                    messageId: "BAD_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -113,7 +113,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: "<TestComponent onChange={this.handl3Change} />",
             errors: [
                 {
-                    messageId: "badHandlerName",
+                    messageId: "BAD_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -125,7 +125,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: "<TestComponent onChange={this.handle4change} />",
             errors: [
                 {
-                    messageId: "badHandlerName",
+                    messageId: "BAD_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -137,7 +137,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: "<TestComponent only={this.handleChange} />",
             errors: [
                 {
-                    messageId: "badPropKey",
+                    messageId: "BAD_PROP_KEY",
                 },
             ],
         },
@@ -145,7 +145,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: "<TestComponent only={this.handleChange} />",
             errors: [
                 {
-                    messageId: "badPropKey",
+                    messageId: "BAD_PROP_KEY",
                     data: {
                         propValue: "handleChange",
                         handlerPropPrefix: "on",
@@ -157,7 +157,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: "<TestComponent handleChange={this.handleChange} />",
             errors: [
                 {
-                    messageId: "badPropKey",
+                    messageId: "BAD_PROP_KEY",
                     data: {
                         propValue: "handleChange",
                         handlerPropPrefix: "on",
@@ -169,7 +169,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: "<TestComponent onChange={this.onChange} />",
             errors: [
                 {
-                    messageId: "badHandlerName",
+                    messageId: "BAD_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -258,7 +258,7 @@ ruleTester.run(RULE_NAME, rule, {
             options: [{ checkLocalVariables: true }],
             errors: [
                 {
-                    messageId: "badHandlerName",
+                    messageId: "BAD_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -271,7 +271,7 @@ ruleTester.run(RULE_NAME, rule, {
             options: [{ checkInlineFunction: true }],
             errors: [
                 {
-                    messageId: "badHandlerName",
+                    messageId: "BAD_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -284,7 +284,7 @@ ruleTester.run(RULE_NAME, rule, {
             options: [{ checkLocalVariables: true }],
             errors: [
                 {
-                    messageId: "badPropKey",
+                    messageId: "BAD_PROP_KEY",
                     data: {
                         propValue: "handleChange",
                         handlerPropPrefix: "on",
@@ -302,7 +302,7 @@ ruleTester.run(RULE_NAME, rule, {
             ],
             errors: [
                 {
-                    messageId: "badPropKey",
+                    messageId: "BAD_PROP_KEY",
                     data: {
                         propValue: "handleChange",
                         handlerPropPrefix: "on",
@@ -321,7 +321,7 @@ ruleTester.run(RULE_NAME, rule, {
             ],
             errors: [
                 {
-                    messageId: "badPropKey",
+                    messageId: "BAD_PROP_KEY",
                     data: {
                         propValue: "handleChange",
                         handlerPropPrefix: "when",
@@ -341,7 +341,7 @@ ruleTester.run(RULE_NAME, rule, {
             ],
             errors: [
                 {
-                    messageId: "badPropKey",
+                    messageId: "BAD_PROP_KEY",
                     data: {
                         propValue: "handleChange",
                         handlerPropPrefix: "when",

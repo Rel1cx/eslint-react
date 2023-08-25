@@ -1,8 +1,8 @@
-# jsx-boolean-value
+# prefer-shorthand-jsx-boolean
 
 ## Rule Details
 
-This rule checks all boolean attributes in JSX elements and verifies that they are not set to `true` or `false`.
+This rule enforces the use of shorthand syntax for boolean attributes.
 
 Examples of **incorrect** code for this rule:
 
@@ -30,7 +30,10 @@ type Options = { rule?: "never" | "always"; excepts?: string[] };
 ### Default Option
 
 ```json
-"react-ts/jsx-boolean-value": ["error", "never"]
+"react-ts/prefer-shorthand-jsx-boolean": ["error", {
+    "rule": "never",
+    "excepts": []
+}]
 ```
 
 ### `never`

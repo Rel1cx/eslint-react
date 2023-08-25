@@ -1,4 +1,8 @@
-# jsx-filename-no-misuse-jsx
+# no-misused-jsx-extension
+
+⚠️ This rule _warns_ in the following [configs](/configs/): 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
+
+<!-- end auto-generated rule header -->
 
 ## Rule Details
 

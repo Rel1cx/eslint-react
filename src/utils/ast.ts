@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-array-for-each */
 import type TSESLintScopeManager from "@typescript-eslint/scope-manager";
 import { ASTUtils, TSESLint, TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";

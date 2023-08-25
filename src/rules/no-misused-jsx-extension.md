@@ -1,8 +1,4 @@
-# jsx-filename-no-misuse-jsx
-
-💼 This rule is enabled in the following [configs](/configs/): 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
-
-<!-- end auto-generated rule header -->
+# no-misused-jsx-extension
 
 ## Rule Details
 

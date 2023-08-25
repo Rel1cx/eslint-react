@@ -1,5 +1,5 @@
 import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
-import rule from "./jsx-boolean-value";
+import rule from "./prefer-shorthand-jsx-boolean";
 
 const rootDir = getFixturesRootDir();
 
@@ -16,7 +16,7 @@ const ruleTester = new RuleTester({
     },
 });
 
-const RULE_NAME = "jsx-boolean-value";
+const RULE_NAME = "prefer-shorthand-jsx-boolean";
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [
@@ -64,7 +64,7 @@ ruleTester.run(RULE_NAME, rule, {
                     rule: "never",
                 },
             ],
-            errors: [{ messageId: "omitBoolean" }],
+            errors: [{ messageId: "OMIT_VALUE" }],
         },
         {
             code: "<App foo={true} bar={true} baz={true} />;",
@@ -77,22 +77,22 @@ ruleTester.run(RULE_NAME, rule, {
             ],
             errors: [
                 {
-                    messageId: "omitBoolean",
+                    messageId: "OMIT_VALUE",
                 },
                 {
-                    messageId: "omitBoolean",
+                    messageId: "OMIT_VALUE",
                 },
             ],
         },
         {
             code: "<App foo={true} />;",
             // output: "<App foo />;",
-            errors: [{ messageId: "omitBoolean" }],
+            errors: [{ messageId: "OMIT_VALUE" }],
         },
         {
             code: "<App foo = {true} />;",
             // output: "<App foo />;",
-            errors: [{ messageId: "omitBoolean" }],
+            errors: [{ messageId: "OMIT_VALUE" }],
         },
         {
             code: "<App foo />;",
@@ -102,7 +102,7 @@ ruleTester.run(RULE_NAME, rule, {
                     rule: "always",
                 },
             ],
-            errors: [{ messageId: "setBoolean" }],
+            errors: [{ messageId: "SET_VALUE" }],
         },
         {
             code: "<App foo bar baz />;",
@@ -115,10 +115,10 @@ ruleTester.run(RULE_NAME, rule, {
             ],
             errors: [
                 {
-                    messageId: "setBoolean",
+                    messageId: "SET_VALUE",
                 },
                 {
-                    messageId: "setBoolean",
+                    messageId: "SET_VALUE",
                 },
             ],
         },

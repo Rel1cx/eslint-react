@@ -1,27 +1,27 @@
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { match } from "ts-pattern";
-import type { ReadonlyDeep } from "type-fest";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
-import { Applicability } from "../../typings";
+import { type RuleName } from "../../typings";
+import { Cond } from "../../typings/rule-option";
 import { I, O } from "../lib/primitives/data";
 
-type MessageIds = "omitBoolean" | "setBoolean";
+const RULE_NAME: RuleName = "prefer-shorthand-jsx-boolean";
 
-type Options = ReadonlyDeep<
-    [
-        {
-            excepts?: string[];
-            rule?: Applicability;
-        }?,
-    ]
->;
+type MessageIds = "OMIT_VALUE" | "SET_VALUE";
+
+type Options = readonly [
+    {
+        excepts?: readonly string[];
+        rule?: Cond;
+    }?,
+];
 
 const defaultOptions = [
     {
         excepts: [],
-        rule: Applicability.never,
+        rule: "never",
     },
 ] as const satisfies Options;
 
@@ -37,15 +37,15 @@ const schema = [
             },
             rule: {
                 type: "string",
-                default: Applicability.never,
-                enum: [Applicability.always, Applicability.never],
+                default: Cond.never,
+                enum: [Cond.always, Cond.never],
             },
         },
     },
 ] satisfies [JSONSchema4];
 
 export default createEslintRule<Options, MessageIds>({
-    name: "jsx-boolean-value",
+    name: RULE_NAME,
     meta: {
         type: "suggestion",
         docs: {
@@ -54,8 +54,8 @@ export default createEslintRule<Options, MessageIds>({
         },
         schema,
         messages: {
-            omitBoolean: "Omit boolean value for prop '{{propName}}'.",
-            setBoolean: "Set boolean value for prop '{{propName}}'.",
+            OMIT_VALUE: "Omit boolean value for prop '{{propName}}'.",
+            SET_VALUE: "Set boolean value for prop '{{propName}}'.",
         },
     },
     create(context) {
@@ -73,31 +73,31 @@ export default createEslintRule<Options, MessageIds>({
                 const isException = excepts.has(propName);
 
                 const maybeMessageId = match(rule)
-                    .with(Applicability.always, () => {
+                    .with(Cond.always, () => {
                         const hasValue = I.isNullable(value);
 
                         if (hasValue && !isException) {
-                            return O.some<MessageIds>("setBoolean");
+                            return O.some<MessageIds>("SET_VALUE");
                         }
 
                         if (!hasValue && isException) {
-                            return O.some<MessageIds>("omitBoolean");
+                            return O.some<MessageIds>("OMIT_VALUE");
                         }
 
                         return O.none();
                     })
-                    .with(Applicability.never, () => {
+                    .with(Cond.never, () => {
                         const hasValueWithTrue =
-                            node.value?.type === AST_NODE_TYPES.JSXExpressionContainer &&
-                            node.value.expression.type === AST_NODE_TYPES.Literal &&
-                            node.value.expression.value === true;
+                            value?.type === AST_NODE_TYPES.JSXExpressionContainer &&
+                            value.expression.type === AST_NODE_TYPES.Literal &&
+                            value.expression.value === true;
 
                         if (hasValueWithTrue && !isException) {
-                            return O.some<MessageIds>("omitBoolean");
+                            return O.some<MessageIds>("OMIT_VALUE");
                         }
 
                         if (!hasValueWithTrue && isException) {
-                            return O.some<MessageIds>("setBoolean");
+                            return O.some<MessageIds>("SET_VALUE");
                         }
 
                         return O.none();

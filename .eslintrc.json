@@ -1,12 +1,13 @@
 {
     "root": true,
     "env": {
-        "es2021": true,
+        "es2024": true,
         "node": true
     },
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/strict-type-checked",
+        "plugin:unicorn/recommended",
         "plugin:perfectionist/recommended-natural",
         "plugin:eslint-plugin/all",
         "plugin:filenames-simple/recommended",
@@ -42,6 +43,13 @@
                 "destructuredArrayIgnorePattern": "^_"
             }
         ],
+        "unicorn/prevent-abbreviations": "off",
+        "unicorn/prefer-spread": "off",
+        "unicorn/prefer-module": "off",
+        "unicorn/no-null": "off",
+        "unicorn/no-array-reduce": "off",
+        "unicorn/prefer-top-level-await": "off",
+        "unicorn/no-array-callback-reference": "off",
         "eslint-plugin/require-meta-docs-url": "off",
         "perfectionist/sort-objects": [
             "warn",

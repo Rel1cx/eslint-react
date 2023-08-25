@@ -1,4 +1,10 @@
-# jsx-handler-names
+# consistent-jsx-handler-names
+
+💼 This rule is enabled in the following [configs](/configs/): 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
+
+<!-- end auto-generated rule header -->
+
+Enforce consistent event handler naming conventions in JSX.
 
 ## Rule Details
 
@@ -44,7 +50,7 @@ type Options = {
 ### Default Option
 
 ```json
-"react/jsx-handler-names": ["error", {
+"react-ts/consistent-jsx-handler-names": ["error", {
   "eventHandlerPrefix": "handle",
   "eventHandlerPropPrefix": "on",
   "checkLocalVariables": false,

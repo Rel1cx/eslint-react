@@ -1,25 +1,25 @@
 /* eslint-disable security/detect-non-literal-regexp */
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-import type { ReadonlyDeep } from "type-fest";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
+import type { RuleName } from "../../typings";
 import { O } from "../lib/primitives/data";
 import { AST } from "../utils/ast";
 import * as JSXUtils from "../utils/jsx";
 
-type MessageIds = "badHandlerName" | "badPropKey";
+const RULE_NAME: RuleName = "consistent-jsx-handler-names";
 
-type Options = ReadonlyDeep<
-    [
-        {
-            checkInlineFunction?: boolean;
-            checkLocalVariables?: boolean;
-            eventHandlerPrefix?: false | string;
-            eventHandlerPropPrefix?: false | string;
-        },
-    ]
->;
+type MessageIds = "BAD_HANDLER_NAME" | "BAD_PROP_KEY";
+
+type Options = readonly [
+    {
+        checkInlineFunction?: boolean;
+        checkLocalVariables?: boolean;
+        eventHandlerPrefix?: false | string;
+        eventHandlerPropPrefix?: false | string;
+    },
+];
 
 const defaultOptions = [
     {
@@ -88,7 +88,7 @@ const schema = [
 ] satisfies JSONSchema4[];
 
 export default createEslintRule<Options, MessageIds>({
-    name: "jsx-handler-names",
+    name: RULE_NAME,
     meta: {
         type: "suggestion",
         docs: {
@@ -97,9 +97,9 @@ export default createEslintRule<Options, MessageIds>({
         },
         schema,
         messages: {
-            badHandlerName:
+            BAD_HANDLER_NAME:
                 "Handler function for {{propKey}} prop key must be a camelCase name beginning with '{{handlerPrefix}}' only",
-            badPropKey: "Prop key for {{propValue}} must begin with '{{handlerPropPrefix}}'",
+            BAD_PROP_KEY: "Prop key for {{propValue}} must begin with '{{handlerPropPrefix}}'",
         },
     },
     create(context, [{ checkInlineFunction, checkLocalVariables, eventHandlerPrefix, eventHandlerPropPrefix }]) {
@@ -148,7 +148,7 @@ export default createEslintRule<Options, MessageIds>({
                 const propValue = context
                     .getSourceCode()
                     .getText(propValueNode)
-                    .replace(/\s*/gu, "")
+                    .replaceAll(/\s*/gu, "")
                     // eslint-disable-next-line regexp/no-super-linear-move
                     .replace(/^this\.|.*::/u, "");
 
@@ -166,7 +166,7 @@ export default createEslintRule<Options, MessageIds>({
                             handlerPropPrefix,
                             propValue,
                         },
-                        messageId: "badPropKey",
+                        messageId: "BAD_PROP_KEY",
                         node,
                     });
                 }
@@ -177,7 +177,7 @@ export default createEslintRule<Options, MessageIds>({
                             handlerPrefix,
                             propKey,
                         },
-                        messageId: "badHandlerName",
+                        messageId: "BAD_HANDLER_NAME",
                         node,
                     });
                 }

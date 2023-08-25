@@ -1,22 +1,22 @@
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import path from "pathe";
 import { match } from "ts-pattern";
-import type { ReadonlyDeep } from "type-fest";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
+import type { RuleName } from "../../typings";
 import { getCaseValidator } from "../lib/case-validator/case-validator";
 import { O } from "../lib/primitives/data";
 
-type MessageIds = "filenameCaseMismatch" | "filenameCaseMismatchWithSuggestion" | "filenameEmpty";
+const RULE_NAME: RuleName = "consistent-jsx-filenames";
 
-type Options = ReadonlyDeep<
-    [
-        {
-            excepts?: string[];
-            rule?: "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
-        }?,
-    ]
->;
+type MessageIds = "FILENAME_CASE_MISMATCH" | "FILENAME_CASE_MISMATCH_SUGGESTION" | "FILENAME_EMPTY";
+
+type Options = readonly [
+    {
+        excepts?: readonly string[];
+        rule?: "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
+    }?,
+];
 
 const defaultOptions = [
     {
@@ -45,7 +45,7 @@ const schema = [
 ] satisfies [JSONSchema4];
 
 export default createEslintRule<Options, MessageIds>({
-    name: "jsx-filename-naming-convention",
+    name: RULE_NAME,
     meta: {
         type: "suggestion",
         docs: {
@@ -54,10 +54,10 @@ export default createEslintRule<Options, MessageIds>({
         },
         schema,
         messages: {
-            filenameCaseMismatch: "File name `{{name}}` does not match `{{rule}}`",
-            filenameCaseMismatchWithSuggestion:
+            FILENAME_CASE_MISMATCH: "File name `{{name}}` does not match `{{rule}}`",
+            FILENAME_CASE_MISMATCH_SUGGESTION:
                 "File name `{{name}}` does not match `{{rule}}`. Should rename to `{{suggestion}}`.",
-            filenameEmpty: "File name is empty",
+            FILENAME_EMPTY: "File name is empty",
         },
     },
     create(context) {
@@ -82,7 +82,7 @@ export default createEslintRule<Options, MessageIds>({
                 const [basename = "", ...rest] = path.basename(context.getFilename()).split(".");
 
                 if (basename.length === 0) {
-                    context.report({ messageId: "filenameEmpty", node });
+                    context.report({ messageId: "FILENAME_EMPTY", node });
                 }
 
                 if (validate(basename)) {
@@ -100,7 +100,7 @@ export default createEslintRule<Options, MessageIds>({
                                 rule,
                                 suggestion,
                             },
-                            messageId: "filenameCaseMismatchWithSuggestion",
+                            messageId: "FILENAME_CASE_MISMATCH_SUGGESTION",
                             node,
                         });
                     })
@@ -110,7 +110,7 @@ export default createEslintRule<Options, MessageIds>({
                                 name: basename,
                                 rule,
                             },
-                            messageId: "filenameCaseMismatch",
+                            messageId: "FILENAME_CASE_MISMATCH",
                             node,
                         });
                     });

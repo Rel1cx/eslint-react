@@ -9,9 +9,7 @@ import * as MutList from "@effect/data/MutableList";
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
 import type { RuleContext, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import invariant from "tiny-invariant";
-import { match, P } from "ts-pattern";
 
-import { F } from "../lib/primitives/data";
 import { AST } from "./ast";
 
 export type FunctionNode =
@@ -21,18 +19,6 @@ export type FunctionNode =
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export type PossibleFunctionalComponent = FunctionNode & {};
-
-export const isPossibleFunctionalComponent = (exp: TSESTree.Node): exp is PossibleFunctionalComponent => {
-    return match(exp)
-        .when(AST.is(AST_NODE_TYPES.ArrowFunctionExpression), F.constTrue)
-        .when(AST.is(AST_NODE_TYPES.CallExpression), (exp) => {
-            if (AST.is(AST_NODE_TYPES.Identifier)(exp.callee)) {
-                return ["forwardRef", "memo"].includes(exp.callee.name);
-            }
-            return false;
-        })
-        .otherwise(F.constFalse);
-};
 
 // eslint-disable-next-line filenames-simple/named-export
 export function make<Ctx extends RuleContext<string, unknown[]>>(_: Ctx) {

@@ -13,4 +13,4 @@ export function getFixturesRootDir(): string {
     return path.join(__dirname, "fixtures");
 }
 
-export default RuleTester;
+export { RuleTester as default } from "@typescript-eslint/rule-tester";
