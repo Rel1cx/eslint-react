@@ -2,7 +2,7 @@
     "extends": "@tsconfig/strictest/tsconfig.json",
     "compilerOptions": {
         "module": "ESNext",
-        "target": "ES2022",
+        "target": "ESNext",
         "lib": ["ES2022", "ESNext"],
         "esModuleInterop": true,
         "resolveJsonModule": true,

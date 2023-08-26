@@ -57,7 +57,6 @@
     },
     "dependencies": {
         "@effect/data": "0.17.6",
-        "@eslint-community/eslint-utils": "4.4.0",
         "@typescript-eslint/scope-manager": "6.4.1",
         "@typescript-eslint/type-utils": "6.4.1",
         "@typescript-eslint/utils": "6.4.1",

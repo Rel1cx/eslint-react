@@ -11,20 +11,17 @@ export type NegativeModifier = "prevent" | No;
 export type Modifier = NegativeModifier | PositiveModifier;
 
 export type NegativeDescriptive =
-    | "ambiguous"
-    | "conflict"
     | "confusing"
     | "constructed"
     | "danger"
     | "deprecated"
-    | "discouraged"
     | "duplicate"
     | "empty"
-    | "explicit"
     | "extra"
     | "implicit"
     | "incompatible"
     | "inconsistent"
+    | "inlined"
     | "invalid"
     | "leaked"
     | "misleading"
@@ -42,13 +39,12 @@ export type NegativeDescriptive =
     | "unknown"
     | "unreachable"
     | "unsafe"
-    | "unspecified"
     | "unstable"
     | "unused"
     | "unwanted"
     | "useless";
 
-export type PositiveDescriptive = "optimal" | "optimized" | "shorthand" | "standard" | "strict";
+export type PositiveDescriptive = "explicit" | "optimal" | "optimized" | "shorthand" | "standard" | "strict";
 
 export type Descriptive = NegativeDescriptive | PositiveDescriptive;
 
@@ -112,7 +108,7 @@ export type Term =
     // | "function"
     // | "function-name"
     // | "functional"
-    | "functional-component"
+    // | "functional-component"
     // | "generator"
     // | "generic"
     // | "getter"
@@ -210,7 +206,6 @@ export type Term =
 // | "weakset"
 // | "while"
 // | "yield"
-// | "yield-star";
 
 export type Additional = string;
 
