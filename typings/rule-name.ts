@@ -4,7 +4,7 @@ type No = "no";
 
 type Use = "use";
 
-export type PositiveModifier = "consistent" | "prefer" | "require" | "strict" | Use;
+export type PositiveModifier = "enforce" | "prefer" | "require" | "strict" | Use;
 
 export type NegativeModifier = "prevent" | No;
 
@@ -18,9 +18,10 @@ export type NegativeDescriptive =
     | "duplicate"
     | "empty"
     | "extra"
+    | "falsely"
+    | "forbidden"
     | "implicit"
     | "incompatible"
-    | "inconsistent"
     | "inlined"
     | "invalid"
     | "leaked"
@@ -103,7 +104,7 @@ export type Term =
     // | "extends"
     // | "external"
     // | "false"
-    // | "filename"
+    | "filename"
     | "forward-ref"
     // | "function"
     // | "function-name"

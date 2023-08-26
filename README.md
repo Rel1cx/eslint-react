@@ -60,8 +60,8 @@ export default [
 
 ## Todo
 
-- [x] react-ts/consistent-jsx-filenames
-- [x] react-ts/consistent-jsx-handler-names
+- [x] react-ts/enforce-filename-naming-convention
+- [x] react-ts/enforce-event-handler-naming-convention
 - [ ] react-ts/no-constructed-context-value
 - [ ] react-ts/no-danger-with-children
 - [ ] react-ts/no-deprecated
@@ -80,12 +80,12 @@ export default [
 
 <!-- begin auto-generated rules list -->
 
-| Name                                                                        | Description                                                                      |
-| :-------------------------------------------------------------------------- | :------------------------------------------------------------------------------- |
-| [consistent-jsx-filenames](/docs/rules/consistent-jsx-filenames.md)         | enforce naming convention for jsx files                                          |
-| [consistent-jsx-handler-names](/docs/rules/consistent-jsx-handler-names.md) | enforce event handler naming conventions in JSX                                  |
-| [no-misused-jsx-extension](/docs/rules/no-misused-jsx-extension.md)         | enforce using `.ts` instead of `.tsx` extension when there is no JSX in the file |
-| [prefer-shorthand-jsx-boolean](/docs/rules/prefer-shorthand-jsx-boolean.md) | enforce boolean attributes notation in JSX                                       |
+| Name                                                                                              | Description                                                                      |
+| :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------- |
+| [enforce-event-handler-naming-convention](/docs/rules/enforce-event-handler-naming-convention.md) | enforce event handler naming conventions in JSX                                  |
+| [enforce-filename-naming-convention](/docs/rules/enforce-filename-naming-convention.md)           | enforce naming convention for jsx files                                          |
+| [no-misused-jsx-extension](/docs/rules/no-misused-jsx-extension.md)                               | enforce using `.ts` instead of `.tsx` extension when there is no JSX in the file |
+| [prefer-shorthand-jsx-boolean](/docs/rules/prefer-shorthand-jsx-boolean.md)                       | enforce boolean attributes notation in JSX                                       |
 
 <!-- end auto-generated rules list -->
 

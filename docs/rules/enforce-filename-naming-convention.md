@@ -1,4 +1,8 @@
-# consistent-jsx-filenames
+# enforce-filename-naming-convention
+
+💼 This rule is enabled in the following [configs](/configs/): 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
+
+<!-- end auto-generated rule header -->
 
 ## Rule Details
 
@@ -56,7 +60,7 @@ type Options = {
 ### Default Option
 
 ```json
-"react-ts/consistent-jsx-filenames": ["error", {
+"react-ts/enforce-filename-naming-convention": ["error", {
   "rule": "PascalCase"
 }]
 ```

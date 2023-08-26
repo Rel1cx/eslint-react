@@ -7,7 +7,7 @@ import type { RuleName } from "../../typings";
 import { getCaseValidator } from "../lib/case-validator/case-validator";
 import { O } from "../lib/primitives/data";
 
-const RULE_NAME: RuleName = "consistent-jsx-filenames";
+const RULE_NAME: RuleName = "enforce-filename-naming-convention";
 
 type MessageIds = "FILENAME_CASE_MISMATCH" | "FILENAME_CASE_MISMATCH_SUGGESTION" | "FILENAME_EMPTY";
 

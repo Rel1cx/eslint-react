@@ -8,7 +8,7 @@ import { O } from "../lib/primitives/data";
 import { AST } from "../utils/ast";
 import * as JSXUtils from "../utils/jsx";
 
-const RULE_NAME: RuleName = "consistent-jsx-handler-names";
+const RULE_NAME: RuleName = "enforce-event-handler-naming-convention";
 
 type MessageIds = "BAD_HANDLER_NAME" | "BAD_PROP_KEY";
 

@@ -1,6 +1,6 @@
 import { name } from "../package.json";
-import consistentJsxFilenames from "./rules/consistent-jsx-filenames";
-import consistentJsxHandlerNames from "./rules/consistent-jsx-handler-names";
+import consistentJsxHandlerNames from "./rules/enforce-event-handler-naming-convention";
+import consistentJsxFilenames from "./rules/enforce-filename-naming-convention";
 import noMisusedJsxExtension from "./rules/no-misused-jsx-extension";
 import preferShorthandJsxBoolean from "./rules/prefer-shorthand-jsx-boolean";
 
@@ -11,8 +11,8 @@ type RuleDeclaration = [RuleSeverity, { [key: string]: unknown }?] | RuleSeverit
 const recommendedRules: {
     [key: string]: RuleDeclaration;
 } = {
-    "consistent-jsx-filenames": "error",
-    "consistent-jsx-handler-names": "error",
+    "enforce-event-handler-naming-convention": "error",
+    "enforce-filename-naming-convention": "error",
     "no-misused-jsx-extension": "warn",
     "prefer-shorthand-jsx-boolean": "warn",
 };
@@ -32,8 +32,8 @@ export default {
         "recommended-type-checked": createConfig(),
     },
     rules: {
-        "consistent-jsx-filenames": consistentJsxFilenames,
-        "consistent-jsx-handler-names": consistentJsxHandlerNames,
+        "enforce-event-handler-naming-convention": consistentJsxHandlerNames,
+        "enforce-filename-naming-convention": consistentJsxFilenames,
         "no-misused-jsx-extension": noMisusedJsxExtension,
         "prefer-shorthand-jsx-boolean": preferShorthandJsxBoolean,
     },

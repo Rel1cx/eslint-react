@@ -1,5 +1,5 @@
 import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
-import rule from "./consistent-jsx-filenames";
+import rule from "./enforce-filename-naming-convention";
 
 const rootDir = getFixturesRootDir();
 
