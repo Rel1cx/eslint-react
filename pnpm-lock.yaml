@@ -89,7 +89,7 @@ devDependencies:
     specifier: 1.1.1
     version: 1.1.1
   prettier:
-    specifier: ^3.0.2
+    specifier: 3.0.2
     version: 3.0.2
   prettier-plugin-curly:
     specifier: 0.1.2
@@ -1135,6 +1135,17 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
+
+  /@nolyfill/has@1.0.16:
+    resolution: {integrity: sha512-Zqo75Es2D/iNqHYKJqOM+KjT2J3iBV9PJiuXKQYlz6HLPwfD1C/inGBAM4eLAu8SKuxn+nmK7vd5WBProo5zVQ==}
+    engines: {node: '>=12.4.0'}
+    dependencies:
+      '@nolyfill/shared': 1.0.16
+    dev: true
+
+  /@nolyfill/shared@1.0.16:
+    resolution: {integrity: sha512-wHe8hBWo1I5LFyGB8ncme7Hp9G3NAiPlp0h513UNSyCtMUqEDiLamydTRuTbndJDWJOZ82TFfuL09kV6+2OPfA==}
+    dev: true
 
   /@pkgr/utils@2.4.2:
     resolution: {integrity: sha512-POgTXhjrTfbTV63DiFXav4lBHiICLKKwDeaKn9Nphwj7WH6m0hMMCaJkMyRWjgtPFyRKRVoMXXjczsTQRDEhYw==}
@@ -3025,10 +3036,6 @@ packages:
     dev: true
     optional: true
 
-  /function-bind@1.1.1:
-    resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
-    dev: true
-
   /fx@28.0.0:
     resolution: {integrity: sha512-vKQDA9g868cZiW8ulgs2uN1yx1i7/nsS33jTMOxekk0Z03BJLffVcdW6AVD32fWb3E6RtmWWuBXBZOk8cLXFNQ==}
     hasBin: true
@@ -3197,13 +3204,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /has@1.0.3:
-    resolution: {integrity: sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==}
-    engines: {node: '>= 0.4.0'}
-    dependencies:
-      function-bind: 1.1.1
-    dev: true
-
   /homedir-polyfill@1.0.3:
     resolution: {integrity: sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA==}
     engines: {node: '>=0.10.0'}
@@ -3328,7 +3328,7 @@ packages:
   /is-core-module@2.13.0:
     resolution: {integrity: sha512-Z7dk6Qo8pOCp3l4tsX2C5ZVas4V+UxwQodwZhLopL91TX8UyyHEXafPcyoeeWuLrwzHcr3igO78wNLwHJHsMCQ==}
     dependencies:
-      has: 1.0.3
+      has: /@nolyfill/has@1.0.16
     dev: true
 
   /is-docker@2.2.1:

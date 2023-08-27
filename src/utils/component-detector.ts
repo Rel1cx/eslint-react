@@ -21,7 +21,7 @@ export type FunctionNode =
 export type PossibleFunctionalComponent = FunctionNode & {};
 
 // eslint-disable-next-line filenames-simple/named-export
-export function make<Ctx extends RuleContext<string, unknown[]>>(_: Ctx) {
+export function make<Ctx extends RuleContext<string, []>>(_: Ctx) {
     const components = new WeakSet<FunctionNode>();
 
     const functionStack = MutList.make<{ isComponent: boolean; node: FunctionNode }>();

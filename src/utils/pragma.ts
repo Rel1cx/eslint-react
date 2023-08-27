@@ -19,9 +19,7 @@ type ReactSettings = {
     version?: string;
 };
 
-export function getCreateClassFromContext<T extends RuleContext<string, unknown[]>>(
-    context: T,
-): E.Either<Error, string> {
+export function getCreateClassFromContext<T extends RuleContext<string, []>>(context: T): E.Either<Error, string> {
     const settings: { react?: ReactSettings } = context.settings;
 
     const pragma = settings.react?.createClass ?? "createReactClass";
@@ -33,7 +31,7 @@ export function getCreateClassFromContext<T extends RuleContext<string, unknown[
     return E.right(pragma);
 }
 
-export function getFragmentFromContext<T extends RuleContext<string, unknown[]>>(context: T): E.Either<Error, string> {
+export function getFragmentFromContext<T extends RuleContext<string, []>>(context: T): E.Either<Error, string> {
     const settings: { react?: ReactSettings } = context.settings;
 
     const pragma = settings.react?.fragment ?? "Fragment";
@@ -45,7 +43,7 @@ export function getFragmentFromContext<T extends RuleContext<string, unknown[]>>
     return E.right(pragma);
 }
 
-export function getFromContext<T extends RuleContext<string, unknown[]>>(context: T): E.Either<Error, string> {
+export function getFromContext<T extends RuleContext<string, []>>(context: T): E.Either<Error, string> {
     const settings: { react?: ReactSettings } = context.settings;
 
     const sourceCode = context.getSourceCode();

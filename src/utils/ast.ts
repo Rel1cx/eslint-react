@@ -48,7 +48,7 @@ export const AST = {
 
         return uniqueBy(externalRefs, (x) => x.text).map((x) => x.variable);
     },
-    getFunctionAncestor(context: Readonly<RuleContext<string, readonly unknown[]>>) {
+    getFunctionAncestor(context: Readonly<RuleContext<string, readonly []>>) {
         return context.getAncestors().find((x) => {
             if (AST.is(AST_NODE_TYPES.FunctionDeclaration)(x)) {
                 return true;
@@ -187,7 +187,7 @@ export const AST = {
         return returnStatements;
     },
     getReferencedExpressionByIdentifier(params: {
-        context: Readonly<RuleContext<string, readonly unknown[]>>;
+        context: Readonly<RuleContext<string, readonly []>>;
         node: TSESTree.Node;
     }) {
         const { context, node } = params;

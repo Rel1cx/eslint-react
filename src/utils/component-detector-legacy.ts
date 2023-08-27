@@ -14,7 +14,7 @@ const getPragma = memo(getFromContext);
  * @package
  * @deprecated Do not use this function. It will be removed in the future.
  */
-export function isES5Component(node: TSESTree.Node, context: TSESLint.RuleContext<string, unknown[]>): boolean {
+export function isES5Component(node: TSESTree.Node, context: TSESLint.RuleContext<string, []>): boolean {
     const maybeReact = getPragma(context);
     const maybeCreateClass = getCreateClass(context);
 
@@ -48,7 +48,7 @@ export function isES5Component(node: TSESTree.Node, context: TSESLint.RuleContex
  * @package
  * @deprecated Do not use this function. It will be removed in the future.
  */
-export function isES6Component(node: TSESTree.Node, context: TSESLint.RuleContext<string, unknown[]>): boolean {
+export function isES6Component(node: TSESTree.Node, context: TSESLint.RuleContext<string, []>): boolean {
     if (!("superClass" in node) || !node.superClass) {
         return false;
     }
@@ -80,7 +80,7 @@ export function isES6Component(node: TSESTree.Node, context: TSESLint.RuleContex
  * @package
  * @deprecated Do not use this function. It will be removed in the future.
  */
-export function getParentES6Component(context: TSESLint.RuleContext<string, unknown[]>) {
+export function getParentES6Component(context: TSESLint.RuleContext<string, []>) {
     let scope: Scope | null = context.getScope();
 
     while (scope && scope.type !== ScopeType.class) {
@@ -100,7 +100,7 @@ export function getParentES6Component(context: TSESLint.RuleContext<string, unkn
  * @package
  * @deprecated Do not use this function. It will be removed in the future.
  */
-export function isPureComponent(node: TSESTree.Node, context: TSESLint.RuleContext<string, unknown[]>): boolean {
+export function isPureComponent(node: TSESTree.Node, context: TSESLint.RuleContext<string, []>): boolean {
     const pragma = getPragma(context);
 
     const sourceCode = context.getSourceCode();
