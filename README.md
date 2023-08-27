@@ -95,8 +95,7 @@ The introduction or modification of rules must follow these guidelines:
 
 - **TypeScript first** - If a behavior can already be enforced by TypeScript built-in checker, it should not be implemented in the plugin.
 - **Formatting independent** - Rules should not be concerned with code style or formatting; leave that to the formatter.
-- **One rule, one purpose** - Each rule should have a single, well-defined purpose that can be described in one sentence, preferably serving as its name.
-- **Minimal options** - Rules should have as few options as possible, preferably none.
+- **One rule, one purpose** - Each rule should have a single, well-defined purpose that can be described in one sentence, ideally serving as its name, and it's options should be as minimal as possible, preferably none.
 
 ## License
 
