@@ -1,8 +1,9 @@
-import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/utils";
-import { match } from "ts-pattern";
+import { AST_NODE_TYPES, TSESLint, type TSESTree } from "@typescript-eslint/utils";
+import { match, P } from "ts-pattern";
 
-import { I } from "../lib/primitives/data";
+import { F, I } from "../lib/primitives/data";
 import { AST } from "./ast";
+import { isCreateElement } from "./is-create-element";
 
 export const isJSXElement = AST.is(AST_NODE_TYPES.JSXElement);
 
@@ -57,4 +58,69 @@ export function hasAnyProp(nodeProps: TSESTree.JSXAttribute[] = [], options: Pro
 
 export function hasEveryProp(nodeProps: TSESTree.JSXAttribute[] = [], options: PropCheckingOptions) {
     return (props: string[]) => props.every(hasProp(nodeProps, options));
+}
+
+export function isJSXValue(
+    node: TSESTree.Node | null,
+    context: TSESLint.RuleContext<string, []>,
+    strict: boolean,
+    ignoreNull: boolean,
+): boolean {
+    if (!node) {
+        return false;
+    }
+
+    return (
+        match(node.type)
+            .with(AST_NODE_TYPES.JSXElement, F.constTrue)
+            .with(AST_NODE_TYPES.JSXFragment, F.constTrue)
+            .with(AST_NODE_TYPES.Literal, () => {
+                if (!("value" in node) || ignoreNull) {
+                    return false;
+                }
+
+                return node.value === null;
+            })
+            .with(AST_NODE_TYPES.ConditionalExpression, () => {
+                if (!("consequent" in node)) {
+                    return false;
+                }
+
+                const leftHasJSX = match(node.consequent)
+                    .with(P.array(), (n) => {
+                        return n.some((n) => isJSXValue(n, context, strict, ignoreNull));
+                    })
+                    .with(P.any, (n) => {
+                        return isJSXValue(n, context, strict, ignoreNull);
+                    })
+                    .exhaustive();
+
+                return leftHasJSX || ("alternate" in node && isJSXValue(node.alternate, context, strict, ignoreNull));
+            })
+            .with(AST_NODE_TYPES.LogicalExpression, () => {
+                if (!("left" in node)) {
+                    return false;
+                }
+
+                return (
+                    isJSXValue(node.left, context, strict, ignoreNull) ||
+                    isJSXValue(node.right, context, strict, ignoreNull)
+                );
+            })
+            .with(AST_NODE_TYPES.SequenceExpression, () => {
+                if (!("expressions" in node)) {
+                    return false;
+                }
+
+                const exp = node.expressions.at(-1);
+
+                return !I.isNullable(exp) && isJSXValue(exp, context, strict, ignoreNull);
+            })
+            .with(AST_NODE_TYPES.CallExpression, () => {
+                return isCreateElement(node, context);
+            })
+            // TODO: Implement the rest of the cases
+            // ...
+            .otherwise(F.constFalse)
+    );
 }

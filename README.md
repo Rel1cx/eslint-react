@@ -2,7 +2,8 @@
 
 ESLint plugin to lint React TypeScript apps using the @typescript-eslint ecosystem.
 
-> Note: This plugin is still in early development and is not ready for use.
+> **Warning**
+> This plugin is still in early development, and will likely change significantly before reaching a stable version.
 
 ## Supported Engines
 
