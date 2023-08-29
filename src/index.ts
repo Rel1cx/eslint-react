@@ -6,11 +6,9 @@ import preferShorthandJsxBoolean from "./rules/prefer-shorthand-jsx-boolean";
 
 type RuleSeverity = "error" | "off" | "warn";
 
-type RuleDeclaration = [RuleSeverity, { [key: string]: unknown }?] | RuleSeverity;
+type RuleDeclaration = [RuleSeverity, Record<string, unknown>?] | RuleSeverity;
 
-const recommendedRules: {
-    [key: string]: RuleDeclaration;
-} = {
+const recommendedRules: Record<string, RuleDeclaration> = {
     "enforce-event-handler-naming-convention": "warn",
     "enforce-filename-naming-convention": "warn",
     "no-misused-jsx-extension": "warn",

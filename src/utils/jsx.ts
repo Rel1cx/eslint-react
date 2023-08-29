@@ -1,4 +1,5 @@
-import { AST_NODE_TYPES, TSESLint, type TSESTree } from "@typescript-eslint/utils";
+import type { TSESLint } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/utils";
 import { match, P } from "ts-pattern";
 
 import { F, I } from "../lib/primitives/data";
@@ -52,11 +53,11 @@ export function hasProp(
     };
 }
 
-export function hasAnyProp(nodeProps: TSESTree.JSXAttribute[] = [], options: PropCheckingOptions) {
+export function hasAnyProp(nodeProps: TSESTree.JSXAttribute[], options: PropCheckingOptions) {
     return (props: string[]) => props.some(hasProp(nodeProps, options));
 }
 
-export function hasEveryProp(nodeProps: TSESTree.JSXAttribute[] = [], options: PropCheckingOptions) {
+export function hasEveryProp(nodeProps: TSESTree.JSXAttribute[], options: PropCheckingOptions) {
     return (props: string[]) => props.every(hasProp(nodeProps, options));
 }
 

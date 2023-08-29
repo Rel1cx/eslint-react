@@ -1,4 +1,5 @@
-import { type Scope, Variable } from "@typescript-eslint/scope-manager";
+import type { Variable } from "@typescript-eslint/scope-manager";
+import { type Scope } from "@typescript-eslint/scope-manager";
 
 import { F, O } from "../lib/primitives/data";
 
@@ -9,15 +10,20 @@ export function findVariableByName(name: string) {
 }
 
 export function getVariablesUpToGlobal(startScope: Scope) {
-    let scope = startScope;
-    let variables = scope.variables;
+    const scopeRef = {
+        current: startScope,
+    };
 
-    while (scope.upper) {
-        scope = scope.upper;
-        variables = scope.variables.concat(variables);
+    const variablesRef = {
+        current: startScope.variables,
+    };
+
+    while (scopeRef.current.upper) {
+        scopeRef.current = scopeRef.current.upper;
+        variablesRef.current = variablesRef.current.concat(scopeRef.current.variables);
     }
 
-    return variables;
+    return variablesRef.current.reverse();
 }
 
 export function findVariableByNameUpToGlobal(name: string, startScope: Scope) {

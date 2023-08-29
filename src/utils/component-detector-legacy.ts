@@ -1,5 +1,6 @@
 import { type Scope, ScopeType } from "@typescript-eslint/scope-manager";
-import { AST_NODE_TYPES, TSESLint, type TSESTree } from "@typescript-eslint/utils";
+import type { TSESLint } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/utils";
 import memo from "micro-memoize";
 import { isMatching, match, P } from "ts-pattern";
 
@@ -87,7 +88,7 @@ export function getParentES6Component(context: TSESLint.RuleContext<string, []>)
         scope = scope.upper;
     }
 
-    const node = scope && scope.block;
+    const node = scope?.block;
 
     if (!node || !isES6Component(node, context)) {
         return null;
@@ -108,7 +109,7 @@ export function isPureComponent(node: TSESTree.Node, context: TSESLint.RuleConte
     if (E.isRight(pragma) && "superClass" in node && node.superClass) {
         const text = sourceCode.getText(node.superClass);
         // eslint-disable-next-line security/detect-non-literal-regexp
-        return new RegExp(`^(${pragma.right}\\.)?PureComponent$`).test(text);
+        return new RegExp(`^(${pragma.right}\\.)?PureComponent$`, "u").test(text);
     }
 
     return false;

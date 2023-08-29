@@ -4,38 +4,24 @@
         "es2024": true,
         "node": true
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/strict-type-checked",
-        "plugin:unicorn/recommended",
-        "plugin:perfectionist/recommended-natural",
-        "plugin:eslint-plugin/all",
-        "plugin:filenames-simple/recommended",
-        "plugin:regexp/all",
-        "plugin:security/recommended"
-    ],
+    "extends": ["with-tsconfig", "plugin:eslint-plugin/all", "plugin:filenames-simple/recommended"],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 2021,
         "project": "./tsconfig.json",
         "sourceType": "module"
     },
-    "plugins": [
-        "@typescript-eslint",
-        "filenames-simple",
-        "import-access",
-        "perfectionist",
-        "regexp",
-        "security",
-        "simple-import-sort"
-    ],
+    "plugins": ["filenames-simple"],
     "rules": {
+        "perfectionist/sort-named-imports": "off",
+        "perfectionist/sort-imports": "off",
         "no-console": "warn",
-        "@typescript-eslint/no-confusing-void-expression": "off",
+        "max-len": "off",
+        "@typescript-eslint/no-redeclare": "off",
         "@typescript-eslint/no-unused-expressions": "warn",
         "@typescript-eslint/no-floating-promises": "off",
-        "perfectionist/sort-imports": "off",
-        "perfectionist/sort-named-imports": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-confusing-void-expression": "off",
         "@typescript-eslint/no-unused-vars": [
             "warn",
             {
@@ -43,14 +29,6 @@
                 "destructuredArrayIgnorePattern": "^_"
             }
         ],
-        "unicorn/prevent-abbreviations": "off",
-        "unicorn/prefer-spread": "off",
-        "unicorn/prefer-module": "off",
-        "unicorn/no-null": "off",
-        "unicorn/no-array-reduce": "off",
-        "unicorn/prefer-top-level-await": "off",
-
-        "unicorn/no-array-callback-reference": "off",
         "eslint-plugin/require-meta-docs-url": "off",
         "perfectionist/sort-objects": [
             "warn",
@@ -96,7 +74,8 @@
         {
             "files": "*.spec.ts",
             "rules": {
-                "perfectionist/sort-objects": "off"
+                "perfectionist/sort-objects": "off",
+                "sonarjs/no-duplicate-string": "off"
             }
         },
         {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable security/detect-non-literal-regexp */
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -112,6 +113,7 @@ export default createEslintRule<Options, MessageIds>({
         const PROP_EVENT_HANDLER_REGEX = new RegExp(`^(${handlerPropPrefix}[A-Z].*|ref)$`, "u");
 
         // prettier-ignore
+
         const EVENT_HANDLER_REGEX = new RegExp(`^((props\\.${handlerPropPrefix || ""})|((.*\\.)?${handlerPrefix}))[0-9]*[A-Z].*$`, "u");
 
         return {
@@ -149,7 +151,7 @@ export default createEslintRule<Options, MessageIds>({
                     .getSourceCode()
                     .getText(propValueNode)
                     .replaceAll(/\s*/gu, "")
-                    // eslint-disable-next-line regexp/no-super-linear-move
+
                     .replace(/^this\.|.*::/u, "");
 
                 // Early return if the prop key a ref.

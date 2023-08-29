@@ -1,5 +1,6 @@
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 
+import type { ReactSettings } from "../../typings";
 import { E, F, O } from "../lib/primitives/data";
 
 /*
@@ -11,15 +12,8 @@ const JSX_ANNOTATION_REGEX = /@jsx\s+(\S+)/u;
 // Does not check for reserved keywords or unicode characters
 const JS_IDENTIFIER_REGEX = /^[$A-Z_a-z][\w$]*$/u;
 
-type ReactSettings = {
-    [key: string]: unknown;
-    createClass?: string;
-    fragment?: string;
-    pragma?: string;
-    version?: string;
-};
-
 export function getCreateClassFromContext<T extends RuleContext<string, []>>(context: T): E.Either<Error, string> {
+    // eslint-disable-next-line prefer-destructuring
     const settings: { react?: ReactSettings } = context.settings;
 
     const pragma = settings.react?.createClass ?? "createReactClass";
@@ -32,6 +26,7 @@ export function getCreateClassFromContext<T extends RuleContext<string, []>>(con
 }
 
 export function getFragmentFromContext<T extends RuleContext<string, []>>(context: T): E.Either<Error, string> {
+    // eslint-disable-next-line prefer-destructuring
     const settings: { react?: ReactSettings } = context.settings;
 
     const pragma = settings.react?.fragment ?? "Fragment";
@@ -44,6 +39,7 @@ export function getFragmentFromContext<T extends RuleContext<string, []>>(contex
 }
 
 export function getFromContext<T extends RuleContext<string, []>>(context: T): E.Either<Error, string> {
+    // eslint-disable-next-line prefer-destructuring
     const settings: { react?: ReactSettings } = context.settings;
 
     const sourceCode = context.getSourceCode();

@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 /**
  * This module is adapted from eslint-plugin-solid's
  * https://github.com/solidjs-community/eslint-plugin-solid/blob/main/src/rules/components-return-once.ts,
@@ -6,7 +7,8 @@
  */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as MutList from "@effect/data/MutableList";
-import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { RuleContext, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import invariant from "tiny-invariant";
 
@@ -17,10 +19,8 @@ export type FunctionNode =
     | TSESTree.FunctionDeclaration
     | TSESTree.FunctionExpression;
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export type PossibleFunctionalComponent = FunctionNode & {};
 
-// eslint-disable-next-line filenames-simple/named-export
 export function make<Ctx extends RuleContext<string, []>>(_: Ctx) {
     const components = new WeakSet<FunctionNode>();
 
@@ -32,7 +32,6 @@ export function make<Ctx extends RuleContext<string, []>>(_: Ctx) {
 
     const onFunctionExit = (node: FunctionNode) => {
         if (
-            // eslint-disable-next-line regexp/prefer-regexp-exec
             (AST.is(AST_NODE_TYPES.FunctionDeclaration)(node) && node.id?.name.match(/^[a-z]/u)) ||
             // "render props" aren't components
             AST.is(AST_NODE_TYPES.JSXExpressionContainer)(node.parent)

@@ -11,7 +11,6 @@
 export type Narrow<TType> =
     | { [K in keyof TType]: Narrow<TType[K]> }
     | (TType extends [] ? [] : never)
-    // eslint-disable-next-line @typescript-eslint/ban-types
     | (TType extends Function ? TType : never)
     | (TType extends bigint | boolean | number | string ? TType : never);
 

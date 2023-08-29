@@ -10,15 +10,16 @@
         "THIRD-PARTY-LICENSE"
     ],
     "ignoreWords": [
-        "tsup",
+        "pathe",
+        "quasis",
+        "sonarjs",
+        "tanstack",
+        "textnode",
+        "textnodes",
         "treeshake",
         "TSES",
         "TSESAST",
-        "textnode",
-        "textnodes",
-        "tanstack",
-        "quasis",
-        "pathe",
+        "tsup",
         "weakref"
     ],
     "useGitignore": true

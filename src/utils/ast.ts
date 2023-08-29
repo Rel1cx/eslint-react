@@ -1,6 +1,6 @@
-/* eslint-disable unicorn/no-array-for-each */
 import type TSESLintScopeManager from "@typescript-eslint/scope-manager";
-import { ASTUtils, TSESLint, TSESTree } from "@typescript-eslint/utils";
+import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
+import { ASTUtils } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 
@@ -246,7 +246,7 @@ export const AST = {
         );
     },
     traverseUpOnly(identifier: TSESTree.Node, allowedNodeTypes: AST_NODE_TYPES[]): TSESTree.Node {
-        const parent = identifier.parent;
+        const { parent } = identifier;
 
         if (parent !== undefined && AST.isOneOf(allowedNodeTypes)(parent)) {
             return AST.traverseUpOnly(parent, allowedNodeTypes);

@@ -1,6 +1,7 @@
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
-import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { match, P } from "ts-pattern";
 
 import { F, I, O } from "../lib/primitives/data";

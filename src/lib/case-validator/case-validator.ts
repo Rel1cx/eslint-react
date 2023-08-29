@@ -6,7 +6,9 @@ type RecommendationBuilder = (name: string) => string;
 
 export class CaseValidator {
     readonly #expression: RegExp;
+
     readonly #ignorePatterns: RegExp[];
+
     readonly #recommendationBuilder: RecommendationBuilder;
 
     constructor(

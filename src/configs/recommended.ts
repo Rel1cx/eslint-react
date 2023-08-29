@@ -4,5 +4,5 @@ export default {
     plugins: {
         "react-ts": mod,
     },
-    rules: mod.configs["recommended"].rules,
+    rules: mod.configs.recommended.rules,
 };
