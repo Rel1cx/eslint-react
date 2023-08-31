@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/utils";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import type { RuleName } from "../../typings";
-import { O } from "../lib/primitives/data";
+import { MutRef, O } from "../lib/primitives/data";
 
 const RULE_NAME: RuleName = "no-misused-jsx-extension";
 
@@ -28,21 +28,19 @@ export default createEslintRule<Options, MessageIds>({
     create(context) {
         const filename = context.getFilename();
 
-        const jsxNodeRef = {
-            current: O.none<TSESTree.JSXElement | TSESTree.JSXFragment>(),
-        };
+        const jsxNodeRef = MutRef.make<O.Option<TSESTree.JSXElement | TSESTree.JSXFragment>>(O.none());
 
         return {
             JSXElement(node) {
-                jsxNodeRef.current = O.some(node);
+                MutRef.set(jsxNodeRef, O.some(node));
             },
             JSXFragment(node) {
-                jsxNodeRef.current = O.some(node);
+                MutRef.set(jsxNodeRef, O.some(node));
             },
             "Program:exit"(node) {
                 const fileNameExt = filename.slice(filename.lastIndexOf("."));
 
-                if (fileNameExt === ".tsx" && O.isNone(jsxNodeRef.current)) {
+                if (fileNameExt === ".tsx" && O.isNone(MutRef.get(jsxNodeRef))) {
                     return context.report({
                         messageId: "MISUSED_JSX_EXTENSION",
                         node,

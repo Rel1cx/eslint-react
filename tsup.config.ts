@@ -23,6 +23,6 @@ export default defineConfig(() => ({
     // splitting: true,
     // skipNodeModulesBundle: false,
     splitting: false,
-    target: "node16",
+    target: "node18",
     treeshake: true,
 }));

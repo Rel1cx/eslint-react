@@ -64,7 +64,7 @@
         "ts-pattern": "5.0.5"
     },
     "devDependencies": {
-        "@tsconfig/strictest": "2.0.1",
+        "@tsconfig/strictest": "2.0.2",
         "@types/node": "20.5.7",
         "@typescript-eslint/eslint-plugin": "6.5.0",
         "@typescript-eslint/rule-tester": "6.5.0",

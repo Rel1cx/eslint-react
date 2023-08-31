@@ -1,7 +1,7 @@
 import type { Variable } from "@typescript-eslint/scope-manager";
 import { type Scope } from "@typescript-eslint/scope-manager";
 
-import { F, O } from "../lib/primitives/data";
+import { F, MutRef, O } from "../lib/primitives/data";
 
 export function findVariableByName(name: string) {
     return (variables: Variable[]) => {
@@ -10,20 +10,15 @@ export function findVariableByName(name: string) {
 }
 
 export function getVariablesUpToGlobal(startScope: Scope) {
-    const scopeRef = {
-        current: startScope,
-    };
+    const scopeRef = MutRef.make(startScope);
+    const variablesRef = MutRef.make(MutRef.get(scopeRef).variables);
 
-    const variablesRef = {
-        current: startScope.variables,
-    };
-
-    while (scopeRef.current.upper) {
-        scopeRef.current = scopeRef.current.upper;
-        variablesRef.current = variablesRef.current.concat(scopeRef.current.variables);
+    while (MutRef.get(scopeRef).upper) {
+        MutRef.set(scopeRef, MutRef.get(scopeRef).upper);
+        MutRef.update(variablesRef, (variables) => variables.concat(MutRef.get(scopeRef).variables));
     }
 
-    return variablesRef.current.reverse();
+    return MutRef.get(variablesRef).reverse();
 }
 
 export function findVariableByNameUpToGlobal(name: string, startScope: Scope) {
