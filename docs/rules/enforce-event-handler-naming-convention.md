@@ -1,6 +1,6 @@
 # enforce-event-handler-naming-convention
 
-⚠️ This rule _warns_ in the following [configs](/configs/): 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
+⚠️ This rule _warns_ in the following configs: 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
 
 <!-- end auto-generated rule header -->
 
@@ -30,10 +30,10 @@ Examples of **correct** code for this rule:
 
 ## Rule Options
 
-- `eventHandlerPrefix`: Prefix for component methods used as event handlers. Defaults to `handle`
-- `eventHandlerPropPrefix`: Prefix for props that are used as event handlers. Defaults to `on`
-- `checkLocalVariables`: Determines whether event handlers stored as local variables are checked. Defaults to `false`
-- `checkInlineFunction`: Determines whether event handlers set as inline functions are checked. Defaults to `false`
+-   `eventHandlerPrefix`: Prefix for component methods used as event handlers. Defaults to `handle`
+-   `eventHandlerPropPrefix`: Prefix for props that are used as event handlers. Defaults to `on`
+-   `checkLocalVariables`: Determines whether event handlers stored as local variables are checked. Defaults to `false`
+-   `checkInlineFunction`: Determines whether event handlers set as inline functions are checked. Defaults to `false`
 
 ### Type Signature
 

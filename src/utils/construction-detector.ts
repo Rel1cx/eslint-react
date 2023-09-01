@@ -32,10 +32,10 @@ export function make(scope: Scope) {
             .with(AST_NODE_TYPES.ArrayExpression, () => O.some({ type: ConstructionType.ARRAY, node }))
             .with(AST_NODE_TYPES.ObjectExpression, () => O.some({ type: ConstructionType.OBJECT, node }))
             .with(AST_NODE_TYPES.ClassExpression, () => O.some({ type: ConstructionType.CLASS_EXPRESSION, node }))
+            .with(AST_NODE_TYPES.FunctionExpression, () => O.some({ type: ConstructionType.FUNCTION_EXPRESSION, node }))
             .with(AST_NODE_TYPES.JSXElement, () => O.some({ type: ConstructionType.JSX_ELEMENT, node }))
             .with(AST_NODE_TYPES.JSXFragment, () => O.some({ type: ConstructionType.JSX_FRAGMENT, node }))
             .with(AST_NODE_TYPES.NewExpression, () => O.some({ type: ConstructionType.NEW_EXPRESSION, node }))
-            .with(AST_NODE_TYPES.FunctionExpression, () => O.some({ type: ConstructionType.FUNCTION_EXPRESSION, node }))
             .with(AST_NODE_TYPES.ArrowFunctionExpression, () => {
                 return O.some({ type: ConstructionType.FUNCTION_EXPRESSION, node });
             })

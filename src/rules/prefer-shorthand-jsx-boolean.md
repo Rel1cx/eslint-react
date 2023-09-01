@@ -18,8 +18,8 @@ Examples of **correct** code for this rule:
 
 ## Rule Options
 
-- rule - `"never"` or `"always"` (default: `"never"`)
-- excepts - an array of strings (default: `[]`)
+-   rule - `"never"` or `"always"` (default: `"never"`)
+-   excepts - an array of strings (default: `[]`)
 
 ### Type Signature
 

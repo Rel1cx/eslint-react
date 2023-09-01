@@ -1,6 +1,6 @@
 # no-misused-jsx-extension
 
-⚠️ This rule _warns_ in the following [configs](/configs/): 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
+⚠️ This rule _warns_ in the following configs: 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
 
 <!-- end auto-generated rule header -->
 
@@ -14,7 +14,7 @@ Examples of **correct** case for this rule:
 import React from "react";
 
 const ExampleComponent = () => {
-  return <div />;
+    return <div />;
 };
 
 export default ExampleComponent;

@@ -1,6 +1,6 @@
 # prefer-shorthand-jsx-boolean
 
-⚠️ This rule _warns_ in the following [configs](/configs/): 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
+⚠️ This rule _warns_ in the following configs: 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
 
 <!-- end auto-generated rule header -->
 
@@ -22,8 +22,8 @@ Examples of **correct** code for this rule:
 
 ## Rule Options
 
-- rule - `"never"` or `"always"` (default: `"never"`)
-- excepts - an array of strings (default: `[]`)
+-   rule - `"never"` or `"always"` (default: `"never"`)
+-   excepts - an array of strings (default: `[]`)
 
 ### Type Signature
 

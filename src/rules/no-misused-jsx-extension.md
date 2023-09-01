@@ -10,7 +10,7 @@ Examples of **correct** case for this rule:
 import React from "react";
 
 const ExampleComponent = () => {
-  return <div />;
+    return <div />;
 };
 
 export default ExampleComponent;

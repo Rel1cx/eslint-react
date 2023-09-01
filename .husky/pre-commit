@@ -4,6 +4,6 @@
 pnpm run format:write
 pnpm run "/^lint:/"
 pnpm run build
-pnpm publint
 pnpm run docs:generate
+pnpm publint
 git add .
