@@ -2,6 +2,7 @@ import { AST_NODE_TYPES, type TSESLint, type TSESTree } from "@typescript-eslint
 import { match } from "ts-pattern";
 
 import { E, F } from "../lib/primitives/data";
+import * as destructuredFromPragmaDetector from "./destructured-from-pragma-detector";
 import { getFromContext } from "./pragma";
 
 export function isCreateElement(node: TSESTree.Node, context: TSESLint.RuleContext<string, []>): boolean {
@@ -17,23 +18,18 @@ export function isCreateElement(node: TSESTree.Node, context: TSESLint.RuleConte
 
     const pragma = maybePragma.right;
 
-    return (
-        match(node.callee)
-            .with(
-                {
-                    type: AST_NODE_TYPES.MemberExpression,
-                    object: { name: pragma },
-                    property: { name: "createElement" },
-                },
-                F.constTrue,
-            )
-            // eslint-disable-next-line @typescript-eslint/no-use-before-define
-            .with({ name: "createElement" }, () => isDestructuredFromPragmaImport("createElement", context))
-            .otherwise(F.constFalse)
-    );
-}
+    const isDestructured = destructuredFromPragmaDetector.make(context);
 
-function isDestructuredFromPragmaImport(arg0: string, context: unknown): boolean {
-    // TODO: Implement this function
-    throw new Error("Function not implemented.");
+    return match(node.callee)
+        .with(
+            {
+                type: AST_NODE_TYPES.MemberExpression,
+                object: { name: pragma },
+                property: { name: "createElement" },
+            },
+            F.constTrue,
+        )
+
+        .with({ name: "createElement" }, ({ name }) => isDestructured(name))
+        .otherwise(F.constFalse);
 }

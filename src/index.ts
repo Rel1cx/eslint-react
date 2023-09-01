@@ -1,12 +1,11 @@
 import { name } from "../package.json";
+import type { Severity } from "../typings";
 import enforceEventHandlerNamingConvention from "./rules/enforce-event-handler-naming-convention";
 import enforceFilenameNamingConvention from "./rules/enforce-filename-naming-convention";
 import noMisusedJsxExtension from "./rules/no-misused-jsx-extension";
 import preferShorthandJsxBoolean from "./rules/prefer-shorthand-jsx-boolean";
 
-type RuleSeverity = "error" | "off" | "warn";
-
-type RuleDeclaration = [RuleSeverity, Record<string, unknown>?] | RuleSeverity;
+export type RuleDeclaration = [Severity, Record<string, unknown>?] | Severity;
 
 const recommendedRules: Record<string, RuleDeclaration> = {
     "enforce-event-handler-naming-convention": "warn",

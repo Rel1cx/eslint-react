@@ -23,7 +23,7 @@ export default createEslintRule<Options, MessageIds>({
             "": "TODO: Fill me in.",
         },
     },
-    create(context) {
+    create() {
         return {};
     },
     defaultOptions,
