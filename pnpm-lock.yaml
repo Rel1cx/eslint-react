@@ -79,15 +79,6 @@ devDependencies:
   prettier:
     specifier: 3.0.3
     version: 3.0.3
-  prettier-plugin-curly:
-    specifier: 0.1.2
-    version: 0.1.2(prettier@3.0.3)
-  prettier-plugin-organize-attributes:
-    specifier: 1.0.0
-    version: 1.0.0(prettier@3.0.3)
-  prettier-plugin-packagejson:
-    specifier: 2.4.5
-    version: 2.4.5(prettier@3.0.3)
   publint:
     specifier: 0.2.2
     version: 0.2.2
@@ -4647,15 +4638,6 @@ packages:
       prettier: 3.0.3
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /prettier-plugin-organize-attributes@1.0.0(prettier@3.0.3):
-    resolution: {integrity: sha512-+NmameaLxbCcylEXsKPmawtzla5EE6ECqvGkpfQz4KM847fXDifB1gFnPQEpoADAq6IXg+cMI8Z0ISJEXa6fhg==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      prettier: ^3.0.0
-    dependencies:
-      prettier: 3.0.3
     dev: true
 
   /prettier-plugin-packagejson@2.4.5(prettier@3.0.3):

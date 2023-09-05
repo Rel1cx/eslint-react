@@ -155,3 +155,9 @@ export function isJSXValue(
         })
         .otherwise(F.constFalse);
 }
+
+export function isReturningJSX(node: TSESTree.Node, context: TSESLint.RuleContext<string, []>) {
+    const returnStatements = AST.getNestedReturnStatements(node);
+
+    return returnStatements.some((returnStatement) => isJSXValue(returnStatement.argument, context, false, false));
+}
