@@ -3,9 +3,8 @@ import type { UnionFromTuple } from "./union";
 export type Enum<T extends object> = T[keyof T];
 
 export function Enum<T extends string[]>(...args: T) {
-    type Ret = { [P in UnionFromTuple<T>]: P };
     return Object.freeze(
-        args.reduce<Ret>((acc, next) => {
+        args.reduce<{ [P in UnionFromTuple<T>]: P }>((acc, next) => {
             return {
                 ...acc,
                 [next]: next,

@@ -4,7 +4,7 @@ import { type Scope } from "@typescript-eslint/scope-manager";
 import { F, MutRef, O } from "../lib/primitives/data";
 
 export function findVariableByName(name: string) {
-    return (variables: Variable[]) => {
+    return (variables: Variable[]): O.Option<NonNullable<Variable>> => {
         return O.fromNullable(variables.find((variable) => "name" in variable && variable.name === name));
     };
 }
@@ -21,6 +21,6 @@ export function getVariablesUpToGlobal(startScope: Scope) {
     return MutRef.get(variablesRef).reverse();
 }
 
-export function findVariableByNameUpToGlobal(name: string, startScope: Scope) {
+export function findVariableByNameUpToGlobal(name: string, startScope: Scope): O.Option<NonNullable<Variable>> {
     return F.pipe(getVariablesUpToGlobal(startScope), findVariableByName(name));
 }

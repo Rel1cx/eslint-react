@@ -29,6 +29,7 @@
                 "destructuredArrayIgnorePattern": "^_"
             }
         ],
+        "unicorn/no-array-method-this-argument": "off",
         "eslint-plugin/require-meta-docs-url": "off",
         "perfectionist/sort-objects": [
             "warn",
