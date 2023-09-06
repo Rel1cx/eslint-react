@@ -5,12 +5,8 @@ node_modules/
 dist/
 
 # Editor
-.vscode/
 .vim/
-
-# VitePress
-docs/.vitepress/cache/
-docs/.vitepress/temp/
+.idea/
 
 # Test
 coverage/

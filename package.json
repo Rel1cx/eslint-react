@@ -57,7 +57,7 @@
     },
     "prettier": "eslint-config-with-tsconfig/prettier",
     "dependencies": {
-        "@effect/data": "0.18.3",
+        "@effect/data": "0.18.4",
         "@typescript-eslint/parser": "6.6.0",
         "@typescript-eslint/scope-manager": "6.6.0",
         "@typescript-eslint/type-utils": "6.6.0",
@@ -80,6 +80,7 @@
         "fast-glob": "3.3.1",
         "husky": "8.0.3",
         "micro-memoize": "4.1.2",
+        "nolyfill": "1.0.21",
         "pathe": "1.1.1",
         "prettier": "3.0.3",
         "publint": "0.2.2",
@@ -95,7 +96,7 @@
         "eslint": ">=8.48.0",
         "typescript": ">=5.2.2"
     },
-    "packageManager": "pnpm@8.7.1",
+    "packageManager": "pnpm@8.7.4",
     "engines": {
         "node": ">=18.16.0"
     },
@@ -104,7 +105,8 @@
     },
     "pnpm": {
         "overrides": {
-            "typescript": "latest"
+            "typescript": "latest",
+            "has": "npm:@nolyfill/has@latest"
         }
     }
 }
