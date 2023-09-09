@@ -7,6 +7,7 @@
         "**/*.spec.ts",
         "package.json",
         "pnpm-lock.yaml",
+        "bun.lockb",
         "THIRD-PARTY-LICENSE"
     ],
     "ignoreWords": [
@@ -20,7 +21,8 @@
         "TSES",
         "TSESAST",
         "tsup",
-        "weakref"
+        "weakref",
+        "lockb"
     ],
     "useGitignore": true
 }

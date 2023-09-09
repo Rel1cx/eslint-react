@@ -7,7 +7,7 @@
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "moduleResolution": "Node",
-        "types": ["@types/node"],
+        "types": ["bun-types"],
         "noEmit": true,
         "strict": true
     },

@@ -43,21 +43,22 @@
     ],
     "scripts": {
         "build": "tsup",
-        "docs:generate": "esno ./scripts/doc-generate.ts",
+        "docs:generate": "bun run ./scripts/doc-generate.ts",
         "fix:ts": "eslint --ext .ts --fix .",
         "format:check": "prettier -u .",
         "format:write": "prettier -w -u .",
+        "lint": "bun run lint:import && bun run lint:spell && bun run lint:ts && bun run lint:type",
         "lint:import": "skott -m graph -e .ts -s",
         "lint:spell": "cspell lint --relative --no-progress '**'",
         "lint:ts": "eslint --ext .ts .",
         "lint:type": "tsc --noEmit",
         "prepare": "husky install",
-        "publish": "pnpm format:write && pnpm run '/^lint:/' && pnpm test && pnpm build && pnpm publint",
+        "publish": "bun run format:write && bun run lint && bun run test && bunn run build && bun run publint",
         "test": "vitest --run --single-thread --no-threads"
     },
     "prettier": "eslint-config-with-tsconfig/prettier",
     "dependencies": {
-        "@effect/data": "0.18.4",
+        "@effect/data": "0.18.5",
         "@typescript-eslint/parser": "6.6.0",
         "@typescript-eslint/scope-manager": "6.6.0",
         "@typescript-eslint/type-utils": "6.6.0",
@@ -65,18 +66,18 @@
         "ts-pattern": "5.0.5"
     },
     "devDependencies": {
+        "@effect/language-service": "^0.0.21",
         "@tsconfig/strictest": "2.0.2",
-        "@types/node": "20.5.9",
         "@typescript-eslint/eslint-plugin": "6.6.0",
         "@typescript-eslint/rule-tester": "6.6.0",
-        "cspell": "7.3.2",
-        "eslint": "8.48.0",
-        "eslint-config-relicx": "0.12.0",
-        "eslint-config-with-tsconfig": "2.6.1",
+        "bun-types": "^1.0.1",
+        "cspell": "7.3.5",
+        "eslint": "8.49.0",
+        "eslint-config-relicx": "0.12.1",
+        "eslint-config-with-tsconfig": "2.6.2",
         "eslint-doc-generator": "1.4.3",
         "eslint-plugin-eslint-plugin": "5.1.1",
         "eslint-plugin-filenames-simple": "0.8.0",
-        "esno": "0.17.0",
         "fast-glob": "3.3.1",
         "husky": "8.0.3",
         "micro-memoize": "4.1.2",
@@ -89,11 +90,11 @@
         "tsup": "7.2.0",
         "type-fest": "4.3.1",
         "typescript": "5.2.2",
-        "vitest": "0.34.3",
+        "vitest": "0.34.4",
         "zx": "7.2.3"
     },
     "peerDependencies": {
-        "eslint": ">=8.48.0",
+        "eslint": ">=8.49.0",
         "typescript": ">=5.2.2"
     },
     "packageManager": "pnpm@8.7.4",
@@ -102,11 +103,5 @@
     },
     "publishConfig": {
         "access": "public"
-    },
-    "pnpm": {
-        "overrides": {
-            "typescript": "latest",
-            "has": "npm:@nolyfill/has@latest"
-        }
     }
 }
