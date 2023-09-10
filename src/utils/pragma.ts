@@ -1,6 +1,5 @@
-import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
-
 import type { ReactSettings } from "../../typings";
+import type { RuleContext } from "../../typings/rule-context";
 import { E, F, O } from "../lib/primitives/data";
 
 /*
@@ -12,7 +11,7 @@ const JSX_ANNOTATION_REGEX = /@jsx\s+(\S+)/u;
 // Does not check for reserved keywords or unicode characters
 const JS_IDENTIFIER_REGEX = /^[$A-Z_a-z][\w$]*$/u;
 
-export function getCreateClassFromContext<T extends RuleContext<string, []>>(context: T): E.Either<Error, string> {
+export function getCreateClassFromContext<T extends RuleContext>(context: T): E.Either<Error, string> {
     // eslint-disable-next-line prefer-destructuring
     const settings: { react?: ReactSettings } = context.settings;
 
@@ -25,7 +24,7 @@ export function getCreateClassFromContext<T extends RuleContext<string, []>>(con
     return E.right(pragma);
 }
 
-export function getFragmentFromContext<T extends RuleContext<string, []>>(context: T): E.Either<Error, string> {
+export function getFragmentFromContext<T extends RuleContext>(context: T): E.Either<Error, string> {
     // eslint-disable-next-line prefer-destructuring
     const settings: { react?: ReactSettings } = context.settings;
 
@@ -38,7 +37,7 @@ export function getFragmentFromContext<T extends RuleContext<string, []>>(contex
     return E.right(pragma);
 }
 
-export function getFromContext<T extends RuleContext<string, []>>(context: T): E.Either<Error, string> {
+export function getFromContext<T extends RuleContext>(context: T): E.Either<Error, string> {
     // eslint-disable-next-line prefer-destructuring
     const settings: { react?: ReactSettings } = context.settings;
 

@@ -7,6 +7,11 @@ import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import { I } from "../lib/primitives/data";
 import { uniqueBy } from "../lib/unique-by";
 
+export type FunctionNode =
+    | TSESTree.ArrowFunctionExpression
+    | TSESTree.FunctionDeclaration
+    | TSESTree.FunctionExpression;
+
 export const AST = {
     ...ASTUtils,
     findPropertyWithIdentifierKey(
@@ -225,11 +230,6 @@ export const AST = {
     ): node is TSESTree.Identifier & { name: T[number] } {
         return AST.isIdentifier(node) && name.includes(node.name);
     },
-    // isOneOf<T extends AST_NODE_TYPES>(types: readonly T[]) {
-    //     return (node: TSESTree.Node): node is TSESTree.Node & { type: T } => {
-    //         return types.includes(node.type as T);
-    //     };
-    // },
     isOneOf: ASTUtils.isNodeOfTypes,
     isPropertyWithIdentifierKey(node: TSESTree.Node, key: string): node is TSESTree.Property {
         return AST.is(AST_NODE_TYPES.Property)(node) && AST.isIdentifierWithName(node.key, key);

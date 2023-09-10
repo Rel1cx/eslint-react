@@ -1,7 +1,7 @@
-import type { TSESLint } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/utils";
 import { match, P } from "ts-pattern";
 
+import type { RuleContext } from "../../typings/rule-context";
 import { F, I, O } from "../lib/primitives/data";
 import { AST } from "./ast";
 import { isCreateElement } from "./is-create-element";
@@ -70,7 +70,7 @@ export function hasEveryProp(nodeProps: TSESTree.JSXAttribute[], options: PropCh
 
 export function isJSXValue(
     node: TSESTree.Node | null,
-    context: TSESLint.RuleContext<string, []>,
+    context: RuleContext,
     strict: boolean,
     ignoreNull: boolean,
 ): boolean {
@@ -156,7 +156,7 @@ export function isJSXValue(
         .otherwise(F.constFalse);
 }
 
-export function isReturningJSX(node: TSESTree.Node, context: TSESLint.RuleContext<string, []>) {
+export function isReturningJSX(node: TSESTree.Node, context: RuleContext) {
     const returnStatements = AST.getNestedReturnStatements(node);
 
     return returnStatements.some((returnStatement) => isJSXValue(returnStatement.argument, context, false, false));

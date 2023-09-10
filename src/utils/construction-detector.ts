@@ -1,9 +1,9 @@
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
-import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import { match, P } from "ts-pattern";
 
+import type { RuleContext } from "../../typings/rule-context";
 import { F, I, O } from "../lib/primitives/data";
 import { Enum } from "../lib/primitives/enum";
 import { AST } from "./ast";
@@ -24,11 +24,10 @@ export const ConstructionType = Enum(
 
 export type ConstructionType = Enum<typeof ConstructionType>;
 
-export function make<Ctx extends RuleContext<string, []>>(ctx: Ctx) {
-    const detect = (
-        node: TSESTree.Node,
-        scope = ctx.getScope(),
-    ): O.Option<{ node: TSESTree.Node; type: ConstructionType; usage?: TSESTree.Node }> => {
+export type ConstructionInfo = { node: TSESTree.Node; type: ConstructionType; usage?: TSESTree.Node };
+
+export function make<Ctx extends RuleContext>(ctx: Ctx) {
+    const detect = (node: TSESTree.Node, scope = ctx.getScope()): O.Option<ConstructionInfo> => {
         return match(node.type)
             .with(AST_NODE_TYPES.ArrayExpression, () => O.some({ type: ConstructionType.ARRAY, node }))
             .with(AST_NODE_TYPES.ObjectExpression, () => O.some({ type: ConstructionType.OBJECT, node }))

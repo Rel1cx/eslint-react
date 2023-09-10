@@ -1,14 +1,15 @@
-import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { isMatching, match } from "ts-pattern";
 
+import type { RuleContext } from "../../typings/rule-context";
 import { E, F, O } from "../lib/primitives/data";
 import { AST } from "./ast";
 import { getFromContext } from "./pragma";
 import { findVariableByName, getVariablesUpToGlobal } from "./variable";
 
 // eslint-disable-next-line filenames-simple/named-export
-export function make(context: TSESLint.RuleContext<string, []>) {
+export function make<T extends RuleContext>(context: T) {
     const maybePragma = getFromContext(context);
     const variables = getVariablesUpToGlobal(context.getScope());
 

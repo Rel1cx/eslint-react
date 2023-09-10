@@ -1,15 +1,18 @@
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
+import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import path from "pathe";
-import { match } from "ts-pattern";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import type { RuleName } from "../../typings";
 import { getCaseValidator } from "../lib/case-validator/case-validator";
 import { O } from "../lib/primitives/data";
+import { Enum } from "../lib/primitives/enum";
 
 const RULE_NAME: RuleName = "enforce-filename-naming-convention";
 
-type MessageIds = "FILENAME_CASE_MISMATCH" | "FILENAME_CASE_MISMATCH_SUGGESTION" | "FILENAME_EMPTY";
+const MessageID = Enum("FILENAME_EMPTY", "FILENAME_CASE_MISMATCH", "FILENAME_CASE_MISMATCH_SUGGESTION");
+
+type MessageID = Enum<typeof MessageID>;
 
 type Options = readonly [
     {
@@ -44,7 +47,7 @@ const schema = [
     },
 ] satisfies [JSONSchema4];
 
-export default createEslintRule<Options, MessageIds>({
+export default createEslintRule<Options, MessageID>({
     name: RULE_NAME,
     meta: {
         type: "suggestion",
@@ -54,10 +57,10 @@ export default createEslintRule<Options, MessageIds>({
         },
         schema,
         messages: {
-            FILENAME_CASE_MISMATCH: "File name `{{name}}` does not match `{{rule}}`",
-            FILENAME_CASE_MISMATCH_SUGGESTION:
+            [MessageID.FILENAME_CASE_MISMATCH]: "File name `{{name}}` does not match `{{rule}}`",
+            [MessageID.FILENAME_CASE_MISMATCH_SUGGESTION]:
                 "File name `{{name}}` does not match `{{rule}}`. Should rename to `{{suggestion}}`.",
-            FILENAME_EMPTY: "File name is empty",
+            [MessageID.FILENAME_EMPTY]: "File name is empty",
         },
     },
     create(context) {
@@ -82,7 +85,7 @@ export default createEslintRule<Options, MessageIds>({
                 const [basename = "", ...rest] = path.basename(context.getFilename()).split(".");
 
                 if (basename.length === 0) {
-                    context.report({ messageId: "FILENAME_EMPTY", node });
+                    context.report({ messageId: MessageID.FILENAME_EMPTY, node });
                 }
 
                 if (validate(basename)) {
@@ -91,29 +94,27 @@ export default createEslintRule<Options, MessageIds>({
 
                 const maybeSuggestion = O.liftThrowable(getRecommendedName)(basename);
 
-                match(maybeSuggestion)
-                    .when(O.isSome, ({ value }) => {
-                        const suggestion = `${[value, ...rest].join(".")}`;
-                        return context.report({
-                            data: {
-                                name: filename,
-                                rule,
-                                suggestion,
-                            },
-                            messageId: "FILENAME_CASE_MISMATCH_SUGGESTION",
-                            node,
-                        });
-                    })
-                    .otherwise(() => {
-                        return context.report({
-                            data: {
-                                name: basename,
-                                rule,
-                            },
-                            messageId: "FILENAME_CASE_MISMATCH",
-                            node,
-                        });
-                    });
+                const descriptor: ReportDescriptor<MessageID> = O.match(maybeSuggestion, {
+                    onNone: () => ({
+                        data: {
+                            name: basename,
+                            rule,
+                        },
+                        messageId: MessageID.FILENAME_CASE_MISMATCH,
+                        node,
+                    }),
+                    onSome: (value) => ({
+                        data: {
+                            name: filename,
+                            rule,
+                            suggestion: `${[value, ...rest].join(".")}`,
+                        },
+                        messageId: MessageID.FILENAME_CASE_MISMATCH_SUGGESTION,
+                        node,
+                    }),
+                });
+
+                context.report(descriptor);
             },
         };
     },

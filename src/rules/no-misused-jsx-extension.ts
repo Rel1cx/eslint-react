@@ -3,16 +3,19 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import type { RuleName } from "../../typings";
 import { MutRef, O } from "../lib/primitives/data";
+import { Enum } from "../lib/primitives/enum";
 
 const RULE_NAME: RuleName = "no-misused-jsx-extension";
 
-type MessageIds = "MISUSED_JSX_EXTENSION";
+const MessageID = Enum("MISUSED_JSX_EXTENSION");
+
+type MessageID = Enum<typeof MessageID>;
 
 type Options = readonly [];
 
 const defaultOptions = [] as const satisfies Options;
 
-export default createEslintRule<Options, MessageIds>({
+export default createEslintRule<Options, MessageID>({
     name: RULE_NAME,
     meta: {
         type: "suggestion",
@@ -42,7 +45,7 @@ export default createEslintRule<Options, MessageIds>({
 
                 if (fileNameExt === ".tsx" && O.isNone(MutRef.get(jsxNodeRef))) {
                     return context.report({
-                        messageId: "MISUSED_JSX_EXTENSION",
+                        messageId: MessageID.MISUSED_JSX_EXTENSION,
                         node,
                     });
                 }

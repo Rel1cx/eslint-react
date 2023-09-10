@@ -6,12 +6,15 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import type { RuleName } from "../../typings";
 import { O } from "../lib/primitives/data";
+import { Enum } from "../lib/primitives/enum";
 import { AST } from "../utils/ast";
 import * as JSXUtils from "../utils/jsx";
 
 const RULE_NAME: RuleName = "enforce-event-handler-naming-convention";
 
-type MessageIds = "BAD_HANDLER_NAME" | "BAD_PROP_KEY";
+const MessageID = Enum("BAD_HANDLER_NAME", "BAD_PROP_KEY");
+
+type MessageID = Enum<typeof MessageID>;
 
 type Options = readonly [
     {
@@ -88,7 +91,7 @@ const schema = [
     },
 ] satisfies JSONSchema4[];
 
-export default createEslintRule<Options, MessageIds>({
+export default createEslintRule<Options, MessageID>({
     name: RULE_NAME,
     meta: {
         type: "suggestion",
@@ -98,9 +101,9 @@ export default createEslintRule<Options, MessageIds>({
         },
         schema,
         messages: {
-            BAD_HANDLER_NAME:
+            [MessageID.BAD_HANDLER_NAME]:
                 "Handler function for {{propKey}} prop key must be a camelCase name beginning with '{{handlerPrefix}}' only",
-            BAD_PROP_KEY: "Prop key for {{propValue}} must begin with '{{handlerPropPrefix}}'",
+            [MessageID.BAD_PROP_KEY]: "Prop key for {{propValue}} must begin with '{{handlerPropPrefix}}'",
         },
     },
     create(context, [{ checkInlineFunction, checkLocalVariables, eventHandlerPrefix, eventHandlerPropPrefix }]) {
@@ -168,7 +171,7 @@ export default createEslintRule<Options, MessageIds>({
                             handlerPropPrefix,
                             propValue,
                         },
-                        messageId: "BAD_PROP_KEY",
+                        messageId: MessageID.BAD_PROP_KEY,
                         node,
                     });
                 }
@@ -179,7 +182,7 @@ export default createEslintRule<Options, MessageIds>({
                             handlerPrefix,
                             propKey,
                         },
-                        messageId: "BAD_HANDLER_NAME",
+                        messageId: MessageID.BAD_HANDLER_NAME,
                         node,
                     });
                 }

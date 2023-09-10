@@ -6,10 +6,13 @@ import { createEslintRule } from "../../tools/create-eslint-rule";
 import { type RuleName } from "../../typings";
 import { Cond } from "../../typings/rule-option";
 import { I, O } from "../lib/primitives/data";
+import { Enum } from "../lib/primitives/enum";
 
 const RULE_NAME: RuleName = "prefer-shorthand-jsx-boolean";
 
-type MessageIds = "OMIT_VALUE" | "SET_VALUE";
+const MessageID = Enum("OMIT_VALUE", "SET_VALUE");
+
+type MessageID = Enum<typeof MessageID>;
 
 type Options = readonly [
     {
@@ -44,7 +47,7 @@ const schema = [
     },
 ] satisfies [JSONSchema4];
 
-export default createEslintRule<Options, MessageIds>({
+export default createEslintRule<Options, MessageID>({
     name: RULE_NAME,
     meta: {
         type: "suggestion",
@@ -77,11 +80,11 @@ export default createEslintRule<Options, MessageIds>({
                         const hasValue = I.isNullable(value);
 
                         if (hasValue && !isException) {
-                            return O.some<MessageIds>("SET_VALUE");
+                            return O.some(MessageID.SET_VALUE);
                         }
 
                         if (!hasValue && isException) {
-                            return O.some<MessageIds>("OMIT_VALUE");
+                            return O.some(MessageID.OMIT_VALUE);
                         }
 
                         return O.none();
@@ -93,11 +96,11 @@ export default createEslintRule<Options, MessageIds>({
                             value.expression.value === true;
 
                         if (hasValueWithTrue && !isException) {
-                            return O.some<MessageIds>("OMIT_VALUE");
+                            return O.some(MessageID.OMIT_VALUE);
                         }
 
                         if (!hasValueWithTrue && isException) {
-                            return O.some<MessageIds>("SET_VALUE");
+                            return O.some(MessageID.SET_VALUE);
                         }
 
                         return O.none();

@@ -1,6 +1,5 @@
 import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
 import rule from "./prefer-shorthand-jsx-boolean";
-
 const rootDir = getFixturesRootDir();
 
 const ruleTester = new RuleTester({
@@ -21,7 +20,7 @@ const RULE_NAME = "prefer-shorthand-jsx-boolean";
 ruleTester.run(RULE_NAME, rule, {
     valid: [
         {
-            code: "<App foo />;",
+            code: `<App foo />;`,
             options: [
                 {
                     rule: "never",
@@ -29,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
             ],
         },
         {
-            code: "<App foo bar={true} />;",
+            code: `<App foo bar={true} />;`,
             options: [
                 {
                     rule: "always",
@@ -38,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
             ],
         },
         {
-            code: "<App foo={true} />;",
+            code: `<App foo={true} />;`,
             options: [
                 {
                     rule: "always",
@@ -46,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
             ],
         },
         {
-            code: "<App foo={true} bar />;",
+            code: `<App foo={true} bar />;`,
             options: [
                 {
                     rule: "never",
@@ -57,7 +56,7 @@ ruleTester.run(RULE_NAME, rule, {
     ],
     invalid: [
         {
-            code: "<App foo={true} />;",
+            code: `<App foo={true} />;`,
             // output: "<App foo />;",
             options: [
                 {
@@ -67,7 +66,7 @@ ruleTester.run(RULE_NAME, rule, {
             errors: [{ messageId: "OMIT_VALUE" }],
         },
         {
-            code: "<App foo={true} bar={true} baz={true} />;",
+            code: `<App foo={true} bar={true} baz={true} />;`,
             // output: "<App foo bar baz={true} />;",
             options: [
                 {
@@ -85,17 +84,17 @@ ruleTester.run(RULE_NAME, rule, {
             ],
         },
         {
-            code: "<App foo={true} />;",
+            code: `<App foo={true} />;`,
             // output: "<App foo />;",
             errors: [{ messageId: "OMIT_VALUE" }],
         },
         {
-            code: "<App foo = {true} />;",
+            code: `<App foo = {true} />;`,
             // output: "<App foo />;",
             errors: [{ messageId: "OMIT_VALUE" }],
         },
         {
-            code: "<App foo />;",
+            code: `<App foo />;`,
             // output: "<App foo={true} />;",
             options: [
                 {
@@ -105,7 +104,7 @@ ruleTester.run(RULE_NAME, rule, {
             errors: [{ messageId: "SET_VALUE" }],
         },
         {
-            code: "<App foo bar baz />;",
+            code: `<App foo bar baz />;`,
             // output: "<App foo={true} bar={true} baz />;",
             options: [
                 {

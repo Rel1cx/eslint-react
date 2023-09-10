@@ -18,7 +18,7 @@ const ruleTester = new RuleTester({
 
 const RULE_NAME = "jsx-filename-naming-convention";
 
-const code = "export {}";
+const code = `export {}`;
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [
