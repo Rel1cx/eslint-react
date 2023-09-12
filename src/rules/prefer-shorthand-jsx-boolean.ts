@@ -57,8 +57,8 @@ export default createEslintRule<Options, MessageID>({
         },
         schema,
         messages: {
-            OMIT_VALUE: "Omit boolean value for prop '{{propName}}'.",
-            SET_VALUE: "Set boolean value for prop '{{propName}}'.",
+            [MessageID.OMIT_VALUE]: "Omit boolean value for prop '{{propName}}'.",
+            [MessageID.SET_VALUE]: "Set boolean value for prop '{{propName}}'.",
         },
     },
     create(context) {

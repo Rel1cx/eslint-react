@@ -25,7 +25,7 @@ export default createEslintRule<Options, MessageID>({
         },
         schema: [],
         messages: {
-            MISUSED_JSX_EXTENSION: "Potential misuse of the `.tsx` extension. Use `.ts` instead.",
+            [MessageID.MISUSED_JSX_EXTENSION]: "Potential misuse of the `.tsx` extension. Use `.ts` instead.",
         },
     },
     create(context) {

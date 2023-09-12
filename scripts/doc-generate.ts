@@ -9,7 +9,7 @@ async function main() {
 
     await Promise.all(files.map(async (file) => fs.copyFile(`src/rules/${file}`, `docs/rules/${file}`)));
 
-    await $`eslint-doc-generator --rule-list-columns name,description,fixable,hasSuggestions,deprecated --rule-doc-title-format name --path-rule-list README.MD --url-rule-doc ${BASEURL_RULE}/{name}`;
+    await $`eslint-doc-generator --rule-list-columns name,description,fixable,hasSuggestions,deprecated --path-rule-list README.MD --rule-doc-title-format name --path-rule-list README.MD --url-rule-doc ${BASEURL_RULE}/{name}`;
 }
 
 main();

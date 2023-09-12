@@ -2,6 +2,7 @@ import { name } from "../package.json";
 import type { Severity } from "../typings";
 import enforceEventHandlerNamingConvention from "./rules/enforce-event-handler-naming-convention";
 import enforceFilenameNamingConvention from "./rules/enforce-filename-naming-convention";
+import noConstructedContextValue from "./rules/no-constructed-context-value";
 import noMisusedJsxExtension from "./rules/no-misused-jsx-extension";
 import preferShorthandJsxBoolean from "./rules/prefer-shorthand-jsx-boolean";
 
@@ -10,6 +11,7 @@ export type RuleDeclaration = [Severity, Record<string, unknown>?] | Severity;
 const recommendedRules: Record<string, RuleDeclaration> = {
     "enforce-event-handler-naming-convention": "warn",
     "enforce-filename-naming-convention": "warn",
+    "no-constructed-context-value": "warn",
     "no-misused-jsx-extension": "warn",
     "prefer-shorthand-jsx-boolean": "warn",
 };
@@ -31,6 +33,7 @@ export default {
     rules: {
         "enforce-event-handler-naming-convention": enforceEventHandlerNamingConvention,
         "enforce-filename-naming-convention": enforceFilenameNamingConvention,
+        "no-constructed-context-value": noConstructedContextValue,
         "no-misused-jsx-extension": noMisusedJsxExtension,
         "prefer-shorthand-jsx-boolean": preferShorthandJsxBoolean,
     },
