@@ -61,6 +61,7 @@ export default createEslintRule<Options, MessageID>({
             [MessageID.SET_VALUE]: "Set boolean value for prop '{{propName}}'.",
         },
     },
+    defaultOptions,
     create(context) {
         const [option] = context.options;
         const [defaultOption] = defaultOptions;
@@ -117,5 +118,4 @@ export default createEslintRule<Options, MessageID>({
             },
         };
     },
-    defaultOptions,
 });

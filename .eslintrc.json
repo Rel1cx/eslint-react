@@ -64,7 +64,8 @@
                             "schema",
                             "message",
                             "title",
-                            "description"
+                            "description",
+                            "defaultOptions"
                         ],
                         "order": "asc",
                         "type": "natural"

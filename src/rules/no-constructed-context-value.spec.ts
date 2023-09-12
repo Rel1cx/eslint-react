@@ -42,6 +42,33 @@ ruleTester.run(RULE_NAME, rule, {
                 return <Context.Provider value={foo}></Context.Provider>;
             };`,
         },
+        {
+            code: `const foo = [];
+                const Component = () => {
+
+                return <Context.Provider value={foo}></Context.Provider>;
+            };`,
+        },
+        {
+            code: `const foo = new Object();
+                const Component = () => {
+
+                return <Context.Provider value={foo}></Context.Provider>;
+            };`,
+        },
+        {
+            code: `const foo = () => {};
+                const Component = () => {
+
+                return <Context.Provider value={foo}></Context.Provider>;
+            };`,
+        },
+        {
+            code: `const Component = () => {
+                const foo = useMemo(() => ({}), []);
+                return <Context.Provider value={foo}></Context.Provider>;
+            };`,
+        },
     ],
     invalid: [
         {
@@ -82,6 +109,21 @@ ruleTester.run(RULE_NAME, rule, {
             errors: [
                 {
                     messageId: "CONTEXT_VALUE_CONSTRUCTION_FUNCTION",
+                },
+            ],
+        },
+        {
+            code: `const Component = () => {
+                const foo = {
+                    bar: () => {},
+                }
+
+                return <Context.Provider value={foo.bar}></Context.Provider>;
+            };`,
+            errors: [
+                {
+                    // TODO: emit error as "CONTEXT_VALUE_CONSTRUCTION_FUNCTION"
+                    messageId: "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER",
                 },
             ],
         },

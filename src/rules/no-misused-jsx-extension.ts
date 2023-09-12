@@ -28,6 +28,7 @@ export default createEslintRule<Options, MessageID>({
             [MessageID.MISUSED_JSX_EXTENSION]: "Potential misuse of the `.tsx` extension. Use `.ts` instead.",
         },
     },
+    defaultOptions,
     create(context) {
         const filename = context.getFilename();
 
@@ -52,5 +53,4 @@ export default createEslintRule<Options, MessageID>({
             },
         };
     },
-    defaultOptions,
 });

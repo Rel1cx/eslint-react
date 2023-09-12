@@ -42,6 +42,7 @@ export default createEslintRule<Options, MessageID>({
                 "The {{type}} passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useMemo hook.",
         },
     },
+    defaultOptions,
     create(context) {
         const components = new Set<FunctionNode>();
 
@@ -120,6 +121,21 @@ export default createEslintRule<Options, MessageID>({
 
                 possibleValueConstructions.set(currentFn, constructionInfo);
             },
+            ReturnStatement(node) {
+                const returnStatements = AST.getNestedReturnStatements(node);
+
+                const hasJsx = returnStatements.some((returnStatement) => isReturningJSX(returnStatement, context));
+
+                if (!hasJsx || MutList.isEmpty(functionStack)) {
+                    return;
+                }
+
+                const currentFn = MutList.tail(functionStack);
+                invariant(currentFn, "Unexpected empty function stack");
+                components.add(currentFn);
+            },
+
+            // eslint-disable-next-line perfectionist/sort-objects
             "Program:exit"() {
                 for (const [fn, constructionInfo] of possibleValueConstructions.entries()) {
                     if (!components.has(fn)) {
@@ -148,21 +164,6 @@ export default createEslintRule<Options, MessageID>({
                     });
                 }
             },
-
-            ReturnStatement(node) {
-                const returnStatements = AST.getNestedReturnStatements(node);
-
-                const hasJsx = returnStatements.some((returnStatement) => isReturningJSX(returnStatement, context));
-
-                if (!hasJsx || MutList.isEmpty(functionStack)) {
-                    return;
-                }
-
-                const currentFn = MutList.tail(functionStack);
-                invariant(currentFn, "Unexpected empty function stack");
-                components.add(currentFn);
-            },
         };
     },
-    defaultOptions,
 });

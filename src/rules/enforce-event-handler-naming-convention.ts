@@ -106,6 +106,7 @@ export default createEslintRule<Options, MessageID>({
             [MessageID.BAD_PROP_KEY]: "Prop key for {{propValue}} must begin with '{{handlerPropPrefix}}'",
         },
     },
+    defaultOptions,
     create(context, [{ checkInlineFunction, checkLocalVariables, eventHandlerPrefix, eventHandlerPropPrefix }]) {
         const checkEventHandlerPrefix = !!eventHandlerPrefix;
         const checkEventHandlerPropPrefix = !!eventHandlerPropPrefix;
@@ -189,5 +190,4 @@ export default createEslintRule<Options, MessageID>({
             },
         };
     },
-    defaultOptions,
 });

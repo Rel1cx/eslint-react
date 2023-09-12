@@ -63,6 +63,7 @@ export default createEslintRule<Options, MessageID>({
             [MessageID.FILENAME_EMPTY]: "File name is empty",
         },
     },
+    defaultOptions,
     create(context) {
         const [option] = context.options;
         const [defaultOption] = defaultOptions;
@@ -118,5 +119,4 @@ export default createEslintRule<Options, MessageID>({
             },
         };
     },
-    defaultOptions,
 });
