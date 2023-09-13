@@ -1,6 +1,5 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import invariant from "tiny-invariant";
 import { match } from "ts-pattern";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
@@ -105,8 +104,11 @@ export default createEslintRule<Options, MessageID>({
 
                 const currentFn = MutList.tail(functionStack);
 
-                // eslint-disable-next-line sonarjs/no-duplicate-string
-                invariant(currentFn, "Unexpected empty function stack");
+                if (!currentFn) {
+                    // eslint-disable-next-line sonarjs/no-duplicate-string
+                    console.warn("Unexpected empty function stack");
+                    return;
+                }
 
                 possibleValueConstructions.set(currentFn, constructionInfo);
             },
@@ -121,7 +123,10 @@ export default createEslintRule<Options, MessageID>({
 
                 const currentFn = MutList.tail(functionStack);
 
-                invariant(currentFn, "Unexpected empty function stack");
+                if (!currentFn) {
+                    console.warn("Unexpected empty function stack");
+                    return;
+                }
 
                 const maybeName = O.fromNullable(currentFn.id?.name);
 
@@ -143,7 +148,10 @@ export default createEslintRule<Options, MessageID>({
 
                 const currentFn = MutList.tail(functionStack);
 
-                invariant(currentFn, "Unexpected empty function stack");
+                if (!currentFn) {
+                    console.warn("Unexpected empty function stack");
+                    return;
+                }
 
                 const { parent } = currentFn;
 

@@ -1,5 +1,4 @@
 import type { TSESTree } from "@typescript-eslint/types";
-import invariant from "tiny-invariant";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import { type RuleName } from "../../typings";
@@ -60,7 +59,12 @@ export default createEslintRule<Options, MessageID>({
                 }
 
                 const currentFn = MutList.tail(functionStack);
-                invariant(currentFn, "Unexpected empty function stack");
+
+                if (!currentFn) {
+                    console.warn("Unexpected empty function stack");
+                    return;
+                }
+
                 components.add(currentFn);
             },
             // eslint-disable-next-line perfectionist/sort-objects
@@ -75,7 +79,10 @@ export default createEslintRule<Options, MessageID>({
 
                 const currentFn = MutList.tail(functionStack);
 
-                invariant(currentFn, "Unexpected empty function stack");
+                if (!currentFn) {
+                    console.warn("Unexpected empty function stack");
+                    return;
+                }
 
                 const { parent } = currentFn;
 

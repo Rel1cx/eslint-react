@@ -81,14 +81,14 @@ export default [
 
 <!-- begin auto-generated rules list -->
 
-| Name                                                                                                                                                    | Description                                                                      |
-| :------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------- |
-| [debug-function-component](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/src/rules/debug-function-component)                               | debug report all function components                                             |
-| [enforce-event-handler-naming-convention](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/src/rules/enforce-event-handler-naming-convention) | enforce event handler naming conventions in JSX                                  |
-| [enforce-filename-naming-convention](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/src/rules/enforce-filename-naming-convention)           | enforce naming convention for jsx files                                          |
-| [no-constructed-context-value](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/src/rules/no-constructed-context-value)                       | disallows passing constructed values to context providers                        |
-| [no-misused-jsx-extension](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/src/rules/no-misused-jsx-extension)                               | enforce using `.ts` instead of `.tsx` extension when there is no JSX in the file |
-| [prefer-shorthand-jsx-boolean](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/src/rules/prefer-shorthand-jsx-boolean)                       | enforce boolean attributes notation in JSX                                       |
+| Name                                                                                                                                                        | Description                                                                      |
+| :---------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------- |
+| [debug-function-component](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/debug-function-component.md)                               | debug report all function components                                             |
+| [enforce-event-handler-naming-convention](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/enforce-event-handler-naming-convention.md) | enforce event handler naming conventions in JSX                                  |
+| [enforce-filename-naming-convention](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/enforce-filename-naming-convention.md)           | enforce naming convention for jsx files                                          |
+| [no-constructed-context-value](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/no-constructed-context-value.md)                       | disallows passing constructed values to context providers                        |
+| [no-misused-jsx-extension](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/no-misused-jsx-extension.md)                               | enforce using `.ts` instead of `.tsx` extension when there is no JSX in the file |
+| [prefer-shorthand-jsx-boolean](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/prefer-shorthand-jsx-boolean.md)                       | enforce boolean attributes notation in JSX                                       |
 
 <!-- end auto-generated rules list -->
 

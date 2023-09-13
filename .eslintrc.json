@@ -13,9 +13,12 @@
     },
     "plugins": ["filenames-simple"],
     "rules": {
-        "perfectionist/sort-named-imports": "off",
-        "perfectionist/sort-imports": "off",
-        "no-console": "warn",
+        "no-console": [
+            "warn",
+            {
+                "allow": ["warn", "error"]
+            }
+        ],
         "max-len": "off",
         "@typescript-eslint/no-redeclare": "off",
         "@typescript-eslint/no-unused-expressions": "warn",
@@ -31,6 +34,8 @@
         ],
         "unicorn/no-array-method-this-argument": "off",
         "eslint-plugin/require-meta-docs-url": "off",
+        "perfectionist/sort-named-imports": "off",
+        "perfectionist/sort-imports": "off",
         "perfectionist/sort-objects": [
             "warn",
             {
