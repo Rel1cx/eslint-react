@@ -11,7 +11,7 @@ export type RuleDeclaration = [Severity, Record<string, unknown>?] | Severity;
 
 export type RulePreset = Record<string, RuleDeclaration>;
 
-const allRules: Record<string, RuleDeclaration> = {
+const allRules = {
     "enforce-event-handler-naming-convention": "error",
     "enforce-filename-naming-convention": "error",
     "no-constructed-context-value": "error",
@@ -30,7 +30,7 @@ const debugRules = {
     "debug-function-component": "warn",
 } as const satisfies RulePreset;
 
-const createConfig = (rules: typeof allRules) => {
+const createConfig = (rules: RulePreset) => {
     return {
         plugins: ["react-ts"],
         rules: Object.fromEntries(Object.entries(rules).map(([key, value]) => [`react-ts/${key}`, value])),

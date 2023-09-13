@@ -6,6 +6,7 @@ export default defineConfig(() => ({
     dts: false,
     entry: [
         "src/configs/all.ts",
+        "src/configs/debug.ts",
         "src/configs/recommended.ts",
         "src/configs/recommended-type-checked.ts",
         "src/index.ts",

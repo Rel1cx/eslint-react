@@ -84,7 +84,7 @@
             "files": "./scripts/**/*.ts",
             "settings": {
                 "parserOptions": {
-                    "project": "./tsconfig.node.json"
+                    "project": "./tsconfig.bun.json"
                 }
             }
         }
