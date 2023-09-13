@@ -1,4 +1,5 @@
 import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/utils";
+import memo from "micro-memoize";
 import { match, P } from "ts-pattern";
 
 import type { RuleContext } from "../../typings/rule-context";
@@ -68,93 +69,90 @@ export function hasEveryProp(nodeProps: TSESTree.JSXAttribute[], options: PropCh
     return (props: string[]) => props.every(hasProp(nodeProps, options));
 }
 
-export function isJSXValue(
-    node: TSESTree.Node | null,
-    context: RuleContext,
-    strict: boolean,
-    ignoreNull: boolean,
-): boolean {
-    if (!node) {
-        return false;
-    }
+export const isJSXValue = memo(
+    (node: TSESTree.Node | null, context: RuleContext, strict: boolean, ignoreNull: boolean): boolean => {
+        if (!node) {
+            return false;
+        }
 
-    return match(node.type)
-        .with(AST_NODE_TYPES.JSXElement, F.constTrue)
-        .with(AST_NODE_TYPES.JSXFragment, F.constTrue)
-        .with(AST_NODE_TYPES.Literal, () => {
-            if (!("value" in node) || ignoreNull) {
-                return false;
-            }
+        return match(node.type)
+            .with(AST_NODE_TYPES.JSXElement, F.constTrue)
+            .with(AST_NODE_TYPES.JSXFragment, F.constTrue)
+            .with(AST_NODE_TYPES.Literal, () => {
+                if (!("value" in node) || ignoreNull) {
+                    return false;
+                }
 
-            return node.value === null;
-        })
-        .with(AST_NODE_TYPES.ConditionalExpression, () => {
-            if (!("consequent" in node)) {
-                return false;
-            }
+                return node.value === null;
+            })
+            .with(AST_NODE_TYPES.ConditionalExpression, () => {
+                if (!("consequent" in node)) {
+                    return false;
+                }
 
-            const leftHasJSX = match(node.consequent)
-                .with(P.array(), (n) => {
-                    return n.some((n) => isJSXValue(n, context, strict, ignoreNull));
-                })
-                .with(P.any, (n) => {
-                    return isJSXValue(n, context, strict, ignoreNull);
-                })
-                .exhaustive();
+                const leftHasJSX = match(node.consequent)
+                    .with(P.array(), (n) => {
+                        return n.some((n) => isJSXValue(n, context, strict, ignoreNull));
+                    })
+                    .with(P.any, (n) => {
+                        return isJSXValue(n, context, strict, ignoreNull);
+                    })
+                    .exhaustive();
 
-            return leftHasJSX || ("alternate" in node && isJSXValue(node.alternate, context, strict, ignoreNull));
-        })
-        .with(AST_NODE_TYPES.LogicalExpression, () => {
-            if (!("left" in node)) {
-                return false;
-            }
+                return leftHasJSX || ("alternate" in node && isJSXValue(node.alternate, context, strict, ignoreNull));
+            })
+            .with(AST_NODE_TYPES.LogicalExpression, () => {
+                if (!("left" in node)) {
+                    return false;
+                }
 
-            return (
-                isJSXValue(node.left, context, strict, ignoreNull) ||
-                isJSXValue(node.right, context, strict, ignoreNull)
-            );
-        })
-        .with(AST_NODE_TYPES.SequenceExpression, () => {
-            if (!("expressions" in node)) {
-                return false;
-            }
+                return (
+                    isJSXValue(node.left, context, strict, ignoreNull) ||
+                    isJSXValue(node.right, context, strict, ignoreNull)
+                );
+            })
+            .with(AST_NODE_TYPES.SequenceExpression, () => {
+                if (!("expressions" in node)) {
+                    return false;
+                }
 
-            const exp = node.expressions.at(-1);
+                const exp = node.expressions.at(-1);
 
-            return !I.isNullable(exp) && isJSXValue(exp, context, strict, ignoreNull);
-        })
-        .with(AST_NODE_TYPES.CallExpression, () => {
-            return isCreateElement(node, context);
-        })
-        .with(AST_NODE_TYPES.Identifier, () => {
-            if (!("name" in node)) {
-                return false;
-            }
+                return !I.isNullable(exp) && isJSXValue(exp, context, strict, ignoreNull);
+            })
+            .with(AST_NODE_TYPES.CallExpression, () => {
+                return isCreateElement(node, context);
+            })
+            .with(AST_NODE_TYPES.Identifier, () => {
+                if (!("name" in node)) {
+                    return false;
+                }
 
-            if (isJsxTagNameExpression(node)) {
-                return true;
-            }
+                if (isJsxTagNameExpression(node)) {
+                    return true;
+                }
 
-            if (!I.isString(node.name) && !AST.is(AST_NODE_TYPES.Identifier)(node.name)) {
-                return isJsxTagNameExpression(node.name);
-            }
+                if (!I.isString(node.name) && !AST.is(AST_NODE_TYPES.Identifier)(node.name)) {
+                    return isJsxTagNameExpression(node.name);
+                }
 
-            const name = match(node.name)
-                .with(P.string, F.identity)
-                .with({ type: AST_NODE_TYPES.Identifier }, (n) => n.name)
-                .exhaustive();
+                const name = match(node.name)
+                    .with(P.string, F.identity)
+                    .with({ type: AST_NODE_TYPES.Identifier }, (n) => n.name)
+                    .exhaustive();
 
-            const variable = findVariableByNameUpToGlobal(name, context.getScope());
+                const variable = findVariableByNameUpToGlobal(name, context.getScope());
 
-            return F.pipe(
-                O.flatMapNullable(variable, (v) => v.defs.at(0)?.node),
-                O.flatMapNullable((n) => ("init" in n ? n.init : n)),
-                O.map(AST.isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])),
-                O.getOrElse(F.constFalse),
-            );
-        })
-        .otherwise(F.constFalse);
-}
+                return F.pipe(
+                    O.flatMapNullable(variable, (v) => v.defs.at(0)?.node),
+                    O.flatMapNullable((n) => ("init" in n ? n.init : n)),
+                    O.map(AST.isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])),
+                    O.getOrElse(F.constFalse),
+                );
+            })
+            .otherwise(F.constFalse);
+    },
+);
 
 export function isReturningJSX(node: TSESTree.Node, context: RuleContext, strict = false, ignoreNull = false) {
     const returnStatements = AST.getNestedReturnStatements(node);

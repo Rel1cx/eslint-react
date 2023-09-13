@@ -3,6 +3,7 @@ import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 import { ASTUtils } from "@typescript-eslint/utils";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
+import memo from "micro-memoize";
 
 import { I } from "../lib/primitives/data";
 import { uniqueBy } from "../lib/unique-by";
@@ -70,7 +71,7 @@ export const AST = {
             );
         });
     },
-    getNestedIdentifiers(node: TSESTree.Node): TSESTree.Identifier[] {
+    getNestedIdentifiers: memo((node: TSESTree.Node): TSESTree.Identifier[] => {
         const identifiers: TSESTree.Identifier[] = [];
 
         if (AST.isIdentifier(node)) {
@@ -128,8 +129,8 @@ export const AST = {
         }
 
         return identifiers;
-    },
-    getNestedReturnStatements(node: TSESTree.Node): TSESTree.ReturnStatement[] {
+    }),
+    getNestedReturnStatements: memo((node: TSESTree.Node): TSESTree.ReturnStatement[] => {
         const returnStatements: TSESTree.ReturnStatement[] = [];
 
         if (AST.is(AST_NODE_TYPES.ReturnStatement)(node)) {
@@ -190,7 +191,7 @@ export const AST = {
         }
 
         return returnStatements;
-    },
+    }),
     getReferencedExpressionByIdentifier(params: {
         context: Readonly<RuleContext<string, readonly []>>;
         node: TSESTree.Node;
