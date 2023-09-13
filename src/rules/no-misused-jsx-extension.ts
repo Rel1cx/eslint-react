@@ -1,15 +1,12 @@
-import type { TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/types";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import type { RuleName } from "../../typings";
 import { MutRef, O } from "../lib/primitives/data";
-import { Enum } from "../lib/primitives/enum";
 
 const RULE_NAME: RuleName = "no-misused-jsx-extension";
 
-const MessageID = Enum("MISUSED_JSX_EXTENSION");
-
-type MessageID = Enum<typeof MessageID>;
+type MessageID = "MISUSED_JSX_EXTENSION";
 
 type Options = readonly [];
 
@@ -25,7 +22,7 @@ export default createEslintRule<Options, MessageID>({
         },
         schema: [],
         messages: {
-            [MessageID.MISUSED_JSX_EXTENSION]: "Potential misuse of the `.tsx` extension. Use `.ts` instead.",
+            MISUSED_JSX_EXTENSION: "Potential misuse of the `.tsx` extension. Use `.ts` instead.",
         },
     },
     defaultOptions,
@@ -46,7 +43,7 @@ export default createEslintRule<Options, MessageID>({
 
                 if (fileNameExt === ".tsx" && O.isNone(MutRef.get(jsxNodeRef))) {
                     return context.report({
-                        messageId: MessageID.MISUSED_JSX_EXTENSION,
+                        messageId: "MISUSED_JSX_EXTENSION",
                         node,
                     });
                 }

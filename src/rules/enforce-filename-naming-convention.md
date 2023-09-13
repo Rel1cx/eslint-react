@@ -42,8 +42,8 @@ src/components/example_component.tsx
 
 ## Rule Options
 
--   `rule`: The naming convention to enforce. Defaults to `PascalCase`
--   `excepts`: An array of regexp that should be ignored by the rule. Defaults to `[]`
+- `rule`: The naming convention to enforce. Defaults to `PascalCase`
+- `excepts`: An array of regexp that should be ignored by the rule. Defaults to `[]`
 
 ### Type Signature
 

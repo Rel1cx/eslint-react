@@ -1,6 +1,6 @@
 # enforce-filename-naming-convention
 
-⚠️ This rule _warns_ in the following configs: 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
+💼 This rule is enabled in the following configs: 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
 
 <!-- end auto-generated rule header -->
 
@@ -46,8 +46,8 @@ src/components/example_component.tsx
 
 ## Rule Options
 
--   `rule`: The naming convention to enforce. Defaults to `PascalCase`
--   `excepts`: An array of regexp that should be ignored by the rule. Defaults to `[]`
+- `rule`: The naming convention to enforce. Defaults to `PascalCase`
+- `excepts`: An array of regexp that should be ignored by the rule. Defaults to `[]`
 
 ### Type Signature
 

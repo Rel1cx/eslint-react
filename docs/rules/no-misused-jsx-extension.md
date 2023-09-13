@@ -1,6 +1,6 @@
 # no-misused-jsx-extension
 
-⚠️ This rule _warns_ in the following configs: 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
+⚠️ This rule _warns_ in the 🌐 `all` config.
 
 <!-- end auto-generated rule header -->
 

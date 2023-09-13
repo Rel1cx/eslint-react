@@ -1,5 +1,5 @@
-import type { TSESTree } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { isMatching, match } from "ts-pattern";
 
 import type { RuleContext } from "../../typings/rule-context";

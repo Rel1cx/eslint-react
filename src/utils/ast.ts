@@ -1,7 +1,7 @@
 import type TSESLintScopeManager from "@typescript-eslint/scope-manager";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 import { ASTUtils } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 
 import { I } from "../lib/primitives/data";

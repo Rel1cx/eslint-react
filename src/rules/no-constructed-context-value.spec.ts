@@ -1,4 +1,3 @@
-/* eslint-disable eslint-plugin/test-case-shorthand-strings */
 import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
 import rule from "./no-constructed-context-value";
 
@@ -21,54 +20,41 @@ const RULE_NAME = "no-constructed-context-value";
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [
-        {
-            code: `const Component = () => {
+        `const Component = () => <div></div>;`,
+        `const Component = () => {
                 const foo = useMemo(() => ({}), []);
 
                 return <Context.Provider value={foo}></Context.Provider>;
             };`,
-        },
-        {
-            code: `const Component = () => {
+        `const Component = () => {
                 const foo = useMemo(() => [], []);
 
                 return <Context.Provider value={foo}></Context.Provider>;
             };`,
-        },
-        {
-            code: `const foo = {};
+        `const foo = {};
                 const Component = () => {
 
                 return <Context.Provider value={foo}></Context.Provider>;
             };`,
-        },
-        {
-            code: `const foo = [];
+        `const foo = [];
                 const Component = () => {
 
                 return <Context.Provider value={foo}></Context.Provider>;
             };`,
-        },
-        {
-            code: `const foo = new Object();
+        `const foo = new Object();
                 const Component = () => {
 
                 return <Context.Provider value={foo}></Context.Provider>;
             };`,
-        },
-        {
-            code: `const foo = () => {};
+        `const foo = () => {};
                 const Component = () => {
 
                 return <Context.Provider value={foo}></Context.Provider>;
             };`,
-        },
-        {
-            code: `const Component = () => {
+        `const Component = () => {
                 const foo = useMemo(() => ({}), []);
                 return <Context.Provider value={foo}></Context.Provider>;
             };`,
-        },
     ],
     invalid: [
         {

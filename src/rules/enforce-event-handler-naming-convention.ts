@@ -1,20 +1,17 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable security/detect-non-literal-regexp */
-import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import type { RuleName } from "../../typings";
 import { O } from "../lib/primitives/data";
-import { Enum } from "../lib/primitives/enum";
 import { AST } from "../utils/ast";
 import * as JSXUtils from "../utils/jsx";
 
 const RULE_NAME: RuleName = "enforce-event-handler-naming-convention";
 
-const MessageID = Enum("BAD_HANDLER_NAME", "BAD_PROP_KEY");
-
-type MessageID = Enum<typeof MessageID>;
+type MessageID = "BAD_HANDLER_NAME" | "BAD_PROP_KEY";
 
 type Options = readonly [
     {
@@ -101,9 +98,9 @@ export default createEslintRule<Options, MessageID>({
         },
         schema,
         messages: {
-            [MessageID.BAD_HANDLER_NAME]:
+            BAD_HANDLER_NAME:
                 "Handler function for {{propKey}} prop key must be a camelCase name beginning with '{{handlerPrefix}}' only",
-            [MessageID.BAD_PROP_KEY]: "Prop key for {{propValue}} must begin with '{{handlerPropPrefix}}'",
+            BAD_PROP_KEY: "Prop key for {{propValue}} must begin with '{{handlerPropPrefix}}'",
         },
     },
     defaultOptions,
@@ -172,7 +169,7 @@ export default createEslintRule<Options, MessageID>({
                             handlerPropPrefix,
                             propValue,
                         },
-                        messageId: MessageID.BAD_PROP_KEY,
+                        messageId: "BAD_PROP_KEY",
                         node,
                     });
                 }
@@ -183,7 +180,7 @@ export default createEslintRule<Options, MessageID>({
                             handlerPrefix,
                             propKey,
                         },
-                        messageId: MessageID.BAD_HANDLER_NAME,
+                        messageId: "BAD_HANDLER_NAME",
                         node,
                     });
                 }

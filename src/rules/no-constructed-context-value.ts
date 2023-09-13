@@ -1,24 +1,23 @@
-import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import invariant from "tiny-invariant";
 import { match } from "ts-pattern";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import type { RuleName } from "../../typings";
-import { MutList, O } from "../lib/primitives/data";
-import { Enum } from "../lib/primitives/enum";
+import { I, MutList, O } from "../lib/primitives/data";
 import { AST, type FunctionNode } from "../utils/ast";
 import * as ConstructionDetector from "../utils/construction-detector";
-import { isReturningJSX } from "../utils/jsx";
+import { ConstructionType } from "../utils/construction-detector";
+import { isComponentName } from "../utils/is-component-name";
+import { isJSXValue, isReturningJSX } from "../utils/jsx";
 
 const RULE_NAME: RuleName = "no-constructed-context-value";
 
-const MessageID = Enum(
-    "CONTEXT_VALUE_CONSTRUCTION",
-    "CONTEXT_VALUE_CONSTRUCTION_FUNCTION",
-    "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER",
-);
-
-type MessageID = Enum<typeof MessageID>;
+type MessageID =
+    | "CONTEXT_VALUE_CONSTRUCTION"
+    | "CONTEXT_VALUE_CONSTRUCTION_FUNCTION"
+    | "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER";
 
 type Options = readonly [];
 
@@ -34,11 +33,11 @@ export default createEslintRule<Options, MessageID>({
         },
         schema: [],
         messages: {
-            [MessageID.CONTEXT_VALUE_CONSTRUCTION]:
+            CONTEXT_VALUE_CONSTRUCTION:
                 "The {{type}} passed as the value prop to the context provider should not be constructed. It will change on every render.",
-            [MessageID.CONTEXT_VALUE_CONSTRUCTION_FUNCTION]:
+            CONTEXT_VALUE_CONSTRUCTION_FUNCTION:
                 "The {{type}} passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useCallback hook.",
-            [MessageID.CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER]:
+            CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER:
                 "The {{type}} passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useMemo hook.",
         },
     },
@@ -54,18 +53,7 @@ export default createEslintRule<Options, MessageID>({
 
         const onFunctionEnter = (node: FunctionNode) => MutList.append(functionStack, node);
 
-        const onFunctionExit = (node: FunctionNode) => {
-            if (
-                (AST.is(AST_NODE_TYPES.FunctionDeclaration)(node) && node.id?.name.match(/^[a-z]/u)) ||
-                AST.is(AST_NODE_TYPES.JSXExpressionContainer)(node.parent)
-            ) {
-                const currentFn = MutList.tail(functionStack);
-                // eslint-disable-next-line sonarjs/no-duplicate-string
-                invariant(currentFn, "Unexpected empty function stack");
-            }
-
-            MutList.pop(functionStack);
-        };
+        const onFunctionExit = () => MutList.pop(functionStack);
 
         return {
             ArrowFunctionExpression: onFunctionEnter,
@@ -117,6 +105,7 @@ export default createEslintRule<Options, MessageID>({
 
                 const currentFn = MutList.tail(functionStack);
 
+                // eslint-disable-next-line sonarjs/no-duplicate-string
                 invariant(currentFn, "Unexpected empty function stack");
 
                 possibleValueConstructions.set(currentFn, constructionInfo);
@@ -131,11 +120,43 @@ export default createEslintRule<Options, MessageID>({
                 }
 
                 const currentFn = MutList.tail(functionStack);
+
                 invariant(currentFn, "Unexpected empty function stack");
+
+                const maybeName = O.fromNullable(currentFn.id?.name);
+
+                if (O.isSome(maybeName) && !isComponentName(maybeName.value)) {
+                    return;
+                }
+
                 components.add(currentFn);
             },
-
             // eslint-disable-next-line perfectionist/sort-objects
+            "ArrowFunctionExpression[body.type!='BlockStatement']"(node: TSESTree.ArrowFunctionExpression) {
+                const { body } = node;
+
+                const hasJsx = isJSXValue(body, context, false, false);
+
+                if (!hasJsx || MutList.isEmpty(functionStack)) {
+                    return;
+                }
+
+                const currentFn = MutList.tail(functionStack);
+
+                invariant(currentFn, "Unexpected empty function stack");
+
+                const { parent } = currentFn;
+
+                if ("id" in parent && !I.isNullable(parent.id) && "name" in parent.id) {
+                    const { name } = parent.id;
+
+                    if (!isComponentName(name)) {
+                        return;
+                    }
+                }
+
+                components.add(currentFn);
+            },
             "Program:exit"() {
                 for (const [fn, constructionInfo] of possibleValueConstructions.entries()) {
                     if (!components.has(fn)) {
@@ -144,15 +165,15 @@ export default createEslintRule<Options, MessageID>({
 
                     const { type, node } = constructionInfo;
 
-                    const messageId = match(type)
-                        .with(ConstructionDetector.ConstructionType.FUNCTION_DECLARATION, () => {
-                            return MessageID.CONTEXT_VALUE_CONSTRUCTION_FUNCTION;
+                    const messageId = match<ConstructionType, MessageID>(type)
+                        .with(ConstructionType.FUNCTION_DECLARATION, () => {
+                            return "CONTEXT_VALUE_CONSTRUCTION_FUNCTION";
                         })
-                        .with(ConstructionDetector.ConstructionType.FUNCTION_EXPRESSION, () => {
-                            return MessageID.CONTEXT_VALUE_CONSTRUCTION_FUNCTION;
+                        .with(ConstructionType.FUNCTION_EXPRESSION, () => {
+                            return "CONTEXT_VALUE_CONSTRUCTION_FUNCTION";
                         })
                         .otherwise(() => {
-                            return MessageID.CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER;
+                            return "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER";
                         });
 
                     context.report({

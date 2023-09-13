@@ -4,6 +4,8 @@ type No = "no";
 
 type Use = "use";
 
+type Debug = "debug";
+
 export type PositiveModifier = "enforce" | "prefer" | "require" | "strict" | Use;
 
 export type NegativeModifier = "prevent" | No;
@@ -108,8 +110,7 @@ export type Term =
     | "forward-ref"
     // | "function"
     // | "function-name"
-    // | "functional"
-    // | "functional-component"
+    | "function-component"
     // | "generator"
     // | "generic"
     // | "getter"
@@ -214,6 +215,7 @@ export type RuleName =
     | `${NegativeModifier}-${NegativeDescriptive}-${Term}`
     | `${NegativeModifier}-${NegativeDescriptive}-${Term}-${Additional}`
     | `${No}-${Term}`
+    | `${Debug}-${Term}`
     | `${PositiveModifier}-${PositiveDescriptive}-${Term}`
     | `${PositiveModifier}-${PositiveDescriptive}-${Term}-${Additional}`
     | `${PositiveModifier}-${Term}`

@@ -6,13 +6,10 @@ import { createEslintRule } from "../../tools/create-eslint-rule";
 import type { RuleName } from "../../typings";
 import { getCaseValidator } from "../lib/case-validator/case-validator";
 import { O } from "../lib/primitives/data";
-import { Enum } from "../lib/primitives/enum";
 
 const RULE_NAME: RuleName = "enforce-filename-naming-convention";
 
-const MessageID = Enum("FILENAME_EMPTY", "FILENAME_CASE_MISMATCH", "FILENAME_CASE_MISMATCH_SUGGESTION");
-
-type MessageID = Enum<typeof MessageID>;
+type MessageID = "FILENAME_EMPTY" | "FILENAME_CASE_MISMATCH" | "FILENAME_CASE_MISMATCH_SUGGESTION";
 
 type Options = readonly [
     {
@@ -57,10 +54,10 @@ export default createEslintRule<Options, MessageID>({
         },
         schema,
         messages: {
-            [MessageID.FILENAME_CASE_MISMATCH]: "File name `{{name}}` does not match `{{rule}}`",
-            [MessageID.FILENAME_CASE_MISMATCH_SUGGESTION]:
+            FILENAME_CASE_MISMATCH: "File name `{{name}}` does not match `{{rule}}`",
+            FILENAME_CASE_MISMATCH_SUGGESTION:
                 "File name `{{name}}` does not match `{{rule}}`. Should rename to `{{suggestion}}`.",
-            [MessageID.FILENAME_EMPTY]: "File name is empty",
+            FILENAME_EMPTY: "File name is empty",
         },
     },
     defaultOptions,
@@ -86,7 +83,7 @@ export default createEslintRule<Options, MessageID>({
                 const [basename = "", ...rest] = path.basename(context.getFilename()).split(".");
 
                 if (basename.length === 0) {
-                    context.report({ messageId: MessageID.FILENAME_EMPTY, node });
+                    context.report({ messageId: "FILENAME_EMPTY", node });
                 }
 
                 if (validate(basename)) {
@@ -101,7 +98,7 @@ export default createEslintRule<Options, MessageID>({
                             name: basename,
                             rule,
                         },
-                        messageId: MessageID.FILENAME_CASE_MISMATCH,
+                        messageId: "FILENAME_CASE_MISMATCH",
                         node,
                     }),
                     onSome: (value) => ({
@@ -110,7 +107,7 @@ export default createEslintRule<Options, MessageID>({
                             rule,
                             suggestion: `${[value, ...rest].join(".")}`,
                         },
-                        messageId: MessageID.FILENAME_CASE_MISMATCH_SUGGESTION,
+                        messageId: "FILENAME_CASE_MISMATCH_SUGGESTION",
                         node,
                     }),
                 });

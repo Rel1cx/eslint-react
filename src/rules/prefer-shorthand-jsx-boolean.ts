@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { match } from "ts-pattern";
 
@@ -6,13 +6,9 @@ import { createEslintRule } from "../../tools/create-eslint-rule";
 import { type RuleName } from "../../typings";
 import { Cond } from "../../typings/rule-option";
 import { I, O } from "../lib/primitives/data";
-import { Enum } from "../lib/primitives/enum";
-
 const RULE_NAME: RuleName = "prefer-shorthand-jsx-boolean";
 
-const MessageID = Enum("OMIT_VALUE", "SET_VALUE");
-
-type MessageID = Enum<typeof MessageID>;
+type MessageID = "OMIT_VALUE" | "SET_VALUE";
 
 type Options = readonly [
     {
@@ -57,8 +53,8 @@ export default createEslintRule<Options, MessageID>({
         },
         schema,
         messages: {
-            [MessageID.OMIT_VALUE]: "Omit boolean value for prop '{{propName}}'.",
-            [MessageID.SET_VALUE]: "Set boolean value for prop '{{propName}}'.",
+            OMIT_VALUE: "Omit boolean value for prop '{{propName}}'.",
+            SET_VALUE: "Set boolean value for prop '{{propName}}'.",
         },
     },
     defaultOptions,
@@ -76,16 +72,16 @@ export default createEslintRule<Options, MessageID>({
 
                 const isException = excepts.has(propName);
 
-                const maybeMessageId = match(rule)
+                const maybeMessageId = match<Cond, O.Option<MessageID>>(rule)
                     .with(Cond.always, () => {
                         const hasValue = I.isNullable(value);
 
                         if (hasValue && !isException) {
-                            return O.some(MessageID.SET_VALUE);
+                            return O.some("SET_VALUE");
                         }
 
                         if (!hasValue && isException) {
-                            return O.some(MessageID.OMIT_VALUE);
+                            return O.some("OMIT_VALUE");
                         }
 
                         return O.none();
@@ -97,11 +93,11 @@ export default createEslintRule<Options, MessageID>({
                             value.expression.value === true;
 
                         if (hasValueWithTrue && !isException) {
-                            return O.some(MessageID.OMIT_VALUE);
+                            return O.some("OMIT_VALUE");
                         }
 
                         if (!hasValueWithTrue && isException) {
-                            return O.some(MessageID.SET_VALUE);
+                            return O.some("SET_VALUE");
                         }
 
                         return O.none();

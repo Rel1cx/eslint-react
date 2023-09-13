@@ -63,7 +63,7 @@ export default [
 
 - [x] react-ts/enforce-filename-naming-convention
 - [x] react-ts/enforce-event-handler-naming-convention
-- [ ] react-ts/no-constructed-context-value
+- [x] react-ts/no-constructed-context-value
 - [ ] react-ts/no-danger-with-children
 - [ ] react-ts/no-deprecated
 - [ ] react-ts/no-leaked-jsx-conditional-rendering
@@ -83,6 +83,7 @@ export default [
 
 | Name                                                                                                                                                    | Description                                                                      |
 | :------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------- |
+| [debug-function-component](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/src/rules/debug-function-component)                               | debug report all function components                                             |
 | [enforce-event-handler-naming-convention](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/src/rules/enforce-event-handler-naming-convention) | enforce event handler naming conventions in JSX                                  |
 | [enforce-filename-naming-convention](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/src/rules/enforce-filename-naming-convention)           | enforce naming convention for jsx files                                          |
 | [no-constructed-context-value](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/src/rules/no-constructed-context-value)                       | disallows passing constructed values to context providers                        |
