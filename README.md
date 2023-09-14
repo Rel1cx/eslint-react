@@ -1,6 +1,6 @@
 # eslint-plugin-react-ts
 
-ESLint plugin to lint React TypeScript apps using the @typescript-eslint ecosystem.
+ESLint plugin to lint TypeScript React function components using the @typescript-eslint ecosystem.
 
 > **Warning**
 > This plugin is still in early development, and will likely change significantly before reaching a stable version.
