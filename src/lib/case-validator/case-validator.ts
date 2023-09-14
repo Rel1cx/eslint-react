@@ -43,6 +43,7 @@ export class CaseValidator {
 
 export const getCaseValidator = (ruleName: string, ignorePattern: string[] = []): CaseValidator => {
     const { expression, recommendationBuilder } = getRule(ruleName);
+
     return new CaseValidator(
         expression,
         ignorePattern.map((pattern) => new RegExp(`^${pattern}$`, "u")),

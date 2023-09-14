@@ -122,6 +122,7 @@ export function make<Ctx extends RuleContext>(ctx: Ctx) {
                 if ("regex" in node) {
                     return O.some({ type: ConstructionType.REGULAR_EXPRESSION, node });
                 }
+
                 return O.none();
             })
             .with(P.union(AST_NODE_TYPES.TSAsExpression, AST_NODE_TYPES.TSTypeAssertion), () => {

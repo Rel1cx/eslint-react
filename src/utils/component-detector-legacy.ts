@@ -108,6 +108,7 @@ export function isPureComponent(node: TSESTree.Node, context: TSESLint.RuleConte
 
     if (E.isRight(pragma) && "superClass" in node && node.superClass) {
         const text = sourceCode.getText(node.superClass);
+
         // eslint-disable-next-line security/detect-non-literal-regexp
         return new RegExp(`^(${pragma.right}\\.)?PureComponent$`, "u").test(text);
     }

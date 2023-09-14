@@ -154,7 +154,12 @@ export const isJSXValue = memo(
     },
 );
 
-export function isReturningJSX(node: TSESTree.Node, context: RuleContext, strict = false, ignoreNull = false) {
+export function isReturnStatementReturningJSX(
+    node: TSESTree.ReturnStatement,
+    context: RuleContext,
+    strict = false,
+    ignoreNull = false,
+) {
     const returnStatements = AST.getNestedReturnStatements(node);
 
     return returnStatements.some((returnStatement) =>

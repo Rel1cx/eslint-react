@@ -6,7 +6,7 @@
         "lib": ["ES2022", "ESNext"],
         "esModuleInterop": true,
         "resolveJsonModule": true,
-        "moduleResolution": "Node",
+        "moduleResolution": "Bundler",
         "types": ["bun-types"],
         "noEmit": true,
         "strict": true

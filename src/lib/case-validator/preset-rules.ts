@@ -22,6 +22,7 @@ export const presetRules: PresetRules = {
             return splitName(name)
                 .map((word) => {
                     const [first, ...rest] = word;
+
                     return `${first?.toUpperCase() ?? ""}${rest.join("")}`;
                 })
                 .join("");
@@ -37,6 +38,7 @@ export const presetRules: PresetRules = {
                     }
 
                     const [first, ...rest] = word;
+
                     return `${first?.toUpperCase() ?? ""}${rest.join("")}`;
                 })
                 .join("");
@@ -58,5 +60,6 @@ export const presetRules: PresetRules = {
 
 export const getRule = (expression: string): Rule => {
     const rule = presetRules[expression];
+
     return rule ?? { expression: new RegExp(`^${expression}$`, "u") };
 };

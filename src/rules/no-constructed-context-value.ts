@@ -1,15 +1,13 @@
-import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import type { RuleName } from "../../typings";
-import { I, MutList, O } from "../lib/primitives/data";
+import { E, F, O } from "../lib/primitives/data";
 import { AST, type FunctionNode } from "../utils/ast";
+import * as ComponentCollector from "../utils/component-collector";
 import * as ConstructionDetector from "../utils/construction-detector";
 import { ConstructionType } from "../utils/construction-detector";
-import { isComponentName } from "../utils/is-component-name";
-import { isJSXValue, isReturningJSX } from "../utils/jsx";
 
 const RULE_NAME: RuleName = "no-constructed-context-value";
 
@@ -42,25 +40,14 @@ export default createEslintRule<Options, MessageID>({
     },
     defaultOptions,
     create(context) {
-        const components = new Set<FunctionNode>();
-
-        const functionStack = MutList.make<FunctionNode>();
+        const collector = ComponentCollector.make(context);
 
         const possibleValueConstructions = new Map<FunctionNode, ConstructionDetector.ConstructionInfo>();
 
         const detectConstruction = ConstructionDetector.make(context);
 
-        const onFunctionEnter = (node: FunctionNode) => MutList.append(functionStack, node);
-
-        const onFunctionExit = () => MutList.pop(functionStack);
-
         return {
-            ArrowFunctionExpression: onFunctionEnter,
-            "ArrowFunctionExpression:exit": onFunctionExit,
-            FunctionDeclaration: onFunctionEnter,
-            "FunctionDeclaration:exit": onFunctionExit,
-            FunctionExpression: onFunctionEnter,
-            "FunctionExpression:exit": onFunctionExit,
+            ...collector.listeners,
             JSXOpeningElement(node) {
                 const openingElementName = node.name;
                 if (!AST.is(AST_NODE_TYPES.JSXMemberExpression)(openingElementName)) {
@@ -93,7 +80,7 @@ export default createEslintRule<Options, MessageID>({
                 const valueExpression = valueNode.expression;
                 const invocationScope = context.getScope();
 
-                // Check if the value prop is a construction
+                // // Check if the value prop is a construction
                 const maybeConstructionInfo = detectConstruction(valueExpression, invocationScope);
 
                 if (O.isNone(maybeConstructionInfo)) {
@@ -102,70 +89,16 @@ export default createEslintRule<Options, MessageID>({
 
                 const constructionInfo = maybeConstructionInfo.value;
 
-                const currentFn = MutList.tail(functionStack);
-
-                if (!currentFn) {
-                    // eslint-disable-next-line sonarjs/no-duplicate-string
-                    console.warn("Unexpected empty function stack");
-                    return;
-                }
-
-                possibleValueConstructions.set(currentFn, constructionInfo);
-            },
-            ReturnStatement(node) {
-                const returnStatements = AST.getNestedReturnStatements(node);
-
-                const hasJsx = returnStatements.some((returnStatement) => isReturningJSX(returnStatement, context));
-
-                if (!hasJsx || MutList.isEmpty(functionStack)) {
-                    return;
-                }
-
-                const currentFn = MutList.tail(functionStack);
-
-                if (!currentFn) {
-                    console.warn("Unexpected empty function stack");
-                    return;
-                }
-
-                const maybeName = O.fromNullable(currentFn.id?.name);
-
-                if (O.isSome(maybeName) && !isComponentName(maybeName.value)) {
-                    return;
-                }
-
-                components.add(currentFn);
-            },
-            // eslint-disable-next-line perfectionist/sort-objects
-            "ArrowFunctionExpression[body.type!='BlockStatement']"(node: TSESTree.ArrowFunctionExpression) {
-                const { body } = node;
-
-                const hasJsx = isJSXValue(body, context, false, false);
-
-                if (!hasJsx || MutList.isEmpty(functionStack)) {
-                    return;
-                }
-
-                const currentFn = MutList.tail(functionStack);
-
-                if (!currentFn) {
-                    console.warn("Unexpected empty function stack");
-                    return;
-                }
-
-                const { parent } = currentFn;
-
-                if ("id" in parent && !I.isNullable(parent.id) && "name" in parent.id) {
-                    const { name } = parent.id;
-
-                    if (!isComponentName(name)) {
-                        return;
-                    }
-                }
-
-                components.add(currentFn);
+                F.pipe(
+                    collector.getCurrentFunction(),
+                    O.map((currentFn) => possibleValueConstructions.set(currentFn, constructionInfo)),
+                    E.fromOption(() => "Unexpected empty function stack"),
+                    E.mapLeft(console.warn),
+                );
             },
             "Program:exit"() {
+                const components = collector.getComponents();
+
                 for (const [fn, constructionInfo] of possibleValueConstructions.entries()) {
                     if (!components.has(fn)) {
                         continue;

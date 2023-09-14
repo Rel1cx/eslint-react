@@ -1,11 +1,8 @@
-import type { TSESTree } from "@typescript-eslint/types";
-
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import { type RuleName } from "../../typings";
-import { I, MutList, MutRef, O } from "../lib/primitives/data";
-import { AST, type FunctionNode } from "../utils/ast";
+import { MutRef, O } from "../lib/primitives/data";
+import * as ComponentCollector from "../utils/component-collector";
 import { isComponentName } from "../utils/is-component-name";
-import { isJSXValue, isReturningJSX } from "../utils/jsx";
 
 const RULE_NAME: RuleName = "debug-function-component";
 
@@ -34,69 +31,13 @@ export default createEslintRule<Options, MessageID>({
     },
     defaultOptions,
     create(context) {
-        const components = new Set<FunctionNode>();
-
-        const functionStack = MutList.make<FunctionNode>();
-
-        const onFunctionEnter = (node: FunctionNode) => MutList.append(functionStack, node);
-
-        const onFunctionExit = () => MutList.pop(functionStack);
+        const collector = ComponentCollector.make(context);
 
         return {
-            ArrowFunctionExpression: onFunctionEnter,
-            "ArrowFunctionExpression:exit": onFunctionExit,
-            FunctionDeclaration: onFunctionEnter,
-            "FunctionDeclaration:exit": onFunctionExit,
-            FunctionExpression: onFunctionEnter,
-            "FunctionExpression:exit": onFunctionExit,
-            ReturnStatement(node) {
-                const returnStatements = AST.getNestedReturnStatements(node);
-
-                const hasJsx = returnStatements.some((returnStatement) => isReturningJSX(returnStatement, context));
-
-                if (!hasJsx || MutList.isEmpty(functionStack)) {
-                    return;
-                }
-
-                const currentFn = MutList.tail(functionStack);
-
-                if (!currentFn) {
-                    console.warn("Unexpected empty function stack");
-                    return;
-                }
-
-                components.add(currentFn);
-            },
-            // eslint-disable-next-line perfectionist/sort-objects
-            "ArrowFunctionExpression[body.type!='BlockStatement']"(node: TSESTree.ArrowFunctionExpression) {
-                const { body } = node;
-
-                const hasJsx = isJSXValue(body, context, false, false);
-
-                if (!hasJsx || MutList.isEmpty(functionStack)) {
-                    return;
-                }
-
-                const currentFn = MutList.tail(functionStack);
-
-                if (!currentFn) {
-                    console.warn("Unexpected empty function stack");
-                    return;
-                }
-
-                const { parent } = currentFn;
-
-                if ("id" in parent && !I.isNullable(parent.id) && "name" in parent.id) {
-                    const { name } = parent.id;
-
-                    if (!isComponentName(name)) {
-                        return;
-                    }
-                }
-
-                components.add(currentFn);
-            },
+            ...collector.listeners,
             "Program:exit"() {
+                const components = collector.getComponents();
+
                 for (const component of components) {
                     const maybeName = O.fromNullable(component.id?.name);
 

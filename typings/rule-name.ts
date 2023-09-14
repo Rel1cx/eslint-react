@@ -88,7 +88,7 @@ export type Term =
     | "context-value"
     // | "default"
     // | "default-export"
-    // | "default-props"
+    | "default-props"
     // | "destructuring"
     // | "destructuring-assignment"
     // | "dictionary"
