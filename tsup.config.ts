@@ -14,7 +14,7 @@ export default defineConfig(() => ({
     ],
     format: ["cjs", "esm"],
     minify: false,
-    noExternal: ["pathe", "tiny-invariant", "micro-memoize"],
+    noExternal: ["pathe", "tiny-invariant", "fast-equals", "micro-memoize"],
     outDir: "dist",
     platform: "node",
     replaceNodeEnv: false,

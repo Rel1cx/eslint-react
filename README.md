@@ -19,44 +19,41 @@ ESLint plugin to lint TypeScript React function components using the @typescript
 ## Installation
 
 ```bash
-# npm
-npm install --save-dev eslint-plugin-react-ts
-
-# or yarn
-yarn add --dev eslint-plugin-react-ts
-
-# or pnpm
+# pnpm
 pnpm add --save-dev eslint-plugin-react-ts
+
+# bun
+bun add --dev eslint-plugin-react-ts
 ```
 
 ## Usage
 
-### Legacy Config (.eslintrc, .eslintrc.json, etc.)
+### [`.eslintrc`](https://eslint.org/docs/latest/use/configure/configuration-files)
 
 ```json
 {
-    "plugins": ["react-ts"],
+    "extends": [
+        "plugin:react-ts/recommended"
+    ],
     "rules": {
-        "react-ts/prefer-shorthand-attribute": "error"
+        "react-ts/no-deprecated": "error"
     }
 }
 ```
 
-### Flat Config (eslint.config.js) (requires eslint >= v8.23.0)
+### [`eslint.config.js`](https://eslint.org/docs/latest/use/configure/configuration-files-new) (requires eslint >= v8.23.0)
 
 ```js
-import reactTs from "eslint-plugin-react-ts";
+import reactTsRecommended from "eslint-plugin-react-ts/configs/recommended";
 
 export default [
+    reactTsRecommended,
     {
-        plugins: {
-            reactTs,
-        },
         rules: {
-            "react-ts/prefer-shorthand-attribute": "error",
+            "react-ts/no-deprecated": "error"
         },
     },
-];
+]
 ```
 
 ## Todo
