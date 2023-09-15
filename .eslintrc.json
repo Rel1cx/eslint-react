@@ -5,12 +5,6 @@
         "node": true
     },
     "extends": ["with-tsconfig", "plugin:eslint-plugin/all", "plugin:filenames-simple/recommended"],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaVersion": 2021,
-        "project": "./tsconfig.json",
-        "sourceType": "module"
-    },
     "plugins": ["filenames-simple"],
     "rules": {
         "no-console": [
@@ -85,14 +79,6 @@
             "rules": {
                 "perfectionist/sort-objects": "off",
                 "sonarjs/no-duplicate-string": "off"
-            }
-        },
-        {
-            "files": "./scripts/**/*.ts",
-            "settings": {
-                "parserOptions": {
-                    "project": "./tsconfig.bun.json"
-                }
             }
         }
     ]

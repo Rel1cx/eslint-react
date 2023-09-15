@@ -1,13 +1,14 @@
 {
     "extends": "@tsconfig/strictest/tsconfig.json",
     "compilerOptions": {
-        "moduleResolution": "Bundler",
         "isolatedModules": true,
         "verbatimModuleSyntax": true,
         "resolveJsonModule": true,
         "module": "ESNext",
         "target": "ESNext",
-        "lib": ["ES2022", "ESNext"],
+        "moduleResolution": "Bundler",
+        "lib": ["ES2015", "ES2016", "ES2017", "ES2018", "ES2019", "ES2020", "ES2021", "ES2022", "ES2023", "ESNext"],
+        "types": ["bun-types"],
         "allowJs": false,
         "checkJs": false,
         "noImplicitAny": true,
@@ -17,7 +18,7 @@
         "noEmit": true,
         "strict": true
     },
-    "include": ["**/*.ts"],
+    "include": ["."],
     "exclude": ["node_modules", "**/dist"],
     "plugins": [
         {
