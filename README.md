@@ -91,7 +91,11 @@ export default [
 
 ## Philosophy
 
-The introduction or modification of rules must follow these guidelines:
+- **Linting errors are better than runtime crashes.**
+- **Focus on code rather than style.**
+- **Types are the fundamental unit of correctness.**
+
+## Rule introduction or modification guidelines
 
 - **TypeScript first** - If a behavior can already be enforced by TypeScript built-in checker, it should not be implemented in the plugin.
 - **Formatting independent** - Rules should not be concerned with code style or formatting; leave that to the formatter.
