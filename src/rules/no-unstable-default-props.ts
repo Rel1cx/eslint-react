@@ -1,6 +1,5 @@
 import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/types";
 import birecord from "birecord";
-import { isMatching } from "ts-pattern";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import type { RuleName } from "../../typings";
@@ -16,13 +15,13 @@ type Options = readonly [];
 
 const defaultOptions = [] as const satisfies Options;
 
-const FORBIDDEN_TYPES_MAP = birecord({
+const FORBIDDEN_TYPES = birecord({
     [AST_NODE_TYPES.ArrayExpression]: "array literal",
     [AST_NODE_TYPES.ArrowFunctionExpression]: "arrow function",
     [AST_NODE_TYPES.ClassExpression]: "class expression",
     [AST_NODE_TYPES.FunctionExpression]: "function expression",
     [AST_NODE_TYPES.JSXElement]: "JSX element",
-    [AST_NODE_TYPES.NewExpression]: "construction expression",
+    [AST_NODE_TYPES.NewExpression]: "new expression",
     [AST_NODE_TYPES.ObjectExpression]: "object literal",
 });
 
@@ -43,12 +42,13 @@ export default createEslintRule<Options, MessageID>({
     meta: {
         type: "problem",
         docs: {
-            description: "disallow unstable default props",
+            description: "disallow usage of referential-type variables as default param in function component",
             recommended: "recommended",
         },
         schema: [],
         messages: {
-            UNSTABLE_DEFAULT_PROP: "Unstable default props are not allowed.",
+            UNSTABLE_DEFAULT_PROP:
+                "found a/an {{forbiddenType}} as default prop. This could lead to potential infinite render loop in React. Use a variable reference instead of {{forbiddenType}}.",
         },
     },
     defaultOptions,
@@ -87,6 +87,9 @@ export default createEslintRule<Options, MessageID>({
                             !I.isNullable(propDefaultValueRight.regex)
                         ) {
                             context.report({
+                                data: {
+                                    forbiddenType: "regex literal",
+                                },
                                 messageId: "UNSTABLE_DEFAULT_PROP",
                                 node: propKey,
                             });
@@ -95,15 +98,15 @@ export default createEslintRule<Options, MessageID>({
                         }
 
                         if (
-                            AST.is(AST_NODE_TYPES.CallExpression)(propDefaultValue) &&
-                            AST.is(AST_NODE_TYPES.Identifier)(propDefaultValueRight) &&
-                            isMatching({
-                                callee: {
-                                    name: "Symbol",
-                                },
-                            })(propDefaultValueRight)
+                            AST.is(AST_NODE_TYPES.CallExpression)(propDefaultValueRight) &&
+                            "callee" in propDefaultValueRight &&
+                            AST.is(AST_NODE_TYPES.Identifier)(propDefaultValueRight.callee) &&
+                            propDefaultValueRight.callee.name === "Symbol"
                         ) {
                             context.report({
+                                data: {
+                                    forbiddenType: "Symbol literal",
+                                },
                                 messageId: "UNSTABLE_DEFAULT_PROP",
                                 node: propKey,
                             });
@@ -111,11 +114,16 @@ export default createEslintRule<Options, MessageID>({
                             continue;
                         }
 
-                        if (!FORBIDDEN_TYPES_MAP.has(propDefaultValueRight.type)) {
+                        if (!FORBIDDEN_TYPES.has(propDefaultValueRight.type)) {
                             continue;
                         }
 
+                        const forbiddenType = FORBIDDEN_TYPES.get(propDefaultValueRight.type);
+
                         context.report({
+                            data: {
+                                forbiddenType,
+                            },
                             messageId: "UNSTABLE_DEFAULT_PROP",
                             node: propKey,
                         });
