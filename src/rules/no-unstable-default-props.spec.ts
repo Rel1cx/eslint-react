@@ -19,6 +19,25 @@ const ruleTester = new RuleTester({
 const RULE_NAME = "no-unstable-default-props";
 
 ruleTester.run(RULE_NAME, rule, {
-    valid: [],
-    invalid: [],
+    valid: [
+        `function Foo({ bar = "baz" }) {
+            return <div>{bar}</div>;
+        }`,
+        `const Foo = ({ bar = "baz" }) => {
+            return <div>{bar}</div>;
+        };`,
+        `const Foo = ({ bar = "baz" }) => <div>{bar}</div>;`,
+    ],
+    invalid: [
+        {
+            code: `function Foo({ bar = {a: 1} }) {
+            return <div>{bar}</div>;
+        }`,
+            errors: [
+                {
+                    messageId: "UNSTABLE_DEFAULT_PROP",
+                },
+            ],
+        },
+    ],
 });

@@ -11,6 +11,8 @@
         "THIRD-PARTY-LICENSE"
     ],
     "ignoreWords": [
+        "birecord",
+        "lockb",
         "pathe",
         "quasis",
         "sonarjs",
@@ -21,8 +23,7 @@
         "TSES",
         "TSESAST",
         "tsup",
-        "weakref",
-        "lockb"
+        "weakref"
     ],
     "useGitignore": true
 }
