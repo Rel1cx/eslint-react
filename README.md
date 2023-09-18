@@ -68,7 +68,7 @@ export default [
 - [x] react-ts/no-misused-jsx-extension
 - [ ] react-ts/no-string-refs
 - [ ] react-ts/no-unescaped-entities
-- [ ] react-ts/no-unstable-default-props
+- [x] react-ts/no-unstable-default-props
 - [ ] react-ts/no-unstable-nested-components
 - [x] react-ts/prefer-shorthand-jsx-boolean
 - [ ] react-ts/require-jsx-key
@@ -78,14 +78,15 @@ export default [
 
 <!-- begin auto-generated rules list -->
 
-| Name                                                                                                                                                        | Description                                                                      |
-| :---------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------- |
-| [debug-function-component](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/debug-function-component.md)                               | debug report all function components                                             |
-| [enforce-event-handler-naming-convention](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/enforce-event-handler-naming-convention.md) | enforce event handler naming conventions in JSX                                  |
-| [enforce-filename-naming-convention](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/enforce-filename-naming-convention.md)           | enforce naming convention for jsx files                                          |
-| [no-constructed-context-value](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/no-constructed-context-value.md)                       | disallows passing constructed values to context providers                        |
-| [no-misused-jsx-extension](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/no-misused-jsx-extension.md)                               | enforce using `.ts` instead of `.tsx` extension when there is no JSX in the file |
-| [prefer-shorthand-jsx-boolean](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/prefer-shorthand-jsx-boolean.md)                       | enforce boolean attributes notation in JSX                                       |
+| Name                                                                                                                                                        | Description                                                                         |
+| :---------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------- |
+| [debug-function-component](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/debug-function-component.md)                               | debug report all function components                                                |
+| [enforce-event-handler-naming-convention](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/enforce-event-handler-naming-convention.md) | enforce event handler naming conventions in JSX                                     |
+| [enforce-filename-naming-convention](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/enforce-filename-naming-convention.md)           | enforce naming convention for jsx files                                             |
+| [no-constructed-context-value](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/no-constructed-context-value.md)                       | disallows passing constructed values to context providers                           |
+| [no-misused-jsx-extension](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/no-misused-jsx-extension.md)                               | enforce using `.ts` instead of `.tsx` extension when there is no JSX in the file    |
+| [no-unstable-default-props](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/no-unstable-default-props.md)                             | disallow usage of referential-type variables as default param in function component |
+| [prefer-shorthand-jsx-boolean](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/prefer-shorthand-jsx-boolean.md)                       | enforce boolean attributes notation in JSX                                          |
 
 <!-- end auto-generated rules list -->
 
