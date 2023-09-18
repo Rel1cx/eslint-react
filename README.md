@@ -69,6 +69,7 @@ export default [
 - [ ] react-ts/no-unescaped-entities
 - [x] react-ts/no-unstable-default-props
 - [ ] react-ts/no-unstable-nested-components
+- [ ] react-ts/prefer-destructuring-assignment
 - [x] react-ts/prefer-shorthand-jsx-boolean
 - [ ] react-ts/require-jsx-key
 - [ ] ...

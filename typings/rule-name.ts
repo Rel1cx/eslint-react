@@ -90,7 +90,7 @@ export type Term =
     // | "default-export"
     | "default-props"
     // | "destructuring"
-    // | "destructuring-assignment"
+    | "destructuring-assignment"
     // | "dictionary"
     // | "directive"
     // | "display-name"
