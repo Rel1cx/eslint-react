@@ -1,15 +1,12 @@
+import { mkdirSync } from "node:fs";
+
 import glob from "fast-glob";
 import path from "pathe";
-import { $, fs } from "zx";
 
-import { BASEURL_DOCS } from "../tools/create-eslint-rule";
+import { copyFile } from "./lib/fs";
 
-async function main() {
-    const files = glob.sync("src/rules/*.md").map((x) => path.basename(x));
+const files = glob.sync("src/rules/*.md").map((x) => path.basename(x));
 
-    await Promise.all(files.map(async (file) => fs.copyFile(`src/rules/${file}`, `docs/rules/${file}`)));
+mkdirSync("docs/rules", { recursive: true });
 
-    await $`eslint-doc-generator --rule-list-columns name,description,fixable,hasSuggestions,deprecated --rule-doc-title-format name --path-rule-list README.MD --url-rule-doc ${BASEURL_DOCS}/{name}.md`;
-}
-
-main();
+files.map((file) => copyFile(`src/rules/${file}`, `docs/rules/${file}`));

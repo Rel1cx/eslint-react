@@ -1,9 +1,5 @@
 # enforce-filename-naming-convention
 
-💼 This rule is enabled in the 🌐 `all` config.
-
-<!-- end auto-generated rule header -->
-
 ## Rule Details
 
 Examples of **correct** case for this rule:

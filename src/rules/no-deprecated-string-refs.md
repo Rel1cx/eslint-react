@@ -10,7 +10,7 @@ Examples of **incorrect** code for this rule:
 
 ```tsx
 function ExampleComponent() {
-  return <div ref="example" />;
+    return <div ref="example" />;
 }
 ```
 
@@ -18,8 +18,8 @@ Examples of **correct** code for this rule:
 
 ```tsx
 function ExampleComponent() {
-  const ref = useRef<HTMLDivElement>(null);
+    const ref = useRef<HTMLDivElement>(null);
 
-return <div ref={ref} />;
+    return <div ref={ref} />;
 }
 ```

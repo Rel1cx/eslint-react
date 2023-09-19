@@ -54,7 +54,7 @@ export default [
             // ...
         },
     },
-]
+];
 ```
 
 ## Todo

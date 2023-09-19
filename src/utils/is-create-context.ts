@@ -17,10 +17,10 @@ export function isCreateContext(node: TSESTree.Node) {
     }
 
     if (
-        "expression" in node &&
-        I.isObject(node.expression) &&
-        AST.is(AST_NODE_TYPES.AssignmentExpression)(node.expression) &&
-        node.expression.operator === "="
+        "expression" in node
+        && I.isObject(node.expression)
+        && AST.is(AST_NODE_TYPES.AssignmentExpression)(node.expression)
+        && node.expression.operator === "="
     ) {
         return match(node.expression.right)
             .with({ type: AST_NODE_TYPES.CallExpression, callee: { name: "createContext" } }, F.constTrue)

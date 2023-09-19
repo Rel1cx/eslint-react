@@ -87,10 +87,9 @@ export default createEslintRule<Options, MessageID>({
                         return O.none();
                     })
                     .with(Cond.never, () => {
-                        const hasValueWithTrue =
-                            value?.type === AST_NODE_TYPES.JSXExpressionContainer &&
-                            value.expression.type === AST_NODE_TYPES.Literal &&
-                            value.expression.value === true;
+                        const hasValueWithTrue = value?.type === AST_NODE_TYPES.JSXExpressionContainer
+                            && value.expression.type === AST_NODE_TYPES.Literal
+                            && value.expression.value === true;
 
                         if (hasValueWithTrue && !isException) {
                             return O.some("OMIT_VALUE");

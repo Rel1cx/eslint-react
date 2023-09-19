@@ -51,8 +51,8 @@
         "build": "tsup",
         "docs:generate": "bun run ./scripts/doc-generate.ts",
         "fix:ts": "eslint --ext .ts --fix .",
-        "format:check": "prettier -u .",
-        "format:write": "prettier -w -u .",
+        "format:check": "dprint check",
+        "format:write": "dprint fmt",
         "lint": "bun run lint:spell && bun run lint:deps && bun run lint:ts && bun run lint:type",
         "lint:deps": "skott -m graph -e .ts -s",
         "lint:spell": "cspell lint --relative --no-progress '**'",
@@ -62,7 +62,6 @@
         "publish": "bun run format:write && bun run lint && bun run test && bun run build && bun run publint",
         "test": "vitest --run --single-thread --no-threads"
     },
-    "prettier": "eslint-config-with-tsconfig/prettier",
     "dependencies": {
         "@effect/data": "0.18.5",
         "@typescript-eslint/parser": "6.7.2",
@@ -80,10 +79,10 @@
         "birecord": "0.1.1",
         "bun-types": "1.0.2",
         "cspell": "7.3.6",
+        "dprint": "0.41.0",
         "eslint": "8.49.0",
         "eslint-config-relicx": "0.12.6",
         "eslint-config-with-tsconfig": "2.6.7",
-        "eslint-doc-generator": "1.4.3",
         "eslint-plugin-eslint-plugin": "5.1.1",
         "eslint-plugin-filenames-simple": "0.8.0",
         "fast-equals": "5.0.1",
@@ -92,15 +91,13 @@
         "micro-memoize": "4.1.2",
         "nolyfill": "1.0.21",
         "pathe": "1.1.1",
-        "prettier": "3.0.3",
         "publint": "0.2.2",
         "skott": "0.29.0",
         "tiny-invariant": "1.3.1",
         "tsup": "7.2.0",
         "type-fest": "4.3.1",
         "typescript": "5.2.2",
-        "vitest": "0.34.4",
-        "zx": "7.2.3"
+        "vitest": "0.34.4"
     },
     "peerDependencies": {
         "eslint": ">=8.49.0",

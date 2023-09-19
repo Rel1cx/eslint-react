@@ -61,9 +61,9 @@ export const AST = {
             }
 
             return (
-                AST.is(AST_NODE_TYPES.VariableDeclarator)(x.parent) &&
-                AST.is(AST_NODE_TYPES.Identifier)(x.parent.id) &&
-                AST.isOneOf([
+                AST.is(AST_NODE_TYPES.VariableDeclarator)(x.parent)
+                && AST.is(AST_NODE_TYPES.Identifier)(x.parent.id)
+                && AST.isOneOf([
                     AST_NODE_TYPES.FunctionDeclaration,
                     AST_NODE_TYPES.FunctionExpression,
                     AST_NODE_TYPES.ArrowFunctionExpression,
@@ -141,8 +141,8 @@ export const AST = {
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             Array.isArray(node.body)
                 ? node.body.forEach((x) => {
-                      returnStatements.push(...AST.getNestedReturnStatements(x));
-                  })
+                    returnStatements.push(...AST.getNestedReturnStatements(x));
+                })
                 : returnStatements.push(...AST.getNestedReturnStatements(node.body));
         }
 
@@ -150,8 +150,8 @@ export const AST = {
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             Array.isArray(node.consequent)
                 ? node.consequent.forEach((x) => {
-                      returnStatements.push(...AST.getNestedReturnStatements(x));
-                  })
+                    returnStatements.push(...AST.getNestedReturnStatements(x));
+                })
                 : returnStatements.push(...AST.getNestedReturnStatements(node.consequent));
         }
 
@@ -159,8 +159,8 @@ export const AST = {
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             Array.isArray(node.alternate)
                 ? node.alternate.forEach((x: TSESTree.Node) => {
-                      returnStatements.push(...AST.getNestedReturnStatements(x));
-                  })
+                    returnStatements.push(...AST.getNestedReturnStatements(x));
+                })
                 : returnStatements.push(...AST.getNestedReturnStatements(node.alternate));
         }
 

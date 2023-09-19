@@ -44,9 +44,8 @@ export function getFromContext<T extends RuleContext>(context: T): E.Either<Erro
     const sourceCode = context.getSourceCode();
     const pragmaNode = sourceCode.getAllComments().find((node) => JSX_ANNOTATION_REGEX.test(node.value));
 
-    const pragma =
-        settings.react?.pragma ??
-        F.pipe(
+    const pragma = settings.react?.pragma
+        ?? F.pipe(
             pragmaNode,
             O.fromNullable,
             O.map((node) => JSX_ANNOTATION_REGEX.exec(node.value)),

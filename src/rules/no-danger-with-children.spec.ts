@@ -88,7 +88,8 @@ ruleTester.run(RULE_NAME, rule, {
             errors: [{ messageId: "DANGER_WITH_CHILDREN" }],
         },
         {
-            code: `React.createElement("Hello", { dangerouslySetInnerHTML: { __html: "HTML" }, children: "Children",});`,
+            code:
+                `React.createElement("Hello", { dangerouslySetInnerHTML: { __html: "HTML" }, children: "Children",});`,
             errors: [{ messageId: "DANGER_WITH_CHILDREN" }],
         },
         {
@@ -98,8 +99,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
             code: `const props = { children: "Children", dangerouslySetInnerHTML: { __html: "HTML" } };
-            React.createElement("div", props);
-      `,
+            React.createElement("div", props);`,
             errors: [{ messageId: "DANGER_WITH_CHILDREN" }],
         },
         {

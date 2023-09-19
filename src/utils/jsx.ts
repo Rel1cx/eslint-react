@@ -67,8 +67,8 @@ export const isJSXValue = memo(
                 }
 
                 return (
-                    isJSXValue(node.left, context, strict, ignoreNull) ||
-                    isJSXValue(node.right, context, strict, ignoreNull)
+                    isJSXValue(node.left, context, strict, ignoreNull)
+                    || isJSXValue(node.right, context, strict, ignoreNull)
                 );
             })
             .with(AST_NODE_TYPES.SequenceExpression, () => {
@@ -123,7 +123,7 @@ export function isReturnStatementReturningJSX(
     const returnStatements = AST.getNestedReturnStatements(node);
 
     return returnStatements.some((returnStatement) =>
-        isJSXValue(returnStatement.argument, context, strict, ignoreNull),
+        isJSXValue(returnStatement.argument, context, strict, ignoreNull)
     );
 }
 

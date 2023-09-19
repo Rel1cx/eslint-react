@@ -30,7 +30,6 @@ export function isCreateElement(node: TSESTree.Node, context: RuleContext): bool
             },
             F.constTrue,
         )
-
         .with({ name: "createElement" }, ({ name }) => isDestructured(name))
         .otherwise(F.constFalse);
 }

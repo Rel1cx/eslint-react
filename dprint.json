@@ -1,0 +1,22 @@
+{
+    "lineWidth": 120,
+    "typescript": {
+        "indentWidth": 4,
+        "quoteStyle": "preferDouble"
+    },
+    "json": {
+        "indentWidth": 4
+    },
+    "markdown": {},
+    "excludes": [
+        "**/node_modules",
+        "**/*-lock.json",
+        "bun.lockb",
+        "test/fixtures"
+    ],
+    "plugins": [
+        "https://plugins.dprint.dev/typescript-0.87.1.wasm",
+        "https://plugins.dprint.dev/json-0.17.4.wasm",
+        "https://plugins.dprint.dev/markdown-0.16.1.wasm"
+    ]
+}

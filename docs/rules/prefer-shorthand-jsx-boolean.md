@@ -1,9 +1,5 @@
 # prefer-shorthand-jsx-boolean
 
-💼 This rule is enabled in the following configs: 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
-
-<!-- end auto-generated rule header -->
-
 ## Rule Details
 
 This rule enforces the use of shorthand syntax for boolean attributes.
@@ -11,13 +7,13 @@ This rule enforces the use of shorthand syntax for boolean attributes.
 Examples of **incorrect** code for this rule:
 
 ```tsx
-<ExampleComponent hidden={true} disabled={false} />
+<ExampleComponent hidden={true} disabled={false} />;
 ```
 
 Examples of **correct** code for this rule:
 
 ```tsx
-<ExampleComponent hidden disabled />
+<ExampleComponent hidden disabled />;
 ```
 
 ## Rule Options
@@ -47,13 +43,13 @@ Boolean attributes must not have a value specified.
 Examples of **incorrect** code for this rule with the `"never"` option:
 
 ```tsx
-<ExampleComponent hidden={true} disabled={false} />
+<ExampleComponent hidden={true} disabled={false} />;
 ```
 
 Examples of **correct** code for this rule with the `"never"` option:
 
 ```tsx
-<ExampleComponent hidden disabled />
+<ExampleComponent hidden disabled />;
 ```
 
 ### `always`
@@ -63,13 +59,13 @@ Boolean attributes must have a value specified.
 Examples of **incorrect** code for this rule with the `"always"` option:
 
 ```tsx
-<ExampleComponent hidden disabled />
+<ExampleComponent hidden disabled />;
 ```
 
 Examples of **correct** code for this rule with the `"always"` option:
 
 ```tsx
-<ExampleComponent hidden={true} disabled={false} />
+<ExampleComponent hidden={true} disabled={false} />;
 ```
 
 ## When Not To Use It

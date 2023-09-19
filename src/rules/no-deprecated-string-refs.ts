@@ -28,9 +28,9 @@ function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
     }
 
     return (
-        AST.is(AST_NODE_TYPES.JSXExpressionContainer)(value) &&
-        ((AST.is(AST_NODE_TYPES.Literal)(value.expression) && I.isString(value.expression.value)) ||
-            AST.is(AST_NODE_TYPES.TemplateLiteral)(value.expression))
+        AST.is(AST_NODE_TYPES.JSXExpressionContainer)(value)
+        && ((AST.is(AST_NODE_TYPES.Literal)(value.expression) && I.isString(value.expression.value))
+            || AST.is(AST_NODE_TYPES.TemplateLiteral)(value.expression))
     );
 }
 

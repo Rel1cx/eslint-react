@@ -78,8 +78,8 @@ export default createEslintRule<Options, MessageID>({
 
                 function hasChildren(node: TSESTree.JSXElement) {
                     return (
-                        firstChildIsText(node) ||
-                        O.isSome(findPropInAttributes(node.openingElement.attributes, context)("children"))
+                        firstChildIsText(node)
+                        || O.isSome(findPropInAttributes(node.openingElement.attributes, context)("children"))
                     );
                 }
 

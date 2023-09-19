@@ -1,9 +1,5 @@
 # enforce-event-handler-naming-convention
 
-💼 This rule is enabled in the following configs: 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
-
-<!-- end auto-generated rule header -->
-
 Enforce consistent event handler naming conventions in JSX.
 
 ## Rule Details
@@ -11,21 +7,21 @@ Enforce consistent event handler naming conventions in JSX.
 Examples of **incorrect** code for this rule:
 
 ```tsx
-<ExampleComponent handleChange={this.handleChange} />
+<ExampleComponent handleChange={this.handleChange} />;
 ```
 
 ```tsx
-<ExampleComponent onChange={this.componentChanged} />
+<ExampleComponent onChange={this.componentChanged} />;
 ```
 
 Examples of **correct** code for this rule:
 
 ```tsx
-<ExampleComponent onChange={this.handleChange} />
+<ExampleComponent onChange={this.handleChange} />;
 ```
 
 ```tsx
-<ExampleComponent onChange={this.props.onFoo} />
+<ExampleComponent onChange={this.props.onFoo} />;
 ```
 
 ## Rule Options
@@ -44,7 +40,6 @@ type Options = {
     checkLocalVariables?: boolean;
     checkInlineFunction?: boolean;
   },
-
 ```
 
 ### Default Option

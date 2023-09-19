@@ -113,9 +113,10 @@ export default createEslintRule<Options, MessageID>({
 
         const PROP_EVENT_HANDLER_REGEX = new RegExp(`^(${handlerPropPrefix}[A-Z].*|ref)$`, "u");
 
-        // prettier-ignore
-
-        const EVENT_HANDLER_REGEX = new RegExp(`^((props\\.${handlerPropPrefix || ""})|((.*\\.)?${handlerPrefix}))[0-9]*[A-Z].*$`, "u");
+        const EVENT_HANDLER_REGEX = new RegExp(
+            `^((props\\.${handlerPropPrefix || ""})|((.*\\.)?${handlerPrefix}))[0-9]*[A-Z].*$`,
+            "u",
+        );
 
         return {
             JSXAttribute(node) {
@@ -133,10 +134,9 @@ export default createEslintRule<Options, MessageID>({
                     return;
                 }
 
-                const maybeInnerFunction =
-                    "body" in expression && "callee" in expression.body
-                        ? O.fromNullable(expression.body.callee)
-                        : O.none();
+                const maybeInnerFunction = "body" in expression && "callee" in expression.body
+                    ? O.fromNullable(expression.body.callee)
+                    : O.none();
 
                 const onlyLocalVariables = isInlineFunction ? O.isNone(maybeInnerFunction) : !("object" in expression);
 

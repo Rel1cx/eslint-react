@@ -71,8 +71,8 @@ export default createEslintRule<Options, MessageID>({
 
                     for (const prop of properties) {
                         if (
-                            !AST.is(AST_NODE_TYPES.Property)(prop) ||
-                            !AST.is(AST_NODE_TYPES.AssignmentPattern)(prop.value)
+                            !AST.is(AST_NODE_TYPES.Property)(prop)
+                            || !AST.is(AST_NODE_TYPES.AssignmentPattern)(prop.value)
                         ) {
                             continue;
                         }
@@ -82,9 +82,9 @@ export default createEslintRule<Options, MessageID>({
                         const propDefaultValueRight = propDefaultValue.right;
 
                         if (
-                            AST.is(AST_NODE_TYPES.Literal)(propDefaultValueRight) &&
-                            "regex" in propDefaultValueRight &&
-                            !I.isNullable(propDefaultValueRight.regex)
+                            AST.is(AST_NODE_TYPES.Literal)(propDefaultValueRight)
+                            && "regex" in propDefaultValueRight
+                            && !I.isNullable(propDefaultValueRight.regex)
                         ) {
                             context.report({
                                 data: {
@@ -98,10 +98,10 @@ export default createEslintRule<Options, MessageID>({
                         }
 
                         if (
-                            AST.is(AST_NODE_TYPES.CallExpression)(propDefaultValueRight) &&
-                            "callee" in propDefaultValueRight &&
-                            AST.is(AST_NODE_TYPES.Identifier)(propDefaultValueRight.callee) &&
-                            propDefaultValueRight.callee.name === "Symbol"
+                            AST.is(AST_NODE_TYPES.CallExpression)(propDefaultValueRight)
+                            && "callee" in propDefaultValueRight
+                            && AST.is(AST_NODE_TYPES.Identifier)(propDefaultValueRight.callee)
+                            && propDefaultValueRight.callee.name === "Symbol"
                         ) {
                             context.report({
                                 data: {
