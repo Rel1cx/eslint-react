@@ -1,0 +1,26 @@
+{
+    "entryPoints": [
+        "src/lib/case-validator/case-validator.ts",
+        "src/lib/primitives/data.ts",
+        "src/lib/primitives/enum.ts",
+        "src/lib/primitives/function.ts",
+        "src/lib/primitives/narrow.ts",
+        "src/lib/primitives/record.ts",
+        "src/lib/primitives/union.ts",
+        "src/utils/ast.ts",
+        "src/utils/component-collector.ts",
+        "src/utils/component-detector-legacy.ts",
+        "src/utils/construction-detector.ts",
+        "src/utils/destructured-from-pragma-detector.ts",
+        "src/utils/is-component-name.ts",
+        "src/utils/is-create-context.ts",
+        "src/utils/is-create-element.ts",
+        "src/utils/jsx.ts",
+        "src/utils/pragma.ts",
+        "src/utils/variable.ts"
+    ],
+    "name": "eslint-plugin-react-ts",
+    "out": "docs",
+    "theme": "default",
+    "hideGenerator": true
+}

@@ -11,6 +11,7 @@
         "eslint-plugin",
         "eslint-plugin-react-ts"
     ],
+    "homepage": "https://github.com/Rel1cx/eslint-plugin-react-ts",
     "bugs": {
         "url": "https://github.com/Rel1cx/eslint-plugin-react-ts/issues"
     },
@@ -49,7 +50,7 @@
     ],
     "scripts": {
         "build": "tsup",
-        "docs:generate": "bun run ./scripts/doc-generate.ts",
+        "docs:generate": "typedoc && bun run ./scripts/doc-generate.ts",
         "fix:ts": "eslint --ext .ts --fix .",
         "format:check": "dprint check",
         "format:write": "dprint fmt",
@@ -96,6 +97,7 @@
         "tiny-invariant": "1.3.1",
         "tsup": "7.2.0",
         "type-fest": "4.3.1",
+        "typedoc": "0.25.1",
         "typescript": "5.2.2",
         "vitest": "0.34.4"
     },

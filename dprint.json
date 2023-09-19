@@ -12,7 +12,8 @@
         "**/node_modules",
         "**/*-lock.json",
         "bun.lockb",
-        "test/fixtures"
+        "test/fixtures",
+        "docs"
     ],
     "plugins": [
         "https://plugins.dprint.dev/typescript-0.87.1.wasm",

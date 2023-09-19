@@ -3,6 +3,7 @@
     "dictionaries": ["softwareTerms", "node", "html", "typescript", "misc"],
     "ignorePaths": [
         ".vscode/**/*",
+        "docs/**/*",
         "test/fixtures",
         "**/*.spec.ts",
         "package.json",

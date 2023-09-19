@@ -13,3 +13,6 @@ coverage/
 
 # Misc
 .DS_Store
+
+/docs/*
+!/docs/rules
