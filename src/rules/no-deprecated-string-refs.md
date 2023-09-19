@@ -9,7 +9,7 @@ This rule disallows using deprecated string refs.
 Examples of **incorrect** code for this rule:
 
 ```tsx
-function ExampleComponent() {
+function Component() {
     return <div ref="example" />;
 }
 ```
@@ -17,7 +17,7 @@ function ExampleComponent() {
 Examples of **correct** code for this rule:
 
 ```tsx
-function ExampleComponent() {
+function Component() {
     const ref = useRef<HTMLDivElement>(null);
 
     return <div ref={ref} />;

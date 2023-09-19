@@ -5,15 +5,15 @@
 Examples of **correct** case for this rule:
 
 ```tsx
-// src/components/ExampleComponent.tsx
+// src/components/Component.tsx
 
 import React from "react";
 
-const ExampleComponent = () => {
+const Component = () => {
     return <div />;
 };
 
-export default ExampleComponent;
+export default Component;
 ```
 
 Examples of **incorrect** case for this rule:

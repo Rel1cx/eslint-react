@@ -22,19 +22,19 @@ function renderItem(name: string) {
 Examples of **incorrect** case for this rule:
 
 ```tsx
-function ExampleComponent() {
+function Component() {
     return <div />;
 }
 ```
 
 ```tsx
-function ExampleComponent() {
+function Component() {
     return <div />;
 }
 ```
 
 ```tsx
-function ExampleComponent() {
+function Component() {
     return React.createElement("div");
 }
 ```

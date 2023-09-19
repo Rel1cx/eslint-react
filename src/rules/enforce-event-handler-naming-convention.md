@@ -7,21 +7,21 @@ Enforce consistent event handler naming conventions in JSX.
 Examples of **incorrect** code for this rule:
 
 ```tsx
-<ExampleComponent handleChange={this.handleChange} />;
+<Component handleChange={this.handleChange} />;
 ```
 
 ```tsx
-<ExampleComponent onChange={this.componentChanged} />;
+<Component onChange={this.componentChanged} />;
 ```
 
 Examples of **correct** code for this rule:
 
 ```tsx
-<ExampleComponent onChange={this.handleChange} />;
+<Component onChange={this.handleChange} />;
 ```
 
 ```tsx
-<ExampleComponent onChange={this.props.onFoo} />;
+<Component onChange={this.props.onFoo} />;
 ```
 
 ## Rule Options

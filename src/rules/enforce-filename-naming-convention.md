@@ -7,7 +7,7 @@ Examples of **correct** case for this rule:
 ```bash
 npx eslint --rule 'react/jsx-filename-naming-convention: ["error", { "rule": "PascalCase" }]' .
 
-src/components/ExampleComponent.tsx
+src/components/Component.tsx
 
 ✨  Done in 0.61s.
 ```
@@ -25,8 +25,8 @@ Examples of **incorrect** case for this rule:
 ```bash
 npx eslint --rule 'react/jsx-filename-naming-convention: ["error", { "rule": "PascalCase" }]' .
 
-src/components/exampleComponent.tsx
-    1:1  error  "File name `exampleComponent.tsx` does not match `PascalCase`. Should rename to `ExampleComponent.tsx`  react/jsx-filename-naming-convention
+src/components/Component.tsx
+    1:1  error  "File name `Component.tsx` does not match `PascalCase`. Should rename to `Component.tsx`  react/jsx-filename-naming-convention
 
 ✖ 1 problems (1 errors, 0 warnings)
 ```

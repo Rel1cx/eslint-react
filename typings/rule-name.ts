@@ -75,7 +75,7 @@ export type Term =
     // | "class-component"
     // | "class-method"
     // | "class-property"
-    // | "comment"
+    | "comment"
     // | "component"
     // | "computed"
     // | "computed-property"

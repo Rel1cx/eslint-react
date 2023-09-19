@@ -1,5 +1,6 @@
 {
     "entryPoints": [
+        "typings/index.ts",
         "src/lib/case-validator/case-validator.ts",
         "src/lib/primitives/data.ts",
         "src/lib/primitives/enum.ts",

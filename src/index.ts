@@ -6,6 +6,7 @@ import enforceFilenameNamingConvention from "./rules/enforce-filename-naming-con
 import noConstructedContextValue from "./rules/no-constructed-context-value";
 import noDangerWithChildren from "./rules/no-danger-with-children";
 import noDeprecatedStringRefs from "./rules/no-deprecated-string-refs";
+import noMisusedCommentInTextNode from "./rules/no-misused-comment-in-textnode";
 import noMisusedJsxExtension from "./rules/no-misused-jsx-extension";
 import noUnstableDefaultProps from "./rules/no-unstable-default-props";
 import preferShorthandJsxBoolean from "./rules/prefer-shorthand-jsx-boolean";
@@ -20,6 +21,7 @@ const allRules = {
     "no-constructed-context-value": "error",
     "no-danger-with-children": "error",
     "no-deprecated-string-refs": "error",
+    "no-misused-comment-in-textnode": "error",
     "no-misused-jsx-extension": "warn",
     "no-unstable-default-props": "error",
     "prefer-shorthand-jsx-boolean": "error",
@@ -30,6 +32,7 @@ const recommendedRules = {
     "no-constructed-context-value": "error",
     "no-danger-with-children": "error",
     "no-deprecated-string-refs": "error",
+    "no-misused-comment-in-textnode": "error",
     "no-unstable-default-props": "error",
     "prefer-shorthand-jsx-boolean": "error",
 } as const satisfies RulePreset;
@@ -60,6 +63,7 @@ export default {
         "no-constructed-context-value": noConstructedContextValue,
         "no-danger-with-children": noDangerWithChildren,
         "no-deprecated-string-refs": noDeprecatedStringRefs,
+        "no-misused-comment-in-textnode": noMisusedCommentInTextNode,
         "no-misused-jsx-extension": noMisusedJsxExtension,
         "no-unstable-default-props": noUnstableDefaultProps,
         "prefer-shorthand-jsx-boolean": preferShorthandJsxBoolean,
