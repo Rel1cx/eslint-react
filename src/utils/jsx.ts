@@ -29,46 +29,6 @@ export function getPropName(node: TSESTree.JSXAttribute) {
         .exhaustive();
 }
 
-type PropCheckingOptions = {
-    ignoreCase?: boolean;
-    spreadStrict?: boolean;
-};
-
-export function hasProp(
-    nodeProps: TSESTree.JSXAttribute[],
-    { ignoreCase = false, spreadStrict = true }: PropCheckingOptions,
-) {
-    return (prop: string) => {
-        const propToCheck = ignoreCase ? prop.toUpperCase() : prop;
-
-        return nodeProps.some((attribute) => {
-            if (I.isNullable(attribute)) {
-                return false;
-            }
-
-            if (AST.is(AST_NODE_TYPES.JSXSpreadAttribute)(attribute)) {
-                return !spreadStrict;
-            }
-
-            const currentProp = getPropName(attribute);
-
-            if (ignoreCase) {
-                return currentProp.toUpperCase() === propToCheck;
-            }
-
-            return propToCheck === currentProp;
-        });
-    };
-}
-
-export function hasAnyProp(nodeProps: TSESTree.JSXAttribute[], options: PropCheckingOptions) {
-    return (props: string[]) => props.some(hasProp(nodeProps, options));
-}
-
-export function hasEveryProp(nodeProps: TSESTree.JSXAttribute[], options: PropCheckingOptions) {
-    return (props: string[]) => props.every(hasProp(nodeProps, options));
-}
-
 export const isJSXValue = memo(
     (node: TSESTree.Node | null, context: RuleContext, strict: boolean, ignoreNull: boolean): boolean => {
         if (!node) {
@@ -165,4 +125,114 @@ export function isReturnStatementReturningJSX(
     return returnStatements.some((returnStatement) =>
         isJSXValue(returnStatement.argument, context, strict, ignoreNull),
     );
+}
+
+export function findPropInProperties(
+    properties: TSESTree.ObjectLiteralElement[] | (TSESTree.Property | TSESTree.RestElement)[],
+    context: RuleContext,
+    seenProps: string[] = [],
+) {
+    return (propName: string): O.Option<(typeof properties)[number]> => {
+        return O.fromNullable(
+            properties.find((prop) => {
+                if (AST.is(AST_NODE_TYPES.Property)(prop)) {
+                    return "name" in prop.key && prop.key.name === propName;
+                }
+
+                if (AST.is(AST_NODE_TYPES.SpreadElement)(prop)) {
+                    if (!("argument" in prop) || !("name" in prop.argument)) {
+                        return false;
+                    }
+
+                    const { name } = prop.argument;
+
+                    const maybeFirstDefNodeInit = F.pipe(
+                        findVariableByNameUpToGlobal(name, context.getScope()),
+                        O.flatMapNullable((v) => v.defs.at(0)),
+                        O.flatMapNullable((d) => d.node),
+                        O.flatMapNullable((n) => ("init" in n ? n.init : null)),
+                    );
+
+                    if (O.isNone(maybeFirstDefNodeInit)) {
+                        return false;
+                    }
+
+                    const firstDefNodeInit = maybeFirstDefNodeInit.value;
+
+                    if (!AST.is(AST_NODE_TYPES.ObjectExpression)(firstDefNodeInit)) {
+                        return false;
+                    }
+
+                    if (seenProps.includes(name)) {
+                        return false;
+                    }
+
+                    return O.isSome(
+                        findPropInProperties(firstDefNodeInit.properties, context, [...seenProps, name])(propName),
+                    );
+                }
+
+                return false;
+            }),
+        );
+    };
+}
+
+export function findPropInAttributes(
+    attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
+    context: RuleContext,
+) {
+    return (propName: string) => {
+        return O.fromNullable(
+            attributes.find((attr) => {
+                return match(attr)
+                    .when(AST.is(AST_NODE_TYPES.JSXAttribute), (attr) => {
+                        return getPropName(attr) === propName;
+                    })
+                    .when(AST.is(AST_NODE_TYPES.JSXSpreadAttribute), (attr) => {
+                        if (!("argument" in attr) || !("name" in attr.argument)) {
+                            return false;
+                        }
+
+                        const { name } = attr.argument;
+
+                        const maybeFirstDefNodeInit = F.pipe(
+                            findVariableByNameUpToGlobal(name, context.getScope()),
+                            O.flatMapNullable((v) => v.defs.at(0)),
+                            O.flatMapNullable((d) => d.node),
+                            O.flatMapNullable((n) => ("init" in n ? n.init : null)),
+                        );
+
+                        if (O.isNone(maybeFirstDefNodeInit)) {
+                            return false;
+                        }
+
+                        if (!("properties" in maybeFirstDefNodeInit.value)) {
+                            return false;
+                        }
+
+                        return O.isSome(
+                            findPropInProperties(maybeFirstDefNodeInit.value.properties, context)(propName),
+                        );
+                    })
+                    .otherwise(F.constFalse);
+            }),
+        );
+    };
+}
+
+export function isWhiteSpace(value: string) {
+    return /^\s*$/u.test(value);
+}
+
+export function isLineBreak(node: TSESTree.Node): boolean {
+    const isLiteral = AST.isOneOf([AST_NODE_TYPES.Literal, AST_NODE_TYPES.JSXText])(node);
+
+    if (!("value" in node) || !I.isString(node.value)) {
+        return false;
+    }
+
+    const isMultiline = node.loc.start.line !== node.loc.end.line;
+
+    return isLiteral && isMultiline && isWhiteSpace(node.value);
 }

@@ -45,7 +45,8 @@
         "simple-import-sort/exports": "warn",
         "simple-import-sort/imports": "warn",
         "no-multiple-empty-lines": ["error", { "max": 2, "maxBOF": 1 }],
-        "import-access/jsdoc": ["error"]
+        "import-access/jsdoc": ["error"],
+        "filenames-simple/named-export": "off"
     },
     "overrides": [
         {

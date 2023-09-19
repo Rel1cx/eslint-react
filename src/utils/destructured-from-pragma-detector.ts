@@ -8,7 +8,6 @@ import { AST } from "./ast";
 import { getFromContext } from "./pragma";
 import { findVariableByName, getVariablesUpToGlobal } from "./variable";
 
-// eslint-disable-next-line filenames-simple/named-export
 export function make<T extends RuleContext>(context: T) {
     const maybePragma = getFromContext(context);
     const variables = getVariablesUpToGlobal(context.getScope());

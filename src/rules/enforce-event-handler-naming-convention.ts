@@ -152,7 +152,6 @@ export default createEslintRule<Options, MessageID>({
                     .getSourceCode()
                     .getText(propValueNode)
                     .replaceAll(/\s*/gu, "")
-
                     .replace(/^this\.|.*::/u, "");
 
                 // Early return if the prop key a ref.

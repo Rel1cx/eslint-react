@@ -1,6 +1,6 @@
 # enforce-filename-naming-convention
 
-💼 This rule is enabled in the following configs: 🌐 `all`, ✅ `recommended`, `recommended-type-checked`.
+💼 This rule is enabled in the 🌐 `all` config.
 
 <!-- end auto-generated rule header -->
 

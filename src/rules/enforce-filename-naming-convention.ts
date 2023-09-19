@@ -50,7 +50,6 @@ export default createEslintRule<Options, MessageID>({
         type: "suggestion",
         docs: {
             description: "enforce naming convention for jsx files",
-            recommended: "recommended",
         },
         schema,
         messages: {

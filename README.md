@@ -36,7 +36,7 @@ bun add --dev eslint-plugin-react-ts
         "plugin:react-ts/recommended"
     ],
     "rules": {
-        "react-ts/no-deprecated": "error"
+        "react-ts/enforce-filename-naming-convention": "error"
     }
 }
 ```
@@ -50,7 +50,8 @@ export default [
     reactTsRecommended,
     {
         rules: {
-            "react-ts/no-deprecated": "error"
+            "react-ts/enforce-filename-naming-convention": "error",
+            // ...
         },
     },
 ]
@@ -61,7 +62,7 @@ export default [
 - [x] react-ts/enforce-event-handler-naming-convention
 - [x] react-ts/enforce-filename-naming-convention
 - [x] react-ts/no-constructed-context-value
-- [ ] react-ts/no-danger-with-children
+- [x] react-ts/no-danger-with-children
 - [x] react-ts/no-deprecated-string-refs
 - [ ] react-ts/no-leaked-jsx-conditional-rendering
 - [ ] react-ts/no-misused-comment-in-textnode
@@ -84,6 +85,7 @@ export default [
 | [enforce-event-handler-naming-convention](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/enforce-event-handler-naming-convention.md) | enforce event handler naming conventions in JSX                                     |
 | [enforce-filename-naming-convention](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/enforce-filename-naming-convention.md)           | enforce naming convention for jsx files                                             |
 | [no-constructed-context-value](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/no-constructed-context-value.md)                       | disallows passing constructed values to context providers                           |
+| [no-danger-with-children](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/no-danger-with-children.md)                                 | disallow when a DOM element is using both children and dangerouslySetInnerHTML'     |
 | [no-deprecated-string-refs](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/no-deprecated-string-refs.md)                             | disallow using deprecated string refs                                               |
 | [no-misused-jsx-extension](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/no-misused-jsx-extension.md)                               | enforce using `.ts` instead of `.tsx` extension when there is no JSX in the file    |
 | [no-unstable-default-props](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/main/docs/rules/no-unstable-default-props.md)                             | disallow usage of referential-type variables as default param in function component |

@@ -60,7 +60,7 @@
         "lint:type": "tsc --noEmit",
         "prepare": "husky install",
         "publish": "bun run format:write && bun run lint && bun run test && bun run build && bun run publint",
-        "test": "vitest --run"
+        "test": "vitest --run --single-thread --no-threads"
     },
     "prettier": "eslint-config-with-tsconfig/prettier",
     "dependencies": {

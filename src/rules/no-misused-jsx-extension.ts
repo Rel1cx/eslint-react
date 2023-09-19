@@ -18,7 +18,6 @@ export default createEslintRule<Options, MessageID>({
         type: "suggestion",
         docs: {
             description: "enforce using `.ts` instead of `.tsx` extension when there is no JSX in the file",
-            recommended: "recommended",
         },
         schema: [],
         messages: {

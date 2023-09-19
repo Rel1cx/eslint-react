@@ -6,7 +6,6 @@ import type { FunctionNode } from "./ast";
 import { isComponentName } from "./is-component-name";
 import { isJSXValue, isReturnStatementReturningJSX } from "./jsx";
 
-// eslint-disable-next-line filenames-simple/named-export
 export function make(context: RuleContext) {
     const components = new Set<FunctionNode>();
 
