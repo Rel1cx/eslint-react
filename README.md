@@ -12,7 +12,7 @@ ESLint plugin to lint TypeScript React function components using the @typescript
 - 18.x LTS Hydrogen
 - 20.x Current
 
-### Bun (planned)
+### Bun
 
 - 1.x
 
@@ -64,7 +64,7 @@ export default [
 - [x] react-ts/no-constructed-context-value
 - [x] react-ts/no-danger-with-children
 - [x] react-ts/no-deprecated-string-refs
-- [ ] react-ts/no-leaked-jsx-conditional-rendering
+- [x] react-ts/no-leaked-jsx-conditional-rendering
 - [x] react-ts/no-misused-comment-in-textnode
 - [x] react-ts/no-misused-jsx-extension
 - [ ] react-ts/no-unescaped-entities
