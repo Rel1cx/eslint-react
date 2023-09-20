@@ -1,3 +1,5 @@
+import memo from "micro-memoize";
+
 import type { ReactSettings } from "../../typings";
 import type { RuleContext } from "../../typings/rule-context";
 import { E, F, O } from "../lib/primitives/data";
@@ -37,7 +39,7 @@ export function getFragmentFromContext<T extends RuleContext>(context: T): E.Eit
     return E.right(pragma);
 }
 
-export function getFromContext<T extends RuleContext>(context: T): E.Either<Error, string> {
+export const getFromContext = memo(<T extends RuleContext>(context: T): E.Either<Error, string> => {
     // eslint-disable-next-line prefer-destructuring
     const settings: { react?: ReactSettings } = context.settings;
 
@@ -58,4 +60,4 @@ export function getFromContext<T extends RuleContext>(context: T): E.Either<Erro
     }
 
     return E.right(pragma);
-}
+});

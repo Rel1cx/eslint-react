@@ -1,23 +1,18 @@
 import { type Scope, ScopeType } from "@typescript-eslint/scope-manager";
 import type { TSESLint } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/utils";
-import memo from "micro-memoize";
 import { isMatching, match, P } from "ts-pattern";
 
 import { E, F } from "../lib/primitives/data";
 import { getCreateClassFromContext, getFromContext } from "./pragma";
-
-const getCreateClass = memo(getCreateClassFromContext);
-
-const getPragma = memo(getFromContext);
 
 /**
  * @package
  * @deprecated Do not use this function. It will be removed in the future.
  */
 export function isES5Component(node: TSESTree.Node, context: TSESLint.RuleContext<string, []>): boolean {
-    const maybeReact = getPragma(context);
-    const maybeCreateClass = getCreateClass(context);
+    const maybeReact = getFromContext(context);
+    const maybeCreateClass = getCreateClassFromContext(context);
 
     if (E.isLeft(maybeReact) || E.isLeft(maybeCreateClass)) {
         return false;
@@ -54,7 +49,7 @@ export function isES6Component(node: TSESTree.Node, context: TSESLint.RuleContex
         return false;
     }
 
-    const maybeReact = getPragma(context);
+    const maybeReact = getFromContext(context);
 
     if (E.isLeft(maybeReact)) {
         return false;
@@ -102,7 +97,7 @@ export function getParentES6Component(context: TSESLint.RuleContext<string, []>)
  * @deprecated Do not use this function. It will be removed in the future.
  */
 export function isPureComponent(node: TSESTree.Node, context: TSESLint.RuleContext<string, []>): boolean {
-    const pragma = getPragma(context);
+    const pragma = getFromContext(context);
 
     const sourceCode = context.getSourceCode();
 

@@ -36,7 +36,7 @@ export default createEslintRule<Options, MessageID>({
     create(context) {
         return {
             CallExpression(node) {
-                if (!isCreateElement(node, context) || node.arguments.length < 2) {
+                if (node.arguments.length < 2 || !isCreateElement(node, context)) {
                     return;
                 }
 
