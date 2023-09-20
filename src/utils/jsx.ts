@@ -12,6 +12,10 @@ export const isJSXElement = AST.is(AST_NODE_TYPES.JSXElement);
 
 export const isJSXFragment = AST.is(AST_NODE_TYPES.JSXFragment);
 
+export const isJSX = (node: TSESTree.Node): node is TSESTree.JSXElement | TSESTree.JSXFragment => {
+    return isJSXElement(node) || isJSXFragment(node);
+};
+
 export const isJsxTagNameExpression = AST.isOneOf([
     AST_NODE_TYPES.JSXIdentifier,
     AST_NODE_TYPES.JSXMemberExpression,
@@ -20,13 +24,6 @@ export const isJsxTagNameExpression = AST.isOneOf([
 
 export function hasChildren(node: TSESTree.JSXElement | TSESTree.JSXFragment): boolean {
     return node.children.length > 0;
-}
-
-export function getPropName(node: TSESTree.JSXAttribute) {
-    return match(node.name)
-        .with({ type: AST_NODE_TYPES.JSXIdentifier }, (n) => n.name)
-        .with({ type: AST_NODE_TYPES.JSXNamespacedName }, (n) => n.name.name)
-        .exhaustive();
 }
 
 export const isJSXValue = memo(
@@ -125,6 +122,13 @@ export function isReturnStatementReturningJSX(
     return returnStatements.some((returnStatement) =>
         isJSXValue(returnStatement.argument, context, strict, ignoreNull)
     );
+}
+
+export function getPropName(node: TSESTree.JSXAttribute) {
+    return match(node.name)
+        .with({ type: AST_NODE_TYPES.JSXIdentifier }, (n) => n.name)
+        .with({ type: AST_NODE_TYPES.JSXNamespacedName }, (n) => n.name.name)
+        .exhaustive();
 }
 
 export function findPropInProperties(

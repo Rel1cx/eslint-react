@@ -67,7 +67,6 @@ export default [
 - [x] react-ts/no-leaked-jsx-conditional-rendering
 - [x] react-ts/no-misused-comment-in-textnode
 - [x] react-ts/no-misused-jsx-extension
-- [ ] react-ts/no-unescaped-entities
 - [x] react-ts/no-unstable-default-props
 - [ ] react-ts/no-unstable-nested-components
 - [ ] react-ts/prefer-destructuring-assignment

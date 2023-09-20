@@ -3,6 +3,7 @@ import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/types";
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import type { RuleName } from "../../typings";
 import { AST } from "../utils/ast";
+import { isJSX } from "../utils/jsx";
 
 const RULE_NAME: RuleName = "no-misused-comment-in-textnode";
 
@@ -11,14 +12,6 @@ type MessageID = "MISUSED_COMMENT_IN_TEXTNODE";
 type Options = readonly [];
 
 const defaultOptions = [] as const satisfies Options;
-
-function checkText(node: TSESTree.Literal | TSESTree.JSXText) {
-    if (AST.isOneOf([AST_NODE_TYPES.JSXAttribute, AST_NODE_TYPES.JSXExpressionContainer])(node.parent)) {
-        return false;
-    }
-
-    return /^\s*\/(\/|\*)/mu.test(node.raw) && node.parent.type.includes("JSX");
-}
 
 export default createEslintRule<Options, MessageID>({
     name: RULE_NAME,
@@ -35,23 +28,32 @@ export default createEslintRule<Options, MessageID>({
     },
     defaultOptions,
     create(context) {
+        function checkText(node: TSESTree.Literal | TSESTree.JSXText) {
+            if (AST.isOneOf([AST_NODE_TYPES.JSXAttribute, AST_NODE_TYPES.JSXExpressionContainer])(node.parent)) {
+                return false;
+            }
+
+            const rawValue = context.getSourceCode().getText(node);
+
+            return /^\s*\/(\/|\*)/mu.test(rawValue) && node.parent.type.includes("JSX");
+        }
+
+        const check = (node: TSESTree.Literal | TSESTree.JSXText) => {
+            if (!isJSX(node.parent)) {
+                return;
+            }
+
+            if (checkText(node)) {
+                context.report({
+                    messageId: "MISUSED_COMMENT_IN_TEXTNODE",
+                    node,
+                });
+            }
+        };
+
         return {
-            JSXText(node) {
-                if (checkText(node)) {
-                    context.report({
-                        messageId: "MISUSED_COMMENT_IN_TEXTNODE",
-                        node,
-                    });
-                }
-            },
-            Literal(node) {
-                if (checkText(node)) {
-                    context.report({
-                        messageId: "MISUSED_COMMENT_IN_TEXTNODE",
-                        node,
-                    });
-                }
-            },
+            JSXText: check,
+            Literal: check,
         };
     },
 });
