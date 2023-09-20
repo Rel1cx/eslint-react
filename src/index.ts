@@ -6,6 +6,7 @@ import enforceFilenameNamingConvention from "./rules/enforce-filename-naming-con
 import noConstructedContextValue from "./rules/no-constructed-context-value";
 import noDangerWithChildren from "./rules/no-danger-with-children";
 import noDeprecatedStringRefs from "./rules/no-deprecated-string-refs";
+import noLeakedJsxConditionalRendering from "./rules/no-leaked-jsx-conditional-rendering";
 import noMisusedCommentInTextNode from "./rules/no-misused-comment-in-textnode";
 import noMisusedJsxExtension from "./rules/no-misused-jsx-extension";
 import noUnstableDefaultProps from "./rules/no-unstable-default-props";
@@ -21,6 +22,7 @@ const allRules = {
     "no-constructed-context-value": "error",
     "no-danger-with-children": "error",
     "no-deprecated-string-refs": "error",
+    "no-leaked-jsx-conditional-rendering": "error",
     "no-misused-comment-in-textnode": "error",
     "no-misused-jsx-extension": "warn",
     "no-unstable-default-props": "error",
@@ -28,13 +30,14 @@ const allRules = {
 } as const satisfies RulePreset;
 
 const recommendedRules = {
-    "enforce-event-handler-naming-convention": "error",
+    "enforce-event-handler-naming-convention": "warn",
     "no-constructed-context-value": "error",
     "no-danger-with-children": "error",
     "no-deprecated-string-refs": "error",
-    "no-misused-comment-in-textnode": "error",
+    "no-leaked-jsx-conditional-rendering": "error",
+    "no-misused-comment-in-textnode": "warn",
     "no-unstable-default-props": "error",
-    "prefer-shorthand-jsx-boolean": "error",
+    "prefer-shorthand-jsx-boolean": "warn",
 } as const satisfies RulePreset;
 
 const debugRules = {
@@ -63,6 +66,7 @@ export default {
         "no-constructed-context-value": noConstructedContextValue,
         "no-danger-with-children": noDangerWithChildren,
         "no-deprecated-string-refs": noDeprecatedStringRefs,
+        "no-leaked-jsx-conditional-rendering": noLeakedJsxConditionalRendering,
         "no-misused-comment-in-textnode": noMisusedCommentInTextNode,
         "no-misused-jsx-extension": noMisusedJsxExtension,
         "no-unstable-default-props": noUnstableDefaultProps,
