@@ -126,8 +126,15 @@ export function isReturnStatementReturningJSX(
 
 export function getPropName(node: TSESTree.JSXAttribute) {
     return match(node.name)
-        .with({ type: AST_NODE_TYPES.JSXIdentifier }, (n) => n.name)
-        .with({ type: AST_NODE_TYPES.JSXNamespacedName }, (n) => n.name.name)
+        .when(AST.is(AST_NODE_TYPES.JSXIdentifier), (n) => n.name)
+        .when(AST.is(AST_NODE_TYPES.JSXNamespacedName), (n) => n.name.name)
+        .exhaustive();
+}
+
+export function getPropNameWithNamespace(node: TSESTree.JSXAttribute) {
+    return match(node.name)
+        .when(AST.is(AST_NODE_TYPES.JSXIdentifier), (n) => n.name)
+        .when(AST.is(AST_NODE_TYPES.JSXNamespacedName), (n) => `${n.namespace.name}:${n.name.name}`)
         .exhaustive();
 }
 
