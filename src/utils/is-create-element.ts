@@ -2,7 +2,7 @@ import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/utils";
 import memo from "micro-memoize";
 import { match } from "ts-pattern";
 
-import type { RuleContext } from "../../typings/rule-context";
+import type { RuleContext } from "../../typings";
 import { E, F } from "../lib/primitives/data";
 import * as destructuredFromPragmaDetector from "./destructured-from-pragma-detector";
 import { getFromContext } from "./pragma";

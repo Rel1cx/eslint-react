@@ -1,5 +1,5 @@
 import { name } from "../package.json";
-import type { Severity } from "../typings";
+import type { RulePreset } from "../typings";
 import debugFunctionComponent from "./rules/debug-function-component";
 import enforceEventHandlerNamingConvention from "./rules/enforce-event-handler-naming-convention";
 import enforceFilenameNamingConvention from "./rules/enforce-filename-naming-convention";
@@ -11,10 +11,6 @@ import noMisusedCommentInTextNode from "./rules/no-misused-comment-in-textnode";
 import noMisusedJsxExtension from "./rules/no-misused-jsx-extension";
 import noUnstableDefaultProps from "./rules/no-unstable-default-props";
 import preferShorthandJsxBoolean from "./rules/prefer-shorthand-jsx-boolean";
-
-export type RuleDeclaration = [Severity, Record<string, unknown>?] | Severity;
-
-export type RulePreset = Record<string, RuleDeclaration>;
 
 const allRules = {
     "enforce-event-handler-naming-convention": "error",

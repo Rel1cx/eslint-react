@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { isMatching, match } from "ts-pattern";
 
-import type { RuleContext } from "../../typings/rule-context";
+import type { RuleContext } from "../../typings";
 import { E, F, O } from "../lib/primitives/data";
 import { AST } from "./ast";
 import { getFromContext } from "./pragma";

@@ -1,7 +1,7 @@
 import memo from "micro-memoize";
 
 import type { ReactSettings } from "../../typings";
-import type { RuleContext } from "../../typings/rule-context";
+import type { RuleContext } from "../../typings";
 import { E, F, O } from "../lib/primitives/data";
 
 /*

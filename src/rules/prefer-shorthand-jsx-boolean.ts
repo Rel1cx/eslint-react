@@ -3,8 +3,7 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { match } from "ts-pattern";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
-import { type RuleName } from "../../typings";
-import { Cond } from "../../typings/rule-option";
+import { type Cond, type RuleName } from "../../typings";
 import { I, O } from "../lib/primitives/data";
 const RULE_NAME: RuleName = "prefer-shorthand-jsx-boolean";
 
@@ -36,8 +35,8 @@ const schema = [
             },
             rule: {
                 type: "string",
-                default: Cond.never,
-                enum: [Cond.always, Cond.never],
+                default: "never",
+                enum: ["always", "never"],
             },
         },
     },
@@ -73,7 +72,7 @@ export default createEslintRule<Options, MessageID>({
                 const isException = excepts.has(propName);
 
                 const maybeMessageId = match<Cond, O.Option<MessageID>>(rule)
-                    .with(Cond.always, () => {
+                    .with("always", () => {
                         const hasValue = I.isNullable(value);
 
                         if (hasValue && !isException) {
@@ -86,7 +85,7 @@ export default createEslintRule<Options, MessageID>({
 
                         return O.none();
                     })
-                    .with(Cond.never, () => {
+                    .with("never", () => {
                         const hasValueWithTrue = value?.type === AST_NODE_TYPES.JSXExpressionContainer
                             && value.expression.type === AST_NODE_TYPES.Literal
                             && value.expression.value === true;

@@ -3,7 +3,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { match, P } from "ts-pattern";
 
-import type { RuleContext } from "../../typings/rule-context";
+import type { RuleContext } from "../../typings";
 import { F, I, O } from "../lib/primitives/data";
 import { Enum } from "../lib/primitives/enum";
 import { AST } from "./ast";

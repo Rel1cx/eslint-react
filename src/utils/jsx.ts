@@ -2,7 +2,7 @@ import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/utils";
 import memo from "micro-memoize";
 import { match, P } from "ts-pattern";
 
-import type { RuleContext } from "../../typings/rule-context";
+import type { RuleContext } from "../../typings";
 import { F, I, O } from "../lib/primitives/data";
 import { AST } from "./ast";
 import { isCreateElement } from "./is-create-element";
