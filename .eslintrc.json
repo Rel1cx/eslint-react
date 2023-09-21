@@ -4,7 +4,12 @@
         "es2024": true,
         "node": true
     },
-    "extends": ["with-tsconfig", "plugin:eslint-plugin/all", "plugin:filenames-simple/recommended"],
+    "extends": [
+        "with-tsconfig",
+        "plugin:perfectionist/recommended-natural",
+        "plugin:eslint-plugin/all",
+        "plugin:filenames-simple/recommended"
+    ],
     "plugins": ["filenames-simple"],
     "rules": {
         "no-console": [
@@ -32,6 +37,13 @@
         "eslint-plugin/require-meta-docs-url": "off",
         "perfectionist/sort-named-imports": "off",
         "perfectionist/sort-imports": "off",
+        "perfectionist/sort-union-types": [
+            "warn",
+            {
+                "order": "asc",
+                "type": "natural"
+            }
+        ],
         "perfectionist/sort-objects": [
             "warn",
             {

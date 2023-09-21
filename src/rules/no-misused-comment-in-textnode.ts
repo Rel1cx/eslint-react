@@ -28,7 +28,7 @@ export default createEslintRule<Options, MessageID>({
     },
     defaultOptions,
     create(context) {
-        function checkText(node: TSESTree.Literal | TSESTree.JSXText) {
+        function checkText(node: TSESTree.JSXText | TSESTree.Literal) {
             if (AST.isOneOf([AST_NODE_TYPES.JSXAttribute, AST_NODE_TYPES.JSXExpressionContainer])(node.parent)) {
                 return false;
             }
@@ -38,7 +38,7 @@ export default createEslintRule<Options, MessageID>({
             return /^\s*\/(\/|\*)/mu.test(rawValue) && node.parent.type.includes("JSX");
         }
 
-        const check = (node: TSESTree.Literal | TSESTree.JSXText) => {
+        const check = (node: TSESTree.JSXText | TSESTree.Literal) => {
             if (!isJSX(node.parent)) {
                 return;
             }

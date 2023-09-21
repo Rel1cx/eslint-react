@@ -132,7 +132,7 @@ export function getPropName(node: TSESTree.JSXAttribute) {
 }
 
 export function findPropInProperties(
-    properties: TSESTree.ObjectLiteralElement[] | (TSESTree.Property | TSESTree.RestElement)[],
+    properties: (TSESTree.Property | TSESTree.RestElement)[] | TSESTree.ObjectLiteralElement[],
     context: RuleContext,
     seenProps: string[] = [],
 ) {

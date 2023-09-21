@@ -2,7 +2,8 @@
     "lineWidth": 120,
     "typescript": {
         "indentWidth": 4,
-        "quoteStyle": "preferDouble"
+        "quoteStyle": "preferDouble",
+        "module.sortImportDeclarations": "maintain"
     },
     "json": {
         "indentWidth": 4

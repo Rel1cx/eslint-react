@@ -12,7 +12,7 @@ type MessageID = "POTENTIAL_LEAKED_CONDITIONAL_RENDERING";
 
 type Options = readonly [];
 
-type TernaryAlternateValue = string | number | bigint | boolean | RegExp | null;
+type TernaryAlternateValue = RegExp | bigint | boolean | null | number | string;
 
 const defaultOptions = [] as const satisfies Options;
 

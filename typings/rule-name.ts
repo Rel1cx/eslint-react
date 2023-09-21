@@ -2,31 +2,25 @@
 
 type No = "no";
 
-type Use = "use";
-
-type Debug = "debug";
-
-export type PositiveModifier = "enforce" | "prefer" | "require" | "strict" | Use;
+export type PositiveModifier = "enforce" | "prefer" | "require" | "strict" | "use";
 
 export type NegativeModifier = "prevent" | No;
 
 export type Modifier = NegativeModifier | PositiveModifier;
 
 export type NegativeDescriptive =
+    | "complicated"
     | "confusing"
-    | "constructed"
     | "danger"
     | "deprecated"
     | "duplicate"
-    | "empty"
-    | "extra"
     | "falsely"
     | "forbidden"
-    | "implicit"
     | "incompatible"
     | "inlined"
     | "invalid"
     | "leaked"
+    | "legacy"
     | "misleading"
     | "missing"
     | "misused"
@@ -34,8 +28,7 @@ export type NegativeDescriptive =
     | "outdated"
     | "redundant"
     | "restricted"
-    | "shorthand"
-    | "slow"
+    | "suppressing"
     | "suspicious"
     | "unescaped"
     | "uninitialized"
@@ -47,9 +40,20 @@ export type NegativeDescriptive =
     | "unwanted"
     | "useless";
 
-export type PositiveDescriptive = "explicit" | "optimal" | "optimized" | "shorthand" | "standard" | "strict";
+export type PositiveDescriptive = "explicit" | "optimal" | "optimized" | "standard" | "strict";
 
-export type Descriptive = NegativeDescriptive | PositiveDescriptive;
+export type NeutralDescriptive =
+    | "access"
+    | "calling"
+    | "constructed"
+    | "empty"
+    | "extra"
+    | "implicit"
+    | "inside"
+    | "outside"
+    | "shorthand";
+
+export type Descriptive = NegativeDescriptive | NeutralDescriptive | PositiveDescriptive;
 
 // Comment out unused terms to reduce the type checking overhead
 export type Term =
@@ -70,13 +74,16 @@ export type Term =
     // | "callback"
     // | "case"
     // | "catch"
-    // | "children"
+    | "array-index"
     // | "class"
-    // | "class-component"
+    | "cache"
     // | "class-method"
     // | "class-property"
+    | "children"
+    | "class-component"
+    | "clone-element"
     | "comment"
-    // | "component"
+    | "component"
     // | "computed"
     // | "computed-property"
     // | "const"
@@ -88,19 +95,23 @@ export type Term =
     | "context-value"
     // | "default"
     // | "default-export"
+    | "createRef"
     | "default-props"
-    // | "destructuring"
+    | "deps"
+    | "destructuring"
     | "destructuring-assignment"
+    | "direct-mutation"
+    | "entities"
     // | "dictionary"
     // | "directive"
     // | "display-name"
     // | "document"
     // | "effect"
     // | "element"
-    | "entities"
+    | "event-handler"
     // | "error"
     // | "event"
-    | "event-handler"
+    | "exhaustive-deps"
     // | "export"
     // | "expression"
     // | "extends"
@@ -108,14 +119,15 @@ export type Term =
     // | "false"
     | "filename"
     | "forward-ref"
+    | "function-component"
     // | "function"
     // | "function-name"
-    | "function-component"
+    | "handler"
     // | "generator"
     // | "generic"
     // | "getter"
     // | "global"
-    | "handler"
+    | "jsx"
     // | "hook"
     // | "html"
     // | "id"
@@ -126,7 +138,6 @@ export type Term =
     // | "input"
     // | "instance"
     // | "interface"
-    | "jsx"
     | "jsx-attribute"
     | "jsx-boolean"
     | "jsx-conditional-rendering"
@@ -136,6 +147,9 @@ export type Term =
     | "jsx-fragment"
     | "jsx-handler"
     | "jsx-key"
+    | "memo"
+    | "memoized-function"
+    | "method"
     // | "key"
     // | "keyword"
     // | "label"
@@ -146,7 +160,8 @@ export type Term =
     // | "loop"
     // | "map"
     // | "member"
-    // | "memo"
+    | "ref"
+    | "shorthand"
     // | "method"
     // | "module"
     // | "name"
@@ -170,24 +185,23 @@ export type Term =
     // | "query"
     // | "react"
     // | "readonly"
-    // | "ref"
+    | "state"
     // | "regexp"
     // | "render"
     // | "return"
     // | "set"
     // | "setter"
-    | "shorthand"
+    | "string-refs"
     // | "source"
     // | "spread"
     // | "state"
     // | "static"
     // | "string"
-    | "string-refs"
-    // | "style"
-    // | "symbol"
-    // | "tag"
-    // | "ternary"
     | "textnodes";
+// | "style"
+// | "symbol"
+// | "tag"
+// | "ternary"
 // | "type"
 // | "undefined"
 // | "use-callback"
@@ -212,11 +226,12 @@ export type Term =
 export type Additional = string;
 
 export type RuleName =
-    | `${NegativeModifier}-${NegativeDescriptive}-${Term}`
-    | `${NegativeModifier}-${NegativeDescriptive}-${Term}-${Additional}`
+    | `${NegativeModifier}-${NegativeDescriptive | NeutralDescriptive}-${Term}`
+    | `${NegativeModifier}-${NegativeDescriptive | NeutralDescriptive}-${Term}-${Additional}`
     | `${No}-${Term}`
-    | `${Debug}-${Term}`
-    | `${PositiveModifier}-${PositiveDescriptive}-${Term}`
-    | `${PositiveModifier}-${PositiveDescriptive}-${Term}-${Additional}`
+    | `${No}-${Term}-${Term}`
+    | `${No}-${Term}-${Term}-${Additional}`
+    | `${PositiveModifier}-${NeutralDescriptive | PositiveDescriptive}-${Term}`
+    | `${PositiveModifier}-${NeutralDescriptive | PositiveDescriptive}-${Term}-${Additional}`
     | `${PositiveModifier}-${Term}`
     | `${PositiveModifier}-${Term}-${Additional}`;

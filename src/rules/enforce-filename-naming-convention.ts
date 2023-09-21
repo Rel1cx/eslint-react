@@ -9,7 +9,7 @@ import { O } from "../lib/primitives/data";
 
 const RULE_NAME: RuleName = "enforce-filename-naming-convention";
 
-type MessageID = "FILENAME_EMPTY" | "FILENAME_CASE_MISMATCH" | "FILENAME_CASE_MISMATCH_SUGGESTION";
+type MessageID = "FILENAME_CASE_MISMATCH" | "FILENAME_CASE_MISMATCH_SUGGESTION" | "FILENAME_EMPTY";
 
 type Options = readonly [
     {

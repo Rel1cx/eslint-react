@@ -69,22 +69,39 @@ export default [
 - [x] react-ts/no-misused-jsx-extension
 - [x] react-ts/no-unstable-default-props
 - [ ] react-ts/no-unstable-nested-components
+- [ ] react-ts/no-direct-mutation-state
 - [ ] react-ts/prefer-destructuring-assignment
 - [x] react-ts/prefer-shorthand-jsx-boolean
 - [ ] react-ts/require-jsx-key
+- [ ] react-ts/no-array-index-jsx-key
+- [ ] ...
+
+## Planned (will be added in the future)
+
+- [ ] react-ts/no-access-ref-current-during-rendering
+- [ ] react-ts/no-calling-memoized-function-outside-component
+- [ ] react-ts/no-suppressing-exhaustive-deps
+- [ ] react-ts/no-complicated-jsx-key
+- [ ] react-ts/no-complicated-jsx-expression
+- [ ] react-ts/no-complicated-conditional-rendering
+- [ ] react-ts/no-legacy-children-method
+- [ ] react-ts/no-legacy-class-component
+- [ ] react-ts/no-legacy-clone-element
+- [ ] react-ts/no-legacy-createRef
 - [ ] ...
 
 ## Philosophy
 
-- **Linting errors are better than runtime crashes.**
 - **Focus on code rather than style.**
+- **Linting errors are better than runtime crashes.**
 - **Types are the fundamental unit of correctness.**
 
 ## Rule introduction or modification guidelines
 
-- **TypeScript first** - If a behavior can already be enforced by TypeScript built-in checker, it should not be implemented in the plugin.
-- **Formatting independent** - Rules should not be concerned with code style or formatting; leave that to the formatter.
-- **One rule, one purpose** - Each rule should have a single, well-defined purpose that can be described in one sentence, ideally serving as its name, and it's options should be as minimal as possible, preferably none.
+1. If a behavior can already be enforced by TypeScript built-in checker, it should not be implemented in the plugin.
+2. Rules should not be concerned with style or formatting; leave that to the formatter.
+3. Each rule should have a single, well-defined purpose that can be described in one sentence, ideally serving as its name.
+4. Rules should be easy to set up and use, with minimal configuration.
 
 ## License
 
