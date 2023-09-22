@@ -14,7 +14,7 @@ export default defineConfig(() => ({
     ],
     format: ["cjs", "esm"],
     minify: false,
-    noExternal: ["pathe", "tiny-invariant", "fast-equals", "micro-memoize", "birecord"],
+    noExternal: ["@effect/data", "ts-pattern", "fast-equals", "micro-memoize", "birecord", "pathe", "tiny-invariant"],
     outDir: "dist",
     platform: "neutral",
     replaceNodeEnv: false,
@@ -23,7 +23,7 @@ export default defineConfig(() => ({
     sourcemap: false,
     // skipNodeModulesBundle: false,
     // splitting: false,
-    splitting: false,
+    splitting: true,
     target: "es2022",
     treeshake: true,
 }));
