@@ -5,7 +5,7 @@
 Examples of **correct** case for this rule:
 
 ```bash
-npx eslint --rule 'react/jsx-filename-naming-convention: ["error", { "rule": "PascalCase" }]' .
+npx eslint --rule 'react-ts/naming-convention/filename: ["error", { "rule": "PascalCase" }]' .
 
 src/components/Component.tsx
 
@@ -13,7 +13,7 @@ src/components/Component.tsx
 ```
 
 ```bash
-npx eslint --rule 'react/jsx-filename-naming-convention: ["error", { "rule": "kebab-case" }]' .
+npx eslint --rule 'react-ts/naming-convention/filename: ["error", { "rule": "kebab-case" }]' .
 
 src/components/example-component.tsx
 
@@ -23,7 +23,7 @@ src/components/example-component.tsx
 Examples of **incorrect** case for this rule:
 
 ```bash
-npx eslint --rule 'react/jsx-filename-naming-convention: ["error", { "rule": "PascalCase" }]' .
+npx eslint --rule 'react-ts/naming-convention/filename: ["error", { "rule": "PascalCase" }]' .
 
 src/components/Component.tsx
     1:1  error  "File name `Component.tsx` does not match `PascalCase`. Should rename to `Component.tsx`  react/jsx-filename-naming-convention
@@ -32,7 +32,7 @@ src/components/Component.tsx
 ```
 
 ```bash
-npx eslint --rule 'react/jsx-filename-naming-convention: ["error", { "rule": "kebab-case" }]' .
+npx eslint --rule 'react-ts/naming-convention/filename: ["error", { "rule": "kebab-case" }]' .
 
 src/components/example_component.tsx
     1:1  error  "File name `example_component.tsx` does not match `kebab-case`. Should rename to `example-component.tsx`  react/jsx-filename-naming-convention
@@ -60,7 +60,3 @@ type Options = {
   "rule": "PascalCase"
 }]
 ```
-
-## When Not To Use It
-
-If you are not using JSX, or if you don't want to enforce specific naming conventions for filenames.

@@ -65,9 +65,9 @@ export default [
 - [ ] `react-ts/jsx/no-useless-fragment`
 - [ ] `react-ts/jsx/no-missing-key-prop`
 - [ ] `react-ts/jsx/no-array-index-key`
-- [x] `react-ts/name-convention/event-handler`
-- [x] `react-ts/name-convention/filename`
-- [x] `react-ts/name-convention/filename-extension`
+- [x] `react-ts/naming-convention/event-handler`
+- [x] `react-ts/naming-convention/filename`
+- [x] `react-ts/naming-convention/filename-extension`
 - [x] `react-ts/no-constructed-context-value`
 - [x] `react-ts/no-danger-with-children`
 - [x] `react-ts/no-deprecated-string-refs`

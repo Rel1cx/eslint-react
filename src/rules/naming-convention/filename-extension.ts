@@ -5,7 +5,7 @@ import { MutRef, O } from "../../lib/primitives/data";
 
 export const RULE_NAME = "naming-convention/filename-extension";
 
-type MessageID = "MISUSED_JSX_EXTENSION";
+type MessageID = "INVALID";
 
 type Options = readonly [];
 
@@ -20,7 +20,7 @@ export default createEslintRule<Options, MessageID>({
         },
         schema: [],
         messages: {
-            MISUSED_JSX_EXTENSION: "Potential misuse of the `.tsx` extension. Use `.ts` instead.",
+            INVALID: "Potential misuse of the `.tsx` extension. Use `.ts` instead.",
         },
     },
     defaultOptions,
@@ -41,7 +41,7 @@ export default createEslintRule<Options, MessageID>({
 
                 if (fileNameExt === ".tsx" && O.isNone(MutRef.get(jsxNodeRef))) {
                     return context.report({
-                        messageId: "MISUSED_JSX_EXTENSION",
+                        messageId: "INVALID",
                         node,
                     });
                 }

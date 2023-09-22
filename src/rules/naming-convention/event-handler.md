@@ -45,7 +45,7 @@ type Options = {
 ### Default Option
 
 ```json
-"react-ts/enforce-event-handler-naming-convention": ["error", {
+"react-ts/naming-convention/event-handler": ["error", {
   "eventHandlerPrefix": "handle",
   "eventHandlerPropPrefix": "on",
   "checkLocalVariables": false,

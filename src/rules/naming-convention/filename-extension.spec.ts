@@ -42,7 +42,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: withoutJSX,
             errors: [
                 {
-                    messageId: "MISUSED_JSX_EXTENSION",
+                    messageId: "INVALID",
                 },
             ],
         },

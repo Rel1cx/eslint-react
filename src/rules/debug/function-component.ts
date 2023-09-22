@@ -41,7 +41,7 @@ export default createEslintRule<Options, MessageID>({
                     const maybeName = O.fromNullable(component.id?.name);
 
                     if (O.isSome(maybeName) && !isComponentName(maybeName.value)) {
-                        return;
+                        continue;
                     }
 
                     context.report({

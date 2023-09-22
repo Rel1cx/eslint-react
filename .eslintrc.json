@@ -58,7 +58,14 @@
         "simple-import-sort/imports": "warn",
         "no-multiple-empty-lines": ["error", { "max": 2, "maxBOF": 1 }],
         "import-access/jsdoc": ["error"],
-        "filenames-simple/named-export": "off"
+        "filenames-simple/named-export": "off",
+        "no-restricted-syntax": [
+            "error",
+            {
+                "selector": "IfStatement[alternate]",
+                "message": "If statements with an else branch are not allowed."
+            }
+        ]
     },
     "overrides": [
         {
