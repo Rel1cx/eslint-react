@@ -60,8 +60,9 @@ ruleTester.run(RULE_NAME, rule, {
           )
         }`,
     ],
-    invalid: [{
-        code: `const Example = () => {
+    invalid: [
+        {
+            code: `const Example = () => {
           return (
             <>
               {0 && <Something/>}
@@ -69,13 +70,14 @@ ruleTester.run(RULE_NAME, rule, {
             </>
           )
         }`,
-        errors: [
-            {
-                messageId: "POTENTIAL_LEAKED_CONDITIONAL_RENDERING",
-            },
-            {
-                messageId: "POTENTIAL_LEAKED_CONDITIONAL_RENDERING",
-            },
-        ],
-    }],
+            errors: [
+                {
+                    messageId: "POTENTIAL_LEAKED_CONDITIONAL_RENDERING",
+                },
+                {
+                    messageId: "POTENTIAL_LEAKED_CONDITIONAL_RENDERING",
+                },
+            ],
+        },
+    ],
 });

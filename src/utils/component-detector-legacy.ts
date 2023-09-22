@@ -45,18 +45,14 @@ export function isES5Component(node: TSESTree.Node, context: TSESLint.RuleContex
  * @deprecated Do not use this function. It will be removed in the future.
  */
 export function isES6Component(node: TSESTree.Node, context: TSESLint.RuleContext<string, []>): boolean {
-    if (!("superClass" in node) || !node.superClass) {
+    if (!("superClass" in node && node.superClass)) {
         return false;
     }
-
     const maybeReact = getFromContext(context);
-
     if (E.isLeft(maybeReact)) {
         return false;
     }
-
     const pragma = maybeReact.right;
-
     const { superClass } = node;
 
     return match(superClass)

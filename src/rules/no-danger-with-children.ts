@@ -38,9 +38,7 @@ export default createEslintRule<Options, MessageID>({
                 if (node.arguments.length < 2 || !isCreateElement(node, context)) {
                     return;
                 }
-
                 const props = node.arguments[1];
-
                 const properties = match(props)
                     .when(AST.isOneOf([AST_NODE_TYPES.ObjectExpression, AST_NODE_TYPES.ObjectPattern]), (n) => {
                         return "properties" in n ? n.properties : [];

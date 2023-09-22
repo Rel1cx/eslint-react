@@ -17,20 +17,19 @@ type MessageID =
 
 type Options = readonly [Cond];
 
-const schema = [{
-    type: "string",
-    enum: [
-        "always",
-        "never",
-    ],
-}] satisfies [JSONSchema4];
+const schema = [
+    {
+        type: "string",
+        enum: ["always", "never"],
+    },
+] satisfies [JSONSchema4];
 
 const defaultOptions = ["always"] as const satisfies Options;
 
 type MemberExpressionWithObjectName = TSESTree.MemberExpression & { object: TSESTree.Identifier };
 
 function isMemberExpressionWithName(node: TSESTree.MemberExpression): node is MemberExpressionWithObjectName {
-    return AST.is(AST_NODE_TYPES.Identifier)(node.object) && ("name" in node.object);
+    return AST.is(AST_NODE_TYPES.Identifier)(node.object) && "name" in node.object;
 }
 
 export default createEslintRule<Options, MessageID>({
@@ -119,6 +118,7 @@ export default createEslintRule<Options, MessageID>({
                             messageId: "NO_DESTRUCTOR_PROPS",
                             node: component,
                         });
+
                         continue;
                     }
 
@@ -133,13 +133,11 @@ export default createEslintRule<Options, MessageID>({
                 for (const [scope, declarator] of variableDeclarators) {
                     const isComponent = AST.isFunctionNode(scope.block) && components.has(scope.block);
                     const isDestructuring = declarator.init && AST.is(AST_NODE_TYPES.ObjectPattern)(declarator.id);
-
                     if (!("init" in declarator && declarator.init && "name" in declarator.init)) {
                         continue;
                     }
 
                     const isDestructuringSFC = isDestructuring && ["context", "props"].includes(declarator.init.name);
-
                     if (isComponent && isDestructuringSFC) {
                         context.report({
                             data: {

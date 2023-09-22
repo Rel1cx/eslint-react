@@ -30,7 +30,6 @@ function hasUsedObjectDestructuringSyntax(
     if (params.length !== 1) {
         return false;
     }
-
     const [param] = params;
 
     return !I.isNullable(param) && AST.is(AST_NODE_TYPES.ObjectPattern)(param);
@@ -61,17 +60,16 @@ export default createEslintRule<Options, MessageID>({
 
                 for (const component of components) {
                     const { params } = component;
-
                     if (!hasUsedObjectDestructuringSyntax(params)) {
                         continue;
                     }
 
                     const { properties } = params[0];
-
                     for (const prop of properties) {
+                        // dprint-ignore
                         if (
-                            !AST.is(AST_NODE_TYPES.Property)(prop)
-                            || !AST.is(AST_NODE_TYPES.AssignmentPattern)(prop.value)
+                            !AST.is(AST_NODE_TYPES.Property)(prop) ||
+                            !AST.is(AST_NODE_TYPES.AssignmentPattern)(prop.value)
                         ) {
                             continue;
                         }
@@ -79,7 +77,6 @@ export default createEslintRule<Options, MessageID>({
                         const propKey = prop.key;
                         const propDefaultValue = prop.value;
                         const propDefaultValueRight = propDefaultValue.right;
-
                         if (
                             AST.is(AST_NODE_TYPES.Literal)(propDefaultValueRight)
                             && "regex" in propDefaultValueRight
@@ -95,7 +92,6 @@ export default createEslintRule<Options, MessageID>({
 
                             continue;
                         }
-
                         if (
                             AST.is(AST_NODE_TYPES.CallExpression)(propDefaultValueRight)
                             && "callee" in propDefaultValueRight
@@ -112,13 +108,11 @@ export default createEslintRule<Options, MessageID>({
 
                             continue;
                         }
-
                         if (!FORBIDDEN_TYPES.has(propDefaultValueRight.type)) {
                             continue;
                         }
 
                         const forbiddenType = FORBIDDEN_TYPES.get(propDefaultValueRight.type);
-
                         context.report({
                             data: {
                                 forbiddenType,

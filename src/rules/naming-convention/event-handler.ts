@@ -106,16 +106,11 @@ export default createEslintRule<Options, MessageID>({
     create(context, [{ checkInlineFunction, checkLocalVariables, eventHandlerPrefix, eventHandlerPropPrefix }]) {
         const checkEventHandlerPrefix = !!eventHandlerPrefix;
         const checkEventHandlerPropPrefix = !!eventHandlerPropPrefix;
-
         const handlerPrefix = eventHandlerPrefix || "handle";
         const handlerPropPrefix = eventHandlerPropPrefix || "on";
-
         const PROP_EVENT_HANDLER_REGEX = new RegExp(`^(${handlerPropPrefix}[A-Z].*|ref)$`, "u");
-
-        const EVENT_HANDLER_REGEX = new RegExp(
-            `^((props\\.${handlerPropPrefix || ""})|((.*\\.)?${handlerPrefix}))[0-9]*[A-Z].*$`,
-            "u",
-        );
+        // dprint-ignore
+        const EVENT_HANDLER_REGEX = new RegExp(`^((props\\.${handlerPropPrefix || ""})|((.*\\.)?${handlerPrefix}))[0-9]*[A-Z].*$`, "u");
 
         return {
             JSXAttribute(node) {
@@ -125,7 +120,6 @@ export default createEslintRule<Options, MessageID>({
                 }
 
                 const { expression } = node.value;
-
                 const isInlineFunction = AST.is(AST_NODE_TYPES.ArrowFunctionExpression)(expression);
 
                 // Early return when not checking inline functions but the expression is an inline function.
@@ -136,7 +130,6 @@ export default createEslintRule<Options, MessageID>({
                 const maybeInnerFunction = "body" in expression && "callee" in expression.body
                     ? O.fromNullable(expression.body.callee)
                     : O.none();
-
                 const onlyLocalVariables = isInlineFunction ? O.isNone(maybeInnerFunction) : !("object" in expression);
 
                 // Early return when not checking local variables but the expression is a local variable.
@@ -146,7 +139,6 @@ export default createEslintRule<Options, MessageID>({
 
                 const propKey = JSXUtils.getPropName(node);
                 const propValueNode = O.getOrElse(() => expression)(maybeInnerFunction);
-
                 const propValue = context
                     .getSourceCode()
                     .getText(propValueNode)
@@ -160,7 +152,6 @@ export default createEslintRule<Options, MessageID>({
 
                 const propIsEventHandler = PROP_EVENT_HANDLER_REGEX.test(propKey);
                 const propFnIsNamedCorrectly = EVENT_HANDLER_REGEX.test(propValue);
-
                 if (checkEventHandlerPropPrefix && !propIsEventHandler && propFnIsNamedCorrectly) {
                     context.report({
                         data: {
@@ -171,7 +162,6 @@ export default createEslintRule<Options, MessageID>({
                         node,
                     });
                 }
-
                 if (checkEventHandlerPrefix && propIsEventHandler && !propFnIsNamedCorrectly) {
                     return context.report({
                         data: {

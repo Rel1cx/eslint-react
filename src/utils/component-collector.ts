@@ -8,17 +8,11 @@ import { isJSXValue, isReturnStatementReturningJSX } from "./jsx";
 
 export function make(context: RuleContext) {
     const components = new Set<FunctionNode>();
-
     const functionStack = MutList.make<FunctionNode>();
-
     const getComponents = () => components;
-
     const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
-
     const onFunctionEnter = (node: FunctionNode) => MutList.append(functionStack, node);
-
     const onFunctionExit = () => MutList.pop(functionStack);
-
     const listeners = {
         ArrowFunctionExpression: onFunctionEnter,
         "ArrowFunctionExpression:exit": onFunctionExit,
@@ -28,11 +22,9 @@ export function make(context: RuleContext) {
         "FunctionExpression:exit": onFunctionExit,
         ReturnStatement(node: TSESTree.ReturnStatement) {
             const hasJsx = isReturnStatementReturningJSX(node, context);
-
             if (!hasJsx || MutList.isEmpty(functionStack)) {
                 return;
             }
-
             F.pipe(
                 getCurrentFunction(),
                 O.map((currentFn) => components.add(currentFn)),
@@ -43,9 +35,7 @@ export function make(context: RuleContext) {
         // eslint-disable-next-line perfectionist/sort-objects
         "ArrowFunctionExpression[body.type!='BlockStatement']"(node: TSESTree.ArrowFunctionExpression) {
             const { body } = node;
-
             const hasJsx = isJSXValue(body, context, false, false);
-
             if (!hasJsx || MutList.isEmpty(functionStack)) {
                 return;
             }
@@ -57,7 +47,6 @@ export function make(context: RuleContext) {
 
                     if ("id" in parent && !I.isNullable(parent.id) && "name" in parent.id) {
                         const { name } = parent.id;
-
                         if (!isComponentName(name)) {
                             return;
                         }

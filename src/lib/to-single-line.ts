@@ -1,1 +1,3 @@
-export const toSingleLine = (string: string): string => string.replaceAll(/\s{2,}/gu, " ").trim();
+export function toSingleLine(string: string): string {
+    return string.replaceAll(/\s{2,}/gu, " ").trim();
+}

@@ -55,7 +55,6 @@ export default createEslintRule<Options, MessageID>({
                 }
 
                 const hasStringLiteral = containsStringLiteral(node) || containsStringExpressionContainer(node);
-
                 if (hasStringLiteral) {
                     context.report({
                         messageId: "DEPRECATED_STRING_REF",

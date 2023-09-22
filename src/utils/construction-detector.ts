@@ -67,7 +67,7 @@ export function make<Ctx extends RuleContext>(ctx: Ctx) {
                 );
             })
             .with(AST_NODE_TYPES.LogicalExpression, () => {
-                if (!("left" in node) || !("right" in node)) {
+                if (!("left" in node && "right" in node)) {
                     return O.none();
                 }
 
@@ -77,7 +77,7 @@ export function make<Ctx extends RuleContext>(ctx: Ctx) {
                 );
             })
             .with(AST_NODE_TYPES.ConditionalExpression, () => {
-                if (!("consequent" in node) || !("alternate" in node) || I.isNullable(node.alternate)) {
+                if (!("consequent" in node && "alternate" in node && !I.isNullable(node.alternate))) {
                     return O.none();
                 }
                 const maybeAlternate = detect(node.alternate);
@@ -88,7 +88,7 @@ export function make<Ctx extends RuleContext>(ctx: Ctx) {
                 );
             })
             .with(AST_NODE_TYPES.Identifier, () => {
-                if (!("name" in node) || !I.isString(node.name)) {
+                if (!("name" in node && I.isString(node.name))) {
                     return O.none();
                 }
 
@@ -120,7 +120,7 @@ export function make<Ctx extends RuleContext>(ctx: Ctx) {
             })
             .with(AST_NODE_TYPES.Literal, () => {
                 if ("regex" in node) {
-                    return O.some({ type: ConstructionType.REGULAR_EXPRESSION, node });
+                    O.some({ type: ConstructionType.REGULAR_EXPRESSION, node });
                 }
 
                 return O.none();

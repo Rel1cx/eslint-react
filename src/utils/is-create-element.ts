@@ -13,13 +13,11 @@ export const isCreateElement = memo((node: TSESTree.Node, context: RuleContext) 
     }
 
     const maybePragma = getFromContext(context);
-
     if (E.isLeft(maybePragma)) {
         return false;
     }
 
     const pragma = maybePragma.right;
-
     const isDestructured = destructuredFromPragmaDetector.make(context);
 
     return match(node.callee)

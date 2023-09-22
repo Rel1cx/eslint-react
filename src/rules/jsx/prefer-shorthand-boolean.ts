@@ -69,9 +69,7 @@ export default createEslintRule<Options, MessageID>({
             JSXAttribute(node) {
                 const { name, value } = node;
                 const propName = I.isString(name.name) ? name.name : name.name.name;
-
                 const isException = excepts.has(propName);
-
                 const maybeMessageId = match<Cond, O.Option<MessageID>>(rule)
                     .with("always", () => {
                         const hasValue = I.isNullable(value);

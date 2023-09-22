@@ -50,12 +50,10 @@ export default createEslintRule<Options, MessageID>({
             JSXOpeningElement(node) {
                 const openingElementName = node.name;
                 if (!AST.is(AST_NODE_TYPES.JSXMemberExpression)(openingElementName)) {
-                    // Has no member
                     return;
                 }
 
                 if (openingElementName.property.name !== "Provider") {
-                    // Member is not Provider
                     return;
                 }
 
@@ -64,30 +62,23 @@ export default createEslintRule<Options, MessageID>({
                         return AST.is(AST_NODE_TYPES.JSXAttribute)(attribute) && attribute.name.name === "value";
                     }),
                 );
-
                 if (O.isNone(maybeJSXValueAttribute) || !("value" in maybeJSXValueAttribute.value)) {
                     return;
                 }
 
                 const valueNode = maybeJSXValueAttribute.value.value;
-
                 if (!AST.is(AST_NODE_TYPES.JSXExpressionContainer)(valueNode)) {
-                    // value could be a literal
                     return;
                 }
 
                 const valueExpression = valueNode.expression;
                 const invocationScope = context.getScope();
-
-                // // Check if the value prop is a construction
                 const maybeConstructionInfo = detectConstruction(valueExpression, invocationScope);
-
                 if (O.isNone(maybeConstructionInfo)) {
                     return;
                 }
 
                 const constructionInfo = maybeConstructionInfo.value;
-
                 F.pipe(
                     collector.getCurrentFunction(),
                     O.map((currentFn) => possibleValueConstructions.set(currentFn, constructionInfo)),

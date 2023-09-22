@@ -33,7 +33,7 @@ export function make<T extends RuleContext>(context: T) {
 
         if (AST.is(AST_NODE_TYPES.VariableDeclarator)(node) && node.init) {
             const { init } = node;
-
+            // dprint-ignore
             if (
                 isMatching({
                     type: AST_NODE_TYPES.MemberExpression,
@@ -43,12 +43,7 @@ export function make<T extends RuleContext>(context: T) {
                 return true;
             }
 
-            if (
-                isMatching({
-                    name: pragma,
-                    type: AST_NODE_TYPES.Identifier,
-                })(init)
-            ) {
+            if (isMatching({ name: pragma, type: AST_NODE_TYPES.Identifier })(init)) {
                 return true;
             }
 
@@ -64,20 +59,17 @@ export function make<T extends RuleContext>(context: T) {
                     ({ object }) => O.some(object),
                 )
                 .otherwise(O.none);
-
             if (O.isNone(maybeRequireExpression)) {
                 return false;
             }
 
             const requireExpression = maybeRequireExpression.value;
-
             if (!AST.is(AST_NODE_TYPES.Identifier)(requireExpression.callee)) {
                 return false;
             }
 
             const calleeName = requireExpression.callee.name;
             const firstArg = requireExpression.arguments[0];
-
             if (calleeName !== "require" || !AST.is(AST_NODE_TYPES.Literal)(firstArg)) {
                 return false;
             }

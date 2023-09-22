@@ -28,7 +28,6 @@ export const AST = {
     }): TSESLint.Scope.Reference[] {
         const { node, scopeManager, sourceCode } = params;
         const scope = scopeManager.acquire(node);
-
         if (I.isNullable(scope)) {
             return [];
         }
@@ -47,9 +46,7 @@ export const AST = {
                     variable: x,
                 };
             });
-
         const localRefIds = new Set([...scope.set.values()].map((x) => sourceCode.getText(x.identifiers[0])));
-
         const externalRefs = references.filter((x) => I.isNullable(x.variable.resolved) || !localRefIds.has(x.text));
 
         return uniqueBy(externalRefs, (x) => x.text).map((x) => x.variable);
@@ -198,8 +195,8 @@ export const AST = {
     }) {
         const { context, node } = params;
 
-        const resolvedNode = context.getScope().references.find((ref) => ref.identifier === node)?.resolved?.defs[0]
-            ?.node;
+        // dprint-ignore
+        const resolvedNode = context.getScope().references.find((ref) => ref.identifier === node)?.resolved?.defs[0]?.node;
 
         if (!AST.is(AST_NODE_TYPES.VariableDeclarator)(resolvedNode)) {
             return null;
@@ -215,7 +212,6 @@ export const AST = {
     }) {
         const { functionNode, reference, scopeManager } = params;
         const scope = scopeManager.acquire(functionNode);
-
         if (I.isNullable(scope)) {
             return false;
         }

@@ -36,7 +36,7 @@ function getIsCoerceValidNestedLogicalExpression(node: TSESTree.Node): boolean {
 }
 
 function isValidTernaryAlternate(node: TSESTree.ConditionalExpression) {
-    if (!("alternate" in node) || !("value" in node.alternate)) {
+    if (!("alternate" in node && "value" in node.alternate)) {
         return true;
     }
 
@@ -65,9 +65,8 @@ export default createEslintRule<Options, MessageID>({
     create(context) {
         const service = getParserServices(context);
 
-        const checker = service.program.getTypeChecker();
-
         // TODO: Add type checking for the following
+        const checker = service.program.getTypeChecker();
 
         return {
             "JSXExpressionContainer > ConditionalExpression"(node: TSESTree.ConditionalExpression) {

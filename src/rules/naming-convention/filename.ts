@@ -81,7 +81,7 @@ export default createEslintRule<Options, MessageID>({
                 const [basename = "", ...rest] = path.basename(context.getFilename()).split(".");
 
                 if (basename.length === 0) {
-                    context.report({ messageId: "FILENAME_EMPTY", node });
+                    return context.report({ messageId: "FILENAME_EMPTY", node });
                 }
 
                 if (validate(basename)) {
@@ -89,7 +89,6 @@ export default createEslintRule<Options, MessageID>({
                 }
 
                 const maybeSuggestion = O.liftThrowable(getRecommendedName)(basename);
-
                 const descriptor: ReportDescriptor<MessageID> = O.match(maybeSuggestion, {
                     onNone: () => ({
                         data: {
