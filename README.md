@@ -1,6 +1,6 @@
 # eslint-plugin-react-ts
 
-ESLint plugin to lint TypeScript React function components using the @typescript-eslint ecosystem.
+ESLint plugin to lint TypeScript React and Preact function components using the @typescript-eslint ecosystem.
 
 > **Warning**
 > This plugin is still in early development, and will likely change significantly before reaching a stable version.
@@ -36,7 +36,7 @@ bun add --dev eslint-plugin-react-ts
         "plugin:react-ts/recommended"
     ],
     "rules": {
-        "react-ts/enforce-filename-naming-convention": "error"
+        "react-ts/<rule-name>": "error"
     }
 }
 ```
@@ -50,7 +50,7 @@ export default [
     reactTsRecommended,
     {
         rules: {
-            "react-ts/enforce-filename-naming-convention": "error",
+            "react-ts/<rule-name>": "error",
             // ...
         },
     },

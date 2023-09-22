@@ -11,12 +11,13 @@
         "types": ["bun-types"],
         "allowJs": false,
         "checkJs": false,
+        "strict": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "noUnusedLocals": false,
         "noUnusedParameters": false,
-        "noEmit": true,
-        "strict": true
+        "exactOptionalPropertyTypes": true,
+        "noEmit": true
     },
     "include": ["."],
     "exclude": ["node_modules", "**/dist"],

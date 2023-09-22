@@ -12,19 +12,21 @@
         "THIRD-PARTY-LICENSE"
     ],
     "ignoreWords": [
+        "TSES",
+        "TSESAST",
         "birecord",
         "declarators",
         "lockb",
         "pathe",
+        "preact",
         "quasis",
         "sonarjs",
         "tanstack",
         "textnode",
         "textnodes",
         "treeshake",
-        "TSES",
-        "TSESAST",
         "tsup",
+        "typeclass",
         "weakref"
     ],
     "useGitignore": true

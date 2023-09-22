@@ -1,7 +1,7 @@
 {
     "name": "eslint-plugin-react-ts",
     "version": "0.1.7",
-    "description": "ESLint plugin to lint TypeScript React function components using the @typescript-eslint ecosystem.",
+    "description": "ESLint plugin to lint TypeScript React and Preact function components using the @typescript-eslint ecosystem.",
     "keywords": [
         "eslint",
         "eslint-plugin",
