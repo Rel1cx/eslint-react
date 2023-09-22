@@ -2,14 +2,13 @@ import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
-import type { RuleName } from "../../typings";
 import { E, F, O } from "../lib/primitives/data";
 import { AST, type FunctionNode } from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
 import * as ConstructionDetector from "../utils/construction-detector";
 import { ConstructionType } from "../utils/construction-detector";
 
-const RULE_NAME: RuleName = "no-constructed-context-value";
+const RULE_NAME = "no-constructed-context-value";
 
 type MessageID =
     | "CONTEXT_VALUE_CONSTRUCTION"

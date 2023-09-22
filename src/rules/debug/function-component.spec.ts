@@ -1,5 +1,5 @@
-import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
-import rule from "./debug-function-component";
+import RuleTester, { getFixturesRootDir } from "../../../test/rule-tester";
+import rule, { RULE_NAME } from "./function-component";
 const rootDir = getFixturesRootDir();
 
 const ruleTester = new RuleTester({
@@ -14,8 +14,6 @@ const ruleTester = new RuleTester({
         tsconfigRootDir: rootDir,
     },
 });
-
-const RULE_NAME = "debug-function-component";
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [

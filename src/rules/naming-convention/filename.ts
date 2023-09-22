@@ -2,12 +2,11 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import path from "pathe";
 
-import { createEslintRule } from "../../tools/create-eslint-rule";
-import type { RuleName } from "../../typings";
-import { getCaseValidator } from "../lib/case-validator/case-validator";
-import { O } from "../lib/primitives/data";
+import { createEslintRule } from "../../../tools/create-eslint-rule";
+import { getCaseValidator } from "../../lib/case-validator/case-validator";
+import { O } from "../../lib/primitives/data";
 
-const RULE_NAME: RuleName = "enforce-filename-naming-convention";
+export const RULE_NAME = "naming-convention/filename";
 
 type MessageID = "FILENAME_CASE_MISMATCH" | "FILENAME_CASE_MISMATCH_SUGGESTION" | "FILENAME_EMPTY";
 

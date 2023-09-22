@@ -2,11 +2,10 @@
 import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/types";
 import { getParserServices } from "@typescript-eslint/utils/eslint-utils";
 
-import { createEslintRule } from "../../tools/create-eslint-rule";
-import { type RuleName } from "../../typings";
-import { AST } from "../utils/ast";
+import { createEslintRule } from "../../../tools/create-eslint-rule";
+import { AST } from "../../utils/ast";
 
-const RULE_NAME: RuleName = "no-leaked-jsx-conditional-rendering";
+export const RULE_NAME = "jsx/no-leaked-conditional-rendering";
 
 type MessageID = "POTENTIAL_LEAKED_CONDITIONAL_RENDERING";
 

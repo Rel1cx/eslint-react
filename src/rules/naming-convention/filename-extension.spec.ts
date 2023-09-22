@@ -1,5 +1,5 @@
-import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
-import rule from "./no-misused-jsx-extension";
+import RuleTester, { getFixturesRootDir } from "../../../test/rule-tester";
+import rule, { RULE_NAME } from "./filename-extension";
 
 const rootDir = getFixturesRootDir();
 
@@ -15,8 +15,6 @@ const ruleTester = new RuleTester({
         tsconfigRootDir: rootDir,
     },
 });
-
-const RULE_NAME = "no-misused-jsx-extension";
 
 const withJSXElement = `function App() { return <div><div /></div> }`;
 const withJSXFragment = `function App() { return <></> }`;

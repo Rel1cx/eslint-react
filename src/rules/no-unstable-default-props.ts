@@ -2,12 +2,11 @@ import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/types";
 import birecord from "birecord";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
-import type { RuleName } from "../../typings";
 import { I } from "../lib/primitives/data";
 import { AST } from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
 
-const RULE_NAME: RuleName = "no-unstable-default-props";
+export const RULE_NAME = "no-unstable-default-props";
 
 type MessageID = "UNSTABLE_DEFAULT_PROP";
 

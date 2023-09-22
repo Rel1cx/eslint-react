@@ -1,6 +1,6 @@
 /* eslint-disable eslint-plugin/test-case-shorthand-strings */
-import RuleTester from "../../test/rule-tester";
-import rule from "./enforce-event-handler-naming-convention";
+import RuleTester from "../../../test/rule-tester";
+import rule, { RULE_NAME } from "./event-handler";
 
 const ruleTester = new RuleTester({
     parser: "@typescript-eslint/parser",
@@ -12,8 +12,6 @@ const ruleTester = new RuleTester({
         },
     },
 });
-
-const RULE_NAME = "jsx-handler-names";
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [

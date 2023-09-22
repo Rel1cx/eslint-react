@@ -2,10 +2,11 @@ import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { match } from "ts-pattern";
 
-import { createEslintRule } from "../../tools/create-eslint-rule";
-import { type Cond, type RuleName } from "../../typings";
-import { I, O } from "../lib/primitives/data";
-const RULE_NAME: RuleName = "prefer-shorthand-jsx-boolean";
+import { createEslintRule } from "../../../tools/create-eslint-rule";
+import { type Cond } from "../../../typings";
+import { I, O } from "../../lib/primitives/data";
+
+export const RULE_NAME = "jsx/prefer-shorthand-boolean";
 
 type MessageID = "OMIT_VALUE" | "SET_VALUE";
 

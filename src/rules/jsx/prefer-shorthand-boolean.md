@@ -1,4 +1,4 @@
-# prefer-shorthand-jsx-boolean
+# react-ts/jsx/prefer-shorthand-boolean
 
 ## Rule Details
 

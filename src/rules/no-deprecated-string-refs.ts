@@ -2,11 +2,10 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
-import { type RuleName } from "../../typings";
 import { I } from "../lib/primitives/data";
 import { AST } from "../utils/ast";
 
-const RULE_NAME: RuleName = "no-deprecated-string-refs";
+export const RULE_NAME = "no-deprecated-string-refs";
 
 type MessageID = "DEPRECATED_STRING_REF";
 

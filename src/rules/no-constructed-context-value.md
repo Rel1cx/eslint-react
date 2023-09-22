@@ -1,1 +1,1 @@
-# no-constructed-context-value
+# react-ts/no-constructed-context-value

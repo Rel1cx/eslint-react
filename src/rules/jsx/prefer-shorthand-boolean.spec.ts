@@ -1,5 +1,5 @@
-import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
-import rule from "./prefer-shorthand-jsx-boolean";
+import RuleTester, { getFixturesRootDir } from "../../../test/rule-tester";
+import rule, { RULE_NAME } from "./prefer-shorthand-boolean";
 const rootDir = getFixturesRootDir();
 
 const ruleTester = new RuleTester({
@@ -14,8 +14,6 @@ const ruleTester = new RuleTester({
         tsconfigRootDir: rootDir,
     },
 });
-
-const RULE_NAME = "prefer-shorthand-jsx-boolean";
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [

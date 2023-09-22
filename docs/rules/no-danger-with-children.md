@@ -1,4 +1,4 @@
-# no-danger-with-children
+# react-ts/no-danger-with-children
 
 Disallow when a DOM element is using both children and `dangerouslySetInnerHTML`
 

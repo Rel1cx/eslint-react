@@ -7,7 +7,7 @@ import type { Cond } from "../../typings";
 import { AST, type FunctionNode } from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
 
-const RULE_NAME = "prefer-destructuring-assignment";
+export const RULE_NAME = "prefer-destructuring-assignment";
 
 type MessageID =
     | "NO_DESTRUCTOR_CONTEXT"

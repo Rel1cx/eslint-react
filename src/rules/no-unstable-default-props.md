@@ -1,1 +1,1 @@
-# no-unstable-default-props
+# react-ts/no-unstable-default-props

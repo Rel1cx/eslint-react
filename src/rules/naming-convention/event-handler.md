@@ -1,4 +1,4 @@
-# enforce-event-handler-naming-convention
+# react-ts/naming-convention/event-handler
 
 Enforce consistent event handler naming conventions in JSX.
 

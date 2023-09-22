@@ -1,4 +1,4 @@
-# no-string-refs
+# react-ts/no-deprecated-string-refs
 
 Disallow using deprecated string refs
 

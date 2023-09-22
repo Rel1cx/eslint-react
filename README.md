@@ -70,7 +70,7 @@ export default [
 - [x] react-ts/no-unstable-default-props
 - [ ] react-ts/no-unstable-nested-components
 - [ ] react-ts/no-direct-mutation-state
-- [ ] react-ts/prefer-destructuring-assignment
+- [x] react-ts/prefer-destructuring-assignment
 - [x] react-ts/prefer-shorthand-jsx-boolean
 - [ ] react-ts/require-jsx-key
 - [ ] react-ts/no-array-index-jsx-key

@@ -1,9 +1,9 @@
-import { createEslintRule } from "../../tools/create-eslint-rule";
-import { MutRef, O } from "../lib/primitives/data";
-import * as ComponentCollector from "../utils/component-collector";
-import { isComponentName } from "../utils/is-component-name";
+import { createEslintRule } from "../../../tools/create-eslint-rule";
+import { MutRef, O } from "../../lib/primitives/data";
+import * as ComponentCollector from "../../utils/component-collector";
+import { isComponentName } from "../../utils/is-component-name";
 
-const RULE_NAME = "debug-function-component";
+export const RULE_NAME = "debug/function-component";
 
 type MessageID = "FUNCTION_COMPONENT" | "POSSIBLE_FUNCTION_COMPONENT";
 

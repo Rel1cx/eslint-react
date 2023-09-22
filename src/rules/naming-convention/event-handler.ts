@@ -3,13 +3,12 @@
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
-import { createEslintRule } from "../../tools/create-eslint-rule";
-import type { RuleName } from "../../typings";
-import { O } from "../lib/primitives/data";
-import { AST } from "../utils/ast";
-import * as JSXUtils from "../utils/jsx";
+import { createEslintRule } from "../../../tools/create-eslint-rule";
+import { O } from "../../lib/primitives/data";
+import { AST } from "../../utils/ast";
+import * as JSXUtils from "../../utils/jsx";
 
-const RULE_NAME: RuleName = "enforce-event-handler-naming-convention";
+export const RULE_NAME = "naming-convention/event-handler";
 
 type MessageID = "BAD_HANDLER_NAME" | "BAD_PROP_KEY";
 

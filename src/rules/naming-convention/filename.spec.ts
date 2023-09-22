@@ -1,5 +1,5 @@
-import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
-import rule from "./enforce-filename-naming-convention";
+import RuleTester, { getFixturesRootDir } from "../../../test/rule-tester";
+import rule, { RULE_NAME } from "./filename";
 
 const rootDir = getFixturesRootDir();
 
@@ -15,8 +15,6 @@ const ruleTester = new RuleTester({
         tsconfigRootDir: rootDir,
     },
 });
-
-const RULE_NAME = "jsx-filename-naming-convention";
 
 const code = `export {}`;
 

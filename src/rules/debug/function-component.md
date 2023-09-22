@@ -1,4 +1,4 @@
-# debug-function-component
+# react-ts/debug/function-component
 
 Warns when a function component is found. Useful for debugging.
 

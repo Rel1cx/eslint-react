@@ -1,5 +1,5 @@
-import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
-import rule from "./no-leaked-jsx-conditional-rendering";
+import RuleTester, { getFixturesRootDir } from "../../../test/rule-tester";
+import rule, { RULE_NAME } from "./no-leaked-conditional-rendering";
 const rootDir = getFixturesRootDir();
 
 const ruleTester = new RuleTester({
@@ -14,8 +14,6 @@ const ruleTester = new RuleTester({
         tsconfigRootDir: rootDir,
     },
 });
-
-const RULE_NAME = "no-leaked-jsx-conditional-rendering";
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [

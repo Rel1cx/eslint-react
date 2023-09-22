@@ -1,4 +1,4 @@
-# enforce-filename-naming-convention
+# react-ts/naming-convention/filename
 
 ## Rule Details
 

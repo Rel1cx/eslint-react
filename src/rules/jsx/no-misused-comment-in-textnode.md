@@ -1,4 +1,4 @@
-# no-misused-comment-in-textnode
+# react-ts/jsx/no-misused-comment-in-textnode
 
 This rule prevents comment strings (e.g. beginning with `//` or `/*`) from being accidentally
 injected as a text node in JSX statements.

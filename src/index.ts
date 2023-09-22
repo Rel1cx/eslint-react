@@ -1,39 +1,38 @@
 import { name } from "../package.json";
 import type { RulePreset } from "../typings";
-import debugFunctionComponent from "./rules/debug-function-component";
-import enforceEventHandlerNamingConvention from "./rules/enforce-event-handler-naming-convention";
-import enforceFilenameNamingConvention from "./rules/enforce-filename-naming-convention";
+import debugFunctionComponent from "./rules/debug/function-component";
+import jsxNoLeakedConditionalRendering from "./rules/jsx/no-leaked-conditional-rendering";
+import jsxNoMisusedCommentInTextNode from "./rules/jsx/no-misused-comment-in-textnode";
+import jsxPreferShorthandJsxBoolean from "./rules/jsx/prefer-shorthand-boolean";
+import namingConventionEventHandler from "./rules/naming-convention/event-handler";
+import namingConventionFilename from "./rules/naming-convention/filename";
+import namingConventionFilenameExtension from "./rules/naming-convention/filename-extension";
 import noConstructedContextValue from "./rules/no-constructed-context-value";
 import noDangerWithChildren from "./rules/no-danger-with-children";
 import noDeprecatedStringRefs from "./rules/no-deprecated-string-refs";
-import noLeakedJsxConditionalRendering from "./rules/no-leaked-jsx-conditional-rendering";
-import noMisusedCommentInTextNode from "./rules/no-misused-comment-in-textnode";
-import noMisusedJsxExtension from "./rules/no-misused-jsx-extension";
 import noUnstableDefaultProps from "./rules/no-unstable-default-props";
-import preferShorthandJsxBoolean from "./rules/prefer-shorthand-jsx-boolean";
 
 const allRules = {
-    "enforce-event-handler-naming-convention": "error",
-    "enforce-filename-naming-convention": "error",
+    "jsx/no-leaked-conditional-rendering": "error",
+    "jsx/no-misused-comment-in-textnode": "warn",
+    "jsx/prefer-shorthand-boolean": "warn",
+    "name-convention/event-handler": "warn",
+    "name-convention/filename": "warn",
+    "name-convention/filename-extension": "warn",
     "no-constructed-context-value": "error",
     "no-danger-with-children": "error",
     "no-deprecated-string-refs": "error",
-    "no-leaked-jsx-conditional-rendering": "error",
-    "no-misused-comment-in-textnode": "error",
-    "no-misused-jsx-extension": "warn",
     "no-unstable-default-props": "error",
-    "prefer-shorthand-jsx-boolean": "error",
 } as const satisfies RulePreset;
 
 const recommendedRules = {
-    "enforce-event-handler-naming-convention": "warn",
+    "jsx/no-leaked-conditional-rendering": "error",
+    "jsx/no-misused-comment-in-textnode": "warn",
+    "jsx/prefer-shorthand-boolean": "warn",
     "no-constructed-context-value": "error",
     "no-danger-with-children": "error",
     "no-deprecated-string-refs": "error",
-    "no-leaked-jsx-conditional-rendering": "error",
-    "no-misused-comment-in-textnode": "warn",
     "no-unstable-default-props": "error",
-    "prefer-shorthand-jsx-boolean": "warn",
 } as const satisfies RulePreset;
 
 const debugRules = {
@@ -57,15 +56,15 @@ export default {
     },
     rules: {
         "debug-function-component": debugFunctionComponent,
-        "enforce-event-handler-naming-convention": enforceEventHandlerNamingConvention,
-        "enforce-filename-naming-convention": enforceFilenameNamingConvention,
+        "jsx/no-leaked-conditional-rendering": jsxNoLeakedConditionalRendering,
+        "jsx/no-misused-comment-in-textnode": jsxNoMisusedCommentInTextNode,
+        "jsx/prefer-shorthand-boolean": jsxPreferShorthandJsxBoolean,
+        "name-convention/event-handler": namingConventionEventHandler,
+        "name-convention/filename": namingConventionFilename,
+        "name-convention/filename-extension": namingConventionFilenameExtension,
         "no-constructed-context-value": noConstructedContextValue,
         "no-danger-with-children": noDangerWithChildren,
         "no-deprecated-string-refs": noDeprecatedStringRefs,
-        "no-leaked-jsx-conditional-rendering": noLeakedJsxConditionalRendering,
-        "no-misused-comment-in-textnode": noMisusedCommentInTextNode,
-        "no-misused-jsx-extension": noMisusedJsxExtension,
         "no-unstable-default-props": noUnstableDefaultProps,
-        "prefer-shorthand-jsx-boolean": preferShorthandJsxBoolean,
     },
 };

@@ -1,10 +1,9 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { createEslintRule } from "../../tools/create-eslint-rule";
-import type { RuleName } from "../../typings";
-import { MutRef, O } from "../lib/primitives/data";
+import { createEslintRule } from "../../../tools/create-eslint-rule";
+import { MutRef, O } from "../../lib/primitives/data";
 
-const RULE_NAME: RuleName = "no-misused-jsx-extension";
+export const RULE_NAME = "naming-convention/filename-extension";
 
 type MessageID = "MISUSED_JSX_EXTENSION";
 

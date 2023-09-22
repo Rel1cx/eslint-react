@@ -1,1 +1,1 @@
-# prefer-destructuring-assignment
+# react-ts/prefer-destructuring-assignment

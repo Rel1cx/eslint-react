@@ -4,14 +4,13 @@ import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
-import type { RuleName } from "../../typings";
 import { F, O } from "../lib/primitives/data";
 import { AST } from "../utils/ast";
 import { isCreateElement } from "../utils/is-create-element";
 import { findPropInAttributes, findPropInProperties, isLineBreak } from "../utils/jsx";
 import { findVariableByNameUpToGlobal } from "../utils/variable";
 
-const RULE_NAME: RuleName = "no-unstable-default-props";
+export const RULE_NAME = "no-unstable-default-props";
 
 type MessageID = "DANGER_WITH_CHILDREN";
 

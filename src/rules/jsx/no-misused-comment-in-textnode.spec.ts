@@ -1,5 +1,5 @@
-import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
-import rule from "./no-misused-comment-in-textnode";
+import RuleTester, { getFixturesRootDir } from "../../../test/rule-tester";
+import rule, { RULE_NAME } from "./no-misused-comment-in-textnode";
 
 const rootDir = getFixturesRootDir();
 
@@ -15,8 +15,6 @@ const ruleTester = new RuleTester({
         tsconfigRootDir: rootDir,
     },
 });
-
-const RULE_NAME = "no-misused-comment-in-textnode";
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [

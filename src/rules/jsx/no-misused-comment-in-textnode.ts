@@ -1,11 +1,10 @@
 import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/types";
 
-import { createEslintRule } from "../../tools/create-eslint-rule";
-import type { RuleName } from "../../typings";
-import { AST } from "../utils/ast";
-import { isJSX } from "../utils/jsx";
+import { createEslintRule } from "../../../tools/create-eslint-rule";
+import { AST } from "../../utils/ast";
+import { isJSX } from "../../utils/jsx";
 
-const RULE_NAME: RuleName = "no-misused-comment-in-textnode";
+export const RULE_NAME = "jsx/no-misused-comment-in-textnode";
 
 type MessageID = "MISUSED_COMMENT_IN_TEXTNODE";
 
