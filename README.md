@@ -59,42 +59,39 @@ export default [
 
 ## Todo
 
-- [x] react-ts/enforce-event-handler-naming-convention
-- [x] react-ts/enforce-filename-naming-convention
-- [x] react-ts/no-constructed-context-value
-- [x] react-ts/no-danger-with-children
-- [x] react-ts/no-deprecated-string-refs
-- [x] react-ts/no-leaked-jsx-conditional-rendering
-- [x] react-ts/no-misused-comment-in-textnode
-- [x] react-ts/no-misused-jsx-extension
-- [x] react-ts/no-unstable-default-props
-- [ ] react-ts/no-unstable-nested-components
-- [ ] react-ts/no-direct-mutation-state
-- [x] react-ts/prefer-destructuring-assignment
-- [x] react-ts/prefer-shorthand-jsx-boolean
-- [ ] react-ts/require-jsx-key
-- [ ] react-ts/no-array-index-jsx-key
+- [x] `react-ts/jsx/prefer-shorthand-boolean`
+- [x] `react-ts/jsx/no-leaked-conditional-rendering`
+- [x] `react-ts/jsx/no-misused-comment-in-textnode`
+- [ ] `react-ts/jsx/no-useless-fragment`
+- [ ] `react-ts/jsx/no-missing-key-prop`
+- [ ] `react-ts/jsx/no-array-index-key`
+- [x] `react-ts/name-convention/event-handler`
+- [x] `react-ts/name-convention/filename`
+- [x] `react-ts/name-convention/filename-extension`
+- [x] `react-ts/no-constructed-context-value`
+- [x] `react-ts/no-danger-with-children`
+- [x] `react-ts/no-deprecated-string-refs`
+- [x] `react-ts/no-unstable-default-props`
+- [ ] `react-ts/no-unstable-nested-components`
+- [ ] `react-ts/no-direct-mutation-state`
 - [ ] ...
 
 ## Planned (will be added in the future)
 
-- [ ] react-ts/no-access-ref-current-during-rendering
-- [ ] react-ts/no-calling-memoized-function-outside-component
-- [ ] react-ts/no-suppressing-exhaustive-deps
-- [ ] react-ts/no-complicated-jsx-key
-- [ ] react-ts/no-complicated-jsx-expression
-- [ ] react-ts/no-complicated-conditional-rendering
-- [ ] react-ts/no-legacy-children-method
-- [ ] react-ts/no-legacy-class-component
-- [ ] react-ts/no-legacy-clone-element
-- [ ] react-ts/no-legacy-createRef
+- [ ] `react-ts/jsx/no-complicated-conditional-rendering`
+- [ ] `react-ts/no-access-ref-current-during-rendering`
+- [ ] `react-ts/no-suppressing-exhaustive-deps`
+- [ ] `react-ts/no-legacy-children-method`
+- [ ] `react-ts/no-legacy-class-component`
+- [ ] `react-ts/no-legacy-clone-element`
+- [ ] `react-ts/no-legacy-createRef`
 - [ ] ...
 
 ## Philosophy
 
-- **Focus on code rather than style.**
-- **Linting errors are better than runtime crashes.**
-- **Types are the fundamental unit of correctness.**
+- Focus on code rather than style.
+- Linting errors are better than runtime crashes.
+- Types are the fundamental unit of correctness.
 
 ## Rule introduction or modification guidelines
 
