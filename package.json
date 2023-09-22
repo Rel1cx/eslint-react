@@ -74,6 +74,7 @@
         "@typescript-eslint/type-utils": "6.7.2",
         "@typescript-eslint/types": "6.7.2",
         "@typescript-eslint/utils": "6.7.2",
+        "@rimbu/bimap": "1.1.0",
         "ts-pattern": "5.0.5"
     },
     "devDependencies": {

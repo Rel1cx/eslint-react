@@ -222,6 +222,23 @@ export const AST = {
 
         return scope.set.has(reference.identifier.name);
     },
+    isDestructorParameter(
+        node: TSESTree.Parameter,
+    ): node is TSESTree.ArrayPattern | TSESTree.AssignmentPattern | TSESTree.ObjectPattern | TSESTree.RestElement {
+        return AST.isOneOf([
+            AST_NODE_TYPES.ArrayPattern,
+            AST_NODE_TYPES.AssignmentPattern,
+            AST_NODE_TYPES.ObjectPattern,
+            AST_NODE_TYPES.RestElement,
+        ])(node);
+    },
+    isFunctionNode(node: TSESTree.Node): node is FunctionNode {
+        return AST.isOneOf([
+            AST_NODE_TYPES.ArrowFunctionExpression,
+            AST_NODE_TYPES.FunctionDeclaration,
+            AST_NODE_TYPES.FunctionExpression,
+        ])(node);
+    },
     isIdentifierWithName(node: TSESTree.Node, name: string): node is TSESTree.Identifier {
         return AST.isIdentifier(node) && node.name === name;
     },
@@ -232,11 +249,17 @@ export const AST = {
         return AST.isIdentifier(node) && name.includes(node.name);
     },
     isOneOf: ASTUtils.isNodeOfTypes,
+    isPossibleNamedReactComponent(node: TSESTree.Node): node is FunctionNode {
+        return AST.isFunctionNode(node) && AST.isValidReactComponentName(node.id);
+    },
     isPropertyWithIdentifierKey(node: TSESTree.Node, key: string): node is TSESTree.Property {
         return AST.is(AST_NODE_TYPES.Property)(node) && AST.isIdentifierWithName(node.key, key);
     },
     isStringLiteral(node: TSESTree.Node | null | undefined): node is TSESTree.StringLiteral {
         return AST.is(AST_NODE_TYPES.Literal)(node) && I.isString(node.value);
+    },
+    isValidReactComponentName(identifier: TSESTree.Identifier | null) {
+        return !I.isNullable(identifier) && /^[A-Z]/u.test(identifier.name);
     },
     isValidReactComponentOrHookName(identifier: TSESTree.Identifier | null) {
         return !I.isNullable(identifier) && /^([A-Z]|use)/u.test(identifier.name);

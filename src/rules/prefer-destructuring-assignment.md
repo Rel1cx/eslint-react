@@ -1,0 +1,1 @@
+# prefer-destructuring-assignment

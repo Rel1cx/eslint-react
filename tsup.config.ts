@@ -23,7 +23,7 @@ export default defineConfig(() => ({
     sourcemap: false,
     // skipNodeModulesBundle: false,
     // splitting: false,
-    splitting: true,
+    splitting: false,
     target: "es2022",
     treeshake: true,
 }));

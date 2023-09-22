@@ -13,6 +13,7 @@
     ],
     "ignoreWords": [
         "birecord",
+        "declarators",
         "lockb",
         "pathe",
         "quasis",
