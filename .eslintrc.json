@@ -69,6 +69,12 @@
     },
     "overrides": [
         {
+            "files": ["./scripts/**/*.ts"],
+            "rules": {
+                "no-await-in-loop": "off"
+            }
+        },
+        {
             "files": "./src/rules/**/*.ts",
             "rules": {
                 "perfectionist/sort-objects": [

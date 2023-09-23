@@ -1,12 +1,16 @@
-import { mkdirSync } from "node:fs";
+import fs from "node:fs/promises";
 
 import glob from "fast-glob";
 import path from "pathe";
 
-import { copyFile } from "./lib/fs";
+await fs.mkdir("docs/rules", { recursive: true });
 
-const files = glob.sync("src/rules/*.md").map((x) => path.basename(x));
+const files = glob.sync("rules/**/*.md", { cwd: "src" });
 
-mkdirSync("docs/rules", { recursive: true });
-
-files.map((file) => copyFile(`src/rules/${file}`, `docs/rules/${file}`));
+for (const file of files) {
+    const src = path.join("src", file);
+    const dist = path.join("docs", file);
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
+    await fs.mkdir(path.dirname(dist), { recursive: true });
+    await fs.copyFile(src, dist);
+}
