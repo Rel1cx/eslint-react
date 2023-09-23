@@ -20,6 +20,7 @@ export default defineConfig(() => ({
         "ts-pattern",
         "fast-equals",
         "micro-memoize",
+        "@rizzzse/bimap",
         "birecord",
         "pathe",
         "tiny-invariant",

@@ -14,6 +14,7 @@
     "ignoreWords": [
         "TSES",
         "TSESAST",
+        "bimap",
         "birecord",
         "declarators",
         "dprint",
@@ -21,6 +22,7 @@
         "pathe",
         "preact",
         "quasis",
+        "rizzzse",
         "sonarjs",
         "tanstack",
         "textnode",
