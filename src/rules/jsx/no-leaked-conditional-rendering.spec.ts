@@ -1,3 +1,4 @@
+import * as validFunction from "../../../test/common/valid/function";
 import RuleTester, { getFixturesRootDir } from "../../../test/rule-tester";
 import rule, { RULE_NAME } from "./no-leaked-conditional-rendering";
 const rootDir = getFixturesRootDir();
@@ -17,58 +18,59 @@ const ruleTester = new RuleTester({
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [
-        `const Component = () => {
-          return <div>{customTitle || defaultTitle}</div>
+        ...validFunction.all,
+        `const App = () => {
+          return <div>{foo || bar}</div>
         }`,
-        `const Component = ({ elements }) => {
-          return <div>{elements}</div>
+        `const App = ({ foo }) => {
+          return <div>{foo}</div>
         }`,
-        `const Component = ({ elements }) => {
-          return <div>There are {elements.length} elements</div>
+        `const App = ({ items }) => {
+          return <div>There are {items.length} elements</div>
         }`,
-        `const Component = ({ elements, count }) => {
+        `const App = ({ items, count }) => {
           return <div>{!count && 'No results found'}</div>
         }`,
-        `const Component = ({ elements }) => {
-          return <div>{!!elements.length && <List elements={elements}/>}</div>
+        `const App = ({ items }) => {
+          return <div>{!!itesm.length && <List items={items}/>}</div>
         }`,
-        `const Component = ({ elements }) => {
-          return <div>{Boolean(elements.length) && <List elements={elements}/>}</div>
+        `const App = ({ items }) => {
+          return <div>{Boolean(items.length) && <List items={items}/>}</div>
         }`,
-        `const Component = ({ elements }) => {
-          return <div>{elements.length > 0 && <List elements={elements}/>}</div>
+        `const App = ({ items }) => {
+          return <div>{items.length > 0 && <List items={items}/>}</div>
         }`,
-        `const Component = ({ elements }) => {
-          return <div>{elements.length ? <List elements={elements}/> : null}</div>
+        `const App = ({ items }) => {
+          return <div>{items.length ? <List items={items}/> : null}</div>
         }`,
-        `const Component = ({ elements, count }) => {
-          return <div>{count ? <List elements={elements}/> : null}</div>
+        `const App = ({ items, count }) => {
+          return <div>{count ? <List items={items}/> : null}</div>
         }`,
-        `const Component = ({ elements, count }) => {
-          return <div>{!!count && <List elements={elements}/>}</div>
+        `const App = ({ items, count }) => {
+          return <div>{!!count && <List items={items}/>}</div>
         }`,
-        `const Component = ({ elements, count }) => {
+        `const App = ({ items, count }) => {
           return <div>{direction ? (direction === "down" ? "▼" : "▲") : ""}</div>
         }`,
-        `const Example = () => {
-          return (
-            <>
-              {0 ? <Something/> : null}
-              {'' && <Something/>}
-              {NaN ? <Something/> : null}
-            </>
-          )
+        `const App = () => {
+            return (
+                <>
+                    {0 ? <Foo /> : null}
+                    {'' && <Foo />}
+                    {NaN ? <Foo /> : null}
+                </>
+            )
         }`,
     ],
     invalid: [
         {
-            code: `const Example = () => {
-          return (
-            <>
-              {0 && <Something/>}
-              {NaN && <Something/>}
-            </>
-          )
+            code: `const App = () => {
+                return (
+                    <>
+                    {0 && <Foo />}
+                    {NaN && <Foo />}
+                </>
+            )
         }`,
             errors: [
                 {

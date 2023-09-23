@@ -1,5 +1,6 @@
+import * as validFunction from "../../test/common/valid/function";
 import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
-import rule from "./no-unstable-default-props";
+import rule, { RULE_NAME } from "./no-unstable-default-props";
 
 const rootDir = getFixturesRootDir();
 
@@ -15,8 +16,6 @@ const ruleTester = new RuleTester({
         tsconfigRootDir: rootDir,
     },
 });
-
-const RULE_NAME = "no-unstable-default-props";
 
 const MESSAGE_ID = "UNSTABLE_DEFAULT_PROP";
 
@@ -88,61 +87,20 @@ const expectedViolations = [
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [
-        `
-      function Foo({
-        bar = emptyFunction,
-      }) {
-        return null;
-      }
-    `,
-        `
-      function Foo({
-        bar = emptyFunction,
-        ...rest
-      }) {
-        return null;
-      }
-    `,
-        `
-      function Foo({
-        bar = 1,
-        baz = 'hello',
-      }) {
-        return null;
-      }
-    `,
-        `
-      function Foo(props) {
-        return null;
-      }
-    `,
-        `
-      function Foo(props) {
-        return null;
-      }
-
-      Foo.defaultProps = {
-        bar: () => {}
-      }
-    `,
-        `
-      const Foo = () => {
-        return null;
-      };
-    `,
-        `
-      const Foo = ({bar = 1}) => {
-        return null;
-      };
-    `,
-        `
-      export default function NotAComponent({foo = {}}) {}
-    `,
+        ...validFunction.all,
+        `function App({ foo = emptyFunction }) { return null }`,
+        `function App({ foo = emptyFunction, ...rest }) { return null }`,
+        `function App({ foo = 1, baz = 'hello' }) { return null }`,
+        `function App(props) { return null }`,
+        `function App(props) { return null }; App.defaultProps = { foo: () => {} }`,
+        `const App = () => { return null }`,
+        `const App = ({ foo = 1 }) => { return null }`,
+        `export default function NonComponent({ foo = {} }) {}`,
     ],
     invalid: [
         {
             code: `
-        function Foo({
+    function App({
           a = {},
           b = ['one', 'two'],
           c = /regex/i,
@@ -153,14 +111,14 @@ ruleTester.run(RULE_NAME, rule, {
           h = <Thing />,
           i = Symbol('foo')
         }) {
-          return null;
+          return null
         }
-      `,
+    `,
             errors: expectedViolations,
         },
         {
             code: `
-        const Foo = ({
+    const App = ({
           a = {},
           b = ['one', 'two'],
           c = /regex/i,
@@ -171,7 +129,7 @@ ruleTester.run(RULE_NAME, rule, {
           h = <Thing />,
           i = Symbol('foo')
         }) => {
-          return null;
+          return null
         }
       `,
             errors: expectedViolations,

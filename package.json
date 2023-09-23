@@ -85,7 +85,7 @@
         "bun-types": "1.0.3",
         "cspell": "7.3.6",
         "dprint": "0.41.0",
-        "eslint": "8.49.0",
+        "eslint": "8.50.0",
         "eslint-config-relicx": "0.12.7",
         "eslint-config-with-tsconfig": "2.6.7",
         "eslint-plugin-eslint-plugin": "5.1.1",

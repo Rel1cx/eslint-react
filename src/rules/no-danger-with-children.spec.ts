@@ -1,5 +1,6 @@
+import * as validFunction from "../../test/common/valid/function";
 import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
-import rule from "./no-danger-with-children";
+import rule, { RULE_NAME } from "./no-danger-with-children";
 
 const rootDir = getFixturesRootDir();
 
@@ -16,33 +17,32 @@ const ruleTester = new RuleTester({
     },
 });
 
-const RULE_NAME = "no-danger-with-children";
-
 ruleTester.run(RULE_NAME, rule, {
     valid: [
-        "<div>Children</div>;",
-        "<div {...props} />;",
-        '<div dangerouslySetInnerHTML={{ __html: "HTML" }} />;',
-        '<div children="Children" />;',
-        `const props = { dangerouslySetInnerHTML: { __html: "HTML" } };
-        <div {...props} />;`,
-        `const moreProps = { className: "eslint" };
-        const props = { children: "Children", ...moreProps };
-        <div {...props} />;`,
-        `const otherProps = { children: "Children" };
-        const { a, b, ...props } = otherProps;
-        <div {...props} />;`,
-        "<Hello>Children</Hello>;",
-        '<Hello dangerouslySetInnerHTML={{ __html: "HTML" }} />;',
-        '<Hello dangerouslySetInnerHTML={{ __html: "HTML" }}>\n</Hello>;',
-        'React.createElement("div", { dangerouslySetInnerHTML: { __html: "HTML" } });',
-        'React.createElement("div", {}, "Children");',
-        'React.createElement("Hello", { dangerouslySetInnerHTML: { __html: "HTML" } });',
-        'React.createElement("Hello", {}, "Children");',
-        "<Hello {...undefined}>Children</Hello>;",
-        'React.createElement("Hello", undefined, "Children");',
-        `const props = {...props, scratch: {mode: 'edit'}};
-        const component = shallow(<TaskEditableTitle {...props} />);`,
+        ...validFunction.all,
+        "<div>Children</div>",
+        "<div {...props} />",
+        '<div dangerouslySetInnerHTML={{ __html: "HTML" }} />',
+        '<div children="Children" />',
+        `const props = { dangerouslySetInnerHTML: { __html: "HTML" } }
+        ;<div {...props} />`,
+        `const moreProps = { className: "eslint" }
+        const props = { children: "Children", ...moreProps }
+        ;<div {...props} />`,
+        `const otherProps = { children: "Children" }
+        const { a, b, ...props } = otherProps
+        ;<div {...props} />`,
+        "<App>Children</App>",
+        '<App dangerouslySetInnerHTML={{ __html: "HTML" }} />',
+        '<App dangerouslySetInnerHTML={{ __html: "HTML" }}>\n</App>',
+        'React.createElement("div", { dangerouslySetInnerHTML: { __html: "HTML" } })',
+        'React.createElement("div", {}, "Children")',
+        'React.createElement("App", { dangerouslySetInnerHTML: { __html: "HTML" } })',
+        'React.createElement("App", {}, "Children")',
+        "<App {...undefined}>Children</App>",
+        'React.createElement("App", undefined, "Children")',
+        `const props = { ...props, scratch: {mode: 'edit'} }
+        const component = shallow(<TaskEditableTitle {...props} />)`,
     ],
     invalid: [
         {
@@ -54,60 +54,59 @@ ruleTester.run(RULE_NAME, rule, {
             errors: [{ messageId: "DANGER_WITH_CHILDREN" }],
         },
         {
-            code: `const props = { dangerouslySetInnerHTML: { __html: "HTML" } };
-            <div {...props}>Children</div>`,
+            code: `const props = { dangerouslySetInnerHTML: { __html: "HTML" } }
+            ;<div {...props}>Children</div>`,
             errors: [{ messageId: "DANGER_WITH_CHILDREN" }],
         },
         {
-            code: `const props = { children: "Children", dangerouslySetInnerHTML: { __html: "HTML" } };
-            <div {...props} />`,
+            code: `const props = { children: "Children", dangerouslySetInnerHTML: { __html: "HTML" } }
+            ;<div {...props} />`,
             errors: [{ messageId: "DANGER_WITH_CHILDREN" }],
         },
         {
-            code: `<Hello dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</Hello>`,
+            code: `<App dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</App>`,
             errors: [{ messageId: "DANGER_WITH_CHILDREN" }],
         },
         {
-            code: '<Hello dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />',
+            code: '<App dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />',
             errors: [{ messageId: "DANGER_WITH_CHILDREN" }],
         },
         {
-            code: '<Hello dangerouslySetInnerHTML={{ __html: "HTML" }}> </Hello>',
+            code: '<App dangerouslySetInnerHTML={{ __html: "HTML" }}> </App>',
             errors: [{ messageId: "DANGER_WITH_CHILDREN" }],
         },
         {
-            code: `React.createElement("div", { dangerouslySetInnerHTML: { __html: "HTML" } }, "Children");`,
+            code: `React.createElement("div", { dangerouslySetInnerHTML: { __html: "HTML" } }, "Children")`,
             errors: [{ messageId: "DANGER_WITH_CHILDREN" }],
         },
         {
-            code: `React.createElement("div", { dangerouslySetInnerHTML: { __html: "HTML" }, children: "Children",});`,
+            code: `React.createElement("div", { dangerouslySetInnerHTML: { __html: "HTML" }, children: "Children" })`,
             errors: [{ messageId: "DANGER_WITH_CHILDREN" }],
         },
         {
-            code: `React.createElement("Hello", { dangerouslySetInnerHTML: { __html: "HTML" } }, "Children");`,
+            code: `React.createElement("App", { dangerouslySetInnerHTML: { __html: "HTML" } }, "Children")`,
             errors: [{ messageId: "DANGER_WITH_CHILDREN" }],
         },
         {
-            code:
-                `React.createElement("Hello", { dangerouslySetInnerHTML: { __html: "HTML" }, children: "Children",});`,
+            code: `React.createElement("App", { dangerouslySetInnerHTML: { __html: "HTML" }, children: "Children" })`,
             errors: [{ messageId: "DANGER_WITH_CHILDREN" }],
         },
         {
-            code: `const props = { dangerouslySetInnerHTML: { __html: "HTML" } };
-            React.createElement("div", props, "Children");`,
+            code: `const props = { dangerouslySetInnerHTML: { __html: "HTML" } }
+            React.createElement("div", props, "Children")`,
             errors: [{ messageId: "DANGER_WITH_CHILDREN" }],
         },
         {
-            code: `const props = { children: "Children", dangerouslySetInnerHTML: { __html: "HTML" } };
-            React.createElement("div", props);`,
+            code: `const props = { children: "Children", dangerouslySetInnerHTML: { __html: "HTML" } }
+            React.createElement("div", props)`,
             errors: [{ messageId: "DANGER_WITH_CHILDREN" }],
         },
         {
             code: `
-            const moreProps = { children: "Children" };
-            const otherProps = { ...moreProps };
-            const props = { ...otherProps, dangerouslySetInnerHTML: { __html: "HTML" } };
-            React.createElement("div", props);`,
+            const moreProps = { children: "Children" }
+            const otherProps = { ...moreProps }
+            const props = { ...otherProps, dangerouslySetInnerHTML: { __html: "HTML" } }
+            React.createElement("div", props)`,
             errors: [{ messageId: "DANGER_WITH_CHILDREN" }],
         },
     ],

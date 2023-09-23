@@ -1,5 +1,7 @@
+import * as validFunction from "../../test/common/valid/function";
 import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
-import rule from "./no-deprecated-string-refs";
+import rule, { RULE_NAME } from "./no-deprecated-string-refs";
+
 const rootDir = getFixturesRootDir();
 
 const ruleTester = new RuleTester({
@@ -15,21 +17,20 @@ const ruleTester = new RuleTester({
     },
 });
 
-const RULE_NAME = "no-deprecated-string-refs";
-
 ruleTester.run(RULE_NAME, rule, {
     valid: [
-        `function Foo() {
-            return <div ref={ref} />;
+        ...validFunction.all,
+        `function App() {
+            return <div ref={ref} />
         }`,
-        `function Foo() {
+        `function App() {
             return <div ref={() => {}} />;
         }`,
     ],
     invalid: [
         {
-            code: `function Foo() {
-            return <div ref="ref" />;
+            code: `function App() {
+            return <div ref="ref" />
         }`,
             errors: [{ messageId: "DEPRECATED_STRING_REF" }],
         },

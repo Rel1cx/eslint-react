@@ -1,3 +1,4 @@
+import * as validFunction from "../../../test/common/valid/function";
 import RuleTester, { getFixturesRootDir } from "../../../test/rule-tester";
 import rule, { RULE_NAME } from "./no-misused-comment-in-textnode";
 
@@ -18,9 +19,10 @@ const ruleTester = new RuleTester({
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [
-        `<Foo bar='test'>{/* valid */}</Foo>`,
+        ...validFunction.all,
+        `<App foo='test'>{/* valid */}</App>`,
         `<strong>&nbsp;https://www.example.com/attachment/download/1</strong>`,
-        `<Foo /* valid */ placeholder={'foo'}/>`,
+        `<App /* valid */ placeholder={'foo'}/>`,
         `</* valid */></>`,
     ],
     invalid: [
@@ -59,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
             errors: [{ messageId: "MISUSED_COMMENT_IN_TEXTNODE" }],
         },
         {
-            code: `<span>/*</span>;`,
+            code: `<span>/*</span>`,
             errors: [{ messageId: "MISUSED_COMMENT_IN_TEXTNODE" }],
         },
     ],

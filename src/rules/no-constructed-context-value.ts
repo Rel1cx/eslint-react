@@ -8,7 +8,7 @@ import * as ComponentCollector from "../utils/component-collector";
 import * as ConstructionDetector from "../utils/construction-detector";
 import { ConstructionType } from "../utils/construction-detector";
 
-const RULE_NAME = "no-constructed-context-value";
+export const RULE_NAME = "no-constructed-context-value";
 
 type MessageID =
     | "CONTEXT_VALUE_CONSTRUCTION"
