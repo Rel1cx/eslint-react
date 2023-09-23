@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable security/detect-non-literal-regexp */
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import { createEslintRule } from "../../../tools/create-eslint-rule";
@@ -120,7 +120,7 @@ export default createEslintRule<Options, MessageID>({
                 }
 
                 const { expression } = node.value;
-                const isInlineFunction = AST.is(AST_NODE_TYPES.ArrowFunctionExpression)(expression);
+                const isInlineFunction = AST.is(N.ArrowFunctionExpression)(expression);
 
                 // Early return when not checking inline functions but the expression is an inline function.
                 if (!checkInlineFunction && isInlineFunction) {

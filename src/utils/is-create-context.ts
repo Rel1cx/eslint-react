@@ -1,5 +1,5 @@
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
 import { F, I } from "../lib/primitives/data";
@@ -8,9 +8,9 @@ import { AST } from "./ast";
 export function isCreateContext(node: TSESTree.Node) {
     if ("init" in node) {
         return match(node.init)
-            .with({ type: AST_NODE_TYPES.CallExpression, callee: { name: "createContext" } }, F.constTrue)
+            .with({ type: N.CallExpression, callee: { name: "createContext" } }, F.constTrue)
             .with(
-                { callee: { type: AST_NODE_TYPES.MemberExpression, property: { name: "createContext" } } },
+                { callee: { type: N.MemberExpression, property: { name: "createContext" } } },
                 F.constTrue,
             )
             .otherwise(F.constFalse);
@@ -19,13 +19,13 @@ export function isCreateContext(node: TSESTree.Node) {
     if (
         "expression" in node
         && I.isObject(node.expression)
-        && AST.is(AST_NODE_TYPES.AssignmentExpression)(node.expression)
+        && AST.is(N.AssignmentExpression)(node.expression)
         && node.expression.operator === "="
     ) {
         return match(node.expression.right)
-            .with({ type: AST_NODE_TYPES.CallExpression, callee: { name: "createContext" } }, F.constTrue)
+            .with({ type: N.CallExpression, callee: { name: "createContext" } }, F.constTrue)
             .with(
-                { callee: { type: AST_NODE_TYPES.MemberExpression, property: { name: "createContext" } } },
+                { callee: { type: N.MemberExpression, property: { name: "createContext" } } },
                 F.constTrue,
             )
             .otherwise(F.constFalse);

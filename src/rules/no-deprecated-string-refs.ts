@@ -1,5 +1,5 @@
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import { I } from "../lib/primitives/data";
@@ -18,7 +18,7 @@ function containsStringLiteral({ value }: TSESTree.JSXAttribute) {
         return false;
     }
 
-    return AST.is(AST_NODE_TYPES.Literal)(value) && I.isString(value.value);
+    return AST.is(N.Literal)(value) && I.isString(value.value);
 }
 
 function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
@@ -27,9 +27,9 @@ function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
     }
 
     return (
-        AST.is(AST_NODE_TYPES.JSXExpressionContainer)(value)
-        && ((AST.is(AST_NODE_TYPES.Literal)(value.expression) && I.isString(value.expression.value))
-            || AST.is(AST_NODE_TYPES.TemplateLiteral)(value.expression))
+        AST.is(N.JSXExpressionContainer)(value)
+        && ((AST.is(N.Literal)(value.expression) && I.isString(value.expression.value))
+            || AST.is(N.TemplateLiteral)(value.expression))
     );
 }
 

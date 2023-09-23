@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
@@ -49,7 +49,7 @@ export default createEslintRule<Options, MessageID>({
             ...collector.listeners,
             JSXOpeningElement(node) {
                 const openingElementName = node.name;
-                if (!AST.is(AST_NODE_TYPES.JSXMemberExpression)(openingElementName)) {
+                if (!AST.is(N.JSXMemberExpression)(openingElementName)) {
                     return;
                 }
 
@@ -59,7 +59,7 @@ export default createEslintRule<Options, MessageID>({
 
                 const maybeJSXValueAttribute = O.fromNullable(
                     node.attributes.find((attribute) => {
-                        return AST.is(AST_NODE_TYPES.JSXAttribute)(attribute) && attribute.name.name === "value";
+                        return AST.is(N.JSXAttribute)(attribute) && attribute.name.name === "value";
                     }),
                 );
                 if (O.isNone(maybeJSXValueAttribute) || !("value" in maybeJSXValueAttribute.value)) {
@@ -67,7 +67,7 @@ export default createEslintRule<Options, MessageID>({
                 }
 
                 const valueNode = maybeJSXValueAttribute.value.value;
-                if (!AST.is(AST_NODE_TYPES.JSXExpressionContainer)(valueNode)) {
+                if (!AST.is(N.JSXExpressionContainer)(valueNode)) {
                     return;
                 }
 

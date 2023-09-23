@@ -1,4 +1,5 @@
-import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/types";
+import { type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
 import { createEslintRule } from "../../../tools/create-eslint-rule";
 import { AST } from "../../utils/ast";
@@ -28,7 +29,7 @@ export default createEslintRule<Options, MessageID>({
     defaultOptions,
     create(context) {
         function checkText(node: TSESTree.JSXText | TSESTree.Literal) {
-            if (AST.isOneOf([AST_NODE_TYPES.JSXAttribute, AST_NODE_TYPES.JSXExpressionContainer])(node.parent)) {
+            if (AST.isOneOf([N.JSXAttribute, N.JSXExpressionContainer])(node.parent)) {
                 return false;
             }
 

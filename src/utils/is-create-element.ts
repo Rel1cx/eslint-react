@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as N, type TSESTree } from "@typescript-eslint/utils";
 import memo from "micro-memoize";
 import { match } from "ts-pattern";
 
@@ -23,7 +23,7 @@ export const isCreateElement = memo((node: TSESTree.Node, context: RuleContext) 
     return match(node.callee)
         .with(
             {
-                type: AST_NODE_TYPES.MemberExpression,
+                type: N.MemberExpression,
                 object: { name: pragma },
                 property: { name: "createElement" },
             },

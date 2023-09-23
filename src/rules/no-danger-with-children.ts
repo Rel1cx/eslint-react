@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
@@ -40,10 +40,10 @@ export default createEslintRule<Options, MessageID>({
                 }
                 const props = node.arguments[1];
                 const properties = match(props)
-                    .when(AST.isOneOf([AST_NODE_TYPES.ObjectExpression, AST_NODE_TYPES.ObjectPattern]), (n) => {
+                    .when(AST.isOneOf([N.ObjectExpression, N.ObjectPattern]), (n) => {
                         return "properties" in n ? n.properties : [];
                     })
-                    .when(AST.is(AST_NODE_TYPES.Identifier), (n) => {
+                    .when(AST.is(N.Identifier), (n) => {
                         return F.pipe(
                             findVariableByNameUpToGlobal(n.name, context.getScope()),
                             O.flatMapNullable((v) => v.defs.at(0)),

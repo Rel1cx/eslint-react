@@ -1,4 +1,5 @@
-import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/types";
+import { type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import birecord from "birecord";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
@@ -15,13 +16,13 @@ type Options = readonly [];
 const defaultOptions = [] as const satisfies Options;
 
 const FORBIDDEN_TYPES = birecord({
-    [AST_NODE_TYPES.ArrayExpression]: "array literal",
-    [AST_NODE_TYPES.ArrowFunctionExpression]: "arrow function",
-    [AST_NODE_TYPES.ClassExpression]: "class expression",
-    [AST_NODE_TYPES.FunctionExpression]: "function expression",
-    [AST_NODE_TYPES.JSXElement]: "JSX element",
-    [AST_NODE_TYPES.NewExpression]: "new expression",
-    [AST_NODE_TYPES.ObjectExpression]: "object literal",
+    [N.ArrayExpression]: "array literal",
+    [N.ArrowFunctionExpression]: "arrow function",
+    [N.ClassExpression]: "class expression",
+    [N.FunctionExpression]: "function expression",
+    [N.JSXElement]: "JSX element",
+    [N.NewExpression]: "new expression",
+    [N.ObjectExpression]: "object literal",
 });
 
 function hasUsedObjectDestructuringSyntax(
@@ -32,7 +33,7 @@ function hasUsedObjectDestructuringSyntax(
     }
     const [param] = params;
 
-    return !I.isNullable(param) && AST.is(AST_NODE_TYPES.ObjectPattern)(param);
+    return !I.isNullable(param) && AST.is(N.ObjectPattern)(param);
 }
 
 export default createEslintRule<Options, MessageID>({
@@ -68,8 +69,8 @@ export default createEslintRule<Options, MessageID>({
                     for (const prop of properties) {
                         // dprint-ignore
                         if (
-                            !AST.is(AST_NODE_TYPES.Property)(prop) ||
-                            !AST.is(AST_NODE_TYPES.AssignmentPattern)(prop.value)
+                            !AST.is(N.Property)(prop) ||
+                            !AST.is(N.AssignmentPattern)(prop.value)
                         ) {
                             continue;
                         }
@@ -78,7 +79,7 @@ export default createEslintRule<Options, MessageID>({
                         const propDefaultValue = prop.value;
                         const propDefaultValueRight = propDefaultValue.right;
                         if (
-                            AST.is(AST_NODE_TYPES.Literal)(propDefaultValueRight)
+                            AST.is(N.Literal)(propDefaultValueRight)
                             && "regex" in propDefaultValueRight
                             && !I.isNullable(propDefaultValueRight.regex)
                         ) {
@@ -93,9 +94,9 @@ export default createEslintRule<Options, MessageID>({
                             continue;
                         }
                         if (
-                            AST.is(AST_NODE_TYPES.CallExpression)(propDefaultValueRight)
+                            AST.is(N.CallExpression)(propDefaultValueRight)
                             && "callee" in propDefaultValueRight
-                            && AST.is(AST_NODE_TYPES.Identifier)(propDefaultValueRight.callee)
+                            && AST.is(N.Identifier)(propDefaultValueRight.callee)
                             && propDefaultValueRight.callee.name === "Symbol"
                         ) {
                             context.report({

@@ -1,5 +1,6 @@
 /* eslint-disable unicorn/no-typeof-undefined */
-import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/types";
+import { type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { getParserServices } from "@typescript-eslint/utils/eslint-utils";
 
 import { createEslintRule } from "../../../tools/create-eslint-rule";
@@ -19,15 +20,15 @@ const COERCE_STRATEGY = "coerce";
 const TERNARY_STRATEGY = "ternary";
 const DEFAULT_VALID_STRATEGIES = [TERNARY_STRATEGY, COERCE_STRATEGY] as const;
 const COERCE_VALID_LEFT_SIDE_EXPRESSIONS = [
-    AST_NODE_TYPES.UnaryExpression,
-    AST_NODE_TYPES.BinaryExpression,
-    AST_NODE_TYPES.CallExpression,
+    N.UnaryExpression,
+    N.BinaryExpression,
+    N.CallExpression,
 ] as const;
 
 const TERNARY_INVALID_ALTERNATE_VALUES = new Set<TernaryAlternateValue>([null, false]);
 
 function getIsCoerceValidNestedLogicalExpression(node: TSESTree.Node): boolean {
-    if (AST.is(AST_NODE_TYPES.LogicalExpression)(node)) {
+    if (AST.is(N.LogicalExpression)(node)) {
         return getIsCoerceValidNestedLogicalExpression(node.left)
             && getIsCoerceValidNestedLogicalExpression(node.right);
     }
@@ -74,7 +75,7 @@ export default createEslintRule<Options, MessageID>({
                     return;
                 }
 
-                const isJSXElementAlternate = AST.is(AST_NODE_TYPES.JSXElement)(node.alternate);
+                const isJSXElementAlternate = AST.is(N.JSXElement)(node.alternate);
 
                 if (isValidTernaryAlternate(node) || isJSXElementAlternate) {
                     context.report({
@@ -95,7 +96,7 @@ export default createEslintRule<Options, MessageID>({
                     return;
                 }
 
-                if (AST.is(AST_NODE_TYPES.Literal)(leftSide) && leftSide.value === "") {
+                if (AST.is(N.Literal)(leftSide) && leftSide.value === "") {
                     return;
                 }
 

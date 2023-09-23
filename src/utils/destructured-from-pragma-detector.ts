@@ -1,5 +1,5 @@
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { isMatching, match } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
@@ -31,29 +31,29 @@ export function make<T extends RuleContext>(context: T) {
         const latestDef = maybeLatestDef.value;
         const { node, parent } = latestDef;
 
-        if (AST.is(AST_NODE_TYPES.VariableDeclarator)(node) && node.init) {
+        if (AST.is(N.VariableDeclarator)(node) && node.init) {
             const { init } = node;
             // dprint-ignore
             if (
                 isMatching({
-                    type: AST_NODE_TYPES.MemberExpression,
-                    object: { name: pragma, type: AST_NODE_TYPES.Identifier },
+                    type: N.MemberExpression,
+                    object: { name: pragma, type: N.Identifier },
                 })(init)
             ) {
                 return true;
             }
 
-            if (isMatching({ name: pragma, type: AST_NODE_TYPES.Identifier })(init)) {
+            if (isMatching({ name: pragma, type: N.Identifier })(init)) {
                 return true;
             }
 
             const maybeRequireExpression: O.Option<TSESTree.CallExpression> = match(init)
-                .with({ type: AST_NODE_TYPES.CallExpression }, (exp) => O.some(exp))
+                .with({ type: N.CallExpression }, (exp) => O.some(exp))
                 .with(
                     {
-                        type: AST_NODE_TYPES.MemberExpression,
+                        type: N.MemberExpression,
                         object: {
-                            type: AST_NODE_TYPES.CallExpression,
+                            type: N.CallExpression,
                         },
                     },
                     ({ object }) => O.some(object),
@@ -64,13 +64,13 @@ export function make<T extends RuleContext>(context: T) {
             }
 
             const requireExpression = maybeRequireExpression.value;
-            if (!AST.is(AST_NODE_TYPES.Identifier)(requireExpression.callee)) {
+            if (!AST.is(N.Identifier)(requireExpression.callee)) {
                 return false;
             }
 
             const calleeName = requireExpression.callee.name;
             const firstArg = requireExpression.arguments[0];
-            if (calleeName !== "require" || !AST.is(AST_NODE_TYPES.Literal)(firstArg)) {
+            if (calleeName !== "require" || !AST.is(N.Literal)(firstArg)) {
                 return false;
             }
 
@@ -78,7 +78,7 @@ export function make<T extends RuleContext>(context: T) {
         }
 
         return isMatching({
-            type: AST_NODE_TYPES.ImportDeclaration,
+            type: N.ImportDeclaration,
             source: { value: pragma.toLowerCase() },
         })(parent);
     };

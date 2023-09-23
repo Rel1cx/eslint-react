@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { match } from "ts-pattern";
 
@@ -85,8 +85,8 @@ export default createEslintRule<Options, MessageID>({
                         return O.none();
                     })
                     .with("never", () => {
-                        const hasValueWithTrue = value?.type === AST_NODE_TYPES.JSXExpressionContainer
-                            && value.expression.type === AST_NODE_TYPES.Literal
+                        const hasValueWithTrue = value?.type === N.JSXExpressionContainer
+                            && value.expression.type === N.Literal
                             && value.expression.value === true;
 
                         if (hasValueWithTrue && !isException) {

@@ -1,6 +1,7 @@
 import { type Scope, ScopeType } from "@typescript-eslint/scope-manager";
+import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/utils";
+import { type TSESTree } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
 
 import { E, F } from "../lib/primitives/data";
@@ -30,13 +31,13 @@ export function isES5Component(node: TSESTree.Node, context: TSESLint.RuleContex
     return match(callee)
         .with(
             {
-                type: AST_NODE_TYPES.MemberExpression,
+                type: N.MemberExpression,
                 object: { name: pragma },
                 property: { name: createClass },
             },
             F.constTrue,
         )
-        .with({ name: createClass, type: AST_NODE_TYPES.Identifier }, F.constTrue)
+        .with({ name: createClass, type: N.Identifier }, F.constTrue)
         .otherwise(F.constFalse);
 }
 
@@ -56,10 +57,10 @@ export function isES6Component(node: TSESTree.Node, context: TSESLint.RuleContex
     const { superClass } = node;
 
     return match(superClass)
-        .with({ name: P.string, type: AST_NODE_TYPES.Identifier }, ({ name }) => /^(Pure)?Component$/u.test(name))
+        .with({ name: P.string, type: N.Identifier }, ({ name }) => /^(Pure)?Component$/u.test(name))
         .with(
             {
-                type: AST_NODE_TYPES.MemberExpression,
+                type: N.MemberExpression,
                 object: { name: pragma },
                 property: { name: P.string },
             },
@@ -112,7 +113,7 @@ export function isPureComponent(node: TSESTree.Node, context: TSESLint.RuleConte
  * @deprecated Do not use this function. It will be removed in the future.
  */
 export const isStateMemberExpression: (node: TSESTree.Node) => boolean = isMatching({
-    type: AST_NODE_TYPES.MemberExpression,
-    object: { type: AST_NODE_TYPES.ThisExpression },
+    type: N.MemberExpression,
+    object: { type: N.ThisExpression },
     property: { name: "state" },
 });

@@ -1,6 +1,6 @@
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { match, P } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
@@ -29,17 +29,17 @@ export type ConstructionInfo = { node: TSESTree.Node; type: ConstructionType; us
 export function make<Ctx extends RuleContext>(ctx: Ctx) {
     const detect = (node: TSESTree.Node, scope = ctx.getScope()): O.Option<ConstructionInfo> => {
         return match(node.type)
-            .with(AST_NODE_TYPES.ArrayExpression, () => O.some({ type: ConstructionType.ARRAY, node }))
-            .with(AST_NODE_TYPES.ObjectExpression, () => O.some({ type: ConstructionType.OBJECT, node }))
-            .with(AST_NODE_TYPES.ClassExpression, () => O.some({ type: ConstructionType.CLASS_EXPRESSION, node }))
-            .with(AST_NODE_TYPES.FunctionExpression, () => O.some({ type: ConstructionType.FUNCTION_EXPRESSION, node }))
-            .with(AST_NODE_TYPES.JSXElement, () => O.some({ type: ConstructionType.JSX_ELEMENT, node }))
-            .with(AST_NODE_TYPES.JSXFragment, () => O.some({ type: ConstructionType.JSX_FRAGMENT, node }))
-            .with(AST_NODE_TYPES.NewExpression, () => O.some({ type: ConstructionType.NEW_EXPRESSION, node }))
-            .with(AST_NODE_TYPES.ArrowFunctionExpression, () => {
+            .with(N.ArrayExpression, () => O.some({ type: ConstructionType.ARRAY, node }))
+            .with(N.ObjectExpression, () => O.some({ type: ConstructionType.OBJECT, node }))
+            .with(N.ClassExpression, () => O.some({ type: ConstructionType.CLASS_EXPRESSION, node }))
+            .with(N.FunctionExpression, () => O.some({ type: ConstructionType.FUNCTION_EXPRESSION, node }))
+            .with(N.JSXElement, () => O.some({ type: ConstructionType.JSX_ELEMENT, node }))
+            .with(N.JSXFragment, () => O.some({ type: ConstructionType.JSX_FRAGMENT, node }))
+            .with(N.NewExpression, () => O.some({ type: ConstructionType.NEW_EXPRESSION, node }))
+            .with(N.ArrowFunctionExpression, () => {
                 return O.some({ type: ConstructionType.FUNCTION_EXPRESSION, node });
             })
-            .with(AST_NODE_TYPES.MemberExpression, () => {
+            .with(N.MemberExpression, () => {
                 if (!("object" in node)) {
                     return O.none();
                 }
@@ -52,7 +52,7 @@ export function make<Ctx extends RuleContext>(ctx: Ctx) {
                     })),
                 );
             })
-            .with(AST_NODE_TYPES.AssignmentExpression, () => {
+            .with(N.AssignmentExpression, () => {
                 if (!("right" in node)) {
                     return O.none();
                 }
@@ -66,7 +66,7 @@ export function make<Ctx extends RuleContext>(ctx: Ctx) {
                     })),
                 );
             })
-            .with(AST_NODE_TYPES.LogicalExpression, () => {
+            .with(N.LogicalExpression, () => {
                 if (!("left" in node && "right" in node)) {
                     return O.none();
                 }
@@ -76,7 +76,7 @@ export function make<Ctx extends RuleContext>(ctx: Ctx) {
                     O.orElse(() => detect(node.right)),
                 );
             })
-            .with(AST_NODE_TYPES.ConditionalExpression, () => {
+            .with(N.ConditionalExpression, () => {
                 if (!("consequent" in node && "alternate" in node && !I.isNullable(node.alternate))) {
                     return O.none();
                 }
@@ -87,7 +87,7 @@ export function make<Ctx extends RuleContext>(ctx: Ctx) {
                     O.orElse(() => maybeAlternate),
                 );
             })
-            .with(AST_NODE_TYPES.Identifier, () => {
+            .with(N.Identifier, () => {
                 if (!("name" in node && I.isString(node.name))) {
                     return O.none();
                 }
@@ -108,7 +108,7 @@ export function make<Ctx extends RuleContext>(ctx: Ctx) {
                     return O.none();
                 }
 
-                if (AST.is(AST_NODE_TYPES.FunctionDeclaration)(latestDef.node)) {
+                if (AST.is(N.FunctionDeclaration)(latestDef.node)) {
                     return O.some({ type: ConstructionType.FUNCTION_DECLARATION, node: latestDef.node, usage: node });
                 }
 
@@ -118,14 +118,14 @@ export function make<Ctx extends RuleContext>(ctx: Ctx) {
 
                 return detect(latestDef.node.init);
             })
-            .with(AST_NODE_TYPES.Literal, () => {
+            .with(N.Literal, () => {
                 if ("regex" in node) {
                     O.some({ type: ConstructionType.REGULAR_EXPRESSION, node });
                 }
 
                 return O.none();
             })
-            .with(P.union(AST_NODE_TYPES.TSAsExpression, AST_NODE_TYPES.TSTypeAssertion), () => {
+            .with(P.union(N.TSAsExpression, N.TSTypeAssertion), () => {
                 if (!("expression" in node) || !I.isObject(node.expression)) {
                     return O.none();
                 }

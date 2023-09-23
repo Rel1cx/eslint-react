@@ -1,5 +1,6 @@
 import type { Scope } from "@typescript-eslint/scope-manager";
-import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/types";
+import { type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
@@ -29,7 +30,7 @@ const defaultOptions = ["always"] as const satisfies Options;
 type MemberExpressionWithObjectName = TSESTree.MemberExpression & { object: TSESTree.Identifier };
 
 function isMemberExpressionWithName(node: TSESTree.MemberExpression): node is MemberExpressionWithObjectName {
-    return AST.is(AST_NODE_TYPES.Identifier)(node.object) && "name" in node.object;
+    return AST.is(N.Identifier)(node.object) && "name" in node.object;
 }
 
 export default createEslintRule<Options, MessageID>({
@@ -132,7 +133,7 @@ export default createEslintRule<Options, MessageID>({
 
                 for (const [scope, declarator] of variableDeclarators) {
                     const isComponent = AST.isFunctionNode(scope.block) && components.has(scope.block);
-                    const isDestructuring = declarator.init && AST.is(AST_NODE_TYPES.ObjectPattern)(declarator.id);
+                    const isDestructuring = declarator.init && AST.is(N.ObjectPattern)(declarator.id);
                     if (!("init" in declarator && declarator.init && "name" in declarator.init)) {
                         continue;
                     }
