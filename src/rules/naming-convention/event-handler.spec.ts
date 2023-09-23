@@ -60,7 +60,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: `<App onChange={this.doSomethingOnChange} />`,
             errors: [
                 {
-                    messageId: "BAD_HANDLER_NAME",
+                    messageId: "INVALID_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -72,7 +72,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: `<App onChange={this.handlerChange} />`,
             errors: [
                 {
-                    messageId: "BAD_HANDLER_NAME",
+                    messageId: "INVALID_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -84,7 +84,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: `<App onChange={this.handle} />`,
             errors: [
                 {
-                    messageId: "BAD_HANDLER_NAME",
+                    messageId: "INVALID_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -96,7 +96,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: `<App onChange={this.handle2} />`,
             errors: [
                 {
-                    messageId: "BAD_HANDLER_NAME",
+                    messageId: "INVALID_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -108,7 +108,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: `<App onChange={this.handl3Change} />`,
             errors: [
                 {
-                    messageId: "BAD_HANDLER_NAME",
+                    messageId: "INVALID_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -120,7 +120,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: `<App onChange={this.handle4change} />`,
             errors: [
                 {
-                    messageId: "BAD_HANDLER_NAME",
+                    messageId: "INVALID_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -132,7 +132,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: `<App only={this.handleChange} />`,
             errors: [
                 {
-                    messageId: "BAD_PROP_KEY",
+                    messageId: "INVALID_PROP_KEY",
                 },
             ],
         },
@@ -140,7 +140,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: `<App only={this.handleChange} />`,
             errors: [
                 {
-                    messageId: "BAD_PROP_KEY",
+                    messageId: "INVALID_PROP_KEY",
                     data: {
                         propValue: "handleChange",
                         handlerPropPrefix: "on",
@@ -152,7 +152,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: `<App handleChange={this.handleChange} />`,
             errors: [
                 {
-                    messageId: "BAD_PROP_KEY",
+                    messageId: "INVALID_PROP_KEY",
                     data: {
                         propValue: "handleChange",
                         handlerPropPrefix: "on",
@@ -164,7 +164,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: `<App onChange={this.onChange} />`,
             errors: [
                 {
-                    messageId: "BAD_HANDLER_NAME",
+                    messageId: "INVALID_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -253,7 +253,7 @@ ruleTester.run(RULE_NAME, rule, {
             options: [{ checkLocalVariables: true }],
             errors: [
                 {
-                    messageId: "BAD_HANDLER_NAME",
+                    messageId: "INVALID_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -266,7 +266,7 @@ ruleTester.run(RULE_NAME, rule, {
             options: [{ checkInlineFunction: true }],
             errors: [
                 {
-                    messageId: "BAD_HANDLER_NAME",
+                    messageId: "INVALID_HANDLER_NAME",
                     data: {
                         propKey: "onChange",
                         handlerPrefix: "handle",
@@ -279,7 +279,7 @@ ruleTester.run(RULE_NAME, rule, {
             options: [{ checkLocalVariables: true }],
             errors: [
                 {
-                    messageId: "BAD_PROP_KEY",
+                    messageId: "INVALID_PROP_KEY",
                     data: {
                         propValue: "handleChange",
                         handlerPropPrefix: "on",
@@ -297,7 +297,7 @@ ruleTester.run(RULE_NAME, rule, {
             ],
             errors: [
                 {
-                    messageId: "BAD_PROP_KEY",
+                    messageId: "INVALID_PROP_KEY",
                     data: {
                         propValue: "handleChange",
                         handlerPropPrefix: "on",
@@ -316,7 +316,7 @@ ruleTester.run(RULE_NAME, rule, {
             ],
             errors: [
                 {
-                    messageId: "BAD_PROP_KEY",
+                    messageId: "INVALID_PROP_KEY",
                     data: {
                         propValue: "handleChange",
                         handlerPropPrefix: "when",
@@ -336,7 +336,7 @@ ruleTester.run(RULE_NAME, rule, {
             ],
             errors: [
                 {
-                    messageId: "BAD_PROP_KEY",
+                    messageId: "INVALID_PROP_KEY",
                     data: {
                         propValue: "handleChange",
                         handlerPropPrefix: "when",

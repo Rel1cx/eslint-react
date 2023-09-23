@@ -1,12 +1,10 @@
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
-import { match } from "ts-pattern";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
-import { E, F, O } from "../lib/primitives/data";
+import { E, F, O } from "../lib/primitives";
 import { AST, type FunctionNode } from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
 import * as ConstructionDetector from "../utils/construction-detector";
-import { ConstructionType } from "../utils/construction-detector";
 
 export const RULE_NAME = "no-constructed-context-value";
 
@@ -41,7 +39,7 @@ export default createEslintRule<Options, MessageID>({
     create(context) {
         const collector = ComponentCollector.make(context);
 
-        const possibleValueConstructions = new Map<FunctionNode, ConstructionDetector.ConstructionInfo>();
+        const possibleValueConstructions = new Map<FunctionNode, ConstructionDetector.ConstructionType>();
 
         const detectConstruction = ConstructionDetector.make(context);
 
@@ -73,12 +71,12 @@ export default createEslintRule<Options, MessageID>({
 
                 const valueExpression = valueNode.expression;
                 const invocationScope = context.getScope();
-                const maybeConstructionInfo = detectConstruction(valueExpression, invocationScope);
-                if (O.isNone(maybeConstructionInfo)) {
+                const constructionInfo = detectConstruction(valueExpression, invocationScope);
+
+                if (constructionInfo._tag === "NONE") {
                     return;
                 }
 
-                const constructionInfo = maybeConstructionInfo.value;
                 F.pipe(
                     collector.getCurrentFunction(),
                     O.map((currentFn) => possibleValueConstructions.set(currentFn, constructionInfo)),
@@ -90,26 +88,18 @@ export default createEslintRule<Options, MessageID>({
                 const components = collector.getComponents();
 
                 for (const [fn, constructionInfo] of possibleValueConstructions.entries()) {
-                    if (!components.has(fn)) {
+                    if (!components.has(fn) || constructionInfo._tag === "NONE") {
                         continue;
                     }
 
-                    const { type, node } = constructionInfo;
+                    const messageId = constructionInfo._tag.startsWith("FUNCTION")
+                        ? "CONTEXT_VALUE_CONSTRUCTION_FUNCTION"
+                        : "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER";
 
-                    const messageId = match<ConstructionType, MessageID>(type)
-                        .with(ConstructionType.FUNCTION_DECLARATION, () => {
-                            return "CONTEXT_VALUE_CONSTRUCTION_FUNCTION";
-                        })
-                        .with(ConstructionType.FUNCTION_EXPRESSION, () => {
-                            return "CONTEXT_VALUE_CONSTRUCTION_FUNCTION";
-                        })
-                        .otherwise(() => {
-                            return "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER";
-                        });
-
+                    const { name, node } = constructionInfo;
                     context.report({
                         data: {
-                            type,
+                            type: name,
                         },
                         messageId,
                         node,

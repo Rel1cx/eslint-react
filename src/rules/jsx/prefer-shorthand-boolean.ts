@@ -4,7 +4,7 @@ import { match } from "ts-pattern";
 
 import { createEslintRule } from "../../../tools/create-eslint-rule";
 import { type Cond } from "../../../typings";
-import { I, O } from "../../lib/primitives/data";
+import { I, O } from "../../lib/primitives";
 
 export const RULE_NAME = "jsx/prefer-shorthand-boolean";
 

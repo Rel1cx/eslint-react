@@ -1,5 +1,5 @@
 import { createEslintRule } from "../../../tools/create-eslint-rule";
-import { MutRef, O } from "../../lib/primitives/data";
+import { MutRef, O } from "../../lib/primitives";
 import * as ComponentCollector from "../../utils/component-collector";
 import { isComponentName } from "../../utils/is-component-name";
 

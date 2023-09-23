@@ -74,10 +74,10 @@ ruleTester.run(RULE_NAME, rule, {
         }`,
             errors: [
                 {
-                    messageId: "POTENTIAL_LEAKED_CONDITIONAL_RENDERING",
+                    messageId: "INVALID",
                 },
                 {
-                    messageId: "POTENTIAL_LEAKED_CONDITIONAL_RENDERING",
+                    messageId: "INVALID",
                 },
             ],
         },

@@ -3,7 +3,7 @@ import memo from "micro-memoize";
 import { match } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
-import { E, F } from "../lib/primitives/data";
+import { E, F } from "../lib/primitives";
 import * as destructuredFromPragmaDetector from "./destructured-from-pragma-detector";
 import { getFromContext } from "./pragma";
 

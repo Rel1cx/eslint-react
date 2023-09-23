@@ -4,7 +4,7 @@ import path from "pathe";
 
 import { createEslintRule } from "../../../tools/create-eslint-rule";
 import { getCaseValidator } from "../../lib/case-validator/case-validator";
-import { O } from "../../lib/primitives/data";
+import { O } from "../../lib/primitives";
 
 export const RULE_NAME = "naming-convention/filename";
 

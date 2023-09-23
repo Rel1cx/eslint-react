@@ -32,7 +32,7 @@ ruleTester.run(RULE_NAME, rule, {
             code: `function App() {
             return <div ref="ref" />
         }`,
-            errors: [{ messageId: "DEPRECATED_STRING_REF" }],
+            errors: [{ messageId: "INVALID" }],
         },
     ],
 });

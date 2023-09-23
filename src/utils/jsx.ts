@@ -3,7 +3,7 @@ import memo from "micro-memoize";
 import { match, P } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
-import { F, I, O } from "../lib/primitives/data";
+import { F, I, O } from "../lib/primitives";
 import { AST } from "./ast";
 import { isCreateElement } from "./is-create-element";
 import { findVariableByNameUpToGlobal } from "./variable";

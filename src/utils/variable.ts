@@ -1,7 +1,7 @@
 import type { Variable } from "@typescript-eslint/scope-manager";
 import { type Scope } from "@typescript-eslint/scope-manager";
 
-import { F, MutRef, O } from "../lib/primitives/data";
+import { F, MutRef, O } from "../lib/primitives";
 
 export function findVariableByName(name: string) {
     return (variables: Variable[]): O.Option<NonNullable<Variable>> => {

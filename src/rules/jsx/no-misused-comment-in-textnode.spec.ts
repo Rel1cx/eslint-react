@@ -28,21 +28,21 @@ ruleTester.run(RULE_NAME, rule, {
     invalid: [
         {
             code: `<div>// invalid</div>`,
-            errors: [{ messageId: "MISUSED_COMMENT_IN_TEXTNODE" }],
+            errors: [{ messageId: "INVALID" }],
         },
         {
             code: `<>// invalid</>`,
-            errors: [{ messageId: "MISUSED_COMMENT_IN_TEXTNODE" }],
+            errors: [{ messageId: "INVALID" }],
         },
         {
             code: `<div>/* invalid */</div>`,
-            errors: [{ messageId: "MISUSED_COMMENT_IN_TEXTNODE" }],
+            errors: [{ messageId: "INVALID" }],
         },
         {
             code: `<div>
                 // invalid
               </div>`,
-            errors: [{ messageId: "MISUSED_COMMENT_IN_TEXTNODE" }],
+            errors: [{ messageId: "INVALID" }],
         },
         {
             code: `<div>
@@ -50,7 +50,7 @@ ruleTester.run(RULE_NAME, rule, {
                 /* invalid */
                 foo
               </div>`,
-            errors: [{ messageId: "MISUSED_COMMENT_IN_TEXTNODE" }],
+            errors: [{ messageId: "INVALID" }],
         },
         {
             code: `<div>
@@ -58,11 +58,11 @@ ruleTester.run(RULE_NAME, rule, {
                 // invalid
                 {'foo'}
               </div>`,
-            errors: [{ messageId: "MISUSED_COMMENT_IN_TEXTNODE" }],
+            errors: [{ messageId: "INVALID" }],
         },
         {
             code: `<span>/*</span>`,
-            errors: [{ messageId: "MISUSED_COMMENT_IN_TEXTNODE" }],
+            errors: [{ messageId: "INVALID" }],
         },
     ],
 });

@@ -8,7 +8,7 @@ import { AST } from "../../utils/ast";
 
 export const RULE_NAME = "jsx/no-leaked-conditional-rendering";
 
-type MessageID = "POTENTIAL_LEAKED_CONDITIONAL_RENDERING";
+type MessageID = "INVALID";
 
 type Options = readonly [];
 
@@ -58,8 +58,7 @@ export default createEslintRule<Options, MessageID>({
         },
         schema: [],
         messages: {
-            POTENTIAL_LEAKED_CONDITIONAL_RENDERING:
-                "Potential leaked value that might cause unintentionally rendered values or rendering crashes",
+            INVALID: "Potential leaked value that might cause unintentionally rendered values or rendering crashes",
         },
     },
     defaultOptions,
@@ -79,7 +78,7 @@ export default createEslintRule<Options, MessageID>({
 
                 if (isValidTernaryAlternate(node) || isJSXElementAlternate) {
                     context.report({
-                        messageId: "POTENTIAL_LEAKED_CONDITIONAL_RENDERING",
+                        messageId: "INVALID",
                         node: node.alternate,
                     });
                 }
@@ -101,7 +100,7 @@ export default createEslintRule<Options, MessageID>({
                 }
 
                 context.report({
-                    messageId: "POTENTIAL_LEAKED_CONDITIONAL_RENDERING",
+                    messageId: "INVALID",
                     node: leftSide,
                 });
             },

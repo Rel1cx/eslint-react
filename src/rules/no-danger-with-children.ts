@@ -4,7 +4,7 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
-import { F, O } from "../lib/primitives/data";
+import { F, O } from "../lib/primitives";
 import { AST } from "../utils/ast";
 import { isCreateElement } from "../utils/is-create-element";
 import { findPropInAttributes, findPropInProperties, isLineBreak } from "../utils/jsx";
@@ -12,7 +12,7 @@ import { findVariableByNameUpToGlobal } from "../utils/variable";
 
 export const RULE_NAME = "no-unstable-default-props";
 
-type MessageID = "DANGER_WITH_CHILDREN";
+type MessageID = "INVALID";
 
 type Options = readonly [];
 
@@ -28,7 +28,7 @@ export default createEslintRule<Options, MessageID>({
         },
         schema: [],
         messages: {
-            DANGER_WITH_CHILDREN: "Only set one of `children` or `dangerouslySetInnerHTML`.",
+            INVALID: "Only set one of `children` or `dangerouslySetInnerHTML`.",
         },
     },
     defaultOptions,
@@ -61,14 +61,14 @@ export default createEslintRule<Options, MessageID>({
 
                 if (hasDanger && (hasRestChildren || O.isSome(findPropInProperties(properties, context)("children")))) {
                     context.report({
-                        messageId: "DANGER_WITH_CHILDREN",
+                        messageId: "INVALID",
                         node,
                     });
                 }
             },
             JSXElement(node) {
                 function firstChildIsText(node: TSESTree.JSXElement) {
-                    const firstChild = node.children[0];
+                    const [firstChild] = node.children;
 
                     return node.children.length > 0 && firstChild && !isLineBreak(firstChild);
                 }
@@ -88,7 +88,7 @@ export default createEslintRule<Options, MessageID>({
 
                 if (hasChildren(node) && hasDanger(node)) {
                     context.report({
-                        messageId: "DANGER_WITH_CHILDREN",
+                        messageId: "INVALID",
                         node,
                     });
                 }

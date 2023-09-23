@@ -2,7 +2,7 @@ import memo from "micro-memoize";
 
 import type { ReactSettings } from "../../typings";
 import type { RuleContext } from "../../typings";
-import { E, F, O } from "../lib/primitives/data";
+import { E, F, O } from "../lib/primitives";
 
 /*
  * This helper is extract from eslint-plugin-react's pragma utils under the MIT license, with some enhancements.

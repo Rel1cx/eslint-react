@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { createEslintRule } from "../../../tools/create-eslint-rule";
-import { MutRef, O } from "../../lib/primitives/data";
+import { MutRef, O } from "../../lib/primitives";
 
 export const RULE_NAME = "naming-convention/filename-extension";
 

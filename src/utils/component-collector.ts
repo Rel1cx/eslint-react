@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
 import type { RuleContext } from "../../typings";
-import { E, F, I, MutList, O } from "../lib/primitives/data";
+import { E, F, I, MutList, O } from "../lib/primitives";
 import type { FunctionNode } from "./ast";
 import { isComponentName } from "./is-component-name";
 import { isJSXValue, isReturnStatementReturningJSX } from "./jsx";

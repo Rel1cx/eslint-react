@@ -1,95 +1,143 @@
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
-import { match, P } from "ts-pattern";
+import { match } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
-import { F, I, O } from "../lib/primitives/data";
-import { Enum } from "../lib/primitives/enum";
+import { Data, F, I, O } from "../lib/primitives";
 import { AST } from "./ast";
 
-export const ConstructionType = Enum(
-    "OBJECT",
-    "ARRAY",
-    "FUNCTION_EXPRESSION",
-    "CLASS_EXPRESSION",
-    "NEW_EXPRESSION",
-    "JSX_FRAGMENT",
-    "JSX_ELEMENT",
-    "REGULAR_EXPRESSION",
-    "FUNCTION_DECLARATION",
-    "ASSIGNMENT_EXPRESSION",
-    "MEMBER_EXPRESSION",
-);
+export type ConstructionType = Data.TaggedEnum<{
+    NONE: {};
+    // eslint-disable-next-line perfectionist/sort-object-types
+    ARRAY: {
+        name: "array";
+        node: TSESTree.ArrayExpression;
+    };
+    ASSIGNMENT_EXPRESSION: {
+        name: "assignment expression";
+        node: TSESTree.Node;
+        usage: TSESTree.Node;
+    };
+    CLASS_EXPRESSION: {
+        name: "class expression";
+        node: TSESTree.ClassExpression;
+    };
+    FUNCTION_DECLARATION: {
+        name: "function declaration";
+        node: TSESTree.FunctionDeclaration;
+        usage: TSESTree.Expression | TSESTree.Identifier;
+    };
+    FUNCTION_EXPRESSION: {
+        name: "function expression";
+        node: TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression;
+    };
+    JSX_ELEMENT: {
+        name: "JSX element";
+        node: TSESTree.JSXElement;
+    };
+    JSX_FRAGMENT: {
+        name: "JSX fragment";
+        node: TSESTree.JSXFragment;
+    };
+    NEW_EXPRESSION: {
+        name: "new expression";
+        node: TSESTree.NewExpression;
+    };
+    OBJECT_EXPRESSION: {
+        name: "object";
+        node: TSESTree.ObjectExpression;
+    };
+    REGULAR_EXPRESSION: {
+        name: "regular expression";
+        node: TSESTree.Literal;
+    };
+}>;
 
-export type ConstructionType = Enum<typeof ConstructionType>;
+export const ConstructionType = Data.taggedEnum<ConstructionType>();
 
-export type ConstructionInfo = { node: TSESTree.Node; type: ConstructionType; usage?: TSESTree.Node };
+const None = ConstructionType("NONE")();
 
-export function make<Ctx extends RuleContext>(ctx: Ctx) {
-    const detect = (node: TSESTree.Node, scope = ctx.getScope()): O.Option<ConstructionInfo> => {
-        return match(node.type)
-            .with(N.ArrayExpression, () => O.some({ type: ConstructionType.ARRAY, node }))
-            .with(N.ObjectExpression, () => O.some({ type: ConstructionType.OBJECT, node }))
-            .with(N.ClassExpression, () => O.some({ type: ConstructionType.CLASS_EXPRESSION, node }))
-            .with(N.FunctionExpression, () => O.some({ type: ConstructionType.FUNCTION_EXPRESSION, node }))
-            .with(N.JSXElement, () => O.some({ type: ConstructionType.JSX_ELEMENT, node }))
-            .with(N.JSXFragment, () => O.some({ type: ConstructionType.JSX_FRAGMENT, node }))
-            .with(N.NewExpression, () => O.some({ type: ConstructionType.NEW_EXPRESSION, node }))
-            .with(N.ArrowFunctionExpression, () => {
-                return O.some({ type: ConstructionType.FUNCTION_EXPRESSION, node });
-            })
-            .with(N.MemberExpression, () => {
+export function make<T extends RuleContext>(context: T) {
+    // eslint-disable-next-line sonarjs/cognitive-complexity
+    const detect = (node: TSESTree.Node, scope = context.getScope()): ConstructionType => {
+        return match(node)
+            .when(AST.is(N.ArrayExpression), (node) => ConstructionType("ARRAY")({ name: "array", node }))
+            .when(AST.is(N.ObjectExpression), (node) => ConstructionType("OBJECT_EXPRESSION")({ name: "object", node }))
+            .when(AST.is(N.ClassExpression), (node) => ConstructionType("CLASS_EXPRESSION")({ name: "class expression", node }))
+            .when(
+                AST.is(N.FunctionExpression),
+                (node) => ConstructionType("FUNCTION_EXPRESSION")({ name: "function expression", node }),
+            )
+            .when(AST.is(N.JSXElement), (node) => ConstructionType("JSX_ELEMENT")({ name: "JSX element", node }))
+            .when(AST.is(N.JSXFragment), (node) => ConstructionType("JSX_FRAGMENT")({ name: "JSX fragment", node }))
+            .when(AST.is(N.NewExpression), (node) => ConstructionType("NEW_EXPRESSION")({ name: "new expression", node }))
+            .when(
+                AST.is(N.ArrowFunctionExpression),
+                (node) => ConstructionType("FUNCTION_EXPRESSION")({ name: "function expression", node }),
+            )
+            .when(AST.is(N.MemberExpression), (node) => {
                 if (!("object" in node)) {
-                    return O.none();
+                    return None;
                 }
 
-                return F.pipe(
-                    detect(node.object),
-                    O.map((construct) => ({
-                        ...construct,
-                        usage: node.object,
-                    })),
-                );
+                const object = detect(node.object);
+
+                if (object._tag === "NONE") {
+                    return object;
+                }
+
+                return {
+                    ...object,
+                    usage: node.object,
+                };
             })
-            .with(N.AssignmentExpression, () => {
+            .when(AST.is(N.AssignmentExpression), (node) => {
                 if (!("right" in node)) {
-                    return O.none();
+                    return None;
                 }
 
-                return F.pipe(
-                    detect(node.right),
-                    O.map((construct) => ({
-                        type: ConstructionType.ASSIGNMENT_EXPRESSION,
-                        node: construct.node,
-                        usage: node,
-                    })),
-                );
+                const right = detect(node.right);
+
+                if (right._tag === "NONE") {
+                    return right;
+                }
+
+                return ConstructionType("ASSIGNMENT_EXPRESSION")({
+                    name: "assignment expression",
+                    node: right.node,
+                    usage: node,
+                });
             })
-            .with(N.LogicalExpression, () => {
+            .when(AST.is(N.LogicalExpression), (node) => {
                 if (!("left" in node && "right" in node)) {
-                    return O.none();
+                    return None;
                 }
 
-                return F.pipe(
-                    detect(node.left),
-                    O.orElse(() => detect(node.right)),
-                );
+                const left = detect(node.left);
+
+                if (left._tag === "NONE") {
+                    return left;
+                }
+
+                return detect(node.right);
             })
-            .with(N.ConditionalExpression, () => {
+            .when(AST.is(N.ConditionalExpression), (node) => {
                 if (!("consequent" in node && "alternate" in node && !I.isNullable(node.alternate))) {
-                    return O.none();
+                    return None;
                 }
-                const maybeAlternate = detect(node.alternate);
 
-                return F.pipe(
-                    detect(node.consequent),
-                    O.orElse(() => maybeAlternate),
-                );
+                const consequent = detect(node.consequent);
+
+                if (consequent._tag === "NONE") {
+                    return consequent;
+                }
+
+                return detect(node.alternate);
             })
-            .with(N.Identifier, () => {
+            .when(AST.is(N.Identifier), (node) => {
                 if (!("name" in node && I.isString(node.name))) {
-                    return O.none();
+                    return None;
                 }
 
                 const maybeLatestDef = F.pipe(
@@ -99,40 +147,44 @@ export function make<Ctx extends RuleContext>(ctx: Ctx) {
                 );
 
                 if (O.isNone(maybeLatestDef)) {
-                    return O.none();
+                    return None;
                 }
 
                 const latestDef = maybeLatestDef.value;
 
                 if (latestDef.type !== DefinitionType.Variable && latestDef.type !== DefinitionType.FunctionName) {
-                    return O.none();
+                    return None;
                 }
 
                 if (AST.is(N.FunctionDeclaration)(latestDef.node)) {
-                    return O.some({ type: ConstructionType.FUNCTION_DECLARATION, node: latestDef.node, usage: node });
+                    return ConstructionType("FUNCTION_DECLARATION")({
+                        name: "function declaration",
+                        node: latestDef.node,
+                        usage: node,
+                    });
                 }
 
                 if (!("init" in latestDef.node) || latestDef.node.init === null) {
-                    return O.none();
+                    return None;
                 }
 
                 return detect(latestDef.node.init);
             })
-            .with(N.Literal, () => {
+            .when(AST.is(N.Literal), (node) => {
                 if ("regex" in node) {
-                    O.some({ type: ConstructionType.REGULAR_EXPRESSION, node });
+                    return ConstructionType("REGULAR_EXPRESSION")({ name: "regular expression", node });
                 }
 
-                return O.none();
+                return None;
             })
-            .with(P.union(N.TSAsExpression, N.TSTypeAssertion), () => {
+            .when(AST.isOneOf([N.TSAsExpression, N.TSTypeAssertion]), () => {
                 if (!("expression" in node) || !I.isObject(node.expression)) {
-                    return O.none();
+                    return None;
                 }
 
                 return detect(node.expression);
             })
-            .otherwise(O.none);
+            .otherwise(() => None);
     };
 
     return detect;

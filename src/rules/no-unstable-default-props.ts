@@ -3,13 +3,13 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import birecord from "birecord";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
-import { I } from "../lib/primitives/data";
+import { I } from "../lib/primitives";
 import { AST } from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
 
 export const RULE_NAME = "no-unstable-default-props";
 
-type MessageID = "UNSTABLE_DEFAULT_PROP";
+type MessageID = "INVALID";
 
 type Options = readonly [];
 
@@ -46,7 +46,7 @@ export default createEslintRule<Options, MessageID>({
         },
         schema: [],
         messages: {
-            UNSTABLE_DEFAULT_PROP:
+            INVALID:
                 "found a/an {{forbiddenType}} as default prop. This could lead to potential infinite render loop in React. Use a variable reference instead of {{forbiddenType}}.",
         },
     },
@@ -65,12 +65,11 @@ export default createEslintRule<Options, MessageID>({
                         continue;
                     }
 
-                    const { properties } = params[0];
+                    const [{ properties }] = params;
                     for (const prop of properties) {
-                        // dprint-ignore
                         if (
-                            !AST.is(N.Property)(prop) ||
-                            !AST.is(N.AssignmentPattern)(prop.value)
+                            !AST.is(N.Property)(prop)
+                            || !AST.is(N.AssignmentPattern)(prop.value)
                         ) {
                             continue;
                         }
@@ -87,7 +86,7 @@ export default createEslintRule<Options, MessageID>({
                                 data: {
                                     forbiddenType: "regex literal",
                                 },
-                                messageId: "UNSTABLE_DEFAULT_PROP",
+                                messageId: "INVALID",
                                 node: propKey,
                             });
 
@@ -103,7 +102,7 @@ export default createEslintRule<Options, MessageID>({
                                 data: {
                                     forbiddenType: "Symbol literal",
                                 },
-                                messageId: "UNSTABLE_DEFAULT_PROP",
+                                messageId: "INVALID",
                                 node: propKey,
                             });
 
@@ -118,7 +117,7 @@ export default createEslintRule<Options, MessageID>({
                             data: {
                                 forbiddenType,
                             },
-                            messageId: "UNSTABLE_DEFAULT_PROP",
+                            messageId: "INVALID",
                             node: propKey,
                         });
                     }

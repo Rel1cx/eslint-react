@@ -2,12 +2,7 @@
     "entryPoints": [
         "typings/index.ts",
         "src/lib/case-validator/case-validator.ts",
-        "src/lib/primitives/data.ts",
-        "src/lib/primitives/enum.ts",
-        "src/lib/primitives/function.ts",
-        "src/lib/primitives/narrow.ts",
-        "src/lib/primitives/record.ts",
-        "src/lib/primitives/union.ts",
+        "src/lib/primitives/index.ts",
         "src/utils/ast.ts",
         "src/utils/component-collector.ts",
         "src/utils/component-detector-legacy.ts",

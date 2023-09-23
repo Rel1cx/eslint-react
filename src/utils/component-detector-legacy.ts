@@ -4,7 +4,7 @@ import type { TSESLint } from "@typescript-eslint/utils";
 import { type TSESTree } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
 
-import { E, F } from "../lib/primitives/data";
+import { E, F } from "../lib/primitives";
 import { getCreateClassFromContext, getFromContext } from "./pragma";
 
 /**

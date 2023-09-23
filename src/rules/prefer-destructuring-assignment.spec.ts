@@ -183,5 +183,34 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     ],
-    invalid: [],
+    invalid: [
+        // TODO: Add option to control destructuring assignments in function body
+        // {
+        //     code: `const App = (props) => {
+        //         const { id, className } = props
+        //         return <div id={id} className={className} />
+        //       }`,
+        //     errors: [
+        //         {
+        //             messageId: "USE_DESTRUCTURING_ASSIGNMENT",
+        //         },
+        //         {
+        //             messageId: "USE_DESTRUCTURING_ASSIGNMENT",
+        //         },
+        //     ],
+        // },
+        {
+            code: `function App(props) {
+          return <div id={props.id} className={props.className} />
+        }`,
+            errors: [
+                {
+                    messageId: "USE_DESTRUCTURING_ASSIGNMENT",
+                },
+                {
+                    messageId: "USE_DESTRUCTURING_ASSIGNMENT",
+                },
+            ],
+        },
+    ],
 });

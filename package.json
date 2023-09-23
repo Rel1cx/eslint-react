@@ -59,7 +59,7 @@
         "format:check": "dprint check",
         "format:write": "dprint fmt",
         "lint": "bun run lint:spell && bun run lint:deps && bun run lint:ts && bun run lint:type",
-        "lint:deps": "skott -m graph -e .ts -s",
+        "lint:deps": "skott -m file-tree -e .ts -s",
         "lint:spell": "cspell lint --relative --no-progress '**'",
         "lint:ts": "eslint --ext .ts .",
         "lint:type": "tsc --noEmit",

@@ -2,12 +2,12 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
-import { I } from "../lib/primitives/data";
+import { I } from "../lib/primitives";
 import { AST } from "../utils/ast";
 
 export const RULE_NAME = "no-deprecated-string-refs";
 
-type MessageID = "DEPRECATED_STRING_REF";
+type MessageID = "INVALID";
 
 type Options = readonly [];
 
@@ -43,7 +43,7 @@ export default createEslintRule<Options, MessageID>({
         },
         schema: [],
         messages: {
-            DEPRECATED_STRING_REF: "String refs are deprecated. Use callback refs instead.",
+            INVALID: "String refs are deprecated. Use callback refs instead.",
         },
     },
     defaultOptions,
@@ -57,7 +57,7 @@ export default createEslintRule<Options, MessageID>({
                 const hasStringLiteral = containsStringLiteral(node) || containsStringExpressionContainer(node);
                 if (hasStringLiteral) {
                     context.report({
-                        messageId: "DEPRECATED_STRING_REF",
+                        messageId: "INVALID",
                         node,
                     });
                 }

@@ -5,7 +5,7 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/utils";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import memo from "micro-memoize";
 
-import { I } from "../lib/primitives/data";
+import { I } from "../lib/primitives";
 import { uniqueBy } from "../lib/unique-by";
 
 export type FunctionNode =

@@ -7,7 +7,7 @@ import { isJSX } from "../../utils/jsx";
 
 export const RULE_NAME = "jsx/no-misused-comment-in-textnode";
 
-type MessageID = "MISUSED_COMMENT_IN_TEXTNODE";
+type MessageID = "INVALID";
 
 type Options = readonly [];
 
@@ -22,7 +22,7 @@ export default createEslintRule<Options, MessageID>({
         },
         schema: [],
         messages: {
-            MISUSED_COMMENT_IN_TEXTNODE:
+            INVALID:
                 "Possible misused comment in text node. Comments inside children section of tag should be placed inside braces",
         },
     },
@@ -45,7 +45,7 @@ export default createEslintRule<Options, MessageID>({
 
             if (checkText(node)) {
                 context.report({
-                    messageId: "MISUSED_COMMENT_IN_TEXTNODE",
+                    messageId: "INVALID",
                     node,
                 });
             }

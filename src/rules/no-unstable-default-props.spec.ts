@@ -17,7 +17,7 @@ const ruleTester = new RuleTester({
     },
 });
 
-const MESSAGE_ID = "UNSTABLE_DEFAULT_PROP";
+const MESSAGE_ID = "INVALID";
 
 const expectedViolations = [
     {

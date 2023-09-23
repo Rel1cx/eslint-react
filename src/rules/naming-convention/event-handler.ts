@@ -4,13 +4,13 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import { createEslintRule } from "../../../tools/create-eslint-rule";
-import { O } from "../../lib/primitives/data";
+import { O } from "../../lib/primitives";
 import { AST } from "../../utils/ast";
 import * as JSXUtils from "../../utils/jsx";
 
 export const RULE_NAME = "naming-convention/event-handler";
 
-type MessageID = "BAD_HANDLER_NAME" | "BAD_PROP_KEY";
+type MessageID = "INVALID_HANDLER_NAME" | "INVALID_PROP_KEY";
 
 type Options = readonly [
     {
@@ -97,9 +97,9 @@ export default createEslintRule<Options, MessageID>({
         },
         schema,
         messages: {
-            BAD_HANDLER_NAME:
+            INVALID_HANDLER_NAME:
                 "Handler function for {{propKey}} prop key must be a camelCase name beginning with '{{handlerPrefix}}' only",
-            BAD_PROP_KEY: "Prop key for {{propValue}} must begin with '{{handlerPropPrefix}}'",
+            INVALID_PROP_KEY: "Prop key for {{propValue}} must begin with '{{handlerPropPrefix}}'",
         },
     },
     defaultOptions,
@@ -158,7 +158,7 @@ export default createEslintRule<Options, MessageID>({
                             handlerPropPrefix,
                             propValue,
                         },
-                        messageId: "BAD_PROP_KEY",
+                        messageId: "INVALID_PROP_KEY",
                         node,
                     });
                 }
@@ -168,7 +168,7 @@ export default createEslintRule<Options, MessageID>({
                             handlerPrefix,
                             propKey,
                         },
-                        messageId: "BAD_HANDLER_NAME",
+                        messageId: "INVALID_HANDLER_NAME",
                         node,
                     });
                 }

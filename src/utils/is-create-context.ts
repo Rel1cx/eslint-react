@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
-import { F, I } from "../lib/primitives/data";
+import { F, I } from "../lib/primitives";
 import { AST } from "./ast";
 
 export function isCreateContext(node: TSESTree.Node) {

@@ -1,3 +1,4 @@
+export * as Data from "@effect/data/Data";
 export * as E from "@effect/data/Either";
 export * as F from "@effect/data/Function";
 export * as MutList from "@effect/data/MutableList";
