@@ -9,10 +9,6 @@ export const RULE_NAME = "no-deprecated-string-refs";
 
 type MessageID = "INVALID";
 
-type Options = readonly [];
-
-const defaultOptions = [] as const satisfies Options;
-
 function containsStringLiteral({ value }: TSESTree.JSXAttribute) {
     if (I.isNullable(value)) {
         return false;
@@ -33,7 +29,7 @@ function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
     );
 }
 
-export default createEslintRule<Options, MessageID>({
+export default createEslintRule<[], MessageID>({
     name: RULE_NAME,
     meta: {
         type: "problem",
@@ -46,7 +42,7 @@ export default createEslintRule<Options, MessageID>({
             INVALID: "String refs are deprecated. Use callback refs instead.",
         },
     },
-    defaultOptions,
+    defaultOptions: [],
     create(context) {
         return {
             JSXAttribute(node) {

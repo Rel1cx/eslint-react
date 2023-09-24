@@ -81,7 +81,7 @@
         "@rollup/plugin-commonjs": "25.0.4",
         "@rollup/plugin-json": "6.0.0",
         "@rollup/plugin-node-resolve": "15.2.1",
-        "@swc/core": "1.3.87",
+        "@swc/core": "1.3.88",
         "@tsconfig/strictest": "2.0.2",
         "@typescript-eslint/eslint-plugin": "6.7.2",
         "@typescript-eslint/rule-tester": "6.7.2",

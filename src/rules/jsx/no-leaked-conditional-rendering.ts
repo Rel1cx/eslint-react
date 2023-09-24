@@ -10,11 +10,7 @@ export const RULE_NAME = "jsx/no-leaked-conditional-rendering";
 
 type MessageID = "INVALID";
 
-type Options = readonly [];
-
 type TernaryAlternateValue = RegExp | bigint | boolean | null | number | string;
-
-const defaultOptions = [] as const satisfies Options;
 
 const COERCE_STRATEGY = "coerce";
 const TERNARY_STRATEGY = "ternary";
@@ -48,7 +44,7 @@ function isValidTernaryAlternate(node: TSESTree.ConditionalExpression) {
     return !TERNARY_INVALID_ALTERNATE_VALUES.has(node.alternate.value);
 }
 
-export default createEslintRule<Options, MessageID>({
+export default createEslintRule<[], MessageID>({
     name: RULE_NAME,
     meta: {
         type: "problem",
@@ -61,7 +57,7 @@ export default createEslintRule<Options, MessageID>({
             INVALID: "Potential leaked value that might cause unintentionally rendered values or rendering crashes",
         },
     },
-    defaultOptions,
+    defaultOptions: [],
     create(context) {
         const service = getParserServices(context);
 

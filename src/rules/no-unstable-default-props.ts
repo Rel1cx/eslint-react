@@ -11,10 +11,6 @@ export const RULE_NAME = "no-unstable-default-props";
 
 type MessageID = "INVALID";
 
-type Options = readonly [];
-
-const defaultOptions = [] as const satisfies Options;
-
 const FORBIDDEN_TYPES = birecord({
     [N.ArrayExpression]: "array literal",
     [N.ArrowFunctionExpression]: "arrow function",
@@ -36,7 +32,7 @@ function hasUsedObjectDestructuringSyntax(
     return !I.isNullable(param) && AST.is(N.ObjectPattern)(param);
 }
 
-export default createEslintRule<Options, MessageID>({
+export default createEslintRule<[], MessageID>({
     name: RULE_NAME,
     meta: {
         type: "problem",
@@ -50,7 +46,7 @@ export default createEslintRule<Options, MessageID>({
                 "found a/an {{forbiddenType}} as default prop. This could lead to potential infinite render loop in React. Use a variable reference instead of {{forbiddenType}}.",
         },
     },
-    defaultOptions,
+    defaultOptions: [],
     create(context) {
         const collector = ComponentCollector.make(context);
 

@@ -9,11 +9,7 @@ export const RULE_NAME = "jsx/no-misused-comment-in-textnode";
 
 type MessageID = "INVALID";
 
-type Options = readonly [];
-
-const defaultOptions = [] as const satisfies Options;
-
-export default createEslintRule<Options, MessageID>({
+export default createEslintRule<[], MessageID>({
     name: RULE_NAME,
     meta: {
         type: "problem",
@@ -26,7 +22,7 @@ export default createEslintRule<Options, MessageID>({
                 "Possible misused comment in text node. Comments inside children section of tag should be placed inside braces",
         },
     },
-    defaultOptions,
+    defaultOptions: [],
     create(context) {
         function checkText(node: TSESTree.JSXText | TSESTree.Literal) {
             if (AST.isOneOf([N.JSXAttribute, N.JSXExpressionContainer])(node.parent)) {

@@ -13,11 +13,7 @@ type MessageID =
     | "CONTEXT_VALUE_CONSTRUCTION_FUNCTION"
     | "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER";
 
-type Options = readonly [];
-
-const defaultOptions = [] as const satisfies Options;
-
-export default createEslintRule<Options, MessageID>({
+export default createEslintRule<[], MessageID>({
     name: RULE_NAME,
     meta: {
         type: "problem",
@@ -35,7 +31,7 @@ export default createEslintRule<Options, MessageID>({
                 "The {{type}} passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useMemo hook.",
         },
     },
-    defaultOptions,
+    defaultOptions: [],
     create(context) {
         const collector = ComponentCollector.make(context);
 
@@ -72,7 +68,6 @@ export default createEslintRule<Options, MessageID>({
                 const valueExpression = valueNode.expression;
                 const invocationScope = context.getScope();
                 const constructionInfo = detectConstruction(valueExpression, invocationScope);
-
                 if (constructionInfo._tag === "NONE") {
                     return;
                 }

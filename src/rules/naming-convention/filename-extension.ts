@@ -7,11 +7,7 @@ export const RULE_NAME = "naming-convention/filename-extension";
 
 type MessageID = "INVALID";
 
-type Options = readonly [];
-
-const defaultOptions = [] as const satisfies Options;
-
-export default createEslintRule<Options, MessageID>({
+export default createEslintRule<[], MessageID>({
     name: RULE_NAME,
     meta: {
         type: "suggestion",
@@ -23,7 +19,7 @@ export default createEslintRule<Options, MessageID>({
             INVALID: "Potential misuse of the `.tsx` extension. Use `.ts` instead.",
         },
     },
-    defaultOptions,
+    defaultOptions: [],
     create(context) {
         const filename = context.getFilename();
 

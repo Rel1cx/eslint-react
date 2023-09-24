@@ -18,14 +18,8 @@ Examples of **correct** code for this rule:
 
 ## Rule Options
 
-- rule - `"never"` or `"always"` (default: `"never"`)
-- excepts - an array of strings (default: `[]`)
-
-### Type Signature
-
-```ts
-type Options = { rule?: "never" | "always"; excepts?: string[] };
-```
+- `rule`: `"never"` or `"always"`
+- `excepts`: an array of strings
 
 ### Default Option
 
@@ -67,7 +61,3 @@ Examples of **correct** code for this rule with the `"always"` option:
 ```tsx
 <Component hidden={true} disabled={false} />;
 ```
-
-## When Not To Use It
-
-If you don't want to enforce a consistent style for boolean attributes in JSX, you can disable this rule.

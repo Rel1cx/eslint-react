@@ -2,6 +2,10 @@
 
 Warns when a function component is found. Useful for debugging.
 
+> **Warning**
+> This rule should only be used for debugging purposes.
+> Otherwise, leave it off.
+
 ## Rule Details
 
 Examples of **correct** case for this rule:
@@ -38,7 +42,3 @@ function Component() {
     return React.createElement("div");
 }
 ```
-
-## When To Use It
-
-It should only be used for debugging purposes. Otherwise, leave it off.

@@ -45,14 +45,6 @@ src/components/example_component.tsx
 - `rule`: The naming convention to enforce. Defaults to `PascalCase`
 - `excepts`: An array of regexp that should be ignored by the rule. Defaults to `[]`
 
-### Type Signature
-
-```ts
-type Options = {
-    rule: "PascalCase" | "kebab-case" | "camelCase" | "snake_case";
-};
-```
-
 ### Default Option
 
 ```json

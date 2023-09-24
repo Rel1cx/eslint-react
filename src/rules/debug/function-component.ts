@@ -7,13 +7,9 @@ export const RULE_NAME = "debug/function-component";
 
 type MessageID = "FUNCTION_COMPONENT" | "POSSIBLE_FUNCTION_COMPONENT";
 
-type Options = readonly [];
-
-const defaultOptions = [] as const satisfies Options;
-
 const count = MutRef.make(0);
 
-export default createEslintRule<Options, MessageID>({
+export default createEslintRule<[], MessageID>({
     name: RULE_NAME,
     meta: {
         type: "suggestion",
@@ -28,7 +24,7 @@ export default createEslintRule<Options, MessageID>({
             POSSIBLE_FUNCTION_COMPONENT: "possible function component found ({{count}})",
         },
     },
-    defaultOptions,
+    defaultOptions: [],
     create(context) {
         const collector = ComponentCollector.make(context);
 
