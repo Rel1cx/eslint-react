@@ -4,7 +4,6 @@ import { ASTUtils } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/utils";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import memo from "micro-memoize";
-import { match } from "ts-pattern";
 
 import { I } from "../lib/primitives";
 import { uniqueBy } from "../lib/unique-by";

@@ -89,16 +89,16 @@ export default [
 
 ## Philosophy
 
-- Focus on code rather than style.
-- Linting errors are better than runtime crashes.
-- Types are the fundamental unit of correctness.
+- **Focus on code rather than style**.
+- **Linting errors are better than runtime crashes**.
+- **Types are the fundamental unit of correctness**.
 
-## Rule introduction or modification guidelines
+## Rule introduction or modification principles
 
-1. If a behavior can already be enforced by TypeScript built-in checker, it should not be implemented in the plugin.
-2. Rules should not be concerned with style or formatting; leave that to the formatter.
-3. Each rule should have a single, well-defined purpose that can be described in one sentence, ideally serving as its name.
-4. Rules should be easy to set up and use, with minimal configuration.
+1. **TypeScript first**. If a behavior can already be enforced by TypeScript built-in checker, it should not be reimplemented in this plugin.
+2. **Formatting independent**. Rules should not be concerned with style or formatting.
+3. **Auto-fixable**. Rules should be auto-fixable if it is safe and possible, but this is not the goal.
+4. **Sensible defaults**. Rules should be easy to setup and use with minimal configuration and sensible defaults.
 
 ## License
 
