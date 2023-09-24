@@ -17,7 +17,8 @@
         "noUnusedLocals": false,
         "noUnusedParameters": false,
         "exactOptionalPropertyTypes": true,
-        "noEmit": true
+        "noEmit": true,
+        "composite": false
     },
     "include": ["."],
     "exclude": ["node_modules", "**/dist"],
