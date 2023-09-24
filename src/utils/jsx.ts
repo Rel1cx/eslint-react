@@ -6,6 +6,7 @@ import type { RuleContext } from "../../typings";
 import { F, I, O } from "../lib/primitives";
 import { AST } from "./ast";
 import { isCreateElement } from "./is-create-element";
+import { isWhiteSpace } from "./string";
 import { findVariableByNameUpToGlobal } from "./variable";
 
 export const isJSXElement = AST.is(N.JSXElement);
@@ -210,10 +211,6 @@ export function findPropInAttributes(
             }),
         );
     };
-}
-
-export function isWhiteSpace(value: string) {
-    return /^\s*$/u.test(value);
 }
 
 export function isLineBreak(node: TSESTree.Node): boolean {
