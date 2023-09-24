@@ -4,6 +4,7 @@ import { ASTUtils } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/utils";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import memo from "micro-memoize";
+import { match } from "ts-pattern";
 
 import { I } from "../lib/primitives";
 import { uniqueBy } from "../lib/unique-by";
@@ -189,6 +190,21 @@ export const AST = {
 
         return returnStatements;
     }),
+    getReactComponentIdentifier(node: FunctionNode): TSESTree.Identifier | null {
+        if (node.id) {
+            return node.id;
+        }
+
+        if (AST.is(N.FunctionDeclaration)(node)) {
+            return node.id;
+        }
+
+        if (AST.is(N.ArrowFunctionExpression)(node) || AST.is(N.FunctionExpression)(node)) {
+            return "id" in node.parent && AST.isIdentifier(node.parent.id) ? node.parent.id : null;
+        }
+
+        return null;
+    },
     getReferencedExpressionByIdentifier(params: {
         context: Readonly<RuleContext<string, readonly []>>;
         node: TSESTree.Node;

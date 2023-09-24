@@ -22,11 +22,11 @@ ruleTester.run(RULE_NAME, rule, {
     invalid: [
         {
             code: `function App() { return <div>foo</div> }`,
-            errors: [{ messageId: "FUNCTION_COMPONENT" }],
+            errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App" } }],
         },
         {
             code: `const App = () => <div>foo</div>`,
-            errors: [{ messageId: "FUNCTION_COMPONENT" }],
+            errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App" } }],
         },
         {
             code: `const App = React.memo(() => <div>foo</div>)`,
@@ -34,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
             code: `const App = React.memo(function App() { return <div>foo</div> })`,
-            errors: [{ messageId: "FUNCTION_COMPONENT" }],
+            errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App" } }],
         },
         {
             code: `const App = React.forwardRef(() => <div>foo</div>)`,
@@ -42,7 +42,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
             code: `const App = () => React.createElement('div', null, 'foo')`,
-            errors: [{ messageId: "FUNCTION_COMPONENT" }],
+            errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App" } }],
         },
     ],
 });

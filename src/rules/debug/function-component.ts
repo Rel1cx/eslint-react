@@ -1,5 +1,6 @@
 import { createEslintRule } from "../../../tools/create-eslint-rule";
-import { F, MutRef, O } from "../../lib/primitives";
+import { MutRef } from "../../lib/primitives";
+import { AST } from "../../utils/ast";
 import * as ComponentCollector from "../../utils/component-collector";
 import { isComponentName } from "../../utils/is-component-name";
 
@@ -34,16 +35,15 @@ export default createEslintRule<[], MessageID>({
                 const components = collector.getComponents();
 
                 for (const component of components) {
-                    const maybeName = F.pipe(
-                        O.fromNullable(component.id || ("id" in component.parent ? component.parent.id : null)),
-                        O.flatMapNullable((id) => "name" in id ? id.name : null),
-                    );
-
-                    if (O.isSome(maybeName) && !isComponentName(maybeName.value)) {
+                    const maybeName = component.id?.name;
+                    if (maybeName && !isComponentName(maybeName)) {
                         continue;
                     }
 
-                    if (O.isNone(maybeName)) {
+                    const maybeId = AST.getReactComponentIdentifier(component);
+
+                    const name = maybeName ?? maybeId?.name;
+                    if (!name) {
                         context.report({
                             data: {
                                 id: MutRef.incrementAndGet(count),
@@ -56,7 +56,7 @@ export default createEslintRule<[], MessageID>({
 
                     context.report({
                         data: {
-                            name: maybeName.value,
+                            name,
                         },
                         messageId: "FUNCTION_COMPONENT",
                         node: component,
