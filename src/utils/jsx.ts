@@ -3,7 +3,7 @@ import memo from "micro-memoize";
 import { match, P } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
-import { F, I, O } from "../lib/primitives";
+import { F, isNil, isString, O } from "../lib/primitives";
 import { AST } from "./ast";
 import { isCreateElement } from "./is-create-element";
 import { isWhiteSpace } from "./string";
@@ -71,7 +71,7 @@ export const isJSXValue = memo(
                 }
                 const exp = node.expressions.at(-1);
 
-                return !I.isNullable(exp) && isJSXValue(exp, context, strict, ignoreNull);
+                return !isNil(exp) && isJSXValue(exp, context, strict, ignoreNull);
             })
             .with(N.CallExpression, () => isCreateElement(node, context))
             .with(N.Identifier, () => {
@@ -81,7 +81,7 @@ export const isJSXValue = memo(
                 if (isJsxTagNameExpression(node)) {
                     return true;
                 }
-                if (!I.isString(node.name) && !AST.is(N.Identifier)(node.name)) {
+                if (!isString(node.name) && !AST.is(N.Identifier)(node.name)) {
                     return isJsxTagNameExpression(node.name);
                 }
                 const name = match(node.name)
@@ -215,7 +215,7 @@ export function findPropInAttributes(
 
 export function isLineBreak(node: TSESTree.Node): boolean {
     const isLiteral = AST.isOneOf([N.Literal, N.JSXText])(node);
-    if (!("value" in node) || !I.isString(node.value)) {
+    if (!("value" in node) || !isString(node.value)) {
         return false;
     }
 

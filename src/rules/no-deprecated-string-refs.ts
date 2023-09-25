@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
-import { I } from "../lib/primitives";
+import { isNil, isString } from "../lib/primitives";
 import { AST } from "../utils/ast";
 
 export const RULE_NAME = "no-deprecated-string-refs";
@@ -10,21 +10,21 @@ export const RULE_NAME = "no-deprecated-string-refs";
 type MessageID = "INVALID";
 
 function containsStringLiteral({ value }: TSESTree.JSXAttribute) {
-    if (I.isNullable(value)) {
+    if (isNil(value)) {
         return false;
     }
 
-    return AST.is(N.Literal)(value) && I.isString(value.value);
+    return AST.is(N.Literal)(value) && isString(value.value);
 }
 
 function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
-    if (I.isNullable(value)) {
+    if (isNil(value)) {
         return false;
     }
 
     return (
         AST.is(N.JSXExpressionContainer)(value)
-        && ((AST.is(N.Literal)(value.expression) && I.isString(value.expression.value))
+        && ((AST.is(N.Literal)(value.expression) && isString(value.expression.value))
             || AST.is(N.TemplateLiteral)(value.expression))
     );
 }

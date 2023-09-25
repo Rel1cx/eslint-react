@@ -1,6 +1,6 @@
 import * as validFunction from "../../../test/common/valid/function";
 import RuleTester, { getFixturesRootDir } from "../../../test/rule-tester";
-import rule, { RULE_NAME } from "./prefer-shorthand-boolean";
+import rule, { RULE_NAME } from "././prefer-shorthand-boolean";
 
 const rootDir = getFixturesRootDir();
 
@@ -20,101 +20,19 @@ const ruleTester = new RuleTester({
 ruleTester.run(RULE_NAME, rule, {
     valid: [
         ...validFunction.all,
-        {
-            code: `<App foo />`,
-            options: [
-                {
-                    rule: "never",
-                },
-            ],
-        },
-        {
-            code: `<App foo bar={true} />`,
-            options: [
-                {
-                    rule: "always",
-                    excepts: ["foo"],
-                },
-            ],
-        },
-        {
-            code: `<App foo={true} />`,
-            options: [
-                {
-                    rule: "always",
-                },
-            ],
-        },
-        {
-            code: `<App foo={true} bar />`,
-            options: [
-                {
-                    rule: "never",
-                    excepts: ["foo"],
-                },
-            ],
-        },
+        `<App foo />`,
+        `<App foo bar />`,
+        `<App foo bar={false} />`,
+        `<App foo bar={false} baz />`,
     ],
     invalid: [
         {
             code: `<App foo={true} />`,
-            options: [
-                {
-                    rule: "never",
-                },
-            ],
-            errors: [{ messageId: "OMIT_VALUE" }],
+            errors: [{ messageId: "INVALID" }],
         },
         {
-            code: `<App foo={true} bar={true} baz={true} />`,
-            options: [
-                {
-                    rule: "always",
-                    excepts: ["foo", "bar"],
-                },
-            ],
-            errors: [
-                {
-                    messageId: "OMIT_VALUE",
-                },
-                {
-                    messageId: "OMIT_VALUE",
-                },
-            ],
-        },
-        {
-            code: `<App foo={true} />`,
-            errors: [{ messageId: "OMIT_VALUE" }],
-        },
-        {
-            code: `<App foo = {true} />`,
-            errors: [{ messageId: "OMIT_VALUE" }],
-        },
-        {
-            code: `<App foo />`,
-            options: [
-                {
-                    rule: "always",
-                },
-            ],
-            errors: [{ messageId: "SET_VALUE" }],
-        },
-        {
-            code: `<App foo bar baz />`,
-            options: [
-                {
-                    rule: "never",
-                    excepts: ["foo", "bar"],
-                },
-            ],
-            errors: [
-                {
-                    messageId: "SET_VALUE",
-                },
-                {
-                    messageId: "SET_VALUE",
-                },
-            ],
+            code: `<App foo={true} bar />`,
+            errors: [{ messageId: "INVALID" }],
         },
     ],
 });

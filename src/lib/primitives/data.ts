@@ -5,6 +5,5 @@ export * as MutList from "@effect/data/MutableList";
 export * as MutRef from "@effect/data/MutableRef";
 export * as Num from "@effect/data/Number";
 export * as O from "@effect/data/Option";
-export * as I from "@effect/data/Predicate";
 export * as Rec from "@effect/data/ReadonlyRecord";
 export * as Str from "@effect/data/String";

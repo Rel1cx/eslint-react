@@ -38,6 +38,7 @@
         "eslint-plugin/require-meta-docs-url": "off",
         "perfectionist/sort-named-imports": "off",
         "perfectionist/sort-imports": "off",
+        "perfectionist/sort-exports": "off",
         "perfectionist/sort-union-types": [
             "warn",
             {

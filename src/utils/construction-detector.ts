@@ -4,7 +4,7 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
-import { Data, F, I, O } from "../lib/primitives";
+import { Data, F, isNil, isObject, isString, O } from "../lib/primitives";
 import { AST } from "./ast";
 
 export type ConstructionType = Data.TaggedEnum<{
@@ -123,7 +123,7 @@ export function make<T extends RuleContext>(context: T) {
                 return detect(node.right);
             })
             .when(AST.is(N.ConditionalExpression), (node) => {
-                if (!("consequent" in node && "alternate" in node && !I.isNullable(node.alternate))) {
+                if (!("consequent" in node && "alternate" in node && !isNil(node.alternate))) {
                     return None;
                 }
 
@@ -136,7 +136,7 @@ export function make<T extends RuleContext>(context: T) {
                 return detect(node.alternate);
             })
             .when(AST.is(N.Identifier), (node) => {
-                if (!("name" in node && I.isString(node.name))) {
+                if (!("name" in node && isString(node.name))) {
                     return None;
                 }
 
@@ -178,7 +178,7 @@ export function make<T extends RuleContext>(context: T) {
                 return None;
             })
             .when(AST.isOneOf([N.TSAsExpression, N.TSTypeAssertion]), () => {
-                if (!("expression" in node) || !I.isObject(node.expression)) {
+                if (!("expression" in node) || !isObject(node.expression)) {
                     return None;
                 }
 

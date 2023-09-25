@@ -57,7 +57,7 @@ export default [
 ];
 ```
 
-## Todo
+## Rules
 
 - [x] `react-ts/jsx/prefer-shorthand-boolean`
 - [x] `react-ts/jsx/no-leaked-conditional-rendering`
@@ -69,7 +69,8 @@ export default [
 - [x] `react-ts/naming-convention/filename`
 - [x] `react-ts/naming-convention/filename-extension`
 - [x] `react-ts/no-constructed-context-value`
-- [x] `react-ts/no-danger-with-children`
+- [ ] `react-ts/no-dangerously-set-innerhtml`
+- [x] `react-ts/no-dangerously-set-innerhtml-with-children`
 - [x] `react-ts/no-deprecated-string-refs`
 - [x] `react-ts/no-unstable-default-props`
 - [ ] `react-ts/no-unstable-nested-components`

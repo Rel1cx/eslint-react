@@ -1,6 +1,6 @@
 import * as validFunction from "../../test/common/valid/function";
 import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
-import rule, { RULE_NAME } from "./no-danger-with-children";
+import rule, { RULE_NAME } from "./no-dangerously-set-innerhtml-with-children";
 
 const rootDir = getFixturesRootDir();
 

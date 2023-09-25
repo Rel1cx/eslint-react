@@ -1,7 +1,8 @@
 import type { TSESTree } from "@typescript-eslint/types";
+import { isNil } from "rambda";
 
 import type { RuleContext } from "../../typings";
-import { E, F, I, MutList, O } from "../lib/primitives";
+import { E, F, MutList, O } from "../lib/primitives";
 import type { FunctionNode } from "./ast";
 import { isComponentName } from "./is-component-name";
 import { isJSXValue, isReturnStatementReturningJSX } from "./jsx";
@@ -45,7 +46,7 @@ export function make(context: RuleContext) {
                 O.map((currentFn) => {
                     const { parent } = currentFn;
 
-                    if ("id" in parent && !I.isNullable(parent.id) && "name" in parent.id) {
+                    if ("id" in parent && !isNil(parent.id) && "name" in parent.id) {
                         const { name } = parent.id;
                         if (!isComponentName(name)) {
                             return;

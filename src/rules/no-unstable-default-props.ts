@@ -1,9 +1,9 @@
 import { type TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import birecord from "birecord";
+import { isNil } from "rambda";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
-import { I } from "../lib/primitives";
 import { AST } from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
 
@@ -29,7 +29,7 @@ function hasUsedObjectDestructuringSyntax(
     }
     const [param] = params;
 
-    return !I.isNullable(param) && AST.is(N.ObjectPattern)(param);
+    return !isNil(param) && AST.is(N.ObjectPattern)(param);
 }
 
 export default createEslintRule<[], MessageID>({
@@ -76,7 +76,7 @@ export default createEslintRule<[], MessageID>({
                         if (
                             AST.is(N.Literal)(propDefaultValueRight)
                             && "regex" in propDefaultValueRight
-                            && !I.isNullable(propDefaultValueRight.regex)
+                            && !isNil(propDefaultValueRight.regex)
                         ) {
                             context.report({
                                 data: {

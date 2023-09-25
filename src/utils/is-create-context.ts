@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
-import { F, I } from "../lib/primitives";
+import { F, isObject } from "../lib/primitives";
 import { AST } from "./ast";
 
 export function isCreateContext(node: TSESTree.Node) {
@@ -18,7 +18,7 @@ export function isCreateContext(node: TSESTree.Node) {
 
     if (
         "expression" in node
-        && I.isObject(node.expression)
+        && isObject(node.expression)
         && AST.is(N.AssignmentExpression)(node.expression)
         && node.expression.operator === "="
     ) {

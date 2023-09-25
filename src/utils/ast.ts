@@ -5,7 +5,7 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/utils";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import memo from "micro-memoize";
 
-import { I } from "../lib/primitives";
+import { isNil, isString } from "../lib/primitives";
 import { uniqueBy } from "../lib/unique-by";
 
 export type FunctionNode =
@@ -28,7 +28,7 @@ export const AST = {
     }): TSESLint.Scope.Reference[] {
         const { node, scopeManager, sourceCode } = params;
         const scope = scopeManager.acquire(node);
-        if (I.isNullable(scope)) {
+        if (isNil(scope)) {
             return [];
         }
 
@@ -47,7 +47,7 @@ export const AST = {
                 };
             });
         const localRefIds = new Set([...scope.set.values()].map((x) => sourceCode.getText(x.identifiers[0])));
-        const externalRefs = references.filter((x) => I.isNullable(x.variable.resolved) || !localRefIds.has(x.text));
+        const externalRefs = references.filter((x) => isNil(x.variable.resolved) || !localRefIds.has(x.text));
 
         return uniqueBy(externalRefs, (x) => x.text).map((x) => x.variable);
     },
@@ -83,7 +83,7 @@ export const AST = {
 
         if ("elements" in node) {
             for (const element of node.elements) {
-                if (!I.isNullable(element)) {
+                if (!isNil(element)) {
                     identifiers.push(...AST.getNestedIdentifiers(element));
                 }
             }
@@ -134,7 +134,7 @@ export const AST = {
             returnStatements.push(node);
         }
 
-        if ("body" in node && !I.isNullable(node.body)) {
+        if ("body" in node && !isNil(node.body)) {
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             Array.isArray(node.body)
                 ? node.body.forEach((x) => {
@@ -152,7 +152,7 @@ export const AST = {
                 : returnStatements.push(...AST.getNestedReturnStatements(node.consequent));
         }
 
-        if ("alternate" in node && !I.isNullable(node.alternate)) {
+        if ("alternate" in node && !isNil(node.alternate)) {
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             Array.isArray(node.alternate)
                 ? node.alternate.forEach((x: TSESTree.Node) => {
@@ -171,11 +171,11 @@ export const AST = {
             returnStatements.push(...AST.getNestedReturnStatements(node.block));
         }
 
-        if ("handler" in node && !I.isNullable(node.handler)) {
+        if ("handler" in node && !isNil(node.handler)) {
             returnStatements.push(...AST.getNestedReturnStatements(node.handler));
         }
 
-        if ("finalizer" in node && !I.isNullable(node.finalizer)) {
+        if ("finalizer" in node && !isNil(node.finalizer)) {
             returnStatements.push(...AST.getNestedReturnStatements(node.finalizer));
         }
 
@@ -183,7 +183,7 @@ export const AST = {
             returnStatements.push(...AST.getNestedReturnStatements(node.expression));
         }
 
-        if ("test" in node && !I.isNullable(node.test)) {
+        if ("test" in node && !isNil(node.test)) {
             returnStatements.push(...AST.getNestedReturnStatements(node.test));
         }
 
@@ -227,7 +227,7 @@ export const AST = {
     }) {
         const { functionNode, reference, scopeManager } = params;
         const scope = scopeManager.acquire(functionNode);
-        if (I.isNullable(scope)) {
+        if (isNil(scope)) {
             return false;
         }
 
@@ -267,13 +267,13 @@ export const AST = {
         return AST.is(N.Property)(node) && AST.isIdentifierWithName(node.key, key);
     },
     isStringLiteral(node: TSESTree.Node | null | undefined): node is TSESTree.StringLiteral {
-        return AST.is(N.Literal)(node) && I.isString(node.value);
+        return AST.is(N.Literal)(node) && isString(node.value);
     },
     isValidReactComponentName(identifier: TSESTree.Identifier | null) {
-        return !I.isNullable(identifier) && /^[A-Z]/u.test(identifier.name);
+        return !isNil(identifier) && /^[A-Z]/u.test(identifier.name);
     },
     isValidReactComponentOrHookName(identifier: TSESTree.Identifier | null) {
-        return !I.isNullable(identifier) && /^([A-Z]|use)/u.test(identifier.name);
+        return !isNil(identifier) && /^([A-Z]|use)/u.test(identifier.name);
     },
     mapKeyNodeToText(node: TSESTree.Node, sourceCode: Readonly<TSESLint.SourceCode>) {
         return sourceCode.getText(
