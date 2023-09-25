@@ -1,6 +1,6 @@
 {
     "name": "eslint-plugin-react-ts",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "description": "ESLint plugin to lint TypeScript React and Preact function components using the @typescript-eslint ecosystem.",
     "keywords": [
         "eslint",
@@ -68,11 +68,10 @@
         "test": "vitest --run --single-thread --no-threads"
     },
     "dependencies": {
-        "@typescript-eslint/parser": "6.7.3",
-        "@typescript-eslint/scope-manager": "6.7.3",
-        "@typescript-eslint/type-utils": "6.7.3",
-        "@typescript-eslint/types": "6.7.3",
-        "@typescript-eslint/utils": "6.7.3"
+        "@typescript-eslint/scope-manager": ">=6.7.3",
+        "@typescript-eslint/type-utils": ">=6.7.3",
+        "@typescript-eslint/types": ">=6.7.3",
+        "@typescript-eslint/utils": ">=6.7.3"
     },
     "devDependencies": {
         "@effect/data": "0.18.6",
@@ -113,8 +112,9 @@
         "vitest": "0.34.5"
     },
     "peerDependencies": {
-        "eslint": "8.50.0",
-        "typescript": ">=5.2.2"
+        "eslint": ">=8.50.0",
+        "typescript": ">=5.2.2",
+        "@typescript-eslint/parser": ">=6.7.3"
     },
     "packageManager": "bun@1.0.3",
     "engines": {

@@ -98,8 +98,7 @@ export default [
 
 1. **TypeScript first**. If a behavior can already be enforced by TypeScript built-in checker, it should not be reimplemented in this plugin.
 2. **Formatting independent**. Rules should not be concerned with style or formatting.
-3. **Auto-fixable**. Rules should be auto-fixable if it is safe and possible, but this is not the goal.
-4. **Sensible defaults**. Rules should be easy to setup and use with minimal configuration and sensible defaults.
+3. **Sensible defaults**. Rules should be easy to setup and use with minimal configuration and sensible defaults.
 
 ## License
 
