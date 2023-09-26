@@ -52,12 +52,12 @@ export default createEslintRule<Options, MessageID>({
     create(context) {
         const [cond = "always"] = context.options;
 
-        const collector = ComponentCollector.make(context);
+        const { ctx, listeners } = ComponentCollector.make(context);
         const variableDeclarators: [Scope, TSESTree.VariableDeclarator][] = [];
         const memberExpressionWithNames: [Scope, MemberExpressionWithObjectName][] = [];
 
         return {
-            ...collector.listeners,
+            ...listeners,
             MemberExpression(node) {
                 if (isMemberExpressionWithName(node)) {
                     memberExpressionWithNames.push([context.getScope(), node]);
@@ -68,7 +68,7 @@ export default createEslintRule<Options, MessageID>({
             },
             // eslint-disable-next-line perfectionist/sort-objects, sonarjs/cognitive-complexity
             "Program:exit"() {
-                const components = collector.getComponents();
+                const components = ctx.getComponents();
 
                 function isFunctionComponent(block: TSESTree.Node): block is FunctionNode {
                     return AST.isPossibleNamedReactComponent(block) && components.has(block);

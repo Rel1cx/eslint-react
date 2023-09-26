@@ -61,7 +61,7 @@
         "lint": "bun run lint:spell && bun run lint:deps && bun run lint:ts && bun run lint:type",
         "lint:deps": "skott -m file-tree -e .ts -s",
         "lint:spell": "cspell lint --relative --no-progress '**'",
-        "lint:ts": "eslint --ext .ts .",
+        "lint:ts": "eslint --cache --ext .ts .",
         "lint:type": "tsc --noEmit",
         "prepare": "husky install",
         "publish": "bun run format:write && bun run lint && bun run test && bun run build && bun run publint",
@@ -89,8 +89,8 @@
         "cspell": "7.3.6",
         "dprint": "0.41.0",
         "eslint": "8.50.0",
-        "eslint-config-relicx": "0.12.8",
-        "eslint-config-with-tsconfig": "2.6.9",
+        "eslint-config-relicx": "0.12.9",
+        "eslint-config-with-tsconfig": "2.6.11",
         "eslint-plugin-eslint-plugin": "5.1.1",
         "eslint-plugin-filenames-simple": "0.8.0",
         "fast-equals": "5.0.1",
@@ -118,7 +118,7 @@
     },
     "packageManager": "bun@1.0.3",
     "engines": {
-        "bun": ">=1.0.2",
+        "bun": ">=1.0.3",
         "node": ">=18.16.0"
     },
     "publishConfig": {

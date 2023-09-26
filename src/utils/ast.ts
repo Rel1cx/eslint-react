@@ -15,10 +15,7 @@ export type FunctionNode =
 
 export const AST = {
     ...ASTUtils,
-    findPropertyWithIdentifierKey(
-        properties: TSESTree.ObjectLiteralElement[],
-        key: string,
-    ): TSESTree.Property | undefined {
+    findPropertyWithIdentifierKey(properties: TSESTree.ObjectLiteralElement[], key: string): TSESTree.Property | undefined {
         return properties.find((x) => AST.isPropertyWithIdentifierKey(x, key)) as TSESTree.Property | undefined;
     },
     getExternalRefs(params: {
@@ -263,6 +260,9 @@ export const AST = {
     isPossibleNamedReactComponent(node: TSESTree.Node): node is FunctionNode {
         return AST.isFunctionNode(node) && AST.isValidReactComponentName(node.id);
     },
+    isPropertyOfObjectExpression(node: TSESTree.Node) {
+        return (node.parent && AST.is(N.Property)(node.parent));
+    },
     isPropertyWithIdentifierKey(node: TSESTree.Node, key: string): node is TSESTree.Property {
         return AST.is(N.Property)(node) && AST.isIdentifierWithName(node.key, key);
     },
@@ -272,8 +272,8 @@ export const AST = {
     isValidReactComponentName(identifier: TSESTree.Identifier | null) {
         return !isNil(identifier) && /^[A-Z]/u.test(identifier.name);
     },
-    isValidReactComponentOrHookName(identifier: TSESTree.Identifier | null) {
-        return !isNil(identifier) && /^([A-Z]|use)/u.test(identifier.name);
+    isValidReactHookName(identifier: TSESTree.Identifier | null) {
+        return !isNil(identifier) && /^use[A-Z\d].*$/u.test(identifier.name);
     },
     mapKeyNodeToText(node: TSESTree.Node, sourceCode: Readonly<TSESLint.SourceCode>) {
         return sourceCode.getText(
@@ -297,10 +297,6 @@ export const AST = {
             return null;
         }
 
-        if (predicate(node.parent)) {
-            return node.parent;
-        }
-
-        return AST.traverseUpOnlyPredicate(node.parent, predicate);
+        return predicate(node.parent) ? node.parent : AST.traverseUpOnlyPredicate(node.parent, predicate);
     },
-};
+} as const;

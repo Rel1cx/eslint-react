@@ -14,6 +14,12 @@ export function make(context: RuleContext) {
     const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
     const onFunctionEnter = (node: FunctionNode) => MutList.append(functionStack, node);
     const onFunctionExit = () => MutList.pop(functionStack);
+
+    const ctx = {
+        getComponents,
+        getCurrentFunction,
+    } as const;
+
     const listeners = {
         ArrowFunctionExpression: onFunctionEnter,
         "ArrowFunctionExpression:exit": onFunctionExit,
@@ -62,8 +68,7 @@ export function make(context: RuleContext) {
     } as const;
 
     return {
-        getComponents,
-        getCurrentFunction,
+        ctx,
         listeners,
-    } as const;
+    };
 }

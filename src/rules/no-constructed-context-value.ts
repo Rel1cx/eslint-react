@@ -33,14 +33,14 @@ export default createEslintRule<[], MessageID>({
     },
     defaultOptions: [],
     create(context) {
-        const collector = ComponentCollector.make(context);
+        const { ctx, listeners } = ComponentCollector.make(context);
 
         const possibleValueConstructions = new Map<FunctionNode, ConstructionDetector.ConstructionType>();
 
         const detectConstruction = ConstructionDetector.make(context);
 
         return {
-            ...collector.listeners,
+            ...listeners,
             JSXOpeningElement(node) {
                 const openingElementName = node.name;
                 if (!AST.is(N.JSXMemberExpression)(openingElementName)) {
@@ -73,14 +73,14 @@ export default createEslintRule<[], MessageID>({
                 }
 
                 F.pipe(
-                    collector.getCurrentFunction(),
+                    ctx.getCurrentFunction(),
                     O.map((currentFn) => possibleValueConstructions.set(currentFn, constructionInfo)),
                     E.fromOption(() => "Unexpected empty function stack"),
                     E.mapLeft(console.warn),
                 );
             },
             "Program:exit"() {
-                const components = collector.getComponents();
+                const components = ctx.getComponents();
 
                 for (const [fn, constructionInfo] of possibleValueConstructions.entries()) {
                     if (!components.has(fn) || constructionInfo._tag === "NONE") {

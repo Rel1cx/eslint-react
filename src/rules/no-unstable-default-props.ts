@@ -48,12 +48,12 @@ export default createEslintRule<[], MessageID>({
     },
     defaultOptions: [],
     create(context) {
-        const collector = ComponentCollector.make(context);
+        const { ctx, listeners } = ComponentCollector.make(context);
 
         return {
-            ...collector.listeners,
+            ...listeners,
             "Program:exit"() {
-                const components = collector.getComponents();
+                const components = ctx.getComponents();
 
                 for (const component of components) {
                     const { params } = component;
