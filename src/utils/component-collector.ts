@@ -1,22 +1,29 @@
-import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/types";
 import { isNil } from "rambda";
 
 import type { RuleContext } from "../../typings";
-import { E, F, MutList, O } from "../lib/primitives";
-import type { FunctionNode } from "./ast";
+import { MutList, O } from "../lib/primitives";
+import { AST, type FunctionNode } from "./ast";
 import { isComponentName } from "./is-component-name";
 import { isJSXValue, isReturnStatementReturningJSX } from "./jsx";
+
+const seenComponents = new Set<FunctionNode>();
 
 export function make(context: RuleContext) {
     const components = new Set<FunctionNode>();
     const functionStack = MutList.make<FunctionNode>();
-    const getComponents = () => components;
     const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
     const onFunctionEnter = (node: FunctionNode) => MutList.append(functionStack, node);
     const onFunctionExit = () => MutList.pop(functionStack);
 
     const ctx = {
-        getComponents,
+        getCollectedComponents() {
+            if (!AST.is(AST_NODE_TYPES.Program)(context.getScope().block)) {
+                throw new Error("getCollectedComponents should only be called when Program:exit");
+            }
+
+            return components;
+        },
         getCurrentFunction,
     } as const;
 
@@ -28,42 +35,54 @@ export function make(context: RuleContext) {
         FunctionExpression: onFunctionEnter,
         "FunctionExpression:exit": onFunctionExit,
         ReturnStatement(node: TSESTree.ReturnStatement) {
+            const maybeCurrentFn = getCurrentFunction();
+
+            if (O.isNone(maybeCurrentFn)) {
+                return console.warn("Unexpected empty function stack");
+            }
+
+            const currentFn = maybeCurrentFn.value;
+
+            if (seenComponents.has(currentFn)) {
+                return components.add(currentFn);
+            }
+
             const hasJsx = isReturnStatementReturningJSX(node, context);
+
             if (!hasJsx || MutList.isEmpty(functionStack)) {
                 return;
             }
-            F.pipe(
-                getCurrentFunction(),
-                O.map((currentFn) => components.add(currentFn)),
-                E.fromOption(() => "Unexpected empty function stack"),
-                E.mapLeft(console.warn),
-            );
+
+            seenComponents.add(currentFn);
+            components.add(currentFn);
         },
         // eslint-disable-next-line perfectionist/sort-objects
         "ArrowFunctionExpression[body.type!='BlockStatement']"(node: TSESTree.ArrowFunctionExpression) {
+            const maybeCurrentFn = getCurrentFunction();
+
+            if (O.isNone(maybeCurrentFn)) {
+                return console.warn("Unexpected empty function stack");
+            }
+
+            const currentFn = maybeCurrentFn.value;
+
             const { body } = node;
             const hasJsx = isJSXValue(body, context, false, false);
             if (!hasJsx || MutList.isEmpty(functionStack)) {
                 return;
             }
 
-            F.pipe(
-                getCurrentFunction(),
-                O.map((currentFn) => {
-                    const { parent } = currentFn;
+            const { parent } = currentFn;
 
-                    if ("id" in parent && !isNil(parent.id) && "name" in parent.id) {
-                        const { name } = parent.id;
-                        if (!isComponentName(name)) {
-                            return;
-                        }
-                    }
+            if ("id" in parent && !isNil(parent.id) && "name" in parent.id) {
+                const { name } = parent.id;
+                if (!isComponentName(name)) {
+                    return;
+                }
+            }
 
-                    components.add(currentFn);
-                }),
-                E.fromOption(() => "Unexpected empty function stack"),
-                E.mapLeft(console.warn),
-            );
+            seenComponents.add(currentFn);
+            components.add(currentFn);
         },
     } as const;
 

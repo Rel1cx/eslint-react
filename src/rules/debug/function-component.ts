@@ -32,7 +32,7 @@ export default createEslintRule<[], MessageID>({
         return {
             ...listeners,
             "Program:exit"() {
-                const components = ctx.getComponents();
+                const components = ctx.getCollectedComponents();
 
                 for (const component of components) {
                     const maybeName = component.id?.name;

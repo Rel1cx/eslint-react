@@ -68,7 +68,7 @@ export default createEslintRule<Options, MessageID>({
             },
             // eslint-disable-next-line perfectionist/sort-objects, sonarjs/cognitive-complexity
             "Program:exit"() {
-                const components = ctx.getComponents();
+                const components = ctx.getCollectedComponents();
 
                 function isFunctionComponent(block: TSESTree.Node): block is FunctionNode {
                     return AST.isPossibleNamedReactComponent(block) && components.has(block);

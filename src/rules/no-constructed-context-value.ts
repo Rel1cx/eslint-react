@@ -80,7 +80,7 @@ export default createEslintRule<[], MessageID>({
                 );
             },
             "Program:exit"() {
-                const components = ctx.getComponents();
+                const components = ctx.getCollectedComponents();
 
                 for (const [fn, constructionInfo] of possibleValueConstructions.entries()) {
                     if (!components.has(fn) || constructionInfo._tag === "NONE") {
