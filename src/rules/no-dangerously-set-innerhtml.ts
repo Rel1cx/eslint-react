@@ -6,7 +6,7 @@ import { F, O } from "../lib/primitives";
 import { AST } from "../utils/ast";
 import { isCreateElement } from "../utils/is-create-element";
 import { findPropInAttributes, findPropInProperties } from "../utils/jsx";
-import { findVariableByNameUpToGlobal } from "../utils/variable";
+import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "../utils/variable";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml";
 
@@ -33,21 +33,24 @@ export default createEslintRule<[], MessageID>({
                     return;
                 }
                 const props = node.arguments[1];
-                const properties = match(props)
+                const maybeProperties = match(props)
                     .when(AST.isOneOf([N.ObjectExpression, N.ObjectPattern]), (n) => {
-                        return "properties" in n ? n.properties : [];
+                        return "properties" in n ? O.some(n.properties) : O.none();
                     })
                     .when(AST.is(N.Identifier), (n) => {
                         return F.pipe(
                             findVariableByNameUpToGlobal(n.name, context.getScope()),
-                            O.flatMapNullable((v) => v.defs.at(0)),
-                            O.flatMapNullable((d) => d.node),
-                            O.flatMapNullable((n) => ("init" in n ? n.init : null)),
+                            O.flatMap(getVariableNthDefNodeInit(0)),
                             O.flatMapNullable((n) => ("properties" in n ? n.properties : null)),
-                            O.getOrElse(() => []),
                         );
                     })
-                    .otherwise(() => []);
+                    .otherwise(O.none);
+
+                if (O.isNone(maybeProperties)) {
+                    return;
+                }
+
+                const properties = maybeProperties.value;
 
                 const hasDanger = O.isSome(findPropInProperties(properties, context)("dangerouslySetInnerHTML"));
 

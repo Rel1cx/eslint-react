@@ -7,7 +7,7 @@ import { F, isNil, isString, O } from "../lib/primitives";
 import { AST } from "./ast";
 import { isCreateElement } from "./is-create-element";
 import { isWhiteSpace } from "./string";
-import { findVariableByNameUpToGlobal } from "./variable";
+import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "./variable";
 
 export const isJSXElement = AST.is(N.JSXElement);
 
@@ -91,8 +91,8 @@ export const isJSXValue = memo(
                 const variable = findVariableByNameUpToGlobal(name, context.getScope());
 
                 return F.pipe(
-                    O.flatMapNullable(variable, (v) => v.defs.at(0)?.node),
-                    O.flatMapNullable((n) => ("init" in n ? n.init : n)),
+                    variable,
+                    O.flatMap(getVariableNthDefNodeInit(0)),
                     O.map(AST.isOneOf([N.JSXElement, N.JSXFragment])),
                     O.getOrElse(F.constFalse),
                 );
@@ -146,9 +146,7 @@ export function findPropInProperties(
                     const { name } = prop.argument;
                     const maybeFirstDefNodeInit = F.pipe(
                         findVariableByNameUpToGlobal(name, context.getScope()),
-                        O.flatMapNullable((v) => v.defs.at(0)),
-                        O.flatMapNullable((d) => d.node),
-                        O.flatMapNullable((n) => ("init" in n ? n.init : null)),
+                        O.flatMap(getVariableNthDefNodeInit(0)),
                     );
                     if (O.isNone(maybeFirstDefNodeInit)) {
                         return false;
@@ -191,9 +189,7 @@ export function findPropInAttributes(
                         const { name } = attr.argument;
                         const maybeFirstDefNodeInit = F.pipe(
                             findVariableByNameUpToGlobal(name, context.getScope()),
-                            O.flatMapNullable((v) => v.defs.at(0)),
-                            O.flatMapNullable((d) => d.node),
-                            O.flatMapNullable((n) => ("init" in n ? n.init : null)),
+                            O.flatMap(getVariableNthDefNodeInit(0)),
                         );
                         if (O.isNone(maybeFirstDefNodeInit)) {
                             return false;

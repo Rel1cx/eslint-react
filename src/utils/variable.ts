@@ -24,3 +24,13 @@ export function getVariablesUpToGlobal(startScope: Scope) {
 export function findVariableByNameUpToGlobal(name: string, startScope: Scope): O.Option<NonNullable<Variable>> {
     return F.pipe(getVariablesUpToGlobal(startScope), findVariableByName(name));
 }
+
+export function getVariableNthDefNodeInit(at: number) {
+    return (variable: Variable) =>
+        F.pipe(
+            O.some(variable),
+            O.flatMapNullable((v) => v.defs.at(at)),
+            O.flatMapNullable((d) => d.node),
+            O.flatMapNullable((n) => ("init" in n ? n.init : null)),
+        );
+}
