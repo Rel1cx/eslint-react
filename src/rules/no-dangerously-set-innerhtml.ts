@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/consistent-function-scoping */
-import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
@@ -7,10 +5,10 @@ import { createEslintRule } from "../../tools/create-eslint-rule";
 import { F, O } from "../lib/primitives";
 import { AST } from "../utils/ast";
 import { isCreateElement } from "../utils/is-create-element";
-import { findPropInAttributes, findPropInProperties, isLineBreak } from "../utils/jsx";
+import { findPropInAttributes, findPropInProperties } from "../utils/jsx";
 import { findVariableByNameUpToGlobal } from "../utils/variable";
 
-export const RULE_NAME = "no-dangerously-set-innerhtml-with-children";
+export const RULE_NAME = "no-dangerously-set-innerhtml";
 
 type MessageID = "INVALID";
 
@@ -53,9 +51,7 @@ export default createEslintRule<[], MessageID>({
 
                 const hasDanger = O.isSome(findPropInProperties(properties, context)("dangerouslySetInnerHTML"));
 
-                const hasRestChildren = node.arguments.length > 2;
-
-                if (hasDanger && (hasRestChildren || O.isSome(findPropInProperties(properties, context)("children")))) {
+                if (hasDanger) {
                     context.report({
                         messageId: "INVALID",
                         node,
@@ -63,26 +59,9 @@ export default createEslintRule<[], MessageID>({
                 }
             },
             JSXElement(node) {
-                function firstChildIsText(node: TSESTree.JSXElement) {
-                    const [firstChild] = node.children;
+                const maybeDanger = findPropInAttributes(node.openingElement.attributes, context)("dangerouslySetInnerHTML");
 
-                    return node.children.length > 0 && firstChild && !isLineBreak(firstChild);
-                }
-
-                function hasChildren(node: TSESTree.JSXElement) {
-                    return (
-                        firstChildIsText(node)
-                        || O.isSome(findPropInAttributes(node.openingElement.attributes, context)("children"))
-                    );
-                }
-
-                function hasDanger(node: TSESTree.JSXElement) {
-                    return O.isSome(
-                        findPropInAttributes(node.openingElement.attributes, context)("dangerouslySetInnerHTML"),
-                    );
-                }
-
-                if (hasChildren(node) && hasDanger(node)) {
+                if (O.isSome(maybeDanger)) {
                     context.report({
                         messageId: "INVALID",
                         node,

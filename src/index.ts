@@ -8,7 +8,8 @@ import namingConventionEventHandler from "./rules/naming-convention/event-handle
 import namingConventionFilename from "./rules/naming-convention/filename";
 import namingConventionFilenameExtension from "./rules/naming-convention/filename-extension";
 import noConstructedContextValue from "./rules/no-constructed-context-value";
-import noDangerouslySetInnerhtmlWithChildren from "./rules/no-dangerously-set-innerhtml-with-children";
+import noDangerouslySetInnerHTML from "./rules/no-dangerously-set-innerhtml";
+import noDangerouslySetInnerHTMLWithChildren from "./rules/no-dangerously-set-innerhtml-with-children";
 import noDeprecatedStringRefs from "./rules/no-deprecated-string-refs";
 import noUnstableDefaultProps from "./rules/no-unstable-default-props";
 
@@ -20,6 +21,7 @@ const allRules = {
     "name-convention/filename": "warn",
     "name-convention/filename-extension": "warn",
     "no-constructed-context-value": "error",
+    "no-dangerously-set-innerhtml": "error",
     "no-dangerously-set-innerhtml-with-children": "error",
     "no-deprecated-string-refs": "error",
     "no-unstable-default-props": "error",
@@ -30,6 +32,7 @@ const recommendedRules = {
     "jsx/no-misused-comment-in-textnode": "warn",
     "jsx/prefer-shorthand-boolean": "warn",
     "no-constructed-context-value": "error",
+    "no-dangerously-set-innerhtml": "error",
     "no-dangerously-set-innerhtml-with-children": "error",
     "no-deprecated-string-refs": "error",
     "no-unstable-default-props": "error",
@@ -63,7 +66,8 @@ export default {
         "name-convention/filename": namingConventionFilename,
         "name-convention/filename-extension": namingConventionFilenameExtension,
         "no-constructed-context-value": noConstructedContextValue,
-        "no-dangerously-set-innerhtml-with-children": noDangerouslySetInnerhtmlWithChildren,
+        "no-dangerously-set-innerhtml": noDangerouslySetInnerHTML,
+        "no-dangerously-set-innerhtml-with-children": noDangerouslySetInnerHTMLWithChildren,
         "no-deprecated-string-refs": noDeprecatedStringRefs,
         "no-unstable-default-props": noUnstableDefaultProps,
     },

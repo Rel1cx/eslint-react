@@ -280,13 +280,27 @@ export const AST = {
             AST.traverseUpOnly(node, [N.MemberExpression, N.Identifier]),
         );
     },
-    traverseUpOnly(identifier: TSESTree.Node, allowedNodeTypes: N[]): TSESTree.Node {
-        const { parent } = identifier;
+    traverseUpOnly(node: TSESTree.Node, allowedNodeTypes: N[]): TSESTree.Node {
+        const { parent } = node;
 
         if (parent !== undefined && AST.isOneOf(allowedNodeTypes)(parent)) {
             return AST.traverseUpOnly(parent, allowedNodeTypes);
         }
 
-        return identifier;
+        return node;
+    },
+    traverseUpOnlyPredicate<T extends TSESTree.Node>(
+        node: TSESTree.Node,
+        predicate: (node: TSESTree.Node) => node is T,
+    ): T | null {
+        if (!node.parent || AST.is(N.Program)(node.parent)) {
+            return null;
+        }
+
+        if (predicate(node.parent)) {
+            return node.parent;
+        }
+
+        return AST.traverseUpOnlyPredicate(node.parent, predicate);
     },
 };

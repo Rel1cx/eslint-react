@@ -80,8 +80,8 @@ export default [
 ## Planned (will be added in the future)
 
 - [ ] `react-ts/jsx/no-complicated-conditional-rendering`
+- [ ] `react-ts/hooks/no-suppressing-exhaustive-deps`
 - [ ] `react-ts/no-access-ref-current-during-rendering`
-- [ ] `react-ts/no-suppressing-exhaustive-deps`
 - [ ] `react-ts/no-legacy-children-method`
 - [ ] `react-ts/no-legacy-class-component`
 - [ ] `react-ts/no-legacy-clone-element`
@@ -96,8 +96,8 @@ export default [
 
 ## Rule introduction or modification principles
 
-1. **TypeScript first**. If a behavior can already be enforced by TypeScript built-in checker, it should not be reimplemented in this plugin.
-2. **Formatting independent**. Rules should not be concerned with style or formatting.
+1. **TypeScript first**. If a behavior can already be enforced by TypeScript built-in checker, don't reimplement it.
+2. **Formatting independent**. Rules should check for correctness, not style.
 3. **Sensible defaults**. Rules should be easy to setup and use with minimal configuration and sensible defaults.
 
 ## License
