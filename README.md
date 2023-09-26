@@ -69,7 +69,7 @@ export default [
 - [x] `react-ts/naming-convention/filename`
 - [x] `react-ts/naming-convention/filename-extension`
 - [x] `react-ts/no-constructed-context-value`
-- [ ] `react-ts/no-dangerously-set-innerhtml`
+- [x] `react-ts/no-dangerously-set-innerhtml`
 - [x] `react-ts/no-dangerously-set-innerhtml-with-children`
 - [x] `react-ts/no-deprecated-string-refs`
 - [x] `react-ts/no-unstable-default-props`
