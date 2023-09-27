@@ -1,14 +1,11 @@
 import { createEslintRule } from "../../../tools/create-eslint-rule";
-import { MutRef } from "../../lib/primitives";
 import { AST } from "../../utils/ast";
 import * as ComponentCollector from "../../utils/component-collector";
 import { isComponentName } from "../../utils/is-component-name";
 
 export const RULE_NAME = "debug/function-component";
 
-type MessageID = "FUNCTION_COMPONENT" | "FUNCTION_COMPONENT_ANONYMOUS";
-
-const count = MutRef.make(0);
+type MessageID = "FUNCTION_COMPONENT" | "POSSIBLE_FUNCTION_COMPONENT";
 
 export default createEslintRule<[], MessageID>({
     name: RULE_NAME,
@@ -21,8 +18,8 @@ export default createEslintRule<[], MessageID>({
         schema: [],
         messages: {
             FUNCTION_COMPONENT: "function component found, name: {{name}}",
-
-            FUNCTION_COMPONENT_ANONYMOUS: "anonymous function component found, id: {{id}}",
+            // eslint-disable-next-line eslint-plugin/no-unused-message-ids
+            POSSIBLE_FUNCTION_COMPONENT: "possible function component found based on usage, name: {{name}}",
         },
     },
     defaultOptions: [],
@@ -42,17 +39,7 @@ export default createEslintRule<[], MessageID>({
 
                     const maybeId = AST.getReactComponentIdentifier(component);
 
-                    const name = maybeName ?? maybeId?.name;
-                    if (!name) {
-                        context.report({
-                            data: {
-                                id: MutRef.incrementAndGet(count),
-                            },
-                            messageId: "FUNCTION_COMPONENT_ANONYMOUS",
-                            node: component,
-                        });
-                        continue;
-                    }
+                    const name = maybeName ?? maybeId?.name ?? "anonymous";
 
                     context.report({
                         data: {
