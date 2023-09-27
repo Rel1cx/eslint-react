@@ -4,7 +4,7 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
-import { Data, F, isNil, isObject, isString, O } from "../lib/primitives";
+import { Data, isNil, isObject, isString, O } from "../lib/primitives";
 import { AST } from "./ast";
 
 export type ConstructionType = Data.TaggedEnum<{
@@ -140,11 +140,7 @@ export function make<T extends RuleContext>(context: T) {
                     return None;
                 }
 
-                const maybeLatestDef = F.pipe(
-                    scope.set.get(node.name),
-                    O.fromNullable,
-                    O.flatMapNullable((v) => v.defs.at(-1)),
-                );
+                const maybeLatestDef = O.fromNullable(scope.set.get(node.name)?.defs.at(-1));
 
                 if (O.isNone(maybeLatestDef)) {
                     return None;
