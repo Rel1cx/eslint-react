@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as N, type TSESTree } from "@typescript-eslint/types";
 import { isNil } from "rambda";
 
 import type { RuleContext } from "../../typings";
@@ -17,12 +17,15 @@ export function make(context: RuleContext) {
     const onFunctionExit = () => MutList.pop(functionStack);
 
     const ctx = {
-        getCollectedComponents() {
-            if (!AST.is(AST_NODE_TYPES.Program)(context.getScope().block)) {
-                throw new Error("getCollectedComponents should only be called when Program:exit");
+        getAllComponents() {
+            if (!AST.is(N.Program)(context.getScope().block)) {
+                throw new Error("getAllComponents should only be called in Program:exit");
             }
 
             return components;
+        },
+        getCurrentComponents() {
+            return new Set(components);
         },
         getCurrentFunction,
     } as const;

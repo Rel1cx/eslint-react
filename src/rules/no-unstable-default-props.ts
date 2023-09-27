@@ -53,7 +53,7 @@ export default createEslintRule<[], MessageID>({
         return {
             ...listeners,
             "Program:exit"() {
-                const components = ctx.getCollectedComponents();
+                const components = ctx.getAllComponents();
 
                 for (const component of components) {
                     const { params } = component;
