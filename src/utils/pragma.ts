@@ -48,8 +48,7 @@ export const getFromContext = memo(<T extends RuleContext>(context: T): E.Either
 
     const pragma = settings.react?.pragma
         ?? F.pipe(
-            pragmaNode,
-            O.fromNullable,
+            O.fromNullable(pragmaNode),
             O.map((node) => JSX_ANNOTATION_REGEX.exec(node.value)),
             O.flatMap((matches) => O.fromNullable(matches?.[1]?.split(".")[0])),
             O.getOrElse(() => "React"),
