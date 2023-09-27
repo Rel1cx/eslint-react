@@ -4,6 +4,7 @@ import type { TSESLint } from "@typescript-eslint/utils";
 import { type TSESTree } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
 
+import type { RuleContext } from "../../typings";
 import { E, F } from "../lib/primitives";
 import { getCreateClassFromContext, getFromContext } from "./pragma";
 
@@ -11,7 +12,7 @@ import { getCreateClassFromContext, getFromContext } from "./pragma";
  * @package
  * @deprecated Do not use this function. It will be removed in the future.
  */
-export function isES5Component(node: TSESTree.Node, context: TSESLint.RuleContext<string, []>): boolean {
+export function isES5Component(node: TSESTree.Node, context: RuleContext) {
     const maybeReact = getFromContext(context);
     const maybeCreateClass = getCreateClassFromContext(context);
 
@@ -45,7 +46,7 @@ export function isES5Component(node: TSESTree.Node, context: TSESLint.RuleContex
  * @package
  * @deprecated Do not use this function. It will be removed in the future.
  */
-export function isES6Component(node: TSESTree.Node, context: TSESLint.RuleContext<string, []>): boolean {
+export function isES6Component(node: TSESTree.Node, context: RuleContext) {
     if (!("superClass" in node && node.superClass)) {
         return false;
     }
@@ -73,7 +74,7 @@ export function isES6Component(node: TSESTree.Node, context: TSESLint.RuleContex
  * @package
  * @deprecated Do not use this function. It will be removed in the future.
  */
-export function getParentES6Component(context: TSESLint.RuleContext<string, []>) {
+export function getParentES6Component(context: RuleContext) {
     let scope: Scope | null = context.getScope();
 
     while (scope && scope.type !== ScopeType.class) {
@@ -93,7 +94,7 @@ export function getParentES6Component(context: TSESLint.RuleContext<string, []>)
  * @package
  * @deprecated Do not use this function. It will be removed in the future.
  */
-export function isPureComponent(node: TSESTree.Node, context: TSESLint.RuleContext<string, []>): boolean {
+export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
     const pragma = getFromContext(context);
 
     const sourceCode = context.getSourceCode();

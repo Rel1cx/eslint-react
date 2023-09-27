@@ -18,7 +18,8 @@
         "noUnusedParameters": false,
         "exactOptionalPropertyTypes": true,
         "noEmit": true,
-        "composite": false
+        "composite": false,
+        "stripInternal": true
     },
     "include": ["."],
     "exclude": ["node_modules", "**/dist"],

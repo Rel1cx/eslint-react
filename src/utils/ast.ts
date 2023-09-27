@@ -2,9 +2,9 @@ import type TSESLintScopeManager from "@typescript-eslint/scope-manager";
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 import { ASTUtils } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/utils";
-import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import memo from "micro-memoize";
 
+import type { RuleContext } from "../../typings";
 import { isNil, isString } from "../lib/primitives";
 import { uniqueBy } from "../lib/unique-by";
 
@@ -152,7 +152,7 @@ export function getExternalRefs(params: {
     return uniqueBy(externalRefs, (x) => x.text).map((x) => x.variable);
 }
 
-export function getFunctionAncestor(context: Readonly<RuleContext<string, readonly []>>) {
+export function getFunctionAncestor(context: RuleContext) {
     return context.getAncestors().find((x) => {
         if (is(N.FunctionDeclaration)(x)) {
             return true;
@@ -310,7 +310,7 @@ export function getReactComponentIdentifier(node: FunctionNode): TSESTree.Identi
 }
 
 export function getReferencedExpressionByIdentifier(params: {
-    context: Readonly<RuleContext<string, readonly []>>;
+    context: RuleContext;
     node: TSESTree.Node;
 }) {
     const { context, node } = params;

@@ -13,6 +13,9 @@ const JSX_ANNOTATION_REGEX = /@jsx\s+(\S+)/u;
 // Does not check for reserved keywords or unicode characters
 const JS_IDENTIFIER_REGEX = /^[$A-Z_a-z][\w$]*$/u;
 
+/**
+ * @internal
+ */
 export function getCreateClassFromContext<T extends RuleContext>(context: T): E.Either<Error, string> {
     // eslint-disable-next-line prefer-destructuring
     const settings: { react?: ReactSettings } = context.settings;
