@@ -28,6 +28,9 @@ export function make(context: RuleContext) {
             return new Set(components);
         },
         getCurrentFunction,
+        getCurrentFunctionStack() {
+            return [...functionStack];
+        },
     } as const;
 
     const listeners = {
@@ -41,18 +44,20 @@ export function make(context: RuleContext) {
             const maybeCurrentFn = getCurrentFunction();
 
             if (O.isNone(maybeCurrentFn)) {
-                return console.warn("Unexpected empty function stack");
+                console.warn("Unexpected empty function stack");
+
+                return;
             }
 
             const currentFn = maybeCurrentFn.value;
 
             if (seenComponents.has(currentFn)) {
-                return components.add(currentFn);
+                components.add(currentFn);
+
+                return;
             }
 
-            const hasJsx = isReturnStatementReturningJSX(node, context);
-
-            if (!hasJsx || MutList.isEmpty(functionStack)) {
+            if (!isReturnStatementReturningJSX(node, context)) {
                 return;
             }
 
@@ -64,14 +69,21 @@ export function make(context: RuleContext) {
             const maybeCurrentFn = getCurrentFunction();
 
             if (O.isNone(maybeCurrentFn)) {
-                return console.warn("Unexpected empty function stack");
+                console.warn("Unexpected empty function stack");
+
+                return;
             }
 
             const currentFn = maybeCurrentFn.value;
 
+            if (seenComponents.has(currentFn)) {
+                components.add(currentFn);
+
+                return;
+            }
+
             const { body } = node;
-            const hasJsx = isJSXValue(body, context, false, false);
-            if (!hasJsx || MutList.isEmpty(functionStack)) {
+            if (!isJSXValue(body, context, false, false)) {
                 return;
             }
 
