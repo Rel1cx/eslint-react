@@ -18,6 +18,7 @@ export default createEslintRule<[], MessageID>({
         schema: [],
         messages: {
             FUNCTION_COMPONENT: "function component found, name: {{name}}",
+            // TODO: implement this
             // eslint-disable-next-line eslint-plugin/no-unused-message-ids
             POSSIBLE_FUNCTION_COMPONENT: "possible function component found based on usage, name: {{name}}",
         },

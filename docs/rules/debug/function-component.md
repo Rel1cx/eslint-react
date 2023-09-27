@@ -33,12 +33,6 @@ function Component() {
 
 ```tsx
 function Component() {
-    return <div />;
-}
-```
-
-```tsx
-function Component() {
     return React.createElement("div");
 }
 ```
