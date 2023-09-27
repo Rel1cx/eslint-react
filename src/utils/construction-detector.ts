@@ -5,7 +5,7 @@ import { match } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
 import { Data, isNil, isObject, isString, O } from "../lib/primitives";
-import { AST } from "./ast";
+import * as AST from "./ast";
 
 export type ConstructionType = Data.TaggedEnum<{
     NONE: {};

@@ -4,7 +4,7 @@ import { match, P } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
 import { F, isNil, isString, O } from "../lib/primitives";
-import { AST } from "./ast";
+import * as AST from "./ast";
 import { isCreateElement } from "./is-create-element";
 import { isWhiteSpace } from "./string";
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "./variable";

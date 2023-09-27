@@ -5,7 +5,7 @@ import { match } from "ts-pattern";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import { F, O } from "../lib/primitives";
-import { AST } from "../utils/ast";
+import * as AST from "../utils/ast";
 import { isCreateElement } from "../utils/is-create-element";
 import { findPropInAttributes, findPropInProperties, isLineBreak } from "../utils/jsx";
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "../utils/variable";

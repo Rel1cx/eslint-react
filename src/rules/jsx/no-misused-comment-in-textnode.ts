@@ -2,7 +2,7 @@ import { type TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
 import { createEslintRule } from "../../../tools/create-eslint-rule";
-import { AST } from "../../utils/ast";
+import * as AST from "../../utils/ast";
 import { isJSX } from "../../utils/jsx";
 
 export const RULE_NAME = "jsx/no-misused-comment-in-textnode";

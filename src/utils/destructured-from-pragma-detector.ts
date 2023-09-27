@@ -4,7 +4,7 @@ import { isMatching, match } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
 import { E, F, O } from "../lib/primitives";
-import { AST } from "./ast";
+import * as AST from "./ast";
 import { getFromContext } from "./pragma";
 import { findVariableByName, getVariablesUpToGlobal } from "./variable";
 

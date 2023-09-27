@@ -4,7 +4,7 @@ import birecord from "birecord";
 import { isNil } from "rambda";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
-import { AST } from "../utils/ast";
+import * as AST from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
 
 export const RULE_NAME = "no-unstable-default-props";

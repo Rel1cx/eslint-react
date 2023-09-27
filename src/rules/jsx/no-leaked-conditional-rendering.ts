@@ -4,7 +4,7 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { getParserServices } from "@typescript-eslint/utils/eslint-utils";
 
 import { createEslintRule } from "../../../tools/create-eslint-rule";
-import { AST } from "../../utils/ast";
+import * as AST from "../../utils/ast";
 
 export const RULE_NAME = "jsx/no-leaked-conditional-rendering";
 

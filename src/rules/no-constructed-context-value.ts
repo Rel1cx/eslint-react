@@ -2,7 +2,7 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import { E, F, O } from "../lib/primitives";
-import { AST, type FunctionNode } from "../utils/ast";
+import * as AST from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
 import * as ConstructionDetector from "../utils/construction-detector";
 
@@ -35,7 +35,7 @@ export default createEslintRule<[], MessageID>({
     create(context) {
         const { ctx, listeners } = ComponentCollector.make(context);
 
-        const possibleValueConstructions = new Map<FunctionNode, ConstructionDetector.ConstructionType>();
+        const possibleValueConstructions = new Map<AST.FunctionNode, ConstructionDetector.ConstructionType>();
 
         const detectConstruction = ConstructionDetector.make(context);
 

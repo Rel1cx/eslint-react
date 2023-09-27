@@ -3,7 +3,7 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import { isNil, isString } from "../lib/primitives";
-import { AST } from "../utils/ast";
+import * as AST from "../utils/ast";
 
 export const RULE_NAME = "no-deprecated-string-refs";
 

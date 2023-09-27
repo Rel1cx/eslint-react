@@ -5,7 +5,7 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import { createEslintRule } from "../../../tools/create-eslint-rule";
 import { O } from "../../lib/primitives";
-import { AST } from "../../utils/ast";
+import * as AST from "../../utils/ast";
 import * as JSXUtils from "../../utils/jsx";
 
 export const RULE_NAME = "naming-convention/event-handler";

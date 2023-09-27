@@ -5,7 +5,7 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import { createEslintRule } from "../../tools/create-eslint-rule";
 import type { Cond } from "../../typings";
-import { AST, type FunctionNode } from "../utils/ast";
+import * as AST from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
 
 export const RULE_NAME = "prefer-destructuring-assignment";
@@ -70,7 +70,7 @@ export default createEslintRule<Options, MessageID>({
             "Program:exit"() {
                 const components = ctx.getAllComponents();
 
-                function isFunctionComponent(block: TSESTree.Node): block is FunctionNode {
+                function isFunctionComponent(block: TSESTree.Node): block is AST.FunctionNode {
                     return AST.isPossibleNamedReactComponent(block) && components.has(block);
                 }
 

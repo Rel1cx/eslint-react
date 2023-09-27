@@ -3,17 +3,17 @@ import { isNil } from "rambda";
 
 import type { RuleContext } from "../../typings";
 import { MutList, O } from "../lib/primitives";
-import { AST, type FunctionNode } from "./ast";
+import * as AST from "./ast";
 import { isComponentName } from "./is-component-name";
 import { isJSXValue, isReturnStatementReturningJSX } from "./jsx";
 
-const seenComponents = new Set<FunctionNode>();
+const seenComponents = new Set<AST.FunctionNode>();
 
 export function make(context: RuleContext) {
-    const components = new Set<FunctionNode>();
-    const functionStack = MutList.make<FunctionNode>();
+    const components = new Set<AST.FunctionNode>();
+    const functionStack = MutList.make<AST.FunctionNode>();
     const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
-    const onFunctionEnter = (node: FunctionNode) => MutList.append(functionStack, node);
+    const onFunctionEnter = (node: AST.FunctionNode) => MutList.append(functionStack, node);
     const onFunctionExit = () => MutList.pop(functionStack);
 
     const ctx = {

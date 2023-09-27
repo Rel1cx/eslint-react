@@ -18,7 +18,7 @@ export const isCreateElement = memo((node: TSESTree.Node, context: RuleContext) 
     }
 
     const pragma = maybePragma.right;
-    const isDestructured = destructuredFromPragmaDetector.make(context);
+    const isDestructuredFromPragma = destructuredFromPragmaDetector.make(context);
 
     return match(node.callee)
         .with(
@@ -29,6 +29,6 @@ export const isCreateElement = memo((node: TSESTree.Node, context: RuleContext) 
             },
             F.constTrue,
         )
-        .with({ name: "createElement" }, ({ name }) => isDestructured(name))
+        .with({ name: "createElement" }, ({ name }) => isDestructuredFromPragma(name))
         .otherwise(F.constFalse);
 });
