@@ -64,7 +64,7 @@
         "lint:ts": "eslint --cache --ext .ts .",
         "lint:type": "tsc --noEmit",
         "prepare": "husky install",
-        "publish": "bun run format:write && bun run lint && bun run test && bun run build && bun run publint",
+        "publish": "bun run format:check && bun run lint && bun run build && bun run test && bun run publint",
         "test": "vitest --run --single-thread --no-threads"
     },
     "dependencies": {
