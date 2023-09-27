@@ -1,4 +1,4 @@
-// Rule name primitive definition
+// Rule name primitive definitions, used to guide rule naming.
 
 export type Namespace = "compat" | "debug" | "hooks" | "jsx" | "naming-convention";
 

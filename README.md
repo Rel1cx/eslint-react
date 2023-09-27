@@ -19,8 +19,14 @@ ESLint plugin to lint TypeScript React and Preact function components using the 
 ## Installation
 
 ```bash
+# npm
+npm install --save-dev eslint-plugin-react-ts
+
 # pnpm
 pnpm add --save-dev eslint-plugin-react-ts
+
+# yarn
+yarn add --dev eslint-plugin-react-ts
 
 # bun
 bun add --dev eslint-plugin-react-ts
@@ -97,7 +103,7 @@ export default [
 ## Rule introduction or modification principles
 
 1. **TypeScript first**. If a behavior can already be enforced by TypeScript built-in checker, don't reimplement it.
-2. **Formatting independent**. Rules should check for correctness, not style.
+2. **Formatting independent**. Rules should check for correctness, not style. We recommend using style focused tools for formatting (e.g. [dprint](https://dprint.dev/) or [eslint-stylistic](https://github.com/eslint-stylistic/eslint-stylistic)).
 3. **Sensible defaults**. Rules should be easy to setup and use with minimal configuration and sensible defaults.
 
 ## License
