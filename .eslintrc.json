@@ -105,9 +105,13 @@
         },
         {
             "files": "*.spec.ts",
+            "extends": ["plugin:vitest/all"],
+            "plugins": ["vitest"],
             "rules": {
                 "perfectionist/sort-objects": "off",
-                "sonarjs/no-duplicate-string": "off"
+                "sonarjs/no-duplicate-string": "off",
+                "vitest/require-hook": "off",
+                "vitest/consistent-test-filename": "off"
             }
         }
     ]

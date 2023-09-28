@@ -1,6 +1,5 @@
 import { type Scope, ScopeType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
-import type { TSESLint } from "@typescript-eslint/utils";
 import { type TSESTree } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
 
