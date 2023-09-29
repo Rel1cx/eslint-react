@@ -2,6 +2,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 
 import { createEslintRule } from "../../../tools/create-eslint-rule";
 import { MutRef, O } from "../../lib/primitives";
+import { isJSXFileExt } from "../../utils/jsx";
 
 export const RULE_NAME = "naming-convention/filename-extension";
 
@@ -35,7 +36,7 @@ export default createEslintRule<[], MessageID>({
             "Program:exit"(node) {
                 const fileNameExt = filename.slice(filename.lastIndexOf("."));
 
-                if (fileNameExt === ".tsx" && O.isNone(MutRef.get(jsxNodeRef))) {
+                if (isJSXFileExt(fileNameExt) && O.isNone(MutRef.get(jsxNodeRef))) {
                     return context.report({
                         messageId: "INVALID",
                         node,

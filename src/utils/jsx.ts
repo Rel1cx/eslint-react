@@ -9,6 +9,8 @@ import { isCreateElement } from "./is-create-element";
 import { isWhiteSpace } from "./string";
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "./variable";
 
+export const isJSXFileExt = (ext: string): ext is ".jsx" | ".tsx" => ext === ".jsx" || ext === ".tsx";
+
 export const isJSXElement = AST.is(N.JSXElement);
 
 export const isJSXFragment = AST.is(N.JSXFragment);

@@ -1,5 +1,6 @@
 export * as Data from "@effect/data/Data";
 export * as E from "@effect/data/Either";
+export * as Equal from "@effect/data/Equal";
 export * as F from "@effect/data/Function";
 export * as MutList from "@effect/data/MutableList";
 export * as MutRef from "@effect/data/MutableRef";

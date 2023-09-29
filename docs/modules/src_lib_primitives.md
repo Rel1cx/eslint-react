@@ -8,6 +8,7 @@
 
 - [Data](src_lib_primitives.Data.md)
 - [E](src_lib_primitives.E.md)
+- [Equal](src_lib_primitives.Equal.md)
 - [F](src_lib_primitives.F.md)
 - [MutList](src_lib_primitives.MutList.md)
 - [MutRef](src_lib_primitives.MutRef.md)

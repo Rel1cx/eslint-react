@@ -25,7 +25,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `args` | `Omit`<`A`, `T` \| keyof `Equal`\> extends `Record`<`PropertyKey`, `never`\> ? `void` : `Omit`<`A`, `T` \| keyof `Equal`\> |
+| `args` | `Omit`<`A`, `T` \| keyof [`Equal`](src_lib_primitives.Equal.Equal.md)\> extends `Record`<`PropertyKey`, `never`\> ? `void` : `Omit`<`A`, `T` \| keyof [`Equal`](src_lib_primitives.Equal.Equal.md)\> |
 
 #### Returns
 

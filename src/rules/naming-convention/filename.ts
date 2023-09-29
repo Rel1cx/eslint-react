@@ -5,6 +5,7 @@ import path from "pathe";
 import { createEslintRule } from "../../../tools/create-eslint-rule";
 import { getCaseValidator } from "../../lib/case-validator/case-validator";
 import { O } from "../../lib/primitives";
+import { isJSXFileExt } from "../../utils/jsx";
 
 export const RULE_NAME = "naming-convention/filename";
 
@@ -68,7 +69,7 @@ export default createEslintRule<Options, MessageID>({
         const filename = context.getFilename();
         const fileNameExt = filename.slice(filename.lastIndexOf("."));
 
-        if (fileNameExt !== ".tsx") {
+        if (!isJSXFileExt(fileNameExt)) {
             return {};
         }
 

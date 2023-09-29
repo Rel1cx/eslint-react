@@ -60,7 +60,7 @@
 
 ### Class
 
-• `Const` **Class**: <A\>(`args`: `Types.Equals`<`Omit`<`A`, keyof `Equal.Equal`\>, {}\> extends ``true`` ? `void` : `Omit`<`A`, keyof `Equal.Equal`\>) => [`Data`](src_lib_primitives.Data.md#data)<`A`\>
+• `Const` **Class**: <A\>(`args`: `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/src_lib_primitives.Equal.Equal.md)\>, {}\> extends ``true`` ? `void` : `Omit`<`A`, keyof [`Equal`](../interfaces/src_lib_primitives.Equal.Equal.md)\>) => [`Data`](src_lib_primitives.Data.md#data)<`A`\>
 
 #### Type declaration
 
@@ -78,7 +78,7 @@ Provides a constructor for a Case Class.
 
 | Name | Type |
 | :------ | :------ |
-| `args` | `Types.Equals`<`Omit`<`A`, keyof `Equal.Equal`\>, {}\> extends ``true`` ? `void` : `Omit`<`A`, keyof `Equal.Equal`\> |
+| `args` | `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/src_lib_primitives.Equal.Equal.md)\>, {}\> extends ``true`` ? `void` : `Omit`<`A`, keyof [`Equal`](../interfaces/src_lib_primitives.Equal.Equal.md)\> |
 
 **`Since`**
 
@@ -88,7 +88,7 @@ ___
 
 ### TaggedClass
 
-▸ **TaggedClass**<`Key`\>(`tag`): <A\>(`args`: `Equals`<`Omit`<`A`, keyof `Equal`\>, {}\> extends ``true`` ? `void` : `Omit`<`A`, keyof `Equal`\>) => [`Data`](src_lib_primitives.Data.md#data)<`A` & { `_tag`: `Key`  }\>
+▸ **TaggedClass**<`Key`\>(`tag`): <A\>(`args`: `Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/src_lib_primitives.Equal.Equal.md)\>, {}\> extends ``true`` ? `void` : `Omit`<`A`, keyof [`Equal`](../interfaces/src_lib_primitives.Equal.Equal.md)\>) => [`Data`](src_lib_primitives.Data.md#data)<`A` & { `_tag`: `Key`  }\>
 
 Provides a Tagged constructor for a Case Class.
 
@@ -120,7 +120,7 @@ Provides a Tagged constructor for a Case Class.
 
 | Name | Type |
 | :------ | :------ |
-| `args` | `Equals`<`Omit`<`A`, keyof `Equal`\>, {}\> extends ``true`` ? `void` : `Omit`<`A`, keyof `Equal`\> |
+| `args` | `Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/src_lib_primitives.Equal.Equal.md)\>, {}\> extends ``true`` ? `void` : `Omit`<`A`, keyof [`Equal`](../interfaces/src_lib_primitives.Equal.Equal.md)\> |
 
 **`Since`**
 
@@ -715,7 +715,7 @@ ___
 
 ### Data
 
-Ƭ **Data**<`A`\>: `Readonly`<`A`\> & `Equal.Equal`
+Ƭ **Data**<`A`\>: `Readonly`<`A`\> & [`Equal`](../interfaces/src_lib_primitives.Equal.Equal.md)
 
 **`Since`**
 

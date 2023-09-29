@@ -150,7 +150,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `that` | `Equal` |
+| `that` | [`Equal`](src_lib_primitives.Equal.Equal.md) |
 
 #### Returns
 

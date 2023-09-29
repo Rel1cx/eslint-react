@@ -13,6 +13,7 @@
 - [hasChildren](src_utils_jsx.md#haschildren)
 - [isJSX](src_utils_jsx.md#isjsx)
 - [isJSXElement](src_utils_jsx.md#isjsxelement)
+- [isJSXFileExt](src_utils_jsx.md#isjsxfileext)
 - [isJSXFragment](src_utils_jsx.md#isjsxfragment)
 - [isJSXValue](src_utils_jsx.md#isjsxvalue)
 - [isJsxTagNameExpression](src_utils_jsx.md#isjsxtagnameexpression)
@@ -157,6 +158,22 @@ ___
 #### Returns
 
 node is JSXElement
+
+___
+
+### isJSXFileExt
+
+▸ **isJSXFileExt**(`ext`): ext is ".jsx" \| ".tsx"
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `ext` | `string` |
+
+#### Returns
+
+ext is ".jsx" \| ".tsx"
 
 ___
 

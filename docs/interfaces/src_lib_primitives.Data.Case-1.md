@@ -14,7 +14,7 @@ for a constructor, `Hash`, and `Equal`.
 
 ## Hierarchy
 
-- `Equal`
+- [`Equal`](src_lib_primitives.Equal.Equal.md)
 
   ↳ **`Case`**
 
@@ -43,7 +43,7 @@ for a constructor, `Hash`, and `Equal`.
 
 | Name | Type |
 | :------ | :------ |
-| `that` | `Equal` |
+| `that` | [`Equal`](src_lib_primitives.Equal.Equal.md) |
 
 #### Returns
 
@@ -51,7 +51,7 @@ for a constructor, `Hash`, and `Equal`.
 
 #### Inherited from
 
-Equal.Equal.[symbol]
+[Equal](src_lib_primitives.Equal.Equal.md).[[symbol]](src_lib_primitives.Equal.Equal.md#[symbol]-1)
 
 ___
 

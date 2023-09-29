@@ -89,7 +89,7 @@
         "cspell": "7.3.7",
         "dprint": "0.41.0",
         "eslint": ">=8.50.0",
-        "eslint-config-with-tsconfig": "2.6.11",
+        "eslint-config-with-tsconfig": "2.6.12",
         "eslint-plugin-eslint-plugin": "5.1.1",
         "eslint-plugin-filenames-simple": "0.8.0",
         "eslint-plugin-vitest": "0.3.1",
@@ -110,7 +110,7 @@
         "typedoc": "0.25.1",
         "typedoc-plugin-markdown": "3.16.0",
         "typescript": ">=5.2.2",
-        "vitest": "0.34.5"
+        "vitest": "0.34.6"
     },
     "peerDependencies": {
         "@typescript-eslint/parser": ">=6.7.3",

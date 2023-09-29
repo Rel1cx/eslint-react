@@ -41,7 +41,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `args` | `Omit`<`A`, keyof `Equal`\> |
+| `args` | `Omit`<`A`, keyof [`Equal`](../interfaces/src_lib_primitives.Equal.Equal.md)\> |
 
 ## Methods
 
@@ -53,7 +53,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `this` | `Equal` |
+| `this` | [`Equal`](../interfaces/src_lib_primitives.Equal.Equal.md) |
 
 #### Returns
 
@@ -73,8 +73,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `this` | `Equal` |
-| `that` | `Equal` |
+| `this` | [`Equal`](../interfaces/src_lib_primitives.Equal.Equal.md) |
+| `that` | [`Equal`](../interfaces/src_lib_primitives.Equal.Equal.md) |
 
 #### Returns
 
