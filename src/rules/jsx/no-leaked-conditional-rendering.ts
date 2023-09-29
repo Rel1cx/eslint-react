@@ -1,7 +1,6 @@
 /* eslint-disable unicorn/no-typeof-undefined */
 import { type TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
-import { getParserServices } from "@typescript-eslint/utils/eslint-utils";
 
 import { createEslintRule } from "../../../tools/create-eslint-rule";
 import * as AST from "../../utils/ast";
@@ -59,11 +58,6 @@ export default createEslintRule<[], MessageID>({
     },
     defaultOptions: [],
     create(context) {
-        const service = getParserServices(context);
-
-        // TODO: Add type checking for the following
-        const checker = service.program.getTypeChecker();
-
         return {
             "JSXExpressionContainer > ConditionalExpression"(node: TSESTree.ConditionalExpression) {
                 if (DEFAULT_VALID_STRATEGIES.includes(TERNARY_STRATEGY)) {
