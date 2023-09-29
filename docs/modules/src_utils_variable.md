@@ -41,7 +41,7 @@
 
 #### Defined in
 
-[src/utils/variable.ts:6](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/variable.ts#L6)
+[src/utils/variable.ts:6](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/variable.ts#L6)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-[src/utils/variable.ts:24](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/variable.ts#L24)
+[src/utils/variable.ts:24](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/variable.ts#L24)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/utils/variable.ts:28](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/variable.ts#L28)
+[src/utils/variable.ts:28](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/variable.ts#L28)
 
 ___
 
@@ -114,4 +114,4 @@ ___
 
 #### Defined in
 
-[src/utils/variable.ts:12](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/variable.ts#L12)
+[src/utils/variable.ts:12](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/variable.ts#L12)

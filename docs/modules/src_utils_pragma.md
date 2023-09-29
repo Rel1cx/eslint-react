@@ -19,7 +19,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `T` | extends `Object` |
+| `T` | extends `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
 
 #### Parameters
 
@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[src/utils/pragma.ts:32](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/pragma.ts#L32)
+[src/utils/pragma.ts:32](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/pragma.ts#L32)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `T` | extends `Object` |
+| `T` | extends `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
 
 #### Parameters
 
@@ -59,4 +59,4 @@ ___
 
 #### Defined in
 
-[src/utils/pragma.ts:45](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/pragma.ts#L45)
+[src/utils/pragma.ts:45](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/pragma.ts#L45)

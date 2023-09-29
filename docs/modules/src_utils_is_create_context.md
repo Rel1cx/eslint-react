@@ -26,4 +26,4 @@
 
 #### Defined in
 
-[src/utils/is-create-context.ts:8](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/is-create-context.ts#L8)
+[src/utils/is-create-context.ts:8](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/is-create-context.ts#L8)

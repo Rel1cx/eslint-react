@@ -116,7 +116,7 @@
 
 #### Defined in
 
-[src/utils/ast.ts:11](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L11)
+[src/utils/ast.ts:11](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L11)
 
 ## Variables
 
@@ -198,7 +198,7 @@ node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTrack
 
 #### Defined in
 
-[src/utils/ast.ts:90](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L90)
+[src/utils/ast.ts:90](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L90)
 
 ___
 
@@ -248,7 +248,7 @@ ___
 
 #### Defined in
 
-[src/utils/ast.ts:124](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L124)
+[src/utils/ast.ts:124](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L124)
 
 ___
 
@@ -258,28 +258,9 @@ ___
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `context` | `Object` | - |
-| `context.cwd` | `string` | The current working directory passed to Linter. It is a path to a directory that should be considered as the current working directory. **`Since`** 8.40.0 |
-| `context.filename` | `string` | The filename associated with the source. **`Since`** 8.40.0 |
-| `context.id` | `string` | The rule ID. |
-| `context.options` | readonly `unknown`[] | An array of the configured options for this rule. This array does not include the rule severity. |
-| `context.parserOptions` | `ParserOptions` | The parser options configured for this run |
-| `context.parserPath` | `string` | The name of the parser from configuration. |
-| `context.parserServices?` | `ParserServices` | An object containing parser-provided services for rules |
-| `context.physicalFilename?` | `string` | The full path of the file on disk without any code block information (unlike `filename`). **`Since`** 8.40.0 |
-| `context.settings` | `SharedConfigurationSettings` | The shared settings from configuration. We do not have any shared settings in this plugin. |
-| `context.sourceCode` | `Readonly`<`SourceCode`\> | A SourceCode object that you can use to work with the source that was passed to ESLint. **`Since`** 8.40.0 |
-| `context.getAncestors` | () => `Node`[] | - |
-| `context.getCwd` | () => `string` | - |
-| `context.getDeclaredVariables` | (`node`: `Node`) => readonly `Variable`[] | - |
-| `context.getFilename` | () => `string` | - |
-| `context.getPhysicalFilename?` | () => `string` | - |
-| `context.getScope` | () => `Scope` | - |
-| `context.getSourceCode` | () => `Readonly`<`SourceCode`\> | - |
-| `context.markVariableAsUsed` | (`name`: `string`) => `boolean` | - |
-| `context.report` | (`descriptor`: `ReportDescriptor`<`string`\>) => `void` | - |
+| Name | Type |
+| :------ | :------ |
+| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
@@ -287,7 +268,7 @@ ___
 
 #### Defined in
 
-[src/utils/ast.ts:155](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L155)
+[src/utils/ast.ts:155](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L155)
 
 ___
 
@@ -391,7 +372,7 @@ ___
 
 #### Defined in
 
-[src/utils/ast.ts:173](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L173)
+[src/utils/ast.ts:173](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L173)
 
 ___
 
@@ -411,7 +392,7 @@ ___
 
 #### Defined in
 
-[src/utils/ast.ts:233](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L233)
+[src/utils/ast.ts:233](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L233)
 
 ___
 
@@ -461,7 +442,7 @@ ___
 
 #### Defined in
 
-[src/utils/ast.ts:296](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L296)
+[src/utils/ast.ts:296](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L296)
 
 ___
 
@@ -471,30 +452,11 @@ ___
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `params` | `Object` | - |
-| `params.context` | `Object` | - |
-| `params.context.cwd` | `string` | The current working directory passed to Linter. It is a path to a directory that should be considered as the current working directory. **`Since`** 8.40.0 |
-| `params.context.filename` | `string` | The filename associated with the source. **`Since`** 8.40.0 |
-| `params.context.id` | `string` | The rule ID. |
-| `params.context.options` | readonly `unknown`[] | An array of the configured options for this rule. This array does not include the rule severity. |
-| `params.context.parserOptions` | `ParserOptions` | The parser options configured for this run |
-| `params.context.parserPath` | `string` | The name of the parser from configuration. |
-| `params.context.parserServices?` | `ParserServices` | An object containing parser-provided services for rules |
-| `params.context.physicalFilename?` | `string` | The full path of the file on disk without any code block information (unlike `filename`). **`Since`** 8.40.0 |
-| `params.context.settings` | `SharedConfigurationSettings` | The shared settings from configuration. We do not have any shared settings in this plugin. |
-| `params.context.sourceCode` | `Readonly`<`SourceCode`\> | A SourceCode object that you can use to work with the source that was passed to ESLint. **`Since`** 8.40.0 |
-| `params.context.getAncestors` | () => `Node`[] | - |
-| `params.context.getCwd` | () => `string` | - |
-| `params.context.getDeclaredVariables` | (`node`: `Node`) => readonly `Variable`[] | - |
-| `params.context.getFilename` | () => `string` | - |
-| `params.context.getPhysicalFilename?` | () => `string` | - |
-| `params.context.getScope` | () => `Scope` | - |
-| `params.context.getSourceCode` | () => `Readonly`<`SourceCode`\> | - |
-| `params.context.markVariableAsUsed` | (`name`: `string`) => `boolean` | - |
-| `params.context.report` | (`descriptor`: `ReportDescriptor`<`string`\>) => `void` | - |
-| `params.node` | `Node` | - |
+| Name | Type |
+| :------ | :------ |
+| `params` | `Object` |
+| `params.context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
+| `params.node` | `Node` |
 
 #### Returns
 
@@ -502,7 +464,7 @@ ___
 
 #### Defined in
 
-[src/utils/ast.ts:312](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L312)
+[src/utils/ast.ts:312](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L312)
 
 ___
 
@@ -899,7 +861,7 @@ ___
 
 #### Defined in
 
-[src/utils/ast.ts:22](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L22)
+[src/utils/ast.ts:22](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L22)
 
 ___
 
@@ -919,7 +881,7 @@ node is ArrayPattern \| AssignmentPattern \| ObjectPattern \| RestElement
 
 #### Defined in
 
-[src/utils/ast.ts:36](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L36)
+[src/utils/ast.ts:36](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L36)
 
 ___
 
@@ -959,7 +921,7 @@ node is FunctionNode
 
 #### Defined in
 
-[src/utils/ast.ts:47](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L47)
+[src/utils/ast.ts:47](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L47)
 
 ___
 
@@ -1040,7 +1002,7 @@ node is Identifier
 
 #### Defined in
 
-[src/utils/ast.ts:55](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L55)
+[src/utils/ast.ts:55](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L55)
 
 ___
 
@@ -1067,7 +1029,7 @@ node is Identifier & Object
 
 #### Defined in
 
-[src/utils/ast.ts:59](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L59)
+[src/utils/ast.ts:59](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L59)
 
 ___
 
@@ -1768,7 +1730,7 @@ node is FunctionNode
 
 #### Defined in
 
-[src/utils/ast.ts:78](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L78)
+[src/utils/ast.ts:78](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L78)
 
 ___
 
@@ -1788,7 +1750,7 @@ ___
 
 #### Defined in
 
-[src/utils/ast.ts:82](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L82)
+[src/utils/ast.ts:82](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L82)
 
 ___
 
@@ -1809,7 +1771,7 @@ node is Property
 
 #### Defined in
 
-[src/utils/ast.ts:86](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L86)
+[src/utils/ast.ts:86](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L86)
 
 ___
 
@@ -1871,7 +1833,7 @@ node is StringLiteral
 
 #### Defined in
 
-[src/utils/ast.ts:66](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L66)
+[src/utils/ast.ts:66](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L66)
 
 ___
 
@@ -2043,7 +2005,7 @@ ___
 
 #### Defined in
 
-[src/utils/ast.ts:70](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L70)
+[src/utils/ast.ts:70](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L70)
 
 ___
 
@@ -2063,7 +2025,7 @@ ___
 
 #### Defined in
 
-[src/utils/ast.ts:74](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L74)
+[src/utils/ast.ts:74](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L74)
 
 ___
 
@@ -2104,7 +2066,7 @@ ___
 
 #### Defined in
 
-[src/utils/ast.ts:118](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L118)
+[src/utils/ast.ts:118](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L118)
 
 ___
 
@@ -2125,7 +2087,7 @@ ___
 
 #### Defined in
 
-[src/utils/ast.ts:97](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L97)
+[src/utils/ast.ts:97](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L97)
 
 ___
 
@@ -2152,4 +2114,4 @@ ___
 
 #### Defined in
 
-[src/utils/ast.ts:107](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/ast.ts#L107)
+[src/utils/ast.ts:107](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/ast.ts#L107)

@@ -18,7 +18,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `T` | extends `Object` |
+| `T` | extends `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
 
 #### Parameters
 
@@ -44,4 +44,4 @@
 
 #### Defined in
 
-[src/utils/destructured-from-pragma-detector.ts:11](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/e82a365/src/utils/destructured-from-pragma-detector.ts#L11)
+[src/utils/destructured-from-pragma-detector.ts:11](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/destructured-from-pragma-detector.ts#L11)
