@@ -54,7 +54,7 @@
     ],
     "scripts": {
         "build": "rollup -c rollup.config.ts --configPlugin swc3",
-        "docs:generate": "typedoc && bun run ./scripts/doc-generate.ts",
+        "docs:generate": "typedoc --plugin typedoc-plugin-markdown && bun run ./scripts/doc-generate.ts",
         "fix:ts": "eslint --ext .ts --fix .",
         "format:check": "dprint check",
         "format:write": "dprint fmt",
@@ -108,6 +108,7 @@
         "ts-pattern": "5.0.5",
         "type-fest": "4.3.2",
         "typedoc": "0.25.1",
+        "typedoc-plugin-markdown": "3.16.0",
         "typescript": ">=5.2.2",
         "vitest": "0.34.5"
     },

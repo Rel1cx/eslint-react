@@ -18,5 +18,6 @@
     "name": "eslint-plugin-react-ts",
     "out": "docs",
     "theme": "default",
+    "readme": "none",
     "hideGenerator": true
 }
