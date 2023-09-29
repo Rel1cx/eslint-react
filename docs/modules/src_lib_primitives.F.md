@@ -76,10 +76,6 @@ assert.deepStrictEqual(SK(0, "hello"), "hello")
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:370
-
 ___
 
 ### absurd
@@ -110,10 +106,6 @@ This function is particularly when it's necessary to specify that certain cases 
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:255
 
 ___
 
@@ -169,10 +161,6 @@ assert.deepStrictEqual(pipe(length, apply("hello")), 5)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:86
 
 ___
 
@@ -245,10 +233,6 @@ assert.strictEqual(compose(increment, square)(2), 9);
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:244
-
 ▸ **compose**<`A`, `B`, `C`\>(`self`, `bc`): (`a`: `A`) => `C`
 
 Composes two functions, `ab` and `bc` into a single function that takes in an argument `a` of type `A` and returns a result of type `C`.
@@ -300,10 +284,6 @@ assert.strictEqual(compose(increment, square)(2), 9);
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:245
-
 ___
 
 ### constFalse
@@ -327,10 +307,6 @@ assert.deepStrictEqual(constFalse(), false)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:98
 
 ___
 
@@ -356,10 +332,6 @@ assert.deepStrictEqual(constNull(), null)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:98
-
 ___
 
 ### constTrue
@@ -383,10 +355,6 @@ assert.deepStrictEqual(constTrue(), true)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:98
 
 ___
 
@@ -412,10 +380,6 @@ assert.deepStrictEqual(constUndefined(), undefined)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:98
-
 ___
 
 ### constVoid
@@ -439,10 +403,6 @@ assert.deepStrictEqual(constVoid(), undefined)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:98
 
 ___
 
@@ -485,10 +445,6 @@ assert.deepStrictEqual(constNull(), null)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:155
 
 ___
 
@@ -554,10 +510,6 @@ assert.deepStrictEqual(pipe(2, sum(3)), 5)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:69
-
 ▸ **dual**<`DataLast`, `DataFirst`\>(`isDataFirst`, `body`): `DataLast` & `DataFirst`
 
 Creates a function that can be used in a data-last (aka `pipe`able) or
@@ -617,10 +569,6 @@ assert.deepStrictEqual(pipe(2, sum(3)), 5)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:70
 
 ___
 
@@ -686,10 +634,6 @@ assert.deepStrictEqual(flip(f)('aaa')(2), -1)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:225
-
 ___
 
 ### flow
@@ -746,10 +690,6 @@ assert.strictEqual(f('aaa'), 6)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:339
-
 ▸ **flow**<`A`, `B`, `C`\>(`ab`, `bc`): (...`a`: `A`) => `C`
 
 #### Type parameters
@@ -782,10 +722,6 @@ node_modules/@effect/data/Function.d.ts:339
 ##### Returns
 
 `C`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:340
 
 ▸ **flow**<`A`, `B`, `C`, `D`\>(`ab`, `bc`, `cd`): (...`a`: `A`) => `D`
 
@@ -821,10 +757,6 @@ node_modules/@effect/data/Function.d.ts:340
 ##### Returns
 
 `D`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:341
 
 ▸ **flow**<`A`, `B`, `C`, `D`, `E`\>(`ab`, `bc`, `cd`, `de`): (...`a`: `A`) => `E`
 
@@ -862,10 +794,6 @@ node_modules/@effect/data/Function.d.ts:341
 ##### Returns
 
 `E`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:342
 
 ▸ **flow**<`A`, `B`, `C`, `D`, `E`, `F`\>(`ab`, `bc`, `cd`, `de`, `ef`): (...`a`: `A`) => `F`
 
@@ -905,10 +833,6 @@ node_modules/@effect/data/Function.d.ts:342
 ##### Returns
 
 `F`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:343
 
 ▸ **flow**<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`): (...`a`: `A`) => `G`
 
@@ -950,10 +874,6 @@ node_modules/@effect/data/Function.d.ts:343
 ##### Returns
 
 `G`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:344
 
 ▸ **flow**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): (...`a`: `A`) => `H`
 
@@ -997,10 +917,6 @@ node_modules/@effect/data/Function.d.ts:344
 ##### Returns
 
 `H`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:345
 
 ▸ **flow**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): (...`a`: `A`) => `I`
 
@@ -1046,10 +962,6 @@ node_modules/@effect/data/Function.d.ts:345
 ##### Returns
 
 `I`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:346
 
 ▸ **flow**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): (...`a`: `A`) => `J`
 
@@ -1098,10 +1010,6 @@ node_modules/@effect/data/Function.d.ts:346
 
 `J`
 
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:347
-
 ___
 
 ### hole
@@ -1123,10 +1031,6 @@ Type hole simulation.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:353
 
 ___
 
@@ -1163,10 +1067,6 @@ assert.deepStrictEqual(identity(5), 5)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:123
 
 ___
 
@@ -1214,10 +1114,6 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:302
-
 ▸ **pipe**<`A`, `B`\>(`a`, `ab`): `B`
 
 #### Type parameters
@@ -1237,10 +1133,6 @@ node_modules/@effect/data/Function.d.ts:302
 #### Returns
 
 `B`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:303
 
 ▸ **pipe**<`A`, `B`, `C`\>(`a`, `ab`, `bc`): `C`
 
@@ -1263,10 +1155,6 @@ node_modules/@effect/data/Function.d.ts:303
 #### Returns
 
 `C`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:304
 
 ▸ **pipe**<`A`, `B`, `C`, `D`\>(`a`, `ab`, `bc`, `cd`): `D`
 
@@ -1291,10 +1179,6 @@ node_modules/@effect/data/Function.d.ts:304
 #### Returns
 
 `D`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:305
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`\>(`a`, `ab`, `bc`, `cd`, `de`): `E`
 
@@ -1321,10 +1205,6 @@ node_modules/@effect/data/Function.d.ts:305
 #### Returns
 
 `E`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:306
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`): `F`
 
@@ -1353,10 +1233,6 @@ node_modules/@effect/data/Function.d.ts:306
 #### Returns
 
 `F`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:307
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`): `G`
 
@@ -1387,10 +1263,6 @@ node_modules/@effect/data/Function.d.ts:307
 #### Returns
 
 `G`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:308
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): `H`
 
@@ -1423,10 +1295,6 @@ node_modules/@effect/data/Function.d.ts:308
 #### Returns
 
 `H`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:309
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): `I`
 
@@ -1461,10 +1329,6 @@ node_modules/@effect/data/Function.d.ts:309
 #### Returns
 
 `I`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:310
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): `J`
 
@@ -1501,10 +1365,6 @@ node_modules/@effect/data/Function.d.ts:310
 #### Returns
 
 `J`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:311
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`): `K`
 
@@ -1543,10 +1403,6 @@ node_modules/@effect/data/Function.d.ts:311
 #### Returns
 
 `K`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:312
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`): `L`
 
@@ -1587,10 +1443,6 @@ node_modules/@effect/data/Function.d.ts:312
 #### Returns
 
 `L`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:313
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`): `M`
 
@@ -1633,10 +1485,6 @@ node_modules/@effect/data/Function.d.ts:313
 #### Returns
 
 `M`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:314
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`): `N`
 
@@ -1681,10 +1529,6 @@ node_modules/@effect/data/Function.d.ts:314
 #### Returns
 
 `N`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:315
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`): `O`
 
@@ -1731,10 +1575,6 @@ node_modules/@effect/data/Function.d.ts:315
 #### Returns
 
 `O`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:316
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`): `P`
 
@@ -1783,10 +1623,6 @@ node_modules/@effect/data/Function.d.ts:316
 #### Returns
 
 `P`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:317
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`): `Q`
 
@@ -1837,10 +1673,6 @@ node_modules/@effect/data/Function.d.ts:317
 #### Returns
 
 `Q`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:318
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`): `R`
 
@@ -1893,10 +1725,6 @@ node_modules/@effect/data/Function.d.ts:318
 #### Returns
 
 `R`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:319
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`): `S`
 
@@ -1951,10 +1779,6 @@ node_modules/@effect/data/Function.d.ts:319
 #### Returns
 
 `S`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:320
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`): `T`
 
@@ -2012,10 +1836,6 @@ node_modules/@effect/data/Function.d.ts:320
 
 `T`
 
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:321
-
 ___
 
 ### tupled
@@ -2067,10 +1887,6 @@ assert.deepStrictEqual(sumTupled([1, 2]), 3)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:268
-
 ___
 
 ### unsafeCoerce
@@ -2107,10 +1923,6 @@ assert.deepStrictEqual(unsafeCoerce, identity)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:136
 
 ___
 
@@ -2163,10 +1975,6 @@ assert.deepStrictEqual(getFirst(1, 2), 1)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:281
-
 ## guards
 
 ### isFunction
@@ -2197,7 +2005,3 @@ assert.deepStrictEqual(isFunction("function"), false)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:26

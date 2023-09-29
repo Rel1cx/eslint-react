@@ -30,7 +30,3 @@
 #### Returns
 
 `A`
-
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:31

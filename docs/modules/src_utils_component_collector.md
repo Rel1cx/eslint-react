@@ -40,7 +40,3 @@
 | `listeners.FunctionExpression:exit` | () => `undefined` \| [`FunctionNode`](src_utils_ast.md#functionnode) |
 | `listeners.ArrowFunctionExpression[body.type!='BlockStatement']` | [object Object] |
 | `listeners.ReturnStatement` | [object Object] |
-
-#### Defined in
-
-[src/utils/component-collector.ts:12](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/component-collector.ts#L12)

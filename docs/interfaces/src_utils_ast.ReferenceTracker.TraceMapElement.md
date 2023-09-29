@@ -29,19 +29,11 @@
 
 • `Optional` **[ReferenceTrackerCALL]**: `T`
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:57
-
 ___
 
 ### [ReferenceTrackerCONSTRUCT]
 
 • `Optional` **[ReferenceTrackerCONSTRUCT]**: `T`
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:58
 
 ___
 
@@ -49,16 +41,8 @@ ___
 
 • `Optional` **[ReferenceTrackerESM]**: ``true``
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:59
-
 ___
 
 ### [ReferenceTrackerREAD]
 
 • `Optional` **[ReferenceTrackerREAD]**: `T`
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:56

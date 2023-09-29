@@ -31,19 +31,11 @@
 
 • `Readonly` **A**: `unknown`
 
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:154
-
 ___
 
 ### B
 
 • `Readonly` **B**: `unknown`
-
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:155
 
 ___
 
@@ -51,19 +43,11 @@ ___
 
 • `Readonly` **C**: `unknown`
 
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:156
-
 ___
 
 ### D
 
 • `Readonly` **D**: `unknown`
-
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:157
 
 ___
 
@@ -71,16 +55,8 @@ ___
 
 • `Readonly` **numberOfGenerics**: `Count`
 
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:153
-
 ___
 
 ### taggedEnum
 
 • `Readonly` **taggedEnum**: [`Data`](../modules/src_lib_primitives.Data.md#data)<{ `_tag`: `string`  }\>
-
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:150

@@ -33,7 +33,3 @@
 ##### Returns
 
 `A`[typeof `typeSymbol`] extends [`Either`](../modules/src_lib_primitives.E.md#either)<`E0`, `A0`\> \| `_` ? [`Either`](../modules/src_lib_primitives.E.md#either)<`E0`, `A0`\> : `never`
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:65

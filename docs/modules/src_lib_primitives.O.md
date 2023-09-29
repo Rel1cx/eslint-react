@@ -96,10 +96,6 @@
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:500
-
 ___
 
 ### exists
@@ -153,10 +149,6 @@ assert.deepStrictEqual(pipe(none(), exists(isEven)), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:914
-
 ▸ **exists**<`A`\>(`self`, `predicate`): `boolean`
 
 Check if a value in an `Option` type meets a certain predicate.
@@ -195,10 +187,6 @@ assert.deepStrictEqual(pipe(none(), exists(isEven)), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:915
-
 ___
 
 ### let
@@ -236,10 +224,6 @@ ___
 
 [`Option`](src_lib_primitives.O.md#option)<{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:992
-
 ▸ **let**<`A`, `N`, `B`\>(`self`, `name`, `f`): [`Option`](src_lib_primitives.O.md#option)<{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
 
 #### Type parameters
@@ -261,10 +245,6 @@ node_modules/@effect/data/Option.d.ts:992
 #### Returns
 
 [`Option`](src_lib_primitives.O.md#option)<{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:995
 
 ## combining
 
@@ -307,10 +287,6 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none())
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:645
 
 ___
 
@@ -356,10 +332,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:683
-
 ▸ **ap**<`A`, `B`\>(`self`, `that`): [`Option`](src_lib_primitives.O.md#option)<`B`\>
 
 #### Type parameters
@@ -383,10 +355,6 @@ node_modules/@effect/data/Option.d.ts:683
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:684
 
 ___
 
@@ -416,10 +384,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:620
-
 ___
 
 ### productMany
@@ -446,10 +410,6 @@ ___
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:625
 
 ___
 
@@ -511,10 +471,6 @@ assert.deepStrictEqual(O.zipWith(O.some(1), complex)(O.some(2)), O.some([2, 1]))
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:675
-
 ▸ **zipWith**<`A`, `B`, `C`\>(`self`, `that`, `f`): [`Option`](src_lib_primitives.O.md#option)<`C`\>
 
 Zips two `Option` values together using a provided function, returning a new `Option` of the result.
@@ -560,10 +516,6 @@ assert.deepStrictEqual(O.zipWith(O.some(1), complex)(O.some(2)), O.some([2, 1]))
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:676
-
 ## constructors
 
 ### none
@@ -585,10 +537,6 @@ Creates a new `Option` that represents the absence of a value.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:85
 
 ___
 
@@ -617,10 +565,6 @@ Creates a new `Option` that wraps the given value.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:94
 
 ## conversions
 
@@ -659,10 +603,6 @@ assert.deepStrictEqual(fromIterable([]), none())
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:210
 
 ___
 
@@ -703,10 +643,6 @@ assert.deepStrictEqual(O.fromNullable(1), O.some(1))
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:353
-
 ___
 
 ### getLeft
@@ -745,10 +681,6 @@ assert.deepStrictEqual(O.getLeft(E.left("a")), O.some("a"))
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:240
 
 ___
 
@@ -792,10 +724,6 @@ assert.throws(() => O.getOrThrow(O.none()))
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:465
 
 ___
 
@@ -851,10 +779,6 @@ assert.throws(() => O.getOrThrowWith(O.none(), () => new Error('Unexpected None'
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:445
-
 ▸ **getOrThrowWith**<`A`\>(`self`, `onNone`): `A`
 
 Extracts the value of an `Option` or throws if the `Option` is `None`.
@@ -893,10 +817,6 @@ assert.throws(() => O.getOrThrowWith(O.none(), () => new Error('Unexpected None'
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:446
 
 ___
 
@@ -938,10 +858,6 @@ assert.deepStrictEqual(O.getRight(E.left('err')), O.none())
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:226
 
 ___
 
@@ -1000,10 +916,6 @@ assert.deepStrictEqual(parseOption('not a number'), O.none())
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:373
-
 ___
 
 ### liftThrowable
@@ -1059,10 +971,6 @@ assert.deepStrictEqual(parse(""), O.none())
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:423
-
 ___
 
 ### toArray
@@ -1101,10 +1009,6 @@ assert.deepStrictEqual(O.toArray(O.none()), [])
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:723
 
 ___
 
@@ -1162,10 +1066,6 @@ assert.deepStrictEqual(isPositive(-1), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:194
-
 ## do notation
 
 ### Do
@@ -1175,10 +1075,6 @@ node_modules/@effect/data/Option.d.ts:194
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:1021
 
 ___
 
@@ -1221,10 +1117,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:1010
-
 ▸ **bind**<`A`, `N`, `B`\>(`self`, `name`, `f`): [`Option`](src_lib_primitives.O.md#option)<{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
 
 #### Type parameters
@@ -1250,10 +1142,6 @@ node_modules/@effect/data/Option.d.ts:1010
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:1013
 
 ___
 
@@ -1299,10 +1187,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:984
-
 ▸ **bindTo**<`A`, `N`\>(`self`, `name`): [`Option`](src_lib_primitives.O.md#option)<{ [K in string]: A }\>
 
 #### Type parameters
@@ -1326,10 +1210,6 @@ node_modules/@effect/data/Option.d.ts:984
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:987
 
 ## elements
 
@@ -1371,10 +1251,6 @@ Returns a function that checks if an `Option` contains a given value using the d
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:892
-
 ▸ **contains**<`A`\>(`self`, `a`): `boolean`
 
 Returns a function that checks if an `Option` contains a given value using the default `Equivalence`.
@@ -1399,10 +1275,6 @@ Returns a function that checks if an `Option` contains a given value using the d
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:893
 
 ___
 
@@ -1481,10 +1353,6 @@ assert.deepStrictEqual(pipe(none(), containsWith(Equivalence)(2)), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:881
-
 ## equivalence
 
 ### getEquivalence
@@ -1525,10 +1393,6 @@ assert.deepStrictEqual(isEquivalent(some(1), some(1)), true)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:805
-
 ## error handling
 
 ### firstSomeOf
@@ -1564,10 +1428,6 @@ assert.deepStrictEqual(O.firstSomeOf([O.none(), O.some(1), O.some(2)]), O.some(1
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:336
 
 ___
 
@@ -1651,10 +1511,6 @@ assert.deepStrictEqual(
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:304
-
 ▸ **orElse**<`A`, `B`\>(`self`, `that`): [`Option`](src_lib_primitives.O.md#option)<`A` \| `B`\>
 
 Returns the provided `Option` `that` if `self` is `None`, otherwise returns `self`.
@@ -1717,10 +1573,6 @@ assert.deepStrictEqual(
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:305
-
 ___
 
 ### orElseEither
@@ -1770,10 +1622,6 @@ This is useful when it's important to know whether the value was retrieved from 
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:320
-
 ▸ **orElseEither**<`A`, `B`\>(`self`, `that`): [`Option`](src_lib_primitives.O.md#option)<[`Either`](src_lib_primitives.E.md#either)<`A`, `B`\>\>
 
 Similar to `orElse`, but instead of returning a simple union, it returns an `Either` object,
@@ -1802,10 +1650,6 @@ This is useful when it's important to know whether the value was retrieved from 
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:321
 
 ## filtering
 
@@ -1871,10 +1715,6 @@ assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2))
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:785
-
 ▸ **filter**<`B`, `A`\>(`predicate`): (`self`: [`Option`](src_lib_primitives.O.md#option)<`B`\>) => [`Option`](src_lib_primitives.O.md#option)<`B`\>
 
 Filters an `Option` using a predicate. If the predicate is not satisfied or the `Option` is `None` returns `None`.
@@ -1934,10 +1774,6 @@ assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2))
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:786
-
 ▸ **filter**<`C`, `B`, `A`\>(`self`, `refinement`): [`Option`](src_lib_primitives.O.md#option)<`B`\>
 
 Filters an `Option` using a predicate. If the predicate is not satisfied or the `Option` is `None` returns `None`.
@@ -1987,10 +1823,6 @@ assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2))
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:787
-
 ▸ **filter**<`B`, `A`\>(`self`, `predicate`): [`Option`](src_lib_primitives.O.md#option)<`B`\>
 
 Filters an `Option` using a predicate. If the predicate is not satisfied or the `Option` is `None` returns `None`.
@@ -2038,10 +1870,6 @@ assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2))
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:788
 
 ___
 
@@ -2098,10 +1926,6 @@ assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2))
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:753
-
 ▸ **filterMap**<`A`, `B`\>(`self`, `f`): [`Option`](src_lib_primitives.O.md#option)<`B`\>
 
 Maps over the value of an `Option` and filters out `None`s.
@@ -2141,10 +1965,6 @@ assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2))
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:754
 
 ___
 
@@ -2186,10 +2006,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:729
-
 ▸ **partitionMap**<`A`, `B`, `C`\>(`self`, `f`): [[`Option`](src_lib_primitives.O.md#option)<`B`\>, [`Option`](src_lib_primitives.O.md#option)<`C`\>]
 
 #### Type parameters
@@ -2214,10 +2030,6 @@ node_modules/@effect/data/Option.d.ts:729
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:730
 
 ## folding
 
@@ -2271,10 +2083,6 @@ assert.deepStrictEqual(pipe(iterable, reduceCompact(0, (b, a) => b + a)), 3)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:704
-
 ▸ **reduceCompact**<`A`, `B`\>(`self`, `b`, `f`): `B`
 
 Reduces an `Iterable` of `Option<A>` to a single value of type `B`, elements that are `None` are ignored.
@@ -2312,10 +2120,6 @@ assert.deepStrictEqual(pipe(iterable, reduceCompact(0, (b, a) => b + a)), 3)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:705
-
 ## generators
 
 ### gen
@@ -2342,10 +2146,6 @@ node_modules/@effect/data/Option.d.ts:705
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/UtilsGen.d.ts:105
 
 ## getters
 
@@ -2403,10 +2203,6 @@ assert.deepStrictEqual(pipe(none(), getOrElse(() => 0)), 0)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:258
-
 ▸ **getOrElse**<`A`, `B`\>(`self`, `onNone`): `A` \| `B`
 
 Returns the value of the `Option` if it is `Some`, otherwise returns `onNone`
@@ -2442,10 +2238,6 @@ assert.deepStrictEqual(pipe(none(), getOrElse(() => 0)), 0)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:259
 
 ___
 
@@ -2484,10 +2276,6 @@ assert.deepStrictEqual(O.getOrNull(O.none()), null)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:388
-
 ___
 
 ### getOrUndefined
@@ -2524,10 +2312,6 @@ assert.deepStrictEqual(O.getOrUndefined(O.none()), undefined)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:403
 
 ## guards
 
@@ -2566,10 +2350,6 @@ assert.deepStrictEqual(isNone(none()), true)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:125
-
 ___
 
 ### isOption
@@ -2601,10 +2381,6 @@ assert.deepStrictEqual(isOption({}), false)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:110
 
 ___
 
@@ -2642,10 +2418,6 @@ assert.deepStrictEqual(isSome(none()), false)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:140
 
 ## lifting
 
@@ -2714,10 +2486,6 @@ Lifts a binary function into `Option`.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:837
-
 ___
 
 ### liftPredicate
@@ -2772,10 +2540,6 @@ assert.deepStrictEqual(getOption(1), O.some(1))
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:859
-
 ▸ **liftPredicate**<`B`, `A`\>(`predicate`): (`b`: `B`) => [`Option`](src_lib_primitives.O.md#option)<`B`\>
 
 Transforms a `Predicate` function into a `Some` of the input value if the predicate returns `true` or `None`
@@ -2825,10 +2589,6 @@ assert.deepStrictEqual(getOption(1), O.some(1))
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:860
-
 ## math
 
 ### divide
@@ -2849,10 +2609,6 @@ node_modules/@effect/data/Option.d.ts:860
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:946
 
 ▸ **divide**(`that`): (`self`: [`Option`](src_lib_primitives.O.md#option)<`number`\>) => [`Option`](src_lib_primitives.O.md#option)<`number`\>
 
@@ -2882,10 +2638,6 @@ node_modules/@effect/data/Option.d.ts:946
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:947
-
 ___
 
 ### multiply
@@ -2906,10 +2658,6 @@ ___
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:930
 
 ▸ **multiply**(`that`): (`self`: [`Option`](src_lib_primitives.O.md#option)<`number`\>) => [`Option`](src_lib_primitives.O.md#option)<`number`\>
 
@@ -2938,10 +2686,6 @@ node_modules/@effect/data/Option.d.ts:930
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:931
 
 ___
 
@@ -2974,10 +2718,6 @@ assert.deepStrictEqual(multiplyCompact(iterable), 6)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:978
-
 ___
 
 ### subtract
@@ -2998,10 +2738,6 @@ ___
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:938
 
 ▸ **subtract**(`that`): (`self`: [`Option`](src_lib_primitives.O.md#option)<`number`\>) => [`Option`](src_lib_primitives.O.md#option)<`number`\>
 
@@ -3031,10 +2767,6 @@ node_modules/@effect/data/Option.d.ts:938
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:939
-
 ___
 
 ### sum
@@ -3055,10 +2787,6 @@ ___
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:922
 
 ▸ **sum**(`that`): (`self`: [`Option`](src_lib_primitives.O.md#option)<`number`\>) => [`Option`](src_lib_primitives.O.md#option)<`number`\>
 
@@ -3087,10 +2815,6 @@ node_modules/@effect/data/Option.d.ts:922
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:923
 
 ___
 
@@ -3123,10 +2847,6 @@ assert.deepStrictEqual(sumCompact(iterable), 5)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:963
-
 ## models
 
 ### Option
@@ -3142,10 +2862,6 @@ node_modules/@effect/data/Option.d.ts:963
 | Name |
 | :------ |
 | `A` |
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:19
 
 ## pattern matching
 
@@ -3209,10 +2925,6 @@ assert.deepStrictEqual(
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:167
-
 ▸ **match**<`A`, `B`, `C`\>(`self`, `options`): `B` \| `C`
 
 Matches the given `Option` and returns either the provided `onNone` value or the result of the provided `onSome`
@@ -3259,10 +2971,6 @@ assert.deepStrictEqual(
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:171
 
 ## sorting
 
@@ -3311,10 +3019,6 @@ assert.deepStrictEqual(O(some(1), some(1)), 0)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:828
-
 ## symbols
 
 ### TypeId
@@ -3325,12 +3029,6 @@ node_modules/@effect/data/Option.d.ts:828
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:24
-
-node_modules/@effect/data/Option.d.ts:29
-
 ___
 
 ### TypeId
@@ -3340,12 +3038,6 @@ ___
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:24
-
-node_modules/@effect/data/Option.d.ts:29
 
 ## transforming
 
@@ -3393,10 +3085,6 @@ Maps the `Some` value of this `Option` to the specified constant value.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:486
-
 ___
 
 ### asUnit
@@ -3426,10 +3114,6 @@ This is useful when the value of the `Option` is not needed, but the presence or
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:496
 
 ___
 
@@ -3488,10 +3172,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:573
-
 ▸ **composeK**<`A`, `B`, `C`\>(`afb`, `bfc`): (`a`: `A`) => [`Option`](src_lib_primitives.O.md#option)<`C`\>
 
 #### Type parameters
@@ -3528,10 +3208,6 @@ node_modules/@effect/data/Option.d.ts:573
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:574
 
 ___
 
@@ -3574,10 +3250,6 @@ Applies a function to the value of an `Option` and flattens the result, if the i
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:508
-
 ▸ **flatMap**<`A`, `B`\>(`self`, `f`): [`Option`](src_lib_primitives.O.md#option)<`B`\>
 
 Applies a function to the value of an `Option` and flattens the result, if the input is `Some`.
@@ -3603,10 +3275,6 @@ Applies a function to the value of an `Option` and flattens the result, if the i
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:509
 
 ___
 
@@ -3686,10 +3354,6 @@ assert.deepStrictEqual(
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:552
-
 ▸ **flatMapNullable**<`A`, `B`\>(`self`, `f`): [`Option`](src_lib_primitives.O.md#option)<`NonNullable`<`B`\>\>
 
 This is `flatMap` + `fromNullable`, useful when working with optional values.
@@ -3753,10 +3417,6 @@ assert.deepStrictEqual(
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:553
-
 ___
 
 ### flatten
@@ -3782,10 +3442,6 @@ ___
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:559
 
 ___
 
@@ -3828,10 +3484,6 @@ Maps the `Some` side of an `Option` value to a new `Option` value.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:476
-
 ▸ **map**<`A`, `B`\>(`self`, `f`): [`Option`](src_lib_primitives.O.md#option)<`B`\>
 
 Maps the `Some` side of an `Option` value to a new `Option` value.
@@ -3857,10 +3509,6 @@ Maps the `Some` side of an `Option` value to a new `Option` value.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:477
 
 ___
 
@@ -3918,10 +3566,6 @@ assert.deepStrictEqual(O.tap(O.some(1.14), getInteger), O.none())
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:613
-
 ▸ **tap**<`A`, `_`\>(`self`, `f`): [`Option`](src_lib_primitives.O.md#option)<`A`\>
 
 Applies the provided function `f` to the value of the `Option` if it is `Some` and returns the original `Option`
@@ -3962,10 +3606,6 @@ assert.deepStrictEqual(O.tap(O.some(1.14), getInteger), O.none())
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:614
 
 ___
 
@@ -4015,10 +3655,6 @@ It is useful when we want to chain multiple operations, but only care about the 
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:588
-
 ▸ **zipLeft**<`A`, `_`\>(`self`, `that`): [`Option`](src_lib_primitives.O.md#option)<`A`\>
 
 Sequences the specified `that` `Option` but ignores its value.
@@ -4046,10 +3682,6 @@ It is useful when we want to chain multiple operations, but only care about the 
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:589
 
 ___
 
@@ -4095,10 +3727,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:565
-
 ▸ **zipRight**<`_`, `B`\>(`self`, `that`): [`Option`](src_lib_primitives.O.md#option)<`B`\>
 
 #### Type parameters
@@ -4122,7 +3750,3 @@ node_modules/@effect/data/Option.d.ts:565
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:566

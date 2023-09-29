@@ -53,10 +53,6 @@ for a constructor, `Hash`, and `Equal`.
 
 Equal.Equal.[symbol]
 
-#### Defined in
-
-node_modules/@effect/data/Equal.d.ts:16
-
 ___
 
 ### [symbol]
@@ -70,7 +66,3 @@ ___
 #### Inherited from
 
 Equal.Equal.[symbol]
-
-#### Defined in
-
-node_modules/@effect/data/Hash.d.ts:11

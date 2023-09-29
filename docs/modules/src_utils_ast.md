@@ -114,19 +114,11 @@
 
 Ƭ **FunctionNode**: `TSESTree.ArrowFunctionExpression` \| `TSESTree.FunctionDeclaration` \| `TSESTree.FunctionExpression`
 
-#### Defined in
-
-[src/utils/ast.ts:11](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L11)
-
 ## Variables
 
 ### LINEBREAK\_MATCHER
 
 • `Const` **LINEBREAK\_MATCHER**: `RegExp`
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/misc.d.ts:2
 
 ___
 
@@ -153,12 +145,6 @@ It ignores the found pattern if it's escaped with ``.
 
 [https://eslint-community.github.io/eslint-utils/api/ast-utils.html#patternmatcher-class](https://eslint-community.github.io/eslint-utils/api/ast-utils.html#patternmatcher-class)
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/PatternMatcher.d.ts:1
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/PatternMatcher.d.ts:44
-
 ___
 
 ### ReferenceTracker
@@ -170,14 +156,6 @@ The tracker for references. This provides reference tracking for global variable
 **`See`**
 
 [https://eslint-community.github.io/eslint-utils/api/scope-utils.html#referencetracker-class](https://eslint-community.github.io/eslint-utils/api/scope-utils.html#referencetracker-class)
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:7
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:48
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:74
 
 ## Functions
 
@@ -195,10 +173,6 @@ node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTrack
 #### Returns
 
 `TSESTree.Property` \| `undefined`
-
-#### Defined in
-
-[src/utils/ast.ts:90](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L90)
 
 ___
 
@@ -223,10 +197,6 @@ Get the variable of a given name.
 
 [https://eslint-community.github.io/eslint-utils/api/scope-utils.html#findvariable](https://eslint-community.github.io/eslint-utils/api/scope-utils.html#findvariable)
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/scopeAnalysis.d.ts:8
-
 ___
 
 ### getExternalRefs
@@ -246,10 +216,6 @@ ___
 
 `TSESLint.Scope.Reference`[]
 
-#### Defined in
-
-[src/utils/ast.ts:124](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L124)
-
 ___
 
 ### getFunctionAncestor
@@ -265,10 +231,6 @@ ___
 #### Returns
 
 `undefined` \| `Node`
-
-#### Defined in
-
-[src/utils/ast.ts:155](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L155)
 
 ___
 
@@ -293,10 +255,6 @@ Get the proper location of a given function node to report.
 
 [https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getfunctionheadlocation](https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getfunctionheadlocation)
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/astUtilities.d.ts:8
-
 ___
 
 ### getFunctionNameWithKind
@@ -319,10 +277,6 @@ Get the name and kind of a given function node.
 **`See`**
 
 [https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getfunctionnamewithkind](https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getfunctionnamewithkind)
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/astUtilities.d.ts:14
 
 ___
 
@@ -350,10 +304,6 @@ If such scope doesn't exist then it returns the 1st argument `initialScope`.
 
 [https://eslint-community.github.io/eslint-utils/api/scope-utils.html#getinnermostscope](https://eslint-community.github.io/eslint-utils/api/scope-utils.html#getinnermostscope)
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/scopeAnalysis.d.ts:16
-
 ___
 
 ### getNestedIdentifiers
@@ -370,10 +320,6 @@ ___
 
 `Identifier`[]
 
-#### Defined in
-
-[src/utils/ast.ts:173](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L173)
-
 ___
 
 ### getNestedReturnStatements
@@ -389,10 +335,6 @@ ___
 #### Returns
 
 `ReturnStatement`[]
-
-#### Defined in
-
-[src/utils/ast.ts:233](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L233)
 
 ___
 
@@ -420,10 +362,6 @@ The property name of the node. If the property name is not constant then it retu
 
 [https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getpropertyname](https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getpropertyname)
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/astUtilities.d.ts:22
-
 ___
 
 ### getReactComponentIdentifier
@@ -439,10 +377,6 @@ ___
 #### Returns
 
 `TSESTree.Identifier` \| ``null``
-
-#### Defined in
-
-[src/utils/ast.ts:296](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L296)
 
 ___
 
@@ -461,10 +395,6 @@ ___
 #### Returns
 
 ``null`` \| `Expression`
-
-#### Defined in
-
-[src/utils/ast.ts:312](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L312)
 
 ___
 
@@ -496,10 +426,6 @@ static value of the node, it returns `null`.
 
 [https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getstaticvalue](https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getstaticvalue)
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/astUtilities.d.ts:34
-
 ___
 
 ### getStringIfConstant
@@ -523,10 +449,6 @@ This function is a tiny wrapper of the getStaticValue function.
 **`See`**
 
 [https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getstringifconstant](https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getstringifconstant)
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/astUtilities.d.ts:43
 
 ___
 
@@ -572,10 +494,6 @@ contains the following types as the node which has side effects:
 
 [https://eslint-community.github.io/eslint-utils/api/ast-utils.html#hassideeffect](https://eslint-community.github.io/eslint-utils/api/ast-utils.html#hassideeffect)
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/astUtilities.d.ts:67
-
 ___
 
 ### is
@@ -610,10 +528,6 @@ ___
 
 node is Extract<AccessorPropertyComputedName, Object\> \| Extract<AccessorPropertyNonComputedName, Object\> \| Extract<ArrayExpression, Object\> \| Extract<ArrayPattern, Object\> \| Extract<ArrowFunctionExpression, Object\> \| Extract<AssignmentExpression, Object\> \| Extract<AssignmentPattern, Object\> \| Extract<AwaitExpression, Object\> \| Extract<BinaryExpression, Object\> \| Extract<BlockStatement, Object\> \| Extract<BreakStatement, Object\> \| Extract<CallExpression, Object\> \| Extract<CatchClause, Object\> \| Extract<ChainExpression, Object\> \| Extract<ClassBody, Object\> \| Extract<ClassDeclarationWithName, Object\> \| Extract<ClassDeclarationWithOptionalName, Object\> \| Extract<ClassExpression, Object\> \| Extract<ConditionalExpression, Object\> \| Extract<ContinueStatement, Object\> \| Extract<DebuggerStatement, Object\> \| Extract<Decorator, Object\> \| Extract<DoWhileStatement, Object\> \| Extract<EmptyStatement, Object\> \| Extract<ExportAllDeclaration, Object\> \| Extract<ExportDefaultDeclaration, Object\> \| Extract<ExportNamedDeclarationWithoutSourceWithMultiple, Object\> \| Extract<ExportNamedDeclarationWithoutSourceWithSingle, Object\> \| Extract<ExportNamedDeclarationWithSource, Object\> \| Extract<ExportSpecifier, Object\> \| Extract<ExpressionStatement, Object\> \| Extract<ForInStatement, Object\> \| Extract<ForOfStatement, Object\> \| Extract<ForStatement, Object\> \| Extract<FunctionDeclarationWithName, Object\> \| Extract<FunctionDeclarationWithOptionalName, Object\> \| Extract<FunctionExpression, Object\> \| Extract<Identifier, Object\> \| Extract<IfStatement, Object\> \| Extract<ImportAttribute, Object\> \| Extract<ImportDeclaration, Object\> \| Extract<ImportDefaultSpecifier, Object\> \| Extract<ImportExpression, Object\> \| Extract<ImportNamespaceSpecifier, Object\> \| Extract<ImportSpecifier, Object\> \| Extract<JSXAttribute, Object\> \| Extract<JSXClosingElement, Object\> \| Extract<JSXClosingFragment, Object\> \| Extract<JSXElement, Object\> \| Extract<JSXEmptyExpression, Object\> \| Extract<JSXExpressionContainer, Object\> \| Extract<JSXFragment, Object\> \| Extract<JSXIdentifier, Object\> \| Extract<JSXMemberExpression, Object\> \| Extract<JSXNamespacedName, Object\> \| Extract<JSXOpeningElement, Object\> \| Extract<JSXOpeningFragment, Object\> \| Extract<JSXSpreadAttribute, Object\> \| Extract<JSXSpreadChild, Object\> \| Extract<JSXText, Object\> \| Extract<LabeledStatement, Object\> \| Extract<BigIntLiteral, Object\> \| Extract<BooleanLiteral, Object\> \| Extract<NullLiteral, Object\> \| Extract<NumberLiteral, Object\> \| Extract<RegExpLiteral, Object\> \| Extract<StringLiteral, Object\> \| Extract<LogicalExpression, Object\> \| Extract<MemberExpressionComputedName, Object\> \| Extract<MemberExpressionNonComputedName, Object\> \| Extract<MetaProperty, Object\> \| Extract<MethodDefinitionComputedName, Object\> \| Extract<MethodDefinitionNonComputedName, Object\> \| Extract<NewExpression, Object\> \| Extract<ObjectExpression, Object\> \| Extract<ObjectPattern, Object\> \| Extract<PrivateIdentifier, Object\> \| Extract<Program, Object\> \| Extract<PropertyComputedName, Object\> \| Extract<PropertyNonComputedName, Object\> \| Extract<PropertyDefinitionComputedName, Object\> \| Extract<PropertyDefinitionNonComputedName, Object\> \| Extract<RestElement, Object\> \| Extract<ReturnStatement, Object\> \| Extract<SequenceExpression, Object\> \| Extract<SpreadElement, Object\> \| Extract<StaticBlock, Object\> \| Extract<Super, Object\> \| Extract<SwitchCase, Object\> \| Extract<SwitchStatement, Object\> \| Extract<TaggedTemplateExpression, Object\> \| Extract<TemplateElement, Object\> \| Extract<TemplateLiteral, Object\> \| Extract<ThisExpression, Object\> \| Extract<ThrowStatement, Object\> \| Extract<TryStatement, Object\> \| Extract<TSAbstractAccessorPropertyComputedName, Object\> \| Extract<TSAbstractAccessorPropertyNonComputedName, Object\> \| Extract<TSAbstractKeyword, Object\> \| Extract<TSAbstractMethodDefinitionComputedName, Object\> \| Extract<TSAbstractMethodDefinitionNonComputedName, Object\> \| Extract<TSAbstractPropertyDefinitionComputedName, Object\> \| Extract<TSAbstractPropertyDefinitionNonComputedName, Object\> \| Extract<TSAnyKeyword, Object\> \| Extract<TSArrayType, Object\> \| Extract<TSAsExpression, Object\> \| Extract<TSAsyncKeyword, Object\> \| Extract<TSBigIntKeyword, Object\> \| Extract<TSBooleanKeyword, Object\> \| Extract<TSCallSignatureDeclaration, Object\> \| Extract<TSClassImplements, Object\> \| Extract<TSConditionalType, Object\> \| Extract<TSConstructorType, Object\> \| Extract<TSConstructSignatureDeclaration, Object\> \| Extract<TSDeclareFunction, Object\> \| Extract<TSDeclareKeyword, Object\> \| Extract<TSEmptyBodyFunctionExpression, Object\> \| Extract<TSEnumDeclaration, Object\> \| Extract<TSEnumMemberComputedName, Object\> \| Extract<TSEnumMemberNonComputedName, Object\> \| Extract<TSExportAssignment, Object\> \| Extract<TSExportKeyword, Object\> \| Extract<TSExternalModuleReference, Object\> \| Extract<TSFunctionType, Object\> \| Extract<TSImportEqualsDeclaration, Object\> \| Extract<TSImportType, Object\> \| Extract<TSIndexedAccessType, Object\> \| Extract<TSIndexSignature, Object\> \| Extract<TSInferType, Object\> \| Extract<TSInstantiationExpression, Object\> \| Extract<TSInterfaceBody, Object\> \| Extract<TSInterfaceDeclaration, Object\> \| Extract<TSInterfaceHeritage, Object\> \| Extract<TSIntersectionType, Object\> \| Extract<TSIntrinsicKeyword, Object\> \| Extract<TSLiteralType, Object\> \| Extract<TSMappedType, Object\> \| Extract<TSMethodSignatureComputedName, Object\> \| Extract<TSMethodSignatureNonComputedName, Object\> \| Extract<TSModuleBlock, Object\> \| Extract<TSModuleDeclarationGlobal, Object\> \| Extract<TSModuleDeclarationModuleWithIdentifierId, Object\> \| Extract<TSModuleDeclarationModuleWithStringIdDeclared, Object\> \| Extract<TSModuleDeclarationModuleWithStringIdNotDeclared, Object\> \| Extract<TSModuleDeclarationNamespace, Object\> \| Extract<TSNamedTupleMember, Object\> \| Extract<TSNamespaceExportDeclaration, Object\> \| Extract<TSNeverKeyword, Object\> \| Extract<TSNonNullExpression, Object\> \| Extract<TSNullKeyword, Object\> \| Extract<TSNumberKeyword, Object\> \| Extract<TSObjectKeyword, Object\> \| Extract<TSOptionalType, Object\> \| Extract<TSParameterProperty, Object\> \| Extract<TSPrivateKeyword, Object\> \| Extract<TSPropertySignatureComputedName, Object\> \| Extract<TSPropertySignatureNonComputedName, Object\> \| Extract<TSProtectedKeyword, Object\> \| Extract<TSPublicKeyword, Object\> \| Extract<TSQualifiedName, Object\> \| Extract<TSReadonlyKeyword, Object\> \| Extract<TSRestType, Object\> \| Extract<TSSatisfiesExpression, Object\> \| Extract<TSStaticKeyword, Object\> \| Extract<TSStringKeyword, Object\> \| Extract<TSSymbolKeyword, Object\> \| Extract<TSTemplateLiteralType, Object\> \| Extract<TSThisType, Object\> \| Extract<TSTupleType, Object\> \| Extract<TSTypeAliasDeclaration, Object\> \| Extract<TSTypeAnnotation, Object\> \| Extract<TSTypeAssertion, Object\> \| Extract<TSTypeLiteral, Object\> \| Extract<TSTypeOperator, Object\> \| Extract<TSTypeParameter, Object\> \| Extract<TSTypeParameterDeclaration, Object\> \| Extract<TSTypeParameterInstantiation, Object\> \| Extract<TSTypePredicate, Object\> \| Extract<TSTypeQuery, Object\> \| Extract<TSTypeReference, Object\> \| Extract<TSUndefinedKeyword, Object\> \| Extract<TSUnionType, Object\> \| Extract<TSUnknownKeyword, Object\> \| Extract<TSVoidKeyword, Object\> \| Extract<UnaryExpression, Object\> \| Extract<UpdateExpression, Object\> \| Extract<LetOrConstOrVarDeclaration, Object\> \| Extract<UsingInForOfDeclaration, Object\> \| Extract<UsingInNomalConextDeclaration, Object\> \| Extract<LetOrConstOrVarDeclarator, Object\> \| Extract<UsingInForOfDeclarator, Object\> \| Extract<UsingInNomalConextDeclarator, Object\> \| Extract<WhileStatement, Object\> \| Extract<WithStatement, Object\> \| Extract<YieldExpression, Object\>
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/helpers.d.ts:2
-
 ___
 
 ### isArrowToken
@@ -629,10 +543,6 @@ ___
 #### Returns
 
 token is PunctuatorTokenWithValue<"=\>"\>
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:2
 
 ___
 
@@ -652,10 +562,6 @@ Checks if a node represents an `await …` expression.
 
 node is AwaitExpression
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:49
-
 ___
 
 ### isAwaitKeyword
@@ -674,10 +580,6 @@ Checks if a possible token is the `await` keyword.
 
 token is Object & IdentifierToken
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:53
-
 ___
 
 ### isClassOrTypeElement
@@ -693,10 +595,6 @@ ___
 #### Returns
 
 node is FunctionExpression \| MethodDefinitionComputedName \| MethodDefinitionNonComputedName \| PropertyDefinitionComputedName \| PropertyDefinitionNonComputedName \| TSAbstractMethodDefinitionComputedName \| TSAbstractMethodDefinitionNonComputedName \| TSAbstractPropertyDefinitionComputedName \| TSAbstractPropertyDefinitionNonComputedName \| TSCallSignatureDeclaration \| TSConstructSignatureDeclaration \| TSEmptyBodyFunctionExpression \| TSIndexSignature \| TSMethodSignatureComputedName \| TSMethodSignatureNonComputedName \| TSPropertySignatureComputedName \| TSPropertySignatureNonComputedName
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:34
 
 ___
 
@@ -714,10 +612,6 @@ ___
 
 token is PunctuatorTokenWithValue<"}"\>
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:2
-
 ___
 
 ### isClosingBracketToken
@@ -733,10 +627,6 @@ ___
 #### Returns
 
 token is PunctuatorTokenWithValue<"]"\>
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:2
 
 ___
 
@@ -754,10 +644,6 @@ ___
 
 token is PunctuatorTokenWithValue<")"\>
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:2
-
 ___
 
 ### isColonToken
@@ -773,10 +659,6 @@ ___
 #### Returns
 
 token is PunctuatorTokenWithValue<":"\>
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:2
 
 ___
 
@@ -794,10 +676,6 @@ ___
 
 token is PunctuatorTokenWithValue<","\>
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:2
-
 ___
 
 ### isCommentToken
@@ -813,10 +691,6 @@ ___
 #### Returns
 
 token is Comment
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:2
 
 ___
 
@@ -835,10 +709,6 @@ Checks if a node is a constructor method.
 #### Returns
 
 node is Partial<MethodDefinitionComputedName\> & MethodDefinitionComputedName \| Partial<MethodDefinitionNonComputedName\> & MethodDefinitionNonComputedName
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:38
 
 ___
 
@@ -859,10 +729,6 @@ ___
 
 `boolean`
 
-#### Defined in
-
-[src/utils/ast.ts:22](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L22)
-
 ___
 
 ### isDestructorParameter
@@ -878,10 +744,6 @@ ___
 #### Returns
 
 node is ArrayPattern \| AssignmentPattern \| ObjectPattern \| RestElement
-
-#### Defined in
-
-[src/utils/ast.ts:36](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L36)
 
 ___
 
@@ -899,10 +761,6 @@ ___
 
 node is ArrowFunctionExpression \| FunctionDeclarationWithName \| FunctionDeclarationWithOptionalName \| FunctionExpression
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:29
-
 ___
 
 ### isFunctionNode
@@ -918,10 +776,6 @@ ___
 #### Returns
 
 node is FunctionNode
-
-#### Defined in
-
-[src/utils/ast.ts:47](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L47)
 
 ___
 
@@ -939,10 +793,6 @@ ___
 
 node is ArrowFunctionExpression \| FunctionDeclarationWithName \| FunctionDeclarationWithOptionalName \| FunctionExpression \| TSCallSignatureDeclaration \| TSConstructorType \| TSConstructSignatureDeclaration \| TSEmptyBodyFunctionExpression \| TSFunctionType \| TSMethodSignatureComputedName \| TSMethodSignatureNonComputedName
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:31
-
 ___
 
 ### isFunctionType
@@ -958,10 +808,6 @@ ___
 #### Returns
 
 node is TSCallSignatureDeclaration \| TSConstructorType \| TSConstructSignatureDeclaration \| TSEmptyBodyFunctionExpression \| TSFunctionType \| TSMethodSignatureComputedName \| TSMethodSignatureNonComputedName
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:30
 
 ___
 
@@ -979,10 +825,6 @@ ___
 
 node is Identifier
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:45
-
 ___
 
 ### isIdentifierWithName
@@ -999,10 +841,6 @@ ___
 #### Returns
 
 node is Identifier
-
-#### Defined in
-
-[src/utils/ast.ts:55](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L55)
 
 ___
 
@@ -1027,10 +865,6 @@ ___
 
 node is Identifier & Object
 
-#### Defined in
-
-[src/utils/ast.ts:59](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L59)
-
 ___
 
 ### isImportKeyword
@@ -1048,10 +882,6 @@ Checks if a possible token is the `import` keyword.
 #### Returns
 
 token is Object & KeywordToken
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:65
 
 ___
 
@@ -1071,10 +901,6 @@ Returns true if and only if the node represents logical OR
 
 node is Partial<LogicalExpression\> & LogicalExpression
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:19
-
 ___
 
 ### isLoop
@@ -1090,10 +916,6 @@ ___
 #### Returns
 
 node is DoWhileStatement \| ForInStatement \| ForOfStatement \| ForStatement \| WhileStatement
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:68
 
 ___
 
@@ -1128,10 +950,6 @@ ___
 ##### Returns
 
 node is Extract<AccessorPropertyComputedName, Object\> \| Extract<AccessorPropertyNonComputedName, Object\> \| Extract<ArrayExpression, Object\> \| Extract<ArrayPattern, Object\> \| Extract<ArrowFunctionExpression, Object\> \| Extract<AssignmentExpression, Object\> \| Extract<AssignmentPattern, Object\> \| Extract<AwaitExpression, Object\> \| Extract<BinaryExpression, Object\> \| Extract<BlockStatement, Object\> \| Extract<BreakStatement, Object\> \| Extract<CallExpression, Object\> \| Extract<CatchClause, Object\> \| Extract<ChainExpression, Object\> \| Extract<ClassBody, Object\> \| Extract<ClassDeclarationWithName, Object\> \| Extract<ClassDeclarationWithOptionalName, Object\> \| Extract<ClassExpression, Object\> \| Extract<ConditionalExpression, Object\> \| Extract<ContinueStatement, Object\> \| Extract<DebuggerStatement, Object\> \| Extract<Decorator, Object\> \| Extract<DoWhileStatement, Object\> \| Extract<EmptyStatement, Object\> \| Extract<ExportAllDeclaration, Object\> \| Extract<ExportDefaultDeclaration, Object\> \| Extract<ExportNamedDeclarationWithoutSourceWithMultiple, Object\> \| Extract<ExportNamedDeclarationWithoutSourceWithSingle, Object\> \| Extract<ExportNamedDeclarationWithSource, Object\> \| Extract<ExportSpecifier, Object\> \| Extract<ExpressionStatement, Object\> \| Extract<ForInStatement, Object\> \| Extract<ForOfStatement, Object\> \| Extract<ForStatement, Object\> \| Extract<FunctionDeclarationWithName, Object\> \| Extract<FunctionDeclarationWithOptionalName, Object\> \| Extract<FunctionExpression, Object\> \| Extract<Identifier, Object\> \| Extract<IfStatement, Object\> \| Extract<ImportAttribute, Object\> \| Extract<ImportDeclaration, Object\> \| Extract<ImportDefaultSpecifier, Object\> \| Extract<ImportExpression, Object\> \| Extract<ImportNamespaceSpecifier, Object\> \| Extract<ImportSpecifier, Object\> \| Extract<JSXAttribute, Object\> \| Extract<JSXClosingElement, Object\> \| Extract<JSXClosingFragment, Object\> \| Extract<JSXElement, Object\> \| Extract<JSXEmptyExpression, Object\> \| Extract<JSXExpressionContainer, Object\> \| Extract<JSXFragment, Object\> \| Extract<JSXIdentifier, Object\> \| Extract<JSXMemberExpression, Object\> \| Extract<JSXNamespacedName, Object\> \| Extract<JSXOpeningElement, Object\> \| Extract<JSXOpeningFragment, Object\> \| Extract<JSXSpreadAttribute, Object\> \| Extract<JSXSpreadChild, Object\> \| Extract<JSXText, Object\> \| Extract<LabeledStatement, Object\> \| Extract<BigIntLiteral, Object\> \| Extract<BooleanLiteral, Object\> \| Extract<NullLiteral, Object\> \| Extract<NumberLiteral, Object\> \| Extract<RegExpLiteral, Object\> \| Extract<StringLiteral, Object\> \| Extract<LogicalExpression, Object\> \| Extract<MemberExpressionComputedName, Object\> \| Extract<MemberExpressionNonComputedName, Object\> \| Extract<MetaProperty, Object\> \| Extract<MethodDefinitionComputedName, Object\> \| Extract<MethodDefinitionNonComputedName, Object\> \| Extract<NewExpression, Object\> \| Extract<ObjectExpression, Object\> \| Extract<ObjectPattern, Object\> \| Extract<PrivateIdentifier, Object\> \| Extract<Program, Object\> \| Extract<PropertyComputedName, Object\> \| Extract<PropertyNonComputedName, Object\> \| Extract<PropertyDefinitionComputedName, Object\> \| Extract<PropertyDefinitionNonComputedName, Object\> \| Extract<RestElement, Object\> \| Extract<ReturnStatement, Object\> \| Extract<SequenceExpression, Object\> \| Extract<SpreadElement, Object\> \| Extract<StaticBlock, Object\> \| Extract<Super, Object\> \| Extract<SwitchCase, Object\> \| Extract<SwitchStatement, Object\> \| Extract<TaggedTemplateExpression, Object\> \| Extract<TemplateElement, Object\> \| Extract<TemplateLiteral, Object\> \| Extract<ThisExpression, Object\> \| Extract<ThrowStatement, Object\> \| Extract<TryStatement, Object\> \| Extract<TSAbstractAccessorPropertyComputedName, Object\> \| Extract<TSAbstractAccessorPropertyNonComputedName, Object\> \| Extract<TSAbstractKeyword, Object\> \| Extract<TSAbstractMethodDefinitionComputedName, Object\> \| Extract<TSAbstractMethodDefinitionNonComputedName, Object\> \| Extract<TSAbstractPropertyDefinitionComputedName, Object\> \| Extract<TSAbstractPropertyDefinitionNonComputedName, Object\> \| Extract<TSAnyKeyword, Object\> \| Extract<TSArrayType, Object\> \| Extract<TSAsExpression, Object\> \| Extract<TSAsyncKeyword, Object\> \| Extract<TSBigIntKeyword, Object\> \| Extract<TSBooleanKeyword, Object\> \| Extract<TSCallSignatureDeclaration, Object\> \| Extract<TSClassImplements, Object\> \| Extract<TSConditionalType, Object\> \| Extract<TSConstructorType, Object\> \| Extract<TSConstructSignatureDeclaration, Object\> \| Extract<TSDeclareFunction, Object\> \| Extract<TSDeclareKeyword, Object\> \| Extract<TSEmptyBodyFunctionExpression, Object\> \| Extract<TSEnumDeclaration, Object\> \| Extract<TSEnumMemberComputedName, Object\> \| Extract<TSEnumMemberNonComputedName, Object\> \| Extract<TSExportAssignment, Object\> \| Extract<TSExportKeyword, Object\> \| Extract<TSExternalModuleReference, Object\> \| Extract<TSFunctionType, Object\> \| Extract<TSImportEqualsDeclaration, Object\> \| Extract<TSImportType, Object\> \| Extract<TSIndexedAccessType, Object\> \| Extract<TSIndexSignature, Object\> \| Extract<TSInferType, Object\> \| Extract<TSInstantiationExpression, Object\> \| Extract<TSInterfaceBody, Object\> \| Extract<TSInterfaceDeclaration, Object\> \| Extract<TSInterfaceHeritage, Object\> \| Extract<TSIntersectionType, Object\> \| Extract<TSIntrinsicKeyword, Object\> \| Extract<TSLiteralType, Object\> \| Extract<TSMappedType, Object\> \| Extract<TSMethodSignatureComputedName, Object\> \| Extract<TSMethodSignatureNonComputedName, Object\> \| Extract<TSModuleBlock, Object\> \| Extract<TSModuleDeclarationGlobal, Object\> \| Extract<TSModuleDeclarationModuleWithIdentifierId, Object\> \| Extract<TSModuleDeclarationModuleWithStringIdDeclared, Object\> \| Extract<TSModuleDeclarationModuleWithStringIdNotDeclared, Object\> \| Extract<TSModuleDeclarationNamespace, Object\> \| Extract<TSNamedTupleMember, Object\> \| Extract<TSNamespaceExportDeclaration, Object\> \| Extract<TSNeverKeyword, Object\> \| Extract<TSNonNullExpression, Object\> \| Extract<TSNullKeyword, Object\> \| Extract<TSNumberKeyword, Object\> \| Extract<TSObjectKeyword, Object\> \| Extract<TSOptionalType, Object\> \| Extract<TSParameterProperty, Object\> \| Extract<TSPrivateKeyword, Object\> \| Extract<TSPropertySignatureComputedName, Object\> \| Extract<TSPropertySignatureNonComputedName, Object\> \| Extract<TSProtectedKeyword, Object\> \| Extract<TSPublicKeyword, Object\> \| Extract<TSQualifiedName, Object\> \| Extract<TSReadonlyKeyword, Object\> \| Extract<TSRestType, Object\> \| Extract<TSSatisfiesExpression, Object\> \| Extract<TSStaticKeyword, Object\> \| Extract<TSStringKeyword, Object\> \| Extract<TSSymbolKeyword, Object\> \| Extract<TSTemplateLiteralType, Object\> \| Extract<TSThisType, Object\> \| Extract<TSTupleType, Object\> \| Extract<TSTypeAliasDeclaration, Object\> \| Extract<TSTypeAnnotation, Object\> \| Extract<TSTypeAssertion, Object\> \| Extract<TSTypeLiteral, Object\> \| Extract<TSTypeOperator, Object\> \| Extract<TSTypeParameter, Object\> \| Extract<TSTypeParameterDeclaration, Object\> \| Extract<TSTypeParameterInstantiation, Object\> \| Extract<TSTypePredicate, Object\> \| Extract<TSTypeQuery, Object\> \| Extract<TSTypeReference, Object\> \| Extract<TSUndefinedKeyword, Object\> \| Extract<TSUnionType, Object\> \| Extract<TSUnknownKeyword, Object\> \| Extract<TSVoidKeyword, Object\> \| Extract<UnaryExpression, Object\> \| Extract<UpdateExpression, Object\> \| Extract<LetOrConstOrVarDeclaration, Object\> \| Extract<UsingInForOfDeclaration, Object\> \| Extract<UsingInNomalConextDeclaration, Object\> \| Extract<LetOrConstOrVarDeclarator, Object\> \| Extract<UsingInForOfDeclarator, Object\> \| Extract<UsingInNomalConextDeclarator, Object\> \| Extract<WhileStatement, Object\> \| Extract<WithStatement, Object\> \| Extract<YieldExpression, Object\>
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/helpers.d.ts:2
 
 ___
 
@@ -1170,10 +988,6 @@ ___
 
 node is Conditions & ExtractedNode
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/helpers.d.ts:784
-
 ___
 
 ### isNodeOfTypes
@@ -1208,10 +1022,6 @@ ___
 
 node is Extract<AccessorPropertyComputedName, Object\> \| Extract<AccessorPropertyNonComputedName, Object\> \| Extract<ArrayExpression, Object\> \| Extract<ArrayPattern, Object\> \| Extract<ArrowFunctionExpression, Object\> \| Extract<AssignmentExpression, Object\> \| Extract<AssignmentPattern, Object\> \| Extract<AwaitExpression, Object\> \| Extract<BinaryExpression, Object\> \| Extract<BlockStatement, Object\> \| Extract<BreakStatement, Object\> \| Extract<CallExpression, Object\> \| Extract<CatchClause, Object\> \| Extract<ChainExpression, Object\> \| Extract<ClassBody, Object\> \| Extract<ClassDeclarationWithName, Object\> \| Extract<ClassDeclarationWithOptionalName, Object\> \| Extract<ClassExpression, Object\> \| Extract<ConditionalExpression, Object\> \| Extract<ContinueStatement, Object\> \| Extract<DebuggerStatement, Object\> \| Extract<Decorator, Object\> \| Extract<DoWhileStatement, Object\> \| Extract<EmptyStatement, Object\> \| Extract<ExportAllDeclaration, Object\> \| Extract<ExportDefaultDeclaration, Object\> \| Extract<ExportNamedDeclarationWithoutSourceWithMultiple, Object\> \| Extract<ExportNamedDeclarationWithoutSourceWithSingle, Object\> \| Extract<ExportNamedDeclarationWithSource, Object\> \| Extract<ExportSpecifier, Object\> \| Extract<ExpressionStatement, Object\> \| Extract<ForInStatement, Object\> \| Extract<ForOfStatement, Object\> \| Extract<ForStatement, Object\> \| Extract<FunctionDeclarationWithName, Object\> \| Extract<FunctionDeclarationWithOptionalName, Object\> \| Extract<FunctionExpression, Object\> \| Extract<Identifier, Object\> \| Extract<IfStatement, Object\> \| Extract<ImportAttribute, Object\> \| Extract<ImportDeclaration, Object\> \| Extract<ImportDefaultSpecifier, Object\> \| Extract<ImportExpression, Object\> \| Extract<ImportNamespaceSpecifier, Object\> \| Extract<ImportSpecifier, Object\> \| Extract<JSXAttribute, Object\> \| Extract<JSXClosingElement, Object\> \| Extract<JSXClosingFragment, Object\> \| Extract<JSXElement, Object\> \| Extract<JSXEmptyExpression, Object\> \| Extract<JSXExpressionContainer, Object\> \| Extract<JSXFragment, Object\> \| Extract<JSXIdentifier, Object\> \| Extract<JSXMemberExpression, Object\> \| Extract<JSXNamespacedName, Object\> \| Extract<JSXOpeningElement, Object\> \| Extract<JSXOpeningFragment, Object\> \| Extract<JSXSpreadAttribute, Object\> \| Extract<JSXSpreadChild, Object\> \| Extract<JSXText, Object\> \| Extract<LabeledStatement, Object\> \| Extract<BigIntLiteral, Object\> \| Extract<BooleanLiteral, Object\> \| Extract<NullLiteral, Object\> \| Extract<NumberLiteral, Object\> \| Extract<RegExpLiteral, Object\> \| Extract<StringLiteral, Object\> \| Extract<LogicalExpression, Object\> \| Extract<MemberExpressionComputedName, Object\> \| Extract<MemberExpressionNonComputedName, Object\> \| Extract<MetaProperty, Object\> \| Extract<MethodDefinitionComputedName, Object\> \| Extract<MethodDefinitionNonComputedName, Object\> \| Extract<NewExpression, Object\> \| Extract<ObjectExpression, Object\> \| Extract<ObjectPattern, Object\> \| Extract<PrivateIdentifier, Object\> \| Extract<Program, Object\> \| Extract<PropertyComputedName, Object\> \| Extract<PropertyNonComputedName, Object\> \| Extract<PropertyDefinitionComputedName, Object\> \| Extract<PropertyDefinitionNonComputedName, Object\> \| Extract<RestElement, Object\> \| Extract<ReturnStatement, Object\> \| Extract<SequenceExpression, Object\> \| Extract<SpreadElement, Object\> \| Extract<StaticBlock, Object\> \| Extract<Super, Object\> \| Extract<SwitchCase, Object\> \| Extract<SwitchStatement, Object\> \| Extract<TaggedTemplateExpression, Object\> \| Extract<TemplateElement, Object\> \| Extract<TemplateLiteral, Object\> \| Extract<ThisExpression, Object\> \| Extract<ThrowStatement, Object\> \| Extract<TryStatement, Object\> \| Extract<TSAbstractAccessorPropertyComputedName, Object\> \| Extract<TSAbstractAccessorPropertyNonComputedName, Object\> \| Extract<TSAbstractKeyword, Object\> \| Extract<TSAbstractMethodDefinitionComputedName, Object\> \| Extract<TSAbstractMethodDefinitionNonComputedName, Object\> \| Extract<TSAbstractPropertyDefinitionComputedName, Object\> \| Extract<TSAbstractPropertyDefinitionNonComputedName, Object\> \| Extract<TSAnyKeyword, Object\> \| Extract<TSArrayType, Object\> \| Extract<TSAsExpression, Object\> \| Extract<TSAsyncKeyword, Object\> \| Extract<TSBigIntKeyword, Object\> \| Extract<TSBooleanKeyword, Object\> \| Extract<TSCallSignatureDeclaration, Object\> \| Extract<TSClassImplements, Object\> \| Extract<TSConditionalType, Object\> \| Extract<TSConstructorType, Object\> \| Extract<TSConstructSignatureDeclaration, Object\> \| Extract<TSDeclareFunction, Object\> \| Extract<TSDeclareKeyword, Object\> \| Extract<TSEmptyBodyFunctionExpression, Object\> \| Extract<TSEnumDeclaration, Object\> \| Extract<TSEnumMemberComputedName, Object\> \| Extract<TSEnumMemberNonComputedName, Object\> \| Extract<TSExportAssignment, Object\> \| Extract<TSExportKeyword, Object\> \| Extract<TSExternalModuleReference, Object\> \| Extract<TSFunctionType, Object\> \| Extract<TSImportEqualsDeclaration, Object\> \| Extract<TSImportType, Object\> \| Extract<TSIndexedAccessType, Object\> \| Extract<TSIndexSignature, Object\> \| Extract<TSInferType, Object\> \| Extract<TSInstantiationExpression, Object\> \| Extract<TSInterfaceBody, Object\> \| Extract<TSInterfaceDeclaration, Object\> \| Extract<TSInterfaceHeritage, Object\> \| Extract<TSIntersectionType, Object\> \| Extract<TSIntrinsicKeyword, Object\> \| Extract<TSLiteralType, Object\> \| Extract<TSMappedType, Object\> \| Extract<TSMethodSignatureComputedName, Object\> \| Extract<TSMethodSignatureNonComputedName, Object\> \| Extract<TSModuleBlock, Object\> \| Extract<TSModuleDeclarationGlobal, Object\> \| Extract<TSModuleDeclarationModuleWithIdentifierId, Object\> \| Extract<TSModuleDeclarationModuleWithStringIdDeclared, Object\> \| Extract<TSModuleDeclarationModuleWithStringIdNotDeclared, Object\> \| Extract<TSModuleDeclarationNamespace, Object\> \| Extract<TSNamedTupleMember, Object\> \| Extract<TSNamespaceExportDeclaration, Object\> \| Extract<TSNeverKeyword, Object\> \| Extract<TSNonNullExpression, Object\> \| Extract<TSNullKeyword, Object\> \| Extract<TSNumberKeyword, Object\> \| Extract<TSObjectKeyword, Object\> \| Extract<TSOptionalType, Object\> \| Extract<TSParameterProperty, Object\> \| Extract<TSPrivateKeyword, Object\> \| Extract<TSPropertySignatureComputedName, Object\> \| Extract<TSPropertySignatureNonComputedName, Object\> \| Extract<TSProtectedKeyword, Object\> \| Extract<TSPublicKeyword, Object\> \| Extract<TSQualifiedName, Object\> \| Extract<TSReadonlyKeyword, Object\> \| Extract<TSRestType, Object\> \| Extract<TSSatisfiesExpression, Object\> \| Extract<TSStaticKeyword, Object\> \| Extract<TSStringKeyword, Object\> \| Extract<TSSymbolKeyword, Object\> \| Extract<TSTemplateLiteralType, Object\> \| Extract<TSThisType, Object\> \| Extract<TSTupleType, Object\> \| Extract<TSTypeAliasDeclaration, Object\> \| Extract<TSTypeAnnotation, Object\> \| Extract<TSTypeAssertion, Object\> \| Extract<TSTypeLiteral, Object\> \| Extract<TSTypeOperator, Object\> \| Extract<TSTypeParameter, Object\> \| Extract<TSTypeParameterDeclaration, Object\> \| Extract<TSTypeParameterInstantiation, Object\> \| Extract<TSTypePredicate, Object\> \| Extract<TSTypeQuery, Object\> \| Extract<TSTypeReference, Object\> \| Extract<TSUndefinedKeyword, Object\> \| Extract<TSUnionType, Object\> \| Extract<TSUnknownKeyword, Object\> \| Extract<TSVoidKeyword, Object\> \| Extract<UnaryExpression, Object\> \| Extract<UpdateExpression, Object\> \| Extract<LetOrConstOrVarDeclaration, Object\> \| Extract<UsingInForOfDeclaration, Object\> \| Extract<UsingInNomalConextDeclaration, Object\> \| Extract<LetOrConstOrVarDeclarator, Object\> \| Extract<UsingInForOfDeclarator, Object\> \| Extract<UsingInNomalConextDeclarator, Object\> \| Extract<WhileStatement, Object\> \| Extract<WithStatement, Object\> \| Extract<YieldExpression, Object\>
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/helpers.d.ts:393
-
 ___
 
 ### isNonNullAssertionPunctuator
@@ -1227,10 +1037,6 @@ ___
 #### Returns
 
 token is Object & PunctuatorToken
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:6
 
 ___
 
@@ -1248,10 +1054,6 @@ ___
 
 token is BlockComment \| LineComment \| BooleanToken \| IdentifierToken \| JSXIdentifierToken \| JSXTextToken \| KeywordToken \| NullToken \| NumericToken \| PunctuatorToken \| RegularExpressionToken \| StringToken \| TemplateToken
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:3
-
 ___
 
 ### isNotClosingBraceToken
@@ -1267,10 +1069,6 @@ ___
 #### Returns
 
 token is BlockComment \| LineComment \| BooleanToken \| IdentifierToken \| JSXIdentifierToken \| JSXTextToken \| KeywordToken \| NullToken \| NumericToken \| PunctuatorToken \| RegularExpressionToken \| StringToken \| TemplateToken
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:3
 
 ___
 
@@ -1288,10 +1086,6 @@ ___
 
 token is BlockComment \| LineComment \| BooleanToken \| IdentifierToken \| JSXIdentifierToken \| JSXTextToken \| KeywordToken \| NullToken \| NumericToken \| PunctuatorToken \| RegularExpressionToken \| StringToken \| TemplateToken
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:3
-
 ___
 
 ### isNotClosingParenToken
@@ -1307,10 +1101,6 @@ ___
 #### Returns
 
 token is BlockComment \| LineComment \| BooleanToken \| IdentifierToken \| JSXIdentifierToken \| JSXTextToken \| KeywordToken \| NullToken \| NumericToken \| PunctuatorToken \| RegularExpressionToken \| StringToken \| TemplateToken
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:3
 
 ___
 
@@ -1328,10 +1118,6 @@ ___
 
 token is BlockComment \| LineComment \| BooleanToken \| IdentifierToken \| JSXIdentifierToken \| JSXTextToken \| KeywordToken \| NullToken \| NumericToken \| PunctuatorToken \| RegularExpressionToken \| StringToken \| TemplateToken
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:3
-
 ___
 
 ### isNotCommaToken
@@ -1347,10 +1133,6 @@ ___
 #### Returns
 
 token is BlockComment \| LineComment \| BooleanToken \| IdentifierToken \| JSXIdentifierToken \| JSXTextToken \| KeywordToken \| NullToken \| NumericToken \| PunctuatorToken \| RegularExpressionToken \| StringToken \| TemplateToken
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:3
 
 ___
 
@@ -1368,10 +1150,6 @@ ___
 
 token is BooleanToken \| IdentifierToken \| JSXIdentifierToken \| JSXTextToken \| KeywordToken \| NullToken \| NumericToken \| PunctuatorToken \| RegularExpressionToken \| StringToken \| TemplateToken
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:3
-
 ___
 
 ### isNotNonNullAssertionPunctuator
@@ -1387,10 +1165,6 @@ ___
 #### Returns
 
 token is BlockComment \| LineComment \| BooleanToken \| IdentifierToken \| JSXIdentifierToken \| JSXTextToken \| KeywordToken \| NullToken \| NumericToken \| PunctuatorToken \| RegularExpressionToken \| StringToken \| TemplateToken
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:9
 
 ___
 
@@ -1408,10 +1182,6 @@ ___
 
 token is BlockComment \| LineComment \| BooleanToken \| IdentifierToken \| JSXIdentifierToken \| JSXTextToken \| KeywordToken \| NullToken \| NumericToken \| PunctuatorToken \| RegularExpressionToken \| StringToken \| TemplateToken
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:3
-
 ___
 
 ### isNotOpeningBracketToken
@@ -1427,10 +1197,6 @@ ___
 #### Returns
 
 token is BlockComment \| LineComment \| BooleanToken \| IdentifierToken \| JSXIdentifierToken \| JSXTextToken \| KeywordToken \| NullToken \| NumericToken \| PunctuatorToken \| RegularExpressionToken \| StringToken \| TemplateToken
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:3
 
 ___
 
@@ -1448,10 +1214,6 @@ ___
 
 token is BlockComment \| LineComment \| BooleanToken \| IdentifierToken \| JSXIdentifierToken \| JSXTextToken \| KeywordToken \| NullToken \| NumericToken \| PunctuatorToken \| RegularExpressionToken \| StringToken \| TemplateToken
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:3
-
 ___
 
 ### isNotOptionalChainPunctuator
@@ -1468,10 +1230,6 @@ ___
 
 token is BlockComment \| LineComment \| BooleanToken \| IdentifierToken \| JSXIdentifierToken \| JSXTextToken \| KeywordToken \| NullToken \| NumericToken \| PunctuatorToken \| RegularExpressionToken \| StringToken \| TemplateToken
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:5
-
 ___
 
 ### isNotSemicolonToken
@@ -1487,10 +1245,6 @@ ___
 #### Returns
 
 token is BlockComment \| LineComment \| BooleanToken \| IdentifierToken \| JSXIdentifierToken \| JSXTextToken \| KeywordToken \| NullToken \| NumericToken \| PunctuatorToken \| RegularExpressionToken \| StringToken \| TemplateToken
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:3
 
 ___
 
@@ -1529,10 +1283,6 @@ ___
 
 token is Exclude<BooleanToken, Conditions & ExtractedToken\> \| Exclude<BlockComment, Conditions & ExtractedToken\> \| Exclude<LineComment, Conditions & ExtractedToken\> \| Exclude<IdentifierToken, Conditions & ExtractedToken\> \| Exclude<JSXIdentifierToken, Conditions & ExtractedToken\> \| Exclude<JSXTextToken, Conditions & ExtractedToken\> \| Exclude<KeywordToken, Conditions & ExtractedToken\> \| Exclude<NullToken, Conditions & ExtractedToken\> \| Exclude<NumericToken, Conditions & ExtractedToken\> \| Exclude<PunctuatorToken, Conditions & ExtractedToken\> \| Exclude<RegularExpressionToken, Conditions & ExtractedToken\> \| Exclude<StringToken, Conditions & ExtractedToken\> \| Exclude<TemplateToken, Conditions & ExtractedToken\>
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/helpers.d.ts:1204
-
 ___
 
 ### isOneOf
@@ -1567,10 +1317,6 @@ ___
 
 node is Extract<AccessorPropertyComputedName, Object\> \| Extract<AccessorPropertyNonComputedName, Object\> \| Extract<ArrayExpression, Object\> \| Extract<ArrayPattern, Object\> \| Extract<ArrowFunctionExpression, Object\> \| Extract<AssignmentExpression, Object\> \| Extract<AssignmentPattern, Object\> \| Extract<AwaitExpression, Object\> \| Extract<BinaryExpression, Object\> \| Extract<BlockStatement, Object\> \| Extract<BreakStatement, Object\> \| Extract<CallExpression, Object\> \| Extract<CatchClause, Object\> \| Extract<ChainExpression, Object\> \| Extract<ClassBody, Object\> \| Extract<ClassDeclarationWithName, Object\> \| Extract<ClassDeclarationWithOptionalName, Object\> \| Extract<ClassExpression, Object\> \| Extract<ConditionalExpression, Object\> \| Extract<ContinueStatement, Object\> \| Extract<DebuggerStatement, Object\> \| Extract<Decorator, Object\> \| Extract<DoWhileStatement, Object\> \| Extract<EmptyStatement, Object\> \| Extract<ExportAllDeclaration, Object\> \| Extract<ExportDefaultDeclaration, Object\> \| Extract<ExportNamedDeclarationWithoutSourceWithMultiple, Object\> \| Extract<ExportNamedDeclarationWithoutSourceWithSingle, Object\> \| Extract<ExportNamedDeclarationWithSource, Object\> \| Extract<ExportSpecifier, Object\> \| Extract<ExpressionStatement, Object\> \| Extract<ForInStatement, Object\> \| Extract<ForOfStatement, Object\> \| Extract<ForStatement, Object\> \| Extract<FunctionDeclarationWithName, Object\> \| Extract<FunctionDeclarationWithOptionalName, Object\> \| Extract<FunctionExpression, Object\> \| Extract<Identifier, Object\> \| Extract<IfStatement, Object\> \| Extract<ImportAttribute, Object\> \| Extract<ImportDeclaration, Object\> \| Extract<ImportDefaultSpecifier, Object\> \| Extract<ImportExpression, Object\> \| Extract<ImportNamespaceSpecifier, Object\> \| Extract<ImportSpecifier, Object\> \| Extract<JSXAttribute, Object\> \| Extract<JSXClosingElement, Object\> \| Extract<JSXClosingFragment, Object\> \| Extract<JSXElement, Object\> \| Extract<JSXEmptyExpression, Object\> \| Extract<JSXExpressionContainer, Object\> \| Extract<JSXFragment, Object\> \| Extract<JSXIdentifier, Object\> \| Extract<JSXMemberExpression, Object\> \| Extract<JSXNamespacedName, Object\> \| Extract<JSXOpeningElement, Object\> \| Extract<JSXOpeningFragment, Object\> \| Extract<JSXSpreadAttribute, Object\> \| Extract<JSXSpreadChild, Object\> \| Extract<JSXText, Object\> \| Extract<LabeledStatement, Object\> \| Extract<BigIntLiteral, Object\> \| Extract<BooleanLiteral, Object\> \| Extract<NullLiteral, Object\> \| Extract<NumberLiteral, Object\> \| Extract<RegExpLiteral, Object\> \| Extract<StringLiteral, Object\> \| Extract<LogicalExpression, Object\> \| Extract<MemberExpressionComputedName, Object\> \| Extract<MemberExpressionNonComputedName, Object\> \| Extract<MetaProperty, Object\> \| Extract<MethodDefinitionComputedName, Object\> \| Extract<MethodDefinitionNonComputedName, Object\> \| Extract<NewExpression, Object\> \| Extract<ObjectExpression, Object\> \| Extract<ObjectPattern, Object\> \| Extract<PrivateIdentifier, Object\> \| Extract<Program, Object\> \| Extract<PropertyComputedName, Object\> \| Extract<PropertyNonComputedName, Object\> \| Extract<PropertyDefinitionComputedName, Object\> \| Extract<PropertyDefinitionNonComputedName, Object\> \| Extract<RestElement, Object\> \| Extract<ReturnStatement, Object\> \| Extract<SequenceExpression, Object\> \| Extract<SpreadElement, Object\> \| Extract<StaticBlock, Object\> \| Extract<Super, Object\> \| Extract<SwitchCase, Object\> \| Extract<SwitchStatement, Object\> \| Extract<TaggedTemplateExpression, Object\> \| Extract<TemplateElement, Object\> \| Extract<TemplateLiteral, Object\> \| Extract<ThisExpression, Object\> \| Extract<ThrowStatement, Object\> \| Extract<TryStatement, Object\> \| Extract<TSAbstractAccessorPropertyComputedName, Object\> \| Extract<TSAbstractAccessorPropertyNonComputedName, Object\> \| Extract<TSAbstractKeyword, Object\> \| Extract<TSAbstractMethodDefinitionComputedName, Object\> \| Extract<TSAbstractMethodDefinitionNonComputedName, Object\> \| Extract<TSAbstractPropertyDefinitionComputedName, Object\> \| Extract<TSAbstractPropertyDefinitionNonComputedName, Object\> \| Extract<TSAnyKeyword, Object\> \| Extract<TSArrayType, Object\> \| Extract<TSAsExpression, Object\> \| Extract<TSAsyncKeyword, Object\> \| Extract<TSBigIntKeyword, Object\> \| Extract<TSBooleanKeyword, Object\> \| Extract<TSCallSignatureDeclaration, Object\> \| Extract<TSClassImplements, Object\> \| Extract<TSConditionalType, Object\> \| Extract<TSConstructorType, Object\> \| Extract<TSConstructSignatureDeclaration, Object\> \| Extract<TSDeclareFunction, Object\> \| Extract<TSDeclareKeyword, Object\> \| Extract<TSEmptyBodyFunctionExpression, Object\> \| Extract<TSEnumDeclaration, Object\> \| Extract<TSEnumMemberComputedName, Object\> \| Extract<TSEnumMemberNonComputedName, Object\> \| Extract<TSExportAssignment, Object\> \| Extract<TSExportKeyword, Object\> \| Extract<TSExternalModuleReference, Object\> \| Extract<TSFunctionType, Object\> \| Extract<TSImportEqualsDeclaration, Object\> \| Extract<TSImportType, Object\> \| Extract<TSIndexedAccessType, Object\> \| Extract<TSIndexSignature, Object\> \| Extract<TSInferType, Object\> \| Extract<TSInstantiationExpression, Object\> \| Extract<TSInterfaceBody, Object\> \| Extract<TSInterfaceDeclaration, Object\> \| Extract<TSInterfaceHeritage, Object\> \| Extract<TSIntersectionType, Object\> \| Extract<TSIntrinsicKeyword, Object\> \| Extract<TSLiteralType, Object\> \| Extract<TSMappedType, Object\> \| Extract<TSMethodSignatureComputedName, Object\> \| Extract<TSMethodSignatureNonComputedName, Object\> \| Extract<TSModuleBlock, Object\> \| Extract<TSModuleDeclarationGlobal, Object\> \| Extract<TSModuleDeclarationModuleWithIdentifierId, Object\> \| Extract<TSModuleDeclarationModuleWithStringIdDeclared, Object\> \| Extract<TSModuleDeclarationModuleWithStringIdNotDeclared, Object\> \| Extract<TSModuleDeclarationNamespace, Object\> \| Extract<TSNamedTupleMember, Object\> \| Extract<TSNamespaceExportDeclaration, Object\> \| Extract<TSNeverKeyword, Object\> \| Extract<TSNonNullExpression, Object\> \| Extract<TSNullKeyword, Object\> \| Extract<TSNumberKeyword, Object\> \| Extract<TSObjectKeyword, Object\> \| Extract<TSOptionalType, Object\> \| Extract<TSParameterProperty, Object\> \| Extract<TSPrivateKeyword, Object\> \| Extract<TSPropertySignatureComputedName, Object\> \| Extract<TSPropertySignatureNonComputedName, Object\> \| Extract<TSProtectedKeyword, Object\> \| Extract<TSPublicKeyword, Object\> \| Extract<TSQualifiedName, Object\> \| Extract<TSReadonlyKeyword, Object\> \| Extract<TSRestType, Object\> \| Extract<TSSatisfiesExpression, Object\> \| Extract<TSStaticKeyword, Object\> \| Extract<TSStringKeyword, Object\> \| Extract<TSSymbolKeyword, Object\> \| Extract<TSTemplateLiteralType, Object\> \| Extract<TSThisType, Object\> \| Extract<TSTupleType, Object\> \| Extract<TSTypeAliasDeclaration, Object\> \| Extract<TSTypeAnnotation, Object\> \| Extract<TSTypeAssertion, Object\> \| Extract<TSTypeLiteral, Object\> \| Extract<TSTypeOperator, Object\> \| Extract<TSTypeParameter, Object\> \| Extract<TSTypeParameterDeclaration, Object\> \| Extract<TSTypeParameterInstantiation, Object\> \| Extract<TSTypePredicate, Object\> \| Extract<TSTypeQuery, Object\> \| Extract<TSTypeReference, Object\> \| Extract<TSUndefinedKeyword, Object\> \| Extract<TSUnionType, Object\> \| Extract<TSUnknownKeyword, Object\> \| Extract<TSVoidKeyword, Object\> \| Extract<UnaryExpression, Object\> \| Extract<UpdateExpression, Object\> \| Extract<LetOrConstOrVarDeclaration, Object\> \| Extract<UsingInForOfDeclaration, Object\> \| Extract<UsingInNomalConextDeclaration, Object\> \| Extract<LetOrConstOrVarDeclarator, Object\> \| Extract<UsingInForOfDeclarator, Object\> \| Extract<UsingInNomalConextDeclarator, Object\> \| Extract<WhileStatement, Object\> \| Extract<WithStatement, Object\> \| Extract<YieldExpression, Object\>
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/helpers.d.ts:393
-
 ___
 
 ### isOpeningBraceToken
@@ -1586,10 +1332,6 @@ ___
 #### Returns
 
 token is PunctuatorTokenWithValue<"{"\>
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:2
 
 ___
 
@@ -1607,10 +1349,6 @@ ___
 
 token is PunctuatorTokenWithValue<"["\>
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:2
-
 ___
 
 ### isOpeningParenToken
@@ -1626,10 +1364,6 @@ ___
 #### Returns
 
 token is PunctuatorTokenWithValue<"("\>
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:2
 
 ___
 
@@ -1649,10 +1383,6 @@ Returns true if and only if the node represents: foo?.() or foo.bar?.()
 
 node is Object & CallExpression
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:13
-
 ___
 
 ### isOptionalChainPunctuator
@@ -1668,10 +1398,6 @@ ___
 #### Returns
 
 token is Object & PunctuatorToken
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:2
 
 ___
 
@@ -1690,10 +1416,6 @@ ___
 
 `boolean`
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/astUtilities.d.ts:72
-
 ▸ **isParenthesized**(`times`, `node`, `sourceCode`): `boolean`
 
 #### Parameters
@@ -1707,10 +1429,6 @@ node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/astUtilities.d
 #### Returns
 
 `boolean`
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/astUtilities.d.ts:73
 
 ___
 
@@ -1728,10 +1446,6 @@ ___
 
 node is FunctionNode
 
-#### Defined in
-
-[src/utils/ast.ts:78](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L78)
-
 ___
 
 ### isPropertyOfObjectExpression
@@ -1747,10 +1461,6 @@ ___
 #### Returns
 
 `undefined` \| `boolean`
-
-#### Defined in
-
-[src/utils/ast.ts:82](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L82)
 
 ___
 
@@ -1769,10 +1479,6 @@ ___
 
 node is Property
 
-#### Defined in
-
-[src/utils/ast.ts:86](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L86)
-
 ___
 
 ### isSemicolonToken
@@ -1788,10 +1494,6 @@ ___
 #### Returns
 
 token is PunctuatorTokenWithValue<";"\>
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/predicates.d.ts:2
 
 ___
 
@@ -1811,10 +1513,6 @@ Checks if a node is a setter method.
 
 node is Object
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:42
-
 ___
 
 ### isStringLiteral
@@ -1830,10 +1528,6 @@ ___
 #### Returns
 
 node is StringLiteral
-
-#### Defined in
-
-[src/utils/ast.ts:66](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L66)
 
 ___
 
@@ -1851,10 +1545,6 @@ ___
 
 node is TSConstructorType
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:33
-
 ___
 
 ### isTSFunctionType
@@ -1870,10 +1560,6 @@ ___
 #### Returns
 
 node is TSFunctionType
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:32
 
 ___
 
@@ -1912,10 +1598,6 @@ ___
 
 token is Conditions & ExtractedToken
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/helpers.d.ts:1175
-
 ___
 
 ### isTokenOnSameLine
@@ -1934,10 +1616,6 @@ Determines whether two adjacent tokens are on the same line
 #### Returns
 
 `boolean`
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/misc.d.ts:6
 
 ___
 
@@ -1961,10 +1639,6 @@ x as foo
 
 node is TSAsExpression \| TSTypeAssertion
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:27
-
 ___
 
 ### isTypeKeyword
@@ -1983,10 +1657,6 @@ Checks if a possible token is the `type` keyword.
 
 token is Object & IdentifierToken
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:59
-
 ___
 
 ### isValidReactComponentName
@@ -2002,10 +1672,6 @@ ___
 #### Returns
 
 `boolean`
-
-#### Defined in
-
-[src/utils/ast.ts:70](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L70)
 
 ___
 
@@ -2023,10 +1689,6 @@ ___
 
 `boolean`
 
-#### Defined in
-
-[src/utils/ast.ts:74](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L74)
-
 ___
 
 ### isVariableDeclarator
@@ -2042,10 +1704,6 @@ ___
 #### Returns
 
 node is LetOrConstOrVarDeclarator \| UsingInForOfDeclarator \| UsingInNomalConextDeclarator
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/predicates.d.ts:28
 
 ___
 
@@ -2064,10 +1722,6 @@ ___
 
 `string`
 
-#### Defined in
-
-[src/utils/ast.ts:118](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L118)
-
 ___
 
 ### traverseUpOnly
@@ -2084,10 +1738,6 @@ ___
 #### Returns
 
 `TSESTree.Node`
-
-#### Defined in
-
-[src/utils/ast.ts:97](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L97)
 
 ___
 
@@ -2111,7 +1761,3 @@ ___
 #### Returns
 
 `T` \| ``null``
-
-#### Defined in
-
-[src/utils/ast.ts:107](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/ast.ts#L107)

@@ -62,12 +62,6 @@
 | :------ | :------ |
 | `T` | extends `object` |
 
-#### Defined in
-
-[src/lib/primitives/enum.ts:5](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/enum.ts#L5)
-
-[src/lib/primitives/enum.ts:3](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/enum.ts#L3)
-
 ___
 
 ### Narrow
@@ -92,10 +86,6 @@ type Result = Narrow<['foo', 'bar', 1]>
 | :------ |
 | `TType` |
 
-#### Defined in
-
-[src/lib/primitives/narrow.ts:11](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/narrow.ts#L11)
-
 ___
 
 ### Remap
@@ -107,10 +97,6 @@ ___
 | Name |
 | :------ |
 | `T` |
-
-#### Defined in
-
-[src/lib/primitives/mapping.ts:1](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/mapping.ts#L1)
 
 ___
 
@@ -124,10 +110,6 @@ ___
 | :------ |
 | `T` |
 
-#### Defined in
-
-[src/lib/primitives/union.ts:1](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/union.ts#L1)
-
 ___
 
 ### UnionToIntersection
@@ -139,10 +121,6 @@ ___
 | Name |
 | :------ |
 | `U` |
-
-#### Defined in
-
-[src/lib/primitives/union.ts:4](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/union.ts#L4)
 
 ___
 
@@ -166,10 +144,6 @@ ___
 
 `Readonly`<{ [P in string]: P }\>
 
-#### Defined in
-
-[src/lib/primitives/enum.ts:5](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/enum.ts#L5)
-
 ___
 
 ### asConst
@@ -192,10 +166,6 @@ ___
 
 `T`
 
-#### Defined in
-
-[src/lib/primitives/function.ts:6](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/function.ts#L6)
-
 ___
 
 ### identity
@@ -217,10 +187,6 @@ ___
 #### Returns
 
 `T`
-
-#### Defined in
-
-[src/lib/primitives/function.ts:4](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/function.ts#L4)
 
 ___
 
@@ -246,10 +212,6 @@ It returns `true` if `x` is `empty`.
 
 `boolean`
 
-#### Defined in
-
-node_modules/rambda/index.d.ts:788
-
 ___
 
 ### isKeyOfEnum
@@ -273,10 +235,6 @@ ___
 
 value is Enum<T\>
 
-#### Defined in
-
-[src/lib/primitives/enum.ts:17](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/enum.ts#L17)
-
 ___
 
 ### isNil
@@ -294,10 +252,6 @@ It returns `true` if `x` is either `null` or `undefined`.
 #### Returns
 
 x is undefined \| null
-
-#### Defined in
-
-node_modules/rambda/index.d.ts:793
 
 ___
 
@@ -332,10 +286,6 @@ Value with embedded type inferred
 const result = narrow(['foo', 'bar', 1])
 ```
 
-#### Defined in
-
-[src/lib/primitives/narrow.ts:27](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/narrow.ts#L27)
-
 ___
 
 ### noop
@@ -345,10 +295,6 @@ ___
 #### Returns
 
 `void`
-
-#### Defined in
-
-[src/lib/primitives/function.ts:2](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/function.ts#L2)
 
 ## guards
 
@@ -382,10 +328,6 @@ assert.deepStrictEqual(isBigint(1), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Predicate.d.ts:110
-
 ___
 
 ### isBoolean
@@ -417,10 +359,6 @@ assert.deepStrictEqual(isBoolean("true"), false)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Predicate.d.ts:94
 
 ___
 
@@ -455,10 +393,6 @@ assert.deepStrictEqual(isDate({}), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Predicate.d.ts:377
-
 ___
 
 ### isError
@@ -492,10 +426,6 @@ assert.deepStrictEqual(isError({}), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Predicate.d.ts:343
-
 ___
 
 ### isFunction
@@ -527,10 +457,6 @@ assert.deepStrictEqual(isFunction("function"), false)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Predicate.d.ts:142
 
 ___
 
@@ -566,10 +492,6 @@ assert.deepStrictEqual(isIterable({}), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Predicate.d.ts:395
-
 ___
 
 ### isNever
@@ -603,10 +525,6 @@ assert.deepStrictEqual(isNever([]), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Predicate.d.ts:227
-
 ___
 
 ### isNumber
@@ -638,10 +556,6 @@ assert.deepStrictEqual(isNumber("2"), false)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Predicate.d.ts:78
 
 ___
 
@@ -676,10 +590,6 @@ assert.deepStrictEqual(isObject(undefined), false)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Predicate.d.ts:263
 
 ___
 
@@ -717,10 +627,6 @@ assert.deepStrictEqual(isReadonlyRecord(undefined), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Predicate.d.ts:438
-
 ___
 
 ### isRecord
@@ -757,10 +663,6 @@ assert.deepStrictEqual(isRecord(undefined), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Predicate.d.ts:415
-
 ___
 
 ### isString
@@ -793,10 +695,6 @@ assert.deepStrictEqual(isString(1), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Predicate.d.ts:62
-
 ___
 
 ### isSymbol
@@ -828,10 +726,6 @@ assert.deepStrictEqual(isSymbol("a"), false)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Predicate.d.ts:126
 
 ___
 
@@ -886,10 +780,6 @@ assert.deepStrictEqual(isTagged("a")({ _tag: "a" }), true)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Predicate.d.ts:284
-
 ▸ **isTagged**<`K`\>(`self`, `tag`): self is Object
 
 Tests if a value is an `object` with a property `_tag` that matches the given tag.
@@ -928,10 +818,6 @@ assert.deepStrictEqual(isTagged("a")({ _tag: "a" }), true)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Predicate.d.ts:287
-
 ___
 
 ### isUnknown
@@ -965,7 +851,3 @@ assert.deepStrictEqual(isUnknown([]), true)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Predicate.d.ts:245

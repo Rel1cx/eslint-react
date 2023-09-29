@@ -39,10 +39,6 @@
 
 [`Option`](src_lib_primitives.O.md#option)<`Variable`\>
 
-#### Defined in
-
-[src/utils/variable.ts:6](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/variable.ts#L6)
-
 ___
 
 ### findVariableByNameUpToGlobal
@@ -59,10 +55,6 @@ ___
 #### Returns
 
 [`Option`](src_lib_primitives.O.md#option)<`NonNullable`<`Variable`\>\>
-
-#### Defined in
-
-[src/utils/variable.ts:24](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/variable.ts#L24)
 
 ___
 
@@ -92,10 +84,6 @@ ___
 
 [`Option`](src_lib_primitives.O.md#option)<`NonNullable`<`ArrowFunctionExpression` \| `FunctionExpression` \| `ArrayExpression` \| `ArrayPattern` \| `AssignmentExpression` \| `AwaitExpression` \| `BinaryExpression` \| `CallExpression` \| `ChainExpression` \| `ClassExpression` \| `ConditionalExpression` \| `Identifier` \| `ImportExpression` \| `JSXElement` \| `JSXFragment` \| `BigIntLiteral` \| `BooleanLiteral` \| `NullLiteral` \| `NumberLiteral` \| `RegExpLiteral` \| `StringLiteral` \| `LogicalExpression` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` \| `MetaProperty` \| `NewExpression` \| `ObjectExpression` \| `ObjectPattern` \| `SequenceExpression` \| `Super` \| `TaggedTemplateExpression` \| `TemplateLiteral` \| `ThisExpression` \| `TSAsExpression` \| `TSInstantiationExpression` \| `TSNonNullExpression` \| `TSSatisfiesExpression` \| `TSTypeAssertion` \| `UnaryExpression` \| `UpdateExpression` \| `LetOrConstOrVarDeclaration` \| `YieldExpression`\>\>
 
-#### Defined in
-
-[src/utils/variable.ts:28](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/variable.ts#L28)
-
 ___
 
 ### getVariablesUpToGlobal
@@ -111,7 +99,3 @@ ___
 #### Returns
 
 `Variable`[]
-
-#### Defined in
-
-[src/utils/variable.ts:12](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/variable.ts#L12)

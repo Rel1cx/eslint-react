@@ -90,10 +90,6 @@ assert.deepStrictEqual(filterMap(x, f), { c: 6 })
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:338
-
 ▸ **filterMap**<`K`, `A`, `B`\>(`self`, `f`): `Record`<`string`, `B`\>
 
 Transforms a `ReadonlyRecord` into a `Record` by applying the function `f` to each key and value in the original `ReadonlyRecord`.
@@ -132,10 +128,6 @@ assert.deepStrictEqual(filterMap(x, f), { c: 6 })
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:339
 
 ___
 
@@ -189,10 +181,6 @@ assert.deepStrictEqual(get(person, "email"), none())
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:203
-
 ▸ **get**<`A`\>(`self`, `key`): [`Option`](src_lib_primitives.O.md#option)<`A`\>
 
 Retrieve a value at a particular key from a `ReadonlyRecord`, returning it wrapped in an `Option`.
@@ -229,10 +217,6 @@ assert.deepStrictEqual(get(person, "email"), none())
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:204
 
 ___
 
@@ -283,10 +267,6 @@ assert.deepStrictEqual(has({ a: 1, b: 2 }, "c"), false);
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:182
-
 ▸ **has**<`A`\>(`self`, `key`): `boolean`
 
 Check if a given `key` exists in a `ReadonlyRecord`.
@@ -320,10 +300,6 @@ assert.deepStrictEqual(has({ a: 1, b: 2 }, "c"), false);
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:183
 
 ___
 
@@ -381,10 +357,6 @@ assert.deepStrictEqual(map({ a: 3, b: 5 }, g), { a: "A-3", b: "B-5" })
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:317
-
 ▸ **map**<`K`, `A`, `B`\>(`self`, `f`): `Record`<`K`, `B`\>
 
 Maps a `ReadonlyRecord` into another `Record` by applying a transformation function to each of its values.
@@ -425,10 +397,6 @@ assert.deepStrictEqual(map({ a: 3, b: 5 }, g), { a: "A-3", b: "B-5" })
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:318
 
 ___
 
@@ -491,10 +459,6 @@ assert.deepStrictEqual(
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:232
-
 ▸ **modifyOption**<`A`, `B`\>(`self`, `key`, `f`): [`Option`](src_lib_primitives.O.md#option)<`Record`<`string`, `A` \| `B`\>\>
 
 Apply a function to the element at the specified key, creating a new record,
@@ -540,10 +504,6 @@ assert.deepStrictEqual(
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:233
 
 ___
 
@@ -593,10 +553,6 @@ assert.deepStrictEqual(remove({ a: 1, b: 2 }, "a"), { b: 2 })
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:272
-
 ▸ **remove**<`A`\>(`self`, `key`): `Record`<`string`, `A`\>
 
 Removes a key from a `ReadonlyRecord` and returns a new `Record`
@@ -629,10 +585,6 @@ assert.deepStrictEqual(remove({ a: 1, b: 2 }, "a"), { b: 2 })
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:273
 
 ___
 
@@ -694,10 +646,6 @@ assert.deepStrictEqual(replaceOption({}, 'a', 10), none())
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:255
-
 ▸ **replaceOption**<`A`, `B`\>(`self`, `key`, `b`): [`Option`](src_lib_primitives.O.md#option)<`Record`<`string`, `A` \| `B`\>\>
 
 Replaces a value in the record with the new value passed as parameter.
@@ -738,10 +686,6 @@ assert.deepStrictEqual(replaceOption({}, 'a', 10), none())
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:256
-
 ___
 
 ### size
@@ -778,10 +722,6 @@ assert.deepStrictEqual(size({ a: "a", b: 1, c: true }), 3);
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:166
-
 ## constructors
 
 ### empty
@@ -803,10 +743,6 @@ Creates a new, empty record.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:29
 
 ## conversions
 
@@ -859,10 +795,6 @@ assert.deepStrictEqual(collect(x, (key, n) => [key, n]), [["a", 1], ["b", 2], ["
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:119
-
 ▸ **collect**<`K`, `A`, `B`\>(`self`, `f`): `B`[]
 
 Transforms the values of a `ReadonlyRecord` into an `Array` with a custom mapping function.
@@ -898,10 +830,6 @@ assert.deepStrictEqual(collect(x, (key, n) => [key, n]), [["a", 1], ["b", 2], ["
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:120
 
 ___
 
@@ -943,10 +871,6 @@ assert.deepStrictEqual(fromEntries(input), { a: 1, b: 2 })
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:102
 
 ___
 
@@ -1003,10 +927,6 @@ assert.deepStrictEqual(
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:81
-
 ▸ **fromIterable**<`A`, `B`\>(`self`, `f`): `Record`<`string`, `B`\>
 
 Takes an iterable and a projection function and returns a record.
@@ -1046,10 +966,6 @@ assert.deepStrictEqual(
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:82
 
 ___
 
@@ -1091,10 +1007,6 @@ assert.deepStrictEqual(toArray(x), [["a", 1], ["b", 2], ["c", 3]])
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:153
-
 ___
 
 ### toEntries
@@ -1132,10 +1044,6 @@ assert.deepStrictEqual(toEntries(x), [["a", 1], ["b", 2], ["c", 3]])
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:136
 
 ## filtering
 
@@ -1176,10 +1084,6 @@ assert.deepStrictEqual(
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:379
 
 ___
 
@@ -1233,10 +1137,6 @@ assert.deepStrictEqual(filter(x, (n) => n > 2), { c: 3, d: 4 })
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:357
-
 ▸ **filter**<`K`, `B`, `A`\>(`predicate`): (`self`: `Record`<`K`, `B`\>) => `Record`<`string`, `B`\>
 
 Selects properties from a record whose values match the given predicate.
@@ -1284,10 +1184,6 @@ assert.deepStrictEqual(filter(x, (n) => n > 2), { c: 3, d: 4 })
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:358
-
 ▸ **filter**<`K`, `C`, `B`, `A`\>(`self`, `refinement`): `Record`<`string`, `B`\>
 
 Selects properties from a record whose values match the given predicate.
@@ -1325,10 +1221,6 @@ assert.deepStrictEqual(filter(x, (n) => n > 2), { c: 3, d: 4 })
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:359
-
 ▸ **filter**<`K`, `B`, `A`\>(`self`, `predicate`): `Record`<`string`, `B`\>
 
 Selects properties from a record whose values match the given predicate.
@@ -1364,10 +1256,6 @@ assert.deepStrictEqual(filter(x, (n) => n > 2), { c: 3, d: 4 })
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:360
 
 ___
 
@@ -1423,10 +1311,6 @@ assert.deepStrictEqual(
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:438
-
 ▸ **partition**<`K`, `B`, `A`\>(`predicate`): (`self`: `Record`<`K`, `B`\>) => [`Record`<`string`, `B`\>, `Record`<`string`, `B`\>]
 
 Partitions a `ReadonlyRecord` into two separate `Record`s based on the result of a predicate function.
@@ -1476,10 +1360,6 @@ assert.deepStrictEqual(
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:439
-
 ▸ **partition**<`K`, `C`, `B`, `A`\>(`self`, `refinement`): [`Record`<`string`, `C`\>, `Record`<`string`, `B`\>]
 
 Partitions a `ReadonlyRecord` into two separate `Record`s based on the result of a predicate function.
@@ -1519,10 +1399,6 @@ assert.deepStrictEqual(
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:440
-
 ▸ **partition**<`K`, `B`, `A`\>(`self`, `predicate`): [`Record`<`string`, `B`\>, `Record`<`string`, `B`\>]
 
 Partitions a `ReadonlyRecord` into two separate `Record`s based on the result of a predicate function.
@@ -1560,10 +1436,6 @@ assert.deepStrictEqual(
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:441
 
 ___
 
@@ -1619,10 +1491,6 @@ assert.deepStrictEqual(partitionMap(x, f), [{ a: 1, c: 3 }, { b: 2}])
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:398
-
 ▸ **partitionMap**<`K`, `A`, `B`, `C`\>(`self`, `f`): [`Record`<`string`, `B`\>, `Record`<`string`, `C`\>]
 
 Partitions the elements of a `ReadonlyRecord` into two groups: those that match a predicate, and those that don't.
@@ -1661,10 +1529,6 @@ assert.deepStrictEqual(partitionMap(x, f), [{ a: 1, c: 3 }, { b: 2}])
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:399
 
 ___
 
@@ -1708,10 +1572,6 @@ assert.deepStrictEqual(
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:419
-
 ## guards
 
 ### isEmptyReadonlyRecord
@@ -1749,10 +1609,6 @@ assert.deepStrictEqual(isEmptyReadonlyRecord({ a: 3 }), false);
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:59
-
 ___
 
 ### isEmptyRecord
@@ -1789,10 +1645,6 @@ assert.deepStrictEqual(isEmptyRecord({ a: 3 }), false);
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:44
 
 ## record
 
@@ -1846,10 +1698,6 @@ assert.deepStrictEqual(pop({ a: 1, b: 2 }, "c"), none())
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:294
-
 ▸ **pop**<`A`\>(`self`, `key`): [`Option`](src_lib_primitives.O.md#option)<readonly [`A`, [`ReadonlyRecord`](../interfaces/src_lib_primitives.Rec.ReadonlyRecord.md)<`A`\>]\>
 
 Retrieves the value of the property with the given `key` from a `ReadonlyRecord` and returns an `Option`
@@ -1886,7 +1734,3 @@ assert.deepStrictEqual(pop({ a: 1, b: 2 }, "c"), none())
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/ReadonlyRecord.d.ts:295

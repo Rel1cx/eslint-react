@@ -33,7 +33,3 @@
 ##### Returns
 
 `A`[typeof `typeSymbol`] extends [`Option`](../modules/src_lib_primitives.O.md#option)<`A0`\> \| `_` ? [`Option`](../modules/src_lib_primitives.O.md#option)<`A0`\> : `never`
-
-#### Defined in
-
-node_modules/@effect/data/Option.d.ts:64

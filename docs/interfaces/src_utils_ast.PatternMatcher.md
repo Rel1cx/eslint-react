@@ -56,10 +56,6 @@ module.exports = {
 }
 ```
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/PatternMatcher.d.ts:36
-
 ___
 
 ### execAll
@@ -82,10 +78,6 @@ Iterate all matched parts in a given string.
 
 [https://eslint-community.github.io/eslint-utils/api/ast-utils.html#matcher-execall](https://eslint-community.github.io/eslint-utils/api/ast-utils.html#matcher-execall)
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/PatternMatcher.d.ts:7
-
 ___
 
 ### test
@@ -107,7 +99,3 @@ Check whether this pattern matches a given string or not.
 **`See`**
 
 [https://eslint-community.github.io/eslint-utils/api/ast-utils.html#matcher-test](https://eslint-community.github.io/eslint-utils/api/ast-utils.html#matcher-test)
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/PatternMatcher.d.ts:13

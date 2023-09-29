@@ -79,10 +79,6 @@
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:429
-
 ___
 
 ### try
@@ -108,10 +104,6 @@ ___
 
 [`Either`](src_lib_primitives.E.md#either)<`E`, `A`\>
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:129
-
 ▸ **try**<`A`\>(`evaluate`): [`Either`](src_lib_primitives.E.md#either)<`unknown`, `A`\>
 
 #### Type parameters
@@ -129,10 +121,6 @@ node_modules/@effect/data/Either.d.ts:129
 #### Returns
 
 [`Either`](src_lib_primitives.E.md#either)<`unknown`, `A`\>
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:133
 
 ## combining
 
@@ -175,10 +163,6 @@ assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.left("error") 
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:421
 
 ___
 
@@ -226,10 +210,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:399
-
 ▸ **flatMap**<`E1`, `A`, `E2`, `B`\>(`self`, `f`): [`Either`](src_lib_primitives.E.md#either)<`E1` \| `E2`, `B`\>
 
 #### Type parameters
@@ -255,10 +235,6 @@ node_modules/@effect/data/Either.d.ts:399
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:400
 
 ## constructors
 
@@ -311,10 +287,6 @@ assert.deepStrictEqual(Either.fromNullable(null, () => 'fallback'), Either.left(
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:110
-
 ▸ **fromNullable**<`A`, `E`\>(`self`, `onNullable`): [`Either`](src_lib_primitives.E.md#either)<`E`, `NonNullable`<`A`\>\>
 
 Takes a lazy default and a nullable value, if the value is not nully (`null` or `undefined`), turn it into a `Right`, if the value is nully use
@@ -350,10 +322,6 @@ assert.deepStrictEqual(Either.fromNullable(null, () => 'fallback'), Either.left(
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:111
 
 ___
 
@@ -392,10 +360,6 @@ assert.deepStrictEqual(Either.fromOption(Option.none(), () => 'error'), Either.l
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:125
 
 ▸ **fromOption**<`E`\>(`onNone`): <A\>(`self`: [`Option`](src_lib_primitives.O.md#option)<`A`\>) => [`Either`](src_lib_primitives.E.md#either)<`E`, `A`\>
 
@@ -447,10 +411,6 @@ assert.deepStrictEqual(Either.fromOption(Option.none(), () => 'error'), Either.l
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:126
-
 ___
 
 ### left
@@ -479,10 +439,6 @@ structure.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:95
 
 ___
 
@@ -513,10 +469,6 @@ of this structure.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:87
-
 ## equivalence
 
 ### getEquivalence
@@ -544,10 +496,6 @@ node_modules/@effect/data/Either.d.ts:87
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:224
 
 ## error handling
 
@@ -597,10 +545,6 @@ Returns `self` if it is a `Right` or `that` otherwise.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:391
-
 ▸ **orElse**<`E1`, `A`, `E2`, `B`\>(`self`, `that`): [`Either`](src_lib_primitives.E.md#either)<`E2`, `A` \| `B`\>
 
 Returns `self` if it is a `Right` or `that` otherwise.
@@ -629,10 +573,6 @@ Returns `self` if it is a `Right` or `that` otherwise.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:392
-
 ## generators
 
 ### gen
@@ -659,10 +599,6 @@ node_modules/@effect/data/Either.d.ts:392
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/UtilsGen.d.ts:105
 
 ## getters
 
@@ -702,10 +638,6 @@ assert.deepStrictEqual(E.getLeft(E.left('err')), O.some('err'))
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:219
 
 ___
 
@@ -763,10 +695,6 @@ assert.deepStrictEqual(Either.getOrElse(Either.left("not a number"), (error) => 
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:314
-
 ▸ **getOrElse**<`E`, `A`, `B`\>(`self`, `onLeft`): `A` \| `B`
 
 Returns the wrapped value if it's a `Right` or a default value if is a `Left`.
@@ -803,10 +731,6 @@ assert.deepStrictEqual(Either.getOrElse(Either.left("not a number"), (error) => 
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:315
-
 ___
 
 ### getOrNull
@@ -842,10 +766,6 @@ assert.deepStrictEqual(Either.getOrNull(Either.left("a")), null)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:327
 
 ___
 
@@ -890,10 +810,6 @@ assert.throws(() => E.getOrThrow(E.left("error")))
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:380
 
 ___
 
@@ -955,10 +871,6 @@ assert.throws(() => E.getOrThrowWith(E.left("error"), () => new Error('Unexpecte
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:360
-
 ▸ **getOrThrowWith**<`E`, `A`\>(`self`, `onLeft`): `A`
 
 Extracts the value of an `Either` or throws if the `Either` is `Left`.
@@ -999,10 +911,6 @@ assert.throws(() => E.getOrThrowWith(E.left("error"), () => new Error('Unexpecte
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:361
-
 ___
 
 ### getOrUndefined
@@ -1038,10 +946,6 @@ assert.deepStrictEqual(Either.getOrUndefined(Either.left("a")), undefined)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:338
 
 ___
 
@@ -1084,10 +988,6 @@ assert.deepStrictEqual(E.getRight(E.left('err')), O.none())
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:205
-
 ___
 
 ### merge
@@ -1114,10 +1014,6 @@ ___
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:300
 
 ## guards
 
@@ -1150,10 +1046,6 @@ assert.deepStrictEqual(isEither({ right: 1 }), false)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:159
 
 ___
 
@@ -1193,10 +1085,6 @@ assert.deepStrictEqual(isLeft(left("a")), true)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:174
-
 ___
 
 ### isRight
@@ -1234,10 +1122,6 @@ assert.deepStrictEqual(isRight(left("a")), false)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:189
 
 ## mapping
 
@@ -1286,10 +1170,6 @@ Maps the `Right` side of an `Either` value to a new `Either` value.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:262
-
 ▸ **map**<`E`, `A`, `B`\>(`self`, `f`): [`Either`](src_lib_primitives.E.md#either)<`E`, `B`\>
 
 Maps the `Right` side of an `Either` value to a new `Either` value.
@@ -1316,10 +1196,6 @@ Maps the `Right` side of an `Either` value to a new `Either` value.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:263
 
 ___
 
@@ -1364,10 +1240,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:230
-
 ▸ **mapBoth**<`E1`, `A`, `E2`, `B`\>(`self`, `options`): [`Either`](src_lib_primitives.E.md#either)<`E2`, `B`\>
 
 #### Type parameters
@@ -1395,10 +1267,6 @@ node_modules/@effect/data/Either.d.ts:230
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:234
 
 ___
 
@@ -1447,10 +1315,6 @@ Maps the `Left` side of an `Either` value to a new `Either` value.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:249
-
 ▸ **mapLeft**<`E`, `A`, `G`\>(`self`, `f`): [`Either`](src_lib_primitives.E.md#either)<`G`, `A`\>
 
 Maps the `Left` side of an `Either` value to a new `Either` value.
@@ -1478,10 +1342,6 @@ Maps the `Left` side of an `Either` value to a new `Either` value.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:250
-
 ## models
 
 ### Either
@@ -1498,10 +1358,6 @@ node_modules/@effect/data/Either.d.ts:250
 | :------ |
 | `E` |
 | `A` |
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:17
 
 ## pattern matching
 
@@ -1563,10 +1419,6 @@ assert.deepStrictEqual(
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:287
-
 ▸ **match**<`E`, `A`, `B`, `C`\>(`self`, `options`): `B` \| `C`
 
 Takes two functions and an `Either` value, if the value is a `Left` the inner value is applied to the `onLeft function,
@@ -1612,10 +1464,6 @@ assert.deepStrictEqual(
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:291
-
 ## symbols
 
 ### TypeId
@@ -1626,12 +1474,6 @@ node_modules/@effect/data/Either.d.ts:291
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:22
-
-node_modules/@effect/data/Either.d.ts:27
-
 ___
 
 ### TypeId
@@ -1641,9 +1483,3 @@ ___
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:22
-
-node_modules/@effect/data/Either.d.ts:27

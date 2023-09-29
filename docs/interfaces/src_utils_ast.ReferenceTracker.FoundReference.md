@@ -25,19 +25,11 @@
 
 • **info**: `T`
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:66
-
 ___
 
 ### node
 
 • **node**: `Node`
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:63
 
 ___
 
@@ -45,16 +37,8 @@ ___
 
 • **path**: readonly `string`[]
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:64
-
 ___
 
 ### type
 
 • **type**: [`ReferenceType`](../modules/src_utils_ast.ReferenceTracker.md#referencetype)
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:65

@@ -41,10 +41,6 @@ This method starts to search from `require()` expression.
 
 [https://eslint-community.github.io/eslint-utils/api/scope-utils.html#tracker-iteratecjsreferences](https://eslint-community.github.io/eslint-utils/api/scope-utils.html#tracker-iteratecjsreferences)
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:21
-
 ___
 
 ### iterateEsmReferences
@@ -74,10 +70,6 @@ This method starts to search from `import`/`export` declarations.
 
 [https://eslint-community.github.io/eslint-utils/api/scope-utils.html#tracker-iterateesmreferences](https://eslint-community.github.io/eslint-utils/api/scope-utils.html#tracker-iterateesmreferences)
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:28
-
 ___
 
 ### iterateGlobalReferences
@@ -106,7 +98,3 @@ This method starts to search from global variables.
 **`See`**
 
 [https://eslint-community.github.io/eslint-utils/api/scope-utils.html#tracker-iterateglobalreferences](https://eslint-community.github.io/eslint-utils/api/scope-utils.html#tracker-iterateglobalreferences)
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:14

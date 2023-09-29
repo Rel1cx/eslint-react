@@ -31,10 +31,6 @@
 
 [`Either`](src_lib_primitives.E.md#either)<`Error`, `string`\>
 
-#### Defined in
-
-[src/utils/pragma.ts:32](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/pragma.ts#L32)
-
 ___
 
 ### getFromContext
@@ -56,7 +52,3 @@ ___
 #### Returns
 
 [`Either`](src_lib_primitives.E.md#either)<`Error`, `string`\>
-
-#### Defined in
-
-[src/utils/pragma.ts:45](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/pragma.ts#L45)

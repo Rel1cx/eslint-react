@@ -28,7 +28,3 @@
 #### Returns
 
 [`CaseValidator`](../classes/src_lib_case_validator_case_validator.CaseValidator.md)
-
-#### Defined in
-
-[src/lib/case-validator/case-validator.ts:44](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/case-validator/case-validator.ts#L44)

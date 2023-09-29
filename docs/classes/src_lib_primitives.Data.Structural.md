@@ -43,10 +43,6 @@
 | :------ | :------ |
 | `args` | `Omit`<`A`, keyof `Equal`\> |
 
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:91
-
 ## Methods
 
 ### [symbol]
@@ -66,10 +62,6 @@ node_modules/@effect/data/Data.d.ts:91
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:95
 
 ___
 
@@ -91,7 +83,3 @@ ___
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:99

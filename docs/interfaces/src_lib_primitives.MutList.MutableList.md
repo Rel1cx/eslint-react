@@ -56,19 +56,11 @@
 
 Inspectable.[NodeInspectSymbol]
 
-#### Defined in
-
-node_modules/@effect/data/Inspectable.d.ts:21
-
 ___
 
 ### [TypeId]
 
 • `Readonly` **[TypeId]**: typeof `TypeId`
-
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:14
 
 ___
 
@@ -88,10 +80,6 @@ ___
 
 Inspectable.toJSON
 
-#### Defined in
-
-node_modules/@effect/data/Inspectable.d.ts:20
-
 ___
 
 ### toString
@@ -110,10 +98,6 @@ ___
 
 Inspectable.toString
 
-#### Defined in
-
-node_modules/@effect/data/Inspectable.d.ts:19
-
 ## Methods
 
 ### [iterator]
@@ -127,10 +111,6 @@ node_modules/@effect/data/Inspectable.d.ts:19
 #### Inherited from
 
 Iterable.[iterator]
-
-#### Defined in
-
-node_modules/typescript/lib/lib.es2015.iterable.d.ts:49
 
 ___
 
@@ -160,10 +140,6 @@ ___
 
 Pipeable.pipe
 
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:9
-
 ▸ **pipe**<`A`, `B`, `C`\>(`this`, `ab`, `bc`): `C`
 
 #### Type parameters
@@ -189,10 +165,6 @@ node_modules/@effect/data/Pipeable.d.ts:9
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:10
 
 ▸ **pipe**<`A`, `B`, `C`, `D`\>(`this`, `ab`, `bc`, `cd`): `D`
 
@@ -221,10 +193,6 @@ node_modules/@effect/data/Pipeable.d.ts:10
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:11
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`\>(`this`, `ab`, `bc`, `cd`, `de`): `E`
 
@@ -255,10 +223,6 @@ node_modules/@effect/data/Pipeable.d.ts:11
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:12
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`): `F`
 
@@ -291,10 +255,6 @@ node_modules/@effect/data/Pipeable.d.ts:12
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:13
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`): `G`
 
@@ -329,10 +289,6 @@ node_modules/@effect/data/Pipeable.d.ts:13
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:14
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): `H`
 
@@ -369,10 +325,6 @@ node_modules/@effect/data/Pipeable.d.ts:14
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:15
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): `I`
 
@@ -411,10 +363,6 @@ node_modules/@effect/data/Pipeable.d.ts:15
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:16
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): `J`
 
@@ -455,10 +403,6 @@ node_modules/@effect/data/Pipeable.d.ts:16
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:17
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`): `K`
 
@@ -501,10 +445,6 @@ node_modules/@effect/data/Pipeable.d.ts:17
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:18
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`): `L`
 
@@ -549,10 +489,6 @@ node_modules/@effect/data/Pipeable.d.ts:18
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:19
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`): `M`
 
@@ -599,10 +535,6 @@ node_modules/@effect/data/Pipeable.d.ts:19
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:20
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`): `N`
 
@@ -651,10 +583,6 @@ node_modules/@effect/data/Pipeable.d.ts:20
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:21
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`): `O`
 
@@ -705,10 +633,6 @@ node_modules/@effect/data/Pipeable.d.ts:21
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:22
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`): `P`
 
@@ -761,10 +685,6 @@ node_modules/@effect/data/Pipeable.d.ts:22
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:23
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`): `Q`
 
@@ -819,10 +739,6 @@ node_modules/@effect/data/Pipeable.d.ts:23
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:24
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`): `R`
 
@@ -879,10 +795,6 @@ node_modules/@effect/data/Pipeable.d.ts:24
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:25
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`): `S`
 
@@ -941,10 +853,6 @@ node_modules/@effect/data/Pipeable.d.ts:25
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:26
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`): `T`
 
@@ -1006,10 +914,6 @@ node_modules/@effect/data/Pipeable.d.ts:26
 
 Pipeable.pipe
 
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:27
-
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`, `U`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`, `tu`): `U`
 
 #### Type parameters
@@ -1072,10 +976,6 @@ node_modules/@effect/data/Pipeable.d.ts:27
 
 Pipeable.pipe
 
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:28
-
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`, `U`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`, `tu`): `U`
 
 #### Type parameters
@@ -1137,7 +1037,3 @@ node_modules/@effect/data/Pipeable.d.ts:28
 #### Inherited from
 
 Pipeable.pipe
-
-#### Defined in
-
-node_modules/@effect/data/Pipeable.d.ts:29

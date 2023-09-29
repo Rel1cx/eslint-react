@@ -32,19 +32,11 @@ The tracker for references. This provides reference tracking for global variable
 
 Ƭ **CALL**: `ReferenceTrackerStatic`[``"CALL"``]
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:50
-
 ___
 
 ### CONSTRUCT
 
 Ƭ **CONSTRUCT**: `ReferenceTrackerStatic`[``"CONSTRUCT"``]
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:51
 
 ___
 
@@ -52,29 +44,17 @@ ___
 
 Ƭ **ESM**: `ReferenceTrackerStatic`[``"ESM"``]
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:52
-
 ___
 
 ### READ
 
 Ƭ **READ**: `ReferenceTrackerStatic`[``"READ"``]
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:49
-
 ___
 
 ### ReferenceType
 
 Ƭ **ReferenceType**: [`CALL`](src_utils_ast.ReferenceTracker.md#call) \| [`CONSTRUCT`](src_utils_ast.ReferenceTracker.md#construct) \| [`READ`](src_utils_ast.ReferenceTracker.md#read)
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:53
 
 ___
 
@@ -87,7 +67,3 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `T` | `any` |
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/eslint-utils/ReferenceTracker.d.ts:54

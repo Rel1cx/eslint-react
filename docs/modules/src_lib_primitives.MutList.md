@@ -58,10 +58,6 @@ Removes the last value from the list and returns it, if it exists.
 
 0.0.1
 
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:102
-
 ___
 
 ### reset
@@ -90,10 +86,6 @@ Removes all elements from the doubly-linked list.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:80
-
 ___
 
 ### shift
@@ -121,10 +113,6 @@ Removes the first value from the list and returns it, if it exists.
 **`Since`**
 
 0.0.1
-
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:96
 
 ## concatenating
 
@@ -166,10 +154,6 @@ Appends the specified element to the end of the `MutableList`.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:88
-
 ▸ **append**<`A`\>(`self`, `value`): [`MutableList`](../interfaces/src_lib_primitives.MutList.MutableList.md)<`A`\>
 
 Appends the specified element to the end of the `MutableList`.
@@ -194,10 +178,6 @@ Appends the specified element to the end of the `MutableList`.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:89
 
 ___
 
@@ -239,10 +219,6 @@ Prepends the specified value to the beginning of the list.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:110
-
 ▸ **prepend**<`A`\>(`self`, `value`): [`MutableList`](../interfaces/src_lib_primitives.MutList.MutableList.md)<`A`\>
 
 Prepends the specified value to the beginning of the list.
@@ -268,10 +244,6 @@ Prepends the specified value to the beginning of the list.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:111
-
 ## constructors
 
 ### empty
@@ -293,10 +265,6 @@ Creates an empty `MutableList`.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:22
 
 ___
 
@@ -326,10 +294,6 @@ Creates a new `MutableList` from an `Iterable`.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:29
-
 ___
 
 ### make
@@ -357,10 +321,6 @@ Creates a new `MutableList` from the specified elements.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:36
 
 ## getters
 
@@ -390,10 +350,6 @@ Returns the first element of the list, if it exists.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:64
-
 ___
 
 ### isEmpty
@@ -421,10 +377,6 @@ Returns `true` if the list contains zero elements, `false`, otherwise.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:43
 
 ___
 
@@ -454,10 +406,6 @@ Returns the length of the list.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:50
-
 ___
 
 ### tail
@@ -486,10 +434,6 @@ Returns the last element of the list, if it exists.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:57
-
 ## symbol
 
 ### TypeId
@@ -499,10 +443,6 @@ node_modules/@effect/data/MutableList.d.ts:57
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:8
 
 ## traversing
 
@@ -544,10 +484,6 @@ Executes the specified function `f` for each element in the list.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:72
-
 ▸ **forEach**<`A`\>(`self`, `f`): `void`
 
 Executes the specified function `f` for each element in the list.
@@ -572,7 +508,3 @@ Executes the specified function `f` for each element in the list.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableList.d.ts:73

@@ -56,10 +56,6 @@
 
 [`Constructor`](../interfaces/src_lib_primitives.Data.Case.Constructor.md)<`A`, `never`\>
 
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:59
-
 ## constructors
 
 ### Class
@@ -87,10 +83,6 @@ Provides a constructor for a Case Class.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:107
 
 ___
 
@@ -134,10 +126,6 @@ Provides a Tagged constructor for a Case Class.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:83
-
 ___
 
 ### array
@@ -164,10 +152,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:53
-
 ___
 
 ### struct
@@ -193,10 +177,6 @@ ___
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:38
 
 ___
 
@@ -225,10 +205,6 @@ Provides a tagged constructor for the specified `Case`.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:74
 
 ___
 
@@ -321,10 +297,6 @@ const success = MyResult("Success")({ value: 1 })
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:220
-
 ▸ **taggedEnum**<`Z`\>(): <K\>(`tag`: `K`) => <A, B\>(`args`: [`Args`](src_lib_primitives.Data.TaggedEnum.md#args)<[`Kind`](src_lib_primitives.Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `unknown`, `unknown`\>, `K`\>) => `Extract`<[`Kind`](src_lib_primitives.Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `unknown`, `unknown`\>, { `_tag`: `K`  }\>
 
 Create a constructor for a tagged union of `Data` structs.
@@ -412,10 +384,6 @@ const success = MyResult("Success")({ value: 1 })
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:221
 
 ▸ **taggedEnum**<`Z`\>(): <K\>(`tag`: `K`) => <A, B, C\>(`args`: [`Args`](src_lib_primitives.Data.TaggedEnum.md#args)<[`Kind`](src_lib_primitives.Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `unknown`\>, `K`\>) => `Extract`<[`Kind`](src_lib_primitives.Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `unknown`\>, { `_tag`: `K`  }\>
 
@@ -505,10 +473,6 @@ const success = MyResult("Success")({ value: 1 })
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:222
 
 ▸ **taggedEnum**<`Z`\>(): <K\>(`tag`: `K`) => <A, B, C, D\>(`args`: [`Args`](src_lib_primitives.Data.TaggedEnum.md#args)<[`Kind`](src_lib_primitives.Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `D`\>, `K`\>) => `Extract`<[`Kind`](src_lib_primitives.Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `D`\>, { `_tag`: `K`  }\>
 
@@ -600,10 +564,6 @@ const success = MyResult("Success")({ value: 1 })
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:223
-
 ▸ **taggedEnum**<`A`\>(): <K\>(`tag`: `K`) => [`Constructor`](../interfaces/src_lib_primitives.Data.Case.Constructor.md)<`Extract`<`A`, { `_tag`: `K`  }\>, ``"_tag"``\>
 
 Create a constructor for a tagged union of `Data` structs.
@@ -673,10 +633,6 @@ const success = MyResult("Success")({ value: 1 })
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:224
-
 ___
 
 ### tuple
@@ -702,10 +658,6 @@ ___
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:48
 
 ___
 
@@ -733,10 +685,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:58
-
 ___
 
 ### unsafeStruct
@@ -763,10 +711,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:43
-
 ## models
 
 ### Data
@@ -782,10 +726,6 @@ node_modules/@effect/data/Data.d.ts:43
 | Name | Type |
 | :------ | :------ |
 | `A` | extends `Readonly`<`Record`<`string`, `any`\>\> \| `ReadonlyArray`<`any`\> |
-
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:11
 
 ___
 
@@ -826,9 +766,3 @@ type HttpErrorPlain =
 | Name | Type |
 | :------ | :------ |
 | `A` | extends `Record`<`string`, `Record`<`string`, `any`\>\> |
-
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:136
-
-node_modules/@effect/data/Data.d.ts:144

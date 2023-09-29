@@ -38,7 +38,3 @@ export const sum: FunctionN<[number, number], number> = (a, b) => a + b
 #### Returns
 
 `B`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:109

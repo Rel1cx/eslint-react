@@ -48,10 +48,6 @@
 
 [`Option`](src_lib_primitives.O.md#option)<`NonNullable`<`undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`\>\>
 
-#### Defined in
-
-[src/utils/jsx.ts:175](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L175)
-
 ___
 
 ### findPropInProperties
@@ -82,10 +78,6 @@ ___
 
 [`Option`](src_lib_primitives.O.md#option)<`PropertyComputedName` \| `PropertyNonComputedName` \| `RestElement` \| `SpreadElement`\>
 
-#### Defined in
-
-[src/utils/jsx.ts:129](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L129)
-
 ___
 
 ### getPropName
@@ -101,10 +93,6 @@ ___
 #### Returns
 
 `string`
-
-#### Defined in
-
-[src/utils/jsx.ts:115](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L115)
 
 ___
 
@@ -122,10 +110,6 @@ ___
 
 `string`
 
-#### Defined in
-
-[src/utils/jsx.ts:122](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L122)
-
 ___
 
 ### hasChildren
@@ -141,10 +125,6 @@ ___
 #### Returns
 
 `boolean`
-
-#### Defined in
-
-[src/utils/jsx.ts:26](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L26)
 
 ___
 
@@ -162,10 +142,6 @@ ___
 
 node is JSXElement \| JSXFragment
 
-#### Defined in
-
-[src/utils/jsx.ts:16](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L16)
-
 ___
 
 ### isJSXElement
@@ -182,10 +158,6 @@ ___
 
 node is JSXElement
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/helpers.d.ts:2
-
 ___
 
 ### isJSXFragment
@@ -201,10 +173,6 @@ ___
 #### Returns
 
 node is JSXFragment
-
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/helpers.d.ts:2
 
 ___
 
@@ -225,10 +193,6 @@ ___
 
 `boolean`
 
-#### Defined in
-
-[src/utils/jsx.ts:31](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L31)
-
 ___
 
 ### isJsxTagNameExpression
@@ -245,10 +209,6 @@ ___
 
 node is JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName
 
-#### Defined in
-
-node_modules/@typescript-eslint/utils/dist/ast-utils/helpers.d.ts:393
-
 ___
 
 ### isLineBreak
@@ -264,10 +224,6 @@ ___
 #### Returns
 
 `boolean`
-
-#### Defined in
-
-[src/utils/jsx.ts:212](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L212)
 
 ___
 
@@ -287,7 +243,3 @@ ___
 #### Returns
 
 `boolean`
-
-#### Defined in
-
-[src/utils/jsx.ts:104](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L104)

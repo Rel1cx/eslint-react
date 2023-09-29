@@ -53,10 +53,6 @@
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:116
-
 ## constructors
 
 ### make
@@ -82,10 +78,6 @@ node_modules/@effect/data/MutableRef.d.ts:116
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:20
 
 ## general
 
@@ -126,10 +118,6 @@ node_modules/@effect/data/MutableRef.d.ts:20
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:26
-
 ▸ **compareAndSet**<`T`\>(`self`, `oldValue`, `newValue`): `boolean`
 
 #### Type parameters
@@ -153,10 +141,6 @@ node_modules/@effect/data/MutableRef.d.ts:26
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:27
 
 ___
 
@@ -183,10 +167,6 @@ ___
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:43
 
 ___
 
@@ -226,10 +206,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:59
-
 ▸ **getAndSet**<`T`\>(`self`, `value`): `T`
 
 #### Type parameters
@@ -252,10 +228,6 @@ node_modules/@effect/data/MutableRef.d.ts:59
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:60
 
 ___
 
@@ -295,10 +267,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:67
-
 ▸ **getAndUpdate**<`T`\>(`self`, `f`): `T`
 
 #### Type parameters
@@ -321,10 +289,6 @@ node_modules/@effect/data/MutableRef.d.ts:67
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:68
 
 ___
 
@@ -364,10 +328,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:85
-
 ▸ **set**<`T`\>(`self`, `value`): [`MutableRef`](../interfaces/src_lib_primitives.MutRef.MutableRef.md)<`T`\>
 
 #### Type parameters
@@ -390,10 +350,6 @@ node_modules/@effect/data/MutableRef.d.ts:85
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:86
 
 ___
 
@@ -433,10 +389,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:93
-
 ▸ **setAndGet**<`T`\>(`self`, `value`): `T`
 
 #### Type parameters
@@ -459,10 +411,6 @@ node_modules/@effect/data/MutableRef.d.ts:93
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:94
 
 ___
 
@@ -502,10 +450,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:101
-
 ▸ **update**<`T`\>(`self`, `f`): [`MutableRef`](../interfaces/src_lib_primitives.MutRef.MutableRef.md)<`T`\>
 
 #### Type parameters
@@ -528,10 +472,6 @@ node_modules/@effect/data/MutableRef.d.ts:101
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:102
 
 ___
 
@@ -571,10 +511,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:109
-
 ▸ **updateAndGet**<`T`\>(`self`, `f`): `T`
 
 #### Type parameters
@@ -598,10 +534,6 @@ node_modules/@effect/data/MutableRef.d.ts:109
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:110
-
 ## numeric
 
 ### decrement
@@ -621,10 +553,6 @@ node_modules/@effect/data/MutableRef.d.ts:110
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:33
 
 ___
 
@@ -646,10 +574,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:38
-
 ___
 
 ### getAndDecrement
@@ -669,10 +593,6 @@ ___
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:48
 
 ___
 
@@ -694,10 +614,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:53
-
 ___
 
 ### increment
@@ -717,10 +633,6 @@ ___
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:74
 
 ___
 
@@ -742,10 +654,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:79
-
 ## symbol
 
 ### TypeId
@@ -755,7 +663,3 @@ node_modules/@effect/data/MutableRef.d.ts:79
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/MutableRef.d.ts:8

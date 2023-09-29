@@ -82,10 +82,6 @@ Concatenates two strings at the type level.
 | `A` | extends `string` |
 | `B` | extends `string` |
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:50
-
 ___
 
 ### Trim
@@ -101,10 +97,6 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `A` | extends `string` |
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:113
 
 ___
 
@@ -123,10 +115,6 @@ ___
 | :------ | :------ |
 | `A` | extends `string` |
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:139
-
 ___
 
 ### TrimStart
@@ -144,10 +132,6 @@ ${infer B}\` ? [`TrimStart`](src_lib_primitives.Str.md#trimstart)<`B`\> : `A` ex
 | :------ | :------ |
 | `A` | extends `string` |
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:126
-
 ___
 
 ### empty
@@ -159,10 +143,6 @@ The empty string `""`.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:44
 
 ___
 
@@ -207,10 +187,6 @@ assert.deepStrictEqual(pipe("abc", S.at(4)), Option.none())
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:255
-
 ▸ **at**(`self`, `index`): [`Option`](src_lib_primitives.O.md#option)<`string`\>
 
 #### Parameters
@@ -238,10 +214,6 @@ assert.deepStrictEqual(pipe("abc", S.at(4)), Option.none())
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:256
 
 ___
 
@@ -277,10 +249,6 @@ assert.deepStrictEqual(pipe('abc', S.capitalize), 'Abc')
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:89
 
 ___
 
@@ -325,10 +293,6 @@ assert.deepStrictEqual(pipe("abc", S.charAt(4)), Option.none())
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:270
-
 ▸ **charAt**(`self`, `index`): [`Option`](src_lib_primitives.O.md#option)<`string`\>
 
 #### Parameters
@@ -356,10 +320,6 @@ assert.deepStrictEqual(pipe("abc", S.charAt(4)), Option.none())
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:271
 
 ___
 
@@ -404,10 +364,6 @@ assert.deepStrictEqual(pipe("abc", S.charCodeAt(4)), Option.none())
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:229
-
 ▸ **charCodeAt**(`self`, `index`): [`Option`](src_lib_primitives.O.md#option)<`number`\>
 
 #### Parameters
@@ -435,10 +391,6 @@ assert.deepStrictEqual(pipe("abc", S.charCodeAt(4)), Option.none())
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:230
 
 ___
 
@@ -482,10 +434,6 @@ assert.deepStrictEqual(pipe("abc", S.codePointAt(1)), Option.some(98))
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:284
-
 ▸ **codePointAt**(`self`, `index`): [`Option`](src_lib_primitives.O.md#option)<`number`\>
 
 #### Parameters
@@ -512,10 +460,6 @@ assert.deepStrictEqual(pipe("abc", S.codePointAt(1)), Option.some(98))
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:285
 
 ___
 
@@ -563,10 +507,6 @@ Concatenates two strings at runtime.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:57
-
 ▸ **concat**<`A`, `B`\>(`self`, `that`): \`${A}${B}\`
 
 Concatenates two strings at runtime.
@@ -592,10 +532,6 @@ Concatenates two strings at runtime.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:58
 
 ___
 
@@ -629,10 +565,6 @@ ___
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:216
 
 ___
 
@@ -669,10 +601,6 @@ greater than or equal to `position`; otherwise, returns `false`.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:208
 
 ___
 
@@ -716,10 +644,6 @@ assert.deepStrictEqual(pipe("abbbc", S.indexOf("b")), Option.some(1))
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:297
-
 ___
 
 ### isEmpty
@@ -751,10 +675,6 @@ assert.deepStrictEqual(S.isEmpty('a'), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:170
-
 ___
 
 ### isNonEmpty
@@ -776,10 +696,6 @@ Test whether a `string` is non empty.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:176
 
 ___
 
@@ -824,10 +740,6 @@ assert.deepStrictEqual(pipe("abbbc", S.lastIndexOf("d")), Option.none())
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:309
-
 ___
 
 ### length
@@ -858,10 +770,6 @@ assert.deepStrictEqual(S.length('abc'), 3)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:187
-
 ___
 
 ### linesWithSeparators
@@ -884,10 +792,6 @@ string as well as the trailing newline character.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:484
 
 ___
 
@@ -934,10 +838,6 @@ assert.deepStrictEqual(pipe("a", S.localeCompare("a")), 0)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:321
-
 ___
 
 ### match
@@ -972,10 +872,6 @@ It is the `pipe`-able version of the native `match` method.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:327
-
 ___
 
 ### matchAll
@@ -1009,10 +905,6 @@ It is the `pipe`-able version of the native `matchAll` method.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:333
 
 ___
 
@@ -1060,10 +952,6 @@ assert.deepStrictEqual(pipe(str, S.normalize("NFKD")), "\u0073\u0323\u0307")
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:348
-
 ___
 
 ### padEnd
@@ -1106,10 +994,6 @@ assert.deepStrictEqual(pipe("a", S.padEnd(5, "_")), "a____")
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:359
 
 ___
 
@@ -1154,10 +1038,6 @@ assert.deepStrictEqual(pipe("a", S.padStart(5, "_")), "____a")
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:370
-
 ___
 
 ### repeat
@@ -1198,10 +1078,6 @@ assert.deepStrictEqual(pipe("a", S.repeat(5)), "aaaaa")
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:380
 
 ___
 
@@ -1245,10 +1121,6 @@ assert.deepStrictEqual(pipe('abc', S.replace('b', 'd')), 'adc')
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:109
-
 ___
 
 ### replaceAll
@@ -1291,10 +1163,6 @@ assert.deepStrictEqual(pipe("ababb", S.replaceAll(/ba/g, "cc")), "accbb")
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:391
 
 ___
 
@@ -1340,10 +1208,6 @@ assert.deepStrictEqual(pipe("ababb", S.search("d")), Option.none())
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:405
-
 ▸ **search**(`self`, `regexp`): [`Option`](src_lib_primitives.O.md#option)<`number`\>
 
 #### Parameters
@@ -1372,10 +1236,6 @@ assert.deepStrictEqual(pipe("ababb", S.search("d")), Option.none())
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:406
 
 ___
 
@@ -1419,10 +1279,6 @@ assert.deepStrictEqual(pipe('abcd', S.slice(1, 3)), 'bc')
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:158
-
 ___
 
 ### split
@@ -1465,10 +1321,6 @@ assert.deepStrictEqual(pipe('', S.split('')), [''])
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:199
-
 ▸ **split**(`self`, `separator`): [`string`, ...string[]]
 
 #### Parameters
@@ -1495,10 +1347,6 @@ assert.deepStrictEqual(pipe('', S.split('')), [''])
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:200
 
 ___
 
@@ -1533,10 +1381,6 @@ ___
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:212
-
 ___
 
 ### stripMargin
@@ -1559,10 +1403,6 @@ or control characters followed by the `"|"` character from the line.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:502
 
 ___
 
@@ -1600,10 +1440,6 @@ from the line.
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:493
-
 ▸ **stripMarginWith**(`self`, `marginChar`): `string`
 
 For every line in this string, strip a leading prefix consisting of blanks
@@ -1624,10 +1460,6 @@ from the line.
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:494
 
 ___
 
@@ -1671,10 +1503,6 @@ assert.deepStrictEqual(pipe("abcd", S.substring(1, 3)), "bc")
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:242
 
 ___
 
@@ -1725,10 +1553,6 @@ assert.deepStrictEqual(S.takeLeft("Hello World", 5), "Hello")
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:448
-
 ▸ **takeLeft**(`self`, `n`): `string`
 
 Keep the specified number of characters from the start of a string.
@@ -1762,10 +1586,6 @@ assert.deepStrictEqual(S.takeLeft("Hello World", 5), "Hello")
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:449
 
 ___
 
@@ -1816,10 +1636,6 @@ assert.deepStrictEqual(S.takeRight("Hello World", 5), "World")
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:469
-
 ▸ **takeRight**(`self`, `n`): `string`
 
 Keep the specified number of characters from the end of a string.
@@ -1853,10 +1669,6 @@ assert.deepStrictEqual(S.takeRight("Hello World", 5), "World")
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:470
 
 ___
 
@@ -1900,10 +1712,6 @@ assert.deepStrictEqual(pipe(str, S.toLocaleLowerCase("tr")), "i")
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:418
-
 ___
 
 ### toLocaleUpperCase
@@ -1946,10 +1754,6 @@ assert.deepStrictEqual(pipe(str, S.toLocaleUpperCase("lt-LT")), "I")
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:429
-
 ___
 
 ### toLowerCase
@@ -1984,10 +1788,6 @@ assert.deepStrictEqual(pipe('A', S.toLowerCase), 'a')
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:79
 
 ___
 
@@ -2024,10 +1824,6 @@ assert.deepStrictEqual(pipe('a', S.toUpperCase), 'A')
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:69
-
 ___
 
 ### trim
@@ -2061,10 +1857,6 @@ assert.deepStrictEqual(S.trim(' a '), 'a')
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:122
 
 ___
 
@@ -2100,10 +1892,6 @@ assert.deepStrictEqual(S.trimEnd(' a '), ' a')
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:148
-
 ___
 
 ### trimStart
@@ -2137,10 +1925,6 @@ assert.deepStrictEqual(S.trimStart(' a '), 'a ')
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:135
 
 ___
 
@@ -2177,10 +1961,6 @@ assert.deepStrictEqual(pipe('ABC', S.uncapitalize), 'aBC')
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/String.d.ts:99
-
 ## guards
 
 ### isString
@@ -2212,10 +1992,6 @@ assert.deepStrictEqual(isString(1), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Predicate.d.ts:21
-
 ## instances
 
 ### Equivalence
@@ -2237,10 +2013,6 @@ node_modules/@effect/data/Predicate.d.ts:21
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Equivalence.d.ts:7
-
 ___
 
 ### Order
@@ -2261,7 +2033,3 @@ ___
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Order.d.ts:7

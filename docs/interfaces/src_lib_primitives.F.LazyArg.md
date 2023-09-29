@@ -33,7 +33,3 @@ export const constNull: LazyArg<null> = constant(null)
 #### Returns
 
 `A`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:98

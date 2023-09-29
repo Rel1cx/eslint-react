@@ -79,10 +79,6 @@ assert.deepStrictEqual(clamp(0, 5)(6), 5)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:258
-
 ▸ **clamp**(`self`, `minimum`, `maximum`): `number`
 
 Restricts the given `number` to be within the range specified by the `minimum` and `maximum` values.
@@ -116,10 +112,6 @@ assert.deepStrictEqual(clamp(0, 5)(6), 5)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:259
 
 ___
 
@@ -163,10 +155,6 @@ assert.deepStrictEqual(max(2, 3), 3)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:292
-
 ▸ **max**(`self`, `that`): `number`
 
 Returns the maximum between two `number`s.
@@ -193,10 +181,6 @@ assert.deepStrictEqual(max(2, 3), 3)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:293
 
 ___
 
@@ -240,10 +224,6 @@ assert.deepStrictEqual(min(2, 3), 2)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:275
-
 ▸ **min**(`self`, `that`): `number`
 
 Returns the minimum between two `number`s.
@@ -270,10 +250,6 @@ assert.deepStrictEqual(min(2, 3), 2)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:276
 
 ## guards
 
@@ -306,10 +282,6 @@ assert.deepStrictEqual(isNumber("2"), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:25
-
 ## instances
 
 ### Equivalence
@@ -331,10 +303,6 @@ node_modules/@effect/data/Number.d.ts:25
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Equivalence.d.ts:7
-
 ___
 
 ### Order
@@ -355,10 +323,6 @@ ___
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Order.d.ts:7
 
 ## math
 
@@ -389,10 +353,6 @@ assert.deepStrictEqual(decrement(3), 2)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:125
 
 ___
 
@@ -436,10 +396,6 @@ assert.deepStrictEqual(divide(6, 3), 2)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:95
-
 ▸ **divide**(`self`, `that`): `number`
 
 Provides a division operation on `number`s.
@@ -466,10 +422,6 @@ assert.deepStrictEqual(divide(6, 3), 2)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:96
 
 ___
 
@@ -500,10 +452,6 @@ assert.deepStrictEqual(increment(2), 3)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:111
 
 ___
 
@@ -547,10 +495,6 @@ assert.deepStrictEqual(multiply(2, 3), 6)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:59
-
 ▸ **multiply**(`self`, `that`): `number`
 
 Provides a multiplication operation on `number`s.
@@ -577,10 +521,6 @@ assert.deepStrictEqual(multiply(2, 3), 6)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:60
 
 ___
 
@@ -611,10 +551,6 @@ assert.deepStrictEqual(multiplyAll([2, 3, 4]), 24)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:338
 
 ___
 
@@ -662,10 +598,6 @@ assert.deepStrictEqual(remainder(-4, 2), -0)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:358
-
 ▸ **remainder**(`self`, `divisor`): `number`
 
 Returns the remainder left over when one operand is divided by a second operand.
@@ -696,10 +628,6 @@ assert.deepStrictEqual(remainder(-4, 2), -0)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:359
 
 ___
 
@@ -732,10 +660,6 @@ assert.deepStrictEqual(sign(5), 1)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:310
 
 ___
 
@@ -779,10 +703,6 @@ assert.deepStrictEqual(subtract(2, 3), -1)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:77
-
 ▸ **subtract**(`self`, `that`): `number`
 
 Provides a subtraction operation on `number`s.
@@ -809,10 +729,6 @@ assert.deepStrictEqual(subtract(2, 3), -1)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:78
 
 ___
 
@@ -856,10 +772,6 @@ assert.deepStrictEqual(sum(2, 3), 5)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:41
-
 ▸ **sum**(`self`, `that`): `number`
 
 Provides an addition operation on `number`s.
@@ -886,10 +798,6 @@ assert.deepStrictEqual(sum(2, 3), 5)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:42
 
 ___
 
@@ -920,10 +828,6 @@ assert.deepStrictEqual(sumAll([2, 3, 4]), 9)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:324
 
 ## predicates
 
@@ -970,10 +874,6 @@ assert.deepStrictEqual(between(0, 5)(6), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:234
-
 ▸ **between**(`self`, `minimum`, `maximum`): `boolean`
 
 Checks if a `number` is between a `minimum` and `maximum` value (inclusive).
@@ -1003,10 +903,6 @@ assert.deepStrictEqual(between(0, 5)(6), false)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:235
 
 ___
 
@@ -1052,10 +948,6 @@ assert.deepStrictEqual(greaterThan(4, 3), true)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:193
-
 ▸ **greaterThan**(`self`, `that`): `boolean`
 
 Returns `true` if the first argument is greater than the second, otherwise `false`.
@@ -1084,10 +976,6 @@ assert.deepStrictEqual(greaterThan(4, 3), true)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:194
 
 ___
 
@@ -1133,10 +1021,6 @@ assert.deepStrictEqual(greaterThanOrEqualTo(4, 3), true)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:213
-
 ▸ **greaterThanOrEqualTo**(`self`, `that`): `boolean`
 
 Returns a function that checks if a given `number` is greater than or equal to the provided one.
@@ -1165,10 +1049,6 @@ assert.deepStrictEqual(greaterThanOrEqualTo(4, 3), true)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:214
 
 ___
 
@@ -1214,10 +1094,6 @@ assert.deepStrictEqual(lessThan(4, 3), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:153
-
 ▸ **lessThan**(`self`, `that`): `boolean`
 
 Returns `true` if the first argument is less than the second, otherwise `false`.
@@ -1246,10 +1122,6 @@ assert.deepStrictEqual(lessThan(4, 3), false)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:154
 
 ___
 
@@ -1295,10 +1167,6 @@ assert.deepStrictEqual(lessThanOrEqualTo(4, 3), false)
 
 1.0.0
 
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:173
-
 ▸ **lessThanOrEqualTo**(`self`, `that`): `boolean`
 
 Returns a function that checks if a given `number` is less than or equal to the provided one.
@@ -1327,7 +1195,3 @@ assert.deepStrictEqual(lessThanOrEqualTo(4, 3), false)
 **`Since`**
 
 1.0.0
-
-#### Defined in
-
-node_modules/@effect/data/Number.d.ts:174

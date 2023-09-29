@@ -34,10 +34,6 @@
 
 TypeLambda.In
 
-#### Defined in
-
-node_modules/@effect/data/HKT.d.ts:18
-
 ___
 
 ### Out1
@@ -47,10 +43,6 @@ ___
 #### Inherited from
 
 TypeLambda.Out1
-
-#### Defined in
-
-node_modules/@effect/data/HKT.d.ts:20
 
 ___
 
@@ -62,10 +54,6 @@ ___
 
 TypeLambda.Out2
 
-#### Defined in
-
-node_modules/@effect/data/HKT.d.ts:19
-
 ___
 
 ### Target
@@ -76,16 +64,8 @@ ___
 
 TypeLambda.Target
 
-#### Defined in
-
-node_modules/@effect/data/HKT.d.ts:21
-
 ___
 
 ### type
 
 • `Readonly` **type**: [`Either`](../modules/src_lib_primitives.E.md#either)<`unknown`, `unknown`\>
-
-#### Defined in
-
-node_modules/@effect/data/Either.d.ts:78

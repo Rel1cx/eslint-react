@@ -37,10 +37,6 @@
 | `A` | extends [`Data`](src_lib_primitives.Data.md#data)<{ `_tag`: `string`  }\> |
 | `K` | extends `A`[``"_tag"``] |
 
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:172
-
 ___
 
 ### Value
@@ -57,10 +53,6 @@ ___
 | :------ | :------ |
 | `A` | extends [`Data`](src_lib_primitives.Data.md#data)<{ `_tag`: `string`  }\> |
 | `K` | extends `A`[``"_tag"``] |
-
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:180
 
 ## models
 
@@ -81,7 +73,3 @@ node_modules/@effect/data/Data.d.ts:180
 | `B` | `unknown` |
 | `C` | `unknown` |
 | `D` | `unknown` |
-
-#### Defined in
-
-node_modules/@effect/data/Data.d.ts:163

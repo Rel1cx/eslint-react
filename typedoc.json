@@ -15,5 +15,6 @@
     "out": "docs",
     "theme": "default",
     "readme": "none",
+    "disableSources": true,
     "hideGenerator": true
 }

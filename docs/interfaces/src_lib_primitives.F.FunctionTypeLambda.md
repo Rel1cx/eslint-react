@@ -34,10 +34,6 @@
 
 TypeLambda.In
 
-#### Defined in
-
-node_modules/@effect/data/HKT.d.ts:18
-
 ___
 
 ### Out1
@@ -47,10 +43,6 @@ ___
 #### Inherited from
 
 TypeLambda.Out1
-
-#### Defined in
-
-node_modules/@effect/data/HKT.d.ts:20
 
 ___
 
@@ -62,10 +54,6 @@ ___
 
 TypeLambda.Out2
 
-#### Defined in
-
-node_modules/@effect/data/HKT.d.ts:19
-
 ___
 
 ### Target
@@ -75,10 +63,6 @@ ___
 #### Inherited from
 
 TypeLambda.Target
-
-#### Defined in
-
-node_modules/@effect/data/HKT.d.ts:21
 
 ___
 
@@ -99,7 +83,3 @@ ___
 ##### Returns
 
 `unknown`
-
-#### Defined in
-
-node_modules/@effect/data/Function.d.ts:10
