@@ -72,12 +72,6 @@
     },
     "overrides": [
         {
-            "files": ["./scripts/**/*.ts"],
-            "rules": {
-                "no-await-in-loop": "off"
-            }
-        },
-        {
             "files": "./src/rules/**/*.ts",
             "rules": {
                 "perfectionist/sort-objects": [
@@ -112,6 +106,12 @@
                 "sonarjs/no-duplicate-string": "off",
                 "vitest/require-hook": "off",
                 "vitest/consistent-test-filename": "off"
+            }
+        },
+        {
+            "files": ["./scripts/**/*.ts"],
+            "rules": {
+                "no-await-in-loop": "off"
             }
         }
     ]
