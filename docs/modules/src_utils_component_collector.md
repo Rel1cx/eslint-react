@@ -43,4 +43,4 @@
 
 #### Defined in
 
-[src/utils/component-collector.ts:12](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/component-collector.ts#L12)
+[src/utils/component-collector.ts:12](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/component-collector.ts#L12)

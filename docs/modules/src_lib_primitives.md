@@ -64,9 +64,9 @@
 
 #### Defined in
 
-[src/lib/primitives/enum.ts:5](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/lib/primitives/enum.ts#L5)
+[src/lib/primitives/enum.ts:5](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/enum.ts#L5)
 
-[src/lib/primitives/enum.ts:3](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/lib/primitives/enum.ts#L3)
+[src/lib/primitives/enum.ts:3](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/enum.ts#L3)
 
 ___
 
@@ -94,7 +94,7 @@ type Result = Narrow<['foo', 'bar', 1]>
 
 #### Defined in
 
-[src/lib/primitives/narrow.ts:11](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/lib/primitives/narrow.ts#L11)
+[src/lib/primitives/narrow.ts:11](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/narrow.ts#L11)
 
 ___
 
@@ -110,7 +110,7 @@ ___
 
 #### Defined in
 
-[src/lib/primitives/mapping.ts:1](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/lib/primitives/mapping.ts#L1)
+[src/lib/primitives/mapping.ts:1](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/mapping.ts#L1)
 
 ___
 
@@ -126,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/lib/primitives/union.ts:1](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/lib/primitives/union.ts#L1)
+[src/lib/primitives/union.ts:1](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/union.ts#L1)
 
 ___
 
@@ -142,7 +142,7 @@ ___
 
 #### Defined in
 
-[src/lib/primitives/union.ts:4](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/lib/primitives/union.ts#L4)
+[src/lib/primitives/union.ts:4](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/union.ts#L4)
 
 ___
 
@@ -168,7 +168,7 @@ ___
 
 #### Defined in
 
-[src/lib/primitives/enum.ts:5](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/lib/primitives/enum.ts#L5)
+[src/lib/primitives/enum.ts:5](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/enum.ts#L5)
 
 ___
 
@@ -194,7 +194,7 @@ ___
 
 #### Defined in
 
-[src/lib/primitives/function.ts:6](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/lib/primitives/function.ts#L6)
+[src/lib/primitives/function.ts:6](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/function.ts#L6)
 
 ___
 
@@ -220,7 +220,7 @@ ___
 
 #### Defined in
 
-[src/lib/primitives/function.ts:4](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/lib/primitives/function.ts#L4)
+[src/lib/primitives/function.ts:4](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/function.ts#L4)
 
 ___
 
@@ -275,7 +275,7 @@ value is Enum<T\>
 
 #### Defined in
 
-[src/lib/primitives/enum.ts:17](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/lib/primitives/enum.ts#L17)
+[src/lib/primitives/enum.ts:17](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/enum.ts#L17)
 
 ___
 
@@ -334,7 +334,7 @@ const result = narrow(['foo', 'bar', 1])
 
 #### Defined in
 
-[src/lib/primitives/narrow.ts:27](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/lib/primitives/narrow.ts#L27)
+[src/lib/primitives/narrow.ts:27](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/narrow.ts#L27)
 
 ___
 
@@ -348,7 +348,7 @@ ___
 
 #### Defined in
 
-[src/lib/primitives/function.ts:2](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/lib/primitives/function.ts#L2)
+[src/lib/primitives/function.ts:2](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/primitives/function.ts#L2)
 
 ## guards
 

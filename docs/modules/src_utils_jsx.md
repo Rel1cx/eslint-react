@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[src/utils/jsx.ts:175](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/jsx.ts#L175)
+[src/utils/jsx.ts:175](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L175)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/utils/jsx.ts:129](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/jsx.ts#L129)
+[src/utils/jsx.ts:129](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L129)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-[src/utils/jsx.ts:115](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/jsx.ts#L115)
+[src/utils/jsx.ts:115](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L115)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/utils/jsx.ts:122](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/jsx.ts#L122)
+[src/utils/jsx.ts:122](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L122)
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 #### Defined in
 
-[src/utils/jsx.ts:26](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/jsx.ts#L26)
+[src/utils/jsx.ts:26](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L26)
 
 ___
 
@@ -164,7 +164,7 @@ node is JSXElement \| JSXFragment
 
 #### Defined in
 
-[src/utils/jsx.ts:16](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/jsx.ts#L16)
+[src/utils/jsx.ts:16](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L16)
 
 ___
 
@@ -227,7 +227,7 @@ ___
 
 #### Defined in
 
-[src/utils/jsx.ts:31](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/jsx.ts#L31)
+[src/utils/jsx.ts:31](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L31)
 
 ___
 
@@ -267,7 +267,7 @@ ___
 
 #### Defined in
 
-[src/utils/jsx.ts:212](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/jsx.ts#L212)
+[src/utils/jsx.ts:212](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L212)
 
 ___
 
@@ -290,4 +290,4 @@ ___
 
 #### Defined in
 
-[src/utils/jsx.ts:104](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/jsx.ts#L104)
+[src/utils/jsx.ts:104](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/jsx.ts#L104)

@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[typings/rule-name.ts:148](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/rule-name.ts#L148)
+[typings/rule-name.ts:148](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/rule-name.ts#L148)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 #### Defined in
 
-[typings/index.ts:8](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/index.ts#L8)
+[typings/index.ts:8](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/index.ts#L8)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 #### Defined in
 
-[typings/rule-name.ts:53](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/rule-name.ts#L53)
+[typings/rule-name.ts:53](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/rule-name.ts#L53)
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 #### Defined in
 
-[typings/json-value.ts:1](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/json-value.ts#L1)
+[typings/json-value.ts:1](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/json-value.ts#L1)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[typings/rule-name.ts:11](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/rule-name.ts#L11)
+[typings/rule-name.ts:11](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/rule-name.ts#L11)
 
 ___
 
@@ -83,7 +83,7 @@ ___
 
 #### Defined in
 
-[typings/rule-name.ts:3](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/rule-name.ts#L3)
+[typings/rule-name.ts:3](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/rule-name.ts#L3)
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 #### Defined in
 
-[typings/rule-name.ts:13](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/rule-name.ts#L13)
+[typings/rule-name.ts:13](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/rule-name.ts#L13)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[typings/rule-name.ts:9](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/rule-name.ts#L9)
+[typings/rule-name.ts:9](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/rule-name.ts#L9)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[typings/rule-name.ts:47](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/rule-name.ts#L47)
+[typings/rule-name.ts:47](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/rule-name.ts#L47)
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[typings/rule-name.ts:45](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/rule-name.ts#L45)
+[typings/rule-name.ts:45](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/rule-name.ts#L45)
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[typings/rule-name.ts:7](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/rule-name.ts#L7)
+[typings/rule-name.ts:7](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/rule-name.ts#L7)
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[typings/react-settings.ts:3](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/react-settings.ts#L3)
+[typings/react-settings.ts:3](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/react-settings.ts#L3)
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-[typings/rule-context.ts:3](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/rule-context.ts#L3)
+[typings/rule-context.ts:3](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/rule-context.ts#L3)
 
 ___
 
@@ -163,7 +163,7 @@ ___
 
 #### Defined in
 
-[typings/index.ts:12](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/index.ts#L12)
+[typings/index.ts:12](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/index.ts#L12)
 
 ___
 
@@ -173,7 +173,7 @@ ___
 
 #### Defined in
 
-[typings/rule-name.ts:150](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/rule-name.ts#L150)
+[typings/rule-name.ts:150](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/rule-name.ts#L150)
 
 ___
 
@@ -183,7 +183,7 @@ ___
 
 #### Defined in
 
-[typings/index.ts:14](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/index.ts#L14)
+[typings/index.ts:14](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/index.ts#L14)
 
 ___
 
@@ -193,7 +193,7 @@ ___
 
 #### Defined in
 
-[typings/index.ts:10](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/index.ts#L10)
+[typings/index.ts:10](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/index.ts#L10)
 
 ___
 
@@ -203,4 +203,4 @@ ___
 
 #### Defined in
 
-[typings/rule-name.ts:56](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/typings/rule-name.ts#L56)
+[typings/rule-name.ts:56](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/typings/rule-name.ts#L56)

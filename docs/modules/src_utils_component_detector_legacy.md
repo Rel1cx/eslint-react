@@ -36,7 +36,7 @@ Do not use this function. It will be removed in the future.
 
 #### Defined in
 
-[src/utils/component-detector-legacy.ts:76](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/component-detector-legacy.ts#L76)
+[src/utils/component-detector-legacy.ts:76](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/component-detector-legacy.ts#L76)
 
 ___
 
@@ -63,7 +63,7 @@ Do not use this function. It will be removed in the future.
 
 #### Defined in
 
-[src/utils/component-detector-legacy.ts:14](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/component-detector-legacy.ts#L14)
+[src/utils/component-detector-legacy.ts:14](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/component-detector-legacy.ts#L14)
 
 ___
 
@@ -90,7 +90,7 @@ Do not use this function. It will be removed in the future.
 
 #### Defined in
 
-[src/utils/component-detector-legacy.ts:48](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/component-detector-legacy.ts#L48)
+[src/utils/component-detector-legacy.ts:48](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/component-detector-legacy.ts#L48)
 
 ___
 
@@ -117,7 +117,7 @@ Do not use this function. It will be removed in the future.
 
 #### Defined in
 
-[src/utils/component-detector-legacy.ts:96](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/component-detector-legacy.ts#L96)
+[src/utils/component-detector-legacy.ts:96](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/component-detector-legacy.ts#L96)
 
 ___
 
@@ -143,4 +143,4 @@ Do not use this function. It will be removed in the future.
 
 #### Defined in
 
-[src/utils/component-detector-legacy.ts:115](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/component-detector-legacy.ts#L115)
+[src/utils/component-detector-legacy.ts:115](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/component-detector-legacy.ts#L115)

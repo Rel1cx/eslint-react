@@ -31,4 +31,4 @@
 
 #### Defined in
 
-[src/lib/case-validator/case-validator.ts:44](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/lib/case-validator/case-validator.ts#L44)
+[src/lib/case-validator/case-validator.ts:44](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/lib/case-validator/case-validator.ts#L44)

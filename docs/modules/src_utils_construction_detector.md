@@ -21,9 +21,9 @@
 
 #### Defined in
 
-[src/utils/construction-detector.ts:10](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/construction-detector.ts#L10)
+[src/utils/construction-detector.ts:10](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/construction-detector.ts#L10)
 
-[src/utils/construction-detector.ts:57](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/construction-detector.ts#L57)
+[src/utils/construction-detector.ts:57](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/construction-detector.ts#L57)
 
 ## Functions
 
@@ -88,4 +88,4 @@ ___
 
 #### Defined in
 
-[src/utils/construction-detector.ts:61](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/63c5f09/src/utils/construction-detector.ts#L61)
+[src/utils/construction-detector.ts:61](https://github.com/Rel1cx/eslint-plugin-react-ts/blob/0eee112/src/utils/construction-detector.ts#L61)
