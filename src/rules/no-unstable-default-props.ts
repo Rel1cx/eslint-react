@@ -63,10 +63,7 @@ export default createEslintRule<[], MessageID>({
 
                     const [{ properties }] = params;
                     for (const prop of properties) {
-                        if (
-                            !AST.is(N.Property)(prop)
-                            || !AST.is(N.AssignmentPattern)(prop.value)
-                        ) {
+                        if (!AST.is(N.Property)(prop) || !AST.is(N.AssignmentPattern)(prop.value)) {
                             continue;
                         }
 

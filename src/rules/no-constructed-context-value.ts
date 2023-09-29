@@ -34,10 +34,8 @@ export default createEslintRule<[], MessageID>({
     defaultOptions: [],
     create(context) {
         const { ctx, listeners } = ComponentCollector.make(context);
-
-        const possibleValueConstructions = new Map<AST.FunctionNode, ConstructionDetector.ConstructionType>();
-
         const detectConstruction = ConstructionDetector.make(context);
+        const possibleValueConstructions = new Map<AST.FunctionNode, ConstructionDetector.ConstructionType>();
 
         return {
             ...listeners,

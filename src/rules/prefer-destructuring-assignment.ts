@@ -29,7 +29,7 @@ const defaultOptions = ["always"] as const satisfies Options;
 
 type MemberExpressionWithObjectName = TSESTree.MemberExpression & { object: TSESTree.Identifier };
 
-function isMemberExpressionWithName(node: TSESTree.MemberExpression): node is MemberExpressionWithObjectName {
+function isMemberExpressionWithObjectName(node: TSESTree.MemberExpression): node is MemberExpressionWithObjectName {
     return AST.is(N.Identifier)(node.object) && "name" in node.object;
 }
 
@@ -59,7 +59,7 @@ export default createEslintRule<Options, MessageID>({
         return {
             ...listeners,
             MemberExpression(node) {
-                if (isMemberExpressionWithName(node)) {
+                if (isMemberExpressionWithObjectName(node)) {
                     memberExpressionWithNames.push([context.getScope(), node]);
                 }
             },
@@ -70,6 +70,9 @@ export default createEslintRule<Options, MessageID>({
             "Program:exit"() {
                 const components = ctx.getAllComponents();
 
+                /**
+                 * @param block
+                 */
                 function isFunctionComponent(block: TSESTree.Node): block is AST.FunctionNode {
                     return AST.isPossibleNamedReactComponent(block) && components.has(block);
                 }
@@ -100,6 +103,7 @@ export default createEslintRule<Options, MessageID>({
                                 node: memberExpression,
                             });
                         }
+
                         if (ctx && "name" in ctx && ctx.name && memberExpression.object.name === ctx.name) {
                             context.report({
                                 messageId: "USE_DESTRUCTURING_ASSIGNMENT",

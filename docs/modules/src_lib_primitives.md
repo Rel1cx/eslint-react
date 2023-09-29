@@ -271,9 +271,9 @@ Same as `as const` but without setting the object as readonly and without needin
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `a` | [`Narrow`](src_lib_primitives.md#narrow)<`TType`\> |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `a` | [`Narrow`](src_lib_primitives.md#narrow)<`TType`\> | Value to infer |
 
 #### Returns
 

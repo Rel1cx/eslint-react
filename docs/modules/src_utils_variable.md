@@ -19,9 +19,9 @@
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `name` | `string` | The name of the variable to find |
 
 #### Returns
 
@@ -47,10 +47,10 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `startScope` | `Scope` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `name` | `string` | The name of the variable to find |
+| `startScope` | `Scope` | The scope to start from |
 
 #### Returns
 
@@ -64,9 +64,9 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `at` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `at` | `number` | The index of the definition to get, negative numbers are counted from the end, -1 is the last definition |
 
 #### Returns
 
@@ -92,9 +92,9 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `startScope` | `Scope` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `startScope` | `Scope` | The scope to start from |
 
 #### Returns
 

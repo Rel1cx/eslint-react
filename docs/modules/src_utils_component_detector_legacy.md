@@ -32,7 +32,7 @@
 
 **`Deprecated`**
 
-Do not use this function. It will be removed in the future.
+It will be removed in the future.
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 **`Deprecated`**
 
-Do not use this function. It will be removed in the future.
+It will be removed in the future.
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 **`Deprecated`**
 
-Do not use this function. It will be removed in the future.
+It will be removed in the future.
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 **`Deprecated`**
 
-Do not use this function. It will be removed in the future.
+It will be removed in the future.
 
 ___
 
@@ -123,4 +123,4 @@ ___
 
 **`Deprecated`**
 
-Do not use this function. It will be removed in the future.
+It will be removed in the future.

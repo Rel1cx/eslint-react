@@ -8,8 +8,10 @@ import { E, F } from "../lib/primitives";
 import { getCreateClassFromContext, getFromContext } from "./pragma";
 
 /**
+ * @param node
+ * @param context
  * @package
- * @deprecated Do not use this function. It will be removed in the future.
+ * @deprecated It will be removed in the future.
  */
 export function isES5Component(node: TSESTree.Node, context: RuleContext) {
     const maybeReact = getFromContext(context);
@@ -42,8 +44,10 @@ export function isES5Component(node: TSESTree.Node, context: RuleContext) {
 }
 
 /**
+ * @param node
+ * @param context
  * @package
- * @deprecated Do not use this function. It will be removed in the future.
+ * @deprecated It will be removed in the future.
  */
 export function isES6Component(node: TSESTree.Node, context: RuleContext) {
     if (!("superClass" in node && node.superClass)) {
@@ -70,8 +74,9 @@ export function isES6Component(node: TSESTree.Node, context: RuleContext) {
 }
 
 /**
+ * @param context
  * @package
- * @deprecated Do not use this function. It will be removed in the future.
+ * @deprecated It will be removed in the future.
  */
 export function getParentES6Component(context: RuleContext) {
     let scope: Scope | null = context.getScope();
@@ -90,8 +95,10 @@ export function getParentES6Component(context: RuleContext) {
 }
 
 /**
+ * @param node
+ * @param context
  * @package
- * @deprecated Do not use this function. It will be removed in the future.
+ * @deprecated It will be removed in the future.
  */
 export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
     const pragma = getFromContext(context);
@@ -110,7 +117,7 @@ export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
 
 /**
  * @package
- * @deprecated Do not use this function. It will be removed in the future.
+ * @deprecated It will be removed in the future.
  */
 export const isStateMemberExpression: (node: TSESTree.Node) => boolean = isMatching({
     type: N.MemberExpression,

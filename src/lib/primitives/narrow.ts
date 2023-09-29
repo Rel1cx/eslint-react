@@ -1,9 +1,7 @@
 /**
  * Infers embedded primitive type of any type
- *
- * @param T - Type to infer
+ * @param T Type to infer
  * @returns Embedded type of {@link TType}
- *
  * @example
  * type Result = Narrow<['foo', 'bar', 1]>
  */
@@ -17,10 +15,8 @@ export type Narrow<TType> =
 /**
  * Infers embedded primitive type of any type
  * Same as `as const` but without setting the object as readonly and without needing the user to use it.
- *
- * @param value - Value to infer
+ * @param a Value to infer
  * @returns Value with embedded type inferred
- *
  * @example
  * const result = narrow(['foo', 'bar', 1])
  */

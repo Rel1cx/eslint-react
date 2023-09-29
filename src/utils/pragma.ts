@@ -14,6 +14,7 @@ const JSX_ANNOTATION_REGEX = /@jsx\s+(\S+)/u;
 const JS_IDENTIFIER_REGEX = /^[$A-Z_a-z][\w$]*$/u;
 
 /**
+ * @param context The rule context
  * @internal
  */
 export function getCreateClassFromContext<T extends RuleContext>(context: T): E.Either<Error, string> {
