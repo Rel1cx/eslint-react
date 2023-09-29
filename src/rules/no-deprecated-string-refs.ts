@@ -24,8 +24,12 @@ function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
 
     return (
         AST.is(N.JSXExpressionContainer)(value)
-        && ((AST.is(N.Literal)(value.expression) && isString(value.expression.value))
-            || AST.is(N.TemplateLiteral)(value.expression))
+        && (
+            // Check if the expression container contains a string literal
+            (AST.is(N.Literal)(value.expression) && isString(value.expression.value))
+            // Or is a template literal
+            || AST.is(N.TemplateLiteral)(value.expression)
+        )
     );
 }
 

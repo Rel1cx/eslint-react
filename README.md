@@ -80,6 +80,7 @@ export default [
 - [x] `react-ts/no-deprecated-string-refs`
 - [x] `react-ts/no-unstable-default-props`
 - [ ] `react-ts/no-unstable-nested-components`
+- [ ] `react-ts/no-missing-display-name`
 - [ ] `react-ts/no-direct-mutation-state`
 - [ ] ...
 
