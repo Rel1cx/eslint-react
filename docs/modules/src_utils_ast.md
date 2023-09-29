@@ -62,6 +62,7 @@
 - [isIdentifierWithName](src_utils_ast.md#isidentifierwithname)
 - [isIdentifierWithOneOfNames](src_utils_ast.md#isidentifierwithoneofnames)
 - [isImportKeyword](src_utils_ast.md#isimportkeyword)
+- [isLineBreak](src_utils_ast.md#islinebreak)
 - [isLogicalOrOperator](src_utils_ast.md#islogicaloroperator)
 - [isLoop](src_utils_ast.md#isloop)
 - [isNodeOfType](src_utils_ast.md#isnodeoftype)
@@ -735,15 +736,19 @@ ___
 
 ▸ **isDestructorParameter**(`node`): node is ArrayPattern \| AssignmentPattern \| ObjectPattern \| RestElement
 
+Check if a Parameter node is a destructor parameter
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `node` | `Parameter` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `node` | `Parameter` | The node to check |
 
 #### Returns
 
 node is ArrayPattern \| AssignmentPattern \| ObjectPattern \| RestElement
+
+boolean
 
 ___
 
@@ -882,6 +887,26 @@ Checks if a possible token is the `import` keyword.
 #### Returns
 
 token is Object & KeywordToken
+
+___
+
+### isLineBreak
+
+▸ **isLineBreak**(`node`): `boolean`
+
+Check if a Literal or JSXText node is a line break
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `node` | `Node` | The node to check |
+
+#### Returns
+
+`boolean`
+
+boolean
 
 ___
 

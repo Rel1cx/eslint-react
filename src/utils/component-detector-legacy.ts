@@ -8,8 +8,9 @@ import { E, F } from "../lib/primitives";
 import { getCreateClassFromContext, getFromContext } from "./pragma";
 
 /**
- * @param node
- * @param context
+ * Check if a node is a React ES5 component
+ * @param node The node to check
+ * @param context The rule context
  * @package
  * @deprecated It will be removed in the future.
  */
@@ -44,8 +45,9 @@ export function isES5Component(node: TSESTree.Node, context: RuleContext) {
 }
 
 /**
- * @param node
- * @param context
+ * Check if a node is a React ES6 component
+ * @param node The node to check
+ * @param context The rule context
  * @package
  * @deprecated It will be removed in the future.
  */
@@ -74,7 +76,8 @@ export function isES6Component(node: TSESTree.Node, context: RuleContext) {
 }
 
 /**
- * @param context
+ * Get the parent ES5 component of a node up to global scope
+ * @param context The rule context
  * @package
  * @deprecated It will be removed in the future.
  */
@@ -95,8 +98,9 @@ export function getParentES6Component(context: RuleContext) {
 }
 
 /**
- * @param node
- * @param context
+ * Check if a node is a React PureComponent
+ * @param node The node to check
+ * @param context The rule context
  * @package
  * @deprecated It will be removed in the future.
  */
@@ -116,6 +120,8 @@ export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
 }
 
 /**
+ * Check if a node is a MemberExpression of state
+ * @param node The node to check
  * @package
  * @deprecated It will be removed in the future.
  */

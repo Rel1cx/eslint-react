@@ -7,6 +7,7 @@ import memo from "micro-memoize";
 import type { RuleContext } from "../../typings";
 import { isNil, isString } from "../lib/primitives";
 import { uniqueBy } from "../lib/unique-by";
+import { isWhiteSpace } from "./string";
 
 export type FunctionNode =
     | TSESTree.ArrowFunctionExpression
@@ -33,6 +34,11 @@ export function isDeclaredInNode(params: {
     return scope.set.has(reference.identifier.name);
 }
 
+/**
+ * Check if a Parameter node is a destructor parameter
+ * @param node The node to check
+ * @returns boolean
+ */
 export function isDestructorParameter(
     node: TSESTree.Parameter,
 ): node is TSESTree.ArrayPattern | TSESTree.AssignmentPattern | TSESTree.ObjectPattern | TSESTree.RestElement {
@@ -323,4 +329,20 @@ export function getReferencedExpressionByIdentifier(params: {
     }
 
     return resolvedNode.init;
+}
+
+/**
+ * Check if a Literal or JSXText node is a line break
+ * @param node The node to check
+ * @returns boolean
+ */
+export function isLineBreak(node: TSESTree.Node): boolean {
+    const isLiteral = isOneOf([N.Literal, N.JSXText])(node);
+    if (!("value" in node) || !isString(node.value)) {
+        return false;
+    }
+
+    const isMultiline = node.loc.start.line !== node.loc.end.line;
+
+    return isLiteral && isMultiline && isWhiteSpace(node.value);
 }

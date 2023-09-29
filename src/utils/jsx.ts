@@ -6,7 +6,6 @@ import type { RuleContext } from "../../typings";
 import { F, isNil, isString, O } from "../lib/primitives";
 import * as AST from "./ast";
 import { isCreateElement } from "./is-create-element";
-import { isWhiteSpace } from "./string";
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "./variable";
 
 export const isJSXFileExt = (ext: string): ext is ".jsx" | ".tsx" => ext === ".jsx" || ext === ".tsx";
@@ -25,11 +24,19 @@ export const isJsxTagNameExpression = AST.isOneOf([
     N.JSXNamespacedName,
 ]);
 
-export function hasChildren(node: TSESTree.JSXElement | TSESTree.JSXFragment): boolean {
+export function hasChildren(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
     return node.children.length > 0;
 }
 
 export const isJSXValue = memo(
+    /**
+     * Check if a node is a JSX value
+     * @param node Node to check
+     * @param context Rule context
+     * @param strict Whether to check all branches of the conditional expression
+     * @param ignoreNull Whether to ignore null values
+     * @returns boolean
+     */
     (node: TSESTree.Node | null, context: RuleContext, strict: boolean, ignoreNull: boolean): boolean => {
         if (!node) {
             return false;
@@ -103,6 +110,14 @@ export const isJSXValue = memo(
     },
 );
 
+/**
+ * Check if a return statement is returning JSX
+ * @param node The return statement node to check
+ * @param context The rule context
+ * @param strict Whether to check all branches of the conditional expression
+ * @param ignoreNull Whether to ignore null values
+ * @returns boolean
+ */
 export function isReturnStatementReturningJSX(
     node: TSESTree.ReturnStatement,
     context: RuleContext,
@@ -114,6 +129,11 @@ export function isReturnStatementReturningJSX(
     return statements.some((statement) => isJSXValue(statement.argument, context, strict, ignoreNull));
 }
 
+/**
+ * Get the name of a JSX attribute
+ * @param node The JSX attribute node
+ * @returns string
+ */
 export function getPropName(node: TSESTree.JSXAttribute) {
     return match(node.name)
         .when(AST.is(N.JSXIdentifier), (n) => n.name)
@@ -121,6 +141,11 @@ export function getPropName(node: TSESTree.JSXAttribute) {
         .exhaustive();
 }
 
+/**
+ * Get the name of a JSX attribute with namespace
+ * @param node The JSX attribute node
+ * @returns string
+ */
 export function getPropNameWithNamespace(node: TSESTree.JSXAttribute) {
     return match(node.name)
         .when(AST.is(N.JSXIdentifier), (n) => n.name)
@@ -128,11 +153,22 @@ export function getPropNameWithNamespace(node: TSESTree.JSXAttribute) {
         .exhaustive();
 }
 
+/**
+ * @param properties The properties to search in
+ * @param context The rule context
+ * @param seenProps The properties that have already been seen
+ * @returns A function that searches for a property in the given properties
+ */
 export function findPropInProperties(
     properties: (TSESTree.Property | TSESTree.RestElement)[] | TSESTree.ObjectLiteralElement[],
     context: RuleContext,
     seenProps: string[] = [],
 ) {
+    /**
+     * Search for a property in the given properties
+     * @param propName The name of the property to search for
+     * @returns The property if found
+     */
     return (propName: string): O.Option<(typeof properties)[number]> => {
         return O.fromNullable(
             properties.find((prop) => {
@@ -174,10 +210,20 @@ export function findPropInProperties(
     };
 }
 
+/**
+ * @param attributes The attributes to search in
+ * @param context The rule context
+ * @returns A function that searches for a property in the given attributes
+ */
 export function findPropInAttributes(
     attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
     context: RuleContext,
 ) {
+    /**
+     * Search for a property in the given attributes
+     * @param propName The name of the property to search for
+     * @returns The property if found
+     */
     return (propName: string) => {
         return O.fromNullable(
             attributes.find((attr) => {
@@ -209,15 +255,4 @@ export function findPropInAttributes(
             }),
         );
     };
-}
-
-export function isLineBreak(node: TSESTree.Node): boolean {
-    const isLiteral = AST.isOneOf([N.Literal, N.JSXText])(node);
-    if (!("value" in node) || !isString(node.value)) {
-        return false;
-    }
-
-    const isMultiline = node.loc.start.line !== node.loc.end.line;
-
-    return isLiteral && isMultiline && isWhiteSpace(node.value);
 }

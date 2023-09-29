@@ -7,7 +7,7 @@
     "extends": [
         "with-tsconfig",
         "plugin:perfectionist/recommended-natural",
-        "plugin:jsdoc/recommended-typescript-error",
+        "plugin:jsdoc/recommended-typescript",
         "plugin:eslint-plugin/all",
         "plugin:filenames-simple/recommended"
     ],

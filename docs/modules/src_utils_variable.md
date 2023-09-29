@@ -17,6 +17,8 @@
 
 ▸ **findVariableByName**(`name`): (`variables`: `Variable`[]) => [`Option`](src_lib_primitives.O.md#option)<`Variable`\>
 
+Find a variable through a list of variables by name
+
 #### Parameters
 
 | Name | Type | Description |
@@ -45,6 +47,8 @@ ___
 
 ▸ **findVariableByNameUpToGlobal**(`name`, `startScope`): [`Option`](src_lib_primitives.O.md#option)<`NonNullable`<`Variable`\>\>
 
+Find a variable through a list of variables by name, starting from the given scope and going up to the global scope
+
 #### Parameters
 
 | Name | Type | Description |
@@ -61,6 +65,8 @@ ___
 ### getVariableNthDefNodeInit
 
 ▸ **getVariableNthDefNodeInit**(`at`): (`variable`: `Variable`) => [`Option`](src_lib_primitives.O.md#option)<`NonNullable`<`ArrowFunctionExpression` \| `FunctionExpression` \| `ArrayExpression` \| `ArrayPattern` \| `AssignmentExpression` \| `AwaitExpression` \| `BinaryExpression` \| `CallExpression` \| `ChainExpression` \| `ClassExpression` \| `ConditionalExpression` \| `Identifier` \| `ImportExpression` \| `JSXElement` \| `JSXFragment` \| `BigIntLiteral` \| `BooleanLiteral` \| `NullLiteral` \| `NumberLiteral` \| `RegExpLiteral` \| `StringLiteral` \| `LogicalExpression` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` \| `MetaProperty` \| `NewExpression` \| `ObjectExpression` \| `ObjectPattern` \| `SequenceExpression` \| `Super` \| `TaggedTemplateExpression` \| `TemplateLiteral` \| `ThisExpression` \| `TSAsExpression` \| `TSInstantiationExpression` \| `TSNonNullExpression` \| `TSSatisfiesExpression` \| `TSTypeAssertion` \| `UnaryExpression` \| `UpdateExpression` \| `LetOrConstOrVarDeclaration` \| `YieldExpression`\>\>
+
+Get the init node of the nth definition of a variable
 
 #### Parameters
 
@@ -89,6 +95,8 @@ ___
 ### getVariablesUpToGlobal
 
 ▸ **getVariablesUpToGlobal**(`startScope`): `Variable`[]
+
+Get all variables from the given scope up to the global scope
 
 #### Parameters
 

@@ -18,11 +18,13 @@
 
 ▸ **getParentES6Component**(`context`): ``null`` \| `ClassDeclarationWithOptionalName` \| `ClassExpression`
 
+Get the parent ES5 component of a node up to global scope
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context |
 
 #### Returns
 
@@ -40,12 +42,14 @@ ___
 
 ▸ **isES5Component**(`node`, `context`): `boolean`
 
+Check if a node is a React ES5 component
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `node` | `Node` |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `node` | `Node` | The node to check |
+| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context |
 
 #### Returns
 
@@ -63,12 +67,14 @@ ___
 
 ▸ **isES6Component**(`node`, `context`): `boolean`
 
+Check if a node is a React ES6 component
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `node` | `Node` |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `node` | `Node` | The node to check |
+| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context |
 
 #### Returns
 
@@ -86,12 +92,14 @@ ___
 
 ▸ **isPureComponent**(`node`, `context`): `boolean`
 
+Check if a node is a React PureComponent
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `node` | `Node` |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `node` | `Node` | The node to check |
+| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context |
 
 #### Returns
 
@@ -109,11 +117,13 @@ ___
 
 ▸ **isStateMemberExpression**(`node`): `boolean`
 
+Check if a node is a MemberExpression of state
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `node` | `Node` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `node` | `Node` | The node to check |
 
 #### Returns
 

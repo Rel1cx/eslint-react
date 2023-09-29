@@ -7,7 +7,7 @@ import { createEslintRule } from "../../tools/create-eslint-rule";
 import { F, O } from "../lib/primitives";
 import * as AST from "../utils/ast";
 import { isCreateElement } from "../utils/is-create-element";
-import { findPropInAttributes, findPropInProperties, isLineBreak } from "../utils/jsx";
+import { findPropInAttributes, findPropInProperties } from "../utils/jsx";
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "../utils/variable";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml-with-children";
@@ -69,7 +69,7 @@ export default createEslintRule<[], MessageID>({
                 function firstChildIsText(node: TSESTree.JSXElement) {
                     const [firstChild] = node.children;
 
-                    return node.children.length > 0 && firstChild && !isLineBreak(firstChild);
+                    return node.children.length > 0 && firstChild && !AST.isLineBreak(firstChild);
                 }
 
                 function hasChildren(node: TSESTree.JSXElement) {

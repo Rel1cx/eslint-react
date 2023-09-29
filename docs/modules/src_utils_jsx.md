@@ -17,7 +17,6 @@
 - [isJSXFragment](src_utils_jsx.md#isjsxfragment)
 - [isJSXValue](src_utils_jsx.md#isjsxvalue)
 - [isJsxTagNameExpression](src_utils_jsx.md#isjsxtagnameexpression)
-- [isLineBreak](src_utils_jsx.md#islinebreak)
 - [isReturnStatementReturningJSX](src_utils_jsx.md#isreturnstatementreturningjsx)
 
 ## Functions
@@ -28,14 +27,16 @@
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[] |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[] | The attributes to search in |
+| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context |
 
 #### Returns
 
 `fn`
+
+A function that searches for a property in the given attributes
 
 ▸ (`propName`): [`Option`](src_lib_primitives.O.md#option)<`NonNullable`<`undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`\>\>
 
@@ -57,15 +58,17 @@ ___
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `properties` | `ObjectLiteralElement`[] \| (`Property` \| `RestElement`)[] | `undefined` |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | `undefined` |
-| `seenProps` | `string`[] | `[]` |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `properties` | `ObjectLiteralElement`[] \| (`Property` \| `RestElement`)[] | `undefined` | The properties to search in |
+| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | `undefined` | The rule context |
+| `seenProps` | `string`[] | `[]` | The properties that have already been seen |
 
 #### Returns
 
 `fn`
+
+A function that searches for a property in the given properties
 
 ▸ (`propName`): [`Option`](src_lib_primitives.O.md#option)<`PropertyComputedName` \| `PropertyNonComputedName` \| `RestElement` \| `SpreadElement`\>
 
@@ -85,15 +88,19 @@ ___
 
 ▸ **getPropName**(`node`): `string`
 
+Get the name of a JSX attribute
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `node` | `JSXAttribute` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `node` | `JSXAttribute` | The JSX attribute node |
 
 #### Returns
 
 `string`
+
+string
 
 ___
 
@@ -101,15 +108,19 @@ ___
 
 ▸ **getPropNameWithNamespace**(`node`): `string`
 
+Get the name of a JSX attribute with namespace
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `node` | `JSXAttribute` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `node` | `JSXAttribute` | The JSX attribute node |
 
 #### Returns
 
 `string`
+
+string
 
 ___
 
@@ -197,18 +208,22 @@ ___
 
 ▸ **isJSXValue**(`node`, `context`, `strict`, `ignoreNull`): `boolean`
 
+Check if a node is a JSX value
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `node` | ``null`` \| `Node` |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
-| `strict` | `boolean` |
-| `ignoreNull` | `boolean` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `node` | ``null`` \| `Node` | Node to check |
+| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | Rule context |
+| `strict` | `boolean` | Whether to check all branches of the conditional expression |
+| `ignoreNull` | `boolean` | Whether to ignore null values |
 
 #### Returns
 
 `boolean`
+
+boolean
 
 ___
 
@@ -228,35 +243,23 @@ node is JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName
 
 ___
 
-### isLineBreak
-
-▸ **isLineBreak**(`node`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `Node` |
-
-#### Returns
-
-`boolean`
-
-___
-
 ### isReturnStatementReturningJSX
 
 ▸ **isReturnStatementReturningJSX**(`node`, `context`, `strict?`, `ignoreNull?`): `boolean`
 
+Check if a return statement is returning JSX
+
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `node` | `ReturnStatement` | `undefined` |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | `undefined` |
-| `strict` | `boolean` | `false` |
-| `ignoreNull` | `boolean` | `false` |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `node` | `ReturnStatement` | `undefined` | The return statement node to check |
+| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | `undefined` | The rule context |
+| `strict` | `boolean` | `false` | Whether to check all branches of the conditional expression |
+| `ignoreNull` | `boolean` | `false` | Whether to ignore null values |
 
 #### Returns
 
 `boolean`
+
+boolean

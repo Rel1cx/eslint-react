@@ -70,9 +70,6 @@ export default createEslintRule<Options, MessageID>({
             "Program:exit"() {
                 const components = ctx.getAllComponents();
 
-                /**
-                 * @param block
-                 */
                 function isFunctionComponent(block: TSESTree.Node): block is AST.FunctionNode {
                     return AST.isPossibleNamedReactComponent(block) && components.has(block);
                 }
