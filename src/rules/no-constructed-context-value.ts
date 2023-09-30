@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
     create(context) {
         const { ctx, listeners } = ComponentCollector.make(context);
         const detectConstruction = ConstructionDetector.make(context);
-        const possibleValueConstructions = new Map<AST.FunctionNode, ConstructionDetector.ConstructionType>();
+        const possibleValueConstructions = new Map<AST.FunctionNode, ConstructionDetector.ConstructionDetail>();
 
         return {
             ...listeners,
@@ -65,14 +65,14 @@ export default createRule<[], MessageID>({
 
                 const valueExpression = valueNode.expression;
                 const invocationScope = context.getScope();
-                const constructionInfo = detectConstruction(valueExpression, invocationScope);
-                if (constructionInfo._tag === "NONE") {
+                const constructionDetail = detectConstruction(valueExpression, invocationScope);
+                if (constructionDetail.type === "NONE") {
                     return;
                 }
 
                 F.pipe(
                     ctx.getCurrentFunction(),
-                    O.map((currentFn) => possibleValueConstructions.set(currentFn, constructionInfo)),
+                    O.map((currentFn) => possibleValueConstructions.set(currentFn, constructionDetail)),
                     E.fromOption(() => "Unexpected empty function stack"),
                     E.mapLeft(console.warn),
                 );
@@ -80,19 +80,19 @@ export default createRule<[], MessageID>({
             "Program:exit"() {
                 const components = ctx.getAllComponents();
 
-                for (const [fn, constructionInfo] of possibleValueConstructions.entries()) {
-                    if (!components.has(fn) || constructionInfo._tag === "NONE") {
+                for (const [fn, detail] of possibleValueConstructions.entries()) {
+                    if (!components.has(fn) || detail.type === "NONE") {
                         continue;
                     }
 
-                    const messageId = constructionInfo._tag.startsWith("FUNCTION")
+                    const messageId = detail.type.startsWith("FUNCTION")
                         ? "CONTEXT_VALUE_CONSTRUCTION_FUNCTION"
                         : "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER";
 
-                    const { name, node } = constructionInfo;
+                    const { type, node } = detail;
                     context.report({
                         data: {
-                            type: name,
+                            type: type.replaceAll("_", "").toLowerCase(),
                         },
                         messageId,
                         node,

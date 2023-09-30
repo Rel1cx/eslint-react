@@ -17,6 +17,7 @@
 - [isJSXFragment](src_utils_jsx.md#isjsxfragment)
 - [isJSXValue](src_utils_jsx.md#isjsxvalue)
 - [isJsxTagNameExpression](src_utils_jsx.md#isjsxtagnameexpression)
+- [isLineBreak](src_utils_jsx.md#islinebreak)
 - [isReturnStatementReturningJSX](src_utils_jsx.md#isreturnstatementreturningjsx)
 
 ## Functions
@@ -240,6 +241,26 @@ ___
 #### Returns
 
 node is JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName
+
+___
+
+### isLineBreak
+
+▸ **isLineBreak**(`node`): `boolean`
+
+Check if a Literal or JSXText node is a line break
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `node` | `Node` | The node to check |
+
+#### Returns
+
+`boolean`
+
+boolean
 
 ___
 

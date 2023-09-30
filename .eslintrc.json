@@ -54,11 +54,12 @@
         "perfectionist/sort-objects": [
             "warn",
             {
-                "always-on-top": ["id", "name", "key", "kind", "meta", "type", "title", "description"],
+                "always-on-top": ["kind", "type", "id", "key", "name", "meta", "title", "description"],
                 "order": "asc",
                 "type": "natural"
             }
         ],
+        "perfectionist/sort-object-types": "off",
         "regexp/no-unused-capturing-group": "off",
         "regexp/prefer-named-capture-group": "off",
         "simple-import-sort/exports": "warn",

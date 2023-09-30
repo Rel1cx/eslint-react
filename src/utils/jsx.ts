@@ -3,6 +3,7 @@ import memo from "micro-memoize";
 import { match, P } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
+import { isWhiteSpace } from "../lib/is-white-space";
 import { F, isNil, isString, O } from "../lib/primitives";
 import * as AST from "./ast";
 import { isCreateElement } from "./is-create-element";
@@ -17,6 +18,22 @@ export const isJSXFragment = AST.is(N.JSXFragment);
 export const isJSX = (node: TSESTree.Node): node is TSESTree.JSXElement | TSESTree.JSXFragment => {
     return isJSXElement(node) || isJSXFragment(node);
 };
+
+/**
+ * Check if a Literal or JSXText node is a line break
+ * @param node The node to check
+ * @returns boolean
+ */
+export function isLineBreak(node: TSESTree.Node) {
+    const isLiteral = AST.isOneOf([N.Literal, N.JSXText])(node);
+    if (!("value" in node) || !isString(node.value)) {
+        return false;
+    }
+
+    const isMultiline = node.loc.start.line !== node.loc.end.line;
+
+    return isLiteral && isMultiline && isWhiteSpace(node.value);
+}
 
 export const isJsxTagNameExpression = AST.isOneOf([
     N.JSXIdentifier,

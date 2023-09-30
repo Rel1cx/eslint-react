@@ -37,13 +37,13 @@ export function make<T extends RuleContext>(context: T) {
             if (
                 isMatching({
                     type: N.MemberExpression,
-                    object: { name: pragma, type: N.Identifier },
+                    object: { type: N.Identifier, name: pragma },
                 })(init)
             ) {
                 return true;
             }
 
-            if (isMatching({ name: pragma, type: N.Identifier })(init)) {
+            if (isMatching({ type: N.Identifier, name: pragma })(init)) {
                 return true;
             }
 

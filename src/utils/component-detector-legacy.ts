@@ -40,7 +40,7 @@ export function isES5Component(node: TSESTree.Node, context: RuleContext) {
             },
             F.constTrue,
         )
-        .with({ name: createClass, type: N.Identifier }, F.constTrue)
+        .with({ type: N.Identifier, name: createClass }, F.constTrue)
         .otherwise(F.constFalse);
 }
 
@@ -63,7 +63,7 @@ export function isES6Component(node: TSESTree.Node, context: RuleContext) {
     const { superClass } = node;
 
     return match(superClass)
-        .with({ name: P.string, type: N.Identifier }, ({ name }) => /^(Pure)?Component$/u.test(name))
+        .with({ type: N.Identifier, name: P.string }, ({ name }) => /^(Pure)?Component$/u.test(name))
         .with(
             {
                 type: N.MemberExpression,

@@ -7,7 +7,6 @@ import memo from "micro-memoize";
 import type { RuleContext } from "../../typings";
 import { isNil, isString } from "../lib/primitives";
 import { uniqueBy } from "../lib/unique-by";
-import { isWhiteSpace } from "./string";
 
 export type FunctionNode =
     | TSESTree.ArrowFunctionExpression
@@ -329,20 +328,4 @@ export function getReferencedExpressionByIdentifier(params: {
     }
 
     return resolvedNode.init;
-}
-
-/**
- * Check if a Literal or JSXText node is a line break
- * @param node The node to check
- * @returns boolean
- */
-export function isLineBreak(node: TSESTree.Node): boolean {
-    const isLiteral = isOneOf([N.Literal, N.JSXText])(node);
-    if (!("value" in node) || !isString(node.value)) {
-        return false;
-    }
-
-    const isMultiline = node.loc.start.line !== node.loc.end.line;
-
-    return isLiteral && isMultiline && isWhiteSpace(node.value);
 }
