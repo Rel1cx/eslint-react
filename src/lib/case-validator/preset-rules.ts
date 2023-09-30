@@ -7,6 +7,7 @@ type Rule = {
     expression: RegExp;
     recommendationBuilder?: (name: string) => string;
 };
+
 type PresetRules = {
     [key: string]: Required<Rule> | undefined;
     PascalCase: Required<Rule>;

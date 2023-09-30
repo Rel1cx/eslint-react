@@ -5,6 +5,11 @@ import { match } from "ts-pattern";
 import { F, isObject } from "../lib/primitives";
 import * as AST from "./ast";
 
+/**
+ * Determines whether `createContext` is used.
+ * @param node The node to check.
+ * @returns `true` if the node is a call expression to `createContext`.
+ */
 export function isCreateContext(node: TSESTree.Node) {
     if ("init" in node) {
         return match(node.init)

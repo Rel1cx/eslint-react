@@ -31,18 +31,22 @@ ruleTester.run(RULE_NAME, rule, {
                 return <Context.Provider value={foo}></Context.Provider>
             }`,
         `const foo = {}
+
          function App() {
              return <Context.Provider value={foo}></Context.Provider>;
          }`,
         `const foo = []
+
          function App() {
              return <Context.Provider value={foo}></Context.Provider>;
          }`,
         `const foo = new Object()
+
          function App() {
              return <Context.Provider value={foo}></Context.Provider>;
          }`,
         `const foo = () => {}
+
          function App() {
              return <Context.Provider value={foo}></Context.Provider>;
          }`,

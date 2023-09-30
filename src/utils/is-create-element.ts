@@ -7,6 +7,12 @@ import { E, F } from "../lib/primitives";
 import * as destructuredFromPragmaDetector from "./destructured-from-pragma-detector";
 import { getFromContext } from "./pragma";
 
+/**
+ * Determines whether `createElement` is used.
+ * @param node The node to check.
+ * @param context The rule context.
+ * @returns `true` if the node is a call expression to `createElement`.
+ */
 export const isCreateElement = memo((node: TSESTree.Node, context: RuleContext) => {
     if (!("callee" in node)) {
         return false;

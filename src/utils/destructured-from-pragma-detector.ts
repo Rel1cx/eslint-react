@@ -33,13 +33,7 @@ export function make<T extends RuleContext>(context: T) {
 
         if (AST.is(N.VariableDeclarator)(node) && node.init) {
             const { init } = node;
-            // dprint-ignore
-            if (
-                isMatching({
-                    type: N.MemberExpression,
-                    object: { type: N.Identifier, name: pragma },
-                })(init)
-            ) {
+            if (isMatching({ type: N.MemberExpression, object: { type: N.Identifier, name: pragma } })(init)) {
                 return true;
             }
 
@@ -49,16 +43,9 @@ export function make<T extends RuleContext>(context: T) {
 
             const maybeRequireExpression: O.Option<TSESTree.CallExpression> = match(init)
                 .with({ type: N.CallExpression }, (exp) => O.some(exp))
-                .with(
-                    {
-                        type: N.MemberExpression,
-                        object: {
-                            type: N.CallExpression,
-                        },
-                    },
-                    ({ object }) => O.some(object),
-                )
+                .with({ type: N.MemberExpression, object: { type: N.CallExpression } }, ({ object }) => O.some(object))
                 .otherwise(O.none);
+
             if (O.isNone(maybeRequireExpression)) {
                 return false;
             }
@@ -77,9 +64,6 @@ export function make<T extends RuleContext>(context: T) {
             return firstArg.value === pragma.toLowerCase();
         }
 
-        return isMatching({
-            type: N.ImportDeclaration,
-            source: { value: pragma.toLowerCase() },
-        })(parent);
+        return isMatching({ type: N.ImportDeclaration, source: { value: pragma.toLowerCase() } })(parent);
     };
 }
