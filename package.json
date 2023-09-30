@@ -50,7 +50,8 @@
     },
     "main": "./dist/index.js",
     "files": [
-        "./dist"
+        "./dist",
+        "./package.json"
     ],
     "scripts": {
         "build": "rollup -c rollup.config.ts --configPlugin swc3",
@@ -102,6 +103,7 @@
         "pathe": "1.1.1",
         "publint": "0.2.3",
         "rambda": "8.4.0",
+        "rollup": "3.29.4",
         "rollup-plugin-dts": "6.0.2",
         "rollup-plugin-swc3": "0.10.1",
         "skott": "0.30.3",

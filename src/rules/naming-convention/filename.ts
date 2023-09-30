@@ -2,7 +2,7 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import path from "pathe";
 
-import { createEslintRule } from "../../../tools/create-eslint-rule";
+import { createRule } from "../../../tools/create-rule";
 import { getCaseValidator } from "../../lib/case-validator/case-validator";
 import { O } from "../../lib/primitives";
 import { isJSXFileExt } from "../../utils/jsx";
@@ -44,7 +44,7 @@ const schema = [
     },
 ] satisfies [JSONSchema4];
 
-export default createEslintRule<Options, MessageID>({
+export default createRule<Options, MessageID>({
     name: RULE_NAME,
     meta: {
         type: "suggestion",

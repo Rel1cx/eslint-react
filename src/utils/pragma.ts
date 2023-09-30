@@ -30,6 +30,10 @@ export function getCreateClassFromContext<T extends RuleContext>(context: T): E.
     return E.right(pragma);
 }
 
+/**
+ * @param context The rule context
+ * @internal
+ */
 export function getFragmentFromContext<T extends RuleContext>(context: T): E.Either<Error, string> {
     // eslint-disable-next-line prefer-destructuring
     const settings: { react?: ReactSettings } = context.settings;
@@ -43,6 +47,9 @@ export function getFragmentFromContext<T extends RuleContext>(context: T): E.Eit
     return E.right(pragma);
 }
 
+/**
+ * @internal
+ */
 export const getFromContext = memo(<T extends RuleContext>(context: T): E.Either<Error, string> => {
     // eslint-disable-next-line prefer-destructuring
     const settings: { react?: ReactSettings } = context.settings;

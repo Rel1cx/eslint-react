@@ -1,6 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { createEslintRule } from "../../../tools/create-eslint-rule";
+import { createRule } from "../../../tools/create-rule";
 import { MutRef, O } from "../../lib/primitives";
 import { isJSXFileExt } from "../../utils/jsx";
 
@@ -8,7 +8,7 @@ export const RULE_NAME = "naming-convention/filename-extension";
 
 type MessageID = "INVALID";
 
-export default createEslintRule<[], MessageID>({
+export default createRule<[], MessageID>({
     name: RULE_NAME,
     meta: {
         type: "suggestion",

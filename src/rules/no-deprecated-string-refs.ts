@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
-import { createEslintRule } from "../../tools/create-eslint-rule";
+import { createRule } from "../../tools/create-rule";
 import { isNil, isString } from "../lib/primitives";
 import * as AST from "../utils/ast";
 
@@ -33,7 +33,7 @@ function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
     );
 }
 
-export default createEslintRule<[], MessageID>({
+export default createRule<[], MessageID>({
     name: RULE_NAME,
     meta: {
         type: "problem",

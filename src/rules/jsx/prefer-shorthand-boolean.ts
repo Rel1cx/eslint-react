@@ -1,13 +1,13 @@
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
-import { createEslintRule } from "../../../tools/create-eslint-rule";
+import { createRule } from "../../../tools/create-rule";
 import { getPropName } from "../../utils/jsx";
 
 export const RULE_NAME = "jsx/prefer-shorthand-boolean";
 
 type MessageID = "INVALID";
 
-export default createEslintRule<[], MessageID>({
+export default createRule<[], MessageID>({
     name: RULE_NAME,
     meta: {
         type: "suggestion",

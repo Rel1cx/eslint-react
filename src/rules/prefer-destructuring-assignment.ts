@@ -3,7 +3,7 @@ import { type TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
-import { createEslintRule } from "../../tools/create-eslint-rule";
+import { createRule } from "../../tools/create-rule";
 import type { Cond } from "../../typings";
 import * as AST from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
@@ -33,7 +33,7 @@ function isMemberExpressionWithObjectName(node: TSESTree.MemberExpression): node
     return AST.is(N.Identifier)(node.object) && "name" in node.object;
 }
 
-export default createEslintRule<Options, MessageID>({
+export default createRule<Options, MessageID>({
     name: RULE_NAME,
     meta: {
         type: "suggestion",

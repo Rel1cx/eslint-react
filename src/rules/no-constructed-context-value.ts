@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
-import { createEslintRule } from "../../tools/create-eslint-rule";
+import { createRule } from "../../tools/create-rule";
 import { E, F, O } from "../lib/primitives";
 import * as AST from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
@@ -13,7 +13,7 @@ type MessageID =
     | "CONTEXT_VALUE_CONSTRUCTION_FUNCTION"
     | "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER";
 
-export default createEslintRule<[], MessageID>({
+export default createRule<[], MessageID>({
     name: RULE_NAME,
     meta: {
         type: "problem",

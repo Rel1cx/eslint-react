@@ -44,6 +44,7 @@ export function findVariableByNameUpToGlobal(name: string, startScope: Scope): O
 /**
  * Get the init node of the nth definition of a variable
  * @param at The index of the definition to get, negative numbers are counted from the end, -1 is the last definition
+ * @internal
  */
 export function getVariableNthDefNodeInit(at: number) {
     return (variable: Variable) =>

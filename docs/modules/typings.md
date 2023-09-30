@@ -8,6 +8,7 @@
 
 - [Additional](typings.md#additional)
 - [Cond](typings.md#cond)
+- [CreateRule](typings.md#createrule)
 - [Descriptive](typings.md#descriptive)
 - [JSONValue](typings.md#jsonvalue)
 - [Modifier](typings.md#modifier)
@@ -21,6 +22,7 @@
 - [RuleContext](typings.md#rulecontext)
 - [RuleDeclaration](typings.md#ruledeclaration)
 - [RuleName](typings.md#rulename)
+- [RuleOptions](typings.md#ruleoptions)
 - [RulePreset](typings.md#rulepreset)
 - [Severity](typings.md#severity)
 - [Term](typings.md#term)
@@ -36,6 +38,12 @@ ___
 ### Cond
 
 Ƭ **Cond**: ``"always"`` \| ``"never"``
+
+___
+
+### CreateRule
+
+Ƭ **CreateRule**: `Parameters`<`ReturnType`<typeof `ESLintUtils.RuleCreator`\>\>[``0``][``"create"``]
 
 ___
 
@@ -101,13 +109,13 @@ ___
 
 ### RuleContext
 
-Ƭ **RuleContext**: `Readonly`<`TSESLint.RuleContext`<`string`, readonly `unknown`[]\>\>
+Ƭ **RuleContext**: `Parameters`<[`CreateRule`](typings.md#createrule)\>[``0``]
 
 ___
 
 ### RuleDeclaration
 
-Ƭ **RuleDeclaration**: `ReadonlyDeep`<[[`Severity`](typings.md#severity), Record<string, unknown\>?] \| [`Severity`](typings.md#severity)\>
+Ƭ **RuleDeclaration**: [[`Severity`](typings.md#severity), Record<string, unknown\>?] \| [`Severity`](typings.md#severity)
 
 ___
 
@@ -117,9 +125,15 @@ ___
 
 ___
 
+### RuleOptions
+
+Ƭ **RuleOptions**: `Parameters`<[`CreateRule`](typings.md#createrule)\>[``1``]
+
+___
+
 ### RulePreset
 
-Ƭ **RulePreset**: `ReadonlyDeep`<`Record`<`string`, [`RuleDeclaration`](typings.md#ruledeclaration)\>\>
+Ƭ **RulePreset**: `Record`<`string`, [`RuleDeclaration`](typings.md#ruledeclaration)\>
 
 ___
 

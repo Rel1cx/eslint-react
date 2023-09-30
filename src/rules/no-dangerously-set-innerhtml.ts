@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
-import { createEslintRule } from "../../tools/create-eslint-rule";
+import { createRule } from "../../tools/create-rule";
 import { F, O } from "../lib/primitives";
 import * as AST from "../utils/ast";
 import { isCreateElement } from "../utils/is-create-element";
@@ -12,7 +12,7 @@ export const RULE_NAME = "no-dangerously-set-innerhtml";
 
 type MessageID = "INVALID";
 
-export default createEslintRule<[], MessageID>({
+export default createRule<[], MessageID>({
     name: RULE_NAME,
     meta: {
         type: "problem",

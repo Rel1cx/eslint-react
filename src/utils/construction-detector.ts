@@ -58,6 +58,11 @@ export const ConstructionType = Data.taggedEnum<ConstructionType>();
 
 const None = ConstructionType("NONE")();
 
+/**
+ * Detect the construction type of a node
+ * @internal
+ * @param context The rule context
+ */
 export function make<T extends RuleContext>(context: T) {
     // eslint-disable-next-line sonarjs/cognitive-complexity
     const detect = (node: TSESTree.Node, scope = context.getScope()): ConstructionType => {

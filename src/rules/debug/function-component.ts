@@ -1,4 +1,4 @@
-import { createEslintRule } from "../../../tools/create-eslint-rule";
+import { createRule } from "../../../tools/create-rule";
 import * as AST from "../../utils/ast";
 import * as ComponentCollector from "../../utils/component-collector";
 import { isComponentName } from "../../utils/is-component-name";
@@ -7,7 +7,7 @@ export const RULE_NAME = "debug/function-component";
 
 type MessageID = "FUNCTION_COMPONENT" | "POSSIBLE_FUNCTION_COMPONENT";
 
-export default createEslintRule<[], MessageID>({
+export default createRule<[], MessageID>({
     name: RULE_NAME,
     meta: {
         type: "suggestion",

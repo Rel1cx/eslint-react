@@ -58,6 +58,7 @@ export default defineConfig([
         ],
     } satisfies RollupOptions)),
     // {
+    //     ...options,
     //     input: "src/index.ts",
     //     output: {
     //         file: "dist/index.d.ts",

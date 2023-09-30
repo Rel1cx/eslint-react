@@ -2,7 +2,7 @@
 import { type TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
-import { createEslintRule } from "../../../tools/create-eslint-rule";
+import { createRule } from "../../../tools/create-rule";
 import * as AST from "../../utils/ast";
 
 export const RULE_NAME = "jsx/no-leaked-conditional-rendering";
@@ -43,7 +43,7 @@ function isValidTernaryAlternate(node: TSESTree.ConditionalExpression) {
     return !TERNARY_INVALID_ALTERNATE_VALUES.has(node.alternate.value);
 }
 
-export default createEslintRule<[], MessageID>({
+export default createRule<[], MessageID>({
     name: RULE_NAME,
     meta: {
         type: "problem",

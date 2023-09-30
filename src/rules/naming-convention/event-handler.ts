@@ -3,7 +3,7 @@
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
-import { createEslintRule } from "../../../tools/create-eslint-rule";
+import { createRule } from "../../../tools/create-rule";
 import { O } from "../../lib/primitives";
 import * as AST from "../../utils/ast";
 import * as JSXUtils from "../../utils/jsx";
@@ -87,7 +87,7 @@ const schema = [
     },
 ] satisfies JSONSchema4[];
 
-export default createEslintRule<Options, MessageID>({
+export default createRule<Options, MessageID>({
     name: RULE_NAME,
     meta: {
         type: "suggestion",
