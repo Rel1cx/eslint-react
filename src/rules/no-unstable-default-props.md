@@ -22,6 +22,7 @@ To fix the violations, the easiest way is to use a referencing variable in modul
 const emptyArray = [];
 
 function Component({ items = emptyArray }) {
+    return <div>{items}</div>;
 }
 ```
 
@@ -29,16 +30,19 @@ Examples of **incorrect** code for this rule:
 
 ```tsx
 function Component({ items = [] }) {
+    return <div>{items}</div>;
 }
 ```
 
 ```tsx
 function Component({ items = {} }) {
+    return <div>{items}</div>;
 }
 ```
 
 ```tsx
 function Component({ items = () => {} }) {
+    return <div>{items}</div>;
 }
 ```
 
@@ -48,24 +52,28 @@ Examples of **correct** code for this rule:
 const emptyArray = [];
 
 function Component({ items = emptyArray }) {
+    return <div>{items}</div>;
 }
 ```
 
 ```tsx
 const emptyObject = {};
 function Component({ items = emptyObject }) {
+    return <div>{items}</div>;
 }
 ```
 
 ```tsx
 const noopFunc = () => {};
 function Component({ items = noopFunc }) {
+    return <div>{items}</div>;
 }
 ```
 
 ```tsx
 // primitives are all compared by value, so are safe to be inlined
 function Component({ num = 3, str = "foo", bool = true }) {
+    return <div>{items}</div>;
 }
 ```
 
