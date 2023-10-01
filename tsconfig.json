@@ -1,14 +1,9 @@
 {
-    "extends": "@tsconfig/strictest/tsconfig.json",
+    "extends": ["@tsconfig/strictest/tsconfig.json", "@tsconfig/bun/tsconfig.json"],
     "compilerOptions": {
         "isolatedModules": true,
         "verbatimModuleSyntax": true,
         "resolveJsonModule": true,
-        "module": "ESNext",
-        "target": "ESNext",
-        "moduleResolution": "Bundler",
-        "lib": ["ES2015", "ES2016", "ES2017", "ES2018", "ES2019", "ES2020", "ES2021", "ES2022", "ES2023", "ESNext"],
-        "types": ["bun-types"],
         "allowJs": false,
         "checkJs": false,
         "strict": true,
@@ -17,7 +12,6 @@
         "noUnusedLocals": false,
         "noUnusedParameters": false,
         "exactOptionalPropertyTypes": true,
-        "noEmit": true,
         "composite": false,
         "stripInternal": true
     },

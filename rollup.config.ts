@@ -1,6 +1,7 @@
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
+// import pattycake from "pattycake";
 import { defineConfig, type RollupOptions } from "rollup";
 // import { dts } from "rollup-plugin-dts";
 import { swc } from "rollup-plugin-swc3";
@@ -22,6 +23,8 @@ const options = {
             esmExternals: true,
         }),
         json(),
+        // Enable when pattycake is more stable
+        // pattycake.rollup({ disableOptionalChaining: false }),
         swc({
             jsc: {
                 minify: {
@@ -57,6 +60,7 @@ export default defineConfig([
             { file: `dist/configs/${name}.mjs`, format: "esm" },
         ],
     } satisfies RollupOptions)),
+    // Enable when @typescript-eslint/utils's TS2742 problem is fixed
     // {
     //     ...options,
     //     input: "src/index.ts",

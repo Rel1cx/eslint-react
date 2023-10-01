@@ -1,6 +1,12 @@
 {
     "$schema": "https://cdn.jsdelivr.net/gh/streetsidesoftware/cspell/cspell.schema.json",
-    "dictionaries": ["softwareTerms", "node", "html", "typescript", "misc"],
+    "dictionaries": [
+        "softwareTerms",
+        "node",
+        "html",
+        "typescript",
+        "misc"
+    ],
     "ignorePaths": [
         ".vscode/**/*",
         "docs/**/*",
@@ -21,6 +27,7 @@
         "innerhtml",
         "lockb",
         "pathe",
+        "pattycake",
         "preact",
         "quasis",
         "rambda",

@@ -21,15 +21,14 @@ ruleTester.run(RULE_NAME, rule, {
     valid: [
         ...validFunction.all,
         `function App() {
-                const foo = useMemo(() => ({}), [])
+            const foo = useMemo(() => ({}), [])
 
-                return <Context.Provider value={foo}></Context.Provider>
-            }`,
+            return <Context.Provider value={foo}></Context.Provider>
+        }`,
         `function App() {
-                const foo = useMemo(() => [], [])
+            const foo = useMemo(() => [], [])
 
-                return <Context.Provider value={foo}></Context.Provider>
-            }`,
+            return <Context.Provider value={foo}></Context.Provider>}`,
         `const foo = {}
 
          function App() {
