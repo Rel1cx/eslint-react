@@ -1,5 +1,8 @@
 {
-    "extends": ["@tsconfig/strictest/tsconfig.json", "@tsconfig/bun/tsconfig.json"],
+    "extends": [
+        "@tsconfig/strictest/tsconfig.json",
+        "@tsconfig/bun/tsconfig.json"
+    ],
     "compilerOptions": {
         "isolatedModules": true,
         "verbatimModuleSyntax": true,
@@ -15,8 +18,13 @@
         "composite": false,
         "stripInternal": true
     },
-    "include": ["."],
-    "exclude": ["node_modules", "**/dist"],
+    "include": [
+        "."
+    ],
+    "exclude": [
+        "node_modules",
+        "**/dist"
+    ],
     "plugins": [
         {
             "name": "@effect/language-service"

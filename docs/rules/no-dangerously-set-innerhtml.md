@@ -7,5 +7,11 @@ Disallow when a DOM element is using both children and `dangerouslySetInnerHTML`
 Examples of **incorrect** code for this rule:
 
 ```tsx
-<div dangerouslySetInnerHTML={{ __html: "Hello World" }}></div>;
+function Component() {
+    return <div dangerouslySetInnerHTML={{ __html: "Hello World" }}>Hello World</div>;
+}
 ```
+
+## Rule Options
+
+This rule has no options.

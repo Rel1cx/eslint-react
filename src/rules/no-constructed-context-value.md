@@ -36,6 +36,10 @@ const ExampleProvider = () => {
 };
 ```
 
+## Rule Options
+
+This rule has no options.
+
 ## Legitimate Uses
 
 React Context, and all its child nodes and Consumers are rerendered whenever the value prop changes. Because each Javascript object carries its own identity, things like object expressions ({foo: 'bar'}) or function expressions get a new identity on every run through the component. This makes the context think it has gotten a new object and can cause needless rerenders and unintended consequences.

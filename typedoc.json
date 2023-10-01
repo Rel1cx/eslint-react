@@ -11,10 +11,18 @@
         "src/utils/component-detector-legacy.ts",
         "src/utils/construction-detector.ts"
     ],
-    "name": "eslint-plugin-react-ts",
-    "out": "docs",
+    "name": "",
+    "out": "docs/internals",
     "theme": "default",
     "readme": "none",
     "disableSources": true,
-    "hideGenerator": true
+    "hideGenerator": true,
+    "sort": [
+        "kind",
+        "instance-first",
+        "alphabetical"
+    ],
+    "darkHighlightTheme": "dark-plus",
+    "jsDocCompatibility": true,
+    "useTsLinkResolution": true
 }

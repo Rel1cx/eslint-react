@@ -15,3 +15,7 @@ Examples of **correct** code for this rule:
 ```tsx
 <div dangerouslySetInnerHTML={{ __html: "Hello World" }} />;
 ```
+
+## Rule Options
+
+This rule has no options.

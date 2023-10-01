@@ -37,6 +37,10 @@ function Component() {
 }
 ```
 
+## Rule Options
+
+This rule has no options.
+
 ## Legitimate uses
 
 It's possible you may want to legitimately output comment start characters (`//` or `/*`) in a JSX text node. In which case, you can do the following:

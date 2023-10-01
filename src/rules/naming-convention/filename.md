@@ -44,11 +44,3 @@ src/components/example_component.tsx
 
 - `rule`: The naming convention to enforce. Defaults to `PascalCase`
 - `excepts`: An array of regexp that should be ignored by the rule. Defaults to `[]`
-
-### Default Option
-
-```json
-"react-ts/enforce-filename-naming-convention": ["error", {
-  "rule": "PascalCase"
-}]
-```

@@ -23,3 +23,7 @@ function Component() {
     return <div ref={ref} />;
 }
 ```
+
+## Rule Options
+
+This rule has no options.

@@ -11,7 +11,7 @@ This rule aims to prevent dangerous leaked values from being rendered since they
 In React, you might end up rendering unexpected values like 0 or NaN. In React Native, your render method will even crash if you render these values:
 
 ```tsx
-const Example = () => {
+function Component() {
     return (
         <>
             {0 && <Something />}
@@ -27,7 +27,7 @@ const Example = () => {
             {/* React Native, with React < 18: crashes 💥 */}
         </>
     );
-};
+}
 ```
 
 This can be avoided by:
@@ -38,110 +38,114 @@ This can be avoided by:
 Examples of **incorrect** code for this rule:
 
 ```tsx
-const Component = ({ count, title }) => {
+function Component({ count, title }) {
     return <div>{count && title}</div>;
-};
+}
 ```
 
 ```tsx
-const Component = ({ count }) => {
+function Component({ count }) {
     return <div>{count && <span>There are {count} results</span>}</div>;
-};
+}
 ```
 
 ```tsx
-const Component = ({ elements }) => {
+function Component({ elements }) {
     return <div>{elements.length && <List elements={elements} />}</div>;
-};
+}
 ```
 
 ```tsx
-const Component = ({ nestedCollection }) => {
+function Component({ nestedCollection }) {
     return (
         <div>
             {nestedCollection.elements.length && <List elements={nestedCollection.elements} />}
         </div>
     );
-};
+}
 ```
 
 ```tsx
-const Component = ({ elements }) => {
+function Component({ elements }) {
     return <div>{elements[0] && <List elements={elements} />}</div>;
-};
+}
 ```
 
 ```tsx
-const Component = ({ numberA, numberB }) => {
+function Component({ numberA, numberB }) {
     return <div>{(numberA || numberB) && <Results>{numberA + numberB}</Results>}</div>;
-};
+}
 ```
 
 ```tsx
 // If the condition is a boolean value, this rule will report the logical expression
 // since it can't infer the type of the condition.
-const Component = ({ someBool }) => {
+function Component({ someBool }) {
     return <div>{someBool && <Results>{numberA + numberB}</Results>}</div>;
-};
+}
 ```
 
 Examples of **correct** code for this rule:
 
 ```tsx
-const Component = ({ elements }) => {
+function Component({ elements }) {
     return <div>{elements}</div>;
-};
+}
 ```
 
 ```tsx
 // An OR condition it's considered valid since it's assumed as a way
 // to render some fallback if the first value is falsy, not to render something conditionally.
-const Component = ({ customTitle }) => {
+function Component({ customTitle }) {
     return <div>{customTitle || defaultTitle}</div>;
-};
+}
 ```
 
 ```tsx
-const Component = ({ elements }) => {
+function Component({ elements }) {
     return <div>There are {elements.length} elements</div>;
-};
+}
 ```
 
 ```tsx
-const Component = ({ elements, count }) => {
+function Component({ elements, count }) {
     return <div>{!count && "No results found"}</div>;
-};
+}
 ```
 
 ```tsx
-const Component = ({ elements }) => {
+function Component({ elements }) {
     return <div>{!!elements.length && <List elements={elements} />}</div>;
-};
+}
 ```
 
 ```tsx
-const Component = ({ elements }) => {
+function Component({ elements }) {
     return <div>{Boolean(elements.length) && <List elements={elements} />}</div>;
-};
+}
 ```
 
 ```tsx
-const Component = ({ elements }) => {
+function Component({ elements }) {
     return <div>{elements.length > 0 && <List elements={elements} />}</div>;
-};
+}
 ```
 
 ```tsx
-const Component = ({ elements }) => {
+function Component({ elements }) {
     return <div>{elements.length ? <List elements={elements} /> : null}</div>;
-};
+}
 ```
 
 ```tsx
-const Component = ({ elements }) => {
+function Component({ elements }) {
     return <div>{elements.length ? <List elements={elements} /> : <EmptyList />}</div>;
-};
+}
 ```
+
+## Rule Options
+
+This rule has no options.
 
 ## When Not To Use It
 
