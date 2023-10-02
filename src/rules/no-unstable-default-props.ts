@@ -1,29 +1,18 @@
 import { type TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
-import birecord from "birecord";
 import { isNil } from "rambda";
+import { match } from "ts-pattern";
 
 import { createRule } from "../../tools/create-rule";
 import * as AST from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
+import { detectUnstableDefaultProp } from "../utils/unstable-default-prop-detector";
 
 export const RULE_NAME = "no-unstable-default-props";
 
 type MessageID = "INVALID";
 
-const FORBIDDEN_TYPES = birecord({
-    [N.ArrayExpression]: "array literal",
-    [N.ArrowFunctionExpression]: "arrow function",
-    [N.ClassExpression]: "class expression",
-    [N.FunctionExpression]: "function expression",
-    [N.JSXElement]: "JSX element",
-    [N.NewExpression]: "new expression",
-    [N.ObjectExpression]: "object literal",
-});
-
-function hasUsedObjectDestructuringSyntax(
-    params: TSESTree.FunctionExpression["params"],
-): params is [TSESTree.ObjectPattern] {
+function hasUsedObjectDestructuringSyntax(params: TSESTree.FunctionExpression["params"]): params is [TSESTree.ObjectPattern] {
     if (params.length !== 1) {
         return false;
     }
@@ -67,51 +56,23 @@ export default createRule<[], MessageID>({
                             continue;
                         }
 
-                        const propKey = prop.key;
-                        const propDefaultValue = prop.value;
-                        const propDefaultValueRight = propDefaultValue.right;
-                        if (
-                            AST.is(N.Literal)(propDefaultValueRight)
-                            && "regex" in propDefaultValueRight
-                            && !isNil(propDefaultValueRight.regex)
-                        ) {
-                            context.report({
-                                data: {
-                                    forbiddenType: "regex literal",
-                                },
-                                messageId: "INVALID",
-                                node: propKey,
-                            });
+                        const [type, node] = detectUnstableDefaultProp(prop);
 
-                            continue;
-                        }
-                        if (
-                            AST.is(N.CallExpression)(propDefaultValueRight)
-                            && "callee" in propDefaultValueRight
-                            && AST.is(N.Identifier)(propDefaultValueRight.callee)
-                            && propDefaultValueRight.callee.name === "Symbol"
-                        ) {
-                            context.report({
-                                data: {
-                                    forbiddenType: "Symbol literal",
-                                },
-                                messageId: "INVALID",
-                                node: propKey,
-                            });
-
-                            continue;
-                        }
-                        if (!FORBIDDEN_TYPES.has(propDefaultValueRight.type)) {
+                        if (type === "NONE") {
                             continue;
                         }
 
-                        const forbiddenType = FORBIDDEN_TYPES.get(propDefaultValueRight.type);
+                        const forbiddenType = match(type)
+                            .with("JSX_ELEMENT", () => "JSX element")
+                            .with("SYMBOL_LITERAL", () => "Symbol literal")
+                            .otherwise(t => t.toLowerCase().replaceAll("_", " "));
+
                         context.report({
                             data: {
                                 forbiddenType,
                             },
                             messageId: "INVALID",
-                            node: propKey,
+                            node,
                         });
                     }
                 }

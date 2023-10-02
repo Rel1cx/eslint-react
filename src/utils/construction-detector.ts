@@ -92,7 +92,7 @@ export function make<T extends RuleContext>(context: T) {
                 return {
                     ...object,
                     usage: node.object,
-                };
+                } as const;
             })
             .when(AST.is(N.AssignmentExpression), (node) => {
                 if (!("right" in node)) {
@@ -105,11 +105,11 @@ export function make<T extends RuleContext>(context: T) {
                     return right;
                 }
 
-                return ({
+                return {
                     type: "ASSIGNMENT_EXPRESSION",
                     node: right.node,
                     usage: node,
-                });
+                };
             })
             .when(AST.is(N.LogicalExpression), (node) => {
                 if (!("left" in node && "right" in node)) {
@@ -155,11 +155,11 @@ export function make<T extends RuleContext>(context: T) {
                 }
 
                 if (AST.is(N.FunctionDeclaration)(latestDef.node)) {
-                    return ({
+                    return {
                         type: "FUNCTION_DECLARATION",
                         node: latestDef.node,
                         usage: node,
-                    });
+                    };
                 }
 
                 if (!("init" in latestDef.node) || latestDef.node.init === null) {
@@ -170,7 +170,7 @@ export function make<T extends RuleContext>(context: T) {
             })
             .when(AST.is(N.Literal), (node) => {
                 if ("regex" in node) {
-                    return ({ type: "REGULAR_EXPRESSION", node });
+                    return { type: "REGULAR_EXPRESSION", node };
                 }
 
                 return none;
