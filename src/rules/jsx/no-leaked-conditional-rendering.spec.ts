@@ -52,7 +52,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         `,
         dedent`
-          const App = ({ items }) => {
+            const App = ({ items }) => {
               return <div>{items.length > 0 && <List items={items}/>}</div>
           }
         `,

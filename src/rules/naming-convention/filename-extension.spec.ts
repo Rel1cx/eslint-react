@@ -16,8 +16,8 @@ const ruleTester = new RuleTester({
     },
 });
 
-const withJSXElement = "function App() { return <div><div /></div> }";
-const withJSXFragment = "function App() { return <></> }";
+const withJSXElement = "const App = () => <div><div /></div>";
+const withJSXFragment = "const App = () => <></>";
 const withoutJSX = "";
 
 ruleTester.run(RULE_NAME, rule, {
