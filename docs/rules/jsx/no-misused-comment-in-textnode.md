@@ -1,6 +1,6 @@
 # Disallow comments from being inserted as text nodes (`react-ts/jsx/no-misused-comment-in-textnode`)
 
-⚠️ This rule _warns_ in the following configs: ☑️ `recommended`, `recommended-type-checked`.
+⚠️ This rule _warns_ in the following configs: ✅ `recommended`, `recommended-type-checked`.
 
 <!-- end auto-generated rule header -->
 

@@ -1,6 +1,6 @@
 # Disallow using deprecated string refs (`react-ts/no-deprecated-string-refs`)
 
-💼 This rule is enabled in the following configs: ☑️ `recommended`, `recommended-type-checked`.
+💼 This rule is enabled in the following configs: ✅ `recommended`, `recommended-type-checked`.
 
 <!-- end auto-generated rule header -->
 

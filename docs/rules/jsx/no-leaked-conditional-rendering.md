@@ -1,6 +1,6 @@
 # Disallow problematic leaked values from being rendered (`react-ts/jsx/no-leaked-conditional-rendering`)
 
-💼 This rule is enabled in the following configs: ☑️ `recommended`, `recommended-type-checked`.
+💼 This rule is enabled in the following configs: ✅ `recommended`, `recommended-type-checked`.
 
 <!-- end auto-generated rule header -->
 
