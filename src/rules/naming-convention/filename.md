@@ -1,24 +1,15 @@
 # react-ts/naming-convention/filename
 
+Enforces `.tsx` or `.jsx` file naming convention.
+
 ## Rule Details
 
-### ✅ Correct
+This rule can be configured to enforce one of the following naming conventions:
 
-```bash
-npx eslint --rule 'react-ts/naming-convention/filename: ["error", { "rule": "PascalCase" }]' .
-
-src/components/Component.tsx
-
-✨  Done in 0.61s.
-```
-
-```bash
-npx eslint --rule 'react-ts/naming-convention/filename: ["error", { "rule": "kebab-case" }]' .
-
-src/components/example-component.tsx
-
-✨  Done in 0.61s.
-```
+- PascalCase
+- camelCase
+- kebab-case
+- snake_case
 
 ### ❌ Incorrect
 
@@ -38,6 +29,24 @@ src/components/example_component.tsx
     1:1  error  "File name `example_component.tsx` does not match `kebab-case`. Should rename to `example-component.tsx`  react/jsx-filename-naming-convention
 
 ✖ 1 problems (1 errors, 0 warnings)
+```
+
+### ✅ Correct
+
+```bash
+npx eslint --rule 'react-ts/naming-convention/filename: ["error", { "rule": "PascalCase" }]' .
+
+src/components/Component.tsx
+
+✨  Done in 0.61s.
+```
+
+```bash
+npx eslint --rule 'react-ts/naming-convention/filename: ["error", { "rule": "kebab-case" }]' .
+
+src/components/example-component.tsx
+
+✨  Done in 0.61s.
 ```
 
 ## Options
