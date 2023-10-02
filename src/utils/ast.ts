@@ -116,7 +116,7 @@ export function unsafeIsMapCall(node: TSESTree.Node | null): node is TSESTree.Ca
  * @param node The AST node
  * @returns True if node is a `ReturnStatement` of a React hook, false if not
  */
-export function unsafeIsReturnStatementOfHook(node: TSESTree.Node | null): node is TSESTree.ReturnStatement {
+export function unsafeIsReturnStatementOfReactHook(node: TSESTree.Node | null): node is TSESTree.ReturnStatement {
     if (!node?.parent || !is(N.ReturnStatement)(node.parent)) {
         return false;
     }
