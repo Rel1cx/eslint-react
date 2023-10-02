@@ -1,9 +1,9 @@
 import { type TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
-import { isNil } from "rambda";
 import { match } from "ts-pattern";
 
 import { createRule } from "../../tools/create-rule";
+import { isNil } from "../lib/primitives";
 import * as AST from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
 import { detectUnstableDefaultProp } from "../utils/unstable-default-prop-detector";

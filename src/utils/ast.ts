@@ -3,6 +3,7 @@ import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 import { ASTUtils } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/utils";
 import memo from "micro-memoize";
+import { isMatching } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
 import { isNil, isString } from "../lib/primitives";
@@ -90,6 +91,42 @@ export function isPropertyOfObjectExpression(node: TSESTree.Node) {
 
 export function isPropertyWithIdentifierKey(node: TSESTree.Node, key: string): node is TSESTree.Property {
     return is(N.Property)(node) && isIdentifierWithName(node.key, key);
+}
+
+/**
+ * Unsafe check whether given node or its parent is directly inside `map` call
+ * ```jsx
+ * {items.map(item => <li />)}
+ * ```
+ * @param node The AST node
+ * @returns True if node is directly inside `map` call, false if not
+ */
+export function unsafeIsMapCall(node: TSESTree.Node | null): node is TSESTree.CallExpression {
+    return isMatching({
+        callee: {
+            property: {
+                name: "map",
+            },
+        },
+    })(node);
+}
+
+/**
+ * Unsafe check whether given node is `ReturnStatement` of a React hook
+ * @param node The AST node
+ * @returns True if node is a `ReturnStatement` of a React hook, false if not
+ */
+export function unsafeIsReturnStatementOfHook(node: TSESTree.Node | null): node is TSESTree.ReturnStatement {
+    if (!node?.parent || !is(N.ReturnStatement)(node.parent)) {
+        return false;
+    }
+    const callExpression = traverseUpOnlyPredicate(node, is(N.CallExpression));
+
+    return (
+        !isNil(callExpression)
+        && is(N.Identifier)(callExpression.callee)
+        && isValidReactHookName(callExpression.callee)
+    );
 }
 
 export function findPropertyWithIdentifierKey(

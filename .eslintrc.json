@@ -11,12 +11,17 @@
         "plugin:eslint-plugin/all",
         "plugin:filenames-simple/recommended"
     ],
-    "plugins": ["filenames-simple"],
+    "plugins": [
+        "filenames-simple"
+    ],
     "rules": {
         "no-console": [
             "warn",
             {
-                "allow": ["warn", "error"]
+                "allow": [
+                    "warn",
+                    "error"
+                ]
             }
         ],
         "max-len": "off",
@@ -31,6 +36,7 @@
         "@typescript-eslint/no-confusing-void-expression": "off",
         "@typescript-eslint/prefer-readonly": "error",
         "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-use-before-define": "off",
         "@typescript-eslint/no-unused-vars": [
             "warn",
             {
@@ -54,7 +60,16 @@
         "perfectionist/sort-objects": [
             "warn",
             {
-                "always-on-top": ["kind", "type", "id", "key", "name", "meta", "title", "description"],
+                "always-on-top": [
+                    "kind",
+                    "type",
+                    "id",
+                    "key",
+                    "name",
+                    "meta",
+                    "title",
+                    "description"
+                ],
                 "order": "asc",
                 "type": "natural"
             }
@@ -64,8 +79,16 @@
         "regexp/prefer-named-capture-group": "off",
         "simple-import-sort/exports": "warn",
         "simple-import-sort/imports": "warn",
-        "no-multiple-empty-lines": ["error", { "max": 2, "maxBOF": 1 }],
-        "import-access/jsdoc": ["error"],
+        "no-multiple-empty-lines": [
+            "error",
+            {
+                "max": 2,
+                "maxBOF": 1
+            }
+        ],
+        "import-access/jsdoc": [
+            "error"
+        ],
         "filenames-simple/named-export": "off",
         "no-restricted-syntax": [
             "error",
@@ -104,8 +127,12 @@
         },
         {
             "files": "*.spec.ts",
-            "extends": ["plugin:vitest/all"],
-            "plugins": ["vitest"],
+            "extends": [
+                "plugin:vitest/all"
+            ],
+            "plugins": [
+                "vitest"
+            ],
             "rules": {
                 "perfectionist/sort-objects": "off",
                 "sonarjs/no-duplicate-string": "off",
@@ -114,7 +141,9 @@
             }
         },
         {
-            "files": ["./scripts/**/*.ts"],
+            "files": [
+                "./scripts/**/*.ts"
+            ],
             "rules": {
                 "no-await-in-loop": "off"
             }
