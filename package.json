@@ -89,6 +89,7 @@
         "birecord": "0.1.1",
         "bun-types": "1.0.3",
         "cspell": "7.3.7",
+        "dedent": "1.5.1",
         "dprint": "0.41.0",
         "eslint": ">=8.50.0",
         "eslint-config-with-tsconfig": "2.7.0",

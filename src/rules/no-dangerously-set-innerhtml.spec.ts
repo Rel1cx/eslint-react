@@ -1,3 +1,5 @@
+import dedent from "dedent";
+
 import * as validFunction from "../../test/common/valid/function";
 import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
 import rule, { RULE_NAME } from "./no-dangerously-set-innerhtml";
@@ -24,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
     ],
     invalid: [
         {
-            code: `<div dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</div>`,
+            code: '<div dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</div>',
             errors: [{ messageId: "INVALID" }],
         },
         {
@@ -32,17 +34,26 @@ ruleTester.run(RULE_NAME, rule, {
             errors: [{ messageId: "INVALID" }],
         },
         {
-            code: `const props = { dangerouslySetInnerHTML: { __html: "HTML" } }
-            ;<div {...props}>Children</div>`,
+            code: dedent`
+              const props = {
+                  dangerouslySetInnerHTML: { __html: "HTML" }
+              }
+              const div = <div {...props}>Children</div>
+            `,
             errors: [{ messageId: "INVALID" }],
         },
         {
-            code: `const props = { children: "Children", dangerouslySetInnerHTML: { __html: "HTML" } }
-            ;<div {...props} />`,
+            code: dedent`
+              const props = {
+                  children: "Children",
+                  dangerouslySetInnerHTML: { __html: "HTML" }
+              }
+              const div = <div {...props} />
+            `,
             errors: [{ messageId: "INVALID" }],
         },
         {
-            code: `<App dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</App>`,
+            code: '<App dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</App>',
             errors: [{ messageId: "INVALID" }],
         },
         {
@@ -54,19 +65,19 @@ ruleTester.run(RULE_NAME, rule, {
             errors: [{ messageId: "INVALID" }],
         },
         {
-            code: `React.createElement("div", { dangerouslySetInnerHTML: { __html: "HTML" } }, "Children")`,
+            code: 'React.createElement("div", { dangerouslySetInnerHTML: { __html: "HTML" } }, "Children")',
             errors: [{ messageId: "INVALID" }],
         },
         {
-            code: `React.createElement("div", { dangerouslySetInnerHTML: { __html: "HTML" }, children: "Children" })`,
+            code: 'React.createElement("div", { dangerouslySetInnerHTML: { __html: "HTML" }, children: "Children" })',
             errors: [{ messageId: "INVALID" }],
         },
         {
-            code: `React.createElement("App", { dangerouslySetInnerHTML: { __html: "HTML" } }, "Children")`,
+            code: 'React.createElement("App", { dangerouslySetInnerHTML: { __html: "HTML" } }, "Children")',
             errors: [{ messageId: "INVALID" }],
         },
         {
-            code: `React.createElement("App", { dangerouslySetInnerHTML: { __html: "HTML" }, children: "Children" })`,
+            code: 'React.createElement("App", { dangerouslySetInnerHTML: { __html: "HTML" }, children: "Children" })',
             errors: [{ messageId: "INVALID" }],
         },
         {
@@ -80,11 +91,12 @@ ruleTester.run(RULE_NAME, rule, {
             errors: [{ messageId: "INVALID" }],
         },
         {
-            code: `
-            const moreProps = { children: "Children" }
-            const otherProps = { ...moreProps }
-            const props = { ...otherProps, dangerouslySetInnerHTML: { __html: "HTML" } }
-            React.createElement("div", props)`,
+            code: dedent`
+              const moreProps = { children: "Children" }
+              const otherProps = { ...moreProps }
+              const props = { ...otherProps, dangerouslySetInnerHTML: { __html: "HTML" } }
+              React.createElement("div", props)
+            `,
             errors: [{ messageId: "INVALID" }],
         },
     ],

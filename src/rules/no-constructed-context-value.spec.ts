@@ -1,3 +1,5 @@
+import dedent from "dedent";
+
 import * as validFunction from "../../test/common/valid/function";
 import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
 import rule, { RULE_NAME } from "./no-constructed-context-value";
@@ -20,51 +22,60 @@ const ruleTester = new RuleTester({
 ruleTester.run(RULE_NAME, rule, {
     valid: [
         ...validFunction.all,
-        `function App() {
-            const foo = useMemo(() => ({}), [])
-
-            return <Context.Provider value={foo}></Context.Provider>
-        }`,
-        `function App() {
-            const foo = useMemo(() => [], [])
-
-            return <Context.Provider value={foo}></Context.Provider>}`,
-        `const foo = {}
-
-         function App() {
-             return <Context.Provider value={foo}></Context.Provider>;
-         }`,
-        `const foo = []
-
-         function App() {
-             return <Context.Provider value={foo}></Context.Provider>;
-         }`,
-        `const foo = new Object()
-
-         function App() {
-             return <Context.Provider value={foo}></Context.Provider>;
-         }`,
-        `const foo = () => {}
-
-         function App() {
-             return <Context.Provider value={foo}></Context.Provider>;
-         }`,
+        dedent`
+            function App() {
+              const foo = useMemo(() => ({}), [])
+              return <Context.Provider value={foo}></Context.Provider>
+          }
+        `,
+        dedent`
+            function App() {
+              const foo = useMemo(() => [], [])
+              return <Context.Provider value={foo}></Context.Provider>
+          }
+        `,
+        dedent`
+            const foo = {}
+            function App() {
+              return <Context.Provider value={foo}></Context.Provider>;
+          }
+        `,
+        dedent`
+            const foo = []
+            function App() {
+              return <Context.Provider value={foo}></Context.Provider>;
+          }
+        `,
+        dedent`
+            const foo = new Object()
+            function App() {
+              return <Context.Provider value={foo}></Context.Provider>;
+          }
+        `,
+        dedent`
+          const foo = () => {}
+                  function App() {
+                      return <Context.Provider value={foo}></Context.Provider>;
+                  }
+        `,
     ],
     invalid: [
         {
-            code: `function App() {
-                   const foo = {}
-
-                   return <Context.Provider value={foo}></Context.Provider>;
-                }`,
+            code: dedent`
+                function App() {
+                  const foo = {}
+                  return <Context.Provider value={foo}></Context.Provider>;
+              }
+            `,
             errors: [{ messageId: "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER" }],
         },
         {
-            code: `function App() {
-                const foo = []
-
-                return <Context.Provider value={foo}></Context.Provider>
-            }`,
+            code: dedent`
+                function App() {
+                  const foo = []
+                  return <Context.Provider value={foo}></Context.Provider>
+              }
+            `,
             errors: [
                 {
                     messageId: "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER",
@@ -72,11 +83,12 @@ ruleTester.run(RULE_NAME, rule, {
             ],
         },
         {
-            code: `function App() {
-                const foo = new Object();
-
-                return <Context.Provider value={foo}></Context.Provider>
-            }`,
+            code: dedent`
+              function App() {
+                  const foo = new Object();
+                  return <Context.Provider value={foo}></Context.Provider>
+              }
+            `,
             errors: [
                 {
                     messageId: "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER",
@@ -84,11 +96,12 @@ ruleTester.run(RULE_NAME, rule, {
             ],
         },
         {
-            code: `function App() {
-                const foo = () => {}
-
-                return <Context.Provider value={foo}></Context.Provider>
-            }`,
+            code: dedent`
+                function App() {
+                  const foo = () => {}
+                  return <Context.Provider value={foo}></Context.Provider>
+              }
+            `,
             errors: [
                 {
                     messageId: "CONTEXT_VALUE_CONSTRUCTION_FUNCTION",
@@ -96,13 +109,14 @@ ruleTester.run(RULE_NAME, rule, {
             ],
         },
         {
-            code: `function App() {
-                const foo = {
-                    bar: () => {}
-                }
-
-                return <Context.Provider value={foo.bar}></Context.Provider>
-            }`,
+            code: dedent`
+              function App() {
+                  const foo = {
+                      bar: () => {}
+                  }
+                  return <Context.Provider value={foo.bar}></Context.Provider>
+              }
+            `,
             errors: [
                 {
                     messageId: "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER",

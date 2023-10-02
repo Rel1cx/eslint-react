@@ -1,3 +1,5 @@
+import dedent from "dedent";
+
 import * as validFunction from "../../test/common/valid/function";
 import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
 import rule, { RULE_NAME } from "./no-deprecated-string-refs";
@@ -20,18 +22,24 @@ const ruleTester = new RuleTester({
 ruleTester.run(RULE_NAME, rule, {
     valid: [
         ...validFunction.all,
-        `function App() {
-            return <div ref={ref} />
-        }`,
-        `function App() {
-            return <div ref={() => {}} />;
-        }`,
+        dedent`
+          function App() {
+              return <div ref={ref} />
+          }
+        `,
+        dedent`
+          function App() {
+              return <div ref={() => {}} />;
+          }
+        `,
     ],
     invalid: [
         {
-            code: `function App() {
-            return <div ref="ref" />
-        }`,
+            code: dedent`
+              function App() {
+                  return <div ref="ref" />
+              }
+            `,
             errors: [{ messageId: "INVALID" }],
         },
     ],

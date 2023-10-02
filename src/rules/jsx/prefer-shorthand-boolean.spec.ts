@@ -20,18 +20,18 @@ const ruleTester = new RuleTester({
 ruleTester.run(RULE_NAME, rule, {
     valid: [
         ...validFunction.all,
-        `<App foo />`,
-        `<App foo bar />`,
-        `<App foo bar={false} />`,
-        `<App foo bar={false} baz />`,
+        "<App foo />",
+        "<App foo bar />",
+        "<App foo bar={false} />",
+        "<App foo bar={false} baz />",
     ],
     invalid: [
         {
-            code: `<App foo={true} />`,
+            code: "<App foo={true} />",
             errors: [{ messageId: "INVALID" }],
         },
         {
-            code: `<App foo={true} bar />`,
+            code: "<App foo={true} bar />",
             errors: [{ messageId: "INVALID" }],
         },
     ],

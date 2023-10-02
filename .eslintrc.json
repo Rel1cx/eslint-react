@@ -24,6 +24,13 @@
                 ]
             }
         ],
+        "quotes": [
+            "error",
+            "double",
+            {
+                "avoidEscape": true
+            }
+        ],
         "max-len": "off",
         "array-callback-return": "off",
         "newline-before-return": "warn",

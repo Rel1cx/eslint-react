@@ -16,7 +16,7 @@ const ruleTester = new RuleTester({
     },
 });
 
-const code = `export {}`;
+const code = "export {}";
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [

@@ -1,3 +1,5 @@
+import dedent from "dedent";
+
 import * as validFunction from "../../test/common/valid/function";
 import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
 import rule, { RULE_NAME } from "./no-unstable-default-props";
@@ -88,50 +90,81 @@ const expectedViolations = [
 ruleTester.run(RULE_NAME, rule, {
     valid: [
         ...validFunction.all,
-        `function App({ foo = emptyFunction }) { return null }`,
-        `function App({ foo = emptyFunction, ...rest }) { return null }`,
-        `function App({ foo = 1, baz = 'hello' }) { return null }`,
-        `function App(props) { return null }`,
-        `function App(props) { return null }; App.defaultProps = { foo: () => {} }`,
-        `const App = () => { return null }`,
-        `const App = ({ foo = 1 }) => { return null }`,
-        `export default function NonComponent({ foo = {} }) {}`,
+        dedent`
+          function App({ foo = emptyFunction }) {
+              return null
+          }
+        `,
+        dedent`
+          function App({ foo = emptyFunction, ...rest }) {
+              return null
+          }
+        `,
+        dedent`
+            function App({ foo = 1, baz = 'hello' }) {
+              return null
+          }
+        `,
+        dedent`
+            function App(props) {
+              return null
+          }
+        `,
+        dedent`
+            function App(props) {
+                return null
+            }
+            App.defaultProps = {
+              foo: () => {}
+          }
+        `,
+        dedent`
+            const App = () => {
+              return null
+          }
+        `,
+        dedent`
+          const App = ({ foo = 1 }) => {
+              return null
+          }
+        `,
+        dedent`export default function NonComponent({ foo = {} }) {}`,
     ],
     invalid: [
         {
-            code: `
-    function App({
-          a = {},
-          b = ['one', 'two'],
-          c = /regex/i,
-          d = () => {},
-          e = function() {},
-          f = class {},
-          g = new Thing(),
-          h = <Thing />,
-          i = Symbol('foo')
-        }) {
-          return null
-        }
-    `,
+            code: dedent`
+              function App({
+                  a = {},
+                  b = ['one', 'two'],
+                  c = /regex/i,
+                  d = () => {},
+                  e = function() {},
+                  f = class {},
+                  g = new Thing(),
+                  h = <Thing />,
+                  i = Symbol('foo')
+              }) {
+                  return null
+              }
+            `,
             errors: expectedViolations,
         },
         {
-            code: `
-    const App = ({
-          a = {},
-          b = ['one', 'two'],
-          c = /regex/i,
-          d = () => {},
-          e = function() {},
-          f = class {},
-          g = new Thing(),
-          h = <Thing />,
-          i = Symbol('foo')
-        }) => {
-          return null
-        }
-      `,
+            code: dedent`
+              const App = ({
+                  a = {},
+                  b = ['one', 'two'],
+                  c = /regex/i,
+                  d = () => {},
+                  e = function() {},
+                  f = class {},
+                  g = new Thing(),
+                  h = <Thing />,
+                  i = Symbol('foo')
+              }) => {
+                  return null
+              }
+            `,
             errors: expectedViolations,
         },
     ],

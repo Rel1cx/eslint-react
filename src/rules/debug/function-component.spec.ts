@@ -1,3 +1,5 @@
+import dedent from "dedent";
+
 import { allNonComponent } from "../../../test/common/valid/function";
 import RuleTester, { getFixturesRootDir } from "../../../test/rule-tester";
 import rule, { RULE_NAME } from "./function-component";
@@ -21,27 +23,35 @@ ruleTester.run(RULE_NAME, rule, {
     valid: allNonComponent,
     invalid: [
         {
-            code: `function App() { return <div>foo</div> }`,
+            code: dedent`
+              function App() {
+                  return <div>foo</div>
+              }
+            `,
             errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App" } }],
         },
         {
-            code: `const App = () => <div>foo</div>`,
+            code: "const App = () => <div>foo</div>",
             errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App" } }],
         },
         {
-            code: `const App = React.memo(() => <div>foo</div>)`,
+            code: "const App = React.memo(() => <div>foo</div>)",
             errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } }],
         },
         {
-            code: `const App = React.memo(function App() { return <div>foo</div> })`,
+            code: dedent`
+              const App = React.memo(function App() {
+                  return <div>foo</div>
+              })
+            `,
             errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App" } }],
         },
         {
-            code: `const App = React.forwardRef(() => <div>foo</div>)`,
+            code: "const App = React.forwardRef(() => <div>foo</div>)",
             errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } }],
         },
         {
-            code: `const App = () => React.createElement('div', null, 'foo')`,
+            code: "const App = () => React.createElement('div', null, 'foo')",
             errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App" } }],
         },
     ],

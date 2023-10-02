@@ -1,3 +1,5 @@
+import dedent from "dedent";
+
 import * as validFunction from "../../../test/common/valid/function";
 import RuleTester, { getFixturesRootDir } from "../../../test/rule-tester";
 import rule, { RULE_NAME } from "./no-misused-comment-in-textnode";
@@ -20,48 +22,54 @@ const ruleTester = new RuleTester({
 ruleTester.run(RULE_NAME, rule, {
     valid: [
         ...validFunction.all,
-        `<App foo='test'>{/* valid */}</App>`,
-        `<strong>&nbsp;https://www.example.com/attachment/download/1</strong>`,
-        `<App /* valid */ placeholder={'foo'}/>`,
-        `</* valid */></>`,
+        "<App foo='test'>{/* valid */}</App>",
+        "<strong>&nbsp;https://www.example.com/attachment/download/1</strong>",
+        "<App /* valid */ placeholder={'foo'}/>",
+        "</* valid */></>",
     ],
     invalid: [
         {
-            code: `<div>// invalid</div>`,
+            code: "<div>// invalid</div>",
             errors: [{ messageId: "INVALID" }],
         },
         {
-            code: `<>// invalid</>`,
+            code: "<>// invalid</>",
             errors: [{ messageId: "INVALID" }],
         },
         {
-            code: `<div>/* invalid */</div>`,
+            code: "<div>/* invalid */</div>",
             errors: [{ messageId: "INVALID" }],
         },
         {
-            code: `<div>
-                // invalid
-              </div>`,
+            code: dedent`
+              <div>
+              // invalid
+              </div>
+            `,
             errors: [{ messageId: "INVALID" }],
         },
         {
-            code: `<div>
-                asdjfl
-                /* invalid */
-                foo
-              </div>`,
+            code: dedent`
+              <div>
+              abcdef
+              /* invalid */
+              foo
+              </div>
+            `,
             errors: [{ messageId: "INVALID" }],
         },
         {
-            code: `<div>
-                {'asdjfl'}
-                // invalid
-                {'foo'}
-              </div>`,
+            code: dedent`
+              <div>
+              {'abcdef'}
+              // invalid
+              {'foo'}
+              </div>
+            `,
             errors: [{ messageId: "INVALID" }],
         },
         {
-            code: `<span>/*</span>`,
+            code: "<span>/*</span>",
             errors: [{ messageId: "INVALID" }],
         },
     ],
