@@ -1,4 +1,8 @@
-# react-ts/jsx/no-leaked-conditional-rendering
+# Disallow problematic leaked values from being rendered (`react-ts/jsx/no-leaked-conditional-rendering`)
+
+💼 This rule is enabled in the following configs: ☑️ `recommended`, `recommended-type-checked`.
+
+<!-- end auto-generated rule header -->
 
 Disallow problematic leaked values from being rendered.
 
@@ -35,7 +39,7 @@ This can be avoided by:
 - coercing the conditional to a boolean: {!!someValue && \<Something />}
 - transforming the binary expression into a ternary expression which returns null for falsy values: {someValue ? \<Something /> : null}
 
-Examples of **incorrect** code for this rule:
+### ❌ Incorrect
 
 ```tsx
 function Component({ count, title }) {
@@ -85,7 +89,7 @@ function Component({ someBool }) {
 }
 ```
 
-Examples of **correct** code for this rule:
+### ✅ Correct
 
 ```tsx
 function Component({ elements }) {
@@ -142,10 +146,6 @@ function Component({ elements }) {
     return <div>{elements.length ? <List elements={elements} /> : <EmptyList />}</div>;
 }
 ```
-
-## Rule Options
-
-This rule has no options.
 
 ## When Not To Use It
 

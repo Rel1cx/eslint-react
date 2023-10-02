@@ -27,6 +27,8 @@ const allRules = {
     "no-unstable-default-props": "error",
 } as const satisfies RulePreset;
 
+const offRules = Object.fromEntries(Object.entries(allRules).map(([key]) => [key, "off"])) satisfies RulePreset;
+
 const recommendedRules = {
     "jsx/no-leaked-conditional-rendering": "error",
     "jsx/no-misused-comment-in-textnode": "warn",
@@ -54,17 +56,18 @@ export default {
     configs: {
         all: createConfig(allRules),
         debug: createConfig(debugRules),
+        off: createConfig(offRules),
         recommended: createConfig(recommendedRules),
         "recommended-type-checked": createConfig(recommendedRules),
     },
     rules: {
-        "debug-function-component": debugFunctionComponent,
+        "debug/function-component": debugFunctionComponent,
         "jsx/no-leaked-conditional-rendering": jsxNoLeakedConditionalRendering,
         "jsx/no-misused-comment-in-textnode": jsxNoMisusedCommentInTextNode,
         "jsx/prefer-shorthand-boolean": jsxPreferShorthandJsxBoolean,
-        "name-convention/event-handler": namingConventionEventHandler,
-        "name-convention/filename": namingConventionFilename,
-        "name-convention/filename-extension": namingConventionFilenameExtension,
+        "naming-convention/event-handler": namingConventionEventHandler,
+        "naming-convention/filename": namingConventionFilename,
+        "naming-convention/filename-extension": namingConventionFilenameExtension,
         "no-constructed-context-value": noConstructedContextValue,
         "no-dangerously-set-innerhtml": noDangerouslySetInnerHTML,
         "no-dangerously-set-innerhtml-with-children": noDangerouslySetInnerHTMLWithChildren,

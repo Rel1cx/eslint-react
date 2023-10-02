@@ -1,6 +1,6 @@
 {
     "name": "eslint-plugin-react-ts",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "description": "ESLint plugin to lint TypeScript React and Preact function components using the @typescript-eslint ecosystem.",
     "keywords": [
         "eslint",
@@ -34,6 +34,10 @@
             "require": "./dist/configs/all.js",
             "import": "./dist/configs/all.mjs"
         },
+        "./configs/off": {
+            "require": "./dist/configs/off.js",
+            "import": "./dist/configs/off.mjs"
+        },
         "./configs/debug": {
             "require": "./dist/configs/debug.js",
             "import": "./dist/configs/debug.mjs"
@@ -55,7 +59,8 @@
     ],
     "scripts": {
         "build": "rollup -c rollup.config.ts --configPlugin swc3",
-        "docs:generate": "typedoc && bun run ./scripts/doc-generate.ts",
+        "build:internal-docs": "typedoc",
+        "build:rule-docs": "bun run ./scripts/doc-generate.ts && eslint-doc-generator && dprint fmt docs README.md",
         "fix:ts": "eslint --ext .ts --fix .",
         "format:check": "dprint check",
         "format:write": "dprint fmt",
@@ -65,7 +70,7 @@
         "lint:ts": "eslint --cache --ext .ts .",
         "lint:type": "tsc --noEmit",
         "prepare": "husky install",
-        "publish": "bun run lint && bun run build && bun run test && bun run publint",
+        "publish": "bun run lint && bun run build && bun run test && bun x publint",
         "test": "vitest --run --single-thread --no-threads"
     },
     "dependencies": {
@@ -90,9 +95,11 @@
         "bun-types": "1.0.3",
         "cspell": "7.3.7",
         "dedent": "1.5.1",
+        "deepmerge-ts": "5.1.0",
         "dprint": "0.41.0",
         "eslint": ">=8.50.0",
         "eslint-config-with-tsconfig": "2.7.1",
+        "eslint-doc-generator": "1.4.3",
         "eslint-plugin-eslint-plugin": "5.1.1",
         "eslint-plugin-filenames-simple": "0.8.0",
         "eslint-plugin-jsdoc": "46.8.2",

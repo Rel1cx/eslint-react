@@ -6,7 +6,7 @@ Disallow using deprecated string refs
 
 This rule disallows using deprecated string refs.
 
-Examples of **incorrect** code for this rule:
+### ❌ Incorrect
 
 ```tsx
 function Component() {
@@ -14,7 +14,7 @@ function Component() {
 }
 ```
 
-Examples of **correct** code for this rule:
+### ✅ Correct
 
 ```tsx
 function Component() {
@@ -23,7 +23,3 @@ function Component() {
     return <div ref={ref} />;
 }
 ```
-
-## Rule Options
-
-This rule has no options.

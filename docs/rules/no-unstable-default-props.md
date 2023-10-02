@@ -1,4 +1,8 @@
-# react-ts/no-unstable-default-props
+# Disallow usage of referential-type variables as default param in function component (`react-ts/no-unstable-default-props`)
+
+💼 This rule is enabled in the following configs: ☑️ `recommended`, `recommended-type-checked`.
+
+<!-- end auto-generated rule header -->
 
 Disallow usage of referential-type variables as default param in function component.
 
@@ -26,7 +30,7 @@ function Component({ items = emptyArray }) {
 }
 ```
 
-Examples of **incorrect** code for this rule:
+### ❌ Incorrect
 
 ```tsx
 function Component({ items = [] }) {
@@ -46,7 +50,7 @@ function Component({ items = () => {} }) {
 }
 ```
 
-Examples of **correct** code for this rule:
+### ✅ Correct
 
 ```tsx
 const emptyArray = [];
@@ -76,7 +80,3 @@ function Component({ num = 3, str = "foo", bool = true }) {
     return <div>{items}</div>;
 }
 ```
-
-## Rule Options
-
-This rule has no options.

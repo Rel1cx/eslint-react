@@ -1,21 +1,21 @@
-# react-ts/jsx/prefer-shorthand-boolean
+# Enforce boolean attributes notation in JSX (`react-ts/jsx/prefer-shorthand-boolean`)
+
+⚠️ This rule _warns_ in the following configs: ☑️ `recommended`, `recommended-type-checked`.
+
+<!-- end auto-generated rule header -->
 
 ## Rule Details
 
 This rule enforces the use of shorthand syntax for boolean attributes.
 
-Examples of **incorrect** code for this rule:
+### ❌ Incorrect
 
 ```tsx
 <Component hidden={true} disabled={false} />;
 ```
 
-Examples of **correct** code for this rule:
+### ✅ Correct
 
 ```tsx
 <Component hidden disabled />;
 ```
-
-## Rule Options
-
-This rule has no options.

@@ -65,6 +65,31 @@ export default [
 
 ## Rules
 
+<!-- begin auto-generated rules list -->
+
+💼 Configurations enabled in.\
+⚠️ Configurations set to warn in.\
+☑️ Set in the `recommended` configuration.
+
+| Name                                                                                                   | Description                                                                         | 💼                                    | ⚠️                                     |
+| :----------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------- | :------------------------------------ | :------------------------------------ |
+| [debug/function-component](docs/rules/debug/function-component.md)                                     | reports all function components, including anonymous ones                           |                                       |                                       |
+| [jsx/no-leaked-conditional-rendering](docs/rules/jsx/no-leaked-conditional-rendering.md)               | disallow problematic leaked values from being rendered                              | ☑️ ![badge-recommended-type-checked][] |                                       |
+| [jsx/no-misused-comment-in-textnode](docs/rules/jsx/no-misused-comment-in-textnode.md)                 | disallow comments from being inserted as text nodes                                 |                                       | ☑️ ![badge-recommended-type-checked][] |
+| [jsx/prefer-shorthand-boolean](docs/rules/jsx/prefer-shorthand-boolean.md)                             | enforce boolean attributes notation in JSX                                          |                                       | ☑️ ![badge-recommended-type-checked][] |
+| [naming-convention/event-handler](docs/rules/naming-convention/event-handler.md)                       | enforce event handler naming conventions in JSX                                     |                                       |                                       |
+| [naming-convention/filename](docs/rules/naming-convention/filename.md)                                 | enforce naming convention for jsx files                                             |                                       |                                       |
+| [naming-convention/filename-extension](docs/rules/naming-convention/filename-extension.md)             | enforce using `.ts` instead of `.tsx` extension when there is no JSX in the file    |                                       |                                       |
+| [no-constructed-context-value](docs/rules/no-constructed-context-value.md)                             | disallows passing constructed values to context providers                           | ☑️ ![badge-recommended-type-checked][] |                                       |
+| [no-dangerously-set-innerhtml](docs/rules/no-dangerously-set-innerhtml.md)                             | disallow when a DOM element is using both children and dangerouslySetInnerHTML'     | ☑️ ![badge-recommended-type-checked][] |                                       |
+| [no-dangerously-set-innerhtml-with-children](docs/rules/no-dangerously-set-innerhtml-with-children.md) | disallow when a DOM element is using both children and dangerouslySetInnerHTML'     | ☑️ ![badge-recommended-type-checked][] |                                       |
+| [no-deprecated-string-refs](docs/rules/no-deprecated-string-refs.md)                                   | disallow using deprecated string refs                                               | ☑️ ![badge-recommended-type-checked][] |                                       |
+| [no-unstable-default-props](docs/rules/no-unstable-default-props.md)                                   | disallow usage of referential-type variables as default param in function component | ☑️ ![badge-recommended-type-checked][] |                                       |
+
+<!-- end auto-generated rules list -->
+
+## Work in progress
+
 - [x] `react-ts/jsx/prefer-shorthand-boolean`
 - [x] `react-ts/jsx/no-leaked-conditional-rendering`
 - [x] `react-ts/jsx/no-misused-comment-in-textnode`
@@ -120,5 +145,6 @@ This project uses code from following third-party projects:
 - eslint-plugin-solid (MIT)
 - @tanstack/eslint-plugin-query (MIT)
 - eslint-plugin-filenames-simple (MIT)
+- eslint-plugin-functional (MIT)
 
 Licenses are list in [THIRD-PARTY-LICENSE](THIRD-PARTY-LICENSE)

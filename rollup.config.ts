@@ -39,7 +39,7 @@ const options = {
     ],
 } satisfies RollupOptions;
 
-const configs = ["all", "recommended", "recommended-type-checked", "debug"] as const;
+const configs = ["all", "off", "recommended", "recommended-type-checked", "debug"] as const;
 
 export default defineConfig([
     {

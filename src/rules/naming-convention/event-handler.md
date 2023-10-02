@@ -4,7 +4,7 @@ Enforce consistent event handler naming conventions in JSX.
 
 ## Rule Details
 
-Examples of **incorrect** code for this rule:
+### ❌ Incorrect
 
 ```tsx
 <Component handleChange={handleChange} />;
@@ -14,7 +14,7 @@ Examples of **incorrect** code for this rule:
 <Component onChange={componentChanged} />;
 ```
 
-Examples of **correct** code for this rule:
+### ✅ Correct
 
 ```tsx
 <Component onChange={handleChange} />;

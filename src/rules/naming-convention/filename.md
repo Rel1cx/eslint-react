@@ -2,7 +2,7 @@
 
 ## Rule Details
 
-Examples of **correct** case for this rule:
+### ✅ Correct
 
 ```bash
 npx eslint --rule 'react-ts/naming-convention/filename: ["error", { "rule": "PascalCase" }]' .
@@ -20,7 +20,7 @@ src/components/example-component.tsx
 ✨  Done in 0.61s.
 ```
 
-Examples of **incorrect** case for this rule:
+### ❌ Incorrect
 
 ```bash
 npx eslint --rule 'react-ts/naming-convention/filename: ["error", { "rule": "PascalCase" }]' .
@@ -40,7 +40,11 @@ src/components/example_component.tsx
 ✖ 1 problems (1 errors, 0 warnings)
 ```
 
-## Rule Options
+## Options
 
-- `rule`: The naming convention to enforce. Defaults to `PascalCase`
-- `excepts`: An array of regexp that should be ignored by the rule. Defaults to `[]`
+- `rule`: `string` - The rule to apply to the file name. Can be one of the following:
+  - `PascalCase` - PascalCase
+  - `camelCase` - camelCase
+  - `kebab-case` - kebab-case
+  - `snake_case` - snake_case
+- `excepts`: `string[]` - List of file names that should be ignored by this rule.

@@ -1,4 +1,8 @@
-# react-ts/no-deprecated-string-refs
+# Disallow using deprecated string refs (`react-ts/no-deprecated-string-refs`)
+
+💼 This rule is enabled in the following configs: ☑️ `recommended`, `recommended-type-checked`.
+
+<!-- end auto-generated rule header -->
 
 Disallow using deprecated string refs
 
@@ -6,7 +10,7 @@ Disallow using deprecated string refs
 
 This rule disallows using deprecated string refs.
 
-Examples of **incorrect** code for this rule:
+### ❌ Incorrect
 
 ```tsx
 function Component() {
@@ -14,7 +18,7 @@ function Component() {
 }
 ```
 
-Examples of **correct** code for this rule:
+### ✅ Correct
 
 ```tsx
 function Component() {
@@ -23,7 +27,3 @@ function Component() {
     return <div ref={ref} />;
 }
 ```
-
-## Rule Options
-
-This rule has no options.

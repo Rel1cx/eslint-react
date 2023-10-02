@@ -39,7 +39,8 @@
         "treeshake",
         "tsup",
         "typeclass",
-        "weakref"
+        "weakref",
+        "deepmerge"
     ],
     "useGitignore": true
 }

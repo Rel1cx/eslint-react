@@ -4,18 +4,14 @@ Disallow when a DOM element is using both children and `dangerouslySetInnerHTML`
 
 ## Rule Details
 
-Examples of **incorrect** code for this rule:
+### ❌ Incorrect
 
 ```tsx
 <div dangerouslySetInnerHTML={{ __html: "Hello World" }}>Hello World</div>;
 ```
 
-Examples of **correct** code for this rule:
+### ✅ Correct
 
 ```tsx
 <div dangerouslySetInnerHTML={{ __html: "Hello World" }} />;
 ```
-
-## Rule Options
-
-This rule has no options.

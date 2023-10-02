@@ -26,7 +26,7 @@ function Component({ items = emptyArray }) {
 }
 ```
 
-Examples of **incorrect** code for this rule:
+### ❌ Incorrect
 
 ```tsx
 function Component({ items = [] }) {
@@ -46,7 +46,7 @@ function Component({ items = () => {} }) {
 }
 ```
 
-Examples of **correct** code for this rule:
+### ✅ Correct
 
 ```tsx
 const emptyArray = [];
@@ -76,7 +76,3 @@ function Component({ num = 3, str = "foo", bool = true }) {
     return <div>{items}</div>;
 }
 ```
-
-## Rule Options
-
-This rule has no options.

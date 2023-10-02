@@ -6,7 +6,7 @@ Prefer destructuring assignment over property assignment.
 
 This rule aims to enforce the use of destructuring assignment over property assignment.
 
-Examples of **incorrect** code for this rule:
+### ❌ Incorrect
 
 ```tsx
 function Component(props) {
@@ -30,7 +30,7 @@ function Component(props) {
 }
 ```
 
-Examples of **correct** code for this rule:
+### ✅ Correct
 
 ```tsx
 function Component(props) {
@@ -57,7 +57,3 @@ function Component({ items, ...rest }) {
     return <div {...rest}>{items}</div>;
 }
 ```
-
-## Rule Options
-
-This rule has no options.

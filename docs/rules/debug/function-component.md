@@ -1,4 +1,6 @@
-# react-ts/debug/function-component
+# Reports all function components, including anonymous ones (`react-ts/debug/function-component`)
+
+<!-- end auto-generated rule header -->
 
 Warns when a function component is found. Useful for debugging.
 
@@ -8,22 +10,7 @@ Warns when a function component is found. Useful for debugging.
 
 ## Rule Details
 
-Examples of **non-component**:
-
-```tsx
-function foo() {
-    return "bar";
-}
-```
-
-```tsx
-// render functions are not components
-function renderItem(name: string) {
-    return <div>{name}</div>;
-}
-```
-
-Examples of **component**:
+### ❌ Incorrect
 
 ```tsx
 function Component() {
@@ -57,6 +44,17 @@ import React from "react";
 const Component = React.forwardRef(() => <div />);
 ```
 
-## Rule Options
+### ✅ Correct
 
-This rule has no options.
+```tsx
+function foo() {
+    return "bar";
+}
+```
+
+```tsx
+// render functions are not components
+function renderItem(name: string) {
+    return <div>{name}</div>;
+}
+```

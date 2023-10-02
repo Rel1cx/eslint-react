@@ -6,7 +6,7 @@ Prevents non-stable values (i.e. object identities) from being used as a value f
 
 This rule aims to prevent non-stable values (i.e. object identities) from being used as a value for Context.Provider. This is because React will re-render all consumers of a context whenever the context value changes, and if the value is not stable, this can lead to unnecessary re-renders.
 
-Examples of **incorrect** code for this rule:
+### ❌ Incorrect
 
 ```tsx
 const ExampleContext = React.createContext({});
@@ -20,7 +20,7 @@ const ExampleProvider = () => {
 };
 ```
 
-Examples of **correct** code for this rule:
+### ✅ Correct
 
 ```tsx
 const ExampleContext = React.createContext({});
@@ -35,10 +35,6 @@ const ExampleProvider = () => {
     );
 };
 ```
-
-## Rule Options
-
-This rule has no options.
 
 ## Legitimate Uses
 

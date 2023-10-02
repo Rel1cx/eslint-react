@@ -1,10 +1,12 @@
-# react-ts/naming-convention/event-handler
+# Enforce event handler naming conventions in JSX (`react-ts/naming-convention/event-handler`)
+
+<!-- end auto-generated rule header -->
 
 Enforce consistent event handler naming conventions in JSX.
 
 ## Rule Details
 
-Examples of **incorrect** code for this rule:
+### ❌ Incorrect
 
 ```tsx
 <Component handleChange={handleChange} />;
@@ -14,7 +16,7 @@ Examples of **incorrect** code for this rule:
 <Component onChange={componentChanged} />;
 ```
 
-Examples of **correct** code for this rule:
+### ✅ Correct
 
 ```tsx
 <Component onChange={handleChange} />;
