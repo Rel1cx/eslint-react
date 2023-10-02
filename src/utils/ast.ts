@@ -129,6 +129,60 @@ export function unsafeIsReturnStatementOfReactHook(node: TSESTree.Node | null): 
     );
 }
 
+/**
+ * Unsafe check whether given node is declared inside a render prop
+ * ```jsx
+ * <Component renderFooter={() => <div />} />
+ * <Component>{() => <div />}</Component>
+ * ```
+ * @param node The AST node
+ * @returns True if component is declared inside a render prop, false if not
+ */
+export function unsafeIsReactComponentInRenderProp(node: TSESTree.Node) {
+    if (
+        node.parent
+        && is(N.Property)(node.parent)
+        && "key" in node.parent
+        && "name" in node.parent.key
+        && node.parent.key.name.startsWith("render")
+    ) {
+        return true;
+    }
+
+    // Check whether component is a render prop used as direct children, e.g. <Component>{() => <div />}</Component>
+    if (
+        node.parent
+        && is(N.JSXExpressionContainer)(node.parent)
+        && is(N.JSXElement)(node.parent.parent)
+    ) {
+        return true;
+    }
+
+    const jsxExpressionContainer = traverseUpOnlyPredicate(node, is(N.JSXExpressionContainer));
+
+    // Check whether prop name indicates accepted patterns
+    if (
+        jsxExpressionContainer?.parent
+        && is(N.JSXAttribute)(jsxExpressionContainer.parent)
+        && "name" in jsxExpressionContainer.parent
+        && is(N.JSXIdentifier)(jsxExpressionContainer.parent.name)
+    ) {
+        const propName = jsxExpressionContainer.parent.name.name;
+
+        // Starts with render, e.g. <Component renderFooter={() => <div />} />
+        if (propName.startsWith("render")) {
+            return true;
+        }
+
+        // Uses children prop explicitly, e.g. <Component children={() => <div />} />
+        if (propName === "children") {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 export function findPropertyWithIdentifierKey(
     properties: TSESTree.ObjectLiteralElement[],
     key: string,
