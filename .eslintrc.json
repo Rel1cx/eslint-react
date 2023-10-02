@@ -107,6 +107,15 @@
     },
     "overrides": [
         {
+            "files": [
+                "*.d.ts"
+            ],
+            "rules": {
+                "@typescript-eslint/consistent-type-definitions": "off",
+                "filenames-simple/naming-convention": "off"
+            }
+        },
+        {
             "files": "./src/rules/**/*.ts",
             "rules": {
                 "perfectionist/sort-objects": [
