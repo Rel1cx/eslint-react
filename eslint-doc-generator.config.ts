@@ -13,7 +13,7 @@ export default {
     "ignoreConfig": ["all", "off"],
     "ruleDocSectionInclude": ["Rule Details"],
     "ruleDocTitleFormat": "name",
-    "ruleListSplit": (rules) => {
+    "ruleListSplit"(rules) {
         const record = rules.reduce<Record<string, RuleNamesAndRules>>((acc, [name, rule]) => {
             const title = /^([\w-]+)\/[\w-]+/iu.exec(name)?.[1] ?? defaultTitle;
 
@@ -23,9 +23,6 @@ export default {
             };
         }, {});
 
-        return Object.keys(record).map((title) => ({
-            title,
-            rules: record[title] ?? [],
-        }));
+        return Object.entries(record).map(([title, rules]) => ({ title, rules }));
     },
 } satisfies GenerateOptions;
