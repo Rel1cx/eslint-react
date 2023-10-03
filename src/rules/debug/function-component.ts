@@ -38,7 +38,7 @@ export default createRule<[], MessageID>({
                         continue;
                     }
 
-                    const maybeId = AST.getReactComponentIdentifier(component);
+                    const maybeId = AST.getFunctionIdentifier(component);
 
                     const name = maybeName ?? maybeId?.name ?? "anonymous";
 
