@@ -161,10 +161,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 This project uses code from following third-party projects:
 
 - [eslint-plugin-perfectionist](https://github.com/azat-io/eslint-plugin-perfectionist) (MIT)
-- eslint-plugin-react (MIT)
-- eslint-plugin-solid (MIT)
-- @tanstack/eslint-plugin-query (MIT)
-- eslint-plugin-filenames-simple (MIT)
-- eslint-plugin-functional (MIT)
+- [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) (MIT)
+- [eslint-plugin-solid](https://github.com/solidjs-community/eslint-plugin-solid) (MIT)
+- [@tanstack/eslint-plugin-query](https://github.com/TanStack/query/tree/main/packages/eslint-plugin-query) (MIT)
+- [eslint-plugin-filenames-simple](https://github.com/epaew/eslint-plugin-filenames-simple) (MIT)
+- [eslint-plugin-functional](https://github.com/eslint-functional/eslint-plugin-functional) (MIT)
 
 Licenses are list in [THIRD-PARTY-LICENSE](THIRD-PARTY-LICENSE)
