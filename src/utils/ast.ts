@@ -89,7 +89,7 @@ export function isPropertyWithIdentifierKey(node: TSESTree.Node, key: string): n
  * ```jsx
  * {items.map(item => <li />)}
  * ```
- * @param node The AST node
+ * @param node The AST node to check
  * @returns True if node is directly inside `map` call, false if not
  */
 export function unsafeIsMapCall(node: TSESTree.Node | null): node is TSESTree.CallExpression {
@@ -104,7 +104,7 @@ export function unsafeIsMapCall(node: TSESTree.Node | null): node is TSESTree.Ca
 
 /**
  * Unsafe check whether given node is `ReturnStatement` of a React hook
- * @param node The AST node
+ * @param node The AST node to check
  * @returns True if node is a `ReturnStatement` of a React hook, false if not
  */
 export function unsafeIsReturnStatementOfReactHook(node: TSESTree.Node | null): node is TSESTree.ReturnStatement {
