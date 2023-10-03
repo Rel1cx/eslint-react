@@ -3,7 +3,6 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
 import { createRule } from "../../tools/create-rule";
-import { isNil } from "../lib/primitives";
 import * as AST from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
 import { detectUnstableDefaultProp } from "../utils/unstable-default-prop-detector";
@@ -18,7 +17,7 @@ function hasUsedObjectDestructuringSyntax(params: TSESTree.FunctionExpression["p
     }
     const [param] = params;
 
-    return !isNil(param) && AST.is(N.ObjectPattern)(param);
+    return AST.is(N.ObjectPattern)(param);
 }
 
 export default createRule<[], MessageID>({

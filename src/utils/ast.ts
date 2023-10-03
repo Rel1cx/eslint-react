@@ -27,11 +27,8 @@ export function isDeclaredInNode(params: {
 }) {
     const { functionNode, reference, scopeManager } = params;
     const scope = scopeManager.acquire(functionNode);
-    if (isNil(scope)) {
-        return false;
-    }
 
-    return scope.set.has(reference.identifier.name);
+    return !!scope?.set.has(reference.identifier.name);
 }
 
 /**
@@ -74,11 +71,11 @@ export function isStringLiteral(node: TSESTree.Node | null | undefined): node is
 }
 
 export function isValidReactComponentName(identifier: TSESTree.Identifier | null) {
-    return !isNil(identifier) && /^[A-Z]/u.test(identifier.name);
+    return !!identifier && /^[A-Z]/u.test(identifier.name);
 }
 
 export function isValidReactHookName(identifier: TSESTree.Identifier | null) {
-    return !isNil(identifier) && /^use[A-Z\d].*$/u.test(identifier.name);
+    return !!identifier && /^use[A-Z\d].*$/u.test(identifier.name);
 }
 
 export function isPossibleNamedReactComponent(node: TSESTree.Node): node is FunctionNode {
@@ -117,13 +114,13 @@ export function unsafeIsMapCall(node: TSESTree.Node | null): node is TSESTree.Ca
  * @returns True if node is a `ReturnStatement` of a React hook, false if not
  */
 export function unsafeIsReturnStatementOfReactHook(node: TSESTree.Node | null): node is TSESTree.ReturnStatement {
-    if (!node?.parent || !is(N.ReturnStatement)(node.parent)) {
+    if (!node || !is(N.ReturnStatement)(node.parent)) {
         return false;
     }
     const callExpression = traverseUpOnlyPredicate(node, is(N.CallExpression));
 
     return (
-        !isNil(callExpression)
+        !!callExpression
         && is(N.Identifier)(callExpression.callee)
         && isValidReactHookName(callExpression.callee)
     );
@@ -193,7 +190,7 @@ export function findPropertyWithIdentifierKey(
 export function traverseUpOnly(node: TSESTree.Node, allowedNodeTypes: N[]): TSESTree.Node {
     const { parent } = node;
 
-    if (parent !== undefined && isOneOf(allowedNodeTypes)(parent)) {
+    if (parent && isOneOf(allowedNodeTypes)(parent)) {
         return traverseUpOnly(parent, allowedNodeTypes);
     }
 
@@ -204,11 +201,13 @@ export function traverseUpOnlyPredicate<T extends TSESTree.Node>(
     node: TSESTree.Node,
     predicate: (node: TSESTree.Node) => node is T,
 ): T | null {
-    if (!node.parent || is(N.Program)(node.parent)) {
+    const { parent } = node;
+
+    if (!parent || is(N.Program)(parent)) {
         return null;
     }
 
-    return predicate(node.parent) ? node.parent : traverseUpOnlyPredicate(node.parent, predicate);
+    return predicate(parent) ? parent : traverseUpOnlyPredicate(parent, predicate);
 }
 
 export function mapKeyNodeToText(node: TSESTree.Node, sourceCode: Readonly<TSESLint.SourceCode>) {
@@ -224,7 +223,7 @@ export function getExternalRefs(params: {
 }): TSESLint.Scope.Reference[] {
     const { node, scopeManager, sourceCode } = params;
     const scope = scopeManager.acquire(node);
-    if (isNil(scope)) {
+    if (!scope) {
         return [];
     }
 

@@ -4,7 +4,7 @@ import { match, P } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
 import { isWhiteSpace } from "../lib/is-white-space";
-import { F, isNil, isString, O } from "../lib/primitives";
+import { F, isString, O } from "../lib/primitives";
 import * as AST from "./ast";
 import { isCreateElement } from "./is-create-element";
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "./variable";
@@ -54,7 +54,7 @@ export const isJSXValue = memo(
      * @param ignoreNull Whether to ignore null values
      * @returns boolean
      */
-    (node: TSESTree.Node | null, context: RuleContext, strict: boolean, ignoreNull: boolean): boolean => {
+    (node: TSESTree.Node | null | undefined, context: RuleContext, strict: boolean, ignoreNull: boolean): boolean => {
         if (!node) {
             return false;
         }
@@ -97,7 +97,7 @@ export const isJSXValue = memo(
                 }
                 const exp = node.expressions.at(-1);
 
-                return !isNil(exp) && isJSXValue(exp, context, strict, ignoreNull);
+                return isJSXValue(exp, context, strict, ignoreNull);
             })
             .with(N.CallExpression, () => isCreateElement(node, context))
             .with(N.Identifier, () => {

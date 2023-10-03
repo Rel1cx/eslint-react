@@ -1,7 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
-import { isNil } from "../lib/primitives";
 import * as AST from "../utils/ast";
 
 export type UnstableDefaultPropDetail = Readonly<
@@ -30,7 +29,7 @@ export function detectUnstableDefaultProp(prop: TSESTree.Property | TSESTree.Res
 
     switch (right.type) {
         case N.Literal: {
-            if ("regex" in right && !isNil(right.regex)) {
+            if ("regex" in right) {
                 return ["REGEX_LITERAL", right];
             }
 

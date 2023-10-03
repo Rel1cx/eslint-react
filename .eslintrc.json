@@ -37,6 +37,7 @@
         "jsdoc/require-jsdoc": "off",
         "jsdoc/require-param-description": "off",
         "jsdoc/require-returns": "off",
+        "@typescript-eslint/strict-boolean-expressions": "error",
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/no-confusing-void-expression": "off",
         "@typescript-eslint/no-floating-promises": "off",
