@@ -36,8 +36,8 @@ export function unsafeIsRenderFunction(node: ESFunction, context: RuleContext) {
 /**
  * Unsafe check whether given JSXAttribute is a render prop
  * ```jsx
- * <Component renderRow={() => <div />} />
- * `          ^^^^^^^^^^^^^^^^^^^^^^^^^  `
+ * _ = <Component renderRow={() => <div />} />
+ * `              ^^^^^^^^^^^^^^^^^^^^^^^^^  `
  * ```
  * @param node The AST node to check
  * @param context Rule context
@@ -57,8 +57,8 @@ export function unsafeIsRenderProp(node: TSESTree.JSXAttribute, context: RuleCon
  * ```jsx
  * const rows = { render: () => <div /> }
  * `                      ^^^^^^^^^^^^^ `
- * <Component rows={ [{ render: () => <div /> }] } />
- * `                            ^^^^^^^^^^^^^ `
+ * _ = <Component rows={ [{ render: () => <div /> }] } />
+ * `                                ^^^^^^^^^^^^^       `
  *  ```
  * @param node The AST node to check
  * @returns True if component is declared inside a render property, false if not
@@ -75,10 +75,10 @@ export function unsafeIsDirectValueOfRenderProperty(node: TSESTree.Node) {
 /**
  * Unsafe check whether given node is declared inside a render prop
  * ```jsx
- * <Component renderRow={"node"} />
- * `                     ^^^^^^   `
- * <Component rows={ [{ render: "node" }] } />
- * `                            ^^^^^^       `
+ * _ = <Component renderRow={"node"} />
+ * `                         ^^^^^^   `
+ * _ = <Component rows={ [{ render: "node" }] } />
+ * `                                ^^^^^^       `
  * ```
  * @param node The AST node to check
  * @returns True if component is declared inside a render prop, false if not

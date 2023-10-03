@@ -87,7 +87,8 @@ export function isPropertyWithIdentifierKey(node: TSESTree.Node, key: string): n
 /**
  * Unsafe check whether given node or its parent is directly inside `map` call
  * ```jsx
- * {items.map(item => <li />)}
+ * _ = <div>{items.map(item => <li />)}</div>
+ * `                   ^^^^^^^^^^^^^^       `
  * ```
  * @param node The AST node to check
  * @returns True if node is directly inside `map` call, false if not
