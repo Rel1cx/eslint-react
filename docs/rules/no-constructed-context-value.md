@@ -1,6 +1,6 @@
-# Disallows passing constructed values to context providers (`react-ts/no-constructed-context-value`)
+# no-constructed-context-value
 
-💼 This rule is enabled in the following configs: ✅ `recommended`, `recommended-type-checked`.
+💼 This rule is enabled in the following configs: 👍 `recommended`, 🔍 `recommended-type-checked`.
 
 <!-- end auto-generated rule header -->
 

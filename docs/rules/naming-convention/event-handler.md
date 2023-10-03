@@ -1,4 +1,4 @@
-# Enforce event handler naming conventions in JSX (`react-ts/naming-convention/event-handler`)
+# naming-convention/event-handler
 
 <!-- end auto-generated rule header -->
 

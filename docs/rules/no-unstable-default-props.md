@@ -1,6 +1,6 @@
-# Disallow usage of referential-type variables as default param in function component (`react-ts/no-unstable-default-props`)
+# no-unstable-default-props
 
-💼 This rule is enabled in the following configs: ✅ `recommended`, `recommended-type-checked`.
+💼 This rule is enabled in the following configs: 👍 `recommended`, 🔍 `recommended-type-checked`.
 
 <!-- end auto-generated rule header -->
 

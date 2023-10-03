@@ -1,4 +1,4 @@
-# Enforce naming convention for jsx files (`react-ts/naming-convention/filename`)
+# naming-convention/filename
 
 <!-- end auto-generated rule header -->
 

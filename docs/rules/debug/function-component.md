@@ -1,4 +1,4 @@
-# Reports all function components, including anonymous ones (`react-ts/debug/function-component`)
+# debug/function-component
 
 <!-- end auto-generated rule header -->
 

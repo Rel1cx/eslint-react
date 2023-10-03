@@ -112,7 +112,7 @@
         "pathe": "1.1.1",
         "pattycake": "0.0.2",
         "publint": "0.2.3",
-        "rambda": "8.4.0",
+        "rambda": "8.5.0",
         "rollup": "3.29.4",
         "rollup-plugin-dts": "6.0.2",
         "rollup-plugin-swc3": "0.10.1",

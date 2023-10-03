@@ -69,7 +69,8 @@ export default [
 
 💼 Configurations enabled in.\
 ⚠️ Configurations set to warn in.\
-✅ Set in the `recommended` configuration.
+👍 Set in the `recommended` configuration.\
+🔍 Set in the `recommended-type-checked` configuration.
 
 ### debug
 
@@ -79,11 +80,11 @@ export default [
 
 ### jsx
 
-| Name                                                                                     | Description                                            | 💼                                     | ⚠️                                      |
-| :--------------------------------------------------------------------------------------- | :----------------------------------------------------- | :------------------------------------- | :------------------------------------- |
-| [jsx/no-leaked-conditional-rendering](docs/rules/jsx/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered | ✅ ![badge-recommended-type-checked][] |                                        |
-| [jsx/no-misused-comment-in-textnode](docs/rules/jsx/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes    |                                        | ✅ ![badge-recommended-type-checked][] |
-| [jsx/prefer-shorthand-boolean](docs/rules/jsx/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX             |                                        | ✅ ![badge-recommended-type-checked][] |
+| Name                                                                                     | Description                                            | 💼    | ⚠️     |
+| :--------------------------------------------------------------------------------------- | :----------------------------------------------------- | :---- | :---- |
+| [jsx/no-leaked-conditional-rendering](docs/rules/jsx/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered | 👍 🔍 |       |
+| [jsx/no-misused-comment-in-textnode](docs/rules/jsx/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes    |       | 👍 🔍 |
+| [jsx/prefer-shorthand-boolean](docs/rules/jsx/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX             |       | 👍 🔍 |
 
 ### naming-convention
 
@@ -95,13 +96,13 @@ export default [
 
 ### react
 
-| Name                                                                                                   | Description                                                                         | 💼                                     | ⚠️  |
-| :----------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------- | :------------------------------------- | :- |
-| [no-constructed-context-value](docs/rules/no-constructed-context-value.md)                             | disallows passing constructed values to context providers                           | ✅ ![badge-recommended-type-checked][] |    |
-| [no-dangerously-set-innerhtml](docs/rules/no-dangerously-set-innerhtml.md)                             | disallow when a DOM element is using both children and dangerouslySetInnerHTML'     | ✅ ![badge-recommended-type-checked][] |    |
-| [no-dangerously-set-innerhtml-with-children](docs/rules/no-dangerously-set-innerhtml-with-children.md) | disallow when a DOM element is using both children and dangerouslySetInnerHTML'     | ✅ ![badge-recommended-type-checked][] |    |
-| [no-deprecated-string-refs](docs/rules/no-deprecated-string-refs.md)                                   | disallow using deprecated string refs                                               | ✅ ![badge-recommended-type-checked][] |    |
-| [no-unstable-default-props](docs/rules/no-unstable-default-props.md)                                   | disallow usage of referential-type variables as default param in function component | ✅ ![badge-recommended-type-checked][] |    |
+| Name                                                                                                   | Description                                                                         | 💼    | ⚠️  |
+| :----------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------- | :---- | :- |
+| [no-constructed-context-value](docs/rules/no-constructed-context-value.md)                             | disallows passing constructed values to context providers                           | 👍 🔍 |    |
+| [no-dangerously-set-innerhtml](docs/rules/no-dangerously-set-innerhtml.md)                             | disallow when a DOM element is using both children and dangerouslySetInnerHTML'     | 👍 🔍 |    |
+| [no-dangerously-set-innerhtml-with-children](docs/rules/no-dangerously-set-innerhtml-with-children.md) | disallow when a DOM element is using both children and dangerouslySetInnerHTML'     | 👍 🔍 |    |
+| [no-deprecated-string-refs](docs/rules/no-deprecated-string-refs.md)                                   | disallow using deprecated string refs                                               | 👍 🔍 |    |
+| [no-unstable-default-props](docs/rules/no-unstable-default-props.md)                                   | disallow usage of referential-type variables as default param in function component | 👍 🔍 |    |
 
 <!-- end auto-generated rules list -->
 
@@ -159,7 +160,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 This project uses code from following third-party projects:
 
-- eslint-plugin-perfectionist (MIT)
+- [eslint-plugin-perfectionist](https://github.com/azat-io/eslint-plugin-perfectionist) (MIT)
 - eslint-plugin-react (MIT)
 - eslint-plugin-solid (MIT)
 - @tanstack/eslint-plugin-query (MIT)
