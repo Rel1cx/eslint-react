@@ -7,10 +7,10 @@ import * as AST from "./ast";
 import { isComponentName } from "./is-component-name";
 import { isJSXValue, isReturnStatementReturningJSX } from "./jsx";
 
-const seenComponents = new Set<AST.FunctionNode>();
+const seenComponents = new WeakSet<AST.FunctionNode>();
 
 export function make(context: RuleContext) {
-    const components = new Set<AST.FunctionNode>();
+    const components: AST.FunctionNode[] = [];
     const functionStack = MutList.make<AST.FunctionNode>();
     const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
     const onFunctionEnter = (node: AST.FunctionNode) => MutList.append(functionStack, node);
@@ -25,7 +25,7 @@ export function make(context: RuleContext) {
             return components;
         },
         getCurrentComponents() {
-            return new Set(components);
+            return [...components];
         },
         getCurrentFunction,
         getCurrentFunctionStack() {
@@ -52,7 +52,7 @@ export function make(context: RuleContext) {
             const currentFn = maybeCurrentFn.value;
 
             if (seenComponents.has(currentFn)) {
-                components.add(currentFn);
+                components.push(currentFn);
 
                 return;
             }
@@ -62,7 +62,7 @@ export function make(context: RuleContext) {
             }
 
             seenComponents.add(currentFn);
-            components.add(currentFn);
+            components.push(currentFn);
         },
         // eslint-disable-next-line perfectionist/sort-objects
         "ArrowFunctionExpression[body.type!='BlockStatement']"(node: TSESTree.ArrowFunctionExpression) {
@@ -77,7 +77,7 @@ export function make(context: RuleContext) {
             const currentFn = maybeCurrentFn.value;
 
             if (seenComponents.has(currentFn)) {
-                components.add(currentFn);
+                components.push(currentFn);
 
                 return;
             }
@@ -97,7 +97,7 @@ export function make(context: RuleContext) {
             }
 
             seenComponents.add(currentFn);
-            components.add(currentFn);
+            components.push(currentFn);
         },
     } as const;
 

@@ -81,7 +81,7 @@ export default createRule<[], MessageID>({
                 const components = ctx.getAllComponents();
 
                 for (const [fn, detail] of possibleValueConstructions.entries()) {
-                    if (!components.has(fn) || detail.type === "NONE") {
+                    if (!components.includes(fn) || detail.type === "NONE") {
                         continue;
                     }
 

@@ -71,7 +71,7 @@ export default createRule<Options, MessageID>({
                 const components = ctx.getAllComponents();
 
                 function isFunctionComponent(block: TSESTree.Node): block is AST.FunctionNode {
-                    return AST.isPossibleNamedReactComponent(block) && components.has(block);
+                    return AST.isPossibleNamedReactComponent(block) && components.includes(block);
                 }
 
                 if (cond === "always") {
@@ -133,7 +133,7 @@ export default createRule<Options, MessageID>({
                 }
 
                 for (const [scope, declarator] of variableDeclarators) {
-                    const isComponent = AST.isFunctionNode(scope.block) && components.has(scope.block);
+                    const isComponent = AST.isFunctionNode(scope.block) && components.includes(scope.block);
                     const isDestructuring = declarator.init && AST.is(N.ObjectPattern)(declarator.id);
                     if (!("init" in declarator && declarator.init && "name" in declarator.init)) {
                         continue;
