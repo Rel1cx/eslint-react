@@ -8,11 +8,7 @@ import { isMatching } from "ts-pattern";
 import type { RuleContext } from "../../typings";
 import { isNil, isString } from "../lib/primitives";
 import { uniqueBy } from "../lib/unique-by";
-
-export type FunctionNode =
-    | TSESTree.ArrowFunctionExpression
-    | TSESTree.FunctionDeclaration
-    | TSESTree.FunctionExpression;
+import type { ESFunction } from "./node";
 
 export * from "@typescript-eslint/utils/ast-utils";
 
@@ -47,13 +43,11 @@ export function isDestructorParameter(
     ])(node);
 }
 
-export function isFunctionNode(node: TSESTree.Node): node is FunctionNode {
-    return isOneOf([
-        N.ArrowFunctionExpression,
-        N.FunctionDeclaration,
-        N.FunctionExpression,
-    ])(node);
-}
+export const isFunction = isOneOf([
+    N.ArrowFunctionExpression,
+    N.FunctionDeclaration,
+    N.FunctionExpression,
+]);
 
 export function isIdentifierWithName(node: TSESTree.Node, name: string): node is TSESTree.Identifier {
     return ASTUtils.isIdentifier(node) && node.name === name;
@@ -78,8 +72,8 @@ export function isValidReactHookName(identifier: TSESTree.Identifier | null) {
     return !!identifier && /^use[A-Z\d].*$/u.test(identifier.name);
 }
 
-export function isPossibleNamedReactComponent(node: TSESTree.Node): node is FunctionNode {
-    return isFunctionNode(node) && isValidReactComponentName(node.id);
+export function isPossibleNamedReactComponent(node: TSESTree.Node): node is ESFunction {
+    return isFunction(node) && isValidReactComponentName(node.id);
 }
 
 export function isPropertyOfObjectExpression(node: TSESTree.Node) {
@@ -183,8 +177,8 @@ export function unsafeIsReactComponentInRenderProp(node: TSESTree.Node) {
 export function findPropertyWithIdentifierKey(
     properties: TSESTree.ObjectLiteralElement[],
     key: string,
-): TSESTree.Property | undefined {
-    return properties.find((x) => isPropertyWithIdentifierKey(x, key)) as TSESTree.Property | undefined;
+) {
+    return properties.find((x) => isPropertyWithIdentifierKey(x, key));
 }
 
 export function traverseUpOnly(node: TSESTree.Node, allowedNodeTypes: N[]): TSESTree.Node {
@@ -388,7 +382,7 @@ export const getNestedReturnStatements = memo((node: TSESTree.Node): TSESTree.Re
     return returnStatements;
 });
 
-export function getReactComponentIdentifier(node: FunctionNode): TSESTree.Identifier | null {
+export function getReactComponentIdentifier(node: ESFunction): TSESTree.Identifier | null {
     if (node.id) {
         return node.id;
     }

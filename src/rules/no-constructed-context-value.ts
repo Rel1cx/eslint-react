@@ -5,6 +5,7 @@ import { E, F, O } from "../lib/primitives";
 import * as AST from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
 import * as ConstructionDetector from "../utils/construction-detector";
+import type { ESFunction } from "../utils/node";
 
 export const RULE_NAME = "no-constructed-context-value";
 
@@ -35,7 +36,7 @@ export default createRule<[], MessageID>({
     create(context) {
         const { ctx, listeners } = ComponentCollector.make(context);
         const detectConstruction = ConstructionDetector.make(context);
-        const possibleValueConstructions = new Map<AST.FunctionNode, ConstructionDetector.ConstructionDetail>();
+        const possibleValueConstructions = new Map<ESFunction, ConstructionDetector.ConstructionDetail>();
 
         return {
             ...listeners,

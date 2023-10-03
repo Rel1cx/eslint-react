@@ -42,12 +42,11 @@ export default createRule<[], MessageID>({
     create(context) {
         return {
             JSXAttribute(node) {
-                if (!("name" in node) || node.name.name !== "ref") {
+                if (node.name.name !== "ref") {
                     return;
                 }
 
-                const hasStringLiteral = containsStringLiteral(node) || containsStringExpressionContainer(node);
-                if (hasStringLiteral) {
+                if (containsStringLiteral(node) || containsStringExpressionContainer(node)) {
                     context.report({
                         messageId: "INVALID",
                         node,

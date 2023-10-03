@@ -67,7 +67,7 @@
         "lint": "bun run format:check && bun run lint:spell && bun run lint:deps && bun run lint:ts && bun run lint:type",
         "lint:deps": "skott -m file-tree -e .ts -s",
         "lint:spell": "cspell lint --relative --no-progress '**'",
-        "lint:ts": "eslint --cache --ext .ts .",
+        "lint:ts": "eslint --ext .ts .",
         "lint:type": "tsc --noEmit",
         "prepare": "husky install",
         "publish": "bun run lint && bun run build && bun run test && bun x publint",

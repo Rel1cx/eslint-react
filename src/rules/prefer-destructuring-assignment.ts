@@ -7,6 +7,7 @@ import { createRule } from "../../tools/create-rule";
 import type { Cond } from "../../typings";
 import * as AST from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
+import type { ESFunction } from "../utils/node";
 
 export const RULE_NAME = "prefer-destructuring-assignment";
 
@@ -70,7 +71,7 @@ export default createRule<Options, MessageID>({
             "Program:exit"() {
                 const components = ctx.getAllComponents();
 
-                function isFunctionComponent(block: TSESTree.Node): block is AST.FunctionNode {
+                function isFunctionComponent(block: TSESTree.Node): block is ESFunction {
                     return AST.isPossibleNamedReactComponent(block) && components.includes(block);
                 }
 
@@ -133,7 +134,7 @@ export default createRule<Options, MessageID>({
                 }
 
                 for (const [scope, declarator] of variableDeclarators) {
-                    const isComponent = AST.isFunctionNode(scope.block) && components.includes(scope.block);
+                    const isComponent = AST.isFunction(scope.block) && components.includes(scope.block);
                     const isDestructuring = declarator.init && AST.is(N.ObjectPattern)(declarator.id);
                     if (!("init" in declarator && declarator.init && "name" in declarator.init)) {
                         continue;

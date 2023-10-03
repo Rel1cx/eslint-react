@@ -5,15 +5,15 @@ import type { RuleNamesAndRules } from "eslint-doc-generator/dist/lib/types";
 const defaultTitle = "react";
 
 export default {
-    "configEmoji": [
+    configEmoji: [
         ["recommended", "👍"],
         ["recommended-type-checked", "🔍"],
         ["debug", "🛠️"],
     ],
-    "ignoreConfig": ["all", "off"],
-    "ruleDocSectionInclude": ["Rule Details"],
-    "ruleDocTitleFormat": "name",
-    "ruleListSplit"(rules) {
+    ignoreConfig: ["all", "off"],
+    ruleDocSectionInclude: ["Rule Details"],
+    ruleDocTitleFormat: "name",
+    ruleListSplit(rules) {
         const record = rules.reduce<Record<string, RuleNamesAndRules>>((acc, [name, rule]) => {
             const title = /^([\w-]+)\/[\w-]+/iu.exec(name)?.[1] ?? defaultTitle;
 

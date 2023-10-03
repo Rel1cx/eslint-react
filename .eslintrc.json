@@ -55,6 +55,7 @@
         ],
         "unicorn/no-array-method-this-argument": "off",
         "eslint-plugin/require-meta-docs-url": "off",
+        "prefer-object-has-own": "error",
         "perfectionist/sort-named-imports": "off",
         "perfectionist/sort-imports": "off",
         "perfectionist/sort-exports": "off",
