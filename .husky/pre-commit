@@ -4,7 +4,7 @@
 bun run format:write
 bun run lint
 bun run build
-bun run build:rule-docs
-bun run build:internal-docs
+bun run build:docs-rules
+bun run build:docs-internals
 bun x publint
 git add .

@@ -17,7 +17,7 @@
         "**/*-lock.json",
         "bun.lockb",
         "test/fixtures",
-        "docs",
+        "docs/internals",
         "dist"
     ],
     "plugins": [
