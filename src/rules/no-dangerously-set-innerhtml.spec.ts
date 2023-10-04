@@ -1,6 +1,6 @@
 import dedent from "dedent";
 
-import * as validFunction from "../../test/common/valid/function";
+import { allValid } from "../../test/common/valid";
 import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
 import rule, { RULE_NAME } from "./no-dangerously-set-innerhtml";
 
@@ -21,7 +21,7 @@ const ruleTester = new RuleTester({
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [
-        ...validFunction.all,
+        ...allValid,
         "<div {...props} />",
     ],
     invalid: [
@@ -35,20 +35,20 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
             code: dedent`
-              const props = {
-                  dangerouslySetInnerHTML: { __html: "HTML" }
-              }
-              const div = <div {...props}>Children</div>
+                const props = {
+                    dangerouslySetInnerHTML: { __html: "HTML" }
+                }
+                const div = <div {...props}>Children</div>
             `,
             errors: [{ messageId: "INVALID" }],
         },
         {
             code: dedent`
-              const props = {
-                  children: "Children",
-                  dangerouslySetInnerHTML: { __html: "HTML" }
-              }
-              const div = <div {...props} />
+                const props = {
+                    children: "Children",
+                    dangerouslySetInnerHTML: { __html: "HTML" }
+                }
+                const div = <div {...props} />
             `,
             errors: [{ messageId: "INVALID" }],
         },
@@ -92,10 +92,10 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
             code: dedent`
-              const moreProps = { children: "Children" }
-              const otherProps = { ...moreProps }
-              const props = { ...otherProps, dangerouslySetInnerHTML: { __html: "HTML" } }
-              React.createElement("div", props)
+                const moreProps = { children: "Children" }
+                const otherProps = { ...moreProps }
+                const props = { ...otherProps, dangerouslySetInnerHTML: { __html: "HTML" } }
+                React.createElement("div", props)
             `,
             errors: [{ messageId: "INVALID" }],
         },

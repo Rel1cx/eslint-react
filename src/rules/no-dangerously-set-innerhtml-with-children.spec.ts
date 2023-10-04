@@ -1,6 +1,6 @@
 import dedent from "dedent";
 
-import * as validFunction from "../../test/common/valid/function";
+import { allValid } from "../../test/common/valid";
 import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
 import rule, { RULE_NAME } from "./no-dangerously-set-innerhtml-with-children";
 
@@ -20,6 +20,46 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
+    valid: [
+        ...allValid,
+        "<div>Children</div>",
+        "<div {...props} />",
+        '<div dangerouslySetInnerHTML={{ __html: "HTML" }} />',
+        '<div children="Children" />',
+        dedent`
+            const props = { dangerouslySetInnerHTML: { __html: "HTML" } }
+            const div = <div {...props} />
+        `,
+        dedent`
+            const moreProps = { className: "eslint" }
+            const props = { children: "Children", ...moreProps }
+            const div = <div {...props} />
+        `,
+        dedent`
+            const otherProps = { children: "Children" }
+            const { a, b, ...props } = otherProps
+            const div = <div {...props} />
+        `,
+        "<App>Children</App>",
+        '<App dangerouslySetInnerHTML={{ __html: "HTML" }} />',
+        '<App dangerouslySetInnerHTML={{ __html: "HTML" }}>\n</App>',
+        dedent`
+            React.createElement("div", {
+                dangerouslySetInnerHTML: { __html: "HTML" }
+            })
+        `,
+        'React.createElement("div", {}, "Children")',
+        dedent`
+            React.createElement("App", {
+                dangerouslySetInnerHTML: { __html: "HTML" }
+            })
+        `,
+        'React.createElement("App", {}, "Children")',
+        "<App {...undefined}>Children</App>",
+        'React.createElement("App", undefined, "Children")',
+        `const props = { ...props, scratch: {mode: 'edit'} }
+        const component = shallow(<TaskEditableTitle {...props} />)`,
+    ],
     invalid: [
         {
             code: '<div dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</div>',
@@ -85,45 +125,5 @@ ruleTester.run(RULE_NAME, rule, {
             React.createElement("div", props)`,
             errors: [{ messageId: "INVALID" }],
         },
-    ],
-    valid: [
-        ...validFunction.all,
-        "<div>Children</div>",
-        "<div {...props} />",
-        '<div dangerouslySetInnerHTML={{ __html: "HTML" }} />',
-        '<div children="Children" />',
-        dedent`
-          const props = { dangerouslySetInnerHTML: { __html: "HTML" } }
-          const div = <div {...props} />
-        `,
-        dedent`
-          const moreProps = { className: "eslint" }
-          const props = { children: "Children", ...moreProps }
-          const div = <div {...props} />
-        `,
-        dedent`
-          const otherProps = { children: "Children" }
-          const { a, b, ...props } = otherProps
-          const div = <div {...props} />
-        `,
-        "<App>Children</App>",
-        '<App dangerouslySetInnerHTML={{ __html: "HTML" }} />',
-        '<App dangerouslySetInnerHTML={{ __html: "HTML" }}>\n</App>',
-        dedent`
-          React.createElement("div", {
-              dangerouslySetInnerHTML: { __html: "HTML" }
-          })
-        `,
-        'React.createElement("div", {}, "Children")',
-        dedent`
-          React.createElement("App", {
-              dangerouslySetInnerHTML: { __html: "HTML" }
-          })
-        `,
-        'React.createElement("App", {}, "Children")',
-        "<App {...undefined}>Children</App>",
-        'React.createElement("App", undefined, "Children")',
-        `const props = { ...props, scratch: {mode: 'edit'} }
-        const component = shallow(<TaskEditableTitle {...props} />)`,
     ],
 });

@@ -1,6 +1,6 @@
 import dedent from "dedent";
 
-import { allNonComponent } from "../../../test/common/valid/function";
+import { allFunctions } from "../../../test/common/valid/functions";
 import RuleTester, { getFixturesRootDir } from "../../../test/rule-tester";
 import rule, { RULE_NAME } from "./function-component";
 
@@ -20,13 +20,15 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-    valid: allNonComponent,
+    valid: [
+        ...allFunctions,
+    ],
     invalid: [
         {
             code: dedent`
-              function App() {
-                  return <div>foo</div>
-              }
+                function App() {
+                    return <div>foo</div>
+                }
             `,
             errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App" } }],
         },
@@ -40,9 +42,9 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
             code: dedent`
-              const App = React.memo(function App() {
-                  return <div>foo</div>
-              })
+                const App = React.memo(function App() {
+                    return <div>foo</div>
+                })
             `,
             errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App" } }],
         },

@@ -1,4 +1,4 @@
-import * as validFunction from "../../../test/common/valid/function";
+import { allValid } from "../../../test/common/valid";
 import RuleTester, { getFixturesRootDir } from "../../../test/rule-tester";
 import rule, { RULE_NAME } from "././prefer-shorthand-boolean";
 
@@ -19,7 +19,7 @@ const ruleTester = new RuleTester({
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [
-        ...validFunction.all,
+        ...allValid,
         "<App foo />",
         "<App foo bar />",
         "<App foo bar={false} />",

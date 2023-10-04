@@ -92,6 +92,12 @@
         "simple-import-sort/exports": "warn",
         "simple-import-sort/imports": "warn",
         "unicorn/no-array-method-this-argument": "off",
+        "unicorn/template-indent": [
+            "warn",
+            {
+                "indent": 4
+            }
+        ],
         "no-restricted-syntax": [
             "error",
             {

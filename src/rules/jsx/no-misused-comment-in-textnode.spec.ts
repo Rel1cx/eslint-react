@@ -1,6 +1,6 @@
 import dedent from "dedent";
 
-import * as validFunction from "../../../test/common/valid/function";
+import { allValid } from "../../../test/common/valid";
 import RuleTester, { getFixturesRootDir } from "../../../test/rule-tester";
 import rule, { RULE_NAME } from "./no-misused-comment-in-textnode";
 
@@ -21,7 +21,7 @@ const ruleTester = new RuleTester({
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [
-        ...validFunction.all,
+        ...allValid,
         "<App foo='test'>{/* valid */}</App>",
         "<strong>&nbsp;https://www.example.com/attachment/download/1</strong>",
         "<App /* valid */ placeholder={'foo'}/>",
@@ -42,29 +42,29 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
             code: dedent`
-              <div>
-              // invalid
-              </div>
+                <div>
+                // invalid
+                </div>
             `,
             errors: [{ messageId: "INVALID" }],
         },
         {
             code: dedent`
-              <div>
-              abcdef
-              /* invalid */
-              foo
-              </div>
+                <div>
+                abcdef
+                /* invalid */
+                foo
+                </div>
             `,
             errors: [{ messageId: "INVALID" }],
         },
         {
             code: dedent`
-              <div>
-              {'abcdef'}
-              // invalid
-              {'foo'}
-              </div>
+                <div>
+                {'abcdef'}
+                // invalid
+                {'foo'}
+                </div>
             `,
             errors: [{ messageId: "INVALID" }],
         },

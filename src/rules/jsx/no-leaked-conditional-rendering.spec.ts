@@ -1,6 +1,6 @@
 import dedent from "dedent";
 
-import * as validFunction from "../../../test/common/valid/function";
+import { allValid } from "../../../test/common/valid";
 import RuleTester, { getFixturesRootDir } from "../../../test/rule-tester";
 import rule, { RULE_NAME } from "./no-leaked-conditional-rendering";
 const rootDir = getFixturesRootDir();
@@ -20,85 +20,85 @@ const ruleTester = new RuleTester({
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [
-        ...validFunction.all,
+        ...allValid,
+        dedent`
+              const App = () => {
+                return <div>{foo || bar}</div>
+            }
+        `,
+        dedent`
+              const App = ({ foo }) => {
+                return <div>{foo}</div>
+            }
+        `,
+        dedent`
+              const App = ({ items }) => {
+                return <div>There are {items.length} elements</div>
+            }
+        `,
+        dedent`
+              const App = ({ items, count }) => {
+                return <div>{!count && 'No results found'}</div>
+            }
+        `,
+        dedent`
+              const App = ({ items }) => {
+                return <div>{!!itesm.length && <List items={items}/>}</div>
+            }
+        `,
+        dedent`
+              const App = ({ items }) => {
+                return <div>{Boolean(items.length) && <List items={items}/>}</div>
+            }
+        `,
+        dedent`
+              const App = ({ items }) => {
+                return <div>{items.length > 0 && <List items={items}/>}</div>
+            }
+        `,
+        dedent`
+              const App = ({ items }) => {
+                return <div>{items.length ? <List items={items}/> : null}</div>
+            }
+        `,
+        dedent`
+              const App = ({ items, count }) => {
+                return <div>{count ? <List items={items}/> : null}</div>
+            }
+        `,
+        dedent`
+              const App = ({ items, count }) => {
+                return <div>{!!count && <List items={items}/>}</div>
+            }
+        `,
+        dedent`
+            const App = ({ items, count }) => {
+                return <div>{direction ? (direction === "down" ? "▼" : "▲") : ""}</div>
+            }
+        `,
         dedent`
             const App = () => {
-              return <div>{foo || bar}</div>
-          }
-        `,
-        dedent`
-            const App = ({ foo }) => {
-              return <div>{foo}</div>
-          }
-        `,
-        dedent`
-            const App = ({ items }) => {
-              return <div>There are {items.length} elements</div>
-          }
-        `,
-        dedent`
-            const App = ({ items, count }) => {
-              return <div>{!count && 'No results found'}</div>
-          }
-        `,
-        dedent`
-            const App = ({ items }) => {
-              return <div>{!!itesm.length && <List items={items}/>}</div>
-          }
-        `,
-        dedent`
-            const App = ({ items }) => {
-              return <div>{Boolean(items.length) && <List items={items}/>}</div>
-          }
-        `,
-        dedent`
-            const App = ({ items }) => {
-              return <div>{items.length > 0 && <List items={items}/>}</div>
-          }
-        `,
-        dedent`
-            const App = ({ items }) => {
-              return <div>{items.length ? <List items={items}/> : null}</div>
-          }
-        `,
-        dedent`
-            const App = ({ items, count }) => {
-              return <div>{count ? <List items={items}/> : null}</div>
-          }
-        `,
-        dedent`
-            const App = ({ items, count }) => {
-              return <div>{!!count && <List items={items}/>}</div>
-          }
-        `,
-        dedent`
-          const App = ({ items, count }) => {
-              return <div>{direction ? (direction === "down" ? "▼" : "▲") : ""}</div>
-          }
-        `,
-        dedent`
-          const App = () => {
-            return (
-                <>
-                {0 ? <Foo /> : null}
-                {'' && <Foo />}
-                {NaN ? <Foo /> : null}
-                </>
-                )
-            }
+              return (
+                  <>
+                  {0 ? <Foo /> : null}
+                  {'' && <Foo />}
+                  {NaN ? <Foo /> : null}
+                  </>
+                  )
+              }
         `,
     ],
     invalid: [
         {
             code: dedent`
-              const App = () => {
-                return (
-                    <>
-                    {0 && <Foo />}
-                    {NaN && <Foo />}
-                    </>
-                    )
-                }
+                const App = () => {
+                  return (
+                      <>
+                      {0 && <Foo />}
+                      {NaN && <Foo />}
+                      </>
+                      )
+                  }
             `,
             errors: [
                 {
