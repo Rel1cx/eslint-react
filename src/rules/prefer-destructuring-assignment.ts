@@ -7,7 +7,6 @@ import { createRule } from "../../tools/create-rule";
 import type { Cond } from "../../typings";
 import * as AST from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
-import type { ESFunction } from "../utils/node";
 
 export const RULE_NAME = "prefer-destructuring-assignment";
 
@@ -71,7 +70,7 @@ export default createRule<Options, MessageID>({
             "Program:exit"() {
                 const components = ctx.getAllComponents();
 
-                function isFunctionComponent(block: TSESTree.Node): block is ESFunction {
+                function isFunctionComponent(block: TSESTree.Node): block is AST.TSESTreeFunction {
                     return AST.isPossibleNamedReactComponent(block) && components.includes(block);
                 }
 

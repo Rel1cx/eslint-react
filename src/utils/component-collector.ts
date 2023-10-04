@@ -6,15 +6,14 @@ import { MutList, O } from "../lib/primitives";
 import * as AST from "./ast";
 import { isComponentName } from "./is-component-name";
 import { isJSXValue, isReturnStatementReturningJSX } from "./jsx";
-import type { ESFunction } from "./node";
 
-const seenComponents = new WeakSet<ESFunction>();
+const seenComponents = new WeakSet<AST.TSESTreeFunction>();
 
 export function make(context: RuleContext) {
-    const components: ESFunction[] = [];
-    const functionStack = MutList.make<ESFunction>();
+    const components: AST.TSESTreeFunction[] = [];
+    const functionStack = MutList.make<AST.TSESTreeFunction>();
     const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
-    const onFunctionEnter = (node: ESFunction) => MutList.append(functionStack, node);
+    const onFunctionEnter = (node: AST.TSESTreeFunction) => MutList.append(functionStack, node);
     const onFunctionExit = () => MutList.pop(functionStack);
 
     const ctx = {

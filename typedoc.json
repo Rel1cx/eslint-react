@@ -13,7 +13,6 @@
         "src/utils/is-create-context.ts",
         "src/utils/is-create-element.ts",
         "src/utils/jsx.ts",
-        "src/utils/node.ts",
         "src/utils/pragma.ts",
         "src/utils/unstable-default-prop-detector.ts",
         "src/utils/variable.ts",

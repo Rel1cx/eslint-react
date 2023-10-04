@@ -4,7 +4,6 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import type { RuleContext } from "../../typings";
 import * as AST from "./ast";
 import { isJSXValue } from "./jsx";
-import type { ESFunction } from "./node";
 
 /**
  * Unsafe check whether given node is a render function
@@ -18,7 +17,7 @@ import type { ESFunction } from "./node";
  * @param context Rule context
  * @returns True if node is a render function, false if not
  */
-export function unsafeIsRenderFunction(node: ESFunction, context: RuleContext) {
+export function unsafeIsRenderFunction(node: AST.TSESTreeFunction, context: RuleContext) {
     const { body, parent } = node;
 
     const id = AST.getFunctionIdentifier(node);

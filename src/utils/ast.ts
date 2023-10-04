@@ -8,13 +8,116 @@ import { isMatching } from "ts-pattern";
 import type { RuleContext } from "../../typings";
 import { isNil, isString } from "../lib/primitives";
 import { uniqueBy } from "../lib/unique-by";
-import type { ESFunction } from "./node";
 
 export * from "@typescript-eslint/utils/ast-utils";
+
+export type TSESTreeFunction =
+    | TSESTree.ArrowFunctionExpression
+    | TSESTree.FunctionDeclaration
+    | TSESTree.FunctionExpression;
+
+export type TSESTreeFunctionType =
+    | TSESTree.TSCallSignatureDeclaration
+    | TSESTree.TSConstructSignatureDeclaration
+    | TSESTree.TSDeclareFunction
+    | TSESTree.TSEmptyBodyFunctionExpression
+    | TSESTree.TSFunctionType
+    | TSESTree.TSMethodSignature
+    | TSESTreeFunction;
+
+export type TSESTreeClass = TSESTree.ClassDeclaration | TSESTree.ClassExpression;
+
+export type TSESTreeLoop =
+    | TSESTree.DoWhileStatement
+    | TSESTree.ForInStatement
+    | TSESTree.ForOfStatement
+    | TSESTree.ForStatement
+    | TSESTree.WhileStatement;
+
+export type TSESTreeArrayTupleType = TSESTree.TSArrayType | TSESTree.TSTupleType;
+
+export type TSESTreeProperty =
+    | TSESTree.PropertyDefinition
+    | TSESTree.TSIndexSignature
+    | TSESTree.TSParameterProperty
+    | TSESTree.TSPropertySignature;
+
+export type TSESTreeTypeDeclaration =
+    | TSESTree.TSInterfaceDeclaration
+    | TSESTree.TSTypeAliasDeclaration;
 
 export const is = ASTUtils.isNodeOfType;
 
 export const isOneOf = ASTUtils.isNodeOfTypes;
+
+export const isFunction = isOneOf([
+    N.ArrowFunctionExpression,
+    N.FunctionDeclaration,
+    N.FunctionExpression,
+]);
+
+export const isFunctionType = isOneOf([
+    N.ArrowFunctionExpression,
+    N.FunctionDeclaration,
+    N.FunctionExpression,
+    N.TSCallSignatureDeclaration,
+    N.TSConstructSignatureDeclaration,
+    N.TSDeclareFunction,
+    N.TSEmptyBodyFunctionExpression,
+    N.TSFunctionType,
+    N.TSMethodSignature,
+]);
+
+export const isClass = isOneOf([N.ClassDeclaration, N.ClassExpression]);
+
+export const isLoop = isOneOf([
+    N.DoWhileStatement,
+    N.ForInStatement,
+    N.ForOfStatement,
+    N.ForStatement,
+    N.WhileStatement,
+]);
+
+export const isArrayTupleType = isOneOf([N.TSArrayType, N.TSTupleType]);
+
+export const isProperty = isOneOf([
+    N.PropertyDefinition,
+    N.TSIndexSignature,
+    N.TSParameterProperty,
+    N.TSPropertySignature,
+]);
+
+export const isTypeDeclaration = isOneOf([
+    N.TSInterfaceDeclaration,
+    N.TSTypeAliasDeclaration,
+]);
+
+/**
+ * Determines whether node equals to another node
+ * @param a node
+ * @param b node
+ * @returns true if node equal
+ * @see https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/util/isNodeEqual.ts
+ */
+export function isNodeEqual(a: TSESTree.Node, b: TSESTree.Node): boolean {
+    if (a.type !== b.type) {
+        return false;
+    }
+    if (a.type === N.ThisExpression && b.type === N.ThisExpression) {
+        return true;
+    }
+    if (a.type === N.Literal && b.type === N.Literal) {
+        return a.value === b.value;
+    }
+    if (a.type === N.Identifier && b.type === N.Identifier) {
+        return a.name === b.name;
+    }
+    if (a.type === N.MemberExpression && b.type === N.MemberExpression) {
+        return (isNodeEqual(a.property, b.property) && isNodeEqual(a.object, b.object));
+    }
+
+    return false;
+}
 
 export function isDeclaredInNode(params: {
     functionNode: TSESTree.Node;
@@ -43,12 +146,6 @@ export function isDestructorParameter(
     ])(node);
 }
 
-export const isFunction = isOneOf([
-    N.ArrowFunctionExpression,
-    N.FunctionDeclaration,
-    N.FunctionExpression,
-]);
-
 export function isIdentifierWithName(node: TSESTree.Node, name: string): node is TSESTree.Identifier {
     return ASTUtils.isIdentifier(node) && node.name === name;
 }
@@ -72,7 +169,7 @@ export function isValidReactHookName(identifier: TSESTree.Identifier | null) {
     return !!identifier && /^use[A-Z\d].*$/u.test(identifier.name);
 }
 
-export function isPossibleNamedReactComponent(node: TSESTree.Node): node is ESFunction {
+export function isPossibleNamedReactComponent(node: TSESTree.Node): node is TSESTreeFunction {
     return isFunction(node) && isValidReactComponentName(node.id);
 }
 
@@ -188,7 +285,7 @@ export function getExternalRefs(params: {
     return uniqueBy(externalRefs, (x) => x.text).map((x) => x.variable);
 }
 
-export function getFunctionIdentifier(node: ESFunction): TSESTree.Identifier | null {
+export function getFunctionIdentifier(node: TSESTreeFunction): TSESTree.Identifier | null {
     if (node.id) {
         return node.id;
     }
