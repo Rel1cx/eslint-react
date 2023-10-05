@@ -11,14 +11,6 @@ import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "./varia
 
 export const isJSXFileExt = (ext: string): ext is ".jsx" | ".tsx" => ext === ".jsx" || ext === ".tsx";
 
-export const isJSXElement = AST.is(N.JSXElement);
-
-export const isJSXFragment = AST.is(N.JSXFragment);
-
-export const isJSX = (node: TSESTree.Node): node is TSESTree.JSXElement | TSESTree.JSXFragment => {
-    return isJSXElement(node) || isJSXFragment(node);
-};
-
 /**
  * Check if a Literal or JSXText node is a line break
  * @param node The node to check

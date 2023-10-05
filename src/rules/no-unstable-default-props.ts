@@ -1,11 +1,11 @@
 import { type TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
-import { match } from "ts-pattern";
 
 import { createRule } from "../../tools/create-rule";
 import * as AST from "../utils/ast";
+import { astNodeToReadableName } from "../utils/ast-node-to-readable-name";
 import * as ComponentCollector from "../utils/component-collector";
-import { detectUnstableDefaultProp } from "../utils/unstable-default-prop-detector";
+import { isStableExpression } from "../utils/is-stable-expression";
 
 export const RULE_NAME = "no-unstable-default-props";
 
@@ -55,23 +55,23 @@ export default createRule<[], MessageID>({
                             continue;
                         }
 
-                        const [type, node] = detectUnstableDefaultProp(prop);
+                        const { value } = prop;
+                        const { right } = value;
 
-                        if (type === "NONE") {
+                        if (isStableExpression(right)) {
                             continue;
                         }
 
-                        const forbiddenType = match(type)
-                            .with("JSX_ELEMENT", () => "JSX element")
-                            .with("SYMBOL_LITERAL", () => "Symbol literal")
-                            .otherwise(t => t.toLowerCase().replaceAll("_", " "));
+                        const forbiddenType = right.type === N.CallExpression
+                            ? "Symbol creation"
+                            : astNodeToReadableName(right);
 
                         context.report({
                             data: {
                                 forbiddenType,
                             },
                             messageId: "INVALID",
-                            node,
+                            node: right,
                         });
                     }
                 }

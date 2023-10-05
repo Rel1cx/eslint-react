@@ -42,6 +42,19 @@ export type TSESTreeProperty =
     | TSESTree.TSParameterProperty
     | TSESTree.TSPropertySignature;
 
+export type TSESTreeJSX =
+    | TSESTree.JSXAttribute
+    | TSESTree.JSXChild
+    | TSESTree.JSXClosingElement
+    | TSESTree.JSXElement
+    | TSESTree.JSXExpressionContainer
+    | TSESTree.JSXFragment
+    | TSESTree.JSXOpeningElement
+    | TSESTree.JSXSpreadAttribute
+    | TSESTree.JSXSpreadChild
+    | TSESTree.JSXTagNameExpression
+    | TSESTree.JSXText;
+
 export type TSESTreeTypeDeclaration =
     | TSESTree.TSInterfaceDeclaration
     | TSESTree.TSTypeAliasDeclaration;
@@ -85,6 +98,24 @@ export const isProperty = isOneOf([
     N.TSIndexSignature,
     N.TSParameterProperty,
     N.TSPropertySignature,
+]);
+
+export const isJSXElement = is(N.JSXElement);
+
+export const isJSXFragment = is(N.JSXFragment);
+
+export const isJSX = isOneOf([
+    N.JSXElement,
+    N.JSXFragment,
+    N.JSXAttribute,
+    N.JSXSpreadAttribute,
+    N.JSXExpressionContainer,
+    N.JSXSpreadChild,
+    N.JSXText,
+    N.JSXOpeningElement,
+    N.JSXClosingElement,
+    N.JSXOpeningFragment,
+    N.JSXEmptyExpression,
 ]);
 
 export const isTypeDeclaration = isOneOf([

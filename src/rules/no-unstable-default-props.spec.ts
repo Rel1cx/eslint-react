@@ -26,28 +26,28 @@ const expectedViolations = [
         messageId: MESSAGE_ID,
         data: {
             propName: "a",
-            forbiddenType: "object literal",
+            forbiddenType: "object expression",
         },
     },
     {
         messageId: MESSAGE_ID,
         data: {
             propName: "b",
-            forbiddenType: "array literal",
+            forbiddenType: "array expression",
         },
     },
     {
         messageId: MESSAGE_ID,
         data: {
             propName: "c",
-            forbiddenType: "regex literal",
+            forbiddenType: "RegExp literal",
         },
     },
     {
         messageId: MESSAGE_ID,
         data: {
             propName: "d",
-            forbiddenType: "arrow function",
+            forbiddenType: "arrow function expression",
         },
     },
     {
@@ -82,7 +82,7 @@ const expectedViolations = [
         messageId: MESSAGE_ID,
         data: {
             propName: "i",
-            forbiddenType: "Symbol literal",
+            forbiddenType: "Symbol creation",
         },
     },
 ] as const;

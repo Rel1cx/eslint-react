@@ -3,7 +3,6 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
 import { createRule } from "../../../tools/create-rule";
 import * as AST from "../../utils/ast";
-import { isJSX } from "../../utils/jsx";
 
 export const RULE_NAME = "jsx/no-misused-comment-in-textnode";
 
@@ -35,7 +34,7 @@ export default createRule<[], MessageID>({
         }
 
         const check = (node: TSESTree.JSXText | TSESTree.Literal) => {
-            if (!isJSX(node.parent)) {
+            if (!AST.isOneOf([N.JSXElement, N.JSXFragment])(node.parent)) {
                 return;
             }
 
