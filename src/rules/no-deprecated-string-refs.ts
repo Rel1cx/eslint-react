@@ -3,24 +3,23 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
 import { createRule } from "../../tools/create-rule";
 import { isString } from "../lib/primitives";
-import * as AST from "../utils/ast";
 
 export const RULE_NAME = "no-deprecated-string-refs";
 
 type MessageID = "INVALID";
 
 function containsStringLiteral({ value }: TSESTree.JSXAttribute) {
-    return AST.is(N.Literal)(value) && isString(value.value);
+    return value?.type === N.Literal && isString(value.value);
 }
 
 function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
     return (
-        AST.is(N.JSXExpressionContainer)(value)
+        value?.type === N.JSXExpressionContainer
         && (
             // Check if the expression container contains a string literal
-            (AST.is(N.Literal)(value.expression) && isString(value.expression.value))
+            (value.expression.type === N.Literal && isString(value.expression.value))
             // Or is a template literal
-            || AST.is(N.TemplateLiteral)(value.expression)
+            || value.expression.type === N.TemplateLiteral
         )
     );
 }

@@ -23,7 +23,7 @@ const COERCE_VALID_LEFT_SIDE_EXPRESSIONS = [
 const TERNARY_INVALID_ALTERNATE_VALUES = new Set<TernaryAlternateValue>([null, false]);
 
 function getIsCoerceValidNestedLogicalExpression(node: TSESTree.Node): boolean {
-    if (AST.is(N.LogicalExpression)(node)) {
+    if (node.type === N.LogicalExpression) {
         return getIsCoerceValidNestedLogicalExpression(node.left)
             && getIsCoerceValidNestedLogicalExpression(node.right);
     }
@@ -64,7 +64,7 @@ export default createRule<[], MessageID>({
                     return;
                 }
 
-                const isJSXElementAlternate = AST.is(N.JSXElement)(node.alternate);
+                const isJSXElementAlternate = node.alternate.type === N.JSXElement;
 
                 if (isValidTernaryAlternate(node) || isJSXElementAlternate) {
                     context.report({
@@ -85,7 +85,7 @@ export default createRule<[], MessageID>({
                     return;
                 }
 
-                if (AST.is(N.Literal)(leftSide) && leftSide.value === "") {
+                if (leftSide.type === N.Literal && leftSide.value === "") {
                     return;
                 }
 

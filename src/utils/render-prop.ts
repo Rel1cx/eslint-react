@@ -23,9 +23,9 @@ export function unsafeIsRenderFunction(node: AST.TSESTreeFunction, context: Rule
     const id = AST.getFunctionIdentifier(node);
 
     if (!id?.name.startsWith("render")) {
-        return AST.is(N.JSXExpressionContainer)(parent)
-            && AST.is(N.JSXAttribute)(parent.parent)
-            && AST.is(N.JSXIdentifier)(parent.parent.name)
+        return parent.type === N.JSXExpressionContainer
+            && parent.parent.type === N.JSXAttribute
+            && parent.parent.name.type === N.JSXIdentifier
             && parent.parent.name.name.startsWith("render");
     }
 
@@ -43,10 +43,10 @@ export function unsafeIsRenderFunction(node: AST.TSESTreeFunction, context: Rule
  * @returns True if node is a render prop, false if not
  */
 export function unsafeIsRenderProp(node: TSESTree.JSXAttribute, context: RuleContext) {
-    return AST.is(N.JSXIdentifier)(node.name)
+    return node.name.type === N.JSXIdentifier
         && node.name.name.startsWith("render")
         && node.value
-        && AST.is(N.JSXExpressionContainer)(node.value)
+        && node.value.type === N.JSXExpressionContainer
         && AST.isFunction(node.value.expression)
         && unsafeIsRenderFunction(node.value.expression, context);
 }
@@ -64,9 +64,9 @@ export function unsafeIsRenderProp(node: TSESTree.JSXAttribute, context: RuleCon
  */
 export function unsafeIsDirectValueOfRenderProperty(node: TSESTree.Node) {
     return (
-        AST.is(N.Property)(node.parent)
+        node.parent?.type === N.Property
         && "key" in node.parent
-        && AST.is(N.Identifier)(node.parent.key)
+        && node.parent.key.type === N.Identifier
         && node.parent.key.name.startsWith("render")
     );
 }
@@ -85,7 +85,7 @@ export function unsafeIsDirectValueOfRenderProperty(node: TSESTree.Node) {
 export function unsafeIsDeclaredInRenderProp(node: TSESTree.Node) {
     if (
         node.parent
-        && AST.is(N.Property)(node.parent)
+        && node.parent.type === N.Property
         && "key" in node.parent
         && "name" in node.parent.key
         && node.parent.key.name.startsWith("render")
@@ -97,9 +97,9 @@ export function unsafeIsDeclaredInRenderProp(node: TSESTree.Node) {
 
     return (
         jsxExpressionContainer?.parent
-        && AST.is(N.JSXAttribute)(jsxExpressionContainer.parent)
+        && jsxExpressionContainer.parent.type === N.JSXAttribute
         && "name" in jsxExpressionContainer.parent
-        && AST.is(N.JSXIdentifier)(jsxExpressionContainer.parent.name)
+        && jsxExpressionContainer.parent.name.type === N.JSXIdentifier
         && jsxExpressionContainer.parent.name.name.startsWith("render")
     );
 }

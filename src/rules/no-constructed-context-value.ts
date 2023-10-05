@@ -2,7 +2,7 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
 import { createRule } from "../../tools/create-rule";
 import { E, F, O } from "../lib/primitives";
-import * as AST from "../utils/ast";
+import type * as AST from "../utils/ast";
 import * as ComponentCollector from "../utils/component-collector";
 import * as ConstructionDetector from "../utils/construction-detector";
 
@@ -41,7 +41,7 @@ export default createRule<[], MessageID>({
             ...listeners,
             JSXOpeningElement(node) {
                 const openingElementName = node.name;
-                if (!AST.is(N.JSXMemberExpression)(openingElementName)) {
+                if (openingElementName.type !== N.JSXMemberExpression) {
                     return;
                 }
 
@@ -51,7 +51,8 @@ export default createRule<[], MessageID>({
 
                 const maybeJSXValueAttribute = O.fromNullable(
                     node.attributes.find((attribute) => {
-                        return AST.is(N.JSXAttribute)(attribute) && attribute.name.name === "value";
+                        return attribute.type === N.JSXAttribute
+                            && attribute.name.name === "value";
                     }),
                 );
                 if (O.isNone(maybeJSXValueAttribute) || !("value" in maybeJSXValueAttribute.value)) {
@@ -59,7 +60,7 @@ export default createRule<[], MessageID>({
                 }
 
                 const valueNode = maybeJSXValueAttribute.value.value;
-                if (!AST.is(N.JSXExpressionContainer)(valueNode)) {
+                if (valueNode?.type !== N.JSXExpressionContainer) {
                     return;
                 }
 

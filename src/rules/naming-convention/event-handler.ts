@@ -5,7 +5,6 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import { createRule } from "../../../tools/create-rule";
 import { O } from "../../lib/primitives";
-import * as AST from "../../utils/ast";
 import * as JSXUtils from "../../utils/jsx";
 
 export const RULE_NAME = "naming-convention/event-handler";
@@ -120,7 +119,7 @@ export default createRule<Options, MessageID>({
                 }
 
                 const { expression } = node.value;
-                const isInlineFunction = AST.is(N.ArrowFunctionExpression)(expression);
+                const isInlineFunction = expression.type === N.ArrowFunctionExpression;
 
                 // Early return when not checking inline functions but the expression is an inline function.
                 if (!checkInlineFunction && isInlineFunction) {

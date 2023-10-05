@@ -4,7 +4,6 @@ import { isMatching, match } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
 import { E, F, O } from "../lib/primitives";
-import * as AST from "./ast";
 import { getFromContext } from "./pragma";
 import { findVariableByName, getVariablesUpToGlobal } from "./variable";
 
@@ -31,7 +30,7 @@ export function make<T extends RuleContext>(context: T) {
         const latestDef = maybeLatestDef.value;
         const { node, parent } = latestDef;
 
-        if (AST.is(N.VariableDeclarator)(node) && node.init) {
+        if (node.type === N.VariableDeclarator && node.init) {
             const { init } = node;
             if (isMatching({ type: N.MemberExpression, object: { type: N.Identifier, name: pragma } })(init)) {
                 return true;
@@ -51,13 +50,13 @@ export function make<T extends RuleContext>(context: T) {
             }
 
             const requireExpression = maybeRequireExpression.value;
-            if (!AST.is(N.Identifier)(requireExpression.callee)) {
+            if (requireExpression.callee.type !== N.Identifier) {
                 return false;
             }
 
             const calleeName = requireExpression.callee.name;
             const [firstArg] = requireExpression.arguments;
-            if (calleeName !== "require" || !AST.is(N.Literal)(firstArg)) {
+            if (calleeName !== "require" || firstArg?.type !== N.Literal) {
                 return false;
             }
 

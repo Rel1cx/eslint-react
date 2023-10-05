@@ -2,7 +2,6 @@ import { type TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
 import { createRule } from "../../tools/create-rule";
-import * as AST from "../utils/ast";
 import { astNodeToReadableName } from "../utils/ast-node-to-readable-name";
 import * as ComponentCollector from "../utils/component-collector";
 import { isStableExpression } from "../utils/is-stable-expression";
@@ -17,7 +16,7 @@ function hasUsedObjectDestructuringSyntax(params: TSESTree.FunctionExpression["p
     }
     const [param] = params;
 
-    return AST.is(N.ObjectPattern)(param);
+    return param?.type === N.ObjectPattern;
 }
 
 export default createRule<[], MessageID>({
@@ -51,7 +50,7 @@ export default createRule<[], MessageID>({
 
                     const [{ properties }] = params;
                     for (const prop of properties) {
-                        if (!AST.is(N.Property)(prop) || !AST.is(N.AssignmentPattern)(prop.value)) {
+                        if (prop.type !== N.Property || prop.value.type !== N.AssignmentPattern) {
                             continue;
                         }
 

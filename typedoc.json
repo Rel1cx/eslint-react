@@ -14,9 +14,10 @@
         "src/utils/is-create-element.ts",
         "src/utils/jsx.ts",
         "src/utils/pragma.ts",
-        "src/utils/unstable-default-prop-detector.ts",
         "src/utils/variable.ts",
-        "src/utils/render-prop.ts"
+        "src/utils/render-prop.ts",
+        "src/utils/ast-node-to-readable-name.ts",
+        "src/utils/is-stable-expression.ts"
     ],
     "name": "",
     "out": "docs/internals",

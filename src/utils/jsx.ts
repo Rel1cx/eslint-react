@@ -99,7 +99,7 @@ export const isJSXValue = memo(
                 if (isJsxTagNameExpression(node)) {
                     return true;
                 }
-                if (!isString(node.name) && !AST.is(N.Identifier)(node.name)) {
+                if (!isString(node.name) && node.name.type !== N.Identifier) {
                     return isJsxTagNameExpression(node.name);
                 }
                 const name = match(node.name)
@@ -181,11 +181,11 @@ export function findPropInProperties(
     return (propName: string): O.Option<(typeof properties)[number]> => {
         return O.fromNullable(
             properties.find((prop) => {
-                if (AST.is(N.Property)(prop)) {
+                if (prop.type === N.Property) {
                     return "name" in prop.key && prop.key.name === propName;
                 }
 
-                if (AST.is(N.SpreadElement)(prop)) {
+                if (prop.type === N.SpreadElement) {
                     if (!("argument" in prop && "name" in prop.argument)) {
                         return false;
                     }
@@ -200,7 +200,7 @@ export function findPropInProperties(
                     }
 
                     const firstDefNodeInit = maybeFirstDefNodeInit.value;
-                    if (!AST.is(N.ObjectExpression)(firstDefNodeInit)) {
+                    if (firstDefNodeInit.type !== N.ObjectExpression) {
                         return false;
                     }
 

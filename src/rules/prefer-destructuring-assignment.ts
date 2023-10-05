@@ -30,7 +30,7 @@ const defaultOptions = ["always"] as const satisfies Options;
 type MemberExpressionWithObjectName = TSESTree.MemberExpression & { object: TSESTree.Identifier };
 
 function isMemberExpressionWithObjectName(node: TSESTree.MemberExpression): node is MemberExpressionWithObjectName {
-    return AST.is(N.Identifier)(node.object) && "name" in node.object;
+    return node.object.type === N.Identifier && "name" in node.object;
 }
 
 export default createRule<Options, MessageID>({
@@ -134,7 +134,7 @@ export default createRule<Options, MessageID>({
 
                 for (const [scope, declarator] of variableDeclarators) {
                     const isComponent = AST.isFunction(scope.block) && components.includes(scope.block);
-                    const isDestructuring = declarator.init && AST.is(N.ObjectPattern)(declarator.id);
+                    const isDestructuring = declarator.init && declarator.id.type === N.ObjectPattern;
                     if (!("init" in declarator && declarator.init && "name" in declarator.init)) {
                         continue;
                     }

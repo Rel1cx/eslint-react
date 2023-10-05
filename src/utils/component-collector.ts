@@ -3,7 +3,7 @@ import { isNil } from "rambda";
 
 import type { RuleContext } from "../../typings";
 import { MutList, O } from "../lib/primitives";
-import * as AST from "./ast";
+import type * as AST from "./ast";
 import { isComponentName } from "./is-component-name";
 import { isJSXValue, isReturnStatementReturningJSX } from "./jsx";
 
@@ -18,7 +18,7 @@ export function make(context: RuleContext) {
 
     const ctx = {
         getAllComponents() {
-            if (!AST.is(N.Program)(context.getScope().block)) {
+            if (context.getScope().block.type !== N.Program) {
                 throw new Error("getAllComponents should only be called in Program:exit");
             }
 

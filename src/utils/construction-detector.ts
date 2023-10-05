@@ -74,10 +74,7 @@ export function make<T extends RuleContext>(context: T) {
             .when(AST.is(N.JSXElement), (node) => ({ type: "JSX_ELEMENT", node }))
             .when(AST.is(N.JSXFragment), (node) => ({ type: "JSX_FRAGMENT", node }))
             .when(AST.is(N.NewExpression), (node) => ({ type: "NEW_EXPRESSION", node }))
-            .when(
-                AST.is(N.ArrowFunctionExpression),
-                (node) => ({ type: "FUNCTION_EXPRESSION", node }),
-            )
+            .when(AST.is(N.ArrowFunctionExpression), (node) => ({ type: "FUNCTION_EXPRESSION", node }))
             .when(AST.is(N.MemberExpression), (node) => {
                 if (!("object" in node)) {
                     return none;
@@ -154,7 +151,7 @@ export function make<T extends RuleContext>(context: T) {
                     return none;
                 }
 
-                if (AST.is(N.FunctionDeclaration)(latestDef.node)) {
+                if (latestDef.node.type === N.FunctionDeclaration) {
                     return {
                         type: "FUNCTION_DECLARATION",
                         node: latestDef.node,

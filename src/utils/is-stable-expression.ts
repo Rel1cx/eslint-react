@@ -8,13 +8,13 @@ import * as AST from "./ast";
  * @param node
  */
 export function isStableExpression(node: TSESTree.Expression) {
-    if (AST.is(N.Literal)(node)) {
+    if (node.type === N.Literal) {
         return !("regex" in node);
     }
 
-    if (AST.is(N.CallExpression)(node)) {
+    if (node.type === N.CallExpression) {
         return !("callee" in node
-            && AST.is(N.Identifier)(node.callee)
+            && node.callee.type === N.Identifier
             && node.callee.name === "Symbol");
     }
 
