@@ -2,9 +2,9 @@ import { type TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
 import { createRule } from "../../tools/create-rule";
-import { astNodeToReadableName } from "../utils/ast-node-to-readable-name";
 import * as ComponentCollector from "../utils/component-collector";
 import { isUnstableAssignmentPattern } from "../utils/is-unstable-assignment-pattern";
+import { readableNodeType } from "../utils/readable-node-type";
 
 export const RULE_NAME = "no-unstable-default-props";
 
@@ -61,7 +61,7 @@ export default createRule<[], MessageID>({
                             continue;
                         }
 
-                        const forbiddenType = astNodeToReadableName(right);
+                        const forbiddenType = readableNodeType(right);
 
                         context.report({
                             data: {

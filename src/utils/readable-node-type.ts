@@ -6,11 +6,11 @@ import { replace, toDelimiterCase, toLowerCase } from "string-ts";
 import * as AST from "./ast";
 
 /**
- * Gets readable node name from AST node
+ * Returns human readable node type for given AST node
  * @param node AST node
- * @returns Human readable node name
+ * @returns Human readable node type
  */
-export function astNodeToReadableName(node: TSESTree.Node) {
+export function readableNodeType(node: TSESTree.Node) {
     if (node.type === N.Literal) {
         if ("regex" in node) {
             return "RegExp literal";
@@ -25,3 +25,5 @@ export function astNodeToReadableName(node: TSESTree.Node) {
 
     return toLowerCase(toDelimiterCase(node.type, " "));
 }
+
+export type ReadableNodeType = ReturnType<typeof readableNodeType>;

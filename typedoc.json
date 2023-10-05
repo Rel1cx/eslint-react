@@ -16,7 +16,7 @@
         "src/utils/pragma.ts",
         "src/utils/variable.ts",
         "src/utils/render-prop.ts",
-        "src/utils/ast-node-to-readable-name.ts",
+        "src/utils/readable-node-type.ts",
         "src/utils/is-unstable-assignment-pattern.ts"
     ],
     "name": "",
