@@ -71,7 +71,8 @@
         "lint:type": "tsc --noEmit",
         "prepare": "husky install",
         "publish": "bun run lint && bun run build && bun run test && bun x publint",
-        "test": "vitest --run --single-thread --no-threads"
+        "test": "vitest --run --single-thread --no-threads",
+        "update": "taze"
     },
     "dependencies": {
         "@typescript-eslint/scope-manager": ">=6.7.4",
@@ -119,6 +120,7 @@
         "rollup-plugin-swc3": "0.10.1",
         "skott": "0.31.2",
         "string-ts": "1.1.0",
+        "taze": "0.11.3",
         "tiny-invariant": "1.3.1",
         "ts-pattern": "5.0.5",
         "type-fest": "4.3.3",
