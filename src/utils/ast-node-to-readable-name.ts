@@ -3,6 +3,8 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { type } from "rambda";
 import { replace, toDelimiterCase, toLowerCase } from "string-ts";
 
+import * as AST from "./ast";
+
 /**
  * Gets readable node name from AST node
  * @param node AST node
@@ -17,7 +19,7 @@ export function astNodeToReadableName(node: TSESTree.Node) {
         return `${type(node.value)} literal` as const;
     }
 
-    if (node.type.startsWith("JSX")) {
+    if (AST.isJSX(node)) {
         return `JSX ${toLowerCase(toDelimiterCase(replace(node.type, "JSX", ""), " "))}` as const;
     }
 
