@@ -71,7 +71,11 @@ export const isJSXValue = memo(
                     .with(P.any, (n) => isJSXValue(n, context, strict, ignoreNull))
                     .exhaustive();
 
-                return leftHasJSX || ("alternate" in node && isJSXValue(node.alternate, context, strict, ignoreNull));
+                if (leftHasJSX) {
+                    return true;
+                }
+
+                return "alternate" in node && isJSXValue(node.alternate, context, strict, ignoreNull);
             })
             .with(N.LogicalExpression, () => {
                 if (!("left" in node)) {

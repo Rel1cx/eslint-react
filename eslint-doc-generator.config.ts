@@ -19,7 +19,7 @@ export default {
 
             return {
                 ...acc,
-                [title]: [...(acc[title] ?? []), [name, rule]],
+                [title]: [...acc[title] ?? [], [name, rule]],
             };
         }, {});
 

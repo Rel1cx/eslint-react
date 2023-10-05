@@ -82,7 +82,14 @@ const expectedViolations = [
         messageId: MESSAGE_ID,
         data: {
             propName: "i",
-            forbiddenType: "Symbol creation",
+            forbiddenType: "call expression",
+        },
+    },
+    {
+        messageId: MESSAGE_ID,
+        data: {
+            propName: "j",
+            forbiddenType: "call expression",
         },
     },
 ] as const;
@@ -91,11 +98,15 @@ ruleTester.run(RULE_NAME, rule, {
     valid: [
         ...allValid,
         dedent`
+            const emptyFunction = () => {}
+
             function App({ foo = emptyFunction }) {
                 return null
             }
         `,
         dedent`
+            const emptyFunction = () => {}
+
             function App({ foo = emptyFunction, ...rest }) {
                 return null
             }
@@ -142,7 +153,8 @@ ruleTester.run(RULE_NAME, rule, {
                     f = class {},
                     g = new Thing(),
                     h = <Thing />,
-                    i = Symbol('foo')
+                    i = Symbol('foo'),
+                    j = unknownFunction()
                 }) {
                     return null
                 }
@@ -160,7 +172,8 @@ ruleTester.run(RULE_NAME, rule, {
                     f = class {},
                     g = new Thing(),
                     h = <Thing />,
-                    i = Symbol('foo')
+                    i = Symbol('foo'),
+                    j = unknownFunction()
                 }) => {
                     return null
                 }

@@ -144,7 +144,7 @@ export function isNodeEqual(a: TSESTree.Node, b: TSESTree.Node): boolean {
         return a.name === b.name;
     }
     if (a.type === N.MemberExpression && b.type === N.MemberExpression) {
-        return (isNodeEqual(a.property, b.property) && isNodeEqual(a.object, b.object));
+        return isNodeEqual(a.property, b.property) && isNodeEqual(a.object, b.object);
     }
 
     return false;
@@ -205,7 +205,7 @@ export function isPossibleNamedReactComponent(node: TSESTree.Node): node is TSES
 }
 
 export function isPropertyOfObjectExpression(node: TSESTree.Node) {
-    return (node.parent && is(N.Property)(node.parent));
+    return node.parent && is(N.Property)(node.parent);
 }
 
 export function isPropertyWithIdentifierKey(node: TSESTree.Node, key: string): node is TSESTree.Property {

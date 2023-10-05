@@ -4,7 +4,7 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { createRule } from "../../tools/create-rule";
 import { astNodeToReadableName } from "../utils/ast-node-to-readable-name";
 import * as ComponentCollector from "../utils/component-collector";
-import { isStableExpression } from "../utils/is-stable-expression";
+import { isUnstableAssignmentPattern } from "../utils/is-unstable-assignment-pattern";
 
 export const RULE_NAME = "no-unstable-default-props";
 
@@ -24,13 +24,13 @@ export default createRule<[], MessageID>({
     meta: {
         type: "problem",
         docs: {
-            description: "disallow usage of referential-type variables as default param in function component",
+            description: "disallow usage of unstable value as default param in function component",
             recommended: "recommended",
         },
         schema: [],
         messages: {
             INVALID:
-                "found a/an {{forbiddenType}} as default prop. This could lead to potential infinite render loop in React. Use a variable reference instead of {{forbiddenType}}.",
+                "found a/an {{forbiddenType}} as default prop. This could lead to potential infinite render loop in React. Use a variable instead of {{forbiddenType}}.",
         },
     },
     defaultOptions: [],
@@ -57,13 +57,11 @@ export default createRule<[], MessageID>({
                         const { value } = prop;
                         const { right } = value;
 
-                        if (isStableExpression(right)) {
+                        if (!isUnstableAssignmentPattern(value)) {
                             continue;
                         }
 
-                        const forbiddenType = right.type === N.CallExpression
-                            ? "Symbol creation"
-                            : astNodeToReadableName(right);
+                        const forbiddenType = astNodeToReadableName(right);
 
                         context.report({
                             data: {

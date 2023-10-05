@@ -52,6 +52,6 @@ export function getVariableNthDefNodeInit(at: number) {
             O.some(variable),
             O.flatMapNullable((v) => v.defs.at(at)),
             O.flatMapNullable((d) => d.node),
-            O.flatMapNullable((n) => ("init" in n ? n.init : null)),
+            O.flatMapNullable((n) => "init" in n ? n.init : null),
         );
 }

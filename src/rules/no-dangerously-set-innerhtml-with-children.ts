@@ -43,7 +43,7 @@ export default createRule<[], MessageID>({
                         return F.pipe(
                             findVariableByNameUpToGlobal(n.name, context.getScope()),
                             O.flatMap(getVariableNthDefNodeInit(0)),
-                            O.flatMapNullable((n) => ("properties" in n ? n.properties : null)),
+                            O.flatMapNullable((n) => "properties" in n ? n.properties : null),
                         );
                     })
                     .otherwise(O.none);

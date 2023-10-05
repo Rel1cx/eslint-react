@@ -96,13 +96,13 @@ export default [
 
 ### react
 
-| Name                                                                                                   | Description                                                                         | 💼    | ⚠️  |
-| :----------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------- | :---- | :- |
-| [no-constructed-context-value](docs/rules/no-constructed-context-value.md)                             | disallows passing constructed values to context providers                           | 👍 🔍 |    |
-| [no-dangerously-set-innerhtml](docs/rules/no-dangerously-set-innerhtml.md)                             | disallow when a DOM element is using both children and dangerouslySetInnerHTML'     | 👍 🔍 |    |
-| [no-dangerously-set-innerhtml-with-children](docs/rules/no-dangerously-set-innerhtml-with-children.md) | disallow when a DOM element is using both children and dangerouslySetInnerHTML'     | 👍 🔍 |    |
-| [no-deprecated-string-refs](docs/rules/no-deprecated-string-refs.md)                                   | disallow using deprecated string refs                                               | 👍 🔍 |    |
-| [no-unstable-default-props](docs/rules/no-unstable-default-props.md)                                   | disallow usage of referential-type variables as default param in function component | 👍 🔍 |    |
+| Name                                                                                                   | Description                                                                     | 💼    | ⚠️  |
+| :----------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ | :---- | :- |
+| [no-constructed-context-value](docs/rules/no-constructed-context-value.md)                             | disallows passing constructed values to context providers                       | 👍 🔍 |    |
+| [no-dangerously-set-innerhtml](docs/rules/no-dangerously-set-innerhtml.md)                             | disallow when a DOM element is using both children and dangerouslySetInnerHTML' | 👍 🔍 |    |
+| [no-dangerously-set-innerhtml-with-children](docs/rules/no-dangerously-set-innerhtml-with-children.md) | disallow when a DOM element is using both children and dangerouslySetInnerHTML' | 👍 🔍 |    |
+| [no-deprecated-string-refs](docs/rules/no-deprecated-string-refs.md)                                   | disallow using deprecated string refs                                           | 👍 🔍 |    |
+| [no-unstable-default-props](docs/rules/no-unstable-default-props.md)                                   | disallow usage of unstable value as default param in function component         | 👍 🔍 |    |
 
 <!-- end auto-generated rules list -->
 

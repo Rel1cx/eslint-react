@@ -17,6 +17,7 @@
     "rules": {
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/no-confusing-void-expression": "off",
+        "@typescript-eslint/no-extra-parens": "warn",
         "@typescript-eslint/no-floating-promises": "off",
         "@typescript-eslint/no-redeclare": "off",
         "@typescript-eslint/no-unused-expressions": "warn",

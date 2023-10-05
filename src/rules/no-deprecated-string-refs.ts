@@ -13,15 +13,15 @@ function containsStringLiteral({ value }: TSESTree.JSXAttribute) {
 }
 
 function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
-    return (
-        value?.type === N.JSXExpressionContainer
-        && (
-            // Check if the expression container contains a string literal
-            (value.expression.type === N.Literal && isString(value.expression.value))
-            // Or is a template literal
-            || value.expression.type === N.TemplateLiteral
-        )
-    );
+    if (value?.type !== N.JSXExpressionContainer) {
+        return false;
+    }
+
+    if (value.expression.type === N.Literal) {
+        return isString(value.expression.value);
+    }
+
+    return value.expression.type === N.TemplateLiteral;
 }
 
 export default createRule<[], MessageID>({
