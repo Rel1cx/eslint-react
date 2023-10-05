@@ -15,21 +15,6 @@
         "filenames-simple"
     ],
     "rules": {
-        "@typescript-eslint/explicit-module-boundary-types": "off",
-        "@typescript-eslint/no-confusing-void-expression": "off",
-        "@typescript-eslint/no-extra-parens": "warn",
-        "@typescript-eslint/no-floating-promises": "off",
-        "@typescript-eslint/no-redeclare": "off",
-        "@typescript-eslint/no-unused-expressions": "warn",
-        "@typescript-eslint/no-unused-vars": [
-            "warn",
-            {
-                "args": "all",
-                "destructuredArrayIgnorePattern": "^_",
-                "varsIgnorePattern": "^_"
-            }
-        ],
-        "@typescript-eslint/no-use-before-define": "off",
         "@typescript-eslint/prefer-readonly": "error",
         "@typescript-eslint/strict-boolean-expressions": "error",
         "array-callback-return": "off",

@@ -3,6 +3,7 @@
     "typescript": {
         "indentWidth": 4,
         "quoteStyle": "preferDouble",
+        "quoteProps": "asNeeded",
         "importDeclaration.sortNamedImports": "maintain",
         "exportDeclaration.sortNamedExports": "maintain",
         "module.sortImportDeclarations": "maintain",
