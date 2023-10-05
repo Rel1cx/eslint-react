@@ -14,7 +14,7 @@ Certain values (like arrays, objects, functions, etc) are compared by identity i
 
 When using object destructuring syntax you can set the default value for a given property if it does not exist. If you set the default value to one of the values that is compared by identity, it will mean that each time the destructure is evaluated the JS engine will create a new, distinct value in the destructured variable.
 
-In the context of a React functional component's props argument this means for each render, the property has a new, distinct value. When this value is passed to a hook as a dependency or passed into a child component as a property React will see this as a new value - meaning that a hook will be re-evaluated, or a memoized component will rerender.
+In the context of a React function component's props argument this means for each render, the property has a new, distinct value. When this value is passed to a hook as a dependency or passed into a child component as a property React will see this as a new value - meaning that a hook will be re-evaluated, or a memoized component will rerender.
 
 This obviously destroys any performance benefits you get from memoization. Additionally, in certain circumstances this can cause infinite rerender loops, which can often be hard to debug.
 

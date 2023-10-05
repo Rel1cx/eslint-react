@@ -1,6 +1,6 @@
 # eslint-plugin-react-ts
 
-ESLint plugin to lint TypeScript React and Preact function components using the @typescript-eslint ecosystem.
+ESLint plugin for React and Preact function components with TypeScript, built from scratch (almost).
 
 > **Warning**
 > This plugin is still in early development, and will likely change significantly before reaching a stable version.
@@ -156,15 +156,11 @@ export default [
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## THIRD-PARTY-LICENSE
+## Inspiration
 
-This project uses code from following third-party projects:
-
-- [eslint-plugin-perfectionist](https://github.com/azat-io/eslint-plugin-perfectionist) (MIT)
-- [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) (MIT)
-- [eslint-plugin-solid](https://github.com/solidjs-community/eslint-plugin-solid) (MIT)
-- [@tanstack/eslint-plugin-query](https://github.com/TanStack/query/tree/main/packages/eslint-plugin-query) (MIT)
-- [eslint-plugin-filenames-simple](https://github.com/epaew/eslint-plugin-filenames-simple) (MIT)
-- [eslint-plugin-functional](https://github.com/eslint-functional/eslint-plugin-functional) (MIT)
-
-Licenses are list in [THIRD-PARTY-LICENSE](THIRD-PARTY-LICENSE)
+- [eslint-plugin-perfectionist](https://github.com/azat-io/eslint-plugin-perfectionist)
+- [eslint-plugin-solid](https://github.com/solidjs-community/eslint-plugin-solid)
+- [eslint-plugin-functional](https://github.com/eslint-functional/eslint-plugin-functional)
+- [eslint-plugin-filenames-simple](https://github.com/epaew/eslint-plugin-filenames-simple)
+- [@tanstack/eslint-plugin-query](https://github.com/TanStack/query/tree/main/packages/eslint-plugin-query)
+- [rome/tools](https://github.com/rome/tools)
