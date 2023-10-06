@@ -1,5 +1,6 @@
+import { allFunctions } from "../../../test/common/valid/functions";
 import RuleTester, { getFixturesRootDir } from "../../../test/rule-tester";
-import rule, { RULE_NAME } from "./function-component";
+import rule, { RULE_NAME } from "./context";
 
 const rootDir = getFixturesRootDir();
 
@@ -17,6 +18,8 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-    valid: [],
+    valid: [
+        ...allFunctions,
+    ],
     invalid: [],
 });
