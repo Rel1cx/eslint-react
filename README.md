@@ -127,6 +127,9 @@ export default [
 - [ ] `react-ts/no-unstable-nested-components`
 - [ ] `react-ts/no-missing-display-name`
 - [ ] `react-ts/no-direct-mutation-state`
+- [x] `react-ts/debug/function-component`
+- [ ] `react-ts/debug/render-prop`
+- [ ] `react-ts/debug/context`
 - [ ] ...
 
 ### Planned (will be added in the future)
