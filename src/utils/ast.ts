@@ -47,14 +47,23 @@ export type TSESTreeJSX =
     | TSESTree.JSXAttribute
     | TSESTree.JSXChild
     | TSESTree.JSXClosingElement
+    | TSESTree.JSXClosingFragment
     | TSESTree.JSXElement
+    | TSESTree.JSXEmptyExpression
+    | TSESTree.JSXExpression
     | TSESTree.JSXExpressionContainer
     | TSESTree.JSXFragment
+    | TSESTree.JSXIdentifier
+    | TSESTree.JSXIdentifierToken
+    | TSESTree.JSXMemberExpression
+    | TSESTree.JSXNamespacedName
     | TSESTree.JSXOpeningElement
+    | TSESTree.JSXOpeningFragment
     | TSESTree.JSXSpreadAttribute
     | TSESTree.JSXSpreadChild
     | TSESTree.JSXTagNameExpression
-    | TSESTree.JSXText;
+    | TSESTree.JSXText
+    | TSESTree.JSXTextToken;
 
 export type TSESTreeTypeDeclaration =
     | TSESTree.TSInterfaceDeclaration
@@ -106,17 +115,22 @@ export const isJSXElement = is(N.JSXElement);
 export const isJSXFragment = is(N.JSXFragment);
 
 export const isJSX = isOneOf([
-    N.JSXElement,
-    N.JSXFragment,
     N.JSXAttribute,
-    N.JSXSpreadAttribute,
+    N.JSXSpreadChild,
+    N.JSXClosingElement,
+    N.JSXClosingFragment,
+    N.JSXElement,
+    N.JSXEmptyExpression,
     N.JSXExpressionContainer,
+    N.JSXFragment,
+    N.JSXIdentifier,
+    N.JSXMemberExpression,
+    N.JSXNamespacedName,
+    N.JSXOpeningElement,
+    N.JSXOpeningFragment,
+    N.JSXSpreadAttribute,
     N.JSXSpreadChild,
     N.JSXText,
-    N.JSXOpeningElement,
-    N.JSXClosingElement,
-    N.JSXOpeningFragment,
-    N.JSXEmptyExpression,
 ]);
 
 export const isTypeDeclaration = isOneOf([
