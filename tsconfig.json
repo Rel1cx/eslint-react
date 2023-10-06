@@ -28,9 +28,6 @@
     "plugins": [
         {
             "name": "@effect/language-service"
-        },
-        {
-            "name": "eslint-plugin-import-access"
         }
     ]
 }
