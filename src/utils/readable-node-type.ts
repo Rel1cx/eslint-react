@@ -1,5 +1,4 @@
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { type } from "rambda";
 import { replace, toDelimiterCase, toLowerCase } from "string-ts";
 
@@ -11,7 +10,7 @@ import * as AST from "./ast";
  * @returns Human readable node type
  */
 export function readableNodeType(node: TSESTree.Node) {
-    if (node.type === N.Literal) {
+    if (AST.isLiteral(node)) {
         if ("regex" in node) {
             return "RegExp literal";
         }

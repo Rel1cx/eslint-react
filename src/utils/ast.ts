@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import type TSESLintScopeManager from "@typescript-eslint/scope-manager";
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 import { ASTUtils } from "@typescript-eslint/utils";
@@ -177,7 +178,10 @@ export function isDestructorParameter(
     ])(node);
 }
 
-export function isIdentifierWithName(node: TSESTree.Node, name: string): node is TSESTree.Identifier {
+export function isIdentifierWithName<const T extends string>(
+    node: TSESTree.Node,
+    name: T,
+): node is TSESTree.Identifier & { name: T } {
     return ASTUtils.isIdentifier(node) && node.name === name;
 }
 
@@ -188,8 +192,14 @@ export function isIdentifierWithOneOfNames<T extends string[]>(
     return ASTUtils.isIdentifier(node) && name.includes(node.name);
 }
 
+export const isLiteral = is(N.Literal);
+
+export function isRegExpLiteral(node: TSESTree.Node): node is TSESTree.RegExpLiteral {
+    return node.type === N.Literal && "regex" in node;
+}
+
 export function isStringLiteral(node: TSESTree.Node | null | undefined): node is TSESTree.StringLiteral {
-    return is(N.Literal)(node) && isString(node.value);
+    return node?.type === N.Literal && isString(node.value);
 }
 
 export function isValidReactComponentName(identifier: TSESTree.Identifier | null) {
@@ -204,12 +214,21 @@ export function isPossibleNamedReactComponent(node: TSESTree.Node): node is TSES
     return isFunction(node) && isValidReactComponentName(node.id);
 }
 
-export function isPropertyOfObjectExpression(node: TSESTree.Node) {
-    return node.parent && is(N.Property)(node.parent);
+export function isPropertyOfObjectExpression(
+    node: TSESTree.Node,
+): node is TSESTree.Node & { parent: TSESTree.Property } {
+    return node.parent?.type === N.Property;
 }
 
-export function isPropertyWithIdentifierKey(node: TSESTree.Node, key: string): node is TSESTree.Property {
-    return is(N.Property)(node) && isIdentifierWithName(node.key, key);
+export function isPropertyWithIdentifierKey<const T extends string>(node: TSESTree.Node, key: T): node is
+    & TSESTree.Property
+    & {
+        key:
+            & TSESTree.Identifier
+            & { name: T };
+    }
+{
+    return node.type === N.Property && isIdentifierWithName(node.key, key);
 }
 
 /**
@@ -272,7 +291,7 @@ export function traverseUpOnlyPredicate<T extends TSESTree.Node>(
 ): T | null {
     const { parent } = node;
 
-    if (!parent || is(N.Program)(parent)) {
+    if (!parent || parent.type === N.Program) {
         return null;
     }
 
@@ -321,7 +340,7 @@ export function getFunctionIdentifier(node: TSESTreeFunction): TSESTree.Identifi
         return node.id;
     }
 
-    if (is(N.ArrowFunctionExpression)(node) || is(N.FunctionExpression)(node)) {
+    if (isOneOf([N.ArrowFunctionExpression, N.FunctionExpression])(node)) {
         return "id" in node.parent && ASTUtils.isIdentifier(node.parent.id) ? node.parent.id : null;
     }
 
@@ -349,57 +368,57 @@ export function getFunctionAncestor(context: RuleContext) {
 export const getNestedIdentifiers = memo((node: TSESTree.Node): TSESTree.Identifier[] => {
     const identifiers: TSESTree.Identifier[] = [];
 
-    if (is(N.Identifier)(node)) {
+    if (ASTUtils.isIdentifier(node)) {
         identifiers.push(node);
     }
 
     if ("arguments" in node) {
-        for (const arg of node.arguments) {
-            identifiers.push(...getNestedIdentifiers(arg));
-        }
+        node.arguments.forEach((x) => {
+            identifiers.push(...getNestedIdentifiers(x));
+        });
     }
 
     if ("elements" in node) {
-        for (const element of node.elements) {
-            if (!isNil(element)) {
-                identifiers.push(...getNestedIdentifiers(element));
+        node.elements.forEach((x) => {
+            if (x !== null) {
+                identifiers.push(...getNestedIdentifiers(x));
             }
-        }
+        });
     }
 
     if ("properties" in node) {
-        for (const property of node.properties) {
-            identifiers.push(...getNestedIdentifiers(property));
-        }
+        node.properties.forEach((x) => {
+            identifiers.push(...getNestedIdentifiers(x));
+        });
     }
 
     if ("expressions" in node) {
-        for (const expression of node.expressions) {
-            identifiers.push(...getNestedIdentifiers(expression));
-        }
+        node.expressions.forEach((x) => {
+            identifiers.push(...getNestedIdentifiers(x));
+        });
     }
 
-    if (is(N.Property)(node)) {
+    if (node.type === N.Property) {
         identifiers.push(...getNestedIdentifiers(node.value));
     }
 
-    if (is(N.SpreadElement)(node)) {
+    if (node.type === N.SpreadElement) {
         identifiers.push(...getNestedIdentifiers(node.argument));
     }
 
-    if (is(N.MemberExpression)(node)) {
+    if (node.type === N.MemberExpression) {
         identifiers.push(...getNestedIdentifiers(node.object));
     }
 
-    if (is(N.UnaryExpression)(node)) {
+    if (node.type === N.UnaryExpression) {
         identifiers.push(...getNestedIdentifiers(node.argument));
     }
 
-    if (is(N.ChainExpression)(node)) {
+    if (node.type === N.ChainExpression) {
         identifiers.push(...getNestedIdentifiers(node.expression));
     }
 
-    if (is(N.TSNonNullExpression)(node)) {
+    if (node.type === N.TSNonNullExpression) {
         identifiers.push(...getNestedIdentifiers(node.expression));
     }
 
@@ -409,60 +428,71 @@ export const getNestedIdentifiers = memo((node: TSESTree.Node): TSESTree.Identif
 export const getNestedReturnStatements = memo((node: TSESTree.Node): TSESTree.ReturnStatement[] => {
     const returnStatements: TSESTree.ReturnStatement[] = [];
 
-    if (is(N.ReturnStatement)(node)) {
+    if (node.type === N.ReturnStatement) {
         returnStatements.push(node);
     }
 
     if ("body" in node && !isNil(node.body)) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         Array.isArray(node.body)
             ? node.body.forEach((x) => {
                 returnStatements.push(...getNestedReturnStatements(x));
             })
-            : returnStatements.push(...getNestedReturnStatements(node.body));
+            : returnStatements.push(
+                ...getNestedReturnStatements(node.body),
+            );
     }
 
     if ("consequent" in node) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         Array.isArray(node.consequent)
             ? node.consequent.forEach((x) => {
                 returnStatements.push(...getNestedReturnStatements(x));
             })
-            : returnStatements.push(...getNestedReturnStatements(node.consequent));
+            : returnStatements.push(
+                ...getNestedReturnStatements(node.consequent),
+            );
     }
 
-    if ("alternate" in node && !isNil(node.alternate)) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    if ("alternate" in node && node.alternate !== null) {
         Array.isArray(node.alternate)
             ? node.alternate.forEach((x: TSESTree.Node) => {
                 returnStatements.push(...getNestedReturnStatements(x));
             })
-            : returnStatements.push(...getNestedReturnStatements(node.alternate));
+            : returnStatements.push(
+                ...getNestedReturnStatements(node.alternate),
+            );
     }
 
     if ("cases" in node) {
-        for (const x of node.cases) {
+        node.cases.forEach((x) => {
             returnStatements.push(...getNestedReturnStatements(x));
-        }
+        });
     }
 
     if ("block" in node) {
         returnStatements.push(...getNestedReturnStatements(node.block));
     }
 
-    if ("handler" in node && !isNil(node.handler)) {
+    if ("handler" in node && node.handler !== null) {
         returnStatements.push(...getNestedReturnStatements(node.handler));
     }
 
-    if ("finalizer" in node && !isNil(node.finalizer)) {
-        returnStatements.push(...getNestedReturnStatements(node.finalizer));
+    if ("finalizer" in node && node.finalizer !== null) {
+        returnStatements.push(
+            ...getNestedReturnStatements(node.finalizer),
+        );
     }
 
-    if ("expression" in node && node.expression !== true && node.expression !== false) {
-        returnStatements.push(...getNestedReturnStatements(node.expression));
+    if (
+        "expression" in node
+        && node.expression !== true
+        && node.expression !== false
+    ) {
+        returnStatements.push(
+            ...getNestedReturnStatements(node.expression),
+        );
     }
 
-    if ("test" in node && !isNil(node.test)) {
+    if ("test" in node && node.test !== null) {
         returnStatements.push(...getNestedReturnStatements(node.test));
     }
 
@@ -478,7 +508,7 @@ export function getReferencedExpressionByIdentifier(params: {
     // dprint-ignore
     const resolvedNode = context.getScope().references.find((ref) => ref.identifier === node)?.resolved?.defs[0]?.node;
 
-    if (!is(N.VariableDeclarator)(resolvedNode)) {
+    if (resolvedNode?.type !== N.VariableDeclarator) {
         return null;
     }
 
