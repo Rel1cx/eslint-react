@@ -1,6 +1,6 @@
 // Rule name primitive definitions, used to guide rule naming.
 
-export type Namespace = "compat" | "debug" | "hooks" | "jsx" | "naming-convention";
+export type Namespace = "compat" | "debug" | "hooks" | "jsx" | "naming-convention" | "rsc";
 
 type No = "no";
 

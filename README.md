@@ -138,6 +138,7 @@ export default [
 - [ ] `react-ts/no-legacy-class-components`
 - [ ] `react-ts/no-legacy-clone-element`
 - [ ] `react-ts/no-legacy-createRef`
+- [ ] `react-ts/rsc/...`
 - [ ] ...
 
 ## Philosophy
