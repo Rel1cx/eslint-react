@@ -76,7 +76,7 @@ export function isES6Component(node: TSESTree.Node, context: RuleContext) {
 }
 
 /**
- * Get the parent ES5 component of a node up to global scope
+ * Get the parent ES6 component of a node up to global scope
  * @param context The rule context
  * @package
  * @deprecated It will be removed in the future.
@@ -127,6 +127,41 @@ export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
  */
 export const isStateMemberExpression: (node: TSESTree.Node) => boolean = isMatching({
     type: N.MemberExpression,
-    object: { type: N.ThisExpression },
-    property: { name: "state" },
+    object: {
+        type: N.ThisExpression,
+    },
+    property: {
+        name: "state",
+    },
 });
+
+/**
+ * Check whether given node is declared inside class component's render block
+ * ```jsx
+ * class Component extends React.Component {
+ *   render() {
+ *     class NestedClassComponent extends React.Component {
+ *      render() {}
+ *    }
+ *  }
+ * }
+ * ```
+ * @param node The AST node being checked
+ * @param context
+ * @returns True if node is inside class component's render block, false if not
+ * @package
+ * @deprecated It will be removed in the future.
+ */
+export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) {
+    if (!getParentES6Component(context)) {
+        return false;
+    }
+
+    return isMatching({
+        type: N.MethodDefinition,
+        key: {
+            type: N.Identifier,
+            name: "render",
+        },
+    })(node.parent);
+}
