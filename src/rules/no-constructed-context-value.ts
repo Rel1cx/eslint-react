@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
     create(context) {
         const { ctx, listeners } = ComponentCollector.make(context);
         const detectConstruction = ConstructionDetector.make(context);
-        const possibleValueConstructions = new Map<AST.TSESTreeFunction, ConstructionDetector.ConstructionDetail>();
+        const possibleValueConstructions = new Map<AST.TSESTreeFunction, ConstructionDetector.Construction>();
 
         return {
             ...listeners,
@@ -67,7 +67,7 @@ export default createRule<[], MessageID>({
                 const valueExpression = valueNode.expression;
                 const invocationScope = context.getScope();
                 const constructionDetail = detectConstruction(valueExpression, invocationScope);
-                if (constructionDetail.type === "NONE") {
+                if (constructionDetail._tag === "None") {
                     return;
                 }
 
@@ -82,18 +82,18 @@ export default createRule<[], MessageID>({
                 const components = ctx.getAllComponents();
 
                 for (const [fn, detail] of possibleValueConstructions.entries()) {
-                    if (!components.includes(fn) || detail.type === "NONE") {
+                    if (!components.includes(fn) || detail._tag === "None") {
                         continue;
                     }
 
-                    const messageId = detail.type.startsWith("FUNCTION")
+                    const messageId = detail._tag.startsWith("Function")
                         ? "CONTEXT_VALUE_CONSTRUCTION_FUNCTION"
                         : "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER";
 
-                    const { type, node } = detail;
+                    const { _tag, node } = detail;
                     context.report({
                         data: {
-                            type: type.replaceAll("_", "").toLowerCase(),
+                            type: _tag.replaceAll("_", "").toLowerCase(),
                         },
                         messageId,
                         node,

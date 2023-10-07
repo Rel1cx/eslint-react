@@ -5,181 +5,178 @@ import { match } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
 import { isNil, isObject, isString, O } from "../lib/primitives";
+import { Data } from "../lib/primitives";
 import * as AST from "./ast";
 
-export type ConstructionDetail = Readonly<
-    | {
-        type: "NONE";
-    }
-    // eslint-disable-next-line perfectionist/sort-union-types
-    | {
-        type: "ARRAY";
+export type Construction = Data.TaggedEnum<{
+    None: {};
+    Array: {
         node: TSESTree.ArrayExpression;
-    }
-    | {
-        type: "ASSIGNMENT_EXPRESSION";
+        usage?: TSESTree.Node;
+    };
+    AssignmentExpression: {
         node: TSESTree.Node;
         usage: TSESTree.Node;
-    }
-    | {
-        type: "CLASS_EXPRESSION";
+    };
+    ClassExpression: {
         node: TSESTree.ClassExpression;
-    }
-    | {
-        type: "FUNCTION_DECLARATION";
+        usage?: TSESTree.Node;
+    };
+    FunctionDeclaration: {
         node: TSESTree.FunctionDeclaration;
         usage: TSESTree.Expression | TSESTree.Identifier;
-    }
-    | {
-        type: "FUNCTION_EXPRESSION";
+    };
+    FunctionExpression: {
         node: TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression;
-    }
-    | {
-        type: "JSX_ELEMENT";
+        usage?: TSESTree.Node;
+    };
+    JSXElement: {
         node: TSESTree.JSXElement;
-    }
-    | {
-        type: "JSX_FRAGMENT";
+        usage?: TSESTree.Node;
+    };
+    JSXFragment: {
         node: TSESTree.JSXFragment;
-    }
-    | {
-        type: "NEW_EXPRESSION";
+        usage?: TSESTree.Node;
+    };
+    NewExpression: {
         node: TSESTree.NewExpression;
-    }
-    | {
-        type: "OBJECT_EXPRESSION";
+        usage?: TSESTree.Node;
+    };
+    ObjectExpression: {
         node: TSESTree.ObjectExpression;
-    }
-    | {
-        type: "REGULAR_EXPRESSION";
+        usage?: TSESTree.Node;
+    };
+    RegExpLiteral: {
         node: TSESTree.Literal;
-    }
->;
+        usage?: TSESTree.Node;
+    };
+}>;
 
-const none = { type: "NONE" } as const satisfies ConstructionDetail;
+export const Construction = Data.taggedEnum<Construction>();
+
+const None = Construction("None")();
 
 /**
- * Detect the construction type of a node
+ * Detect the construction of a given node.
  * @internal
  * @param context The rule context
  */
 export function make<T extends RuleContext>(context: T) {
     // eslint-disable-next-line sonarjs/cognitive-complexity
-    const detect = (node: TSESTree.Node, scope = context.getScope()): ConstructionDetail => {
-        return match<TSESTree.Node, ConstructionDetail>(node)
-            .when(AST.is(N.ArrayExpression), (node) => ({ type: "ARRAY", node }))
-            .when(AST.is(N.ObjectExpression), (node) => ({ type: "OBJECT_EXPRESSION", node }))
-            .when(AST.is(N.ClassExpression), (node) => ({ type: "CLASS_EXPRESSION", node }))
-            .when(AST.is(N.FunctionExpression), (node) => ({ type: "FUNCTION_EXPRESSION", node }))
-            .when(AST.is(N.JSXElement), (node) => ({ type: "JSX_ELEMENT", node }))
-            .when(AST.is(N.JSXFragment), (node) => ({ type: "JSX_FRAGMENT", node }))
-            .when(AST.is(N.NewExpression), (node) => ({ type: "NEW_EXPRESSION", node }))
-            .when(AST.is(N.ArrowFunctionExpression), (node) => ({ type: "FUNCTION_EXPRESSION", node }))
+    const detect = (node: TSESTree.Node, scope = context.getScope()): Construction => {
+        return match(node)
+            .when(AST.is(N.ArrayExpression), (node) => Construction("Array")({ node }))
+            .when(AST.is(N.ObjectExpression), (node) => Construction("ObjectExpression")({ node }))
+            .when(AST.is(N.ClassExpression), (node) => Construction("ClassExpression")({ node }))
+            .when(AST.is(N.JSXElement), (node) => Construction("JSXElement")({ node }))
+            .when(AST.is(N.JSXFragment), (node) => Construction("JSXFragment")({ node }))
+            .when(AST.is(N.NewExpression), (node) => Construction("NewExpression")({ node }))
+            .when(AST.isOneOf([N.FunctionExpression, N.ArrowFunctionExpression]), (node) => {
+                return Construction("FunctionExpression")({ node });
+            })
             .when(AST.is(N.MemberExpression), (node) => {
                 if (!("object" in node)) {
-                    return none;
+                    return None;
                 }
 
                 const object = detect(node.object);
 
-                if (object.type === "NONE") {
+                if (object._tag === "None") {
                     return object;
                 }
 
-                return {
+                return Construction(object._tag)({
                     ...object,
                     usage: node.object,
-                } as const;
+                });
             })
             .when(AST.is(N.AssignmentExpression), (node) => {
                 if (!("right" in node)) {
-                    return none;
+                    return None;
                 }
 
                 const right = detect(node.right);
 
-                if (right.type === "NONE") {
+                if (right._tag === "None") {
                     return right;
                 }
 
-                return {
-                    type: "ASSIGNMENT_EXPRESSION",
+                return Construction("AssignmentExpression")({
                     node: right.node,
                     usage: node,
-                };
+                });
             })
             .when(AST.is(N.LogicalExpression), (node) => {
                 if (!("left" in node && "right" in node)) {
-                    return none;
+                    return None;
                 }
 
                 const left = detect(node.left);
 
-                if (left.type === "NONE") {
-                    return left;
+                if (left._tag === "None") {
+                    return None;
                 }
 
                 return detect(node.right);
             })
             .when(AST.is(N.ConditionalExpression), (node) => {
                 if (!("consequent" in node && "alternate" in node && !isNil(node.alternate))) {
-                    return none;
+                    return None;
                 }
 
                 const consequent = detect(node.consequent);
 
-                if (consequent.type === "NONE") {
-                    return consequent;
+                if (consequent._tag === "None") {
+                    return None;
                 }
 
                 return detect(node.alternate);
             })
             .when(AST.is(N.Identifier), (node) => {
                 if (!("name" in node && isString(node.name))) {
-                    return none;
+                    return None;
                 }
 
                 const maybeLatestDef = O.fromNullable(scope.set.get(node.name)?.defs.at(-1));
 
                 if (O.isNone(maybeLatestDef)) {
-                    return none;
+                    return None;
                 }
 
                 const latestDef = maybeLatestDef.value;
 
                 if (latestDef.type !== DefinitionType.Variable && latestDef.type !== DefinitionType.FunctionName) {
-                    return none;
+                    return None;
                 }
 
                 if (latestDef.node.type === N.FunctionDeclaration) {
-                    return {
-                        type: "FUNCTION_DECLARATION",
+                    return Construction("FunctionDeclaration")({
                         node: latestDef.node,
                         usage: node,
-                    };
+                    });
                 }
 
                 if (!("init" in latestDef.node) || latestDef.node.init === null) {
-                    return none;
+                    return None;
                 }
 
                 return detect(latestDef.node.init);
             })
             .when(AST.is(N.Literal), (node) => {
                 if ("regex" in node) {
-                    return { type: "REGULAR_EXPRESSION", node };
+                    return Construction("RegExpLiteral")({ node });
                 }
 
-                return none;
+                return None;
             })
             .when(AST.isOneOf([N.TSAsExpression, N.TSTypeAssertion]), () => {
                 if (!("expression" in node) || !isObject(node.expression)) {
-                    return none;
+                    return None;
                 }
 
                 return detect(node.expression);
             })
-            .otherwise(() => none);
+            .otherwise(() => None);
     };
 
     return detect;
