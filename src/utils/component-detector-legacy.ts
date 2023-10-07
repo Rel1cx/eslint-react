@@ -5,6 +5,7 @@ import { isMatching, match, P } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
 import { E, F } from "../lib/primitives";
+import { traverseUp } from "./ast";
 import { getCreateClassFromContext, getFromContext } from "./pragma";
 
 /**
@@ -141,8 +142,9 @@ export const isStateMemberExpression: (node: TSESTree.Node) => boolean = isMatch
  * class Component extends React.Component {
  *   render() {
  *     class NestedClassComponent extends React.Component {
- *      render() {}
- *    }
+ *      render() { return <div />; }
+ *     }
+ *     const nestedFunctionComponent = () => <div />;
  *  }
  * }
  * ```
@@ -153,15 +155,23 @@ export const isStateMemberExpression: (node: TSESTree.Node) => boolean = isMatch
  * @deprecated It will be removed in the future.
  */
 export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) {
-    if (!getParentES6Component(context)) {
+    const predicate = (node: TSESTree.Node): node is TSESTree.MethodDefinition => {
+        return isMatching({
+            type: N.MethodDefinition,
+            key: {
+                type: N.Identifier,
+                name: "render",
+            },
+        })(node);
+    };
+
+    const methodDefinition = traverseUp(predicate)(node);
+
+    if (!methodDefinition) {
         return false;
     }
 
-    return isMatching({
-        type: N.MethodDefinition,
-        key: {
-            type: N.Identifier,
-            name: "render",
-        },
-    })(node.parent);
+    return methodDefinition.parent.type === N.ClassBody
+        && methodDefinition.parent.parent.type === N.ClassDeclaration
+        && isES6Component(methodDefinition.parent.parent, context);
 }
