@@ -1,10 +1,9 @@
 import { AST_NODE_TYPES as N, type TSESTree } from "@typescript-eslint/utils";
-import memo from "micro-memoize";
 import { match } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
 import { E, F } from "../lib/primitives";
-import * as destructuredFromPragmaDetector from "./destructured-from-pragma-detector";
+import { isDestructuredFromPragma } from "./is-destructured-from-pragma";
 import { getFromContext } from "./pragma";
 
 /**
@@ -13,8 +12,8 @@ import { getFromContext } from "./pragma";
  * @param context The rule context.
  * @returns `true` if the node is a call expression to `createElement`.
  */
-export const isCreateElement = memo((node: TSESTree.Node, context: RuleContext) => {
-    if (!("callee" in node)) {
+export const isCreateElement = (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
+    if (node.type !== N.CallExpression || !("callee" in node)) {
         return false;
     }
 
@@ -24,7 +23,6 @@ export const isCreateElement = memo((node: TSESTree.Node, context: RuleContext) 
     }
 
     const pragma = maybePragma.right;
-    const isDestructuredFromPragma = destructuredFromPragmaDetector.make(context);
 
     return match(node.callee)
         .with(
@@ -35,6 +33,6 @@ export const isCreateElement = memo((node: TSESTree.Node, context: RuleContext) 
             },
             F.constTrue,
         )
-        .with({ name: "createElement" }, ({ name }) => isDestructuredFromPragma(name))
+        .with({ name: "createElement" }, ({ name }) => isDestructuredFromPragma(name, context))
         .otherwise(F.constFalse);
-});
+};

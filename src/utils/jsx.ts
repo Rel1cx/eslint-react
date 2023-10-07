@@ -124,15 +124,15 @@ export const isJSXValue = memo(
 );
 
 /**
- * Check if a return statement is returning JSX
+ * Check if node has a return statement is returning JSX
  * @param node The return statement node to check
  * @param context The rule context
  * @param strict Whether to check all branches of the conditional expression
  * @param ignoreNull Whether to ignore null values
  * @returns boolean
  */
-export function isReturnStatementReturningJSX(
-    node: TSESTree.ReturnStatement,
+export function isNodeReturningJSX(
+    node: TSESTree.Node,
     context: RuleContext,
     strict = false,
     ignoreNull = false,
@@ -268,4 +268,13 @@ export function findPropInAttributes(
             }),
         );
     };
+}
+
+export function isDeclaredInJSXAttribute(node: TSESTree.Node) {
+    const matcher = (node: TSESTree.Node): node is TSESTree.JSXAttribute => {
+        return node.type === N.JSXAttribute
+            && node.value?.type === N.JSXExpressionContainer;
+    };
+
+    return !!AST.traverseUp(node, matcher);
 }

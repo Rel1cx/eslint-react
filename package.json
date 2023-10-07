@@ -125,7 +125,7 @@
         "ts-pattern": "5.0.5",
         "type-fest": "4.3.3",
         "typedoc": "0.25.1",
-        "typescript": ">=5.2.2",
+        "typescript": "5.3.0-beta",
         "vitest": "0.34.6"
     },
     "peerDependencies": {

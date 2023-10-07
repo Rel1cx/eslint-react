@@ -140,7 +140,7 @@ export const isStateMemberExpression: (node: TSESTree.Node) => boolean = isMatch
  * Check whether given node is declared inside class component's render block
  * @param node The AST node being checked
  * @param context
- * @returns True if node is inside class component's render block, false if not
+ * @returns `true` if node is inside class component's render block, `false` if not
  * @package
  * @deprecated It will be removed in the future.
  * @example
@@ -157,22 +157,22 @@ export const isStateMemberExpression: (node: TSESTree.Node) => boolean = isMatch
  */
 export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) {
     const predicate = (node: TSESTree.Node): node is TSESTree.MethodDefinition => {
-        return isMatching({
+        const isClassComponentLike = isMatching({
             type: N.MethodDefinition,
             key: {
                 type: N.Identifier,
                 name: "render",
             },
+            parent: {
+                type: N.ClassBody,
+                parent: {
+                    type: N.ClassDeclaration,
+                },
+            },
         })(node);
+
+        return isClassComponentLike && isES6Component(node.parent.parent, context);
     };
 
-    const methodDefinition = traverseUp(predicate)(node);
-
-    if (!methodDefinition) {
-        return false;
-    }
-
-    return methodDefinition.parent.type === N.ClassBody
-        && methodDefinition.parent.parent.type === N.ClassDeclaration
-        && isES6Component(methodDefinition.parent.parent, context);
+    return !!traverseUp(node, predicate);
 }

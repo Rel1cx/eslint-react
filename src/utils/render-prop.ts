@@ -9,7 +9,7 @@ import { isJSXValue } from "./jsx";
  * Unsafe check whether given node is a render function
  * @param node The AST node to check
  * @param context Rule context
- * @returns True if node is a render function, false if not
+ * @returns `true` if node is a render function, `false` if not
  * @example
  * ```jsx
  * const renderRow = () => <div />
@@ -37,7 +37,7 @@ export function unsafeIsRenderFunction(node: AST.TSESTreeFunction, context: Rule
  * Unsafe check whether given JSXAttribute is a render prop
  * @param node The AST node to check
  * @param context Rule context
- * @returns True if node is a render prop, false if not
+ * @returns `true` if node is a render prop, `false` if not
  * @example
  * ```jsx
  * _ = <Component renderRow={() => <div />} />
@@ -56,7 +56,7 @@ export function unsafeIsRenderProp(node: TSESTree.JSXAttribute, context: RuleCon
 /**
  * Unsafe check whether given node is declared directly inside a render property
  * @param node The AST node to check
- * @returns True if component is declared inside a render property, false if not
+ * @returns `true` if component is declared inside a render property, `false` if not
  * @example
  * ```jsx
  * const rows = { render: () => <div /> }
@@ -77,7 +77,7 @@ export function unsafeIsDirectValueOfRenderProperty(node: TSESTree.Node) {
 /**
  * Unsafe check whether given node is declared inside a render prop
  * @param node The AST node to check
- * @returns True if component is declared inside a render prop, false if not
+ * @returns `true` if component is declared inside a render prop, `false` if not
  * @example
  * ```jsx
  * _ = <Component renderRow={"node"} />
@@ -97,7 +97,7 @@ export function unsafeIsDeclaredInRenderProp(node: TSESTree.Node) {
         return true;
     }
 
-    const jsxExpressionContainer = AST.traverseUp(AST.is(N.JSXExpressionContainer))(node);
+    const jsxExpressionContainer = AST.traverseUp(node, AST.is(N.JSXExpressionContainer));
 
     return (
         jsxExpressionContainer?.parent

@@ -1,3 +1,3 @@
-# react-ts/no-unstable-default-props
+# react-ts/no-unstable-nested-components
 
 WIP.

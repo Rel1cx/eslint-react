@@ -142,7 +142,7 @@ export const isTypeDeclaration = isOneOf([
  * Determines whether node equals to another node
  * @param a node
  * @param b node
- * @returns true if node equal
+ * @returns `true` if node equal
  * @see https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/util/isNodeEqual.ts
  */
 export function isNodeEqual(a: TSESTree.Node, b: TSESTree.Node): boolean {
@@ -249,7 +249,7 @@ export function isPropertyWithIdentifierKey<const T extends string>(node: TSESTr
 /**
  * Unsafe check whether given node or its parent is directly inside `map` call
  * @param node The AST node to check
- * @returns True if node is directly inside `map` call, false if not
+ * @returns `true` if node is directly inside `map` call, `false` if not
  * @example
  * ```jsx
  * _ = <div>{items.map(item => <li />)}</div>
@@ -269,13 +269,13 @@ export function unsafeIsMapCall(node: TSESTree.Node | null): node is TSESTree.Ca
 /**
  * Unsafe check whether given node is `ReturnStatement` of a React hook
  * @param node The AST node to check
- * @returns True if node is a `ReturnStatement` of a React hook, false if not
+ * @returns `true` if node is a `ReturnStatement` of a React hook, `false` if not
  */
 export function unsafeIsReturnStatementOfReactHook(node: TSESTree.Node | null): node is TSESTree.ReturnStatement {
     if (!node || !is(N.ReturnStatement)(node.parent)) {
         return false;
     }
-    const callExpression = traverseUp(is(N.CallExpression))(node);
+    const callExpression = traverseUp(node, is(N.CallExpression));
 
     return (
         !!callExpression
@@ -292,21 +292,34 @@ export function findPropertyWithIdentifierKey(
 }
 
 export function traverseUp<T extends TSESTree.Node>(
+    node: TSESTree.Node,
     predicate: (node: TSESTree.Node) => node is T,
-) {
-    return (node: TSESTree.Node): T | null => {
-        const { parent } = node;
+): T | null {
+    const { parent } = node;
 
-        if (!parent || parent.type === N.Program) {
-            return null;
-        }
+    if (!parent || parent.type === N.Program) {
+        return null;
+    }
 
-        return predicate(parent) ? parent : traverseUp(predicate)(parent);
-    };
+    return predicate(parent) ? parent : traverseUp(parent, predicate);
+}
+
+export function traverseUpWithContext<T extends TSESTree.Node>(
+    node: TSESTree.Node,
+    context: RuleContext,
+    predicate: (node: TSESTree.Node, context: RuleContext) => node is T,
+): T | null {
+    const { parent } = node;
+
+    if (!parent || parent.type === N.Program) {
+        return null;
+    }
+
+    return predicate(parent, context) ? parent : traverseUpWithContext(parent, context, predicate);
 }
 
 export function mapKeyNodeToText(node: TSESTree.Node, sourceCode: Readonly<TSESLint.SourceCode>) {
-    const upperNode = traverseUp(isOneOf([N.MemberExpression, N.Identifier]))(node);
+    const upperNode = traverseUp(node, isOneOf([N.MemberExpression, N.Identifier]));
 
     return upperNode ? sourceCode.getText(upperNode) : null;
 }
@@ -325,10 +338,13 @@ export function getExternalRefs(params: {
     const references = scope.references
         .filter((x) => x.isRead() && !scope.set.has(x.identifier.name))
         .map((x) => {
-            const referenceNode = traverseUp(isOneOf([
-                N.MemberExpression,
-                N.Identifier,
-            ]))(x.identifier);
+            const referenceNode = traverseUp(
+                x.identifier,
+                isOneOf([
+                    N.MemberExpression,
+                    N.Identifier,
+                ]),
+            );
 
             if (!referenceNode) {
                 return null;

@@ -1,11 +1,10 @@
 import { AST_NODE_TYPES as N, type TSESTree } from "@typescript-eslint/types";
-import { isNil } from "rambda";
 
 import type { RuleContext } from "../../typings";
 import { MutList, O } from "../lib/primitives";
-import type * as AST from "./ast";
+import * as AST from "./ast";
 import { isComponentName } from "./is-component-name";
-import { isJSXValue, isReturnStatementReturningJSX } from "./jsx";
+import { isJSXValue, isNodeReturningJSX } from "./jsx";
 
 const seenComponents = new WeakSet<AST.TSESTreeFunction>();
 
@@ -57,7 +56,12 @@ export function make(context: RuleContext) {
                 return;
             }
 
-            if (!isReturnStatementReturningJSX(node, context)) {
+            const functionId = AST.getFunctionIdentifier(currentFn);
+            if (functionId && !isComponentName(functionId.name)) {
+                return;
+            }
+
+            if (!isNodeReturningJSX(node, context)) {
                 return;
             }
 
@@ -87,13 +91,9 @@ export function make(context: RuleContext) {
                 return;
             }
 
-            const { parent } = currentFn;
-
-            if ("id" in parent && !isNil(parent.id) && "name" in parent.id) {
-                const { name } = parent.id;
-                if (!isComponentName(name)) {
-                    return;
-                }
+            const functionId = AST.getFunctionIdentifier(currentFn);
+            if (functionId && !isComponentName(functionId.name)) {
+                return;
             }
 
             seenComponents.add(currentFn);
