@@ -1,4 +1,7 @@
 {
+    "cleanOutputDir": true,
+    "darkHighlightTheme": "dark-plus",
+    "disableSources": true,
     "entryPoints": [
         "typings/index.ts",
         "src/lib/case-validator/case-validator.ts",
@@ -19,18 +22,17 @@
         "src/utils/readable-node-type.ts",
         "src/utils/is-unstable-assignment-pattern.ts"
     ],
+    "hideGenerator": true,
+    "jsDocCompatibility": true,
+    "logLevel": "Error",
     "name": "",
     "out": "docs/internals",
-    "theme": "default",
     "readme": "none",
-    "disableSources": true,
-    "hideGenerator": true,
     "sort": [
         "kind",
         "instance-first",
         "alphabetical"
     ],
-    "darkHighlightTheme": "dark-plus",
-    "jsDocCompatibility": true,
+    "theme": "default",
     "useTsLinkResolution": true
 }
