@@ -93,7 +93,7 @@ export function unsafeIsDeclaredInRenderProp(node: TSESTree.Node) {
         return true;
     }
 
-    const jsxExpressionContainer = AST.traverseUp(node, AST.is(N.JSXExpressionContainer));
+    const jsxExpressionContainer = AST.traverseUp(AST.is(N.JSXExpressionContainer))(node);
 
     return (
         jsxExpressionContainer?.parent

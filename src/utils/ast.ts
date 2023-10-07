@@ -165,12 +165,15 @@ export function isNodeEqual(a: TSESTree.Node, b: TSESTree.Node): boolean {
     return false;
 }
 
-export function isDeclaredInNode(params: {
+export function isDeclaredInNode({
+    functionNode,
+    reference,
+    scopeManager,
+}: {
     functionNode: TSESTree.Node;
     reference: TSESLintScopeManager.Reference;
     scopeManager: TSESLint.Scope.ScopeManager;
 }) {
-    const { functionNode, reference, scopeManager } = params;
     const scope = scopeManager.acquire(functionNode);
 
     return !!scope?.set.has(reference.identifier.name);
@@ -181,16 +184,14 @@ export function isDeclaredInNode(params: {
  * @param node The node to check
  * @returns boolean
  */
-export function isDestructorParameter(
-    node: TSESTree.Parameter,
-): node is TSESTree.ArrayPattern | TSESTree.AssignmentPattern | TSESTree.ObjectPattern | TSESTree.RestElement {
-    return isOneOf([
-        N.ArrayPattern,
-        N.AssignmentPattern,
-        N.ObjectPattern,
-        N.RestElement,
-    ])(node);
-}
+export const isDestructorParameter: (
+    node: TSESTree.Node,
+) => node is TSESTree.ArrayPattern | TSESTree.AssignmentPattern | TSESTree.ObjectPattern | TSESTree.RestElement = isOneOf([
+    N.ArrayPattern,
+    N.AssignmentPattern,
+    N.ObjectPattern,
+    N.RestElement,
+]);
 
 export function isIdentifierWithName<const T extends string>(
     node: TSESTree.Node,
@@ -273,7 +274,7 @@ export function unsafeIsReturnStatementOfReactHook(node: TSESTree.Node | null): 
     if (!node || !is(N.ReturnStatement)(node.parent)) {
         return false;
     }
-    const callExpression = traverseUp(node, is(N.CallExpression));
+    const callExpression = traverseUp(is(N.CallExpression))(node);
 
     return (
         !!callExpression
@@ -290,20 +291,21 @@ export function findPropertyWithIdentifierKey(
 }
 
 export function traverseUp<T extends TSESTree.Node>(
-    node: TSESTree.Node,
-    predicate?: (node: TSESTree.Node) => node is T,
-): T | null {
-    const { parent } = node;
+    predicate: (node: TSESTree.Node) => node is T,
+) {
+    return (node: TSESTree.Node): T | null => {
+        const { parent } = node;
 
-    if (!parent || parent.type === N.Program) {
-        return null;
-    }
+        if (!parent || parent.type === N.Program) {
+            return null;
+        }
 
-    return predicate?.(parent) ? parent : traverseUp(parent, predicate);
+        return predicate(parent) ? parent : traverseUp(predicate)(parent);
+    };
 }
 
 export function mapKeyNodeToText(node: TSESTree.Node, sourceCode: Readonly<TSESLint.SourceCode>) {
-    const upperNode = traverseUp(node, isOneOf([N.MemberExpression, N.Identifier]));
+    const upperNode = traverseUp(isOneOf([N.MemberExpression, N.Identifier]))(node);
 
     return upperNode ? sourceCode.getText(upperNode) : null;
 }
@@ -322,13 +324,10 @@ export function getExternalRefs(params: {
     const references = scope.references
         .filter((x) => x.isRead() && !scope.set.has(x.identifier.name))
         .map((x) => {
-            const referenceNode = traverseUp(
-                x.identifier,
-                isOneOf([
-                    N.MemberExpression,
-                    N.Identifier,
-                ]),
-            );
+            const referenceNode = traverseUp(isOneOf([
+                N.MemberExpression,
+                N.Identifier,
+            ]))(x.identifier);
 
             if (!referenceNode) {
                 return null;
@@ -521,8 +520,13 @@ export function getReferencedExpressionByIdentifier(params: {
 }) {
     const { context, node } = params;
 
-    // dprint-ignore
-    const resolvedNode = context.getScope().references.find((ref) => ref.identifier === node)?.resolved?.defs[0]?.node;
+    const resolvedNode = context
+        .getScope()
+        .references
+        .find((ref) => ref.identifier === node)
+        ?.resolved
+        ?.defs.at(0)
+        ?.node;
 
     if (resolvedNode?.type !== N.VariableDeclarator) {
         return null;
