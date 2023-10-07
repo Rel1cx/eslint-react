@@ -273,7 +273,7 @@ export function unsafeIsReturnStatementOfReactHook(node: TSESTree.Node | null): 
     if (!node || !is(N.ReturnStatement)(node.parent)) {
         return false;
     }
-    const callExpression = traverseUpOnlyPredicate(node, is(N.CallExpression));
+    const callExpression = traverseUp(node, is(N.CallExpression));
 
     return (
         !!callExpression
@@ -289,19 +289,9 @@ export function findPropertyWithIdentifierKey(
     return properties.find((x) => isPropertyWithIdentifierKey(x, key));
 }
 
-export function traverseUpOnly(node: TSESTree.Node, allowedNodeTypes: N[]): TSESTree.Node {
-    const { parent } = node;
-
-    if (parent && isOneOf(allowedNodeTypes)(parent)) {
-        return traverseUpOnly(parent, allowedNodeTypes);
-    }
-
-    return node;
-}
-
-export function traverseUpOnlyPredicate<T extends TSESTree.Node>(
+export function traverseUp<T extends TSESTree.Node>(
     node: TSESTree.Node,
-    predicate: (node: TSESTree.Node) => node is T,
+    predicate?: (node: TSESTree.Node) => node is T,
 ): T | null {
     const { parent } = node;
 
@@ -309,13 +299,13 @@ export function traverseUpOnlyPredicate<T extends TSESTree.Node>(
         return null;
     }
 
-    return predicate(parent) ? parent : traverseUpOnlyPredicate(parent, predicate);
+    return predicate?.(parent) ? parent : traverseUp(parent, predicate);
 }
 
 export function mapKeyNodeToText(node: TSESTree.Node, sourceCode: Readonly<TSESLint.SourceCode>) {
-    return sourceCode.getText(
-        traverseUpOnly(node, [N.MemberExpression, N.Identifier]),
-    );
+    const upperNode = traverseUp(node, isOneOf([N.MemberExpression, N.Identifier]));
+
+    return upperNode ? sourceCode.getText(upperNode) : null;
 }
 
 export function getExternalRefs(params: {
@@ -332,17 +322,29 @@ export function getExternalRefs(params: {
     const references = scope.references
         .filter((x) => x.isRead() && !scope.set.has(x.identifier.name))
         .map((x) => {
-            const referenceNode = traverseUpOnly(x.identifier, [
-                N.MemberExpression,
-                N.Identifier,
-            ]);
+            const referenceNode = traverseUp(
+                x.identifier,
+                isOneOf([
+                    N.MemberExpression,
+                    N.Identifier,
+                ]),
+            );
+
+            if (!referenceNode) {
+                return null;
+            }
 
             return {
                 node: referenceNode,
                 text: sourceCode.getText(referenceNode),
                 variable: x,
             };
-        });
+        })
+        .filter((x) => x !== null) as {
+            node: TSESTree.Node;
+            text: string;
+            variable: TSESLint.Scope.Reference;
+        }[];
     const localRefIds = new Set([...scope.set.values()].map((x) => sourceCode.getText(x.identifiers[0])));
     const externalRefs = references.filter((x) => isNil(x.variable.resolved) || !localRefIds.has(x.text));
 
