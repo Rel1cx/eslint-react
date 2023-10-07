@@ -1,12 +1,13 @@
 {
     "compilerOptions": {
-        "jsx": "preserve",
         "target": "ESNext",
         "module": "ESNext",
-        "lib": ["ES2015", "ES2017", "ESNext"],
+        "jsx": "preserve",
         "strict": true,
         "esModuleInterop": true,
         "experimentalDecorators": true
     },
-    "include": ["**/*.ts", "**/*.tsx"]
+    "include": [
+        "."
+    ],
 }
