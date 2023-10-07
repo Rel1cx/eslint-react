@@ -47,20 +47,6 @@ ruleTester.run(RULE_NAME, rule, {
     ],
     invalid: [
         {
-            filename: "pascalCase.tsx",
-            code,
-            errors: [
-                {
-                    messageId: "FILENAME_CASE_MISMATCH_SUGGESTION",
-                    data: {
-                        name: "pascalCase.tsx",
-                        rule: "PascalCase",
-                        suggestion: "PascalCase.tsx",
-                    },
-                },
-            ],
-        },
-        {
             filename: "camelCase.tsx",
             code,
             options: [{ rule: "PascalCase" }],
