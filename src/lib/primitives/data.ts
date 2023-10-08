@@ -1,10 +1,7 @@
-export * as Data from "@effect/data/Data";
-export * as E from "@effect/data/Either";
-export * as Equal from "@effect/data/Equal";
-export * as F from "@effect/data/Function";
-export * as MutList from "@effect/data/MutableList";
-export * as MutRef from "@effect/data/MutableRef";
-export * as Num from "@effect/data/Number";
-export * as O from "@effect/data/Option";
-export * as Rec from "@effect/data/ReadonlyRecord";
-export * as Str from "@effect/data/String";
+export * as Data from "effect/Data";
+export * as E from "effect/Either";
+export * as Equal from "effect/Equal";
+export * as F from "effect/Function";
+export * as MutList from "effect/MutableList";
+export * as MutRef from "effect/MutableRef";
+export * as O from "effect/Option";

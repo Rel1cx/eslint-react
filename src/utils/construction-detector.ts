@@ -1,7 +1,7 @@
-import { isObject, isString } from "@effect/data/Predicate";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
+import { isObject, isString } from "effect/Predicate";
 import { isNil } from "rambda";
 import { match } from "ts-pattern";
 

@@ -1,5 +1,5 @@
-import { isString } from "@effect/data/Predicate";
 import { AST_NODE_TYPES as N, type TSESTree } from "@typescript-eslint/utils";
+import { isString } from "effect/Predicate";
 import memo from "micro-memoize";
 import { match, P } from "ts-pattern";
 

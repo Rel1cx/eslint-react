@@ -1,8 +1,8 @@
-import { isString } from "@effect/data/Predicate";
 import type TSESLintScopeManager from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
+import { isString } from "effect/Predicate";
 import { isMatching } from "ts-pattern";
 
 import { isOneOf, type TSESTreeFunction } from "./ast-types";

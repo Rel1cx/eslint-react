@@ -1,6 +1,6 @@
-import { isString } from "@effect/data/Predicate";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
+import { isString } from "effect/Predicate";
 
 import { createRule } from "../../tools/create-rule";
 export const RULE_NAME = "no-deprecated-string-refs";

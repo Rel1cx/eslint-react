@@ -1,6 +1,6 @@
-import { isObject } from "@effect/data/Predicate";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
+import { isObject } from "effect/Predicate";
 import { match } from "ts-pattern";
 
 import { F } from "../lib/primitives";
