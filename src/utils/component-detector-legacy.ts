@@ -138,12 +138,6 @@ export const isStateMemberExpression: (node: TSESTree.Node) => boolean = isMatch
 
 /**
  * Check whether given node is declared inside class component's render block
- * @param node The AST node being checked
- * @param context
- * @returns `true` if node is inside class component's render block, `false` if not
- * @package
- * @deprecated It will be removed in the future.
- * @example
  * ```jsx
  * class Component extends React.Component {
  *   render() {
@@ -154,6 +148,11 @@ export const isStateMemberExpression: (node: TSESTree.Node) => boolean = isMatch
  *  }
  * }
  * ```
+ * @param node The AST node being checked
+ * @param context
+ * @returns `true` if node is inside class component's render block, `false` if not
+ * @package
+ * @deprecated It will be removed in the future.
  */
 export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) {
     const predicate = (node: TSESTree.Node): node is TSESTree.MethodDefinition => {
