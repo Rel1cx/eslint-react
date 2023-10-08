@@ -275,7 +275,7 @@ export function unsafeIsReturnStatementOfReactHook(node: TSESTree.Node | null): 
     if (!node || !is(N.ReturnStatement)(node.parent)) {
         return false;
     }
-    const callExpression = traverseUp(node, is(N.CallExpression));
+    const callExpression = traverseUpGuard(node, is(N.CallExpression));
 
     return (
         !!callExpression
@@ -291,10 +291,13 @@ export function findPropertyWithIdentifierKey(
     return properties.find((x) => isPropertyWithIdentifierKey(x, key));
 }
 
-export function traverseUp<T extends TSESTree.Node>(
-    node: TSESTree.Node,
-    predicate: (node: TSESTree.Node) => node is T,
-): T | null {
+/**
+ * Traverses up the AST tree until the predicate returns `true` or the root node is reached.
+ * @param node The AST node to start traversing from.
+ * @param predicate The predicate to check each node.
+ * @returns The first node that matches the predicate or `null` if no node matches.
+ */
+export function traverseUp(node: TSESTree.Node, predicate: (node: TSESTree.Node) => boolean): TSESTree.Node | null {
     const { parent } = node;
 
     if (!parent || parent.type === N.Program) {
@@ -304,10 +307,16 @@ export function traverseUp<T extends TSESTree.Node>(
     return predicate(parent) ? parent : traverseUp(parent, predicate);
 }
 
-export function traverseUpWithContext<T extends TSESTree.Node>(
+/**
+ * Traverses up the AST tree until the predicate returns `true` or the root node is reached.
+ * @template T
+ * @param node The AST node to start traversing from.
+ * @param predicate The predicate to check each node. **must be a type guard**.
+ * @returns The first node that matches the predicate or `null` if no node matches.
+ */
+export function traverseUpGuard<T extends TSESTree.Node>(
     node: TSESTree.Node,
-    context: RuleContext,
-    predicate: (node: TSESTree.Node, context: RuleContext) => node is T,
+    predicate: (node: TSESTree.Node) => node is T,
 ): T | null {
     const { parent } = node;
 
@@ -315,11 +324,11 @@ export function traverseUpWithContext<T extends TSESTree.Node>(
         return null;
     }
 
-    return predicate(parent, context) ? parent : traverseUpWithContext(parent, context, predicate);
+    return predicate(parent) ? parent : traverseUpGuard(parent, predicate);
 }
 
 export function mapKeyNodeToText(node: TSESTree.Node, sourceCode: Readonly<TSESLint.SourceCode>) {
-    const upperNode = traverseUp(node, isOneOf([N.MemberExpression, N.Identifier]));
+    const upperNode = traverseUpGuard(node, isOneOf([N.MemberExpression, N.Identifier]));
 
     return upperNode ? sourceCode.getText(upperNode) : null;
 }
@@ -338,7 +347,7 @@ export function getExternalRefs(params: {
     const references = scope.references
         .filter((x) => x.isRead() && !scope.set.has(x.identifier.name))
         .map((x) => {
-            const referenceNode = traverseUp(
+            const referenceNode = traverseUpGuard(
                 x.identifier,
                 isOneOf([
                     N.MemberExpression,

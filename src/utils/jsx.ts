@@ -276,5 +276,5 @@ export function isDeclaredInJSXAttribute(node: TSESTree.Node) {
             && node.value?.type === N.JSXExpressionContainer;
     };
 
-    return !!AST.traverseUp(node, matcher);
+    return !!AST.traverseUpGuard(node, matcher);
 }

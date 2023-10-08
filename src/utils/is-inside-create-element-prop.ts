@@ -12,7 +12,11 @@ import { isCreateElement } from "./is-create-element";
  * @returns `true` if the node is inside createElement prop.
  */
 export function isInsideCreateElementProp(node: TSESTree.Node, context: RuleContext) {
-    const parentCreateElement = AST.traverseUpWithContext(node, context, isCreateElement);
+    const parentCreateElement = AST.traverseUp(node, n => isCreateElement(n, context));
 
-    return parentCreateElement?.arguments.at(1) === AST.traverseUp(node, AST.is(N.ObjectExpression));
+    if (parentCreateElement?.type !== N.CallExpression) {
+        return false;
+    }
+
+    return parentCreateElement.arguments.at(1) === AST.traverseUp(node, AST.is(N.ObjectExpression));
 }

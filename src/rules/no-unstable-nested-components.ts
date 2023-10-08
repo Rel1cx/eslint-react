@@ -4,7 +4,7 @@ import { createRule } from "../../tools/create-rule";
 import {
     getFunctionIdentifier,
     isFunction,
-    traverseUp,
+    traverseUpGuard,
     type TSESTreeFunction,
     unsafeIsMapCall,
     unsafeIsReturnStatementOfReactHook,
@@ -77,7 +77,7 @@ export default createRule<[], MessageID>({
                         continue;
                     }
 
-                    const parentComponent = traverseUp(component, isComponent);
+                    const parentComponent = traverseUpGuard(component, isComponent);
 
                     if (!parentComponent) {
                         continue;
