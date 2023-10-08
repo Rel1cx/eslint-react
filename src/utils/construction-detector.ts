@@ -6,8 +6,8 @@ import { isNil } from "rambda";
 import { match } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
-import { O } from "../lib/primitives";
-import { Data } from "../lib/primitives";
+import { O } from "../lib";
+import { Data } from "../lib";
 import * as AST from "./ast-types";
 
 export type Construction = Data.TaggedEnum<{

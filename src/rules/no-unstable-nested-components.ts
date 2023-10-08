@@ -21,6 +21,7 @@ export default createRule<[], MessageID>({
         docs: {
             description: "disallow usage of unstable nested components",
             recommended: "recommended",
+            requiresTypeChecking: false,
         },
         schema: [],
         messages: {

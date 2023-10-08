@@ -4,7 +4,7 @@ import memo from "micro-memoize";
 import { isMatching, match } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
-import { E, F, O } from "../lib/primitives";
+import { E, F, O } from "../lib";
 import { getFromContext } from "./pragma";
 import { findVariableByName, getVariablesUpToGlobal } from "./variable";
 

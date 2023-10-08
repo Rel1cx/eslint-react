@@ -3,8 +3,8 @@ import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import path from "pathe";
 
 import { createRule } from "../../../tools/create-rule";
+import { O } from "../../lib";
 import { getCaseValidator } from "../../lib/case-validator/case-validator";
-import { O } from "../../lib/primitives";
 import { isJSXFileExt } from "../../utils/jsx";
 
 export const RULE_NAME = "naming-convention/filename";
@@ -50,6 +50,7 @@ export default createRule<Options, MessageID>({
         type: "suggestion",
         docs: {
             description: "enforce naming convention for jsx files",
+            requiresTypeChecking: false,
         },
         schema,
         messages: {

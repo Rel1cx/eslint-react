@@ -4,7 +4,7 @@ import { type TSESTree } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
-import { E, F } from "../lib/primitives";
+import { E, F } from "../lib";
 import { traverseUp } from "./ast-traverse";
 import { getCreateClassFromContext, getFromContext } from "./pragma";
 

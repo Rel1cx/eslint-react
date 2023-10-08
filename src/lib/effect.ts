@@ -1,3 +1,4 @@
+export * as Chunk from "effect/Chunk";
 export * as Data from "effect/Data";
 export * as E from "effect/Either";
 export * as Equal from "effect/Equal";

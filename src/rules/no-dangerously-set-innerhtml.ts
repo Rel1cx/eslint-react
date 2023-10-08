@@ -2,7 +2,7 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
 import { createRule } from "../../tools/create-rule";
-import { F, O } from "../lib/primitives";
+import { F, O } from "../lib";
 import * as AST from "../utils/ast-types";
 import { isCreateElement } from "../utils/is-create-element";
 import { findPropInAttributes, findPropInProperties } from "../utils/jsx";
@@ -19,6 +19,7 @@ export default createRule<[], MessageID>({
         docs: {
             description: "disallow when a DOM element is using both children and dangerouslySetInnerHTML'",
             recommended: "recommended",
+            requiresTypeChecking: false,
         },
         schema: [],
         messages: {

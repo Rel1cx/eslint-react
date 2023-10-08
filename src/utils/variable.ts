@@ -1,7 +1,7 @@
 import type { Variable } from "@typescript-eslint/scope-manager";
 import { type Scope } from "@typescript-eslint/scope-manager";
 
-import { F, MutRef, O } from "../lib/primitives";
+import { F, MutRef, O } from "../lib";
 
 /**
  * Find a variable through a list of variables by name

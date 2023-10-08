@@ -14,6 +14,8 @@ export default createRule<[], MessageID>({
         type: "problem",
         docs: {
             description: "disallow comments from being inserted as text nodes",
+            recommended: "recommended",
+            requiresTypeChecking: false,
         },
         schema: [],
         messages: {

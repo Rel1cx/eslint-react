@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../../../tools/create-rule";
-import { MutRef, O } from "../../lib/primitives";
+import { MutRef, O } from "../../lib";
 import { isJSXFileExt } from "../../utils/jsx";
 
 export const RULE_NAME = "naming-convention/filename-extension";
@@ -14,6 +14,7 @@ export default createRule<[], MessageID>({
         type: "suggestion",
         docs: {
             description: "enforce using `.ts` instead of `.tsx` extension when there is no JSX in the file",
+            requiresTypeChecking: false,
         },
         schema: [],
         messages: {

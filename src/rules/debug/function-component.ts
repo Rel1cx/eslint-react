@@ -13,6 +13,7 @@ export default createRule<[], MessageID>({
         docs: {
             // eslint-disable-next-line eslint-plugin/require-meta-docs-description
             description: "reports all function components, including anonymous ones",
+            requiresTypeChecking: false,
         },
         schema: [],
         messages: {

@@ -1,4 +1,3 @@
-export * from "./data";
 export * from "./enum";
 export * from "./function";
 export * from "./mapping";

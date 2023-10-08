@@ -4,7 +4,7 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import { createRule } from "../../../tools/create-rule";
-import { O } from "../../lib/primitives";
+import { O } from "../../lib";
 import * as JSXUtils from "../../utils/jsx";
 
 export const RULE_NAME = "naming-convention/event-handler";
@@ -93,6 +93,7 @@ export default createRule<Options, MessageID>({
         docs: {
             description: "enforce event handler naming conventions in JSX",
             recommended: "recommended",
+            requiresTypeChecking: false,
         },
         schema,
         messages: {

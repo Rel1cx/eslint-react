@@ -4,8 +4,8 @@ import memo from "micro-memoize";
 import { match, P } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
+import { F, O } from "../lib";
 import { isWhiteSpace } from "../lib/is-white-space";
-import { F, O } from "../lib/primitives";
 import { traverseUpGuard } from "./ast-traverse";
 import * as AST from "./ast-types";
 import { getNestedReturnStatements } from "./get-nested-return-statements";

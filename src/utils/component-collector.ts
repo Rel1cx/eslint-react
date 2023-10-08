@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES as N, type TSESTree } from "@typescript-eslint/types";
 
 import type { RuleContext } from "../../typings";
-import { MutList, O } from "../lib/primitives";
+import { MutList, O } from "../lib";
 import type * as AST from "./ast-types";
 import { isValidReactComponentName } from "./is-valid-name";
 import { isJSXValue, isNodeReturningJSX } from "./jsx";

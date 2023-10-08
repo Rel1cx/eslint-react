@@ -3,7 +3,7 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { isObject } from "effect/Predicate";
 import { match } from "ts-pattern";
 
-import { F } from "../lib/primitives";
+import { F } from "../lib";
 
 /**
  * Determines whether `createContext` is used.

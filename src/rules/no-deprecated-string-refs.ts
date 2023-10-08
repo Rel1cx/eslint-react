@@ -30,6 +30,7 @@ export default createRule<[], MessageID>({
         docs: {
             description: "disallow using deprecated string refs",
             recommended: "recommended",
+            requiresTypeChecking: false,
         },
         schema: [],
         messages: {

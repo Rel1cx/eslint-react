@@ -11,6 +11,7 @@ export default createRule<[], MessageID>({
         docs: {
             // eslint-disable-next-line eslint-plugin/require-meta-docs-description
             description: "reports all context providers",
+            requiresTypeChecking: false,
         },
         schema: [],
         messages: {

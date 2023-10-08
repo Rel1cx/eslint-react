@@ -26,6 +26,7 @@ export default createRule<[], MessageID>({
         docs: {
             description: "disallow usage of unstable value as default param in function component",
             recommended: "recommended",
+            requiresTypeChecking: false,
         },
         schema: [],
         messages: {

@@ -11,6 +11,7 @@ export default createRule<[], MessageID>({
         docs: {
             // eslint-disable-next-line eslint-plugin/require-meta-docs-description
             description: "reports all render props and render functions",
+            requiresTypeChecking: false,
         },
         schema: [],
         messages: {

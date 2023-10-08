@@ -41,6 +41,7 @@ export default createRule<Options, MessageID>({
         type: "suggestion",
         docs: {
             description: "enforce using destructuring assignment in component props and context",
+            recommended: "recommended",
         },
         schema,
         messages: {
