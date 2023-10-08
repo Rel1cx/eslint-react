@@ -1,5 +1,5 @@
 import type { RuleContext } from "../../typings";
-import type { TSESTreeFunction } from "./ast";
+import type { TSESTreeFunction } from "./ast-types";
 import { isNodeReturningJSX } from "./jsx";
 
 /**

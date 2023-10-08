@@ -2,7 +2,8 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
 import type { RuleContext } from "../../typings";
-import * as AST from "./ast";
+import { traverseUp } from "./ast-traverse";
+import * as AST from "./ast-types";
 import { isCreateElement } from "./is-create-element";
 
 /**
@@ -12,11 +13,11 @@ import { isCreateElement } from "./is-create-element";
  * @returns `true` if the node is inside createElement prop.
  */
 export function isInsideCreateElementProp(node: TSESTree.Node, context: RuleContext) {
-    const parentCreateElement = AST.traverseUp(node, n => isCreateElement(n, context));
+    const parentCreateElement = traverseUp(node, n => isCreateElement(n, context));
 
     if (parentCreateElement?.type !== N.CallExpression) {
         return false;
     }
 
-    return parentCreateElement.arguments.at(1) === AST.traverseUp(node, AST.is(N.ObjectExpression));
+    return parentCreateElement.arguments.at(1) === traverseUp(node, AST.is(N.ObjectExpression));
 }

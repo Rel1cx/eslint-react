@@ -2,7 +2,7 @@ import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
 import { createRule } from "../../tools/create-rule";
 import { E, F, O } from "../lib/primitives";
-import type * as AST from "../utils/ast";
+import type * as AST from "../utils/ast-types";
 import * as ComponentCollector from "../utils/component-collector";
 import * as ConstructionDetector from "../utils/construction-detector";
 

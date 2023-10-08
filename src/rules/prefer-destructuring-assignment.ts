@@ -5,8 +5,10 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import { createRule } from "../../tools/create-rule";
 import type { Cond } from "../../typings";
-import * as AST from "../utils/ast";
+import * as AST from "../utils/ast-types";
 import * as ComponentCollector from "../utils/component-collector";
+import { isValidReactComponentName } from "../utils/is-valid-name";
+import { isDestructorParameter } from "../utils/misc";
 
 export const RULE_NAME = "prefer-destructuring-assignment";
 
@@ -71,7 +73,7 @@ export default createRule<Options, MessageID>({
                 const components = ctx.getAllComponents();
 
                 function isFunctionComponent(block: TSESTree.Node): block is AST.TSESTreeFunction {
-                    return AST.isPossibleNamedReactComponent(block) && components.includes(block);
+                    return AST.isFunction(block) && isValidReactComponentName(block.id?.name) && components.includes(block);
                 }
 
                 if (cond === "always") {
@@ -115,7 +117,7 @@ export default createRule<Options, MessageID>({
                 for (const component of components) {
                     const [props, ctx] = component.params;
 
-                    if (props && AST.isDestructorParameter(props)) {
+                    if (props && isDestructorParameter(props)) {
                         context.report({
                             messageId: "NO_DESTRUCTOR_PROPS",
                             node: component,
@@ -124,7 +126,7 @@ export default createRule<Options, MessageID>({
                         continue;
                     }
 
-                    if (ctx && AST.isDestructorParameter(ctx)) {
+                    if (ctx && isDestructorParameter(ctx)) {
                         context.report({
                             messageId: "NO_DESTRUCTOR_CONTEXT",
                             node: component,

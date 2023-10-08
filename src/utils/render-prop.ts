@@ -2,8 +2,10 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
 import type { RuleContext } from "../../typings";
-import * as AST from "./ast";
+import { traverseUpGuard } from "./ast-traverse";
+import * as AST from "./ast-types";
 import { isJSXValue } from "./jsx";
+import { getFunctionIdentifier } from "./misc";
 
 /**
  * Unsafe check whether given node is a render function
@@ -20,7 +22,7 @@ import { isJSXValue } from "./jsx";
 export function unsafeIsRenderFunction(node: AST.TSESTreeFunction, context: RuleContext) {
     const { body, parent } = node;
 
-    const id = AST.getFunctionIdentifier(node);
+    const id = getFunctionIdentifier(node);
 
     if (!id?.name.startsWith("render")) {
         return parent.type === N.JSXExpressionContainer
@@ -93,7 +95,7 @@ export function unsafeIsDeclaredInRenderProp(node: TSESTree.Node) {
         return true;
     }
 
-    const jsxExpressionContainer = AST.traverseUpGuard(node, AST.is(N.JSXExpressionContainer));
+    const jsxExpressionContainer = traverseUpGuard(node, AST.is(N.JSXExpressionContainer));
 
     return (
         jsxExpressionContainer?.parent

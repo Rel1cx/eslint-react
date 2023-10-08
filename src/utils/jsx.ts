@@ -1,11 +1,14 @@
+import { isString } from "@effect/data/Predicate";
 import { AST_NODE_TYPES as N, type TSESTree } from "@typescript-eslint/utils";
 import memo from "micro-memoize";
 import { match, P } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
 import { isWhiteSpace } from "../lib/is-white-space";
-import { F, isString, O } from "../lib/primitives";
-import * as AST from "./ast";
+import { F, O } from "../lib/primitives";
+import { traverseUpGuard } from "./ast-traverse";
+import * as AST from "./ast-types";
+import { getNestedReturnStatements } from "./get-nested-return-statements";
 import { isCreateElement } from "./is-create-element";
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "./variable";
 
@@ -137,7 +140,7 @@ export function isNodeReturningJSX(
     strict = false,
     ignoreNull = false,
 ) {
-    const statements = AST.getNestedReturnStatements(node);
+    const statements = getNestedReturnStatements(node);
 
     return statements.some((statement) => isJSXValue(statement.argument, context, strict, ignoreNull));
 }
@@ -276,5 +279,5 @@ export function isDeclaredInJSXAttribute(node: TSESTree.Node) {
             && node.value?.type === N.JSXExpressionContainer;
     };
 
-    return !!AST.traverseUpGuard(node, matcher);
+    return !!traverseUpGuard(node, matcher);
 }

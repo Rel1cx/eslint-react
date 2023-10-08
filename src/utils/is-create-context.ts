@@ -1,8 +1,9 @@
+import { isObject } from "@effect/data/Predicate";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
-import { F, isObject } from "../lib/primitives";
+import { F } from "../lib/primitives";
 
 /**
  * Determines whether `createContext` is used.

@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
 import type { Narrow } from "../lib/primitives";
-import * as AST from "./ast";
+import * as AST from "./ast-types";
 
 export const unstableAssignmentPatternTypes = [
     N.JSXElement,

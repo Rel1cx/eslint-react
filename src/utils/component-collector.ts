@@ -2,9 +2,10 @@ import { AST_NODE_TYPES as N, type TSESTree } from "@typescript-eslint/types";
 
 import type { RuleContext } from "../../typings";
 import { MutList, O } from "../lib/primitives";
-import * as AST from "./ast";
-import { isComponentName } from "./is-component-name";
+import type * as AST from "./ast-types";
+import { isValidReactComponentName } from "./is-valid-name";
 import { isJSXValue, isNodeReturningJSX } from "./jsx";
+import { getFunctionIdentifier } from "./misc";
 
 const seenComponents = new WeakSet<AST.TSESTreeFunction>();
 
@@ -56,8 +57,8 @@ export function make(context: RuleContext) {
                 return;
             }
 
-            const functionId = AST.getFunctionIdentifier(currentFn);
-            if (functionId && !isComponentName(functionId.name)) {
+            const functionId = getFunctionIdentifier(currentFn);
+            if (functionId && !isValidReactComponentName(functionId.name)) {
                 return;
             }
 
@@ -91,8 +92,8 @@ export function make(context: RuleContext) {
                 return;
             }
 
-            const functionId = AST.getFunctionIdentifier(currentFn);
-            if (functionId && !isComponentName(functionId.name)) {
+            const functionId = getFunctionIdentifier(currentFn);
+            if (functionId && !isValidReactComponentName(functionId.name)) {
                 return;
             }
 

@@ -1,17 +1,13 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../../tools/create-rule";
-import {
-    getFunctionIdentifier,
-    isFunction,
-    traverseUpGuard,
-    type TSESTreeFunction,
-    unsafeIsMapCall,
-    unsafeIsReturnStatementOfReactHook,
-} from "../utils/ast";
+import { traverseUpGuard } from "../utils/ast-traverse";
+import { isFunction, type TSESTreeFunction } from "../utils/ast-types";
 import * as ComponentCollector from "../utils/component-collector";
 import { isComponentReturningNull } from "../utils/is-component-return-null";
 import { isDeclaredInJSXAttribute } from "../utils/jsx";
+import { getFunctionIdentifier, unsafeIsMapCall } from "../utils/misc";
+import { unsafeIsReturnStatementOfReactHook } from "../utils/react-hook";
 import { unsafeIsDeclaredInRenderProp, unsafeIsDirectValueOfRenderProperty } from "../utils/render-prop";
 
 export const RULE_NAME = "no-unstable-nested-components";

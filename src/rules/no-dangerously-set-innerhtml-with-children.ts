@@ -5,7 +5,7 @@ import { match } from "ts-pattern";
 
 import { createRule } from "../../tools/create-rule";
 import { F, O } from "../lib/primitives";
-import * as AST from "../utils/ast";
+import * as AST from "../utils/ast-types";
 import { isCreateElement } from "../utils/is-create-element";
 import { findPropInAttributes, findPropInProperties, isLineBreak } from "../utils/jsx";
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "../utils/variable";

@@ -3,7 +3,7 @@ import { type TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 
 import { createRule } from "../../../tools/create-rule";
-import * as AST from "../../utils/ast";
+import * as AST from "../../utils/ast-types";
 
 export const RULE_NAME = "jsx/no-leaked-conditional-rendering";
 

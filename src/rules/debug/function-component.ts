@@ -1,6 +1,6 @@
 import { createRule } from "../../../tools/create-rule";
-import * as AST from "../../utils/ast";
 import * as ComponentCollector from "../../utils/component-collector";
+import { getFunctionIdentifier } from "../../utils/misc";
 
 export const RULE_NAME = "debug/function-component";
 
@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
 
                 for (const component of components) {
                     const maybeName = component.id?.name;
-                    const maybeId = AST.getFunctionIdentifier(component);
+                    const maybeId = getFunctionIdentifier(component);
                     const name = maybeName ?? maybeId?.name ?? "anonymous";
 
                     context.report({
