@@ -163,6 +163,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Inspiration
 
 - [eslint-plugin-perfectionist](https://github.com/azat-io/eslint-plugin-perfectionist)
+- [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react)
 - [eslint-plugin-solid](https://github.com/solidjs-community/eslint-plugin-solid)
 - [eslint-plugin-functional](https://github.com/eslint-functional/eslint-plugin-functional)
 - [eslint-plugin-filenames-simple](https://github.com/epaew/eslint-plugin-filenames-simple)

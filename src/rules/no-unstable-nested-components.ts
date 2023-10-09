@@ -15,6 +15,7 @@ export const RULE_NAME = "no-unstable-nested-components";
 
 type MessageID = "INVALID";
 
+// TODO: add more details to the report messages and data
 export default createRule<[], MessageID>({
     name: RULE_NAME,
     meta: {
@@ -56,17 +57,13 @@ export default createRule<[], MessageID>({
 
                     if (
                         // Prevent reporting components created inside Array.map calls
-                        unsafeIsMapCall(component)
-                        || unsafeIsMapCall(component.parent)
+                        unsafeIsMapCall(component) || unsafeIsMapCall(component.parent)
                         // Do not mark components declared inside hooks (or falsy '() => null' clean-up methods)
                         || unsafeIsReturnStatementOfReactHook(component)
                         // Do not mark objects containing render methods
                         || unsafeIsDirectValueOfRenderProperty(component)
-                        // Prevent reporting nested class components twice
-                        // || isInsideRenderMethod(component, context)
                         // Prevent falsely reporting detected "components" which do not return JSX
                         || !isFunctionReturningJSX(component, context, false, true)
-                        // TODO: prevent duplicate reports
                     ) {
                         continue;
                     }
@@ -74,10 +71,6 @@ export default createRule<[], MessageID>({
                     const parentComponent = traverseUpGuard(component, isComponent);
 
                     if (parentComponent) {
-                        // const parentComponentId = getFunctionIdentifier(parentComponent);
-
-                        // const parentComponentName = parentComponentId?.name ?? "Component";
-
                         context.report({
                             messageId: "INVALID",
                             node: component,
