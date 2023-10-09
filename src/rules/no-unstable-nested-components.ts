@@ -4,9 +4,10 @@ import { createRule } from "../../tools/create-rule";
 import { traverseUpGuard } from "../utils/ast-traverse";
 import { isFunction, type TSESTreeFunction } from "../utils/ast-types";
 import * as ComponentCollector from "../utils/component-collector";
-import { isComponentReturningNull } from "../utils/is-component-return-null";
-import { isDeclaredInJSXAttribute } from "../utils/jsx";
-import { getFunctionIdentifier, unsafeIsMapCall } from "../utils/misc";
+import { isInsideRenderMethod } from "../utils/component-detector-legacy";
+import { isInsideCreateElementProps } from "../utils/is-inside-create-element-props";
+import { isDeclaredInJSXAttribute, isFunctionReturningJSX } from "../utils/jsx";
+import { unsafeIsMapCall } from "../utils/misc";
 import { unsafeIsReturnStatementOfReactHook } from "../utils/react-hook";
 import { unsafeIsDeclaredInRenderProp, unsafeIsDirectValueOfRenderProperty } from "../utils/render-prop";
 
@@ -25,7 +26,7 @@ export default createRule<[], MessageID>({
         },
         schema: [],
         messages: {
-            INVALID: "Do not define components during render. Move {{name}} outside of parent component.",
+            INVALID: "Do not define components during render. Move it outside of the parent component.",
         },
     },
     defaultOptions: [],
@@ -42,14 +43,10 @@ export default createRule<[], MessageID>({
                 };
 
                 for (const component of components) {
-                    const isDeclaredInsideProps = isDeclaredInJSXAttribute(component);
-
-                    if (isDeclaredInsideProps && !unsafeIsDeclaredInRenderProp(component)) {
+                    const isInsideJSXProps = isDeclaredInJSXAttribute(component) && !unsafeIsDeclaredInRenderProp(component);
+                    if (isInsideJSXProps || isInsideCreateElementProps(component, context)) {
                         // TODO: define a new messageId for this case
                         context.report({
-                            data: {
-                                name: "Component",
-                            },
                             messageId: "INVALID",
                             node: component,
                         });
@@ -66,9 +63,9 @@ export default createRule<[], MessageID>({
                         // Do not mark objects containing render methods
                         || unsafeIsDirectValueOfRenderProperty(component)
                         // Prevent reporting nested class components twice
-                        // || isInsideRenderMethod(node)
+                        // || isInsideRenderMethod(component, context)
                         // Prevent falsely reporting detected "components" which do not return JSX
-                        || isComponentReturningNull(component, context)
+                        || !isFunctionReturningJSX(component, context, false, true)
                         // TODO: prevent duplicate reports
                     ) {
                         continue;
@@ -76,21 +73,27 @@ export default createRule<[], MessageID>({
 
                     const parentComponent = traverseUpGuard(component, isComponent);
 
-                    if (!parentComponent) {
+                    if (parentComponent) {
+                        // const parentComponentId = getFunctionIdentifier(parentComponent);
+
+                        // const parentComponentName = parentComponentId?.name ?? "Component";
+
+                        context.report({
+                            messageId: "INVALID",
+                            node: component,
+                        });
+
                         continue;
                     }
 
-                    const parentComponentId = getFunctionIdentifier(parentComponent);
+                    const isInsideClassComponentRenderMethod = isInsideRenderMethod(component, context);
 
-                    const parentComponentName = parentComponentId?.name ?? "Component";
-
-                    context.report({
-                        data: {
-                            name: parentComponentName,
-                        },
-                        messageId: "INVALID",
-                        node: component,
-                    });
+                    if (isInsideClassComponentRenderMethod) {
+                        context.report({
+                            messageId: "INVALID",
+                            node: component,
+                        });
+                    }
                 }
             },
         };

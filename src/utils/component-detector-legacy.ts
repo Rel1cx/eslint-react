@@ -6,13 +6,27 @@ import { isMatching, match, P } from "ts-pattern";
 import type { RuleContext } from "../../typings";
 import { E, F } from "../lib";
 import { traverseUp } from "./ast-traverse";
+import type { TSESTreeFunction } from "./ast-types";
 import { getCreateClassFromContext, getFromContext } from "./pragma";
+
+const isRenderMethodLike = isMatching({
+    type: P.union(N.MethodDefinition, N.PropertyDefinition),
+    key: {
+        type: N.Identifier,
+        name: "render",
+    },
+    parent: {
+        type: N.ClassBody,
+        parent: {
+            type: N.ClassDeclaration,
+        },
+    },
+});
 
 /**
  * Check if a node is a React ES5 component
  * @param node The node to check
  * @param context The rule context
- * @package
  * @deprecated It will be removed in the future.
  */
 export function isES5Component(node: TSESTree.Node, context: RuleContext) {
@@ -49,7 +63,6 @@ export function isES5Component(node: TSESTree.Node, context: RuleContext) {
  * Check if a node is a React ES6 component
  * @param node The node to check
  * @param context The rule context
- * @package
  * @deprecated It will be removed in the future.
  */
 export function isES6Component(node: TSESTree.Node, context: RuleContext) {
@@ -79,7 +92,6 @@ export function isES6Component(node: TSESTree.Node, context: RuleContext) {
 /**
  * Get the parent ES6 component of a node up to global scope
  * @param context The rule context
- * @package
  * @deprecated It will be removed in the future.
  */
 export function getParentES6Component(context: RuleContext) {
@@ -102,7 +114,6 @@ export function getParentES6Component(context: RuleContext) {
  * Check if a node is a React PureComponent
  * @param node The node to check
  * @param context The rule context
- * @package
  * @deprecated It will be removed in the future.
  */
 export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
@@ -123,7 +134,6 @@ export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
 /**
  * Check if a node is a MemberExpression of state
  * @param node The node to check
- * @package
  * @deprecated It will be removed in the future.
  */
 export const isStateMemberExpression: (node: TSESTree.Node) => boolean = isMatching({
@@ -135,6 +145,14 @@ export const isStateMemberExpression: (node: TSESTree.Node) => boolean = isMatch
         name: "state",
     },
 });
+
+export function isFunctionOfRenderMethod(node: TSESTreeFunction, context: RuleContext) {
+    if (!isRenderMethodLike(node.parent)) {
+        return false;
+    }
+
+    return isES6Component(node.parent.parent.parent, context);
+}
 
 /**
  * Check whether given node is declared inside class component's render block
@@ -151,26 +169,13 @@ export const isStateMemberExpression: (node: TSESTree.Node) => boolean = isMatch
  * @param node The AST node being checked
  * @param context
  * @returns `true` if node is inside class component's render block, `false` if not
- * @package
  * @deprecated It will be removed in the future.
  */
 export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) {
     const predicate = (node: TSESTree.Node): node is TSESTree.MethodDefinition => {
-        const isClassComponentLike = isMatching({
-            type: N.MethodDefinition,
-            key: {
-                type: N.Identifier,
-                name: "render",
-            },
-            parent: {
-                type: N.ClassBody,
-                parent: {
-                    type: N.ClassDeclaration,
-                },
-            },
-        })(node);
+        const isRenderMethod = isRenderMethodLike(node);
 
-        return isClassComponentLike && isES6Component(node.parent.parent, context);
+        return isRenderMethod && isES6Component(node.parent.parent, context);
     };
 
     return !!traverseUp(node, predicate);

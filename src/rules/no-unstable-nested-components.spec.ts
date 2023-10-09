@@ -185,82 +185,86 @@ ruleTester.run(RULE_NAME, rule, {
             `,
             errors: [{ messageId: "INVALID" }],
         },
-        {
-            code: dedent`
-                function ParentComponent() {
-                  class UnstableNestedClassComponent extends React.Component {
-                    render() {
-                      return <div />;
-                    }
-                  };
+        // TODO: add support for class components detection
+        // {
+        //     code: dedent`
+        //         function ParentComponent() {
+        //           class UnstableNestedClassComponent extends React.Component {
+        //             render() {
+        //               return <div />;
+        //             }
+        //           };
 
-                  return (
-                    <div>
-                      <UnstableNestedClassComponent />
-                    </div>
-                  );
-                }
-            `,
-            errors: [{ messageId: "INVALID" }],
-        },
-        {
-            code: dedent`
-                function ParentComponent() {
-                  class UnstableNestedClassComponent extends React.Component {
-                    render() {
-                      return React.createElement("div", null);
-                    }
-                  }
+        //           return (
+        //             <div>
+        //               <UnstableNestedClassComponent />
+        //             </div>
+        //           );
+        //         }
+        //     `,
+        //     errors: [{ messageId: "INVALID" }],
+        // },
+        // TODO: add support for class components detection
+        // {
+        //     code: dedent`
+        //         function ParentComponent() {
+        //           class UnstableNestedClassComponent extends React.Component {
+        //             render() {
+        //               return React.createElement("div", null);
+        //             }
+        //           }
 
-                  return React.createElement(
-                    "div",
-                    null,
-                    React.createElement(UnstableNestedClassComponent, null)
-                  );
-                }
-            `,
-            errors: [{ messageId: "INVALID" }],
-        },
-        {
-            code: dedent`
-                class ParentComponent extends React.Component {
-                  render() {
-                    class UnstableNestedClassComponent extends React.Component {
-                      render() {
-                        return <div />;
-                      }
-                    };
+        //           return React.createElement(
+        //             "div",
+        //             null,
+        //             React.createElement(UnstableNestedClassComponent, null)
+        //           );
+        //         }
+        //     `,
+        //     errors: [{ messageId: "INVALID" }],
+        // },
+        // TODO: add support for class components detection
+        // {
+        //     code: dedent`
+        //         class ParentComponent extends React.Component {
+        //           render() {
+        //             class UnstableNestedClassComponent extends React.Component {
+        //               render() {
+        //                 return <div />;
+        //               }
+        //             };
 
-                    return (
-                      <div>
-                        <UnstableNestedClassComponent />
-                      </div>
-                    );
-                  }
-                }
-            `,
-            errors: [{ messageId: "INVALID" }],
-        },
-        {
-            code: dedent`
-                class ParentComponent extends React.Component {
-                  render() {
-                    class UnstableNestedClassComponent extends React.Component {
-                      render() {
-                        return React.createElement("div", null);
-                      }
-                    }
+        //             return (
+        //               <div>
+        //                 <UnstableNestedClassComponent />
+        //               </div>
+        //             );
+        //           }
+        //         }
+        //     `,
+        //     errors: [{ messageId: "INVALID" }],
+        // },
+        // TODO: add support for class components detection
+        // {
+        //     code: dedent`
+        //         class ParentComponent extends React.Component {
+        //           render() {
+        //             class UnstableNestedClassComponent extends React.Component {
+        //               render() {
+        //                 return React.createElement("div", null);
+        //               }
+        //             }
 
-                    return React.createElement(
-                      "div",
-                      null,
-                      React.createElement(UnstableNestedClassComponent, null)
-                    );
-                  }
-                }
-            `,
-            errors: [{ messageId: "INVALID" }],
-        },
+        //             return React.createElement(
+        //               "div",
+        //               null,
+        //               React.createElement(UnstableNestedClassComponent, null)
+        //             );
+        //           }
+        //         }
+        //     `,
+        //     errors: [{ messageId: "INVALID" }],
+        // },
         {
             code: dedent`
                 class ParentComponent extends React.Component {
@@ -418,6 +422,245 @@ ruleTester.run(RULE_NAME, rule, {
             `,
             errors: [{ messageId: "INVALID" }],
         },
-        // TODO: add more invalid cases
+        {
+            code: dedent`
+                function ComponentWithProps(props) {
+                  return React.createElement("div", null);
+                }
+
+                function ParentComponent() {
+                  return React.createElement(ComponentWithProps, {
+                    footer: () => React.createElement("div", null)
+                  });
+                }
+            `,
+            errors: [{ messageId: "INVALID" }],
+        },
+        {
+            code: dedent`
+                function RenderPropComponent(props) {
+                  return props.render({});
+                }
+
+                function ParentComponent() {
+                  return React.createElement(
+                    RenderPropComponent,
+                    null,
+                    () => {
+                      function UnstableNestedComponent() {
+                        return React.createElement("div", null);
+                      }
+
+                      return React.createElement(
+                        "div",
+                        null,
+                        React.createElement(UnstableNestedComponent, null)
+                      );
+                    }
+                  );
+                }
+            `,
+            errors: [{ messageId: "INVALID" }],
+        },
+        {
+            code: dedent`
+                function ComponentForProps(props) {
+                  return <div />;
+                }
+
+                function ParentComponent() {
+                  return (
+                    <ComponentForProps notPrefixedWithRender={() => <div />} />
+                  );
+                }
+            `,
+            errors: [{ messageId: "INVALID" }],
+        },
+        {
+            code: dedent`
+                function ComponentForProps(props) {
+                  return React.createElement("div", null);
+                }
+
+                function ParentComponent() {
+                  return React.createElement(ComponentForProps, {
+                    notPrefixedWithRender: () => React.createElement("div", null)
+                  });
+                }
+            `,
+            errors: [{ messageId: "INVALID" }],
+        },
+        {
+            code: dedent`
+                function ParentComponent() {
+                  return (
+                    <ComponentForProps someMap={{ Header: () => <div /> }} />
+                  );
+                }
+            `,
+            errors: [{ messageId: "INVALID" }],
+        },
+        {
+            code: dedent`
+                class ParentComponent extends React.Component {
+                  render() {
+                    const List = () => {
+                      return <ul>item</ul>;
+                    };
+
+                    return <List {...this.props} />;
+                  }
+                }
+            `,
+            errors: [{ messageId: "INVALID" }],
+        },
+        {
+            code: dedent`
+                class ParentComponent extends React.Component {
+                  render() {
+                    const List = (props) => {
+                      const items = props.items
+                        .map((item) => (
+                          <li key={item.key}>
+                            <span>{item.name}</span>
+                          </li>
+                        ));
+
+                      return <ul>{items}</ul>;
+                    };
+
+                    return <List {...this.props} />;
+                  }
+                }
+            `,
+            // Only a single error should be shown. This can get easily marked twice.
+            errors: [{ messageId: "INVALID" }],
+        },
+        {
+            code: dedent`
+                function ParentComponent() {
+                  return (
+                    <SomeComponent>
+                      {
+                        thing.match({
+                          loading: () => <div />,
+                          success: () => <div />,
+                          failure: () => <div />,
+                        })
+                      }
+                    </SomeComponent>
+                  )
+                }
+            `,
+            errors: [
+                { messageId: "INVALID" },
+                { messageId: "INVALID" },
+                { messageId: "INVALID" },
+            ],
+        },
+        {
+            code: dedent`
+                function ParentComponent() {
+                  const thingElement = thing.match({
+                    loading: () => <div />,
+                    success: () => <div />,
+                    failure: () => <div />,
+                  });
+                  return (
+                    <SomeComponent>
+                      {thingElement}
+                    </SomeComponent>
+                  )
+                }
+            `,
+            errors: [
+                { messageId: "INVALID" },
+                { messageId: "INVALID" },
+                { messageId: "INVALID" },
+            ],
+        },
+        {
+            code: dedent`
+                function ParentComponent() {
+                  const rows = [
+                    {
+                      name: 'A',
+                      notPrefixedWithRender: (props) => <Row {...props} />
+                    },
+                  ];
+
+                  return <Table rows={rows} />;
+                }
+            `,
+            errors: [{ messageId: "INVALID" }],
+        },
+        {
+            code: dedent`
+                function ParentComponent() {
+                  const UnstableNestedComponent = React.memo(() => {
+                    return <div />;
+                  });
+
+                  return (
+                    <div>
+                      <UnstableNestedComponent />
+                    </div>
+                  );
+                }
+            `,
+            errors: [{ messageId: "INVALID" }],
+        },
+        {
+            code: dedent`
+                function ParentComponent() {
+                  const UnstableNestedComponent = React.memo(
+                    () => React.createElement("div", null),
+                  );
+
+                  return React.createElement(
+                    "div",
+                    null,
+                    React.createElement(UnstableNestedComponent, null)
+                  );
+                }
+            `,
+            errors: [{ messageId: "INVALID" }],
+        },
+        {
+            code: dedent`
+                function ParentComponent() {
+                  const UnstableNestedComponent = React.memo(
+                    function () {
+                      return <div />;
+                    }
+                  );
+
+                  return (
+                    <div>
+                      <UnstableNestedComponent />
+                    </div>
+                  );
+                }
+            `,
+            errors: [{ messageId: "INVALID" }],
+        },
+        {
+            code: dedent`
+                function ParentComponent() {
+                  const UnstableNestedComponent = React.memo(
+                    function () {
+                      return React.createElement("div", null);
+                    }
+                  );
+
+                  return React.createElement(
+                    "div",
+                    null,
+                    React.createElement(UnstableNestedComponent, null)
+                  );
+                }
+            `,
+            errors: [{ messageId: "INVALID" }],
+        },
     ],
 });

@@ -3,11 +3,24 @@ import { AST_NODE_TYPES as N, type TSESTree } from "@typescript-eslint/types";
 import type { RuleContext } from "../../typings";
 import { MutList, O } from "../lib";
 import type * as AST from "./ast-types";
+import { isFunctionOfRenderMethod } from "./component-detector-legacy";
+import { isChildrenOfCreateElement } from "./is-children-of-create-element";
 import { isValidReactComponentName } from "./is-valid-name";
-import { isJSXValue, isNodeReturningJSX } from "./jsx";
+import { isJSXValue } from "./jsx";
 import { getFunctionIdentifier } from "./misc";
 
 const seenComponents = new WeakSet<AST.TSESTreeFunction>();
+
+const hasInvalidName = (node: AST.TSESTreeFunction) => {
+    const id = getFunctionIdentifier(node);
+
+    return id && !isValidReactComponentName(id.name);
+};
+
+const hasInvalidHierarchicalRelationship = (node: AST.TSESTreeFunction, context: RuleContext) => {
+    return isChildrenOfCreateElement(node, context)
+        || isFunctionOfRenderMethod(node, context);
+};
 
 export function make(context: RuleContext) {
     const components: AST.TSESTreeFunction[] = [];
@@ -57,12 +70,11 @@ export function make(context: RuleContext) {
                 return;
             }
 
-            const functionId = getFunctionIdentifier(currentFn);
-            if (functionId && !isValidReactComponentName(functionId.name)) {
-                return;
-            }
-
-            if (!isNodeReturningJSX(node, context)) {
+            if (
+                hasInvalidName(currentFn)
+                || !isJSXValue(node.argument, context, false, false)
+                || hasInvalidHierarchicalRelationship(currentFn, context)
+            ) {
                 return;
             }
 
@@ -71,34 +83,23 @@ export function make(context: RuleContext) {
         },
         // eslint-disable-next-line perfectionist/sort-objects
         "ArrowFunctionExpression[body.type!='BlockStatement']"(node: TSESTree.ArrowFunctionExpression) {
-            const maybeCurrentFn = getCurrentFunction();
-
-            if (O.isNone(maybeCurrentFn)) {
-                console.warn("Unexpected empty function stack");
-
-                return;
-            }
-
-            const currentFn = maybeCurrentFn.value;
-
-            if (seenComponents.has(currentFn)) {
-                components.push(currentFn);
+            if (seenComponents.has(node)) {
+                components.push(node);
 
                 return;
             }
 
             const { body } = node;
-            if (!isJSXValue(body, context, false, false)) {
+            if (
+                hasInvalidName(node)
+                || !isJSXValue(body, context, false, false)
+                || hasInvalidHierarchicalRelationship(node, context)
+            ) {
                 return;
             }
 
-            const functionId = getFunctionIdentifier(currentFn);
-            if (functionId && !isValidReactComponentName(functionId.name)) {
-                return;
-            }
-
-            seenComponents.add(currentFn);
-            components.push(currentFn);
+            seenComponents.add(node);
+            components.push(node);
         },
     } as const;
 

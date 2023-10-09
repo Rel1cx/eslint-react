@@ -102,6 +102,11 @@ export function findPropertyWithIdentifierKey(
     return properties.find((x) => isPropertyWithIdentifierKey(x, key));
 }
 
+/**
+ * Gets FunctionDeclaration's identifier or FunctionExpression's parent identifier if it exists
+ * @param node The AST node to check
+ * @returns function identifier or null
+ */
 export function getFunctionIdentifier(node: TSESTreeFunction): TSESTree.Identifier | null {
     if (node.id) {
         return node.id;

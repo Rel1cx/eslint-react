@@ -7,12 +7,12 @@ import * as AST from "./ast-types";
 import { isCreateElement } from "./is-create-element";
 
 /**
- * Determines whether inside createElement prop
+ * Determines whether inside createElement's props.
  * @param node
  * @param context
- * @returns `true` if the node is inside createElement prop.
+ * @returns `true` if the node is inside createElement's props.
  */
-export function isInsideCreateElementProp(node: TSESTree.Node, context: RuleContext) {
+export function isInsideCreateElementProps(node: TSESTree.Node, context: RuleContext) {
     const parentCreateElement = traverseUp(node, n => isCreateElement(n, context));
 
     if (parentCreateElement?.type !== N.CallExpression) {

@@ -127,20 +127,24 @@ export const isJSXValue = memo(
 );
 
 /**
- * Check if node has a return statement is returning JSX
+ * Check if function is returning JSX
  * @param node The return statement node to check
  * @param context The rule context
  * @param strict Whether to check all branches of the conditional expression
  * @param ignoreNull Whether to ignore null values
  * @returns boolean
  */
-export function isNodeReturningJSX(
-    node: TSESTree.Node,
+export function isFunctionReturningJSX(
+    node: AST.TSESTreeFunction,
     context: RuleContext,
     strict = false,
     ignoreNull = false,
 ) {
-    const statements = getNestedReturnStatements(node);
+    if (node.body.type !== N.BlockStatement) {
+        return isJSXValue(node.body, context, strict, ignoreNull);
+    }
+
+    const statements = getNestedReturnStatements(node.body);
 
     return statements.some((statement) => isJSXValue(statement.argument, context, strict, ignoreNull));
 }
