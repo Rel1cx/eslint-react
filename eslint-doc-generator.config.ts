@@ -9,6 +9,7 @@ export default {
         ["recommended", "👍"],
         ["recommended-type-checked", "🔍"],
         ["debug", "🛠️"],
+        ["jsx", "⚛️"],
     ],
     ignoreConfig: ["all", "off"],
     ruleDocSectionInclude: ["Rule Details"],

@@ -13,13 +13,14 @@ import noDangerouslySetInnerHTMLWithChildren from "./rules/no-dangerously-set-in
 import noDeprecatedStringRefs from "./rules/no-deprecated-string-refs";
 import noUnstableDefaultProps from "./rules/no-unstable-default-props";
 
-const allRules = {
+const rules = {
+    "debug/function-component": "warn",
     "jsx/no-leaked-conditional-rendering": "error",
     "jsx/no-misused-comment-in-textnode": "warn",
     "jsx/prefer-shorthand-boolean": "warn",
-    "name-convention/event-handler": "warn",
-    "name-convention/filename": "warn",
-    "name-convention/filename-extension": "warn",
+    "naming-convention/event-handler": "warn",
+    "naming-convention/filename": "warn",
+    "naming-convention/filename-extension": "warn",
     "no-constructed-context-value": "error",
     "no-dangerously-set-innerhtml": "error",
     "no-dangerously-set-innerhtml-with-children": "error",
@@ -27,7 +28,7 @@ const allRules = {
     "no-unstable-default-props": "error",
 } as const satisfies RulePreset;
 
-const offRules = Object.fromEntries(Object.entries(allRules).map(([key]) => [key, "off"])) satisfies RulePreset;
+const rulesEntries = Object.entries(rules);
 
 const recommendedRules = {
     "jsx/no-leaked-conditional-rendering": "error",
@@ -40,9 +41,14 @@ const recommendedRules = {
     "no-unstable-default-props": "error",
 } as const satisfies RulePreset;
 
-const debugRules = {
-    "debug-function-component": "warn",
-} as const satisfies RulePreset;
+const allRules = Object.fromEntries(rulesEntries.filter(([key]) => !key.startsWith("debug/"))) satisfies RulePreset;
+
+// dprint-ignore
+const jsxRules = Object.fromEntries(rulesEntries.filter(([key]) => key.startsWith("jsx/"))) satisfies RulePreset;
+
+const offRules = Object.fromEntries(rulesEntries.map(([key]) => [key, "off"])) satisfies RulePreset;
+
+const debugRules = Object.fromEntries(rulesEntries.filter(([key]) => key.startsWith("debug/"))) satisfies RulePreset;
 
 const createConfig = (rules: RulePreset) => {
     return {
@@ -56,6 +62,7 @@ export default {
     configs: {
         all: createConfig(allRules),
         debug: createConfig(debugRules),
+        jsx: createConfig(jsxRules),
         off: createConfig(offRules),
         recommended: createConfig(recommendedRules),
         "recommended-type-checked": createConfig(recommendedRules),
@@ -74,4 +81,4 @@ export default {
         "no-deprecated-string-refs": noDeprecatedStringRefs,
         "no-unstable-default-props": noUnstableDefaultProps,
     },
-};
+} as const;
