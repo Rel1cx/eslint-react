@@ -1,1 +1,1 @@
-# react-ts/ensure-custom-hooks-using-other-hooks
+# react-ts/hooks/ensure-custom-hooks-using-other-hooks
