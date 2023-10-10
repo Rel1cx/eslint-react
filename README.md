@@ -138,6 +138,7 @@ export default [
 
 - [ ] `react-ts/jsx/no-complicated-conditional-rendering`
 - [ ] `react-ts/hooks/no-suppressing-exhaustive-deps`
+- [ ] `react-ts/hooks/ensure-custom-hooks-using-other-hooks`
 - [ ] `react-ts/no-access-ref-current-during-rendering`
 - [ ] `react-ts/no-legacy-children-methods`
 - [ ] `react-ts/no-legacy-class-components`
