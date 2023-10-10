@@ -81,7 +81,8 @@ export type Term =
     | "context-consumer"
     | "context-provider"
     | "context-value"
-    | "createRef"
+    | "create-ref"
+    | "custom-hooks"
     | "default-props"
     | "deps"
     | "destructuring"
@@ -156,3 +157,6 @@ export type RuleName =
     | `${PositiveModifier}-${NeutralDescriptive | PositiveDescriptive}-${Term}-${Additional}`
     | `${PositiveModifier}-${Term}`
     | `${PositiveModifier}-${Term}-${Additional}`;
+
+// Example rule names
+const _: RuleName = "ensure-custom-hooks-using-other-hooks";
