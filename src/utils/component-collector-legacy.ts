@@ -67,7 +67,7 @@ export function isES5Component(node: TSESTree.Node, context: RuleContext) {
  * @param context The rule context
  * @deprecated It will be removed in the future.
  */
-export function isES6Component(node: TSESTree.Node, context: RuleContext): node is TSESTree.ClassDeclaration {
+export function isES6Component(node: TSESTree.Node, context: RuleContext): node is AST.TSESTreeClass {
     if (!("superClass" in node && node.superClass)) {
         return false;
     }
@@ -183,6 +183,8 @@ export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) 
     return !!traverseUp(node, predicate);
 }
 
+const seenComponents = new WeakSet<AST.TSESTreeClass>();
+
 export function make(context: RuleContext) {
     const components: AST.TSESTreeClass[] = [];
 
@@ -199,15 +201,22 @@ export function make(context: RuleContext) {
         },
     } as const;
 
+    const collect = (node: AST.TSESTreeClass) => {
+        if (seenComponents.has(node)) {
+            components.push(node);
+        }
+
+        if (!isES6Component(node, context)) {
+            return;
+        }
+
+        seenComponents.add(node);
+        components.push(node);
+    };
+
     const listeners = {
-        CallExpression() {
-            // TODO: Implement this
-        },
-        ClassDeclaration(node: TSESTree.ClassDeclaration) {
-            if (isES6Component(node, context)) {
-                components.push(node);
-            }
-        },
+        ClassDeclaration: collect,
+        ClassExpression: collect,
     } as const satisfies RuleListener;
 
     return {
