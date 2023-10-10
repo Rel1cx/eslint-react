@@ -1,9 +1,10 @@
 import { AST_NODE_TYPES as N, type TSESTree } from "@typescript-eslint/types";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import type { RuleContext } from "../../typings";
 import { MutList, O } from "../lib";
 import type * as AST from "./ast-types";
-import { isFunctionOfRenderMethod } from "./component-detector-legacy";
+import { isFunctionOfRenderMethod } from "./component-collector-legacy";
 import { isChildrenOfCreateElement } from "./is-children-of-create-element";
 import { isValidReactComponentName } from "./is-valid-name";
 import { isJSXValue } from "./jsx";
@@ -11,13 +12,13 @@ import { getFunctionIdentifier } from "./misc";
 
 const seenComponents = new WeakSet<AST.TSESTreeFunction>();
 
-const hasInvalidName = (node: AST.TSESTreeFunction) => {
+export const hasInvalidName = (node: AST.TSESTreeFunction) => {
     const id = getFunctionIdentifier(node);
 
     return id && !isValidReactComponentName(id.name);
 };
 
-const hasInvalidHierarchicalRelationship = (node: AST.TSESTreeFunction, context: RuleContext) => {
+export const hasInvalidHierarchicalRelationship = (node: AST.TSESTreeFunction, context: RuleContext) => {
     return isChildrenOfCreateElement(node, context)
         || isFunctionOfRenderMethod(node, context);
 };
@@ -101,10 +102,10 @@ export function make(context: RuleContext) {
             seenComponents.add(node);
             components.push(node);
         },
-    } as const;
+    } as const satisfies RuleListener;
 
     return {
         ctx,
         listeners,
-    };
+    } as const;
 }

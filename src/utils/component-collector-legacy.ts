@@ -1,12 +1,14 @@
 import { type Scope, ScopeType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import { type TSESTree } from "@typescript-eslint/utils";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, match, P } from "ts-pattern";
 
 import type { RuleContext } from "../../typings";
 import { E, F } from "../lib";
 import { traverseUp } from "./ast-traverse";
 import type { TSESTreeFunction } from "./ast-types";
+import type * as AST from "./ast-types";
 import { getCreateClassFromContext, getFromContext } from "./pragma";
 
 const isRenderMethodLike = isMatching({
@@ -65,7 +67,7 @@ export function isES5Component(node: TSESTree.Node, context: RuleContext) {
  * @param context The rule context
  * @deprecated It will be removed in the future.
  */
-export function isES6Component(node: TSESTree.Node, context: RuleContext) {
+export function isES6Component(node: TSESTree.Node, context: RuleContext): node is TSESTree.ClassDeclaration {
     if (!("superClass" in node && node.superClass)) {
         return false;
     }
@@ -179,4 +181,37 @@ export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) 
     };
 
     return !!traverseUp(node, predicate);
+}
+
+export function make(context: RuleContext) {
+    const components: AST.TSESTreeClass[] = [];
+
+    const ctx = {
+        getAllComponents() {
+            if (context.getScope().block.type !== N.Program) {
+                throw new Error("getAllComponents should only be called in Program:exit");
+            }
+
+            return components;
+        },
+        getCurrentComponents() {
+            return [...components];
+        },
+    } as const;
+
+    const listeners = {
+        CallExpression() {
+            // TODO: Implement this
+        },
+        ClassDeclaration(node: TSESTree.ClassDeclaration) {
+            if (isES6Component(node, context)) {
+                components.push(node);
+            }
+        },
+    } as const satisfies RuleListener;
+
+    return {
+        ctx,
+        listeners,
+    } as const;
 }

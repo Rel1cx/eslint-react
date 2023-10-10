@@ -4,7 +4,7 @@ import { createRule } from "../../tools/create-rule";
 import { traverseUpGuard } from "../utils/ast-traverse";
 import { isFunction, type TSESTreeFunction } from "../utils/ast-types";
 import * as ComponentCollector from "../utils/component-collector";
-import { isInsideRenderMethod } from "../utils/component-detector-legacy";
+import { isInsideRenderMethod } from "../utils/component-collector-legacy";
 import { isInsideCreateElementProps } from "../utils/is-inside-create-element-props";
 import { isDeclaredInJSXAttribute, isFunctionReturningJSX } from "../utils/jsx";
 import { unsafeIsMapCall } from "../utils/misc";

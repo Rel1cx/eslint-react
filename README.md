@@ -70,7 +70,7 @@ export default [
 💼 Configurations enabled in.\
 ⚠️ Configurations set to warn in.\
 🛠️ Set in the `debug` configuration.\
-⚛️ Set in the `jsx` configuration.\
+🎨 Set in the `jsx` configuration.\
 👍 Set in the `recommended` configuration.\
 🔍 Set in the `recommended-type-checked` configuration.
 
@@ -82,11 +82,11 @@ export default [
 
 ### jsx
 
-| Name                                                                                     | Description                                            | 💼      | ⚠️       |
-| :--------------------------------------------------------------------------------------- | :----------------------------------------------------- | :------ | :------ |
-| [jsx/no-leaked-conditional-rendering](docs/rules/jsx/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered | ⚛️ 👍 🔍 |         |
-| [jsx/no-misused-comment-in-textnode](docs/rules/jsx/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes    |         | ⚛️ 👍 🔍 |
-| [jsx/prefer-shorthand-boolean](docs/rules/jsx/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX             |         | ⚛️ 👍 🔍 |
+| Name                                                                                     | Description                                            | 💼       | ⚠️        |
+| :--------------------------------------------------------------------------------------- | :----------------------------------------------------- | :------- | :------- |
+| [jsx/no-leaked-conditional-rendering](docs/rules/jsx/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered | 🎨 👍 🔍 |          |
+| [jsx/no-misused-comment-in-textnode](docs/rules/jsx/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes    |          | 🎨 👍 🔍 |
+| [jsx/prefer-shorthand-boolean](docs/rules/jsx/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX             |          | 🎨 👍 🔍 |
 
 ### naming-convention
 
