@@ -1,4 +1,4 @@
-# react-ts/no-deprecated-string-refs
+# @eslint-react/no-deprecated-string-refs
 
 Disallow using deprecated string refs
 

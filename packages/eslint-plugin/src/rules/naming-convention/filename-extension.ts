@@ -1,8 +1,7 @@
+import { isJSXFileExt } from "@eslint-react/jsx";
+import { createRule } from "@eslint-react/shared";
+import { MutRef, O } from "@eslint-react/std";
 import type { TSESTree } from "@typescript-eslint/types";
-
-import { createRule } from "../../../tools/create-rule";
-import { MutRef, O } from "../../lib";
-import { isJSXFileExt } from "../../utils/jsx";
 
 export const RULE_NAME = "naming-convention/filename-extension";
 

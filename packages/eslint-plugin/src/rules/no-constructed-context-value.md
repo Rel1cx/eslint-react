@@ -1,4 +1,4 @@
-# react-ts/no-constructed-context-value
+# @eslint-react/no-constructed-context-value
 
 Prevents non-stable values (i.e. object identities) from being used as a value for Context.Provider.
 

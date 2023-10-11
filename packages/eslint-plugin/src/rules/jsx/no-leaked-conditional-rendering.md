@@ -1,4 +1,4 @@
-# react-ts/jsx/no-leaked-conditional-rendering
+# @eslint-react/jsx/no-leaked-conditional-rendering
 
 Disallow problematic leaked values from being rendered.
 

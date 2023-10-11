@@ -1,4 +1,4 @@
-import { getFunctionIdentifier, is, traverseUpGuard, type TSESTreeFunction } from "@eslint-react/ast";
+import { getFunctionIdentifier, is, isFunction, NodeType, traverseUpGuard, type TSESTreeFunction } from "@eslint-react/ast";
 import { isJSXValue } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -21,9 +21,9 @@ export function unsafeIsRenderFunction(node: TSESTreeFunction, context: RuleCont
     const id = getFunctionIdentifier(node);
 
     if (!id?.name.startsWith("render")) {
-        return parent.type === "JSXExpressionContainer"
-            && parent.parent.type === "JSXAttribute"
-            && parent.parent.name.type === "JSXIdentifier"
+        return parent.type === NodeType.JSXExpressionContainer
+            && parent.parent.type === NodeType.JSXAttribute
+            && parent.parent.name.type === NodeType.JSXIdentifier
             && parent.parent.name.name.startsWith("render");
     }
 
@@ -41,11 +41,11 @@ export function unsafeIsRenderFunction(node: TSESTreeFunction, context: RuleCont
  * @returns `true` if node is a render prop, `false` if not
  */
 export function unsafeIsRenderProp(node: TSESTree.JSXAttribute, context: RuleContext) {
-    return node.name.type === "JSXIdentifier"
+    return node.name.type === NodeType.JSXIdentifier
         && node.name.name.startsWith("render")
         && node.value
-        && node.value.type === "JSXExpressionContainer"
-        && AST.isFunction(node.value.expression)
+        && node.value.type === NodeType.JSXExpressionContainer
+        && isFunction(node.value.expression)
         && unsafeIsRenderFunction(node.value.expression, context);
 }
 
@@ -91,13 +91,13 @@ export function unsafeIsDeclaredInRenderProp(node: TSESTree.Node) {
         return true;
     }
 
-    const jsxExpressionContainer = traverseUpGuard(node, is("JSXExpressionContainer"));
+    const jsxExpressionContainer = traverseUpGuard(node, is(NodeType.JSXExpressionContainer));
 
     return (
         jsxExpressionContainer?.parent
-        && jsxExpressionContainer.parent.type === "JSXAttribute"
+        && jsxExpressionContainer.parent.type === NodeType.JSXAttribute
         && "name" in jsxExpressionContainer.parent
-        && jsxExpressionContainer.parent.name.type === "JSXIdentifier"
+        && jsxExpressionContainer.parent.name.type === NodeType.JSXIdentifier
         && jsxExpressionContainer.parent.name.name.startsWith("render")
     );
 }

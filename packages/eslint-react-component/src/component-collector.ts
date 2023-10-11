@@ -1,33 +1,31 @@
-import { AST_NODE_TYPES as N, type TSESTree } from "@typescript-eslint/types";
+import { getFunctionIdentifier, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
+import { isChildrenOfCreateElement } from "@eslint-react/create-element";
+import { isJSXValue } from "@eslint-react/jsx";
+import { isValidReactComponentName, type RuleContext } from "@eslint-react/shared";
+import { MutList, O } from "@eslint-react/std";
+import { type TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
-import type { RuleContext } from "../../typings";
-import { MutList, O } from "../lib";
-import type * as AST from "./ast-types";
-import { isFunctionOfRenderMethod } from "./component-collector-legacy";
-import { isChildrenOfCreateElement } from "./is-children-of-create-element";
-import { isValidReactComponentName } from "./is-valid-name";
-import { isJSXValue } from "./jsx";
-import { getFunctionIdentifier } from "./misc";
+import { isFunctionOfRenderMethod } from "../../eslint-react-component-legacy/src/component-collector-legacy";
 
-const seenComponents = new WeakSet<AST.TSESTreeFunction>();
+const seenComponents = new WeakSet<TSESTreeFunction>();
 
-export const hasInvalidName = (node: AST.TSESTreeFunction) => {
+export const hasInvalidName = (node: TSESTreeFunction) => {
     const id = getFunctionIdentifier(node);
 
     return id && !isValidReactComponentName(id.name);
 };
 
-export const hasInvalidHierarchicalRelationship = (node: AST.TSESTreeFunction, context: RuleContext) => {
+export const hasInvalidHierarchicalRelationship = (node: TSESTreeFunction, context: RuleContext) => {
     return isChildrenOfCreateElement(node, context)
         || isFunctionOfRenderMethod(node, context);
 };
 
-export function make(context: RuleContext) {
-    const components: AST.TSESTreeFunction[] = [];
-    const functionStack = MutList.make<AST.TSESTreeFunction>();
+export function componentCollector(context: RuleContext) {
+    const components: TSESTreeFunction[] = [];
+    const functionStack = MutList.make<TSESTreeFunction>();
     const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
-    const onFunctionEnter = (node: AST.TSESTreeFunction) => MutList.append(functionStack, node);
+    const onFunctionEnter = (node: TSESTreeFunction) => MutList.append(functionStack, node);
     const onFunctionExit = () => MutList.pop(functionStack);
 
     const ctx = {

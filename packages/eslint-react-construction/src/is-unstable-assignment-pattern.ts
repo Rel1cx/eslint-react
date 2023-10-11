@@ -1,4 +1,4 @@
-import { NodeType, isOneOf } from "@eslint-react/ast";
+import { isOneOf, NodeType } from "@eslint-react/ast";
 import type { Narrow } from "@eslint-react/std";
 import type { TSESTree } from "@typescript-eslint/types";
 

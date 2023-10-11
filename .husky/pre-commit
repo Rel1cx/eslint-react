@@ -1,9 +1,11 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-bun run format:write
-bun run lint
-bun run build
-bun run build:docs-rules
-bun x publint
+pnpm run format:write
+pnpm run lint
+pnpm run build
+cd packages/eslint-plugin
+pnpm run build:docs-rules
+pnpm publint
+cd ../..
 git add .

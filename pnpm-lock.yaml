@@ -9,10 +9,10 @@ overrides:
   rambda: latest
   eslint: '>=8.51.0'
   typescript: beta
-  '@typescript-eslint/scope-manager': '>=6.7.5'
-  '@typescript-eslint/type-utils': '>=6.7.5'
-  '@typescript-eslint/types': '>=6.7.5'
-  '@typescript-eslint/utils': '>=6.7.5'
+  '@typescript-eslint/scope-manager': 6.7.5
+  '@typescript-eslint/type-utils': 6.7.5
+  '@typescript-eslint/types': 6.7.5
+  '@typescript-eslint/utils': 6.7.5
   '@typescript-eslint/parser': '>=6.7.5'
 
 importers:
@@ -56,8 +56,8 @@ importers:
         specifier: 1.0.5
         version: 1.0.5
       bun-types:
-        specifier: 1.0.5-canary.20231009T140142
-        version: 1.0.5-canary.20231009T140142
+        specifier: 1.0.5
+        version: 1.0.5
       cspell:
         specifier: 7.3.7
         version: 7.3.7
@@ -152,51 +152,75 @@ importers:
         specifier: '>=6.7.5'
         version: 6.7.5(eslint@8.51.0)(typescript@5.3.0-beta)
       '@typescript-eslint/scope-manager':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5
       '@typescript-eslint/type-utils':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5(eslint@8.51.0)(typescript@5.3.0-beta)
       '@typescript-eslint/types':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5
       '@typescript-eslint/utils':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5(eslint@8.51.0)(typescript@5.3.0-beta)
       eslint:
         specifier: '>=8.51.0'
         version: 8.51.0
+      typescript:
+        specifier: beta
+        version: 5.3.0-beta
     devDependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../eslint-react-ast
+      '@eslint-react/component':
+        specifier: workspace:*
+        version: link:../eslint-react-component
+      '@eslint-react/component-legacy':
+        specifier: workspace:*
+        version: link:../eslint-react-component-legacy
+      '@eslint-react/construction':
+        specifier: workspace:*
+        version: link:../eslint-react-construction
+      '@eslint-react/context':
+        specifier: workspace:*
+        version: link:../eslint-react-context
+      '@eslint-react/create-element':
+        specifier: workspace:*
+        version: link:../eslint-react-create-element
+      '@eslint-react/hooks':
+        specifier: workspace:*
+        version: link:../eslint-react-hooks
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../eslint-react-jsx
+      '@eslint-react/pragma':
+        specifier: workspace:*
+        version: link:../eslint-react-pragma
+      '@eslint-react/render-prop':
+        specifier: workspace:*
+        version: link:../eslint-react-render-prop
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@eslint-react/std':
         specifier: workspace:*
         version: link:../std
+      '@eslint-react/variable':
+        specifier: workspace:*
+        version: link:../eslint-react-variable
       '@rizzzse/bimap':
         specifier: 1.2.1
         version: 1.2.1
-      '@rollup/plugin-commonjs':
-        specifier: 25.0.5
-        version: 25.0.5(rollup@3.29.4)
-      '@rollup/plugin-json':
-        specifier: 6.0.1
-        version: 6.0.1(rollup@3.29.4)
-      '@rollup/plugin-node-resolve':
-        specifier: 15.2.3
-        version: 15.2.3(rollup@3.29.4)
-      '@swc/core':
-        specifier: 1.3.92
-        version: 1.3.92
+      '@typescript-eslint/rule-tester':
+        specifier: 6.7.5
+        version: 6.7.5(@eslint/eslintrc@2.1.2)(eslint@8.51.0)(typescript@5.3.0-beta)
       birecord:
         specifier: 0.1.1
         version: 0.1.1
-      cspell:
-        specifier: 7.3.7
-        version: 7.3.7
       dedent:
         specifier: 1.5.1
         version: 1.5.1
-      dprint:
-        specifier: 0.41.0
-        version: 0.41.0
       effect:
         specifier: 2.0.0-next.48
         version: 2.0.0-next.48
@@ -206,27 +230,18 @@ importers:
       micro-memoize:
         specifier: 4.1.2
         version: 4.1.2
-      pattycake:
-        specifier: 0.0.2
-        version: 0.0.2
-      publint:
-        specifier: 0.2.4
-        version: 0.2.4
       rambda:
         specifier: latest
         version: 8.5.0
       string-ts:
-        specifier: 1.2.0
-        version: 1.2.0
+        specifier: 1.3.0
+        version: 1.3.0
       ts-pattern:
         specifier: 5.0.5
         version: 5.0.5
       typedoc:
         specifier: 0.25.2
         version: 0.25.2(typescript@5.3.0-beta)
-      typescript:
-        specifier: beta
-        version: 5.3.0-beta
       vitest:
         specifier: 0.34.6
         version: 0.34.6
@@ -243,50 +258,77 @@ importers:
         specifier: 8.44.4
         version: 8.44.4
       '@typescript-eslint/scope-manager':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5
       '@typescript-eslint/types':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5
       '@typescript-eslint/utils':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5(eslint@8.51.0)(typescript@5.3.0-beta)
       rambda:
         specifier: latest
         version: 8.5.0
       string-ts:
-        specifier: 1.2.0
-        version: 1.2.0
-
-  packages/eslint-react-case-validator:
-    dependencies:
-      '@eslint-react/std':
-        specifier: workspace:*
-        version: link:../std
-      '@types/eslint':
-        specifier: 8.44.4
-        version: 8.44.4
-      tslib:
-        specifier: 2.6.2
-        version: 2.6.2
+        specifier: 1.3.0
+        version: 1.3.0
 
   packages/eslint-react-component:
     dependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../eslint-react-ast
+      '@eslint-react/component-legacy':
+        specifier: workspace:*
+        version: link:../eslint-react-component-legacy
+      '@eslint-react/create-element':
+        specifier: workspace:*
+        version: link:../eslint-react-create-element
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../eslint-react-jsx
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@eslint-react/std':
         specifier: workspace:*
         version: link:../std
       '@types/eslint':
         specifier: 8.44.4
         version: 8.44.4
+      '@typescript-eslint/types':
+        specifier: 6.7.5
+        version: 6.7.5
+      '@typescript-eslint/utils':
+        specifier: 6.7.5
+        version: 6.7.5(eslint@8.51.0)(typescript@5.3.0-beta)
 
   packages/eslint-react-component-legacy:
     dependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../eslint-react-ast
+      '@eslint-react/create-element':
+        specifier: workspace:*
+        version: link:../eslint-react-create-element
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../eslint-react-jsx
+      '@eslint-react/pragma':
+        specifier: workspace:*
+        version: link:../eslint-react-pragma
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@eslint-react/std':
         specifier: workspace:*
         version: link:../std
       '@types/eslint':
         specifier: 8.44.4
         version: 8.44.4
+      '@typescript-eslint/utils':
+        specifier: 6.7.5
+        version: 6.7.5(eslint@8.51.0)(typescript@5.3.0-beta)
 
   packages/eslint-react-construction:
     dependencies:
@@ -303,7 +345,10 @@ importers:
         specifier: 8.44.4
         version: 8.44.4
       '@typescript-eslint/scope-manager':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
+        version: 6.7.5
+      '@typescript-eslint/types':
+        specifier: 6.7.5
         version: 6.7.5
       rambda:
         specifier: latest
@@ -321,7 +366,7 @@ importers:
         specifier: 8.44.4
         version: 8.44.4
       '@typescript-eslint/types':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5
 
   packages/eslint-react-create-element:
@@ -342,10 +387,10 @@ importers:
         specifier: 8.44.4
         version: 8.44.4
       '@typescript-eslint/types':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5
       '@typescript-eslint/utils':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5(eslint@8.51.0)(typescript@5.3.0-beta)
 
   packages/eslint-react-hooks:
@@ -363,10 +408,10 @@ importers:
         specifier: 8.44.4
         version: 8.44.4
       '@typescript-eslint/types':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5
       '@typescript-eslint/utils':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5(eslint@8.51.0)(typescript@5.3.0-beta)
 
   packages/eslint-react-jsx:
@@ -390,10 +435,10 @@ importers:
         specifier: 8.44.4
         version: 8.44.4
       '@typescript-eslint/types':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5
       '@typescript-eslint/utils':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5(eslint@8.51.0)(typescript@5.3.0-beta)
 
   packages/eslint-react-pragma:
@@ -414,7 +459,7 @@ importers:
         specifier: 8.44.4
         version: 8.44.4
       '@typescript-eslint/types':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5
 
   packages/eslint-react-render-prop:
@@ -434,6 +479,9 @@ importers:
       '@types/eslint':
         specifier: 8.44.4
         version: 8.44.4
+      '@typescript-eslint/types':
+        specifier: 6.7.5
+        version: 6.7.5
 
   packages/eslint-react-variable:
     dependencies:
@@ -443,8 +491,11 @@ importers:
       '@types/eslint':
         specifier: 8.44.4
         version: 8.44.4
+      '@typescript-eslint/scope-manager':
+        specifier: 6.7.5
+        version: 6.7.5
       '@typescript-eslint/types':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5
 
   packages/shared:
@@ -456,10 +507,10 @@ importers:
         specifier: 8.44.4
         version: 8.44.4
       '@typescript-eslint/types':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5
       '@typescript-eslint/utils':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5(eslint@8.51.0)(typescript@5.3.0-beta)
       deepmerge-ts:
         specifier: 5.1.0
@@ -467,6 +518,9 @@ importers:
       rambda:
         specifier: latest
         version: 8.5.0
+      tslib:
+        specifier: 2.6.2
+        version: 2.6.2
 
   packages/std:
     dependencies:
@@ -474,7 +528,7 @@ importers:
         specifier: 8.44.4
         version: 8.44.4
       '@typescript-eslint/types':
-        specifier: '>=6.7.5'
+        specifier: 6.7.5
         version: 6.7.5
       effect:
         specifier: 2.0.0-next.48
@@ -704,16 +758,6 @@ packages:
 
   /@babel/plugin-syntax-jsx@7.22.5(@babel/core@7.23.0):
     resolution: {integrity: sha512-gvyP4hZrgrs/wWMaocvxZ44Hw0b3W8Pe+cMxc8V1ULQ07oh8VNbIRaoD1LRZVTvD+0nieDKjfgKg89sD7rrKrg==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.23.0
-      '@babel/helper-plugin-utils': 7.22.5
-    dev: true
-
-  /@babel/plugin-syntax-typescript@7.22.5(@babel/core@7.23.0):
-    resolution: {integrity: sha512-1mS2o03i7t1c6VzH6fdQ3OA8tcEIxwG18zIPRp+UY1Ihv6W+XZzBCVxExF9upussPXJ0xE9XRHwMoNs1ep/nRQ==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2259,6 +2303,25 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
+  /@typescript-eslint/rule-tester@6.7.5(@eslint/eslintrc@2.1.2)(eslint@8.51.0)(typescript@5.3.0-beta):
+    resolution: {integrity: sha512-rDUQDkMg577jA7U+2NFlgLv3S43epbjruLZ4MQaELhH+WZLmmGylFbcCWeonRmtFjF2Xd/lfYsjqQ+p61XZDkw==}
+    engines: {node: ^16.0.0 || >=18.0.0}
+    peerDependencies:
+      '@eslint/eslintrc': '>=2'
+      eslint: '>=8.51.0'
+    dependencies:
+      '@eslint/eslintrc': 2.1.2
+      '@typescript-eslint/typescript-estree': 6.7.5(typescript@5.3.0-beta)
+      '@typescript-eslint/utils': 6.7.5(eslint@8.51.0)(typescript@5.3.0-beta)
+      ajv: 6.12.6
+      eslint: 8.51.0
+      lodash.merge: 4.6.2
+      semver: 7.5.4
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+    dev: true
+
   /@typescript-eslint/scope-manager@6.7.5:
     resolution: {integrity: sha512-GAlk3eQIwWOJeb9F7MKQ6Jbah/vx1zETSDw8likab/eFcqkjSD7BI75SDAeC5N2L0MmConMoPvTsmkrg71+B1A==}
     engines: {node: ^16.0.0 || >=18.0.0}
@@ -2699,8 +2762,8 @@ packages:
       semver: 7.5.4
     dev: true
 
-  /bun-types@1.0.5-canary.20231009T140142:
-    resolution: {integrity: sha512-5hT8WBXZ2ozdJt6s0nnnh4iQXn6xp9a7spbRYjapNxKjR3ckS5U2V347H3+XpaMVzc/a7D2I2KnKqIPO1R82kg==}
+  /bun-types@1.0.5:
+    resolution: {integrity: sha512-/KYLuoi5usUP/dsOptG6/LDd8QNGG/fjMcaCcBWufXiTpxRNwh0xsDbb0P9Q8uuxZwdiQw76Dwq6xgCrqTRf1w==}
     dev: true
 
   /bun@1.0.5:
@@ -5580,18 +5643,6 @@ packages:
     resolution: {integrity: sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==}
     dev: true
 
-  /pattycake@0.0.2:
-    resolution: {integrity: sha512-87WKWLPVIGl+yUBprIo08O+VHYMyszZKoYldUK5+73Ie/4XRKBRZOzDgkzcFYax76rXlkbEitsTkNLGeQWqSZg==}
-    dependencies:
-      '@babel/core': 7.23.0
-      '@babel/plugin-syntax-jsx': 7.22.5(@babel/core@7.23.0)
-      '@babel/plugin-syntax-typescript': 7.22.5(@babel/core@7.23.0)
-      '@babel/types': 7.23.0
-      unplugin: 1.5.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /picocolors@1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
     dev: true
@@ -6248,8 +6299,8 @@ packages:
       bl: 5.1.0
     dev: true
 
-  /string-ts@1.2.0:
-    resolution: {integrity: sha512-4pRpax75q05wvh7HS3I3TgXM1R24NrS/x4yZ1Y46IOwavriZi5/cjC9OEn9BrJpjXV7VTcF1s/Wj6iEv2rlVvg==}
+  /string-ts@1.3.0:
+    resolution: {integrity: sha512-v8hbud0DNxH8vdfm6MZ9SEt/25lk6ie4GCpzA9YFgBdXsZkXDENnKfWjv8Z3LpxvM4DKxgwdhcxnicWOvDsNdA==}
 
   /string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
@@ -6697,15 +6748,6 @@ packages:
     engines: {node: '>= 10.0.0'}
     dev: true
 
-  /unplugin@1.5.0:
-    resolution: {integrity: sha512-9ZdRwbh/4gcm1JTOkp9lAkIDrtOyOxgHmY7cjuwI8L/2RTikMcVG25GsZwNAgRuap3iDw2jeq7eoqtAsz5rW3A==}
-    dependencies:
-      acorn: 8.10.0
-      chokidar: 3.5.3
-      webpack-sources: 3.2.3
-      webpack-virtual-modules: 0.5.0
-    dev: true
-
   /update-browserslist-db@1.0.13(browserslist@4.22.1):
     resolution: {integrity: sha512-xebP81SNcPuNpPP3uzeW1NYXxI3rxyJzF3pD6sH4jE7o/IX+WtSpwnVU+qIsDPyk0d3hmFQ7mjqc6AtV604hbg==}
     hasBin: true
@@ -6896,15 +6938,6 @@ packages:
 
   /webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
-    dev: true
-
-  /webpack-sources@3.2.3:
-    resolution: {integrity: sha512-/DyMEOrDgLKKIG0fmvtz+4dUX/3Ghozwgm6iPp8KRhvn+eQf9+Q7GWxVNMk3+uCPWfdXYC4ExGBckIXdFEfH1w==}
-    engines: {node: '>=10.13.0'}
-    dev: true
-
-  /webpack-virtual-modules@0.5.0:
-    resolution: {integrity: sha512-kyDivFZ7ZM0BVOUteVbDFhlRt7Ah/CSPwJdi8hBpkK7QLumUqdLtVfm/PX/hkcnrvr0i77fO5+TjZ94Pe+C9iw==}
     dev: true
 
   /whatwg-url@5.0.0:

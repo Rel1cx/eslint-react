@@ -1,4 +1,4 @@
-# react-ts/no-unstable-default-props
+# @eslint-react/no-unstable-default-props
 
 Disallow usage of referential-type variables as default param in function component.
 

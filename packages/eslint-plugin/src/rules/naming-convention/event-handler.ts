@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable security/detect-non-literal-regexp */
-import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
+import { NodeType } from "@eslint-react/ast";
+import { createRule } from "@eslint-react/shared";
+import { O } from "@eslint-react/std";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
-import { createRule } from "../../../tools/create-rule";
-import { O } from "../../lib";
-import * as JSXUtils from "../../utils/jsx";
+import { getPropName } from "../../../../eslint-react-jsx/src";
 
 export const RULE_NAME = "naming-convention/event-handler";
 
@@ -137,7 +137,7 @@ export default createRule<Options, MessageID>({
                     return;
                 }
 
-                const propKey = JSXUtils.getPropName(node);
+                const propKey = getPropName(node);
                 const propValueNode = O.getOrElse(() => expression)(maybeInnerFunction);
                 const propValue = context
                     .getSourceCode()

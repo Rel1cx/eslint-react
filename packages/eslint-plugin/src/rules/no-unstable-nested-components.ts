@@ -1,15 +1,12 @@
+import { isFunction, traverseUpGuard, type TSESTreeFunction, unsafeIsMapCall } from "@eslint-react/ast";
+import { componentCollector } from "@eslint-react/component";
+import { isInsideRenderMethod } from "@eslint-react/component-legacy";
+import { isInsideCreateElementProps } from "@eslint-react/create-element";
+import { unsafeIsReturnStatementOfReactHook } from "@eslint-react/hooks";
+import { isDeclaredInJSXAttribute, isFunctionReturningJSX } from "@eslint-react/jsx";
+import { unsafeIsDeclaredInRenderProp, unsafeIsDirectValueOfRenderProperty } from "@eslint-react/render-prop";
+import { createRule } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-
-import { createRule } from "../../tools/create-rule";
-import { traverseUpGuard } from "../utils/ast-traverse";
-import { isFunction, type TSESTreeFunction } from "../utils/ast-types";
-import * as ComponentCollector from "../utils/component-collector";
-import { isInsideRenderMethod } from "../utils/component-collector-legacy";
-import { isInsideCreateElementProps } from "../utils/is-inside-create-element-props";
-import { isDeclaredInJSXAttribute, isFunctionReturningJSX } from "../utils/jsx";
-import { unsafeIsMapCall } from "../utils/misc";
-import { unsafeIsReturnStatementOfReactHook } from "../utils/react-hook";
-import { unsafeIsDeclaredInRenderProp, unsafeIsDirectValueOfRenderProperty } from "../utils/render-prop";
 
 export const RULE_NAME = "no-unstable-nested-components";
 
@@ -32,7 +29,7 @@ export default createRule<[], MessageID>({
     },
     defaultOptions: [],
     create(context) {
-        const { ctx, listeners } = ComponentCollector.make(context);
+        const { ctx, listeners } = componentCollector(context);
 
         return {
             ...listeners,

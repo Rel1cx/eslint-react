@@ -53,7 +53,7 @@
         "@typescript-eslint/eslint-plugin": "6.7.5",
         "@typescript-eslint/parser": ">=6.7.5",
         "bun": "1.0.5",
-        "bun-types": "1.0.5-canary.20231009T140142",
+        "bun-types": "1.0.5",
         "cspell": "7.3.7",
         "dprint": "0.41.0",
         "effect": "2.0.0-next.48",
@@ -87,7 +87,7 @@
     "peerDependencies": {
         "@typescript-eslint/parser": ">=6.7.5",
         "eslint": ">=8.51.0",
-        "typescript": "5.2.2"
+        "typescript": ">=5.2.2"
     },
     "packageManager": "pnpm@8.9.0",
     "engines": {
@@ -103,10 +103,10 @@
             "rambda": "latest",
             "eslint": ">=8.51.0",
             "typescript": "beta",
-            "@typescript-eslint/scope-manager": ">=6.7.5",
-            "@typescript-eslint/type-utils": ">=6.7.5",
-            "@typescript-eslint/types": ">=6.7.5",
-            "@typescript-eslint/utils": ">=6.7.5",
+            "@typescript-eslint/scope-manager": "6.7.5",
+            "@typescript-eslint/type-utils": "6.7.5",
+            "@typescript-eslint/types": "6.7.5",
+            "@typescript-eslint/utils": "6.7.5",
             "@typescript-eslint/parser": ">=6.7.5"
         }
     }

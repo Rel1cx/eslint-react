@@ -1,10 +1,8 @@
+import { NodeType, readableNodeType } from "@eslint-react/ast";
+import { componentCollector } from "@eslint-react/component";
+import { isUnstableAssignmentPattern } from "@eslint-react/construction";
+import { createRule } from "@eslint-react/shared";
 import { type TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
-
-import { createRule } from "../../tools/create-rule";
-import * as ComponentCollector from "../utils/component-collector";
-import { isUnstableAssignmentPattern } from "../utils/is-unstable-assignment-pattern";
-import { readableNodeType } from "../utils/readable-node-type";
 
 export const RULE_NAME = "no-unstable-default-props";
 
@@ -36,7 +34,7 @@ export default createRule<[], MessageID>({
     },
     defaultOptions: [],
     create(context) {
-        const { ctx, listeners } = ComponentCollector.make(context);
+        const { ctx, listeners } = componentCollector(context);
 
         return {
             ...listeners,

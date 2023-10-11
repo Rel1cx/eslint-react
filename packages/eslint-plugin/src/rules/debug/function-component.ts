@@ -1,6 +1,6 @@
-import { createRule } from "../../../tools/create-rule";
-import * as ComponentCollector from "../../utils/component-collector";
-import { getFunctionIdentifier } from "../../utils/misc";
+import { getFunctionIdentifier } from "@eslint-react/ast";
+import { componentCollector } from "@eslint-react/component";
+import { createRule } from "@eslint-react/shared";
 
 export const RULE_NAME = "debug/function-component";
 
@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
     },
     defaultOptions: [],
     create(context) {
-        const { ctx, listeners } = ComponentCollector.make(context);
+        const { ctx, listeners } = componentCollector(context);
 
         return {
             ...listeners,

@@ -1,4 +1,4 @@
-# react-ts/debug/function-component
+# @eslint-react/debug/function-component
 
 Warns when a function component is found. Useful for debugging.
 

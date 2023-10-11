@@ -33,10 +33,16 @@
         "dist"
     ],
     "scripts": {
-        "build": "rollup -c rollup.config.ts --configPlugin typescript"
+        "build": "rollup -c rollup.config.ts --configPlugin swc3"
     },
     "dependencies": {
+        "@eslint-react/ast": "workspace:*",
+        "@eslint-react/create-element": "workspace:*",
+        "@eslint-react/jsx": "workspace:*",
+        "@eslint-react/pragma": "workspace:*",
+        "@eslint-react/shared": "workspace:*",
         "@eslint-react/std": "workspace:*",
-        "@types/eslint": "8.44.4"
+        "@types/eslint": "8.44.4",
+        "@typescript-eslint/utils": "6.7.5"
     }
 }

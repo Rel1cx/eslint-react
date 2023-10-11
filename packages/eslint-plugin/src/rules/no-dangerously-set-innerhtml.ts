@@ -1,12 +1,10 @@
-import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
+import { is, isOneOf, NodeType } from "@eslint-react/ast";
+import { isCreateElement } from "@eslint-react/create-element";
+import { findPropInAttributes, findPropInProperties } from "@eslint-react/jsx";
+import { createRule } from "@eslint-react/shared";
+import { F, O } from "@eslint-react/std";
+import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "@eslint-react/variable";
 import { match } from "ts-pattern";
-
-import { createRule } from "../../tools/create-rule";
-import { F, O } from "../lib";
-import * as AST from "../utils/ast-types";
-import { isCreateElement } from "../utils/is-create-element";
-import { findPropInAttributes, findPropInProperties } from "../utils/jsx";
-import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "../utils/variable";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml";
 
@@ -35,10 +33,10 @@ export default createRule<[], MessageID>({
                 }
                 const props = node.arguments[1];
                 const maybeProperties = match(props)
-                    .when(AST.isOneOf([N.ObjectExpression, N.ObjectPattern]), (n) => {
+                    .when(isOneOf([NodeType.ObjectExpression, NodeType.ObjectPattern]), (n) => {
                         return "properties" in n ? O.some(n.properties) : O.none();
                     })
-                    .when(AST.is(N.Identifier), (n) => {
+                    .when(is(NodeType.Identifier), (n) => {
                         return F.pipe(
                             findVariableByNameUpToGlobal(n.name, context.getScope()),
                             O.flatMap(getVariableNthDefNodeInit(0)),

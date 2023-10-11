@@ -12,6 +12,7 @@ export default {
         ["jsx", "🎨"],
     ],
     ignoreConfig: ["all", "off"],
+    pathRuleList: "../../README.md",
     ruleDocSectionInclude: ["Rule Details"],
     ruleDocTitleFormat: "name",
     ruleListSplit(rules) {

@@ -59,7 +59,7 @@ const None = Construction("None")();
  * Detect the construction of a given node.
  * @param context The rule context
  */
-export function make<T extends RuleContext>(context: T): (node: TSESTree.Node, scope: Scope) => Construction {
+export function constructionDetector<T extends RuleContext>(context: T): (node: TSESTree.Node, scope: Scope) => Construction {
     // eslint-disable-next-line sonarjs/cognitive-complexity
     const detect = (node: TSESTree.Node, scope = context.getScope()): Construction => {
         return match(node)

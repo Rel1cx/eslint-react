@@ -1,26 +1,22 @@
-import { type Scope, ScopeType } from "@typescript-eslint/scope-manager";
-import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
+import { NodeType, traverseUp, type TSESTreeClass, type TSESTreeFunction } from "@eslint-react/ast";
+import { getCreateClassFromContext, getFromContext } from "@eslint-react/pragma";
+import type { RuleContext } from "@eslint-react/shared";
+import { E, F } from "@eslint-react/std";
+import { type Scope } from "@typescript-eslint/scope-manager";
 import { type TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, match, P } from "ts-pattern";
 
-import type { RuleContext } from "../../typings";
-import { E, F } from "../lib";
-import { traverseUp } from "./ast-traverse";
-import type { TSESTreeFunction } from "./ast-types";
-import type * as AST from "./ast-types";
-import { getCreateClassFromContext, getFromContext } from "./pragma";
-
 const isRenderMethodLike = isMatching({
     key: {
         name: "render",
-        type: N.Identifier,
+        type: NodeType.Identifier,
     },
-    type: P.union(N.MethodDefinition, N.PropertyDefinition),
+    type: P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),
     parent: {
-        type: N.ClassBody,
+        type: NodeType.ClassBody,
         parent: {
-            type: N.ClassDeclaration,
+            type: NodeType.ClassDeclaration,
         },
     },
 });
@@ -51,13 +47,13 @@ export function isES5Component(node: TSESTree.Node, context: RuleContext) {
     return match(callee)
         .with(
             {
-                type: N.MemberExpression,
+                type: NodeType.MemberExpression,
                 object: { name: pragma },
                 property: { name: createClass },
             },
             F.constTrue,
         )
-        .with({ name: createClass, type: N.Identifier }, F.constTrue)
+        .with({ name: createClass, type: NodeType.Identifier }, F.constTrue)
         .otherwise(F.constFalse);
 }
 
@@ -67,7 +63,7 @@ export function isES5Component(node: TSESTree.Node, context: RuleContext) {
  * @param context The rule context
  * @deprecated It will be removed in the future.
  */
-export function isES6Component(node: TSESTree.Node, context: RuleContext): node is AST.TSESTreeClass {
+export function isES6Component(node: TSESTree.Node, context: RuleContext): node is TSESTreeClass {
     if (!("superClass" in node && node.superClass)) {
         return false;
     }
@@ -79,10 +75,10 @@ export function isES6Component(node: TSESTree.Node, context: RuleContext): node 
     const { superClass } = node;
 
     return match(superClass)
-        .with({ name: P.string, type: N.Identifier }, ({ name }) => /^(Pure)?Component$/u.test(name))
+        .with({ name: P.string, type: NodeType.Identifier }, ({ name }) => /^(Pure)?Component$/u.test(name))
         .with(
             {
-                type: N.MemberExpression,
+                type: NodeType.MemberExpression,
                 object: { name: pragma },
                 property: { name: P.string },
             },
@@ -99,7 +95,8 @@ export function isES6Component(node: TSESTree.Node, context: RuleContext): node 
 export function getParentES6Component(context: RuleContext) {
     let scope: Scope | null = context.getScope();
 
-    while (scope && scope.type !== ScopeType.class) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+    while (scope && scope.type !== "class") {
         scope = scope.upper;
     }
 
@@ -139,9 +136,9 @@ export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
  * @deprecated It will be removed in the future.
  */
 export const isStateMemberExpression: (node: TSESTree.Node) => boolean = isMatching({
-    type: N.MemberExpression,
+    type: NodeType.MemberExpression,
     object: {
-        type: N.ThisExpression,
+        type: NodeType.ThisExpression,
     },
     property: {
         name: "state",
@@ -183,10 +180,10 @@ export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) 
     return !!traverseUp(node, predicate);
 }
 
-const seenComponents = new WeakSet<AST.TSESTreeClass>();
+const seenComponents = new WeakSet<TSESTreeClass>();
 
-export function make(context: RuleContext) {
-    const components: AST.TSESTreeClass[] = [];
+export function componentCollectorLegacy(context: RuleContext) {
+    const components: TSESTreeClass[] = [];
 
     const ctx = {
         getAllComponents() {
@@ -201,7 +198,7 @@ export function make(context: RuleContext) {
         },
     } as const;
 
-    const collect = (node: AST.TSESTreeClass) => {
+    const collect = (node: TSESTreeClass) => {
         if (seenComponents.has(node)) {
             components.push(node);
         }

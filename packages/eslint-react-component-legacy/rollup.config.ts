@@ -20,12 +20,12 @@ export default defineConfig([{
         swc({
             jsc: {
                 minify: {
-                    compress: true,
-                    mangle: true,
+                    compress: false,
+                    mangle: false,
                     module: true,
                 },
             },
-            minify: true,
+            minify: false,
         }),
     ],
 }, {

@@ -9,6 +9,10 @@ const packages = [
     "eslint-react-jsx",
     "eslint-react-context",
     "eslint-react-hooks",
+    "eslint-react-render-prop",
+    "eslint-react-component-legacy",
+    "eslint-react-component",
+    "eslint-plugin",
 ];
 
 for (const pkg of packages) {

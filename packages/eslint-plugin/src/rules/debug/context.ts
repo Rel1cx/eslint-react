@@ -1,4 +1,4 @@
-import { createRule } from "../../../tools/create-rule";
+import { createRule } from "@eslint-react/shared";
 
 export const RULE_NAME = "debug/context";
 

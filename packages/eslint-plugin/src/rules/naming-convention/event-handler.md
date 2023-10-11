@@ -1,4 +1,4 @@
-# react-ts/naming-convention/event-handler
+# @eslint-react/naming-convention/event-handler
 
 Enforce consistent event handler naming conventions in JSX.
 

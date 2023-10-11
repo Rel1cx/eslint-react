@@ -1,9 +1,7 @@
 /* eslint-disable unicorn/no-typeof-undefined */
+import { isOneOf, NodeType } from "@eslint-react/ast";
+import { createRule } from "@eslint-react/shared";
 import { type TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
-
-import { createRule } from "../../../tools/create-rule";
-import * as AST from "../../utils/ast-types";
 
 export const RULE_NAME = "jsx/no-leaked-conditional-rendering";
 
@@ -15,9 +13,9 @@ const COERCE_STRATEGY = "coerce";
 const TERNARY_STRATEGY = "ternary";
 const DEFAULT_VALID_STRATEGIES = [TERNARY_STRATEGY, COERCE_STRATEGY] as const;
 const COERCE_VALID_LEFT_SIDE_EXPRESSIONS = [
-    N.UnaryExpression,
-    N.BinaryExpression,
-    N.CallExpression,
+    NodeType.UnaryExpression,
+    NodeType.BinaryExpression,
+    NodeType.CallExpression,
 ] as const;
 
 const TERNARY_INVALID_ALTERNATE_VALUES = new Set<TernaryAlternateValue>([null, false]);
@@ -28,7 +26,7 @@ function getIsCoerceValidNestedLogicalExpression(node: TSESTree.Node): boolean {
             && getIsCoerceValidNestedLogicalExpression(node.right);
     }
 
-    return AST.isOneOf(COERCE_VALID_LEFT_SIDE_EXPRESSIONS)(node);
+    return isOneOf(COERCE_VALID_LEFT_SIDE_EXPRESSIONS)(node);
 }
 
 function isValidTernaryAlternate(node: TSESTree.ConditionalExpression) {
@@ -77,7 +75,7 @@ export default createRule<[], MessageID>({
             'JSXExpressionContainer > LogicalExpression[operator="&&"]'(node: TSESTree.LogicalExpression) {
                 const leftSide = node.left;
 
-                const isCoerceValidLeftSide = AST.isOneOf(COERCE_VALID_LEFT_SIDE_EXPRESSIONS)(leftSide);
+                const isCoerceValidLeftSide = isOneOf(COERCE_VALID_LEFT_SIDE_EXPRESSIONS)(leftSide);
 
                 if (
                     DEFAULT_VALID_STRATEGIES.includes(COERCE_STRATEGY)

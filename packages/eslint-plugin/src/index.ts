@@ -1,5 +1,6 @@
+import type { RulePreset } from "@eslint-react/shared";
+
 import { name } from "../package.json";
-import type { RulePreset } from "../typings";
 import debugFunctionComponent from "./rules/debug/function-component";
 import jsxNoLeakedConditionalRendering from "./rules/jsx/no-leaked-conditional-rendering";
 import jsxNoMisusedCommentInTextNode from "./rules/jsx/no-misused-comment-in-textnode";
@@ -53,7 +54,7 @@ const debugRules = Object.fromEntries(rulesEntries.filter(([key]) => key.startsW
 const createConfig = (rules: RulePreset) => {
     return {
         plugins: ["react-ts"],
-        rules: Object.fromEntries(Object.entries(rules).map(([key, value]) => [`react-ts/${key}`, value])),
+        rules: Object.fromEntries(Object.entries(rules).map(([key, value]) => [`@eslint-react/${key}`, value])),
     };
 };
 

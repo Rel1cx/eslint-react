@@ -1,8 +1,7 @@
+import { isOneOf } from "@eslint-react/ast";
+import { createRule } from "@eslint-react/shared";
 import { type TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
-
-import { createRule } from "../../../tools/create-rule";
-import * as AST from "../../utils/ast-types";
 
 export const RULE_NAME = "jsx/no-misused-comment-in-textnode";
 
@@ -26,7 +25,7 @@ export default createRule<[], MessageID>({
     defaultOptions: [],
     create(context) {
         function checkText(node: TSESTree.JSXText | TSESTree.Literal) {
-            if (AST.isOneOf([N.JSXAttribute, N.JSXExpressionContainer])(node.parent)) {
+            if (isOneOf([N.JSXAttribute, N.JSXExpressionContainer])(node.parent)) {
                 return false;
             }
 
@@ -36,7 +35,7 @@ export default createRule<[], MessageID>({
         }
 
         const check = (node: TSESTree.JSXText | TSESTree.Literal) => {
-            if (!AST.isOneOf([N.JSXElement, N.JSXFragment])(node.parent)) {
+            if (!isOneOf([N.JSXElement, N.JSXFragment])(node.parent)) {
                 return;
             }
 

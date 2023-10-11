@@ -1,14 +1,9 @@
+import { isDestructorParameter, isFunction, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
+import { componentCollector } from "@eslint-react/component";
+import { type Cond, createRule, isValidReactComponentName } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { type TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-
-import { createRule } from "../../tools/create-rule";
-import type { Cond } from "../../typings";
-import * as AST from "../utils/ast-types";
-import * as ComponentCollector from "../utils/component-collector";
-import { isValidReactComponentName } from "../utils/is-valid-name";
-import { isDestructorParameter } from "../utils/misc";
 
 export const RULE_NAME = "prefer-destructuring-assignment";
 
@@ -55,7 +50,7 @@ export default createRule<Options, MessageID>({
     create(context) {
         const [cond = "always"] = context.options;
 
-        const { ctx, listeners } = ComponentCollector.make(context);
+        const { ctx, listeners } = componentCollector(context);
         const variableDeclarators: [Scope, TSESTree.VariableDeclarator][] = [];
         const memberExpressionWithNames: [Scope, MemberExpressionWithObjectName][] = [];
 
@@ -73,8 +68,8 @@ export default createRule<Options, MessageID>({
             "Program:exit"() {
                 const components = ctx.getAllComponents();
 
-                function isFunctionComponent(block: TSESTree.Node): block is AST.TSESTreeFunction {
-                    return AST.isFunction(block) && isValidReactComponentName(block.id?.name) && components.includes(block);
+                function isFunctionComponent(block: TSESTree.Node): block is TSESTreeFunction {
+                    return isFunction(block) && isValidReactComponentName(block.id?.name) && components.includes(block);
                 }
 
                 if (cond === "always") {
@@ -136,7 +131,7 @@ export default createRule<Options, MessageID>({
                 }
 
                 for (const [scope, declarator] of variableDeclarators) {
-                    const isComponent = AST.isFunction(scope.block) && components.includes(scope.block);
+                    const isComponent = isFunction(scope.block) && components.includes(scope.block);
                     const isDestructuring = declarator.init && declarator.id.type === NodeType.ObjectPattern;
                     if (!("init" in declarator && declarator.init && "name" in declarator.init)) {
                         continue;

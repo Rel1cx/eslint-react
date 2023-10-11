@@ -1,3 +1,3 @@
-# react-ts/naming-convention/filename-extension
+# @eslint-react/naming-convention/filename-extension
 
 ## Rule Details

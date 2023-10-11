@@ -1,8 +1,9 @@
-import { createRule } from "../../tools/create-rule";
-import { E, F, O } from "../lib";
-import type * as AST from "../utils/ast-types";
-import * as ComponentCollector from "../utils/component-collector";
-import * as ConstructionDetector from "../utils/construction-detector";
+import { NodeType, type TSESTreeFunction } from "@eslint-react/ast";
+import { componentCollector } from "@eslint-react/component";
+import type { Construction } from "@eslint-react/construction";
+import { constructionDetector } from "@eslint-react/construction";
+import { createRule } from "@eslint-react/shared";
+import { E, F, O } from "@eslint-react/std";
 
 export const RULE_NAME = "no-constructed-context-value";
 
@@ -32,9 +33,9 @@ export default createRule<[], MessageID>({
     },
     defaultOptions: [],
     create(context) {
-        const { ctx, listeners } = ComponentCollector.make(context);
-        const detectConstruction = ConstructionDetector.make(context);
-        const possibleValueConstructions = new Map<AST.TSESTreeFunction, ConstructionDetector.Construction>();
+        const { ctx, listeners } = componentCollector(context);
+        const detectConstruction = constructionDetector(context);
+        const possibleValueConstructions = new Map<TSESTreeFunction, Construction>();
 
         return {
             ...listeners,
