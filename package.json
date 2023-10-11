@@ -32,7 +32,7 @@
         "build:manual": "bun run ./scripts/build.ts",
         "format:check": "dprint check",
         "format:write": "dprint fmt",
-        "lint": "bun run format:check && bun run lint:spell && bun run lint:deps && bun run lint:ts && bun run lint:type",
+        "lint": "pnpm run format:check && pnpm run lint:spell && pnpm run lint:deps && pnpm run lint:ts && pnpm run lint:type",
         "lint:deps": "skott -m file-tree -e .ts -s",
         "lint:spell": "cspell lint --relative --no-progress '**'",
         "lint:ts": "eslint --ext .ts .",
@@ -80,7 +80,6 @@
         "ts-pattern": "5.0.5",
         "turbo": "1.10.14",
         "type-fest": "4.4.0",
-        "typedoc": "0.25.2",
         "typescript": "5.2.2",
         "vitest": "0.34.6"
     },
@@ -101,13 +100,13 @@
         "overrides": {
             "has": "npm:@nolyfill/has@latest",
             "rambda": "latest",
-            "eslint": ">=8.51.0",
+            "eslint": "8.51.0",
             "typescript": "beta",
             "@typescript-eslint/scope-manager": "6.7.5",
             "@typescript-eslint/type-utils": "6.7.5",
             "@typescript-eslint/types": "6.7.5",
             "@typescript-eslint/utils": "6.7.5",
-            "@typescript-eslint/parser": ">=6.7.5"
+            "@typescript-eslint/parser": "6.7.5"
         }
     }
 }
