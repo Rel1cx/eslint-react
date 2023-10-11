@@ -1,4 +1,4 @@
-# eslint-plugin-react-ts
+# eslint-react
 
 ESLint plugin for React and Preact function components with TypeScript, built from scratch (almost).
 
@@ -20,16 +20,16 @@ ESLint plugin for React and Preact function components with TypeScript, built fr
 
 ```bash
 # npm
-npm install --save-dev eslint-plugin-react-ts
+npm install --save-dev @eslint-react/eslint-plugin
 
 # pnpm
-pnpm add --save-dev eslint-plugin-react-ts
+pnpm add --save-dev @eslint-react/eslint-plugin
 
 # yarn
-yarn add --dev eslint-plugin-react-ts
+yarn add --dev @eslint-react/eslint-plugin
 
 # bun
-bun add --dev eslint-plugin-react-ts
+bun add --dev @eslint-react/eslint-plugin
 ```
 
 ## Usage
@@ -39,10 +39,10 @@ bun add --dev eslint-plugin-react-ts
 ```json
 {
     "extends": [
-        "plugin:react-ts/recommended"
+        "plugin:@eslint-react/recommended"
     ],
     "rules": {
-        "react-ts/<rule-name>": "error"
+        "@eslint-react/<rule-name>": "error"
     }
 }
 ```
@@ -50,13 +50,13 @@ bun add --dev eslint-plugin-react-ts
 ### [`eslint.config.js`](https://eslint.org/docs/latest/use/configure/configuration-files-new) (requires eslint >= v8.23.0)
 
 ```js
-import reactTsRecommended from "eslint-plugin-react-ts/configs/recommended";
+import reactTsRecommended from "@eslint-react/eslint-plugin/configs/recommended";
 
 export default [
     reactTsRecommended,
     {
         rules: {
-            "react-ts/<rule-name>": "error",
+            "@eslint-react/<rule-name>": "error",
             // ...
         },
     },
@@ -112,39 +112,39 @@ export default [
 
 ### Work in progress
 
-- [x] `react-ts/jsx/prefer-shorthand-boolean`
-- [x] `react-ts/jsx/no-leaked-conditional-rendering`
-- [x] `react-ts/jsx/no-misused-comment-in-textnode`
-- [ ] `react-ts/jsx/no-useless-fragment`
-- [ ] `react-ts/jsx/no-missing-key-prop`
-- [ ] `react-ts/jsx/no-array-index-key`
-- [x] `react-ts/naming-convention/event-handler`
-- [x] `react-ts/naming-convention/filename`
-- [x] `react-ts/naming-convention/filename-extension`
-- [x] `react-ts/no-constructed-context-value`
-- [x] `react-ts/no-dangerously-set-innerhtml`
-- [x] `react-ts/no-dangerously-set-innerhtml-with-children`
-- [x] `react-ts/no-deprecated-string-refs`
-- [x] `react-ts/no-unstable-default-props`
-- [ ] `react-ts/no-unstable-nested-components`
-- [ ] `react-ts/no-missing-display-name`
-- [ ] `react-ts/no-direct-mutation-state`
-- [x] `react-ts/debug/function-component`
-- [ ] `react-ts/debug/render-prop`
-- [ ] `react-ts/debug/context`
+- [x] `@eslint-react/jsx/prefer-shorthand-boolean`
+- [x] `@eslint-react/jsx/no-leaked-conditional-rendering`
+- [x] `@eslint-react/jsx/no-misused-comment-in-textnode`
+- [ ] `@eslint-react/jsx/no-useless-fragment`
+- [ ] `@eslint-react/jsx/no-missing-key-prop`
+- [ ] `@eslint-react/jsx/no-array-index-key`
+- [x] `@eslint-react/naming-convention/event-handler`
+- [x] `@eslint-react/naming-convention/filename`
+- [x] `@eslint-react/naming-convention/filename-extension`
+- [x] `@eslint-react/no-constructed-context-value`
+- [x] `@eslint-react/no-dangerously-set-innerhtml`
+- [x] `@eslint-react/no-dangerously-set-innerhtml-with-children`
+- [x] `@eslint-react/no-deprecated-string-refs`
+- [x] `@eslint-react/no-unstable-default-props`
+- [ ] `@eslint-react/no-unstable-nested-components`
+- [ ] `@eslint-react/no-missing-display-name`
+- [ ] `@eslint-react/no-direct-mutation-state`
+- [x] `@eslint-react/debug/function-component`
+- [ ] `@eslint-react/debug/render-prop`
+- [ ] `@eslint-react/debug/context`
 - [ ] ...
 
 ### Planned (will be added in the future)
 
-- [ ] `react-ts/jsx/no-complicated-conditional-rendering`
-- [ ] `react-ts/hooks/no-suppressing-exhaustive-deps`
-- [ ] `react-ts/hooks/ensure-custom-hooks-using-other-hooks`
-- [ ] `react-ts/no-access-ref-current-during-rendering`
-- [ ] `react-ts/no-legacy-children-methods`
-- [ ] `react-ts/no-legacy-class-components`
-- [ ] `react-ts/no-legacy-clone-element`
-- [ ] `react-ts/no-legacy-createRef`
-- [ ] `react-ts/rsc/...`
+- [ ] `@eslint-react/jsx/no-complicated-conditional-rendering`
+- [ ] `@eslint-react/hooks/no-suppressing-exhaustive-deps`
+- [ ] `@eslint-react/hooks/ensure-custom-hooks-using-other-hooks`
+- [ ] `@eslint-react/no-access-ref-current-during-rendering`
+- [ ] `@eslint-react/no-legacy-children-methods`
+- [ ] `@eslint-react/no-legacy-class-components`
+- [ ] `@eslint-react/no-legacy-clone-element`
+- [ ] `@eslint-react/no-legacy-createRef`
+- [ ] `@eslint-react/rsc/...`
 - [ ] ...
 
 ## Philosophy

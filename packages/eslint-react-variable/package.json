@@ -1,0 +1,43 @@
+{
+    "name": "@eslint-react/variable",
+    "version": "0.3.0",
+    "description": "",
+    "homepage": "https://github.com/Rel1cx/eslint-react",
+    "bugs": {
+        "url": "https://github.com/Rel1cx/eslint-react/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Rel1cx/eslint-react.git",
+        "directory": "packages/eslint-react-variable"
+    },
+    "license": "MIT",
+    "author": "Eva1ent<let@ik.me>",
+    "keywords": [
+        "eslint-config"
+    ],
+    "type": "module",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs",
+            "default": "./dist/index.js"
+        },
+        "./package.json": "./package.json"
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "rollup -c rollup.config.ts --configPlugin typescript"
+    },
+    "dependencies": {
+        "@eslint-react/std": "workspace:*",
+        "@types/eslint": "8.44.4",
+        "@typescript-eslint/types": ">=6.7.5"
+    }
+}

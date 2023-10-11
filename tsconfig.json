@@ -1,34 +1,13 @@
 {
-    "extends": [
-        "@tsconfig/strictest/tsconfig.json",
-        "@tsconfig/bun/tsconfig.json"
-    ],
+    "extends": "./tsconfig.base.json",
     "compilerOptions": {
-        "isolatedModules": true,
-        "verbatimModuleSyntax": true,
-        "resolveJsonModule": true,
-        "allowJs": false,
-        "checkJs": false,
-        "strict": true,
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "noUnusedLocals": false,
-        "noUnusedParameters": false,
-        "exactOptionalPropertyTypes": true,
-        "composite": false,
-        "stripInternal": true
+        "types": [
+            "bun-types"
+        ]
     },
     "include": [
-        "."
-    ],
-    "exclude": [
-        "node_modules",
-        "**/dist",
-        "test/fixtures"
-    ],
-    "plugins": [
-        {
-            "name": "@effect/language-service"
-        }
+        "./scripts/**/*.ts",
+        ".eslintrc.cjs",
+        "taze.config.ts"
     ]
 }
