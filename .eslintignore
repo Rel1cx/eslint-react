@@ -1,4 +1,4 @@
 **/dist
-test/fixtures
+**/test/fixtures
 dist
 docs

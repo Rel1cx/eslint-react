@@ -11,15 +11,28 @@ jobs:
             - name: Setup node
               uses: actions/setup-node@v3
               with:
-                  node-version: 20.8.0
-            - name: Install bun
-              uses: oven-sh/setup-bun@v1
-              id: bun-install
+                  node-version: 20
+            - uses: pnpm/action-setup@v2
+              name: Install pnpm
+              id: pnpm-install
               with:
-                  bun-version: latest
-            - name: Install dependencies
-              run: bun i
-            - name: Build library
-              run: bun run build
-            - name: Run checks
-              run: bun run lint
+                  version: 8
+                  run_install: false
+            - name: Get pnpm store directory
+              id: pnpm-cache
+              shell: bash
+              run: |
+                  echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+            - uses: actions/cache@v3
+              name: Setup pnpm cache
+              with:
+                  path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-store-release-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-release-
+            - name: Install front-end dependencies
+              run: pnpm i
+            - name: Build front-end assets
+              run: pnpm run build
+            - name: Check
+              run: pnpm run lint

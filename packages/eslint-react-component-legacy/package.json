@@ -1,0 +1,48 @@
+{
+    "name": "@eslint-react/component-legacy",
+    "version": "0.3.0",
+    "description": "",
+    "homepage": "https://github.com/Rel1cx/eslint-react",
+    "bugs": {
+        "url": "https://github.com/Rel1cx/eslint-react/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Rel1cx/eslint-react.git",
+        "directory": "packages/eslint-react-component-legacy"
+    },
+    "license": "MIT",
+    "author": "Eva1ent<let@ik.me>",
+    "keywords": [
+        "eslint-config"
+    ],
+    "type": "module",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs",
+            "default": "./dist/index.js"
+        },
+        "./package.json": "./package.json"
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "rollup -c rollup.config.ts --configPlugin swc3"
+    },
+    "dependencies": {
+        "@eslint-react/ast": "workspace:*",
+        "@eslint-react/create-element": "workspace:*",
+        "@eslint-react/jsx": "workspace:*",
+        "@eslint-react/pragma": "workspace:*",
+        "@eslint-react/shared": "workspace:*",
+        "@eslint-react/std": "workspace:*",
+        "@types/eslint": "8.44.4",
+        "@typescript-eslint/utils": "6.7.5"
+    }
+}

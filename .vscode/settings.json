@@ -1,36 +1,43 @@
 {
-    "search.exclude": {
-        "docs": true
-    },
-    "typescript.tsdk": "node_modules/typescript/lib",
-    "[typescript]": {
-        "editor.defaultFormatter": "dprint.dprint"
-    },
     "[json]": {
+        "editor.defaultFormatter": "dprint.dprint",
         "editor.quickSuggestions": {
             "strings": true
-        },
-        "editor.defaultFormatter": "dprint.dprint"
-    },
-    "[yaml]": {
-        "editor.insertSpaces": true,
-        "editor.tabSize": 4,
-        "editor.autoIndent": "keep",
-        "diffEditor.ignoreTrimWhitespace": false,
-        "editor.quickSuggestions": {
-            "other": true,
-            "comments": false,
-            "strings": true
-        },
-        "editor.defaultFormatter": "dprint.dprint"
+        }
     },
     "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features",
         "editor.quickSuggestions": {
             "strings": true
-        },
-        "editor.defaultFormatter": "vscode.json-language-features"
+        }
     },
     "[markdown]": {
         "editor.defaultFormatter": "dprint.dprint"
-    }
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "dprint.dprint"
+    },
+    "[yaml]": {
+        "diffEditor.ignoreTrimWhitespace": false,
+        "editor.autoIndent": "keep",
+        "editor.defaultFormatter": "dprint.dprint",
+        "editor.insertSpaces": true,
+        "editor.quickSuggestions": {
+            "comments": false,
+            "other": true,
+            "strings": true
+        },
+        "editor.tabSize": 4
+    },
+    "eslint.workingDirectories": [
+        {
+            "changeProcessCWD": true,
+            "mode": "location"
+        }
+    ],
+    "search.exclude": {
+        "docs": true
+    },
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "typescript.tsdk": "node_modules/typescript/lib"
 }
