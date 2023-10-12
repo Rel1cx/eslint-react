@@ -1,3 +1,4 @@
+/** @type {import("eslint").Linter.Config} */
 const config = {
     root: true,
     env: {
@@ -16,6 +17,7 @@ const config = {
         ],
         sourceType: "module",
         tsconfigRootDir: __dirname,
+        warnOnUnsupportedTypeScriptVersion: false,
     },
     plugins: ["filenames-simple"],
     extends: [
