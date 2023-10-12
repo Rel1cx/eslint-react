@@ -6,6 +6,16 @@ import { defineConfig, type RollupOptions } from "rollup";
 import { dts } from "rollup-plugin-dts";
 import { swc } from "rollup-plugin-swc3";
 
+const plugins = [
+    nodeResolve({
+        exportConditions: ["import", "require", "default"],
+    }),
+    commonjs({
+        esmExternals: true,
+    }),
+    json(),
+] as const;
+
 const options = {
     external: [
         "eslint",
@@ -16,13 +26,7 @@ const options = {
         "@typescript-eslint/utils",
     ],
     plugins: [
-        nodeResolve({
-            exportConditions: ["import", "require", "default"],
-        }),
-        commonjs({
-            esmExternals: true,
-        }),
-        json(),
+        ...plugins,
         // Enable when pattycake is more stable
         // pattycake.rollup({ disableOptionalChaining: false }),
         swc({
@@ -67,6 +71,7 @@ export default defineConfig([
             file: "dist/index.d.ts",
         },
         plugins: [
+            ...plugins,
             dts(),
         ],
     },
