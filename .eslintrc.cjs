@@ -69,11 +69,11 @@ const config = {
                 type: "natural",
                 "always-on-top": [
                     "id",
-                    "name",
                     "key",
-                    "kind",
+                    "name",
                     "meta",
                     "type",
+                    "kind",
                     "docs",
                     "schema",
                     "message",

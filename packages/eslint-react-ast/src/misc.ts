@@ -2,9 +2,9 @@ import type TSESLintScopeManager from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
 import { isString } from "effect/Predicate";
-import { isMatching } from "ts-pattern";
+import { isMatching, match } from "ts-pattern";
 
-import { isOneOf, NodeType, type TSESTreeFunction } from "./node-types";
+import { isOneOf, NodeType, type TSESTreeClass, type TSESTreeFunction } from "./node-types";
 
 export function isDeclaredInNode({
     functionNode,
@@ -118,4 +118,14 @@ export function getFunctionIdentifier(node: TSESTreeFunction): TSESTree.Identifi
     }
 
     return null;
+}
+
+export function getClassIdentifier(node: TSESTreeClass): TSESTree.Identifier | null {
+    return match(node)
+        .with({ type: NodeType.ClassDeclaration }, (x) => x.id)
+        .with({
+            type: NodeType.ClassExpression,
+            parent: { id: { type: NodeType.Identifier }, type: NodeType.VariableDeclarator },
+        }, (x) => x.parent.id)
+        .otherwise(() => null);
 }

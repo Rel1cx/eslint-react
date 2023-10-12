@@ -3,6 +3,7 @@ import type { RulePreset } from "@eslint-react/shared";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { name } from "../package.json";
+import debugClassComponent from "./rules/debug/class-component";
 import debugFunctionComponent from "./rules/debug/function-component";
 import jsxNoLeakedConditionalRendering from "./rules/jsx/no-leaked-conditional-rendering";
 import jsxNoMisusedCommentInTextNode from "./rules/jsx/no-misused-comment-in-textnode";
@@ -17,6 +18,7 @@ import noDeprecatedStringRefs from "./rules/no-deprecated-string-refs";
 import noUnstableDefaultProps from "./rules/no-unstable-default-props";
 
 const rules = {
+    "debug/class-component": "warn",
     "debug/function-component": "warn",
     "jsx/no-leaked-conditional-rendering": "error",
     "jsx/no-misused-comment-in-textnode": "warn",
@@ -70,6 +72,7 @@ export default {
         "recommended-type-checked": createConfig(recommendedRules),
     },
     rules: {
+        "debug/class-component": debugClassComponent,
         "debug/function-component": debugFunctionComponent,
         "jsx/no-leaked-conditional-rendering": jsxNoLeakedConditionalRendering,
         "jsx/no-misused-comment-in-textnode": jsxNoMisusedCommentInTextNode,

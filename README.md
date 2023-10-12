@@ -78,6 +78,7 @@ export default [
 
 | Name                                                                                      | Description                                               | 💼 | ⚠️  |
 | :---------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :- | :- |
+| [debug/class-component](packages/eslint-plugin/docs/rules/debug/class-component.md)       | reports all class components, including anonymous ones    |    | 🛠️  |
 | [debug/function-component](packages/eslint-plugin/docs/rules/debug/function-component.md) | reports all function components, including anonymous ones |    | 🛠️  |
 
 ### jsx
@@ -129,6 +130,7 @@ export default [
 - [ ] `@eslint-react/no-unstable-nested-components`
 - [ ] `@eslint-react/no-missing-display-name`
 - [ ] `@eslint-react/no-direct-mutation-state`
+- [x] `@eslint-react/debug/class-component`
 - [x] `@eslint-react/debug/function-component`
 - [ ] `@eslint-react/debug/render-prop`
 - [ ] `@eslint-react/debug/context`

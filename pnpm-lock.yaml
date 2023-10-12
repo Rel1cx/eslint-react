@@ -77,8 +77,8 @@ importers:
         specifier: 2.7.3
         version: 2.7.3(eslint@8.51.0)(tailwindcss@3.3.3)(typescript@5.3.0-beta)
       eslint-doc-generator:
-        specifier: 1.4.3
-        version: 1.4.3(eslint@8.51.0)(typescript@5.3.0-beta)
+        specifier: 1.5.0
+        version: 1.5.0(eslint@8.51.0)(typescript@5.3.0-beta)
       eslint-plugin-eslint-plugin:
         specifier: 5.1.1
         version: 5.1.1(eslint@8.51.0)
@@ -3656,8 +3656,8 @@ packages:
     engines: {node: ^16.13.0 || >=18.0.0, npm: '>=7.0.0', pnpm: '>= 8.6.0'}
     dev: true
 
-  /eslint-doc-generator@1.4.3(eslint@8.51.0)(typescript@5.3.0-beta):
-    resolution: {integrity: sha512-cn9KXE7xuKlxKi/9VbirR3cbz7W1geRObwWzZjJAnpTeNBoqA8Rj+lD8/HHHJ7PnOdaTrRyhhoYdCtxqq3U7Bw==}
+  /eslint-doc-generator@1.5.0(eslint@8.51.0)(typescript@5.3.0-beta):
+    resolution: {integrity: sha512-NhmAlrzZ1KbMkXhFf6tSb84uEEuVs93/Cq3YKpP4qIdsuibZ503xphSOlPrNgGoO9LgOQUKssXFjeXFK4LYCVw==}
     engines: {node: ^14.18.0 || ^16.0.0 || >=18.0.0}
     hasBin: true
     peerDependencies:
