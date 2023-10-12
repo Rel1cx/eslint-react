@@ -39,7 +39,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -55,7 +55,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -71,7 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -87,7 +87,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -103,7 +103,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -119,7 +119,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -135,7 +135,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -151,7 +151,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 };
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -167,7 +167,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -183,7 +183,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         // TODO: add support for class components detection
         // {
@@ -281,7 +281,7 @@ ruleTester.run(RULE_NAME, rule, {
                   }
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -299,7 +299,7 @@ ruleTester.run(RULE_NAME, rule, {
                   }
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -317,7 +317,7 @@ ruleTester.run(RULE_NAME, rule, {
                   }
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: `
@@ -335,7 +335,7 @@ ruleTester.run(RULE_NAME, rule, {
               }
             }
           `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -355,7 +355,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -371,7 +371,7 @@ ruleTester.run(RULE_NAME, rule, {
                   return React.createElement("div", null, getComponent());
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -390,7 +390,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" }],
         },
         {
             code: dedent`
@@ -406,7 +406,7 @@ ruleTester.run(RULE_NAME, rule, {
                   });
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" }],
         },
         {
             code: dedent`
@@ -420,7 +420,7 @@ ruleTester.run(RULE_NAME, rule, {
                     );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" }],
         },
         {
             code: dedent`
@@ -434,7 +434,7 @@ ruleTester.run(RULE_NAME, rule, {
                   });
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" }],
         },
         {
             code: dedent`
@@ -460,7 +460,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -474,7 +474,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" }],
         },
         {
             code: dedent`
@@ -488,7 +488,7 @@ ruleTester.run(RULE_NAME, rule, {
                   });
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" }],
         },
         {
             code: dedent`
@@ -498,7 +498,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" }],
         },
         {
             code: dedent`
@@ -512,7 +512,7 @@ ruleTester.run(RULE_NAME, rule, {
                   }
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -534,7 +534,7 @@ ruleTester.run(RULE_NAME, rule, {
                 }
             `,
             // Only a single error should be shown. This can get easily marked twice.
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -553,9 +553,9 @@ ruleTester.run(RULE_NAME, rule, {
                 }
             `,
             errors: [
-                { messageId: "INVALID" },
-                { messageId: "INVALID" },
-                { messageId: "INVALID" },
+                { messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" },
+                { messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" },
+                { messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" },
             ],
         },
         {
@@ -574,9 +574,9 @@ ruleTester.run(RULE_NAME, rule, {
                 }
             `,
             errors: [
-                { messageId: "INVALID" },
-                { messageId: "INVALID" },
-                { messageId: "INVALID" },
+                { messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" },
+                { messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" },
+                { messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" },
             ],
         },
         {
@@ -592,7 +592,7 @@ ruleTester.run(RULE_NAME, rule, {
                   return <Table rows={rows} />;
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" }],
         },
         {
             code: dedent`
@@ -608,7 +608,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -624,7 +624,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -642,7 +642,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
         {
             code: dedent`
@@ -660,7 +660,7 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
             `,
-            errors: [{ messageId: "INVALID" }],
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
     ],
 });

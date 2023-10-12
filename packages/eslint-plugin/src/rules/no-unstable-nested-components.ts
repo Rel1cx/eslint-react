@@ -1,4 +1,4 @@
-import { isFunction, traverseUpGuard, type TSESTreeFunction, unsafeIsMapCall } from "@eslint-react/ast";
+import { isFunction, NodeType, traverseUpGuard, type TSESTreeFunction, unsafeIsMapCall } from "@eslint-react/ast";
 import { componentCollector } from "@eslint-react/component";
 import { isInsideRenderMethod } from "@eslint-react/component-legacy";
 import { isInsideCreateElementProps } from "@eslint-react/create-element";
@@ -10,7 +10,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-unstable-nested-components";
 
-type MessageID = "INVALID";
+type MessageID = "UNSTABLE_NESTED_COMPONENT" | "UNSTABLE_NESTED_COMPONENT_IN_PROPS";
 
 // TODO: add more details to the report messages and data
 export default createRule<[], MessageID>({
@@ -24,7 +24,9 @@ export default createRule<[], MessageID>({
         },
         schema: [],
         messages: {
-            INVALID: "Do not define components during render. Move it outside of the parent component.",
+            UNSTABLE_NESTED_COMPONENT: "Don't create components inside other components. better move it outside.",
+            UNSTABLE_NESTED_COMPONENT_IN_PROPS:
+                "Don't create components inside other components' props. better move it outside.",
         },
     },
     defaultOptions: [],
@@ -41,11 +43,12 @@ export default createRule<[], MessageID>({
                 };
 
                 for (const component of components) {
+                    const isInsideProperty = component.parent.type === NodeType.Property;
                     const isInsideJSXProps = isDeclaredInJSXAttribute(component) && !unsafeIsDeclaredInRenderProp(component);
                     if (isInsideJSXProps || isInsideCreateElementProps(component, context)) {
                         // TODO: define a new messageId for this case
                         context.report({
-                            messageId: "INVALID",
+                            messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS",
                             node: component,
                         });
 
@@ -69,7 +72,7 @@ export default createRule<[], MessageID>({
 
                     if (parentComponent) {
                         context.report({
-                            messageId: "INVALID",
+                            messageId: isInsideProperty ? "UNSTABLE_NESTED_COMPONENT_IN_PROPS" : "UNSTABLE_NESTED_COMPONENT",
                             node: component,
                         });
 
@@ -80,7 +83,7 @@ export default createRule<[], MessageID>({
 
                     if (isInsideClassComponentRenderMethod) {
                         context.report({
-                            messageId: "INVALID",
+                            messageId: "UNSTABLE_NESTED_COMPONENT",
                             node: component,
                         });
                     }
