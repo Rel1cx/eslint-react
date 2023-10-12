@@ -2,7 +2,7 @@ import mod from "../index";
 
 export default {
     plugins: {
-        "react-ts": mod,
+        "@eslint-react": mod,
     },
     rules: mod.configs.off.rules,
 };

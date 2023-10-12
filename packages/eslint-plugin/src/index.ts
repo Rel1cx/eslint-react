@@ -52,7 +52,7 @@ const debugRules: RulePreset = Object.fromEntries(rulesEntries.filter(([key]) =>
 
 const createConfig = (rules: RulePreset) => {
     return {
-        plugins: ["react-ts"],
+        plugins: ["@eslint-react"],
         rules: Object.fromEntries(Object.entries(rules).map(([key, value]) => [`@eslint-react/${key}`, value])),
     };
 };
