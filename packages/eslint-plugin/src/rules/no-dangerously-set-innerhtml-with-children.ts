@@ -6,6 +6,7 @@ import { createRule } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/std";
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "@eslint-react/variable";
 import type { TSESTree } from "@typescript-eslint/types";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 import { match } from "ts-pattern";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml-with-children";

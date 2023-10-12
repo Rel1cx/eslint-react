@@ -29,6 +29,14 @@ const config = {
     rules: {
         "@typescript-eslint/prefer-readonly": "error",
         "@typescript-eslint/strict-boolean-expressions": "error",
+        "@typescript-eslint/no-unused-vars": [
+            "warn",
+            {
+                argsIgnorePattern: "^_",
+                destructuredArrayIgnorePattern: "^_",
+                varsIgnorePattern: "(^_)|(^ESLintUtils$)",
+            },
+        ],
         "array-callback-return": "off",
         "eslint-plugin/require-meta-docs-url": "off",
         "filenames-simple/named-export": "off",

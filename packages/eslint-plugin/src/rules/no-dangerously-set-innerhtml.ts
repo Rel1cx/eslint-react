@@ -4,6 +4,7 @@ import { findPropInAttributes, findPropInProperties } from "@eslint-react/jsx";
 import { createRule } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/std";
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "@eslint-react/variable";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 import { match } from "ts-pattern";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml";

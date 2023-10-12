@@ -3,7 +3,7 @@ import json from "@rollup/plugin-json";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 // import pattycake from "pattycake";
 import { defineConfig, type RollupOptions } from "rollup";
-// import { dts } from "rollup-plugin-dts";
+import { dts } from "rollup-plugin-dts";
 import { swc } from "rollup-plugin-swc3";
 
 const options = {
@@ -60,15 +60,14 @@ export default defineConfig([
             { file: `dist/configs/${name}.mjs`, format: "esm" },
         ],
     } satisfies RollupOptions)),
-    // Enable when @typescript-eslint/utils's TS2742 problem is fixed
-    // {
-    //     ...options,
-    //     input: "src/index.ts",
-    //     output: {
-    //         file: "dist/index.d.ts",
-    //     },
-    //     plugins: [
-    //         dts(),
-    //     ],
-    // },
+    {
+        ...options,
+        input: "src/index.ts",
+        output: {
+            file: "dist/index.d.ts",
+        },
+        plugins: [
+            dts(),
+        ],
+    },
 ]);

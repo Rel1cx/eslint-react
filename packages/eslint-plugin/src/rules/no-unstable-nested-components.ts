@@ -7,6 +7,7 @@ import { isDeclaredInJSXAttribute, isFunctionReturningJSX } from "@eslint-react/
 import { unsafeIsDeclaredInRenderProp, unsafeIsDirectValueOfRenderProperty } from "@eslint-react/render-prop";
 import { createRule } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 
 export const RULE_NAME = "no-unstable-nested-components";
 

@@ -1,6 +1,7 @@
 import { isJSXFileExt } from "@eslint-react/jsx";
 import { createRule, getCaseValidator } from "@eslint-react/shared";
 import { O } from "@eslint-react/std";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import path from "pathe";

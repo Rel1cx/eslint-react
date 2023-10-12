@@ -1,4 +1,6 @@
 import type { RulePreset } from "@eslint-react/shared";
+// workaround for @typescript-eslint/utils's TS2742 error.
+import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { name } from "../package.json";
 import debugFunctionComponent from "./rules/debug/function-component";

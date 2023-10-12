@@ -1,5 +1,5 @@
 import { createRule } from "@eslint-react/shared";
-
+import type { ESLintUtils } from "@typescript-eslint/utils";
 export const RULE_NAME = "debug/context";
 
 type MessageID = "CONTEXT_PROVIDER" | "CONTEXT_PROVIDER_WITH_VALUE";

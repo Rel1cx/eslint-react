@@ -3,6 +3,7 @@
 import { NodeType } from "@eslint-react/ast";
 import { createRule } from "@eslint-react/shared";
 import { O } from "@eslint-react/std";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import { getPropName } from "../../../../eslint-react-jsx/src";

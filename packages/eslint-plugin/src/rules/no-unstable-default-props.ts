@@ -3,6 +3,7 @@ import { componentCollector } from "@eslint-react/component";
 import { isUnstableAssignmentPattern } from "@eslint-react/construction";
 import { createRule } from "@eslint-react/shared";
 import { type TSESTree } from "@typescript-eslint/types";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 
 export const RULE_NAME = "no-unstable-default-props";
 

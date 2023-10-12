@@ -2,6 +2,7 @@ import { isOneOf } from "@eslint-react/ast";
 import { createRule } from "@eslint-react/shared";
 import { type TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 
 export const RULE_NAME = "jsx/no-misused-comment-in-textnode";
 
