@@ -77,12 +77,12 @@ export default [
 ### debug
 
 | Name                                                                                      | Description                                               | 💼 | ⚠️  |
-| :---------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :- | :-- |
-| [debug/function-component](packages/eslint-plugin/docs/rules/debug/function-component.md) | reports all function components, including anonymous ones |    | 🛠️ |
+| :---------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :- | :- |
+| [debug/function-component](packages/eslint-plugin/docs/rules/debug/function-component.md) | reports all function components, including anonymous ones |    | 🛠️  |
 
 ### jsx
 
-| Name                                                                                                            | Description                                            | 💼       | ⚠️       |
+| Name                                                                                                            | Description                                            | 💼       | ⚠️        |
 | :-------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------- | :------- | :------- |
 | [jsx/no-leaked-conditional-rendering](packages/eslint-plugin/docs/rules/jsx/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered | 🎨 👍 🔍 |          |
 | [jsx/no-misused-comment-in-textnode](packages/eslint-plugin/docs/rules/jsx/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes    |          | 🎨 👍 🔍 |
@@ -90,7 +90,7 @@ export default [
 
 ### naming-convention
 
-| Name                                                                                                              | Description                                                                      | 💼 | ⚠️ |
+| Name                                                                                                              | Description                                                                      | 💼 | ⚠️  |
 | :---------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------- | :- | :- |
 | [naming-convention/event-handler](packages/eslint-plugin/docs/rules/naming-convention/event-handler.md)           | enforce event handler naming conventions in JSX                                  |    |    |
 | [naming-convention/filename](packages/eslint-plugin/docs/rules/naming-convention/filename.md)                     | enforce naming convention for jsx files                                          |    |    |
@@ -98,7 +98,7 @@ export default [
 
 ### react
 
-| Name                                                                                                                          | Description                                                                     | 💼    | ⚠️ |
+| Name                                                                                                                          | Description                                                                     | 💼    | ⚠️  |
 | :---------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ | :---- | :- |
 | [no-constructed-context-value](packages/eslint-plugin/docs/rules/no-constructed-context-value.md)                             | disallows passing constructed values to context providers                       | 👍 🔍 |    |
 | [no-dangerously-set-innerhtml](packages/eslint-plugin/docs/rules/no-dangerously-set-innerhtml.md)                             | disallow when a DOM element is using both children and dangerouslySetInnerHTML' | 👍 🔍 |    |
