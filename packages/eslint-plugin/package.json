@@ -62,7 +62,7 @@
     "scripts": {
         "build": "rollup -c rollup.config.ts --configPlugin swc3",
         "build:docs-rules": "bun run ./scripts/doc-generate.ts && eslint-doc-generator",
-        "publish": "bun run lint && bun run build && bun run test && bun x publint",
+        "publish": "pnpm run build && pnpm run test && pnpm publint",
         "test": "vitest --run --single-thread --no-threads"
     },
     "dependencies": {
