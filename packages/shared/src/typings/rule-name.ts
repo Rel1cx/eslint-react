@@ -1,4 +1,7 @@
 // Rule name primitive definitions, used to guide rule naming.
+// The plural nouns are used only when there is a clear indication of multiple things.
+// Most of the terms are taken from the React glossary on https://react.dev.
+// This file is also used to help GitHub copilot suggest rule names.
 
 export type Namespace = "compat" | "debug" | "hooks" | "jsx" | "naming-convention" | "rsc";
 
