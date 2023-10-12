@@ -10,7 +10,7 @@ import { getPropName } from "../../../../eslint-react-jsx/src";
 
 export const RULE_NAME = "naming-convention/event-handler";
 
-type MessageID = "INVALID_HANDLER_NAME" | "INVALID_PROP_KEY";
+type MessageID = "BAD_EVENT_HANDLER_NAME" | "BAD_EVENT_HANDLER_PROP_NAME";
 
 type Options = readonly [
     {
@@ -98,9 +98,9 @@ export default createRule<Options, MessageID>({
         },
         schema,
         messages: {
-            INVALID_HANDLER_NAME:
+            BAD_EVENT_HANDLER_NAME:
                 "Handler function for {{propKey}} prop key must be a camelCase name beginning with '{{handlerPrefix}}' only",
-            INVALID_PROP_KEY: "Prop key for {{propValue}} must begin with '{{handlerPropPrefix}}'",
+            BAD_EVENT_HANDLER_PROP_NAME: "Prop key for {{propValue}} must begin with '{{handlerPropPrefix}}'",
         },
     },
     defaultOptions,
@@ -109,9 +109,9 @@ export default createRule<Options, MessageID>({
         const checkEventHandlerPropPrefix = !!eventHandlerPropPrefix;
         const handlerPrefix = eventHandlerPrefix || "handle";
         const handlerPropPrefix = eventHandlerPropPrefix || "on";
-        const PROP_EVENT_HANDLER_REGEX = new RegExp(`^(${handlerPropPrefix}[A-Z].*|ref)$`, "u");
+        const reEventHandlerProp = new RegExp(`^(${handlerPropPrefix}[A-Z].*|ref)$`, "u");
         // dprint-ignore
-        const EVENT_HANDLER_REGEX = new RegExp(`^((props\\.${handlerPropPrefix || ""})|((.*\\.)?${handlerPrefix}))[0-9]*[A-Z].*$`, "u");
+        const reEventHandler = new RegExp(`^((props\\.${handlerPropPrefix || ""})|((.*\\.)?${handlerPrefix}))[0-9]*[A-Z].*$`, "u");
 
         return {
             JSXAttribute(node) {
@@ -151,25 +151,25 @@ export default createRule<Options, MessageID>({
                     return;
                 }
 
-                const propIsEventHandler = PROP_EVENT_HANDLER_REGEX.test(propKey);
-                const propFnIsNamedCorrectly = EVENT_HANDLER_REGEX.test(propValue);
-                if (checkEventHandlerPropPrefix && !propIsEventHandler && propFnIsNamedCorrectly) {
+                const propIsEventHandler = reEventHandlerProp.test(propKey);
+                const fnIsNamedOk = reEventHandler.test(propValue);
+                if (checkEventHandlerPropPrefix && !propIsEventHandler && fnIsNamedOk) {
                     context.report({
                         data: {
                             handlerPropPrefix,
                             propValue,
                         },
-                        messageId: "INVALID_PROP_KEY",
+                        messageId: "BAD_EVENT_HANDLER_PROP_NAME",
                         node,
                     });
                 }
-                if (checkEventHandlerPrefix && propIsEventHandler && !propFnIsNamedCorrectly) {
-                    return context.report({
+                if (checkEventHandlerPrefix && propIsEventHandler && !fnIsNamedOk) {
+                    context.report({
                         data: {
                             handlerPrefix,
                             propKey,
                         },
-                        messageId: "INVALID_HANDLER_NAME",
+                        messageId: "BAD_EVENT_HANDLER_NAME",
                         node,
                     });
                 }
