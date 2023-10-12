@@ -8,4 +8,5 @@ cd packages/eslint-plugin
 pnpm run build:docs-rules
 pnpm publint
 cd ../..
+pnpm run format:write
 git add .
