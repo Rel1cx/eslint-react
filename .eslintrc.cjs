@@ -12,7 +12,6 @@ const config = {
         project: [
             "./tsconfig.json",
             "./packages/*/tsconfig.json",
-            // "./plugins/*/tsconfig.json",
             // "./website/*/tsconfig.json",
         ],
         sourceType: "module",

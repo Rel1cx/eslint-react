@@ -42,14 +42,13 @@ const recommendedRules = {
     "no-unstable-default-props": "error",
 } as const satisfies RulePreset;
 
-const allRules = Object.fromEntries(rulesEntries.filter(([key]) => !key.startsWith("debug/"))) satisfies RulePreset;
+const allRules: RulePreset = Object.fromEntries(rulesEntries.filter(([key]) => !key.startsWith("debug/")));
 
-// dprint-ignore
-const jsxRules = Object.fromEntries(rulesEntries.filter(([key]) => key.startsWith("jsx/"))) satisfies RulePreset;
+const offRules: RulePreset = Object.fromEntries(rulesEntries.map(([key]) => [key, "off"]));
 
-const offRules = Object.fromEntries(rulesEntries.map(([key]) => [key, "off"])) satisfies RulePreset;
+const jsxRules: RulePreset = Object.fromEntries(rulesEntries.filter(([key]) => key.startsWith("jsx/")));
 
-const debugRules = Object.fromEntries(rulesEntries.filter(([key]) => key.startsWith("debug/"))) satisfies RulePreset;
+const debugRules: RulePreset = Object.fromEntries(rulesEntries.filter(([key]) => key.startsWith("debug/")));
 
 const createConfig = (rules: RulePreset) => {
     return {
