@@ -1,6 +1,6 @@
 {
     "name": "@eslint-react/monorepo",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "description": "ESLint plugin for React and Preact function components with TypeScript, built from scratch (almost).",
     "keywords": [
         "eslint",
@@ -36,7 +36,8 @@
         "lint:ts": "eslint --ext .ts .",
         "lint:ts-fix": "eslint --ext .ts --fix .",
         "lint:type": "tsc --noEmit",
-        "update": "taze"
+        "update": "taze",
+        "inspect:eslint": "pnpm eslint --print-config ./taze.config.ts > eslint-config.json"
     },
     "devDependencies": {
         "@effect/language-service": "0.0.21",
@@ -78,7 +79,7 @@
         "ts-pattern": "5.0.5",
         "turbo": "1.10.14",
         "type-fest": "4.4.0",
-        "typescript": "5.2.2",
+        "typescript": ">=5.2.2",
         "vitest": "0.34.6"
     },
     "peerDependencies": {
@@ -99,7 +100,7 @@
             "has": "npm:@nolyfill/has@latest",
             "rambda": "latest",
             "eslint": ">=8.51.0",
-            "typescript": "beta",
+            "typescript": ">=5.2.2",
             "@typescript-eslint/scope-manager": "6.7.5",
             "@typescript-eslint/type-utils": "6.7.5",
             "@typescript-eslint/types": "6.7.5",

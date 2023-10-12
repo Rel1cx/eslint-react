@@ -1,6 +1,6 @@
 {
     "name": "@eslint-react/eslint-plugin",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "description": "ESLint plugin for React and Preact function components with TypeScript, built from scratch (almost).",
     "keywords": [
         "eslint",
@@ -98,7 +98,7 @@
     "peerDependencies": {
         "@typescript-eslint/parser": ">=6.7.5",
         "eslint": ">=8.51.0",
-        "typescript": "5.2.2"
+        "typescript": ">=5.2.2"
     },
     "packageManager": "bun@1.0.5",
     "engines": {
