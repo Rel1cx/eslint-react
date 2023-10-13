@@ -392,6 +392,9 @@ importers:
       '@types/eslint':
         specifier: 8.44.4
         version: 8.44.4
+      '@typescript-eslint/parser':
+        specifier: '>=6.7.5'
+        version: 6.7.5(eslint@8.51.0)(typescript@5.2.2)
       '@typescript-eslint/types':
         specifier: 6.7.5
         version: 6.7.5

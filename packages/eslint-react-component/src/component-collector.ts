@@ -1,6 +1,7 @@
-import { getFunctionIdentifier, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
+import { getFunctionIdentifier, NodeType, type TSESTreeFunction, unsafeIsMapCall } from "@eslint-react/ast";
 import { isChildrenOfCreateElement } from "@eslint-react/create-element";
-import { isJSXValue } from "@eslint-react/jsx";
+import { isJSXValue, type JSXValueCheckOptions } from "@eslint-react/jsx";
+import { defaultJSXValueCheckOptions } from "@eslint-react/jsx";
 import { MutList, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/types";
@@ -9,7 +10,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { isFunctionOfRenderMethod } from "./component-collector-legacy";
 import { isValidReactComponentName } from "./is-valid-react-component-name";
 
-const seenComponents = new WeakSet<TSESTreeFunction>();
+// const seenComponents = new WeakSet<TSESTreeFunction>();
 
 export const hasInvalidName = (node: TSESTreeFunction) => {
     const id = getFunctionIdentifier(node);
@@ -17,12 +18,29 @@ export const hasInvalidName = (node: TSESTreeFunction) => {
     return id && !isValidReactComponentName(id.name);
 };
 
-export const hasInvalidHierarchicalRelationship = (node: TSESTreeFunction, context: RuleContext) => {
+export const hasInvalidHierarchicalRelationship = (node: TSESTreeFunction, context: RuleContext, ignoreMapCall = false) => {
     return isChildrenOfCreateElement(node, context)
-        || isFunctionOfRenderMethod(node, context);
+        || isFunctionOfRenderMethod(node, context)
+        // eslint-disable-next-line @typescript-eslint/no-extra-parens
+        || (ignoreMapCall && unsafeIsMapCall(node.parent));
 };
 
-export function componentCollector(context: RuleContext) {
+export type ComponentCollectorOptions = JSXValueCheckOptions & {
+    /**
+     * ignore components in map method's callback function
+     */
+    ignoreMapCall?: boolean;
+};
+
+const defaultComponentCollectorOptions: ComponentCollectorOptions = {
+    ...defaultJSXValueCheckOptions,
+    ignoreMapCall: false,
+};
+
+export function componentCollector(
+    context: RuleContext,
+    options: ComponentCollectorOptions = defaultComponentCollectorOptions,
+) {
     const components: TSESTreeFunction[] = [];
     const functionStack = MutList.make<TSESTreeFunction>();
     const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
@@ -64,41 +82,27 @@ export function componentCollector(context: RuleContext) {
 
             const currentFn = maybeCurrentFn.value;
 
-            if (seenComponents.has(currentFn)) {
-                components.push(currentFn);
-
-                return;
-            }
-
             if (
                 hasInvalidName(currentFn)
-                || !isJSXValue(node.argument, context, false, false)
-                || hasInvalidHierarchicalRelationship(currentFn, context)
+                || !isJSXValue(node.argument, context, options)
+                || hasInvalidHierarchicalRelationship(currentFn, context, options.ignoreMapCall)
             ) {
                 return;
             }
 
-            seenComponents.add(currentFn);
             components.push(currentFn);
         },
         // eslint-disable-next-line perfectionist/sort-objects
         "ArrowFunctionExpression[body.type!='BlockStatement']"(node: TSESTree.ArrowFunctionExpression) {
-            if (seenComponents.has(node)) {
-                components.push(node);
-
-                return;
-            }
-
             const { body } = node;
             if (
                 hasInvalidName(node)
-                || !isJSXValue(body, context, false, false)
-                || hasInvalidHierarchicalRelationship(node, context)
+                || !isJSXValue(body, context, options)
+                || hasInvalidHierarchicalRelationship(node, context, options.ignoreMapCall)
             ) {
                 return;
             }
 
-            seenComponents.add(node);
             components.push(node);
         },
     } as const satisfies RuleListener;

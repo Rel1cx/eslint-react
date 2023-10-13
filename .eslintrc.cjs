@@ -132,7 +132,7 @@ const config = {
             },
         },
         {
-            extends: ["plugin:vitest/all"],
+            extends: ["plugin:vitest/recommended"],
             files: "*.spec.ts",
             plugins: ["vitest"],
             rules: {

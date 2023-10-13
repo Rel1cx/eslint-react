@@ -1,8 +1,8 @@
-import { isFunction, NodeType, traverseUpGuard, type TSESTreeFunction, unsafeIsMapCall } from "@eslint-react/ast";
+import { isFunction, NodeType, traverseUpGuard, type TSESTreeFunction } from "@eslint-react/ast";
 import { componentCollector, isInsideRenderMethod } from "@eslint-react/component";
 import { isInsideCreateElementProps } from "@eslint-react/create-element";
-import { unsafeIsReturnStatementOfReactHook } from "@eslint-react/hooks";
-import { isDeclaredInJSXAttribute, isFunctionReturningJSX } from "@eslint-react/jsx";
+import { unsafeIsInsideReactHookCall } from "@eslint-react/hooks";
+import { isInsideJSXAttribute } from "@eslint-react/jsx";
 import { unsafeIsDeclaredInRenderProp, unsafeIsDirectValueOfRenderProperty } from "@eslint-react/render-prop";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -32,7 +32,7 @@ export default createRule<[], MessageID>({
     },
     defaultOptions: [],
     create(context) {
-        const { ctx, listeners } = componentCollector(context);
+        const { ctx, listeners } = componentCollector(context, { ignoreMapCall: true, ignoreNull: true, strict: true });
 
         return {
             ...listeners,
@@ -45,9 +45,8 @@ export default createRule<[], MessageID>({
 
                 for (const component of components) {
                     const isInsideProperty = component.parent.type === NodeType.Property;
-                    const isInsideJSXProps = isDeclaredInJSXAttribute(component) && !unsafeIsDeclaredInRenderProp(component);
+                    const isInsideJSXProps = isInsideJSXAttribute(component) && !unsafeIsDeclaredInRenderProp(component);
                     if (isInsideJSXProps || isInsideCreateElementProps(component, context)) {
-                        // TODO: define a new messageId for this case
                         context.report({
                             messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS",
                             node: component,
@@ -57,14 +56,10 @@ export default createRule<[], MessageID>({
                     }
 
                     if (
-                        // Prevent reporting components created inside Array.map calls
-                        unsafeIsMapCall(component) || unsafeIsMapCall(component.parent)
                         // Do not mark components declared inside hooks (or falsy '() => null' clean-up methods)
-                        || unsafeIsReturnStatementOfReactHook(component)
+                        unsafeIsInsideReactHookCall(component)
                         // Do not mark objects containing render methods
                         || unsafeIsDirectValueOfRenderProperty(component)
-                        // Prevent falsely reporting detected "components" which do not return JSX
-                        || !isFunctionReturningJSX(component, context, false, true)
                     ) {
                         continue;
                     }

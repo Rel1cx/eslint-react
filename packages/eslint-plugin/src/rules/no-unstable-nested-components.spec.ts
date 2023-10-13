@@ -22,7 +22,397 @@ const ruleTester = new RuleTester({
 ruleTester.run(RULE_NAME, rule, {
     valid: [
         ...allValid,
-        // TODO: add more valid cases
+        dedent`
+            function ParentComponent() {
+              return (
+                <div>
+                  <OutsideDefinedFunctionComponent />
+                </div>
+              );
+            }
+        `,
+        dedent`
+            function ParentComponent() {
+              return React.createElement(
+                "div",
+                null,
+                React.createElement(OutsideDefinedFunctionComponent, null)
+              );
+            }
+        `,
+        dedent`
+            function ParentComponent() {
+              return (
+                <SomeComponent
+                  footer={<OutsideDefinedComponent />}
+                  header={<div />}
+                  />
+              );
+            }
+        `,
+        dedent`
+            function ParentComponent() {
+              return React.createElement(SomeComponent, {
+                footer: React.createElement(OutsideDefinedComponent, null),
+                header: React.createElement("div", null)
+              });
+            }
+        `,
+        `
+        function ParentComponent() {
+          const MemoizedNestedComponent = React.useCallback(() => <div />, []);
+
+          return (
+            <div>
+              <MemoizedNestedComponent />
+            </div>
+          );
+        }
+      `,
+        dedent`
+            function ParentComponent() {
+              const MemoizedNestedComponent = React.useCallback(
+                () => React.createElement("div", null),
+                []
+              );
+
+              return React.createElement(
+                "div",
+                null,
+                React.createElement(MemoizedNestedComponent, null)
+              );
+            }
+        `,
+        dedent`
+            function ParentComponent() {
+              const MemoizedNestedFunctionComponent = React.useCallback(
+                function () {
+                  return <div />;
+                },
+                []
+              );
+
+              return (
+                <div>
+                  <MemoizedNestedFunctionComponent />
+                </div>
+              );
+            }
+        `,
+        dedent`
+            function ParentComponent() {
+              const MemoizedNestedFunctionComponent = React.useCallback(
+                function () {
+                  return React.createElement("div", null);
+                },
+                []
+              );
+
+              return React.createElement(
+                "div",
+                null,
+                React.createElement(MemoizedNestedFunctionComponent, null)
+              );
+            }
+        `,
+        dedent`
+            function ParentComponent(props) {
+              // Should not interfere handler declarations
+              function onClick(event) {
+                props.onClick(event.target.value);
+              }
+
+              const onKeyPress = () => null;
+
+              function getOnHover() {
+                return function onHover(event) {
+                  props.onHover(event.target);
+                }
+              }
+
+              return (
+                <div>
+                  <button
+                    onClick={onClick}
+                    onKeyPress={onKeyPress}
+                    onHover={getOnHover()}
+
+                    // These should not be considered as components
+                    maybeComponentOrHandlerNull={() => null}
+                    maybeComponentOrHandlerUndefined={() => undefined}
+                    maybeComponentOrHandlerBlank={() => ''}
+                    maybeComponentOrHandlerString={() => 'hello-world'}
+                    maybeComponentOrHandlerNumber={() => 42}
+                    maybeComponentOrHandlerArray={() => []}
+                    maybeComponentOrHandlerObject={() => {}} />
+                </div>
+              );
+            }
+        `,
+        dedent`
+            function ParentComponent() {
+              function getComponent() {
+                return <div />;
+              }
+
+              return (
+                <div>
+                  {getComponent()}
+                </div>
+              );
+            }
+        `,
+        dedent`
+            function ParentComponent() {
+              function getComponent() {
+                return React.createElement("div", null);
+              }
+
+              return React.createElement("div", null, getComponent());
+            }
+        `,
+        dedent`
+            function ParentComponent() {
+              return (
+                <ComplexRenderPropComponent
+                  listRenderer={data.map((items, index) => (
+                    <ul>
+                      {items[index].map((item) =>
+                        <li>
+                          {item}
+                        </li>
+                      )}
+                    </ul>
+                  ))
+                  }
+                />
+              );
+            }
+        `,
+        dedent`
+            function ParentComponent() {
+              return React.createElement(
+                  RenderPropComponent,
+                  null,
+                  () => React.createElement("div", null)
+              );
+            }
+        `,
+        dedent`
+            function ParentComponent(props) {
+              return (
+                <ul>
+                  {props.items.map(item => (
+                    <li key={item.id}>
+                      {item.name}
+                    </li>
+                  ))}
+                </ul>
+              );
+            }
+        `,
+        dedent`
+            function ParentComponent(props) {
+              return (
+                <List items={props.items.map(item => {
+                  return (
+                    <li key={item.id}>
+                      {item.name}
+                    </li>
+                  );
+                })}
+                />
+              );
+            }
+        `,
+        dedent`
+            function ParentComponent(props) {
+              return React.createElement(
+                "ul",
+                null,
+                props.items.map(() =>
+                  React.createElement(
+                    "li",
+                    { key: item.id },
+                    item.name
+                  )
+                )
+              )
+            }
+        `,
+        dedent`
+            function ParentComponent(props) {
+              return (
+                <ul>
+                  {props.items.map(function Item(item) {
+                    return (
+                      <li key={item.id}>
+                        {item.name}
+                      </li>
+                    );
+                  })}
+                </ul>
+              );
+            }
+        `,
+        dedent`
+            function ParentComponent(props) {
+              return React.createElement(
+                "ul",
+                null,
+                props.items.map(function Item() {
+                  return React.createElement(
+                    "li",
+                    { key: item.id },
+                    item.name
+                  );
+                })
+              );
+            }
+        `,
+        dedent`
+            function createTestComponent(props) {
+              return (
+                <div />
+              );
+            }
+        `,
+        dedent`
+            function createTestComponent(props) {
+              return React.createElement("div", null);
+            }
+        `,
+        dedent`
+            function ParentComponent() {
+              return (
+                <SomeComponent>
+                  {
+                    thing.match({
+                      renderLoading: () => <div />,
+                      renderSuccess: () => <div />,
+                      renderFailure: () => <div />,
+                    })
+                  }
+                </SomeComponent>
+              )
+            }
+        `,
+        dedent`
+            function ParentComponent() {
+              const thingElement = thing.match({
+                renderLoading: () => <div />,
+                renderSuccess: () => <div />,
+                renderFailure: () => <div />,
+              });
+              return (
+                <SomeComponent>
+                  {thingElement}
+                </SomeComponent>
+              )
+            }
+        `,
+        dedent`
+            function ParentComponent() {
+              return (
+                <ComponentForProps renderFooter={() => <div />} />
+              );
+            }
+        `,
+        dedent`
+            function ParentComponent() {
+              return React.createElement(ComponentForProps, {
+                renderFooter: () => React.createElement("div", null)
+              });
+            }
+        `,
+        dedent`
+            function ParentComponent() {
+              useEffect(() => {
+                return () => null;
+              });
+
+              return <div />;
+            }
+        `,
+        `
+        function ParentComponent() {
+          return (
+            <SomeComponent renderers={{ Header: () => <div /> }} />
+          )
+        }
+      `,
+        dedent`
+            function ParentComponent() {
+              return (
+                <SomeComponent renderMenu={() => (
+                  <RenderPropComponent>
+                    {items.map(item => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </RenderPropComponent>
+                )} />
+              )
+            }
+        `,
+        dedent`
+            const ParentComponent = () => (
+              <SomeComponent
+                components={[
+                  <ul>
+                    {list.map(item => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>,
+                ]}
+              />
+            );
+        `,
+        dedent`
+            function ParentComponent() {
+              const rows = [
+                {
+                  name: 'A',
+                  render: (props) => <Row {...props} />
+                },
+              ];
+
+              return <Table rows={rows} />;
+            }
+        `,
+        dedent`
+            function ParentComponent() {
+              return <SomeComponent renderers={{ notComponent: () => null }} />;
+            }
+        `,
+        dedent`
+            const ParentComponent = createReactClass({
+              displayName: "ParentComponent",
+              statics: {
+                getSnapshotBeforeUpdate: function () {
+                  return null;
+                },
+              },
+              render() {
+                return <div />;
+              },
+            });
+        `,
+        dedent`
+            function ParentComponent() {
+              const _renderHeader = () => <div />;
+              return <div>{_renderHeader()}</div>;
+            }
+        `,
+        dedent`
+            const testCases = {
+              basic: {
+                render() {
+                  const Component = () => <div />;
+                  return <div />;
+                }
+              }
+            }
+        `,
     ],
     invalid: [
         {
