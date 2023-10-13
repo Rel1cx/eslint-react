@@ -1,5 +1,5 @@
 const packages = [
-    "std",
+    "tools",
     "types",
     "shared",
     "eslint-react-ast",
