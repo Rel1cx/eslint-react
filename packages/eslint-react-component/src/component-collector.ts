@@ -1,8 +1,9 @@
 import { getFunctionIdentifier, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { isChildrenOfCreateElement } from "@eslint-react/create-element";
 import { isJSXValue } from "@eslint-react/jsx";
-import { isValidReactComponentName, type RuleContext } from "@eslint-react/shared";
-import { MutList, O } from "@eslint-react/std";
+import { isValidReactComponentName } from "@eslint-react/shared";
+import { MutList, O } from "@eslint-react/tools";
+import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 

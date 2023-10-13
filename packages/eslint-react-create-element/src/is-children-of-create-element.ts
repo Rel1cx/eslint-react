@@ -1,4 +1,4 @@
-import type { RuleContext } from "@eslint-react/shared";
+import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { isCreateElement } from "./is-create-element";

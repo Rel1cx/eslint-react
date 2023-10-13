@@ -1,7 +1,7 @@
 import { NodeType, traverseUp, type TSESTreeClass, type TSESTreeFunction } from "@eslint-react/ast";
 import { getCreateClassFromContext, getFromContext } from "@eslint-react/pragma";
-import type { RuleContext } from "@eslint-react/shared";
-import { E, F } from "@eslint-react/std";
+import { E, F } from "@eslint-react/tools";
+import type { RuleContext } from "@eslint-react/types";
 import { type Scope } from "@typescript-eslint/scope-manager";
 import { type TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";

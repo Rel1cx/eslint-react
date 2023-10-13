@@ -1,6 +1,7 @@
 import { isDestructorParameter, isFunction, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { componentCollector } from "@eslint-react/component";
-import { type Cond, createRule, isValidReactComponentName } from "@eslint-react/shared";
+import { createRule, isValidReactComponentName } from "@eslint-react/shared";
+import type { Cond } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";

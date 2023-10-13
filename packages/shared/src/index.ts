@@ -8,5 +8,4 @@ export * from "./merge-configs";
 export * from "./preset-rules";
 export * from "./split-name";
 export * from "./to-single-line";
-export * from "./typings";
 export * from "./unique-by";

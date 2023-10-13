@@ -1,6 +1,6 @@
 import { NodeType } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/shared";
-import { E, F, O } from "@eslint-react/std";
+import { E, F, O } from "@eslint-react/tools";
+import type { RuleContext } from "@eslint-react/types";
 import { findVariableByName, getVariablesUpToGlobal } from "@eslint-react/variable";
 import { isMatching, match } from "ts-pattern";
 

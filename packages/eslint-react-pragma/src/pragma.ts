@@ -1,5 +1,5 @@
-import type { ReactSettings, RuleContext } from "@eslint-react/shared";
-import { E, F, O } from "@eslint-react/std";
+import { E, F, O } from "@eslint-react/tools";
+import type { ReactSettings, RuleContext } from "@eslint-react/types";
 
 /*
  * This helper is extract from eslint-plugin-react's pragma utils under the MIT license, with some enhancements.

@@ -36,7 +36,7 @@
         "build": "rollup -c rollup.config.ts --configPlugin swc3"
     },
     "dependencies": {
-        "@eslint-react/std": "workspace:*",
+        "@eslint-react/tools": "workspace:*",
         "@types/eslint": "8.44.4",
         "@typescript-eslint/types": "6.7.5",
         "@typescript-eslint/utils": "6.7.5",

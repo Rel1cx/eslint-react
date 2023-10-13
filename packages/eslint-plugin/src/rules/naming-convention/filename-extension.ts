@@ -1,6 +1,6 @@
 import { isJSXFileExt } from "@eslint-react/jsx";
 import { createRule } from "@eslint-react/shared";
-import { MutRef, O } from "@eslint-react/std";
+import { MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 

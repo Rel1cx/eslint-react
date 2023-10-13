@@ -1,5 +1,5 @@
 {
-    "name": "@eslint-react/std",
+    "name": "@eslint-react/tools",
     "version": "0.3.2",
     "description": "",
     "homepage": "https://github.com/Rel1cx/eslint-react",
@@ -9,7 +9,7 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/Rel1cx/eslint-react.git",
-        "directory": "packages/std"
+        "directory": "packages/tools"
     },
     "license": "MIT",
     "author": "Eva1ent<let@ik.me>",

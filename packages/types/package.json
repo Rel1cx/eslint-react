@@ -1,5 +1,5 @@
 {
-    "name": "@eslint-react/variable",
+    "name": "@eslint-react/types",
     "version": "0.3.2",
     "description": "",
     "homepage": "https://github.com/Rel1cx/eslint-react",
@@ -9,7 +9,7 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/Rel1cx/eslint-react.git",
-        "directory": "packages/eslint-react-variable"
+        "directory": "packages/types"
     },
     "license": "MIT",
     "author": "Eva1ent<let@ik.me>",
@@ -38,7 +38,10 @@
     "dependencies": {
         "@eslint-react/tools": "workspace:*",
         "@types/eslint": "8.44.4",
-        "@typescript-eslint/scope-manager": "6.7.5",
-        "@typescript-eslint/types": "6.7.5"
+        "@typescript-eslint/types": "6.7.5",
+        "@typescript-eslint/utils": "6.7.5",
+        "deepmerge-ts": "5.1.0",
+        "rambda": "8.5.0",
+        "tslib": "2.6.2"
     }
 }

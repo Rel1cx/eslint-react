@@ -1,6 +1,6 @@
 import { getFunctionIdentifier, is, isFunction, NodeType, traverseUpGuard, type TSESTreeFunction } from "@eslint-react/ast";
 import { isJSXValue } from "@eslint-react/jsx";
-import type { RuleContext } from "@eslint-react/shared";
+import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
 /**

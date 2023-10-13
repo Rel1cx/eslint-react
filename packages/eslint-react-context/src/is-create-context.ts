@@ -1,5 +1,5 @@
 import { NodeType } from "@eslint-react/ast";
-import { F } from "@eslint-react/std";
+import { F } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import { isObject } from "effect/Predicate";
 import { match } from "ts-pattern";

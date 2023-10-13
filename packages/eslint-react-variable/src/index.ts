@@ -1,4 +1,4 @@
-import { F, MutRef, O } from "@eslint-react/std";
+import { F, MutRef, O } from "@eslint-react/tools";
 import type { Variable } from "@typescript-eslint/scope-manager";
 import { type Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";

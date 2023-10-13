@@ -1,5 +1,5 @@
 import { isOneOf, NodeType } from "@eslint-react/ast";
-import type { Narrow } from "@eslint-react/std";
+import type { Narrow } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
 export const unstableAssignmentPatternTypes = [

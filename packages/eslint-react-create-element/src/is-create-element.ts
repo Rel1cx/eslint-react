@@ -1,8 +1,8 @@
 import { NodeType } from "@eslint-react/ast";
 import { isDestructuredFromPragma } from "@eslint-react/pragma";
 import { getFromContext } from "@eslint-react/pragma";
-import type { RuleContext } from "@eslint-react/shared";
-import { E, F } from "@eslint-react/std";
+import { E, F } from "@eslint-react/tools";
+import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/utils";
 import { match } from "ts-pattern";
 
