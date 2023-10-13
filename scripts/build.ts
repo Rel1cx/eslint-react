@@ -11,7 +11,6 @@ const packages = [
     "eslint-react-context",
     "eslint-react-hooks",
     "eslint-react-render-prop",
-    "eslint-react-component-legacy",
     "eslint-react-component",
     "eslint-plugin",
 ];

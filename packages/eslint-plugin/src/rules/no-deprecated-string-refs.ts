@@ -1,8 +1,9 @@
 import { NodeType } from "@eslint-react/ast";
-import { createRule } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { isString } from "effect/Predicate";
+
+import { createRule } from "../utils/create-rule";
 
 export const RULE_NAME = "no-deprecated-string-refs";
 

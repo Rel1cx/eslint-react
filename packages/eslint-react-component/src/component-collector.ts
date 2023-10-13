@@ -1,13 +1,13 @@
 import { getFunctionIdentifier, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { isChildrenOfCreateElement } from "@eslint-react/create-element";
 import { isJSXValue } from "@eslint-react/jsx";
-import { isValidReactComponentName } from "@eslint-react/shared";
 import { MutList, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
-import { isFunctionOfRenderMethod } from "../../eslint-react-component-legacy/src/component-collector-legacy";
+import { isFunctionOfRenderMethod } from "./component-collector-legacy";
+import { isValidReactComponentName } from "./is-valid-react-component-name";
 
 const seenComponents = new WeakSet<TSESTreeFunction>();
 

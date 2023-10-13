@@ -1,7 +1,7 @@
 import { is, NodeType, traverseUpGuard } from "@eslint-react/ast";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { isValidReactHookName } from "../../shared/dist";
+import { isValidReactHookName } from "./is-valid-react-hook-name";
 
 /**
  * Unsafe check whether given node is `ReturnStatement` of a React hook

@@ -82,6 +82,9 @@ importers:
       eslint-plugin-filenames-simple:
         specifier: 0.8.0
         version: 0.8.0(eslint@8.51.0)
+      eslint-plugin-functional-core:
+        specifier: 1.7.1
+        version: 1.7.1(@typescript-eslint/parser@6.7.5)(eslint@8.51.0)(typescript@5.2.2)
       eslint-plugin-jsdoc:
         specifier: 46.8.2
         version: 46.8.2(eslint@8.51.0)
@@ -170,9 +173,6 @@ importers:
       '@eslint-react/component':
         specifier: workspace:*
         version: link:../eslint-react-component
-      '@eslint-react/component-legacy':
-        specifier: workspace:*
-        version: link:../eslint-react-component-legacy
       '@eslint-react/construction':
         specifier: workspace:*
         version: link:../eslint-react-construction
@@ -218,6 +218,9 @@ importers:
       dedent:
         specifier: 1.5.1
         version: 1.5.1
+      deepmerge-ts:
+        specifier: 5.1.0
+        version: 5.1.0
       effect:
         specifier: 2.0.0-next.48
         version: 2.0.0-next.48
@@ -275,39 +278,6 @@ importers:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../eslint-react-ast
-      '@eslint-react/component-legacy':
-        specifier: workspace:*
-        version: link:../eslint-react-component-legacy
-      '@eslint-react/create-element':
-        specifier: workspace:*
-        version: link:../eslint-react-create-element
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../eslint-react-jsx
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../tools
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../types
-      '@types/eslint':
-        specifier: 8.44.4
-        version: 8.44.4
-      '@typescript-eslint/types':
-        specifier: 6.7.5
-        version: 6.7.5
-      '@typescript-eslint/utils':
-        specifier: 6.7.5
-        version: 6.7.5(eslint@8.51.0)(typescript@5.2.2)
-
-  packages/eslint-react-component-legacy:
-    dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../eslint-react-ast
       '@eslint-react/create-element':
         specifier: workspace:*
         version: link:../eslint-react-create-element
@@ -329,6 +299,9 @@ importers:
       '@types/eslint':
         specifier: 8.44.4
         version: 8.44.4
+      '@typescript-eslint/types':
+        specifier: 6.7.5
+        version: 6.7.5
       '@typescript-eslint/utils':
         specifier: 6.7.5
         version: 6.7.5(eslint@8.51.0)(typescript@5.2.2)
@@ -524,33 +497,12 @@ importers:
       '@eslint-react/tools':
         specifier: workspace:*
         version: link:../tools
-      '@types/eslint':
-        specifier: 8.44.4
-        version: 8.44.4
-      '@typescript-eslint/types':
-        specifier: 6.7.5
-        version: 6.7.5
-      '@typescript-eslint/utils':
-        specifier: 6.7.5
-        version: 6.7.5(eslint@8.51.0)(typescript@5.2.2)
-      deepmerge-ts:
-        specifier: 5.1.0
-        version: 5.1.0
-      rambda:
-        specifier: latest
-        version: 8.5.0
       tslib:
         specifier: 2.6.2
         version: 2.6.2
 
   packages/tools:
     dependencies:
-      '@types/eslint':
-        specifier: 8.44.4
-        version: 8.44.4
-      '@typescript-eslint/types':
-        specifier: 6.7.5
-        version: 6.7.5
       effect:
         specifier: 2.0.0-next.48
         version: 2.0.0-next.48
@@ -3436,7 +3388,6 @@ packages:
   /deepmerge-ts@5.1.0:
     resolution: {integrity: sha512-eS8dRJOckyo9maw9Tu5O5RUi/4inFLrnoLkBe3cPfDMx3WZioXtmOew4TXQaxq7Rhl4xjDtR7c6x8nNTxOvbFw==}
     engines: {node: '>=16.0.0'}
-    dev: false
 
   /deepmerge@4.3.1:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
@@ -3850,6 +3801,25 @@ packages:
     dependencies:
       eslint: 8.51.0
       pluralize: 8.0.0
+    dev: true
+
+  /eslint-plugin-functional-core@1.7.1(@typescript-eslint/parser@6.7.5)(eslint@8.51.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-w71vqO0w43+cHI60Tm99CA+9y2xGUV+EXHUlMULW+qiEK3Tega5cizMblSKIxQ5avRxymbB40wK2Nd9Ijhfz6Q==}
+    engines: {node: ^14.17.0 || 16 || 18}
+    peerDependencies:
+      '@typescript-eslint/parser': '>=6.7.5'
+      eslint: '>=8.51.0'
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@typescript-eslint/parser': 6.7.5(eslint@8.51.0)(typescript@5.2.2)
+      '@typescript-eslint/utils': 6.7.5(eslint@8.51.0)(typescript@5.2.2)
+      eslint: 8.51.0
+      typescript: 5.2.2
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /eslint-plugin-import-access@2.1.1(eslint@8.51.0)(typescript@5.2.2):

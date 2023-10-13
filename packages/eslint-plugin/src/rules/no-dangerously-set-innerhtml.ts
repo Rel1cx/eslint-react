@@ -1,11 +1,12 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import { isCreateElement } from "@eslint-react/create-element";
 import { findPropInAttributes, findPropInProperties } from "@eslint-react/jsx";
-import { createRule } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "@eslint-react/variable";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { match } from "ts-pattern";
+
+import { createRule } from "../utils/create-rule";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml";
 

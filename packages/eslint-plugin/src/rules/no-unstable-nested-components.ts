@@ -1,13 +1,13 @@
 import { isFunction, NodeType, traverseUpGuard, type TSESTreeFunction, unsafeIsMapCall } from "@eslint-react/ast";
-import { componentCollector } from "@eslint-react/component";
-import { isInsideRenderMethod } from "@eslint-react/component-legacy";
+import { componentCollector, isInsideRenderMethod } from "@eslint-react/component";
 import { isInsideCreateElementProps } from "@eslint-react/create-element";
 import { unsafeIsReturnStatementOfReactHook } from "@eslint-react/hooks";
 import { isDeclaredInJSXAttribute, isFunctionReturningJSX } from "@eslint-react/jsx";
 import { unsafeIsDeclaredInRenderProp, unsafeIsDirectValueOfRenderProperty } from "@eslint-react/render-prop";
-import { createRule } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+
+import { createRule } from "../utils/create-rule";
 
 export const RULE_NAME = "no-unstable-nested-components";
 

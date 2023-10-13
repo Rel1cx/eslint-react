@@ -2,9 +2,10 @@ import { NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { componentCollector } from "@eslint-react/component";
 import type { Construction } from "@eslint-react/construction";
 import { constructionDetector } from "@eslint-react/construction";
-import { createRule } from "@eslint-react/shared";
 import { E, F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+
+import { createRule } from "../utils/create-rule";
 
 export const RULE_NAME = "no-constructed-context-value";
 

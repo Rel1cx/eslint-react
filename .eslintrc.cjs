@@ -18,12 +18,13 @@ const config = {
         tsconfigRootDir: __dirname,
         warnOnUnsupportedTypeScriptVersion: false,
     },
-    plugins: ["filenames-simple"],
+    plugins: ["functional-core", "filenames-simple"],
     extends: [
         "with-tsconfig",
         "plugin:perfectionist/recommended-natural",
         "plugin:jsdoc/recommended-typescript",
         "plugin:eslint-plugin/all",
+        "plugin:functional-core/recommended",
         "plugin:filenames-simple/recommended",
     ],
     rules: {
@@ -37,6 +38,7 @@ const config = {
                 varsIgnorePattern: "(^_)|(^ESLintUtils$)",
             },
         ],
+        "functional-core/purity": ["error", { allowThrow: false }],
         "array-callback-return": "off",
         "eslint-plugin/require-meta-docs-url": "off",
         "filenames-simple/named-export": "off",
@@ -112,6 +114,15 @@ const config = {
             },
         ],
     },
+    settings: {
+        "functional-core": {
+            purePaths: [
+                "./packages/tools",
+                "./packages/types",
+                "./packages/shared",
+            ],
+        },
+    },
     overrides: [
         {
             files: ["*.d.ts"],
@@ -125,6 +136,7 @@ const config = {
             files: "*.spec.ts",
             plugins: ["vitest"],
             rules: {
+                "functional-core/purity": "off",
                 "perfectionist/sort-objects": "off",
                 "sonarjs/no-duplicate-string": "off",
                 "vitest/consistent-test-filename": "off",
@@ -135,6 +147,7 @@ const config = {
             files: ["./scripts/**/*.ts"],
             rules: {
                 "no-await-in-loop": "off",
+                "functional-core/purity": "off",
             },
         },
         {
@@ -143,6 +156,7 @@ const config = {
                 "@typescript-eslint/no-unsafe-argument": "off",
                 "@typescript-eslint/no-unsafe-assignment": "off",
                 "@typescript-eslint/no-unsafe-member-access": "off",
+                "functional-core/purity": "off",
             },
         },
         {
@@ -150,6 +164,7 @@ const config = {
             rules: {
                 "jsdoc/check-tag-names": "off",
                 "perfectionist/sort-objects": "off",
+                "functional-core/purity": "off",
                 "filenames-simple/naming-convention": "off",
             },
         },
