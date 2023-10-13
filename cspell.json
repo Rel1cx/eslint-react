@@ -9,6 +9,7 @@
     ],
     "ignorePaths": [
         ".vscode/**/*",
+        "assets/**/*",
         "docs/**/*",
         "test/fixtures",
         "**/*.spec.ts",

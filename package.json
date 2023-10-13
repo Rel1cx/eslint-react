@@ -51,7 +51,6 @@
         "@types/node": "20.8.5",
         "@typescript-eslint/eslint-plugin": "6.7.5",
         "@typescript-eslint/parser": ">=6.7.5",
-        "bun": "1.0.6",
         "bun-types": "1.0.6",
         "cspell": "7.3.7",
         "dprint": "0.41.0",
@@ -89,8 +88,8 @@
     },
     "packageManager": "pnpm@8.9.0",
     "engines": {
-        "bun": ">=1.0.4",
-        "node": ">=18.16.0"
+        "bun": ">=1.0.6",
+        "node": ">=18.15.0"
     },
     "publishConfig": {
         "access": "public"

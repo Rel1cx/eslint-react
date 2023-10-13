@@ -1,4 +1,6 @@
-# eslint-react
+<p align="center"><img src="./assets/logo.svg" alt="logo" width="200" /></p>
+
+# ESLint React
 
 ESLint plugin for React and Preact function components with TypeScript, built from scratch (almost).
 
@@ -70,7 +72,7 @@ export default [
 💼 Configurations enabled in.\
 ⚠️ Configurations set to warn in.\
 🛠️ Set in the `debug` configuration.\
-🎨 Set in the `jsx` configuration.\
+🎄 Set in the `jsx` configuration.\
 👍 Set in the `recommended` configuration.\
 🔍 Set in the `recommended-type-checked` configuration.
 
@@ -85,9 +87,9 @@ export default [
 
 | Name                                                                                                            | Description                                            | 💼       | ⚠️        |
 | :-------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------- | :------- | :------- |
-| [jsx/no-leaked-conditional-rendering](packages/eslint-plugin/docs/rules/jsx/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered | 🎨 👍 🔍 |          |
-| [jsx/no-misused-comment-in-textnode](packages/eslint-plugin/docs/rules/jsx/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes    |          | 🎨 👍 🔍 |
-| [jsx/prefer-shorthand-boolean](packages/eslint-plugin/docs/rules/jsx/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX             |          | 🎨 👍 🔍 |
+| [jsx/no-leaked-conditional-rendering](packages/eslint-plugin/docs/rules/jsx/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered | 🎄 👍 🔍 |          |
+| [jsx/no-misused-comment-in-textnode](packages/eslint-plugin/docs/rules/jsx/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes    |          | 🎄 👍 🔍 |
+| [jsx/prefer-shorthand-boolean](packages/eslint-plugin/docs/rules/jsx/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX             |          | 🎄 👍 🔍 |
 
 ### naming-convention
 

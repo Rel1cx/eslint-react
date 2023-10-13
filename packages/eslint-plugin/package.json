@@ -104,7 +104,7 @@
     "packageManager": "bun@1.0.6",
     "engines": {
         "bun": ">=1.0.4",
-        "node": ">=18.16.0"
+        "node": ">=18.15.0"
     },
     "publishConfig": {
         "access": "public"
