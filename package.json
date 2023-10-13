@@ -37,14 +37,15 @@
         "lint:ts-fix": "eslint --ext .ts --fix .",
         "lint:type": "tsc --noEmit",
         "update": "taze",
-        "inspect:eslint-config": "pnpm eslint --print-config ./taze.config.ts > eslint-config.json"
+        "inspect:eslint-config": "eslint --print-config ./taze.config.ts > eslint-config.json",
+        "inspect:deps": "skott -e .ts -s -t"
     },
     "devDependencies": {
         "@effect/language-service": "0.0.21",
         "@rollup/plugin-commonjs": "25.0.5",
         "@rollup/plugin-json": "6.0.1",
         "@rollup/plugin-node-resolve": "15.2.3",
-        "@rollup/plugin-typescript": "^11.1.5",
+        "@rollup/plugin-typescript": "11.1.5",
         "@swc/core": "1.3.92",
         "@tsconfig/node20": "20.1.2",
         "@tsconfig/strictest": "2.0.2",
