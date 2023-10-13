@@ -1,6 +1,6 @@
-<p align="center"><img src="./assets/logo.svg" alt="logo" width="200" /></p>
+<p align="center"><img src="./assets/logo.svg" alt="logo" width="150" /></p>
 
-# ESLint React
+<h1 align="center" alt="title">ESLint React</h1>
 
 ESLint plugin for React and Preact function components with TypeScript, built from scratch (almost).
 
