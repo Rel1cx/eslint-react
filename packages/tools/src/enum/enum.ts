@@ -1,4 +1,4 @@
-import type { UnionFromTuple } from "./union";
+import type { UnionFromTuple } from "../typings";
 
 export type Enum<T extends object> = T[keyof T];
 
@@ -12,8 +12,4 @@ export function Enum<T extends string[]>(...args: T) {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         }, Object.create(null)),
     );
-}
-
-export function isKeyOfEnum<T extends object>(e: T, value: unknown): value is Enum<T> {
-    return Object.values(e).includes(value);
 }

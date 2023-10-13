@@ -1,6 +1,5 @@
 import { getNestedReturnStatements, is, isOneOf, NodeType, traverseUpGuard, type TSESTreeFunction } from "@eslint-react/ast";
 import { isCreateElement } from "@eslint-react/create-element";
-import { isWhiteSpace } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "@eslint-react/variable";
@@ -8,7 +7,9 @@ import { type TSESTree } from "@typescript-eslint/utils";
 import { isString } from "effect/Predicate";
 import { match, P } from "ts-pattern";
 
-export const isJSXFileExt = (ext: string): ext is ".jsx" | ".tsx" => ext === ".jsx" || ext === ".tsx";
+export function isWhiteSpace(value: string) {
+    return value.trim() === "";
+}
 
 /**
  * Check if a Literal or JSXText node is a line break

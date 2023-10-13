@@ -1,4 +1,4 @@
-import { isJSXFileExt } from "@eslint-react/jsx";
+import { isJSXFile } from "@eslint-react/shared";
 import { createRule, getCaseValidator } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -69,7 +69,7 @@ export default createRule<Options, MessageID>({
         const filename = context.getFilename();
         const fileNameExt = filename.slice(filename.lastIndexOf("."));
 
-        if (!isJSXFileExt(fileNameExt)) {
+        if (!isJSXFile(fileNameExt)) {
             return {};
         }
 

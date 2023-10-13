@@ -1,4 +1,4 @@
-import { uniqueBy } from "@eslint-react/shared";
+import { uniqueBy } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
 import { isNil } from "rambda";

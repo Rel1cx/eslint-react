@@ -1,5 +1,4 @@
-import { isJSXFileExt } from "@eslint-react/jsx";
-import { createRule } from "@eslint-react/shared";
+import { createRule, isJSXFile } from "@eslint-react/shared";
 import { MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -37,7 +36,7 @@ export default createRule<[], MessageID>({
             "Program:exit"(node) {
                 const fileNameExt = filename.slice(filename.lastIndexOf("."));
 
-                if (isJSXFileExt(fileNameExt) && O.isNone(MutRef.get(jsxNodeRef))) {
+                if (isJSXFile(fileNameExt) && O.isNone(MutRef.get(jsxNodeRef))) {
                     return context.report({
                         messageId: "INVALID",
                         node,
