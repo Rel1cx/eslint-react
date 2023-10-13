@@ -37,7 +37,7 @@
         "lint:ts-fix": "eslint --ext .ts --fix .",
         "lint:type": "tsc --noEmit",
         "update": "taze",
-        "inspect:eslint": "pnpm eslint --print-config ./taze.config.ts > eslint-config.json"
+        "inspect:eslint-config": "pnpm eslint --print-config ./taze.config.ts > eslint-config.json"
     },
     "devDependencies": {
         "@effect/language-service": "0.0.21",
@@ -48,11 +48,11 @@
         "@swc/core": "1.3.92",
         "@tsconfig/node20": "20.1.2",
         "@tsconfig/strictest": "2.0.2",
-        "@types/node": "20.8.4",
+        "@types/node": "20.8.5",
         "@typescript-eslint/eslint-plugin": "6.7.5",
         "@typescript-eslint/parser": ">=6.7.5",
-        "bun": "1.0.5",
-        "bun-types": "1.0.5",
+        "bun": "1.0.6",
+        "bun-types": "1.0.6",
         "cspell": "7.3.7",
         "dprint": "0.41.0",
         "effect": "2.0.0-next.48",
