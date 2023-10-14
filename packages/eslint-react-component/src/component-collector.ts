@@ -6,6 +6,7 @@ import { MutList, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import { shallowEqual } from "fast-equals";
 
 import { isFunctionOfRenderMethod } from "./component-collector-legacy";
 import { isValidReactComponentName } from "./is-valid-react-component-name";
@@ -87,7 +88,7 @@ export function componentCollector(
 
             const currentFn = maybeCurrentFn.value;
 
-            if (cache.has(currentFn)) {
+            if (cache.has(currentFn) && shallowEqual(cache.get(currentFn), options)) {
                 components.push(currentFn);
 
                 return;
@@ -106,7 +107,7 @@ export function componentCollector(
         },
         // eslint-disable-next-line perfectionist/sort-objects
         "ArrowFunctionExpression[body.type!='BlockStatement']"(node: TSESTree.ArrowFunctionExpression) {
-            if (cache.has(node)) {
+            if (cache.has(node) && shallowEqual(cache.get(node), options)) {
                 components.push(node);
 
                 return;
