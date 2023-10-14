@@ -58,6 +58,7 @@
         "./package.json"
     ],
     "scripts": {
+        "lint:type": "tsc --noEmit",
         "build": "rollup -c rollup.config.ts --configPlugin swc3",
         "build:docs": "bun run ./scripts/doc-generate.ts && eslint-doc-generator && dprint fmt docs/**/*.md",
         "publish": "pnpm run build && pnpm run test && pnpm publint",

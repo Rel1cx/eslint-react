@@ -414,34 +414,8 @@ ruleTester.run(RULE_NAME, rule, {
             }
         `,
         dedent`
-            function ParentComponent({id, data, onRegenerateClick, onRemoveClick}) {
-                return (
-                    <React.Suspense fallback={<LoadingOverlay visible />}>
-                        {React.useMemo(
-                            () =>
-                                match(data)
-                                    .with(P.nullish, () => null)
-                                    .with({ role: "system" }, () => null)
-                                    .otherwise((data) => {
-                                        return (
-                                            <Message
-                                                id={id}
-                                                data={data}
-                                                onRegenerateClick={handleRegenerateClick}
-                                                onRemoveClick={handleRemoveClick}
-                                            />
-                                        );
-                                    }),
-                            [id, data, handleRegenerateClick, handleRemoveClick],
-                        )}
-                    </React.Suspense>
-                );
-            }
-        `,
-        dedent`
             function App({ locale }: AppProps) {
                 const route = Router.useRoute(["Home", "BotArea", "NotFound"]);
-                const loaded = suspend(suspendBeforeDbInit);
 
                 return (
                     <TypesafeI18n locale={locale}>
@@ -449,9 +423,7 @@ ruleTester.run(RULE_NAME, rule, {
                             <div className={css.root}>
                                 <React.Suspense fallback={<RootLayout navHeader={<small className={css.loading} />} />}>
                                     {React.useMemo(
-                                        () =>
-                                            loaded
-                                            && match(route)
+                                        () => match(route)
                                                 .with({ name: "Home" }, () => <Redirect to="/bots/ChatGPT" />)
                                                 .with({ name: "BotArea" }, ({ params }) => <BotArea botName={params.botName} />)
                                                 .otherwise(() => <NotFound />),
