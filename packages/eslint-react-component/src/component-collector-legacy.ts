@@ -1,6 +1,6 @@
 import { NodeType, traverseUp, type TSESTreeClass, type TSESTreeFunction } from "@eslint-react/ast";
-import { getCreateClassFromContext, getFromContext } from "@eslint-react/pragma";
-import { E, F } from "@eslint-react/tools";
+import { getPragmaFromContext } from "@eslint-react/pragma";
+import { E } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type Scope } from "@typescript-eslint/scope-manager";
 import { type TSESTree } from "@typescript-eslint/utils";
@@ -22,52 +22,16 @@ const isRenderMethodLike = isMatching({
 });
 
 /**
- * Check if a node is a React ES5 component
+ * Check if a node is a React class component
  * @param node The node to check
  * @param context The rule context
  * @deprecated It will be removed in the future.
  */
-export function isES5Component(node: TSESTree.Node, context: RuleContext) {
-    const maybeReact = getFromContext(context);
-    const maybeCreateClass = getCreateClassFromContext(context);
-
-    if (E.isLeft(maybeReact) || E.isLeft(maybeCreateClass)) {
-        return false;
-    }
-
-    if (!node.parent || !("callee" in node.parent)) {
-        return false;
-    }
-
-    const { callee } = node.parent;
-
-    const pragma = maybeReact.right;
-    const createClass = maybeCreateClass.right;
-
-    return match(callee)
-        .with(
-            {
-                type: NodeType.MemberExpression,
-                object: { name: pragma },
-                property: { name: createClass },
-            },
-            F.constTrue,
-        )
-        .with({ name: createClass, type: NodeType.Identifier }, F.constTrue)
-        .otherwise(F.constFalse);
-}
-
-/**
- * Check if a node is a React ES6 component
- * @param node The node to check
- * @param context The rule context
- * @deprecated It will be removed in the future.
- */
-export function isES6Component(node: TSESTree.Node, context: RuleContext): node is TSESTreeClass {
+export function isClassComponent(node: TSESTree.Node, context: RuleContext): node is TSESTreeClass {
     if (!("superClass" in node && node.superClass)) {
         return false;
     }
-    const maybeReact = getFromContext(context);
+    const maybeReact = getPragmaFromContext(context);
     if (E.isLeft(maybeReact)) {
         return false;
     }
@@ -88,11 +52,11 @@ export function isES6Component(node: TSESTree.Node, context: RuleContext): node 
 }
 
 /**
- * Get the parent ES6 component of a node up to global scope
+ * Get the parent class component of a node up to global scope
  * @param context The rule context
  * @deprecated It will be removed in the future.
  */
-export function getParentES6Component(context: RuleContext) {
+export function getParentClassComponent(context: RuleContext) {
     let scope: Scope | null = context.getScope();
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
@@ -102,7 +66,7 @@ export function getParentES6Component(context: RuleContext) {
 
     const node = scope?.block;
 
-    if (!node || !isES6Component(node, context)) {
+    if (!node || !isClassComponent(node, context)) {
         return null;
     }
 
@@ -116,7 +80,7 @@ export function getParentES6Component(context: RuleContext) {
  * @deprecated It will be removed in the future.
  */
 export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
-    const pragma = getFromContext(context);
+    const pragma = getPragmaFromContext(context);
 
     const sourceCode = context.getSourceCode();
 
@@ -150,7 +114,7 @@ export function isFunctionOfRenderMethod(node: TSESTreeFunction, context: RuleCo
         return false;
     }
 
-    return isES6Component(node.parent.parent.parent, context);
+    return isClassComponent(node.parent.parent.parent, context);
 }
 
 /**
@@ -174,7 +138,7 @@ export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) 
     const predicate = (node: TSESTree.Node): node is TSESTree.MethodDefinition => {
         const isRenderMethod = isRenderMethodLike(node);
 
-        return isRenderMethod && isES6Component(node.parent.parent, context);
+        return isRenderMethod && isClassComponent(node.parent.parent, context);
     };
 
     return !!traverseUp(node, predicate);
@@ -203,7 +167,7 @@ export function componentCollectorLegacy(context: RuleContext) {
             components.push(node);
         }
 
-        if (!isES6Component(node, context)) {
+        if (!isClassComponent(node, context)) {
             return;
         }
 

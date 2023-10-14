@@ -4,10 +4,10 @@ import type { RuleContext } from "@eslint-react/types";
 import { findVariableByName, getVariablesUpToGlobal } from "@eslint-react/variable";
 import { isMatching, match } from "ts-pattern";
 
-import { getFromContext } from "./pragma";
+import { getPragmaFromContext } from "./get-from-context";
 
 export function isDestructuredFromPragma<T extends RuleContext>(variableName: string, context: T) {
-    const maybePragma = getFromContext(context);
+    const maybePragma = getPragmaFromContext(context);
     const variables = getVariablesUpToGlobal(context.getScope());
 
     if (E.isLeft(maybePragma)) {

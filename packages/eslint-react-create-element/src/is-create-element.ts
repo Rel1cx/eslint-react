@@ -1,6 +1,6 @@
 import { NodeType } from "@eslint-react/ast";
 import { isDestructuredFromPragma } from "@eslint-react/pragma";
-import { getFromContext } from "@eslint-react/pragma";
+import { getPragmaFromContext } from "@eslint-react/pragma";
 import { E, F } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/utils";
@@ -17,7 +17,7 @@ export const isCreateElement = (node: TSESTree.Node, context: RuleContext): node
         return false;
     }
 
-    const maybePragma = getFromContext(context);
+    const maybePragma = getPragmaFromContext(context);
     if (E.isLeft(maybePragma)) {
         return false;
     }

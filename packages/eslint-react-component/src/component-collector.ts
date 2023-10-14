@@ -10,8 +10,6 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { isFunctionOfRenderMethod } from "./component-collector-legacy";
 import { isValidReactComponentName } from "./is-valid-react-component-name";
 
-// const seenComponents = new WeakSet<TSESTreeFunction>();
-
 export const hasInvalidName = (node: TSESTreeFunction) => {
     const id = getFunctionIdentifier(node);
 
@@ -30,7 +28,13 @@ export type ComponentCollectorOptions = JSXValueCheckOptions & {
      * ignore components in map method's callback function
      */
     ignoreMapCall?: boolean;
+    /**
+     * cache for seen components
+     */
+    cache?: ComponentCollectorCache;
 };
+
+export type ComponentCollectorCache = WeakMap<TSESTreeFunction, ComponentCollectorOptions>;
 
 const defaultComponentCollectorOptions: ComponentCollectorOptions = {
     ...defaultJSXValueCheckOptions,
@@ -40,6 +44,7 @@ const defaultComponentCollectorOptions: ComponentCollectorOptions = {
 export function componentCollector(
     context: RuleContext,
     options: ComponentCollectorOptions = defaultComponentCollectorOptions,
+    cache: ComponentCollectorCache = new WeakMap(),
 ) {
     const components: TSESTreeFunction[] = [];
     const functionStack = MutList.make<TSESTreeFunction>();
@@ -82,6 +87,12 @@ export function componentCollector(
 
             const currentFn = maybeCurrentFn.value;
 
+            if (cache.has(currentFn)) {
+                components.push(currentFn);
+
+                return;
+            }
+
             if (
                 hasInvalidName(currentFn)
                 || !isJSXValue(node.argument, context, options)
@@ -90,10 +101,17 @@ export function componentCollector(
                 return;
             }
 
+            cache.set(currentFn, options);
             components.push(currentFn);
         },
         // eslint-disable-next-line perfectionist/sort-objects
         "ArrowFunctionExpression[body.type!='BlockStatement']"(node: TSESTree.ArrowFunctionExpression) {
+            if (cache.has(node)) {
+                components.push(node);
+
+                return;
+            }
+
             const { body } = node;
             if (
                 hasInvalidName(node)
@@ -103,6 +121,7 @@ export function componentCollector(
                 return;
             }
 
+            cache.set(node, options);
             components.push(node);
         },
     } as const satisfies RuleListener;
