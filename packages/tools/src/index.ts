@@ -1,4 +1,6 @@
 export * from "./array";
 export * from "./effect";
 export * from "./function";
-export * from "./typings";
+export * from "./helper";
+export * from "./narrow";
+export * from "./union";

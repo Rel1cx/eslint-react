@@ -10,8 +10,8 @@
     "ignorePaths": [
         ".vscode/**/*",
         "assets/**/*",
-        "docs/**/*",
         "test/fixtures",
+        "**/*/docs/**/*",
         "**/*.spec.ts",
         "package.json",
         "pnpm-lock.yaml",

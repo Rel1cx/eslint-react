@@ -28,6 +28,7 @@
         "prepare": "husky install",
         "build": "turbo build",
         "build:manual": "bun run ./scripts/build.ts",
+        "build:docs": "pnpm --filter \"@eslint-react/*\" run build:docs",
         "format:check": "dprint check",
         "format:write": "dprint fmt",
         "lint": "pnpm run format:check && pnpm run lint:spell && pnpm run lint:deps && pnpm run lint:ts && pnpm run lint:type",
@@ -80,6 +81,8 @@
         "ts-pattern": "5.0.5",
         "turbo": "1.10.14",
         "type-fest": "4.4.0",
+        "typedoc": "0.25.2",
+        "typedoc-plugin-markdown": "3.16.0",
         "typescript": ">=5.2.2",
         "vitest": "0.34.6"
     },

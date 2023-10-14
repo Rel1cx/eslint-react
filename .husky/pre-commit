@@ -4,9 +4,7 @@
 pnpm run format:write
 pnpm run lint
 pnpm run build
-cd packages/eslint-plugin
-pnpm run build:docs-rules
+pnpm run build:docs
+pnpm dprint fmt README.md
 pnpm publint
-cd ../..
-pnpm run format:write
 git add .

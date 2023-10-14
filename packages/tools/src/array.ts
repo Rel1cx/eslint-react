@@ -1,5 +1,6 @@
 /**
  * Returns a new array with unique values based on the given function.
+ * @since 0.0.1
  * @template T type of the array elements.
  * @param arr The array to filter.
  * @param fn The function to get the value to compare.
