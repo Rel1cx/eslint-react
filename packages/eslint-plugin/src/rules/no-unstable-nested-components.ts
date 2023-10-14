@@ -1,5 +1,14 @@
-import { isFunction, NodeType, traverseUpGuard, type TSESTreeFunction } from "@eslint-react/ast";
-import { componentCollector, isInsideRenderMethod } from "@eslint-react/component";
+/* eslint-disable unicorn/no-keyword-prefix */
+import {
+    isClass,
+    isFunction,
+    NodeType,
+    traverseUp,
+    traverseUpGuard,
+    type TSESTreeClass,
+    type TSESTreeFunction,
+} from "@eslint-react/ast";
+import { componentCollector, componentCollectorLegacy, isInsideRenderMethod } from "@eslint-react/component";
 import { isInsideCreateElementProps } from "@eslint-react/create-element";
 import { unsafeIsInsideReactHookCall } from "@eslint-react/hooks";
 import { isInsideJSXAttribute } from "@eslint-react/jsx";
@@ -32,18 +41,25 @@ export default createRule<[], MessageID>({
     },
     defaultOptions: [],
     create(context) {
-        const { ctx, listeners } = componentCollector(context, { ignoreMapCall: true, ignoreNull: true, strict: true });
+        const collector = componentCollector(context, { ignoreMapCall: true, ignoreNull: true, strict: true });
+        const collectorLegacy = componentCollectorLegacy(context);
 
         return {
-            ...listeners,
+            ...collector.listeners,
+            ...collectorLegacy.listeners,
             "Program:exit"() {
-                const components = ctx.getAllComponents();
+                const functionComponents = collector.ctx.getAllComponents();
+                const classComponents = collectorLegacy.ctx.getAllComponents();
 
-                const isComponent = (node: TSESTree.Node): node is TSESTreeFunction => {
-                    return isFunction(node) && components.includes(node);
+                const isFunctionComponent = (node: TSESTree.Node): node is TSESTreeFunction => {
+                    return isFunction(node) && functionComponents.includes(node);
                 };
 
-                for (const component of components) {
+                const isClassComponent = (node: TSESTree.Node): node is TSESTreeClass => {
+                    return isClass(node) && classComponents.includes(node);
+                };
+
+                for (const component of functionComponents) {
                     const isInsideProperty = component.parent.type === NodeType.Property;
                     const isInsideJSXProps = isInsideJSXAttribute(component);
 
@@ -76,7 +92,7 @@ export default createRule<[], MessageID>({
                         continue;
                     }
 
-                    const parentComponent = traverseUpGuard(component, isComponent);
+                    const parentComponent = traverseUpGuard(component, isFunctionComponent);
 
                     if (parentComponent && !unsafeIsDirectValueOfRenderProperty(parentComponent)) {
                         context.report({
@@ -95,6 +111,17 @@ export default createRule<[], MessageID>({
                             node: component,
                         });
                     }
+                }
+
+                for (const component of classComponents) {
+                    if (!traverseUp(component, node => isClassComponent(node) || isFunctionComponent(node))) {
+                        continue;
+                    }
+
+                    context.report({
+                        messageId: "UNSTABLE_NESTED_COMPONENT",
+                        node: component,
+                    });
                 }
             },
         };

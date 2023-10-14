@@ -575,86 +575,82 @@ ruleTester.run(RULE_NAME, rule, {
             `,
             errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
         },
-        // TODO: add support for class components detection
-        // {
-        //     code: dedent`
-        //         function ParentComponent() {
-        //           class UnstableNestedClassComponent extends React.Component {
-        //             render() {
-        //               return <div />;
-        //             }
-        //           };
+        {
+            code: dedent`
+                function ParentComponent() {
+                  class UnstableNestedClassComponent extends React.Component {
+                    render() {
+                      return <div />;
+                    }
+                  };
 
-        //           return (
-        //             <div>
-        //               <UnstableNestedClassComponent />
-        //             </div>
-        //           );
-        //         }
-        //     `,
-        //     errors: [{ messageId: "INVALID" }],
-        // },
-        // TODO: add support for class components detection
-        // {
-        //     code: dedent`
-        //         function ParentComponent() {
-        //           class UnstableNestedClassComponent extends React.Component {
-        //             render() {
-        //               return React.createElement("div", null);
-        //             }
-        //           }
+                  return (
+                    <div>
+                      <UnstableNestedClassComponent />
+                    </div>
+                  );
+                }
+            `,
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+        },
+        {
+            code: dedent`
+                function ParentComponent() {
+                  class UnstableNestedClassComponent extends React.Component {
+                    render() {
+                      return React.createElement("div", null);
+                    }
+                  }
 
-        //           return React.createElement(
-        //             "div",
-        //             null,
-        //             React.createElement(UnstableNestedClassComponent, null)
-        //           );
-        //         }
-        //     `,
-        //     errors: [{ messageId: "INVALID" }],
-        // },
-        // TODO: add support for class components detection
-        // {
-        //     code: dedent`
-        //         class ParentComponent extends React.Component {
-        //           render() {
-        //             class UnstableNestedClassComponent extends React.Component {
-        //               render() {
-        //                 return <div />;
-        //               }
-        //             };
+                  return React.createElement(
+                    "div",
+                    null,
+                    React.createElement(UnstableNestedClassComponent, null)
+                  );
+                }
+            `,
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+        },
+        {
+            code: dedent`
+                class ParentComponent extends React.Component {
+                  render() {
+                    class UnstableNestedClassComponent extends React.Component {
+                      render() {
+                        return <div />;
+                      }
+                    };
 
-        //             return (
-        //               <div>
-        //                 <UnstableNestedClassComponent />
-        //               </div>
-        //             );
-        //           }
-        //         }
-        //     `,
-        //     errors: [{ messageId: "INVALID" }],
-        // },
-        // TODO: add support for class components detection
-        // {
-        //     code: dedent`
-        //         class ParentComponent extends React.Component {
-        //           render() {
-        //             class UnstableNestedClassComponent extends React.Component {
-        //               render() {
-        //                 return React.createElement("div", null);
-        //               }
-        //             }
+                    return (
+                      <div>
+                        <UnstableNestedClassComponent />
+                      </div>
+                    );
+                  }
+                }
+            `,
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+        },
+        {
+            code: dedent`
+                class ParentComponent extends React.Component {
+                  render() {
+                    class UnstableNestedClassComponent extends React.Component {
+                      render() {
+                        return React.createElement("div", null);
+                      }
+                    }
 
-        //             return React.createElement(
-        //               "div",
-        //               null,
-        //               React.createElement(UnstableNestedClassComponent, null)
-        //             );
-        //           }
-        //         }
-        //     `,
-        //     errors: [{ messageId: "INVALID" }],
-        // },
+                    return React.createElement(
+                      "div",
+                      null,
+                      React.createElement(UnstableNestedClassComponent, null)
+                    );
+                  }
+                }
+            `,
+            errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+        },
         {
             code: dedent`
                 class ParentComponent extends React.Component {
