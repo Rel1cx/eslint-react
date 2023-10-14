@@ -108,6 +108,7 @@ export default [
 | [no-dangerously-set-innerhtml-with-children](packages/eslint-plugin/docs/rules/no-dangerously-set-innerhtml-with-children.md) | disallow when a DOM element is using both children and dangerouslySetInnerHTML' | 👍 🔍 |    |
 | [no-deprecated-string-refs](packages/eslint-plugin/docs/rules/no-deprecated-string-refs.md)                                   | disallow using deprecated string refs                                           | 👍 🔍 |    |
 | [no-unstable-default-props](packages/eslint-plugin/docs/rules/no-unstable-default-props.md)                                   | disallow usage of unstable value as default param in function component         | 👍 🔍 |    |
+| [no-unstable-nested-components](packages/eslint-plugin/docs/rules/no-unstable-nested-components.md)                           | disallow usage of unstable nested components                                    | 👍 🔍 |    |
 
 <!-- end auto-generated rules list -->
 
@@ -129,7 +130,7 @@ export default [
 - [x] `@eslint-react/no-dangerously-set-innerhtml-with-children`
 - [x] `@eslint-react/no-deprecated-string-refs`
 - [x] `@eslint-react/no-unstable-default-props`
-- [ ] `@eslint-react/no-unstable-nested-components`
+- [x] `@eslint-react/no-unstable-nested-components`
 - [ ] `@eslint-react/no-missing-display-name`
 - [ ] `@eslint-react/no-direct-mutation-state`
 - [x] `@eslint-react/debug/class-component`

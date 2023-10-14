@@ -16,6 +16,7 @@ import noDangerouslySetInnerHTML from "./rules/no-dangerously-set-innerhtml";
 import noDangerouslySetInnerHTMLWithChildren from "./rules/no-dangerously-set-innerhtml-with-children";
 import noDeprecatedStringRefs from "./rules/no-deprecated-string-refs";
 import noUnstableDefaultProps from "./rules/no-unstable-default-props";
+import noUnstableNestedComponents from "./rules/no-unstable-nested-components";
 
 const rules = {
     "debug/class-component": "warn",
@@ -26,11 +27,13 @@ const rules = {
     "naming-convention/event-handler": "warn",
     "naming-convention/filename": "warn",
     "naming-convention/filename-extension": "warn",
+
     "no-constructed-context-value": "error",
     "no-dangerously-set-innerhtml": "error",
     "no-dangerously-set-innerhtml-with-children": "error",
     "no-deprecated-string-refs": "error",
     "no-unstable-default-props": "error",
+    "no-unstable-nested-components": "error",
 } as const satisfies RulePreset;
 
 const rulesEntries = Object.entries(rules);
@@ -44,6 +47,7 @@ const recommendedRules = {
     "no-dangerously-set-innerhtml-with-children": "error",
     "no-deprecated-string-refs": "error",
     "no-unstable-default-props": "error",
+    "no-unstable-nested-components": "error",
 } as const satisfies RulePreset;
 
 const allRules: RulePreset = Object.fromEntries(rulesEntries.filter(([key]) => !key.startsWith("debug/")));
@@ -85,5 +89,6 @@ export default {
         "no-dangerously-set-innerhtml-with-children": noDangerouslySetInnerHTMLWithChildren,
         "no-deprecated-string-refs": noDeprecatedStringRefs,
         "no-unstable-default-props": noUnstableDefaultProps,
+        "no-unstable-nested-components": noUnstableNestedComponents,
     },
 } as const;

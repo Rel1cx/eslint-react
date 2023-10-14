@@ -1,4 +1,5 @@
 /* eslint-disable unicorn/no-keyword-prefix */
+
 import {
     isClass,
     isFunction,
@@ -34,9 +35,9 @@ export default createRule<[], MessageID>({
         },
         schema: [],
         messages: {
-            UNSTABLE_NESTED_COMPONENT: "Don't create components inside other components. better move it outside.",
+            UNSTABLE_NESTED_COMPONENT: "Do not nest components inside other components. Move it to the top level.",
             UNSTABLE_NESTED_COMPONENT_IN_PROPS:
-                "Don't create components inside other components' props. better move it outside.",
+                "Do not nest components inside props. Move it to the top level or pass it as a prop.",
         },
     },
     defaultOptions: [],
