@@ -125,7 +125,7 @@ export function getClassIdentifier(node: TSESTreeClass): TSESTree.Identifier | n
         .with({ type: NodeType.ClassDeclaration }, (x) => x.id)
         .with({
             type: NodeType.ClassExpression,
-            parent: { id: { type: NodeType.Identifier }, type: NodeType.VariableDeclarator },
+            parent: { type: NodeType.VariableDeclarator, id: { type: NodeType.Identifier } },
         }, (x) => x.parent.id)
         .otherwise(() => null);
 }

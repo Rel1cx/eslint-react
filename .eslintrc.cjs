@@ -70,12 +70,12 @@ const config = {
             {
                 type: "natural",
                 "always-on-top": [
+                    "type",
+                    "kind",
                     "id",
                     "key",
                     "name",
                     "meta",
-                    "type",
-                    "kind",
                     "docs",
                     "schema",
                     "message",

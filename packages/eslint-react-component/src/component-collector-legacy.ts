@@ -8,11 +8,11 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, match, P } from "ts-pattern";
 
 const isRenderMethodLike = isMatching({
-    key: {
-        name: "render",
-        type: NodeType.Identifier,
-    },
     type: P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),
+    key: {
+        type: NodeType.Identifier,
+        name: "render",
+    },
     parent: {
         type: NodeType.ClassBody,
         parent: {
@@ -39,7 +39,7 @@ export function isClassComponent(node: TSESTree.Node, context: RuleContext): nod
     const { superClass } = node;
 
     return match(superClass)
-        .with({ name: P.string, type: NodeType.Identifier }, ({ name }) => /^(Pure)?Component$/u.test(name))
+        .with({ type: NodeType.Identifier, name: P.string }, ({ name }) => /^(Pure)?Component$/u.test(name))
         .with(
             {
                 type: NodeType.MemberExpression,

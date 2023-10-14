@@ -58,17 +58,17 @@ ruleTester.run(RULE_NAME, rule, {
               });
             }
         `,
-        `
-        function ParentComponent() {
-          const MemoizedNestedComponent = React.useCallback(() => <div />, []);
+        dedent`
+            function ParentComponent() {
+              const MemoizedNestedComponent = React.useCallback(() => <div />, []);
 
-          return (
-            <div>
-              <MemoizedNestedComponent />
-            </div>
-          );
-        }
-      `,
+              return (
+                <div>
+                  <MemoizedNestedComponent />
+                </div>
+              );
+            }
+        `,
         dedent`
             function ParentComponent() {
               const MemoizedNestedComponent = React.useCallback(
@@ -334,13 +334,13 @@ ruleTester.run(RULE_NAME, rule, {
               return <div />;
             }
         `,
-        `
-        function ParentComponent() {
-          return (
-            <SomeComponent renderers={{ Header: () => <div /> }} />
-          )
-        }
-      `,
+        dedent`
+            function ParentComponent() {
+              return (
+                <SomeComponent renderers={{ Header: () => <div /> }} />
+              )
+            }
+        `,
         dedent`
             function ParentComponent() {
               return (

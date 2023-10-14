@@ -45,12 +45,15 @@ export default createRule<[], MessageID>({
 
                 for (const component of components) {
                     const isInsideProperty = component.parent.type === NodeType.Property;
-                    const isInsideJSXProps = isInsideJSXAttribute(component) && !unsafeIsDeclaredInRenderProp(component);
-                    if (isInsideJSXProps || isInsideCreateElementProps(component, context)) {
-                        context.report({
-                            messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS",
-                            node: component,
-                        });
+                    const isInsideJSXProps = isInsideJSXAttribute(component);
+
+                    if (isInsideJSXProps) {
+                        if (!unsafeIsDeclaredInRenderProp(component)) {
+                            context.report({
+                                messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS",
+                                node: component,
+                            });
+                        }
 
                         continue;
                     }
@@ -64,9 +67,18 @@ export default createRule<[], MessageID>({
                         continue;
                     }
 
+                    if (isInsideCreateElementProps(component, context)) {
+                        context.report({
+                            messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS",
+                            node: component,
+                        });
+
+                        continue;
+                    }
+
                     const parentComponent = traverseUpGuard(component, isComponent);
 
-                    if (parentComponent) {
+                    if (parentComponent && !unsafeIsDirectValueOfRenderProperty(parentComponent)) {
                         context.report({
                             messageId: isInsideProperty ? "UNSTABLE_NESTED_COMPONENT_IN_PROPS" : "UNSTABLE_NESTED_COMPONENT",
                             node: component,

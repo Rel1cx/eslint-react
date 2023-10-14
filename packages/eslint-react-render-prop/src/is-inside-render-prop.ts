@@ -1,5 +1,6 @@
 import { is, NodeType, traverseUpGuard } from "@eslint-react/ast";
 import type { TSESTree } from "@typescript-eslint/types";
+import { isMatching, P } from "ts-pattern";
 
 /**
  * Unsafe check whether given node is declared directly inside a render property
@@ -13,12 +14,15 @@ import type { TSESTree } from "@typescript-eslint/types";
  * @returns `true` if component is declared inside a render property, `false` if not
  */
 export function unsafeIsDirectValueOfRenderProperty(node: TSESTree.Node) {
-    return (
-        node.parent?.type === NodeType.Property
-        && "key" in node.parent
-        && node.parent.key.type === NodeType.Identifier
-        && node.parent.key.name.startsWith("render")
-    );
+    const matching = isMatching({
+        type: NodeType.Property,
+        key: {
+            type: NodeType.Identifier,
+            name: P.string.startsWith("render"),
+        },
+    });
+
+    return matching(node) || matching(node.parent);
 }
 
 /**
@@ -33,23 +37,18 @@ export function unsafeIsDirectValueOfRenderProperty(node: TSESTree.Node) {
  * @returns `true` if component is declared inside a render prop, `false` if not
  */
 export function unsafeIsDeclaredInRenderProp(node: TSESTree.Node) {
-    if (
-        node.parent
-        && node.parent.type === NodeType.Property
-        && "key" in node.parent
-        && "name" in node.parent.key
-        && node.parent.key.name.startsWith("render")
-    ) {
+    if (unsafeIsDirectValueOfRenderProperty(node)) {
         return true;
     }
 
-    const jsxExpressionContainer = traverseUpGuard(node, is(NodeType.JSXExpressionContainer));
+    const maybeJSXExpressionContainer = traverseUpGuard(node, is(NodeType.JSXExpressionContainer));
+    const maybeJSXAttribute = maybeJSXExpressionContainer?.parent;
 
-    return (
-        jsxExpressionContainer?.parent
-        && jsxExpressionContainer.parent.type === NodeType.JSXAttribute
-        && "name" in jsxExpressionContainer.parent
-        && jsxExpressionContainer.parent.name.type === NodeType.JSXIdentifier
-        && jsxExpressionContainer.parent.name.name.startsWith("render")
-    );
+    return isMatching({
+        type: NodeType.JSXAttribute,
+        name: {
+            type: NodeType.JSXIdentifier,
+            name: P.string.startsWith("render"),
+        },
+    })(maybeJSXAttribute);
 }
