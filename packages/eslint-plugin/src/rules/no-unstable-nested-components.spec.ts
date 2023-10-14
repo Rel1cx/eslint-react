@@ -413,6 +413,97 @@ ruleTester.run(RULE_NAME, rule, {
               }
             }
         `,
+        dedent`
+            function ParentComponent({id, data, onRegenerateClick, onRemoveClick}) {
+                return (
+                    <React.Suspense fallback={<LoadingOverlay visible />}>
+                        {React.useMemo(
+                            () =>
+                                match(data)
+                                    .with(P.nullish, () => null)
+                                    .with({ role: "system" }, () => null)
+                                    .otherwise((data) => {
+                                        return (
+                                            <Message
+                                                id={id}
+                                                data={data}
+                                                onRegenerateClick={handleRegenerateClick}
+                                                onRemoveClick={handleRemoveClick}
+                                            />
+                                        );
+                                    }),
+                            [id, data, handleRegenerateClick, handleRemoveClick],
+                        )}
+                    </React.Suspense>
+                );
+            }
+        `,
+        dedent`
+            function App({ locale }: AppProps) {
+                const route = Router.useRoute(["Home", "BotArea", "NotFound"]);
+                const loaded = suspend(suspendBeforeDbInit);
+
+                return (
+                    <TypesafeI18n locale={locale}>
+                        <MantineProvider theme={mantineTheme}>
+                            <div className={css.root}>
+                                <React.Suspense fallback={<RootLayout navHeader={<small className={css.loading} />} />}>
+                                    {React.useMemo(
+                                        () =>
+                                            loaded
+                                            && match(route)
+                                                .with({ name: "Home" }, () => <Redirect to="/bots/ChatGPT" />)
+                                                .with({ name: "BotArea" }, ({ params }) => <BotArea botName={params.botName} />)
+                                                .otherwise(() => <NotFound />),
+                                        [loaded, route],
+                                    )}
+                                </React.Suspense>
+                            </div>
+                        </MantineProvider>
+                    </TypesafeI18n>
+                );
+            }
+        `,
+        dedent`
+            function BotArea({ botName }: BotAreaProps) {
+                const bot = useAtomValue(botsDb.item(botName));
+                const route = Router.useRoute(["BotRoot", "BotChat", "BotNewChat", "BotSettings"]);
+                const botList = useAtomValue(botListAtom);
+
+                const contentView = React.useMemo(
+                    () =>
+                        match(route)
+                            .with({ name: "BotRoot" }, ({ params }) => <RedirectChat botName={params.botName} />)
+                            .with({ name: "BotNewChat" }, ({ params }) => <RedirectChat botName={params.botName} />)
+                            .with({ name: "BotSettings" }, ({ params }) => <BotSettings botName={params.botName} />)
+                            .with({ name: "BotChat" }, ({ params }) => {
+                                const { botName, chatID } = params;
+
+                                if (!ID.isChatID(chatID)) {
+                                    return <Redirect to="/404" />;
+                                }
+
+                                return <ChatDetail botName={botName} chatID={chatID} />;
+                            })
+                            .otherwise(() => null),
+                    [route],
+                );
+
+                if (!bot) {
+                    return <Redirect to="/404" />;
+                }
+
+                return (
+                    <BotProvider botName={botName}>
+                        <RootLayout nav={<BotList items={botList} selected={botName} />}>
+                            <ErrorBoundary fallback={<p className="p-2">Failed to render bot area.</p>}>
+                                <React.Suspense>{contentView}</React.Suspense>
+                            </ErrorBoundary>
+                        </RootLayout>
+                    </BotProvider>
+                );
+            }
+        `,
     ],
     invalid: [
         {
@@ -1047,6 +1138,48 @@ ruleTester.run(RULE_NAME, rule, {
                 }
             `,
             errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+        },
+        {
+            code: dedent`
+                export function BotList({ items, selected }: BotListProps) {
+                    return (
+                        <div className={css.root}>
+                            {items.map((item) => {
+                                return match(item)
+                                    .when(
+                                        ({ id }) => id === selected,
+                                        ({ id, title, icon }) => (
+                                            <BotMenu botName={title} key={id}>
+                                                <Button
+                                                    aria-label="bot-button"
+                                                    render={<button type="button" />}
+                                                    clickOnEnter
+                                                    clickOnSpace
+                                                >
+                                                    <Avatar bg={icon} />
+                                                </Button>
+                                            </BotMenu>
+                                        ),
+                                    )
+                                    .otherwise(({ id, title, icon }) => (
+                                        <Link key={id} to={\`/bots/\${title}\`}>
+                                            <Avatar bg={icon} />
+                                        </Link>
+                                    ));
+                            })}
+                            <Indicator label="WIP" size={14} inline>
+                                <div className={css.plus}>
+                                    <Icon as={Plus} color={vars.colors.overlay} size={24} />
+                                </div>
+                            </Indicator>
+                        </div>
+                    );
+                }
+            `,
+            errors: [
+                { messageId: "UNSTABLE_NESTED_COMPONENT" },
+                { messageId: "UNSTABLE_NESTED_COMPONENT" },
+            ],
         },
     ],
 });

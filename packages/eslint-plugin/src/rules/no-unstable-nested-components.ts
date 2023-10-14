@@ -61,6 +61,15 @@ export default createRule<[], MessageID>({
                 };
 
                 for (const component of functionComponents) {
+                    if (
+                        // Do not mark components declared inside hooks (or falsy '() => null' clean-up methods)
+                        unsafeIsInsideReactHookCall(component)
+                        // Do not mark objects containing render methods
+                        || unsafeIsDirectValueOfRenderProperty(component)
+                    ) {
+                        continue;
+                    }
+
                     const isInsideProperty = component.parent.type === NodeType.Property;
                     const isInsideJSXProps = isInsideJSXAttribute(component);
 
@@ -72,15 +81,6 @@ export default createRule<[], MessageID>({
                             });
                         }
 
-                        continue;
-                    }
-
-                    if (
-                        // Do not mark components declared inside hooks (or falsy '() => null' clean-up methods)
-                        unsafeIsInsideReactHookCall(component)
-                        // Do not mark objects containing render methods
-                        || unsafeIsDirectValueOfRenderProperty(component)
-                    ) {
                         continue;
                     }
 
