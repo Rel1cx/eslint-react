@@ -37,6 +37,7 @@
         "lint:ts": "eslint --cache .",
         "lint:ts-fix": "eslint --cache --fix .",
         "lint:type": "tsc --noEmit",
+        "test": "pnpm run -r test",
         "update": "taze",
         "inspect:eslint-config": "eslint --print-config ./taze.config.ts > eslint-config.json",
         "inspect:deps": "skott -e .ts -s -t"
