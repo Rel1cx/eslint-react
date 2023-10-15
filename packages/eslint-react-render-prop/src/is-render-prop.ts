@@ -2,6 +2,7 @@ import { getFunctionIdentifier, isFunction, NodeType, type TSESTreeFunction } fr
 import { isJSXValue } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
+import { isMatching, P } from "ts-pattern";
 
 /**
  * Unsafe check whether given node is a render function
@@ -21,10 +22,16 @@ export function unsafeIsRenderFunction(node: TSESTreeFunction, context: RuleCont
     const id = getFunctionIdentifier(node);
 
     if (!id?.name.startsWith("render")) {
-        return parent.type === NodeType.JSXExpressionContainer
-            && parent.parent.type === NodeType.JSXAttribute
-            && parent.parent.name.type === NodeType.JSXIdentifier
-            && parent.parent.name.name.startsWith("render");
+        return isMatching({
+            type: NodeType.JSXExpressionContainer,
+            parent: {
+                type: NodeType.JSXAttribute,
+                name: {
+                    type: NodeType.JSXIdentifier,
+                    name: P.string.startsWith("render"),
+                },
+            },
+        })(parent);
     }
 
     return isJSXValue(body, context, {
@@ -44,10 +51,15 @@ export function unsafeIsRenderFunction(node: TSESTreeFunction, context: RuleCont
  * @returns `true` if node is a render prop, `false` if not
  */
 export function unsafeIsRenderProp(node: TSESTree.JSXAttribute, context: RuleContext) {
-    return node.name.type === NodeType.JSXIdentifier
-        && node.name.name.startsWith("render")
-        && node.value
-        && node.value.type === NodeType.JSXExpressionContainer
-        && isFunction(node.value.expression)
-        && unsafeIsRenderFunction(node.value.expression, context);
+    return isMatching({
+        type: NodeType.JSXAttribute,
+        name: {
+            type: NodeType.JSXIdentifier,
+            name: P.string.startsWith("render"),
+        },
+        value: {
+            type: NodeType.JSXExpressionContainer,
+            expression: P.when(isFunction),
+        },
+    })(node) && unsafeIsRenderFunction(node.value.expression, context);
 }

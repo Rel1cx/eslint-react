@@ -4,6 +4,7 @@ import type { Cond } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
+import { isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -94,14 +95,15 @@ export default createRule<Options, MessageID>({
                         }
 
                         const [props, ctx] = component.params;
-                        if (props && "name" in props && props.name && memberExpression.object.name === props.name) {
+
+                        if (isMatching({ name: memberExpression.object.name })(props)) {
                             context.report({
                                 messageId: "USE_DESTRUCTURING_ASSIGNMENT",
                                 node: memberExpression,
                             });
                         }
 
-                        if (ctx && "name" in ctx && ctx.name && memberExpression.object.name === ctx.name) {
+                        if (isMatching({ name: memberExpression.object.name })(ctx)) {
                             context.report({
                                 messageId: "USE_DESTRUCTURING_ASSIGNMENT",
                                 node: memberExpression,
