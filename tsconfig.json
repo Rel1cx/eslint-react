@@ -6,8 +6,10 @@
         ]
     },
     "include": [
-        "./scripts/**/*.ts",
+        "scripts/**/*.ts",
         ".eslintrc.cjs",
-        "taze.config.ts"
+        "taze.config.ts",
+        "packages/*/scripts/**/*.ts",
+        "packages/*/*.config.ts"
     ]
 }
