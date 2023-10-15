@@ -53,9 +53,9 @@ src/components/example-component.tsx
 
 ## Options
 
-- `rule`: `string` - The rule to apply to the file name. Can be one of the following:
-  - `PascalCase` - PascalCase
-  - `camelCase` - camelCase
-  - `kebab-case` - kebab-case
-  - `snake_case` - snake_case
-- `excepts`: `string[]` - List of file names that should be ignored by this rule.
+- `rule`: The rule to apply to the file name. Can be one of the following:
+  - `PascalCase`: PascalCase
+  - `camelCase`: camelCase
+  - `kebab-case`: kebab-case
+  - `snake_case`: snake_case
+- `excepts`: List of file names that should be ignored by this rule.

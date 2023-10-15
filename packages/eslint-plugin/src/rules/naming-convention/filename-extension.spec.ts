@@ -33,16 +33,20 @@ ruleTester.run(RULE_NAME, rule, {
         {
             filename: "file.ts",
             code: withoutJSX,
-            // options: [{ allow: "as-needed" }],
+        },
+        {
+            filename: "react.tsx",
+            code: withoutJSX,
         },
     ],
     invalid: [
         {
             filename: "react.tsx",
             code: withoutJSX,
+            options: [{ rule: "as-needed" }],
             errors: [
                 {
-                    messageId: "INVALID",
+                    messageId: "UNEXPECTED",
                 },
             ],
         },

@@ -26,7 +26,7 @@ Enforce consistent event handler naming conventions in JSX.
 <Component onChange={props.onFoo} />;
 ```
 
-## Rule Options
+## Options
 
 - `eventHandlerPrefix`: Prefix for component methods used as event handlers. Defaults to `handle`
 - `eventHandlerPropPrefix`: Prefix for props that are used as event handlers. Defaults to `on`

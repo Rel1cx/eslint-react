@@ -1,28 +1,58 @@
 import { MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import { createRule, isJSXFile } from "../../utils";
 
 export const RULE_NAME = "naming-convention/filename-extension";
 
-type MessageID = "INVALID";
+type MessageID = "INVALID" | "UNEXPECTED";
 
-export default createRule<[], MessageID>({
+type Options = readonly [
+    {
+        rule?: "always" | "as-needed";
+    }?,
+];
+
+const defaultOptions = [
+    {
+        rule: "always",
+    },
+] as const satisfies Options;
+
+const schema = [
+    {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+            rule: {
+                type: "string",
+                default: "always",
+                enum: ["always", "as-needed"],
+            },
+        },
+    },
+] satisfies [JSONSchema4];
+
+export default createRule<Options, MessageID>({
     name: RULE_NAME,
     meta: {
         type: "suggestion",
         docs: {
-            description: "enforce using `.ts` instead of `.tsx` extension when there is no JSX in the file",
+            description: "enforces consistent file naming for JSX files",
             requiresTypeChecking: false,
         },
-        schema: [],
+        schema,
         messages: {
-            INVALID: "Potential misuse of the `.tsx` extension. Use `.ts` instead.",
+            INVALID: "JSX files must have a `.jsx` or `.tsx` extension",
+            UNEXPECTED: "use `.jsx` or `.tsx` extension as needed",
         },
     },
-    defaultOptions: [],
+    defaultOptions,
     create(context) {
+        const rule = context.options[0]?.rule ?? "always";
+
         const filename = context.getFilename();
 
         const jsxNodeRef = MutRef.make<O.Option<TSESTree.JSXElement | TSESTree.JSXFragment>>(O.none());
@@ -37,9 +67,20 @@ export default createRule<[], MessageID>({
             "Program:exit"(node) {
                 const fileNameExt = filename.slice(filename.lastIndexOf("."));
 
-                if (isJSXFile(fileNameExt) && O.isNone(MutRef.get(jsxNodeRef))) {
-                    return context.report({
-                        messageId: "INVALID",
+                if (O.isSome(MutRef.get(jsxNodeRef))) {
+                    if (!isJSXFile(fileNameExt)) {
+                        context.report({
+                            messageId: "INVALID",
+                            node,
+                        });
+                    }
+
+                    return;
+                }
+
+                if (rule === "as-needed" && isJSXFile(fileNameExt)) {
+                    context.report({
+                        messageId: "UNEXPECTED",
                         node,
                     });
                 }

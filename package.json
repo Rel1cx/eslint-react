@@ -104,7 +104,7 @@
             "has": "npm:@nolyfill/has@latest",
             "rambda": "latest",
             "eslint": ">=8.51.0",
-            "typescript": ">=5.2.2",
+            "typescript": "beta",
             "@typescript-eslint/scope-manager": "6.7.5",
             "@typescript-eslint/type-utils": "6.7.5",
             "@typescript-eslint/types": "6.7.5",
