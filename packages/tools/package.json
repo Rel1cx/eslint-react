@@ -31,7 +31,6 @@
     "files": [
         "dist"
     ],
-    "type": "module",
     "scripts": {
         "lint:type": "tsc --noEmit",
         "build": "rollup -c rollup.config.ts --configPlugin swc3",
