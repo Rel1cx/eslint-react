@@ -1,6 +1,6 @@
 # jsx/prefer-shorthand-boolean
 
-⚠️ This rule _warns_ in the following configs: 🎨 `jsx`, 👍 `recommended`, 🔍 `recommended-type-checked`.
+⚠️ This rule _warns_ in the following configs: 🎨 `jsx`, 👍 `recommended`.
 
 <!-- end auto-generated rule header -->
 

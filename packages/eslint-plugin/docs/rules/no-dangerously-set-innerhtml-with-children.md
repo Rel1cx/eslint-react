@@ -1,6 +1,6 @@
 # no-dangerously-set-innerhtml-with-children
 
-💼 This rule is enabled in the following configs: 👍 `recommended`, 🔍 `recommended-type-checked`.
+💼 This rule is enabled in the 👍 `recommended` config.
 
 <!-- end auto-generated rule header -->
 

@@ -71,25 +71,23 @@ export default [
 
 💼 Configurations enabled in.\
 ⚠️ Configurations set to warn in.\
-🛠️ Set in the `debug` configuration.\
 🎨 Set in the `jsx` configuration.\
-👍 Set in the `recommended` configuration.\
-🔍 Set in the `recommended-type-checked` configuration.
+👍 Set in the `recommended` configuration.
 
 ### debug
 
 | Name                                                                                      | Description                                               | 💼 | ⚠️  |
 | :---------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :- | :- |
-| [debug/class-component](packages/eslint-plugin/docs/rules/debug/class-component.md)       | reports all class components, including anonymous ones    |    | 🛠️  |
-| [debug/function-component](packages/eslint-plugin/docs/rules/debug/function-component.md) | reports all function components, including anonymous ones |    | 🛠️  |
+| [debug/class-component](packages/eslint-plugin/docs/rules/debug/class-component.md)       | reports all class components, including anonymous ones    |    |    |
+| [debug/function-component](packages/eslint-plugin/docs/rules/debug/function-component.md) | reports all function components, including anonymous ones |    |    |
 
 ### jsx
 
-| Name                                                                                                            | Description                                            | 💼       | ⚠️        |
-| :-------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------- | :------- | :------- |
-| [jsx/no-leaked-conditional-rendering](packages/eslint-plugin/docs/rules/jsx/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered | 🎨 👍 🔍 |          |
-| [jsx/no-misused-comment-in-textnode](packages/eslint-plugin/docs/rules/jsx/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes    |          | 🎨 👍 🔍 |
-| [jsx/prefer-shorthand-boolean](packages/eslint-plugin/docs/rules/jsx/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX             |          | 🎨 👍 🔍 |
+| Name                                                                                                            | Description                                            | 💼    | ⚠️     |
+| :-------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------- | :---- | :---- |
+| [jsx/no-leaked-conditional-rendering](packages/eslint-plugin/docs/rules/jsx/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered | 🎨 👍 |       |
+| [jsx/no-misused-comment-in-textnode](packages/eslint-plugin/docs/rules/jsx/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes    |       | 🎨 👍 |
+| [jsx/prefer-shorthand-boolean](packages/eslint-plugin/docs/rules/jsx/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX             |       | 🎨 👍 |
 
 ### naming-convention
 
@@ -101,14 +99,14 @@ export default [
 
 ### react
 
-| Name                                                                                                                          | Description                                                                     | 💼    | ⚠️  |
-| :---------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ | :---- | :- |
-| [no-constructed-context-value](packages/eslint-plugin/docs/rules/no-constructed-context-value.md)                             | disallows passing constructed values to context providers                       | 👍 🔍 |    |
-| [no-dangerously-set-innerhtml](packages/eslint-plugin/docs/rules/no-dangerously-set-innerhtml.md)                             | disallow when a DOM element is using both children and dangerouslySetInnerHTML' | 👍 🔍 |    |
-| [no-dangerously-set-innerhtml-with-children](packages/eslint-plugin/docs/rules/no-dangerously-set-innerhtml-with-children.md) | disallow when a DOM element is using both children and dangerouslySetInnerHTML' | 👍 🔍 |    |
-| [no-deprecated-string-refs](packages/eslint-plugin/docs/rules/no-deprecated-string-refs.md)                                   | disallow using deprecated string refs                                           | 👍 🔍 |    |
-| [no-unstable-default-props](packages/eslint-plugin/docs/rules/no-unstable-default-props.md)                                   | disallow usage of unstable value as default param in function component         | 👍 🔍 |    |
-| [no-unstable-nested-components](packages/eslint-plugin/docs/rules/no-unstable-nested-components.md)                           | disallow usage of unstable nested components                                    | 👍 🔍 |    |
+| Name                                                                                                                          | Description                                                                     | 💼 | ⚠️  |
+| :---------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ | :- | :- |
+| [no-constructed-context-value](packages/eslint-plugin/docs/rules/no-constructed-context-value.md)                             | disallows passing constructed values to context providers                       | 👍 |    |
+| [no-dangerously-set-innerhtml](packages/eslint-plugin/docs/rules/no-dangerously-set-innerhtml.md)                             | disallow when a DOM element is using both children and dangerouslySetInnerHTML' | 👍 |    |
+| [no-dangerously-set-innerhtml-with-children](packages/eslint-plugin/docs/rules/no-dangerously-set-innerhtml-with-children.md) | disallow when a DOM element is using both children and dangerouslySetInnerHTML' | 👍 |    |
+| [no-deprecated-string-refs](packages/eslint-plugin/docs/rules/no-deprecated-string-refs.md)                                   | disallow using deprecated string refs                                           | 👍 |    |
+| [no-unstable-default-props](packages/eslint-plugin/docs/rules/no-unstable-default-props.md)                                   | disallow usage of unstable value as default param in function component         | 👍 |    |
+| [no-unstable-nested-components](packages/eslint-plugin/docs/rules/no-unstable-nested-components.md)                           | disallow usage of unstable nested components                                    | 👍 |    |
 
 <!-- end auto-generated rules list -->
 

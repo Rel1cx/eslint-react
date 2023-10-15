@@ -1,7 +1,5 @@
 # debug/function-component
 
-⚠️ This rule _warns_ in the 🛠️ `debug` config.
-
 <!-- end auto-generated rule header -->
 
 Warns when a function component is found. Useful for debugging.

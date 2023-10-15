@@ -1,7 +1,5 @@
 # debug/class-component
 
-⚠️ This rule _warns_ in the 🛠️ `debug` config.
-
 <!-- end auto-generated rule header -->
 
 Warns when a class component is found. Useful for debugging.

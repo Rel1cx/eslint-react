@@ -11,7 +11,7 @@ export default {
         ["debug", "🛠️"],
         ["jsx", "🎨"],
     ],
-    ignoreConfig: ["all", "off"],
+    ignoreConfig: ["all", "off", "debug", "recommended-type-checked"],
     pathRuleList: "../../README.md",
     ruleDocSectionInclude: ["Rule Details"],
     ruleDocTitleFormat: "name",
