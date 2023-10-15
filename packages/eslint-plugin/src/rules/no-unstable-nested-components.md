@@ -6,7 +6,7 @@ This rule aims to prevent nesting component definitions inside other components.
 
 ### ❌ Incorrect
 
-```jsx
+```tsx
 export default function Gallery() {
     // 🔴 Never define a component inside another component!
     function Profile() {
@@ -18,7 +18,7 @@ export default function Gallery() {
 
 ### ✅ Correct
 
-```jsx
+```tsx
 export default function Gallery() {
     // ...
 }

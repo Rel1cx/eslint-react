@@ -163,3 +163,5 @@ export type RuleName =
 
 // Example rule names
 const _: RuleName = "ensure-custom-hooks-using-other-hooks";
+
+const __: RuleName = "no-constructed-context-value";

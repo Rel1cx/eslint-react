@@ -7,7 +7,7 @@ injected as a text node in JSX statements.
 
 ### ❌ Incorrect
 
-```jsx
+```tsx
 function Component() {
     return <div>// empty div</div>;
 }
@@ -23,7 +23,7 @@ function Component() {
 
 ### ✅ Correct
 
-```jsx
+```tsx
 function Component() {
     return <div>{/* empty div */}</div>;
 }
@@ -41,7 +41,7 @@ function Component() {
 
 It's possible you may want to legitimately output comment start characters (`//` or `/*`) in a JSX text node. In which case, you can do the following:
 
-```jsx
+```tsx
 function Component() {
     return <div>{"/* This will be output as a text node */"}</div>;
 }

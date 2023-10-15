@@ -118,7 +118,8 @@ export default [
 - [x] `@eslint-react/jsx/no-leaked-conditional-rendering`
 - [x] `@eslint-react/jsx/no-misused-comment-in-textnode`
 - [ ] `@eslint-react/jsx/no-useless-fragment`
-- [ ] `@eslint-react/jsx/no-missing-key-prop`
+- [ ] `@eslint-react/jsx/no-missing-key`
+- [ ] `@eslint-react/jsx/no-duplicate-key`
 - [ ] `@eslint-react/jsx/no-array-index-key`
 - [x] `@eslint-react/naming-convention/event-handler`
 - [x] `@eslint-react/naming-convention/filename`
