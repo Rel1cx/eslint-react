@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable security/detect-non-literal-regexp */
 import { NodeType } from "@eslint-react/ast";
 import { getPropName } from "@eslint-react/jsx";
@@ -10,14 +9,14 @@ import { createRule } from "../../utils";
 
 export const RULE_NAME = "naming-convention/event-handler";
 
-type MessageID = "BAD_EVENT_HANDLER_NAME" | "BAD_EVENT_HANDLER_PROP_NAME";
+type MessageID = "BAD_HANDLER_NAME" | "BAD_PROP_NAME";
 
 type Options = readonly [
     {
         checkInlineFunction?: boolean;
         checkLocalVariables?: boolean;
-        eventHandlerPrefix?: false | string;
-        eventHandlerPropPrefix?: false | string;
+        handlerPrefix?: string;
+        propPrefix?: string;
     },
 ];
 
@@ -25,65 +24,21 @@ const defaultOptions = [
     {
         checkInlineFunction: false,
         checkLocalVariables: false,
-        eventHandlerPrefix: "handle",
-        eventHandlerPropPrefix: "on",
+        handlerPrefix: "handle",
+        propPrefix: "on",
     },
 ] as const satisfies Options;
 
 const schema = [
     {
-        anyOf: [
-            {
-                type: "object",
-                additionalProperties: false,
-                properties: {
-                    checkInlineFunction: { type: "boolean" },
-                    checkLocalVariables: { type: "boolean" },
-                    eventHandlerPrefix: { type: "string" },
-                    eventHandlerPropPrefix: { type: "string" },
-                },
-            },
-            {
-                type: "object",
-                additionalProperties: false,
-                properties: {
-                    checkInlineFunction: { type: "boolean" },
-                    checkLocalVariables: { type: "boolean" },
-                    eventHandlerPrefix: { type: "string" },
-                    eventHandlerPropPrefix: {
-                        type: "boolean",
-                        enum: [false],
-                    },
-                },
-            },
-            {
-                type: "object",
-                additionalProperties: false,
-                properties: {
-                    checkInlineFunction: { type: "boolean" },
-                    checkLocalVariables: { type: "boolean" },
-                    eventHandlerPrefix: {
-                        type: "boolean",
-                        enum: [false],
-                    },
-                    eventHandlerPropPrefix: { type: "string" },
-                },
-            },
-            {
-                type: "object",
-                additionalProperties: false,
-                properties: {
-                    checkLocalVariables: { type: "boolean" },
-                },
-            },
-            {
-                type: "object",
-                additionalProperties: false,
-                properties: {
-                    checkInlineFunction: { type: "boolean" },
-                },
-            },
-        ],
+        type: "object",
+        additionalProperties: false,
+        properties: {
+            checkInlineFunction: { type: "boolean" },
+            checkLocalVariables: { type: "boolean" },
+            handlerPrefix: { type: "string" },
+            propPrefix: { type: "string" },
+        },
     },
 ] satisfies JSONSchema4[];
 
@@ -98,20 +53,20 @@ export default createRule<Options, MessageID>({
         },
         schema,
         messages: {
-            BAD_EVENT_HANDLER_NAME:
-                "Handler function for {{propKey}} prop key must be a camelCase name beginning with '{{handlerPrefix}}' only",
-            BAD_EVENT_HANDLER_PROP_NAME: "Prop key for {{propValue}} must begin with '{{handlerPropPrefix}}'",
+            BAD_HANDLER_NAME:
+                "Handler function for `{{propKey}}` prop key must be a camelCase name beginning with `{{hPrefix}}` only",
+            BAD_PROP_NAME: "Prop key for `{{propValue}}` must begin with `{{pPrefix}}`",
         },
     },
     defaultOptions,
-    create(context, [{ checkInlineFunction, checkLocalVariables, eventHandlerPrefix, eventHandlerPropPrefix }]) {
-        const checkEventHandlerPrefix = !!eventHandlerPrefix;
-        const checkEventHandlerPropPrefix = !!eventHandlerPropPrefix;
-        const handlerPrefix = eventHandlerPrefix || "handle";
-        const handlerPropPrefix = eventHandlerPropPrefix || "on";
-        const reEventHandlerProp = new RegExp(`^(${handlerPropPrefix}[A-Z].*|ref)$`, "u");
+    create(context, [{ checkInlineFunction, checkLocalVariables, handlerPrefix, propPrefix }]) {
+        const checkHandlerPrefix = !!handlerPrefix && handlerPrefix !== "*";
+        const checkPropPrefix = !!propPrefix && propPrefix !== "*";
+        const hPrefix = checkHandlerPrefix ? handlerPrefix : "handle";
+        const pPrefix = checkPropPrefix ? propPrefix : "on";
+        const reEventProp = new RegExp(`^(${pPrefix}[A-Z].*|ref)$`, "u");
         // dprint-ignore
-        const reEventHandler = new RegExp(`^((props\\.${handlerPropPrefix || ""})|((.*\\.)?${handlerPrefix}))[0-9]*[A-Z].*$`, "u");
+        const reEventHandler = new RegExp(`^((props\\.${pPrefix || ""})|((.*\\.)?${hPrefix}))[0-9]*[A-Z].*$`, "u");
 
         return {
             JSXAttribute(node) {
@@ -124,6 +79,7 @@ export default createRule<Options, MessageID>({
                 const isInlineFunction = expression.type === NodeType.ArrowFunctionExpression;
 
                 // Early return when not checking inline functions but the expression is an inline function.
+
                 if (!checkInlineFunction && isInlineFunction) {
                     return;
                 }
@@ -134,6 +90,7 @@ export default createRule<Options, MessageID>({
                 const onlyLocalVariables = isInlineFunction ? O.isNone(maybeInnerFunction) : !("object" in expression);
 
                 // Early return when not checking local variables but the expression is a local variable.
+
                 if (!checkLocalVariables && onlyLocalVariables) {
                     return;
                 }
@@ -151,25 +108,25 @@ export default createRule<Options, MessageID>({
                     return;
                 }
 
-                const propIsEventHandler = reEventHandlerProp.test(propKey);
+                const propIsEventHandler = reEventProp.test(propKey);
                 const fnIsNamedOk = reEventHandler.test(propValue);
-                if (checkEventHandlerPropPrefix && !propIsEventHandler && fnIsNamedOk) {
+                if (checkPropPrefix && !propIsEventHandler && fnIsNamedOk) {
                     context.report({
                         data: {
-                            handlerPropPrefix,
+                            pPrefix,
                             propValue,
                         },
-                        messageId: "BAD_EVENT_HANDLER_PROP_NAME",
+                        messageId: "BAD_PROP_NAME",
                         node,
                     });
                 }
-                if (checkEventHandlerPrefix && propIsEventHandler && !fnIsNamedOk) {
+                if (checkHandlerPrefix && propIsEventHandler && !fnIsNamedOk) {
                     context.report({
                         data: {
-                            handlerPrefix,
+                            hPrefix,
                             propKey,
                         },
-                        messageId: "BAD_EVENT_HANDLER_NAME",
+                        messageId: "BAD_HANDLER_NAME",
                         node,
                     });
                 }

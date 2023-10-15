@@ -28,7 +28,7 @@ Enforce consistent event handler naming conventions in JSX.
 
 ## Options
 
-- `eventHandlerPrefix`: Prefix for component methods used as event handlers. Defaults to `handle`
-- `eventHandlerPropPrefix`: Prefix for props that are used as event handlers. Defaults to `on`
+- `handlerPrefix`: Prefix for component methods used as event handlers. Defaults to `handle`
+- `propPrefix`: Prefix for props that are used as event handlers. Defaults to `on`
 - `checkLocalVariables`: Determines whether event handlers stored as local variables are checked. Defaults to `false`
 - `checkInlineFunction`: Determines whether event handlers set as inline functions are checked. Defaults to `false`
