@@ -62,7 +62,7 @@
         "build": "rollup -c rollup.config.ts --configPlugin swc3",
         "build:docs": "bun run ./scripts/doc-generate.ts && eslint-doc-generator && dprint fmt docs/**/*.md",
         "publish": "pnpm run build && pnpm run test && pnpm publint",
-        "test": "vitest --run --single-thread --no-threads"
+        "test": "vitest --run"
     },
     "dependencies": {
         "@typescript-eslint/scope-manager": "6.7.5",
@@ -102,7 +102,6 @@
         "eslint": ">=8.51.0",
         "typescript": ">=5.2.2"
     },
-    "packageManager": "bun@1.0.6",
     "engines": {
         "bun": ">=1.0.4",
         "node": ">=18.15.0"
