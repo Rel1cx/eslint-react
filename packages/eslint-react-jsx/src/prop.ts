@@ -1,11 +1,61 @@
-import { is, NodeType } from "@eslint-react/ast";
+import { is, NodeType, traverseUpGuard } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "@eslint-react/variable";
 import type { TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
-import { getPropName } from "./get-prop-name";
+/**
+ * Get the name of a JSX attribute
+ * @param node The JSX attribute node
+ * @returns string
+ */
+export function getPropName(node: TSESTree.JSXAttribute) {
+    return match(node.name)
+        .when(is(NodeType.JSXIdentifier), (n) => n.name)
+        .when(is(NodeType.JSXNamespacedName), (n) => n.name.name)
+        .exhaustive();
+}
+
+/**
+ * Get the name of a JSX attribute with namespace
+ * @param node The JSX attribute node
+ * @returns string
+ */
+export function getPropNameWithNamespace(node: TSESTree.JSXAttribute) {
+    return match(node.name)
+        .when(is(NodeType.JSXIdentifier), (n) => n.name)
+        .when(is(NodeType.JSXNamespacedName), (n) => `${n.namespace.name}:${n.name.name}`)
+        .exhaustive();
+}
+
+/**
+ * Traverses up prop node
+ * @param node node to traverse up from
+ * @param predicate predicate to match prop node
+ * @returns prop node if found
+ */
+export function traverseUpProp(
+    node: TSESTree.Node,
+    predicate: (node: TSESTree.JSXAttribute) => boolean = F.constTrue,
+): O.Option<TSESTree.JSXAttribute> {
+    const matcher = (node: TSESTree.Node): node is TSESTree.JSXAttribute => {
+        return node.type === NodeType.JSXAttribute && predicate(node);
+    };
+
+    return O.fromNullable(traverseUpGuard(node, matcher));
+}
+
+/**
+ * Checks if the node is inside a prop's value
+ * @param node node to check
+ * @returns true if the node is inside a prop's value
+ */
+export function isInsidePropValue(node: TSESTree.Node): boolean {
+    const matcher = (node: TSESTree.JSXAttribute) => node.value?.type === NodeType.JSXExpressionContainer;
+
+    return O.isSome(traverseUpProp(node, matcher));
+}
 
 /**
  * @param properties The properties to search in

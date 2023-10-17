@@ -1,7 +1,7 @@
 import { getNestedReturnStatements, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/types";
 
-import { isJSXValue, type JSXValueCheckOptions } from "./is-jsx-value";
+import { isJSXValue, type JSXValueCheckOptions } from "./value";
 
 /**
  * Check if function is returning JSX
@@ -10,7 +10,7 @@ import { isJSXValue, type JSXValueCheckOptions } from "./is-jsx-value";
  * @param options JSX value check options
  * @returns boolean
  */
-export function isFunctionReturningJSX(
+export function isFunctionReturningJSXValue(
     node: TSESTreeFunction,
     context: RuleContext,
     options?: JSXValueCheckOptions,

@@ -23,7 +23,7 @@ export function isDeclaredInNode({
 /**
  * Check if a Parameter node is a destructor parameter
  * @param node The node to check
- * @returns boolean
+ * @returns boolean indicating whether the node is a destructor parameter
  */
 export const isDestructorParameter: (
     node: TSESTree.Node,

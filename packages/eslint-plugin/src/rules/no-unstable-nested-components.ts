@@ -12,7 +12,7 @@ import {
 import { componentCollector, componentCollectorLegacy, isInsideRenderMethod } from "@eslint-react/component";
 import { isInsideCreateElementProps } from "@eslint-react/create-element";
 import { unsafeIsInsideReactHookCall } from "@eslint-react/hooks";
-import { isInsideJSXAttribute } from "@eslint-react/jsx";
+import { isInsidePropValue } from "@eslint-react/jsx";
 import { unsafeIsDeclaredInRenderProp, unsafeIsDirectValueOfRenderProperty } from "@eslint-react/render-prop";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -71,9 +71,9 @@ export default createRule<[], MessageID>({
                     }
 
                     const isInsideProperty = component.parent.type === NodeType.Property;
-                    const isInsideJSXProps = isInsideJSXAttribute(component);
+                    const isInsideJSXPropValue = isInsidePropValue(component);
 
-                    if (isInsideJSXProps) {
+                    if (isInsideJSXPropValue) {
                         if (!unsafeIsDeclaredInRenderProp(component)) {
                             context.report({
                                 messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS",

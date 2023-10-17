@@ -126,6 +126,12 @@ export const isJSX = isOneOf([
     NodeType.JSXText,
 ]);
 
+export const isJSXTagNameExpression = isOneOf([
+    NodeType.JSXIdentifier,
+    NodeType.JSXMemberExpression,
+    NodeType.JSXNamespacedName,
+]);
+
 export const isTypeDeclaration = isOneOf([
     NodeType.TSInterfaceDeclaration,
     NodeType.TSTypeAliasDeclaration,

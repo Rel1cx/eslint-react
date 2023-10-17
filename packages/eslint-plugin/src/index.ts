@@ -27,7 +27,6 @@ const rules = {
     "naming-convention/event-handler": "warn",
     "naming-convention/filename": "warn",
     "naming-convention/filename-extension": "warn",
-
     "no-constructed-context-value": "error",
     "no-dangerously-set-innerhtml": "error",
     "no-dangerously-set-innerhtml-with-children": "error",

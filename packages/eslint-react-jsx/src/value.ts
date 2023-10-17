@@ -1,4 +1,4 @@
-import { isOneOf, NodeType } from "@eslint-react/ast";
+import { isJSXTagNameExpression, isOneOf, NodeType } from "@eslint-react/ast";
 import { isCreateElement } from "@eslint-react/create-element";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
@@ -6,8 +6,6 @@ import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "@eslint
 import { type TSESTree } from "@typescript-eslint/utils";
 import { isString } from "effect/Predicate";
 import { match, P } from "ts-pattern";
-
-import { isJsxTagNameExpression } from "./is-jsx-tag-name-expression";
 
 export type JSXValueCheckOptions = {
     /**
@@ -94,11 +92,11 @@ export function isJSXValue(
             if (!("name" in node)) {
                 return false;
             }
-            if (isJsxTagNameExpression(node)) {
+            if (isJSXTagNameExpression(node)) {
                 return true;
             }
             if (!isString(node.name) && node.name.type !== NodeType.Identifier) {
-                return isJsxTagNameExpression(node.name);
+                return isJSXTagNameExpression(node.name);
             }
             const name = match(node.name)
                 .with(P.string, F.identity)
