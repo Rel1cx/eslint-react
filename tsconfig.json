@@ -6,9 +6,10 @@
         ]
     },
     "include": [
-        "scripts/**/*.ts",
         ".eslintrc.cjs",
+        "knip.ts",
         "taze.config.ts",
+        "scripts/**/*.ts",
         "packages/*/scripts/**/*.ts",
         "packages/*/*.config.ts"
     ]

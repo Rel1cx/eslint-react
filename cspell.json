@@ -42,6 +42,7 @@
         "tsup",
         "taze",
         "typeclass",
+        "knip",
         "weakref",
         "deepmerge"
     ],
