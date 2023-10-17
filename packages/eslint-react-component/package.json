@@ -44,7 +44,7 @@
         "@eslint-react/tools": "workspace:*",
         "@eslint-react/types": "workspace:*",
         "@types/eslint": "8.44.4",
-        "@typescript-eslint/types": "6.7.5",
-        "@typescript-eslint/utils": "6.7.5"
+        "@typescript-eslint/types": "6.8.0",
+        "@typescript-eslint/utils": "6.8.0"
     }
 }

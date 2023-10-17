@@ -17,6 +17,8 @@
 
 ### Type Aliases
 
+- [Combine](README.md#combine)
+- [FieldDiff](README.md#fielddiff)
 - [Narrow](README.md#narrow)
 - [Pretty](README.md#pretty)
 - [Remap](README.md#remap)
@@ -32,6 +34,40 @@
 - [uniqueBy](README.md#uniqueby)
 
 ## Type Aliases
+
+### Combine
+
+Ƭ **Combine**<`T1`, `T2`\>: [`Pretty`](README.md#pretty)<{ [K in keyof (T1 \| T2)]: T1[K] \| T2[K] } & `Partial`<`T1` & `T2`\>\>
+
+**`Since`**
+
+0.3.4
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `T1` |
+| `T2` |
+
+---
+
+### FieldDiff
+
+Ƭ **FieldDiff**<`T1`, `T2`\>: `Omit`<`T1`, keyof `T2`\> \| `Omit`<`T2`, keyof `T1`\>
+
+**`Since`**
+
+0.3.4
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `T1` |
+| `T2` |
+
+---
 
 ### Narrow
 

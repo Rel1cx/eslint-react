@@ -65,10 +65,10 @@
         "test": "vitest --run"
     },
     "dependencies": {
-        "@typescript-eslint/scope-manager": "6.7.5",
-        "@typescript-eslint/type-utils": "6.7.5",
-        "@typescript-eslint/types": "6.7.5",
-        "@typescript-eslint/utils": "6.7.5"
+        "@typescript-eslint/scope-manager": "6.8.0",
+        "@typescript-eslint/type-utils": "6.8.0",
+        "@typescript-eslint/types": "6.8.0",
+        "@typescript-eslint/utils": "6.8.0"
     },
     "devDependencies": {
         "@eslint-react/ast": "workspace:*",
@@ -85,11 +85,11 @@
         "@eslint-react/types": "workspace:*",
         "@eslint-react/variable": "workspace:*",
         "@rizzzse/bimap": "1.2.1",
-        "@typescript-eslint/rule-tester": "6.7.5",
+        "@typescript-eslint/rule-tester": "6.8.0",
         "birecord": "0.1.1",
         "dedent": "1.5.1",
         "deepmerge-ts": "5.1.0",
-        "effect": "2.0.0-next.48",
+        "effect": "2.0.0-next.49",
         "fast-equals": "5.0.1",
         "micro-memoize": "4.1.2",
         "rambda": "8.5.0",

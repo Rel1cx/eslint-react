@@ -11,43 +11,43 @@ export type Construction = Data.TaggedEnum<{
     None: {};
     Array: {
         node: TSESTree.ArrayExpression;
-        usage?: TSESTree.Node;
+        usage: O.Option<TSESTree.Node>;
     };
     AssignmentExpression: {
         node: TSESTree.Node;
-        usage: TSESTree.Node;
+        usage: O.Option<TSESTree.Node>;
     };
     ClassExpression: {
         node: TSESTree.ClassExpression;
-        usage?: TSESTree.Node;
+        usage: O.Option<TSESTree.Node>;
     };
     FunctionDeclaration: {
         node: TSESTree.FunctionDeclaration;
-        usage: TSESTree.Expression | TSESTree.Identifier;
+        usage: O.Option<TSESTree.Expression | TSESTree.Identifier>;
     };
     FunctionExpression: {
         node: TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression;
-        usage?: TSESTree.Node;
+        usage: O.Option<TSESTree.Node>;
     };
     JSXElement: {
         node: TSESTree.JSXElement;
-        usage?: TSESTree.Node;
+        usage: O.Option<TSESTree.Node>;
     };
     JSXFragment: {
         node: TSESTree.JSXFragment;
-        usage?: TSESTree.Node;
+        usage: O.Option<TSESTree.Node>;
     };
     NewExpression: {
         node: TSESTree.NewExpression;
-        usage?: TSESTree.Node;
+        usage: O.Option<TSESTree.Node>;
     };
     ObjectExpression: {
         node: TSESTree.ObjectExpression;
-        usage?: TSESTree.Node;
+        usage: O.Option<TSESTree.Node>;
     };
     RegExpLiteral: {
         node: TSESTree.Literal;
-        usage?: TSESTree.Node;
+        usage: O.Option<TSESTree.Node>;
     };
 }>;
 
@@ -63,14 +63,14 @@ export function constructionDetector<T extends RuleContext>(context: T): (node: 
     // eslint-disable-next-line sonarjs/cognitive-complexity
     const detect = (node: TSESTree.Node, scope = context.getScope()): Construction => {
         return match(node)
-            .when(is(NodeType.ArrayExpression), (node) => Construction("Array")({ node }))
-            .when(is(NodeType.ObjectExpression), (node) => Construction("ObjectExpression")({ node }))
-            .when(is(NodeType.ClassExpression), (node) => Construction("ClassExpression")({ node }))
-            .when(is(NodeType.JSXElement), (node) => Construction("JSXElement")({ node }))
-            .when(is(NodeType.JSXFragment), (node) => Construction("JSXFragment")({ node }))
-            .when(is(NodeType.NewExpression), (node) => Construction("NewExpression")({ node }))
+            .when(is(NodeType.ArrayExpression), (node) => Construction("Array")({ node, usage: O.none() }))
+            .when(is(NodeType.ObjectExpression), (node) => Construction("ObjectExpression")({ node, usage: O.none() }))
+            .when(is(NodeType.ClassExpression), (node) => Construction("ClassExpression")({ node, usage: O.none() }))
+            .when(is(NodeType.JSXElement), (node) => Construction("JSXElement")({ node, usage: O.none() }))
+            .when(is(NodeType.JSXFragment), (node) => Construction("JSXFragment")({ node, usage: O.none() }))
+            .when(is(NodeType.NewExpression), (node) => Construction("NewExpression")({ node, usage: O.none() }))
             .when(isOneOf([NodeType.FunctionExpression, NodeType.ArrowFunctionExpression]), (node) => {
-                return Construction("FunctionExpression")({ node });
+                return Construction("FunctionExpression")({ node, usage: O.none() });
             })
             .when(is(NodeType.MemberExpression), (node) => {
                 if (!("object" in node)) {
@@ -85,7 +85,7 @@ export function constructionDetector<T extends RuleContext>(context: T): (node: 
 
                 return Construction(object._tag)({
                     ...object,
-                    usage: node.object,
+                    usage: O.some(node.object),
                 });
             })
             .when(is(NodeType.AssignmentExpression), (node) => {
@@ -101,7 +101,7 @@ export function constructionDetector<T extends RuleContext>(context: T): (node: 
 
                 return Construction("AssignmentExpression")({
                     node: right.node,
-                    usage: node,
+                    usage: O.some(node),
                 });
             })
             .when(is(NodeType.LogicalExpression), (node) => {
@@ -150,7 +150,7 @@ export function constructionDetector<T extends RuleContext>(context: T): (node: 
                 if (latestDef.node.type === NodeType.FunctionDeclaration) {
                     return Construction("FunctionDeclaration")({
                         node: latestDef.node,
-                        usage: node,
+                        usage: O.some(node),
                     });
                 }
 
@@ -162,7 +162,7 @@ export function constructionDetector<T extends RuleContext>(context: T): (node: 
             })
             .when(is(NodeType.Literal), (node) => {
                 if ("regex" in node) {
-                    return Construction("RegExpLiteral")({ node });
+                    return Construction("RegExpLiteral")({ node, usage: O.none() });
                 }
 
                 return None;

@@ -823,7 +823,7 @@ const success = MyResult("Success")({ value: 1 });
 
 ### TaggedEnum
 
-Ƭ **TaggedEnum**<`A`\>: { readonly [Tag in keyof A]: Data<Readonly<Types.Simplify<A[Tag] & Object\>\>\> }[keyof `A`]
+Ƭ **TaggedEnum**<`A`\>: keyof `A` extends infer Tag ? `Tag` extends keyof `A` ? [`Data`](Data.md#data)<{ readonly [K in "\_tag" \| keyof A[Tag]]: K extends "\_tag" ? Tag : A[Tag][K] }\> : `never` : `never`
 
 Create a tagged enum data type, which is a union of `Data` structs.
 
@@ -855,6 +855,6 @@ type HttpErrorPlain =
 
 #### Type parameters
 
-| Name | Type                                                    |
-| :--- | :------------------------------------------------------ |
-| `A`  | extends `Record`<`string`, `Record`<`string`, `any`\>\> |
+| Name | Type                                                                               |
+| :--- | :--------------------------------------------------------------------------------- |
+| `A`  | extends `Record`<`string`, `Record`<`string`, `any`\>\> & `UntaggedChildren`<`A`\> |

@@ -37,6 +37,6 @@
         "build:docs": "typedoc && dprint fmt ./docs/**/*.md"
     },
     "dependencies": {
-        "effect": "2.0.0-next.48"
+        "effect": "2.0.0-next.49"
     }
 }

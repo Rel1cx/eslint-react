@@ -57,6 +57,7 @@
 - [makeBy](Chunk.md#makeby)
 - [map](Chunk.md#map)
 - [mapAccum](Chunk.md#mapaccum)
+- [mapNonEmpty](Chunk.md#mapnonempty)
 - [modify](Chunk.md#modify)
 - [modifyOption](Chunk.md#modifyoption)
 - [of](Chunk.md#of)
@@ -4356,7 +4357,7 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 ▸ **map**<`A`, `B`\>(`f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk.md)<`B`\>
 
-Returns an effect whose success is mapped by the specified f function.
+Returns a chunk with the elements mapped by the specified f function.
 
 #### Type parameters
 
@@ -4393,7 +4394,7 @@ Returns an effect whose success is mapped by the specified f function.
 
 ▸ **map**<`A`, `B`\>(`self`, `f`): [`Chunk`](../interfaces/Chunk.Chunk.md)<`B`\>
 
-Returns an effect whose success is mapped by the specified f function.
+Returns a chunk with the elements mapped by the specified f function.
 
 #### Type parameters
 
@@ -4412,6 +4413,73 @@ Returns an effect whose success is mapped by the specified f function.
 #### Returns
 
 [`Chunk`](../interfaces/Chunk.Chunk.md)<`B`\>
+
+**`Since`**
+
+2.0.0
+
+---
+
+### mapNonEmpty
+
+▸ **mapNonEmpty**<`A`, `B`\>(`f`): (`self`: [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B`\>
+
+Returns a non empty chunk with the elements mapped by the specified f function.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name | Type                             |
+| :--- | :------------------------------- |
+| `f`  | (`a`: `A`, `i`: `number`) => `B` |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B`\>
+
+##### Parameters
+
+| Name   | Type                                                          |
+| :----- | :------------------------------------------------------------ |
+| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\> |
+
+##### Returns
+
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B`\>
+
+**`Since`**
+
+2.0.0
+
+▸ **mapNonEmpty**<`A`, `B`\>(`self`, `f`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B`\>
+
+Returns a non empty chunk with the elements mapped by the specified f function.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                                                          |
+| :----- | :------------------------------------------------------------ |
+| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\> |
+| `f`    | (`a`: `A`, `i`: `number`) => `B`                              |
+
+#### Returns
+
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B`\>
 
 **`Since`**
 
