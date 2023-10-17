@@ -68,8 +68,8 @@ importers:
         specifier: '>=8.51.0'
         version: 8.51.0
       eslint-config-with-tsconfig:
-        specifier: 2.7.5
-        version: 2.7.5(eslint@8.51.0)(tailwindcss@3.3.3)(typescript@5.3.0-beta)
+        specifier: 2.7.6
+        version: 2.7.6(eslint@8.51.0)(tailwindcss@3.3.3)(typescript@5.3.0-beta)
       eslint-doc-generator:
         specifier: 1.5.2
         version: 1.5.2(eslint@8.51.0)(typescript@5.3.0-beta)
@@ -3841,8 +3841,8 @@ packages:
       typescript: 5.3.0-beta
     dev: true
 
-  /eslint-config-with-tsconfig@2.7.5(eslint@8.51.0)(tailwindcss@3.3.3)(typescript@5.3.0-beta):
-    resolution: {integrity: sha512-2mY5adZO7FBJoZmVlIW7aP1QnR84lVUge/od/z7m418w6twjf9jhFcMP7HIE2lTLFx/sR3wCp0KJ7MLRIBt6XA==}
+  /eslint-config-with-tsconfig@2.7.6(eslint@8.51.0)(tailwindcss@3.3.3)(typescript@5.3.0-beta):
+    resolution: {integrity: sha512-vNMxFOyNFdObgfWmDFh5Vw0sPAU+icn3vug+s2QaYsqAq1Fhm1x38BrSOjglOSn/BptyxW1b14I3w5F4V0ItMg==}
     engines: {bun: '>=1.0.3', node: '>=18.16.0'}
     peerDependencies:
       eslint: '>=8.51.0'

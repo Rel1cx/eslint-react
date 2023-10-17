@@ -38,6 +38,7 @@ const config = {
                 varsIgnorePattern: "(^_)|(^ESLintUtils$)",
             },
         ],
+        "no-undef": "error",
         "functional-core/purity": ["error", { allowThrow: false }],
         "array-callback-return": "off",
         "eslint-plugin/require-meta-docs-url": "off",
@@ -145,6 +146,9 @@ const config = {
         },
         {
             files: ["./scripts/**/*.ts"],
+            globals: {
+                Bun: "readonly",
+            },
             rules: {
                 "no-await-in-loop": "off",
                 "functional-core/purity": "off",
