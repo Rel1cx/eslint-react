@@ -11,6 +11,20 @@
 ### Variables
 
 - [defaultJSXValueCheckOptions](README.md#defaultjsxvaluecheckoptions)
+- [hdlAnimation](README.md#hdlanimation)
+- [hdlClipboard](README.md#hdlclipboard)
+- [hdlComposition](README.md#hdlcomposition)
+- [hdlFocus](README.md#hdlfocus)
+- [hdlForm](README.md#hdlform)
+- [hdlImage](README.md#hdlimage)
+- [hdlKeyboard](README.md#hdlkeyboard)
+- [hdlMedia](README.md#hdlmedia)
+- [hdlMouse](README.md#hdlmouse)
+- [hdlScroll](README.md#hdlscroll)
+- [hdlSelection](README.md#hdlselection)
+- [hdlTouch](README.md#hdltouch)
+- [hdlTransition](README.md#hdltransition)
+- [hdlWheel](README.md#hdlwheel)
 
 ### Functions
 
@@ -52,6 +66,90 @@
 | :----------- | :------ |
 | `ignoreNull` | `false` |
 | `strict`     | `false` |
+
+---
+
+### hdlAnimation
+
+• `Const` **hdlAnimation**: readonly [`"onAnimationStart"`, `"onAnimationEnd"`, `"onAnimationIteration"`]
+
+---
+
+### hdlClipboard
+
+• `Const` **hdlClipboard**: readonly [`"onCopy"`, `"onCut"`, `"onPaste"`]
+
+---
+
+### hdlComposition
+
+• `Const` **hdlComposition**: `string`[]
+
+---
+
+### hdlFocus
+
+• `Const` **hdlFocus**: readonly [`"onFocus"`, `"onBlur"`]
+
+---
+
+### hdlForm
+
+• `Const` **hdlForm**: readonly [`"onChange"`, `"onInput"`, `"onSubmit"`]
+
+---
+
+### hdlImage
+
+• `Const` **hdlImage**: `string`[]
+
+---
+
+### hdlKeyboard
+
+• `Const` **hdlKeyboard**: readonly [`"onKeyDown"`, `"onKeyPress"`, `"onKeyUp"`]
+
+---
+
+### hdlMedia
+
+• `Const` **hdlMedia**: readonly [`"onAbort"`, `"onCanPlay"`, `"onCanPlayThrough"`, `"onDurationChange"`, `"onEmptied"`, `"onEncrypted"`, `"onEnded"`, `"onError"`, `"onLoadedData"`, `"onLoadedMetadata"`, `"onLoadStart"`, `"onPause"`, `"onPlay"`, `"onPlaying"`, `"onProgress"`, `"onRateChange"`, `"onSeeked"`, `"onSeeking"`, `"onStalled"`, `"onSuspend"`, `"onTimeUpdate"`, `"onVolumeChange"`, `"onWaiting"`]
+
+---
+
+### hdlMouse
+
+• `Const` **hdlMouse**: readonly [`"onClick"`, `"onContextMenu"`, `"onDblClick"`, `"onDoubleClick"`, `"onDrag"`, `"onDragEnd"`, `"onDragEnter"`, `"onDragExit"`, `"onDragLeave"`, `"onDragOver"`, `"onDragStart"`, `"onDrop"`, `"onMouseDown"`, `"onMouseEnter"`, `"onMouseLeave"`, `"onMouseMove"`, `"onMouseOut"`, `"onMouseOver"`, `"onMouseUp"`]
+
+---
+
+### hdlScroll
+
+• `Const` **hdlScroll**: readonly [`"onScroll"`]
+
+---
+
+### hdlSelection
+
+• `Const` **hdlSelection**: readonly [`"onSelect"`]
+
+---
+
+### hdlTouch
+
+• `Const` **hdlTouch**: readonly [`"onTouchCancel"`, `"onTouchEnd"`, `"onTouchMove"`, `"onTouchStart"`]
+
+---
+
+### hdlTransition
+
+• `Const` **hdlTransition**: readonly [`"onTransitionEnd"`]
+
+---
+
+### hdlWheel
+
+• `Const` **hdlWheel**: readonly [`"onWheel"`]
 
 ## Functions
 
