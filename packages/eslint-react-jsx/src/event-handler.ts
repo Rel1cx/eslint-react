@@ -14,7 +14,7 @@ export const hdlComposition = [
     "onCompositionEnd",
     "onCompositionStart",
     "onCompositionUpdate",
-];
+] as const;
 
 export const hdlFocus = [
     "onFocus",
@@ -30,7 +30,7 @@ export const hdlForm = [
 export const hdlImage = [
     "onLoad",
     "onError",
-];
+] as const;
 
 export const hdlKeyboard = [
     "onKeyDown",

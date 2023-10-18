@@ -83,7 +83,7 @@
 
 ### hdlComposition
 
-• `Const` **hdlComposition**: `string`[]
+• `Const` **hdlComposition**: readonly [`"onCompositionEnd"`, `"onCompositionStart"`, `"onCompositionUpdate"`]
 
 ---
 
@@ -101,7 +101,7 @@
 
 ### hdlImage
 
-• `Const` **hdlImage**: `string`[]
+• `Const` **hdlImage**: readonly [`"onLoad"`, `"onError"`]
 
 ---
 
