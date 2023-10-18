@@ -1,4 +1,4 @@
-import { getFunctionIdentifier, NodeType, type TSESTreeFunction, unsafeIsMapCall } from "@eslint-react/ast";
+import { getFunctionIdentifier, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { isChildrenOfCreateElement } from "@eslint-react/create-element";
 import { isJSXValue, type JSXValueCheckOptions } from "@eslint-react/jsx";
 import { defaultJSXValueCheckOptions } from "@eslint-react/jsx";
@@ -9,6 +9,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { shallowEqual } from "fast-equals";
 
 import { isFunctionOfRenderMethod } from "./component-collector-legacy";
+import { unsafeIsMapCall } from "./is-map-call";
 import { isValidReactComponentName } from "./is-valid-react-component-name";
 
 export const hasInvalidName = (node: TSESTreeFunction) => {

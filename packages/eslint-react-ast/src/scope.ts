@@ -1,4 +1,5 @@
 import { uniqueBy } from "@eslint-react/tools";
+import type TSESLintScopeManager from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
 import { isNil } from "rambda";
@@ -6,6 +7,20 @@ import { isNil } from "rambda";
 import { NodeType } from "./node-types";
 import { isOneOf } from "./node-types";
 import { traverseUpGuard } from "./traverse";
+
+export function isDeclaredInNode({
+    functionNode,
+    reference,
+    scopeManager,
+}: {
+    functionNode: TSESTree.Node;
+    reference: TSESLintScopeManager.Reference;
+    scopeManager: TSESLint.Scope.ScopeManager;
+}) {
+    const scope = scopeManager.acquire(functionNode);
+
+    return !!scope?.set.has(reference.identifier.name);
+}
 
 export function getExternalRefs(params: {
     node: TSESTree.Node;

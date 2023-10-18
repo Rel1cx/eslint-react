@@ -33,7 +33,8 @@
     ],
     "scripts": {
         "lint:type": "tsc --noEmit",
-        "build": "rollup -c rollup.config.ts --configPlugin swc3"
+        "build": "rollup -c rollup.config.ts --configPlugin swc3",
+        "build:docs": "typedoc && dprint fmt ./docs/**/*.md"
     },
     "dependencies": {
         "@eslint-react/shared": "workspace:*",
