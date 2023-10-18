@@ -1,4 +1,4 @@
-import { is, NodeType, traverseUpGuard } from "@eslint-react/ast";
+import { is, isStringLiteral, NodeType, traverseUpGuard } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "@eslint-react/variable";
@@ -52,9 +52,11 @@ export function traverseUpProp(
  * @returns true if the node is inside a prop's value
  */
 export function isInsidePropValue(node: TSESTree.Node): boolean {
-    const matcher = (node: TSESTree.JSXAttribute) => node.value?.type === NodeType.JSXExpressionContainer;
+    if (isStringLiteral(node)) {
+        return node.parent.type === NodeType.JSXAttribute;
+    }
 
-    return O.isSome(traverseUpProp(node, matcher));
+    return O.isSome(traverseUpProp(node, n => n.value?.type === NodeType.JSXExpressionContainer));
 }
 
 /**
