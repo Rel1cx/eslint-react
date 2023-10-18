@@ -2,7 +2,7 @@ import { getFunctionIdentifier, NodeType, type TSESTreeFunction } from "@eslint-
 import { isChildrenOfCreateElement } from "@eslint-react/create-element";
 import { isJSXValue, type JSXValueCheckOptions } from "@eslint-react/jsx";
 import { defaultJSXValueCheckOptions } from "@eslint-react/jsx";
-import { MutList, O } from "@eslint-react/tools";
+import { E, MutList, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -55,12 +55,12 @@ export function componentCollector(
     const onFunctionExit = () => MutList.pop(functionStack);
 
     const ctx = {
-        getAllComponents() {
+        getAllComponents(): E.Either<Error, TSESTreeFunction[]> {
             if (context.getScope().block.type !== NodeType.Program) {
-                throw new Error("getAllComponents should only be called in Program:exit");
+                return E.left(new Error("getAllComponents should only be called in Program:exit"));
             }
 
-            return components;
+            return E.right(components);
         },
         getCurrentComponents() {
             return [...components];

@@ -14,6 +14,7 @@ import { isInsideCreateElementProps } from "@eslint-react/create-element";
 import { unsafeIsInsideReactHookCall } from "@eslint-react/hooks";
 import { isInsidePropValue } from "@eslint-react/jsx";
 import { unsafeIsDeclaredInRenderProp, unsafeIsDirectValueOfRenderProperty } from "@eslint-react/render-prop";
+import { E } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
@@ -49,8 +50,22 @@ export default createRule<[], MessageID>({
             ...collector.listeners,
             ...collectorLegacy.listeners,
             "Program:exit"() {
-                const functionComponents = collector.ctx.getAllComponents();
-                const classComponents = collectorLegacy.ctx.getAllComponents();
+                const maybeFunctionComponents = collector.ctx.getAllComponents();
+                if (E.isLeft(maybeFunctionComponents)) {
+                    console.error(maybeFunctionComponents.left);
+
+                    return;
+                }
+
+                const maybeClassComponents = collectorLegacy.ctx.getAllComponents();
+                if (E.isLeft(maybeClassComponents)) {
+                    console.error(maybeClassComponents.left);
+
+                    return;
+                }
+
+                const functionComponents = maybeFunctionComponents.right;
+                const classComponents = maybeClassComponents.right;
 
                 const isFunctionComponent = (node: TSESTree.Node): node is TSESTreeFunction => {
                     return isFunction(node) && functionComponents.includes(node);

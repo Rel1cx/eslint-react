@@ -81,7 +81,15 @@ export default createRule<[], MessageID>({
                 );
             },
             "Program:exit"() {
-                const components = ctx.getAllComponents();
+                const maybeComponents = ctx.getAllComponents();
+
+                if (E.isLeft(maybeComponents)) {
+                    console.error(maybeComponents.left);
+
+                    return;
+                }
+
+                const components = maybeComponents.right;
 
                 for (const [fn, detail] of possibleValueConstructions.entries()) {
                     if (!components.includes(fn) || detail._tag === "None") {

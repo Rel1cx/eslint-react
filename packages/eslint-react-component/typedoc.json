@@ -1,0 +1,10 @@
+{
+    "extends": [
+        "../../typedoc.base.json"
+    ],
+    "name": "@eslint-react/component",
+    "entryPoints": [
+        "src/index.ts"
+    ],
+    "out": "docs"
+}

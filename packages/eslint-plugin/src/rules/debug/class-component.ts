@@ -1,5 +1,6 @@
 import { getClassIdentifier } from "@eslint-react/ast";
 import { componentCollectorLegacy } from "@eslint-react/component";
+import { E } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { createRule } from "../../utils";
@@ -29,7 +30,15 @@ export default createRule<[], MessageID>({
         return {
             ...listeners,
             "Program:exit"() {
-                const components = ctx.getAllComponents();
+                const maybeComponents = ctx.getAllComponents();
+
+                if (E.isLeft(maybeComponents)) {
+                    console.error(maybeComponents.left);
+
+                    return;
+                }
+
+                const components = maybeComponents.right;
 
                 for (const component of components) {
                     const maybeName = component.id?.name;

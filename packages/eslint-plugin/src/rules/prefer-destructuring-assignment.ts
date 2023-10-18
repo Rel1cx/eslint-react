@@ -1,5 +1,6 @@
 import { isDestructorParameter, isFunction, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { componentCollector, isValidReactComponentName } from "@eslint-react/component";
+import { E } from "@eslint-react/tools";
 import type { Cond } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { type TSESTree } from "@typescript-eslint/types";
@@ -69,7 +70,15 @@ export default createRule<Options, MessageID>({
             },
             // eslint-disable-next-line perfectionist/sort-objects, sonarjs/cognitive-complexity
             "Program:exit"() {
-                const components = ctx.getAllComponents();
+                const maybeComponents = ctx.getAllComponents();
+
+                if (E.isLeft(maybeComponents)) {
+                    console.error(maybeComponents.left);
+
+                    return;
+                }
+
+                const components = maybeComponents.right;
 
                 function isFunctionComponent(block: TSESTree.Node): block is TSESTreeFunction {
                     return isFunction(block) && isValidReactComponentName(block.id?.name) && components.includes(block);

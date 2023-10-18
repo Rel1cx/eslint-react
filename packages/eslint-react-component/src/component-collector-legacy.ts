@@ -150,12 +150,12 @@ export function componentCollectorLegacy(context: RuleContext) {
     const components: TSESTreeClass[] = [];
 
     const ctx = {
-        getAllComponents() {
+        getAllComponents(): E.Either<Error, TSESTreeClass[]> {
             if (context.getScope().block.type !== NodeType.Program) {
-                throw new Error("getAllComponents should only be called in Program:exit");
+                return E.left(new Error("getAllComponents should only be called in Program:exit"));
             }
 
-            return components;
+            return E.right(components);
         },
         getCurrentComponents() {
             return [...components];
