@@ -1,0 +1,21 @@
+{
+    "cleanOutputDir": true,
+    "darkHighlightTheme": "dark-plus",
+    "disableSources": true,
+    "hideGenerator": true,
+    "jsDocCompatibility": true,
+    "logLevel": "Warn",
+    "readme": "none",
+    "sort": [
+        "kind",
+        "instance-first",
+        "alphabetical"
+    ],
+    "plugin": [
+        "typedoc-plugin-markdown",
+        "typedoc-plugin-mermaid",
+        "typedoc-plugin-rename-defaults"
+    ],
+    "theme": "default",
+    "useTsLinkResolution": true
+}

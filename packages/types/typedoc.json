@@ -1,27 +1,13 @@
 {
-    "cleanOutputDir": true,
-    "darkHighlightTheme": "dark-plus",
-    "disableSources": true,
-    "entryPoints": [
-        "src/index.ts"
+    "extends": [
+        "../../typedoc.base.json"
     ],
     "exclude": [
         "src/rule-name.ts"
     ],
-    "hideGenerator": true,
-    "jsDocCompatibility": true,
-    "logLevel": "Warn",
     "name": "@eslint-react/types",
-    "out": "docs",
-    "readme": "none",
-    "sort": [
-        "kind",
-        "instance-first",
-        "alphabetical"
+    "entryPoints": [
+        "src/index.ts"
     ],
-    "plugin": [
-        "typedoc-plugin-markdown"
-    ],
-    "theme": "default",
-    "useTsLinkResolution": true
+    "out": "docs"
 }
