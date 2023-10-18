@@ -39,8 +39,11 @@
         "pnpm-lock.yaml": true
     },
     "files.exclude": {
-        ".*": true,
-        "packages/*/.turbo": true
+        "**/.turbo": true,
+        ".husky": true,
+        ".npmignore": true,
+        ".eslintcache": true,
+        ".eslintignore": true
     },
     "typescript.preferences.importModuleSpecifier": "non-relative",
     "typescript.tsdk": "node_modules/typescript/lib"
