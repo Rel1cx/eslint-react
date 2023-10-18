@@ -6,6 +6,51 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
 /**
+ * Check if the given prop name is present in the given attributes
+ * @param attributes attributes to search in
+ * @param propName prop name to search for
+ * @param context rule context
+ * @returns `true` if the given prop name is present in the given properties
+ */
+export function hasProp(
+    attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
+    propName: string,
+    context: RuleContext,
+) {
+    return O.isSome(findPropInAttributes(attributes, context)(propName));
+}
+
+/**
+ * Check if any of the given prop names are present in the given attributes
+ * @param attributes attributes to search in
+ * @param propNames prop names to search for
+ * @param context rule context
+ * @returns `true` if any of the given prop names are present in the given attributes
+ */
+export function hasAnyProp(
+    attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
+    propNames: string[],
+    context: RuleContext,
+) {
+    return propNames.some((propName) => hasProp(attributes, propName, context));
+}
+
+/**
+ * Check if all of the given prop names are present in the given attributes
+ * @param attributes attributes to search in
+ * @param propNames prop names to search for
+ * @param context rule context
+ * @returns `true` if all of the given prop names are present in the given attributes
+ */
+export function hasEveryProp(
+    attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
+    propNames: string[],
+    context: RuleContext,
+) {
+    return propNames.every((propName) => hasProp(attributes, propName, context));
+}
+
+/**
  * Get the name of a JSX attribute
  * @param node The JSX attribute node
  * @returns string

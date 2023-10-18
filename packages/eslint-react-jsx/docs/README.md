@@ -32,7 +32,10 @@
 - [findPropInProperties](README.md#findpropinproperties)
 - [getPropName](README.md#getpropname)
 - [getPropNameWithNamespace](README.md#getpropnamewithnamespace)
+- [hasAnyProp](README.md#hasanyprop)
 - [hasChildren](README.md#haschildren)
+- [hasEveryProp](README.md#haseveryprop)
+- [hasProp](README.md#hasprop)
 - [isFunctionReturningJSXValue](README.md#isfunctionreturningjsxvalue)
 - [isInsidePropValue](README.md#isinsidepropvalue)
 - [isJSXValue](README.md#isjsxvalue)
@@ -256,6 +259,28 @@ string
 
 ---
 
+### hasAnyProp
+
+▸ **hasAnyProp**(`attributes`, `propNames`, `context`): `boolean`
+
+Check if any of the given prop names are present in the given attributes
+
+#### Parameters
+
+| Name         | Type                                                        | Description              |
+| :----------- | :---------------------------------------------------------- | :----------------------- |
+| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                  | attributes to search in  |
+| `propNames`  | `string`[]                                                  | prop names to search for |
+| `context`    | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | rule context             |
+
+#### Returns
+
+`boolean`
+
+`true` if any of the given prop names are present in the given attributes
+
+---
+
 ### hasChildren
 
 ▸ **hasChildren**(`node`): `boolean`
@@ -273,6 +298,50 @@ Check if a JSXElement or JSXFragment has children
 `boolean`
 
 `true` if the node has children
+
+---
+
+### hasEveryProp
+
+▸ **hasEveryProp**(`attributes`, `propNames`, `context`): `boolean`
+
+Check if all of the given prop names are present in the given attributes
+
+#### Parameters
+
+| Name         | Type                                                        | Description              |
+| :----------- | :---------------------------------------------------------- | :----------------------- |
+| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                  | attributes to search in  |
+| `propNames`  | `string`[]                                                  | prop names to search for |
+| `context`    | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | rule context             |
+
+#### Returns
+
+`boolean`
+
+`true` if all of the given prop names are present in the given attributes
+
+---
+
+### hasProp
+
+▸ **hasProp**(`attributes`, `propName`, `context`): `boolean`
+
+Check if the given prop name is present in the given attributes
+
+#### Parameters
+
+| Name         | Type                                                        | Description             |
+| :----------- | :---------------------------------------------------------- | :---------------------- |
+| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                  | attributes to search in |
+| `propName`   | `string`                                                    | prop name to search for |
+| `context`    | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | rule context            |
+
+#### Returns
+
+`boolean`
+
+`true` if the given prop name is present in the given properties
 
 ---
 

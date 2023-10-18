@@ -74,10 +74,7 @@ export function isJSXValue(
                 return false;
             }
 
-            return (
-                isJSXValue(node.left, context, options)
-                || isJSXValue(node.right, context, options)
-            );
+            return isJSXValue(node.left, context, options) || isJSXValue(node.right, context, options);
         })
         .with(NodeType.SequenceExpression, () => {
             if (!("expressions" in node)) {
