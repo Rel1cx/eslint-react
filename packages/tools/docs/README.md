@@ -14,6 +14,7 @@
 - [MutList](modules/MutList.md)
 - [MutRef](modules/MutRef.md)
 - [O](modules/O.md)
+- [Record](modules/Record.md)
 
 ### Type Aliases
 

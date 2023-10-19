@@ -6,3 +6,4 @@ export * as F from "effect/Function";
 export * as MutList from "effect/MutableList";
 export * as MutRef from "effect/MutableRef";
 export * as O from "effect/Option";
+export * as Record from "effect/ReadonlyRecord";
