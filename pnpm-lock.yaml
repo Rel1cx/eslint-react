@@ -62,8 +62,8 @@ importers:
         specifier: 0.41.0
         version: 0.41.0
       effect:
-        specifier: 2.0.0-next.49
-        version: 2.0.0-next.49
+        specifier: 2.0.0-next.50
+        version: 2.0.0-next.50
       eslint:
         specifier: '>=8.51.0'
         version: 8.51.0
@@ -98,8 +98,8 @@ importers:
         specifier: 8.0.3
         version: 8.0.3
       knip:
-        specifier: 2.34.1
-        version: 2.34.1
+        specifier: 2.35.0
+        version: 2.35.0
       pathe:
         specifier: 1.1.1
         version: 1.1.1
@@ -143,8 +143,8 @@ importers:
         specifier: 1.10.0
         version: 1.10.0(typedoc@0.25.2)
       typedoc-plugin-rename-defaults:
-        specifier: 0.6.6
-        version: 0.6.6(typedoc@0.25.2)
+        specifier: 0.6.7
+        version: 0.6.7(typedoc@0.25.2)
       typescript:
         specifier: beta
         version: 5.3.0-beta
@@ -228,8 +228,8 @@ importers:
         specifier: 5.1.0
         version: 5.1.0
       effect:
-        specifier: 2.0.0-next.49
-        version: 2.0.0-next.49
+        specifier: 2.0.0-next.50
+        version: 2.0.0-next.50
       rambda:
         specifier: latest
         version: 8.5.0
@@ -249,8 +249,8 @@ importers:
         specifier: workspace:*
         version: link:../types
       '@types/eslint':
-        specifier: 8.44.5
-        version: 8.44.5
+        specifier: 8.44.6
+        version: 8.44.6
       '@typescript-eslint/scope-manager':
         specifier: 6.8.0
         version: 6.8.0
@@ -291,8 +291,8 @@ importers:
         specifier: workspace:*
         version: link:../types
       '@types/eslint':
-        specifier: 8.44.5
-        version: 8.44.5
+        specifier: 8.44.6
+        version: 8.44.6
       '@typescript-eslint/scope-manager':
         specifier: 6.8.0
         version: 6.8.0
@@ -318,8 +318,8 @@ importers:
         specifier: workspace:*
         version: link:../types
       '@types/eslint':
-        specifier: 8.44.5
-        version: 8.44.5
+        specifier: 8.44.6
+        version: 8.44.6
       '@typescript-eslint/scope-manager':
         specifier: 6.8.0
         version: 6.8.0
@@ -339,8 +339,8 @@ importers:
         specifier: workspace:*
         version: link:../tools
       '@types/eslint':
-        specifier: 8.44.5
-        version: 8.44.5
+        specifier: 8.44.6
+        version: 8.44.6
       '@typescript-eslint/types':
         specifier: 6.8.0
         version: 6.8.0
@@ -363,8 +363,8 @@ importers:
         specifier: workspace:*
         version: link:../types
       '@types/eslint':
-        specifier: 8.44.5
-        version: 8.44.5
+        specifier: 8.44.6
+        version: 8.44.6
       '@typescript-eslint/types':
         specifier: 6.8.0
         version: 6.8.0
@@ -387,8 +387,8 @@ importers:
         specifier: workspace:*
         version: link:../types
       '@types/eslint':
-        specifier: 8.44.5
-        version: 8.44.5
+        specifier: 8.44.6
+        version: 8.44.6
       '@typescript-eslint/parser':
         specifier: '>=6.8.0'
         version: 6.8.0(eslint@8.51.0)(typescript@5.3.0-beta)
@@ -420,8 +420,8 @@ importers:
         specifier: workspace:*
         version: link:../eslint-react-variable
       '@types/eslint':
-        specifier: 8.44.5
-        version: 8.44.5
+        specifier: 8.44.6
+        version: 8.44.6
       '@typescript-eslint/types':
         specifier: 6.8.0
         version: 6.8.0
@@ -447,8 +447,8 @@ importers:
         specifier: workspace:*
         version: link:../eslint-react-variable
       '@types/eslint':
-        specifier: 8.44.5
-        version: 8.44.5
+        specifier: 8.44.6
+        version: 8.44.6
       '@typescript-eslint/types':
         specifier: 6.8.0
         version: 6.8.0
@@ -477,8 +477,8 @@ importers:
         specifier: workspace:*
         version: link:../types
       '@types/eslint':
-        specifier: 8.44.5
-        version: 8.44.5
+        specifier: 8.44.6
+        version: 8.44.6
       '@typescript-eslint/types':
         specifier: 6.8.0
         version: 6.8.0
@@ -492,8 +492,8 @@ importers:
         specifier: workspace:*
         version: link:../tools
       '@types/eslint':
-        specifier: 8.44.5
-        version: 8.44.5
+        specifier: 8.44.6
+        version: 8.44.6
       '@typescript-eslint/scope-manager':
         specifier: 6.8.0
         version: 6.8.0
@@ -513,8 +513,8 @@ importers:
   packages/tools:
     dependencies:
       effect:
-        specifier: 2.0.0-next.49
-        version: 2.0.0-next.49
+        specifier: 2.0.0-next.50
+        version: 2.0.0-next.50
 
   packages/types:
     dependencies:
@@ -522,8 +522,8 @@ importers:
         specifier: workspace:*
         version: link:../tools
       '@types/eslint':
-        specifier: 8.44.5
-        version: 8.44.5
+        specifier: 8.44.6
+        version: 8.44.6
       '@typescript-eslint/types':
         specifier: 6.8.0
         version: 6.8.0
@@ -2377,8 +2377,8 @@ packages:
     resolution: {integrity: sha512-yW/qTM4mRBBcsA9Xw9FbcImYtFPY7sgr+G/O5RDYVmxiy9a+pE5FyoFUi8JYCZY5nicj8atrr1pcfPiYpeNGOA==}
     dev: true
 
-  /@types/eslint@8.44.5:
-    resolution: {integrity: sha512-Ol2eio8LtD/tGM4Ga7Jb83NuFwEv3NqvssSlifXL9xuFpSyQZw0ecmm2Kux6iU0KxQmp95hlPmGCzGJ0TCFeRA==}
+  /@types/eslint@8.44.6:
+    resolution: {integrity: sha512-P6bY56TVmX8y9J87jHNgQh43h6VVU+6H7oN7hgvivV81K2XY8qJZ5vqPy/HdUoVIelii2kChYVzQanlswPWVFw==}
     dependencies:
       '@types/estree': 1.0.2
       '@types/json-schema': 7.0.13
@@ -3711,8 +3711,8 @@ packages:
       wcwidth: 1.0.1
     dev: true
 
-  /effect@2.0.0-next.49:
-    resolution: {integrity: sha512-FiOQ2Khm2REPQOkxkRPyTVyfPCUNecDopz1ZOKzZrZyCAzDqWiFYvdPwX/nYQrXY77/DBGcaLEsQ4/1BpG1bAg==}
+  /effect@2.0.0-next.50:
+    resolution: {integrity: sha512-dlwI31Vza4ybFtNDstx3AnZkBBzaSMMNfZmwXNrzm1S3fE1IoQzoHCHelBH9gSZCRtE4gzZbplyWD/B6iePGxg==}
 
   /electron-to-chromium@1.4.553:
     resolution: {integrity: sha512-HiRdtyKS2+VhiXvjhMvvxiMC33FJJqTA5EB2YHgFZW6v7HkK4Q9Ahv2V7O2ZPgAjw+MyCJVMQvigj13H8t+wvA==}
@@ -5159,8 +5159,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /knip@2.34.1:
-    resolution: {integrity: sha512-bSlu+CQ+0MsIDeTJy6ES4/TNu4uI7PRVLVpsgxyWrssSmdE0+UbX1breImMiUYlucnPvVuRMhutJ8zoZSKEXdw==}
+  /knip@2.35.0:
+    resolution: {integrity: sha512-fHrSPC2bJvjDjzp/a6toJO4M6ukVgRnPApsxuuj7w/BsZw3gENkbLNKQcnT9oe6u6206/AFkKqxYYrz24fnNag==}
     engines: {node: '>=16.17.0 <17 || >=18.6.0'}
     hasBin: true
     dependencies:
@@ -7274,8 +7274,8 @@ packages:
       typedoc: 0.25.2(typescript@5.3.0-beta)
     dev: true
 
-  /typedoc-plugin-rename-defaults@0.6.6(typedoc@0.25.2):
-    resolution: {integrity: sha512-8TCDrxMG8cR0IRhMZbxMCXlmQrEwFFH0she4eHsaUGd1TPfrkk8GLO4n2qlSISd66OtT28e17ysiVZPbQnLGMg==}
+  /typedoc-plugin-rename-defaults@0.6.7(typedoc@0.25.2):
+    resolution: {integrity: sha512-b+j0qQCdE69IUP6ZJgS6zonG59AcaKM8B8zdNlj1jnv6XefDLkIWdFxXfS3KhFOpVzW22pNCfdOCCym9ryS3wA==}
     peerDependencies:
       typedoc: 0.22.x || 0.23.x || 0.24.x || 0.25.x
     dependencies:

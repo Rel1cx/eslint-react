@@ -41,7 +41,7 @@
         "@eslint-react/shared": "workspace:*",
         "@eslint-react/tools": "workspace:*",
         "@eslint-react/types": "workspace:*",
-        "@types/eslint": "8.44.5",
+        "@types/eslint": "8.44.6",
         "@typescript-eslint/types": "6.8.0",
         "ts-pattern": "5.0.5"
     }

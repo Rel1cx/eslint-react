@@ -41,7 +41,7 @@
         "@eslint-react/tools": "workspace:*",
         "@eslint-react/types": "workspace:*",
         "@eslint-react/variable": "workspace:*",
-        "@types/eslint": "8.44.5",
+        "@types/eslint": "8.44.6",
         "@typescript-eslint/types": "6.8.0",
         "@typescript-eslint/utils": "6.8.0",
         "micro-memoize": "4.1.2"
