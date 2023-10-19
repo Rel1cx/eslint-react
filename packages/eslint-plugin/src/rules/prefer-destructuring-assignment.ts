@@ -68,7 +68,7 @@ export default createRule<Options, MessageID>({
             VariableDeclarator(node) {
                 variableDeclarators.push([context.getScope(), node]);
             },
-            // eslint-disable-next-line perfectionist/sort-objects, sonarjs/cognitive-complexity
+            // eslint-disable-next-line sonarjs/cognitive-complexity
             "Program:exit"() {
                 const maybeComponents = ctx.getAllComponents();
 

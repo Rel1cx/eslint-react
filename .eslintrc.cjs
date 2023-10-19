@@ -164,6 +164,13 @@ const config = {
             },
         },
         {
+            files: ["./packages/eslint-plugin/src/rules/**/*.ts"],
+            rules: {
+                "perfectionist/sort-objects": "off",
+                "functional-core/purity": "off",
+            },
+        },
+        {
             files: ["./.eslintrc.cjs"],
             rules: {
                 "jsdoc/check-tag-names": "off",
