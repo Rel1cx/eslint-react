@@ -6,6 +6,7 @@ import { name } from "../package.json";
 import debugClassComponent from "./rules/debug/class-component";
 import debugFunctionComponent from "./rules/debug/function-component";
 import jsxNoLeakedConditionalRendering from "./rules/jsx/no-leaked-conditional-rendering";
+import jsxNoMissingKey from "./rules/jsx/no-missing-key";
 import jsxNoMisusedCommentInTextNode from "./rules/jsx/no-misused-comment-in-textnode";
 import jsxPreferShorthandJsxBoolean from "./rules/jsx/prefer-shorthand-boolean";
 import namingConventionEventHandler from "./rules/naming-convention/event-handler";
@@ -22,6 +23,7 @@ const rules = {
     "debug/class-component": "warn",
     "debug/function-component": "warn",
     "jsx/no-leaked-conditional-rendering": "error",
+    "jsx/no-missing-key": "error",
     "jsx/no-misused-comment-in-textnode": "warn",
     "jsx/prefer-shorthand-boolean": "warn",
     "naming-convention/event-handler": "warn",
@@ -39,6 +41,7 @@ const rulesEntries = Object.entries(rules);
 
 const recommendedRules = {
     "jsx/no-leaked-conditional-rendering": "error",
+    "jsx/no-missing-key": "error",
     "jsx/no-misused-comment-in-textnode": "warn",
     "jsx/prefer-shorthand-boolean": "warn",
     "no-constructed-context-value": "error",
@@ -78,6 +81,7 @@ export default {
         "debug/class-component": debugClassComponent,
         "debug/function-component": debugFunctionComponent,
         "jsx/no-leaked-conditional-rendering": jsxNoLeakedConditionalRendering,
+        "jsx/no-missing-key": jsxNoMissingKey,
         "jsx/no-misused-comment-in-textnode": jsxNoMisusedCommentInTextNode,
         "jsx/prefer-shorthand-boolean": jsxPreferShorthandJsxBoolean,
         "naming-convention/event-handler": namingConventionEventHandler,

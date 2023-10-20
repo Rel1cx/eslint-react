@@ -18,15 +18,15 @@ export default createRule<[], MessageID>({
     meta: {
         type: "problem",
         docs: {
-            description: "disallow comments from being inserted as text nodes",
+            description: "require `key` prop when rendering list",
             recommended: "recommended",
             requiresTypeChecking: false,
         },
         schema: [],
         messages: {
-            INVALID: "Missing key prop for element when rendering list",
+            INVALID: "Missing `key` prop for element when rendering list",
             INVALID_FRAGMENT:
-                "Missing key prop for element when rendering list. Use `{{reactPragma}}.{{fragmentPragma}}` component instead of `<>` because it does not support key prop",
+                "Missing `key` prop for element when rendering list. Use `{{reactPragma}}.{{fragmentPragma}}` component instead of `<>` because it does not support key prop",
         },
     },
     defaultOptions: [],
