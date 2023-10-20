@@ -68,8 +68,8 @@ importers:
         specifier: '>=8.51.0'
         version: 8.51.0
       eslint-config-with-tsconfig:
-        specifier: 2.7.6
-        version: 2.7.6(eslint@8.51.0)(tailwindcss@3.3.3)(typescript@5.3.0-beta)
+        specifier: 2.7.7
+        version: 2.7.7(eslint@8.51.0)(tailwindcss@3.3.3)(typescript@5.3.0-beta)
       eslint-doc-generator:
         specifier: 1.5.2
         version: 1.5.2(eslint@8.51.0)(typescript@5.3.0-beta)
@@ -104,8 +104,8 @@ importers:
         specifier: 1.1.1
         version: 1.1.1
       publint:
-        specifier: 0.2.4
-        version: 0.2.4
+        specifier: 0.2.5
+        version: 0.2.5
       rollup:
         specifier: 4.1.4
         version: 4.1.4
@@ -3843,8 +3843,8 @@ packages:
       typescript: 5.3.0-beta
     dev: true
 
-  /eslint-config-with-tsconfig@2.7.6(eslint@8.51.0)(tailwindcss@3.3.3)(typescript@5.3.0-beta):
-    resolution: {integrity: sha512-vNMxFOyNFdObgfWmDFh5Vw0sPAU+icn3vug+s2QaYsqAq1Fhm1x38BrSOjglOSn/BptyxW1b14I3w5F4V0ItMg==}
+  /eslint-config-with-tsconfig@2.7.7(eslint@8.51.0)(tailwindcss@3.3.3)(typescript@5.3.0-beta):
+    resolution: {integrity: sha512-jmr4+Wujc2fiJbTLDItiOv5110GkY1L4Y+WrbTmEJYf9C1tAsA+DrhpaGQSgaUN+iVt0nnnmz8DfUryeCwp9QA==}
     engines: {bun: '>=1.0.3', node: '>=18.16.0'}
     peerDependencies:
       eslint: '>=8.51.0'
@@ -6269,8 +6269,8 @@ packages:
       sisteransi: 1.0.5
     dev: true
 
-  /publint@0.2.4:
-    resolution: {integrity: sha512-5izPDOvD4F04nIraWEIttIc8V5mXMiM53xNxnFdwiGIOQJnsBE8DaYD7OaW85GcehlST3RohczKgn84VGdW9mA==}
+  /publint@0.2.5:
+    resolution: {integrity: sha512-eoQiP0WXkxkpth1fMLoS1I/6BQoxKNZxTAAnFjPgURFrJulC5D5Uifk49a9kfNCYmcza9E/ZkbFhQQdjkmKAbg==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:

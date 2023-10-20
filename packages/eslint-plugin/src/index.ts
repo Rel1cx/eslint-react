@@ -53,11 +53,8 @@ const recommendedRules = {
 } as const satisfies RulePreset;
 
 const allRules: RulePreset = Object.fromEntries(rulesEntries.filter(([key]) => !key.startsWith("debug/")));
-
 const offRules: RulePreset = Object.fromEntries(rulesEntries.map(([key]) => [key, "off"]));
-
 const jsxRules: RulePreset = Object.fromEntries(rulesEntries.filter(([key]) => key.startsWith("jsx/")));
-
 const debugRules: RulePreset = Object.fromEntries(rulesEntries.filter(([key]) => key.startsWith("debug/")));
 
 const createConfig = (rules: RulePreset) => {
