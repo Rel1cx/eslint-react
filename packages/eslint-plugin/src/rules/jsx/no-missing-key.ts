@@ -33,12 +33,16 @@ export default createRule<[], MessageID>({
     // eslint-disable-next-line sonarjs/cognitive-complexity
     create(context) {
         const maybeReactPragma = getPragmaFromContext(context);
-        const maybeFragmentPragma = getFragmentFromContext(context);
         if (E.isLeft(maybeReactPragma)) {
+            console.error(maybeReactPragma.left);
+
             return {};
         }
 
+        const maybeFragmentPragma = getFragmentFromContext(context);
         if (E.isLeft(maybeFragmentPragma)) {
+            console.error(maybeFragmentPragma.left);
+
             return {};
         }
 
@@ -90,19 +94,19 @@ export default createRule<[], MessageID>({
         }
 
         function checkBlockStatement(node: TSESTree.BlockStatement) {
-            const statements = getNestedReturnStatements(node);
+            return getNestedReturnStatements(node)
+                .reduce<ReportDescriptor<MessageID>[]>((acc, statement) => {
+                    if (!statement.argument) {
+                        return acc;
+                    }
+                    const maybeDescriptor = checkIteratorElement(statement.argument);
+                    if (O.isNone(maybeDescriptor)) {
+                        return acc;
+                    }
+                    const descriptor = maybeDescriptor.value;
 
-            return statements.reduce<ReportDescriptor<MessageID>[]>((acc, statement) => {
-                if (!statement.argument) {
-                    return acc;
-                }
-                const maybeMessageId = checkIteratorElement(statement.argument);
-                if (O.isNone(maybeMessageId)) {
-                    return acc;
-                }
-
-                return [...acc, maybeMessageId.value];
-            }, []);
+                    return [...acc, descriptor];
+                }, []);
         }
 
         return {
@@ -116,11 +120,11 @@ export default createRule<[], MessageID>({
                 if (MutRef.get(isWithinChildrenToArrayRef)) {
                     return;
                 }
-                const JSXElements = node.elements.filter(is(NodeType.JSXElement));
-                if (JSXElements.length === 0) {
+                const elements = node.elements.filter(is(NodeType.JSXElement));
+                if (elements.length === 0) {
                     return;
                 }
-                for (const element of JSXElements) {
+                for (const element of elements) {
                     if (!hasProp(element.openingElement.attributes, "key", context)) {
                         context.report({
                             messageId: "INVALID",
@@ -158,10 +162,8 @@ export default createRule<[], MessageID>({
                     return;
                 }
                 if (fn.body.type === NodeType.BlockStatement) {
-                    const messages = checkBlockStatement(fn.body);
-
-                    for (const message of messages) {
-                        context.report(message);
+                    for (const descriptor of checkBlockStatement(fn.body)) {
+                        context.report(descriptor);
                     }
 
                     return;
