@@ -62,6 +62,9 @@ export default createRule<[], MessageID>({
                         ? O.some({
                             node: v,
                             messageId: "INVALID",
+                            data: {
+                                value: context.getSourceCode().getText(v),
+                            },
                         })
                         : O.none();
                 }),
@@ -160,9 +163,7 @@ export default createRule<[], MessageID>({
                         node: attr,
                         messageId: "INVALID",
                         data: {
-                            value: value.type === NodeType.Literal
-                                ? value.value
-                                : context.getSourceCode().getText(value),
+                            value: context.getSourceCode().getText(value),
                         },
                     });
                 }

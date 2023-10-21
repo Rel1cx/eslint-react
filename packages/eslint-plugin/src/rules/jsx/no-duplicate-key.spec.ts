@@ -56,12 +56,21 @@ ruleTester.run(RULE_NAME, rule, {
             errors: [
                 {
                     messageId: "INVALID",
+                    data: {
+                        value: '"1"',
+                    },
                 },
                 {
                     messageId: "INVALID",
+                    data: {
+                        value: '"1"',
+                    },
                 },
                 {
                     messageId: "INVALID",
+                    data: {
+                        value: '"1"',
+                    },
                 },
             ],
         },
@@ -78,12 +87,21 @@ ruleTester.run(RULE_NAME, rule, {
             errors: [
                 {
                     messageId: "INVALID",
+                    data: {
+                        value: '"1"',
+                    },
                 },
                 {
                     messageId: "INVALID",
+                    data: {
+                        value: '"1"',
+                    },
                 },
                 {
                     messageId: "INVALID",
+                    data: {
+                        value: '"1"',
+                    },
                 },
             ],
         },
@@ -96,6 +114,9 @@ ruleTester.run(RULE_NAME, rule, {
             errors: [
                 {
                     messageId: "INVALID",
+                    data: {
+                        value: '"1"',
+                    },
                 },
             ],
         },
