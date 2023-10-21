@@ -85,6 +85,7 @@ export default [
 
 | Name                                                                                                            | Description                                               | 💼    | ⚠️     |
 | :-------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :---- | :---- |
+| [jsx/no-array-index-key](packages/eslint-plugin/docs/rules/jsx/no-array-index-key.md)                           | disallow using Array index as key                         | 🎨 👍 |       |
 | [jsx/no-duplicate-key](packages/eslint-plugin/docs/rules/jsx/no-duplicate-key.md)                               | disallow duplicate keys in `key` prop when rendering list | 🎨 👍 |       |
 | [jsx/no-leaked-conditional-rendering](packages/eslint-plugin/docs/rules/jsx/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered    | 🎨 👍 |       |
 | [jsx/no-missing-key](packages/eslint-plugin/docs/rules/jsx/no-missing-key.md)                                   | require `key` prop when rendering list                    | 🎨 👍 |       |

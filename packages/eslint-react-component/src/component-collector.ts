@@ -1,8 +1,6 @@
-import { getFunctionIdentifier, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
+import { getFunctionIdentifier, NodeType, type TSESTreeFunction, unsafeIsMapCall } from "@eslint-react/ast";
 import { isChildrenOfCreateElement } from "@eslint-react/create-element";
-import { isJSXValue, type JSXValueCheckOptions } from "@eslint-react/jsx";
-import { defaultJSXValueCheckOptions } from "@eslint-react/jsx";
-import { unsafeIsMapCall } from "@eslint-react/jsx";
+import { defaultJSXValueCheckOptions, isJSXValue, type JSXValueCheckOptions } from "@eslint-react/jsx";
 import { E, MutList, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/types";

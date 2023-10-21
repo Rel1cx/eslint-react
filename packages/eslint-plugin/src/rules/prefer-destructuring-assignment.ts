@@ -105,14 +105,14 @@ export default createRule<Options, MessageID>({
 
                         const [props, ctx] = component.params;
 
-                        if (isMatching({ name: memberExpression.object.name })(props)) {
+                        if (isMatching({ name: memberExpression.object.name }, props)) {
                             context.report({
                                 messageId: "USE_DESTRUCTURING_ASSIGNMENT",
                                 node: memberExpression,
                             });
                         }
 
-                        if (isMatching({ name: memberExpression.object.name })(ctx)) {
+                        if (isMatching({ name: memberExpression.object.name }, ctx)) {
                             context.report({
                                 messageId: "USE_DESTRUCTURING_ASSIGNMENT",
                                 node: memberExpression,

@@ -5,6 +5,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import { name } from "../package.json";
 import debugClassComponent from "./rules/debug/class-component";
 import debugFunctionComponent from "./rules/debug/function-component";
+import jsxNoArrayIndexKey from "./rules/jsx/no-array-index-key";
 import jsxNoDuplicateKey from "./rules/jsx/no-duplicate-key";
 import jsxNoLeakedConditionalRendering from "./rules/jsx/no-leaked-conditional-rendering";
 import jsxNoMissingKey from "./rules/jsx/no-missing-key";
@@ -23,6 +24,7 @@ import noUnstableNestedComponents from "./rules/no-unstable-nested-components";
 const rules = {
     "debug/class-component": "warn",
     "debug/function-component": "warn",
+    "jsx/no-array-index-key": "error",
     "jsx/no-duplicate-key": "error",
     "jsx/no-leaked-conditional-rendering": "error",
     "jsx/no-missing-key": "error",
@@ -42,6 +44,7 @@ const rules = {
 const rulesEntries = Object.entries(rules);
 
 const recommendedRules = {
+    "jsx/no-array-index-key": "error",
     "jsx/no-duplicate-key": "error",
     "jsx/no-leaked-conditional-rendering": "error",
     "jsx/no-missing-key": "error",
@@ -80,6 +83,7 @@ export default {
     rules: {
         "debug/class-component": debugClassComponent,
         "debug/function-component": debugFunctionComponent,
+        "jsx/no-array-index-key": jsxNoArrayIndexKey,
         "jsx/no-duplicate-key": jsxNoDuplicateKey,
         "jsx/no-leaked-conditional-rendering": jsxNoLeakedConditionalRendering,
         "jsx/no-missing-key": jsxNoMissingKey,

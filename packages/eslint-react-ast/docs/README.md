@@ -54,6 +54,10 @@
 - [readableNodeType](README.md#readablenodetype-1)
 - [traverseUp](README.md#traverseup)
 - [traverseUpGuard](README.md#traverseupguard)
+- [unsafeIsArrayFromCall](README.md#unsafeisarrayfromcall)
+- [unsafeIsMapCall](README.md#unsafeismapcall)
+- [unsafeIsStringCall](README.md#unsafeisstringcall)
+- [unsafeIsToStringCall](README.md#unsafeistostringcall)
 
 ## Type Aliases
 
@@ -668,7 +672,7 @@ node is TSInterfaceDeclaration \| TSTypeAliasDeclaration
 
 ### readableNodeType
 
-▸ **readableNodeType**(`node`): `"property"` \| `"RegExp literal"` \| `"Object literal"` \| `"Number literal"` \| `"Boolean literal"` \| `"String literal"` \| `"Null literal"` \| `"Array literal"` \| `"NaN literal"` \| `"Function literal"` \| `"Undefined literal"` \| `"Async literal"` \| `"Promise literal"` \| `"Symbol literal"` \| `"Set literal"` \| `"Error literal"` \| `"Map literal"` \| `"WeakMap literal"` \| `"Generator literal"` \| `"GeneratorFunction literal"` \| `"BigInt literal"` \| `"ArrayBuffer literal"` \| `"Date literal"` \| `"identifier"` \| `"member expression"` \| `"JSX attribute"` \| `"JSX element"` \| `"JSX fragment"` \| `"JSX identifier"` \| `"JSX text"` \| `"JSX closing element"` \| `"JSX closing fragment"` \| `"JSX empty expression"` \| `"JSX expression container"` \| `"JSX member expression"` \| `"JSX namespaced name"` \| `"JSX opening element"` \| `"JSX opening fragment"` \| `"JSX spread attribute"` \| `"JSX spread child"` \| `"decorator"` \| `"program"` \| `"super"` \| `"accessor property"` \| `"array expression"` \| `"array pattern"` \| `"function expression"` \| `"arrow function expression"` \| `"assignment expression"` \| `"assignment pattern"` \| `"await expression"` \| `"binary expression"` \| `"block statement"` \| `"break statement"` \| `"call expression"` \| `"catch clause"` \| `"chain expression"` \| `"class body"` \| `"class declaration"` \| `"class expression"` \| `"conditional expression"` \| `"continue statement"` \| `"debugger statement"` \| `"while statement"` \| `"do while statement"` \| `"empty statement"` \| `"export all declaration"` \| `"export default declaration"` \| `"export named declaration"` \| `"export specifier"` \| `"expression statement"` \| `"for in statement"` \| `"for of statement"` \| `"for statement"` \| `"function declaration"` \| `"if statement"` \| `"import attribute"` \| `"import declaration"` \| `"import default specifier"` \| `"import expression"` \| `"import namespace specifier"` \| `"import specifier"` \| `"labeled statement"` \| `"logical expression"` \| `"meta property"` \| `"method definition"` \| `"new expression"` \| `"object expression"` \| `"object pattern"` \| `"private identifier"` \| `"property definition"` \| `"rest element"` \| `"return statement"` \| `"sequence expression"` \| `"spread element"` \| `"static block"` \| `"switch case"` \| `"switch statement"` \| `"tagged template expression"` \| `"template element"` \| `"template literal"` \| `"this expression"` \| `"throw statement"` \| `"try statement"` \| `"unary expression"` \| `"update expression"` \| `"variable declaration"` \| `"variable declarator"` \| `"with statement"` \| `"yield expression"` \| `"ts abstract accessor property"` \| `"ts abstract keyword"` \| `"ts abstract method definition"` \| `"ts abstract property definition"` \| `"ts any keyword"` \| `"ts array type"` \| `"ts as expression"` \| `"ts async keyword"` \| `"ts big int keyword"` \| `"ts boolean keyword"` \| `"ts call signature declaration"` \| `"ts class implements"` \| `"ts conditional type"` \| `"ts constructor type"` \| `"ts construct signature declaration"` \| `"ts declare function"` \| `"ts declare keyword"` \| `"ts empty body function expression"` \| `"ts enum declaration"` \| `"ts enum member"` \| `"ts export assignment"` \| `"ts export keyword"` \| `"ts external module reference"` \| `"ts function type"` \| `"ts instantiation expression"` \| `"ts import equals declaration"` \| `"ts import type"` \| `"ts indexed access type"` \| `"ts index signature"` \| `"ts infer type"` \| `"ts interface body"` \| `"ts interface declaration"` \| `"ts interface heritage"` \| `"ts intersection type"` \| `"ts intrinsic keyword"` \| `"ts literal type"` \| `"ts mapped type"` \| `"ts method signature"` \| `"ts module block"` \| `"ts module declaration"` \| `"ts named tuple member"` \| `"ts namespace export declaration"` \| `"ts never keyword"` \| `"ts non null expression"` \| `"ts null keyword"` \| `"ts number keyword"` \| `"ts object keyword"` \| `"ts optional type"` \| `"ts parameter property"` \| `"ts private keyword"` \| `"ts property signature"` \| `"ts protected keyword"` \| `"ts public keyword"` \| `"ts qualified name"` \| `"ts readonly keyword"` \| `"ts rest type"` \| `"ts satisfies expression"` \| `"ts static keyword"` \| `"ts string keyword"` \| `"ts symbol keyword"` \| `"ts template literal type"` \| `"ts this type"` \| `"ts tuple type"` \| `"ts type alias declaration"` \| `"ts type annotation"` \| `"ts type assertion"` \| `"ts type literal"` \| `"ts type operator"` \| `"ts type parameter"` \| `"ts type parameter declaration"` \| `"ts type parameter instantiation"` \| `"ts type predicate"` \| `"ts type query"` \| `"ts type reference"` \| `"ts undefined keyword"` \| `"ts union type"` \| `"ts unknown keyword"` \| `"ts void keyword"`
+▸ **readableNodeType**(`node`): `"property"` \| `"RegExp literal"` \| `"String literal"` \| `"Object literal"` \| `"Number literal"` \| `"Boolean literal"` \| `"Null literal"` \| `"Array literal"` \| `"NaN literal"` \| `"Function literal"` \| `"Undefined literal"` \| `"Async literal"` \| `"Promise literal"` \| `"Symbol literal"` \| `"Set literal"` \| `"Error literal"` \| `"Map literal"` \| `"WeakMap literal"` \| `"Generator literal"` \| `"GeneratorFunction literal"` \| `"BigInt literal"` \| `"ArrayBuffer literal"` \| `"Date literal"` \| `"identifier"` \| `"member expression"` \| `"JSX attribute"` \| `"JSX element"` \| `"JSX fragment"` \| `"JSX identifier"` \| `"JSX text"` \| `"JSX closing element"` \| `"JSX closing fragment"` \| `"JSX empty expression"` \| `"JSX expression container"` \| `"JSX member expression"` \| `"JSX namespaced name"` \| `"JSX opening element"` \| `"JSX opening fragment"` \| `"JSX spread attribute"` \| `"JSX spread child"` \| `"decorator"` \| `"program"` \| `"super"` \| `"accessor property"` \| `"array expression"` \| `"array pattern"` \| `"function expression"` \| `"arrow function expression"` \| `"assignment expression"` \| `"assignment pattern"` \| `"await expression"` \| `"binary expression"` \| `"block statement"` \| `"break statement"` \| `"call expression"` \| `"catch clause"` \| `"chain expression"` \| `"class body"` \| `"class declaration"` \| `"class expression"` \| `"conditional expression"` \| `"continue statement"` \| `"debugger statement"` \| `"while statement"` \| `"do while statement"` \| `"empty statement"` \| `"export all declaration"` \| `"export default declaration"` \| `"export named declaration"` \| `"export specifier"` \| `"expression statement"` \| `"for in statement"` \| `"for of statement"` \| `"for statement"` \| `"function declaration"` \| `"if statement"` \| `"import attribute"` \| `"import declaration"` \| `"import default specifier"` \| `"import expression"` \| `"import namespace specifier"` \| `"import specifier"` \| `"labeled statement"` \| `"logical expression"` \| `"meta property"` \| `"method definition"` \| `"new expression"` \| `"object expression"` \| `"object pattern"` \| `"private identifier"` \| `"property definition"` \| `"rest element"` \| `"return statement"` \| `"sequence expression"` \| `"spread element"` \| `"static block"` \| `"switch case"` \| `"switch statement"` \| `"tagged template expression"` \| `"template element"` \| `"template literal"` \| `"this expression"` \| `"throw statement"` \| `"try statement"` \| `"unary expression"` \| `"update expression"` \| `"variable declaration"` \| `"variable declarator"` \| `"with statement"` \| `"yield expression"` \| `"ts abstract accessor property"` \| `"ts abstract keyword"` \| `"ts abstract method definition"` \| `"ts abstract property definition"` \| `"ts any keyword"` \| `"ts array type"` \| `"ts as expression"` \| `"ts async keyword"` \| `"ts big int keyword"` \| `"ts boolean keyword"` \| `"ts call signature declaration"` \| `"ts class implements"` \| `"ts conditional type"` \| `"ts constructor type"` \| `"ts construct signature declaration"` \| `"ts declare function"` \| `"ts declare keyword"` \| `"ts empty body function expression"` \| `"ts enum declaration"` \| `"ts enum member"` \| `"ts export assignment"` \| `"ts export keyword"` \| `"ts external module reference"` \| `"ts function type"` \| `"ts instantiation expression"` \| `"ts import equals declaration"` \| `"ts import type"` \| `"ts indexed access type"` \| `"ts index signature"` \| `"ts infer type"` \| `"ts interface body"` \| `"ts interface declaration"` \| `"ts interface heritage"` \| `"ts intersection type"` \| `"ts intrinsic keyword"` \| `"ts literal type"` \| `"ts mapped type"` \| `"ts method signature"` \| `"ts module block"` \| `"ts module declaration"` \| `"ts named tuple member"` \| `"ts namespace export declaration"` \| `"ts never keyword"` \| `"ts non null expression"` \| `"ts null keyword"` \| `"ts number keyword"` \| `"ts object keyword"` \| `"ts optional type"` \| `"ts parameter property"` \| `"ts private keyword"` \| `"ts property signature"` \| `"ts protected keyword"` \| `"ts public keyword"` \| `"ts qualified name"` \| `"ts readonly keyword"` \| `"ts rest type"` \| `"ts satisfies expression"` \| `"ts static keyword"` \| `"ts string keyword"` \| `"ts symbol keyword"` \| `"ts template literal type"` \| `"ts this type"` \| `"ts tuple type"` \| `"ts type alias declaration"` \| `"ts type annotation"` \| `"ts type assertion"` \| `"ts type literal"` \| `"ts type operator"` \| `"ts type parameter"` \| `"ts type parameter declaration"` \| `"ts type parameter instantiation"` \| `"ts type predicate"` \| `"ts type query"` \| `"ts type reference"` \| `"ts undefined keyword"` \| `"ts union type"` \| `"ts unknown keyword"` \| `"ts void keyword"`
 
 Returns human readable node type for given AST node
 
@@ -680,7 +684,7 @@ Returns human readable node type for given AST node
 
 #### Returns
 
-`"property"` \| `"RegExp literal"` \| `"Object literal"` \| `"Number literal"` \| `"Boolean literal"` \| `"String literal"` \| `"Null literal"` \| `"Array literal"` \| `"NaN literal"` \| `"Function literal"` \| `"Undefined literal"` \| `"Async literal"` \| `"Promise literal"` \| `"Symbol literal"` \| `"Set literal"` \| `"Error literal"` \| `"Map literal"` \| `"WeakMap literal"` \| `"Generator literal"` \| `"GeneratorFunction literal"` \| `"BigInt literal"` \| `"ArrayBuffer literal"` \| `"Date literal"` \| `"identifier"` \| `"member expression"` \| `"JSX attribute"` \| `"JSX element"` \| `"JSX fragment"` \| `"JSX identifier"` \| `"JSX text"` \| `"JSX closing element"` \| `"JSX closing fragment"` \| `"JSX empty expression"` \| `"JSX expression container"` \| `"JSX member expression"` \| `"JSX namespaced name"` \| `"JSX opening element"` \| `"JSX opening fragment"` \| `"JSX spread attribute"` \| `"JSX spread child"` \| `"decorator"` \| `"program"` \| `"super"` \| `"accessor property"` \| `"array expression"` \| `"array pattern"` \| `"function expression"` \| `"arrow function expression"` \| `"assignment expression"` \| `"assignment pattern"` \| `"await expression"` \| `"binary expression"` \| `"block statement"` \| `"break statement"` \| `"call expression"` \| `"catch clause"` \| `"chain expression"` \| `"class body"` \| `"class declaration"` \| `"class expression"` \| `"conditional expression"` \| `"continue statement"` \| `"debugger statement"` \| `"while statement"` \| `"do while statement"` \| `"empty statement"` \| `"export all declaration"` \| `"export default declaration"` \| `"export named declaration"` \| `"export specifier"` \| `"expression statement"` \| `"for in statement"` \| `"for of statement"` \| `"for statement"` \| `"function declaration"` \| `"if statement"` \| `"import attribute"` \| `"import declaration"` \| `"import default specifier"` \| `"import expression"` \| `"import namespace specifier"` \| `"import specifier"` \| `"labeled statement"` \| `"logical expression"` \| `"meta property"` \| `"method definition"` \| `"new expression"` \| `"object expression"` \| `"object pattern"` \| `"private identifier"` \| `"property definition"` \| `"rest element"` \| `"return statement"` \| `"sequence expression"` \| `"spread element"` \| `"static block"` \| `"switch case"` \| `"switch statement"` \| `"tagged template expression"` \| `"template element"` \| `"template literal"` \| `"this expression"` \| `"throw statement"` \| `"try statement"` \| `"unary expression"` \| `"update expression"` \| `"variable declaration"` \| `"variable declarator"` \| `"with statement"` \| `"yield expression"` \| `"ts abstract accessor property"` \| `"ts abstract keyword"` \| `"ts abstract method definition"` \| `"ts abstract property definition"` \| `"ts any keyword"` \| `"ts array type"` \| `"ts as expression"` \| `"ts async keyword"` \| `"ts big int keyword"` \| `"ts boolean keyword"` \| `"ts call signature declaration"` \| `"ts class implements"` \| `"ts conditional type"` \| `"ts constructor type"` \| `"ts construct signature declaration"` \| `"ts declare function"` \| `"ts declare keyword"` \| `"ts empty body function expression"` \| `"ts enum declaration"` \| `"ts enum member"` \| `"ts export assignment"` \| `"ts export keyword"` \| `"ts external module reference"` \| `"ts function type"` \| `"ts instantiation expression"` \| `"ts import equals declaration"` \| `"ts import type"` \| `"ts indexed access type"` \| `"ts index signature"` \| `"ts infer type"` \| `"ts interface body"` \| `"ts interface declaration"` \| `"ts interface heritage"` \| `"ts intersection type"` \| `"ts intrinsic keyword"` \| `"ts literal type"` \| `"ts mapped type"` \| `"ts method signature"` \| `"ts module block"` \| `"ts module declaration"` \| `"ts named tuple member"` \| `"ts namespace export declaration"` \| `"ts never keyword"` \| `"ts non null expression"` \| `"ts null keyword"` \| `"ts number keyword"` \| `"ts object keyword"` \| `"ts optional type"` \| `"ts parameter property"` \| `"ts private keyword"` \| `"ts property signature"` \| `"ts protected keyword"` \| `"ts public keyword"` \| `"ts qualified name"` \| `"ts readonly keyword"` \| `"ts rest type"` \| `"ts satisfies expression"` \| `"ts static keyword"` \| `"ts string keyword"` \| `"ts symbol keyword"` \| `"ts template literal type"` \| `"ts this type"` \| `"ts tuple type"` \| `"ts type alias declaration"` \| `"ts type annotation"` \| `"ts type assertion"` \| `"ts type literal"` \| `"ts type operator"` \| `"ts type parameter"` \| `"ts type parameter declaration"` \| `"ts type parameter instantiation"` \| `"ts type predicate"` \| `"ts type query"` \| `"ts type reference"` \| `"ts undefined keyword"` \| `"ts union type"` \| `"ts unknown keyword"` \| `"ts void keyword"`
+`"property"` \| `"RegExp literal"` \| `"String literal"` \| `"Object literal"` \| `"Number literal"` \| `"Boolean literal"` \| `"Null literal"` \| `"Array literal"` \| `"NaN literal"` \| `"Function literal"` \| `"Undefined literal"` \| `"Async literal"` \| `"Promise literal"` \| `"Symbol literal"` \| `"Set literal"` \| `"Error literal"` \| `"Map literal"` \| `"WeakMap literal"` \| `"Generator literal"` \| `"GeneratorFunction literal"` \| `"BigInt literal"` \| `"ArrayBuffer literal"` \| `"Date literal"` \| `"identifier"` \| `"member expression"` \| `"JSX attribute"` \| `"JSX element"` \| `"JSX fragment"` \| `"JSX identifier"` \| `"JSX text"` \| `"JSX closing element"` \| `"JSX closing fragment"` \| `"JSX empty expression"` \| `"JSX expression container"` \| `"JSX member expression"` \| `"JSX namespaced name"` \| `"JSX opening element"` \| `"JSX opening fragment"` \| `"JSX spread attribute"` \| `"JSX spread child"` \| `"decorator"` \| `"program"` \| `"super"` \| `"accessor property"` \| `"array expression"` \| `"array pattern"` \| `"function expression"` \| `"arrow function expression"` \| `"assignment expression"` \| `"assignment pattern"` \| `"await expression"` \| `"binary expression"` \| `"block statement"` \| `"break statement"` \| `"call expression"` \| `"catch clause"` \| `"chain expression"` \| `"class body"` \| `"class declaration"` \| `"class expression"` \| `"conditional expression"` \| `"continue statement"` \| `"debugger statement"` \| `"while statement"` \| `"do while statement"` \| `"empty statement"` \| `"export all declaration"` \| `"export default declaration"` \| `"export named declaration"` \| `"export specifier"` \| `"expression statement"` \| `"for in statement"` \| `"for of statement"` \| `"for statement"` \| `"function declaration"` \| `"if statement"` \| `"import attribute"` \| `"import declaration"` \| `"import default specifier"` \| `"import expression"` \| `"import namespace specifier"` \| `"import specifier"` \| `"labeled statement"` \| `"logical expression"` \| `"meta property"` \| `"method definition"` \| `"new expression"` \| `"object expression"` \| `"object pattern"` \| `"private identifier"` \| `"property definition"` \| `"rest element"` \| `"return statement"` \| `"sequence expression"` \| `"spread element"` \| `"static block"` \| `"switch case"` \| `"switch statement"` \| `"tagged template expression"` \| `"template element"` \| `"template literal"` \| `"this expression"` \| `"throw statement"` \| `"try statement"` \| `"unary expression"` \| `"update expression"` \| `"variable declaration"` \| `"variable declarator"` \| `"with statement"` \| `"yield expression"` \| `"ts abstract accessor property"` \| `"ts abstract keyword"` \| `"ts abstract method definition"` \| `"ts abstract property definition"` \| `"ts any keyword"` \| `"ts array type"` \| `"ts as expression"` \| `"ts async keyword"` \| `"ts big int keyword"` \| `"ts boolean keyword"` \| `"ts call signature declaration"` \| `"ts class implements"` \| `"ts conditional type"` \| `"ts constructor type"` \| `"ts construct signature declaration"` \| `"ts declare function"` \| `"ts declare keyword"` \| `"ts empty body function expression"` \| `"ts enum declaration"` \| `"ts enum member"` \| `"ts export assignment"` \| `"ts export keyword"` \| `"ts external module reference"` \| `"ts function type"` \| `"ts instantiation expression"` \| `"ts import equals declaration"` \| `"ts import type"` \| `"ts indexed access type"` \| `"ts index signature"` \| `"ts infer type"` \| `"ts interface body"` \| `"ts interface declaration"` \| `"ts interface heritage"` \| `"ts intersection type"` \| `"ts intrinsic keyword"` \| `"ts literal type"` \| `"ts mapped type"` \| `"ts method signature"` \| `"ts module block"` \| `"ts module declaration"` \| `"ts named tuple member"` \| `"ts namespace export declaration"` \| `"ts never keyword"` \| `"ts non null expression"` \| `"ts null keyword"` \| `"ts number keyword"` \| `"ts object keyword"` \| `"ts optional type"` \| `"ts parameter property"` \| `"ts private keyword"` \| `"ts property signature"` \| `"ts protected keyword"` \| `"ts public keyword"` \| `"ts qualified name"` \| `"ts readonly keyword"` \| `"ts rest type"` \| `"ts satisfies expression"` \| `"ts static keyword"` \| `"ts string keyword"` \| `"ts symbol keyword"` \| `"ts template literal type"` \| `"ts this type"` \| `"ts tuple type"` \| `"ts type alias declaration"` \| `"ts type annotation"` \| `"ts type assertion"` \| `"ts type literal"` \| `"ts type operator"` \| `"ts type parameter"` \| `"ts type parameter declaration"` \| `"ts type parameter instantiation"` \| `"ts type predicate"` \| `"ts type query"` \| `"ts type reference"` \| `"ts undefined keyword"` \| `"ts union type"` \| `"ts unknown keyword"` \| `"ts void keyword"`
 
 Human readable node type
 
@@ -731,3 +735,80 @@ Traverses up the AST tree until the predicate returns `true` or the root node is
 `T` \| `null`
 
 The first node that matches the predicate or `null` if no node matches.
+
+---
+
+### unsafeIsArrayFromCall
+
+▸ **unsafeIsArrayFromCall**(`node`): node is CallExpression
+
+Unsafe check whether given node or its parent is directly inside `Array.from` call
+
+#### Parameters
+
+| Name   | Type             | Description       |
+| :----- | :--------------- | :---------------- |
+| `node` | `null` \| `Node` | AST node to check |
+
+#### Returns
+
+node is CallExpression
+
+`true` if node is directly inside `Array.from` call, `false` if not
+
+---
+
+### unsafeIsMapCall
+
+▸ **unsafeIsMapCall**(`node`): node is CallExpression
+
+Unsafe check whether given node or its parent is directly inside `map` call
+
+```jsx
+_ = <div>{items.map(item => <li />)}</div>;
+`                   ^^^^^^^^^^^^^^       `;
+```
+
+#### Parameters
+
+| Name   | Type             | Description           |
+| :----- | :--------------- | :-------------------- |
+| `node` | `null` \| `Node` | The AST node to check |
+
+#### Returns
+
+node is CallExpression
+
+`true` if node is directly inside `map` call, `false` if not
+
+---
+
+### unsafeIsStringCall
+
+▸ **unsafeIsStringCall**(`node`): node is CallExpression & Object
+
+#### Parameters
+
+| Name   | Type   |
+| :----- | :----- |
+| `node` | `Node` |
+
+#### Returns
+
+node is CallExpression & Object
+
+---
+
+### unsafeIsToStringCall
+
+▸ **unsafeIsToStringCall**(`node`): node is CallExpression & Object
+
+#### Parameters
+
+| Name   | Type   |
+| :----- | :----- |
+| `node` | `Node` |
+
+#### Returns
+
+node is CallExpression & Object

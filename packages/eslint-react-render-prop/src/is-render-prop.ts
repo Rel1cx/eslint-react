@@ -31,7 +31,7 @@ export function unsafeIsRenderFunction(node: TSESTreeFunction, context: RuleCont
                     name: P.string.startsWith("render"),
                 },
             },
-        })(parent);
+        }, parent);
     }
 
     return isJSXValue(body, context, {
@@ -61,5 +61,5 @@ export function unsafeIsRenderProp(node: TSESTree.JSXAttribute, context: RuleCon
             type: NodeType.JSXExpressionContainer,
             expression: P.when(isFunction),
         },
-    })(node) && unsafeIsRenderFunction(node.value.expression, context);
+    }, node) && unsafeIsRenderFunction(node.value.expression, context);
 }

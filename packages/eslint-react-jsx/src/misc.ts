@@ -1,44 +1,7 @@
 import { getNestedReturnStatements, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/types";
-import type { TSESTree } from "@typescript-eslint/types";
-import { isMatching } from "ts-pattern";
 
 import { isJSXValue, type JSXValueCheckOptions } from "./value";
-
-/**
- * Unsafe check whether given node or its parent is directly inside `Array.from` call
- * @param node AST node to check
- * @returns `true` if node is directly inside `Array.from` call, `false` if not
- */
-export const unsafeIsArrayFromCall = isMatching({
-    type: NodeType.CallExpression,
-    callee: {
-        type: NodeType.MemberExpression,
-        property: {
-            name: "from",
-        },
-    },
-});
-
-/**
- * Unsafe check whether given node or its parent is directly inside `map` call
- * ```jsx
- * _ = <div>{items.map(item => <li />)}</div>
- * `                   ^^^^^^^^^^^^^^       `
- * ```
- * @param node The AST node to check
- * @returns `true` if node is directly inside `map` call, `false` if not
- */
-export function unsafeIsMapCall(node: TSESTree.Node | null): node is TSESTree.CallExpression {
-    return isMatching({
-        callee: {
-            type: NodeType.MemberExpression,
-            property: {
-                name: "map",
-            },
-        },
-    })(node);
-}
 
 /**
  * Check if function is returning JSX

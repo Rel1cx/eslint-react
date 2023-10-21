@@ -31,11 +31,11 @@ export function isDestructuredFromPragma<T extends RuleContext>(variableName: st
     // TODO: re-implement this
     if (node.type === NodeType.VariableDeclarator && node.init) {
         const { init } = node;
-        if (isMatching({ type: "MemberExpression", object: { type: "Identifier", name: pragma } })(init)) {
+        if (isMatching({ type: "MemberExpression", object: { type: "Identifier", name: pragma } }, init)) {
             return true;
         }
 
-        if (isMatching({ type: "Identifier", name: pragma })(init)) {
+        if (isMatching({ type: "Identifier", name: pragma }, init)) {
             return true;
         }
 
@@ -65,5 +65,5 @@ export function isDestructuredFromPragma<T extends RuleContext>(variableName: st
         return firstArg.value === pragma.toLowerCase();
     }
 
-    return isMatching({ type: "ImportDeclaration", source: { value: pragma.toLowerCase() } })(parent);
+    return isMatching({ type: "ImportDeclaration", source: { value: pragma.toLowerCase() } }, parent);
 }
