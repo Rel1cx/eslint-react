@@ -7,12 +7,12 @@ import { type TSESTree } from "@typescript-eslint/utils";
 import { match } from "ts-pattern";
 
 /**
- * Checks if the given node is a call expression to `React.createElement`.
+ * Checks if the given node is a call expression to `React.cloneElement`.
  * @param node The node to check.
  * @param context The rule context.
  * @returns `true` if the node is a call expression to `createElement`.
  */
-export const isCreateElement = (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
+export const isCloneElement = (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
     if (node.type !== NodeType.CallExpression || !("callee" in node)) {
         return false;
     }
@@ -29,10 +29,10 @@ export const isCreateElement = (node: TSESTree.Node, context: RuleContext): node
             {
                 type: NodeType.MemberExpression,
                 object: { name: pragma },
-                property: { name: "createElement" },
+                property: { name: "cloneElement" },
             },
             F.constTrue,
         )
-        .with({ name: "createElement" }, ({ name }) => isDestructuredFromPragma(name, context))
+        .with({ name: "cloneElement" }, ({ name }) => isDestructuredFromPragma(name, context))
         .otherwise(F.constFalse);
 };
