@@ -5,6 +5,7 @@ export * from "./identifier";
 export * from "./is-multi-line";
 export * from "./is-node-equal";
 export * from "./literal";
+export * from "./misc";
 export * from "./node-types";
 export * from "./property";
 export * from "./readable-node-type";

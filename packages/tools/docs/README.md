@@ -11,6 +11,7 @@
 - [E](modules/E.md)
 - [Equal](modules/Equal.md)
 - [F](modules/F.md)
+- [List](modules/List.md)
 - [MutList](modules/MutList.md)
 - [MutRef](modules/MutRef.md)
 - [O](modules/O.md)

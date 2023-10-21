@@ -50,5 +50,5 @@ export function unsafeIsDeclaredInRenderProp(node: TSESTree.Node) {
             type: NodeType.JSXIdentifier,
             name: P.string.startsWith("render"),
         },
-    })(maybeJSXAttribute);
+    }, maybeJSXAttribute);
 }

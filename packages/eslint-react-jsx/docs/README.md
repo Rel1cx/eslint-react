@@ -43,8 +43,6 @@
 - [isLiteral](README.md#isliteral)
 - [isWhiteSpace](README.md#iswhitespace)
 - [traverseUpProp](README.md#traverseupprop)
-- [unsafeIsArrayFromCall](README.md#unsafeisarrayfromcall)
-- [unsafeIsMapCall](README.md#unsafeismapcall)
 
 ## Type Aliases
 
@@ -489,48 +487,3 @@ Traverses up prop node
 `O.Option`<`TSESTree.JSXAttribute`\>
 
 prop node if found
-
----
-
-### unsafeIsArrayFromCall
-
-▸ **unsafeIsArrayFromCall**(`value`): value is Object
-
-Unsafe check whether given node or its parent is directly inside `Array.from` call
-
-#### Parameters
-
-| Name    | Type      |
-| :------ | :-------- |
-| `value` | `unknown` |
-
-#### Returns
-
-value is Object
-
-`true` if node is directly inside `Array.from` call, `false` if not
-
----
-
-### unsafeIsMapCall
-
-▸ **unsafeIsMapCall**(`node`): node is CallExpression
-
-Unsafe check whether given node or its parent is directly inside `map` call
-
-```jsx
-_ = <div>{items.map(item => <li />)}</div>;
-`                   ^^^^^^^^^^^^^^       `;
-```
-
-#### Parameters
-
-| Name   | Type             | Description           |
-| :----- | :--------------- | :-------------------- |
-| `node` | `null` \| `Node` | The AST node to check |
-
-#### Returns
-
-node is CallExpression
-
-`true` if node is directly inside `map` call, `false` if not

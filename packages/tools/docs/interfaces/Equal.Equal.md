@@ -18,6 +18,10 @@
 
   ↳↳ [`Case`](Data.Case-1.md)
 
+  ↳↳ [`Nil`](List.Nil.md)
+
+  ↳↳ [`Cons`](List.Cons.md)
+
 ## Table of contents
 
 ### Methods
