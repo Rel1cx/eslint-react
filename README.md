@@ -4,9 +4,6 @@
 
 ESLint plugin for React and Preact function components with TypeScript, built from scratch (almost).
 
-> **Warning**
-> This plugin is still in early development, and will likely change significantly before reaching a stable version.
-
 ## Supported Engines
 
 ### Node.js
