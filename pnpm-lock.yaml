@@ -53,8 +53,8 @@ importers:
         specifier: '>=6.8.0'
         version: 6.8.0(eslint@8.51.0)(typescript@5.3.0-beta)
       bun-types:
-        specifier: 1.0.6
-        version: 1.0.6
+        specifier: 1.0.7
+        version: 1.0.7
       cspell:
         specifier: 7.3.8
         version: 7.3.8
@@ -2999,8 +2999,8 @@ packages:
       semver: 7.5.4
     dev: true
 
-  /bun-types@1.0.6:
-    resolution: {integrity: sha512-5QwynfXiRCRxPW3ZnC0Dv+sHHmctP4SHIuzsRKOWYO0HF/qUpsxQVexoviaxpmwDsF1hoVDDFdc4xUuafOzx1g==}
+  /bun-types@1.0.7:
+    resolution: {integrity: sha512-zlIp+SCutbbugs6xDy+3WC3KO3zKySpF/bRfiTk/VJUdKt+WHAzlCtLplS7XglRYDFzhRhlzXMW/R5BHkw+u2Q==}
     dev: true
 
   /bytes@3.0.0:

@@ -1,4 +1,8 @@
-# @eslint-react/jsx/no-duplicate-key
+# jsx/no-duplicate-key
+
+💼 This rule is enabled in the following configs: 🎨 `jsx`, 👍 `recommended`.
+
+<!-- end auto-generated rule header -->
 
 ## Rule details
 

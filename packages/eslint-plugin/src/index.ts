@@ -5,6 +5,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import { name } from "../package.json";
 import debugClassComponent from "./rules/debug/class-component";
 import debugFunctionComponent from "./rules/debug/function-component";
+import jsxNoDuplicateKey from "./rules/jsx/no-duplicate-key";
 import jsxNoLeakedConditionalRendering from "./rules/jsx/no-leaked-conditional-rendering";
 import jsxNoMissingKey from "./rules/jsx/no-missing-key";
 import jsxNoMisusedCommentInTextNode from "./rules/jsx/no-misused-comment-in-textnode";
@@ -22,6 +23,7 @@ import noUnstableNestedComponents from "./rules/no-unstable-nested-components";
 const rules = {
     "debug/class-component": "warn",
     "debug/function-component": "warn",
+    "jsx/no-duplicate-key": "error",
     "jsx/no-leaked-conditional-rendering": "error",
     "jsx/no-missing-key": "error",
     "jsx/no-misused-comment-in-textnode": "warn",
@@ -40,6 +42,7 @@ const rules = {
 const rulesEntries = Object.entries(rules);
 
 const recommendedRules = {
+    "jsx/no-duplicate-key": "error",
     "jsx/no-leaked-conditional-rendering": "error",
     "jsx/no-missing-key": "error",
     "jsx/no-misused-comment-in-textnode": "warn",
@@ -77,6 +80,7 @@ export default {
     rules: {
         "debug/class-component": debugClassComponent,
         "debug/function-component": debugFunctionComponent,
+        "jsx/no-duplicate-key": jsxNoDuplicateKey,
         "jsx/no-leaked-conditional-rendering": jsxNoLeakedConditionalRendering,
         "jsx/no-missing-key": jsxNoMissingKey,
         "jsx/no-misused-comment-in-textnode": jsxNoMisusedCommentInTextNode,
