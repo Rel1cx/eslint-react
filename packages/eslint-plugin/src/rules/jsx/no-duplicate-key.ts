@@ -118,7 +118,8 @@ export default createRule<[], MessageID>({
                     .filter(is(NodeType.JSXElement))
                     .filter((element) => !seen.has(element));
 
-                const keys = elements.reduce<[TSESTree.JSXAttribute, TSESTree.JSXExpression | TSESTree.Literal][]>(
+                // dprint-ignore
+                const keys = elements.reduce<[TSESTree.JSXElement, TSESTree.JSXAttribute, TSESTree.JSXExpression | TSESTree.Literal][]>(
                     (acc, element) => {
                         const attr = element
                             .openingElement
@@ -130,12 +131,10 @@ export default createRule<[], MessageID>({
                         }
                         const { value } = attr;
                         if (acc.length === 0) {
-                            return [[attr, value]];
+                            return [[element, attr, value]];
                         }
-                        if (acc.some(([_, v]) => isNodeEqual(v, value))) {
-                            seen.add(element);
-
-                            return [...acc, [attr, value]];
+                        if (acc.some(([_, _1, v]) => isNodeEqual(v, value))) {
+                            return [...acc, [element, attr, value]];
                         }
 
                         return acc;
@@ -147,7 +146,8 @@ export default createRule<[], MessageID>({
                     return;
                 }
 
-                for (const [attr, value] of keys) {
+                for (const [element, attr, value] of keys) {
+                    seen.add(element);
                     context.report({
                         node: attr,
                         messageId: "INVALID",
