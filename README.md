@@ -145,7 +145,7 @@ export default [
 - [ ] `@eslint-react/hooks/ensure-custom-hooks-using-other-hooks`
 - [ ] `@eslint-react/no-access-ref-current-during-rendering`
 - [ ] `@eslint-react/no-legacy-children-methods`
-- [ ] `@eslint-react/no-legacy-class-components`
+- [ ] `@eslint-react/no-legacy-class-component`
 - [ ] `@eslint-react/no-legacy-clone-element`
 - [ ] `@eslint-react/no-legacy-createRef`
 - [ ] `@eslint-react/rsc/...`

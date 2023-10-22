@@ -23,9 +23,9 @@ const isRenderMethodLike = isMatching({
 
 /**
  * Check if a node is a React class component
- * @param node The node to check
+ * @param node The AST node to check
  * @param context The rule context
- * @deprecated It will be removed in the future.
+ * @deprecated It will be removed in the future
  */
 export function isClassComponent(node: TSESTree.Node, context: RuleContext): node is TSESTreeClass {
     if (!("superClass" in node && node.superClass)) {
@@ -54,7 +54,7 @@ export function isClassComponent(node: TSESTree.Node, context: RuleContext): nod
 /**
  * Get the parent class component of a node up to global scope
  * @param context The rule context
- * @deprecated It will be removed in the future.
+ * @deprecated It will be removed in the future
  */
 export function getParentClassComponent(context: RuleContext) {
     let scope: Scope | null = context.getScope();
@@ -75,9 +75,9 @@ export function getParentClassComponent(context: RuleContext) {
 
 /**
  * Check if a node is a React PureComponent
- * @param node The node to check
+ * @param node The AST node to check
  * @param context The rule context
- * @deprecated It will be removed in the future.
+ * @deprecated It will be removed in the future
  */
 export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
     const pragma = getPragmaFromContext(context);
@@ -96,8 +96,8 @@ export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
 
 /**
  * Check if a node is a MemberExpression of state
- * @param node The node to check
- * @deprecated It will be removed in the future.
+ * @param node The AST node to check
+ * @deprecated It will be removed in the future
  */
 export const isStateMemberExpression: (node: TSESTree.Node) => boolean = isMatching({
     type: NodeType.MemberExpression,
@@ -132,7 +132,7 @@ export function isFunctionOfRenderMethod(node: TSESTreeFunction, context: RuleCo
  * @param node The AST node being checked
  * @param context
  * @returns `true` if node is inside class component's render block, `false` if not
- * @deprecated It will be removed in the future.
+ * @deprecated It will be removed in the future
  */
 export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) {
     const predicate = (node: TSESTree.Node): node is TSESTree.MethodDefinition => {

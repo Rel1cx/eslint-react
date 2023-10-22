@@ -267,11 +267,11 @@ Check if any of the given prop names are present in the given attributes
 
 #### Parameters
 
-| Name         | Type                                                        | Description              |
-| :----------- | :---------------------------------------------------------- | :----------------------- |
-| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                  | attributes to search in  |
-| `propNames`  | `string`[]                                                  | prop names to search for |
-| `context`    | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | rule context             |
+| Name         | Type                                                        | Description                  |
+| :----------- | :---------------------------------------------------------- | :--------------------------- |
+| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                  | The attributes to search in  |
+| `propNames`  | `string`[]                                                  | The prop names to search for |
+| `context`    | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context             |
 
 #### Returns
 
@@ -289,9 +289,9 @@ Check if a JSXElement or JSXFragment has children
 
 #### Parameters
 
-| Name   | Type                          | Description |
-| :----- | :---------------------------- | :---------- |
-| `node` | `JSXElement` \| `JSXFragment` | to check    |
+| Name   | Type                          | Description           |
+| :----- | :---------------------------- | :-------------------- |
+| `node` | `JSXElement` \| `JSXFragment` | The AST node to check |
 
 #### Returns
 
@@ -309,11 +309,11 @@ Check if all of the given prop names are present in the given attributes
 
 #### Parameters
 
-| Name         | Type                                                        | Description              |
-| :----------- | :---------------------------------------------------------- | :----------------------- |
-| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                  | attributes to search in  |
-| `propNames`  | `string`[]                                                  | prop names to search for |
-| `context`    | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | rule context             |
+| Name         | Type                                                        | Description                  |
+| :----------- | :---------------------------------------------------------- | :--------------------------- |
+| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                  | The attributes to search in  |
+| `propNames`  | `string`[]                                                  | The prop names to search for |
+| `context`    | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context             |
 
 #### Returns
 
@@ -331,11 +331,11 @@ Check if the given prop name is present in the given attributes
 
 #### Parameters
 
-| Name         | Type                                                        | Description             |
-| :----------- | :---------------------------------------------------------- | :---------------------- |
-| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                  | attributes to search in |
-| `propName`   | `string`                                                    | prop name to search for |
-| `context`    | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | rule context            |
+| Name         | Type                                                        | Description                 |
+| :----------- | :---------------------------------------------------------- | :-------------------------- |
+| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                  | The attributes to search in |
+| `propName`   | `string`                                                    | The prop name to search for |
+| `context`    | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context            |
 
 #### Returns
 
@@ -357,7 +357,7 @@ Check if function is returning JSX
 | :--------- | :---------------------------------------------------------- | :--------------------------------- |
 | `node`     | `TSESTreeFunction`                                          | The return statement node to check |
 | `context`  | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context                   |
-| `options?` | [`JSXValueCheckOptions`](README.md#jsxvaluecheckoptions)    | JSX value check options            |
+| `options?` | [`JSXValueCheckOptions`](README.md#jsxvaluecheckoptions)    | The JSX value check options        |
 
 #### Returns
 
@@ -375,15 +375,15 @@ Checks if the node is inside a prop's value
 
 #### Parameters
 
-| Name   | Type   | Description   |
-| :----- | :----- | :------------ |
-| `node` | `Node` | node to check |
+| Name   | Type   | Description           |
+| :----- | :----- | :-------------------- |
+| `node` | `Node` | The AST node to check |
 
 #### Returns
 
 `boolean`
 
-true if the node is inside a prop's value
+`true` if the node is inside a prop's value
 
 ---
 
@@ -395,11 +395,11 @@ Check if a node is a JSX value
 
 #### Parameters
 
-| Name      | Type                                                        | Default value                 | Description             |
-| :-------- | :---------------------------------------------------------- | :---------------------------- | :---------------------- |
-| `node`    | `undefined` \| `null` \| `Node`                             | `undefined`                   | Node to check           |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | `undefined`                   | Rule context            |
-| `options` | [`JSXValueCheckOptions`](README.md#jsxvaluecheckoptions)    | `defaultJSXValueCheckOptions` | JSX value check options |
+| Name      | Type                                                        | Default value                 | Description                       |
+| :-------- | :---------------------------------------------------------- | :---------------------------- | :-------------------------------- |
+| `node`    | `undefined` \| `null` \| `Node`                             | `undefined`                   | The AST node to check             |
+| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | `undefined`                   | The rule context                  |
+| `options` | [`JSXValueCheckOptions`](README.md#jsxvaluecheckoptions)    | `defaultJSXValueCheckOptions` | The `JSXValueCheckOptions` to use |
 
 #### Returns
 
@@ -417,9 +417,9 @@ Check if a Literal or JSXText node is a line break
 
 #### Parameters
 
-| Name   | Type   | Description       |
-| :----- | :----- | :---------------- |
-| `node` | `Node` | The node to check |
+| Name   | Type   | Description           |
+| :----- | :----- | :-------------------- |
+| `node` | `Node` | The AST node to check |
 
 #### Returns
 
@@ -437,9 +437,9 @@ Check if a node is a Literal or JSXText
 
 #### Parameters
 
-| Name   | Type                            | Description       |
-| :----- | :------------------------------ | :---------------- |
-| `node` | `undefined` \| `null` \| `Node` | The node to check |
+| Name   | Type                            | Description           |
+| :----- | :------------------------------ | :-------------------- |
+| `node` | `undefined` \| `null` \| `Node` | The AST node to check |
 
 #### Returns
 
@@ -457,9 +457,9 @@ Check if a Literal or JSXText node is whitespace
 
 #### Parameters
 
-| Name   | Type                   | Description       |
-| :----- | :--------------------- | :---------------- |
-| `node` | `JSXText` \| `Literal` | The node to check |
+| Name   | Type                   | Description           |
+| :----- | :--------------------- | :-------------------- |
+| `node` | `JSXText` \| `Literal` | The AST node to check |
 
 #### Returns
 
@@ -477,10 +477,10 @@ Traverses up prop node
 
 #### Parameters
 
-| Name        | Type                                  | Default value | Description                  |
-| :---------- | :------------------------------------ | :------------ | :--------------------------- |
-| `node`      | `Node`                                | `undefined`   | node to traverse up from     |
-| `predicate` | (`node`: `JSXAttribute`) => `boolean` | `F.constTrue` | predicate to match prop node |
+| Name        | Type                                  | Default value | Description                           |
+| :---------- | :------------------------------------ | :------------ | :------------------------------------ |
+| `node`      | `Node`                                | `undefined`   | The AST node to start traversing from |
+| `predicate` | (`node`: `JSXAttribute`) => `boolean` | `F.constTrue` | The predicate to check each node      |
 
 #### Returns
 

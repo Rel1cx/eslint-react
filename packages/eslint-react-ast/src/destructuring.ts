@@ -4,7 +4,7 @@ import { isOneOf, NodeType } from "./node-types";
 
 /**
  * Check if a Parameter node is a destructor parameter
- * @param node The node to check
+ * @param node The AST node to check
  * @returns boolean indicating whether the node is a destructor parameter
  */
 export const isDestructorParameter: (

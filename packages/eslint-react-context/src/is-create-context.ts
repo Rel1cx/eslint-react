@@ -5,9 +5,9 @@ import { isObject } from "effect/Predicate";
 import { match } from "ts-pattern";
 
 /**
- * Determines whether `createContext` is used.
- * @param node The node to check.
- * @returns `true` if the node is a call expression to `createContext`.
+ * Determines whether `createContext` is used
+ * @param node The AST node to check
+ * @returns `true` if the node is a call expression to `createContext`
  */
 export function isCreateContext(node: TSESTree.Node) {
     if ("init" in node) {

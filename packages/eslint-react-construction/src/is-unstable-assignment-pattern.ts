@@ -15,8 +15,8 @@ export const unstableAssignmentPatternTypes = [
 
 /**
  * Check if the given node is an unstable assignment pattern (will change between assignments)
- * @param node
- * @param node.right
+ * @param node The AST node to check
+ * @param node.right The right side of the assignment
  */
 export function isUnstableAssignmentPattern(node: TSESTree.AssignmentPattern): node is
     & TSESTree.AssignmentPattern

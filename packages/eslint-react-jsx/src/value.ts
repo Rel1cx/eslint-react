@@ -25,9 +25,9 @@ export const defaultJSXValueCheckOptions = {
 
 /**
  * Check if a node is a JSX value
- * @param node Node to check
- * @param context Rule context
- * @param options JSX value check options
+ * @param node The AST node to check
+ * @param context The rule context
+ * @param options The `JSXValueCheckOptions` to use
  * @returns boolean
  */
 export function isJSXValue(

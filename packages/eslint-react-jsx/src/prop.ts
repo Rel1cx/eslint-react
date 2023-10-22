@@ -7,9 +7,9 @@ import { match } from "ts-pattern";
 
 /**
  * Check if the given prop name is present in the given attributes
- * @param attributes attributes to search in
- * @param propName prop name to search for
- * @param context rule context
+ * @param attributes The attributes to search in
+ * @param propName The prop name to search for
+ * @param context The rule context
  * @returns `true` if the given prop name is present in the given properties
  */
 export function hasProp(
@@ -22,9 +22,9 @@ export function hasProp(
 
 /**
  * Check if any of the given prop names are present in the given attributes
- * @param attributes attributes to search in
- * @param propNames prop names to search for
- * @param context rule context
+ * @param attributes The attributes to search in
+ * @param propNames The prop names to search for
+ * @param context The rule context
  * @returns `true` if any of the given prop names are present in the given attributes
  */
 export function hasAnyProp(
@@ -37,9 +37,9 @@ export function hasAnyProp(
 
 /**
  * Check if all of the given prop names are present in the given attributes
- * @param attributes attributes to search in
- * @param propNames prop names to search for
- * @param context rule context
+ * @param attributes The attributes to search in
+ * @param propNames The prop names to search for
+ * @param context The rule context
  * @returns `true` if all of the given prop names are present in the given attributes
  */
 export function hasEveryProp(
@@ -76,8 +76,8 @@ export function getPropNameWithNamespace(node: TSESTree.JSXAttribute) {
 
 /**
  * Traverses up prop node
- * @param node node to traverse up from
- * @param predicate predicate to match prop node
+ * @param node The AST node to start traversing from
+ * @param predicate The predicate to check each node
  * @returns prop node if found
  */
 export function traverseUpProp(
@@ -93,8 +93,8 @@ export function traverseUpProp(
 
 /**
  * Checks if the node is inside a prop's value
- * @param node node to check
- * @returns true if the node is inside a prop's value
+ * @param node The AST node to check
+ * @returns `true` if the node is inside a prop's value
  */
 export function isInsidePropValue(node: TSESTree.Node): boolean {
     if (isStringLiteral(node)) {

@@ -13,7 +13,7 @@ import { isMatching, P } from "ts-pattern";
  * `                         ^^^^^^^^^^^^^   `
  * ```
  * @param node The AST node to check
- * @param context Rule context
+ * @param context The rule context
  * @returns `true` if node is a render function, `false` if not
  */
 export function unsafeIsRenderFunction(node: TSESTreeFunction, context: RuleContext) {
@@ -47,7 +47,7 @@ export function unsafeIsRenderFunction(node: TSESTreeFunction, context: RuleCont
  * `              ^^^^^^^^^^^^^^^^^^^^^^^^^  `
  * ```
  * @param node The AST node to check
- * @param context Rule context
+ * @param context The rule context
  * @returns `true` if node is a render prop, `false` if not
  */
 export function unsafeIsRenderProp(node: TSESTree.JSXAttribute, context: RuleContext) {

@@ -7,7 +7,7 @@ import { isJSXValue, type JSXValueCheckOptions } from "./value";
  * Check if function is returning JSX
  * @param node The return statement node to check
  * @param context The rule context
- * @param options JSX value check options
+ * @param options The JSX value check options
  * @returns boolean
  */
 export function isFunctionReturningJSXValue(

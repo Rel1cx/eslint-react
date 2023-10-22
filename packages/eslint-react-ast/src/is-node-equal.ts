@@ -4,8 +4,8 @@ import { NodeType } from "./node-types";
 
 /**
  * Determines whether node equals to another node
- * @param a node
- * @param b node
+ * @param a node to compare
+ * @param b node to compare
  * @returns `true` if node equal
  * @see https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/util/isNodeEqual.ts
  */

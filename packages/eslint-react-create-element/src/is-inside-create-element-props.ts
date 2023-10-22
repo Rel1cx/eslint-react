@@ -6,9 +6,9 @@ import { isCreateElement } from "./is-create-element";
 
 /**
  * Determines whether inside createElement's props.
- * @param node
- * @param context
- * @returns `true` if the node is inside createElement's props.
+ * @param node The AST node to check
+ * @param context The rule context
+ * @returns `true` if the node is inside createElement's props
  */
 export function isInsideCreateElementProps(node: TSESTree.Node, context: RuleContext) {
     const parentCreateElement = traverseUp(node, n => isCreateElement(n, context));

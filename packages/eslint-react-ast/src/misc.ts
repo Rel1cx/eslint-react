@@ -40,7 +40,7 @@ export function unsafeIsStringCall(node: TSESTree.Node): node is
 
 /**
  * Unsafe check whether given node or its parent is directly inside `Array.from` call
- * @param node AST node to check
+ * @param node The AST node to check
  * @returns `true` if node is directly inside `Array.from` call, `false` if not
  */
 export function unsafeIsArrayFromCall(node: TSESTree.Node | null): node is TSESTree.CallExpression {

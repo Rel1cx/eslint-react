@@ -7,10 +7,10 @@ import { type TSESTree } from "@typescript-eslint/utils";
 import { match } from "ts-pattern";
 
 /**
- * Checks if the given node is a call expression to `React.createElement`.
- * @param node The node to check.
- * @param context The rule context.
- * @returns `true` if the node is a call expression to `createElement`.
+ * Checks if the given node is a call expression to `React.createElement`
+ * @param node The AST node to check
+ * @param context The rule context
+ * @returns `true` if the node is a call expression to `createElement`
  */
 export const isCreateElement = (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
     if (node.type !== NodeType.CallExpression || !("callee" in node)) {

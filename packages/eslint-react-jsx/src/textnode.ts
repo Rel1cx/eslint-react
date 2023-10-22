@@ -4,14 +4,14 @@ import { isString } from "effect/Predicate";
 
 /**
  * Check if a node is a Literal or JSXText
- * @param node The node to check
+ * @param node The AST node to check
  * @returns boolean `true` if the node is a Literal or JSXText
  */
 export const isLiteral = isOneOf([NodeType.Literal, NodeType.JSXText]);
 
 /**
  * Check if a Literal or JSXText node is whitespace
- * @param node The node to check
+ * @param node The AST node to check
  * @returns boolean `true` if the node is whitespace
  */
 export function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
@@ -20,7 +20,7 @@ export function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
 
 /**
  * Check if a Literal or JSXText node is a line break
- * @param node The node to check
+ * @param node The AST node to check
  * @returns boolean
  */
 export function isLineBreak(node: TSESTree.Node) {
