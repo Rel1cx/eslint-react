@@ -1,6 +1,4 @@
-# naming-convention/event-handler
-
-<!-- end auto-generated rule header -->
+# @eslint-react/naming-convention/event-handler
 
 Enforce consistent event handler naming conventions in JSX.
 

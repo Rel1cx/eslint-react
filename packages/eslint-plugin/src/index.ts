@@ -11,7 +11,6 @@ import jsxNoLeakedConditionalRendering from "./rules/jsx/no-leaked-conditional-r
 import jsxNoMissingKey from "./rules/jsx/no-missing-key";
 import jsxNoMisusedCommentInTextNode from "./rules/jsx/no-misused-comment-in-textnode";
 import jsxPreferShorthandJsxBoolean from "./rules/jsx/prefer-shorthand-boolean";
-import namingConventionEventHandler from "./rules/naming-convention/event-handler";
 import namingConventionFilename from "./rules/naming-convention/filename";
 import namingConventionFilenameExtension from "./rules/naming-convention/filename-extension";
 import noConstructedContextValue from "./rules/no-constructed-context-value";
@@ -30,7 +29,6 @@ const rules = {
     "jsx/no-missing-key": "error",
     "jsx/no-misused-comment-in-textnode": "warn",
     "jsx/prefer-shorthand-boolean": "warn",
-    "naming-convention/event-handler": "warn",
     "naming-convention/filename": "warn",
     "naming-convention/filename-extension": "warn",
     "no-constructed-context-value": "error",
@@ -89,7 +87,6 @@ export default {
         "jsx/no-missing-key": jsxNoMissingKey,
         "jsx/no-misused-comment-in-textnode": jsxNoMisusedCommentInTextNode,
         "jsx/prefer-shorthand-boolean": jsxPreferShorthandJsxBoolean,
-        "naming-convention/event-handler": namingConventionEventHandler,
         "naming-convention/filename": namingConventionFilename,
         "naming-convention/filename-extension": namingConventionFilenameExtension,
         "no-constructed-context-value": noConstructedContextValue,
