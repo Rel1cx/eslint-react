@@ -14,5 +14,5 @@ Each rule should have a single purpose. Make multiple rules work together to ach
 8. Rules are easier to enable/disable conditionally (e.g. in config's presets or based on file path or file extension).
 9. The behavior of rules is easier to understand, predict and debug.
 10. The behavior of rules is easier to modify without backward compatibility concerns. Options are harder to change once they are in use.
-11. The errors messages of rules are easier to identify in codebase.
-12. The errors messages of rules are easier to search for on the internet (e.g. StackOverflow).
+11. The error messages of rules are easier to identify in codebase.
+12. The error messages of rules are easier to search for on the internet (e.g. StackOverflow).
