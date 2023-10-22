@@ -116,6 +116,9 @@ export default [
 - [x] `@eslint-react/jsx/prefer-shorthand-boolean`
 - [x] `@eslint-react/jsx/no-leaked-conditional-rendering`
 - [x] `@eslint-react/jsx/no-misused-comment-in-textnode`
+- [ ] `@eslint-react/jsx/no-target-blank`
+- [ ] `@eslint-react/jsx/no-script-url`
+- [ ] `@eslint-react/jsx/no-string-style-prop`
 - [ ] `@eslint-react/jsx/no-useless-fragment`
 - [x] `@eslint-react/jsx/no-missing-key`
 - [x] `@eslint-react/jsx/no-duplicate-key`
@@ -130,6 +133,8 @@ export default [
 - [x] `@eslint-react/no-unstable-nested-components`
 - [ ] `@eslint-react/no-missing-display-name`
 - [ ] `@eslint-react/no-direct-mutation-state`
+- [ ] `@eslint-react/hooks/no-access-state-in-setstate`
+- [ ] `@eslint-react/hooks/no-suppressing-exhaustive-deps`
 - [x] `@eslint-react/debug/class-component`
 - [x] `@eslint-react/debug/function-component`
 - [ ] `@eslint-react/debug/render-prop`
@@ -139,7 +144,6 @@ export default [
 ### Planned (will be added in the future)
 
 - [ ] `@eslint-react/jsx/no-complicated-conditional-rendering`
-- [ ] `@eslint-react/hooks/no-suppressing-exhaustive-deps`
 - [ ] `@eslint-react/hooks/ensure-custom-hooks-using-other-hooks`
 - [ ] `@eslint-react/no-access-ref-current-during-rendering`
 - [ ] `@eslint-react/no-legacy-children-methods`

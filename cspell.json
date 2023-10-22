@@ -24,8 +24,10 @@
         "bimap",
         "birecord",
         "declarators",
+        "deepmerge",
         "dprint",
         "innerhtml",
+        "knip",
         "lockb",
         "pathe",
         "pattycake",
@@ -33,18 +35,17 @@
         "quasis",
         "rambda",
         "rizzzse",
+        "setstate",
         "sonarjs",
-        "todos",
         "tanstack",
+        "taze",
         "textnode",
         "textnodes",
+        "todos",
         "treeshake",
         "tsup",
-        "taze",
         "typeclass",
-        "knip",
-        "weakref",
-        "deepmerge"
+        "weakref"
     ],
     "useGitignore": true
 }

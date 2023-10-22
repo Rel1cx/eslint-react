@@ -51,6 +51,8 @@ export type NeutralDescriptive =
     | "access"
     | "calling"
     | "inside"
+    | "max"
+    | "min"
     | "outside";
 
 export type Descriptive = NegativeDescriptive | NeutralDescriptive | PositiveDescriptive;
