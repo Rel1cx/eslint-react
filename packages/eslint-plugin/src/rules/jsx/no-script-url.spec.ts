@@ -27,11 +27,17 @@ ruleTester.run(RULE_NAME, rule, {
         '<a href="#"></a>',
         '<a href=""></a>',
         '<a name="foo"></a>',
-        '<a href={"javascript:"}></a>',
-        '<Foo href="javascript:"></Foo>',
         "<a href />",
     ],
     invalid: [
+        {
+            code: '<a href={"javascript:"}></a>',
+            errors: [{ messageId: "INVALID" }],
+        },
+        {
+            code: '<Foo href="javascript:"></Foo>',
+            errors: [{ messageId: "INVALID" }],
+        },
         {
             code: '<a href="javascript:"></a>',
             errors: [{ messageId: "INVALID" }],
@@ -46,16 +52,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
             code: '<Foo to="javascript:"></Foo>',
-            options: [
-                [{ name: "Foo", props: ["to", "href"] }],
-            ],
-            errors: [{ messageId: "INVALID" }],
-        },
-        {
-            code: '<Foo href="javascript:"></Foo>',
-            options: [
-                [{ name: "Foo", props: ["to", "href"] }],
-            ],
             errors: [{ messageId: "INVALID" }],
         },
         {
@@ -65,12 +61,6 @@ ruleTester.run(RULE_NAME, rule, {
                   <Bar link="javascript:"></Bar>
                 </div>
             `,
-            options: [
-                [
-                    { name: "Foo", props: ["to", "href"] },
-                    { name: "Bar", props: ["link"] },
-                ],
-            ],
             errors: [
                 { messageId: "INVALID" },
                 { messageId: "INVALID" },
