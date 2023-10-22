@@ -151,6 +151,7 @@ export default [
 
 ## Philosophy
 
+- **[Rules over options](./docs/rules-over-options.md)**.
 - **Focus on code rather than style**.
 - **Linting errors are better than runtime crashes**.
 - **Types are the fundamental unit of correctness**.
