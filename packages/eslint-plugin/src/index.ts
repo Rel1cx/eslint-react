@@ -10,6 +10,7 @@ import jsxNoDuplicateKey from "./rules/jsx/no-duplicate-key";
 import jsxNoLeakedConditionalRendering from "./rules/jsx/no-leaked-conditional-rendering";
 import jsxNoMissingKey from "./rules/jsx/no-missing-key";
 import jsxNoMisusedCommentInTextNode from "./rules/jsx/no-misused-comment-in-textnode";
+import jsxNoScriptUrl from "./rules/jsx/no-script-url";
 import jsxPreferShorthandJsxBoolean from "./rules/jsx/prefer-shorthand-boolean";
 import namingConventionFilename from "./rules/naming-convention/filename";
 import namingConventionFilenameExtension from "./rules/naming-convention/filename-extension";
@@ -47,6 +48,7 @@ const recommendedRules = {
     "jsx/no-leaked-conditional-rendering": "error",
     "jsx/no-missing-key": "error",
     "jsx/no-misused-comment-in-textnode": "warn",
+    "jsx/no-script-url": "error",
     "jsx/prefer-shorthand-boolean": "warn",
     "no-constructed-context-value": "error",
     "no-dangerously-set-innerhtml": "error",
@@ -86,6 +88,7 @@ export default {
         "jsx/no-leaked-conditional-rendering": jsxNoLeakedConditionalRendering,
         "jsx/no-missing-key": jsxNoMissingKey,
         "jsx/no-misused-comment-in-textnode": jsxNoMisusedCommentInTextNode,
+        "jsx/no-script-url": jsxNoScriptUrl,
         "jsx/prefer-shorthand-boolean": jsxPreferShorthandJsxBoolean,
         "naming-convention/filename": namingConventionFilename,
         "naming-convention/filename-extension": namingConventionFilenameExtension,

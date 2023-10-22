@@ -18,7 +18,8 @@
         "bun.lockb",
         "THIRD-PARTY-LICENSE"
     ],
-    "ignoreWords": [
+    "useGitignore": true,
+    "words": [
         "TSES",
         "TSESAST",
         "bimap",
@@ -45,7 +46,7 @@
         "treeshake",
         "tsup",
         "typeclass",
-        "weakref"
-    ],
-    "useGitignore": true
+        "weakref",
+        "tascript"
+    ]
 }
