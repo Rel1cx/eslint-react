@@ -35,7 +35,7 @@
         "lint:unused": "knip",
         "lint:spell": "cspell lint --relative --no-progress '**'",
         "lint:ts": "eslint --cache .",
-        "lint:ts-fix": "eslint --cache --fix .",
+        "lint:fix": "eslint --cache --fix .",
         "lint:type": "pnpm -r run lint:type",
         "test": "pnpm run -r test",
         "update": "taze",
@@ -90,7 +90,7 @@
     },
     "peerDependencies": {
         "@typescript-eslint/parser": ">=6.8.0",
-        "eslint": ">=8.51.0",
+        "eslint": ">=8.52.0",
         "typescript": ">=5.2.2"
     },
     "packageManager": "pnpm@8.9.2",
@@ -105,7 +105,7 @@
         "overrides": {
             "has": "npm:@nolyfill/has@latest",
             "rambda": "latest",
-            "eslint": ">=8.51.0",
+            "eslint": ">=8.52.0",
             "typescript": "beta",
             "@typescript-eslint/scope-manager": "6.8.0",
             "@typescript-eslint/type-utils": "6.8.0",
