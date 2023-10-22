@@ -80,14 +80,15 @@ export default [
 
 ### jsx
 
-| Name                                                                                                            | Description                                               | 💼    | ⚠️     |
-| :-------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :---- | :---- |
-| [jsx/no-array-index-key](packages/eslint-plugin/docs/rules/jsx/no-array-index-key.md)                           | disallow using Array index as key                         | 🎨 👍 |       |
-| [jsx/no-duplicate-key](packages/eslint-plugin/docs/rules/jsx/no-duplicate-key.md)                               | disallow duplicate keys in `key` prop when rendering list | 🎨 👍 |       |
-| [jsx/no-leaked-conditional-rendering](packages/eslint-plugin/docs/rules/jsx/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered    | 🎨 👍 |       |
-| [jsx/no-missing-key](packages/eslint-plugin/docs/rules/jsx/no-missing-key.md)                                   | require `key` prop when rendering list                    | 🎨 👍 |       |
-| [jsx/no-misused-comment-in-textnode](packages/eslint-plugin/docs/rules/jsx/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes       |       | 🎨 👍 |
-| [jsx/prefer-shorthand-boolean](packages/eslint-plugin/docs/rules/jsx/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX                |       | 🎨 👍 |
+| Name                                                                                                            | Description                                                   | 💼    | ⚠️     |
+| :-------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------ | :---- | :---- |
+| [jsx/no-array-index-key](packages/eslint-plugin/docs/rules/jsx/no-array-index-key.md)                           | disallow using Array index as key                             | 🎨 👍 |       |
+| [jsx/no-duplicate-key](packages/eslint-plugin/docs/rules/jsx/no-duplicate-key.md)                               | disallow duplicate keys in `key` prop when rendering list     | 🎨 👍 |       |
+| [jsx/no-leaked-conditional-rendering](packages/eslint-plugin/docs/rules/jsx/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered        | 🎨 👍 |       |
+| [jsx/no-missing-key](packages/eslint-plugin/docs/rules/jsx/no-missing-key.md)                                   | require `key` prop when rendering list                        | 🎨 👍 |       |
+| [jsx/no-misused-comment-in-textnode](packages/eslint-plugin/docs/rules/jsx/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes           |       | 🎨 👍 |
+| [jsx/no-script-url](packages/eslint-plugin/docs/rules/jsx/no-script-url.md)                                     | disallow `javascript:` URLs as JSX event handler prop's value | 👍    |       |
+| [jsx/prefer-shorthand-boolean](packages/eslint-plugin/docs/rules/jsx/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX                    |       | 🎨 👍 |
 
 ### naming-convention
 
@@ -117,7 +118,7 @@ export default [
 - [x] `@eslint-react/jsx/no-leaked-conditional-rendering`
 - [x] `@eslint-react/jsx/no-misused-comment-in-textnode`
 - [ ] `@eslint-react/jsx/no-target-blank`
-- [ ] `@eslint-react/jsx/no-script-url`
+- [x] `@eslint-react/jsx/no-script-url`
 - [ ] `@eslint-react/jsx/no-string-style-prop`
 - [ ] `@eslint-react/jsx/no-useless-fragment`
 - [x] `@eslint-react/jsx/no-missing-key`
