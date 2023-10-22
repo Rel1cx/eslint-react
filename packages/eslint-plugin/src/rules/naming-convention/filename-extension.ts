@@ -40,7 +40,7 @@ export default createRule<Options, MessageID>({
     meta: {
         type: "suggestion",
         docs: {
-            description: "enforces consistent file naming for JSX files",
+            description: "enforces naming convention for JSX file extensions",
             requiresTypeChecking: false,
         },
         schema,

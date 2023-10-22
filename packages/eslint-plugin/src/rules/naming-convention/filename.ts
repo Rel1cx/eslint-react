@@ -48,7 +48,7 @@ export default createRule<Options, MessageID>({
     meta: {
         type: "suggestion",
         docs: {
-            description: "enforce naming convention for jsx files",
+            description: "enforce naming convention for JSX file names",
             requiresTypeChecking: false,
         },
         schema,

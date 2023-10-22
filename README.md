@@ -91,10 +91,10 @@ export default [
 
 ### naming-convention
 
-| Name                                                                                                              | Description                                   | 💼 | ⚠️  |
-| :---------------------------------------------------------------------------------------------------------------- | :-------------------------------------------- | :- | :- |
-| [naming-convention/filename](packages/eslint-plugin/docs/rules/naming-convention/filename.md)                     | enforce naming convention for jsx files       |    |    |
-| [naming-convention/filename-extension](packages/eslint-plugin/docs/rules/naming-convention/filename-extension.md) | enforces consistent file naming for JSX files |    |    |
+| Name                                                                                                              | Description                                        | 💼 | ⚠️  |
+| :---------------------------------------------------------------------------------------------------------------- | :------------------------------------------------- | :- | :- |
+| [naming-convention/filename](packages/eslint-plugin/docs/rules/naming-convention/filename.md)                     | enforce naming convention for JSX file names       |    |    |
+| [naming-convention/filename-extension](packages/eslint-plugin/docs/rules/naming-convention/filename-extension.md) | enforces naming convention for JSX file extensions |    |    |
 
 ### react
 
