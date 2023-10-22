@@ -33,6 +33,7 @@ export default createRule<[], MessageID>({
                 if (node.arguments.length < 2 || !isCreateElement(node, context)) {
                     return;
                 }
+
                 const props = node.arguments[1];
                 const maybeProperties = match(props)
                     .when(isOneOf([NodeType.ObjectExpression, NodeType.ObjectPattern]), (n) => {
@@ -52,9 +53,7 @@ export default createRule<[], MessageID>({
                 }
 
                 const properties = maybeProperties.value;
-
                 const hasDanger = O.isSome(findPropInProperties(properties, context)("dangerouslySetInnerHTML"));
-
                 if (hasDanger) {
                     context.report({
                         messageId: "INVALID",
@@ -64,7 +63,6 @@ export default createRule<[], MessageID>({
             },
             JSXElement(node) {
                 const maybeDanger = findPropInAttributes(node.openingElement.attributes, context)("dangerouslySetInnerHTML");
-
                 if (O.isSome(maybeDanger)) {
                     context.report({
                         messageId: "INVALID",

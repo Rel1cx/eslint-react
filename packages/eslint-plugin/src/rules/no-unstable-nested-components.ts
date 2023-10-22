@@ -56,25 +56,20 @@ export default createRule<[], MessageID>({
 
                     return;
                 }
-
                 const maybeClassComponents = collectorLegacy.ctx.getAllComponents();
                 if (E.isLeft(maybeClassComponents)) {
                     console.error(maybeClassComponents.left);
 
                     return;
                 }
-
                 const functionComponents = maybeFunctionComponents.right;
                 const classComponents = maybeClassComponents.right;
-
                 const isFunctionComponent = (node: TSESTree.Node): node is TSESTreeFunction => {
                     return isFunction(node) && functionComponents.includes(node);
                 };
-
                 const isClassComponent = (node: TSESTree.Node): node is TSESTreeClass => {
                     return isClass(node) && classComponents.includes(node);
                 };
-
                 for (const component of functionComponents) {
                     if (
                         // Do not mark components declared inside hooks (or falsy '() => null' clean-up methods)
@@ -84,10 +79,8 @@ export default createRule<[], MessageID>({
                     ) {
                         continue;
                     }
-
                     const isInsideProperty = component.parent.type === NodeType.Property;
                     const isInsideJSXPropValue = isInsidePropValue(component);
-
                     if (isInsideJSXPropValue) {
                         if (!unsafeIsDeclaredInRenderProp(component)) {
                             context.report({
@@ -98,7 +91,6 @@ export default createRule<[], MessageID>({
 
                         continue;
                     }
-
                     if (isInsideCreateElementProps(component, context)) {
                         context.report({
                             messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS",
@@ -107,9 +99,7 @@ export default createRule<[], MessageID>({
 
                         continue;
                     }
-
                     const parentComponent = traverseUpGuard(component, isFunctionComponent);
-
                     if (parentComponent && !unsafeIsDirectValueOfRenderProperty(parentComponent)) {
                         context.report({
                             messageId: isInsideProperty ? "UNSTABLE_NESTED_COMPONENT_IN_PROPS" : "UNSTABLE_NESTED_COMPONENT",
@@ -118,9 +108,7 @@ export default createRule<[], MessageID>({
 
                         continue;
                     }
-
                     const isInsideClassComponentRenderMethod = isInsideRenderMethod(component, context);
-
                     if (isInsideClassComponentRenderMethod) {
                         context.report({
                             messageId: "UNSTABLE_NESTED_COMPONENT",
@@ -128,7 +116,6 @@ export default createRule<[], MessageID>({
                         });
                     }
                 }
-
                 for (const component of classComponents) {
                     if (!traverseUp(component, node => isClassComponent(node) || isFunctionComponent(node))) {
                         continue;

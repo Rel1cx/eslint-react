@@ -52,9 +52,7 @@ export default createRule<Options, MessageID>({
     defaultOptions,
     create(context) {
         const rule = context.options[0]?.rule ?? "always";
-
         const filename = context.getFilename();
-
         const jsxNodeRef = MutRef.make<O.Option<TSESTree.JSXElement | TSESTree.JSXFragment>>(O.none());
 
         return {

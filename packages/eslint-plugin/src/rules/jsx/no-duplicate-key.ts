@@ -140,10 +140,12 @@ export default createRule<[], MessageID>({
                         if (!attr || !("value" in attr) || attr.value === null) {
                             return acc;
                         }
+
                         const { value } = attr;
                         if (acc.length === 0) {
                             return [[element, attr, value]];
                         }
+
                         if (acc.some(([_, _1, v]) => isNodeEqual(v, value))) {
                             return [...acc, [element, attr, value]];
                         }
@@ -152,11 +154,9 @@ export default createRule<[], MessageID>({
                     },
                     [],
                 );
-
                 if (keys.length < 2) {
                     return;
                 }
-
                 for (const [element, attr, value] of keys) {
                     seen.add(element);
                     context.report({

@@ -43,36 +43,28 @@ export default createRule<[], MessageID>({
             ...listeners,
             "Program:exit"() {
                 const maybeComponents = ctx.getAllComponents();
-
                 if (E.isLeft(maybeComponents)) {
                     console.error(maybeComponents.left);
 
                     return;
                 }
-
                 const components = maybeComponents.right;
-
                 for (const component of components) {
                     const { params } = component;
                     if (!hasUsedObjectDestructuringSyntax(params)) {
                         continue;
                     }
-
                     const [{ properties }] = params;
                     for (const prop of properties) {
                         if (prop.type !== NodeType.Property || prop.value.type !== NodeType.AssignmentPattern) {
                             continue;
                         }
-
                         const { value } = prop;
                         const { right } = value;
-
                         if (!isUnstableAssignmentPattern(value)) {
                             continue;
                         }
-
                         const forbiddenType = readableNodeType(right);
-
                         context.report({
                             data: {
                                 forbiddenType,

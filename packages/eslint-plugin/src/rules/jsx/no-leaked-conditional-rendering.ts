@@ -64,9 +64,7 @@ export default createRule<[], MessageID>({
                 if (DEFAULT_VALID_STRATEGIES.includes(TERNARY_STRATEGY)) {
                     return;
                 }
-
                 const isJSXElementAlternate = node.alternate.type === NodeType.JSXElement;
-
                 if (isValidTernaryAlternate(node) || isJSXElementAlternate) {
                     context.report({
                         messageId: "INVALID",
@@ -76,20 +74,16 @@ export default createRule<[], MessageID>({
             },
             'JSXExpressionContainer > LogicalExpression[operator="&&"]'(node: TSESTree.LogicalExpression) {
                 const leftSide = node.left;
-
                 const isCoerceValidLeftSide = isOneOf(COERCE_VALID_LEFT_SIDE_EXPRESSIONS)(leftSide);
-
                 if (
                     DEFAULT_VALID_STRATEGIES.includes(COERCE_STRATEGY)
                     && (isCoerceValidLeftSide || getIsCoerceValidNestedLogicalExpression(leftSide))
                 ) {
                     return;
                 }
-
                 if (leftSide.type === NodeType.Literal && leftSide.value === "") {
                     return;
                 }
-
                 context.report({
                     messageId: "INVALID",
                     node: leftSide,

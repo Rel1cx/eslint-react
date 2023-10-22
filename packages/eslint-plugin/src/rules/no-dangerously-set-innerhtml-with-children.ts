@@ -48,17 +48,12 @@ export default createRule<[], MessageID>({
                         );
                     })
                     .otherwise(O.none);
-
                 if (O.isNone(maybeProperties)) {
                     return;
                 }
-
                 const properties = maybeProperties.value;
-
                 const hasDanger = O.isSome(findPropInProperties(properties, context)("dangerouslySetInnerHTML"));
-
                 const hasRestChildren = node.arguments.length > 2;
-
                 if (hasDanger && (hasRestChildren || O.isSome(findPropInProperties(properties, context)("children")))) {
                     context.report({
                         messageId: "INVALID",
@@ -72,20 +67,17 @@ export default createRule<[], MessageID>({
 
                     return node.children.length > 0 && firstChild && !isLineBreak(firstChild);
                 }
-
                 function hasChildren(node: TSESTree.JSXElement) {
                     return (
                         firstChildIsText(node)
                         || O.isSome(findPropInAttributes(node.openingElement.attributes, context)("children"))
                     );
                 }
-
                 function hasDanger(node: TSESTree.JSXElement) {
                     return O.isSome(
                         findPropInAttributes(node.openingElement.attributes, context)("dangerouslySetInnerHTML"),
                     );
                 }
-
                 if (hasChildren(node) && hasDanger(node)) {
                     context.report({
                         messageId: "INVALID",

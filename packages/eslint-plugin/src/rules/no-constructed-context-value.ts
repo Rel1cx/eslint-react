@@ -69,6 +69,7 @@ export default createRule<[], MessageID>({
                 const valueExpression = valueNode.expression;
                 const invocationScope = context.getScope();
                 const constructionDetail = detectConstruction(valueExpression, invocationScope);
+
                 if (constructionDetail._tag === "None") {
                     return;
                 }
@@ -82,7 +83,6 @@ export default createRule<[], MessageID>({
             },
             "Program:exit"() {
                 const maybeComponents = ctx.getAllComponents();
-
                 if (E.isLeft(maybeComponents)) {
                     console.error(maybeComponents.left);
 
@@ -90,7 +90,6 @@ export default createRule<[], MessageID>({
                 }
 
                 const components = maybeComponents.right;
-
                 for (const [fn, detail] of possibleValueConstructions.entries()) {
                     if (!components.includes(fn) || detail._tag === "None") {
                         continue;
@@ -99,8 +98,8 @@ export default createRule<[], MessageID>({
                     const messageId = detail._tag.startsWith("Function")
                         ? "CONTEXT_VALUE_CONSTRUCTION_FUNCTION"
                         : "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER";
-
                     const { _tag, node } = detail;
+
                     context.report({
                         data: {
                             type: _tag.replaceAll("_", "").toLowerCase(),

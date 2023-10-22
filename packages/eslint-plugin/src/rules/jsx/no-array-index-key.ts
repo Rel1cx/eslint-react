@@ -60,29 +60,36 @@ function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContex
     if (callee.type !== NodeType.MemberExpression) {
         return O.none();
     }
+
     if (callee.property.type !== NodeType.Identifier) {
         return O.none();
     }
+
     const { name } = callee.property;
     if (!Record.has(iteratorFunctionIndexParamPosition, name)) {
         return O.none();
     }
+
     const callbackArg = node.arguments[isUsingReactChildren(node, context) ? 1 : 0];
     if (!callbackArg) {
         return O.none();
     }
+
     if (!isOneOf([NodeType.ArrowFunctionExpression, NodeType.FunctionExpression])(callbackArg)) {
         return O.none();
     }
+
     const { params } = callbackArg;
     const maybeIndexParamPosition = Record.get(iteratorFunctionIndexParamPosition, name);
     if (O.isNone(maybeIndexParamPosition)) {
         return O.none();
     }
+
     const indexParamPosition = maybeIndexParamPosition.value;
     if (params.length < indexParamPosition + 1) {
         return O.none();
     }
+
     const param = params.at(indexParamPosition);
 
     return param && "name" in param ? O.some(param.name) : O.none();
@@ -92,6 +99,7 @@ function getIdentifiersFromBinaryExpression(side: TSESTree.Node): TSESTree.Ident
     if (side.type === NodeType.Identifier) {
         return [side];
     }
+
     if (side.type === NodeType.BinaryExpression) {
         return [
             ...getIdentifiersFromBinaryExpression(side.left),
@@ -176,17 +184,21 @@ export default createRule<[], MessageID>({
                     if (indexParamNames.length === 0) {
                         return;
                     }
+
                     const props = node.arguments[1];
                     if (props?.type !== NodeType.ObjectExpression) {
                         return;
                     }
+
                     for (const prop of props.properties) {
                         if (!isMatching({ key: { name: "key" } }, prop)) {
                             continue;
                         }
+
                         if (!("value" in prop)) {
                             continue;
                         }
+
                         const descriptors = checkPropValue(prop.value);
                         for (const descriptor of descriptors) {
                             context.report(descriptor);
@@ -200,13 +212,16 @@ export default createRule<[], MessageID>({
                 if (node.name.name !== "key") {
                     return;
                 }
+
                 if (indexParamNames.length === 0) {
                     return;
                 }
+
                 const { value } = node;
                 if (value?.type !== NodeType.JSXExpressionContainer) {
                     return;
                 }
+
                 const descriptors = checkPropValue(value.expression);
                 for (const descriptor of descriptors) {
                     context.report(descriptor);

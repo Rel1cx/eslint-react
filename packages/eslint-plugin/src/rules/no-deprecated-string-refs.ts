@@ -46,7 +46,6 @@ export default createRule<[], MessageID>({
                 if (node.name.name !== "ref") {
                     return;
                 }
-
                 if (containsStringLiteral(node) || containsStringExpressionContainer(node)) {
                     context.report({
                         messageId: "INVALID",

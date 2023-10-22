@@ -53,7 +53,6 @@ export default createRule<Options, MessageID>({
     defaultOptions,
     create(context) {
         const [cond = "always"] = context.options;
-
         const { ctx, listeners } = componentCollector(context);
         const variableDeclarators: [Scope, TSESTree.VariableDeclarator][] = [];
         const memberExpressionWithNames: [Scope, MemberExpressionWithObjectName][] = [];
@@ -71,7 +70,6 @@ export default createRule<Options, MessageID>({
             // eslint-disable-next-line sonarjs/cognitive-complexity
             "Program:exit"() {
                 const maybeComponents = ctx.getAllComponents();
-
                 if (E.isLeft(maybeComponents)) {
                     console.error(maybeComponents.left);
 
@@ -79,7 +77,6 @@ export default createRule<Options, MessageID>({
                 }
 
                 const components = maybeComponents.right;
-
                 function isFunctionComponent(block: TSESTree.Node): block is TSESTreeFunction {
                     return isFunction(block) && isValidReactComponentName(block.id?.name) && components.includes(block);
                 }
@@ -92,26 +89,20 @@ export default createRule<Options, MessageID>({
                             isComponent = isFunctionComponent(scope.upper.block);
                             scope = scope.upper;
                         }
-
                         if (!isComponent) {
                             continue;
                         }
-
                         const component = scope.block;
-
                         if (!("params" in component)) {
                             continue;
                         }
-
                         const [props, ctx] = component.params;
-
                         if (isMatching({ name: memberExpression.object.name }, props)) {
                             context.report({
                                 messageId: "USE_DESTRUCTURING_ASSIGNMENT",
                                 node: memberExpression,
                             });
                         }
-
                         if (isMatching({ name: memberExpression.object.name }, ctx)) {
                             context.report({
                                 messageId: "USE_DESTRUCTURING_ASSIGNMENT",
@@ -125,7 +116,6 @@ export default createRule<Options, MessageID>({
 
                 for (const component of components) {
                     const [props, ctx] = component.params;
-
                     if (props && isDestructorParameter(props)) {
                         context.report({
                             messageId: "NO_DESTRUCTOR_PROPS",
@@ -142,10 +132,10 @@ export default createRule<Options, MessageID>({
                         });
                     }
                 }
-
                 for (const [scope, declarator] of variableDeclarators) {
                     const isComponent = isFunction(scope.block) && components.includes(scope.block);
                     const isDestructuring = declarator.init && declarator.id.type === NodeType.ObjectPattern;
+
                     if (!("init" in declarator && declarator.init && "name" in declarator.init)) {
                         continue;
                     }

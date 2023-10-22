@@ -31,20 +31,17 @@ export default createRule<[], MessageID>({
             ...listeners,
             "Program:exit"() {
                 const maybeComponents = ctx.getAllComponents();
-
                 if (E.isLeft(maybeComponents)) {
                     console.error(maybeComponents.left);
 
                     return;
                 }
-
                 const components = maybeComponents.right;
 
                 for (const component of components) {
                     const maybeName = component.id?.name;
                     const maybeId = getClassIdentifier(component);
                     const name = maybeName ?? maybeId?.name ?? "anonymous";
-
                     context.report({
                         data: {
                             name,

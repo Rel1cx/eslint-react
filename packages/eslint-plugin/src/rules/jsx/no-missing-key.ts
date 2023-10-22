@@ -38,19 +38,16 @@ export default createRule<[], MessageID>({
 
             return {};
         }
-
         const maybeFragmentPragma = getFragmentFromContext(context);
         if (E.isLeft(maybeFragmentPragma)) {
             console.error(maybeFragmentPragma.left);
 
             return {};
         }
-
         const reactPragma = maybeReactPragma.right;
         const fragmentPragma = maybeFragmentPragma.right;
         const childrenToArraySelector = getChildrenToArraySelector(reactPragma);
         const isWithinChildrenToArrayRef = MutRef.make(false);
-
         function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
             if (node.type === NodeType.JSXElement && !hasProp(node.openingElement.attributes, "key", context)) {
                 return O.some({
