@@ -104,7 +104,7 @@ export default [
 | [no-constructed-context-value](packages/eslint-plugin/docs/rules/no-constructed-context-value.md)                             | disallows passing constructed values to context providers                       | 👍 |    |
 | [no-dangerously-set-innerhtml](packages/eslint-plugin/docs/rules/no-dangerously-set-innerhtml.md)                             | disallow when a DOM element is using both children and dangerouslySetInnerHTML' | 👍 |    |
 | [no-dangerously-set-innerhtml-with-children](packages/eslint-plugin/docs/rules/no-dangerously-set-innerhtml-with-children.md) | disallow when a DOM element is using both children and dangerouslySetInnerHTML' | 👍 |    |
-| [no-deprecated-string-refs](packages/eslint-plugin/docs/rules/no-deprecated-string-refs.md)                                   | disallow using deprecated string refs                                           | 👍 |    |
+| [no-string-refs](packages/eslint-plugin/docs/rules/no-string-refs.md)                                                         | disallow using deprecated string refs                                           | 👍 |    |
 | [no-unstable-default-props](packages/eslint-plugin/docs/rules/no-unstable-default-props.md)                                   | disallow usage of unstable value as default param in function component         | 👍 |    |
 | [no-unstable-nested-components](packages/eslint-plugin/docs/rules/no-unstable-nested-components.md)                           | disallow usage of unstable nested components                                    | 👍 |    |
 
@@ -131,7 +131,7 @@ export default [
 - [x] `@eslint-react/no-constructed-context-value`
 - [x] `@eslint-react/no-dangerously-set-innerhtml`
 - [x] `@eslint-react/no-dangerously-set-innerhtml-with-children`
-- [x] `@eslint-react/no-deprecated-string-refs`
+- [x] `@eslint-react/no-string-refs`
 - [x] `@eslint-react/no-unstable-default-props`
 - [x] `@eslint-react/no-unstable-nested-components`
 - [ ] `@eslint-react/no-missing-display-name`

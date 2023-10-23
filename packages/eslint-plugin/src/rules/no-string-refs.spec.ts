@@ -2,7 +2,7 @@ import dedent from "dedent";
 
 import { allValid } from "../../test/common/valid";
 import RuleTester, { getFixturesRootDir } from "../../test/rule-tester";
-import rule, { RULE_NAME } from "./no-deprecated-string-refs";
+import rule, { RULE_NAME } from "./no-string-refs";
 
 const rootDir = getFixturesRootDir();
 

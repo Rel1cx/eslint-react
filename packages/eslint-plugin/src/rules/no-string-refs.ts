@@ -5,7 +5,7 @@ import { isString } from "effect/Predicate";
 
 import { createRule } from "../utils/create-rule";
 
-export const RULE_NAME = "no-deprecated-string-refs";
+export const RULE_NAME = "no-string-refs";
 
 type MessageID = "INVALID";
 
