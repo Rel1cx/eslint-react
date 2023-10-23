@@ -70,12 +70,8 @@ export function componentCollector(
     } as const;
 
     const listeners = {
-        ArrowFunctionExpression: onFunctionEnter,
-        "ArrowFunctionExpression:exit": onFunctionExit,
-        FunctionDeclaration: onFunctionEnter,
-        "FunctionDeclaration:exit": onFunctionExit,
-        FunctionExpression: onFunctionEnter,
-        "FunctionExpression:exit": onFunctionExit,
+        ":function": onFunctionEnter,
+        ":function:exit": onFunctionExit,
         ReturnStatement(node: TSESTree.ReturnStatement) {
             const maybeCurrentFn = getCurrentFunction();
 
