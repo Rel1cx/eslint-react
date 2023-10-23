@@ -124,6 +124,8 @@ export default [
 - [x] `@eslint-react/jsx/no-missing-key`
 - [x] `@eslint-react/jsx/no-duplicate-key`
 - [x] `@eslint-react/jsx/no-array-index-key`
+- [ ] `@eslint-react/jsx/no-unknown-property`
+- [ ] `@eslint-react/jsx/no-children-in-void-dom-elements`
 - [x] `@eslint-react/naming-convention/filename`
 - [x] `@eslint-react/naming-convention/filename-extension`
 - [x] `@eslint-react/no-constructed-context-value`
