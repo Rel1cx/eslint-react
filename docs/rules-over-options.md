@@ -1,6 +1,6 @@
 # Rules Over Options
 
-Each rule should have a single purpose. Make multiple rules work together to achieve more complex behaviors instead of adding endless options to a single rule.
+Each rule should have a single purpose. Make multiple rules work together to achieve more complex behaviors instead of adding options to a single rule.
 
 ## Why?
 

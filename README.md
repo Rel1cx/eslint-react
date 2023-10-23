@@ -156,7 +156,6 @@ export default [
 
 ## Philosophy
 
-- **[Rules over Options](./docs/rules-over-options.md)**.
 - **Focus on code rather than style**.
 - **Linting errors are better than runtime crashes**.
 - **Types are the fundamental unit of correctness**.
@@ -166,6 +165,7 @@ export default [
 1. **TypeScript first**. If a behavior can already be enforced by TypeScript built-in checker, don't reimplement it.
 2. **Formatting independent**. Rules should check for correctness, not style. We recommend using style focused tools for formatting (e.g. [dprint](https://dprint.dev/) or [eslint-stylistic](https://github.com/eslint-stylistic/eslint-stylistic)).
 3. **Sensible defaults**. Rules should be easy to setup and use with minimal configuration and sensible defaults.
+4. **[Rules over Options](./docs/rules-over-options.md)**. Each rule should have a single purpose. Make multiple rules work together to achieve more complex behaviors instead of adding options to a single rule.
 
 ## License
 
