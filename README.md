@@ -37,8 +37,14 @@ bun add --dev @eslint-react/eslint-plugin
 
 ```json
 {
+    "parser": "@typescript-eslint/parser",
     "extends": [
+        "plugin:@typescript-eslint/recommended",
         "plugin:@eslint-react/recommended"
+    ],
+    "plugins": [
+        "@typescript-eslint",
+        "@eslint-react"
     ],
     "rules": {
         "@eslint-react/<rule-name>": "error"
@@ -49,16 +55,26 @@ bun add --dev @eslint-react/eslint-plugin
 ### [`eslint.config.js`](https://eslint.org/docs/latest/use/configure/configuration-files-new) (requires eslint >= v8.23.0)
 
 ```js
-import reactTsRecommended from "@eslint-react/eslint-plugin/configs/recommended";
+import ts from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
+import react from "@eslint-react/eslint-plugin";
 
 export default [
-    reactTsRecommended,
     {
+        files: ["**/*.{ts,tsx}"],
+        languageOptions: {
+            parser: tsParser,
+        },
+        plugins: {
+            "@typescript-eslint": ts,
+            "@eslint-react": react,
+        },
         rules: {
-            "@eslint-react/<rule-name>": "error",
-            // ...
+            ...ts.configs["eslint-recommended"].rules,
+            ...ts.configs["recommended"].rules,
         },
     },
+    react.configs.recommended,
 ];
 ```
 
