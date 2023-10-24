@@ -4,6 +4,7 @@ import type { RuleNamesAndRules } from "eslint-doc-generator/dist/lib/types";
 
 const defaultTitle = "react";
 
+// TODO: need to modify this config to support multiple eslint-plugin packages
 export default {
     configEmoji: [
         ["recommended", "👍"],

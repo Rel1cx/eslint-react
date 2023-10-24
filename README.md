@@ -130,30 +130,38 @@ export default [
 
 ### Work in progress
 
-- [x] `@eslint-react/jsx/prefer-shorthand-boolean`
-- [x] `@eslint-react/jsx/no-leaked-conditional-rendering`
-- [x] `@eslint-react/jsx/no-misused-comment-in-textnode`
-- [ ] `@eslint-react/jsx/no-target-blank`
-- [x] `@eslint-react/jsx/no-script-url`
-- [ ] `@eslint-react/jsx/no-string-style-prop`
-- [ ] `@eslint-react/jsx/no-useless-fragment`
-- [x] `@eslint-react/jsx/no-missing-key`
-- [x] `@eslint-react/jsx/no-duplicate-key`
+- [ ] `@eslint-react/hooks/no-access-state-in-setstate`
+- [ ] `@eslint-react/hooks/no-suppressing-exhaustive-deps`
+- [ ] `@eslint-react/jsx/enforce-component-name-pascal-case`
 - [x] `@eslint-react/jsx/no-array-index-key`
-- [ ] `@eslint-react/jsx/no-unknown-property`
 - [ ] `@eslint-react/jsx/no-children-in-void-dom-elements`
-- [x] `@eslint-react/naming-convention/filename`
+- [x] `@eslint-react/jsx/no-duplicate-key`
+- [x] `@eslint-react/jsx/no-leaked-conditional-rendering`
+- [x] `@eslint-react/jsx/no-missing-key`
+- [x] `@eslint-react/jsx/no-misused-comment-in-textnode`
+- [ ] `@eslint-react/jsx/no-namespace`
+- [x] `@eslint-react/jsx/no-script-url`
+- [ ] `@eslint-react/jsx/no-target-blank`
+- [ ] `@eslint-react/jsx/no-unknown-property`
+- [ ] `@eslint-react/jsx/no-useless-fragment`
+- [ ] `@eslint-react/jsx/prefer-fragment-syntax`
+- [x] `@eslint-react/jsx/prefer-shorthand-boolean`
 - [x] `@eslint-react/naming-convention/filename-extension`
+- [x] `@eslint-react/naming-convention/filename`
+- [ ] `@eslint-react/ensure-class-component-method-order`
+- [ ] `@eslint-react/ensure-style-prop-object`
 - [x] `@eslint-react/no-constructed-context-value`
-- [x] `@eslint-react/no-dangerously-set-innerhtml`
 - [x] `@eslint-react/no-dangerously-set-innerhtml-with-children`
+- [x] `@eslint-react/no-dangerously-set-innerhtml`
+- [ ] `@eslint-react/no-direct-mutation-state`
+- [ ] `@eslint-react/no-missing-display-name`
+- [ ] `@eslint-react/no-missing-iframe-sandbox-attribute`
 - [x] `@eslint-react/no-string-refs`
 - [x] `@eslint-react/no-unstable-default-props`
 - [x] `@eslint-react/no-unstable-nested-components`
-- [ ] `@eslint-react/no-missing-display-name`
-- [ ] `@eslint-react/no-direct-mutation-state`
-- [ ] `@eslint-react/hooks/no-access-state-in-setstate`
-- [ ] `@eslint-react/hooks/no-suppressing-exhaustive-deps`
+- [ ] `@eslint-react/no-unused-class-component-methods`
+- [ ] `@eslint-react/require-button-has-type-attribute`
+- [ ] `@eslint-react/require-render-return`
 - [x] `@eslint-react/debug/class-component`
 - [x] `@eslint-react/debug/function-component`
 - [ ] `@eslint-react/debug/render-prop`
