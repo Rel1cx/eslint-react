@@ -35,6 +35,7 @@
             "mode": "location"
         }
     ],
+    "eslint.experimental.useFlatConfig": false,
     "search.exclude": {
         "pnpm-lock.yaml": true
     },
