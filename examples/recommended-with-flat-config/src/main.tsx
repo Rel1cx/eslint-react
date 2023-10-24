@@ -1,12 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
-function Step() {
-    return [0, 1, 2].map((_, index) => <div key={index}>Step {index}</div>);
-}
+import App from "./App.tsx";
+import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-        <Step />
+        <App />
     </React.StrictMode>,
 );
