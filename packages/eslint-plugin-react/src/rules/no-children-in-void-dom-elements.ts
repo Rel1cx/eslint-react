@@ -1,5 +1,5 @@
 import { NodeType } from "@eslint-react/ast";
-import { isCreateElement } from "@eslint-react/create-element";
+import { isCreateElement } from "@eslint-react/element";
 import { createRule } from "@eslint-react/shared";
 
 export const RULE_NAME = "no-children-in-void-dom-elements";

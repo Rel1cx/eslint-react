@@ -58,7 +58,7 @@
         "@eslint-react/component": "workspace:*",
         "@eslint-react/construction": "workspace:*",
         "@eslint-react/context": "workspace:*",
-        "@eslint-react/create-element": "workspace:*",
+        "@eslint-react/element": "workspace:*",
         "@eslint-react/hooks": "workspace:*",
         "@eslint-react/jsx": "workspace:*",
         "@eslint-react/pragma": "workspace:*",

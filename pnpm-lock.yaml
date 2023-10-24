@@ -289,9 +289,9 @@ importers:
       '@eslint-react/context':
         specifier: workspace:*
         version: link:../eslint-react-context
-      '@eslint-react/create-element':
+      '@eslint-react/element':
         specifier: workspace:*
-        version: link:../eslint-react-create-element
+        version: link:../eslint-react-element
       '@eslint-react/hooks':
         specifier: workspace:*
         version: link:../eslint-react-hooks
@@ -374,9 +374,9 @@ importers:
       '@eslint-react/context':
         specifier: workspace:*
         version: link:../eslint-react-context
-      '@eslint-react/create-element':
+      '@eslint-react/element':
         specifier: workspace:*
-        version: link:../eslint-react-create-element
+        version: link:../eslint-react-element
       '@eslint-react/hooks':
         specifier: workspace:*
         version: link:../eslint-react-hooks
@@ -459,9 +459,9 @@ importers:
       '@eslint-react/context':
         specifier: workspace:*
         version: link:../eslint-react-context
-      '@eslint-react/create-element':
+      '@eslint-react/element':
         specifier: workspace:*
-        version: link:../eslint-react-create-element
+        version: link:../eslint-react-element
       '@eslint-react/hooks':
         specifier: workspace:*
         version: link:../eslint-react-hooks
@@ -544,9 +544,9 @@ importers:
       '@eslint-react/context':
         specifier: workspace:*
         version: link:../eslint-react-context
-      '@eslint-react/create-element':
+      '@eslint-react/element':
         specifier: workspace:*
-        version: link:../eslint-react-create-element
+        version: link:../eslint-react-element
       '@eslint-react/hooks':
         specifier: workspace:*
         version: link:../eslint-react-hooks
@@ -629,9 +629,9 @@ importers:
       '@eslint-react/context':
         specifier: workspace:*
         version: link:../eslint-react-context
-      '@eslint-react/create-element':
+      '@eslint-react/element':
         specifier: workspace:*
-        version: link:../eslint-react-create-element
+        version: link:../eslint-react-element
       '@eslint-react/hooks':
         specifier: workspace:*
         version: link:../eslint-react-hooks
@@ -714,9 +714,9 @@ importers:
       '@eslint-react/context':
         specifier: workspace:*
         version: link:../eslint-react-context
-      '@eslint-react/create-element':
+      '@eslint-react/element':
         specifier: workspace:*
-        version: link:../eslint-react-create-element
+        version: link:../eslint-react-element
       '@eslint-react/hooks':
         specifier: workspace:*
         version: link:../eslint-react-hooks
@@ -798,9 +798,9 @@ importers:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../eslint-react-ast
-      '@eslint-react/create-element':
+      '@eslint-react/element':
         specifier: workspace:*
-        version: link:../eslint-react-create-element
+        version: link:../eslint-react-element
       '@eslint-react/jsx':
         specifier: workspace:*
         version: link:../eslint-react-jsx
@@ -871,7 +871,7 @@ importers:
         specifier: 6.9.0
         version: 6.9.0
 
-  packages/eslint-react-create-element:
+  packages/eslint-react-element:
     dependencies:
       '@eslint-react/ast':
         specifier: workspace:*
@@ -930,9 +930,9 @@ importers:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../eslint-react-ast
-      '@eslint-react/create-element':
+      '@eslint-react/element':
         specifier: workspace:*
-        version: link:../eslint-react-create-element
+        version: link:../eslint-react-element
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../shared

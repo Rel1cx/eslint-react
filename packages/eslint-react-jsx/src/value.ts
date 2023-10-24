@@ -1,5 +1,5 @@
 import { isJSXTagNameExpression, isOneOf, NodeType } from "@eslint-react/ast";
-import { isCreateElement } from "@eslint-react/create-element";
+import { isCreateElement } from "@eslint-react/element";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "@eslint-react/variable";
