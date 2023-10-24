@@ -35,4 +35,4 @@ jobs:
             - name: Build front-end assets
               run: pnpm run build
             - name: Test
-              run: cd packages/eslint-plugin && pnpm run test
+              run: pnpm run -r test

@@ -1,6 +1,6 @@
 {
     "name": "@eslint-react/eslint-plugin-debug",
-    "version": "0.3.9",
+    "version": "0.4.0",
     "homepage": "https://github.com/Rel1cx/eslint-react",
     "bugs": {
         "url": "https://github.com/Rel1cx/eslint-react/issues"

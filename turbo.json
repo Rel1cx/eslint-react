@@ -10,7 +10,7 @@
     ],
     "pipeline": {
         "build": {
-            "cache": false,
+            "cache": true,
             "dependsOn": [
                 "^build"
             ]

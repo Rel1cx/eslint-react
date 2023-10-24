@@ -1,6 +1,6 @@
 {
     "name": "@eslint-react/eslint-plugin-hooks",
-    "version": "0.3.9",
+    "version": "0.4.0",
     "homepage": "https://github.com/Rel1cx/eslint-react",
     "bugs": {
         "url": "https://github.com/Rel1cx/eslint-react/issues"
@@ -23,8 +23,7 @@
         "lint:type": "tsc --noEmit",
         "build": "rollup -c rollup.config.ts --configPlugin swc3",
         "build:docs": "bun run ./scripts/doc-generate.ts && eslint-doc-generator && dprint fmt docs/**/*.md",
-        "publish": "pnpm run build && pnpm run test && pnpm publint",
-        "test": "vitest --run --single-thread --no-threads"
+        "publish": "pnpm run build && pnpm run test && pnpm publint"
     },
     "dependencies": {
         "@typescript-eslint/scope-manager": "6.9.0",
