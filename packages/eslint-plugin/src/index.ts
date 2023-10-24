@@ -3,6 +3,7 @@ import * as hooks from "@eslint-react/eslint-plugin-hooks";
 import * as jsx from "@eslint-react/eslint-plugin-jsx";
 import * as namingConvention from "@eslint-react/eslint-plugin-naming-convention";
 import * as react from "@eslint-react/eslint-plugin-react";
+import { entries, fromEntries } from "@eslint-react/tools";
 import type { RulePreset } from "@eslint-react/types";
 // workaround for @typescript-eslint/utils's TS2742 error.
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -28,7 +29,7 @@ const rules = {
     "react/no-unstable-nested-components": "error",
 } as const satisfies RulePreset;
 
-const rulesEntries = Object.entries(rules);
+const rulesEntries = entries(rules);
 
 const recommendedRules = {
     "jsx/no-array-index-key": "error",
@@ -46,10 +47,10 @@ const recommendedRules = {
     "react/no-unstable-nested-components": "error",
 } as const satisfies RulePreset;
 
-const allRules: RulePreset = Object.fromEntries(rulesEntries.filter(([key]) => !key.startsWith("debug/")));
-const offRules: RulePreset = Object.fromEntries(rulesEntries.map(([key]) => [key, "off"]));
-const jsxRules: RulePreset = Object.fromEntries(rulesEntries.filter(([key]) => key.startsWith("jsx/")));
-const debugRules: RulePreset = Object.fromEntries(rulesEntries.filter(([key]) => key.startsWith("debug/")));
+const allRules = fromEntries(rulesEntries.filter(([key]) => !key.startsWith("debug/")));
+const offRules = fromEntries(rulesEntries.map(([key]) => [key, "off"]));
+const jsxRules = fromEntries(rulesEntries.filter(([key]) => key.startsWith("jsx/")));
+const debugRules = fromEntries(rulesEntries.filter(([key]) => key.startsWith("debug/")));
 
 const plugins = {
     "@eslint-react/debug": debug,
@@ -59,8 +60,9 @@ const plugins = {
     "@eslint-react/react": react,
 } as const;
 
-const createRules = (rules: RulePreset) =>
-    Object.fromEntries(Object.entries(rules).map(([key, value]) => [`@eslint-react/${key}`, value]));
+const createRules = (rules: RulePreset) => {
+    return fromEntries(entries(rules).map(([key, value]) => [`@eslint-react/${key}`, value] as const));
+};
 
 const createConfig = (rules: RulePreset) => {
     return {
@@ -76,8 +78,10 @@ const createFlatConfig = (rules: RulePreset) => {
     };
 };
 
-const createRulesWithPrefix = (rules: Record<string, unknown>, prefix: string) => {
-    return Object.fromEntries(Object.entries(rules).map(([key, value]) => [`${prefix}/${key}`, value]));
+const createRulesWithPrefix = <T extends Record<string, unknown>, U extends string>(rules: T, prefix: U) => {
+    return fromEntries(entries(rules).map(([key, value]) => [`${prefix}/${String(key)}`, value])) as {
+        [K in `${U}/${Extract<keyof T, string>}`]: T[keyof T];
+    };
 };
 
 export default {
