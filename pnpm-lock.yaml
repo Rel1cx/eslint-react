@@ -197,9 +197,6 @@ importers:
 
   examples/legacy-config-recommended:
     dependencies:
-      '@eslint-react/eslint-plugin':
-        specifier: workspace:*
-        version: link:../../packages/eslint-plugin
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -207,6 +204,9 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
+      '@eslint-react/eslint-plugin':
+        specifier: workspace:*
+        version: link:../../packages/eslint-plugin
       '@types/react':
         specifier: ^18.2.15
         version: 18.2.31
