@@ -16,7 +16,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, match } from "ts-pattern";
 
-export const RULE_NAME = "jsx/no-duplicate-key";
+export const RULE_NAME = "no-duplicate-key";
 
 type MessageID = "INVALID";
 

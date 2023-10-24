@@ -4,7 +4,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
-export const RULE_NAME = "naming-convention/filename-extension";
+export const RULE_NAME = "filename-extension";
 
 type MessageID = "INVALID" | "UNEXPECTED";
 

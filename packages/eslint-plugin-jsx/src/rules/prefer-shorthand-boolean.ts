@@ -3,7 +3,7 @@ import { getPropName } from "@eslint-react/jsx";
 import { createRule } from "@eslint-react/shared";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
-export const RULE_NAME = "jsx/prefer-shorthand-boolean";
+export const RULE_NAME = "prefer-shorthand-boolean";
 
 type MessageID = "INVALID";
 

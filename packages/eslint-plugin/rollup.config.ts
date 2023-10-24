@@ -43,8 +43,6 @@ const options = {
     ],
 } satisfies RollupOptions;
 
-const configs = ["all", "off", "recommended", "recommended-type-checked", "debug"] as const;
-
 export default defineConfig([
     {
         ...options,
@@ -55,15 +53,6 @@ export default defineConfig([
             { file: "dist/index.mjs", format: "esm" },
         ],
     },
-    ...configs.map(name => ({
-        ...options,
-        input: `src/configs/${name}.ts`,
-        output: [
-            { file: `dist/configs/${name}.cjs`, format: "cjs" },
-            { file: `dist/configs/${name}.js`, format: "cjs" },
-            { file: `dist/configs/${name}.mjs`, format: "esm" },
-        ],
-    } satisfies RollupOptions)),
     {
         ...options,
         input: "src/index.ts",

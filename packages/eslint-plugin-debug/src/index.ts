@@ -8,5 +8,5 @@ export { name } from "../package.json";
 
 export const rules = {
     "class-component": debugClassComponent,
-    "debug/function-component": debugFunctionComponent,
+    "function-component": debugFunctionComponent,
 } as const;

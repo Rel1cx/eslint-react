@@ -20,12 +20,12 @@ const rules = {
     "jsx/prefer-shorthand-boolean": "warn",
     "naming-convention/filename": "warn",
     "naming-convention/filename-extension": "warn",
-    "no-constructed-context-value": "error",
-    "no-dangerously-set-innerhtml": "error",
-    "no-dangerously-set-innerhtml-with-children": "error",
-    "no-string-refs": "error",
-    "no-unstable-default-props": "error",
-    "no-unstable-nested-components": "error",
+    "react/no-constructed-context-value": "error",
+    "react/no-dangerously-set-innerhtml": "error",
+    "react/no-dangerously-set-innerhtml-with-children": "error",
+    "react/no-string-refs": "error",
+    "react/no-unstable-default-props": "error",
+    "react/no-unstable-nested-components": "error",
 } as const satisfies RulePreset;
 
 const rulesEntries = Object.entries(rules);
@@ -38,12 +38,12 @@ const recommendedRules = {
     "jsx/no-misused-comment-in-textnode": "warn",
     "jsx/no-script-url": "error",
     "jsx/prefer-shorthand-boolean": "warn",
-    "no-constructed-context-value": "error",
-    "no-dangerously-set-innerhtml": "error",
-    "no-dangerously-set-innerhtml-with-children": "error",
-    "no-string-refs": "error",
-    "no-unstable-default-props": "error",
-    "no-unstable-nested-components": "error",
+    "react/no-constructed-context-value": "error",
+    "react/no-dangerously-set-innerhtml": "error",
+    "react/no-dangerously-set-innerhtml-with-children": "error",
+    "react/no-string-refs": "error",
+    "react/no-unstable-default-props": "error",
+    "react/no-unstable-nested-components": "error",
 } as const satisfies RulePreset;
 
 const allRules: RulePreset = Object.fromEntries(rulesEntries.filter(([key]) => !key.startsWith("debug/")));
@@ -51,10 +51,33 @@ const offRules: RulePreset = Object.fromEntries(rulesEntries.map(([key]) => [key
 const jsxRules: RulePreset = Object.fromEntries(rulesEntries.filter(([key]) => key.startsWith("jsx/")));
 const debugRules: RulePreset = Object.fromEntries(rulesEntries.filter(([key]) => key.startsWith("debug/")));
 
+const plugins = {
+    "@eslint-react/debug": debug,
+    "@eslint-react/hooks": hooks,
+    "@eslint-react/jsx": jsx,
+    "@eslint-react/naming-convention": namingConvention,
+    "@eslint-react/react": react,
+} as const;
+
+const createRules = (rules: RulePreset) =>
+    Object.fromEntries(Object.entries(rules).map(([key, value]) => [`@eslint-react/${key}`, value]));
+
 const createConfig = (rules: RulePreset) => {
     return {
-        rules: Object.fromEntries(Object.entries(rules).map(([key, value]) => [`@eslint-react/${key}`, value])),
+        plugins: ["@eslint-react"],
+        rules: createRules(rules),
     };
+};
+
+const createFlatConfig = (rules: RulePreset) => {
+    return {
+        plugins,
+        rules: createRules(rules),
+    };
+};
+
+const createRulesWithPrefix = (rules: Record<string, unknown>, prefix: string) => {
+    return Object.fromEntries(Object.entries(rules).map(([key, value]) => [`${prefix}/${key}`, value]));
 };
 
 export default {
@@ -62,18 +85,22 @@ export default {
     configs: {
         all: createConfig(allRules),
         debug: createConfig(debugRules),
+        "flat/all": createFlatConfig(allRules),
+        "flat/debug": createFlatConfig(debugRules),
+        "flat/jsx": createFlatConfig(jsxRules),
+        "flat/off": createFlatConfig(offRules),
+        "flat/recommended": createFlatConfig(recommendedRules),
+        "flat/recommended-type-checked": createFlatConfig(recommendedRules),
         jsx: createConfig(jsxRules),
         off: createConfig(offRules),
         recommended: createConfig(recommendedRules),
         "recommended-type-checked": createConfig(recommendedRules),
     },
-    plugins: {
-        "@eslint-react": debug,
-        "@eslint-react-hooks": hooks,
-        "@eslint-react-jsx": jsx,
-        "@eslint-react-naming-convention": namingConvention,
-    },
     rules: {
-        ...react.rules,
+        ...createRulesWithPrefix(debug.rules, "debug"),
+        ...createRulesWithPrefix(hooks.rules, "hooks"),
+        ...createRulesWithPrefix(jsx.rules, "jsx"),
+        ...createRulesWithPrefix(namingConvention.rules, "naming-convention"),
+        ...createRulesWithPrefix(react.rules, "react"),
     },
 } as const;

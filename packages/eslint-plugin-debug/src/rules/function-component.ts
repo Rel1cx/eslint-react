@@ -4,7 +4,7 @@ import { createRule } from "@eslint-react/shared";
 import { E } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
-export const RULE_NAME = "debug/function-component";
+export const RULE_NAME = "function-component";
 
 type MessageID = "FUNCTION_COMPONENT" | "POSSIBLE_FUNCTION_COMPONENT";
 

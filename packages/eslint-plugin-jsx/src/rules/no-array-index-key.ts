@@ -8,7 +8,7 @@ import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching } from "ts-pattern";
 
-export const RULE_NAME = "jsx/no-array-index-key";
+export const RULE_NAME = "no-array-index-key";
 
 type MessageID = "INVALID";
 
