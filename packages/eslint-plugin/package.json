@@ -51,7 +51,6 @@
         },
         "./package.json": "./package.json"
     },
-    "type": "commonjs",
     "main": "./dist/index.js",
     "files": [
         "./dist",
@@ -65,10 +64,15 @@
         "test": "vitest --run --single-thread --no-threads"
     },
     "dependencies": {
-        "@typescript-eslint/scope-manager": "6.8.0",
-        "@typescript-eslint/type-utils": "6.8.0",
-        "@typescript-eslint/types": "6.8.0",
-        "@typescript-eslint/utils": "6.8.0"
+        "@eslint-react/eslint-plugin-debug": "workspace:*",
+        "@eslint-react/eslint-plugin-hooks": "workspace:*",
+        "@eslint-react/eslint-plugin-jsx": "workspace:*",
+        "@eslint-react/eslint-plugin-naming-convention": "workspace:*",
+        "@eslint-react/eslint-plugin-react": "workspace:*",
+        "@typescript-eslint/scope-manager": "6.9.0",
+        "@typescript-eslint/type-utils": "6.9.0",
+        "@typescript-eslint/types": "6.9.0",
+        "@typescript-eslint/utils": "6.9.0"
     },
     "devDependencies": {
         "@eslint-react/ast": "workspace:*",
@@ -85,7 +89,7 @@
         "@eslint-react/types": "workspace:*",
         "@eslint-react/variable": "workspace:*",
         "@rizzzse/bimap": "1.2.1",
-        "@typescript-eslint/rule-tester": "6.8.0",
+        "@typescript-eslint/rule-tester": "6.9.0",
         "dedent": "1.5.1",
         "deepmerge-ts": "5.1.0",
         "effect": "2.0.0-next.50",
@@ -93,7 +97,7 @@
         "ts-pattern": "5.0.5"
     },
     "peerDependencies": {
-        "@typescript-eslint/parser": ">=6.8.0",
+        "@typescript-eslint/parser": ">=6.9.0",
         "eslint": ">=8.52.0",
         "typescript": ">=5.2.2"
     },

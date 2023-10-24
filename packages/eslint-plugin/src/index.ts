@@ -1,25 +1,13 @@
+import * as debug from "@eslint-react/eslint-plugin-debug";
+import * as hooks from "@eslint-react/eslint-plugin-hooks";
+import * as jsx from "@eslint-react/eslint-plugin-jsx";
+import * as namingConvention from "@eslint-react/eslint-plugin-naming-convention";
+import * as react from "@eslint-react/eslint-plugin-react";
 import type { RulePreset } from "@eslint-react/types";
 // workaround for @typescript-eslint/utils's TS2742 error.
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { name } from "../package.json";
-import debugClassComponent from "./rules/debug/class-component";
-import debugFunctionComponent from "./rules/debug/function-component";
-import jsxNoArrayIndexKey from "./rules/jsx/no-array-index-key";
-import jsxNoDuplicateKey from "./rules/jsx/no-duplicate-key";
-import jsxNoLeakedConditionalRendering from "./rules/jsx/no-leaked-conditional-rendering";
-import jsxNoMissingKey from "./rules/jsx/no-missing-key";
-import jsxNoMisusedCommentInTextNode from "./rules/jsx/no-misused-comment-in-textnode";
-import jsxNoScriptUrl from "./rules/jsx/no-script-url";
-import jsxPreferShorthandJsxBoolean from "./rules/jsx/prefer-shorthand-boolean";
-import namingConventionFilename from "./rules/naming-convention/filename";
-import namingConventionFilenameExtension from "./rules/naming-convention/filename-extension";
-import noConstructedContextValue from "./rules/no-constructed-context-value";
-import noDangerouslySetInnerHTML from "./rules/no-dangerously-set-innerhtml";
-import noDangerouslySetInnerHTMLWithChildren from "./rules/no-dangerously-set-innerhtml-with-children";
-import noDeprecatedStringRefs from "./rules/no-string-refs";
-import noUnstableDefaultProps from "./rules/no-unstable-default-props";
-import noUnstableNestedComponents from "./rules/no-unstable-nested-components";
 
 const rules = {
     "debug/class-component": "warn",
@@ -79,23 +67,13 @@ export default {
         recommended: createConfig(recommendedRules),
         "recommended-type-checked": createConfig(recommendedRules),
     },
+    plugins: {
+        "@eslint-react": debug,
+        "@eslint-react-hooks": hooks,
+        "@eslint-react-jsx": jsx,
+        "@eslint-react-naming-convention": namingConvention,
+    },
     rules: {
-        "debug/class-component": debugClassComponent,
-        "debug/function-component": debugFunctionComponent,
-        "jsx/no-array-index-key": jsxNoArrayIndexKey,
-        "jsx/no-duplicate-key": jsxNoDuplicateKey,
-        "jsx/no-leaked-conditional-rendering": jsxNoLeakedConditionalRendering,
-        "jsx/no-missing-key": jsxNoMissingKey,
-        "jsx/no-misused-comment-in-textnode": jsxNoMisusedCommentInTextNode,
-        "jsx/no-script-url": jsxNoScriptUrl,
-        "jsx/prefer-shorthand-boolean": jsxPreferShorthandJsxBoolean,
-        "naming-convention/filename": namingConventionFilename,
-        "naming-convention/filename-extension": namingConventionFilenameExtension,
-        "no-constructed-context-value": noConstructedContextValue,
-        "no-dangerously-set-innerhtml": noDangerouslySetInnerHTML,
-        "no-dangerously-set-innerhtml-with-children": noDangerouslySetInnerHTMLWithChildren,
-        "no-string-refs": noDeprecatedStringRefs,
-        "no-unstable-default-props": noUnstableDefaultProps,
-        "no-unstable-nested-components": noUnstableNestedComponents,
+        ...react.rules,
     },
 } as const;

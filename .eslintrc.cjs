@@ -120,7 +120,6 @@ const config = {
             purePaths: [
                 "./packages/tools",
                 "./packages/types",
-                "./packages/shared",
             ],
         },
     },
