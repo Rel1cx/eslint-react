@@ -25,7 +25,7 @@
     "author": "Eva1ent<let@ik.me>",
     "scripts": {
         "prepare": "husky install",
-        "build": "turbo build",
+        "build": "turbo build --filter='./packages/*'",
         "build:manual": "bun run ./scripts/build.ts",
         "build:docs": "pnpm --filter \"@eslint-react/*\" run build:docs",
         "format:check": "dprint check",
