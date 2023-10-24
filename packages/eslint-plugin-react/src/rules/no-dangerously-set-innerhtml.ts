@@ -1,5 +1,5 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
-import { isCreateElement } from "@eslint-react/create-element";
+import { isCreateElement } from "@eslint-react/element";
 import { findPropInAttributes, findPropInProperties } from "@eslint-react/jsx";
 import { createRule } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";

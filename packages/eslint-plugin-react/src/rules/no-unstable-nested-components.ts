@@ -10,7 +10,7 @@ import {
     type TSESTreeFunction,
 } from "@eslint-react/ast";
 import { componentCollector, componentCollectorLegacy, isInsideRenderMethod } from "@eslint-react/component";
-import { isInsideCreateElementProps } from "@eslint-react/create-element";
+import { isInsideCreateElementProps } from "@eslint-react/element";
 import { unsafeIsInsideReactHookCall } from "@eslint-react/hooks";
 import { isInsidePropValue } from "@eslint-react/jsx";
 import { unsafeIsDeclaredInRenderProp, unsafeIsDirectValueOfRenderProperty } from "@eslint-react/render-prop";

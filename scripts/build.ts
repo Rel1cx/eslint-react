@@ -6,17 +6,17 @@ const packages = [
     "eslint-react-variable",
     "eslint-react-construction",
     "eslint-react-pragma",
-    "eslint-react-create-element",
+    "eslint-react-element",
     "eslint-react-jsx",
     "eslint-react-context",
     "eslint-react-hooks",
     "eslint-react-render-prop",
     "eslint-react-component",
     "eslint-plugin-debug",
+    "eslint-plugin-hooks",
     "eslint-plugin-jsx",
     "eslint-plugin-naming-convention",
     "eslint-plugin-react",
-    "eslint-plugin-hooks",
     "eslint-plugin",
 ];
 
@@ -26,5 +26,3 @@ for (const pkg of packages) {
         stdio: ["inherit", "inherit", "inherit"],
     });
 }
-
-export {};

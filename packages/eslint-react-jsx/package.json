@@ -38,7 +38,7 @@
     },
     "dependencies": {
         "@eslint-react/ast": "workspace:*",
-        "@eslint-react/create-element": "workspace:*",
+        "@eslint-react/element": "workspace:*",
         "@eslint-react/shared": "workspace:*",
         "@eslint-react/tools": "workspace:*",
         "@eslint-react/types": "workspace:*",
