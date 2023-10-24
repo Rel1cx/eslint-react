@@ -27,27 +27,8 @@
     "exports": {
         ".": {
             "require": "./dist/index.js",
-            "import": "./dist/index.mjs"
-        },
-        "./configs/all": {
-            "require": "./dist/configs/all.js",
-            "import": "./dist/configs/all.mjs"
-        },
-        "./configs/off": {
-            "require": "./dist/configs/off.js",
-            "import": "./dist/configs/off.mjs"
-        },
-        "./configs/debug": {
-            "require": "./dist/configs/debug.js",
-            "import": "./dist/configs/debug.mjs"
-        },
-        "./configs/recommended": {
-            "require": "./dist/configs/recommended.js",
-            "import": "./dist/configs/recommended.mjs"
-        },
-        "./configs/recommended-type-checked": {
-            "require": "./dist/configs/recommended-type-checked.js",
-            "import": "./dist/configs/recommended-type-checked.mjs"
+            "import": "./dist/index.mjs",
+            "types": "./dist/index.d.ts"
         },
         "./package.json": "./package.json"
     },

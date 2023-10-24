@@ -3,7 +3,7 @@ import { createRule } from "@eslint-react/shared";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 
-export const RULE_NAME = "jsx/no-script-url";
+export const RULE_NAME = "no-script-url";
 
 type MessageID = "INVALID";
 

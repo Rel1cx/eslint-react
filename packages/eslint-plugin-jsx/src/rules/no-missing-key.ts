@@ -8,7 +8,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { match } from "ts-pattern";
 
-export const RULE_NAME = "jsx/no-missing-key";
+export const RULE_NAME = "no-missing-key";
 
 type MessageID = "INVALID" | "INVALID_FRAGMENT";
 
