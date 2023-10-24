@@ -55,96 +55,144 @@ ruleTester.run(RULE_NAME, rule, {
             code: "<ns:testcomponent />",
             errors: [{
                 messageId: "NO_NAMESPACE",
+                data: {
+                    name: "ns:testcomponent",
+                },
             }],
         },
         {
             code: 'React.createElement("ns:testcomponent")',
             errors: [{
                 messageId: "NO_NAMESPACE",
+                data: {
+                    name: "ns:testcomponent",
+                },
             }],
         },
         {
             code: "<ns:testComponent />",
             errors: [{
                 messageId: "NO_NAMESPACE",
+                data: {
+                    name: "ns:testComponent",
+                },
             }],
         },
         {
             code: 'React.createElement("ns:testComponent")',
             errors: [{
                 messageId: "NO_NAMESPACE",
+                data: {
+                    name: "ns:testComponent",
+                },
             }],
         },
         {
             code: "<ns:test_component />",
             errors: [{
                 messageId: "NO_NAMESPACE",
+                data: {
+                    name: "ns:test_component",
+                },
             }],
         },
         {
             code: 'React.createElement("ns:test_component")',
             errors: [{
                 messageId: "NO_NAMESPACE",
+                data: {
+                    name: "ns:test_component",
+                },
             }],
         },
         {
             code: "<ns:TestComponent />",
             errors: [{
                 messageId: "NO_NAMESPACE",
+                data: {
+                    name: "ns:TestComponent",
+                },
             }],
         },
         {
             code: 'React.createElement("ns:TestComponent")',
             errors: [{
                 messageId: "NO_NAMESPACE",
+                data: {
+                    name: "ns:TestComponent",
+                },
             }],
         },
         {
             code: "<Ns:testcomponent />",
             errors: [{
                 messageId: "NO_NAMESPACE",
+                data: {
+                    name: "Ns:testcomponent",
+                },
             }],
         },
         {
             code: 'React.createElement("Ns:testcomponent")',
             errors: [{
                 messageId: "NO_NAMESPACE",
+                data: {
+                    name: "Ns:testcomponent",
+                },
             }],
         },
         {
             code: "<Ns:testComponent />",
             errors: [{
                 messageId: "NO_NAMESPACE",
+                data: {
+                    name: "Ns:testComponent",
+                },
             }],
         },
         {
             code: 'React.createElement("Ns:testComponent")',
             errors: [{
                 messageId: "NO_NAMESPACE",
+                data: {
+                    name: "Ns:testComponent",
+                },
             }],
         },
         {
             code: "<Ns:test_component />",
             errors: [{
                 messageId: "NO_NAMESPACE",
+                data: {
+                    name: "Ns:test_component",
+                },
             }],
         },
         {
             code: 'React.createElement("Ns:test_component")',
             errors: [{
                 messageId: "NO_NAMESPACE",
+                data: {
+                    name: "Ns:test_component",
+                },
             }],
         },
         {
             code: "<Ns:TestComponent />",
             errors: [{
                 messageId: "NO_NAMESPACE",
+                data: {
+                    name: "Ns:TestComponent",
+                },
             }],
         },
         {
             code: 'React.createElement("Ns:TestComponent")',
             errors: [{
                 messageId: "NO_NAMESPACE",
+                data: {
+                    name: "Ns:TestComponent",
+                },
             }],
         },
     ],
