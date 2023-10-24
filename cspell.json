@@ -8,14 +8,15 @@
         "misc"
     ],
     "ignorePaths": [
+        "**/*.spec.ts",
+        "**/*.svg",
+        "**/*/docs/**/*",
         ".vscode/**/*",
         "assets/**/*",
-        "test/fixtures",
-        "**/*/docs/**/*",
-        "**/*.spec.ts",
+        "bun.lockb",
         "package.json",
         "pnpm-lock.yaml",
-        "bun.lockb",
+        "test/fixtures",
         "THIRD-PARTY-LICENSE"
     ],
     "useGitignore": true,

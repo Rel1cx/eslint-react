@@ -39,7 +39,7 @@
         "@eslint-react/tools": "workspace:*",
         "@typescript-eslint/utils": "6.9.0",
         "dedent": "1.5.1",
-        "tslib": "2.6.2",
-        "deepmerge-ts": "5.1.0"
+        "deepmerge-ts": "5.1.0",
+        "tslib": "2.6.2"
     }
 }
