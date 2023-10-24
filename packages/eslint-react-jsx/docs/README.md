@@ -28,6 +28,7 @@
 
 ### Functions
 
+- [elementType](README.md#elementtype)
 - [findPropInAttributes](README.md#findpropinattributes)
 - [findPropInProperties](README.md#findpropinproperties)
 - [getPropName](README.md#getpropname)
@@ -155,6 +156,26 @@
 • `Const` **hdlWheel**: readonly [`"onWheel"`]
 
 ## Functions
+
+### elementType
+
+▸ **elementType**(`node`): `string`
+
+Returns the tag name associated with a JSXOpeningElement.
+
+#### Parameters
+
+| Name   | Type                                        | Description                                |
+| :----- | :------------------------------------------ | :----------------------------------------- |
+| `node` | `JSXOpeningElement` \| `JSXOpeningFragment` | The visited JSXOpeningElement node object. |
+
+#### Returns
+
+`string`
+
+The element's tag name.
+
+---
 
 ### findPropInAttributes
 

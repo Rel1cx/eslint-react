@@ -1,6 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { type } from "rambda";
-import { replace, toDelimiterCase, toLowerCase } from "string-ts";
+import { delimiterCase, replace, toLowerCase } from "string-ts";
 
 import { isJSX, NodeType } from "./node-types";
 
@@ -19,10 +19,10 @@ export function readableNodeType(node: TSESTree.Node) {
     }
 
     if (isJSX(node)) {
-        return `JSX ${toLowerCase(toDelimiterCase(replace(node.type, "JSX", ""), " "))}` as const;
+        return `JSX ${toLowerCase(delimiterCase(replace(node.type, "JSX", ""), " "))}` as const;
     }
 
-    return toLowerCase(toDelimiterCase(node.type, " "));
+    return toLowerCase(delimiterCase(node.type, " "));
 }
 
 export type ReadableNodeType = ReturnType<typeof readableNodeType>;
