@@ -9,6 +9,7 @@
         ".eslintrc.cjs",
         "knip.ts",
         "taze.config.ts",
+        "test",
         "scripts/**/*.ts",
         "packages/*/scripts/**/*.ts",
         "packages/*/*.config.ts"

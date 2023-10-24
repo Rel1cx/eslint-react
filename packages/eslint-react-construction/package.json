@@ -41,8 +41,8 @@
         "@eslint-react/tools": "workspace:*",
         "@eslint-react/types": "workspace:*",
         "@types/eslint": "8.44.6",
-        "@typescript-eslint/scope-manager": "6.8.0",
-        "@typescript-eslint/types": "6.8.0",
+        "@typescript-eslint/scope-manager": "6.9.0",
+        "@typescript-eslint/types": "6.9.0",
         "rambda": "8.5.0"
     }
 }

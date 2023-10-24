@@ -6,6 +6,9 @@ const config = {
         es2024: true,
         node: true,
     },
+    ignorePatterns: [
+        "examples",
+    ],
     parser: "@typescript-eslint/parser",
     parserOptions: {
         ecmaVersion: "latest",
@@ -120,7 +123,6 @@ const config = {
             purePaths: [
                 "./packages/tools",
                 "./packages/types",
-                "./packages/shared",
             ],
         },
     },

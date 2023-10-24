@@ -1,1 +1,0 @@
-# jsx/no-target-blank

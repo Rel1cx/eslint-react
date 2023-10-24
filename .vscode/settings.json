@@ -6,7 +6,7 @@
         }
     },
     "[jsonc]": {
-        "editor.defaultFormatter": "vscode.json-language-features",
+        "editor.defaultFormatter": "dprint.dprint",
         "editor.quickSuggestions": {
             "strings": true
         }
@@ -35,6 +35,7 @@
             "mode": "location"
         }
     ],
+    "eslint.experimental.useFlatConfig": false,
     "search.exclude": {
         "pnpm-lock.yaml": true
     },

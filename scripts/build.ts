@@ -12,6 +12,11 @@ const packages = [
     "eslint-react-hooks",
     "eslint-react-render-prop",
     "eslint-react-component",
+    "eslint-plugin-debug",
+    "eslint-plugin-jsx",
+    "eslint-plugin-naming-convention",
+    "eslint-plugin-react",
+    "eslint-plugin-hooks",
     "eslint-plugin",
 ];
 
