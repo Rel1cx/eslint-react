@@ -35,18 +35,18 @@ bun add --dev @eslint-react/eslint-plugin
 
 ### [`.eslintrc.cjs`](https://eslint.org/docs/latest/use/configure/configuration-files)
 
-```cjs
+```js
 module.exports = {
     root: true,
     env: { browser: true, es2020: true },
     extends: [
-        'eslint:recommended',
-        'plugin:@typescript-eslint/recommended',
-        "plugin:@eslint-react/recommended",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@eslint-react/recommended-legacy",
     ],
-    ignorePatterns: ['dist', '.eslintrc.cjs'],
-    parser: '@typescript-eslint/parser',
-}
+    ignorePatterns: ["dist", ".eslintrc.cjs"],
+    parser: "@typescript-eslint/parser",
+};
 ```
 
 ### [`eslint.config.js`](https://eslint.org/docs/latest/use/configure/configuration-files-new) (requires eslint >= v8.23.0)
@@ -70,7 +70,7 @@ export default [
             ...ts.configs["recommended"].rules,
         },
     },
-    react.configs["flat/recommended"],
+    react.configs.recommended,
 ];
 ```
 

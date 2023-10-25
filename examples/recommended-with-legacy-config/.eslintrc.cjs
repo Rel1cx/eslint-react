@@ -4,7 +4,7 @@ module.exports = {
     extends: [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:@eslint-react/recommended",
+        "plugin:@eslint-react/recommended-legacy",
     ],
     ignorePatterns: ["dist", ".eslintrc.cjs"],
     parser: "@typescript-eslint/parser",
