@@ -1,5 +1,5 @@
 import { NodeType } from "@eslint-react/ast";
-import { isCreateElement } from "@eslint-react/element";
+import { isCreateElementCall } from "@eslint-react/element";
 import { createRule } from "@eslint-react/shared";
 
 export const RULE_NAME = "no-children-in-void-dom-elements";
@@ -50,7 +50,7 @@ export default createRule<[], MessageID>({
                     return;
                 }
 
-                if (!isCreateElement(node, context)) {
+                if (!isCreateElementCall(node, context)) {
                     return;
                 }
 

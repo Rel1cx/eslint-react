@@ -5,7 +5,7 @@ import {
     isOneOf,
     NodeType,
 } from "@eslint-react/ast";
-import { isCreateElement } from "@eslint-react/element";
+import { isCreateElementCall } from "@eslint-react/element";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/utils";
@@ -89,7 +89,7 @@ export function isJSXValue(
 
             return isJSXValue(exp, context, options);
         })
-        .with(NodeType.CallExpression, () => isCreateElement(node, context))
+        .with(NodeType.CallExpression, () => isCreateElementCall(node, context))
         .with(NodeType.Identifier, () => {
             if (!("name" in node)) {
                 return false;

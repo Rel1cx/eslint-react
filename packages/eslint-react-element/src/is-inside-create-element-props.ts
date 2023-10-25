@@ -2,7 +2,7 @@ import { is, NodeType, traverseUp } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { isCreateElement } from "./is-create-element";
+import { isCreateElementCall } from "./is-create-element-call";
 
 /**
  * Determines whether inside createElement's props.
@@ -11,7 +11,7 @@ import { isCreateElement } from "./is-create-element";
  * @returns `true` if the node is inside createElement's props
  */
 export function isInsideCreateElementProps(node: TSESTree.Node, context: RuleContext) {
-    const parentCreateElement = traverseUp(node, n => isCreateElement(n, context));
+    const parentCreateElement = traverseUp(node, n => isCreateElementCall(n, context));
 
     if (parentCreateElement?.type !== NodeType.CallExpression) {
         return false;

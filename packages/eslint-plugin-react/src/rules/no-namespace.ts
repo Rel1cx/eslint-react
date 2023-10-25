@@ -1,4 +1,4 @@
-import { isCreateElement } from "@eslint-react/element";
+import { isCreateElementCall } from "@eslint-react/element";
 import { elementType } from "@eslint-react/jsx";
 import { createRule } from "@eslint-react/shared";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -24,7 +24,7 @@ export default createRule<[], MessageID>({
         return {
             CallExpression(node) {
                 if (
-                    isCreateElement(node, context) && node.arguments.length > 0
+                    isCreateElementCall(node, context) && node.arguments.length > 0
                     && node.arguments[0]?.type === AST_NODE_TYPES.Literal
                 ) {
                     const name = node.arguments[0].value;

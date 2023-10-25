@@ -1,5 +1,5 @@
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit, is, isOneOf, NodeType } from "@eslint-react/ast";
-import { isCreateElement } from "@eslint-react/element";
+import { isCreateElementCall } from "@eslint-react/element";
 import { findPropInAttributes, findPropInProperties } from "@eslint-react/jsx";
 import { createRule } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
     create(context) {
         return {
             CallExpression(node) {
-                if (node.arguments.length < 2 || !isCreateElement(node, context)) {
+                if (node.arguments.length < 2 || !isCreateElementCall(node, context)) {
                     return;
                 }
 

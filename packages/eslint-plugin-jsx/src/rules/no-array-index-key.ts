@@ -1,5 +1,5 @@
 import { isOneOf, NodeType, unsafeIsStringCall, unsafeIsToStringCall } from "@eslint-react/ast";
-import { isCloneElement, isCreateElement } from "@eslint-react/element";
+import { isCloneElementCall, isCreateElementCall } from "@eslint-react/element";
 import { getPragmaFromContext } from "@eslint-react/pragma";
 import { createRule } from "@eslint-react/shared";
 import { E, O, Record } from "@eslint-react/tools";
@@ -178,7 +178,7 @@ export default createRule<[], MessageID>({
 
         return {
             CallExpression(node) {
-                if ((isCreateElement(node, context) || isCloneElement(node, context)) && node.arguments.length > 1) {
+                if ((isCreateElementCall(node, context) || isCloneElementCall(node, context)) && node.arguments.length > 1) {
                     if (indexParamNames.length === 0) {
                         return;
                     }

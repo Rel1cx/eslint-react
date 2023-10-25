@@ -1,12 +1,12 @@
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { isCreateElement } from "./is-create-element";
+import { isCreateElementCall } from "./is-create-element-call";
 
 export function isChildrenOfCreateElement(node: TSESTree.Node, context: RuleContext) {
     const maybeCallExpression = node.parent;
 
-    if (!maybeCallExpression || !isCreateElement(maybeCallExpression, context)) {
+    if (!maybeCallExpression || !isCreateElementCall(maybeCallExpression, context)) {
         return false;
     }
 
