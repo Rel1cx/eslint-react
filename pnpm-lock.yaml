@@ -52,6 +52,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: '>=6.9.0'
         version: 6.9.0(eslint@8.52.0)(typescript@5.3.0-beta)
+      '@vitest/ui':
+        specifier: 0.34.6
+        version: 0.34.6(vitest@0.34.6)
       bun-types:
         specifier: 1.0.7
         version: 1.0.7
@@ -153,7 +156,7 @@ importers:
         version: 5.3.0-beta
       vitest:
         specifier: 0.34.6
-        version: 0.34.6
+        version: 0.34.6(@vitest/ui@0.34.6)
 
   examples/recommended-with-flat-config:
     dependencies:
@@ -3190,6 +3193,21 @@ packages:
       tinyspy: 2.2.0
     dev: true
 
+  /@vitest/ui@0.34.6(vitest@0.34.6):
+    resolution: {integrity: sha512-/fxnCwGC0Txmr3tF3BwAbo3v6U2SkBTGR9UB8zo0Ztlx0BTOXHucE0gDHY7SjwEktCOHatiGmli9kZD6gYSoWQ==}
+    peerDependencies:
+      vitest: '>=0.30.1 <1'
+    dependencies:
+      '@vitest/utils': 0.34.6
+      fast-glob: 3.3.1
+      fflate: 0.8.1
+      flatted: 3.2.9
+      pathe: 1.1.1
+      picocolors: 1.0.0
+      sirv: 2.0.3
+      vitest: 0.34.6(@vitest/ui@0.34.6)
+    dev: true
+
   /@vitest/utils@0.34.6:
     resolution: {integrity: sha512-IG5aDD8S6zlvloDsnzHw0Ut5xczlF+kv2BOTo+iXfPr54Yhi5qbVOgGB1hZaVq4iJ4C/MZ2J0y15IlsV/ZcI0A==}
     dependencies:
@@ -4711,7 +4729,7 @@ packages:
       '@typescript-eslint/eslint-plugin': 6.9.0(@typescript-eslint/parser@6.9.0)(eslint@8.52.0)(typescript@5.3.0-beta)
       '@typescript-eslint/utils': 6.9.0(eslint@8.52.0)(typescript@5.3.0-beta)
       eslint: 8.52.0
-      vitest: 0.34.6
+      vitest: 0.34.6(@vitest/ui@0.34.6)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -4917,6 +4935,10 @@ packages:
     peerDependenciesMeta:
       domexception:
         optional: true
+    dev: true
+
+  /fflate@0.8.1:
+    resolution: {integrity: sha512-/exOvEuc+/iaUm105QIiOt4LpBdMTWsXxqR0HDF35vx3fmaKzw7354gTilCh5rkzEt8WYyG//ku3h3nRmd7CHQ==}
     dev: true
 
   /file-entry-cache@6.0.1:
@@ -8071,7 +8093,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitest@0.34.6:
+  /vitest@0.34.6(@vitest/ui@0.34.6):
     resolution: {integrity: sha512-+5CALsOvbNKnS+ZHMXtuUC7nL8/7F1F2DnHGjSsszX8zCjWSSviphCb/NuS9Nzf4Q03KyyDRBAXhF/8lffME4Q==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -8109,6 +8131,7 @@ packages:
       '@vitest/runner': 0.34.6
       '@vitest/snapshot': 0.34.6
       '@vitest/spy': 0.34.6
+      '@vitest/ui': 0.34.6(vitest@0.34.6)
       '@vitest/utils': 0.34.6
       acorn: 8.10.0
       acorn-walk: 8.2.0
