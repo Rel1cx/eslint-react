@@ -16,5 +16,5 @@ export default [
             ...ts.configs["recommended"].rules,
         },
     },
-    react.configs["flat/recommended"],
+    react.configs.recommended,
 ];

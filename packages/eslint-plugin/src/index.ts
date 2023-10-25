@@ -64,14 +64,14 @@ const createRules = (rules: RulePreset) => {
     return fromEntries(entries(rules).map(([key, value]) => [`@eslint-react/${key}`, value] as const));
 };
 
-const createConfig = (rules: RulePreset) => {
+const createLegacyConfig = (rules: RulePreset) => {
     return {
         plugins: ["@eslint-react"],
         rules: createRules(rules),
     };
 };
 
-const createFlatConfig = (rules: RulePreset) => {
+const createConfig = (rules: RulePreset) => {
     return {
         plugins,
         rules: createRules(rules),
@@ -87,14 +87,15 @@ const createRulesWithPrefix = <T extends Record<string, unknown>, U extends stri
 export default {
     name,
     configs: {
+        "all-legacy": createLegacyConfig(allRules),
+        "debug-legacy": createLegacyConfig(debugRules),
+        "jsx-legacy": createLegacyConfig(jsxRules),
+        "off-legacy": createLegacyConfig(offRules),
+        "recommended-legacy": createLegacyConfig(recommendedRules),
+        "recommended-type-checked-legacy": createLegacyConfig(recommendedRules),
+        // eslint-disable-next-line perfectionist/sort-objects
         all: createConfig(allRules),
         debug: createConfig(debugRules),
-        "flat/all": createFlatConfig(allRules),
-        "flat/debug": createFlatConfig(debugRules),
-        "flat/jsx": createFlatConfig(jsxRules),
-        "flat/off": createFlatConfig(offRules),
-        "flat/recommended": createFlatConfig(recommendedRules),
-        "flat/recommended-type-checked": createFlatConfig(recommendedRules),
         jsx: createConfig(jsxRules),
         off: createConfig(offRules),
         recommended: createConfig(recommendedRules),

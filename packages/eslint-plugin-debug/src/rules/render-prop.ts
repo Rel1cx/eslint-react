@@ -1,7 +1,7 @@
 import { createRule } from "@eslint-react/shared";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
-export const RULE_NAME = "debug/render-prop";
+export const RULE_NAME = "render-prop";
 
 type MessageID = "RENDER_FUNCTION" | "RENDER_PROP";
 
