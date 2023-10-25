@@ -24,23 +24,31 @@
     },
     "license": "MIT",
     "author": "Eva1ent<let@ik.me>",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
     "exports": {
         ".": {
-            "require": "./dist/index.js",
-            "import": "./dist/index.mjs",
-            "types": "./dist/index.d.ts"
+            "import": {
+                "types": "./dist/index.d.mts",
+                "default": "./dist/index.mjs"
+            },
+            "require": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/index.js"
+            }
         },
         "./package.json": "./package.json"
     },
-    "main": "./dist/index.js",
     "files": [
         "./dist",
         "./package.json"
     ],
     "scripts": {
         "lint:type": "tsc --noEmit",
-        "build": "rollup -c rollup.config.ts --configPlugin swc3",
-        "publish": "pnpm run build && pnpm run test && pnpm publint"
+        "lint:publish": "pnpm publint && cd ../.. && pnpm run test",
+        "build": "rollup -c rollup.config.ts --configPlugin swc3 && cp dist/index.d.ts dist/index.d.mts",
+        "publish": "pnpm run build && pnpm run lint:publish"
     },
     "dependencies": {
         "@eslint-react/eslint-plugin-debug": "workspace:*",
