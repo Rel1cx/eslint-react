@@ -106,6 +106,9 @@ importers:
       publint:
         specifier: 0.2.5
         version: 0.2.5
+      rimraf:
+        specifier: 5.0.5
+        version: 5.0.5
       rollup:
         specifier: 4.1.4
         version: 4.1.4
@@ -313,9 +316,6 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../types
-      '@eslint-react/variable':
-        specifier: workspace:*
-        version: link:../eslint-react-variable
       '@rizzzse/bimap':
         specifier: 1.2.1
         version: 1.2.1
@@ -398,9 +398,6 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../types
-      '@eslint-react/variable':
-        specifier: workspace:*
-        version: link:../eslint-react-variable
       '@rizzzse/bimap':
         specifier: 1.2.1
         version: 1.2.1
@@ -483,9 +480,6 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../types
-      '@eslint-react/variable':
-        specifier: workspace:*
-        version: link:../eslint-react-variable
       '@rizzzse/bimap':
         specifier: 1.2.1
         version: 1.2.1
@@ -568,9 +562,6 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../types
-      '@eslint-react/variable':
-        specifier: workspace:*
-        version: link:../eslint-react-variable
       '@rizzzse/bimap':
         specifier: 1.2.1
         version: 1.2.1
@@ -653,9 +644,6 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../types
-      '@eslint-react/variable':
-        specifier: workspace:*
-        version: link:../eslint-react-variable
       '@rizzzse/bimap':
         specifier: 1.2.1
         version: 1.2.1
@@ -738,9 +726,6 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../types
-      '@eslint-react/variable':
-        specifier: workspace:*
-        version: link:../eslint-react-variable
       '@rizzzse/bimap':
         specifier: 1.2.1
         version: 1.2.1
@@ -942,9 +927,6 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../types
-      '@eslint-react/variable':
-        specifier: workspace:*
-        version: link:../eslint-react-variable
       '@types/eslint':
         specifier: 8.44.6
         version: 8.44.6
@@ -969,9 +951,6 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../types
-      '@eslint-react/variable':
-        specifier: workspace:*
-        version: link:../eslint-react-variable
       '@types/eslint':
         specifier: 8.44.6
         version: 8.44.6
@@ -1011,21 +990,6 @@ importers:
       ts-pattern:
         specifier: 5.0.5
         version: 5.0.5
-
-  packages/eslint-react-variable:
-    dependencies:
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../tools
-      '@types/eslint':
-        specifier: 8.44.6
-        version: 8.44.6
-      '@typescript-eslint/scope-manager':
-        specifier: 6.9.0
-        version: 6.9.0
-      '@typescript-eslint/types':
-        specifier: 6.9.0
-        version: 6.9.0
 
   packages/shared:
     dependencies:
@@ -7092,6 +7056,14 @@ packages:
     hasBin: true
     dependencies:
       glob: 7.2.3
+
+  /rimraf@5.0.5:
+    resolution: {integrity: sha512-CqDakW+hMe/Bz202FPEymy68P+G50RfMQK+Qo5YUqc9SPipvbGjCGKd0RSKEelbsfQuw3g5NZDSrlZZAJurH1A==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dependencies:
+      glob: 10.3.10
+    dev: true
 
   /rollup-plugin-dts@6.1.0(rollup@4.1.4)(typescript@5.3.0-beta):
     resolution: {integrity: sha512-ijSCPICkRMDKDLBK9torss07+8dl9UpY9z1N/zTeA1cIqdzMlpkV3MOOC7zukyvQfDyxa1s3Dl2+DeiP/G6DOw==}

@@ -11,3 +11,4 @@ export * from "./property";
 export * from "./readable-node-type";
 export * from "./scope";
 export * from "./traverse";
+export * from "./variable";

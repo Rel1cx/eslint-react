@@ -1,7 +1,13 @@
-import { is, isStringLiteral, NodeType, traverseUpGuard } from "@eslint-react/ast";
+import {
+    findVariableByNameUpToGlobal,
+    getVariableNthDefNodeInit,
+    is,
+    isStringLiteral,
+    NodeType,
+    traverseUpGuard,
+} from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
-import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "@eslint-react/variable";
 import type { TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 

@@ -1,8 +1,13 @@
-import { isJSXTagNameExpression, isOneOf, NodeType } from "@eslint-react/ast";
+import {
+    findVariableByNameUpToGlobal,
+    getVariableNthDefNodeInit,
+    isJSXTagNameExpression,
+    isOneOf,
+    NodeType,
+} from "@eslint-react/ast";
 import { isCreateElement } from "@eslint-react/element";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
-import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit } from "@eslint-react/variable";
 import { type TSESTree } from "@typescript-eslint/utils";
 import { isString } from "effect/Predicate";
 import { match, P } from "ts-pattern";

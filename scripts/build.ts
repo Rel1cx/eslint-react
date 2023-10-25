@@ -3,7 +3,6 @@ const packages = [
     "types",
     "shared",
     "eslint-react-ast",
-    "eslint-react-variable",
     "eslint-react-construction",
     "eslint-react-pragma",
     "eslint-react-element",

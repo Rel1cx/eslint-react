@@ -40,7 +40,8 @@
         "test": "pnpm run -r test",
         "update": "taze",
         "inspect:eslint-config": "eslint --print-config ./taze.config.ts > eslint-config.json",
-        "inspect:deps": "skott -e .ts -s -t"
+        "inspect:deps": "skott -e .ts -s -t",
+        "clean": "git add . && git stash && git clean -xffd && git stash pop"
     },
     "devDependencies": {
         "@effect/language-service": "0.0.21",
@@ -72,6 +73,7 @@
         "knip": "2.38.1",
         "pathe": "1.1.1",
         "publint": "0.2.5",
+        "rimraf": "5.0.5",
         "rollup": "4.1.4",
         "rollup-plugin-dts": "6.1.0",
         "rollup-plugin-swc3": "0.10.3",

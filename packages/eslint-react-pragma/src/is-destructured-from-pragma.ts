@@ -1,7 +1,6 @@
-import { NodeType } from "@eslint-react/ast";
+import { findVariableByName, getVariablesUpToGlobal, NodeType } from "@eslint-react/ast";
 import { E, F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
-import { findVariableByName, getVariablesUpToGlobal } from "@eslint-react/variable";
 import { isMatching, match } from "ts-pattern";
 
 import { getPragmaFromContext } from "./get-pragma";
