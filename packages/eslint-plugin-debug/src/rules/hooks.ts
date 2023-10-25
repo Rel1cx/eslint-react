@@ -1,8 +1,12 @@
 import { createRule } from "@eslint-react/shared";
+import { E } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-export const RULE_NAME = "debug/context";
 
-type MessageID = "HOOK" | "REDUNDANT_HOOK";
+import { getFunctionIdentifier } from "../../../eslint-react-ast/src/identifier";
+import { hooksCollector } from "../../../eslint-react-hooks/src/hooks-collector";
+export const RULE_NAME = "debug/hooks";
+
+type MessageID = "HOOKS" | "REDUNDANT_HOOKS";
 
 export default createRule<[], MessageID>({
     name: RULE_NAME,
@@ -15,14 +19,58 @@ export default createRule<[], MessageID>({
         },
         schema: [],
         messages: {
-            HOOK: "React hook found, name: {{name}}",
-            REDUNDANT_HOOK: "Redundant react hook found, name: {{name}}",
+            HOOKS: "React hook found, name: {{name}}",
+            REDUNDANT_HOOKS: "Redundant react hook found, name: {{name}}",
         },
     },
     defaultOptions: [],
-    create() {
+    create(context) {
+        const { ctx, listeners } = hooksCollector(context);
+
         return {
-            // TODO: implement this using @eslint-react/hooks/hooks-collector
+            ...listeners,
+            "Program:exit"() {
+                const maybeRedundantHooks = ctx.getRedundantHooks();
+                if (E.isLeft(maybeRedundantHooks)) {
+                    console.error(maybeRedundantHooks.left);
+
+                    return;
+                }
+
+                const redundantHooks = maybeRedundantHooks.right;
+                for (const hook of redundantHooks) {
+                    const name = getFunctionIdentifier(hook)?.name ?? "unknown";
+                    context.report({
+                        data: {
+                            name,
+                        },
+                        messageId: "REDUNDANT_HOOKS",
+                        node: hook,
+                    });
+                }
+
+                const maybeHooks = ctx.getAllHooks();
+                if (E.isLeft(maybeHooks)) {
+                    console.error(maybeHooks.left);
+
+                    return;
+                }
+                const hooks = maybeHooks.right;
+                for (const hook of hooks) {
+                    if (redundantHooks.includes(hook)) {
+                        continue;
+                    }
+
+                    const name = getFunctionIdentifier(hook)?.name ?? "unknown";
+                    context.report({
+                        data: {
+                            name,
+                        },
+                        messageId: "HOOKS",
+                        node: hook,
+                    });
+                }
+            },
         };
     },
 });

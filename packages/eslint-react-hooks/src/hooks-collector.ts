@@ -29,6 +29,7 @@ export function hooksCollector(context: RuleContext): {
 
     const getCurrentFunction = () => O.fromNullable(functionStack[functionStack.length - 1]);
     const onFunctionEnter = (node: TSESTreeFunction) => {
+        // push a new hook to the stack
         functionStack.push(node);
 
         const maybeCurrentFn = getCurrentFunction();
@@ -46,17 +47,18 @@ export function hooksCollector(context: RuleContext): {
         }
 
         hooks.push(currentFn);
+        MutRef.set(isCurrentHookRedundant, true);
     };
 
     const onFunctionExit = () => {
+        // finish the previous hook
         O.map(O.fromNullable(hooks[hooks.length - 1]), (currentHook) => {
-            if (MutRef.get(isCurrentHookRedundant)) {
+            if (MutRef.get(isCurrentHookRedundant) && !redundantHooks.includes(currentHook)) {
                 redundantHooks.push(currentHook);
             }
         });
 
         functionStack.pop();
-        MutRef.set(isCurrentHookRedundant, true);
     };
 
     const ctx = {
@@ -89,6 +91,10 @@ export function hooksCollector(context: RuleContext): {
         ":function": onFunctionEnter,
         ":function:exit": onFunctionExit,
         CallExpression(node) {
+            if (!MutRef.get(isCurrentHookRedundant)) {
+                return;
+            }
+
             if (unsafeIsReactHookCall(node)) {
                 MutRef.set(isCurrentHookRedundant, false);
             }
