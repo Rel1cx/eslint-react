@@ -49,7 +49,7 @@
         "@typescript-eslint/rule-tester": "6.9.0",
         "dedent": "1.5.1",
         "deepmerge-ts": "5.1.0",
-        "effect": "2.0.0-next.50",
+        "effect": "2.0.0-next.51",
         "rambda": "8.5.0",
         "ts-pattern": "5.0.5"
     },

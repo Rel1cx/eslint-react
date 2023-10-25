@@ -14,7 +14,7 @@
 
   ↳ **`Equal`**
 
-  ↳↳ [`Chunk`](Chunk.Chunk.md)
+  ↳↳ [`Chunk`](Chunk.Chunk-1.md)
 
   ↳↳ [`Case`](Data.Case-1.md)
 

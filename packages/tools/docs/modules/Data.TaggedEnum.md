@@ -24,7 +24,7 @@
 
 ### Args
 
-Ƭ **Args**<`A`, `K`\>: `Omit`<`Extract`<`A`, { `_tag`: `K` }\>, `"_tag"` \| keyof [`Case`](../interfaces/Data.Case-1.md)\> extends infer T ? {} extends `T` ? `void` : `T` : `never`
+Ƭ **Args**<`A`, `K`, `E`\>: { readonly [K in keyof E as K extends "\_tag" \| keyof Case ? never : K]: E[K] } extends infer T ? {} extends `T` ? `void` : `T` : `never`
 
 **`Since`**
 
@@ -32,10 +32,11 @@
 
 #### Type parameters
 
-| Name | Type                                                  |
-| :--- | :---------------------------------------------------- |
-| `A`  | extends [`Data`](Data.md#data)<{ `_tag`: `string` }\> |
-| `K`  | extends `A`[`"_tag"`]                                 |
+| Name | Type                                                                   |
+| :--- | :--------------------------------------------------------------------- |
+| `A`  | extends { `_tag`: `string` } & [`Equal`](../interfaces/Equal.Equal.md) |
+| `K`  | extends `A`[`"_tag"`]                                                  |
+| `E`  | `Extract`<`A`, { `_tag`: `K` }\>                                       |
 
 ---
 
@@ -49,10 +50,10 @@
 
 #### Type parameters
 
-| Name | Type                                                  |
-| :--- | :---------------------------------------------------- |
-| `A`  | extends [`Data`](Data.md#data)<{ `_tag`: `string` }\> |
-| `K`  | extends `A`[`"_tag"`]                                 |
+| Name | Type                                                                   |
+| :--- | :--------------------------------------------------------------------- |
+| `A`  | extends { `_tag`: `string` } & [`Equal`](../interfaces/Equal.Equal.md) |
+| `K`  | extends `A`[`"_tag"`]                                                  |
 
 ## models
 

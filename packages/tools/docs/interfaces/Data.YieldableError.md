@@ -14,7 +14,7 @@
 
 - `Pipeable`
 
-- `Error`
+- `Readonly`<`Error`\>
 
   ↳ **`YieldableError`**
 
@@ -65,41 +65,41 @@
 
 ### cause
 
-• `Optional` **cause**: `unknown`
+• `Optional` `Readonly` **cause**: `unknown`
 
 #### Inherited from
 
-Error.cause
+Readonly.cause
 
 ---
 
 ### message
 
-• **message**: `string`
+• `Readonly` **message**: `string`
 
 #### Inherited from
 
-Error.message
+Readonly.message
 
 ---
 
 ### name
 
-• **name**: `string`
+• `Readonly` **name**: `string`
 
 #### Inherited from
 
-Error.name
+Readonly.name
 
 ---
 
 ### stack
 
-• `Optional` **stack**: `string`
+• `Optional` `Readonly` **stack**: `string`
 
 #### Inherited from
 
-Error.stack
+Readonly.stack
 
 ## Methods
 

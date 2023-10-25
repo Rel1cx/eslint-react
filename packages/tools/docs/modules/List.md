@@ -4,6 +4,10 @@
 
 ## Table of contents
 
+### Namespaces
+
+- [List](List.List.md)
+
 ### Interfaces
 
 - [Cons](../interfaces/List.Cons.md)
@@ -43,7 +47,6 @@
 - [last](List.md#last)
 - [make](List.md#make)
 - [map](List.md#map)
-- [mapNonEmpty](List.md#mapnonempty)
 - [nil](List.md#nil)
 - [of](List.md#of)
 - [partition](List.md#partition)
@@ -433,127 +436,64 @@ Applies the specified function to each element of the `List`.
 
 ### map
 
-▸ **map**<`A`, `B`\>(`f`): (`self`: [`List`](List.md#list)<`A`\>) => [`List`](List.md#list)<`B`\>
+▸ **map**<`T`, `B`\>(`f`): (`self`: `T`) => [`With`](List.List.md#with)<`T`, `B`\>
 
 Applies the specified mapping function to each element of the list.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
+| Name | Type                                   |
+| :--- | :------------------------------------- |
+| `T`  | extends [`List`](List.md#list)<`any`\> |
+| `B`  | `B`                                    |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `f`  | (`a`: `A`) => `B` |
+| Name | Type                                                             |
+| :--- | :--------------------------------------------------------------- |
+| `f`  | (`a`: [`Infer`](List.List.md#infer)<`T`\>, `i`: `number`) => `B` |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`List`](List.md#list)<`B`\>
+▸ (`self`): [`With`](List.List.md#with)<`T`, `B`\>
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type |
+| :----- | :--- |
+| `self` | `T`  |
 
 ##### Returns
 
-[`List`](List.md#list)<`B`\>
+[`With`](List.List.md#with)<`T`, `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **map**<`A`, `B`\>(`self`, `f`): [`List`](List.md#list)<`B`\>
+▸ **map**<`T`, `B`\>(`self`, `f`): [`With`](List.List.md#with)<`T`, `B`\>
 
 Applies the specified mapping function to each element of the list.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
+| Name | Type                                   |
+| :--- | :------------------------------------- |
+| `T`  | extends [`List`](List.md#list)<`any`\> |
+| `B`  | `B`                                    |
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
-| `f`    | (`a`: `A`) => `B`            |
+| Name   | Type                                                             |
+| :----- | :--------------------------------------------------------------- |
+| `self` | `T`                                                              |
+| `f`    | (`a`: [`Infer`](List.List.md#infer)<`T`\>, `i`: `number`) => `B` |
 
 #### Returns
 
-[`List`](List.md#list)<`B`\>
-
-**`Since`**
-
-2.0.0
-
----
-
-### mapNonEmpty
-
-▸ **mapNonEmpty**<`A`, `B`\>(`f`): (`self`: [`Cons`](../interfaces/List.Cons.md)<`A`\>) => [`Cons`](../interfaces/List.Cons.md)<`B`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name | Type              |
-| :--- | :---------------- |
-| `f`  | (`a`: `A`) => `B` |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): [`Cons`](../interfaces/List.Cons.md)<`B`\>
-
-##### Parameters
-
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `self` | [`Cons`](../interfaces/List.Cons.md)<`A`\> |
-
-##### Returns
-
-[`Cons`](../interfaces/List.Cons.md)<`B`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **mapNonEmpty**<`A`, `B`\>(`self`, `f`): [`Cons`](../interfaces/List.Cons.md)<`B`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `self` | [`Cons`](../interfaces/List.Cons.md)<`A`\> |
-| `f`    | (`a`: `A`) => `B`                          |
-
-#### Returns
-
-[`Cons`](../interfaces/List.Cons.md)<`B`\>
+[`With`](List.List.md#with)<`T`, `B`\>
 
 **`Since`**
 
@@ -1693,7 +1633,7 @@ Constructs a new `List<A>` from the specified value.
 
 ### toChunk
 
-▸ **toChunk**<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk.md)<`A`\>
+▸ **toChunk**<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
 
 Converts the specified `List` to a `Chunk`.
 
@@ -1711,7 +1651,7 @@ Converts the specified `List` to a `Chunk`.
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
 
 **`Since`**
 

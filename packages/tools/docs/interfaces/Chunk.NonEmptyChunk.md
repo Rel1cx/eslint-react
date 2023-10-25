@@ -16,7 +16,7 @@
 
 ## Hierarchy
 
-- [`Chunk`](Chunk.Chunk.md)<`A`\>
+- [`Chunk`](Chunk.Chunk-1.md)<`A`\>
 
 - `NonEmptyIterable`<`A`\>
 
@@ -56,7 +56,7 @@
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[[NodeInspectSymbol]](Chunk.Chunk.md#[nodeinspectsymbol])
+[Chunk](Chunk.Chunk-1.md).[[NodeInspectSymbol]](Chunk.Chunk-1.md#[nodeinspectsymbol])
 
 ---
 
@@ -72,7 +72,7 @@
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[[TypeId]](Chunk.Chunk.md#[typeid])
+[Chunk](Chunk.Chunk-1.md).[[TypeId]](Chunk.Chunk-1.md#[typeid])
 
 ---
 
@@ -92,7 +92,7 @@ NonEmptyIterable.[nonEmpty]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[length](Chunk.Chunk.md#length)
+[Chunk](Chunk.Chunk-1.md).[length](Chunk.Chunk-1.md#length)
 
 ---
 
@@ -110,7 +110,7 @@ NonEmptyIterable.[nonEmpty]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[toJSON](Chunk.Chunk.md#tojson)
+[Chunk](Chunk.Chunk-1.md).[toJSON](Chunk.Chunk-1.md#tojson)
 
 ---
 
@@ -128,7 +128,7 @@ NonEmptyIterable.[nonEmpty]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[toString](Chunk.Chunk.md#tostring)
+[Chunk](Chunk.Chunk-1.md).[toString](Chunk.Chunk-1.md#tostring)
 
 ## Methods
 
@@ -142,7 +142,7 @@ NonEmptyIterable.[nonEmpty]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[[iterator]](Chunk.Chunk.md#[iterator])
+[Chunk](Chunk.Chunk-1.md).[[iterator]](Chunk.Chunk-1.md#[iterator])
 
 ---
 
@@ -162,7 +162,7 @@ NonEmptyIterable.[nonEmpty]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[[symbol]](Chunk.Chunk.md#[symbol]-1)
+[Chunk](Chunk.Chunk-1.md).[[symbol]](Chunk.Chunk-1.md#[symbol]-1)
 
 ---
 
@@ -204,7 +204,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`\>(`this`, `ab`, `bc`): `C`
 
@@ -230,7 +230,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`\>(`this`, `ab`, `bc`, `cd`): `D`
 
@@ -258,7 +258,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`\>(`this`, `ab`, `bc`, `cd`, `de`): `E`
 
@@ -288,7 +288,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`): `F`
 
@@ -320,7 +320,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`): `G`
 
@@ -354,7 +354,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): `H`
 
@@ -390,7 +390,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): `I`
 
@@ -428,7 +428,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): `J`
 
@@ -468,7 +468,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`): `K`
 
@@ -510,7 +510,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`): `L`
 
@@ -554,7 +554,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`): `M`
 
@@ -600,7 +600,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`): `N`
 
@@ -648,7 +648,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`): `O`
 
@@ -698,7 +698,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`): `P`
 
@@ -750,7 +750,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`): `Q`
 
@@ -804,7 +804,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`): `R`
 
@@ -860,7 +860,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`): `S`
 
@@ -918,7 +918,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`): `T`
 
@@ -978,7 +978,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`, `U`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`, `tu`): `U`
 
@@ -1040,7 +1040,7 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
 ▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`, `U`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`, `tu`): `U`
 
@@ -1102,4 +1102,4 @@ Chunk.[symbol]
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk.md).[pipe](Chunk.Chunk.md#pipe)
+[Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
