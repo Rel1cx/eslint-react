@@ -160,6 +160,7 @@ export default [
 - [ ] `@eslint-react/require-render-return`
 - [x] `@eslint-react/debug/class-component`
 - [x] `@eslint-react/debug/function-component`
+- [x] `@eslint-react/debug/hooks`
 - [ ] `@eslint-react/debug/render-prop`
 - [ ] `@eslint-react/debug/context`
 - [ ] ...

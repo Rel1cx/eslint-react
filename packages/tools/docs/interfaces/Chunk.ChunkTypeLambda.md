@@ -68,4 +68,4 @@ TypeLambda.Target
 
 ### type
 
-• `Readonly` **type**: [`Chunk`](Chunk.Chunk.md)<`unknown`\>
+• `Readonly` **type**: [`Chunk`](Chunk.Chunk-1.md)<`unknown`\>
