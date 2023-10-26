@@ -1,4 +1,8 @@
-# @eslint-react/no-unstable-nested-components
+# react/no-unstable-nested-components
+
+💼 This rule is enabled in the 👍 `recommended-legacy` config.
+
+<!-- end auto-generated rule header -->
 
 ## Rule details
 

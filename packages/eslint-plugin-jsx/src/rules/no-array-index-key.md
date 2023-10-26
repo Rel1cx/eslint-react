@@ -1,4 +1,8 @@
-# @eslint-react/jsx/no-array-index-key
+# jsx/no-array-index-key
+
+💼 This rule is enabled in the following configs: 🎨 `jsx-legacy`, 👍 `recommended-legacy`.
+
+<!-- end auto-generated rule header -->
 
 ## Rule details
 

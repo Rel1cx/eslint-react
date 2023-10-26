@@ -1,5 +1,9 @@
 # jsx/no-script-url
 
+💼 This rule is enabled in the 👍 `recommended-legacy` config.
+
+<!-- end auto-generated rule header -->
+
 Prevents usage of `javascript:` URLs as the value of the `href` prop in JSX.
 
 ## Rule Details

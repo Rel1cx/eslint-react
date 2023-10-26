@@ -1,4 +1,6 @@
-# @eslint-react/debug/function-component
+# debug/function-component
+
+<!-- end auto-generated rule header -->
 
 Warns when a function component is found. Useful for debugging.
 

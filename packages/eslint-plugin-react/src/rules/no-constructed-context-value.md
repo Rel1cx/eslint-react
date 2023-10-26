@@ -1,4 +1,8 @@
-# @eslint-react/no-constructed-context-value
+# react/no-constructed-context-value
+
+💼 This rule is enabled in the 👍 `recommended-legacy` config.
+
+<!-- end auto-generated rule header -->
 
 Prevents non-stable values (i.e. object identities) from being used as a value for Context.Provider.
 

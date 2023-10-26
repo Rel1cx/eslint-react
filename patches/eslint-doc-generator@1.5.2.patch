@@ -1,0 +1,53 @@
+diff --git a/dist/lib/cli.js b/dist/lib/cli.js
+index d5fb61affb7439690fae7423edd7fa4f00e3218c..ed724470ebc5e34beecc0d9d2611362e0239233f 100644
+--- a/dist/lib/cli.js
++++ b/dist/lib/cli.js
+@@ -74,7 +74,9 @@ async function loadConfigFileOptions() {
+             ignoreConfig: schemaStringArray,
+             ignoreDeprecatedRules: { type: 'boolean' },
+             initRuleDocs: { type: 'boolean' },
+-            pathRuleDoc: { type: 'string' },
++            pathRuleDoc: typeof explorerResults.config.pathRuleDoc === 'function'
++                ? {}
++                : { type: 'string' },
+             pathRuleList: { anyOf: [{ type: 'string' }, schemaStringArray] },
+             postprocess: {
+             /* JSON Schema can't validate functions so check this later */
+diff --git a/dist/lib/generator.js b/dist/lib/generator.js
+index 9b08f422fd16a7ca89fa3768f002ee8eb4b6ca46..462727dc2adbdf1e9c9626114650e471b51e27d7 100644
+--- a/dist/lib/generator.js
++++ b/dist/lib/generator.js
+@@ -90,7 +90,7 @@ export async function generate(path, options) {
+     for (const [name, rule] of ruleNamesAndRules) {
+         const schema = rule.meta?.schema;
+         const description = rule.meta?.docs?.description;
+-        const pathToDoc = replaceRulePlaceholder(join(path, pathRuleDoc), name);
++        const pathToDoc = join(path, replaceRulePlaceholder(pathRuleDoc, name));
+         const ruleHasOptions = hasOptions(schema);
+         if (!existsSync(pathToDoc)) {
+             if (!initRuleDocs) {
+diff --git a/dist/lib/rule-link.js b/dist/lib/rule-link.js
+index 028101a89cc3020583fc2768a47002e9419ac446..b5b7ca1ade1b587e86bb475875e59b2a8c150d97 100644
+--- a/dist/lib/rule-link.js
++++ b/dist/lib/rule-link.js
+@@ -2,6 +2,7 @@ import { join, sep, relative, dirname } from 'node:path';
+ import { RULE_SOURCE } from './types.js';
+ import { getPluginRoot } from './package-json.js';
+ export function replaceRulePlaceholder(pathOrUrl, ruleName) {
++    if (typeof pathOrUrl === 'function') return pathOrUrl(ruleName);
+     return pathOrUrl.replace(/\{name\}/gu, ruleName);
+ }
+ /**
+diff --git a/dist/lib/types.d.ts b/dist/lib/types.d.ts
+index 17a74780d78bb62c0bac8df2f80a0d70ea787642..33e81ef093517fbd73a943013e05ca1bd109a189 100644
+--- a/dist/lib/types.d.ts
++++ b/dist/lib/types.d.ts
+@@ -137,7 +137,7 @@ export type GenerateOptions = {
+     /** Whether to create rule doc files if they don't yet exist. Default: `false`. */
+     readonly initRuleDocs?: boolean;
+     /** Path to markdown file for each rule doc. Use `{name}` placeholder for the rule name. Default: `docs/rules/{name}.md`. */
+-    readonly pathRuleDoc?: string;
++    readonly pathRuleDoc?: string | ((name: string) => string);
+     /** Path to markdown file(s) where the rules table list should live. Default: `README.md`. */
+     readonly pathRuleList?: string | readonly string[];
+     /**

@@ -1,4 +1,8 @@
-# @eslint-react/no-unstable-default-props
+# react/no-unstable-default-props
+
+💼 This rule is enabled in the 👍 `recommended-legacy` config.
+
+<!-- end auto-generated rule header -->
 
 Disallow usage of referential-type variables as default param in function component.
 

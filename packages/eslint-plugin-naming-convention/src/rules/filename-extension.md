@@ -1,4 +1,6 @@
-# @eslint-react/naming-convention/filename-extension
+# naming-convention/filename-extension
+
+<!-- end auto-generated rule header -->
 
 ## Rule Details
 

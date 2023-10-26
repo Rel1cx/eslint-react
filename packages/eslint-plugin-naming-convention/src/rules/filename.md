@@ -1,4 +1,6 @@
-# @eslint-react/naming-convention/filename
+# naming-convention/filename
+
+<!-- end auto-generated rule header -->
 
 Enforces `.tsx` or `.jsx` file naming convention.
 

@@ -1,4 +1,6 @@
-# @eslint-react/debug/class-component
+# debug/class-component
+
+<!-- end auto-generated rule header -->
 
 Warns when a class component is found. Useful for debugging.
 
