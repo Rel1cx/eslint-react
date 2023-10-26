@@ -26,3 +26,8 @@ const useData = (key) => {
     return useSWR(key);
 };
 ```
+
+## Further reading
+
+- [react.dev: invalid-hook-call-warning (the first note)](https://react.dev/warnings/invalid-hook-call-warning)
+- [react.dev: should-all-functions-called-during-rendering-start-with-the-use-prefix (the deep dive)](https://react.dev/learn/reusing-logic-with-custom-hooks#should-all-functions-called-during-rendering-start-with-the-use-prefix)
