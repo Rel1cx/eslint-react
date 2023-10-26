@@ -1,7 +1,5 @@
 # react/no-dangerously-set-innerhtml
 
-💼 This rule is enabled in the 👍 `recommended-legacy` config.
-
 <!-- end auto-generated rule header -->
 
 Disallow when a DOM element is using both children and `dangerouslySetInnerHTML`

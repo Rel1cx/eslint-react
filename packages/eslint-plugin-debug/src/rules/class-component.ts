@@ -1,8 +1,9 @@
 import { getClassIdentifier } from "@eslint-react/ast";
 import { componentCollectorLegacy } from "@eslint-react/core";
-import { createRule } from "@eslint-react/shared";
 import { E } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+
+import { createRule } from "../utils";
 
 export const RULE_NAME = "class-component";
 

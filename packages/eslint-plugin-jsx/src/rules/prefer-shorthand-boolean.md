@@ -1,7 +1,5 @@
 # jsx/prefer-shorthand-boolean
 
-⚠️ This rule _warns_ in the following configs: 🎨 `jsx-legacy`, 👍 `recommended-legacy`.
-
 <!-- end auto-generated rule header -->
 
 ## Rule Details

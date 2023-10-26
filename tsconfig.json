@@ -6,12 +6,12 @@
         ]
     },
     "include": [
+        "*.config.ts",
         ".eslintrc.cjs",
         "knip.ts",
-        "taze.config.ts",
-        "test",
         "scripts/**/*.ts",
-        "packages/*/scripts/**/*.ts",
-        "packages/*/*.config.ts"
+        "test",
+        "packages/*/*.config.ts",
+        "packages/*/scripts/**/*.ts"
     ]
 }

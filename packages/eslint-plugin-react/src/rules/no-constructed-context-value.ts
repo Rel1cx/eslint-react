@@ -1,8 +1,9 @@
 import { type Construction, constructionDetector, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { componentCollector } from "@eslint-react/core";
-import { createRule } from "@eslint-react/shared";
 import { E, F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+
+import { createRule } from "../utils";
 
 export const RULE_NAME = "no-constructed-context-value";
 

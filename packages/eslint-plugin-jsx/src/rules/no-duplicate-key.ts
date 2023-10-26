@@ -8,12 +8,14 @@ import {
     unsafeIsMapCall,
 } from "@eslint-react/ast";
 import { findPropInAttributes, getPragmaFromContext } from "@eslint-react/jsx";
-import { createRule, getChildrenToArraySelector } from "@eslint-react/shared";
+import { getChildrenToArraySelector } from "@eslint-react/shared";
 import { E, F, MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, match } from "ts-pattern";
+
+import { createRule } from "../utils";
 
 export const RULE_NAME = "no-duplicate-key";
 

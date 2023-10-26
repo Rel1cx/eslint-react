@@ -1,6 +1,7 @@
 import { elementType, isCreateElementCall } from "@eslint-react/jsx";
-import { createRule } from "@eslint-react/shared";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
+
+import { createRule } from "../utils";
 
 export const RULE_NAME = "no-namespace";
 

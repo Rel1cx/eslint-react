@@ -13,6 +13,7 @@
         "typescript-eslint",
         "typescript-react"
     ],
+    "main": "packages/eslint-plugin/dist/index.js",
     "homepage": "https://github.com/Rel1cx/eslint-react",
     "bugs": {
         "url": "https://github.com/Rel1cx/eslint-react/issues"
@@ -27,7 +28,7 @@
         "prepare": "husky install && pnpm run build",
         "build": "turbo build --filter='./packages/*'",
         "build:manual": "bun run ./scripts/build.ts",
-        "build:docs": "pnpm --filter \"@eslint-react/*\" run build:docs",
+        "build:docs": "pnpm --filter \"@eslint-react/*\" run build:docs && eslint-doc-generator",
         "format:check": "dprint check",
         "format:write": "dprint fmt",
         "lint": "pnpm run format:check && pnpm run lint:spell && pnpm run lint:deps && pnpm run lint:type && pnpm run lint:ts && publint",

@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-type-arguments */
 import { ESLintUtils } from "@typescript-eslint/utils";
 
-import { BASEURL_DOCS } from "./constants";
+import { GITHUB_BASEURL } from "./constants";
 
-const getDocsUrl = (ruleName: string) => `${BASEURL_DOCS}/${ruleName}.md`;
+const getDocsUrl = (pluginName: string) => (ruleName: string) => {
+    return `${GITHUB_BASEURL}/packages/eslint-plugin-${pluginName}/src/rules/${ruleName}.md`;
+};
 
-export const createRule: <TOptions extends readonly unknown[], TMessageIds extends string>(
-    { name, meta, ...rule }: Readonly<ESLintUtils.RuleWithMetaAndName<TOptions, TMessageIds>>,
-) => ESLintUtils.RuleModule<TMessageIds, TOptions, ESLintUtils.RuleListener> = ESLintUtils.RuleCreator(getDocsUrl);
+export const createRuleForPlugin = (pluginName: string) => ESLintUtils.RuleCreator(getDocsUrl(pluginName));
