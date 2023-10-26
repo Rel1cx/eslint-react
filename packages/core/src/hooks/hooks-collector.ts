@@ -6,11 +6,6 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { unsafeIsReactHookCall } from "./is-inside-react-hook-call";
 import { isValidReactHookName } from "./is-valid-react-hook-name";
 
-// hooks that are not call other hooks are redundant
-// hooks are like coloured functions in React world, defining a custom hook that doesn't call other hooks is like defining a generator function that doesn't yield or an async function that doesn't await.
-// "Custom Hooks may call other Hooks (that’s their whole purpose)." from https://react.dev/warnings/invalid-hook-call-warning
-// further reading: https://react.dev/learn/reusing-logic-with-custom-hooks#should-all-functions-called-during-rendering-start-with-the-use-prefix
-
 export function hooksCollector(context: RuleContext): {
     // manually specify the return type here to avoid @typescript-eslint/utils's TS2742 error
     ctx: {
@@ -22,13 +17,17 @@ export function hooksCollector(context: RuleContext): {
     listeners: RuleListener;
 } {
     const hooks: TSESTreeFunction[] = [];
-    const redundantHooks: TSESTreeFunction[] = [];
-    const functionStack: [TSESTreeFunction, boolean, boolean][] = [];
 
+    // hooks that are not call other hooks are redundant
+    // hooks are like coloured functions in React world, defining a custom hook that doesn't call other hooks is like defining a generator function that doesn't yield or an async function that doesn't await.
+    // "Custom Hooks may call other Hooks (that’s their whole purpose)." from https://react.dev/warnings/invalid-hook-call-warning
+    // further reading: https://react.dev/learn/reusing-logic-with-custom-hooks#should-all-functions-called-during-rendering-start-with-the-use-prefix
+    const redundantHooks: TSESTreeFunction[] = [];
+
+    const functionStack: [TSESTreeFunction, boolean, boolean][] = [];
     const getCurrentFunction = () => functionStack[functionStack.length - 1];
     const onFunctionEnter = (node: TSESTreeFunction) => {
         functionStack.push([node, false, false]);
-
         const currentFn = getCurrentFunction();
         if (!currentFn) {
             return;
@@ -44,14 +43,11 @@ export function hooksCollector(context: RuleContext): {
         if (!exitedFn) {
             return;
         }
-
         const [fn, isHook, isNotRedundant] = exitedFn;
         if (!isHook) {
             return;
         }
-
         hooks.push(fn);
-
         if (!isNotRedundant) {
             redundantHooks.push(fn);
         }
