@@ -1,6 +1,5 @@
-import { NodeType, readableNodeType } from "@eslint-react/ast";
-import { componentCollector } from "@eslint-react/component";
-import { isUnstableAssignmentPattern } from "@eslint-react/construction";
+import { isUnstableAssignmentPattern, NodeType, readableNodeType } from "@eslint-react/ast";
+import { componentCollector } from "@eslint-react/core";
 import { createRule } from "@eslint-react/shared";
 import { E } from "@eslint-react/tools";
 import { type TSESTree } from "@typescript-eslint/types";

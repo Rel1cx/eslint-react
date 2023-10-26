@@ -1,6 +1,6 @@
 {
     "name": "@eslint-react/eslint-plugin",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "description": "ESLint plugin for React and Preact function components with TypeScript, built from scratch (almost).",
     "keywords": [
         "eslint",
@@ -63,14 +63,7 @@
     },
     "devDependencies": {
         "@eslint-react/ast": "workspace:*",
-        "@eslint-react/component": "workspace:*",
-        "@eslint-react/construction": "workspace:*",
-        "@eslint-react/context": "workspace:*",
-        "@eslint-react/element": "workspace:*",
-        "@eslint-react/hooks": "workspace:*",
         "@eslint-react/jsx": "workspace:*",
-        "@eslint-react/pragma": "workspace:*",
-        "@eslint-react/render-prop": "workspace:*",
         "@eslint-react/shared": "workspace:*",
         "@eslint-react/tools": "workspace:*",
         "@eslint-react/types": "workspace:*",

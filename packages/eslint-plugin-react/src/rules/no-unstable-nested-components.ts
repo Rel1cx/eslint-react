@@ -9,11 +9,16 @@ import {
     type TSESTreeClass,
     type TSESTreeFunction,
 } from "@eslint-react/ast";
-import { componentCollector, componentCollectorLegacy, isInsideRenderMethod } from "@eslint-react/component";
-import { isInsideCreateElementProps } from "@eslint-react/element";
-import { unsafeIsInsideReactHookCall } from "@eslint-react/hooks";
+import {
+    componentCollector,
+    componentCollectorLegacy,
+    isInsideCreateElementProps,
+    isInsideRenderMethod,
+    unsafeIsDeclaredInRenderProp,
+    unsafeIsDirectValueOfRenderProperty,
+    unsafeIsInsideReactHookCall,
+} from "@eslint-react/core";
 import { isInsidePropValue } from "@eslint-react/jsx";
-import { unsafeIsDeclaredInRenderProp, unsafeIsDirectValueOfRenderProperty } from "@eslint-react/render-prop";
 import { createRule } from "@eslint-react/shared";
 import { E } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";

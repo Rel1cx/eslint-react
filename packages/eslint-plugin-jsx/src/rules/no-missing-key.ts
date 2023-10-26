@@ -1,6 +1,5 @@
 import { getNestedReturnStatements, is, isOneOf, NodeType, unsafeIsArrayFromCall, unsafeIsMapCall } from "@eslint-react/ast";
-import { hasProp } from "@eslint-react/jsx";
-import { getFragmentFromContext, getPragmaFromContext } from "@eslint-react/pragma";
+import { getFragmentFromContext, getPragmaFromContext, hasProp } from "@eslint-react/jsx";
 import { createRule, getChildrenToArraySelector } from "@eslint-react/shared";
 import { E, MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
