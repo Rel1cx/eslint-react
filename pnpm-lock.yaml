@@ -130,8 +130,8 @@ importers:
         specifier: 0.31.3
         version: 0.31.3
       taze:
-        specifier: 0.11.4
-        version: 0.11.4
+        specifier: 0.12.0
+        version: 0.12.0
       tiny-invariant:
         specifier: 1.3.1
         version: 1.3.1
@@ -173,11 +173,11 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@eslint-react/eslint-plugin':
-        specifier: workspace:*
+        specifier: latest
         version: link:../../packages/eslint-plugin
       '@types/react':
-        specifier: ^18.2.32
-        version: 18.2.32
+        specifier: ^18.2.33
+        version: 18.2.33
       '@types/react-dom':
         specifier: ^18.2.14
         version: 18.2.14
@@ -216,11 +216,11 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@eslint-react/eslint-plugin':
-        specifier: workspace:*
+        specifier: latest
         version: link:../../packages/eslint-plugin
       '@types/react':
-        specifier: ^18.2.32
-        version: 18.2.32
+        specifier: ^18.2.33
+        version: 18.2.33
       '@types/react-dom':
         specifier: ^18.2.14
         version: 18.2.14
@@ -2657,11 +2657,11 @@ packages:
   /@types/react-dom@18.2.14:
     resolution: {integrity: sha512-V835xgdSVmyQmI1KLV2BEIUgqEuinxp9O4G6g3FqO/SqLac049E53aysv0oEFD2kHfejeKU+ZqL2bcFWj9gLAQ==}
     dependencies:
-      '@types/react': 18.2.32
+      '@types/react': 18.2.33
     dev: true
 
-  /@types/react@18.2.32:
-    resolution: {integrity: sha512-F0FVIZQ1x5Gxy/VYJb7XcWvCcHR28Sjwt1dXLspdIatfPq1MVACfnBDwKe6ANLxQ64riIJooXClpUR6oxTiepg==}
+  /@types/react@18.2.33:
+    resolution: {integrity: sha512-v+I7S+hu3PIBoVkKGpSYYpiBT1ijqEzWpzQD62/jm4K74hPpSP7FF9BnKG6+fg2+62weJYkkBWDJlZt5JO/9hg==}
     dependencies:
       '@types/prop-types': 15.7.9
       '@types/scheduler': 0.16.5
@@ -7304,8 +7304,8 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /taze@0.11.4:
-    resolution: {integrity: sha512-X7Dob7+n77GOHO7UUQ+Bn2gZXjRK1NLffb/lMGy41uyGUCh3zOZVlQ+M7IrntXmSsNy0DDKpdzSe40mQK5NTVw==}
+  /taze@0.12.0:
+    resolution: {integrity: sha512-ftDYS/dNF0EkiEpZZweJxJKQRVFPBFFDz3OPezFloVtOHoMmVwLiMxLM9KYLnA+30D8IFdnGgS15WiIaz2bOfA==}
     hasBin: true
     dependencies:
       '@antfu/ni': 0.21.8
