@@ -1,6 +1,7 @@
 {
-    "name": "@eslint-react/eslint-plugin-jsx",
+    "name": "@eslint-react/core",
     "version": "0.5.2",
+    "description": "",
     "homepage": "https://github.com/Rel1cx/eslint-react",
     "bugs": {
         "url": "https://github.com/Rel1cx/eslint-react/issues"
@@ -8,10 +9,13 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/Rel1cx/eslint-react.git",
-        "directory": "packages/eslint-plugin-jsx"
+        "directory": "packages/core"
     },
     "license": "MIT",
     "author": "Eva1ent<let@ik.me>",
+    "keywords": [
+        "eslint-config"
+    ],
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
@@ -29,7 +33,7 @@
         "./package.json": "./package.json"
     },
     "files": [
-        "./dist",
+        "dist",
         "./package.json"
     ],
     "scripts": {
@@ -39,36 +43,14 @@
         "publish": "pnpm run build && pnpm run lint:publish"
     },
     "dependencies": {
-        "@typescript-eslint/scope-manager": "6.9.0",
-        "@typescript-eslint/type-utils": "6.9.0",
-        "@typescript-eslint/types": "6.9.0",
-        "@typescript-eslint/utils": "6.9.0"
-    },
-    "devDependencies": {
         "@eslint-react/ast": "workspace:*",
         "@eslint-react/jsx": "workspace:*",
-        "@eslint-react/core": "workspace:*",
         "@eslint-react/shared": "workspace:*",
         "@eslint-react/tools": "workspace:*",
         "@eslint-react/types": "workspace:*",
-        "@rizzzse/bimap": "1.2.1",
-        "@typescript-eslint/rule-tester": "6.9.0",
-        "dedent": "1.5.1",
-        "deepmerge-ts": "5.1.0",
-        "effect": "2.0.0-next.52",
-        "rambda": "8.5.0",
-        "ts-pattern": "5.0.5"
-    },
-    "peerDependencies": {
-        "@typescript-eslint/parser": ">=6.9.0",
-        "eslint": ">=8.52.0",
-        "typescript": ">=5.2.2"
-    },
-    "engines": {
-        "bun": ">=1.0.4",
-        "node": ">=18.15.0"
-    },
-    "publishConfig": {
-        "access": "public"
+        "@types/eslint": "8.44.6",
+        "@typescript-eslint/scope-manager": "6.9.0",
+        "@typescript-eslint/types": "6.9.0",
+        "@typescript-eslint/utils": "6.9.0"
     }
 }

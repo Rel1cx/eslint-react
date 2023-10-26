@@ -7,8 +7,7 @@ import {
     unsafeIsArrayFromCall,
     unsafeIsMapCall,
 } from "@eslint-react/ast";
-import { findPropInAttributes } from "@eslint-react/jsx";
-import { getPragmaFromContext } from "@eslint-react/pragma";
+import { findPropInAttributes, getPragmaFromContext } from "@eslint-react/jsx";
 import { createRule, getChildrenToArraySelector } from "@eslint-react/shared";
 import { E, F, MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";

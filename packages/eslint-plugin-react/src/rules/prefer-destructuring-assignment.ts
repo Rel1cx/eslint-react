@@ -1,5 +1,5 @@
 import { isDestructorParameter, isFunction, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
-import { componentCollector, isValidReactComponentName } from "@eslint-react/component";
+import { componentCollector, isValidReactComponentName } from "@eslint-react/core";
 import { createRule } from "@eslint-react/shared";
 import { E } from "@eslint-react/tools";
 import type { Cond } from "@eslint-react/types";
