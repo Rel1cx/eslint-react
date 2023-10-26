@@ -1,12 +1,13 @@
 import { isOneOf, NodeType, unsafeIsStringCall, unsafeIsToStringCall } from "@eslint-react/ast";
 import { isCloneElementCall } from "@eslint-react/core";
 import { getPragmaFromContext, isCreateElementCall } from "@eslint-react/jsx";
-import { createRule } from "@eslint-react/shared";
 import { E, O, Record } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching } from "ts-pattern";
+
+import { createRule } from "../utils";
 
 export const RULE_NAME = "no-array-index-key";
 

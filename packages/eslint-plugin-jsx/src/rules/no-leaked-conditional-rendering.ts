@@ -1,8 +1,9 @@
 /* eslint-disable unicorn/no-typeof-undefined */
 import { isOneOf, NodeType } from "@eslint-react/ast";
-import { createRule } from "@eslint-react/shared";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+
+import { createRule } from "../utils";
 
 export const RULE_NAME = "no-leaked-conditional-rendering";
 

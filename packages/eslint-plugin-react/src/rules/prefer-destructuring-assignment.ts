@@ -1,6 +1,5 @@
 import { isDestructuringPattern, isFunction, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { componentCollector, isValidReactComponentName } from "@eslint-react/core";
-import { createRule } from "@eslint-react/shared";
 import { E } from "@eslint-react/tools";
 import type { Cond } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
@@ -8,6 +7,8 @@ import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { isMatching } from "ts-pattern";
+
+import { createRule } from "../utils";
 
 export const RULE_NAME = "prefer-destructuring-assignment";
 

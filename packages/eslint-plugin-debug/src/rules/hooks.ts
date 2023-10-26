@@ -1,8 +1,9 @@
 import { getFunctionIdentifier } from "@eslint-react/ast";
 import { hooksCollector } from "@eslint-react/core";
-import { createRule } from "@eslint-react/shared";
 import { E } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+
+import { createRule } from "../utils";
 export const RULE_NAME = "debug/hooks";
 
 type MessageID = "HOOKS" | "REDUNDANT_HOOKS";

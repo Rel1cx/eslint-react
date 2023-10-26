@@ -19,10 +19,11 @@ import {
     unsafeIsInsideReactHookCall,
 } from "@eslint-react/core";
 import { isInsidePropValue } from "@eslint-react/jsx";
-import { createRule } from "@eslint-react/shared";
 import { E } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+
+import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unstable-nested-components";
 

@@ -4,7 +4,6 @@ import type { RuleNamesAndRules } from "eslint-doc-generator/dist/lib/types";
 
 const defaultTitle = "react";
 
-// TODO: need to modify this config to support multiple eslint-plugin packages
 export default {
     configEmoji: [
         ["recommended-legacy", "👍"],
@@ -24,8 +23,12 @@ export default {
         "recommended",
         "recommended-type-checked",
     ],
-    pathRuleDoc: (name) => `../eslint-plugin-${name.split("/")[0]}/src/rules/${name.split("/")[1]}.md`,
-    pathRuleList: "../../README.md",
+    pathRuleDoc(name) {
+        const [plugin, rule] = name.split("/");
+
+        return `packages/eslint-plugin-${plugin}/src/rules/${rule}.md`;
+    },
+    pathRuleList: "README.md",
     ruleDocSectionInclude: ["Rule Details"],
     ruleDocTitleFormat: "name",
     ruleListSplit(rules) {

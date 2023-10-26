@@ -1,7 +1,5 @@
 # jsx/no-leaked-conditional-rendering
 
-💼 This rule is enabled in the following configs: 🎨 `jsx-legacy`, 👍 `recommended-legacy`.
-
 <!-- end auto-generated rule header -->
 
 Disallow problematic leaked values from being rendered.

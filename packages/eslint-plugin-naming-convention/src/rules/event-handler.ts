@@ -1,10 +1,11 @@
 /* eslint-disable security/detect-non-literal-regexp */
 import { NodeType } from "@eslint-react/ast";
 import { getPropName } from "@eslint-react/jsx";
-import { createRule } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
+
+import { createRule } from "../utils";
 
 export const RULE_NAME = "naming-convention/event-handler";
 

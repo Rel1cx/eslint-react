@@ -1,7 +1,8 @@
 import { NodeType } from "@eslint-react/ast";
 import { getPropName } from "@eslint-react/jsx";
-import { createRule } from "@eslint-react/shared";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+
+import { createRule } from "../utils";
 
 export const RULE_NAME = "prefer-shorthand-boolean";
 
