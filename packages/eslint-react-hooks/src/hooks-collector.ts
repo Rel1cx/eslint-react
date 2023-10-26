@@ -10,8 +10,9 @@ export function hooksCollector(context: RuleContext): {
     // manually specify the return type here to avoid @typescript-eslint/utils's TS2742 error
     ctx: {
         getAllHooks(): E.Either<Error, TSESTreeFunction[]>;
-        getRedundantHooks(): E.Either<Error, TSESTreeFunction[]>;
+        getAllRedundantHooks(): E.Either<Error, TSESTreeFunction[]>;
         getCurrentHooks(): TSESTreeFunction[];
+        getCurrentRedundantHooks(): TSESTreeFunction[];
         getCurrentFunction(): O.Option<TSESTreeFunction>;
         getCurrentFunctionStack(): TSESTreeFunction[];
     };
@@ -29,7 +30,7 @@ export function hooksCollector(context: RuleContext): {
 
     const getCurrentFunction = () => O.fromNullable(functionStack[functionStack.length - 1]);
     const onFunctionEnter = (node: TSESTreeFunction) => {
-        // push a new hook to the stack
+        // push a new function to the stack
         functionStack.push(node);
 
         const maybeCurrentFn = getCurrentFunction();
@@ -46,12 +47,13 @@ export function hooksCollector(context: RuleContext): {
             return;
         }
 
+        // push a new hook to the hook list
         hooks.push(currentFn);
         MutRef.set(isCurrentHookRedundant, true);
     };
 
     const onFunctionExit = () => {
-        // finish the previous hook
+        // finish the redundant check for the current hook
         O.map(O.fromNullable(hooks[hooks.length - 1]), (currentHook) => {
             if (MutRef.get(isCurrentHookRedundant) && !redundantHooks.includes(currentHook)) {
                 redundantHooks.push(currentHook);
@@ -69,16 +71,18 @@ export function hooksCollector(context: RuleContext): {
 
             return E.right(hooks);
         },
-        getRedundantHooks(): E.Either<Error, TSESTreeFunction[]> {
+        getAllRedundantHooks(): E.Either<Error, TSESTreeFunction[]> {
             if (context.getScope().block.type !== NodeType.Program) {
                 return E.left(new Error("getRedundantHooks should only be called in Program:exit"));
             }
 
             return E.right(redundantHooks);
         },
-        // eslint-disable-next-line perfectionist/sort-objects
         getCurrentHooks() {
             return [...hooks];
+        },
+        getCurrentRedundantHooks() {
+            return [...redundantHooks];
         },
         // eslint-disable-next-line perfectionist/sort-objects
         getCurrentFunction,
@@ -95,6 +99,7 @@ export function hooksCollector(context: RuleContext): {
                 return;
             }
 
+            // do the redundant check for the current hook
             if (unsafeIsReactHookCall(node)) {
                 MutRef.set(isCurrentHookRedundant, false);
             }

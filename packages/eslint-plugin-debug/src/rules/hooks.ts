@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
         return {
             ...listeners,
             "Program:exit"() {
-                const maybeRedundantHooks = ctx.getRedundantHooks();
+                const maybeRedundantHooks = ctx.getAllRedundantHooks();
                 if (E.isLeft(maybeRedundantHooks)) {
                     console.error(maybeRedundantHooks.left);
 
