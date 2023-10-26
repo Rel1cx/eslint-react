@@ -18,10 +18,6 @@ export default {
         },
         "packages/*": {
             entry: "src/index.ts",
-            project: "src/**/*.ts",
-        },
-        "packages/eslint-plugin": {
-            entry: ["src/index.ts", "src/rules/**/*.ts", "src/configs/*.ts"],
             project: ["src/**/*.ts"],
         },
     },

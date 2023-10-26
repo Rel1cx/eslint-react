@@ -57,6 +57,7 @@
         "@types/node": "20.8.9",
         "@typescript-eslint/eslint-plugin": "^6.9.0",
         "@typescript-eslint/parser": ">=6.9.0",
+        "@typescript-eslint/rule-tester": "6.9.0",
         "@vitest/ui": "0.34.6",
         "bun-types": "1.0.7",
         "cspell": "7.3.8",

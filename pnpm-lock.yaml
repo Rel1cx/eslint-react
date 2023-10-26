@@ -57,6 +57,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: '>=6.9.0'
         version: 6.9.0(eslint@8.52.0)(typescript@5.3.0-beta)
+      '@typescript-eslint/rule-tester':
+        specifier: 6.9.0
+        version: 6.9.0(@eslint/eslintrc@2.1.2)(eslint@8.52.0)(typescript@5.3.0-beta)
       '@vitest/ui':
         specifier: 0.34.6
         version: 0.34.6(vitest@0.34.6)
@@ -333,9 +336,6 @@ importers:
         specifier: beta
         version: 5.3.0-beta
     devDependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../ast
       '@eslint-react/eslint-plugin-debug':
         specifier: workspace:*
         version: link:../eslint-plugin-debug
@@ -351,39 +351,12 @@ importers:
       '@eslint-react/eslint-plugin-react':
         specifier: workspace:*
         version: link:../eslint-plugin-react
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../jsx
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../shared
       '@eslint-react/tools':
         specifier: workspace:*
         version: link:../tools
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../types
-      '@rizzzse/bimap':
-        specifier: 1.2.1
-        version: 1.2.1
-      '@typescript-eslint/rule-tester':
-        specifier: 6.9.0
-        version: 6.9.0(@eslint/eslintrc@2.1.2)(eslint@8.52.0)(typescript@5.3.0-beta)
-      dedent:
-        specifier: 1.5.1
-        version: 1.5.1
-      deepmerge-ts:
-        specifier: 5.1.0
-        version: 5.1.0
-      effect:
-        specifier: 2.0.0-next.52
-        version: 2.0.0-next.52
-      rambda:
-        specifier: latest
-        version: 8.5.0
-      ts-pattern:
-        specifier: 5.0.5
-        version: 5.0.5
 
   packages/eslint-plugin-debug:
     dependencies:
@@ -427,18 +400,9 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../types
-      '@rizzzse/bimap':
-        specifier: 1.2.1
-        version: 1.2.1
-      '@typescript-eslint/rule-tester':
-        specifier: 6.9.0
-        version: 6.9.0(@eslint/eslintrc@2.1.2)(eslint@8.52.0)(typescript@5.3.0-beta)
       dedent:
         specifier: 1.5.1
         version: 1.5.1
-      deepmerge-ts:
-        specifier: 5.1.0
-        version: 5.1.0
       effect:
         specifier: 2.0.0-next.52
         version: 2.0.0-next.52
@@ -491,18 +455,9 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../types
-      '@rizzzse/bimap':
-        specifier: 1.2.1
-        version: 1.2.1
-      '@typescript-eslint/rule-tester':
-        specifier: 6.9.0
-        version: 6.9.0(@eslint/eslintrc@2.1.2)(eslint@8.52.0)(typescript@5.3.0-beta)
       dedent:
         specifier: 1.5.1
         version: 1.5.1
-      deepmerge-ts:
-        specifier: 5.1.0
-        version: 5.1.0
       effect:
         specifier: 2.0.0-next.52
         version: 2.0.0-next.52
@@ -555,18 +510,9 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../types
-      '@rizzzse/bimap':
-        specifier: 1.2.1
-        version: 1.2.1
-      '@typescript-eslint/rule-tester':
-        specifier: 6.9.0
-        version: 6.9.0(@eslint/eslintrc@2.1.2)(eslint@8.52.0)(typescript@5.3.0-beta)
       dedent:
         specifier: 1.5.1
         version: 1.5.1
-      deepmerge-ts:
-        specifier: 5.1.0
-        version: 5.1.0
       effect:
         specifier: 2.0.0-next.52
         version: 2.0.0-next.52
@@ -616,18 +562,9 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../types
-      '@rizzzse/bimap':
-        specifier: 1.2.1
-        version: 1.2.1
-      '@typescript-eslint/rule-tester':
-        specifier: 6.9.0
-        version: 6.9.0(@eslint/eslintrc@2.1.2)(eslint@8.52.0)(typescript@5.3.0-beta)
       dedent:
         specifier: 1.5.1
         version: 1.5.1
-      deepmerge-ts:
-        specifier: 5.1.0
-        version: 5.1.0
       effect:
         specifier: 2.0.0-next.52
         version: 2.0.0-next.52
@@ -680,18 +617,9 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../types
-      '@rizzzse/bimap':
-        specifier: 1.2.1
-        version: 1.2.1
-      '@typescript-eslint/rule-tester':
-        specifier: 6.9.0
-        version: 6.9.0(@eslint/eslintrc@2.1.2)(eslint@8.52.0)(typescript@5.3.0-beta)
       dedent:
         specifier: 1.5.1
         version: 1.5.1
-      deepmerge-ts:
-        specifier: 5.1.0
-        version: 5.1.0
       effect:
         specifier: 2.0.0-next.52
         version: 2.0.0-next.52
@@ -2199,10 +2127,6 @@ packages:
 
   /@polka/url@1.0.0-next.23:
     resolution: {integrity: sha512-C16M+IYz0rgRhWZdCmK+h58JMv8vijAA61gmz2rspCSwKwzBebpdcsiUmwrtJRdphuY30i6BSLEOP8ppbNLyLg==}
-    dev: true
-
-  /@rizzzse/bimap@1.2.1:
-    resolution: {integrity: sha512-meFHT+JzRb26UbVJdGJkxiuZTxSgpTBNmElbFFh5S2RDOv7og0Nqtpz7SsFXSe75EWXl2EFpGrSTk20KcSuiWg==}
     dev: true
 
   /@rollup/plugin-commonjs@25.0.7(rollup@4.1.4):
@@ -3845,6 +3769,7 @@ packages:
   /deepmerge-ts@5.1.0:
     resolution: {integrity: sha512-eS8dRJOckyo9maw9Tu5O5RUi/4inFLrnoLkBe3cPfDMx3WZioXtmOew4TXQaxq7Rhl4xjDtR7c6x8nNTxOvbFw==}
     engines: {node: '>=16.0.0'}
+    dev: false
 
   /deepmerge@4.3.1:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}

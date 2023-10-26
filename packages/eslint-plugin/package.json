@@ -57,23 +57,13 @@
         "@typescript-eslint/utils": "6.9.0"
     },
     "devDependencies": {
-        "@eslint-react/ast": "workspace:*",
-        "@eslint-react/jsx": "workspace:*",
-        "@eslint-react/shared": "workspace:*",
         "@eslint-react/tools": "workspace:*",
         "@eslint-react/types": "workspace:*",
         "@eslint-react/eslint-plugin-debug": "workspace:*",
         "@eslint-react/eslint-plugin-hooks": "workspace:*",
         "@eslint-react/eslint-plugin-jsx": "workspace:*",
         "@eslint-react/eslint-plugin-naming-convention": "workspace:*",
-        "@eslint-react/eslint-plugin-react": "workspace:*",
-        "@rizzzse/bimap": "1.2.1",
-        "@typescript-eslint/rule-tester": "6.9.0",
-        "dedent": "1.5.1",
-        "deepmerge-ts": "5.1.0",
-        "effect": "2.0.0-next.52",
-        "rambda": "8.5.0",
-        "ts-pattern": "5.0.5"
+        "@eslint-react/eslint-plugin-react": "workspace:*"
     },
     "peerDependencies": {
         "@typescript-eslint/parser": ">=6.9.0",
@@ -81,7 +71,7 @@
         "typescript": ">=5.2.2"
     },
     "engines": {
-        "bun": ">=1.0.4",
+        "bun": ">=1.0.7",
         "node": ">=18.15.0"
     },
     "publishConfig": {

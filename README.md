@@ -13,7 +13,7 @@ ESLint plugin for React and Preact function components with TypeScript, built fr
 
 ### Bun
 
-- 1.x
+- 1.0.7 or later
 
 ## Installation
 
