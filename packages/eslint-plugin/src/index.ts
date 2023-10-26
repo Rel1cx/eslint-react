@@ -8,7 +8,7 @@ import type { RulePreset } from "@eslint-react/types";
 // workaround for @typescript-eslint/utils's TS2742 error.
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
-import { name } from "../package.json";
+import { name, version } from "../package.json";
 
 const rules = {
     "debug/class-component": "warn",
@@ -85,7 +85,10 @@ const createRulesWithPrefix = <T extends Record<string, unknown>, U extends stri
 };
 
 export default {
-    name,
+    meta: {
+        name,
+        version,
+    },
     configs: {
         "all-legacy": createLegacyConfig(allRules),
         "debug-legacy": createLegacyConfig(debugRules),
