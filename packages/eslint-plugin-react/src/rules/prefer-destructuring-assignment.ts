@@ -1,4 +1,4 @@
-import { isDestructorParameter, isFunction, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
+import { isDestructuringPattern, isFunction, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { componentCollector, isValidReactComponentName } from "@eslint-react/core";
 import { createRule } from "@eslint-react/shared";
 import { E } from "@eslint-react/tools";
@@ -113,7 +113,7 @@ export default createRule<Options, MessageID>({
 
                 for (const component of components) {
                     const [props, ctx] = component.params;
-                    if (props && isDestructorParameter(props)) {
+                    if (props && isDestructuringPattern(props)) {
                         context.report({
                             messageId: "NO_DESTRUCTOR_PROPS",
                             node: component,
@@ -122,7 +122,7 @@ export default createRule<Options, MessageID>({
                         continue;
                     }
 
-                    if (ctx && isDestructorParameter(ctx)) {
+                    if (ctx && isDestructuringPattern(ctx)) {
                         context.report({
                             messageId: "NO_DESTRUCTOR_CONTEXT",
                             node: component,

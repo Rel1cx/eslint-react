@@ -58,6 +58,12 @@ export type TSESTreeJSX =
     | TSESTree.JSXText
     | TSESTree.JSXTextToken;
 
+export type TSESTreeDestructuringPattern =
+    | TSESTree.ArrayPattern
+    | TSESTree.AssignmentPattern
+    | TSESTree.ObjectPattern
+    | TSESTree.RestElement;
+
 export type TSESTreeTypeDeclaration =
     | TSESTree.TSInterfaceDeclaration
     | TSESTree.TSTypeAliasDeclaration;
@@ -130,6 +136,13 @@ export const isJSXTagNameExpression = isOneOf([
     NodeType.JSXIdentifier,
     NodeType.JSXMemberExpression,
     NodeType.JSXNamespacedName,
+]);
+
+export const isDestructuringPattern = isOneOf([
+    NodeType.ArrayPattern,
+    NodeType.AssignmentPattern,
+    NodeType.ObjectPattern,
+    NodeType.RestElement,
 ]);
 
 export const isTypeDeclaration = isOneOf([
