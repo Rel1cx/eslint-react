@@ -1,6 +1,6 @@
 # jsx/prefer-shorthand-boolean
 
-⚠️🚫 This rule _warns_ in the following configs: `all-legacy`, 🎨 `jsx`, `jsx-legacy`, 👍 `recommended`, `recommended-legacy`, `recommended-type-checked-legacy`. This rule is _disabled_ in the `off-legacy` config.
+⚠️ This rule _warns_ in the following configs: 🎨 `jsx-legacy`, 👍 `recommended-legacy`.
 
 <!-- end auto-generated rule header -->
 

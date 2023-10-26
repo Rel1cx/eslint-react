@@ -1,6 +1,6 @@
 # jsx/no-script-url
 
-💼 This rule is enabled in the following configs: 👍 `recommended`, `recommended-legacy`, `recommended-type-checked-legacy`.
+💼 This rule is enabled in the 👍 `recommended-legacy` config.
 
 <!-- end auto-generated rule header -->
 

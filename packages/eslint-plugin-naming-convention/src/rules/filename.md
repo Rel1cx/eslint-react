@@ -1,7 +1,5 @@
 # naming-convention/filename
 
-⚠️🚫 This rule _warns_ in the `all-legacy` config. This rule is _disabled_ in the `off-legacy` config.
-
 <!-- end auto-generated rule header -->
 
 Enforces `.tsx` or `.jsx` file naming convention.

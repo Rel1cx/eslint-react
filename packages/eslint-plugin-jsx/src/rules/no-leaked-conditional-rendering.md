@@ -1,6 +1,6 @@
 # jsx/no-leaked-conditional-rendering
 
-💼🚫 This rule is enabled in the following configs: `all-legacy`, 🎨 `jsx`, `jsx-legacy`, 👍 `recommended`, `recommended-legacy`, `recommended-type-checked-legacy`. This rule is _disabled_ in the `off-legacy` config.
+💼 This rule is enabled in the following configs: 🎨 `jsx-legacy`, 👍 `recommended-legacy`.
 
 <!-- end auto-generated rule header -->
 

@@ -7,12 +7,23 @@ const defaultTitle = "react";
 // TODO: need to modify this config to support multiple eslint-plugin packages
 export default {
     configEmoji: [
-        ["recommended", "👍"],
-        ["recommended-type-checked", "🔍"],
-        ["debug", "🛠️"],
-        ["jsx", "🎨"],
+        ["recommended-legacy", "👍"],
+        ["recommended-type-checked-legacy", "🔍"],
+        ["debug-legacy", "🛠️"],
+        ["jsx-legacy", "🎨"],
     ],
-    ignoreConfig: ["all", "off", "debug", "recommended-type-checked"],
+    ignoreConfig: [
+        "all-legacy",
+        "off-legacy",
+        "debug-legacy",
+        "recommended-type-checked-legacy",
+        "all",
+        "debug",
+        "jsx",
+        "off",
+        "recommended",
+        "recommended-type-checked",
+    ],
     pathRuleDoc: (name) => `../eslint-plugin-${name.split("/")[0]}/src/rules/${name.split("/")[1]}.md`,
     pathRuleList: "../../README.md",
     ruleDocSectionInclude: ["Rule Details"],
