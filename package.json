@@ -38,7 +38,7 @@
         "lint:fix": "eslint --cache --fix .",
         "lint:type": "pnpm -r run lint:type",
         "lint:publish": "pnpm -r run lint:publish",
-        "test": "pnpm run -r test",
+        "test": "vitest --run",
         "test:ui": "vitest --ui",
         "update": "taze",
         "inspect:eslint-config": "eslint --print-config ./taze.config.ts > eslint-config.json",
