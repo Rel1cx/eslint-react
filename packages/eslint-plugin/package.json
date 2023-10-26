@@ -51,11 +51,6 @@
         "publish": "pnpm run build && pnpm run lint:publish"
     },
     "dependencies": {
-        "@eslint-react/eslint-plugin-debug": "workspace:*",
-        "@eslint-react/eslint-plugin-hooks": "workspace:*",
-        "@eslint-react/eslint-plugin-jsx": "workspace:*",
-        "@eslint-react/eslint-plugin-naming-convention": "workspace:*",
-        "@eslint-react/eslint-plugin-react": "workspace:*",
         "@typescript-eslint/scope-manager": "6.9.0",
         "@typescript-eslint/type-utils": "6.9.0",
         "@typescript-eslint/types": "6.9.0",
@@ -67,6 +62,11 @@
         "@eslint-react/shared": "workspace:*",
         "@eslint-react/tools": "workspace:*",
         "@eslint-react/types": "workspace:*",
+        "@eslint-react/eslint-plugin-debug": "workspace:*",
+        "@eslint-react/eslint-plugin-hooks": "workspace:*",
+        "@eslint-react/eslint-plugin-jsx": "workspace:*",
+        "@eslint-react/eslint-plugin-naming-convention": "workspace:*",
+        "@eslint-react/eslint-plugin-react": "workspace:*",
         "@rizzzse/bimap": "1.2.1",
         "@typescript-eslint/rule-tester": "6.9.0",
         "dedent": "1.5.1",
