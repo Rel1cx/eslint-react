@@ -117,5 +117,77 @@ ruleTester.run(RULE_NAME, rule, {
                 },
             ],
         },
+        {
+            code: dedent`
+                export function useNestedHook() {
+                    const [state, setState] = useState("state");
+                    const useInnerHook = () => {
+                        return "inner hook";
+                    };
+
+                    return [state, setState, useInnerHook] as const;
+                }
+            `,
+            errors: [
+                {
+                    messageId: "HOOKS",
+                    data: {
+                        name: "useNestedHook",
+                    },
+                },
+                {
+                    messageId: "REDUNDANT_HOOKS",
+                    data: {
+                        name: "useInnerHook",
+                    },
+                },
+            ],
+        },
+        {
+            code: dedent`
+                export function useNestedHook() {
+                    const useInnerHook = () => {
+                        const [state, setState] = useState("state");
+                        return state;
+                    };
+
+                    return [state, setState, useInnerHook] as const;
+                }
+            `,
+            errors: [
+                {
+                    messageId: "REDUNDANT_HOOKS",
+                    data: {
+                        name: "useNestedHook",
+                    },
+                },
+                {
+                    messageId: "HOOKS",
+                    data: {
+                        name: "useInnerHook",
+                    },
+                },
+            ],
+        },
+        {
+            code: dedent`
+                export function useNestedHook() {
+                    const fn = () => {
+                        const [state, setState] = useState("state");
+                        return state;
+                    };
+
+                    return [state, setState, useInnerHook] as const;
+                }
+            `,
+            errors: [
+                {
+                    messageId: "REDUNDANT_HOOKS",
+                    data: {
+                        name: "useNestedHook",
+                    },
+                },
+            ],
+        },
     ],
 });
