@@ -15,6 +15,11 @@ overrides:
   '@typescript-eslint/utils': 6.9.0
   '@typescript-eslint/parser': '>=6.9.0'
 
+patchedDependencies:
+  eslint-doc-generator@1.5.2:
+    hash: z4hpjazu4zrbjf5txyxe6paxni
+    path: patches/eslint-doc-generator@1.5.2.patch
+
 importers:
 
   .:
@@ -75,7 +80,7 @@ importers:
         version: 2.7.9(eslint@8.52.0)(tailwindcss@3.3.4)(typescript@5.3.0-beta)
       eslint-doc-generator:
         specifier: 1.5.2
-        version: 1.5.2(eslint@8.52.0)(typescript@5.3.0-beta)
+        version: 1.5.2(patch_hash=z4hpjazu4zrbjf5txyxe6paxni)(eslint@8.52.0)(typescript@5.3.0-beta)
       eslint-plugin-eslint-plugin:
         specifier: 5.1.1
         version: 5.1.1(eslint@8.52.0)
@@ -4147,7 +4152,7 @@ packages:
     engines: {node: '>=18.0.0', npm: '>=9.0.0', pnpm: '>= 8.6.0'}
     dev: true
 
-  /eslint-doc-generator@1.5.2(eslint@8.52.0)(typescript@5.3.0-beta):
+  /eslint-doc-generator@1.5.2(patch_hash=z4hpjazu4zrbjf5txyxe6paxni)(eslint@8.52.0)(typescript@5.3.0-beta):
     resolution: {integrity: sha512-j+eTFcOlaKZE7h/xoQeshjzBZCW7hwKzLsS1vKsop0jfOVXIqd9uXaHXe9lCQYH4v8vGSQqaKxxrou7t22rrIg==}
     engines: {node: ^14.18.0 || ^16.0.0 || >=18.0.0}
     hasBin: true
@@ -4171,6 +4176,7 @@ packages:
       - supports-color
       - typescript
     dev: true
+    patched: true
 
   /eslint-etc@5.2.1(eslint@8.52.0)(typescript@5.3.0-beta):
     resolution: {integrity: sha512-lFJBSiIURdqQKq9xJhvSJFyPA+VeTh5xvk24e8pxVL7bwLBtGF60C/KRkLTMrvCZ6DA3kbPuYhLWY0TZMlqTsg==}

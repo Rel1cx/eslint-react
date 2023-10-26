@@ -80,45 +80,46 @@ export default [
 
 💼 Configurations enabled in.\
 ⚠️ Configurations set to warn in.\
+🚫 Configurations disabled in.\
 🎨 Set in the `jsx` configuration.\
 👍 Set in the `recommended` configuration.
 
 ### debug
 
-| Name                                                                                      | Description                                               | 💼 | ⚠️  |
-| :---------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :- | :- |
-| [debug/class-component](packages/eslint-plugin/docs/rules/debug/class-component.md)       | reports all class components, including anonymous ones    |    |    |
-| [debug/function-component](packages/eslint-plugin/docs/rules/debug/function-component.md) | reports all function components, including anonymous ones |    |    |
+| Name                                                                                     | Description                                               | 💼 | ⚠️                       | 🚫                    |
+| :--------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :- | :---------------------- | :-------------------- |
+| [debug/class-component](packages/eslint-plugin-debug/src/rules/class-component.md)       | reports all class components, including anonymous ones    |    | ![badge-debug-legacy][] | ![badge-off-legacy][] |
+| [debug/function-component](packages/eslint-plugin-debug/src/rules/function-component.md) | reports all function components, including anonymous ones |    | ![badge-debug-legacy][] | ![badge-off-legacy][] |
 
 ### jsx
 
-| Name                                                                                                            | Description                                                   | 💼    | ⚠️     |
-| :-------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------ | :---- | :---- |
-| [jsx/no-array-index-key](packages/eslint-plugin/docs/rules/jsx/no-array-index-key.md)                           | disallow using Array index as key                             | 🎨 👍 |       |
-| [jsx/no-duplicate-key](packages/eslint-plugin/docs/rules/jsx/no-duplicate-key.md)                               | disallow duplicate keys in `key` prop when rendering list     | 🎨 👍 |       |
-| [jsx/no-leaked-conditional-rendering](packages/eslint-plugin/docs/rules/jsx/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered        | 🎨 👍 |       |
-| [jsx/no-missing-key](packages/eslint-plugin/docs/rules/jsx/no-missing-key.md)                                   | require `key` prop when rendering list                        | 🎨 👍 |       |
-| [jsx/no-misused-comment-in-textnode](packages/eslint-plugin/docs/rules/jsx/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes           |       | 🎨 👍 |
-| [jsx/no-script-url](packages/eslint-plugin/docs/rules/jsx/no-script-url.md)                                     | disallow `javascript:` URLs as JSX event handler prop's value | 👍    |       |
-| [jsx/prefer-shorthand-boolean](packages/eslint-plugin/docs/rules/jsx/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX                    |       | 🎨 👍 |
+| Name                                                                                                           | Description                                                   | 💼                                                                                                                         | ⚠️                                                                                                                          | 🚫                    |
+| :------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------- | :-------------------- |
+| [jsx/no-array-index-key](packages/eslint-plugin-jsx/src/rules/no-array-index-key.md)                           | disallow using Array index as key                             | 🎨 👍 ![badge-all-legacy][] ![badge-jsx-legacy][] ![badge-recommended-legacy][] ![badge-recommended-type-checked-legacy][] |                                                                                                                            | ![badge-off-legacy][] |
+| [jsx/no-duplicate-key](packages/eslint-plugin-jsx/src/rules/no-duplicate-key.md)                               | disallow duplicate keys in `key` prop when rendering list     | 🎨 👍 ![badge-all-legacy][] ![badge-jsx-legacy][] ![badge-recommended-legacy][] ![badge-recommended-type-checked-legacy][] |                                                                                                                            | ![badge-off-legacy][] |
+| [jsx/no-leaked-conditional-rendering](packages/eslint-plugin-jsx/src/rules/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered        | 🎨 👍 ![badge-all-legacy][] ![badge-jsx-legacy][] ![badge-recommended-legacy][] ![badge-recommended-type-checked-legacy][] |                                                                                                                            | ![badge-off-legacy][] |
+| [jsx/no-missing-key](packages/eslint-plugin-jsx/src/rules/no-missing-key.md)                                   | require `key` prop when rendering list                        | 🎨 👍 ![badge-all-legacy][] ![badge-jsx-legacy][] ![badge-recommended-legacy][] ![badge-recommended-type-checked-legacy][] |                                                                                                                            | ![badge-off-legacy][] |
+| [jsx/no-misused-comment-in-textnode](packages/eslint-plugin-jsx/src/rules/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes           |                                                                                                                            | 🎨 👍 ![badge-all-legacy][] ![badge-jsx-legacy][] ![badge-recommended-legacy][] ![badge-recommended-type-checked-legacy][] | ![badge-off-legacy][] |
+| [jsx/no-script-url](packages/eslint-plugin-jsx/src/rules/no-script-url.md)                                     | disallow `javascript:` URLs as JSX event handler prop's value | 👍 ![badge-recommended-legacy][] ![badge-recommended-type-checked-legacy][]                                                |                                                                                                                            |                       |
+| [jsx/prefer-shorthand-boolean](packages/eslint-plugin-jsx/src/rules/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX                    |                                                                                                                            | 🎨 👍 ![badge-all-legacy][] ![badge-jsx-legacy][] ![badge-recommended-legacy][] ![badge-recommended-type-checked-legacy][] | ![badge-off-legacy][] |
 
 ### naming-convention
 
-| Name                                                                                                              | Description                                        | 💼 | ⚠️  |
-| :---------------------------------------------------------------------------------------------------------------- | :------------------------------------------------- | :- | :- |
-| [naming-convention/filename](packages/eslint-plugin/docs/rules/naming-convention/filename.md)                     | enforce naming convention for JSX file names       |    |    |
-| [naming-convention/filename-extension](packages/eslint-plugin/docs/rules/naming-convention/filename-extension.md) | enforces naming convention for JSX file extensions |    |    |
+| Name                                                                                                             | Description                                        | 💼 | ⚠️                     | 🚫                    |
+| :--------------------------------------------------------------------------------------------------------------- | :------------------------------------------------- | :- | :-------------------- | :-------------------- |
+| [naming-convention/filename](packages/eslint-plugin-naming-convention/src/rules/filename.md)                     | enforce naming convention for JSX file names       |    | ![badge-all-legacy][] | ![badge-off-legacy][] |
+| [naming-convention/filename-extension](packages/eslint-plugin-naming-convention/src/rules/filename-extension.md) | enforces naming convention for JSX file extensions |    | ![badge-all-legacy][] | ![badge-off-legacy][] |
 
 ### react
 
-| Name                                                                                                                          | Description                                                                     | 💼 | ⚠️  |
-| :---------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ | :- | :- |
-| [no-constructed-context-value](packages/eslint-plugin/docs/rules/no-constructed-context-value.md)                             | disallows passing constructed values to context providers                       | 👍 |    |
-| [no-dangerously-set-innerhtml](packages/eslint-plugin/docs/rules/no-dangerously-set-innerhtml.md)                             | disallow when a DOM element is using both children and dangerouslySetInnerHTML' | 👍 |    |
-| [no-dangerously-set-innerhtml-with-children](packages/eslint-plugin/docs/rules/no-dangerously-set-innerhtml-with-children.md) | disallow when a DOM element is using both children and dangerouslySetInnerHTML' | 👍 |    |
-| [no-string-refs](packages/eslint-plugin/docs/rules/no-string-refs.md)                                                         | disallow using deprecated string refs                                           | 👍 |    |
-| [no-unstable-default-props](packages/eslint-plugin/docs/rules/no-unstable-default-props.md)                                   | disallow usage of unstable value as default param in function component         | 👍 |    |
-| [no-unstable-nested-components](packages/eslint-plugin/docs/rules/no-unstable-nested-components.md)                           | disallow usage of unstable nested components                                    | 👍 |    |
+| Name                                                                                                                                     | Description                                                                     | 💼                                                                                                | ⚠️  | 🚫                    |
+| :--------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------ | :- | :-------------------- |
+| [react/no-constructed-context-value](packages/eslint-plugin-react/src/rules/no-constructed-context-value.md)                             | disallows passing constructed values to context providers                       | 👍 ![badge-all-legacy][] ![badge-recommended-legacy][] ![badge-recommended-type-checked-legacy][] |    | ![badge-off-legacy][] |
+| [react/no-dangerously-set-innerhtml](packages/eslint-plugin-react/src/rules/no-dangerously-set-innerhtml.md)                             | disallow when a DOM element is using both children and dangerouslySetInnerHTML' | 👍 ![badge-all-legacy][] ![badge-recommended-legacy][] ![badge-recommended-type-checked-legacy][] |    | ![badge-off-legacy][] |
+| [react/no-dangerously-set-innerhtml-with-children](packages/eslint-plugin-react/src/rules/no-dangerously-set-innerhtml-with-children.md) | disallow when a DOM element is using both children and dangerouslySetInnerHTML' | 👍 ![badge-all-legacy][] ![badge-recommended-legacy][] ![badge-recommended-type-checked-legacy][] |    | ![badge-off-legacy][] |
+| [react/no-string-refs](packages/eslint-plugin-react/src/rules/no-string-refs.md)                                                         | disallow using deprecated string refs                                           | 👍 ![badge-all-legacy][] ![badge-recommended-legacy][] ![badge-recommended-type-checked-legacy][] |    | ![badge-off-legacy][] |
+| [react/no-unstable-default-props](packages/eslint-plugin-react/src/rules/no-unstable-default-props.md)                                   | disallow usage of unstable value as default param in function component         | 👍 ![badge-all-legacy][] ![badge-recommended-legacy][] ![badge-recommended-type-checked-legacy][] |    | ![badge-off-legacy][] |
+| [react/no-unstable-nested-components](packages/eslint-plugin-react/src/rules/no-unstable-nested-components.md)                           | disallow usage of unstable nested components                                    | 👍 ![badge-all-legacy][] ![badge-recommended-legacy][] ![badge-recommended-type-checked-legacy][] |    | ![badge-off-legacy][] |
 
 <!-- end auto-generated rules list -->
 

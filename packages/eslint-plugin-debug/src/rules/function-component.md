@@ -1,4 +1,8 @@
-# @eslint-react/debug/function-component
+# debug/function-component
+
+⚠️🚫 This rule _warns_ in the `debug-legacy` config. This rule is _disabled_ in the `off-legacy` config.
+
+<!-- end auto-generated rule header -->
 
 Warns when a function component is found. Useful for debugging.
 

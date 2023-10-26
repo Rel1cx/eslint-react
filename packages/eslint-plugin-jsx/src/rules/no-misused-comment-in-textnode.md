@@ -1,4 +1,8 @@
-# @eslint-react/jsx/no-misused-comment-in-textnode
+# jsx/no-misused-comment-in-textnode
+
+⚠️🚫 This rule _warns_ in the following configs: `all-legacy`, 🎨 `jsx`, `jsx-legacy`, 👍 `recommended`, `recommended-legacy`, `recommended-type-checked-legacy`. This rule is _disabled_ in the `off-legacy` config.
+
+<!-- end auto-generated rule header -->
 
 This rule prevents comment strings (e.g. beginning with `//` or `/*`) from being accidentally
 injected as a text node in JSX statements.

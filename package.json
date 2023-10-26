@@ -117,6 +117,9 @@
             "@typescript-eslint/types": "6.9.0",
             "@typescript-eslint/utils": "6.9.0",
             "@typescript-eslint/parser": ">=6.9.0"
+        },
+        "patchedDependencies": {
+            "eslint-doc-generator@1.5.2": "patches/eslint-doc-generator@1.5.2.patch"
         }
     }
 }

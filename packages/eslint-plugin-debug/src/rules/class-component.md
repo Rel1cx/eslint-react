@@ -1,4 +1,8 @@
-# @eslint-react/debug/class-component
+# debug/class-component
+
+⚠️🚫 This rule _warns_ in the `debug-legacy` config. This rule is _disabled_ in the `off-legacy` config.
+
+<!-- end auto-generated rule header -->
 
 Warns when a class component is found. Useful for debugging.
 

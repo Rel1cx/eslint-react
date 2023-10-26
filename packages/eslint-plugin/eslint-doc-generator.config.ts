@@ -13,6 +13,7 @@ export default {
         ["jsx", "🎨"],
     ],
     ignoreConfig: ["all", "off", "debug", "recommended-type-checked"],
+    pathRuleDoc: (name) => `../eslint-plugin-${name.split("/")[0]}/src/rules/${name.split("/")[1]}.md`,
     pathRuleList: "../../README.md",
     ruleDocSectionInclude: ["Rule Details"],
     ruleDocTitleFormat: "name",
