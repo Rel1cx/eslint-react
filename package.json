@@ -43,8 +43,7 @@
         "test:ui": "vitest --ui",
         "update": "taze",
         "inspect:eslint-config": "eslint --print-config ./taze.config.ts > eslint-config.json",
-        "inspect:deps": "skott -e .ts -s -t",
-        "clean": "git add . && git stash && git clean -xffd && git stash pop"
+        "inspect:deps": "skott -e .ts -s -t"
     },
     "devDependencies": {
         "@effect/language-service": "0.0.21",
