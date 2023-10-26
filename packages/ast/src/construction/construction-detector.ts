@@ -57,10 +57,17 @@ export const Construction = Data.taggedEnum<Construction>();
 const None = Construction.None();
 
 /**
- * Detect the construction of a given node.
+ * Get a function that detects the construction of a given node.
  * @param context The rule context
+ * @returns A function that detects the construction of a given node
  */
 export function constructionDetector<T extends RuleContext>(context: T): (node: TSESTree.Node, scope: Scope) => Construction {
+    /**
+     * Detect if a node is a constructed value.
+     * @param node The AST node to detect the construction of
+     * @param scope The scope of the node
+     * @returns The construction of the node
+     */
     // eslint-disable-next-line sonarjs/cognitive-complexity
     const detect = (node: TSESTree.Node, scope = context.getScope()): Construction => {
         return match(node)

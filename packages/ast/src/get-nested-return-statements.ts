@@ -3,6 +3,11 @@ import { isNil } from "rambda";
 
 import { NodeType } from "./node-types";
 
+/**
+ * Gets nested return statements in a node
+ * @param node The AST node
+ * @returns The nested return statements
+ */
 export function getNestedReturnStatements(node: TSESTree.Node): TSESTree.ReturnStatement[] {
     const returnStatements: TSESTree.ReturnStatement[] = [];
 

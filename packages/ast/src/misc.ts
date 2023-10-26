@@ -3,6 +3,15 @@ import { isMatching } from "ts-pattern";
 
 import { NodeType } from "./node-types";
 
+/**
+ * Check if a node is multiline
+ * @param node The AST node to check
+ * @returns  `true` if the node is multiline
+ */
+export function isMultiLine(node: TSESTree.Node) {
+    return node.loc.start.line !== node.loc.end.line;
+}
+
 export function unsafeIsToStringCall(node: TSESTree.Node): node is
     & TSESTree.CallExpression
     & {

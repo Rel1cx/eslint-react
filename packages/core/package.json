@@ -40,6 +40,7 @@
         "lint:type": "tsc --noEmit",
         "lint:publish": "pnpm publint",
         "build": "rollup -c rollup.config.ts --configPlugin swc3 && cp dist/index.d.ts dist/index.d.mts",
+        "build:docs": "typedoc && dprint fmt ./docs/**/*.md",
         "publish": "pnpm run build && pnpm run lint:publish"
     },
     "dependencies": {

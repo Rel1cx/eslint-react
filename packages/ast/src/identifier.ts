@@ -3,6 +3,12 @@ import { match } from "ts-pattern";
 
 import { isOneOf, NodeType, type TSESTreeClass, type TSESTreeFunction } from "./node-types";
 
+/**
+ * Checks if a node is an identifier with a given name
+ * @param node The AST node
+ * @param name The name
+ * @returns `true if the node is an identifier with the given name
+ */
 export function isIdentifierWithName<const T extends string>(
     node: TSESTree.Node,
     name: T,
@@ -11,6 +17,12 @@ export function isIdentifierWithName<const T extends string>(
         && node.name === name;
 }
 
+/**
+ * Checks if a node is an identifier with one of names
+ * @param node The AST node
+ * @param name The name
+ * @returns `true` if the node is an identifier with one of names
+ */
 export function isIdentifierWithOneOfNames<T extends string[]>(
     node: TSESTree.Node,
     name: T,
@@ -38,6 +50,11 @@ export function getFunctionIdentifier(node: TSESTreeFunction): TSESTree.Identifi
     return null;
 }
 
+/**
+ * Gets class identifier from ClassDeclaration or ClassExpression
+ * @param node The AST node to check
+ * @returns class identifier or null
+ */
 export function getClassIdentifier(node: TSESTreeClass): TSESTree.Identifier | null {
     return match(node)
         .with({ type: NodeType.ClassDeclaration }, (x) => x.id)

@@ -10,13 +10,13 @@ import { isChildrenOfCreateElement } from "../element";
 import { isFunctionOfRenderMethod } from "./component-collector-legacy";
 import { isValidReactComponentName } from "./is-valid-react-component-name";
 
-export const hasInvalidName = (node: TSESTreeFunction) => {
+const hasInvalidName = (node: TSESTreeFunction) => {
     const id = getFunctionIdentifier(node);
 
     return id && !isValidReactComponentName(id.name);
 };
 
-export const hasInvalidHierarchicalRelationship = (node: TSESTreeFunction, context: RuleContext, ignoreMapCall = false) => {
+const hasInvalidHierarchy = (node: TSESTreeFunction, context: RuleContext, ignoreMapCall = false) => {
     return isChildrenOfCreateElement(node, context)
         || isFunctionOfRenderMethod(node, context)
         // eslint-disable-next-line @typescript-eslint/no-extra-parens
@@ -92,7 +92,7 @@ export function componentCollector(
             if (
                 hasInvalidName(currentFn)
                 || !isJSXValue(node.argument, context, options)
-                || hasInvalidHierarchicalRelationship(currentFn, context, options.ignoreMapCall)
+                || hasInvalidHierarchy(currentFn, context, options.ignoreMapCall)
             ) {
                 return;
             }
@@ -112,7 +112,7 @@ export function componentCollector(
             if (
                 hasInvalidName(node)
                 || !isJSXValue(body, context, options)
-                || hasInvalidHierarchicalRelationship(node, context, options.ignoreMapCall)
+                || hasInvalidHierarchy(node, context, options.ignoreMapCall)
             ) {
                 return;
             }

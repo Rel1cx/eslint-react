@@ -2,6 +2,11 @@ import { type TSESTree } from "@typescript-eslint/types";
 
 import { NodeType } from "./node-types";
 
+/**
+ * Gets nested identifiers in a node
+ * @param node The AST node
+ * @returns The nested identifiers
+ */
 export function getNestedIdentifiers(node: TSESTree.Node): TSESTree.Identifier[] {
     const identifiers: TSESTree.Identifier[] = [];
 
