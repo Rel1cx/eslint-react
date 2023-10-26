@@ -46,8 +46,8 @@
     },
     "devDependencies": {
         "@eslint-react/ast": "workspace:*",
-        "@eslint-react/jsx": "workspace:*",
         "@eslint-react/core": "workspace:*",
+        "@eslint-react/jsx": "workspace:*",
         "@eslint-react/shared": "workspace:*",
         "@eslint-react/tools": "workspace:*",
         "@eslint-react/types": "workspace:*",
