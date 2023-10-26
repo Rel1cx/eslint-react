@@ -1,6 +1,6 @@
 {
     "name": "@eslint-react/eslint-plugin-react",
-    "version": "0.4.0",
+    "version": "0.5.1",
     "homepage": "https://github.com/Rel1cx/eslint-react",
     "bugs": {
         "url": "https://github.com/Rel1cx/eslint-react/issues"
@@ -12,19 +12,31 @@
     },
     "license": "MIT",
     "author": "Eva1ent<let@ik.me>",
-    "types": "./dist/index.d.ts",
-    "main": "./dist/index.js",
-    "module": "./dist/index.mjs",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./dist/index.d.mts",
+                "default": "./dist/index.mjs"
+            },
+            "require": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/index.js"
+            }
+        },
+        "./package.json": "./package.json"
+    },
     "files": [
         "./dist",
         "./package.json"
     ],
     "scripts": {
         "lint:type": "tsc --noEmit",
-        "build": "rollup -c rollup.config.ts --configPlugin swc3",
-        "build:docs": "bun run ./scripts/doc-generate.ts && eslint-doc-generator && dprint fmt docs/**/*.md",
-        "publish": "pnpm run build && pnpm run test && pnpm publint",
-        "test": "vitest --run --single-thread --no-threads"
+        "lint:publish": "pnpm publint",
+        "build": "rollup -c rollup.config.ts --configPlugin swc3 && cp dist/index.d.ts dist/index.d.mts",
+        "publish": "pnpm run build && pnpm run lint:publish"
     },
     "dependencies": {
         "@typescript-eslint/scope-manager": "6.9.0",
@@ -49,7 +61,7 @@
         "@typescript-eslint/rule-tester": "6.9.0",
         "dedent": "1.5.1",
         "deepmerge-ts": "5.1.0",
-        "effect": "2.0.0-next.50",
+        "effect": "2.0.0-next.52",
         "rambda": "8.5.0",
         "ts-pattern": "5.0.5"
     },

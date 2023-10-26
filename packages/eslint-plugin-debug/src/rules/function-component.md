@@ -41,18 +41,3 @@ import React from "react";
 
 const Component = React.forwardRef(() => <div />);
 ```
-
-### ✅ Correct
-
-```tsx
-function foo() {
-    return "bar";
-}
-```
-
-```tsx
-// render functions are not components
-function renderItem(name: string) {
-    return <div>{name}</div>;
-}
-```

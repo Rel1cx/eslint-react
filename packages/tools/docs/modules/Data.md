@@ -58,7 +58,7 @@
 
 ### Class
 
-• `Const` **Class**: <A\>(`args`: `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : `Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>) => [`Data`](Data.md#data)<`A`\>
+• `Const` **Class**: <A\>(`args`: `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] }) => [`Data`](Data.md#data)<`Readonly`<`A`\>\>
 
 #### Type declaration
 
@@ -74,9 +74,27 @@ Provides a constructor for a Case Class.
 
 ##### Parameters
 
-| Name   | Type                                                                                                                                                                   |
-| :----- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `args` | `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : `Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\> |
+| Name   | Type                                                                                                                                                                              |
+| :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `args` | `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] } |
+
+**`Example`**
+
+```ts
+import * as Data from "effect/Data";
+import * as Equal from "effect/Equal";
+
+class Person extends Data.Class<{ readonly name: string }> {}
+
+// Creating instances of Person
+const mike1 = new Person({ name: "Mike" });
+const mike2 = new Person({ name: "Mike" });
+const john = new Person({ name: "John" });
+
+// Checking equality
+assert.deepStrictEqual(Equal.equals(mike1, mike2), true);
+assert.deepStrictEqual(Equal.equals(mike1, john), false);
+```
 
 **`Since`**
 
@@ -86,7 +104,7 @@ Provides a constructor for a Case Class.
 
 ### Error
 
-• `Const` **Error**: <A\>(`args`: `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : `Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>) => [`YieldableError`](../interfaces/Data.YieldableError.md) & `A`
+• `Const` **Error**: <A\>(`args`: `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] }) => [`YieldableError`](../interfaces/Data.YieldableError.md) & `Readonly`<`A`\>
 
 #### Type declaration
 
@@ -102,9 +120,9 @@ Provides a constructor for a Case Class.
 
 ##### Parameters
 
-| Name   | Type                                                                                                                                                                   |
-| :----- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `args` | `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : `Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\> |
+| Name   | Type                                                                                                                                                                              |
+| :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `args` | `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] } |
 
 **`Since`**
 
@@ -114,7 +132,7 @@ Provides a constructor for a Case Class.
 
 ### Structural
 
-• `Const` **Structural**: <A\>(`args`: `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : `Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>) => [`Case`](../interfaces/Data.Case-1.md)
+• `Const` **Structural**: <A\>(`args`: `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] }) => [`Case`](../interfaces/Data.Case-1.md)
 
 #### Type declaration
 
@@ -128,9 +146,9 @@ Provides a constructor for a Case Class.
 
 ##### Parameters
 
-| Name   | Type                                                                                                                                                                   |
-| :----- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `args` | `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : `Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\> |
+| Name   | Type                                                                                                                                                                              |
+| :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `args` | `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] } |
 
 **`Since`**
 
@@ -140,7 +158,7 @@ Provides a constructor for a Case Class.
 
 ### TaggedClass
 
-▸ **TaggedClass**<`Tag`\>(`tag`): <A\>(`args`: `Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : `Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>) => [`Data`](Data.md#data)<`A` & { `_tag`: `Tag` }\>
+▸ **TaggedClass**<`Tag`\>(`tag`): <A\>(`args`: `Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] }) => [`Data`](Data.md#data)<`Readonly`<`A`\> & { `_tag`: `Tag` }\>
 
 Provides a Tagged constructor for a Case Class.
 
@@ -170,9 +188,29 @@ Provides a Tagged constructor for a Case Class.
 
 ##### Parameters
 
-| Name   | Type                                                                                                                                                             |
-| :----- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `args` | `Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : `Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\> |
+| Name   | Type                                                                                                                                                                                                      |
+| :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `args` | `Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] } |
+
+**`Example`**
+
+```ts
+import * as Data from "effect/Data";
+import * as Equal from "effect/Equal";
+
+class Person extends Data.TaggedClass("Person")<{ readonly name: string }> {}
+
+// Creating instances of Person
+const mike1 = new Person({ name: "Mike" });
+const mike2 = new Person({ name: "Mike" });
+const john = new Person({ name: "John" });
+
+// Checking equality
+assert.deepStrictEqual(Equal.equals(mike1, mike2), true);
+assert.deepStrictEqual(Equal.equals(mike1, john), false);
+
+assert.deepStrictEqual(mike1._tag, "Person");
+```
 
 **`Since`**
 
@@ -182,7 +220,7 @@ Provides a Tagged constructor for a Case Class.
 
 ### TaggedError
 
-▸ **TaggedError**<`Tag`\>(`tag`): <A\>(`args`: `Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : `Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>) => [`YieldableError`](../interfaces/Data.YieldableError.md) & { `_tag`: `Tag` } & `A`
+▸ **TaggedError**<`Tag`\>(`tag`): <A\>(`args`: `Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] }) => [`YieldableError`](../interfaces/Data.YieldableError.md) & { `_tag`: `Tag` } & `Readonly`<`A`\>
 
 #### Type parameters
 
@@ -210,9 +248,9 @@ Provides a Tagged constructor for a Case Class.
 
 ##### Parameters
 
-| Name   | Type                                                                                                                                                             |
-| :----- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `args` | `Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : `Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\> |
+| Name   | Type                                                                                                                                                                                                      |
+| :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `args` | `Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] } |
 
 **`Since`**
 
@@ -222,7 +260,7 @@ Provides a Tagged constructor for a Case Class.
 
 ### array
 
-▸ **array**<`As`\>(`as`): [`Data`](Data.md#data)<`As`\>
+▸ **array**<`As`\>(`as`): [`Data`](Data.md#data)<`Readonly`<`As`\>\>
 
 #### Type parameters
 
@@ -238,7 +276,30 @@ Provides a Tagged constructor for a Case Class.
 
 #### Returns
 
-[`Data`](Data.md#data)<`As`\>
+[`Data`](Data.md#data)<`Readonly`<`As`\>\>
+
+**`Example`**
+
+```ts
+import * as Data from "effect/Data";
+import * as Equal from "effect/Equal";
+
+const alice = Data.struct({ name: "Alice", age: 30 });
+const bob = Data.struct({ name: "Bob", age: 40 });
+
+const persons = Data.array([alice, bob]);
+
+assert.deepStrictEqual(
+    Equal.equals(
+        persons,
+        Data.array([
+            Data.struct({ name: "Alice", age: 30 }),
+            Data.struct({ name: "Bob", age: 40 }),
+        ]),
+    ),
+    true,
+);
+```
 
 **`Since`**
 
@@ -248,23 +309,40 @@ Provides a Tagged constructor for a Case Class.
 
 ### struct
 
-▸ **struct**<`As`\>(`as`): [`Data`](Data.md#data)<`As`\>
+▸ **struct**<`A`\>(`a`): [`Data`](Data.md#data)<{ readonly [P in string \| number \| symbol]: A[P] }\>
 
 #### Type parameters
 
-| Name | Type                                            |
-| :--- | :---------------------------------------------- |
-| `As` | extends `Readonly`<`Record`<`string`, `any`\>\> |
+| Name | Type                               |
+| :--- | :--------------------------------- |
+| `A`  | extends `Record`<`string`, `any`\> |
 
 #### Parameters
 
 | Name | Type |
 | :--- | :--- |
-| `as` | `As` |
+| `a`  | `A`  |
 
 #### Returns
 
-[`Data`](Data.md#data)<`As`\>
+[`Data`](Data.md#data)<{ readonly [P in string \| number \| symbol]: A[P] }\>
+
+**`Example`**
+
+```ts
+import * as Data from "effect/Data";
+import * as Equal from "effect/Equal";
+
+const alice = Data.struct({ name: "Alice", age: 30 });
+
+const bob = Data.struct({ name: "Bob", age: 40 });
+
+assert.deepStrictEqual(Equal.equals(alice, alice), true);
+assert.deepStrictEqual(Equal.equals(alice, Data.struct({ name: "Alice", age: 30 })), true);
+
+assert.deepStrictEqual(Equal.equals(alice, { name: "Alice", age: 30 }), false);
+assert.deepStrictEqual(Equal.equals(alice, bob), false);
+```
 
 **`Since`**
 
@@ -294,6 +372,23 @@ Provides a tagged constructor for the specified `Case`.
 
 [`Constructor`](../interfaces/Data.Case.Constructor.md)<`A`, `"_tag"`\>
 
+**`Example`**
+
+```ts
+import * as Data from "effect/Data";
+
+interface Person extends Data.Case {
+    readonly _tag: "Person"; // the tag
+    readonly name: string;
+}
+
+const Person = Data.tagged<Person>("Person");
+
+const mike = Person({ name: "Mike" });
+
+assert.deepEqual(mike, { _tag: "Person", name: "Mike" });
+```
+
 **`Since`**
 
 2.0.0
@@ -302,7 +397,7 @@ Provides a tagged constructor for the specified `Case`.
 
 ### taggedEnum
 
-▸ **taggedEnum**<`Z`\>(): <K\>(`tag`: `K`) => <A\>(`args`: [`Args`](Data.TaggedEnum.md#args)<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `unknown`, `unknown`, `unknown`\>, `K`\>) => `Extract`<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `unknown`, `unknown`, `unknown`\>, { `_tag`: `K` }\>
+▸ **taggedEnum**<`Z`\>(): { readonly [Tag in string]: Function }
 
 Create a constructor for a tagged union of `Data` structs.
 
@@ -317,55 +412,19 @@ the constructor.
 
 #### Returns
 
-`fn`
-
-▸ <`K`\>(`tag`): <A\>(`args`: [`Args`](Data.TaggedEnum.md#args)<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `unknown`, `unknown`, `unknown`\>, `K`\>) => `Extract`<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `unknown`, `unknown`, `unknown`\>, { `_tag`: `K` }\>
-
-##### Type parameters
-
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-
-##### Parameters
-
-| Name  | Type |
-| :---- | :--- |
-| `tag` | `K`  |
-
-##### Returns
-
-`fn`
-
-▸ <`A`\>(`args`): `Extract`<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `unknown`, `unknown`, `unknown`\>, { `_tag`: `K` }\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                                                                                                                   |
-| :----- | :--------------------------------------------------------------------------------------------------------------------- |
-| `args` | [`Args`](Data.TaggedEnum.md#args)<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `unknown`, `unknown`, `unknown`\>, `K`\> |
-
-##### Returns
-
-`Extract`<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `unknown`, `unknown`, `unknown`\>, { `_tag`: `K` }\>
+{ readonly [Tag in string]: Function }
 
 **`Example`**
 
 ```ts
 import * as Data from "effect/Data";
 
-const HttpError = Data.taggedEnum<
-    | Data.Data<{ _tag: "BadRequest"; status: 400; message: string }>
-    | Data.Data<{ _tag: "NotFound"; status: 404; message: string }>
+const { BadRequest, NotFound } = Data.taggedEnum<
+    | Data.Data<{ readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }>
+    | Data.Data<{ readonly _tag: "NotFound"; readonly status: 404; readonly message: string }>
 >();
 
-const notFound = HttpError("NotFound")({ status: 404, message: "Not Found" });
+const notFound = NotFound({ status: 404, message: "Not Found" });
 ```
 
 **`Example`**
@@ -374,22 +433,22 @@ const notFound = HttpError("NotFound")({ status: 404, message: "Not Found" });
 import * as Data from "effect/Data";
 
 type MyResult<E, A> = Data.TaggedEnum<{
-    Failure: { error: E };
-    Success: { value: A };
+    Failure: { readonly error: E };
+    Success: { readonly value: A };
 }>;
 interface MyResultDefinition extends Data.TaggedEnum.WithGenerics<2> {
     readonly taggedEnum: MyResult<this["A"], this["B"]>;
 }
-const MyResult = Data.taggedEnum<MyResultDefinition>();
+const { Failure, Success } = Data.taggedEnum<MyResultDefinition>();
 
-const success = MyResult("Success")({ value: 1 });
+const success = Success({ value: 1 });
 ```
 
 **`Since`**
 
 2.0.0
 
-▸ **taggedEnum**<`Z`\>(): <K\>(`tag`: `K`) => <A, B\>(`args`: [`Args`](Data.TaggedEnum.md#args)<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `unknown`, `unknown`\>, `K`\>) => `Extract`<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `unknown`, `unknown`\>, { `_tag`: `K` }\>
+▸ **taggedEnum**<`Z`\>(): { readonly [Tag in string]: Function }
 
 Create a constructor for a tagged union of `Data` structs.
 
@@ -404,56 +463,19 @@ the constructor.
 
 #### Returns
 
-`fn`
-
-▸ <`K`\>(`tag`): <A, B\>(`args`: [`Args`](Data.TaggedEnum.md#args)<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `unknown`, `unknown`\>, `K`\>) => `Extract`<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `unknown`, `unknown`\>, { `_tag`: `K` }\>
-
-##### Type parameters
-
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-
-##### Parameters
-
-| Name  | Type |
-| :---- | :--- |
-| `tag` | `K`  |
-
-##### Returns
-
-`fn`
-
-▸ <`A`, `B`\>(`args`): `Extract`<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `unknown`, `unknown`\>, { `_tag`: `K` }\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-##### Parameters
-
-| Name   | Type                                                                                                             |
-| :----- | :--------------------------------------------------------------------------------------------------------------- |
-| `args` | [`Args`](Data.TaggedEnum.md#args)<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `unknown`, `unknown`\>, `K`\> |
-
-##### Returns
-
-`Extract`<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `unknown`, `unknown`\>, { `_tag`: `K` }\>
+{ readonly [Tag in string]: Function }
 
 **`Example`**
 
 ```ts
 import * as Data from "effect/Data";
 
-const HttpError = Data.taggedEnum<
-    | Data.Data<{ _tag: "BadRequest"; status: 400; message: string }>
-    | Data.Data<{ _tag: "NotFound"; status: 404; message: string }>
+const { BadRequest, NotFound } = Data.taggedEnum<
+    | Data.Data<{ readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }>
+    | Data.Data<{ readonly _tag: "NotFound"; readonly status: 404; readonly message: string }>
 >();
 
-const notFound = HttpError("NotFound")({ status: 404, message: "Not Found" });
+const notFound = NotFound({ status: 404, message: "Not Found" });
 ```
 
 **`Example`**
@@ -462,22 +484,22 @@ const notFound = HttpError("NotFound")({ status: 404, message: "Not Found" });
 import * as Data from "effect/Data";
 
 type MyResult<E, A> = Data.TaggedEnum<{
-    Failure: { error: E };
-    Success: { value: A };
+    Failure: { readonly error: E };
+    Success: { readonly value: A };
 }>;
 interface MyResultDefinition extends Data.TaggedEnum.WithGenerics<2> {
     readonly taggedEnum: MyResult<this["A"], this["B"]>;
 }
-const MyResult = Data.taggedEnum<MyResultDefinition>();
+const { Failure, Success } = Data.taggedEnum<MyResultDefinition>();
 
-const success = MyResult("Success")({ value: 1 });
+const success = Success({ value: 1 });
 ```
 
 **`Since`**
 
 2.0.0
 
-▸ **taggedEnum**<`Z`\>(): <K\>(`tag`: `K`) => <A, B, C\>(`args`: [`Args`](Data.TaggedEnum.md#args)<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `unknown`\>, `K`\>) => `Extract`<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `unknown`\>, { `_tag`: `K` }\>
+▸ **taggedEnum**<`Z`\>(): { readonly [Tag in string]: Function }
 
 Create a constructor for a tagged union of `Data` structs.
 
@@ -492,57 +514,19 @@ the constructor.
 
 #### Returns
 
-`fn`
-
-▸ <`K`\>(`tag`): <A, B, C\>(`args`: [`Args`](Data.TaggedEnum.md#args)<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `unknown`\>, `K`\>) => `Extract`<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `unknown`\>, { `_tag`: `K` }\>
-
-##### Type parameters
-
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-
-##### Parameters
-
-| Name  | Type |
-| :---- | :--- |
-| `tag` | `K`  |
-
-##### Returns
-
-`fn`
-
-▸ <`A`, `B`, `C`\>(`args`): `Extract`<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `unknown`\>, { `_tag`: `K` }\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-
-##### Parameters
-
-| Name   | Type                                                                                                       |
-| :----- | :--------------------------------------------------------------------------------------------------------- |
-| `args` | [`Args`](Data.TaggedEnum.md#args)<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `unknown`\>, `K`\> |
-
-##### Returns
-
-`Extract`<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `unknown`\>, { `_tag`: `K` }\>
+{ readonly [Tag in string]: Function }
 
 **`Example`**
 
 ```ts
 import * as Data from "effect/Data";
 
-const HttpError = Data.taggedEnum<
-    | Data.Data<{ _tag: "BadRequest"; status: 400; message: string }>
-    | Data.Data<{ _tag: "NotFound"; status: 404; message: string }>
+const { BadRequest, NotFound } = Data.taggedEnum<
+    | Data.Data<{ readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }>
+    | Data.Data<{ readonly _tag: "NotFound"; readonly status: 404; readonly message: string }>
 >();
 
-const notFound = HttpError("NotFound")({ status: 404, message: "Not Found" });
+const notFound = NotFound({ status: 404, message: "Not Found" });
 ```
 
 **`Example`**
@@ -551,22 +535,22 @@ const notFound = HttpError("NotFound")({ status: 404, message: "Not Found" });
 import * as Data from "effect/Data";
 
 type MyResult<E, A> = Data.TaggedEnum<{
-    Failure: { error: E };
-    Success: { value: A };
+    Failure: { readonly error: E };
+    Success: { readonly value: A };
 }>;
 interface MyResultDefinition extends Data.TaggedEnum.WithGenerics<2> {
     readonly taggedEnum: MyResult<this["A"], this["B"]>;
 }
-const MyResult = Data.taggedEnum<MyResultDefinition>();
+const { Failure, Success } = Data.taggedEnum<MyResultDefinition>();
 
-const success = MyResult("Success")({ value: 1 });
+const success = Success({ value: 1 });
 ```
 
 **`Since`**
 
 2.0.0
 
-▸ **taggedEnum**<`Z`\>(): <K\>(`tag`: `K`) => <A, B, C, D\>(`args`: [`Args`](Data.TaggedEnum.md#args)<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `D`\>, `K`\>) => `Extract`<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `D`\>, { `_tag`: `K` }\>
+▸ **taggedEnum**<`Z`\>(): { readonly [Tag in string]: Function }
 
 Create a constructor for a tagged union of `Data` structs.
 
@@ -581,58 +565,19 @@ the constructor.
 
 #### Returns
 
-`fn`
-
-▸ <`K`\>(`tag`): <A, B, C, D\>(`args`: [`Args`](Data.TaggedEnum.md#args)<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `D`\>, `K`\>) => `Extract`<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `D`\>, { `_tag`: `K` }\>
-
-##### Type parameters
-
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-
-##### Parameters
-
-| Name  | Type |
-| :---- | :--- |
-| `tag` | `K`  |
-
-##### Returns
-
-`fn`
-
-▸ <`A`, `B`, `C`, `D`\>(`args`): `Extract`<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `D`\>, { `_tag`: `K` }\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
-
-##### Parameters
-
-| Name   | Type                                                                                                 |
-| :----- | :--------------------------------------------------------------------------------------------------- |
-| `args` | [`Args`](Data.TaggedEnum.md#args)<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `D`\>, `K`\> |
-
-##### Returns
-
-`Extract`<[`Kind`](Data.TaggedEnum.md#kind)<`Z`, `A`, `B`, `C`, `D`\>, { `_tag`: `K` }\>
+{ readonly [Tag in string]: Function }
 
 **`Example`**
 
 ```ts
 import * as Data from "effect/Data";
 
-const HttpError = Data.taggedEnum<
-    | Data.Data<{ _tag: "BadRequest"; status: 400; message: string }>
-    | Data.Data<{ _tag: "NotFound"; status: 404; message: string }>
+const { BadRequest, NotFound } = Data.taggedEnum<
+    | Data.Data<{ readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }>
+    | Data.Data<{ readonly _tag: "NotFound"; readonly status: 404; readonly message: string }>
 >();
 
-const notFound = HttpError("NotFound")({ status: 404, message: "Not Found" });
+const notFound = NotFound({ status: 404, message: "Not Found" });
 ```
 
 **`Example`**
@@ -641,22 +586,22 @@ const notFound = HttpError("NotFound")({ status: 404, message: "Not Found" });
 import * as Data from "effect/Data";
 
 type MyResult<E, A> = Data.TaggedEnum<{
-    Failure: { error: E };
-    Success: { value: A };
+    Failure: { readonly error: E };
+    Success: { readonly value: A };
 }>;
 interface MyResultDefinition extends Data.TaggedEnum.WithGenerics<2> {
     readonly taggedEnum: MyResult<this["A"], this["B"]>;
 }
-const MyResult = Data.taggedEnum<MyResultDefinition>();
+const { Failure, Success } = Data.taggedEnum<MyResultDefinition>();
 
-const success = MyResult("Success")({ value: 1 });
+const success = Success({ value: 1 });
 ```
 
 **`Since`**
 
 2.0.0
 
-▸ **taggedEnum**<`A`\>(): <K\>(`tag`: `K`) => [`Constructor`](../interfaces/Data.Case.Constructor.md)<`Extract`<`A`, { `_tag`: `K` }\>, `"_tag"`\>
+▸ **taggedEnum**<`A`\>(): { readonly [Tag in string]: Constructor<Extract<A, Object\>, "\_tag"\> }
 
 Create a constructor for a tagged union of `Data` structs.
 
@@ -665,43 +610,25 @@ the constructor.
 
 #### Type parameters
 
-| Name | Type                                                  |
-| :--- | :---------------------------------------------------- |
-| `A`  | extends [`Data`](Data.md#data)<{ `_tag`: `string` }\> |
+| Name | Type                                                                   |
+| :--- | :--------------------------------------------------------------------- |
+| `A`  | extends { `_tag`: `string` } & [`Equal`](../interfaces/Equal.Equal.md) |
 
 #### Returns
 
-`fn`
-
-▸ <`K`\>(`tag`): [`Constructor`](../interfaces/Data.Case.Constructor.md)<`Extract`<`A`, { `_tag`: `K` }\>, `"_tag"`\>
-
-##### Type parameters
-
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-
-##### Parameters
-
-| Name  | Type |
-| :---- | :--- |
-| `tag` | `K`  |
-
-##### Returns
-
-[`Constructor`](../interfaces/Data.Case.Constructor.md)<`Extract`<`A`, { `_tag`: `K` }\>, `"_tag"`\>
+{ readonly [Tag in string]: Constructor<Extract<A, Object\>, "\_tag"\> }
 
 **`Example`**
 
 ```ts
 import * as Data from "effect/Data";
 
-const HttpError = Data.taggedEnum<
-    | Data.Data<{ _tag: "BadRequest"; status: 400; message: string }>
-    | Data.Data<{ _tag: "NotFound"; status: 404; message: string }>
+const { BadRequest, NotFound } = Data.taggedEnum<
+    | Data.Data<{ readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }>
+    | Data.Data<{ readonly _tag: "NotFound"; readonly status: 404; readonly message: string }>
 >();
 
-const notFound = HttpError("NotFound")({ status: 404, message: "Not Found" });
+const notFound = NotFound({ status: 404, message: "Not Found" });
 ```
 
 **`Example`**
@@ -710,15 +637,15 @@ const notFound = HttpError("NotFound")({ status: 404, message: "Not Found" });
 import * as Data from "effect/Data";
 
 type MyResult<E, A> = Data.TaggedEnum<{
-    Failure: { error: E };
-    Success: { value: A };
+    Failure: { readonly error: E };
+    Success: { readonly value: A };
 }>;
 interface MyResultDefinition extends Data.TaggedEnum.WithGenerics<2> {
     readonly taggedEnum: MyResult<this["A"], this["B"]>;
 }
-const MyResult = Data.taggedEnum<MyResultDefinition>();
+const { Failure, Success } = Data.taggedEnum<MyResultDefinition>();
 
-const success = MyResult("Success")({ value: 1 });
+const success = Success({ value: 1 });
 ```
 
 **`Since`**
@@ -729,7 +656,7 @@ const success = MyResult("Success")({ value: 1 });
 
 ### tuple
 
-▸ **tuple**<`As`\>(`...as`): [`Data`](Data.md#data)<`As`\>
+▸ **tuple**<`As`\>(`...as`): [`Data`](Data.md#data)<`Readonly`<`As`\>\>
 
 #### Type parameters
 
@@ -745,7 +672,24 @@ const success = MyResult("Success")({ value: 1 });
 
 #### Returns
 
-[`Data`](Data.md#data)<`As`\>
+[`Data`](Data.md#data)<`Readonly`<`As`\>\>
+
+**`Example`**
+
+```ts
+import * as Data from "effect/Data";
+import * as Equal from "effect/Equal";
+
+const alice = Data.tuple("Alice", 30);
+
+const bob = Data.tuple("Bob", 40);
+
+assert.deepStrictEqual(Equal.equals(alice, alice), true);
+assert.deepStrictEqual(Equal.equals(alice, Data.tuple("Alice", 30)), true);
+
+assert.deepStrictEqual(Equal.equals(alice, ["Alice", 30]), false);
+assert.deepStrictEqual(Equal.equals(alice, bob), false);
+```
 
 **`Since`**
 
@@ -755,7 +699,7 @@ const success = MyResult("Success")({ value: 1 });
 
 ### unsafeArray
 
-▸ **unsafeArray**<`As`\>(`as`): [`Data`](Data.md#data)<`As`\>
+▸ **unsafeArray**<`As`\>(`as`): [`Data`](Data.md#data)<`Readonly`<`As`\>\>
 
 #### Type parameters
 
@@ -771,7 +715,7 @@ const success = MyResult("Success")({ value: 1 });
 
 #### Returns
 
-[`Data`](Data.md#data)<`As`\>
+[`Data`](Data.md#data)<`Readonly`<`As`\>\>
 
 **`Since`**
 
@@ -781,23 +725,23 @@ const success = MyResult("Success")({ value: 1 });
 
 ### unsafeStruct
 
-▸ **unsafeStruct**<`As`\>(`as`): [`Data`](Data.md#data)<`As`\>
+▸ **unsafeStruct**<`A`\>(`as`): [`Data`](Data.md#data)<{ readonly [P in string \| number \| symbol]: A[P] }\>
 
 #### Type parameters
 
-| Name | Type                                            |
-| :--- | :---------------------------------------------- |
-| `As` | extends `Readonly`<`Record`<`string`, `any`\>\> |
+| Name | Type                               |
+| :--- | :--------------------------------- |
+| `A`  | extends `Record`<`string`, `any`\> |
 
 #### Parameters
 
 | Name | Type |
 | :--- | :--- |
-| `as` | `As` |
+| `as` | `A`  |
 
 #### Returns
 
-[`Data`](Data.md#data)<`As`\>
+[`Data`](Data.md#data)<{ readonly [P in string \| number \| symbol]: A[P] }\>
 
 **`Since`**
 
@@ -807,7 +751,7 @@ const success = MyResult("Success")({ value: 1 });
 
 ### Data
 
-Ƭ **Data**<`A`\>: `Readonly`<`A`\> & [`Equal`](../interfaces/Equal.Equal.md)
+Ƭ **Data**<`A`\>: { readonly [P in keyof A]: A[P] } & [`Equal`](../interfaces/Equal.Equal.md)
 
 **`Since`**
 
@@ -815,15 +759,15 @@ const success = MyResult("Success")({ value: 1 });
 
 #### Type parameters
 
-| Name | Type                                                                       |
-| :--- | :------------------------------------------------------------------------- |
-| `A`  | extends `Readonly`<`Record`<`string`, `any`\>\> \| `ReadonlyArray`<`any`\> |
+| Name |
+| :--- |
+| `A`  |
 
 ---
 
 ### TaggedEnum
 
-Ƭ **TaggedEnum**<`A`\>: keyof `A` extends infer Tag ? `Tag` extends keyof `A` ? [`Data`](Data.md#data)<{ readonly [K in "\_tag" \| keyof A[Tag]]: K extends "\_tag" ? Tag : A[Tag][K] }\> : `never` : `never`
+Ƭ **TaggedEnum**<`A`\>: keyof `A` extends infer Tag ? `Tag` extends keyof `A` ? [`Data`](Data.md#data)<`Types.Simplify`<{ `_tag`: `Tag` } & { readonly [K in keyof A[Tag]]: A[Tag][K] }\>\> : `never` : `never`
 
 Create a tagged enum data type, which is a union of `Data` structs.
 
@@ -831,8 +775,8 @@ Create a tagged enum data type, which is a union of `Data` structs.
 import * as Data from "effect/Data";
 
 type HttpError = Data.TaggedEnum<{
-    BadRequest: { status: 400; message: string };
-    NotFound: { status: 404; message: string };
+    BadRequest: { readonly status: 400; readonly message: string };
+    NotFound: { readonly status: 404; readonly message: string };
 }>;
 
 // Equivalent to:

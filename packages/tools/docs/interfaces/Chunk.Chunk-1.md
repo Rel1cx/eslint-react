@@ -32,18 +32,18 @@
 
 ### Properties
 
-- [[NodeInspectSymbol]](Chunk.Chunk.md#[nodeinspectsymbol])
-- [[TypeId]](Chunk.Chunk.md#[typeid])
-- [length](Chunk.Chunk.md#length)
-- [toJSON](Chunk.Chunk.md#tojson)
-- [toString](Chunk.Chunk.md#tostring)
+- [[NodeInspectSymbol]](Chunk.Chunk-1.md#[nodeinspectsymbol])
+- [[TypeId]](Chunk.Chunk-1.md#[typeid])
+- [length](Chunk.Chunk-1.md#length)
+- [toJSON](Chunk.Chunk-1.md#tojson)
+- [toString](Chunk.Chunk-1.md#tostring)
 
 ### Methods
 
-- [[iterator]](Chunk.Chunk.md#[iterator])
-- [[symbol]](Chunk.Chunk.md#[symbol])
-- [[symbol]](Chunk.Chunk.md#[symbol]-1)
-- [pipe](Chunk.Chunk.md#pipe)
+- [[iterator]](Chunk.Chunk-1.md#[iterator])
+- [[symbol]](Chunk.Chunk-1.md#[symbol])
+- [[symbol]](Chunk.Chunk-1.md#[symbol]-1)
+- [pipe](Chunk.Chunk-1.md#pipe)
 
 ## Properties
 
