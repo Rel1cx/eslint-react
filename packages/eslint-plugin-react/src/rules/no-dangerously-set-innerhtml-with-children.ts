@@ -1,7 +1,6 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit, is, isOneOf, NodeType } from "@eslint-react/ast";
-import { isCreateElementCall } from "@eslint-react/element";
-import { findPropInAttributes, findPropInProperties, isLineBreak } from "@eslint-react/jsx";
+import { findPropInAttributes, findPropInProperties, isCreateElementCall, isLineBreak } from "@eslint-react/jsx";
 import { createRule } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";

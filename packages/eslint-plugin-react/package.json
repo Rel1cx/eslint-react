@@ -1,6 +1,6 @@
 {
     "name": "@eslint-react/eslint-plugin-react",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "homepage": "https://github.com/Rel1cx/eslint-react",
     "bugs": {
         "url": "https://github.com/Rel1cx/eslint-react/issues"
@@ -46,14 +46,8 @@
     },
     "devDependencies": {
         "@eslint-react/ast": "workspace:*",
-        "@eslint-react/component": "workspace:*",
-        "@eslint-react/construction": "workspace:*",
-        "@eslint-react/context": "workspace:*",
-        "@eslint-react/element": "workspace:*",
-        "@eslint-react/hooks": "workspace:*",
         "@eslint-react/jsx": "workspace:*",
-        "@eslint-react/pragma": "workspace:*",
-        "@eslint-react/render-prop": "workspace:*",
+        "@eslint-react/core": "workspace:*",
         "@eslint-react/shared": "workspace:*",
         "@eslint-react/tools": "workspace:*",
         "@eslint-react/types": "workspace:*",

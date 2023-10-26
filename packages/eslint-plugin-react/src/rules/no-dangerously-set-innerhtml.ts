@@ -1,6 +1,5 @@
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit, is, isOneOf, NodeType } from "@eslint-react/ast";
-import { isCreateElementCall } from "@eslint-react/element";
-import { findPropInAttributes, findPropInProperties } from "@eslint-react/jsx";
+import { findPropInAttributes, findPropInProperties, isCreateElementCall } from "@eslint-react/jsx";
 import { createRule } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";

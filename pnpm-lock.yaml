@@ -244,6 +244,66 @@ importers:
         specifier: ^4.5.0
         version: 4.5.0(@types/node@20.8.9)
 
+  packages/ast:
+    dependencies:
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@eslint-react/tools':
+        specifier: workspace:*
+        version: link:../tools
+      '@eslint-react/types':
+        specifier: workspace:*
+        version: link:../types
+      '@types/eslint':
+        specifier: 8.44.6
+        version: 8.44.6
+      '@typescript-eslint/scope-manager':
+        specifier: 6.9.0
+        version: 6.9.0
+      '@typescript-eslint/types':
+        specifier: 6.9.0
+        version: 6.9.0
+      '@typescript-eslint/utils':
+        specifier: 6.9.0
+        version: 6.9.0(eslint@8.52.0)(typescript@5.3.0-beta)
+      rambda:
+        specifier: latest
+        version: 8.5.0
+      string-ts:
+        specifier: 1.3.2
+        version: 1.3.2
+
+  packages/core:
+    dependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../ast
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../jsx
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@eslint-react/tools':
+        specifier: workspace:*
+        version: link:../tools
+      '@eslint-react/types':
+        specifier: workspace:*
+        version: link:../types
+      '@types/eslint':
+        specifier: 8.44.6
+        version: 8.44.6
+      '@typescript-eslint/scope-manager':
+        specifier: 6.9.0
+        version: 6.9.0
+      '@typescript-eslint/types':
+        specifier: 6.9.0
+        version: 6.9.0
+      '@typescript-eslint/utils':
+        specifier: 6.9.0
+        version: 6.9.0(eslint@8.52.0)(typescript@5.3.0-beta)
+
   packages/eslint-plugin:
     dependencies:
       '@eslint-react/eslint-plugin-debug':
@@ -285,31 +345,10 @@ importers:
     devDependencies:
       '@eslint-react/ast':
         specifier: workspace:*
-        version: link:../eslint-react-ast
-      '@eslint-react/component':
-        specifier: workspace:*
-        version: link:../eslint-react-component
-      '@eslint-react/construction':
-        specifier: workspace:*
-        version: link:../eslint-react-construction
-      '@eslint-react/context':
-        specifier: workspace:*
-        version: link:../eslint-react-context
-      '@eslint-react/element':
-        specifier: workspace:*
-        version: link:../eslint-react-element
-      '@eslint-react/hooks':
-        specifier: workspace:*
-        version: link:../eslint-react-hooks
+        version: link:../ast
       '@eslint-react/jsx':
         specifier: workspace:*
-        version: link:../eslint-react-jsx
-      '@eslint-react/pragma':
-        specifier: workspace:*
-        version: link:../eslint-react-pragma
-      '@eslint-react/render-prop':
-        specifier: workspace:*
-        version: link:../eslint-react-render-prop
+        version: link:../jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../shared
@@ -367,31 +406,13 @@ importers:
     devDependencies:
       '@eslint-react/ast':
         specifier: workspace:*
-        version: link:../eslint-react-ast
-      '@eslint-react/component':
+        version: link:../ast
+      '@eslint-react/core':
         specifier: workspace:*
-        version: link:../eslint-react-component
-      '@eslint-react/construction':
-        specifier: workspace:*
-        version: link:../eslint-react-construction
-      '@eslint-react/context':
-        specifier: workspace:*
-        version: link:../eslint-react-context
-      '@eslint-react/element':
-        specifier: workspace:*
-        version: link:../eslint-react-element
-      '@eslint-react/hooks':
-        specifier: workspace:*
-        version: link:../eslint-react-hooks
+        version: link:../core
       '@eslint-react/jsx':
         specifier: workspace:*
-        version: link:../eslint-react-jsx
-      '@eslint-react/pragma':
-        specifier: workspace:*
-        version: link:../eslint-react-pragma
-      '@eslint-react/render-prop':
-        specifier: workspace:*
-        version: link:../eslint-react-render-prop
+        version: link:../jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../shared
@@ -449,31 +470,13 @@ importers:
     devDependencies:
       '@eslint-react/ast':
         specifier: workspace:*
-        version: link:../eslint-react-ast
-      '@eslint-react/component':
+        version: link:../ast
+      '@eslint-react/core':
         specifier: workspace:*
-        version: link:../eslint-react-component
-      '@eslint-react/construction':
-        specifier: workspace:*
-        version: link:../eslint-react-construction
-      '@eslint-react/context':
-        specifier: workspace:*
-        version: link:../eslint-react-context
-      '@eslint-react/element':
-        specifier: workspace:*
-        version: link:../eslint-react-element
-      '@eslint-react/hooks':
-        specifier: workspace:*
-        version: link:../eslint-react-hooks
+        version: link:../core
       '@eslint-react/jsx':
         specifier: workspace:*
-        version: link:../eslint-react-jsx
-      '@eslint-react/pragma':
-        specifier: workspace:*
-        version: link:../eslint-react-pragma
-      '@eslint-react/render-prop':
-        specifier: workspace:*
-        version: link:../eslint-react-render-prop
+        version: link:../jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../shared
@@ -531,31 +534,13 @@ importers:
     devDependencies:
       '@eslint-react/ast':
         specifier: workspace:*
-        version: link:../eslint-react-ast
-      '@eslint-react/component':
+        version: link:../ast
+      '@eslint-react/core':
         specifier: workspace:*
-        version: link:../eslint-react-component
-      '@eslint-react/construction':
-        specifier: workspace:*
-        version: link:../eslint-react-construction
-      '@eslint-react/context':
-        specifier: workspace:*
-        version: link:../eslint-react-context
-      '@eslint-react/element':
-        specifier: workspace:*
-        version: link:../eslint-react-element
-      '@eslint-react/hooks':
-        specifier: workspace:*
-        version: link:../eslint-react-hooks
+        version: link:../core
       '@eslint-react/jsx':
         specifier: workspace:*
-        version: link:../eslint-react-jsx
-      '@eslint-react/pragma':
-        specifier: workspace:*
-        version: link:../eslint-react-pragma
-      '@eslint-react/render-prop':
-        specifier: workspace:*
-        version: link:../eslint-react-render-prop
+        version: link:../jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../shared
@@ -613,31 +598,10 @@ importers:
     devDependencies:
       '@eslint-react/ast':
         specifier: workspace:*
-        version: link:../eslint-react-ast
-      '@eslint-react/component':
-        specifier: workspace:*
-        version: link:../eslint-react-component
-      '@eslint-react/construction':
-        specifier: workspace:*
-        version: link:../eslint-react-construction
-      '@eslint-react/context':
-        specifier: workspace:*
-        version: link:../eslint-react-context
-      '@eslint-react/element':
-        specifier: workspace:*
-        version: link:../eslint-react-element
-      '@eslint-react/hooks':
-        specifier: workspace:*
-        version: link:../eslint-react-hooks
+        version: link:../ast
       '@eslint-react/jsx':
         specifier: workspace:*
-        version: link:../eslint-react-jsx
-      '@eslint-react/pragma':
-        specifier: workspace:*
-        version: link:../eslint-react-pragma
-      '@eslint-react/render-prop':
-        specifier: workspace:*
-        version: link:../eslint-react-render-prop
+        version: link:../jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../shared
@@ -695,31 +659,13 @@ importers:
     devDependencies:
       '@eslint-react/ast':
         specifier: workspace:*
-        version: link:../eslint-react-ast
-      '@eslint-react/component':
+        version: link:../ast
+      '@eslint-react/core':
         specifier: workspace:*
-        version: link:../eslint-react-component
-      '@eslint-react/construction':
-        specifier: workspace:*
-        version: link:../eslint-react-construction
-      '@eslint-react/context':
-        specifier: workspace:*
-        version: link:../eslint-react-context
-      '@eslint-react/element':
-        specifier: workspace:*
-        version: link:../eslint-react-element
-      '@eslint-react/hooks':
-        specifier: workspace:*
-        version: link:../eslint-react-hooks
+        version: link:../core
       '@eslint-react/jsx':
         specifier: workspace:*
-        version: link:../eslint-react-jsx
-      '@eslint-react/pragma':
-        specifier: workspace:*
-        version: link:../eslint-react-pragma
-      '@eslint-react/render-prop':
-        specifier: workspace:*
-        version: link:../eslint-react-render-prop
+        version: link:../jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../shared
@@ -751,8 +697,11 @@ importers:
         specifier: 5.0.5
         version: 5.0.5
 
-  packages/eslint-react-ast:
+  packages/jsx:
     dependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../ast
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../shared
@@ -768,195 +717,6 @@ importers:
       '@typescript-eslint/scope-manager':
         specifier: 6.9.0
         version: 6.9.0
-      '@typescript-eslint/types':
-        specifier: 6.9.0
-        version: 6.9.0
-      '@typescript-eslint/utils':
-        specifier: 6.9.0
-        version: 6.9.0(eslint@8.52.0)(typescript@5.3.0-beta)
-      rambda:
-        specifier: latest
-        version: 8.5.0
-      string-ts:
-        specifier: 1.3.2
-        version: 1.3.2
-
-  packages/eslint-react-component:
-    dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../eslint-react-ast
-      '@eslint-react/element':
-        specifier: workspace:*
-        version: link:../eslint-react-element
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../eslint-react-jsx
-      '@eslint-react/pragma':
-        specifier: workspace:*
-        version: link:../eslint-react-pragma
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../tools
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../types
-      '@types/eslint':
-        specifier: 8.44.6
-        version: 8.44.6
-      '@typescript-eslint/scope-manager':
-        specifier: 6.9.0
-        version: 6.9.0
-      '@typescript-eslint/types':
-        specifier: 6.9.0
-        version: 6.9.0
-      '@typescript-eslint/utils':
-        specifier: 6.9.0
-        version: 6.9.0(eslint@8.52.0)(typescript@5.3.0-beta)
-
-  packages/eslint-react-construction:
-    dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../eslint-react-ast
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../tools
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../types
-      '@types/eslint':
-        specifier: 8.44.6
-        version: 8.44.6
-      '@typescript-eslint/scope-manager':
-        specifier: 6.9.0
-        version: 6.9.0
-      '@typescript-eslint/types':
-        specifier: 6.9.0
-        version: 6.9.0
-      rambda:
-        specifier: latest
-        version: 8.5.0
-
-  packages/eslint-react-context:
-    dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../eslint-react-ast
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../tools
-      '@types/eslint':
-        specifier: 8.44.6
-        version: 8.44.6
-      '@typescript-eslint/types':
-        specifier: 6.9.0
-        version: 6.9.0
-
-  packages/eslint-react-element:
-    dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../eslint-react-ast
-      '@eslint-react/pragma':
-        specifier: workspace:*
-        version: link:../eslint-react-pragma
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../tools
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../types
-      '@types/eslint':
-        specifier: 8.44.6
-        version: 8.44.6
-      '@typescript-eslint/types':
-        specifier: 6.9.0
-        version: 6.9.0
-      '@typescript-eslint/utils':
-        specifier: 6.9.0
-        version: 6.9.0(eslint@8.52.0)(typescript@5.3.0-beta)
-
-  packages/eslint-react-hooks:
-    dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../eslint-react-ast
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../tools
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../types
-      '@types/eslint':
-        specifier: 8.44.6
-        version: 8.44.6
-      '@typescript-eslint/parser':
-        specifier: '>=6.9.0'
-        version: 6.9.0(eslint@8.52.0)(typescript@5.3.0-beta)
-      '@typescript-eslint/types':
-        specifier: 6.9.0
-        version: 6.9.0
-      '@typescript-eslint/utils':
-        specifier: 6.9.0
-        version: 6.9.0(eslint@8.52.0)(typescript@5.3.0-beta)
-
-  packages/eslint-react-jsx:
-    dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../eslint-react-ast
-      '@eslint-react/element':
-        specifier: workspace:*
-        version: link:../eslint-react-element
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../tools
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../types
-      '@types/eslint':
-        specifier: 8.44.6
-        version: 8.44.6
-      '@typescript-eslint/types':
-        specifier: 6.9.0
-        version: 6.9.0
-      '@typescript-eslint/utils':
-        specifier: 6.9.0
-        version: 6.9.0(eslint@8.52.0)(typescript@5.3.0-beta)
-
-  packages/eslint-react-pragma:
-    dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../eslint-react-ast
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../tools
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../types
-      '@types/eslint':
-        specifier: 8.44.6
-        version: 8.44.6
       '@typescript-eslint/types':
         specifier: 6.9.0
         version: 6.9.0
@@ -966,33 +726,6 @@ importers:
       micro-memoize:
         specifier: 4.1.2
         version: 4.1.2
-
-  packages/eslint-react-render-prop:
-    dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../eslint-react-ast
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../eslint-react-jsx
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../tools
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../types
-      '@types/eslint':
-        specifier: 8.44.6
-        version: 8.44.6
-      '@typescript-eslint/types':
-        specifier: 6.9.0
-        version: 6.9.0
-      ts-pattern:
-        specifier: 5.0.5
-        version: 5.0.5
 
   packages/shared:
     dependencies:
@@ -7683,6 +7416,7 @@ packages:
 
   /ts-pattern@5.0.5:
     resolution: {integrity: sha512-tL0w8U/pgaacOmkb9fRlYzWEUDCfVjjv9dD4wHTgZ61MjhuMt46VNWTG747NqW6vRzoWIKABVhFSOJ82FvXrfA==}
+    dev: true
 
   /tslib@1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}

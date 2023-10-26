@@ -1,5 +1,5 @@
 import { getFunctionIdentifier } from "@eslint-react/ast";
-import { componentCollector } from "@eslint-react/component";
+import { componentCollector } from "@eslint-react/core";
 import { createRule } from "@eslint-react/shared";
 import { E } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
