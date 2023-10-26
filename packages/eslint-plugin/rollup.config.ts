@@ -1,10 +1,14 @@
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
+import { createRequire } from "module";
 // import pattycake from "pattycake";
 import { defineConfig, type RollupOptions } from "rollup";
 import { dts } from "rollup-plugin-dts";
 import { swc } from "rollup-plugin-swc3";
+const require = createRequire(import.meta.url);
+const packageJson = require("./package.json");
+const external = Object.keys(packageJson.dependencies);
 
 const plugins = [
     nodeResolve({
@@ -18,12 +22,8 @@ const plugins = [
 
 const options = {
     external: [
+        ...external,
         "eslint",
-        "@typescript-eslint/parser",
-        "@typescript-eslint/scope-manager",
-        "@typescript-eslint/type-utils",
-        "@typescript-eslint/types",
-        "@typescript-eslint/utils",
     ],
     plugins: [
         ...plugins,
