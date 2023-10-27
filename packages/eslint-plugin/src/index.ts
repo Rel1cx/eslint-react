@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 export type * from "./eslint-define-config";
 
 import * as debug from "@eslint-react/eslint-plugin-debug";
@@ -11,6 +12,7 @@ import type { RulePreset } from "@eslint-react/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { name, version } from "../package.json";
+import { createRulesWithPrefix } from "./helper";
 
 const rules = {
     "debug/class-component": "warn",
@@ -54,7 +56,9 @@ const offRules = fromEntries(rulesEntries.map(([key]) => [key, "off"]));
 const jsxRules = fromEntries(rulesEntries.filter(([key]) => key.startsWith("jsx/")));
 const debugRules = fromEntries(rulesEntries.filter(([key]) => key.startsWith("debug/")));
 
-const plugins = {
+const legacyConfigPlugins = ["@eslint-react"] as const;
+
+const flatConfigPlugins = {
     "@eslint-react/debug": debug,
     "@eslint-react/hooks": hooks,
     "@eslint-react/jsx": jsx,
@@ -62,28 +66,19 @@ const plugins = {
     "@eslint-react/react": react,
 } as const;
 
-const createRules = (rules: RulePreset) => {
-    return fromEntries(entries(rules).map(([key, value]) => [`@eslint-react/${key}`, value] as const));
-};
-
-const createLegacyConfig = (rules: RulePreset) => {
-    return {
-        plugins: ["@eslint-react"],
-        rules: createRules(rules),
-    };
-};
-
-const createConfig = (rules: RulePreset) => {
+const createLegacyConfig = (rules: RulePreset, plugins = legacyConfigPlugins) => {
     return {
         plugins,
-        rules: createRules(rules),
-    };
+        rules: createRulesWithPrefix(rules, "@eslint-react"),
+    } as const;
 };
 
-const createRulesWithPrefix = <T extends Record<string, unknown>, U extends string>(rules: T, prefix: U) => {
-    return fromEntries(entries(rules).map(([key, value]) => [`${prefix}/${String(key)}`, value])) as {
-        [K in Extract<keyof T, string> as `${U}/${K}`]: T[K];
-    };
+// eslint-disable-next-line sonarjs/no-identical-functions
+const createFlatConfig = (rules: RulePreset, plugins = flatConfigPlugins) => {
+    return {
+        plugins,
+        rules: createRulesWithPrefix(rules, "@eslint-react"),
+    } as const;
 };
 
 export default {
@@ -99,12 +94,12 @@ export default {
         "recommended-legacy": createLegacyConfig(recommendedRules),
         "recommended-type-checked-legacy": createLegacyConfig(recommendedRules),
         // eslint-disable-next-line perfectionist/sort-objects
-        all: createConfig(allRules),
-        debug: createConfig(debugRules),
-        jsx: createConfig(jsxRules),
-        off: createConfig(offRules),
-        recommended: createConfig(recommendedRules),
-        "recommended-type-checked": createConfig(recommendedRules),
+        all: createFlatConfig(allRules),
+        debug: createFlatConfig(debugRules),
+        jsx: createFlatConfig(jsxRules),
+        off: createFlatConfig(offRules),
+        recommended: createFlatConfig(recommendedRules),
+        "recommended-type-checked": createFlatConfig(recommendedRules),
     },
     rules: {
         ...createRulesWithPrefix(debug.rules, "debug"),
