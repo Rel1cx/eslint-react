@@ -1,4 +1,6 @@
-# @eslint-react/debug/hooks
+# debug/hooks
+
+<!-- end auto-generated rule header -->
 
 Warns when a React Hook is found. Useful for debugging.
 

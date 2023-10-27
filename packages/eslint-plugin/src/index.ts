@@ -13,6 +13,7 @@ import { name, version } from "../package.json";
 const rules = {
     "debug/class-component": "warn",
     "debug/function-component": "warn",
+    "hooks/ensure-custom-hooks-using-other-hooks": "warn",
     "jsx/no-array-index-key": "error",
     "jsx/no-duplicate-key": "error",
     "jsx/no-leaked-conditional-rendering": "error",
@@ -28,8 +29,6 @@ const rules = {
     "react/no-unstable-default-props": "error",
     "react/no-unstable-nested-components": "error",
 } as const satisfies RulePreset;
-
-const rulesEntries = entries(rules);
 
 const recommendedRules = {
     "jsx/no-array-index-key": "error",
@@ -47,6 +46,7 @@ const recommendedRules = {
     "react/no-unstable-nested-components": "error",
 } as const satisfies RulePreset;
 
+const rulesEntries = entries(rules);
 const allRules = fromEntries(rulesEntries.filter(([key]) => !key.startsWith("debug/")));
 const offRules = fromEntries(rulesEntries.map(([key]) => [key, "off"]));
 const jsxRules = fromEntries(rulesEntries.filter(([key]) => key.startsWith("jsx/")));

@@ -84,6 +84,13 @@ export default [
 | :--------------------------------------------------------------------------------------- | :-------------------------------------------------------- |
 | [debug/class-component](packages/eslint-plugin-debug/src/rules/class-component.md)       | reports all class components, including anonymous ones    |
 | [debug/function-component](packages/eslint-plugin-debug/src/rules/function-component.md) | reports all function components, including anonymous ones |
+| [debug/hooks](packages/eslint-plugin-debug/src/rules/hooks.md)                           | reports all react hooks                                   |
+
+### hooks
+
+| Name                                                                                                                           | Description                            |
+| :----------------------------------------------------------------------------------------------------------------------------- | :------------------------------------- |
+| [hooks/ensure-custom-hooks-using-other-hooks](packages/eslint-plugin-hooks/src/rules/ensure-custom-hooks-using-other-hooks.md) | enforce custom hooks using other hooks |
 
 ### jsx
 

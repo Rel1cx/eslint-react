@@ -33,6 +33,6 @@ function Profile() {
 
 When a child component needs some data from a parent, [pass it by props](https://react.dev/learn/passing-props-to-a-component) instead of nesting definitions.
 
-## Further reading
+## Further Reading
 
 - [react.dev: Nesting and organizing components](https://react.dev/learn/your-first-component#nesting-and-organizing-components)

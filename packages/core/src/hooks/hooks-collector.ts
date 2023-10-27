@@ -18,10 +18,10 @@ export function hooksCollector(context: RuleContext): {
 } {
     const hooks: TSESTreeFunction[] = [];
 
-    // hooks that are not call other hooks are redundant
-    // hooks are like coloured functions in React world, defining a custom hook that doesn't call other hooks is like defining a generator function that doesn't yield or an async function that doesn't await.
+    // Hooks that are not call other hooks are redundant
+    // In the realm of React, hooks are like colored functions, and defining a custom hook that doesn't call other hooks is like defining a generator function that doesn't yield or an async function that doesn't await.
     // "Custom Hooks may call other Hooks (that’s their whole purpose)." from https://react.dev/warnings/invalid-hook-call-warning
-    // further reading: https://react.dev/learn/reusing-logic-with-custom-hooks#should-all-functions-called-during-rendering-start-with-the-use-prefix
+    // Further Reading: https://react.dev/learn/reusing-logic-with-custom-hooks#should-all-functions-called-during-rendering-start-with-the-use-prefix
     const redundantHooks: TSESTreeFunction[] = [];
 
     const functionStack: [TSESTreeFunction, boolean, boolean][] = [];
