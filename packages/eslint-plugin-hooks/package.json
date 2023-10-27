@@ -1,6 +1,6 @@
 {
     "name": "@eslint-react/eslint-plugin-hooks",
-    "version": "0.5.3",
+    "version": "0.5.4",
     "homepage": "https://github.com/Rel1cx/eslint-react",
     "bugs": {
         "url": "https://github.com/Rel1cx/eslint-react/issues"

@@ -46,6 +46,6 @@
         ".eslintcache": true,
         ".eslintignore": true
     },
-    "typescript.preferences.importModuleSpecifier": "shortest",
+    "typescript.preferences.importModuleSpecifier": "non-relative",
     "typescript.tsdk": "node_modules/typescript/lib"
 }
