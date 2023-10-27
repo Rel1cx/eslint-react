@@ -1,10 +1,10 @@
 {
-    "extends": [
-        "../../typedoc.base.json"
-    ],
-    "name": "@eslint-react/jsx",
-    "entryPoints": [
-        "src/index.ts"
-    ],
-    "out": "docs"
+  "extends": [
+    "../../typedoc.base.json"
+  ],
+  "name": "@eslint-react/jsx",
+  "entryPoints": [
+    "src/index.ts"
+  ],
+  "out": "docs"
 }

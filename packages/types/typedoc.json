@@ -1,13 +1,13 @@
 {
-    "extends": [
-        "../../typedoc.base.json"
-    ],
-    "exclude": [
-        "src/rule-name.ts"
-    ],
-    "name": "@eslint-react/types",
-    "entryPoints": [
-        "src/index.ts"
-    ],
-    "out": "docs"
+  "extends": [
+    "../../typedoc.base.json"
+  ],
+  "exclude": [
+    "src/rule-name.ts"
+  ],
+  "name": "@eslint-react/types",
+  "entryPoints": [
+    "src/index.ts"
+  ],
+  "out": "docs"
 }

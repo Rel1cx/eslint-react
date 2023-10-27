@@ -5,34 +5,34 @@ export const createElementComponent = "const CreateElementComponent = () => Reac
 export const arrowFunctionComponent = "const FunctionComponent = () => <div></div>";
 
 export const functionComponent = dedent`
-    function FunctionComponent() {
-        return <div></div>
-    }
+  function FunctionComponent() {
+      return <div></div>
+  }
 `;
 
 export const memoComponent = dedent`
-    import { memo } from 'react'
+  import { memo } from 'react'
 
-    const MemoComponent = memo(() => <div></div>)
+  const MemoComponent = memo(() => <div></div>)
 `;
 
 export const forwardRefComponent = dedent`
-    import { forwardRef } from 'react'
+  import { forwardRef } from 'react'
 
-    const ForwardRefComponent = forwardRef(() => <div></div>)
+  const ForwardRefComponent = forwardRef(() => <div></div>)
 `;
 
 export const memoForwardRefComponent = dedent`
-    import { memo, forwardRef } from 'react'
+  import { memo, forwardRef } from 'react'
 
-    const MemoForwardRefComponent = memo(forwardRef(() => <div></div>))
+  const MemoForwardRefComponent = memo(forwardRef(() => <div></div>))
 `;
 
 export const allComponents = Object.freeze([
-    arrowFunctionComponent,
-    functionComponent,
-    createElementComponent,
-    memoComponent,
-    forwardRefComponent,
-    memoForwardRefComponent,
+  arrowFunctionComponent,
+  functionComponent,
+  createElementComponent,
+  memoComponent,
+  forwardRefComponent,
+  memoForwardRefComponent,
 ]);

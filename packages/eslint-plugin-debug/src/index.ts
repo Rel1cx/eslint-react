@@ -8,7 +8,7 @@ import hooks from "./rules/hooks";
 export { name } from "../package.json";
 
 export const rules = {
-    "class-component": debugClassComponent,
-    "function-component": debugFunctionComponent,
-    hooks,
+  "class-component": debugClassComponent,
+  "function-component": debugFunctionComponent,
+  hooks,
 } as const;

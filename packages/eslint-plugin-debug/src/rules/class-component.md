@@ -14,32 +14,32 @@ Warns when a class component is found. Useful for debugging.
 
 ```tsx
 class Component extends React.Component {
-    render() {
-        return <div />;
-    }
+  render() {
+    return <div />;
+  }
 }
 ```
 
 ```tsx
 class Component extends React.PureComponent {
-    render() {
-        return <div />;
-    }
+  render() {
+    return <div />;
+  }
 }
 ```
 
 ```tsx
 class Component extends React.PureComponent<Props> {
-    render() {
-        return <div />;
-    }
+  render() {
+    return <div />;
+  }
 }
 ```
 
 ```tsx
 const Component = class extends React.Component {
-    render() {
-        return <div />;
-    }
+  render() {
+    return <div />;
+  }
 };
 ```

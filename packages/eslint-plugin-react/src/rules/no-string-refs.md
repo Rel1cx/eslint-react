@@ -12,7 +12,7 @@ This rule disallows using deprecated string refs.
 
 ```tsx
 function Component() {
-    return <div ref="example" />;
+  return <div ref="example" />;
 }
 ```
 
@@ -20,8 +20,8 @@ function Component() {
 
 ```tsx
 function Component() {
-    const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
-    return <div ref={ref} />;
+  return <div ref={ref} />;
 }
 ```

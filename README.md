@@ -37,15 +37,15 @@ bun add --dev @eslint-react/eslint-plugin
 
 ```js
 module.exports = {
-    root: true,
-    env: { browser: true, es2020: true },
-    extends: [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@eslint-react/recommended-legacy",
-    ],
-    ignorePatterns: ["dist", ".eslintrc.cjs"],
-    parser: "@typescript-eslint/parser",
+  root: true,
+  env: { browser: true, es2020: true },
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@eslint-react/recommended-legacy",
+  ],
+  ignorePatterns: ["dist", ".eslintrc.cjs"],
+  parser: "@typescript-eslint/parser",
 };
 ```
 
@@ -57,20 +57,20 @@ import tsParser from "@typescript-eslint/parser";
 import react from "@eslint-react/eslint-plugin";
 
 export default [
-    {
-        files: ["**/*.{ts,tsx}"],
-        languageOptions: {
-            parser: tsParser,
-        },
-        plugins: {
-            "@typescript-eslint": ts,
-        },
-        rules: {
-            ...ts.configs["eslint-recommended"].rules,
-            ...ts.configs["recommended"].rules,
-        },
+  {
+    files: ["**/*.{ts,tsx}"],
+    languageOptions: {
+      parser: tsParser,
     },
-    react.configs.recommended,
+    plugins: {
+      "@typescript-eslint": ts,
+    },
+    rules: {
+      ...ts.configs["eslint-recommended"].rules,
+      ...ts.configs["recommended"].rules,
+    },
+  },
+  react.configs.recommended,
 ];
 ```
 

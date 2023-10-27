@@ -7,6 +7,6 @@ import namingConventionFilenameExtension from "./rules/filename-extension";
 export { name } from "../package.json";
 
 export const rules = {
-    filename: namingConventionFilename,
-    "filename-extension": namingConventionFilenameExtension,
+  filename: namingConventionFilename,
+  "filename-extension": namingConventionFilenameExtension,
 } as const;

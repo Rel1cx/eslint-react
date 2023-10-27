@@ -16,8 +16,8 @@ Warns when a React Hook is found. Useful for debugging.
 import React from "react";
 
 function useToggle() {
-    const [value, setValue] = useState(false);
+  const [value, setValue] = useState(false);
 
-    return [value, () => setValue(x => !x)];
+  return [value, () => setValue(x => !x)];
 }
 ```

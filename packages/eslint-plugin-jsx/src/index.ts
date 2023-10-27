@@ -12,11 +12,11 @@ import jsxPreferShorthandJsxBoolean from "./rules/prefer-shorthand-boolean";
 export { name } from "../package.json";
 
 export const rules = {
-    "no-array-index-key": jsxNoArrayIndexKey,
-    "no-duplicate-key": jsxNoDuplicateKey,
-    "no-leaked-conditional-rendering": jsxNoLeakedConditionalRendering,
-    "no-missing-key": jsxNoMissingKey,
-    "no-misused-comment-in-textnode": jsxNoMisusedCommentInTextNode,
-    "no-script-url": jsxNoScriptUrl,
-    "prefer-shorthand-boolean": jsxPreferShorthandJsxBoolean,
+  "no-array-index-key": jsxNoArrayIndexKey,
+  "no-duplicate-key": jsxNoDuplicateKey,
+  "no-leaked-conditional-rendering": jsxNoLeakedConditionalRendering,
+  "no-missing-key": jsxNoMissingKey,
+  "no-misused-comment-in-textnode": jsxNoMisusedCommentInTextNode,
+  "no-script-url": jsxNoScriptUrl,
+  "prefer-shorthand-boolean": jsxPreferShorthandJsxBoolean,
 } as const;

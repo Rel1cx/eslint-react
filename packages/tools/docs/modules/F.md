@@ -487,8 +487,8 @@ import { dual, pipe } from "effect/Function";
 
 // Exampe using arity to determine data-first or data-last style
 export const sum: {
-    (that: number): (self: number) => number;
-    (self: number, that: number): number;
+  (that: number): (self: number) => number;
+  (self: number, that: number): number;
 } = dual(2, (self: number, that: number): number => self + that);
 
 assert.deepStrictEqual(sum(2, 3), 5);
@@ -496,8 +496,8 @@ assert.deepStrictEqual(pipe(2, sum(3)), 5);
 
 // Example using a predicate to determine data-first or data-last style
 export const sum2: {
-    (that: number): (self: number) => number;
-    (self: number, that: number): number;
+  (that: number): (self: number) => number;
+  (self: number, that: number): number;
 } = dual((args) => args.length === 1, (self: number, that: number): number => self + that);
 
 assert.deepStrictEqual(sum(2, 3), 5);
@@ -547,8 +547,8 @@ import { dual, pipe } from "effect/Function";
 
 // Exampe using arity to determine data-first or data-last style
 export const sum: {
-    (that: number): (self: number) => number;
-    (self: number, that: number): number;
+  (that: number): (self: number) => number;
+  (self: number, that: number): number;
 } = dual(2, (self: number, that: number): number => self + that);
 
 assert.deepStrictEqual(sum(2, 3), 5);
@@ -556,8 +556,8 @@ assert.deepStrictEqual(pipe(2, sum(3)), 5);
 
 // Example using a predicate to determine data-first or data-last style
 export const sum2: {
-    (that: number): (self: number) => number;
-    (self: number, that: number): number;
+  (that: number): (self: number) => number;
+  (self: number, that: number): number;
 } = dual((args) => args.length === 1, (self: number, that: number): number => self + that);
 
 assert.deepStrictEqual(sum(2, 3), 5);

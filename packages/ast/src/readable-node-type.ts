@@ -10,19 +10,19 @@ import { isJSX, NodeType } from "./node-types";
  * @returns Human readable node type
  */
 export function readableNodeType(node: TSESTree.Node) {
-    if (node.type === NodeType.Literal) {
-        if ("regex" in node) {
-            return "RegExp literal";
-        }
-
-        return `${type(node.value)} literal` as const;
+  if (node.type === NodeType.Literal) {
+    if ("regex" in node) {
+      return "RegExp literal";
     }
 
-    if (isJSX(node)) {
-        return `JSX ${toLowerCase(delimiterCase(replace(node.type, "JSX", ""), " "))}` as const;
-    }
+    return `${type(node.value)} literal` as const;
+  }
 
-    return toLowerCase(delimiterCase(node.type, " "));
+  if (isJSX(node)) {
+    return `JSX ${toLowerCase(delimiterCase(replace(node.type, "JSX", ""), " "))}` as const;
+  }
+
+  return toLowerCase(delimiterCase(node.type, " "));
 }
 
 export type ReadableNodeType = ReturnType<typeof readableNodeType>;

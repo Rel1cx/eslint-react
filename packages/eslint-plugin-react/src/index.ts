@@ -10,10 +10,10 @@ import noUnstableNestedComponents from "./rules/no-unstable-nested-components";
 export { name } from "../package.json";
 
 export const rules = {
-    "no-constructed-context-value": noConstructedContextValue,
-    "no-dangerously-set-innerhtml": noDangerouslySetInnerHTML,
-    "no-dangerously-set-innerhtml-with-children": noDangerouslySetInnerHTMLWithChildren,
-    "no-string-refs": noDeprecatedStringRefs,
-    "no-unstable-default-props": noUnstableDefaultProps,
-    "no-unstable-nested-components": noUnstableNestedComponents,
+  "no-constructed-context-value": noConstructedContextValue,
+  "no-dangerously-set-innerhtml": noDangerouslySetInnerHTML,
+  "no-dangerously-set-innerhtml-with-children": noDangerouslySetInnerHTMLWithChildren,
+  "no-string-refs": noDeprecatedStringRefs,
+  "no-unstable-default-props": noUnstableDefaultProps,
+  "no-unstable-nested-components": noUnstableNestedComponents,
 } as const;

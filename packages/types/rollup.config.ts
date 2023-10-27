@@ -8,33 +8,33 @@ const packageJson = require("./package.json");
 const external = Object.keys(packageJson.dependencies);
 
 export default defineConfig([{
-    external,
-    input: "src/index.ts",
-    output: [
-        { file: "dist/index.cjs", format: "cjs" },
-        { file: "dist/index.js", format: "cjs" },
-        { file: "dist/index.mjs", format: "esm" },
-    ],
-    plugins: [
-        nodeResolve(),
-        swc({
-            jsc: {
-                minify: {
-                    compress: false,
-                    mangle: false,
-                    module: true,
-                },
-            },
-            minify: false,
-        }),
-    ],
+  external,
+  input: "src/index.ts",
+  output: [
+    { file: "dist/index.cjs", format: "cjs" },
+    { file: "dist/index.js", format: "cjs" },
+    { file: "dist/index.mjs", format: "esm" },
+  ],
+  plugins: [
+    nodeResolve(),
+    swc({
+      jsc: {
+        minify: {
+          compress: false,
+          mangle: false,
+          module: true,
+        },
+      },
+      minify: false,
+    }),
+  ],
 }, {
-    external,
-    input: "src/index.ts",
-    output: {
-        file: "dist/index.d.ts",
-    },
-    plugins: [
-        dts(),
-    ],
+  external,
+  input: "src/index.ts",
+  output: {
+    file: "dist/index.d.ts",
+  },
+  plugins: [
+    dts(),
+  ],
 }]);

@@ -11,15 +11,15 @@ injected as a text node in JSX statements.
 
 ```tsx
 function Component() {
-    return <div>// empty div</div>;
+  return <div>// empty div</div>;
 }
 
 function Component() {
-    return (
-        <div>
-            /* empty div */
-        </div>
-    );
+  return (
+    <div>
+      /* empty div */
+    </div>
+  );
 }
 ```
 
@@ -45,6 +45,6 @@ It's possible you may want to legitimately output comment start characters (`//`
 
 ```tsx
 function Component() {
-    return <div>{"/* This will be output as a text node */"}</div>;
+  return <div>{"/* This will be output as a text node */"}</div>;
 }
 ```

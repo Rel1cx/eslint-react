@@ -16,5 +16,5 @@ export type ArrayElement<A> = A extends readonly (infer T)[] ? T : never;
  * @returns new array with unique values.
  */
 export function uniqueBy<T>(arr: T[], fn: (x: T) => unknown): T[] {
-    return arr.filter((x, i, a) => a.findIndex((y) => fn(x) === fn(y)) === i);
+  return arr.filter((x, i, a) => a.findIndex((y) => fn(x) === fn(y)) === i);
 }

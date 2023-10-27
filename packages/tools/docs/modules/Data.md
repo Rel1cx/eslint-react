@@ -290,14 +290,14 @@ const bob = Data.struct({ name: "Bob", age: 40 });
 const persons = Data.array([alice, bob]);
 
 assert.deepStrictEqual(
-    Equal.equals(
-        persons,
-        Data.array([
-            Data.struct({ name: "Alice", age: 30 }),
-            Data.struct({ name: "Bob", age: 40 }),
-        ]),
-    ),
-    true,
+  Equal.equals(
+    persons,
+    Data.array([
+      Data.struct({ name: "Alice", age: 30 }),
+      Data.struct({ name: "Bob", age: 40 }),
+    ]),
+  ),
+  true,
 );
 ```
 
@@ -378,8 +378,8 @@ Provides a tagged constructor for the specified `Case`.
 import * as Data from "effect/Data";
 
 interface Person extends Data.Case {
-    readonly _tag: "Person"; // the tag
-    readonly name: string;
+  readonly _tag: "Person"; // the tag
+  readonly name: string;
 }
 
 const Person = Data.tagged<Person>("Person");
@@ -420,8 +420,8 @@ the constructor.
 import * as Data from "effect/Data";
 
 const { BadRequest, NotFound } = Data.taggedEnum<
-    | Data.Data<{ readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }>
-    | Data.Data<{ readonly _tag: "NotFound"; readonly status: 404; readonly message: string }>
+  | Data.Data<{ readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }>
+  | Data.Data<{ readonly _tag: "NotFound"; readonly status: 404; readonly message: string }>
 >();
 
 const notFound = NotFound({ status: 404, message: "Not Found" });
@@ -433,11 +433,11 @@ const notFound = NotFound({ status: 404, message: "Not Found" });
 import * as Data from "effect/Data";
 
 type MyResult<E, A> = Data.TaggedEnum<{
-    Failure: { readonly error: E };
-    Success: { readonly value: A };
+  Failure: { readonly error: E };
+  Success: { readonly value: A };
 }>;
 interface MyResultDefinition extends Data.TaggedEnum.WithGenerics<2> {
-    readonly taggedEnum: MyResult<this["A"], this["B"]>;
+  readonly taggedEnum: MyResult<this["A"], this["B"]>;
 }
 const { Failure, Success } = Data.taggedEnum<MyResultDefinition>();
 
@@ -471,8 +471,8 @@ the constructor.
 import * as Data from "effect/Data";
 
 const { BadRequest, NotFound } = Data.taggedEnum<
-    | Data.Data<{ readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }>
-    | Data.Data<{ readonly _tag: "NotFound"; readonly status: 404; readonly message: string }>
+  | Data.Data<{ readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }>
+  | Data.Data<{ readonly _tag: "NotFound"; readonly status: 404; readonly message: string }>
 >();
 
 const notFound = NotFound({ status: 404, message: "Not Found" });
@@ -484,11 +484,11 @@ const notFound = NotFound({ status: 404, message: "Not Found" });
 import * as Data from "effect/Data";
 
 type MyResult<E, A> = Data.TaggedEnum<{
-    Failure: { readonly error: E };
-    Success: { readonly value: A };
+  Failure: { readonly error: E };
+  Success: { readonly value: A };
 }>;
 interface MyResultDefinition extends Data.TaggedEnum.WithGenerics<2> {
-    readonly taggedEnum: MyResult<this["A"], this["B"]>;
+  readonly taggedEnum: MyResult<this["A"], this["B"]>;
 }
 const { Failure, Success } = Data.taggedEnum<MyResultDefinition>();
 
@@ -522,8 +522,8 @@ the constructor.
 import * as Data from "effect/Data";
 
 const { BadRequest, NotFound } = Data.taggedEnum<
-    | Data.Data<{ readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }>
-    | Data.Data<{ readonly _tag: "NotFound"; readonly status: 404; readonly message: string }>
+  | Data.Data<{ readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }>
+  | Data.Data<{ readonly _tag: "NotFound"; readonly status: 404; readonly message: string }>
 >();
 
 const notFound = NotFound({ status: 404, message: "Not Found" });
@@ -535,11 +535,11 @@ const notFound = NotFound({ status: 404, message: "Not Found" });
 import * as Data from "effect/Data";
 
 type MyResult<E, A> = Data.TaggedEnum<{
-    Failure: { readonly error: E };
-    Success: { readonly value: A };
+  Failure: { readonly error: E };
+  Success: { readonly value: A };
 }>;
 interface MyResultDefinition extends Data.TaggedEnum.WithGenerics<2> {
-    readonly taggedEnum: MyResult<this["A"], this["B"]>;
+  readonly taggedEnum: MyResult<this["A"], this["B"]>;
 }
 const { Failure, Success } = Data.taggedEnum<MyResultDefinition>();
 
@@ -573,8 +573,8 @@ the constructor.
 import * as Data from "effect/Data";
 
 const { BadRequest, NotFound } = Data.taggedEnum<
-    | Data.Data<{ readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }>
-    | Data.Data<{ readonly _tag: "NotFound"; readonly status: 404; readonly message: string }>
+  | Data.Data<{ readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }>
+  | Data.Data<{ readonly _tag: "NotFound"; readonly status: 404; readonly message: string }>
 >();
 
 const notFound = NotFound({ status: 404, message: "Not Found" });
@@ -586,11 +586,11 @@ const notFound = NotFound({ status: 404, message: "Not Found" });
 import * as Data from "effect/Data";
 
 type MyResult<E, A> = Data.TaggedEnum<{
-    Failure: { readonly error: E };
-    Success: { readonly value: A };
+  Failure: { readonly error: E };
+  Success: { readonly value: A };
 }>;
 interface MyResultDefinition extends Data.TaggedEnum.WithGenerics<2> {
-    readonly taggedEnum: MyResult<this["A"], this["B"]>;
+  readonly taggedEnum: MyResult<this["A"], this["B"]>;
 }
 const { Failure, Success } = Data.taggedEnum<MyResultDefinition>();
 
@@ -624,8 +624,8 @@ the constructor.
 import * as Data from "effect/Data";
 
 const { BadRequest, NotFound } = Data.taggedEnum<
-    | Data.Data<{ readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }>
-    | Data.Data<{ readonly _tag: "NotFound"; readonly status: 404; readonly message: string }>
+  | Data.Data<{ readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }>
+  | Data.Data<{ readonly _tag: "NotFound"; readonly status: 404; readonly message: string }>
 >();
 
 const notFound = NotFound({ status: 404, message: "Not Found" });
@@ -637,11 +637,11 @@ const notFound = NotFound({ status: 404, message: "Not Found" });
 import * as Data from "effect/Data";
 
 type MyResult<E, A> = Data.TaggedEnum<{
-    Failure: { readonly error: E };
-    Success: { readonly value: A };
+  Failure: { readonly error: E };
+  Success: { readonly value: A };
 }>;
 interface MyResultDefinition extends Data.TaggedEnum.WithGenerics<2> {
-    readonly taggedEnum: MyResult<this["A"], this["B"]>;
+  readonly taggedEnum: MyResult<this["A"], this["B"]>;
 }
 const { Failure, Success } = Data.taggedEnum<MyResultDefinition>();
 
@@ -775,22 +775,22 @@ Create a tagged enum data type, which is a union of `Data` structs.
 import * as Data from "effect/Data";
 
 type HttpError = Data.TaggedEnum<{
-    BadRequest: { readonly status: 400; readonly message: string };
-    NotFound: { readonly status: 404; readonly message: string };
+  BadRequest: { readonly status: 400; readonly message: string };
+  NotFound: { readonly status: 404; readonly message: string };
 }>;
 
 // Equivalent to:
 type HttpErrorPlain =
-    | Data.Data<{
-        readonly _tag: "BadRequest";
-        readonly status: 400;
-        readonly message: string;
-    }>
-    | Data.Data<{
-        readonly _tag: "NotFound";
-        readonly status: 404;
-        readonly message: string;
-    }>;
+  | Data.Data<{
+    readonly _tag: "BadRequest";
+    readonly status: 400;
+    readonly message: string;
+  }>
+  | Data.Data<{
+    readonly _tag: "NotFound";
+    readonly status: 404;
+    readonly message: string;
+  }>;
 ```
 
 **`Since`**

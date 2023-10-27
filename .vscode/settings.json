@@ -1,51 +1,51 @@
 {
-    "[json]": {
-        "editor.defaultFormatter": "dprint.dprint",
-        "editor.quickSuggestions": {
-            "strings": true
-        }
+  "[json]": {
+    "editor.defaultFormatter": "dprint.dprint",
+    "editor.quickSuggestions": {
+      "strings": true
+    }
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "dprint.dprint",
+    "editor.quickSuggestions": {
+      "strings": true
+    }
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "dprint.dprint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dprint.dprint"
+  },
+  "[yaml]": {
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.autoIndent": "keep",
+    "editor.defaultFormatter": "dprint.dprint",
+    "editor.insertSpaces": true,
+    "editor.quickSuggestions": {
+      "comments": false,
+      "other": true,
+      "strings": true
     },
-    "[jsonc]": {
-        "editor.defaultFormatter": "dprint.dprint",
-        "editor.quickSuggestions": {
-            "strings": true
-        }
-    },
-    "[markdown]": {
-        "editor.defaultFormatter": "dprint.dprint"
-    },
-    "[typescript]": {
-        "editor.defaultFormatter": "dprint.dprint"
-    },
-    "[yaml]": {
-        "diffEditor.ignoreTrimWhitespace": false,
-        "editor.autoIndent": "keep",
-        "editor.defaultFormatter": "dprint.dprint",
-        "editor.insertSpaces": true,
-        "editor.quickSuggestions": {
-            "comments": false,
-            "other": true,
-            "strings": true
-        },
-        "editor.tabSize": 4
-    },
-    "eslint.workingDirectories": [
-        {
-            "changeProcessCWD": true,
-            "mode": "location"
-        }
-    ],
-    "eslint.experimental.useFlatConfig": false,
-    "search.exclude": {
-        "pnpm-lock.yaml": true
-    },
-    "files.exclude": {
-        "**/.turbo": true,
-        ".husky": true,
-        ".npmignore": true,
-        ".eslintcache": true,
-        ".eslintignore": true
-    },
-    "typescript.preferences.importModuleSpecifier": "non-relative",
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "editor.tabSize": 4
+  },
+  "eslint.workingDirectories": [
+    {
+      "changeProcessCWD": true,
+      "mode": "location"
+    }
+  ],
+  "eslint.experimental.useFlatConfig": false,
+  "search.exclude": {
+    "pnpm-lock.yaml": true
+  },
+  "files.exclude": {
+    "**/.turbo": true,
+    ".husky": true,
+    ".npmignore": true,
+    ".eslintcache": true,
+    ".eslintignore": true
+  },
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

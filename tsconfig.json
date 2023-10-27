@@ -1,17 +1,17 @@
 {
-    "extends": "./tsconfig.base.json",
-    "compilerOptions": {
-        "types": [
-            "bun-types"
-        ]
-    },
-    "include": [
-        "*.config.ts",
-        ".eslintrc.cjs",
-        "knip.ts",
-        "scripts/**/*.ts",
-        "test",
-        "packages/*/*.config.ts",
-        "packages/*/scripts/**/*.ts"
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "types": [
+      "bun-types"
     ]
+  },
+  "include": [
+    "*.config.ts",
+    ".eslintrc.cjs",
+    "knip.ts",
+    "scripts/**/*.ts",
+    "test",
+    "packages/*/*.config.ts",
+    "packages/*/scripts/**/*.ts"
+  ]
 }

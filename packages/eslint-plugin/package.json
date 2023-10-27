@@ -1,80 +1,80 @@
 {
-    "name": "@eslint-react/eslint-plugin",
-    "version": "0.5.4",
-    "description": "ESLint plugin for React and Preact function components with TypeScript, built from scratch (almost).",
-    "keywords": [
-        "eslint",
-        "eslint-plugin",
-        "eslint-react",
-        "react",
-        "ts",
-        "tsx",
-        "typescript",
-        "typescript-eslint",
-        "typescript-react"
-    ],
-    "homepage": "https://github.com/Rel1cx/eslint-react",
-    "bugs": {
-        "url": "https://github.com/Rel1cx/eslint-react/issues"
+  "name": "@eslint-react/eslint-plugin",
+  "version": "0.5.4",
+  "description": "ESLint plugin for React and Preact function components with TypeScript, built from scratch (almost).",
+  "keywords": [
+    "eslint",
+    "eslint-plugin",
+    "eslint-react",
+    "react",
+    "ts",
+    "tsx",
+    "typescript",
+    "typescript-eslint",
+    "typescript-react"
+  ],
+  "homepage": "https://github.com/Rel1cx/eslint-react",
+  "bugs": {
+    "url": "https://github.com/Rel1cx/eslint-react/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rel1cx/eslint-react.git",
+    "directory": "packages/eslint-plugin"
+  },
+  "license": "MIT",
+  "author": "Eva1ent<let@ik.me>",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Rel1cx/eslint-react.git",
-        "directory": "packages/eslint-plugin"
-    },
-    "license": "MIT",
-    "author": "Eva1ent<let@ik.me>",
-    "main": "dist/index.js",
-    "module": "dist/index.mjs",
-    "types": "dist/index.d.ts",
-    "exports": {
-        ".": {
-            "import": {
-                "types": "./dist/index.d.mts",
-                "default": "./dist/index.mjs"
-            },
-            "require": {
-                "types": "./dist/index.d.ts",
-                "default": "./dist/index.js"
-            }
-        },
-        "./package.json": "./package.json"
-    },
-    "files": [
-        "./dist",
-        "./package.json"
-    ],
-    "scripts": {
-        "lint:type": "tsc --noEmit",
-        "lint:publish": "pnpm publint && cd ../.. && pnpm run test",
-        "build": "rollup -c rollup.config.ts --configPlugin swc3 && cp dist/index.d.ts dist/index.d.mts",
-        "publish": "pnpm run build && pnpm run lint:publish"
-    },
-    "dependencies": {
-        "@typescript-eslint/scope-manager": "6.9.0",
-        "@typescript-eslint/type-utils": "6.9.0",
-        "@typescript-eslint/types": "6.9.0",
-        "@typescript-eslint/utils": "6.9.0"
-    },
-    "devDependencies": {
-        "@eslint-react/eslint-plugin-debug": "workspace:*",
-        "@eslint-react/eslint-plugin-hooks": "workspace:*",
-        "@eslint-react/eslint-plugin-jsx": "workspace:*",
-        "@eslint-react/eslint-plugin-naming-convention": "workspace:*",
-        "@eslint-react/eslint-plugin-react": "workspace:*",
-        "@eslint-react/tools": "workspace:*",
-        "@eslint-react/types": "workspace:*"
-    },
-    "peerDependencies": {
-        "@typescript-eslint/parser": ">=6.9.0",
-        "eslint": ">=8.52.0",
-        "typescript": ">=5.2.2"
-    },
-    "engines": {
-        "bun": ">=1.0.7",
-        "node": ">=18.15.0"
-    },
-    "publishConfig": {
-        "access": "public"
-    }
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
+  "scripts": {
+    "lint:type": "tsc --noEmit",
+    "lint:publish": "pnpm publint && cd ../.. && pnpm run test",
+    "build": "rollup -c rollup.config.ts --configPlugin swc3 && cp dist/index.d.ts dist/index.d.mts",
+    "publish": "pnpm run build && pnpm run lint:publish"
+  },
+  "dependencies": {
+    "@typescript-eslint/scope-manager": "6.9.0",
+    "@typescript-eslint/type-utils": "6.9.0",
+    "@typescript-eslint/types": "6.9.0",
+    "@typescript-eslint/utils": "6.9.0"
+  },
+  "devDependencies": {
+    "@eslint-react/eslint-plugin-debug": "workspace:*",
+    "@eslint-react/eslint-plugin-hooks": "workspace:*",
+    "@eslint-react/eslint-plugin-jsx": "workspace:*",
+    "@eslint-react/eslint-plugin-naming-convention": "workspace:*",
+    "@eslint-react/eslint-plugin-react": "workspace:*",
+    "@eslint-react/tools": "workspace:*",
+    "@eslint-react/types": "workspace:*"
+  },
+  "peerDependencies": {
+    "@typescript-eslint/parser": ">=6.9.0",
+    "eslint": ">=8.52.0",
+    "typescript": ">=5.2.2"
+  },
+  "engines": {
+    "bun": ">=1.0.7",
+    "node": ">=18.15.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

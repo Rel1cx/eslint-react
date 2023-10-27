@@ -761,8 +761,8 @@ If a default error is sufficient for your use case and you don't need to configu
 import * as O from "effect/Option";
 
 assert.deepStrictEqual(
-    O.getOrThrowWith(O.some(1), () => new Error("Unexpected None")),
-    1,
+  O.getOrThrowWith(O.some(1), () => new Error("Unexpected None")),
+  1,
 );
 assert.throws(() => O.getOrThrowWith(O.none(), () => new Error("Unexpected None")));
 ```
@@ -800,8 +800,8 @@ If a default error is sufficient for your use case and you don't need to configu
 import * as O from "effect/Option";
 
 assert.deepStrictEqual(
-    O.getOrThrowWith(O.some(1), () => new Error("Unexpected None")),
-    1,
+  O.getOrThrowWith(O.some(1), () => new Error("Unexpected None")),
+  1,
 );
 assert.throws(() => O.getOrThrowWith(O.none(), () => new Error("Unexpected None")));
 ```
@@ -894,8 +894,8 @@ This API is useful for lifting a function that returns `null` or `undefined` int
 import * as O from "effect/Option";
 
 const parse = (s: string): number | undefined => {
-    const n = parseFloat(s);
-    return isNaN(n) ? undefined : n;
+  const n = parseFloat(s);
+  return isNaN(n) ? undefined : n;
 };
 
 const parseOption = O.liftNullable(parse);
@@ -1469,32 +1469,32 @@ import * as O from "effect/Option";
 import { pipe } from "effect/Function";
 
 assert.deepStrictEqual(
-    pipe(
-        O.none(),
-        O.orElse(() => O.none()),
-    ),
+  pipe(
     O.none(),
+    O.orElse(() => O.none()),
+  ),
+  O.none(),
 );
 assert.deepStrictEqual(
-    pipe(
-        O.some("a"),
-        O.orElse(() => O.none()),
-    ),
+  pipe(
     O.some("a"),
+    O.orElse(() => O.none()),
+  ),
+  O.some("a"),
 );
 assert.deepStrictEqual(
-    pipe(
-        O.none(),
-        O.orElse(() => O.some("b")),
-    ),
-    O.some("b"),
+  pipe(
+    O.none(),
+    O.orElse(() => O.some("b")),
+  ),
+  O.some("b"),
 );
 assert.deepStrictEqual(
-    pipe(
-        O.some("a"),
-        O.orElse(() => O.some("b")),
-    ),
+  pipe(
     O.some("a"),
+    O.orElse(() => O.some("b")),
+  ),
+  O.some("a"),
 );
 ```
 
@@ -1531,32 +1531,32 @@ import * as O from "effect/Option";
 import { pipe } from "effect/Function";
 
 assert.deepStrictEqual(
-    pipe(
-        O.none(),
-        O.orElse(() => O.none()),
-    ),
+  pipe(
     O.none(),
+    O.orElse(() => O.none()),
+  ),
+  O.none(),
 );
 assert.deepStrictEqual(
-    pipe(
-        O.some("a"),
-        O.orElse(() => O.none()),
-    ),
+  pipe(
     O.some("a"),
+    O.orElse(() => O.none()),
+  ),
+  O.some("a"),
 );
 assert.deepStrictEqual(
-    pipe(
-        O.none(),
-        O.orElse(() => O.some("b")),
-    ),
-    O.some("b"),
+  pipe(
+    O.none(),
+    O.orElse(() => O.some("b")),
+  ),
+  O.some("b"),
 );
 assert.deepStrictEqual(
-    pipe(
-        O.some("a"),
-        O.orElse(() => O.some("b")),
-    ),
+  pipe(
     O.some("a"),
+    O.orElse(() => O.some("b")),
+  ),
+  O.some("a"),
 );
 ```
 
@@ -2644,13 +2644,13 @@ import { some, none, match } from "effect/Option";
 import { pipe } from "effect/Function";
 
 assert.deepStrictEqual(
-    pipe(some(1), match({ onNone: () => "a none", onSome: (a) => `a some containing ${a}` })),
-    "a some containing 1",
+  pipe(some(1), match({ onNone: () => "a none", onSome: (a) => `a some containing ${a}` })),
+  "a some containing 1",
 );
 
 assert.deepStrictEqual(
-    pipe(none(), match({ onNone: () => "a none", onSome: (a) => `a some containing ${a}` })),
-    "a none",
+  pipe(none(), match({ onNone: () => "a none", onSome: (a) => `a some containing ${a}` })),
+  "a none",
 );
 ```
 
@@ -2691,13 +2691,13 @@ import { some, none, match } from "effect/Option";
 import { pipe } from "effect/Function";
 
 assert.deepStrictEqual(
-    pipe(some(1), match({ onNone: () => "a none", onSome: (a) => `a some containing ${a}` })),
-    "a some containing 1",
+  pipe(some(1), match({ onNone: () => "a none", onSome: (a) => `a some containing ${a}` })),
+  "a some containing 1",
 );
 
 assert.deepStrictEqual(
-    pipe(none(), match({ onNone: () => "a none", onSome: (a) => `a some containing ${a}` })),
-    "a none",
+  pipe(none(), match({ onNone: () => "a none", onSome: (a) => `a some containing ${a}` })),
+  "a none",
 );
 ```
 
@@ -3053,33 +3053,33 @@ import { some, none, flatMapNullable } from "effect/Option";
 import { pipe } from "effect/Function";
 
 interface Employee {
-    company?: {
-        address?: {
-            street?: {
-                name?: string;
-            };
-        };
+  company?: {
+    address?: {
+      street?: {
+        name?: string;
+      };
     };
+  };
 }
 
 const employee1: Employee = { company: { address: { street: { name: "high street" } } } };
 
 assert.deepStrictEqual(
-    pipe(
-        some(employee1),
-        flatMapNullable(employee => employee.company?.address?.street?.name),
-    ),
-    some("high street"),
+  pipe(
+    some(employee1),
+    flatMapNullable(employee => employee.company?.address?.street?.name),
+  ),
+  some("high street"),
 );
 
 const employee2: Employee = { company: { address: { street: {} } } };
 
 assert.deepStrictEqual(
-    pipe(
-        some(employee2),
-        flatMapNullable(employee => employee.company?.address?.street?.name),
-    ),
-    none(),
+  pipe(
+    some(employee2),
+    flatMapNullable(employee => employee.company?.address?.street?.name),
+  ),
+  none(),
 );
 ```
 
@@ -3116,33 +3116,33 @@ import { some, none, flatMapNullable } from "effect/Option";
 import { pipe } from "effect/Function";
 
 interface Employee {
-    company?: {
-        address?: {
-            street?: {
-                name?: string;
-            };
-        };
+  company?: {
+    address?: {
+      street?: {
+        name?: string;
+      };
     };
+  };
 }
 
 const employee1: Employee = { company: { address: { street: { name: "high street" } } } };
 
 assert.deepStrictEqual(
-    pipe(
-        some(employee1),
-        flatMapNullable(employee => employee.company?.address?.street?.name),
-    ),
-    some("high street"),
+  pipe(
+    some(employee1),
+    flatMapNullable(employee => employee.company?.address?.street?.name),
+  ),
+  some("high street"),
 );
 
 const employee2: Employee = { company: { address: { street: {} } } };
 
 assert.deepStrictEqual(
-    pipe(
-        some(employee2),
-        flatMapNullable(employee => employee.company?.address?.street?.name),
-    ),
-    none(),
+  pipe(
+    some(employee2),
+    flatMapNullable(employee => employee.company?.address?.street?.name),
+  ),
+  none(),
 );
 ```
 

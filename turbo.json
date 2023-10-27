@@ -1,19 +1,19 @@
 {
-    "$schema": "https://turbo.build/schema.json",
-    "globalDependencies": [
-        "**/.env.*local",
-        "**/*.config.ts",
-        "tsconfig.base.json",
-        "tsconfig.json",
-        ".eslintrc.cjs",
-        "dprint.json"
-    ],
-    "pipeline": {
-        "build": {
-            "cache": true,
-            "dependsOn": [
-                "^build"
-            ]
-        }
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "**/.env.*local",
+    "**/*.config.ts",
+    "tsconfig.base.json",
+    "tsconfig.json",
+    ".eslintrc.cjs",
+    "dprint.json"
+  ],
+  "pipeline": {
+    "build": {
+      "cache": true,
+      "dependsOn": [
+        "^build"
+      ]
     }
+  }
 }

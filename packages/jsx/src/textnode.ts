@@ -15,7 +15,7 @@ export const isLiteral = isOneOf([NodeType.Literal, NodeType.JSXText]);
  * @returns boolean `true` if the node is whitespace
  */
 export function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
-    return isString(node.value) && node.value.trim() === "";
+  return isString(node.value) && node.value.trim() === "";
 }
 
 /**
@@ -24,5 +24,5 @@ export function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
  * @returns boolean
  */
 export function isLineBreak(node: TSESTree.Node) {
-    return isLiteral(node) && isWhiteSpace(node) && isMultiLine(node);
+  return isLiteral(node) && isWhiteSpace(node) && isMultiLine(node);
 }

@@ -8,17 +8,17 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, match, P } from "ts-pattern";
 
 const isRenderMethodLike = isMatching({
-    type: P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),
-    key: {
-        type: NodeType.Identifier,
-        name: "render",
-    },
+  type: P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),
+  key: {
+    type: NodeType.Identifier,
+    name: "render",
+  },
+  parent: {
+    type: NodeType.ClassBody,
     parent: {
-        type: NodeType.ClassBody,
-        parent: {
-            type: NodeType.ClassDeclaration,
-        },
+      type: NodeType.ClassDeclaration,
     },
+  },
 });
 
 /**
@@ -28,27 +28,27 @@ const isRenderMethodLike = isMatching({
  * @deprecated It will be removed in the future
  */
 export function isClassComponent(node: TSESTree.Node, context: RuleContext): node is TSESTreeClass {
-    if (!("superClass" in node && node.superClass)) {
-        return false;
-    }
-    const maybeReact = getPragmaFromContext(context);
-    if (E.isLeft(maybeReact)) {
-        return false;
-    }
-    const pragma = maybeReact.right;
-    const { superClass } = node;
+  if (!("superClass" in node && node.superClass)) {
+    return false;
+  }
+  const maybeReact = getPragmaFromContext(context);
+  if (E.isLeft(maybeReact)) {
+    return false;
+  }
+  const pragma = maybeReact.right;
+  const { superClass } = node;
 
-    return match(superClass)
-        .with({ type: NodeType.Identifier, name: P.string }, ({ name }) => /^(Pure)?Component$/u.test(name))
-        .with(
-            {
-                type: NodeType.MemberExpression,
-                object: { name: pragma },
-                property: { name: P.string },
-            },
-            ({ property }) => /^(Pure)?Component$/u.test(property.name),
-        )
-        .otherwise(() => false);
+  return match(superClass)
+    .with({ type: NodeType.Identifier, name: P.string }, ({ name }) => /^(Pure)?Component$/u.test(name))
+    .with(
+      {
+        type: NodeType.MemberExpression,
+        object: { name: pragma },
+        property: { name: P.string },
+      },
+      ({ property }) => /^(Pure)?Component$/u.test(property.name),
+    )
+    .otherwise(() => false);
 }
 
 /**
@@ -57,20 +57,20 @@ export function isClassComponent(node: TSESTree.Node, context: RuleContext): nod
  * @deprecated It will be removed in the future
  */
 export function getParentClassComponent(context: RuleContext) {
-    let scope: Scope | null = context.getScope();
+  let scope: Scope | null = context.getScope();
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    while (scope && scope.type !== "class") {
-        scope = scope.upper;
-    }
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+  while (scope && scope.type !== "class") {
+    scope = scope.upper;
+  }
 
-    const node = scope?.block;
+  const node = scope?.block;
 
-    if (!node || !isClassComponent(node, context)) {
-        return null;
-    }
+  if (!node || !isClassComponent(node, context)) {
+    return null;
+  }
 
-    return node;
+  return node;
 }
 
 /**
@@ -80,18 +80,18 @@ export function getParentClassComponent(context: RuleContext) {
  * @deprecated It will be removed in the future
  */
 export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
-    const pragma = getPragmaFromContext(context);
+  const pragma = getPragmaFromContext(context);
 
-    const sourceCode = context.getSourceCode();
+  const sourceCode = context.getSourceCode();
 
-    if (E.isRight(pragma) && "superClass" in node && node.superClass) {
-        const text = sourceCode.getText(node.superClass);
+  if (E.isRight(pragma) && "superClass" in node && node.superClass) {
+    const text = sourceCode.getText(node.superClass);
 
-        // eslint-disable-next-line security/detect-non-literal-regexp
-        return new RegExp(`^(${pragma.right}\\.)?PureComponent$`, "u").test(text);
-    }
+    // eslint-disable-next-line security/detect-non-literal-regexp
+    return new RegExp(`^(${pragma.right}\\.)?PureComponent$`, "u").test(text);
+  }
 
-    return false;
+  return false;
 }
 
 /**
@@ -100,21 +100,21 @@ export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
  * @deprecated It will be removed in the future
  */
 export const isStateMemberExpression: (node: TSESTree.Node) => boolean = isMatching({
-    type: NodeType.MemberExpression,
-    object: {
-        type: NodeType.ThisExpression,
-    },
-    property: {
-        name: "state",
-    },
+  type: NodeType.MemberExpression,
+  object: {
+    type: NodeType.ThisExpression,
+  },
+  property: {
+    name: "state",
+  },
 });
 
 export function isFunctionOfRenderMethod(node: TSESTreeFunction, context: RuleContext) {
-    if (!isRenderMethodLike(node.parent)) {
-        return false;
-    }
+  if (!isRenderMethodLike(node.parent)) {
+    return false;
+  }
 
-    return isClassComponent(node.parent.parent.parent, context);
+  return isClassComponent(node.parent.parent.parent, context);
 }
 
 /**
@@ -135,53 +135,53 @@ export function isFunctionOfRenderMethod(node: TSESTreeFunction, context: RuleCo
  * @deprecated It will be removed in the future
  */
 export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) {
-    const predicate = (node: TSESTree.Node): node is TSESTree.MethodDefinition => {
-        const isRenderMethod = isRenderMethodLike(node);
+  const predicate = (node: TSESTree.Node): node is TSESTree.MethodDefinition => {
+    const isRenderMethod = isRenderMethodLike(node);
 
-        return isRenderMethod && isClassComponent(node.parent.parent, context);
-    };
+    return isRenderMethod && isClassComponent(node.parent.parent, context);
+  };
 
-    return !!traverseUp(node, predicate);
+  return !!traverseUp(node, predicate);
 }
 
 const seenComponents = new WeakSet<TSESTreeClass>();
 
 export function componentCollectorLegacy(context: RuleContext) {
-    const components: TSESTreeClass[] = [];
+  const components: TSESTreeClass[] = [];
 
-    const ctx = {
-        getAllComponents(): E.Either<Error, TSESTreeClass[]> {
-            if (context.getScope().block.type !== NodeType.Program) {
-                return E.left(new Error("getAllComponents should only be called in Program:exit"));
-            }
+  const ctx = {
+    getAllComponents(): E.Either<Error, TSESTreeClass[]> {
+      if (context.getScope().block.type !== NodeType.Program) {
+        return E.left(new Error("getAllComponents should only be called in Program:exit"));
+      }
 
-            return E.right(components);
-        },
-        getCurrentComponents() {
-            return [...components];
-        },
-    } as const;
+      return E.right(components);
+    },
+    getCurrentComponents() {
+      return [...components];
+    },
+  } as const;
 
-    const collect = (node: TSESTreeClass) => {
-        if (seenComponents.has(node)) {
-            components.push(node);
-        }
+  const collect = (node: TSESTreeClass) => {
+    if (seenComponents.has(node)) {
+      components.push(node);
+    }
 
-        if (!isClassComponent(node, context)) {
-            return;
-        }
+    if (!isClassComponent(node, context)) {
+      return;
+    }
 
-        seenComponents.add(node);
-        components.push(node);
-    };
+    seenComponents.add(node);
+    components.push(node);
+  };
 
-    const listeners = {
-        ClassDeclaration: collect,
-        ClassExpression: collect,
-    } as const satisfies RuleListener;
+  const listeners = {
+    ClassDeclaration: collect,
+    ClassExpression: collect,
+  } as const satisfies RuleListener;
 
-    return {
-        ctx,
-        listeners,
-    } as const;
+  return {
+    ctx,
+    listeners,
+  } as const;
 }

@@ -15,27 +15,27 @@ export type CallFromPragmaPredicate = (node: TSESTree.Node, context: RuleContext
  * @returns A predicate that checks if the given node is a call expression to the given function or method
  */
 export const isCallFromPragma =
-    (name: string) => (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
-        if (node.type !== NodeType.CallExpression || !("callee" in node)) {
-            return false;
-        }
+  (name: string) => (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
+    if (node.type !== NodeType.CallExpression || !("callee" in node)) {
+      return false;
+    }
 
-        const maybePragma = getPragmaFromContext(context);
-        if (E.isLeft(maybePragma)) {
-            return false;
-        }
+    const maybePragma = getPragmaFromContext(context);
+    if (E.isLeft(maybePragma)) {
+      return false;
+    }
 
-        const pragma = maybePragma.right;
+    const pragma = maybePragma.right;
 
-        return match(node.callee)
-            .with(
-                {
-                    type: NodeType.MemberExpression,
-                    object: { name: pragma },
-                    property: { name },
-                },
-                F.constTrue,
-            )
-            .with({ name }, ({ name }) => isDestructuredFromPragma(name, context))
-            .otherwise(F.constFalse);
-    };
+    return match(node.callee)
+      .with(
+        {
+          type: NodeType.MemberExpression,
+          object: { name: pragma },
+          property: { name },
+        },
+        F.constTrue,
+      )
+      .with({ name }, ({ name }) => isDestructuredFromPragma(name, context))
+      .otherwise(F.constFalse);
+  };
