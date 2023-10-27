@@ -11,57 +11,57 @@ const packageJson = require("./package.json");
 const external = Object.keys(packageJson.dependencies);
 
 const plugins = [
-    nodeResolve({
-        exportConditions: ["import", "require", "default"],
-    }),
-    commonjs({
-        esmExternals: true,
-    }),
-    json(),
+  nodeResolve({
+    exportConditions: ["import", "require", "default"],
+  }),
+  commonjs({
+    esmExternals: true,
+  }),
+  json(),
 ] as const;
 
 const options = {
-    external: [
-        ...external,
-        "eslint",
-    ],
-    plugins: [
-        ...plugins,
-        // Enable when pattycake is more stable
-        // pattycake.rollup({ disableOptionalChaining: false }),
-        swc({
-            jsc: {
-                minify: {
-                    compress: false,
-                    mangle: false,
-                    module: false,
-                },
-                target: "es2021",
-            },
-            minify: false,
-        }),
-    ],
+  external: [
+    ...external,
+    "eslint",
+  ],
+  plugins: [
+    ...plugins,
+    // Enable when pattycake is more stable
+    // pattycake.rollup({ disableOptionalChaining: false }),
+    swc({
+      jsc: {
+        minify: {
+          compress: false,
+          mangle: false,
+          module: false,
+        },
+        target: "es2021",
+      },
+      minify: false,
+    }),
+  ],
 } satisfies RollupOptions;
 
 export default defineConfig([
-    {
-        ...options,
-        input: "src/index.ts",
-        output: [
-            { file: "dist/index.cjs", format: "cjs" },
-            { file: "dist/index.js", format: "cjs" },
-            { file: "dist/index.mjs", format: "esm" },
-        ],
+  {
+    ...options,
+    input: "src/index.ts",
+    output: [
+      { file: "dist/index.cjs", format: "cjs" },
+      { file: "dist/index.js", format: "cjs" },
+      { file: "dist/index.mjs", format: "esm" },
+    ],
+  },
+  {
+    ...options,
+    input: "src/index.ts",
+    output: {
+      file: "dist/index.d.ts",
     },
-    {
-        ...options,
-        input: "src/index.ts",
-        output: {
-            file: "dist/index.d.ts",
-        },
-        plugins: [
-            ...plugins,
-            dts(),
-        ],
-    },
+    plugins: [
+      ...plugins,
+      dts(),
+    ],
+  },
 ]);

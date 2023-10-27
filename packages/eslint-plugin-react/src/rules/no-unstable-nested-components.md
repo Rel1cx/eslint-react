@@ -10,11 +10,11 @@ This rule aims to prevent nesting component definitions inside other components.
 
 ```tsx
 export default function Gallery() {
-    // 🔴 Never define a component inside another component!
-    function Profile() {
-        // ...
-    }
+  // 🔴 Never define a component inside another component!
+  function Profile() {
     // ...
+  }
+  // ...
 }
 ```
 
@@ -22,12 +22,12 @@ export default function Gallery() {
 
 ```tsx
 export default function Gallery() {
-    // ...
+  // ...
 }
 
 // 🟢 Declare components at the top level
 function Profile() {
-    // ...
+  // ...
 }
 ```
 

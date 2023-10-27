@@ -11,8 +11,8 @@ export type LooseRecord<T> = Record<PropertyKey, T>;
 export type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> };
 
 export type FromEntries<T> = T extends [infer Key, unknown][]
-    ? { [K in Cast<Key, string>]: Extract<ArrayElement<T>, [K, unknown]>[1] }
-    : { [key in string]: unknown };
+  ? { [K in Cast<Key, string>]: Extract<ArrayElement<T>, [K, unknown]>[1] }
+  : { [key in string]: unknown };
 
 export type FromEntriesWithReadOnly<T> = FromEntries<DeepWriteable<T>>;
 
@@ -25,7 +25,7 @@ export type FromEntriesWithReadOnly<T> = FromEntries<DeepWriteable<T>>;
  * @since 0.4.0
  */
 export const fromEntries = <T extends [PropertyKey, unknown][]>(entries: T) => {
-    return Object.fromEntries(entries) as FromEntries<T>;
+  return Object.fromEntries(entries) as FromEntries<T>;
 };
 
 /**
@@ -35,7 +35,7 @@ export const fromEntries = <T extends [PropertyKey, unknown][]>(entries: T) => {
  * @since 0.4.0
  */
 export const fromEntriesWithReadOnly = <T extends [PropertyKey, unknown][]>(entries: T) => {
-    return Object.fromEntries(entries) as FromEntriesWithReadOnly<T>;
+  return Object.fromEntries(entries) as FromEntriesWithReadOnly<T>;
 };
 
 /**
@@ -45,9 +45,9 @@ export const fromEntriesWithReadOnly = <T extends [PropertyKey, unknown][]>(entr
  * @since 0.4.0
  */
 export const entries = <T extends LooseRecord<unknown>>(value: T) => {
-    return Object.entries(value) as {
-        [K in keyof T]-?: [K, T[K]];
-    }[keyof T][];
+  return Object.entries(value) as {
+    [K in keyof T]-?: [K, T[K]];
+  }[keyof T][];
 };
 
 /**

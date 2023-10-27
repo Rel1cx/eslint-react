@@ -16,9 +16,9 @@ Note that your components won’t receive key as a prop. It’s only used as a h
 
 ```tsx
 const TodoList = ({ todos }) => (
-    <ul>
-        {todos.map((todo, index) => <Todo {...todo} key={index} />)}
-    </ul>
+  <ul>
+    {todos.map((todo, index) => <Todo {...todo} key={index} />)}
+  </ul>
 );
 ```
 
@@ -26,9 +26,9 @@ const TodoList = ({ todos }) => (
 
 ```tsx
 const TodoList = ({ todos }) => (
-    <ul>
-        {todos.map((todo) => <Todo {...todo} key={todo.id} />)}
-    </ul>
+  <ul>
+    {todos.map((todo) => <Todo {...todo} key={todo.id} />)}
+  </ul>
 );
 ```
 

@@ -9,42 +9,42 @@ import { NodeType } from "./node-types";
  * @returns  `true` if the node is multiline
  */
 export function isMultiLine(node: TSESTree.Node) {
-    return node.loc.start.line !== node.loc.end.line;
+  return node.loc.start.line !== node.loc.end.line;
 }
 
 export function unsafeIsToStringCall(node: TSESTree.Node): node is
-    & TSESTree.CallExpression
-    & {
-        callee:
-            & TSESTree.MemberExpression
-            & { property: TSESTree.Identifier & { name: "toString" } };
-    }
+  & TSESTree.CallExpression
+  & {
+    callee:
+      & TSESTree.MemberExpression
+      & { property: TSESTree.Identifier & { name: "toString" } };
+  }
 {
-    return isMatching({
-        type: NodeType.CallExpression,
-        callee: {
-            type: NodeType.MemberExpression,
-            property: {
-                type: NodeType.Identifier,
-                name: "toString",
-            },
-        },
-    }, node);
+  return isMatching({
+    type: NodeType.CallExpression,
+    callee: {
+      type: NodeType.MemberExpression,
+      property: {
+        type: NodeType.Identifier,
+        name: "toString",
+      },
+    },
+  }, node);
 }
 
 export function unsafeIsStringCall(node: TSESTree.Node): node is
-    & TSESTree.CallExpression
-    & {
-        callee: TSESTree.Identifier & { name: "String" };
-    }
+  & TSESTree.CallExpression
+  & {
+    callee: TSESTree.Identifier & { name: "String" };
+  }
 {
-    return isMatching({
-        type: NodeType.CallExpression,
-        callee: {
-            type: NodeType.Identifier,
-            name: "String",
-        },
-    }, node);
+  return isMatching({
+    type: NodeType.CallExpression,
+    callee: {
+      type: NodeType.Identifier,
+      name: "String",
+    },
+  }, node);
 }
 
 /**
@@ -53,15 +53,15 @@ export function unsafeIsStringCall(node: TSESTree.Node): node is
  * @returns `true` if node is directly inside `Array.from` call, `false` if not
  */
 export function unsafeIsArrayFromCall(node: TSESTree.Node | null): node is TSESTree.CallExpression {
-    return isMatching({
-        type: NodeType.CallExpression,
-        callee: {
-            type: NodeType.MemberExpression,
-            property: {
-                name: "from",
-            },
-        },
-    }, node);
+  return isMatching({
+    type: NodeType.CallExpression,
+    callee: {
+      type: NodeType.MemberExpression,
+      property: {
+        name: "from",
+      },
+    },
+  }, node);
 }
 /**
  * Unsafe check whether given node or its parent is directly inside `map` call
@@ -73,12 +73,12 @@ export function unsafeIsArrayFromCall(node: TSESTree.Node | null): node is TSEST
  * @returns `true` if node is directly inside `map` call, `false` if not
  */
 export function unsafeIsMapCall(node: TSESTree.Node | null): node is TSESTree.CallExpression {
-    return isMatching({
-        callee: {
-            type: NodeType.MemberExpression,
-            property: {
-                name: "map",
-            },
-        },
-    }, node);
+  return isMatching({
+    callee: {
+      type: NodeType.MemberExpression,
+      property: {
+        name: "map",
+      },
+    },
+  }, node);
 }

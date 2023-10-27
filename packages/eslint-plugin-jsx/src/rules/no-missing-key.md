@@ -10,9 +10,9 @@ This rule aims to prevent missing key props on any element in an array. It will 
 
 ```tsx
 const TodoList = ({ todos }) => (
-    <ul>
-        {todos.map((todo) => <Todo {...todo} />)}
-    </ul>
+  <ul>
+    {todos.map((todo) => <Todo {...todo} />)}
+  </ul>
 );
 ```
 
@@ -20,9 +20,9 @@ const TodoList = ({ todos }) => (
 
 ```tsx
 const TodoList = ({ todos }) => (
-    <ul>
-        {todos.map((todo) => <Todo {...todo} key={todo.id} />)}
-    </ul>
+  <ul>
+    {todos.map((todo) => <Todo {...todo} key={todo.id} />)}
+  </ul>
 );
 ```
 

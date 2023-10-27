@@ -10,23 +10,23 @@ This rule aims to enforce the use of destructuring assignment over property assi
 
 ```tsx
 function Component(props) {
-    const items = props.items;
+  const items = props.items;
 
-    return <div>{items}</div>;
+  return <div>{items}</div>;
 }
 ```
 
 ```tsx
 function Component(props) {
-    return <div>{props.items}</div>;
+  return <div>{props.items}</div>;
 }
 ```
 
 ```tsx
 function Component(props) {
-    const { items } = props;
+  const { items } = props;
 
-    return <div>{items}</div>;
+  return <div>{items}</div>;
 }
 ```
 
@@ -34,26 +34,26 @@ function Component(props) {
 
 ```tsx
 function Component(props) {
-    const { items } = props;
+  const { items } = props;
 
-    return <div>{items}</div>;
+  return <div>{items}</div>;
 }
 ```
 
 ```tsx
 function Component({ items }) {
-    return <div>{items}</div>;
+  return <div>{items}</div>;
 }
 ```
 
 ```tsx
 function Component({ items }: { items: string[] }) {
-    return <div>{items}</div>;
+  return <div>{items}</div>;
 }
 ```
 
 ```tsx
 function Component({ items, ...rest }) {
-    return <div {...rest}>{items}</div>;
+  return <div {...rest}>{items}</div>;
 }
 ```

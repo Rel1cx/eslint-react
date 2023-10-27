@@ -30,7 +30,7 @@ export type RulePreset = Record<string, RuleDeclaration>;
  * @since 0.0.1
  */
 export type CreateRule = Parameters<
-    ReturnType<typeof ESLintUtils.RuleCreator>
+  ReturnType<typeof ESLintUtils.RuleCreator>
 >[0]["create"];
 
 /**

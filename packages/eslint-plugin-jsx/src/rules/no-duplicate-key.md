@@ -10,9 +10,9 @@ This rule aims to prevent duplicate key props on elements in the same array. Key
 
 ```tsx
 const TodoList = ({ todos }) => (
-    <ul>
-        {todos.map((todo) => <Todo {...todo} key="key" />)}
-    </ul>
+  <ul>
+    {todos.map((todo) => <Todo {...todo} key="key" />)}
+  </ul>
 );
 ```
 
@@ -20,9 +20,9 @@ const TodoList = ({ todos }) => (
 
 ```tsx
 const TodoList = ({ todos }) => (
-    <ul>
-        {todos.map((todo) => <Todo {...todo} key={todo.id} />)}
-    </ul>
+  <ul>
+    {todos.map((todo) => <Todo {...todo} key={todo.id} />)}
+  </ul>
 );
 ```
 

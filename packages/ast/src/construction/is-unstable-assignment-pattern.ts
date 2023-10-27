@@ -4,14 +4,14 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { isOneOf, NodeType } from "../node-types";
 
 export const unstableAssignmentPatternTypes = [
-    NodeType.JSXElement,
-    NodeType.ArrayExpression,
-    NodeType.ObjectExpression,
-    NodeType.FunctionExpression,
-    NodeType.ArrowFunctionExpression,
-    NodeType.ClassExpression,
-    NodeType.NewExpression,
-    NodeType.CallExpression,
+  NodeType.JSXElement,
+  NodeType.ArrayExpression,
+  NodeType.ObjectExpression,
+  NodeType.FunctionExpression,
+  NodeType.ArrowFunctionExpression,
+  NodeType.ClassExpression,
+  NodeType.NewExpression,
+  NodeType.CallExpression,
 ] as const;
 
 /**
@@ -20,15 +20,15 @@ export const unstableAssignmentPatternTypes = [
  * @param node.right The right side of the assignment
  */
 export function isUnstableAssignmentPattern(node: TSESTree.AssignmentPattern): node is
-    & TSESTree.AssignmentPattern
-    & Narrow<{
-        right: TSESTree.RegExpLiteral | typeof unstableAssignmentPatternTypes[number];
-    }>
+  & TSESTree.AssignmentPattern
+  & Narrow<{
+    right: TSESTree.RegExpLiteral | typeof unstableAssignmentPatternTypes[number];
+  }>
 {
-    const { right } = node;
-    if (right.type === NodeType.Literal) {
-        return "regex" in right;
-    }
+  const { right } = node;
+  if (right.type === NodeType.Literal) {
+    return "regex" in right;
+  }
 
-    return isOneOf(unstableAssignmentPatternTypes)(right);
+  return isOneOf(unstableAssignmentPatternTypes)(right);
 }

@@ -14,11 +14,11 @@ This rule aims to prevent non-stable values (i.e. object identities) from being 
 const ExampleContext = React.createContext({});
 
 const ExampleProvider = () => {
-    return (
-        <ExampleContext.Provider value={{ foo: "bar" }}>
-            <ExampleConsumer />
-        </ExampleContext.Provider>
-    );
+  return (
+    <ExampleContext.Provider value={{ foo: "bar" }}>
+      <ExampleConsumer />
+    </ExampleContext.Provider>
+  );
 };
 ```
 
@@ -28,13 +28,13 @@ const ExampleProvider = () => {
 const ExampleContext = React.createContext({});
 
 const ExampleProvider = () => {
-    const value = useMemo(() => ({ foo: "bar" }), []);
+  const value = useMemo(() => ({ foo: "bar" }), []);
 
-    return (
-        <ExampleContext.Provider value={value}>
-            <ExampleConsumer />
-        </ExampleContext.Provider>
-    );
+  return (
+    <ExampleContext.Provider value={value}>
+      <ExampleConsumer />
+    </ExampleContext.Provider>
+  );
 };
 ```
 

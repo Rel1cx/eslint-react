@@ -73,8 +73,8 @@ importers:
         specifier: 7.3.8
         version: 7.3.8
       dprint:
-        specifier: 0.42.2
-        version: 0.42.2
+        specifier: 0.42.3
+        version: 0.42.3
       effect:
         specifier: 2.0.0-next.52
         version: 2.0.0-next.52
@@ -1346,48 +1346,48 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@dprint/darwin-arm64@0.42.2:
-    resolution: {integrity: sha512-GKD7fj2YnEsFhwQ2mvlGy7QrR/KwlzAQj93FMPUa4f1DGx6aFYviAqg1RMptTxX8PGqf/wwm2/AqBERS6rRbgg==}
+  /@dprint/darwin-arm64@0.42.3:
+    resolution: {integrity: sha512-lQ7txm3KbCfCmcpGLWylgrhBO54Rm5VDA7XsoGJIiEa/fnA6ZSToQph7zWWzIKnYr/foHHND0w5UnX+0TCH0PQ==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@dprint/darwin-x64@0.42.2:
-    resolution: {integrity: sha512-4K8HokDFYPxWD2ZNsT/Q/VLHDNphMvzooSwmq2RoJDp9foLcDx4RdWEAu7JvBpUUJ1RuDCaWY2BqLPAB8mCIBw==}
+  /@dprint/darwin-x64@0.42.3:
+    resolution: {integrity: sha512-l39QleZaZOe6UcBBqIz+omMPecJ0EU8Scsy+Y3C1/JgP57Saa1FYolcTSa6iqdi3Hdwa2gqpC7BPmRCMMoyOIg==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@dprint/linux-arm64-glibc@0.42.2:
-    resolution: {integrity: sha512-kfJRXVbO3pB/2d92UEXWLWENNaxRoSKOOnrR4epXHlbcHc98PDXD0leYytzzICy2JJYJjDMSHRK0/BpGBl6KvA==}
+  /@dprint/linux-arm64-glibc@0.42.3:
+    resolution: {integrity: sha512-3abtOsUW0ABgFDcf9oEkaXfzn6KF2fmhujRUIqWYq81GzasuRnJevoNQ0mFSgeYADpxApoVx/uki9MkpTeD+EA==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@dprint/linux-x64-glibc@0.42.2:
-    resolution: {integrity: sha512-2Rl9s/j+bjgxC7TomS5YxPT520PakNAnzAdMZDpxELMmleFQU7jyTlCqPzUcVMClOE0plUnxmNG0P2xx3fVvlQ==}
+  /@dprint/linux-x64-glibc@0.42.3:
+    resolution: {integrity: sha512-k9oDhY7Rn4fUBmQTGBClVpOLACB7UYuv+ZNnE/9dQKI+sJxqI7yzk+pNE69VC1vkjrVoAkZCqJcdpPAKEf8BfA==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@dprint/linux-x64-musl@0.42.2:
-    resolution: {integrity: sha512-1cJSmuWOP/0Qo4ukXLEtxu7+6P2GjbOejVV6TB35GSdvCGJNCv0YKj7M/f0a2mVaBfWyt/p87iujmLfsqynCyQ==}
+  /@dprint/linux-x64-musl@0.42.3:
+    resolution: {integrity: sha512-WVYU3h6yY1lCoHKF/24lRqt+a4t0a7NZpS3SBu0WkR2Nk4P6PmGdbVpTDMHd7MbO6wltv2bQkd1gB91NJSLYVQ==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@dprint/win32-x64@0.42.2:
-    resolution: {integrity: sha512-6RKkS1j4zp7Yh9ayZmb0GcotMvm6UTKTZoPaB4qv6CS3lGR9u9/DpXJnOC6EJvGRgZpf0sRQJj1eDraXezTzLg==}
+  /@dprint/win32-x64@0.42.3:
+    resolution: {integrity: sha512-8yh0g8wv/S/xNrDf4Fy+Pgp5tPEUhU4aEgI6tUTAPzwQ0aIF3QM+hRskor6HMx4YaYfCBgPPDpUs/FS00AZyIg==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
@@ -3996,17 +3996,17 @@ packages:
       type-fest: 2.19.0
     dev: true
 
-  /dprint@0.42.2:
-    resolution: {integrity: sha512-T7CZvcAU6xaE4R8vYOmQp0Agy8/rVn9CG1xoWNqBQzg3BECes2dbVAa1sbyg9gtG0VgPTWwZhLcSpzsCED8O1Q==}
+  /dprint@0.42.3:
+    resolution: {integrity: sha512-jBBDyAQ/yOwfkicN3lZtd1sA26TL1Miv0Hryfe8gAKykmIBoUYW4oBO9CTkDmHdmfYZNFCwx2IrqzJ0IrWZjOg==}
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      '@dprint/darwin-arm64': 0.42.2
-      '@dprint/darwin-x64': 0.42.2
-      '@dprint/linux-arm64-glibc': 0.42.2
-      '@dprint/linux-x64-glibc': 0.42.2
-      '@dprint/linux-x64-musl': 0.42.2
-      '@dprint/win32-x64': 0.42.2
+      '@dprint/darwin-arm64': 0.42.3
+      '@dprint/darwin-x64': 0.42.3
+      '@dprint/linux-arm64-glibc': 0.42.3
+      '@dprint/linux-x64-glibc': 0.42.3
+      '@dprint/linux-x64-musl': 0.42.3
+      '@dprint/win32-x64': 0.42.3
     dev: true
 
   /eastasianwidth@0.2.0:

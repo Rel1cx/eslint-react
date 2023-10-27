@@ -14,13 +14,13 @@ Warns when a function component is found. Useful for debugging.
 
 ```tsx
 function Component() {
-    return <div />;
+  return <div />;
 }
 ```
 
 ```tsx
 function Component() {
-    return React.createElement("div");
+  return React.createElement("div");
 }
 ```
 

@@ -816,12 +816,12 @@ import { some, none } from "effect/Option";
 const f = (x: number) => x * 2;
 
 assert.deepStrictEqual(
-    modifyOption({ a: 3 }, "a", f),
-    some({ a: 6 }),
+  modifyOption({ a: 3 }, "a", f),
+  some({ a: 6 }),
 );
 assert.deepStrictEqual(
-    modifyOption({ a: 3 }, "b", f),
-    none(),
+  modifyOption({ a: 3 }, "b", f),
+  none(),
 );
 ```
 
@@ -862,12 +862,12 @@ import { some, none } from "effect/Option";
 const f = (x: number) => x * 2;
 
 assert.deepStrictEqual(
-    modifyOption({ a: 3 }, "a", f),
-    some({ a: 6 }),
+  modifyOption({ a: 3 }, "a", f),
+  some({ a: 6 }),
 );
 assert.deepStrictEqual(
-    modifyOption({ a: 3 }, "b", f),
-    none(),
+  modifyOption({ a: 3 }, "b", f),
+  none(),
 );
 ```
 
@@ -1006,8 +1006,8 @@ import { replaceOption } from "effect/ReadonlyRecord";
 import { some, none } from "effect/Option";
 
 assert.deepStrictEqual(
-    replaceOption({ a: 1, b: 2, c: 3 }, "a", 10),
-    some({ a: 10, b: 2, c: 3 }),
+  replaceOption({ a: 1, b: 2, c: 3 }, "a", 10),
+  some({ a: 10, b: 2, c: 3 }),
 );
 assert.deepStrictEqual(replaceOption({}, "a", 10), none());
 ```
@@ -1046,8 +1046,8 @@ import { replaceOption } from "effect/ReadonlyRecord";
 import { some, none } from "effect/Option";
 
 assert.deepStrictEqual(
-    replaceOption({ a: 1, b: 2, c: 3 }, "a", 10),
-    some({ a: 10, b: 2, c: 3 }),
+  replaceOption({ a: 1, b: 2, c: 3 }, "a", 10),
+  some({ a: 10, b: 2, c: 3 }),
 );
 assert.deepStrictEqual(replaceOption({}, "a", 10), none());
 ```
@@ -1677,8 +1677,8 @@ import { fromIterable } from "effect/ReadonlyRecord";
 const input = [1, 2, 3, 4];
 
 assert.deepStrictEqual(
-    fromIterable(input, a => [String(a), a * 2]),
-    { "1": 2, "2": 4, "3": 6, "4": 8 },
+  fromIterable(input, a => [String(a), a * 2]),
+  { "1": 2, "2": 4, "3": 6, "4": 8 },
 );
 ```
 
@@ -1717,8 +1717,8 @@ import { fromIterable } from "effect/ReadonlyRecord";
 const input = [1, 2, 3, 4];
 
 assert.deepStrictEqual(
-    fromIterable(input, a => [String(a), a * 2]),
-    { "1": 2, "2": 4, "3": 6, "4": 8 },
+  fromIterable(input, a => [String(a), a * 2]),
+  { "1": 2, "2": 4, "3": 6, "4": 8 },
 );
 ```
 
@@ -1795,8 +1795,8 @@ import { compact } from "effect/ReadonlyRecord";
 import { some, none } from "effect/Option";
 
 assert.deepStrictEqual(
-    compact({ a: some(1), b: none(), c: some(2) }),
-    { a: 1, c: 2 },
+  compact({ a: some(1), b: none(), c: some(2) }),
+  { a: 1, c: 2 },
 );
 ```
 
@@ -2021,8 +2021,8 @@ Partitions a record into two separate records based on the result of a predicate
 import { partition } from "effect/ReadonlyRecord";
 
 assert.deepStrictEqual(
-    partition({ a: 1, b: 3 }, (n) => n > 2),
-    [{ a: 1 }, { b: 3 }],
+  partition({ a: 1, b: 3 }, (n) => n > 2),
+  [{ a: 1 }, { b: 3 }],
 );
 ```
 
@@ -2070,8 +2070,8 @@ Partitions a record into two separate records based on the result of a predicate
 import { partition } from "effect/ReadonlyRecord";
 
 assert.deepStrictEqual(
-    partition({ a: 1, b: 3 }, (n) => n > 2),
-    [{ a: 1 }, { b: 3 }],
+  partition({ a: 1, b: 3 }, (n) => n > 2),
+  [{ a: 1 }, { b: 3 }],
 );
 ```
 
@@ -2109,8 +2109,8 @@ Partitions a record into two separate records based on the result of a predicate
 import { partition } from "effect/ReadonlyRecord";
 
 assert.deepStrictEqual(
-    partition({ a: 1, b: 3 }, (n) => n > 2),
-    [{ a: 1 }, { b: 3 }],
+  partition({ a: 1, b: 3 }, (n) => n > 2),
+  [{ a: 1 }, { b: 3 }],
 );
 ```
 
@@ -2147,8 +2147,8 @@ Partitions a record into two separate records based on the result of a predicate
 import { partition } from "effect/ReadonlyRecord";
 
 assert.deepStrictEqual(
-    partition({ a: 1, b: 3 }, (n) => n > 2),
-    [{ a: 1 }, { b: 3 }],
+  partition({ a: 1, b: 3 }, (n) => n > 2),
+  [{ a: 1 }, { b: 3 }],
 );
 ```
 
@@ -2282,8 +2282,8 @@ import { separate } from "effect/ReadonlyRecord";
 import { left, right } from "effect/Either";
 
 assert.deepStrictEqual(
-    separate({ a: left("e"), b: right(1) }),
-    [{ a: "e" }, { b: 1 }],
+  separate({ a: left("e"), b: right(1) }),
+  [{ a: "e" }, { b: 1 }],
 );
 ```
 

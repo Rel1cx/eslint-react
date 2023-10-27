@@ -10,7 +10,7 @@ RuleTester.itOnly = vitest.it.only;
 RuleTester.describe = vitest.describe;
 
 export function getFixturesRootDir(): string {
-    return path.join(__dirname, "fixtures");
+  return path.join(__dirname, "fixtures");
 }
 
 export { RuleTester as default } from "@typescript-eslint/rule-tester";

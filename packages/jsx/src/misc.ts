@@ -11,15 +11,15 @@ import { isJSXValue, type JSXValueCheckOptions } from "./value";
  * @returns boolean
  */
 export function isFunctionReturningJSXValue(
-    node: TSESTreeFunction,
-    context: RuleContext,
-    options?: JSXValueCheckOptions,
+  node: TSESTreeFunction,
+  context: RuleContext,
+  options?: JSXValueCheckOptions,
 ) {
-    if (node.body.type !== NodeType.BlockStatement) {
-        return isJSXValue(node.body, context, options);
-    }
+  if (node.body.type !== NodeType.BlockStatement) {
+    return isJSXValue(node.body, context, options);
+  }
 
-    const statements = getNestedReturnStatements(node.body);
+  const statements = getNestedReturnStatements(node.body);
 
-    return statements.some((statement) => isJSXValue(statement.argument, context, options));
+  return statements.some((statement) => isJSXValue(statement.argument, context, options));
 }

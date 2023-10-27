@@ -6,5 +6,5 @@ import type { TSESTree } from "@typescript-eslint/types";
  * @returns `true` if the node has children
  */
 export function hasChildren(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
-    return node.children.length > 0;
+  return node.children.length > 0;
 }

@@ -7,172 +7,172 @@ import rule, { RULE_NAME } from "./ensure-custom-hooks-using-other-hooks";
 const rootDir = getFixturesRootDir();
 
 const ruleTester = new RuleTester({
-    parser: "@typescript-eslint/parser",
-    parserOptions: {
-        ecmaFeatures: {
-            jsx: true,
-        },
-        ecmaVersion: 2021,
-        sourceType: "module",
-        project: "./tsconfig.json",
-        tsconfigRootDir: rootDir,
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
     },
+    ecmaVersion: 2021,
+    sourceType: "module",
+    project: "./tsconfig.json",
+    tsconfigRootDir: rootDir,
+  },
 });
 
 ruleTester.run(RULE_NAME, rule, {
-    valid: [
-        ...allValid,
-        dedent`
-            const useData = (key) => {
-                return useSWR(key);
+  valid: [
+    ...allValid,
+    dedent`
+      const useData = (key) => {
+          return useSWR(key);
+      }
+    `,
+    dedent`
+      function useData(key) {
+          return useSWR(key);
+      }
+    `,
+    dedent`
+      function useData(key) {
+          const data = useSWR(key);
+          return data;
+      }
+    `,
+    dedent`
+      const useData = (key) => useSWR(key);
+    `,
+  ],
+  invalid: [
+    {
+      code: dedent`
+        const useClassnames = (obj) => {
+            // Invalid, because useClassnames doesn't use any other React Hooks.
+            var k, cls='';
+            for (k in obj) {
+              if (obj[k]) {
+                cls && (cls += ' ');
+                cls += k;
+              }
             }
-        `,
-        dedent`
-            function useData(key) {
-                return useSWR(key);
+            return cls;
+          }
+      `,
+      errors: [
+        {
+          messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+          data: {
+            name: "useClassnames",
+          },
+        },
+      ],
+    },
+    {
+      code: dedent`
+        function useClassnames(obj) {
+            // Invalid, because useClassnames doesn't use any other React Hooks.
+            var k, cls='';
+            for (k in obj) {
+                if (obj[k]) {
+                cls && (cls += ' ');
+                cls += k;
+                }
             }
-        `,
-        dedent`
-            function useData(key) {
-                const data = useSWR(key);
-                return data;
-            }
-        `,
-        dedent`
-            const useData = (key) => useSWR(key);
-        `,
-    ],
-    invalid: [
+            return cls;
+        }
+      `,
+      errors: [
         {
-            code: dedent`
-                const useClassnames = (obj) => {
-                    // Invalid, because useClassnames doesn't use any other React Hooks.
-                    var k, cls='';
-                    for (k in obj) {
-                      if (obj[k]) {
-                        cls && (cls += ' ');
-                        cls += k;
-                      }
-                    }
-                    return cls;
-                  }
-            `,
-            errors: [
-                {
-                    messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
-                    data: {
-                        name: "useClassnames",
-                    },
-                },
-            ],
+          messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+          data: {
+            name: "useClassnames",
+          },
         },
-        {
-            code: dedent`
-                function useClassnames(obj) {
-                    // Invalid, because useClassnames doesn't use any other React Hooks.
-                    var k, cls='';
-                    for (k in obj) {
-                        if (obj[k]) {
-                        cls && (cls += ' ');
-                        cls += k;
-                        }
-                    }
-                    return cls;
-                }
-            `,
-            errors: [
-                {
-                    messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
-                    data: {
-                        name: "useClassnames",
-                    },
-                },
-            ],
-        },
-        {
-            code: dedent`
-                export function useNestedHook() {
-                    const [state, setState] = useState("state");
-                    function useInnerHook () {
-                        return "inner hook";
-                    };
+      ],
+    },
+    {
+      code: dedent`
+        export function useNestedHook() {
+            const [state, setState] = useState("state");
+            function useInnerHook () {
+                return "inner hook";
+            };
 
-                    return [state, setState, useInnerHook] as const;
-                }
-            `,
-            errors: [
-                {
-                    messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
-                    data: {
-                        name: "useInnerHook",
-                    },
-                },
-            ],
+            return [state, setState, useInnerHook] as const;
+        }
+      `,
+      errors: [
+        {
+          messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+          data: {
+            name: "useInnerHook",
+          },
+        },
+      ],
+    },
+    {
+      code: dedent`
+        export function useNestedHook() {
+            const useInnerHook = () => {
+                const [state, setState] = useState("state");
+                return state;
+            };
+
+            return [state, setState, useInnerHook] as const;
+        }
+      `,
+      errors: [
+        {
+          messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+          data: {
+            name: "useNestedHook",
+          },
+        },
+      ],
+    },
+    {
+      code: dedent`
+        export function useNestedHook() {
+            const useInnerHook = () => {
+                return "inner hook";
+            };
+
+            return null
+        }
+      `,
+      errors: [
+        {
+          messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+          data: {
+            name: "useNestedHook",
+          },
         },
         {
-            code: dedent`
-                export function useNestedHook() {
-                    const useInnerHook = () => {
-                        const [state, setState] = useState("state");
-                        return state;
-                    };
-
-                    return [state, setState, useInnerHook] as const;
-                }
-            `,
-            errors: [
-                {
-                    messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
-                    data: {
-                        name: "useNestedHook",
-                    },
-                },
-            ],
+          messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+          data: {
+            name: "useInnerHook",
+          },
         },
+      ],
+    },
+    {
+      code: dedent`
+        export function useNestedHook() {
+            const fn = () => {
+                const [state, setState] = useState("state");
+                return state;
+            };
+
+            return [state, setState, useInnerHook] as const;
+        }
+      `,
+      errors: [
         {
-            code: dedent`
-                export function useNestedHook() {
-                    const useInnerHook = () => {
-                        return "inner hook";
-                    };
-
-                    return null
-                }
-            `,
-            errors: [
-                {
-                    messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
-                    data: {
-                        name: "useNestedHook",
-                    },
-                },
-                {
-                    messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
-                    data: {
-                        name: "useInnerHook",
-                    },
-                },
-            ],
+          messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+          data: {
+            name: "useNestedHook",
+          },
         },
-        {
-            code: dedent`
-                export function useNestedHook() {
-                    const fn = () => {
-                        const [state, setState] = useState("state");
-                        return state;
-                    };
-
-                    return [state, setState, useInnerHook] as const;
-                }
-            `,
-            errors: [
-                {
-                    messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
-                    data: {
-                        name: "useNestedHook",
-                    },
-                },
-            ],
-        },
-    ],
+      ],
+    },
+  ],
 });

@@ -18,39 +18,39 @@ const isJavaScriptProtocol = /^[\u0000-\u001F ]*j[\t\n\r]*a[\t\n\r]*v[\t\n\r]*a[
  * Thank you for your work!
  */
 export default createRule<[], MessageID>({
-    name: RULE_NAME,
-    meta: {
-        type: "problem",
-        docs: {
-            description: "disallow `javascript:` URLs as JSX event handler prop's value",
-            recommended: "recommended",
-            requiresTypeChecking: false,
-        },
-        schema: [],
-        messages: {
-            INVALID: "",
-        },
+  name: RULE_NAME,
+  meta: {
+    type: "problem",
+    docs: {
+      description: "disallow `javascript:` URLs as JSX event handler prop's value",
+      recommended: "recommended",
+      requiresTypeChecking: false,
     },
-    defaultOptions: [],
-    create(context) {
-        return {
-            JSXAttribute(node) {
-                if (node.name.type !== NodeType.JSXIdentifier || !node.value) {
-                    return;
-                }
-                const link = getStaticValue(
-                    node.value.type === NodeType.JSXExpressionContainer
-                        ? node.value.expression
-                        : node.value,
-                    context.getScope(),
-                );
-                if (link && typeof link.value === "string" && isJavaScriptProtocol.test(link.value)) {
-                    context.report({
-                        messageId: "INVALID",
-                        node: node.value,
-                    });
-                }
-            },
-        };
+    schema: [],
+    messages: {
+      INVALID: "",
     },
+  },
+  defaultOptions: [],
+  create(context) {
+    return {
+      JSXAttribute(node) {
+        if (node.name.type !== NodeType.JSXIdentifier || !node.value) {
+          return;
+        }
+        const link = getStaticValue(
+          node.value.type === NodeType.JSXExpressionContainer
+            ? node.value.expression
+            : node.value,
+          context.getScope(),
+        );
+        if (link && typeof link.value === "string" && isJavaScriptProtocol.test(link.value)) {
+          context.report({
+            messageId: "INVALID",
+            node: node.value,
+          });
+        }
+      },
+    };
+  },
 });

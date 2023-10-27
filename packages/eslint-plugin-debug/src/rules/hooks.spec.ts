@@ -7,187 +7,187 @@ import rule, { RULE_NAME } from "./hooks";
 const rootDir = getFixturesRootDir();
 
 const ruleTester = new RuleTester({
-    parser: "@typescript-eslint/parser",
-    parserOptions: {
-        ecmaFeatures: {
-            jsx: true,
-        },
-        ecmaVersion: 2021,
-        project: "./tsconfig.json",
-        sourceType: "module",
-        tsconfigRootDir: rootDir,
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
     },
+    ecmaVersion: 2021,
+    project: "./tsconfig.json",
+    sourceType: "module",
+    tsconfigRootDir: rootDir,
+  },
 });
 
 ruleTester.run(RULE_NAME, rule, {
-    valid: [
-        ...allFunctions,
-    ],
-    invalid: [
+  valid: [
+    ...allFunctions,
+  ],
+  invalid: [
+    {
+      code: dedent`
+        function useToggle() {
+            const [value, setValue] = useState(false);
+            return [value, () => setValue(x => !x)];
+        }
+      `,
+      errors: [
         {
-            code: dedent`
-                function useToggle() {
-                    const [value, setValue] = useState(false);
-                    return [value, () => setValue(x => !x)];
-                }
-            `,
-            errors: [
-                {
-                    messageId: "HOOKS",
-                },
-            ],
+          messageId: "HOOKS",
         },
+      ],
+    },
+    {
+      code: dedent`
+        // 🔴 Avoid: A Hook that doesn't use Hooks
+        function useSorted(items) {
+          return items.slice().sort();
+        }
+      `,
+      errors: [
         {
-            code: dedent`
-                // 🔴 Avoid: A Hook that doesn't use Hooks
-                function useSorted(items) {
-                  return items.slice().sort();
-                }
-            `,
-            errors: [
-                {
-                    messageId: "REDUNDANT_HOOKS",
-                },
-            ],
+          messageId: "REDUNDANT_HOOKS",
         },
-        {
-            code: dedent`
-                function useToggle() {
-                    const [value, setValue] = useState(false);
-                    return [value, () => setValue(x => !x)];
-                }
+      ],
+    },
+    {
+      code: dedent`
+        function useToggle() {
+            const [value, setValue] = useState(false);
+            return [value, () => setValue(x => !x)];
+        }
 
-                // 🔴 Avoid: A Hook that doesn't use Hooks
-                function useSorted(items) {
-                  return items.slice().sort();
-                }
-            `,
-            errors: [
-                {
-                    messageId: "HOOKS",
-                    data: {
-                        name: "useToggle",
-                    },
-                },
-                {
-                    messageId: "REDUNDANT_HOOKS",
-                    data: {
-                        name: "useSorted",
-                    },
-                },
-            ],
+        // 🔴 Avoid: A Hook that doesn't use Hooks
+        function useSorted(items) {
+          return items.slice().sort();
+        }
+      `,
+      errors: [
+        {
+          messageId: "HOOKS",
+          data: {
+            name: "useToggle",
+          },
         },
         {
-            code: dedent`
-                const useClassnames = (obj) => {
-                    // Invalid, because useClassnames doesn't use any other React Hooks.
-                    var k, cls='';
-                    for (k in obj) {
-                      if (obj[k]) {
-                        cls && (cls += ' ');
-                        cls += k;
-                      }
-                    }
-                    return cls;
-                  }
-            `,
-            errors: [
-                {
-                    messageId: "REDUNDANT_HOOKS",
-                },
-            ],
+          messageId: "REDUNDANT_HOOKS",
+          data: {
+            name: "useSorted",
+          },
         },
+      ],
+    },
+    {
+      code: dedent`
+        const useClassnames = (obj) => {
+            // Invalid, because useClassnames doesn't use any other React Hooks.
+            var k, cls='';
+            for (k in obj) {
+              if (obj[k]) {
+                cls && (cls += ' ');
+                cls += k;
+              }
+            }
+            return cls;
+          }
+      `,
+      errors: [
         {
-            code: dedent`
-                function useClassnames(obj) {
-                    // Invalid, because useClassnames doesn't use any other React Hooks.
-                    var k, cls='';
-                    for (k in obj) {
-                      if (obj[k]) {
-                        cls && (cls += ' ');
-                        cls += k;
-                      }
-                    }
-                    return cls;
-                  }
-            `,
-            errors: [
-                {
-                    messageId: "REDUNDANT_HOOKS",
-                },
-            ],
+          messageId: "REDUNDANT_HOOKS",
         },
+      ],
+    },
+    {
+      code: dedent`
+        function useClassnames(obj) {
+            // Invalid, because useClassnames doesn't use any other React Hooks.
+            var k, cls='';
+            for (k in obj) {
+              if (obj[k]) {
+                cls && (cls += ' ');
+                cls += k;
+              }
+            }
+            return cls;
+          }
+      `,
+      errors: [
         {
-            code: dedent`
-                export function useNestedHook() {
-                    const [state, setState] = useState("state");
-                    const useInnerHook = () => {
-                        return "inner hook";
-                    };
+          messageId: "REDUNDANT_HOOKS",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        export function useNestedHook() {
+            const [state, setState] = useState("state");
+            const useInnerHook = () => {
+                return "inner hook";
+            };
 
-                    return [state, setState, useInnerHook] as const;
-                }
-            `,
-            errors: [
-                {
-                    messageId: "HOOKS",
-                    data: {
-                        name: "useNestedHook",
-                    },
-                },
-                {
-                    messageId: "REDUNDANT_HOOKS",
-                    data: {
-                        name: "useInnerHook",
-                    },
-                },
-            ],
+            return [state, setState, useInnerHook] as const;
+        }
+      `,
+      errors: [
+        {
+          messageId: "HOOKS",
+          data: {
+            name: "useNestedHook",
+          },
         },
         {
-            code: dedent`
-                export function useNestedHook() {
-                    const useInnerHook = () => {
-                        const [state, setState] = useState("state");
-                        return state;
-                    };
+          messageId: "REDUNDANT_HOOKS",
+          data: {
+            name: "useInnerHook",
+          },
+        },
+      ],
+    },
+    {
+      code: dedent`
+        export function useNestedHook() {
+            const useInnerHook = () => {
+                const [state, setState] = useState("state");
+                return state;
+            };
 
-                    return [state, setState, useInnerHook] as const;
-                }
-            `,
-            errors: [
-                {
-                    messageId: "REDUNDANT_HOOKS",
-                    data: {
-                        name: "useNestedHook",
-                    },
-                },
-                {
-                    messageId: "HOOKS",
-                    data: {
-                        name: "useInnerHook",
-                    },
-                },
-            ],
+            return [state, setState, useInnerHook] as const;
+        }
+      `,
+      errors: [
+        {
+          messageId: "REDUNDANT_HOOKS",
+          data: {
+            name: "useNestedHook",
+          },
         },
         {
-            code: dedent`
-                export function useNestedHook() {
-                    const fn = () => {
-                        const [state, setState] = useState("state");
-                        return state;
-                    };
-
-                    return [state, setState, useInnerHook] as const;
-                }
-            `,
-            errors: [
-                {
-                    messageId: "REDUNDANT_HOOKS",
-                    data: {
-                        name: "useNestedHook",
-                    },
-                },
-            ],
+          messageId: "HOOKS",
+          data: {
+            name: "useInnerHook",
+          },
         },
-    ],
+      ],
+    },
+    {
+      code: dedent`
+        export function useNestedHook() {
+            const fn = () => {
+                const [state, setState] = useState("state");
+                return state;
+            };
+
+            return [state, setState, useInnerHook] as const;
+        }
+      `,
+      errors: [
+        {
+          messageId: "REDUNDANT_HOOKS",
+          data: {
+            name: "useNestedHook",
+          },
+        },
+      ],
+    },
+  ],
 });

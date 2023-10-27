@@ -24,7 +24,7 @@ To fix the violations, the easiest way is to use a referencing variable in modul
 const emptyArray = [];
 
 function Component({ items = emptyArray }) {
-    return <div>{items}</div>;
+  return <div>{items}</div>;
 }
 ```
 
@@ -32,19 +32,19 @@ function Component({ items = emptyArray }) {
 
 ```tsx
 function Component({ items = [] }) {
-    return <div>{items}</div>;
+  return <div>{items}</div>;
 }
 ```
 
 ```tsx
 function Component({ items = {} }) {
-    return <div>{items}</div>;
+  return <div>{items}</div>;
 }
 ```
 
 ```tsx
 function Component({ items = () => {} }) {
-    return <div>{items}</div>;
+  return <div>{items}</div>;
 }
 ```
 
@@ -54,27 +54,27 @@ function Component({ items = () => {} }) {
 const emptyArray = [];
 
 function Component({ items = emptyArray }) {
-    return <div>{items}</div>;
+  return <div>{items}</div>;
 }
 ```
 
 ```tsx
 const emptyObject = {};
 function Component({ items = emptyObject }) {
-    return <div>{items}</div>;
+  return <div>{items}</div>;
 }
 ```
 
 ```tsx
 const noopFunc = () => {};
 function Component({ items = noopFunc }) {
-    return <div>{items}</div>;
+  return <div>{items}</div>;
 }
 ```
 
 ```tsx
 // primitives are all compared by value, so are safe to be inlined
 function Component({ num = 3, str = "foo", bool = true }) {
-    return <div>{items}</div>;
+  return <div>{items}</div>;
 }
 ```

@@ -1,28 +1,28 @@
 {
-    "lineWidth": 128,
-    "typescript": {
-        "indentWidth": 4,
-        "quoteStyle": "preferDouble",
-        "quoteProps": "asNeeded",
-        "importDeclaration.sortNamedImports": "maintain",
-        "exportDeclaration.sortNamedExports": "maintain",
-        "module.sortImportDeclarations": "maintain",
-        "module.sortExportDeclarations": "maintain"
-    },
-    "json": {
-        "indentWidth": 4
-    },
-    "markdown": {},
-    "excludes": [
-        "**/node_modules",
-        "**/*-lock.json",
-        "bun.lockb",
-        "**/test/fixtures",
-        "dist"
-    ],
-    "plugins": [
-        "https://plugins.dprint.dev/typescript-0.88.1.wasm",
-        "https://plugins.dprint.dev/json-0.17.4.wasm",
-        "https://plugins.dprint.dev/markdown-0.16.1.wasm"
-    ]
+  "lineWidth": 120,
+  "typescript": {
+    "indentWidth": 2,
+    "quoteStyle": "preferDouble",
+    "quoteProps": "asNeeded",
+    "importDeclaration.sortNamedImports": "maintain",
+    "exportDeclaration.sortNamedExports": "maintain",
+    "module.sortImportDeclarations": "maintain",
+    "module.sortExportDeclarations": "maintain"
+  },
+  "json": {
+    "indentWidth": 2
+  },
+  "markdown": {},
+  "excludes": [
+    "**/node_modules",
+    "**/*-lock.json",
+    "bun.lockb",
+    "**/test/fixtures",
+    "dist"
+  ],
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-0.88.1.wasm",
+    "https://plugins.dprint.dev/json-0.17.4.wasm",
+    "https://plugins.dprint.dev/markdown-0.16.1.wasm"
+  ]
 }

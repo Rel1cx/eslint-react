@@ -156,7 +156,10 @@ Takes a structure of `Option`s and returns an `Option` of values with the same s
 import * as Either from "effect/Either";
 
 assert.deepStrictEqual(Either.all([Either.right(1), Either.right(2)]), Either.right([1, 2]));
-assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.right("hello") }), Either.right({ a: 1, b: "hello" }));
+assert.deepStrictEqual(
+  Either.all({ a: Either.right(1), b: Either.right("hello") }),
+  Either.right({ a: 1, b: "hello" }),
+);
 assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.left("error") }), Either.left("error"));
 ```
 
@@ -1009,8 +1012,8 @@ If a default error is sufficient for your use case and you don't need to configu
 import * as E from "effect/Either";
 
 assert.deepStrictEqual(
-    E.getOrThrowWith(E.right(1), () => new Error("Unexpected Left")),
-    1,
+  E.getOrThrowWith(E.right(1), () => new Error("Unexpected Left")),
+  1,
 );
 assert.throws(() => E.getOrThrowWith(E.left("error"), () => new Error("Unexpected Left")));
 ```
@@ -1049,8 +1052,8 @@ If a default error is sufficient for your use case and you don't need to configu
 import * as E from "effect/Either";
 
 assert.deepStrictEqual(
-    E.getOrThrowWith(E.right(1), () => new Error("Unexpected Left")),
-    1,
+  E.getOrThrowWith(E.right(1), () => new Error("Unexpected Left")),
+  1,
 );
 assert.throws(() => E.getOrThrowWith(E.left("error"), () => new Error("Unexpected Left")));
 ```

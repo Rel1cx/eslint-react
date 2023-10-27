@@ -232,14 +232,14 @@ Check whether given node is declared inside class component's render block
 
 ```jsx
 class Component extends React.Component {
-    render() {
-        class NestedClassComponent extends React.Component {
-            render() {
-                return <div />;
-            }
-        }
-        const nestedFunctionComponent = () => <div />;
+  render() {
+    class NestedClassComponent extends React.Component {
+      render() {
+        return <div />;
+      }
     }
+    const nestedFunctionComponent = () => <div />;
+  }
 }
 ```
 

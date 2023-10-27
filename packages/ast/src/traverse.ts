@@ -9,13 +9,13 @@ import { NodeType } from "./node-types";
  * @returns The first node that matches the predicate or `null` if no node matches
  */
 export function traverseUp(node: TSESTree.Node, predicate: (node: TSESTree.Node) => boolean): TSESTree.Node | null {
-    const { parent } = node;
+  const { parent } = node;
 
-    if (!parent || parent.type === NodeType.Program) {
-        return null;
-    }
+  if (!parent || parent.type === NodeType.Program) {
+    return null;
+  }
 
-    return predicate(parent) ? parent : traverseUp(parent, predicate);
+  return predicate(parent) ? parent : traverseUp(parent, predicate);
 }
 
 /**
@@ -26,14 +26,14 @@ export function traverseUp(node: TSESTree.Node, predicate: (node: TSESTree.Node)
  * @returns The first node that matches the predicate or `null` if no node matches
  */
 export function traverseUpGuard<T extends TSESTree.Node>(
-    node: TSESTree.Node,
-    predicate: (node: TSESTree.Node) => node is T,
+  node: TSESTree.Node,
+  predicate: (node: TSESTree.Node) => node is T,
 ): T | null {
-    const { parent } = node;
+  const { parent } = node;
 
-    if (!parent || parent.type === NodeType.Program) {
-        return null;
-    }
+  if (!parent || parent.type === NodeType.Program) {
+    return null;
+  }
 
-    return predicate(parent) ? parent : traverseUpGuard(parent, predicate);
+  return predicate(parent) ? parent : traverseUpGuard(parent, predicate);
 }

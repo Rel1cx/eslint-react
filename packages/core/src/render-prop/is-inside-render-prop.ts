@@ -14,15 +14,15 @@ import { isMatching, P } from "ts-pattern";
  * @returns `true` if component is declared inside a render property, `false` if not
  */
 export function unsafeIsDirectValueOfRenderProperty(node: TSESTree.Node) {
-    const matching = isMatching({
-        type: NodeType.Property,
-        key: {
-            type: NodeType.Identifier,
-            name: P.string.startsWith("render"),
-        },
-    });
+  const matching = isMatching({
+    type: NodeType.Property,
+    key: {
+      type: NodeType.Identifier,
+      name: P.string.startsWith("render"),
+    },
+  });
 
-    return matching(node) || matching(node.parent);
+  return matching(node) || matching(node.parent);
 }
 
 /**
@@ -37,18 +37,18 @@ export function unsafeIsDirectValueOfRenderProperty(node: TSESTree.Node) {
  * @returns `true` if component is declared inside a render prop, `false` if not
  */
 export function unsafeIsDeclaredInRenderProp(node: TSESTree.Node) {
-    if (unsafeIsDirectValueOfRenderProperty(node)) {
-        return true;
-    }
+  if (unsafeIsDirectValueOfRenderProperty(node)) {
+    return true;
+  }
 
-    const maybeJSXExpressionContainer = traverseUpGuard(node, is(NodeType.JSXExpressionContainer));
-    const maybeJSXAttribute = maybeJSXExpressionContainer?.parent;
+  const maybeJSXExpressionContainer = traverseUpGuard(node, is(NodeType.JSXExpressionContainer));
+  const maybeJSXAttribute = maybeJSXExpressionContainer?.parent;
 
-    return isMatching({
-        type: NodeType.JSXAttribute,
-        name: {
-            type: NodeType.JSXIdentifier,
-            name: P.string.startsWith("render"),
-        },
-    }, maybeJSXAttribute);
+  return isMatching({
+    type: NodeType.JSXAttribute,
+    name: {
+      type: NodeType.JSXIdentifier,
+      name: P.string.startsWith("render"),
+    },
+  }, maybeJSXAttribute);
 }

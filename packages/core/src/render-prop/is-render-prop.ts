@@ -17,27 +17,27 @@ import { isMatching, P } from "ts-pattern";
  * @returns `true` if node is a render function, `false` if not
  */
 export function unsafeIsRenderFunction(node: TSESTreeFunction, context: RuleContext) {
-    const { body, parent } = node;
+  const { body, parent } = node;
 
-    const id = getFunctionIdentifier(node);
+  const id = getFunctionIdentifier(node);
 
-    if (!id?.name.startsWith("render")) {
-        return isMatching({
-            type: NodeType.JSXExpressionContainer,
-            parent: {
-                type: NodeType.JSXAttribute,
-                name: {
-                    type: NodeType.JSXIdentifier,
-                    name: P.string.startsWith("render"),
-                },
-            },
-        }, parent);
-    }
+  if (!id?.name.startsWith("render")) {
+    return isMatching({
+      type: NodeType.JSXExpressionContainer,
+      parent: {
+        type: NodeType.JSXAttribute,
+        name: {
+          type: NodeType.JSXIdentifier,
+          name: P.string.startsWith("render"),
+        },
+      },
+    }, parent);
+  }
 
-    return isJSXValue(body, context, {
-        ignoreNull: true,
-        strict: true,
-    });
+  return isJSXValue(body, context, {
+    ignoreNull: true,
+    strict: true,
+  });
 }
 
 /**
@@ -51,15 +51,15 @@ export function unsafeIsRenderFunction(node: TSESTreeFunction, context: RuleCont
  * @returns `true` if node is a render prop, `false` if not
  */
 export function unsafeIsRenderProp(node: TSESTree.JSXAttribute, context: RuleContext) {
-    return isMatching({
-        type: NodeType.JSXAttribute,
-        name: {
-            type: NodeType.JSXIdentifier,
-            name: P.string.startsWith("render"),
-        },
-        value: {
-            type: NodeType.JSXExpressionContainer,
-            expression: P.when(isFunction),
-        },
-    }, node) && unsafeIsRenderFunction(node.value.expression, context);
+  return isMatching({
+    type: NodeType.JSXAttribute,
+    name: {
+      type: NodeType.JSXIdentifier,
+      name: P.string.startsWith("render"),
+    },
+    value: {
+      type: NodeType.JSXExpressionContainer,
+      expression: P.when(isFunction),
+    },
+  }, node) && unsafeIsRenderFunction(node.value.expression, context);
 }

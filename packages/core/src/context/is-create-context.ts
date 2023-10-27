@@ -10,30 +10,30 @@ import { match } from "ts-pattern";
  * @returns `true` if the node is a call expression to `createContext`
  */
 export function isCreateContext(node: TSESTree.Node) {
-    if ("init" in node) {
-        return match(node.init)
-            .with({ type: NodeType.CallExpression, callee: { name: "createContext" } }, F.constTrue)
-            .with(
-                { callee: { type: NodeType.MemberExpression, property: { name: "createContext" } } },
-                F.constTrue,
-            )
-            .otherwise(F.constFalse);
-    }
+  if ("init" in node) {
+    return match(node.init)
+      .with({ type: NodeType.CallExpression, callee: { name: "createContext" } }, F.constTrue)
+      .with(
+        { callee: { type: NodeType.MemberExpression, property: { name: "createContext" } } },
+        F.constTrue,
+      )
+      .otherwise(F.constFalse);
+  }
 
-    if (
-        "expression" in node
-        && isObject(node.expression)
-        && node.expression.type === NodeType.AssignmentExpression
-        && node.expression.operator === "="
-    ) {
-        return match(node.expression.right)
-            .with({ type: NodeType.CallExpression, callee: { name: "createContext" } }, F.constTrue)
-            .with(
-                { callee: { type: NodeType.MemberExpression, property: { name: "createContext" } } },
-                F.constTrue,
-            )
-            .otherwise(F.constFalse);
-    }
+  if (
+    "expression" in node
+    && isObject(node.expression)
+    && node.expression.type === NodeType.AssignmentExpression
+    && node.expression.operator === "="
+  ) {
+    return match(node.expression.right)
+      .with({ type: NodeType.CallExpression, callee: { name: "createContext" } }, F.constTrue)
+      .with(
+        { callee: { type: NodeType.MemberExpression, property: { name: "createContext" } } },
+        F.constTrue,
+      )
+      .otherwise(F.constFalse);
+  }
 
-    return false;
+  return false;
 }

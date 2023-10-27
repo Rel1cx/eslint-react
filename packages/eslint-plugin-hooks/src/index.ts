@@ -6,5 +6,5 @@ import ensureCustomHooksUsingOtherHooks from "./rules/ensure-custom-hooks-using-
 export { name } from "../package.json";
 
 export const rules = {
-    "ensure-custom-hooks-using-other-hooks": ensureCustomHooksUsingOtherHooks,
+  "ensure-custom-hooks-using-other-hooks": ensureCustomHooksUsingOtherHooks,
 } as const;

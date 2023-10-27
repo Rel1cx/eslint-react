@@ -12,15 +12,15 @@
 
 ```tsx
 const useClassnames = (obj) => {
-    // Invalid, because useClassnames doesn't use any other React Hooks.
-    var k, cls = "";
-    for (k in obj) {
-        if (obj[k]) {
-            cls && (cls += " ");
-            cls += k;
-        }
+  // Invalid, because useClassnames doesn't use any other React Hooks.
+  var k, cls = "";
+  for (k in obj) {
+    if (obj[k]) {
+      cls && (cls += " ");
+      cls += k;
     }
-    return cls;
+  }
+  return cls;
 };
 ```
 
@@ -28,8 +28,8 @@ const useClassnames = (obj) => {
 
 ```tsx
 const useData = (key) => {
-    // Valid, because useData is using other React Hooks.
-    return useSWR(key);
+  // Valid, because useData is using other React Hooks.
+  return useSWR(key);
 };
 ```
 
