@@ -12,13 +12,12 @@ import {
 import {
     componentCollector,
     componentCollectorLegacy,
-    isInsideCreateElementProps,
     isInsideRenderMethod,
     unsafeIsDeclaredInRenderProp,
     unsafeIsDirectValueOfRenderProperty,
     unsafeIsInsideReactHookCall,
 } from "@eslint-react/core";
-import { isInsidePropValue } from "@eslint-react/jsx";
+import { isInsideCreateElementProps, isInsidePropValue } from "@eslint-react/jsx";
 import { E } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";

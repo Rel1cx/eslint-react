@@ -20,12 +20,9 @@
 - [componentCollectorLegacy](README.md#componentcollectorlegacy)
 - [getParentClassComponent](README.md#getparentclasscomponent)
 - [hooksCollector](README.md#hookscollector)
-- [isChildrenOfCreateElement](README.md#ischildrenofcreateelement)
 - [isClassComponent](README.md#isclasscomponent)
-- [isCloneElementCall](README.md#iscloneelementcall)
 - [isCreateContext](README.md#iscreatecontext)
 - [isFunctionOfRenderMethod](README.md#isfunctionofrendermethod)
-- [isInsideCreateElementProps](README.md#isinsidecreateelementprops)
 - [isInsideRenderMethod](README.md#isinsiderendermethod)
 - [isPureComponent](README.md#ispurecomponent)
 - [isStateMemberExpression](README.md#isstatememberexpression)
@@ -167,23 +164,6 @@ It will be removed in the future
 
 ---
 
-### isChildrenOfCreateElement
-
-▸ **isChildrenOfCreateElement**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name      | Type                                                        |
-| :-------- | :---------------------------------------------------------- |
-| `node`    | `Node`                                                      |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
----
-
 ### isClassComponent
 
 ▸ **isClassComponent**(`node`, `context`): node is TSESTreeClass
@@ -204,27 +184,6 @@ node is TSESTreeClass
 **`Deprecated`**
 
 It will be removed in the future
-
----
-
-### isCloneElementCall
-
-▸ **isCloneElementCall**(`node`, `context`): node is CallExpression
-
-Checks if the given node is a call expression to `React.cloneElement`
-
-#### Parameters
-
-| Name      | Type                                                        | Description           |
-| :-------- | :---------------------------------------------------------- | :-------------------- |
-| `node`    | `Node`                                                      | The AST node to check |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context      |
-
-#### Returns
-
-node is CallExpression
-
-`true` if the node is a call expression to `createElement`
 
 ---
 
@@ -262,27 +221,6 @@ Determines whether `createContext` is used
 #### Returns
 
 `boolean`
-
----
-
-### isInsideCreateElementProps
-
-▸ **isInsideCreateElementProps**(`node`, `context`): `boolean`
-
-Determines whether inside createElement's props.
-
-#### Parameters
-
-| Name      | Type                                                        | Description           |
-| :-------- | :---------------------------------------------------------- | :-------------------- |
-| `node`    | `Node`                                                      | The AST node to check |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context      |
-
-#### Returns
-
-`boolean`
-
-`true` if the node is inside createElement's props
 
 ---
 

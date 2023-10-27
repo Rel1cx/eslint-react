@@ -130,6 +130,7 @@ export default [
 
 - [ ] `@eslint-react/hooks/no-access-state-in-setstate`
 - [ ] `@eslint-react/hooks/no-suppressing-exhaustive-deps`
+- [x] `@eslint-react/hooks/ensure-custom-hooks-using-other-hooks`
 - [ ] `@eslint-react/jsx/enforce-component-name-pascal-case`
 - [x] `@eslint-react/jsx/no-array-index-key`
 - [ ] `@eslint-react/jsx/no-children-in-void-dom-elements`
@@ -155,6 +156,10 @@ export default [
 - [ ] `@eslint-react/no-missing-display-name`
 - [ ] `@eslint-react/no-missing-iframe-sandbox-attribute`
 - [x] `@eslint-react/no-string-refs`
+- [ ] `@eslint-react/no-children-methods`
+- [ ] `@eslint-react/no-class-component`
+- [ ] `@eslint-react/no-clone-element`
+- [ ] `@eslint-react/no-createRef`
 - [x] `@eslint-react/no-unstable-default-props`
 - [x] `@eslint-react/no-unstable-nested-components`
 - [ ] `@eslint-react/no-unused-class-component-methods`
@@ -169,13 +174,7 @@ export default [
 ### Planned (will be added in the future)
 
 - [ ] `@eslint-react/jsx/no-complicated-conditional-rendering`
-- [ ] `@eslint-react/hooks/ensure-custom-hooks-using-other-hooks`
 - [ ] `@eslint-react/no-access-ref-current-during-rendering`
-- [ ] `@eslint-react/no-legacy-children-methods`
-- [ ] `@eslint-react/no-legacy-class-component`
-- [ ] `@eslint-react/no-legacy-clone-element`
-- [ ] `@eslint-react/no-legacy-createRef`
-- [ ] `@eslint-react/rsc/...`
 
 ## Philosophy
 
