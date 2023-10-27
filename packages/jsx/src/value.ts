@@ -11,7 +11,7 @@ import { type TSESTree } from "@typescript-eslint/utils";
 import { isString } from "effect/Predicate";
 import { match, P } from "ts-pattern";
 
-import { isCreateElementCall } from "./create-element";
+import { isCreateElementCall } from "./element";
 
 export type JSXValueCheckOptions = {
     /**

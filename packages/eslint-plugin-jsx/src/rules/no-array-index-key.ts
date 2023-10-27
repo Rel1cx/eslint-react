@@ -1,6 +1,5 @@
 import { isOneOf, NodeType, unsafeIsStringCall, unsafeIsToStringCall } from "@eslint-react/ast";
-import { isCloneElementCall } from "@eslint-react/core";
-import { getPragmaFromContext, isCreateElementCall } from "@eslint-react/jsx";
+import { getPragmaFromContext, isCloneElementCall, isCreateElementCall } from "@eslint-react/jsx";
 import { E, O, Record } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";

@@ -3,7 +3,7 @@
 // Most of the terms are taken from the React glossary on https://react.dev.
 // This file is also used to help GitHub copilot suggest rule names.
 
-export type Namespace = "compat" | "debug" | "experimental" | "hooks" | "jsx" | "naming-convention" | "rsc";
+export type Namespace = "compat" | "debug" | "experimental" | "hooks" | "jsx" | "naming-convention";
 
 type No = "no";
 
@@ -31,6 +31,7 @@ export type NegativeDescriptive =
     | "missing"
     | "misused"
     | "mixing"
+    | "nested"
     | "outdated"
     | "redundant"
     | "restricted"
@@ -64,9 +65,6 @@ export type Term =
     | "array-index"
     | "arrow-function"
     | "attribute"
-    | "block"
-    | "boolean"
-    | "cache"
     | "callback"
     | "children"
     | "class"
@@ -76,6 +74,7 @@ export type Term =
     | "clone-element"
     | "comment"
     | "component"
+    | "components"
     | "computed"
     | "computed-property"
     | "conditional-rendering"
@@ -125,7 +124,6 @@ export type Term =
     | "method"
     | "name"
     | "namespace"
-    | "nested-components"
     | "node"
     | "parameter"
     | "prop"
