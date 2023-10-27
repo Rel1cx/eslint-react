@@ -1,3 +1,5 @@
+export type * from "./eslint-define-config";
+
 import * as debug from "@eslint-react/eslint-plugin-debug";
 import * as hooks from "@eslint-react/eslint-plugin-hooks";
 import * as jsx from "@eslint-react/eslint-plugin-jsx";
@@ -80,7 +82,7 @@ const createConfig = (rules: RulePreset) => {
 
 const createRulesWithPrefix = <T extends Record<string, unknown>, U extends string>(rules: T, prefix: U) => {
     return fromEntries(entries(rules).map(([key, value]) => [`${prefix}/${String(key)}`, value])) as {
-        [K in `${U}/${Extract<keyof T, string>}`]: T[keyof T];
+        [K in Extract<keyof T, string> as `${U}/${K}`]: T[K];
     };
 };
 
