@@ -139,7 +139,7 @@ The array to get the element type from.
 
 ### FromEntries
 
-Ƭ **FromEntries**<`T`\>: `T` extends [infer Key, `any`][] ? { [K in Cast<Key, string\>]: Extract<ArrayElement<T\>, [K, any]\>[1] } : { [key in string]: any }
+Ƭ **FromEntries**<`T`\>: `T` extends [infer Key, `unknown`][] ? { [K in Cast<Key, string\>]: Extract<ArrayElement<T\>, [K, unknown]\>[1] } : { [key in string]: unknown }
 
 #### Type parameters
 

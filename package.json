@@ -46,6 +46,7 @@
         "inspect:deps": "skott -e .ts -s -t"
     },
     "devDependencies": {
+        "@effect/docgen": "0.2.0",
         "@effect/language-service": "0.0.21",
         "@rollup/plugin-commonjs": "25.0.7",
         "@rollup/plugin-json": "6.0.1",
@@ -61,7 +62,7 @@
         "@vitest/ui": "0.34.6",
         "bun-types": "1.0.7",
         "cspell": "7.3.8",
-        "dprint": "0.41.0",
+        "dprint": "0.42.1",
         "effect": "2.0.0-next.52",
         "eslint": ">=8.52.0",
         "eslint-config-with-tsconfig": "2.7.9",

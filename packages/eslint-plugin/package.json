@@ -57,13 +57,13 @@
         "@typescript-eslint/utils": "6.9.0"
     },
     "devDependencies": {
-        "@eslint-react/tools": "workspace:*",
-        "@eslint-react/types": "workspace:*",
         "@eslint-react/eslint-plugin-debug": "workspace:*",
         "@eslint-react/eslint-plugin-hooks": "workspace:*",
         "@eslint-react/eslint-plugin-jsx": "workspace:*",
         "@eslint-react/eslint-plugin-naming-convention": "workspace:*",
-        "@eslint-react/eslint-plugin-react": "workspace:*"
+        "@eslint-react/eslint-plugin-react": "workspace:*",
+        "@eslint-react/tools": "workspace:*",
+        "@eslint-react/types": "workspace:*"
     },
     "peerDependencies": {
         "@typescript-eslint/parser": ">=6.9.0",

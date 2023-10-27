@@ -89,5 +89,90 @@ ruleTester.run(RULE_NAME, rule, {
                 },
             ],
         },
+        {
+            code: dedent`
+                export function useNestedHook() {
+                    const [state, setState] = useState("state");
+                    function useInnerHook () {
+                        return "inner hook";
+                    };
+
+                    return [state, setState, useInnerHook] as const;
+                }
+            `,
+            errors: [
+                {
+                    messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+                    data: {
+                        name: "useInnerHook",
+                    },
+                },
+            ],
+        },
+        {
+            code: dedent`
+                export function useNestedHook() {
+                    const useInnerHook = () => {
+                        const [state, setState] = useState("state");
+                        return state;
+                    };
+
+                    return [state, setState, useInnerHook] as const;
+                }
+            `,
+            errors: [
+                {
+                    messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+                    data: {
+                        name: "useNestedHook",
+                    },
+                },
+            ],
+        },
+        {
+            code: dedent`
+                export function useNestedHook() {
+                    const useInnerHook = () => {
+                        return "inner hook";
+                    };
+
+                    return null
+                }
+            `,
+            errors: [
+                {
+                    messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+                    data: {
+                        name: "useNestedHook",
+                    },
+                },
+                {
+                    messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+                    data: {
+                        name: "useInnerHook",
+                    },
+                },
+            ],
+        },
+        {
+            code: dedent`
+                export function useNestedHook() {
+                    const fn = () => {
+                        const [state, setState] = useState("state");
+                        return state;
+                    };
+
+                    return [state, setState, useInnerHook] as const;
+                }
+            `,
+            errors: [
+                {
+                    messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+                    data: {
+                        name: "useNestedHook",
+                    },
+                },
+            ],
+        },
     ],
 });

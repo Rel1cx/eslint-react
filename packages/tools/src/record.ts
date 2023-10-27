@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ArrayElement } from "./array";
 import type { Cast } from "./helper";
 
@@ -11,8 +10,9 @@ export type LooseRecord<T> = Record<PropertyKey, T>;
 
 export type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> };
 
-export type FromEntries<T> = T extends [infer Key, any][] ? { [K in Cast<Key, string>]: Extract<ArrayElement<T>, [K, any]>[1] }
-    : { [key in string]: any };
+export type FromEntries<T> = T extends [infer Key, unknown][]
+    ? { [K in Cast<Key, string>]: Extract<ArrayElement<T>, [K, unknown]>[1] }
+    : { [key in string]: unknown };
 
 export type FromEntriesWithReadOnly<T> = FromEntries<DeepWriteable<T>>;
 
