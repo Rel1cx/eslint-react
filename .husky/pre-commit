@@ -6,5 +6,4 @@ pnpm run lint
 pnpm run build
 pnpm run build:docs
 pnpm dprint fmt README.md
-pnpm publint
 git add .

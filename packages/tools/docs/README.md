@@ -69,10 +69,10 @@ The array to get the element type from.
 #### Type parameters
 
 | Name |
-| :------ |
-| `A` |
+| :--- |
+| `A`  |
 
-___
+---
 
 ### Cast
 
@@ -85,11 +85,11 @@ ___
 #### Type parameters
 
 | Name |
-| :------ |
-| `X` |
-| `Y` |
+| :--- |
+| `X`  |
+| `Y`  |
 
-___
+---
 
 ### Combine
 
@@ -102,11 +102,11 @@ ___
 #### Type parameters
 
 | Name |
-| :------ |
+| :--- |
 | `T1` |
 | `T2` |
 
-___
+---
 
 ### DeepWriteable
 
@@ -115,10 +115,10 @@ ___
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
-___
+---
 
 ### FieldDiff
 
@@ -131,11 +131,11 @@ ___
 #### Type parameters
 
 | Name |
-| :------ |
+| :--- |
 | `T1` |
 | `T2` |
 
-___
+---
 
 ### FromEntries
 
@@ -144,10 +144,10 @@ ___
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
-___
+---
 
 ### FromEntriesWithReadOnly
 
@@ -156,10 +156,10 @@ ___
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
-___
+---
 
 ### LooseRecord
 
@@ -173,11 +173,11 @@ A record with loose keys.
 
 #### Type parameters
 
-| Name | Description |
-| :------ | :------ |
-| `T` | The type of the values. |
+| Name | Description             |
+| :--- | :---------------------- |
+| `T`  | The type of the values. |
 
-___
+---
 
 ### Narrow
 
@@ -196,7 +196,7 @@ Type to infer
 **`Example`**
 
 ```ts
-type Result = Narrow<['foo', 'bar', 1]>
+type Result = Narrow<["foo", "bar", 1]>;
 ```
 
 **`See`**
@@ -205,11 +205,11 @@ https://twitter.com/hd_nvim/status/1578567206190780417
 
 #### Type parameters
 
-| Name |
+| Name    |
 | :------ |
 | `TType` |
 
-___
+---
 
 ### Pretty
 
@@ -222,10 +222,10 @@ ___
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
-___
+---
 
 ### Remap
 
@@ -238,10 +238,10 @@ ___
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
-___
+---
 
 ### UnionFromTuple
 
@@ -254,17 +254,17 @@ ___
 **`Example`**
 
 ```ts
-type Result = UnionFromTuple<['foo', 'bar', 1]>
+type Result = UnionFromTuple<["foo", "bar", 1]>;
 // Result = 'foo' | 'bar' | 1
 ```
 
 #### Type parameters
 
-| Name | Description |
-| :------ | :------ |
-| `T` | The type to get the union from |
+| Name | Description                    |
+| :--- | :----------------------------- |
+| `T`  | The type to get the union from |
 
-___
+---
 
 ### UnionToIntersection
 
@@ -281,15 +281,15 @@ The type to get the intersection from
 **`Example`**
 
 ```ts
-type Result = IntersectionFromTuple<['foo', 'bar', 1]>
+type Result = IntersectionFromTuple<["foo", "bar", 1]>;
 // Result = 'foo' & 'bar' & 1
 ```
 
 #### Type parameters
 
 | Name |
-| :------ |
-| `U` |
+| :--- |
+| `U`  |
 
 ## Functions
 
@@ -300,14 +300,14 @@ type Result = IntersectionFromTuple<['foo', 'bar', 1]>
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `a` | `T` | The value to infer. |
+| Name | Type | Description         |
+| :--- | :--- | :------------------ |
+| `a`  | `T`  | The value to infer. |
 
 #### Returns
 
@@ -317,7 +317,7 @@ type Result = IntersectionFromTuple<['foo', 'bar', 1]>
 
 0.0.1
 
-___
+---
 
 ### entries
 
@@ -327,15 +327,15 @@ type-safe version of Object.entries
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends [`LooseRecord`](README.md#looserecord)<`unknown`\> |
+| Name | Type                                                       |
+| :--- | :--------------------------------------------------------- |
+| `T`  | extends [`LooseRecord`](README.md#looserecord)<`unknown`\> |
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `value` | `T` | The value to get the entries from. |
+| Name    | Type | Description                        |
+| :------ | :--- | :--------------------------------- |
+| `value` | `T`  | The value to get the entries from. |
 
 #### Returns
 
@@ -347,7 +347,7 @@ The entries of the value.
 
 0.4.0
 
-___
+---
 
 ### fromEntries
 
@@ -357,15 +357,15 @@ type-safe version of Object.fromEntries
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends [`PropertyKey`, `unknown`][] |
+| Name | Type                                 |
+| :--- | :----------------------------------- |
+| `T`  | extends [`PropertyKey`, `unknown`][] |
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `entries` | `T` | The entries to create the object from. |
+| Name      | Type | Description                            |
+| :-------- | :--- | :------------------------------------- |
+| `entries` | `T`  | The entries to create the object from. |
 
 #### Returns
 
@@ -377,7 +377,7 @@ The object created from the entries.
 
 0.4.0
 
-___
+---
 
 ### fromEntriesWithReadOnly
 
@@ -387,15 +387,15 @@ type-safe version of Object.fromEntries
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends [`PropertyKey`, `unknown`][] |
+| Name | Type                                 |
+| :--- | :----------------------------------- |
+| `T`  | extends [`PropertyKey`, `unknown`][] |
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `entries` | `T` | The entries to create the object from. |
+| Name      | Type | Description                            |
+| :-------- | :--- | :------------------------------------- |
+| `entries` | `T`  | The entries to create the object from. |
 
 #### Returns
 
@@ -407,7 +407,7 @@ The object created from the entries.
 
 0.4.0
 
-___
+---
 
 ### identity
 
@@ -416,14 +416,14 @@ ___
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `a` | `T` | The value to return. |
+| Name | Type | Description          |
+| :--- | :--- | :------------------- |
+| `a`  | `T`  | The value to return. |
 
 #### Returns
 
@@ -433,7 +433,7 @@ ___
 
 0.0.1
 
-___
+---
 
 ### keys
 
@@ -443,15 +443,15 @@ type-safe version of Object.keys
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends [`LooseRecord`](README.md#looserecord)<`unknown`\> |
+| Name | Type                                                       |
+| :--- | :--------------------------------------------------------- |
+| `T`  | extends [`LooseRecord`](README.md#looserecord)<`unknown`\> |
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `value` | `T` | The value to get the keys from. |
+| Name    | Type | Description                     |
+| :------ | :--- | :------------------------------ |
+| `value` | `T`  | The value to get the keys from. |
 
 #### Returns
 
@@ -463,7 +463,7 @@ The keys of the value.
 
 0.4.0
 
-___
+---
 
 ### narrow
 
@@ -474,15 +474,15 @@ Same as `as const` but without setting the object as readonly and without needin
 
 #### Type parameters
 
-| Name |
+| Name    |
 | :------ |
 | `TType` |
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `a` | [`Narrow`](README.md#narrow)<`TType`\> | Value to infer |
+| Name | Type                                   | Description    |
+| :--- | :------------------------------------- | :------------- |
+| `a`  | [`Narrow`](README.md#narrow)<`TType`\> | Value to infer |
 
 #### Returns
 
@@ -497,10 +497,10 @@ Value with embedded type inferred
 **`Example`**
 
 ```ts
-const result = narrow(['foo', 'bar', 1])
+const result = narrow(["foo", "bar", 1]);
 ```
 
-___
+---
 
 ### noop
 
@@ -514,7 +514,7 @@ ___
 
 0.0.1
 
-___
+---
 
 ### uniqueBy
 
@@ -524,16 +524,16 @@ Returns a new array with unique values based on the given function.
 
 #### Type parameters
 
-| Name | Description |
-| :------ | :------ |
-| `T` | type of the array elements. |
+| Name | Description                 |
+| :--- | :-------------------------- |
+| `T`  | type of the array elements. |
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `arr` | `T`[] | The array to filter. |
-| `fn` | (`x`: `T`) => `unknown` | The function to get the value to compare. |
+| Name  | Type                    | Description                               |
+| :---- | :---------------------- | :---------------------------------------- |
+| `arr` | `T`[]                   | The array to filter.                      |
+| `fn`  | (`x`: `T`) => `unknown` | The function to get the value to compare. |
 
 #### Returns
 
@@ -545,7 +545,7 @@ new array with unique values.
 
 0.0.1
 
-___
+---
 
 ### values
 
@@ -555,15 +555,15 @@ type-safe version of Object.values
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends [`LooseRecord`](README.md#looserecord)<`unknown`\> |
+| Name | Type                                                       |
+| :--- | :--------------------------------------------------------- |
+| `T`  | extends [`LooseRecord`](README.md#looserecord)<`unknown`\> |
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `value` | `T` | The value to get the values from. |
+| Name    | Type | Description                       |
+| :------ | :--- | :-------------------------------- |
+| `value` | `T`  | The value to get the values from. |
 
 #### Returns
 

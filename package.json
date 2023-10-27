@@ -31,9 +31,8 @@
         "build:docs": "pnpm --filter \"@eslint-react/*\" run build:docs && eslint-doc-generator",
         "format:check": "dprint check",
         "format:write": "dprint fmt",
-        "lint": "pnpm run format:check && pnpm run lint:spell && pnpm run lint:deps && pnpm run lint:type && pnpm run lint:ts && publint",
+        "lint": "pnpm run format:check && pnpm run lint:spell && pnpm run lint:deps && pnpm run lint:type && pnpm run lint:ts && pnpm run lint:publish",
         "lint:deps": "skott -m file-tree -e .ts -s",
-        "lint:unused": "knip",
         "lint:spell": "cspell lint --relative --no-progress '**'",
         "lint:ts": "eslint --cache .",
         "lint:fix": "eslint --cache --fix .",
@@ -42,6 +41,7 @@
         "test": "vitest --run",
         "test:ui": "vitest --ui",
         "update": "taze",
+        "inspect:unused": "knip",
         "inspect:eslint-config": "eslint --print-config ./taze.config.ts > eslint-config.json",
         "inspect:deps": "skott -e .ts -s -t",
         "clean": "rimraf packages/*/dist packages/*/docs **/*/node_modules pnpm-lock.yaml"

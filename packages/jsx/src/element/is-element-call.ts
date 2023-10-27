@@ -1,6 +1,3 @@
-import type { RuleContext } from "@eslint-react/types";
-import type { TSESTree } from "@typescript-eslint/types";
-
 import { type CallFromPragmaPredicate, isCallFromPragma } from "../pragma";
 
 /**
