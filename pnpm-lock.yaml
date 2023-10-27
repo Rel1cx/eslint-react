@@ -73,8 +73,8 @@ importers:
         specifier: 7.3.8
         version: 7.3.8
       dprint:
-        specifier: 0.42.1
-        version: 0.42.1
+        specifier: 0.42.2
+        version: 0.42.2
       effect:
         specifier: 2.0.0-next.52
         version: 2.0.0-next.52
@@ -112,8 +112,8 @@ importers:
         specifier: 8.0.3
         version: 8.0.3
       knip:
-        specifier: 2.38.1
-        version: 2.38.1
+        specifier: 2.38.4
+        version: 2.38.4
       pathe:
         specifier: 1.1.1
         version: 1.1.1
@@ -1346,48 +1346,48 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@dprint/darwin-arm64@0.42.1:
-    resolution: {integrity: sha512-le9A51sH9LzmHXF88DauFFWQigRt975HGLbT/xiEy+ImffynUHaZ58wvFnSSDLDfPwSy9GTLRjUbv8RpTp/qwA==}
+  /@dprint/darwin-arm64@0.42.2:
+    resolution: {integrity: sha512-GKD7fj2YnEsFhwQ2mvlGy7QrR/KwlzAQj93FMPUa4f1DGx6aFYviAqg1RMptTxX8PGqf/wwm2/AqBERS6rRbgg==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@dprint/darwin-x64@0.42.1:
-    resolution: {integrity: sha512-r5m8YyLsaB3FVM8eQly3nMXTLm2fyWnfnTKxH3FaLYDOEtMVMY+eozeyPL5FY7pzdQGeWHm49V6uJPDYXGDJxg==}
+  /@dprint/darwin-x64@0.42.2:
+    resolution: {integrity: sha512-4K8HokDFYPxWD2ZNsT/Q/VLHDNphMvzooSwmq2RoJDp9foLcDx4RdWEAu7JvBpUUJ1RuDCaWY2BqLPAB8mCIBw==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@dprint/linux-arm64-glibc@0.42.1:
-    resolution: {integrity: sha512-iRZrXfGQlcs213GT4iDjfZFBCc6jwTlXQcCM5t7NabDMbHi2S7pEDwlVNdVCfYgAEZD1kkJ5SMH3JdEG1Eh/jw==}
+  /@dprint/linux-arm64-glibc@0.42.2:
+    resolution: {integrity: sha512-kfJRXVbO3pB/2d92UEXWLWENNaxRoSKOOnrR4epXHlbcHc98PDXD0leYytzzICy2JJYJjDMSHRK0/BpGBl6KvA==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@dprint/linux-x64-glibc@0.42.1:
-    resolution: {integrity: sha512-1ccf3MGt9k+M8RkQfUgR4ZiUfLLMpeyhDIZ6OZdIqhXNdqGvG8Q+erMRZSa2NXfSQx0Sn9YrUETRSLI/QxdMxg==}
+  /@dprint/linux-x64-glibc@0.42.2:
+    resolution: {integrity: sha512-2Rl9s/j+bjgxC7TomS5YxPT520PakNAnzAdMZDpxELMmleFQU7jyTlCqPzUcVMClOE0plUnxmNG0P2xx3fVvlQ==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@dprint/linux-x64-musl@0.42.1:
-    resolution: {integrity: sha512-u0XSCrPq60ditw1UwWdvgDmC2Bo2VS3orrW6ls4TcHm7pqka38QWc42dBgkTGg/D6dAO28AEvVN5f/WJZePQIQ==}
+  /@dprint/linux-x64-musl@0.42.2:
+    resolution: {integrity: sha512-1cJSmuWOP/0Qo4ukXLEtxu7+6P2GjbOejVV6TB35GSdvCGJNCv0YKj7M/f0a2mVaBfWyt/p87iujmLfsqynCyQ==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@dprint/win32-x64@0.42.1:
-    resolution: {integrity: sha512-O3QjHh8S+DmgmvkhZUuGoz8qY3/1ybDqHeRGpAI2tt3uNHD4LYzhJXH44RoSpRa0sJGwGzeEuHCqf0EfZzjr+g==}
+  /@dprint/win32-x64@0.42.2:
+    resolution: {integrity: sha512-6RKkS1j4zp7Yh9ayZmb0GcotMvm6UTKTZoPaB4qv6CS3lGR9u9/DpXJnOC6EJvGRgZpf0sRQJj1eDraXezTzLg==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
@@ -3996,17 +3996,17 @@ packages:
       type-fest: 2.19.0
     dev: true
 
-  /dprint@0.42.1:
-    resolution: {integrity: sha512-RhbIf5OvgSee43VE8S2qY2HrGhdb+kJsZaqFw2lImb3PhsPOBUodU1cDwSJ/h9NcDdysZekIfEI1oY5+AKR4fw==}
+  /dprint@0.42.2:
+    resolution: {integrity: sha512-T7CZvcAU6xaE4R8vYOmQp0Agy8/rVn9CG1xoWNqBQzg3BECes2dbVAa1sbyg9gtG0VgPTWwZhLcSpzsCED8O1Q==}
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      '@dprint/darwin-arm64': 0.42.1
-      '@dprint/darwin-x64': 0.42.1
-      '@dprint/linux-arm64-glibc': 0.42.1
-      '@dprint/linux-x64-glibc': 0.42.1
-      '@dprint/linux-x64-musl': 0.42.1
-      '@dprint/win32-x64': 0.42.1
+      '@dprint/darwin-arm64': 0.42.2
+      '@dprint/darwin-x64': 0.42.2
+      '@dprint/linux-arm64-glibc': 0.42.2
+      '@dprint/linux-x64-glibc': 0.42.2
+      '@dprint/linux-x64-musl': 0.42.2
+      '@dprint/win32-x64': 0.42.2
     dev: true
 
   /eastasianwidth@0.2.0:
@@ -5604,8 +5604,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /knip@2.38.1:
-    resolution: {integrity: sha512-n+c6kfRHpQfXSpJjDPEvDMIauxKiE8pXuWyaBP8MGjCUrFIGjwUpuFmiF+fNeVMZs2GWPEZzXKM8G7eqzP+u7w==}
+  /knip@2.38.4:
+    resolution: {integrity: sha512-6/RbPRslQJ2dew3rlOItHFckx3F9PtOCXblIe9oimMxR6lNZ59Suh+65rZl/XM07PqE5v10PlKFl3gJdhcGENA==}
     engines: {node: '>=16.17.0 <17 || >=18.6.0'}
     hasBin: true
     dependencies:
@@ -5628,7 +5628,7 @@ packages:
       summary: 2.1.0
       typescript: 5.3.0-beta
       zod: 3.22.4
-      zod-validation-error: 2.0.0(zod@3.22.4)
+      zod-validation-error: 1.5.0(zod@3.22.4)
     transitivePeerDependencies:
       - domexception
     dev: true
@@ -8433,9 +8433,9 @@ packages:
     engines: {node: '>=12.20'}
     dev: true
 
-  /zod-validation-error@2.0.0(zod@3.22.4):
-    resolution: {integrity: sha512-YTZXzeJW1JuHANATyLSdKyQUEXmM5fU0Yzop5odR4rZGtfL6I9HCvJDvBCizu1rPUNiKDEgd5riDxGVNAAPKxg==}
-    engines: {node: '>=18.0.0'}
+  /zod-validation-error@1.5.0(zod@3.22.4):
+    resolution: {integrity: sha512-/7eFkAI4qV0tcxMBB/3+d2c1P6jzzZYdYSlBuAklzMuCrJu5bzJfHS0yVAS87dRHVlhftd6RFJDIvv03JgkSbw==}
+    engines: {node: '>=16.0.0'}
     peerDependencies:
       zod: ^3.18.0
     dependencies:
