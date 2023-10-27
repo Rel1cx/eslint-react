@@ -1,7 +1,8 @@
 import { is, NodeType, traverseUp } from "@eslint-react/ast";
-import { isCreateElementCall } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
+
+import { isCreateElementCall } from "./is-element-call";
 
 /**
  * Determines whether inside createElement's props.

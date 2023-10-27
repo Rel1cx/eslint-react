@@ -32,9 +32,7 @@ jobs:
                   key: ${{ runner.os }}-pnpm-store-release-${{ hashFiles('**/pnpm-lock.yaml') }}
                   restore-keys: |
                       ${{ runner.os }}-pnpm-store-release-
-            - name: Install front-end dependencies
+            - name: Install front-end dependencies and build front-end assets
               run: pnpm i
-            - name: Build front-end assets
-              run: pnpm run build
             - name: Test
               run: pnpm run -r test
