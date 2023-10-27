@@ -1,0 +1,43 @@
+name: Check
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, reopened]
+    branches:
+      - '**'
+  merge_group:
+env:
+    NODE_OPTIONS: --max_old_space_size=10240
+jobs:
+    check:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - name: Setup node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 21
+            - uses: pnpm/action-setup@v2
+              name: Install pnpm
+              id: pnpm-install
+              with:
+                  version: 8
+                  run_install: false
+            - name: Get pnpm store directory
+              id: pnpm-cache
+              shell: bash
+              run: |
+                  echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+            - uses: actions/cache@v3
+              name: Setup pnpm cache
+              with:
+                  path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-store-release-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-release-
+            - name: Install front-end dependencies and build front-end assets
+              run: pnpm i
+            - name: Check
+              run: pnpm run lint
