@@ -1,12 +1,16 @@
-name: Test
+name: CI
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - '**'
+  merge_group:
 env:
     NODE_OPTIONS: --max_old_space_size=10240
 jobs:
-    check:
+    install:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -34,5 +38,17 @@ jobs:
                       ${{ runner.os }}-pnpm-store-release-
             - name: Install front-end dependencies and build front-end assets
               run: pnpm i
+    check:
+        needs: [install]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - name: Check
+              run: pnpm run lint
+    test:
+        needs: [install]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
             - name: Test
               run: pnpm run -r test
