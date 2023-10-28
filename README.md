@@ -115,6 +115,7 @@ export default [
 
 | Name                                                                                                                                     | Description                                                                     |
 | :--------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ |
+| [react/no-class-component](packages/eslint-plugin-react/src/rules/no-class-component.md)                                                 | enforce that there are no class components                                      |
 | [react/no-constructed-context-value](packages/eslint-plugin-react/src/rules/no-constructed-context-value.md)                             | disallows passing constructed values to context providers                       |
 | [react/no-dangerously-set-innerhtml](packages/eslint-plugin-react/src/rules/no-dangerously-set-innerhtml.md)                             | disallow when a DOM element is using both children and dangerouslySetInnerHTML' |
 | [react/no-dangerously-set-innerhtml-with-children](packages/eslint-plugin-react/src/rules/no-dangerously-set-innerhtml-with-children.md) | disallow when a DOM element is using both children and dangerouslySetInnerHTML' |
@@ -157,7 +158,7 @@ export default [
 - [ ] `@eslint-react/no-missing-iframe-sandbox-attribute`
 - [x] `@eslint-react/no-string-refs`
 - [ ] `@eslint-react/no-children-methods`
-- [ ] `@eslint-react/no-class-component`
+- [x] `@eslint-react/no-class-component`
 - [ ] `@eslint-react/no-clone-element`
 - [ ] `@eslint-react/no-createRef`
 - [x] `@eslint-react/no-unstable-default-props`

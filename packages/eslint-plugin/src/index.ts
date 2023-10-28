@@ -26,6 +26,7 @@ const rules = {
   "jsx/prefer-shorthand-boolean": "warn",
   "naming-convention/filename": "warn",
   "naming-convention/filename-extension": "warn",
+  "react/no-class-component": "error",
   "react/no-constructed-context-value": "error",
   "react/no-dangerously-set-innerhtml": "error",
   "react/no-dangerously-set-innerhtml-with-children": "error",
