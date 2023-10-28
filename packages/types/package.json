@@ -51,5 +51,8 @@
     "deepmerge-ts": "5.1.0",
     "rambda": "8.5.0",
     "tslib": "2.6.2"
+  },
+  "devDependencies": {
+    "string-ts": "1.3.2"
   }
 }

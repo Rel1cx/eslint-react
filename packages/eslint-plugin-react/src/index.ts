@@ -1,5 +1,6 @@
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
+import noClassComponent from "./rules/no-class-component";
 import noConstructedContextValue from "./rules/no-constructed-context-value";
 import noDangerouslySetInnerHTML from "./rules/no-dangerously-set-innerhtml";
 import noDangerouslySetInnerHTMLWithChildren from "./rules/no-dangerously-set-innerhtml-with-children";
@@ -10,6 +11,7 @@ import noUnstableNestedComponents from "./rules/no-unstable-nested-components";
 export { name } from "../package.json";
 
 export const rules = {
+  "no-class-component": noClassComponent,
   "no-constructed-context-value": noConstructedContextValue,
   "no-dangerously-set-innerhtml": noDangerouslySetInnerHTML,
   "no-dangerously-set-innerhtml-with-children": noDangerouslySetInnerHTMLWithChildren,

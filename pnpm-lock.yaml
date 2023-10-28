@@ -415,6 +415,9 @@ importers:
       rambda:
         specifier: latest
         version: 8.5.0
+      string-ts:
+        specifier: 1.3.2
+        version: 1.3.2
       ts-pattern:
         specifier: 5.0.5
         version: 5.0.5
@@ -470,6 +473,9 @@ importers:
       rambda:
         specifier: latest
         version: 8.5.0
+      string-ts:
+        specifier: 1.3.2
+        version: 1.3.2
       ts-pattern:
         specifier: 5.0.5
         version: 5.0.5
@@ -525,6 +531,9 @@ importers:
       rambda:
         specifier: latest
         version: 8.5.0
+      string-ts:
+        specifier: 1.3.2
+        version: 1.3.2
       ts-pattern:
         specifier: 5.0.5
         version: 5.0.5
@@ -577,6 +586,9 @@ importers:
       rambda:
         specifier: latest
         version: 8.5.0
+      string-ts:
+        specifier: 1.3.2
+        version: 1.3.2
       ts-pattern:
         specifier: 5.0.5
         version: 5.0.5
@@ -632,6 +644,9 @@ importers:
       rambda:
         specifier: latest
         version: 8.5.0
+      string-ts:
+        specifier: 1.3.2
+        version: 1.3.2
       ts-pattern:
         specifier: 5.0.5
         version: 5.0.5
@@ -713,6 +728,10 @@ importers:
       tslib:
         specifier: 2.6.2
         version: 2.6.2
+    devDependencies:
+      string-ts:
+        specifier: 1.3.2
+        version: 1.3.2
 
 packages:
 
@@ -7440,7 +7459,6 @@ packages:
 
   /string-ts@1.3.2:
     resolution: {integrity: sha512-5F+iJbIM4btM6uM/IcbOPMhkpbP5aibBC3yls2oqDPpuG/HTS/2JUSi9shMyFiSGYVnJRujjGFK93fG7dtv03Q==}
-    dev: false
 
   /string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}

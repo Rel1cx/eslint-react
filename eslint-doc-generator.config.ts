@@ -6,21 +6,20 @@ const defaultTitle = "react";
 
 export default {
   configEmoji: [
-    ["recommended-legacy", "👍"],
-    ["recommended-type-checked-legacy", "🔍"],
-    ["debug-legacy", "🛠️"],
-    ["jsx-legacy", "🎨"],
+    ["recommended", "👍"],
+    ["recommended-type-checked", "🔍"],
+    ["debug", "🛠️"],
+    ["jsx", "🎨"],
   ],
   ignoreConfig: [
     "all-legacy",
-    "off-legacy",
     "debug-legacy",
+    "off-legacy",
+    "recommended-legacy",
     "recommended-type-checked-legacy",
+
     "all",
-    "debug",
-    "jsx",
     "off",
-    "recommended",
     "recommended-type-checked",
   ],
   pathRuleDoc(name) {
