@@ -106,10 +106,10 @@ export default [
 
 ### naming-convention
 
-| Name                                                                                                             | Description                                        |
-| :--------------------------------------------------------------------------------------------------------------- | :------------------------------------------------- |
-| [naming-convention/filename](packages/eslint-plugin-naming-convention/src/rules/filename.md)                     | enforce naming convention for JSX file names       |
-| [naming-convention/filename-extension](packages/eslint-plugin-naming-convention/src/rules/filename-extension.md) | enforces naming convention for JSX file extensions |
+| Name                                                                                                             | Description                                       |
+| :--------------------------------------------------------------------------------------------------------------- | :------------------------------------------------ |
+| [naming-convention/filename](packages/eslint-plugin-naming-convention/src/rules/filename.md)                     | enforce naming convention for JSX file names      |
+| [naming-convention/filename-extension](packages/eslint-plugin-naming-convention/src/rules/filename-extension.md) | enforce naming convention for JSX file extensions |
 
 ### react
 
