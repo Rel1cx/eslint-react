@@ -12,9 +12,9 @@ import type { RulePreset } from "@eslint-react/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { name, version } from "../package.json";
-import { createRulesWithPrefix } from "./helper";
+import { prefixKeys } from "./utils";
 
-const rules = {
+const rulePreset = {
   "debug/class-component": "warn",
   "debug/function-component": "warn",
   "hooks/ensure-custom-hooks-using-other-hooks": "warn",
@@ -51,11 +51,11 @@ const recommendedRules = {
   "react/no-unstable-nested-components": "error",
 } as const satisfies RulePreset;
 
-const rulesEntries = entries(rules);
-const allRules = fromEntries(rulesEntries.filter(([key]) => !key.startsWith("debug/")));
-const offRules = fromEntries(rulesEntries.map(([key]) => [key, "off"]));
-const jsxRules = fromEntries(rulesEntries.filter(([key]) => key.startsWith("jsx/")));
-const debugRules = fromEntries(rulesEntries.filter(([key]) => key.startsWith("debug/")));
+const rulePresetEntries = entries(rulePreset);
+const allRules = fromEntries(rulePresetEntries.filter(([key]) => !key.startsWith("debug/")));
+const offRules = fromEntries(rulePresetEntries.map(([key]) => [key, "off"]));
+const jsxRules = fromEntries(rulePresetEntries.filter(([key]) => key.startsWith("jsx/")));
+const debugRules = fromEntries(rulePresetEntries.filter(([key]) => key.startsWith("debug/")));
 
 const legacyConfigPlugins = ["@eslint-react"] as const;
 
@@ -67,20 +67,20 @@ const flatConfigPlugins = {
   "@eslint-react/react": react,
 } as const;
 
-const createLegacyConfig = (rules: RulePreset, plugins = legacyConfigPlugins) => {
+function createLegacyConfig<T extends RulePreset>(rules: T, plugins = legacyConfigPlugins) {
   return {
     plugins,
-    rules: createRulesWithPrefix(rules, "@eslint-react"),
+    rules: prefixKeys(rules, "@eslint-react", "/"),
   } as const;
-};
+}
 
 // eslint-disable-next-line sonarjs/no-identical-functions
-const createFlatConfig = (rules: RulePreset, plugins = flatConfigPlugins) => {
+function createFlatConfig<T extends RulePreset>(rules: T, plugins = flatConfigPlugins) {
   return {
     plugins,
-    rules: createRulesWithPrefix(rules, "@eslint-react"),
+    rules: prefixKeys(rules, "@eslint-react", "/"),
   } as const;
-};
+}
 
 export default {
   meta: {
@@ -103,10 +103,10 @@ export default {
     "recommended-type-checked": createFlatConfig(recommendedRules),
   },
   rules: {
-    ...createRulesWithPrefix(debug.rules, "debug"),
-    ...createRulesWithPrefix(hooks.rules, "hooks"),
-    ...createRulesWithPrefix(jsx.rules, "jsx"),
-    ...createRulesWithPrefix(namingConvention.rules, "naming-convention"),
-    ...createRulesWithPrefix(react.rules, "react"),
+    ...prefixKeys(debug.rules, "debug", "/"),
+    ...prefixKeys(hooks.rules, "hooks", "/"),
+    ...prefixKeys(jsx.rules, "jsx", "/"),
+    ...prefixKeys(namingConvention.rules, "naming-convention", "/"),
+    ...prefixKeys(react.rules, "react", "/"),
   },
 } as const;
