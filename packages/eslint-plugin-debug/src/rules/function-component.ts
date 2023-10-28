@@ -2,12 +2,13 @@ import { getFunctionIdentifier } from "@eslint-react/ast";
 import { componentCollector } from "@eslint-react/core";
 import { E } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import { type ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "function-component";
 
-type MessageID = "FUNCTION_COMPONENT" | "POSSIBLE_FUNCTION_COMPONENT";
+type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,
@@ -21,9 +22,6 @@ export default createRule<[], MessageID>({
     schema: [],
     messages: {
       FUNCTION_COMPONENT: "function component found, name: {{name}}",
-      // TODO: implement this
-      // eslint-disable-next-line eslint-plugin/no-unused-message-ids
-      POSSIBLE_FUNCTION_COMPONENT: "possible function component found based on usage, name: {{name}}",
     },
   },
   defaultOptions: [],

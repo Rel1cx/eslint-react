@@ -2,11 +2,12 @@ import { getFunctionIdentifier } from "@eslint-react/ast";
 import { hooksCollector } from "@eslint-react/core";
 import { E } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
-export const RULE_NAME = "debug/hooks";
+export const RULE_NAME = "hooks";
 
-type MessageID = "HOOKS" | "REDUNDANT_HOOKS";
+type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,
@@ -19,8 +20,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      HOOKS: "React hook found, name: {{name}}",
-      REDUNDANT_HOOKS: "Redundant react hook found, name: {{name}}",
+      HOOKS: "React hook found, name: {{name}}, redundant: {{redundant}}",
     },
   },
   defaultOptions: [],
@@ -38,16 +38,6 @@ export default createRule<[], MessageID>({
         }
 
         const redundantHooks = maybeRedundantHooks.right;
-        for (const hook of redundantHooks) {
-          const name = getFunctionIdentifier(hook)?.name ?? "unknown";
-          context.report({
-            data: {
-              name,
-            },
-            messageId: "REDUNDANT_HOOKS",
-            node: hook,
-          });
-        }
 
         const maybeHooks = ctx.getAllHooks();
         if (E.isLeft(maybeHooks)) {
@@ -55,16 +45,15 @@ export default createRule<[], MessageID>({
 
           return;
         }
-        const hooks = maybeHooks.right;
-        for (const hook of hooks) {
-          if (redundantHooks.includes(hook)) {
-            continue;
-          }
 
+        const hooks = maybeHooks.right;
+
+        for (const hook of hooks) {
           const name = getFunctionIdentifier(hook)?.name ?? "unknown";
           context.report({
             data: {
               name,
+              redundant: redundantHooks.includes(hook),
             },
             messageId: "HOOKS",
             node: hook,
