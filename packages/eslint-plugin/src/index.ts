@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 export type * from "./eslint-define-config";
 
 import * as debug from "@eslint-react/eslint-plugin-debug";
@@ -12,7 +11,7 @@ import type { RulePreset } from "@eslint-react/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { name, version } from "../package.json";
-import { prefixKeys } from "./utils";
+import { padKeysLeft } from "./utils";
 
 const rulePreset = {
   "debug/class-component": "warn",
@@ -70,7 +69,7 @@ const flatConfigPlugins = {
 function createLegacyConfig<T extends RulePreset>(rules: T, plugins = legacyConfigPlugins) {
   return {
     plugins,
-    rules: prefixKeys(rules, "@eslint-react", "/"),
+    rules: padKeysLeft(rules, "@eslint-react/"),
   } as const;
 }
 
@@ -78,7 +77,7 @@ function createLegacyConfig<T extends RulePreset>(rules: T, plugins = legacyConf
 function createFlatConfig<T extends RulePreset>(rules: T, plugins = flatConfigPlugins) {
   return {
     plugins,
-    rules: prefixKeys(rules, "@eslint-react", "/"),
+    rules: padKeysLeft(rules, "@eslint-react/"),
   } as const;
 }
 
@@ -103,10 +102,10 @@ export default {
     "recommended-type-checked": createFlatConfig(recommendedRules),
   },
   rules: {
-    ...prefixKeys(debug.rules, "debug", "/"),
-    ...prefixKeys(hooks.rules, "hooks", "/"),
-    ...prefixKeys(jsx.rules, "jsx", "/"),
-    ...prefixKeys(namingConvention.rules, "naming-convention", "/"),
-    ...prefixKeys(react.rules, "react", "/"),
+    ...padKeysLeft(debug.rules, "debug/"),
+    ...padKeysLeft(hooks.rules, "hooks/"),
+    ...padKeysLeft(jsx.rules, "jsx/"),
+    ...padKeysLeft(namingConvention.rules, "naming-convention/"),
+    ...padKeysLeft(react.rules, "react/"),
   },
 } as const;
