@@ -10,7 +10,7 @@
 
 This rule aims to prevent usage of class components in React.
 
-### ### ❌ Incorrect
+### ❌ Incorrect
 
 ```tsx
 class Greeting extends Component {
