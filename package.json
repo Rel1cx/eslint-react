@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "ESLint plugin for React function components with TypeScript, built (mostly) from scratch.",
   "keywords": [
     "eslint",
@@ -13,7 +13,6 @@
     "typescript-eslint",
     "typescript-react"
   ],
-  "main": "packages/eslint-plugin/dist/index.js",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
     "url": "https://github.com/Rel1cx/eslint-react/issues"
@@ -24,34 +23,34 @@
   },
   "license": "MIT",
   "author": "Eva1ent<let@ik.me>",
-  "scripts": {
-    "prepare": "husky install && pnpm run build",
-    "build": "turbo build --filter='./packages/*'",
-    "build:manual": "bun run ./scripts/build.ts",
-    "build:docs": "pnpm --filter \"@eslint-react/*\" run --parallel build:docs && eslint-doc-generator",
-    "format:check": "dprint check",
-    "format:write": "dprint fmt",
-    "lint": "pnpm run format:check && pnpm run lint:spell && pnpm run lint:deps && pnpm run lint:type && pnpm run lint:ts && pnpm run lint:publish",
-    "lint:deps": "skott -m file-tree -e .ts -s",
-    "lint:spell": "cspell lint --relative --no-progress '**'",
-    "lint:ts": "eslint --cache .",
-    "lint:fix": "eslint --cache --fix .",
-    "lint:type": "pnpm -r run --parallel lint:type",
-    "lint:publish": "pnpm -r run --parallel lint:publish",
-    "test": "vitest --run",
-    "test:ui": "vitest --ui",
-    "update": "taze",
-    "inspect:unused": "knip",
-    "inspect:eslint-config": "eslint --print-config ./taze.config.ts > eslint-config.json",
-    "inspect:deps": "skott -e .ts -s -t",
-    "clean": "rm -r -f packages/*/dist packages/*/docs **/*/node_modules pnpm-lock.yaml"
-  },
+  "main": "packages/eslint-plugin/dist/index.js",
   "workspaces": [
     "packages/*",
     "examples/*"
   ],
+  "scripts": {
+    "build": "turbo build --filter='./packages/*'",
+    "build:docs": "pnpm --filter \"@eslint-react/*\" run --parallel build:docs && eslint-doc-generator",
+    "build:manual": "bun run ./scripts/build.ts",
+    "clean": "rm -r -f packages/*/dist packages/*/docs **/*/node_modules pnpm-lock.yaml",
+    "format:check": "dprint check",
+    "format:write": "dprint fmt",
+    "inspect:deps": "skott -e .ts -s -t",
+    "inspect:eslint-config": "eslint --print-config ./taze.config.ts > eslint-config.json",
+    "inspect:unused": "knip",
+    "lint": "pnpm run format:check && pnpm run lint:spell && pnpm run lint:deps && pnpm run lint:type && pnpm run lint:ts && pnpm run lint:publish",
+    "lint:deps": "skott -m file-tree -e .ts -s",
+    "lint:fix": "eslint --cache --fix .",
+    "lint:publish": "pnpm -r run --parallel lint:publish",
+    "lint:spell": "cspell lint --relative --no-progress '**'",
+    "lint:ts": "eslint --cache .",
+    "lint:type": "pnpm -r run --parallel lint:type",
+    "prepare": "husky install && pnpm run build",
+    "test": "vitest --run",
+    "test:ui": "vitest --ui",
+    "update": "taze"
+  },
   "devDependencies": {
-    "@effect/docgen": "0.2.0",
     "@effect/language-service": "0.0.21",
     "@rollup/plugin-commonjs": "25.0.7",
     "@rollup/plugin-json": "6.0.1",

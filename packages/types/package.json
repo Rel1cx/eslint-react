@@ -1,7 +1,10 @@
 {
   "name": "@eslint-react/types",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "",
+  "keywords": [
+    "eslint-config"
+  ],
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
     "url": "https://github.com/Rel1cx/eslint-react/issues"
@@ -13,12 +16,6 @@
   },
   "license": "MIT",
   "author": "Eva1ent<let@ik.me>",
-  "keywords": [
-    "eslint-config"
-  ],
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": {
@@ -32,16 +29,19 @@
     },
     "./package.json": "./package.json"
   },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "./package.json"
   ],
   "scripts": {
-    "lint:type": "tsc --noEmit",
-    "lint:publish": "pnpm publint",
     "build": "rollup -c rollup.config.ts --configPlugin swc3 && cp dist/index.d.ts dist/index.d.mts",
-    "publish": "pnpm run build && pnpm run lint:publish",
-    "build:docs": "typedoc && dprint fmt ./docs/**/*.md"
+    "build:docs": "typedoc && dprint fmt ./docs/**/*.md",
+    "lint:publish": "pnpm publint",
+    "lint:type": "tsc --noEmit",
+    "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
     "@eslint-react/tools": "workspace:*",
