@@ -1,7 +1,7 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "0.5.4",
-  "description": "ESLint plugin for React and Preact function components with TypeScript, built from scratch (almost).",
+  "version": "0.5.5",
+  "description": "ESLint plugin for React function components with TypeScript, built (mostly) from scratch.",
   "keywords": [
     "eslint",
     "eslint-plugin",
@@ -24,9 +24,6 @@
   },
   "license": "MIT",
   "author": "Eva1ent<let@ik.me>",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": {
@@ -40,14 +37,17 @@
     },
     "./package.json": "./package.json"
   },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "files": [
     "./dist",
     "./package.json"
   ],
   "scripts": {
-    "lint:type": "tsc --noEmit",
-    "lint:publish": "pnpm publint && cd ../.. && pnpm run test",
     "build": "rollup -c rollup.config.ts --configPlugin swc3 && cp dist/index.d.ts dist/index.d.mts",
+    "lint:publish": "pnpm publint && cd ../.. && pnpm run test",
+    "lint:type": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
