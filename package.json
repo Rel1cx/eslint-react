@@ -94,7 +94,7 @@
     "typedoc": "0.25.2",
     "typedoc-plugin-markdown": "3.16.0",
     "typedoc-plugin-mermaid": "1.10.0",
-    "typedoc-plugin-rename-defaults": "0.6.7",
+    "typedoc-plugin-rename-defaults": "0.7.0",
     "typescript": ">=5.2.2",
     "vitest": "0.34.6"
   },

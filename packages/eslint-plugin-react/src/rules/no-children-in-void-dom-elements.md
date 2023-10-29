@@ -1,8 +1,12 @@
-# @eslint-react/no-children-in-void-dom-elements
+# react/no-children-in-void-dom-elements
+
+<!-- end auto-generated rule header -->
 
 Self-closing HTML elements (e.g. `<img />`, `<br />`, `<hr />`) are collectively known as void DOM elements. React will give you a warning if you try to give these children:
 
 > Invariant Violation: img is a void element tag and must neither have children nor use dangerouslySetInnerHTML.
+
+## Rule Details
 
 ### ❌ Incorrect
 

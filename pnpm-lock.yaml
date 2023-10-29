@@ -154,8 +154,8 @@ importers:
         specifier: 1.10.0
         version: 1.10.0(typedoc@0.25.2)
       typedoc-plugin-rename-defaults:
-        specifier: 0.6.7
-        version: 0.6.7(typedoc@0.25.2)
+        specifier: 0.7.0
+        version: 0.7.0(typedoc@0.25.2)
       typescript:
         specifier: beta
         version: 5.3.0-beta
@@ -197,8 +197,8 @@ importers:
         specifier: ^4.6.0
         version: 4.6.0(eslint@8.52.0)
       eslint-plugin-react-refresh:
-        specifier: ^0.4.3
-        version: 0.4.3(eslint@8.52.0)
+        specifier: ^0.4.4
+        version: 0.4.4(eslint@8.52.0)
       typescript:
         specifier: beta
         version: 5.3.0-beta
@@ -240,8 +240,8 @@ importers:
         specifier: ^4.6.0
         version: 4.6.0(eslint@8.52.0)
       eslint-plugin-react-refresh:
-        specifier: ^0.4.3
-        version: 0.4.3(eslint@8.52.0)
+        specifier: ^0.4.4
+        version: 0.4.4(eslint@8.52.0)
       typescript:
         specifier: beta
         version: 5.3.0-beta
@@ -3323,6 +3323,11 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /camelcase@8.0.0:
+    resolution: {integrity: sha512-8WB3Jcas3swSvjIeA2yvCJ+Miyz5l1ZmB6HFb9R1317dt9LCQoswg/BGrmAmkWVEszSrrg4RwmO46qIm2OEnSA==}
+    engines: {node: '>=16'}
+    dev: true
+
   /caniuse-lite@1.0.30001557:
     resolution: {integrity: sha512-91oR7hLNUP3gG6MLU+n96em322a8Xzes8wWdBKhLgUoiJsAF5irZnxSUCbc+qUZXNnPCfUwLOi9ZCZpkvjQajw==}
     dev: true
@@ -4307,6 +4312,14 @@ packages:
 
   /eslint-plugin-react-refresh@0.4.3(eslint@8.52.0):
     resolution: {integrity: sha512-Hh0wv8bUNY877+sI0BlCUlsS0TYYQqvzEwJsJJPM2WF4RnTStSnSR3zdJYa2nPOJgg3UghXi54lVyMSmpCalzA==}
+    peerDependencies:
+      eslint: '>=8.52.0'
+    dependencies:
+      eslint: 8.52.0
+    dev: true
+
+  /eslint-plugin-react-refresh@0.4.4(eslint@8.52.0):
+    resolution: {integrity: sha512-eD83+65e8YPVg6603Om2iCIwcQJf/y7++MWm4tACtEswFLYMwxwVWAfwN+e19f5Ad/FOyyNg9Dfi5lXhH3Y3rA==}
     peerDependencies:
       eslint: '>=8.52.0'
     dependencies:
@@ -7601,11 +7614,12 @@ packages:
       typedoc: 0.25.2(typescript@5.3.0-beta)
     dev: true
 
-  /typedoc-plugin-rename-defaults@0.6.7(typedoc@0.25.2):
-    resolution: {integrity: sha512-b+j0qQCdE69IUP6ZJgS6zonG59AcaKM8B8zdNlj1jnv6XefDLkIWdFxXfS3KhFOpVzW22pNCfdOCCym9ryS3wA==}
+  /typedoc-plugin-rename-defaults@0.7.0(typedoc@0.25.2):
+    resolution: {integrity: sha512-NudSQ1o/XLHNF9c4y7LzIZxfE9ltz09yCDklBPJpP5VMRvuBpYGIbQ0ZgmPz+EIV8vPx9Z/OyKwzp4HT2vDtfg==}
     peerDependencies:
       typedoc: 0.22.x || 0.23.x || 0.24.x || 0.25.x
     dependencies:
+      camelcase: 8.0.0
       typedoc: 0.25.2(typescript@5.3.0-beta)
     dev: true
 

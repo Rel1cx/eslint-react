@@ -1,4 +1,6 @@
-# @eslint-react/no-namespace
+# react/no-namespace
+
+<!-- end auto-generated rule header -->
 
 Enforces the absence of a namespace in React elements, such as with `svg:circle`, as they are not supported in React.
 

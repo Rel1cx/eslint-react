@@ -28,8 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
               bounds: null,
               search: false
           }
-          return (props) => {
-              const {x, y} = props
+          return ({ x, y }) => {
               if (y) {
                   return <span>{y}</span>;
               }
@@ -55,42 +54,19 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     "const App = ({ id, className }) => (<div id={id} className={className} />)",
-    {
-      code: "const App = ({ id, className }) => (<div id={id} className={className} />)",
-      options: ["always"],
-    },
     dedent`
-      const App = (props) => {
-          const { id, className } = props
+      const App = ({ id, className }) => {
           return <div id={id} className={className} />
       }
     `,
-    {
-      code: dedent`
-        const App = (props) => {
-            const { id, className } = props
-            return <div id={id} className={className} /> }
-      `,
-      options: ["always"],
-    },
+    dedent`
+      const App = ({ id, className }) => {
+          return <div id={id} className={className} /> }
+    `,
     "const App = (props) => (<div id={id} props={props} />)",
-    {
-      code: "const Component = (props) => (<div id={id} props={props} />)",
-      options: ["always"],
-    },
+    "const Component = (props) => (<div id={id} props={props} />)",
     "const App = (props, { color }) => (<div id={id} props={props} color={color} />)",
-    {
-      code: "const Component = (props, { color }) => (<div id={id} props={props} color={color} />)",
-      options: ["always"],
-    },
-    {
-      code: dedent`
-        const App = (props) => {
-            const { h, i } = hi;
-            return <div id={props.id} className={props.className} />}
-      `,
-      options: ["never"],
-    },
+    "const Component = (props, { color }) => (<div id={id} props={props} color={color} />)",
     dedent`
       const div = styled.div\`
       & .button {
@@ -103,15 +79,12 @@ ruleTester.run(RULE_NAME, rule, {
           foo: context.bar
       })
     `,
-    {
-      code: dedent`
-        function App({ context }) {
-            const d = context.describe()
-            return <div>{d}</div>
-        }
-      `,
-      options: ["always"],
-    },
+    dedent`
+      function App({ context }) {
+          const d = context.describe()
+          return <div>{d}</div>
+      }
+    `,
     dedent`
       const obj = {
           foo(arg) {
@@ -164,37 +137,21 @@ ruleTester.run(RULE_NAME, rule, {
           return null
       }
     `,
-    {
-      code: dedent`
-        import { useContext } from 'react'
-        const App = (props) => {
-            const {foo} = useContext(aContext)
-            return <div>{foo}</div>
-        }
-      `,
-      options: ["always"],
-    },
-    {
-      code: dedent`
-        import { useContext } from 'react'
-        const App = (props) => {
-            const foo = useContext(aContext)
-            return <div>{foo.test}</div>
-        }
-      `,
-      options: ["never"],
-    },
-    {
-      code: dedent`
-        import { useContext } from 'react'
-        import dedent from 'dedent'
-        const App = (props) => {
-            const foo = useContext(aContext)
-            return <div>{foo.test}</div>
-        }
-      `,
-      options: ["always"],
-    },
+    dedent`
+      import { useContext } from 'react'
+      const App = (props) => {
+          const {foo} = useContext(aContext)
+          return <div>{foo}</div>
+      }
+    `,
+    dedent`
+      import { useContext } from 'react'
+      import dedent from 'dedent'
+      const App = (props) => {
+          const foo = useContext(aContext)
+          return <div>{foo.test}</div>
+      }
+    `,
     dedent`
       import { useContext } from 'react'
       const App = (props) => {
@@ -246,8 +203,31 @@ ruleTester.run(RULE_NAME, rule, {
           )
       );
     `,
+    dedent`
+      import { useContext } from 'react'
+      const App = (props) => {
+          const foo = useContext(aContext)
+          return <div>{foo.test}</div>
+      }
+    `,
   ],
   invalid: [
+    {
+      code: dedent`
+        const App = (props) => {
+            const { h, i } = hi
+            return <div id={props.id} className={props.className} />
+          }
+      `,
+      errors: [
+        {
+          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+        },
+        {
+          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+        },
+      ],
+    },
     {
       code: dedent`
         function App(props) {
@@ -256,10 +236,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "USE_DESTRUCTURING_ASSIGNMENT",
+          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
         },
         {
-          messageId: "USE_DESTRUCTURING_ASSIGNMENT",
+          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
         },
       ],
     },
@@ -280,7 +260,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "USE_DESTRUCTURING_ASSIGNMENT",
+          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
         },
       ],
     },
@@ -301,7 +281,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "USE_DESTRUCTURING_ASSIGNMENT",
+          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
         },
       ],
     },
@@ -324,7 +304,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "USE_DESTRUCTURING_ASSIGNMENT",
+          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
         },
       ],
     },
