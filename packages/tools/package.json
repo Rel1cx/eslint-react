@@ -1,10 +1,7 @@
 {
   "name": "@eslint-react/tools",
   "version": "0.5.5",
-  "description": "",
-  "keywords": [
-    "eslint-config"
-  ],
+  "description": "Primitive tools for @eslint-react",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
     "url": "https://github.com/Rel1cx/eslint-react/issues"
