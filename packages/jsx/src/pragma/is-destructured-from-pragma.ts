@@ -27,17 +27,20 @@ export function isDestructuredFromPragma<T extends RuleContext>(variableName: st
   const latestDef = maybeLatestDef.value;
   const { node, parent } = latestDef;
 
-  // TODO: re-implement this
   if (node.type === NodeType.VariableDeclarator && node.init) {
     const { init } = node;
+
+    // check for: `variable = pragma.variable`
     if (isMatching({ type: "MemberExpression", object: { type: "Identifier", name: pragma } }, init)) {
       return true;
     }
 
+    // check for: `{ variable } = pragma`
     if (isMatching({ type: "Identifier", name: pragma }, init)) {
       return true;
     }
 
+    // check if from a require call: `require("react")`
     const maybeRequireExpression = match(init)
       .with({ type: NodeType.CallExpression }, (exp) => O.some(exp))
       .with(
@@ -64,5 +67,6 @@ export function isDestructuredFromPragma<T extends RuleContext>(variableName: st
     return firstArg.value === pragma.toLowerCase();
   }
 
+  // latest definition is an import declaration: import { variable } from 'react'
   return isMatching({ type: "ImportDeclaration", source: { value: pragma.toLowerCase() } }, parent);
 }

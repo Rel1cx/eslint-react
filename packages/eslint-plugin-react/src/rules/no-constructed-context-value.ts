@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallows passing constructed values to context providers",
+      description: "disallow passing constructed values to context providers",
       recommended: "recommended",
       requiresTypeChecking: false,
     },

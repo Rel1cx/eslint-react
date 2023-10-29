@@ -1,5 +1,6 @@
 import { NodeType } from "@eslint-react/ast";
 import { isCreateElementCall } from "@eslint-react/jsx";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils";
 
@@ -31,7 +32,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallows passing children to void DOM elements",
+      description: "disallow passing children to void DOM elements",
       recommended: "recommended",
       requiresTypeChecking: false,
     },

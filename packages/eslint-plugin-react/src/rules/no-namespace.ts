@@ -1,5 +1,6 @@
 import { elementType, isCreateElementCall } from "@eslint-react/jsx";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils";
 

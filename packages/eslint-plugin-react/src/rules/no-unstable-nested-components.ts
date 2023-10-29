@@ -1,5 +1,4 @@
 /* eslint-disable unicorn/no-keyword-prefix */
-
 import {
   isClass,
   isFunction,

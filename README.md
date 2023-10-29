@@ -115,13 +115,17 @@ export default [
 
 | Name                                                                                                                                     | Description                                                                     |
 | :--------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ |
+| [react/no-children-in-void-dom-elements](packages/eslint-plugin-react/src/rules/no-children-in-void-dom-elements.md)                     | disallow passing children to void DOM elements                                  |
 | [react/no-class-component](packages/eslint-plugin-react/src/rules/no-class-component.md)                                                 | enforce that there are no class components                                      |
-| [react/no-constructed-context-value](packages/eslint-plugin-react/src/rules/no-constructed-context-value.md)                             | disallows passing constructed values to context providers                       |
+| [react/no-constructed-context-value](packages/eslint-plugin-react/src/rules/no-constructed-context-value.md)                             | disallow passing constructed values to context providers                        |
+| [react/no-create-ref](packages/eslint-plugin-react/src/rules/no-create-ref.md)                                                           | disallow `createRef` in function components                                     |
 | [react/no-dangerously-set-innerhtml](packages/eslint-plugin-react/src/rules/no-dangerously-set-innerhtml.md)                             | disallow when a DOM element is using both children and dangerouslySetInnerHTML' |
 | [react/no-dangerously-set-innerhtml-with-children](packages/eslint-plugin-react/src/rules/no-dangerously-set-innerhtml-with-children.md) | disallow when a DOM element is using both children and dangerouslySetInnerHTML' |
+| [react/no-namespace](packages/eslint-plugin-react/src/rules/no-namespace.md)                                                             | enforce that namespaces are not used in React elements                          |
 | [react/no-string-refs](packages/eslint-plugin-react/src/rules/no-string-refs.md)                                                         | disallow using deprecated string refs                                           |
 | [react/no-unstable-default-props](packages/eslint-plugin-react/src/rules/no-unstable-default-props.md)                                   | disallow usage of unstable value as default param in function component         |
 | [react/no-unstable-nested-components](packages/eslint-plugin-react/src/rules/no-unstable-nested-components.md)                           | disallow usage of unstable nested components                                    |
+| [react/prefer-destructuring-assignment](packages/eslint-plugin-react/src/rules/prefer-destructuring-assignment.md)                       | enforce using destructuring assignment in component props and context           |
 
 <!-- end auto-generated rules list -->
 
@@ -134,12 +138,12 @@ export default [
 - [x] `@eslint-react/hooks/ensure-custom-hooks-using-other-hooks`
 - [ ] `@eslint-react/jsx/enforce-component-name-pascal-case`
 - [x] `@eslint-react/jsx/no-array-index-key`
-- [ ] `@eslint-react/jsx/no-children-in-void-dom-elements`
+- [x] `@eslint-react/jsx/no-children-in-void-dom-elements`
 - [x] `@eslint-react/jsx/no-duplicate-key`
 - [x] `@eslint-react/jsx/no-leaked-conditional-rendering`
 - [x] `@eslint-react/jsx/no-missing-key`
 - [x] `@eslint-react/jsx/no-misused-comment-in-textnode`
-- [ ] `@eslint-react/jsx/no-namespace`
+- [x] `@eslint-react/jsx/no-namespace`
 - [x] `@eslint-react/jsx/no-script-url`
 - [ ] `@eslint-react/jsx/no-target-blank`
 - [ ] `@eslint-react/jsx/no-unknown-property`
@@ -160,7 +164,7 @@ export default [
 - [ ] `@eslint-react/no-children-methods`
 - [x] `@eslint-react/no-class-component`
 - [ ] `@eslint-react/no-clone-element`
-- [ ] `@eslint-react/no-createRef`
+- [x] `@eslint-react/no-createRef`
 - [x] `@eslint-react/no-unstable-default-props`
 - [x] `@eslint-react/no-unstable-nested-components`
 - [ ] `@eslint-react/no-unused-class-component-methods`
