@@ -59,7 +59,7 @@
     "ts-pattern": "5.0.5"
   },
   "peerDependencies": {
-    "@typescript-eslint/parser": ">=6.9.0",
+    "@typescript-eslint/parser": ">=6.9.1",
     "eslint": ">=8.52.0",
     "typescript": ">=5.2.2"
   },

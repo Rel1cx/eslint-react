@@ -99,7 +99,7 @@
     "vitest": "0.34.6"
   },
   "peerDependencies": {
-    "@typescript-eslint/parser": ">=6.9.0",
+    "@typescript-eslint/parser": ">=6.9.1",
     "eslint": ">=8.52.0",
     "typescript": ">=5.2.2"
   },
@@ -117,11 +117,11 @@
       "rambda": "latest",
       "eslint": ">=8.52.0",
       "typescript": "beta",
-      "@typescript-eslint/scope-manager": "6.9.0",
-      "@typescript-eslint/type-utils": "6.9.0",
-      "@typescript-eslint/types": "6.9.0",
-      "@typescript-eslint/utils": "6.9.0",
-      "@typescript-eslint/parser": ">=6.9.0"
+      "@typescript-eslint/scope-manager": "6.9.1",
+      "@typescript-eslint/type-utils": "6.9.1",
+      "@typescript-eslint/types": "6.9.1",
+      "@typescript-eslint/utils": "6.9.1",
+      "@typescript-eslint/parser": ">=6.9.1"
     },
     "patchedDependencies": {
       "eslint-doc-generator@1.5.2": "patches/eslint-doc-generator@1.5.2.patch"
