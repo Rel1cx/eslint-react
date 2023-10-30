@@ -2,6 +2,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import noChildrenInVoidDomElements from "./rules/no-children-in-void-dom-elements";
 import noClassComponent from "./rules/no-class-component";
+import noCloneElement from "./rules/no-clone-element";
 import noConstructedContextValue from "./rules/no-constructed-context-value";
 import noCreateRef from "./rules/no-create-ref";
 import noDangerouslySetInnerHTML from "./rules/no-dangerously-set-innerhtml";
@@ -17,6 +18,7 @@ export { name } from "../package.json";
 export const rules = {
   "no-children-in-void-dom-elements": noChildrenInVoidDomElements,
   "no-class-component": noClassComponent,
+  "no-clone-element": noCloneElement,
   "no-constructed-context-value": noConstructedContextValue,
   "no-create-ref": noCreateRef,
   "no-dangerously-set-innerhtml": noDangerouslySetInnerHTML,

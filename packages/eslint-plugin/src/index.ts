@@ -17,7 +17,7 @@ const rulePreset = {
   "debug/class-component": "warn",
   "debug/function-component": "warn",
   "hooks/ensure-custom-hooks-using-other-hooks": "warn",
-  "jsx/no-array-index-key": "error",
+  "jsx/no-array-index-key": "warn",
   "jsx/no-duplicate-key": "error",
   "jsx/no-leaked-conditional-rendering": "error",
   "jsx/no-missing-key": "error",
@@ -25,13 +25,14 @@ const rulePreset = {
   "jsx/prefer-shorthand-boolean": "warn",
   "naming-convention/filename": "warn",
   "naming-convention/filename-extension": "warn",
-  "react/no-class-component": "error",
+  "react/no-class-component": "warn",
+  "react/no-clone-element": "warn",
   "react/no-constructed-context-value": "error",
-  "react/no-dangerously-set-innerhtml": "error",
+  "react/no-dangerously-set-innerhtml": "warn",
   "react/no-dangerously-set-innerhtml-with-children": "error",
   "react/no-string-refs": "error",
   "react/no-unstable-default-props": "error",
-  "react/no-unstable-nested-components": "error",
+  "react/no-unstable-nested-components": "warn",
 } as const satisfies RulePreset;
 
 const recommendedPreset = {

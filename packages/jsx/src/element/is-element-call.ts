@@ -1,7 +1,7 @@
 import { type CallFromPragmaPredicate, isCallFromPragma } from "../pragma";
 
 /**
- * Checks if the given node is a call expression to `React.createElement`
+ * Checks if the given node is a call expression to `createElement`
  * @param node The AST node to check
  * @param context The rule context
  * @returns `true` if the node is a call expression to `createElement`
@@ -9,7 +9,7 @@ import { type CallFromPragmaPredicate, isCallFromPragma } from "../pragma";
 export const isCreateElementCall: CallFromPragmaPredicate = isCallFromPragma("createElement");
 
 /**
- * Checks if the given node is a call expression to `React.cloneElement`
+ * Checks if the given node is a call expression to `cloneElement`
  * @param node The AST node to check
  * @param context The rule context
  * @returns `true` if the node is a call expression to `cloneElement`
