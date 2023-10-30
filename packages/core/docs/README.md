@@ -7,6 +7,8 @@
 ### Type Aliases
 
 - [ComponentCollectorCache](README.md#componentcollectorcache)
+- [ComponentCollectorLegacyCache](README.md#componentcollectorlegacycache)
+- [ComponentCollectorLegacyOptions](README.md#componentcollectorlegacyoptions)
 - [ComponentCollectorOptions](README.md#componentcollectoroptions)
 
 ### Variables
@@ -43,9 +45,21 @@
 
 ---
 
+### ComponentCollectorLegacyCache
+
+Ƭ **ComponentCollectorLegacyCache**: `WeakSet`<`TSESTreeClass`\>
+
+---
+
+### ComponentCollectorLegacyOptions
+
+Ƭ **ComponentCollectorLegacyOptions**: `Object`
+
+---
+
 ### ComponentCollectorOptions
 
-Ƭ **ComponentCollectorOptions**: `JSXValueCheckOptions` & { `cache?`: [`ComponentCollectorCache`](README.md#componentcollectorcache) ; `ignoreMapCall?`: `boolean` }
+Ƭ **ComponentCollectorOptions**: `JSXValueCheckOptions` & { `ignoreMapCall?`: `boolean` }
 
 ## Variables
 
@@ -94,13 +108,15 @@
 
 ### componentCollectorLegacy
 
-▸ **componentCollectorLegacy**(`context`): `Object`
+▸ **componentCollectorLegacy**(`context`, `options?`, `cache?`): `Object`
 
 #### Parameters
 
-| Name      | Type                                                        |
-| :-------- | :---------------------------------------------------------- |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
+| Name      | Type                                                                           | Default value                            |
+| :-------- | :----------------------------------------------------------------------------- | :--------------------------------------- |
+| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\>                    | `undefined`                              |
+| `options` | [`ComponentCollectorLegacyOptions`](README.md#componentcollectorlegacyoptions) | `defaultComponentCollectorLegacyOptions` |
+| `cache`   | [`ComponentCollectorLegacyCache`](README.md#componentcollectorlegacycache)     | `undefined`                              |
 
 #### Returns
 
