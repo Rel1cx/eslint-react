@@ -34,7 +34,7 @@ const rulePreset = {
   "react/no-unstable-nested-components": "error",
 } as const satisfies RulePreset;
 
-const recommendedRules = {
+const recommendedPreset = {
   "jsx/no-array-index-key": "error",
   "jsx/no-duplicate-key": "error",
   "jsx/no-leaked-conditional-rendering": "error",
@@ -51,10 +51,10 @@ const recommendedRules = {
 } as const satisfies RulePreset;
 
 const rulePresetEntries = entries(rulePreset);
-const allRules = fromEntries(rulePresetEntries.filter(([key]) => !key.startsWith("debug/")));
-const offRules = fromEntries(rulePresetEntries.map(([key]) => [key, "off"]));
-const jsxRules = fromEntries(rulePresetEntries.filter(([key]) => key.startsWith("jsx/")));
-const debugRules = fromEntries(rulePresetEntries.filter(([key]) => key.startsWith("debug/")));
+const allPreset = fromEntries(rulePresetEntries.filter(([key]) => !key.startsWith("debug/")));
+const offPreset = fromEntries(rulePresetEntries.map(([key]) => [key, "off"]));
+const jsxPreset = fromEntries(rulePresetEntries.filter(([key]) => key.startsWith("jsx/")));
+const debugPreset = fromEntries(rulePresetEntries.filter(([key]) => key.startsWith("debug/")));
 
 const legacyConfigPlugins = ["@eslint-react"] as const;
 
@@ -87,19 +87,19 @@ export default {
     version,
   },
   configs: {
-    "all-legacy": createLegacyConfig(allRules),
-    "debug-legacy": createLegacyConfig(debugRules),
-    "jsx-legacy": createLegacyConfig(jsxRules),
-    "off-legacy": createLegacyConfig(offRules),
-    "recommended-legacy": createLegacyConfig(recommendedRules),
-    "recommended-type-checked-legacy": createLegacyConfig(recommendedRules),
+    "all-legacy": createLegacyConfig(allPreset),
+    "debug-legacy": createLegacyConfig(debugPreset),
+    "jsx-legacy": createLegacyConfig(jsxPreset),
+    "off-legacy": createLegacyConfig(offPreset),
+    "recommended-legacy": createLegacyConfig(recommendedPreset),
+    "recommended-type-checked-legacy": createLegacyConfig(recommendedPreset),
     // eslint-disable-next-line perfectionist/sort-objects
-    all: createFlatConfig(allRules),
-    debug: createFlatConfig(debugRules),
-    jsx: createFlatConfig(jsxRules),
-    off: createFlatConfig(offRules),
-    recommended: createFlatConfig(recommendedRules),
-    "recommended-type-checked": createFlatConfig(recommendedRules),
+    all: createFlatConfig(allPreset),
+    debug: createFlatConfig(debugPreset),
+    jsx: createFlatConfig(jsxPreset),
+    off: createFlatConfig(offPreset),
+    recommended: createFlatConfig(recommendedPreset),
+    "recommended-type-checked": createFlatConfig(recommendedPreset),
   },
   rules: {
     ...padKeysLeft(debug.rules, "debug/"),
