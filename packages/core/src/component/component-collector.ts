@@ -14,17 +14,17 @@ import { shallowEqual } from "fast-equals";
 import { isFunctionOfRenderMethod } from "./component-collector-legacy";
 import { isValidReactComponentName } from "./is-valid-react-component-name";
 
-const hasInvalidName = (node: TSESTreeFunction) => {
+const hasNoneOrValidName = (node: TSESTreeFunction) => {
   const id = getFunctionIdentifier(node);
 
-  return id && !isValidReactComponentName(id.name);
+  return !id || isValidReactComponentName(id.name);
 };
 
-const hasInvalidHierarchy = (node: TSESTreeFunction, context: RuleContext, ignoreMapCall = false) => {
-  return isChildrenOfCreateElement(node, context)
+const hasValidHierarchy = (node: TSESTreeFunction, context: RuleContext, ignoreMapCall = false) => {
+  return !(isChildrenOfCreateElement(node, context)
     || isFunctionOfRenderMethod(node, context)
     // eslint-disable-next-line @typescript-eslint/no-extra-parens
-    || (ignoreMapCall && unsafeIsMapCall(node.parent));
+    || (ignoreMapCall && unsafeIsMapCall(node.parent)));
 };
 
 export type ComponentCollectorOptions = JSXValueCheckOptions & {
@@ -91,9 +91,9 @@ export function componentCollector(
       }
 
       if (
-        hasInvalidName(currentFn)
-        || !isJSXValue(node.argument, context, options)
-        || hasInvalidHierarchy(currentFn, context, options.ignoreMapCall)
+        !(hasNoneOrValidName(currentFn)
+          && isJSXValue(node.argument, context, options)
+          && hasValidHierarchy(currentFn, context, options.ignoreMapCall))
       ) {
         return;
       }
@@ -111,9 +111,9 @@ export function componentCollector(
 
       const { body } = node;
       if (
-        hasInvalidName(node)
-        || !isJSXValue(body, context, options)
-        || hasInvalidHierarchy(node, context, options.ignoreMapCall)
+        !(hasNoneOrValidName(node)
+          && isJSXValue(body, context, options)
+          && hasValidHierarchy(node, context, options.ignoreMapCall))
       ) {
         return;
       }
