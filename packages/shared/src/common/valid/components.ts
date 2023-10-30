@@ -1,3 +1,4 @@
+// eslint-disable-next-line functional-core/purity
 import dedent from "dedent";
 
 export const createElementComponent = "const CreateElementComponent = () => React.createElement('div', null, null)";
@@ -28,11 +29,11 @@ export const memoForwardRefComponent = dedent`
   const MemoForwardRefComponent = memo(forwardRef(() => <div></div>))
 `;
 
-export const allComponents = Object.freeze([
+export const allComponents = [
   arrowFunctionComponent,
   functionComponent,
   createElementComponent,
   memoComponent,
   forwardRefComponent,
   memoForwardRefComponent,
-]);
+] as const;

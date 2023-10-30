@@ -1,3 +1,4 @@
+// eslint-disable-next-line functional-core/purity
 import { deepmergeCustom } from "deepmerge-ts";
 
 export const mergeConfigs = deepmergeCustom<

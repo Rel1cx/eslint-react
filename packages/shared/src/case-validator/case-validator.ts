@@ -15,6 +15,7 @@ export class CaseValidator {
     expression: RegExp,
     ignorePatterns: RegExp[],
     recommendationBuilder: RecommendationBuilder = () => {
+      // eslint-disable-next-line functional-core/purity
       throw new Error("Not implemented");
     },
   ) {
@@ -29,6 +30,7 @@ export class CaseValidator {
       return recommendedName;
     }
 
+    // eslint-disable-next-line functional-core/purity
     throw new Error("Failed to build recommendation.");
   }
 

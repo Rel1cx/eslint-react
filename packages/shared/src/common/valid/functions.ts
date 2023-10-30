@@ -1,3 +1,4 @@
+// eslint-disable-next-line functional-core/purity
 import dedent from "dedent";
 
 export const fn = "const fn = () => null";
@@ -16,9 +17,9 @@ export const renderFunctionWithReturn = dedent`
   }
 `;
 
-export const allFunctions = Object.freeze([
+export const allFunctions = [
   fn,
   fnWithReturn,
   renderFunction,
   renderFunctionWithReturn,
-]);
+] as const;

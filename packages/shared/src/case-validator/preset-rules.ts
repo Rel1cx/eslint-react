@@ -59,8 +59,8 @@ export const presetRules: PresetRules = {
   },
 };
 
-export const getRule = (expression: string): Rule => {
-  const rule = presetRules[expression];
+export const getRule = (expression: string, preset = presetRules): Rule => {
+  const rule = preset[expression];
 
   return rule ?? { expression: new RegExp(`^${expression}$`, "u") };
 };
