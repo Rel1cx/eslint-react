@@ -1,3 +1,4 @@
+// eslint-disable-next-line functional-core/purity
 import { ESLintUtils } from "@typescript-eslint/utils";
 
 import { GITHUB_BASEURL } from "./constants";
