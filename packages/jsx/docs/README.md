@@ -494,7 +494,7 @@ node is CallExpression
 
 ▸ **isCloneElementCall**(`node`, `context`): node is CallExpression
 
-Checks if the given node is a call expression to `React.cloneElement`
+Checks if the given node is a call expression to `cloneElement`
 
 #### Parameters
 
@@ -515,7 +515,7 @@ node is CallExpression
 
 ▸ **isCreateElementCall**(`node`, `context`): node is CallExpression
 
-Checks if the given node is a call expression to `React.createElement`
+Checks if the given node is a call expression to `createElement`
 
 #### Parameters
 

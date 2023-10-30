@@ -35,4 +35,4 @@ class Input extends Component {
 
 ## Further Reading
 
-- [react.dev: legacy createRef](https://react.dev/reference/react/createRef)
+- [react.dev: Legacy React APIs createRef](https://react.dev/reference/react/createRef)

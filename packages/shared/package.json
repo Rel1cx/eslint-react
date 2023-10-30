@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@eslint-react/tools": "workspace:*",
-    "@typescript-eslint/utils": "6.9.0",
+    "@typescript-eslint/utils": "6.9.1",
     "dedent": "1.5.1",
     "deepmerge-ts": "5.1.0",
     "tslib": "2.6.2"
