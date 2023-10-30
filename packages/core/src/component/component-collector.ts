@@ -32,10 +32,6 @@ export type ComponentCollectorOptions = JSXValueCheckOptions & {
    * ignore components in map method's callback function
    */
   ignoreMapCall?: boolean;
-  /**
-   * cache for seen components
-   */
-  cache?: ComponentCollectorCache;
 };
 
 export type ComponentCollectorCache = WeakMap<TSESTreeFunction, ComponentCollectorOptions>;
@@ -57,6 +53,7 @@ export function componentCollector(
   const onFunctionExit = () => MutList.pop(functionStack);
 
   const ctx = {
+    // get allComponents(): E.Either<Error, TSESTreeFunction[]>
     getAllComponents(): E.Either<Error, TSESTreeFunction[]> {
       if (context.getScope().block.type !== NodeType.Program) {
         return E.left(new Error("getAllComponents should only be called in Program:exit"));

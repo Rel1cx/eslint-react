@@ -62,7 +62,7 @@
 
 #### Type declaration
 
-• <`A`\>(`args`)
+• <`A`\>(`args`): [`Data`](Data.md#data)<`Readonly`<`A`\>\>
 
 Provides a constructor for a Case Class.
 
@@ -77,6 +77,10 @@ Provides a constructor for a Case Class.
 | Name   | Type                                                                                                                                                                              |
 | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `args` | `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] } |
+
+##### Returns
+
+[`Data`](Data.md#data)<`Readonly`<`A`\>\>
 
 **`Example`**
 
@@ -108,7 +112,7 @@ assert.deepStrictEqual(Equal.equals(mike1, john), false);
 
 #### Type declaration
 
-• <`A`\>(`args`)
+• <`A`\>(`args`): [`YieldableError`](../interfaces/Data.YieldableError.md) & `Readonly`<`A`\>
 
 Provides a constructor for a Case Class.
 
@@ -124,6 +128,10 @@ Provides a constructor for a Case Class.
 | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `args` | `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] } |
 
+##### Returns
+
+[`YieldableError`](../interfaces/Data.YieldableError.md) & `Readonly`<`A`\>
+
 **`Since`**
 
 2.0.0
@@ -136,7 +144,7 @@ Provides a constructor for a Case Class.
 
 #### Type declaration
 
-• <`A`\>(`args`)
+• <`A`\>(`args`): [`Case`](../interfaces/Data.Case-1.md)
 
 ##### Type parameters
 
@@ -149,6 +157,10 @@ Provides a constructor for a Case Class.
 | Name   | Type                                                                                                                                                                              |
 | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `args` | `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] } |
+
+##### Returns
+
+[`Case`](../interfaces/Data.Case-1.md)
 
 **`Since`**
 
@@ -178,7 +190,7 @@ Provides a Tagged constructor for a Case Class.
 
 `fn`
 
-• **new TaggedClass**<`A`\>(`args`)
+• **new TaggedClass**<`A`\>(`args`): [`Data`](Data.md#data)<`Readonly`<`A`\> & { `_tag`: `Tag` }\>
 
 ##### Type parameters
 
@@ -191,6 +203,10 @@ Provides a Tagged constructor for a Case Class.
 | Name   | Type                                                                                                                                                                                                      |
 | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `args` | `Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] } |
+
+##### Returns
+
+[`Data`](Data.md#data)<`Readonly`<`A`\> & { `_tag`: `Tag` }\>
 
 **`Example`**
 
@@ -238,7 +254,7 @@ assert.deepStrictEqual(mike1._tag, "Person");
 
 `fn`
 
-• **new TaggedError**<`A`\>(`args`)
+• **new TaggedError**<`A`\>(`args`): [`YieldableError`](../interfaces/Data.YieldableError.md) & { `_tag`: `Tag` } & `Readonly`<`A`\>
 
 ##### Type parameters
 
@@ -251,6 +267,10 @@ assert.deepStrictEqual(mike1._tag, "Person");
 | Name   | Type                                                                                                                                                                                                      |
 | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `args` | `Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] } |
+
+##### Returns
+
+[`YieldableError`](../interfaces/Data.YieldableError.md) & { `_tag`: `Tag` } & `Readonly`<`A`\>
 
 **`Since`**
 

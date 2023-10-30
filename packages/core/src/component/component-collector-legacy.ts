@@ -144,9 +144,22 @@ export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) 
   return !!traverseUp(node, predicate);
 }
 
-const seenComponents = new WeakSet<TSESTreeClass>();
+export type ComponentCollectorLegacyOptions = {
+  // Nothing here for now.
+};
 
-export function componentCollectorLegacy(context: RuleContext) {
+export type ComponentCollectorLegacyCache = WeakSet<TSESTreeClass>;
+
+const defaultComponentCollectorLegacyOptions: ComponentCollectorLegacyOptions = {
+  // Nothing here for now.
+};
+
+export function componentCollectorLegacy(
+  context: RuleContext,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  options: ComponentCollectorLegacyOptions = defaultComponentCollectorLegacyOptions,
+  cache: ComponentCollectorLegacyCache = new WeakSet(),
+) {
   const components: TSESTreeClass[] = [];
 
   const ctx = {
@@ -163,7 +176,7 @@ export function componentCollectorLegacy(context: RuleContext) {
   } as const;
 
   const collect = (node: TSESTreeClass) => {
-    if (seenComponents.has(node)) {
+    if (cache.has(node)) {
       components.push(node);
     }
 
@@ -171,7 +184,7 @@ export function componentCollectorLegacy(context: RuleContext) {
       return;
     }
 
-    seenComponents.add(node);
+    cache.add(node);
     components.push(node);
   };
 
