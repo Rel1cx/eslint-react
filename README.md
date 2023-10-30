@@ -169,7 +169,7 @@ export default [
 - [x] `@eslint-react/no-string-refs`
 - [ ] `@eslint-react/no-children-methods`
 - [x] `@eslint-react/no-class-component`
-- [ ] `@eslint-react/no-clone-element`
+- [x] `@eslint-react/no-clone-element`
 - [x] `@eslint-react/no-createRef`
 - [x] `@eslint-react/no-unstable-default-props`
 - [x] `@eslint-react/no-unstable-nested-components`

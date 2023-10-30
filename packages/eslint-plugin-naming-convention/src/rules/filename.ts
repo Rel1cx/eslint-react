@@ -1,11 +1,11 @@
-import { getCaseValidator, isJSXFile } from "@eslint-react/shared";
+import { getCaseValidator } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import path from "pathe";
 
-import { createRule } from "../utils";
+import { createRule, isJSXFile } from "../utils";
 
 export const RULE_NAME = "filename";
 

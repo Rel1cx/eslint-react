@@ -7,14 +7,13 @@ import {
   unsafeIsMapCall,
 } from "@eslint-react/ast";
 import { getFragmentFromContext, getPragmaFromContext, hasProp } from "@eslint-react/jsx";
-import { getChildrenToArraySelector } from "@eslint-react/shared";
 import { E, MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { match } from "ts-pattern";
 
-import { createRule } from "../utils";
+import { createRule, getChildrenToArraySelector } from "../utils";
 
 export const RULE_NAME = "no-missing-key";
 

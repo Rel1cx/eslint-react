@@ -1,5 +1,3 @@
-import { JSX_EXTENSIONS } from "./constants";
-
 export function getChildrenToArraySelector(reactPragma: string): string {
   return [
     ":matches(",
@@ -14,5 +12,3 @@ export function getChildrenToArraySelector(reactPragma: string): string {
     ")",
   ].join("");
 }
-
-export const isJSXFile = (ext: string): ext is ".jsx" | ".tsx" => JSX_EXTENSIONS.includes(ext);
