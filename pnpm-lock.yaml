@@ -650,18 +650,6 @@ importers:
 
   packages/jsx:
     dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../ast
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../tools
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../types
       '@types/eslint':
         specifier: 8.44.6
         version: 8.44.6
@@ -677,6 +665,19 @@ importers:
       micro-memoize:
         specifier: 4.1.2
         version: 4.1.2
+    devDependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../ast
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@eslint-react/tools':
+        specifier: workspace:*
+        version: link:../tools
+      '@eslint-react/types':
+        specifier: workspace:*
+        version: link:../types
 
   packages/shared:
     dependencies:

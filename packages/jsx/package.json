@@ -41,14 +41,16 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@eslint-react/ast": "workspace:*",
-    "@eslint-react/shared": "workspace:*",
-    "@eslint-react/tools": "workspace:*",
-    "@eslint-react/types": "workspace:*",
     "@types/eslint": "8.44.6",
     "@typescript-eslint/scope-manager": "6.9.1",
     "@typescript-eslint/types": "6.9.1",
     "@typescript-eslint/utils": "6.9.1",
     "micro-memoize": "4.1.2"
+  },
+  "devDependencies": {
+    "@eslint-react/ast": "workspace:*",
+    "@eslint-react/shared": "workspace:*",
+    "@eslint-react/tools": "workspace:*",
+    "@eslint-react/types": "workspace:*"
   }
 }

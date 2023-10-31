@@ -9,6 +9,7 @@ import noDangerouslySetInnerHTML from "./rules/no-dangerously-set-innerhtml";
 import noDangerouslySetInnerHTMLWithChildren from "./rules/no-dangerously-set-innerhtml-with-children";
 import noNamespace from "./rules/no-namespace";
 import noStringRefs from "./rules/no-string-refs";
+import noStringStyleProps from "./rules/no-string-style-props";
 import noUnstableDefaultProps from "./rules/no-unstable-default-props";
 import noUnstableNestedComponents from "./rules/no-unstable-nested-components";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
@@ -25,6 +26,7 @@ export const rules = {
   "no-dangerously-set-innerhtml-with-children": noDangerouslySetInnerHTMLWithChildren,
   "no-namespace": noNamespace,
   "no-string-refs": noStringRefs,
+  "no-string-style-props": noStringStyleProps,
   "no-unstable-default-props": noUnstableDefaultProps,
   "no-unstable-nested-components": noUnstableNestedComponents,
   "prefer-destructuring-assignment": preferDestructuringAssignment,
