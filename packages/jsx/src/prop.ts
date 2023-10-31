@@ -216,28 +216,32 @@ export function findPropInAttributes(
   };
 }
 
+/**
+ * Gets and resolves the static value of a JSX attribute
+ * @param attribute The JSX attribute to get the value of
+ * @param context The rule context
+ * @returns  The static value of the given JSX attribute
+ */
 export function getPropValue(
   attribute: TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute,
   context: RuleContext,
 ) {
+  const scope = context.getScope();
   if (attribute.type === NodeType.JSXAttribute && "value" in attribute) {
     const { value } = attribute;
     if (value === null) {
       return O.none();
     }
-
     if (value.type === NodeType.Literal) {
-      return O.some(getStaticValue(value, context.getScope()));
+      return O.some(getStaticValue(value, scope));
     }
-
     if (value.type === NodeType.JSXExpressionContainer) {
-      return O.some(getStaticValue(value.expression, context.getScope()));
+      return O.some(getStaticValue(value.expression, scope));
     }
 
     return O.none();
   }
-
   const { argument } = attribute;
 
-  return O.some(getStaticValue(argument, context.getScope()));
+  return O.some(getStaticValue(argument, scope));
 }

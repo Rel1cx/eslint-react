@@ -359,16 +359,20 @@ string
 
 ▸ **getPropValue**(`attribute`, `context`): `None`<`null` \| { `value`: `unknown` }\> \| `Some`<`null` \| { `value`: `unknown` }\>
 
+Gets and resolves the static value of a JSX attribute
+
 #### Parameters
 
-| Name        | Type                                                        |
-| :---------- | :---------------------------------------------------------- |
-| `attribute` | `JSXAttribute` \| `JSXSpreadAttribute`                      |
-| `context`   | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
+| Name        | Type                                                        | Description                           |
+| :---------- | :---------------------------------------------------------- | :------------------------------------ |
+| `attribute` | `JSXAttribute` \| `JSXSpreadAttribute`                      | The JSX attribute to get the value of |
+| `context`   | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context                      |
 
 #### Returns
 
 `None`<`null` \| { `value`: `unknown` }\> \| `Some`<`null` \| { `value`: `unknown` }\>
+
+The static value of the given JSX attribute
 
 ---
 
