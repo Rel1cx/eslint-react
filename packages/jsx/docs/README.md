@@ -36,6 +36,7 @@
 - [getPragmaFromContext](README.md#getpragmafromcontext)
 - [getPropName](README.md#getpropname)
 - [getPropNameWithNamespace](README.md#getpropnamewithnamespace)
+- [getPropValue](README.md#getpropvalue)
 - [hasAnyProp](README.md#hasanyprop)
 - [hasChildren](README.md#haschildren)
 - [hasEveryProp](README.md#haseveryprop)
@@ -351,6 +352,23 @@ Get the name of a JSX attribute with namespace
 `string`
 
 string
+
+---
+
+### getPropValue
+
+▸ **getPropValue**(`attribute`, `context`): `None`<`null` \| { `value`: `unknown` }\> \| `Some`<`null` \| { `value`: `unknown` }\>
+
+#### Parameters
+
+| Name        | Type                                                        |
+| :---------- | :---------------------------------------------------------- |
+| `attribute` | `JSXAttribute` \| `JSXSpreadAttribute`                      |
+| `context`   | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
+
+#### Returns
+
+`None`<`null` \| { `value`: `unknown` }\> \| `Some`<`null` \| { `value`: `unknown` }\>
 
 ---
 

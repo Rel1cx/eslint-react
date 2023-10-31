@@ -1,5 +1,6 @@
 import {
   findVariableByNameUpToGlobal,
+  getStaticValue,
   getVariableNthDefNodeInit,
   is,
   isStringLiteral,
@@ -9,6 +10,7 @@ import {
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 import { match } from "ts-pattern";
 
 /**
@@ -212,4 +214,30 @@ export function findPropInAttributes(
       }),
     );
   };
+}
+
+export function getPropValue(
+  attribute: TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute,
+  context: RuleContext,
+) {
+  if (attribute.type === NodeType.JSXAttribute && "value" in attribute) {
+    const { value } = attribute;
+    if (value === null) {
+      return O.none();
+    }
+
+    if (value.type === NodeType.Literal) {
+      return O.some(getStaticValue(value, context.getScope()));
+    }
+
+    if (value.type === NodeType.JSXExpressionContainer) {
+      return O.some(getStaticValue(value.expression, context.getScope()));
+    }
+
+    return O.none();
+  }
+
+  const { argument } = attribute;
+
+  return O.some(getStaticValue(argument, context.getScope()));
 }

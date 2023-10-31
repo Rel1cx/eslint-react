@@ -31,6 +31,7 @@ const rulePreset = {
   "react/no-dangerously-set-innerhtml": "warn",
   "react/no-dangerously-set-innerhtml-with-children": "error",
   "react/no-string-refs": "error",
+  "react/no-string-style-props": "warn",
   "react/no-unstable-default-props": "error",
   "react/no-unstable-nested-components": "warn",
 } as const satisfies RulePreset;
