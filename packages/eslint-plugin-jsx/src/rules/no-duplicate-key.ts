@@ -8,7 +8,7 @@ import {
   unsafeIsMapCall,
 } from "@eslint-react/ast";
 import { findPropInAttributes, getPragmaFromContext } from "@eslint-react/jsx";
-import { E, F, MutRef, O } from "@eslint-react/tools";
+import { F, MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -35,16 +35,8 @@ export default createRule<[], MessageID>({
     },
   },
   defaultOptions: [],
-  // eslint-disable-next-line sonarjs/cognitive-complexity
   create(context) {
-    const maybeReactPragma = getPragmaFromContext(context);
-    if (E.isLeft(maybeReactPragma)) {
-      console.error(maybeReactPragma.left);
-
-      return {};
-    }
-
-    const reactPragma = maybeReactPragma.right;
+    const reactPragma = getPragmaFromContext(context);
     const childrenToArraySelector = getChildrenToArraySelector(reactPragma);
     const isWithinChildrenToArrayRef = MutRef.make(false);
 

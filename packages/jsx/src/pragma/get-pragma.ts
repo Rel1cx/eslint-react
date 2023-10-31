@@ -1,25 +1,26 @@
-import { E, F, O } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/tools";
 import type { ReactSettings, RuleContext } from "@eslint-react/types";
+import { isString } from "effect/Predicate";
 import memo from "micro-memoize";
 
 const RE_JSX_ANNOTATION_REGEX = /@jsx\s+(\S+)/u;
 // Does not check for reserved keywords or unicode characters
 const RE_JS_IDENTIFIER_REGEX = /^[$A-Z_a-z][\w$]*$/u;
 
-export function getFragmentFromContext<T extends RuleContext>(context: T): E.Either<Error, string> {
+export function getFragmentFromContext<T extends RuleContext>(context: T) {
   // eslint-disable-next-line prefer-destructuring
   const settings: { react?: ReactSettings } = context.settings;
 
-  const pragma = settings.react?.fragment ?? "Fragment";
+  const fragment = settings.react?.fragment;
 
-  if (!RE_JS_IDENTIFIER_REGEX.test(pragma)) {
-    return E.left(new Error(`Fragment pragma ${pragma} is not a valid identifier`));
+  if (isString(fragment) && RE_JS_IDENTIFIER_REGEX.test(fragment)) {
+    return fragment;
   }
 
-  return E.right(pragma);
+  return "Fragment";
 }
 
-export const getPragmaFromContext: <T extends RuleContext>(context: T) => E.Either<Error, string> = memo(
+export const getPragmaFromContext: <T extends RuleContext>(context: T) => string = memo(
   (context) => {
     // eslint-disable-next-line prefer-destructuring
     const settings: { react?: ReactSettings } = context.settings;
@@ -27,18 +28,15 @@ export const getPragmaFromContext: <T extends RuleContext>(context: T) => E.Eith
     const sourceCode = context.getSourceCode();
     const pragmaNode = sourceCode.getAllComments().find((node) => RE_JSX_ANNOTATION_REGEX.test(node.value));
 
-    const pragma = settings.react?.pragma
-      ?? F.pipe(
-        O.fromNullable(pragmaNode),
-        O.map((node) => RE_JSX_ANNOTATION_REGEX.exec(node.value)),
-        O.flatMap((matches) => O.fromNullable(matches?.[1]?.split(".")[0])),
-        O.getOrElse(() => "React"),
-      );
-
-    if (!RE_JS_IDENTIFIER_REGEX.test(pragma)) {
-      return E.left(new Error(`React pragma ${pragma} is not a valid identifier`));
-    }
-
-    return E.right(pragma);
+    return F.pipe(
+      O.orElse(O.fromNullable(settings.react?.pragma), () =>
+        F.pipe(
+          O.fromNullable(pragmaNode),
+          O.map(({ value }) => RE_JSX_ANNOTATION_REGEX.exec(value)),
+          O.flatMapNullable((matches) => matches?.[1]?.split(".")[0]),
+        )),
+      O.flatMap(O.liftPredicate(x => RE_JS_IDENTIFIER_REGEX.test(x))),
+      O.getOrElse(F.constant("React")),
+    );
   },
 );

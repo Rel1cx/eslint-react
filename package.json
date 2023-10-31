@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "description": "ESLint plugin for React function components with TypeScript, built (mostly) from scratch.",
   "keywords": [
     "eslint",
@@ -70,7 +70,7 @@
     "effect": "2.0.0-next.52",
     "eslint": ">=8.52.0",
     "eslint-config-with-tsconfig": "2.9.0",
-    "eslint-doc-generator": "1.5.2",
+    "eslint-doc-generator": "1.5.3",
     "eslint-plugin-eslint-plugin": "5.1.1",
     "eslint-plugin-filenames-simple": "0.8.0",
     "eslint-plugin-functional-core": "1.7.1",

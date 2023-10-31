@@ -45,13 +45,14 @@
 - [isChildrenOfCreateElement](README.md#ischildrenofcreateelement)
 - [isCloneElementCall](README.md#iscloneelementcall)
 - [isCreateElementCall](README.md#iscreateelementcall)
-- [isDestructuredFromPragma](README.md#isdestructuredfrompragma)
 - [isFunctionReturningJSXValue](README.md#isfunctionreturningjsxvalue)
+- [isInitializedFromPragma](README.md#isinitializedfrompragma)
 - [isInsideCreateElementProps](README.md#isinsidecreateelementprops)
 - [isInsidePropValue](README.md#isinsidepropvalue)
 - [isJSXValue](README.md#isjsxvalue)
 - [isLineBreak](README.md#islinebreak)
 - [isLiteral](README.md#isliteral)
+- [isPropertyOfPragma](README.md#ispropertyofpragma)
 - [isWhiteSpace](README.md#iswhitespace)
 - [traverseUpProp](README.md#traverseupprop)
 
@@ -273,7 +274,7 @@ A function that searches for a property in the given properties
 
 ### getFragmentFromContext
 
-▸ **getFragmentFromContext**<`T`\>(`context`): `E.Either`<`Error`, `string`\>
+▸ **getFragmentFromContext**<`T`\>(`context`): `string`
 
 #### Type parameters
 
@@ -289,13 +290,13 @@ A function that searches for a property in the given properties
 
 #### Returns
 
-`E.Either`<`Error`, `string`\>
+`string`
 
 ---
 
 ### getPragmaFromContext
 
-▸ **getPragmaFromContext**<`T`\>(`context`): `Either`<`Error`, `string`\>
+▸ **getPragmaFromContext**<`T`\>(`context`): `string`
 
 #### Type parameters
 
@@ -311,7 +312,7 @@ A function that searches for a property in the given properties
 
 #### Returns
 
-`Either`<`Error`, `string`\>
+`string`
 
 ---
 
@@ -554,29 +555,6 @@ node is CallExpression
 
 ---
 
-### isDestructuredFromPragma
-
-▸ **isDestructuredFromPragma**<`T`\>(`variableName`, `context`): `boolean`
-
-#### Type parameters
-
-| Name | Type                                                                |
-| :--- | :------------------------------------------------------------------ |
-| `T`  | extends `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
-
-#### Parameters
-
-| Name           | Type     |
-| :------------- | :------- |
-| `variableName` | `string` |
-| `context`      | `T`      |
-
-#### Returns
-
-`boolean`
-
----
-
 ### isFunctionReturningJSXValue
 
 ▸ **isFunctionReturningJSXValue**(`node`, `context`, `options?`): `boolean`
@@ -596,6 +574,24 @@ Check if function is returning JSX
 `boolean`
 
 boolean
+
+---
+
+### isInitializedFromPragma
+
+▸ **isInitializedFromPragma**(`variableName`, `context`, `pragma?`): `boolean`
+
+#### Parameters
+
+| Name           | Type                                                        |
+| :------------- | :---------------------------------------------------------- |
+| `variableName` | `string`                                                    |
+| `context`      | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
+| `pragma`       | `string`                                                    |
+
+#### Returns
+
+`boolean`
 
 ---
 
@@ -699,6 +695,36 @@ Check if a node is a Literal or JSXText
 node is JSXText \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral
 
 boolean `true` if the node is a Literal or JSXText
+
+---
+
+### isPropertyOfPragma
+
+▸ **isPropertyOfPragma**(`name`, `context`, `pragma?`): (`node`: `Node`) => `boolean`
+
+#### Parameters
+
+| Name      | Type                                                        |
+| :-------- | :---------------------------------------------------------- |
+| `name`    | `string`                                                    |
+| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                    |
+
+#### Returns
+
+`fn`
+
+▸ (`node`): `boolean`
+
+##### Parameters
+
+| Name   | Type   |
+| :----- | :----- |
+| `node` | `Node` |
+
+##### Returns
+
+`boolean`
 
 ---
 
