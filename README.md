@@ -44,13 +44,15 @@ bun add --dev @eslint-react/eslint-plugin
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
+  parser: "@typescript-eslint/parser",
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
     "plugin:@eslint-react/recommended-legacy",
   ],
+  plugins: ["@typescript-eslint", "react-hooks"],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
-  parser: "@typescript-eslint/parser",
 };
 ```
 
@@ -60,6 +62,7 @@ module.exports = {
 import ts from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 import react from "@eslint-react/eslint-plugin";
+import reactHooks from "eslint-plugin-react-hooks";
 
 export default [
   {
@@ -69,10 +72,12 @@ export default [
     },
     plugins: {
       "@typescript-eslint": ts,
+      "react-hooks": reactHooks,
     },
     rules: {
       ...ts.configs["eslint-recommended"].rules,
       ...ts.configs["recommended"].rules,
+      ...reactHooks.configs.recommended.rules,
     },
   },
   react.configs.recommended,
