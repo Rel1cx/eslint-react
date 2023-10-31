@@ -46,7 +46,7 @@
     "@typescript-eslint/utils": "6.9.1",
     "deepmerge-ts": "5.1.0",
     "rambda": "8.5.0",
-    "tslib": "2.6.2",
-    "string-ts": "1.3.2"
+    "string-ts": "1.3.2",
+    "tslib": "2.6.2"
   }
 }

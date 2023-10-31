@@ -42,9 +42,12 @@
   "files.exclude": {
     "**/.turbo": true,
     ".husky": true,
+    ".hintrc": true,
+    ".npmrc": true,
     ".npmignore": true,
     ".eslintcache": true,
-    ".eslintignore": true
+    ".eslintignore": true,
+    ".editorconfig": true
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.tsdk": "node_modules/typescript/lib"
