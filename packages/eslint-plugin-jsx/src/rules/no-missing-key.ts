@@ -7,7 +7,7 @@ import {
   unsafeIsMapCall,
 } from "@eslint-react/ast";
 import { getFragmentFromContext, getPragmaFromContext, hasProp } from "@eslint-react/jsx";
-import { E, MutRef, O } from "@eslint-react/tools";
+import { MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -36,22 +36,9 @@ export default createRule<[], MessageID>({
     },
   },
   defaultOptions: [],
-  // eslint-disable-next-line sonarjs/cognitive-complexity
   create(context) {
-    const maybeReactPragma = getPragmaFromContext(context);
-    if (E.isLeft(maybeReactPragma)) {
-      console.error(maybeReactPragma.left);
-
-      return {};
-    }
-    const maybeFragmentPragma = getFragmentFromContext(context);
-    if (E.isLeft(maybeFragmentPragma)) {
-      console.error(maybeFragmentPragma.left);
-
-      return {};
-    }
-    const reactPragma = maybeReactPragma.right;
-    const fragmentPragma = maybeFragmentPragma.right;
+    const reactPragma = getPragmaFromContext(context);
+    const fragmentPragma = getFragmentFromContext(context);
     const childrenToArraySelector = getChildrenToArraySelector(reactPragma);
     const isWithinChildrenToArrayRef = MutRef.make(false);
     function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {

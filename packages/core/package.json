@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/core",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "description": "AST Utility Module for Static Analysis of React core API and Patterns.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {

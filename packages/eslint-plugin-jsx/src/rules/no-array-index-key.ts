@@ -1,6 +1,6 @@
 import { isOneOf, NodeType, unsafeIsStringCall, unsafeIsToStringCall } from "@eslint-react/ast";
 import { getPragmaFromContext, isCloneElementCall, isCreateElementCall } from "@eslint-react/jsx";
-import { E, O, Record } from "@eslint-react/tools";
+import { O, Record } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -36,21 +36,18 @@ const iteratorFunctionIndexParamPosition = {
 function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContext) {
   const { callee } = node;
   if (!("property" in callee) || !("object" in callee) || !("name" in callee.property)) {
-    return null;
+    return false;
   }
   if (!isReactChildrenMethod(callee.property.name)) {
-    return null;
+    return false;
   }
   const obj = callee.object;
   if ("name" in obj && obj.name === "Children") {
     return true;
   }
-  const maybePragma = getPragmaFromContext(context);
-  if (E.isLeft(maybePragma)) {
-    return null;
-  }
+  const pragma = getPragmaFromContext(context);
 
-  return isMatching({ object: { name: maybePragma.right } }, obj);
+  return isMatching({ object: { name: pragma } }, obj);
 }
 
 function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContext) {

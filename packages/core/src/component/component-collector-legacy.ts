@@ -31,11 +31,7 @@ export function isClassComponent(node: TSESTree.Node, context: RuleContext): nod
   if (!("superClass" in node && node.superClass)) {
     return false;
   }
-  const maybeReact = getPragmaFromContext(context);
-  if (E.isLeft(maybeReact)) {
-    return false;
-  }
-  const pragma = maybeReact.right;
+  const pragma = getPragmaFromContext(context);
   const { superClass } = node;
 
   return match(superClass)
@@ -84,11 +80,11 @@ export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
 
   const sourceCode = context.getSourceCode();
 
-  if (E.isRight(pragma) && "superClass" in node && node.superClass) {
+  if ("superClass" in node && node.superClass) {
     const text = sourceCode.getText(node.superClass);
 
     // eslint-disable-next-line security/detect-non-literal-regexp
-    return new RegExp(`^(${pragma.right}\\.)?PureComponent$`, "u").test(text);
+    return new RegExp(`^(${pragma}\\.)?PureComponent$`, "u").test(text);
   }
 
   return false;

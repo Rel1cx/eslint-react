@@ -1,24 +1,20 @@
 import { findVariableByName, getVariablesUpToGlobal, NodeType } from "@eslint-react/ast";
-import { E, F, O } from "@eslint-react/tools";
+import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
+import type { TSESTree } from "@typescript-eslint/types";
 import { isMatching, match } from "ts-pattern";
 
 import { getPragmaFromContext } from "./get-pragma";
+import { isPropertyOfPragma } from "./is-property-of-pragma";
 
-export function isDestructuredFromPragma<T extends RuleContext>(variableName: string, context: T) {
-  const maybePragma = getPragmaFromContext(context);
+export function isInitializedFromPragma(
+  variableName: string,
+  context: RuleContext,
+  pragma = getPragmaFromContext(context),
+) {
   const variables = getVariablesUpToGlobal(context.getScope());
-
-  if (E.isLeft(maybePragma)) {
-    return false;
-  }
-
-  const pragma = maybePragma.right;
-
-  const maybeLatestDef = F.pipe(
-    findVariableByName(variableName)(variables),
-    O.flatMapNullable((variable) => variable.defs.at(-1)),
-  );
+  const maybeVariable = findVariableByName(variableName)(variables);
+  const maybeLatestDef = O.flatMapNullable(maybeVariable, (variable) => variable.defs.at(-1));
 
   if (O.isNone(maybeLatestDef)) {
     return false;
@@ -69,4 +65,29 @@ export function isDestructuredFromPragma<T extends RuleContext>(variableName: st
 
   // latest definition is an import declaration: import { variable } from 'react'
   return isMatching({ type: "ImportDeclaration", source: { value: pragma.toLowerCase() } }, parent);
+}
+
+export type CallFromPragmaPredicate = (node: TSESTree.Node, context: RuleContext) => node is TSESTree.CallExpression;
+
+/**
+ * Checks if the given node is a call expression to the given function or method of the pragma
+ * @param name The name of the function or method to check
+ * @returns A predicate that checks if the given node is a call expression to the given function or method
+ */
+export function isCallFromPragma(name: string) {
+  return (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
+    if (node.type !== NodeType.CallExpression || !("callee" in node)) {
+      return false;
+    }
+
+    if (node.callee.type === NodeType.MemberExpression) {
+      return isPropertyOfPragma(name, context)(node.callee);
+    }
+
+    if ("name" in node.callee && node.callee.name === name) {
+      return isInitializedFromPragma(name, context);
+    }
+
+    return false;
+  };
 }
