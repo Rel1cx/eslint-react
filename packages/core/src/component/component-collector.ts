@@ -8,7 +8,7 @@ import {
 import { E, MutList, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 import { shallowEqual } from "fast-equals";
 
 import { isFunctionOfRenderMethod } from "./component-collector-legacy";
@@ -121,7 +121,7 @@ export function componentCollector(
       cache.set(node, options);
       components.push(node);
     },
-  } as const satisfies RuleListener;
+  } as const satisfies ESLintUtils.RuleListener;
 
   return {
     ctx,

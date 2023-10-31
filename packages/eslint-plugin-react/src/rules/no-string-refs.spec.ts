@@ -42,5 +42,19 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "INVALID" }],
     },
+    {
+      code: dedent`
+        class Input extends React.Component {
+          focus = () => {
+            this.refs.input.focus();
+          }
+
+          render() {
+            return <input ref="input" />;
+          }
+        }
+      `,
+      errors: [{ messageId: "INVALID" }],
+    },
   ],
 });

@@ -176,7 +176,7 @@ It will be removed in the future
 | `ctx.getAllRedundantHooks`     | [object Object]                                                                                                                                                                                                                                     |
 | `ctx.getCurrentHooks`          | [object Object]                                                                                                                                                                                                                                     |
 | `ctx.getCurrentRedundantHooks` | [object Object]                                                                                                                                                                                                                                     |
-| `listeners`                    | `RuleListener`                                                                                                                                                                                                                                      |
+| `listeners`                    | `ESLintUtils.RuleListener`                                                                                                                                                                                                                          |
 
 ---
 
