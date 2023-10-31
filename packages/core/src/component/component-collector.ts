@@ -77,8 +77,6 @@ export function componentCollector(
       const maybeCurrentFn = getCurrentFunction();
 
       if (O.isNone(maybeCurrentFn)) {
-        console.warn("Unexpected empty function stack");
-
         return;
       }
 
