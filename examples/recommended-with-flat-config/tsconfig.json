@@ -1,4 +1,7 @@
 {
+  "extends": [
+    "@tsconfig/strictest/tsconfig.json"
+  ],
   "compilerOptions": {
     "target": "ES2021",
     "useDefineForClassFields": true,

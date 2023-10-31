@@ -16,6 +16,10 @@ export default {
       entry: ["scripts/*.ts", "**/*.config.ts"],
       project: ["scripts/**/*.ts"],
     },
+    "examples/*": {
+      entry: "src/main.ts",
+      project: ["src/**/*.ts", "src/**/*.tsx"],
+    },
     "packages/*": {
       entry: "src/index.ts",
       project: ["src/**/*.ts"],
