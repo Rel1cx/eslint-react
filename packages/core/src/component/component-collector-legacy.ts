@@ -3,8 +3,8 @@ import { getPragmaFromContext } from "@eslint-react/jsx";
 import { E } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type Scope } from "@typescript-eslint/scope-manager";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type TSESTree } from "@typescript-eslint/utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, match, P } from "ts-pattern";
 
 const isRenderMethodLike = isMatching({
@@ -191,7 +191,7 @@ export function componentCollectorLegacy(
   const listeners = {
     ClassDeclaration: collect,
     ClassExpression: collect,
-  } as const satisfies RuleListener;
+  } as const satisfies ESLintUtils.RuleListener;
 
   return {
     ctx,

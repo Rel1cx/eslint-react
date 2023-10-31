@@ -1,4 +1,5 @@
 import { NodeType } from "@eslint-react/ast";
+import { getParentClassComponent } from "@eslint-react/core";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { isString } from "effect/Predicate";
@@ -52,6 +53,18 @@ export default createRule<[], MessageID>({
             node,
           });
         }
+      },
+      MemberExpression(node) {
+        const parentClassComponent = getParentClassComponent(context);
+
+        if (!parentClassComponent) {
+          return;
+        }
+
+        // Check if the member expression is `this.refs`
+        return node.object.type === NodeType.ThisExpression
+          && "name" in node.property
+          && node.property.name === "refs";
       },
     };
   },

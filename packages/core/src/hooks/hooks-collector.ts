@@ -1,7 +1,7 @@
 import { getFunctionIdentifier, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { E } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { unsafeIsReactHookCall } from "./is-inside-react-hook-call";
 import { isValidReactHookName } from "./is-valid-react-hook-name";
@@ -14,7 +14,7 @@ export function hooksCollector(context: RuleContext): {
     getCurrentHooks(): TSESTreeFunction[];
     getCurrentRedundantHooks(): TSESTreeFunction[];
   };
-  listeners: RuleListener;
+  listeners: ESLintUtils.RuleListener;
 } {
   const hooks: TSESTreeFunction[] = [];
 
@@ -95,7 +95,7 @@ export function hooksCollector(context: RuleContext): {
         functionStack[functionStack.length - 1] = [fn, true, true];
       }
     },
-  } as const satisfies RuleListener;
+  } as const satisfies ESLintUtils.RuleListener;
 
   return {
     ctx,

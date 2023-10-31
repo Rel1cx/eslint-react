@@ -40,4 +40,4 @@ jobs:
             - name: Install front-end dependencies and build front-end assets
               run: pnpm install --frozen-lockfile
             - name: Test
-              run: pnpm run -r test
+              run: pnpm run test
