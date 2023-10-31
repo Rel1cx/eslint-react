@@ -43,7 +43,6 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@types/eslint": "8.44.6",
     "@typescript-eslint/scope-manager": "6.9.1",
     "@typescript-eslint/types": "6.9.1",
     "@typescript-eslint/utils": "6.9.1",
