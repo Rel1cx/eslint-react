@@ -145,53 +145,53 @@ export default [
 
 ### Work in progress
 
-- [ ] `@eslint-react/hooks/no-access-state-in-setstate`
-- [ ] `@eslint-react/hooks/no-suppressing-exhaustive-deps`
-- [x] `@eslint-react/hooks/ensure-custom-hooks-using-other-hooks`
-- [ ] `@eslint-react/jsx/enforce-component-name-pascal-case`
-- [x] `@eslint-react/jsx/no-array-index-key`
-- [x] `@eslint-react/jsx/no-children-in-void-dom-elements`
-- [x] `@eslint-react/jsx/no-duplicate-key`
-- [x] `@eslint-react/jsx/no-leaked-conditional-rendering`
-- [x] `@eslint-react/jsx/no-missing-key`
-- [x] `@eslint-react/jsx/no-misused-comment-in-textnode`
-- [x] `@eslint-react/jsx/no-namespace`
-- [x] `@eslint-react/jsx/no-script-url`
-- [ ] `@eslint-react/jsx/no-target-blank`
-- [ ] `@eslint-react/jsx/no-unknown-property`
-- [ ] `@eslint-react/jsx/no-useless-fragment`
-- [ ] `@eslint-react/jsx/prefer-fragment-syntax`
-- [x] `@eslint-react/jsx/prefer-shorthand-boolean`
-- [x] `@eslint-react/naming-convention/filename-extension`
-- [x] `@eslint-react/naming-convention/filename`
-- [ ] `@eslint-react/ensure-class-component-method-order`
-- [ ] `@eslint-react/ensure-style-prop-object`
-- [x] `@eslint-react/no-constructed-context-value`
-- [x] `@eslint-react/no-dangerously-set-innerhtml-with-children`
-- [x] `@eslint-react/no-dangerously-set-innerhtml`
-- [ ] `@eslint-react/no-direct-mutation-state`
-- [ ] `@eslint-react/no-missing-display-name`
-- [ ] `@eslint-react/no-missing-iframe-sandbox-attribute`
-- [x] `@eslint-react/no-string-refs`
-- [ ] `@eslint-react/no-children-methods`
-- [x] `@eslint-react/no-class-component`
-- [x] `@eslint-react/no-clone-element`
-- [x] `@eslint-react/no-createRef`
-- [x] `@eslint-react/no-unstable-default-props`
-- [x] `@eslint-react/no-unstable-nested-components`
-- [ ] `@eslint-react/no-unused-class-component-methods`
-- [ ] `@eslint-react/require-button-has-type-attribute`
-- [ ] `@eslint-react/require-render-return`
-- [x] `@eslint-react/debug/class-component`
-- [x] `@eslint-react/debug/function-component`
-- [x] `@eslint-react/debug/hooks`
-- [ ] `@eslint-react/debug/render-prop`
-- [ ] `@eslint-react/debug/context`
+- [ ] `jsx/enforce-component-name-pascal-case`
+- [x] `jsx/no-array-index-key`
+- [x] `jsx/no-children-in-void-dom-elements`
+- [x] `jsx/no-duplicate-key`
+- [x] `jsx/no-leaked-conditional-rendering`
+- [x] `jsx/no-missing-key`
+- [x] `jsx/no-misused-comment-in-textnode`
+- [x] `jsx/no-namespace`
+- [x] `jsx/no-script-url`
+- [ ] `jsx/no-target-blank`
+- [ ] `jsx/no-unknown-property`
+- [ ] `jsx/no-useless-fragment`
+- [ ] `jsx/prefer-fragment-syntax`
+- [x] `jsx/prefer-shorthand-boolean`
+- [x] `naming-convention/filename-extension`
+- [x] `naming-convention/filename`
+- [ ] `react/ensure-class-component-method-order`
+- [x] `react/no-constructed-context-value`
+- [x] `react/no-dangerously-set-innerhtml-with-children`
+- [x] `react/no-dangerously-set-innerhtml`
+- [ ] `react/no-direct-mutation-state`
+- [ ] `react/no-missing-display-name`
+- [ ] `react/no-missing-iframe-sandbox-attribute`
+- [x] `react/no-string-refs`
+- [x] `react/no-string-style-props`
+- [ ] `react/no-children-methods`
+- [x] `react/no-class-component`
+- [x] `react/no-clone-element`
+- [x] `react/no-createRef`
+- [x] `react/no-unstable-default-props`
+- [x] `react/no-unstable-nested-components`
+- [ ] `react/no-unused-class-component-methods`
+- [ ] `react/require-button-has-type-attribute`
+- [ ] `react/require-render-return`
+- [ ] `hooks/no-access-state-in-setstate`
+- [ ] `hooks/no-suppressing-exhaustive-deps`
+- [x] `hooks/ensure-custom-hooks-using-other-hooks`
+- [x] `debug/class-component`
+- [x] `debug/function-component`
+- [x] `debug/hooks`
+- [ ] `debug/render-prop`
+- [ ] `debug/context`
 
 ### Planned (will be added in the future)
 
-- [ ] `@eslint-react/jsx/no-complicated-conditional-rendering`
-- [ ] `@eslint-react/no-access-ref-current-during-rendering`
+- [ ] `jsx/no-complicated-conditional-rendering`
+- [ ] `react/no-access-ref-current-during-rendering`
 
 ## Philosophy
 
