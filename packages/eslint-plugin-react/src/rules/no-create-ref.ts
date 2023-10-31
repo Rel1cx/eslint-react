@@ -1,7 +1,7 @@
 import { type TSESTreeFunction } from "@eslint-react/ast";
 import { componentCollector } from "@eslint-react/core";
 import { isCallFromPragma } from "@eslint-react/jsx";
-import { E, F, O } from "@eslint-react/tools";
+import { E, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
@@ -40,12 +40,7 @@ export default createRule<[], MessageID>({
           return;
         }
 
-        F.pipe(
-          ctx.getCurrentFunction(),
-          O.map((currentFn) => possibleCreateRefCalls.set(currentFn, node)),
-          E.fromOption(() => "Unexpected empty function stack"),
-          E.mapLeft(console.warn),
-        );
+        O.map(ctx.getCurrentFunction(), (currentFn) => possibleCreateRefCalls.set(currentFn, node));
       },
       "Program:exit"() {
         const maybeComponents = ctx.getAllComponents();

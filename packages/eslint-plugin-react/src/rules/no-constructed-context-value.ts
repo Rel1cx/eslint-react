@@ -1,6 +1,6 @@
 import { type Construction, constructionDetector, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { componentCollector } from "@eslint-react/core";
-import { E, F, O } from "@eslint-react/tools";
+import { E, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils";
@@ -72,12 +72,7 @@ export default createRule<[], MessageID>({
           return;
         }
 
-        F.pipe(
-          ctx.getCurrentFunction(),
-          O.map((currentFn) => possibleValueConstructions.set(currentFn, constructionDetail)),
-          E.fromOption(() => "Unexpected empty function stack"),
-          E.mapLeft(console.warn),
-        );
+        O.map(ctx.getCurrentFunction(), (currentFn) => possibleValueConstructions.set(currentFn, constructionDetail));
       },
       "Program:exit"() {
         const maybeComponents = ctx.getAllComponents();
