@@ -2,8 +2,8 @@ import {
   getFragmentFromContext,
   getPragmaFromContext,
   hasProp,
-  isChildOfComponentElement,
-  isChildOfHtmlElement,
+  isChildOfBuiltinComponentElement,
+  isChildOfUserDefinedComponentElement,
   isFragment,
   isFragmentHasLessThanTwoChildren,
   isFragmentWithOnlyTextAndIsNotChild,
@@ -101,7 +101,7 @@ export default createRule<Options, MessageID>({
       }
 
       // Not safe to fix `<Eeee><>foo</></Eeee>` because `Eeee` might require its children be a ReactElement.
-      return !isChildOfComponentElement(node, reactPragma, fragmentPragma);
+      return !isChildOfUserDefinedComponentElement(node, reactPragma, fragmentPragma);
     }
 
     function getFix(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
@@ -146,7 +146,7 @@ export default createRule<Options, MessageID>({
         });
       }
 
-      if (isChildOfHtmlElement(node)) {
+      if (isChildOfBuiltinComponentElement(node)) {
         context.report({
           fix: getFix(node),
           messageId: "ChildOfHtmlElement",

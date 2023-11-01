@@ -42,8 +42,8 @@
 - [hasEveryProp](README.md#haseveryprop)
 - [hasProp](README.md#hasprop)
 - [isCallFromPragma](README.md#iscallfrompragma)
-- [isChildOfComponentElement](README.md#ischildofcomponentelement)
-- [isChildOfHtmlElement](README.md#ischildofhtmlelement)
+- [isChildOfBuiltinComponentElement](README.md#ischildofbuiltincomponentelement)
+- [isChildOfUserDefinedComponentElement](README.md#ischildofuserdefinedcomponentelement)
 - [isChildrenOfCreateElement](README.md#ischildrenofcreateelement)
 - [isCloneElementCall](README.md#iscloneelementcall)
 - [isCreateElementCall](README.md#iscreateelementcall)
@@ -503,17 +503,15 @@ node is CallExpression
 
 ---
 
-### isChildOfComponentElement
+### isChildOfBuiltinComponentElement
 
-▸ **isChildOfComponentElement**(`node`, `reactPragma`, `fragmentPragma`): `boolean`
+▸ **isChildOfBuiltinComponentElement**(`node`): `boolean`
 
 #### Parameters
 
-| Name             | Type     |
-| :--------------- | :------- |
-| `node`           | `Node`   |
-| `reactPragma`    | `string` |
-| `fragmentPragma` | `string` |
+| Name   | Type   |
+| :----- | :----- |
+| `node` | `Node` |
 
 #### Returns
 
@@ -521,15 +519,17 @@ node is CallExpression
 
 ---
 
-### isChildOfHtmlElement
+### isChildOfUserDefinedComponentElement
 
-▸ **isChildOfHtmlElement**(`node`): `boolean`
+▸ **isChildOfUserDefinedComponentElement**(`node`, `pragma`, `fragment`): `boolean`
 
 #### Parameters
 
-| Name   | Type   |
-| :----- | :----- |
-| `node` | `Node` |
+| Name       | Type     |
+| :--------- | :------- |
+| `node`     | `Node`   |
+| `pragma`   | `string` |
+| `fragment` | `string` |
 
 #### Returns
 
@@ -598,15 +598,15 @@ node is CallExpression
 
 ### isFragment
 
-▸ **isFragment**(`node`, `reactPragma`, `fragmentPragma`): `boolean`
+▸ **isFragment**(`node`, `pragma`, `fragment`): `boolean`
 
 #### Parameters
 
-| Name             | Type         |
-| :--------------- | :----------- |
-| `node`           | `JSXElement` |
-| `reactPragma`    | `string`     |
-| `fragmentPragma` | `string`     |
+| Name       | Type         |
+| :--------- | :----------- |
+| `node`     | `JSXElement` |
+| `pragma`   | `string`     |
+| `fragment` | `string`     |
 
 #### Returns
 

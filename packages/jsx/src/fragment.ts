@@ -2,19 +2,19 @@ import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/types";
 
 import { isLiteral, isPaddingSpaces } from "./textnode";
 
-export function isFragment(node: TSESTree.JSXElement, reactPragma: string, fragmentPragma: string) {
+export function isFragment(node: TSESTree.JSXElement, pragma: string, fragment: string) {
   const { name } = node.openingElement;
 
   // <Fragment>
-  if (name.type === AST_NODE_TYPES.JSXIdentifier && name.name === fragmentPragma) {
+  if (name.type === AST_NODE_TYPES.JSXIdentifier && name.name === fragment) {
     return true;
   }
 
   // <React.Fragment>
   return name.type === AST_NODE_TYPES.JSXMemberExpression
     && name.object.type === AST_NODE_TYPES.JSXIdentifier
-    && name.object.name === reactPragma
-    && name.property.name === fragmentPragma;
+    && name.object.name === pragma
+    && name.property.name === fragment;
 }
 
 /**

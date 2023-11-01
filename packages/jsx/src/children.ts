@@ -11,14 +11,14 @@ export function hasChildren(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
   return node.children.length > 0;
 }
 
-export function isChildOfHtmlElement(node: TSESTree.Node) {
+export function isChildOfBuiltinComponentElement(node: TSESTree.Node) {
   return node.parent?.type === AST_NODE_TYPES.JSXElement
     && node.parent.openingElement.name.type === AST_NODE_TYPES.JSXIdentifier
     && /^[a-z]+$/u.test(node.parent.openingElement.name.name);
 }
 
-export function isChildOfComponentElement(node: TSESTree.Node, reactPragma: string, fragmentPragma: string) {
+export function isChildOfUserDefinedComponentElement(node: TSESTree.Node, pragma: string, fragment: string) {
   return node.parent?.type === AST_NODE_TYPES.JSXElement
-    && !isChildOfHtmlElement(node)
-    && !isFragment(node.parent, reactPragma, fragmentPragma);
+    && !isChildOfBuiltinComponentElement(node)
+    && !isFragment(node.parent, pragma, fragment);
 }
