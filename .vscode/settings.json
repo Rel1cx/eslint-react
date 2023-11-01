@@ -27,7 +27,7 @@
       "other": true,
       "strings": true
     },
-    "editor.tabSize": 4
+    "editor.tabSize": 2
   },
   "eslint.workingDirectories": [
     {

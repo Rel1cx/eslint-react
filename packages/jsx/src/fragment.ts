@@ -1,18 +1,42 @@
-import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/types";
+import { is, isOneOf, NodeType } from "@eslint-react/ast";
+import { type TSESTree } from "@typescript-eslint/types";
 
 import { isLiteral, isPaddingSpaces } from "./textnode";
 
-export function isFragment(node: TSESTree.JSXElement, pragma: string, fragment: string) {
+export const isFragment = (
+  node: TSESTree.Node,
+  pragma: string,
+  fragment: string,
+): node is TSESTree.JSXElement | TSESTree.JSXFragment => {
+  if (!isOneOf([NodeType.JSXElement, NodeType.JSXFragment])(node)) {
+    return false;
+  }
+
+  return isFragmentSyntax(node) || isFragmentElement(node, pragma, fragment);
+};
+
+/**
+ * Check if a node is `<></>`
+ */
+export const isFragmentSyntax = is(NodeType.JSXFragment);
+
+/**
+ * Check if a node is `<Fragment></Fragment>` or `<Pragma.Fragment></Pragma.Fragment>`
+ * @param node
+ * @param pragma
+ * @param fragment
+ */
+export function isFragmentElement(node: TSESTree.JSXElement, pragma: string, fragment: string) {
   const { name } = node.openingElement;
 
   // <Fragment>
-  if (name.type === AST_NODE_TYPES.JSXIdentifier && name.name === fragment) {
+  if (name.type === NodeType.JSXIdentifier && name.name === fragment) {
     return true;
   }
 
-  // <React.Fragment>
-  return name.type === AST_NODE_TYPES.JSXMemberExpression
-    && name.object.type === AST_NODE_TYPES.JSXIdentifier
+  // <Pragma.Fragment>
+  return name.type === NodeType.JSXMemberExpression
+    && name.object.type === NodeType.JSXIdentifier
     && name.object.name === pragma
     && name.property.name === fragment;
 }
@@ -26,12 +50,12 @@ export function isFragment(node: TSESTree.JSXElement, pragma: string, fragment: 
 export function isFragmentWithOnlyTextAndIsNotChild(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
   return node.children.length === 1
     && isLiteral(node.children[0])
-    && !(node.parent.type === AST_NODE_TYPES.JSXElement || node.parent.type === AST_NODE_TYPES.JSXFragment);
+    && !(node.parent.type === NodeType.JSXElement || node.parent.type === NodeType.JSXFragment);
 }
 
 function containsCallExpression(node: TSESTree.Node) {
-  return node.type === AST_NODE_TYPES.JSXExpressionContainer
-    && node.expression.type === AST_NODE_TYPES.CallExpression;
+  return node.type === NodeType.JSXExpressionContainer
+    && node.expression.type === NodeType.CallExpression;
 }
 
 /**
@@ -56,6 +80,6 @@ export function isFragmentWithSingleExpression(node: TSESTree.JSXElement | TSEST
 
   return (
     children.length === 1
-    && children[0]?.type === AST_NODE_TYPES.JSXExpressionContainer
+    && children[0]?.type === NodeType.JSXExpressionContainer
   );
 }
