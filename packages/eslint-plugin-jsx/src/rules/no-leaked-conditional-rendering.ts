@@ -2,12 +2,13 @@
 import { isOneOf, NodeType } from "@eslint-react/ast";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-leaked-conditional-rendering";
 
-type MessageID = "INVALID";
+export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 type TernaryAlternateValue = RegExp | bigint | boolean | null | number | string;
 
@@ -54,7 +55,8 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      INVALID: "Potential leaked value that might cause unintentionally rendered values or rendering crashes",
+      NO_LEAKED_CONDITIONAL_RENDERING:
+        "Potential leaked value that might cause unintentionally rendered values or rendering crashes",
     },
   },
   defaultOptions: [],
@@ -67,7 +69,7 @@ export default createRule<[], MessageID>({
         const isJSXElementAlternate = node.alternate.type === NodeType.JSXElement;
         if (isValidTernaryAlternate(node) || isJSXElementAlternate) {
           context.report({
-            messageId: "INVALID",
+            messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
             node: node.alternate,
           });
         }
@@ -85,7 +87,7 @@ export default createRule<[], MessageID>({
           return;
         }
         context.report({
-          messageId: "INVALID",
+          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
           node: leftSide,
         });
       },

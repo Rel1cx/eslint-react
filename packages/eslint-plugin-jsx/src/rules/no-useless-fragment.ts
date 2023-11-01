@@ -31,7 +31,7 @@ function trimLikeReact(text: string) {
 
 export const RULE_NAME = "no-useless-fragment";
 
-type MessageID = "NO_USELESS_FRAGMENT" | "NO_USELESS_FRAGMENT_IN_HTML";
+export type MessageID = "NO_USELESS_FRAGMENT" | "NO_USELESS_FRAGMENT_IN_HTML";
 
 type Options = readonly [
   {

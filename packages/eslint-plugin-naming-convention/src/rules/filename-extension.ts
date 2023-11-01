@@ -7,7 +7,7 @@ import { createRule, isJSXFile } from "../utils";
 
 export const RULE_NAME = "filename-extension";
 
-type MessageID = "INVALID" | "UNEXPECTED";
+export type MessageID = "INVALID" | "UNEXPECTED";
 
 type Options = readonly [
   {

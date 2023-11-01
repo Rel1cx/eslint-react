@@ -1,10 +1,11 @@
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "render-prop";
 
-type MessageID = "RENDER_FUNCTION" | "RENDER_PROP";
+export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,
@@ -17,7 +18,6 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      RENDER_FUNCTION: "render function found, name: {{name}}",
       RENDER_PROP: "render prop found, name: {{name}}",
     },
   },

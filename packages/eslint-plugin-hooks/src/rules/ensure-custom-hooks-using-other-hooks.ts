@@ -2,12 +2,13 @@ import { getFunctionIdentifier } from "@eslint-react/ast";
 import { hooksCollector } from "@eslint-react/core";
 import { E } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import { type ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "ensure-custom-hooks-using-other-hooks";
 
-type MessageID = "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS";
+export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,
@@ -19,7 +20,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS: "Custom hooks {{name}} should use other hooks",
+      ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS: "Custom hooks {{name}} should use other hooks",
     },
   },
   defaultOptions: [],
@@ -43,7 +44,7 @@ export default createRule<[], MessageID>({
             data: {
               name,
             },
-            messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+            messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
             node: hook,
           });
         }

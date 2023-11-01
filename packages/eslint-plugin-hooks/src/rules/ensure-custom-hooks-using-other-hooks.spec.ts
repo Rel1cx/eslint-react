@@ -59,7 +59,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+          messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
           data: {
             name: "useClassnames",
           },
@@ -82,7 +82,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+          messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
           data: {
             name: "useClassnames",
           },
@@ -102,7 +102,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+          messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
           data: {
             name: "useInnerHook",
           },
@@ -122,7 +122,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+          messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
           data: {
             name: "useNestedHook",
           },
@@ -141,13 +141,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+          messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
           data: {
             name: "useNestedHook",
           },
         },
         {
-          messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+          messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
           data: {
             name: "useInnerHook",
           },
@@ -167,7 +167,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "CUSTOM_HOOKS_NOT_USING_OTHER_HOOKS",
+          messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
           data: {
             name: "useNestedHook",
           },

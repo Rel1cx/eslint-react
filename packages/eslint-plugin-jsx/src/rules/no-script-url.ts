@@ -1,12 +1,13 @@
 import { NodeType } from "@eslint-react/ast";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
+import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-script-url";
 
-type MessageID = "INVALID";
+export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 // @see https://github.com/facebook/react/blob/6db7f4209e6f32ebde298a0b7451710dd6aa3e19/packages/react-dom-bindings/src/shared/sanitizeURL.js#L22
 // dprint-ignore
@@ -28,7 +29,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      INVALID: "",
+      NO_SCRIPT_URL: "Don't use `javascript:` URLs as JSX event handler prop's value.",
     },
   },
   defaultOptions: [],
@@ -46,7 +47,7 @@ export default createRule<[], MessageID>({
         );
         if (link && typeof link.value === "string" && isJavaScriptProtocol.test(link.value)) {
           context.report({
-            messageId: "INVALID",
+            messageId: "NO_SCRIPT_URL",
             node: node.value,
           });
         }

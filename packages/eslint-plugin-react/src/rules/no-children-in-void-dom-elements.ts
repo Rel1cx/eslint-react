@@ -8,7 +8,7 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "no-children-in-void-dom-elements";
 
-type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 const voidElements = new Set([
   "area",

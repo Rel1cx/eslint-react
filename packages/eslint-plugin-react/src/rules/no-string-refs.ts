@@ -3,12 +3,13 @@ import { getParentClassComponent } from "@eslint-react/core";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { isString } from "effect/Predicate";
+import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-string-refs";
 
-type MessageID = "INVALID";
+export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 function containsStringLiteral({ value }: TSESTree.JSXAttribute) {
   return value?.type === NodeType.Literal && isString(value.value);
@@ -37,7 +38,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      INVALID: "String refs are deprecated. Use callback refs instead.",
+      NO_STRING_REFS: "String refs are deprecated. Use callback refs instead.",
     },
   },
   defaultOptions: [],
@@ -49,7 +50,7 @@ export default createRule<[], MessageID>({
         }
         if (containsStringLiteral(node) || containsStringExpressionContainer(node)) {
           context.report({
-            messageId: "INVALID",
+            messageId: "NO_STRING_REFS",
             node,
           });
         }

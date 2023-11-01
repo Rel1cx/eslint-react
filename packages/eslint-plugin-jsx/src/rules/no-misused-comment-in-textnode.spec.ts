@@ -30,15 +30,15 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: "<div>// invalid</div>",
-      errors: [{ messageId: "INVALID" }],
+      errors: [{ messageId: "NO_MISUSED_COMMENT_IN_TEXTNODE" }],
     },
     {
       code: "<>// invalid</>",
-      errors: [{ messageId: "INVALID" }],
+      errors: [{ messageId: "NO_MISUSED_COMMENT_IN_TEXTNODE" }],
     },
     {
       code: "<div>/* invalid */</div>",
-      errors: [{ messageId: "INVALID" }],
+      errors: [{ messageId: "NO_MISUSED_COMMENT_IN_TEXTNODE" }],
     },
     {
       code: dedent`
@@ -46,7 +46,7 @@ ruleTester.run(RULE_NAME, rule, {
         // invalid
         </div>
       `,
-      errors: [{ messageId: "INVALID" }],
+      errors: [{ messageId: "NO_MISUSED_COMMENT_IN_TEXTNODE" }],
     },
     {
       code: dedent`
@@ -56,7 +56,7 @@ ruleTester.run(RULE_NAME, rule, {
         foo
         </div>
       `,
-      errors: [{ messageId: "INVALID" }],
+      errors: [{ messageId: "NO_MISUSED_COMMENT_IN_TEXTNODE" }],
     },
     {
       code: dedent`
@@ -66,11 +66,11 @@ ruleTester.run(RULE_NAME, rule, {
         {'foo'}
         </div>
       `,
-      errors: [{ messageId: "INVALID" }],
+      errors: [{ messageId: "NO_MISUSED_COMMENT_IN_TEXTNODE" }],
     },
     {
       code: "<span>/*</span>",
-      errors: [{ messageId: "INVALID" }],
+      errors: [{ messageId: "NO_MISUSED_COMMENT_IN_TEXTNODE" }],
     },
   ],
 });

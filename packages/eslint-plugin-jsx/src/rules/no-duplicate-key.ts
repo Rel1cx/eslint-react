@@ -12,13 +12,14 @@ import { F, MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
+import type { ConstantCase } from "string-ts";
 import { isMatching, match } from "ts-pattern";
 
 import { createRule, getChildrenToArraySelector } from "../utils";
 
 export const RULE_NAME = "no-duplicate-key";
 
-type MessageID = "INVALID";
+export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,
@@ -31,7 +32,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      INVALID: "Duplicate key value `{{value}}` found.",
+      NO_DUPLICATE_KEY: "Duplicate key value `{{value}}` found.",
     },
   },
   defaultOptions: [],
@@ -54,7 +55,7 @@ export default createRule<[], MessageID>({
               data: {
                 value: context.getSourceCode().getText(v),
               },
-              messageId: "INVALID",
+              messageId: "NO_DUPLICATE_KEY",
               node: v,
             })
             : O.none();
@@ -151,7 +152,7 @@ export default createRule<[], MessageID>({
             data: {
               value: context.getSourceCode().getText(value),
             },
-            messageId: "INVALID",
+            messageId: "NO_DUPLICATE_KEY",
             node: attr,
           });
         }

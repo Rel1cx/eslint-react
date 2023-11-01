@@ -9,7 +9,7 @@ import { createRule, isJSXFile } from "../utils";
 
 export const RULE_NAME = "filename";
 
-type MessageID = "FILENAME_CASE_MISMATCH" | "FILENAME_CASE_MISMATCH_SUGGESTION" | "FILENAME_EMPTY";
+export type MessageID = "FILENAME_CASE_MISMATCH" | "FILENAME_CASE_MISMATCH_SUGGESTION" | "FILENAME_EMPTY";
 
 type Options = readonly [
   {

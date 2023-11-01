@@ -32,27 +32,27 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: '<a href={"javascript:"}></a>',
-      errors: [{ messageId: "INVALID" }],
+      errors: [{ messageId: "NO_SCRIPT_URL" }],
     },
     {
       code: '<Foo href="javascript:"></Foo>',
-      errors: [{ messageId: "INVALID" }],
+      errors: [{ messageId: "NO_SCRIPT_URL" }],
     },
     {
       code: '<a href="javascript:"></a>',
-      errors: [{ messageId: "INVALID" }],
+      errors: [{ messageId: "NO_SCRIPT_URL" }],
     },
     {
       code: '<a href="javascript:void(0)"></a>',
-      errors: [{ messageId: "INVALID" }],
+      errors: [{ messageId: "NO_SCRIPT_URL" }],
     },
     {
       code: '<a href="j\n\n\na\rv\tascript:"></a>',
-      errors: [{ messageId: "INVALID" }],
+      errors: [{ messageId: "NO_SCRIPT_URL" }],
     },
     {
       code: '<Foo to="javascript:"></Foo>',
-      errors: [{ messageId: "INVALID" }],
+      errors: [{ messageId: "NO_SCRIPT_URL" }],
     },
     {
       code: dedent`
@@ -62,8 +62,8 @@ ruleTester.run(RULE_NAME, rule, {
         </div>
       `,
       errors: [
-        { messageId: "INVALID" },
-        { messageId: "INVALID" },
+        { messageId: "NO_SCRIPT_URL" },
+        { messageId: "NO_SCRIPT_URL" },
       ],
     },
   ],

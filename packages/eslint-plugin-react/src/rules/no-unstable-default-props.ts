@@ -3,12 +3,13 @@ import { componentCollector } from "@eslint-react/core";
 import { E } from "@eslint-react/tools";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unstable-default-props";
 
-type MessageID = "INVALID";
+export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 function hasUsedObjectDestructuringSyntax(
   params: TSESTree.FunctionExpression["params"],
@@ -32,7 +33,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      INVALID:
+      NO_UNSTABLE_DEFAULT_PROPS:
         "found a/an {{forbiddenType}} as default prop. This could lead to potential infinite render loop in React. Use a variable instead of {{forbiddenType}}.",
     },
   },
@@ -70,7 +71,7 @@ export default createRule<[], MessageID>({
               data: {
                 forbiddenType,
               },
-              messageId: "INVALID",
+              messageId: "NO_UNSTABLE_DEFAULT_PROPS",
               node: right,
             });
           }

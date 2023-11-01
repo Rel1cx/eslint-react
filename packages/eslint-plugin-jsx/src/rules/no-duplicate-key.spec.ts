@@ -55,19 +55,19 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "INVALID",
+          messageId: "NO_DUPLICATE_KEY",
           data: {
             value: '"1"',
           },
         },
         {
-          messageId: "INVALID",
+          messageId: "NO_DUPLICATE_KEY",
           data: {
             value: '"1"',
           },
         },
         {
-          messageId: "INVALID",
+          messageId: "NO_DUPLICATE_KEY",
           data: {
             value: '"1"',
           },
@@ -86,19 +86,19 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "INVALID",
+          messageId: "NO_DUPLICATE_KEY",
           data: {
             value: '"1"',
           },
         },
         {
-          messageId: "INVALID",
+          messageId: "NO_DUPLICATE_KEY",
           data: {
             value: '"1"',
           },
         },
         {
-          messageId: "INVALID",
+          messageId: "NO_DUPLICATE_KEY",
           data: {
             value: '"1"',
           },
@@ -113,7 +113,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "INVALID",
+          messageId: "NO_DUPLICATE_KEY",
           data: {
             value: '"1"',
           },
