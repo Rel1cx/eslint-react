@@ -1,12 +1,14 @@
 import { NodeType } from "@eslint-react/ast";
-import { isCreateElementCall } from "@eslint-react/jsx";
+import { findPropInAttributes, findPropInProperties, isCreateElementCall } from "@eslint-react/jsx";
+import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-children-in-void-dom-elements";
 
-type MessageID = "NO_CHILDREN_IN_VOID_DOM_ELEMENTS";
+type MessageID = ConstantCase<typeof RULE_NAME>;
 
 const voidElements = new Set([
   "area",
@@ -92,18 +94,11 @@ export default createRule<[], MessageID>({
 
         const props = propsNode.properties;
 
-        const hasChildrenPropOrDanger = props.some((prop) => {
-          if (!("key" in prop)) {
-            return false;
-          }
-          if (!("name" in prop.key)) {
-            return false;
-          }
+        const findProp = findPropInProperties(props, context);
 
-          return prop.key.name === "children" || prop.key.name === "dangerouslySetInnerHTML";
-        });
+        const hasChildrenOrDangerProp = O.isSome(findProp("children")) || O.isSome(findProp("dangerouslySetInnerHTML"));
 
-        if (hasChildrenPropOrDanger) {
+        if (hasChildrenOrDangerProp) {
           // e.g. React.createElement('br', { children: 'Foo' })
           context.report({
             data: {
@@ -135,15 +130,12 @@ export default createRule<[], MessageID>({
 
           const { attributes } = node.openingElement;
 
-          const hasChildrenAttributeOrDanger = attributes.some((attribute) => {
-            if (!("name" in attribute)) {
-              return false;
-            }
+          const findAttr = findPropInAttributes(attributes, context);
 
-            return attribute.name.name === "children" || attribute.name.name === "dangerouslySetInnerHTML";
-          });
+          const hasChildrenOrDangerAttr = O.isSome(findAttr("children"))
+            || O.isSome(findAttr("dangerouslySetInnerHTML"));
 
-          if (hasChildrenAttributeOrDanger) {
+          if (hasChildrenOrDangerAttr) {
             // e.g. <br children="Foo" />
             context.report({
               data: {

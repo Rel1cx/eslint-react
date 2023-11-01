@@ -258,7 +258,7 @@ A function that searches for a property in the given attributes
 
 | Name         | Type                                                        | Default value | Description                                |
 | :----------- | :---------------------------------------------------------- | :------------ | :----------------------------------------- |
-| `properties` | (`Property` \| `RestElement`)[] \| `ObjectLiteralElement`[] | `undefined`   | The properties to search in                |
+| `properties` | `ObjectLiteralElement`[] \| (`Property` \| `RestElement`)[] | `undefined`   | The properties to search in                |
 | `context`    | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | `undefined`   | The rule context                           |
 | `seenProps`  | `string`[]                                                  | `[]`          | The properties that have already been seen |
 
@@ -411,19 +411,16 @@ Check if any of the given prop names are present in the given attributes
 
 ### hasChildren
 
-▸ **hasChildren**(`node`, `context`, `includeTextNode?`, `includeLineBreak?`, `includeChildrenProp?`): `boolean`
+▸ **hasChildren**(`node`, `predicate?`): `boolean`
 
 Check if a `JSXElement` or `JSXFragment` has children
 
 #### Parameters
 
-| Name                  | Type                                                        | Default value | Description                                     |
-| :-------------------- | :---------------------------------------------------------- | :------------ | :---------------------------------------------- |
-| `node`                | `JSXElement` \| `JSXFragment`                               | `undefined`   | The AST node to check                           |
-| `context`             | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | `undefined`   | The ESLint rule context                         |
-| `includeTextNode`     | `boolean`                                                   | `true`        | If `true`, consider `textnode` as children      |
-| `includeLineBreak`    | `boolean`                                                   | `true`        | If `true`, consider `linebreak` as children     |
-| `includeChildrenProp` | `boolean`                                                   | `true`        | If `true`, consider `children` prop as children |
+| Name         | Type                              | Description                        |
+| :----------- | :-------------------------------- | :--------------------------------- |
+| `node`       | `JSXElement` \| `JSXFragment`     | The AST node to check              |
+| `predicate?` | (`node`: `JSXChild`) => `boolean` | A predicate to filter the children |
 
 #### Returns
 
