@@ -30,6 +30,7 @@ export default {
   pathRuleList: "README.md",
   ruleDocSectionInclude: ["Rule Details"],
   ruleDocTitleFormat: "name",
+  ruleListColumns: ["name", "description"],
   ruleListSplit(rules) {
     const record = rules.reduce<Record<string, RuleNamesAndRules>>((acc, [name, rule]) => {
       const title = /^([\w-]+)\/[\w-]+/iu.exec(name)?.[1] ?? defaultTitle;

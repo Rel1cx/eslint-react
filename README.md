@@ -88,59 +88,57 @@ export default [
 
 <!-- begin auto-generated rules list -->
 
-🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).
-
 ### debug
 
-| Name                                                                                     | Description                                               | 🔧 |
-| :--------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :- |
-| [debug/class-component](packages/eslint-plugin-debug/src/rules/class-component.md)       | reports all class components, including anonymous ones    |    |
-| [debug/function-component](packages/eslint-plugin-debug/src/rules/function-component.md) | reports all function components, including anonymous ones |    |
-| [debug/hooks](packages/eslint-plugin-debug/src/rules/hooks.md)                           | reports all react hooks                                   |    |
+| Name                                                                                     | Description                                               |
+| :--------------------------------------------------------------------------------------- | :-------------------------------------------------------- |
+| [debug/class-component](packages/eslint-plugin-debug/src/rules/class-component.md)       | reports all class components, including anonymous ones    |
+| [debug/function-component](packages/eslint-plugin-debug/src/rules/function-component.md) | reports all function components, including anonymous ones |
+| [debug/hooks](packages/eslint-plugin-debug/src/rules/hooks.md)                           | reports all react hooks                                   |
 
 ### hooks
 
-| Name                                                                                                                           | Description                            | 🔧 |
-| :----------------------------------------------------------------------------------------------------------------------------- | :------------------------------------- | :- |
-| [hooks/ensure-custom-hooks-using-other-hooks](packages/eslint-plugin-hooks/src/rules/ensure-custom-hooks-using-other-hooks.md) | enforce custom hooks using other hooks |    |
+| Name                                                                                                                           | Description                            |
+| :----------------------------------------------------------------------------------------------------------------------------- | :------------------------------------- |
+| [hooks/ensure-custom-hooks-using-other-hooks](packages/eslint-plugin-hooks/src/rules/ensure-custom-hooks-using-other-hooks.md) | enforce custom hooks using other hooks |
 
 ### jsx
 
-| Name                                                                                                           | Description                                                   | 🔧 |
-| :------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------ | :- |
-| [jsx/no-array-index-key](packages/eslint-plugin-jsx/src/rules/no-array-index-key.md)                           | disallow using Array index as key                             |    |
-| [jsx/no-duplicate-key](packages/eslint-plugin-jsx/src/rules/no-duplicate-key.md)                               | disallow duplicate keys in `key` prop when rendering list     |    |
-| [jsx/no-leaked-conditional-rendering](packages/eslint-plugin-jsx/src/rules/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered        |    |
-| [jsx/no-missing-key](packages/eslint-plugin-jsx/src/rules/no-missing-key.md)                                   | require `key` prop when rendering list                        |    |
-| [jsx/no-misused-comment-in-textnode](packages/eslint-plugin-jsx/src/rules/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes           |    |
-| [jsx/no-script-url](packages/eslint-plugin-jsx/src/rules/no-script-url.md)                                     | disallow `javascript:` URLs as JSX event handler prop's value |    |
-| [jsx/no-useless-fragment](packages/eslint-plugin-jsx/src/rules/no-useless-fragment.md)                         | disallow unnecessary fragments                                | 🔧 |
-| [jsx/prefer-shorthand-boolean](packages/eslint-plugin-jsx/src/rules/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX                    |    |
+| Name                                                                                                           | Description                                                   |
+| :------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------ |
+| [jsx/no-array-index-key](packages/eslint-plugin-jsx/src/rules/no-array-index-key.md)                           | disallow using Array index as key                             |
+| [jsx/no-duplicate-key](packages/eslint-plugin-jsx/src/rules/no-duplicate-key.md)                               | disallow duplicate keys in `key` prop when rendering list     |
+| [jsx/no-leaked-conditional-rendering](packages/eslint-plugin-jsx/src/rules/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered        |
+| [jsx/no-missing-key](packages/eslint-plugin-jsx/src/rules/no-missing-key.md)                                   | require `key` prop when rendering list                        |
+| [jsx/no-misused-comment-in-textnode](packages/eslint-plugin-jsx/src/rules/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes           |
+| [jsx/no-script-url](packages/eslint-plugin-jsx/src/rules/no-script-url.md)                                     | disallow `javascript:` URLs as JSX event handler prop's value |
+| [jsx/no-useless-fragment](packages/eslint-plugin-jsx/src/rules/no-useless-fragment.md)                         | disallow unnecessary fragments                                |
+| [jsx/prefer-shorthand-boolean](packages/eslint-plugin-jsx/src/rules/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX                    |
 
 ### naming-convention
 
-| Name                                                                                                             | Description                                       | 🔧 |
-| :--------------------------------------------------------------------------------------------------------------- | :------------------------------------------------ | :- |
-| [naming-convention/filename](packages/eslint-plugin-naming-convention/src/rules/filename.md)                     | enforce naming convention for JSX file names      |    |
-| [naming-convention/filename-extension](packages/eslint-plugin-naming-convention/src/rules/filename-extension.md) | enforce naming convention for JSX file extensions |    |
+| Name                                                                                                             | Description                                       |
+| :--------------------------------------------------------------------------------------------------------------- | :------------------------------------------------ |
+| [naming-convention/filename](packages/eslint-plugin-naming-convention/src/rules/filename.md)                     | enforce naming convention for JSX file names      |
+| [naming-convention/filename-extension](packages/eslint-plugin-naming-convention/src/rules/filename-extension.md) | enforce naming convention for JSX file extensions |
 
 ### react
 
-| Name                                                                                                                                     | Description                                                                     | 🔧 |
-| :--------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ | :- |
-| [react/no-children-in-void-dom-elements](packages/eslint-plugin-react/src/rules/no-children-in-void-dom-elements.md)                     | disallow passing children to void DOM elements                                  |    |
-| [react/no-class-component](packages/eslint-plugin-react/src/rules/no-class-component.md)                                                 | enforce that there are no class components                                      |    |
-| [react/no-clone-element](packages/eslint-plugin-react/src/rules/no-clone-element.md)                                                     | disallow `cloneElement`                                                         |    |
-| [react/no-constructed-context-value](packages/eslint-plugin-react/src/rules/no-constructed-context-value.md)                             | disallow passing constructed values to context providers                        |    |
-| [react/no-create-ref](packages/eslint-plugin-react/src/rules/no-create-ref.md)                                                           | disallow `createRef` in function components                                     |    |
-| [react/no-dangerously-set-innerhtml](packages/eslint-plugin-react/src/rules/no-dangerously-set-innerhtml.md)                             | disallow when a DOM element is using both children and dangerouslySetInnerHTML' |    |
-| [react/no-dangerously-set-innerhtml-with-children](packages/eslint-plugin-react/src/rules/no-dangerously-set-innerhtml-with-children.md) | disallow when a DOM element is using both children and dangerouslySetInnerHTML' |    |
-| [react/no-namespace](packages/eslint-plugin-react/src/rules/no-namespace.md)                                                             | enforce that namespaces are not used in React elements                          |    |
-| [react/no-string-refs](packages/eslint-plugin-react/src/rules/no-string-refs.md)                                                         | disallow using deprecated string refs                                           |    |
-| [react/no-string-style-props](packages/eslint-plugin-react/src/rules/no-string-style-props.md)                                           | disallow using string as style props value                                      |    |
-| [react/no-unstable-default-props](packages/eslint-plugin-react/src/rules/no-unstable-default-props.md)                                   | disallow usage of unstable value as default param in function component         |    |
-| [react/no-unstable-nested-components](packages/eslint-plugin-react/src/rules/no-unstable-nested-components.md)                           | disallow usage of unstable nested components                                    |    |
-| [react/prefer-destructuring-assignment](packages/eslint-plugin-react/src/rules/prefer-destructuring-assignment.md)                       | enforce using destructuring assignment in component props and context           |    |
+| Name                                                                                                                                     | Description                                                                     |
+| :--------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ |
+| [react/no-children-in-void-dom-elements](packages/eslint-plugin-react/src/rules/no-children-in-void-dom-elements.md)                     | disallow passing children to void DOM elements                                  |
+| [react/no-class-component](packages/eslint-plugin-react/src/rules/no-class-component.md)                                                 | enforce that there are no class components                                      |
+| [react/no-clone-element](packages/eslint-plugin-react/src/rules/no-clone-element.md)                                                     | disallow `cloneElement`                                                         |
+| [react/no-constructed-context-value](packages/eslint-plugin-react/src/rules/no-constructed-context-value.md)                             | disallow passing constructed values to context providers                        |
+| [react/no-create-ref](packages/eslint-plugin-react/src/rules/no-create-ref.md)                                                           | disallow `createRef` in function components                                     |
+| [react/no-dangerously-set-innerhtml](packages/eslint-plugin-react/src/rules/no-dangerously-set-innerhtml.md)                             | disallow when a DOM element is using both children and dangerouslySetInnerHTML' |
+| [react/no-dangerously-set-innerhtml-with-children](packages/eslint-plugin-react/src/rules/no-dangerously-set-innerhtml-with-children.md) | disallow when a DOM element is using both children and dangerouslySetInnerHTML' |
+| [react/no-namespace](packages/eslint-plugin-react/src/rules/no-namespace.md)                                                             | enforce that namespaces are not used in React elements                          |
+| [react/no-string-refs](packages/eslint-plugin-react/src/rules/no-string-refs.md)                                                         | disallow using deprecated string refs                                           |
+| [react/no-string-style-props](packages/eslint-plugin-react/src/rules/no-string-style-props.md)                                           | disallow using string as style props value                                      |
+| [react/no-unstable-default-props](packages/eslint-plugin-react/src/rules/no-unstable-default-props.md)                                   | disallow usage of unstable value as default param in function component         |
+| [react/no-unstable-nested-components](packages/eslint-plugin-react/src/rules/no-unstable-nested-components.md)                           | disallow usage of unstable nested components                                    |
+| [react/prefer-destructuring-assignment](packages/eslint-plugin-react/src/rules/prefer-destructuring-assignment.md)                       | enforce using destructuring assignment in component props and context           |
 
 <!-- end auto-generated rules list -->
 
