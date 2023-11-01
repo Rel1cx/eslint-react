@@ -1,4 +1,3 @@
-export * from "./attribute";
 export * from "./children";
 export * from "./element";
 export * from "./element-type";

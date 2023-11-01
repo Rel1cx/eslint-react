@@ -1,13 +1,13 @@
 import {
   getFragmentFromContext,
   getPragmaFromContext,
+  hasProp,
   isChildOfComponentElement,
   isChildOfHtmlElement,
   isFragment,
   isFragmentHasLessThanTwoChildren,
   isFragmentWithOnlyTextAndIsNotChild,
   isFragmentWithSingleExpression,
-  isKeyedElement,
   isLiteral,
   isWhiteSpace,
 } from "@eslint-react/jsx";
@@ -123,7 +123,14 @@ export default createRule<Options, MessageID>({
     }
 
     function checkNode(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
-      if (isKeyedElement(node)) {
+      if (
+        node.type === AST_NODE_TYPES.JSXElement
+        && hasProp(
+          node.openingElement.attributes,
+          "key",
+          context,
+        )
+      ) {
         return;
       }
 

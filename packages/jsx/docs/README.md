@@ -55,9 +55,7 @@
 - [isInitializedFromPragma](README.md#isinitializedfrompragma)
 - [isInsideCreateElementProps](README.md#isinsidecreateelementprops)
 - [isInsidePropValue](README.md#isinsidepropvalue)
-- [isJSXAttributeKey](README.md#isjsxattributekey)
 - [isJSXValue](README.md#isjsxvalue)
-- [isKeyedElement](README.md#iskeyedelement)
 - [isLineBreak](README.md#islinebreak)
 - [isLiteral](README.md#isliteral)
 - [isPaddingSpaces](README.md#ispaddingspaces)
@@ -759,26 +757,6 @@ Checks if the node is inside a prop's value
 
 ---
 
-### isJSXAttributeKey
-
-▸ **isJSXAttributeKey**(`node`): `boolean`
-
-Check if node is like `key={...}` as in `<Foo key={...} />`
-
-#### Parameters
-
-| Name   | Type   | Description           |
-| :----- | :----- | :-------------------- |
-| `node` | `Node` | The AST node to check |
-
-#### Returns
-
-`boolean`
-
-`true` if the node is like `key={...}`
-
----
-
 ### isJSXValue
 
 ▸ **isJSXValue**(`node`, `context`, `options?`): `boolean`
@@ -798,22 +776,6 @@ Check if a node is a JSX value
 `boolean`
 
 boolean
-
----
-
-### isKeyedElement
-
-▸ **isKeyedElement**(`node`): `boolean`
-
-#### Parameters
-
-| Name   | Type   |
-| :----- | :----- |
-| `node` | `Node` |
-
-#### Returns
-
-`boolean`
 
 ---
 
