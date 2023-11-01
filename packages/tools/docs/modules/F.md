@@ -37,7 +37,7 @@
 
 ### SK
 
-▸ **SK**<`A`, `B`\>(`_`, `b`): `B`
+▸ **SK**\<`A`, `B`\>(`_`, `b`): `B`
 
 The SK combinator, also known as the "S-K combinator" or "S-combinator", is a fundamental combinator in the
 lambda calculus and the SKI combinator calculus.
@@ -78,7 +78,7 @@ assert.deepStrictEqual(SK(0, "hello"), "hello");
 
 ### absurd
 
-▸ **absurd**<`A`\>(`_`): `A`
+▸ **absurd**\<`A`\>(`_`): `A`
 
 The `absurd` function is a stub for cases where a value of type `never` is encountered in your code,
 meaning that it should be impossible for this code to be executed.
@@ -109,7 +109,7 @@ This function is particularly when it's necessary to specify that certain cases 
 
 ### apply
 
-▸ **apply**<`A`\>(`a`): <B\>(`self`: (`a`: `A`) => `B`) => `B`
+▸ **apply**\<`A`\>(`a`): \<B\>(`self`: (`a`: `A`) => `B`) => `B`
 
 Apply a function to a given value.
 
@@ -129,7 +129,7 @@ Apply a function to a given value.
 
 `fn`
 
-▸ <`B`\>(`self`): `B`
+▸ \<`B`\>(`self`): `B`
 
 ##### Type parameters
 
@@ -164,7 +164,7 @@ assert.deepStrictEqual(pipe(length, apply("hello")), 5);
 
 ### compose
 
-▸ **compose**<`B`, `C`\>(`bc`): <A\>(`self`: (`a`: `A`) => `B`) => (`a`: `A`) => `C`
+▸ **compose**\<`B`, `C`\>(`bc`): \<A\>(`self`: (`a`: `A`) => `B`) => (`a`: `A`) => `C`
 
 Composes two functions, `ab` and `bc` into a single function that takes in an argument `a` of type `A` and returns a result of type `C`.
 The result is obtained by first applying the `ab` function to `a` and then applying the `bc` function to the result of `ab`.
@@ -186,7 +186,7 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 
 `fn`
 
-▸ <`A`\>(`self`): (`a`: `A`) => `C`
+▸ \<`A`\>(`self`): (`a`: `A`) => `C`
 
 ##### Type parameters
 
@@ -231,7 +231,7 @@ assert.strictEqual(compose(increment, square)(2), 9);
 
 2.0.0
 
-▸ **compose**<`A`, `B`, `C`\>(`self`, `bc`): (`a`: `A`) => `C`
+▸ **compose**\<`A`, `B`, `C`\>(`self`, `bc`): (`a`: `A`) => `C`
 
 Composes two functions, `ab` and `bc` into a single function that takes in an argument `a` of type `A` and returns a result of type `C`.
 The result is obtained by first applying the `ab` function to `a` and then applying the `bc` function to the result of `ab`.
@@ -406,7 +406,7 @@ assert.deepStrictEqual(constVoid(), undefined);
 
 ### constant
 
-▸ **constant**<`A`\>(`value`): [`LazyArg`](../interfaces/F.LazyArg.md)<`A`\>
+▸ **constant**\<`A`\>(`value`): [`LazyArg`](../interfaces/F.LazyArg.md)\<`A`\>
 
 Creates a constant value that never changes.
 
@@ -427,7 +427,7 @@ and want that inner function to always use the same value, no matter how many ti
 
 #### Returns
 
-[`LazyArg`](../interfaces/F.LazyArg.md)<`A`\>
+[`LazyArg`](../interfaces/F.LazyArg.md)\<`A`\>
 
 **`Example`**
 
@@ -448,7 +448,7 @@ assert.deepStrictEqual(constNull(), null);
 
 ### dual
 
-▸ **dual**<`DataLast`, `DataFirst`\>(`arity`, `body`): `DataLast` & `DataFirst`
+▸ **dual**\<`DataLast`, `DataFirst`\>(`arity`, `body`): `DataLast` & `DataFirst`
 
 Creates a function that can be used in a data-last (aka `pipe`able) or
 data-first style.
@@ -471,10 +471,10 @@ function is being used in a data-first or data-last style.
 
 #### Parameters
 
-| Name    | Type                                   | Description                                                                                                                                  |
-| :------ | :------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
-| `arity` | `Parameters`<`DataFirst`\>[`"length"`] | Either the arity of the uncurried function or a predicate which determines if the function is being used in a data-first or data-last style. |
-| `body`  | `DataFirst`                            | The definition of the uncurried function.                                                                                                    |
+| Name    | Type                                    | Description                                                                                                                                  |
+| :------ | :-------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| `arity` | `Parameters`\<`DataFirst`\>[`"length"`] | Either the arity of the uncurried function or a predicate which determines if the function is being used in a data-first or data-last style. |
+| `body`  | `DataFirst`                             | The definition of the uncurried function.                                                                                                    |
 
 #### Returns
 
@@ -508,7 +508,7 @@ assert.deepStrictEqual(pipe(2, sum(3)), 5);
 
 2.0.0
 
-▸ **dual**<`DataLast`, `DataFirst`\>(`isDataFirst`, `body`): `DataLast` & `DataFirst`
+▸ **dual**\<`DataLast`, `DataFirst`\>(`isDataFirst`, `body`): `DataLast` & `DataFirst`
 
 Creates a function that can be used in a data-last (aka `pipe`able) or
 data-first style.
@@ -572,7 +572,7 @@ assert.deepStrictEqual(pipe(2, sum(3)), 5);
 
 ### flip
 
-▸ **flip**<`A`, `B`, `C`\>(`f`): (...`b`: `B`) => (...`a`: `A`) => `C`
+▸ **flip**\<`A`, `B`, `C`\>(`f`): (...`b`: `B`) => (...`a`: `A`) => `C`
 
 Reverses the order of arguments for a curried function.
 
@@ -636,7 +636,7 @@ assert.deepStrictEqual(flip(f)("aaa")(2), -1);
 
 ### flow
 
-▸ **flow**<`A`, `B`\>(`ab`): (...`a`: `A`) => `B`
+▸ **flow**\<`A`, `B`\>(`ab`): (...`a`: `A`) => `B`
 
 Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
 
@@ -688,7 +688,7 @@ assert.strictEqual(f("aaa"), 6);
 
 2.0.0
 
-▸ **flow**<`A`, `B`, `C`\>(`ab`, `bc`): (...`a`: `A`) => `C`
+▸ **flow**\<`A`, `B`, `C`\>(`ab`, `bc`): (...`a`: `A`) => `C`
 
 #### Type parameters
 
@@ -721,7 +721,7 @@ assert.strictEqual(f("aaa"), 6);
 
 `C`
 
-▸ **flow**<`A`, `B`, `C`, `D`\>(`ab`, `bc`, `cd`): (...`a`: `A`) => `D`
+▸ **flow**\<`A`, `B`, `C`, `D`\>(`ab`, `bc`, `cd`): (...`a`: `A`) => `D`
 
 #### Type parameters
 
@@ -756,7 +756,7 @@ assert.strictEqual(f("aaa"), 6);
 
 `D`
 
-▸ **flow**<`A`, `B`, `C`, `D`, `E`\>(`ab`, `bc`, `cd`, `de`): (...`a`: `A`) => `E`
+▸ **flow**\<`A`, `B`, `C`, `D`, `E`\>(`ab`, `bc`, `cd`, `de`): (...`a`: `A`) => `E`
 
 #### Type parameters
 
@@ -793,7 +793,7 @@ assert.strictEqual(f("aaa"), 6);
 
 `E`
 
-▸ **flow**<`A`, `B`, `C`, `D`, `E`, `F`\>(`ab`, `bc`, `cd`, `de`, `ef`): (...`a`: `A`) => `F`
+▸ **flow**\<`A`, `B`, `C`, `D`, `E`, `F`\>(`ab`, `bc`, `cd`, `de`, `ef`): (...`a`: `A`) => `F`
 
 #### Type parameters
 
@@ -832,7 +832,7 @@ assert.strictEqual(f("aaa"), 6);
 
 `F`
 
-▸ **flow**<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`): (...`a`: `A`) => `G`
+▸ **flow**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`): (...`a`: `A`) => `G`
 
 #### Type parameters
 
@@ -873,7 +873,7 @@ assert.strictEqual(f("aaa"), 6);
 
 `G`
 
-▸ **flow**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): (...`a`: `A`) => `H`
+▸ **flow**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): (...`a`: `A`) => `H`
 
 #### Type parameters
 
@@ -916,7 +916,7 @@ assert.strictEqual(f("aaa"), 6);
 
 `H`
 
-▸ **flow**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): (...`a`: `A`) => `I`
+▸ **flow**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): (...`a`: `A`) => `I`
 
 #### Type parameters
 
@@ -961,7 +961,7 @@ assert.strictEqual(f("aaa"), 6);
 
 `I`
 
-▸ **flow**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): (...`a`: `A`) => `J`
+▸ **flow**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): (...`a`: `A`) => `J`
 
 #### Type parameters
 
@@ -1012,7 +1012,7 @@ assert.strictEqual(f("aaa"), 6);
 
 ### hole
 
-▸ **hole**<`T`\>(): `T`
+▸ **hole**\<`T`\>(): `T`
 
 Type hole simulation.
 
@@ -1034,7 +1034,7 @@ Type hole simulation.
 
 ### identity
 
-▸ **identity**<`A`\>(`a`): `A`
+▸ **identity**\<`A`\>(`a`): `A`
 
 The identity function, i.e. A function that returns its input argument.
 
@@ -1070,7 +1070,7 @@ assert.deepStrictEqual(identity(5), 5);
 
 ### pipe
 
-▸ **pipe**<`A`\>(`a`): `A`
+▸ **pipe**\<`A`\>(`a`): `A`
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -1112,7 +1112,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 2.0.0
 
-▸ **pipe**<`A`, `B`\>(`a`, `ab`): `B`
+▸ **pipe**\<`A`, `B`\>(`a`, `ab`): `B`
 
 #### Type parameters
 
@@ -1132,7 +1132,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `B`
 
-▸ **pipe**<`A`, `B`, `C`\>(`a`, `ab`, `bc`): `C`
+▸ **pipe**\<`A`, `B`, `C`\>(`a`, `ab`, `bc`): `C`
 
 #### Type parameters
 
@@ -1154,7 +1154,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `C`
 
-▸ **pipe**<`A`, `B`, `C`, `D`\>(`a`, `ab`, `bc`, `cd`): `D`
+▸ **pipe**\<`A`, `B`, `C`, `D`\>(`a`, `ab`, `bc`, `cd`): `D`
 
 #### Type parameters
 
@@ -1178,7 +1178,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `D`
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`\>(`a`, `ab`, `bc`, `cd`, `de`): `E`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`\>(`a`, `ab`, `bc`, `cd`, `de`): `E`
 
 #### Type parameters
 
@@ -1204,7 +1204,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `E`
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`): `F`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`): `F`
 
 #### Type parameters
 
@@ -1232,7 +1232,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `F`
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`): `G`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`): `G`
 
 #### Type parameters
 
@@ -1262,7 +1262,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `G`
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): `H`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): `H`
 
 #### Type parameters
 
@@ -1294,7 +1294,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `H`
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): `I`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): `I`
 
 #### Type parameters
 
@@ -1328,7 +1328,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `I`
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): `J`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): `J`
 
 #### Type parameters
 
@@ -1364,7 +1364,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `J`
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`): `K`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`): `K`
 
 #### Type parameters
 
@@ -1402,7 +1402,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `K`
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`): `L`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`): `L`
 
 #### Type parameters
 
@@ -1442,7 +1442,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `L`
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`): `M`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`): `M`
 
 #### Type parameters
 
@@ -1484,7 +1484,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `M`
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`): `N`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`): `N`
 
 #### Type parameters
 
@@ -1528,7 +1528,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `N`
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`): `O`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`): `O`
 
 #### Type parameters
 
@@ -1574,7 +1574,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `O`
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`): `P`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`): `P`
 
 #### Type parameters
 
@@ -1622,7 +1622,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `P`
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`): `Q`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`): `Q`
 
 #### Type parameters
 
@@ -1672,7 +1672,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `Q`
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`): `R`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`): `R`
 
 #### Type parameters
 
@@ -1724,7 +1724,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `R`
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`): `S`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`): `S`
 
 #### Type parameters
 
@@ -1778,7 +1778,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `S`
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`): `T`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`): `T`
 
 #### Type parameters
 
@@ -1838,7 +1838,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 ### tupled
 
-▸ **tupled**<`A`, `B`\>(`f`): (`a`: `A`) => `B`
+▸ **tupled**\<`A`, `B`\>(`f`): (`a`: `A`) => `B`
 
 Creates a tupled version of this function: instead of `n` arguments, it accepts a single tuple argument.
 
@@ -1889,7 +1889,7 @@ assert.deepStrictEqual(sumTupled([1, 2]), 3);
 
 ### unsafeCoerce
 
-▸ **unsafeCoerce**<`A`, `B`\>(`a`): `B`
+▸ **unsafeCoerce**\<`A`, `B`\>(`a`): `B`
 
 Casts the result to the specified type.
 
@@ -1926,7 +1926,7 @@ assert.deepStrictEqual(unsafeCoerce, identity);
 
 ### untupled
 
-▸ **untupled**<`A`, `B`\>(`f`): (...`a`: `A`) => `B`
+▸ **untupled**\<`A`, `B`\>(`f`): (...`a`: `A`) => `B`
 
 Inverse function of `tupled`
 

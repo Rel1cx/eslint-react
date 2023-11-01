@@ -42,7 +42,7 @@
 
 ### case
 
-▸ **case**<`A`\>(): [`Constructor`](../interfaces/Data.Case.Constructor.md)<`A`, `never`\>
+▸ **case**\<`A`\>(): [`Constructor`](../interfaces/Data.Case.Constructor.md)\<`A`, `never`\>
 
 #### Type parameters
 
@@ -52,35 +52,35 @@
 
 #### Returns
 
-[`Constructor`](../interfaces/Data.Case.Constructor.md)<`A`, `never`\>
+[`Constructor`](../interfaces/Data.Case.Constructor.md)\<`A`, `never`\>
 
 ## constructors
 
 ### Class
 
-• `Const` **Class**: <A\>(`args`: `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] }) => [`Data`](Data.md#data)<`Readonly`<`A`\>\>
+• `Const` **Class**: \<A\>(`args`: `Types.Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : \{ readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] }) => [`Data`](Data.md#data)\<`Readonly`\<`A`\>\>
 
 #### Type declaration
 
-• <`A`\>(`args`): [`Data`](Data.md#data)<`Readonly`<`A`\>\>
+• \<`A`\>(`args`): [`Data`](Data.md#data)\<`Readonly`\<`A`\>\>
 
 Provides a constructor for a Case Class.
 
 ##### Type parameters
 
-| Name | Type                               |
-| :--- | :--------------------------------- |
-| `A`  | extends `Record`<`string`, `any`\> |
+| Name | Type                                |
+| :--- | :---------------------------------- |
+| `A`  | extends `Record`\<`string`, `any`\> |
 
 ##### Parameters
 
-| Name   | Type                                                                                                                                                                              |
-| :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `args` | `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] } |
+| Name   | Type                                                                                                                                                                                 |
+| :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `args` | `Types.Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : \{ readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] } |
 
 ##### Returns
 
-[`Data`](Data.md#data)<`Readonly`<`A`\>\>
+[`Data`](Data.md#data)\<`Readonly`\<`A`\>\>
 
 **`Example`**
 
@@ -108,29 +108,29 @@ assert.deepStrictEqual(Equal.equals(mike1, john), false);
 
 ### Error
 
-• `Const` **Error**: <A\>(`args`: `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] }) => [`YieldableError`](../interfaces/Data.YieldableError.md) & `Readonly`<`A`\>
+• `Const` **Error**: \<A\>(`args`: `Types.Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : \{ readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] }) => [`YieldableError`](../interfaces/Data.YieldableError.md) & `Readonly`\<`A`\>
 
 #### Type declaration
 
-• <`A`\>(`args`): [`YieldableError`](../interfaces/Data.YieldableError.md) & `Readonly`<`A`\>
+• \<`A`\>(`args`): [`YieldableError`](../interfaces/Data.YieldableError.md) & `Readonly`\<`A`\>
 
 Provides a constructor for a Case Class.
 
 ##### Type parameters
 
-| Name | Type                               |
-| :--- | :--------------------------------- |
-| `A`  | extends `Record`<`string`, `any`\> |
+| Name | Type                                |
+| :--- | :---------------------------------- |
+| `A`  | extends `Record`\<`string`, `any`\> |
 
 ##### Parameters
 
-| Name   | Type                                                                                                                                                                              |
-| :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `args` | `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] } |
+| Name   | Type                                                                                                                                                                                 |
+| :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `args` | `Types.Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : \{ readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] } |
 
 ##### Returns
 
-[`YieldableError`](../interfaces/Data.YieldableError.md) & `Readonly`<`A`\>
+[`YieldableError`](../interfaces/Data.YieldableError.md) & `Readonly`\<`A`\>
 
 **`Since`**
 
@@ -140,11 +140,11 @@ Provides a constructor for a Case Class.
 
 ### Structural
 
-• `Const` **Structural**: <A\>(`args`: `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] }) => [`Case`](../interfaces/Data.Case-1.md)
+• `Const` **Structural**: \<A\>(`args`: `Types.Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : \{ readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] }) => [`Case`](../interfaces/Data.Case-1.md)
 
 #### Type declaration
 
-• <`A`\>(`args`): [`Case`](../interfaces/Data.Case-1.md)
+• \<`A`\>(`args`): [`Case`](../interfaces/Data.Case-1.md)
 
 ##### Type parameters
 
@@ -154,9 +154,9 @@ Provides a constructor for a Case Class.
 
 ##### Parameters
 
-| Name   | Type                                                                                                                                                                              |
-| :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `args` | `Types.Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] } |
+| Name   | Type                                                                                                                                                                                 |
+| :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `args` | `Types.Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : \{ readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] } |
 
 ##### Returns
 
@@ -170,7 +170,7 @@ Provides a constructor for a Case Class.
 
 ### TaggedClass
 
-▸ **TaggedClass**<`Tag`\>(`tag`): <A\>(`args`: `Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] }) => [`Data`](Data.md#data)<`Readonly`<`A`\> & { `_tag`: `Tag` }\>
+▸ **TaggedClass**\<`Tag`\>(`tag`): \<A\>(`args`: `Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : \{ readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] }) => [`Data`](Data.md#data)\<`Readonly`\<`A`\> & \{ `_tag`: `Tag` }\>
 
 Provides a Tagged constructor for a Case Class.
 
@@ -190,23 +190,23 @@ Provides a Tagged constructor for a Case Class.
 
 `fn`
 
-• **new TaggedClass**<`A`\>(`args`): [`Data`](Data.md#data)<`Readonly`<`A`\> & { `_tag`: `Tag` }\>
+• **new TaggedClass**\<`A`\>(`args`): [`Data`](Data.md#data)\<`Readonly`\<`A`\> & \{ `_tag`: `Tag` }\>
 
 ##### Type parameters
 
-| Name | Type                               |
-| :--- | :--------------------------------- |
-| `A`  | extends `Record`<`string`, `any`\> |
+| Name | Type                                |
+| :--- | :---------------------------------- |
+| `A`  | extends `Record`\<`string`, `any`\> |
 
 ##### Parameters
 
-| Name   | Type                                                                                                                                                                                                      |
-| :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `args` | `Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] } |
+| Name   | Type                                                                                                                                                                                                         |
+| :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `args` | `Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : \{ readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] } |
 
 ##### Returns
 
-[`Data`](Data.md#data)<`Readonly`<`A`\> & { `_tag`: `Tag` }\>
+[`Data`](Data.md#data)\<`Readonly`\<`A`\> & \{ `_tag`: `Tag` }\>
 
 **`Example`**
 
@@ -236,7 +236,7 @@ assert.deepStrictEqual(mike1._tag, "Person");
 
 ### TaggedError
 
-▸ **TaggedError**<`Tag`\>(`tag`): <A\>(`args`: `Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] }) => [`YieldableError`](../interfaces/Data.YieldableError.md) & { `_tag`: `Tag` } & `Readonly`<`A`\>
+▸ **TaggedError**\<`Tag`\>(`tag`): \<A\>(`args`: `Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : \{ readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] }) => [`YieldableError`](../interfaces/Data.YieldableError.md) & \{ `_tag`: `Tag` } & `Readonly`\<`A`\>
 
 #### Type parameters
 
@@ -254,23 +254,23 @@ assert.deepStrictEqual(mike1._tag, "Person");
 
 `fn`
 
-• **new TaggedError**<`A`\>(`args`): [`YieldableError`](../interfaces/Data.YieldableError.md) & { `_tag`: `Tag` } & `Readonly`<`A`\>
+• **new TaggedError**\<`A`\>(`args`): [`YieldableError`](../interfaces/Data.YieldableError.md) & \{ `_tag`: `Tag` } & `Readonly`\<`A`\>
 
 ##### Type parameters
 
-| Name | Type                               |
-| :--- | :--------------------------------- |
-| `A`  | extends `Record`<`string`, `any`\> |
+| Name | Type                                |
+| :--- | :---------------------------------- |
+| `A`  | extends `Record`\<`string`, `any`\> |
 
 ##### Parameters
 
-| Name   | Type                                                                                                                                                                                                      |
-| :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `args` | `Equals`<`Omit`<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : { readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] } |
+| Name   | Type                                                                                                                                                                                                         |
+| :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `args` | `Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : \{ readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] } |
 
 ##### Returns
 
-[`YieldableError`](../interfaces/Data.YieldableError.md) & { `_tag`: `Tag` } & `Readonly`<`A`\>
+[`YieldableError`](../interfaces/Data.YieldableError.md) & \{ `_tag`: `Tag` } & `Readonly`\<`A`\>
 
 **`Since`**
 
@@ -280,7 +280,7 @@ assert.deepStrictEqual(mike1._tag, "Person");
 
 ### array
 
-▸ **array**<`As`\>(`as`): [`Data`](Data.md#data)<`Readonly`<`As`\>\>
+▸ **array**\<`As`\>(`as`): [`Data`](Data.md#data)\<`Readonly`\<`As`\>\>
 
 #### Type parameters
 
@@ -296,7 +296,7 @@ assert.deepStrictEqual(mike1._tag, "Person");
 
 #### Returns
 
-[`Data`](Data.md#data)<`Readonly`<`As`\>\>
+[`Data`](Data.md#data)\<`Readonly`\<`As`\>\>
 
 **`Example`**
 
@@ -329,13 +329,13 @@ assert.deepStrictEqual(
 
 ### struct
 
-▸ **struct**<`A`\>(`a`): [`Data`](Data.md#data)<{ readonly [P in string \| number \| symbol]: A[P] }\>
+▸ **struct**\<`A`\>(`a`): [`Data`](Data.md#data)\<\{ readonly [P in string \| number \| symbol]: A[P] }\>
 
 #### Type parameters
 
-| Name | Type                               |
-| :--- | :--------------------------------- |
-| `A`  | extends `Record`<`string`, `any`\> |
+| Name | Type                                |
+| :--- | :---------------------------------- |
+| `A`  | extends `Record`\<`string`, `any`\> |
 
 #### Parameters
 
@@ -345,7 +345,7 @@ assert.deepStrictEqual(
 
 #### Returns
 
-[`Data`](Data.md#data)<{ readonly [P in string \| number \| symbol]: A[P] }\>
+[`Data`](Data.md#data)\<\{ readonly [P in string \| number \| symbol]: A[P] }\>
 
 **`Example`**
 
@@ -372,15 +372,15 @@ assert.deepStrictEqual(Equal.equals(alice, bob), false);
 
 ### tagged
 
-▸ **tagged**<`A`\>(`tag`): [`Constructor`](../interfaces/Data.Case.Constructor.md)<`A`, `"_tag"`\>
+▸ **tagged**\<`A`\>(`tag`): [`Constructor`](../interfaces/Data.Case.Constructor.md)\<`A`, `"_tag"`\>
 
 Provides a tagged constructor for the specified `Case`.
 
 #### Type parameters
 
-| Name | Type                                                                  |
-| :--- | :-------------------------------------------------------------------- |
-| `A`  | extends [`Case`](../interfaces/Data.Case-1.md) & { `_tag`: `string` } |
+| Name | Type                                                                   |
+| :--- | :--------------------------------------------------------------------- |
+| `A`  | extends [`Case`](../interfaces/Data.Case-1.md) & \{ `_tag`: `string` } |
 
 #### Parameters
 
@@ -390,7 +390,7 @@ Provides a tagged constructor for the specified `Case`.
 
 #### Returns
 
-[`Constructor`](../interfaces/Data.Case.Constructor.md)<`A`, `"_tag"`\>
+[`Constructor`](../interfaces/Data.Case.Constructor.md)\<`A`, `"_tag"`\>
 
 **`Example`**
 
@@ -417,7 +417,7 @@ assert.deepEqual(mike, { _tag: "Person", name: "Mike" });
 
 ### taggedEnum
 
-▸ **taggedEnum**<`Z`\>(): { readonly [Tag in string]: Function }
+▸ **taggedEnum**\<`Z`\>(): \{ readonly [Tag in string]: Function }
 
 Create a constructor for a tagged union of `Data` structs.
 
@@ -426,13 +426,13 @@ the constructor.
 
 #### Type parameters
 
-| Name | Type                                                                          |
-| :--- | :---------------------------------------------------------------------------- |
-| `Z`  | extends [`WithGenerics`](../interfaces/Data.TaggedEnum.WithGenerics.md)<`1`\> |
+| Name | Type                                                                           |
+| :--- | :----------------------------------------------------------------------------- |
+| `Z`  | extends [`WithGenerics`](../interfaces/Data.TaggedEnum.WithGenerics.md)\<`1`\> |
 
 #### Returns
 
-{ readonly [Tag in string]: Function }
+\{ readonly [Tag in string]: Function }
 
 **`Example`**
 
@@ -468,7 +468,7 @@ const success = Success({ value: 1 });
 
 2.0.0
 
-▸ **taggedEnum**<`Z`\>(): { readonly [Tag in string]: Function }
+▸ **taggedEnum**\<`Z`\>(): \{ readonly [Tag in string]: Function }
 
 Create a constructor for a tagged union of `Data` structs.
 
@@ -477,13 +477,13 @@ the constructor.
 
 #### Type parameters
 
-| Name | Type                                                                          |
-| :--- | :---------------------------------------------------------------------------- |
-| `Z`  | extends [`WithGenerics`](../interfaces/Data.TaggedEnum.WithGenerics.md)<`2`\> |
+| Name | Type                                                                           |
+| :--- | :----------------------------------------------------------------------------- |
+| `Z`  | extends [`WithGenerics`](../interfaces/Data.TaggedEnum.WithGenerics.md)\<`2`\> |
 
 #### Returns
 
-{ readonly [Tag in string]: Function }
+\{ readonly [Tag in string]: Function }
 
 **`Example`**
 
@@ -519,7 +519,7 @@ const success = Success({ value: 1 });
 
 2.0.0
 
-▸ **taggedEnum**<`Z`\>(): { readonly [Tag in string]: Function }
+▸ **taggedEnum**\<`Z`\>(): \{ readonly [Tag in string]: Function }
 
 Create a constructor for a tagged union of `Data` structs.
 
@@ -528,13 +528,13 @@ the constructor.
 
 #### Type parameters
 
-| Name | Type                                                                          |
-| :--- | :---------------------------------------------------------------------------- |
-| `Z`  | extends [`WithGenerics`](../interfaces/Data.TaggedEnum.WithGenerics.md)<`3`\> |
+| Name | Type                                                                           |
+| :--- | :----------------------------------------------------------------------------- |
+| `Z`  | extends [`WithGenerics`](../interfaces/Data.TaggedEnum.WithGenerics.md)\<`3`\> |
 
 #### Returns
 
-{ readonly [Tag in string]: Function }
+\{ readonly [Tag in string]: Function }
 
 **`Example`**
 
@@ -570,7 +570,7 @@ const success = Success({ value: 1 });
 
 2.0.0
 
-▸ **taggedEnum**<`Z`\>(): { readonly [Tag in string]: Function }
+▸ **taggedEnum**\<`Z`\>(): \{ readonly [Tag in string]: Function }
 
 Create a constructor for a tagged union of `Data` structs.
 
@@ -579,13 +579,13 @@ the constructor.
 
 #### Type parameters
 
-| Name | Type                                                                          |
-| :--- | :---------------------------------------------------------------------------- |
-| `Z`  | extends [`WithGenerics`](../interfaces/Data.TaggedEnum.WithGenerics.md)<`4`\> |
+| Name | Type                                                                           |
+| :--- | :----------------------------------------------------------------------------- |
+| `Z`  | extends [`WithGenerics`](../interfaces/Data.TaggedEnum.WithGenerics.md)\<`4`\> |
 
 #### Returns
 
-{ readonly [Tag in string]: Function }
+\{ readonly [Tag in string]: Function }
 
 **`Example`**
 
@@ -621,7 +621,7 @@ const success = Success({ value: 1 });
 
 2.0.0
 
-▸ **taggedEnum**<`A`\>(): { readonly [Tag in string]: Constructor<Extract<A, Object\>, "\_tag"\> }
+▸ **taggedEnum**\<`A`\>(): \{ readonly [Tag in string]: Constructor\<Extract\<A, Object\>, "\_tag"\> }
 
 Create a constructor for a tagged union of `Data` structs.
 
@@ -630,13 +630,13 @@ the constructor.
 
 #### Type parameters
 
-| Name | Type                                                                   |
-| :--- | :--------------------------------------------------------------------- |
-| `A`  | extends { `_tag`: `string` } & [`Equal`](../interfaces/Equal.Equal.md) |
+| Name | Type                                                                    |
+| :--- | :---------------------------------------------------------------------- |
+| `A`  | extends \{ `_tag`: `string` } & [`Equal`](../interfaces/Equal.Equal.md) |
 
 #### Returns
 
-{ readonly [Tag in string]: Constructor<Extract<A, Object\>, "\_tag"\> }
+\{ readonly [Tag in string]: Constructor\<Extract\<A, Object\>, "\_tag"\> }
 
 **`Example`**
 
@@ -676,7 +676,7 @@ const success = Success({ value: 1 });
 
 ### tuple
 
-▸ **tuple**<`As`\>(`...as`): [`Data`](Data.md#data)<`Readonly`<`As`\>\>
+▸ **tuple**\<`As`\>(`...as`): [`Data`](Data.md#data)\<`Readonly`\<`As`\>\>
 
 #### Type parameters
 
@@ -692,7 +692,7 @@ const success = Success({ value: 1 });
 
 #### Returns
 
-[`Data`](Data.md#data)<`Readonly`<`As`\>\>
+[`Data`](Data.md#data)\<`Readonly`\<`As`\>\>
 
 **`Example`**
 
@@ -719,7 +719,7 @@ assert.deepStrictEqual(Equal.equals(alice, bob), false);
 
 ### unsafeArray
 
-▸ **unsafeArray**<`As`\>(`as`): [`Data`](Data.md#data)<`Readonly`<`As`\>\>
+▸ **unsafeArray**\<`As`\>(`as`): [`Data`](Data.md#data)\<`Readonly`\<`As`\>\>
 
 #### Type parameters
 
@@ -735,7 +735,7 @@ assert.deepStrictEqual(Equal.equals(alice, bob), false);
 
 #### Returns
 
-[`Data`](Data.md#data)<`Readonly`<`As`\>\>
+[`Data`](Data.md#data)\<`Readonly`\<`As`\>\>
 
 **`Since`**
 
@@ -745,13 +745,13 @@ assert.deepStrictEqual(Equal.equals(alice, bob), false);
 
 ### unsafeStruct
 
-▸ **unsafeStruct**<`A`\>(`as`): [`Data`](Data.md#data)<{ readonly [P in string \| number \| symbol]: A[P] }\>
+▸ **unsafeStruct**\<`A`\>(`as`): [`Data`](Data.md#data)\<\{ readonly [P in string \| number \| symbol]: A[P] }\>
 
 #### Type parameters
 
-| Name | Type                               |
-| :--- | :--------------------------------- |
-| `A`  | extends `Record`<`string`, `any`\> |
+| Name | Type                                |
+| :--- | :---------------------------------- |
+| `A`  | extends `Record`\<`string`, `any`\> |
 
 #### Parameters
 
@@ -761,7 +761,7 @@ assert.deepStrictEqual(Equal.equals(alice, bob), false);
 
 #### Returns
 
-[`Data`](Data.md#data)<{ readonly [P in string \| number \| symbol]: A[P] }\>
+[`Data`](Data.md#data)\<\{ readonly [P in string \| number \| symbol]: A[P] }\>
 
 **`Since`**
 
@@ -771,7 +771,7 @@ assert.deepStrictEqual(Equal.equals(alice, bob), false);
 
 ### Data
 
-Ƭ **Data**<`A`\>: { readonly [P in keyof A]: A[P] } & [`Equal`](../interfaces/Equal.Equal.md)
+Ƭ **Data**\<`A`\>: \{ readonly [P in keyof A]: A[P] } & [`Equal`](../interfaces/Equal.Equal.md)
 
 **`Since`**
 
@@ -787,7 +787,7 @@ assert.deepStrictEqual(Equal.equals(alice, bob), false);
 
 ### TaggedEnum
 
-Ƭ **TaggedEnum**<`A`\>: keyof `A` extends infer Tag ? `Tag` extends keyof `A` ? [`Data`](Data.md#data)<`Types.Simplify`<{ `_tag`: `Tag` } & { readonly [K in keyof A[Tag]]: A[Tag][K] }\>\> : `never` : `never`
+Ƭ **TaggedEnum**\<`A`\>: keyof `A` extends infer Tag ? `Tag` extends keyof `A` ? [`Data`](Data.md#data)\<`Types.Simplify`\<\{ `_tag`: `Tag` } & \{ readonly [K in keyof A[Tag]]: A[Tag][K] }\>\> : `never` : `never`
 
 Create a tagged enum data type, which is a union of `Data` structs.
 
@@ -819,6 +819,6 @@ type HttpErrorPlain =
 
 #### Type parameters
 
-| Name | Type                                                                               |
-| :--- | :--------------------------------------------------------------------------------- |
-| `A`  | extends `Record`<`string`, `Record`<`string`, `any`\>\> & `UntaggedChildren`<`A`\> |
+| Name | Type                                                                                  |
+| :--- | :------------------------------------------------------------------------------------ |
+| `A`  | extends `Record`\<`string`, `Record`\<`string`, `any`\>\> & `UntaggedChildren`\<`A`\> |

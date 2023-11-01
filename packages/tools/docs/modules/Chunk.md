@@ -104,7 +104,7 @@
 
 ### drop
 
-▸ **drop**(`n`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **drop**(`n`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Drops the first up to `n` elements from the chunk
 
@@ -118,7 +118,7 @@ Drops the first up to `n` elements from the chunk
 
 `fn`
 
-▸ <`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 ##### Type parameters
 
@@ -128,19 +128,19 @@ Drops the first up to `n` elements from the chunk
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **drop**<`A`\>(`self`, `n`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **drop**\<`A`\>(`self`, `n`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Drops the first up to `n` elements from the chunk
 
@@ -152,14 +152,14 @@ Drops the first up to `n` elements from the chunk
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `n`    | `number`                                        |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `n`    | `number`                                         |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -169,7 +169,7 @@ Drops the first up to `n` elements from the chunk
 
 ### dropRight
 
-▸ **dropRight**(`n`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **dropRight**(`n`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Drops the last `n` elements.
 
@@ -183,7 +183,7 @@ Drops the last `n` elements.
 
 `fn`
 
-▸ <`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 ##### Type parameters
 
@@ -193,19 +193,19 @@ Drops the last `n` elements.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **dropRight**<`A`\>(`self`, `n`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **dropRight**\<`A`\>(`self`, `n`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Drops the last `n` elements.
 
@@ -217,14 +217,14 @@ Drops the last `n` elements.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `n`    | `number`                                        |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `n`    | `number`                                         |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -234,7 +234,7 @@ Drops the last `n` elements.
 
 ### dropWhile
 
-▸ **dropWhile**<`A`\>(`f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **dropWhile**\<`A`\>(`f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Drops all elements so long as the predicate returns true.
 
@@ -254,23 +254,23 @@ Drops all elements so long as the predicate returns true.
 
 `fn`
 
-▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **dropWhile**<`A`\>(`self`, `f`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **dropWhile**\<`A`\>(`self`, `f`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Drops all elements so long as the predicate returns true.
 
@@ -282,14 +282,14 @@ Drops all elements so long as the predicate returns true.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `f`    | (`a`: `A`) => `boolean`                         |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `f`    | (`a`: `A`) => `boolean`                          |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -299,7 +299,7 @@ Drops all elements so long as the predicate returns true.
 
 ### modify
 
-▸ **modify**<`A`, `B`\>(`i`, `f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>
+▸ **modify**\<`A`, `B`\>(`i`, `f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
 
 Apply a function to the element at the specified index, creating a new `Chunk`,
 or returning the input if the index is out of bounds.
@@ -322,23 +322,23 @@ or returning the input if the index is out of bounds.
 
 `fn`
 
-▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>
+▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **modify**<`A`, `B`\>(`self`, `i`, `f`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>
+▸ **modify**\<`A`, `B`\>(`self`, `i`, `f`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
 
 Apply a function to the element at the specified index, creating a new `Chunk`,
 or returning the input if the index is out of bounds.
@@ -352,15 +352,15 @@ or returning the input if the index is out of bounds.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `i`    | `number`                                        |
-| `f`    | (`a`: `A`) => `B`                               |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `i`    | `number`                                         |
+| `f`    | (`a`: `A`) => `B`                                |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
 
 **`Since`**
 
@@ -370,7 +370,7 @@ or returning the input if the index is out of bounds.
 
 ### modifyOption
 
-▸ **modifyOption**<`A`, `B`\>(`i`, `f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Option`](O.md#option)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>\>
+▸ **modifyOption**\<`A`, `B`\>(`i`, `f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Option`](O.md#option)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>\>
 
 #### Type parameters
 
@@ -390,23 +390,23 @@ or returning the input if the index is out of bounds.
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>\>
+▸ (`self`): [`Option`](O.md#option)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>\>
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>\>
+[`Option`](O.md#option)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>\>
 
 **`Since`**
 
 2.0.0
 
-▸ **modifyOption**<`A`, `B`\>(`self`, `i`, `f`): [`Option`](O.md#option)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>\>
+▸ **modifyOption**\<`A`, `B`\>(`self`, `i`, `f`): [`Option`](O.md#option)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>\>
 
 #### Type parameters
 
@@ -417,15 +417,15 @@ or returning the input if the index is out of bounds.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `i`    | `number`                                        |
-| `f`    | (`a`: `A`) => `B`                               |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `i`    | `number`                                         |
+| `f`    | (`a`: `A`) => `B`                                |
 
 #### Returns
 
-[`Option`](O.md#option)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>\>
+[`Option`](O.md#option)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>\>
 
 **`Since`**
 
@@ -435,7 +435,7 @@ or returning the input if the index is out of bounds.
 
 ### remove
 
-▸ **remove**(`i`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **remove**(`i`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Delete the element at the specified index, creating a new `Chunk`,
 or returning the input if the index is out of bounds.
@@ -450,7 +450,7 @@ or returning the input if the index is out of bounds.
 
 `fn`
 
-▸ <`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 ##### Type parameters
 
@@ -460,19 +460,19 @@ or returning the input if the index is out of bounds.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **remove**<`A`\>(`self`, `i`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **remove**\<`A`\>(`self`, `i`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Delete the element at the specified index, creating a new `Chunk`,
 or returning the input if the index is out of bounds.
@@ -485,14 +485,14 @@ or returning the input if the index is out of bounds.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `i`    | `number`                                        |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `i`    | `number`                                         |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -502,7 +502,7 @@ or returning the input if the index is out of bounds.
 
 ### replace
 
-▸ **replace**<`B`\>(`i`, `b`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B` \| `A`\>
+▸ **replace**\<`B`\>(`i`, `b`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>
 
 Change the element at the specified index, creating a new `Chunk`,
 or returning the input if the index is out of bounds.
@@ -524,7 +524,7 @@ or returning the input if the index is out of bounds.
 
 `fn`
 
-▸ <`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -534,19 +534,19 @@ or returning the input if the index is out of bounds.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B` \| `A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **replace**<`A`, `B`\>(`self`, `i`, `b`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>
+▸ **replace**\<`A`, `B`\>(`self`, `i`, `b`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
 
 Change the element at the specified index, creating a new `Chunk`,
 or returning the input if the index is out of bounds.
@@ -560,15 +560,15 @@ or returning the input if the index is out of bounds.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `i`    | `number`                                        |
-| `b`    | `B`                                             |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `i`    | `number`                                         |
+| `b`    | `B`                                              |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
 
 **`Since`**
 
@@ -578,7 +578,7 @@ or returning the input if the index is out of bounds.
 
 ### replaceOption
 
-▸ **replaceOption**<`B`\>(`i`, `b`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Option`](O.md#option)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B` \| `A`\>\>
+▸ **replaceOption**\<`B`\>(`i`, `b`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Option`](O.md#option)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>\>
 
 #### Type parameters
 
@@ -597,7 +597,7 @@ or returning the input if the index is out of bounds.
 
 `fn`
 
-▸ <`A`\>(`self`): [`Option`](O.md#option)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B` \| `A`\>\>
+▸ \<`A`\>(`self`): [`Option`](O.md#option)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>\>
 
 ##### Type parameters
 
@@ -607,19 +607,19 @@ or returning the input if the index is out of bounds.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B` \| `A`\>\>
+[`Option`](O.md#option)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>\>
 
 **`Since`**
 
 2.0.0
 
-▸ **replaceOption**<`A`, `B`\>(`self`, `i`, `b`): [`Option`](O.md#option)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>\>
+▸ **replaceOption**\<`A`, `B`\>(`self`, `i`, `b`): [`Option`](O.md#option)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>\>
 
 #### Type parameters
 
@@ -630,15 +630,15 @@ or returning the input if the index is out of bounds.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `i`    | `number`                                        |
-| `b`    | `B`                                             |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `i`    | `number`                                         |
+| `b`    | `B`                                              |
 
 #### Returns
 
-[`Option`](O.md#option)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>\>
+[`Option`](O.md#option)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>\>
 
 **`Since`**
 
@@ -648,7 +648,7 @@ or returning the input if the index is out of bounds.
 
 ### take
 
-▸ **take**(`n`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **take**(`n`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Takes the first up to `n` elements from the chunk
 
@@ -662,7 +662,7 @@ Takes the first up to `n` elements from the chunk
 
 `fn`
 
-▸ <`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 ##### Type parameters
 
@@ -672,19 +672,19 @@ Takes the first up to `n` elements from the chunk
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **take**<`A`\>(`self`, `n`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **take**\<`A`\>(`self`, `n`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Takes the first up to `n` elements from the chunk
 
@@ -696,14 +696,14 @@ Takes the first up to `n` elements from the chunk
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `n`    | `number`                                        |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `n`    | `number`                                         |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -713,7 +713,7 @@ Takes the first up to `n` elements from the chunk
 
 ### forEach
 
-▸ **forEach**<`A`, `B`\>(`f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => `void`
+▸ **forEach**\<`A`, `B`\>(`f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => `void`
 
 Applies the specified function to each element of the `List`.
 
@@ -738,9 +738,9 @@ Applies the specified function to each element of the `List`.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
@@ -750,7 +750,7 @@ Applies the specified function to each element of the `List`.
 
 2.0.0
 
-▸ **forEach**<`A`, `B`\>(`self`, `f`): `void`
+▸ **forEach**\<`A`, `B`\>(`self`, `f`): `void`
 
 Applies the specified function to each element of the `List`.
 
@@ -763,10 +763,10 @@ Applies the specified function to each element of the `List`.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `f`    | (`a`: `A`) => `B`                               |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `f`    | (`a`: `A`) => `B`                                |
 
 #### Returns
 
@@ -780,7 +780,7 @@ Applies the specified function to each element of the `List`.
 
 ### append
 
-▸ **append**<`A2`\>(`a`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A2` \| `A`\>
+▸ **append**\<`A2`\>(`a`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A2` \| `A`\>
 
 Appends the specified element to the end of the `Chunk`.
 
@@ -800,7 +800,7 @@ Appends the specified element to the end of the `Chunk`.
 
 `fn`
 
-▸ <`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A2` \| `A`\>
+▸ \<`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A2` \| `A`\>
 
 ##### Type parameters
 
@@ -810,19 +810,19 @@ Appends the specified element to the end of the `Chunk`.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A2` \| `A`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A2` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **append**<`A`, `A2`\>(`self`, `a`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A` \| `A2`\>
+▸ **append**\<`A`, `A2`\>(`self`, `a`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `A2`\>
 
 Appends the specified element to the end of the `Chunk`.
 
@@ -835,14 +835,14 @@ Appends the specified element to the end of the `Chunk`.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `a`    | `A2`                                            |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `a`    | `A2`                                             |
 
 #### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A` \| `A2`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `A2`\>
 
 **`Since`**
 
@@ -852,7 +852,7 @@ Appends the specified element to the end of the `Chunk`.
 
 ### appendAll
 
-▸ **appendAll**<`B`\>(`that`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B` \| `A`\>
+▸ **appendAll**\<`B`\>(`that`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>
 
 Concatenates the two chunks
 
@@ -864,15 +864,15 @@ Concatenates the two chunks
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -882,19 +882,19 @@ Concatenates the two chunks
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B` \| `A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **appendAll**<`A`, `B`\>(`self`, `that`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>
+▸ **appendAll**\<`A`, `B`\>(`self`, `that`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
 
 Concatenates the two chunks
 
@@ -907,14 +907,14 @@ Concatenates the two chunks
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
 
 **`Since`**
 
@@ -924,7 +924,7 @@ Concatenates the two chunks
 
 ### appendAllNonEmpty
 
-▸ **appendAllNonEmpty**<`B`\>(`that`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B` \| `A`\>
+▸ **appendAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
 
 #### Type parameters
 
@@ -934,15 +934,15 @@ Concatenates the two chunks
 
 #### Parameters
 
-| Name   | Type                                                          |
-| :----- | :------------------------------------------------------------ |
-| `that` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B`\> |
+| Name   | Type                                                           |
+| :----- | :------------------------------------------------------------- |
+| `that` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -952,19 +952,19 @@ Concatenates the two chunks
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B` \| `A`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **appendAllNonEmpty**<`B`\>(`that`): <A\>(`self`: [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B` \| `A`\>
+▸ **appendAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
 
 #### Type parameters
 
@@ -974,15 +974,15 @@ Concatenates the two chunks
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -992,19 +992,19 @@ Concatenates the two chunks
 
 ##### Parameters
 
-| Name   | Type                                                          |
-| :----- | :------------------------------------------------------------ |
-| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\> |
+| Name   | Type                                                           |
+| :----- | :------------------------------------------------------------- |
+| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> |
 
 ##### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B` \| `A`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **appendAllNonEmpty**<`A`, `B`\>(`self`, `that`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A` \| `B`\>
+▸ **appendAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
 
 #### Type parameters
 
@@ -1015,20 +1015,20 @@ Concatenates the two chunks
 
 #### Parameters
 
-| Name   | Type                                                          |
-| :----- | :------------------------------------------------------------ |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>               |
-| `that` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B`\> |
+| Name   | Type                                                           |
+| :----- | :------------------------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>               |
+| `that` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\> |
 
 #### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A` \| `B`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **appendAllNonEmpty**<`A`, `B`\>(`self`, `that`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A` \| `B`\>
+▸ **appendAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
 
 #### Type parameters
 
@@ -1039,14 +1039,14 @@ Concatenates the two chunks
 
 #### Parameters
 
-| Name   | Type                                                          |
-| :----- | :------------------------------------------------------------ |
-| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\> |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>               |
+| Name   | Type                                                           |
+| :----- | :------------------------------------------------------------- |
+| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>               |
 
 #### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A` \| `B`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
 
 **`Since`**
 
@@ -1056,7 +1056,7 @@ Concatenates the two chunks
 
 ### prepend
 
-▸ **prepend**<`B`\>(`elem`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B` \| `A`\>
+▸ **prepend**\<`B`\>(`elem`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
 
 Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
@@ -1076,7 +1076,7 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 `fn`
 
-▸ <`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -1086,19 +1086,19 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B` \| `A`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **prepend**<`A`, `B`\>(`self`, `elem`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A` \| `B`\>
+▸ **prepend**\<`A`, `B`\>(`self`, `elem`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
 
 Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
@@ -1111,14 +1111,14 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `elem` | `B`                                             |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `elem` | `B`                                              |
 
 #### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A` \| `B`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
 
 **`Since`**
 
@@ -1128,7 +1128,7 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 ### prependAll
 
-▸ **prependAll**<`B`\>(`that`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B` \| `A`\>
+▸ **prependAll**\<`B`\>(`that`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>
 
 #### Type parameters
 
@@ -1138,15 +1138,15 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -1156,19 +1156,19 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B` \| `A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **prependAll**<`A`, `B`\>(`self`, `that`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>
+▸ **prependAll**\<`A`, `B`\>(`self`, `that`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
 
 #### Type parameters
 
@@ -1179,14 +1179,14 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
 
 **`Since`**
 
@@ -1196,7 +1196,7 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 ### prependAllNonEmpty
 
-▸ **prependAllNonEmpty**<`B`\>(`that`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B` \| `A`\>
+▸ **prependAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
 
 #### Type parameters
 
@@ -1206,15 +1206,15 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 #### Parameters
 
-| Name   | Type                                                          |
-| :----- | :------------------------------------------------------------ |
-| `that` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B`\> |
+| Name   | Type                                                           |
+| :----- | :------------------------------------------------------------- |
+| `that` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -1224,19 +1224,19 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B` \| `A`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **prependAllNonEmpty**<`B`\>(`that`): <A\>(`self`: [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B` \| `A`\>
+▸ **prependAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
 
 #### Type parameters
 
@@ -1246,15 +1246,15 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -1264,19 +1264,19 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 ##### Parameters
 
-| Name   | Type                                                          |
-| :----- | :------------------------------------------------------------ |
-| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\> |
+| Name   | Type                                                           |
+| :----- | :------------------------------------------------------------- |
+| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> |
 
 ##### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B` \| `A`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **prependAllNonEmpty**<`A`, `B`\>(`self`, `that`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A` \| `B`\>
+▸ **prependAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
 
 #### Type parameters
 
@@ -1287,20 +1287,20 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 #### Parameters
 
-| Name   | Type                                                          |
-| :----- | :------------------------------------------------------------ |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>               |
-| `that` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B`\> |
+| Name   | Type                                                           |
+| :----- | :------------------------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>               |
+| `that` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\> |
 
 #### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A` \| `B`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **prependAllNonEmpty**<`A`, `B`\>(`self`, `that`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A` \| `B`\>
+▸ **prependAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
 
 #### Type parameters
 
@@ -1311,14 +1311,14 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 #### Parameters
 
-| Name   | Type                                                          |
-| :----- | :------------------------------------------------------------ |
-| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\> |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>               |
+| Name   | Type                                                           |
+| :----- | :------------------------------------------------------------- |
+| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>               |
 
 #### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A` \| `B`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
 
 **`Since`**
 
@@ -1328,7 +1328,7 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 ### empty
 
-▸ **empty**<`A`\>(): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **empty**\<`A`\>(): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 #### Type parameters
 
@@ -1338,7 +1338,7 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -1348,7 +1348,7 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 ### isChunk
 
-▸ **isChunk**<`A`\>(`u`): u is Chunk<A\>
+▸ **isChunk**\<`A`\>(`u`): u is Chunk\<A\>
 
 Checks if `u` is a `Chunk<unknown>`
 
@@ -1360,19 +1360,19 @@ Checks if `u` is a `Chunk<unknown>`
 
 #### Parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `u`  | `Iterable`<`A`\> |
+| Name | Type              |
+| :--- | :---------------- |
+| `u`  | `Iterable`\<`A`\> |
 
 #### Returns
 
-u is Chunk<A\>
+u is Chunk\<A\>
 
 **`Since`**
 
 2.0.0
 
-▸ **isChunk**(`u`): u is Chunk<unknown\>
+▸ **isChunk**(`u`): u is Chunk\<unknown\>
 
 Checks if `u` is a `Chunk<unknown>`
 
@@ -1384,7 +1384,7 @@ Checks if `u` is a `Chunk<unknown>`
 
 #### Returns
 
-u is Chunk<unknown\>
+u is Chunk\<unknown\>
 
 **`Since`**
 
@@ -1394,7 +1394,7 @@ u is Chunk<unknown\>
 
 ### make
 
-▸ **make**<`As`\>(`...as`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`As`[`number`]\>
+▸ **make**\<`As`\>(`...as`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`As`[`number`]\>
 
 Builds a `NonEmptyChunk` from an non-empty collection of elements.
 
@@ -1412,7 +1412,7 @@ Builds a `NonEmptyChunk` from an non-empty collection of elements.
 
 #### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`As`[`number`]\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`As`[`number`]\>
 
 **`Since`**
 
@@ -1422,7 +1422,7 @@ Builds a `NonEmptyChunk` from an non-empty collection of elements.
 
 ### makeBy
 
-▸ **makeBy**<`A`\>(`f`): (`n`: `number`) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\>
+▸ **makeBy**\<`A`\>(`f`): (`n`: `number`) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>
 
 Return a Chunk of length n with element i initialized with f(i).
 
@@ -1444,7 +1444,7 @@ Return a Chunk of length n with element i initialized with f(i).
 
 `fn`
 
-▸ (`n`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\>
+▸ (`n`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>
 
 ##### Parameters
 
@@ -1454,13 +1454,13 @@ Return a Chunk of length n with element i initialized with f(i).
 
 ##### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **makeBy**<`A`\>(`n`, `f`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\>
+▸ **makeBy**\<`A`\>(`n`, `f`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>
 
 Return a Chunk of length n with element i initialized with f(i).
 
@@ -1481,7 +1481,7 @@ Return a Chunk of length n with element i initialized with f(i).
 
 #### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>
 
 **`Since`**
 
@@ -1491,7 +1491,7 @@ Return a Chunk of length n with element i initialized with f(i).
 
 ### of
 
-▸ **of**<`A`\>(`a`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\>
+▸ **of**\<`A`\>(`a`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>
 
 Builds a `NonEmptyChunk` from a single element.
 
@@ -1509,7 +1509,7 @@ Builds a `NonEmptyChunk` from a single element.
 
 #### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>
 
 **`Since`**
 
@@ -1519,7 +1519,7 @@ Builds a `NonEmptyChunk` from a single element.
 
 ### range
 
-▸ **range**(`start`, `end`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`number`\>
+▸ **range**(`start`, `end`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`number`\>
 
 Create a non empty `Chunk` containing a range of integers, including both endpoints.
 
@@ -1532,7 +1532,7 @@ Create a non empty `Chunk` containing a range of integers, including both endpoi
 
 #### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`number`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`number`\>
 
 **`Since`**
 
@@ -1542,7 +1542,7 @@ Create a non empty `Chunk` containing a range of integers, including both endpoi
 
 ### fromIterable
 
-▸ **fromIterable**<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **fromIterable**\<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Converts from an `Iterable<A>`
 
@@ -1554,13 +1554,13 @@ Converts from an `Iterable<A>`
 
 #### Parameters
 
-| Name   | Type             |
-| :----- | :--------------- |
-| `self` | `Iterable`<`A`\> |
+| Name   | Type              |
+| :----- | :---------------- |
+| `self` | `Iterable`\<`A`\> |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -1570,7 +1570,7 @@ Converts from an `Iterable<A>`
 
 ### toReadonlyArray
 
-▸ **toReadonlyArray**<`A`\>(`self`): readonly `A`[]
+▸ **toReadonlyArray**\<`A`\>(`self`): readonly `A`[]
 
 Converts the specified `Chunk` to a `ReadonlyArray`.
 
@@ -1582,9 +1582,9 @@ Converts the specified `Chunk` to a `ReadonlyArray`.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 #### Returns
 
@@ -1598,7 +1598,7 @@ readonly `A`[]
 
 ### chunksOf
 
-▸ **chunksOf**(`n`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>\>
+▸ **chunksOf**(`n`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
 
 Groups elements in chunks of up to `n` elements.
 
@@ -1612,7 +1612,7 @@ Groups elements in chunks of up to `n` elements.
 
 `fn`
 
-▸ <`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>\>
+▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
 
 ##### Type parameters
 
@@ -1622,19 +1622,19 @@ Groups elements in chunks of up to `n` elements.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
 
 **`Since`**
 
 2.0.0
 
-▸ **chunksOf**<`A`\>(`self`, `n`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>\>
+▸ **chunksOf**\<`A`\>(`self`, `n`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
 
 Groups elements in chunks of up to `n` elements.
 
@@ -1646,14 +1646,14 @@ Groups elements in chunks of up to `n` elements.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `n`    | `number`                                        |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `n`    | `number`                                         |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
 
 **`Since`**
 
@@ -1663,7 +1663,7 @@ Groups elements in chunks of up to `n` elements.
 
 ### contains
 
-▸ **contains**<`A`\>(`a`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => `boolean`
+▸ **contains**\<`A`\>(`a`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => `boolean`
 
 Returns a function that checks if a `Chunk` contains a given value using the default `Equivalence`.
 
@@ -1687,9 +1687,9 @@ Returns a function that checks if a `Chunk` contains a given value using the def
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
@@ -1699,7 +1699,7 @@ Returns a function that checks if a `Chunk` contains a given value using the def
 
 2.0.0
 
-▸ **contains**<`A`\>(`self`, `a`): `boolean`
+▸ **contains**\<`A`\>(`self`, `a`): `boolean`
 
 Returns a function that checks if a `Chunk` contains a given value using the default `Equivalence`.
 
@@ -1711,10 +1711,10 @@ Returns a function that checks if a `Chunk` contains a given value using the def
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `a`    | `A`                                             |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `a`    | `A`                                              |
 
 #### Returns
 
@@ -1728,7 +1728,7 @@ Returns a function that checks if a `Chunk` contains a given value using the def
 
 ### containsWith
 
-▸ **containsWith**<`A`\>(`isEquivalent`): (`a`: `A`) => (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => `boolean`(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>, `a`: `A`) => `boolean`
+▸ **containsWith**\<`A`\>(`isEquivalent`): (`a`: `A`) => (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => `boolean`(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>, `a`: `A`) => `boolean`
 
 Returns a function that checks if a `Chunk` contains a given value using a provided `isEquivalent` function.
 
@@ -1748,7 +1748,7 @@ Returns a function that checks if a `Chunk` contains a given value using a provi
 
 `fn`
 
-▸ (`a`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => `boolean`
+▸ (`a`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => `boolean`
 
 ##### Parameters
 
@@ -1764,9 +1764,9 @@ Returns a function that checks if a `Chunk` contains a given value using a provi
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
@@ -1776,10 +1776,10 @@ Returns a function that checks if a `Chunk` contains a given value using a provi
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `a`    | `A`                                             |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `a`    | `A`                                              |
 
 ##### Returns
 
@@ -1793,7 +1793,7 @@ Returns a function that checks if a `Chunk` contains a given value using a provi
 
 ### dedupe
 
-▸ **dedupe**<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **dedupe**\<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Remove duplicates from an array, keeping the first occurrence of an element.
 
@@ -1805,13 +1805,13 @@ Remove duplicates from an array, keeping the first occurrence of an element.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -1821,7 +1821,7 @@ Remove duplicates from an array, keeping the first occurrence of an element.
 
 ### every
 
-▸ **every**<`A`, `B`\>(`refinement`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => self is Chunk<B\>
+▸ **every**\<`A`, `B`\>(`refinement`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => self is Chunk\<B\>
 
 Check if a predicate holds true for every `Chunk` element.
 
@@ -1834,31 +1834,31 @@ Check if a predicate holds true for every `Chunk` element.
 
 #### Parameters
 
-| Name         | Type                    |
-| :----------- | :---------------------- |
-| `refinement` | `Refinement`<`A`, `B`\> |
+| Name         | Type                     |
+| :----------- | :----------------------- |
+| `refinement` | `Refinement`\<`A`, `B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): self is Chunk<B\>
+▸ (`self`): self is Chunk\<B\>
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-self is Chunk<B\>
+self is Chunk\<B\>
 
 **`Since`**
 
 2.0.0
 
-▸ **every**<`A`\>(`predicate`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => `boolean`
+▸ **every**\<`A`\>(`predicate`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => `boolean`
 
 Check if a predicate holds true for every `Chunk` element.
 
@@ -1870,9 +1870,9 @@ Check if a predicate holds true for every `Chunk` element.
 
 #### Parameters
 
-| Name        | Type              |
-| :---------- | :---------------- |
-| `predicate` | `Predicate`<`A`\> |
+| Name        | Type               |
+| :---------- | :----------------- |
+| `predicate` | `Predicate`\<`A`\> |
 
 #### Returns
 
@@ -1882,9 +1882,9 @@ Check if a predicate holds true for every `Chunk` element.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
@@ -1894,7 +1894,7 @@ Check if a predicate holds true for every `Chunk` element.
 
 2.0.0
 
-▸ **every**<`A`, `B`\>(`self`, `refinement`): self is Chunk<B\>
+▸ **every**\<`A`, `B`\>(`self`, `refinement`): self is Chunk\<B\>
 
 Check if a predicate holds true for every `Chunk` element.
 
@@ -1907,20 +1907,20 @@ Check if a predicate holds true for every `Chunk` element.
 
 #### Parameters
 
-| Name         | Type                                            |
-| :----------- | :---------------------------------------------- |
-| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `refinement` | `Refinement`<`A`, `B`\>                         |
+| Name         | Type                                             |
+| :----------- | :----------------------------------------------- |
+| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `refinement` | `Refinement`\<`A`, `B`\>                         |
 
 #### Returns
 
-self is Chunk<B\>
+self is Chunk\<B\>
 
 **`Since`**
 
 2.0.0
 
-▸ **every**<`A`\>(`self`, `predicate`): `boolean`
+▸ **every**\<`A`\>(`self`, `predicate`): `boolean`
 
 Check if a predicate holds true for every `Chunk` element.
 
@@ -1932,10 +1932,10 @@ Check if a predicate holds true for every `Chunk` element.
 
 #### Parameters
 
-| Name        | Type                                            |
-| :---------- | :---------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `predicate` | `Predicate`<`A`\>                               |
+| Name        | Type                                             |
+| :---------- | :----------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `predicate` | `Predicate`\<`A`\>                               |
 
 #### Returns
 
@@ -1949,7 +1949,7 @@ Check if a predicate holds true for every `Chunk` element.
 
 ### findFirst
 
-▸ **findFirst**<`A`, `B`\>(`refinement`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Option`](O.md#option)<`B`\>
+▸ **findFirst**\<`A`, `B`\>(`refinement`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Option`](O.md#option)\<`B`\>
 
 Returns the first element that satisfies the specified
 predicate, or `None` if no such element exists.
@@ -1963,31 +1963,31 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name         | Type                    |
-| :----------- | :---------------------- |
-| `refinement` | `Refinement`<`A`, `B`\> |
+| Name         | Type                     |
+| :----------- | :----------------------- |
+| `refinement` | `Refinement`\<`A`, `B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<`B`\>
+▸ (`self`): [`Option`](O.md#option)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **findFirst**<`A`\>(`predicate`): <B\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>) => [`Option`](O.md#option)<`B`\>
+▸ **findFirst**\<`A`\>(`predicate`): \<B\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>) => [`Option`](O.md#option)\<`B`\>
 
 Returns the first element that satisfies the specified
 predicate, or `None` if no such element exists.
@@ -2000,15 +2000,15 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name        | Type              |
-| :---------- | :---------------- |
-| `predicate` | `Predicate`<`A`\> |
+| Name        | Type               |
+| :---------- | :----------------- |
+| `predicate` | `Predicate`\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`B`\>(`self`): [`Option`](O.md#option)<`B`\>
+▸ \<`B`\>(`self`): [`Option`](O.md#option)\<`B`\>
 
 ##### Type parameters
 
@@ -2018,19 +2018,19 @@ predicate, or `None` if no such element exists.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **findFirst**<`A`, `B`\>(`self`, `refinement`): [`Option`](O.md#option)<`B`\>
+▸ **findFirst**\<`A`, `B`\>(`self`, `refinement`): [`Option`](O.md#option)\<`B`\>
 
 Returns the first element that satisfies the specified
 predicate, or `None` if no such element exists.
@@ -2044,20 +2044,20 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name         | Type                                            |
-| :----------- | :---------------------------------------------- |
-| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `refinement` | `Refinement`<`A`, `B`\>                         |
+| Name         | Type                                             |
+| :----------- | :----------------------------------------------- |
+| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `refinement` | `Refinement`\<`A`, `B`\>                         |
 
 #### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **findFirst**<`B`, `A`\>(`self`, `predicate`): [`Option`](O.md#option)<`B`\>
+▸ **findFirst**\<`B`, `A`\>(`self`, `predicate`): [`Option`](O.md#option)\<`B`\>
 
 Returns the first element that satisfies the specified
 predicate, or `None` if no such element exists.
@@ -2071,14 +2071,14 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name        | Type                                            |
-| :---------- | :---------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
-| `predicate` | `Predicate`<`A`\>                               |
+| Name        | Type                                             |
+| :---------- | :----------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
+| `predicate` | `Predicate`\<`A`\>                               |
 
 #### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
@@ -2088,7 +2088,7 @@ predicate, or `None` if no such element exists.
 
 ### findFirstIndex
 
-▸ **findFirstIndex**<`A`\>(`predicate`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Option`](O.md#option)<`number`\>
+▸ **findFirstIndex**\<`A`\>(`predicate`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Option`](O.md#option)\<`number`\>
 
 Return the first index for which a predicate holds.
 
@@ -2100,31 +2100,31 @@ Return the first index for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type              |
-| :---------- | :---------------- |
-| `predicate` | `Predicate`<`A`\> |
+| Name        | Type               |
+| :---------- | :----------------- |
+| `predicate` | `Predicate`\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<`number`\>
+▸ (`self`): [`Option`](O.md#option)\<`number`\>
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`number`\>
+[`Option`](O.md#option)\<`number`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **findFirstIndex**<`A`\>(`self`, `predicate`): [`Option`](O.md#option)<`number`\>
+▸ **findFirstIndex**\<`A`\>(`self`, `predicate`): [`Option`](O.md#option)\<`number`\>
 
 Return the first index for which a predicate holds.
 
@@ -2136,14 +2136,14 @@ Return the first index for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type                                            |
-| :---------- | :---------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `predicate` | `Predicate`<`A`\>                               |
+| Name        | Type                                             |
+| :---------- | :----------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `predicate` | `Predicate`\<`A`\>                               |
 
 #### Returns
 
-[`Option`](O.md#option)<`number`\>
+[`Option`](O.md#option)\<`number`\>
 
 **`Since`**
 
@@ -2153,7 +2153,7 @@ Return the first index for which a predicate holds.
 
 ### findLast
 
-▸ **findLast**<`A`, `B`\>(`refinement`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Option`](O.md#option)<`B`\>
+▸ **findLast**\<`A`, `B`\>(`refinement`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Option`](O.md#option)\<`B`\>
 
 Find the last element for which a predicate holds.
 
@@ -2166,31 +2166,31 @@ Find the last element for which a predicate holds.
 
 #### Parameters
 
-| Name         | Type                    |
-| :----------- | :---------------------- |
-| `refinement` | `Refinement`<`A`, `B`\> |
+| Name         | Type                     |
+| :----------- | :----------------------- |
+| `refinement` | `Refinement`\<`A`, `B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<`B`\>
+▸ (`self`): [`Option`](O.md#option)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **findLast**<`A`\>(`predicate`): <B\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>) => [`Option`](O.md#option)<`B`\>
+▸ **findLast**\<`A`\>(`predicate`): \<B\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>) => [`Option`](O.md#option)\<`B`\>
 
 Find the last element for which a predicate holds.
 
@@ -2202,15 +2202,15 @@ Find the last element for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type              |
-| :---------- | :---------------- |
-| `predicate` | `Predicate`<`A`\> |
+| Name        | Type               |
+| :---------- | :----------------- |
+| `predicate` | `Predicate`\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`B`\>(`self`): [`Option`](O.md#option)<`B`\>
+▸ \<`B`\>(`self`): [`Option`](O.md#option)\<`B`\>
 
 ##### Type parameters
 
@@ -2220,19 +2220,19 @@ Find the last element for which a predicate holds.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **findLast**<`A`, `B`\>(`self`, `refinement`): [`Option`](O.md#option)<`B`\>
+▸ **findLast**\<`A`, `B`\>(`self`, `refinement`): [`Option`](O.md#option)\<`B`\>
 
 Find the last element for which a predicate holds.
 
@@ -2245,20 +2245,20 @@ Find the last element for which a predicate holds.
 
 #### Parameters
 
-| Name         | Type                                            |
-| :----------- | :---------------------------------------------- |
-| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `refinement` | `Refinement`<`A`, `B`\>                         |
+| Name         | Type                                             |
+| :----------- | :----------------------------------------------- |
+| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `refinement` | `Refinement`\<`A`, `B`\>                         |
 
 #### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **findLast**<`B`, `A`\>(`self`, `predicate`): [`Option`](O.md#option)<`B`\>
+▸ **findLast**\<`B`, `A`\>(`self`, `predicate`): [`Option`](O.md#option)\<`B`\>
 
 Find the last element for which a predicate holds.
 
@@ -2271,14 +2271,14 @@ Find the last element for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type                                            |
-| :---------- | :---------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
-| `predicate` | `Predicate`<`A`\>                               |
+| Name        | Type                                             |
+| :---------- | :----------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
+| `predicate` | `Predicate`\<`A`\>                               |
 
 #### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
@@ -2288,7 +2288,7 @@ Find the last element for which a predicate holds.
 
 ### findLastIndex
 
-▸ **findLastIndex**<`A`\>(`predicate`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Option`](O.md#option)<`number`\>
+▸ **findLastIndex**\<`A`\>(`predicate`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Option`](O.md#option)\<`number`\>
 
 Return the last index for which a predicate holds.
 
@@ -2300,31 +2300,31 @@ Return the last index for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type              |
-| :---------- | :---------------- |
-| `predicate` | `Predicate`<`A`\> |
+| Name        | Type               |
+| :---------- | :----------------- |
+| `predicate` | `Predicate`\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<`number`\>
+▸ (`self`): [`Option`](O.md#option)\<`number`\>
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`number`\>
+[`Option`](O.md#option)\<`number`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **findLastIndex**<`A`\>(`self`, `predicate`): [`Option`](O.md#option)<`number`\>
+▸ **findLastIndex**\<`A`\>(`self`, `predicate`): [`Option`](O.md#option)\<`number`\>
 
 Return the last index for which a predicate holds.
 
@@ -2336,14 +2336,14 @@ Return the last index for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type                                            |
-| :---------- | :---------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `predicate` | `Predicate`<`A`\>                               |
+| Name        | Type                                             |
+| :---------- | :----------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `predicate` | `Predicate`\<`A`\>                               |
 
 #### Returns
 
-[`Option`](O.md#option)<`number`\>
+[`Option`](O.md#option)\<`number`\>
 
 **`Since`**
 
@@ -2353,7 +2353,7 @@ Return the last index for which a predicate holds.
 
 ### get
 
-▸ **get**(`index`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Option`](O.md#option)<`A`\>
+▸ **get**(`index`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Option`](O.md#option)\<`A`\>
 
 This function provides a safe way to read a value at a particular index from a `Chunk`.
 
@@ -2367,7 +2367,7 @@ This function provides a safe way to read a value at a particular index from a `
 
 `fn`
 
-▸ <`A`\>(`self`): [`Option`](O.md#option)<`A`\>
+▸ \<`A`\>(`self`): [`Option`](O.md#option)\<`A`\>
 
 ##### Type parameters
 
@@ -2377,19 +2377,19 @@ This function provides a safe way to read a value at a particular index from a `
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **get**<`A`\>(`self`, `index`): [`Option`](O.md#option)<`A`\>
+▸ **get**\<`A`\>(`self`, `index`): [`Option`](O.md#option)\<`A`\>
 
 This function provides a safe way to read a value at a particular index from a `Chunk`.
 
@@ -2401,14 +2401,14 @@ This function provides a safe way to read a value at a particular index from a `
 
 #### Parameters
 
-| Name    | Type                                            |
-| :------ | :---------------------------------------------- |
-| `self`  | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `index` | `number`                                        |
+| Name    | Type                                             |
+| :------ | :----------------------------------------------- |
+| `self`  | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `index` | `number`                                         |
 
 #### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Since`**
 
@@ -2418,7 +2418,7 @@ This function provides a safe way to read a value at a particular index from a `
 
 ### head
 
-▸ **head**<`A`\>(`self`): [`Option`](O.md#option)<`A`\>
+▸ **head**\<`A`\>(`self`): [`Option`](O.md#option)\<`A`\>
 
 Returns the first element of this chunk if it exists.
 
@@ -2430,13 +2430,13 @@ Returns the first element of this chunk if it exists.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 #### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Since`**
 
@@ -2446,7 +2446,7 @@ Returns the first element of this chunk if it exists.
 
 ### headNonEmpty
 
-▸ **headNonEmpty**<`A`\>(`self`): `A`
+▸ **headNonEmpty**\<`A`\>(`self`): `A`
 
 Returns the first element of this non empty chunk.
 
@@ -2458,9 +2458,9 @@ Returns the first element of this non empty chunk.
 
 #### Parameters
 
-| Name   | Type                                                          |
-| :----- | :------------------------------------------------------------ |
-| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\> |
+| Name   | Type                                                           |
+| :----- | :------------------------------------------------------------- |
+| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> |
 
 #### Returns
 
@@ -2474,7 +2474,7 @@ Returns the first element of this non empty chunk.
 
 ### intersection
 
-▸ **intersection**<`A`\>(`that`): <B\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` & `B`\>
+▸ **intersection**\<`A`\>(`that`): \<B\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` & `B`\>
 
 Creates a Chunk of unique values that are included in all given Chunks.
 
@@ -2488,15 +2488,15 @@ The order and references of result values are determined by the Chunk.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`B`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` & `B`\>
+▸ \<`B`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` & `B`\>
 
 ##### Type parameters
 
@@ -2506,19 +2506,19 @@ The order and references of result values are determined by the Chunk.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` & `B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` & `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **intersection**<`A`, `B`\>(`self`, `that`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` & `B`\>
+▸ **intersection**\<`A`, `B`\>(`self`, `that`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` & `B`\>
 
 Creates a Chunk of unique values that are included in all given Chunks.
 
@@ -2533,14 +2533,14 @@ The order and references of result values are determined by the Chunk.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` & `B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` & `B`\>
 
 **`Since`**
 
@@ -2550,7 +2550,7 @@ The order and references of result values are determined by the Chunk.
 
 ### isEmpty
 
-▸ **isEmpty**<`A`\>(`self`): `boolean`
+▸ **isEmpty**\<`A`\>(`self`): `boolean`
 
 Determines if the chunk is empty.
 
@@ -2562,9 +2562,9 @@ Determines if the chunk is empty.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 #### Returns
 
@@ -2578,7 +2578,7 @@ Determines if the chunk is empty.
 
 ### isNonEmpty
 
-▸ **isNonEmpty**<`A`\>(`self`): self is NonEmptyChunk<A\>
+▸ **isNonEmpty**\<`A`\>(`self`): self is NonEmptyChunk\<A\>
 
 Determines if the chunk is not empty.
 
@@ -2590,13 +2590,13 @@ Determines if the chunk is not empty.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 #### Returns
 
-self is NonEmptyChunk<A\>
+self is NonEmptyChunk\<A\>
 
 **`Since`**
 
@@ -2606,7 +2606,7 @@ self is NonEmptyChunk<A\>
 
 ### last
 
-▸ **last**<`A`\>(`self`): [`Option`](O.md#option)<`A`\>
+▸ **last**\<`A`\>(`self`): [`Option`](O.md#option)\<`A`\>
 
 Returns the last element of this chunk if it exists.
 
@@ -2618,13 +2618,13 @@ Returns the last element of this chunk if it exists.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 #### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Since`**
 
@@ -2634,7 +2634,7 @@ Returns the last element of this chunk if it exists.
 
 ### reverse
 
-▸ **reverse**<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **reverse**\<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 #### Type parameters
 
@@ -2644,13 +2644,13 @@ Returns the last element of this chunk if it exists.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -2660,7 +2660,7 @@ Returns the last element of this chunk if it exists.
 
 ### size
 
-▸ **size**<`A`\>(`self`): `number`
+▸ **size**\<`A`\>(`self`): `number`
 
 Retireves the size of the chunk
 
@@ -2672,9 +2672,9 @@ Retireves the size of the chunk
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 #### Returns
 
@@ -2688,7 +2688,7 @@ Retireves the size of the chunk
 
 ### some
 
-▸ **some**<`A`\>(`predicate`): <B\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>) => self is NonEmptyChunk<B\>
+▸ **some**\<`A`\>(`predicate`): \<B\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>) => self is NonEmptyChunk\<B\>
 
 Check if a predicate holds true for some `Chunk` element.
 
@@ -2700,15 +2700,15 @@ Check if a predicate holds true for some `Chunk` element.
 
 #### Parameters
 
-| Name        | Type              |
-| :---------- | :---------------- |
-| `predicate` | `Predicate`<`A`\> |
+| Name        | Type               |
+| :---------- | :----------------- |
+| `predicate` | `Predicate`\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`B`\>(`self`): self is NonEmptyChunk<B\>
+▸ \<`B`\>(`self`): self is NonEmptyChunk\<B\>
 
 ##### Type parameters
 
@@ -2718,19 +2718,19 @@ Check if a predicate holds true for some `Chunk` element.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 ##### Returns
 
-self is NonEmptyChunk<B\>
+self is NonEmptyChunk\<B\>
 
 **`Since`**
 
 2.0.0
 
-▸ **some**<`B`, `A`\>(`self`, `predicate`): self is NonEmptyChunk<B\>
+▸ **some**\<`B`, `A`\>(`self`, `predicate`): self is NonEmptyChunk\<B\>
 
 Check if a predicate holds true for some `Chunk` element.
 
@@ -2743,14 +2743,14 @@ Check if a predicate holds true for some `Chunk` element.
 
 #### Parameters
 
-| Name        | Type                                            |
-| :---------- | :---------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
-| `predicate` | `Predicate`<`A`\>                               |
+| Name        | Type                                             |
+| :---------- | :----------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
+| `predicate` | `Predicate`\<`A`\>                               |
 
 #### Returns
 
-self is NonEmptyChunk<B\>
+self is NonEmptyChunk\<B\>
 
 **`Since`**
 
@@ -2760,7 +2760,7 @@ self is NonEmptyChunk<B\>
 
 ### sort
 
-▸ **sort**<`B`\>(`O`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **sort**\<`B`\>(`O`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Sort the elements of a Chunk in increasing order, creating a new Chunk.
 
@@ -2772,15 +2772,15 @@ Sort the elements of a Chunk in increasing order, creating a new Chunk.
 
 #### Parameters
 
-| Name | Type          |
-| :--- | :------------ |
-| `O`  | `Order`<`B`\> |
+| Name | Type           |
+| :--- | :------------- |
+| `O`  | `Order`\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 ##### Type parameters
 
@@ -2790,19 +2790,19 @@ Sort the elements of a Chunk in increasing order, creating a new Chunk.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **sort**<`A`, `B`\>(`self`, `O`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **sort**\<`A`, `B`\>(`self`, `O`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Sort the elements of a Chunk in increasing order, creating a new Chunk.
 
@@ -2815,14 +2815,14 @@ Sort the elements of a Chunk in increasing order, creating a new Chunk.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `O`    | `Order`<`B`\>                                   |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `O`    | `Order`\<`B`\>                                   |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -2832,7 +2832,7 @@ Sort the elements of a Chunk in increasing order, creating a new Chunk.
 
 ### sortWith
 
-▸ **sortWith**<`A`, `B`\>(`f`, `order`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **sortWith**\<`A`, `B`\>(`f`, `order`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 #### Type parameters
 
@@ -2846,29 +2846,29 @@ Sort the elements of a Chunk in increasing order, creating a new Chunk.
 | Name    | Type              |
 | :------ | :---------------- |
 | `f`     | (`a`: `A`) => `B` |
-| `order` | `Order`<`B`\>     |
+| `order` | `Order`\<`B`\>    |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **sortWith**<`A`, `B`\>(`self`, `f`, `order`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **sortWith**\<`A`, `B`\>(`self`, `f`, `order`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 #### Type parameters
 
@@ -2879,15 +2879,15 @@ Sort the elements of a Chunk in increasing order, creating a new Chunk.
 
 #### Parameters
 
-| Name    | Type                                            |
-| :------ | :---------------------------------------------- |
-| `self`  | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `f`     | (`a`: `A`) => `B`                               |
-| `order` | `Order`<`B`\>                                   |
+| Name    | Type                                             |
+| :------ | :----------------------------------------------- |
+| `self`  | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `f`     | (`a`: `A`) => `B`                                |
+| `order` | `Order`\<`B`\>                                   |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -2897,7 +2897,7 @@ Sort the elements of a Chunk in increasing order, creating a new Chunk.
 
 ### split
 
-▸ **split**(`n`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>\>
+▸ **split**(`n`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
 
 Splits this chunk into `n` equally sized chunks.
 
@@ -2911,7 +2911,7 @@ Splits this chunk into `n` equally sized chunks.
 
 `fn`
 
-▸ <`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>\>
+▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
 
 ##### Type parameters
 
@@ -2921,19 +2921,19 @@ Splits this chunk into `n` equally sized chunks.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
 
 **`Since`**
 
 2.0.0
 
-▸ **split**<`A`\>(`self`, `n`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>\>
+▸ **split**\<`A`\>(`self`, `n`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
 
 Splits this chunk into `n` equally sized chunks.
 
@@ -2945,14 +2945,14 @@ Splits this chunk into `n` equally sized chunks.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `n`    | `number`                                        |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `n`    | `number`                                         |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
 
 **`Since`**
 
@@ -2962,7 +2962,7 @@ Splits this chunk into `n` equally sized chunks.
 
 ### splitAt
 
-▸ **splitAt**(`n`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>]
+▸ **splitAt**(`n`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>]
 
 Returns two splits of this chunk at the specified index.
 
@@ -2976,7 +2976,7 @@ Returns two splits of this chunk at the specified index.
 
 `fn`
 
-▸ <`A`\>(`self`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>]
+▸ \<`A`\>(`self`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>]
 
 ##### Type parameters
 
@@ -2986,19 +2986,19 @@ Returns two splits of this chunk at the specified index.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>]
+[[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **splitAt**<`A`\>(`self`, `n`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>]
+▸ **splitAt**\<`A`\>(`self`, `n`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>]
 
 Returns two splits of this chunk at the specified index.
 
@@ -3010,14 +3010,14 @@ Returns two splits of this chunk at the specified index.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `n`    | `number`                                        |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `n`    | `number`                                         |
 
 #### Returns
 
-[[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>]
+[[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>]
 
 **`Since`**
 
@@ -3027,7 +3027,7 @@ Returns two splits of this chunk at the specified index.
 
 ### splitWhere
 
-▸ **splitWhere**<`A`\>(`predicate`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>]
+▸ **splitWhere**\<`A`\>(`predicate`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>]
 
 Splits this chunk on the first element that matches this predicate.
 
@@ -3039,31 +3039,31 @@ Splits this chunk on the first element that matches this predicate.
 
 #### Parameters
 
-| Name        | Type              |
-| :---------- | :---------------- |
-| `predicate` | `Predicate`<`A`\> |
+| Name        | Type               |
+| :---------- | :----------------- |
+| `predicate` | `Predicate`\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>]
+▸ (`self`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>]
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>]
+[[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **splitWhere**<`A`\>(`self`, `predicate`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>]
+▸ **splitWhere**\<`A`\>(`self`, `predicate`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>]
 
 Splits this chunk on the first element that matches this predicate.
 
@@ -3075,14 +3075,14 @@ Splits this chunk on the first element that matches this predicate.
 
 #### Parameters
 
-| Name        | Type                                            |
-| :---------- | :---------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `predicate` | `Predicate`<`A`\>                               |
+| Name        | Type                                             |
+| :---------- | :----------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `predicate` | `Predicate`\<`A`\>                               |
 
 #### Returns
 
-[[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>]
+[[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>]
 
 **`Since`**
 
@@ -3092,7 +3092,7 @@ Splits this chunk on the first element that matches this predicate.
 
 ### tail
 
-▸ **tail**<`A`\>(`self`): [`Option`](O.md#option)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>\>
+▸ **tail**\<`A`\>(`self`): [`Option`](O.md#option)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
 
 Returns every elements after the first.
 
@@ -3104,13 +3104,13 @@ Returns every elements after the first.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 #### Returns
 
-[`Option`](O.md#option)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>\>
+[`Option`](O.md#option)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
 
 **`Since`**
 
@@ -3120,7 +3120,7 @@ Returns every elements after the first.
 
 ### tailNonEmpty
 
-▸ **tailNonEmpty**<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **tailNonEmpty**\<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Returns every elements after the first.
 
@@ -3132,13 +3132,13 @@ Returns every elements after the first.
 
 #### Parameters
 
-| Name   | Type                                                          |
-| :----- | :------------------------------------------------------------ |
-| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\> |
+| Name   | Type                                                           |
+| :----- | :------------------------------------------------------------- |
+| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -3148,7 +3148,7 @@ Returns every elements after the first.
 
 ### takeRight
 
-▸ **takeRight**(`n`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **takeRight**(`n`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Takes the last `n` elements.
 
@@ -3162,7 +3162,7 @@ Takes the last `n` elements.
 
 `fn`
 
-▸ <`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 ##### Type parameters
 
@@ -3172,19 +3172,19 @@ Takes the last `n` elements.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **takeRight**<`A`\>(`self`, `n`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **takeRight**\<`A`\>(`self`, `n`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Takes the last `n` elements.
 
@@ -3196,14 +3196,14 @@ Takes the last `n` elements.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `n`    | `number`                                        |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `n`    | `number`                                         |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -3213,7 +3213,7 @@ Takes the last `n` elements.
 
 ### takeWhile
 
-▸ **takeWhile**<`A`\>(`predicate`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **takeWhile**\<`A`\>(`predicate`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Takes all elements so long as the predicate returns true.
 
@@ -3225,31 +3225,31 @@ Takes all elements so long as the predicate returns true.
 
 #### Parameters
 
-| Name        | Type              |
-| :---------- | :---------------- |
-| `predicate` | `Predicate`<`A`\> |
+| Name        | Type               |
+| :---------- | :----------------- |
+| `predicate` | `Predicate`\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **takeWhile**<`A`\>(`self`, `predicate`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **takeWhile**\<`A`\>(`self`, `predicate`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Takes all elements so long as the predicate returns true.
 
@@ -3261,14 +3261,14 @@ Takes all elements so long as the predicate returns true.
 
 #### Parameters
 
-| Name        | Type                                            |
-| :---------- | :---------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `predicate` | `Predicate`<`A`\>                               |
+| Name        | Type                                             |
+| :---------- | :----------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `predicate` | `Predicate`\<`A`\>                               |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -3278,7 +3278,7 @@ Takes all elements so long as the predicate returns true.
 
 ### union
 
-▸ **union**<`A`\>(`that`): <B\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>
+▸ **union**\<`A`\>(`that`): \<B\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
 
 Creates a Chunks of unique values, in order, from all given Chunks.
 
@@ -3290,15 +3290,15 @@ Creates a Chunks of unique values, in order, from all given Chunks.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`B`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>
+▸ \<`B`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
 
 ##### Type parameters
 
@@ -3308,19 +3308,19 @@ Creates a Chunks of unique values, in order, from all given Chunks.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **union**<`A`, `B`\>(`self`, `that`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>
+▸ **union**\<`A`, `B`\>(`self`, `that`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
 
 Creates a Chunks of unique values, in order, from all given Chunks.
 
@@ -3333,14 +3333,14 @@ Creates a Chunks of unique values, in order, from all given Chunks.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A` \| `B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
 
 **`Since`**
 
@@ -3350,7 +3350,7 @@ Creates a Chunks of unique values, in order, from all given Chunks.
 
 ### unzip
 
-▸ **unzip**<`A`, `B`\>(`self`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+▸ **unzip**\<`A`, `B`\>(`self`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 Takes a `Chunk` of pairs and return two corresponding `Chunk`s.
 
@@ -3365,13 +3365,13 @@ Note: The function is reverse of `zip`.
 
 #### Parameters
 
-| Name   | Type                                                            |
-| :----- | :-------------------------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<readonly [`A`, `B`]\> |
+| Name   | Type                                                             |
+| :----- | :--------------------------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<readonly [`A`, `B`]\> |
 
 #### Returns
 
-[[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+[[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 **`Since`**
 
@@ -3381,7 +3381,7 @@ Note: The function is reverse of `zip`.
 
 ### zip
 
-▸ **zip**<`B`\>(`that`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<readonly [`A`, `B`]\>
+▸ **zip**\<`B`\>(`that`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<readonly [`A`, `B`]\>
 
 Zips this chunk pointwise with the specified chunk.
 
@@ -3393,15 +3393,15 @@ Zips this chunk pointwise with the specified chunk.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<readonly [`A`, `B`]\>
+▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<readonly [`A`, `B`]\>
 
 ##### Type parameters
 
@@ -3411,19 +3411,19 @@ Zips this chunk pointwise with the specified chunk.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<readonly [`A`, `B`]\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<readonly [`A`, `B`]\>
 
 **`Since`**
 
 2.0.0
 
-▸ **zip**<`A`, `B`\>(`self`, `that`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<readonly [`A`, `B`]\>
+▸ **zip**\<`A`, `B`\>(`self`, `that`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<readonly [`A`, `B`]\>
 
 Zips this chunk pointwise with the specified chunk.
 
@@ -3436,14 +3436,14 @@ Zips this chunk pointwise with the specified chunk.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<readonly [`A`, `B`]\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<readonly [`A`, `B`]\>
 
 **`Since`**
 
@@ -3453,7 +3453,7 @@ Zips this chunk pointwise with the specified chunk.
 
 ### zipWith
 
-▸ **zipWith**<`A`, `B`, `C`\>(`that`, `f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`C`\>
+▸ **zipWith**\<`A`, `B`, `C`\>(`that`, `f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>
 
 Zips this chunk pointwise with the specified chunk using the specified combiner.
 
@@ -3467,32 +3467,32 @@ Zips this chunk pointwise with the specified chunk using the specified combiner.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
-| `f`    | (`a`: `A`, `b`: `B`) => `C`                     |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
+| `f`    | (`a`: `A`, `b`: `B`) => `C`                      |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`C`\>
+▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`C`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **zipWith**<`A`, `B`, `C`\>(`self`, `that`, `f`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`C`\>
+▸ **zipWith**\<`A`, `B`, `C`\>(`self`, `that`, `f`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>
 
 Zips this chunk pointwise with the specified chunk using the specified combiner.
 
@@ -3506,15 +3506,15 @@ Zips this chunk pointwise with the specified chunk using the specified combiner.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
-| `f`    | (`a`: `A`, `b`: `B`) => `C`                     |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
+| `f`    | (`a`: `A`, `b`: `B`) => `C`                      |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`C`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>
 
 **`Since`**
 
@@ -3524,7 +3524,7 @@ Zips this chunk pointwise with the specified chunk using the specified combiner.
 
 ### getEquivalence
 
-▸ **getEquivalence**<`A`\>(`isEquivalent`): `Equivalence`<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>\>
+▸ **getEquivalence**\<`A`\>(`isEquivalent`): `Equivalence`\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
 
 Compares the two chunks of equal length using the specified function
 
@@ -3536,13 +3536,13 @@ Compares the two chunks of equal length using the specified function
 
 #### Parameters
 
-| Name           | Type                |
-| :------------- | :------------------ |
-| `isEquivalent` | `Equivalence`<`A`\> |
+| Name           | Type                 |
+| :------------- | :------------------- |
+| `isEquivalent` | `Equivalence`\<`A`\> |
 
 #### Returns
 
-`Equivalence`<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>\>
+`Equivalence`\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
 
 **`Since`**
 
@@ -3552,7 +3552,7 @@ Compares the two chunks of equal length using the specified function
 
 ### compact
 
-▸ **compact**<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **compact**\<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Filter out optional values
 
@@ -3564,13 +3564,13 @@ Filter out optional values
 
 #### Parameters
 
-| Name   | Type                                                                      |
-| :----- | :------------------------------------------------------------------------ |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<[`Option`](O.md#option)<`A`\>\> |
+| Name   | Type                                                                        |
+| :----- | :-------------------------------------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Option`](O.md#option)\<`A`\>\> |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -3580,7 +3580,7 @@ Filter out optional values
 
 ### dedupeAdjacent
 
-▸ **dedupeAdjacent**<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **dedupeAdjacent**\<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Deduplicates adjacent elements that are identical.
 
@@ -3592,13 +3592,13 @@ Deduplicates adjacent elements that are identical.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -3608,7 +3608,7 @@ Deduplicates adjacent elements that are identical.
 
 ### filter
 
-▸ **filter**<`C`, `B`, `A`\>(`refinement`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`C`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+▸ **filter**\<`C`, `B`, `A`\>(`refinement`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 Returns a filtered and mapped subset of the elements.
 
@@ -3622,31 +3622,31 @@ Returns a filtered and mapped subset of the elements.
 
 #### Parameters
 
-| Name         | Type                    |
-| :----------- | :---------------------- |
-| `refinement` | `Refinement`<`A`, `B`\> |
+| Name         | Type                     |
+| :----------- | :----------------------- |
+| `refinement` | `Refinement`\<`A`, `B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`C`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **filter**<`B`, `A`\>(`predicate`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+▸ **filter**\<`B`, `A`\>(`predicate`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 Returns a filtered and mapped subset of the elements.
 
@@ -3659,31 +3659,31 @@ Returns a filtered and mapped subset of the elements.
 
 #### Parameters
 
-| Name        | Type              |
-| :---------- | :---------------- |
-| `predicate` | `Predicate`<`A`\> |
+| Name        | Type               |
+| :---------- | :----------------- |
+| `predicate` | `Predicate`\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **filter**<`C`, `B`, `A`\>(`self`, `refinement`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+▸ **filter**\<`C`, `B`, `A`\>(`self`, `refinement`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 Returns a filtered and mapped subset of the elements.
 
@@ -3697,20 +3697,20 @@ Returns a filtered and mapped subset of the elements.
 
 #### Parameters
 
-| Name         | Type                                            |
-| :----------- | :---------------------------------------------- |
-| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`C`\> |
-| `refinement` | `Refinement`<`A`, `B`\>                         |
+| Name         | Type                                             |
+| :----------- | :----------------------------------------------- |
+| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\> |
+| `refinement` | `Refinement`\<`A`, `B`\>                         |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **filter**<`B`, `A`\>(`self`, `predicate`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+▸ **filter**\<`B`, `A`\>(`self`, `predicate`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 Returns a filtered and mapped subset of the elements.
 
@@ -3723,14 +3723,14 @@ Returns a filtered and mapped subset of the elements.
 
 #### Parameters
 
-| Name        | Type                                            |
-| :---------- | :---------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
-| `predicate` | `Predicate`<`A`\>                               |
+| Name        | Type                                             |
+| :---------- | :----------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
+| `predicate` | `Predicate`\<`A`\>                               |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 **`Since`**
 
@@ -3740,7 +3740,7 @@ Returns a filtered and mapped subset of the elements.
 
 ### filterMap
 
-▸ **filterMap**<`A`, `B`\>(`f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+▸ **filterMap**\<`A`, `B`\>(`f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 Returns a filtered and mapped subset of the elements.
 
@@ -3753,31 +3753,31 @@ Returns a filtered and mapped subset of the elements.
 
 #### Parameters
 
-| Name | Type                                                       |
-| :--- | :--------------------------------------------------------- |
-| `f`  | (`a`: `A`, `i`: `number`) => [`Option`](O.md#option)<`B`\> |
+| Name | Type                                                        |
+| :--- | :---------------------------------------------------------- |
+| `f`  | (`a`: `A`, `i`: `number`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **filterMap**<`A`, `B`\>(`self`, `f`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+▸ **filterMap**\<`A`, `B`\>(`self`, `f`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 Returns a filtered and mapped subset of the elements.
 
@@ -3790,14 +3790,14 @@ Returns a filtered and mapped subset of the elements.
 
 #### Parameters
 
-| Name   | Type                                                       |
-| :----- | :--------------------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>            |
-| `f`    | (`a`: `A`, `i`: `number`) => [`Option`](O.md#option)<`B`\> |
+| Name   | Type                                                        |
+| :----- | :---------------------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>            |
+| `f`    | (`a`: `A`, `i`: `number`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 **`Since`**
 
@@ -3807,7 +3807,7 @@ Returns a filtered and mapped subset of the elements.
 
 ### filterMapWhile
 
-▸ **filterMapWhile**<`A`, `B`\>(`f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+▸ **filterMapWhile**\<`A`, `B`\>(`f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 Transforms all elements of the chunk for as long as the specified function returns some value
 
@@ -3820,31 +3820,31 @@ Transforms all elements of the chunk for as long as the specified function retur
 
 #### Parameters
 
-| Name | Type                                        |
-| :--- | :------------------------------------------ |
-| `f`  | (`a`: `A`) => [`Option`](O.md#option)<`B`\> |
+| Name | Type                                         |
+| :--- | :------------------------------------------- |
+| `f`  | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **filterMapWhile**<`A`, `B`\>(`self`, `f`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+▸ **filterMapWhile**\<`A`, `B`\>(`self`, `f`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 Transforms all elements of the chunk for as long as the specified function returns some value
 
@@ -3857,14 +3857,14 @@ Transforms all elements of the chunk for as long as the specified function retur
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `f`    | (`a`: `A`) => [`Option`](O.md#option)<`B`\>     |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `f`    | (`a`: `A`) => [`Option`](O.md#option)\<`B`\>     |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 **`Since`**
 
@@ -3874,7 +3874,7 @@ Transforms all elements of the chunk for as long as the specified function retur
 
 ### partition
 
-▸ **partition**<`C`, `B`, `A`\>(`refinement`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`C`\>) => [[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`Exclude`<`C`, `B`\>\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+▸ **partition**\<`C`, `B`, `A`\>(`refinement`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>) => [[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`Exclude`\<`C`, `B`\>\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 Separate elements based on a predicate that also exposes the index of the element.
 
@@ -3888,31 +3888,31 @@ Separate elements based on a predicate that also exposes the index of the elemen
 
 #### Parameters
 
-| Name         | Type                    |
-| :----------- | :---------------------- |
-| `refinement` | `Refinement`<`A`, `B`\> |
+| Name         | Type                     |
+| :----------- | :----------------------- |
+| `refinement` | `Refinement`\<`A`, `B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`Exclude`<`C`, `B`\>\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+▸ (`self`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`Exclude`\<`C`, `B`\>\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`C`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\> |
 
 ##### Returns
 
-[[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`Exclude`<`C`, `B`\>\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+[[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`Exclude`\<`C`, `B`\>\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **partition**<`B`, `A`\>(`predicate`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>) => [[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+▸ **partition**\<`B`, `A`\>(`predicate`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>) => [[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 Separate elements based on a predicate that also exposes the index of the element.
 
@@ -3933,23 +3933,23 @@ Separate elements based on a predicate that also exposes the index of the elemen
 
 `fn`
 
-▸ (`self`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+▸ (`self`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 ##### Returns
 
-[[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+[[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **partition**<`C`, `B`, `A`\>(`self`, `refinement`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`Exclude`<`C`, `B`\>\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+▸ **partition**\<`C`, `B`, `A`\>(`self`, `refinement`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`Exclude`\<`C`, `B`\>\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 Separate elements based on a predicate that also exposes the index of the element.
 
@@ -3963,20 +3963,20 @@ Separate elements based on a predicate that also exposes the index of the elemen
 
 #### Parameters
 
-| Name         | Type                                            |
-| :----------- | :---------------------------------------------- |
-| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`C`\> |
-| `refinement` | `Refinement`<`A`, `B`\>                         |
+| Name         | Type                                             |
+| :----------- | :----------------------------------------------- |
+| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\> |
+| `refinement` | `Refinement`\<`A`, `B`\>                         |
 
 #### Returns
 
-[[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`Exclude`<`C`, `B`\>\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+[[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`Exclude`\<`C`, `B`\>\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **partition**<`B`, `A`\>(`self`, `predicate`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+▸ **partition**\<`B`, `A`\>(`self`, `predicate`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 Separate elements based on a predicate that also exposes the index of the element.
 
@@ -3989,14 +3989,14 @@ Separate elements based on a predicate that also exposes the index of the elemen
 
 #### Parameters
 
-| Name        | Type                                            |
-| :---------- | :---------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
-| `predicate` | (`a`: `A`) => `boolean`                         |
+| Name        | Type                                             |
+| :---------- | :----------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
+| `predicate` | (`a`: `A`) => `boolean`                          |
 
 #### Returns
 
-[[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+[[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 **`Since`**
 
@@ -4006,7 +4006,7 @@ Separate elements based on a predicate that also exposes the index of the elemen
 
 ### partitionMap
 
-▸ **partitionMap**<`A`, `B`, `C`\>(`f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`C`\>]
+▸ **partitionMap**\<`A`, `B`, `C`\>(`f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>]
 
 Partitions the elements of this chunk into two chunks using f.
 
@@ -4020,31 +4020,31 @@ Partitions the elements of this chunk into two chunks using f.
 
 #### Parameters
 
-| Name | Type                                             |
-| :--- | :----------------------------------------------- |
-| `f`  | (`a`: `A`) => [`Either`](E.md#either)<`B`, `C`\> |
+| Name | Type                                              |
+| :--- | :------------------------------------------------ |
+| `f`  | (`a`: `A`) => [`Either`](E.md#either)\<`B`, `C`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`C`\>]
+▸ (`self`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>]
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`C`\>]
+[[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **partitionMap**<`A`, `B`, `C`\>(`self`, `f`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`C`\>]
+▸ **partitionMap**\<`A`, `B`, `C`\>(`self`, `f`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>]
 
 Partitions the elements of this chunk into two chunks using f.
 
@@ -4058,14 +4058,14 @@ Partitions the elements of this chunk into two chunks using f.
 
 #### Parameters
 
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>  |
-| `f`    | (`a`: `A`) => [`Either`](E.md#either)<`B`, `C`\> |
+| Name   | Type                                              |
+| :----- | :------------------------------------------------ |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>  |
+| `f`    | (`a`: `A`) => [`Either`](E.md#either)\<`B`, `C`\> |
 
 #### Returns
 
-[[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`C`\>]
+[[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>]
 
 **`Since`**
 
@@ -4075,7 +4075,7 @@ Partitions the elements of this chunk into two chunks using f.
 
 ### separate
 
-▸ **separate**<`A`, `B`\>(`self`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+▸ **separate**\<`A`, `B`\>(`self`): [[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 Partitions the elements of this chunk into two chunks.
 
@@ -4088,13 +4088,13 @@ Partitions the elements of this chunk into two chunks.
 
 #### Parameters
 
-| Name   | Type                                                                           |
-| :----- | :----------------------------------------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<[`Either`](E.md#either)<`A`, `B`\>\> |
+| Name   | Type                                                                             |
+| :----- | :------------------------------------------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Either`](E.md#either)\<`A`, `B`\>\> |
 
 #### Returns
 
-[[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+[[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 **`Since`**
 
@@ -4104,7 +4104,7 @@ Partitions the elements of this chunk into two chunks.
 
 ### join
 
-▸ **join**(`sep`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`string`\>) => `string`
+▸ **join**(`sep`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`string`\>) => `string`
 
 Joins the elements together with "sep" in the middle.
 
@@ -4122,9 +4122,9 @@ Joins the elements together with "sep" in the middle.
 
 ##### Parameters
 
-| Name   | Type                                                 |
-| :----- | :--------------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`string`\> |
+| Name   | Type                                                  |
+| :----- | :---------------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`string`\> |
 
 ##### Returns
 
@@ -4140,10 +4140,10 @@ Joins the elements together with "sep" in the middle.
 
 #### Parameters
 
-| Name   | Type                                                 |
-| :----- | :--------------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`string`\> |
-| `sep`  | `string`                                             |
+| Name   | Type                                                  |
+| :----- | :---------------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`string`\> |
+| `sep`  | `string`                                              |
 
 #### Returns
 
@@ -4157,7 +4157,7 @@ Joins the elements together with "sep" in the middle.
 
 ### mapAccum
 
-▸ **mapAccum**<`S`, `A`, `B`\>(`s`, `f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`S`, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+▸ **mapAccum**\<`S`, `A`, `B`\>(`s`, `f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`S`, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 Statefully maps over the chunk, producing new elements of type `B`.
 
@@ -4180,23 +4180,23 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 `fn`
 
-▸ (`self`): [`S`, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+▸ (`self`): [`S`, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`S`, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+[`S`, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **mapAccum**<`S`, `A`, `B`\>(`self`, `s`, `f`): [`S`, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+▸ **mapAccum**\<`S`, `A`, `B`\>(`self`, `s`, `f`): [`S`, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 Statefully maps over the chunk, producing new elements of type `B`.
 
@@ -4210,15 +4210,15 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `s`    | `S`                                             |
-| `f`    | (`s`: `S`, `a`: `A`) => readonly [`S`, `B`]     |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `s`    | `S`                                              |
+| `f`    | (`s`: `S`, `a`: `A`) => readonly [`S`, `B`]      |
 
 #### Returns
 
-[`S`, [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>]
+[`S`, [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>]
 
 **`Since`**
 
@@ -4228,7 +4228,7 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 ### reduce
 
-▸ **reduce**<`B`, `A`\>(`b`, `f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => `B`
+▸ **reduce**\<`B`, `A`\>(`b`, `f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => `B`
 
 #### Type parameters
 
@@ -4252,9 +4252,9 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
@@ -4264,7 +4264,7 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 2.0.0
 
-▸ **reduce**<`A`, `B`\>(`self`, `b`, `f`): `B`
+▸ **reduce**\<`A`, `B`\>(`self`, `b`, `f`): `B`
 
 #### Type parameters
 
@@ -4275,11 +4275,11 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `b`    | `B`                                             |
-| `f`    | (`b`: `B`, `a`: `A`, `i`: `number`) => `B`      |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `b`    | `B`                                              |
+| `f`    | (`b`: `B`, `a`: `A`, `i`: `number`) => `B`       |
 
 #### Returns
 
@@ -4293,7 +4293,7 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 ### reduceRight
 
-▸ **reduceRight**<`B`, `A`\>(`b`, `f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => `B`
+▸ **reduceRight**\<`B`, `A`\>(`b`, `f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => `B`
 
 #### Type parameters
 
@@ -4317,9 +4317,9 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
@@ -4329,7 +4329,7 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 2.0.0
 
-▸ **reduceRight**<`A`, `B`\>(`self`, `b`, `f`): `B`
+▸ **reduceRight**\<`A`, `B`\>(`self`, `b`, `f`): `B`
 
 #### Type parameters
 
@@ -4340,11 +4340,11 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `b`    | `B`                                             |
-| `f`    | (`b`: `B`, `a`: `A`, `i`: `number`) => `B`      |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `b`    | `B`                                              |
+| `f`    | (`b`: `B`, `a`: `A`, `i`: `number`) => `B`       |
 
 #### Returns
 
@@ -4358,28 +4358,28 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 ### map
 
-▸ **map**<`T`, `B`\>(`f`): (`self`: `T`) => [`With`](Chunk.Chunk.md#with)<`T`, `B`\>
+▸ **map**\<`T`, `B`\>(`f`): (`self`: `T`) => [`With`](Chunk.Chunk.md#with)\<`T`, `B`\>
 
 Returns a chunk with the elements mapped by the specified f function.
 
 #### Type parameters
 
-| Name | Type                                                      |
-| :--- | :-------------------------------------------------------- |
-| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`any`\> |
-| `B`  | `B`                                                       |
+| Name | Type                                                       |
+| :--- | :--------------------------------------------------------- |
+| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
+| `B`  | `B`                                                        |
 
 #### Parameters
 
-| Name | Type                                                               |
-| :--- | :----------------------------------------------------------------- |
-| `f`  | (`a`: [`Infer`](Chunk.Chunk.md#infer)<`T`\>, `i`: `number`) => `B` |
+| Name | Type                                                                |
+| :--- | :------------------------------------------------------------------ |
+| `f`  | (`a`: [`Infer`](Chunk.Chunk.md#infer)\<`T`\>, `i`: `number`) => `B` |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`With`](Chunk.Chunk.md#with)<`T`, `B`\>
+▸ (`self`): [`With`](Chunk.Chunk.md#with)\<`T`, `B`\>
 
 ##### Parameters
 
@@ -4389,33 +4389,33 @@ Returns a chunk with the elements mapped by the specified f function.
 
 ##### Returns
 
-[`With`](Chunk.Chunk.md#with)<`T`, `B`\>
+[`With`](Chunk.Chunk.md#with)\<`T`, `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **map**<`T`, `B`\>(`self`, `f`): [`With`](Chunk.Chunk.md#with)<`T`, `B`\>
+▸ **map**\<`T`, `B`\>(`self`, `f`): [`With`](Chunk.Chunk.md#with)\<`T`, `B`\>
 
 Returns a chunk with the elements mapped by the specified f function.
 
 #### Type parameters
 
-| Name | Type                                                      |
-| :--- | :-------------------------------------------------------- |
-| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`any`\> |
-| `B`  | `B`                                                       |
+| Name | Type                                                       |
+| :--- | :--------------------------------------------------------- |
+| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
+| `B`  | `B`                                                        |
 
 #### Parameters
 
-| Name   | Type                                                               |
-| :----- | :----------------------------------------------------------------- |
-| `self` | `T`                                                                |
-| `f`    | (`a`: [`Infer`](Chunk.Chunk.md#infer)<`T`\>, `i`: `number`) => `B` |
+| Name   | Type                                                                |
+| :----- | :------------------------------------------------------------------ |
+| `self` | `T`                                                                 |
+| `f`    | (`a`: [`Infer`](Chunk.Chunk.md#infer)\<`T`\>, `i`: `number`) => `B` |
 
 #### Returns
 
-[`With`](Chunk.Chunk.md#with)<`T`, `B`\>
+[`With`](Chunk.Chunk.md#with)\<`T`, `B`\>
 
 **`Since`**
 
@@ -4425,7 +4425,7 @@ Returns a chunk with the elements mapped by the specified f function.
 
 ### flatMap
 
-▸ **flatMap**<`A`, `B`\>(`f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+▸ **flatMap**\<`A`, `B`\>(`f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 Returns a chunk with the elements mapped by the specified function.
 
@@ -4438,31 +4438,31 @@ Returns a chunk with the elements mapped by the specified function.
 
 #### Parameters
 
-| Name | Type                                                                         |
-| :--- | :--------------------------------------------------------------------------- |
-| `f`  | (`a`: `A`, `i`: `number`) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name | Type                                                                          |
+| :--- | :---------------------------------------------------------------------------- |
+| `f`  | (`a`: `A`, `i`: `number`) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **flatMap**<`A`, `B`\>(`self`, `f`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+▸ **flatMap**\<`A`, `B`\>(`self`, `f`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 Returns a chunk with the elements mapped by the specified function.
 
@@ -4475,14 +4475,14 @@ Returns a chunk with the elements mapped by the specified function.
 
 #### Parameters
 
-| Name   | Type                                                                         |
-| :----- | :--------------------------------------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>                              |
-| `f`    | (`a`: `A`, `i`: `number`) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\> |
+| Name   | Type                                                                          |
+| :----- | :---------------------------------------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>                              |
+| `f`    | (`a`: `A`, `i`: `number`) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`B`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
 **`Since`**
 
@@ -4492,7 +4492,7 @@ Returns a chunk with the elements mapped by the specified function.
 
 ### flatMapNonEmpty
 
-▸ **flatMapNonEmpty**<`A`, `B`\>(`f`): (`self`: [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B`\>
+▸ **flatMapNonEmpty**\<`A`, `B`\>(`f`): (`self`: [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\>
 
 #### Type parameters
 
@@ -4503,31 +4503,31 @@ Returns a chunk with the elements mapped by the specified function.
 
 #### Parameters
 
-| Name | Type                                                                                       |
-| :--- | :----------------------------------------------------------------------------------------- |
-| `f`  | (`a`: `A`, `i`: `number`) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B`\> |
+| Name | Type                                                                                        |
+| :--- | :------------------------------------------------------------------------------------------ |
+| `f`  | (`a`: `A`, `i`: `number`) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B`\>
+▸ (`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                                                          |
-| :----- | :------------------------------------------------------------ |
-| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\> |
+| Name   | Type                                                           |
+| :----- | :------------------------------------------------------------- |
+| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> |
 
 ##### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **flatMapNonEmpty**<`A`, `B`\>(`self`, `f`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B`\>
+▸ **flatMapNonEmpty**\<`A`, `B`\>(`self`, `f`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\>
 
 #### Type parameters
 
@@ -4538,14 +4538,14 @@ Returns a chunk with the elements mapped by the specified function.
 
 #### Parameters
 
-| Name   | Type                                                                                       |
-| :----- | :----------------------------------------------------------------------------------------- |
-| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\>                              |
-| `f`    | (`a`: `A`, `i`: `number`) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B`\> |
+| Name   | Type                                                                                        |
+| :----- | :------------------------------------------------------------------------------------------ |
+| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>                              |
+| `f`    | (`a`: `A`, `i`: `number`) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\> |
 
 #### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`B`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\>
 
 **`Since`**
 
@@ -4555,7 +4555,7 @@ Returns a chunk with the elements mapped by the specified function.
 
 ### flatten
 
-▸ **flatten**<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **flatten**\<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Flattens a chunk of chunks into a single chunk by concatenating all chunks.
 
@@ -4567,13 +4567,13 @@ Flattens a chunk of chunks into a single chunk by concatenating all chunks.
 
 #### Parameters
 
-| Name   | Type                                                                                        |
-| :----- | :------------------------------------------------------------------------------------------ |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>\> |
+| Name   | Type                                                                                          |
+| :----- | :-------------------------------------------------------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\> |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -4583,7 +4583,7 @@ Flattens a chunk of chunks into a single chunk by concatenating all chunks.
 
 ### flattenNonEmpty
 
-▸ **flattenNonEmpty**<`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\>
+▸ **flattenNonEmpty**\<`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>
 
 #### Type parameters
 
@@ -4593,13 +4593,13 @@ Flattens a chunk of chunks into a single chunk by concatenating all chunks.
 
 #### Parameters
 
-| Name   | Type                                                                                                                    |
-| :----- | :---------------------------------------------------------------------------------------------------------------------- |
-| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\>\> |
+| Name   | Type                                                                                                                      |
+| :----- | :------------------------------------------------------------------------------------------------------------------------ |
+| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>\> |
 
 #### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>
 
 **`Since`**
 
@@ -4619,7 +4619,7 @@ Flattens a chunk of chunks into a single chunk by concatenating all chunks.
 
 ### unsafeFromArray
 
-▸ **unsafeFromArray**<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **unsafeFromArray**\<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Wraps an array into a chunk without copying, unsafe on mutable arrays
 
@@ -4637,7 +4637,7 @@ Wraps an array into a chunk without copying, unsafe on mutable arrays
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -4647,7 +4647,7 @@ Wraps an array into a chunk without copying, unsafe on mutable arrays
 
 ### unsafeFromNonEmptyArray
 
-▸ **unsafeFromNonEmptyArray**<`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\>
+▸ **unsafeFromNonEmptyArray**\<`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>
 
 Wraps an array into a chunk without copying, unsafe on mutable arrays
 
@@ -4665,7 +4665,7 @@ Wraps an array into a chunk without copying, unsafe on mutable arrays
 
 #### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\>
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>
 
 **`Since`**
 
@@ -4675,7 +4675,7 @@ Wraps an array into a chunk without copying, unsafe on mutable arrays
 
 ### unsafeGet
 
-▸ **unsafeGet**(`index`): <A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>) => `A`
+▸ **unsafeGet**(`index`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => `A`
 
 Gets an element unsafely, will throw on out of bounds
 
@@ -4689,7 +4689,7 @@ Gets an element unsafely, will throw on out of bounds
 
 `fn`
 
-▸ <`A`\>(`self`): `A`
+▸ \<`A`\>(`self`): `A`
 
 ##### Type parameters
 
@@ -4699,9 +4699,9 @@ Gets an element unsafely, will throw on out of bounds
 
 ##### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 ##### Returns
 
@@ -4711,7 +4711,7 @@ Gets an element unsafely, will throw on out of bounds
 
 2.0.0
 
-▸ **unsafeGet**<`A`\>(`self`, `index`): `A`
+▸ **unsafeGet**\<`A`\>(`self`, `index`): `A`
 
 Gets an element unsafely, will throw on out of bounds
 
@@ -4723,10 +4723,10 @@ Gets an element unsafely, will throw on out of bounds
 
 #### Parameters
 
-| Name    | Type                                            |
-| :------ | :---------------------------------------------- |
-| `self`  | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
-| `index` | `number`                                        |
+| Name    | Type                                             |
+| :------ | :----------------------------------------------- |
+| `self`  | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `index` | `number`                                         |
 
 #### Returns
 
@@ -4740,7 +4740,7 @@ Gets an element unsafely, will throw on out of bounds
 
 ### unsafeHead
 
-▸ **unsafeHead**<`A`\>(`self`): `A`
+▸ **unsafeHead**\<`A`\>(`self`): `A`
 
 Returns the first element of this chunk.
 
@@ -4752,9 +4752,9 @@ Returns the first element of this chunk.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 #### Returns
 
@@ -4768,7 +4768,7 @@ Returns the first element of this chunk.
 
 ### unsafeLast
 
-▸ **unsafeLast**<`A`\>(`self`): `A`
+▸ **unsafeLast**\<`A`\>(`self`): `A`
 
 Returns the last element of this chunk.
 
@@ -4780,9 +4780,9 @@ Returns the last element of this chunk.
 
 #### Parameters
 
-| Name   | Type                                            |
-| :----- | :---------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 
 #### Returns
 

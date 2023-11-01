@@ -19,7 +19,7 @@
 
 ### Infer
 
-Ƭ **Infer**<`T`\>: `T` extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)<infer A\> ? `A` : `never`
+Ƭ **Infer**\<`T`\>: `T` extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<infer A\> ? `A` : `never`
 
 **`Since`**
 
@@ -27,15 +27,15 @@
 
 #### Type parameters
 
-| Name | Type                                                      |
-| :--- | :-------------------------------------------------------- |
-| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`any`\> |
+| Name | Type                                                       |
+| :--- | :--------------------------------------------------------- |
+| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
 
 ---
 
 ### With
 
-Ƭ **With**<`T`, `A`\>: `T` extends [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`any`\> ? [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)<`A`\> : [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+Ƭ **With**\<`T`, `A`\>: `T` extends [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`any`\> ? [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> : [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -43,7 +43,7 @@
 
 #### Type parameters
 
-| Name | Type                                                      |
-| :--- | :-------------------------------------------------------- |
-| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`any`\> |
-| `A`  | `A`                                                       |
+| Name | Type                                                       |
+| :--- | :--------------------------------------------------------- |
+| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
+| `A`  | `A`                                                        |

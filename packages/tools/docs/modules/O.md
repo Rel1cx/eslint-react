@@ -82,7 +82,7 @@
 
 ### unit
 
-• `Const` **unit**: [`Option`](O.md#option)<`void`\>
+• `Const` **unit**: [`Option`](O.md#option)\<`void`\>
 
 **`Since`**
 
@@ -92,7 +92,7 @@
 
 ### exists
 
-▸ **exists**<`A`\>(`predicate`): (`self`: [`Option`](O.md#option)<`A`\>) => `boolean`
+▸ **exists**\<`A`\>(`predicate`): (`self`: [`Option`](O.md#option)\<`A`\>) => `boolean`
 
 Check if a value in an `Option` type meets a certain predicate.
 
@@ -104,9 +104,9 @@ Check if a value in an `Option` type meets a certain predicate.
 
 #### Parameters
 
-| Name        | Type              | Description             |
-| :---------- | :---------------- | :---------------------- |
-| `predicate` | `Predicate`<`A`\> | The condition to check. |
+| Name        | Type               | Description             |
+| :---------- | :----------------- | :---------------------- |
+| `predicate` | `Predicate`\<`A`\> | The condition to check. |
 
 #### Returns
 
@@ -116,9 +116,9 @@ Check if a value in an `Option` type meets a certain predicate.
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
@@ -141,7 +141,7 @@ assert.deepStrictEqual(pipe(none(), exists(isEven)), false);
 
 2.0.0
 
-▸ **exists**<`A`\>(`self`, `predicate`): `boolean`
+▸ **exists**\<`A`\>(`self`, `predicate`): `boolean`
 
 Check if a value in an `Option` type meets a certain predicate.
 
@@ -153,10 +153,10 @@ Check if a value in an `Option` type meets a certain predicate.
 
 #### Parameters
 
-| Name        | Type                          | Description             |
-| :---------- | :---------------------------- | :---------------------- |
-| `self`      | [`Option`](O.md#option)<`A`\> | The `Option` to check.  |
-| `predicate` | `Predicate`<`A`\>             | The condition to check. |
+| Name        | Type                           | Description             |
+| :---------- | :----------------------------- | :---------------------- |
+| `self`      | [`Option`](O.md#option)\<`A`\> | The `Option` to check.  |
+| `predicate` | `Predicate`\<`A`\>             | The condition to check. |
 
 #### Returns
 
@@ -183,7 +183,7 @@ assert.deepStrictEqual(pipe(none(), exists(isEven)), false);
 
 ### let
 
-▸ **let**<`N`, `A`, `B`\>(`name`, `f`): (`self`: [`Option`](O.md#option)<`A`\>) => [`Option`](O.md#option)<{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
+▸ **let**\<`N`, `A`, `B`\>(`name`, `f`): (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<\{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
 
 #### Type parameters
 
@@ -195,28 +195,28 @@ assert.deepStrictEqual(pipe(none(), exists(isEven)), false);
 
 #### Parameters
 
-| Name   | Type                       |
-| :----- | :------------------------- |
-| `name` | `Exclude`<`N`, keyof `A`\> |
-| `f`    | (`a`: `A`) => `B`          |
+| Name   | Type                        |
+| :----- | :-------------------------- |
+| `name` | `Exclude`\<`N`, keyof `A`\> |
+| `f`    | (`a`: `A`) => `B`           |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
+▸ (`self`): [`Option`](O.md#option)\<\{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
+[`Option`](O.md#option)\<\{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
 
-▸ **let**<`A`, `N`, `B`\>(`self`, `name`, `f`): [`Option`](O.md#option)<{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
+▸ **let**\<`A`, `N`, `B`\>(`self`, `name`, `f`): [`Option`](O.md#option)\<\{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
 
 #### Type parameters
 
@@ -228,21 +228,21 @@ assert.deepStrictEqual(pipe(none(), exists(isEven)), false);
 
 #### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
-| `name` | `Exclude`<`N`, keyof `A`\>    |
-| `f`    | (`a`: `A`) => `B`             |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
+| `name` | `Exclude`\<`N`, keyof `A`\>    |
+| `f`    | (`a`: `A`) => `B`              |
 
 #### Returns
 
-[`Option`](O.md#option)<{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
+[`Option`](O.md#option)\<\{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
 
 ## combining
 
 ### all
 
-▸ **all**<`I`\>(`input`): [`I`] extends [readonly [`Option`](O.md#option)<`any`\>[]] ? [`Option`](O.md#option)<{ -readonly [K in string \| number \| symbol]: [I[K]] extends [Option<A\>] ? A : never }\> : [`I`] extends [`Iterable`<[`Option`](O.md#option)<`A`\>\>] ? [`Option`](O.md#option)<`A`[]\> : [`Option`](O.md#option)<{ -readonly [K in string \| number \| symbol]: [I[K]] extends [Option<A\>] ? A : never }\>
+▸ **all**\<`I`\>(`input`): [`I`] extends [readonly [`Option`](O.md#option)\<`any`\>[]] ? [`Option`](O.md#option)\<\{ -readonly [K in string \| number \| symbol]: [I[K]] extends [Option\<A\>] ? A : never }\> : [`I`] extends [`Iterable`\<[`Option`](O.md#option)\<`A`\>\>] ? [`Option`](O.md#option)\<`A`[]\> : [`Option`](O.md#option)\<\{ -readonly [K in string \| number \| symbol]: [I[K]] extends [Option\<A\>] ? A : never }\>
 
 Takes a structure of `Option`s and returns an `Option` of values with the same structure.
 
@@ -252,9 +252,9 @@ Takes a structure of `Option`s and returns an `Option` of values with the same s
 
 #### Type parameters
 
-| Name | Type                                                                                                         |
-| :--- | :----------------------------------------------------------------------------------------------------------- |
-| `I`  | extends `Iterable`<[`Option`](O.md#option)<`any`\>\> \| `Record`<`string`, [`Option`](O.md#option)<`any`\>\> |
+| Name | Type                                                                                                             |
+| :--- | :--------------------------------------------------------------------------------------------------------------- |
+| `I`  | extends `Iterable`\<[`Option`](O.md#option)\<`any`\>\> \| `Record`\<`string`, [`Option`](O.md#option)\<`any`\>\> |
 
 #### Parameters
 
@@ -264,7 +264,7 @@ Takes a structure of `Option`s and returns an `Option` of values with the same s
 
 #### Returns
 
-[`I`] extends [readonly [`Option`](O.md#option)<`any`\>[]] ? [`Option`](O.md#option)<{ -readonly [K in string \| number \| symbol]: [I[K]] extends [Option<A\>] ? A : never }\> : [`I`] extends [`Iterable`<[`Option`](O.md#option)<`A`\>\>] ? [`Option`](O.md#option)<`A`[]\> : [`Option`](O.md#option)<{ -readonly [K in string \| number \| symbol]: [I[K]] extends [Option<A\>] ? A : never }\>
+[`I`] extends [readonly [`Option`](O.md#option)\<`any`\>[]] ? [`Option`](O.md#option)\<\{ -readonly [K in string \| number \| symbol]: [I[K]] extends [Option\<A\>] ? A : never }\> : [`I`] extends [`Iterable`\<[`Option`](O.md#option)\<`A`\>\>] ? [`Option`](O.md#option)\<`A`[]\> : [`Option`](O.md#option)\<\{ -readonly [K in string \| number \| symbol]: [I[K]] extends [Option\<A\>] ? A : never }\>
 
 **`Example`**
 
@@ -284,7 +284,7 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 
 ### ap
 
-▸ **ap**<`A`\>(`that`): <B\>(`self`: [`Option`](O.md#option)<(`a`: `A`) => `B`\>) => [`Option`](O.md#option)<`B`\>
+▸ **ap**\<`A`\>(`that`): \<B\>(`self`: [`Option`](O.md#option)\<(`a`: `A`) => `B`\>) => [`Option`](O.md#option)\<`B`\>
 
 #### Type parameters
 
@@ -294,15 +294,15 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 
 #### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `that` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `that` | [`Option`](O.md#option)\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`B`\>(`self`): [`Option`](O.md#option)<`B`\>
+▸ \<`B`\>(`self`): [`Option`](O.md#option)\<`B`\>
 
 ##### Type parameters
 
@@ -312,19 +312,19 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 
 ##### Parameters
 
-| Name   | Type                                        |
-| :----- | :------------------------------------------ |
-| `self` | [`Option`](O.md#option)<(`a`: `A`) => `B`\> |
+| Name   | Type                                         |
+| :----- | :------------------------------------------- |
+| `self` | [`Option`](O.md#option)\<(`a`: `A`) => `B`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **ap**<`A`, `B`\>(`self`, `that`): [`Option`](O.md#option)<`B`\>
+▸ **ap**\<`A`, `B`\>(`self`, `that`): [`Option`](O.md#option)\<`B`\>
 
 #### Type parameters
 
@@ -335,14 +335,14 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 
 #### Parameters
 
-| Name   | Type                                        |
-| :----- | :------------------------------------------ |
-| `self` | [`Option`](O.md#option)<(`a`: `A`) => `B`\> |
-| `that` | [`Option`](O.md#option)<`A`\>               |
+| Name   | Type                                         |
+| :----- | :------------------------------------------- |
+| `self` | [`Option`](O.md#option)\<(`a`: `A`) => `B`\> |
+| `that` | [`Option`](O.md#option)\<`A`\>               |
 
 #### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
@@ -352,7 +352,7 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 
 ### product
 
-▸ **product**<`A`, `B`\>(`self`, `that`): [`Option`](O.md#option)<[`A`, `B`]\>
+▸ **product**\<`A`, `B`\>(`self`, `that`): [`Option`](O.md#option)\<[`A`, `B`]\>
 
 #### Type parameters
 
@@ -363,14 +363,14 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 
 #### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
-| `that` | [`Option`](O.md#option)<`B`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
+| `that` | [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
-[`Option`](O.md#option)<[`A`, `B`]\>
+[`Option`](O.md#option)\<[`A`, `B`]\>
 
 **`Since`**
 
@@ -380,7 +380,7 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 
 ### productMany
 
-▸ **productMany**<`A`\>(`self`, `collection`): [`Option`](O.md#option)<[`A`, ...A[]]\>
+▸ **productMany**\<`A`\>(`self`, `collection`): [`Option`](O.md#option)\<[`A`, ...A[]]\>
 
 #### Type parameters
 
@@ -390,14 +390,14 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 
 #### Parameters
 
-| Name         | Type                                       |
-| :----------- | :----------------------------------------- |
-| `self`       | [`Option`](O.md#option)<`A`\>              |
-| `collection` | `Iterable`<[`Option`](O.md#option)<`A`\>\> |
+| Name         | Type                                         |
+| :----------- | :------------------------------------------- |
+| `self`       | [`Option`](O.md#option)\<`A`\>               |
+| `collection` | `Iterable`\<[`Option`](O.md#option)\<`A`\>\> |
 
 #### Returns
 
-[`Option`](O.md#option)<[`A`, ...A[]]\>
+[`Option`](O.md#option)\<[`A`, ...A[]]\>
 
 **`Since`**
 
@@ -407,7 +407,7 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 
 ### zipWith
 
-▸ **zipWith**<`B`, `A`, `C`\>(`that`, `f`): (`self`: [`Option`](O.md#option)<`A`\>) => [`Option`](O.md#option)<`C`\>
+▸ **zipWith**\<`B`, `A`, `C`\>(`that`, `f`): (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`C`\>
 
 Zips two `Option` values together using a provided function, returning a new `Option` of the result.
 
@@ -421,26 +421,26 @@ Zips two `Option` values together using a provided function, returning a new `Op
 
 #### Parameters
 
-| Name   | Type                          | Description                                                  |
-| :----- | :---------------------------- | :----------------------------------------------------------- |
-| `that` | [`Option`](O.md#option)<`B`\> | The right-hand side of the zip operation                     |
-| `f`    | (`a`: `A`, `b`: `B`) => `C`   | The function used to combine the values of the two `Option`s |
+| Name   | Type                           | Description                                                  |
+| :----- | :----------------------------- | :----------------------------------------------------------- |
+| `that` | [`Option`](O.md#option)\<`B`\> | The right-hand side of the zip operation                     |
+| `f`    | (`a`: `A`, `b`: `B`) => `C`    | The function used to combine the values of the two `Option`s |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<`C`\>
+▸ (`self`): [`Option`](O.md#option)\<`C`\>
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`C`\>
+[`Option`](O.md#option)\<`C`\>
 
 **`Example`**
 
@@ -463,7 +463,7 @@ assert.deepStrictEqual(O.zipWith(O.some(1), complex)(O.some(2)), O.some([2, 1]))
 
 2.0.0
 
-▸ **zipWith**<`A`, `B`, `C`\>(`self`, `that`, `f`): [`Option`](O.md#option)<`C`\>
+▸ **zipWith**\<`A`, `B`, `C`\>(`self`, `that`, `f`): [`Option`](O.md#option)\<`C`\>
 
 Zips two `Option` values together using a provided function, returning a new `Option` of the result.
 
@@ -477,15 +477,15 @@ Zips two `Option` values together using a provided function, returning a new `Op
 
 #### Parameters
 
-| Name   | Type                          | Description                                                  |
-| :----- | :---------------------------- | :----------------------------------------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> | The left-hand side of the zip operation                      |
-| `that` | [`Option`](O.md#option)<`B`\> | The right-hand side of the zip operation                     |
-| `f`    | (`a`: `A`, `b`: `B`) => `C`   | The function used to combine the values of the two `Option`s |
+| Name   | Type                           | Description                                                  |
+| :----- | :----------------------------- | :----------------------------------------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> | The left-hand side of the zip operation                      |
+| `that` | [`Option`](O.md#option)\<`B`\> | The right-hand side of the zip operation                     |
+| `f`    | (`a`: `A`, `b`: `B`) => `C`    | The function used to combine the values of the two `Option`s |
 
 #### Returns
 
-[`Option`](O.md#option)<`C`\>
+[`Option`](O.md#option)\<`C`\>
 
 **`Example`**
 
@@ -512,7 +512,7 @@ assert.deepStrictEqual(O.zipWith(O.some(1), complex)(O.some(2)), O.some([2, 1]))
 
 ### none
 
-▸ **none**<`A`\>(): [`Option`](O.md#option)<`A`\>
+▸ **none**\<`A`\>(): [`Option`](O.md#option)\<`A`\>
 
 Creates a new `Option` that represents the absence of a value.
 
@@ -524,7 +524,7 @@ Creates a new `Option` that represents the absence of a value.
 
 #### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Since`**
 
@@ -534,7 +534,7 @@ Creates a new `Option` that represents the absence of a value.
 
 ### some
 
-▸ **some**<`A`\>(`value`): [`Option`](O.md#option)<`A`\>
+▸ **some**\<`A`\>(`value`): [`Option`](O.md#option)\<`A`\>
 
 Creates a new `Option` that wraps the given value.
 
@@ -552,7 +552,7 @@ Creates a new `Option` that wraps the given value.
 
 #### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Since`**
 
@@ -562,7 +562,7 @@ Creates a new `Option` that wraps the given value.
 
 ### fromIterable
 
-▸ **fromIterable**<`A`\>(`collection`): [`Option`](O.md#option)<`A`\>
+▸ **fromIterable**\<`A`\>(`collection`): [`Option`](O.md#option)\<`A`\>
 
 Converts an `Iterable` of values into an `Option`. Returns the first value of the `Iterable` wrapped in a `Some`
 if the `Iterable` is not empty, otherwise returns `None`.
@@ -575,13 +575,13 @@ if the `Iterable` is not empty, otherwise returns `None`.
 
 #### Parameters
 
-| Name         | Type             | Description                                    |
-| :----------- | :--------------- | :--------------------------------------------- |
-| `collection` | `Iterable`<`A`\> | The `Iterable` to be converted to an `Option`. |
+| Name         | Type              | Description                                    |
+| :----------- | :---------------- | :--------------------------------------------- |
+| `collection` | `Iterable`\<`A`\> | The `Iterable` to be converted to an `Option`. |
 
 #### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Example`**
 
@@ -600,7 +600,7 @@ assert.deepStrictEqual(fromIterable([]), none());
 
 ### fromNullable
 
-▸ **fromNullable**<`A`\>(`nullableValue`): [`Option`](O.md#option)<`NonNullable`<`A`\>\>
+▸ **fromNullable**\<`A`\>(`nullableValue`): [`Option`](O.md#option)\<`NonNullable`\<`A`\>\>
 
 Constructs a new `Option` from a nullable type. If the value is `null` or `undefined`, returns `None`, otherwise
 returns the value wrapped in a `Some`.
@@ -619,7 +619,7 @@ returns the value wrapped in a `Some`.
 
 #### Returns
 
-[`Option`](O.md#option)<`NonNullable`<`A`\>\>
+[`Option`](O.md#option)\<`NonNullable`\<`A`\>\>
 
 **`Example`**
 
@@ -639,7 +639,7 @@ assert.deepStrictEqual(O.fromNullable(1), O.some(1));
 
 ### getLeft
 
-▸ **getLeft**<`E`, `A`\>(`self`): [`Option`](O.md#option)<`E`\>
+▸ **getLeft**\<`E`, `A`\>(`self`): [`Option`](O.md#option)\<`E`\>
 
 Converts a `Either` to an `Option` discarding the value.
 
@@ -652,13 +652,13 @@ Converts a `Either` to an `Option` discarding the value.
 
 #### Parameters
 
-| Name   | Type                               |
-| :----- | :--------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> |
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
 
 #### Returns
 
-[`Option`](O.md#option)<`E`\>
+[`Option`](O.md#option)\<`E`\>
 
 **`Example`**
 
@@ -678,7 +678,7 @@ assert.deepStrictEqual(O.getLeft(E.left("a")), O.some("a"));
 
 ### getOrThrow
 
-▸ **getOrThrow**<`A`\>(`self`): `A`
+▸ **getOrThrow**\<`A`\>(`self`): `A`
 
 Extracts the value of an `Option` or throws if the `Option` is `None`.
 
@@ -692,9 +692,9 @@ The thrown error is a default error. To configure the error thrown, see [getOrTh
 
 #### Parameters
 
-| Name   | Type                          | Description                             |
-| :----- | :---------------------------- | :-------------------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> | The `Option` to extract the value from. |
+| Name   | Type                           | Description                             |
+| :----- | :----------------------------- | :-------------------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to extract the value from. |
 
 #### Returns
 
@@ -721,7 +721,7 @@ assert.throws(() => O.getOrThrow(O.none()));
 
 ### getOrThrowWith
 
-▸ **getOrThrowWith**(`onNone`): <A\>(`self`: [`Option`](O.md#option)<`A`\>) => `A`
+▸ **getOrThrowWith**(`onNone`): \<A\>(`self`: [`Option`](O.md#option)\<`A`\>) => `A`
 
 Extracts the value of an `Option` or throws if the `Option` is `None`.
 
@@ -737,7 +737,7 @@ If a default error is sufficient for your use case and you don't need to configu
 
 `fn`
 
-▸ <`A`\>(`self`): `A`
+▸ \<`A`\>(`self`): `A`
 
 ##### Type parameters
 
@@ -747,9 +747,9 @@ If a default error is sufficient for your use case and you don't need to configu
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
@@ -771,7 +771,7 @@ assert.throws(() => O.getOrThrowWith(O.none(), () => new Error("Unexpected None"
 
 2.0.0
 
-▸ **getOrThrowWith**<`A`\>(`self`, `onNone`): `A`
+▸ **getOrThrowWith**\<`A`\>(`self`, `onNone`): `A`
 
 Extracts the value of an `Option` or throws if the `Option` is `None`.
 
@@ -785,10 +785,10 @@ If a default error is sufficient for your use case and you don't need to configu
 
 #### Parameters
 
-| Name     | Type                          | Description                                                                                  |
-| :------- | :---------------------------- | :------------------------------------------------------------------------------------------- |
-| `self`   | [`Option`](O.md#option)<`A`\> | The `Option` to extract the value from.                                                      |
-| `onNone` | () => `unknown`               | A function that will be called if the `Option` is `None`. It returns the error to be thrown. |
+| Name     | Type                           | Description                                                                                  |
+| :------- | :----------------------------- | :------------------------------------------------------------------------------------------- |
+| `self`   | [`Option`](O.md#option)\<`A`\> | The `Option` to extract the value from.                                                      |
+| `onNone` | () => `unknown`                | A function that will be called if the `Option` is `None`. It returns the error to be thrown. |
 
 #### Returns
 
@@ -814,7 +814,7 @@ assert.throws(() => O.getOrThrowWith(O.none(), () => new Error("Unexpected None"
 
 ### getRight
 
-▸ **getRight**<`E`, `A`\>(`self`): [`Option`](O.md#option)<`A`\>
+▸ **getRight**\<`E`, `A`\>(`self`): [`Option`](O.md#option)\<`A`\>
 
 Converts a `Either` to an `Option` discarding the error.
 
@@ -829,13 +829,13 @@ Alias of fromEither.
 
 #### Parameters
 
-| Name   | Type                               |
-| :----- | :--------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> |
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
 
 #### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Example`**
 
@@ -855,7 +855,7 @@ assert.deepStrictEqual(O.getRight(E.left("err")), O.none());
 
 ### liftNullable
 
-▸ **liftNullable**<`A`, `B`\>(`f`): (...`a`: `A`) => [`Option`](O.md#option)<`NonNullable`<`B`\>\>
+▸ **liftNullable**\<`A`, `B`\>(`f`): (...`a`: `A`) => [`Option`](O.md#option)\<`NonNullable`\<`B`\>\>
 
 This API is useful for lifting a function that returns `null` or `undefined` into the `Option` context.
 
@@ -876,7 +876,7 @@ This API is useful for lifting a function that returns `null` or `undefined` int
 
 `fn`
 
-▸ (`...a`): [`Option`](O.md#option)<`NonNullable`<`B`\>\>
+▸ (`...a`): [`Option`](O.md#option)\<`NonNullable`\<`B`\>\>
 
 ##### Parameters
 
@@ -886,7 +886,7 @@ This API is useful for lifting a function that returns `null` or `undefined` int
 
 ##### Returns
 
-[`Option`](O.md#option)<`NonNullable`<`B`\>\>
+[`Option`](O.md#option)\<`NonNullable`\<`B`\>\>
 
 **`Example`**
 
@@ -912,7 +912,7 @@ assert.deepStrictEqual(parseOption("not a number"), O.none());
 
 ### liftThrowable
 
-▸ **liftThrowable**<`A`, `B`\>(`f`): (...`a`: `A`) => [`Option`](O.md#option)<`B`\>
+▸ **liftThrowable**\<`A`, `B`\>(`f`): (...`a`: `A`) => [`Option`](O.md#option)\<`B`\>
 
 A utility function that lifts a function that throws exceptions into a function that returns an `Option`.
 
@@ -936,7 +936,7 @@ the exception in a more functional way.
 
 `fn`
 
-▸ (`...a`): [`Option`](O.md#option)<`B`\>
+▸ (`...a`): [`Option`](O.md#option)\<`B`\>
 
 ##### Parameters
 
@@ -946,7 +946,7 @@ the exception in a more functional way.
 
 ##### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Example`**
 
@@ -967,7 +967,7 @@ assert.deepStrictEqual(parse(""), O.none());
 
 ### toArray
 
-▸ **toArray**<`A`\>(`self`): `A`[]
+▸ **toArray**\<`A`\>(`self`): `A`[]
 
 Transforms an `Option` into an `Array`.
 If the input is `None`, an empty array is returned.
@@ -981,9 +981,9 @@ If the input is `Some`, the value is wrapped in an array.
 
 #### Parameters
 
-| Name   | Type                          | Description                          |
-| :----- | :---------------------------- | :----------------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> | The `Option` to convert to an array. |
+| Name   | Type                           | Description                          |
+| :----- | :----------------------------- | :----------------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to convert to an array. |
 
 #### Returns
 
@@ -1006,7 +1006,7 @@ assert.deepStrictEqual(O.toArray(O.none()), []);
 
 ### toRefinement
 
-▸ **toRefinement**<`A`, `B`\>(`f`): (`a`: `A`) => a is B
+▸ **toRefinement**\<`A`, `B`\>(`f`): (`a`: `A`) => a is B
 
 Returns a type guard from a `Option` returning function.
 This function ensures that a type guard definition is type-safe.
@@ -1020,9 +1020,9 @@ This function ensures that a type guard definition is type-safe.
 
 #### Parameters
 
-| Name | Type                                        |
-| :--- | :------------------------------------------ |
-| `f`  | (`a`: `A`) => [`Option`](O.md#option)<`B`\> |
+| Name | Type                                         |
+| :--- | :------------------------------------------- |
+| `f`  | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -1061,7 +1061,7 @@ assert.deepStrictEqual(isPositive(-1), false);
 
 ### Do
 
-• `Const` **Do**: [`Option`](O.md#option)<{}\>
+• `Const` **Do**: [`Option`](O.md#option)\<{}\>
 
 **`Since`**
 
@@ -1071,7 +1071,7 @@ assert.deepStrictEqual(isPositive(-1), false);
 
 ### bind
 
-▸ **bind**<`N`, `A`, `B`\>(`name`, `f`): (`self`: [`Option`](O.md#option)<`A`\>) => [`Option`](O.md#option)<{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
+▸ **bind**\<`N`, `A`, `B`\>(`name`, `f`): (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<\{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
 
 #### Type parameters
 
@@ -1083,32 +1083,32 @@ assert.deepStrictEqual(isPositive(-1), false);
 
 #### Parameters
 
-| Name   | Type                                        |
-| :----- | :------------------------------------------ |
-| `name` | `Exclude`<`N`, keyof `A`\>                  |
-| `f`    | (`a`: `A`) => [`Option`](O.md#option)<`B`\> |
+| Name   | Type                                         |
+| :----- | :------------------------------------------- |
+| `name` | `Exclude`\<`N`, keyof `A`\>                  |
+| `f`    | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
+▸ (`self`): [`Option`](O.md#option)\<\{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
+[`Option`](O.md#option)\<\{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
 
 **`Since`**
 
 2.0.0
 
-▸ **bind**<`A`, `N`, `B`\>(`self`, `name`, `f`): [`Option`](O.md#option)<{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
+▸ **bind**\<`A`, `N`, `B`\>(`self`, `name`, `f`): [`Option`](O.md#option)\<\{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
 
 #### Type parameters
 
@@ -1120,15 +1120,15 @@ assert.deepStrictEqual(isPositive(-1), false);
 
 #### Parameters
 
-| Name   | Type                                        |
-| :----- | :------------------------------------------ |
-| `self` | [`Option`](O.md#option)<`A`\>               |
-| `name` | `Exclude`<`N`, keyof `A`\>                  |
-| `f`    | (`a`: `A`) => [`Option`](O.md#option)<`B`\> |
+| Name   | Type                                         |
+| :----- | :------------------------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\>               |
+| `name` | `Exclude`\<`N`, keyof `A`\>                  |
+| `f`    | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
-[`Option`](O.md#option)<{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
+[`Option`](O.md#option)\<\{ [K in string \| number \| symbol]: K extends keyof A ? A[K] : B }\>
 
 **`Since`**
 
@@ -1138,7 +1138,7 @@ assert.deepStrictEqual(isPositive(-1), false);
 
 ### bindTo
 
-▸ **bindTo**<`N`\>(`name`): <A\>(`self`: [`Option`](O.md#option)<`A`\>) => [`Option`](O.md#option)<{ [K in string]: A }\>
+▸ **bindTo**\<`N`\>(`name`): \<A\>(`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<\{ [K in string]: A }\>
 
 #### Type parameters
 
@@ -1156,7 +1156,7 @@ assert.deepStrictEqual(isPositive(-1), false);
 
 `fn`
 
-▸ <`A`\>(`self`): [`Option`](O.md#option)<{ [K in string]: A }\>
+▸ \<`A`\>(`self`): [`Option`](O.md#option)\<\{ [K in string]: A }\>
 
 ##### Type parameters
 
@@ -1166,19 +1166,19 @@ assert.deepStrictEqual(isPositive(-1), false);
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<{ [K in string]: A }\>
+[`Option`](O.md#option)\<\{ [K in string]: A }\>
 
 **`Since`**
 
 2.0.0
 
-▸ **bindTo**<`A`, `N`\>(`self`, `name`): [`Option`](O.md#option)<{ [K in string]: A }\>
+▸ **bindTo**\<`A`, `N`\>(`self`, `name`): [`Option`](O.md#option)\<\{ [K in string]: A }\>
 
 #### Type parameters
 
@@ -1189,14 +1189,14 @@ assert.deepStrictEqual(isPositive(-1), false);
 
 #### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
-| `name` | `N`                           |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
+| `name` | `N`                            |
 
 #### Returns
 
-[`Option`](O.md#option)<{ [K in string]: A }\>
+[`Option`](O.md#option)\<\{ [K in string]: A }\>
 
 **`Since`**
 
@@ -1206,7 +1206,7 @@ assert.deepStrictEqual(isPositive(-1), false);
 
 ### contains
 
-▸ **contains**<`A`\>(`a`): (`self`: [`Option`](O.md#option)<`A`\>) => `boolean`
+▸ **contains**\<`A`\>(`a`): (`self`: [`Option`](O.md#option)\<`A`\>) => `boolean`
 
 Returns a function that checks if an `Option` contains a given value using the default `Equivalence`.
 
@@ -1230,9 +1230,9 @@ Returns a function that checks if an `Option` contains a given value using the d
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
@@ -1242,7 +1242,7 @@ Returns a function that checks if an `Option` contains a given value using the d
 
 2.0.0
 
-▸ **contains**<`A`\>(`self`, `a`): `boolean`
+▸ **contains**\<`A`\>(`self`, `a`): `boolean`
 
 Returns a function that checks if an `Option` contains a given value using the default `Equivalence`.
 
@@ -1254,10 +1254,10 @@ Returns a function that checks if an `Option` contains a given value using the d
 
 #### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
-| `a`    | `A`                           |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
+| `a`    | `A`                            |
 
 #### Returns
 
@@ -1271,7 +1271,7 @@ Returns a function that checks if an `Option` contains a given value using the d
 
 ### containsWith
 
-▸ **containsWith**<`A`\>(`isEquivalent`): (`a`: `A`) => (`self`: [`Option`](O.md#option)<`A`\>) => `boolean`(`self`: [`Option`](O.md#option)<`A`\>, `a`: `A`) => `boolean`
+▸ **containsWith**\<`A`\>(`isEquivalent`): (`a`: `A`) => (`self`: [`Option`](O.md#option)\<`A`\>) => `boolean`(`self`: [`Option`](O.md#option)\<`A`\>, `a`: `A`) => `boolean`
 
 Returns a function that checks if a `Option` contains a given value using a provided `isEquivalent` function.
 
@@ -1291,7 +1291,7 @@ Returns a function that checks if a `Option` contains a given value using a prov
 
 `fn`
 
-▸ (`a`): (`self`: [`Option`](O.md#option)<`A`\>) => `boolean`
+▸ (`a`): (`self`: [`Option`](O.md#option)\<`A`\>) => `boolean`
 
 ##### Parameters
 
@@ -1307,9 +1307,9 @@ Returns a function that checks if a `Option` contains a given value using a prov
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
@@ -1319,10 +1319,10 @@ Returns a function that checks if a `Option` contains a given value using a prov
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
-| `a`    | `A`                           |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
+| `a`    | `A`                            |
 
 ##### Returns
 
@@ -1348,7 +1348,7 @@ assert.deepStrictEqual(pipe(none(), containsWith(Equivalence)(2)), false);
 
 ### getEquivalence
 
-▸ **getEquivalence**<`A`\>(`isEquivalent`): `Equivalence`<[`Option`](O.md#option)<`A`\>\>
+▸ **getEquivalence**\<`A`\>(`isEquivalent`): `Equivalence`\<[`Option`](O.md#option)\<`A`\>\>
 
 #### Type parameters
 
@@ -1358,13 +1358,13 @@ assert.deepStrictEqual(pipe(none(), containsWith(Equivalence)(2)), false);
 
 #### Parameters
 
-| Name           | Type                |
-| :------------- | :------------------ |
-| `isEquivalent` | `Equivalence`<`A`\> |
+| Name           | Type                 |
+| :------------- | :------------------- |
+| `isEquivalent` | `Equivalence`\<`A`\> |
 
 #### Returns
 
-`Equivalence`<[`Option`](O.md#option)<`A`\>\>
+`Equivalence`\<[`Option`](O.md#option)\<`A`\>\>
 
 **`Example`**
 
@@ -1388,7 +1388,7 @@ assert.deepStrictEqual(isEquivalent(some(1), some(1)), true);
 
 ### firstSomeOf
 
-▸ **firstSomeOf**<`A`\>(`collection`): [`Option`](O.md#option)<`A`\>
+▸ **firstSomeOf**\<`A`\>(`collection`): [`Option`](O.md#option)\<`A`\>
 
 Given an `Iterable` collection of `Option`s, returns the first `Some` found in the collection.
 
@@ -1400,13 +1400,13 @@ Given an `Iterable` collection of `Option`s, returns the first `Some` found in t
 
 #### Parameters
 
-| Name         | Type                                       | Description                                        |
-| :----------- | :----------------------------------------- | :------------------------------------------------- |
-| `collection` | `Iterable`<[`Option`](O.md#option)<`A`\>\> | An iterable collection of `Option` to be searched. |
+| Name         | Type                                         | Description                                        |
+| :----------- | :------------------------------------------- | :------------------------------------------------- |
+| `collection` | `Iterable`\<[`Option`](O.md#option)\<`A`\>\> | An iterable collection of `Option` to be searched. |
 
 #### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Example`**
 
@@ -1424,7 +1424,7 @@ assert.deepStrictEqual(O.firstSomeOf([O.none(), O.some(1), O.some(2)]), O.some(1
 
 ### orElse
 
-▸ **orElse**<`B`\>(`that`): <A\>(`self`: [`Option`](O.md#option)<`A`\>) => [`Option`](O.md#option)<`B` \| `A`\>
+▸ **orElse**\<`B`\>(`that`): \<A\>(`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`B` \| `A`\>
 
 Returns the provided `Option` `that` if `self` is `None`, otherwise returns `self`.
 
@@ -1436,15 +1436,15 @@ Returns the provided `Option` `that` if `self` is `None`, otherwise returns `sel
 
 #### Parameters
 
-| Name   | Type                                                                    | Description                                 |
-| :----- | :---------------------------------------------------------------------- | :------------------------------------------ |
-| `that` | [`LazyArg`](../interfaces/F.LazyArg.md)<[`Option`](O.md#option)<`B`\>\> | The `Option` to return if `self` is `None`. |
+| Name   | Type                                                                      | Description                                 |
+| :----- | :------------------------------------------------------------------------ | :------------------------------------------ |
+| `that` | [`LazyArg`](../interfaces/F.LazyArg.md)\<[`Option`](O.md#option)\<`B`\>\> | The `Option` to return if `self` is `None`. |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`Option`](O.md#option)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`Option`](O.md#option)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -1454,13 +1454,13 @@ Returns the provided `Option` `that` if `self` is `None`, otherwise returns `sel
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`B` \| `A`\>
+[`Option`](O.md#option)\<`B` \| `A`\>
 
 **`Example`**
 
@@ -1502,7 +1502,7 @@ assert.deepStrictEqual(
 
 2.0.0
 
-▸ **orElse**<`A`, `B`\>(`self`, `that`): [`Option`](O.md#option)<`A` \| `B`\>
+▸ **orElse**\<`A`, `B`\>(`self`, `that`): [`Option`](O.md#option)\<`A` \| `B`\>
 
 Returns the provided `Option` `that` if `self` is `None`, otherwise returns `self`.
 
@@ -1515,14 +1515,14 @@ Returns the provided `Option` `that` if `self` is `None`, otherwise returns `sel
 
 #### Parameters
 
-| Name   | Type                                                                    | Description                                 |
-| :----- | :---------------------------------------------------------------------- | :------------------------------------------ |
-| `self` | [`Option`](O.md#option)<`A`\>                                           | The first `Option` to be checked.           |
-| `that` | [`LazyArg`](../interfaces/F.LazyArg.md)<[`Option`](O.md#option)<`B`\>\> | The `Option` to return if `self` is `None`. |
+| Name   | Type                                                                      | Description                                 |
+| :----- | :------------------------------------------------------------------------ | :------------------------------------------ |
+| `self` | [`Option`](O.md#option)\<`A`\>                                            | The first `Option` to be checked.           |
+| `that` | [`LazyArg`](../interfaces/F.LazyArg.md)\<[`Option`](O.md#option)\<`B`\>\> | The `Option` to return if `self` is `None`. |
 
 #### Returns
 
-[`Option`](O.md#option)<`A` \| `B`\>
+[`Option`](O.md#option)\<`A` \| `B`\>
 
 **`Example`**
 
@@ -1568,7 +1568,7 @@ assert.deepStrictEqual(
 
 ### orElseEither
 
-▸ **orElseEither**<`B`\>(`that`): <A\>(`self`: [`Option`](O.md#option)<`A`\>) => [`Option`](O.md#option)<[`Either`](E.md#either)<`A`, `B`\>\>
+▸ **orElseEither**\<`B`\>(`that`): \<A\>(`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<[`Either`](E.md#either)\<`A`, `B`\>\>
 
 Similar to `orElse`, but instead of returning a simple union, it returns an `Either` object,
 which contains information about which of the two `Option`s has been chosen.
@@ -1583,15 +1583,15 @@ This is useful when it's important to know whether the value was retrieved from 
 
 #### Parameters
 
-| Name   | Type                                                                    | Description                                                           |
-| :----- | :---------------------------------------------------------------------- | :-------------------------------------------------------------------- |
-| `that` | [`LazyArg`](../interfaces/F.LazyArg.md)<[`Option`](O.md#option)<`B`\>\> | The second `Option` to be considered if the first `Option` is `None`. |
+| Name   | Type                                                                      | Description                                                           |
+| :----- | :------------------------------------------------------------------------ | :-------------------------------------------------------------------- |
+| `that` | [`LazyArg`](../interfaces/F.LazyArg.md)\<[`Option`](O.md#option)\<`B`\>\> | The second `Option` to be considered if the first `Option` is `None`. |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`Option`](O.md#option)<[`Either`](E.md#either)<`A`, `B`\>\>
+▸ \<`A`\>(`self`): [`Option`](O.md#option)\<[`Either`](E.md#either)\<`A`, `B`\>\>
 
 ##### Type parameters
 
@@ -1601,19 +1601,19 @@ This is useful when it's important to know whether the value was retrieved from 
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<[`Either`](E.md#either)<`A`, `B`\>\>
+[`Option`](O.md#option)\<[`Either`](E.md#either)\<`A`, `B`\>\>
 
 **`Since`**
 
 2.0.0
 
-▸ **orElseEither**<`A`, `B`\>(`self`, `that`): [`Option`](O.md#option)<[`Either`](E.md#either)<`A`, `B`\>\>
+▸ **orElseEither**\<`A`, `B`\>(`self`, `that`): [`Option`](O.md#option)\<[`Either`](E.md#either)\<`A`, `B`\>\>
 
 Similar to `orElse`, but instead of returning a simple union, it returns an `Either` object,
 which contains information about which of the two `Option`s has been chosen.
@@ -1629,14 +1629,14 @@ This is useful when it's important to know whether the value was retrieved from 
 
 #### Parameters
 
-| Name   | Type                                                                    | Description                                                           |
-| :----- | :---------------------------------------------------------------------- | :-------------------------------------------------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\>                                           | The first `Option` to be checked.                                     |
-| `that` | [`LazyArg`](../interfaces/F.LazyArg.md)<[`Option`](O.md#option)<`B`\>\> | The second `Option` to be considered if the first `Option` is `None`. |
+| Name   | Type                                                                      | Description                                                           |
+| :----- | :------------------------------------------------------------------------ | :-------------------------------------------------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\>                                            | The first `Option` to be checked.                                     |
+| `that` | [`LazyArg`](../interfaces/F.LazyArg.md)\<[`Option`](O.md#option)\<`B`\>\> | The second `Option` to be considered if the first `Option` is `None`. |
 
 #### Returns
 
-[`Option`](O.md#option)<[`Either`](E.md#either)<`A`, `B`\>\>
+[`Option`](O.md#option)\<[`Either`](E.md#either)\<`A`, `B`\>\>
 
 **`Since`**
 
@@ -1646,7 +1646,7 @@ This is useful when it's important to know whether the value was retrieved from 
 
 ### filter
 
-▸ **filter**<`C`, `B`, `A`\>(`refinement`): (`self`: [`Option`](O.md#option)<`C`\>) => [`Option`](O.md#option)<`B`\>
+▸ **filter**\<`C`, `B`, `A`\>(`refinement`): (`self`: [`Option`](O.md#option)\<`C`\>) => [`Option`](O.md#option)\<`B`\>
 
 Filters an `Option` using a predicate. If the predicate is not satisfied or the `Option` is `None` returns `None`.
 
@@ -1670,17 +1670,17 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<`B`\>
+▸ (`self`): [`Option`](O.md#option)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`C`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`C`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Example`**
 
@@ -1706,7 +1706,7 @@ assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2));
 
 2.0.0
 
-▸ **filter**<`B`, `A`\>(`predicate`): (`self`: [`Option`](O.md#option)<`B`\>) => [`Option`](O.md#option)<`B`\>
+▸ **filter**\<`B`, `A`\>(`predicate`): (`self`: [`Option`](O.md#option)\<`B`\>) => [`Option`](O.md#option)\<`B`\>
 
 Filters an `Option` using a predicate. If the predicate is not satisfied or the `Option` is `None` returns `None`.
 
@@ -1729,17 +1729,17 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<`B`\>
+▸ (`self`): [`Option`](O.md#option)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`B`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`B`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Example`**
 
@@ -1765,7 +1765,7 @@ assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2));
 
 2.0.0
 
-▸ **filter**<`C`, `B`, `A`\>(`self`, `refinement`): [`Option`](O.md#option)<`B`\>
+▸ **filter**\<`C`, `B`, `A`\>(`self`, `refinement`): [`Option`](O.md#option)\<`B`\>
 
 Filters an `Option` using a predicate. If the predicate is not satisfied or the `Option` is `None` returns `None`.
 
@@ -1781,14 +1781,14 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 #### Parameters
 
-| Name         | Type                          |
-| :----------- | :---------------------------- |
-| `self`       | [`Option`](O.md#option)<`C`\> |
-| `refinement` | (`a`: `A`) => a is B          |
+| Name         | Type                           |
+| :----------- | :----------------------------- |
+| `self`       | [`Option`](O.md#option)\<`C`\> |
+| `refinement` | (`a`: `A`) => a is B           |
 
 #### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Example`**
 
@@ -1814,7 +1814,7 @@ assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2));
 
 2.0.0
 
-▸ **filter**<`B`, `A`\>(`self`, `predicate`): [`Option`](O.md#option)<`B`\>
+▸ **filter**\<`B`, `A`\>(`self`, `predicate`): [`Option`](O.md#option)\<`B`\>
 
 Filters an `Option` using a predicate. If the predicate is not satisfied or the `Option` is `None` returns `None`.
 
@@ -1829,14 +1829,14 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 #### Parameters
 
-| Name        | Type                          | Description                                          |
-| :---------- | :---------------------------- | :--------------------------------------------------- |
-| `self`      | [`Option`](O.md#option)<`B`\> | -                                                    |
-| `predicate` | (`a`: `A`) => `boolean`       | A predicate function to apply to the `Option` value. |
+| Name        | Type                           | Description                                          |
+| :---------- | :----------------------------- | :--------------------------------------------------- |
+| `self`      | [`Option`](O.md#option)\<`B`\> | -                                                    |
+| `predicate` | (`a`: `A`) => `boolean`        | A predicate function to apply to the `Option` value. |
 
 #### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Example`**
 
@@ -1866,7 +1866,7 @@ assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2));
 
 ### filterMap
 
-▸ **filterMap**<`A`, `B`\>(`f`): (`self`: [`Option`](O.md#option)<`A`\>) => [`Option`](O.md#option)<`B`\>
+▸ **filterMap**\<`A`, `B`\>(`f`): (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`B`\>
 
 Maps over the value of an `Option` and filters out `None`s.
 
@@ -1881,25 +1881,25 @@ Useful when in addition to filtering you also want to change the type of the `Op
 
 #### Parameters
 
-| Name | Type                                        | Description                                       |
-| :--- | :------------------------------------------ | :------------------------------------------------ |
-| `f`  | (`a`: `A`) => [`Option`](O.md#option)<`B`\> | A function to apply to the value of the `Option`. |
+| Name | Type                                         | Description                                       |
+| :--- | :------------------------------------------- | :------------------------------------------------ |
+| `f`  | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> | A function to apply to the value of the `Option`. |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<`B`\>
+▸ (`self`): [`Option`](O.md#option)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Example`**
 
@@ -1917,7 +1917,7 @@ assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2));
 
 2.0.0
 
-▸ **filterMap**<`A`, `B`\>(`self`, `f`): [`Option`](O.md#option)<`B`\>
+▸ **filterMap**\<`A`, `B`\>(`self`, `f`): [`Option`](O.md#option)\<`B`\>
 
 Maps over the value of an `Option` and filters out `None`s.
 
@@ -1932,14 +1932,14 @@ Useful when in addition to filtering you also want to change the type of the `Op
 
 #### Parameters
 
-| Name   | Type                                        | Description                                       |
-| :----- | :------------------------------------------ | :------------------------------------------------ |
-| `self` | [`Option`](O.md#option)<`A`\>               | The `Option` to map over.                         |
-| `f`    | (`a`: `A`) => [`Option`](O.md#option)<`B`\> | A function to apply to the value of the `Option`. |
+| Name   | Type                                         | Description                                       |
+| :----- | :------------------------------------------- | :------------------------------------------------ |
+| `self` | [`Option`](O.md#option)\<`A`\>               | The `Option` to map over.                         |
+| `f`    | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> | A function to apply to the value of the `Option`. |
 
 #### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Example`**
 
@@ -1961,7 +1961,7 @@ assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2));
 
 ### partitionMap
 
-▸ **partitionMap**<`A`, `B`, `C`\>(`f`): (`self`: [`Option`](O.md#option)<`A`\>) => [[`Option`](O.md#option)<`B`\>, [`Option`](O.md#option)<`C`\>]
+▸ **partitionMap**\<`A`, `B`, `C`\>(`f`): (`self`: [`Option`](O.md#option)\<`A`\>) => [[`Option`](O.md#option)\<`B`\>, [`Option`](O.md#option)\<`C`\>]
 
 #### Type parameters
 
@@ -1973,31 +1973,31 @@ assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2));
 
 #### Parameters
 
-| Name | Type                                             |
-| :--- | :----------------------------------------------- |
-| `f`  | (`a`: `A`) => [`Either`](E.md#either)<`B`, `C`\> |
+| Name | Type                                              |
+| :--- | :------------------------------------------------ |
+| `f`  | (`a`: `A`) => [`Either`](E.md#either)\<`B`, `C`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [[`Option`](O.md#option)<`B`\>, [`Option`](O.md#option)<`C`\>]
+▸ (`self`): [[`Option`](O.md#option)\<`B`\>, [`Option`](O.md#option)\<`C`\>]
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
-[[`Option`](O.md#option)<`B`\>, [`Option`](O.md#option)<`C`\>]
+[[`Option`](O.md#option)\<`B`\>, [`Option`](O.md#option)\<`C`\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **partitionMap**<`A`, `B`, `C`\>(`self`, `f`): [[`Option`](O.md#option)<`B`\>, [`Option`](O.md#option)<`C`\>]
+▸ **partitionMap**\<`A`, `B`, `C`\>(`self`, `f`): [[`Option`](O.md#option)\<`B`\>, [`Option`](O.md#option)\<`C`\>]
 
 #### Type parameters
 
@@ -2009,14 +2009,14 @@ assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2));
 
 #### Parameters
 
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\>                    |
-| `f`    | (`a`: `A`) => [`Either`](E.md#either)<`B`, `C`\> |
+| Name   | Type                                              |
+| :----- | :------------------------------------------------ |
+| `self` | [`Option`](O.md#option)\<`A`\>                    |
+| `f`    | (`a`: `A`) => [`Either`](E.md#either)\<`B`, `C`\> |
 
 #### Returns
 
-[[`Option`](O.md#option)<`B`\>, [`Option`](O.md#option)<`C`\>]
+[[`Option`](O.md#option)\<`B`\>, [`Option`](O.md#option)\<`C`\>]
 
 **`Since`**
 
@@ -2026,7 +2026,7 @@ assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2));
 
 ### reduceCompact
 
-▸ **reduceCompact**<`B`, `A`\>(`b`, `f`): (`self`: `Iterable`<[`Option`](O.md#option)<`A`\>\>) => `B`
+▸ **reduceCompact**\<`B`, `A`\>(`b`, `f`): (`self`: `Iterable`\<[`Option`](O.md#option)\<`A`\>\>) => `B`
 
 Reduces an `Iterable` of `Option<A>` to a single value of type `B`, elements that are `None` are ignored.
 
@@ -2052,9 +2052,9 @@ Reduces an `Iterable` of `Option<A>` to a single value of type `B`, elements tha
 
 ##### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `self` | `Iterable`<[`Option`](O.md#option)<`A`\>\> |
+| Name   | Type                                         |
+| :----- | :------------------------------------------- |
+| `self` | `Iterable`\<[`Option`](O.md#option)\<`A`\>\> |
 
 ##### Returns
 
@@ -2074,7 +2074,7 @@ assert.deepStrictEqual(pipe(iterable, reduceCompact(0, (b, a) => b + a)), 3);
 
 2.0.0
 
-▸ **reduceCompact**<`A`, `B`\>(`self`, `b`, `f`): `B`
+▸ **reduceCompact**\<`A`, `B`\>(`self`, `b`, `f`): `B`
 
 Reduces an `Iterable` of `Option<A>` to a single value of type `B`, elements that are `None` are ignored.
 
@@ -2087,11 +2087,11 @@ Reduces an `Iterable` of `Option<A>` to a single value of type `B`, elements tha
 
 #### Parameters
 
-| Name   | Type                                       | Description                                                                                               |
-| :----- | :----------------------------------------- | :-------------------------------------------------------------------------------------------------------- |
-| `self` | `Iterable`<[`Option`](O.md#option)<`A`\>\> | The Iterable of `Option<A>` to be reduced.                                                                |
-| `b`    | `B`                                        | The initial value of the accumulator.                                                                     |
-| `f`    | (`b`: `B`, `a`: `A`) => `B`                | The reducing function that takes the current accumulator value and the unwrapped value of an `Option<A>`. |
+| Name   | Type                                         | Description                                                                                               |
+| :----- | :------------------------------------------- | :-------------------------------------------------------------------------------------------------------- |
+| `self` | `Iterable`\<[`Option`](O.md#option)\<`A`\>\> | The Iterable of `Option<A>` to be reduced.                                                                |
+| `b`    | `B`                                          | The initial value of the accumulator.                                                                     |
+| `f`    | (`b`: `B`, `a`: `A`) => `B`                  | The reducing function that takes the current accumulator value and the unwrapped value of an `Option<A>`. |
 
 #### Returns
 
@@ -2115,24 +2115,24 @@ assert.deepStrictEqual(pipe(iterable, reduceCompact(0, (b, a) => b + a)), 3);
 
 ### gen
 
-▸ **gen**<`K`, `A`\>(`body`): [`Option`](O.md#option)<`A`\>
+▸ **gen**\<`K`, `A`\>(`body`): [`Option`](O.md#option)\<`A`\>
 
 #### Type parameters
 
-| Name | Type                                                                                                |
-| :--- | :-------------------------------------------------------------------------------------------------- |
-| `K`  | extends `Variance`<[`OptionTypeLambda`](../interfaces/O.OptionTypeLambda.md), `any`, `any`, `any`\> |
-| `A`  | `A`                                                                                                 |
+| Name | Type                                                                                                 |
+| :--- | :--------------------------------------------------------------------------------------------------- |
+| `K`  | extends `Variance`\<[`OptionTypeLambda`](../interfaces/O.OptionTypeLambda.md), `any`, `any`, `any`\> |
+| `A`  | `A`                                                                                                  |
 
 #### Parameters
 
-| Name   | Type                                                                                                                   |
-| :----- | :--------------------------------------------------------------------------------------------------------------------- |
-| `body` | (`resume`: `Adapter`<[`OptionTypeLambda`](../interfaces/O.OptionTypeLambda.md)\>) => `Generator`<`K`, `A`, `unknown`\> |
+| Name   | Type                                                                                                                     |
+| :----- | :----------------------------------------------------------------------------------------------------------------------- |
+| `body` | (`resume`: `Adapter`\<[`OptionTypeLambda`](../interfaces/O.OptionTypeLambda.md)\>) => `Generator`\<`K`, `A`, `unknown`\> |
 
 #### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Since`**
 
@@ -2142,7 +2142,7 @@ assert.deepStrictEqual(pipe(iterable, reduceCompact(0, (b, a) => b + a)), 3);
 
 ### getOrElse
 
-▸ **getOrElse**<`B`\>(`onNone`): <A\>(`self`: [`Option`](O.md#option)<`A`\>) => `B` \| `A`
+▸ **getOrElse**\<`B`\>(`onNone`): \<A\>(`self`: [`Option`](O.md#option)\<`A`\>) => `B` \| `A`
 
 Returns the value of the `Option` if it is `Some`, otherwise returns `onNone`
 
@@ -2154,15 +2154,15 @@ Returns the value of the `Option` if it is `Some`, otherwise returns `onNone`
 
 #### Parameters
 
-| Name     | Type                                          | Description                                                                  |
-| :------- | :-------------------------------------------- | :--------------------------------------------------------------------------- |
-| `onNone` | [`LazyArg`](../interfaces/F.LazyArg.md)<`B`\> | Function that returns the default value to return if the `Option` is `None`. |
+| Name     | Type                                           | Description                                                                  |
+| :------- | :--------------------------------------------- | :--------------------------------------------------------------------------- |
+| `onNone` | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> | Function that returns the default value to return if the `Option` is `None`. |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): `B` \| `A`
+▸ \<`A`\>(`self`): `B` \| `A`
 
 ##### Type parameters
 
@@ -2172,9 +2172,9 @@ Returns the value of the `Option` if it is `Some`, otherwise returns `onNone`
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
@@ -2194,7 +2194,7 @@ assert.deepStrictEqual(pipe(none(), getOrElse(() => 0)), 0);
 
 2.0.0
 
-▸ **getOrElse**<`A`, `B`\>(`self`, `onNone`): `A` \| `B`
+▸ **getOrElse**\<`A`, `B`\>(`self`, `onNone`): `A` \| `B`
 
 Returns the value of the `Option` if it is `Some`, otherwise returns `onNone`
 
@@ -2207,10 +2207,10 @@ Returns the value of the `Option` if it is `Some`, otherwise returns `onNone`
 
 #### Parameters
 
-| Name     | Type                                          | Description                                                                  |
-| :------- | :-------------------------------------------- | :--------------------------------------------------------------------------- |
-| `self`   | [`Option`](O.md#option)<`A`\>                 | The `Option` to get the value of.                                            |
-| `onNone` | [`LazyArg`](../interfaces/F.LazyArg.md)<`B`\> | Function that returns the default value to return if the `Option` is `None`. |
+| Name     | Type                                           | Description                                                                  |
+| :------- | :--------------------------------------------- | :--------------------------------------------------------------------------- |
+| `self`   | [`Option`](O.md#option)\<`A`\>                 | The `Option` to get the value of.                                            |
+| `onNone` | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> | Function that returns the default value to return if the `Option` is `None`. |
 
 #### Returns
 
@@ -2234,7 +2234,7 @@ assert.deepStrictEqual(pipe(none(), getOrElse(() => 0)), 0);
 
 ### getOrNull
 
-▸ **getOrNull**<`A`\>(`self`): `null` \| `A`
+▸ **getOrNull**\<`A`\>(`self`): `null` \| `A`
 
 Returns the value of the `Option` if it is a `Some`, otherwise returns `null`.
 
@@ -2246,9 +2246,9 @@ Returns the value of the `Option` if it is a `Some`, otherwise returns `null`.
 
 #### Parameters
 
-| Name   | Type                          | Description                             |
-| :----- | :---------------------------- | :-------------------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> | The `Option` to extract the value from. |
+| Name   | Type                           | Description                             |
+| :----- | :----------------------------- | :-------------------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to extract the value from. |
 
 #### Returns
 
@@ -2271,7 +2271,7 @@ assert.deepStrictEqual(O.getOrNull(O.none()), null);
 
 ### getOrUndefined
 
-▸ **getOrUndefined**<`A`\>(`self`): `undefined` \| `A`
+▸ **getOrUndefined**\<`A`\>(`self`): `undefined` \| `A`
 
 Returns the value of the `Option` if it is a `Some`, otherwise returns `undefined`.
 
@@ -2283,9 +2283,9 @@ Returns the value of the `Option` if it is a `Some`, otherwise returns `undefine
 
 #### Parameters
 
-| Name   | Type                          | Description                             |
-| :----- | :---------------------------- | :-------------------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> | The `Option` to extract the value from. |
+| Name   | Type                           | Description                             |
+| :----- | :----------------------------- | :-------------------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to extract the value from. |
 
 #### Returns
 
@@ -2308,7 +2308,7 @@ assert.deepStrictEqual(O.getOrUndefined(O.none()), undefined);
 
 ### isNone
 
-▸ **isNone**<`A`\>(`self`): self is None<A\>
+▸ **isNone**\<`A`\>(`self`): self is None\<A\>
 
 Determine if a `Option` is a `None`.
 
@@ -2320,13 +2320,13 @@ Determine if a `Option` is a `None`.
 
 #### Parameters
 
-| Name   | Type                          | Description            |
-| :----- | :---------------------------- | :--------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> | The `Option` to check. |
+| Name   | Type                           | Description            |
+| :----- | :----------------------------- | :--------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to check. |
 
 #### Returns
 
-self is None<A\>
+self is None\<A\>
 
 **`Example`**
 
@@ -2345,7 +2345,7 @@ assert.deepStrictEqual(isNone(none()), true);
 
 ### isOption
 
-▸ **isOption**(`input`): input is Option<unknown\>
+▸ **isOption**(`input`): input is Option\<unknown\>
 
 Tests if a value is a `Option`.
 
@@ -2357,7 +2357,7 @@ Tests if a value is a `Option`.
 
 #### Returns
 
-input is Option<unknown\>
+input is Option\<unknown\>
 
 **`Example`**
 
@@ -2377,7 +2377,7 @@ assert.deepStrictEqual(isOption({}), false);
 
 ### isSome
 
-▸ **isSome**<`A`\>(`self`): self is Some<A\>
+▸ **isSome**\<`A`\>(`self`): self is Some\<A\>
 
 Determine if a `Option` is a `Some`.
 
@@ -2389,13 +2389,13 @@ Determine if a `Option` is a `Some`.
 
 #### Parameters
 
-| Name   | Type                          | Description            |
-| :----- | :---------------------------- | :--------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> | The `Option` to check. |
+| Name   | Type                           | Description            |
+| :----- | :----------------------------- | :--------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to check. |
 
 #### Returns
 
-self is Some<A\>
+self is Some\<A\>
 
 **`Example`**
 
@@ -2414,7 +2414,7 @@ assert.deepStrictEqual(isSome(none()), false);
 
 ### lift2
 
-▸ **lift2**<`A`, `B`, `C`\>(`f`): (`that`: [`Option`](O.md#option)<`B`\>) => (`self`: [`Option`](O.md#option)<`A`\>) => [`Option`](O.md#option)<`C`\>(`self`: [`Option`](O.md#option)<`A`\>, `that`: [`Option`](O.md#option)<`B`\>) => [`Option`](O.md#option)<`C`\>
+▸ **lift2**\<`A`, `B`, `C`\>(`f`): (`that`: [`Option`](O.md#option)\<`B`\>) => (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`C`\>(`self`: [`Option`](O.md#option)\<`A`\>, `that`: [`Option`](O.md#option)\<`B`\>) => [`Option`](O.md#option)\<`C`\>
 
 Lifts a binary function into `Option`.
 
@@ -2436,42 +2436,42 @@ Lifts a binary function into `Option`.
 
 `fn`
 
-▸ (`that`): (`self`: [`Option`](O.md#option)<`A`\>) => [`Option`](O.md#option)<`C`\>
+▸ (`that`): (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`C`\>
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `that` | [`Option`](O.md#option)<`B`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `that` | [`Option`](O.md#option)\<`B`\> |
 
 ##### Returns
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<`C`\>
+▸ (`self`): [`Option`](O.md#option)\<`C`\>
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`C`\>
+[`Option`](O.md#option)\<`C`\>
 
-▸ (`self`, `that`): [`Option`](O.md#option)<`C`\>
+▸ (`self`, `that`): [`Option`](O.md#option)\<`C`\>
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
-| `that` | [`Option`](O.md#option)<`B`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
+| `that` | [`Option`](O.md#option)\<`B`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`C`\>
+[`Option`](O.md#option)\<`C`\>
 
 **`Since`**
 
@@ -2481,7 +2481,7 @@ Lifts a binary function into `Option`.
 
 ### liftPredicate
 
-▸ **liftPredicate**<`C`, `B`, `A`\>(`refinement`): (`c`: `C`) => [`Option`](O.md#option)<`B`\>
+▸ **liftPredicate**\<`C`, `B`, `A`\>(`refinement`): (`c`: `C`) => [`Option`](O.md#option)\<`B`\>
 
 Transforms a `Predicate` function into a `Some` of the input value if the predicate returns `true` or `None`
 if the predicate returns `false`.
@@ -2496,15 +2496,15 @@ if the predicate returns `false`.
 
 #### Parameters
 
-| Name         | Type                    |
-| :----------- | :---------------------- |
-| `refinement` | `Refinement`<`A`, `B`\> |
+| Name         | Type                     |
+| :----------- | :----------------------- |
+| `refinement` | `Refinement`\<`A`, `B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`c`): [`Option`](O.md#option)<`B`\>
+▸ (`c`): [`Option`](O.md#option)\<`B`\>
 
 ##### Parameters
 
@@ -2514,7 +2514,7 @@ if the predicate returns `false`.
 
 ##### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Example`**
 
@@ -2531,7 +2531,7 @@ assert.deepStrictEqual(getOption(1), O.some(1));
 
 2.0.0
 
-▸ **liftPredicate**<`B`, `A`\>(`predicate`): (`b`: `B`) => [`Option`](O.md#option)<`B`\>
+▸ **liftPredicate**\<`B`, `A`\>(`predicate`): (`b`: `B`) => [`Option`](O.md#option)\<`B`\>
 
 Transforms a `Predicate` function into a `Some` of the input value if the predicate returns `true` or `None`
 if the predicate returns `false`.
@@ -2545,15 +2545,15 @@ if the predicate returns `false`.
 
 #### Parameters
 
-| Name        | Type              | Description                                                                     |
-| :---------- | :---------------- | :------------------------------------------------------------------------------ |
-| `predicate` | `Predicate`<`A`\> | A `Predicate` function that takes in a value of type `A` and returns a boolean. |
+| Name        | Type               | Description                                                                     |
+| :---------- | :----------------- | :------------------------------------------------------------------------------ |
+| `predicate` | `Predicate`\<`A`\> | A `Predicate` function that takes in a value of type `A` and returns a boolean. |
 
 #### Returns
 
 `fn`
 
-▸ (`b`): [`Option`](O.md#option)<`B`\>
+▸ (`b`): [`Option`](O.md#option)\<`B`\>
 
 ##### Parameters
 
@@ -2563,7 +2563,7 @@ if the predicate returns `false`.
 
 ##### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Example`**
 
@@ -2584,7 +2584,7 @@ assert.deepStrictEqual(getOption(1), O.some(1));
 
 ### Option
 
-Ƭ **Option**<`A`\>: [`None`](../interfaces/O.None.md)<`A`\> \| [`Some`](../interfaces/O.Some.md)<`A`\>
+Ƭ **Option**\<`A`\>: [`None`](../interfaces/O.None.md)\<`A`\> \| [`Some`](../interfaces/O.Some.md)\<`A`\>
 
 **`Since`**
 
@@ -2600,7 +2600,7 @@ assert.deepStrictEqual(getOption(1), O.some(1));
 
 ### match
 
-▸ **match**<`B`, `A`, `C`\>(`options`): (`self`: [`Option`](O.md#option)<`A`\>) => `B` \| `C`
+▸ **match**\<`B`, `A`, `C`\>(`options`): (`self`: [`Option`](O.md#option)\<`A`\>) => `B` \| `C`
 
 Matches the given `Option` and returns either the provided `onNone` value or the result of the provided `onSome`
 function when passed the `Option`'s value.
@@ -2615,11 +2615,11 @@ function when passed the `Option`'s value.
 
 #### Parameters
 
-| Name             | Type                                          |
-| :--------------- | :-------------------------------------------- |
-| `options`        | `Object`                                      |
-| `options.onNone` | [`LazyArg`](../interfaces/F.LazyArg.md)<`B`\> |
-| `options.onSome` | (`a`: `A`) => `C`                             |
+| Name             | Type                                           |
+| :--------------- | :--------------------------------------------- |
+| `options`        | `Object`                                       |
+| `options.onNone` | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> |
+| `options.onSome` | (`a`: `A`) => `C`                              |
 
 #### Returns
 
@@ -2629,9 +2629,9 @@ function when passed the `Option`'s value.
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
@@ -2658,7 +2658,7 @@ assert.deepStrictEqual(
 
 2.0.0
 
-▸ **match**<`A`, `B`, `C`\>(`self`, `options`): `B` \| `C`
+▸ **match**\<`A`, `B`, `C`\>(`self`, `options`): `B` \| `C`
 
 Matches the given `Option` and returns either the provided `onNone` value or the result of the provided `onSome`
 function when passed the `Option`'s value.
@@ -2673,12 +2673,12 @@ function when passed the `Option`'s value.
 
 #### Parameters
 
-| Name             | Type                                          | Description           |
-| :--------------- | :-------------------------------------------- | :-------------------- |
-| `self`           | [`Option`](O.md#option)<`A`\>                 | The `Option` to match |
-| `options`        | `Object`                                      | -                     |
-| `options.onNone` | [`LazyArg`](../interfaces/F.LazyArg.md)<`B`\> | -                     |
-| `options.onSome` | (`a`: `A`) => `C`                             | -                     |
+| Name             | Type                                           | Description           |
+| :--------------- | :--------------------------------------------- | :-------------------- |
+| `self`           | [`Option`](O.md#option)\<`A`\>                 | The `Option` to match |
+| `options`        | `Object`                                       | -                     |
+| `options.onNone` | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> | -                     |
+| `options.onSome` | (`a`: `A`) => `C`                              | -                     |
 
 #### Returns
 
@@ -2709,7 +2709,7 @@ assert.deepStrictEqual(
 
 ### getOrder
 
-▸ **getOrder**<`A`\>(`O`): `Order`<[`Option`](O.md#option)<`A`\>\>
+▸ **getOrder**\<`A`\>(`O`): `Order`\<[`Option`](O.md#option)\<`A`\>\>
 
 The `Order` instance allows `Option` values to be compared with
 `compare`, whenever there is an `Order` instance for
@@ -2725,13 +2725,13 @@ the type the `Option` contains.
 
 #### Parameters
 
-| Name | Type          |
-| :--- | :------------ |
-| `O`  | `Order`<`A`\> |
+| Name | Type           |
+| :--- | :------------- |
+| `O`  | `Order`\<`A`\> |
 
 #### Returns
 
-`Order`<[`Option`](O.md#option)<`A`\>\>
+`Order`\<[`Option`](O.md#option)\<`A`\>\>
 
 **`Example`**
 
@@ -2776,7 +2776,7 @@ assert.deepStrictEqual(O(some(1), some(1)), 0);
 
 ### as
 
-▸ **as**<`B`\>(`b`): <_\>(`self`: [`Option`](O.md#option)<`_`\>) => [`Option`](O.md#option)<`B`\>
+▸ **as**\<`B`\>(`b`): \<_\>(`self`: [`Option`](O.md#option)\<`_`\>) => [`Option`](O.md#option)\<`B`\>
 
 Maps the `Some` value of this `Option` to the specified constant value.
 
@@ -2796,7 +2796,7 @@ Maps the `Some` value of this `Option` to the specified constant value.
 
 `fn`
 
-▸ <`_`\>(`self`): [`Option`](O.md#option)<`B`\>
+▸ \<`_`\>(`self`): [`Option`](O.md#option)\<`B`\>
 
 ##### Type parameters
 
@@ -2806,13 +2806,13 @@ Maps the `Some` value of this `Option` to the specified constant value.
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`_`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`_`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
@@ -2822,7 +2822,7 @@ Maps the `Some` value of this `Option` to the specified constant value.
 
 ### asUnit
 
-▸ **asUnit**<`_`\>(`self`): [`Option`](O.md#option)<`void`\>
+▸ **asUnit**\<`_`\>(`self`): [`Option`](O.md#option)\<`void`\>
 
 Maps the `Some` value of this `Option` to the `void` constant value.
 
@@ -2836,13 +2836,13 @@ This is useful when the value of the `Option` is not needed, but the presence or
 
 #### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`_`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`_`\> |
 
 #### Returns
 
-[`Option`](O.md#option)<`void`\>
+[`Option`](O.md#option)\<`void`\>
 
 **`Since`**
 
@@ -2852,7 +2852,7 @@ This is useful when the value of the `Option` is not needed, but the presence or
 
 ### composeK
 
-▸ **composeK**<`B`, `C`\>(`bfc`): <A\>(`afb`: (`a`: `A`) => [`Option`](O.md#option)<`B`\>) => (`a`: `A`) => [`Option`](O.md#option)<`C`\>
+▸ **composeK**\<`B`, `C`\>(`bfc`): \<A\>(`afb`: (`a`: `A`) => [`Option`](O.md#option)\<`B`\>) => (`a`: `A`) => [`Option`](O.md#option)\<`C`\>
 
 #### Type parameters
 
@@ -2863,15 +2863,15 @@ This is useful when the value of the `Option` is not needed, but the presence or
 
 #### Parameters
 
-| Name  | Type                                        |
-| :---- | :------------------------------------------ |
-| `bfc` | (`b`: `B`) => [`Option`](O.md#option)<`C`\> |
+| Name  | Type                                         |
+| :---- | :------------------------------------------- |
+| `bfc` | (`b`: `B`) => [`Option`](O.md#option)\<`C`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`afb`): (`a`: `A`) => [`Option`](O.md#option)<`C`\>
+▸ \<`A`\>(`afb`): (`a`: `A`) => [`Option`](O.md#option)\<`C`\>
 
 ##### Type parameters
 
@@ -2881,15 +2881,15 @@ This is useful when the value of the `Option` is not needed, but the presence or
 
 ##### Parameters
 
-| Name  | Type                                        |
-| :---- | :------------------------------------------ |
-| `afb` | (`a`: `A`) => [`Option`](O.md#option)<`B`\> |
+| Name  | Type                                         |
+| :---- | :------------------------------------------- |
+| `afb` | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 ##### Returns
 
 `fn`
 
-▸ (`a`): [`Option`](O.md#option)<`C`\>
+▸ (`a`): [`Option`](O.md#option)\<`C`\>
 
 ##### Parameters
 
@@ -2899,13 +2899,13 @@ This is useful when the value of the `Option` is not needed, but the presence or
 
 ##### Returns
 
-[`Option`](O.md#option)<`C`\>
+[`Option`](O.md#option)\<`C`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **composeK**<`A`, `B`, `C`\>(`afb`, `bfc`): (`a`: `A`) => [`Option`](O.md#option)<`C`\>
+▸ **composeK**\<`A`, `B`, `C`\>(`afb`, `bfc`): (`a`: `A`) => [`Option`](O.md#option)\<`C`\>
 
 #### Type parameters
 
@@ -2917,16 +2917,16 @@ This is useful when the value of the `Option` is not needed, but the presence or
 
 #### Parameters
 
-| Name  | Type                                        |
-| :---- | :------------------------------------------ |
-| `afb` | (`a`: `A`) => [`Option`](O.md#option)<`B`\> |
-| `bfc` | (`b`: `B`) => [`Option`](O.md#option)<`C`\> |
+| Name  | Type                                         |
+| :---- | :------------------------------------------- |
+| `afb` | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
+| `bfc` | (`b`: `B`) => [`Option`](O.md#option)\<`C`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`a`): [`Option`](O.md#option)<`C`\>
+▸ (`a`): [`Option`](O.md#option)\<`C`\>
 
 ##### Parameters
 
@@ -2936,7 +2936,7 @@ This is useful when the value of the `Option` is not needed, but the presence or
 
 ##### Returns
 
-[`Option`](O.md#option)<`C`\>
+[`Option`](O.md#option)\<`C`\>
 
 **`Since`**
 
@@ -2946,7 +2946,7 @@ This is useful when the value of the `Option` is not needed, but the presence or
 
 ### flatMap
 
-▸ **flatMap**<`A`, `B`\>(`f`): (`self`: [`Option`](O.md#option)<`A`\>) => [`Option`](O.md#option)<`B`\>
+▸ **flatMap**\<`A`, `B`\>(`f`): (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`B`\>
 
 Applies a function to the value of an `Option` and flattens the result, if the input is `Some`.
 
@@ -2959,31 +2959,31 @@ Applies a function to the value of an `Option` and flattens the result, if the i
 
 #### Parameters
 
-| Name | Type                                        |
-| :--- | :------------------------------------------ |
-| `f`  | (`a`: `A`) => [`Option`](O.md#option)<`B`\> |
+| Name | Type                                         |
+| :--- | :------------------------------------------- |
+| `f`  | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<`B`\>
+▸ (`self`): [`Option`](O.md#option)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **flatMap**<`A`, `B`\>(`self`, `f`): [`Option`](O.md#option)<`B`\>
+▸ **flatMap**\<`A`, `B`\>(`self`, `f`): [`Option`](O.md#option)\<`B`\>
 
 Applies a function to the value of an `Option` and flattens the result, if the input is `Some`.
 
@@ -2996,14 +2996,14 @@ Applies a function to the value of an `Option` and flattens the result, if the i
 
 #### Parameters
 
-| Name   | Type                                        |
-| :----- | :------------------------------------------ |
-| `self` | [`Option`](O.md#option)<`A`\>               |
-| `f`    | (`a`: `A`) => [`Option`](O.md#option)<`B`\> |
+| Name   | Type                                         |
+| :----- | :------------------------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\>               |
+| `f`    | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
@@ -3013,7 +3013,7 @@ Applies a function to the value of an `Option` and flattens the result, if the i
 
 ### flatMapNullable
 
-▸ **flatMapNullable**<`A`, `B`\>(`f`): (`self`: [`Option`](O.md#option)<`A`\>) => [`Option`](O.md#option)<`NonNullable`<`B`\>\>
+▸ **flatMapNullable**\<`A`, `B`\>(`f`): (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`NonNullable`\<`B`\>\>
 
 This is `flatMap` + `fromNullable`, useful when working with optional values.
 
@@ -3034,17 +3034,17 @@ This is `flatMap` + `fromNullable`, useful when working with optional values.
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<`NonNullable`<`B`\>\>
+▸ (`self`): [`Option`](O.md#option)\<`NonNullable`\<`B`\>\>
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`NonNullable`<`B`\>\>
+[`Option`](O.md#option)\<`NonNullable`\<`B`\>\>
 
 **`Example`**
 
@@ -3087,7 +3087,7 @@ assert.deepStrictEqual(
 
 2.0.0
 
-▸ **flatMapNullable**<`A`, `B`\>(`self`, `f`): [`Option`](O.md#option)<`NonNullable`<`B`\>\>
+▸ **flatMapNullable**\<`A`, `B`\>(`self`, `f`): [`Option`](O.md#option)\<`NonNullable`\<`B`\>\>
 
 This is `flatMap` + `fromNullable`, useful when working with optional values.
 
@@ -3102,12 +3102,12 @@ This is `flatMap` + `fromNullable`, useful when working with optional values.
 
 | Name   | Type                                       |
 | :----- | :----------------------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\>              |
+| `self` | [`Option`](O.md#option)\<`A`\>             |
 | `f`    | (`a`: `A`) => `undefined` \| `null` \| `B` |
 
 #### Returns
 
-[`Option`](O.md#option)<`NonNullable`<`B`\>\>
+[`Option`](O.md#option)\<`NonNullable`\<`B`\>\>
 
 **`Example`**
 
@@ -3154,7 +3154,7 @@ assert.deepStrictEqual(
 
 ### flatten
 
-▸ **flatten**<`A`\>(`self`): [`Option`](O.md#option)<`A`\>
+▸ **flatten**\<`A`\>(`self`): [`Option`](O.md#option)\<`A`\>
 
 #### Type parameters
 
@@ -3164,13 +3164,13 @@ assert.deepStrictEqual(
 
 #### Parameters
 
-| Name   | Type                                                    |
-| :----- | :------------------------------------------------------ |
-| `self` | [`Option`](O.md#option)<[`Option`](O.md#option)<`A`\>\> |
+| Name   | Type                                                      |
+| :----- | :-------------------------------------------------------- |
+| `self` | [`Option`](O.md#option)\<[`Option`](O.md#option)\<`A`\>\> |
 
 #### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Since`**
 
@@ -3180,7 +3180,7 @@ assert.deepStrictEqual(
 
 ### map
 
-▸ **map**<`A`, `B`\>(`f`): (`self`: [`Option`](O.md#option)<`A`\>) => [`Option`](O.md#option)<`B`\>
+▸ **map**\<`A`, `B`\>(`f`): (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`B`\>
 
 Maps the `Some` side of an `Option` value to a new `Option` value.
 
@@ -3201,23 +3201,23 @@ Maps the `Some` side of an `Option` value to a new `Option` value.
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<`B`\>
+▸ (`self`): [`Option`](O.md#option)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **map**<`A`, `B`\>(`self`, `f`): [`Option`](O.md#option)<`B`\>
+▸ **map**\<`A`, `B`\>(`self`, `f`): [`Option`](O.md#option)\<`B`\>
 
 Maps the `Some` side of an `Option` value to a new `Option` value.
 
@@ -3230,14 +3230,14 @@ Maps the `Some` side of an `Option` value to a new `Option` value.
 
 #### Parameters
 
-| Name   | Type                          | Description                                        |
-| :----- | :---------------------------- | :------------------------------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> | An `Option` to map                                 |
-| `f`    | (`a`: `A`) => `B`             | The function to map over the value of the `Option` |
+| Name   | Type                           | Description                                        |
+| :----- | :----------------------------- | :------------------------------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> | An `Option` to map                                 |
+| `f`    | (`a`: `A`) => `B`              | The function to map over the value of the `Option` |
 
 #### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
@@ -3247,7 +3247,7 @@ Maps the `Some` side of an `Option` value to a new `Option` value.
 
 ### tap
 
-▸ **tap**<`A`, `_`\>(`f`): (`self`: [`Option`](O.md#option)<`A`\>) => [`Option`](O.md#option)<`A`\>
+▸ **tap**\<`A`, `_`\>(`f`): (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`A`\>
 
 Applies the provided function `f` to the value of the `Option` if it is `Some` and returns the original `Option`
 unless `f` returns `None`, in which case it returns `None`.
@@ -3263,25 +3263,25 @@ This function is useful for performing additional computations on the value of t
 
 #### Parameters
 
-| Name | Type                                        | Description                                                    |
-| :--- | :------------------------------------------ | :------------------------------------------------------------- |
-| `f`  | (`a`: `A`) => [`Option`](O.md#option)<`_`\> | Function to apply to the value of the `Option` if it is `Some` |
+| Name | Type                                         | Description                                                    |
+| :--- | :------------------------------------------- | :------------------------------------------------------------- |
+| `f`  | (`a`: `A`) => [`Option`](O.md#option)\<`_`\> | Function to apply to the value of the `Option` if it is `Some` |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<`A`\>
+▸ (`self`): [`Option`](O.md#option)\<`A`\>
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Example`**
 
@@ -3299,7 +3299,7 @@ assert.deepStrictEqual(O.tap(O.some(1.14), getInteger), O.none());
 
 2.0.0
 
-▸ **tap**<`A`, `_`\>(`self`, `f`): [`Option`](O.md#option)<`A`\>
+▸ **tap**\<`A`, `_`\>(`self`, `f`): [`Option`](O.md#option)\<`A`\>
 
 Applies the provided function `f` to the value of the `Option` if it is `Some` and returns the original `Option`
 unless `f` returns `None`, in which case it returns `None`.
@@ -3315,14 +3315,14 @@ This function is useful for performing additional computations on the value of t
 
 #### Parameters
 
-| Name   | Type                                        | Description                                                    |
-| :----- | :------------------------------------------ | :------------------------------------------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\>               | The `Option` to apply the function to                          |
-| `f`    | (`a`: `A`) => [`Option`](O.md#option)<`_`\> | Function to apply to the value of the `Option` if it is `Some` |
+| Name   | Type                                         | Description                                                    |
+| :----- | :------------------------------------------- | :------------------------------------------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\>               | The `Option` to apply the function to                          |
+| `f`    | (`a`: `A`) => [`Option`](O.md#option)\<`_`\> | Function to apply to the value of the `Option` if it is `Some` |
 
 #### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Example`**
 
@@ -3344,7 +3344,7 @@ assert.deepStrictEqual(O.tap(O.some(1.14), getInteger), O.none());
 
 ### zipLeft
 
-▸ **zipLeft**<`_`\>(`that`): <A\>(`self`: [`Option`](O.md#option)<`A`\>) => [`Option`](O.md#option)<`A`\>
+▸ **zipLeft**\<`_`\>(`that`): \<A\>(`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`A`\>
 
 Sequences the specified `that` `Option` but ignores its value.
 
@@ -3358,15 +3358,15 @@ It is useful when we want to chain multiple operations, but only care about the 
 
 #### Parameters
 
-| Name   | Type                          | Description                                                  |
-| :----- | :---------------------------- | :----------------------------------------------------------- |
-| `that` | [`Option`](O.md#option)<`_`\> | The `Option` that will be ignored in the chain and discarded |
+| Name   | Type                           | Description                                                  |
+| :----- | :----------------------------- | :----------------------------------------------------------- |
+| `that` | [`Option`](O.md#option)\<`_`\> | The `Option` that will be ignored in the chain and discarded |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`Option`](O.md#option)<`A`\>
+▸ \<`A`\>(`self`): [`Option`](O.md#option)\<`A`\>
 
 ##### Type parameters
 
@@ -3376,19 +3376,19 @@ It is useful when we want to chain multiple operations, but only care about the 
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **zipLeft**<`A`, `_`\>(`self`, `that`): [`Option`](O.md#option)<`A`\>
+▸ **zipLeft**\<`A`, `_`\>(`self`, `that`): [`Option`](O.md#option)\<`A`\>
 
 Sequences the specified `that` `Option` but ignores its value.
 
@@ -3403,14 +3403,14 @@ It is useful when we want to chain multiple operations, but only care about the 
 
 #### Parameters
 
-| Name   | Type                          | Description                                                  |
-| :----- | :---------------------------- | :----------------------------------------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> | The `Option` we care about                                   |
-| `that` | [`Option`](O.md#option)<`_`\> | The `Option` that will be ignored in the chain and discarded |
+| Name   | Type                           | Description                                                  |
+| :----- | :----------------------------- | :----------------------------------------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> | The `Option` we care about                                   |
+| `that` | [`Option`](O.md#option)\<`_`\> | The `Option` that will be ignored in the chain and discarded |
 
 #### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Since`**
 
@@ -3420,7 +3420,7 @@ It is useful when we want to chain multiple operations, but only care about the 
 
 ### zipRight
 
-▸ **zipRight**<`B`\>(`that`): <_\>(`self`: [`Option`](O.md#option)<`_`\>) => [`Option`](O.md#option)<`B`\>
+▸ **zipRight**\<`B`\>(`that`): \<_\>(`self`: [`Option`](O.md#option)\<`_`\>) => [`Option`](O.md#option)\<`B`\>
 
 #### Type parameters
 
@@ -3430,15 +3430,15 @@ It is useful when we want to chain multiple operations, but only care about the 
 
 #### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `that` | [`Option`](O.md#option)<`B`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `that` | [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`_`\>(`self`): [`Option`](O.md#option)<`B`\>
+▸ \<`_`\>(`self`): [`Option`](O.md#option)\<`B`\>
 
 ##### Type parameters
 
@@ -3448,19 +3448,19 @@ It is useful when we want to chain multiple operations, but only care about the 
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`_`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`_`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **zipRight**<`_`, `B`\>(`self`, `that`): [`Option`](O.md#option)<`B`\>
+▸ **zipRight**\<`_`, `B`\>(`self`, `that`): [`Option`](O.md#option)\<`B`\>
 
 #### Type parameters
 
@@ -3471,14 +3471,14 @@ It is useful when we want to chain multiple operations, but only care about the 
 
 #### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`_`\> |
-| `that` | [`Option`](O.md#option)<`B`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`_`\> |
+| `that` | [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 

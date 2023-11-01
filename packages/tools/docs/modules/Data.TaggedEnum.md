@@ -24,7 +24,7 @@
 
 ### Args
 
-Ƭ **Args**<`A`, `K`, `E`\>: { readonly [K in keyof E as K extends "\_tag" \| keyof Case ? never : K]: E[K] } extends infer T ? {} extends `T` ? `void` : `T` : `never`
+Ƭ **Args**\<`A`, `K`, `E`\>: \{ readonly [K in keyof E as K extends "\_tag" \| keyof Case ? never : K]: E[K] } extends infer T ? {} extends `T` ? `void` : `T` : `never`
 
 **`Since`**
 
@@ -32,17 +32,17 @@
 
 #### Type parameters
 
-| Name | Type                                                                   |
-| :--- | :--------------------------------------------------------------------- |
-| `A`  | extends { `_tag`: `string` } & [`Equal`](../interfaces/Equal.Equal.md) |
-| `K`  | extends `A`[`"_tag"`]                                                  |
-| `E`  | `Extract`<`A`, { `_tag`: `K` }\>                                       |
+| Name | Type                                                                    |
+| :--- | :---------------------------------------------------------------------- |
+| `A`  | extends \{ `_tag`: `string` } & [`Equal`](../interfaces/Equal.Equal.md) |
+| `K`  | extends `A`[`"_tag"`]                                                   |
+| `E`  | `Extract`\<`A`, \{ `_tag`: `K` }\>                                      |
 
 ---
 
 ### Value
 
-Ƭ **Value**<`A`, `K`\>: `Extract`<`A`, { `_tag`: `K` }\>
+Ƭ **Value**\<`A`, `K`\>: `Extract`\<`A`, \{ `_tag`: `K` }\>
 
 **`Since`**
 
@@ -50,16 +50,16 @@
 
 #### Type parameters
 
-| Name | Type                                                                   |
-| :--- | :--------------------------------------------------------------------- |
-| `A`  | extends { `_tag`: `string` } & [`Equal`](../interfaces/Equal.Equal.md) |
-| `K`  | extends `A`[`"_tag"`]                                                  |
+| Name | Type                                                                    |
+| :--- | :---------------------------------------------------------------------- |
+| `A`  | extends \{ `_tag`: `string` } & [`Equal`](../interfaces/Equal.Equal.md) |
+| `K`  | extends `A`[`"_tag"`]                                                   |
 
 ## models
 
 ### Kind
 
-Ƭ **Kind**<`Z`, `A`, `B`, `C`, `D`\>: `Z` & { `A`: `A` ; `B`: `B` ; `C`: `C` ; `D`: `D` }[`"taggedEnum"`]
+Ƭ **Kind**\<`Z`, `A`, `B`, `C`, `D`\>: `Z` & \{ `A`: `A` ; `B`: `B` ; `C`: `C` ; `D`: `D` }[`"taggedEnum"`]
 
 **`Since`**
 
@@ -67,10 +67,10 @@
 
 #### Type parameters
 
-| Name | Type                                                                               |
-| :--- | :--------------------------------------------------------------------------------- |
-| `Z`  | extends [`WithGenerics`](../interfaces/Data.TaggedEnum.WithGenerics.md)<`number`\> |
-| `A`  | `unknown`                                                                          |
-| `B`  | `unknown`                                                                          |
-| `C`  | `unknown`                                                                          |
-| `D`  | `unknown`                                                                          |
+| Name | Type                                                                                |
+| :--- | :---------------------------------------------------------------------------------- |
+| `Z`  | extends [`WithGenerics`](../interfaces/Data.TaggedEnum.WithGenerics.md)\<`number`\> |
+| `A`  | `unknown`                                                                           |
+| `B`  | `unknown`                                                                           |
+| `C`  | `unknown`                                                                           |
+| `D`  | `unknown`                                                                           |

@@ -56,7 +56,7 @@
 
 ### reverse
 
-▸ **reverse**<`E`, `A`\>(`self`): [`Either`](E.md#either)<`A`, `E`\>
+▸ **reverse**\<`E`, `A`\>(`self`): [`Either`](E.md#either)\<`A`, `E`\>
 
 #### Type parameters
 
@@ -67,13 +67,13 @@
 
 #### Parameters
 
-| Name   | Type                               |
-| :----- | :--------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> |
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
 
 #### Returns
 
-[`Either`](E.md#either)<`A`, `E`\>
+[`Either`](E.md#either)\<`A`, `E`\>
 
 **`Since`**
 
@@ -83,7 +83,7 @@
 
 ### try
 
-▸ **try**<`A`, `E`\>(`options`): [`Either`](E.md#either)<`E`, `A`\>
+▸ **try**\<`A`, `E`\>(`options`): [`Either`](E.md#either)\<`E`, `A`\>
 
 #### Type parameters
 
@@ -94,17 +94,17 @@
 
 #### Parameters
 
-| Name            | Type                                          |
-| :-------------- | :-------------------------------------------- |
-| `options`       | `Object`                                      |
-| `options.catch` | (`error`: `unknown`) => `E`                   |
-| `options.try`   | [`LazyArg`](../interfaces/F.LazyArg.md)<`A`\> |
+| Name            | Type                                           |
+| :-------------- | :--------------------------------------------- |
+| `options`       | `Object`                                       |
+| `options.catch` | (`error`: `unknown`) => `E`                    |
+| `options.try`   | [`LazyArg`](../interfaces/F.LazyArg.md)\<`A`\> |
 
 #### Returns
 
-[`Either`](E.md#either)<`E`, `A`\>
+[`Either`](E.md#either)\<`E`, `A`\>
 
-▸ **try**<`A`\>(`evaluate`): [`Either`](E.md#either)<`unknown`, `A`\>
+▸ **try**\<`A`\>(`evaluate`): [`Either`](E.md#either)\<`unknown`, `A`\>
 
 #### Type parameters
 
@@ -114,19 +114,19 @@
 
 #### Parameters
 
-| Name       | Type                                          |
-| :--------- | :-------------------------------------------- |
-| `evaluate` | [`LazyArg`](../interfaces/F.LazyArg.md)<`A`\> |
+| Name       | Type                                           |
+| :--------- | :--------------------------------------------- |
+| `evaluate` | [`LazyArg`](../interfaces/F.LazyArg.md)\<`A`\> |
 
 #### Returns
 
-[`Either`](E.md#either)<`unknown`, `A`\>
+[`Either`](E.md#either)\<`unknown`, `A`\>
 
 ## combining
 
 ### all
 
-▸ **all**<`I`\>(`input`): [`I`] extends [readonly [`Either`](E.md#either)<`any`, `any`\>[]] ? [`Either`](E.md#either)<`I`[`number`] extends `never` ? `never` : [`I`[`number`]] extends [[`Either`](E.md#either)<`E`, `any`\>] ? `E` : `never`, { -readonly [K in string \| number \| symbol]: [I[K]] extends [Either<any, A\>] ? A : never }\> : [`I`] extends [`Iterable`<[`Either`](E.md#either)<`E`, `A`\>\>] ? [`Either`](E.md#either)<`E`, `A`[]\> : [`Either`](E.md#either)<`I`[keyof `I`] extends `never` ? `never` : [`I`[keyof `I`]] extends [[`Either`](E.md#either)<`E`, `any`\>] ? `E` : `never`, { -readonly [K in string \| number \| symbol]: [I[K]] extends [Either<any, A\>] ? A : never }\>
+▸ **all**\<`I`\>(`input`): [`I`] extends [readonly [`Either`](E.md#either)\<`any`, `any`\>[]] ? [`Either`](E.md#either)\<`I`[`number`] extends `never` ? `never` : [`I`[`number`]] extends [[`Either`](E.md#either)\<`E`, `any`\>] ? `E` : `never`, \{ -readonly [K in string \| number \| symbol]: [I[K]] extends [Either\<any, A\>] ? A : never }\> : [`I`] extends [`Iterable`\<[`Either`](E.md#either)\<`E`, `A`\>\>] ? [`Either`](E.md#either)\<`E`, `A`[]\> : [`Either`](E.md#either)\<`I`[keyof `I`] extends `never` ? `never` : [`I`[keyof `I`]] extends [[`Either`](E.md#either)\<`E`, `any`\>] ? `E` : `never`, \{ -readonly [K in string \| number \| symbol]: [I[K]] extends [Either\<any, A\>] ? A : never }\>
 
 Takes a structure of `Option`s and returns an `Option` of values with the same structure.
 
@@ -136,9 +136,9 @@ Takes a structure of `Option`s and returns an `Option` of values with the same s
 
 #### Type parameters
 
-| Name | Type                                                                                                                       |
-| :--- | :------------------------------------------------------------------------------------------------------------------------- |
-| `I`  | extends `Iterable`<[`Either`](E.md#either)<`any`, `any`\>\> \| `Record`<`string`, [`Either`](E.md#either)<`any`, `any`\>\> |
+| Name | Type                                                                                                                           |
+| :--- | :----------------------------------------------------------------------------------------------------------------------------- |
+| `I`  | extends `Iterable`\<[`Either`](E.md#either)\<`any`, `any`\>\> \| `Record`\<`string`, [`Either`](E.md#either)\<`any`, `any`\>\> |
 
 #### Parameters
 
@@ -148,7 +148,7 @@ Takes a structure of `Option`s and returns an `Option` of values with the same s
 
 #### Returns
 
-[`I`] extends [readonly [`Either`](E.md#either)<`any`, `any`\>[]] ? [`Either`](E.md#either)<`I`[`number`] extends `never` ? `never` : [`I`[`number`]] extends [[`Either`](E.md#either)<`E`, `any`\>] ? `E` : `never`, { -readonly [K in string \| number \| symbol]: [I[K]] extends [Either<any, A\>] ? A : never }\> : [`I`] extends [`Iterable`<[`Either`](E.md#either)<`E`, `A`\>\>] ? [`Either`](E.md#either)<`E`, `A`[]\> : [`Either`](E.md#either)<`I`[keyof `I`] extends `never` ? `never` : [`I`[keyof `I`]] extends [[`Either`](E.md#either)<`E`, `any`\>] ? `E` : `never`, { -readonly [K in string \| number \| symbol]: [I[K]] extends [Either<any, A\>] ? A : never }\>
+[`I`] extends [readonly [`Either`](E.md#either)\<`any`, `any`\>[]] ? [`Either`](E.md#either)\<`I`[`number`] extends `never` ? `never` : [`I`[`number`]] extends [[`Either`](E.md#either)\<`E`, `any`\>] ? `E` : `never`, \{ -readonly [K in string \| number \| symbol]: [I[K]] extends [Either\<any, A\>] ? A : never }\> : [`I`] extends [`Iterable`\<[`Either`](E.md#either)\<`E`, `A`\>\>] ? [`Either`](E.md#either)\<`E`, `A`[]\> : [`Either`](E.md#either)\<`I`[keyof `I`] extends `never` ? `never` : [`I`[keyof `I`]] extends [[`Either`](E.md#either)\<`E`, `any`\>] ? `E` : `never`, \{ -readonly [K in string \| number \| symbol]: [I[K]] extends [Either\<any, A\>] ? A : never }\>
 
 **`Example`**
 
@@ -171,7 +171,7 @@ assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.left("error") 
 
 ### ap
 
-▸ **ap**<`E2`, `A`\>(`that`): <E, B\>(`self`: [`Either`](E.md#either)<`E`, (`a`: `A`) => `B`\>) => [`Either`](E.md#either)<`E2` \| `E`, `B`\>
+▸ **ap**\<`E2`, `A`\>(`that`): \<E, B\>(`self`: [`Either`](E.md#either)\<`E`, (`a`: `A`) => `B`\>) => [`Either`](E.md#either)\<`E2` \| `E`, `B`\>
 
 #### Type parameters
 
@@ -182,15 +182,15 @@ assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.left("error") 
 
 #### Parameters
 
-| Name   | Type                                |
-| :----- | :---------------------------------- |
-| `that` | [`Either`](E.md#either)<`E2`, `A`\> |
+| Name   | Type                                 |
+| :----- | :----------------------------------- |
+| `that` | [`Either`](E.md#either)\<`E2`, `A`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`E`, `B`\>(`self`): [`Either`](E.md#either)<`E2` \| `E`, `B`\>
+▸ \<`E`, `B`\>(`self`): [`Either`](E.md#either)\<`E2` \| `E`, `B`\>
 
 ##### Type parameters
 
@@ -201,19 +201,19 @@ assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.left("error") 
 
 ##### Parameters
 
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, (`a`: `A`) => `B`\> |
+| Name   | Type                                              |
+| :----- | :------------------------------------------------ |
+| `self` | [`Either`](E.md#either)\<`E`, (`a`: `A`) => `B`\> |
 
 ##### Returns
 
-[`Either`](E.md#either)<`E2` \| `E`, `B`\>
+[`Either`](E.md#either)\<`E2` \| `E`, `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **ap**<`E`, `A`, `B`, `E2`\>(`self`, `that`): [`Either`](E.md#either)<`E` \| `E2`, `B`\>
+▸ **ap**\<`E`, `A`, `B`, `E2`\>(`self`, `that`): [`Either`](E.md#either)\<`E` \| `E2`, `B`\>
 
 #### Type parameters
 
@@ -226,14 +226,14 @@ assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.left("error") 
 
 #### Parameters
 
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, (`a`: `A`) => `B`\> |
-| `that` | [`Either`](E.md#either)<`E2`, `A`\>              |
+| Name   | Type                                              |
+| :----- | :------------------------------------------------ |
+| `self` | [`Either`](E.md#either)\<`E`, (`a`: `A`) => `B`\> |
+| `that` | [`Either`](E.md#either)\<`E2`, `A`\>              |
 
 #### Returns
 
-[`Either`](E.md#either)<`E` \| `E2`, `B`\>
+[`Either`](E.md#either)\<`E` \| `E2`, `B`\>
 
 **`Since`**
 
@@ -243,7 +243,7 @@ assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.left("error") 
 
 ### flatMap
 
-▸ **flatMap**<`A`, `E2`, `B`\>(`f`): <E1\>(`self`: [`Either`](E.md#either)<`E1`, `A`\>) => [`Either`](E.md#either)<`E2` \| `E1`, `B`\>
+▸ **flatMap**\<`A`, `E2`, `B`\>(`f`): \<E1\>(`self`: [`Either`](E.md#either)\<`E1`, `A`\>) => [`Either`](E.md#either)\<`E2` \| `E1`, `B`\>
 
 #### Type parameters
 
@@ -255,15 +255,15 @@ assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.left("error") 
 
 #### Parameters
 
-| Name | Type                                              |
-| :--- | :------------------------------------------------ |
-| `f`  | (`a`: `A`) => [`Either`](E.md#either)<`E2`, `B`\> |
+| Name | Type                                               |
+| :--- | :------------------------------------------------- |
+| `f`  | (`a`: `A`) => [`Either`](E.md#either)\<`E2`, `B`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`E1`\>(`self`): [`Either`](E.md#either)<`E2` \| `E1`, `B`\>
+▸ \<`E1`\>(`self`): [`Either`](E.md#either)\<`E2` \| `E1`, `B`\>
 
 ##### Type parameters
 
@@ -273,19 +273,19 @@ assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.left("error") 
 
 ##### Parameters
 
-| Name   | Type                                |
-| :----- | :---------------------------------- |
-| `self` | [`Either`](E.md#either)<`E1`, `A`\> |
+| Name   | Type                                 |
+| :----- | :----------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E1`, `A`\> |
 
 ##### Returns
 
-[`Either`](E.md#either)<`E2` \| `E1`, `B`\>
+[`Either`](E.md#either)\<`E2` \| `E1`, `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **flatMap**<`E1`, `A`, `E2`, `B`\>(`self`, `f`): [`Either`](E.md#either)<`E1` \| `E2`, `B`\>
+▸ **flatMap**\<`E1`, `A`, `E2`, `B`\>(`self`, `f`): [`Either`](E.md#either)\<`E1` \| `E2`, `B`\>
 
 #### Type parameters
 
@@ -298,14 +298,14 @@ assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.left("error") 
 
 #### Parameters
 
-| Name   | Type                                              |
-| :----- | :------------------------------------------------ |
-| `self` | [`Either`](E.md#either)<`E1`, `A`\>               |
-| `f`    | (`a`: `A`) => [`Either`](E.md#either)<`E2`, `B`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E1`, `A`\>               |
+| `f`    | (`a`: `A`) => [`Either`](E.md#either)\<`E2`, `B`\> |
 
 #### Returns
 
-[`Either`](E.md#either)<`E1` \| `E2`, `B`\>
+[`Either`](E.md#either)\<`E1` \| `E2`, `B`\>
 
 **`Since`**
 
@@ -315,7 +315,7 @@ assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.left("error") 
 
 ### zipWith
 
-▸ **zipWith**<`E2`, `A2`, `A`, `B`\>(`that`, `f`): <E\>(`self`: [`Either`](E.md#either)<`E`, `A`\>) => [`Either`](E.md#either)<`E2` \| `E`, `B`\>
+▸ **zipWith**\<`E2`, `A2`, `A`, `B`\>(`that`, `f`): \<E\>(`self`: [`Either`](E.md#either)\<`E`, `A`\>) => [`Either`](E.md#either)\<`E2` \| `E`, `B`\>
 
 #### Type parameters
 
@@ -328,16 +328,16 @@ assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.left("error") 
 
 #### Parameters
 
-| Name   | Type                                 |
-| :----- | :----------------------------------- |
-| `that` | [`Either`](E.md#either)<`E2`, `A2`\> |
-| `f`    | (`a`: `A`, `b`: `A2`) => `B`         |
+| Name   | Type                                  |
+| :----- | :------------------------------------ |
+| `that` | [`Either`](E.md#either)\<`E2`, `A2`\> |
+| `f`    | (`a`: `A`, `b`: `A2`) => `B`          |
 
 #### Returns
 
 `fn`
 
-▸ <`E`\>(`self`): [`Either`](E.md#either)<`E2` \| `E`, `B`\>
+▸ \<`E`\>(`self`): [`Either`](E.md#either)\<`E2` \| `E`, `B`\>
 
 ##### Type parameters
 
@@ -347,19 +347,19 @@ assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.left("error") 
 
 ##### Parameters
 
-| Name   | Type                               |
-| :----- | :--------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> |
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
 
 ##### Returns
 
-[`Either`](E.md#either)<`E2` \| `E`, `B`\>
+[`Either`](E.md#either)\<`E2` \| `E`, `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **zipWith**<`E`, `A`, `E2`, `A2`, `B`\>(`self`, `that`, `f`): [`Either`](E.md#either)<`E` \| `E2`, `B`\>
+▸ **zipWith**\<`E`, `A`, `E2`, `A2`, `B`\>(`self`, `that`, `f`): [`Either`](E.md#either)\<`E` \| `E2`, `B`\>
 
 #### Type parameters
 
@@ -373,15 +373,15 @@ assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.left("error") 
 
 #### Parameters
 
-| Name   | Type                                 |
-| :----- | :----------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\>   |
-| `that` | [`Either`](E.md#either)<`E2`, `A2`\> |
-| `f`    | (`a`: `A`, `b`: `A2`) => `B`         |
+| Name   | Type                                  |
+| :----- | :------------------------------------ |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\>   |
+| `that` | [`Either`](E.md#either)\<`E2`, `A2`\> |
+| `f`    | (`a`: `A`, `b`: `A2`) => `B`          |
 
 #### Returns
 
-[`Either`](E.md#either)<`E` \| `E2`, `B`\>
+[`Either`](E.md#either)\<`E` \| `E2`, `B`\>
 
 **`Since`**
 
@@ -391,7 +391,7 @@ assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.left("error") 
 
 ### fromNullable
 
-▸ **fromNullable**<`A`, `E`\>(`onNullable`): (`self`: `A`) => [`Either`](E.md#either)<`E`, `NonNullable`<`A`\>\>
+▸ **fromNullable**\<`A`, `E`\>(`onNullable`): (`self`: `A`) => [`Either`](E.md#either)\<`E`, `NonNullable`\<`A`\>\>
 
 Takes a lazy default and a nullable value, if the value is not nully (`null` or `undefined`), turn it into a `Right`, if the value is nully use
 the provided default as a `Left`.
@@ -413,7 +413,7 @@ the provided default as a `Left`.
 
 `fn`
 
-▸ (`self`): [`Either`](E.md#either)<`E`, `NonNullable`<`A`\>\>
+▸ (`self`): [`Either`](E.md#either)\<`E`, `NonNullable`\<`A`\>\>
 
 ##### Parameters
 
@@ -423,7 +423,7 @@ the provided default as a `Left`.
 
 ##### Returns
 
-[`Either`](E.md#either)<`E`, `NonNullable`<`A`\>\>
+[`Either`](E.md#either)\<`E`, `NonNullable`\<`A`\>\>
 
 **`Example`**
 
@@ -438,7 +438,7 @@ assert.deepStrictEqual(Either.fromNullable(null, () => "fallback"), Either.left(
 
 2.0.0
 
-▸ **fromNullable**<`A`, `E`\>(`self`, `onNullable`): [`Either`](E.md#either)<`E`, `NonNullable`<`A`\>\>
+▸ **fromNullable**\<`A`, `E`\>(`self`, `onNullable`): [`Either`](E.md#either)\<`E`, `NonNullable`\<`A`\>\>
 
 Takes a lazy default and a nullable value, if the value is not nully (`null` or `undefined`), turn it into a `Right`, if the value is nully use
 the provided default as a `Left`.
@@ -459,7 +459,7 @@ the provided default as a `Left`.
 
 #### Returns
 
-[`Either`](E.md#either)<`E`, `NonNullable`<`A`\>\>
+[`Either`](E.md#either)\<`E`, `NonNullable`\<`A`\>\>
 
 **`Example`**
 
@@ -478,7 +478,7 @@ assert.deepStrictEqual(Either.fromNullable(null, () => "fallback"), Either.left(
 
 ### fromOption
 
-▸ **fromOption**<`A`, `E`\>(`self`, `onNone`): [`Either`](E.md#either)<`E`, `A`\>
+▸ **fromOption**\<`A`, `E`\>(`self`, `onNone`): [`Either`](E.md#either)\<`E`, `A`\>
 
 #### Type parameters
 
@@ -489,14 +489,14 @@ assert.deepStrictEqual(Either.fromNullable(null, () => "fallback"), Either.left(
 
 #### Parameters
 
-| Name     | Type                          |
-| :------- | :---------------------------- |
-| `self`   | [`Option`](O.md#option)<`A`\> |
-| `onNone` | () => `E`                     |
+| Name     | Type                           |
+| :------- | :----------------------------- |
+| `self`   | [`Option`](O.md#option)\<`A`\> |
+| `onNone` | () => `E`                      |
 
 #### Returns
 
-[`Either`](E.md#either)<`E`, `A`\>
+[`Either`](E.md#either)\<`E`, `A`\>
 
 **`Example`**
 
@@ -512,7 +512,7 @@ assert.deepStrictEqual(Either.fromOption(Option.none(), () => "error"), Either.l
 
 2.0.0
 
-▸ **fromOption**<`E`\>(`onNone`): <A\>(`self`: [`Option`](O.md#option)<`A`\>) => [`Either`](E.md#either)<`E`, `A`\>
+▸ **fromOption**\<`E`\>(`onNone`): \<A\>(`self`: [`Option`](O.md#option)\<`A`\>) => [`Either`](E.md#either)\<`E`, `A`\>
 
 #### Type parameters
 
@@ -530,7 +530,7 @@ assert.deepStrictEqual(Either.fromOption(Option.none(), () => "error"), Either.l
 
 `fn`
 
-▸ <`A`\>(`self`): [`Either`](E.md#either)<`E`, `A`\>
+▸ \<`A`\>(`self`): [`Either`](E.md#either)\<`E`, `A`\>
 
 ##### Type parameters
 
@@ -540,13 +540,13 @@ assert.deepStrictEqual(Either.fromOption(Option.none(), () => "error"), Either.l
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`Option`](O.md#option)<`A`\> |
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
-[`Either`](E.md#either)<`E`, `A`\>
+[`Either`](E.md#either)\<`E`, `A`\>
 
 **`Example`**
 
@@ -566,7 +566,7 @@ assert.deepStrictEqual(Either.fromOption(Option.none(), () => "error"), Either.l
 
 ### left
 
-▸ **left**<`E`\>(`e`): [`Either`](E.md#either)<`E`, `never`\>
+▸ **left**\<`E`\>(`e`): [`Either`](E.md#either)\<`E`, `never`\>
 
 Constructs a new `Either` holding a `Left` value. This usually represents a failure, due to the right-bias of this
 structure.
@@ -585,7 +585,7 @@ structure.
 
 #### Returns
 
-[`Either`](E.md#either)<`E`, `never`\>
+[`Either`](E.md#either)\<`E`, `never`\>
 
 **`Since`**
 
@@ -595,7 +595,7 @@ structure.
 
 ### right
 
-▸ **right**<`A`\>(`a`): [`Either`](E.md#either)<`never`, `A`\>
+▸ **right**\<`A`\>(`a`): [`Either`](E.md#either)\<`never`, `A`\>
 
 Constructs a new `Either` holding a `Right` value. This usually represents a successful value due to the right bias
 of this structure.
@@ -614,7 +614,7 @@ of this structure.
 
 #### Returns
 
-[`Either`](E.md#either)<`never`, `A`\>
+[`Either`](E.md#either)\<`never`, `A`\>
 
 **`Since`**
 
@@ -624,7 +624,7 @@ of this structure.
 
 ### getEquivalence
 
-▸ **getEquivalence**<`E`, `A`\>(`EE`, `EA`): `Equivalence`<[`Either`](E.md#either)<`E`, `A`\>\>
+▸ **getEquivalence**\<`E`, `A`\>(`EE`, `EA`): `Equivalence`\<[`Either`](E.md#either)\<`E`, `A`\>\>
 
 #### Type parameters
 
@@ -635,14 +635,14 @@ of this structure.
 
 #### Parameters
 
-| Name | Type                |
-| :--- | :------------------ |
-| `EE` | `Equivalence`<`E`\> |
-| `EA` | `Equivalence`<`A`\> |
+| Name | Type                 |
+| :--- | :------------------- |
+| `EE` | `Equivalence`\<`E`\> |
+| `EA` | `Equivalence`\<`A`\> |
 
 #### Returns
 
-`Equivalence`<[`Either`](E.md#either)<`E`, `A`\>\>
+`Equivalence`\<[`Either`](E.md#either)\<`E`, `A`\>\>
 
 **`Since`**
 
@@ -652,7 +652,7 @@ of this structure.
 
 ### orElse
 
-▸ **orElse**<`E1`, `E2`, `B`\>(`that`): <A\>(`self`: [`Either`](E.md#either)<`E1`, `A`\>) => [`Either`](E.md#either)<`E2`, `B` \| `A`\>
+▸ **orElse**\<`E1`, `E2`, `B`\>(`that`): \<A\>(`self`: [`Either`](E.md#either)\<`E1`, `A`\>) => [`Either`](E.md#either)\<`E2`, `B` \| `A`\>
 
 Returns `self` if it is a `Right` or `that` otherwise.
 
@@ -666,15 +666,15 @@ Returns `self` if it is a `Right` or `that` otherwise.
 
 #### Parameters
 
-| Name   | Type                                                | Description                                                                                            |
-| :----- | :-------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
-| `that` | (`e1`: `E1`) => [`Either`](E.md#either)<`E2`, `B`\> | A function that takes the error value from `self` (if it's a `Left`) and returns a new `Either` value. |
+| Name   | Type                                                 | Description                                                                                            |
+| :----- | :--------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
+| `that` | (`e1`: `E1`) => [`Either`](E.md#either)\<`E2`, `B`\> | A function that takes the error value from `self` (if it's a `Left`) and returns a new `Either` value. |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`Either`](E.md#either)<`E2`, `B` \| `A`\>
+▸ \<`A`\>(`self`): [`Either`](E.md#either)\<`E2`, `B` \| `A`\>
 
 ##### Type parameters
 
@@ -684,19 +684,19 @@ Returns `self` if it is a `Right` or `that` otherwise.
 
 ##### Parameters
 
-| Name   | Type                                |
-| :----- | :---------------------------------- |
-| `self` | [`Either`](E.md#either)<`E1`, `A`\> |
+| Name   | Type                                 |
+| :----- | :----------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E1`, `A`\> |
 
 ##### Returns
 
-[`Either`](E.md#either)<`E2`, `B` \| `A`\>
+[`Either`](E.md#either)\<`E2`, `B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **orElse**<`E1`, `A`, `E2`, `B`\>(`self`, `that`): [`Either`](E.md#either)<`E2`, `A` \| `B`\>
+▸ **orElse**\<`E1`, `A`, `E2`, `B`\>(`self`, `that`): [`Either`](E.md#either)\<`E2`, `A` \| `B`\>
 
 Returns `self` if it is a `Right` or `that` otherwise.
 
@@ -711,14 +711,14 @@ Returns `self` if it is a `Right` or `that` otherwise.
 
 #### Parameters
 
-| Name   | Type                                                | Description                                                                                            |
-| :----- | :-------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
-| `self` | [`Either`](E.md#either)<`E1`, `A`\>                 | The input `Either` value to check and potentially return.                                              |
-| `that` | (`e1`: `E1`) => [`Either`](E.md#either)<`E2`, `B`\> | A function that takes the error value from `self` (if it's a `Left`) and returns a new `Either` value. |
+| Name   | Type                                                 | Description                                                                                            |
+| :----- | :--------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E1`, `A`\>                 | The input `Either` value to check and potentially return.                                              |
+| `that` | (`e1`: `E1`) => [`Either`](E.md#either)\<`E2`, `B`\> | A function that takes the error value from `self` (if it's a `Left`) and returns a new `Either` value. |
 
 #### Returns
 
-[`Either`](E.md#either)<`E2`, `A` \| `B`\>
+[`Either`](E.md#either)\<`E2`, `A` \| `B`\>
 
 **`Since`**
 
@@ -728,24 +728,24 @@ Returns `self` if it is a `Right` or `that` otherwise.
 
 ### gen
 
-▸ **gen**<`K`, `A`\>(`body`): [`Either`](E.md#either)<[`K`] extends [`Variance`<[`EitherTypeLambda`](../interfaces/E.EitherTypeLambda.md), `any`, `any`, `E`\>] ? `E` : `never`, `A`\>
+▸ **gen**\<`K`, `A`\>(`body`): [`Either`](E.md#either)\<[`K`] extends [`Variance`\<[`EitherTypeLambda`](../interfaces/E.EitherTypeLambda.md), `any`, `any`, `E`\>] ? `E` : `never`, `A`\>
 
 #### Type parameters
 
-| Name | Type                                                                                                |
-| :--- | :-------------------------------------------------------------------------------------------------- |
-| `K`  | extends `Variance`<[`EitherTypeLambda`](../interfaces/E.EitherTypeLambda.md), `any`, `any`, `any`\> |
-| `A`  | `A`                                                                                                 |
+| Name | Type                                                                                                 |
+| :--- | :--------------------------------------------------------------------------------------------------- |
+| `K`  | extends `Variance`\<[`EitherTypeLambda`](../interfaces/E.EitherTypeLambda.md), `any`, `any`, `any`\> |
+| `A`  | `A`                                                                                                  |
 
 #### Parameters
 
-| Name   | Type                                                                                                                   |
-| :----- | :--------------------------------------------------------------------------------------------------------------------- |
-| `body` | (`resume`: `Adapter`<[`EitherTypeLambda`](../interfaces/E.EitherTypeLambda.md)\>) => `Generator`<`K`, `A`, `unknown`\> |
+| Name   | Type                                                                                                                     |
+| :----- | :----------------------------------------------------------------------------------------------------------------------- |
+| `body` | (`resume`: `Adapter`\<[`EitherTypeLambda`](../interfaces/E.EitherTypeLambda.md)\>) => `Generator`\<`K`, `A`, `unknown`\> |
 
 #### Returns
 
-[`Either`](E.md#either)<[`K`] extends [`Variance`<[`EitherTypeLambda`](../interfaces/E.EitherTypeLambda.md), `any`, `any`, `E`\>] ? `E` : `never`, `A`\>
+[`Either`](E.md#either)\<[`K`] extends [`Variance`\<[`EitherTypeLambda`](../interfaces/E.EitherTypeLambda.md), `any`, `any`, `E`\>] ? `E` : `never`, `A`\>
 
 **`Since`**
 
@@ -755,7 +755,7 @@ Returns `self` if it is a `Right` or `that` otherwise.
 
 ### getLeft
 
-▸ **getLeft**<`E`, `A`\>(`self`): [`Option`](O.md#option)<`E`\>
+▸ **getLeft**\<`E`, `A`\>(`self`): [`Option`](O.md#option)\<`E`\>
 
 Converts a `Either` to an `Option` discarding the value.
 
@@ -768,13 +768,13 @@ Converts a `Either` to an `Option` discarding the value.
 
 #### Parameters
 
-| Name   | Type                               |
-| :----- | :--------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> |
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
 
 #### Returns
 
-[`Option`](O.md#option)<`E`\>
+[`Option`](O.md#option)\<`E`\>
 
 **`Example`**
 
@@ -794,7 +794,7 @@ assert.deepStrictEqual(E.getLeft(E.left("err")), O.some("err"));
 
 ### getOrElse
 
-▸ **getOrElse**<`E`, `B`\>(`onLeft`): <A\>(`self`: [`Either`](E.md#either)<`E`, `A`\>) => `B` \| `A`
+▸ **getOrElse**\<`E`, `B`\>(`onLeft`): \<A\>(`self`: [`Either`](E.md#either)\<`E`, `A`\>) => `B` \| `A`
 
 Returns the wrapped value if it's a `Right` or a default value if is a `Left`.
 
@@ -815,7 +815,7 @@ Returns the wrapped value if it's a `Right` or a default value if is a `Left`.
 
 `fn`
 
-▸ <`A`\>(`self`): `B` \| `A`
+▸ \<`A`\>(`self`): `B` \| `A`
 
 ##### Type parameters
 
@@ -825,9 +825,9 @@ Returns the wrapped value if it's a `Right` or a default value if is a `Left`.
 
 ##### Parameters
 
-| Name   | Type                               |
-| :----- | :--------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> |
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
 
 ##### Returns
 
@@ -846,7 +846,7 @@ assert.deepStrictEqual(Either.getOrElse(Either.left("not a number"), (error) => 
 
 2.0.0
 
-▸ **getOrElse**<`E`, `A`, `B`\>(`self`, `onLeft`): `A` \| `B`
+▸ **getOrElse**\<`E`, `A`, `B`\>(`self`, `onLeft`): `A` \| `B`
 
 Returns the wrapped value if it's a `Right` or a default value if is a `Left`.
 
@@ -860,10 +860,10 @@ Returns the wrapped value if it's a `Right` or a default value if is a `Left`.
 
 #### Parameters
 
-| Name     | Type                               |
-| :------- | :--------------------------------- |
-| `self`   | [`Either`](E.md#either)<`E`, `A`\> |
-| `onLeft` | (`e`: `E`) => `B`                  |
+| Name     | Type                                |
+| :------- | :---------------------------------- |
+| `self`   | [`Either`](E.md#either)\<`E`, `A`\> |
+| `onLeft` | (`e`: `E`) => `B`                   |
 
 #### Returns
 
@@ -886,7 +886,7 @@ assert.deepStrictEqual(Either.getOrElse(Either.left("not a number"), (error) => 
 
 ### getOrNull
 
-▸ **getOrNull**<`E`, `A`\>(`self`): `null` \| `A`
+▸ **getOrNull**\<`E`, `A`\>(`self`): `null` \| `A`
 
 #### Type parameters
 
@@ -897,9 +897,9 @@ assert.deepStrictEqual(Either.getOrElse(Either.left("not a number"), (error) => 
 
 #### Parameters
 
-| Name   | Type                               |
-| :----- | :--------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> |
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
 
 #### Returns
 
@@ -922,7 +922,7 @@ assert.deepStrictEqual(Either.getOrNull(Either.left("a")), null);
 
 ### getOrThrow
 
-▸ **getOrThrow**<`E`, `A`\>(`self`): `A`
+▸ **getOrThrow**\<`E`, `A`\>(`self`): `A`
 
 Extracts the value of an `Either` or throws if the `Either` is `Left`.
 
@@ -937,9 +937,9 @@ The thrown error is a default error. To configure the error thrown, see [getOrTh
 
 #### Parameters
 
-| Name   | Type                               | Description                             |
-| :----- | :--------------------------------- | :-------------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> | The `Either` to extract the value from. |
+| Name   | Type                                | Description                             |
+| :----- | :---------------------------------- | :-------------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> | The `Either` to extract the value from. |
 
 #### Returns
 
@@ -966,7 +966,7 @@ assert.throws(() => E.getOrThrow(E.left("error")));
 
 ### getOrThrowWith
 
-▸ **getOrThrowWith**<`E`\>(`onLeft`): <A\>(`self`: [`Either`](E.md#either)<`E`, `A`\>) => `A`
+▸ **getOrThrowWith**\<`E`\>(`onLeft`): \<A\>(`self`: [`Either`](E.md#either)\<`E`, `A`\>) => `A`
 
 Extracts the value of an `Either` or throws if the `Either` is `Left`.
 
@@ -988,7 +988,7 @@ If a default error is sufficient for your use case and you don't need to configu
 
 `fn`
 
-▸ <`A`\>(`self`): `A`
+▸ \<`A`\>(`self`): `A`
 
 ##### Type parameters
 
@@ -998,9 +998,9 @@ If a default error is sufficient for your use case and you don't need to configu
 
 ##### Parameters
 
-| Name   | Type                               |
-| :----- | :--------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> |
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
 
 ##### Returns
 
@@ -1022,7 +1022,7 @@ assert.throws(() => E.getOrThrowWith(E.left("error"), () => new Error("Unexpecte
 
 2.0.0
 
-▸ **getOrThrowWith**<`E`, `A`\>(`self`, `onLeft`): `A`
+▸ **getOrThrowWith**\<`E`, `A`\>(`self`, `onLeft`): `A`
 
 Extracts the value of an `Either` or throws if the `Either` is `Left`.
 
@@ -1037,10 +1037,10 @@ If a default error is sufficient for your use case and you don't need to configu
 
 #### Parameters
 
-| Name     | Type                               | Description                                                                                  |
-| :------- | :--------------------------------- | :------------------------------------------------------------------------------------------- |
-| `self`   | [`Either`](E.md#either)<`E`, `A`\> | The `Either` to extract the value from.                                                      |
-| `onLeft` | (`e`: `E`) => `unknown`            | A function that will be called if the `Either` is `Left`. It returns the error to be thrown. |
+| Name     | Type                                | Description                                                                                  |
+| :------- | :---------------------------------- | :------------------------------------------------------------------------------------------- |
+| `self`   | [`Either`](E.md#either)\<`E`, `A`\> | The `Either` to extract the value from.                                                      |
+| `onLeft` | (`e`: `E`) => `unknown`             | A function that will be called if the `Either` is `Left`. It returns the error to be thrown. |
 
 #### Returns
 
@@ -1066,7 +1066,7 @@ assert.throws(() => E.getOrThrowWith(E.left("error"), () => new Error("Unexpecte
 
 ### getOrUndefined
 
-▸ **getOrUndefined**<`E`, `A`\>(`self`): `undefined` \| `A`
+▸ **getOrUndefined**\<`E`, `A`\>(`self`): `undefined` \| `A`
 
 #### Type parameters
 
@@ -1077,9 +1077,9 @@ assert.throws(() => E.getOrThrowWith(E.left("error"), () => new Error("Unexpecte
 
 #### Parameters
 
-| Name   | Type                               |
-| :----- | :--------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> |
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
 
 #### Returns
 
@@ -1102,7 +1102,7 @@ assert.deepStrictEqual(Either.getOrUndefined(Either.left("a")), undefined);
 
 ### getRight
 
-▸ **getRight**<`E`, `A`\>(`self`): [`Option`](O.md#option)<`A`\>
+▸ **getRight**\<`E`, `A`\>(`self`): [`Option`](O.md#option)\<`A`\>
 
 Converts a `Either` to an `Option` discarding the `Left`.
 
@@ -1117,13 +1117,13 @@ Alias of toOption.
 
 #### Parameters
 
-| Name   | Type                               |
-| :----- | :--------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> |
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
 
 #### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Example`**
 
@@ -1143,7 +1143,7 @@ assert.deepStrictEqual(E.getRight(E.left("err")), O.none());
 
 ### merge
 
-▸ **merge**<`E`, `A`\>(`self`): `E` \| `A`
+▸ **merge**\<`E`, `A`\>(`self`): `E` \| `A`
 
 #### Type parameters
 
@@ -1154,9 +1154,9 @@ assert.deepStrictEqual(E.getRight(E.left("err")), O.none());
 
 #### Parameters
 
-| Name   | Type                               |
-| :----- | :--------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> |
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
 
 #### Returns
 
@@ -1170,7 +1170,7 @@ assert.deepStrictEqual(E.getRight(E.left("err")), O.none());
 
 ### isEither
 
-▸ **isEither**(`input`): input is Either<unknown, unknown\>
+▸ **isEither**(`input`): input is Either\<unknown, unknown\>
 
 Tests if a value is a `Either`.
 
@@ -1182,7 +1182,7 @@ Tests if a value is a `Either`.
 
 #### Returns
 
-input is Either<unknown, unknown\>
+input is Either\<unknown, unknown\>
 
 **`Example`**
 
@@ -1202,7 +1202,7 @@ assert.deepStrictEqual(isEither({ right: 1 }), false);
 
 ### isLeft
 
-▸ **isLeft**<`E`, `A`\>(`self`): self is Left<E, A\>
+▸ **isLeft**\<`E`, `A`\>(`self`): self is Left\<E, A\>
 
 Determine if a `Either` is a `Left`.
 
@@ -1215,13 +1215,13 @@ Determine if a `Either` is a `Left`.
 
 #### Parameters
 
-| Name   | Type                               | Description            |
-| :----- | :--------------------------------- | :--------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> | The `Either` to check. |
+| Name   | Type                                | Description            |
+| :----- | :---------------------------------- | :--------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> | The `Either` to check. |
 
 #### Returns
 
-self is Left<E, A\>
+self is Left\<E, A\>
 
 **`Example`**
 
@@ -1240,7 +1240,7 @@ assert.deepStrictEqual(isLeft(left("a")), true);
 
 ### isRight
 
-▸ **isRight**<`E`, `A`\>(`self`): self is Right<E, A\>
+▸ **isRight**\<`E`, `A`\>(`self`): self is Right\<E, A\>
 
 Determine if a `Either` is a `Right`.
 
@@ -1253,13 +1253,13 @@ Determine if a `Either` is a `Right`.
 
 #### Parameters
 
-| Name   | Type                               | Description            |
-| :----- | :--------------------------------- | :--------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> | The `Either` to check. |
+| Name   | Type                                | Description            |
+| :----- | :---------------------------------- | :--------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> | The `Either` to check. |
 
 #### Returns
 
-self is Right<E, A\>
+self is Right\<E, A\>
 
 **`Example`**
 
@@ -1278,7 +1278,7 @@ assert.deepStrictEqual(isRight(left("a")), false);
 
 ### map
 
-▸ **map**<`A`, `B`\>(`f`): <E\>(`self`: [`Either`](E.md#either)<`E`, `A`\>) => [`Either`](E.md#either)<`E`, `B`\>
+▸ **map**\<`A`, `B`\>(`f`): \<E\>(`self`: [`Either`](E.md#either)\<`E`, `A`\>) => [`Either`](E.md#either)\<`E`, `B`\>
 
 Maps the `Right` side of an `Either` value to a new `Either` value.
 
@@ -1299,7 +1299,7 @@ Maps the `Right` side of an `Either` value to a new `Either` value.
 
 `fn`
 
-▸ <`E`\>(`self`): [`Either`](E.md#either)<`E`, `B`\>
+▸ \<`E`\>(`self`): [`Either`](E.md#either)\<`E`, `B`\>
 
 ##### Type parameters
 
@@ -1309,19 +1309,19 @@ Maps the `Right` side of an `Either` value to a new `Either` value.
 
 ##### Parameters
 
-| Name   | Type                               |
-| :----- | :--------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> |
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
 
 ##### Returns
 
-[`Either`](E.md#either)<`E`, `B`\>
+[`Either`](E.md#either)\<`E`, `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **map**<`E`, `A`, `B`\>(`self`, `f`): [`Either`](E.md#either)<`E`, `B`\>
+▸ **map**\<`E`, `A`, `B`\>(`self`, `f`): [`Either`](E.md#either)\<`E`, `B`\>
 
 Maps the `Right` side of an `Either` value to a new `Either` value.
 
@@ -1335,14 +1335,14 @@ Maps the `Right` side of an `Either` value to a new `Either` value.
 
 #### Parameters
 
-| Name   | Type                               | Description                                        |
-| :----- | :--------------------------------- | :------------------------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> | An `Either` to map                                 |
-| `f`    | (`a`: `A`) => `B`                  | The function to map over the value of the `Either` |
+| Name   | Type                                | Description                                        |
+| :----- | :---------------------------------- | :------------------------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> | An `Either` to map                                 |
+| `f`    | (`a`: `A`) => `B`                   | The function to map over the value of the `Either` |
 
 #### Returns
 
-[`Either`](E.md#either)<`E`, `B`\>
+[`Either`](E.md#either)\<`E`, `B`\>
 
 **`Since`**
 
@@ -1352,7 +1352,7 @@ Maps the `Right` side of an `Either` value to a new `Either` value.
 
 ### mapBoth
 
-▸ **mapBoth**<`E1`, `E2`, `A`, `B`\>(`options`): (`self`: [`Either`](E.md#either)<`E1`, `A`\>) => [`Either`](E.md#either)<`E2`, `B`\>
+▸ **mapBoth**\<`E1`, `E2`, `A`, `B`\>(`options`): (`self`: [`Either`](E.md#either)\<`E1`, `A`\>) => [`Either`](E.md#either)\<`E2`, `B`\>
 
 #### Type parameters
 
@@ -1375,23 +1375,23 @@ Maps the `Right` side of an `Either` value to a new `Either` value.
 
 `fn`
 
-▸ (`self`): [`Either`](E.md#either)<`E2`, `B`\>
+▸ (`self`): [`Either`](E.md#either)\<`E2`, `B`\>
 
 ##### Parameters
 
-| Name   | Type                                |
-| :----- | :---------------------------------- |
-| `self` | [`Either`](E.md#either)<`E1`, `A`\> |
+| Name   | Type                                 |
+| :----- | :----------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E1`, `A`\> |
 
 ##### Returns
 
-[`Either`](E.md#either)<`E2`, `B`\>
+[`Either`](E.md#either)\<`E2`, `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **mapBoth**<`E1`, `A`, `E2`, `B`\>(`self`, `options`): [`Either`](E.md#either)<`E2`, `B`\>
+▸ **mapBoth**\<`E1`, `A`, `E2`, `B`\>(`self`, `options`): [`Either`](E.md#either)\<`E2`, `B`\>
 
 #### Type parameters
 
@@ -1404,16 +1404,16 @@ Maps the `Right` side of an `Either` value to a new `Either` value.
 
 #### Parameters
 
-| Name              | Type                                |
-| :---------------- | :---------------------------------- |
-| `self`            | [`Either`](E.md#either)<`E1`, `A`\> |
-| `options`         | `Object`                            |
-| `options.onLeft`  | (`e`: `E1`) => `E2`                 |
-| `options.onRight` | (`a`: `A`) => `B`                   |
+| Name              | Type                                 |
+| :---------------- | :----------------------------------- |
+| `self`            | [`Either`](E.md#either)\<`E1`, `A`\> |
+| `options`         | `Object`                             |
+| `options.onLeft`  | (`e`: `E1`) => `E2`                  |
+| `options.onRight` | (`a`: `A`) => `B`                    |
 
 #### Returns
 
-[`Either`](E.md#either)<`E2`, `B`\>
+[`Either`](E.md#either)\<`E2`, `B`\>
 
 **`Since`**
 
@@ -1423,7 +1423,7 @@ Maps the `Right` side of an `Either` value to a new `Either` value.
 
 ### mapLeft
 
-▸ **mapLeft**<`E`, `G`\>(`f`): <A\>(`self`: [`Either`](E.md#either)<`E`, `A`\>) => [`Either`](E.md#either)<`G`, `A`\>
+▸ **mapLeft**\<`E`, `G`\>(`f`): \<A\>(`self`: [`Either`](E.md#either)\<`E`, `A`\>) => [`Either`](E.md#either)\<`G`, `A`\>
 
 Maps the `Left` side of an `Either` value to a new `Either` value.
 
@@ -1444,7 +1444,7 @@ Maps the `Left` side of an `Either` value to a new `Either` value.
 
 `fn`
 
-▸ <`A`\>(`self`): [`Either`](E.md#either)<`G`, `A`\>
+▸ \<`A`\>(`self`): [`Either`](E.md#either)\<`G`, `A`\>
 
 ##### Type parameters
 
@@ -1454,19 +1454,19 @@ Maps the `Left` side of an `Either` value to a new `Either` value.
 
 ##### Parameters
 
-| Name   | Type                               |
-| :----- | :--------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> |
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
 
 ##### Returns
 
-[`Either`](E.md#either)<`G`, `A`\>
+[`Either`](E.md#either)\<`G`, `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **mapLeft**<`E`, `A`, `G`\>(`self`, `f`): [`Either`](E.md#either)<`G`, `A`\>
+▸ **mapLeft**\<`E`, `A`, `G`\>(`self`, `f`): [`Either`](E.md#either)\<`G`, `A`\>
 
 Maps the `Left` side of an `Either` value to a new `Either` value.
 
@@ -1480,14 +1480,14 @@ Maps the `Left` side of an `Either` value to a new `Either` value.
 
 #### Parameters
 
-| Name   | Type                               | Description                                                                   |
-| :----- | :--------------------------------- | :---------------------------------------------------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> | The input `Either` value to map.                                              |
-| `f`    | (`e`: `E`) => `G`                  | A transformation function to apply to the `Left` value of the input `Either`. |
+| Name   | Type                                | Description                                                                   |
+| :----- | :---------------------------------- | :---------------------------------------------------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> | The input `Either` value to map.                                              |
+| `f`    | (`e`: `E`) => `G`                   | A transformation function to apply to the `Left` value of the input `Either`. |
 
 #### Returns
 
-[`Either`](E.md#either)<`G`, `A`\>
+[`Either`](E.md#either)\<`G`, `A`\>
 
 **`Since`**
 
@@ -1497,7 +1497,7 @@ Maps the `Left` side of an `Either` value to a new `Either` value.
 
 ### Either
 
-Ƭ **Either**<`E`, `A`\>: [`Left`](../interfaces/E.Left.md)<`E`, `A`\> \| [`Right`](../interfaces/E.Right.md)<`E`, `A`\>
+Ƭ **Either**\<`E`, `A`\>: [`Left`](../interfaces/E.Left.md)\<`E`, `A`\> \| [`Right`](../interfaces/E.Right.md)\<`E`, `A`\>
 
 **`Since`**
 
@@ -1514,7 +1514,7 @@ Maps the `Left` side of an `Either` value to a new `Either` value.
 
 ### match
 
-▸ **match**<`E`, `B`, `A`, `C`\>(`options`): (`self`: [`Either`](E.md#either)<`E`, `A`\>) => `B` \| `C`
+▸ **match**\<`E`, `B`, `A`, `C`\>(`options`): (`self`: [`Either`](E.md#either)\<`E`, `A`\>) => `B` \| `C`
 
 Takes two functions and an `Either` value, if the value is a `Left` the inner value is applied to the `onLeft function, if the value is a`Right`the inner value is applied to the`onRight` function.
 
@@ -1557,9 +1557,9 @@ pipe(E.left(['string 1', 'string 2']), E.match({ onLeft, onRight })),
 
 ##### Parameters
 
-| Name   | Type                               |
-| :----- | :--------------------------------- |
-| `self` | [`Either`](E.md#either)<`E`, `A`\> |
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
 
 ##### Returns
 
@@ -1569,7 +1569,7 @@ pipe(E.left(['string 1', 'string 2']), E.match({ onLeft, onRight })),
 
 2.0.0
 
-▸ **match**<`E`, `A`, `B`, `C`\>(`self`, `options`): `B` \| `C`
+▸ **match**\<`E`, `A`, `B`, `C`\>(`self`, `options`): `B` \| `C`
 
 Takes two functions and an `Either` value, if the value is a `Left` the inner value is applied to the `onLeft function, if the value is a`Right`the inner value is applied to the`onRight` function.
 
@@ -1598,12 +1598,12 @@ pipe(E.left(['string 1', 'string 2']), E.match({ onLeft, onRight })),
 
 #### Parameters
 
-| Name              | Type                               |
-| :---------------- | :--------------------------------- |
-| `self`            | [`Either`](E.md#either)<`E`, `A`\> |
-| `options`         | `Object`                           |
-| `options.onLeft`  | (`e`: `E`) => `B`                  |
-| `options.onRight` | (`a`: `A`) => `C`                  |
+| Name              | Type                                |
+| :---------------- | :---------------------------------- |
+| `self`            | [`Either`](E.md#either)\<`E`, `A`\> |
+| `options`         | `Object`                            |
+| `options.onLeft`  | (`e`: `E`) => `B`                   |
+| `options.onRight` | (`a`: `A`) => `C`                   |
 
 #### Returns
 

@@ -31,7 +31,7 @@ Rule application condition.
 
 ### CreateRule
 
-Ƭ **CreateRule**: `Parameters`<`ReturnType`<typeof `ESLintUtils.RuleCreator`\>\>[`0`][`"create"`]
+Ƭ **CreateRule**: `Parameters`\<`ReturnType`\<typeof `ESLintUtils.RuleCreator`\>\>[`0`][`"create"`]
 
 Rule creator function.
 
@@ -43,13 +43,13 @@ Rule creator function.
 
 ### ReactSettings
 
-Ƭ **ReactSettings**: `ReadonlyDeep`<{ `[key: string]`: `unknown`; `fragment`: `string` ; `pragma`: `string` ; `version`: `string` }\>
+Ƭ **ReactSettings**: `ReadonlyDeep`\<\{ `[key: string]`: `unknown`; `fragment`: `string` ; `pragma`: `string` ; `version`: `string` }\>
 
 ---
 
 ### RuleContext
 
-Ƭ **RuleContext**: `Parameters`<[`CreateRule`](README.md#createrule)\>[`0`]
+Ƭ **RuleContext**: `Parameters`\<[`CreateRule`](README.md#createrule)\>[`0`]
 
 Rule context.
 
@@ -61,7 +61,7 @@ Rule context.
 
 ### RuleDeclaration
 
-Ƭ **RuleDeclaration**: [[`Severity`](README.md#severity), Record<string, unknown\>?] \| [`Severity`](README.md#severity)
+Ƭ **RuleDeclaration**: [[`Severity`](README.md#severity), Record\<string, unknown\>?] \| [`Severity`](README.md#severity)
 
 Rule declaration.
 
@@ -73,7 +73,7 @@ Rule declaration.
 
 ### RuleOptions
 
-Ƭ **RuleOptions**: `Parameters`<[`CreateRule`](README.md#createrule)\>[`1`]
+Ƭ **RuleOptions**: `Parameters`\<[`CreateRule`](README.md#createrule)\>[`1`]
 
 Rule options.
 
@@ -85,7 +85,7 @@ Rule options.
 
 ### RulePreset
 
-Ƭ **RulePreset**: `Record`<`string`, [`RuleDeclaration`](README.md#ruledeclaration)\>
+Ƭ **RulePreset**: `Record`\<`string`, [`RuleDeclaration`](README.md#ruledeclaration)\>
 
 Rule config preset.
 

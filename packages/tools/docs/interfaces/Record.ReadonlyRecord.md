@@ -1,6 +1,6 @@
 [@eslint-react/tools](../README.md) / [Record](../modules/Record.md) / ReadonlyRecord
 
-# Interface: ReadonlyRecord<A\>
+# Interface: ReadonlyRecord\<A\>
 
 [Record](../modules/Record.md).ReadonlyRecord
 

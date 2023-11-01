@@ -68,4 +68,4 @@ TypeLambda.Target
 
 ### type
 
-• `Readonly` **type**: [`ReadonlyRecord`](Record.ReadonlyRecord.md)<`unknown`\>
+• `Readonly` **type**: [`ReadonlyRecord`](Record.ReadonlyRecord.md)\<`unknown`\>

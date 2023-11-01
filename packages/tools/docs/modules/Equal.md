@@ -22,7 +22,7 @@
 
 ### equals
 
-▸ **equals**<`B`\>(`that`): <A\>(`self`: `A`) => `boolean`
+▸ **equals**\<`B`\>(`that`): \<A\>(`self`: `A`) => `boolean`
 
 #### Type parameters
 
@@ -40,7 +40,7 @@
 
 `fn`
 
-▸ <`A`\>(`self`): `boolean`
+▸ \<`A`\>(`self`): `boolean`
 
 ##### Type parameters
 
@@ -62,7 +62,7 @@
 
 2.0.0
 
-▸ **equals**<`A`, `B`\>(`self`, `that`): `boolean`
+▸ **equals**\<`A`, `B`\>(`self`, `that`): `boolean`
 
 #### Type parameters
 
@@ -106,7 +106,7 @@ u is Equal
 
 ### equivalence
 
-▸ **equivalence**<`A`\>(): `Equivalence`<`A`\>
+▸ **equivalence**\<`A`\>(): `Equivalence`\<`A`\>
 
 #### Type parameters
 
@@ -116,7 +116,7 @@ u is Equal
 
 #### Returns
 
-`Equivalence`<`A`\>
+`Equivalence`\<`A`\>
 
 **`Since`**
 

@@ -32,7 +32,7 @@
 
 ### pop
 
-▸ **pop**<`A`\>(`self`): `undefined` \| `A`
+▸ **pop**\<`A`\>(`self`): `undefined` \| `A`
 
 Removes the last value from the list and returns it, if it exists.
 
@@ -44,9 +44,9 @@ Removes the last value from the list and returns it, if it exists.
 
 #### Parameters
 
-| Name   | Type                                                        |
-| :----- | :---------------------------------------------------------- |
-| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\> |
+| Name   | Type                                                         |
+| :----- | :----------------------------------------------------------- |
+| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 #### Returns
 
@@ -60,7 +60,7 @@ Removes the last value from the list and returns it, if it exists.
 
 ### reset
 
-▸ **reset**<`A`\>(`self`): [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+▸ **reset**\<`A`\>(`self`): [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 Removes all elements from the doubly-linked list.
 
@@ -72,13 +72,13 @@ Removes all elements from the doubly-linked list.
 
 #### Parameters
 
-| Name   | Type                                                        |
-| :----- | :---------------------------------------------------------- |
-| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\> |
+| Name   | Type                                                         |
+| :----- | :----------------------------------------------------------- |
+| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 #### Returns
 
-[`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+[`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 **`Since`**
 
@@ -88,7 +88,7 @@ Removes all elements from the doubly-linked list.
 
 ### shift
 
-▸ **shift**<`A`\>(`self`): `undefined` \| `A`
+▸ **shift**\<`A`\>(`self`): `undefined` \| `A`
 
 Removes the first value from the list and returns it, if it exists.
 
@@ -100,9 +100,9 @@ Removes the first value from the list and returns it, if it exists.
 
 #### Parameters
 
-| Name   | Type                                                        |
-| :----- | :---------------------------------------------------------- |
-| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\> |
+| Name   | Type                                                         |
+| :----- | :----------------------------------------------------------- |
+| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 #### Returns
 
@@ -116,7 +116,7 @@ Removes the first value from the list and returns it, if it exists.
 
 ### append
 
-▸ **append**<`A`\>(`value`): (`self`: [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>) => [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+▸ **append**\<`A`\>(`value`): (`self`: [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>) => [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 Appends the specified element to the end of the `MutableList`.
 
@@ -136,23 +136,23 @@ Appends the specified element to the end of the `MutableList`.
 
 `fn`
 
-▸ (`self`): [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+▸ (`self`): [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 ##### Parameters
 
-| Name   | Type                                                        |
-| :----- | :---------------------------------------------------------- |
-| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\> |
+| Name   | Type                                                         |
+| :----- | :----------------------------------------------------------- |
+| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 ##### Returns
 
-[`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+[`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **append**<`A`\>(`self`, `value`): [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+▸ **append**\<`A`\>(`self`, `value`): [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 Appends the specified element to the end of the `MutableList`.
 
@@ -164,14 +164,14 @@ Appends the specified element to the end of the `MutableList`.
 
 #### Parameters
 
-| Name    | Type                                                        |
-| :------ | :---------------------------------------------------------- |
-| `self`  | [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\> |
-| `value` | `A`                                                         |
+| Name    | Type                                                         |
+| :------ | :----------------------------------------------------------- |
+| `self`  | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
+| `value` | `A`                                                          |
 
 #### Returns
 
-[`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+[`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 **`Since`**
 
@@ -181,7 +181,7 @@ Appends the specified element to the end of the `MutableList`.
 
 ### prepend
 
-▸ **prepend**<`A`\>(`value`): (`self`: [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>) => [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+▸ **prepend**\<`A`\>(`value`): (`self`: [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>) => [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 Prepends the specified value to the beginning of the list.
 
@@ -201,23 +201,23 @@ Prepends the specified value to the beginning of the list.
 
 `fn`
 
-▸ (`self`): [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+▸ (`self`): [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 ##### Parameters
 
-| Name   | Type                                                        |
-| :----- | :---------------------------------------------------------- |
-| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\> |
+| Name   | Type                                                         |
+| :----- | :----------------------------------------------------------- |
+| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 ##### Returns
 
-[`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+[`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **prepend**<`A`\>(`self`, `value`): [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+▸ **prepend**\<`A`\>(`self`, `value`): [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 Prepends the specified value to the beginning of the list.
 
@@ -229,14 +229,14 @@ Prepends the specified value to the beginning of the list.
 
 #### Parameters
 
-| Name    | Type                                                        |
-| :------ | :---------------------------------------------------------- |
-| `self`  | [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\> |
-| `value` | `A`                                                         |
+| Name    | Type                                                         |
+| :------ | :----------------------------------------------------------- |
+| `self`  | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
+| `value` | `A`                                                          |
 
 #### Returns
 
-[`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+[`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 **`Since`**
 
@@ -246,7 +246,7 @@ Prepends the specified value to the beginning of the list.
 
 ### empty
 
-▸ **empty**<`A`\>(): [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+▸ **empty**\<`A`\>(): [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 Creates an empty `MutableList`.
 
@@ -258,7 +258,7 @@ Creates an empty `MutableList`.
 
 #### Returns
 
-[`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+[`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 **`Since`**
 
@@ -268,7 +268,7 @@ Creates an empty `MutableList`.
 
 ### fromIterable
 
-▸ **fromIterable**<`A`\>(`iterable`): [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+▸ **fromIterable**\<`A`\>(`iterable`): [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 Creates a new `MutableList` from an `Iterable`.
 
@@ -280,13 +280,13 @@ Creates a new `MutableList` from an `Iterable`.
 
 #### Parameters
 
-| Name       | Type             |
-| :--------- | :--------------- |
-| `iterable` | `Iterable`<`A`\> |
+| Name       | Type              |
+| :--------- | :---------------- |
+| `iterable` | `Iterable`\<`A`\> |
 
 #### Returns
 
-[`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+[`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 **`Since`**
 
@@ -296,7 +296,7 @@ Creates a new `MutableList` from an `Iterable`.
 
 ### make
 
-▸ **make**<`A`\>(`...elements`): [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+▸ **make**\<`A`\>(`...elements`): [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 Creates a new `MutableList` from the specified elements.
 
@@ -314,7 +314,7 @@ Creates a new `MutableList` from the specified elements.
 
 #### Returns
 
-[`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>
+[`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
 **`Since`**
 
@@ -324,7 +324,7 @@ Creates a new `MutableList` from the specified elements.
 
 ### head
 
-▸ **head**<`A`\>(`self`): `undefined` \| `A`
+▸ **head**\<`A`\>(`self`): `undefined` \| `A`
 
 Returns the first element of the list, if it exists.
 
@@ -336,9 +336,9 @@ Returns the first element of the list, if it exists.
 
 #### Parameters
 
-| Name   | Type                                                        |
-| :----- | :---------------------------------------------------------- |
-| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\> |
+| Name   | Type                                                         |
+| :----- | :----------------------------------------------------------- |
+| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 #### Returns
 
@@ -352,7 +352,7 @@ Returns the first element of the list, if it exists.
 
 ### isEmpty
 
-▸ **isEmpty**<`A`\>(`self`): `boolean`
+▸ **isEmpty**\<`A`\>(`self`): `boolean`
 
 Returns `true` if the list contains zero elements, `false`, otherwise.
 
@@ -364,9 +364,9 @@ Returns `true` if the list contains zero elements, `false`, otherwise.
 
 #### Parameters
 
-| Name   | Type                                                        |
-| :----- | :---------------------------------------------------------- |
-| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\> |
+| Name   | Type                                                         |
+| :----- | :----------------------------------------------------------- |
+| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 #### Returns
 
@@ -380,7 +380,7 @@ Returns `true` if the list contains zero elements, `false`, otherwise.
 
 ### length
 
-▸ **length**<`A`\>(`self`): `number`
+▸ **length**\<`A`\>(`self`): `number`
 
 Returns the length of the list.
 
@@ -392,9 +392,9 @@ Returns the length of the list.
 
 #### Parameters
 
-| Name   | Type                                                        |
-| :----- | :---------------------------------------------------------- |
-| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\> |
+| Name   | Type                                                         |
+| :----- | :----------------------------------------------------------- |
+| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 #### Returns
 
@@ -408,7 +408,7 @@ Returns the length of the list.
 
 ### tail
 
-▸ **tail**<`A`\>(`self`): `undefined` \| `A`
+▸ **tail**\<`A`\>(`self`): `undefined` \| `A`
 
 Returns the last element of the list, if it exists.
 
@@ -420,9 +420,9 @@ Returns the last element of the list, if it exists.
 
 #### Parameters
 
-| Name   | Type                                                        |
-| :----- | :---------------------------------------------------------- |
-| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\> |
+| Name   | Type                                                         |
+| :----- | :----------------------------------------------------------- |
+| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 #### Returns
 
@@ -446,7 +446,7 @@ Returns the last element of the list, if it exists.
 
 ### forEach
 
-▸ **forEach**<`A`\>(`f`): (`self`: [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\>) => `void`
+▸ **forEach**\<`A`\>(`f`): (`self`: [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>) => `void`
 
 Executes the specified function `f` for each element in the list.
 
@@ -470,9 +470,9 @@ Executes the specified function `f` for each element in the list.
 
 ##### Parameters
 
-| Name   | Type                                                        |
-| :----- | :---------------------------------------------------------- |
-| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\> |
+| Name   | Type                                                         |
+| :----- | :----------------------------------------------------------- |
+| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 ##### Returns
 
@@ -482,7 +482,7 @@ Executes the specified function `f` for each element in the list.
 
 2.0.0
 
-▸ **forEach**<`A`\>(`self`, `f`): `void`
+▸ **forEach**\<`A`\>(`self`, `f`): `void`
 
 Executes the specified function `f` for each element in the list.
 
@@ -494,10 +494,10 @@ Executes the specified function `f` for each element in the list.
 
 #### Parameters
 
-| Name   | Type                                                        |
-| :----- | :---------------------------------------------------------- |
-| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)<`A`\> |
-| `f`    | (`element`: `A`) => `void`                                  |
+| Name   | Type                                                         |
+| :----- | :----------------------------------------------------------- |
+| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
+| `f`    | (`element`: `A`) => `void`                                   |
 
 #### Returns
 

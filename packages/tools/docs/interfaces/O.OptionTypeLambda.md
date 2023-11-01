@@ -68,4 +68,4 @@ TypeLambda.Target
 
 ### type
 
-• `Readonly` **type**: [`Option`](../modules/O.md#option)<`unknown`\>
+• `Readonly` **type**: [`Option`](../modules/O.md#option)\<`unknown`\>

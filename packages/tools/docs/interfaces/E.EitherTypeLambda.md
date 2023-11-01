@@ -68,4 +68,4 @@ TypeLambda.Target
 
 ### type
 
-• `Readonly` **type**: [`Either`](../modules/E.md#either)<`unknown`, `unknown`\>
+• `Readonly` **type**: [`Either`](../modules/E.md#either)\<`unknown`, `unknown`\>

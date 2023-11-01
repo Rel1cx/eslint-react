@@ -1,6 +1,6 @@
 [@eslint-react/tools](../README.md) / [F](../modules/F.md) / FunctionN
 
-# Interface: FunctionN<A, B\>
+# Interface: FunctionN\<A, B\>
 
 [F](../modules/F.md).FunctionN
 
@@ -18,10 +18,10 @@ export const sum: FunctionN<[number, number], number> = (a, b) => a + b;
 
 ## Type parameters
 
-| Name | Type                                |
-| :--- | :---------------------------------- |
-| `A`  | extends `ReadonlyArray`<`unknown`\> |
-| `B`  | `B`                                 |
+| Name | Type                                 |
+| :--- | :----------------------------------- |
+| `A`  | extends `ReadonlyArray`\<`unknown`\> |
+| `B`  | `B`                                  |
 
 ## Callable
 

@@ -19,7 +19,7 @@
 
 ### Infer
 
-Ƭ **Infer**<`T`\>: `T` extends [`List`](List.md#list)<infer A\> ? `A` : `never`
+Ƭ **Infer**\<`T`\>: `T` extends [`List`](List.md#list)\<infer A\> ? `A` : `never`
 
 **`Since`**
 
@@ -27,15 +27,15 @@
 
 #### Type parameters
 
-| Name | Type                                   |
-| :--- | :------------------------------------- |
-| `T`  | extends [`List`](List.md#list)<`any`\> |
+| Name | Type                                    |
+| :--- | :-------------------------------------- |
+| `T`  | extends [`List`](List.md#list)\<`any`\> |
 
 ---
 
 ### With
 
-Ƭ **With**<`T`, `A`\>: `T` extends [`Cons`](../interfaces/List.Cons.md)<`any`\> ? [`Cons`](../interfaces/List.Cons.md)<`A`\> : [`List`](List.md#list)<`A`\>
+Ƭ **With**\<`T`, `A`\>: `T` extends [`Cons`](../interfaces/List.Cons.md)\<`any`\> ? [`Cons`](../interfaces/List.Cons.md)\<`A`\> : [`List`](List.md#list)\<`A`\>
 
 **`Since`**
 
@@ -43,7 +43,7 @@
 
 #### Type parameters
 
-| Name | Type                                   |
-| :--- | :------------------------------------- |
-| `T`  | extends [`List`](List.md#list)<`any`\> |
-| `A`  | `A`                                    |
+| Name | Type                                    |
+| :--- | :-------------------------------------- |
+| `T`  | extends [`List`](List.md#list)\<`any`\> |
+| `A`  | `A`                                     |

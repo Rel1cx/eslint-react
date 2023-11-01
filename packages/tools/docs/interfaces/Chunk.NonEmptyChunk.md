@@ -1,6 +1,6 @@
 [@eslint-react/tools](../README.md) / [Chunk](../modules/Chunk.md) / NonEmptyChunk
 
-# Interface: NonEmptyChunk<A\>
+# Interface: NonEmptyChunk\<A\>
 
 [Chunk](../modules/Chunk.md).NonEmptyChunk
 
@@ -16,9 +16,9 @@
 
 ## Hierarchy
 
-- [`Chunk`](Chunk.Chunk-1.md)<`A`\>
+- [`Chunk`](Chunk.Chunk-1.md)\<`A`\>
 
-- `NonEmptyIterable`<`A`\>
+- `NonEmptyIterable`\<`A`\>
 
   ↳ **`NonEmptyChunk`**
 
@@ -134,11 +134,11 @@ NonEmptyIterable.[nonEmpty]
 
 ### [iterator]
 
-▸ **[iterator]**(): `Iterator`<`A`, `any`, `undefined`\>
+▸ **[iterator]**(): `Iterator`\<`A`, `any`, `undefined`\>
 
 #### Returns
 
-`Iterator`<`A`, `any`, `undefined`\>
+`Iterator`\<`A`, `any`, `undefined`\>
 
 #### Inherited from
 
@@ -182,7 +182,7 @@ Chunk.[symbol]
 
 ### pipe
 
-▸ **pipe**<`A`, `B`\>(`this`, `ab`): `B`
+▸ **pipe**\<`A`, `B`\>(`this`, `ab`): `B`
 
 #### Type parameters
 
@@ -206,7 +206,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`\>(`this`, `ab`, `bc`): `C`
+▸ **pipe**\<`A`, `B`, `C`\>(`this`, `ab`, `bc`): `C`
 
 #### Type parameters
 
@@ -232,7 +232,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`\>(`this`, `ab`, `bc`, `cd`): `D`
+▸ **pipe**\<`A`, `B`, `C`, `D`\>(`this`, `ab`, `bc`, `cd`): `D`
 
 #### Type parameters
 
@@ -260,7 +260,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`\>(`this`, `ab`, `bc`, `cd`, `de`): `E`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`\>(`this`, `ab`, `bc`, `cd`, `de`): `E`
 
 #### Type parameters
 
@@ -290,7 +290,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`): `F`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`): `F`
 
 #### Type parameters
 
@@ -322,7 +322,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`): `G`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`): `G`
 
 #### Type parameters
 
@@ -356,7 +356,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): `H`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): `H`
 
 #### Type parameters
 
@@ -392,7 +392,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): `I`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): `I`
 
 #### Type parameters
 
@@ -430,7 +430,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): `J`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): `J`
 
 #### Type parameters
 
@@ -470,7 +470,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`): `K`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`): `K`
 
 #### Type parameters
 
@@ -512,7 +512,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`): `L`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`): `L`
 
 #### Type parameters
 
@@ -556,7 +556,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`): `M`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`): `M`
 
 #### Type parameters
 
@@ -602,7 +602,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`): `N`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`): `N`
 
 #### Type parameters
 
@@ -650,7 +650,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`): `O`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`): `O`
 
 #### Type parameters
 
@@ -700,7 +700,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`): `P`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`): `P`
 
 #### Type parameters
 
@@ -752,7 +752,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`): `Q`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`): `Q`
 
 #### Type parameters
 
@@ -806,7 +806,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`): `R`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`): `R`
 
 #### Type parameters
 
@@ -862,7 +862,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`): `S`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`): `S`
 
 #### Type parameters
 
@@ -920,7 +920,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`): `T`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`): `T`
 
 #### Type parameters
 
@@ -980,7 +980,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`, `U`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`, `tu`): `U`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`, `U`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`, `tu`): `U`
 
 #### Type parameters
 
@@ -1042,7 +1042,7 @@ Chunk.[symbol]
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
 
-▸ **pipe**<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`, `U`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`, `tu`): `U`
+▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`, `U`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`, `tu`): `U`
 
 #### Type parameters
 

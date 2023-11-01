@@ -41,13 +41,13 @@
 
 ### ComponentCollectorCache
 
-Ƭ **ComponentCollectorCache**: `WeakMap`<`TSESTreeFunction`, [`ComponentCollectorOptions`](README.md#componentcollectoroptions)\>
+Ƭ **ComponentCollectorCache**: `WeakMap`\<`TSESTreeFunction`, [`ComponentCollectorOptions`](README.md#componentcollectoroptions)\>
 
 ---
 
 ### ComponentCollectorLegacyCache
 
-Ƭ **ComponentCollectorLegacyCache**: `WeakSet`<`TSESTreeClass`\>
+Ƭ **ComponentCollectorLegacyCache**: `WeakSet`\<`TSESTreeClass`\>
 
 ---
 
@@ -59,7 +59,7 @@
 
 ### ComponentCollectorOptions
 
-Ƭ **ComponentCollectorOptions**: `JSXValueCheckOptions` & { `ignoreMapCall?`: `boolean` }
+Ƭ **ComponentCollectorOptions**: `JSXValueCheckOptions` & \{ `ignoreMapCall?`: `boolean` }
 
 ## Variables
 
@@ -83,7 +83,7 @@
 
 | Name      | Type                                                               | Default value                      |
 | :-------- | :----------------------------------------------------------------- | :--------------------------------- |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\>        | `undefined`                        |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>      | `undefined`                        |
 | `options` | [`ComponentCollectorOptions`](README.md#componentcollectoroptions) | `defaultComponentCollectorOptions` |
 | `cache`   | [`ComponentCollectorCache`](README.md#componentcollectorcache)     | `undefined`                        |
 
@@ -91,18 +91,18 @@
 
 `Object`
 
-| Name                                                             | Type                                                                                                                                                                                                                                                                                                                                                |
-| :--------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                            | { `getCurrentFunction`: () => `Option`<`NonNullable`<`undefined` \| `TSESTreeFunction`\>\> ; `getAllComponents`: () => `Either`<`Error`, `TSESTreeFunction`[]\> ; `getCurrentComponents`: () => `TSESTreeFunction`[] ; `getCurrentFunctionStack`: () => `TSESTreeFunction`[] }                                                                      |
-| `ctx.getCurrentFunction`                                         | () => `Option`<`NonNullable`<`undefined` \| `TSESTreeFunction`\>\>                                                                                                                                                                                                                                                                                  |
-| `ctx.getAllComponents`                                           | [object Object]                                                                                                                                                                                                                                                                                                                                     |
-| `ctx.getCurrentComponents`                                       | [object Object]                                                                                                                                                                                                                                                                                                                                     |
-| `ctx.getCurrentFunctionStack`                                    | [object Object]                                                                                                                                                                                                                                                                                                                                     |
-| `listeners`                                                      | { `:function`: (`node`: `TSESTreeFunction`) => `MutableList`<`TSESTreeFunction`\> = onFunctionEnter; `:function:exit`: () => `undefined` \| `TSESTreeFunction` = onFunctionExit; `ArrowFunctionExpression[body.type!='BlockStatement']`: (`node`: `ArrowFunctionExpression`) => `void` ; `ReturnStatement`: (`node`: `ReturnStatement`) => `void` } |
-| `listeners.:function`                                            | (`node`: `TSESTreeFunction`) => `MutableList`<`TSESTreeFunction`\>                                                                                                                                                                                                                                                                                  |
-| `listeners.:function:exit`                                       | () => `undefined` \| `TSESTreeFunction`                                                                                                                                                                                                                                                                                                             |
-| `listeners.ArrowFunctionExpression[body.type!='BlockStatement']` | [object Object]                                                                                                                                                                                                                                                                                                                                     |
-| `listeners.ReturnStatement`                                      | [object Object]                                                                                                                                                                                                                                                                                                                                     |
+| Name                                                             | Type                                                                                                                                                                                                                                                                                                                                                  |
+| :--------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                            | \{ `getCurrentFunction`: () => `Option`\<`NonNullable`\<`undefined` \| `TSESTreeFunction`\>\> ; `getAllComponents`: () => `Either`\<`Error`, `TSESTreeFunction`[]\> ; `getCurrentComponents`: () => `TSESTreeFunction`[] ; `getCurrentFunctionStack`: () => `TSESTreeFunction`[] }                                                                    |
+| `ctx.getCurrentFunction`                                         | () => `Option`\<`NonNullable`\<`undefined` \| `TSESTreeFunction`\>\>                                                                                                                                                                                                                                                                                  |
+| `ctx.getAllComponents`                                           | [object Object]                                                                                                                                                                                                                                                                                                                                       |
+| `ctx.getCurrentComponents`                                       | [object Object]                                                                                                                                                                                                                                                                                                                                       |
+| `ctx.getCurrentFunctionStack`                                    | [object Object]                                                                                                                                                                                                                                                                                                                                       |
+| `listeners`                                                      | \{ `:function`: (`node`: `TSESTreeFunction`) => `MutableList`\<`TSESTreeFunction`\> = onFunctionEnter; `:function:exit`: () => `undefined` \| `TSESTreeFunction` = onFunctionExit; `ArrowFunctionExpression[body.type!='BlockStatement']`: (`node`: `ArrowFunctionExpression`) => `void` ; `ReturnStatement`: (`node`: `ReturnStatement`) => `void` } |
+| `listeners.:function`                                            | (`node`: `TSESTreeFunction`) => `MutableList`\<`TSESTreeFunction`\>                                                                                                                                                                                                                                                                                   |
+| `listeners.:function:exit`                                       | () => `undefined` \| `TSESTreeFunction`                                                                                                                                                                                                                                                                                                               |
+| `listeners.ArrowFunctionExpression[body.type!='BlockStatement']` | [object Object]                                                                                                                                                                                                                                                                                                                                       |
+| `listeners.ReturnStatement`                                      | [object Object]                                                                                                                                                                                                                                                                                                                                       |
 
 ---
 
@@ -114,7 +114,7 @@
 
 | Name      | Type                                                                           | Default value                            |
 | :-------- | :----------------------------------------------------------------------------- | :--------------------------------------- |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\>                    | `undefined`                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>                  | `undefined`                              |
 | `options` | [`ComponentCollectorLegacyOptions`](README.md#componentcollectorlegacyoptions) | `defaultComponentCollectorLegacyOptions` |
 | `cache`   | [`ComponentCollectorLegacyCache`](README.md#componentcollectorlegacycache)     | `undefined`                              |
 
@@ -122,14 +122,14 @@
 
 `Object`
 
-| Name                         | Type                                                                                                                                    |
-| :--------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                        | { `getAllComponents`: () => `Either`<`Error`, `TSESTreeClass`[]\> ; `getCurrentComponents`: () => `TSESTreeClass`[] }                   |
-| `ctx.getAllComponents`       | [object Object]                                                                                                                         |
-| `ctx.getCurrentComponents`   | [object Object]                                                                                                                         |
-| `listeners`                  | { `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect } |
-| `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void`                                                                                                     |
-| `listeners.ClassExpression`  | (`node`: `TSESTreeClass`) => `void`                                                                                                     |
+| Name                         | Type                                                                                                                                     |
+| :--------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                        | \{ `getAllComponents`: () => `Either`\<`Error`, `TSESTreeClass`[]\> ; `getCurrentComponents`: () => `TSESTreeClass`[] }                  |
+| `ctx.getAllComponents`       | [object Object]                                                                                                                          |
+| `ctx.getCurrentComponents`   | [object Object]                                                                                                                          |
+| `listeners`                  | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect } |
+| `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void`                                                                                                      |
+| `listeners.ClassExpression`  | (`node`: `TSESTreeClass`) => `void`                                                                                                      |
 
 ---
 
@@ -141,9 +141,9 @@ Get the parent class component of a node up to global scope
 
 #### Parameters
 
-| Name      | Type                                                        | Description      |
-| :-------- | :---------------------------------------------------------- | :--------------- |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context |
+| Name      | Type                                                          | Description      |
+| :-------- | :------------------------------------------------------------ | :--------------- |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context |
 
 #### Returns
 
@@ -161,22 +161,22 @@ It will be removed in the future
 
 #### Parameters
 
-| Name      | Type                                                        |
-| :-------- | :---------------------------------------------------------- |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
 `Object`
 
-| Name                           | Type                                                                                                                                                                                                                                                |
-| :----------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                          | { `getAllHooks`: () => `Either`<`Error`, `TSESTreeFunction`[]\> ; `getAllRedundantHooks`: () => `Either`<`Error`, `TSESTreeFunction`[]\> ; `getCurrentHooks`: () => `TSESTreeFunction`[] ; `getCurrentRedundantHooks`: () => `TSESTreeFunction`[] } |
-| `ctx.getAllHooks`              | [object Object]                                                                                                                                                                                                                                     |
-| `ctx.getAllRedundantHooks`     | [object Object]                                                                                                                                                                                                                                     |
-| `ctx.getCurrentHooks`          | [object Object]                                                                                                                                                                                                                                     |
-| `ctx.getCurrentRedundantHooks` | [object Object]                                                                                                                                                                                                                                     |
-| `listeners`                    | `ESLintUtils.RuleListener`                                                                                                                                                                                                                          |
+| Name                           | Type                                                                                                                                                                                                                                                   |
+| :----------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                          | \{ `getAllHooks`: () => `Either`\<`Error`, `TSESTreeFunction`[]\> ; `getAllRedundantHooks`: () => `Either`\<`Error`, `TSESTreeFunction`[]\> ; `getCurrentHooks`: () => `TSESTreeFunction`[] ; `getCurrentRedundantHooks`: () => `TSESTreeFunction`[] } |
+| `ctx.getAllHooks`              | [object Object]                                                                                                                                                                                                                                        |
+| `ctx.getAllRedundantHooks`     | [object Object]                                                                                                                                                                                                                                        |
+| `ctx.getCurrentHooks`          | [object Object]                                                                                                                                                                                                                                        |
+| `ctx.getCurrentRedundantHooks` | [object Object]                                                                                                                                                                                                                                        |
+| `listeners`                    | `ESLintUtils.RuleListener`                                                                                                                                                                                                                             |
 
 ---
 
@@ -188,10 +188,10 @@ Check if a node is a React class component
 
 #### Parameters
 
-| Name      | Type                                                        | Description           |
-| :-------- | :---------------------------------------------------------- | :-------------------- |
-| `node`    | `Node`                                                      | The AST node to check |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context      |
+| Name      | Type                                                          | Description           |
+| :-------- | :------------------------------------------------------------ | :-------------------- |
+| `node`    | `Node`                                                        | The AST node to check |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
 
 #### Returns
 
@@ -229,10 +229,10 @@ Determines whether `createContext` is used
 
 #### Parameters
 
-| Name      | Type                                                        |
-| :-------- | :---------------------------------------------------------- |
-| `node`    | `TSESTreeFunction`                                          |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `TSESTreeFunction`                                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
@@ -261,10 +261,10 @@ class Component extends React.Component {
 
 #### Parameters
 
-| Name      | Type                                                        | Description                |
-| :-------- | :---------------------------------------------------------- | :------------------------- |
-| `node`    | `Node`                                                      | The AST node being checked |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |                            |
+| Name      | Type                                                          | Description                |
+| :-------- | :------------------------------------------------------------ | :------------------------- |
+| `node`    | `Node`                                                        | The AST node being checked |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |                            |
 
 #### Returns
 
@@ -286,10 +286,10 @@ Check if a node is a React PureComponent
 
 #### Parameters
 
-| Name      | Type                                                        | Description           |
-| :-------- | :---------------------------------------------------------- | :-------------------- |
-| `node`    | `Node`                                                      | The AST node to check |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context      |
+| Name      | Type                                                          | Description           |
+| :-------- | :------------------------------------------------------------ | :-------------------- |
+| `node`    | `Node`                                                        | The AST node to check |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
 
 #### Returns
 
@@ -455,10 +455,10 @@ _ = <Component renderRow={() => <div />} />;
 
 #### Parameters
 
-| Name      | Type                                                        | Description           |
-| :-------- | :---------------------------------------------------------- | :-------------------- |
-| `node`    | `TSESTreeFunction`                                          | The AST node to check |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context      |
+| Name      | Type                                                          | Description           |
+| :-------- | :------------------------------------------------------------ | :-------------------- |
+| `node`    | `TSESTreeFunction`                                            | The AST node to check |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
 
 #### Returns
 
@@ -481,10 +481,10 @@ _ = <Component renderRow={() => <div />} />;
 
 #### Parameters
 
-| Name      | Type                                                        | Description           |
-| :-------- | :---------------------------------------------------------- | :-------------------- |
-| `node`    | `JSXAttribute`                                              | The AST node to check |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context      |
+| Name      | Type                                                          | Description           |
+| :-------- | :------------------------------------------------------------ | :-------------------- |
+| `node`    | `JSXAttribute`                                                | The AST node to check |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
 
 #### Returns
 

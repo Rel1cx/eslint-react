@@ -221,14 +221,14 @@ The element's tag name.
 
 ### findPropInAttributes
 
-▸ **findPropInAttributes**(`attributes`, `context`): (`propName`: `string`) => `Option`<`NonNullable`<`undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`\>\>
+▸ **findPropInAttributes**(`attributes`, `context`): (`propName`: `string`) => `Option`\<`NonNullable`\<`undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`\>\>
 
 #### Parameters
 
-| Name         | Type                                                        | Description                 |
-| :----------- | :---------------------------------------------------------- | :-------------------------- |
-| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                  | The attributes to search in |
-| `context`    | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context            |
+| Name         | Type                                                          | Description                 |
+| :----------- | :------------------------------------------------------------ | :-------------------------- |
+| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                    | The attributes to search in |
+| `context`    | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context            |
 
 #### Returns
 
@@ -236,7 +236,7 @@ The element's tag name.
 
 A function that searches for a property in the given attributes
 
-▸ (`propName`): `Option`<`NonNullable`<`undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`\>\>
+▸ (`propName`): `Option`\<`NonNullable`\<`undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`\>\>
 
 ##### Parameters
 
@@ -246,21 +246,21 @@ A function that searches for a property in the given attributes
 
 ##### Returns
 
-`Option`<`NonNullable`<`undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`\>\>
+`Option`\<`NonNullable`\<`undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`\>\>
 
 ---
 
 ### findPropInProperties
 
-▸ **findPropInProperties**(`properties`, `context`, `seenProps?`): (`propName`: `string`) => `Option`<`PropertyComputedName` \| `PropertyNonComputedName` \| `RestElement` \| `SpreadElement`\>
+▸ **findPropInProperties**(`properties`, `context`, `seenProps?`): (`propName`: `string`) => `Option`\<`PropertyComputedName` \| `PropertyNonComputedName` \| `RestElement` \| `SpreadElement`\>
 
 #### Parameters
 
-| Name         | Type                                                        | Default value | Description                                |
-| :----------- | :---------------------------------------------------------- | :------------ | :----------------------------------------- |
-| `properties` | `ObjectLiteralElement`[] \| (`Property` \| `RestElement`)[] | `undefined`   | The properties to search in                |
-| `context`    | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | `undefined`   | The rule context                           |
-| `seenProps`  | `string`[]                                                  | `[]`          | The properties that have already been seen |
+| Name         | Type                                                          | Default value | Description                                |
+| :----------- | :------------------------------------------------------------ | :------------ | :----------------------------------------- |
+| `properties` | `ObjectLiteralElement`[] \| (`Property` \| `RestElement`)[]   | `undefined`   | The properties to search in                |
+| `context`    | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`   | The rule context                           |
+| `seenProps`  | `string`[]                                                    | `[]`          | The properties that have already been seen |
 
 #### Returns
 
@@ -268,7 +268,7 @@ A function that searches for a property in the given attributes
 
 A function that searches for a property in the given properties
 
-▸ (`propName`): `Option`<`PropertyComputedName` \| `PropertyNonComputedName` \| `RestElement` \| `SpreadElement`\>
+▸ (`propName`): `Option`\<`PropertyComputedName` \| `PropertyNonComputedName` \| `RestElement` \| `SpreadElement`\>
 
 ##### Parameters
 
@@ -278,19 +278,19 @@ A function that searches for a property in the given properties
 
 ##### Returns
 
-`Option`<`PropertyComputedName` \| `PropertyNonComputedName` \| `RestElement` \| `SpreadElement`\>
+`Option`\<`PropertyComputedName` \| `PropertyNonComputedName` \| `RestElement` \| `SpreadElement`\>
 
 ---
 
 ### getFragmentFromContext
 
-▸ **getFragmentFromContext**<`T`\>(`context`): `string`
+▸ **getFragmentFromContext**\<`T`\>(`context`): `string`
 
 #### Type parameters
 
-| Name | Type                                                                |
-| :--- | :------------------------------------------------------------------ |
-| `T`  | extends `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
+| Name | Type                                                                  |
+| :--- | :-------------------------------------------------------------------- |
+| `T`  | extends `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Parameters
 
@@ -306,13 +306,13 @@ A function that searches for a property in the given properties
 
 ### getPragmaFromContext
 
-▸ **getPragmaFromContext**<`T`\>(`context`): `string`
+▸ **getPragmaFromContext**\<`T`\>(`context`): `string`
 
 #### Type parameters
 
-| Name | Type                                                                |
-| :--- | :------------------------------------------------------------------ |
-| `T`  | extends `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
+| Name | Type                                                                  |
+| :--- | :-------------------------------------------------------------------- |
+| `T`  | extends `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Parameters
 
@@ -368,20 +368,20 @@ string
 
 ### getPropValue
 
-▸ **getPropValue**(`attribute`, `context`): `None`<`null` \| { `value`: `unknown` }\> \| `Some`<`null` \| { `value`: `unknown` }\>
+▸ **getPropValue**(`attribute`, `context`): `None`\<`null` \| \{ `value`: `unknown` }\> \| `Some`\<`null` \| \{ `value`: `unknown` }\>
 
 Gets and resolves the static value of a JSX attribute
 
 #### Parameters
 
-| Name        | Type                                                        | Description                           |
-| :---------- | :---------------------------------------------------------- | :------------------------------------ |
-| `attribute` | `JSXAttribute` \| `JSXSpreadAttribute`                      | The JSX attribute to get the value of |
-| `context`   | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context                      |
+| Name        | Type                                                          | Description                           |
+| :---------- | :------------------------------------------------------------ | :------------------------------------ |
+| `attribute` | `JSXAttribute` \| `JSXSpreadAttribute`                        | The JSX attribute to get the value of |
+| `context`   | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context                      |
 
 #### Returns
 
-`None`<`null` \| { `value`: `unknown` }\> \| `Some`<`null` \| { `value`: `unknown` }\>
+`None`\<`null` \| \{ `value`: `unknown` }\> \| `Some`\<`null` \| \{ `value`: `unknown` }\>
 
 The static value of the given JSX attribute
 
@@ -395,11 +395,11 @@ Check if any of the given prop names are present in the given attributes
 
 #### Parameters
 
-| Name         | Type                                                        | Description                  |
-| :----------- | :---------------------------------------------------------- | :--------------------------- |
-| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                  | The attributes to search in  |
-| `propNames`  | `string`[]                                                  | The prop names to search for |
-| `context`    | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context             |
+| Name         | Type                                                          | Description                  |
+| :----------- | :------------------------------------------------------------ | :--------------------------- |
+| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                    | The attributes to search in  |
+| `propNames`  | `string`[]                                                    | The prop names to search for |
+| `context`    | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context             |
 
 #### Returns
 
@@ -438,11 +438,11 @@ Check if all of the given prop names are present in the given attributes
 
 #### Parameters
 
-| Name         | Type                                                        | Description                  |
-| :----------- | :---------------------------------------------------------- | :--------------------------- |
-| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                  | The attributes to search in  |
-| `propNames`  | `string`[]                                                  | The prop names to search for |
-| `context`    | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context             |
+| Name         | Type                                                          | Description                  |
+| :----------- | :------------------------------------------------------------ | :--------------------------- |
+| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                    | The attributes to search in  |
+| `propNames`  | `string`[]                                                    | The prop names to search for |
+| `context`    | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context             |
 
 #### Returns
 
@@ -460,11 +460,11 @@ Check if the given prop name is present in the given attributes
 
 #### Parameters
 
-| Name         | Type                                                        | Description                 |
-| :----------- | :---------------------------------------------------------- | :-------------------------- |
-| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                  | The attributes to search in |
-| `propName`   | `string`                                                    | The prop name to search for |
-| `context`    | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context            |
+| Name         | Type                                                          | Description                 |
+| :----------- | :------------------------------------------------------------ | :-------------------------- |
+| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                    | The attributes to search in |
+| `propName`   | `string`                                                      | The prop name to search for |
+| `context`    | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context            |
 
 #### Returns
 
@@ -476,7 +476,7 @@ Check if the given prop name is present in the given attributes
 
 ### isCallFromPragma
 
-▸ **isCallFromPragma**(`name`): (`node`: `Node`, `context`: `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\>) => node is CallExpression
+▸ **isCallFromPragma**(`name`): (`node`: `Node`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>) => node is CallExpression
 
 Checks if the given node is a call expression to the given function or method of the pragma
 
@@ -496,10 +496,10 @@ A predicate that checks if the given node is a call expression to the given func
 
 ##### Parameters
 
-| Name      | Type                                                        |
-| :-------- | :---------------------------------------------------------- |
-| `node`    | `Node`                                                      |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `Node`                                                        |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 ##### Returns
 
@@ -533,10 +533,10 @@ node is JSXElement & Object
 
 #### Parameters
 
-| Name      | Type                                                        |
-| :-------- | :---------------------------------------------------------- |
-| `node`    | `Node`                                                      |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `Node`                                                        |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
@@ -552,10 +552,10 @@ Checks if the given node is a call expression to `cloneElement`
 
 #### Parameters
 
-| Name      | Type                                                        | Description           |
-| :-------- | :---------------------------------------------------------- | :-------------------- |
-| `node`    | `Node`                                                      | The AST node to check |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context      |
+| Name      | Type                                                          | Description           |
+| :-------- | :------------------------------------------------------------ | :-------------------- |
+| `node`    | `Node`                                                        | The AST node to check |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
 
 #### Returns
 
@@ -573,10 +573,10 @@ Checks if the given node is a call expression to `createElement`
 
 #### Parameters
 
-| Name      | Type                                                        | Description           |
-| :-------- | :---------------------------------------------------------- | :-------------------- |
-| `node`    | `Node`                                                      | The AST node to check |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context      |
+| Name      | Type                                                          | Description           |
+| :-------- | :------------------------------------------------------------ | :-------------------- |
+| `node`    | `Node`                                                        | The AST node to check |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
 
 #### Returns
 
@@ -712,11 +712,11 @@ Check if function is returning JSX
 
 #### Parameters
 
-| Name       | Type                                                        | Description                        |
-| :--------- | :---------------------------------------------------------- | :--------------------------------- |
-| `node`     | `TSESTreeFunction`                                          | The return statement node to check |
-| `context`  | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context                   |
-| `options?` | [`JSXValueCheckOptions`](README.md#jsxvaluecheckoptions)    | The JSX value check options        |
+| Name       | Type                                                          | Description                        |
+| :--------- | :------------------------------------------------------------ | :--------------------------------- |
+| `node`     | `TSESTreeFunction`                                            | The return statement node to check |
+| `context`  | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context                   |
+| `options?` | [`JSXValueCheckOptions`](README.md#jsxvaluecheckoptions)      | The JSX value check options        |
 
 #### Returns
 
@@ -732,11 +732,11 @@ boolean
 
 #### Parameters
 
-| Name           | Type                                                        |
-| :------------- | :---------------------------------------------------------- |
-| `variableName` | `string`                                                    |
-| `context`      | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
-| `pragma`       | `string`                                                    |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `variableName` | `string`                                                      |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`       | `string`                                                      |
 
 #### Returns
 
@@ -752,10 +752,10 @@ Determines whether inside createElement's props.
 
 #### Parameters
 
-| Name      | Type                                                        | Description           |
-| :-------- | :---------------------------------------------------------- | :-------------------- |
-| `node`    | `Node`                                                      | The AST node to check |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | The rule context      |
+| Name      | Type                                                          | Description           |
+| :-------- | :------------------------------------------------------------ | :-------------------- |
+| `node`    | `Node`                                                        | The AST node to check |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
 
 #### Returns
 
@@ -833,11 +833,11 @@ Check if a node is a JSX value
 
 #### Parameters
 
-| Name      | Type                                                        | Default value                 | Description                       |
-| :-------- | :---------------------------------------------------------- | :---------------------------- | :-------------------------------- |
-| `node`    | `undefined` \| `null` \| `Node`                             | `undefined`                   | The AST node to check             |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | `undefined`                   | The rule context                  |
-| `options` | [`JSXValueCheckOptions`](README.md#jsxvaluecheckoptions)    | `defaultJSXValueCheckOptions` | The `JSXValueCheckOptions` to use |
+| Name      | Type                                                          | Default value                 | Description                       |
+| :-------- | :------------------------------------------------------------ | :---------------------------- | :-------------------------------- |
+| `node`    | `undefined` \| `null` \| `Node`                               | `undefined`                   | The AST node to check             |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`                   | The rule context                  |
+| `options` | [`JSXValueCheckOptions`](README.md#jsxvaluecheckoptions)      | `defaultJSXValueCheckOptions` | The `JSXValueCheckOptions` to use |
 
 #### Returns
 
@@ -913,11 +913,11 @@ boolean
 
 #### Parameters
 
-| Name      | Type                                                        |
-| :-------- | :---------------------------------------------------------- |
-| `name`    | `string`                                                    |
-| `context` | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                    |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `name`    | `string`                                                      |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
 
 #### Returns
 
@@ -959,7 +959,7 @@ boolean `true` if the node is whitespace
 
 ### traverseUpProp
 
-▸ **traverseUpProp**(`node`, `predicate?`): `O.Option`<`TSESTree.JSXAttribute`\>
+▸ **traverseUpProp**(`node`, `predicate?`): `O.Option`\<`TSESTree.JSXAttribute`\>
 
 Traverses up prop node
 
@@ -972,6 +972,6 @@ Traverses up prop node
 
 #### Returns
 
-`O.Option`<`TSESTree.JSXAttribute`\>
+`O.Option`\<`TSESTree.JSXAttribute`\>
 
 prop node if found

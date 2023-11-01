@@ -73,7 +73,7 @@
 
 ### compact
 
-▸ **compact**<`A`\>(`self`): [`List`](List.md#list)<`A`\>
+▸ **compact**\<`A`\>(`self`): [`List`](List.md#list)\<`A`\>
 
 Removes all `None` values from the specified list.
 
@@ -85,13 +85,13 @@ Removes all `None` values from the specified list.
 
 #### Parameters
 
-| Name   | Type                                                   |
-| :----- | :----------------------------------------------------- |
-| `self` | [`List`](List.md#list)<[`Option`](O.md#option)<`A`\>\> |
+| Name   | Type                                                     |
+| :----- | :------------------------------------------------------- |
+| `self` | [`List`](List.md#list)\<[`Option`](O.md#option)\<`A`\>\> |
 
 #### Returns
 
-[`List`](List.md#list)<`A`\>
+[`List`](List.md#list)\<`A`\>
 
 **`Since`**
 
@@ -101,7 +101,7 @@ Removes all `None` values from the specified list.
 
 ### drop
 
-▸ **drop**(`n`): <A\>(`self`: [`List`](List.md#list)<`A`\>) => [`List`](List.md#list)<`A`\>
+▸ **drop**(`n`): \<A\>(`self`: [`List`](List.md#list)\<`A`\>) => [`List`](List.md#list)\<`A`\>
 
 Drops the first `n` elements from the specified list.
 
@@ -115,7 +115,7 @@ Drops the first `n` elements from the specified list.
 
 `fn`
 
-▸ <`A`\>(`self`): [`List`](List.md#list)<`A`\>
+▸ \<`A`\>(`self`): [`List`](List.md#list)\<`A`\>
 
 ##### Type parameters
 
@@ -125,19 +125,19 @@ Drops the first `n` elements from the specified list.
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-[`List`](List.md#list)<`A`\>
+[`List`](List.md#list)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **drop**<`A`\>(`self`, `n`): [`List`](List.md#list)<`A`\>
+▸ **drop**\<`A`\>(`self`, `n`): [`List`](List.md#list)\<`A`\>
 
 Drops the first `n` elements from the specified list.
 
@@ -149,14 +149,14 @@ Drops the first `n` elements from the specified list.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
-| `n`    | `number`                     |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
+| `n`    | `number`                      |
 
 #### Returns
 
-[`List`](List.md#list)<`A`\>
+[`List`](List.md#list)\<`A`\>
 
 **`Since`**
 
@@ -166,7 +166,7 @@ Drops the first `n` elements from the specified list.
 
 ### filter
 
-▸ **filter**<`C`, `B`, `A`\>(`refinement`): (`self`: [`List`](List.md#list)<`C`\>) => [`List`](List.md#list)<`B`\>
+▸ **filter**\<`C`, `B`, `A`\>(`refinement`): (`self`: [`List`](List.md#list)\<`C`\>) => [`List`](List.md#list)\<`B`\>
 
 Filters a list using the specified predicate.
 
@@ -180,31 +180,31 @@ Filters a list using the specified predicate.
 
 #### Parameters
 
-| Name         | Type                    |
-| :----------- | :---------------------- |
-| `refinement` | `Refinement`<`A`, `B`\> |
+| Name         | Type                     |
+| :----------- | :----------------------- |
+| `refinement` | `Refinement`\<`A`, `B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`List`](List.md#list)<`B`\>
+▸ (`self`): [`List`](List.md#list)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`C`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`C`\> |
 
 ##### Returns
 
-[`List`](List.md#list)<`B`\>
+[`List`](List.md#list)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **filter**<`B`, `A`\>(`predicate`): (`self`: [`List`](List.md#list)<`B`\>) => [`List`](List.md#list)<`B`\>
+▸ **filter**\<`B`, `A`\>(`predicate`): (`self`: [`List`](List.md#list)\<`B`\>) => [`List`](List.md#list)\<`B`\>
 
 Filters a list using the specified predicate.
 
@@ -217,31 +217,31 @@ Filters a list using the specified predicate.
 
 #### Parameters
 
-| Name        | Type              |
-| :---------- | :---------------- |
-| `predicate` | `Predicate`<`A`\> |
+| Name        | Type               |
+| :---------- | :----------------- |
+| `predicate` | `Predicate`\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`List`](List.md#list)<`B`\>
+▸ (`self`): [`List`](List.md#list)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`B`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`B`\> |
 
 ##### Returns
 
-[`List`](List.md#list)<`B`\>
+[`List`](List.md#list)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **filter**<`C`, `B`, `A`\>(`self`, `refinement`): [`List`](List.md#list)<`B`\>
+▸ **filter**\<`C`, `B`, `A`\>(`self`, `refinement`): [`List`](List.md#list)\<`B`\>
 
 Filters a list using the specified predicate.
 
@@ -255,20 +255,20 @@ Filters a list using the specified predicate.
 
 #### Parameters
 
-| Name         | Type                         |
-| :----------- | :--------------------------- |
-| `self`       | [`List`](List.md#list)<`C`\> |
-| `refinement` | `Refinement`<`A`, `B`\>      |
+| Name         | Type                          |
+| :----------- | :---------------------------- |
+| `self`       | [`List`](List.md#list)\<`C`\> |
+| `refinement` | `Refinement`\<`A`, `B`\>      |
 
 #### Returns
 
-[`List`](List.md#list)<`B`\>
+[`List`](List.md#list)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **filter**<`B`, `A`\>(`self`, `predicate`): [`List`](List.md#list)<`B`\>
+▸ **filter**\<`B`, `A`\>(`self`, `predicate`): [`List`](List.md#list)\<`B`\>
 
 Filters a list using the specified predicate.
 
@@ -281,14 +281,14 @@ Filters a list using the specified predicate.
 
 #### Parameters
 
-| Name        | Type                         |
-| :---------- | :--------------------------- |
-| `self`      | [`List`](List.md#list)<`B`\> |
-| `predicate` | `Predicate`<`A`\>            |
+| Name        | Type                          |
+| :---------- | :---------------------------- |
+| `self`      | [`List`](List.md#list)\<`B`\> |
+| `predicate` | `Predicate`\<`A`\>            |
 
 #### Returns
 
-[`List`](List.md#list)<`B`\>
+[`List`](List.md#list)\<`B`\>
 
 **`Since`**
 
@@ -298,7 +298,7 @@ Filters a list using the specified predicate.
 
 ### filterMap
 
-▸ **filterMap**<`A`, `B`\>(`f`): (`self`: [`List`](List.md#list)<`A`\>) => [`List`](List.md#list)<`B`\>
+▸ **filterMap**\<`A`, `B`\>(`f`): (`self`: [`List`](List.md#list)\<`A`\>) => [`List`](List.md#list)\<`B`\>
 
 Filters and maps a list using the specified partial function. The resulting
 list may be smaller than the input list due to the possibility of the partial
@@ -313,31 +313,31 @@ function not being defined for some elements.
 
 #### Parameters
 
-| Name | Type                                        |
-| :--- | :------------------------------------------ |
-| `f`  | (`a`: `A`) => [`Option`](O.md#option)<`B`\> |
+| Name | Type                                         |
+| :--- | :------------------------------------------- |
+| `f`  | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`List`](List.md#list)<`B`\>
+▸ (`self`): [`List`](List.md#list)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-[`List`](List.md#list)<`B`\>
+[`List`](List.md#list)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **filterMap**<`A`, `B`\>(`self`, `f`): [`List`](List.md#list)<`B`\>
+▸ **filterMap**\<`A`, `B`\>(`self`, `f`): [`List`](List.md#list)\<`B`\>
 
 Filters and maps a list using the specified partial function. The resulting
 list may be smaller than the input list due to the possibility of the partial
@@ -352,14 +352,14 @@ function not being defined for some elements.
 
 #### Parameters
 
-| Name   | Type                                        |
-| :----- | :------------------------------------------ |
-| `self` | [`List`](List.md#list)<`A`\>                |
-| `f`    | (`a`: `A`) => [`Option`](O.md#option)<`B`\> |
+| Name   | Type                                         |
+| :----- | :------------------------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\>                |
+| `f`    | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
-[`List`](List.md#list)<`B`\>
+[`List`](List.md#list)\<`B`\>
 
 **`Since`**
 
@@ -369,7 +369,7 @@ function not being defined for some elements.
 
 ### forEach
 
-▸ **forEach**<`A`, `B`\>(`f`): (`self`: [`List`](List.md#list)<`A`\>) => `void`
+▸ **forEach**\<`A`, `B`\>(`f`): (`self`: [`List`](List.md#list)\<`A`\>) => `void`
 
 Applies the specified function to each element of the `List`.
 
@@ -394,9 +394,9 @@ Applies the specified function to each element of the `List`.
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
@@ -406,7 +406,7 @@ Applies the specified function to each element of the `List`.
 
 2.0.0
 
-▸ **forEach**<`A`, `B`\>(`self`, `f`): `void`
+▸ **forEach**\<`A`, `B`\>(`self`, `f`): `void`
 
 Applies the specified function to each element of the `List`.
 
@@ -419,10 +419,10 @@ Applies the specified function to each element of the `List`.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
-| `f`    | (`a`: `A`) => `B`            |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
+| `f`    | (`a`: `A`) => `B`             |
 
 #### Returns
 
@@ -436,28 +436,28 @@ Applies the specified function to each element of the `List`.
 
 ### map
 
-▸ **map**<`T`, `B`\>(`f`): (`self`: `T`) => [`With`](List.List.md#with)<`T`, `B`\>
+▸ **map**\<`T`, `B`\>(`f`): (`self`: `T`) => [`With`](List.List.md#with)\<`T`, `B`\>
 
 Applies the specified mapping function to each element of the list.
 
 #### Type parameters
 
-| Name | Type                                   |
-| :--- | :------------------------------------- |
-| `T`  | extends [`List`](List.md#list)<`any`\> |
-| `B`  | `B`                                    |
+| Name | Type                                    |
+| :--- | :-------------------------------------- |
+| `T`  | extends [`List`](List.md#list)\<`any`\> |
+| `B`  | `B`                                     |
 
 #### Parameters
 
-| Name | Type                                                             |
-| :--- | :--------------------------------------------------------------- |
-| `f`  | (`a`: [`Infer`](List.List.md#infer)<`T`\>, `i`: `number`) => `B` |
+| Name | Type                                                              |
+| :--- | :---------------------------------------------------------------- |
+| `f`  | (`a`: [`Infer`](List.List.md#infer)\<`T`\>, `i`: `number`) => `B` |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`With`](List.List.md#with)<`T`, `B`\>
+▸ (`self`): [`With`](List.List.md#with)\<`T`, `B`\>
 
 ##### Parameters
 
@@ -467,33 +467,33 @@ Applies the specified mapping function to each element of the list.
 
 ##### Returns
 
-[`With`](List.List.md#with)<`T`, `B`\>
+[`With`](List.List.md#with)\<`T`, `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **map**<`T`, `B`\>(`self`, `f`): [`With`](List.List.md#with)<`T`, `B`\>
+▸ **map**\<`T`, `B`\>(`self`, `f`): [`With`](List.List.md#with)\<`T`, `B`\>
 
 Applies the specified mapping function to each element of the list.
 
 #### Type parameters
 
-| Name | Type                                   |
-| :--- | :------------------------------------- |
-| `T`  | extends [`List`](List.md#list)<`any`\> |
-| `B`  | `B`                                    |
+| Name | Type                                    |
+| :--- | :-------------------------------------- |
+| `T`  | extends [`List`](List.md#list)\<`any`\> |
+| `B`  | `B`                                     |
 
 #### Parameters
 
-| Name   | Type                                                             |
-| :----- | :--------------------------------------------------------------- |
-| `self` | `T`                                                              |
-| `f`    | (`a`: [`Infer`](List.List.md#infer)<`T`\>, `i`: `number`) => `B` |
+| Name   | Type                                                              |
+| :----- | :---------------------------------------------------------------- |
+| `self` | `T`                                                               |
+| `f`    | (`a`: [`Infer`](List.List.md#infer)\<`T`\>, `i`: `number`) => `B` |
 
 #### Returns
 
-[`With`](List.List.md#with)<`T`, `B`\>
+[`With`](List.List.md#with)\<`T`, `B`\>
 
 **`Since`**
 
@@ -503,7 +503,7 @@ Applies the specified mapping function to each element of the list.
 
 ### partition
 
-▸ **partition**<`C`, `B`, `A`\>(`refinement`): (`self`: [`List`](List.md#list)<`C`\>) => [[`List`](List.md#list)<`Exclude`<`C`, `B`\>\>, [`List`](List.md#list)<`B`\>]
+▸ **partition**\<`C`, `B`, `A`\>(`refinement`): (`self`: [`List`](List.md#list)\<`C`\>) => [[`List`](List.md#list)\<`Exclude`\<`C`, `B`\>\>, [`List`](List.md#list)\<`B`\>]
 
 Partition a list into two lists, where the first list contains all elements
 that did not satisfy the specified predicate, and the second list contains
@@ -519,31 +519,31 @@ all elements that did satisfy the specified predicate.
 
 #### Parameters
 
-| Name         | Type                    |
-| :----------- | :---------------------- |
-| `refinement` | `Refinement`<`A`, `B`\> |
+| Name         | Type                     |
+| :----------- | :----------------------- |
+| `refinement` | `Refinement`\<`A`, `B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [[`List`](List.md#list)<`Exclude`<`C`, `B`\>\>, [`List`](List.md#list)<`B`\>]
+▸ (`self`): [[`List`](List.md#list)\<`Exclude`\<`C`, `B`\>\>, [`List`](List.md#list)\<`B`\>]
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`C`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`C`\> |
 
 ##### Returns
 
-[[`List`](List.md#list)<`Exclude`<`C`, `B`\>\>, [`List`](List.md#list)<`B`\>]
+[[`List`](List.md#list)\<`Exclude`\<`C`, `B`\>\>, [`List`](List.md#list)\<`B`\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **partition**<`B`, `A`\>(`predicate`): (`self`: [`List`](List.md#list)<`B`\>) => [[`List`](List.md#list)<`B`\>, [`List`](List.md#list)<`B`\>]
+▸ **partition**\<`B`, `A`\>(`predicate`): (`self`: [`List`](List.md#list)\<`B`\>) => [[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`B`\>]
 
 Partition a list into two lists, where the first list contains all elements
 that did not satisfy the specified predicate, and the second list contains
@@ -566,23 +566,23 @@ all elements that did satisfy the specified predicate.
 
 `fn`
 
-▸ (`self`): [[`List`](List.md#list)<`B`\>, [`List`](List.md#list)<`B`\>]
+▸ (`self`): [[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`B`\>]
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`B`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`B`\> |
 
 ##### Returns
 
-[[`List`](List.md#list)<`B`\>, [`List`](List.md#list)<`B`\>]
+[[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`B`\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **partition**<`C`, `B`, `A`\>(`self`, `refinement`): [[`List`](List.md#list)<`Exclude`<`C`, `B`\>\>, [`List`](List.md#list)<`B`\>]
+▸ **partition**\<`C`, `B`, `A`\>(`self`, `refinement`): [[`List`](List.md#list)\<`Exclude`\<`C`, `B`\>\>, [`List`](List.md#list)\<`B`\>]
 
 Partition a list into two lists, where the first list contains all elements
 that did not satisfy the specified predicate, and the second list contains
@@ -598,20 +598,20 @@ all elements that did satisfy the specified predicate.
 
 #### Parameters
 
-| Name         | Type                         |
-| :----------- | :--------------------------- |
-| `self`       | [`List`](List.md#list)<`C`\> |
-| `refinement` | `Refinement`<`A`, `B`\>      |
+| Name         | Type                          |
+| :----------- | :---------------------------- |
+| `self`       | [`List`](List.md#list)\<`C`\> |
+| `refinement` | `Refinement`\<`A`, `B`\>      |
 
 #### Returns
 
-[[`List`](List.md#list)<`Exclude`<`C`, `B`\>\>, [`List`](List.md#list)<`B`\>]
+[[`List`](List.md#list)\<`Exclude`\<`C`, `B`\>\>, [`List`](List.md#list)\<`B`\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **partition**<`B`, `A`\>(`self`, `predicate`): [[`List`](List.md#list)<`B`\>, [`List`](List.md#list)<`B`\>]
+▸ **partition**\<`B`, `A`\>(`self`, `predicate`): [[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`B`\>]
 
 Partition a list into two lists, where the first list contains all elements
 that did not satisfy the specified predicate, and the second list contains
@@ -626,14 +626,14 @@ all elements that did satisfy the specified predicate.
 
 #### Parameters
 
-| Name        | Type                         |
-| :---------- | :--------------------------- |
-| `self`      | [`List`](List.md#list)<`B`\> |
-| `predicate` | (`a`: `A`) => `boolean`      |
+| Name        | Type                          |
+| :---------- | :---------------------------- |
+| `self`      | [`List`](List.md#list)\<`B`\> |
+| `predicate` | (`a`: `A`) => `boolean`       |
 
 #### Returns
 
-[[`List`](List.md#list)<`B`\>, [`List`](List.md#list)<`B`\>]
+[[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`B`\>]
 
 **`Since`**
 
@@ -643,7 +643,7 @@ all elements that did satisfy the specified predicate.
 
 ### partitionMap
 
-▸ **partitionMap**<`A`, `B`, `C`\>(`f`): (`self`: [`List`](List.md#list)<`A`\>) => readonly [[`List`](List.md#list)<`B`\>, [`List`](List.md#list)<`C`\>]
+▸ **partitionMap**\<`A`, `B`, `C`\>(`f`): (`self`: [`List`](List.md#list)\<`A`\>) => readonly [[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`C`\>]
 
 Partition a list into two lists, where the first list contains all elements
 for which the specified function returned a `Left`, and the second list
@@ -659,31 +659,31 @@ contains all elements for which the specified function returned a `Right`.
 
 #### Parameters
 
-| Name | Type                                             |
-| :--- | :----------------------------------------------- |
-| `f`  | (`a`: `A`) => [`Either`](E.md#either)<`B`, `C`\> |
+| Name | Type                                              |
+| :--- | :------------------------------------------------ |
+| `f`  | (`a`: `A`) => [`Either`](E.md#either)\<`B`, `C`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): readonly [[`List`](List.md#list)<`B`\>, [`List`](List.md#list)<`C`\>]
+▸ (`self`): readonly [[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`C`\>]
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-readonly [[`List`](List.md#list)<`B`\>, [`List`](List.md#list)<`C`\>]
+readonly [[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`C`\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **partitionMap**<`A`, `B`, `C`\>(`self`, `f`): readonly [[`List`](List.md#list)<`B`\>, [`List`](List.md#list)<`C`\>]
+▸ **partitionMap**\<`A`, `B`, `C`\>(`self`, `f`): readonly [[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`C`\>]
 
 Partition a list into two lists, where the first list contains all elements
 for which the specified function returned a `Left`, and the second list
@@ -699,14 +699,14 @@ contains all elements for which the specified function returned a `Right`.
 
 #### Parameters
 
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`List`](List.md#list)<`A`\>                     |
-| `f`    | (`a`: `A`) => [`Either`](E.md#either)<`B`, `C`\> |
+| Name   | Type                                              |
+| :----- | :------------------------------------------------ |
+| `self` | [`List`](List.md#list)\<`A`\>                     |
+| `f`    | (`a`: `A`) => [`Either`](E.md#either)\<`B`, `C`\> |
 
 #### Returns
 
-readonly [[`List`](List.md#list)<`B`\>, [`List`](List.md#list)<`C`\>]
+readonly [[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`C`\>]
 
 **`Since`**
 
@@ -716,7 +716,7 @@ readonly [[`List`](List.md#list)<`B`\>, [`List`](List.md#list)<`C`\>]
 
 ### splitAt
 
-▸ **splitAt**(`n`): <A\>(`self`: [`List`](List.md#list)<`A`\>) => readonly [[`List`](List.md#list)<`A`\>, [`List`](List.md#list)<`A`\>]
+▸ **splitAt**(`n`): \<A\>(`self`: [`List`](List.md#list)\<`A`\>) => readonly [[`List`](List.md#list)\<`A`\>, [`List`](List.md#list)\<`A`\>]
 
 Splits the specified list into two lists at the specified index.
 
@@ -730,7 +730,7 @@ Splits the specified list into two lists at the specified index.
 
 `fn`
 
-▸ <`A`\>(`self`): readonly [[`List`](List.md#list)<`A`\>, [`List`](List.md#list)<`A`\>]
+▸ \<`A`\>(`self`): readonly [[`List`](List.md#list)\<`A`\>, [`List`](List.md#list)\<`A`\>]
 
 ##### Type parameters
 
@@ -740,19 +740,19 @@ Splits the specified list into two lists at the specified index.
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-readonly [[`List`](List.md#list)<`A`\>, [`List`](List.md#list)<`A`\>]
+readonly [[`List`](List.md#list)\<`A`\>, [`List`](List.md#list)\<`A`\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **splitAt**<`A`\>(`self`, `n`): readonly [[`List`](List.md#list)<`A`\>, [`List`](List.md#list)<`A`\>]
+▸ **splitAt**\<`A`\>(`self`, `n`): readonly [[`List`](List.md#list)\<`A`\>, [`List`](List.md#list)\<`A`\>]
 
 Splits the specified list into two lists at the specified index.
 
@@ -764,14 +764,14 @@ Splits the specified list into two lists at the specified index.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
-| `n`    | `number`                     |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
+| `n`    | `number`                      |
 
 #### Returns
 
-readonly [[`List`](List.md#list)<`A`\>, [`List`](List.md#list)<`A`\>]
+readonly [[`List`](List.md#list)\<`A`\>, [`List`](List.md#list)\<`A`\>]
 
 **`Since`**
 
@@ -781,7 +781,7 @@ readonly [[`List`](List.md#list)<`A`\>, [`List`](List.md#list)<`A`\>]
 
 ### take
 
-▸ **take**(`n`): <A\>(`self`: [`List`](List.md#list)<`A`\>) => [`List`](List.md#list)<`A`\>
+▸ **take**(`n`): \<A\>(`self`: [`List`](List.md#list)\<`A`\>) => [`List`](List.md#list)\<`A`\>
 
 Takes the specified number of elements from the beginning of the specified
 list.
@@ -796,7 +796,7 @@ list.
 
 `fn`
 
-▸ <`A`\>(`self`): [`List`](List.md#list)<`A`\>
+▸ \<`A`\>(`self`): [`List`](List.md#list)\<`A`\>
 
 ##### Type parameters
 
@@ -806,19 +806,19 @@ list.
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-[`List`](List.md#list)<`A`\>
+[`List`](List.md#list)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **take**<`A`\>(`self`, `n`): [`List`](List.md#list)<`A`\>
+▸ **take**\<`A`\>(`self`, `n`): [`List`](List.md#list)\<`A`\>
 
 Takes the specified number of elements from the beginning of the specified
 list.
@@ -831,14 +831,14 @@ list.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
-| `n`    | `number`                     |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
+| `n`    | `number`                      |
 
 #### Returns
 
-[`List`](List.md#list)<`A`\>
+[`List`](List.md#list)\<`A`\>
 
 **`Since`**
 
@@ -848,7 +848,7 @@ list.
 
 ### append
 
-▸ **append**<`B`\>(`element`): <A\>(`self`: [`List`](List.md#list)<`A`\>) => [`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+▸ **append**\<`B`\>(`element`): \<A\>(`self`: [`List`](List.md#list)\<`A`\>) => [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 Appends the specified element to the end of the `List`, creating a new `Cons`.
 
@@ -868,7 +868,7 @@ Appends the specified element to the end of the `List`, creating a new `Cons`.
 
 `fn`
 
-▸ <`A`\>(`self`): [`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -878,19 +878,19 @@ Appends the specified element to the end of the `List`, creating a new `Cons`.
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-[`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+[`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **append**<`A`, `B`\>(`self`, `element`): [`Cons`](../interfaces/List.Cons.md)<`A` \| `B`\>
+▸ **append**\<`A`, `B`\>(`self`, `element`): [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
 
 Appends the specified element to the end of the `List`, creating a new `Cons`.
 
@@ -903,14 +903,14 @@ Appends the specified element to the end of the `List`, creating a new `Cons`.
 
 #### Parameters
 
-| Name      | Type                         |
-| :-------- | :--------------------------- |
-| `self`    | [`List`](List.md#list)<`A`\> |
-| `element` | `B`                          |
+| Name      | Type                          |
+| :-------- | :---------------------------- |
+| `self`    | [`List`](List.md#list)\<`A`\> |
+| `element` | `B`                           |
 
 #### Returns
 
-[`Cons`](../interfaces/List.Cons.md)<`A` \| `B`\>
+[`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
 
 **`Since`**
 
@@ -920,7 +920,7 @@ Appends the specified element to the end of the `List`, creating a new `Cons`.
 
 ### appendAll
 
-▸ **appendAll**<`B`\>(`that`): <A\>(`self`: [`List`](List.md#list)<`A`\>) => [`List`](List.md#list)<`B` \| `A`\>
+▸ **appendAll**\<`B`\>(`that`): \<A\>(`self`: [`List`](List.md#list)\<`A`\>) => [`List`](List.md#list)\<`B` \| `A`\>
 
 Concatentates the specified lists together.
 
@@ -932,15 +932,15 @@ Concatentates the specified lists together.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `that` | [`List`](List.md#list)<`B`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `that` | [`List`](List.md#list)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`List`](List.md#list)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`List`](List.md#list)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -950,19 +950,19 @@ Concatentates the specified lists together.
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-[`List`](List.md#list)<`B` \| `A`\>
+[`List`](List.md#list)\<`B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **appendAll**<`A`, `B`\>(`self`, `that`): [`List`](List.md#list)<`A` \| `B`\>
+▸ **appendAll**\<`A`, `B`\>(`self`, `that`): [`List`](List.md#list)\<`A` \| `B`\>
 
 Concatentates the specified lists together.
 
@@ -975,14 +975,14 @@ Concatentates the specified lists together.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
-| `that` | [`List`](List.md#list)<`B`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
+| `that` | [`List`](List.md#list)\<`B`\> |
 
 #### Returns
 
-[`List`](List.md#list)<`A` \| `B`\>
+[`List`](List.md#list)\<`A` \| `B`\>
 
 **`Since`**
 
@@ -992,7 +992,7 @@ Concatentates the specified lists together.
 
 ### appendAllNonEmpty
 
-▸ **appendAllNonEmpty**<`B`\>(`that`): <A\>(`self`: [`List`](List.md#list)<`A`\>) => [`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+▸ **appendAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: [`List`](List.md#list)\<`A`\>) => [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 #### Type parameters
 
@@ -1002,15 +1002,15 @@ Concatentates the specified lists together.
 
 #### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `that` | [`Cons`](../interfaces/List.Cons.md)<`B`\> |
+| Name   | Type                                        |
+| :----- | :------------------------------------------ |
+| `that` | [`Cons`](../interfaces/List.Cons.md)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -1020,19 +1020,19 @@ Concatentates the specified lists together.
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-[`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+[`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **appendAllNonEmpty**<`B`\>(`that`): <A\>(`self`: [`Cons`](../interfaces/List.Cons.md)<`A`\>) => [`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+▸ **appendAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: [`Cons`](../interfaces/List.Cons.md)\<`A`\>) => [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 #### Type parameters
 
@@ -1042,15 +1042,15 @@ Concatentates the specified lists together.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `that` | [`List`](List.md#list)<`B`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `that` | [`List`](List.md#list)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -1060,19 +1060,19 @@ Concatentates the specified lists together.
 
 ##### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `self` | [`Cons`](../interfaces/List.Cons.md)<`A`\> |
+| Name   | Type                                        |
+| :----- | :------------------------------------------ |
+| `self` | [`Cons`](../interfaces/List.Cons.md)\<`A`\> |
 
 ##### Returns
 
-[`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+[`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **appendAllNonEmpty**<`A`, `B`\>(`self`, `that`): [`Cons`](../interfaces/List.Cons.md)<`A` \| `B`\>
+▸ **appendAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
 
 #### Type parameters
 
@@ -1083,20 +1083,20 @@ Concatentates the specified lists together.
 
 #### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `self` | [`List`](List.md#list)<`A`\>               |
-| `that` | [`Cons`](../interfaces/List.Cons.md)<`B`\> |
+| Name   | Type                                        |
+| :----- | :------------------------------------------ |
+| `self` | [`List`](List.md#list)\<`A`\>               |
+| `that` | [`Cons`](../interfaces/List.Cons.md)\<`B`\> |
 
 #### Returns
 
-[`Cons`](../interfaces/List.Cons.md)<`A` \| `B`\>
+[`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **appendAllNonEmpty**<`A`, `B`\>(`self`, `that`): [`Cons`](../interfaces/List.Cons.md)<`A` \| `B`\>
+▸ **appendAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
 
 #### Type parameters
 
@@ -1107,14 +1107,14 @@ Concatentates the specified lists together.
 
 #### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `self` | [`Cons`](../interfaces/List.Cons.md)<`A`\> |
-| `that` | [`List`](List.md#list)<`B`\>               |
+| Name   | Type                                        |
+| :----- | :------------------------------------------ |
+| `self` | [`Cons`](../interfaces/List.Cons.md)\<`A`\> |
+| `that` | [`List`](List.md#list)\<`B`\>               |
 
 #### Returns
 
-[`Cons`](../interfaces/List.Cons.md)<`A` \| `B`\>
+[`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
 
 **`Since`**
 
@@ -1124,7 +1124,7 @@ Concatentates the specified lists together.
 
 ### prepend
 
-▸ **prepend**<`B`\>(`element`): <A\>(`self`: [`List`](List.md#list)<`A`\>) => [`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+▸ **prepend**\<`B`\>(`element`): \<A\>(`self`: [`List`](List.md#list)\<`A`\>) => [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 Prepends the specified element to the beginning of the list.
 
@@ -1144,7 +1144,7 @@ Prepends the specified element to the beginning of the list.
 
 `fn`
 
-▸ <`A`\>(`self`): [`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -1154,19 +1154,19 @@ Prepends the specified element to the beginning of the list.
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-[`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+[`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **prepend**<`A`, `B`\>(`self`, `element`): [`Cons`](../interfaces/List.Cons.md)<`A` \| `B`\>
+▸ **prepend**\<`A`, `B`\>(`self`, `element`): [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
 
 Prepends the specified element to the beginning of the list.
 
@@ -1179,14 +1179,14 @@ Prepends the specified element to the beginning of the list.
 
 #### Parameters
 
-| Name      | Type                         |
-| :-------- | :--------------------------- |
-| `self`    | [`List`](List.md#list)<`A`\> |
-| `element` | `B`                          |
+| Name      | Type                          |
+| :-------- | :---------------------------- |
+| `self`    | [`List`](List.md#list)\<`A`\> |
+| `element` | `B`                           |
 
 #### Returns
 
-[`Cons`](../interfaces/List.Cons.md)<`A` \| `B`\>
+[`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
 
 **`Since`**
 
@@ -1196,7 +1196,7 @@ Prepends the specified element to the beginning of the list.
 
 ### prependAll
 
-▸ **prependAll**<`B`\>(`prefix`): <A\>(`self`: [`List`](List.md#list)<`A`\>) => [`List`](List.md#list)<`B` \| `A`\>
+▸ **prependAll**\<`B`\>(`prefix`): \<A\>(`self`: [`List`](List.md#list)\<`A`\>) => [`List`](List.md#list)\<`B` \| `A`\>
 
 Prepends the specified prefix list to the beginning of the specified list.
 
@@ -1208,15 +1208,15 @@ Prepends the specified prefix list to the beginning of the specified list.
 
 #### Parameters
 
-| Name     | Type                         |
-| :------- | :--------------------------- |
-| `prefix` | [`List`](List.md#list)<`B`\> |
+| Name     | Type                          |
+| :------- | :---------------------------- |
+| `prefix` | [`List`](List.md#list)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`List`](List.md#list)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`List`](List.md#list)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -1226,19 +1226,19 @@ Prepends the specified prefix list to the beginning of the specified list.
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-[`List`](List.md#list)<`B` \| `A`\>
+[`List`](List.md#list)\<`B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **prependAll**<`A`, `B`\>(`self`, `prefix`): [`List`](List.md#list)<`A` \| `B`\>
+▸ **prependAll**\<`A`, `B`\>(`self`, `prefix`): [`List`](List.md#list)\<`A` \| `B`\>
 
 Prepends the specified prefix list to the beginning of the specified list.
 
@@ -1251,14 +1251,14 @@ Prepends the specified prefix list to the beginning of the specified list.
 
 #### Parameters
 
-| Name     | Type                         |
-| :------- | :--------------------------- |
-| `self`   | [`List`](List.md#list)<`A`\> |
-| `prefix` | [`List`](List.md#list)<`B`\> |
+| Name     | Type                          |
+| :------- | :---------------------------- |
+| `self`   | [`List`](List.md#list)\<`A`\> |
+| `prefix` | [`List`](List.md#list)\<`B`\> |
 
 #### Returns
 
-[`List`](List.md#list)<`A` \| `B`\>
+[`List`](List.md#list)\<`A` \| `B`\>
 
 **`Since`**
 
@@ -1268,7 +1268,7 @@ Prepends the specified prefix list to the beginning of the specified list.
 
 ### prependAllNonEmpty
 
-▸ **prependAllNonEmpty**<`B`\>(`that`): <A\>(`self`: [`List`](List.md#list)<`A`\>) => [`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+▸ **prependAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: [`List`](List.md#list)\<`A`\>) => [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 #### Type parameters
 
@@ -1278,15 +1278,15 @@ Prepends the specified prefix list to the beginning of the specified list.
 
 #### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `that` | [`Cons`](../interfaces/List.Cons.md)<`B`\> |
+| Name   | Type                                        |
+| :----- | :------------------------------------------ |
+| `that` | [`Cons`](../interfaces/List.Cons.md)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -1296,19 +1296,19 @@ Prepends the specified prefix list to the beginning of the specified list.
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-[`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+[`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **prependAllNonEmpty**<`B`\>(`that`): <A\>(`self`: [`Cons`](../interfaces/List.Cons.md)<`A`\>) => [`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+▸ **prependAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: [`Cons`](../interfaces/List.Cons.md)\<`A`\>) => [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 #### Type parameters
 
@@ -1318,15 +1318,15 @@ Prepends the specified prefix list to the beginning of the specified list.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `that` | [`List`](List.md#list)<`B`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `that` | [`List`](List.md#list)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -1336,19 +1336,19 @@ Prepends the specified prefix list to the beginning of the specified list.
 
 ##### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `self` | [`Cons`](../interfaces/List.Cons.md)<`A`\> |
+| Name   | Type                                        |
+| :----- | :------------------------------------------ |
+| `self` | [`Cons`](../interfaces/List.Cons.md)\<`A`\> |
 
 ##### Returns
 
-[`Cons`](../interfaces/List.Cons.md)<`B` \| `A`\>
+[`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **prependAllNonEmpty**<`A`, `B`\>(`self`, `that`): [`Cons`](../interfaces/List.Cons.md)<`A` \| `B`\>
+▸ **prependAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
 
 #### Type parameters
 
@@ -1359,20 +1359,20 @@ Prepends the specified prefix list to the beginning of the specified list.
 
 #### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `self` | [`List`](List.md#list)<`A`\>               |
-| `that` | [`Cons`](../interfaces/List.Cons.md)<`B`\> |
+| Name   | Type                                        |
+| :----- | :------------------------------------------ |
+| `self` | [`List`](List.md#list)\<`A`\>               |
+| `that` | [`Cons`](../interfaces/List.Cons.md)\<`B`\> |
 
 #### Returns
 
-[`Cons`](../interfaces/List.Cons.md)<`A` \| `B`\>
+[`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **prependAllNonEmpty**<`A`, `B`\>(`self`, `that`): [`Cons`](../interfaces/List.Cons.md)<`A` \| `B`\>
+▸ **prependAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
 
 #### Type parameters
 
@@ -1383,14 +1383,14 @@ Prepends the specified prefix list to the beginning of the specified list.
 
 #### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `self` | [`Cons`](../interfaces/List.Cons.md)<`A`\> |
-| `that` | [`List`](List.md#list)<`B`\>               |
+| Name   | Type                                        |
+| :----- | :------------------------------------------ |
+| `self` | [`Cons`](../interfaces/List.Cons.md)\<`A`\> |
+| `that` | [`List`](List.md#list)\<`B`\>               |
 
 #### Returns
 
-[`Cons`](../interfaces/List.Cons.md)<`A` \| `B`\>
+[`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
 
 **`Since`**
 
@@ -1400,7 +1400,7 @@ Prepends the specified prefix list to the beginning of the specified list.
 
 ### prependAllReversed
 
-▸ **prependAllReversed**<`B`\>(`prefix`): <A\>(`self`: [`List`](List.md#list)<`A`\>) => [`List`](List.md#list)<`B` \| `A`\>
+▸ **prependAllReversed**\<`B`\>(`prefix`): \<A\>(`self`: [`List`](List.md#list)\<`A`\>) => [`List`](List.md#list)\<`B` \| `A`\>
 
 Prepends the specified prefix list (in reverse order) to the beginning of the
 specified list.
@@ -1413,15 +1413,15 @@ specified list.
 
 #### Parameters
 
-| Name     | Type                         |
-| :------- | :--------------------------- |
-| `prefix` | [`List`](List.md#list)<`B`\> |
+| Name     | Type                          |
+| :------- | :---------------------------- |
+| `prefix` | [`List`](List.md#list)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`A`\>(`self`): [`List`](List.md#list)<`B` \| `A`\>
+▸ \<`A`\>(`self`): [`List`](List.md#list)\<`B` \| `A`\>
 
 ##### Type parameters
 
@@ -1431,19 +1431,19 @@ specified list.
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-[`List`](List.md#list)<`B` \| `A`\>
+[`List`](List.md#list)\<`B` \| `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **prependAllReversed**<`A`, `B`\>(`self`, `prefix`): [`List`](List.md#list)<`A` \| `B`\>
+▸ **prependAllReversed**\<`A`, `B`\>(`self`, `prefix`): [`List`](List.md#list)\<`A` \| `B`\>
 
 Prepends the specified prefix list (in reverse order) to the beginning of the
 specified list.
@@ -1457,14 +1457,14 @@ specified list.
 
 #### Parameters
 
-| Name     | Type                         |
-| :------- | :--------------------------- |
-| `self`   | [`List`](List.md#list)<`A`\> |
-| `prefix` | [`List`](List.md#list)<`B`\> |
+| Name     | Type                          |
+| :------- | :---------------------------- |
+| `self`   | [`List`](List.md#list)\<`A`\> |
+| `prefix` | [`List`](List.md#list)\<`B`\> |
 
 #### Returns
 
-[`List`](List.md#list)<`A` \| `B`\>
+[`List`](List.md#list)\<`A` \| `B`\>
 
 **`Since`**
 
@@ -1474,7 +1474,7 @@ specified list.
 
 ### cons
 
-▸ **cons**<`A`\>(`head`, `tail`): [`Cons`](../interfaces/List.Cons.md)<`A`\>
+▸ **cons**\<`A`\>(`head`, `tail`): [`Cons`](../interfaces/List.Cons.md)\<`A`\>
 
 Constructs a new `List.Cons<A>` from the specified `head` and `tail` values.
 
@@ -1486,14 +1486,14 @@ Constructs a new `List.Cons<A>` from the specified `head` and `tail` values.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `head` | `A`                          |
-| `tail` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `head` | `A`                           |
+| `tail` | [`List`](List.md#list)\<`A`\> |
 
 #### Returns
 
-[`Cons`](../interfaces/List.Cons.md)<`A`\>
+[`Cons`](../interfaces/List.Cons.md)\<`A`\>
 
 **`Since`**
 
@@ -1503,7 +1503,7 @@ Constructs a new `List.Cons<A>` from the specified `head` and `tail` values.
 
 ### empty
 
-▸ **empty**<`A`\>(): [`List`](List.md#list)<`A`\>
+▸ **empty**\<`A`\>(): [`List`](List.md#list)\<`A`\>
 
 Constructs a new empty `List<A>`.
 
@@ -1517,7 +1517,7 @@ Alias of [nil](List.md#nil).
 
 #### Returns
 
-[`List`](List.md#list)<`A`\>
+[`List`](List.md#list)\<`A`\>
 
 **`Since`**
 
@@ -1527,7 +1527,7 @@ Alias of [nil](List.md#nil).
 
 ### fromIterable
 
-▸ **fromIterable**<`A`\>(`prefix`): [`List`](List.md#list)<`A`\>
+▸ **fromIterable**\<`A`\>(`prefix`): [`List`](List.md#list)\<`A`\>
 
 Constructs a new `List<A>` from the specified `Iterable<A>`.
 
@@ -1539,13 +1539,13 @@ Constructs a new `List<A>` from the specified `Iterable<A>`.
 
 #### Parameters
 
-| Name     | Type             |
-| :------- | :--------------- |
-| `prefix` | `Iterable`<`A`\> |
+| Name     | Type              |
+| :------- | :---------------- |
+| `prefix` | `Iterable`\<`A`\> |
 
 #### Returns
 
-[`List`](List.md#list)<`A`\>
+[`List`](List.md#list)\<`A`\>
 
 **`Since`**
 
@@ -1555,7 +1555,7 @@ Constructs a new `List<A>` from the specified `Iterable<A>`.
 
 ### make
 
-▸ **make**<`Elements`\>(`...elements`): [`Cons`](../interfaces/List.Cons.md)<`Elements`[`number`]\>
+▸ **make**\<`Elements`\>(`...elements`): [`Cons`](../interfaces/List.Cons.md)\<`Elements`[`number`]\>
 
 Constructs a new `List<A>` from the specified values.
 
@@ -1573,7 +1573,7 @@ Constructs a new `List<A>` from the specified values.
 
 #### Returns
 
-[`Cons`](../interfaces/List.Cons.md)<`Elements`[`number`]\>
+[`Cons`](../interfaces/List.Cons.md)\<`Elements`[`number`]\>
 
 **`Since`**
 
@@ -1583,7 +1583,7 @@ Constructs a new `List<A>` from the specified values.
 
 ### nil
 
-▸ **nil**<`A`\>(): [`List`](List.md#list)<`A`\>
+▸ **nil**\<`A`\>(): [`List`](List.md#list)\<`A`\>
 
 Constructs a new empty `List<A>`.
 
@@ -1595,7 +1595,7 @@ Constructs a new empty `List<A>`.
 
 #### Returns
 
-[`List`](List.md#list)<`A`\>
+[`List`](List.md#list)\<`A`\>
 
 **`Since`**
 
@@ -1605,7 +1605,7 @@ Constructs a new empty `List<A>`.
 
 ### of
 
-▸ **of**<`A`\>(`value`): [`Cons`](../interfaces/List.Cons.md)<`A`\>
+▸ **of**\<`A`\>(`value`): [`Cons`](../interfaces/List.Cons.md)\<`A`\>
 
 Constructs a new `List<A>` from the specified value.
 
@@ -1623,7 +1623,7 @@ Constructs a new `List<A>` from the specified value.
 
 #### Returns
 
-[`Cons`](../interfaces/List.Cons.md)<`A`\>
+[`Cons`](../interfaces/List.Cons.md)\<`A`\>
 
 **`Since`**
 
@@ -1633,7 +1633,7 @@ Constructs a new `List<A>` from the specified value.
 
 ### toChunk
 
-▸ **toChunk**<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+▸ **toChunk**\<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 Converts the specified `List` to a `Chunk`.
 
@@ -1645,13 +1645,13 @@ Converts the specified `List` to a `Chunk`.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -1661,7 +1661,7 @@ Converts the specified `List` to a `Chunk`.
 
 ### toReadonlyArray
 
-▸ **toReadonlyArray**<`A`\>(`self`): readonly `A`[]
+▸ **toReadonlyArray**\<`A`\>(`self`): readonly `A`[]
 
 Converts the specified `List` to a `ReadonlyArray`.
 
@@ -1673,9 +1673,9 @@ Converts the specified `List` to a `ReadonlyArray`.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 #### Returns
 
@@ -1689,7 +1689,7 @@ readonly `A`[]
 
 ### every
 
-▸ **every**<`A`, `B`\>(`refinement`): (`self`: [`List`](List.md#list)<`A`\>) => self is List<B\>
+▸ **every**\<`A`, `B`\>(`refinement`): (`self`: [`List`](List.md#list)\<`A`\>) => self is List\<B\>
 
 Check if a predicate holds true for every `List` element.
 
@@ -1702,31 +1702,31 @@ Check if a predicate holds true for every `List` element.
 
 #### Parameters
 
-| Name         | Type                    |
-| :----------- | :---------------------- |
-| `refinement` | `Refinement`<`A`, `B`\> |
+| Name         | Type                     |
+| :----------- | :----------------------- |
+| `refinement` | `Refinement`\<`A`, `B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): self is List<B\>
+▸ (`self`): self is List\<B\>
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-self is List<B\>
+self is List\<B\>
 
 **`Since`**
 
 2.0.0
 
-▸ **every**<`A`\>(`predicate`): (`self`: [`List`](List.md#list)<`A`\>) => `boolean`
+▸ **every**\<`A`\>(`predicate`): (`self`: [`List`](List.md#list)\<`A`\>) => `boolean`
 
 Check if a predicate holds true for every `List` element.
 
@@ -1738,9 +1738,9 @@ Check if a predicate holds true for every `List` element.
 
 #### Parameters
 
-| Name        | Type              |
-| :---------- | :---------------- |
-| `predicate` | `Predicate`<`A`\> |
+| Name        | Type               |
+| :---------- | :----------------- |
+| `predicate` | `Predicate`\<`A`\> |
 
 #### Returns
 
@@ -1750,9 +1750,9 @@ Check if a predicate holds true for every `List` element.
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
@@ -1762,7 +1762,7 @@ Check if a predicate holds true for every `List` element.
 
 2.0.0
 
-▸ **every**<`A`, `B`\>(`self`, `refinement`): self is List<B\>
+▸ **every**\<`A`, `B`\>(`self`, `refinement`): self is List\<B\>
 
 Check if a predicate holds true for every `List` element.
 
@@ -1775,20 +1775,20 @@ Check if a predicate holds true for every `List` element.
 
 #### Parameters
 
-| Name         | Type                         |
-| :----------- | :--------------------------- |
-| `self`       | [`List`](List.md#list)<`A`\> |
-| `refinement` | `Refinement`<`A`, `B`\>      |
+| Name         | Type                          |
+| :----------- | :---------------------------- |
+| `self`       | [`List`](List.md#list)\<`A`\> |
+| `refinement` | `Refinement`\<`A`, `B`\>      |
 
 #### Returns
 
-self is List<B\>
+self is List\<B\>
 
 **`Since`**
 
 2.0.0
 
-▸ **every**<`A`\>(`self`, `predicate`): `boolean`
+▸ **every**\<`A`\>(`self`, `predicate`): `boolean`
 
 Check if a predicate holds true for every `List` element.
 
@@ -1800,10 +1800,10 @@ Check if a predicate holds true for every `List` element.
 
 #### Parameters
 
-| Name        | Type                         |
-| :---------- | :--------------------------- |
-| `self`      | [`List`](List.md#list)<`A`\> |
-| `predicate` | `Predicate`<`A`\>            |
+| Name        | Type                          |
+| :---------- | :---------------------------- |
+| `self`      | [`List`](List.md#list)\<`A`\> |
+| `predicate` | `Predicate`\<`A`\>            |
 
 #### Returns
 
@@ -1817,7 +1817,7 @@ Check if a predicate holds true for every `List` element.
 
 ### findFirst
 
-▸ **findFirst**<`A`, `B`\>(`refinement`): (`self`: [`List`](List.md#list)<`A`\>) => [`Option`](O.md#option)<`B`\>
+▸ **findFirst**\<`A`, `B`\>(`refinement`): (`self`: [`List`](List.md#list)\<`A`\>) => [`Option`](O.md#option)\<`B`\>
 
 Returns the first element that satisfies the specified
 predicate, or `None` if no such element exists.
@@ -1831,31 +1831,31 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name         | Type                    |
-| :----------- | :---------------------- |
-| `refinement` | `Refinement`<`A`, `B`\> |
+| Name         | Type                     |
+| :----------- | :----------------------- |
+| `refinement` | `Refinement`\<`A`, `B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<`B`\>
+▸ (`self`): [`Option`](O.md#option)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **findFirst**<`A`\>(`predicate`): (`self`: [`List`](List.md#list)<`A`\>) => [`Option`](O.md#option)<`A`\>
+▸ **findFirst**\<`A`\>(`predicate`): (`self`: [`List`](List.md#list)\<`A`\>) => [`Option`](O.md#option)\<`A`\>
 
 Returns the first element that satisfies the specified
 predicate, or `None` if no such element exists.
@@ -1868,31 +1868,31 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name        | Type              |
-| :---------- | :---------------- |
-| `predicate` | `Predicate`<`A`\> |
+| Name        | Type               |
+| :---------- | :----------------- |
+| `predicate` | `Predicate`\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)<`A`\>
+▸ (`self`): [`Option`](O.md#option)\<`A`\>
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **findFirst**<`A`, `B`\>(`self`, `refinement`): [`Option`](O.md#option)<`B`\>
+▸ **findFirst**\<`A`, `B`\>(`self`, `refinement`): [`Option`](O.md#option)\<`B`\>
 
 Returns the first element that satisfies the specified
 predicate, or `None` if no such element exists.
@@ -1906,20 +1906,20 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name         | Type                         |
-| :----------- | :--------------------------- |
-| `self`       | [`List`](List.md#list)<`A`\> |
-| `refinement` | `Refinement`<`A`, `B`\>      |
+| Name         | Type                          |
+| :----------- | :---------------------------- |
+| `self`       | [`List`](List.md#list)\<`A`\> |
+| `refinement` | `Refinement`\<`A`, `B`\>      |
 
 #### Returns
 
-[`Option`](O.md#option)<`B`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **findFirst**<`A`\>(`self`, `predicate`): [`Option`](O.md#option)<`A`\>
+▸ **findFirst**\<`A`\>(`self`, `predicate`): [`Option`](O.md#option)\<`A`\>
 
 Returns the first element that satisfies the specified
 predicate, or `None` if no such element exists.
@@ -1932,14 +1932,14 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name        | Type                         |
-| :---------- | :--------------------------- |
-| `self`      | [`List`](List.md#list)<`A`\> |
-| `predicate` | `Predicate`<`A`\>            |
+| Name        | Type                          |
+| :---------- | :---------------------------- |
+| `self`      | [`List`](List.md#list)\<`A`\> |
+| `predicate` | `Predicate`\<`A`\>            |
 
 #### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Since`**
 
@@ -1949,7 +1949,7 @@ predicate, or `None` if no such element exists.
 
 ### reverse
 
-▸ **reverse**<`A`\>(`self`): [`List`](List.md#list)<`A`\>
+▸ **reverse**\<`A`\>(`self`): [`List`](List.md#list)\<`A`\>
 
 Returns a new list with the elements of the specified list in reverse order.
 
@@ -1961,13 +1961,13 @@ Returns a new list with the elements of the specified list in reverse order.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 #### Returns
 
-[`List`](List.md#list)<`A`\>
+[`List`](List.md#list)\<`A`\>
 
 **`Since`**
 
@@ -1977,7 +1977,7 @@ Returns a new list with the elements of the specified list in reverse order.
 
 ### some
 
-▸ **some**<`A`\>(`predicate`): <B\>(`self`: [`List`](List.md#list)<`B`\>) => self is Cons<B\>
+▸ **some**\<`A`\>(`predicate`): \<B\>(`self`: [`List`](List.md#list)\<`B`\>) => self is Cons\<B\>
 
 Check if a predicate holds true for some `List` element.
 
@@ -1989,15 +1989,15 @@ Check if a predicate holds true for some `List` element.
 
 #### Parameters
 
-| Name        | Type              |
-| :---------- | :---------------- |
-| `predicate` | `Predicate`<`A`\> |
+| Name        | Type               |
+| :---------- | :----------------- |
+| `predicate` | `Predicate`\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ <`B`\>(`self`): self is Cons<B\>
+▸ \<`B`\>(`self`): self is Cons\<B\>
 
 ##### Type parameters
 
@@ -2007,19 +2007,19 @@ Check if a predicate holds true for some `List` element.
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`B`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`B`\> |
 
 ##### Returns
 
-self is Cons<B\>
+self is Cons\<B\>
 
 **`Since`**
 
 2.0.0
 
-▸ **some**<`B`, `A`\>(`self`, `predicate`): self is Cons<B\>
+▸ **some**\<`B`, `A`\>(`self`, `predicate`): self is Cons\<B\>
 
 Check if a predicate holds true for some `List` element.
 
@@ -2032,14 +2032,14 @@ Check if a predicate holds true for some `List` element.
 
 #### Parameters
 
-| Name        | Type                         |
-| :---------- | :--------------------------- |
-| `self`      | [`List`](List.md#list)<`B`\> |
-| `predicate` | `Predicate`<`A`\>            |
+| Name        | Type                          |
+| :---------- | :---------------------------- |
+| `self`      | [`List`](List.md#list)\<`B`\> |
+| `predicate` | `Predicate`\<`A`\>            |
 
 #### Returns
 
-self is Cons<B\>
+self is Cons\<B\>
 
 **`Since`**
 
@@ -2049,7 +2049,7 @@ self is Cons<B\>
 
 ### getEquivalence
 
-▸ **getEquivalence**<`A`\>(`isEquivalent`): `Equivalence`<[`List`](List.md#list)<`A`\>\>
+▸ **getEquivalence**\<`A`\>(`isEquivalent`): `Equivalence`\<[`List`](List.md#list)\<`A`\>\>
 
 #### Type parameters
 
@@ -2059,13 +2059,13 @@ self is Cons<B\>
 
 #### Parameters
 
-| Name           | Type                |
-| :------------- | :------------------ |
-| `isEquivalent` | `Equivalence`<`A`\> |
+| Name           | Type                 |
+| :------------- | :------------------- |
+| `isEquivalent` | `Equivalence`\<`A`\> |
 
 #### Returns
 
-`Equivalence`<[`List`](List.md#list)<`A`\>\>
+`Equivalence`\<[`List`](List.md#list)\<`A`\>\>
 
 **`Since`**
 
@@ -2075,7 +2075,7 @@ self is Cons<B\>
 
 ### reduce
 
-▸ **reduce**<`Z`, `A`\>(`zero`, `f`): (`self`: [`List`](List.md#list)<`A`\>) => `Z`
+▸ **reduce**\<`Z`, `A`\>(`zero`, `f`): (`self`: [`List`](List.md#list)\<`A`\>) => `Z`
 
 Folds over the elements of the list using the specified function, using the
 specified initial value.
@@ -2102,9 +2102,9 @@ specified initial value.
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
@@ -2114,7 +2114,7 @@ specified initial value.
 
 2.0.0
 
-▸ **reduce**<`A`, `Z`\>(`self`, `zero`, `f`): `Z`
+▸ **reduce**\<`A`, `Z`\>(`self`, `zero`, `f`): `Z`
 
 Folds over the elements of the list using the specified function, using the
 specified initial value.
@@ -2128,11 +2128,11 @@ specified initial value.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
-| `zero` | `Z`                          |
-| `f`    | (`b`: `Z`, `a`: `A`) => `Z`  |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
+| `zero` | `Z`                           |
+| `f`    | (`b`: `Z`, `a`: `A`) => `Z`   |
 
 #### Returns
 
@@ -2146,7 +2146,7 @@ specified initial value.
 
 ### reduceRight
 
-▸ **reduceRight**<`Z`, `A`\>(`zero`, `f`): (`self`: [`List`](List.md#list)<`A`\>) => `Z`
+▸ **reduceRight**\<`Z`, `A`\>(`zero`, `f`): (`self`: [`List`](List.md#list)\<`A`\>) => `Z`
 
 Folds over the elements of the list using the specified function, beginning
 with the last element of the list, using the specified initial value.
@@ -2173,9 +2173,9 @@ with the last element of the list, using the specified initial value.
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
@@ -2185,7 +2185,7 @@ with the last element of the list, using the specified initial value.
 
 2.0.0
 
-▸ **reduceRight**<`Z`, `A`\>(`self`, `zero`, `f`): `Z`
+▸ **reduceRight**\<`Z`, `A`\>(`self`, `zero`, `f`): `Z`
 
 Folds over the elements of the list using the specified function, beginning
 with the last element of the list, using the specified initial value.
@@ -2201,7 +2201,7 @@ with the last element of the list, using the specified initial value.
 
 | Name   | Type                                      |
 | :----- | :---------------------------------------- |
-| `self` | [`List`](List.md#list)<`A`\>              |
+| `self` | [`List`](List.md#list)\<`A`\>             |
 | `zero` | `Z`                                       |
 | `f`    | (`accumulator`: `Z`, `value`: `A`) => `Z` |
 
@@ -2217,7 +2217,7 @@ with the last element of the list, using the specified initial value.
 
 ### head
 
-▸ **head**<`A`\>(`self`): [`Option`](O.md#option)<`A`\>
+▸ **head**\<`A`\>(`self`): [`Option`](O.md#option)\<`A`\>
 
 Returns the first element of the specified list, or `None` if the list is
 empty.
@@ -2230,13 +2230,13 @@ empty.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 #### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Since`**
 
@@ -2246,7 +2246,7 @@ empty.
 
 ### last
 
-▸ **last**<`A`\>(`self`): [`Option`](O.md#option)<`A`\>
+▸ **last**\<`A`\>(`self`): [`Option`](O.md#option)\<`A`\>
 
 Returns the last element of the specified list, or `None` if the list is
 empty.
@@ -2259,13 +2259,13 @@ empty.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 #### Returns
 
-[`Option`](O.md#option)<`A`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Since`**
 
@@ -2275,7 +2275,7 @@ empty.
 
 ### size
 
-▸ **size**<`A`\>(`self`): `number`
+▸ **size**\<`A`\>(`self`): `number`
 
 Returns the number of elements contained in the specified `List`
 
@@ -2287,9 +2287,9 @@ Returns the number of elements contained in the specified `List`
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 #### Returns
 
@@ -2303,7 +2303,7 @@ Returns the number of elements contained in the specified `List`
 
 ### tail
 
-▸ **tail**<`A`\>(`self`): [`Option`](O.md#option)<[`List`](List.md#list)<`A`\>\>
+▸ **tail**\<`A`\>(`self`): [`Option`](O.md#option)\<[`List`](List.md#list)\<`A`\>\>
 
 Returns the tail of the specified list, or `None` if the list is empty.
 
@@ -2315,13 +2315,13 @@ Returns the tail of the specified list, or `None` if the list is empty.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 #### Returns
 
-[`Option`](O.md#option)<[`List`](List.md#list)<`A`\>\>
+[`Option`](O.md#option)\<[`List`](List.md#list)\<`A`\>\>
 
 **`Since`**
 
@@ -2331,7 +2331,7 @@ Returns the tail of the specified list, or `None` if the list is empty.
 
 ### List
 
-Ƭ **List**<`A`\>: [`Cons`](../interfaces/List.Cons.md)<`A`\> \| [`Nil`](../interfaces/List.Nil.md)<`A`\>
+Ƭ **List**\<`A`\>: [`Cons`](../interfaces/List.Cons.md)\<`A`\> \| [`Nil`](../interfaces/List.Nil.md)\<`A`\>
 
 Represents an immutable linked list of elements of type `A`.
 
@@ -2353,7 +2353,7 @@ consider using a collection more suited for that other than `List`.
 
 ### isCons
 
-▸ **isCons**<`A`\>(`self`): self is Cons<A\>
+▸ **isCons**\<`A`\>(`self`): self is Cons\<A\>
 
 Returns `true` if the specified value is a `List.Cons<A>`, `false` otherwise.
 
@@ -2365,13 +2365,13 @@ Returns `true` if the specified value is a `List.Cons<A>`, `false` otherwise.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 #### Returns
 
-self is Cons<A\>
+self is Cons\<A\>
 
 **`Since`**
 
@@ -2381,7 +2381,7 @@ self is Cons<A\>
 
 ### isList
 
-▸ **isList**<`A`\>(`u`): u is List<A\>
+▸ **isList**\<`A`\>(`u`): u is List\<A\>
 
 Returns `true` if the specified value is a `List`, `false` otherwise.
 
@@ -2393,19 +2393,19 @@ Returns `true` if the specified value is a `List`, `false` otherwise.
 
 #### Parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `u`  | `Iterable`<`A`\> |
+| Name | Type              |
+| :--- | :---------------- |
+| `u`  | `Iterable`\<`A`\> |
 
 #### Returns
 
-u is List<A\>
+u is List\<A\>
 
 **`Since`**
 
 2.0.0
 
-▸ **isList**(`u`): u is List<unknown\>
+▸ **isList**(`u`): u is List\<unknown\>
 
 Returns `true` if the specified value is a `List`, `false` otherwise.
 
@@ -2417,7 +2417,7 @@ Returns `true` if the specified value is a `List`, `false` otherwise.
 
 #### Returns
 
-u is List<unknown\>
+u is List\<unknown\>
 
 **`Since`**
 
@@ -2427,7 +2427,7 @@ u is List<unknown\>
 
 ### isNil
 
-▸ **isNil**<`A`\>(`self`): self is Nil<A\>
+▸ **isNil**\<`A`\>(`self`): self is Nil\<A\>
 
 Returns `true` if the specified value is a `List.Nil<A>`, `false` otherwise.
 
@@ -2439,13 +2439,13 @@ Returns `true` if the specified value is a `List.Nil<A>`, `false` otherwise.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 #### Returns
 
-self is Nil<A\>
+self is Nil\<A\>
 
 **`Since`**
 
@@ -2455,7 +2455,7 @@ self is Nil<A\>
 
 ### flatMap
 
-▸ **flatMap**<`A`, `B`\>(`f`): (`self`: [`List`](List.md#list)<`A`\>) => [`List`](List.md#list)<`B`\>
+▸ **flatMap**\<`A`, `B`\>(`f`): (`self`: [`List`](List.md#list)\<`A`\>) => [`List`](List.md#list)\<`B`\>
 
 Flat maps a list using the specified function.
 
@@ -2468,31 +2468,31 @@ Flat maps a list using the specified function.
 
 #### Parameters
 
-| Name | Type                                       |
-| :--- | :----------------------------------------- |
-| `f`  | (`a`: `A`) => [`List`](List.md#list)<`B`\> |
+| Name | Type                                        |
+| :--- | :------------------------------------------ |
+| `f`  | (`a`: `A`) => [`List`](List.md#list)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`List`](List.md#list)<`B`\>
+▸ (`self`): [`List`](List.md#list)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-[`List`](List.md#list)<`B`\>
+[`List`](List.md#list)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **flatMap**<`A`, `B`\>(`self`, `f`): [`List`](List.md#list)<`B`\>
+▸ **flatMap**\<`A`, `B`\>(`self`, `f`): [`List`](List.md#list)\<`B`\>
 
 Flat maps a list using the specified function.
 
@@ -2505,14 +2505,14 @@ Flat maps a list using the specified function.
 
 #### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `self` | [`List`](List.md#list)<`A`\>               |
-| `f`    | (`a`: `A`) => [`List`](List.md#list)<`B`\> |
+| Name   | Type                                        |
+| :----- | :------------------------------------------ |
+| `self` | [`List`](List.md#list)\<`A`\>               |
+| `f`    | (`a`: `A`) => [`List`](List.md#list)\<`B`\> |
 
 #### Returns
 
-[`List`](List.md#list)<`B`\>
+[`List`](List.md#list)\<`B`\>
 
 **`Since`**
 
@@ -2522,7 +2522,7 @@ Flat maps a list using the specified function.
 
 ### flatMapNonEmpty
 
-▸ **flatMapNonEmpty**<`A`, `B`\>(`f`): (`self`: [`Cons`](../interfaces/List.Cons.md)<`A`\>) => [`Cons`](../interfaces/List.Cons.md)<`B`\>
+▸ **flatMapNonEmpty**\<`A`, `B`\>(`f`): (`self`: [`Cons`](../interfaces/List.Cons.md)\<`A`\>) => [`Cons`](../interfaces/List.Cons.md)\<`B`\>
 
 #### Type parameters
 
@@ -2533,31 +2533,31 @@ Flat maps a list using the specified function.
 
 #### Parameters
 
-| Name | Type                                                                    |
-| :--- | :---------------------------------------------------------------------- |
-| `f`  | (`a`: `A`, `i`: `number`) => [`Cons`](../interfaces/List.Cons.md)<`B`\> |
+| Name | Type                                                                     |
+| :--- | :----------------------------------------------------------------------- |
+| `f`  | (`a`: `A`, `i`: `number`) => [`Cons`](../interfaces/List.Cons.md)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Cons`](../interfaces/List.Cons.md)<`B`\>
+▸ (`self`): [`Cons`](../interfaces/List.Cons.md)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `self` | [`Cons`](../interfaces/List.Cons.md)<`A`\> |
+| Name   | Type                                        |
+| :----- | :------------------------------------------ |
+| `self` | [`Cons`](../interfaces/List.Cons.md)\<`A`\> |
 
 ##### Returns
 
-[`Cons`](../interfaces/List.Cons.md)<`B`\>
+[`Cons`](../interfaces/List.Cons.md)\<`B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **flatMapNonEmpty**<`A`, `B`\>(`self`, `f`): [`Cons`](../interfaces/List.Cons.md)<`B`\>
+▸ **flatMapNonEmpty**\<`A`, `B`\>(`self`, `f`): [`Cons`](../interfaces/List.Cons.md)\<`B`\>
 
 #### Type parameters
 
@@ -2568,14 +2568,14 @@ Flat maps a list using the specified function.
 
 #### Parameters
 
-| Name   | Type                                                                    |
-| :----- | :---------------------------------------------------------------------- |
-| `self` | [`Cons`](../interfaces/List.Cons.md)<`A`\>                              |
-| `f`    | (`a`: `A`, `i`: `number`) => [`Cons`](../interfaces/List.Cons.md)<`B`\> |
+| Name   | Type                                                                     |
+| :----- | :----------------------------------------------------------------------- |
+| `self` | [`Cons`](../interfaces/List.Cons.md)\<`A`\>                              |
+| `f`    | (`a`: `A`, `i`: `number`) => [`Cons`](../interfaces/List.Cons.md)\<`B`\> |
 
 #### Returns
 
-[`Cons`](../interfaces/List.Cons.md)<`B`\>
+[`Cons`](../interfaces/List.Cons.md)\<`B`\>
 
 **`Since`**
 
@@ -2605,7 +2605,7 @@ Flat maps a list using the specified function.
 
 ### unsafeHead
 
-▸ **unsafeHead**<`A`\>(`self`): `A`
+▸ **unsafeHead**\<`A`\>(`self`): `A`
 
 Unsafely returns the first element of the specified `List`.
 
@@ -2617,9 +2617,9 @@ Unsafely returns the first element of the specified `List`.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 #### Returns
 
@@ -2633,7 +2633,7 @@ Unsafely returns the first element of the specified `List`.
 
 ### unsafeLast
 
-▸ **unsafeLast**<`A`\>(`self`): `A`
+▸ **unsafeLast**\<`A`\>(`self`): `A`
 
 Unsafely returns the last element of the specified `List`.
 
@@ -2645,9 +2645,9 @@ Unsafely returns the last element of the specified `List`.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 #### Returns
 
@@ -2661,7 +2661,7 @@ Unsafely returns the last element of the specified `List`.
 
 ### unsafeTail
 
-▸ **unsafeTail**<`A`\>(`self`): [`List`](List.md#list)<`A`\>
+▸ **unsafeTail**\<`A`\>(`self`): [`List`](List.md#list)\<`A`\>
 
 Unsafely returns the tail of the specified `List`.
 
@@ -2673,13 +2673,13 @@ Unsafely returns the tail of the specified `List`.
 
 #### Parameters
 
-| Name   | Type                         |
-| :----- | :--------------------------- |
-| `self` | [`List`](List.md#list)<`A`\> |
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 #### Returns
 
-[`List`](List.md#list)<`A`\>
+[`List`](List.md#list)\<`A`\>
 
 **`Since`**
 

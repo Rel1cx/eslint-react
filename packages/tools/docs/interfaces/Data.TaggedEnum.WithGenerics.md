@@ -1,6 +1,6 @@
 [@eslint-react/tools](../README.md) / [Data](../modules/Data.md) / [TaggedEnum](../modules/Data.TaggedEnum.md) / WithGenerics
 
-# Interface: WithGenerics<Count\>
+# Interface: WithGenerics\<Count\>
 
 [Data](../modules/Data.md).[TaggedEnum](../modules/Data.TaggedEnum.md).WithGenerics
 
@@ -59,4 +59,4 @@
 
 ### taggedEnum
 
-• `Readonly` **taggedEnum**: [`Data`](../modules/Data.md#data)<{ `_tag`: `string` }\>
+• `Readonly` **taggedEnum**: [`Data`](../modules/Data.md#data)\<\{ `_tag`: `string` }\>

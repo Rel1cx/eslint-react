@@ -50,7 +50,7 @@
 
 ### ArrayElement
 
-Ƭ **ArrayElement**<`A`\>: `A` extends readonly infer T[] ? `T` : `never`
+Ƭ **ArrayElement**\<`A`\>: `A` extends readonly infer T[] ? `T` : `never`
 
 Returns the element type of an array.
 
@@ -76,7 +76,7 @@ The array to get the element type from.
 
 ### Cast
 
-Ƭ **Cast**<`X`, `Y`\>: `X` extends `Y` ? `X` : `Y`
+Ƭ **Cast**\<`X`, `Y`\>: `X` extends `Y` ? `X` : `Y`
 
 **`Since`**
 
@@ -93,7 +93,7 @@ The array to get the element type from.
 
 ### Combine
 
-Ƭ **Combine**<`T1`, `T2`\>: [`Pretty`](README.md#pretty)<{ [K in keyof (T1 \| T2)]: T1[K] \| T2[K] } & `Partial`<`T1` & `T2`\>\>
+Ƭ **Combine**\<`T1`, `T2`\>: [`Pretty`](README.md#pretty)\<\{ [K in keyof (T1 \| T2)]: T1[K] \| T2[K] } & `Partial`\<`T1` & `T2`\>\>
 
 **`Since`**
 
@@ -110,7 +110,7 @@ The array to get the element type from.
 
 ### DeepWriteable
 
-Ƭ **DeepWriteable**<`T`\>: { -readonly [P in keyof T]: DeepWriteable<T[P]\> }
+Ƭ **DeepWriteable**\<`T`\>: \{ -readonly [P in keyof T]: DeepWriteable\<T[P]\> }
 
 #### Type parameters
 
@@ -122,7 +122,7 @@ The array to get the element type from.
 
 ### FieldDiff
 
-Ƭ **FieldDiff**<`T1`, `T2`\>: `Omit`<`T1`, keyof `T2`\> \| `Omit`<`T2`, keyof `T1`\>
+Ƭ **FieldDiff**\<`T1`, `T2`\>: `Omit`\<`T1`, keyof `T2`\> \| `Omit`\<`T2`, keyof `T1`\>
 
 **`Since`**
 
@@ -139,7 +139,7 @@ The array to get the element type from.
 
 ### FromEntries
 
-Ƭ **FromEntries**<`T`\>: `T` extends [infer Key, `unknown`][] ? { [K in Cast<Key, string\>]: Extract<ArrayElement<T\>, [K, unknown]\>[1] } : { [key in string]: unknown }
+Ƭ **FromEntries**\<`T`\>: `T` extends [infer Key, `unknown`][] ? \{ [K in Cast\<Key, string\>]: Extract\<ArrayElement\<T\>, [K, unknown]\>[1] } : \{ [key in string]: unknown }
 
 #### Type parameters
 
@@ -151,7 +151,7 @@ The array to get the element type from.
 
 ### FromEntriesWithReadOnly
 
-Ƭ **FromEntriesWithReadOnly**<`T`\>: [`FromEntries`](README.md#fromentries)<[`DeepWriteable`](README.md#deepwriteable)<`T`\>\>
+Ƭ **FromEntriesWithReadOnly**\<`T`\>: [`FromEntries`](README.md#fromentries)\<[`DeepWriteable`](README.md#deepwriteable)\<`T`\>\>
 
 #### Type parameters
 
@@ -163,7 +163,7 @@ The array to get the element type from.
 
 ### LooseRecord
 
-Ƭ **LooseRecord**<`T`\>: `Record`<`PropertyKey`, `T`\>
+Ƭ **LooseRecord**\<`T`\>: `Record`\<`PropertyKey`, `T`\>
 
 A record with loose keys.
 
@@ -181,7 +181,7 @@ A record with loose keys.
 
 ### Narrow
 
-Ƭ **Narrow**<`TType`\>: { [K in keyof TType]: Narrow<TType[K]\> } \| `TType` extends [] ? [] : `never` \| `TType` extends `Function` ? `TType` : `never` \| `TType` extends `bigint` \| `boolean` \| `number` \| `string` ? `TType` : `never`
+Ƭ **Narrow**\<`TType`\>: \{ [K in keyof TType]: Narrow\<TType[K]\> } \| `TType` extends [] ? [] : `never` \| `TType` extends `Function` ? `TType` : `never` \| `TType` extends `bigint` \| `boolean` \| `number` \| `string` ? `TType` : `never`
 
 Infers embedded primitive type of any type
 
@@ -213,7 +213,7 @@ https://twitter.com/hd_nvim/status/1578567206190780417
 
 ### Pretty
 
-Ƭ **Pretty**<`T`\>: { [P in keyof T]: T[P] } & {}
+Ƭ **Pretty**\<`T`\>: \{ [P in keyof T]: T[P] } & {}
 
 **`Since`**
 
@@ -229,7 +229,7 @@ https://twitter.com/hd_nvim/status/1578567206190780417
 
 ### Remap
 
-Ƭ **Remap**<`T`\>: { [P in keyof T]: T[P] }
+Ƭ **Remap**\<`T`\>: \{ [P in keyof T]: T[P] }
 
 **`Since`**
 
@@ -245,7 +245,7 @@ https://twitter.com/hd_nvim/status/1578567206190780417
 
 ### UnionFromTuple
 
-Ƭ **UnionFromTuple**<`T`\>: `T` extends infer U[] ? `U` : `never`
+Ƭ **UnionFromTuple**\<`T`\>: `T` extends infer U[] ? `U` : `never`
 
 **`Since`**
 
@@ -268,7 +268,7 @@ type Result = UnionFromTuple<["foo", "bar", 1]>;
 
 ### UnionToIntersection
 
-Ƭ **UnionToIntersection**<`U`\>: `U` extends `any` ? (`k`: `U`) => `void` : `never` extends (`k`: infer I) => `void` ? `I` : `never`
+Ƭ **UnionToIntersection**\<`U`\>: `U` extends `any` ? (`k`: `U`) => `void` : `never` extends (`k`: infer I) => `void` ? `I` : `never`
 
 **`Since`**
 
@@ -295,7 +295,7 @@ type Result = IntersectionFromTuple<["foo", "bar", 1]>;
 
 ### asConst
 
-▸ **asConst**<`T`\>(`a`): `T`
+▸ **asConst**\<`T`\>(`a`): `T`
 
 #### Type parameters
 
@@ -321,15 +321,15 @@ type Result = IntersectionFromTuple<["foo", "bar", 1]>;
 
 ### entries
 
-▸ **entries**<`T`\>(`value`): { [K in string \| number \| symbol]-?: [K, T[K]] }[keyof `T`][]
+▸ **entries**\<`T`\>(`value`): \{ [K in string \| number \| symbol]-?: [K, T[K]] }[keyof `T`][]
 
 type-safe version of Object.entries
 
 #### Type parameters
 
-| Name | Type                                                       |
-| :--- | :--------------------------------------------------------- |
-| `T`  | extends [`LooseRecord`](README.md#looserecord)<`unknown`\> |
+| Name | Type                                                        |
+| :--- | :---------------------------------------------------------- |
+| `T`  | extends [`LooseRecord`](README.md#looserecord)\<`unknown`\> |
 
 #### Parameters
 
@@ -339,7 +339,7 @@ type-safe version of Object.entries
 
 #### Returns
 
-{ [K in string \| number \| symbol]-?: [K, T[K]] }[keyof `T`][]
+\{ [K in string \| number \| symbol]-?: [K, T[K]] }[keyof `T`][]
 
 The entries of the value.
 
@@ -351,7 +351,7 @@ The entries of the value.
 
 ### fromEntries
 
-▸ **fromEntries**<`T`\>(`entries`): [`FromEntries`](README.md#fromentries)<`T`\>
+▸ **fromEntries**\<`T`\>(`entries`): [`FromEntries`](README.md#fromentries)\<`T`\>
 
 type-safe version of Object.fromEntries
 
@@ -369,7 +369,7 @@ type-safe version of Object.fromEntries
 
 #### Returns
 
-[`FromEntries`](README.md#fromentries)<`T`\>
+[`FromEntries`](README.md#fromentries)\<`T`\>
 
 The object created from the entries.
 
@@ -381,7 +381,7 @@ The object created from the entries.
 
 ### fromEntriesWithReadOnly
 
-▸ **fromEntriesWithReadOnly**<`T`\>(`entries`): [`FromEntries`](README.md#fromentries)<[`DeepWriteable`](README.md#deepwriteable)<`T`\>\>
+▸ **fromEntriesWithReadOnly**\<`T`\>(`entries`): [`FromEntries`](README.md#fromentries)\<[`DeepWriteable`](README.md#deepwriteable)\<`T`\>\>
 
 type-safe version of Object.fromEntries
 
@@ -399,7 +399,7 @@ type-safe version of Object.fromEntries
 
 #### Returns
 
-[`FromEntries`](README.md#fromentries)<[`DeepWriteable`](README.md#deepwriteable)<`T`\>\>
+[`FromEntries`](README.md#fromentries)\<[`DeepWriteable`](README.md#deepwriteable)\<`T`\>\>
 
 The object created from the entries.
 
@@ -411,7 +411,7 @@ The object created from the entries.
 
 ### identity
 
-▸ **identity**<`T`\>(`a`): `T`
+▸ **identity**\<`T`\>(`a`): `T`
 
 #### Type parameters
 
@@ -437,15 +437,15 @@ The object created from the entries.
 
 ### keys
 
-▸ **keys**<`T`\>(`value`): keyof `T`[]
+▸ **keys**\<`T`\>(`value`): keyof `T`[]
 
 type-safe version of Object.keys
 
 #### Type parameters
 
-| Name | Type                                                       |
-| :--- | :--------------------------------------------------------- |
-| `T`  | extends [`LooseRecord`](README.md#looserecord)<`unknown`\> |
+| Name | Type                                                        |
+| :--- | :---------------------------------------------------------- |
+| `T`  | extends [`LooseRecord`](README.md#looserecord)\<`unknown`\> |
 
 #### Parameters
 
@@ -467,7 +467,7 @@ The keys of the value.
 
 ### narrow
 
-▸ **narrow**<`TType`\>(`a`): [`Narrow`](README.md#narrow)<`TType`\>
+▸ **narrow**\<`TType`\>(`a`): [`Narrow`](README.md#narrow)\<`TType`\>
 
 Infers embedded primitive type of any type
 Same as `as const` but without setting the object as readonly and without needing the user to use it.
@@ -480,13 +480,13 @@ Same as `as const` but without setting the object as readonly and without needin
 
 #### Parameters
 
-| Name | Type                                   | Description    |
-| :--- | :------------------------------------- | :------------- |
-| `a`  | [`Narrow`](README.md#narrow)<`TType`\> | Value to infer |
+| Name | Type                                    | Description    |
+| :--- | :-------------------------------------- | :------------- |
+| `a`  | [`Narrow`](README.md#narrow)\<`TType`\> | Value to infer |
 
 #### Returns
 
-[`Narrow`](README.md#narrow)<`TType`\>
+[`Narrow`](README.md#narrow)\<`TType`\>
 
 Value with embedded type inferred
 
@@ -518,7 +518,7 @@ const result = narrow(["foo", "bar", 1]);
 
 ### uniqueBy
 
-▸ **uniqueBy**<`T`\>(`arr`, `fn`): `T`[]
+▸ **uniqueBy**\<`T`\>(`arr`, `fn`): `T`[]
 
 Returns a new array with unique values based on the given function.
 
@@ -549,15 +549,15 @@ new array with unique values.
 
 ### values
 
-▸ **values**<`T`\>(`value`): `T`[keyof `T`][]
+▸ **values**\<`T`\>(`value`): `T`[keyof `T`][]
 
 type-safe version of Object.values
 
 #### Type parameters
 
-| Name | Type                                                       |
-| :--- | :--------------------------------------------------------- |
-| `T`  | extends [`LooseRecord`](README.md#looserecord)<`unknown`\> |
+| Name | Type                                                        |
+| :--- | :---------------------------------------------------------- |
+| `T`  | extends [`LooseRecord`](README.md#looserecord)\<`unknown`\> |
 
 #### Parameters
 

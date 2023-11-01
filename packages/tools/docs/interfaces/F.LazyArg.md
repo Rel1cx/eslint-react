@@ -1,6 +1,6 @@
 [@eslint-react/tools](../README.md) / [F](../modules/F.md) / LazyArg
 
-# Interface: LazyArg<A\>
+# Interface: LazyArg\<A\>
 
 [F](../modules/F.md).LazyArg
 

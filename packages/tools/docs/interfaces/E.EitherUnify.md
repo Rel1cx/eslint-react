@@ -1,6 +1,6 @@
 [@eslint-react/tools](../README.md) / [E](../modules/E.md) / EitherUnify
 
-# Interface: EitherUnify<A\>
+# Interface: EitherUnify\<A\>
 
 [E](../modules/E.md).EitherUnify
 
@@ -24,12 +24,12 @@
 
 ### Either
 
-• `Optional` **Either**: () => `A`[typeof `typeSymbol`] extends [`Either`](../modules/E.md#either)<`E0`, `A0`\> \| `_` ? [`Either`](../modules/E.md#either)<`E0`, `A0`\> : `never`
+• `Optional` **Either**: () => `A`[typeof `typeSymbol`] extends [`Either`](../modules/E.md#either)\<`E0`, `A0`\> \| `_` ? [`Either`](../modules/E.md#either)\<`E0`, `A0`\> : `never`
 
 #### Type declaration
 
-▸ (): `A`[typeof `typeSymbol`] extends [`Either`](../modules/E.md#either)<`E0`, `A0`\> \| `_` ? [`Either`](../modules/E.md#either)<`E0`, `A0`\> : `never`
+▸ (): `A`[typeof `typeSymbol`] extends [`Either`](../modules/E.md#either)\<`E0`, `A0`\> \| `_` ? [`Either`](../modules/E.md#either)\<`E0`, `A0`\> : `never`
 
 ##### Returns
 
-`A`[typeof `typeSymbol`] extends [`Either`](../modules/E.md#either)<`E0`, `A0`\> \| `_` ? [`Either`](../modules/E.md#either)<`E0`, `A0`\> : `never`
+`A`[typeof `typeSymbol`] extends [`Either`](../modules/E.md#either)\<`E0`, `A0`\> \| `_` ? [`Either`](../modules/E.md#either)\<`E0`, `A0`\> : `never`
