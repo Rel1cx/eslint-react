@@ -42,16 +42,25 @@
 - [hasEveryProp](README.md#haseveryprop)
 - [hasProp](README.md#hasprop)
 - [isCallFromPragma](README.md#iscallfrompragma)
+- [isChildOfComponentElement](README.md#ischildofcomponentelement)
+- [isChildOfHtmlElement](README.md#ischildofhtmlelement)
 - [isChildrenOfCreateElement](README.md#ischildrenofcreateelement)
 - [isCloneElementCall](README.md#iscloneelementcall)
 - [isCreateElementCall](README.md#iscreateelementcall)
+- [isFragment](README.md#isfragment)
+- [isFragmentHasLessThanTwoChildren](README.md#isfragmenthaslessthantwochildren)
+- [isFragmentWithOnlyTextAndIsNotChild](README.md#isfragmentwithonlytextandisnotchild)
+- [isFragmentWithSingleExpression](README.md#isfragmentwithsingleexpression)
 - [isFunctionReturningJSXValue](README.md#isfunctionreturningjsxvalue)
 - [isInitializedFromPragma](README.md#isinitializedfrompragma)
 - [isInsideCreateElementProps](README.md#isinsidecreateelementprops)
 - [isInsidePropValue](README.md#isinsidepropvalue)
+- [isJSXAttributeKey](README.md#isjsxattributekey)
 - [isJSXValue](README.md#isjsxvalue)
+- [isKeyedElement](README.md#iskeyedelement)
 - [isLineBreak](README.md#islinebreak)
 - [isLiteral](README.md#isliteral)
+- [isPaddingSpaces](README.md#ispaddingspaces)
 - [isPropertyOfPragma](README.md#ispropertyofpragma)
 - [isWhiteSpace](README.md#iswhitespace)
 - [traverseUpProp](README.md#traverseupprop)
@@ -496,6 +505,40 @@ node is CallExpression
 
 ---
 
+### isChildOfComponentElement
+
+▸ **isChildOfComponentElement**(`node`, `reactPragma`, `fragmentPragma`): `boolean`
+
+#### Parameters
+
+| Name             | Type     |
+| :--------------- | :------- |
+| `node`           | `Node`   |
+| `reactPragma`    | `string` |
+| `fragmentPragma` | `string` |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isChildOfHtmlElement
+
+▸ **isChildOfHtmlElement**(`node`): `boolean`
+
+#### Parameters
+
+| Name   | Type   |
+| :----- | :----- |
+| `node` | `Node` |
+
+#### Returns
+
+`boolean`
+
+---
+
 ### isChildrenOfCreateElement
 
 ▸ **isChildrenOfCreateElement**(`node`, `context`): `boolean`
@@ -552,6 +595,86 @@ Checks if the given node is a call expression to `createElement`
 node is CallExpression
 
 `true` if the node is a call expression to `createElement`
+
+---
+
+### isFragment
+
+▸ **isFragment**(`node`, `reactPragma`, `fragmentPragma`): `boolean`
+
+#### Parameters
+
+| Name             | Type         |
+| :--------------- | :----------- |
+| `node`           | `JSXElement` |
+| `reactPragma`    | `string`     |
+| `fragmentPragma` | `string`     |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isFragmentHasLessThanTwoChildren
+
+▸ **isFragmentHasLessThanTwoChildren**(`node`): `boolean`
+
+Check if a JSXElement or JSXFragment has less than two non-padding children and the first child is not a call expression
+
+#### Parameters
+
+| Name   | Type                          | Description           |
+| :----- | :---------------------------- | :-------------------- |
+| `node` | `JSXElement` \| `JSXFragment` | The AST node to check |
+
+#### Returns
+
+`boolean`
+
+boolean
+
+---
+
+### isFragmentWithOnlyTextAndIsNotChild
+
+▸ **isFragmentWithOnlyTextAndIsNotChild**(`node`): `boolean`
+
+Check if a JSXElement or JSXFragment has only one literal child and is not a child
+
+#### Parameters
+
+| Name   | Type                          | Description           |
+| :----- | :---------------------------- | :-------------------- |
+| `node` | `JSXElement` \| `JSXFragment` | The AST node to check |
+
+#### Returns
+
+`boolean`
+
+`true` if the node has only one literal child and is not a child
+
+**`Example`**
+
+```ts
+Somehow fragment like this is useful: <Foo content={<>ee eeee eeee ...</>} />
+```
+
+---
+
+### isFragmentWithSingleExpression
+
+▸ **isFragmentWithSingleExpression**(`node`): `boolean`
+
+#### Parameters
+
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `node` | `JSXElement` \| `JSXFragment` |
+
+#### Returns
+
+`boolean`
 
 ---
 
@@ -636,6 +759,26 @@ Checks if the node is inside a prop's value
 
 ---
 
+### isJSXAttributeKey
+
+▸ **isJSXAttributeKey**(`node`): `boolean`
+
+Check if node is like `key={...}` as in `<Foo key={...} />`
+
+#### Parameters
+
+| Name   | Type   | Description           |
+| :----- | :----- | :-------------------- |
+| `node` | `Node` | The AST node to check |
+
+#### Returns
+
+`boolean`
+
+`true` if the node is like `key={...}`
+
+---
+
 ### isJSXValue
 
 ▸ **isJSXValue**(`node`, `context`, `options?`): `boolean`
@@ -655,6 +798,22 @@ Check if a node is a JSX value
 `boolean`
 
 boolean
+
+---
+
+### isKeyedElement
+
+▸ **isKeyedElement**(`node`): `boolean`
+
+#### Parameters
+
+| Name   | Type   |
+| :----- | :----- |
+| `node` | `Node` |
+
+#### Returns
+
+`boolean`
 
 ---
 
@@ -695,6 +854,26 @@ Check if a node is a Literal or JSXText
 node is JSXText \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral
 
 boolean `true` if the node is a Literal or JSXText
+
+---
+
+### isPaddingSpaces
+
+▸ **isPaddingSpaces**(`node`): `boolean`
+
+Check if a Literal or JSXText node is padding spaces
+
+#### Parameters
+
+| Name   | Type   | Description           |
+| :----- | :----- | :-------------------- |
+| `node` | `Node` | The AST node to check |
+
+#### Returns
+
+`boolean`
+
+boolean
 
 ---
 

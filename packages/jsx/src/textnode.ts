@@ -26,3 +26,14 @@ export function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
 export function isLineBreak(node: TSESTree.Node) {
   return isLiteral(node) && isWhiteSpace(node) && isMultiLine(node);
 }
+
+/**
+ * Check if a Literal or JSXText node is padding spaces
+ * @param node The AST node to check
+ * @returns boolean
+ */
+export function isPaddingSpaces(node: TSESTree.Node) {
+  return isLiteral(node)
+    && isWhiteSpace(node)
+    && node.raw.includes("\n");
+}
