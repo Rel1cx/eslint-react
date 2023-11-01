@@ -1,12 +1,13 @@
 import { NodeType } from "@eslint-react/ast";
 import { getPropName } from "@eslint-react/jsx";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import { type ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "prefer-shorthand-boolean";
 
-type MessageID = "INVALID";
+export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,
@@ -18,7 +19,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      INVALID: "Omit boolean value for prop '{{propName}}'.",
+      PREFER_SHORTHAND_BOOLEAN: "Omit boolean value for prop '{{propName}}'.",
     },
   },
   defaultOptions: [],
@@ -40,7 +41,7 @@ export default createRule<[], MessageID>({
           data: {
             propName,
           },
-          messageId: "INVALID",
+          messageId: "PREFER_SHORTHAND_BOOLEAN",
           node,
         });
       },

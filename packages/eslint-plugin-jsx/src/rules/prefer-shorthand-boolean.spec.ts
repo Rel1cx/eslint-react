@@ -29,11 +29,11 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: "<App foo={true} />",
-      errors: [{ messageId: "INVALID" }],
+      errors: [{ messageId: "PREFER_SHORTHAND_BOOLEAN" }],
     },
     {
       code: "<App foo={true} bar />",
-      errors: [{ messageId: "INVALID" }],
+      errors: [{ messageId: "PREFER_SHORTHAND_BOOLEAN" }],
     },
   ],
 });

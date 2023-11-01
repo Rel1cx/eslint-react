@@ -9,7 +9,7 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "naming-convention/event-handler";
 
-type MessageID = "BAD_HANDLER_NAME" | "BAD_PROP_NAME";
+export type MessageID = "BAD_HANDLER_NAME" | "BAD_PROP_NAME";
 
 // TODO: re-design options of this rule
 type Options = readonly [

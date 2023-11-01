@@ -25,7 +25,7 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unstable-nested-components";
 
-type MessageID = "UNSTABLE_NESTED_COMPONENT" | "UNSTABLE_NESTED_COMPONENT_IN_PROPS";
+export type MessageID = "UNSTABLE_NESTED_COMPONENT" | "UNSTABLE_NESTED_COMPONENT_IN_PROPS";
 
 // TODO: add more details to the report messages and data
 export default createRule<[], MessageID>({

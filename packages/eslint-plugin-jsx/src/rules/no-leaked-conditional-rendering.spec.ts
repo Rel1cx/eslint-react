@@ -102,10 +102,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "INVALID",
+          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
         },
         {
-          messageId: "INVALID",
+          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
         },
       ],
     },

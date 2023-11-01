@@ -1,5 +1,6 @@
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
+import { name, version } from "../package.json";
 import noChildrenInVoidDomElements from "./rules/no-children-in-void-dom-elements";
 import noClassComponent from "./rules/no-class-component";
 import noCloneElement from "./rules/no-clone-element";
@@ -14,7 +15,10 @@ import noUnstableDefaultProps from "./rules/no-unstable-default-props";
 import noUnstableNestedComponents from "./rules/no-unstable-nested-components";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
 
-export { name } from "../package.json";
+export const meta = {
+  name,
+  version,
+} as const;
 
 export const rules = {
   "no-children-in-void-dom-elements": noChildrenInVoidDomElements,

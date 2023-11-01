@@ -6,7 +6,7 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "no-clone-element";
 
-type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,

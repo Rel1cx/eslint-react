@@ -17,7 +17,7 @@ import { createRule, getChildrenToArraySelector } from "../utils";
 
 export const RULE_NAME = "no-missing-key";
 
-type MessageID = "INVALID" | "INVALID_FRAGMENT";
+export type MessageID = "NO_MISSING_KEY" | "NO_MISSING_KEY_WITH_FRAGMENT";
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,
@@ -30,8 +30,8 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      INVALID: "Missing `key` prop for element when rendering list",
-      INVALID_FRAGMENT:
+      NO_MISSING_KEY: "Missing `key` prop for element when rendering list",
+      NO_MISSING_KEY_WITH_FRAGMENT:
         "Missing `key` prop for element when rendering list. Use `{{reactPragma}}.{{fragmentPragma}}` component instead of `<>` because it does not support key prop",
     },
   },
@@ -44,7 +44,7 @@ export default createRule<[], MessageID>({
     function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
       if (node.type === NodeType.JSXElement && !hasProp(node.openingElement.attributes, "key", context)) {
         return O.some({
-          messageId: "INVALID",
+          messageId: "NO_MISSING_KEY",
           node,
         });
       }
@@ -54,7 +54,7 @@ export default createRule<[], MessageID>({
             fragmentPragma,
             reactPragma,
           },
-          messageId: "INVALID_FRAGMENT",
+          messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
           node,
         });
       }
@@ -114,7 +114,7 @@ export default createRule<[], MessageID>({
         for (const element of elements) {
           if (!hasProp(element.openingElement.attributes, "key", context)) {
             context.report({
-              messageId: "INVALID",
+              messageId: "NO_MISSING_KEY",
               node: element,
             });
           }
@@ -152,7 +152,7 @@ export default createRule<[], MessageID>({
               fragmentPragma,
               reactPragma,
             },
-            messageId: "INVALID_FRAGMENT",
+            messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
             node,
           });
         }

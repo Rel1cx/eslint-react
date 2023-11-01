@@ -7,7 +7,7 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "class-component";
 
-type MessageID = "CLASS_COMPONENT";
+export type MessageID = "CLASS_COMPONENT";
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,

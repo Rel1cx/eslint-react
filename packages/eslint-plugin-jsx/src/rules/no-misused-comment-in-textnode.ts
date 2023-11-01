@@ -2,12 +2,13 @@ import { isOneOf } from "@eslint-react/ast";
 import { type TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-misused-comment-in-textnode";
 
-type MessageID = "INVALID";
+export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,
@@ -20,7 +21,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      INVALID:
+      NO_MISUSED_COMMENT_IN_TEXTNODE:
         "Possible misused comment in text node. Comments inside children section of tag should be placed inside braces",
     },
   },
@@ -43,7 +44,7 @@ export default createRule<[], MessageID>({
 
       if (checkText(node)) {
         context.report({
-          messageId: "INVALID",
+          messageId: "NO_MISUSED_COMMENT_IN_TEXTNODE",
           node,
         });
       }

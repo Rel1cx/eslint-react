@@ -6,7 +6,7 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "no-namespace";
 
-type MessageID = "NO_NAMESPACE";
+export type MessageID = "NO_NAMESPACE";
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,

@@ -40,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
             return <div ref="ref" />
         }
       `,
-      errors: [{ messageId: "INVALID" }],
+      errors: [{ messageId: "NO_STRING_REFS" }],
     },
     {
       code: dedent`
@@ -54,7 +54,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "INVALID" }],
+      errors: [{ messageId: "NO_STRING_REFS" }],
     },
   ],
 });

@@ -67,7 +67,7 @@ ruleTester.run(RULE_NAME, rule, {
             return <Context.Provider value={foo}></Context.Provider>;
         }
       `,
-      errors: [{ messageId: "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER" }],
+      errors: [{ messageId: "NO_CONSTRUCTED_CONTEXT_VALUE_WITH_IDENTIFIER" }],
     },
     {
       code: dedent`
@@ -78,7 +78,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER",
+          messageId: "NO_CONSTRUCTED_CONTEXT_VALUE_WITH_IDENTIFIER",
         },
       ],
     },
@@ -91,7 +91,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER",
+          messageId: "NO_CONSTRUCTED_CONTEXT_VALUE_WITH_IDENTIFIER",
         },
       ],
     },
@@ -104,7 +104,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "CONTEXT_VALUE_CONSTRUCTION_FUNCTION",
+          messageId: "NO_CONSTRUCTED_CONTEXT_VALUE_WITH_FUNCTION",
         },
       ],
     },
@@ -119,7 +119,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER",
+          messageId: "NO_CONSTRUCTED_CONTEXT_VALUE_WITH_IDENTIFIER",
         },
       ],
     },

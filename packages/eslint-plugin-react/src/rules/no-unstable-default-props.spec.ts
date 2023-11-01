@@ -19,7 +19,7 @@ const ruleTester = new RuleTester({
   },
 });
 
-const MESSAGE_ID = "INVALID";
+const MESSAGE_ID = "NO_UNSTABLE_DEFAULT_PROPS";
 
 const expectedViolations = [
   {

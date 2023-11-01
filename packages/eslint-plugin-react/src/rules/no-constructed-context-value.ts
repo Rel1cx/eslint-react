@@ -7,10 +7,10 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "no-constructed-context-value";
 
-type MessageID =
-  | "CONTEXT_VALUE_CONSTRUCTION"
-  | "CONTEXT_VALUE_CONSTRUCTION_FUNCTION"
-  | "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER";
+export type MessageID =
+  | "NO_CONSTRUCTED_CONTEXT_VALUE"
+  | "NO_CONSTRUCTED_CONTEXT_VALUE_WITH_FUNCTION"
+  | "NO_CONSTRUCTED_CONTEXT_VALUE_WITH_IDENTIFIER";
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,
@@ -23,11 +23,11 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      CONTEXT_VALUE_CONSTRUCTION:
+      NO_CONSTRUCTED_CONTEXT_VALUE:
         "The {{type}} passed as the value prop to the context provider should not be constructed. It will change on every render.",
-      CONTEXT_VALUE_CONSTRUCTION_FUNCTION:
+      NO_CONSTRUCTED_CONTEXT_VALUE_WITH_FUNCTION:
         "The {{type}} passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useCallback hook.",
-      CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER:
+      NO_CONSTRUCTED_CONTEXT_VALUE_WITH_IDENTIFIER:
         "The {{type}} passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useMemo hook.",
     },
   },
@@ -89,8 +89,8 @@ export default createRule<[], MessageID>({
           }
 
           const messageId = detail._tag.startsWith("Function")
-            ? "CONTEXT_VALUE_CONSTRUCTION_FUNCTION"
-            : "CONTEXT_VALUE_CONSTRUCTION_IDENTIFIER";
+            ? "NO_CONSTRUCTED_CONTEXT_VALUE_WITH_FUNCTION"
+            : "NO_CONSTRUCTED_CONTEXT_VALUE_WITH_IDENTIFIER";
           const { _tag, node } = detail;
 
           context.report({

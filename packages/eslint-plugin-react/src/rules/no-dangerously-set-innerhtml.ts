@@ -2,13 +2,14 @@ import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit, is, isOneOf, N
 import { findPropInAttributes, findPropInProperties, isCreateElementCall } from "@eslint-react/jsx";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml";
 
-type MessageID = "INVALID";
+export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,
@@ -21,7 +22,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      INVALID: "Only set one of `children` or `dangerouslySetInnerHTML`.",
+      NO_DANGEROUSLY_SET_INNERHTML: "Only set one of `children` or `dangerouslySetInnerHTML`.",
     },
   },
   defaultOptions: [],
@@ -54,7 +55,7 @@ export default createRule<[], MessageID>({
         const hasDanger = O.isSome(findPropInProperties(properties, context)("dangerouslySetInnerHTML"));
         if (hasDanger) {
           context.report({
-            messageId: "INVALID",
+            messageId: "NO_DANGEROUSLY_SET_INNERHTML",
             node,
           });
         }
@@ -63,7 +64,7 @@ export default createRule<[], MessageID>({
         const maybeDanger = findPropInAttributes(node.openingElement.attributes, context)("dangerouslySetInnerHTML");
         if (O.isSome(maybeDanger)) {
           context.report({
-            messageId: "INVALID",
+            messageId: "NO_DANGEROUSLY_SET_INNERHTML",
             node,
           });
         }

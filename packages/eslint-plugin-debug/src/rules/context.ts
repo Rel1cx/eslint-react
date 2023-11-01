@@ -4,7 +4,7 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "context";
 
-type MessageID = "CONTEXT_PROVIDER" | "CONTEXT_PROVIDER_WITH_VALUE";
+export type MessageID = "CONTEXT_PROVIDER" | "CONTEXT_PROVIDER_WITH_VALUE";
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,

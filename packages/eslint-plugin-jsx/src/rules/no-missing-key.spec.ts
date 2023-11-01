@@ -157,51 +157,51 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   invalid: [{
     code: "[<App />];",
-    errors: [{ messageId: "INVALID" }],
+    errors: [{ messageId: "NO_MISSING_KEY" }],
   }, {
     code: "[<App {...key} />];",
-    errors: [{ messageId: "INVALID" }],
+    errors: [{ messageId: "NO_MISSING_KEY" }],
   }, {
     code: "[<App key={0}/>, <App />];",
-    errors: [{ messageId: "INVALID" }],
+    errors: [{ messageId: "NO_MISSING_KEY" }],
   }, {
     code: "[1, 2 ,3].map(function(x) { return <App /> });",
-    errors: [{ messageId: "INVALID" }],
+    errors: [{ messageId: "NO_MISSING_KEY" }],
   }, {
     code: "[1, 2 ,3].map(x => <App />);",
-    errors: [{ messageId: "INVALID" }],
+    errors: [{ messageId: "NO_MISSING_KEY" }],
   }, {
     code: "[1, 2 ,3].map(x => x && <App x={x} />);",
-    errors: [{ messageId: "INVALID" }],
+    errors: [{ messageId: "NO_MISSING_KEY" }],
   }, {
     code: '[1, 2 ,3].map(x => x ? <App x={x} key="1" /> : <OtherApp x={x} />);',
-    errors: [{ messageId: "INVALID" }],
+    errors: [{ messageId: "NO_MISSING_KEY" }],
   }, {
     code: '[1, 2 ,3].map(x => x ? <App x={x} /> : <OtherApp x={x} key="2" />);',
-    errors: [{ messageId: "INVALID" }],
+    errors: [{ messageId: "NO_MISSING_KEY" }],
   }, {
     code: "[1, 2 ,3].map(x => { return <App /> });",
-    errors: [{ messageId: "INVALID" }],
+    errors: [{ messageId: "NO_MISSING_KEY" }],
   }, {
     code: "Array.from([1, 2 ,3], function(x) { return <App /> });",
-    errors: [{ messageId: "INVALID" }],
+    errors: [{ messageId: "NO_MISSING_KEY" }],
   }, {
     code: "Array.from([1, 2 ,3], (x => { return <App /> }));",
-    errors: [{ messageId: "INVALID" }],
+    errors: [{ messageId: "NO_MISSING_KEY" }],
   }, {
     code: "Array.from([1, 2 ,3], (x => <App />));",
-    errors: [{ messageId: "INVALID" }],
+    errors: [{ messageId: "NO_MISSING_KEY" }],
   }, {
     code: "[1, 2, 3]?.map(x => <BabelEslintApp />)",
-    errors: [{ messageId: "INVALID" }],
+    errors: [{ messageId: "NO_MISSING_KEY" }],
   }, {
     code: "[1, 2, 3]?.map(x => <TypescriptEslintApp />)",
-    errors: [{ messageId: "INVALID" }],
+    errors: [{ messageId: "NO_MISSING_KEY" }],
   }, {
     code: "[1, 2, 3].map(x => <>{x}</>);",
     errors: [
       {
-        messageId: "INVALID_FRAGMENT",
+        messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
         data: {
           reactPragma: "React",
           fragmentPragma: "Fragment",
@@ -212,7 +212,7 @@ ruleTester.run(RULE_NAME, rule, {
     code: "[<></>];",
     errors: [
       {
-        messageId: "INVALID_FRAGMENT",
+        messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
         data: {
           reactPragma: "React",
           fragmentPragma: "Fragment",
@@ -238,8 +238,8 @@ ruleTester.run(RULE_NAME, rule, {
       };
     `,
     errors: [
-      { messageId: "INVALID" },
-      { messageId: "INVALID" },
+      { messageId: "NO_MISSING_KEY" },
+      { messageId: "NO_MISSING_KEY" },
     ],
   }, {
     code: dedent`
@@ -264,10 +264,10 @@ ruleTester.run(RULE_NAME, rule, {
       };
     `,
     errors: [
-      { messageId: "INVALID" },
-      { messageId: "INVALID" },
-      { messageId: "INVALID" },
-      { messageId: "INVALID" },
+      { messageId: "NO_MISSING_KEY" },
+      { messageId: "NO_MISSING_KEY" },
+      { messageId: "NO_MISSING_KEY" },
+      { messageId: "NO_MISSING_KEY" },
     ],
   }, {
     code: dedent`
@@ -286,9 +286,9 @@ ruleTester.run(RULE_NAME, rule, {
       };
     `,
     errors: [
-      { messageId: "INVALID" },
-      { messageId: "INVALID" },
-      { messageId: "INVALID" },
+      { messageId: "NO_MISSING_KEY" },
+      { messageId: "NO_MISSING_KEY" },
+      { messageId: "NO_MISSING_KEY" },
     ],
   }],
 });

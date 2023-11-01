@@ -11,7 +11,7 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "prefer-destructuring-assignment";
 
-type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 type MemberExpressionWithObjectName = TSESTree.MemberExpression & { object: TSESTree.Identifier };
 

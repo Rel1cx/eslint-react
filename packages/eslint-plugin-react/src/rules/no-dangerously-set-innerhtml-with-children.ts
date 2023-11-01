@@ -4,13 +4,14 @@ import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { isNullable } from "effect/Predicate";
+import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml-with-children";
 
-type MessageID = "INVALID";
+export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 function firstChildIsText(node: TSESTree.JSXElement) {
   const [firstChild] = node.children;
@@ -31,7 +32,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      INVALID: "Only set one of `children` or `dangerouslySetInnerHTML`.",
+      NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN: "Only set one of `children` or `dangerouslySetInnerHTML`.",
     },
   },
   defaultOptions: [],
@@ -62,7 +63,7 @@ export default createRule<[], MessageID>({
         const hasRestChildren = node.arguments.length > 2;
         if (hasDanger && (hasRestChildren || O.isSome(findPropInProperties(properties, context)("children")))) {
           context.report({
-            messageId: "INVALID",
+            messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN",
             node,
           });
         }
@@ -77,7 +78,7 @@ export default createRule<[], MessageID>({
         }
 
         context.report({
-          messageId: "INVALID",
+          messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN",
           node,
         });
       },
