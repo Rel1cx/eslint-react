@@ -1,11 +1,5 @@
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit, is, isOneOf, NodeType } from "@eslint-react/ast";
-import {
-  findPropInAttributes,
-  findPropInProperties,
-  hasChildren,
-  isCreateElementCall,
-  isLineBreak,
-} from "@eslint-react/jsx";
+import { findPropInProperties, hasChildren, hasProp, isCreateElementCall, isLineBreak } from "@eslint-react/jsx";
 import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -74,18 +68,18 @@ export default createRule<[], MessageID>({
         }
       },
       JSXElement(node) {
-        function hasDanger(node: TSESTree.JSXElement) {
-          return O.isSome(
-            findPropInAttributes(node.openingElement.attributes, context)("dangerouslySetInnerHTML"),
-          );
+        const hasChildrenWithIn = () => hasChildren(node) && firstChildIsText(node);
+        const hasChildrenProp = () => hasProp(node.openingElement.attributes, "children", context);
+        const hasDanger = () => hasProp(node.openingElement.attributes, "dangerouslySetInnerHTML", context);
+
+        if (!(hasChildrenWithIn() || hasChildrenProp()) || !hasDanger()) {
+          return;
         }
 
-        if ((firstChildIsText(node) || hasChildren(node, context, false, false)) && hasDanger(node)) {
-          context.report({
-            messageId: "INVALID",
-            node,
-          });
-        }
+        context.report({
+          messageId: "INVALID",
+          node,
+        });
       },
     };
   },
