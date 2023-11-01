@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/consistent-function-scoping */
 import { findVariableByNameUpToGlobal, getVariableNthDefNodeInit, is, isOneOf, NodeType } from "@eslint-react/ast";
 import {
   findPropInAttributes,
@@ -18,6 +17,14 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-dangerously-set-innerhtml-with-children";
 
 type MessageID = "INVALID";
+
+function firstChildIsText(node: TSESTree.JSXElement) {
+  const [firstChild] = node.children;
+
+  return node.children.length > 0
+    && !isNullable(firstChild)
+    && !isLineBreak(firstChild);
+}
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,
@@ -67,19 +74,13 @@ export default createRule<[], MessageID>({
         }
       },
       JSXElement(node) {
-        function firstChildIsText(node: TSESTree.JSXElement) {
-          const [firstChild] = node.children;
-
-          return node.children.length > 0
-            && !isNullable(firstChild)
-            && !isLineBreak(firstChild);
-        }
         function hasDanger(node: TSESTree.JSXElement) {
           return O.isSome(
             findPropInAttributes(node.openingElement.attributes, context)("dangerouslySetInnerHTML"),
           );
         }
-        if ((firstChildIsText(node) || hasChildren(node, context)) && hasDanger(node)) {
+
+        if ((firstChildIsText(node) || hasChildren(node, context, false, false)) && hasDanger(node)) {
           context.report({
             messageId: "INVALID",
             node,

@@ -411,7 +411,7 @@ Check if any of the given prop names are present in the given attributes
 
 ### hasChildren
 
-▸ **hasChildren**(`node`, `context`, `includeTextNode?`, `includeChildrenProp?`): `boolean`
+▸ **hasChildren**(`node`, `context`, `includeTextNode?`, `includeLineBreak?`, `includeChildrenProp?`): `boolean`
 
 Check if a `JSXElement` or `JSXFragment` has children
 
@@ -422,6 +422,7 @@ Check if a `JSXElement` or `JSXFragment` has children
 | `node`                | `JSXElement` \| `JSXFragment`                               | `undefined`   | The AST node to check                           |
 | `context`             | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | `undefined`   | The ESLint rule context                         |
 | `includeTextNode`     | `boolean`                                                   | `true`        | If `true`, consider `textnode` as children      |
+| `includeLineBreak`    | `boolean`                                                   | `true`        | If `true`, consider `linebreak` as children     |
 | `includeChildrenProp` | `boolean`                                                   | `true`        | If `true`, consider `children` prop as children |
 
 #### Returns
