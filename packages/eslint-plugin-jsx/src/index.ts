@@ -7,6 +7,7 @@ import jsxNoLeakedConditionalRendering from "./rules/no-leaked-conditional-rende
 import jsxNoMissingKey from "./rules/no-missing-key";
 import jsxNoMisusedCommentInTextNode from "./rules/no-misused-comment-in-textnode";
 import jsxNoScriptUrl from "./rules/no-script-url";
+import jsxNoUselessFragment from "./rules/no-useless-fragment";
 import jsxPreferShorthandJsxBoolean from "./rules/prefer-shorthand-boolean";
 
 export { name } from "../package.json";
@@ -18,5 +19,6 @@ export const rules = {
   "no-missing-key": jsxNoMissingKey,
   "no-misused-comment-in-textnode": jsxNoMisusedCommentInTextNode,
   "no-script-url": jsxNoScriptUrl,
+  "no-useless-fragment": jsxNoUselessFragment,
   "prefer-shorthand-boolean": jsxPreferShorthandJsxBoolean,
 } as const;

@@ -112,6 +112,7 @@ export default [
 | [jsx/no-missing-key](packages/eslint-plugin-jsx/src/rules/no-missing-key.md)                                   | require `key` prop when rendering list                        |
 | [jsx/no-misused-comment-in-textnode](packages/eslint-plugin-jsx/src/rules/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes           |
 | [jsx/no-script-url](packages/eslint-plugin-jsx/src/rules/no-script-url.md)                                     | disallow `javascript:` URLs as JSX event handler prop's value |
+| [jsx/no-useless-fragment](packages/eslint-plugin-jsx/src/rules/no-useless-fragment.md)                         | disallow unnecessary fragments                                |
 | [jsx/prefer-shorthand-boolean](packages/eslint-plugin-jsx/src/rules/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX                    |
 
 ### naming-convention
@@ -156,7 +157,7 @@ export default [
 - [x] `jsx/no-script-url`
 - [ ] `jsx/no-target-blank`
 - [ ] `jsx/no-unknown-property`
-- [ ] `jsx/no-useless-fragment`
+- [x] `jsx/no-useless-fragment`
 - [ ] `jsx/prefer-fragment-syntax`
 - [x] `jsx/prefer-shorthand-boolean`
 - [x] `naming-convention/filename-extension`
