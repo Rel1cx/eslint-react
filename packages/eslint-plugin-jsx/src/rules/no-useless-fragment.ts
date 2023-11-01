@@ -1,19 +1,19 @@
+import { NodeType } from "@eslint-react/ast";
 import {
   getFragmentFromContext,
   getPragmaFromContext,
   hasProp,
-  isChildOfBuiltinComponentElement,
-  isChildOfUserDefinedComponentElement,
-  isFragment,
+  isFragmentElement,
   isFragmentHasLessThanTwoChildren,
   isFragmentWithOnlyTextAndIsNotChild,
   isFragmentWithSingleExpression,
+  isJSXElementOfBuiltinComponent,
+  isJSXElementOfUserDefinedComponent,
   isLiteral,
   isWhiteSpace,
 } from "@eslint-react/jsx";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 
@@ -31,7 +31,7 @@ function trimLikeReact(text: string) {
 
 export const RULE_NAME = "no-useless-fragment";
 
-type MessageID = "ChildOfHtmlElement" | "NeedsMoreChildren";
+type MessageID = "NO_USELESS_FRAGMENT" | "NO_USELESS_FRAGMENT_IN_HTML";
 
 type Options = readonly [
   {
@@ -66,22 +66,22 @@ export default createRule<Options, MessageID>({
     // eslint-disable-next-line perfectionist/sort-objects
     schema,
     messages: {
-      ChildOfHtmlElement: "Passing a fragment to an HTML element is useless.",
-      NeedsMoreChildren:
-        "Fragments should contain more than one child - otherwise, there’s no need for a Fragment at all.",
+      NO_USELESS_FRAGMENT:
+        "Fragments should contain more than one child - otherwise, there's no need for a Fragment at all.",
+      NO_USELESS_FRAGMENT_IN_HTML: "Passing a fragment to an HTML element is useless.",
     },
   },
   defaultOptions,
   create(context) {
-    const config = context.options[0] || {};
-    const allowExpressions = config.allowExpressions || false;
+    const config = context.options[0] ?? {};
+    const allowExpressions = config.allowExpressions ?? false;
 
     const reactPragma = getPragmaFromContext(context);
     const fragmentPragma = getFragmentFromContext(context);
 
     function canFix(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
       // Not safe to fix fragments without a jsx parent.
-      if (!(node.parent.type === AST_NODE_TYPES.JSXElement || node.parent.type === AST_NODE_TYPES.JSXFragment)) {
+      if (!(node.parent.type === NodeType.JSXElement || node.parent.type === NodeType.JSXFragment)) {
         // const a = <></>
         if (node.children.length === 0) {
           return false;
@@ -93,15 +93,16 @@ export default createRule<Options, MessageID>({
             (child) =>
               // eslint-disable-next-line @typescript-eslint/no-extra-parens
               (isLiteral(child) && !isWhiteSpace(child))
-              || child.type === AST_NODE_TYPES.JSXExpressionContainer,
+              || child.type === NodeType.JSXExpressionContainer,
           )
         ) {
           return false;
         }
       }
 
-      // Not safe to fix `<Eeee><>foo</></Eeee>` because `Eeee` might require its children be a ReactElement.
-      return !isChildOfUserDefinedComponentElement(node, reactPragma, fragmentPragma);
+      // Not safe to fix `<Eeee><>foo</></Eeee>` because `Eeee` might require its children be a ReactElement
+      return !(isJSXElementOfUserDefinedComponent(node.parent)
+        && !isFragmentElement(node.parent, reactPragma, fragmentPragma));
     }
 
     function getFix(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
@@ -110,13 +111,15 @@ export default createRule<Options, MessageID>({
       }
 
       return function fix(fixer: RuleFixer) {
-        const opener = node.type === AST_NODE_TYPES.JSXFragment ? node.openingFragment : node.openingElement;
-        const closer = node.type === AST_NODE_TYPES.JSXFragment ? node.closingFragment : node.closingElement;
+        const opener = node.type === NodeType.JSXFragment ? node.openingFragment : node.openingElement;
+        const closer = node.type === NodeType.JSXFragment ? node.closingFragment : node.closingElement;
 
-        const childrenText = opener.type === AST_NODE_TYPES.JSXOpeningElement
-            && opener.selfClosing
+        const childrenText = opener.type === NodeType.JSXOpeningElement && opener.selfClosing
           ? ""
-          : context.getSourceCode().getText().slice(opener.range[1], closer?.range[0]);
+          : context
+            .getSourceCode()
+            .getText()
+            .slice(opener.range[1], closer?.range[0]);
 
         return fixer.replaceText(node, trimLikeReact(childrenText));
       };
@@ -124,7 +127,7 @@ export default createRule<Options, MessageID>({
 
     function checkNode(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
       if (
-        node.type === AST_NODE_TYPES.JSXElement
+        node.type === NodeType.JSXElement
         && hasProp(
           node.openingElement.attributes,
           "key",
@@ -141,15 +144,15 @@ export default createRule<Options, MessageID>({
       ) {
         context.report({
           fix: getFix(node),
-          messageId: "NeedsMoreChildren",
+          messageId: "NO_USELESS_FRAGMENT",
           node,
         });
       }
 
-      if (isChildOfBuiltinComponentElement(node)) {
+      if (isJSXElementOfBuiltinComponent(node.parent)) {
         context.report({
           fix: getFix(node),
-          messageId: "ChildOfHtmlElement",
+          messageId: "NO_USELESS_FRAGMENT_IN_HTML",
           node,
         });
       }
@@ -157,7 +160,7 @@ export default createRule<Options, MessageID>({
 
     return {
       JSXElement(node) {
-        if (isFragment(node, reactPragma, fragmentPragma)) {
+        if (isFragmentElement(node, reactPragma, fragmentPragma)) {
           checkNode(node);
         }
       },

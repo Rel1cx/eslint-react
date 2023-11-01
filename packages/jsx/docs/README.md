@@ -42,19 +42,22 @@
 - [hasEveryProp](README.md#haseveryprop)
 - [hasProp](README.md#hasprop)
 - [isCallFromPragma](README.md#iscallfrompragma)
-- [isChildOfBuiltinComponentElement](README.md#ischildofbuiltincomponentelement)
-- [isChildOfUserDefinedComponentElement](README.md#ischildofuserdefinedcomponentelement)
+- [isChildOfJSXElement](README.md#ischildofjsxelement)
 - [isChildrenOfCreateElement](README.md#ischildrenofcreateelement)
 - [isCloneElementCall](README.md#iscloneelementcall)
 - [isCreateElementCall](README.md#iscreateelementcall)
 - [isFragment](README.md#isfragment)
+- [isFragmentElement](README.md#isfragmentelement)
 - [isFragmentHasLessThanTwoChildren](README.md#isfragmenthaslessthantwochildren)
+- [isFragmentSyntax](README.md#isfragmentsyntax)
 - [isFragmentWithOnlyTextAndIsNotChild](README.md#isfragmentwithonlytextandisnotchild)
 - [isFragmentWithSingleExpression](README.md#isfragmentwithsingleexpression)
 - [isFunctionReturningJSXValue](README.md#isfunctionreturningjsxvalue)
 - [isInitializedFromPragma](README.md#isinitializedfrompragma)
 - [isInsideCreateElementProps](README.md#isinsidecreateelementprops)
 - [isInsidePropValue](README.md#isinsidepropvalue)
+- [isJSXElementOfBuiltinComponent](README.md#isjsxelementofbuiltincomponent)
+- [isJSXElementOfUserDefinedComponent](README.md#isjsxelementofuserdefinedcomponent)
 - [isJSXValue](README.md#isjsxvalue)
 - [isLineBreak](README.md#islinebreak)
 - [isLiteral](README.md#isliteral)
@@ -255,7 +258,7 @@ A function that searches for a property in the given attributes
 
 | Name         | Type                                                        | Default value | Description                                |
 | :----------- | :---------------------------------------------------------- | :------------ | :----------------------------------------- |
-| `properties` | `ObjectLiteralElement`[] \| (`Property` \| `RestElement`)[] | `undefined`   | The properties to search in                |
+| `properties` | (`Property` \| `RestElement`)[] \| `ObjectLiteralElement`[] | `undefined`   | The properties to search in                |
 | `context`    | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | `undefined`   | The rule context                           |
 | `seenProps`  | `string`[]                                                  | `[]`          | The properties that have already been seen |
 
@@ -408,15 +411,19 @@ Check if any of the given prop names are present in the given attributes
 
 ### hasChildren
 
-▸ **hasChildren**(`node`): `boolean`
+▸ **hasChildren**(`node`, `context`, `includeTextNode?`, `includeLineBreak?`, `includeChildrenProp?`): `boolean`
 
-Check if a JSXElement or JSXFragment has children
+Check if a `JSXElement` or `JSXFragment` has children
 
 #### Parameters
 
-| Name   | Type                          | Description           |
-| :----- | :---------------------------- | :-------------------- |
-| `node` | `JSXElement` \| `JSXFragment` | The AST node to check |
+| Name                  | Type                                                        | Default value | Description                                     |
+| :-------------------- | :---------------------------------------------------------- | :------------ | :---------------------------------------------- |
+| `node`                | `JSXElement` \| `JSXFragment`                               | `undefined`   | The AST node to check                           |
+| `context`             | `Readonly`<`RuleContext`<`string`, readonly `unknown`[]\>\> | `undefined`   | The ESLint rule context                         |
+| `includeTextNode`     | `boolean`                                                   | `true`        | If `true`, consider `textnode` as children      |
+| `includeLineBreak`    | `boolean`                                                   | `true`        | If `true`, consider `linebreak` as children     |
+| `includeChildrenProp` | `boolean`                                                   | `true`        | If `true`, consider `children` prop as children |
 
 #### Returns
 
@@ -503,37 +510,23 @@ node is CallExpression
 
 ---
 
-### isChildOfBuiltinComponentElement
+### isChildOfJSXElement
 
-▸ **isChildOfBuiltinComponentElement**(`node`): `boolean`
+▸ **isChildOfJSXElement**(`node`): node is JSXElement & Object
 
-#### Parameters
-
-| Name   | Type   |
-| :----- | :----- |
-| `node` | `Node` |
-
-#### Returns
-
-`boolean`
-
----
-
-### isChildOfUserDefinedComponentElement
-
-▸ **isChildOfUserDefinedComponentElement**(`node`, `pragma`, `fragment`): `boolean`
+Check if a node is a child of a `JSXElement`
 
 #### Parameters
 
-| Name       | Type     |
-| :--------- | :------- |
-| `node`     | `Node`   |
-| `pragma`   | `string` |
-| `fragment` | `string` |
+| Name   | Type   | Description           |
+| :----- | :----- | :-------------------- |
+| `node` | `Node` | The AST node to check |
 
 #### Returns
 
-`boolean`
+node is JSXElement & Object
+
+`true` if the node is a child of a `JSXElement`
 
 ---
 
@@ -598,7 +591,27 @@ node is CallExpression
 
 ### isFragment
 
-▸ **isFragment**(`node`, `pragma`, `fragment`): `boolean`
+▸ **isFragment**(`node`, `pragma`, `fragment`): node is JSXElement \| JSXFragment
+
+#### Parameters
+
+| Name       | Type     |
+| :--------- | :------- |
+| `node`     | `Node`   |
+| `pragma`   | `string` |
+| `fragment` | `string` |
+
+#### Returns
+
+node is JSXElement \| JSXFragment
+
+---
+
+### isFragmentElement
+
+▸ **isFragmentElement**(`node`, `pragma`, `fragment`): `boolean`
+
+Check if a node is `<Fragment></Fragment>` or `<Pragma.Fragment></Pragma.Fragment>`
 
 #### Parameters
 
@@ -631,6 +644,24 @@ Check if a JSXElement or JSXFragment has less than two non-padding children and 
 `boolean`
 
 boolean
+
+---
+
+### isFragmentSyntax
+
+▸ **isFragmentSyntax**(`node`): node is JSXFragment
+
+Check if a node is `<></>`
+
+#### Parameters
+
+| Name   | Type                            |
+| :----- | :------------------------------ |
+| `node` | `undefined` \| `null` \| `Node` |
+
+#### Returns
+
+node is JSXFragment
 
 ---
 
@@ -754,6 +785,46 @@ Checks if the node is inside a prop's value
 `boolean`
 
 `true` if the node is inside a prop's value
+
+---
+
+### isJSXElementOfBuiltinComponent
+
+▸ **isJSXElementOfBuiltinComponent**(`node`): node is JSXFragment
+
+Check if a node is a `JSXFragment` of `Built-in Component` type
+
+#### Parameters
+
+| Name   | Type   | Description           |
+| :----- | :----- | :-------------------- |
+| `node` | `Node` | The AST node to check |
+
+#### Returns
+
+node is JSXFragment
+
+`true` if the node is a `JSXFragment` of `Built-in Component` type
+
+---
+
+### isJSXElementOfUserDefinedComponent
+
+▸ **isJSXElementOfUserDefinedComponent**(`node`): node is JSXElement
+
+Check if a node is a `JSXElement` of `User-Defined Component` type
+
+#### Parameters
+
+| Name   | Type   | Description           |
+| :----- | :----- | :-------------------- |
+| `node` | `Node` | The AST node to check |
+
+#### Returns
+
+node is JSXElement
+
+`true` if the node is a `JSXElement` of `User-Defined Component` type
 
 ---
 

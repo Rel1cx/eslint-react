@@ -32,6 +32,7 @@ const config = {
   ],
   rules: {
     "@typescript-eslint/prefer-readonly": "error",
+    "@typescript-eslint/prefer-nullish-coalescing": "error",
     "@typescript-eslint/strict-boolean-expressions": "error",
     "@typescript-eslint/no-unused-vars": [
       "warn",

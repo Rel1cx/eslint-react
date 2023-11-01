@@ -51,38 +51,38 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: "<></>",
       output: null,
-      errors: [{ messageId: "NeedsMoreChildren", type: AST_NODE_TYPES.JSXFragment }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment }],
     },
     {
       code: "<>{}</>",
       output: null,
-      errors: [{ messageId: "NeedsMoreChildren", type: AST_NODE_TYPES.JSXFragment }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment }],
     },
     {
       code: "<p>moo<>foo</></p>",
       output: "<p>moofoo</p>",
       errors: [
-        { messageId: "NeedsMoreChildren", type: AST_NODE_TYPES.JSXFragment },
-        { messageId: "ChildOfHtmlElement", type: AST_NODE_TYPES.JSXFragment },
+        { messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment },
+        { messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXFragment },
       ],
     },
     {
       code: "<>{meow}</>",
       output: null,
-      errors: [{ messageId: "NeedsMoreChildren" }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT" }],
     },
     {
       code: "<p><>{meow}</></p>",
       output: "<p>{meow}</p>",
       errors: [
-        { messageId: "NeedsMoreChildren", type: AST_NODE_TYPES.JSXFragment },
-        { messageId: "ChildOfHtmlElement", type: AST_NODE_TYPES.JSXFragment },
+        { messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment },
+        { messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXFragment },
       ],
     },
     {
       code: "<><div/></>",
       output: "<div/>",
-      errors: [{ messageId: "NeedsMoreChildren", type: AST_NODE_TYPES.JSXFragment }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment }],
     },
     {
       code: `
@@ -93,12 +93,12 @@ ruleTester.run(RULE_NAME, rule, {
       output: `
         <div/>
       `,
-      errors: [{ messageId: "NeedsMoreChildren", type: AST_NODE_TYPES.JSXFragment }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment }],
     },
     {
       code: "<Fragment />",
       output: null,
-      errors: [{ messageId: "NeedsMoreChildren", type: AST_NODE_TYPES.JSXElement }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXElement }],
     },
     {
       code: `
@@ -109,7 +109,7 @@ ruleTester.run(RULE_NAME, rule, {
       output: `
         <Foo />
       `,
-      errors: [{ messageId: "NeedsMoreChildren", type: AST_NODE_TYPES.JSXElement }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXElement }],
     },
     {
       code: `
@@ -118,7 +118,7 @@ ruleTester.run(RULE_NAME, rule, {
         </SomeReact.SomeFragment>
       `,
       output: null,
-      errors: [{ messageId: "NeedsMoreChildren", type: AST_NODE_TYPES.JSXElement }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXElement }],
       settings: {
         react: {
           pragma: "SomeReact",
@@ -130,20 +130,20 @@ ruleTester.run(RULE_NAME, rule, {
       // Not safe to fix this case because `Eeee` might require child be ReactElement
       code: "<Eeee><>foo</></Eeee>",
       output: null,
-      errors: [{ messageId: "NeedsMoreChildren", type: AST_NODE_TYPES.JSXFragment }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment }],
     },
     {
       code: "<div><>foo</></div>",
       output: "<div>foo</div>",
       errors: [
-        { messageId: "NeedsMoreChildren", type: AST_NODE_TYPES.JSXFragment },
-        { messageId: "ChildOfHtmlElement", type: AST_NODE_TYPES.JSXFragment },
+        { messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment },
+        { messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXFragment },
       ],
     },
     {
       code: '<div><>{"a"}{"b"}</></div>',
       output: '<div>{"a"}{"b"}</div>',
-      errors: [{ messageId: "ChildOfHtmlElement", type: AST_NODE_TYPES.JSXFragment }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXFragment }],
     },
     {
       code: `
@@ -158,12 +158,12 @@ ruleTester.run(RULE_NAME, rule, {
           <Eeee />
           {"a"}{"b"}
         </section>`,
-      errors: [{ messageId: "ChildOfHtmlElement", type: AST_NODE_TYPES.JSXFragment }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXFragment }],
     },
     {
       code: '<div><Fragment>{"a"}{"b"}</Fragment></div>',
       output: '<div>{"a"}{"b"}</div>',
-      errors: [{ messageId: "ChildOfHtmlElement", type: AST_NODE_TYPES.JSXElement }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXElement }],
     },
     {
       // whitepace tricky case
@@ -182,14 +182,14 @@ ruleTester.run(RULE_NAME, rule, {
           git <b>hub</b>
         </section>`,
       errors: [
-        { messageId: "ChildOfHtmlElement", type: AST_NODE_TYPES.JSXFragment, line: 3 },
-        { messageId: "ChildOfHtmlElement", type: AST_NODE_TYPES.JSXFragment, line: 7 },
+        { messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXFragment, line: 3 },
+        { messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXFragment, line: 7 },
       ],
     },
     {
       code: '<div>a <>{""}{""}</> a</div>',
       output: '<div>a {""}{""} a</div>',
-      errors: [{ messageId: "ChildOfHtmlElement", type: AST_NODE_TYPES.JSXFragment }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXFragment }],
     },
     {
       code: `
@@ -207,8 +207,8 @@ ruleTester.run(RULE_NAME, rule, {
         );
       `,
       errors: [
-        { messageId: "NeedsMoreChildren", type: AST_NODE_TYPES.JSXElement, line: 4 },
-        { messageId: "ChildOfHtmlElement", type: AST_NODE_TYPES.JSXElement, line: 4 },
+        { messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXElement, line: 4 },
+        { messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXElement, line: 4 },
       ],
     },
     // Ensure allowExpressions still catches expected violations
@@ -216,7 +216,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<><Foo>{moo}</Foo></>",
       output: "<Foo>{moo}</Foo>",
       options: [{ allowExpressions: true }],
-      errors: [{ messageId: "NeedsMoreChildren", type: AST_NODE_TYPES.JSXFragment }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment }],
     },
   ],
 });
