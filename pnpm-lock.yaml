@@ -196,8 +196,8 @@ importers:
         specifier: '>=6.9.1'
         version: 6.9.1(eslint@8.52.0)(typescript@5.3.0-beta)
       '@vitejs/plugin-react':
-        specifier: 4.1.0
-        version: 4.1.0(vite@4.5.0)
+        specifier: 4.1.1
+        version: 4.1.1(vite@4.5.0)
       eslint:
         specifier: '>=8.52.0'
         version: 8.52.0
@@ -245,8 +245,8 @@ importers:
         specifier: '>=6.9.1'
         version: 6.9.1(eslint@8.52.0)(typescript@5.3.0-beta)
       '@vitejs/plugin-react':
-        specifier: 4.1.0
-        version: 4.1.0(vite@4.5.0)
+        specifier: 4.1.1
+        version: 4.1.1(vite@4.5.0)
       eslint:
         specifier: '>=8.52.0'
         version: 8.52.0
@@ -276,8 +276,8 @@ importers:
         specifier: latest
         version: link:../../packages/eslint-plugin
       '@stylistic/eslint-plugin-jsx':
-        specifier: 0.1.2
-        version: 0.1.2(eslint@8.52.0)
+        specifier: 1.0.0
+        version: 1.0.0(eslint@8.52.0)
       '@tsconfig/node20':
         specifier: 20.1.2
         version: 20.1.2
@@ -297,8 +297,8 @@ importers:
         specifier: '>=6.9.1'
         version: 6.9.1(eslint@8.52.0)(typescript@5.3.0-beta)
       '@vitejs/plugin-react':
-        specifier: 4.1.0
-        version: 4.1.0(vite@4.5.0)
+        specifier: 4.1.1
+        version: 4.1.1(vite@4.5.0)
       eslint:
         specifier: '>=8.52.0'
         version: 8.52.0
@@ -2510,8 +2510,8 @@ packages:
       p-map: 4.0.0
     dev: true
 
-  /@stylistic/eslint-plugin-js@0.1.2(eslint@8.52.0):
-    resolution: {integrity: sha512-s0BdSiAd8SIInpBN4aFl17vQhZMEFokennZ64gWGyPvdrO68gJxHgD9Rox5srVXWEPaBw/YIIRA/2JhpNoElCA==}
+  /@stylistic/eslint-plugin-js@1.0.0(eslint@8.52.0):
+    resolution: {integrity: sha512-xxvjyYnUEgjBTnXKYMk6JbU0LHkf269d6y4IgW69bK/VwHrqLfdgE6mYvft42U7KVpp6Tbf6Z64tLRYD/rYd/A==}
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.52.0)
       acorn: 8.11.2
@@ -2524,10 +2524,10 @@ packages:
       - eslint
     dev: true
 
-  /@stylistic/eslint-plugin-jsx@0.1.2(eslint@8.52.0):
-    resolution: {integrity: sha512-zq6od8bWuTr2MhJGohyjhQGTzHp38UvfzZo5e0uJvFr+E09EOcgQ7MAez68Zh00Fim57CLtHQt0F+geLdtC2vg==}
+  /@stylistic/eslint-plugin-jsx@1.0.0(eslint@8.52.0):
+    resolution: {integrity: sha512-waUm7dcTFAI4d/3luf06RRNt89gSGaofHJ4BiuqKnpyu3yxn1lKbholjGQrw0xPjAciUe+ZSF6BKlBA9P2aV4Q==}
     dependencies:
-      '@stylistic/eslint-plugin-js': 0.1.2(eslint@8.52.0)
+      '@stylistic/eslint-plugin-js': 1.0.0(eslint@8.52.0)
       estraverse: 5.3.0
       jsx-ast-utils: 3.3.5
     transitivePeerDependencies:
@@ -2974,8 +2974,8 @@ packages:
   /@ungap/structured-clone@1.2.0:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
-  /@vitejs/plugin-react@4.1.0(vite@4.5.0):
-    resolution: {integrity: sha512-rM0SqazU9iqPUraQ2JlIvReeaxOoRj6n+PzB1C0cBzIbd8qP336nC39/R9yPi3wVcah7E7j/kdU1uCUqMEU4OQ==}
+  /@vitejs/plugin-react@4.1.1(vite@4.5.0):
+    resolution: {integrity: sha512-Jie2HERK+uh27e+ORXXwEP5h0Y2lS9T2PRGbfebiHGlwzDO0dEnd2aNtOR/qjBlPb1YgxwAONeblL1xqLikLag==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.2.0
