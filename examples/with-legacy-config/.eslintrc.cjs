@@ -4,8 +4,10 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
     "plugin:@eslint-react/recommended-legacy",
   ],
+  plugins: ["@typescript-eslint", "react-hooks"],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
 };

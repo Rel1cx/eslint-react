@@ -4,7 +4,7 @@
     "@tsconfig/node20/tsconfig.json"
   ],
   "compilerOptions": {
-    "composite": true,
+    "noEmit": true,
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
