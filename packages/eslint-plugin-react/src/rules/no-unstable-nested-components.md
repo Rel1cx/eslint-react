@@ -2,7 +2,7 @@
 
 <!-- end auto-generated rule header -->
 
-## Rule details
+## Rule Details
 
 This rule aims to prevent nesting component definitions inside other components. It is a common mistake that can cause performance issues and bugs. Instead, define every component at the top level.
 

@@ -2,7 +2,7 @@
 
 <!-- end auto-generated rule header -->
 
-## Rule details
+## Rule Details
 
 This rule aims to prevent array index as key props on elements in an array. It will warn when an element in an array is using an array index as a key prop.
 

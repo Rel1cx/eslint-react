@@ -2,7 +2,7 @@
 
 <!-- end auto-generated rule header -->
 
-## Rule details
+## Rule Details
 
 This rule aims to prevent missing key props on any element in an array. It will warn when an element in an array is missing a key prop.
 

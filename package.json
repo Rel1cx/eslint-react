@@ -69,7 +69,7 @@
     "bun-types": "1.0.7",
     "cspell": "7.3.8",
     "dprint": "0.42.5",
-    "effect": "2.0.0-next.52",
+    "effect": "2.0.0-next.53",
     "eslint": ">=8.52.0",
     "eslint-config-with-tsconfig": "2.9.0",
     "eslint-doc-generator": "1.5.2",
