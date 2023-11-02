@@ -53,7 +53,7 @@
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "dedent": "1.5.1",
-    "effect": "2.0.0-next.52",
+    "effect": "2.0.0-next.53",
     "rambda": "8.5.0",
     "string-ts": "1.3.2",
     "ts-pattern": "5.0.5"

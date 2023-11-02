@@ -1,5 +1,5 @@
 import { F, MutRef, O } from "@eslint-react/tools";
-import type { Variable } from "@typescript-eslint/scope-manager";
+import type { Definition, Variable } from "@typescript-eslint/scope-manager";
 import { type Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -42,16 +42,50 @@ export function findVariableByNameUpToGlobal(name: string, startScope: Scope): O
 }
 
 /**
- * Get the init node of the nth definition of a variable
- * @param at The index of the definition to get, negative numbers are counted from the end, -1 is the last definition
+ * Get the first definition of a variable
+ * @param variable The variable to get the definition from
  */
-export function getVariableNthDefNodeInit(at: number) {
-  return (variable: Variable): O.Option<TSESTree.Expression | TSESTree.LetOrConstOrVarDeclaration> => {
-    return F.pipe(
-      O.some(variable),
-      O.flatMapNullable((v) => v.defs.at(at)),
-      O.flatMapNullable((d) => d.node),
-      O.flatMapNullable((n) => "init" in n ? n.init : null),
-    );
-  };
+export function getVariableDefinitionFirst(variable: Variable): O.Option<Definition> {
+  return O.fromNullable(variable.defs[0]);
+}
+
+/**
+ * Get the last definition of a variable
+ * @param variable The variable to get the definition from
+ */
+export function getVariableDefinitionLast(variable: Variable): O.Option<Definition> {
+  return O.fromNullable(variable.defs[variable.defs.length - 1]);
+}
+
+/**
+ * Get the init node of the nth definition of a variable
+ * @param variable
+ * @param getDefinition A function that returns the nth definition of a variable
+ */
+export function getVariableInit(
+  variable: Variable,
+  getDefinition: (variable: Variable) => O.Option<Definition>,
+): O.Option<TSESTree.Expression | TSESTree.LetOrConstOrVarDeclaration> {
+  return F.pipe(
+    O.some(variable),
+    O.flatMap(getDefinition),
+    O.flatMapNullable((d) => d.node),
+    O.flatMapNullable((n) => "init" in n ? n.init : null),
+  );
+}
+
+/**
+ * Get the init node of the first definition of a variable
+ * @param variable
+ */
+export function getVariableInitFirst(variable: Variable) {
+  return getVariableInit(variable, getVariableDefinitionFirst);
+}
+
+/**
+ * Get the init node of the last definition of a variable
+ * @param variable
+ */
+export function getVariableInitLast(variable: Variable) {
+  return getVariableInit(variable, getVariableDefinitionLast);
 }

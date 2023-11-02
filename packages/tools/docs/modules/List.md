@@ -2533,9 +2533,9 @@ Flat maps a list using the specified function.
 
 #### Parameters
 
-| Name | Type                                                                     |
-| :--- | :----------------------------------------------------------------------- |
-| `f`  | (`a`: `A`, `i`: `number`) => [`Cons`](../interfaces/List.Cons.md)\<`B`\> |
+| Name | Type                                                      |
+| :--- | :-------------------------------------------------------- |
+| `f`  | (`a`: `A`) => [`Cons`](../interfaces/List.Cons.md)\<`B`\> |
 
 #### Returns
 
@@ -2568,10 +2568,10 @@ Flat maps a list using the specified function.
 
 #### Parameters
 
-| Name   | Type                                                                     |
-| :----- | :----------------------------------------------------------------------- |
-| `self` | [`Cons`](../interfaces/List.Cons.md)\<`A`\>                              |
-| `f`    | (`a`: `A`, `i`: `number`) => [`Cons`](../interfaces/List.Cons.md)\<`B`\> |
+| Name   | Type                                                      |
+| :----- | :-------------------------------------------------------- |
+| `self` | [`Cons`](../interfaces/List.Cons.md)\<`A`\>               |
+| `f`    | (`a`: `A`) => [`Cons`](../interfaces/List.Cons.md)\<`B`\> |
 
 #### Returns
 

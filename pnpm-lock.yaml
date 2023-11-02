@@ -75,8 +75,8 @@ importers:
         specifier: 0.42.5
         version: 0.42.5
       effect:
-        specifier: 2.0.0-next.52
-        version: 2.0.0-next.52
+        specifier: 2.0.0-next.53
+        version: 2.0.0-next.53
       eslint:
         specifier: '>=8.52.0'
         version: 8.52.0
@@ -467,8 +467,8 @@ importers:
         specifier: 1.5.1
         version: 1.5.1
       effect:
-        specifier: 2.0.0-next.52
-        version: 2.0.0-next.52
+        specifier: 2.0.0-next.53
+        version: 2.0.0-next.53
       rambda:
         specifier: 8.5.0
         version: 8.5.0
@@ -525,8 +525,8 @@ importers:
         specifier: 1.5.1
         version: 1.5.1
       effect:
-        specifier: 2.0.0-next.52
-        version: 2.0.0-next.52
+        specifier: 2.0.0-next.53
+        version: 2.0.0-next.53
       rambda:
         specifier: 8.5.0
         version: 8.5.0
@@ -583,8 +583,8 @@ importers:
         specifier: 1.5.1
         version: 1.5.1
       effect:
-        specifier: 2.0.0-next.52
-        version: 2.0.0-next.52
+        specifier: 2.0.0-next.53
+        version: 2.0.0-next.53
       rambda:
         specifier: 8.5.0
         version: 8.5.0
@@ -638,8 +638,8 @@ importers:
         specifier: 1.5.1
         version: 1.5.1
       effect:
-        specifier: 2.0.0-next.52
-        version: 2.0.0-next.52
+        specifier: 2.0.0-next.53
+        version: 2.0.0-next.53
       rambda:
         specifier: 8.5.0
         version: 8.5.0
@@ -696,8 +696,8 @@ importers:
         specifier: 1.5.1
         version: 1.5.1
       effect:
-        specifier: 2.0.0-next.52
-        version: 2.0.0-next.52
+        specifier: 2.0.0-next.53
+        version: 2.0.0-next.53
       rambda:
         specifier: 8.5.0
         version: 8.5.0
@@ -757,8 +757,8 @@ importers:
   packages/tools:
     dependencies:
       effect:
-        specifier: 2.0.0-next.52
-        version: 2.0.0-next.52
+        specifier: 2.0.0-next.53
+        version: 2.0.0-next.53
 
   packages/types:
     dependencies:
@@ -4216,8 +4216,8 @@ packages:
       wcwidth: 1.0.1
     dev: true
 
-  /effect@2.0.0-next.52:
-    resolution: {integrity: sha512-6VmmfS6xyOZsJRT0hcEsMx03HxXSeG/VmcniDvVw0nzBudlu+4qUvj8GBGYVFVgJfKcISSRey0tzfO9HXIzApg==}
+  /effect@2.0.0-next.53:
+    resolution: {integrity: sha512-WQQ0Ha1Hn8x1adOWfcpUPu/xRlekwSY39pCbsZ/Gu3nSdLocY8rQiKmHNRTrMG8xoGoZmh5MKhUPdcsbrpSKAA==}
 
   /electron-to-chromium@1.4.569:
     resolution: {integrity: sha512-LsrJjZ0IbVy12ApW3gpYpcmHS3iRxH4bkKOW98y1/D+3cvDUWGcbzbsFinfUS8knpcZk/PG/2p/RnkMCYN7PVg==}

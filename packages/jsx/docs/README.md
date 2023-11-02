@@ -34,8 +34,8 @@
 - [findPropInProperties](README.md#findpropinproperties)
 - [getFragmentFromContext](README.md#getfragmentfromcontext)
 - [getPragmaFromContext](README.md#getpragmafromcontext)
+- [getProp](README.md#getprop)
 - [getPropName](README.md#getpropname)
-- [getPropNameWithNamespace](README.md#getpropnamewithnamespace)
 - [getPropValue](README.md#getpropvalue)
 - [hasAnyProp](README.md#hasanyprop)
 - [hasChildren](README.md#haschildren)
@@ -326,29 +326,27 @@ A function that searches for a property in the given properties
 
 ---
 
-### getPropName
+### getProp
 
-▸ **getPropName**(`node`): `string`
-
-Get the name of a JSX attribute
+▸ **getProp**(`props`, `propName`, `context`): `O.Option`\<`TSESTree.JSXAttribute` \| `TSESTree.JSXSpreadAttribute`\>
 
 #### Parameters
 
-| Name   | Type           | Description            |
-| :----- | :------------- | :--------------------- |
-| `node` | `JSXAttribute` | The JSX attribute node |
+| Name       | Type                                                          |
+| :--------- | :------------------------------------------------------------ |
+| `props`    | `JSXAttribute`[]                                              |
+| `propName` | `string`                                                      |
+| `context`  | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
-`string`
-
-string
+`O.Option`\<`TSESTree.JSXAttribute` \| `TSESTree.JSXSpreadAttribute`\>
 
 ---
 
-### getPropNameWithNamespace
+### getPropName
 
-▸ **getPropNameWithNamespace**(`node`): `string`
+▸ **getPropName**(`node`): `string`
 
 Get the name of a JSX attribute with namespace
 

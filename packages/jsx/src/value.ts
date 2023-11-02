@@ -1,6 +1,6 @@
 import {
   findVariableByNameUpToGlobal,
-  getVariableNthDefNodeInit,
+  getVariableInitFirst,
   isJSXTagNameExpression,
   isOneOf,
   NodeType,
@@ -109,7 +109,7 @@ export function isJSXValue(
 
       return F.pipe(
         variable,
-        O.flatMap(getVariableNthDefNodeInit(0)),
+        O.flatMap(getVariableInitFirst),
         O.map(isOneOf([NodeType.JSXElement, NodeType.JSXFragment])),
         O.getOrElse(F.constFalse),
       );

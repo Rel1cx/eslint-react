@@ -2,7 +2,7 @@
 
 <!-- end auto-generated rule header -->
 
-## Rule details
+## Rule Details
 
 This rule aims to prevent duplicate key props on elements in the same array. Keys must be unique among siblings.
 
