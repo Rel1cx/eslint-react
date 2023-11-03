@@ -117,7 +117,7 @@
     "overrides": {
       "has": "npm:@nolyfill/has@latest",
       "eslint": ">=8.52.0",
-      "typescript": "beta",
+      "typescript": "rc",
       "@typescript-eslint/scope-manager": "6.9.1",
       "@typescript-eslint/type-utils": "6.9.1",
       "@typescript-eslint/types": "6.9.1",
