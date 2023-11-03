@@ -7,11 +7,10 @@
 ### Type Aliases
 
 - [CallFromPragmaPredicate](README.md#callfrompragmapredicate)
-- [JSXValueCheckOptions](README.md#jsxvaluecheckoptions)
 
 ### Variables
 
-- [defaultJSXValueCheckOptions](README.md#defaultjsxvaluecheckoptions)
+- [JSXValueCheckHint](README.md#jsxvaluecheckhint)
 - [hdlAnimation](README.md#hdlanimation)
 - [hdlClipboard](README.md#hdlclipboard)
 - [hdlComposition](README.md#hdlcomposition)
@@ -87,31 +86,21 @@
 
 node is TSESTree.CallExpression
 
----
-
-### JSXValueCheckOptions
-
-Ƭ **JSXValueCheckOptions**: `Object`
-
-#### Type declaration
-
-| Name          | Type      | Description                                                 |
-| :------------ | :-------- | :---------------------------------------------------------- |
-| `ignoreNull?` | `boolean` | Whether to ignore null values                               |
-| `strict?`     | `boolean` | Whether to check all branches of the conditional expression |
-
 ## Variables
 
-### defaultJSXValueCheckOptions
+### JSXValueCheckHint
 
-• `Const` **defaultJSXValueCheckOptions**: `Object`
+• `Const` **JSXValueCheckHint**: `Object`
 
 #### Type declaration
 
-| Name         | Type    |
-| :----------- | :------ |
-| `ignoreNull` | `false` |
-| `strict`     | `false` |
+| Name                  | Type     |
+| :-------------------- | :------- |
+| `IgnoreCreateElement` | `bigint` |
+| `IgnoreNull`          | `bigint` |
+| `None`                | `0n`     |
+| `StrictConditional`   | `bigint` |
+| `StrictLogical`       | `bigint` |
 
 ---
 
@@ -704,17 +693,17 @@ Somehow fragment like this is useful: <Foo content={<>ee eeee eeee ...</>} />
 
 ### isFunctionReturningJSXValue
 
-▸ **isFunctionReturningJSXValue**(`node`, `context`, `options?`): `boolean`
+▸ **isFunctionReturningJSXValue**(`node`, `context`, `hint?`): `boolean`
 
 Check if function is returning JSX
 
 #### Parameters
 
-| Name       | Type                                                          | Description                        |
-| :--------- | :------------------------------------------------------------ | :--------------------------------- |
-| `node`     | `TSESTreeFunction`                                            | The return statement node to check |
-| `context`  | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context                   |
-| `options?` | [`JSXValueCheckOptions`](README.md#jsxvaluecheckoptions)      | The JSX value check options        |
+| Name      | Type                                                          | Default value            | Description                        |
+| :-------- | :------------------------------------------------------------ | :----------------------- | :--------------------------------- |
+| `node`    | `TSESTreeFunction`                                            | `undefined`              | The return statement node to check |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`              | The rule context                   |
+| `hint`    | `0n`                                                          | `JSXValueCheckHint.None` | The `JSXValueCheckHint` to use     |
 
 #### Returns
 
@@ -825,17 +814,17 @@ node is JSXElement
 
 ### isJSXValue
 
-▸ **isJSXValue**(`node`, `context`, `options?`): `boolean`
+▸ **isJSXValue**(`node`, `context`, `hint?`): `boolean`
 
 Check if a node is a JSX value
 
 #### Parameters
 
-| Name      | Type                                                          | Default value                 | Description                       |
-| :-------- | :------------------------------------------------------------ | :---------------------------- | :-------------------------------- |
-| `node`    | `undefined` \| `null` \| `Node`                               | `undefined`                   | The AST node to check             |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`                   | The rule context                  |
-| `options` | [`JSXValueCheckOptions`](README.md#jsxvaluecheckoptions)      | `defaultJSXValueCheckOptions` | The `JSXValueCheckOptions` to use |
+| Name      | Type                                                          | Default value            | Description                    |
+| :-------- | :------------------------------------------------------------ | :----------------------- | :----------------------------- |
+| `node`    | `undefined` \| `null` \| `Node`                               | `undefined`              | The AST node to check          |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`              | The rule context               |
+| `hint`    | `bigint`                                                      | `JSXValueCheckHint.None` | The `JSXValueCheckHint` to use |
 
 #### Returns
 

@@ -10,6 +10,7 @@ import {
 } from "@eslint-react/ast";
 import {
   componentCollector,
+  ComponentCollectorHint,
   componentCollectorLegacy,
   isInsideRenderMethod,
   unsafeIsDeclaredInRenderProp,
@@ -46,7 +47,12 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const collector = componentCollector(context, { ignoreMapCall: true, ignoreNull: true, strict: true });
+    const hint = ComponentCollectorHint.IgnoreMapCall
+      | ComponentCollectorHint.IgnoreNull
+      | ComponentCollectorHint.StrictLogical
+      | ComponentCollectorHint.StrictConditional;
+
+    const collector = componentCollector(context, hint);
     const collectorLegacy = componentCollectorLegacy(context);
 
     return {

@@ -3,7 +3,6 @@ import type { KnipConfig } from "knip";
 export default {
   ignore: [".eslintrc.cjs", "**/*.config.ts", "**/*.d.ts", "**/fixtures"],
   ignoreDependencies: [
-    "@effect/language-service",
     "eslint-config-with-tsconfig",
     "eslint-plugin-filenames-simple",
     "eslint-plugin-functional-core",

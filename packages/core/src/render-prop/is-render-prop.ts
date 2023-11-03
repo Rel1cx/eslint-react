@@ -1,5 +1,5 @@
 import { getFunctionIdentifier, isFunction, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
-import { isJSXValue } from "@eslint-react/jsx";
+import { isJSXValue, JSXValueCheckHint } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { isMatching, P } from "ts-pattern";
@@ -34,10 +34,11 @@ export function unsafeIsRenderFunction(node: TSESTreeFunction, context: RuleCont
     }, parent);
   }
 
-  return isJSXValue(body, context, {
-    ignoreNull: true,
-    strict: true,
-  });
+  return isJSXValue(
+    body,
+    context,
+    JSXValueCheckHint.IgnoreNull | JSXValueCheckHint.StrictLogical | JSXValueCheckHint.StrictConditional,
+  );
 }
 
 /**
