@@ -12,7 +12,7 @@ import { isMatching, match, P } from "ts-pattern";
  * @returns A function that searches for a property in the given properties
  */
 export function findPropInProperties(
-  properties: (TSESTree.Property | TSESTree.RestElement)[] | TSESTree.ObjectLiteralElement[],
+  properties: (TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement)[] | TSESTree.ObjectLiteralElement[],
   context: RuleContext,
   seenProps: string[] = [],
 ) {
@@ -31,28 +31,38 @@ export function findPropInProperties(
             return "name" in prop.key && prop.key.name === propName;
           })
           .when(is(NodeType.SpreadElement), (prop) => {
-            if (!isMatching({ argument: { name: P.string } }, prop)) {
-              return false;
-            }
-            const { name } = prop.argument;
-            const maybeInit = O.flatMap(
-              findVariableByNameUpToGlobal(name, startScope),
-              getVariableInitFirst,
-            );
-            if (O.isNone(maybeInit)) {
-              return false;
-            }
-            const init = maybeInit.value;
+            return match(prop.argument)
+              .when(is(NodeType.Identifier), (argument) => {
+                const { name } = argument;
+                const maybeInit = O.flatMap(
+                  findVariableByNameUpToGlobal(name, startScope),
+                  getVariableInitFirst,
+                );
+                if (O.isNone(maybeInit)) {
+                  return false;
+                }
+                const init = maybeInit.value;
 
-            if (init.type !== NodeType.ObjectExpression) {
-              return false;
-            }
+                if (init.type !== NodeType.ObjectExpression) {
+                  return false;
+                }
 
-            if (seenProps.includes(name)) {
-              return false;
-            }
+                if (seenProps.includes(name)) {
+                  return false;
+                }
 
-            return O.isSome(findPropInProperties(init.properties, context, [...seenProps, name])(propName));
+                return O.isSome(findPropInProperties(init.properties, context, [...seenProps, name])(propName));
+              })
+              .when(is(NodeType.ObjectExpression), (argument) => {
+                return O.isSome(findPropInProperties(argument.properties, context, seenProps)(propName));
+              })
+              .when(is(NodeType.MemberExpression), () => {
+                // Not implemented
+              })
+              .when(is(NodeType.CallExpression), () => {
+                // Not implemented
+              })
+              .otherwise(F.constFalse);
           })
           .when(is(NodeType.RestElement), () => {
             // Not implemented

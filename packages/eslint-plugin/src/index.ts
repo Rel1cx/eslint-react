@@ -22,6 +22,7 @@ const rulePreset = {
   "jsx/no-leaked-conditional-rendering": "error",
   "jsx/no-missing-key": "error",
   "jsx/no-misused-comment-in-textnode": "warn",
+  "jsx/no-spreading-key": "error",
   "jsx/prefer-shorthand-boolean": "warn",
   "naming-convention/filename": "warn",
   "naming-convention/filename-extension": "warn",

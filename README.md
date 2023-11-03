@@ -112,6 +112,7 @@ export default [
 | [jsx/no-missing-key](packages/eslint-plugin-jsx/src/rules/no-missing-key.md)                                   | require `key` prop when rendering list                        |
 | [jsx/no-misused-comment-in-textnode](packages/eslint-plugin-jsx/src/rules/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes           |
 | [jsx/no-script-url](packages/eslint-plugin-jsx/src/rules/no-script-url.md)                                     | disallow `javascript:` URLs as JSX event handler prop's value |
+| [jsx/no-spreading-key](packages/eslint-plugin-jsx/src/rules/no-spreading-key.md)                               | disallow spreading key from objects.                          |
 | [jsx/no-useless-fragment](packages/eslint-plugin-jsx/src/rules/no-useless-fragment.md)                         | disallow unnecessary fragments                                |
 | [jsx/prefer-shorthand-boolean](packages/eslint-plugin-jsx/src/rules/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX                    |
 
@@ -150,7 +151,7 @@ export default [
 - [x] `jsx/no-array-index-key`
 - [x] `jsx/no-children-in-void-dom-elements`
 - [x] `jsx/no-duplicate-key`
-- [ ] `jsx/no-spreading-key`
+- [x] `jsx/no-spreading-key`
 - [x] `jsx/no-missing-key`
 - [x] `jsx/no-misused-comment-in-textnode`
 - [x] `jsx/no-leaked-conditional-rendering`
