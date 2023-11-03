@@ -184,7 +184,7 @@ export default [
 - [ ] `react/no-missing-display-name`
 - [x] `react/no-missing-button-type`
 - [x] `react/no-missing-iframe-sandbox`
-- [ ] `react/no-unsafe-iframe-sandbox`
+- [x] `react/no-unsafe-iframe-sandbox`
 - [x] `react/no-string-refs`
 - [x] `react/no-string-style-props`
 - [ ] `react/no-children-methods`
