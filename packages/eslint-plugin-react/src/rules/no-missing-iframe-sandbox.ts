@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce that button elements have an explicit type attribute",
+      description: "enforce that iframe elements explicitly specify a sandbox attribute",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
