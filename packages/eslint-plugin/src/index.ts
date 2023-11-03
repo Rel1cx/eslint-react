@@ -40,6 +40,7 @@ const rulePreset = {
   "react/no-missing-iframe-sandbox": "warn",
   "react/no-string-refs": "error",
   "react/no-string-style-props": "warn",
+  "react/no-unsafe-iframe-sandbox": "warn",
   "react/no-unstable-default-props": "error",
   "react/no-unstable-nested-components": "warn",
 } as const satisfies RulePreset;
