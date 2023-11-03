@@ -8,11 +8,11 @@
 
 - [ComponentCollectorCache](README.md#componentcollectorcache)
 - [ComponentCollectorLegacyCache](README.md#componentcollectorlegacycache)
-- [ComponentCollectorLegacyOptions](README.md#componentcollectorlegacyoptions)
 
 ### Variables
 
 - [ComponentCollectorHint](README.md#componentcollectorhint)
+- [ComponentCollectorLegacyHint](README.md#componentcollectorlegacyhint)
 - [RE\_COMPONENT\_NAME](README.md#re_component_name)
 - [RE\_HOOK\_NAME](README.md#re_hook_name)
 
@@ -47,13 +47,7 @@
 
 ### ComponentCollectorLegacyCache
 
-Ƭ **ComponentCollectorLegacyCache**: `WeakSet`\<`TSESTreeClass`\>
-
----
-
-### ComponentCollectorLegacyOptions
-
-Ƭ **ComponentCollectorLegacyOptions**: `Object`
+Ƭ **ComponentCollectorLegacyCache**: `WeakMap`\<`TSESTreeClass`, `bigint`\>
 
 ## Variables
 
@@ -67,6 +61,22 @@
 | :-------------------- | :------- |
 | `IgnoreCreateElement` | `bigint` |
 | `IgnoreMapCall`       | `bigint` |
+| `IgnoreNull`          | `bigint` |
+| `None`                | `0n`     |
+| `StrictConditional`   | `bigint` |
+| `StrictLogical`       | `bigint` |
+
+---
+
+### ComponentCollectorLegacyHint
+
+• `Const` **ComponentCollectorLegacyHint**: `Object`
+
+#### Type declaration
+
+| Name                  | Type     |
+| :-------------------- | :------- |
+| `IgnoreCreateElement` | `bigint` |
 | `IgnoreNull`          | `bigint` |
 | `None`                | `0n`     |
 | `StrictConditional`   | `bigint` |
@@ -119,15 +129,15 @@
 
 ### componentCollectorLegacy
 
-▸ **componentCollectorLegacy**(`context`, `options?`, `cache?`): `Object`
+▸ **componentCollectorLegacy**(`context`, `hint?`, `cache?`): `Object`
 
 #### Parameters
 
-| Name      | Type                                                                           | Default value                            |
-| :-------- | :----------------------------------------------------------------------------- | :--------------------------------------- |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>                  | `undefined`                              |
-| `options` | [`ComponentCollectorLegacyOptions`](README.md#componentcollectorlegacyoptions) | `defaultComponentCollectorLegacyOptions` |
-| `cache`   | [`ComponentCollectorLegacyCache`](README.md#componentcollectorlegacycache)     | `undefined`                              |
+| Name      | Type                                                                       | Default value                       |
+| :-------- | :------------------------------------------------------------------------- | :---------------------------------- |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>              | `undefined`                         |
+| `hint`    | `bigint`                                                                   | `ComponentCollectorLegacyHint.None` |
+| `cache`   | [`ComponentCollectorLegacyCache`](README.md#componentcollectorlegacycache) | `undefined`                         |
 
 #### Returns
 

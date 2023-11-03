@@ -7,6 +7,8 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type TSESTree } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
 
+import { JSXValueCheckHint } from "../../../jsx/src/value";
+
 const isRenderMethodLike = isMatching({
   type: P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),
   key: {
@@ -140,21 +142,17 @@ export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) 
   return !!traverseUp(node, predicate);
 }
 
-export type ComponentCollectorLegacyOptions = {
-  // Nothing here for now.
-};
+export type ComponentCollectorLegacyCache = WeakMap<TSESTreeClass, bigint>;
 
-export type ComponentCollectorLegacyCache = WeakSet<TSESTreeClass>;
-
-const defaultComponentCollectorLegacyOptions: ComponentCollectorLegacyOptions = {
-  // Nothing here for now.
-};
+export const ComponentCollectorLegacyHint = {
+  ...JSXValueCheckHint,
+  // ...
+} as const;
 
 export function componentCollectorLegacy(
   context: RuleContext,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  options: ComponentCollectorLegacyOptions = defaultComponentCollectorLegacyOptions,
-  cache: ComponentCollectorLegacyCache = new WeakSet(),
+  hint: bigint = ComponentCollectorLegacyHint.None,
+  cache: ComponentCollectorLegacyCache = new WeakMap(),
 ) {
   const components: TSESTreeClass[] = [];
 
@@ -172,7 +170,7 @@ export function componentCollectorLegacy(
   } as const;
 
   const collect = (node: TSESTreeClass) => {
-    if (cache.has(node)) {
+    if (cache.has(node) && cache.get(node) === hint) {
       components.push(node);
     }
 
@@ -180,7 +178,7 @@ export function componentCollectorLegacy(
       return;
     }
 
-    cache.add(node);
+    cache.set(node, hint);
     components.push(node);
   };
 

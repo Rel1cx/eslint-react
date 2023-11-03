@@ -96,8 +96,8 @@ importers:
         specifier: 46.8.2
         version: 46.8.2(eslint@8.52.0)
       eslint-plugin-vitest:
-        specifier: 0.3.8
-        version: 0.3.8(@typescript-eslint/eslint-plugin@6.9.1)(eslint@8.52.0)(typescript@5.3.0-beta)(vitest@0.34.6)
+        specifier: 0.3.9
+        version: 0.3.9(@typescript-eslint/eslint-plugin@6.9.1)(eslint@8.52.0)(typescript@5.3.0-beta)(vitest@0.34.6)
       fast-equals:
         specifier: 5.0.1
         version: 5.0.1
@@ -4715,8 +4715,8 @@ packages:
       strip-indent: 3.0.0
     dev: true
 
-  /eslint-plugin-vitest@0.3.8(@typescript-eslint/eslint-plugin@6.9.1)(eslint@8.52.0)(typescript@5.3.0-beta)(vitest@0.34.6):
-    resolution: {integrity: sha512-MYQJzg3i+nLkaIQgjnOhtqHYIt0W6nErqAOKI3LTSQ2aOgcNHGYTwOhpnwGC1IXTvGWjKgAwb7rHwLpcHWHSAQ==}
+  /eslint-plugin-vitest@0.3.9(@typescript-eslint/eslint-plugin@6.9.1)(eslint@8.52.0)(typescript@5.3.0-beta)(vitest@0.34.6):
+    resolution: {integrity: sha512-ZGrz8dWFlotM5dwrsMLP4VcY5MizwKNV4JTnY0VKdnuCZ+qeEUMHf1qd8kRGQA3tqLvXcV929wt2ANkduq2Pgw==}
     engines: {node: 14.x || >= 16}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': '*'
@@ -4724,6 +4724,8 @@ packages:
       vitest: '*'
     peerDependenciesMeta:
       '@typescript-eslint/eslint-plugin':
+        optional: true
+      vitest:
         optional: true
     dependencies:
       '@typescript-eslint/eslint-plugin': 6.9.1(@typescript-eslint/parser@6.9.1)(eslint@8.52.0)(typescript@5.3.0-beta)
