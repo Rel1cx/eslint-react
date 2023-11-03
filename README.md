@@ -150,9 +150,10 @@ export default [
 - [x] `jsx/no-array-index-key`
 - [x] `jsx/no-children-in-void-dom-elements`
 - [x] `jsx/no-duplicate-key`
-- [x] `jsx/no-leaked-conditional-rendering`
+- [ ] `jsx/no-spreading-key`
 - [x] `jsx/no-missing-key`
 - [x] `jsx/no-misused-comment-in-textnode`
+- [x] `jsx/no-leaked-conditional-rendering`
 - [x] `jsx/no-namespace`
 - [x] `jsx/no-script-url`
 - [ ] `jsx/no-target-blank`

@@ -113,8 +113,8 @@ export function isJSXValue(
       return F.pipe(
         variable,
         O.flatMap(getVariableInitFirst),
-        O.map(isOneOf([NodeType.JSXElement, NodeType.JSXFragment])),
-        O.getOrElse(F.constFalse),
+        O.filter(isOneOf([NodeType.JSXElement, NodeType.JSXFragment])),
+        O.isSome,
       );
     })
     .with({ type: NodeType.JSXMemberExpression }, F.constTrue)
