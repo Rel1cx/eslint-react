@@ -110,15 +110,16 @@ export default createRule<[], MessageID>({
         const maybeTypeAttribute = findPropInAttributes(attributes, context)("sandbox");
 
         if (O.isSome(maybeTypeAttribute)) {
-          const maybeTypeValue = F.pipe(
+          const hasSandboxValue = F.pipe(
             getPropValue(maybeTypeAttribute.value, context),
             O.flatMapNullable(v => v?.value),
             O.filter(isString),
             O.map((value) => value.split(" ")),
             O.filter((values) => values.every((value) => validTypes.some((validType) => validType === value))),
+            O.isSome,
           );
 
-          if (O.isSome(maybeTypeValue)) {
+          if (hasSandboxValue) {
             return;
           }
 

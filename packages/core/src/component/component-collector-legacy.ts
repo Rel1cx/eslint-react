@@ -1,13 +1,11 @@
 import { NodeType, traverseUp, type TSESTreeClass, type TSESTreeFunction } from "@eslint-react/ast";
-import { getPragmaFromContext } from "@eslint-react/jsx";
+import { getPragmaFromContext, JSXValueCheckHint } from "@eslint-react/jsx";
 import { E } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type Scope } from "@typescript-eslint/scope-manager";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type TSESTree } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
-
-import { JSXValueCheckHint } from "../../../jsx/src/value";
 
 const isRenderMethodLike = isMatching({
   type: P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),

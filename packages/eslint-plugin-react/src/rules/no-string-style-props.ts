@@ -1,7 +1,7 @@
 import { NodeType } from "@eslint-react/ast";
 import { elementType, findPropInAttributes, isCreateElementCall } from "@eslint-react/jsx";
 import { getPropValue } from "@eslint-react/jsx";
-import { O } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { isString } from "effect/Predicate";
@@ -89,15 +89,14 @@ export default createRule<[], MessageID>({
 
         const styleProp = maybeStyleProp.value;
 
-        const maybeStyleValue = getPropValue(styleProp, context);
+        const isStringStyleValue = F.pipe(
+          getPropValue(styleProp, context),
+          O.flatMapNullable(v => v?.value),
+          O.filter(isString),
+          O.isSome,
+        );
 
-        if (O.isNone(maybeStyleValue)) {
-          return;
-        }
-
-        const styleValue = maybeStyleValue.value;
-
-        if (!isString(styleValue?.value)) {
+        if (!isStringStyleValue) {
           return;
         }
 
