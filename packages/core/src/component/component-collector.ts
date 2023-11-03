@@ -1,15 +1,9 @@
 import { getFunctionIdentifier, NodeType, type TSESTreeFunction, unsafeIsMapCall } from "@eslint-react/ast";
-import {
-  defaultJSXValueCheckOptions,
-  isChildrenOfCreateElement,
-  isJSXValue,
-  type JSXValueCheckOptions,
-} from "@eslint-react/jsx";
+import { isChildrenOfCreateElement, isJSXValue, JSXValueCheckHint } from "@eslint-react/jsx";
 import { E, MutList, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { shallowEqual } from "fast-equals";
 
 import { isFunctionOfRenderMethod } from "./component-collector-legacy";
 import { isValidReactComponentName } from "./is-valid-react-component-name";
@@ -27,23 +21,16 @@ const hasValidHierarchy = (node: TSESTreeFunction, context: RuleContext, ignoreM
     || (ignoreMapCall && unsafeIsMapCall(node.parent)));
 };
 
-export type ComponentCollectorOptions = JSXValueCheckOptions & {
-  /**
-   * ignore components in map method's callback function
-   */
-  ignoreMapCall?: boolean;
-};
+export type ComponentCollectorCache = WeakMap<TSESTreeFunction, bigint>;
 
-export type ComponentCollectorCache = WeakMap<TSESTreeFunction, ComponentCollectorOptions>;
-
-const defaultComponentCollectorOptions: ComponentCollectorOptions = {
-  ...defaultJSXValueCheckOptions,
-  ignoreMapCall: false,
-};
+export const ComponentCollectorHint = {
+  ...JSXValueCheckHint,
+  IgnoreMapCall: 1n << 4n,
+} as const;
 
 export function componentCollector(
   context: RuleContext,
-  options: ComponentCollectorOptions = defaultComponentCollectorOptions,
+  hint: bigint = ComponentCollectorHint.None,
   cache: ComponentCollectorCache = new WeakMap(),
 ) {
   const components: TSESTreeFunction[] = [];
@@ -82,7 +69,7 @@ export function componentCollector(
 
       const currentFn = maybeCurrentFn.value;
 
-      if (cache.has(currentFn) && shallowEqual(cache.get(currentFn), options)) {
+      if (cache.has(currentFn) && cache.get(currentFn) === hint) {
         components.push(currentFn);
 
         return;
@@ -90,18 +77,18 @@ export function componentCollector(
 
       if (
         !(hasNoneOrValidName(currentFn)
-          && isJSXValue(node.argument, context, options)
-          && hasValidHierarchy(currentFn, context, options.ignoreMapCall))
+          && isJSXValue(node.argument, context, hint)
+          && hasValidHierarchy(currentFn, context, Boolean(hint & ComponentCollectorHint.IgnoreMapCall)))
       ) {
         return;
       }
 
-      cache.set(currentFn, options);
+      cache.set(currentFn, hint);
       components.push(currentFn);
     },
     // eslint-disable-next-line perfectionist/sort-objects
     "ArrowFunctionExpression[body.type!='BlockStatement']"(node: TSESTree.ArrowFunctionExpression) {
-      if (cache.has(node) && shallowEqual(cache.get(node), options)) {
+      if (cache.has(node) && cache.get(node) === hint) {
         components.push(node);
 
         return;
@@ -110,13 +97,13 @@ export function componentCollector(
       const { body } = node;
       if (
         !(hasNoneOrValidName(node)
-          && isJSXValue(body, context, options)
-          && hasValidHierarchy(node, context, options.ignoreMapCall))
+          && isJSXValue(body, context, hint)
+          && hasValidHierarchy(node, context, Boolean(hint & ComponentCollectorHint.IgnoreMapCall)))
       ) {
         return;
       }
 
-      cache.set(node, options);
+      cache.set(node, hint);
       components.push(node);
     },
   } as const satisfies ESLintUtils.RuleListener;

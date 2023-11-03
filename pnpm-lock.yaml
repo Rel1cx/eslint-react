@@ -23,9 +23,6 @@ importers:
 
   .:
     devDependencies:
-      '@effect/language-service':
-        specifier: 0.0.21
-        version: 0.0.21
       '@rollup/plugin-commonjs':
         specifier: 25.0.7
         version: 25.0.7(rollup@4.2.0)
@@ -1477,10 +1474,6 @@ packages:
     resolution: {integrity: sha512-JJUs05oiHzh/Eupf5mgeLRFA4RXJAJo2DNxPC4ZVXwhvgJeqJ/G0ftYo3znOO0vKLzXjw8WYrnXPBM1nYLPnfQ==}
     dependencies:
       '@effect/data': 0.4.1
-    dev: true
-
-  /@effect/language-service@0.0.21:
-    resolution: {integrity: sha512-e8vfKbjnbYiyneBincEFS0tzXluopGK77OkVFbPRtUbNDS5tJfb+jiwOQEiqASDsadcZmd+9J9+Q6v/z7GuN2g==}
     dev: true
 
   /@ericcornelissen/bash-parser@0.5.2:

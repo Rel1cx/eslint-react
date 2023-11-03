@@ -9,10 +9,10 @@
 - [ComponentCollectorCache](README.md#componentcollectorcache)
 - [ComponentCollectorLegacyCache](README.md#componentcollectorlegacycache)
 - [ComponentCollectorLegacyOptions](README.md#componentcollectorlegacyoptions)
-- [ComponentCollectorOptions](README.md#componentcollectoroptions)
 
 ### Variables
 
+- [ComponentCollectorHint](README.md#componentcollectorhint)
 - [RE\_COMPONENT\_NAME](README.md#re_component_name)
 - [RE\_HOOK\_NAME](README.md#re_hook_name)
 
@@ -41,7 +41,7 @@
 
 ### ComponentCollectorCache
 
-Ƭ **ComponentCollectorCache**: `WeakMap`\<`TSESTreeFunction`, [`ComponentCollectorOptions`](README.md#componentcollectoroptions)\>
+Ƭ **ComponentCollectorCache**: `WeakMap`\<`TSESTreeFunction`, `bigint`\>
 
 ---
 
@@ -55,13 +55,24 @@
 
 Ƭ **ComponentCollectorLegacyOptions**: `Object`
 
----
-
-### ComponentCollectorOptions
-
-Ƭ **ComponentCollectorOptions**: `JSXValueCheckOptions` & \{ `ignoreMapCall?`: `boolean` }
-
 ## Variables
+
+### ComponentCollectorHint
+
+• `Const` **ComponentCollectorHint**: `Object`
+
+#### Type declaration
+
+| Name                  | Type     |
+| :-------------------- | :------- |
+| `IgnoreCreateElement` | `bigint` |
+| `IgnoreMapCall`       | `bigint` |
+| `IgnoreNull`          | `bigint` |
+| `None`                | `0n`     |
+| `StrictConditional`   | `bigint` |
+| `StrictLogical`       | `bigint` |
+
+---
 
 ### RE\_COMPONENT\_NAME
 
@@ -77,15 +88,15 @@
 
 ### componentCollector
 
-▸ **componentCollector**(`context`, `options?`, `cache?`): `Object`
+▸ **componentCollector**(`context`, `hint?`, `cache?`): `Object`
 
 #### Parameters
 
-| Name      | Type                                                               | Default value                      |
-| :-------- | :----------------------------------------------------------------- | :--------------------------------- |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>      | `undefined`                        |
-| `options` | [`ComponentCollectorOptions`](README.md#componentcollectoroptions) | `defaultComponentCollectorOptions` |
-| `cache`   | [`ComponentCollectorCache`](README.md#componentcollectorcache)     | `undefined`                        |
+| Name      | Type                                                           | Default value                 |
+| :-------- | :------------------------------------------------------------- | :---------------------------- |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>  | `undefined`                   |
+| `hint`    | `bigint`                                                       | `ComponentCollectorHint.None` |
+| `cache`   | [`ComponentCollectorCache`](README.md#componentcollectorcache) | `undefined`                   |
 
 #### Returns
 
