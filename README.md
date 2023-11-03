@@ -135,6 +135,8 @@ export default [
 | [react/no-create-ref](packages/eslint-plugin-react/src/rules/no-create-ref.md)                                                           | disallow `createRef` in function components                                     |
 | [react/no-dangerously-set-innerhtml](packages/eslint-plugin-react/src/rules/no-dangerously-set-innerhtml.md)                             | disallow when a DOM element is using both children and dangerouslySetInnerHTML' |
 | [react/no-dangerously-set-innerhtml-with-children](packages/eslint-plugin-react/src/rules/no-dangerously-set-innerhtml-with-children.md) | disallow when a DOM element is using both children and dangerouslySetInnerHTML' |
+| [react/no-missing-button-type](packages/eslint-plugin-react/src/rules/no-missing-button-type.md)                                         | enforce that button elements have an explicit type attribute                    |
+| [react/no-missing-iframe-sandbox](packages/eslint-plugin-react/src/rules/no-missing-iframe-sandbox.md)                                   | enforce that button elements have an explicit type attribute                    |
 | [react/no-namespace](packages/eslint-plugin-react/src/rules/no-namespace.md)                                                             | enforce that namespaces are not used in React elements                          |
 | [react/no-string-refs](packages/eslint-plugin-react/src/rules/no-string-refs.md)                                                         | disallow using deprecated string refs                                           |
 | [react/no-string-style-props](packages/eslint-plugin-react/src/rules/no-string-style-props.md)                                           | disallow using string as style props value                                      |
@@ -147,6 +149,8 @@ export default [
 ## Rules status
 
 ### Work in progress
+
+#### JSX rules
 
 - [ ] `jsx/enforce-component-name-pascal-case`
 - [x] `jsx/no-array-index-key`
@@ -163,8 +167,14 @@ export default [
 - [x] `jsx/no-useless-fragment`
 - [x] `jsx/prefer-fragment-syntax`
 - [x] `jsx/prefer-shorthand-boolean`
+
+#### Naming convention rules
+
 - [x] `naming-convention/filename-extension`
 - [x] `naming-convention/filename`
+
+#### React rules
+
 - [ ] `react/ensure-class-component-method-order`
 - [x] `react/no-constructed-context-value`
 - [x] `react/no-dangerously-set-innerhtml-with-children`
@@ -172,7 +182,8 @@ export default [
 - [ ] `react/no-direct-mutation-state`
 - [ ] `react/no-missing-display-name`
 - [x] `react/no-missing-button-type`
-- [ ] `react/no-missing-iframe-sandbox`
+- [x] `react/no-missing-iframe-sandbox`
+- [ ] `react/no-unsafe-iframe-sandbox`
 - [x] `react/no-string-refs`
 - [x] `react/no-string-style-props`
 - [ ] `react/no-children-methods`
@@ -183,9 +194,15 @@ export default [
 - [x] `react/no-unstable-nested-components`
 - [ ] `react/no-unused-class-component-methods`
 - [ ] `react/require-render-return`
+
+#### Hooks rules
+
 - [ ] `hooks/no-access-state-in-setstate`
 - [ ] `hooks/no-suppressing-exhaustive-deps`
 - [x] `hooks/ensure-custom-hooks-using-other-hooks`
+
+#### Debug rules
+
 - [x] `debug/class-component`
 - [x] `debug/function-component`
 - [x] `debug/hooks`

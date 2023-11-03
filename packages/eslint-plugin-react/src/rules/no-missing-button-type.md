@@ -1,5 +1,7 @@
 # react/no-missing-button-type
 
+<!-- end auto-generated rule header -->
+
 Enforce explicit `button` type attribute for `<button>` elements
 
 ## Rule Details
