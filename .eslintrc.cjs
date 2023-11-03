@@ -1,5 +1,7 @@
-/** @type {import("eslint").Linter.Config} */
-const config = {
+// @ts-check
+const { defineConfig } = require("eslint-define-config");
+
+module.exports = defineConfig({
   root: true,
   env: {
     browser: false,
@@ -185,6 +187,4 @@ const config = {
       },
     },
   ],
-};
-
-module.exports = config;
+});
