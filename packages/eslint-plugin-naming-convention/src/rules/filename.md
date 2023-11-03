@@ -51,7 +51,7 @@ src/components/example-component.tsx
 ✨  Done in 0.61s.
 ```
 
-## Options
+## Rule Options
 
 - `rule`: The rule to apply to the file name. Can be one of the following:
   - `PascalCase`: PascalCase
