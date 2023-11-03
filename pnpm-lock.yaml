@@ -314,9 +314,9 @@ importers:
 
   packages/ast:
     dependencies:
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../shared
+      '@eslint-community/eslint-utils':
+        specifier: 4.4.0
+        version: 4.4.0(eslint@8.52.0)
       '@eslint-react/tools':
         specifier: workspace:*
         version: link:../tools
@@ -347,9 +347,6 @@ importers:
       '@eslint-react/jsx':
         specifier: workspace:*
         version: link:../jsx
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../shared
       '@eslint-react/tools':
         specifier: workspace:*
         version: link:../tools
@@ -374,9 +371,6 @@ importers:
       '@typescript-eslint/parser':
         specifier: '>=6.9.1'
         version: 6.9.1(eslint@8.52.0)(typescript@5.3.0-beta)
-      '@typescript-eslint/scope-manager':
-        specifier: 6.9.1
-        version: 6.9.1
       '@typescript-eslint/type-utils':
         specifier: 6.9.1
         version: 6.9.1(eslint@8.52.0)(typescript@5.3.0-beta)
@@ -423,9 +417,6 @@ importers:
       '@typescript-eslint/parser':
         specifier: '>=6.9.1'
         version: 6.9.1(eslint@8.52.0)(typescript@5.3.0-beta)
-      '@typescript-eslint/scope-manager':
-        specifier: 6.9.1
-        version: 6.9.1
       '@typescript-eslint/type-utils':
         specifier: 6.9.1
         version: 6.9.1(eslint@8.52.0)(typescript@5.3.0-beta)
@@ -481,9 +472,6 @@ importers:
       '@typescript-eslint/parser':
         specifier: '>=6.9.1'
         version: 6.9.1(eslint@8.52.0)(typescript@5.3.0-beta)
-      '@typescript-eslint/scope-manager':
-        specifier: 6.9.1
-        version: 6.9.1
       '@typescript-eslint/type-utils':
         specifier: 6.9.1
         version: 6.9.1(eslint@8.52.0)(typescript@5.3.0-beta)
@@ -597,9 +585,6 @@ importers:
       '@typescript-eslint/parser':
         specifier: '>=6.9.1'
         version: 6.9.1(eslint@8.52.0)(typescript@5.3.0-beta)
-      '@typescript-eslint/scope-manager':
-        specifier: 6.9.1
-        version: 6.9.1
       '@typescript-eslint/type-utils':
         specifier: 6.9.1
         version: 6.9.1(eslint@8.52.0)(typescript@5.3.0-beta)
@@ -723,9 +708,6 @@ importers:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../ast
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../shared
       '@eslint-react/tools':
         specifier: workspace:*
         version: link:../tools
@@ -768,18 +750,9 @@ importers:
       '@typescript-eslint/utils':
         specifier: 6.9.1
         version: 6.9.1(eslint@8.52.0)(typescript@5.3.0-beta)
-      deepmerge-ts:
-        specifier: 5.1.0
-        version: 5.1.0
-      rambda:
-        specifier: 8.5.0
-        version: 8.5.0
       string-ts:
         specifier: 1.3.2
         version: 1.3.2
-      tslib:
-        specifier: 2.6.2
-        version: 2.6.2
 
 packages:
 

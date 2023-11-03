@@ -43,7 +43,6 @@
   "dependencies": {
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/jsx": "workspace:*",
-    "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "@typescript-eslint/scope-manager": "6.9.1",

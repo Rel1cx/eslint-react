@@ -8,8 +8,17 @@ export default {
     "eslint-plugin-functional-core",
     "eslint-plugin-jsdoc",
     "swc3",
+    "@eslint-react/types",
+    "dedent",
+    "effect",
+    "rambda",
+    "string-ts",
+    "ts-pattern",
+    "tslib",
   ],
-  ignoreWorkspaces: [],
+  ignoreWorkspaces: [
+    "examples/*",
+  ],
   workspaces: {
     ".": {
       entry: ["scripts/*.ts", "**/*.config.ts"],
