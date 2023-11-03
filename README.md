@@ -163,9 +163,9 @@ export default [
 - [x] `jsx/no-leaked-conditional-rendering`
 - [x] `jsx/no-namespace`
 - [x] `jsx/no-script-url`
-- [ ] `jsx/no-target-blank`
-- [ ] `jsx/no-unknown-property`
 - [x] `jsx/no-useless-fragment`
+- [ ] `jsx/no-unknown-property`
+- [x] `jsx/no-unsafe-target-blank`
 - [x] `jsx/prefer-fragment-syntax`
 - [x] `jsx/prefer-shorthand-boolean`
 
