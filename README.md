@@ -171,7 +171,7 @@ export default [
 - [x] `react/no-dangerously-set-innerhtml`
 - [ ] `react/no-direct-mutation-state`
 - [ ] `react/no-missing-display-name`
-- [ ] `react/no-missing-button-type`
+- [x] `react/no-missing-button-type`
 - [ ] `react/no-missing-iframe-sandbox`
 - [x] `react/no-string-refs`
 - [x] `react/no-string-style-props`
