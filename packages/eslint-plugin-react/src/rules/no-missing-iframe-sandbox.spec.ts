@@ -25,28 +25,9 @@ ruleTester.run(RULE_NAME, rule, {
     "<a />;",
     "<span />;",
     '<button type="button">Click me</button>;',
-    'const Button = () => <button type="button">Click me</button>;',
-    dedent`
-      function App() {
-          return <button type="button">Click me</button>;
-      }
-    `,
-    dedent`
-      import React from "react";
-
-      function App() {
-          return React.createElement("button", { type: "button" }, "Click me");
-      }
-    `,
-    dedent`
-      import { createElement } from "react";
-
-      function App() {
-          return createElement("button", { type: "button" }, "Click me");
-      }
-    `,
-    "<iframe sandbox='allow-downloads' />;",
-    "<iframe sandbox='allow-downloads-without-user-activation' />;",
+    '<iframe sandbox="allow-downloads" />;',
+    '<iframe sandbox="allow-downloads allow-scripts" />;',
+    '<iframe sandbox="allow-downloads allow-scripts allow-forms" />;',
     'const IFrame = () => <iframe sandbox="allow-downloads" />;',
     dedent`
       function App() {

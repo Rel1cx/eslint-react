@@ -8,7 +8,7 @@ The sandbox attribute enables an extra set of restrictions for the content in th
 
 ## Rule Details
 
-This rule checks all React iframe elements and verifies that there is sandbox attribute and that it's value is valid. In addition to that it also reports cases where attribute contains allow-scripts and allow-same-origin at the same time as this combination allows the embedded document to remove the sandbox attribute and bypass the restrictions.
+This rule checks all React iframe elements and verifies that there is sandbox attribute and that it's value is valid.
 
 ### ❌ Incorrect
 

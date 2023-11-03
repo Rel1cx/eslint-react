@@ -114,7 +114,8 @@ export default createRule<[], MessageID>({
             getPropValue(maybeTypeAttribute.value, context),
             O.flatMapNullable(v => v?.value),
             O.filter(isString),
-            O.filter((value) => validTypes.some((type) => type === value)),
+            O.map((value) => value.split(" ")),
+            O.filter((values) => values.every((value) => validTypes.some((validType) => validType === value))),
           );
 
           if (O.isSome(maybeTypeValue)) {

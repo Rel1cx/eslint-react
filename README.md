@@ -150,6 +150,8 @@ export default [
 
 ### Work in progress
 
+#### JSX rules
+
 - [ ] `jsx/enforce-component-name-pascal-case`
 - [x] `jsx/no-array-index-key`
 - [x] `jsx/no-children-in-void-dom-elements`
@@ -165,8 +167,14 @@ export default [
 - [x] `jsx/no-useless-fragment`
 - [x] `jsx/prefer-fragment-syntax`
 - [x] `jsx/prefer-shorthand-boolean`
+
+#### Naming convention rules
+
 - [x] `naming-convention/filename-extension`
 - [x] `naming-convention/filename`
+
+#### React rules
+
 - [ ] `react/ensure-class-component-method-order`
 - [x] `react/no-constructed-context-value`
 - [x] `react/no-dangerously-set-innerhtml-with-children`
@@ -174,7 +182,8 @@ export default [
 - [ ] `react/no-direct-mutation-state`
 - [ ] `react/no-missing-display-name`
 - [x] `react/no-missing-button-type`
-- [ ] `react/no-missing-iframe-sandbox`
+- [x] `react/no-missing-iframe-sandbox`
+- [ ] `react/no-unsafe-iframe-sandbox`
 - [x] `react/no-string-refs`
 - [x] `react/no-string-style-props`
 - [ ] `react/no-children-methods`
@@ -185,9 +194,15 @@ export default [
 - [x] `react/no-unstable-nested-components`
 - [ ] `react/no-unused-class-component-methods`
 - [ ] `react/require-render-return`
+
+#### Hooks rules
+
 - [ ] `hooks/no-access-state-in-setstate`
 - [ ] `hooks/no-suppressing-exhaustive-deps`
 - [x] `hooks/ensure-custom-hooks-using-other-hooks`
+
+#### Debug rules
+
 - [x] `debug/class-component`
 - [x] `debug/function-component`
 - [x] `debug/hooks`
