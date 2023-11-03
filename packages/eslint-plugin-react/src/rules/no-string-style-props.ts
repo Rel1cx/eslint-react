@@ -4,7 +4,9 @@ import { getPropValue } from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
+import { isString } from "effect/Predicate";
 import type { ConstantCase } from "string-ts";
+import { isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -34,6 +36,7 @@ export default createRule<[], MessageID>({
           && node.arguments.length > 1
         ) {
           const [component, props] = node.arguments;
+
           if (component?.type === NodeType.Identifier) {
             const componentName = component.name;
 
@@ -41,15 +44,18 @@ export default createRule<[], MessageID>({
               return;
             }
           }
+
           if (props?.type !== NodeType.ObjectExpression) {
             return;
           }
-          const style = props.properties.find((property) =>
-            "key" in property
-            && "name" in property.key
-            && property.key.name === "style"
-            && !property.computed
-          );
+
+          const style = props.properties.find(isMatching({
+            key: {
+              type: NodeType.Identifier,
+              name: "style",
+            },
+            computed: false,
+          }));
 
           if (!style || !("value" in style)) {
             return;
@@ -57,7 +63,7 @@ export default createRule<[], MessageID>({
 
           const styleValue = getStaticValue(style.value, context.getScope());
 
-          if (typeof styleValue?.value !== "string") {
+          if (!isString(styleValue?.value)) {
             return;
           }
 
@@ -91,7 +97,7 @@ export default createRule<[], MessageID>({
 
         const styleValue = maybeStyleValue.value;
 
-        if (typeof styleValue?.value !== "string") {
+        if (!isString(styleValue?.value)) {
           return;
         }
 
