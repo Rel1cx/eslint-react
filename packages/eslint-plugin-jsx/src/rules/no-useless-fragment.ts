@@ -17,17 +17,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 
-import { createRule } from "../utils";
-
-function trimLikeReact(text: string) {
-  const leadingSpaces = /^\s*/u.exec(text)?.[0];
-  const trailingSpaces = /\s*$/u.exec(text)?.[0];
-
-  const start = leadingSpaces?.includes("\n") ? leadingSpaces.length : 0;
-  const end = trailingSpaces?.includes("\n") ? text.length - trailingSpaces.length : text.length;
-
-  return text.slice(start, end);
-}
+import { createRule, trimLikeReact } from "../utils";
 
 export const RULE_NAME = "no-useless-fragment";
 
@@ -63,7 +53,6 @@ export default createRule<Options, MessageID>({
       requiresTypeChecking: false,
     },
     fixable: "code",
-    // eslint-disable-next-line perfectionist/sort-objects
     schema,
     messages: {
       NO_USELESS_FRAGMENT:

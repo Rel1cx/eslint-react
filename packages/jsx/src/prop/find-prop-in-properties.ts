@@ -3,7 +3,7 @@ import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { isMatching, match, P } from "ts-pattern";
+import { match } from "ts-pattern";
 
 /**
  * @param properties The properties to search in
