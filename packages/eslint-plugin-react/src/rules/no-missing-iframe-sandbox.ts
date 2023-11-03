@@ -8,11 +8,27 @@ import { isMatching, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "no-missing-button-type";
+export const RULE_NAME = "no-missing-iframe-sandbox";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
-const validTypes = ["button", "submit", "reset"] as const;
+const validTypes = [
+  "allow-downloads",
+  "allow-downloads-without-user-activation",
+  "allow-forms",
+  "allow-modals",
+  "allow-orientation-lock",
+  "allow-pointer-lock",
+  "allow-popups",
+  "allow-popups-to-escape-sandbox",
+  "allow-presentation",
+  "allow-same-origin",
+  "allow-scripts",
+  "allow-storage-access-by-user-activation",
+  "allow-top-navigation",
+  "allow-top-navigation-by-user-activation",
+  "allow-top-navigation-to-custom-protocols",
+] as const;
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,
@@ -25,7 +41,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_MISSING_BUTTON_TYPE: "Missing explicit type attribute for button",
+      NO_MISSING_IFRAME_SANDBOX: "Missing explicit sandbox attribute for iframe",
     },
   },
   defaultOptions: [],
@@ -38,20 +54,20 @@ export default createRule<[], MessageID>({
 
         const [name, props] = node.arguments;
 
-        if (!isMatching({ type: NodeType.Literal, value: "button" }, name)) {
+        if (!isMatching({ type: NodeType.Literal, value: "iframe" }, name)) {
           return;
         }
 
         if (!props || props.type !== NodeType.ObjectExpression) {
           context.report({
-            messageId: "NO_MISSING_BUTTON_TYPE",
+            messageId: "NO_MISSING_IFRAME_SANDBOX",
             node,
           });
 
           return;
         }
 
-        const maybeTypeProperty = findPropInProperties(props.properties, context)("type");
+        const maybeTypeProperty = findPropInProperties(props.properties, context)("sandbox");
 
         if (O.isSome(maybeTypeProperty)) {
           const maybeTypeValue = F.pipe(
@@ -70,7 +86,7 @@ export default createRule<[], MessageID>({
           }
 
           context.report({
-            messageId: "NO_MISSING_BUTTON_TYPE",
+            messageId: "NO_MISSING_IFRAME_SANDBOX",
             node,
           });
 
@@ -78,20 +94,20 @@ export default createRule<[], MessageID>({
         }
 
         context.report({
-          messageId: "NO_MISSING_BUTTON_TYPE",
+          messageId: "NO_MISSING_IFRAME_SANDBOX",
           node,
         });
       },
       JSXElement(node) {
         const { name } = node.openingElement;
 
-        if (name.type !== NodeType.JSXIdentifier || name.name !== "button") {
+        if (name.type !== NodeType.JSXIdentifier || name.name !== "iframe") {
           return;
         }
 
         const { attributes } = node.openingElement;
 
-        const maybeTypeAttribute = findPropInAttributes(attributes, context)("type");
+        const maybeTypeAttribute = findPropInAttributes(attributes, context)("sandbox");
 
         if (O.isSome(maybeTypeAttribute)) {
           const maybeTypeValue = F.pipe(
@@ -106,7 +122,7 @@ export default createRule<[], MessageID>({
           }
 
           context.report({
-            messageId: "NO_MISSING_BUTTON_TYPE",
+            messageId: "NO_MISSING_IFRAME_SANDBOX",
             node,
           });
 
@@ -114,7 +130,7 @@ export default createRule<[], MessageID>({
         }
 
         context.report({
-          messageId: "NO_MISSING_BUTTON_TYPE",
+          messageId: "NO_MISSING_IFRAME_SANDBOX",
           node,
         });
       },

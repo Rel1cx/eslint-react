@@ -1,0 +1,58 @@
+# react/no-missing-iframe-sandbox
+
+<!-- end auto-generated rule header -->
+
+Enforce explicit `sandbox` attribute for iframe elements
+
+The sandbox attribute enables an extra set of restrictions for the content in the iframe. Using sandbox attribute is considered a good security practice.
+
+## Rule Details
+
+This rule checks all React iframe elements and verifies that there is sandbox attribute and that it's value is valid. In addition to that it also reports cases where attribute contains allow-scripts and allow-same-origin at the same time as this combination allows the embedded document to remove the sandbox attribute and bypass the restrictions.
+
+### ❌ Incorrect
+
+```tsx
+import React from "react";
+
+const Component = () => {
+  return <iframe src="https://example.com" />;
+};
+```
+
+```tsx
+import React from "react";
+
+const Component = () => {
+  return React.createElement("iframe", { src: "https://example.com" });
+};
+```
+
+### ✅ Correct
+
+```tsx
+import React from "react";
+
+const Component = () => {
+  return <iframe src="https://example.com" sandbox="allow-popups" />;
+};
+```
+
+```tsx
+import React from "react";
+
+const Component = () => {
+  return React.createElement("iframe", {
+    src: "https://example.com",
+    sandbox: "allow-popups",
+  });
+};
+```
+
+## When not to use
+
+If you don't want to enforce sandbox attribute on iframe elements.
+
+## Further Reading
+
+-[MDN: Element/iframe#attr-sandbox](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attr-sandbox)

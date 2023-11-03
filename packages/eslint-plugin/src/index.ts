@@ -16,7 +16,9 @@ import { padKeysLeft } from "./utils";
 const rulePreset = {
   "debug/class-component": "warn",
   "debug/function-component": "warn",
+
   "hooks/ensure-custom-hooks-using-other-hooks": "warn",
+
   "jsx/no-array-index-key": "warn",
   "jsx/no-duplicate-key": "error",
   "jsx/no-leaked-conditional-rendering": "error",
@@ -25,13 +27,17 @@ const rulePreset = {
   "jsx/no-spreading-key": "error",
   "jsx/prefer-fragment-syntax": "warn",
   "jsx/prefer-shorthand-boolean": "warn",
+
   "naming-convention/filename": "warn",
   "naming-convention/filename-extension": "warn",
+
   "react/no-class-component": "warn",
   "react/no-clone-element": "warn",
   "react/no-constructed-context-value": "error",
   "react/no-dangerously-set-innerhtml": "warn",
   "react/no-dangerously-set-innerhtml-with-children": "error",
+  "react/no-missing-button-type": "error",
+  "react/no-missing-iframe-sandbox": "warn",
   "react/no-string-refs": "error",
   "react/no-string-style-props": "warn",
   "react/no-unstable-default-props": "error",
