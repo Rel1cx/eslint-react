@@ -171,7 +171,8 @@ export default [
 - [x] `react/no-dangerously-set-innerhtml`
 - [ ] `react/no-direct-mutation-state`
 - [ ] `react/no-missing-display-name`
-- [ ] `react/no-missing-iframe-sandbox-attribute`
+- [ ] `react/no-missing-button-type`
+- [ ] `react/no-missing-iframe-sandbox`
 - [x] `react/no-string-refs`
 - [x] `react/no-string-style-props`
 - [ ] `react/no-children-methods`
@@ -181,7 +182,6 @@ export default [
 - [x] `react/no-unstable-default-props`
 - [x] `react/no-unstable-nested-components`
 - [ ] `react/no-unused-class-component-methods`
-- [ ] `react/require-button-has-type-attribute`
 - [ ] `react/require-render-return`
 - [ ] `hooks/no-access-state-in-setstate`
 - [ ] `hooks/no-suppressing-exhaustive-deps`
