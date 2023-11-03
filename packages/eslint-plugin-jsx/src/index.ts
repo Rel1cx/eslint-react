@@ -9,6 +9,7 @@ import jsxNoMisusedCommentInTextNode from "./rules/no-misused-comment-in-textnod
 import jsxNoScriptUrl from "./rules/no-script-url";
 import jsxNoSpreadingKey from "./rules/no-spreading-key";
 import jsxNoUselessFragment from "./rules/no-useless-fragment";
+import jsxPreferFragmentSyntax from "./rules/prefer-fragment-syntax";
 import jsxPreferShorthandJsxBoolean from "./rules/prefer-shorthand-boolean";
 
 export { name } from "../package.json";
@@ -22,5 +23,6 @@ export const rules = {
   "no-script-url": jsxNoScriptUrl,
   "no-spreading-key": jsxNoSpreadingKey,
   "no-useless-fragment": jsxNoUselessFragment,
+  "prefer-fragment-syntax": jsxPreferFragmentSyntax,
   "prefer-shorthand-boolean": jsxPreferShorthandJsxBoolean,
 } as const;

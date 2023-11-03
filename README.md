@@ -114,6 +114,7 @@ export default [
 | [jsx/no-script-url](packages/eslint-plugin-jsx/src/rules/no-script-url.md)                                     | disallow `javascript:` URLs as JSX event handler prop's value |
 | [jsx/no-spreading-key](packages/eslint-plugin-jsx/src/rules/no-spreading-key.md)                               | disallow spreading key from objects.                          |
 | [jsx/no-useless-fragment](packages/eslint-plugin-jsx/src/rules/no-useless-fragment.md)                         | disallow unnecessary fragments                                |
+| [jsx/prefer-fragment-syntax](packages/eslint-plugin-jsx/src/rules/prefer-fragment-syntax.md)                   | enforce using fragment syntax instead of `Pragma.Fragment`    |
 | [jsx/prefer-shorthand-boolean](packages/eslint-plugin-jsx/src/rules/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX                    |
 
 ### naming-convention
@@ -160,7 +161,7 @@ export default [
 - [ ] `jsx/no-target-blank`
 - [ ] `jsx/no-unknown-property`
 - [x] `jsx/no-useless-fragment`
-- [ ] `jsx/prefer-fragment-syntax`
+- [x] `jsx/prefer-fragment-syntax`
 - [x] `jsx/prefer-shorthand-boolean`
 - [x] `naming-convention/filename-extension`
 - [x] `naming-convention/filename`

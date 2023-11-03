@@ -82,6 +82,7 @@ const config = {
           "name",
           "meta",
           "docs",
+          "fixable",
           "schema",
           "message",
           "title",
