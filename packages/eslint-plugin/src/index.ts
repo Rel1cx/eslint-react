@@ -25,6 +25,7 @@ const rulePreset = {
   "jsx/no-missing-key": "error",
   "jsx/no-misused-comment-in-textnode": "warn",
   "jsx/no-spreading-key": "error",
+  "jsx/no-unsafe-target-blank": "warn",
   "jsx/prefer-fragment-syntax": "warn",
   "jsx/prefer-shorthand-boolean": "warn",
 

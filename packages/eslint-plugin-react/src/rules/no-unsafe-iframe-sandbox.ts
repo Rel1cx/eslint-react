@@ -95,7 +95,7 @@ export default createRule<[], MessageID>({
           return;
         }
 
-        const maybeUnsafeSandboxValue = F.pipe(
+        const isSafeSandboxValue = F.pipe(
           getPropValue(maybeTypeAttribute.value, context),
           O.flatMapNullable(v => v?.value),
           O.filter(isString),
@@ -103,9 +103,10 @@ export default createRule<[], MessageID>({
           O.filter(values =>
             unsafeCombinations.some(combinations => combinations.every(unsafeValue => values.includes(unsafeValue)))
           ),
+          O.isNone,
         );
 
-        if (O.isNone(maybeUnsafeSandboxValue)) {
+        if (isSafeSandboxValue) {
           return;
         }
 

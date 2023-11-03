@@ -8,6 +8,7 @@ import jsxNoMissingKey from "./rules/no-missing-key";
 import jsxNoMisusedCommentInTextNode from "./rules/no-misused-comment-in-textnode";
 import jsxNoScriptUrl from "./rules/no-script-url";
 import jsxNoSpreadingKey from "./rules/no-spreading-key";
+import jsxNoUnsafeTargetBlank from "./rules/no-unsafe-target-blank";
 import jsxNoUselessFragment from "./rules/no-useless-fragment";
 import jsxPreferFragmentSyntax from "./rules/prefer-fragment-syntax";
 import jsxPreferShorthandJsxBoolean from "./rules/prefer-shorthand-boolean";
@@ -22,6 +23,7 @@ export const rules = {
   "no-misused-comment-in-textnode": jsxNoMisusedCommentInTextNode,
   "no-script-url": jsxNoScriptUrl,
   "no-spreading-key": jsxNoSpreadingKey,
+  "no-unsafe-target-blank": jsxNoUnsafeTargetBlank,
   "no-useless-fragment": jsxNoUselessFragment,
   "prefer-fragment-syntax": jsxPreferFragmentSyntax,
   "prefer-shorthand-boolean": jsxPreferShorthandJsxBoolean,

@@ -22,7 +22,7 @@ const ruleTester = new RuleTester({
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     ...allValid,
-    '<a href="https://reactjs.org"></a>',
+    '<a href="https://react.dev"></a>',
     '<a href="mailto:foo@bar.com"></a>',
     '<a href="#"></a>',
     '<a href=""></a>',

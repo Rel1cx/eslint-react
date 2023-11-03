@@ -94,14 +94,15 @@ export default createRule<[], MessageID>({
         const maybeTypeAttribute = findPropInAttributes(attributes, context)("type");
 
         if (O.isSome(maybeTypeAttribute)) {
-          const maybeTypeValue = F.pipe(
+          const isButtonTypeValue = F.pipe(
             getPropValue(maybeTypeAttribute.value, context),
             O.flatMapNullable(v => v?.value),
             O.filter(isString),
             O.filter((value) => validTypes.some((type) => type === value)),
+            O.isSome,
           );
 
-          if (O.isSome(maybeTypeValue)) {
+          if (isButtonTypeValue) {
             return;
           }
 

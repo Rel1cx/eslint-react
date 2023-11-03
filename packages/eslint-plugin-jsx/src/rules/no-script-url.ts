@@ -1,6 +1,9 @@
 import { NodeType } from "@eslint-react/ast";
+import { getPropValue } from "@eslint-react/jsx";
+import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/shared";
+import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
+import { isString } from "effect/Predicate";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -8,11 +11,6 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-script-url";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
-
-// @see https://github.com/facebook/react/blob/6db7f4209e6f32ebde298a0b7451710dd6aa3e19/packages/react-dom-bindings/src/shared/sanitizeURL.js#L22
-// dprint-ignore
-// eslint-disable-next-line no-control-regex
-const isJavaScriptProtocol = /^[\u0000-\u001F ]*j[\t\n\r]*a[\t\n\r]*v[\t\n\r]*a[\t\n\r]*s[\t\n\r]*c[\t\n\r]*r[\t\n\r]*i[\t\n\r]*p[\t\n\r]*t[\t\n\r]*:/iu;
 
 /**
  * This rule is adapted from eslint-plugin-solid's jsx-no-script-url rule under the MIT license.
@@ -39,13 +37,16 @@ export default createRule<[], MessageID>({
         if (node.name.type !== NodeType.JSXIdentifier || !node.value) {
           return;
         }
-        const link = getStaticValue(
-          node.value.type === NodeType.JSXExpressionContainer
-            ? node.value.expression
-            : node.value,
-          context.getScope(),
+
+        const isJavaScript = F.pipe(
+          getPropValue(node, context),
+          O.flatMapNullable(v => v?.value),
+          O.filter(isString),
+          O.filter(v => RE_JAVASCRIPT_PROTOCOL.test(v)),
+          O.isSome,
         );
-        if (link && typeof link.value === "string" && isJavaScriptProtocol.test(link.value)) {
+
+        if (isJavaScript) {
           context.report({
             messageId: "NO_SCRIPT_URL",
             node: node.value,
