@@ -245,11 +245,11 @@ A function that searches for a property in the given attributes
 
 #### Parameters
 
-| Name         | Type                                                          | Default value | Description                                |
-| :----------- | :------------------------------------------------------------ | :------------ | :----------------------------------------- |
-| `properties` | `ObjectLiteralElement`[] \| (`Property` \| `RestElement`)[]   | `undefined`   | The properties to search in                |
-| `context`    | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`   | The rule context                           |
-| `seenProps`  | `string`[]                                                    | `[]`          | The properties that have already been seen |
+| Name         | Type                                                                           | Default value | Description                                |
+| :----------- | :----------------------------------------------------------------------------- | :------------ | :----------------------------------------- |
+| `properties` | `ObjectLiteralElement`[] \| (`Property` \| `RestElement` \| `SpreadElement`)[] | `undefined`   | The properties to search in                |
+| `context`    | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>                  | `undefined`   | The rule context                           |
+| `seenProps`  | `string`[]                                                                     | `[]`          | The properties that have already been seen |
 
 #### Returns
 
