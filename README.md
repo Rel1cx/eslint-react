@@ -104,19 +104,20 @@ export default [
 
 ### jsx
 
-| Name                                                                                                           | Description                                                    |
-| :------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------- |
-| [jsx/no-array-index-key](packages/eslint-plugin-jsx/src/rules/no-array-index-key.md)                           | disallow using Array index as key                              |
-| [jsx/no-duplicate-key](packages/eslint-plugin-jsx/src/rules/no-duplicate-key.md)                               | disallow duplicate keys in `key` prop when rendering list      |
-| [jsx/no-leaked-conditional-rendering](packages/eslint-plugin-jsx/src/rules/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered         |
-| [jsx/no-missing-key](packages/eslint-plugin-jsx/src/rules/no-missing-key.md)                                   | require `key` prop when rendering list                         |
-| [jsx/no-misused-comment-in-textnode](packages/eslint-plugin-jsx/src/rules/no-misused-comment-in-textnode.md)   | disallow comments from being inserted as text nodes            |
-| [jsx/no-script-url](packages/eslint-plugin-jsx/src/rules/no-script-url.md)                                     | disallow `javascript:` URLs as JSX event handler prop's value  |
-| [jsx/no-spreading-key](packages/eslint-plugin-jsx/src/rules/no-spreading-key.md)                               | disallow spreading key from objects.                           |
-| [jsx/no-unsafe-target-blank](packages/eslint-plugin-jsx/src/rules/no-unsafe-target-blank.md)                   | disallow `target="_blank"` without `rel="noreferrer noopener"` |
-| [jsx/no-useless-fragment](packages/eslint-plugin-jsx/src/rules/no-useless-fragment.md)                         | disallow unnecessary fragments                                 |
-| [jsx/prefer-fragment-syntax](packages/eslint-plugin-jsx/src/rules/prefer-fragment-syntax.md)                   | enforce using fragment syntax instead of `Pragma.Fragment`     |
-| [jsx/prefer-shorthand-boolean](packages/eslint-plugin-jsx/src/rules/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX                     |
+| Name                                                                                                                 | Description                                                    |
+| :------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------- |
+| [jsx/enforce-component-name-pascal-case](packages/eslint-plugin-jsx/src/rules/enforce-component-name-pascal-case.md) | enforce PascalCase for user-defined JSX components             |
+| [jsx/no-array-index-key](packages/eslint-plugin-jsx/src/rules/no-array-index-key.md)                                 | disallow using Array index as key                              |
+| [jsx/no-duplicate-key](packages/eslint-plugin-jsx/src/rules/no-duplicate-key.md)                                     | disallow duplicate keys in `key` prop when rendering list      |
+| [jsx/no-leaked-conditional-rendering](packages/eslint-plugin-jsx/src/rules/no-leaked-conditional-rendering.md)       | disallow problematic leaked values from being rendered         |
+| [jsx/no-missing-key](packages/eslint-plugin-jsx/src/rules/no-missing-key.md)                                         | require `key` prop when rendering list                         |
+| [jsx/no-misused-comment-in-textnode](packages/eslint-plugin-jsx/src/rules/no-misused-comment-in-textnode.md)         | disallow comments from being inserted as text nodes            |
+| [jsx/no-script-url](packages/eslint-plugin-jsx/src/rules/no-script-url.md)                                           | disallow `javascript:` URLs as JSX event handler prop's value  |
+| [jsx/no-spreading-key](packages/eslint-plugin-jsx/src/rules/no-spreading-key.md)                                     | disallow spreading key from objects.                           |
+| [jsx/no-unsafe-target-blank](packages/eslint-plugin-jsx/src/rules/no-unsafe-target-blank.md)                         | disallow `target="_blank"` without `rel="noreferrer noopener"` |
+| [jsx/no-useless-fragment](packages/eslint-plugin-jsx/src/rules/no-useless-fragment.md)                               | disallow unnecessary fragments                                 |
+| [jsx/prefer-fragment-syntax](packages/eslint-plugin-jsx/src/rules/prefer-fragment-syntax.md)                         | enforce using fragment syntax instead of `Pragma.Fragment`     |
+| [jsx/prefer-shorthand-boolean](packages/eslint-plugin-jsx/src/rules/prefer-shorthand-boolean.md)                     | enforce boolean attributes notation in JSX                     |
 
 ### naming-convention
 
@@ -154,7 +155,7 @@ export default [
 
 #### JSX rules
 
-- [ ] `jsx/enforce-component-name-pascal-case`
+- [x] `jsx/enforce-component-name-pascal-case`
 - [x] `jsx/no-array-index-key`
 - [x] `jsx/no-children-in-void-dom-elements`
 - [x] `jsx/no-duplicate-key`

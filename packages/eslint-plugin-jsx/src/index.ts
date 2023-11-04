@@ -1,6 +1,7 @@
 // workaround for @typescript-eslint/utils's TS2742 error.
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
+import jsxEnforceComponentNamePascalCase from "./rules/enforce-component-name-pascal-case";
 import jsxNoArrayIndexKey from "./rules/no-array-index-key";
 import jsxNoDuplicateKey from "./rules/no-duplicate-key";
 import jsxNoLeakedConditionalRendering from "./rules/no-leaked-conditional-rendering";
@@ -16,6 +17,7 @@ import jsxPreferShorthandJsxBoolean from "./rules/prefer-shorthand-boolean";
 export { name } from "../package.json";
 
 export const rules = {
+  "enforce-component-name-pascal-case": jsxEnforceComponentNamePascalCase,
   "no-array-index-key": jsxNoArrayIndexKey,
   "no-duplicate-key": jsxNoDuplicateKey,
   "no-leaked-conditional-rendering": jsxNoLeakedConditionalRendering,

@@ -40,6 +40,9 @@
 - [fromEntries](README.md#fromentries-1)
 - [fromEntriesWithReadOnly](README.md#fromentrieswithreadonly-1)
 - [identity](README.md#identity)
+- [isLowerCase](README.md#islowercase)
+- [isPascalCase](README.md#ispascalcase)
+- [isUpperCase](README.md#isuppercase)
 - [keys](README.md#keys)
 - [narrow](README.md#narrow-1)
 - [noop](README.md#noop)
@@ -432,6 +435,54 @@ The object created from the entries.
 **`Since`**
 
 0.0.1
+
+---
+
+### isLowerCase
+
+▸ **isLowerCase**(`str`): `boolean`
+
+#### Parameters
+
+| Name  | Type     |
+| :---- | :------- |
+| `str` | `string` |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isPascalCase
+
+▸ **isPascalCase**(`str`): `boolean`
+
+#### Parameters
+
+| Name  | Type     |
+| :---- | :------- |
+| `str` | `string` |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isUpperCase
+
+▸ **isUpperCase**(`str`): `boolean`
+
+#### Parameters
+
+| Name  | Type     |
+| :---- | :------- |
+| `str` | `string` |
+
+#### Returns
+
+`boolean`
 
 ---
 
