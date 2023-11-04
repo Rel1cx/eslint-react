@@ -28,6 +28,7 @@ export const ComponentCollectorHint = {
   IgnoreMapCall: 1n << 4n,
 } as const;
 
+// TODO: support for detecting component types listed in core/component/component-types.ts
 export function componentCollector(
   context: RuleContext,
   hint: bigint = ComponentCollectorHint.None,

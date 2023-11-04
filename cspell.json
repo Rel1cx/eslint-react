@@ -21,13 +21,13 @@
   ],
   "useGitignore": true,
   "words": [
-    "TSES",
-    "TSESAST",
     "bimap",
     "birecord",
     "declarators",
     "deepmerge",
     "dprint",
+    "hatchpath",
+    "Hoistable",
     "innerhtml",
     "knip",
     "linebreak",
@@ -41,14 +41,16 @@
     "setstate",
     "sonarjs",
     "tanstack",
+    "tascript",
     "taze",
     "textnode",
     "textnodes",
     "todos",
     "treeshake",
+    "TSES",
+    "TSESAST",
     "tsup",
     "typeclass",
-    "weakref",
-    "tascript"
+    "weakref"
   ]
 }
