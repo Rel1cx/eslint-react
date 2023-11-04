@@ -24,9 +24,11 @@
 - [FunctionComponent](README.md#functioncomponent)
 - [HostComponent](README.md#hostcomponent)
 - [HostHTMLComponent](README.md#hosthtmlcomponent)
+- [HostHTMLComponentTypes](README.md#hosthtmlcomponenttypes)
 - [HostPortal](README.md#hostportal)
 - [HostRoot](README.md#hostroot)
 - [HostSVGComponent](README.md#hostsvgcomponent)
+- [HostSVGComponentTypes](README.md#hostsvgcomponenttypes)
 - [HostText](README.md#hosttext)
 - [HostWebComponent](README.md#hostwebcomponent)
 - [LazyComponent](README.md#lazycomponent)
@@ -47,6 +49,9 @@
 - [isClassComponent](README.md#isclasscomponent)
 - [isCreateContext](README.md#iscreatecontext)
 - [isFunctionOfRenderMethod](README.md#isfunctionofrendermethod)
+- [isHostHTMLComponentName](README.md#ishosthtmlcomponentname)
+- [isHostSVGComponentName](README.md#ishostsvgcomponentname)
+- [isHostWebComponentName](README.md#ishostwebcomponentname)
 - [isInsideRenderMethod](README.md#isinsiderendermethod)
 - [isPureComponent](README.md#ispurecomponent)
 - [isStateMemberExpression](README.md#isstatememberexpression)
@@ -172,6 +177,12 @@
 
 ---
 
+### HostHTMLComponentTypes
+
+• `Const` **HostHTMLComponentTypes**: readonly [`"aside"`, `"audio"`, `"b"`, `"base"`, `"bdi"`, `"bdo"`, `"blockquote"`, `"body"`, `"br"`, `"button"`, `"canvas"`, `"caption"`, `"cite"`, `"code"`, `"col"`, `"colgroup"`, `"data"`, `"datalist"`, `"dd"`, `"del"`, `"details"`, `"dfn"`, `"dialog"`, `"div"`, `"dl"`, `"dt"`, `"em"`, `"embed"`, `"fieldset"`, `"figcaption"`, `"figure"`, `"footer"`, `"form"`, `"h1"`, `"head"`, `"header"`, `"hgroup"`, `"hr"`, `"html"`, `"i"`, `"iframe"`, `"img"`, `"input"`, `"ins"`, `"kbd"`, `"label"`, `"legend"`, `"li"`, `"link"`, `"main"`, `"map"`, `"mark"`, `"menu"`, `"meta"`, `"meter"`, `"nav"`, `"noscript"`, `"object"`, `"ol"`, `"optgroup"`, `"option"`, `"output"`, `"p"`, `"picture"`, `"pre"`, `"progress"`, `"q"`, `"rp"`, `"rt"`, `"ruby"`, `"s"`, `"samp"`, `"script"`, `"section"`, `"select"`, `"slot"`, `"small"`, `"source"`, `"span"`, `"strong"`, `"style"`, `"sub"`, `"summary"`, `"sup"`, `"table"`, `"tbody"`, `"td"`, `"template"`, `"textarea"`, `"tfoot"`, `"th"`, `"thead"`, `"time"`, `"title"`, `"tr"`, `"track"`, `"u"`, `"ul"`, `"var"`, `"video"`, `"wbr"`]
+
+---
+
 ### HostPortal
 
 • `Const` **HostPortal**: `4`
@@ -187,6 +198,12 @@
 ### HostSVGComponent
 
 • `Const` **HostSVGComponent**: `1`
+
+---
+
+### HostSVGComponentTypes
+
+• `Const` **HostSVGComponentTypes**: readonly [`"a"`, `"animate"`, `"animateMotion"`, `"animateTransform"`, `"circle"`, `"clipPath"`, `"defs"`, `"desc"`, `"discard"`, `"ellipse"`, `"feBlend"`, `"feColorMatrix"`, `"feComponentTransfer"`, `"feComposite"`, `"feConvolveMatrix"`, `"feDiffuseLighting"`, `"feDisplacementMap"`, `"feDistantLight"`, `"feDropShadow"`, `"feFlood"`, `"feFuncA"`, `"feFuncB"`, `"feFuncG"`, `"feFuncR"`, `"feGaussianBlur"`, `"feImage"`, `"feMerge"`, `"feMergeNode"`, `"feMorphology"`, `"feOffset"`, `"fePointLight"`, `"feSpecularLighting"`, `"feSpotLight"`, `"feTile"`, `"feTurbulence"`, `"filter"`, `"foreignObject"`, `"g"`, `"hatch"`, `"hatchpath"`, `"image"`, `"line"`, `"linearGradient"`, `"marker"`, `"mask"`, `"metadata"`, `"mpath"`, `"path"`, `"pattern"`, `"polygon"`, `"polyline"`, `"radialGradient"`, `"rect"`, `"script"`, `"set"`, `"stop"`, `"style"`, `"svg"`, `"switch"`, `"symbol"`, `"text"`, `"textPath"`, `"title"`, `"tspan"`, `"use"`, `"view"`]
 
 ---
 
@@ -412,6 +429,48 @@ Determines whether `createContext` is used
 #### Returns
 
 `boolean`
+
+---
+
+### isHostHTMLComponentName
+
+▸ **isHostHTMLComponentName**(`name`): `boolean`
+
+#### Parameters
+
+| Name   | Type     |
+| :----- | :------- |
+| `name` | `string` |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isHostSVGComponentName
+
+▸ **isHostSVGComponentName**(`name`): `boolean`
+
+#### Parameters
+
+| Name   | Type     |
+| :----- | :------- |
+| `name` | `string` |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isHostWebComponentName
+
+▸ **isHostWebComponentName**(): `void`
+
+#### Returns
+
+`void`
 
 ---
 

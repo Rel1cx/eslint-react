@@ -26,6 +26,7 @@
     "declarators",
     "deepmerge",
     "dprint",
+    "hatchpath",
     "Hoistable",
     "innerhtml",
     "knip",
