@@ -45,13 +45,12 @@ const schema = [
   },
 ] satisfies [JSONSchema4];
 
-// TODO: add more details to the report messages and data
 export default createRule<Options, MessageID>({
   name: RULE_NAME,
   meta: {
     type: "suggestion",
     docs: {
-      description: "disallow usage of unstable nested components",
+      description: "enforce component naming convention to PascalCase or CONSTANT_CASE",
       recommended: "recommended",
       requiresTypeChecking: false,
     },

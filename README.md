@@ -120,11 +120,11 @@ export default [
 
 ### naming-convention
 
-| Name                                                                                                             | Description                                       |
-| :--------------------------------------------------------------------------------------------------------------- | :------------------------------------------------ |
-| [naming-convention/component-name](packages/eslint-plugin-naming-convention/src/rules/component-name.md)         | disallow usage of unstable nested components      |
-| [naming-convention/filename](packages/eslint-plugin-naming-convention/src/rules/filename.md)                     | enforce naming convention for JSX file names      |
-| [naming-convention/filename-extension](packages/eslint-plugin-naming-convention/src/rules/filename-extension.md) | enforce naming convention for JSX file extensions |
+| Name                                                                                                             | Description                                                        |
+| :--------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------- |
+| [naming-convention/component-name](packages/eslint-plugin-naming-convention/src/rules/component-name.md)         | enforce component naming convention to PascalCase or CONSTANT_CASE |
+| [naming-convention/filename](packages/eslint-plugin-naming-convention/src/rules/filename.md)                     | enforce naming convention for JSX file names                       |
+| [naming-convention/filename-extension](packages/eslint-plugin-naming-convention/src/rules/filename-extension.md) | enforce naming convention for JSX file extensions                  |
 
 ### react
 

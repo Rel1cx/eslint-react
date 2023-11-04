@@ -2,8 +2,6 @@
 
 <!-- end auto-generated rule header -->
 
-Enforce naming conventions for components.
-
 ## Rule Details
 
 This rule enforces naming conventions for components. default to `PascalCase`.
