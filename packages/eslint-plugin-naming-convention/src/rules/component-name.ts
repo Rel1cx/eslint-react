@@ -1,6 +1,7 @@
 /* eslint-disable unicorn/no-keyword-prefix */
 import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
 import { componentCollector, componentCollectorLegacy } from "@eslint-react/core";
+import { elementType } from "@eslint-react/jsx";
 import { getCaseValidator } from "@eslint-react/shared";
 import { E } from "@eslint-react/tools";
 import { type ESLintUtils } from "@typescript-eslint/utils";
@@ -75,8 +76,33 @@ export default createRule<Options, MessageID>({
     return {
       ...collector.listeners,
       ...collectorLegacy.listeners,
-      JSXOpeningElement() {
-        // TODO: add support for detecting component names in JSX.
+      JSXOpeningElement(node) {
+        const name = elementType(node);
+
+        if (
+          // Ignore built-in element names
+          /^[a-z]/u.test(name)
+          // Ignore non-Latin character names
+          || /\W/u.test(name)
+          // Ignore JSX member expression names
+          || name.includes(".")
+          // Ignore JSX namespace names
+          || name.includes(":")
+        ) {
+          return;
+        }
+
+        if (validate(name.replace(/^_/u, ""))) {
+          return;
+        }
+
+        context.report({
+          data: {
+            case: rule,
+          },
+          messageId: "COMPONENT_NAME",
+          node,
+        });
       },
       "Program:exit"() {
         const maybeFunctionComponents = collector.ctx.getAllComponents();
