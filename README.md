@@ -172,13 +172,12 @@ export default [
 
 #### Naming convention rules
 
-- [ ] `naming-convention/component-name`
+- [x] `naming-convention/component-name`
 - [x] `naming-convention/filename`
 - [x] `naming-convention/filename-extension`
 
 #### React rules
 
-- [ ] `react/ensure-class-component-method-order`
 - [x] `react/no-constructed-context-value`
 - [x] `react/no-dangerously-set-innerhtml-with-children`
 - [x] `react/no-dangerously-set-innerhtml`
@@ -196,6 +195,7 @@ export default [
 - [x] `react/no-unstable-default-props`
 - [x] `react/no-unstable-nested-components`
 - [ ] `react/no-unused-class-component-methods`
+- [ ] `react/no-unsorted-class-component-methods`
 
 #### Hooks rules
 
