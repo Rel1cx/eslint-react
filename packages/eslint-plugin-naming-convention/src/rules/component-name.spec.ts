@@ -22,6 +22,35 @@ const ruleTester = new RuleTester({
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     ...allFunctions,
+    "<testcomponent />",
+    "<testComponent />",
+    "<test_component />",
+    "<TestComponent />",
+    "<CSSTransitionGroup />",
+    "<BetterThanCSS />",
+    "<TestComponent><div /></TestComponent>",
+    "<Test1Component />",
+    "<TestComponent1 />",
+    "<T3StComp0Nent />",
+    "<Éurströmming />",
+    "<Año />",
+    "<Søknad />",
+    "<T />",
+    "<Modal.Header />",
+    "<qualification.T3StComp0Nent />",
+    "<Modal:Header />",
+    "<H1>Hello!</H1>",
+    "<Typography.P />",
+    "<motion.div />",
+    "<FULLUPPERCASE />",
+    {
+      code: "<_TestComponent />",
+      options: [{ rule: "PascalCase" }],
+    },
+    {
+      code: "<_TEST_COMPONENT />",
+      options: [{ rule: "CONSTANT_CASE" }],
+    },
     dedent`
       function AppHome() {
           return <div>foo</div>
@@ -71,6 +100,15 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   invalid: [
+    {
+      code: "<Test_component />",
+      errors: [{ messageId: "COMPONENT_NAME" }],
+    },
+    {
+      code: "<TestComponent />",
+      options: [{ rule: "CONSTANT_CASE" }],
+      errors: [{ messageId: "COMPONENT_NAME" }],
+    },
     {
       code: dedent`
         function APP_HOME() {
