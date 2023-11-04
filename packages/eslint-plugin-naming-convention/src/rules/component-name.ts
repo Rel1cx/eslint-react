@@ -34,7 +34,6 @@ const schema = [
     properties: {
       excepts: {
         type: "array",
-        default: ["index"],
         items: { type: "string", format: "regex" },
       },
       rule: {
@@ -56,7 +55,6 @@ export default createRule<Options, MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    fixable: "code",
     schema,
     messages: {
       COMPONENT_NAME: "Component name must be in {{case}}.",
