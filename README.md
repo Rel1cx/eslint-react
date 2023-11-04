@@ -154,7 +154,6 @@ export default [
 
 #### JSX rules
 
-- [ ] `jsx/enforce-component-name-pascal-case`
 - [x] `jsx/no-array-index-key`
 - [x] `jsx/no-children-in-void-dom-elements`
 - [x] `jsx/no-duplicate-key`
@@ -172,8 +171,9 @@ export default [
 
 #### Naming convention rules
 
-- [x] `naming-convention/filename-extension`
+- [ ] `naming-convention/component-name`
 - [x] `naming-convention/filename`
+- [x] `naming-convention/filename-extension`
 
 #### React rules
 
