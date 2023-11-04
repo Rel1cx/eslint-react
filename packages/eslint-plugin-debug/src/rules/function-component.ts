@@ -10,6 +10,7 @@ export const RULE_NAME = "function-component";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
+// TODO: support for detecting component types listed in core/component/component-types.ts
 export default createRule<[], MessageID>({
   name: RULE_NAME,
   meta: {
