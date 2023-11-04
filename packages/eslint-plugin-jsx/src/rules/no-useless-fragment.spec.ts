@@ -1,5 +1,6 @@
+import { NodeType } from "@eslint-react/ast";
 import { allValid } from "@eslint-react/shared";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import dedent from "dedent";
 
 import RuleTester, { getFixturesRootDir } from "../../../../test/rule-tester";
 import rule, { RULE_NAME } from "./no-useless-fragment";
@@ -34,71 +35,58 @@ ruleTester.run(RULE_NAME, rule, {
     "<Fragment key={item.id}>{item.value}</Fragment>",
     "<Fooo content={<>eeee ee eeeeeee eeeeeeee</>} />",
     "<>{foos.map(foo => foo)}</>",
-    {
-      code: "<>{moo}</>",
-      options: [{ allowExpressions: true }],
-    },
-    {
-      code: `
-        <>
-          {moo}
-        </>
-      `,
-      options: [{ allowExpressions: true }],
-    },
+    "<>{moo}</>",
+    dedent`
+      <>
+        {moo}
+      </>
+    `,
   ],
   invalid: [
     {
       code: "<></>",
-      output: null,
-      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXFragment }],
     },
     {
       code: "<>{}</>",
-      output: null,
-      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment }],
+      options: [{ allowExpressions: false }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXFragment }],
     },
     {
       code: "<p>moo<>foo</></p>",
-      output: "<p>moofoo</p>",
       errors: [
-        { messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment },
-        { messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXFragment },
+        { messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXFragment },
+        { messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN", type: NodeType.JSXFragment },
       ],
     },
     {
       code: "<>{meow}</>",
-      output: null,
+      options: [{ allowExpressions: false }],
       errors: [{ messageId: "NO_USELESS_FRAGMENT" }],
     },
     {
       code: "<p><>{meow}</></p>",
-      output: "<p>{meow}</p>",
+      options: [{ allowExpressions: false }],
       errors: [
-        { messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment },
-        { messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXFragment },
+        { messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXFragment },
+        { messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN", type: NodeType.JSXFragment },
       ],
     },
     {
       code: "<><div/></>",
-      output: "<div/>",
-      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXFragment }],
     },
     {
-      code: `
+      code: dedent`
         <>
           <div/>
         </>
       `,
-      output: `
-        <div/>
-      `,
-      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXFragment }],
     },
     {
       code: "<Fragment />",
-      output: null,
-      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXElement }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXElement }],
     },
     {
       code: `
@@ -106,10 +94,7 @@ ruleTester.run(RULE_NAME, rule, {
           <Foo />
         </React.Fragment>
       `,
-      output: `
-        <Foo />
-      `,
-      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXElement }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXElement }],
     },
     {
       code: `
@@ -117,8 +102,8 @@ ruleTester.run(RULE_NAME, rule, {
           {foo}
         </SomeReact.SomeFragment>
       `,
-      output: null,
-      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXElement }],
+      options: [{ allowExpressions: false }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXElement }],
       settings: {
         react: {
           pragma: "SomeReact",
@@ -129,94 +114,71 @@ ruleTester.run(RULE_NAME, rule, {
     {
       // Not safe to fix this case because `Eeee` might require child be ReactElement
       code: "<Eeee><>foo</></Eeee>",
-      output: null,
-      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXFragment }],
     },
     {
       code: "<div><>foo</></div>",
-      output: "<div>foo</div>",
       errors: [
-        { messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment },
-        { messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXFragment },
+        { messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXFragment },
+        { messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN", type: NodeType.JSXFragment },
       ],
     },
     {
       code: '<div><>{"a"}{"b"}</></div>',
-      output: '<div>{"a"}{"b"}</div>',
-      errors: [{ messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXFragment }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN", type: NodeType.JSXFragment }],
     },
     {
-      code: `
+      code: dedent`
         <section>
           <Eeee />
           <Eeee />
           <>{"a"}{"b"}</>
-        </section>`,
-      output: `
-        <section>
-          <Eeee />
-          <Eeee />
-          {"a"}{"b"}
-        </section>`,
-      errors: [{ messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXFragment }],
+        </section>
+      `,
+      errors: [{ messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN", type: NodeType.JSXFragment }],
     },
     {
       code: '<div><Fragment>{"a"}{"b"}</Fragment></div>',
-      output: '<div>{"a"}{"b"}</div>',
-      errors: [{ messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXElement }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN", type: NodeType.JSXElement }],
     },
     {
       // whitepace tricky case
-      code: `
+      code: dedent`
         <section>
           git<>
             <b>hub</b>.
           </>
 
           git<> <b>hub</b></>
-        </section>`,
-      output: `
-        <section>
-          git<b>hub</b>.
-
-          git <b>hub</b>
-        </section>`,
+        </section>
+      `,
       errors: [
-        { messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXFragment, line: 3 },
-        { messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXFragment, line: 7 },
+        { messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN", type: NodeType.JSXFragment, line: 2 },
+        { messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN", type: NodeType.JSXFragment, line: 6 },
       ],
     },
     {
       code: '<div>a <>{""}{""}</> a</div>',
-      output: '<div>a {""}{""} a</div>',
-      errors: [{ messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXFragment }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN", type: NodeType.JSXFragment }],
     },
     {
-      code: `
+      code: dedent`
         const Comp = () => (
           <html>
             <React.Fragment />
           </html>
         );
       `,
-      output: `
-        const Comp = () => (
-          <html>
-            ${/* dprint-ignore  the trailing whitespace here is intentional */ ""}
-          </html>
-        );
-      `,
       errors: [
-        { messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXElement, line: 4 },
-        { messageId: "NO_USELESS_FRAGMENT_IN_HTML", type: AST_NODE_TYPES.JSXElement, line: 4 },
+        { messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXElement, line: 3 },
+        { messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN", type: NodeType.JSXElement, line: 3 },
       ],
     },
     // Ensure allowExpressions still catches expected violations
     {
       code: "<><Foo>{moo}</Foo></>",
-      output: "<Foo>{moo}</Foo>",
       options: [{ allowExpressions: true }],
-      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: AST_NODE_TYPES.JSXFragment }],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXFragment }],
     },
   ],
 });

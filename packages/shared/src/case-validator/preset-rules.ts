@@ -14,6 +14,7 @@ type PresetRules = {
   camelCase: Required<Rule>;
   "kebab-case": Required<Rule>;
   snake_case: Required<Rule>;
+  CONSTANT_CASE: Required<Rule>;
 };
 
 export const presetRules: PresetRules = {
@@ -55,6 +56,13 @@ export const presetRules: PresetRules = {
     expression: /^[a-z][\d_a-z]*$/u,
     recommendationBuilder: (name: string): string => {
       return splitName(name).join("_");
+    },
+  },
+  // eslint-disable-next-line perfectionist/sort-objects
+  CONSTANT_CASE: {
+    expression: /^[A-Z][\d_A-Z]*$/u,
+    recommendationBuilder: (name: string): string => {
+      return splitName(name).join("_").toUpperCase();
     },
   },
 };

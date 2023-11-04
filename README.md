@@ -122,6 +122,7 @@ export default [
 
 | Name                                                                                                             | Description                                       |
 | :--------------------------------------------------------------------------------------------------------------- | :------------------------------------------------ |
+| [naming-convention/component-name](packages/eslint-plugin-naming-convention/src/rules/component-name.md)         | disallow usage of unstable nested components      |
 | [naming-convention/filename](packages/eslint-plugin-naming-convention/src/rules/filename.md)                     | enforce naming convention for JSX file names      |
 | [naming-convention/filename-extension](packages/eslint-plugin-naming-convention/src/rules/filename-extension.md) | enforce naming convention for JSX file extensions |
 
@@ -154,7 +155,6 @@ export default [
 
 #### JSX rules
 
-- [ ] `jsx/enforce-component-name-pascal-case`
 - [x] `jsx/no-array-index-key`
 - [x] `jsx/no-children-in-void-dom-elements`
 - [x] `jsx/no-duplicate-key`
@@ -172,8 +172,9 @@ export default [
 
 #### Naming convention rules
 
-- [x] `naming-convention/filename-extension`
+- [ ] `naming-convention/component-name`
 - [x] `naming-convention/filename`
+- [x] `naming-convention/filename-extension`
 
 #### React rules
 
@@ -226,8 +227,9 @@ export default [
 
 1. **TypeScript first**. If a behavior can already be enforced by TypeScript built-in checker, don't reimplement it.
 2. **Formatting independent**. Rules should check for correctness, not style. We recommend using style focused tools for formatting (e.g. [dprint](https://dprint.dev/) or [eslint-stylistic](https://github.com/eslint-stylistic/eslint-stylistic)).
-3. **Sensible defaults**. Rules should be easy to setup and use with minimal configuration and sensible defaults.
-4. **[Rules over Options](./docs/rules-over-options.md)**. Each rule should have a single purpose. Make multiple rules work together to achieve more complex behaviors instead of adding options to a single rule.
+3. **No Auto-fix**. Auto-fix is a great feature, but it's not always safe and reliable. We prefer to not to do auto-fix at all than to implement it in a way that can cause more problems than it solves.
+4. **Sensible defaults**. Rules should be easy to setup and use with minimal configuration and sensible defaults.
+5. **Rules over Options [[1]](./docs/rules-over-options.md)**. Each rule should have a single purpose. Make multiple rules work together to achieve more complex behaviors instead of adding options to a single rule.
 
 ## License
 

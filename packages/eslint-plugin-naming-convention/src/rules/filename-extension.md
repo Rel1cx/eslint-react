@@ -6,7 +6,7 @@
 
 This rule enforces consistent file extensions for JSX files.
 
-## Options
+## Rule Options
 
 This rule has a string option:
 

@@ -37,7 +37,6 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: "<React.Fragment><div /></React.Fragment>",
-      output: "<><div /></>",
       errors: [
         {
           messageId: "PREFER_FRAGMENT_SYNTAX",
@@ -50,7 +49,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: "<Fragment><div /></Fragment>",
-      output: "<><div /></>",
       errors: [
         {
           messageId: "PREFER_FRAGMENT_SYNTAX",
