@@ -7,11 +7,15 @@ import { isString } from "effect/Predicate";
 import type { ConstantCase } from "string-ts";
 
 import { findPropInAttributes } from "../../../jsx/src/prop/find-prop-in-attributes";
-import { createRule, isSafeRel } from "../utils";
+import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unsafe-target-blank";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
+
+function isSafeRel(value: string) {
+  return /\bnoreferrer\b/u.test(value) && /\bnoopener\b/u.test(value);
+}
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,

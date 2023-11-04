@@ -1,5 +1,9 @@
 # naming-convention/component-name
 
+🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+
+<!-- end auto-generated rule header -->
+
 Enforce naming conventions for components.
 
 ## Rule Details
@@ -31,3 +35,4 @@ export const MyComponent = () => {
 - `rule`: The rule to apply to the file name. Can be one of the following:
   - `PascalCase`: PascalCase
   - `CONSTANT_CASE`: CONSTANT_CASE
+- `excepts`: List of component names that should be ignored by this rule.

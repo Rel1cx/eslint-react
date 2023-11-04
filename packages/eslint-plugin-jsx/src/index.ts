@@ -1,6 +1,7 @@
 // workaround for @typescript-eslint/utils's TS2742 error.
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
+import { name, version } from "../package.json";
 import jsxNoArrayIndexKey from "./rules/no-array-index-key";
 import jsxNoDuplicateKey from "./rules/no-duplicate-key";
 import jsxNoLeakedConditionalRendering from "./rules/no-leaked-conditional-rendering";
@@ -13,7 +14,10 @@ import jsxNoUselessFragment from "./rules/no-useless-fragment";
 import jsxPreferFragmentSyntax from "./rules/prefer-fragment-syntax";
 import jsxPreferShorthandJsxBoolean from "./rules/prefer-shorthand-boolean";
 
-export { name } from "../package.json";
+export const meta = {
+  name,
+  version,
+} as const;
 
 export const rules = {
   "no-array-index-key": jsxNoArrayIndexKey,

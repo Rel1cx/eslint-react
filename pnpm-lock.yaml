@@ -604,6 +604,9 @@ importers:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../ast
+      '@eslint-react/core':
+        specifier: workspace:*
+        version: link:../core
       '@eslint-react/jsx':
         specifier: workspace:*
         version: link:../jsx
