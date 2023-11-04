@@ -8,13 +8,35 @@
 
 - [ComponentCollectorCache](README.md#componentcollectorcache)
 - [ComponentCollectorLegacyCache](README.md#componentcollectorlegacycache)
+- [ComponentType](README.md#componenttype)
+- [HostComponentType](README.md#hostcomponenttype)
 
 ### Variables
 
+- [ClassComponent](README.md#classcomponent)
 - [ComponentCollectorHint](README.md#componentcollectorhint)
 - [ComponentCollectorLegacyHint](README.md#componentcollectorlegacyhint)
+- [ContextConsumer](README.md#contextconsumer)
+- [ContextProvider](README.md#contextprovider)
+- [DehydratedFragment](README.md#dehydratedfragment)
+- [ForwardRef](README.md#forwardref)
+- [Fragment](README.md#fragment)
+- [FunctionComponent](README.md#functioncomponent)
+- [HostComponent](README.md#hostcomponent)
+- [HostHTMLComponent](README.md#hosthtmlcomponent)
+- [HostPortal](README.md#hostportal)
+- [HostRoot](README.md#hostroot)
+- [HostSVGComponent](README.md#hostsvgcomponent)
+- [HostText](README.md#hosttext)
+- [HostWebComponent](README.md#hostwebcomponent)
+- [LazyComponent](README.md#lazycomponent)
+- [MemoComponent](README.md#memocomponent)
+- [Mode](README.md#mode)
+- [Profiler](README.md#profiler)
 - [RE\_COMPONENT\_NAME](README.md#re_component_name)
 - [RE\_HOOK\_NAME](README.md#re_hook_name)
+- [SuspenseComponent](README.md#suspensecomponent)
+- [SuspenseListComponent](README.md#suspenselistcomponent)
 
 ### Functions
 
@@ -49,7 +71,25 @@
 
 Ƭ **ComponentCollectorLegacyCache**: `WeakMap`\<`TSESTreeClass`, `bigint`\>
 
+---
+
+### ComponentType
+
+Ƭ **ComponentType**: `0` \| `1` \| `3` \| `4` \| `5` \| `6` \| `7` \| `8` \| `9` \| `10` \| `11` \| `12` \| `13` \| `14` \| `16` \| `18` \| `19` \| `20`
+
+---
+
+### HostComponentType
+
+Ƭ **HostComponentType**: `0` \| `1` \| `2`
+
 ## Variables
+
+### ClassComponent
+
+• `Const` **ClassComponent**: `1`
+
+---
 
 ### ComponentCollectorHint
 
@@ -84,6 +124,108 @@
 
 ---
 
+### ContextConsumer
+
+• `Const` **ContextConsumer**: `9`
+
+---
+
+### ContextProvider
+
+• `Const` **ContextProvider**: `10`
+
+---
+
+### DehydratedFragment
+
+• `Const` **DehydratedFragment**: `18`
+
+---
+
+### ForwardRef
+
+• `Const` **ForwardRef**: `11`
+
+---
+
+### Fragment
+
+• `Const` **Fragment**: `7`
+
+---
+
+### FunctionComponent
+
+• `Const` **FunctionComponent**: `0`
+
+---
+
+### HostComponent
+
+• `Const` **HostComponent**: `5`
+
+---
+
+### HostHTMLComponent
+
+• `Const` **HostHTMLComponent**: `0`
+
+---
+
+### HostPortal
+
+• `Const` **HostPortal**: `4`
+
+---
+
+### HostRoot
+
+• `Const` **HostRoot**: `3`
+
+---
+
+### HostSVGComponent
+
+• `Const` **HostSVGComponent**: `1`
+
+---
+
+### HostText
+
+• `Const` **HostText**: `6`
+
+---
+
+### HostWebComponent
+
+• `Const` **HostWebComponent**: `2`
+
+---
+
+### LazyComponent
+
+• `Const` **LazyComponent**: `16`
+
+---
+
+### MemoComponent
+
+• `Const` **MemoComponent**: `14`
+
+---
+
+### Mode
+
+• `Const` **Mode**: `8`
+
+---
+
+### Profiler
+
+• `Const` **Profiler**: `12`
+
+---
+
 ### RE\_COMPONENT\_NAME
 
 • `Const` **RE\_COMPONENT\_NAME**: `RegExp`
@@ -93,6 +235,18 @@
 ### RE\_HOOK\_NAME
 
 • `Const` **RE\_HOOK\_NAME**: `RegExp`
+
+---
+
+### SuspenseComponent
+
+• `Const` **SuspenseComponent**: `13`
+
+---
+
+### SuspenseListComponent
+
+• `Const` **SuspenseListComponent**: `19`
 
 ## Functions
 
