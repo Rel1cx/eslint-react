@@ -1,6 +1,6 @@
 import {
   findVariableByNameUpToGlobal,
-  getVariableInitFirst,
+  getVariableInit,
   isJSXTagNameExpression,
   isOneOf,
   NodeType,
@@ -19,6 +19,7 @@ export const JSXValueCheckHint = {
   IgnoreCreateElement: 1n << 1n,
   StrictLogical: 1n << 2n,
   StrictConditional: 1n << 3n,
+  StrictArrayExpression: 1n << 4n,
 } as const;
 /* eslint-enable perfectionist/sort-objects */
 
@@ -38,9 +39,11 @@ export function isJSXValue(
     return false;
   }
 
-  return match(node)
+  return match<typeof node, boolean>(node)
     .with({ type: NodeType.JSXElement }, F.constTrue)
     .with({ type: NodeType.JSXFragment }, F.constTrue)
+    .with({ type: NodeType.JSXMemberExpression }, F.constTrue)
+    .with({ type: NodeType.JSXNamespacedName }, F.constTrue)
     .with({ type: NodeType.Literal }, (node) => {
       if (
         !("value" in node)
@@ -50,6 +53,17 @@ export function isJSXValue(
       }
 
       return node.value === null;
+    })
+    .with({ type: NodeType.ArrayExpression }, (node) => {
+      if (!("elements" in node)) {
+        return false;
+      }
+
+      if (hint & JSXValueCheckHint.StrictArrayExpression) {
+        return node.elements.every((n) => isJSXValue(n, context, hint));
+      }
+
+      return node.elements.some((n) => isJSXValue(n, context, hint));
     })
     .with({ type: NodeType.ConditionalExpression }, (node) => {
       if (!("consequent" in node)) {
@@ -102,22 +116,18 @@ export function isJSXValue(
       return isCreateElementCall(node, context);
     })
     .with({ type: NodeType.Identifier }, (node) => {
-      if (!("name" in node)) {
-        return false;
-      }
       if (isJSXTagNameExpression(node)) {
         return true;
       }
-      const variable = findVariableByNameUpToGlobal(node.name, context.getScope());
+
+      const maybeVariable = findVariableByNameUpToGlobal(node.name, context.getScope());
 
       return F.pipe(
-        variable,
-        O.flatMap(getVariableInitFirst),
+        maybeVariable,
+        O.flatMap(getVariableInit(0)),
         O.filter(isOneOf([NodeType.JSXElement, NodeType.JSXFragment])),
         O.isSome,
       );
     })
-    .with({ type: NodeType.JSXMemberExpression }, F.constTrue)
-    .with({ type: NodeType.JSXNamespacedName }, F.constTrue)
     .otherwise(F.constFalse);
 }

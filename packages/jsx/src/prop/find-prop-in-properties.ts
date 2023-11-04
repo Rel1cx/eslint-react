@@ -1,4 +1,4 @@
-import { findVariableByNameUpToGlobal, getVariableInitFirst, is, NodeType } from "@eslint-react/ast";
+import { findVariableByNameUpToGlobal, getVariableInit, is, NodeType } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -36,7 +36,7 @@ export function findPropInProperties(
                 const { name } = argument;
                 const maybeInit = O.flatMap(
                   findVariableByNameUpToGlobal(name, startScope),
-                  getVariableInitFirst,
+                  getVariableInit(0),
                 );
                 if (O.isNone(maybeInit)) {
                   return false;

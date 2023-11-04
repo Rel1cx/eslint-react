@@ -196,7 +196,6 @@ export default [
 - [x] `react/no-unstable-default-props`
 - [x] `react/no-unstable-nested-components`
 - [ ] `react/no-unused-class-component-methods`
-- [ ] `react/require-render-return`
 
 #### Hooks rules
 
