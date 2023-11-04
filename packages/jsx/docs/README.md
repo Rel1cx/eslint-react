@@ -94,13 +94,14 @@ node is TSESTree.CallExpression
 
 #### Type declaration
 
-| Name                  | Type     |
-| :-------------------- | :------- |
-| `IgnoreCreateElement` | `bigint` |
-| `IgnoreNull`          | `bigint` |
-| `None`                | `0n`     |
-| `StrictConditional`   | `bigint` |
-| `StrictLogical`       | `bigint` |
+| Name                    | Type     |
+| :---------------------- | :------- |
+| `IgnoreCreateElement`   | `bigint` |
+| `IgnoreNull`            | `bigint` |
+| `None`                  | `0n`     |
+| `StrictArrayExpression` | `bigint` |
+| `StrictConditional`     | `bigint` |
+| `StrictLogical`         | `bigint` |
 
 ---
 

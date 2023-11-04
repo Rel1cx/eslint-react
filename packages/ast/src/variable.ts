@@ -1,7 +1,8 @@
 import { F, MutRef, O } from "@eslint-react/tools";
 import type { Definition, Variable } from "@typescript-eslint/scope-manager";
-import { type Scope } from "@typescript-eslint/scope-manager";
+import { type Scope, ScopeType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
+import { isNullable } from "effect/Predicate";
 
 /**
  * Find a variable through a list of variables by name
@@ -12,7 +13,7 @@ export function findVariableByName(name: string) {
    * @param variables The variables to search through
    */
   return (variables: Variable[]): O.Option<NonNullable<Variable>> => {
-    return O.fromNullable(variables.find((variable) => "name" in variable && variable.name === name));
+    return O.fromNullable(variables.find((variable) => variable.name === name));
   };
 }
 
@@ -24,7 +25,7 @@ export function getVariablesUpToGlobal(startScope: Scope) {
   const scopeRef = MutRef.make(startScope);
   const variablesRef = MutRef.make(MutRef.get(scopeRef).variables);
 
-  while (MutRef.get(scopeRef).upper) {
+  while (MutRef.get(scopeRef).type !== ScopeType.global) {
     MutRef.set(scopeRef, MutRef.get(scopeRef).upper);
     MutRef.update(variablesRef, (variables) => variables.concat(MutRef.get(scopeRef).variables));
   }
@@ -38,54 +39,31 @@ export function getVariablesUpToGlobal(startScope: Scope) {
  * @param startScope The scope to start from
  */
 export function findVariableByNameUpToGlobal(name: string, startScope: Scope): O.Option<NonNullable<Variable>> {
-  return F.pipe(getVariablesUpToGlobal(startScope), findVariableByName(name));
+  return findVariableByName(name)(getVariablesUpToGlobal(startScope));
 }
 
-/**
- * Get the first definition of a variable
- * @param variable The variable to get the definition from
- */
-export function getVariableDefinitionFirst(variable: Variable): O.Option<Definition> {
-  return O.fromNullable(variable.defs[0]);
-}
+export function resolveDefinitionInit(
+  def: Definition,
+): O.Option<TSESTree.Expression | TSESTree.LetOrConstOrVarDeclaration> {
+  if ("init" in def.node && !isNullable(def.node.init)) {
+    return O.some(def.node.init);
+  }
+  // TODO: support other types of definitions
 
-/**
- * Get the last definition of a variable
- * @param variable The variable to get the definition from
- */
-export function getVariableDefinitionLast(variable: Variable): O.Option<Definition> {
-  return O.fromNullable(variable.defs[variable.defs.length - 1]);
+  return O.none();
 }
 
 /**
  * Get the init node of the nth definition of a variable
- * @param variable
- * @param getDefinition A function that returns the nth definition of a variable
+ * @param at The index number of def in defs
+ * @returns A function that takes a variable and returns the init node of the nth definition of that variable
  */
-export function getVariableInit(
-  variable: Variable,
-  getDefinition: (variable: Variable) => O.Option<Definition>,
-): O.Option<TSESTree.Expression | TSESTree.LetOrConstOrVarDeclaration> {
-  return F.pipe(
-    O.some(variable),
-    O.flatMap(getDefinition),
-    O.flatMapNullable((d) => d.node),
-    O.flatMapNullable((n) => "init" in n ? n.init : null),
-  );
-}
-
-/**
- * Get the init node of the first definition of a variable
- * @param variable
- */
-export function getVariableInitFirst(variable: Variable) {
-  return getVariableInit(variable, getVariableDefinitionFirst);
-}
-
-/**
- * Get the init node of the last definition of a variable
- * @param variable
- */
-export function getVariableInitLast(variable: Variable) {
-  return getVariableInit(variable, getVariableDefinitionLast);
+export function getVariableInit(at: number) {
+  return (variable: Variable): O.Option<TSESTree.Expression | TSESTree.LetOrConstOrVarDeclaration> => {
+    return F.pipe(
+      O.some(variable),
+      O.flatMapNullable(v => v.defs.at(at)),
+      O.flatMap(resolveDefinitionInit),
+    );
+  };
 }

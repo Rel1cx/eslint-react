@@ -1,4 +1,4 @@
-import { findVariableByNameUpToGlobal, getVariableInitFirst, is, isOneOf, NodeType } from "@eslint-react/ast";
+import { findVariableByNameUpToGlobal, getVariableInit, is, isOneOf, NodeType } from "@eslint-react/ast";
 import { findPropInAttributes, findPropInProperties, isCreateElementCall } from "@eslint-react/jsx";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -41,7 +41,7 @@ export default createRule<[], MessageID>({
           .when(is(NodeType.Identifier), (n) => {
             return F.pipe(
               findVariableByNameUpToGlobal(n.name, context.getScope()),
-              O.flatMap(getVariableInitFirst),
+              O.flatMap(getVariableInit(0)),
               O.flatMapNullable((n) => "properties" in n ? n.properties : null),
             );
           })

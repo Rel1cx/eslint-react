@@ -25,7 +25,7 @@ export type ComponentCollectorCache = WeakMap<TSESTreeFunction, bigint>;
 
 export const ComponentCollectorHint = {
   ...JSXValueCheckHint,
-  IgnoreMapCall: 1n << 4n,
+  IgnoreMapCall: 1n << 5n,
 } as const;
 
 // TODO: support for detecting component types listed in core/component/component-types.ts
