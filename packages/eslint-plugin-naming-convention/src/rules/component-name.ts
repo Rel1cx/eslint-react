@@ -3,7 +3,7 @@ import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
 import { componentCollector, componentCollectorLegacy } from "@eslint-react/core";
 import { getCaseValidator } from "@eslint-react/shared";
 import { E } from "@eslint-react/tools";
-import type { ESLintUtils } from "@typescript-eslint/utils";
+import { type ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { type ConstantCase } from "string-ts";
 
@@ -78,6 +78,9 @@ export default createRule<Options, MessageID>({
     return {
       ...collector.listeners,
       ...collectorLegacy.listeners,
+      JSXOpeningElement() {
+        // TODO: add support for detecting component names in JSX.
+      },
       "Program:exit"() {
         const maybeFunctionComponents = collector.ctx.getAllComponents();
         if (E.isLeft(maybeFunctionComponents)) {
