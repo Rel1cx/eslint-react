@@ -19,6 +19,7 @@ const rulePreset = {
 
   "hooks/ensure-custom-hooks-using-other-hooks": "warn",
 
+  "jsx/enforce-component-name-pascal-case": "warn",
   "jsx/no-array-index-key": "warn",
   "jsx/no-duplicate-key": "error",
   "jsx/no-leaked-conditional-rendering": "error",
