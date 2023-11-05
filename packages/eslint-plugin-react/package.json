@@ -64,7 +64,7 @@
     "typescript": ">=5.2.2"
   },
   "engines": {
-    "bun": ">=1.0.7",
+    "bun": ">=1.0.8",
     "node": ">=18.15.0"
   },
   "publishConfig": {
