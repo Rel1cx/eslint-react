@@ -23,10 +23,20 @@ const hasValidHierarchy = (node: TSESTreeFunction, context: RuleContext, ignoreM
 
 export type ComponentCollectorCache = WeakMap<TSESTreeFunction, bigint>;
 
+/* eslint-disable perfectionist/sort-objects */
 export const ComponentCollectorHint = {
   ...JSXValueCheckHint,
-  IgnoreMapCall: 1n << 5n,
+  // 1n << 0n - 1n << 63n are reserved for JSXValueCheckHint
+  // Skip function component defined in map call
+  SkipMapCall: 1n << 64n,
+  // TODO: Skip function component defined on object method
+  SkipObjectMethod: 1n << 65n,
+  // TODO: Skip function component defined on class method
+  SkipClassMethod: 1n << 66n,
+  // TODO: Skip function component defined on class property
+  SkipClassProperty: 1n << 67n,
 } as const;
+/* eslint-enable perfectionist/sort-objects */
 
 // TODO: support for detecting component types listed in core/component/component-types.ts
 export function componentCollector(
@@ -79,7 +89,7 @@ export function componentCollector(
       if (
         !(hasNoneOrValidName(currentFn)
           && isJSXValue(node.argument, context, hint)
-          && hasValidHierarchy(currentFn, context, Boolean(hint & ComponentCollectorHint.IgnoreMapCall)))
+          && hasValidHierarchy(currentFn, context, Boolean(hint & ComponentCollectorHint.SkipMapCall)))
       ) {
         return;
       }
@@ -99,7 +109,7 @@ export function componentCollector(
       if (
         !(hasNoneOrValidName(node)
           && isJSXValue(body, context, hint)
-          && hasValidHierarchy(node, context, Boolean(hint & ComponentCollectorHint.IgnoreMapCall)))
+          && hasValidHierarchy(node, context, Boolean(hint & ComponentCollectorHint.SkipMapCall)))
       ) {
         return;
       }

@@ -37,7 +37,7 @@ export function unsafeIsRenderFunction(node: TSESTreeFunction, context: RuleCont
   return isJSXValue(
     body,
     context,
-    JSXValueCheckHint.IgnoreNull | JSXValueCheckHint.StrictLogical | JSXValueCheckHint.StrictConditional,
+    JSXValueCheckHint.SkipNull | JSXValueCheckHint.StrictLogical | JSXValueCheckHint.StrictConditional,
   );
 }
 

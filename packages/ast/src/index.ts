@@ -6,7 +6,7 @@ export * from "./identifier";
 export * from "./is-node-equal";
 export * from "./literal";
 export * from "./misc";
-export * from "./node-types";
+export * from "./node-type";
 export * from "./property";
 export * from "./readable-node-type";
 export * from "./scope";

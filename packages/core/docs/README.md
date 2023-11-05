@@ -102,15 +102,18 @@
 
 #### Type declaration
 
-| Name                    | Type     |
-| :---------------------- | :------- |
-| `IgnoreCreateElement`   | `bigint` |
-| `IgnoreMapCall`         | `bigint` |
-| `IgnoreNull`            | `bigint` |
-| `None`                  | `0n`     |
-| `StrictArrayExpression` | `bigint` |
-| `StrictConditional`     | `bigint` |
-| `StrictLogical`         | `bigint` |
+| Name                | Type     |
+| :------------------ | :------- |
+| `None`              | `0n`     |
+| `SkipClassMethod`   | `bigint` |
+| `SkipClassProperty` | `bigint` |
+| `SkipCreateElement` | `bigint` |
+| `SkipMapCall`       | `bigint` |
+| `SkipNull`          | `bigint` |
+| `SkipObjectMethod`  | `bigint` |
+| `StrictArray`       | `bigint` |
+| `StrictConditional` | `bigint` |
+| `StrictLogical`     | `bigint` |
 
 ---
 
@@ -120,14 +123,14 @@
 
 #### Type declaration
 
-| Name                    | Type     |
-| :---------------------- | :------- |
-| `IgnoreCreateElement`   | `bigint` |
-| `IgnoreNull`            | `bigint` |
-| `None`                  | `0n`     |
-| `StrictArrayExpression` | `bigint` |
-| `StrictConditional`     | `bigint` |
-| `StrictLogical`         | `bigint` |
+| Name                | Type     |
+| :------------------ | :------- |
+| `None`              | `0n`     |
+| `SkipCreateElement` | `bigint` |
+| `SkipNull`          | `bigint` |
+| `StrictArray`       | `bigint` |
+| `StrictConditional` | `bigint` |
+| `StrictLogical`     | `bigint` |
 
 ---
 

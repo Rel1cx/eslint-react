@@ -1,7 +1,7 @@
 import { type TSESTree } from "@typescript-eslint/types";
 import { isNil } from "rambda";
 
-import { NodeType } from "./node-types";
+import { NodeType } from "./node-type";
 
 /**
  * Gets nested return statements in a node

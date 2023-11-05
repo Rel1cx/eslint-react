@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { type } from "rambda";
 import { delimiterCase, replace, toLowerCase } from "string-ts";
 
-import { isJSX, NodeType } from "./node-types";
+import { isJSX, NodeType } from "./node-type";
 
 /**
  * Returns human readable node type for given AST node
