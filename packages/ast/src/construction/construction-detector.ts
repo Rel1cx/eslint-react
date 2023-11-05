@@ -6,7 +6,7 @@ import { isObject, isString } from "effect/Predicate";
 import { isNil } from "rambda";
 import { match } from "ts-pattern";
 
-import { is, isOneOf, NodeType } from "../node-types";
+import { is, isOneOf, NodeType } from "../node-type";
 
 export type Construction = Data.TaggedEnum<{
   None: {};

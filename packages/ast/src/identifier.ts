@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
-import { isOneOf, NodeType, type TSESTreeClass, type TSESTreeFunction } from "./node-types";
+import { isOneOf, NodeType, type TSESTreeClass, type TSESTreeFunction } from "./node-type";
 
 /**
  * Checks if a node is an identifier with a given name

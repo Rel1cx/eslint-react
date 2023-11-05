@@ -4,8 +4,8 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
 import { isNil } from "rambda";
 
-import { NodeType } from "./node-types";
-import { isOneOf } from "./node-types";
+import { NodeType } from "./node-type";
+import { isOneOf } from "./node-type";
 import { traverseUpGuard } from "./traverse";
 
 export function isDeclaredInNode({

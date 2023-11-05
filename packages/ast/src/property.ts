@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { isIdentifierWithName } from "./identifier";
-import { NodeType } from "./node-types";
+import { NodeType } from "./node-type";
 
 export function isPropertyOfObjectExpression(
   node: TSESTree.Node,

@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { isMatching } from "ts-pattern";
 
-import { NodeType } from "./node-types";
+import { NodeType } from "./node-type";
 
 /**
  * Check if a node is multiline

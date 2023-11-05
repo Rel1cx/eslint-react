@@ -15,11 +15,11 @@ import { isCreateElementCall } from "./element";
 /* eslint-disable perfectionist/sort-objects */
 export const JSXValueCheckHint = {
   None: 0n,
-  IgnoreNull: 1n << 0n,
-  IgnoreCreateElement: 1n << 1n,
-  StrictLogical: 1n << 2n,
-  StrictConditional: 1n << 3n,
-  StrictArrayExpression: 1n << 4n,
+  SkipNull: 1n << 0n,
+  SkipCreateElement: 1n << 1n,
+  StrictArray: 1n << 2n,
+  StrictLogical: 1n << 3n,
+  StrictConditional: 1n << 4n,
 } as const;
 /* eslint-enable perfectionist/sort-objects */
 
@@ -47,7 +47,7 @@ export function isJSXValue(
     .with({ type: NodeType.Literal }, (node) => {
       if (
         !("value" in node)
-        || hint & JSXValueCheckHint.IgnoreNull
+        || hint & JSXValueCheckHint.SkipNull
       ) {
         return false;
       }
@@ -59,7 +59,7 @@ export function isJSXValue(
         return false;
       }
 
-      if (hint & JSXValueCheckHint.StrictArrayExpression) {
+      if (hint & JSXValueCheckHint.StrictArray) {
         return node.elements.every((n) => isJSXValue(n, context, hint));
       }
 
@@ -109,7 +109,7 @@ export function isJSXValue(
       return isJSXValue(exp, context, hint);
     })
     .with({ type: NodeType.CallExpression }, (node) => {
-      if (hint & JSXValueCheckHint.IgnoreCreateElement) {
+      if (hint & JSXValueCheckHint.SkipCreateElement) {
         return false;
       }
 

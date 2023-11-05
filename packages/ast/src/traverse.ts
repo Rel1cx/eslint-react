@@ -1,6 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { NodeType } from "./node-types";
+import { NodeType } from "./node-type";
 
 /**
  * Traverses up the AST tree until the predicate returns `true` or the root node is reached
