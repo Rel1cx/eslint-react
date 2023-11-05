@@ -46,8 +46,8 @@
   },
   "devDependencies": {
     "@eslint-react/ast": "workspace:*",
-    "@eslint-react/jsx": "workspace:*",
     "@eslint-react/core": "workspace:*",
+    "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
@@ -59,7 +59,7 @@
   },
   "peerDependencies": {
     "@typescript-eslint/parser": ">=6.9.1",
-    "eslint": ">=8.52.0",
+    "eslint": ">=8.53.0",
     "typescript": ">=5.2.2"
   },
   "engines": {
