@@ -9,11 +9,10 @@ export default {
     ["recommended", "👍"],
     ["recommended-type-checked", "🔍"],
     ["debug", "🛠️"],
-    ["jsx", "🎨"],
   ],
   ignoreConfig: [
-    "all-legacy",
     "debug-legacy",
+    "all-legacy",
     "off-legacy",
     "recommended-legacy",
     "recommended-type-checked-legacy",

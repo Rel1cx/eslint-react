@@ -16,57 +16,78 @@ import { padKeysLeft } from "./utils";
 const rulePreset = {
   "debug/class-component": "warn",
   "debug/function-component": "warn",
+  "debug/hooks": "warn",
 
+  "hooks/ensure-custom-hooks-using-other-hooks": "warn",
+
+  "jsx/no-array-index-key": "warn",
+  "jsx/no-comment-textnodes": "warn",
+  "jsx/no-duplicate-key": "error",
+  "jsx/no-leaked-conditional-rendering": "error",
+  "jsx/no-missing-key": "error",
+  "jsx/no-script-url": "error",
+  "jsx/no-spreading-key": "error",
+  "jsx/no-unsafe-target-blank": "warn",
+  "jsx/no-useless-fragment": "warn",
+  "jsx/prefer-shorthand-boolean": "warn",
+  "jsx/prefer-shorthand-fragment": "warn",
+
+  "naming-convention/filename": "warn",
+  "naming-convention/filename-extension": "warn",
+
+  "react/no-children-in-void-dom-elements": "warn",
+  "react/no-class-component": "warn",
+  "react/no-clone-element": "warn",
+  "react/no-constructed-context-value": "error",
+  "react/no-create-ref": "error",
+  "react/no-dangerously-set-innerhtml": "warn",
+  "react/no-dangerously-set-innerhtml-with-children": "error",
+  "react/no-missing-button-type": "error",
+  "react/no-missing-iframe-sandbox": "warn",
+  "react/no-namespace": "error",
+  "react/no-string-refs": "error",
+  "react/no-string-style-props": "warn",
+  "react/no-unsafe-iframe-sandbox": "warn",
+  "react/no-unstable-default-props": "error",
+  "react/no-unstable-nested-components": "warn",
+  "react/prefer-destructuring-assignment": "warn",
+} as const satisfies RulePreset;
+
+const recommendedPreset = {
   "hooks/ensure-custom-hooks-using-other-hooks": "warn",
 
   "jsx/no-array-index-key": "warn",
   "jsx/no-duplicate-key": "error",
   "jsx/no-leaked-conditional-rendering": "error",
   "jsx/no-missing-key": "error",
-  "jsx/no-misused-comment-in-textnode": "warn",
+  "jsx/no-script-url": "error",
   "jsx/no-spreading-key": "error",
   "jsx/no-unsafe-target-blank": "warn",
-  "jsx/prefer-fragment-syntax": "warn",
+  "jsx/no-useless-fragment": "warn",
   "jsx/prefer-shorthand-boolean": "warn",
+  "jsx/prefer-shorthand-fragment": "warn",
 
-  "naming-convention/filename": "warn",
-  "naming-convention/filename-extension": "warn",
-
-  "react/no-class-component": "warn",
+  "react/no-children-in-void-dom-elements": "warn",
   "react/no-clone-element": "warn",
   "react/no-constructed-context-value": "error",
+  "react/no-create-ref": "error",
   "react/no-dangerously-set-innerhtml": "warn",
   "react/no-dangerously-set-innerhtml-with-children": "error",
   "react/no-missing-button-type": "error",
   "react/no-missing-iframe-sandbox": "warn",
+  "react/no-namespace": "error",
   "react/no-string-refs": "error",
   "react/no-string-style-props": "warn",
   "react/no-unsafe-iframe-sandbox": "warn",
   "react/no-unstable-default-props": "error",
   "react/no-unstable-nested-components": "warn",
-} as const satisfies RulePreset;
-
-const recommendedPreset = {
-  "jsx/no-array-index-key": "error",
-  "jsx/no-duplicate-key": "error",
-  "jsx/no-leaked-conditional-rendering": "error",
-  "jsx/no-missing-key": "error",
-  "jsx/no-misused-comment-in-textnode": "warn",
-  "jsx/no-script-url": "error",
-  "jsx/prefer-shorthand-boolean": "warn",
-  "react/no-constructed-context-value": "error",
-  "react/no-dangerously-set-innerhtml": "error",
-  "react/no-dangerously-set-innerhtml-with-children": "error",
-  "react/no-string-refs": "error",
-  "react/no-unstable-default-props": "error",
-  "react/no-unstable-nested-components": "error",
+  "react/prefer-destructuring-assignment": "warn",
 } as const satisfies RulePreset;
 
 const rulePresetEntries = entries(rulePreset);
+const debugPreset = fromEntries(rulePresetEntries.filter(([key]) => key.startsWith("debug/")));
 const allPreset = fromEntries(rulePresetEntries.filter(([key]) => !key.startsWith("debug/")));
 const offPreset = fromEntries(rulePresetEntries.map(([key]) => [key, "off"]));
-const jsxPreset = fromEntries(rulePresetEntries.filter(([key]) => key.startsWith("jsx/")));
-const debugPreset = fromEntries(rulePresetEntries.filter(([key]) => key.startsWith("debug/")));
 
 const legacyConfigPlugins = ["@eslint-react"] as const;
 
@@ -101,14 +122,12 @@ export default {
   configs: {
     "all-legacy": createLegacyConfig(allPreset),
     "debug-legacy": createLegacyConfig(debugPreset),
-    "jsx-legacy": createLegacyConfig(jsxPreset),
     "off-legacy": createLegacyConfig(offPreset),
     "recommended-legacy": createLegacyConfig(recommendedPreset),
     "recommended-type-checked-legacy": createLegacyConfig(recommendedPreset),
     // eslint-disable-next-line perfectionist/sort-objects
     all: createFlatConfig(allPreset),
     debug: createFlatConfig(debugPreset),
-    jsx: createFlatConfig(jsxPreset),
     off: createFlatConfig(offPreset),
     recommended: createFlatConfig(recommendedPreset),
     "recommended-type-checked": createFlatConfig(recommendedPreset),

@@ -6,7 +6,7 @@ import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "no-misused-comment-in-textnode";
+export const RULE_NAME = "no-comment-textnodes";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_MISUSED_COMMENT_IN_TEXTNODE:
+      NO_COMMENT_TEXTNODES:
         "Possible misused comment in text node. Comments inside children section of tag should be placed inside braces",
     },
   },
@@ -44,7 +44,7 @@ export default createRule<[], MessageID>({
 
       if (checkText(node)) {
         context.report({
-          messageId: "NO_MISUSED_COMMENT_IN_TEXTNODE",
+          messageId: "NO_COMMENT_TEXTNODES",
           node,
         });
       }

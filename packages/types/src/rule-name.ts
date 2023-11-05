@@ -5,13 +5,13 @@
 
 export type Namespace = "compat" | "debug" | "experimental" | "hooks" | "jsx" | "naming-convention";
 
-type No = "no";
-
 export type PositiveModifier = "ensure" | "prefer" | "strict";
 
-export type NegativeModifier = "prevent" | No;
+export type NegativeModifier = "no";
 
-export type Modifier = NegativeModifier | PositiveModifier;
+export type NeutralModifier = "max" | "min";
+
+export type Modifier = NegativeModifier | NeutralModifier | PositiveModifier;
 
 export type NegativeDescriptive =
   | "complicated"
@@ -52,8 +52,6 @@ export type NeutralDescriptive =
   | "access"
   | "calling"
   | "inside"
-  | "max"
-  | "min"
   | "outside";
 
 export type Descriptive = NegativeDescriptive | NeutralDescriptive | PositiveDescriptive;
@@ -154,12 +152,13 @@ export type Additional = string;
 export type RuleName =
   | `${NegativeModifier}-${NegativeDescriptive | NeutralDescriptive}-${Term}`
   | `${NegativeModifier}-${NegativeDescriptive | NeutralDescriptive}-${Term}-${Additional}`
-  | `${No}-${Term}`
-  | `${No}-${Term}-${Additional}`
   | `${PositiveModifier}-${NeutralDescriptive | PositiveDescriptive}-${Term}`
   | `${PositiveModifier}-${NeutralDescriptive | PositiveDescriptive}-${Term}-${Additional}`
   | `${PositiveModifier}-${Term}`
-  | `${PositiveModifier}-${Term}-${Additional}`;
+  | `${PositiveModifier}-${Term}-${Additional}`
+  // eslint-disable-next-line perfectionist/sort-union-types
+  | `${NegativeModifier | NeutralModifier}-${Term}`
+  | `${NegativeModifier | NeutralModifier}-${Term}-${Additional}`;
 
 // Example rule names
 const _: RuleName = "no-constructed-context-value";

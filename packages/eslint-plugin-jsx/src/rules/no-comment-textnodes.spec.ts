@@ -2,7 +2,7 @@ import { allValid } from "@eslint-react/shared";
 import dedent from "dedent";
 
 import RuleTester, { getFixturesRootDir } from "../../../../test/rule-tester";
-import rule, { RULE_NAME } from "./no-misused-comment-in-textnode";
+import rule, { RULE_NAME } from "./no-comment-textnodes";
 
 const rootDir = getFixturesRootDir();
 
@@ -30,15 +30,15 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: "<div>// invalid</div>",
-      errors: [{ messageId: "NO_MISUSED_COMMENT_IN_TEXTNODE" }],
+      errors: [{ messageId: "NO_COMMENT_TEXTNODES" }],
     },
     {
       code: "<>// invalid</>",
-      errors: [{ messageId: "NO_MISUSED_COMMENT_IN_TEXTNODE" }],
+      errors: [{ messageId: "NO_COMMENT_TEXTNODES" }],
     },
     {
       code: "<div>/* invalid */</div>",
-      errors: [{ messageId: "NO_MISUSED_COMMENT_IN_TEXTNODE" }],
+      errors: [{ messageId: "NO_COMMENT_TEXTNODES" }],
     },
     {
       code: dedent`
@@ -46,7 +46,7 @@ ruleTester.run(RULE_NAME, rule, {
         // invalid
         </div>
       `,
-      errors: [{ messageId: "NO_MISUSED_COMMENT_IN_TEXTNODE" }],
+      errors: [{ messageId: "NO_COMMENT_TEXTNODES" }],
     },
     {
       code: dedent`
@@ -56,7 +56,7 @@ ruleTester.run(RULE_NAME, rule, {
         foo
         </div>
       `,
-      errors: [{ messageId: "NO_MISUSED_COMMENT_IN_TEXTNODE" }],
+      errors: [{ messageId: "NO_COMMENT_TEXTNODES" }],
     },
     {
       code: dedent`
@@ -66,11 +66,11 @@ ruleTester.run(RULE_NAME, rule, {
         {'foo'}
         </div>
       `,
-      errors: [{ messageId: "NO_MISUSED_COMMENT_IN_TEXTNODE" }],
+      errors: [{ messageId: "NO_COMMENT_TEXTNODES" }],
     },
     {
       code: "<span>/*</span>",
-      errors: [{ messageId: "NO_MISUSED_COMMENT_IN_TEXTNODE" }],
+      errors: [{ messageId: "NO_COMMENT_TEXTNODES" }],
     },
   ],
 });

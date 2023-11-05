@@ -1,4 +1,4 @@
-# jsx/prefer-fragment-syntax
+# jsx/prefer-shorthand-fragment
 
 <!-- end auto-generated rule header -->
 

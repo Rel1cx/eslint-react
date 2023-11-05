@@ -4,7 +4,7 @@ import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "prefer-fragment-syntax";
+export const RULE_NAME = "prefer-shorthand-fragment";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
@@ -19,7 +19,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      PREFER_FRAGMENT_SYNTAX: "Use fragment syntax instead of `{{reactPragma}}.{{fragmentPragma}}`.",
+      PREFER_SHORTHAND_FRAGMENT: "Use fragment syntax instead of `{{reactPragma}}.{{fragmentPragma}}`.",
     },
   },
   defaultOptions: [],
@@ -41,7 +41,7 @@ export default createRule<[], MessageID>({
               fragmentPragma,
               reactPragma,
             },
-            messageId: "PREFER_FRAGMENT_SYNTAX",
+            messageId: "PREFER_SHORTHAND_FRAGMENT",
             node,
           });
         }

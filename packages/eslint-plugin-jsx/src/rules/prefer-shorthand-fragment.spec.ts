@@ -1,7 +1,7 @@
 import { allValid } from "@eslint-react/shared";
 
 import RuleTester, { getFixturesRootDir } from "../../../../test/rule-tester";
-import rule, { RULE_NAME } from "./prefer-fragment-syntax";
+import rule, { RULE_NAME } from "./prefer-shorthand-fragment";
 
 const rootDir = getFixturesRootDir();
 
@@ -39,7 +39,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<React.Fragment><div /></React.Fragment>",
       errors: [
         {
-          messageId: "PREFER_FRAGMENT_SYNTAX",
+          messageId: "PREFER_SHORTHAND_FRAGMENT",
           data: {
             reactPragma: "React",
             fragmentPragma: "Fragment",
@@ -51,7 +51,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<Fragment><div /></Fragment>",
       errors: [
         {
-          messageId: "PREFER_FRAGMENT_SYNTAX",
+          messageId: "PREFER_SHORTHAND_FRAGMENT",
           data: {
             reactPragma: "React",
             fragmentPragma: "Fragment",

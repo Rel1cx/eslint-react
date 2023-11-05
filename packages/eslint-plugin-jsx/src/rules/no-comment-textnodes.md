@@ -1,4 +1,4 @@
-# jsx/no-misused-comment-in-textnode
+# jsx/no-comment-textnodes
 
 <!-- end auto-generated rule header -->
 
