@@ -13,13 +13,13 @@
     "typescript-eslint",
     "typescript-react"
   ],
-  "homepage": "https://github.com/Rel1cx/eslint-react",
+  "homepage": "https://github.com/eslint-react/eslint-react",
   "bugs": {
-    "url": "https://github.com/Rel1cx/eslint-react/issues"
+    "url": "https://github.com/eslint-react/eslint-react/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Rel1cx/eslint-react.git"
+    "url": "https://github.com/eslint-react/eslint-react.git"
   },
   "license": "MIT",
   "author": "Eva1ent<let@ik.me>",
