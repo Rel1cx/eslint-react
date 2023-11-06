@@ -1,4 +1,12 @@
-import { getFunctionIdentifier, NodeType, type TSESTreeFunction, unsafeIsMapCall } from "@eslint-react/ast";
+import {
+  getFunctionIdentifier,
+  isFunctionOfClassMethod,
+  isFunctionOfClassProperty,
+  isFunctionOfObjectMethod,
+  NodeType,
+  type TSESTreeFunction,
+  unsafeIsMapCall,
+} from "@eslint-react/ast";
 import { isChildrenOfCreateElement, isJSXValue, JSXValueCheckHint } from "@eslint-react/jsx";
 import { E, MutList, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
@@ -14,11 +22,24 @@ const hasNoneOrValidName = (node: TSESTreeFunction) => {
   return !id || isValidReactComponentName(id.name);
 };
 
-const hasValidHierarchy = (node: TSESTreeFunction, context: RuleContext, ignoreMapCall = false) => {
-  return !(isChildrenOfCreateElement(node, context)
-    || isFunctionOfRenderMethod(node, context)
-    // eslint-disable-next-line @typescript-eslint/no-extra-parens
-    || (ignoreMapCall && unsafeIsMapCall(node.parent)));
+const hasValidHierarchy = (node: TSESTreeFunction, context: RuleContext, hint: bigint) => {
+  if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node, context)) {
+    return false;
+  }
+
+  if (hint & ComponentCollectorHint.SkipMapCall && unsafeIsMapCall(node.parent)) {
+    return false;
+  }
+
+  if (hint & ComponentCollectorHint.SkipObjectMethod && isFunctionOfObjectMethod(node.parent)) {
+    return false;
+  }
+
+  if (hint & ComponentCollectorHint.SkipClassMethod && isFunctionOfClassMethod(node.parent)) {
+    return false;
+  }
+
+  return !(hint & ComponentCollectorHint.SkipClassProperty && isFunctionOfClassProperty(node.parent));
 };
 
 export type ComponentCollectorCache = WeakMap<TSESTreeFunction, bigint>;
@@ -29,11 +50,11 @@ export const ComponentCollectorHint = {
   // 1n << 0n - 1n << 63n are reserved for JSXValueCheckHint
   // Skip function component defined in map call
   SkipMapCall: 1n << 64n,
-  // TODO: Skip function component defined on object method
+  // Skip function component defined on object method
   SkipObjectMethod: 1n << 65n,
-  // TODO: Skip function component defined on class method
+  // Skip function component defined on class method
   SkipClassMethod: 1n << 66n,
-  // TODO: Skip function component defined on class property
+  // Skip function component defined on class property
   SkipClassProperty: 1n << 67n,
 } as const;
 /* eslint-enable perfectionist/sort-objects */
@@ -87,9 +108,9 @@ export function componentCollector(
       }
 
       if (
-        !(hasNoneOrValidName(currentFn)
-          && isJSXValue(node.argument, context, hint)
-          && hasValidHierarchy(currentFn, context, Boolean(hint & ComponentCollectorHint.SkipMapCall)))
+        !hasNoneOrValidName(currentFn)
+        || !isJSXValue(node.argument, context, hint)
+        || !hasValidHierarchy(currentFn, context, hint)
       ) {
         return;
       }
@@ -107,9 +128,9 @@ export function componentCollector(
 
       const { body } = node;
       if (
-        !(hasNoneOrValidName(node)
-          && isJSXValue(body, context, hint)
-          && hasValidHierarchy(node, context, Boolean(hint & ComponentCollectorHint.SkipMapCall)))
+        !hasNoneOrValidName(node)
+        || !isJSXValue(body, context, hint)
+        || !hasValidHierarchy(node, context, hint)
       ) {
         return;
       }

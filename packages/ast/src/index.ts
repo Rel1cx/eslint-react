@@ -2,6 +2,7 @@ export * from "./construction";
 export * from "./eslint-community-eslint-utils";
 export * from "./get-nested-identifiers";
 export * from "./get-nested-return-statements";
+export * from "./hierarchy";
 export * from "./identifier";
 export * from "./is-node-equal";
 export * from "./literal";
