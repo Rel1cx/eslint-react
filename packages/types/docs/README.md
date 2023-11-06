@@ -8,7 +8,6 @@
 
 - [Additional](README.md#additional)
 - [Ban](README.md#ban)
-- [Category](README.md#category)
 - [Cond](README.md#cond)
 - [CreateRule](README.md#createrule)
 - [Descriptive](README.md#descriptive)
@@ -21,6 +20,7 @@
 - [PositiveDescriptive](README.md#positivedescriptive)
 - [PositiveModifier](README.md#positivemodifier)
 - [ReactSettings](README.md#reactsettings)
+- [RuleCategory](README.md#rulecategory)
 - [RuleContext](README.md#rulecontext)
 - [RuleDeclaration](README.md#ruledeclaration)
 - [RuleName](README.md#rulename)
@@ -41,12 +41,6 @@
 ### Ban
 
 Ƭ **Ban**: `"ban"`
-
----
-
-### Category
-
-Ƭ **Category**: `"complexity"` \| `"correctness"` \| `"pedantic"` \| `"perf"` \| `"restriction"` \| `"security"` \| `"style"` \| `"suspicious"`
 
 ---
 
@@ -131,6 +125,12 @@ Rule creator function.
 ### ReactSettings
 
 Ƭ **ReactSettings**: `ReadonlyDeep`\<\{ `[key: string]`: `unknown`; `fragment`: `string` ; `pragma`: `string` ; `version`: `string` }\>
+
+---
+
+### RuleCategory
+
+Ƭ **RuleCategory**: `"complexity"` \| `"correctness"` \| `"deprecated"` \| `"nursery"` \| `"pedantic"` \| `"perf"` \| `"restriction"` \| `"security"` \| `"style"` \| `"suspicious"` \| `"verbose"`
 
 ---
 

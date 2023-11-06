@@ -2,9 +2,19 @@
 
 <!-- end auto-generated rule header -->
 
-> Prevent usage of `createRef()` in function components.
+## Rule category
 
-## Rule Details
+Restriction.
+
+## What it does
+
+Prevents usage of `createRef()` in function components.
+
+## Why is this bad?
+
+`createRef()` is a legacy API that is not recommended for use in new code. Instead, prefer using `useRef()` with function components.
+
+## Examples
 
 ### ❌ Incorrect
 

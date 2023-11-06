@@ -2,9 +2,19 @@
 
 <!-- end auto-generated rule header -->
 
-## Rule Details
+## Rule category
 
-This rule aims to prevent nesting component definitions inside other components. It is a common mistake that can cause performance issues and bugs. Instead, define every component at the top level.
+Correctness.
+
+## What it does
+
+Prevents nesting component definitions inside other components.
+
+## Why is this bad?
+
+Nesting component definitions inside other components is a common mistake that can be extremely slow and cause issues and bugs. Instead, define every component at the top level.
+
+## Examples
 
 ### ❌ Incorrect
 

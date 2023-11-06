@@ -2,9 +2,19 @@
 
 <!-- end auto-generated rule header -->
 
-## Rule Details
+## Rule category
 
-This rule aims to prevent duplicate key props on elements in the same array. Keys must be unique among siblings.
+Correctness.
+
+## What it does
+
+Prevents duplicate key props on elements in the same array or a list of children.
+
+## Why is this bad?
+
+React uses keys to identify elements in an array. If two elements have the same key, React will not be able to distinguish them. This can lead to issues with state and rendering.
+
+## Examples
 
 ### ❌ Incorrect
 

@@ -2,9 +2,19 @@
 
 <!-- end auto-generated rule header -->
 
-Disallow when a DOM element is using both children and `dangerouslySetInnerHTML`
+## Rule category
 
-## Rule Details
+Correctness.
+
+## What it does
+
+Disallows when a DOM element is using both children and `dangerouslySetInnerHTML`
+
+## Why is this bad?
+
+When using `dangerouslySetInnerHTML`, the content of the DOM element is set from the `__html` property. The content of the DOM element is completely replaced, so the children will not be rendered as expected.
+
+## Examples
 
 ### ❌ Incorrect
 

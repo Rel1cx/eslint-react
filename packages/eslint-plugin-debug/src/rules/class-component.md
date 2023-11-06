@@ -2,13 +2,23 @@
 
 <!-- end auto-generated rule header -->
 
+## Rule category
+
+Verbose.
+
+## What it does
+
 Warns when a class component is found. Useful for debugging.
 
 > **Warning**
 > This rule should only be used for debugging purposes.
 > Otherwise, leave it off.
 
-## Rule Details
+## Why is this good?
+
+This rule is useful for debugging.
+
+## Examples
 
 ### ❌ Incorrect
 

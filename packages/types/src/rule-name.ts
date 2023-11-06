@@ -5,16 +5,6 @@
 
 export type Namespace = "debug" | "experimental" | "hooks" | "jsx" | "naming-convention" | "react";
 
-export type Category =
-  | "complexity"
-  | "correctness"
-  | "pedantic"
-  | "perf"
-  | "restriction"
-  | "security"
-  | "style"
-  | "suspicious";
-
 export type Ban = "ban";
 
 export type PositiveModifier = "ensure" | "prefer" | "strict";

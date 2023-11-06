@@ -2,9 +2,19 @@
 
 <!-- end auto-generated rule header -->
 
-Enforce the usage of `<></>` over `<React.Fragment></React.Fragment>`.
+## Rule category
 
-## Rule Details
+Stylistic.
+
+## What it does
+
+Enforces the usage of `<></>` over `<React.Fragment></React.Fragment>`.
+
+## Why is this good?
+
+`<></>` is shorter and more readable. And it does not require importing `React` or the `Fragment` component.
+
+## Examples
 
 ### ❌ Incorrect
 

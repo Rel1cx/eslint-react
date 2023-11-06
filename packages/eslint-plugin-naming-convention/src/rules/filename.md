@@ -2,9 +2,19 @@
 
 <!-- end auto-generated rule header -->
 
+## Rule category
+
+Style.
+
+## What it does
+
 Enforces `.tsx` or `.jsx` file naming convention.
 
-## Rule Details
+## Why is this good?
+
+Following naming conventions can make code base more consistent and easier to understand, navigate and work with.
+
+## Examples
 
 This rule can be configured to enforce one of the following naming conventions:
 

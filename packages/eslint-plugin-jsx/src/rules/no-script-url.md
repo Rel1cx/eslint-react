@@ -2,9 +2,19 @@
 
 <!-- end auto-generated rule header -->
 
+## Rule category
+
+Security.
+
+## What it does
+
 Prevents usage of `javascript:` URLs as the value of the `href` prop in JSX.
 
-## Rule Details
+## Why is this bad?
+
+Using `javascript:` URLs is harmful to code maintainability, readability, and application security.
+
+## Examples
 
 ### ❌ Incorrect
 

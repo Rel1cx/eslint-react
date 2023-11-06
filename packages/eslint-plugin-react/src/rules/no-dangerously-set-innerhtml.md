@@ -2,9 +2,21 @@
 
 <!-- end auto-generated rule header -->
 
-Disallow when a DOM element is using both children and `dangerouslySetInnerHTML`
+## Rule category
 
-## Rule Details
+Security.
+
+## What it does
+
+Warns when using `dangerouslySetInnerHTML`.
+
+## Why is this bad?
+
+This should be used with extreme caution! If the HTML inside isn’t trusted (for example, if it’s based on user data), you risk introducing an [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerability.
+
+Read more about using [dangerouslySetInnerHTML](https://react.dev/reference/react-dom/components/common#dangerously-setting-the-inner-html).
+
+## Examples
 
 ### ❌ Incorrect
 

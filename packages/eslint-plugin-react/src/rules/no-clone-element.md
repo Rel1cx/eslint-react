@@ -2,9 +2,19 @@
 
 <!-- end auto-generated rule header -->
 
-> Using cloneElement is uncommon and can lead to fragile code. This also makes it harder to trace the data flow. Try the [alternatives](https://react.dev/reference/react/cloneElement#alternatives) instead.
+## Rule category
 
-## Rule Details
+Restriction.
+
+## What it does
+
+Prevents the use of `React.cloneElement`.
+
+## Why is this bad?
+
+Using cloneElement is uncommon and can lead to fragile code. This also makes it harder to trace the data flow. Try the [alternatives](https://react.dev/reference/react/cloneElement#alternatives) instead.
+
+## Examples
 
 ### ❌ Incorrect
 

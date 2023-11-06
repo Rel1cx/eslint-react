@@ -27,7 +27,7 @@ export default {
     return `packages/eslint-plugin-${plugin}/src/rules/${rule}.md`;
   },
   pathRuleList: "README.md",
-  ruleDocSectionInclude: ["Rule Details"],
+  ruleDocSectionInclude: ["Rule category", "What it does", "Examples"],
   ruleDocTitleFormat: "name",
   ruleListColumns: ["name", "description"],
   ruleListSplit(rules) {
