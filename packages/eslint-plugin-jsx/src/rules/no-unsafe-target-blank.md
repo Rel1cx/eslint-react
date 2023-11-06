@@ -2,6 +2,24 @@
 
 <!-- end auto-generated rule header -->
 
-## Rule Details
+## Rule category
 
-This rule warns when using `target="_blank"` on an elements without `rel="noreferrer noopener"`.
+Security.
+
+## What it does
+
+Prevents the use of `target="_blank"` without `rel="noreferrer noopener"`.
+
+## Examples
+
+### ❌ Incorrect
+
+```tsx
+<a href="https://example.com" target="_blank">Example</a>;
+```
+
+### ✅ Correct
+
+```tsx
+<a href="https://example.com" target="_blank" rel="noreferrer noopener">Example</a>;
+```

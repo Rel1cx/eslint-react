@@ -2,9 +2,19 @@
 
 <!-- end auto-generated rule header -->
 
-Enforces the absence of a namespace in React elements, such as with `svg:circle`, as they are not supported in React.
+## Rule category
 
-## Rule Details
+Correctness.
+
+## What it does
+
+Enforces the absence of a namespace in React elements.
+
+## Why is this bad?
+
+Namespaces, such as with `svg:circle` are not supported in React.
+
+## Examples
 
 ### ❌ Incorrect
 

@@ -2,11 +2,19 @@
 
 <!-- end auto-generated rule header -->
 
-Enforce explicit `button` type attribute for `<button>` elements
+## Rule category
 
-## Rule Details
+Suspicious.
 
-The `button` element's `type` attribute must be specified explicitly. The default value is `type="submit"` which can lead to unexpected behavior, especially when used in a form.
+## What it does
+
+Enforces explicit `button` type attribute for `<button>` elements
+
+## Why is this bad?
+
+The `button` element's `type` attribute must be specified explicitly. The default value is `type="submit"` which can easily lead to unexpected behavior, especially when used in a form.
+
+## Examples
 
 ### ❌ Incorrect
 

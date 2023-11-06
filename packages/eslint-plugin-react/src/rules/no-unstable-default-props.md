@@ -2,11 +2,21 @@
 
 <!-- end auto-generated rule header -->
 
-Disallow usage of referential-type variables as default param in function component.
+## Rule category
 
-Warns if in a function component, an object type value (such as array/object literal/function/etc) is used as default prop, to prevent potential unnecessary rerenders, and performance regressions.
+Perf.
 
-## Rule Details
+## What it does
+
+Prevents usage of referential-type variables as default param in function component.
+
+It Warns if in a function component, an object type value (such as array/object literal/function/etc) is used as default prop, to prevent potential unnecessary rerenders, and performance regressions.
+
+## Why is this bad?
+
+When using object destructuring syntax you can set the default value for a given property if it does not exist. If you set the default value to one of the values that is compared by identity, it will mean that each time the destructure is evaluated the JS engine will create a new, distinct value in the destructured variable.
+
+## Examples
 
 Certain values (like arrays, objects, functions, etc) are compared by identity instead of by value. This means that, for example, whilst two empty arrays conceptually represent the same value - JavaScript semantics dictate that they are distinct and unequal as they represent two distinct values.
 

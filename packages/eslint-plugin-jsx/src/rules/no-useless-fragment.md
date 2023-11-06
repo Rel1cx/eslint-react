@@ -2,9 +2,21 @@
 
 <!-- end auto-generated rule header -->
 
+## Rule category
+
+Correctness.
+
+## What it does
+
+Prevents the use of useless fragments.
+
+## Why is this bad?
+
 A fragment is redundant if it contains only one child, or if it is the child of a html element, and is not a [keyed fragment](https://react.dev/reference/react/Fragment#caveats).
 
-## Rule Details
+And, it adds unnecessary visual noise to the code.
+
+## Examples
 
 ### ❌ Incorrect
 

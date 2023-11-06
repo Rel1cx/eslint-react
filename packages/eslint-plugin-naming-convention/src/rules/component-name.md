@@ -2,7 +2,19 @@
 
 <!-- end auto-generated rule header -->
 
-## Rule Details
+## Rule category
+
+Style.
+
+## What it does
+
+Enforces naming conventions for components.
+
+## Why is this good?
+
+Following naming conventions can make code base more consistent and easier to understand, navigate and work with.
+
+## Examples
 
 This rule enforces naming conventions for components. default to `PascalCase`.
 

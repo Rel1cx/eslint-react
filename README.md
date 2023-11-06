@@ -141,7 +141,6 @@ export default [
 | [react/no-missing-iframe-sandbox](packages/eslint-plugin-react/src/rules/no-missing-iframe-sandbox.md)                                   | enforce that iframe elements explicitly specify a sandbox attribute             |
 | [react/no-namespace](packages/eslint-plugin-react/src/rules/no-namespace.md)                                                             | enforce that namespaces are not used in React elements                          |
 | [react/no-string-refs](packages/eslint-plugin-react/src/rules/no-string-refs.md)                                                         | disallow using deprecated string refs                                           |
-| [react/no-string-style-props](packages/eslint-plugin-react/src/rules/no-string-style-props.md)                                           | disallow using string as style props value                                      |
 | [react/no-unsafe-iframe-sandbox](packages/eslint-plugin-react/src/rules/no-unsafe-iframe-sandbox.md)                                     | disallow unsafe iframe sandbox attribute combinations                           |
 | [react/no-unstable-default-props](packages/eslint-plugin-react/src/rules/no-unstable-default-props.md)                                   | disallow usage of unstable value as default param in function component         |
 | [react/no-unstable-nested-components](packages/eslint-plugin-react/src/rules/no-unstable-nested-components.md)                           | disallow usage of unstable nested components                                    |
@@ -187,7 +186,6 @@ export default [
 - [x] `react/no-missing-iframe-sandbox`
 - [x] `react/no-unsafe-iframe-sandbox`
 - [x] `react/no-string-refs`
-- [x] `react/no-string-style-props`
 - [ ] `react/no-children-methods`
 - [x] `react/no-class-component`
 - [x] `react/no-clone-element`

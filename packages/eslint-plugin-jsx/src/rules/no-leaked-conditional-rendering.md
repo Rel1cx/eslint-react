@@ -2,13 +2,19 @@
 
 <!-- end auto-generated rule header -->
 
-Disallow problematic leaked values from being rendered.
+## Rule category
 
-## Rule Details
+Suspicious.
+
+## What it does
+
+Prevent problematic leaked values from being rendered.
+
+## Why is this bad?
 
 Using the && operator to render some element conditionally in JSX can cause unexpected values being rendered, or even crashing the rendering.
 
-This rule aims to prevent dangerous leaked values from being rendered since they can cause unexpected values reaching the final DOM or even crashing your render method.
+## Examples
 
 In React, you might end up rendering unexpected values like 0 or NaN. In React Native, your render method will even crash if you render these values:
 

@@ -2,11 +2,19 @@
 
 <!-- end auto-generated rule header -->
 
-Disallow using deprecated string refs
+## Rule category
 
-## Rule Details
+Restriction.
 
-This rule disallows using deprecated string refs.
+## What it does
+
+Disallows using deprecated string refs
+
+## Why is this bad?
+
+String refs are deprecated in React. Use callback refs instead.
+
+## Examples
 
 ### ❌ Incorrect
 

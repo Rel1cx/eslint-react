@@ -2,9 +2,21 @@
 
 <!-- end auto-generated rule header -->
 
-This rule disallows spreading key from objects.
+## Rule category
 
-## Rule Details
+Suspicious.
+
+## What it does
+
+Disallows spreading `key` from objects.
+
+## Why is this bad?
+
+This makes it hard to see if the key was passed correctly to the element or where it came from.
+
+And it's also be proposed to be deprecated is this RFC: [Deprecate spreading key from objects](https://github.com/reactjs/rfcs/pull/107#issue-413235149)
+
+## Examples
 
 This rule aims to prevent spreading key from objects.
 

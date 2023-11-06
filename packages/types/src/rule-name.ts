@@ -3,7 +3,9 @@
 // Most of the terms are taken from the React glossary on https://react.dev.
 // This file is also used to help GitHub copilot suggest rule names.
 
-export type Namespace = "compat" | "debug" | "experimental" | "hooks" | "jsx" | "naming-convention";
+export type Namespace = "debug" | "experimental" | "hooks" | "jsx" | "naming-convention" | "react";
+
+export type Ban = "ban";
 
 export type PositiveModifier = "ensure" | "prefer" | "strict";
 
@@ -17,14 +19,11 @@ export type NegativeDescriptive =
   | "complicated"
   | "confusing"
   | "constructed"
-  | "dangerously"
-  | "deprecated"
   | "duplicate"
   | "empty"
   | "extra"
   | "falsely"
   | "implicit"
-  | "incompatible"
   | "invalid"
   | "leaked"
   | "legacy"
@@ -32,16 +31,13 @@ export type NegativeDescriptive =
   | "misused"
   | "mixing"
   | "nested"
-  | "outdated"
   | "redundant"
-  | "restricted"
   | "suppressing"
   | "suspicious"
-  | "unescaped"
-  | "uninitialized"
   | "unknown"
   | "unreachable"
   | "unsafe"
+  | "unsorted"
   | "unstable"
   | "unused"
   | "useless";
@@ -94,7 +90,6 @@ export type Term =
   | "document"
   | "effect"
   | "element"
-  | "entities"
   | "error"
   | "event"
   | "event-handler"
@@ -125,7 +120,6 @@ export type Term =
   | "node"
   | "parameter"
   | "prop"
-  | "react"
   | "ref"
   | "render"
   | "return"
@@ -150,15 +144,15 @@ export type Term =
 export type Additional = string;
 
 export type RuleName =
-  | `${NegativeModifier}-${NegativeDescriptive | NeutralDescriptive}-${Term}`
-  | `${NegativeModifier}-${NegativeDescriptive | NeutralDescriptive}-${Term}-${Additional}`
-  | `${PositiveModifier}-${NeutralDescriptive | PositiveDescriptive}-${Term}`
-  | `${PositiveModifier}-${NeutralDescriptive | PositiveDescriptive}-${Term}-${Additional}`
-  | `${PositiveModifier}-${Term}`
-  | `${PositiveModifier}-${Term}-${Additional}`
+  | `${Ban}-${Term}`
+  | `${NeutralModifier}-${Term}`
   // eslint-disable-next-line perfectionist/sort-union-types
-  | `${NegativeModifier | NeutralModifier}-${Term}`
-  | `${NegativeModifier | NeutralModifier}-${Term}-${Additional}`;
+  | `${NegativeModifier}-${NegativeDescriptive}-${Term}`
+  | `${NegativeModifier}-${NeutralDescriptive}-${Term}`
+  | `${PositiveModifier}-${NeutralDescriptive}-${Term}`
+  | `${PositiveModifier}-${PositiveDescriptive}-${Term}`;
+
+export type RuleNameWithAdditional = `${RuleName}-${Additional}`;
 
 // Example rule names
 const _: RuleName = "no-constructed-context-value";
