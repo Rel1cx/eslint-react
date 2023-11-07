@@ -817,6 +817,9 @@ importers:
       eslint-config-with-tsconfig:
         specifier: 2.9.41
         version: 2.9.41(eslint@8.53.0)(tailwindcss@3.3.5)(typescript@5.3.1-rc)
+      eslint-define-config:
+        specifier: 1.24.1
+        version: 1.24.1
       eslint-plugin-mdx:
         specifier: 2.2.0
         version: 2.2.0(eslint@8.53.0)
