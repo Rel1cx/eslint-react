@@ -2,15 +2,15 @@ import "#/styles/globals.css";
 
 import type { AppProps } from "next/app";
 
-import TwoslashPatch from "#/components/TwoslashPatch";
-import { useCustomStyle } from "#/hooks/useCustomStyle";
+// import TwoslashPatch from "#/components/TwoslashPatch";
+// import { useCustomStyle } from "#/hooks/useCustomStyle";
 
 export default function App({ Component, pageProps }: AppProps) {
-  useCustomStyle();
+  // useCustomStyle();
 
   return (
     <>
-      <TwoslashPatch />
+      {/* <TwoslashPatch /> */}
       <Component {...pageProps} />
     </>
   );
