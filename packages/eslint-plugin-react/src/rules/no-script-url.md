@@ -1,4 +1,4 @@
-# jsx/no-script-url
+# react/no-script-url
 
 <!-- end auto-generated rule header -->
 

@@ -2,9 +2,9 @@
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { name, version } from "../package.json";
-import namingConventionComponentName from "./rules/component-name";
-import namingConventionFilename from "./rules/filename";
-import namingConventionFilenameExtension from "./rules/filename-extension";
+import componentName from "./rules/component-name";
+import filename from "./rules/filename";
+import filenameExtension from "./rules/filename-extension";
 
 export const meta = {
   name,
@@ -12,7 +12,7 @@ export const meta = {
 } as const;
 
 export const rules = {
-  "component-name": namingConventionComponentName,
-  filename: namingConventionFilename,
-  "filename-extension": namingConventionFilenameExtension,
+  "component-name": componentName,
+  filename,
+  "filename-extension": filenameExtension,
 } as const;

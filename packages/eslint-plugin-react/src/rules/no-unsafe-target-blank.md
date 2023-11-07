@@ -1,4 +1,4 @@
-# jsx/no-unsafe-target-blank
+# react/no-unsafe-target-blank
 
 <!-- end auto-generated rule header -->
 

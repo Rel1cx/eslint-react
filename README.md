@@ -104,19 +104,17 @@ export default [
 
 ### jsx
 
-| Name                                                                                                           | Description                                                    |
-| :------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------- |
-| [jsx/no-array-index-key](packages/eslint-plugin-jsx/src/rules/no-array-index-key.md)                           | disallow using Array index as key                              |
-| [jsx/no-comment-textnodes](packages/eslint-plugin-jsx/src/rules/no-comment-textnodes.md)                       | disallow comments from being inserted as text nodes            |
-| [jsx/no-duplicate-key](packages/eslint-plugin-jsx/src/rules/no-duplicate-key.md)                               | disallow duplicate keys in `key` prop when rendering list      |
-| [jsx/no-leaked-conditional-rendering](packages/eslint-plugin-jsx/src/rules/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered         |
-| [jsx/no-missing-key](packages/eslint-plugin-jsx/src/rules/no-missing-key.md)                                   | require `key` prop when rendering list                         |
-| [jsx/no-script-url](packages/eslint-plugin-jsx/src/rules/no-script-url.md)                                     | disallow `javascript:` URLs as JSX event handler prop's value  |
-| [jsx/no-spreading-key](packages/eslint-plugin-jsx/src/rules/no-spreading-key.md)                               | disallow spreading key from objects.                           |
-| [jsx/no-unsafe-target-blank](packages/eslint-plugin-jsx/src/rules/no-unsafe-target-blank.md)                   | disallow `target="_blank"` without `rel="noreferrer noopener"` |
-| [jsx/no-useless-fragment](packages/eslint-plugin-jsx/src/rules/no-useless-fragment.md)                         | disallow unnecessary fragments                                 |
-| [jsx/prefer-shorthand-boolean](packages/eslint-plugin-jsx/src/rules/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX                     |
-| [jsx/prefer-shorthand-fragment](packages/eslint-plugin-jsx/src/rules/prefer-shorthand-fragment.md)             | enforce using fragment syntax instead of `Pragma.Fragment`     |
+| Name                                                                                                           | Description                                                |
+| :------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------- |
+| [jsx/no-array-index-key](packages/eslint-plugin-jsx/src/rules/no-array-index-key.md)                           | disallow using Array index as key                          |
+| [jsx/no-comment-textnodes](packages/eslint-plugin-jsx/src/rules/no-comment-textnodes.md)                       | disallow comments from being inserted as text nodes        |
+| [jsx/no-duplicate-key](packages/eslint-plugin-jsx/src/rules/no-duplicate-key.md)                               | disallow duplicate keys in `key` prop when rendering list  |
+| [jsx/no-leaked-conditional-rendering](packages/eslint-plugin-jsx/src/rules/no-leaked-conditional-rendering.md) | disallow problematic leaked values from being rendered     |
+| [jsx/no-missing-key](packages/eslint-plugin-jsx/src/rules/no-missing-key.md)                                   | require `key` prop when rendering list                     |
+| [jsx/no-spreading-key](packages/eslint-plugin-jsx/src/rules/no-spreading-key.md)                               | disallow spreading key from objects.                       |
+| [jsx/no-useless-fragment](packages/eslint-plugin-jsx/src/rules/no-useless-fragment.md)                         | disallow unnecessary fragments                             |
+| [jsx/prefer-shorthand-boolean](packages/eslint-plugin-jsx/src/rules/prefer-shorthand-boolean.md)               | enforce boolean attributes notation in JSX                 |
+| [jsx/prefer-shorthand-fragment](packages/eslint-plugin-jsx/src/rules/prefer-shorthand-fragment.md)             | enforce using fragment syntax instead of `Pragma.Fragment` |
 
 ### naming-convention
 
@@ -140,8 +138,10 @@ export default [
 | [react/no-missing-button-type](packages/eslint-plugin-react/src/rules/no-missing-button-type.md)                                         | enforce that button elements have an explicit type attribute                    |
 | [react/no-missing-iframe-sandbox](packages/eslint-plugin-react/src/rules/no-missing-iframe-sandbox.md)                                   | enforce that iframe elements explicitly specify a sandbox attribute             |
 | [react/no-namespace](packages/eslint-plugin-react/src/rules/no-namespace.md)                                                             | enforce that namespaces are not used in React elements                          |
+| [react/no-script-url](packages/eslint-plugin-react/src/rules/no-script-url.md)                                                           | disallow `javascript:` URLs as JSX event handler prop's value                   |
 | [react/no-string-refs](packages/eslint-plugin-react/src/rules/no-string-refs.md)                                                         | disallow using deprecated string refs                                           |
 | [react/no-unsafe-iframe-sandbox](packages/eslint-plugin-react/src/rules/no-unsafe-iframe-sandbox.md)                                     | disallow unsafe iframe sandbox attribute combinations                           |
+| [react/no-unsafe-target-blank](packages/eslint-plugin-react/src/rules/no-unsafe-target-blank.md)                                         | disallow `target="_blank"` without `rel="noreferrer noopener"`                  |
 | [react/no-unstable-default-props](packages/eslint-plugin-react/src/rules/no-unstable-default-props.md)                                   | disallow usage of unstable value as default param in function component         |
 | [react/no-unstable-nested-components](packages/eslint-plugin-react/src/rules/no-unstable-nested-components.md)                           | disallow usage of unstable nested components                                    |
 | [react/prefer-destructuring-assignment](packages/eslint-plugin-react/src/rules/prefer-destructuring-assignment.md)                       | enforce using destructuring assignment in component props and context           |
@@ -154,46 +154,72 @@ export default [
 
 #### JSX rules
 
-- [x] `jsx/no-array-index-key`
-- [x] `jsx/no-children-in-void-dom-elements`
+- [x] `jsx/no-missing-key`
 - [x] `jsx/no-duplicate-key`
 - [x] `jsx/no-spreading-key`
-- [x] `jsx/no-missing-key`
+- [x] `jsx/no-array-index-key`
+- [x] `jsx/no-useless-fragment`
 - [x] `jsx/no-comment-textnodes`
 - [x] `jsx/no-leaked-conditional-rendering`
-- [x] `jsx/no-namespace`
-- [x] `jsx/no-script-url`
-- [x] `jsx/no-useless-fragment`
-- [ ] `jsx/no-unknown-property`
-- [x] `jsx/no-unsafe-target-blank`
-- [x] `jsx/prefer-shorthand-fragment`
 - [x] `jsx/prefer-shorthand-boolean`
+- [x] `jsx/prefer-shorthand-fragment`
+- [ ] `jsx/no-bind`
+- [ ] `jsx/max-depth`
+- [ ] `jsx/no-complicated-conditional-rendering`
 
 #### Naming convention rules
 
 - [x] `naming-convention/component-name`
 - [x] `naming-convention/filename`
 - [x] `naming-convention/filename-extension`
+- [ ] `naming-convention/boolean-prop`
+- [ ] `naming-convention/handler-prop`
+- [ ] `naming-convention/use-state`
 
 #### React rules
 
+- [x] `react/no-children-in-void-dom-elements`
+- [ ] `react/no-children-methods`
+- [ ] `react/no-children-prop`
+- [x] `react/no-class-component`
+- [x] `react/no-clone-element`
 - [x] `react/no-constructed-context-value`
+- [ ] `react/no-create-class`
+- [x] `react/no-createRef`
 - [x] `react/no-dangerously-set-innerhtml-with-children`
 - [x] `react/no-dangerously-set-innerhtml`
 - [ ] `react/no-direct-mutation-state`
-- [ ] `react/no-missing-display-name`
+- [ ] `react/no-find-dom-node`
+- [ ] `react/no-is-mounted`
 - [x] `react/no-missing-button-type`
+- [x] `react/no-missing-display-name`
 - [x] `react/no-missing-iframe-sandbox`
-- [x] `react/no-unsafe-iframe-sandbox`
+- [x] `react/no-namespace`
+- [ ] `react/no-redundant-should-component-update`
+- [ ] `react/no-render-return-value`
+- [x] `react/no-script-url`
+- [ ] `react/no-set-state-in-component-did-mount`
+- [ ] `react/no-set-state-in-component-did-update`
+- [ ] `react/no-set-state-in-component-will-update`
 - [x] `react/no-string-refs`
-- [ ] `react/no-children-methods`
-- [x] `react/no-class-component`
-- [x] `react/no-clone-element`
-- [x] `react/no-createRef`
+- [ ] `react/no-unsafe-component-did-mount`
+- [ ] `react/no-unsafe-component-did-update`
+- [ ] `react/no-unsafe-component-will-receive-props`
+- [ ] `react/no-unsafe-component-will-update`
+- [x] `react/no-unsafe-iframe-sandbox`
+- [x] `react/no-unsafe-target-blank`
+- [ ] `react/no-unsorted-class-component-methods`
 - [x] `react/no-unstable-default-props`
 - [x] `react/no-unstable-nested-components`
 - [ ] `react/no-unused-class-component-methods`
-- [ ] `react/no-unsorted-class-component-methods`
+- [ ] `react/no-unused-state`
+- [ ] `react/no-access-ref-current-during-rendering`
+- [x] `react/prefer-destructuring-assignment`
+- [ ] `react/prefer-readonly-props`
+- [ ] `react/ban-component-props`
+- [ ] `react/ban-components`
+- [ ] `react/ban-html-props`
+- [ ] `react/ban-svg-props`
 
 #### Hooks rules
 
@@ -208,11 +234,6 @@ export default [
 - [x] `debug/hooks`
 - [ ] `debug/render-prop`
 - [ ] `debug/context`
-
-### Planned (will be added in the future)
-
-- [ ] `jsx/no-complicated-conditional-rendering`
-- [ ] `react/no-access-ref-current-during-rendering`
 
 ## Philosophy
 
@@ -240,6 +261,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [eslint-plugin-filenames-simple](https://github.com/epaew/eslint-plugin-filenames-simple)
 - [@tanstack/eslint-plugin-query](https://github.com/TanStack/query/tree/main/packages/eslint-plugin-query)
 - [rome/tools](https://github.com/rome/tools)
+- [rust-clippy](https://github.com/rust-lang/rust-clippy)
 
 ## Prior art
 

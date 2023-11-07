@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin-react",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "React specific rules for ESLint",
   "homepage": "https://github.com/eslint-react/eslint-react",
   "bugs": {

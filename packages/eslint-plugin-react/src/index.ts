@@ -11,8 +11,10 @@ import noDangerouslySetInnerHTMLWithChildren from "./rules/no-dangerously-set-in
 import noMissingButtonType from "./rules/no-missing-button-type";
 import noMissingIframeSandbox from "./rules/no-missing-iframe-sandbox";
 import noNamespace from "./rules/no-namespace";
+import noScriptUrl from "./rules/no-script-url";
 import noStringRefs from "./rules/no-string-refs";
 import noUnsafeIframeSandbox from "./rules/no-unsafe-iframe-sandbox";
+import noUnsafeTargetBlank from "./rules/no-unsafe-target-blank";
 import noUnstableDefaultProps from "./rules/no-unstable-default-props";
 import noUnstableNestedComponents from "./rules/no-unstable-nested-components";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
@@ -33,8 +35,10 @@ export const rules = {
   "no-missing-button-type": noMissingButtonType,
   "no-missing-iframe-sandbox": noMissingIframeSandbox,
   "no-namespace": noNamespace,
+  "no-script-url": noScriptUrl,
   "no-string-refs": noStringRefs,
   "no-unsafe-iframe-sandbox": noUnsafeIframeSandbox,
+  "no-unsafe-target-blank": noUnsafeTargetBlank,
   "no-unstable-default-props": noUnstableDefaultProps,
   "no-unstable-nested-components": noUnstableNestedComponents,
   "prefer-destructuring-assignment": preferDestructuringAssignment,
