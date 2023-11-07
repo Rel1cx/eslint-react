@@ -21,7 +21,9 @@
   },
   "include": [
     "next-env.d.ts",
+    ".eslintrc.cjs",
     "*.config.js",
+    "*.config.cjs",
     "*.config.mjs",
     "**/*.ts",
     "**/*.tsx"
