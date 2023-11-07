@@ -10,6 +10,7 @@ module.exports = defineConfig({
   },
   ignorePatterns: [
     "examples",
+    "website",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {

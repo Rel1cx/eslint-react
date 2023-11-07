@@ -38,12 +38,12 @@ bun add --dev @eslint-react/eslint-plugin
 
 ## Usage
 
-### [`.eslintrc.cjs`](https://eslint.org/docs/latest/use/configure/configuration-files)
+### [`.eslintrc.js`](https://eslint.org/docs/latest/use/configure/configuration-files)
 
 ```js
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true },
+  env: { browser: true, es2021: true },
   parser: "@typescript-eslint/parser",
   extends: [
     "eslint:recommended",
@@ -52,7 +52,7 @@ module.exports = {
     "plugin:@eslint-react/recommended-legacy",
   ],
   plugins: ["@typescript-eslint", "react-hooks"],
-  ignorePatterns: ["dist", ".eslintrc.cjs"],
+  ignorePatterns: ["dist", ".eslintrc.js"],
 };
 ```
 
