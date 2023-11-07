@@ -1,0 +1,12 @@
+{
+  "@eslint-react/eslint-plugin": {
+    "title": "@eslint-react/eslint-plugin",
+    "href": "https://github.com/eslint-react/eslint-react",
+    "newWindow": true
+  },
+  "@eslint-react/jsx": {
+    "title": "@eslint-react/jsx",
+    "href": "https://github.com/eslint-react/eslint-react/tree/main/packages/jsx",
+    "newWindow": true
+  }
+}

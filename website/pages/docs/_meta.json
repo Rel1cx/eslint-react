@@ -1,0 +1,14 @@
+{
+  "-Getting Started": {
+    "title": "Getting Started",
+    "type": "separator"
+  },
+  "installation": "Installation",
+  "-Other": {
+    "title": "Other",
+    "type": "separator"
+  },
+  "glossary": "Glossary",
+  "rules-over-options": "Rules Over Options",
+  "packages": "Published Packages"
+}

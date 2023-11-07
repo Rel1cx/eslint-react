@@ -1,0 +1,14 @@
+{
+  "index": {
+    "type": "page",
+    "display": "hidden"
+  },
+  "docs": {
+    "title": "Documentation",
+    "type": "page"
+  },
+  "rules": {
+    "title": "Rules",
+    "type": "page"
+  }
+}

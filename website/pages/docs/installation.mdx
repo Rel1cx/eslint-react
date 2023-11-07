@@ -1,0 +1,88 @@
+import { Tab, Tabs } from "nextra-theme-docs";
+
+# Quickstart
+
+## Install
+
+<Tabs items={[ "npm", "pnpm", "yarn", "Bun"]}>
+<Tab>
+```bash filename="Terminal"
+npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react-hooks @eslint-react/eslint-plugin
+
+npm install --save-dev @eslint-react/eslint-plugin
+```
+</Tab>
+<Tab>
+```bash filename="Terminal"
+pnpm add --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react-hooks @eslint-react/eslint-plugin
+
+pnpm add --save-dev @eslint-react/eslint-plugin
+```
+
+</Tab>
+<Tab>
+```bash filename="Terminal"
+yarn add --dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react-hooks @eslint-react/eslint-plugin
+
+yarn add --dev @eslint-react/eslint-plugin
+
+```
+</Tab>
+<Tab>
+```bash filename="Terminal"
+bun add --dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react-hooks @eslint-react/eslint-plugin
+
+bun add --dev @eslint-react/eslint-plugin
+```
+
+</Tab>
+</Tabs>
+
+## Setup
+
+<Tabs items={["LegacyConfig", "FlatConfig"]}>
+<Tab>
+```js filename="".eslintrc.js"
+module.exports = {
+  root: true,
+  env: { browser: true, es2021: true },
+  parser: "@typescript-eslint/parser",
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@eslint-react/recommended-legacy",
+  ],
+  plugins: ["@typescript-eslint", "react-hooks"],
+  ignorePatterns: ["dist", ".eslintrc.js"],
+};
+```
+</Tab>
+<Tab>
+```js filename="eslint.config.js"
+import ts from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
+import react from "@eslint-react/eslint-plugin";
+import reactHooks from "eslint-plugin-react-hooks";
+
+export default [
+  {
+    files: ["**/*.{ts,tsx}"],
+    languageOptions: {
+      parser: tsParser,
+    },
+    plugins: {
+      "@typescript-eslint": ts,
+      "react-hooks": reactHooks,
+    },
+    rules: {
+      ...ts.configs["eslint-recommended"].rules,
+      ...ts.configs["recommended"].rules,
+      ...reactHooks.configs.recommended.rules,
+    },
+  },
+  react.configs.recommended,
+];
+```
+</Tab>
+</Tabs>
