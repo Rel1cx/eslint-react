@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/ast",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "AST Utility Module for Static Analysis of TypeScript",
   "homepage": "https://github.com/eslint-react/eslint-react",
   "bugs": {
