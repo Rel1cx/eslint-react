@@ -1,5 +1,7 @@
 import { Head, Html, Main, NextScript } from "next/document";
 
+import { PUBLIC_URL } from "#/constants";
+
 export default function Document() {
   const metaTitle = "eslint-react";
   const metaDescription = "A set of toolkit to write better React";
@@ -9,10 +11,10 @@ export default function Document() {
       <Head>
         <meta name="og:title" content={metaTitle} />
         <meta name="og:description" content={metaDescription} />
-        {/* <meta name="og:image" content={`${deployUrl}/og.png`} /> */}
+        <meta name="og:image" content={`${PUBLIC_URL}/og.png`} />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
-        {/* <meta name="twitter:image" content={`${deployUrl}/og.png`} /> */}
+        <meta name="twitter:image" content={`${PUBLIC_URL}/og.png`} />
       </Head>
       <body>
         <Main />

@@ -2,6 +2,9 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import type { DocsThemeConfig } from "nextra-theme-docs";
+import { match, P } from "ts-pattern";
+
+import { PUBLIC_URL } from "#/constants";
 
 import logo from "./assets/logo.svg";
 
@@ -11,22 +14,22 @@ export default {
     defaultMenuCollapseLevel: 1,
   },
   useNextSeoProps() {
-    const { asPath } = useRouter();
-    if (asPath !== "/") {
-      return {
-        titleTemplate: "%s - eslint-react",
-      };
-    }
-
-    return {
-      title: "Home - eslint-react",
-      description: "ESLint plugin for React function components with TypeScript, built (mostly) from scratch.",
-    };
+    return match(useRouter())
+      .with({ asPath: "/" }, () => ({
+        title: "ESLint React",
+        description: "ESLint plugin for React function components with TypeScript, built (mostly) from scratch.",
+      }))
+      .with({ asPath: P.string.startsWith("/rules/") }, () => ({
+        titleTemplate: "Rule: %s",
+      }))
+      .otherwise(() => ({
+        titleTemplate: "%s – ESLint React",
+      }));
   },
   head: (
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta property="og:title" content="eslint-react" />
+      <meta property="og:title" content="ESLint React" />
       <meta
         property="og:description"
         content="ESLint plugin for React function components with TypeScript, built (mostly) from scratch."
@@ -34,19 +37,19 @@ export default {
       <link
         rel="apple-touch-icon"
         sizes="180x180"
-        href="/apple-touch-icon.png"
+        href={`${PUBLIC_URL}/apple-touch-icon.png`}
       />
       <link
         rel="icon"
         type="image/png"
         sizes="32x32"
-        href="/favicon-32x32.png"
+        href={`${PUBLIC_URL}/favicon-32x32.png`}
       />
       <link
         rel="icon"
         type="image/png"
         sizes="16x16"
-        href="/favicon-16x16.png"
+        href={`${PUBLIC_URL}/favicon-16x16.png`}
       />
     </>
   ),
@@ -59,6 +62,6 @@ export default {
     link: "https://github.com/eslint-react/eslint-react",
   },
   footer: {
-    text: <span>MIT {new Date().getFullYear()} © eslint-react.</span>,
+    text: <span>MIT {new Date().getFullYear()} © ESLint React.</span>,
   },
 } satisfies DocsThemeConfig;
