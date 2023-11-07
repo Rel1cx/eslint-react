@@ -103,7 +103,7 @@
     "vitest": "0.34.6"
   },
   "peerDependencies": {
-    "@typescript-eslint/parser": ">=6.9.1",
+    "@typescript-eslint/parser": ">=6.10.0",
     "eslint": ">=8.53.0",
     "typescript": ">=5.2.2"
   },
@@ -120,11 +120,11 @@
       "has": "npm:@nolyfill/has@latest",
       "eslint": ">=8.53.0",
       "typescript": "rc",
-      "@typescript-eslint/scope-manager": "6.9.1",
-      "@typescript-eslint/type-utils": "6.9.1",
-      "@typescript-eslint/types": "6.9.1",
-      "@typescript-eslint/utils": "6.9.1",
-      "@typescript-eslint/parser": ">=6.9.1"
+      "@typescript-eslint/scope-manager": "6.10.0",
+      "@typescript-eslint/type-utils": "6.10.0",
+      "@typescript-eslint/types": "6.10.0",
+      "@typescript-eslint/utils": "6.10.0",
+      "@typescript-eslint/parser": ">=6.10.0"
     },
     "patchedDependencies": {
       "eslint-doc-generator@1.5.2": "patches/eslint-doc-generator@1.5.2.patch"
