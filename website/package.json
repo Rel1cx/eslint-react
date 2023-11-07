@@ -17,8 +17,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@eslint-react/eslint-plugin": "workspace:*",
-    "@eslint-react/tools": "workspace:*",
+    "@eslint-react/eslint-plugin": "latest",
     "@mdx-js/mdx": "3.0.0",
     "@types/node": "20.8.10",
     "@types/react": "18.2.36",

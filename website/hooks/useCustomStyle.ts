@@ -1,4 +1,4 @@
-import { O } from "@eslint-react/tools";
+import * as O from "effect/Option";
 import { useEffect, useState } from "react";
 
 function getOneSidePadding(mainElement: HTMLElement) {

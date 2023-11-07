@@ -776,11 +776,8 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@eslint-react/eslint-plugin':
-        specifier: workspace:*
+        specifier: latest
         version: link:../packages/eslint-plugin
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../packages/tools
       '@mdx-js/mdx':
         specifier: 3.0.0
         version: 3.0.0
