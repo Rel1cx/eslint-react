@@ -704,9 +704,6 @@ importers:
       '@typescript-eslint/utils':
         specifier: 6.10.0
         version: 6.10.0(eslint@8.53.0)(typescript@5.3.1-rc)
-      micro-memoize:
-        specifier: 4.1.2
-        version: 4.1.2
     devDependencies:
       '@eslint-react/ast':
         specifier: workspace:*
@@ -717,6 +714,9 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../types
+      micro-memoize:
+        specifier: 4.1.2
+        version: 4.1.2
 
   packages/shared:
     dependencies:
@@ -8685,7 +8685,7 @@ packages:
 
   /micro-memoize@4.1.2:
     resolution: {integrity: sha512-+HzcV2H+rbSJzApgkj0NdTakkC+bnyeiUxgT6/m7mjcz1CmM22KYFKp+EVj1sWe4UYcnriJr5uqHQD/gMHLD+g==}
-    dev: false
+    dev: true
 
   /micromark-core-commonmark@1.1.0:
     resolution: {integrity: sha512-BgHO1aRbolh2hcrzL2d1La37V0Aoz73ymF8rAcKnohLy93titmv62E0gP8Hrx9PKcKrqCZ1BbLGbP3bEhoXYlw==}
