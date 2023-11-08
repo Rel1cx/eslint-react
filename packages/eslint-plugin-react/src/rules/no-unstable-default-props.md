@@ -12,7 +12,7 @@ Prevents usage of referential-type values as default props in object destructuri
 
 ## Why is this bad?
 
-When using object destructuring syntax you can set the default value for a given property if it does not exist. If you set the default value to one of the values that is compared by identity, it will mean that each time the destructure is evaluated the JS engine will create a new, distinct value in the destructured variable.
+When using object destructuring syntax you can set the default value for a given property if it does not exist. If you set the default value to one of the values that is compared by identity, then each time the destructuring is evaluated, the JS engine will create a new, distinct value in the destructured variable.
 
 This harms performance as it means that React will have to re-evaluate hooks and re-render memoized components more often than necessary.
 
