@@ -13,13 +13,18 @@
       "cache": true,
       "dependsOn": [
         "^build"
-      ]
+      ],
+      "outputs": ["dist/**"]
     },
     "build:docs": {
       "cache": true,
       "dependsOn": [
         "build"
-      ]
+      ],
+      "outputs": ["docs/**"]
+    },
+    "clean": {
+      "cache": false
     }
   }
 }
