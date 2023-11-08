@@ -34,7 +34,7 @@
     "build:docs": "pnpm --filter \"@eslint-react/*\" run --parallel build:docs && eslint-doc-generator",
     "build:force": "turbo build --force --filter='./packages/*'",
     "build:manual": "bun run --bun ./scripts/build.ts",
-    "build:website": "bun run --bun ./scripts/build-website.ts",
+    "build:website": "pnpm run update:website && pnpm --filter website run build",
     "clean": "rm -r -f packages/*/dist packages/*/docs **/*/node_modules pnpm-lock.yaml",
     "format:check": "dprint check",
     "format:write": "dprint fmt",
@@ -52,7 +52,8 @@
     "test": "vitest --run --logHeapUsage",
     "test:fast": "bun test",
     "test:ui": "vitest --ui",
-    "update": "taze"
+    "update": "taze",
+    "update:website": "bun run --bun ./scripts/update-website.ts"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "25.0.7",
@@ -117,18 +118,18 @@
   },
   "pnpm": {
     "overrides": {
-      "react": "^18.2.0",
-      "react-dom": "^18.2.0",
-      "eslint": ">=8.53.0",
-      "typescript": "rc",
+      "@typescript-eslint/parser": ">=6.10.0",
       "@typescript-eslint/scope-manager": "6.10.0",
       "@typescript-eslint/type-utils": "6.10.0",
       "@typescript-eslint/types": "6.10.0",
       "@typescript-eslint/utils": "6.10.0",
-      "@typescript-eslint/parser": ">=6.10.0",
-      "has": "npm:@nolyfill/has@latest",
+      "eslint": ">=8.53.0",
+      "eslint-doc-generator": "1.5.2",
       "eslint-plugin-import": "npm:eslint-plugin-i@latest",
-      "eslint-doc-generator": "1.5.2"
+      "has": "npm:@nolyfill/has@latest",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "typescript": "rc"
     },
     "patchedDependencies": {
       "eslint-doc-generator@1.5.2": "patches/eslint-doc-generator@1.5.2.patch"

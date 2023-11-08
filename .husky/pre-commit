@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-pnpm run format:write
+pnpm run format:check
 pnpm run lint
 pnpm run build
 pnpm run build:docs
-pnpm dprint fmt README.md
+pnpm run update:website
 pnpm run test:fast
 git add .

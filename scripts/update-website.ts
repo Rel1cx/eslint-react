@@ -46,7 +46,3 @@ const overviewContentUpdated = overviewContent.replaceAll(
   (_, ns, name) => `${ns}-${name}`,
 );
 await Bun.write(overview, overviewContentUpdated);
-
-Bun.spawnSync(["pnpm", "--filter", "website", "run", "build"], {
-  stdio: ["inherit", "inherit", "inherit"],
-});
