@@ -1,8 +1,9 @@
 import { Image } from "#/components/Image";
 import { Warning } from "#/components/Callout";
+import { PUBLIC_URL } from "#/constants";
 
 <p align="center">
-  <Image src="/logo.svg" alt="logo" width="150" height="150" />
+  <Image src={`${PUBLIC_URL}/logo.svg`} alt="logo" width="150" height="150" />
 </p>
 
 <h1 align="center" alt="title">

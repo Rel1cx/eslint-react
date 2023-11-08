@@ -1,12 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import Image from "next/image";
 import { useRouter } from "next/router";
 import type { DocsThemeConfig } from "nextra-theme-docs";
 import { match, P } from "ts-pattern";
 
 import { PUBLIC_URL } from "#/constants";
-
-import logo from "./assets/logo.svg";
 
 export default {
   docsRepositoryBase: "https://github.com/eslint-react/eslint-react/tree/main/website",
@@ -51,11 +48,12 @@ export default {
         sizes="16x16"
         href={`${PUBLIC_URL}/favicon-16x16.png`}
       />
+      <link rel="preconnect" href="https://cdn.jsdelivr.net" />
     </>
   ),
   logo: (
     <div className="w-24">
-      <Image src={logo} width="48" height="48" alt="eslint-react" />
+      <Image src={`${PUBLIC_URL}/logo.svg`} width="48" height="48" alt="eslint-react" />
     </div>
   ),
   project: {
