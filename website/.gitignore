@@ -40,3 +40,4 @@ next-env.d.ts
 .direnv/
 
 /pages/rules/*.md
+!/pages/rules/overview.md

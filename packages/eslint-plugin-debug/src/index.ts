@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/no-keyword-prefix */
 // workaround for @typescript-eslint/utils's TS2742 error.
 import type { ESLintUtils } from "@typescript-eslint/utils";
 

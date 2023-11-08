@@ -1,4 +1,9 @@
 {
+  "overview": "Overview",
+  "-Rule List": {
+    "type": "separator",
+    "title": "Rule List"
+  },
   "jsx-no-array-index-key": "jsx/no-array-index-key",
   "jsx-no-comment-textnodes": "jsx/no-comment-textnodes",
   "jsx-no-duplicate-key": "jsx/no-duplicate-key",

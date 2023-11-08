@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/no-keyword-prefix */
 import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
 import { componentCollector, componentCollectorLegacy } from "@eslint-react/core";
 import { elementType } from "@eslint-react/jsx";

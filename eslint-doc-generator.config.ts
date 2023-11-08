@@ -3,6 +3,7 @@ import type { GenerateOptions } from "eslint-doc-generator";
 import type { RuleNamesAndRules } from "eslint-doc-generator/dist/lib/types";
 
 const defaultTitle = "react";
+const order = ["jsx", "react", "hooks", "naming-convention", "debug"] as const;
 
 export default {
   configEmoji: [
@@ -26,7 +27,7 @@ export default {
 
     return `packages/eslint-plugin-${plugin}/src/rules/${rule}.md`;
   },
-  pathRuleList: "README.md",
+  pathRuleList: "website/pages/rules/overview.md",
   ruleDocSectionInclude: ["Rule category", "What it does", "Examples"],
   ruleDocTitleFormat: "name",
   ruleListColumns: ["name", "description"],
@@ -40,6 +41,8 @@ export default {
       };
     }, {});
 
-    return Object.entries(record).map(([title, rules]) => ({ title, rules }));
+    return Object.entries(record)
+      .sort(([a], [b]) => order.findIndex((x) => a.startsWith(x)) - order.findIndex((x) => b.startsWith(x)))
+      .map(([title, rules]) => ({ title, rules }));
   },
 } satisfies GenerateOptions;
