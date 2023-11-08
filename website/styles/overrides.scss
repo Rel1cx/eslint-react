@@ -1,0 +1,35 @@
+h1, h2, h3 {
+  & + img {
+    margin-top: 24px;
+  }
+}
+
+.nextra-nav-container {
+  nav {
+    a {
+      font-weight: 600;
+    }
+  }
+}
+
+.nextra-sidebar-container {
+  ul li {
+    font-weight: 600;
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      "Noto Sans",
+      Ubuntu,
+      Cantarell,
+      "Helvetica Neue",
+      Arial,
+      sans-serif,
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
+      "Segoe UI Symbol",
+      "Noto Color Emoji";
+  }
+}
