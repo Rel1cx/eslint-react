@@ -6,22 +6,6 @@ const defaultTitle = "react";
 const order = ["jsx", "react", "hooks", "naming-convention", "debug"] as const;
 
 export default {
-  configEmoji: [
-    ["recommended", "👍"],
-    ["recommended-type-checked", "🔍"],
-    ["debug", "🛠️"],
-  ],
-  ignoreConfig: [
-    "debug-legacy",
-    "all-legacy",
-    "off-legacy",
-    "recommended-legacy",
-    "recommended-type-checked-legacy",
-
-    "all",
-    "off",
-    "recommended-type-checked",
-  ],
   pathRuleDoc(name) {
     const [plugin, rule] = name.split("/");
 
