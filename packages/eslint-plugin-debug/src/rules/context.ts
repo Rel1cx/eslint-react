@@ -12,7 +12,7 @@ export default createRule<[], MessageID>({
     type: "suggestion",
     docs: {
       // eslint-disable-next-line eslint-plugin/require-meta-docs-description
-      description: "reports all context providers",
+      description: "report all context providers",
       requiresTypeChecking: false,
     },
     schema: [],

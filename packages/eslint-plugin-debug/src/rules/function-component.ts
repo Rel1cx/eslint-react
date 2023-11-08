@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
     type: "suggestion",
     docs: {
       // eslint-disable-next-line eslint-plugin/require-meta-docs-description
-      description: "reports all function components, including anonymous ones",
+      description: "report all function components, including anonymous ones",
       requiresTypeChecking: false,
     },
     schema: [],

@@ -8,7 +8,7 @@ Verbose.
 
 ## What it does
 
-Warns when a React Hook is found. Useful for debugging.
+Reports all react hooks. Useful for debugging.
 
 > **Warning**
 > This rule should only be used for debugging purposes.

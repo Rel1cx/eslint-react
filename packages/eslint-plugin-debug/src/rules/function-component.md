@@ -8,7 +8,7 @@ Verbose.
 
 ## What it does
 
-Warns when a function component is found. Useful for debugging.
+Reports all function components. Useful for debugging.
 
 > **Warning**
 > This rule should only be used for debugging purposes.

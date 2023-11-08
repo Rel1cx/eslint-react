@@ -8,7 +8,7 @@ Verbose.
 
 ## What it does
 
-Warns when a class component is found. Useful for debugging.
+Reports all class components. Useful for debugging.
 
 > **Warning**
 > This rule should only be used for debugging purposes.

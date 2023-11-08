@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
     type: "suggestion",
     docs: {
       // eslint-disable-next-line eslint-plugin/require-meta-docs-description
-      description: "reports all react hooks",
+      description: "report all react hooks",
       requiresTypeChecking: false,
     },
     schema: [],
