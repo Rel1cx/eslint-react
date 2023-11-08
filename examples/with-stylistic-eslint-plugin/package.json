@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "latest",
-    "@stylistic/eslint-plugin-jsx": "1.0.0",
+    "@stylistic/eslint-plugin": "1.0.1",
     "@tsconfig/node20": "20.1.2",
     "@tsconfig/strictest": "2.0.2",
     "@types/react": "18.2.36",
