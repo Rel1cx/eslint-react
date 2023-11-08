@@ -25,6 +25,8 @@
     "@types/react-dom": "18.2.14",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": ">=6.10.0",
+    "@vanilla-extract/css": "1.13.0",
+    "@vanilla-extract/next-plugin": "2.3.1",
     "autoprefixer": "10.4.16",
     "effect": "2.0.0-next.54",
     "eslint": ">=8.53.0",
@@ -42,5 +44,15 @@
     "sass": "1.69.5",
     "typescript": "5.2.2"
   },
-  "packageManager": "pnpm@8.10.2"
+  "packageManager": "pnpm@8.10.2",
+  "pnpm": {
+    "overrides": {
+      "react": "latest",
+      "react-dom": "latest",
+      "typescript": "latest",
+      "@typescript-eslint/eslint-plugin": "latest",
+      "@typescript-eslint/parser": "latest",
+      "eslint-plugin-import": "npm:eslint-plugin-i@latest"
+    }
+  }
 }

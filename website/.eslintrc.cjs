@@ -24,4 +24,15 @@ module.exports = defineConfig({
     "plugin:mdx/recommended",
   ],
   plugins: ["react-hooks", "mdx"],
+  rules: {
+    "unicorn/new-for-builtins": "off",
+    "unicorn/no-keyword-prefix": "off",
+    "unicorn/no-array-method-this-argument": "off",
+    "unicorn/template-indent": [
+      "warn",
+      {
+        indent: 2,
+      },
+    ],
+  },
 });

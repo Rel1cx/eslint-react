@@ -115,6 +115,7 @@ module.exports = defineConfig({
     "simple-import-sort/exports": "warn",
     "simple-import-sort/imports": "warn",
     "unicorn/new-for-builtins": "off",
+    "unicorn/no-keyword-prefix": "off",
     "unicorn/no-array-method-this-argument": "off",
     "unicorn/template-indent": [
       "warn",
