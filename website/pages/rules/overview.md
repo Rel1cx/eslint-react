@@ -4,8 +4,8 @@
 
 ## jsx
 
-| Name                                                                                                                    | Description                                                |
-| :---------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------- |
+| Name                                                                       | Description                                                |
+| :------------------------------------------------------------------------- | :--------------------------------------------------------- |
 | [jsx/no-array-index-key](jsx-no-array-index-key)                           | disallow using Array index as key                          |
 | [jsx/no-comment-textnodes](jsx-no-comment-textnodes)                       | disallow comments from being inserted as text nodes        |
 | [jsx/no-duplicate-key](jsx-no-duplicate-key)                               | disallow duplicate keys in `key` prop when rendering list  |
@@ -18,8 +18,8 @@
 
 ## react
 
-| Name                                                                                                                                              | Description                                                                     |
-| :------------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------ |
+| Name                                                                                                 | Description                                                                     |
+| :--------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ |
 | [react/no-children-in-void-dom-elements](react-no-children-in-void-dom-elements)                     | disallow passing children to void DOM elements                                  |
 | [react/no-class-component](react-no-class-component)                                                 | enforce that there are no class components                                      |
 | [react/no-clone-element](react-no-clone-element)                                                     | disallow `cloneElement`                                                         |
@@ -40,22 +40,22 @@
 
 ## hooks
 
-| Name                                                                                                                                    | Description                            |
-| :-------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------- |
+| Name                                                                                       | Description                            |
+| :----------------------------------------------------------------------------------------- | :------------------------------------- |
 | [hooks/ensure-custom-hooks-using-other-hooks](hooks-ensure-custom-hooks-using-other-hooks) | enforce custom hooks using other hooks |
 
 ## naming-convention
 
-| Name                                                                                                                      | Description                                                        |
-| :------------------------------------------------------------------------------------------------------------------------ | :----------------------------------------------------------------- |
+| Name                                                                         | Description                                                        |
+| :--------------------------------------------------------------------------- | :----------------------------------------------------------------- |
 | [naming-convention/component-name](naming-convention-component-name)         | enforce component naming convention to PascalCase or CONSTANT_CASE |
 | [naming-convention/filename](naming-convention-filename)                     | enforce naming convention for JSX file names                       |
 | [naming-convention/filename-extension](naming-convention-filename-extension) | enforce naming convention for JSX file extensions                  |
 
 ## debug
 
-| Name                                                                                              | Description                                               |
-| :------------------------------------------------------------------------------------------------ | :-------------------------------------------------------- |
+| Name                                                 | Description                                               |
+| :--------------------------------------------------- | :-------------------------------------------------------- |
 | [debug/class-component](debug-class-component)       | reports all class components, including anonymous ones    |
 | [debug/function-component](debug-function-component) | reports all function components, including anonymous ones |
 | [debug/hooks](debug-hooks)                           | reports all react hooks                                   |

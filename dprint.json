@@ -18,7 +18,8 @@
     "**/*-lock.json",
     "bun.lockb",
     "**/test/fixtures",
-    "dist"
+    "**/dist",
+    "**/.next"
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.88.1.wasm",
