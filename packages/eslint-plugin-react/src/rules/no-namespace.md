@@ -8,7 +8,7 @@ Correctness.
 
 ## What it does
 
-Enforces the absence of a namespace in React elements.
+Enforces the absence of a `namespace` in React elements.
 
 ## Why is this bad?
 

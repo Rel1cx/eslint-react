@@ -8,7 +8,7 @@ Suspicious.
 
 ## What it does
 
-Prevents comment strings (e.g. beginning with `//` or `/*`) from being accidentally
+Prevents comment strings (e.g. beginning with `//` or `/*`) from being accidentally inserted into the JSX element's textnodes.
 
 ## Why is this bad?
 

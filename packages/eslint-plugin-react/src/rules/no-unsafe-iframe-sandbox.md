@@ -8,7 +8,7 @@ Security.
 
 ## What it does
 
-Enforces `sandbox` attribute for iframe elements is not set to unsafe combinations.
+Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.
 
 ## Why is this bad?
 

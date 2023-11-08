@@ -8,7 +8,7 @@ Suspicious.
 
 ## What it does
 
-Disallows spreading `key` from objects.
+Disallows spreading `key` prop from objects.
 
 ## Why is this bad?
 

@@ -8,7 +8,7 @@ Correctness.
 
 ## What it does
 
-Prevents the use of children in void DOM elements.
+Prevents the use of `children` in void `DOM elements`.
 
 ## Why is this bad?
 
