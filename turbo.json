@@ -14,6 +14,12 @@
       "dependsOn": [
         "^build"
       ]
+    },
+    "build:docs": {
+      "cache": true,
+      "dependsOn": [
+        "build"
+      ]
     }
   }
 }

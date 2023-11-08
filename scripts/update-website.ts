@@ -39,6 +39,7 @@ MutableRef.update(metas, (m) => ({
   ...m,
 }));
 await Bun.write(metaFile, JSON.stringify(MutableRef.get(metas), null, 2));
+
 const overview = Bun.file(path.join("website", "pages", "rules", "overview.md"));
 const overviewContent = await overview.text();
 const overviewContentUpdated = overviewContent.replaceAll(

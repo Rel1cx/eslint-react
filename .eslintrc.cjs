@@ -45,7 +45,7 @@ module.exports = defineConfig({
         varsIgnorePattern: "(^_)|(^ESLintUtils$)",
       },
     ],
-    "no-undef": "error",
+    "no-undef": "off",
     "array-callback-return": "off",
     "import-access/jsdoc": ["error"],
     "jsdoc/require-jsdoc": "off",
