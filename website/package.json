@@ -43,16 +43,5 @@
     "remark-shiki-twoslash": "3.1.3",
     "sass": "1.69.5",
     "typescript": "5.2.2"
-  },
-  "packageManager": "pnpm@8.10.2",
-  "pnpm": {
-    "overrides": {
-      "react": "latest",
-      "react-dom": "latest",
-      "typescript": "latest",
-      "@typescript-eslint/eslint-plugin": "latest",
-      "@typescript-eslint/parser": "latest",
-      "eslint-plugin-import": "npm:eslint-plugin-i@latest"
-    }
   }
 }
