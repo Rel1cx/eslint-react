@@ -8,7 +8,7 @@ Style.
 
 ## What it does
 
-Enforces `.tsx` or `.jsx` file naming convention.
+Enforces naming convention for JSX files.
 
 ## Why is this good?
 

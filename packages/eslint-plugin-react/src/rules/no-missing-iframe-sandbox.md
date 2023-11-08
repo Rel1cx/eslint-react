@@ -8,7 +8,7 @@ Security.
 
 ## What it does
 
-Enforces explicit `sandbox` attribute for iframe elements
+Enforces explicit `sandbox` attribute for `iframe` elements.
 
 ## Why is this bad?
 

@@ -8,7 +8,7 @@ Suspicious.
 
 ## What it does
 
-Enforces explicit `button` type attribute for `<button>` elements
+Enforces explicit `button` type `attribute` for `<button>` elements.
 
 ## Why is this bad?
 

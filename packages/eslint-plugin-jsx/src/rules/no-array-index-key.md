@@ -8,7 +8,7 @@ Suspicious.
 
 ## What it does
 
-Warns when an array index is used as a key prop.
+Warns when an array `index` is used as a `key` prop.
 
 ## Why is this bad?
 

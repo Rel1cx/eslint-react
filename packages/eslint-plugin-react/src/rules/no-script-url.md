@@ -8,7 +8,7 @@ Security.
 
 ## What it does
 
-Prevents usage of `javascript:` URLs as the value of the `href` prop in JSX.
+Prevents usage of `javascript:` URLs as the value of component props.
 
 ## Why is this bad?
 

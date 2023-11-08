@@ -8,7 +8,7 @@ Correctness.
 
 ## What it does
 
-Prevents duplicate key props on elements in the same array or a list of children.
+Prevents duplicate `key` props on elements in the same array or a list of `children`.
 
 ## Why is this bad?
 

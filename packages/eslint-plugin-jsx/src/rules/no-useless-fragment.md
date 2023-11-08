@@ -8,7 +8,7 @@ Correctness.
 
 ## What it does
 
-Prevents the use of useless fragments.
+Prevents the use of useless `fragment` components or `<>` syntax.
 
 ## Why is this bad?
 

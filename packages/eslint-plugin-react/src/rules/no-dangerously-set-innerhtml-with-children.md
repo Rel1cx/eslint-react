@@ -8,7 +8,7 @@ Correctness.
 
 ## What it does
 
-Disallows when a DOM element is using both children and `dangerouslySetInnerHTML`
+Disallows `DOM element` using `children` and `dangerouslySetInnerHTML` at the same time.
 
 ## Why is this bad?
 

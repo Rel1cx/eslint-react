@@ -8,7 +8,7 @@ Restriction.
 
 ## What it does
 
-Disallows using deprecated string refs
+Disallows using deprecated `string refs`.
 
 ## Why is this bad?
 

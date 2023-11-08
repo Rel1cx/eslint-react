@@ -8,7 +8,7 @@ Restriction.
 
 ## What it does
 
-Prevents the use of class components in React.
+Prevents the use of `class component` in React.
 
 ## Why is this bad?
 
