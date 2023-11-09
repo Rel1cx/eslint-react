@@ -2,7 +2,6 @@
   "name": "with-legacy-config",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "build": "tsc && vite build",
     "dev": "vite",
@@ -14,7 +13,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@eslint-react/eslint-plugin": "latest",
+    "@eslint-react/eslint-plugin": "workspace:*",
     "@tsconfig/node20": "20.1.2",
     "@tsconfig/strictest": "2.0.2",
     "@types/react": "18.2.36",

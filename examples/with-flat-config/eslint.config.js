@@ -20,5 +20,15 @@ export default [
       ...reactHooks.configs.recommended.rules,
     },
   },
-  react.configs.recommended,
+  {
+    files: ["*.config.ts"],
+    languageOptions: {
+      parser: tsParser,
+      sourceType: "module",
+      parserOptions: {
+        project: "./tsconfig.node.json",
+      },
+    },
+  },
+  react.configs.all,
 ];

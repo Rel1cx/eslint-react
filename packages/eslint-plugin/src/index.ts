@@ -1,5 +1,4 @@
 export type * from "./eslint-define-config";
-
 import * as debug from "@eslint-react/eslint-plugin-debug";
 import * as hooks from "@eslint-react/eslint-plugin-hooks";
 import * as jsx from "@eslint-react/eslint-plugin-jsx";
@@ -7,6 +6,7 @@ import * as namingConvention from "@eslint-react/eslint-plugin-naming-convention
 import * as react from "@eslint-react/eslint-plugin-react";
 import { entries, fromEntries } from "@eslint-react/tools";
 import type { RulePreset } from "@eslint-react/types";
+import tsParser from "@typescript-eslint/parser";
 // workaround for @typescript-eslint/utils's TS2742 error.
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
@@ -104,14 +104,27 @@ const flatConfigPlugins = {
 
 function createLegacyConfig<T extends RulePreset>(rules: T, plugins = legacyConfigPlugins) {
   return {
+    parser: "@typescript-eslint/parser",
+    parserOptions: {
+      ecmaVersion: "latest",
+      project: true,
+      sourceType: "module",
+    },
     plugins,
     rules: padKeysLeft(rules, "@eslint-react/"),
   } as const;
 }
 
-// eslint-disable-next-line sonarjs/no-identical-functions
 function createFlatConfig<T extends RulePreset>(rules: T, plugins = flatConfigPlugins) {
   return {
+    files: ["**/*.{ts,tsx}"],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        project: true,
+      },
+      sourceType: "module",
+    },
     plugins,
     rules: padKeysLeft(rules, "@eslint-react/"),
   } as const;
