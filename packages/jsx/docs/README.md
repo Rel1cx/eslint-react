@@ -98,7 +98,9 @@ node is TSESTree.CallExpression
 | :------------------ | :------- |
 | `None`              | `0n`     |
 | `SkipCreateElement` | `bigint` |
-| `SkipNull`          | `bigint` |
+| `SkipNullLiteral`   | `bigint` |
+| `SkipNumberLiteral` | `bigint` |
+| `SkipStringLiteral` | `bigint` |
 | `StrictArray`       | `bigint` |
 | `StrictConditional` | `bigint` |
 | `StrictLogical`     | `bigint` |

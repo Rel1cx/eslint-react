@@ -39,6 +39,7 @@
 - [RE\_HOOK\_NAME](README.md#re_hook_name)
 - [SuspenseComponent](README.md#suspensecomponent)
 - [SuspenseListComponent](README.md#suspenselistcomponent)
+- [defaultComponentCollectorHint](README.md#defaultcomponentcollectorhint)
 
 ### Functions
 
@@ -109,8 +110,10 @@
 | `SkipClassProperty` | `bigint` |
 | `SkipCreateElement` | `bigint` |
 | `SkipMapCall`       | `bigint` |
-| `SkipNull`          | `bigint` |
+| `SkipNullLiteral`   | `bigint` |
+| `SkipNumberLiteral` | `bigint` |
 | `SkipObjectMethod`  | `bigint` |
+| `SkipStringLiteral` | `bigint` |
 | `StrictArray`       | `bigint` |
 | `StrictConditional` | `bigint` |
 | `StrictLogical`     | `bigint` |
@@ -127,7 +130,9 @@
 | :------------------ | :------- |
 | `None`              | `0n`     |
 | `SkipCreateElement` | `bigint` |
-| `SkipNull`          | `bigint` |
+| `SkipNullLiteral`   | `bigint` |
+| `SkipNumberLiteral` | `bigint` |
+| `SkipStringLiteral` | `bigint` |
 | `StrictArray`       | `bigint` |
 | `StrictConditional` | `bigint` |
 | `StrictLogical`     | `bigint` |
@@ -270,6 +275,12 @@
 
 • `Const` **SuspenseListComponent**: `19`
 
+---
+
+### defaultComponentCollectorHint
+
+• `Const` **defaultComponentCollectorHint**: `bigint`
+
 ## Functions
 
 ### componentCollector
@@ -278,11 +289,11 @@
 
 #### Parameters
 
-| Name      | Type                                                           | Default value                 |
-| :-------- | :------------------------------------------------------------- | :---------------------------- |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>  | `undefined`                   |
-| `hint`    | `bigint`                                                       | `ComponentCollectorHint.None` |
-| `cache`   | [`ComponentCollectorCache`](README.md#componentcollectorcache) | `undefined`                   |
+| Name      | Type                                                           | Default value                   |
+| :-------- | :------------------------------------------------------------- | :------------------------------ |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>  | `undefined`                     |
+| `hint`    | `bigint`                                                       | `defaultComponentCollectorHint` |
+| `cache`   | [`ComponentCollectorCache`](README.md#componentcollectorcache) | `undefined`                     |
 
 #### Returns
 
