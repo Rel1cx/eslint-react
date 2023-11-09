@@ -206,7 +206,14 @@ export default createRule<[], MessageID>({
     function isValidConditionalExpression(
       node: TSESTree.ConditionalExpression,
     ): boolean {
-      const { alternate, consequent } = node;
+      const { alternate, consequent, test } = node;
+      if (
+        consequent.type === NodeType.Identifier
+        && test.type === NodeType.Identifier
+        && test.name === consequent.name
+      ) {
+        return true;
+      }
 
       return isValidInnerExpression(alternate) && isValidInnerExpression(consequent);
     }

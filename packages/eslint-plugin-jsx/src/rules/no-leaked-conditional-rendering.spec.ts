@@ -299,6 +299,21 @@ ruleTester.run(RULE_NAME, rule, {
         )
       }
     `,
+    dedent`
+      const someCondition1 = 0;
+      const SomeComponent = () => <div />;
+
+      const App = () => {
+        return (
+          <>
+            {someCondition
+              ? someCondition
+              : <SomeComponent />
+            }
+          </>
+        )
+      }
+    `,
   ],
   invalid: [
     {
