@@ -15,11 +15,13 @@ import { isCreateElementCall } from "./element";
 /* eslint-disable perfectionist/sort-objects */
 export const JSXValueCheckHint = {
   None: 0n,
-  SkipNull: 1n << 0n,
-  SkipCreateElement: 1n << 1n,
-  StrictArray: 1n << 2n,
-  StrictLogical: 1n << 3n,
-  StrictConditional: 1n << 4n,
+  SkipNullLiteral: 1n << 0n,
+  SkipStringLiteral: 1n << 1n,
+  SkipNumberLiteral: 1n << 2n,
+  SkipCreateElement: 1n << 3n,
+  StrictArray: 1n << 4n,
+  StrictLogical: 1n << 5n,
+  StrictConditional: 1n << 6n,
 } as const;
 /* eslint-enable perfectionist/sort-objects */
 
@@ -30,6 +32,7 @@ export const JSXValueCheckHint = {
  * @param hint The `JSXValueCheckHint` to use
  * @returns boolean
  */
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export function isJSXValue(
   node: TSESTree.Node | null | undefined,
   context: RuleContext,
@@ -45,14 +48,27 @@ export function isJSXValue(
     .with({ type: NodeType.JSXMemberExpression }, F.constTrue)
     .with({ type: NodeType.JSXNamespacedName }, F.constTrue)
     .with({ type: NodeType.Literal }, (node) => {
-      if (
-        !("value" in node)
-        || hint & JSXValueCheckHint.SkipNull
-      ) {
+      if (!("value" in node)) {
         return false;
       }
 
-      return node.value === null;
+      if (hint & JSXValueCheckHint.SkipNullLiteral && node.value === null) {
+        return false;
+      }
+
+      if (hint & JSXValueCheckHint.SkipStringLiteral && typeof node.value === "string") {
+        return false;
+      }
+
+      // eslint-disable-next-line sonarjs/prefer-single-boolean-return
+      if (hint & JSXValueCheckHint.SkipNumberLiteral && typeof node.value === "number") {
+        return false;
+      }
+
+      return true;
+    })
+    .with({ type: NodeType.TemplateLiteral }, () => {
+      return !(hint & JSXValueCheckHint.SkipStringLiteral);
     })
     .with({ type: NodeType.ArrayExpression }, (node) => {
       if (!("elements" in node)) {
@@ -66,16 +82,12 @@ export function isJSXValue(
       return node.elements.some((n) => isJSXValue(n, context, hint));
     })
     .with({ type: NodeType.ConditionalExpression }, (node) => {
-      if (!("consequent" in node)) {
-        return false;
-      }
-
       function leftHasJSX(node: TSESTree.ConditionalExpression) {
-        if (!("consequent" in node)) {
-          return false;
-        }
-
         if (Array.isArray(node.consequent)) {
+          if (hint & JSXValueCheckHint.StrictArray) {
+            return node.consequent.every((n: TSESTree.Expression) => isJSXValue(n, context, hint));
+          }
+
           return node.consequent.some((n: TSESTree.Expression) => isJSXValue(n, context, hint));
         }
 
@@ -83,8 +95,7 @@ export function isJSXValue(
       }
 
       function rightHasJSX(node: TSESTree.ConditionalExpression) {
-        return "alternate" in node
-          && isJSXValue(node.alternate, context, hint);
+        return isJSXValue(node.alternate, context, hint);
       }
 
       if (hint & JSXValueCheckHint.StrictConditional) {

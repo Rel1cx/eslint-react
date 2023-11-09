@@ -59,10 +59,13 @@ export const ComponentCollectorHint = {
 } as const;
 /* eslint-enable perfectionist/sort-objects */
 
+export const defaultComponentCollectorHint = ComponentCollectorHint.SkipStringLiteral
+  | ComponentCollectorHint.SkipNumberLiteral;
+
 // TODO: support for detecting component types listed in core/component/component-types.ts
 export function componentCollector(
   context: RuleContext,
-  hint: bigint = ComponentCollectorHint.None,
+  hint: bigint = defaultComponentCollectorHint,
   cache: ComponentCollectorCache = new WeakMap(),
 ) {
   const components: TSESTreeFunction[] = [];

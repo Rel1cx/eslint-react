@@ -73,7 +73,7 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     dedent`
       const App = ({ items, count }) => {
-          return <div>{direction ? (direction === "down" ? "▼" : "▲") : ""}</div>
+          return <div>{direction ? (direction === "down" ? "▼" : "▲") : "o"}</div>
       }
     `,
     dedent`
