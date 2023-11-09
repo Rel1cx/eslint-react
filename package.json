@@ -129,7 +129,19 @@
       "has": "npm:@nolyfill/has@latest",
       "react": "^18.2.0",
       "react-dom": "^18.2.0",
-      "typescript": "rc"
+      "typescript": "rc",
+      "array-includes": "npm:@nolyfill/array-includes@latest",
+      "array.prototype.flat": "npm:@nolyfill/array.prototype.flat@latest",
+      "array.prototype.flatmap": "npm:@nolyfill/array.prototype.flatmap@latest",
+      "array.prototype.tosorted": "npm:@nolyfill/array.prototype.tosorted@latest",
+      "es-iterator-helpers": "npm:@nolyfill/es-iterator-helpers@latest",
+      "function-bind": "npm:@nolyfill/function-bind@latest",
+      "object.assign": "npm:@nolyfill/object.assign@latest",
+      "object.entries": "npm:@nolyfill/object.entries@latest",
+      "object.fromentries": "npm:@nolyfill/object.fromentries@latest",
+      "object.hasown": "npm:@nolyfill/object.hasown@latest",
+      "object.values": "npm:@nolyfill/object.values@latest",
+      "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@latest"
     },
     "patchedDependencies": {
       "eslint-doc-generator@1.5.2": "patches/eslint-doc-generator@1.5.2.patch"
