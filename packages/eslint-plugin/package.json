@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "0.7.6",
+  "version": "0.7.7",
   "description": "ESLint plugin for React function components with TypeScript, built (mostly) from scratch.",
   "keywords": [
     "eslint",

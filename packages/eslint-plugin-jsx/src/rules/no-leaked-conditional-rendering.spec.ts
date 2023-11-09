@@ -22,58 +22,153 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     ...allValid,
     dedent`
+        const foo = Math.random() > 0.5;
+        const bar = "bar";
+
         const App = () => {
           return <div>{foo || bar}</div>
       }
     `,
     dedent`
-        const App = ({ foo }) => {
+        type AppProps = {
+          foo: string;
+        }
+
+        const App = ({ foo }: AppProps) => {
           return <div>{foo}</div>
       }
     `,
     dedent`
-        const App = ({ items }) => {
+        type AppProps = {
+          items: string[];
+        }
+
+        const App = ({ items }: AppProps) => {
           return <div>There are {items.length} elements</div>
       }
     `,
     dedent`
-        const App = ({ items, count }) => {
+        type AppProps = {
+          items: string[];
+          count: number;
+        }
+
+        const App = ({ items, count }: AppProps) => {
           return <div>{!count && 'No results found'}</div>
       }
     `,
     dedent`
-        const App = ({ items }) => {
+        type ListProps = {
+          items: string[];
+        }
+
+        const List = ({ items }: ListProps) => {
+          return <div>{items.map(item => <div key={item}>{item}</div>)}</div>
+        }
+
+        type AppProps = {
+          items: string[];
+        }
+
+        const App = ({ items }: AppProps) => {
           return <div>{!!itesm.length && <List items={items}/>}</div>
       }
     `,
     dedent`
-        const App = ({ items }) => {
+        type ListProps = {
+          items: string[];
+        }
+
+        const List = ({ items }: ListProps) => {
+          return <div>{items.map(item => <div key={item}>{item}</div>)}</div>
+        }
+
+        type AppProps = {
+          items: string[];
+        }
+
+        const App = ({ items }: AppProps) => {
           return <div>{Boolean(items.length) && <List items={items}/>}</div>
       }
     `,
     dedent`
-        const App = ({ items }) => {
+        type ListProps = {
+          items: string[];
+        }
+
+        const List = ({ items }: ListProps) => {
+          return <div>{items.map(item => <div key={item}>{item}</div>)}</div>
+        }
+
+        type AppProps = {
+          items: string[];
+        }
+
+        const App = ({ items }: AppProps) => {
           return <div>{items.length > 0 && <List items={items}/>}</div>
       }
     `,
     dedent`
-        const App = ({ items }) => {
+        type ListProps = {
+          items: string[];
+        }
+
+        const List = ({ items }: ListProps) => {
+          return <div>{items.map(item => <div key={item}>{item}</div>)}</div>
+        }
+
+        type AppProps = {
+          items: string[];
+        }
+
+        const App = ({ items }: AppProps) => {
           return <div>{items.length ? <List items={items}/> : null}</div>
       }
     `,
     dedent`
-        const App = ({ items, count }) => {
+        type ListProps = {
+          items: string[];
+        }
+
+        const List = ({ items }: ListProps) => {
+          return <div>{items.map(item => <div key={item}>{item}</div>)}</div>
+        }
+
+        type AppProps = {
+          items: string[];
+          count: number;
+        }
+
+        const App = ({ items, count }: AppProps) => {
           return <div>{count ? <List items={items}/> : null}</div>
       }
     `,
     dedent`
-        const App = ({ items, count }) => {
+        type ListProps = {
+          items: string[];
+        }
+
+        const List = ({ items }: ListProps) => {
+          return <div>{items.map(item => <div key={item}>{item}</div>)}</div>
+        }
+
+        type AppProps = {
+          items: string[];
+          count: number;
+        }
+
+        const App = ({ items, count }: AppProps) => {
           return <div>{!!count && <List items={items}/>}</div>
       }
     `,
     dedent`
-      const App = ({ items, count }) => {
-          return <div>{direction ? (direction === "down" ? "▼" : "▲") : "o"}</div>
+      type AppProps = {
+        items: string[];
+        count: number;
+      }
+
+      const App = ({ items, count }: AppProps) => {
+          return <div>{direction ? (direction === "down" ? "▼" : "▲") : ""}</div>
       }
     `,
     dedent`

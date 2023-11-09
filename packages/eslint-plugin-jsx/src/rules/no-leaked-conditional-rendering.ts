@@ -1,5 +1,6 @@
 import { NodeType } from "@eslint-react/ast";
 import { isJSXValue, JSXValueCheckHint } from "@eslint-react/jsx";
+import { F } from "@eslint-react/tools";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { type TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
@@ -165,8 +166,7 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const hint = JSXValueCheckHint.SkipNumberLiteral
-      | JSXValueCheckHint.StrictArray
+    const hint = JSXValueCheckHint.StrictArray
       | JSXValueCheckHint.StrictLogical
       | JSXValueCheckHint.StrictConditional;
 
@@ -180,9 +180,10 @@ export default createRule<[], MessageID>({
       });
     }
 
-    function isValidExpression(node: TSESTree.Expression): boolean {
+    function isValidInnerExpression(node: TSESTree.Expression): boolean {
       return match(node)
-        .with({ type: NodeType.LogicalExpression }, isValidLogicalExpression)
+        .with({ type: NodeType.LogicalExpression, operator: "||" }, F.constTrue)
+        .with({ type: NodeType.LogicalExpression, operator: "&&" }, isValidLogicalExpression)
         .with({ type: NodeType.ConditionalExpression }, isValidConditionalExpression)
         .otherwise(() => isJSXValue(node, context, hint));
     }
@@ -190,11 +191,16 @@ export default createRule<[], MessageID>({
     function isValidLogicalExpression(
       node: TSESTree.LogicalExpression,
     ): boolean {
-      const { left } = node;
-      const leftType = getConstrainedTypeAtLocation(services, left);
-      const types = inspectVariantTypes([leftType]);
+      const { left, operator } = node;
 
-      return types.every(type => allowTypes.includes(type as never));
+      if (operator === "&&") {
+        const leftType = getConstrainedTypeAtLocation(services, left);
+        const types = inspectVariantTypes([leftType]);
+
+        return types.every(type => allowTypes.includes(type as never));
+      }
+
+      return true;
     }
 
     function isValidConditionalExpression(
@@ -202,7 +208,7 @@ export default createRule<[], MessageID>({
     ): boolean {
       const { alternate, consequent } = node;
 
-      return isValidExpression(alternate) && isValidExpression(consequent);
+      return isValidInnerExpression(alternate) && isValidInnerExpression(consequent);
     }
 
     return {
@@ -214,7 +220,7 @@ export default createRule<[], MessageID>({
           });
         }
       },
-      'JSXExpressionContainer > LogicalExpression[operator="&&"]'(node: TSESTree.LogicalExpression) {
+      "JSXExpressionContainer > LogicalExpression"(node: TSESTree.LogicalExpression) {
         if (!isValidLogicalExpression(node)) {
           context.report({
             messageId: "NO_LEAKED_CONDITIONAL_RENDERING",

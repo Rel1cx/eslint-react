@@ -44,7 +44,7 @@ export function isJSXValue(
     .with({ type: NodeType.Literal }, (node) => {
       return match(node.value)
         .with(null, () => !(hint & JSXValueCheckHint.SkipNullLiteral))
-        .with("", F.constFalse)
+        // .with("", F.constFalse)
         .with(P.string, () => !(hint & JSXValueCheckHint.SkipStringLiteral))
         .with(P.number, () => !(hint & JSXValueCheckHint.SkipNumberLiteral))
         .otherwise(F.constFalse);
