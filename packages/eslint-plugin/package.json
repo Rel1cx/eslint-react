@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "0.7.8",
+  "version": "0.7.9",
   "description": "ESLint plugin for React function components with TypeScript, built (mostly) from scratch.",
   "keywords": [
     "eslint",
@@ -51,12 +51,12 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "typescript": ">=5.2.2",
     "@typescript-eslint/parser": ">=6.10.0",
     "@typescript-eslint/scope-manager": ">=6.10.0",
     "@typescript-eslint/type-utils": ">=6.10.0",
     "@typescript-eslint/types": ">=6.10.0",
-    "@typescript-eslint/utils": ">=6.10.0"
+    "@typescript-eslint/utils": ">=6.10.0",
+    "typescript": ">=5.2.2"
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin-debug": "workspace:*",

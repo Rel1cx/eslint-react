@@ -33,6 +33,11 @@
     {
       "changeProcessCWD": true,
       "mode": "location"
+    },
+    {
+      "pattern": "examples/*",
+      "mode": "auto",
+      "!cwd": true
     }
   ],
   "eslint.experimental.useFlatConfig": false,

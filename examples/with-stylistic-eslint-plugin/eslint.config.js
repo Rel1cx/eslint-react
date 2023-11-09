@@ -24,5 +24,15 @@ export default [
       // ... see https://eslint.style/packages/jsx#rules
     },
   },
+  {
+    files: ["*.config.ts"],
+    languageOptions: {
+      parser: tsParser,
+      sourceType: "module",
+      parserOptions: {
+        project: "./tsconfig.node.json",
+      },
+    },
+  },
   react.configs.recommended,
 ];
