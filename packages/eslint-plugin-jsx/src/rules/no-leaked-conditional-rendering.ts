@@ -7,7 +7,7 @@ import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 import * as tsutils from "ts-api-utils";
 import { match } from "ts-pattern";
-import * as ts from "typescript";
+import ts from "typescript";
 
 import { createRule } from "../utils";
 
