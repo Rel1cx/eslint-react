@@ -4,24 +4,40 @@ import react from "@eslint-react/eslint-plugin";
 import reactHooks from "eslint-plugin-react-hooks";
 
 export default [
+  // TypeScript rules
   {
-    files: ["**/*.{ts,tsx}"],
+    files: ["**/*.ts"],
+    ignores: ["**/*.d.ts"],
     languageOptions: {
       parser: tsParser,
       sourceType: "module",
     },
     plugins: {
       "@typescript-eslint": ts,
-      "react-hooks": reactHooks,
     },
     rules: {
       ...ts.configs["eslint-recommended"].rules,
       ...ts.configs["recommended"].rules,
+    },
+  },
+  // React hooks rules
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    plugins: {
+      "react-hooks": reactHooks,
+    },
+    rules: {
       ...reactHooks.configs.recommended.rules,
     },
   },
+  // React rules
   {
-    files: ["*.config.ts"],
+    files: ["src/**/*.{ts,tsx}"],
+    ...react.configs.recommended,
+  },
+  // Configurations rules
+  {
+    files: ["*.config.{js,ts}"],
     languageOptions: {
       parser: tsParser,
       sourceType: "module",
@@ -30,5 +46,4 @@ export default [
       },
     },
   },
-  react.configs.all,
 ];
