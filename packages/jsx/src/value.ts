@@ -1,10 +1,4 @@
-import {
-  findVariableByNameUpToGlobal,
-  getVariableInit,
-  isJSXTagNameExpression,
-  isOneOf,
-  NodeType,
-} from "@eslint-react/ast";
+import { findVariableByNameUpToGlobal, getVariableInit, isJSXTagNameExpression, NodeType } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/utils";

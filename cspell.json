@@ -29,6 +29,7 @@
     "bimap",
     "birecord",
     "clippy",
+    "consequents",
     "declarators",
     "deepmerge",
     "dprint",

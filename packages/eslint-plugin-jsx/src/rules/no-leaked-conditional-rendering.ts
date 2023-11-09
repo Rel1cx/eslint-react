@@ -1,16 +1,18 @@
+import { NodeType } from "@eslint-react/ast";
 import { isJSXValue, JSXValueCheckHint } from "@eslint-react/jsx";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { type TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 import * as tsutils from "ts-api-utils";
+import { match } from "ts-pattern";
 import * as ts from "typescript";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-leaked-conditional-rendering";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = "NEEDS_TYPE_CHECKING_SERVICE" | ConstantCase<typeof RULE_NAME>;
 
 const allowTypes = [
   "boolean",
@@ -155,27 +157,57 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
+      NEEDS_TYPE_CHECKING_SERVICE:
+        "Type checking is required for this rule. Please add a `project` to your parser options. See https://typescript-eslint.io/docs/linting/type-linting",
       NO_LEAKED_CONDITIONAL_RENDERING:
         "Potential leaked value that might cause unintentionally rendered values or rendering crashes",
     },
   },
   defaultOptions: [],
   create(context) {
+    const hint = JSXValueCheckHint.SkipNumberLiteral
+      | JSXValueCheckHint.StrictArray
+      | JSXValueCheckHint.StrictLogical
+      | JSXValueCheckHint.StrictConditional;
+
     const services = ESLintUtils.getParserServices(context);
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/strict-boolean-expressions
     if (!services.program) {
-      throw new Error("see https://typescript-eslint.io/docs/linting/type-linting");
+      context.report({
+        loc: { column: 1, line: 1 },
+        messageId: "NEEDS_TYPE_CHECKING_SERVICE",
+      });
+    }
+
+    function isValidExpression(node: TSESTree.Expression): boolean {
+      return match(node)
+        .with({ type: NodeType.LogicalExpression }, isValidLogicalExpression)
+        .with({ type: NodeType.ConditionalExpression }, isValidConditionalExpression)
+        .otherwise(() => isJSXValue(node, context, hint));
+    }
+
+    function isValidLogicalExpression(
+      node: TSESTree.LogicalExpression,
+    ): boolean {
+      const { left } = node;
+      const leftType = getConstrainedTypeAtLocation(services, left);
+      const types = inspectVariantTypes([leftType]);
+
+      return types.every(type => allowTypes.includes(type as never));
+    }
+
+    function isValidConditionalExpression(
+      node: TSESTree.ConditionalExpression,
+    ): boolean {
+      const { alternate, consequent } = node;
+
+      return isValidExpression(alternate) && isValidExpression(consequent);
     }
 
     return {
       "JSXExpressionContainer > ConditionalExpression"(node: TSESTree.ConditionalExpression) {
-        const hint = JSXValueCheckHint.SkipNumberLiteral
-          | JSXValueCheckHint.StrictArray
-          | JSXValueCheckHint.StrictLogical
-          | JSXValueCheckHint.StrictConditional;
-
-        if (!isJSXValue(node, context, hint)) {
+        if (!isValidConditionalExpression(node)) {
           context.report({
             messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
             node,
@@ -183,20 +215,12 @@ export default createRule<[], MessageID>({
         }
       },
       'JSXExpressionContainer > LogicalExpression[operator="&&"]'(node: TSESTree.LogicalExpression) {
-        const { left } = node;
-
-        const leftType = getConstrainedTypeAtLocation(services, left);
-
-        const types = inspectVariantTypes([leftType]);
-
-        if (types.every(type => allowTypes.includes(type as never))) {
-          return;
+        if (!isValidLogicalExpression(node)) {
+          context.report({
+            messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+            node,
+          });
         }
-
-        context.report({
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-          node: left,
-        });
       },
     };
   },
