@@ -11,7 +11,7 @@ export default function TwoslashPatchPortal() {
 
   return (
     <div ref={cb} id={`twoslash-patch-holder-${id}`} hidden>
-      {!!isReady && createPortal(
+      {isReady && createPortal(
         <style id={`twoslash-patch-${id}`}>
           {currentStyle}
         </style>,

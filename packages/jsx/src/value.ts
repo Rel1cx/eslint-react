@@ -8,7 +8,7 @@ import {
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/utils";
-import { match } from "ts-pattern";
+import { match, P } from "ts-pattern";
 
 import { isCreateElementCall } from "./element";
 
@@ -32,7 +32,7 @@ export const JSXValueCheckHint = {
  * @param hint The `JSXValueCheckHint` to use
  * @returns boolean
  */
-// eslint-disable-next-line sonarjs/cognitive-complexity
+
 export function isJSXValue(
   node: TSESTree.Node | null | undefined,
   context: RuleContext,
@@ -48,33 +48,17 @@ export function isJSXValue(
     .with({ type: NodeType.JSXMemberExpression }, F.constTrue)
     .with({ type: NodeType.JSXNamespacedName }, F.constTrue)
     .with({ type: NodeType.Literal }, (node) => {
-      if (!("value" in node)) {
-        return false;
-      }
-
-      if (hint & JSXValueCheckHint.SkipNullLiteral && node.value === null) {
-        return false;
-      }
-
-      if (hint & JSXValueCheckHint.SkipStringLiteral && typeof node.value === "string") {
-        return false;
-      }
-
-      // eslint-disable-next-line sonarjs/prefer-single-boolean-return
-      if (hint & JSXValueCheckHint.SkipNumberLiteral && typeof node.value === "number") {
-        return false;
-      }
-
-      return true;
+      return match(node.value)
+        .with(null, () => !(hint & JSXValueCheckHint.SkipNullLiteral))
+        .with("", F.constFalse)
+        .with(P.string, () => !(hint & JSXValueCheckHint.SkipStringLiteral))
+        .with(P.number, () => !(hint & JSXValueCheckHint.SkipNumberLiteral))
+        .otherwise(F.constFalse);
     })
     .with({ type: NodeType.TemplateLiteral }, () => {
       return !(hint & JSXValueCheckHint.SkipStringLiteral);
     })
     .with({ type: NodeType.ArrayExpression }, (node) => {
-      if (!("elements" in node)) {
-        return false;
-      }
-
       if (hint & JSXValueCheckHint.StrictArray) {
         return node.elements.every((n) => isJSXValue(n, context, hint));
       }
@@ -105,16 +89,9 @@ export function isJSXValue(
       return leftHasJSX(node) || rightHasJSX(node);
     })
     .with({ type: NodeType.LogicalExpression }, (node) => {
-      if (!("left" in node)) {
-        return false;
-      }
-
       return isJSXValue(node.left, context, hint) || isJSXValue(node.right, context, hint);
     })
     .with({ type: NodeType.SequenceExpression }, (node) => {
-      if (!("expressions" in node)) {
-        return false;
-      }
       const exp = node.expressions.at(-1);
 
       return isJSXValue(exp, context, hint);
@@ -136,7 +113,7 @@ export function isJSXValue(
       return F.pipe(
         maybeVariable,
         O.flatMap(getVariableInit(0)),
-        O.filter(isOneOf([NodeType.JSXElement, NodeType.JSXFragment])),
+        O.filter(n => isJSXValue(n, context, hint)),
         O.isSome,
       );
     })

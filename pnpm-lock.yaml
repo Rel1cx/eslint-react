@@ -176,7 +176,7 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@eslint-react/eslint-plugin':
-        specifier: latest
+        specifier: 0.7.4
         version: link:../../packages/eslint-plugin
       '@tsconfig/node20':
         specifier: 20.1.2
@@ -225,7 +225,7 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@eslint-react/eslint-plugin':
-        specifier: latest
+        specifier: 0.7.4
         version: link:../../packages/eslint-plugin
       '@tsconfig/node20':
         specifier: 20.1.2
@@ -274,7 +274,7 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@eslint-react/eslint-plugin':
-        specifier: latest
+        specifier: 0.7.4
         version: link:../../packages/eslint-plugin
       '@stylistic/eslint-plugin':
         specifier: 1.0.1
@@ -789,7 +789,7 @@ importers:
         version: 5.0.5
     devDependencies:
       '@eslint-react/eslint-plugin':
-        specifier: latest
+        specifier: 0.7.4
         version: link:../packages/eslint-plugin
       '@mdx-js/mdx':
         specifier: 3.0.0
