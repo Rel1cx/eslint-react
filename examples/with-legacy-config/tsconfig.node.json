@@ -10,5 +10,5 @@
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true
   },
-  "include": ["vite.config.ts", ".eslintrc.js"]
+  "include": ["*.config.ts", "*.config.js", "*.d.ts", ".eslintrc.js"]
 }

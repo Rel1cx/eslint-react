@@ -4,11 +4,12 @@
     "@tsconfig/node20/tsconfig.json"
   ],
   "compilerOptions": {
+    "noEmit": true,
     "composite": true,
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["*.config.ts", "*.config.js", "*.d.ts"]
 }
