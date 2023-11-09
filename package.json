@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "0.7.5",
+  "version": "0.7.6",
   "description": "ESLint plugin for React function components with TypeScript, built (mostly) from scratch.",
   "keywords": [
     "eslint",
@@ -95,7 +95,7 @@
     "tiny-invariant": "1.3.1",
     "ts-pattern": "5.0.5",
     "turbo": "1.10.16",
-    "type-fest": "4.7.0",
+    "type-fest": "4.7.1",
     "typedoc": "0.25.3",
     "typedoc-plugin-markdown": "3.17.1",
     "typedoc-plugin-mermaid": "1.10.0",
@@ -119,10 +119,10 @@
   "pnpm": {
     "overrides": {
       "@typescript-eslint/parser": ">=6.10.0",
-      "@typescript-eslint/scope-manager": "6.10.0",
-      "@typescript-eslint/type-utils": "6.10.0",
-      "@typescript-eslint/types": "6.10.0",
-      "@typescript-eslint/utils": "6.10.0",
+      "@typescript-eslint/scope-manager": ">=6.10.0",
+      "@typescript-eslint/type-utils": ">=6.10.0",
+      "@typescript-eslint/types": ">=6.10.0",
+      "@typescript-eslint/utils": ">=6.10.0",
       "eslint": ">=8.53.0",
       "eslint-doc-generator": "1.5.2",
       "eslint-plugin-import": "npm:eslint-plugin-i@latest",

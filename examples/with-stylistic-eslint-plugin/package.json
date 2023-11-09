@@ -14,7 +14,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@eslint-react/eslint-plugin": "0.7.5",
+    "@eslint-react/eslint-plugin": "0.7.6",
     "@stylistic/eslint-plugin": "1.0.1",
     "@tsconfig/node20": "20.1.2",
     "@tsconfig/strictest": "2.0.2",

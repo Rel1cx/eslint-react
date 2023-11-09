@@ -22,8 +22,8 @@ const plugins = [
 
 const options = {
   external: [
-    ...external,
     "eslint",
+    ...external,
   ],
   plugins: [
     ...plugins,

@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/shared",
-  "version": "0.7.5",
+  "version": "0.7.6",
   "description": "Shared constants and utilities for @eslint-react's packages",
   "homepage": "https://github.com/eslint-react/eslint-react",
   "bugs": {
@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@eslint-react/tools": "workspace:*",
-    "@typescript-eslint/utils": "6.10.0",
+    "@typescript-eslint/utils": ">=6.10.0",
     "dedent": "1.5.1",
     "deepmerge-ts": "5.1.0",
     "tslib": "2.6.2"

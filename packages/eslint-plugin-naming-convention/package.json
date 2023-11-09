@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin-naming-convention",
-  "version": "0.7.5",
+  "version": "0.7.6",
   "description": "Naming convention specific rules for ESLint-plugin-React",
   "homepage": "https://github.com/eslint-react/eslint-react",
   "bugs": {
@@ -40,9 +40,18 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/type-utils": "6.10.0",
-    "@typescript-eslint/types": "6.10.0",
-    "@typescript-eslint/utils": "6.10.0"
+    "typescript": ">=5.2.2",
+    "@typescript-eslint/parser": ">=6.10.0",
+    "@typescript-eslint/scope-manager": ">=6.10.0",
+    "@typescript-eslint/type-utils": ">=6.10.0",
+    "@typescript-eslint/types": ">=6.10.0",
+    "@typescript-eslint/utils": ">=6.10.0",
+    "dedent": "1.5.1",
+    "effect": "2.0.0-next.54",
+    "rambda": "8.5.0",
+    "string-ts": "1.3.2",
+    "ts-api-utils": "1.0.3",
+    "ts-pattern": "5.0.5"
   },
   "devDependencies": {
     "@eslint-react/ast": "workspace:*",
@@ -50,12 +59,7 @@
     "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
-    "@eslint-react/types": "workspace:*",
-    "dedent": "1.5.1",
-    "effect": "2.0.0-next.54",
-    "rambda": "8.5.0",
-    "string-ts": "1.3.2",
-    "ts-pattern": "5.0.5"
+    "@eslint-react/types": "workspace:*"
   },
   "peerDependencies": {
     "@typescript-eslint/parser": ">=6.10.0",
