@@ -300,10 +300,12 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     dedent`
-      const someCondition1 = 0;
       const SomeComponent = () => <div />;
-
-      const App = () => {
+      const App = ({
+        someCondition,
+      }: {
+        someCondition?: number | undefined;
+      }) => {
         return (
           <>
             {someCondition
