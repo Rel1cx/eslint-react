@@ -1,5 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { isNodeEqual, NodeType } from "@eslint-react/ast";
+import { getNestedUnaryOperators, isJSX, isNodeEqual, NodeType } from "@eslint-react/ast";
 import { isJSXValue, JSXValueCheckHint } from "@eslint-react/jsx";
 import { F } from "@eslint-react/tools";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
@@ -16,25 +16,6 @@ export const RULE_NAME = "no-leaked-conditional-rendering";
 
 export type MessageID = "NEEDS_TYPE_CHECKING_SERVICE" | ConstantCase<typeof RULE_NAME>;
 
-const allowGuardedTypes = [
-  "boolean",
-  "string",
-  "number",
-  "nullish",
-
-  "truthy boolean",
-  "truthy number",
-  "truthy string",
-] as const;
-
-const allowTypes = [
-  "boolean",
-  "string",
-
-  "truthy boolean",
-  "truthy string",
-] as const;
-
 /** The types we care about */
 type VariantType =
   | "any"
@@ -45,9 +26,63 @@ type VariantType =
   | "number"
   | "object"
   | "string"
+  // eslint-disable-next-line perfectionist/sort-union-types
+  | "falsy boolean"
+  | "falsy number"
+  | "falsy string"
   | "truthy boolean"
   | "truthy number"
   | "truthy string";
+
+// Allowed un-guarded type variants
+const allowTypes = [
+  "boolean",
+  "string",
+
+  "falsy string",
+  "truthy boolean",
+  "truthy string",
+] as const satisfies VariantType[];
+
+// Allowed guarded consequent type variants
+const allowGuardedConsequentTypes = [
+  "boolean",
+  "string",
+  "number",
+  "nullish",
+
+  "truthy boolean",
+  "truthy number",
+  "truthy string",
+] as const;
+
+// Allowed guarded alternate type variants
+const allowGuardedAlternateTypes = [
+  "boolean",
+  "string",
+  "number",
+  "nullish",
+
+  "falsy boolean",
+  "falsy number",
+  "falsy string",
+] as const;
+
+// Allowed guarded logical right type variants
+const allowGuardedUnaryNotTypes = [
+  "boolean",
+  "string",
+  "number",
+  "nullish",
+
+  "truthy boolean",
+  "truthy number",
+  "truthy string",
+
+  "falsy boolean",
+  "falsy number",
+  "falsy string",
+] as const;
 
 /**
  * Ported from https://github.com/typescript-eslint/typescript-eslint/blob/eb736bbfc22554694400e6a4f97051d845d32e0b/packages/eslint-plugin/src/rules/strict-boolean-expressions.ts#L826
@@ -73,26 +108,30 @@ function inspectVariantTypes(types: ts.Type[]) {
   // object with intrinsicName set accordingly
   // If incoming type is boolean, there will be two type objects with
   // intrinsicName set "true" and "false" each because of ts-api-utils.unionTypeParts()
-  // eslint-disable-next-line no-restricted-syntax
   if (booleans.length === 1 && booleans[0]) {
-    tsutils.isTrueLiteralType(booleans[0])
-      ? variantTypes.add("truthy boolean")
-      : variantTypes.add("boolean");
-  } else if (booleans.length === 2) {
-    variantTypes.add("boolean");
+    const evaluated = match<ts.Type, VariantType>(booleans[0])
+      .when(tsutils.isTrueLiteralType, F.constant("truthy boolean"))
+      .when(tsutils.isFalseLiteralType, F.constant("falsy boolean"))
+      .otherwise(F.constant("boolean"));
+
+    variantTypes.add(evaluated);
   }
 
   const strings = types.filter(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.StringLike));
 
   if (strings.length > 0) {
-    // eslint-disable-next-line no-restricted-syntax
-    if (
-      strings.every(type => type.isStringLiteral() && type.value !== "")
-    ) {
-      variantTypes.add("truthy string");
-    } else {
-      variantTypes.add("string");
-    }
+    const evaluated = match<ts.Type[], VariantType>(strings)
+      .when(
+        types => types.every(type => type.isStringLiteral() && type.value !== ""),
+        F.constant("truthy string"),
+      )
+      .when(
+        types => types.every(type => type.isStringLiteral() && type.value === ""),
+        F.constant("falsy string"),
+      )
+      .otherwise(F.constant("string"));
+
+    variantTypes.add(evaluated);
   }
 
   const numbers = types.filter(type =>
@@ -103,17 +142,21 @@ function inspectVariantTypes(types: ts.Type[]) {
   );
 
   if (numbers.length > 0) {
-    // eslint-disable-next-line no-restricted-syntax
-    if (numbers.every(type => type.isNumberLiteral() && type.value !== 0)) {
-      variantTypes.add("truthy number");
-    } else {
-      variantTypes.add("number");
-    }
+    const evaluated = match<ts.Type[], VariantType>(numbers)
+      .when(
+        types => types.every(type => type.isNumberLiteral() && type.value !== 0),
+        F.constant("truthy number"),
+      )
+      .when(
+        types => types.every(type => type.isNumberLiteral() && type.value === 0),
+        F.constant("falsy number"),
+      )
+      .otherwise(F.constant("number"));
+
+    variantTypes.add(evaluated);
   }
 
-  if (
-    types.some(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.EnumLike))
-  ) {
+  if (types.some(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.EnumLike))) {
     variantTypes.add("enum");
   }
 
@@ -155,6 +198,8 @@ function inspectVariantTypes(types: ts.Type[]) {
   if (types.some(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.Never))) {
     variantTypes.add("never");
   }
+
+  console.log(variantTypes);
 
   return [...variantTypes];
 }
@@ -203,16 +248,30 @@ export default createRule<[], MessageID>({
     function isValidLogicalExpression(
       node: TSESTree.LogicalExpression,
     ): boolean {
-      const { left, operator } = node;
+      const { left, operator, right } = node;
 
-      if (operator === "&&") {
-        const leftType = getConstrainedTypeAtLocation(services, left);
-        const types = inspectVariantTypes(tsutils.unionTypeParts(leftType));
-
-        return types.every(type => allowTypes.includes(type as never));
+      if (operator !== "&&") {
+        return true;
       }
 
-      return true;
+      const isLeftHasUnaryNot = left.type === NodeType.UnaryExpression
+        && getNestedUnaryOperators(left).some(op => op === "!");
+
+      if (isLeftHasUnaryNot) {
+        if (isJSX(right)) {
+          return true;
+        }
+
+        const rightType = getConstrainedTypeAtLocation(services, right);
+        const types = inspectVariantTypes(tsutils.unionTypeParts(rightType));
+
+        return types.every(type => allowGuardedUnaryNotTypes.includes(type as never));
+      }
+
+      const leftType = getConstrainedTypeAtLocation(services, left);
+      const types = inspectVariantTypes(tsutils.unionTypeParts(leftType));
+
+      return types.every(type => allowTypes.includes(type as never));
     }
 
     function isValidConditionalExpression(
@@ -224,7 +283,21 @@ export default createRule<[], MessageID>({
       const testType = getConstrainedTypeAtLocation(services, test);
       const types = inspectVariantTypes(tsutils.unionTypeParts(testType));
 
-      if (isConsequentGuarded && types.every(type => allowGuardedTypes.includes(type as never))) {
+      if (
+        isConsequentGuarded
+        && types.every(type => allowGuardedConsequentTypes.includes(type as never))
+      ) {
+        return true;
+      }
+
+      const unaryOperatorsInTest = test.type === NodeType.UnaryExpression
+        ? getNestedUnaryOperators(test)
+        : [];
+
+      const isAlternateGuarded = unaryOperatorsInTest.every(op => op === "!")
+        && unaryOperatorsInTest.length % 2 === 1;
+
+      if (isAlternateGuarded && types.every(type => allowGuardedAlternateTypes.includes(type as never))) {
         return true;
       }
 
