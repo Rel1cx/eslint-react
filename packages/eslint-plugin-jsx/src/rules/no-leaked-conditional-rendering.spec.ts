@@ -299,6 +299,23 @@ ruleTester.run(RULE_NAME, rule, {
         )
       }
     `,
+    dedent`
+      const SomeComponent = () => <div />;
+      const App = ({
+        someCondition,
+      }: {
+        someCondition?: number | undefined;
+      }) => {
+        return (
+          <>
+            {someCondition
+              ? someCondition
+              : <SomeComponent />
+            }
+          </>
+        )
+      }
+    `,
   ],
   invalid: [
     {
@@ -538,6 +555,26 @@ ruleTester.run(RULE_NAME, rule, {
                 />)
                 : someCondition1 ? Date() : <div />
               }
+            </>
+          )
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        const App = ({
+          someCondition,
+        }: {
+          someCondition: number | undefined;
+        }) => {
+          return (
+            <>
+              {someCondition && <Foo />}
             </>
           )
         }
