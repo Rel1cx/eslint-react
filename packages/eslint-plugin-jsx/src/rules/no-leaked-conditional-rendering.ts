@@ -83,10 +83,10 @@ function inspectVariantTypes(types: ts.Type[]) {
   // object with intrinsicName set accordingly
   // If incoming type is boolean, there will be two type objects with
   // intrinsicName set "true" and "false" each because of ts-api-utils.unionTypeParts()
-  if (booleans.length === 1 && booleans[0]) {
-    const evaluated = match<ts.Type, VariantType>(booleans[0])
-      .when(tsutils.isTrueLiteralType, F.constant("truthy boolean"))
-      .when(tsutils.isFalseLiteralType, F.constant("falsy boolean"))
+  if (booleans.length > 0) {
+    const evaluated = match<ts.Type[], VariantType>(booleans)
+      .when(types => types.every(tsutils.isTrueLiteralType), F.constant("truthy boolean"))
+      .when(types => types.every(tsutils.isFalseLiteralType), F.constant("falsy boolean"))
       .otherwise(F.constant("boolean"));
 
     variantTypes.add(evaluated);
@@ -250,7 +250,9 @@ export default createRule<[], MessageID>({
       const leftType = getConstrainedTypeAtLocation(services, left);
       const leftTypeVariants = inspectVariantTypes(tsutils.unionTypeParts(leftType));
 
-      return leftTypeVariants.every(type => allowTypes.includes(type as never));
+      return leftTypeVariants
+        .filter(type => type !== "nullish")
+        .every(type => allowTypes.includes(type as never));
     }
 
     function isValidConditionalExpression(
