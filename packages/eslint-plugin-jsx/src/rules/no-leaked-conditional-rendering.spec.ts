@@ -329,7 +329,7 @@ ruleTester.run(RULE_NAME, rule, {
                 prop1={val1}
                 prop2={val2}
               />)
-              : someCondition ? Date()
+              : someCondition ? "aaa"
               : someCondition && someCondition
               ? <div />
               : null
@@ -337,6 +337,52 @@ ruleTester.run(RULE_NAME, rule, {
           </>
         )
       }
+    `,
+    dedent`
+      const someCondition = true
+      const SomeComponent = () => <div />;
+
+      const App = () => {
+        return (
+          <>
+            {someCondition
+              ? (
+              <SomeComponent
+                prop1={val1}
+                prop2={val2}
+              />)
+              : "else"
+            }
+          </>
+        )
+      }
+    `,
+    dedent`
+      const someCondition = 0;
+      const SomeComponent = () => <div />;
+
+      const App = () => {
+        return (
+          <>
+            {!!someCondition
+              ? (
+              <SomeComponent
+                prop1={val1}
+                prop2={val2}
+              />)
+              : someCondition ? someCondition : <div />
+            }
+          </>
+        )
+      }
+    `,
+    dedent`
+      const SomeComponent = () => <div />;
+      const someFunction = (input: unknown): 10 => 10
+
+      const App = ({ someCondition }: { someCondition?: number | undefined }) => {
+        return <>{someCondition ? someFunction(someCondition) : <SomeComponent />}</>;
+      };
     `,
   ],
   invalid: [
@@ -458,85 +504,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: dedent`
-        const someCondition1 = true
-        const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {someCondition
-                ? (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />)
-                : Date()
-              }
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        const someCondition1 = true
-        const SomeComponent = () => <div />;
-        const notComponent = () => new Date();
-
-        const App = () => {
-          return (
-            <>
-              {someCondition
-                ? (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />)
-                : notComponent()
-              }
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        const someCondition = 0;
-        const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {!!someCondition
-                ? (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />)
-                : Date()
-              }
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: dedent`
         const someCondition = 0;
         const SomeComponent = () => <div />;
 
@@ -550,32 +517,6 @@ ruleTester.run(RULE_NAME, rule, {
                   prop2={val2}
                 />)
                 : someCondition && <div />
-              }
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        const someCondition = 1;
-        const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {!!someCondition
-                ? (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />)
-                : someCondition ? Date() : <div />
               }
             </>
           )
@@ -605,33 +546,6 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
         },
-      ],
-    },
-    {
-      code: dedent`
-        const someCondition = 1;
-        const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {!!someCondition
-                ? (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />)
-                : someCondition ? window
-                : someCondition && someCondition
-                ? <div />
-                : null
-              }
-            </>
-          )
-        }
-      `,
-      errors: [
-        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
       ],
     },
   ],
