@@ -42,6 +42,7 @@ export default [
       parser: tsParser,
       sourceType: "module",
       parserOptions: {
+        // This is important if you want to lint your config files under project root as well
         project: "./tsconfig.node.json",
       },
     },
