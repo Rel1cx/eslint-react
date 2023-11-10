@@ -199,8 +199,6 @@ function inspectVariantTypes(types: ts.Type[]) {
     variantTypes.add("never");
   }
 
-  console.log(variantTypes);
-
   return [...variantTypes];
 }
 
