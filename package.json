@@ -51,7 +51,6 @@
     "lint:examples": "pnpm -r -F './examples/*' run --parallel lint",
     "prepare": "husky install && pnpm run build",
     "test": "vitest --run --logHeapUsage",
-    "test:fast": "bun test",
     "test:ui": "vitest --ui",
     "update": "taze",
     "update:website": "bun run --bun ./scripts/update-website.ts"

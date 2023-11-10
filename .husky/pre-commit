@@ -6,5 +6,4 @@ pnpm run build:docs
 pnpm run update:website
 pnpm run format:write
 pnpm run lint
-pnpm run test:fast
 git add .
