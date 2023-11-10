@@ -281,7 +281,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     dedent`
-      const someCondition1 = 0;
+      const someCondition = 0;
       const SomeComponent = () => <div />;
 
       const App = () => {
@@ -293,7 +293,7 @@ ruleTester.run(RULE_NAME, rule, {
                 prop1={val1}
                 prop2={val2}
               />)
-              : someCondition1 ? null : <div />
+              : someCondition ? null : <div />
             }
           </>
         )
@@ -311,6 +311,28 @@ ruleTester.run(RULE_NAME, rule, {
             {someCondition
               ? someCondition
               : <SomeComponent />
+            }
+          </>
+        )
+      }
+    `,
+    dedent`
+      const someCondition = 0;
+      const SomeComponent = () => <div />;
+
+      const App = () => {
+        return (
+          <>
+            {!!someCondition
+              ? (
+              <SomeComponent
+                prop1={val1}
+                prop2={val2}
+              />)
+              : someCondition ? Date()
+              : someCondition && someCondition
+              ? <div />
+              : null
             }
           </>
         )
@@ -489,7 +511,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: dedent`
-        const someCondition1 = 0;
+        const someCondition = 0;
         const SomeComponent = () => <div />;
 
         const App = () => {
@@ -515,7 +537,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: dedent`
-        const someCondition1 = 0;
+        const someCondition = 0;
         const SomeComponent = () => <div />;
 
         const App = () => {
@@ -527,7 +549,7 @@ ruleTester.run(RULE_NAME, rule, {
                   prop1={val1}
                   prop2={val2}
                 />)
-                : someCondition1 && <div />
+                : someCondition && <div />
               }
             </>
           )
@@ -541,7 +563,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: dedent`
-        const someCondition1 = 0;
+        const someCondition = 1;
         const SomeComponent = () => <div />;
 
         const App = () => {
@@ -553,7 +575,7 @@ ruleTester.run(RULE_NAME, rule, {
                   prop1={val1}
                   prop2={val2}
                 />)
-                : someCondition1 ? Date() : <div />
+                : someCondition ? Date() : <div />
               }
             </>
           )
@@ -583,6 +605,33 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
         },
+      ],
+    },
+    {
+      code: dedent`
+        const someCondition = 1;
+        const SomeComponent = () => <div />;
+
+        const App = () => {
+          return (
+            <>
+              {!!someCondition
+                ? (
+                <SomeComponent
+                  prop1={val1}
+                  prop2={val2}
+                />)
+                : someCondition ? window
+                : someCondition && someCondition
+                ? <div />
+                : null
+              }
+            </>
+          )
+        }
+      `,
+      errors: [
+        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
       ],
     },
   ],
