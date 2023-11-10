@@ -124,7 +124,7 @@
       "@typescript-eslint/types": ">=6.10.0",
       "@typescript-eslint/utils": ">=6.10.0",
       "eslint": ">=8.53.0",
-      "eslint-doc-generator": "1.5.2",
+      "eslint-doc-generator": "1.5.4",
       "eslint-plugin-import": "npm:eslint-plugin-i@latest",
       "has": "npm:@nolyfill/has@latest",
       "react": "^18.2.0",
@@ -144,7 +144,7 @@
       "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@latest"
     },
     "patchedDependencies": {
-      "eslint-doc-generator@1.5.2": "patches/eslint-doc-generator@1.5.2.patch"
+      "eslint-doc-generator@1.5.4": "patches/eslint-doc-generator@1.5.4.patch"
     }
   }
 }
