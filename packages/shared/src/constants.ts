@@ -1,6 +1,8 @@
 export const NPM_SCOPE = "@eslint-react";
 
-export const GITHUB_BASEURL = "https://github.com/eslint-react/eslint-react/blob/main";
+export const GITHUB_URL = "https://github.com/eslint-react/eslint-react/blob/main";
+
+export const WEBSITE_URL = "https://eslint-react.xyz";
 
 export const JSX_EXTENSIONS = [".jsx", ".tsx"];
 

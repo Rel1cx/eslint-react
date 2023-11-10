@@ -1,10 +1,10 @@
 // eslint-disable-next-line functional-core/purity
 import { ESLintUtils } from "@typescript-eslint/utils";
 
-import { GITHUB_BASEURL } from "./constants";
+import { WEBSITE_URL } from "./constants";
 
 const getDocsUrl = (pluginName: string) => (ruleName: string) => {
-  return `${GITHUB_BASEURL}/packages/eslint-plugin-${pluginName}/src/rules/${ruleName}.md`;
+  return `${WEBSITE_URL}/rules/${pluginName}-${ruleName}`;
 };
 
 export const createRuleForPlugin = (pluginName: string) => ESLintUtils.RuleCreator(getDocsUrl(pluginName));
