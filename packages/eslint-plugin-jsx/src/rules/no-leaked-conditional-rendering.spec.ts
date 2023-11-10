@@ -405,7 +405,7 @@ ruleTester.run(RULE_NAME, rule, {
       };
 
       function App<T>({ someFunction }: AppProps<T>) {
-        return <>{!!someFunction && someFunction(1 as T)}</>;
+        return <>{!!someFunction && someFunction<number>(1)}</>;
       }
     `,
   ],
