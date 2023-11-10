@@ -2,9 +2,12 @@
 
 Hi! We, the maintainers, are really excited that you are interested in contributing to ESLint React. Before submitting your contribution though, please make sure to take a moment and read through the [Code of Conduct](CODE_OF_CONDUCT.md), as well as the appropriate section for the contribution you intend to make:
 
-- [Issue Reporting Guidelines](#issue-reporting-guidelines)
-- [Pull Request Guidelines](#pull-request-guidelines)
-- [Development Guide](#development-guide)
+- [ESLint React Contributing Guide](#eslint-react-contributing-guide)
+  - [Issue Reporting Guidelines](#issue-reporting-guidelines)
+  - [Pull Request Guidelines](#pull-request-guidelines)
+  - [Development Guide](#development-guide)
+    - [Packages Overview](#packages-overview)
+      - [Building the documentation locally](#building-the-documentation-locally)
 
 ## Issue Reporting Guidelines
 
@@ -54,11 +57,11 @@ Hi! We, the maintainers, are really excited that you are interested in contribut
 - `@eslint-react/debug`: The ESLint plugin for debugging related rules.
 - `@eslint-react/eslint-plugin`: The main ESLint plugin of ESLint React. Contains all the rules in this project.
 
-### Developing ESLint Plugin (`@eslint-react/eslint-plugin`)
+<!-- ### Developing ESLint Plugin (`@eslint-react/eslint-plugin`) -->
 
 <!-- TODO: Add more info here -->
 
-### Developing ESLint Core and Related Components (`@eslint-react/tools`, `@eslint-react/types`, `@eslint-react/ast`, `@eslint-react/core`, `@eslint-react/jsx`)
+<!-- ### Developing ESLint Core and Related Components (`@eslint-react/tools`, `@eslint-react/types`, `@eslint-react/ast`, `@eslint-react/core`, `@eslint-react/jsx`) -->
 
 <!-- TODO: Add more info here -->
 
