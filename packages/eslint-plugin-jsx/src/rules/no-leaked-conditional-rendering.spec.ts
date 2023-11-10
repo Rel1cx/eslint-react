@@ -384,6 +384,30 @@ ruleTester.run(RULE_NAME, rule, {
         return <>{someCondition ? someFunction(someCondition) : <SomeComponent />}</>;
       };
     `,
+    dedent`
+      const SomeComponent = () => <div />;
+
+      const App = ({
+        someCondition,
+      }:{
+        someCondition?: boolean | undefined;
+      }) => {
+        return (
+          <>
+            {someCondition && <SomeComponent />}
+          </>
+        )
+      }
+    `,
+    dedent`
+      type AppProps<T> = {
+        someFunction: (data: T) => React.ReactNode;
+      };
+
+      function App<T>({ someFunction }: AppProps<T>) {
+        return <>{!!someFunction && someFunction(1 as T)}</>;
+      }
+    `,
   ],
   invalid: [
     {
@@ -538,6 +562,28 @@ ruleTester.run(RULE_NAME, rule, {
           return (
             <>
               {someCondition && <Foo />}
+            </>
+          )
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        const SomeComponent = () => <div />;
+
+        const App = ({
+          someCondition,
+        }:{
+          someCondition?: number | undefined;
+        }) => {
+          return (
+            <>
+              {someCondition && <SomeComponent />}
             </>
           )
         }
