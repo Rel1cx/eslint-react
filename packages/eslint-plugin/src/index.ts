@@ -117,7 +117,6 @@ function createLegacyConfig<T extends RulePreset>(rules: T, plugins = legacyConf
 
 function createFlatConfig<T extends RulePreset>(rules: T, plugins = flatConfigPlugins) {
   return {
-    files: ["**/*.{ts,tsx}"],
     languageOptions: {
       parser: tsParser,
       parserOptions: {

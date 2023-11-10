@@ -36,8 +36,8 @@
     },
     {
       "pattern": "examples/*",
-      "mode": "auto",
-      "!cwd": true
+      "changeProcessCWD": true,
+      "mode": "auto"
     }
   ],
   "eslint.experimental.useFlatConfig": false,

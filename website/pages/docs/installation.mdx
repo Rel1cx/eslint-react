@@ -1,7 +1,5 @@
 import { Tab, Tabs } from "nextra-theme-docs";
 
-# Quickstart
-
 ## Install
 
 <Tabs items={[ "npm", "pnpm", "yarn", "Bun"]}>
@@ -66,22 +64,37 @@ import react from "@eslint-react/eslint-plugin";
 import reactHooks from "eslint-plugin-react-hooks";
 
 export default [
+  // TypeScript rules
   {
-    files: ["**/*.{ts,tsx}"],
+    files: ["**/*.ts"],
+    ignores: ["eslint.config.js"],
     languageOptions: {
       parser: tsParser,
+      sourceType: "module",
     },
     plugins: {
       "@typescript-eslint": ts,
-      "react-hooks": reactHooks,
     },
     rules: {
       ...ts.configs["eslint-recommended"].rules,
       ...ts.configs["recommended"].rules,
+    },
+  },
+  // React hooks rules
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    plugins: {
+      "react-hooks": reactHooks,
+    },
+    rules: {
       ...reactHooks.configs.recommended.rules,
     },
   },
-  react.configs.recommended,
+  // React rules
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    ...react.configs.recommended,
+  },
 ];
 ```
 </Tab>
