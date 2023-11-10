@@ -229,6 +229,10 @@ export default createRule<[], MessageID>({
         return true;
       }
 
+      if (isJSX(left)) {
+        return true;
+      }
+
       const isLeftUnaryNot = left.type === NodeType.UnaryExpression
         && left.operator === "!";
 
@@ -253,6 +257,10 @@ export default createRule<[], MessageID>({
       node: TSESTree.ConditionalExpression,
     ): boolean {
       const { alternate, consequent } = node;
+
+      if (isJSX(alternate) && isJSX(consequent)) {
+        return true;
+      }
 
       return isValidInnerExpression(consequent) && isValidInnerExpression(alternate);
     }
