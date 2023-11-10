@@ -209,7 +209,7 @@ export default createRule<[], MessageID>({
     docs: {
       description: "disallow problematic leaked values from being rendered",
       recommended: "recommended",
-      requiresTypeChecking: false,
+      requiresTypeChecking: true,
     },
     schema: [],
     messages: {
