@@ -1,5 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { getNestedUnaryOperators, isJSX, isNodeEqual, NodeType } from "@eslint-react/ast";
+import { getNestedUnaryOperators, isJSX, isNodeEqual, isOneOf, NodeType } from "@eslint-react/ast";
 import { isJSXValue, JSXValueCheckHint } from "@eslint-react/jsx";
 import { F } from "@eslint-react/tools";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
@@ -227,6 +227,7 @@ export default createRule<[], MessageID>({
     },
   },
   defaultOptions: [],
+  // eslint-disable-next-line sonarjs/cognitive-complexity
   create(context) {
     const hint = JSXValueCheckHint.StrictArray
       | JSXValueCheckHint.StrictLogical
@@ -295,19 +296,36 @@ export default createRule<[], MessageID>({
         return true;
       }
 
-      const unaryOperatorsInTest = test.type === NodeType.UnaryExpression
-        ? getNestedUnaryOperators(test)
-        : [];
+      if (test.type === NodeType.UnaryExpression) {
+        const unaryNotOperatorsInTest = getNestedUnaryOperators(test);
+        const testIsFalsy = testTypeVariants.every(type => falsyTypes.includes(type as never));
+        const isAlternateGuarded = testIsFalsy
+          // Check for `!!` or `!!!!` etc in the test
+          && unaryNotOperatorsInTest.every(op => op === "!")
+          && unaryNotOperatorsInTest.length % 2 === 0;
 
-      const isAlternateGuarded = testTypeVariants.every(type => falsyTypes.includes(type as never))
-        && unaryOperatorsInTest.every(op => op === "!")
-        && unaryOperatorsInTest.length % 2 === 1;
-
-      if (isAlternateGuarded && testTypeVariants.every(type => allowGuardedAlternateTypes.includes(type as never))) {
-        return true;
+        if (isAlternateGuarded && testTypeVariants.every(type => allowGuardedAlternateTypes.includes(type as never))) {
+          return isValidInnerExpression(alternate);
+        }
       }
 
-      return isValidInnerExpression(alternate) && isValidInnerExpression(consequent);
+      if (test.type === NodeType.Identifier) {
+        const isAlternateGuarded = testTypeVariants.every(type => falsyTypes.includes(type as never));
+
+        if (isAlternateGuarded) {
+          if (isJSX(alternate)) {
+            return true;
+          }
+
+          if (isOneOf([NodeType.LogicalExpression, NodeType.ConditionalExpression])(alternate)) {
+            return isValidInnerExpression(alternate);
+          }
+
+          return true;
+        }
+      }
+
+      return isValidInnerExpression(consequent) && isValidInnerExpression(alternate);
     }
 
     return {
