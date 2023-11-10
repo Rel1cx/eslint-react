@@ -1,4 +1,4 @@
-import { NodeType } from "@eslint-react/ast";
+import { isNodeEqual, NodeType } from "@eslint-react/ast";
 import { isJSXValue, JSXValueCheckHint } from "@eslint-react/jsx";
 import { F } from "@eslint-react/tools";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
@@ -14,6 +14,19 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-leaked-conditional-rendering";
 
 export type MessageID = "NEEDS_TYPE_CHECKING_SERVICE" | ConstantCase<typeof RULE_NAME>;
+
+const allowGuardedTypes = [
+  "boolean",
+  "string",
+  "number",
+  "nullish",
+
+  // eslint-disable-next-line sonarjs/no-duplicate-string
+  "truthy boolean",
+  "truthy number",
+  // eslint-disable-next-line sonarjs/no-duplicate-string
+  "truthy string",
+] as const;
 
 const allowTypes = [
   "boolean",
@@ -36,6 +49,16 @@ type VariantType =
   | "truthy boolean"
   | "truthy number"
   | "truthy string";
+
+function flatTypes(types: ts.Type[]): ts.Type[] {
+  return types.flatMap(type => {
+    if ("types" in type) {
+      return type.types as ts.Type[];
+    }
+
+    return type;
+  });
+}
 
 /**
  * Ported from https://github.com/typescript-eslint/typescript-eslint/blob/eb736bbfc22554694400e6a4f97051d845d32e0b/packages/eslint-plugin/src/rules/strict-boolean-expressions.ts#L826
@@ -195,7 +218,7 @@ export default createRule<[], MessageID>({
 
       if (operator === "&&") {
         const leftType = getConstrainedTypeAtLocation(services, left);
-        const types = inspectVariantTypes([leftType]);
+        const types = inspectVariantTypes(flatTypes([leftType]));
 
         return types.every(type => allowTypes.includes(type as never));
       }
@@ -207,11 +230,12 @@ export default createRule<[], MessageID>({
       node: TSESTree.ConditionalExpression,
     ): boolean {
       const { alternate, consequent, test } = node;
-      if (
-        consequent.type === NodeType.Identifier
-        && test.type === NodeType.Identifier
-        && test.name === consequent.name
-      ) {
+
+      const isConsequentGuarded = isNodeEqual(consequent, test);
+      const testType = getConstrainedTypeAtLocation(services, test);
+      const types = inspectVariantTypes(flatTypes([testType]));
+
+      if (isConsequentGuarded && types.every(type => allowGuardedTypes.includes(type as never))) {
         return true;
       }
 

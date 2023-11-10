@@ -565,5 +565,25 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: dedent`
+        const App = ({
+          someCondition,
+        }: {
+          someCondition: number | undefined;
+        }) => {
+          return (
+            <>
+              {someCondition && <Foo />}
+            </>
+          )
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
   ],
 });
