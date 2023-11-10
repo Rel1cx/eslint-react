@@ -1,6 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { getNestedUnaryOperators, isJSX, isNodeEqual, isOneOf, NodeType } from "@eslint-react/ast";
-import { isJSXValue, JSXValueCheckHint } from "@eslint-react/jsx";
+import { isJSX, NodeType } from "@eslint-react/ast";
 import { F } from "@eslint-react/tools";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { type TSESTree } from "@typescript-eslint/types";
@@ -34,13 +33,6 @@ type VariantType =
   | "truthy number"
   | "truthy string";
 
-const falsyTypes = [
-  "nullish",
-  "falsy boolean",
-  "falsy number",
-  "falsy string",
-] as const satisfies VariantType[];
-
 // Allowed un-guarded type variants
 const allowTypes = [
   "boolean",
@@ -49,30 +41,6 @@ const allowTypes = [
   "falsy string",
   "truthy boolean",
   "truthy string",
-] as const satisfies VariantType[];
-
-// Allowed guarded consequent type variants
-const allowGuardedConsequentTypes = [
-  "boolean",
-  "string",
-  "number",
-  "nullish",
-
-  "truthy boolean",
-  "truthy number",
-  "truthy string",
-] as const satisfies VariantType[];
-
-// Allowed guarded alternate type variants
-const allowGuardedAlternateTypes = [
-  "boolean",
-  "string",
-  "number",
-  "nullish",
-
-  "falsy boolean",
-  "falsy number",
-  "falsy string",
 ] as const satisfies VariantType[];
 
 // Allowed guarded logical right type variants
@@ -227,12 +195,8 @@ export default createRule<[], MessageID>({
     },
   },
   defaultOptions: [],
-  // eslint-disable-next-line sonarjs/cognitive-complexity
-  create(context) {
-    const hint = JSXValueCheckHint.StrictArray
-      | JSXValueCheckHint.StrictLogical
-      | JSXValueCheckHint.StrictConditional;
 
+  create(context) {
     const services = ESLintUtils.getParserServices(context);
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/strict-boolean-expressions
@@ -248,7 +212,12 @@ export default createRule<[], MessageID>({
         .with({ type: NodeType.LogicalExpression, operator: "||" }, F.constTrue)
         .with({ type: NodeType.LogicalExpression, operator: "&&" }, isValidLogicalExpression)
         .with({ type: NodeType.ConditionalExpression }, isValidConditionalExpression)
-        .otherwise(() => isJSXValue(node, context, hint));
+        .with({ type: NodeType.Identifier }, () => {
+          // Not implemented
+
+          return true;
+        })
+        .otherwise(F.constTrue);
     }
 
     function isValidLogicalExpression(
@@ -283,47 +252,7 @@ export default createRule<[], MessageID>({
     function isValidConditionalExpression(
       node: TSESTree.ConditionalExpression,
     ): boolean {
-      const { alternate, consequent, test } = node;
-
-      const isConsequentGuarded = isNodeEqual(consequent, test);
-      const testType = getConstrainedTypeAtLocation(services, test);
-      const testTypeVariants = inspectVariantTypes(tsutils.unionTypeParts(testType));
-
-      if (
-        isConsequentGuarded
-        && testTypeVariants.every(type => allowGuardedConsequentTypes.includes(type as never))
-      ) {
-        return true;
-      }
-
-      if (test.type === NodeType.UnaryExpression) {
-        const unaryNotOperatorsInTest = getNestedUnaryOperators(test);
-        const testIsFalsy = testTypeVariants.every(type => falsyTypes.includes(type as never));
-        const isAlternateGuarded = testIsFalsy
-          // Check for `!!` or `!!!!` etc in the test
-          && unaryNotOperatorsInTest.every(op => op === "!")
-          && unaryNotOperatorsInTest.length % 2 === 0;
-
-        if (isAlternateGuarded && testTypeVariants.every(type => allowGuardedAlternateTypes.includes(type as never))) {
-          return isValidInnerExpression(alternate);
-        }
-      }
-
-      if (test.type === NodeType.Identifier) {
-        const isAlternateGuarded = testTypeVariants.every(type => falsyTypes.includes(type as never));
-
-        if (isAlternateGuarded) {
-          if (isJSX(alternate)) {
-            return true;
-          }
-
-          if (isOneOf([NodeType.LogicalExpression, NodeType.ConditionalExpression])(alternate)) {
-            return isValidInnerExpression(alternate);
-          }
-
-          return true;
-        }
-      }
+      const { alternate, consequent } = node;
 
       return isValidInnerExpression(consequent) && isValidInnerExpression(alternate);
     }
