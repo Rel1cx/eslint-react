@@ -1,7 +1,7 @@
 {
   "name": "@eslint-react/monorepo",
   "version": "0.8.2",
-  "description": "ESLint plugin for React function components with TypeScript, built (mostly) from scratch.",
+  "description": "ESLint plugin for React function components with TypeScript, built (mostly) from scratch",
   "keywords": [
     "eslint",
     "eslint-plugin",

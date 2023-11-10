@@ -204,6 +204,14 @@ export default [
 4. **Sensible defaults**. Rules should be easy to setup and use with minimal configuration and sensible defaults.
 5. **Rules over Options [[1]](https://eslint-react.xyz/docs/rules-over-options)**. Each rule should have a single purpose. Make multiple rules work together to achieve more complex behaviors instead of adding options to a single rule.
 
+## Contributing
+
+Before you start working on something, it's best to check if there is an existing issue first. It's also a good idea to reach the maintainer and confirm with the team if it makes sense or if someone else is already working on it.
+
+Please make sure to read the [Contributing Guide](./.github/CONTRIBUTING.md) before making a pull request.
+
+Thank you to everyone contributing to ESLint React!
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
