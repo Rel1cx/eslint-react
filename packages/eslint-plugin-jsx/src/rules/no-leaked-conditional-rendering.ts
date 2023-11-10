@@ -1,6 +1,5 @@
-/* eslint-disable sonarjs/no-duplicate-string */
-import { isJSX, NodeType } from "@eslint-react/ast";
-import { F } from "@eslint-react/tools";
+import { findVariableByNameUpToGlobal, getVariableInitExpression, isJSX, NodeType } from "@eslint-react/ast";
+import { F, O } from "@eslint-react/tools";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { type TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
@@ -33,30 +32,14 @@ type VariantType =
   | "truthy number"
   | "truthy string";
 
-// Allowed un-guarded type variants
-const allowTypes = [
+// Allowed left node type variants
+const allowedVariants = [
   "boolean",
   "string",
 
   "falsy string",
   "truthy boolean",
   "truthy string",
-] as const satisfies VariantType[];
-
-// Allowed guarded logical right type variants
-const allowGuardedUnaryNotTypes = [
-  "boolean",
-  "string",
-  "number",
-  "nullish",
-
-  "truthy boolean",
-  "truthy number",
-  "truthy string",
-
-  "falsy boolean",
-  "falsy number",
-  "falsy string",
 ] as const satisfies VariantType[];
 
 /**
@@ -209,13 +192,23 @@ export default createRule<[], MessageID>({
 
     function isValidInnerExpression(node: TSESTree.Expression): boolean {
       return match(node)
+        .when(isJSX, F.constTrue)
         .with({ type: NodeType.LogicalExpression, operator: "||" }, F.constTrue)
         .with({ type: NodeType.LogicalExpression, operator: "&&" }, isValidLogicalExpression)
         .with({ type: NodeType.ConditionalExpression }, isValidConditionalExpression)
-        .with({ type: NodeType.Identifier }, () => {
-          // Not implemented
+        .with({ type: NodeType.Identifier }, (n) => {
+          const maybeInitExpression = F.pipe(
+            findVariableByNameUpToGlobal(n.name, context.getScope()),
+            O.flatMap(getVariableInitExpression(0)),
+          );
 
-          return true;
+          if (O.isNone(maybeInitExpression)) {
+            return true;
+          }
+
+          const initExpression = maybeInitExpression.value;
+
+          return isValidInnerExpression(initExpression);
         })
         .otherwise(F.constTrue);
     }
@@ -229,22 +222,11 @@ export default createRule<[], MessageID>({
         return true;
       }
 
-      if (isJSX(left)) {
-        return true;
-      }
-
       const isLeftUnaryNot = left.type === NodeType.UnaryExpression
         && left.operator === "!";
 
       if (isLeftUnaryNot) {
-        if (isJSX(right)) {
-          return true;
-        }
-
-        const rightType = getConstrainedTypeAtLocation(services, right);
-        const rightTypeVariants = inspectVariantTypes(tsutils.unionTypeParts(rightType));
-
-        return rightTypeVariants.every(type => allowGuardedUnaryNotTypes.includes(type as never));
+        return isValidInnerExpression(right);
       }
 
       const leftType = getConstrainedTypeAtLocation(services, left);
@@ -252,17 +234,14 @@ export default createRule<[], MessageID>({
 
       return leftTypeVariants
         .filter(type => type !== "nullish")
-        .every(type => allowTypes.includes(type as never));
+        .every(type => allowedVariants.includes(type as never))
+        && isValidInnerExpression(right);
     }
 
     function isValidConditionalExpression(
       node: TSESTree.ConditionalExpression,
     ): boolean {
       const { alternate, consequent } = node;
-
-      if (isJSX(alternate) && isJSX(consequent)) {
-        return true;
-      }
 
       return isValidInnerExpression(consequent) && isValidInnerExpression(alternate);
     }

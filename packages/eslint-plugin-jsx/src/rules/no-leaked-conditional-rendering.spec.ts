@@ -399,6 +399,15 @@ ruleTester.run(RULE_NAME, rule, {
         )
       }
     `,
+    dedent`
+      type AppProps<T> = {
+        someFunction: (data: T) => React.ReactNode;
+      };
+
+      function App<T>({ someFunction }: AppProps<T>) {
+        return <>{!!someFunction && someFunction<number>(1)}</>;
+      }
+    `,
   ],
   invalid: [
     {
