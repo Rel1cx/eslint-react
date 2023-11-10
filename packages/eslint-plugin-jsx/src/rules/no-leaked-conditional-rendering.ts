@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { isNodeEqual, NodeType } from "@eslint-react/ast";
 import { isJSXValue, JSXValueCheckHint } from "@eslint-react/jsx";
 import { F } from "@eslint-react/tools";
@@ -21,10 +22,8 @@ const allowGuardedTypes = [
   "number",
   "nullish",
 
-  // eslint-disable-next-line sonarjs/no-duplicate-string
   "truthy boolean",
   "truthy number",
-  // eslint-disable-next-line sonarjs/no-duplicate-string
   "truthy string",
 ] as const;
 
@@ -49,16 +48,6 @@ type VariantType =
   | "truthy boolean"
   | "truthy number"
   | "truthy string";
-
-function flatTypes(types: ts.Type[]): ts.Type[] {
-  return types.flatMap(type => {
-    if ("types" in type) {
-      return type.types as ts.Type[];
-    }
-
-    return type;
-  });
-}
 
 /**
  * Ported from https://github.com/typescript-eslint/typescript-eslint/blob/eb736bbfc22554694400e6a4f97051d845d32e0b/packages/eslint-plugin/src/rules/strict-boolean-expressions.ts#L826
@@ -218,7 +207,7 @@ export default createRule<[], MessageID>({
 
       if (operator === "&&") {
         const leftType = getConstrainedTypeAtLocation(services, left);
-        const types = inspectVariantTypes(flatTypes([leftType]));
+        const types = inspectVariantTypes(tsutils.unionTypeParts(leftType));
 
         return types.every(type => allowTypes.includes(type as never));
       }
@@ -233,7 +222,7 @@ export default createRule<[], MessageID>({
 
       const isConsequentGuarded = isNodeEqual(consequent, test);
       const testType = getConstrainedTypeAtLocation(services, test);
-      const types = inspectVariantTypes(flatTypes([testType]));
+      const types = inspectVariantTypes(tsutils.unionTypeParts(testType));
 
       if (isConsequentGuarded && types.every(type => allowGuardedTypes.includes(type as never))) {
         return true;
