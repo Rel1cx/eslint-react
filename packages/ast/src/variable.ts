@@ -4,6 +4,8 @@ import { type Scope, ScopeType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { isNullable } from "effect/Predicate";
 
+import { NodeType } from "./node-type";
+
 /**
  * Find a variable through a list of variables by name
  * @param name The name of the variable to find
@@ -64,6 +66,25 @@ export function getVariableInit(at: number) {
       O.some(variable),
       O.flatMapNullable(v => v.defs.at(at)),
       O.flatMap(resolveDefinitionInit),
+    );
+  };
+}
+
+function isInitExpression(
+  node:
+    | TSESTree.Expression
+    | TSESTree.LetOrConstOrVarDeclaration,
+): node is TSESTree.Expression {
+  return node.type !== NodeType.VariableDeclaration;
+}
+
+export function getVariableInitExpression(at: number) {
+  return (variable: Variable): O.Option<TSESTree.Expression> => {
+    return F.pipe(
+      O.some(variable),
+      O.flatMapNullable(v => v.defs.at(at)),
+      O.flatMap(resolveDefinitionInit),
+      O.filter(isInitExpression),
     );
   };
 }
