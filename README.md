@@ -121,6 +121,9 @@ export default [
 - [ ] `jsx/no-bind`
 - [ ] `jsx/max-depth`
 - [ ] `jsx/no-complicated-conditional-rendering`
+- [ ] `jsx/ban-component-props-in-spreading`
+- [ ] `jsx/ban-html-props-in-spreading`
+- [ ] `jsx/ban-svg-props-in-spreading`
 
 #### Naming convention rules
 
@@ -173,11 +176,8 @@ export default [
 - [ ] `react/prefer-readonly-props`
 - [ ] `react/ban-components`
 - [ ] `react/ban-component-props`
-- [ ] `react/ban-component-props-in-spreading`
 - [ ] `react/ban-html-props`
-- [ ] `react/ban-html-props-in-spreading`
 - [ ] `react/ban-svg-props`
-- [ ] `react/ban-svg-props-in-spreading`
 
 #### Hooks rules
 
