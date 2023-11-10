@@ -171,10 +171,13 @@ export default [
 - [ ] `react/no-access-ref-current-during-rendering`
 - [x] `react/prefer-destructuring-assignment`
 - [ ] `react/prefer-readonly-props`
-- [ ] `react/ban-component-props`
 - [ ] `react/ban-components`
+- [ ] `react/ban-component-props`
+- [ ] `react/ban-component-props-in-spreading`
 - [ ] `react/ban-html-props`
+- [ ] `react/ban-html-props-in-spreading`
 - [ ] `react/ban-svg-props`
+- [ ] `react/ban-svg-props-in-spreading`
 
 #### Hooks rules
 
