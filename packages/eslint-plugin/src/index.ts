@@ -59,7 +59,6 @@ const recommendedPreset = {
   "jsx/no-array-index-key": "warn",
   "jsx/no-comment-textnodes": "warn",
   "jsx/no-duplicate-key": "error",
-  "jsx/no-leaked-conditional-rendering": "warn",
   "jsx/no-missing-key": "error",
   "jsx/no-spreading-key": "warn",
   "jsx/no-useless-fragment": "warn",
@@ -85,6 +84,11 @@ const recommendedPreset = {
   "react/no-unstable-default-props": "warn",
   "react/no-unstable-nested-components": "warn",
   "react/prefer-destructuring-assignment": "warn",
+} as const satisfies RulePreset;
+
+const recommendedTypeCheckedPreset = {
+  ...recommendedPreset,
+  "jsx/no-leaked-conditional-rendering": "warn",
 } as const satisfies RulePreset;
 
 const rulePresetEntries = entries(rulePreset);
@@ -139,13 +143,13 @@ export default {
     "debug-legacy": createLegacyConfig(debugPreset),
     "off-legacy": createLegacyConfig(offPreset),
     "recommended-legacy": createLegacyConfig(recommendedPreset),
-    "recommended-type-checked-legacy": createLegacyConfig(recommendedPreset),
+    "recommended-type-checked-legacy": createLegacyConfig(recommendedTypeCheckedPreset),
     // eslint-disable-next-line perfectionist/sort-objects
     all: createFlatConfig(allPreset),
     debug: createFlatConfig(debugPreset),
     off: createFlatConfig(offPreset),
     recommended: createFlatConfig(recommendedPreset),
-    "recommended-type-checked": createFlatConfig(recommendedPreset),
+    "recommended-type-checked": createFlatConfig(recommendedTypeCheckedPreset),
   },
   rules: {
     ...padKeysLeft(debug.rules, "debug/"),
