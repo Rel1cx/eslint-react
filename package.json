@@ -87,7 +87,7 @@
     "knip": "2.40.2",
     "pathe": "1.1.1",
     "publint": "0.2.5",
-    "rollup": "4.3.0",
+    "rollup": "4.3.1",
     "rollup-plugin-dts": "6.1.0",
     "rollup-plugin-swc3": "0.10.3",
     "skott": "0.31.3",
