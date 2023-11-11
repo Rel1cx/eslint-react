@@ -1,5 +1,3 @@
-@import "ress/ress.css";
-
 :root {
   --font-family-body:
     "SF Pro Text",
@@ -38,11 +36,32 @@
     "Noto Color Emoji";
 
   --font-family-mono:
-    Iosevka,
+    MonaspaceNeonVF,
     ui-monospace,
     Menlo,
     Monaco,
     Consolas,
     "Liberation Mono",
     monospace;
+}
+
+html[lang] {
+  font-family: var(--font-family-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-ui);
+}
+
+h1,
+h2,
+h3 {
+  &+img {
+    margin-top: 24px;
+  }
 }
