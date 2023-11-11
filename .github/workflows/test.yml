@@ -11,7 +11,7 @@ on:
 env:
     NODE_OPTIONS: --max_old_space_size=10240
 jobs:
-    check:
+    test:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
