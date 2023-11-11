@@ -6,7 +6,7 @@ import { match, P } from "ts-pattern";
 import { PUBLIC_URL } from "#/constants";
 
 export default {
-  docsRepositoryBase: "https://github.com/eslint-react/eslint-react/tree/main/website",
+  docsRepositoryBase: "https://github.com/rel1cx/eslint-react/tree/main/website",
   sidebar: {
     defaultMenuCollapseLevel: 1,
   },
@@ -57,7 +57,7 @@ export default {
     </div>
   ),
   project: {
-    link: "https://github.com/eslint-react/eslint-react",
+    link: "https://github.com/rel1cx/eslint-react",
   },
   footer: {
     text: <span>MIT {new Date().getFullYear()} © ESLint React.</span>,

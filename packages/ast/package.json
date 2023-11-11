@@ -2,13 +2,13 @@
   "name": "@eslint-react/ast",
   "version": "0.8.2",
   "description": "TSESTree AST primitive utility module",
-  "homepage": "https://github.com/eslint-react/eslint-react",
+  "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
-    "url": "https://github.com/eslint-react/eslint-react/issues"
+    "url": "https://github.com/rel1cx/eslint-react/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/eslint-react/eslint-react.git",
+    "url": "https://github.com/rel1cx/eslint-react.git",
     "directory": "packages/ast"
   },
   "license": "MIT",
