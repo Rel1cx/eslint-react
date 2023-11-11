@@ -46,7 +46,7 @@
   ],
   "scripts": {
     "build": "rollup -c rollup.config.ts --configPlugin swc3 && cp dist/index.d.ts dist/index.d.mts",
-    "lint:publish": "pnpm publint && cd ../.. && pnpm run test",
+    "lint:publish": "pnpm publint",
     "lint:type": "bun run --bun tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
   },
