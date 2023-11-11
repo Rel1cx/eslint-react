@@ -62,13 +62,6 @@ module.exports = defineConfig({
         allow: ["warn", "error"],
       },
     ],
-    "no-restricted-syntax": [
-      "error",
-      {
-        message: "If statements with an else branch are not allowed.",
-        selector: "IfStatement[alternate]",
-      },
-    ],
     "perfectionist/sort-exports": "off",
     "perfectionist/sort-imports": "off",
     "perfectionist/sort-named-imports": "off",

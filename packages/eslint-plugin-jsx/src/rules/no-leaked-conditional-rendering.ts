@@ -52,27 +52,23 @@ function inspectVariantTypes(types: ts.Type[]) {
   const variantTypes = new Set<VariantType>();
 
   if (
-    types.some(type =>
-      tsutils.isTypeFlagSet(
-        type,
-        ts.TypeFlags.Null | ts.TypeFlags.Undefined | ts.TypeFlags.VoidLike,
-      )
-    )
+    types.some(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.Null | ts.TypeFlags.Undefined | ts.TypeFlags.VoidLike))
   ) {
     variantTypes.add("nullish");
   }
+
   const booleans = types.filter(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.BooleanLike));
 
   // If incoming type is either "true" or "false", there will be one type
   // object with intrinsicName set accordingly
   // If incoming type is boolean, there will be two type objects with
   // intrinsicName set "true" and "false" each because of ts-api-utils.unionTypeParts()
-  // eslint-disable-next-line no-restricted-syntax
-  if (booleans.length === 1) {
+  if (booleans.length === 1 && booleans[0]) {
     const [first] = booleans;
-    first && tsutils.isTrueLiteralType(first)
-      ? variantTypes.add("truthy boolean")
-      : variantTypes.add("falsy boolean");
+    tsutils.isTrueLiteralType(first)
+      && variantTypes.add("truthy boolean");
+    tsutils.isFalseLiteralType(first)
+      && variantTypes.add("falsy boolean");
   } else if (booleans.length === 2) {
     variantTypes.add("boolean");
   }
@@ -192,12 +188,14 @@ export default createRule<[], MessageID>({
       });
     }
 
-    function isValidInnerExpression(node: TSESTree.Expression): boolean {
+    function isValidExpression(node: TSESTree.Expression): boolean {
       return match(node)
         .when(isJSX, F.constTrue)
         .with({ type: NodeType.LogicalExpression, operator: "||" }, F.constTrue)
         .with({ type: NodeType.LogicalExpression, operator: "&&" }, isValidLogicalExpression)
-        .with({ type: NodeType.ConditionalExpression }, isValidConditionalExpression)
+        .with({ type: NodeType.ConditionalExpression }, ({ alternate, consequent }) => {
+          return isValidExpression(consequent) && isValidExpression(alternate);
+        })
         .with({ type: NodeType.Identifier }, (n) => {
           const maybeInitExpression = F.pipe(
             findVariableByNameUpToGlobal(n.name, context.getScope()),
@@ -210,7 +208,7 @@ export default createRule<[], MessageID>({
 
           const initExpression = maybeInitExpression.value;
 
-          return isValidInnerExpression(initExpression);
+          return isValidExpression(initExpression);
         })
         .otherwise(F.constTrue);
     }
@@ -228,27 +226,19 @@ export default createRule<[], MessageID>({
         && left.operator === "!";
 
       if (isLeftUnaryNot) {
-        return isValidInnerExpression(right);
+        return isValidExpression(right);
       }
 
       const leftType = getConstrainedTypeAtLocation(services, left);
       const leftTypeVariants = inspectVariantTypes(tsutils.unionTypeParts(leftType));
 
       return leftTypeVariants.every(type => allowedVariants.includes(type as never))
-        && isValidInnerExpression(right);
-    }
-
-    function isValidConditionalExpression(
-      node: TSESTree.ConditionalExpression,
-    ): boolean {
-      const { alternate, consequent } = node;
-
-      return isValidInnerExpression(consequent) && isValidInnerExpression(alternate);
+        && isValidExpression(right);
     }
 
     return {
       "JSXExpressionContainer > ConditionalExpression"(node: TSESTree.ConditionalExpression) {
-        if (!isValidConditionalExpression(node)) {
+        if (!isValidExpression(node)) {
           context.report({
             messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
             node,
@@ -256,7 +246,7 @@ export default createRule<[], MessageID>({
         }
       },
       "JSXExpressionContainer > LogicalExpression"(node: TSESTree.LogicalExpression) {
-        if (!isValidLogicalExpression(node)) {
+        if (!isValidExpression(node)) {
           context.report({
             messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
             node,
