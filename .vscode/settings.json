@@ -12,7 +12,7 @@
     }
   },
   "[markdown]": {
-    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+    "editor.defaultFormatter": "dprint.dprint"
   },
   "[typescript]": {
     "editor.defaultFormatter": "dprint.dprint"
