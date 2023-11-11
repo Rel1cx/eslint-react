@@ -10,7 +10,7 @@ Pedantic.
 
 Custom Hooks may call other Hooks (that’s their whole purpose).
 
-> :warning: **This rule is in early-access!** Please report any bugs or feedback on the [issue tracker](https://github.com/eslint-react/eslint-react/issues/31)
+> :warning: **This rule is in early-access!** Please report any bugs or feedback on the [issue tracker](https://github.com/rel1cx/eslint-react/issues/31)
 
 ## Why is this good?
 
