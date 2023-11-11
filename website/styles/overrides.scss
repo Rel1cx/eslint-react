@@ -25,9 +25,8 @@
 }
 
 .nextra-sidebar-container {
-  font-family: var(--font-family-ui);
-
-  ul li a {
+  ul li {
+    font-family: var(--font-family-ui);
     font-weight: 500;
   }
 }

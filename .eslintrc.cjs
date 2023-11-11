@@ -8,10 +8,6 @@ module.exports = defineConfig({
     es2024: true,
     node: true,
   },
-  ignorePatterns: [
-    "examples",
-    "website",
-  ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: "latest",
@@ -24,7 +20,6 @@ module.exports = defineConfig({
     tsconfigRootDir: __dirname,
     warnOnUnsupportedTypeScriptVersion: false,
   },
-  plugins: ["functional-core", "filenames-simple"],
   extends: [
     "with-tsconfig",
     "plugin:perfectionist/recommended-natural",
@@ -32,6 +27,11 @@ module.exports = defineConfig({
     "plugin:eslint-plugin/all",
     "plugin:functional-core/recommended",
     "plugin:filenames-simple/recommended",
+  ],
+  plugins: ["functional-core", "filenames-simple"],
+  ignorePatterns: [
+    "examples",
+    "website",
   ],
   rules: {
     "@typescript-eslint/prefer-readonly": "error",
