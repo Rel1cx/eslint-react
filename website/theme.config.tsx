@@ -1,8 +1,10 @@
-import Image from "next/image";
+import type { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { useRouter } from "next/router";
 import type { DocsThemeConfig } from "nextra-theme-docs";
 import { match, P } from "ts-pattern";
 
+import logo from "#/assets/logo.svg";
+import { Image } from "#/components/Image";
 import { PUBLIC_URL } from "#/constants";
 
 export default {
@@ -53,7 +55,7 @@ export default {
   ),
   logo: (
     <div className="w-24">
-      <Image src={`${PUBLIC_URL}/logo.svg`} width="48" height="48" alt="eslint-react" />
+      <Image src={logo as StaticImport} width="48" height="48" alt="eslint-react" />
     </div>
   ),
   project: {
