@@ -9,8 +9,8 @@ Before submitting your contribution though, please make sure to take a moment an
   - [Pull Request Guidelines](#pull-request-guidelines)
   - [Development Guide](#development-guide)
     - [Packages Overview](#packages-overview)
-    - [Developing Rules (`jsx`, `react`, `naming-convention`, `debug`)](#developing-rules-jsx-react-naming-convention-debug)
-    - [Developing Core and Related Components (`tools`, `types`, `ast`, `core`, `jsx`)](#developing-core-and-related-components-tools-types-ast-core-jsx)
+    - [Developing Rules (`@eslint-react/jsx`, `@eslint-react/react`, `@eslint-react/naming-convention`, `@eslint-react/debug`)](#developing-rules-eslint-reactjsx-eslint-reactreact-eslint-reactnaming-convention-eslint-reactdebug)
+    - [Developing Core and Related Components (`@eslint-react/tools`, `@eslint-react/types`, `@eslint-react/ast`, `@eslint-react/core`, `@eslint-react/jsx`)](#developing-core-and-related-components-eslint-reacttools-eslint-reacttypes-eslint-reactast-eslint-reactcore-eslint-reactjsx)
       - [Building the documentation locally](#building-the-documentation-locally)
 
 ## Issue Reporting Guidelines
@@ -64,11 +64,11 @@ And the changes you are making to the rules are following the [Rule introduction
 - `@eslint-react/debug`: The ESLint plugin for debugging related rules.
 - `@eslint-react/eslint-plugin`: The main ESLint plugin of ESLint React. Contains all the rules in this project.
 
-### Developing Rules (`jsx`, `react`, `naming-convention`, `debug`)
+### Developing Rules (`@eslint-react/jsx`, `@eslint-react/react`, `@eslint-react/naming-convention`, `@eslint-react/debug`)
 
 TODO: Add more info here
 
-### Developing Core and Related Components (`tools`, `types`, `ast`, `core`, `jsx`)
+### Developing Core and Related Components (`@eslint-react/tools`, `@eslint-react/types`, `@eslint-react/ast`, `@eslint-react/core`, `@eslint-react/jsx`)
 
 TODO: Add more info here
 
