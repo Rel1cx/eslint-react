@@ -34,6 +34,7 @@ type VariantType =
 
 // Allowed left node type variants
 const allowedVariants = [
+  "nullish",
   "boolean",
   "string",
 
@@ -66,13 +67,14 @@ function inspectVariantTypes(types: ts.Type[]) {
   // object with intrinsicName set accordingly
   // If incoming type is boolean, there will be two type objects with
   // intrinsicName set "true" and "false" each because of ts-api-utils.unionTypeParts()
-  if (booleans.length > 0) {
-    const evaluated = match<ts.Type[], VariantType>(booleans)
-      .when(types => types.every(tsutils.isTrueLiteralType), F.constant("truthy boolean"))
-      .when(types => types.every(tsutils.isFalseLiteralType), F.constant("falsy boolean"))
-      .otherwise(F.constant("boolean"));
-
-    variantTypes.add(evaluated);
+  // eslint-disable-next-line no-restricted-syntax
+  if (booleans.length === 1) {
+    const [first] = booleans;
+    first && tsutils.isTrueLiteralType(first)
+      ? variantTypes.add("truthy boolean")
+      : variantTypes.add("falsy boolean");
+  } else if (booleans.length === 2) {
+    variantTypes.add("boolean");
   }
 
   const strings = types.filter(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.StringLike));
@@ -232,9 +234,7 @@ export default createRule<[], MessageID>({
       const leftType = getConstrainedTypeAtLocation(services, left);
       const leftTypeVariants = inspectVariantTypes(tsutils.unionTypeParts(leftType));
 
-      return leftTypeVariants
-        .filter(type => type !== "nullish")
-        .every(type => allowedVariants.includes(type as never))
+      return leftTypeVariants.every(type => allowedVariants.includes(type as never))
         && isValidInnerExpression(right);
     }
 
