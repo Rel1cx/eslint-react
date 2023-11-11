@@ -14,13 +14,7 @@ Reports all react hooks. Useful for debugging.
 > This rule should only be used for debugging purposes.
 > Otherwise, leave it off.
 
-## Why is this good?
-
-This rule is useful for debugging.
-
 ## Examples
-
-### ❌ Incorrect
 
 ```tsx
 import React from "react";
