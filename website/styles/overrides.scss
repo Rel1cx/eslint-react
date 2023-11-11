@@ -1,15 +1,3 @@
-html[lang] {
-  font-family: var(--font-family-body);
-}
-
-h1,
-h2,
-h3 {
-  &+img {
-    margin-top: 24px;
-  }
-}
-
 .nextra-code-block {
   font-size: 18px;
 
@@ -27,6 +15,8 @@ h3 {
 }
 
 .nextra-nav-container {
+  font-family: var(--font-family-ui);
+
   nav {
     a {
       font-weight: 600;
@@ -35,8 +25,9 @@ h3 {
 }
 
 .nextra-sidebar-container {
-  ul li {
-    font-weight: 600;
-    font-family: var(--font-family-ui);
+  font-family: var(--font-family-ui);
+
+  ul li a {
+    font-weight: 500;
   }
 }
