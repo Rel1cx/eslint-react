@@ -34,7 +34,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow passing children to void DOM elements",
+      description: "disallow passing `children` to void DOM elements",
       recommended: "recommended",
       requiresTypeChecking: false,
     },

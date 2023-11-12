@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow unsafe iframe sandbox attribute combinations",
+      description: "disallow unsafe `iframe` `sandbox` attribute combinations",
       recommended: "recommended",
       requiresTypeChecking: false,
     },

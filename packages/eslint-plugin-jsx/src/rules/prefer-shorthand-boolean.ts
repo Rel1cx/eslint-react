@@ -14,7 +14,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "suggestion",
     docs: {
-      description: "enforce boolean attributes notation in JSX",
+      description: "enforce `boolean` attributes notation in JSX",
       requiresTypeChecking: false,
     },
     schema: [],

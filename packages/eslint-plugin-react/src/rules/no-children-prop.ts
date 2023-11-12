@@ -43,7 +43,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "suggestion",
     docs: {
-      description: "disallow passing of children as props",
+      description: "disallow passing of `children` as props",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
