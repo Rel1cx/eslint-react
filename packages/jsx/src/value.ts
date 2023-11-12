@@ -6,18 +6,35 @@ import { match, P } from "ts-pattern";
 
 import { isCreateElementCall } from "./element";
 
+// type ReactNode =
+//   | ReactElement
+//   | string
+//   | number
+//   | Iterable<ReactNode>
+//   | ReactPortal
+//   | boolean
+//   | null
+//   | undefined
+//   | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES[
+//     keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES
+//   ];
+
 /* eslint-disable perfectionist/sort-objects */
 export const JSXValueCheckHint = {
   None: 0n,
   SkipNullLiteral: 1n << 0n,
-  SkipStringLiteral: 1n << 1n,
-  SkipNumberLiteral: 1n << 2n,
-  SkipCreateElement: 1n << 3n,
-  StrictArray: 1n << 4n,
-  StrictLogical: 1n << 5n,
-  StrictConditional: 1n << 6n,
+  SkipUndefinedLiteral: 1n << 1n,
+  SkipBooleanLiteral: 1n << 2n,
+  SkipStringLiteral: 1n << 3n,
+  SkipNumberLiteral: 1n << 4n,
+  SkipCreateElement: 1n << 5n,
+  StrictArray: 1n << 6n,
+  StrictLogical: 1n << 7n,
+  StrictConditional: 1n << 8n,
 } as const;
 /* eslint-enable perfectionist/sort-objects */
+
+export const defaultJSXValueCheckHint = JSXValueCheckHint.SkipUndefinedLiteral | JSXValueCheckHint.SkipBooleanLiteral;
 
 /**
  * Check if a node is a JSX value
@@ -44,7 +61,7 @@ export function isJSXValue(
     .with({ type: NodeType.Literal }, (node) => {
       return match(node.value)
         .with(null, () => !(hint & JSXValueCheckHint.SkipNullLiteral))
-        // .with("", F.constFalse)
+        .with(P.boolean, () => !(hint & JSXValueCheckHint.SkipBooleanLiteral))
         .with(P.string, () => !(hint & JSXValueCheckHint.SkipStringLiteral))
         .with(P.number, () => !(hint & JSXValueCheckHint.SkipNumberLiteral))
         .otherwise(F.constFalse);
@@ -98,11 +115,17 @@ export function isJSXValue(
       return isCreateElementCall(node, context);
     })
     .with({ type: NodeType.Identifier }, (node) => {
+      const { name } = node;
+
+      if (name === "undefined") {
+        return !(hint & JSXValueCheckHint.SkipUndefinedLiteral);
+      }
+
       if (isJSXTagNameExpression(node)) {
         return true;
       }
 
-      const maybeVariable = findVariableByNameUpToGlobal(node.name, context.getScope());
+      const maybeVariable = findVariableByNameUpToGlobal(name, context.getScope());
 
       return F.pipe(
         maybeVariable,

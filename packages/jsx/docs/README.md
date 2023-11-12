@@ -11,6 +11,7 @@
 ### Variables
 
 - [JSXValueCheckHint](README.md#jsxvaluecheckhint)
+- [defaultJSXValueCheckHint](README.md#defaultjsxvaluecheckhint)
 - [hdlAnimation](README.md#hdlanimation)
 - [hdlClipboard](README.md#hdlclipboard)
 - [hdlComposition](README.md#hdlcomposition)
@@ -94,16 +95,24 @@ node is TSESTree.CallExpression
 
 #### Type declaration
 
-| Name                | Type     |
-| :------------------ | :------- |
-| `None`              | `0n`     |
-| `SkipCreateElement` | `bigint` |
-| `SkipNullLiteral`   | `bigint` |
-| `SkipNumberLiteral` | `bigint` |
-| `SkipStringLiteral` | `bigint` |
-| `StrictArray`       | `bigint` |
-| `StrictConditional` | `bigint` |
-| `StrictLogical`     | `bigint` |
+| Name                   | Type     |
+| :--------------------- | :------- |
+| `None`                 | `0n`     |
+| `SkipBooleanLiteral`   | `bigint` |
+| `SkipCreateElement`    | `bigint` |
+| `SkipNullLiteral`      | `bigint` |
+| `SkipNumberLiteral`    | `bigint` |
+| `SkipStringLiteral`    | `bigint` |
+| `SkipUndefinedLiteral` | `bigint` |
+| `StrictArray`          | `bigint` |
+| `StrictConditional`    | `bigint` |
+| `StrictLogical`        | `bigint` |
+
+---
+
+### defaultJSXValueCheckHint
+
+• `Const` **defaultJSXValueCheckHint**: `bigint`
 
 ---
 
@@ -702,11 +711,11 @@ Check if function is returning JSX
 
 #### Parameters
 
-| Name      | Type                                                          | Default value            | Description                        |
-| :-------- | :------------------------------------------------------------ | :----------------------- | :--------------------------------- |
-| `node`    | `TSESTreeFunction`                                            | `undefined`              | The return statement node to check |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`              | The rule context                   |
-| `hint`    | `0n`                                                          | `JSXValueCheckHint.None` | The `JSXValueCheckHint` to use     |
+| Name      | Type                                                          | Default value              | Description                        |
+| :-------- | :------------------------------------------------------------ | :------------------------- | :--------------------------------- |
+| `node`    | `TSESTreeFunction`                                            | `undefined`                | The return statement node to check |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`                | The rule context                   |
+| `hint`    | `bigint`                                                      | `defaultJSXValueCheckHint` | The `JSXValueCheckHint` to use     |
 
 #### Returns
 
