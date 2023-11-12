@@ -12,7 +12,7 @@ Prevents usage of `Children.forEach`.
 
 ## Why is this bad?
 
-Using Children is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
+Using `Children` is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
 
 ## Examples
 
