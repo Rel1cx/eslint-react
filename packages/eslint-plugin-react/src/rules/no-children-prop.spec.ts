@@ -1,5 +1,4 @@
 import { allValid } from "@eslint-react/shared";
-import dedent from "dedent";
 
 import RuleTester, { getFixturesRootDir } from "../../../../test/rule-tester";
 import rule, { RULE_NAME } from "./no-children-prop";
