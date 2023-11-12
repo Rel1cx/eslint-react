@@ -5,7 +5,6 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { isMatching, match } from "ts-pattern";
 
 import { getPragmaFromContext } from "./get-pragma";
-import { isPropertyOfPragma } from "./is-property-of-pragma";
 
 export function isInitializedFromPragma(
   variableName: string,
@@ -38,25 +37,27 @@ export function isInitializedFromPragma(
 
     // check if from a require call: `require("react")`
     const maybeRequireExpression = match(init)
-      .with({ type: NodeType.CallExpression }, (exp) => O.some(exp))
+      .with({
+        type: NodeType.CallExpression,
+        callee: { type: NodeType.Identifier, name: "require" },
+      }, (exp) => O.some(exp))
       .with(
-        { type: NodeType.MemberExpression, object: { type: NodeType.CallExpression } },
+        {
+          type: NodeType.MemberExpression,
+          object: {
+            type: NodeType.CallExpression,
+            callee: { type: NodeType.Identifier, name: "require" },
+          },
+        },
         ({ object }) => O.some(object),
       )
       .otherwise(O.none);
-
     if (O.isNone(maybeRequireExpression)) {
       return false;
     }
-
     const requireExpression = maybeRequireExpression.value;
-    if (requireExpression.callee.type !== NodeType.Identifier) {
-      return false;
-    }
-
-    const calleeName = requireExpression.callee.name;
     const [firstArg] = requireExpression.arguments;
-    if (calleeName !== "require" || firstArg?.type !== NodeType.Literal) {
+    if (firstArg?.type !== NodeType.Literal) {
       return false;
     }
 
@@ -65,6 +66,21 @@ export function isInitializedFromPragma(
 
   // latest definition is an import declaration: import { variable } from 'react'
   return isMatching({ type: "ImportDeclaration", source: { value: pragma.toLowerCase() } }, parent);
+}
+
+export function isPropertyOfPragma(name: string, context: RuleContext, pragma = getPragmaFromContext(context)) {
+  const isMatch: (node: TSESTree.Node) => boolean = isMatching({
+    type: NodeType.MemberExpression,
+    object: {
+      type: NodeType.Identifier,
+      name: pragma,
+    },
+    property: {
+      name,
+    },
+  });
+
+  return isMatch;
 }
 
 export type CallFromPragmaPredicate = (node: TSESTree.Node, context: RuleContext) => node is TSESTree.CallExpression;

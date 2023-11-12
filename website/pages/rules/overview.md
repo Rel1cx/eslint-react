@@ -20,7 +20,12 @@
 
 | Name                                                                                                 | Description                                                                     |
 | :--------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ |
+| [react/no-children-count](react-no-children-count)                                                   | disallow `Children.count`                                                       |
+| [react/no-children-for-each](react-no-children-for-each)                                             | disallow `Children.forEach`                                                     |
 | [react/no-children-in-void-dom-elements](react-no-children-in-void-dom-elements)                     | disallow passing children to void DOM elements                                  |
+| [react/no-children-map](react-no-children-map)                                                       | disallow `Children.map`                                                         |
+| [react/no-children-only](react-no-children-only)                                                     | disallow `Children.only()`                                                      |
+| [react/no-children-to-array](react-no-children-to-array)                                             | disallow `Children.toArray()`                                                   |
 | [react/no-class-component](react-no-class-component)                                                 | enforce that there are no class components                                      |
 | [react/no-clone-element](react-no-clone-element)                                                     | disallow `cloneElement`                                                         |
 | [react/no-constructed-context-value](react-no-constructed-context-value)                             | disallow passing constructed values to context providers                        |
