@@ -7,7 +7,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import { findPropInAttributes } from "./find-prop-in-attributes";
 
 export function getProp(
-  props: TSESTree.JSXAttribute[],
+  props: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
   propName: string,
   context: RuleContext,
 ): O.Option<TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute> {

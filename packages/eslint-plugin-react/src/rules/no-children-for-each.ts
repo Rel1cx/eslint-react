@@ -19,8 +19,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_CHILDREN_FOR_EACH:
-        "Using children methods is uncommon and can lead to fragile code. Use alternatives instead.",
+      NO_CHILDREN_FOR_EACH: "Using `Children` is uncommon and can lead to fragile code. Use alternatives instead.",
     },
   },
   defaultOptions: [],

@@ -6,6 +6,7 @@ import noChildrenForEach from "./rules/no-children-for-each";
 import noChildrenInVoidDomElements from "./rules/no-children-in-void-dom-elements";
 import noChildrenMap from "./rules/no-children-map";
 import noChildrenOnly from "./rules/no-children-only";
+import noChildrenProp from "./rules/no-children-prop";
 import noChildrenToArray from "./rules/no-children-to-array";
 import noClassComponent from "./rules/no-class-component";
 import noCloneElement from "./rules/no-clone-element";
@@ -35,6 +36,7 @@ export const rules = {
   "no-children-in-void-dom-elements": noChildrenInVoidDomElements,
   "no-children-map": noChildrenMap,
   "no-children-only": noChildrenOnly,
+  "no-children-prop": noChildrenProp,
   "no-children-to-array": noChildrenToArray,
   "no-class-component": noClassComponent,
   "no-clone-element": noCloneElement,
