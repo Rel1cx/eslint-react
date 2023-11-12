@@ -21,7 +21,8 @@ type Options = readonly [
 const defaultOptions = [
   {
     excepts: [],
-    rule: "PascalCase",
+    // eslint-disable-next-line sonarjs/no-duplicate-string
+    rule: "kebab-case",
   },
 ] as const satisfies Options;
 

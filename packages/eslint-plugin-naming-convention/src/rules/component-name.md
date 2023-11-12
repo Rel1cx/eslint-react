@@ -12,7 +12,7 @@ Enforces naming conventions for components.
 
 ## Why is this good?
 
-Following naming conventions can make code base more consistent and easier to understand, navigate and work with.
+Following naming conventions can make codebase more consistent and easier to understand, navigate and work with.
 
 ## Examples
 

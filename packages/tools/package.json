@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/tools",
-  "version": "0.8.5-beta.0",
+  "version": "0.8.5-beta.1",
   "description": "Primitive tools for @eslint-react's packages",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {

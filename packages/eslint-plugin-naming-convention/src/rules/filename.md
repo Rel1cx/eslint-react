@@ -8,11 +8,11 @@ Style.
 
 ## What it does
 
-Enforces naming convention for JSX files.
+Enforces naming convention for JSX files. By default, it enforces `kebab-case` for file names.
 
 ## Why is this good?
 
-Following naming conventions can make code base more consistent and easier to understand, navigate and work with.
+Following naming conventions can make codebase more consistent and easier to understand, navigate and work with.
 
 ## Examples
 
