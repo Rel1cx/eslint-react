@@ -46,9 +46,9 @@
     "@typescript-eslint/utils": ">=6.10.0"
   },
   "devDependencies": {
-    "micro-memoize": "4.1.2",
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/tools": "workspace:*",
-    "@eslint-react/types": "workspace:*"
+    "@eslint-react/types": "workspace:*",
+    "micro-memoize": "4.1.2"
   }
 }

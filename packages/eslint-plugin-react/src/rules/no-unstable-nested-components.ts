@@ -46,7 +46,7 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const hint = ComponentCollectorHint.SkipMapCall
+    const hint = ComponentCollectorHint.SkipMapCallback
       | ComponentCollectorHint.SkipNullLiteral
       | ComponentCollectorHint.SkipNumberLiteral
       | ComponentCollectorHint.SkipStringLiteral
