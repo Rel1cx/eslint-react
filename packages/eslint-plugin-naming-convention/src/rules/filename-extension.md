@@ -12,7 +12,7 @@ Enforces consistent use of the JSX file extension.
 
 ## Why is this good?
 
-Following naming conventions can make code base more consistent and easier to understand, navigate and work with.
+Following naming conventions can make codebase more consistent and easier to understand, navigate and work with.
 
 And it's not a good practice to use `.jsx`, `.tsx` file extensions for files that don't contain JSX syntax.
 
