@@ -19,7 +19,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce that button elements have an explicit type attribute",
+      description: "enforce that `button` elements have an explicit `type` attribute",
       recommended: "recommended",
       requiresTypeChecking: false,
     },

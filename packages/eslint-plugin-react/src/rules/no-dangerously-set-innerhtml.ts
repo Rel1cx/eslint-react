@@ -16,7 +16,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow when a DOM element is using both children and dangerouslySetInnerHTML'",
+      description: "disallow when a DOM element is using `dangerouslySetInnerHTML`",
       recommended: "recommended",
       requiresTypeChecking: false,
     },

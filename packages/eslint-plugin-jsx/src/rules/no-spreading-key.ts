@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow spreading key from objects.",
+      description: "disallow spreading `key` from objects.",
       recommended: "recommended",
       requiresTypeChecking: false,
     },

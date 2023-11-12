@@ -10,7 +10,7 @@ Suspicious.
 
 ## What it does
 
-Prevent problematic leaked values from being rendered.
+Prevents problematic leaked values from being rendered.
 
 ## Why is this bad?
 

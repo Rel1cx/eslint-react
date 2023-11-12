@@ -8,7 +8,7 @@ Style.
 
 ## What it does
 
-Prefer destructuring assignment over property assignment.
+Enforces the use of destructuring assignment over property assignment.
 
 ## Why is this good?
 

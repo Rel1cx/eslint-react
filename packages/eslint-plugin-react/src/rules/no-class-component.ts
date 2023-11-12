@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce that there are no class components",
+      description: "disallow `class component`",
     },
     schema: [],
     messages: {

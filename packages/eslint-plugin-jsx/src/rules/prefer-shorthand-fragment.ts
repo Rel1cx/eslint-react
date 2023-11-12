@@ -13,7 +13,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "suggestion",
     docs: {
-      description: "enforce using fragment syntax instead of `Pragma.Fragment`",
+      description: "enforce using `fragment syntax` instead of `Pragma.Fragment`",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
