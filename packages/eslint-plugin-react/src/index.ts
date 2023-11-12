@@ -1,7 +1,12 @@
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { name, version } from "../package.json";
+import noChildrenCount from "./rules/no-children-count";
+import noChildrenForEach from "./rules/no-children-for-each";
 import noChildrenInVoidDomElements from "./rules/no-children-in-void-dom-elements";
+import noChildrenMap from "./rules/no-children-map";
+import noChildrenOnly from "./rules/no-children-only";
+import noChildrenToArray from "./rules/no-children-to-array";
 import noClassComponent from "./rules/no-class-component";
 import noCloneElement from "./rules/no-clone-element";
 import noConstructedContextValue from "./rules/no-constructed-context-value";
@@ -25,7 +30,12 @@ export const meta = {
 } as const;
 
 export const rules = {
+  "no-children-count": noChildrenCount,
+  "no-children-for-each": noChildrenForEach,
   "no-children-in-void-dom-elements": noChildrenInVoidDomElements,
+  "no-children-map": noChildrenMap,
+  "no-children-only": noChildrenOnly,
+  "no-children-to-array": noChildrenToArray,
   "no-class-component": noClassComponent,
   "no-clone-element": noCloneElement,
   "no-constructed-context-value": noConstructedContextValue,

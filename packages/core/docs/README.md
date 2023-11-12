@@ -47,6 +47,11 @@
 - [componentCollectorLegacy](README.md#componentcollectorlegacy)
 - [getParentClassComponent](README.md#getparentclasscomponent)
 - [hooksCollector](README.md#hookscollector)
+- [isChildrenCount](README.md#ischildrencount)
+- [isChildrenForEach](README.md#ischildrenforeach)
+- [isChildrenMap](README.md#ischildrenmap)
+- [isChildrenOnly](README.md#ischildrenonly)
+- [isChildrenToArray](README.md#ischildrentoarray)
 - [isClassComponent](README.md#isclasscomponent)
 - [isCreateContext](README.md#iscreatecontext)
 - [isFunctionOfRenderMethod](README.md#isfunctionofrendermethod)
@@ -54,6 +59,7 @@
 - [isHostSVGComponentName](README.md#ishostsvgcomponentname)
 - [isHostWebComponentName](README.md#ishostwebcomponentname)
 - [isInsideRenderMethod](README.md#isinsiderendermethod)
+- [isMemberExpressionOfReactMember](README.md#ismemberexpressionofreactmember)
 - [isPureComponent](README.md#ispurecomponent)
 - [isStateMemberExpression](README.md#isstatememberexpression)
 - [isValidReactComponentName](README.md#isvalidreactcomponentname)
@@ -388,6 +394,96 @@ It will be removed in the future
 
 ---
 
+### isChildrenCount
+
+▸ **isChildrenCount**(`node`, `context`, `pragma?`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `MemberExpression`                                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma?` | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isChildrenForEach
+
+▸ **isChildrenForEach**(`node`, `context`, `pragma?`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `MemberExpression`                                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma?` | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isChildrenMap
+
+▸ **isChildrenMap**(`node`, `context`, `pragma?`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `MemberExpression`                                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma?` | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isChildrenOnly
+
+▸ **isChildrenOnly**(`node`, `context`, `pragma?`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `MemberExpression`                                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma?` | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isChildrenToArray
+
+▸ **isChildrenToArray**(`node`, `context`, `pragma?`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `MemberExpression`                                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma?` | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
 ### isClassComponent
 
 ▸ **isClassComponent**(`node`, `context`): node is TSESTreeClass
@@ -525,6 +621,37 @@ class Component extends React.Component {
 **`Deprecated`**
 
 It will be removed in the future
+
+---
+
+### isMemberExpressionOfReactMember
+
+▸ **isMemberExpressionOfReactMember**(`pragmaMemberName`, `memberName`): (`node`: `MemberExpression`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>, `pragma`: `string`) => `boolean`
+
+#### Parameters
+
+| Name               | Type     |
+| :----------------- | :------- |
+| `pragmaMemberName` | `string` |
+| `memberName`       | `string` |
+
+#### Returns
+
+`fn`
+
+▸ (`node`, `context`, `pragma?`): `boolean`
+
+##### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `MemberExpression`                                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
+
+##### Returns
+
+`boolean`
 
 ---
 

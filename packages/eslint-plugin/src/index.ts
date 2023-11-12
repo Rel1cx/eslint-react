@@ -34,7 +34,12 @@ const rulePreset = {
   "naming-convention/filename": "warn",
   "naming-convention/filename-extension": "warn",
 
+  "react/no-children-count": "warn",
+  "react/no-children-for-each": "warn",
   "react/no-children-in-void-dom-elements": "warn",
+  "react/no-children-map": "warn",
+  "react/no-children-only": "warn",
+  "react/no-children-to-array": "warn",
   "react/no-class-component": "warn",
   "react/no-clone-element": "warn",
   "react/no-constructed-context-value": "error",

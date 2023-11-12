@@ -133,30 +133,33 @@ export default [
 
 #### React rules
 
-- [x] `react/no-children-in-void-dom-elements`
-- [ ] `react/no-children-methods`
+- [x] `react/no-children-count`
+- [x] `react/no-children-for-each`
+- [x] `react/no-children-map`
+- [x] `react/no-children-only`
+- [x] `react/no-children-to-array`
 - [ ] `react/no-children-prop`
-- [x] `react/no-class-component`
-- [x] `react/no-clone-element`
-- [x] `react/no-constructed-context-value`
+- [x] `react/no-children-in-void-dom-elements`
 - [ ] `react/no-create-class`
-- [x] `react/no-createRef`
-- [x] `react/no-dangerously-set-innerhtml-with-children`
-- [x] `react/no-dangerously-set-innerhtml`
-- [ ] `react/no-direct-mutation-state`
 - [ ] `react/no-find-dom-node`
 - [ ] `react/no-is-mounted`
+- [x] `react/no-class-component`
+- [x] `react/no-clone-element`
+- [x] `react/no-createRef`
+- [x] `react/no-namespace`
+- [x] `react/no-string-refs`
+- [ ] `react/no-render-return-value`
+- [x] `react/no-dangerously-set-innerhtml`
+- [x] `react/no-dangerously-set-innerhtml-with-children`
 - [x] `react/no-missing-button-type`
 - [x] `react/no-missing-display-name`
 - [x] `react/no-missing-iframe-sandbox`
-- [x] `react/no-namespace`
-- [ ] `react/no-redundant-should-component-update`
-- [ ] `react/no-render-return-value`
 - [x] `react/no-script-url`
+- [ ] `react/no-direct-mutation-state`
+- [ ] `react/no-redundant-should-component-update`
 - [ ] `react/no-set-state-in-component-did-mount`
 - [ ] `react/no-set-state-in-component-did-update`
 - [ ] `react/no-set-state-in-component-will-update`
-- [x] `react/no-string-refs`
 - [ ] `react/no-unsafe-component-did-mount`
 - [ ] `react/no-unsafe-component-did-update`
 - [ ] `react/no-unsafe-component-will-receive-props`
@@ -166,6 +169,7 @@ export default [
 - [ ] `react/no-unsorted-class-component-methods`
 - [x] `react/no-unstable-default-props`
 - [x] `react/no-unstable-nested-components`
+- [x] `react/no-constructed-context-value`
 - [ ] `react/no-unused-class-component-methods`
 - [ ] `react/no-unused-state`
 - [ ] `react/no-access-ref-current-during-rendering`
