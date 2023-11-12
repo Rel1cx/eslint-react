@@ -1,7 +1,7 @@
 import { getNestedReturnStatements, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/types";
 
-import { isJSXValue, JSXValueCheckHint } from "./value";
+import { defaultJSXValueCheckHint, isJSXValue } from "./value";
 
 /**
  * Check if function is returning JSX
@@ -13,7 +13,7 @@ import { isJSXValue, JSXValueCheckHint } from "./value";
 export function isFunctionReturningJSXValue(
   node: TSESTreeFunction,
   context: RuleContext,
-  hint = JSXValueCheckHint.None,
+  hint = defaultJSXValueCheckHint,
 ) {
   if (node.body.type !== NodeType.BlockStatement) {
     return isJSXValue(node.body, context, hint);

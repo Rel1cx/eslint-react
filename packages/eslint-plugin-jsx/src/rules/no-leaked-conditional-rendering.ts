@@ -191,8 +191,10 @@ export default createRule<[], MessageID>({
     function isValidExpression(node: TSESTree.Expression): boolean {
       return match(node)
         .when(isJSX, F.constTrue)
-        .with({ type: NodeType.LogicalExpression, operator: "||" }, F.constTrue)
         .with({ type: NodeType.LogicalExpression, operator: "&&" }, isValidLogicalExpression)
+        .with({ type: NodeType.LogicalExpression, operator: "||" }, ({ left, right }) => {
+          return isValidExpression(left) && isValidExpression(right);
+        })
         .with({ type: NodeType.ConditionalExpression }, ({ alternate, consequent }) => {
           return isValidExpression(consequent) && isValidExpression(alternate);
         })
@@ -216,11 +218,7 @@ export default createRule<[], MessageID>({
     function isValidLogicalExpression(
       node: TSESTree.LogicalExpression,
     ): boolean {
-      const { left, operator, right } = node;
-
-      if (operator !== "&&") {
-        return true;
-      }
+      const { left, right } = node;
 
       const isLeftUnaryNot = left.type === NodeType.UnaryExpression
         && left.operator === "!";

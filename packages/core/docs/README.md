@@ -109,22 +109,24 @@
 
 #### Type declaration
 
-| Name                | Type     |
-| :------------------ | :------- |
-| `None`              | `0n`     |
-| `SkipClassMethod`   | `bigint` |
-| `SkipClassProperty` | `bigint` |
-| `SkipCreateElement` | `bigint` |
-| `SkipForwardRef`    | `bigint` |
-| `SkipMapCallback`   | `bigint` |
-| `SkipMemo`          | `bigint` |
-| `SkipNullLiteral`   | `bigint` |
-| `SkipNumberLiteral` | `bigint` |
-| `SkipObjectMethod`  | `bigint` |
-| `SkipStringLiteral` | `bigint` |
-| `StrictArray`       | `bigint` |
-| `StrictConditional` | `bigint` |
-| `StrictLogical`     | `bigint` |
+| Name                   | Type     |
+| :--------------------- | :------- |
+| `None`                 | `0n`     |
+| `SkipBooleanLiteral`   | `bigint` |
+| `SkipClassMethod`      | `bigint` |
+| `SkipClassProperty`    | `bigint` |
+| `SkipCreateElement`    | `bigint` |
+| `SkipForwardRef`       | `bigint` |
+| `SkipMapCallback`      | `bigint` |
+| `SkipMemo`             | `bigint` |
+| `SkipNullLiteral`      | `bigint` |
+| `SkipNumberLiteral`    | `bigint` |
+| `SkipObjectMethod`     | `bigint` |
+| `SkipStringLiteral`    | `bigint` |
+| `SkipUndefinedLiteral` | `bigint` |
+| `StrictArray`          | `bigint` |
+| `StrictConditional`    | `bigint` |
+| `StrictLogical`        | `bigint` |
 
 ---
 
@@ -134,16 +136,18 @@
 
 #### Type declaration
 
-| Name                | Type     |
-| :------------------ | :------- |
-| `None`              | `0n`     |
-| `SkipCreateElement` | `bigint` |
-| `SkipNullLiteral`   | `bigint` |
-| `SkipNumberLiteral` | `bigint` |
-| `SkipStringLiteral` | `bigint` |
-| `StrictArray`       | `bigint` |
-| `StrictConditional` | `bigint` |
-| `StrictLogical`     | `bigint` |
+| Name                   | Type     |
+| :--------------------- | :------- |
+| `None`                 | `0n`     |
+| `SkipBooleanLiteral`   | `bigint` |
+| `SkipCreateElement`    | `bigint` |
+| `SkipNullLiteral`      | `bigint` |
+| `SkipNumberLiteral`    | `bigint` |
+| `SkipStringLiteral`    | `bigint` |
+| `SkipUndefinedLiteral` | `bigint` |
+| `StrictArray`          | `bigint` |
+| `StrictConditional`    | `bigint` |
+| `StrictLogical`        | `bigint` |
 
 ---
 
