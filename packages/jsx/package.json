@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/jsx",
-  "version": "0.8.4",
+  "version": "0.8.5-beta.0",
   "description": "AST Utility Module for Static Analysis of JSX",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
