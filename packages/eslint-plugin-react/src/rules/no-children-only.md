@@ -4,7 +4,7 @@
 
 ## Rule category
 
-Suspicious.
+Restriction.
 
 ## What it does
 
@@ -12,7 +12,7 @@ Prevents usage of `Children.only`.
 
 ## Why is this bad?
 
-Using Children is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
+Using `Children` is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
 
 ## Examples
 
