@@ -39,6 +39,7 @@ const rulePreset = {
   "react/no-children-in-void-dom-elements": "warn",
   "react/no-children-map": "warn",
   "react/no-children-only": "warn",
+  "react/no-children-prop": "warn",
   "react/no-children-to-array": "warn",
   "react/no-class-component": "warn",
   "react/no-clone-element": "warn",
@@ -73,6 +74,7 @@ const recommendedPreset = {
   "naming-convention/component-name": "warn",
 
   "react/no-children-in-void-dom-elements": "warn",
+  "react/no-children-prop": "warn",
   "react/no-class-component": "warn",
   "react/no-clone-element": "warn",
   "react/no-constructed-context-value": "error",

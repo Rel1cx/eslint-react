@@ -1,12 +1,11 @@
 import { NodeType } from "@eslint-react/ast";
-import { getPropValue } from "@eslint-react/jsx";
+import { findPropInAttributes, getPropValue } from "@eslint-react/jsx";
 import { F, O } from "@eslint-react/tools";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { isString } from "effect/Predicate";
 import type { ConstantCase } from "string-ts";
 
-import { findPropInAttributes } from "../../../jsx/src/prop/find-prop-in-attributes";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unsafe-target-blank";
