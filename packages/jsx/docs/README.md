@@ -326,7 +326,7 @@ A function that searches for a property in the given properties
 
 | Name       | Type                                                          |
 | :--------- | :------------------------------------------------------------ |
-| `props`    | `JSXAttribute`[]                                              |
+| `props`    | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                    |
 | `propName` | `string`                                                      |
 | `context`  | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
