@@ -27,7 +27,7 @@ const hasValidHierarchy = (node: TSESTreeFunction, context: RuleContext, hint: b
     return false;
   }
 
-  if (hint & ComponentCollectorHint.SkipMapCall && unsafeIsMapCall(node.parent)) {
+  if (hint & ComponentCollectorHint.SkipMapCallback && unsafeIsMapCall(node.parent)) {
     return false;
   }
 
@@ -48,20 +48,27 @@ export type ComponentCollectorCache = WeakMap<TSESTreeFunction, bigint>;
 export const ComponentCollectorHint = {
   ...JSXValueCheckHint,
   // 1n << 0n - 1n << 63n are reserved for JSXValueCheckHint
-  // Skip function component defined in map call
-  SkipMapCall: 1n << 64n,
+  // Skip function component created by React.memo
+  SkipMemo: 1n << 64n,
+  // Skip function component created by React.forwardRef
+  SkipForwardRef: 1n << 65n,
+  // Skip function component defined in map function callback
+  SkipMapCallback: 1n << 66n,
   // Skip function component defined on object method
-  SkipObjectMethod: 1n << 65n,
+  SkipObjectMethod: 1n << 67n,
   // Skip function component defined on class method
-  SkipClassMethod: 1n << 66n,
+  SkipClassMethod: 1n << 68n,
   // Skip function component defined on class property
-  SkipClassProperty: 1n << 67n,
+  SkipClassProperty: 1n << 69n,
 } as const;
 /* eslint-enable perfectionist/sort-objects */
 
-export const defaultComponentCollectorHint = ComponentCollectorHint.SkipStringLiteral
+export const defaultComponentCollectorHint = ComponentCollectorHint.SkipMemo
+  | ComponentCollectorHint.SkipForwardRef
+  | ComponentCollectorHint.SkipStringLiteral
   | ComponentCollectorHint.SkipNumberLiteral;
 
+// TODO: support SkipMemo, SkipForwardRef
 // TODO: support for detecting component types listed in core/component/component-types.ts
 export function componentCollector(
   context: RuleContext,

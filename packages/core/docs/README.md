@@ -115,7 +115,9 @@
 | `SkipClassMethod`   | `bigint` |
 | `SkipClassProperty` | `bigint` |
 | `SkipCreateElement` | `bigint` |
-| `SkipMapCall`       | `bigint` |
+| `SkipForwardRef`    | `bigint` |
+| `SkipMapCallback`   | `bigint` |
+| `SkipMemo`          | `bigint` |
 | `SkipNullLiteral`   | `bigint` |
 | `SkipNumberLiteral` | `bigint` |
 | `SkipObjectMethod`  | `bigint` |
