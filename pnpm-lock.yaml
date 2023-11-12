@@ -867,8 +867,8 @@ importers:
         specifier: 9.0.0
         version: 9.0.0(eslint@8.53.0)
       eslint-config-with-tsconfig:
-        specifier: 2.9.41
-        version: 2.9.41(eslint@8.53.0)(tailwindcss@3.3.5)(typescript@5.3.1-rc)
+        specifier: 2.9.43
+        version: 2.9.43(eslint@8.53.0)(tailwindcss@3.3.5)(typescript@5.3.1-rc)
       eslint-define-config:
         specifier: 1.24.1
         version: 1.24.1
@@ -6011,42 +6011,6 @@ packages:
       eslint-plugin-tailwindcss: 3.13.0(tailwindcss@3.3.5)
       eslint-plugin-unicorn: 49.0.0(eslint@8.53.0)
       typescript: 5.3.1-rc
-    dev: true
-
-  /eslint-config-with-tsconfig@2.9.41(eslint@8.53.0)(tailwindcss@3.3.5)(typescript@5.3.1-rc):
-    resolution: {integrity: sha512-W9FFWTKC5Fbkwtvro8/NJA6BeCD69nyn8i/901a7jbIFqbLpR2IaETbgDV/eOjHaKvL32P3yhDThXCx0pL4JpA==}
-    engines: {bun: '>=1.0.3', node: '>=18.16.0'}
-    peerDependencies:
-      eslint: '>=8.53.0'
-      typescript: rc
-    dependencies:
-      '@babel/core': 7.23.2
-      '@babel/eslint-parser': 7.22.15(@babel/core@7.23.2)(eslint@8.53.0)
-      '@babel/preset-react': 7.22.15(@babel/core@7.23.2)
-      '@typescript-eslint/eslint-plugin': 6.9.1(@typescript-eslint/parser@6.10.0)(eslint@8.53.0)(typescript@5.3.1-rc)
-      '@typescript-eslint/parser': 6.10.0(eslint@8.53.0)(typescript@5.3.1-rc)
-      consola: 3.2.3
-      eslint: 8.53.0
-      eslint-config-rel1cx: 0.12.41(@babel/core@7.23.2)(@babel/eslint-parser@7.22.15)(@babel/preset-react@7.22.15)(@typescript-eslint/eslint-plugin@6.9.1)(@typescript-eslint/parser@6.10.0)(eslint-plugin-perfectionist@1.5.1)(eslint-plugin-promise@6.1.1)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react-refresh@0.4.4)(eslint-plugin-regexp@2.1.1)(eslint-plugin-rxjs@5.0.3)(eslint-plugin-security@1.7.1)(eslint-plugin-simple-import-sort@10.0.0)(eslint-plugin-sonarjs@0.23.0)(eslint-plugin-tailwindcss@3.13.0)(eslint-plugin-unicorn@49.0.0)(eslint@8.53.0)(typescript@5.3.1-rc)
-      eslint-define-config: 1.24.1
-      eslint-plugin-expect-type: 0.2.3(eslint@8.53.0)(typescript@5.3.1-rc)
-      eslint-plugin-import-access: 2.1.2(eslint@8.53.0)(typescript@5.3.1-rc)
-      eslint-plugin-perfectionist: 1.5.1(eslint@8.53.0)(typescript@5.3.1-rc)
-      eslint-plugin-promise: 6.1.1(eslint@8.53.0)
-      eslint-plugin-react-hooks: 4.6.0(eslint@8.53.0)
-      eslint-plugin-react-refresh: 0.4.4(eslint@8.53.0)
-      eslint-plugin-regexp: 2.1.1(eslint@8.53.0)
-      eslint-plugin-rxjs: 5.0.3(eslint@8.53.0)(typescript@5.3.1-rc)
-      eslint-plugin-security: 1.7.1
-      eslint-plugin-simple-import-sort: 10.0.0(eslint@8.53.0)
-      eslint-plugin-sonarjs: 0.23.0(eslint@8.53.0)
-      eslint-plugin-tailwindcss: 3.13.0(tailwindcss@3.3.5)
-      eslint-plugin-unicorn: 49.0.0(eslint@8.53.0)
-      get-tsconfig: 4.7.2
-      typescript: 5.3.1-rc
-    transitivePeerDependencies:
-      - supports-color
-      - tailwindcss
     dev: true
 
   /eslint-config-with-tsconfig@2.9.43(eslint@8.53.0)(tailwindcss@3.3.5)(typescript@5.3.1-rc):
