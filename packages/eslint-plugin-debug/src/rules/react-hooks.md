@@ -1,4 +1,4 @@
-# debug/hooks
+# debug/react-hooks
 
 <!-- end auto-generated rule header -->
 

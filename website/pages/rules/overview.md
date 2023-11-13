@@ -64,6 +64,6 @@
 | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------- |
 | [debug/class-component](debug-class-component)       | report all class components, including anonymous ones    |
 | [debug/function-component](debug-function-component) | report all function components, including anonymous ones |
-| [debug/hooks](debug-hooks)                           | report all react hooks                                   |
+| [debug/react-hooks](debug-react-hooks)               | report all react hooks                                   |
 
 <!-- end auto-generated rules list -->
