@@ -3,7 +3,7 @@
 // Most of the terms are taken from the React glossary on https://react.dev.
 // This file is also used to help GitHub copilot suggest rule names.
 
-export type Namespace = "debug" | "experimental" | "hooks" | "jsx" | "naming-convention" | "react";
+export type Namespace = "debug" | "experimental" | "jsx" | "naming-convention" | "react" | "react-hooks";
 
 export type Ban = "ban";
 

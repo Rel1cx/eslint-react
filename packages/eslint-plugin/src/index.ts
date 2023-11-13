@@ -1,9 +1,9 @@
 export type * from "./eslint-define-config";
 import * as debug from "@eslint-react/eslint-plugin-debug";
-import * as hooks from "@eslint-react/eslint-plugin-hooks";
 import * as jsx from "@eslint-react/eslint-plugin-jsx";
 import * as namingConvention from "@eslint-react/eslint-plugin-naming-convention";
 import * as react from "@eslint-react/eslint-plugin-react";
+import * as hooks from "@eslint-react/eslint-plugin-react-hooks";
 import { entries, fromEntries } from "@eslint-react/tools";
 import type { RulePreset } from "@eslint-react/types";
 import tsParser from "@typescript-eslint/parser";
@@ -16,9 +16,7 @@ import { padKeysLeft } from "./utils";
 const rulePreset = {
   "debug/class-component": "warn",
   "debug/function-component": "warn",
-  "debug/hooks": "warn",
-
-  "hooks/ensure-custom-hooks-using-other-hooks": "warn",
+  "debug/react-hooks": "warn",
 
   "jsx/no-array-index-key": "warn",
   "jsx/no-comment-textnodes": "warn",
@@ -57,11 +55,11 @@ const rulePreset = {
   "react/no-unstable-default-props": "warn",
   "react/no-unstable-nested-components": "warn",
   "react/prefer-destructuring-assignment": "warn",
+
+  "react-hooks/ensure-custom-hooks-using-other-hooks": "warn",
 } as const satisfies RulePreset;
 
 const recommendedPreset = {
-  "hooks/ensure-custom-hooks-using-other-hooks": "warn",
-
   "jsx/no-array-index-key": "warn",
   "jsx/no-comment-textnodes": "warn",
   "jsx/no-duplicate-key": "error",
@@ -91,6 +89,8 @@ const recommendedPreset = {
   "react/no-unstable-default-props": "warn",
   "react/no-unstable-nested-components": "warn",
   "react/prefer-destructuring-assignment": "warn",
+
+  "react-hooks/ensure-custom-hooks-using-other-hooks": "warn",
 } as const satisfies RulePreset;
 
 const recommendedTypeCheckedPreset = {
@@ -107,10 +107,10 @@ const legacyConfigPlugins = ["@eslint-react"] as const;
 
 const flatConfigPlugins = {
   "@eslint-react/debug": debug,
-  "@eslint-react/hooks": hooks,
   "@eslint-react/jsx": jsx,
   "@eslint-react/naming-convention": namingConvention,
   "@eslint-react/react": react,
+  "@eslint-react/react-hooks": hooks,
 } as const;
 
 function createLegacyConfig<T extends RulePreset>(rules: T, plugins = legacyConfigPlugins) {
@@ -159,10 +159,10 @@ export default {
     "recommended-type-checked": createFlatConfig(recommendedTypeCheckedPreset),
   },
   rules: {
-    ...padKeysLeft(debug.rules, "debug/"),
-    ...padKeysLeft(hooks.rules, "hooks/"),
     ...padKeysLeft(jsx.rules, "jsx/"),
-    ...padKeysLeft(namingConvention.rules, "naming-convention/"),
     ...padKeysLeft(react.rules, "react/"),
+    ...padKeysLeft(hooks.rules, "react-hooks/"),
+    ...padKeysLeft(namingConvention.rules, "naming-convention/"),
+    ...padKeysLeft(debug.rules, "debug/"),
   },
 } as const;

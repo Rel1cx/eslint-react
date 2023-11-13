@@ -1,4 +1,4 @@
-# hooks/ensure-custom-hooks-using-other-hooks
+# react-hooks/ensure-custom-hooks-using-other-hooks
 
 <!-- end auto-generated rule header -->
 

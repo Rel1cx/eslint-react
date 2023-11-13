@@ -409,9 +409,6 @@ importers:
       '@eslint-react/eslint-plugin-debug':
         specifier: workspace:*
         version: link:../eslint-plugin-debug
-      '@eslint-react/eslint-plugin-hooks':
-        specifier: workspace:*
-        version: link:../eslint-plugin-hooks
       '@eslint-react/eslint-plugin-jsx':
         specifier: workspace:*
         version: link:../eslint-plugin-jsx
@@ -421,6 +418,9 @@ importers:
       '@eslint-react/eslint-plugin-react':
         specifier: workspace:*
         version: link:../eslint-plugin-react
+      '@eslint-react/eslint-plugin-react-hooks':
+        specifier: workspace:*
+        version: link:../eslint-plugin-react-hooks
       '@eslint-react/tools':
         specifier: workspace:*
         version: link:../tools
@@ -432,67 +432,6 @@ importers:
         version: 1.3.2
 
   packages/eslint-plugin-debug:
-    dependencies:
-      '@typescript-eslint/parser':
-        specifier: '>=6.10.0'
-        version: 6.10.0(eslint@8.53.0)(typescript@5.3.1-rc)
-      '@typescript-eslint/scope-manager':
-        specifier: '>=6.10.0'
-        version: 6.10.0
-      '@typescript-eslint/type-utils':
-        specifier: '>=6.10.0'
-        version: 6.10.0(eslint@8.53.0)(typescript@5.3.1-rc)
-      '@typescript-eslint/types':
-        specifier: '>=6.10.0'
-        version: 6.10.0
-      '@typescript-eslint/utils':
-        specifier: '>=6.10.0'
-        version: 6.10.0(eslint@8.53.0)(typescript@5.3.1-rc)
-      dedent:
-        specifier: 1.5.1
-        version: 1.5.1
-      effect:
-        specifier: 2.0.0-next.54
-        version: 2.0.0-next.54
-      eslint:
-        specifier: '>=8.53.0'
-        version: 8.53.0
-      rambda:
-        specifier: 8.5.0
-        version: 8.5.0
-      string-ts:
-        specifier: 1.3.2
-        version: 1.3.2
-      ts-api-utils:
-        specifier: 1.0.3
-        version: 1.0.3(typescript@5.3.1-rc)
-      ts-pattern:
-        specifier: 5.0.5
-        version: 5.0.5
-      typescript:
-        specifier: rc
-        version: 5.3.1-rc
-    devDependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../ast
-      '@eslint-react/core':
-        specifier: workspace:*
-        version: link:../core
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../jsx
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../tools
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../types
-
-  packages/eslint-plugin-hooks:
     dependencies:
       '@typescript-eslint/parser':
         specifier: '>=6.10.0'
@@ -676,6 +615,67 @@ importers:
         version: link:../types
 
   packages/eslint-plugin-react:
+    dependencies:
+      '@typescript-eslint/parser':
+        specifier: '>=6.10.0'
+        version: 6.10.0(eslint@8.53.0)(typescript@5.3.1-rc)
+      '@typescript-eslint/scope-manager':
+        specifier: '>=6.10.0'
+        version: 6.10.0
+      '@typescript-eslint/type-utils':
+        specifier: '>=6.10.0'
+        version: 6.10.0(eslint@8.53.0)(typescript@5.3.1-rc)
+      '@typescript-eslint/types':
+        specifier: '>=6.10.0'
+        version: 6.10.0
+      '@typescript-eslint/utils':
+        specifier: '>=6.10.0'
+        version: 6.10.0(eslint@8.53.0)(typescript@5.3.1-rc)
+      dedent:
+        specifier: 1.5.1
+        version: 1.5.1
+      effect:
+        specifier: 2.0.0-next.54
+        version: 2.0.0-next.54
+      eslint:
+        specifier: '>=8.53.0'
+        version: 8.53.0
+      rambda:
+        specifier: 8.5.0
+        version: 8.5.0
+      string-ts:
+        specifier: 1.3.2
+        version: 1.3.2
+      ts-api-utils:
+        specifier: 1.0.3
+        version: 1.0.3(typescript@5.3.1-rc)
+      ts-pattern:
+        specifier: 5.0.5
+        version: 5.0.5
+      typescript:
+        specifier: rc
+        version: 5.3.1-rc
+    devDependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../ast
+      '@eslint-react/core':
+        specifier: workspace:*
+        version: link:../core
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../jsx
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@eslint-react/tools':
+        specifier: workspace:*
+        version: link:../tools
+      '@eslint-react/types':
+        specifier: workspace:*
+        version: link:../types
+
+  packages/eslint-plugin-react-hooks:
     dependencies:
       '@typescript-eslint/parser':
         specifier: '>=6.10.0'

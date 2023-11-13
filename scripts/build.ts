@@ -6,10 +6,10 @@ const packages = [
   "jsx",
   "core",
   "eslint-plugin-debug",
-  "eslint-plugin-hooks",
-  "eslint-plugin-jsx",
   "eslint-plugin-naming-convention",
+  "eslint-plugin-jsx",
   "eslint-plugin-react",
+  "eslint-plugin-react-hooks",
   "eslint-plugin",
 ];
 

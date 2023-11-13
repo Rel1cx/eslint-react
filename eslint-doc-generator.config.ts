@@ -3,7 +3,7 @@ import type { GenerateOptions } from "eslint-doc-generator";
 import type { RuleNamesAndRules } from "eslint-doc-generator/dist/lib/types";
 
 const defaultTitle = "react";
-const order = ["jsx", "react", "hooks", "naming-convention", "debug"] as const;
+const order = ["jsx", "react", "react-hooks", "naming-convention", "debug"] as const;
 
 export default {
   pathRuleDoc(name) {

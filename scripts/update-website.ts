@@ -7,7 +7,7 @@ import { copyFile } from "./lib/fs";
 
 const docs = glob.sync("packages/eslint-plugin-*/src/rules/*.md");
 
-const order = ["jsx", "react", "hooks", "naming-convention", "debug"] as const;
+const order = ["jsx", "react", "react-hooks", "naming-convention", "debug"] as const;
 const files = MutableList.make<[string, string]>();
 const metas = MutableRef.make<Record<string, Record<string, string> | string>>({});
 
