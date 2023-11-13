@@ -16,10 +16,11 @@
   "excludes": [
     "**/node_modules",
     "**/*-lock.json",
-    "bun.lockb",
     "**/test/fixtures",
     "**/dist",
-    "**/.next"
+    "bun.lockb",
+    "**/.next",
+    "website/pages/rules"
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.88.1.wasm",
