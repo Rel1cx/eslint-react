@@ -41,5 +41,5 @@
   "naming-convention-filename-extension": "naming-convention/filename-extension",
   "debug-class-component": "debug/class-component",
   "debug-function-component": "debug/function-component",
-  "debug-hooks": "debug/hooks"
+  "debug-react-hooks": "debug/react-hooks"
 }

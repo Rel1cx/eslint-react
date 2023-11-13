@@ -4,7 +4,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import { name, version } from "../package.json";
 import classComponent from "./rules/class-component";
 import functionComponent from "./rules/function-component";
-import hooks from "./rules/hooks";
+import reactHooks from "./rules/react-hooks";
 
 export const meta = {
   name,
@@ -14,5 +14,5 @@ export const meta = {
 export const rules = {
   "class-component": classComponent,
   "function-component": functionComponent,
-  hooks,
+  "react-hooks": reactHooks,
 } as const;

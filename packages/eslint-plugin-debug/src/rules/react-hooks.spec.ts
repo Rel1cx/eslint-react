@@ -2,7 +2,7 @@ import { allFunctions } from "@eslint-react/shared";
 import dedent from "dedent";
 
 import RuleTester, { getFixturesRootDir } from "../../../../test/rule-tester";
-import rule, { RULE_NAME } from "./hooks";
+import rule, { RULE_NAME } from "./react-hooks";
 
 const rootDir = getFixturesRootDir();
 
