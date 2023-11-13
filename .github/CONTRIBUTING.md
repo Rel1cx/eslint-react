@@ -51,15 +51,17 @@ And the changes you are making to the rules are following the [Rule introduction
 
 ### Packages Overview
 
-- `@eslint-react/tools`: The std library and primitives for @eslint-react's packages.
-- `@eslint-react/types`: Type definitions for @eslint-react's packages.
+- `@eslint-react/tools`: Std library and primitives for @eslint-react packages.
+- `@eslint-react/types`: Type definitions for @eslint-react packages.
 - `@eslint-react/ast`: TSESTree AST primitive utility module.
+- `@eslint-react/jsx`: TSESTree AST utility module for static analysis of JSX.
 - `@eslint-react/core`: ESLint utility module for static analysis of React core API and Patterns.
-- `@eslint-react/jsx`: ESLint plugin for JSX related rules.
-- `@eslint-react/react`: ESLint plugin for React related rules.
-- `@eslint-react/naming-convention`: ESLint plugin for naming convention related rules.
-- `@eslint-react/debug`: The ESLint plugin for debugging related rules.
-- `@eslint-react/eslint-plugin`: The main ESLint plugin of ESLint React. Contains all the rules in this project.
+- `@eslint-react/eslint-plugin-jsx`: ESLint plugin for JSX related rules.
+- `@eslint-react/eslint-plugin-react`: ESLint plugin for React related rules.
+- `@eslint-react/eslint-plugin-react-hooks`: ESLint plugin for React Hooks related rules.
+- `@eslint-react/eslint-plugin-debug`: ESLint plugin for debugging related rules.
+- `@eslint-react/eslint-plugin-naming-convention`: ESLint plugin for naming convention related rules.
+- `@eslint-react/eslint-plugin`: The main ESLint plugin of ESLint React. Contains all the rules from the above plugins.
 
 <!-- ### Developing Rules
 

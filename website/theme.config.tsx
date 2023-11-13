@@ -16,7 +16,8 @@ export default {
     return match(useRouter())
       .with({ asPath: "/" }, () => ({
         title: "ESLint React",
-        description: "ESLint plugin for React function components with TypeScript, built (mostly) from scratch.",
+        description:
+          "ESLint plugins for React function components with TypeScript, built (mostly) from scratch, built (mostly) from scratch.",
       }))
       .with({ asPath: P.string.startsWith("/rules/") }, () => ({
         titleTemplate: "Rule: %s",
@@ -31,7 +32,7 @@ export default {
       <meta property="og:title" content="ESLint React" />
       <meta
         property="og:description"
-        content="ESLint plugin for React function components with TypeScript, built (mostly) from scratch."
+        content="ESLint plugins for React function components with TypeScript, built (mostly) from scratch, built (mostly) from scratch."
       />
       <link
         rel="apple-touch-icon"

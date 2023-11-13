@@ -82,7 +82,7 @@ Rule creator function.
 
 ### Namespace
 
-Ƭ **Namespace**: `"debug"` \| `"experimental"` \| `"hooks"` \| `"jsx"` \| `"naming-convention"` \| `"react"`
+Ƭ **Namespace**: `"debug"` \| `"experimental"` \| `"jsx"` \| `"naming-convention"` \| `"react"` \| `"react-hooks"`
 
 ---
 

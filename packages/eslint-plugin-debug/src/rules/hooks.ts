@@ -5,7 +5,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
-export const RULE_NAME = "hooks";
+export const RULE_NAME = "react-hooks";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      HOOKS: "React hook found, name: {{name}}, redundant: {{redundant}}",
+      REACT_HOOKS: "React hook found, name: {{name}}, redundant: {{redundant}}",
     },
   },
   defaultOptions: [],
@@ -55,7 +55,7 @@ export default createRule<[], MessageID>({
               name,
               redundant: redundantHooks.includes(hook),
             },
-            messageId: "HOOKS",
+            messageId: "REACT_HOOKS",
             node: hook,
           });
         }

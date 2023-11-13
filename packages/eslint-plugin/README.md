@@ -1,11 +1,11 @@
 # @eslint-react/eslint-plugin
 
-ESLint plugin for React function components with TypeScript, built (mostly) from scratch.
+ESLint plugins for React function components with TypeScript, built (mostly) from scratch, built (mostly) from scratch.
 
 ## Public packages
 
 - [`@eslint-react/eslint-plugin`](./packages/eslint-plugin) - The main ESLint plugin package including all rules and configs in this repository.
-- [`@eslint-react/jsx`](./packages/jsx) - AST Utility Module for Static Analysis of JSX in ESLint.
+- [`@eslint-react/jsx`](./packages/jsx) - AST utility module for Static Analysis of JSX in ESLint.
 
 ## Supported engines
 

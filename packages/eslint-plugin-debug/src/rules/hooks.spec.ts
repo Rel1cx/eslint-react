@@ -33,7 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "HOOKS",
+          messageId: "REACT_HOOKS",
           data: {
             name: "useToggle",
             redundant: false,
@@ -50,7 +50,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "HOOKS",
+          messageId: "REACT_HOOKS",
           data: {
             name: "useSorted",
             redundant: true,
@@ -72,14 +72,14 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "HOOKS",
+          messageId: "REACT_HOOKS",
           data: {
             name: "useToggle",
             redundant: false,
           },
         },
         {
-          messageId: "HOOKS",
+          messageId: "REACT_HOOKS",
           data: {
             name: "useSorted",
             redundant: true,
@@ -103,7 +103,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "HOOKS",
+          messageId: "REACT_HOOKS",
           data: {
             name: "useClassnames",
             redundant: true,
@@ -127,7 +127,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "HOOKS",
+          messageId: "REACT_HOOKS",
           data: {
             name: "useClassnames",
             redundant: true,
@@ -148,14 +148,14 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "HOOKS",
+          messageId: "REACT_HOOKS",
           data: {
             name: "useNestedHook",
             redundant: false,
           },
         },
         {
-          messageId: "HOOKS",
+          messageId: "REACT_HOOKS",
           data: {
             name: "useInnerHook",
             redundant: true,
@@ -176,14 +176,14 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "HOOKS",
+          messageId: "REACT_HOOKS",
           data: {
             name: "useNestedHook",
             redundant: true,
           },
         },
         {
-          messageId: "HOOKS",
+          messageId: "REACT_HOOKS",
           data: {
             name: "useInnerHook",
             redundant: false,
@@ -204,7 +204,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "HOOKS",
+          messageId: "REACT_HOOKS",
           data: {
             name: "useNestedHook",
             redundant: true,
