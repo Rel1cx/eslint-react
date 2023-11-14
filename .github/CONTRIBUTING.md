@@ -4,11 +4,22 @@ Hi! We, the maintainers, are really excited that you are interested in contribut
 
 Before submitting your contribution though, please make sure to take a moment and read through the [Code of Conduct](CODE_OF_CONDUCT.md), as well as the appropriate section for the contribution you intend to make:
 
+Before adding your code to this project, please make sure you are passionate about what this project is doing and not just the project itself. And agree with the [design philosophy](../README.md#Philosophy) of this project.
+
+ESLint React does not accept contributions of a purely utilitarian nature.
+
+ESLint Reactは、絶対に実用的な性質の投稿は受け付けません。
+
+ESLint React 不接受纯粹功利主义性贡献。
+
 - [ESLint React Contributing Guide](#eslint-react-contributing-guide)
   - [Issue Reporting Guidelines](#issue-reporting-guidelines)
   - [Pull Request Guidelines](#pull-request-guidelines)
   - [Development Guide](#development-guide)
     - [Packages Overview](#packages-overview)
+    - [Developing Rules](#developing-rules)
+    - [Developing Core and Related Components](#developing-core-and-related-components)
+      - [Building the documentation locally](#building-the-documentation-locally)
 
 ## Issue Reporting Guidelines
 
@@ -29,9 +40,6 @@ Before submitting your contribution though, please make sure to take a moment an
 - Most importantly, we beg your patience: the team must balance your request against many other responsibilities — fixing other bugs, answering other questions, new features, new documentation, etc. The issue list is not paid support and we cannot make guarantees about how fast your issue can be resolved.
 
 ## Pull Request Guidelines
-
-Before you start adding code to the project, make sure you are passionate about what the project is doing rather than the project itself. And agree with the [Design philosophy](../README.md#Philosophy) of the project.
-And the changes you are making to the rules are following the [Rule introduction or modification principles](../README.md#Rule-introduction-or-modification-principles).
 
 - You have to [sign your commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits).
 
@@ -63,13 +71,15 @@ And the changes you are making to the rules are following the [Rule introduction
 - `@eslint-react/eslint-plugin-naming-convention`: ESLint plugin for naming convention related rules.
 - `@eslint-react/eslint-plugin`: The main ESLint plugin of ESLint React. Contains all the rules from the above plugins.
 
-<!-- ### Developing Rules
+### Developing Rules
 
-TODO: Add more info here
+- The changes you are making to the rules are following the [Rule introduction or modification principles](../README.md#Philosophy#Rule-introduction-or-modification-principles).
+
+- TODO: Add more info here
 
 ### Developing Core and Related Components
 
-TODO: Add more info here
+- TODO: Add more info here
 
 #### Building the documentation locally
 
@@ -77,4 +87,4 @@ You can build the TypeDoc documentation locally running the following script:
 
 ```bash
 pnpm run build:docs
-``` -->
+```
