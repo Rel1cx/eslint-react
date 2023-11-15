@@ -32,7 +32,7 @@
   "scripts": {
     "build": "turbo build --filter='./packages/*'",
     "build:force": "turbo build --force --filter='./packages/*'",
-    "build:docs": "turbo build:docs --filter='./packages/*' && eslint-doc-generator",
+    "build:docs": "turbo build:docs --filter='./packages/*'",
     "build:website": "pnpm run update:website && cd website && pnpm run build",
     "build:all": "pnpm run build && pnpm run build:docs && pnpm run build:website",
     "clean": "rm -r -f packages/*/dist packages/*/docs **/*/node_modules pnpm-lock.yaml",
@@ -64,18 +64,17 @@
     "@tsconfig/node20": "20.1.2",
     "@tsconfig/strictest": "2.0.2",
     "@types/node": "20.9.0",
-    "@typescript-eslint/eslint-plugin": "^6.10.0",
-    "@typescript-eslint/parser": ">=6.10.0",
+    "@typescript-eslint/eslint-plugin": "6.10.0",
+    "@typescript-eslint/parser": "6.10.0",
     "@typescript-eslint/rule-tester": "6.10.0",
     "@vitest/ui": "0.34.6",
     "bun": ">=1.0.11",
     "bun-types": "1.0.11",
     "cspell": "7.3.9",
     "dprint": "0.42.5",
-    "effect": "2.0.0-next.54",
+    "effect": "2.0.0-next.55",
     "eslint": ">=8.53.0",
     "eslint-config-with-tsconfig": "2.9.50",
-    "eslint-doc-generator": "1.5.4",
     "eslint-plugin-eslint-plugin": "5.1.1",
     "eslint-plugin-filenames-simple": "0.8.0",
     "eslint-plugin-functional-core": "1.7.1",
@@ -87,7 +86,7 @@
     "knip": "2.41.2",
     "pathe": "1.1.1",
     "publint": "0.2.5",
-    "rollup": "4.4.0",
+    "rollup": "4.4.1",
     "rollup-plugin-dts": "6.1.0",
     "rollup-plugin-swc3": "0.10.3",
     "skott": "0.31.3",
@@ -104,7 +103,7 @@
     "vitest": "0.34.6"
   },
   "peerDependencies": {
-    "@typescript-eslint/parser": ">=6.10.0",
+    "@typescript-eslint/parser": "6.10.0",
     "eslint": ">=8.53.0",
     "typescript": ">=5.2.2"
   },
@@ -118,13 +117,12 @@
   },
   "pnpm": {
     "overrides": {
-      "@typescript-eslint/parser": ">=6.10.0",
-      "@typescript-eslint/scope-manager": ">=6.10.0",
-      "@typescript-eslint/type-utils": ">=6.10.0",
-      "@typescript-eslint/types": ">=6.10.0",
-      "@typescript-eslint/utils": ">=6.10.0",
+      "@typescript-eslint/parser": "6.10.0",
+      "@typescript-eslint/scope-manager": "6.10.0",
+      "@typescript-eslint/type-utils": "6.10.0",
+      "@typescript-eslint/types": "6.10.0",
+      "@typescript-eslint/utils": "6.10.0",
       "eslint": ">=8.53.0",
-      "eslint-doc-generator": "1.5.4",
       "eslint-plugin-import": "npm:eslint-plugin-i@latest",
       "has": "npm:@nolyfill/has@latest",
       "react": "^18.2.0",
@@ -142,9 +140,6 @@
       "object.hasown": "npm:@nolyfill/object.hasown@latest",
       "object.values": "npm:@nolyfill/object.values@latest",
       "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@latest"
-    },
-    "patchedDependencies": {
-      "eslint-doc-generator@1.5.4": "patches/eslint-doc-generator@1.5.4.patch"
     }
   }
 }
