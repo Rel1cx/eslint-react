@@ -23,7 +23,6 @@
   },
   "license": "MIT",
   "author": "Eva1ent<let@ik.me>",
-  "main": "packages/eslint-plugin/dist/index.js",
   "workspaces": [
     "packages/*",
     "examples/*",
