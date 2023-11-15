@@ -267,58 +267,6 @@ importers:
         specifier: 4.5.0
         version: 4.5.0(@types/node@20.9.0)(sass@1.69.5)
 
-  examples/with-stylistic-eslint-plugin:
-    dependencies:
-      react:
-        specifier: 18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: 18.2.0
-        version: 18.2.0(react@18.2.0)
-    devDependencies:
-      '@eslint-react/eslint-plugin':
-        specifier: workspace:*
-        version: link:../../packages/eslint-plugin
-      '@stylistic/eslint-plugin':
-        specifier: 1.0.1
-        version: 1.0.1(eslint@8.53.0)(typescript@5.3.1-rc)
-      '@tsconfig/node20':
-        specifier: 20.1.2
-        version: 20.1.2
-      '@tsconfig/strictest':
-        specifier: 2.0.2
-        version: 2.0.2
-      '@types/react':
-        specifier: 18.2.36
-        version: 18.2.36
-      '@types/react-dom':
-        specifier: 18.2.14
-        version: 18.2.14
-      '@typescript-eslint/eslint-plugin':
-        specifier: 6.10.0
-        version: 6.10.0(@typescript-eslint/parser@6.10.0)(eslint@8.53.0)(typescript@5.3.1-rc)
-      '@typescript-eslint/parser':
-        specifier: 6.10.0
-        version: 6.10.0(eslint@8.53.0)(typescript@5.3.1-rc)
-      '@vitejs/plugin-react':
-        specifier: 4.1.1
-        version: 4.1.1(vite@4.5.0)
-      eslint:
-        specifier: '>=8.53.0'
-        version: 8.53.0
-      eslint-plugin-react-hooks:
-        specifier: 4.6.0
-        version: 4.6.0(eslint@8.53.0)
-      eslint-plugin-react-refresh:
-        specifier: 0.4.4
-        version: 0.4.4(eslint@8.53.0)
-      typescript:
-        specifier: rc
-        version: 5.3.1-rc
-      vite:
-        specifier: 4.5.0
-        version: 4.5.0(@types/node@20.9.0)(sass@1.69.5)
-
   packages/ast:
     dependencies:
       '@eslint-community/eslint-utils':
@@ -3211,59 +3159,6 @@ packages:
       commander: 4.1.1
       ignore: 5.2.4
       p-map: 4.0.0
-    dev: true
-
-  /@stylistic/eslint-plugin-js@1.0.1(eslint@8.53.0):
-    resolution: {integrity: sha512-SfJlEnmBowaWx9GyN/7vQ/7jQP2wVQe5CcaoVL6V5nmCWl9Q+VSeJPSBOjB7XOYSYL1HoEQsvA+8Hy7Zt2XrnA==}
-    dependencies:
-      '@eslint-community/eslint-utils': 4.4.0(eslint@8.53.0)
-      acorn: 8.11.2
-      escape-string-regexp: 4.0.0
-      eslint-visitor-keys: 3.4.3
-      espree: 9.6.1
-      esutils: 2.0.3
-      graphemer: 1.4.0
-    transitivePeerDependencies:
-      - eslint
-    dev: true
-
-  /@stylistic/eslint-plugin-jsx@1.0.1(eslint@8.53.0):
-    resolution: {integrity: sha512-qWtZcjWhbJ2roeI0tIPPtI9kWq/aCPsm/OTnMMRN6MtcufYm5oUjuU9cnAFW1pbCcmNWAcTkzbquyYavTAHcDg==}
-    dependencies:
-      '@stylistic/eslint-plugin-js': 1.0.1(eslint@8.53.0)
-      estraverse: 5.3.0
-    transitivePeerDependencies:
-      - eslint
-    dev: true
-
-  /@stylistic/eslint-plugin-ts@1.0.1(eslint@8.53.0)(typescript@5.3.1-rc):
-    resolution: {integrity: sha512-7ps/+DAlo9CdjjMB3u0aPyFTDI+QiR6DRK61nkmAO7BZ4xQfsJn2425trFyfIerAoHV61mP00bdpzmMk586IOg==}
-    peerDependencies:
-      eslint: '>=8.53.0'
-    dependencies:
-      '@stylistic/eslint-plugin-js': 1.0.1(eslint@8.53.0)
-      '@typescript-eslint/scope-manager': 6.10.0
-      '@typescript-eslint/type-utils': 6.10.0(eslint@8.53.0)(typescript@5.3.1-rc)
-      '@typescript-eslint/utils': 6.10.0(eslint@8.53.0)(typescript@5.3.1-rc)
-      eslint: 8.53.0
-      graphemer: 1.4.0
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-    dev: true
-
-  /@stylistic/eslint-plugin@1.0.1(eslint@8.53.0)(typescript@5.3.1-rc):
-    resolution: {integrity: sha512-nV4SbWg4yoiS/2ZrQ8dgFRHo7B4hvEwR5prAZ24ZcdIrodFPemd7pkNahClpaXTfXoQuLXB37aRhPRl/ez5Vsw==}
-    peerDependencies:
-      eslint: '>=8.53.0'
-    dependencies:
-      '@stylistic/eslint-plugin-js': 1.0.1(eslint@8.53.0)
-      '@stylistic/eslint-plugin-jsx': 1.0.1(eslint@8.53.0)
-      '@stylistic/eslint-plugin-ts': 1.0.1(eslint@8.53.0)(typescript@5.3.1-rc)
-      eslint: 8.53.0
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
     dev: true
 
   /@swc/core-darwin-arm64@1.3.96:
