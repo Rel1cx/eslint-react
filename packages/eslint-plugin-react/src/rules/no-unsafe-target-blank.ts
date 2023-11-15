@@ -43,7 +43,7 @@ export default createRule<[], MessageID>({
             : node.value,
           context.getScope(),
         );
-        if (!isString(link?.value) || link.value !== "_blank") {
+        if (!isString(link?.value) || link?.value !== "_blank") {
           return;
         }
 

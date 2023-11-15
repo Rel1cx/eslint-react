@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "0.8.6-beta.2",
+  "version": "0.8.6-beta.3",
   "description": "ESLint plugins for React function components with TypeScript, built (mostly) from scratch",
   "keywords": [
     "eslint",
@@ -107,7 +107,7 @@
     "eslint": ">=8.53.0",
     "typescript": ">=5.2.2"
   },
-  "packageManager": "pnpm@8.10.3",
+  "packageManager": "pnpm@8.10.5",
   "engines": {
     "bun": ">=1.0.11",
     "node": ">=18.15.0"
@@ -123,11 +123,11 @@
       "@typescript-eslint/types": "6.10.0",
       "@typescript-eslint/utils": "6.10.0",
       "eslint": ">=8.53.0",
-      "eslint-plugin-import": "npm:eslint-plugin-i@latest",
-      "has": "npm:@nolyfill/has@latest",
       "react": "18.2.0",
       "react-dom": "18.2.0",
-      "typescript": "rc",
+      "typescript": ">=5.2.2",
+      "eslint-plugin-import": "npm:eslint-plugin-i@latest",
+      "has": "npm:@nolyfill/has@latest",
       "array-includes": "npm:@nolyfill/array-includes@latest",
       "array.prototype.flat": "npm:@nolyfill/array.prototype.flat@latest",
       "array.prototype.flatmap": "npm:@nolyfill/array.prototype.flatmap@latest",

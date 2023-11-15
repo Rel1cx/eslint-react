@@ -4,9 +4,9 @@ const { defineConfig } = require("eslint-define-config");
 module.exports = defineConfig({
   root: true,
   env: {
+    node: true,
     browser: false,
     es2024: true,
-    node: true,
   },
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -14,11 +14,9 @@ module.exports = defineConfig({
     project: [
       "./tsconfig.json",
       "./packages/*/tsconfig.json",
-      // "./website/*/tsconfig.json",
     ],
     sourceType: "module",
     tsconfigRootDir: __dirname,
-    warnOnUnsupportedTypeScriptVersion: false,
   },
   extends: [
     "with-tsconfig",
@@ -135,6 +133,15 @@ module.exports = defineConfig({
       },
     },
     {
+      files: ["./scripts/**/*.ts"],
+      globals: {
+        Bun: "readonly",
+      },
+      rules: {
+        "no-await-in-loop": "off",
+      },
+    },
+    {
       extends: ["plugin:vitest/recommended"],
       files: "*.spec.ts",
       plugins: ["vitest"],
@@ -144,16 +151,6 @@ module.exports = defineConfig({
         "sonarjs/no-duplicate-string": "off",
         "vitest/consistent-test-filename": "off",
         "vitest/require-hook": "off",
-      },
-    },
-    {
-      files: ["./scripts/**/*.ts"],
-      globals: {
-        Bun: "readonly",
-      },
-      rules: {
-        "no-await-in-loop": "off",
-        "functional-core/purity": "off",
       },
     },
     {

@@ -41,7 +41,7 @@ const allowedVariants = [
   "falsy string",
   "truthy boolean",
   "truthy string",
-] as const satisfies VariantType[];
+] as const satisfies readonly VariantType[];
 
 /**
  * Ported from https://github.com/typescript-eslint/typescript-eslint/blob/eb736bbfc22554694400e6a4f97051d845d32e0b/packages/eslint-plugin/src/rules/strict-boolean-expressions.ts#L826
