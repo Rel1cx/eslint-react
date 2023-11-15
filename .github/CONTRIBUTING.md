@@ -8,10 +8,6 @@ Before adding your code to this project, please make sure you are passionate abo
 
 ESLint React does not accept contributions of a purely utilitarian nature.
 
-ESLint Reactは、純粋に功利的な性質の貢献は認めない。
-
-ESLint React 不接受纯粹功利性质的贡献。
-
 - [ESLint React Contributing Guide](#eslint-react-contributing-guide)
   - [Issue Reporting Guidelines](#issue-reporting-guidelines)
   - [Pull Request Guidelines](#pull-request-guidelines)

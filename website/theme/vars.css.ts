@@ -6,10 +6,23 @@ export const lineHeightRelaxed = createVar();
 export const vars = createGlobalTheme(":root", {
   font: {
     family: {
-      fontFamilyBody: `ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-        'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji'`,
-      // fontFamilyHeading: 'Source Serif Pro'
+      fontFamilyBody: `"SF Pro Text",
+    "SF Pro Icons",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Noto Sans",
+    Ubuntu,
+    Cantarell,
+    "Helvetica Neue",
+    Arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji"`,
     },
     size: {
       fontSize0: "0.8rem",
