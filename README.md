@@ -138,7 +138,7 @@ export default [
 - [x] `react/no-children-map`
 - [x] `react/no-children-only`
 - [x] `react/no-children-to-array`
-- [ ] `react/no-children-prop`
+- [x] `react/no-children-prop`
 - [x] `react/no-children-in-void-dom-elements`
 - [ ] `react/no-create-class`
 - [ ] `react/no-find-dom-node`
@@ -152,8 +152,9 @@ export default [
 - [x] `react/no-dangerously-set-innerhtml`
 - [x] `react/no-dangerously-set-innerhtml-with-children`
 - [x] `react/no-missing-button-type`
-- [x] `react/no-missing-display-name`
 - [x] `react/no-missing-iframe-sandbox`
+- [ ] `react/no-missing-context-display-name`
+- [ ] `react/no-missing-component-display-name`
 - [x] `react/no-script-url`
 - [ ] `react/no-direct-mutation-state`
 - [ ] `react/no-redundant-should-component-update`
