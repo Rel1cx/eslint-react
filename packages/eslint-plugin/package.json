@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "0.8.5",
+  "version": "0.8.6-beta.2",
   "description": "ESLint plugins for React function components with TypeScript, built (mostly) from scratch, built (mostly) from scratch",
   "keywords": [
     "eslint",
@@ -51,28 +51,38 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/parser": ">=6.10.0",
-    "@typescript-eslint/scope-manager": ">=6.10.0",
-    "@typescript-eslint/type-utils": ">=6.10.0",
-    "@typescript-eslint/types": ">=6.10.0",
-    "@typescript-eslint/utils": ">=6.10.0",
+    "@typescript-eslint/parser": "6.10.0",
+    "@typescript-eslint/scope-manager": "6.10.0",
+    "@typescript-eslint/type-utils": "6.10.0",
+    "@typescript-eslint/types": "6.10.0",
+    "@typescript-eslint/utils": "6.10.0",
     "typescript": ">=5.2.2"
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin-debug": "workspace:*",
-    "@eslint-react/eslint-plugin-react-hooks": "workspace:*",
     "@eslint-react/eslint-plugin-jsx": "workspace:*",
     "@eslint-react/eslint-plugin-naming-convention": "workspace:*",
     "@eslint-react/eslint-plugin-react": "workspace:*",
+    "@eslint-react/eslint-plugin-react-hooks": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "string-ts": "1.3.2"
   },
   "peerDependencies": {
-    "@typescript-eslint/parser": ">=6.10.0",
+    "@typescript-eslint/parser": "6.10.0",
     "eslint": ">=8.53.0",
     "typescript": ">=5.2.2"
   },
+  "bundleDependencies": [
+    "@eslint-react/eslint-plugin-debug",
+    "@eslint-react/eslint-plugin-jsx",
+    "@eslint-react/eslint-plugin-naming-convention",
+    "@eslint-react/eslint-plugin-react",
+    "@eslint-react/eslint-plugin-react-hooks",
+    "@eslint-react/tools",
+    "@eslint-react/types",
+    "string-ts"
+  ],
   "engines": {
     "bun": ">=1.0.11",
     "node": ">=18.15.0"

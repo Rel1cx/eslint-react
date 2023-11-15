@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/jsx",
-  "version": "0.8.5",
+  "version": "0.8.6-beta.2",
   "description": "ESLint plugin for React Hooks related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -41,14 +41,20 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/scope-manager": ">=6.10.0",
-    "@typescript-eslint/types": ">=6.10.0",
-    "@typescript-eslint/utils": ">=6.10.0"
+    "@typescript-eslint/scope-manager": "6.10.0",
+    "@typescript-eslint/types": "6.10.0",
+    "@typescript-eslint/utils": "6.10.0"
   },
   "devDependencies": {
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "micro-memoize": "4.1.2"
-  }
+  },
+  "bundleDependencies": [
+    "@eslint-react/ast",
+    "@eslint-react/tools",
+    "@eslint-react/types",
+    "micro-memoize"
+  ]
 }
