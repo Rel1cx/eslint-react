@@ -22,6 +22,7 @@
     "package.json",
     "pnpm-lock.yaml",
     "test/fixtures",
+    "website/public/**/*",
     "THIRD-PARTY-LICENSE"
   ],
   "useGitignore": true,
