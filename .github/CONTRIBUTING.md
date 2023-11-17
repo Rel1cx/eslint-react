@@ -51,7 +51,7 @@ ESLint React does not accept contributions of a purely utilitarian nature.
 
 ## Development Guide
 
-**NOTE: ESLint React is undergoing rapid development right now, and the docs match the latest published version of ESLint React. They are horribly out of date when compared with the code in the dev branch.**.
+**NOTE: ESLint React is undergoing rapid development right now, and the docs may not reflect the current state of ESLint React. We are working hard to improve it.**
 
 ### Packages Overview
 
