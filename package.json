@@ -66,8 +66,8 @@
     "@typescript-eslint/parser": "6.10.0",
     "@typescript-eslint/rule-tester": "6.10.0",
     "@vitest/ui": "0.34.6",
-    "bun": ">=1.0.12",
-    "bun-types": "1.0.12",
+    "bun": "1.0.11",
+    "bun-types": "1.0.11",
     "cspell": "7.3.9",
     "dprint": "0.42.5",
     "effect": "2.0.0-next.55",
@@ -107,7 +107,7 @@
   },
   "packageManager": "pnpm@8.10.5",
   "engines": {
-    "bun": ">=1.0.12",
+    "bun": ">=1.0.11",
     "node": ">=18.15.0"
   },
   "publishConfig": {
