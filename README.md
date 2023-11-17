@@ -18,7 +18,7 @@ ESLint plugins for React function components with TypeScript, built (mostly) fro
 
 ### Bun
 
-- 1.0.7 or later
+- 1.0.11 or later
 
 ## Installation
 
@@ -181,19 +181,19 @@ export default [
 - [ ] `react/ban-html-props`
 - [ ] `react/ban-svg-props`
 
-#### Hooks rules
+#### React hooks rules
 
-- [ ] `hooks/no-access-state-in-setstate`
-- [ ] `hooks/no-suppressing-exhaustive-deps`
-- [x] `hooks/ensure-custom-hooks-using-other-hooks` Proposed by @SukkaW
-- [ ] `hooks/ensure-use-memo-has-non-empty-dependency-array` Proposed by @SukkaW
-- [ ] `hooks/ensure-use-callback-has-non-empty-dependency-array` Proposed by @SukkaW
+- [ ] `react-hooks/no-access-state-in-setstate`
+- [ ] `react-hooks/no-suppressing-exhaustive-deps`
+- [x] `react-hooks/ensure-custom-hooks-using-other-hooks` Proposed by @SukkaW
+- [ ] `react-hooks/ensure-use-memo-has-non-empty-dependency-array` Proposed by @SukkaW
+- [ ] `react-hooks/ensure-use-callback-has-non-empty-dependency-array` Proposed by @SukkaW
 
 #### Debug rules
 
 - [x] `debug/class-component`
 - [x] `debug/function-component`
-- [x] `debug/hooks`
+- [x] `debug/react-hooks`
 - [ ] `debug/render-prop`
 - [ ] `debug/context`
 

@@ -1,11 +1,8 @@
-# @eslint-react/eslint-plugin
+<p align="center"><img src="./assets/logo.svg" alt="logo" width="150" /></p>
+
+<h1 align="center" alt="title">ESLint React</h1>
 
 ESLint plugins for React function components with TypeScript, built (mostly) from scratch, built (mostly) from scratch.
-
-## Public packages
-
-- [`@eslint-react/eslint-plugin`](./packages/eslint-plugin) - The main ESLint plugin package including all rules and configs in this repository.
-- [`@eslint-react/jsx`](./packages/jsx) - AST utility module for Static Analysis of JSX in ESLint.
 
 ## Supported engines
 
@@ -16,7 +13,7 @@ ESLint plugins for React function components with TypeScript, built (mostly) fro
 
 ### Bun
 
-- 1.0.7 or later
+- 1.0.11 or later
 
 ## Installation
 
@@ -119,7 +116,7 @@ export default [
 
 Before you start working on something, it's best to check if there is an existing issue first. It's also a good idea to reach the maintainer and confirm with the team if it makes sense or if someone else is already working on it.
 
-Please make sure to read the [Contributing Guide](../../.github/CONTRIBUTING.md) before making a pull request.
+Please make sure to read the [Contributing Guide](./.github/CONTRIBUTING.md) before making a pull request.
 
 Thank you to everyone contributing to ESLint React!
 
