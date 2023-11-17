@@ -185,7 +185,9 @@ export default [
 
 - [ ] `hooks/no-access-state-in-setstate`
 - [ ] `hooks/no-suppressing-exhaustive-deps`
-- [x] `hooks/ensure-custom-hooks-using-other-hooks`
+- [x] `hooks/ensure-custom-hooks-using-other-hooks` Proposed by @SukkaW
+- [ ] `hooks/ensure-use-memo-has-non-empty-dependency-array` Proposed by @SukkaW
+- [ ] `hooks/ensure-use-callback-has-non-empty-dependency-array` Proposed by @SukkaW
 
 #### Debug rules
 
