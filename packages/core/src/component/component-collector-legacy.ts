@@ -8,8 +8,8 @@ import { type TSESTree } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
 
 import { uid } from "../helper";
-import type { ERClassComponent } from "../types";
-import * as ComponentType from "../types/component-type";
+import type { ESLRClassComponent } from "../types";
+import * as ComponentType from "./component-type";
 
 const isRenderMethodLike = isMatching({
   type: P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),
@@ -153,7 +153,7 @@ export function componentCollectorLegacy(
   context: RuleContext,
   hint: bigint = ComponentCollectorLegacyHint.None,
 ) {
-  const components = new Map<string, ERClassComponent>();
+  const components = new Map<string, ESLRClassComponent>();
 
   const ctx = {
     getAllComponents(): E.Either<Error, typeof components> {
@@ -178,7 +178,7 @@ export function componentCollectorLegacy(
       id,
       {
         id,
-        type: ComponentType.ClassComponent,
+        type: ComponentType.ESLRClassComponent,
         name: O.fromNullable(getClassIdentifier(node)?.name),
         // TODO: get displayName of class component
         displayName: O.none(),
