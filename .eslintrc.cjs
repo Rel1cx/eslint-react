@@ -69,9 +69,9 @@ module.exports = defineConfig({
       {
         type: "natural",
         "always-on-top": [
+          "id",
           "type",
           "kind",
-          "id",
           "key",
           "name",
           "meta",

@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
         }
         const components = maybeComponents.right;
 
-        for (const { name, displayName, node } of components) {
+        for (const { name, displayName, node } of components.values()) {
           context.report({
             data: {
               name: O.getOrElse(name, F.constant("anonymous")),

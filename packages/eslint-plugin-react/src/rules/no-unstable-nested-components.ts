@@ -74,8 +74,8 @@ export default createRule<[], MessageID>({
 
           return;
         }
-        const functionComponents = maybeFunctionComponents.right;
-        const classComponents = maybeClassComponents.right;
+        const functionComponents = Array.from(maybeFunctionComponents.right.values());
+        const classComponents = Array.from(maybeClassComponents.right.values());
         const isFunctionComponent = (node: TSESTree.Node): node is TSESTreeFunction => {
           return isFunction(node) && functionComponents.some(component => component.node === node);
         };

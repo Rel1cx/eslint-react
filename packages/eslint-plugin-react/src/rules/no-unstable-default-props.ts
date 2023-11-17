@@ -51,7 +51,7 @@ export default createRule<[], MessageID>({
           return;
         }
         const components = maybeComponents.right;
-        for (const { node: component } of components) {
+        for (const { node: component } of components.values()) {
           const { params } = component;
           if (!hasUsedObjectDestructuringSyntax(params)) {
             continue;

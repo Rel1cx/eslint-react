@@ -320,6 +320,10 @@ importers:
       '@typescript-eslint/utils':
         specifier: 6.10.0
         version: 6.10.0(eslint@8.53.0)(typescript@5.2.2)
+    devDependencies:
+      short-unique-id:
+        specifier: 5.0.3
+        version: 5.0.3
 
   packages/eslint-plugin:
     dependencies:
@@ -10983,6 +10987,11 @@ packages:
       jsonc-parser: 3.2.0
       vscode-oniguruma: 1.7.0
       vscode-textmate: 8.0.0
+
+  /short-unique-id@5.0.3:
+    resolution: {integrity: sha512-yhniEILouC0s4lpH0h7rJsfylZdca10W9mDJRAFh3EpcSUanCHGb0R7kcFOIUCZYSAPo0PUD5ZxWQdW0T4xaug==}
+    hasBin: true
+    dev: true
 
   /siginfo@2.0.0:
     resolution: {integrity: sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==}

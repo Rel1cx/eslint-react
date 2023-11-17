@@ -82,7 +82,7 @@ export default createRule<[], MessageID>({
           return;
         }
 
-        const components = maybeComponents.right;
+        const components = Array.from(maybeComponents.right.values());
         for (const [fn, detail] of possibleValueConstructions.entries()) {
           if (
             !components.some((component) => component.node === fn)

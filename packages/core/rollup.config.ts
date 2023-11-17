@@ -1,3 +1,4 @@
+import commonjs from "@rollup/plugin-commonjs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import { createRequire } from "module";
 import { defineConfig } from "rollup";
@@ -17,6 +18,9 @@ export default defineConfig([{
   ],
   plugins: [
     nodeResolve(),
+    commonjs({
+      esmExternals: true,
+    }),
     swc({
       jsc: {
         minify: {

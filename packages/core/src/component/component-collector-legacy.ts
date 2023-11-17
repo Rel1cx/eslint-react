@@ -7,6 +7,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type TSESTree } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
 
+import { uid } from "../helper";
 import type { ERClassComponent } from "../types";
 import * as ComponentType from "../types/component-type";
 
@@ -152,10 +153,10 @@ export function componentCollectorLegacy(
   context: RuleContext,
   hint: bigint = ComponentCollectorLegacyHint.None,
 ) {
-  const components: ERClassComponent[] = [];
+  const components = new Map<string, ERClassComponent>();
 
   const ctx = {
-    getAllComponents(): E.Either<Error, ERClassComponent[]> {
+    getAllComponents(): E.Either<Error, typeof components> {
       if (context.getScope().block.type !== NodeType.Program) {
         return E.left(new Error("getAllComponents should only be called in Program:exit"));
       }
@@ -163,7 +164,7 @@ export function componentCollectorLegacy(
       return E.right(components);
     },
     getCurrentComponents() {
-      return [...components];
+      return new Map(components);
     },
   } as const;
 
@@ -172,14 +173,19 @@ export function componentCollectorLegacy(
       return;
     }
 
-    components.push({
-      type: ComponentType.ClassComponent,
-      name: O.fromNullable(getClassIdentifier(node)?.name),
-      // TODO: get displayName of class component
-      displayName: O.none(),
-      hint,
-      node,
-    });
+    const id = uid.rnd();
+    components.set(
+      id,
+      {
+        id,
+        type: ComponentType.ClassComponent,
+        name: O.fromNullable(getClassIdentifier(node)?.name),
+        // TODO: get displayName of class component
+        displayName: O.none(),
+        hint,
+        node,
+      },
+    );
   };
 
   const listeners = {

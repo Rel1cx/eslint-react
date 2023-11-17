@@ -50,7 +50,7 @@ export default createRule<[], MessageID>({
           return;
         }
 
-        const components = maybeComponents.right;
+        const components = Array.from(maybeComponents.right.values());
         for (const [fn, call] of possibleCreateRefCalls.entries()) {
           if (!components.some((component) => component.node === fn)) {
             continue;
