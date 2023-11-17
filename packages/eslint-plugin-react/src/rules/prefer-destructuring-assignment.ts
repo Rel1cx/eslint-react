@@ -53,7 +53,7 @@ export default createRule<[], MessageID>({
           return;
         }
 
-        const components = maybeComponents.right;
+        const components = Array.from(maybeComponents.right.values());
         function isFunctionComponent(block: TSESTree.Node): block is TSESTreeFunction {
           if (!isFunction(block)) {
             return false;
@@ -61,7 +61,8 @@ export default createRule<[], MessageID>({
 
           const id = getFunctionIdentifier(block);
 
-          return !!id && isValidReactComponentName(id.name) && components.some((component) => component.node === block);
+          return !!id && isValidReactComponentName(id.name)
+            && components.some((component) => component.node === block);
         }
 
         // eslint-disable-next-line prefer-const

@@ -4,6 +4,7 @@ import type { O } from "@eslint-react/tools";
 import type { ComponentType } from "./component-type";
 
 export type ERFunctionComponent = {
+  id: string;
   node: TSESTreeFunction;
   name: O.Option<string>;
   type: ComponentType;
@@ -12,6 +13,7 @@ export type ERFunctionComponent = {
 };
 
 export type ERClassComponent = {
+  id: string;
   node: TSESTreeClass;
   name: O.Option<string>;
   type: ComponentType;

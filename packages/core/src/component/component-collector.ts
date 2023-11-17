@@ -19,6 +19,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import { isString } from "effect/Predicate";
 import { match } from "ts-pattern";
 
+import { uid } from "../helper";
 import type { ERFunctionComponent } from "../types";
 import * as ComponentType from "../types/component-type";
 import { isFunctionOfRenderMethod } from "./component-collector-legacy";
@@ -80,7 +81,7 @@ export function componentCollector(
   context: RuleContext,
   hint: bigint = defaultComponentCollectorHint,
 ) {
-  const components: ERFunctionComponent[] = [];
+  const components = new Map<string, ERFunctionComponent>();
   const functionStack = MutList.make<TSESTreeFunction>();
   const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
   const onFunctionEnter = (node: TSESTreeFunction) => MutList.append(functionStack, node);
@@ -88,7 +89,7 @@ export function componentCollector(
 
   const ctx = {
     // get allComponents(): E.Either<Error, TSESTreeFunction[]>
-    getAllComponents(): E.Either<Error, ERFunctionComponent[]> {
+    getAllComponents(): E.Either<Error, typeof components> {
       if (context.getScope().block.type !== NodeType.Program) {
         return E.left(new Error("getAllComponents should only be called in Program:exit"));
       }
@@ -96,7 +97,7 @@ export function componentCollector(
       return E.right(components);
     },
     getCurrentComponents() {
-      return [...components];
+      return new Map(components);
     },
     getCurrentFunction,
     getCurrentFunctionStack() {
@@ -123,7 +124,10 @@ export function componentCollector(
       ) {
         return;
       }
-      components.push({
+
+      const id = uid.rnd();
+      components.set(id, {
+        id,
         type: ComponentType.FunctionComponent,
         name: O.fromNullable(getFunctionIdentifier(currentFn)?.name),
         displayName: O.none(),
@@ -142,7 +146,9 @@ export function componentCollector(
         return;
       }
 
-      components.push({
+      const id = uid.rnd();
+      components.set(id, {
+        id,
         type: ComponentType.FunctionComponent,
         name: O.fromNullable(getFunctionIdentifier(node)?.name),
         displayName: O.none(),
@@ -167,12 +173,12 @@ export function componentCollector(
         return;
       }
 
-      const componentIndex = components.findLastIndex(c =>
-        O.isSome(c.name)
-        && c.name.value === maybeComponentName.value
-      );
+      const component = Array.from(components.values()).findLast(c => {
+        return O.isSome(c.name)
+          && c.name.value === maybeComponentName.value;
+      });
 
-      if (componentIndex === -1) {
+      if (!component) {
         return;
       }
 
@@ -190,14 +196,10 @@ export function componentCollector(
         })
         .otherwise(O.none);
 
-      // eslint-disable-next-line security/detect-object-injection
-      const component = components[componentIndex];
-
-      if (!component) {
-        return;
-      }
-
-      component.displayName = O.filter(isString)(maybeRightValue);
+      components.set(component.id, {
+        ...component,
+        displayName: O.filter(isString)(maybeRightValue),
+      });
     },
   } as const satisfies ESLintUtils.RuleListener;
 
