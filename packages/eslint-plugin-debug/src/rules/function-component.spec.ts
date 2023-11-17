@@ -29,6 +29,8 @@ ruleTester.run(RULE_NAME, rule, {
         function App() {
             return <div>foo</div>
         }
+
+        App.displayName = "TestDisplayName";
       `,
       errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App" } }],
     },
@@ -45,6 +47,20 @@ ruleTester.run(RULE_NAME, rule, {
         const App = React.memo(function App() {
             return <div>foo</div>
         })
+
+        App.displayName = \`\${"TestDisplayName"}\`;
+      `,
+      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App" } }],
+    },
+    {
+      code: dedent`
+        const App = React.memo(function App() {
+            return <div>foo</div>
+        })
+
+        const displayName = "TestDisplayName";
+
+        App.displayName = displayName;
       `,
       errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App" } }],
     },

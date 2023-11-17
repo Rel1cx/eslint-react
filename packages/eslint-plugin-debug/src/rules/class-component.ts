@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
         }
         const components = maybeComponents.right;
 
-        for (const component of components) {
+        for (const { node: component } of components) {
           const maybeName = component.id?.name;
           const maybeId = getClassIdentifier(component);
           const name = maybeName ?? maybeId?.name ?? "anonymous";

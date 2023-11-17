@@ -4,41 +4,12 @@
 
 ## Table of contents
 
-### Type Aliases
-
-- [ComponentCollectorCache](README.md#componentcollectorcache)
-- [ComponentCollectorLegacyCache](README.md#componentcollectorlegacycache)
-- [ComponentType](README.md#componenttype)
-- [HostComponentType](README.md#hostcomponenttype)
-
 ### Variables
 
-- [ClassComponent](README.md#classcomponent)
 - [ComponentCollectorHint](README.md#componentcollectorhint)
 - [ComponentCollectorLegacyHint](README.md#componentcollectorlegacyhint)
-- [ContextConsumer](README.md#contextconsumer)
-- [ContextProvider](README.md#contextprovider)
-- [DehydratedFragment](README.md#dehydratedfragment)
-- [ForwardRef](README.md#forwardref)
-- [Fragment](README.md#fragment)
-- [FunctionComponent](README.md#functioncomponent)
-- [HostComponent](README.md#hostcomponent)
-- [HostHTMLComponent](README.md#hosthtmlcomponent)
-- [HostHTMLComponentTypes](README.md#hosthtmlcomponenttypes)
-- [HostPortal](README.md#hostportal)
-- [HostRoot](README.md#hostroot)
-- [HostSVGComponent](README.md#hostsvgcomponent)
-- [HostSVGComponentTypes](README.md#hostsvgcomponenttypes)
-- [HostText](README.md#hosttext)
-- [HostWebComponent](README.md#hostwebcomponent)
-- [LazyComponent](README.md#lazycomponent)
-- [MemoComponent](README.md#memocomponent)
-- [Mode](README.md#mode)
-- [Profiler](README.md#profiler)
 - [RE\_COMPONENT\_NAME](README.md#re_component_name)
 - [RE\_HOOK\_NAME](README.md#re_hook_name)
-- [SuspenseComponent](README.md#suspensecomponent)
-- [SuspenseListComponent](README.md#suspenselistcomponent)
 - [defaultComponentCollectorHint](README.md#defaultcomponentcollectorhint)
 
 ### Functions
@@ -55,9 +26,6 @@
 - [isClassComponent](README.md#isclasscomponent)
 - [isCreateContext](README.md#iscreatecontext)
 - [isFunctionOfRenderMethod](README.md#isfunctionofrendermethod)
-- [isHostHTMLComponentName](README.md#ishosthtmlcomponentname)
-- [isHostSVGComponentName](README.md#ishostsvgcomponentname)
-- [isHostWebComponentName](README.md#ishostwebcomponentname)
 - [isInsideRenderMethod](README.md#isinsiderendermethod)
 - [isMemberExpressionOfReactMember](README.md#ismemberexpressionofreactmember)
 - [isPureComponent](README.md#ispurecomponent)
@@ -71,37 +39,7 @@
 - [unsafeIsRenderFunction](README.md#unsafeisrenderfunction)
 - [unsafeIsRenderProp](README.md#unsafeisrenderprop)
 
-## Type Aliases
-
-### ComponentCollectorCache
-
-Ƭ **ComponentCollectorCache**: `WeakMap`\<`TSESTreeFunction`, `bigint`\>
-
----
-
-### ComponentCollectorLegacyCache
-
-Ƭ **ComponentCollectorLegacyCache**: `WeakMap`\<`TSESTreeClass`, `bigint`\>
-
----
-
-### ComponentType
-
-Ƭ **ComponentType**: `0` \| `1` \| `3` \| `4` \| `5` \| `6` \| `7` \| `8` \| `9` \| `10` \| `11` \| `12` \| `13` \| `14` \| `16` \| `18` \| `19` \| `20`
-
----
-
-### HostComponentType
-
-Ƭ **HostComponentType**: `0` \| `1` \| `2`
-
 ## Variables
-
-### ClassComponent
-
-• `Const` **ClassComponent**: `1`
-
----
 
 ### ComponentCollectorHint
 
@@ -151,120 +89,6 @@
 
 ---
 
-### ContextConsumer
-
-• `Const` **ContextConsumer**: `9`
-
----
-
-### ContextProvider
-
-• `Const` **ContextProvider**: `10`
-
----
-
-### DehydratedFragment
-
-• `Const` **DehydratedFragment**: `18`
-
----
-
-### ForwardRef
-
-• `Const` **ForwardRef**: `11`
-
----
-
-### Fragment
-
-• `Const` **Fragment**: `7`
-
----
-
-### FunctionComponent
-
-• `Const` **FunctionComponent**: `0`
-
----
-
-### HostComponent
-
-• `Const` **HostComponent**: `5`
-
----
-
-### HostHTMLComponent
-
-• `Const` **HostHTMLComponent**: `0`
-
----
-
-### HostHTMLComponentTypes
-
-• `Const` **HostHTMLComponentTypes**: readonly [`"aside"`, `"audio"`, `"b"`, `"base"`, `"bdi"`, `"bdo"`, `"blockquote"`, `"body"`, `"br"`, `"button"`, `"canvas"`, `"caption"`, `"cite"`, `"code"`, `"col"`, `"colgroup"`, `"data"`, `"datalist"`, `"dd"`, `"del"`, `"details"`, `"dfn"`, `"dialog"`, `"div"`, `"dl"`, `"dt"`, `"em"`, `"embed"`, `"fieldset"`, `"figcaption"`, `"figure"`, `"footer"`, `"form"`, `"h1"`, `"head"`, `"header"`, `"hgroup"`, `"hr"`, `"html"`, `"i"`, `"iframe"`, `"img"`, `"input"`, `"ins"`, `"kbd"`, `"label"`, `"legend"`, `"li"`, `"link"`, `"main"`, `"map"`, `"mark"`, `"menu"`, `"meta"`, `"meter"`, `"nav"`, `"noscript"`, `"object"`, `"ol"`, `"optgroup"`, `"option"`, `"output"`, `"p"`, `"picture"`, `"pre"`, `"progress"`, `"q"`, `"rp"`, `"rt"`, `"ruby"`, `"s"`, `"samp"`, `"script"`, `"section"`, `"select"`, `"slot"`, `"small"`, `"source"`, `"span"`, `"strong"`, `"style"`, `"sub"`, `"summary"`, `"sup"`, `"table"`, `"tbody"`, `"td"`, `"template"`, `"textarea"`, `"tfoot"`, `"th"`, `"thead"`, `"time"`, `"title"`, `"tr"`, `"track"`, `"u"`, `"ul"`, `"var"`, `"video"`, `"wbr"`]
-
----
-
-### HostPortal
-
-• `Const` **HostPortal**: `4`
-
----
-
-### HostRoot
-
-• `Const` **HostRoot**: `3`
-
----
-
-### HostSVGComponent
-
-• `Const` **HostSVGComponent**: `1`
-
----
-
-### HostSVGComponentTypes
-
-• `Const` **HostSVGComponentTypes**: readonly [`"a"`, `"animate"`, `"animateMotion"`, `"animateTransform"`, `"circle"`, `"clipPath"`, `"defs"`, `"desc"`, `"discard"`, `"ellipse"`, `"feBlend"`, `"feColorMatrix"`, `"feComponentTransfer"`, `"feComposite"`, `"feConvolveMatrix"`, `"feDiffuseLighting"`, `"feDisplacementMap"`, `"feDistantLight"`, `"feDropShadow"`, `"feFlood"`, `"feFuncA"`, `"feFuncB"`, `"feFuncG"`, `"feFuncR"`, `"feGaussianBlur"`, `"feImage"`, `"feMerge"`, `"feMergeNode"`, `"feMorphology"`, `"feOffset"`, `"fePointLight"`, `"feSpecularLighting"`, `"feSpotLight"`, `"feTile"`, `"feTurbulence"`, `"filter"`, `"foreignObject"`, `"g"`, `"hatch"`, `"hatchpath"`, `"image"`, `"line"`, `"linearGradient"`, `"marker"`, `"mask"`, `"metadata"`, `"mpath"`, `"path"`, `"pattern"`, `"polygon"`, `"polyline"`, `"radialGradient"`, `"rect"`, `"script"`, `"set"`, `"stop"`, `"style"`, `"svg"`, `"switch"`, `"symbol"`, `"text"`, `"textPath"`, `"title"`, `"tspan"`, `"use"`, `"view"`]
-
----
-
-### HostText
-
-• `Const` **HostText**: `6`
-
----
-
-### HostWebComponent
-
-• `Const` **HostWebComponent**: `2`
-
----
-
-### LazyComponent
-
-• `Const` **LazyComponent**: `16`
-
----
-
-### MemoComponent
-
-• `Const` **MemoComponent**: `14`
-
----
-
-### Mode
-
-• `Const` **Mode**: `8`
-
----
-
-### Profiler
-
-• `Const` **Profiler**: `12`
-
----
-
 ### RE\_COMPONENT\_NAME
 
 • `Const` **RE\_COMPONENT\_NAME**: `RegExp`
@@ -277,18 +101,6 @@
 
 ---
 
-### SuspenseComponent
-
-• `Const` **SuspenseComponent**: `13`
-
----
-
-### SuspenseListComponent
-
-• `Const` **SuspenseListComponent**: `19`
-
----
-
 ### defaultComponentCollectorHint
 
 • `Const` **defaultComponentCollectorHint**: `bigint`
@@ -297,46 +109,45 @@
 
 ### componentCollector
 
-▸ **componentCollector**(`context`, `hint?`, `cache?`): `Object`
+▸ **componentCollector**(`context`, `hint?`): `Object`
 
 #### Parameters
 
-| Name      | Type                                                           | Default value                   |
-| :-------- | :------------------------------------------------------------- | :------------------------------ |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>  | `undefined`                     |
-| `hint`    | `bigint`                                                       | `defaultComponentCollectorHint` |
-| `cache`   | [`ComponentCollectorCache`](README.md#componentcollectorcache) | `undefined`                     |
+| Name      | Type                                                          | Default value                   |
+| :-------- | :------------------------------------------------------------ | :------------------------------ |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`                     |
+| `hint`    | `bigint`                                                      | `defaultComponentCollectorHint` |
 
 #### Returns
 
 `Object`
 
-| Name                                                             | Type                                                                                                                                                                                                                                                                                                                                                  |
-| :--------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                            | \{ `getCurrentFunction`: () => `Option`\<`NonNullable`\<`undefined` \| `TSESTreeFunction`\>\> ; `getAllComponents`: () => `Either`\<`Error`, `TSESTreeFunction`[]\> ; `getCurrentComponents`: () => `TSESTreeFunction`[] ; `getCurrentFunctionStack`: () => `TSESTreeFunction`[] }                                                                    |
-| `ctx.getCurrentFunction`                                         | () => `Option`\<`NonNullable`\<`undefined` \| `TSESTreeFunction`\>\>                                                                                                                                                                                                                                                                                  |
-| `ctx.getAllComponents`                                           | [object Object]                                                                                                                                                                                                                                                                                                                                       |
-| `ctx.getCurrentComponents`                                       | [object Object]                                                                                                                                                                                                                                                                                                                                       |
-| `ctx.getCurrentFunctionStack`                                    | [object Object]                                                                                                                                                                                                                                                                                                                                       |
-| `listeners`                                                      | \{ `:function`: (`node`: `TSESTreeFunction`) => `MutableList`\<`TSESTreeFunction`\> = onFunctionEnter; `:function:exit`: () => `undefined` \| `TSESTreeFunction` = onFunctionExit; `ArrowFunctionExpression[body.type!='BlockStatement']`: (`node`: `ArrowFunctionExpression`) => `void` ; `ReturnStatement`: (`node`: `ReturnStatement`) => `void` } |
-| `listeners.:function`                                            | (`node`: `TSESTreeFunction`) => `MutableList`\<`TSESTreeFunction`\>                                                                                                                                                                                                                                                                                   |
-| `listeners.:function:exit`                                       | () => `undefined` \| `TSESTreeFunction`                                                                                                                                                                                                                                                                                                               |
-| `listeners.ArrowFunctionExpression[body.type!='BlockStatement']` | [object Object]                                                                                                                                                                                                                                                                                                                                       |
-| `listeners.ReturnStatement`                                      | [object Object]                                                                                                                                                                                                                                                                                                                                       |
+| Name                                                                                                           | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| :------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                          | \{ `getCurrentFunction`: () => `Option`\<`NonNullable`\<`undefined` \| `TSESTreeFunction`\>\> ; `getAllComponents`: () => `Either`\<`Error`, `ERFunctionComponent`[]\> ; `getCurrentComponents`: () => `ERFunctionComponent`[] ; `getCurrentFunctionStack`: () => `TSESTreeFunction`[] }                                                                                                                                                                                                                 |
+| `ctx.getCurrentFunction`                                                                                       | () => `Option`\<`NonNullable`\<`undefined` \| `TSESTreeFunction`\>\>                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `ctx.getAllComponents`                                                                                         | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `ctx.getCurrentComponents`                                                                                     | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `ctx.getCurrentFunctionStack`                                                                                  | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `listeners`                                                                                                    | \{ `:function`: (`node`: `TSESTreeFunction`) => `MutableList`\<`TSESTreeFunction`\> = onFunctionEnter; `:function:exit`: () => `undefined` \| `TSESTreeFunction` = onFunctionExit; `ArrowFunctionExpression[body.type!='BlockStatement']`: (`node`: `ArrowFunctionExpression`) => `void` ; `AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']`: (`node`: `AssignmentExpression`) => `void` ; `ReturnStatement`: (`node`: `ReturnStatement`) => `void` } |
+| `listeners.:function`                                                                                          | (`node`: `TSESTreeFunction`) => `MutableList`\<`TSESTreeFunction`\>                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `listeners.:function:exit`                                                                                     | () => `undefined` \| `TSESTreeFunction`                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `listeners.ArrowFunctionExpression[body.type!='BlockStatement']`                                               | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `listeners.AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']` | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `listeners.ReturnStatement`                                                                                    | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
 ---
 
 ### componentCollectorLegacy
 
-▸ **componentCollectorLegacy**(`context`, `hint?`, `cache?`): `Object`
+▸ **componentCollectorLegacy**(`context`, `hint?`): `Object`
 
 #### Parameters
 
-| Name      | Type                                                                       | Default value                       |
-| :-------- | :------------------------------------------------------------------------- | :---------------------------------- |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>              | `undefined`                         |
-| `hint`    | `bigint`                                                                   | `ComponentCollectorLegacyHint.None` |
-| `cache`   | [`ComponentCollectorLegacyCache`](README.md#componentcollectorlegacycache) | `undefined`                         |
+| Name      | Type                                                          | Default value                       |
+| :-------- | :------------------------------------------------------------ | :---------------------------------- |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`                         |
+| `hint`    | `bigint`                                                      | `ComponentCollectorLegacyHint.None` |
 
 #### Returns
 
@@ -344,7 +155,7 @@
 
 | Name                         | Type                                                                                                                                     |
 | :--------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                        | \{ `getAllComponents`: () => `Either`\<`Error`, `TSESTreeClass`[]\> ; `getCurrentComponents`: () => `TSESTreeClass`[] }                  |
+| `ctx`                        | \{ `getAllComponents`: () => `Either`\<`Error`, `ERClassComponent`[]\> ; `getCurrentComponents`: () => `ERClassComponent`[] }            |
 | `ctx.getAllComponents`       | [object Object]                                                                                                                          |
 | `ctx.getCurrentComponents`   | [object Object]                                                                                                                          |
 | `listeners`                  | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect } |
@@ -547,48 +358,6 @@ Determines whether `createContext` is used
 #### Returns
 
 `boolean`
-
----
-
-### isHostHTMLComponentName
-
-▸ **isHostHTMLComponentName**(`name`): `boolean`
-
-#### Parameters
-
-| Name   | Type     |
-| :----- | :------- |
-| `name` | `string` |
-
-#### Returns
-
-`boolean`
-
----
-
-### isHostSVGComponentName
-
-▸ **isHostSVGComponentName**(`name`): `boolean`
-
-#### Parameters
-
-| Name   | Type     |
-| :----- | :------- |
-| `name` | `string` |
-
-#### Returns
-
-`boolean`
-
----
-
-### isHostWebComponentName
-
-▸ **isHostWebComponentName**(): `void`
-
-#### Returns
-
-`void`
 
 ---
 

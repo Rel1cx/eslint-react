@@ -1,11 +1,14 @@
-import { NodeType, traverseUp, type TSESTreeClass, type TSESTreeFunction } from "@eslint-react/ast";
+import { getClassIdentifier, NodeType, traverseUp, type TSESTreeClass, type TSESTreeFunction } from "@eslint-react/ast";
 import { getPragmaFromContext, JSXValueCheckHint } from "@eslint-react/jsx";
-import { E } from "@eslint-react/tools";
+import { E, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type Scope } from "@typescript-eslint/scope-manager";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type TSESTree } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
+
+import type { ERClassComponent } from "../types";
+import * as ComponentType from "../types/component-type";
 
 const isRenderMethodLike = isMatching({
   type: P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),
@@ -140,8 +143,6 @@ export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) 
   return !!traverseUp(node, predicate);
 }
 
-export type ComponentCollectorLegacyCache = WeakMap<TSESTreeClass, bigint>;
-
 export const ComponentCollectorLegacyHint = {
   ...JSXValueCheckHint,
   // ...
@@ -150,12 +151,11 @@ export const ComponentCollectorLegacyHint = {
 export function componentCollectorLegacy(
   context: RuleContext,
   hint: bigint = ComponentCollectorLegacyHint.None,
-  cache: ComponentCollectorLegacyCache = new WeakMap(),
 ) {
-  const components: TSESTreeClass[] = [];
+  const components: ERClassComponent[] = [];
 
   const ctx = {
-    getAllComponents(): E.Either<Error, TSESTreeClass[]> {
+    getAllComponents(): E.Either<Error, ERClassComponent[]> {
       if (context.getScope().block.type !== NodeType.Program) {
         return E.left(new Error("getAllComponents should only be called in Program:exit"));
       }
@@ -168,16 +168,18 @@ export function componentCollectorLegacy(
   } as const;
 
   const collect = (node: TSESTreeClass) => {
-    if (cache.has(node) && cache.get(node) === hint) {
-      components.push(node);
-    }
-
     if (!isClassComponent(node, context)) {
       return;
     }
 
-    cache.set(node, hint);
-    components.push(node);
+    components.push({
+      type: ComponentType.ClassComponent,
+      name: O.fromNullable(getClassIdentifier(node)?.name),
+      // TODO: get displayName of class component
+      displayName: O.none(),
+      hint,
+      node,
+    });
   };
 
   const listeners = {

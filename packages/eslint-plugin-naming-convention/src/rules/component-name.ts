@@ -119,7 +119,7 @@ export default createRule<Options, MessageID>({
         }
         const classComponents = maybeClassComponents.right;
 
-        for (const component of functionComponents) {
+        for (const { node: component } of functionComponents) {
           const id = getFunctionIdentifier(component);
 
           if (!id) {
@@ -140,7 +140,7 @@ export default createRule<Options, MessageID>({
             node: id,
           });
         }
-        for (const component of classComponents) {
+        for (const { node: component } of classComponents) {
           const id = getClassIdentifier(component);
 
           if (!id) {

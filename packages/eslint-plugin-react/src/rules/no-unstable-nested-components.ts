@@ -77,12 +77,12 @@ export default createRule<[], MessageID>({
         const functionComponents = maybeFunctionComponents.right;
         const classComponents = maybeClassComponents.right;
         const isFunctionComponent = (node: TSESTree.Node): node is TSESTreeFunction => {
-          return isFunction(node) && functionComponents.includes(node);
+          return isFunction(node) && functionComponents.some(component => component.node === node);
         };
         const isClassComponent = (node: TSESTree.Node): node is TSESTreeClass => {
-          return isClass(node) && classComponents.includes(node);
+          return isClass(node) && classComponents.some(component => component.node === node);
         };
-        for (const component of functionComponents) {
+        for (const { node: component } of functionComponents) {
           if (
             // Do not mark components declared inside hooks (or falsy '() => null' clean-up methods)
             unsafeIsInsideReactHookCall(component)
@@ -128,7 +128,7 @@ export default createRule<[], MessageID>({
             });
           }
         }
-        for (const component of classComponents) {
+        for (const { node: component } of classComponents) {
           if (!traverseUp(component, node => isClassComponent(node) || isFunctionComponent(node))) {
             continue;
           }
