@@ -1,6 +1,5 @@
-import { getFunctionIdentifier } from "@eslint-react/ast";
 import { componentCollector } from "@eslint-react/core";
-import { E } from "@eslint-react/tools";
+import { E, F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type ConstantCase } from "string-ts";
 
@@ -22,7 +21,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      FUNCTION_COMPONENT: "function component found, name: {{name}}",
+      FUNCTION_COMPONENT: "function component found, name: {{name}}, displayName: {{displayName}}",
     },
   },
   defaultOptions: [],
@@ -40,17 +39,14 @@ export default createRule<[], MessageID>({
         }
         const components = maybeComponents.right;
 
-        for (const { node: component } of components) {
-          const maybeName = component.id?.name;
-          const maybeId = getFunctionIdentifier(component);
-          const name = maybeName ?? maybeId?.name ?? "anonymous";
-
+        for (const { name, displayName, node } of components) {
           context.report({
             data: {
-              name,
+              name: O.getOrElse(name, F.constant("anonymous")),
+              displayName: O.getOrElse(displayName, F.constant("none")),
             },
             messageId: "FUNCTION_COMPONENT",
-            node: component,
+            node,
           });
         }
       },

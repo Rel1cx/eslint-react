@@ -159,26 +159,18 @@ export function componentCollector(
         return;
       }
 
-      const { object } = left;
+      const maybeComponentName = match(left.object)
+        .with({ type: NodeType.Identifier }, n => O.some(n.name))
+        .otherwise(O.none);
 
-      const maybeLeftInit = F.pipe(
-        match(object)
-          .with({ type: NodeType.Identifier }, O.some)
-          .with({ type: NodeType.MemberExpression }, ({ property }) => {
-            return match(property)
-              .with({ type: NodeType.Identifier }, O.some)
-              .otherwise(O.none);
-          })
-          .otherwise(O.none),
-        O.flatMap(id => findVariableByNameUpToGlobal(id.name, context.getScope())),
-        O.flatMap(getVariableInit(0)),
-      );
-
-      if (O.isNone(maybeLeftInit)) {
+      if (O.isNone(maybeComponentName)) {
         return;
       }
 
-      const componentIndex = components.findLastIndex(c => c.node === maybeLeftInit.value);
+      const componentIndex = components.findLastIndex(c =>
+        O.isSome(c.name)
+        && c.name.value === maybeComponentName.value
+      );
 
       if (componentIndex === -1) {
         return;
