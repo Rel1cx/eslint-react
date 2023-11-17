@@ -29,32 +29,48 @@ ruleTester.run(RULE_NAME, rule, {
         function App() {
             return <div>foo</div>
         }
+
+        App.displayName = "TestDisplayName";
       `,
-      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App" } }],
+      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App", displayName: "TestDisplayName" } }],
     },
     {
       code: "const App = () => <div>foo</div>",
-      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App" } }],
+      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App", displayName: "none" } }],
     },
     {
       code: "const App = React.memo(() => <div>foo</div>)",
-      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } }],
+      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } }],
     },
     {
       code: dedent`
         const App = React.memo(function App() {
             return <div>foo</div>
         })
+
+        App.displayName = \`\${"TestDisplayName"}\`;
       `,
-      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App" } }],
+      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App", displayName: "TestDisplayName" } }],
+    },
+    {
+      code: dedent`
+        const App = React.memo(function App() {
+            return <div>foo</div>
+        })
+
+        const displayName = "TestDisplayName";
+
+        App.displayName = displayName;
+      `,
+      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App", displayName: "TestDisplayName" } }],
     },
     {
       code: "const App = React.forwardRef(() => <div>foo</div>)",
-      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } }],
+      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } }],
     },
     {
       code: "const App = () => React.createElement('div', null, 'foo')",
-      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App" } }],
+      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App", displayName: "none" } }],
     },
     {
       code: dedent`
@@ -71,8 +87,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedFunctionComponent", displayName: "none" } },
       ],
     },
     {
@@ -90,8 +106,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedFunctionComponent", displayName: "none" } },
       ],
     },
     {
@@ -109,8 +125,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedVariableComponent" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedVariableComponent", displayName: "none" } },
       ],
     },
     {
@@ -128,8 +144,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedVariableComponent" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedVariableComponent", displayName: "none" } },
       ],
     },
     {
@@ -147,8 +163,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedFunctionComponent", displayName: "none" } },
       ],
     },
     {
@@ -166,8 +182,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedFunctionComponent", displayName: "none" } },
       ],
     },
     {
@@ -185,8 +201,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedFunctionComponent", displayName: "none" } },
       ],
     },
     {
@@ -204,8 +220,8 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedFunctionComponent", displayName: "none" } },
       ],
     },
     {
@@ -223,8 +239,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedVariableComponent" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedVariableComponent", displayName: "none" } },
       ],
     },
     {
@@ -242,8 +258,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedVariableComponent" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedVariableComponent", displayName: "none" } },
       ],
     },
     {
@@ -262,7 +278,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } }],
+      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } }],
     },
     {
       code: dedent`
@@ -280,7 +296,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } }],
+      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } }],
     },
     {
       code: dedent`
@@ -298,7 +314,10 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } }],
+      errors: [{
+        messageId: "FUNCTION_COMPONENT",
+        data: { name: "UnstableNestedFunctionComponent", displayName: "none" },
+      }],
     },
     {
       code: dedent`
@@ -316,7 +335,10 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedClassComponent" } }],
+      errors: [{
+        messageId: "FUNCTION_COMPONENT",
+        data: { name: "UnstableNestedClassComponent", displayName: "none" },
+      }],
     },
     {
       code: dedent`
@@ -334,7 +356,10 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedVariableComponent" } }],
+      errors: [{
+        messageId: "FUNCTION_COMPONENT",
+        data: { name: "UnstableNestedVariableComponent", displayName: "none" },
+      }],
     },
     {
       code: `
@@ -353,7 +378,7 @@ ruleTester.run(RULE_NAME, rule, {
             }
           `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedClassComponent" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedClassComponent", displayName: "none" } },
       ],
     },
     {
@@ -375,8 +400,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "NestedUnstableFunctionComponent" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "NestedUnstableFunctionComponent", displayName: "none" } },
       ],
     },
     {
@@ -394,8 +419,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "NestedUnstableFunctionComponent" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "NestedUnstableFunctionComponent", displayName: "none" } },
       ],
     },
     {
@@ -416,9 +441,9 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ComponentWithProps" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "SomeFooter" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ComponentWithProps", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "SomeFooter", displayName: "none" } },
       ],
     },
     {
@@ -436,9 +461,9 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ComponentWithProps" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "SomeFooter" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ComponentWithProps", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "SomeFooter", displayName: "none" } },
       ],
     },
     {
@@ -454,9 +479,9 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ComponentWithProps" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ComponentWithProps", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
       ],
     },
     {
@@ -472,9 +497,9 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ComponentWithProps" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ComponentWithProps", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
       ],
     },
     {
@@ -502,8 +527,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedComponent" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "UnstableNestedComponent", displayName: "none" } },
       ],
     },
     {
@@ -519,9 +544,9 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ComponentForProps" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ComponentForProps", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
       ],
     },
     {
@@ -537,9 +562,9 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ComponentForProps" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ComponentForProps", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
       ],
     },
     {
@@ -551,8 +576,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
       ],
     },
     {
@@ -568,7 +593,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "List" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "List", displayName: "none" } },
       ],
     },
     {
@@ -591,8 +616,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "List" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "List", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
       ],
     },
     {
@@ -612,10 +637,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
       ],
     },
     {
@@ -634,10 +659,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
       ],
     },
     {
@@ -654,8 +679,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
       ],
     },
     {
@@ -673,8 +698,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
       ],
     },
     {
@@ -692,8 +717,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
       ],
     },
     {
@@ -713,8 +738,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
       ],
     },
     {
@@ -734,8 +759,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent" } },
-        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "ParentComponent", displayName: "none" } },
+        { messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } },
       ],
     },
   ],

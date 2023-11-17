@@ -61,7 +61,7 @@ export default createRule<[], MessageID>({
 
           const id = getFunctionIdentifier(block);
 
-          return !!id && isValidReactComponentName(id.name) && components.includes(block);
+          return !!id && isValidReactComponentName(id.name) && components.some((component) => component.node === block);
         }
 
         // eslint-disable-next-line prefer-const

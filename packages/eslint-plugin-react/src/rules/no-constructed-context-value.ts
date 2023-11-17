@@ -84,7 +84,10 @@ export default createRule<[], MessageID>({
 
         const components = maybeComponents.right;
         for (const [fn, detail] of possibleValueConstructions.entries()) {
-          if (!components.includes(fn) || detail._tag === "None") {
+          if (
+            !components.some((component) => component.node === fn)
+            || detail._tag === "None"
+          ) {
             continue;
           }
 

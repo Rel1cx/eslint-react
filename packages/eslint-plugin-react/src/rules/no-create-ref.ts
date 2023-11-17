@@ -52,7 +52,7 @@ export default createRule<[], MessageID>({
 
         const components = maybeComponents.right;
         for (const [fn, call] of possibleCreateRefCalls.entries()) {
-          if (!components.includes(fn)) {
+          if (!components.some((component) => component.node === fn)) {
             continue;
           }
 

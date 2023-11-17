@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
         }
         const components = maybeComponents.right;
 
-        for (const component of components) {
+        for (const { node: component } of components) {
           context.report({
             data: {
               name: getClassIdentifier(component)?.name ?? "anonymous",

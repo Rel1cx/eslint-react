@@ -1,18 +1,26 @@
 import {
+  findVariableByNameUpToGlobal,
   getFunctionIdentifier,
+  getStaticValue,
+  getVariableInit,
   isFunctionOfClassMethod,
   isFunctionOfClassProperty,
   isFunctionOfObjectMethod,
+  isOneOf,
   NodeType,
   type TSESTreeFunction,
   unsafeIsMapCall,
 } from "@eslint-react/ast";
 import { isChildrenOfCreateElement, isJSXValue, JSXValueCheckHint } from "@eslint-react/jsx";
-import { E, MutList, O } from "@eslint-react/tools";
+import { E, F, MutList, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import { isString } from "effect/Predicate";
+import { match } from "ts-pattern";
 
+import type { ERFunctionComponent } from "../types";
+import * as ComponentType from "../types/component-type";
 import { isFunctionOfRenderMethod } from "./component-collector-legacy";
 import { isValidReactComponentName } from "./is-valid-react-component-name";
 
@@ -42,8 +50,6 @@ const hasValidHierarchy = (node: TSESTreeFunction, context: RuleContext, hint: b
   return !(hint & ComponentCollectorHint.SkipClassProperty && isFunctionOfClassProperty(node.parent));
 };
 
-export type ComponentCollectorCache = WeakMap<TSESTreeFunction, bigint>;
-
 /* eslint-disable perfectionist/sort-objects */
 export const ComponentCollectorHint = {
   ...JSXValueCheckHint,
@@ -68,14 +74,13 @@ export const defaultComponentCollectorHint = ComponentCollectorHint.SkipMemo
   | ComponentCollectorHint.SkipStringLiteral
   | ComponentCollectorHint.SkipNumberLiteral;
 
-// TODO: support SkipMemo, SkipForwardRef
+// TODO: support memo, forwardRef and SkipMemo, SkipForwardRef
 // TODO: support for detecting component types listed in core/component/component-types.ts
 export function componentCollector(
   context: RuleContext,
   hint: bigint = defaultComponentCollectorHint,
-  cache: ComponentCollectorCache = new WeakMap(),
 ) {
-  const components: TSESTreeFunction[] = [];
+  const components: ERFunctionComponent[] = [];
   const functionStack = MutList.make<TSESTreeFunction>();
   const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
   const onFunctionEnter = (node: TSESTreeFunction) => MutList.append(functionStack, node);
@@ -83,7 +88,7 @@ export function componentCollector(
 
   const ctx = {
     // get allComponents(): E.Either<Error, TSESTreeFunction[]>
-    getAllComponents(): E.Either<Error, TSESTreeFunction[]> {
+    getAllComponents(): E.Either<Error, ERFunctionComponent[]> {
       if (context.getScope().block.type !== NodeType.Program) {
         return E.left(new Error("getAllComponents should only be called in Program:exit"));
       }
@@ -111,12 +116,6 @@ export function componentCollector(
 
       const currentFn = maybeCurrentFn.value;
 
-      if (cache.has(currentFn) && cache.get(currentFn) === hint) {
-        components.push(currentFn);
-
-        return;
-      }
-
       if (
         !hasNoneOrValidName(currentFn)
         || !isJSXValue(node.argument, context, hint)
@@ -124,18 +123,16 @@ export function componentCollector(
       ) {
         return;
       }
-
-      cache.set(currentFn, hint);
-      components.push(currentFn);
+      components.push({
+        type: ComponentType.FunctionComponent,
+        name: O.fromNullable(getFunctionIdentifier(currentFn)?.name),
+        displayName: O.none(),
+        hint,
+        node: currentFn,
+      });
     },
     // eslint-disable-next-line perfectionist/sort-objects
     "ArrowFunctionExpression[body.type!='BlockStatement']"(node: TSESTree.ArrowFunctionExpression) {
-      if (cache.has(node) && cache.get(node) === hint) {
-        components.push(node);
-
-        return;
-      }
-
       const { body } = node;
       if (
         !hasNoneOrValidName(node)
@@ -145,8 +142,62 @@ export function componentCollector(
         return;
       }
 
-      cache.set(node, hint);
-      components.push(node);
+      components.push({
+        type: ComponentType.FunctionComponent,
+        name: O.fromNullable(getFunctionIdentifier(node)?.name),
+        displayName: O.none(),
+        hint,
+        node,
+      });
+    },
+    "AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']"(
+      node: TSESTree.AssignmentExpression,
+    ) {
+      const { left, right } = node;
+
+      if (left.type !== NodeType.MemberExpression) {
+        return;
+      }
+
+      const maybeComponentName = match(left.object)
+        .with({ type: NodeType.Identifier }, n => O.some(n.name))
+        .otherwise(O.none);
+
+      if (O.isNone(maybeComponentName)) {
+        return;
+      }
+
+      const componentIndex = components.findLastIndex(c =>
+        O.isSome(c.name)
+        && c.name.value === maybeComponentName.value
+      );
+
+      if (componentIndex === -1) {
+        return;
+      }
+
+      const maybeRightValue = match(right)
+        .with({ type: NodeType.Literal }, ({ value }) => O.some(value))
+        .with({ type: NodeType.TemplateLiteral }, n => O.some(getStaticValue(n)?.value))
+        .with({ type: NodeType.Identifier }, n => {
+          return F.pipe(
+            findVariableByNameUpToGlobal(n.name, context.getScope()),
+            O.flatMap(getVariableInit(0)),
+            O.filter(isOneOf([NodeType.Literal, NodeType.TemplateLiteral])),
+            O.map(getStaticValue),
+            O.flatMapNullable(v => v?.value),
+          );
+        })
+        .otherwise(O.none);
+
+      // eslint-disable-next-line security/detect-object-injection
+      const component = components[componentIndex];
+
+      if (!component) {
+        return;
+      }
+
+      component.displayName = O.filter(isString)(maybeRightValue);
     },
   } as const satisfies ESLintUtils.RuleListener;
 
