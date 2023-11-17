@@ -20,9 +20,9 @@ import { isString } from "effect/Predicate";
 import { match } from "ts-pattern";
 
 import { uid } from "../helper";
-import type { ERFunctionComponent } from "../types";
-import * as ComponentType from "../types/component-type";
+import type { ESLRFunctionComponent } from "../types";
 import { isFunctionOfRenderMethod } from "./component-collector-legacy";
+import * as ComponentType from "./component-type";
 import { isValidReactComponentName } from "./is-valid-react-component-name";
 
 const hasNoneOrValidName = (node: TSESTreeFunction) => {
@@ -81,7 +81,7 @@ export function componentCollector(
   context: RuleContext,
   hint: bigint = defaultComponentCollectorHint,
 ) {
-  const components = new Map<string, ERFunctionComponent>();
+  const components = new Map<string, ESLRFunctionComponent>();
   const functionStack = MutList.make<TSESTreeFunction>();
   const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
   const onFunctionEnter = (node: TSESTreeFunction) => MutList.append(functionStack, node);
@@ -128,7 +128,7 @@ export function componentCollector(
       const id = uid.rnd();
       components.set(id, {
         id,
-        type: ComponentType.FunctionComponent,
+        type: ComponentType.ESLRFunctionComponent,
         name: O.fromNullable(getFunctionIdentifier(currentFn)?.name),
         displayName: O.none(),
         hint,
@@ -149,7 +149,7 @@ export function componentCollector(
       const id = uid.rnd();
       components.set(id, {
         id,
-        type: ComponentType.FunctionComponent,
+        type: ComponentType.ESLRFunctionComponent,
         name: O.fromNullable(getFunctionIdentifier(node)?.name),
         displayName: O.none(),
         hint,

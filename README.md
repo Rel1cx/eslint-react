@@ -217,6 +217,8 @@ Before you start working on something, it's best to check if there is an existin
 
 Please make sure to read the [Contributing Guide](./.github/CONTRIBUTING.md) before making a pull request.
 
+Pull requests submitted without prior discussion can also be rejected without prior discussion.
+
 Thank you to everyone contributing to ESLint React!
 
 ## License

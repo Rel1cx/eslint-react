@@ -1,5 +1,4 @@
-import { getFunctionIdentifier } from "@eslint-react/ast";
-import { hooksCollector } from "@eslint-react/core";
+import { hookCollector } from "@eslint-react/core";
 import { E } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type ConstantCase } from "string-ts";
@@ -25,27 +24,30 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const { ctx, listeners } = hooksCollector(context);
+    const { ctx, listeners } = hookCollector(context);
 
     return {
       ...listeners,
       "Program:exit"() {
-        const maybeRedundantHooks = ctx.getAllRedundantHooks();
-        if (E.isLeft(maybeRedundantHooks)) {
-          console.error(maybeRedundantHooks.left);
+        const maybeAllHooks = ctx.getAllHooks();
+        if (E.isLeft(maybeAllHooks)) {
+          console.error(maybeAllHooks.left);
 
           return;
         }
 
-        const redundantHooks = maybeRedundantHooks.right;
-        for (const hook of redundantHooks) {
-          const name = getFunctionIdentifier(hook)?.name ?? "unknown";
+        const allHooks = maybeAllHooks.right;
+        for (const { name, cost, node } of allHooks.values()) {
+          if (cost > 1) {
+            continue;
+          }
+
           context.report({
             data: {
               name,
             },
             messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
-            node: hook,
+            node,
           });
         }
       },
