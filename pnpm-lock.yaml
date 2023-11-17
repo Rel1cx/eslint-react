@@ -148,8 +148,8 @@ importers:
         specifier: 1.10.16
         version: 1.10.16
       type-fest:
-        specifier: 4.7.1
-        version: 4.7.1
+        specifier: 4.8.0
+        version: 4.8.0
       typedoc:
         specifier: 0.25.3
         version: 0.25.3(typescript@5.2.2)
@@ -11755,8 +11755,8 @@ packages:
     resolution: {integrity: sha512-yGSza74xk0UG8k+pLh5oeoYirvIiWo5t0/o3zHHAO2tRDiZcxWP7fywNlXhqb6/r6sWvwi+RsyQMWhVLe4BVuA==}
     engines: {node: '>=10'}
 
-  /type-fest@4.7.1:
-    resolution: {integrity: sha512-iWr8RUmzAJRfhZugX9O7nZE6pCxDU8CZ3QxsLuTnGcBLJpCaP2ll3s4eMTBoFnU/CeXY/5rfQSuAEsTGJO4y8A==}
+  /type-fest@4.8.0:
+    resolution: {integrity: sha512-rIY1yHlQhXNRfRyUNnpBr9pr1qxCHSN80hNNHINWQvpgvrVnu3uoi20+mkRfSD1vud6fsA2VLU8AENZhj5jGCQ==}
     engines: {node: '>=16'}
     dev: true
 
