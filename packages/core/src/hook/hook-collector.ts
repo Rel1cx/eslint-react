@@ -5,7 +5,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { uid } from "../helper";
 import type { ESLRHook } from "../types";
-import { unsafeIsReactHookCall } from "./is-inside-react-hook-call";
+import { unsafeIsReactHookCall } from "./is-react-hook-call";
 import { isValidReactHookName } from "./is-valid-react-hook-name";
 
 export function hookCollector(context: RuleContext): {

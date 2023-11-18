@@ -56,7 +56,18 @@
 - [isInsideRenderMethod](README.md#isinsiderendermethod)
 - [isMemberExpressionOfReactMember](README.md#ismemberexpressionofreactmember)
 - [isPureComponent](README.md#ispurecomponent)
+- [isReactHookCallWithName](README.md#isreacthookcallwithname)
 - [isStateMemberExpression](README.md#isstatememberexpression)
+- [isUseCallbackCall](README.md#isusecallbackcall)
+- [isUseContextCall](README.md#isusecontextcall)
+- [isUseDebugValueCall](README.md#isusedebugvaluecall)
+- [isUseEffectCall](README.md#isuseeffectcall)
+- [isUseImperativeHandleCall](README.md#isuseimperativehandlecall)
+- [isUseLayoutEffectCall](README.md#isuselayouteffectcall)
+- [isUseMemoCall](README.md#isusememocall)
+- [isUseReducerCall](README.md#isusereducercall)
+- [isUseRefCall](README.md#isuserefcall)
+- [isUseStateCall](README.md#isusestatecall)
 - [isValidReactComponentName](README.md#isvalidreactcomponentname)
 - [isValidReactHookName](README.md#isvalidreacthookname)
 - [unsafeIsDeclaredInRenderProp](README.md#unsafeisdeclaredinrenderprop)
@@ -632,6 +643,36 @@ It will be removed in the future
 
 ---
 
+### isReactHookCallWithName
+
+▸ **isReactHookCallWithName**(`name`): (`node`: `CallExpression`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>, `pragma`: `string`) => `boolean`
+
+#### Parameters
+
+| Name   | Type     |
+| :----- | :------- |
+| `name` | `string` |
+
+#### Returns
+
+`fn`
+
+▸ (`node`, `context`, `pragma`): `boolean`
+
+##### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
+
+##### Returns
+
+`boolean`
+
+---
+
 ### isStateMemberExpression
 
 ▸ **isStateMemberExpression**(`node`): `boolean`
@@ -651,6 +692,186 @@ Check if a node is a MemberExpression of state
 **`Deprecated`**
 
 It will be removed in the future
+
+---
+
+### isUseCallbackCall
+
+▸ **isUseCallbackCall**(`node`, `context`, `pragma`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isUseContextCall
+
+▸ **isUseContextCall**(`node`, `context`, `pragma`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isUseDebugValueCall
+
+▸ **isUseDebugValueCall**(`node`, `context`, `pragma`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isUseEffectCall
+
+▸ **isUseEffectCall**(`node`, `context`, `pragma`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isUseImperativeHandleCall
+
+▸ **isUseImperativeHandleCall**(`node`, `context`, `pragma`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isUseLayoutEffectCall
+
+▸ **isUseLayoutEffectCall**(`node`, `context`, `pragma`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isUseMemoCall
+
+▸ **isUseMemoCall**(`node`, `context`, `pragma`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isUseReducerCall
+
+▸ **isUseReducerCall**(`node`, `context`, `pragma`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isUseRefCall
+
+▸ **isUseRefCall**(`node`, `context`, `pragma`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isUseStateCall
+
+▸ **isUseStateCall**(`node`, `context`, `pragma`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
+
+#### Returns
+
+`boolean`
 
 ---
 
