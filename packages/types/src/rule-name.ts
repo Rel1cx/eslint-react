@@ -110,6 +110,7 @@ export type Term =
   | "index"
   | "input"
   | "key"
+  | "list-rendering"
   | "literal"
   | "map"
   | "memo"
