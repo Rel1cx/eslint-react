@@ -96,6 +96,44 @@ ruleTester.run(RULE_NAME, rule, {
       code: dedent`
         import { useCallback } from "react";
 
+        const deps = [];
+        const Comp = () => {
+            const onClick = useCallback(() => {
+              console.log("clicked");
+            }, deps);
+
+            return <Button onClick={onClick} />;
+          };
+      `,
+      errors: [
+        {
+          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        import { useCallback } from "react";
+
+        const Comp = () => {
+          const deps = [];
+          const onClick = useCallback(() => {
+              console.log("clicked");
+            }, deps);
+
+            return <Button onClick={onClick} />;
+          };
+      `,
+      errors: [
+        {
+          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        import { useCallback } from "react";
+
         const Comp = () => {
           const style = useCallback((theme: MantineTheme) => ({
             input: {

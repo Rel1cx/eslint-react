@@ -19,10 +19,46 @@ const ruleTester = new RuleTester({
   },
 });
 
-// TODO: add more tests
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     ...allValid,
+    dedent`
+      import { useState } from "react";
+
+      const Comp = () => {
+        const [state, setState] = useState(false);
+
+        return <Button />;
+      };
+    `,
+    dedent`
+      const useData = (key) => {
+          return useSWR(key);
+      }
+    `,
+    dedent`
+      function useData(key) {
+          return useSWR(key);
+      }
+    `,
+    dedent`
+      function useData(key) {
+          const data = useSWR(key);
+          return data;
+      }
+    `,
+    dedent`
+      const useData = (key) => useSWR(key);
+    `,
+    dedent`
+      const onClick = () => {
+        console.log("clicked");
+      };
+
+      const Comp = () => {
+        return <Button onClick={onClick} />;
+      };
+    `,
     dedent`
       import { useMemo } from "react";
 
@@ -43,6 +79,46 @@ ruleTester.run(RULE_NAME, rule, {
               fontFamily: theme.fontFamilyMonospace
             }
           }), []);
+          return <Button sx={style} />
+        }
+      `,
+      errors: [
+        {
+          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        import { useMemo } from "react";
+
+        const deps = [];
+        const Comp = () => {
+          const style = useMemo((theme: MantineTheme) => ({
+            input: {
+              fontFamily: theme.fontFamilyMonospace
+            }
+          }), deps);
+          return <Button sx={style} />
+        }
+      `,
+      errors: [
+        {
+          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        import { useMemo } from "react";
+
+        const Comp = () => {
+          const deps = [];
+          const style = useMemo((theme: MantineTheme) => ({
+            input: {
+              fontFamily: theme.fontFamilyMonospace
+            }
+          }), deps);
           return <Button sx={style} />
         }
       `,
