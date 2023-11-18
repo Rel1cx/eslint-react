@@ -23,6 +23,15 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     ...allValid,
     dedent`
+      import { useState } from "react";
+
+      const Comp = () => {
+        const [state, setState] = useState(false);
+
+        return <Button />;
+      };
+    `,
+    dedent`
       const useData = (key) => {
           return useSWR(key);
       }
