@@ -178,7 +178,7 @@ export function componentCollectorLegacy(
       id,
       {
         id,
-        type: ComponentType.ESLRClassComponent,
+        type: ComponentType.ReactClassComponent,
         name: O.fromNullable(getClassIdentifier(node)?.name),
         // TODO: get displayName of class component
         displayName: O.none(),

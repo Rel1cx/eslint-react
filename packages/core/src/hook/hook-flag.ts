@@ -1,6 +1,6 @@
-export type HookFlag = bigint;
+export type ReactHookFlag = bigint;
 
-export const HookFlag = {
+export const ReactHookFlag = {
   None: 0n,
   // eslint-disable-next-line perfectionist/sort-objects
   HasEffect: 1n << 0n,

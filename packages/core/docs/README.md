@@ -6,37 +6,37 @@
 
 ### Type Aliases
 
-- [ESLRComponentType](README.md#eslrcomponenttype)
-- [ESLRHostComponentType](README.md#eslrhostcomponenttype)
-- [HookFlag](README.md#hookflag)
+- [ReactComponentType](README.md#reactcomponenttype)
+- [ReactHookFlag](README.md#reacthookflag)
+- [ReactHostComponentType](README.md#reacthostcomponenttype)
 
 ### Variables
 
 - [ComponentCollectorHint](README.md#componentcollectorhint)
 - [ComponentCollectorLegacyHint](README.md#componentcollectorlegacyhint)
-- [ESLRClassComponent](README.md#eslrclasscomponent)
-- [ESLRContextConsumer](README.md#eslrcontextconsumer)
-- [ESLRContextProvider](README.md#eslrcontextprovider)
-- [ESLRDehydratedFragment](README.md#eslrdehydratedfragment)
-- [ESLRForwardRef](README.md#eslrforwardref)
-- [ESLRFragment](README.md#eslrfragment)
-- [ESLRFunctionComponent](README.md#eslrfunctioncomponent)
-- [ESLRHostComponent](README.md#eslrhostcomponent)
-- [ESLRHostHTMLComponent](README.md#eslrhosthtmlcomponent)
-- [ESLRHostPortal](README.md#eslrhostportal)
-- [ESLRHostRoot](README.md#eslrhostroot)
-- [ESLRHostSVGComponent](README.md#eslrhostsvgcomponent)
-- [ESLRHostText](README.md#eslrhosttext)
-- [ESLRHostWebComponent](README.md#eslrhostwebcomponent)
-- [ESLRLazyComponent](README.md#eslrlazycomponent)
-- [ESLRMemoComponent](README.md#eslrmemocomponent)
-- [ESLRMode](README.md#eslrmode)
-- [ESLRProfiler](README.md#eslrprofiler)
-- [ESLRSuspenseComponent](README.md#eslrsuspensecomponent)
-- [ESLRSuspenseListComponent](README.md#eslrsuspenselistcomponent)
-- [HookFlag](README.md#hookflag-1)
 - [RE\_COMPONENT\_NAME](README.md#re_component_name)
 - [RE\_HOOK\_NAME](README.md#re_hook_name)
+- [ReactClassComponent](README.md#reactclasscomponent)
+- [ReactContextConsumer](README.md#reactcontextconsumer)
+- [ReactContextProvider](README.md#reactcontextprovider)
+- [ReactDehydratedFragment](README.md#reactdehydratedfragment)
+- [ReactForwardRef](README.md#reactforwardref)
+- [ReactFragment](README.md#reactfragment)
+- [ReactFunctionComponent](README.md#reactfunctioncomponent)
+- [ReactHookFlag](README.md#reacthookflag-1)
+- [ReactHostComponent](README.md#reacthostcomponent)
+- [ReactHostHTMLComponent](README.md#reacthosthtmlcomponent)
+- [ReactHostPortal](README.md#reacthostportal)
+- [ReactHostRoot](README.md#reacthostroot)
+- [ReactHostSVGComponent](README.md#reacthostsvgcomponent)
+- [ReactHostText](README.md#reacthosttext)
+- [ReactHostWebComponent](README.md#reacthostwebcomponent)
+- [ReactLazyComponent](README.md#reactlazycomponent)
+- [ReactMemoComponent](README.md#reactmemocomponent)
+- [ReactMode](README.md#reactmode)
+- [ReactProfiler](README.md#reactprofiler)
+- [ReactSuspenseComponent](README.md#reactsuspensecomponent)
+- [ReactSuspenseListComponent](README.md#reactsuspenselistcomponent)
 - [defaultComponentCollectorHint](README.md#defaultcomponentcollectorhint)
 
 ### Functions
@@ -68,21 +68,21 @@
 
 ## Type Aliases
 
-### ESLRComponentType
+### ReactComponentType
 
-Ƭ **ESLRComponentType**: `0` \| `1` \| `3` \| `4` \| `5` \| `6` \| `7` \| `8` \| `9` \| `10` \| `11` \| `12` \| `13` \| `14` \| `16` \| `18` \| `19` \| `20`
-
----
-
-### ESLRHostComponentType
-
-Ƭ **ESLRHostComponentType**: `0` \| `1` \| `2`
+Ƭ **ReactComponentType**: `0` \| `1` \| `3` \| `4` \| `5` \| `6` \| `7` \| `8` \| `9` \| `10` \| `11` \| `12` \| `13` \| `14` \| `16` \| `18` \| `19` \| `20`
 
 ---
 
-### HookFlag
+### ReactHookFlag
 
-Ƭ **HookFlag**: `bigint`
+Ƭ **ReactHookFlag**: `bigint`
+
+---
+
+### ReactHostComponentType
+
+Ƭ **ReactHostComponentType**: `0` \| `1` \| `2`
 
 ## Variables
 
@@ -134,129 +134,63 @@
 
 ---
 
-### ESLRClassComponent
+### RE\_COMPONENT\_NAME
 
-• `Const` **ESLRClassComponent**: `1`
-
----
-
-### ESLRContextConsumer
-
-• `Const` **ESLRContextConsumer**: `9`
+• `Const` **RE\_COMPONENT\_NAME**: `RegExp`
 
 ---
 
-### ESLRContextProvider
+### RE\_HOOK\_NAME
 
-• `Const` **ESLRContextProvider**: `10`
-
----
-
-### ESLRDehydratedFragment
-
-• `Const` **ESLRDehydratedFragment**: `18`
+• `Const` **RE\_HOOK\_NAME**: `RegExp`
 
 ---
 
-### ESLRForwardRef
+### ReactClassComponent
 
-• `Const` **ESLRForwardRef**: `11`
-
----
-
-### ESLRFragment
-
-• `Const` **ESLRFragment**: `7`
+• `Const` **ReactClassComponent**: `1`
 
 ---
 
-### ESLRFunctionComponent
+### ReactContextConsumer
 
-• `Const` **ESLRFunctionComponent**: `0`
-
----
-
-### ESLRHostComponent
-
-• `Const` **ESLRHostComponent**: `5`
+• `Const` **ReactContextConsumer**: `9`
 
 ---
 
-### ESLRHostHTMLComponent
+### ReactContextProvider
 
-• `Const` **ESLRHostHTMLComponent**: `0`
-
----
-
-### ESLRHostPortal
-
-• `Const` **ESLRHostPortal**: `4`
+• `Const` **ReactContextProvider**: `10`
 
 ---
 
-### ESLRHostRoot
+### ReactDehydratedFragment
 
-• `Const` **ESLRHostRoot**: `3`
-
----
-
-### ESLRHostSVGComponent
-
-• `Const` **ESLRHostSVGComponent**: `1`
+• `Const` **ReactDehydratedFragment**: `18`
 
 ---
 
-### ESLRHostText
+### ReactForwardRef
 
-• `Const` **ESLRHostText**: `6`
-
----
-
-### ESLRHostWebComponent
-
-• `Const` **ESLRHostWebComponent**: `2`
+• `Const` **ReactForwardRef**: `11`
 
 ---
 
-### ESLRLazyComponent
+### ReactFragment
 
-• `Const` **ESLRLazyComponent**: `16`
-
----
-
-### ESLRMemoComponent
-
-• `Const` **ESLRMemoComponent**: `14`
+• `Const` **ReactFragment**: `7`
 
 ---
 
-### ESLRMode
+### ReactFunctionComponent
 
-• `Const` **ESLRMode**: `8`
-
----
-
-### ESLRProfiler
-
-• `Const` **ESLRProfiler**: `12`
+• `Const` **ReactFunctionComponent**: `0`
 
 ---
 
-### ESLRSuspenseComponent
+### ReactHookFlag
 
-• `Const` **ESLRSuspenseComponent**: `13`
-
----
-
-### ESLRSuspenseListComponent
-
-• `Const` **ESLRSuspenseListComponent**: `19`
-
----
-
-### HookFlag
-
-• **HookFlag**: `Object`
+• **ReactHookFlag**: `Object`
 
 #### Type declaration
 
@@ -270,15 +204,81 @@
 
 ---
 
-### RE\_COMPONENT\_NAME
+### ReactHostComponent
 
-• `Const` **RE\_COMPONENT\_NAME**: `RegExp`
+• `Const` **ReactHostComponent**: `5`
 
 ---
 
-### RE\_HOOK\_NAME
+### ReactHostHTMLComponent
 
-• `Const` **RE\_HOOK\_NAME**: `RegExp`
+• `Const` **ReactHostHTMLComponent**: `0`
+
+---
+
+### ReactHostPortal
+
+• `Const` **ReactHostPortal**: `4`
+
+---
+
+### ReactHostRoot
+
+• `Const` **ReactHostRoot**: `3`
+
+---
+
+### ReactHostSVGComponent
+
+• `Const` **ReactHostSVGComponent**: `1`
+
+---
+
+### ReactHostText
+
+• `Const` **ReactHostText**: `6`
+
+---
+
+### ReactHostWebComponent
+
+• `Const` **ReactHostWebComponent**: `2`
+
+---
+
+### ReactLazyComponent
+
+• `Const` **ReactLazyComponent**: `16`
+
+---
+
+### ReactMemoComponent
+
+• `Const` **ReactMemoComponent**: `14`
+
+---
+
+### ReactMode
+
+• `Const` **ReactMode**: `8`
+
+---
+
+### ReactProfiler
+
+• `Const` **ReactProfiler**: `12`
+
+---
+
+### ReactSuspenseComponent
+
+• `Const` **ReactSuspenseComponent**: `13`
+
+---
+
+### ReactSuspenseListComponent
+
+• `Const` **ReactSuspenseListComponent**: `19`
 
 ---
 

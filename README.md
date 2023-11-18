@@ -186,8 +186,8 @@ export default [
 - [ ] `react-hooks/no-access-state-in-setstate`
 - [ ] `react-hooks/no-suppressing-exhaustive-deps`
 - [x] `react-hooks/ensure-custom-hooks-using-other-hooks` Proposed by @SukkaW
-- [ ] `react-hooks/ensure-use-memo-has-non-empty-dependency-array` Proposed by @SukkaW
-- [ ] `react-hooks/ensure-use-callback-has-non-empty-dependency-array` Proposed by @SukkaW
+- [ ] `react-hooks/ensure-use-memo-has-non-empty-deps` Proposed by @SukkaW
+- [ ] `react-hooks/ensure-use-callback-has-non-empty-deps` Proposed by @SukkaW
 
 #### Debug rules
 
