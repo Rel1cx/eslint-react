@@ -1,7 +1,7 @@
 // Source: https://github.com/facebook/react/blob/main/packages/react-reconciler/src/ReactWorkTags.js
 // Commented out types are runtime only WorkTags that are not needed for static analysis purposes
 
-export type ESLRComponentType =
+export type ReactComponentType =
   | 0
   | 1
   // | 2
@@ -31,38 +31,38 @@ export type ESLRComponentType =
 // | 26
 // | 27
 
-export const ESLRFunctionComponent = 0;
-export const ESLRClassComponent = 1;
-// export const IndeterminateComponent = 2; // Before we know whether it is function or class
-export const ESLRHostRoot = 3; // Root of a host tree. Could be nested inside another node.
-export const ESLRHostPortal = 4; // A subtree. Could be an entry point to a different renderer.
-export const ESLRHostComponent = 5;
-export const ESLRHostText = 6;
-export const ESLRFragment = 7;
-export const ESLRMode = 8;
-export const ESLRContextConsumer = 9;
-export const ESLRContextProvider = 10;
-export const ESLRForwardRef = 11;
-export const ESLRProfiler = 12;
-export const ESLRSuspenseComponent = 13;
-export const ESLRMemoComponent = 14;
-// export const SimpleMemoComponent = 15;
-export const ESLRLazyComponent = 16;
-// export const IncompleteClassComponent = 17;
-export const ESLRDehydratedFragment = 18;
-export const ESLRSuspenseListComponent = 19;
-// export const ScopeComponent = 21;
-// export const OffscreenComponent = 22;
-// export const LegacyHiddenComponent = 23;
-// export const CacheComponent = 24;
-// export const TracingMarkerComponent = 25;
-// export const HostHoistable = 26;
-// export const HostSingleton = 27;
+export const ReactFunctionComponent = 0;
+export const ReactClassComponent = 1;
+// export const ReactIndeterminateComponent = 2; // Before we know whether it is function or class
+export const ReactHostRoot = 3; // Root of a host tree. Could be nested inside another node.
+export const ReactHostPortal = 4; // A subtree. Could be an entry point to a different renderer.
+export const ReactHostComponent = 5;
+export const ReactHostText = 6;
+export const ReactFragment = 7;
+export const ReactMode = 8;
+export const ReactContextConsumer = 9;
+export const ReactContextProvider = 10;
+export const ReactForwardRef = 11;
+export const ReactProfiler = 12;
+export const ReactSuspenseComponent = 13;
+export const ReactMemoComponent = 14;
+// export const ReactSimpleMemoComponent = 15;
+export const ReactLazyComponent = 16;
+// export const ReactIncompleteClassComponent = 17;
+export const ReactDehydratedFragment = 18;
+export const ReactSuspenseListComponent = 19;
+// export const ReactScopeComponent = 21;
+// export const ReactOffscreenComponent = 22;
+// export const ReactLegacyHiddenComponent = 23;
+// export const ReactCacheComponent = 24;
+// export const ReactTracingMarkerComponent = 25;
+// export const ReactHostHoistable = 26;
+// export const ReactHostSingleton = 27;
 
-export type ESLRHostComponentType = 0 | 1 | 2;
+export type ReactHostComponentType = 0 | 1 | 2;
 
-export const ESLRHostHTMLComponent = 0;
+export const ReactHostHTMLComponent = 0;
 
-export const ESLRHostSVGComponent = 1;
+export const ReactHostSVGComponent = 1;
 
-export const ESLRHostWebComponent = 2;
+export const ReactHostWebComponent = 2;

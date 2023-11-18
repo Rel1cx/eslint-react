@@ -1,1 +1,135 @@
-# Glossary
+import { Warning } from "#/components/Callout";
+
+# Glossary of Terms used in ESLint React
+
+### Class Component
+
+A class component is a component defined as a [JavaScript class](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes).
+
+### Clone Element
+
+The `cloneElement` is a React API that lets you create a new React element using another element as a starting point.
+
+### Component
+
+A JavaScript function that you can sprinkle with markup.
+
+It's a piece of the UI (user interface) that has its own logic and appearance. A `component` can be as small as a button, or as large as an entire page.
+
+### Conditional Rendering
+
+Conditional Rendering is the process of displaying different UI based on certain conditions.
+
+### Context
+
+An alternative to passing props.
+
+Context lets a parent component provide data to the entire tree below it. There are many uses for context.
+
+### Context Consumer
+
+The component that consumes the context value.
+
+As for `Context.Consumer` component, It's an older way to read context, Before `useContext` existed.
+
+### Context Provider
+
+A component to provide that context from the component that specifies the data.
+
+### Context Value
+
+The data that is provided by the context provider.
+
+### Create Ref
+
+A Legacy React API that creates a ref object which can contain arbitrary value.
+
+### Deps
+
+The `deps` is an abbreviation for React Hook's dependencies array.
+
+### Display Name
+
+The `displayName` is a string used in debugging messages. It is used by React DevTools to determine what to display for the name of a `component` or `context`.
+
+### Element
+
+A plain object describing a component instance or DOM node and its desired properties.
+
+Elements are the smallest building blocks of React apps.
+
+### Event Handler
+
+A function that will be triggered in response to interactions like clicking, hovering, focusing form inputs, and so on.
+
+### Forward Ref
+
+A React API that lets your component expose a DOM node to parent component with a [ref](https://react.dev/learn/manipulating-the-dom-with-refs).
+
+### Fragment
+
+A React API that lets you group elements without a wrapper node.
+
+### Fragment Syntax
+
+The shorthand syntax for a Fragment in JSX. It looks like `<>...</>`.
+
+### Function Component
+
+### Key
+
+The `key` prop is a string or a number that uniquely identifies it among other items in that array.
+
+### List Rendering
+
+The process of rendering components from a collection of data.
+
+### Memo
+
+The `memo` is a React API lets you skip re-rendering a component when its props are unchanged.
+
+### Props
+
+When React sees an element representing a user-defined component, it passes JSX attributes and children to this component as a single object. We call this object "props".
+
+### Ref
+
+The `ref` lets you referencing values in React.
+
+### Children
+
+When you nest content inside a JSX tag, the parent component will receive that content in a prop called `children`.
+
+### Legacy React APIs
+
+APIs are exported from the `react` package, but they are not recommended for use in newly written code. See the linked individual API pages for the suggested alternatives.
+
+### Legacy Children
+
+The `Children` Object with a series of Legacy React APIs that lets you manipulate and transform the JSX you received as the [`children` prop](https://react.dev/learn/passing-props-to-a-component#passing-jsx-as-children).
+
+### Legacy Component
+
+The `Component` base class for the React components defined as [JavaScript classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes).
+
+## FAQ
+
+Q: Can you define some other term that I find confusing in ESLint React?
+
+A: Sure, send it on and I'll add it to the glossary!
+
+Q: Wikipedia doesn't agree with your definitions.
+
+A: Yeah, It's time to improve Wikipedia.
+
+Q: I don't agree with your definitions.
+
+A: Ok.
+
+Q: Change your definitions to what I want!
+
+A: Nope. This glossary uses [react.dev](https://react.dev), [reactjs.org](https://legacy.reactjs.org) and [MDN](https://developer.mozilla.org) as the trusted sources. But You can help improve it if you find sections that don't match the sources specified.
+
+## Inspiration
+
+- [fp-glossary](https://degoes.net/articles/fp-glossary)

@@ -128,7 +128,7 @@ export function componentCollector(
       const id = uid.rnd();
       components.set(id, {
         id,
-        type: ComponentType.ESLRFunctionComponent,
+        type: ComponentType.ReactFunctionComponent,
         name: O.fromNullable(getFunctionIdentifier(currentFn)?.name),
         displayName: O.none(),
         hint,
@@ -149,7 +149,7 @@ export function componentCollector(
       const id = uid.rnd();
       components.set(id, {
         id,
-        type: ComponentType.ESLRFunctionComponent,
+        type: ComponentType.ReactFunctionComponent,
         name: O.fromNullable(getFunctionIdentifier(node)?.name),
         displayName: O.none(),
         hint,
