@@ -3,6 +3,8 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { name, version } from "../package.json";
 import ensureCustomHooksUsingOtherHooks from "./rules/ensure-custom-hooks-using-other-hooks";
+import ensureUseCallbackHasNonEmptyDeps from "./rules/ensure-use-callback-has-non-empty-deps";
+import ensureUseMemoHasNonEmptyDeps from "./rules/ensure-use-memo-has-non-empty-deps";
 
 export const meta = {
   name,
@@ -11,4 +13,6 @@ export const meta = {
 
 export const rules = {
   "ensure-custom-hooks-using-other-hooks": ensureCustomHooksUsingOtherHooks,
+  "ensure-use-callback-has-non-empty-deps": ensureUseCallbackHasNonEmptyDeps,
+  "ensure-use-memo-has-non-empty-deps": ensureUseMemoHasNonEmptyDeps,
 } as const;

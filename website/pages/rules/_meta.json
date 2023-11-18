@@ -13,6 +13,8 @@
   "jsx-prefer-shorthand-boolean": "jsx/prefer-shorthand-boolean",
   "jsx-prefer-shorthand-fragment": "jsx/prefer-shorthand-fragment",
   "react-hooks-ensure-custom-hooks-using-other-hooks": "react-hooks/ensure-custom-hooks-using-other-hooks",
+  "react-hooks-ensure-use-callback-has-non-empty-deps": "react-hooks/ensure-use-callback-has-non-empty-deps",
+  "react-hooks-ensure-use-memo-has-non-empty-deps": "react-hooks/ensure-use-memo-has-non-empty-deps",
   "react-no-children-count": "react/no-children-count",
   "react-no-children-for-each": "react/no-children-for-each",
   "react-no-children-in-void-dom-elements": "react/no-children-in-void-dom-elements",

@@ -20,7 +20,7 @@
   "devDependencies": {
     "@eslint-react/eslint-plugin": "latest",
     "@mdx-js/mdx": "3.0.0",
-    "@types/node": "20.9.0",
+    "@types/node": "20.9.1",
     "@types/react": "18.2.36",
     "@types/react-dom": "18.2.14",
     "@typescript-eslint/eslint-plugin": "6.10.0",
@@ -29,7 +29,7 @@
     "@vanilla-extract/next-plugin": "2.3.1",
     "autoprefixer": "10.4.16",
     "effect": "2.0.0-next.54",
-    "eslint": ">=8.53.0",
+    "eslint": ">=8.54.0",
     "eslint-config-next": "14.0.1",
     "eslint-config-prettier": "9.0.0",
     "eslint-config-with-tsconfig": "2.9.50",
