@@ -57,6 +57,8 @@ const rulePreset = {
   "react/prefer-destructuring-assignment": "warn",
 
   "react-hooks/ensure-custom-hooks-using-other-hooks": "warn",
+  "react-hooks/ensure-use-callback-has-non-empty-deps": "warn",
+  "react-hooks/ensure-use-memo-has-non-empty-deps": "warn",
 } as const satisfies RulePreset;
 
 const recommendedPreset = {
