@@ -6,15 +6,15 @@
 
 | Name                                                                                                                    | Description                                                  |
 | :---------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------- |
-| [jsx/no-array-index-key](jsx-no-array-index-key)                           | disallow using Array index as key                            |
-| [jsx/no-comment-textnodes](jsx-no-comment-textnodes)                       | disallow comments from being inserted as text nodes          |
-| [jsx/no-duplicate-key](jsx-no-duplicate-key)                               | disallow duplicate keys in `key` prop when rendering list    |
-| [jsx/no-leaked-conditional-rendering](jsx-no-leaked-conditional-rendering) | disallow problematic leaked values from being rendered       |
-| [jsx/no-missing-key](jsx-no-missing-key)                                   | require `key` prop when rendering list                       |
-| [jsx/no-spreading-key](jsx-no-spreading-key)                               | disallow spreading `key` from objects.                       |
-| [jsx/no-useless-fragment](jsx-no-useless-fragment)                         | disallow unnecessary fragments                               |
-| [jsx/prefer-shorthand-boolean](jsx-prefer-shorthand-boolean)               | enforce `boolean` attributes notation in JSX                 |
-| [jsx/prefer-shorthand-fragment](jsx-prefer-shorthand-fragment)             | enforce using `fragment syntax` instead of `Pragma.Fragment` |
+| [jsx/no-array-index-key](jsx-no-array-index-key)                           | disallow using Array index as key                             |
+| [jsx/no-comment-textnodes](jsx-no-comment-textnodes)                       | disallow comments from being inserted as text nodes           |
+| [jsx/no-duplicate-key](jsx-no-duplicate-key)                               | disallow duplicate keys in `key` prop when rendering list     |
+| [jsx/no-leaked-conditional-rendering](jsx-no-leaked-conditional-rendering) | disallow problematic leaked values from being rendered        |
+| [jsx/no-missing-key](jsx-no-missing-key)                                   | require `key` prop when rendering list                        |
+| [jsx/no-spreading-key](jsx-no-spreading-key)                               | disallow spreading `key` from objects.                        |
+| [jsx/no-useless-fragment](jsx-no-useless-fragment)                         | disallow unnecessary fragments                                |
+| [jsx/prefer-shorthand-boolean](jsx-prefer-shorthand-boolean)               | enforce `boolean` attributes notation in JSX                  |
+| [jsx/prefer-shorthand-fragment](jsx-prefer-shorthand-fragment)             | enforce using fragment syntax instead of `Fragment` component |
 
 ## react-hooks
 
