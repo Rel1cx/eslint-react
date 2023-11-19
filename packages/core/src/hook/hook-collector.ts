@@ -1,5 +1,5 @@
 import { getFunctionIdentifier, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
-import { E, O } from "@eslint-react/tools";
+import { E } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
@@ -26,15 +26,15 @@ export function hookCollector(context: RuleContext): {
       return;
     }
     const [fn] = currentFn;
-    const name = getFunctionIdentifier(fn)?.name;
+    const id = getFunctionIdentifier(fn);
+    const name = id?.name;
     if (name && isValidReactHookName(name)) {
-      const id = uid.rnd();
-      hooks.set(id, {
+      const key = uid.rnd();
+      hooks.set(key, {
+        _: key,
         id,
         name,
         cost: 1,
-        // TODO: support deps detection
-        deps: O.none(),
         node: fn,
       });
       functionStack[functionStack.length - 1] = [fn, true];
@@ -83,7 +83,7 @@ export function hookCollector(context: RuleContext): {
         if (!hook) {
           return;
         }
-        hooks.set(hook.id, {
+        hooks.set(hook._, {
           ...hook,
           cost: hook.cost + 1,
         });

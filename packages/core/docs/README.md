@@ -8,39 +8,19 @@
 
 - [ESLRClassComponent](README.md#eslrclasscomponent)
 - [ESLRComponent](README.md#eslrcomponent)
+- [ESLRComponentKind](README.md#eslrcomponentkind)
 - [ESLRFunctionComponent](README.md#eslrfunctioncomponent)
 - [ESLRHook](README.md#eslrhook)
-- [ReactComponentType](README.md#reactcomponenttype)
-- [ReactHookFlag](README.md#reacthookflag)
 - [ReactHostComponentType](README.md#reacthostcomponenttype)
 
 ### Variables
 
 - [ComponentCollectorHint](README.md#componentcollectorhint)
-- [ComponentCollectorLegacyHint](README.md#componentcollectorlegacyhint)
 - [RE\_COMPONENT\_NAME](README.md#re_component_name)
 - [RE\_HOOK\_NAME](README.md#re_hook_name)
-- [ReactClassComponent](README.md#reactclasscomponent)
-- [ReactContextConsumer](README.md#reactcontextconsumer)
-- [ReactContextProvider](README.md#reactcontextprovider)
-- [ReactDehydratedFragment](README.md#reactdehydratedfragment)
-- [ReactForwardRef](README.md#reactforwardref)
-- [ReactFragment](README.md#reactfragment)
-- [ReactFunctionComponent](README.md#reactfunctioncomponent)
-- [ReactHookFlag](README.md#reacthookflag-1)
-- [ReactHostComponent](README.md#reacthostcomponent)
 - [ReactHostHTMLComponent](README.md#reacthosthtmlcomponent)
-- [ReactHostPortal](README.md#reacthostportal)
-- [ReactHostRoot](README.md#reacthostroot)
 - [ReactHostSVGComponent](README.md#reacthostsvgcomponent)
-- [ReactHostText](README.md#reacthosttext)
 - [ReactHostWebComponent](README.md#reacthostwebcomponent)
-- [ReactLazyComponent](README.md#reactlazycomponent)
-- [ReactMemoComponent](README.md#reactmemocomponent)
-- [ReactMode](README.md#reactmode)
-- [ReactProfiler](README.md#reactprofiler)
-- [ReactSuspenseComponent](README.md#reactsuspensecomponent)
-- [ReactSuspenseListComponent](README.md#reactsuspenselistcomponent)
 - [defaultComponentCollectorHint](README.md#defaultcomponentcollectorhint)
 
 ### Functions
@@ -89,14 +69,14 @@
 
 #### Type declaration
 
-| Name          | Type                   |
-| :------------ | :--------------------- |
-| `displayName` | `O.Option`\<`string`\> |
-| `hint`        | `bigint`               |
-| `id`          | `string`               |
-| `name`        | `O.Option`\<`string`\> |
-| `node`        | `TSESTreeClass`        |
-| `type`        | `number`               |
+| Name          | Type                                |
+| :------------ | :---------------------------------- |
+| `_`           | `string`                            |
+| `displayName` | `O.Option`\<`string`\>              |
+| `id`          | `O.Option`\<`TSESTree.Identifier`\> |
+| `kind`        | `"class"`                           |
+| `name`        | `O.Option`\<`string`\>              |
+| `node`        | `TSESTreeClass`                     |
 
 ---
 
@@ -106,20 +86,29 @@
 
 ---
 
+### ESLRComponentKind
+
+Ƭ **ESLRComponentKind**: `"class"` \| `"function"`
+
+---
+
 ### ESLRFunctionComponent
 
 Ƭ **ESLRFunctionComponent**: `Object`
 
 #### Type declaration
 
-| Name          | Type                   |
-| :------------ | :--------------------- |
-| `displayName` | `O.Option`\<`string`\> |
-| `hint`        | `bigint`               |
-| `id`          | `string`               |
-| `name`        | `O.Option`\<`string`\> |
-| `node`        | `TSESTreeFunction`     |
-| `type`        | `number`               |
+| Name          | Type                                |
+| :------------ | :---------------------------------- |
+| `_`           | `string`                            |
+| `displayName` | `O.Option`\<`string`\>              |
+| `flag`        | `bigint`                            |
+| `hint`        | `bigint`                            |
+| `id`          | `O.Option`\<`TSESTree.Identifier`\> |
+| `initPath`    | `O.Option`\<`TSESTree.Node`[]\>     |
+| `kind`        | `"function"`                        |
+| `name`        | `O.Option`\<`string`\>              |
+| `node`        | `TSESTreeFunction`                  |
 
 ---
 
@@ -129,25 +118,13 @@
 
 #### Type declaration
 
-| Name   | Type                                                             |
-| :----- | :--------------------------------------------------------------- |
-| `cost` | `number`                                                         |
-| `deps` | `O.Option`\<(`TSESTree.Expression` \| `TSESTree.Identifier`)[]\> |
-| `id`   | `string`                                                         |
-| `name` | `string`                                                         |
-| `node` | `TSESTreeFunction`                                               |
-
----
-
-### ReactComponentType
-
-Ƭ **ReactComponentType**: `0` \| `1` \| `3` \| `4` \| `5` \| `6` \| `7` \| `8` \| `9` \| `10` \| `11` \| `12` \| `13` \| `14` \| `16` \| `18` \| `19` \| `20`
-
----
-
-### ReactHookFlag
-
-Ƭ **ReactHookFlag**: `bigint`
+| Name   | Type                  |
+| :----- | :-------------------- |
+| `_`    | `string`              |
+| `cost` | `number`              |
+| `id`   | `TSESTree.Identifier` |
+| `name` | `string`              |
+| `node` | `TSESTreeFunction`    |
 
 ---
 
@@ -184,27 +161,6 @@
 
 ---
 
-### ComponentCollectorLegacyHint
-
-• `Const` **ComponentCollectorLegacyHint**: `Object`
-
-#### Type declaration
-
-| Name                   | Type     |
-| :--------------------- | :------- |
-| `None`                 | `0n`     |
-| `SkipBooleanLiteral`   | `bigint` |
-| `SkipCreateElement`    | `bigint` |
-| `SkipNullLiteral`      | `bigint` |
-| `SkipNumberLiteral`    | `bigint` |
-| `SkipStringLiteral`    | `bigint` |
-| `SkipUndefinedLiteral` | `bigint` |
-| `StrictArray`          | `bigint` |
-| `StrictConditional`    | `bigint` |
-| `StrictLogical`        | `bigint` |
-
----
-
 ### RE\_COMPONENT\_NAME
 
 • `Const` **RE\_COMPONENT\_NAME**: `RegExp`
@@ -217,85 +173,9 @@
 
 ---
 
-### ReactClassComponent
-
-• `Const` **ReactClassComponent**: `1`
-
----
-
-### ReactContextConsumer
-
-• `Const` **ReactContextConsumer**: `9`
-
----
-
-### ReactContextProvider
-
-• `Const` **ReactContextProvider**: `10`
-
----
-
-### ReactDehydratedFragment
-
-• `Const` **ReactDehydratedFragment**: `18`
-
----
-
-### ReactForwardRef
-
-• `Const` **ReactForwardRef**: `11`
-
----
-
-### ReactFragment
-
-• `Const` **ReactFragment**: `7`
-
----
-
-### ReactFunctionComponent
-
-• `Const` **ReactFunctionComponent**: `0`
-
----
-
-### ReactHookFlag
-
-• **ReactHookFlag**: `Object`
-
-#### Type declaration
-
-| Name        | Type     |
-| :---------- | :------- |
-| `HasEffect` | `bigint` |
-| `Insertion` | `bigint` |
-| `Layout`    | `bigint` |
-| `None`      | `bigint` |
-| `Passive`   | `bigint` |
-
----
-
-### ReactHostComponent
-
-• `Const` **ReactHostComponent**: `5`
-
----
-
 ### ReactHostHTMLComponent
 
 • `Const` **ReactHostHTMLComponent**: `0`
-
----
-
-### ReactHostPortal
-
-• `Const` **ReactHostPortal**: `4`
-
----
-
-### ReactHostRoot
-
-• `Const` **ReactHostRoot**: `3`
 
 ---
 
@@ -305,51 +185,9 @@
 
 ---
 
-### ReactHostText
-
-• `Const` **ReactHostText**: `6`
-
----
-
 ### ReactHostWebComponent
 
 • `Const` **ReactHostWebComponent**: `2`
-
----
-
-### ReactLazyComponent
-
-• `Const` **ReactLazyComponent**: `16`
-
----
-
-### ReactMemoComponent
-
-• `Const` **ReactMemoComponent**: `14`
-
----
-
-### ReactMode
-
-• `Const` **ReactMode**: `8`
-
----
-
-### ReactProfiler
-
-• `Const` **ReactProfiler**: `12`
-
----
-
-### ReactSuspenseComponent
-
-• `Const` **ReactSuspenseComponent**: `13`
-
----
-
-### ReactSuspenseListComponent
-
-• `Const` **ReactSuspenseListComponent**: `19`
 
 ---
 
@@ -392,14 +230,13 @@
 
 ### componentCollectorLegacy
 
-▸ **componentCollectorLegacy**(`context`, `hint?`): `Object`
+▸ **componentCollectorLegacy**(`context`): `Object`
 
 #### Parameters
 
-| Name      | Type                                                          | Default value                       |
-| :-------- | :------------------------------------------------------------ | :---------------------------------- |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`                         |
-| `hint`    | `bigint`                                                      | `ComponentCollectorLegacyHint.None` |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 

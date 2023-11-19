@@ -1,10 +1,11 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import type { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
 export type ESLRHook = {
-  // The unique id of the hook
-  id: string;
+  // The unique key of the hook
+  _: string;
+  // The identifier of the hook
+  id: TSESTree.Identifier;
   // The AST node of the hook
   node: TSESTreeFunction;
   // The name of the hook
@@ -17,6 +18,4 @@ export type ESLRHook = {
   // size: number;
   // The number of slots the hook takes, (1 + the number of other hooks it calls)
   cost: number;
-  // The dependencies of the hook
-  deps: O.Option<(TSESTree.Expression | TSESTree.Identifier)[]>;
 };

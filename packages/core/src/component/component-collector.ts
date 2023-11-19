@@ -22,7 +22,7 @@ import { match } from "ts-pattern";
 import { uid } from "../helper";
 import type { ESLRFunctionComponent } from "../types";
 import { isFunctionOfRenderMethod } from "./component-collector-legacy";
-import * as ComponentType from "./component-type";
+import { ESLRComponentFlag } from "./component-flag";
 import { isValidReactComponentName } from "./is-valid-react-component-name";
 
 const hasNoneOrValidName = (node: TSESTreeFunction) => {
@@ -75,8 +75,6 @@ export const defaultComponentCollectorHint = ComponentCollectorHint.SkipMemo
   | ComponentCollectorHint.SkipStringLiteral
   | ComponentCollectorHint.SkipNumberLiteral;
 
-// TODO: support memo, forwardRef and SkipMemo, SkipForwardRef
-// TODO: support for detecting component types listed in core/component/component-types.ts
 export function componentCollector(
   context: RuleContext,
   hint: bigint = defaultComponentCollectorHint,
@@ -125,13 +123,17 @@ export function componentCollector(
         return;
       }
 
-      const id = uid.rnd();
-      components.set(id, {
+      const id = O.fromNullable(getFunctionIdentifier(currentFn));
+      const key = uid.rnd();
+      components.set(key, {
+        _: key,
         id,
-        type: ComponentType.ReactFunctionComponent,
-        name: O.fromNullable(getFunctionIdentifier(currentFn)?.name),
+        kind: "function",
+        name: O.flatMapNullable(id, n => n.name),
         displayName: O.none(),
+        flag: ESLRComponentFlag.None,
         hint,
+        initPath: O.some([]),
         node: currentFn,
       });
     },
@@ -146,13 +148,17 @@ export function componentCollector(
         return;
       }
 
-      const id = uid.rnd();
-      components.set(id, {
+      const id = O.fromNullable(getFunctionIdentifier(node));
+      const key = uid.rnd();
+      components.set(key, {
+        _: key,
         id,
-        type: ComponentType.ReactFunctionComponent,
+        kind: "function",
         name: O.fromNullable(getFunctionIdentifier(node)?.name),
         displayName: O.none(),
+        flag: ESLRComponentFlag.None,
         hint,
+        initPath: O.some([]),
         node,
       });
     },
@@ -196,7 +202,7 @@ export function componentCollector(
         })
         .otherwise(O.none);
 
-      components.set(component.id, {
+      components.set(component._, {
         ...component,
         displayName: O.filter(isString)(maybeRightValue),
       });

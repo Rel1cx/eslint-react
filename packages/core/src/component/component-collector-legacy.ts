@@ -1,5 +1,5 @@
 import { getClassIdentifier, NodeType, traverseUp, type TSESTreeClass, type TSESTreeFunction } from "@eslint-react/ast";
-import { getPragmaFromContext, JSXValueCheckHint } from "@eslint-react/jsx";
+import { getPragmaFromContext } from "@eslint-react/jsx";
 import { E, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type Scope } from "@typescript-eslint/scope-manager";
@@ -9,14 +9,13 @@ import { isMatching, match, P } from "ts-pattern";
 
 import { uid } from "../helper";
 import type { ESLRClassComponent } from "../types";
-import * as ComponentType from "./component-type";
 
 const isRenderMethodLike = isMatching({
-  type: P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),
   key: {
     type: NodeType.Identifier,
     name: "render",
   },
+  type: P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),
   parent: {
     type: NodeType.ClassBody,
     parent: {
@@ -144,15 +143,7 @@ export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) 
   return !!traverseUp(node, predicate);
 }
 
-export const ComponentCollectorLegacyHint = {
-  ...JSXValueCheckHint,
-  // ...
-} as const;
-
-export function componentCollectorLegacy(
-  context: RuleContext,
-  hint: bigint = ComponentCollectorLegacyHint.None,
-) {
+export function componentCollectorLegacy(context: RuleContext) {
   const components = new Map<string, ESLRClassComponent>();
 
   const ctx = {
@@ -173,16 +164,17 @@ export function componentCollectorLegacy(
       return;
     }
 
-    const id = uid.rnd();
+    const id = O.fromNullable(getClassIdentifier(node));
+    const key = uid.rnd();
     components.set(
-      id,
+      key,
       {
+        _: key,
         id,
-        type: ComponentType.ReactClassComponent,
-        name: O.fromNullable(getClassIdentifier(node)?.name),
+        kind: "class",
+        name: O.flatMapNullable(id, n => n.name),
         // TODO: get displayName of class component
         displayName: O.none(),
-        hint,
         node,
       },
     );

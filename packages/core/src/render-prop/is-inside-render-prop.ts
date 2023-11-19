@@ -15,11 +15,11 @@ import { isMatching, P } from "ts-pattern";
  */
 export function unsafeIsDirectValueOfRenderProperty(node: TSESTree.Node) {
   const matching = isMatching({
-    type: NodeType.Property,
     key: {
       type: NodeType.Identifier,
       name: P.string.startsWith("render"),
     },
+    type: NodeType.Property,
   });
 
   return matching(node) || matching(node.parent);

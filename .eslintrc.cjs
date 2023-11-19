@@ -69,10 +69,11 @@ module.exports = defineConfig({
       {
         type: "natural",
         "always-on-top": [
+          "_",
           "id",
+          "key",
           "type",
           "kind",
-          "key",
           "name",
           "meta",
           "docs",
