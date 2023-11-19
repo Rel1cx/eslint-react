@@ -133,6 +133,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [@tanstack/eslint-plugin-query](https://github.com/TanStack/query/tree/main/packages/eslint-plugin-query)
 - [rome/tools](https://github.com/rome/tools)
 - [rust-clippy](https://github.com/rust-lang/rust-clippy)
+- [effect.website](https://effect.website)
+- [fp-glossary](https://degoes.net/articles/fp-glossary)
 
 ## Prior art
 
