@@ -1,1 +1,1 @@
-export * from "./host-component-types";
+export * from "./react-component-types";

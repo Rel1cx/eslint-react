@@ -1,3 +1,11 @@
+export type ReactHostComponentType = 0 | 1 | 2;
+
+export const ReactHostHTMLComponent = 0;
+
+export const ReactHostSVGComponent = 1;
+
+export const ReactHostWebComponent = 2;
+
 /* eslint-disable functional-core/purity */
 // source: https://react.dev/reference/react-dom/components#all-html-components
 export const HostHTMLComponentTypes = [

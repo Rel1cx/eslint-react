@@ -8,19 +8,18 @@
 
 - [ESLRClassComponent](README.md#eslrclasscomponent)
 - [ESLRComponent](README.md#eslrcomponent)
+- [ESLRComponentCollectorHint](README.md#eslrcomponentcollectorhint)
+- [ESLRComponentFlag](README.md#eslrcomponentflag)
 - [ESLRComponentKind](README.md#eslrcomponentkind)
 - [ESLRFunctionComponent](README.md#eslrfunctioncomponent)
 - [ESLRHook](README.md#eslrhook)
-- [ReactHostComponentType](README.md#reacthostcomponenttype)
 
 ### Variables
 
-- [ComponentCollectorHint](README.md#componentcollectorhint)
+- [ESLRComponentCollectorHint](README.md#eslrcomponentcollectorhint-1)
+- [ESLRComponentFlag](README.md#eslrcomponentflag-1)
 - [RE\_COMPONENT\_NAME](README.md#re_component_name)
 - [RE\_HOOK\_NAME](README.md#re_hook_name)
-- [ReactHostHTMLComponent](README.md#reacthosthtmlcomponent)
-- [ReactHostSVGComponent](README.md#reacthostsvgcomponent)
-- [ReactHostWebComponent](README.md#reacthostwebcomponent)
 - [defaultComponentCollectorHint](README.md#defaultcomponentcollectorhint)
 
 ### Functions
@@ -86,6 +85,18 @@
 
 ---
 
+### ESLRComponentCollectorHint
+
+Ƭ **ESLRComponentCollectorHint**: `bigint`
+
+---
+
+### ESLRComponentFlag
+
+Ƭ **ESLRComponentFlag**: `bigint`
+
+---
+
 ### ESLRComponentKind
 
 Ƭ **ESLRComponentKind**: `"class"` \| `"function"`
@@ -98,17 +109,17 @@
 
 #### Type declaration
 
-| Name          | Type                                |
-| :------------ | :---------------------------------- |
-| `_`           | `string`                            |
-| `displayName` | `O.Option`\<`string`\>              |
-| `flag`        | `bigint`                            |
-| `hint`        | `bigint`                            |
-| `id`          | `O.Option`\<`TSESTree.Identifier`\> |
-| `initPath`    | `O.Option`\<`TSESTree.Node`[]\>     |
-| `kind`        | `"function"`                        |
-| `name`        | `O.Option`\<`string`\>              |
-| `node`        | `TSESTreeFunction`                  |
+| Name          | Type                                                                   |
+| :------------ | :--------------------------------------------------------------------- |
+| `_`           | `string`                                                               |
+| `displayName` | `O.Option`\<`string`\>                                                 |
+| `flag`        | [`ESLRComponentFlag`](README.md#eslrcomponentflag-1)                   |
+| `hint`        | [`ESLRComponentCollectorHint`](README.md#eslrcomponentcollectorhint-1) |
+| `id`          | `O.Option`\<`TSESTree.Identifier`\>                                    |
+| `initPath`    | `O.Option`\<`TSESTree.Node`[]\>                                        |
+| `kind`        | `"function"`                                                           |
+| `name`        | `O.Option`\<`string`\>                                                 |
+| `node`        | `TSESTreeFunction`                                                     |
 
 ---
 
@@ -126,17 +137,11 @@
 | `name` | `string`              |
 | `node` | `TSESTreeFunction`    |
 
----
-
-### ReactHostComponentType
-
-Ƭ **ReactHostComponentType**: `0` \| `1` \| `2`
-
 ## Variables
 
-### ComponentCollectorHint
+### ESLRComponentCollectorHint
 
-• `Const` **ComponentCollectorHint**: `Object`
+• **ESLRComponentCollectorHint**: `Object`
 
 #### Type declaration
 
@@ -161,6 +166,20 @@
 
 ---
 
+### ESLRComponentFlag
+
+• **ESLRComponentFlag**: `Object`
+
+#### Type declaration
+
+| Name               | Type     |
+| :----------------- | :------- |
+| `InsideForwardRef` | `bigint` |
+| `InsideMemo`       | `bigint` |
+| `None`             | `bigint` |
+
+---
+
 ### RE\_COMPONENT\_NAME
 
 • `Const` **RE\_COMPONENT\_NAME**: `RegExp`
@@ -170,24 +189,6 @@
 ### RE\_HOOK\_NAME
 
 • `Const` **RE\_HOOK\_NAME**: `RegExp`
-
----
-
-### ReactHostHTMLComponent
-
-• `Const` **ReactHostHTMLComponent**: `0`
-
----
-
-### ReactHostSVGComponent
-
-• `Const` **ReactHostSVGComponent**: `1`
-
----
-
-### ReactHostWebComponent
-
-• `Const` **ReactHostWebComponent**: `2`
 
 ---
 

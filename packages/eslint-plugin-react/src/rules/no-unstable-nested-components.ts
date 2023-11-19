@@ -9,8 +9,8 @@ import {
 } from "@eslint-react/ast";
 import {
   componentCollector,
-  ComponentCollectorHint,
   componentCollectorLegacy,
+  ESLRComponentCollectorHint,
   isInsideRenderMethod,
   unsafeIsDeclaredInRenderProp,
   unsafeIsDirectValueOfRenderProperty,
@@ -46,14 +46,14 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const hint = ComponentCollectorHint.SkipMapCallback
-      | ComponentCollectorHint.SkipNullLiteral
-      | ComponentCollectorHint.SkipUndefinedLiteral
-      | ComponentCollectorHint.SkipBooleanLiteral
-      | ComponentCollectorHint.SkipStringLiteral
-      | ComponentCollectorHint.SkipNumberLiteral
-      | ComponentCollectorHint.StrictLogical
-      | ComponentCollectorHint.StrictConditional;
+    const hint = ESLRComponentCollectorHint.SkipMapCallback
+      | ESLRComponentCollectorHint.SkipNullLiteral
+      | ESLRComponentCollectorHint.SkipUndefinedLiteral
+      | ESLRComponentCollectorHint.SkipBooleanLiteral
+      | ESLRComponentCollectorHint.SkipStringLiteral
+      | ESLRComponentCollectorHint.SkipNumberLiteral
+      | ESLRComponentCollectorHint.StrictLogical
+      | ESLRComponentCollectorHint.StrictConditional;
 
     const collector = componentCollector(context, hint);
     const collectorLegacy = componentCollectorLegacy(context);

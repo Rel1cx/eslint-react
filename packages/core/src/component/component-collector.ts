@@ -11,7 +11,7 @@ import {
   type TSESTreeFunction,
   unsafeIsMapCall,
 } from "@eslint-react/ast";
-import { isChildrenOfCreateElement, isJSXValue, JSXValueCheckHint } from "@eslint-react/jsx";
+import { isChildrenOfCreateElement, isJSXValue } from "@eslint-react/jsx";
 import { E, F, MutList, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/types";
@@ -20,10 +20,14 @@ import { isString } from "effect/Predicate";
 import { match } from "ts-pattern";
 
 import { uid } from "../helper";
-import type { ESLRFunctionComponent } from "../types";
+import {
+  defaultComponentCollectorHint,
+  ESLRComponentCollectorHint,
+  ESLRComponentFlag,
+  type ESLRFunctionComponent,
+} from "../types";
 import { isFunctionOfRenderMethod } from "./component-collector-legacy";
-import { ESLRComponentFlag } from "./component-flag";
-import { isValidReactComponentName } from "./is-valid-react-component-name";
+import { isValidReactComponentName } from "./component-name";
 
 const hasNoneOrValidName = (node: TSESTreeFunction) => {
   const id = getFunctionIdentifier(node);
@@ -36,44 +40,20 @@ const hasValidHierarchy = (node: TSESTreeFunction, context: RuleContext, hint: b
     return false;
   }
 
-  if (hint & ComponentCollectorHint.SkipMapCallback && unsafeIsMapCall(node.parent)) {
+  if (hint & ESLRComponentCollectorHint.SkipMapCallback && unsafeIsMapCall(node.parent)) {
     return false;
   }
 
-  if (hint & ComponentCollectorHint.SkipObjectMethod && isFunctionOfObjectMethod(node.parent)) {
+  if (hint & ESLRComponentCollectorHint.SkipObjectMethod && isFunctionOfObjectMethod(node.parent)) {
     return false;
   }
 
-  if (hint & ComponentCollectorHint.SkipClassMethod && isFunctionOfClassMethod(node.parent)) {
+  if (hint & ESLRComponentCollectorHint.SkipClassMethod && isFunctionOfClassMethod(node.parent)) {
     return false;
   }
 
-  return !(hint & ComponentCollectorHint.SkipClassProperty && isFunctionOfClassProperty(node.parent));
+  return !(hint & ESLRComponentCollectorHint.SkipClassProperty && isFunctionOfClassProperty(node.parent));
 };
-
-/* eslint-disable perfectionist/sort-objects */
-export const ComponentCollectorHint = {
-  ...JSXValueCheckHint,
-  // 1n << 0n - 1n << 63n are reserved for JSXValueCheckHint
-  // Skip function component created by React.memo
-  SkipMemo: 1n << 64n,
-  // Skip function component created by React.forwardRef
-  SkipForwardRef: 1n << 65n,
-  // Skip function component defined in map function callback
-  SkipMapCallback: 1n << 66n,
-  // Skip function component defined on object method
-  SkipObjectMethod: 1n << 67n,
-  // Skip function component defined on class method
-  SkipClassMethod: 1n << 68n,
-  // Skip function component defined on class property
-  SkipClassProperty: 1n << 69n,
-} as const;
-/* eslint-enable perfectionist/sort-objects */
-
-export const defaultComponentCollectorHint = ComponentCollectorHint.SkipMemo
-  | ComponentCollectorHint.SkipForwardRef
-  | ComponentCollectorHint.SkipStringLiteral
-  | ComponentCollectorHint.SkipNumberLiteral;
 
 export function componentCollector(
   context: RuleContext,
