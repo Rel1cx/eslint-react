@@ -1,22 +1,12 @@
 import { allValid } from "@eslint-react/shared";
 import dedent from "dedent";
 
-import RuleTester, { getFixturesRootDir } from "../../../../test/rule-tester";
+import RuleTester, { defaultParserOptions } from "../../../../test/rule-tester";
 import rule, { RULE_NAME } from "./ensure-use-callback-has-non-empty-deps";
-
-const rootDir = getFixturesRootDir();
 
 const ruleTester = new RuleTester({
   parser: "@typescript-eslint/parser",
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 2021,
-    sourceType: "module",
-    project: "./tsconfig.json",
-    tsconfigRootDir: rootDir,
-  },
+  parserOptions: defaultParserOptions,
 });
 
 // TODO: add more tests
