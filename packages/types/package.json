@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/types",
-  "version": "0.8.8-beta.0",
+  "version": "0.8.8-beta.1",
   "description": "Type definitions for @eslint-react packages.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {

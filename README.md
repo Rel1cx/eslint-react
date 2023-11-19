@@ -2,7 +2,7 @@
 
 <h1 align="center" alt="title">ESLint React</h1>
 
-ESLint plugins for React function components with TypeScript, built (mostly) from scratch, built (mostly) from scratch.
+ESLint plugins for React function components with TypeScript, built (mostly) from scratch.
 
 ## Public packages
 
