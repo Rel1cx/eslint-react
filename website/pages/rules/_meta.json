@@ -5,6 +5,7 @@
   },
   "jsx-no-array-index-key": "jsx/no-array-index-key",
   "jsx-no-comment-textnodes": "jsx/no-comment-textnodes",
+  "jsx-no-complicated-conditional-rendering": "jsx/no-complicated-conditional-rendering",
   "jsx-no-duplicate-key": "jsx/no-duplicate-key",
   "jsx-no-leaked-conditional-rendering": "jsx/no-leaked-conditional-rendering",
   "jsx-no-missing-key": "jsx/no-missing-key",
