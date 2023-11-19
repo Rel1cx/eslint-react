@@ -109,18 +109,18 @@ export default [
 
 #### JSX rules
 
-- [x] `jsx/no-missing-key`
-- [x] `jsx/no-duplicate-key`
-- [x] `jsx/no-spreading-key`
+- [ ] `jsx/max-depth`
 - [x] `jsx/no-array-index-key`
-- [x] `jsx/no-useless-fragment`
+- [ ] `jsx/no-bind`
 - [x] `jsx/no-comment-textnodes`
+- [x] `jsx/no-complicated-conditional-rendering`
+- [x] `jsx/no-duplicate-key`
 - [x] `jsx/no-leaked-conditional-rendering`
+- [x] `jsx/no-missing-key`
+- [x] `jsx/no-spreading-key`
+- [x] `jsx/no-useless-fragment`
 - [x] `jsx/prefer-shorthand-boolean`
 - [x] `jsx/prefer-shorthand-fragment`
-- [ ] `jsx/no-bind`
-- [ ] `jsx/max-depth`
-- [ ] `jsx/no-complicated-conditional-rendering`
 
 #### Naming convention rules
 
