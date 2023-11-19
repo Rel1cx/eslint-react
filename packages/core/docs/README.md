@@ -6,6 +6,10 @@
 
 ### Type Aliases
 
+- [ESLRClassComponent](README.md#eslrclasscomponent)
+- [ESLRComponent](README.md#eslrcomponent)
+- [ESLRFunctionComponent](README.md#eslrfunctioncomponent)
+- [ESLRHook](README.md#eslrhook)
 - [ReactComponentType](README.md#reactcomponenttype)
 - [ReactHookFlag](README.md#reacthookflag)
 - [ReactHostComponentType](README.md#reacthostcomponenttype)
@@ -78,6 +82,62 @@
 - [unsafeIsRenderProp](README.md#unsafeisrenderprop)
 
 ## Type Aliases
+
+### ESLRClassComponent
+
+Ƭ **ESLRClassComponent**: `Object`
+
+#### Type declaration
+
+| Name          | Type                   |
+| :------------ | :--------------------- |
+| `displayName` | `O.Option`\<`string`\> |
+| `hint`        | `bigint`               |
+| `id`          | `string`               |
+| `name`        | `O.Option`\<`string`\> |
+| `node`        | `TSESTreeClass`        |
+| `type`        | `number`               |
+
+---
+
+### ESLRComponent
+
+Ƭ **ESLRComponent**: [`ESLRClassComponent`](README.md#eslrclasscomponent) \| [`ESLRFunctionComponent`](README.md#eslrfunctioncomponent)
+
+---
+
+### ESLRFunctionComponent
+
+Ƭ **ESLRFunctionComponent**: `Object`
+
+#### Type declaration
+
+| Name          | Type                   |
+| :------------ | :--------------------- |
+| `displayName` | `O.Option`\<`string`\> |
+| `hint`        | `bigint`               |
+| `id`          | `string`               |
+| `name`        | `O.Option`\<`string`\> |
+| `node`        | `TSESTreeFunction`     |
+| `type`        | `number`               |
+
+---
+
+### ESLRHook
+
+Ƭ **ESLRHook**: `Object`
+
+#### Type declaration
+
+| Name   | Type                                                             |
+| :----- | :--------------------------------------------------------------- |
+| `cost` | `number`                                                         |
+| `deps` | `O.Option`\<(`TSESTree.Expression` \| `TSESTree.Identifier`)[]\> |
+| `id`   | `string`                                                         |
+| `name` | `string`                                                         |
+| `node` | `TSESTreeFunction`                                               |
+
+---
 
 ### ReactComponentType
 
@@ -316,7 +376,7 @@
 
 | Name                                                                                                           | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | :------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                                          | \{ `getCurrentFunction`: () => `Option`\<`NonNullable`\<`undefined` \| `TSESTreeFunction`\>\> ; `getAllComponents`: () => `Either`\<`Error`, `Map`\<`string`, `ESLRFunctionComponent`\>\> ; `getCurrentComponents`: () => `Map`\<`string`, `ESLRFunctionComponent`\> ; `getCurrentFunctionStack`: () => `TSESTreeFunction`[] }                                                                                                                                                                           |
+| `ctx`                                                                                                          | \{ `getCurrentFunction`: () => `Option`\<`NonNullable`\<`undefined` \| `TSESTreeFunction`\>\> ; `getAllComponents`: () => `Either`\<`Error`, `Map`\<`string`, [`ESLRFunctionComponent`](README.md#eslrfunctioncomponent)\>\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ESLRFunctionComponent`](README.md#eslrfunctioncomponent)\> ; `getCurrentFunctionStack`: () => `TSESTreeFunction`[] }                                                                                                     |
 | `ctx.getCurrentFunction`                                                                                       | () => `Option`\<`NonNullable`\<`undefined` \| `TSESTreeFunction`\>\>                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `ctx.getAllComponents`                                                                                         | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `ctx.getCurrentComponents`                                                                                     | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
@@ -345,14 +405,14 @@
 
 `Object`
 
-| Name                         | Type                                                                                                                                                                |
-| :--------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ctx`                        | \{ `getAllComponents`: () => `Either`\<`Error`, `Map`\<`string`, `ESLRClassComponent`\>\> ; `getCurrentComponents`: () => `Map`\<`string`, `ESLRClassComponent`\> } |
-| `ctx.getAllComponents`       | [object Object]                                                                                                                                                     |
-| `ctx.getCurrentComponents`   | [object Object]                                                                                                                                                     |
-| `listeners`                  | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect }                            |
-| `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void`                                                                                                                                 |
-| `listeners.ClassExpression`  | (`node`: `TSESTreeClass`) => `void`                                                                                                                                 |
+| Name                         | Type                                                                                                                                                                                                                                |
+| :--------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                        | \{ `getAllComponents`: () => `Either`\<`Error`, `Map`\<`string`, [`ESLRClassComponent`](README.md#eslrclasscomponent)\>\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ESLRClassComponent`](README.md#eslrclasscomponent)\> } |
+| `ctx.getAllComponents`       | [object Object]                                                                                                                                                                                                                     |
+| `ctx.getCurrentComponents`   | [object Object]                                                                                                                                                                                                                     |
+| `listeners`                  | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect }                                                                                            |
+| `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                                 |
+| `listeners.ClassExpression`  | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                                 |
 
 ---
 
@@ -392,12 +452,12 @@ It will be removed in the future
 
 `Object`
 
-| Name                  | Type                                                                                                                                  |
-| :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
-| `ctx`                 | \{ `getAllHooks`: () => `Either`\<`Error`, `Map`\<`string`, `ESLRHook`\>\> ; `getCurrentHooks`: () => `Map`\<`string`, `ESLRHook`\> } |
-| `ctx.getAllHooks`     | [object Object]                                                                                                                       |
-| `ctx.getCurrentHooks` | [object Object]                                                                                                                       |
-| `listeners`           | `ESLintUtils.RuleListener`                                                                                                            |
+| Name                  | Type                                                                                                                                                                              |
+| :-------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                 | \{ `getAllHooks`: () => `Either`\<`Error`, `Map`\<`string`, [`ESLRHook`](README.md#eslrhook)\>\> ; `getCurrentHooks`: () => `Map`\<`string`, [`ESLRHook`](README.md#eslrhook)\> } |
+| `ctx.getAllHooks`     | [object Object]                                                                                                                                                                   |
+| `ctx.getCurrentHooks` | [object Object]                                                                                                                                                                   |
+| `listeners`           | `ESLintUtils.RuleListener`                                                                                                                                                        |
 
 ---
 
