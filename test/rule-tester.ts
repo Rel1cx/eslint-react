@@ -1,6 +1,6 @@
 import path from "node:path";
 
-import { RuleTester } from "@typescript-eslint/rule-tester";
+import { RuleTester, type RuleTesterConfig } from "@typescript-eslint/rule-tester";
 import * as vitest from "vitest";
 
 RuleTester.afterAll = vitest.afterAll;
@@ -14,3 +14,13 @@ export function getFixturesRootDir(): string {
 }
 
 export { RuleTester as default } from "@typescript-eslint/rule-tester";
+
+export const defaultParserOptions = {
+  ecmaFeatures: {
+    jsx: true,
+  },
+  ecmaVersion: 2021,
+  project: "./tsconfig.json",
+  sourceType: "module",
+  tsconfigRootDir: getFixturesRootDir(),
+} as const satisfies RuleTesterConfig["parserOptions"];

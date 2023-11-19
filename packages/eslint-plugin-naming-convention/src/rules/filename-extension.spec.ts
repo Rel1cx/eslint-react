@@ -1,19 +1,9 @@
-import RuleTester, { getFixturesRootDir } from "../../../../test/rule-tester";
+import RuleTester, { defaultParserOptions } from "../../../../test/rule-tester";
 import rule, { RULE_NAME } from "./filename-extension";
-
-const rootDir = getFixturesRootDir();
 
 const ruleTester = new RuleTester({
   parser: "@typescript-eslint/parser",
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 2021,
-    sourceType: "module",
-    project: "./tsconfig.json",
-    tsconfigRootDir: rootDir,
-  },
+  parserOptions: defaultParserOptions,
 });
 
 const withJSXElement = "const App = () => <div><div /></div>";
