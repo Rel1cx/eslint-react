@@ -4,6 +4,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import { name, version } from "../package.json";
 import noArrayIndexKey from "./rules/no-array-index-key";
 import noMisusedCommentInTextNode from "./rules/no-comment-textnodes";
+import noComplicatedConditionalRendering from "./rules/no-complicated-conditional-rendering";
 import noDuplicateKey from "./rules/no-duplicate-key";
 import noLeakedConditionalRendering from "./rules/no-leaked-conditional-rendering";
 import noMissingKey from "./rules/no-missing-key";
@@ -20,6 +21,7 @@ export const meta = {
 export const rules = {
   "no-array-index-key": noArrayIndexKey,
   "no-comment-textnodes": noMisusedCommentInTextNode,
+  "no-complicated-conditional-rendering": noComplicatedConditionalRendering,
   "no-duplicate-key": noDuplicateKey,
   "no-leaked-conditional-rendering": noLeakedConditionalRendering,
   "no-missing-key": noMissingKey,
