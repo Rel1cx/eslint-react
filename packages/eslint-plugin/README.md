@@ -2,7 +2,7 @@
 
 <h1 align="center" alt="title">ESLint x React</h1>
 
-A set of ESLint plugins for writing better React.
+A set of ESLint plugins for writing better React, built (mostly) from scratch.
 
 ## Supported engines
 

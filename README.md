@@ -109,16 +109,16 @@ export default [
 
 #### JSX rules
 
-- [ ] `jsx/max-depth`
-- [x] `jsx/no-array-index-key`
-- [ ] `jsx/no-bind`
-- [x] `jsx/no-comment-textnodes`
-- [x] `jsx/no-complicated-conditional-rendering`
-- [x] `jsx/no-duplicate-key`
-- [x] `jsx/no-leaked-conditional-rendering`
 - [x] `jsx/no-missing-key`
 - [x] `jsx/no-spreading-key`
+- [x] `jsx/no-duplicate-key`
+- [x] `jsx/no-array-index-key`
+- [ ] `jsx/no-bind`
+- [ ] `jsx/max-depth`
 - [x] `jsx/no-useless-fragment`
+- [x] `jsx/no-comment-textnodes`
+- [x] `jsx/no-complicated-conditional-rendering`
+- [x] `jsx/no-leaked-conditional-rendering`
 - [x] `jsx/prefer-shorthand-boolean`
 - [x] `jsx/prefer-shorthand-fragment`
 
@@ -185,9 +185,9 @@ export default [
 
 - [ ] `react-hooks/no-access-state-in-setstate`
 - [ ] `react-hooks/no-suppressing-exhaustive-deps`
-- [x] `react-hooks/ensure-use-memo-has-non-empty-deps` Proposed by @SukkaW
-- [x] `react-hooks/ensure-use-callback-has-non-empty-deps` Proposed by @SukkaW
-- [x] `react-hooks/ensure-custom-hooks-using-other-hooks` Proposed by @SukkaW
+- [x] `react-hooks/ensure-use-memo-has-non-empty-deps` (Proposed by @SukkaW)
+- [x] `react-hooks/ensure-use-callback-has-non-empty-deps` (Proposed by @SukkaW)
+- [x] `react-hooks/ensure-custom-hooks-using-other-hooks` (Proposed by @SukkaW)
 
 #### Debug rules
 
