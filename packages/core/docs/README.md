@@ -6,18 +6,18 @@
 
 ### Type Aliases
 
-- [ESLRClassComponent](README.md#eslrclasscomponent)
-- [ESLRComponent](README.md#eslrcomponent)
-- [ESLRComponentCollectorHint](README.md#eslrcomponentcollectorhint)
-- [ESLRComponentFlag](README.md#eslrcomponentflag)
-- [ESLRComponentKind](README.md#eslrcomponentkind)
-- [ESLRFunctionComponent](README.md#eslrfunctioncomponent)
-- [ESLRHook](README.md#eslrhook)
+- [ExRClassComponent](README.md#exrclasscomponent)
+- [ExRComponent](README.md#exrcomponent)
+- [ExRComponentCollectorHint](README.md#exrcomponentcollectorhint)
+- [ExRComponentFlag](README.md#exrcomponentflag)
+- [ExRComponentKind](README.md#exrcomponentkind)
+- [ExRFunctionComponent](README.md#exrfunctioncomponent)
+- [ExRHook](README.md#exrhook)
 
 ### Variables
 
-- [ESLRComponentCollectorHint](README.md#eslrcomponentcollectorhint-1)
-- [ESLRComponentFlag](README.md#eslrcomponentflag-1)
+- [ExRComponentCollectorHint](README.md#exrcomponentcollectorhint-1)
+- [ExRComponentFlag](README.md#exrcomponentflag-1)
 - [RE\_COMPONENT\_NAME](README.md#re_component_name)
 - [RE\_HOOK\_NAME](README.md#re_hook_name)
 - [defaultComponentCollectorHint](README.md#defaultcomponentcollectorhint)
@@ -62,9 +62,9 @@
 
 ## Type Aliases
 
-### ESLRClassComponent
+### ExRClassComponent
 
-Ƭ **ESLRClassComponent**: `Object`
+Ƭ **ExRClassComponent**: `Object`
 
 #### Type declaration
 
@@ -79,53 +79,53 @@
 
 ---
 
-### ESLRComponent
+### ExRComponent
 
-Ƭ **ESLRComponent**: [`ESLRClassComponent`](README.md#eslrclasscomponent) \| [`ESLRFunctionComponent`](README.md#eslrfunctioncomponent)
-
----
-
-### ESLRComponentCollectorHint
-
-Ƭ **ESLRComponentCollectorHint**: `bigint`
+Ƭ **ExRComponent**: [`ExRClassComponent`](README.md#exrclasscomponent) \| [`ExRFunctionComponent`](README.md#exrfunctioncomponent)
 
 ---
 
-### ESLRComponentFlag
+### ExRComponentCollectorHint
 
-Ƭ **ESLRComponentFlag**: `bigint`
-
----
-
-### ESLRComponentKind
-
-Ƭ **ESLRComponentKind**: `"class"` \| `"function"`
+Ƭ **ExRComponentCollectorHint**: `bigint`
 
 ---
 
-### ESLRFunctionComponent
+### ExRComponentFlag
 
-Ƭ **ESLRFunctionComponent**: `Object`
+Ƭ **ExRComponentFlag**: `bigint`
+
+---
+
+### ExRComponentKind
+
+Ƭ **ExRComponentKind**: `"class"` \| `"function"`
+
+---
+
+### ExRFunctionComponent
+
+Ƭ **ExRFunctionComponent**: `Object`
 
 #### Type declaration
 
-| Name          | Type                                                                   |
-| :------------ | :--------------------------------------------------------------------- |
-| `_`           | `string`                                                               |
-| `displayName` | `O.Option`\<`string`\>                                                 |
-| `flag`        | [`ESLRComponentFlag`](README.md#eslrcomponentflag-1)                   |
-| `hint`        | [`ESLRComponentCollectorHint`](README.md#eslrcomponentcollectorhint-1) |
-| `id`          | `O.Option`\<`TSESTree.Identifier`\>                                    |
-| `initPath`    | `O.Option`\<`TSESTree.Node`[]\>                                        |
-| `kind`        | `"function"`                                                           |
-| `name`        | `O.Option`\<`string`\>                                                 |
-| `node`        | `TSESTreeFunction`                                                     |
+| Name          | Type                                                                 |
+| :------------ | :------------------------------------------------------------------- |
+| `_`           | `string`                                                             |
+| `displayName` | `O.Option`\<`string`\>                                               |
+| `flag`        | [`ExRComponentFlag`](README.md#exrcomponentflag-1)                   |
+| `hint`        | [`ExRComponentCollectorHint`](README.md#exrcomponentcollectorhint-1) |
+| `id`          | `O.Option`\<`TSESTree.Identifier`\>                                  |
+| `initPath`    | `O.Option`\<`TSESTree.Node`[]\>                                      |
+| `kind`        | `"function"`                                                         |
+| `name`        | `O.Option`\<`string`\>                                               |
+| `node`        | `TSESTreeFunction`                                                   |
 
 ---
 
-### ESLRHook
+### ExRHook
 
-Ƭ **ESLRHook**: `Object`
+Ƭ **ExRHook**: `Object`
 
 #### Type declaration
 
@@ -139,9 +139,9 @@
 
 ## Variables
 
-### ESLRComponentCollectorHint
+### ExRComponentCollectorHint
 
-• **ESLRComponentCollectorHint**: `Object`
+• **ExRComponentCollectorHint**: `Object`
 
 #### Type declaration
 
@@ -166,17 +166,17 @@
 
 ---
 
-### ESLRComponentFlag
+### ExRComponentFlag
 
-• **ESLRComponentFlag**: `Object`
+• **ExRComponentFlag**: `Object`
 
 #### Type declaration
 
-| Name               | Type     |
-| :----------------- | :------- |
-| `InsideForwardRef` | `bigint` |
-| `InsideMemo`       | `bigint` |
-| `None`             | `bigint` |
+| Name         | Type     |
+| :----------- | :------- |
+| `ForwardRef` | `bigint` |
+| `Memo`       | `bigint` |
+| `None`       | `bigint` |
 
 ---
 
@@ -215,7 +215,7 @@
 
 | Name                                                                                                           | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | :------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                                          | \{ `getCurrentFunction`: () => `Option`\<`NonNullable`\<`undefined` \| `TSESTreeFunction`\>\> ; `getAllComponents`: () => `Either`\<`Error`, `Map`\<`string`, [`ESLRFunctionComponent`](README.md#eslrfunctioncomponent)\>\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ESLRFunctionComponent`](README.md#eslrfunctioncomponent)\> ; `getCurrentFunctionStack`: () => `TSESTreeFunction`[] }                                                                                                     |
+| `ctx`                                                                                                          | \{ `getCurrentFunction`: () => `Option`\<`NonNullable`\<`undefined` \| `TSESTreeFunction`\>\> ; `getAllComponents`: () => `Either`\<`Error`, `Map`\<`string`, [`ExRFunctionComponent`](README.md#exrfunctioncomponent)\>\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ExRFunctionComponent`](README.md#exrfunctioncomponent)\> ; `getCurrentFunctionStack`: () => `TSESTreeFunction`[] }                                                                                                         |
 | `ctx.getCurrentFunction`                                                                                       | () => `Option`\<`NonNullable`\<`undefined` \| `TSESTreeFunction`\>\>                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `ctx.getAllComponents`                                                                                         | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `ctx.getCurrentComponents`                                                                                     | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
@@ -243,14 +243,14 @@
 
 `Object`
 
-| Name                         | Type                                                                                                                                                                                                                                |
-| :--------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                        | \{ `getAllComponents`: () => `Either`\<`Error`, `Map`\<`string`, [`ESLRClassComponent`](README.md#eslrclasscomponent)\>\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ESLRClassComponent`](README.md#eslrclasscomponent)\> } |
-| `ctx.getAllComponents`       | [object Object]                                                                                                                                                                                                                     |
-| `ctx.getCurrentComponents`   | [object Object]                                                                                                                                                                                                                     |
-| `listeners`                  | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect }                                                                                            |
-| `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                                 |
-| `listeners.ClassExpression`  | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                                 |
+| Name                         | Type                                                                                                                                                                                                                            |
+| :--------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ctx`                        | \{ `getAllComponents`: () => `Either`\<`Error`, `Map`\<`string`, [`ExRClassComponent`](README.md#exrclasscomponent)\>\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ExRClassComponent`](README.md#exrclasscomponent)\> } |
+| `ctx.getAllComponents`       | [object Object]                                                                                                                                                                                                                 |
+| `ctx.getCurrentComponents`   | [object Object]                                                                                                                                                                                                                 |
+| `listeners`                  | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect }                                                                                        |
+| `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                             |
+| `listeners.ClassExpression`  | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                             |
 
 ---
 
@@ -290,12 +290,12 @@ It will be removed in the future
 
 `Object`
 
-| Name                  | Type                                                                                                                                                                              |
-| :-------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                 | \{ `getAllHooks`: () => `Either`\<`Error`, `Map`\<`string`, [`ESLRHook`](README.md#eslrhook)\>\> ; `getCurrentHooks`: () => `Map`\<`string`, [`ESLRHook`](README.md#eslrhook)\> } |
-| `ctx.getAllHooks`     | [object Object]                                                                                                                                                                   |
-| `ctx.getCurrentHooks` | [object Object]                                                                                                                                                                   |
-| `listeners`           | `ESLintUtils.RuleListener`                                                                                                                                                        |
+| Name                  | Type                                                                                                                                                                          |
+| :-------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                 | \{ `getAllHooks`: () => `Either`\<`Error`, `Map`\<`string`, [`ExRHook`](README.md#exrhook)\>\> ; `getCurrentHooks`: () => `Map`\<`string`, [`ExRHook`](README.md#exrhook)\> } |
+| `ctx.getAllHooks`     | [object Object]                                                                                                                                                               |
+| `ctx.getCurrentHooks` | [object Object]                                                                                                                                                               |
+| `listeners`           | `ESLintUtils.RuleListener`                                                                                                                                                    |
 
 ---
 

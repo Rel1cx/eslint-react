@@ -1,13 +1,13 @@
 <p align="center"><img src="https://eslint-react.xyz/logo.svg" alt="logo" width="150" /></p>
 
-<h1 align="center" alt="title">ESLint React</h1>
+<h1 align="center" alt="title">ESLint x React</h1>
 
-ESLint plugins for React function components with TypeScript, built (mostly) from scratch.
+A set of ESLint plugins for writing better React, built (mostly) from scratch.
 
 ## Public packages
 
 - [`@eslint-react/eslint-plugin`](./packages/eslint-plugin) - The main ESLint plugin package including all rules and configs in this repository.
-- [`@eslint-react/jsx`](./packages/jsx) - AST utility module for static analysis of JSX in ESLint.
+- [`@eslint-react/jsx`](./packages/jsx) - TSESTree AST utility module for static analysis of JSX.
 
 ## Supported engines
 
@@ -213,13 +213,13 @@ export default [
 
 ## Contributing
 
-Before you start working on something, it's best to check if there is an existing issue first. It's also a good idea to reach the maintainer and confirm with the team if it makes sense or if someone else is already working on it.
+Before you start working on something, it's best to check if there is an existing issue first. It's also a good idea to reach the maintainer and confirm if it makes sense or if someone else is already working on it.
 
 Please make sure to read the [Contributing Guide](./.github/CONTRIBUTING.md) before making a pull request.
 
 Pull requests submitted without prior discussion can also be rejected without prior discussion.
 
-Thank you to everyone contributing to ESLint React!
+Thank you to everyone contributing to ESLint x React!
 
 ## License
 
@@ -234,8 +234,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [@tanstack/eslint-plugin-query](https://github.com/TanStack/query/tree/main/packages/eslint-plugin-query)
 - [rome/tools](https://github.com/rome/tools)
 - [rust-clippy](https://github.com/rust-lang/rust-clippy)
-- [effect.website](https://effect.website)
-- [fp-glossary](https://degoes.net/articles/fp-glossary)
 
 ## Prior art
 

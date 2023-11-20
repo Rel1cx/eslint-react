@@ -4,7 +4,8 @@ import { PUBLIC_URL } from "#/constants";
 
 export default function Document() {
   const metaTitle = "eslint-react";
-  const metaDescription = "ESLint plugins for React function components with TypeScript, built (mostly) from scratch.";
+  const metaDescription =
+    "ESLint x React. A set of ESLint plugins for writing better React, built (mostly) from scratch.";
 
   return (
     <Html lang="en">

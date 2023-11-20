@@ -4,19 +4,19 @@ import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { uid } from "../helper";
-import type { ESLRHook } from "../types";
-import { unsafeIsReactHookCall } from "./is-react-hook-call";
-import { isValidReactHookName } from "./is-valid-react-hook-name";
+import type { ExRHook } from "../types";
+import { unsafeIsReactHookCall } from "./hook-call";
+import { isValidReactHookName } from "./hook-name";
 
 export function hookCollector(context: RuleContext): {
   // manually specify the return type here to avoid @typescript-eslint/utils's TS2742 error
   ctx: {
-    getAllHooks(): E.Either<Error, Map<string, ESLRHook>>;
-    getCurrentHooks(): Map<string, ESLRHook>;
+    getAllHooks(): E.Either<Error, Map<string, ExRHook>>;
+    getCurrentHooks(): Map<string, ExRHook>;
   };
   listeners: ESLintUtils.RuleListener;
 } {
-  const hooks = new Map<string, ESLRHook>();
+  const hooks = new Map<string, ExRHook>();
   const functionStack: [TSESTreeFunction, boolean][] = [];
   const getCurrentFunction = () => functionStack[functionStack.length - 1];
   const onFunctionEnter = (node: TSESTreeFunction) => {
