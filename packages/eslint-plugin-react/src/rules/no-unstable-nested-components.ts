@@ -10,7 +10,7 @@ import {
 import {
   componentCollector,
   componentCollectorLegacy,
-  ESLRComponentCollectorHint,
+  ExRComponentCollectorHint,
   isInsideRenderMethod,
   unsafeIsDeclaredInRenderProp,
   unsafeIsDirectValueOfRenderProperty,
@@ -46,14 +46,14 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const hint = ESLRComponentCollectorHint.SkipMapCallback
-      | ESLRComponentCollectorHint.SkipNullLiteral
-      | ESLRComponentCollectorHint.SkipUndefinedLiteral
-      | ESLRComponentCollectorHint.SkipBooleanLiteral
-      | ESLRComponentCollectorHint.SkipStringLiteral
-      | ESLRComponentCollectorHint.SkipNumberLiteral
-      | ESLRComponentCollectorHint.StrictLogical
-      | ESLRComponentCollectorHint.StrictConditional;
+    const hint = ExRComponentCollectorHint.SkipMapCallback
+      | ExRComponentCollectorHint.SkipNullLiteral
+      | ExRComponentCollectorHint.SkipUndefinedLiteral
+      | ExRComponentCollectorHint.SkipBooleanLiteral
+      | ExRComponentCollectorHint.SkipStringLiteral
+      | ExRComponentCollectorHint.SkipNumberLiteral
+      | ExRComponentCollectorHint.StrictLogical
+      | ExRComponentCollectorHint.StrictConditional;
 
     const collector = componentCollector(context, hint);
     const collectorLegacy = componentCollectorLegacy(context);

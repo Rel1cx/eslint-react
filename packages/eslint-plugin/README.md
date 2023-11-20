@@ -1,8 +1,8 @@
 <p align="center"><img src="https://eslint-react.xyz/logo.svg" alt="logo" width="150" /></p>
 
-<h1 align="center" alt="title">ESLint React</h1>
+<h1 align="center" alt="title">ESLint x React</h1>
 
-ESLint plugins for React function components with TypeScript, built (mostly) from scratch.
+A set of ESLint plugins for writing better React.
 
 ## Supported engines
 
@@ -118,7 +118,7 @@ Before you start working on something, it's best to check if there is an existin
 
 Please make sure to read the [Contributing Guide](./.github/CONTRIBUTING.md) before making a pull request.
 
-Thank you to everyone contributing to ESLint React!
+Thank you to everyone contributing to ESLint x React!
 
 ## License
 

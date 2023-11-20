@@ -22,9 +22,9 @@ import { match } from "ts-pattern";
 import { uid } from "../helper";
 import {
   defaultComponentCollectorHint,
-  ESLRComponentCollectorHint,
-  ESLRComponentFlag,
-  type ESLRFunctionComponent,
+  ExRComponentCollectorHint,
+  ExRComponentFlag,
+  type ExRFunctionComponent,
 } from "../types";
 import { isFunctionOfRenderMethod } from "./component-collector-legacy";
 import { isValidReactComponentName } from "./component-name";
@@ -40,26 +40,26 @@ const hasValidHierarchy = (node: TSESTreeFunction, context: RuleContext, hint: b
     return false;
   }
 
-  if (hint & ESLRComponentCollectorHint.SkipMapCallback && unsafeIsMapCall(node.parent)) {
+  if (hint & ExRComponentCollectorHint.SkipMapCallback && unsafeIsMapCall(node.parent)) {
     return false;
   }
 
-  if (hint & ESLRComponentCollectorHint.SkipObjectMethod && isFunctionOfObjectMethod(node.parent)) {
+  if (hint & ExRComponentCollectorHint.SkipObjectMethod && isFunctionOfObjectMethod(node.parent)) {
     return false;
   }
 
-  if (hint & ESLRComponentCollectorHint.SkipClassMethod && isFunctionOfClassMethod(node.parent)) {
+  if (hint & ExRComponentCollectorHint.SkipClassMethod && isFunctionOfClassMethod(node.parent)) {
     return false;
   }
 
-  return !(hint & ESLRComponentCollectorHint.SkipClassProperty && isFunctionOfClassProperty(node.parent));
+  return !(hint & ExRComponentCollectorHint.SkipClassProperty && isFunctionOfClassProperty(node.parent));
 };
 
 export function componentCollector(
   context: RuleContext,
   hint: bigint = defaultComponentCollectorHint,
 ) {
-  const components = new Map<string, ESLRFunctionComponent>();
+  const components = new Map<string, ExRFunctionComponent>();
   const functionStack = MutList.make<TSESTreeFunction>();
   const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
   const onFunctionEnter = (node: TSESTreeFunction) => MutList.append(functionStack, node);
@@ -111,7 +111,7 @@ export function componentCollector(
         kind: "function",
         name: O.flatMapNullable(id, n => n.name),
         displayName: O.none(),
-        flag: ESLRComponentFlag.None,
+        flag: ExRComponentFlag.None,
         hint,
         initPath: O.some([]),
         node: currentFn,
@@ -136,7 +136,7 @@ export function componentCollector(
         kind: "function",
         name: O.fromNullable(getFunctionIdentifier(node)?.name),
         displayName: O.none(),
-        flag: ESLRComponentFlag.None,
+        flag: ExRComponentFlag.None,
         hint,
         initPath: O.some([]),
         node,

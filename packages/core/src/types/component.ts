@@ -3,21 +3,22 @@ import { JSXValueCheckHint } from "@eslint-react/jsx";
 import type { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
-export type ESLRComponentFlag = bigint;
-
-export const ESLRComponentFlag = {
-  None: 0n,
-  // eslint-disable-next-line perfectionist/sort-objects
-  InsideForwardRef: 1n << 1n,
-  InsideMemo: 1n << 0n,
-};
-
-export type ESLRComponentKind = "class" | "function";
-
-export type ESLRComponentCollectorHint = bigint;
+export type ExRComponentFlag = bigint;
 
 /* eslint-disable perfectionist/sort-objects */
-export const ESLRComponentCollectorHint = {
+export const ExRComponentFlag = {
+  None: 0n,
+  Memo: 1n << 0n,
+  ForwardRef: 1n << 1n,
+};
+/* eslint-enable perfectionist/sort-objects */
+
+export type ExRComponentKind = "class" | "function";
+
+export type ExRComponentCollectorHint = bigint;
+
+/* eslint-disable perfectionist/sort-objects */
+export const ExRComponentCollectorHint = {
   ...JSXValueCheckHint,
   // 1n << 0n - 1n << 63n are reserved for JSXValueCheckHint
   // Skip function component created by React.memo
@@ -35,24 +36,24 @@ export const ESLRComponentCollectorHint = {
 } as const;
 /* eslint-enable perfectionist/sort-objects */
 
-export const defaultComponentCollectorHint = ESLRComponentCollectorHint.SkipMemo
-  | ESLRComponentCollectorHint.SkipForwardRef
-  | ESLRComponentCollectorHint.SkipStringLiteral
-  | ESLRComponentCollectorHint.SkipNumberLiteral;
+export const defaultComponentCollectorHint = ExRComponentCollectorHint.SkipMemo
+  | ExRComponentCollectorHint.SkipForwardRef
+  | ExRComponentCollectorHint.SkipStringLiteral
+  | ExRComponentCollectorHint.SkipNumberLiteral;
 
-export type ESLRFunctionComponent = {
+export type ExRFunctionComponent = {
   _: string;
   id: O.Option<TSESTree.Identifier>;
   kind: "function";
   node: TSESTreeFunction;
   name: O.Option<string>;
-  flag: ESLRComponentFlag;
-  hint: ESLRComponentCollectorHint;
+  flag: ExRComponentFlag;
+  hint: ExRComponentCollectorHint;
   initPath: O.Option<TSESTree.Node[]>;
   displayName: O.Option<string>;
 };
 
-export type ESLRClassComponent = {
+export type ExRClassComponent = {
   _: string;
   id: O.Option<TSESTree.Identifier>;
   kind: "class";
@@ -61,4 +62,4 @@ export type ESLRClassComponent = {
   displayName: O.Option<string>;
 };
 
-export type ESLRComponent = ESLRClassComponent | ESLRFunctionComponent;
+export type ExRComponent = ExRClassComponent | ExRFunctionComponent;

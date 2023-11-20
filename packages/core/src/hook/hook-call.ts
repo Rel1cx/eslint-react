@@ -5,7 +5,7 @@ import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
-import { isValidReactHookName } from "./is-valid-react-hook-name";
+import { isValidReactHookName } from "./hook-name";
 
 export function isReactHookCallWithName(name: string) {
   return (node: TSESTree.CallExpression, context: RuleContext, pragma: string) => {

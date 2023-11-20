@@ -8,7 +8,7 @@ import { type TSESTree } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
 
 import { uid } from "../helper";
-import type { ESLRClassComponent } from "../types";
+import type { ExRClassComponent } from "../types";
 
 const isRenderMethodLike = isMatching({
   key: {
@@ -144,7 +144,7 @@ export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) 
 }
 
 export function componentCollectorLegacy(context: RuleContext) {
-  const components = new Map<string, ESLRClassComponent>();
+  const components = new Map<string, ExRClassComponent>();
 
   const ctx = {
     getAllComponents(): E.Either<Error, typeof components> {

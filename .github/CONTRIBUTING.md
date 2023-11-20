@@ -1,14 +1,14 @@
-# ESLint React Contributing Guide
+# ESLint x React Contributing Guide
 
-Hi! We, the maintainers, are really excited that you are interested in contributing to ESLint React.
+Hi! We, the maintainers, are really excited that you are interested in contributing to ESLint x React.
 
 Before submitting your contribution though, please make sure to take a moment and read through the [Code of Conduct](CODE_OF_CONDUCT.md), as well as the appropriate section for the contribution you intend to make:
 
 Before adding your code to this project, please make sure you are passionate about what this project is doing and not just the project itself. And agree with the [design philosophy](../README.md#Philosophy) of this project.
 
-ESLint React does not accept contributions of a purely utilitarian nature.
+ESLint x React does not accept contributions of a purely utilitarian nature.
 
-- [ESLint React Contributing Guide](#eslint-react-contributing-guide)
+- [ESLint x React Contributing Guide](#eslint-x-react-contributing-guide)
   - [Issue Reporting Guidelines](#issue-reporting-guidelines)
   - [Pull Request Guidelines](#pull-request-guidelines)
   - [Development Guide](#development-guide)
@@ -23,7 +23,7 @@ ESLint React does not accept contributions of a purely utilitarian nature.
 
 - Try to search for your issue, it may have already been answered or even fixed in the development branch.
 
-- Check if the issue is reproducible with the latest stable version of ESLint React packages. If you are using a pre-release, please indicate the specific version you are using.
+- Check if the issue is reproducible with the latest stable version of ESLint x React packages. If you are using a pre-release, please indicate the specific version you are using.
 
 - It is **required** that you clearly describe the steps necessary to reproduce the issue you are running into. Although we would love to help our users as much as possible, diagnosing issues without clear reproduction steps is extremely time-consuming and simply not sustainable.
 
@@ -51,21 +51,21 @@ ESLint React does not accept contributions of a purely utilitarian nature.
 
 ## Development Guide
 
-**NOTE: ESLint React is undergoing rapid development right now, and the docs may not reflect the current state of ESLint React. We are working hard to improve it.**
+**NOTE: ESLint x React is undergoing rapid development right now, and the docs may not reflect the current state of ESLint x React. We are working hard to improve it.**
 
 ### Packages Overview
 
-- `@eslint-react/tools`: Std library and primitives for @eslint-react packages.
-- `@eslint-react/types`: Type definitions for @eslint-react packages.
+- `@eslint-react/tools`: Std library and primitives.
+- `@eslint-react/types`: Type definitions.
 - `@eslint-react/ast`: TSESTree AST primitive utility module.
 - `@eslint-react/jsx`: TSESTree AST utility module for static analysis of JSX.
-- `@eslint-react/core`: ESLint utility module for static analysis of React core API and Patterns.
+- `@eslint-react/core`: Core module for static analysis of React core API and Patterns.
 - `@eslint-react/eslint-plugin-jsx`: ESLint plugin for JSX related rules.
 - `@eslint-react/eslint-plugin-react`: ESLint plugin for React related rules.
 - `@eslint-react/eslint-plugin-react-hooks`: ESLint plugin for React Hooks related rules.
 - `@eslint-react/eslint-plugin-debug`: ESLint plugin for debugging related rules.
 - `@eslint-react/eslint-plugin-naming-convention`: ESLint plugin for naming convention related rules.
-- `@eslint-react/eslint-plugin`: The main ESLint plugin of ESLint React. Contains all the rules from the above plugins.
+- `@eslint-react/eslint-plugin`: The main ESLint plugin of ESLint x React. Contains all the rules from the above plugins.
 
 ### Developing Rules
 
