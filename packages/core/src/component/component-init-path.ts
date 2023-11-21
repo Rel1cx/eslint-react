@@ -98,8 +98,26 @@ export function hasCallInInitPath(callName: string) {
     return F.pipe(
       initPath,
       O.filter(p => p.length > 0),
-      O.flatMapNullable(p => p.find(n => n.type === NodeType.CallExpression)),
-      O.filter(n => "callee" in n && n.callee.type === NodeType.Identifier && n.callee.name === callName),
+      O.filter(nodes => {
+        return nodes.some(
+          callName.includes(".")
+            ? n => {
+              const [objectName, propertyName] = callName.split(".");
+
+              return "callee" in n
+                && n.callee.type === NodeType.MemberExpression
+                && n.callee.object.type === NodeType.Identifier
+                && n.callee.object.name === objectName
+                && n.callee.property.type === NodeType.Identifier
+                && n.callee.property.name === propertyName;
+            }
+            : n => {
+              return "callee" in n
+                && n.callee.type === NodeType.Identifier
+                && n.callee.name === callName;
+            },
+        );
+      }),
       O.isSome,
     );
   };

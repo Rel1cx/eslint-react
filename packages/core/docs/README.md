@@ -211,7 +211,7 @@ hints for component collector
 
 ### componentCollector
 
-▸ **componentCollector**(`context`, `hint?`): `Object`
+▸ **componentCollector**(`context`, `hint?`, `pragma?`): `Object`
 
 #### Parameters
 
@@ -219,6 +219,7 @@ hints for component collector
 | :-------- | :------------------------------------------------------------ | :------------------------------ |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`                     |
 | `hint`    | `bigint`                                                      | `defaultComponentCollectorHint` |
+| `pragma`  | `string`                                                      | `undefined`                     |
 
 #### Returns
 

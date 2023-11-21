@@ -11,7 +11,7 @@ import {
   type TSESTreeFunction,
   unsafeIsMapCall,
 } from "@eslint-react/ast";
-import { isChildrenOfCreateElement, isJSXValue } from "@eslint-react/jsx";
+import { getPragmaFromContext, isChildrenOfCreateElement, isJSXValue } from "@eslint-react/jsx";
 import { E, F, MutList, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/types";
@@ -56,14 +56,14 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
   return !(hint & ExRComponentCollectorHint.SkipClassProperty && isFunctionOfClassProperty(node.parent));
 }
 
-function getComponentFlag(initPath: ExRFunctionComponent["initPath"]) {
+function getComponentFlag(initPath: ExRFunctionComponent["initPath"], pragma: string) {
   let flag = ExRComponentFlag.None;
 
-  if (hasCallInInitPath("memo")(initPath)) {
+  if (hasCallInInitPath("memo")(initPath) || hasCallInInitPath(`${pragma}.memo`)(initPath)) {
     flag |= ExRComponentFlag.Memo;
   }
 
-  if (hasCallInInitPath("forwardRef")(initPath)) {
+  if (hasCallInInitPath("forwardRef")(initPath) || hasCallInInitPath(`${pragma}.forwardRef`)(initPath)) {
     flag |= ExRComponentFlag.ForwardRef;
   }
 
@@ -73,6 +73,7 @@ function getComponentFlag(initPath: ExRFunctionComponent["initPath"]) {
 export function componentCollector(
   context: RuleContext,
   hint: bigint = defaultComponentCollectorHint,
+  pragma = getPragmaFromContext(context),
 ) {
   const components = new Map<string, ExRFunctionComponent>();
   const functionStack = MutList.make<TSESTreeFunction>();
@@ -127,7 +128,7 @@ export function componentCollector(
         kind: "function",
         name: O.flatMapNullable(id, n => n.name),
         displayName: O.none(),
-        flag: getComponentFlag(initPath),
+        flag: getComponentFlag(initPath, pragma),
         hint,
         initPath,
         node: currentFn,
@@ -153,7 +154,7 @@ export function componentCollector(
         kind: "function",
         name: O.fromNullable(getFunctionIdentifier(node)?.name),
         displayName: O.none(),
-        flag: getComponentFlag(initPath),
+        flag: getComponentFlag(initPath, pragma),
         hint,
         initPath,
         node,
