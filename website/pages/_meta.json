@@ -1,7 +1,10 @@
 {
   "index": {
     "title": "Home",
-    "type": "page"
+    "type": "page",
+    "theme": {
+      "breadcrumb": false
+    }
   },
   "docs": {
     "title": "Documentation",

@@ -3,12 +3,20 @@
     "title": "Getting Started",
     "type": "separator"
   },
-  "installation": "Installation",
+  "installation": {
+    "title": "Installation"
+  },
   "-Other": {
     "title": "Other",
     "type": "separator"
   },
-  "glossary": "Glossary",
-  "rules-over-options": "Rules Over Options",
-  "packages": "Published Packages"
+  "glossary": {
+    "title": "Glossary"
+  },
+  "rules-over-options": {
+    "title": "Rules Over Options"
+  },
+  "packages": {
+    "title": "Packages"
+  }
 }
