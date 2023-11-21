@@ -24,7 +24,7 @@ export type ExRComponentInitPath =
   | readonly [
     TSESTree.VariableDeclaration,
     TSESTree.VariableDeclarator,
-    TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression,
+    TSESTreeFunction,
   ]
   /**
    * const Comp = React.memo(() => <div />);
@@ -34,7 +34,7 @@ export type ExRComponentInitPath =
     TSESTree.VariableDeclaration,
     TSESTree.VariableDeclarator,
     TSESTree.CallExpression,
-    TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression,
+    TSESTreeFunction,
   ]
   /**
    * const Comp = React.memo(React.forwardRef(() => <div />));
@@ -44,7 +44,42 @@ export type ExRComponentInitPath =
     TSESTree.VariableDeclarator,
     TSESTree.CallExpression,
     TSESTree.CallExpression,
-    TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression,
+    TSESTreeFunction,
+  ]
+  /**
+   * const Comps = {
+   *  TopNav() { return <div />; },
+   *  SidPanel: () => <div />,
+   * }
+   */
+  | readonly [
+    TSESTree.VariableDeclaration,
+    TSESTree.VariableDeclarator,
+    TSESTree.ObjectExpression,
+    TSESTree.Property,
+    TSESTreeFunction,
+  ]
+  /**
+   * class Comp {
+   *   TopNav() { return <div />; }
+   * }
+   */
+  | readonly [
+    TSESTree.ClassDeclaration,
+    TSESTree.ClassBody,
+    TSESTree.MethodDefinition,
+    TSESTreeFunction,
+  ]
+  /**
+   * class Comp {
+   *   TopNav = () => <div />;
+   * }
+   */
+  | readonly [
+    TSESTree.ClassDeclaration,
+    TSESTree.ClassBody,
+    TSESTree.PropertyDefinition,
+    TSESTreeFunction,
   ];
 
 export type ExRComponentKind = "class" | "function";

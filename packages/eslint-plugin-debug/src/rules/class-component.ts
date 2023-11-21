@@ -9,7 +9,6 @@ export const RULE_NAME = "class-component";
 
 export type MessageID = "CLASS_COMPONENT";
 
-// TODO: support for detecting component types listed in core/component/component-types.ts
 export default createRule<[], MessageID>({
   name: RULE_NAME,
   meta: {

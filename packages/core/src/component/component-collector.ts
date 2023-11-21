@@ -27,15 +27,16 @@ import {
   type ExRFunctionComponent,
 } from "../types";
 import { isFunctionOfRenderMethod } from "./component-collector-legacy";
+import { getComponentInitPath } from "./component-init-path";
 import { isValidReactComponentName } from "./component-name";
 
-const hasNoneOrValidName = (node: TSESTreeFunction) => {
+function hasNoneOrValidName(node: TSESTreeFunction) {
   const id = getFunctionIdentifier(node);
 
   return !id || isValidReactComponentName(id.name);
-};
+}
 
-const hasValidHierarchy = (node: TSESTreeFunction, context: RuleContext, hint: bigint) => {
+function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: bigint) {
   if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node, context)) {
     return false;
   }
@@ -53,7 +54,7 @@ const hasValidHierarchy = (node: TSESTreeFunction, context: RuleContext, hint: b
   }
 
   return !(hint & ExRComponentCollectorHint.SkipClassProperty && isFunctionOfClassProperty(node.parent));
-};
+}
 
 export function componentCollector(
   context: RuleContext,
@@ -113,8 +114,7 @@ export function componentCollector(
         displayName: O.none(),
         flag: ExRComponentFlag.None,
         hint,
-        // TODO: inspect initPath
-        initPath: O.none(),
+        initPath: getComponentInitPath(currentFn),
         node: currentFn,
       });
     },
@@ -139,8 +139,7 @@ export function componentCollector(
         displayName: O.none(),
         flag: ExRComponentFlag.None,
         hint,
-        // TODO: inspect initPath
-        initPath: O.none(),
+        initPath: getComponentInitPath(node),
         node,
       });
     },
