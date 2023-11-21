@@ -10,6 +10,7 @@
 - [ExRComponent](README.md#exrcomponent)
 - [ExRComponentCollectorHint](README.md#exrcomponentcollectorhint)
 - [ExRComponentFlag](README.md#exrcomponentflag)
+- [ExRComponentInitPath](README.md#exrcomponentinitpath)
 - [ExRComponentKind](README.md#exrcomponentkind)
 - [ExRFunctionComponent](README.md#exrfunctioncomponent)
 - [ExRHook](README.md#exrhook)
@@ -97,6 +98,12 @@
 
 ---
 
+### ExRComponentInitPath
+
+Ƭ **ExRComponentInitPath**: readonly [`TSESTree.FunctionDeclaration`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.ArrowFunctionExpression` \| `TSESTree.FunctionExpression`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.CallExpression`, `TSESTree.ArrowFunctionExpression` \| `TSESTree.FunctionExpression`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.CallExpression`, `TSESTree.CallExpression`, `TSESTree.ArrowFunctionExpression` \| `TSESTree.FunctionExpression`]
+
+---
+
 ### ExRComponentKind
 
 Ƭ **ExRComponentKind**: `"class"` \| `"function"`
@@ -109,17 +116,17 @@
 
 #### Type declaration
 
-| Name          | Type                                                                 |
-| :------------ | :------------------------------------------------------------------- |
-| `_`           | `string`                                                             |
-| `displayName` | `O.Option`\<`string`\>                                               |
-| `flag`        | [`ExRComponentFlag`](README.md#exrcomponentflag-1)                   |
-| `hint`        | [`ExRComponentCollectorHint`](README.md#exrcomponentcollectorhint-1) |
-| `id`          | `O.Option`\<`TSESTree.Identifier`\>                                  |
-| `initPath`    | `O.Option`\<`TSESTree.Node`[]\>                                      |
-| `kind`        | `"function"`                                                         |
-| `name`        | `O.Option`\<`string`\>                                               |
-| `node`        | `TSESTreeFunction`                                                   |
+| Name          | Type                                                                   |
+| :------------ | :--------------------------------------------------------------------- |
+| `_`           | `string`                                                               |
+| `displayName` | `O.Option`\<`string`\>                                                 |
+| `flag`        | [`ExRComponentFlag`](README.md#exrcomponentflag-1)                     |
+| `hint`        | [`ExRComponentCollectorHint`](README.md#exrcomponentcollectorhint-1)   |
+| `id`          | `O.Option`\<`TSESTree.Identifier`\>                                    |
+| `initPath`    | `O.Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\> |
+| `kind`        | `"function"`                                                           |
+| `name`        | `O.Option`\<`string`\>                                                 |
+| `node`        | `TSESTreeFunction`                                                     |
 
 ---
 

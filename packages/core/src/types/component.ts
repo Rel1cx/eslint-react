@@ -13,6 +13,28 @@ export const ExRComponentFlag = {
 };
 /* eslint-enable perfectionist/sort-objects */
 
+export type ExRComponentInitPath =
+  | readonly [TSESTree.FunctionDeclaration]
+  // eslint-disable-next-line perfectionist/sort-union-types
+  | readonly [
+    TSESTree.VariableDeclaration,
+    TSESTree.VariableDeclarator,
+    TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression,
+  ]
+  | readonly [
+    TSESTree.VariableDeclaration,
+    TSESTree.VariableDeclarator,
+    TSESTree.CallExpression,
+    TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression,
+  ]
+  | readonly [
+    TSESTree.VariableDeclaration,
+    TSESTree.VariableDeclarator,
+    TSESTree.CallExpression,
+    TSESTree.CallExpression,
+    TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression,
+  ];
+
 export type ExRComponentKind = "class" | "function";
 
 export type ExRComponentCollectorHint = bigint;
@@ -52,7 +74,7 @@ export type ExRFunctionComponent = {
   name: O.Option<string>;
   flag: ExRComponentFlag;
   hint: ExRComponentCollectorHint;
-  initPath: O.Option<TSESTree.Node[]>;
+  initPath: O.Option<ExRComponentInitPath>;
   displayName: O.Option<string>;
 };
 

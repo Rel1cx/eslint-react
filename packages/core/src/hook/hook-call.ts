@@ -1,4 +1,4 @@
-import { is, NodeType, traverseUp } from "@eslint-react/ast";
+import { NodeType } from "@eslint-react/ast";
 import { isInitializedFromPragma } from "@eslint-react/jsx";
 import { F } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
@@ -49,8 +49,4 @@ export function unsafeIsReactHookCall(node: TSESTree.CallExpression) {
   }
 
   return false;
-}
-
-export function unsafeIsInsideReactHookCall(node: TSESTree.Node): boolean {
-  return !!traverseUp(node, n => is(NodeType.CallExpression)(n) && unsafeIsReactHookCall(n));
 }

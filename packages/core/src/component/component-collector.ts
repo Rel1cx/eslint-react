@@ -113,7 +113,8 @@ export function componentCollector(
         displayName: O.none(),
         flag: ExRComponentFlag.None,
         hint,
-        initPath: O.some([]),
+        // TODO: inspect initPath
+        initPath: O.none(),
         node: currentFn,
       });
     },
@@ -138,7 +139,8 @@ export function componentCollector(
         displayName: O.none(),
         flag: ExRComponentFlag.None,
         hint,
-        initPath: O.some([]),
+        // TODO: inspect initPath
+        initPath: O.none(),
         node,
       });
     },

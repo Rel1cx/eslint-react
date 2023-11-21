@@ -1,2 +1,2 @@
-export * from "./is-inside-render-prop";
+export * from "./hierarchy";
 export * from "./is-render-prop";
