@@ -1,5 +1,5 @@
 import { NodeType, type TSESTreeFunction } from "@eslint-react/ast";
-import { O } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/tools";
 
 import type { ExRComponentInitPath } from "../types";
 
@@ -91,4 +91,34 @@ export function getComponentInitPath(node: TSESTreeFunction): O.Option<ExRCompon
   }
 
   return O.none();
+}
+
+export function hasCallInInitPath(callName: string) {
+  return (initPath: O.Option<ExRComponentInitPath>) => {
+    return F.pipe(
+      initPath,
+      O.filter(p => p.length > 0),
+      O.filter(nodes => {
+        return nodes.some(
+          callName.includes(".")
+            ? n => {
+              const [objectName, propertyName] = callName.split(".");
+
+              return "callee" in n
+                && n.callee.type === NodeType.MemberExpression
+                && n.callee.object.type === NodeType.Identifier
+                && n.callee.object.name === objectName
+                && n.callee.property.type === NodeType.Identifier
+                && n.callee.property.name === propertyName;
+            }
+            : n => {
+              return "callee" in n
+                && n.callee.type === NodeType.Identifier
+                && n.callee.name === callName;
+            },
+        );
+      }),
+      O.isSome,
+    );
+  };
 }

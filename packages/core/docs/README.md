@@ -29,6 +29,7 @@
 - [componentCollectorLegacy](README.md#componentcollectorlegacy)
 - [getComponentInitPath](README.md#getcomponentinitpath)
 - [getParentClassComponent](README.md#getparentclasscomponent)
+- [hasCallInInitPath](README.md#hascallininitpath)
 - [hookCollector](README.md#hookcollector)
 - [isChildrenCount](README.md#ischildrencount)
 - [isChildrenForEach](README.md#ischildrenforeach)
@@ -210,7 +211,7 @@ hints for component collector
 
 ### componentCollector
 
-▸ **componentCollector**(`context`, `hint?`): `Object`
+▸ **componentCollector**(`context`, `hint?`, `pragma?`): `Object`
 
 #### Parameters
 
@@ -218,6 +219,7 @@ hints for component collector
 | :-------- | :------------------------------------------------------------ | :------------------------------ |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`                     |
 | `hint`    | `bigint`                                                      | `defaultComponentCollectorHint` |
+| `pragma`  | `string`                                                      | `undefined`                     |
 
 #### Returns
 
@@ -299,6 +301,34 @@ Get the parent class component of a node up to global scope
 **`Deprecated`**
 
 It will be removed in the future
+
+---
+
+### hasCallInInitPath
+
+▸ **hasCallInInitPath**(`callName`): (`initPath`: `Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\>) => `boolean`
+
+#### Parameters
+
+| Name       | Type     |
+| :--------- | :------- |
+| `callName` | `string` |
+
+#### Returns
+
+`fn`
+
+▸ (`initPath`): `boolean`
+
+##### Parameters
+
+| Name       | Type                                                                 |
+| :--------- | :------------------------------------------------------------------- |
+| `initPath` | `Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\> |
+
+##### Returns
+
+`boolean`
 
 ---
 

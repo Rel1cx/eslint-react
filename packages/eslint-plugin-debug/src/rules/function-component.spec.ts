@@ -59,6 +59,22 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } }],
     },
     {
+      code: "const MemoComponent = memo(() => <div></div>)",
+      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } }],
+    },
+    {
+      code: "const ForwardRefComponent = forwardRef(() => <div></div>)",
+      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } }],
+    },
+    {
+      code: "const MemoForwardRefComponent = memo(forwardRef(() => <div></div>))",
+      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } }],
+    },
+    {
+      code: "const MemoForwardRefComponent = React.memo(React.forwardRef(() => <div></div>))",
+      errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "anonymous", displayName: "none" } }],
+    },
+    {
       code: "const App = () => React.createElement('div', null, 'foo')",
       errors: [{ messageId: "FUNCTION_COMPONENT", data: { name: "App", displayName: "none" } }],
     },
