@@ -1,6 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { NodeType } from "./node-type";
+import { NodeType } from "../node-type";
 
 /**
  * Get all unary operators in a nested unary expression.
