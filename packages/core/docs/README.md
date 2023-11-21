@@ -27,6 +27,7 @@
 
 - [componentCollector](README.md#componentcollector)
 - [componentCollectorLegacy](README.md#componentcollectorlegacy)
+- [getComponentInitPath](README.md#getcomponentinitpath)
 - [getParentClassComponent](README.md#getparentclasscomponent)
 - [hookCollector](README.md#hookcollector)
 - [isChildrenCount](README.md#ischildrencount)
@@ -260,6 +261,22 @@ hints for component collector
 | `listeners`                  | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect }                                                                                        |
 | `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                             |
 | `listeners.ClassExpression`  | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                             |
+
+---
+
+### getComponentInitPath
+
+▸ **getComponentInitPath**(`node`): `O.Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\>
+
+#### Parameters
+
+| Name   | Type               |
+| :----- | :----------------- |
+| `node` | `TSESTreeFunction` |
+
+#### Returns
+
+`O.Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\>
 
 ---
 
