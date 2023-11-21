@@ -29,6 +29,7 @@
 - [componentCollectorLegacy](README.md#componentcollectorlegacy)
 - [getComponentInitPath](README.md#getcomponentinitpath)
 - [getParentClassComponent](README.md#getparentclasscomponent)
+- [hasCallInInitPath](README.md#hascallininitpath)
 - [hookCollector](README.md#hookcollector)
 - [isChildrenCount](README.md#ischildrencount)
 - [isChildrenForEach](README.md#ischildrenforeach)
@@ -299,6 +300,34 @@ Get the parent class component of a node up to global scope
 **`Deprecated`**
 
 It will be removed in the future
+
+---
+
+### hasCallInInitPath
+
+▸ **hasCallInInitPath**(`callName`): (`initPath`: `Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\>) => `boolean`
+
+#### Parameters
+
+| Name       | Type     |
+| :--------- | :------- |
+| `callName` | `string` |
+
+#### Returns
+
+`fn`
+
+▸ (`initPath`): `boolean`
+
+##### Parameters
+
+| Name       | Type                                                                 |
+| :--------- | :------------------------------------------------------------------- |
+| `initPath` | `Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\> |
+
+##### Returns
+
+`boolean`
 
 ---
 

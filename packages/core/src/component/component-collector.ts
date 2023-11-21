@@ -27,7 +27,7 @@ import {
   type ExRFunctionComponent,
 } from "../types";
 import { isFunctionOfRenderMethod } from "./component-collector-legacy";
-import { getComponentInitPath } from "./component-init-path";
+import { getComponentInitPath, hasCallInInitPath } from "./component-init-path";
 import { isValidReactComponentName } from "./component-name";
 
 function hasNoneOrValidName(node: TSESTreeFunction) {
@@ -54,6 +54,20 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
   }
 
   return !(hint & ExRComponentCollectorHint.SkipClassProperty && isFunctionOfClassProperty(node.parent));
+}
+
+function getComponentFlag(initPath: ExRFunctionComponent["initPath"]) {
+  let flag = ExRComponentFlag.None;
+
+  if (hasCallInInitPath("memo")(initPath)) {
+    flag |= ExRComponentFlag.Memo;
+  }
+
+  if (hasCallInInitPath("forwardRef")(initPath)) {
+    flag |= ExRComponentFlag.ForwardRef;
+  }
+
+  return flag;
 }
 
 export function componentCollector(
@@ -106,15 +120,16 @@ export function componentCollector(
 
       const id = O.fromNullable(getFunctionIdentifier(currentFn));
       const key = uid.rnd();
+      const initPath = getComponentInitPath(currentFn);
       components.set(key, {
         _: key,
         id,
         kind: "function",
         name: O.flatMapNullable(id, n => n.name),
         displayName: O.none(),
-        flag: ExRComponentFlag.None,
+        flag: getComponentFlag(initPath),
         hint,
-        initPath: getComponentInitPath(currentFn),
+        initPath,
         node: currentFn,
       });
     },
@@ -131,15 +146,16 @@ export function componentCollector(
 
       const id = O.fromNullable(getFunctionIdentifier(node));
       const key = uid.rnd();
+      const initPath = getComponentInitPath(node);
       components.set(key, {
         _: key,
         id,
         kind: "function",
         name: O.fromNullable(getFunctionIdentifier(node)?.name),
         displayName: O.none(),
-        flag: ExRComponentFlag.None,
+        flag: getComponentFlag(initPath),
         hint,
-        initPath: getComponentInitPath(node),
+        initPath,
         node,
       });
     },
