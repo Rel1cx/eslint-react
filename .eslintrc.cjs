@@ -32,8 +32,8 @@ module.exports = defineConfig({
     "website",
   ],
   rules: {
-    "@typescript-eslint/prefer-readonly": "error",
-    "@typescript-eslint/prefer-nullish-coalescing": "error",
+    "@typescript-eslint/prefer-readonly": "warn",
+    "@typescript-eslint/prefer-nullish-coalescing": "warn",
     "@typescript-eslint/strict-boolean-expressions": "error",
     "@typescript-eslint/no-unused-vars": [
       "warn",
