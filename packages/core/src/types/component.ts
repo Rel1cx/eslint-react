@@ -5,28 +5,40 @@ import type { TSESTree } from "@typescript-eslint/types";
 
 export type ExRComponentFlag = bigint;
 
-/* eslint-disable perfectionist/sort-objects */
+/* eslint-disable perfectionist/sort-objects, perfectionist/sort-union-types */
 export const ExRComponentFlag = {
   None: 0n,
   Memo: 1n << 0n,
   ForwardRef: 1n << 1n,
 };
-/* eslint-enable perfectionist/sort-objects */
 
 export type ExRComponentInitPath =
+  /**
+   * function Comp() { return <div />; }
+   */
   | readonly [TSESTree.FunctionDeclaration]
-  // eslint-disable-next-line perfectionist/sort-union-types
+  /**
+   * const Comp = () => <div />;
+   * const Comp = function () { return <div />; };
+   */
   | readonly [
     TSESTree.VariableDeclaration,
     TSESTree.VariableDeclarator,
     TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression,
   ]
+  /**
+   * const Comp = React.memo(() => <div />);
+   * const Comp = React.forwardRef(() => <div />);
+   */
   | readonly [
     TSESTree.VariableDeclaration,
     TSESTree.VariableDeclarator,
     TSESTree.CallExpression,
     TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression,
   ]
+  /**
+   * const Comp = React.memo(React.forwardRef(() => <div />));
+   */
   | readonly [
     TSESTree.VariableDeclaration,
     TSESTree.VariableDeclarator,
@@ -39,7 +51,6 @@ export type ExRComponentKind = "class" | "function";
 
 export type ExRComponentCollectorHint = bigint;
 
-/* eslint-disable perfectionist/sort-objects */
 /**
  * hints for component collector
  */
@@ -59,7 +70,7 @@ export const ExRComponentCollectorHint = {
   // Skip function component defined on class property
   SkipClassProperty: 1n << 69n,
 } as const;
-/* eslint-enable perfectionist/sort-objects */
+/* eslint-enable perfectionist/sort-objects, perfectionist/sort-union-types */
 
 export const defaultComponentCollectorHint = ExRComponentCollectorHint.SkipMemo
   | ExRComponentCollectorHint.SkipForwardRef
