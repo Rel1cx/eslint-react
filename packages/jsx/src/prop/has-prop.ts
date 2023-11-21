@@ -3,7 +3,7 @@ import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
-import { findPropInAttributes } from "./find-prop-in-attributes";
+import { findPropInAttributes } from "./get-prop";
 
 /**
  * Check if the given prop name is present in the given attributes

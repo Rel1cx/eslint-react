@@ -18,6 +18,9 @@ export type ExRComponentKind = "class" | "function";
 export type ExRComponentCollectorHint = bigint;
 
 /* eslint-disable perfectionist/sort-objects */
+/**
+ * hints for component collector
+ */
 export const ExRComponentCollectorHint = {
   ...JSXValueCheckHint,
   // 1n << 0n - 1n << 63n are reserved for JSXValueCheckHint

@@ -143,6 +143,8 @@
 
 • **ExRComponentCollectorHint**: `Object`
 
+hints for component collector
+
 #### Type declaration
 
 | Name                   | Type     |
