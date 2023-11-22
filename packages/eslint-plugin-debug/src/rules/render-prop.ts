@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      RENDER_PROP: "render prop found, name: {{name}}",
+      RENDER_PROP: "[render prop] name: {{name}}",
     },
   },
   defaultOptions: [],

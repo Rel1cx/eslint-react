@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
     schema: [],
     messages: {
       FUNCTION_COMPONENT:
-        "function component found, name: {{name}}, memo: {{memo}}, forwardRef: {{forwardRef}} displayName: {{displayName}}",
+        "[function component] name: {{name}}, memo: {{memo}}, forwardRef: {{forwardRef}}, displayName: {{displayName}}",
     },
   },
   defaultOptions: [],

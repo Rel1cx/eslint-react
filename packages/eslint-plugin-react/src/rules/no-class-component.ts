@@ -19,7 +19,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_CLASS_COMPONENT: "class component found, name: {{name}}",
+      NO_CLASS_COMPONENT: "[class component] name: {{name}}",
     },
   },
   defaultOptions: [],

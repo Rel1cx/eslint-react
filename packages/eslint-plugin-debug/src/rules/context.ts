@@ -17,8 +17,8 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      CONTEXT_PROVIDER: "context provider found, name: {{name}}",
-      CONTEXT_PROVIDER_WITH_VALUE: "context provider with value found, name: {{name}}",
+      CONTEXT_PROVIDER: "[context provider] name: {{name}}",
+      CONTEXT_PROVIDER_WITH_VALUE: "[context provider] name: {{name}}, value: {{value}}",
     },
   },
   defaultOptions: [],

@@ -19,7 +19,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      REACT_HOOKS: "React hook found, name: {{name}}, cost: {{cost}}",
+      REACT_HOOKS: "[react hooks] name: {{name}}, cost: {{cost}}",
     },
   },
   defaultOptions: [],
