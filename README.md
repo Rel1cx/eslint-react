@@ -154,7 +154,7 @@ export default [
 - [x] `react/no-missing-button-type`
 - [x] `react/no-missing-iframe-sandbox`
 - [ ] `react/no-missing-context-display-name`
-- [ ] `react/no-missing-component-display-name`
+- [x] `react/no-missing-component-display-name`
 - [x] `react/no-script-url`
 - [ ] `react/no-direct-mutation-state`
 - [ ] `react/no-redundant-should-component-update`

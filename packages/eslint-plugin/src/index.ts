@@ -47,6 +47,7 @@ const rulePreset = {
   "react/no-dangerously-set-innerhtml": "warn",
   "react/no-dangerously-set-innerhtml-with-children": "error",
   "react/no-missing-button-type": "warn",
+  "react/no-missing-component-display-name": "warn",
   "react/no-missing-iframe-sandbox": "warn",
   "react/no-namespace": "error",
   "react/no-script-url": "warn",
