@@ -1,31 +1,32 @@
 # Rules Overview
 
-<!-- begin auto-generated rules list -->
-
 ## jsx
 
-| Name                                                                                                                    | Description                                                  |
-| :---------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------- |
-| [jsx/no-array-index-key](jsx-no-array-index-key)                           | disallow using Array index as key                             |
-| [jsx/no-comment-textnodes](jsx-no-comment-textnodes)                       | disallow comments from being inserted as text nodes           |
-| [jsx/no-duplicate-key](jsx-no-duplicate-key)                               | disallow duplicate keys in `key` prop when rendering list     |
-| [jsx/no-leaked-conditional-rendering](jsx-no-leaked-conditional-rendering) | disallow problematic leaked values from being rendered        |
-| [jsx/no-missing-key](jsx-no-missing-key)                                   | require `key` prop when rendering list                        |
-| [jsx/no-spreading-key](jsx-no-spreading-key)                               | disallow spreading `key` from objects.                        |
-| [jsx/no-useless-fragment](jsx-no-useless-fragment)                         | disallow unnecessary fragments                                |
-| [jsx/prefer-shorthand-boolean](jsx-prefer-shorthand-boolean)               | enforce `boolean` attributes notation in JSX                  |
-| [jsx/prefer-shorthand-fragment](jsx-prefer-shorthand-fragment)             | enforce using fragment syntax instead of `Fragment` component |
+| Name                                                                                 | Description                                                   |
+| :----------------------------------------------------------------------------------- | :------------------------------------------------------------ |
+| [jsx/no-array-index-key](jsx-no-array-index-key)                                     | disallow using Array index as key                             |
+| [jsx/no-comment-textnodes](jsx-no-comment-textnodes)                                 | disallow comments from being inserted as text nodes           |
+| [jsx/no-complicated-conditional-rendering](jsx-no-complicated-conditional-rendering) | disallow complicated conditional rendering                    |
+| [jsx/no-duplicate-key](jsx-no-duplicate-key)                                         | disallow duplicate keys in `key` prop when rendering list     |
+| [jsx/no-leaked-conditional-rendering](jsx-no-leaked-conditional-rendering)           | disallow problematic leaked values from being rendered        |
+| [jsx/no-missing-key](jsx-no-missing-key)                                             | require `key` prop when rendering list                        |
+| [jsx/no-spreading-key](jsx-no-spreading-key)                                         | disallow spreading `key` from objects.                        |
+| [jsx/no-useless-fragment](jsx-no-useless-fragment)                                   | disallow unnecessary fragments                                |
+| [jsx/prefer-shorthand-boolean](jsx-prefer-shorthand-boolean)                         | enforce `boolean` attributes notation in JSX                  |
+| [jsx/prefer-shorthand-fragment](jsx-prefer-shorthand-fragment)                       | enforce using fragment syntax instead of `Fragment` component |
 
 ## react-hooks
 
-| Name                                                                                                                                                | Description                            |
-| :-------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------- |
-| [react-hooks/ensure-custom-hooks-using-other-hooks](react-hooks-ensure-custom-hooks-using-other-hooks) | enforce custom hooks using other hooks |
+| Name                                                                                                     | Description                                            |
+| :------------------------------------------------------------------------------------------------------- | :----------------------------------------------------- |
+| [react-hooks/ensure-custom-hooks-using-other-hooks](react-hooks-ensure-custom-hooks-using-other-hooks)   | enforce custom hooks using other hooks                 |
+| [react-hooks/ensure-use-callback-has-non-empty-deps](react-hooks-ensure-use-callback-has-non-empty-deps) | enforce `useCallback` has non-empty dependencies array |
+| [react-hooks/ensure-use-memo-has-non-empty-deps](react-hooks-ensure-use-memo-has-non-empty-deps)         | enforce `useMemo` has non-empty dependencies array     |
 
 ## react
 
-| Name                                                                                                                                              | Description                                                                        |
-| :------------------------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------- |
+| Name                                                                                                 | Description                                                                        |
+| :--------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------- |
 | [react/no-children-count](react-no-children-count)                                                   | disallow `Children.count`                                                          |
 | [react/no-children-for-each](react-no-children-for-each)                                             | disallow `Children.forEach`                                                        |
 | [react/no-children-in-void-dom-elements](react-no-children-in-void-dom-elements)                     | disallow passing `children` to void DOM elements                                   |
@@ -52,18 +53,16 @@
 
 ## naming-convention
 
-| Name                                                                                                                      | Description                                                            |
-| :------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------- |
+| Name                                                                         | Description                                                            |
+| :--------------------------------------------------------------------------- | :--------------------------------------------------------------------- |
 | [naming-convention/component-name](naming-convention-component-name)         | enforce component naming convention to `PascalCase` or `CONSTANT_CASE` |
 | [naming-convention/filename](naming-convention-filename)                     | enforce naming convention for JSX file names                           |
 | [naming-convention/filename-extension](naming-convention-filename-extension) | enforce naming convention for JSX file extensions                      |
 
 ## debug
 
-| Name                                                                                              | Description                                              |
-| :------------------------------------------------------------------------------------------------ | :------------------------------------------------------- |
+| Name                                                 | Description                                              |
+| :--------------------------------------------------- | :------------------------------------------------------- |
 | [debug/class-component](debug-class-component)       | report all class components, including anonymous ones    |
 | [debug/function-component](debug-function-component) | report all function components, including anonymous ones |
 | [debug/react-hooks](debug-react-hooks)               | report all react hooks                                   |
-
-<!-- end auto-generated rules list -->
