@@ -1,4 +1,4 @@
-import { componentCollector } from "@eslint-react/core";
+import { componentCollector, ExRComponentFlag } from "@eslint-react/core";
 import { E, F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type ConstantCase } from "string-ts";
@@ -20,7 +20,8 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      FUNCTION_COMPONENT: "function component found, name: {{name}}, displayName: {{displayName}}",
+      FUNCTION_COMPONENT:
+        "function component found, name: {{name}}, memo: {{memo}}, forwardRef: {{forwardRef}} displayName: {{displayName}}",
     },
   },
   defaultOptions: [],
@@ -38,11 +39,13 @@ export default createRule<[], MessageID>({
         }
         const components = maybeComponents.right;
 
-        for (const { name, displayName, node } of components.values()) {
+        for (const { name, displayName, flag, node } of components.values()) {
           context.report({
             data: {
               name: O.getOrElse(name, F.constant("anonymous")),
               displayName: O.getOrElse(displayName, F.constant("none")),
+              forwardRef: Boolean(flag & ExRComponentFlag.ForwardRef),
+              memo: Boolean(flag & ExRComponentFlag.Memo),
             },
             messageId: "FUNCTION_COMPONENT",
             node,
