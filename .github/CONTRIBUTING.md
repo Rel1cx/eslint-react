@@ -57,9 +57,10 @@ ESLint x React does not accept contributions of a purely utilitarian nature.
 
 - `@eslint-react/tools`: Std library and primitives.
 - `@eslint-react/types`: Type definitions.
+- `@eslint-react/shared`: Shared constants and utilities.
 - `@eslint-react/ast`: TSESTree AST primitive utility module.
 - `@eslint-react/jsx`: TSESTree AST utility module for static analysis of JSX.
-- `@eslint-react/core`: Core module for static analysis of React core API and Patterns.
+- `@eslint-react/core`: ESLint utility module for static analysis of React core API and Patterns.
 - `@eslint-react/eslint-plugin-jsx`: ESLint plugin for JSX related rules.
 - `@eslint-react/eslint-plugin-react`: ESLint plugin for React related rules.
 - `@eslint-react/eslint-plugin-react-hooks`: ESLint plugin for React Hooks related rules.
