@@ -83,8 +83,8 @@ importers:
         specifier: 0.43.0
         version: 0.43.0
       effect:
-        specifier: 2.0.0-next.54
-        version: 2.0.0-next.54
+        specifier: 2.0.0-next.56
+        version: 2.0.0-next.56
       eslint:
         specifier: '>=8.54.0'
         version: 8.54.0
@@ -116,8 +116,8 @@ importers:
         specifier: 8.0.3
         version: 8.0.3
       knip:
-        specifier: 2.41.5
-        version: 2.41.5
+        specifier: 2.41.6
+        version: 2.41.6
       pathe:
         specifier: 1.1.1
         version: 1.1.1
@@ -2837,8 +2837,8 @@ packages:
       validate-npm-package-name: 4.0.0
     dev: true
 
-  /@pnpm/npm-resolver@17.0.0(@pnpm/logger@5.0.0):
-    resolution: {integrity: sha512-XCeFga+Am3rsTO+8IIuIPb6VsZ+iCiv5QJW61YDl4XuiqoyCFzNyGgGfv05n45lIfK0Gg1jA2ewlo0LpGelCUw==}
+  /@pnpm/npm-resolver@18.0.0(@pnpm/logger@5.0.0):
+    resolution: {integrity: sha512-FGHmnRjSf7tQHagk6bMrUtHvZbz3ROUoGRDrpMyqJo///+S7SZt/hSDS77PhZ7T6PRXipkFyUtRkqtHmGKFCAg==}
     engines: {node: '>=16.14'}
     peerDependencies:
       '@pnpm/logger': ^5.0.0
@@ -2892,12 +2892,12 @@ packages:
     engines: {node: '>=16.14'}
     dev: true
 
-  /@pnpm/workspace.pkgs-graph@2.0.10(@pnpm/logger@5.0.0):
-    resolution: {integrity: sha512-iGZZ23li6Ya68kHx3oaWPCN4JMzJ0njmmmWDRxUcHkc+nxtxTwpEM/FRl7yG1nBo39YwX2XTtou22h2nKipHnw==}
+  /@pnpm/workspace.pkgs-graph@2.0.11(@pnpm/logger@5.0.0):
+    resolution: {integrity: sha512-VRX7E7pX92C0akCMYGzsTqJoOwQS7/8R40pAPK7smgaEpKeEgVThqnIXt+wPdseD5CzS7OzMaIWlT3WXr3O5rQ==}
     engines: {node: '>=16.14'}
     dependencies:
       '@pnpm/npm-package-arg': 1.0.0
-      '@pnpm/npm-resolver': 17.0.0(@pnpm/logger@5.0.0)
+      '@pnpm/npm-resolver': 18.0.0(@pnpm/logger@5.0.0)
       '@pnpm/resolve-workspace-range': 5.0.1
       ramda: /@pnpm/ramda@0.28.1
     transitivePeerDependencies:
@@ -5598,6 +5598,10 @@ packages:
   /effect@2.0.0-next.54:
     resolution: {integrity: sha512-qROhKMxlm6fpa90YRfWSgKeelDfhaDq2igPK+pIKupGehiCnZH4vd2qrY71HVZ10qZgXxh0VXpGyDQxJC+EQqw==}
 
+  /effect@2.0.0-next.56:
+    resolution: {integrity: sha512-Z6L9rf78OveZorl4pC82hUM/kNhQ8epChuCBVNIjVsookbb6iqTuP9goi3qi6CR7xUZE+HnOKF2bzMIdOOP+Vw==}
+    dev: true
+
   /electron-to-chromium@1.4.589:
     resolution: {integrity: sha512-zF6y5v/YfoFIgwf2dDfAqVlPPsyQeWNpEWXbAlDUS8Ax4Z2VoiiZpAPC0Jm9hXEkJm2vIZpwB6rc4KnLTQffbQ==}
 
@@ -7806,8 +7810,8 @@ packages:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
 
-  /knip@2.41.5:
-    resolution: {integrity: sha512-w6C0/tQvvRAWSRo4Vl3CRqmJujx+vizFD4sGWuhdpmx89micpfMZITiGCc54c6S9phGHvZeMNtYGEOyNwbfcjg==}
+  /knip@2.41.6:
+    resolution: {integrity: sha512-on5VYSTocWbEEaZr2aV8ADxDa+0HtDoJ6fJN7YB4bv7/JKV9cQOeI7tIn+w4JQegSb/bSKXmk+uxQFDym7tT7A==}
     engines: {node: '>=16.17.0 <17 || >=18.6.0'}
     hasBin: true
     dependencies:
@@ -7815,7 +7819,7 @@ packages:
       '@npmcli/map-workspaces': 3.0.4
       '@pkgjs/parseargs': 0.11.0
       '@pnpm/logger': 5.0.0
-      '@pnpm/workspace.pkgs-graph': 2.0.10(@pnpm/logger@5.0.0)
+      '@pnpm/workspace.pkgs-graph': 2.0.11(@pnpm/logger@5.0.0)
       '@snyk/github-codeowners': 1.1.0
       chalk: 5.3.0
       easy-table: 1.2.0

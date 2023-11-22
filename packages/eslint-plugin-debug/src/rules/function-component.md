@@ -4,7 +4,7 @@
 
 ## Rule category
 
-Verbose.
+Debug.
 
 ## What it does
 

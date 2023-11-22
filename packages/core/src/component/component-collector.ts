@@ -27,8 +27,9 @@ import {
   type ExRFunctionComponent,
 } from "../types";
 import { isFunctionOfRenderMethod } from "./component-collector-legacy";
+import { getComponentIdentifier } from "./component-Identifier";
 import { getComponentInitPath, hasCallInInitPath } from "./component-init-path";
-import { isValidReactComponentName } from "./component-name";
+import { getComponentNameFromIdentifier, isValidReactComponentName } from "./component-name";
 
 function hasNoneOrValidName(node: TSESTreeFunction) {
   const id = getFunctionIdentifier(node);
@@ -119,15 +120,19 @@ export function componentCollector(
         return;
       }
 
-      const id = O.fromNullable(getFunctionIdentifier(currentFn));
+      const id = getComponentIdentifier(currentFn, context);
       const key = uid.rnd();
+      const name = O.flatMapNullable(
+        id,
+        getComponentNameFromIdentifier,
+      );
       const initPath = getComponentInitPath(currentFn);
       components.set(key, {
         _: key,
         id,
         kind: "function",
-        name: O.flatMapNullable(id, n => n.name),
-        displayName: O.none(),
+        name,
+        displayName: O.fromNullable(getFunctionIdentifier(currentFn)?.name),
         flag: getComponentFlag(initPath, pragma),
         hint,
         initPath,
@@ -145,15 +150,19 @@ export function componentCollector(
         return;
       }
 
-      const id = O.fromNullable(getFunctionIdentifier(node));
+      const id = getComponentIdentifier(node, context);
       const key = uid.rnd();
+      const name = O.flatMapNullable(
+        id,
+        getComponentNameFromIdentifier,
+      );
       const initPath = getComponentInitPath(node);
       components.set(key, {
         _: key,
         id,
         kind: "function",
-        name: O.fromNullable(getFunctionIdentifier(node)?.name),
-        displayName: O.none(),
+        name,
+        displayName: O.fromNullable(getFunctionIdentifier(node)?.name),
         flag: getComponentFlag(initPath, pragma),
         hint,
         initPath,

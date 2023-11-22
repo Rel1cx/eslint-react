@@ -20,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
             return <div>foo</div>
         }
 
-        App.displayName = "TestDisplayName";
+        App.displayName = "TestDisplayName"
       `,
       errors: [{
         messageId: "FUNCTION_COMPONENT",
@@ -40,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
           name: "App",
           memo: false,
           forwardRef: false,
-          displayName: "none",
+          displayName: "App",
         },
       }],
     },
@@ -49,7 +49,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: "FUNCTION_COMPONENT",
         data: {
-          name: "anonymous",
+          name: "App",
           memo: true,
           forwardRef: false,
           displayName: "none",
@@ -62,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
             return <div>foo</div>
         })
 
-        App.displayName = \`\${"TestDisplayName"}\`;
+        App.displayName = \`\${"TestDisplayName"}\`
       `,
       errors: [{
         messageId: "FUNCTION_COMPONENT",
@@ -80,7 +80,7 @@ ruleTester.run(RULE_NAME, rule, {
             return <div>foo</div>
         })
 
-        const displayName = "TestDisplayName";
+        const displayName = "TestDisplayName"
 
         App.displayName = displayName;
       `,
@@ -99,7 +99,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: "FUNCTION_COMPONENT",
         data: {
-          name: "anonymous",
+          name: "App",
           memo: false,
           forwardRef: true,
           displayName: "none",
@@ -107,11 +107,15 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: "const MemoComponent = memo(() => <div></div>)",
+      code: dedent`
+        import { memo } from "react";
+
+        const MemoComponent = memo(() => <div></div>)
+      `,
       errors: [{
         messageId: "FUNCTION_COMPONENT",
         data: {
-          name: "anonymous",
+          name: "MemoComponent",
           memo: true,
           forwardRef: false,
           displayName: "none",
@@ -119,11 +123,11 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: "const ForwardRefComponent = forwardRef(() => <div></div>)",
+      code: "const ForwardRefComponent = React.forwardRef(() => <div></div>)",
       errors: [{
         messageId: "FUNCTION_COMPONENT",
         data: {
-          name: "anonymous",
+          name: "ForwardRefComponent",
           memo: false,
           forwardRef: true,
           displayName: "none",
@@ -131,11 +135,15 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: "const MemoForwardRefComponent = memo(forwardRef(() => <div></div>))",
+      code: dedent`
+        import { memo, forwardRef } from "react";
+
+        const MemoForwardRefComponent = memo(forwardRef(() => <div></div>))
+      `,
       errors: [{
         messageId: "FUNCTION_COMPONENT",
         data: {
-          name: "anonymous",
+          name: "MemoForwardRefComponent",
           memo: true,
           forwardRef: true,
           displayName: "none",
@@ -147,7 +155,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: "FUNCTION_COMPONENT",
         data: {
-          name: "anonymous",
+          name: "MemoForwardRefComponent",
           memo: true,
           forwardRef: true,
           displayName: "none",
@@ -162,7 +170,7 @@ ruleTester.run(RULE_NAME, rule, {
           name: "App",
           memo: false,
           forwardRef: false,
-          displayName: "none",
+          displayName: "App",
         },
       }],
     },
@@ -187,7 +195,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -196,7 +204,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "UnstableNestedFunctionComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "UnstableNestedFunctionComponent",
           },
         },
       ],
@@ -222,7 +230,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -231,7 +239,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "UnstableNestedFunctionComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "UnstableNestedFunctionComponent",
           },
         },
       ],
@@ -257,7 +265,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -266,7 +274,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "UnstableNestedVariableComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "UnstableNestedVariableComponent",
           },
         },
       ],
@@ -292,7 +300,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -301,7 +309,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "UnstableNestedVariableComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "UnstableNestedVariableComponent",
           },
         },
       ],
@@ -327,7 +335,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -336,7 +344,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "UnstableNestedFunctionComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "UnstableNestedFunctionComponent",
           },
         },
       ],
@@ -362,7 +370,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -371,7 +379,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "UnstableNestedFunctionComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "UnstableNestedFunctionComponent",
           },
         },
       ],
@@ -406,7 +414,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "UnstableNestedFunctionComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "UnstableNestedFunctionComponent",
           },
         },
       ],
@@ -441,7 +449,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "UnstableNestedFunctionComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "UnstableNestedFunctionComponent",
           },
         },
       ],
@@ -467,7 +475,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -476,7 +484,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "UnstableNestedVariableComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "UnstableNestedVariableComponent",
           },
         },
       ],
@@ -502,7 +510,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -511,7 +519,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "UnstableNestedVariableComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "UnstableNestedVariableComponent",
           },
         },
       ],
@@ -538,7 +546,7 @@ ruleTester.run(RULE_NAME, rule, {
           name: "ParentComponent",
           memo: false,
           forwardRef: false,
-          displayName: "none",
+          displayName: "ParentComponent",
         },
       }],
     },
@@ -564,7 +572,7 @@ ruleTester.run(RULE_NAME, rule, {
           name: "ParentComponent",
           memo: false,
           forwardRef: false,
-          displayName: "none",
+          displayName: "ParentComponent",
         },
       }],
     },
@@ -590,7 +598,7 @@ ruleTester.run(RULE_NAME, rule, {
           name: "UnstableNestedFunctionComponent",
           memo: false,
           forwardRef: false,
-          displayName: "none",
+          displayName: "UnstableNestedFunctionComponent",
         },
       }],
     },
@@ -616,7 +624,7 @@ ruleTester.run(RULE_NAME, rule, {
           name: "UnstableNestedClassComponent",
           memo: false,
           forwardRef: false,
-          displayName: "none",
+          displayName: "UnstableNestedClassComponent",
         },
       }],
     },
@@ -642,7 +650,7 @@ ruleTester.run(RULE_NAME, rule, {
           name: "UnstableNestedVariableComponent",
           memo: false,
           forwardRef: false,
-          displayName: "none",
+          displayName: "UnstableNestedVariableComponent",
         },
       }],
     },
@@ -669,7 +677,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "UnstableNestedClassComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "UnstableNestedClassComponent",
           },
         },
       ],
@@ -699,7 +707,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -708,7 +716,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "NestedUnstableFunctionComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "NestedUnstableFunctionComponent",
           },
         },
       ],
@@ -734,7 +742,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -743,7 +751,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "NestedUnstableFunctionComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "NestedUnstableFunctionComponent",
           },
         },
       ],
@@ -772,7 +780,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ComponentWithProps",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ComponentWithProps",
           },
         },
         {
@@ -781,16 +789,16 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
           messageId: "FUNCTION_COMPONENT",
           data: {
-            name: "SomeFooter",
+            name: "anonymous",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "SomeFooter",
           },
         },
       ],
@@ -816,7 +824,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ComponentWithProps",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ComponentWithProps",
           },
         },
         {
@@ -825,16 +833,16 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
           messageId: "FUNCTION_COMPONENT",
           data: {
-            name: "SomeFooter",
+            name: "anonymous",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "SomeFooter",
           },
         },
       ],
@@ -858,7 +866,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ComponentWithProps",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ComponentWithProps",
           },
         },
         {
@@ -867,7 +875,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -900,7 +908,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ComponentWithProps",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ComponentWithProps",
           },
         },
         {
@@ -909,7 +917,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -954,7 +962,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -963,7 +971,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "UnstableNestedComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "UnstableNestedComponent",
           },
         },
       ],
@@ -987,7 +995,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ComponentForProps",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ComponentForProps",
           },
         },
         {
@@ -996,7 +1004,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -1029,7 +1037,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ComponentForProps",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ComponentForProps",
           },
         },
         {
@@ -1038,7 +1046,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -1067,7 +1075,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -1100,7 +1108,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "List",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "List",
           },
         },
       ],
@@ -1131,7 +1139,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "List",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "List",
           },
         },
         {
@@ -1168,7 +1176,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -1222,7 +1230,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -1274,7 +1282,7 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
@@ -1309,13 +1317,13 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
           messageId: "FUNCTION_COMPONENT",
           data: {
-            name: "anonymous",
+            name: "UnstableNestedComponent",
             memo: true,
             forwardRef: false,
             displayName: "none",
@@ -1344,13 +1352,13 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
           messageId: "FUNCTION_COMPONENT",
           data: {
-            name: "anonymous",
+            name: "UnstableNestedComponent",
             memo: true,
             forwardRef: false,
             displayName: "none",
@@ -1381,13 +1389,13 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
           messageId: "FUNCTION_COMPONENT",
           data: {
-            name: "anonymous",
+            name: "UnstableNestedComponent",
             memo: true,
             forwardRef: false,
             displayName: "none",
@@ -1418,13 +1426,13 @@ ruleTester.run(RULE_NAME, rule, {
             name: "ParentComponent",
             memo: false,
             forwardRef: false,
-            displayName: "none",
+            displayName: "ParentComponent",
           },
         },
         {
           messageId: "FUNCTION_COMPONENT",
           data: {
-            name: "anonymous",
+            name: "UnstableNestedComponent",
             memo: true,
             forwardRef: false,
             displayName: "none",

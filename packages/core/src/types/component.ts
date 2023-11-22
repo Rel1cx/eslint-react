@@ -66,6 +66,35 @@ export type ExRComponentInitPath =
     TSESTreeFunction,
   ]
   /**
+   * const Comps = {
+   *  TopNav: React.memo(() => <div />),
+   *  SidPanel: React.forwardRef(() => <div />),
+   * }
+   */
+  | readonly [
+    TSESTree.VariableDeclaration,
+    TSESTree.VariableDeclarator,
+    TSESTree.ObjectExpression,
+    TSESTree.Property,
+    TSESTree.CallExpression,
+    TSESTreeFunction,
+  ]
+  /**
+   * const Comps = {
+   * TopNav: React.memo(React.forwardRef(() => <div />)),
+   * SidPanel: React.forwardRef(React.memo(() => <div />)),
+   * }
+   */
+  | readonly [
+    TSESTree.VariableDeclaration,
+    TSESTree.VariableDeclarator,
+    TSESTree.ObjectExpression,
+    TSESTree.Property,
+    TSESTree.CallExpression,
+    TSESTree.CallExpression,
+    TSESTreeFunction,
+  ]
+  /**
    * class Comp {
    *   TopNav() { return <div />; }
    * }
@@ -113,14 +142,12 @@ export const ExRComponentCollectorHint = {
 } as const;
 /* eslint-enable perfectionist/sort-objects, perfectionist/sort-union-types */
 
-export const defaultComponentCollectorHint = ExRComponentCollectorHint.SkipMemo
-  | ExRComponentCollectorHint.SkipForwardRef
-  | ExRComponentCollectorHint.SkipStringLiteral
+export const defaultComponentCollectorHint = ExRComponentCollectorHint.SkipStringLiteral
   | ExRComponentCollectorHint.SkipNumberLiteral;
 
 export type ExRFunctionComponent = {
   _: string;
-  id: O.Option<TSESTree.Identifier>;
+  id: O.Option<TSESTree.Identifier | TSESTree.Identifier[]>;
   kind: "function";
   node: TSESTreeFunction;
   name: O.Option<string>;

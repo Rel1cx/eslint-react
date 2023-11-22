@@ -27,7 +27,9 @@
 
 - [componentCollector](README.md#componentcollector)
 - [componentCollectorLegacy](README.md#componentcollectorlegacy)
+- [getComponentIdentifier](README.md#getcomponentidentifier)
 - [getComponentInitPath](README.md#getcomponentinitpath)
+- [getComponentNameFromIdentifier](README.md#getcomponentnamefromidentifier)
 - [getParentClassComponent](README.md#getparentclasscomponent)
 - [hasCallInInitPath](README.md#hascallininitpath)
 - [hookCollector](README.md#hookcollector)
@@ -102,7 +104,7 @@
 
 ### ExRComponentInitPath
 
-Ƭ **ExRComponentInitPath**: readonly [`TSESTree.FunctionDeclaration`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.CallExpression`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.CallExpression`, `TSESTree.CallExpression`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.ObjectExpression`, `TSESTree.Property`, `TSESTreeFunction`] \| readonly [`TSESTree.ClassDeclaration`, `TSESTree.ClassBody`, `TSESTree.MethodDefinition`, `TSESTreeFunction`] \| readonly [`TSESTree.ClassDeclaration`, `TSESTree.ClassBody`, `TSESTree.PropertyDefinition`, `TSESTreeFunction`]
+Ƭ **ExRComponentInitPath**: readonly [`TSESTree.FunctionDeclaration`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.CallExpression`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.CallExpression`, `TSESTree.CallExpression`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.ObjectExpression`, `TSESTree.Property`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.ObjectExpression`, `TSESTree.Property`, `TSESTree.CallExpression`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.ObjectExpression`, `TSESTree.Property`, `TSESTree.CallExpression`, `TSESTree.CallExpression`, `TSESTreeFunction`] \| readonly [`TSESTree.ClassDeclaration`, `TSESTree.ClassBody`, `TSESTree.MethodDefinition`, `TSESTreeFunction`] \| readonly [`TSESTree.ClassDeclaration`, `TSESTree.ClassBody`, `TSESTree.PropertyDefinition`, `TSESTreeFunction`]
 
 ---
 
@@ -124,7 +126,7 @@
 | `displayName` | `O.Option`\<`string`\>                                                 |
 | `flag`        | [`ExRComponentFlag`](README.md#exrcomponentflag-1)                     |
 | `hint`        | [`ExRComponentCollectorHint`](README.md#exrcomponentcollectorhint-1)   |
-| `id`          | `O.Option`\<`TSESTree.Identifier`\>                                    |
+| `id`          | `O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>         |
 | `initPath`    | `O.Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\> |
 | `kind`        | `"function"`                                                           |
 | `name`        | `O.Option`\<`string`\>                                                 |
@@ -266,6 +268,23 @@ hints for component collector
 
 ---
 
+### getComponentIdentifier
+
+▸ **getComponentIdentifier**(`node`, `context`): `O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `TSESTreeFunction`                                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+#### Returns
+
+`O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>
+
+---
+
 ### getComponentInitPath
 
 ▸ **getComponentInitPath**(`node`): `O.Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\>
@@ -279,6 +298,22 @@ hints for component collector
 #### Returns
 
 `O.Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\>
+
+---
+
+### getComponentNameFromIdentifier
+
+▸ **getComponentNameFromIdentifier**(`node`): `string`
+
+#### Parameters
+
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `node` | `Identifier` \| `Identifier`[] |
+
+#### Returns
+
+`string`
 
 ---
 

@@ -15,6 +15,7 @@ import noCreateRef from "./rules/no-create-ref";
 import noDangerouslySetInnerHTML from "./rules/no-dangerously-set-innerhtml";
 import noDangerouslySetInnerHTMLWithChildren from "./rules/no-dangerously-set-innerhtml-with-children";
 import noMissingButtonType from "./rules/no-missing-button-type";
+import noMissingComponentDisplayName from "./rules/no-missing-component-display-name";
 import noMissingIframeSandbox from "./rules/no-missing-iframe-sandbox";
 import noNamespace from "./rules/no-namespace";
 import noScriptUrl from "./rules/no-script-url";
@@ -45,6 +46,7 @@ export const rules = {
   "no-dangerously-set-innerhtml": noDangerouslySetInnerHTML,
   "no-dangerously-set-innerhtml-with-children": noDangerouslySetInnerHTMLWithChildren,
   "no-missing-button-type": noMissingButtonType,
+  "no-missing-component-display-name": noMissingComponentDisplayName,
   "no-missing-iframe-sandbox": noMissingIframeSandbox,
   "no-namespace": noNamespace,
   "no-script-url": noScriptUrl,
