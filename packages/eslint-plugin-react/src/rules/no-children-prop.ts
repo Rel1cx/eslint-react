@@ -63,7 +63,6 @@ export default createRule<[], MessageID>({
           });
         });
       },
-      // eslint-disable-next-line perfectionist/sort-objects
       CallExpression(node) {
         if (node.arguments.length === 0) {
           return;

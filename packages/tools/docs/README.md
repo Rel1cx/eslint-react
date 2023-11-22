@@ -532,7 +532,7 @@ Returns a new array with unique values based on the given function.
 
 | Name  | Type                    | Description                               |
 | :---- | :---------------------- | :---------------------------------------- |
-| `arr` | `T`[]                   | The array to filter.                      |
+| `arr` | readonly `T`[]          | The array to filter.                      |
 | `fn`  | (`x`: `T`) => `unknown` | The function to get the value to compare. |
 
 #### Returns

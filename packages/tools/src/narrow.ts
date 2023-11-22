@@ -1,3 +1,4 @@
+/* eslint-disable functional/prefer-immutable-types */
 /**
  * Infers embedded primitive type of any type
  * @since 0.0.1

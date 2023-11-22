@@ -27,6 +27,7 @@ export function getVariablesUpToGlobal(startScope: Scope) {
   const scopeRef = MutRef.make(startScope);
   const variablesRef = MutRef.make(MutRef.get(scopeRef).variables);
 
+  // eslint-disable-next-line functional/no-loop-statements
   while (MutRef.get(scopeRef).type !== ScopeType.global) {
     MutRef.set(scopeRef, MutRef.get(scopeRef).upper);
     MutRef.update(variablesRef, (variables) => variables.concat(MutRef.get(scopeRef).variables));

@@ -1,3 +1,8 @@
+/* eslint-disable functional/no-this-expressions */
+/* eslint-disable functional/no-expression-statements */
+/* eslint-disable functional/no-classes */
+/* eslint-disable functional/no-throw-statements */
+/* eslint-disable functional/prefer-immutable-types */
 /* eslint-disable security/detect-non-literal-regexp */
 // Copied from https://github.com/epaew/eslint-plugin-filenames-simple/blob/master/src/utils/case-validator.ts
 import { getRule } from "./preset-rules";

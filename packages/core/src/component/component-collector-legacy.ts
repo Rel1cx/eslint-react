@@ -58,7 +58,7 @@ export function isClassComponent(node: TSESTree.Node, context: RuleContext): nod
 export function getParentClassComponent(context: RuleContext) {
   let scope: Scope | null = context.getScope();
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison, functional/no-loop-statements
   while (scope && scope.type !== "class") {
     scope = scope.upper;
   }

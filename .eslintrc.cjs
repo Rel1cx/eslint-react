@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 // @ts-check
 const { defineConfig } = require("eslint-define-config");
 
@@ -23,10 +24,11 @@ module.exports = defineConfig({
     "plugin:perfectionist/recommended-natural",
     "plugin:jsdoc/recommended-typescript",
     "plugin:eslint-plugin/all",
+    "plugin:functional/lite",
     "plugin:functional-core/recommended",
     "plugin:filenames-simple/recommended",
   ],
-  plugins: ["functional-core", "filenames-simple"],
+  plugins: ["functional", "functional-core", "filenames-simple"],
   ignorePatterns: [
     "examples",
     "website",
@@ -50,6 +52,9 @@ module.exports = defineConfig({
     "jsdoc/require-param-description": "off",
     "jsdoc/require-returns": "off",
     "filenames-simple/named-export": "off",
+    "functional/no-mixed-types": "off",
+    "functional/no-return-void": "off",
+    "functional/functional-parameters": "off",
     "functional-core/purity": ["error", { allowThrow: false }],
     "eslint-plugin/require-meta-docs-url": "off",
     "max-len": "off",
@@ -127,10 +132,46 @@ module.exports = defineConfig({
   },
   overrides: [
     {
-      files: ["*.d.ts"],
+      files: [
+        "./packages/tools/src/**/*.ts",
+        "./packages/types/src/**/*.ts",
+        "./packages/shared/src/**/*.ts",
+      ],
+      extends: [
+        "plugin:functional/strict",
+      ],
       rules: {
-        "@typescript-eslint/consistent-type-definitions": "off",
-        "filenames-simple/naming-convention": "off",
+        "functional/no-mixed-types": "off",
+        "functional/no-return-void": "off",
+        "functional/no-conditional-statements": "off",
+      },
+    },
+    {
+      files: [
+        "./packages/ast/**/*",
+        "./packages/jsx/**/*",
+        "./packages/core/**/*",
+      ],
+      extends: [
+        "plugin:functional/recommended",
+      ],
+      rules: {
+        "functional/no-let": "off",
+        "functional/no-return-void": "off",
+        "functional/no-expression-statements": "off",
+        "functional/no-conditional-statements": "off",
+        "functional/immutable-data": "off",
+        "functional/prefer-immutable-types": "off",
+        "functional/functional-parameters": "off",
+      },
+    },
+    {
+      files: ["./packages/eslint-*/**/*"],
+      extends: [
+        "plugin:functional/off",
+      ],
+      rules: {
+        "perfectionist/sort-objects": "off",
       },
     },
     {
@@ -138,12 +179,21 @@ module.exports = defineConfig({
       globals: {
         Bun: "readonly",
       },
+      extends: [
+        "plugin:functional/off",
+      ],
       rules: {
         "no-await-in-loop": "off",
       },
     },
     {
-      extends: ["plugin:vitest/recommended"],
+      files: ["./test/**/*"],
+      extends: [
+        "plugin:functional/off",
+      ],
+    },
+    {
+      extends: ["plugin:vitest/recommended", "plugin:functional/off"],
       files: "*.spec.ts",
       plugins: ["vitest"],
       rules: {
@@ -164,18 +214,20 @@ module.exports = defineConfig({
       },
     },
     {
-      files: ["./packages/eslint-plugin/src/rules/**/*.ts"],
-      rules: {
-        "perfectionist/sort-objects": "off",
-        "functional-core/purity": "off",
-      },
-    },
-    {
       files: ["./.eslintrc.cjs"],
       rules: {
         "jsdoc/check-tag-names": "off",
         "perfectionist/sort-objects": "off",
+        "functional/immutable-data": "off",
+        "functional/no-expression-statements": "off",
         "functional-core/purity": "off",
+        "filenames-simple/naming-convention": "off",
+      },
+    },
+    {
+      files: ["*.d.ts"],
+      rules: {
+        "@typescript-eslint/consistent-type-definitions": "off",
         "filenames-simple/naming-convention": "off",
       },
     },

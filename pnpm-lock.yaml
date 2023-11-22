@@ -97,6 +97,9 @@ importers:
       eslint-plugin-filenames-simple:
         specifier: 0.8.0
         version: 0.8.0(eslint@8.54.0)
+      eslint-plugin-functional:
+        specifier: 6.0.0
+        version: 6.0.0(eslint@8.54.0)(typescript@5.2.2)
       eslint-plugin-functional-core:
         specifier: 1.7.1
         version: 1.7.1(@typescript-eslint/parser@6.10.0)(eslint@8.54.0)(typescript@5.2.2)
@@ -5412,7 +5415,6 @@ packages:
   /deepmerge-ts@5.1.0:
     resolution: {integrity: sha512-eS8dRJOckyo9maw9Tu5O5RUi/4inFLrnoLkBe3cPfDMx3WZioXtmOew4TXQaxq7Rhl4xjDtR7c6x8nNTxOvbFw==}
     engines: {node: '>=16.0.0'}
-    dev: false
 
   /deepmerge@4.3.1:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
@@ -6025,6 +6027,28 @@ packages:
       '@typescript-eslint/parser': 6.10.0(eslint@8.54.0)(typescript@5.2.2)
       '@typescript-eslint/utils': 6.10.0(eslint@8.54.0)(typescript@5.2.2)
       eslint: 8.54.0
+      typescript: 5.2.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /eslint-plugin-functional@6.0.0(eslint@8.54.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-jOUHUMA9cN2CIpgPj93fW1vTI3c95ZYUHMPJxEJL4KAtFkJDcT/9/YlfyrLOBxHkAcwBhJ29HSmeC/CUnN0k3g==}
+    engines: {node: '>=16.10.0'}
+    peerDependencies:
+      eslint: '>=8.54.0'
+      typescript: 5.2.2
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@typescript-eslint/utils': 6.10.0(eslint@8.54.0)(typescript@5.2.2)
+      deepmerge-ts: 5.1.0
+      escape-string-regexp: 4.0.0
+      eslint: 8.54.0
+      is-immutable-type: 2.0.1(eslint@8.54.0)(typescript@5.2.2)
+      semver: 7.5.4
+      ts-api-utils: 1.0.3(typescript@5.2.2)
       typescript: 5.2.2
     transitivePeerDependencies:
       - supports-color
@@ -7531,6 +7555,20 @@ packages:
 
   /is-hexadecimal@2.0.1:
     resolution: {integrity: sha512-DgZQp241c8oO6cA1SbTEWiXeoxV42vlcJxgH+B3hi1AiqqKruZR3ZGF8In3fj4+/y/7rHvlOZLZtgJ/4ttYGZg==}
+
+  /is-immutable-type@2.0.1(eslint@8.54.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-SNO0yWLzSN+oYb8adM4AvsPYSCqElmjcXUNemryDLo0r5M54oMs/6R4cvKLc9QtIs/nRuc3ahlgJoMdGfcHLwQ==}
+    peerDependencies:
+      eslint: '>=8.54.0'
+      typescript: 5.2.2
+    dependencies:
+      '@typescript-eslint/type-utils': 6.10.0(eslint@8.54.0)(typescript@5.2.2)
+      eslint: 8.54.0
+      ts-api-utils: 1.0.3(typescript@5.2.2)
+      typescript: 5.2.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
 
   /is-inside-container@1.0.0:
     resolution: {integrity: sha512-KIYLCCJghfHZxqjYBE7rEy0OBuTd5xCHS7tHVgvCLkx7StIoaxwNW3hCALgEUjFfeRk+MG/Qxmp/vtETEF3tRA==}

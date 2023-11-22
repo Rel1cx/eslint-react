@@ -75,6 +75,7 @@
     "eslint-config-with-tsconfig": "2.9.60",
     "eslint-plugin-eslint-plugin": "5.1.1",
     "eslint-plugin-filenames-simple": "0.8.0",
+    "eslint-plugin-functional": "6.0.0",
     "eslint-plugin-functional-core": "1.7.1",
     "eslint-plugin-jsdoc": "46.9.0",
     "eslint-plugin-vitest": "0.3.10",

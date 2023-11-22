@@ -156,7 +156,6 @@ export default {
     "off-legacy": createLegacyConfig(offPreset),
     "recommended-legacy": createLegacyConfig(recommendedPreset),
     "recommended-type-checked-legacy": createLegacyConfig(recommendedTypeCheckedPreset),
-    // eslint-disable-next-line perfectionist/sort-objects
     all: createFlatConfig(allPreset),
     debug: createFlatConfig(debugPreset),
     off: createFlatConfig(offPreset),
