@@ -120,7 +120,7 @@ export function componentCollector(
         return;
       }
 
-      const id = getComponentIdentifier(currentFn);
+      const id = getComponentIdentifier(currentFn, context);
       const key = uid.rnd();
       const name = O.flatMapNullable(
         id,
@@ -132,7 +132,7 @@ export function componentCollector(
         id,
         kind: "function",
         name,
-        displayName: O.none(),
+        displayName: O.fromNullable(getFunctionIdentifier(currentFn)?.name),
         flag: getComponentFlag(initPath, pragma),
         hint,
         initPath,
@@ -150,7 +150,7 @@ export function componentCollector(
         return;
       }
 
-      const id = getComponentIdentifier(node);
+      const id = getComponentIdentifier(node, context);
       const key = uid.rnd();
       const name = O.flatMapNullable(
         id,
@@ -162,7 +162,7 @@ export function componentCollector(
         id,
         kind: "function",
         name,
-        displayName: O.none(),
+        displayName: O.fromNullable(getFunctionIdentifier(node)?.name),
         flag: getComponentFlag(initPath, pragma),
         hint,
         initPath,

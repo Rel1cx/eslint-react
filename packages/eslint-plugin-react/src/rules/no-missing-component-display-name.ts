@@ -37,8 +37,8 @@ export default createRule<[], MessageID>({
         }
         const components = maybeComponents.right;
 
-        for (const { name, displayName, flag, node } of components.values()) {
-          const hasDisplayName = O.isSome(name) || O.isSome(displayName);
+        for (const { displayName, flag, node } of components.values()) {
+          const hasDisplayName = O.isSome(displayName);
           const isMemoOrForwardRef = flag & ExRComponentFlag.ForwardRef
             || flag & ExRComponentFlag.Memo;
 

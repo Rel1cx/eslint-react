@@ -26,6 +26,8 @@ ruleTester.run(RULE_NAME, rule, {
       App.displayName = "TestDisplayName";
     `,
     dedent`
+      import { memo } from 'react'
+
       const App = memo(function App() {
           return <div>foo</div>
       })
@@ -83,19 +85,19 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: "const MemoComponent = memo(() => <div></div>)",
+      code: "const MemoComponent = React.memo(() => <div></div>)",
       errors: [{
         messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
       }],
     },
     {
-      code: "const ForwardRefComponent = forwardRef(() => <div></div>)",
+      code: "const ForwardRefComponent = React.forwardRef(() => <div></div>)",
       errors: [{
         messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
       }],
     },
     {
-      code: "const MemoForwardRefComponent = memo(forwardRef(() => <div></div>))",
+      code: "const MemoForwardRefComponent = React.memo(forwardRef(() => <div></div>))",
       errors: [{
         messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
       }],

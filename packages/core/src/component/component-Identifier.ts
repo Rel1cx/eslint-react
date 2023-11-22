@@ -1,9 +1,18 @@
 /* eslint-disable filenames-simple/naming-convention */
 import { isOneOf, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
+import { isCallFromPragma } from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
+import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
-export function getComponentIdentifier(node: TSESTreeFunction): O.Option<TSESTree.Identifier | TSESTree.Identifier[]> {
+function isMemoOrForwardRefCall(node: TSESTree.Node, context: RuleContext) {
+  return isCallFromPragma("memo")(node, context) || isCallFromPragma("forwardRef")(node, context);
+}
+
+export function getComponentIdentifier(
+  node: TSESTreeFunction,
+  context: RuleContext,
+): O.Option<TSESTree.Identifier | TSESTree.Identifier[]> {
   const { id, parent } = node;
 
   if (node.type === NodeType.FunctionDeclaration) {
@@ -20,6 +29,7 @@ export function getComponentIdentifier(node: TSESTreeFunction): O.Option<TSESTre
 
   if (
     parent.type === NodeType.CallExpression
+    && isMemoOrForwardRefCall(parent, context)
     && parent.parent.type === NodeType.VariableDeclarator
     && parent.parent.id.type === NodeType.Identifier
     && parent.parent.parent.type === NodeType.VariableDeclaration
@@ -29,7 +39,9 @@ export function getComponentIdentifier(node: TSESTreeFunction): O.Option<TSESTre
 
   if (
     parent.type === NodeType.CallExpression
+    && isMemoOrForwardRefCall(parent, context)
     && parent.parent.type === NodeType.CallExpression
+    && isMemoOrForwardRefCall(parent.parent, context)
     && parent.parent.parent.type === NodeType.VariableDeclarator
     && parent.parent.parent.id.type === NodeType.Identifier
     && parent.parent.parent.parent.type === NodeType.VariableDeclaration

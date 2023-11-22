@@ -42,8 +42,8 @@ export default createRule<[], MessageID>({
         for (const { name, displayName, flag, node } of components.values()) {
           context.report({
             data: {
-              name: O.getOrElse(name, F.constant("unknown")),
-              displayName: O.getOrElse(displayName, F.constant("anonymous")),
+              name: O.getOrElse(name, F.constant("anonymous")),
+              displayName: O.getOrElse(displayName, F.constant("none")),
               forwardRef: Boolean(flag & ExRComponentFlag.ForwardRef),
               memo: Boolean(flag & ExRComponentFlag.Memo),
             },
