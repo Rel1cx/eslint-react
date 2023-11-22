@@ -12,7 +12,6 @@
 ### Interfaces
 
 - [Case](../interfaces/Data.Case-1.md)
-- [YieldableError](../interfaces/Data.YieldableError.md)
 
 ### Type Aliases
 
@@ -108,11 +107,11 @@ assert.deepStrictEqual(Equal.equals(mike1, john), false);
 
 ### Error
 
-• `Const` **Error**: \<A\>(`args`: `Types.Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : \{ readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] }) => [`YieldableError`](../interfaces/Data.YieldableError.md) & `Readonly`\<`A`\>
+• `Const` **Error**: \<A\>(`args`: `Types.Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : \{ readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] }) => `Cause.YieldableError` & `Readonly`\<`A`\>
 
 #### Type declaration
 
-• \<`A`\>(`args`): [`YieldableError`](../interfaces/Data.YieldableError.md) & `Readonly`\<`A`\>
+• \<`A`\>(`args`): `Cause.YieldableError` & `Readonly`\<`A`\>
 
 Provides a constructor for a Case Class.
 
@@ -130,7 +129,7 @@ Provides a constructor for a Case Class.
 
 ##### Returns
 
-[`YieldableError`](../interfaces/Data.YieldableError.md) & `Readonly`\<`A`\>
+`Cause.YieldableError` & `Readonly`\<`A`\>
 
 **`Since`**
 
@@ -236,7 +235,7 @@ assert.deepStrictEqual(mike1._tag, "Person");
 
 ### TaggedError
 
-▸ **TaggedError**\<`Tag`\>(`tag`): \<A\>(`args`: `Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : \{ readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] }) => [`YieldableError`](../interfaces/Data.YieldableError.md) & \{ `_tag`: `Tag` } & `Readonly`\<`A`\>
+▸ **TaggedError**\<`Tag`\>(`tag`): \<A\>(`args`: `Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends `true` ? `void` : \{ readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] }) => `YieldableError` & \{ `_tag`: `Tag` } & `Readonly`\<`A`\>
 
 #### Type parameters
 
@@ -254,7 +253,7 @@ assert.deepStrictEqual(mike1._tag, "Person");
 
 `fn`
 
-• **new TaggedError**\<`A`\>(`args`): [`YieldableError`](../interfaces/Data.YieldableError.md) & \{ `_tag`: `Tag` } & `Readonly`\<`A`\>
+• **new TaggedError**\<`A`\>(`args`): `YieldableError` & \{ `_tag`: `Tag` } & `Readonly`\<`A`\>
 
 ##### Type parameters
 
@@ -270,7 +269,7 @@ assert.deepStrictEqual(mike1._tag, "Person");
 
 ##### Returns
 
-[`YieldableError`](../interfaces/Data.YieldableError.md) & \{ `_tag`: `Tag` } & `Readonly`\<`A`\>
+`YieldableError` & \{ `_tag`: `Tag` } & `Readonly`\<`A`\>
 
 **`Since`**
 

@@ -30,40 +30,22 @@
 
 ### Properties
 
-- [[NodeInspectSymbol]](List.Cons.md#[nodeinspectsymbol])
 - [[TypeId]](List.Cons.md#[typeid])
 - [\_tag](List.Cons.md#_tag)
 - [head](List.Cons.md#head)
 - [tail](List.Cons.md#tail)
-- [toJSON](List.Cons.md#tojson)
-- [toString](List.Cons.md#tostring)
 
 ### Methods
 
+- [[NodeInspectSymbol]](List.Cons.md#[nodeinspectsymbol])
 - [[iterator]](List.Cons.md#[iterator])
 - [[symbol]](List.Cons.md#[symbol])
 - [[symbol]](List.Cons.md#[symbol]-1)
 - [pipe](List.Cons.md#pipe)
+- [toJSON](List.Cons.md#tojson)
+- [toString](List.Cons.md#tostring)
 
 ## Properties
-
-### [NodeInspectSymbol]
-
-• `Readonly` **[NodeInspectSymbol]**: () => `unknown`
-
-#### Type declaration
-
-▸ (): `unknown`
-
-##### Returns
-
-`unknown`
-
-#### Inherited from
-
-Inspectable.[NodeInspectSymbol]
-
----
 
 ### [TypeId]
 
@@ -87,43 +69,21 @@ Inspectable.[NodeInspectSymbol]
 
 • `Readonly` **tail**: [`List`](../modules/List.md#list)\<`A`\>
 
----
+## Methods
 
-### toJSON
+### [NodeInspectSymbol]
 
-• `Readonly` **toJSON**: () => `unknown`
+▸ **[NodeInspectSymbol]**(): `unknown`
 
-#### Type declaration
-
-▸ (): `unknown`
-
-##### Returns
+#### Returns
 
 `unknown`
 
 #### Inherited from
 
-Inspectable.toJSON
+Inspectable.[NodeInspectSymbol]
 
 ---
-
-### toString
-
-• `Readonly` **toString**: () => `string`
-
-#### Type declaration
-
-▸ (): `string`
-
-##### Returns
-
-`string`
-
-#### Inherited from
-
-Inspectable.toString
-
-## Methods
 
 ### [iterator]
 
@@ -1096,3 +1056,31 @@ Pipeable.pipe
 #### Inherited from
 
 Pipeable.pipe
+
+---
+
+### toJSON
+
+▸ **toJSON**(): `unknown`
+
+#### Returns
+
+`unknown`
+
+#### Inherited from
+
+Inspectable.toJSON
+
+---
+
+### toString
+
+▸ **toString**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Inspectable.toString

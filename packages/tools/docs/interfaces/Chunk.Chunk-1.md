@@ -32,38 +32,20 @@
 
 ### Properties
 
-- [[NodeInspectSymbol]](Chunk.Chunk-1.md#[nodeinspectsymbol])
 - [[TypeId]](Chunk.Chunk-1.md#[typeid])
 - [length](Chunk.Chunk-1.md#length)
-- [toJSON](Chunk.Chunk-1.md#tojson)
-- [toString](Chunk.Chunk-1.md#tostring)
 
 ### Methods
 
+- [[NodeInspectSymbol]](Chunk.Chunk-1.md#[nodeinspectsymbol])
 - [[iterator]](Chunk.Chunk-1.md#[iterator])
 - [[symbol]](Chunk.Chunk-1.md#[symbol])
 - [[symbol]](Chunk.Chunk-1.md#[symbol]-1)
 - [pipe](Chunk.Chunk-1.md#pipe)
+- [toJSON](Chunk.Chunk-1.md#tojson)
+- [toString](Chunk.Chunk-1.md#tostring)
 
 ## Properties
-
-### [NodeInspectSymbol]
-
-• `Readonly` **[NodeInspectSymbol]**: () => `unknown`
-
-#### Type declaration
-
-▸ (): `unknown`
-
-##### Returns
-
-`unknown`
-
-#### Inherited from
-
-Inspectable.[NodeInspectSymbol]
-
----
 
 ### [TypeId]
 
@@ -81,43 +63,21 @@ Inspectable.[NodeInspectSymbol]
 
 • `Readonly` **length**: `number`
 
----
+## Methods
 
-### toJSON
+### [NodeInspectSymbol]
 
-• `Readonly` **toJSON**: () => `unknown`
+▸ **[NodeInspectSymbol]**(): `unknown`
 
-#### Type declaration
-
-▸ (): `unknown`
-
-##### Returns
+#### Returns
 
 `unknown`
 
 #### Inherited from
 
-Inspectable.toJSON
+Inspectable.[NodeInspectSymbol]
 
 ---
-
-### toString
-
-• `Readonly` **toString**: () => `string`
-
-#### Type declaration
-
-▸ (): `string`
-
-##### Returns
-
-`string`
-
-#### Inherited from
-
-Inspectable.toString
-
-## Methods
 
 ### [iterator]
 
@@ -1090,3 +1050,31 @@ Pipeable.pipe
 #### Inherited from
 
 Pipeable.pipe
+
+---
+
+### toJSON
+
+▸ **toJSON**(): `unknown`
+
+#### Returns
+
+`unknown`
+
+#### Inherited from
+
+Inspectable.toJSON
+
+---
+
+### toString
+
+▸ **toString**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Inspectable.toString

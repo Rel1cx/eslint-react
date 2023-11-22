@@ -32,23 +32,23 @@
 
 - [[ChannelTypeId]](O.None.md#[channeltypeid])
 - [[EffectTypeId]](O.None.md#[effecttypeid])
-- [[NodeInspectSymbol]](O.None.md#[nodeinspectsymbol])
 - [[SinkTypeId]](O.None.md#[sinktypeid])
 - [[StreamTypeId]](O.None.md#[streamtypeid])
 - [[TypeId]](O.None.md#[typeid])
-- [[blacklistSymbol]](O.None.md#[blacklistsymbol])
+- [[ignoreSymbol]](O.None.md#[ignoresymbol])
 - [[typeSymbol]](O.None.md#[typesymbol])
 - [[unifySymbol]](O.None.md#[unifysymbol])
 - [\_op](O.None.md#_op)
 - [\_tag](O.None.md#_tag)
-- [toJSON](O.None.md#tojson)
-- [toString](O.None.md#tostring)
 
 ### Methods
 
+- [[NodeInspectSymbol]](O.None.md#[nodeinspectsymbol])
 - [[symbol]](O.None.md#[symbol])
 - [[symbol]](O.None.md#[symbol]-1)
 - [pipe](O.None.md#pipe)
+- [toJSON](O.None.md#tojson)
+- [toString](O.None.md#tostring)
 
 ## Properties
 
@@ -61,24 +61,6 @@
 ### [EffectTypeId]
 
 • `Readonly` **[EffectTypeId]**: `VarianceStruct`\<`never`, `NoSuchElementException`, `A`\>
-
----
-
-### [NodeInspectSymbol]
-
-• `Readonly` **[NodeInspectSymbol]**: () => `unknown`
-
-#### Type declaration
-
-▸ (): `unknown`
-
-##### Returns
-
-`unknown`
-
-#### Inherited from
-
-Inspectable.[NodeInspectSymbol]
 
 ---
 
@@ -114,9 +96,9 @@ Inspectable.[NodeInspectSymbol]
 
 ---
 
-### [blacklistSymbol]
+### [ignoreSymbol]
 
-• `Optional` **[blacklistSymbol]**: [`OptionUnifyBlacklist`](O.OptionUnifyBlacklist.md)
+• `Optional` **[ignoreSymbol]**: [`OptionUnifyIgnore`](O.OptionUnifyIgnore.md)
 
 ---
 
@@ -142,43 +124,21 @@ Inspectable.[NodeInspectSymbol]
 
 • `Readonly` **\_tag**: `"None"`
 
----
+## Methods
 
-### toJSON
+### [NodeInspectSymbol]
 
-• `Readonly` **toJSON**: () => `unknown`
+▸ **[NodeInspectSymbol]**(): `unknown`
 
-#### Type declaration
-
-▸ (): `unknown`
-
-##### Returns
+#### Returns
 
 `unknown`
 
 #### Inherited from
 
-Inspectable.toJSON
+Inspectable.[NodeInspectSymbol]
 
 ---
-
-### toString
-
-• `Readonly` **toString**: () => `string`
-
-#### Type declaration
-
-▸ (): `string`
-
-##### Returns
-
-`string`
-
-#### Inherited from
-
-Inspectable.toString
-
-## Methods
 
 ### [symbol]
 
@@ -1137,3 +1097,31 @@ Pipeable.pipe
 #### Inherited from
 
 Pipeable.pipe
+
+---
+
+### toJSON
+
+▸ **toJSON**(): `unknown`
+
+#### Returns
+
+`unknown`
+
+#### Inherited from
+
+Inspectable.toJSON
+
+---
+
+### toString
+
+▸ **toString**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Inspectable.toString

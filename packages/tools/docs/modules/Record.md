@@ -116,6 +116,44 @@ Merge two records, preserving only the entries that are unique to each record.
 
 ### every
 
+▸ **every**\<`A`, `K`, `B`\>(`refinement`): (`self`: `Record`\<`K`, `A`\>) => self is Readonly\<Record\<K, B\>\>
+
+Check if all entries in a record meet a specific condition.
+
+#### Type parameters
+
+| Name | Type             |
+| :--- | :--------------- |
+| `A`  | `A`              |
+| `K`  | extends `string` |
+| `B`  | `B`              |
+
+#### Parameters
+
+| Name         | Type                                     |
+| :----------- | :--------------------------------------- |
+| `refinement` | (`value`: `A`, `key`: `K`) => value is B |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): self is Readonly\<Record\<K, B\>\>
+
+##### Parameters
+
+| Name   | Type                 |
+| :----- | :------------------- |
+| `self` | `Record`\<`K`, `A`\> |
+
+##### Returns
+
+self is Readonly\<Record\<K, B\>\>
+
+**`Since`**
+
+2.0.0
+
 ▸ **every**\<`A`, `K`\>(`predicate`): (`self`: `Record`\<`K`, `A`\>) => `boolean`
 
 Check if all entries in a record meet a specific condition.
@@ -148,6 +186,33 @@ Check if all entries in a record meet a specific condition.
 ##### Returns
 
 `boolean`
+
+**`Since`**
+
+2.0.0
+
+▸ **every**\<`A`, `K`, `B`\>(`self`, `refinement`): self is Readonly\<Record\<K, B\>\>
+
+Check if all entries in a record meet a specific condition.
+
+#### Type parameters
+
+| Name | Type             |
+| :--- | :--------------- |
+| `A`  | `A`              |
+| `K`  | extends `string` |
+| `B`  | `B`              |
+
+#### Parameters
+
+| Name         | Type                                     | Description          |
+| :----------- | :--------------------------------------- | :------------------- |
+| `self`       | `Record`\<`K`, `A`\>                     | The record to check. |
+| `refinement` | (`value`: `A`, `key`: `K`) => value is B | -                    |
+
+#### Returns
+
+self is Readonly\<Record\<K, B\>\>
 
 **`Since`**
 
@@ -1808,7 +1873,7 @@ assert.deepStrictEqual(
 
 ### filter
 
-▸ **filter**\<`K`, `C`, `B`, `A`\>(`refinement`): (`self`: `Record`\<`K`, `C`\>) => `Record`\<`string`, `B`\>
+▸ **filter**\<`K`, `A`, `B`\>(`refinement`): (`self`: `Record`\<`K`, `A`\>) => `Record`\<`string`, `B`\>
 
 Selects properties from a record whose values match the given predicate.
 
@@ -1817,9 +1882,8 @@ Selects properties from a record whose values match the given predicate.
 | Name | Type             |
 | :--- | :--------------- |
 | `K`  | extends `string` |
-| `C`  | `C`              |
+| `A`  | `A`              |
 | `B`  | `B`              |
-| `A`  | `C`              |
 
 #### Parameters
 
@@ -1837,7 +1901,7 @@ Selects properties from a record whose values match the given predicate.
 
 | Name   | Type                 |
 | :----- | :------------------- |
-| `self` | `Record`\<`K`, `C`\> |
+| `self` | `Record`\<`K`, `A`\> |
 
 ##### Returns
 
@@ -1872,7 +1936,7 @@ Selects properties from a record whose values match the given predicate.
 
 | Name        | Type                                | Description                                                                                               |
 | :---------- | :---------------------------------- | :-------------------------------------------------------------------------------------------------------- |
-| `predicate` | (`a`: `A`, `key`: `K`) => `boolean` | A function that returns a `boolean` value to determine if the entry should be included in the new record. |
+| `predicate` | (`A`: `A`, `key`: `K`) => `boolean` | A function that returns a `boolean` value to determine if the entry should be included in the new record. |
 
 #### Returns
 
@@ -1903,7 +1967,7 @@ assert.deepStrictEqual(filter(x, (n) => n > 2), { c: 3, d: 4 });
 
 2.0.0
 
-▸ **filter**\<`K`, `C`, `B`, `A`\>(`self`, `refinement`): `Record`\<`string`, `B`\>
+▸ **filter**\<`K`, `A`, `B`\>(`self`, `refinement`): `Record`\<`string`, `B`\>
 
 Selects properties from a record whose values match the given predicate.
 
@@ -1912,15 +1976,14 @@ Selects properties from a record whose values match the given predicate.
 | Name | Type             |
 | :--- | :--------------- |
 | `K`  | extends `string` |
-| `C`  | `C`              |
+| `A`  | `A`              |
 | `B`  | `B`              |
-| `A`  | `C`              |
 
 #### Parameters
 
 | Name         | Type                             | Description           |
 | :----------- | :------------------------------- | :-------------------- |
-| `self`       | `Record`\<`K`, `C`\>             | The record to filter. |
+| `self`       | `Record`\<`K`, `A`\>             | The record to filter. |
 | `refinement` | (`a`: `A`, `key`: `K`) => a is B | -                     |
 
 #### Returns
@@ -1940,7 +2003,7 @@ assert.deepStrictEqual(filter(x, (n) => n > 2), { c: 3, d: 4 });
 
 2.0.0
 
-▸ **filter**\<`K`, `B`, `A`\>(`self`, `predicate`): `Record`\<`string`, `B`\>
+▸ **filter**\<`K`, `A`\>(`self`, `predicate`): `Record`\<`string`, `A`\>
 
 Selects properties from a record whose values match the given predicate.
 
@@ -1949,19 +2012,18 @@ Selects properties from a record whose values match the given predicate.
 | Name | Type             |
 | :--- | :--------------- |
 | `K`  | extends `string` |
-| `B`  | `B`              |
-| `A`  | `B`              |
+| `A`  | `A`              |
 
 #### Parameters
 
 | Name        | Type                                | Description                                                                                               |
 | :---------- | :---------------------------------- | :-------------------------------------------------------------------------------------------------------- |
-| `self`      | `Record`\<`K`, `B`\>                | The record to filter.                                                                                     |
+| `self`      | `Record`\<`K`, `A`\>                | The record to filter.                                                                                     |
 | `predicate` | (`a`: `A`, `key`: `K`) => `boolean` | A function that returns a `boolean` value to determine if the entry should be included in the new record. |
 
 #### Returns
 
-`Record`\<`string`, `B`\>
+`Record`\<`string`, `A`\>
 
 **`Example`**
 
@@ -1980,7 +2042,7 @@ assert.deepStrictEqual(filter(x, (n) => n > 2), { c: 3, d: 4 });
 
 ### partition
 
-▸ **partition**\<`K`, `C`, `B`, `A`\>(`refinement`): (`self`: `Record`\<`K`, `C`\>) => [`Record`\<`string`, `C`\>, `Record`\<`string`, `B`\>]
+▸ **partition**\<`K`, `C`, `B`, `A`\>(`refinement`): (`self`: `Record`\<`K`, `C`\>) => [excluded: Record\<string, Exclude\<C, B\>\>, satisfying: Record\<string, B\>]
 
 Partitions a record into two separate records based on the result of a predicate function.
 
@@ -2003,7 +2065,7 @@ Partitions a record into two separate records based on the result of a predicate
 
 `fn`
 
-▸ (`self`): [`Record`\<`string`, `C`\>, `Record`\<`string`, `B`\>]
+▸ (`self`): [excluded: Record\<string, Exclude\<C, B\>\>, satisfying: Record\<string, B\>]
 
 ##### Parameters
 
@@ -2013,7 +2075,7 @@ Partitions a record into two separate records based on the result of a predicate
 
 ##### Returns
 
-[`Record`\<`string`, `C`\>, `Record`\<`string`, `B`\>]
+[excluded: Record\<string, Exclude\<C, B\>\>, satisfying: Record\<string, B\>]
 
 **`Example`**
 
@@ -2030,7 +2092,7 @@ assert.deepStrictEqual(
 
 2.0.0
 
-▸ **partition**\<`K`, `B`, `A`\>(`predicate`): (`self`: `Record`\<`K`, `B`\>) => [`Record`\<`string`, `B`\>, `Record`\<`string`, `B`\>]
+▸ **partition**\<`K`, `B`, `A`\>(`predicate`): (`self`: `Record`\<`K`, `B`\>) => [excluded: Record\<string, B\>, satisfying: Record\<string, B\>]
 
 Partitions a record into two separate records based on the result of a predicate function.
 
@@ -2052,7 +2114,7 @@ Partitions a record into two separate records based on the result of a predicate
 
 `fn`
 
-▸ (`self`): [`Record`\<`string`, `B`\>, `Record`\<`string`, `B`\>]
+▸ (`self`): [excluded: Record\<string, B\>, satisfying: Record\<string, B\>]
 
 ##### Parameters
 
@@ -2062,7 +2124,7 @@ Partitions a record into two separate records based on the result of a predicate
 
 ##### Returns
 
-[`Record`\<`string`, `B`\>, `Record`\<`string`, `B`\>]
+[excluded: Record\<string, B\>, satisfying: Record\<string, B\>]
 
 **`Example`**
 
@@ -2079,7 +2141,7 @@ assert.deepStrictEqual(
 
 2.0.0
 
-▸ **partition**\<`K`, `C`, `B`, `A`\>(`self`, `refinement`): [`Record`\<`string`, `C`\>, `Record`\<`string`, `B`\>]
+▸ **partition**\<`K`, `A`, `B`\>(`self`, `refinement`): [excluded: Record\<string, Exclude\<A, B\>\>, satisfying: Record\<string, B\>]
 
 Partitions a record into two separate records based on the result of a predicate function.
 
@@ -2088,20 +2150,19 @@ Partitions a record into two separate records based on the result of a predicate
 | Name | Type             |
 | :--- | :--------------- |
 | `K`  | extends `string` |
-| `C`  | `C`              |
+| `A`  | `A`              |
 | `B`  | `B`              |
-| `A`  | `C`              |
 
 #### Parameters
 
 | Name         | Type                             | Description                    |
 | :----------- | :------------------------------- | :----------------------------- |
-| `self`       | `Record`\<`K`, `C`\>             | The input record to partition. |
+| `self`       | `Record`\<`K`, `A`\>             | The input record to partition. |
 | `refinement` | (`a`: `A`, `key`: `K`) => a is B | -                              |
 
 #### Returns
 
-[`Record`\<`string`, `C`\>, `Record`\<`string`, `B`\>]
+[excluded: Record\<string, Exclude\<A, B\>\>, satisfying: Record\<string, B\>]
 
 **`Example`**
 
@@ -2118,7 +2179,7 @@ assert.deepStrictEqual(
 
 2.0.0
 
-▸ **partition**\<`K`, `B`, `A`\>(`self`, `predicate`): [`Record`\<`string`, `B`\>, `Record`\<`string`, `B`\>]
+▸ **partition**\<`K`, `A`\>(`self`, `predicate`): [excluded: Record\<string, A\>, satisfying: Record\<string, A\>]
 
 Partitions a record into two separate records based on the result of a predicate function.
 
@@ -2127,19 +2188,18 @@ Partitions a record into two separate records based on the result of a predicate
 | Name | Type             |
 | :--- | :--------------- |
 | `K`  | extends `string` |
-| `B`  | `B`              |
-| `A`  | `B`              |
+| `A`  | `A`              |
 
 #### Parameters
 
 | Name        | Type                                | Description                                                                          |
 | :---------- | :---------------------------------- | :----------------------------------------------------------------------------------- |
-| `self`      | `Record`\<`K`, `B`\>                | The input record to partition.                                                       |
+| `self`      | `Record`\<`K`, `A`\>                | The input record to partition.                                                       |
 | `predicate` | (`a`: `A`, `key`: `K`) => `boolean` | The partitioning function to determine the partitioning of each value of the record. |
 
 #### Returns
 
-[`Record`\<`string`, `B`\>, `Record`\<`string`, `B`\>]
+[excluded: Record\<string, A\>, satisfying: Record\<string, A\>]
 
 **`Example`**
 
@@ -2160,7 +2220,7 @@ assert.deepStrictEqual(
 
 ### partitionMap
 
-▸ **partitionMap**\<`K`, `A`, `B`, `C`\>(`f`): (`self`: `Record`\<`K`, `A`\>) => [`Record`\<`string`, `B`\>, `Record`\<`string`, `C`\>]
+▸ **partitionMap**\<`K`, `A`, `B`, `C`\>(`f`): (`self`: `Record`\<`K`, `A`\>) => [left: Record\<string, B\>, right: Record\<string, C\>]
 
 Partitions the elements of a record into two groups: those that match a predicate, and those that don't.
 
@@ -2183,7 +2243,7 @@ Partitions the elements of a record into two groups: those that match a predicat
 
 `fn`
 
-▸ (`self`): [`Record`\<`string`, `B`\>, `Record`\<`string`, `C`\>]
+▸ (`self`): [left: Record\<string, B\>, right: Record\<string, C\>]
 
 ##### Parameters
 
@@ -2193,7 +2253,7 @@ Partitions the elements of a record into two groups: those that match a predicat
 
 ##### Returns
 
-[`Record`\<`string`, `B`\>, `Record`\<`string`, `C`\>]
+[left: Record\<string, B\>, right: Record\<string, C\>]
 
 **`Example`**
 
@@ -2210,7 +2270,7 @@ assert.deepStrictEqual(partitionMap(x, f), [{ a: 1, c: 3 }, { b: 2 }]);
 
 2.0.0
 
-▸ **partitionMap**\<`K`, `A`, `B`, `C`\>(`self`, `f`): [`Record`\<`string`, `B`\>, `Record`\<`string`, `C`\>]
+▸ **partitionMap**\<`K`, `A`, `B`, `C`\>(`self`, `f`): [left: Record\<string, B\>, right: Record\<string, C\>]
 
 Partitions the elements of a record into two groups: those that match a predicate, and those that don't.
 
@@ -2232,7 +2292,7 @@ Partitions the elements of a record into two groups: those that match a predicat
 
 #### Returns
 
-[`Record`\<`string`, `B`\>, `Record`\<`string`, `C`\>]
+[left: Record\<string, B\>, right: Record\<string, C\>]
 
 **`Example`**
 

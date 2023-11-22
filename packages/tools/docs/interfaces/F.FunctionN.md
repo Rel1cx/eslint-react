@@ -9,7 +9,7 @@
 ```ts
 import { FunctionN } from "effect/Function";
 
-export const sum: FunctionN<[number, number], number> = (a, b) => a + b;
+const sum: FunctionN<[number, number], number> = (a, b) => a + b;
 ```
 
 **`Since`**

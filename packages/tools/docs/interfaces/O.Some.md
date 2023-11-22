@@ -32,24 +32,24 @@
 
 - [[ChannelTypeId]](O.Some.md#[channeltypeid])
 - [[EffectTypeId]](O.Some.md#[effecttypeid])
-- [[NodeInspectSymbol]](O.Some.md#[nodeinspectsymbol])
 - [[SinkTypeId]](O.Some.md#[sinktypeid])
 - [[StreamTypeId]](O.Some.md#[streamtypeid])
 - [[TypeId]](O.Some.md#[typeid])
-- [[blacklistSymbol]](O.Some.md#[blacklistsymbol])
+- [[ignoreSymbol]](O.Some.md#[ignoresymbol])
 - [[typeSymbol]](O.Some.md#[typesymbol])
 - [[unifySymbol]](O.Some.md#[unifysymbol])
 - [\_op](O.Some.md#_op)
 - [\_tag](O.Some.md#_tag)
-- [toJSON](O.Some.md#tojson)
-- [toString](O.Some.md#tostring)
 - [value](O.Some.md#value)
 
 ### Methods
 
+- [[NodeInspectSymbol]](O.Some.md#[nodeinspectsymbol])
 - [[symbol]](O.Some.md#[symbol])
 - [[symbol]](O.Some.md#[symbol]-1)
 - [pipe](O.Some.md#pipe)
+- [toJSON](O.Some.md#tojson)
+- [toString](O.Some.md#tostring)
 
 ## Properties
 
@@ -62,24 +62,6 @@
 ### [EffectTypeId]
 
 • `Readonly` **[EffectTypeId]**: `VarianceStruct`\<`never`, `NoSuchElementException`, `A`\>
-
----
-
-### [NodeInspectSymbol]
-
-• `Readonly` **[NodeInspectSymbol]**: () => `unknown`
-
-#### Type declaration
-
-▸ (): `unknown`
-
-##### Returns
-
-`unknown`
-
-#### Inherited from
-
-Inspectable.[NodeInspectSymbol]
 
 ---
 
@@ -115,9 +97,9 @@ Inspectable.[NodeInspectSymbol]
 
 ---
 
-### [blacklistSymbol]
+### [ignoreSymbol]
 
-• `Optional` **[blacklistSymbol]**: [`OptionUnifyBlacklist`](O.OptionUnifyBlacklist.md)
+• `Optional` **[ignoreSymbol]**: [`OptionUnifyIgnore`](O.OptionUnifyIgnore.md)
 
 ---
 
@@ -145,47 +127,25 @@ Inspectable.[NodeInspectSymbol]
 
 ---
 
-### toJSON
-
-• `Readonly` **toJSON**: () => `unknown`
-
-#### Type declaration
-
-▸ (): `unknown`
-
-##### Returns
-
-`unknown`
-
-#### Inherited from
-
-Inspectable.toJSON
-
----
-
-### toString
-
-• `Readonly` **toString**: () => `string`
-
-#### Type declaration
-
-▸ (): `string`
-
-##### Returns
-
-`string`
-
-#### Inherited from
-
-Inspectable.toString
-
----
-
 ### value
 
 • `Readonly` **value**: `A`
 
 ## Methods
+
+### [NodeInspectSymbol]
+
+▸ **[NodeInspectSymbol]**(): `unknown`
+
+#### Returns
+
+`unknown`
+
+#### Inherited from
+
+Inspectable.[NodeInspectSymbol]
+
+---
 
 ### [symbol]
 
@@ -1144,3 +1104,31 @@ Pipeable.pipe
 #### Inherited from
 
 Pipeable.pipe
+
+---
+
+### toJSON
+
+▸ **toJSON**(): `unknown`
+
+#### Returns
+
+`unknown`
+
+#### Inherited from
+
+Inspectable.toJSON
+
+---
+
+### toString
+
+▸ **toString**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Inspectable.toString

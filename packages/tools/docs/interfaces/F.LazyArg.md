@@ -11,7 +11,7 @@ A lazy argument.
 ```ts
 import { LazyArg, constant } from "effect/Function";
 
-export const constNull: LazyArg<null> = constant(null);
+const constNull: LazyArg<null> = constant(null);
 ```
 
 **`Since`**

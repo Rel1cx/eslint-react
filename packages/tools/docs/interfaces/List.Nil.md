@@ -30,38 +30,20 @@
 
 ### Properties
 
-- [[NodeInspectSymbol]](List.Nil.md#[nodeinspectsymbol])
 - [[TypeId]](List.Nil.md#[typeid])
 - [\_tag](List.Nil.md#_tag)
-- [toJSON](List.Nil.md#tojson)
-- [toString](List.Nil.md#tostring)
 
 ### Methods
 
+- [[NodeInspectSymbol]](List.Nil.md#[nodeinspectsymbol])
 - [[iterator]](List.Nil.md#[iterator])
 - [[symbol]](List.Nil.md#[symbol])
 - [[symbol]](List.Nil.md#[symbol]-1)
 - [pipe](List.Nil.md#pipe)
+- [toJSON](List.Nil.md#tojson)
+- [toString](List.Nil.md#tostring)
 
 ## Properties
-
-### [NodeInspectSymbol]
-
-• `Readonly` **[NodeInspectSymbol]**: () => `unknown`
-
-#### Type declaration
-
-▸ (): `unknown`
-
-##### Returns
-
-`unknown`
-
-#### Inherited from
-
-Inspectable.[NodeInspectSymbol]
-
----
 
 ### [TypeId]
 
@@ -73,43 +55,21 @@ Inspectable.[NodeInspectSymbol]
 
 • `Readonly` **\_tag**: `"Nil"`
 
----
+## Methods
 
-### toJSON
+### [NodeInspectSymbol]
 
-• `Readonly` **toJSON**: () => `unknown`
+▸ **[NodeInspectSymbol]**(): `unknown`
 
-#### Type declaration
-
-▸ (): `unknown`
-
-##### Returns
+#### Returns
 
 `unknown`
 
 #### Inherited from
 
-Inspectable.toJSON
+Inspectable.[NodeInspectSymbol]
 
 ---
-
-### toString
-
-• `Readonly` **toString**: () => `string`
-
-#### Type declaration
-
-▸ (): `string`
-
-##### Returns
-
-`string`
-
-#### Inherited from
-
-Inspectable.toString
-
-## Methods
 
 ### [iterator]
 
@@ -1082,3 +1042,31 @@ Pipeable.pipe
 #### Inherited from
 
 Pipeable.pipe
+
+---
+
+### toJSON
+
+▸ **toJSON**(): `unknown`
+
+#### Returns
+
+`unknown`
+
+#### Inherited from
+
+Inspectable.toJSON
+
+---
+
+### toString
+
+▸ **toString**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Inspectable.toString

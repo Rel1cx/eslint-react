@@ -18,8 +18,6 @@ for a constructor, `Hash`, and `Equal`.
 
   ↳ **`Case`**
 
-  ↳↳ [`YieldableError`](Data.YieldableError.md)
-
   ↳↳ [`Left`](E.Left.md)
 
   ↳↳ [`Right`](E.Right.md)

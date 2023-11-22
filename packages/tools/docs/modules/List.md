@@ -63,8 +63,8 @@
 - [splitAt](List.md#splitat)
 - [tail](List.md#tail)
 - [take](List.md#take)
+- [toArray](List.md#toarray)
 - [toChunk](List.md#tochunk)
-- [toReadonlyArray](List.md#toreadonlyarray)
 - [unsafeHead](List.md#unsafehead)
 - [unsafeLast](List.md#unsafelast)
 - [unsafeTail](List.md#unsafetail)
@@ -166,17 +166,16 @@ Drops the first `n` elements from the specified list.
 
 ### filter
 
-▸ **filter**\<`C`, `B`, `A`\>(`refinement`): (`self`: [`List`](List.md#list)\<`C`\>) => [`List`](List.md#list)\<`B`\>
+▸ **filter**\<`A`, `B`\>(`refinement`): (`self`: [`List`](List.md#list)\<`A`\>) => [`List`](List.md#list)\<`B`\>
 
 Filters a list using the specified predicate.
 
 #### Type parameters
 
-| Name | Type |
-| :--- | :--- |
-| `C`  | `C`  |
-| `B`  | `B`  |
-| `A`  | `C`  |
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
 
 #### Parameters
 
@@ -194,7 +193,7 @@ Filters a list using the specified predicate.
 
 | Name   | Type                          |
 | :----- | :---------------------------- |
-| `self` | [`List`](List.md#list)\<`C`\> |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
@@ -241,23 +240,22 @@ Filters a list using the specified predicate.
 
 2.0.0
 
-▸ **filter**\<`C`, `B`, `A`\>(`self`, `refinement`): [`List`](List.md#list)\<`B`\>
+▸ **filter**\<`A`, `B`\>(`self`, `refinement`): [`List`](List.md#list)\<`B`\>
 
 Filters a list using the specified predicate.
 
 #### Type parameters
 
-| Name | Type |
-| :--- | :--- |
-| `C`  | `C`  |
-| `B`  | `B`  |
-| `A`  | `C`  |
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
 
 #### Parameters
 
 | Name         | Type                          |
 | :----------- | :---------------------------- |
-| `self`       | [`List`](List.md#list)\<`C`\> |
+| `self`       | [`List`](List.md#list)\<`A`\> |
 | `refinement` | `Refinement`\<`A`, `B`\>      |
 
 #### Returns
@@ -268,27 +266,26 @@ Filters a list using the specified predicate.
 
 2.0.0
 
-▸ **filter**\<`B`, `A`\>(`self`, `predicate`): [`List`](List.md#list)\<`B`\>
+▸ **filter**\<`A`\>(`self`, `predicate`): [`List`](List.md#list)\<`A`\>
 
 Filters a list using the specified predicate.
 
 #### Type parameters
 
-| Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `B`  |
+| Name |
+| :--- |
+| `A`  |
 
 #### Parameters
 
 | Name        | Type                          |
 | :---------- | :---------------------------- |
-| `self`      | [`List`](List.md#list)\<`B`\> |
+| `self`      | [`List`](List.md#list)\<`A`\> |
 | `predicate` | `Predicate`\<`A`\>            |
 
 #### Returns
 
-[`List`](List.md#list)\<`B`\>
+[`List`](List.md#list)\<`A`\>
 
 **`Since`**
 
@@ -503,7 +500,7 @@ Applies the specified mapping function to each element of the list.
 
 ### partition
 
-▸ **partition**\<`C`, `B`, `A`\>(`refinement`): (`self`: [`List`](List.md#list)\<`C`\>) => [[`List`](List.md#list)\<`Exclude`\<`C`, `B`\>\>, [`List`](List.md#list)\<`B`\>]
+▸ **partition**\<`C`, `B`, `A`\>(`refinement`): (`self`: [`List`](List.md#list)\<`C`\>) => [excluded: List\<Exclude\<C, B\>\>, satisfying: List\<B\>]
 
 Partition a list into two lists, where the first list contains all elements
 that did not satisfy the specified predicate, and the second list contains
@@ -527,7 +524,7 @@ all elements that did satisfy the specified predicate.
 
 `fn`
 
-▸ (`self`): [[`List`](List.md#list)\<`Exclude`\<`C`, `B`\>\>, [`List`](List.md#list)\<`B`\>]
+▸ (`self`): [excluded: List\<Exclude\<C, B\>\>, satisfying: List\<B\>]
 
 ##### Parameters
 
@@ -537,13 +534,13 @@ all elements that did satisfy the specified predicate.
 
 ##### Returns
 
-[[`List`](List.md#list)\<`Exclude`\<`C`, `B`\>\>, [`List`](List.md#list)\<`B`\>]
+[excluded: List\<Exclude\<C, B\>\>, satisfying: List\<B\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **partition**\<`B`, `A`\>(`predicate`): (`self`: [`List`](List.md#list)\<`B`\>) => [[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`B`\>]
+▸ **partition**\<`B`, `A`\>(`predicate`): (`self`: [`List`](List.md#list)\<`B`\>) => [excluded: List\<B\>, satisfying: List\<B\>]
 
 Partition a list into two lists, where the first list contains all elements
 that did not satisfy the specified predicate, and the second list contains
@@ -558,15 +555,15 @@ all elements that did satisfy the specified predicate.
 
 #### Parameters
 
-| Name        | Type                    |
-| :---------- | :---------------------- |
-| `predicate` | (`a`: `A`) => `boolean` |
+| Name        | Type               |
+| :---------- | :----------------- |
+| `predicate` | `Predicate`\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`B`\>]
+▸ (`self`): [excluded: List\<B\>, satisfying: List\<B\>]
 
 ##### Parameters
 
@@ -576,13 +573,13 @@ all elements that did satisfy the specified predicate.
 
 ##### Returns
 
-[[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`B`\>]
+[excluded: List\<B\>, satisfying: List\<B\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **partition**\<`C`, `B`, `A`\>(`self`, `refinement`): [[`List`](List.md#list)\<`Exclude`\<`C`, `B`\>\>, [`List`](List.md#list)\<`B`\>]
+▸ **partition**\<`A`, `B`\>(`self`, `refinement`): [excluded: List\<Exclude\<A, B\>\>, satisfying: List\<B\>]
 
 Partition a list into two lists, where the first list contains all elements
 that did not satisfy the specified predicate, and the second list contains
@@ -590,28 +587,27 @@ all elements that did satisfy the specified predicate.
 
 #### Type parameters
 
-| Name | Type |
-| :--- | :--- |
-| `C`  | `C`  |
-| `B`  | `B`  |
-| `A`  | `C`  |
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
 
 #### Parameters
 
 | Name         | Type                          |
 | :----------- | :---------------------------- |
-| `self`       | [`List`](List.md#list)\<`C`\> |
+| `self`       | [`List`](List.md#list)\<`A`\> |
 | `refinement` | `Refinement`\<`A`, `B`\>      |
 
 #### Returns
 
-[[`List`](List.md#list)\<`Exclude`\<`C`, `B`\>\>, [`List`](List.md#list)\<`B`\>]
+[excluded: List\<Exclude\<A, B\>\>, satisfying: List\<B\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **partition**\<`B`, `A`\>(`self`, `predicate`): [[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`B`\>]
+▸ **partition**\<`A`\>(`self`, `predicate`): [excluded: List\<A\>, satisfying: List\<A\>]
 
 Partition a list into two lists, where the first list contains all elements
 that did not satisfy the specified predicate, and the second list contains
@@ -619,21 +615,20 @@ all elements that did satisfy the specified predicate.
 
 #### Type parameters
 
-| Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `B`  |
+| Name |
+| :--- |
+| `A`  |
 
 #### Parameters
 
 | Name        | Type                          |
 | :---------- | :---------------------------- |
-| `self`      | [`List`](List.md#list)\<`B`\> |
-| `predicate` | (`a`: `A`) => `boolean`       |
+| `self`      | [`List`](List.md#list)\<`A`\> |
+| `predicate` | `Predicate`\<`A`\>            |
 
 #### Returns
 
-[[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`B`\>]
+[excluded: List\<A\>, satisfying: List\<A\>]
 
 **`Since`**
 
@@ -643,7 +638,7 @@ all elements that did satisfy the specified predicate.
 
 ### partitionMap
 
-▸ **partitionMap**\<`A`, `B`, `C`\>(`f`): (`self`: [`List`](List.md#list)\<`A`\>) => readonly [[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`C`\>]
+▸ **partitionMap**\<`A`, `B`, `C`\>(`f`): (`self`: [`List`](List.md#list)\<`A`\>) => [left: List\<B\>, right: List\<C\>]
 
 Partition a list into two lists, where the first list contains all elements
 for which the specified function returned a `Left`, and the second list
@@ -667,7 +662,7 @@ contains all elements for which the specified function returned a `Right`.
 
 `fn`
 
-▸ (`self`): readonly [[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`C`\>]
+▸ (`self`): [left: List\<B\>, right: List\<C\>]
 
 ##### Parameters
 
@@ -677,13 +672,13 @@ contains all elements for which the specified function returned a `Right`.
 
 ##### Returns
 
-readonly [[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`C`\>]
+[left: List\<B\>, right: List\<C\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **partitionMap**\<`A`, `B`, `C`\>(`self`, `f`): readonly [[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`C`\>]
+▸ **partitionMap**\<`A`, `B`, `C`\>(`self`, `f`): [left: List\<B\>, right: List\<C\>]
 
 Partition a list into two lists, where the first list contains all elements
 for which the specified function returned a `Left`, and the second list
@@ -706,7 +701,7 @@ contains all elements for which the specified function returned a `Right`.
 
 #### Returns
 
-readonly [[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`C`\>]
+[left: List\<B\>, right: List\<C\>]
 
 **`Since`**
 
@@ -716,7 +711,7 @@ readonly [[`List`](List.md#list)\<`B`\>, [`List`](List.md#list)\<`C`\>]
 
 ### splitAt
 
-▸ **splitAt**(`n`): \<A\>(`self`: [`List`](List.md#list)\<`A`\>) => readonly [[`List`](List.md#list)\<`A`\>, [`List`](List.md#list)\<`A`\>]
+▸ **splitAt**(`n`): \<A\>(`self`: [`List`](List.md#list)\<`A`\>) => [beforeIndex: List\<A\>, fromIndex: List\<A\>]
 
 Splits the specified list into two lists at the specified index.
 
@@ -730,7 +725,7 @@ Splits the specified list into two lists at the specified index.
 
 `fn`
 
-▸ \<`A`\>(`self`): readonly [[`List`](List.md#list)\<`A`\>, [`List`](List.md#list)\<`A`\>]
+▸ \<`A`\>(`self`): [beforeIndex: List\<A\>, fromIndex: List\<A\>]
 
 ##### Type parameters
 
@@ -746,13 +741,13 @@ Splits the specified list into two lists at the specified index.
 
 ##### Returns
 
-readonly [[`List`](List.md#list)\<`A`\>, [`List`](List.md#list)\<`A`\>]
+[beforeIndex: List\<A\>, fromIndex: List\<A\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **splitAt**\<`A`\>(`self`, `n`): readonly [[`List`](List.md#list)\<`A`\>, [`List`](List.md#list)\<`A`\>]
+▸ **splitAt**\<`A`\>(`self`, `n`): [beforeIndex: List\<A\>, fromIndex: List\<A\>]
 
 Splits the specified list into two lists at the specified index.
 
@@ -771,7 +766,7 @@ Splits the specified list into two lists at the specified index.
 
 #### Returns
 
-readonly [[`List`](List.md#list)\<`A`\>, [`List`](List.md#list)\<`A`\>]
+[beforeIndex: List\<A\>, fromIndex: List\<A\>]
 
 **`Since`**
 
@@ -1631,6 +1626,34 @@ Constructs a new `List<A>` from the specified value.
 
 ## conversions
 
+### toArray
+
+▸ **toArray**\<`A`\>(`self`): `A`[]
+
+Converts the specified `List` to an `Array`.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+#### Parameters
+
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
+
+#### Returns
+
+`A`[]
+
+**`Since`**
+
+2.0.0
+
+---
+
 ### toChunk
 
 ▸ **toChunk**\<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
@@ -1652,34 +1675,6 @@ Converts the specified `List` to a `Chunk`.
 #### Returns
 
 [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
-
-**`Since`**
-
-2.0.0
-
----
-
-### toReadonlyArray
-
-▸ **toReadonlyArray**\<`A`\>(`self`): readonly `A`[]
-
-Converts the specified `List` to a `ReadonlyArray`.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`List`](List.md#list)\<`A`\> |
-
-#### Returns
-
-readonly `A`[]
 
 **`Since`**
 
@@ -1855,16 +1850,17 @@ predicate, or `None` if no such element exists.
 
 2.0.0
 
-▸ **findFirst**\<`A`\>(`predicate`): (`self`: [`List`](List.md#list)\<`A`\>) => [`Option`](O.md#option)\<`A`\>
+▸ **findFirst**\<`B`, `A`\>(`predicate`): (`self`: [`List`](List.md#list)\<`B`\>) => [`Option`](O.md#option)\<`B`\>
 
 Returns the first element that satisfies the specified
 predicate, or `None` if no such element exists.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `A`  |
+| Name | Type |
+| :--- | :--- |
+| `B`  | `B`  |
+| `A`  | `B`  |
 
 #### Parameters
 
@@ -1876,17 +1872,17 @@ predicate, or `None` if no such element exists.
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)\<`A`\>
+▸ (`self`): [`Option`](O.md#option)\<`B`\>
 
 ##### Parameters
 
 | Name   | Type                          |
 | :----- | :---------------------------- |
-| `self` | [`List`](List.md#list)\<`A`\> |
+| `self` | [`List`](List.md#list)\<`B`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)\<`A`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
@@ -1977,15 +1973,16 @@ Returns a new list with the elements of the specified list in reverse order.
 
 ### some
 
-▸ **some**\<`A`\>(`predicate`): \<B\>(`self`: [`List`](List.md#list)\<`B`\>) => self is Cons\<B\>
+▸ **some**\<`B`, `A`\>(`predicate`): (`self`: [`List`](List.md#list)\<`B`\>) => self is Cons\<B\>
 
 Check if a predicate holds true for some `List` element.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `A`  |
+| Name | Type |
+| :--- | :--- |
+| `B`  | `B`  |
+| `A`  | `B`  |
 
 #### Parameters
 
@@ -1997,13 +1994,7 @@ Check if a predicate holds true for some `List` element.
 
 `fn`
 
-▸ \<`B`\>(`self`): self is Cons\<B\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
+▸ (`self`): self is Cons\<B\>
 
 ##### Parameters
 
@@ -2019,27 +2010,26 @@ self is Cons\<B\>
 
 2.0.0
 
-▸ **some**\<`B`, `A`\>(`self`, `predicate`): self is Cons\<B\>
+▸ **some**\<`A`\>(`self`, `predicate`): self is Cons\<A\>
 
 Check if a predicate holds true for some `List` element.
 
 #### Type parameters
 
-| Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `B`  |
+| Name |
+| :--- |
+| `A`  |
 
 #### Parameters
 
 | Name        | Type                          |
 | :---------- | :---------------------------- |
-| `self`      | [`List`](List.md#list)\<`B`\> |
+| `self`      | [`List`](List.md#list)\<`A`\> |
 | `predicate` | `Predicate`\<`A`\>            |
 
 #### Returns
 
-self is Cons\<B\>
+self is Cons\<A\>
 
 **`Since`**
 

@@ -26,26 +26,28 @@
 
 ### Properties
 
-- [[NodeInspectSymbol]](MutRef.MutableRef.md#[nodeinspectsymbol])
 - [[TypeId]](MutRef.MutableRef.md#[typeid])
-- [toJSON](MutRef.MutableRef.md#tojson)
-- [toString](MutRef.MutableRef.md#tostring)
 
 ### Methods
 
+- [[NodeInspectSymbol]](MutRef.MutableRef.md#[nodeinspectsymbol])
 - [pipe](MutRef.MutableRef.md#pipe)
+- [toJSON](MutRef.MutableRef.md#tojson)
+- [toString](MutRef.MutableRef.md#tostring)
 
 ## Properties
 
+### [TypeId]
+
+• `Readonly` **[TypeId]**: typeof `TypeId`
+
+## Methods
+
 ### [NodeInspectSymbol]
 
-• `Readonly` **[NodeInspectSymbol]**: () => `unknown`
+▸ **[NodeInspectSymbol]**(): `unknown`
 
-#### Type declaration
-
-▸ (): `unknown`
-
-##### Returns
+#### Returns
 
 `unknown`
 
@@ -54,48 +56,6 @@
 Inspectable.[NodeInspectSymbol]
 
 ---
-
-### [TypeId]
-
-• `Readonly` **[TypeId]**: typeof `TypeId`
-
----
-
-### toJSON
-
-• `Readonly` **toJSON**: () => `unknown`
-
-#### Type declaration
-
-▸ (): `unknown`
-
-##### Returns
-
-`unknown`
-
-#### Inherited from
-
-Inspectable.toJSON
-
----
-
-### toString
-
-• `Readonly` **toString**: () => `string`
-
-#### Type declaration
-
-▸ (): `string`
-
-##### Returns
-
-`string`
-
-#### Inherited from
-
-Inspectable.toString
-
-## Methods
 
 ### pipe
 
@@ -1020,3 +980,31 @@ Pipeable.pipe
 #### Inherited from
 
 Pipeable.pipe
+
+---
+
+### toJSON
+
+▸ **toJSON**(): `unknown`
+
+#### Returns
+
+`unknown`
+
+#### Inherited from
+
+Inspectable.toJSON
+
+---
+
+### toString
+
+▸ **toString**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Inspectable.toString

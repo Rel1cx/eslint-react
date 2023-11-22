@@ -9,7 +9,7 @@
 - [None](../interfaces/O.None.md)
 - [OptionTypeLambda](../interfaces/O.OptionTypeLambda.md)
 - [OptionUnify](../interfaces/O.OptionUnify.md)
-- [OptionUnifyBlacklist](../interfaces/O.OptionUnifyBlacklist.md)
+- [OptionUnifyIgnore](../interfaces/O.OptionUnifyIgnore.md)
 - [Some](../interfaces/O.Some.md)
 
 ### Type Aliases
@@ -92,7 +92,7 @@
 
 ### exists
 
-▸ **exists**\<`A`\>(`predicate`): (`self`: [`Option`](O.md#option)\<`A`\>) => `boolean`
+▸ **exists**\<`A`, `B`\>(`refinement`): (`self`: [`Option`](O.md#option)\<`A`\>) => self is Option\<B\>
 
 Check if a value in an `Option` type meets a certain predicate.
 
@@ -101,6 +101,57 @@ Check if a value in an `Option` type meets a certain predicate.
 | Name |
 | :--- |
 | `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name         | Type                     |
+| :----------- | :----------------------- |
+| `refinement` | `Refinement`\<`A`, `B`\> |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): self is Option\<B\>
+
+##### Parameters
+
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
+
+##### Returns
+
+self is Option\<B\>
+
+**`Example`**
+
+```ts
+import { some, none, exists } from "effect/Option";
+import { pipe } from "effect/Function";
+
+const isEven = (n: number) => n % 2 === 0;
+
+assert.deepStrictEqual(pipe(some(2), exists(isEven)), true);
+assert.deepStrictEqual(pipe(some(1), exists(isEven)), false);
+assert.deepStrictEqual(pipe(none(), exists(isEven)), false);
+```
+
+**`Since`**
+
+2.0.0
+
+▸ **exists**\<`B`, `A`\>(`predicate`): (`self`: [`Option`](O.md#option)\<`B`\>) => `boolean`
+
+Check if a value in an `Option` type meets a certain predicate.
+
+#### Type parameters
+
+| Name | Type |
+| :--- | :--- |
+| `B`  | `B`  |
+| `A`  | `B`  |
 
 #### Parameters
 
@@ -118,11 +169,50 @@ Check if a value in an `Option` type meets a certain predicate.
 
 | Name   | Type                           |
 | :----- | :----------------------------- |
-| `self` | [`Option`](O.md#option)\<`A`\> |
+| `self` | [`Option`](O.md#option)\<`B`\> |
 
 ##### Returns
 
 `boolean`
+
+**`Example`**
+
+```ts
+import { some, none, exists } from "effect/Option";
+import { pipe } from "effect/Function";
+
+const isEven = (n: number) => n % 2 === 0;
+
+assert.deepStrictEqual(pipe(some(2), exists(isEven)), true);
+assert.deepStrictEqual(pipe(some(1), exists(isEven)), false);
+assert.deepStrictEqual(pipe(none(), exists(isEven)), false);
+```
+
+**`Since`**
+
+2.0.0
+
+▸ **exists**\<`A`, `B`\>(`self`, `refinement`): self is Option\<B\>
+
+Check if a value in an `Option` type meets a certain predicate.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name         | Type                           | Description            |
+| :----------- | :----------------------------- | :--------------------- |
+| `self`       | [`Option`](O.md#option)\<`A`\> | The `Option` to check. |
+| `refinement` | `Refinement`\<`A`, `B`\>       | -                      |
+
+#### Returns
+
+self is Option\<B\>
 
 **`Example`**
 
@@ -447,7 +537,7 @@ Zips two `Option` values together using a provided function, returning a new `Op
 ```ts
 import * as O from "effect/Option";
 
-type Complex = [number, number];
+type Complex = [real: number, imaginary: number];
 
 const complex = (real: number, imaginary: number): Complex => [real, imaginary];
 
@@ -492,7 +582,7 @@ Zips two `Option` values together using a provided function, returning a new `Op
 ```ts
 import * as O from "effect/Option";
 
-type Complex = [number, number];
+type Complex = [real: number, imaginary: number];
 
 const complex = (real: number, imaginary: number): Complex => [real, imaginary];
 
@@ -1646,7 +1736,7 @@ This is useful when it's important to know whether the value was retrieved from 
 
 ### filter
 
-▸ **filter**\<`C`, `B`, `A`\>(`refinement`): (`self`: [`Option`](O.md#option)\<`C`\>) => [`Option`](O.md#option)\<`B`\>
+▸ **filter**\<`A`, `B`\>(`refinement`): (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`B`\>
 
 Filters an `Option` using a predicate. If the predicate is not satisfied or the `Option` is `None` returns `None`.
 
@@ -1654,17 +1744,16 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 #### Type parameters
 
-| Name | Type |
-| :--- | :--- |
-| `C`  | `C`  |
-| `B`  | `B`  |
-| `A`  | `C`  |
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
 
 #### Parameters
 
-| Name         | Type                 |
-| :----------- | :------------------- |
-| `refinement` | (`a`: `A`) => a is B |
+| Name         | Type                     |
+| :----------- | :----------------------- |
+| `refinement` | `Refinement`\<`A`, `B`\> |
 
 #### Returns
 
@@ -1676,7 +1765,7 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 | Name   | Type                           |
 | :----- | :----------------------------- |
-| `self` | [`Option`](O.md#option)\<`C`\> |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
@@ -1721,9 +1810,9 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 #### Parameters
 
-| Name        | Type                    | Description                                          |
-| :---------- | :---------------------- | :--------------------------------------------------- |
-| `predicate` | (`a`: `A`) => `boolean` | A predicate function to apply to the `Option` value. |
+| Name        | Type               | Description                                          |
+| :---------- | :----------------- | :--------------------------------------------------- |
+| `predicate` | `Predicate`\<`A`\> | A predicate function to apply to the `Option` value. |
 
 #### Returns
 
@@ -1765,7 +1854,7 @@ assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2));
 
 2.0.0
 
-▸ **filter**\<`C`, `B`, `A`\>(`self`, `refinement`): [`Option`](O.md#option)\<`B`\>
+▸ **filter**\<`A`, `B`\>(`self`, `refinement`): [`Option`](O.md#option)\<`B`\>
 
 Filters an `Option` using a predicate. If the predicate is not satisfied or the `Option` is `None` returns `None`.
 
@@ -1773,18 +1862,17 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 #### Type parameters
 
-| Name | Type |
-| :--- | :--- |
-| `C`  | `C`  |
-| `B`  | `B`  |
-| `A`  | `C`  |
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
 
 #### Parameters
 
 | Name         | Type                           |
 | :----------- | :----------------------------- |
-| `self`       | [`Option`](O.md#option)\<`C`\> |
-| `refinement` | (`a`: `A`) => a is B           |
+| `self`       | [`Option`](O.md#option)\<`A`\> |
+| `refinement` | `Refinement`\<`A`, `B`\>       |
 
 #### Returns
 
@@ -1814,7 +1902,7 @@ assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2));
 
 2.0.0
 
-▸ **filter**\<`B`, `A`\>(`self`, `predicate`): [`Option`](O.md#option)\<`B`\>
+▸ **filter**\<`A`\>(`self`, `predicate`): [`Option`](O.md#option)\<`A`\>
 
 Filters an `Option` using a predicate. If the predicate is not satisfied or the `Option` is `None` returns `None`.
 
@@ -1822,21 +1910,20 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 #### Type parameters
 
-| Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `B`  |
+| Name |
+| :--- |
+| `A`  |
 
 #### Parameters
 
 | Name        | Type                           | Description                                          |
 | :---------- | :----------------------------- | :--------------------------------------------------- |
-| `self`      | [`Option`](O.md#option)\<`B`\> | -                                                    |
-| `predicate` | (`a`: `A`) => `boolean`        | A predicate function to apply to the `Option` value. |
+| `self`      | [`Option`](O.md#option)\<`A`\> | -                                                    |
+| `predicate` | `Predicate`\<`A`\>             | A predicate function to apply to the `Option` value. |
 
 #### Returns
 
-[`Option`](O.md#option)\<`B`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Example`**
 
@@ -1961,7 +2048,7 @@ assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2));
 
 ### partitionMap
 
-▸ **partitionMap**\<`A`, `B`, `C`\>(`f`): (`self`: [`Option`](O.md#option)\<`A`\>) => [[`Option`](O.md#option)\<`B`\>, [`Option`](O.md#option)\<`C`\>]
+▸ **partitionMap**\<`A`, `B`, `C`\>(`f`): (`self`: [`Option`](O.md#option)\<`A`\>) => [left: Option\<B\>, right: Option\<C\>]
 
 #### Type parameters
 
@@ -1981,7 +2068,7 @@ assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2));
 
 `fn`
 
-▸ (`self`): [[`Option`](O.md#option)\<`B`\>, [`Option`](O.md#option)\<`C`\>]
+▸ (`self`): [left: Option\<B\>, right: Option\<C\>]
 
 ##### Parameters
 
@@ -1991,13 +2078,13 @@ assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2));
 
 ##### Returns
 
-[[`Option`](O.md#option)\<`B`\>, [`Option`](O.md#option)\<`C`\>]
+[left: Option\<B\>, right: Option\<C\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **partitionMap**\<`A`, `B`, `C`\>(`self`, `f`): [[`Option`](O.md#option)\<`B`\>, [`Option`](O.md#option)\<`C`\>]
+▸ **partitionMap**\<`A`, `B`, `C`\>(`self`, `f`): [left: Option\<B\>, right: Option\<C\>]
 
 #### Type parameters
 
@@ -2016,7 +2103,7 @@ assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2));
 
 #### Returns
 
-[[`Option`](O.md#option)\<`B`\>, [`Option`](O.md#option)\<`C`\>]
+[left: Option\<B\>, right: Option\<C\>]
 
 **`Since`**
 
@@ -2481,18 +2568,17 @@ Lifts a binary function into `Option`.
 
 ### liftPredicate
 
-▸ **liftPredicate**\<`C`, `B`, `A`\>(`refinement`): (`c`: `C`) => [`Option`](O.md#option)\<`B`\>
+▸ **liftPredicate**\<`A`, `B`\>(`refinement`): (`a`: `A`) => [`Option`](O.md#option)\<`B`\>
 
 Transforms a `Predicate` function into a `Some` of the input value if the predicate returns `true` or `None`
 if the predicate returns `false`.
 
 #### Type parameters
 
-| Name | Type |
-| :--- | :--- |
-| `C`  | `C`  |
-| `B`  | `B`  |
-| `A`  | `C`  |
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
 
 #### Parameters
 
@@ -2504,13 +2590,13 @@ if the predicate returns `false`.
 
 `fn`
 
-▸ (`c`): [`Option`](O.md#option)\<`B`\>
+▸ (`a`): [`Option`](O.md#option)\<`B`\>
 
 ##### Parameters
 
 | Name | Type |
 | :--- | :--- |
-| `c`  | `C`  |
+| `a`  | `A`  |
 
 ##### Returns
 

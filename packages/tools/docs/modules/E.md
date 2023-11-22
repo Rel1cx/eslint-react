@@ -8,7 +8,7 @@
 
 - [EitherTypeLambda](../interfaces/E.EitherTypeLambda.md)
 - [EitherUnify](../interfaces/E.EitherUnify.md)
-- [EitherUnifyBlacklist](../interfaces/E.EitherUnifyBlacklist.md)
+- [EitherUnifyIgnore](../interfaces/E.EitherUnifyIgnore.md)
 - [Left](../interfaces/E.Left.md)
 - [Right](../interfaces/E.Right.md)
 
@@ -24,8 +24,10 @@
 ### Functions
 
 - [all](E.md#all)
+- [andThen](E.md#andthen)
 - [ap](E.md#ap)
 - [flatMap](E.md#flatmap)
+- [flip](E.md#flip)
 - [fromNullable](E.md#fromnullable)
 - [fromOption](E.md#fromoption)
 - [gen](E.md#gen)
@@ -47,39 +49,11 @@
 - [match](E.md#match)
 - [merge](E.md#merge)
 - [orElse](E.md#orelse)
-- [reverse](E.md#reverse)
 - [right](E.md#right)
 - [try](E.md#try)
 - [zipWith](E.md#zipwith)
 
 ## Other
-
-### reverse
-
-▸ **reverse**\<`E`, `A`\>(`self`): [`Either`](E.md#either)\<`A`, `E`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `E`  |
-| `A`  |
-
-#### Parameters
-
-| Name   | Type                                |
-| :----- | :---------------------------------- |
-| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
-
-#### Returns
-
-[`Either`](E.md#either)\<`A`, `E`\>
-
-**`Since`**
-
-2.0.0
-
----
 
 ### try
 
@@ -234,78 +208,6 @@ assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.left("error") 
 #### Returns
 
 [`Either`](E.md#either)\<`E` \| `E2`, `B`\>
-
-**`Since`**
-
-2.0.0
-
----
-
-### flatMap
-
-▸ **flatMap**\<`A`, `E2`, `B`\>(`f`): \<E1\>(`self`: [`Either`](E.md#either)\<`E1`, `A`\>) => [`Either`](E.md#either)\<`E2` \| `E1`, `B`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `E2` |
-| `B`  |
-
-#### Parameters
-
-| Name | Type                                               |
-| :--- | :------------------------------------------------- |
-| `f`  | (`a`: `A`) => [`Either`](E.md#either)\<`E2`, `B`\> |
-
-#### Returns
-
-`fn`
-
-▸ \<`E1`\>(`self`): [`Either`](E.md#either)\<`E2` \| `E1`, `B`\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `E1` |
-
-##### Parameters
-
-| Name   | Type                                 |
-| :----- | :----------------------------------- |
-| `self` | [`Either`](E.md#either)\<`E1`, `A`\> |
-
-##### Returns
-
-[`Either`](E.md#either)\<`E2` \| `E1`, `B`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **flatMap**\<`E1`, `A`, `E2`, `B`\>(`self`, `f`): [`Either`](E.md#either)\<`E1` \| `E2`, `B`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `E1` |
-| `A`  |
-| `E2` |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                               |
-| :----- | :------------------------------------------------- |
-| `self` | [`Either`](E.md#either)\<`E1`, `A`\>               |
-| `f`    | (`a`: `A`) => [`Either`](E.md#either)\<`E2`, `B`\> |
-
-#### Returns
-
-[`Either`](E.md#either)\<`E1` \| `E2`, `B`\>
 
 **`Since`**
 
@@ -1276,6 +1178,36 @@ assert.deepStrictEqual(isRight(left("a")), false);
 
 ## mapping
 
+### flip
+
+▸ **flip**\<`E`, `A`\>(`self`): [`Either`](E.md#either)\<`A`, `E`\>
+
+Returns an `Either` that swaps the error/success cases. This allows you to
+use all methods on the error channel, possibly before flipping back.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `E`  |
+| `A`  |
+
+#### Parameters
+
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
+
+#### Returns
+
+[`Either`](E.md#either)\<`A`, `E`\>
+
+**`Since`**
+
+2.0.0
+
+---
+
 ### map
 
 ▸ **map**\<`A`, `B`\>(`f`): \<E\>(`self`: [`Either`](E.md#either)\<`E`, `A`\>) => [`Either`](E.md#either)\<`E`, `B`\>
@@ -1608,6 +1540,226 @@ pipe(E.left(['string 1', 'string 2']), E.match({ onLeft, onRight })),
 #### Returns
 
 `B` \| `C`
+
+**`Since`**
+
+2.0.0
+
+## sequencing
+
+### andThen
+
+▸ **andThen**\<`A`, `E2`, `B`\>(`f`): \<E1\>(`self`: [`Either`](E.md#either)\<`E1`, `A`\>) => [`Either`](E.md#either)\<`E2` \| `E1`, `B`\>
+
+Executes a sequence of two `Either`s. The second `Either` can be dependent on the result of the first `Either`.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `E2` |
+| `B`  |
+
+#### Parameters
+
+| Name | Type                                               |
+| :--- | :------------------------------------------------- |
+| `f`  | (`a`: `A`) => [`Either`](E.md#either)\<`E2`, `B`\> |
+
+#### Returns
+
+`fn`
+
+▸ \<`E1`\>(`self`): [`Either`](E.md#either)\<`E2` \| `E1`, `B`\>
+
+##### Type parameters
+
+| Name |
+| :--- |
+| `E1` |
+
+##### Parameters
+
+| Name   | Type                                 |
+| :----- | :----------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E1`, `A`\> |
+
+##### Returns
+
+[`Either`](E.md#either)\<`E2` \| `E1`, `B`\>
+
+**`Since`**
+
+2.0.0
+
+▸ **andThen**\<`E2`, `B`\>(`f`): \<E1, A\>(`self`: [`Either`](E.md#either)\<`E1`, `A`\>) => [`Either`](E.md#either)\<`E2` \| `E1`, `B`\>
+
+Executes a sequence of two `Either`s. The second `Either` can be dependent on the result of the first `Either`.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `E2` |
+| `B`  |
+
+#### Parameters
+
+| Name | Type                                 |
+| :--- | :----------------------------------- |
+| `f`  | [`Either`](E.md#either)\<`E2`, `B`\> |
+
+#### Returns
+
+`fn`
+
+▸ \<`E1`, `A`\>(`self`): [`Either`](E.md#either)\<`E2` \| `E1`, `B`\>
+
+##### Type parameters
+
+| Name |
+| :--- |
+| `E1` |
+| `A`  |
+
+##### Parameters
+
+| Name   | Type                                 |
+| :----- | :----------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E1`, `A`\> |
+
+##### Returns
+
+[`Either`](E.md#either)\<`E2` \| `E1`, `B`\>
+
+**`Since`**
+
+2.0.0
+
+▸ **andThen**\<`E1`, `A`, `E2`, `B`\>(`self`, `f`): [`Either`](E.md#either)\<`E1` \| `E2`, `B`\>
+
+Executes a sequence of two `Either`s. The second `Either` can be dependent on the result of the first `Either`.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `E1` |
+| `A`  |
+| `E2` |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E1`, `A`\>               |
+| `f`    | (`a`: `A`) => [`Either`](E.md#either)\<`E2`, `B`\> |
+
+#### Returns
+
+[`Either`](E.md#either)\<`E1` \| `E2`, `B`\>
+
+**`Since`**
+
+2.0.0
+
+▸ **andThen**\<`E1`, `A`, `E2`, `B`\>(`self`, `f`): [`Either`](E.md#either)\<`E1` \| `E2`, `B`\>
+
+Executes a sequence of two `Either`s. The second `Either` can be dependent on the result of the first `Either`.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `E1` |
+| `A`  |
+| `E2` |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                                 |
+| :----- | :----------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E1`, `A`\> |
+| `f`    | [`Either`](E.md#either)\<`E2`, `B`\> |
+
+#### Returns
+
+[`Either`](E.md#either)\<`E1` \| `E2`, `B`\>
+
+**`Since`**
+
+2.0.0
+
+---
+
+### flatMap
+
+▸ **flatMap**\<`A`, `E2`, `B`\>(`f`): \<E1\>(`self`: [`Either`](E.md#either)\<`E1`, `A`\>) => [`Either`](E.md#either)\<`E2` \| `E1`, `B`\>
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `E2` |
+| `B`  |
+
+#### Parameters
+
+| Name | Type                                               |
+| :--- | :------------------------------------------------- |
+| `f`  | (`a`: `A`) => [`Either`](E.md#either)\<`E2`, `B`\> |
+
+#### Returns
+
+`fn`
+
+▸ \<`E1`\>(`self`): [`Either`](E.md#either)\<`E2` \| `E1`, `B`\>
+
+##### Type parameters
+
+| Name |
+| :--- |
+| `E1` |
+
+##### Parameters
+
+| Name   | Type                                 |
+| :----- | :----------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E1`, `A`\> |
+
+##### Returns
+
+[`Either`](E.md#either)\<`E2` \| `E1`, `B`\>
+
+**`Since`**
+
+2.0.0
+
+▸ **flatMap**\<`E1`, `A`, `E2`, `B`\>(`self`, `f`): [`Either`](E.md#either)\<`E1` \| `E2`, `B`\>
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `E1` |
+| `A`  |
+| `E2` |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E1`, `A`\>               |
+| `f`    | (`a`: `A`) => [`Either`](E.md#either)\<`E2`, `B`\> |
+
+#### Returns
+
+[`Either`](E.md#either)\<`E1` \| `E2`, `B`\>
 
 **`Since`**
 

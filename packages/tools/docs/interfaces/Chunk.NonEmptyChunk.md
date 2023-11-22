@@ -26,39 +26,21 @@
 
 ### Properties
 
-- [[NodeInspectSymbol]](Chunk.NonEmptyChunk.md#[nodeinspectsymbol])
 - [[TypeId]](Chunk.NonEmptyChunk.md#[typeid])
 - [[nonEmpty]](Chunk.NonEmptyChunk.md#[nonempty])
 - [length](Chunk.NonEmptyChunk.md#length)
-- [toJSON](Chunk.NonEmptyChunk.md#tojson)
-- [toString](Chunk.NonEmptyChunk.md#tostring)
 
 ### Methods
 
+- [[NodeInspectSymbol]](Chunk.NonEmptyChunk.md#[nodeinspectsymbol])
 - [[iterator]](Chunk.NonEmptyChunk.md#[iterator])
 - [[symbol]](Chunk.NonEmptyChunk.md#[symbol])
 - [[symbol]](Chunk.NonEmptyChunk.md#[symbol]-1)
 - [pipe](Chunk.NonEmptyChunk.md#pipe)
+- [toJSON](Chunk.NonEmptyChunk.md#tojson)
+- [toString](Chunk.NonEmptyChunk.md#tostring)
 
 ## Properties
-
-### [NodeInspectSymbol]
-
-• `Readonly` **[NodeInspectSymbol]**: () => `unknown`
-
-#### Type declaration
-
-▸ (): `unknown`
-
-##### Returns
-
-`unknown`
-
-#### Inherited from
-
-[Chunk](Chunk.Chunk-1.md).[[NodeInspectSymbol]](Chunk.Chunk-1.md#[nodeinspectsymbol])
-
----
 
 ### [TypeId]
 
@@ -94,43 +76,21 @@ NonEmptyIterable.[nonEmpty]
 
 [Chunk](Chunk.Chunk-1.md).[length](Chunk.Chunk-1.md#length)
 
----
+## Methods
 
-### toJSON
+### [NodeInspectSymbol]
 
-• `Readonly` **toJSON**: () => `unknown`
+▸ **[NodeInspectSymbol]**(): `unknown`
 
-#### Type declaration
-
-▸ (): `unknown`
-
-##### Returns
+#### Returns
 
 `unknown`
 
 #### Inherited from
 
-[Chunk](Chunk.Chunk-1.md).[toJSON](Chunk.Chunk-1.md#tojson)
+[Chunk](Chunk.Chunk-1.md).[[NodeInspectSymbol]](Chunk.Chunk-1.md#[nodeinspectsymbol])
 
 ---
-
-### toString
-
-• `Readonly` **toString**: () => `string`
-
-#### Type declaration
-
-▸ (): `string`
-
-##### Returns
-
-`string`
-
-#### Inherited from
-
-[Chunk](Chunk.Chunk-1.md).[toString](Chunk.Chunk-1.md#tostring)
-
-## Methods
 
 ### [iterator]
 
@@ -1103,3 +1063,31 @@ Chunk.[symbol]
 #### Inherited from
 
 [Chunk](Chunk.Chunk-1.md).[pipe](Chunk.Chunk-1.md#pipe)
+
+---
+
+### toJSON
+
+▸ **toJSON**(): `unknown`
+
+#### Returns
+
+`unknown`
+
+#### Inherited from
+
+[Chunk](Chunk.Chunk-1.md).[toJSON](Chunk.Chunk-1.md#tojson)
+
+---
+
+### toString
+
+▸ **toString**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+[Chunk](Chunk.Chunk-1.md).[toString](Chunk.Chunk-1.md#tostring)
