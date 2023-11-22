@@ -1,4 +1,3 @@
-export type * from "./eslint-define-config";
 import * as debug from "@eslint-react/eslint-plugin-debug";
 import * as jsx from "@eslint-react/eslint-plugin-jsx";
 import * as namingConvention from "@eslint-react/eslint-plugin-naming-convention";
