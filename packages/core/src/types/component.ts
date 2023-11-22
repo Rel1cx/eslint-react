@@ -120,7 +120,7 @@ export const defaultComponentCollectorHint = ExRComponentCollectorHint.SkipMemo
 
 export type ExRFunctionComponent = {
   _: string;
-  id: O.Option<TSESTree.Identifier>;
+  id: O.Option<TSESTree.Identifier | TSESTree.Identifier[]>;
   kind: "function";
   node: TSESTreeFunction;
   name: O.Option<string>;

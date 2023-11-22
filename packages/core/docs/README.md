@@ -28,6 +28,7 @@
 - [componentCollector](README.md#componentcollector)
 - [componentCollectorLegacy](README.md#componentcollectorlegacy)
 - [getComponentInitPath](README.md#getcomponentinitpath)
+- [getComponentNameFromIdentifier](README.md#getcomponentnamefromidentifier)
 - [getParentClassComponent](README.md#getparentclasscomponent)
 - [hasCallInInitPath](README.md#hascallininitpath)
 - [hookCollector](README.md#hookcollector)
@@ -124,7 +125,7 @@
 | `displayName` | `O.Option`\<`string`\>                                                 |
 | `flag`        | [`ExRComponentFlag`](README.md#exrcomponentflag-1)                     |
 | `hint`        | [`ExRComponentCollectorHint`](README.md#exrcomponentcollectorhint-1)   |
-| `id`          | `O.Option`\<`TSESTree.Identifier`\>                                    |
+| `id`          | `O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>         |
 | `initPath`    | `O.Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\> |
 | `kind`        | `"function"`                                                           |
 | `name`        | `O.Option`\<`string`\>                                                 |
@@ -279,6 +280,22 @@ hints for component collector
 #### Returns
 
 `O.Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\>
+
+---
+
+### getComponentNameFromIdentifier
+
+▸ **getComponentNameFromIdentifier**(`node`): `string`
+
+#### Parameters
+
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `node` | `Identifier` \| `Identifier`[] |
+
+#### Returns
+
+`string`
 
 ---
 
