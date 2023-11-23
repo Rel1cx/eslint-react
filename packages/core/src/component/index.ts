@@ -7,5 +7,4 @@ export * from "./component-init-path";
 export * from "./component-kind";
 export * from "./component-name";
 export * from "./component-render-method";
-export * from "./hierarchy";
 export * from "./misc";

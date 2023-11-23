@@ -1,4 +1,5 @@
 import { JSXValueCheckHint } from "@eslint-react/jsx";
+
 export type ExRComponentCollectorHint = bigint;
 
 /* eslint-disable perfectionist/sort-objects */
