@@ -2,7 +2,6 @@ import { NodeType } from "@eslint-react/ast";
 import { findPropInAttributes, getPropValue } from "@eslint-react/jsx";
 import { F, O } from "@eslint-react/tools";
 import { ESLintUtils } from "@typescript-eslint/utils";
-import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { isString } from "effect/Predicate";
 import type { ConstantCase } from "string-ts";
 
@@ -11,6 +10,10 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-unsafe-target-blank";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
+
+function isExternalLinkLike(value: string) {
+  return /^(?:\w+:|\/\/)/u.test(value);
+}
 
 function isSafeRel(value: string) {
   return /\bnoreferrer\b/u.test(value) && /\bnoopener\b/u.test(value);
@@ -21,63 +24,65 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: 'disallow `target="_blank"` without `rel="noreferrer noopener"`',
+      description: 'disallow `target="_blank"` on an external link without `rel="noreferrer noopener"`',
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_UNSAFE_TARGET_BLANK: 'Using `target="_blank"` without `rel="noreferrer noopener"` is a security risk.',
+      NO_UNSAFE_TARGET_BLANK:
+        'Using `target="_blank"` on an external link without `rel="noreferrer noopener"` is a security risk.',
     },
   },
   defaultOptions: [],
   create(context) {
     return {
-      JSXAttribute(node) {
-        if (node.name.type !== NodeType.JSXIdentifier || !node.value) {
-          return;
-        }
-        const link = getStaticValue(
-          node.value.type === NodeType.JSXExpressionContainer
-            ? node.value.expression
-            : node.value,
-          context.getScope(),
+      JSXElement(node) {
+        const { attributes } = node.openingElement;
+
+        const hasTargetBlank = F.pipe(
+          findPropInAttributes(attributes, context)("target"),
+          O.flatMap(attr => getPropValue(attr, context)),
+          O.exists(v => v?.value === "_blank"),
         );
-        if (!isString(link?.value) || link?.value !== "_blank") {
+
+        if (!hasTargetBlank) {
           return;
         }
 
-        const { parent } = node;
+        const hasExternalLinkLike = attributes.some(attr => {
+          if (attr.type !== NodeType.JSXAttribute) {
+            return false;
+          }
 
-        if (parent.type !== NodeType.JSXOpeningElement) {
+          return F.pipe(
+            getPropValue(attr, context),
+            O.flatMapNullable(v => v?.value),
+            O.filter(isString),
+            O.exists(isExternalLinkLike),
+          );
+        });
+
+        if (!hasExternalLinkLike) {
           return;
         }
 
-        const maybeRelAttribute = findPropInAttributes(parent.attributes, context)("rel");
-
-        if (O.isNone(maybeRelAttribute)) {
-          context.report({
-            messageId: "NO_UNSAFE_TARGET_BLANK",
-            node,
-          });
-
-          return;
-        }
-
-        const isSafeRelValue = F.pipe(
-          getPropValue(maybeRelAttribute.value, context),
+        const hasUnsafeRel = !F.pipe(
+          findPropInAttributes(attributes, context)("rel"),
+          O.flatMap(attr => getPropValue(attr, context)),
           O.flatMapNullable(v => v?.value),
           O.filter(isString),
-          O.filter(isSafeRel),
-          O.isSome,
+          O.exists(isSafeRel),
         );
 
-        if (!isSafeRelValue) {
-          context.report({
-            messageId: "NO_UNSAFE_TARGET_BLANK",
-            node,
-          });
+        if (!hasUnsafeRel) {
+          return;
         }
+
+        context.report({
+          node,
+          messageId: "NO_UNSAFE_TARGET_BLANK",
+        });
       },
     };
   },
