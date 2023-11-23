@@ -1,6 +1,6 @@
 import { findVariableByNameUpToGlobal, getStaticValue, getVariableInit, is, NodeType } from "@eslint-react/ast";
+import type { RuleContext } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
-import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { match } from "ts-pattern";
 

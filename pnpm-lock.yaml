@@ -277,6 +277,9 @@ importers:
       '@eslint-community/eslint-utils':
         specifier: 4.4.0
         version: 4.4.0(eslint@8.54.0)
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@eslint-react/tools':
         specifier: workspace:*
         version: link:../tools
@@ -307,6 +310,9 @@ importers:
       '@eslint-react/jsx':
         specifier: workspace:*
         version: link:../jsx
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@eslint-react/tools':
         specifier: workspace:*
         version: link:../tools
@@ -369,6 +375,9 @@ importers:
       '@eslint-react/eslint-plugin-react-hooks':
         specifier: workspace:*
         version: link:../eslint-plugin-react-hooks
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@eslint-react/tools':
         specifier: workspace:*
         version: link:../tools
@@ -699,6 +708,9 @@ importers:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../ast
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@eslint-react/tools':
         specifier: workspace:*
         version: link:../tools

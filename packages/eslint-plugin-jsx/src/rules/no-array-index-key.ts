@@ -1,7 +1,7 @@
 import { isOneOf, NodeType, unsafeIsStringCall, unsafeIsToStringCall } from "@eslint-react/ast";
 import { getPragmaFromContext, isCloneElementCall, isCreateElementCall } from "@eslint-react/jsx";
+import type { RuleContext } from "@eslint-react/shared";
 import { O, Record } from "@eslint-react/tools";
-import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { ConstantCase } from "string-ts";

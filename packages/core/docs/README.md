@@ -22,16 +22,18 @@
 - [RE\_COMPONENT\_NAME](README.md#re_component_name)
 - [RE\_HOOK\_NAME](README.md#re_hook_name)
 - [defaultComponentCollectorHint](README.md#defaultcomponentcollectorhint)
+- [uid](README.md#uid)
 
 ### Functions
 
 - [componentCollector](README.md#componentcollector)
 - [componentCollectorLegacy](README.md#componentcollectorlegacy)
+- [getComponentFlag](README.md#getcomponentflag)
 - [getComponentIdentifier](README.md#getcomponentidentifier)
 - [getComponentInitPath](README.md#getcomponentinitpath)
 - [getComponentNameFromIdentifier](README.md#getcomponentnamefromidentifier)
-- [getParentClassComponent](README.md#getparentclasscomponent)
 - [hasCallInInitPath](README.md#hascallininitpath)
+- [hasNoneOrValidComponentName](README.md#hasnoneorvalidcomponentname)
 - [hookCollector](README.md#hookcollector)
 - [isChildrenCount](README.md#ischildrencount)
 - [isChildrenForEach](README.md#ischildrenforeach)
@@ -43,9 +45,9 @@
 - [isFunctionOfRenderMethod](README.md#isfunctionofrendermethod)
 - [isInsideRenderMethod](README.md#isinsiderendermethod)
 - [isMemberExpressionOfReactMember](README.md#ismemberexpressionofreactmember)
+- [isMemoOrForwardRefCall](README.md#ismemoorforwardrefcall)
 - [isPureComponent](README.md#ispurecomponent)
 - [isReactHookCallWithName](README.md#isreacthookcallwithname)
-- [isStateMemberExpression](README.md#isstatememberexpression)
 - [isUseCallbackCall](README.md#isusecallbackcall)
 - [isUseContextCall](README.md#isusecontextcall)
 - [isUseDebugValueCall](README.md#isusedebugvaluecall)
@@ -56,8 +58,9 @@
 - [isUseReducerCall](README.md#isusereducercall)
 - [isUseRefCall](README.md#isuserefcall)
 - [isUseStateCall](README.md#isusestatecall)
-- [isValidReactComponentName](README.md#isvalidreactcomponentname)
+- [isValidComponentName](README.md#isvalidcomponentname)
 - [isValidReactHookName](README.md#isvalidreacthookname)
+- [traverseUpClassComponent](README.md#traverseupclasscomponent)
 - [unsafeIsDeclaredInRenderProp](README.md#unsafeisdeclaredinrenderprop)
 - [unsafeIsDirectValueOfRenderProperty](README.md#unsafeisdirectvalueofrenderproperty)
 - [unsafeIsInsideReactHookCall](README.md#unsafeisinsidereacthookcall)
@@ -124,7 +127,7 @@
 | :------------ | :--------------------------------------------------------------------- |
 | `_`           | `string`                                                               |
 | `displayName` | `O.Option`\<`string`\>                                                 |
-| `flag`        | [`ExRComponentFlag`](README.md#exrcomponentflag-1)                     |
+| `flag`        | `bigint`                                                               |
 | `hint`        | [`ExRComponentCollectorHint`](README.md#exrcomponentcollectorhint-1)   |
 | `id`          | `O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>         |
 | `initPath`    | `O.Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\> |
@@ -209,6 +212,12 @@ hints for component collector
 
 • `Const` **defaultComponentCollectorHint**: `bigint`
 
+---
+
+### uid
+
+• `Const` **uid**: `default`
+
 ## Functions
 
 ### componentCollector
@@ -268,6 +277,23 @@ hints for component collector
 
 ---
 
+### getComponentFlag
+
+▸ **getComponentFlag**(`initPath`, `pragma`): `bigint`
+
+#### Parameters
+
+| Name       | Type                                                                 |
+| :--------- | :------------------------------------------------------------------- |
+| `initPath` | `Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\> |
+| `pragma`   | `string`                                                             |
+
+#### Returns
+
+`bigint`
+
+---
+
 ### getComponentIdentifier
 
 ▸ **getComponentIdentifier**(`node`, `context`): `O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>
@@ -317,28 +343,6 @@ hints for component collector
 
 ---
 
-### getParentClassComponent
-
-▸ **getParentClassComponent**(`context`): `null` \| `ClassDeclarationWithOptionalName` \| `ClassExpression`
-
-Get the parent class component of a node up to global scope
-
-#### Parameters
-
-| Name      | Type                                                          | Description      |
-| :-------- | :------------------------------------------------------------ | :--------------- |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context |
-
-#### Returns
-
-`null` \| `ClassDeclarationWithOptionalName` \| `ClassExpression`
-
-**`Deprecated`**
-
-It will be removed in the future
-
----
-
 ### hasCallInInitPath
 
 ▸ **hasCallInInitPath**(`callName`): (`initPath`: `Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\>) => `boolean`
@@ -362,6 +366,22 @@ It will be removed in the future
 | `initPath` | `Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\> |
 
 ##### Returns
+
+`boolean`
+
+---
+
+### hasNoneOrValidComponentName
+
+▸ **hasNoneOrValidComponentName**(`node`): `boolean`
+
+#### Parameters
+
+| Name   | Type               |
+| :----- | :----------------- |
+| `node` | `TSESTreeFunction` |
+
+#### Returns
 
 `boolean`
 
@@ -497,10 +517,6 @@ Check if a node is a React class component
 
 node is TSESTreeClass
 
-**`Deprecated`**
-
-It will be removed in the future
-
 ---
 
 ### isCreateContext
@@ -609,6 +625,23 @@ It will be removed in the future
 
 ---
 
+### isMemoOrForwardRefCall
+
+▸ **isMemoOrForwardRefCall**(`node`, `context`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `Node`                                                        |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+#### Returns
+
+`boolean`
+
+---
+
 ### isPureComponent
 
 ▸ **isPureComponent**(`node`, `context`): `boolean`
@@ -625,10 +658,6 @@ Check if a node is a React PureComponent
 #### Returns
 
 `boolean`
-
-**`Deprecated`**
-
-It will be removed in the future
 
 ---
 
@@ -659,28 +688,6 @@ It will be removed in the future
 ##### Returns
 
 `boolean`
-
----
-
-### isStateMemberExpression
-
-▸ **isStateMemberExpression**(`node`): `boolean`
-
-Check if a node is a MemberExpression of state
-
-#### Parameters
-
-| Name   | Type   | Description           |
-| :----- | :----- | :-------------------- |
-| `node` | `Node` | The AST node to check |
-
-#### Returns
-
-`boolean`
-
-**`Deprecated`**
-
-It will be removed in the future
 
 ---
 
@@ -864,9 +871,9 @@ It will be removed in the future
 
 ---
 
-### isValidReactComponentName
+### isValidComponentName
 
-▸ **isValidReactComponentName**(`name`): name is string
+▸ **isValidComponentName**(`name`): name is string
 
 #### Parameters
 
@@ -893,6 +900,29 @@ name is string
 #### Returns
 
 name is string
+
+---
+
+### traverseUpClassComponent
+
+▸ **traverseUpClassComponent**(`context`, `predicate?`): `O.Option`\<`TSESTreeClass`\>
+
+Get the parent class component of a node up to global scope
+
+#### Parameters
+
+| Name        | Type                                                          | Default value | Description      |
+| :---------- | :------------------------------------------------------------ | :------------ | :--------------- |
+| `context`   | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`   | The rule context |
+| `predicate` | (`node`: `TSESTreeClass`) => `boolean`                        | `F.constTrue` |                  |
+
+#### Returns
+
+`O.Option`\<`TSESTreeClass`\>
+
+**`Deprecated`**
+
+It will be removed in the future
 
 ---
 

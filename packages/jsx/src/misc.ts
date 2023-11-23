@@ -1,5 +1,5 @@
 import { getNestedReturnStatements, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/types";
+import type { RuleContext } from "@eslint-react/shared";
 
 import { defaultJSXValueCheckHint, isJSXValue } from "./value";
 

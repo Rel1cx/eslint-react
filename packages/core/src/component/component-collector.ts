@@ -12,30 +12,21 @@ import {
   unsafeIsMapCall,
 } from "@eslint-react/ast";
 import { getPragmaFromContext, isChildrenOfCreateElement, isJSXValue } from "@eslint-react/jsx";
+import type { RuleContext } from "@eslint-react/shared";
 import { E, F, MutList, O } from "@eslint-react/tools";
-import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { isString } from "effect/Predicate";
 import { match } from "ts-pattern";
 
 import { uid } from "../helper";
-import {
-  defaultComponentCollectorHint,
-  ExRComponentCollectorHint,
-  ExRComponentFlag,
-  type ExRFunctionComponent,
-} from "../types";
-import { isFunctionOfRenderMethod } from "./component-collector-legacy";
+import { defaultComponentCollectorHint, ExRComponentCollectorHint } from "./component-collector-hint";
+import { getComponentFlag } from "./component-flag";
 import { getComponentIdentifier } from "./component-Identifier";
-import { getComponentInitPath, hasCallInInitPath } from "./component-init-path";
-import { getComponentNameFromIdentifier, isValidReactComponentName } from "./component-name";
-
-function hasNoneOrValidName(node: TSESTreeFunction) {
-  const id = getFunctionIdentifier(node);
-
-  return !id || isValidReactComponentName(id.name);
-}
+import { getComponentInitPath } from "./component-init-path";
+import type { ExRFunctionComponent } from "./component-kind";
+import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
+import { isFunctionOfRenderMethod } from "./component-render-method";
 
 function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: bigint) {
   if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node, context)) {
@@ -55,20 +46,6 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
   }
 
   return !(hint & ExRComponentCollectorHint.SkipClassProperty && isFunctionOfClassProperty(node.parent));
-}
-
-function getComponentFlag(initPath: ExRFunctionComponent["initPath"], pragma: string) {
-  let flag = ExRComponentFlag.None;
-
-  if (hasCallInInitPath("memo")(initPath) || hasCallInInitPath(`${pragma}.memo`)(initPath)) {
-    flag |= ExRComponentFlag.Memo;
-  }
-
-  if (hasCallInInitPath("forwardRef")(initPath) || hasCallInInitPath(`${pragma}.forwardRef`)(initPath)) {
-    flag |= ExRComponentFlag.ForwardRef;
-  }
-
-  return flag;
 }
 
 export function componentCollector(
@@ -113,7 +90,7 @@ export function componentCollector(
       const currentFn = maybeCurrentFn.value;
 
       if (
-        !hasNoneOrValidName(currentFn)
+        !hasNoneOrValidComponentName(currentFn)
         || !isJSXValue(node.argument, context, hint)
         || !hasValidHierarchy(currentFn, context, hint)
       ) {
@@ -143,7 +120,7 @@ export function componentCollector(
     "ArrowFunctionExpression[body.type!='BlockStatement']"(node: TSESTree.ArrowFunctionExpression) {
       const { body } = node;
       if (
-        !hasNoneOrValidName(node)
+        !hasNoneOrValidComponentName(node)
         || !isJSXValue(body, context, hint)
         || !hasValidHierarchy(node, context, hint)
       ) {

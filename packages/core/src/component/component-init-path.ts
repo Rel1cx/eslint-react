@@ -1,7 +1,106 @@
+/* eslint-disable perfectionist/sort-union-types */
 import { NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
+import type { TSESTree } from "@typescript-eslint/types";
 
-import type { ExRComponentInitPath } from "../types";
+export type ExRComponentInitPath =
+  /**
+   * function Comp() { return <div />; }
+   */
+  | readonly [TSESTree.FunctionDeclaration]
+  /**
+   * const Comp = () => <div />;
+   * const Comp = function () { return <div />; };
+   */
+  | readonly [
+    TSESTree.VariableDeclaration,
+    TSESTree.VariableDeclarator,
+    TSESTreeFunction,
+  ]
+  /**
+   * const Comp = React.memo(() => <div />);
+   * const Comp = React.forwardRef(() => <div />);
+   */
+  | readonly [
+    TSESTree.VariableDeclaration,
+    TSESTree.VariableDeclarator,
+    TSESTree.CallExpression,
+    TSESTreeFunction,
+  ]
+  /**
+   * const Comp = React.memo(React.forwardRef(() => <div />));
+   */
+  | readonly [
+    TSESTree.VariableDeclaration,
+    TSESTree.VariableDeclarator,
+    TSESTree.CallExpression,
+    TSESTree.CallExpression,
+    TSESTreeFunction,
+  ]
+  /**
+   * const Comps = {
+   *  TopNav() { return <div />; },
+   *  SidPanel: () => <div />,
+   * }
+   */
+  | readonly [
+    TSESTree.VariableDeclaration,
+    TSESTree.VariableDeclarator,
+    TSESTree.ObjectExpression,
+    TSESTree.Property,
+    TSESTreeFunction,
+  ]
+  /**
+   * const Comps = {
+   *  TopNav: React.memo(() => <div />),
+   *  SidPanel: React.forwardRef(() => <div />),
+   * }
+   */
+  | readonly [
+    TSESTree.VariableDeclaration,
+    TSESTree.VariableDeclarator,
+    TSESTree.ObjectExpression,
+    TSESTree.Property,
+    TSESTree.CallExpression,
+    TSESTreeFunction,
+  ]
+  /**
+   * const Comps = {
+   * TopNav: React.memo(React.forwardRef(() => <div />)),
+   * SidPanel: React.forwardRef(React.memo(() => <div />)),
+   * }
+   */
+  | readonly [
+    TSESTree.VariableDeclaration,
+    TSESTree.VariableDeclarator,
+    TSESTree.ObjectExpression,
+    TSESTree.Property,
+    TSESTree.CallExpression,
+    TSESTree.CallExpression,
+    TSESTreeFunction,
+  ]
+  /**
+   * class Comp {
+   *   TopNav() { return <div />; }
+   * }
+   */
+  | readonly [
+    TSESTree.ClassDeclaration,
+    TSESTree.ClassBody,
+    TSESTree.MethodDefinition,
+    TSESTreeFunction,
+  ]
+  /**
+   * class Comp {
+   *   TopNav = () => <div />;
+   * }
+   */
+  | readonly [
+    TSESTree.ClassDeclaration,
+    TSESTree.ClassBody,
+    TSESTree.PropertyDefinition,
+    TSESTreeFunction,
+  ];
 
 export function getComponentInitPath(node: TSESTreeFunction): O.Option<ExRComponentInitPath> {
   const { parent } = node;

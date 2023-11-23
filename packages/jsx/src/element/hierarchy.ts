@@ -1,5 +1,5 @@
 import { is, NodeType, traverseUp } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/types";
+import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { isCreateElementCall } from "./is-element-call";
