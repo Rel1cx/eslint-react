@@ -115,8 +115,7 @@ export default createRule<[], MessageID>({
             O.flatMapNullable(v => v?.value),
             O.filter(isString),
             O.map((value) => value.split(" ")),
-            O.filter((values) => values.every((value) => validTypes.some((validType) => validType === value))),
-            O.isSome,
+            O.exists((values) => values.every((value) => validTypes.some((validType) => validType === value))),
           );
 
           if (hasSandboxValue) {

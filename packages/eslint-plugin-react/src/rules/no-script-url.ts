@@ -42,8 +42,7 @@ export default createRule<[], MessageID>({
           getPropValue(node, context),
           O.flatMapNullable(v => v?.value),
           O.filter(isString),
-          O.filter(v => RE_JAVASCRIPT_PROTOCOL.test(v)),
-          O.isSome,
+          O.exists(v => RE_JAVASCRIPT_PROTOCOL.test(v)),
         );
 
         if (isJavaScript) {

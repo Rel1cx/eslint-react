@@ -197,7 +197,7 @@ export function hasCallInInitPath(callName: string) {
     return F.pipe(
       initPath,
       O.filter(p => p.length > 0),
-      O.filter(nodes => {
+      O.exists(nodes => {
         return nodes.some(
           callName.includes(".")
             ? n => {
@@ -217,7 +217,6 @@ export function hasCallInInitPath(callName: string) {
             },
         );
       }),
-      O.isSome,
     );
   };
 }

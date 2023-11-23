@@ -59,8 +59,7 @@ export default createRule<[], MessageID>({
 
         const hasEmptyDepsArray = F.pipe(
           depsArray,
-          O.filter(x => x.elements.length === 0),
-          O.isSome,
+          O.exists(x => x.elements.length === 0),
         );
 
         if (!hasEmptyDepsArray) {

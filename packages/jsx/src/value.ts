@@ -130,8 +130,7 @@ export function isJSXValue(
       return F.pipe(
         maybeVariable,
         O.flatMap(getVariableInit(0)),
-        O.filter(n => isJSXValue(n, context, hint)),
-        O.isSome,
+        O.exists(n => isJSXValue(n, context, hint)),
       );
     })
     .otherwise(F.constFalse);

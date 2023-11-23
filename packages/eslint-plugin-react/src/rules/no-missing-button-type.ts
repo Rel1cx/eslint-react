@@ -98,8 +98,7 @@ export default createRule<[], MessageID>({
             getPropValue(maybeTypeAttribute.value, context),
             O.flatMapNullable(v => v?.value),
             O.filter(isString),
-            O.filter((value) => validTypes.some((type) => type === value)),
-            O.isSome,
+            O.exists((value) => validTypes.some((type) => type === value)),
           );
 
           if (isButtonTypeValue) {
