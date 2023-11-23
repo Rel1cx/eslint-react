@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "0.8.9-beta.3",
+  "version": "0.8.9",
   "description": "ESLint x React's main ESLint plugin for writing better React, built (mostly) from scratch.",
   "keywords": [
     "eslint",
