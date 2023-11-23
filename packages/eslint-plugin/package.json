@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "0.8.9-beta.2",
+  "version": "0.8.9-beta.3",
   "description": "ESLint x React's main ESLint plugin for writing better React, built (mostly) from scratch.",
   "keywords": [
     "eslint",
@@ -74,17 +74,6 @@
     "eslint": ">=8.54.0",
     "typescript": ">=5.2.2"
   },
-  "bundleDependencies": [
-    "@eslint-react/eslint-plugin-debug",
-    "@eslint-react/eslint-plugin-jsx",
-    "@eslint-react/eslint-plugin-naming-convention",
-    "@eslint-react/eslint-plugin-react",
-    "@eslint-react/eslint-plugin-react-hooks",
-    "@eslint-react/tools",
-    "@eslint-react/types",
-    "@eslint-react/shared",
-    "string-ts"
-  ],
   "engines": {
     "bun": ">=1.0.11",
     "node": ">=18.15.0"
