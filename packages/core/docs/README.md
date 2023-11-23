@@ -32,6 +32,7 @@
 - [getComponentIdentifier](README.md#getcomponentidentifier)
 - [getComponentInitPath](README.md#getcomponentinitpath)
 - [getComponentNameFromIdentifier](README.md#getcomponentnamefromidentifier)
+- [getParentClassComponent](README.md#getparentclasscomponent)
 - [hasCallInInitPath](README.md#hascallininitpath)
 - [hasNoneOrValidComponentName](README.md#hasnoneorvalidcomponentname)
 - [hookCollector](README.md#hookcollector)
@@ -60,7 +61,6 @@
 - [isUseStateCall](README.md#isusestatecall)
 - [isValidComponentName](README.md#isvalidcomponentname)
 - [isValidReactHookName](README.md#isvalidreacthookname)
-- [traverseUpClassComponent](README.md#traverseupclasscomponent)
 - [unsafeIsDeclaredInRenderProp](README.md#unsafeisdeclaredinrenderprop)
 - [unsafeIsDirectValueOfRenderProperty](README.md#unsafeisdirectvalueofrenderproperty)
 - [unsafeIsInsideReactHookCall](README.md#unsafeisinsidereacthookcall)
@@ -340,6 +340,28 @@ hints for component collector
 #### Returns
 
 `string`
+
+---
+
+### getParentClassComponent
+
+▸ **getParentClassComponent**(`context`): `O.Option`\<`TSESTreeClass`\>
+
+Get the parent class component of a node up to global scope
+
+#### Parameters
+
+| Name      | Type                                                          | Description      |
+| :-------- | :------------------------------------------------------------ | :--------------- |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context |
+
+#### Returns
+
+`O.Option`\<`TSESTreeClass`\>
+
+**`Deprecated`**
+
+It will be removed in the future
 
 ---
 
@@ -900,29 +922,6 @@ name is string
 #### Returns
 
 name is string
-
----
-
-### traverseUpClassComponent
-
-▸ **traverseUpClassComponent**(`context`, `predicate?`): `O.Option`\<`TSESTreeClass`\>
-
-Get the parent class component of a node up to global scope
-
-#### Parameters
-
-| Name        | Type                                                          | Default value | Description      |
-| :---------- | :------------------------------------------------------------ | :------------ | :--------------- |
-| `context`   | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`   | The rule context |
-| `predicate` | (`node`: `TSESTreeClass`) => `boolean`                        | `F.constTrue` |                  |
-
-#### Returns
-
-`O.Option`\<`TSESTreeClass`\>
-
-**`Deprecated`**
-
-It will be removed in the future
 
 ---
 
