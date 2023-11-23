@@ -46,6 +46,7 @@ module.exports = defineConfig({
       },
     ],
     "no-undef": "off",
+    "max-depth": ["warn", 3],
     "array-callback-return": "off",
     "import-access/jsdoc": ["error"],
     "jsdoc/require-jsdoc": "off",

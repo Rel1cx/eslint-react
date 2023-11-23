@@ -1,7 +1,7 @@
 {
   "name": "@eslint-react/monorepo",
   "version": "0.8.10-beta.1",
-  "description": "ESLint x React's monorepo. A set of ESLint plugins for writing better React, built (mostly) from scratch.",
+  "description": "ESLint x React's monorepo. A set of ESLint rules to catch common mistakes and improve your React code. Built (mostly) from scratch.",
   "keywords": [
     "eslint",
     "eslint-plugin",
