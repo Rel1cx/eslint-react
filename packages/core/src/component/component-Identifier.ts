@@ -1,8 +1,8 @@
 /* eslint-disable filenames-simple/naming-convention */
 import { isOneOf, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { isCallFromPragma } from "@eslint-react/jsx";
+import type { RuleContext } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
-import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
 function isMemoOrForwardRefCall(node: TSESTree.Node, context: RuleContext) {

@@ -1,7 +1,7 @@
 import { NodeType } from "@eslint-react/ast";
-import { isInitializedFromPragma } from "@eslint-react/jsx";
+import { isCallFromPragma, isInitializedFromPragma } from "@eslint-react/jsx";
+import type { RuleContext } from "@eslint-react/shared";
 import { F } from "@eslint-react/tools";
-import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
@@ -49,4 +49,8 @@ export function unsafeIsReactHookCall(node: TSESTree.CallExpression) {
   }
 
   return false;
+}
+
+export function isMemoOrForwardRefCall(node: TSESTree.Node, context: RuleContext) {
+  return isCallFromPragma("memo")(node, context) || isCallFromPragma("forwardRef")(node, context);
 }

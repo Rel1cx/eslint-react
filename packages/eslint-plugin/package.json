@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "0.8.9-beta.1",
+  "version": "0.8.9-beta.2",
   "description": "ESLint x React's main ESLint plugin for writing better React, built (mostly) from scratch.",
   "keywords": [
     "eslint",
@@ -66,6 +66,7 @@
     "@eslint-react/eslint-plugin-react-hooks": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
+    "@eslint-react/shared": "workspace:*",
     "string-ts": "1.3.2"
   },
   "peerDependencies": {
@@ -81,6 +82,7 @@
     "@eslint-react/eslint-plugin-react-hooks",
     "@eslint-react/tools",
     "@eslint-react/types",
+    "@eslint-react/shared",
     "string-ts"
   ],
   "engines": {

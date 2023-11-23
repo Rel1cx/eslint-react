@@ -1,5 +1,6 @@
+import type { RuleContext } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
-import type { ReactSettings, RuleContext } from "@eslint-react/types";
+import type { ReactSettings } from "@eslint-react/types";
 import { isString } from "effect/Predicate";
 import memo from "micro-memoize";
 

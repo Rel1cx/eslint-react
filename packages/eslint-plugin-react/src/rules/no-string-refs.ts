@@ -1,5 +1,6 @@
 import { NodeType } from "@eslint-react/ast";
-import { getParentClassComponent } from "@eslint-react/core";
+import { traverseUpClassComponent } from "@eslint-react/core";
+import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { isString } from "effect/Predicate";
@@ -56,9 +57,9 @@ export default createRule<[], MessageID>({
         }
       },
       MemberExpression(node) {
-        const parentClassComponent = getParentClassComponent(context);
+        const parentClassComponent = traverseUpClassComponent(context);
 
-        if (!parentClassComponent) {
+        if (O.isNone(parentClassComponent)) {
           return;
         }
 

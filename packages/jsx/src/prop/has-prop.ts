@@ -1,5 +1,5 @@
+import type { RuleContext } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
-import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 

@@ -1,11 +1,11 @@
 import { getFunctionIdentifier, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
+import type { RuleContext } from "@eslint-react/shared";
 import { E } from "@eslint-react/tools";
-import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { uid } from "../helper";
-import type { ExRHook } from "../types";
 import { unsafeIsReactHookCall } from "./hook-call";
+import type { ExRHook } from "./hook-kind";
 import { isValidReactHookName } from "./hook-name";
 
 export function hookCollector(context: RuleContext): {

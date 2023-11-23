@@ -1,5 +1,5 @@
+import type { RuleContext } from "@eslint-react/shared";
 import { Data, O } from "@eslint-react/tools";
-import type { RuleContext } from "@eslint-react/types";
 import { DefinitionType, type Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { isObject, isString } from "effect/Predicate";

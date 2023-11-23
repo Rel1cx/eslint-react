@@ -1,6 +1,6 @@
 import { NodeType } from "@eslint-react/ast";
 import { getPragmaFromContext, isInitializedFromPragma } from "@eslint-react/jsx";
-import type { RuleContext } from "@eslint-react/types";
+import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 
 export function isMemberExpressionOfReactMember(pragmaMemberName: string, memberName: string) {
