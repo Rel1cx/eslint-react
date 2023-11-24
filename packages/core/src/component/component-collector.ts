@@ -21,9 +21,9 @@ import { match } from "ts-pattern";
 
 import { uid } from "../helper";
 import { defaultComponentCollectorHint, ExRComponentCollectorHint } from "./component-collector-hint";
-import { getComponentFlag } from "./component-flag";
+import { ExRFunctionComponentFlag } from "./component-flag";
 import { getComponentIdentifier } from "./component-Identifier";
-import { getComponentInitPath } from "./component-init-path";
+import { getComponentInitPath, hasCallInInitPath } from "./component-init-path";
 import type { ExRFunctionComponent } from "./component-kind";
 import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
 import { isFunctionOfRenderMethod } from "./component-render-method";
@@ -46,6 +46,20 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
   }
 
   return !(hint & ExRComponentCollectorHint.SkipClassProperty && isFunctionOfClassProperty(node.parent));
+}
+
+function getComponentFlag(initPath: ExRFunctionComponent["initPath"], pragma: string) {
+  let flag = ExRFunctionComponentFlag.None;
+
+  if (hasCallInInitPath("memo")(initPath) || hasCallInInitPath(`${pragma}.memo`)(initPath)) {
+    flag |= ExRFunctionComponentFlag.Memo;
+  }
+
+  if (hasCallInInitPath("forwardRef")(initPath) || hasCallInInitPath(`${pragma}.forwardRef`)(initPath)) {
+    flag |= ExRFunctionComponentFlag.ForwardRef;
+  }
+
+  return flag;
 }
 
 export function componentCollector(

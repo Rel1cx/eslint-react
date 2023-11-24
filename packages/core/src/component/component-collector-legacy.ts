@@ -4,7 +4,8 @@ import { E, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { uid } from "../helper";
-import { type ExRClassComponent, isClassComponent } from "./component-kind";
+import { ExRClassComponentFlag } from "./component-flag";
+import { type ExRClassComponent, isClassComponent, isPureComponent } from "./component-kind";
 
 export function componentCollectorLegacy(context: RuleContext) {
   const components = new Map<string, ExRClassComponent>();
@@ -29,6 +30,9 @@ export function componentCollectorLegacy(context: RuleContext) {
 
     const id = O.fromNullable(getClassIdentifier(node));
     const key = uid.rnd();
+    const flag = isPureComponent(node, context)
+      ? ExRClassComponentFlag.Pure
+      : ExRClassComponentFlag.None;
     components.set(
       key,
       {
@@ -38,6 +42,7 @@ export function componentCollectorLegacy(context: RuleContext) {
         name: O.flatMapNullable(id, n => n.name),
         // TODO: get displayName of class component
         displayName: O.none(),
+        flag,
         node,
       },
     );

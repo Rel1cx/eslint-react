@@ -7,18 +7,20 @@
 ### Type Aliases
 
 - [ExRClassComponent](README.md#exrclasscomponent)
+- [ExRClassComponentFlag](README.md#exrclasscomponentflag)
 - [ExRComponent](README.md#exrcomponent)
 - [ExRComponentCollectorHint](README.md#exrcomponentcollectorhint)
-- [ExRComponentFlag](README.md#exrcomponentflag)
 - [ExRComponentInitPath](README.md#exrcomponentinitpath)
 - [ExRComponentKind](README.md#exrcomponentkind)
 - [ExRFunctionComponent](README.md#exrfunctioncomponent)
+- [ExRFunctionComponentFlag](README.md#exrfunctioncomponentflag)
 - [ExRHook](README.md#exrhook)
 
 ### Variables
 
+- [ExRClassComponentFlag](README.md#exrclasscomponentflag-1)
 - [ExRComponentCollectorHint](README.md#exrcomponentcollectorhint-1)
-- [ExRComponentFlag](README.md#exrcomponentflag-1)
+- [ExRFunctionComponentFlag](README.md#exrfunctioncomponentflag-1)
 - [RE\_COMPONENT\_NAME](README.md#re_component_name)
 - [RE\_HOOK\_NAME](README.md#re_hook_name)
 - [defaultComponentCollectorHint](README.md#defaultcomponentcollectorhint)
@@ -28,7 +30,6 @@
 
 - [componentCollector](README.md#componentcollector)
 - [componentCollectorLegacy](README.md#componentcollectorlegacy)
-- [getComponentFlag](README.md#getcomponentflag)
 - [getComponentIdentifier](README.md#getcomponentidentifier)
 - [getComponentInitPath](README.md#getcomponentinitpath)
 - [getComponentNameFromIdentifier](README.md#getcomponentnamefromidentifier)
@@ -76,14 +77,21 @@
 
 #### Type declaration
 
-| Name          | Type                                |
-| :------------ | :---------------------------------- |
-| `_`           | `string`                            |
-| `displayName` | `O.Option`\<`string`\>              |
-| `id`          | `O.Option`\<`TSESTree.Identifier`\> |
-| `kind`        | `"class"`                           |
-| `name`        | `O.Option`\<`string`\>              |
-| `node`        | `TSESTreeClass`                     |
+| Name          | Type                                                         |
+| :------------ | :----------------------------------------------------------- |
+| `_`           | `string`                                                     |
+| `displayName` | `O.Option`\<`string`\>                                       |
+| `flag`        | [`ExRClassComponentFlag`](README.md#exrclasscomponentflag-1) |
+| `id`          | `O.Option`\<`TSESTree.Identifier`\>                          |
+| `kind`        | `"class"`                                                    |
+| `name`        | `O.Option`\<`string`\>                                       |
+| `node`        | `TSESTreeClass`                                              |
+
+---
+
+### ExRClassComponentFlag
+
+Ƭ **ExRClassComponentFlag**: `bigint`
 
 ---
 
@@ -96,12 +104,6 @@
 ### ExRComponentCollectorHint
 
 Ƭ **ExRComponentCollectorHint**: `bigint`
-
----
-
-### ExRComponentFlag
-
-Ƭ **ExRComponentFlag**: `bigint`
 
 ---
 
@@ -127,13 +129,19 @@
 | :------------ | :--------------------------------------------------------------------- |
 | `_`           | `string`                                                               |
 | `displayName` | `O.Option`\<`string`\>                                                 |
-| `flag`        | `bigint`                                                               |
+| `flag`        | [`ExRFunctionComponentFlag`](README.md#exrfunctioncomponentflag-1)     |
 | `hint`        | [`ExRComponentCollectorHint`](README.md#exrcomponentcollectorhint-1)   |
 | `id`          | `O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>         |
 | `initPath`    | `O.Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\> |
 | `kind`        | `"function"`                                                           |
 | `name`        | `O.Option`\<`string`\>                                                 |
 | `node`        | `TSESTreeFunction`                                                     |
+
+---
+
+### ExRFunctionComponentFlag
+
+Ƭ **ExRFunctionComponentFlag**: `bigint`
 
 ---
 
@@ -152,6 +160,19 @@
 | `node` | `TSESTreeFunction`    |
 
 ## Variables
+
+### ExRClassComponentFlag
+
+• **ExRClassComponentFlag**: `Object`
+
+#### Type declaration
+
+| Name   | Type     |
+| :----- | :------- |
+| `None` | `bigint` |
+| `Pure` | `bigint` |
+
+---
 
 ### ExRComponentCollectorHint
 
@@ -182,9 +203,9 @@ hints for component collector
 
 ---
 
-### ExRComponentFlag
+### ExRFunctionComponentFlag
 
-• **ExRComponentFlag**: `Object`
+• **ExRFunctionComponentFlag**: `Object`
 
 #### Type declaration
 
@@ -274,23 +295,6 @@ hints for component collector
 | `listeners`                  | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect }                                                                                        |
 | `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                             |
 | `listeners.ClassExpression`  | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                             |
-
----
-
-### getComponentFlag
-
-▸ **getComponentFlag**(`initPath`, `pragma`): `bigint`
-
-#### Parameters
-
-| Name       | Type                                                                 |
-| :--------- | :------------------------------------------------------------------- |
-| `initPath` | `Option`\<[`ExRComponentInitPath`](README.md#exrcomponentinitpath)\> |
-| `pragma`   | `string`                                                             |
-
-#### Returns
-
-`bigint`
 
 ---
 

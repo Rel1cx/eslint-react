@@ -7,6 +7,7 @@ import { type TSESTree } from "@typescript-eslint/utils";
 import { match, P } from "ts-pattern";
 
 import type { ExRComponentCollectorHint } from "./component-collector-hint";
+import type { ExRClassComponentFlag, ExRFunctionComponentFlag } from "./component-flag";
 import type { ExRComponentInitPath } from "./component-init-path";
 
 export type ExRComponentKind = "class" | "function";
@@ -17,7 +18,7 @@ export type ExRFunctionComponent = {
   kind: "function";
   node: TSESTreeFunction;
   name: O.Option<string>;
-  flag: bigint;
+  flag: ExRFunctionComponentFlag;
   hint: ExRComponentCollectorHint;
   initPath: O.Option<ExRComponentInitPath>;
   displayName: O.Option<string>;
@@ -29,6 +30,7 @@ export type ExRClassComponent = {
   kind: "class";
   node: TSESTreeClass;
   name: O.Option<string>;
+  flag: ExRClassComponentFlag;
   displayName: O.Option<string>;
 };
 

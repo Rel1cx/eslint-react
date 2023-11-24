@@ -1,4 +1,4 @@
-import { componentCollector, ExRComponentFlag } from "@eslint-react/core";
+import { componentCollector, ExRFunctionComponentFlag } from "@eslint-react/core";
 import { E, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type ConstantCase } from "string-ts";
@@ -39,8 +39,8 @@ export default createRule<[], MessageID>({
 
         for (const { displayName, flag, node } of components.values()) {
           const hasDisplayName = O.isSome(displayName);
-          const isMemoOrForwardRef = flag & ExRComponentFlag.ForwardRef
-            || flag & ExRComponentFlag.Memo;
+          const isMemoOrForwardRef = flag & ExRFunctionComponentFlag.ForwardRef
+            || flag & ExRFunctionComponentFlag.Memo;
 
           if (!hasDisplayName && isMemoOrForwardRef) {
             context.report({

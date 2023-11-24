@@ -1,10 +1,16 @@
-import { hasCallInInitPath } from "./component-init-path";
-import { type ExRFunctionComponent } from "./component-kind";
+export type ExRClassComponentFlag = bigint;
 
-export type ExRComponentFlag = bigint;
+export const ExRClassComponentFlag = {
+  None: 0n,
+  Pure: 1n << 0n,
+  // Reserved for future use
+  // CreateElement: 1n << 1n,
+};
+
+export type ExRFunctionComponentFlag = bigint;
 
 /* eslint-disable perfectionist/sort-objects */
-export const ExRComponentFlag = {
+export const ExRFunctionComponentFlag = {
   None: 0n,
   Memo: 1n << 0n,
   ForwardRef: 1n << 1n,
@@ -15,17 +21,3 @@ export const ExRComponentFlag = {
   // Reserved for future use
   // Async: 1n << 4n,
 };
-
-export function getComponentFlag(initPath: ExRFunctionComponent["initPath"], pragma: string) {
-  let flag = ExRComponentFlag.None;
-
-  if (hasCallInInitPath("memo")(initPath) || hasCallInInitPath(`${pragma}.memo`)(initPath)) {
-    flag |= ExRComponentFlag.Memo;
-  }
-
-  if (hasCallInInitPath("forwardRef")(initPath) || hasCallInInitPath(`${pragma}.forwardRef`)(initPath)) {
-    flag |= ExRComponentFlag.ForwardRef;
-  }
-
-  return flag;
-}
