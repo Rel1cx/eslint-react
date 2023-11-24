@@ -113,7 +113,6 @@ export default [
 - [x] `jsx/no-spreading-key`
 - [x] `jsx/no-duplicate-key`
 - [x] `jsx/no-array-index-key`
-- [ ] `jsx/no-bind`
 - [ ] `jsx/max-depth`
 - [x] `jsx/no-useless-fragment`
 - [x] `jsx/no-comment-textnodes`
@@ -140,7 +139,6 @@ export default [
 - [x] `react/no-children-to-array`
 - [x] `react/no-children-prop`
 - [x] `react/no-children-in-void-dom-elements`
-- [ ] `react/no-create-class`
 - [ ] `react/no-find-dom-node`
 - [ ] `react/no-is-mounted`
 - [x] `react/no-class-component`
@@ -153,7 +151,6 @@ export default [
 - [x] `react/no-dangerously-set-innerhtml-with-children`
 - [x] `react/no-missing-button-type`
 - [x] `react/no-missing-iframe-sandbox`
-- [ ] `react/no-missing-context-display-name`
 - [x] `react/no-missing-component-display-name`
 - [x] `react/no-script-url`
 - [ ] `react/no-direct-mutation-state`
