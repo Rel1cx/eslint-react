@@ -7,13 +7,12 @@ import {
   unsafeIsMapCall,
 } from "@eslint-react/ast";
 import { getPragmaFromContext, isChildrenOfCreateElement, isJSXValue } from "@eslint-react/jsx";
-import type { RuleContext } from "@eslint-react/shared";
+import { type RuleContext, uid } from "@eslint-react/shared";
 import { E, MutList, O } from "@eslint-react/tools";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { match } from "ts-pattern";
 
-import { uid } from "../helper";
 import { defaultComponentCollectorHint, ExRComponentCollectorHint } from "./component-collector-hint";
 import { ExRFunctionComponentFlag } from "./component-flag";
 import { getComponentIdentifier } from "./component-Identifier";

@@ -24,7 +24,6 @@
 - [RE\_COMPONENT\_NAME](README.md#re_component_name)
 - [RE\_HOOK\_NAME](README.md#re_hook_name)
 - [defaultComponentCollectorHint](README.md#defaultcomponentcollectorhint)
-- [uid](README.md#uid)
 
 ### Functions
 
@@ -232,12 +231,6 @@ hints for component collector
 ### defaultComponentCollectorHint
 
 • `Const` **defaultComponentCollectorHint**: `bigint`
-
----
-
-### uid
-
-• `Const` **uid**: `default`
 
 ## Functions
 

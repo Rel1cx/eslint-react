@@ -50,8 +50,5 @@
     "@typescript-eslint/type-utils": "6.10.0",
     "@typescript-eslint/types": "6.10.0",
     "@typescript-eslint/utils": "6.10.0"
-  },
-  "devDependencies": {
-    "short-unique-id": "5.0.3"
   }
 }

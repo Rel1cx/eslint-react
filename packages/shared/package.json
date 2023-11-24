@@ -44,6 +44,7 @@
     "@typescript-eslint/utils": "6.10.0",
     "dedent": "1.5.1",
     "deepmerge-ts": "5.1.0",
-    "tslib": "2.6.2"
+    "tslib": "2.6.2",
+    "short-unique-id": "5.0.3"
   }
 }

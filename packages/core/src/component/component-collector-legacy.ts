@@ -1,9 +1,8 @@
 import { getClassIdentifier, NodeType, type TSESTreeClass } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/shared";
+import { type RuleContext, uid } from "@eslint-react/shared";
 import { E, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
-import { uid } from "../helper";
 import { ExRClassComponentFlag } from "./component-flag";
 import { type ExRClassComponent, isClassComponent, isPureComponent } from "./component-kind";
 
