@@ -198,7 +198,6 @@ module.exports = defineConfig({
       files: "*.spec.ts",
       plugins: ["vitest"],
       rules: {
-        "functional-core/purity": "off",
         "perfectionist/sort-objects": "off",
         "sonarjs/no-duplicate-string": "off",
         "vitest/consistent-test-filename": "off",
@@ -206,7 +205,7 @@ module.exports = defineConfig({
       },
     },
     {
-      files: ["./packages/*/rollup.config.ts"],
+      files: ["./packages/*/*.config.ts"],
       rules: {
         "@typescript-eslint/no-unsafe-argument": "off",
         "@typescript-eslint/no-unsafe-assignment": "off",
@@ -221,7 +220,6 @@ module.exports = defineConfig({
         "perfectionist/sort-objects": "off",
         "functional/immutable-data": "off",
         "functional/no-expression-statements": "off",
-        "functional-core/purity": "off",
         "filenames-simple/naming-convention": "off",
       },
     },
