@@ -28,6 +28,7 @@ export default defineConfig([{
           mangle: false,
           module: true,
         },
+        target: "esnext",
       },
       minify: false,
     }),

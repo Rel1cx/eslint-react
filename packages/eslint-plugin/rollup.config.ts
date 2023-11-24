@@ -32,13 +32,13 @@ const options = {
     swc({
       jsc: {
         minify: {
-          compress: true,
+          compress: false,
           mangle: false,
           module: true,
         },
         target: "es2021",
       },
-      minify: true,
+      minify: false,
     }),
   ],
 } satisfies RollupOptions;

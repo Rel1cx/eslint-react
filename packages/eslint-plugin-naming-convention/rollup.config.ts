@@ -34,9 +34,9 @@ const options = {
         minify: {
           compress: false,
           mangle: false,
-          module: false,
+          module: true,
         },
-        target: "es2021",
+        target: "esnext",
       },
       minify: false,
     }),
