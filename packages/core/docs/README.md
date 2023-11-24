@@ -80,7 +80,7 @@
 | Name          | Type                                                         |
 | :------------ | :----------------------------------------------------------- |
 | `_`           | `string`                                                     |
-| `displayName` | `O.Option`\<`string`\>                                       |
+| `displayName` | `O.Option`\<`TSESTree.Expression`\>                          |
 | `flag`        | [`ExRClassComponentFlag`](README.md#exrclasscomponentflag-1) |
 | `id`          | `O.Option`\<`TSESTree.Identifier`\>                          |
 | `kind`        | `"class"`                                                    |
@@ -128,7 +128,7 @@
 | Name          | Type                                                                   |
 | :------------ | :--------------------------------------------------------------------- |
 | `_`           | `string`                                                               |
-| `displayName` | `O.Option`\<`string`\>                                                 |
+| `displayName` | `O.Option`\<`TSESTree.Expression`\>                                    |
 | `flag`        | [`ExRFunctionComponentFlag`](README.md#exrfunctioncomponentflag-1)     |
 | `hint`        | [`ExRComponentCollectorHint`](README.md#exrcomponentcollectorhint-1)   |
 | `id`          | `O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>         |

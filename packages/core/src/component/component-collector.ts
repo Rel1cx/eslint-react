@@ -1,22 +1,16 @@
 import {
-  findVariableByNameUpToGlobal,
-  getFunctionIdentifier,
-  getStaticValue,
-  getVariableInit,
   isFunctionOfClassMethod,
   isFunctionOfClassProperty,
   isFunctionOfObjectMethod,
-  isOneOf,
   NodeType,
   type TSESTreeFunction,
   unsafeIsMapCall,
 } from "@eslint-react/ast";
 import { getPragmaFromContext, isChildrenOfCreateElement, isJSXValue } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/shared";
-import { E, F, MutList, O } from "@eslint-react/tools";
+import { E, MutList, O } from "@eslint-react/tools";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { isString } from "effect/Predicate";
 import { match } from "ts-pattern";
 
 import { uid } from "../helper";
@@ -123,7 +117,7 @@ export function componentCollector(
         id,
         kind: "function",
         name,
-        displayName: O.fromNullable(getFunctionIdentifier(currentFn)?.name),
+        displayName: O.none(),
         flag: getComponentFlag(initPath, pragma),
         hint,
         initPath,
@@ -153,7 +147,7 @@ export function componentCollector(
         id,
         kind: "function",
         name,
-        displayName: O.fromNullable(getFunctionIdentifier(node)?.name),
+        displayName: O.none(),
         flag: getComponentFlag(initPath, pragma),
         hint,
         initPath,
@@ -186,23 +180,9 @@ export function componentCollector(
         return;
       }
 
-      const maybeRightValue = match(right)
-        .with({ type: NodeType.Literal }, ({ value }) => O.some(value))
-        .with({ type: NodeType.TemplateLiteral }, n => O.some(getStaticValue(n)?.value))
-        .with({ type: NodeType.Identifier }, n => {
-          return F.pipe(
-            findVariableByNameUpToGlobal(n.name, context.getScope()),
-            O.flatMap(getVariableInit(0)),
-            O.filter(isOneOf([NodeType.Literal, NodeType.TemplateLiteral])),
-            O.map(getStaticValue),
-            O.flatMapNullable(v => v?.value),
-          );
-        })
-        .otherwise(O.none);
-
       components.set(component._, {
         ...component,
-        displayName: O.filter(isString)(maybeRightValue),
+        displayName: O.some(right),
       });
     },
   } as const satisfies ESLintUtils.RuleListener;

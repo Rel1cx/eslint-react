@@ -20,8 +20,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      FUNCTION_COMPONENT:
-        "[function component] name: {{name}}, memo: {{memo}}, forwardRef: {{forwardRef}}, displayName: {{displayName}}",
+      FUNCTION_COMPONENT: "[function component] name: {{name}}, memo: {{memo}}, forwardRef: {{forwardRef}}",
     },
   },
   defaultOptions: [],
@@ -39,11 +38,10 @@ export default createRule<[], MessageID>({
         }
         const components = maybeComponents.right;
 
-        for (const { name, displayName, flag, node } of components.values()) {
+        for (const { name, flag, node } of components.values()) {
           context.report({
             data: {
               name: O.getOrElse(name, F.constant("anonymous")),
-              displayName: O.getOrElse(displayName, F.constant("none")),
               forwardRef: Boolean(flag & ExRFunctionComponentFlag.ForwardRef),
               memo: Boolean(flag & ExRFunctionComponentFlag.Memo),
             },

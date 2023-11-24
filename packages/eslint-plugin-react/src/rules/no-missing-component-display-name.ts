@@ -1,3 +1,4 @@
+import { getFunctionIdentifier } from "@eslint-react/ast";
 import { componentCollector, ExRFunctionComponentFlag } from "@eslint-react/core";
 import { E, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -38,11 +39,18 @@ export default createRule<[], MessageID>({
         const components = maybeComponents.right;
 
         for (const { displayName, flag, node } of components.values()) {
-          const hasDisplayName = O.isSome(displayName);
-          const isMemoOrForwardRef = flag & ExRFunctionComponentFlag.ForwardRef
-            || flag & ExRFunctionComponentFlag.Memo;
+          const isMemoOrForwardRef = Boolean(flag & ExRFunctionComponentFlag.ForwardRef)
+            || Boolean(flag & ExRFunctionComponentFlag.Memo);
 
-          if (!hasDisplayName && isMemoOrForwardRef) {
+          if (getFunctionIdentifier(node)) {
+            continue;
+          }
+
+          if (!isMemoOrForwardRef) {
+            continue;
+          }
+
+          if (O.isNone(displayName)) {
             context.report({
               messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
               node,

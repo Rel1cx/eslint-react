@@ -21,7 +21,7 @@ export type ExRFunctionComponent = {
   flag: ExRFunctionComponentFlag;
   hint: ExRComponentCollectorHint;
   initPath: O.Option<ExRComponentInitPath>;
-  displayName: O.Option<string>;
+  displayName: O.Option<TSESTree.Expression>;
 };
 
 export type ExRClassComponent = {
@@ -31,7 +31,7 @@ export type ExRClassComponent = {
   node: TSESTreeClass;
   name: O.Option<string>;
   flag: ExRClassComponentFlag;
-  displayName: O.Option<string>;
+  displayName: O.Option<TSESTree.Expression>;
 };
 
 export type ExRComponent = ExRClassComponent | ExRFunctionComponent;

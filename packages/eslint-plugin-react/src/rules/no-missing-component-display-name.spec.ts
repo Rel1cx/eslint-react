@@ -60,6 +60,23 @@ ruleTester.run(RULE_NAME, rule, {
 
       App.displayName = displayName;
     `,
+    dedent`
+      const someThing = {
+        displayName: "someThing",
+      }
+      const Component = React.forwardRef(() => <div/>)
+      Component.displayName = someThing.displayName
+    `,
+    dedent`
+      function getDisplayName() { return "someThing" }
+      const Component = React.forwardRef(() => <div/>)
+      Component.displayName = getDisplayName()
+    `,
+    dedent`
+      function getDisplayName() { return "someThing" }
+      const Component = React.forwardRef(() => <div/>)
+      Component.displayName = (true, 1 + 1, getDisplayName)()
+    `,
   ],
   invalid: [
     {
