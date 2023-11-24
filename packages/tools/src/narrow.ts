@@ -24,3 +24,9 @@ export type Narrow<TType> =
  * const result = narrow(['foo', 'bar', 1])
  */
 export const narrow = <TType>(a: Narrow<TType>) => a;
+
+/**
+ * @param a The value to infer.
+ * @since 0.0.1
+ */
+export const asConst = <const T>(a: T) => a;
