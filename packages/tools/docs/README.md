@@ -6,6 +6,7 @@
 
 ### Namespaces
 
+- [Array](modules/Array.md)
 - [Chunk](modules/Chunk.md)
 - [Data](modules/Data.md)
 - [E](modules/E.md)
@@ -15,7 +16,9 @@
 - [MutList](modules/MutList.md)
 - [MutRef](modules/MutRef.md)
 - [O](modules/O.md)
+- [Ord](modules/Ord.md)
 - [Record](modules/Record.md)
+- [Ref](modules/Ref.md)
 
 ### Type Aliases
 

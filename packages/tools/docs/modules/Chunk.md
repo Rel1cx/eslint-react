@@ -2784,9 +2784,9 @@ Sort the elements of a Chunk in increasing order, creating a new Chunk.
 
 #### Parameters
 
-| Name | Type           |
-| :--- | :------------- |
-| `O`  | `Order`\<`B`\> |
+| Name | Type                                         |
+| :--- | :------------------------------------------- |
+| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
 
 #### Returns
 
@@ -2830,7 +2830,7 @@ Sort the elements of a Chunk in increasing order, creating a new Chunk.
 | Name   | Type                                             |
 | :----- | :----------------------------------------------- |
 | `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `O`    | `Order`\<`B`\>                                   |
+| `O`    | [`Order`](../interfaces/Ord.Order.md)\<`B`\>     |
 
 #### Returns
 
@@ -2855,10 +2855,10 @@ Sort the elements of a Chunk in increasing order, creating a new Chunk.
 
 #### Parameters
 
-| Name    | Type              |
-| :------ | :---------------- |
-| `f`     | (`a`: `A`) => `B` |
-| `order` | `Order`\<`B`\>    |
+| Name    | Type                                         |
+| :------ | :------------------------------------------- |
+| `f`     | (`a`: `A`) => `B`                            |
+| `order` | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
 
 #### Returns
 
@@ -2895,7 +2895,7 @@ Sort the elements of a Chunk in increasing order, creating a new Chunk.
 | :------ | :----------------------------------------------- |
 | `self`  | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
 | `f`     | (`a`: `A`) => `B`                                |
-| `order` | `Order`\<`B`\>                                   |
+| `order` | [`Order`](../interfaces/Ord.Order.md)\<`B`\>     |
 
 #### Returns
 

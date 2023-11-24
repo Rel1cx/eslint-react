@@ -2795,7 +2795,7 @@ assert.deepStrictEqual(
 
 ### getOrder
 
-▸ **getOrder**\<`A`\>(`O`): `Order`\<[`Option`](O.md#option)\<`A`\>\>
+▸ **getOrder**\<`A`\>(`O`): [`Order`](../interfaces/Ord.Order.md)\<[`Option`](O.md#option)\<`A`\>\>
 
 The `Order` instance allows `Option` values to be compared with
 `compare`, whenever there is an `Order` instance for
@@ -2811,13 +2811,13 @@ the type the `Option` contains.
 
 #### Parameters
 
-| Name | Type           |
-| :--- | :------------- |
-| `O`  | `Order`\<`A`\> |
+| Name | Type                                         |
+| :--- | :------------------------------------------- |
+| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
 
-`Order`\<[`Option`](O.md#option)\<`A`\>\>
+[`Order`](../interfaces/Ord.Order.md)\<[`Option`](O.md#option)\<`A`\>\>
 
 **`Example`**
 
