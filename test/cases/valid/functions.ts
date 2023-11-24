@@ -1,4 +1,3 @@
-// eslint-disable-next-line functional-core/purity
 import dedent from "dedent";
 
 export const fn = "const fn = () => null";

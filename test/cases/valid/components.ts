@@ -1,4 +1,3 @@
-// eslint-disable-next-line functional-core/purity
 import dedent from "dedent";
 
 export const createElementComponent = "const CreateElementComponent = () => React.createElement('div', null, null)";

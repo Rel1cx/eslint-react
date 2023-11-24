@@ -1,4 +1,4 @@
-import RuleTester, { defaultParserOptions } from "../../../../test/rule-tester";
+import { defaultParserOptions, RuleTester } from "../../../../test";
 import rule, { RULE_NAME } from "./filename";
 
 const ruleTester = new RuleTester({

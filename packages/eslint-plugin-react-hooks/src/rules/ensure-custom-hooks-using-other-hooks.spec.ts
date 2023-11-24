@@ -1,7 +1,6 @@
-import { allValid } from "@eslint-react/shared";
 import dedent from "dedent";
 
-import RuleTester, { defaultParserOptions } from "../../../../test/rule-tester";
+import { allValid, defaultParserOptions, RuleTester } from "../../../../test";
 import rule, { RULE_NAME } from "./ensure-custom-hooks-using-other-hooks";
 
 const ruleTester = new RuleTester({

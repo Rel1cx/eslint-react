@@ -13,7 +13,7 @@ export function getFixturesRootDir(): string {
   return path.join(__dirname, "fixtures");
 }
 
-export { RuleTester as default } from "@typescript-eslint/rule-tester";
+export { RuleTester } from "@typescript-eslint/rule-tester";
 
 export const defaultParserOptions = {
   ecmaFeatures: {

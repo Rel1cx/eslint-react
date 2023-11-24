@@ -1,7 +1,6 @@
-import { allFunctions } from "@eslint-react/shared";
 import dedent from "dedent";
 
-import RuleTester, { defaultParserOptions } from "../../../../test/rule-tester";
+import { allFunctions, defaultParserOptions, RuleTester } from "../../../../test";
 import rule, { RULE_NAME } from "./component-name";
 
 const ruleTester = new RuleTester({

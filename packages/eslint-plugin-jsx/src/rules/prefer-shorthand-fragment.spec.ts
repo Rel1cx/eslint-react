@@ -1,6 +1,4 @@
-import { allValid } from "@eslint-react/shared";
-
-import RuleTester, { defaultParserOptions } from "../../../../test/rule-tester";
+import { allValid, defaultParserOptions, RuleTester } from "../../../../test";
 import rule, { RULE_NAME } from "./prefer-shorthand-fragment";
 
 const ruleTester = new RuleTester({
