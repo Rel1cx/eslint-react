@@ -24,7 +24,7 @@ module.exports = defineConfig({
     "plugin:perfectionist/recommended-natural",
     "plugin:jsdoc/recommended-typescript",
     "plugin:eslint-plugin/all",
-    "plugin:functional/lite",
+    "plugin:functional/recommended",
     "plugin:functional-core/recommended",
     "plugin:filenames-simple/recommended",
   ],
@@ -154,7 +154,7 @@ module.exports = defineConfig({
         "./packages/core/**/*",
       ],
       extends: [
-        "plugin:functional/recommended",
+        "plugin:functional/strict",
       ],
       rules: {
         "functional/no-let": "off",

@@ -190,6 +190,7 @@ export function isHostSVGComponentName(name: string) {
   return HostSVGComponentTypes.includes(name as never);
 }
 
-export function isHostWebComponentName() {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function isHostWebComponentName(name: string) {
   // TODO: implement this following the spec in https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name
 }
