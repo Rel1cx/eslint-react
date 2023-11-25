@@ -14,6 +14,7 @@ import noConstructedContextValue from "./rules/no-constructed-context-value";
 import noCreateRef from "./rules/no-create-ref";
 import noDangerouslySetInnerHTML from "./rules/no-dangerously-set-innerhtml";
 import noDangerouslySetInnerHTMLWithChildren from "./rules/no-dangerously-set-innerhtml-with-children";
+import noFindDomNode from "./rules/no-find-dom-node";
 import noMissingButtonType from "./rules/no-missing-button-type";
 import noMissingComponentDisplayName from "./rules/no-missing-component-display-name";
 import noMissingIframeSandbox from "./rules/no-missing-iframe-sandbox";
@@ -40,6 +41,7 @@ export const rules = {
   "no-children-prop": noChildrenProp,
   "no-children-to-array": noChildrenToArray,
   "no-class-component": noClassComponent,
+  "no-find-dom-node": noFindDomNode,
   "no-clone-element": noCloneElement,
   "no-constructed-context-value": noConstructedContextValue,
   "no-create-ref": noCreateRef,
