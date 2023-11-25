@@ -112,10 +112,10 @@ export function componentCollector(
       );
       const initPath = getComponentInitPath(currentFn);
 
-      const component = Array.from(components.values())
-        .findLast(c => c.node === currentFn);
-
-      if (component) {
+      if (
+        Array.from(components.values())
+          .some(c => c.node === currentFn)
+      ) {
         return;
       }
 
