@@ -139,7 +139,7 @@ export default [
 - [x] `react/no-children-to-array`
 - [x] `react/no-children-prop`
 - [x] `react/no-children-in-void-dom-elements`
-- [ ] `react/no-find-dom-node`
+- [x] `react/no-find-dom-node`
 - [ ] `react/no-is-mounted`
 - [x] `react/no-class-component`
 - [x] `react/no-clone-element`
