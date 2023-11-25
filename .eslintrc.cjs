@@ -22,11 +22,11 @@ module.exports = defineConfig({
   extends: [
     "with-tsconfig",
     "plugin:perfectionist/recommended-natural",
-    "plugin:jsdoc/recommended-typescript",
-    "plugin:eslint-plugin/all",
     "plugin:functional/recommended",
     "plugin:functional-core/recommended",
     "plugin:filenames-simple/recommended",
+    "plugin:jsdoc/recommended-typescript",
+    "plugin:eslint-plugin/all",
   ],
   plugins: ["functional", "functional-core", "filenames-simple"],
   ignorePatterns: [
