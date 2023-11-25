@@ -29,6 +29,7 @@
   "react-no-create-ref": "react/no-create-ref",
   "react-no-dangerously-set-innerhtml": "react/no-dangerously-set-innerhtml",
   "react-no-dangerously-set-innerhtml-with-children": "react/no-dangerously-set-innerhtml-with-children",
+  "react-no-find-dom-node": "react/no-find-dom-node",
   "react-no-missing-button-type": "react/no-missing-button-type",
   "react-no-missing-component-display-name": "react/no-missing-component-display-name",
   "react-no-missing-iframe-sandbox": "react/no-missing-iframe-sandbox",
