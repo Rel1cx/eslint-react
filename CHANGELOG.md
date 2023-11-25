@@ -1,4 +1,4 @@
-## v0.8.10 (Sat Nov 26 2023)
+## v0.8.10 (Sun Nov 26 2023)
 
 ### Release Notes
 
@@ -23,7 +23,7 @@
 
 ---
 
-## v0.8.9 (Sat Nov 24 2023)
+## v0.8.9 (Fri Nov 24 2023)
 
 ### Release Notes
 
