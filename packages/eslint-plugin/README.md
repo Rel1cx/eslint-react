@@ -104,22 +104,6 @@ export default [
 - **Linting errors are better than runtime crashes**.
 - **Types are the fundamental unit of correctness**.
 
-## Rule introduction or modification principles
-
-1. **TypeScript first**. If a behavior can already be enforced by TypeScript built-in checker, don't reimplement it.
-2. **Formatting independent**. Rules should check for correctness, not style. We recommend using style focused tools for formatting (e.g. [dprint](https://dprint.dev/) or [eslint-stylistic](https://github.com/eslint-stylistic/eslint-stylistic)).
-3. **No Auto-fix**. Auto-fix is a great feature, but it's not always safe and reliable. We prefer to not to do auto-fix at all than to implement it in a way that can cause more problems than it solves.
-4. **Sensible defaults**. Rules should be easy to setup and use with minimal configuration and sensible defaults.
-5. **Rules over Options [[1]](https://eslint-react.rel1cx.io/docs/rules-over-options)**. Each rule should have a single purpose. Make multiple rules work together to achieve more complex behaviors instead of adding options to a single rule.
-
-## Contributing
-
-Before you start working on something, it's best to check if there is an existing issue first. It's also a good idea to reach the maintainer and confirm with the team if it makes sense or if someone else is already working on it.
-
-Please make sure to read the [Contributing Guide](./.github/CONTRIBUTING.md) before making a pull request.
-
-Thank you to everyone contributing to ESLint x React!
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -133,8 +117,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [@tanstack/eslint-plugin-query](https://github.com/TanStack/query/tree/main/packages/eslint-plugin-query)
 - [rome/tools](https://github.com/rome/tools)
 - [rust-clippy](https://github.com/rust-lang/rust-clippy)
-- [effect.website](https://effect.website)
-- [fp-glossary](https://degoes.net/articles/fp-glossary)
 
 ## Prior art
 
