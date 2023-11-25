@@ -76,6 +76,49 @@ ruleTester.run(RULE_NAME, rule, {
       const Component = React.forwardRef(() => <div/>)
       Component.displayName = (true, 1 + 1, getDisplayName)()
     `,
+    // https://github.com/Rel1cx/eslint-react/issues/177
+    dedent`
+      import { forwardRef, ReactNode } from 'react';
+
+      interface Props {
+        children?: ReactNode;
+      }
+      export type Ref = HTMLButtonElement;
+
+      const FancyButton = forwardRef<Ref, Props>((props, ref) => {
+        // It's works without this
+        if (!props.children) return null;
+        return (
+          <button ref={ref} className="MyClassName" type="button">
+            {props.children}
+            hell
+          </button>
+        );
+      });
+
+      FancyButton.displayName = 'FancyButton';
+    `,
+    dedent`
+      import { forwardRef, ReactNode } from 'react';
+
+      interface Props {
+        children?: ReactNode;
+      }
+      export type Ref = HTMLButtonElement;
+
+      const FancyButton = forwardRef<Ref, Props>((props, ref) => {
+        // It's works without this
+        if (!props.children) return <div>foo</div>;
+        return (
+          <button ref={ref} className="MyClassName" type="button">
+            {props.children}
+            hell
+          </button>
+        );
+      });
+
+      FancyButton.displayName = 'FancyButton';
+    `,
   ],
   invalid: [
     {
