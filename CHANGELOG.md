@@ -32,10 +32,10 @@
 #### 🚀 Enhancement
 
 - `@eslint-react/types`
-  - Optimize packages structure.
+  - Optimize package structure.
 
 - `@eslint-react/shared`
-  - Optimize packages structure.
+  - Optimize package structure.
 
 #### Authors: 1
 
