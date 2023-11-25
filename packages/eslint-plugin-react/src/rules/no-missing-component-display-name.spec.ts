@@ -76,6 +76,13 @@ ruleTester.run(RULE_NAME, rule, {
       const Component = React.forwardRef(() => <div/>)
       Component.displayName = (true, 1 + 1, getDisplayName)()
     `,
+    dedent`
+      const Component = React.forwardRef(({ children }, ref) => {
+        if (!children) return null
+        return <p>{children}</p>
+      })
+      Component.displayName = "Message"
+    `,
   ],
   invalid: [
     {

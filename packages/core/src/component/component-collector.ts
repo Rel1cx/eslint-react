@@ -111,6 +111,14 @@ export function componentCollector(
         getComponentNameFromIdentifier,
       );
       const initPath = getComponentInitPath(currentFn);
+
+      const component = Array.from(components.values())
+        .findLast(c => c.node === currentFn);
+
+      if (component) {
+        return;
+      }
+
       components.set(key, {
         _: key,
         id,
