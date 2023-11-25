@@ -1,4 +1,4 @@
-<p align="center"><img src="https://eslint-react.xyz/logo.svg" alt="logo" width="150" /></p>
+<p align="center"><img src="https://eslint-react.rel1cx.io/logo.svg" alt="logo" width="150" /></p>
 
 <h1 align="center" alt="title">ESLint x React</h1>
 
@@ -101,7 +101,7 @@ export default [
 
 ## Rules
 
-[Rule List ↗](https://eslint-react.xyz/rules/overview)
+[Rule List ↗](https://eslint-react.rel1cx.io/rules/overview)
 
 ## Rules status
 
@@ -206,7 +206,7 @@ export default [
 2. **Formatting independent**. Rules should check for correctness, not style. We recommend using style focused tools for formatting (e.g. [dprint](https://dprint.dev/) or [eslint-stylistic](https://github.com/eslint-stylistic/eslint-stylistic)).
 3. **No Auto-fix**. Auto-fix is a great feature, but it's not always safe and reliable. We prefer to not to do auto-fix at all than to implement it in a way that can cause more problems than it solves.
 4. **Sensible defaults**. Rules should be easy to setup and use with minimal configuration and sensible defaults.
-5. **Rules over Options [[1]](https://eslint-react.xyz/docs/rules-over-options)**. Each rule should have a single purpose. Make multiple rules work together to achieve more complex behaviors instead of adding options to a single rule.
+5. **Rules over Options [[1]](https://eslint-react.rel1cx.io/docs/rules-over-options)**. Each rule should have a single purpose. Make multiple rules work together to achieve more complex behaviors instead of adding options to a single rule.
 
 ## Contributing
 
