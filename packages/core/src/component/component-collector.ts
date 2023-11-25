@@ -61,9 +61,9 @@ export function componentCollector(
   pragma = getPragmaFromContext(context),
 ) {
   const components = new Map<string, ExRFunctionComponent>();
-  const functionStack = MutList.make<TSESTreeFunction>();
+  const functionStack = MutList.make<[TSESTreeFunction, boolean]>();
   const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
-  const onFunctionEnter = (node: TSESTreeFunction) => MutList.append(functionStack, node);
+  const onFunctionEnter = (node: TSESTreeFunction) => MutList.append(functionStack, [node, false]);
   const onFunctionExit = () => MutList.pop(functionStack);
 
   const ctx = {
@@ -94,7 +94,11 @@ export function componentCollector(
         return;
       }
 
-      const currentFn = maybeCurrentFn.value;
+      const [currentFn, isComponent] = maybeCurrentFn.value;
+
+      if (isComponent) {
+        return;
+      }
 
       if (
         !hasNoneOrValidComponentName(currentFn)
@@ -104,6 +108,9 @@ export function componentCollector(
         return;
       }
 
+      MutList.pop(functionStack);
+      MutList.append(functionStack, [currentFn, true]);
+
       const id = getComponentIdentifier(currentFn, context);
       const key = uid.rnd();
       const name = O.flatMapNullable(
@@ -111,6 +118,7 @@ export function componentCollector(
         getComponentNameFromIdentifier,
       );
       const initPath = getComponentInitPath(currentFn);
+
       components.set(key, {
         _: key,
         id,
@@ -141,6 +149,7 @@ export function componentCollector(
         getComponentNameFromIdentifier,
       );
       const initPath = getComponentInitPath(node);
+
       components.set(key, {
         _: key,
         id,

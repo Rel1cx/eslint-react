@@ -72,7 +72,7 @@ export default createRule<[], MessageID>({
           return;
         }
 
-        O.map(ctx.getCurrentFunction(), (currentFn) => possibleValueConstructions.set(currentFn, constructionDetail));
+        O.map(ctx.getCurrentFunction(), ([currentFn]) => possibleValueConstructions.set(currentFn, constructionDetail));
       },
       "Program:exit"() {
         const maybeComponents = ctx.getAllComponents();

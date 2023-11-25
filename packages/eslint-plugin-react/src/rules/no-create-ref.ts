@@ -40,7 +40,7 @@ export default createRule<[], MessageID>({
           return;
         }
 
-        O.map(ctx.getCurrentFunction(), (currentFn) => possibleCreateRefCalls.set(currentFn, node));
+        O.map(ctx.getCurrentFunction(), ([currentFn]) => possibleCreateRefCalls.set(currentFn, node));
       },
       "Program:exit"() {
         const maybeComponents = ctx.getAllComponents();
