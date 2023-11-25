@@ -1,8 +1,10 @@
-## v0.8.10-beta.5 (Sat Nov 25 2023)
+## v0.8.10 (Sat Nov 26 2023)
 
 ### Release Notes
 
 #### Fix an issue with component-collector. ([#178](https://github.com/Rel1cx/eslint-react/pull/178))
+
+#### Update website url
 
 ---
 
@@ -21,7 +23,7 @@
 
 ---
 
-## v0.8.10-beta.4 (Sat Nov 24 2023)
+## v0.8.9 (Sat Nov 24 2023)
 
 ### Release Notes
 
