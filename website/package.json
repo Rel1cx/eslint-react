@@ -5,7 +5,7 @@
     "build": "next build",
     "clean": "rm -rf .next node_modules/.cache",
     "dev": "next dev",
-    "lint": "bun run --bun eslint --ext mdx,md,js,jsx,ts,tsx",
+    "lint": "eslint .",
     "start": "next start"
   },
   "dependencies": {

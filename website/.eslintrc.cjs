@@ -13,17 +13,13 @@ module.exports = defineConfig({
     ecmaVersion: "latest",
     project: true,
     sourceType: "module",
-    warnOnUnsupportedTypeScriptVersion: false,
   },
   extends: [
     "with-tsconfig",
     "next",
     "next/core-web-vitals",
-    "plugin:react-hooks/recommended",
-    "plugin:@eslint-react/recommended-legacy",
-    "plugin:mdx/recommended",
   ],
-  plugins: ["react-hooks", "mdx"],
+  plugins: ["react-hooks"],
   rules: {
     "unicorn/new-for-builtins": "off",
     "unicorn/no-keyword-prefix": "off",
@@ -35,4 +31,23 @@ module.exports = defineConfig({
       },
     ],
   },
+  overrides: [
+    {
+      files: ["*.ts", "*.tsx"],
+      extends: [
+        "plugin:react-hooks/recommended",
+        "plugin:@eslint-react/all-legacy",
+      ],
+    },
+    {
+      files: ["*.d.ts"],
+      rules: {
+        "spaced-comment": "off",
+      },
+    },
+    {
+      files: ["*.mdx"],
+      extends: ["plugin:mdx/recommended"],
+    },
+  ],
 });

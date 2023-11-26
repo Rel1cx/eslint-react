@@ -4,7 +4,7 @@ import type { DocsThemeConfig } from "nextra-theme-docs";
 import { match, P } from "ts-pattern";
 
 import logo from "#/assets/logo.svg";
-import { Image } from "#/components/Image";
+import { Image } from "#/components/image";
 import { PUBLIC_URL } from "#/constants";
 
 export default {

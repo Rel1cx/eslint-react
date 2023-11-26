@@ -1,7 +1,7 @@
 import React from "react";
 import { createPortal } from "react-dom";
 
-import { useCustomStyle } from "#/hooks/useCustomStyle";
+import { useCustomStyle } from "#/hooks/use-custom-style";
 
 export default function TwoslashPatchPortal() {
   const [isReady, setIsReady] = React.useState(false);
