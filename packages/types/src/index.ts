@@ -1,1 +1,1 @@
-export * from "./react-settings";
+export * from "./settings";

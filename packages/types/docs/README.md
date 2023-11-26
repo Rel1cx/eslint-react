@@ -6,10 +6,17 @@
 
 ### Type Aliases
 
+- [ExRSettings](README.md#exrsettings)
 - [ReactSettings](README.md#reactsettings)
 
 ## Type Aliases
 
+### ExRSettings
+
+Ƭ **ExRSettings**: `ReadonlyDeep`\<\{ `[key: string]`: `unknown`; `react`: [`ReactSettings`](README.md#reactsettings) }\>
+
+---
+
 ### ReactSettings
 
-Ƭ **ReactSettings**: `ReadonlyDeep`\<\{ `[key: string]`: `unknown`; `fragment`: `string` ; `pragma`: `string` ; `version`: `string` }\>
+Ƭ **ReactSettings**: `ReadonlyDeep`\<\{ `fragment`: `string` ; `pragma`: `string` ; `version`: `string` }\>
