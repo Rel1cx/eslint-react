@@ -14,6 +14,9 @@
 - `@eslint-react/types`
   - Add `ExRSettings` type.
 
+- `@eslint-react/monorepo`
+  - Update `@typescript-eslint`'s packages to `6.12.0`.
+
 #### 📝 Documentation
 
 - `@eslint-react/eslint-plugin`
