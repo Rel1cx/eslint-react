@@ -1,3 +1,32 @@
+## v0.8.11 (Sun Nov 26 2023)
+
+### Release Notes
+
+#### Add rule `react/no-find-dom-node` ([#179](https://github.com/Rel1cx/eslint-react/pull/179))
+
+---
+
+#### 🏠 Internal
+
+- `@eslint-react/eslint-plugin-react`
+  - Add rule `react/no-find-dom-node` ([#179](https://github.com/Rel1cx/eslint-react/pull/179))
+
+- `@eslint-react/types`
+  - Add `ExRSettings` type.
+
+#### 📝 Documentation
+
+- `@eslint-react/eslint-plugin`
+  - Update README.md
+- `@eslint-react/website`
+  - Update website url
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
+
 ## v0.8.10 (Sun Nov 26 2023)
 
 ### Release Notes
