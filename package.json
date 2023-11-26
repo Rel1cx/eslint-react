@@ -70,7 +70,7 @@
     "bun-types": "1.0.14",
     "cspell": "7.3.9",
     "dedent": "1.5.1",
-    "dprint": "0.43.0",
+    "dprint": "0.43.1",
     "effect": "2.0.0-next.56",
     "eslint": ">=8.54.0",
     "eslint-config-with-tsconfig": "2.9.60",
