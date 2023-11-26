@@ -1,4 +1,5 @@
 import { is, NodeType, traverseUpGuard } from "@eslint-react/ast";
+import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import { isMatching, P } from "ts-pattern";
 
@@ -41,14 +42,14 @@ export function unsafeIsDeclaredInRenderProp(node: TSESTree.Node) {
     return true;
   }
 
-  const maybeJSXExpressionContainer = traverseUpGuard(node, is(NodeType.JSXExpressionContainer));
-  const maybeJSXAttribute = maybeJSXExpressionContainer?.parent;
-
-  return isMatching({
-    type: NodeType.JSXAttribute,
-    name: {
+  return F.pipe(
+    traverseUpGuard(node, is(NodeType.JSXExpressionContainer)),
+    O.flatMapNullable(c => c.parent),
+    O.filter(is(NodeType.JSXAttribute)),
+    O.flatMapNullable(a => a.name),
+    O.exists(isMatching({
       type: NodeType.JSXIdentifier,
       name: P.string.startsWith("render"),
-    },
-  }, maybeJSXAttribute);
+    })),
+  );
 }

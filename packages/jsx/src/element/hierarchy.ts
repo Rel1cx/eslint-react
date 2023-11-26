@@ -1,5 +1,6 @@
 import { is, NodeType, traverseUp } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
+import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { isCreateElementCall } from "./is-element-call";
@@ -10,14 +11,24 @@ import { isCreateElementCall } from "./is-element-call";
  * @param context The rule context
  * @returns `true` if the node is inside createElement's props
  */
+// export function isInsideCreateElementProps(node: TSESTree.Node, context: RuleContext) {
+//   const parentCreateElement = traverseUp(node, n => isCreateElementCall(n, context));
+
+//   if (parentCreateElement?.type !== NodeType.CallExpression) {
+//     return false;
+//   }
+
+//   return parentCreateElement.arguments.at(1) === traverseUp(node, is(NodeType.ObjectExpression));
+// }
 export function isInsideCreateElementProps(node: TSESTree.Node, context: RuleContext) {
-  const parentCreateElement = traverseUp(node, n => isCreateElementCall(n, context));
-
-  if (parentCreateElement?.type !== NodeType.CallExpression) {
-    return false;
-  }
-
-  return parentCreateElement.arguments.at(1) === traverseUp(node, is(NodeType.ObjectExpression));
+  return F.pipe(
+    traverseUp(node, n => isCreateElementCall(n, context)),
+    O.filter(is(NodeType.CallExpression)),
+    O.flatMapNullable(c => c.arguments.at(1)),
+    O.filter(is(NodeType.ObjectExpression)),
+    O.zipWith(traverseUp(node, is(NodeType.ObjectExpression)), (a, b) => a === b),
+    O.getOrElse(F.constFalse),
+  );
 }
 
 export function isChildrenOfCreateElement(node: TSESTree.Node, context: RuleContext) {

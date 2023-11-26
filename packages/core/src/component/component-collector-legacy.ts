@@ -27,7 +27,7 @@ export function componentCollectorLegacy(context: RuleContext) {
       return;
     }
 
-    const id = O.fromNullable(getClassIdentifier(node));
+    const id = getClassIdentifier(node);
     const key = uid.rnd();
     const flag = isPureComponent(node, context)
       ? ExRClassComponentFlag.Pure

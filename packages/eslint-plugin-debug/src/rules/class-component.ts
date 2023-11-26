@@ -1,6 +1,5 @@
-import { getClassIdentifier } from "@eslint-react/ast";
 import { componentCollectorLegacy } from "@eslint-react/core";
-import { E } from "@eslint-react/tools";
+import { E, F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils";
@@ -38,13 +37,10 @@ export default createRule<[], MessageID>({
         }
         const components = maybeComponents.right;
 
-        for (const { node: component } of components.values()) {
-          const maybeName = component.id?.name;
-          const maybeId = getClassIdentifier(component);
-          const name = maybeName ?? maybeId?.name ?? "anonymous";
+        for (const { name, node: component } of components.values()) {
           context.report({
             data: {
-              name,
+              name: O.getOrElse(F.constant("anonymous"))(name),
             },
             messageId: "CLASS_COMPONENT",
             node: component,

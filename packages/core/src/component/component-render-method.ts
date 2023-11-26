@@ -1,5 +1,6 @@
 import { NodeType, traverseUp, type TSESTreeFunction } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
+import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { isMatching, P } from "ts-pattern";
 
@@ -51,5 +52,5 @@ export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) 
     return isRenderMethod && isClassComponent(node.parent.parent, context);
   };
 
-  return !!traverseUp(node, predicate);
+  return O.isSome(traverseUp(node, predicate));
 }

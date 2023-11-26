@@ -11,6 +11,9 @@
 - `@eslint-react/eslint-plugin-react`
   - Add rule `react/no-find-dom-node` ([#179](https://github.com/Rel1cx/eslint-react/pull/179))
 
+- `@eslint-react/ast`
+  - Optimize API return value.
+
 - `@eslint-react/types`
   - Add `ExRSettings` type.
 
@@ -23,6 +26,10 @@
   - Update README.md
 - `@eslint-react/website`
   - Update website url
+- `@eslint-react/ast`
+  - Setup typedoc
+- `@eslint-react/shared`
+  - Setup typedoc
 
 #### Authors: 1
 

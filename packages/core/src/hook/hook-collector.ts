@@ -1,6 +1,6 @@
 import { getFunctionIdentifier, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { type RuleContext, uid } from "@eslint-react/shared";
-import { E } from "@eslint-react/tools";
+import { E, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { unsafeIsReactHookCall } from "./hook-call";
@@ -24,9 +24,11 @@ export function hookCollector(context: RuleContext): {
     if (!currentFn) {
       return;
     }
-    const id = getFunctionIdentifier(currentFn);
-    const name = id?.name;
-    if (name && isValidReactHookName(name)) {
+    const maybeId = getFunctionIdentifier(currentFn);
+    const maybeName = O.flatMapNullable(maybeId, (id) => id.name);
+    if (O.isSome(maybeId) && O.isSome(maybeName) && isValidReactHookName(maybeName.value)) {
+      const id = maybeId.value;
+      const name = maybeName.value;
       const key = uid.rnd();
       hooks.set(key, {
         _: key,

@@ -1,3 +1,4 @@
+import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { isIdentifierWithName } from "./identifier";
@@ -24,5 +25,5 @@ export function findPropertyWithIdentifierKey(
   properties: TSESTree.ObjectLiteralElement[],
   key: string,
 ) {
-  return properties.find((x) => isPropertyWithIdentifierKey(x, key));
+  return O.fromNullable(properties.find((x) => isPropertyWithIdentifierKey(x, key)));
 }

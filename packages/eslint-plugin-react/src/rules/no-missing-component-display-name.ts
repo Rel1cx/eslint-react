@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
           const isMemoOrForwardRef = Boolean(flag & ExRFunctionComponentFlag.ForwardRef)
             || Boolean(flag & ExRFunctionComponentFlag.Memo);
 
-          if (getFunctionIdentifier(node)) {
+          if (O.isSome(getFunctionIdentifier(node))) {
             continue;
           }
 

@@ -1,4 +1,4 @@
-import { uniqueBy } from "@eslint-react/tools";
+import { O, uniqueBy } from "@eslint-react/tools";
 import type TSESLintScopeManager from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
@@ -36,7 +36,7 @@ export function getExternalRefs(params: {
   const references = scope.references
     .filter((x) => x.isRead() && !scope.set.has(x.identifier.name))
     .map((x) => {
-      const referenceNode = traverseUpGuard(
+      const maybeReferenceNode = traverseUpGuard(
         x.identifier,
         isOneOf([
           NodeType.MemberExpression,
@@ -44,9 +44,11 @@ export function getExternalRefs(params: {
         ]),
       );
 
-      if (!referenceNode) {
+      if (O.isNone(maybeReferenceNode)) {
         return null;
       }
+
+      const referenceNode = maybeReferenceNode.value;
 
       return {
         node: referenceNode,

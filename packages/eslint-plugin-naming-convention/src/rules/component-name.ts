@@ -2,7 +2,7 @@ import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
 import { componentCollector, componentCollectorLegacy } from "@eslint-react/core";
 import { elementType } from "@eslint-react/jsx";
 import { getCaseValidator } from "@eslint-react/shared";
-import { E } from "@eslint-react/tools";
+import { E, O } from "@eslint-react/tools";
 import { type ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { type ConstantCase } from "string-ts";
@@ -120,11 +120,13 @@ export default createRule<Options, MessageID>({
         const classComponents = maybeClassComponents.right;
 
         for (const { node: component } of functionComponents.values()) {
-          const id = getFunctionIdentifier(component);
+          const maybeId = getFunctionIdentifier(component);
 
-          if (!id) {
+          if (O.isNone(maybeId)) {
             continue;
           }
+
+          const id = maybeId.value;
 
           const { name } = id;
 
@@ -141,11 +143,13 @@ export default createRule<Options, MessageID>({
           });
         }
         for (const { node: component } of classComponents.values()) {
-          const id = getClassIdentifier(component);
+          const maybeId = getClassIdentifier(component);
 
-          if (!id) {
+          if (O.isNone(maybeId)) {
             continue;
           }
+
+          const id = maybeId.value;
 
           const { name } = id;
 

@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/ast",
-  "version": "0.8.11-beta.1",
+  "version": "0.8.11-beta.2",
   "description": "ESLint x React's TSESTree AST primitive utility module.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -35,6 +35,7 @@
   ],
   "scripts": {
     "build": "rollup -c rollup.config.ts --configPlugin swc3 && cp dist/index.d.ts dist/index.d.mts",
+    "build:docs": "typedoc && dprint fmt ./docs/**/*.md",
     "lint:publish": "bun run --bun publint",
     "lint:type": "bun run --bun tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"

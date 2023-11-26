@@ -1,6 +1,7 @@
 import { getFunctionIdentifier, isFunction, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { isJSXValue, JSXValueCheckHint } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/shared";
+import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import { isMatching, P } from "ts-pattern";
 
@@ -19,9 +20,9 @@ import { isMatching, P } from "ts-pattern";
 export function unsafeIsRenderFunction(node: TSESTreeFunction, context: RuleContext) {
   const { body, parent } = node;
 
-  const id = getFunctionIdentifier(node);
+  const maybeId = getFunctionIdentifier(node);
 
-  if (!id?.name.startsWith("render")) {
+  if (O.isSome(maybeId) && !maybeId.value.name.startsWith("render")) {
     return isMatching({
       type: NodeType.JSXExpressionContainer,
       parent: {

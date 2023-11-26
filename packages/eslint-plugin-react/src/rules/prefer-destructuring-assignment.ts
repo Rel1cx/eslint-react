@@ -1,6 +1,6 @@
 import { getFunctionIdentifier, isFunction, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { componentCollector, isValidComponentName } from "@eslint-react/core";
-import { E } from "@eslint-react/tools";
+import { E, O } from "@eslint-react/tools";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -59,9 +59,10 @@ export default createRule<[], MessageID>({
             return false;
           }
 
-          const id = getFunctionIdentifier(block);
+          const maybeId = getFunctionIdentifier(block);
 
-          return !!id && isValidComponentName(id.name)
+          return O.isSome(maybeId)
+            && isValidComponentName(maybeId.value.name)
             && components.some((component) => component.node === block);
         }
 

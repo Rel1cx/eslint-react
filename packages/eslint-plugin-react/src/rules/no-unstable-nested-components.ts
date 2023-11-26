@@ -17,7 +17,7 @@ import {
   unsafeIsInsideReactHookCall,
 } from "@eslint-react/core";
 import { isInsideCreateElementProps, isInsidePropValue } from "@eslint-react/jsx";
-import { E } from "@eslint-react/tools";
+import { E, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
@@ -111,8 +111,8 @@ export default createRule<[], MessageID>({
 
             continue;
           }
-          const parentComponent = traverseUpGuard(component, isFunctionComponent);
-          if (parentComponent && !unsafeIsDirectValueOfRenderProperty(parentComponent)) {
+          const maybeParentComponent = traverseUpGuard(component, isFunctionComponent);
+          if (O.isSome(maybeParentComponent) && !unsafeIsDirectValueOfRenderProperty(maybeParentComponent.value)) {
             context.report({
               messageId: isInsideProperty ? "UNSTABLE_NESTED_COMPONENT_IN_PROPS" : "UNSTABLE_NESTED_COMPONENT",
               node: component,
@@ -129,7 +129,7 @@ export default createRule<[], MessageID>({
           }
         }
         for (const { node: component } of classComponents) {
-          if (!traverseUp(component, node => isClassComponent(node) || isFunctionComponent(node))) {
+          if (O.isNone(traverseUp(component, node => isClassComponent(node) || isFunctionComponent(node)))) {
             continue;
           }
 

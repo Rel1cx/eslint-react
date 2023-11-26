@@ -1,3 +1,4 @@
+import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
@@ -36,18 +37,18 @@ export function isIdentifierWithOneOfNames<T extends string[]>(
  * @param node The AST node to check
  * @returns function identifier or null
  */
-export function getFunctionIdentifier(node: TSESTreeFunction): TSESTree.Identifier | null {
+export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree.Identifier> {
   if (node.id) {
-    return node.id;
+    return O.fromNullable(node.id);
   }
 
   if (isOneOf([NodeType.ArrowFunctionExpression, NodeType.FunctionExpression])(node)) {
     return "id" in node.parent && node.parent.id?.type === NodeType.Identifier
-      ? node.parent.id
-      : null;
+      ? O.fromNullable(node.parent.id)
+      : O.none();
   }
 
-  return null;
+  return O.none();
 }
 
 /**
@@ -55,14 +56,14 @@ export function getFunctionIdentifier(node: TSESTreeFunction): TSESTree.Identifi
  * @param node The AST node to check
  * @returns class identifier or null
  */
-export function getClassIdentifier(node: TSESTreeClass): TSESTree.Identifier | null {
+export function getClassIdentifier(node: TSESTreeClass): O.Option<TSESTree.Identifier> {
   return match(node)
-    .with({ type: NodeType.ClassDeclaration }, (x) => x.id)
+    .with({ type: NodeType.ClassDeclaration }, (x) => O.fromNullable(x.id))
     .with({
       type: NodeType.ClassExpression,
       parent: { id: { type: NodeType.Identifier }, type: NodeType.VariableDeclarator },
-    }, (x) => x.parent.id)
-    .otherwise(() => null);
+    }, (x) => O.fromNullable(x.parent.id))
+    .otherwise(O.none);
 }
 
 /**

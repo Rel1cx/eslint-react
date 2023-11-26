@@ -1,3 +1,4 @@
+import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { NodeType } from "./node-type";
@@ -8,14 +9,16 @@ import { NodeType } from "./node-type";
  * @param predicate The predicate to check each node
  * @returns The first node that matches the predicate or `null` if no node matches
  */
-export function traverseUp(node: TSESTree.Node, predicate: (node: TSESTree.Node) => boolean): TSESTree.Node | null {
+export function traverseUp(node: TSESTree.Node, predicate: (node: TSESTree.Node) => boolean): O.Option<TSESTree.Node> {
   const { parent } = node;
 
   if (!parent || parent.type === NodeType.Program) {
-    return null;
+    return O.none();
   }
 
-  return predicate(parent) ? parent : traverseUp(parent, predicate);
+  return predicate(parent)
+    ? O.some(parent)
+    : traverseUp(parent, predicate);
 }
 
 /**
@@ -28,12 +31,14 @@ export function traverseUp(node: TSESTree.Node, predicate: (node: TSESTree.Node)
 export function traverseUpGuard<T extends TSESTree.Node>(
   node: TSESTree.Node,
   predicate: (node: TSESTree.Node) => node is T,
-): T | null {
+): O.Option<T> {
   const { parent } = node;
 
   if (!parent || parent.type === NodeType.Program) {
-    return null;
+    return O.none();
   }
 
-  return predicate(parent) ? parent : traverseUpGuard(parent, predicate);
+  return predicate(parent)
+    ? O.some(parent)
+    : traverseUpGuard(parent, predicate);
 }
