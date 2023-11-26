@@ -11,15 +11,6 @@ import { isCreateElementCall } from "./is-element-call";
  * @param context The rule context
  * @returns `true` if the node is inside createElement's props
  */
-// export function isInsideCreateElementProps(node: TSESTree.Node, context: RuleContext) {
-//   const parentCreateElement = traverseUp(node, n => isCreateElementCall(n, context));
-
-//   if (parentCreateElement?.type !== NodeType.CallExpression) {
-//     return false;
-//   }
-
-//   return parentCreateElement.arguments.at(1) === traverseUp(node, is(NodeType.ObjectExpression));
-// }
 export function isInsideCreateElementProps(node: TSESTree.Node, context: RuleContext) {
   return F.pipe(
     traverseUp(node, n => isCreateElementCall(n, context)),
