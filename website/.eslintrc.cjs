@@ -17,10 +17,10 @@ module.exports = defineConfig({
   },
   extends: [
     "with-tsconfig",
-    "plugin:react-hooks/recommended",
-    "plugin:@eslint-react/recommended-legacy",
     "next",
     "next/core-web-vitals",
+    "plugin:react-hooks/recommended",
+    "plugin:@eslint-react/recommended-legacy",
     "plugin:mdx/recommended",
   ],
   plugins: ["react-hooks", "mdx"],
