@@ -1,4 +1,4 @@
-# debug/no-missing-component-display-name
+# react/no-missing-component-display-name
 
 <!-- end auto-generated rule header -->
 
