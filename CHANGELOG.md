@@ -1,6 +1,8 @@
-## v0.8.12 (Mon Nov 27 2023)
+## v0.8.12 (Tue Nov 28 2023)
 
 ### Release Notes
+
+#### Add rule `react/no-render-return-value`
 
 #### Optimize bundle size
 
@@ -45,9 +47,6 @@
 ---
 
 #### 🏠 Internal
-
-- `@eslint-react/eslint-plugin-react`
-  - Add rule `react/no-find-dom-node` ([#179](https://github.com/Rel1cx/eslint-react/pull/179))
 
 - `@eslint-react/ast`
   - Optimize API return value.

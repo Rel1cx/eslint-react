@@ -44,6 +44,7 @@
 | [react/no-missing-button-type](react-no-missing-button-type)                                         | enforce that `button` elements have an explicit `type` attribute                   |
 | [react/no-missing-iframe-sandbox](react-no-missing-iframe-sandbox)                                   | enforce that `iframe` elements explicitly specify a `sandbox` attribute            |
 | [react/no-namespace](react-no-namespace)                                                             | enforce that namespaces are not used in React elements                             |
+| [react/no-render-return-value](react-no-render-return-value)                                         | disallow usage of the return value of `ReactDOM.render`                            |
 | [react/no-script-url](react-no-script-url)                                                           | disallow `javascript:` URLs as JSX event handler prop's value                      |
 | [react/no-string-refs](react-no-string-refs)                                                         | disallow using deprecated string refs                                              |
 | [react/no-unsafe-iframe-sandbox](react-no-unsafe-iframe-sandbox)                                     | disallow unsafe `iframe` `sandbox` attribute combinations                          |

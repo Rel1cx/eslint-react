@@ -19,6 +19,7 @@ import noMissingButtonType from "./rules/no-missing-button-type";
 import noMissingComponentDisplayName from "./rules/no-missing-component-display-name";
 import noMissingIframeSandbox from "./rules/no-missing-iframe-sandbox";
 import noNamespace from "./rules/no-namespace";
+import noRenderReturnValue from "./rules/no-render-return-value";
 import noScriptUrl from "./rules/no-script-url";
 import noStringRefs from "./rules/no-string-refs";
 import noUnsafeIframeSandbox from "./rules/no-unsafe-iframe-sandbox";
@@ -51,6 +52,7 @@ export const rules = {
   "no-missing-component-display-name": noMissingComponentDisplayName,
   "no-missing-iframe-sandbox": noMissingIframeSandbox,
   "no-namespace": noNamespace,
+  "no-render-return-value": noRenderReturnValue,
   "no-script-url": noScriptUrl,
   "no-string-refs": noStringRefs,
   "no-unsafe-iframe-sandbox": noUnsafeIframeSandbox,
