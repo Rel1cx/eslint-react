@@ -66,11 +66,13 @@ function inspectVariantTypes(types: ts.Type[]) {
   switch (true) {
     case booleans.length === 1 && !!booleans[0]: {
       const [first] = booleans;
-      const maybeVariant = match<typeof first, O.Option<VariantType>>(first)
-        .when(tsutils.isTrueLiteralType, () => O.some("truthy boolean"))
-        .when(tsutils.isFalseLiteralType, () => O.some("falsy boolean"))
-        .otherwise(O.none);
-      O.map(maybeVariant, v => variantTypes.add(v));
+      F.pipe(
+        match<typeof first, O.Option<VariantType>>(first)
+          .when(tsutils.isTrueLiteralType, () => O.some("truthy boolean"))
+          .when(tsutils.isFalseLiteralType, () => O.some("falsy boolean"))
+          .otherwise(O.none),
+        O.map(v => variantTypes.add(v)),
+      );
       break;
     }
     case booleans.length === 2: {
