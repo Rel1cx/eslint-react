@@ -140,6 +140,9 @@ importers:
       rollup-plugin-swc3:
         specifier: 0.10.4
         version: 0.10.4(@swc/core@1.3.99)(rollup@4.6.0)
+      rollup-plugin-visualizer:
+        specifier: 5.9.3
+        version: 5.9.3(rollup@4.6.0)
       skott:
         specifier: 0.31.3
         version: 0.31.3
@@ -5431,6 +5434,11 @@ packages:
       clone: 1.0.4
     dev: true
 
+  /define-lazy-prop@2.0.0:
+    resolution: {integrity: sha512-Ds09qNh8yw3khSjiJjiUInaGX9xlqZDY7JVryGxdxV7NPeuqQfplOpQ66yJFZut3jLa5zOwkXw1g9EI2uKh4Og==}
+    engines: {node: '>=8'}
+    dev: true
+
   /define-lazy-prop@3.0.0:
     resolution: {integrity: sha512-N+MeXYoqr3pOgn8xfyRPREN7gHakLYjhsHhWGT3fWAiL4IkAt0iDw14QiiEm2bE30c5XX5q0FtAA3CK5f9/BUg==}
     engines: {node: '>=12'}
@@ -9858,6 +9866,15 @@ packages:
       mimic-fn: 4.0.0
     dev: true
 
+  /open@8.4.2:
+    resolution: {integrity: sha512-7x81NCL719oNbsq/3mh+hVrAWmFuEYUqrq/Iw3kUzH8ReypT9QQ0BLoJS7/G9k6N81XjW4qHWtjWwe/9eLy1EQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      define-lazy-prop: 2.0.0
+      is-docker: 2.2.1
+      is-wsl: 2.2.0
+    dev: true
+
   /open@9.1.0:
     resolution: {integrity: sha512-OS+QTnw1/4vrf+9hh1jc1jnYjzSG4ttTBB8UxOwAnInG3Uo4ssetzC1ihqaIHjLJnA5GGlRl6QlZXOTQhRBUvg==}
     engines: {node: '>=14.16'}
@@ -10796,6 +10813,23 @@ packages:
       get-tsconfig: 4.7.2
       rollup: 4.6.0
       rollup-swc-preserve-directives: 0.6.0(@swc/core@1.3.99)(rollup@4.6.0)
+    dev: true
+
+  /rollup-plugin-visualizer@5.9.3(rollup@4.6.0):
+    resolution: {integrity: sha512-ieGM5UAbMVqThX67GCuFHu/GkaSXIUZwFKJsSzE+7+k9fibU/6gbUz7SL+9BBzNtv5bIFHj7kEu0TWcqEnT/sQ==}
+    engines: {node: '>=14'}
+    hasBin: true
+    peerDependencies:
+      rollup: 2.x || 3.x || 4.x
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      open: 8.4.2
+      picomatch: 2.3.1
+      rollup: 4.6.0
+      source-map: 0.7.4
+      yargs: 17.7.2
     dev: true
 
   /rollup-swc-preserve-directives@0.6.0(@swc/core@1.3.99)(rollup@4.6.0):

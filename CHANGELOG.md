@@ -1,3 +1,28 @@
+## v0.8.12 (Mon Nov 27 2023)
+
+### Release Notes
+
+#### Optimize bundle size
+
+---
+
+#### 🏠 Internal
+
+- `@eslint-react/eslint-plugin`
+  - Optimize bundle size.
+
+- `@eslint-react/eslint-plugin-react`
+  - Optimize bundle size.
+
+- `@eslint-react/eslint-plugin-react-hooks`
+  - Optimize bundle size.
+
+- `@eslint-react/eslint-plugin-jsx`
+  - Optimize bundle size.
+
+- `@eslint-react/eslint-plugin-naming-convention`
+  - Optimize bundle size.
+
 ## v0.8.11 (Sun Nov 26 2023)
 
 ### Release Notes

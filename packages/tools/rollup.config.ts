@@ -3,6 +3,7 @@ import { createRequire } from "module";
 import { defineConfig } from "rollup";
 import { dts } from "rollup-plugin-dts";
 import { swc } from "rollup-plugin-swc3";
+import { visualizer } from "rollup-plugin-visualizer";
 const require = createRequire(import.meta.url);
 const packageJson = require("./package.json");
 const external = Object.keys(packageJson.dependencies);
@@ -28,6 +29,7 @@ export default defineConfig([{
       },
       minify: false,
     }),
+    visualizer(),
   ],
 }, {
   external,

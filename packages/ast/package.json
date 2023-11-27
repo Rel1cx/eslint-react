@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/ast",
-  "version": "0.8.11",
+  "version": "0.8.12-beta.0",
   "description": "ESLint x React's TSESTree AST primitive utility module.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -42,9 +42,9 @@
   },
   "dependencies": {
     "@eslint-community/eslint-utils": "4.4.0",
+    "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@eslint-react/shared": "workspace:*",
     "@typescript-eslint/scope-manager": "6.12.0",
     "@typescript-eslint/types": "6.12.0",
     "@typescript-eslint/utils": "6.12.0",

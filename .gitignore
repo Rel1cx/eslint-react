@@ -38,5 +38,6 @@ yarn-error.log*
 # vercel
 .vercel
 
+stats.html
 *.config-*.mjs
 /eslint-config.json
