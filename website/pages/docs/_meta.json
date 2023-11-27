@@ -6,6 +6,9 @@
   "installation": {
     "title": "Installation"
   },
+  "presets": {
+    "title": "Presets"
+  },
   "-Other": {
     "title": "Other",
     "type": "separator"

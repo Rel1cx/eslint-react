@@ -40,6 +40,7 @@
       "mode": "auto"
     }
   ],
+  "mdx.server.enable": true,
   "eslint.experimental.useFlatConfig": false,
   "search.exclude": {
     "pnpm-lock.yaml": true
