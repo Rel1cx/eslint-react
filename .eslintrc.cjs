@@ -158,7 +158,7 @@ module.exports = defineConfig({
       },
     },
     {
-      files: ["./packages/eslint-*/src/rules**/*"],
+      files: ["./packages/eslint-*/src/rules/**/*"],
       extends: [
         "plugin:functional/off",
       ],
