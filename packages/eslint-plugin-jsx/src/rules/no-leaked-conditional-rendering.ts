@@ -63,14 +63,23 @@ function inspectVariantTypes(types: ts.Type[]) {
   // object with intrinsicName set accordingly
   // If incoming type is boolean, there will be two type objects with
   // intrinsicName set "true" and "false" each because of ts-api-utils.unionTypeParts()
-  if (booleans.length === 1 && booleans[0]) {
-    const [first] = booleans;
-    tsutils.isTrueLiteralType(first)
-      && variantTypes.add("truthy boolean");
-    tsutils.isFalseLiteralType(first)
-      && variantTypes.add("falsy boolean");
-  } else if (booleans.length === 2) {
-    variantTypes.add("boolean");
+  switch (true) {
+    case booleans.length === 1 && !!booleans[0]: {
+      const [first] = booleans;
+      const maybeVariant = match<typeof first, O.Option<VariantType>>(first)
+        .when(tsutils.isTrueLiteralType, () => O.some("truthy boolean"))
+        .when(tsutils.isFalseLiteralType, () => O.some("falsy boolean"))
+        .otherwise(O.none);
+      O.map(maybeVariant, v => variantTypes.add(v));
+      break;
+    }
+    case booleans.length === 2: {
+      variantTypes.add("boolean");
+      break;
+    }
+    default: {
+      break;
+    }
   }
 
   const strings = types.filter(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.StringLike));
