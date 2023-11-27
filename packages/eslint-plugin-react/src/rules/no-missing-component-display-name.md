@@ -26,16 +26,13 @@ const Button = React.memo(() => <div />);
 const Button = React.forwardRef(() => <div />);
 ```
 
+(Not supported yet)
+
 ```tsx
 export default () => <div />;
 ```
 
 ### ✅ Correct
-
-```tsx
-const Button = React.memo(() => <div />);
-Button.displayName = "Button";
-```
 
 ```tsx
 const Button = React.memo(function Button() {
@@ -44,7 +41,7 @@ const Button = React.memo(function Button() {
 ```
 
 ```tsx
-const Button = React.forwardRef(() => <div />);
+const Button = React.memo(() => <div />);
 Button.displayName = "Button";
 ```
 
@@ -52,6 +49,11 @@ Button.displayName = "Button";
 const Button = React.forwardRef(function Button() {
   return <div />;
 });
+```
+
+```tsx
+const Button = React.forwardRef(() => <div />);
+Button.displayName = "Button";
 ```
 
 ```tsx
