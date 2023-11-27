@@ -34,6 +34,21 @@ module.exports = defineConfig({
     "website",
   ],
   rules: {
+    quotes: ["error", "double", { avoidEscape: true }],
+    "no-undef": "off",
+    "no-console": ["warn", { allow: ["warn", "error"] }],
+    "max-len": "off",
+    "max-depth": ["warn", 3],
+    "newline-before-return": "warn",
+    "prefer-object-has-own": "error",
+    "array-callback-return": "off",
+    "no-restricted-syntax": [
+      "error",
+      {
+        selector: "IfStatement[alternate]",
+        message: "no else",
+      },
+    ],
     "@typescript-eslint/prefer-readonly": "warn",
     "@typescript-eslint/prefer-nullish-coalescing": "warn",
     "@typescript-eslint/strict-boolean-expressions": "error",
@@ -45,9 +60,6 @@ module.exports = defineConfig({
         varsIgnorePattern: "(^_)|(^ESLintUtils$)",
       },
     ],
-    "no-undef": "off",
-    "max-depth": ["warn", 3],
-    "array-callback-return": "off",
     "import-access/jsdoc": ["error"],
     "jsdoc/require-jsdoc": "off",
     "jsdoc/require-param-description": "off",
@@ -56,16 +68,9 @@ module.exports = defineConfig({
     "functional/no-mixed-types": "off",
     "functional/no-return-void": "off",
     "functional/functional-parameters": "off",
+    "functional/prefer-immutable-types": "off",
     "functional-core/purity": ["error", { allowThrow: false }],
     "eslint-plugin/require-meta-docs-url": "off",
-    "max-len": "off",
-    "newline-before-return": "warn",
-    "no-console": [
-      "warn",
-      {
-        allow: ["warn", "error"],
-      },
-    ],
     "perfectionist/sort-exports": "off",
     "perfectionist/sort-imports": "off",
     "perfectionist/sort-named-imports": "off",
@@ -100,14 +105,6 @@ module.exports = defineConfig({
         order: "asc",
       },
     ],
-    "prefer-object-has-own": "error",
-    quotes: [
-      "error",
-      "double",
-      {
-        avoidEscape: true,
-      },
-    ],
     "regexp/no-unused-capturing-group": "off",
     "regexp/prefer-named-capture-group": "off",
     "simple-import-sort/exports": "warn",
@@ -115,12 +112,7 @@ module.exports = defineConfig({
     "unicorn/new-for-builtins": "off",
     "unicorn/no-keyword-prefix": "off",
     "unicorn/no-array-method-this-argument": "off",
-    "unicorn/template-indent": [
-      "warn",
-      {
-        indent: 2,
-      },
-    ],
+    "unicorn/template-indent": ["warn", { indent: 2 }],
   },
   settings: {
     "functional-core": {
@@ -157,7 +149,6 @@ module.exports = defineConfig({
         "plugin:functional/strict",
       ],
       rules: {
-        "functional/no-let": "off",
         "functional/no-return-void": "off",
         "functional/no-expression-statements": "off",
         "functional/no-conditional-statements": "off",
@@ -167,7 +158,7 @@ module.exports = defineConfig({
       },
     },
     {
-      files: ["./packages/eslint-*/**/*"],
+      files: ["./packages/eslint-*/src/rules**/*"],
       extends: [
         "plugin:functional/off",
       ],

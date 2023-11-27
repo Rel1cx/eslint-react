@@ -1,6 +1,6 @@
-import type { TSESTreeClass } from "@eslint-react/ast";
+import { isClass, type TSESTreeClass } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
-import { O } from "@eslint-react/tools";
+import { F, MutRef, O } from "@eslint-react/tools";
 import { type Scope, ScopeType } from "@typescript-eslint/scope-manager";
 
 import { isClassComponent } from "./component-kind";
@@ -11,18 +11,17 @@ import { isClassComponent } from "./component-kind";
  * @deprecated It will be removed in the future
  */
 export function getParentClassComponent(context: RuleContext): O.Option<TSESTreeClass> {
-  let scope: Scope | null = context.getScope();
+  const scope = MutRef.make<O.Option<Scope>>(O.fromNullable(context.getScope()));
 
   // eslint-disable-next-line functional/no-loop-statements
-  while (scope && scope.type !== ScopeType.class) {
-    scope = scope.upper;
+  while (F.pipe(MutRef.get(scope), O.exists(({ type }) => type !== ScopeType.class))) {
+    MutRef.update(scope, O.flatMapNullable(s => s.upper));
   }
 
-  const node = scope?.block;
-
-  if (!node || !isClassComponent(node, context)) {
-    return O.none();
-  }
-
-  return O.some(node);
+  return F.pipe(
+    MutRef.get(scope),
+    O.flatMapNullable(s => s.block),
+    O.filter(isClass),
+    O.filter(node => isClassComponent(node, context)),
+  );
 }
