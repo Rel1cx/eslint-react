@@ -107,7 +107,11 @@ const recommendedTypeCheckedPreset = {
 const rulePresetEntries = entries(rulePreset);
 const debugPreset = fromEntries(rulePresetEntries.filter(([key]) => key.startsWith("debug/")));
 const allPreset = fromEntries(rulePresetEntries.filter(([key]) => !key.startsWith("debug/")));
-const offPreset = fromEntries(rulePresetEntries.map(([key]) => [key, "off"]));
+const offPreset = fromEntries(
+  rulePresetEntries
+    .filter(([key]) => !key.startsWith("debug/"))
+    .map(([key]) => [key, "off"]),
+);
 
 const legacyConfigPlugins = ["@eslint-react"] as const;
 

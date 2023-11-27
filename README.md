@@ -38,7 +38,7 @@ bun add --dev @eslint-react/eslint-plugin
 
 ## Usage
 
-### [`.eslintrc.js`](https://eslint.org/docs/latest/use/configure/configuration-files)
+### LegacyConfig ([`.eslintrc.js`](https://eslint.org/docs/latest/use/configure/configuration-files))
 
 ```js
 module.exports = {
@@ -56,7 +56,7 @@ module.exports = {
 };
 ```
 
-### [`eslint.config.js`](https://eslint.org/docs/latest/use/configure/configuration-files-new) (requires eslint >= v8.23.0)
+### FlatConfig ([`eslint.config.js`](https://eslint.org/docs/latest/use/configure/configuration-files-new))
 
 ```js
 import ts from "@typescript-eslint/eslint-plugin";
@@ -99,7 +99,46 @@ export default [
 ];
 ```
 
-## Rules
+## Presets
+
+> **Note:**
+>
+> **Presets without `-legacy` suffix are only available for ESLint FlatConfig ([`eslint.config.js`](https://eslint.org/docs/latest/use/configure/configuration-files-new))**.\
+> Choose the appropriate preset based on your ESLint config format.
+>
+> **Presets with `-type-checked` suffix require type information**.\
+> Make sure the `parserOptions.project` option is set correctly in your ESLint config when using them.
+
+The following presets are available in this plugin:
+
+- recommended\
+  Enforce recommended rules designed to catch common mistakes and prevent potential bugs.
+- recommended-legacy (`plugin:@eslint-react/recommended-legacy`)\
+  Same as `recommended` but for ESLint LegacyConfig.
+- recommended-type-checked\
+  Same as `recommended` but with additional rules that require type information.
+- recommended-type-checked-legacy (`plugin:@eslint-react/recommended-type-checked-legacy`)\
+  Same as `recommended-type-checked` but for ESLint LegacyConfig.
+
+### Other presets
+
+- all\
+  Enforce all rules in this plugin except for debug rules.
+
+- all-legacy (`plugin:@eslint-react/all-legacy`)\
+  Same as `all` but for ESLint LegacyConfig.
+
+- off\
+  Disable all rules in this plugin except for debug rules.
+
+- off-legacy (`plugin:@eslint-react/off-legacy`)\
+  Same as `off` but for ESLint LegacyConfig.
+
+- debug\
+  Enforce rules that help you debug your React code.
+
+- debug-legacy (`plugin:@eslint-react/debug-legacy`)\
+  Same as `debug` but for ESLint LegacyConfig.
 
 [Rule List ↗](https://eslint-react.rel1cx.io/rules/overview)
 
