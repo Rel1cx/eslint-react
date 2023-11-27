@@ -27,6 +27,15 @@
   - Update `@typescript-eslint`'s packages to `6.13.0`.
   - Update `eslint-config-with-tsconfig` to `2.9.71`.
 
+#### 📝 Documentation
+
+- `@eslint-react/monorepo`
+  - Add presets documentation to README.md
+- `@eslint-react/eslint-plugin-react`
+  - Update README.md
+- `@eslint-react/website`
+  - Add presets documentation to website
+
 ## v0.8.11 (Sun Nov 26 2023)
 
 ### Release Notes
