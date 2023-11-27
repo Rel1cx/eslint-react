@@ -23,6 +23,10 @@
 - `@eslint-react/eslint-plugin-naming-convention`
   - Optimize bundle size.
 
+- `@eslint-react/monorepo`
+  - Update `@typescript-eslint`'s packages to `6.13.0`.
+  - Update `eslint-config-with-tsconfig` to `2.9.71`.
+
 ## v0.8.11 (Sun Nov 26 2023)
 
 ### Release Notes
