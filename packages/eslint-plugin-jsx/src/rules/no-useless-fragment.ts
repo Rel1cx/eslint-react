@@ -4,14 +4,12 @@ import {
   getPragmaFromContext,
   hasProp,
   isFragmentElement,
-  isFragmentHasLessThanTwoChildren,
-  isFragmentWithOnlyTextAndIsNotChild,
-  isFragmentWithSingleExpression,
   isJSXElementOfBuiltinComponent,
+  isLiteral,
+  isPaddingSpaces,
 } from "@eslint-react/jsx";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import { createRule } from "../utils";
 
@@ -19,28 +17,52 @@ export const RULE_NAME = "no-useless-fragment";
 
 export type MessageID = "NO_USELESS_FRAGMENT" | "NO_USELESS_FRAGMENT_IN_BUILT_IN";
 
-type Options = readonly [
-  {
-    allowExpressions?: boolean;
-  }?,
-];
+const allowExpressions = true;
 
-const defaultOptions = [
-  {
-    allowExpressions: true,
-  },
-] as const;
+/**
+ * Check if a JSXElement or JSXFragment has only one literal child and is not a child
+ * @param node The AST node to check
+ * @returns `true` if the node has only one literal child and is not a child
+ * @example Somehow fragment like this is useful: <Foo content={<>ee eeee eeee ...</>} />
+ */
+function isFragmentWithOnlyTextAndIsNotChild(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
+  return node.children.length === 1
+    && isLiteral(node.children[0])
+    && !(node.parent.type === NodeType.JSXElement || node.parent.type === NodeType.JSXFragment);
+}
 
-const schema = [{
-  type: "object",
-  properties: {
-    allowExpressions: {
-      type: "boolean",
-    },
-  },
-}] satisfies [JSONSchema4];
+function containsCallExpression(node: TSESTree.Node) {
+  return node.type === NodeType.JSXExpressionContainer
+    && node.expression.type === NodeType.CallExpression;
+}
 
-export default createRule<Options, MessageID>({
+/**
+ * Check if a JSXElement or JSXFragment has less than two non-padding children and the first child is not a call expression
+ * @param node The AST node to check
+ * @returns boolean
+ */
+function isFragmentHasLessThanTwoChildren(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
+  const nonPaddingChildren = node.children.filter(
+    (child) => !isPaddingSpaces(child),
+  );
+
+  if (nonPaddingChildren.length === 1) {
+    return !containsCallExpression(nonPaddingChildren[0] as TSESTree.Node);
+  }
+
+  return nonPaddingChildren.length === 0;
+}
+
+function isFragmentWithSingleExpression(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
+  const children = node.children.filter((child) => !isPaddingSpaces(child));
+
+  return (
+    children.length === 1
+    && children[0]?.type === NodeType.JSXExpressionContainer
+  );
+}
+
+export default createRule<[], MessageID>({
   name: RULE_NAME,
   meta: {
     type: "suggestion",
@@ -48,17 +70,14 @@ export default createRule<Options, MessageID>({
       description: "disallow unnecessary fragments",
       requiresTypeChecking: false,
     },
-    schema,
+    schema: [],
     messages: {
       NO_USELESS_FRAGMENT: "Fragments containing a single element are usually unnecessary.",
       NO_USELESS_FRAGMENT_IN_BUILT_IN: "Passing a fragment to a built-in component is unnecessary.",
     },
   },
-  defaultOptions,
+  defaultOptions: [],
   create(context) {
-    const config = context.options[0] ?? {};
-    const allowExpressions = config.allowExpressions ?? true;
-
     const reactPragma = getPragmaFromContext(context);
     const fragmentPragma = getFragmentFromContext(context);
 
@@ -77,6 +96,7 @@ export default createRule<Options, MessageID>({
       if (
         isFragmentHasLessThanTwoChildren(node)
         && !isFragmentWithOnlyTextAndIsNotChild(node)
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         && !(allowExpressions && isFragmentWithSingleExpression(node))
       ) {
         context.report({
