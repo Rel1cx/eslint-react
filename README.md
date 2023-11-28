@@ -103,44 +103,44 @@ export default [
 
 **Note:**
 
-**Presets with `-legacy` suffix are only available for ESLint LegacyConfig ([`.eslintrc.js`](https://eslint.org/docs/latest/use/configure/configuration-files))**.\
-**Presets without `-legacy` suffix are only available for ESLint FlatConfig ([`eslint.config.js`](https://eslint.org/docs/latest/use/configure/configuration-files-new))**.\
+Presets with `-legacy` suffix are only available for ESLint LegacyConfig ([`.eslintrc.js`](https://eslint.org/docs/latest/use/configure/configuration-files)).\
+Presets without `-legacy` suffix are only available for ESLint FlatConfig ([`eslint.config.js`](https://eslint.org/docs/latest/use/configure/configuration-files-new)).\
 Choose the appropriate preset based on your ESLint config format.
 
-**Presets with `-type-checked` or `type-checked-legacy` suffix require type information**.\
+Presets with `-type-checked` or `type-checked-legacy` suffix require type information.\
 Make sure the `parserOptions.project` option is set correctly in your ESLint config when using them.
 
 The following presets are available in this plugin:
 
-- recommended\
+- **recommended**\
   Enforce recommended rules designed to catch common mistakes and prevent potential bugs.
-- recommended-legacy (`plugin:@eslint-react/recommended-legacy`)\
+- **recommended-legacy** (`plugin:@eslint-react/recommended-legacy`)\
   Same as `recommended` but for ESLint LegacyConfig.
-- recommended-type-checked\
+- **recommended-type-checked**\
   Same as `recommended` but with additional rules that require type information.
-- recommended-type-checked-legacy (`plugin:@eslint-react/recommended-type-checked-legacy`)\
+- **recommended-type-checked-legacy** (`plugin:@eslint-react/recommended-type-checked-legacy`)\
   Same as `recommended-type-checked` but for ESLint LegacyConfig.
 
 ### Other presets
 
-- all\
+- **all**\
   Enable all rules in this plugin except for debug rules.\
   (Not recommended unless you know what you are doing)
 
-- all-legacy (`plugin:@eslint-react/all-legacy`)\
+- **all-legacy** (`plugin:@eslint-react/all-legacy`)\
   Same as `all` but for ESLint LegacyConfig.
 
-- off\
+- **off**\
   Disable all rules in this plugin except for debug rules.
 
-- off-legacy (`plugin:@eslint-react/off-legacy`)\
+- **off-legacy** (`plugin:@eslint-react/off-legacy`)\
   Same as `off` but for ESLint LegacyConfig.
 
-- debug\
+- **debug**\
   Enable a series of rules that are useful for debugging purposes only.\
   (Not recommended unless you know what you are doing)
 
-- debug-legacy (`plugin:@eslint-react/debug-legacy`)\
+- **debug-legacy** (`plugin:@eslint-react/debug-legacy`)\
   Same as `debug` but for ESLint LegacyConfig.
 
 [Rule List ↗](https://eslint-react.rel1cx.io/rules/overview)
