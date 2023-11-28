@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "0.8.12",
+  "version": "0.8.13-beta.0",
   "description": "ESLint x React's monorepo. A set of ESLint rules to catch common mistakes and improve your React code. Built (mostly) from scratch.",
   "keywords": [
     "eslint",
@@ -63,9 +63,9 @@
     "@tsconfig/node20": "20.1.2",
     "@tsconfig/strictest": "2.0.2",
     "@types/node": "20.10.0",
-    "@typescript-eslint/eslint-plugin": "6.13.0",
-    "@typescript-eslint/parser": "6.13.0",
-    "@typescript-eslint/rule-tester": "6.13.0",
+    "@typescript-eslint/eslint-plugin": "6.13.1",
+    "@typescript-eslint/parser": "6.13.1",
+    "@typescript-eslint/rule-tester": "6.13.1",
     "@vitest/ui": "0.34.6",
     "bun": "1.0.14",
     "bun-types": "1.0.14",
@@ -74,7 +74,7 @@
     "dprint": "0.43.1",
     "effect": "2.0.0-next.56",
     "eslint": ">=8.54.0",
-    "eslint-config-with-tsconfig": "2.9.71",
+    "eslint-config-with-tsconfig": "2.9.72",
     "eslint-plugin-eslint-plugin": "5.1.1",
     "eslint-plugin-filenames-simple": "0.9.0",
     "eslint-plugin-functional": "6.0.0",
@@ -105,7 +105,7 @@
     "vitest": "0.34.6"
   },
   "peerDependencies": {
-    "@typescript-eslint/parser": "6.13.0",
+    "@typescript-eslint/parser": "6.13.1",
     "eslint": ">=8.54.0",
     "typescript": ">=5.3.2"
   },
@@ -119,12 +119,12 @@
   },
   "pnpm": {
     "overrides": {
-      "@typescript-eslint/parser": "6.13.0",
-      "@typescript-eslint/scope-manager": "6.13.0",
-      "@typescript-eslint/type-utils": "6.13.0",
-      "@typescript-eslint/types": "6.13.0",
-      "@typescript-eslint/utils": "6.13.0",
-      "@typescript-eslint/eslint-plugin": "6.13.0",
+      "@typescript-eslint/parser": "6.13.1",
+      "@typescript-eslint/scope-manager": "6.13.1",
+      "@typescript-eslint/type-utils": "6.13.1",
+      "@typescript-eslint/types": "6.13.1",
+      "@typescript-eslint/utils": "6.13.1",
+      "@typescript-eslint/eslint-plugin": "6.13.1",
       "eslint": ">=8.54.0",
       "effect": "2.0.0-next.56",
       "react": "18.2.0",

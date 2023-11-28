@@ -38,6 +38,10 @@
 - `@eslint-react/website`
   - Add presets documentation to website
 
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
 ## v0.8.11 (Sun Nov 26 2023)
 
 ### Release Notes
