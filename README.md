@@ -123,7 +123,8 @@ The following presets are available in this plugin:
 ### Other presets
 
 - all\
-  Enforce all rules in this plugin except for debug rules.
+  Enable all rules in this plugin except for debug rules.\
+  (Not recommended unless you know what you are doing)
 
 - all-legacy (`plugin:@eslint-react/all-legacy`)\
   Same as `all` but for ESLint LegacyConfig.
@@ -135,7 +136,8 @@ The following presets are available in this plugin:
   Same as `off` but for ESLint LegacyConfig.
 
 - debug\
-  Enforce rules that help you debug your React code.
+  Enable a series of rules that are useful for debugging purposes only.\
+  (Not recommended unless you know what you are doing)
 
 - debug-legacy (`plugin:@eslint-react/debug-legacy`)\
   Same as `debug` but for ESLint LegacyConfig.
