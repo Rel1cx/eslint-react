@@ -103,6 +103,7 @@ export default [
 
 **Note:**
 
+**Presets with `-legacy` suffix are only available for ESLint LegacyConfig ([`.eslintrc.js`](https://eslint.org/docs/latest/use/configure/configuration-files))**.\
 **Presets without `-legacy` suffix are only available for ESLint FlatConfig ([`eslint.config.js`](https://eslint.org/docs/latest/use/configure/configuration-files-new))**.\
 Choose the appropriate preset based on your ESLint config format.
 
