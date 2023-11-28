@@ -27,7 +27,6 @@ ruleTester.run(RULE_NAME, rule, {
     "<>{moo}</>",
     "<>{}</>",
     "<>{meow}</>",
-    "<p><>{meow}</></p>",
     dedent`
       <SomeReact.SomeFragment>
         {foo}
@@ -50,6 +49,10 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXFragment },
         { messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN", type: NodeType.JSXFragment },
       ],
+    },
+    {
+      code: "<p><>{meow}</></p>",
+      errors: [{ messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN", type: NodeType.JSXFragment }],
     },
     {
       code: "<><div/></>",
