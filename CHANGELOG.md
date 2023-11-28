@@ -1,3 +1,35 @@
+## v0.8.13 (Wed Nov 29 2023)
+
+### Release Notes
+
+#### Update Options of rule `jsx/no-useless-fragment`
+
+#### Refactor Fragment related APIs of `@eslint-react/jsx`
+
+---
+
+#### 💥 Breaking Change
+
+- `@eslint-react/eslint-plugin-jsx`
+  - Remove `allowExpressions` option from rule `jsx/no-useless-fragment`.
+- `@eslint-react/jsx`
+  - Remove `isFragmentWithOnlyTextAndIsNotChild`, `isFragmentHasLessThanTwoChildren`, `isFragmentWithSingleExpression` from `@eslint-react/jsx`'s API.
+
+#### 🏠 Internal
+
+- `@eslint-react/eslint-plugin-jsx`
+  - Update Options of rule `jsx/no-useless-fragment`.
+
+- `@eslint-react/jsx`
+  - Refactor Fragment related APIs.
+
+- `@eslint-react/monorepo`
+  - Update `@typescript-eslint`'s packages to `6.13.1`.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
 ## v0.8.12 (Tue Nov 28 2023)
 
 ### Release Notes
@@ -15,6 +47,7 @@
 
 - `@eslint-react/eslint-plugin-react`
   - Optimize bundle size.
+  - Add rule `react/no-render-return-value`.
 
 - `@eslint-react/eslint-plugin-react-hooks`
   - Optimize bundle size.
@@ -57,6 +90,9 @@
 
 - `@eslint-react/types`
   - Add `ExRSettings` type.
+
+- `@eslint-react/eslint-plugin-react`
+  - Add rule `react/no-find-dom-node`.
 
 - `@eslint-react/monorepo`
   - Update `@typescript-eslint`'s packages to `6.12.0`.
