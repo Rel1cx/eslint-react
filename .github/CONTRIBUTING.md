@@ -4,7 +4,7 @@ Hi! We, the maintainers, are really excited that you are interested in contribut
 
 Before submitting your contribution though, please make sure to take a moment and read through the [Code of Conduct](CODE_OF_CONDUCT.md), as well as the appropriate section for the contribution you intend to make:
 
-Before adding your code to this project, please make sure you are passionate about what this project is doing and not just the project itself. And agree with the [design philosophy](../README.md#Philosophy) of this project.
+Before adding your code to this project, please make sure you are passionate about what this project is doing and agree with the [design philosophy](../README.md#Philosophy) of this project.
 
 ESLint x React does not accept contributions of a purely utilitarian nature.
 
@@ -13,6 +13,7 @@ ESLint x React does not accept contributions of a purely utilitarian nature.
   - [Pull Request Guidelines](#pull-request-guidelines)
   - [Development Guide](#development-guide)
     - [Packages Overview](#packages-overview)
+    - [Developing Documentation](#developing-documentation)
     - [Developing Rules](#developing-rules)
     - [Developing Core and Related Components](#developing-core-and-related-components)
       - [Building the documentation locally](#building-the-documentation-locally)
@@ -67,6 +68,13 @@ ESLint x React does not accept contributions of a purely utilitarian nature.
 - `@eslint-react/eslint-plugin-debug`: ESLint plugin for debugging related rules.
 - `@eslint-react/eslint-plugin-naming-convention`: ESLint plugin for naming convention related rules.
 - `@eslint-react/eslint-plugin`: The main ESLint plugin of ESLint x React. Contains all the rules from the above plugins.
+
+### Developing Documentation
+
+- The documentation writing style is following the [Google Developer Technical Writing Guide](https://developers.google.com/tech-writing/overview).
+- Please read at least the [Technical Writing One](https://developers.google.com/tech-writing/one) before writing or improving any documentation.
+- The public documentation is written in MarkdownReact (MDX) and is located in the `website/pages/docs` folder.
+- Internal packages are documented using [TypeDoc](https://typedoc.org). You can find the documentation for each package in the `docs` folder of the package.
 
 ### Developing Rules
 
