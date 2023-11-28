@@ -34,6 +34,7 @@
   "react-no-missing-component-display-name": "react/no-missing-component-display-name",
   "react-no-missing-iframe-sandbox": "react/no-missing-iframe-sandbox",
   "react-no-namespace": "react/no-namespace",
+  "react-no-redundant-should-component-update": "react/no-redundant-should-component-update",
   "react-no-render-return-value": "react/no-render-return-value",
   "react-no-script-url": "react/no-script-url",
   "react-no-string-refs": "react/no-string-refs",
