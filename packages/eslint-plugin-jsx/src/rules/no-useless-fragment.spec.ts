@@ -25,6 +25,13 @@ ruleTester.run(RULE_NAME, rule, {
     "<Fooo content={<>eeee ee eeeeeee eeeeeeee</>} />",
     "<>{foos.map(foo => foo)}</>",
     "<>{moo}</>",
+    "<>{}</>",
+    "<>{meow}</>",
+    dedent`
+      <SomeReact.SomeFragment>
+        {foo}
+      </SomeReact.SomeFragment>
+    `,
     dedent`
       <>
         {moo}
@@ -37,11 +44,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXFragment }],
     },
     {
-      code: "<>{}</>",
-      options: [{ allowExpressions: false }],
-      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXFragment }],
-    },
-    {
       code: "<p>moo<>foo</></p>",
       errors: [
         { messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXFragment },
@@ -49,17 +51,8 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: "<>{meow}</>",
-      options: [{ allowExpressions: false }],
-      errors: [{ messageId: "NO_USELESS_FRAGMENT" }],
-    },
-    {
       code: "<p><>{meow}</></p>",
-      options: [{ allowExpressions: false }],
-      errors: [
-        { messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXFragment },
-        { messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN", type: NodeType.JSXFragment },
-      ],
+      errors: [{ messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN", type: NodeType.JSXFragment }],
     },
     {
       code: "<><div/></>",
@@ -86,22 +79,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXElement }],
     },
     {
-      code: `
-        <SomeReact.SomeFragment>
-          {foo}
-        </SomeReact.SomeFragment>
-      `,
-      options: [{ allowExpressions: false }],
-      errors: [{ messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXElement }],
-      settings: {
-        react: {
-          pragma: "SomeReact",
-          fragment: "SomeFragment",
-        },
-      },
-    },
-    {
-      // Not safe to fix this case because `Eeee` might require child be ReactElement
       code: "<Eeee><>foo</></Eeee>",
       errors: [{ messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXFragment }],
     },
@@ -166,7 +143,6 @@ ruleTester.run(RULE_NAME, rule, {
     // Ensure allowExpressions still catches expected violations
     {
       code: "<><Foo>{moo}</Foo></>",
-      options: [{ allowExpressions: true }],
       errors: [{ messageId: "NO_USELESS_FRAGMENT", type: NodeType.JSXFragment }],
     },
   ],

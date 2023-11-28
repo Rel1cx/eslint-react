@@ -48,10 +48,7 @@
 - [isCreateElementCall](README.md#iscreateelementcall)
 - [isFragment](README.md#isfragment)
 - [isFragmentElement](README.md#isfragmentelement)
-- [isFragmentHasLessThanTwoChildren](README.md#isfragmenthaslessthantwochildren)
 - [isFragmentSyntax](README.md#isfragmentsyntax)
-- [isFragmentWithOnlyTextAndIsNotChild](README.md#isfragmentwithonlytextandisnotchild)
-- [isFragmentWithSingleExpression](README.md#isfragmentwithsingleexpression)
 - [isFunctionReturningJSXValue](README.md#isfunctionreturningjsxvalue)
 - [isInitializedFromPragma](README.md#isinitializedfrompragma)
 - [isInsideCreateElementProps](README.md#isinsidecreateelementprops)
@@ -623,26 +620,6 @@ Check if a node is `<Fragment></Fragment>` or `<Pragma.Fragment></Pragma.Fragmen
 
 ---
 
-### isFragmentHasLessThanTwoChildren
-
-▸ **isFragmentHasLessThanTwoChildren**(`node`): `boolean`
-
-Check if a JSXElement or JSXFragment has less than two non-padding children and the first child is not a call expression
-
-#### Parameters
-
-| Name   | Type                          | Description           |
-| :----- | :---------------------------- | :-------------------- |
-| `node` | `JSXElement` \| `JSXFragment` | The AST node to check |
-
-#### Returns
-
-`boolean`
-
-boolean
-
----
-
 ### isFragmentSyntax
 
 ▸ **isFragmentSyntax**(`node`): node is JSXFragment
@@ -658,48 +635,6 @@ Check if a node is `<></>`
 #### Returns
 
 node is JSXFragment
-
----
-
-### isFragmentWithOnlyTextAndIsNotChild
-
-▸ **isFragmentWithOnlyTextAndIsNotChild**(`node`): `boolean`
-
-Check if a JSXElement or JSXFragment has only one literal child and is not a child
-
-#### Parameters
-
-| Name   | Type                          | Description           |
-| :----- | :---------------------------- | :-------------------- |
-| `node` | `JSXElement` \| `JSXFragment` | The AST node to check |
-
-#### Returns
-
-`boolean`
-
-`true` if the node has only one literal child and is not a child
-
-**`Example`**
-
-```ts
-Somehow fragment like this is useful: <Foo content={<>ee eeee eeee ...</>} />
-```
-
----
-
-### isFragmentWithSingleExpression
-
-▸ **isFragmentWithSingleExpression**(`node`): `boolean`
-
-#### Parameters
-
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `node` | `JSXElement` \| `JSXFragment` |
-
-#### Returns
-
-`boolean`
 
 ---
 
