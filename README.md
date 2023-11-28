@@ -187,7 +187,7 @@ The following presets are available in this plugin:
 - [x] `react/no-createRef`
 - [x] `react/no-namespace`
 - [x] `react/no-string-refs`
-- [ ] `react/no-render-return-value`
+- [x] `react/no-render-return-value`
 - [x] `react/no-dangerously-set-innerhtml`
 - [x] `react/no-dangerously-set-innerhtml-with-children`
 - [x] `react/no-missing-button-type`
