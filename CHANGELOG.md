@@ -1,4 +1,4 @@
-## v0.9.0 (Thu Nov 30 2023)
+## v0.9.0 (Thu Nov 30 2023) (Draft)
 
 ### Release Notes
 
@@ -75,7 +75,7 @@
 
 - Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
 
-## v0.8.12 (Tue Nov 28 2023)
+## v0.8.12 (Tue Nov 28 2023) (Latest)
 
 ### Release Notes
 
