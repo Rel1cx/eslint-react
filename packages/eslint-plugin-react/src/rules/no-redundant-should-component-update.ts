@@ -1,6 +1,7 @@
-import { type TSESTreeClass } from "@eslint-react/ast";
-import { isClassComponent } from "@eslint-react/core";
-import { MutList } from "@eslint-react/tools";
+import { getClassIdentifier, NodeType, type TSESTreeClass } from "@eslint-react/ast";
+import { isPureComponent } from "@eslint-react/core";
+import { F, MutList, O } from "@eslint-react/tools";
+import type { TSESTree } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 
@@ -15,34 +16,66 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow usage of `shouldComponentUpdate` in pure components.",
+      description: "disallow usage of `shouldComponentUpdate` in class component extends `React.PureComponent`",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_REDUNDANT_SHOULD_COMPONENT_UPDATE: "The `shouldComponentUpdate` method inside a pure component is redundant.",
+      NO_REDUNDANT_SHOULD_COMPONENT_UPDATE:
+        "{{componentName}} does not need `shouldComponentUpdate` when extending `React.PureComponent`.",
     },
   },
   defaultOptions: [],
   create(context) {
     const classStack = MutList.make<[TSESTreeClass, boolean]>();
     const onClassEnter = (node: TSESTreeClass) => {
-      if (isClassComponent(node, context)) {
-        MutList.append(classStack, [node, true]);
+      MutList.append(classStack, [
+        node,
+        isPureComponent(node, context),
+      ]);
+    };
+    const onClassExit = () => MutList.pop(classStack);
 
+    function checkPropertyOrMethod(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
+      if (node.key.type !== NodeType.Identifier || node.key.name !== "shouldComponentUpdate") {
         return;
       }
 
-      MutList.append(classStack, [node, false]);
-    };
-    const onClassExit = () => MutList.pop(classStack);
+      const [classNode, isPureClassComponent] = MutList.tail(classStack) ?? [];
+
+      if (!classNode || !isPureClassComponent) {
+        return;
+      }
+
+      const componentName = F.pipe(
+        getClassIdentifier(classNode),
+        O.map(id => id.name),
+        O.getOrElse(() => "PureComponent"),
+      );
+
+      context.report({
+        node,
+        messageId: "NO_REDUNDANT_SHOULD_COMPONENT_UPDATE",
+        data: {
+          componentName,
+        },
+      });
+    }
 
     return {
       ClassDeclaration: onClassEnter,
       "ClassDeclaration:exit": onClassExit,
       ClassExpression: onClassEnter,
       "ClassExpression:exit": onClassExit,
+      MethodDefinition(node) {
+        if (node.kind !== "method") {
+          return;
+        }
+
+        checkPropertyOrMethod(node);
+      },
+      PropertyDefinition: checkPropertyOrMethod,
     };
   },
 });

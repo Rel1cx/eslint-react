@@ -2,6 +2,8 @@
 
 ### Release Notes
 
+#### Add rule `react/no-redundant-should-component-update`
+
 #### Update Options of rule `jsx/no-useless-fragment`
 
 #### Refactor Fragment related APIs of `@eslint-react/jsx`
@@ -24,9 +26,11 @@
 #### 🏠 Internal
 
 - `@eslint-react/eslint-plugin`
+  - Add rule `react/no-redundant-should-component-update`.
   - Optimize bundle size.
 
 - `@eslint-react/eslint-plugin-react`
+  - Add rule `react/no-redundant-should-component-update`.
   - Optimize bundle size.
 
 - `@eslint-react/eslint-plugin-react-hooks`
@@ -51,6 +55,7 @@
   - Optimize bundle size.
 
 - `@eslint-react/ast`
+  - Fix `getClassIdentifier` may ignore `node.id`.
   - Optimize bundle size.
 
 - `@eslint-react/shared`
