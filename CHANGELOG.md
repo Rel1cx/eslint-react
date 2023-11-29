@@ -6,6 +6,12 @@
 
 #### Refactor Fragment related APIs of `@eslint-react/jsx`
 
+#### Publish internal packages to NPM as well
+
+#### Add guard and predicate utils to `@eslint-react/tools`
+
+#### Optimize bundle size
+
 ---
 
 #### 💥 Breaking Change
@@ -17,17 +23,53 @@
 
 #### 🏠 Internal
 
+- `@eslint-react/eslint-plugin`
+  - Optimize bundle size.
+
+- `@eslint-react/eslint-plugin-react`
+  - Optimize bundle size.
+
+- `@eslint-react/eslint-plugin-react-hooks`
+  - Optimize bundle size.
+
 - `@eslint-react/eslint-plugin-jsx`
   - Update Options of rule `jsx/no-useless-fragment`.
+  - Optimize bundle size.
+
+- `@eslint-react/eslint-plugin-naming-convention`
+  - Optimize bundle size.
+
+- `@eslint-react/eslint-plugin-debug`
+  - Optimize bundle size.
+
+- `@eslint-react/core`
+  - Optimize bundle size.
 
 - `@eslint-react/jsx`
   - Refactor Fragment related APIs.
+  - Optimize module structure.
+  - Optimize bundle size.
+
+- `@eslint-react/ast`
+  - Optimize bundle size.
+
+- `@eslint-react/shared`
+  - Optimize bundle size.
+
+- `@eslint-react/types`
+  - Optimize bundle size.
 
 - `@eslint-react/tools`
   - Add guard and predicate utils.
 
 - `@eslint-react/monorepo`
+  - Publish internal packages to NPM as well.
   - Update `@typescript-eslint`'s packages to `6.13.1`.
+
+#### 📝 Documentation
+
+- `@eslint-react/monorepo`
+  - Add README.md to internal packages.
 
 #### Authors: 1
 
