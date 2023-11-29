@@ -1,6 +1,4 @@
-// eslint-disable-next-line functional-core/purity
-import { isObject } from "effect/Predicate";
-
+import { Pred } from "./effect";
 import type { Guard, GuardRecord, GuardReturnType, KeyGuard, LazyGuardRecord } from "./guard";
 
 /**
@@ -24,7 +22,7 @@ export const isKindOfRecord =
   // dprint-ignore
   <K extends KeyGuard, V extends Guard>(isK: K, isV: V) =>
   (x: unknown): x is Record<GuardReturnType<K>, GuardReturnType<V>> =>
-    isObject(x) &&
+    Pred.isObject(x) &&
     Object.entries(x).every(([k, v]) => isK(k) ? isV(v) : true);
 
 /**
@@ -36,7 +34,7 @@ export const isKindOfObject =
   // dprint-ignore
   <T extends GuardRecord>(guards: T) =>
   (x: unknown): x is { [key in keyof T]: GuardReturnType<T[key]> } =>
-    isObject(x) &&
+    Pred.isObject(x) &&
     // eslint-disable-next-line security/detect-object-injection
     Object.entries(x).every(([key, value]) => guards[key]?.(value));
 
@@ -47,7 +45,7 @@ export const isKindObjectLazy =
   // dprint-ignore
   <T extends LazyGuardRecord>(guards: T) =>
   (x: unknown): x is { [key in keyof T]: GuardReturnType<ReturnType<T[key]>> } =>
-    isObject(x) &&
+    Pred.isObject(x) &&
     // eslint-disable-next-line security/detect-object-injection
     Object.entries(x).every(([key, value]) => guards[key]?.()(value));
 

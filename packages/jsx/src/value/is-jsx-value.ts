@@ -4,7 +4,7 @@ import { F, O } from "@eslint-react/tools";
 import { type TSESTree } from "@typescript-eslint/utils";
 import { match, P } from "ts-pattern";
 
-import { isCreateElementCall } from "./element";
+import { isCreateElementCall } from "../element";
 
 // type ReactNode =
 //   | ReactElement
