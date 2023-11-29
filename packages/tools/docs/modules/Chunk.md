@@ -248,9 +248,9 @@ Drops all elements so long as the predicate returns true.
 
 #### Parameters
 
-| Name        | Type               |
-| :---------- | :----------------- |
-| `predicate` | `Predicate`\<`A`\> |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -284,10 +284,10 @@ Drops all elements so long as the predicate returns true.
 
 #### Parameters
 
-| Name        | Type                                             |
-| :---------- | :----------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `predicate` | `Predicate`\<`A`\>                               |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>      |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -1864,9 +1864,9 @@ Check if a predicate holds true for every `Chunk` element.
 
 #### Parameters
 
-| Name         | Type                     |
-| :----------- | :----------------------- |
-| `refinement` | `Refinement`\<`A`, `B`\> |
+| Name         | Type                                                         |
+| :----------- | :----------------------------------------------------------- |
+| `refinement` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -1900,9 +1900,9 @@ Check if a predicate holds true for every `Chunk` element.
 
 #### Parameters
 
-| Name        | Type               |
-| :---------- | :----------------- |
-| `predicate` | `Predicate`\<`A`\> |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -1937,10 +1937,10 @@ Check if a predicate holds true for every `Chunk` element.
 
 #### Parameters
 
-| Name         | Type                                             |
-| :----------- | :----------------------------------------------- |
-| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `refinement` | `Refinement`\<`A`, `B`\>                         |
+| Name         | Type                                                         |
+| :----------- | :----------------------------------------------------------- |
+| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>             |
+| `refinement` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -1962,10 +1962,10 @@ Check if a predicate holds true for every `Chunk` element.
 
 #### Parameters
 
-| Name        | Type                                             |
-| :---------- | :----------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `predicate` | `Predicate`\<`A`\>                               |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>      |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -1993,9 +1993,9 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name         | Type                     |
-| :----------- | :----------------------- |
-| `refinement` | `Refinement`\<`A`, `B`\> |
+| Name         | Type                                                         |
+| :----------- | :----------------------------------------------------------- |
+| `refinement` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -2031,9 +2031,9 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name        | Type               |
-| :---------- | :----------------- |
-| `predicate` | `Predicate`\<`A`\> |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -2069,10 +2069,10 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name         | Type                                             |
-| :----------- | :----------------------------------------------- |
-| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `refinement` | `Refinement`\<`A`, `B`\>                         |
+| Name         | Type                                                         |
+| :----------- | :----------------------------------------------------------- |
+| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>             |
+| `refinement` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -2095,10 +2095,10 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name        | Type                                             |
-| :---------- | :----------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `predicate` | `Predicate`\<`A`\>                               |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>      |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -2124,9 +2124,9 @@ Return the first index for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type               |
-| :---------- | :----------------- |
-| `predicate` | `Predicate`\<`A`\> |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -2160,10 +2160,10 @@ Return the first index for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type                                             |
-| :---------- | :----------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `predicate` | `Predicate`\<`A`\>                               |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>      |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -2190,9 +2190,9 @@ Find the last element for which a predicate holds.
 
 #### Parameters
 
-| Name         | Type                     |
-| :----------- | :----------------------- |
-| `refinement` | `Refinement`\<`A`, `B`\> |
+| Name         | Type                                                         |
+| :----------- | :----------------------------------------------------------- |
+| `refinement` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -2227,9 +2227,9 @@ Find the last element for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type               |
-| :---------- | :----------------- |
-| `predicate` | `Predicate`\<`A`\> |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -2264,10 +2264,10 @@ Find the last element for which a predicate holds.
 
 #### Parameters
 
-| Name         | Type                                             |
-| :----------- | :----------------------------------------------- |
-| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `refinement` | `Refinement`\<`A`, `B`\>                         |
+| Name         | Type                                                         |
+| :----------- | :----------------------------------------------------------- |
+| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>             |
+| `refinement` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -2289,10 +2289,10 @@ Find the last element for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type                                             |
-| :---------- | :----------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `predicate` | `Predicate`\<`A`\>                               |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>      |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -2318,9 +2318,9 @@ Return the last index for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type               |
-| :---------- | :----------------- |
-| `predicate` | `Predicate`\<`A`\> |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -2354,10 +2354,10 @@ Return the last index for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type                                             |
-| :---------- | :----------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `predicate` | `Predicate`\<`A`\>                               |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>      |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -2719,9 +2719,9 @@ Check if a predicate holds true for some `Chunk` element.
 
 #### Parameters
 
-| Name        | Type               |
-| :---------- | :----------------- |
-| `predicate` | `Predicate`\<`A`\> |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -2755,10 +2755,10 @@ Check if a predicate holds true for some `Chunk` element.
 
 #### Parameters
 
-| Name        | Type                                             |
-| :---------- | :----------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `predicate` | `Predicate`\<`A`\>                               |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>      |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -3052,9 +3052,9 @@ Splits this chunk on the first element that matches this predicate.
 
 #### Parameters
 
-| Name        | Type               |
-| :---------- | :----------------- |
-| `predicate` | `Predicate`\<`A`\> |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -3088,10 +3088,10 @@ Splits this chunk on the first element that matches this predicate.
 
 #### Parameters
 
-| Name        | Type                                             |
-| :---------- | :----------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `predicate` | `Predicate`\<`A`\>                               |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>      |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -3239,9 +3239,9 @@ Takes all elements so long as the predicate returns true.
 
 #### Parameters
 
-| Name         | Type                     |
-| :----------- | :----------------------- |
-| `refinement` | `Refinement`\<`A`, `B`\> |
+| Name         | Type                                                         |
+| :----------- | :----------------------------------------------------------- |
+| `refinement` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -3276,9 +3276,9 @@ Takes all elements so long as the predicate returns true.
 
 #### Parameters
 
-| Name        | Type               |
-| :---------- | :----------------- |
-| `predicate` | `Predicate`\<`A`\> |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -3313,10 +3313,10 @@ Takes all elements so long as the predicate returns true.
 
 #### Parameters
 
-| Name         | Type                                             |
-| :----------- | :----------------------------------------------- |
-| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `refinement` | `Refinement`\<`A`, `B`\>                         |
+| Name         | Type                                                         |
+| :----------- | :----------------------------------------------------------- |
+| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>             |
+| `refinement` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -3338,10 +3338,10 @@ Takes all elements so long as the predicate returns true.
 
 #### Parameters
 
-| Name        | Type                                             |
-| :---------- | :----------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `predicate` | `Predicate`\<`A`\>                               |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>      |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -3698,9 +3698,9 @@ Returns a filtered and mapped subset of the elements.
 
 #### Parameters
 
-| Name         | Type                     |
-| :----------- | :----------------------- |
-| `refinement` | `Refinement`\<`A`, `B`\> |
+| Name         | Type                                                         |
+| :----------- | :----------------------------------------------------------- |
+| `refinement` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -3735,9 +3735,9 @@ Returns a filtered and mapped subset of the elements.
 
 #### Parameters
 
-| Name        | Type               |
-| :---------- | :----------------- |
-| `predicate` | `Predicate`\<`A`\> |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -3772,10 +3772,10 @@ Returns a filtered and mapped subset of the elements.
 
 #### Parameters
 
-| Name         | Type                                             |
-| :----------- | :----------------------------------------------- |
-| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `refinement` | `Refinement`\<`A`, `B`\>                         |
+| Name         | Type                                                         |
+| :----------- | :----------------------------------------------------------- |
+| `self`       | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>             |
+| `refinement` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -3797,10 +3797,10 @@ Returns a filtered and mapped subset of the elements.
 
 #### Parameters
 
-| Name        | Type                                             |
-| :---------- | :----------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `predicate` | `Predicate`\<`A`\>                               |
+| Name        | Type                                                  |
+| :---------- | :---------------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>      |
+| `predicate` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
 
 #### Returns
 

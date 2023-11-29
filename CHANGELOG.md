@@ -23,6 +23,9 @@
 - `@eslint-react/jsx`
   - Refactor Fragment related APIs.
 
+- `@eslint-react/tools`
+  - Add guard and predicate utils.
+
 - `@eslint-react/monorepo`
   - Update `@typescript-eslint`'s packages to `6.13.1`.
 

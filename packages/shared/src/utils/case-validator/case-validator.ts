@@ -1,4 +1,3 @@
-/* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-this-expressions */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-classes */
