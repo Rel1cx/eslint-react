@@ -2,7 +2,7 @@ import { Pred } from "./effect";
 import type { Guard, GuardRecord, GuardReturnType, KeyGuard, LazyGuardRecord } from "./guard";
 
 /**
- * @since 0.8.13
+ * @since 0.9.0
  * @param guards The guards to check.
  * @returns A guard that checks if given value is the kind of union.
  */
@@ -13,7 +13,7 @@ export const isKindOfUnion =
     guards.some((g) => g(x));
 
 /**
- * @since 0.8.13
+ * @since 0.9.0
  * @param isK The guard for the key.
  * @param isV The guard for the value.
  * @returns A guard that checks if given value is the kind of record.
@@ -26,7 +26,7 @@ export const isKindOfRecord =
     Object.entries(x).every(([k, v]) => isK(k) ? isV(v) : true);
 
 /**
- * @since 0.8.13
+ * @since 0.9.0
  * @param guards The guards to check.
  * @returns A guard that checks if given value is the kind of object.
  */
@@ -39,7 +39,7 @@ export const isKindOfObject =
     Object.entries(x).every(([key, value]) => guards[key]?.(value));
 
 /**
- * @since 0.8.13
+ * @since 0.9.0
  */
 export const isKindObjectLazy =
   // dprint-ignore
@@ -50,7 +50,7 @@ export const isKindObjectLazy =
     Object.entries(x).every(([key, value]) => guards[key]?.()(value));
 
 /**
- * @since 0.8.13
+ * @since 0.9.0
  * @param guard The guard to check.
  * @returns A guard that checks if given value is the kind of array.
  */
@@ -61,7 +61,7 @@ export const isKindOfArray =
     Array.isArray(x) && x.every((y) => guard(y));
 
 /**
- * @since 0.8.13
+ * @since 0.9.0
  * @param guards The guards to check.
  * @returns A guard that checks if given value is the kind of tuple.
  */
@@ -75,7 +75,7 @@ export const isKindOfTuple =
     x.every((y, i) => guards[i]?.(y));
 
 /**
- * @since 0.8.13
+ * @since 0.9.0
  */
 export const isKindOfOptional =
   // dprint-ignore

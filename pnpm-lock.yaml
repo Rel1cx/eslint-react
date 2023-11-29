@@ -692,16 +692,6 @@ importers:
 
   packages/jsx:
     dependencies:
-      '@typescript-eslint/scope-manager':
-        specifier: 6.13.1
-        version: 6.13.1
-      '@typescript-eslint/types':
-        specifier: 6.13.1
-        version: 6.13.1
-      '@typescript-eslint/utils':
-        specifier: 6.13.1
-        version: 6.13.1(eslint@8.54.0)(typescript@5.3.2)
-    devDependencies:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../ast
@@ -714,6 +704,16 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../types
+      '@typescript-eslint/scope-manager':
+        specifier: 6.13.1
+        version: 6.13.1
+      '@typescript-eslint/types':
+        specifier: 6.13.1
+        version: 6.13.1
+      '@typescript-eslint/utils':
+        specifier: 6.13.1
+        version: 6.13.1(eslint@8.54.0)(typescript@5.3.2)
+    devDependencies:
       micro-memoize:
         specifier: 4.1.2
         version: 4.1.2
