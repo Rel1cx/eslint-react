@@ -186,7 +186,6 @@ The following presets are available in this plugin:
 - [x] `react/no-children-prop`
 - [x] `react/no-children-in-void-dom-elements`
 - [x] `react/no-find-dom-node`
-- [ ] `react/no-is-mounted`
 - [x] `react/no-class-component`
 - [x] `react/no-clone-element`
 - [x] `react/no-createRef`
@@ -200,7 +199,7 @@ The following presets are available in this plugin:
 - [x] `react/no-missing-component-display-name`
 - [x] `react/no-script-url`
 - [ ] `react/no-direct-mutation-state`
-- [ ] `react/no-redundant-should-component-update`
+- [x] `react/no-redundant-should-component-update`
 - [ ] `react/no-set-state-in-component-did-mount`
 - [ ] `react/no-set-state-in-component-did-update`
 - [ ] `react/no-set-state-in-component-will-update`
