@@ -15,7 +15,7 @@ import { match } from "ts-pattern";
 
 import { DEFAULT_COMPONENT_COLLECTOR_HINT, ExRComponentCollectorHint } from "./component-collector-hint";
 import { ExRFunctionComponentFlag } from "./component-flag";
-import { getComponentIdentifier } from "./component-Identifier";
+import { getFunctionComponentIdentifier } from "./component-Identifier";
 import { getComponentInitPath, hasCallInInitPath } from "./component-init-path";
 import type { ExRFunctionComponent } from "./component-kind";
 import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
@@ -111,7 +111,7 @@ export function componentCollector(
       MutList.pop(functionStack);
       MutList.append(functionStack, [currentFn, true]);
 
-      const id = getComponentIdentifier(currentFn, context);
+      const id = getFunctionComponentIdentifier(currentFn, context);
       const key = uid.rnd();
       const name = O.flatMapNullable(
         id,
@@ -142,7 +142,7 @@ export function componentCollector(
         return;
       }
 
-      const id = getComponentIdentifier(node, context);
+      const id = getFunctionComponentIdentifier(node, context);
       const key = uid.rnd();
       const name = O.flatMapNullable(
         id,

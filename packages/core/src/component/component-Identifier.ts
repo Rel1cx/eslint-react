@@ -9,7 +9,7 @@ function isMemoOrForwardRefCall(node: TSESTree.Node, context: RuleContext) {
   return isCallFromPragma("memo")(node, context) || isCallFromPragma("forwardRef")(node, context);
 }
 
-export function getComponentIdentifier(
+export function getFunctionComponentIdentifier(
   node: TSESTreeFunction,
   context: RuleContext,
 ): O.Option<TSESTree.Identifier | TSESTree.Identifier[]> {

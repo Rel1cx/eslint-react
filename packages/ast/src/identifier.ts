@@ -1,6 +1,5 @@
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-import { match } from "ts-pattern";
 
 import { isOneOf, NodeType, type TSESTreeClass, type TSESTreeFunction } from "./node-type";
 
@@ -57,13 +56,15 @@ export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree
  * @returns class identifier or null
  */
 export function getClassIdentifier(node: TSESTreeClass): O.Option<TSESTree.Identifier> {
-  return match(node)
-    .with({ type: NodeType.ClassDeclaration }, (x) => O.fromNullable(x.id))
-    .with({
-      type: NodeType.ClassExpression,
-      parent: { id: { type: NodeType.Identifier }, type: NodeType.VariableDeclarator },
-    }, (x) => O.fromNullable(x.parent.id))
-    .otherwise(O.none);
+  if (node.id) {
+    return O.fromNullable(node.id);
+  }
+
+  if (node.parent.type === NodeType.VariableDeclarator && node.parent.id.type === NodeType.Identifier) {
+    return O.fromNullable(node.parent.id);
+  }
+
+  return O.none();
 }
 
 /**
