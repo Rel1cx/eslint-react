@@ -1,6 +1,6 @@
 # Rules Overview
 
-## jsx
+## JSX
 
 | Name                                                                                 | Description                                                   |
 | :----------------------------------------------------------------------------------- | :------------------------------------------------------------ |
@@ -15,7 +15,7 @@
 | [jsx/prefer-shorthand-boolean](jsx-prefer-shorthand-boolean)                         | enforce `boolean` attributes notation in JSX                  |
 | [jsx/prefer-shorthand-fragment](jsx-prefer-shorthand-fragment)                       | enforce using fragment syntax instead of `Fragment` component |
 
-## react-hooks
+## React Hooks
 
 | Name                                                                                                     | Description                                            |
 | :------------------------------------------------------------------------------------------------------- | :----------------------------------------------------- |
@@ -23,7 +23,7 @@
 | [react-hooks/ensure-use-callback-has-non-empty-deps](react-hooks-ensure-use-callback-has-non-empty-deps) | enforce `useCallback` has non-empty dependencies array |
 | [react-hooks/ensure-use-memo-has-non-empty-deps](react-hooks-ensure-use-memo-has-non-empty-deps)         | enforce `useMemo` has non-empty dependencies array     |
 
-## react
+## React
 
 | Name                                                                                                 | Description                                                                        |
 | :--------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------- |
@@ -53,7 +53,7 @@
 | [react/no-unstable-nested-components](react-no-unstable-nested-components)                           | disallow usage of unstable nested components                                       |
 | [react/prefer-destructuring-assignment](react-prefer-destructuring-assignment)                       | enforce using destructuring assignment in component props and context              |
 
-## naming-convention
+## Naming Convention
 
 | Name                                                                         | Description                                                            |
 | :--------------------------------------------------------------------------- | :--------------------------------------------------------------------- |
@@ -61,7 +61,7 @@
 | [naming-convention/filename](naming-convention-filename)                     | enforce naming convention for JSX file names                           |
 | [naming-convention/filename-extension](naming-convention-filename-extension) | enforce naming convention for JSX file extensions                      |
 
-## debug
+## Debug
 
 | Name                                                 | Description                                              |
 | :--------------------------------------------------- | :------------------------------------------------------- |
