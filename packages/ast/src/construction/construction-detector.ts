@@ -1,8 +1,7 @@
 import type { RuleContext } from "@eslint-react/shared";
-import { Data, O } from "@eslint-react/tools";
+import { Data, O, Pred } from "@eslint-react/tools";
 import { DefinitionType, type Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import { isObject, isString } from "effect/Predicate";
 import { isNil } from "rambda";
 import { match } from "ts-pattern";
 
@@ -141,7 +140,7 @@ export function constructionDetector<T extends RuleContext>(
         return detect(node.alternate);
       })
       .when(is(NodeType.Identifier), (node) => {
-        if (!("name" in node && isString(node.name))) {
+        if (!("name" in node && Pred.isString(node.name))) {
           return None;
         }
 
@@ -178,7 +177,7 @@ export function constructionDetector<T extends RuleContext>(
         return None;
       })
       .when(isOneOf([NodeType.TSAsExpression, NodeType.TSTypeAssertion]), () => {
-        if (!("expression" in node) || !isObject(node.expression)) {
+        if (!("expression" in node) || !Pred.isObject(node.expression)) {
           return None;
         }
 

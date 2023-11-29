@@ -1,7 +1,6 @@
 import type { RuleContext } from "@eslint-react/shared";
-import { F, O } from "@eslint-react/tools";
+import { F, O, Pred } from "@eslint-react/tools";
 import type { ReactSettings } from "@eslint-react/types";
-import { isString } from "effect/Predicate";
 import memo from "micro-memoize";
 
 const RE_JSX_ANNOTATION_REGEX = /@jsx\s+(\S+)/u;
@@ -14,7 +13,7 @@ export function getFragmentFromContext<T extends RuleContext>(context: T) {
 
   const fragment = settings.react?.fragment;
 
-  if (isString(fragment) && RE_JS_IDENTIFIER_REGEX.test(fragment)) {
+  if (Pred.isString(fragment) && RE_JS_IDENTIFIER_REGEX.test(fragment)) {
     return fragment;
   }
 

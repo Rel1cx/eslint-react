@@ -1,8 +1,7 @@
 import { NodeType } from "@eslint-react/ast";
 import { findPropInAttributes, findPropInProperties, getPropValue, isCreateElementCall } from "@eslint-react/jsx";
-import { F, O } from "@eslint-react/tools";
+import { F, O, Pred } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { isString } from "effect/Predicate";
 import type { ConstantCase } from "string-ts";
 import { isMatching, P } from "ts-pattern";
 
@@ -113,7 +112,7 @@ export default createRule<[], MessageID>({
           const hasSandboxValue = F.pipe(
             getPropValue(maybeTypeAttribute.value, context),
             O.flatMapNullable(v => v?.value),
-            O.filter(isString),
+            O.filter(Pred.isString),
             O.map((value) => value.split(" ")),
             O.exists((values) => values.every((value) => validTypes.some((validType) => validType === value))),
           );
