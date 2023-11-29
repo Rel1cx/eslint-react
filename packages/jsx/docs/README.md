@@ -10,8 +10,8 @@
 
 ### Variables
 
+- [DEFAULT\_JSX\_VALUE\_CHECK\_HINT](README.md#default_jsx_value_check_hint)
 - [JSXValueCheckHint](README.md#jsxvaluecheckhint)
-- [defaultJSXValueCheckHint](README.md#defaultjsxvaluecheckhint)
 - [hdlAnimation](README.md#hdlanimation)
 - [hdlClipboard](README.md#hdlclipboard)
 - [hdlComposition](README.md#hdlcomposition)
@@ -86,6 +86,12 @@ node is TSESTree.CallExpression
 
 ## Variables
 
+### DEFAULT\_JSX\_VALUE\_CHECK\_HINT
+
+• `Const` **DEFAULT\_JSX\_VALUE\_CHECK\_HINT**: `bigint`
+
+---
+
 ### JSXValueCheckHint
 
 • `Const` **JSXValueCheckHint**: `Object`
@@ -104,12 +110,6 @@ node is TSESTree.CallExpression
 | `StrictArray`          | `bigint` |
 | `StrictConditional`    | `bigint` |
 | `StrictLogical`        | `bigint` |
-
----
-
-### defaultJSXValueCheckHint
-
-• `Const` **defaultJSXValueCheckHint**: `bigint`
 
 ---
 
@@ -646,11 +646,11 @@ Check if function is returning JSX
 
 #### Parameters
 
-| Name      | Type                                                          | Default value              | Description                        |
-| :-------- | :------------------------------------------------------------ | :------------------------- | :--------------------------------- |
-| `node`    | `TSESTreeFunction`                                            | `undefined`                | The return statement node to check |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`                | The rule context                   |
-| `hint`    | `bigint`                                                      | `defaultJSXValueCheckHint` | The `JSXValueCheckHint` to use     |
+| Name      | Type                                                          | Default value                  | Description                        |
+| :-------- | :------------------------------------------------------------ | :----------------------------- | :--------------------------------- |
+| `node`    | `TSESTreeFunction`                                            | `undefined`                    | The return statement node to check |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`                    | The rule context                   |
+| `hint`    | `bigint`                                                      | `DEFAULT_JSX_VALUE_CHECK_HINT` | The `JSXValueCheckHint` to use     |
 
 #### Returns
 
@@ -767,11 +767,11 @@ Check if a node is a JSX value
 
 #### Parameters
 
-| Name      | Type                                                          | Default value            | Description                    |
-| :-------- | :------------------------------------------------------------ | :----------------------- | :----------------------------- |
-| `node`    | `undefined` \| `null` \| `Node`                               | `undefined`              | The AST node to check          |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`              | The rule context               |
-| `hint`    | `bigint`                                                      | `JSXValueCheckHint.None` | The `JSXValueCheckHint` to use |
+| Name      | Type                                                          | Default value                  | Description                    |
+| :-------- | :------------------------------------------------------------ | :----------------------------- | :----------------------------- |
+| `node`    | `undefined` \| `null` \| `Node`                               | `undefined`                    | The AST node to check          |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`                    | The rule context               |
+| `hint`    | `bigint`                                                      | `DEFAULT_JSX_VALUE_CHECK_HINT` | The `JSXValueCheckHint` to use |
 
 #### Returns
 
