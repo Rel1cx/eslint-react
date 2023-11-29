@@ -1,7 +1,6 @@
 import { NodeType } from "@eslint-react/ast";
-import { F } from "@eslint-react/tools";
+import { F, Pred } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-import { isObject } from "effect/Predicate";
 import { match } from "ts-pattern";
 
 /**
@@ -22,7 +21,7 @@ export function isCreateContext(node: TSESTree.Node) {
 
   if (
     "expression" in node
-    && isObject(node.expression)
+    && Pred.isObject(node.expression)
     && node.expression.type === NodeType.AssignmentExpression
     && node.expression.operator === "="
   ) {

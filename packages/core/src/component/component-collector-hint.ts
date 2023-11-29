@@ -24,5 +24,5 @@ export const ExRComponentCollectorHint = {
 } as const;
 /* eslint-enable perfectionist/sort-objects */
 
-export const defaultComponentCollectorHint = ExRComponentCollectorHint.SkipStringLiteral
+export const DEFAULT_COMPONENT_COLLECTOR_HINT = ExRComponentCollectorHint.SkipStringLiteral
   | ExRComponentCollectorHint.SkipNumberLiteral;

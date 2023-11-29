@@ -1,6 +1,6 @@
 import { isMultiLine, isOneOf, NodeType } from "@eslint-react/ast";
+import { Pred } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-import { isString } from "effect/Predicate";
 
 /**
  * Check if a node is a Literal or JSXText
@@ -15,7 +15,7 @@ export const isLiteral = isOneOf([NodeType.Literal, NodeType.JSXText]);
  * @returns boolean `true` if the node is whitespace
  */
 export function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
-  return isString(node.value) && node.value.trim() === "";
+  return Pred.isString(node.value) && node.value.trim() === "";
 }
 
 /**

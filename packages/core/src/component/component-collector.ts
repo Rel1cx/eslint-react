@@ -13,7 +13,7 @@ import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { match } from "ts-pattern";
 
-import { defaultComponentCollectorHint, ExRComponentCollectorHint } from "./component-collector-hint";
+import { DEFAULT_COMPONENT_COLLECTOR_HINT, ExRComponentCollectorHint } from "./component-collector-hint";
 import { ExRFunctionComponentFlag } from "./component-flag";
 import { getFunctionComponentIdentifier } from "./component-Identifier";
 import { getComponentInitPath, hasCallInInitPath } from "./component-init-path";
@@ -57,7 +57,7 @@ function getComponentFlag(initPath: ExRFunctionComponent["initPath"], pragma: st
 
 export function componentCollector(
   context: RuleContext,
-  hint: bigint = defaultComponentCollectorHint,
+  hint: bigint = DEFAULT_COMPONENT_COLLECTOR_HINT,
   pragma = getPragmaFromContext(context),
 ) {
   const components = new Map<string, ExRFunctionComponent>();

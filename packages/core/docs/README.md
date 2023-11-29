@@ -18,12 +18,12 @@
 
 ### Variables
 
+- [DEFAULT\_COMPONENT\_COLLECTOR\_HINT](README.md#default_component_collector_hint)
 - [ExRClassComponentFlag](README.md#exrclasscomponentflag-1)
 - [ExRComponentCollectorHint](README.md#exrcomponentcollectorhint-1)
 - [ExRFunctionComponentFlag](README.md#exrfunctioncomponentflag-1)
 - [RE\_COMPONENT\_NAME](README.md#re_component_name)
 - [RE\_HOOK\_NAME](README.md#re_hook_name)
-- [defaultComponentCollectorHint](README.md#defaultcomponentcollectorhint)
 
 ### Functions
 
@@ -160,6 +160,12 @@
 
 ## Variables
 
+### DEFAULT\_COMPONENT\_COLLECTOR\_HINT
+
+• `Const` **DEFAULT\_COMPONENT\_COLLECTOR\_HINT**: `bigint`
+
+---
+
 ### ExRClassComponentFlag
 
 • **ExRClassComponentFlag**: `Object`
@@ -226,12 +232,6 @@ hints for component collector
 
 • `Const` **RE\_HOOK\_NAME**: `RegExp`
 
----
-
-### defaultComponentCollectorHint
-
-• `Const` **defaultComponentCollectorHint**: `bigint`
-
 ## Functions
 
 ### componentCollector
@@ -240,11 +240,11 @@ hints for component collector
 
 #### Parameters
 
-| Name      | Type                                                          | Default value                   |
-| :-------- | :------------------------------------------------------------ | :------------------------------ |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`                     |
-| `hint`    | `bigint`                                                      | `defaultComponentCollectorHint` |
-| `pragma`  | `string`                                                      | `undefined`                     |
+| Name      | Type                                                          | Default value                      |
+| :-------- | :------------------------------------------------------------ | :--------------------------------- |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`                        |
+| `hint`    | `bigint`                                                      | `DEFAULT_COMPONENT_COLLECTOR_HINT` |
+| `pragma`  | `string`                                                      | `undefined`                        |
 
 #### Returns
 

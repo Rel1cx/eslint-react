@@ -34,7 +34,8 @@ export const JSXValueCheckHint = {
 } as const;
 /* eslint-enable perfectionist/sort-objects */
 
-export const defaultJSXValueCheckHint = JSXValueCheckHint.SkipUndefinedLiteral | JSXValueCheckHint.SkipBooleanLiteral;
+export const DEFAULT_JSX_VALUE_CHECK_HINT = JSXValueCheckHint.SkipUndefinedLiteral
+  | JSXValueCheckHint.SkipBooleanLiteral;
 
 /**
  * Check if a node is a JSX value
@@ -47,7 +48,7 @@ export const defaultJSXValueCheckHint = JSXValueCheckHint.SkipUndefinedLiteral |
 export function isJSXValue(
   node: TSESTree.Node | null | undefined,
   context: RuleContext,
-  hint: bigint = JSXValueCheckHint.None,
+  hint: bigint = DEFAULT_JSX_VALUE_CHECK_HINT,
 ): boolean {
   if (!node) {
     return false;
