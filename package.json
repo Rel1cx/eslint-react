@@ -85,6 +85,7 @@
     "fast-glob": "3.3.2",
     "husky": "8.0.3",
     "knip": "2.43.0",
+    "markdownlint": "0.32.1",
     "pathe": "1.1.1",
     "publint": "0.2.5",
     "rollup": "4.6.0",
