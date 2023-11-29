@@ -1,5 +1,5 @@
 /**
- * @since 0.8.13
+ * @since 0.9.0
  */
 export type Assume<T, U> = T extends U ? T : never;
 
@@ -9,7 +9,7 @@ export type Assume<T, U> = T extends U ? T : never;
 export type Cast<X, Y> = X extends Y ? X : Y;
 
 /**
- * @since 0.8.13
+ * @since 0.9.0
  */
 export type Defined<T> = T extends undefined ? never : T;
 

@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "0.8.13-beta.1",
+  "version": "0.9.0-beta.0",
   "description": "ESLint x React's main ESLint plugin. A set of ESLint rules to catch common mistakes and improve your React code. Built (mostly) from scratch.",
   "keywords": [
     "eslint",
@@ -51,14 +51,6 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/parser": "6.13.1",
-    "@typescript-eslint/scope-manager": "6.13.1",
-    "@typescript-eslint/type-utils": "6.13.1",
-    "@typescript-eslint/types": "6.13.1",
-    "@typescript-eslint/utils": "6.13.1",
-    "typescript": ">=5.3.2"
-  },
-  "devDependencies": {
     "@eslint-react/eslint-plugin-debug": "workspace:*",
     "@eslint-react/eslint-plugin-jsx": "workspace:*",
     "@eslint-react/eslint-plugin-naming-convention": "workspace:*",
@@ -67,7 +59,13 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "string-ts": "1.3.2"
+    "@typescript-eslint/parser": "6.13.1",
+    "@typescript-eslint/scope-manager": "6.13.1",
+    "@typescript-eslint/type-utils": "6.13.1",
+    "@typescript-eslint/types": "6.13.1",
+    "@typescript-eslint/utils": "6.13.1",
+    "string-ts": "1.3.2",
+    "typescript": ">=5.3.2"
   },
   "peerDependencies": {
     "@typescript-eslint/parser": "6.13.1",

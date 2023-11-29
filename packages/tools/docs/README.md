@@ -98,7 +98,7 @@ The array to get the element type from.
 
 **`Since`**
 
-0.8.13
+0.9.0
 
 #### Type parameters
 
@@ -161,7 +161,7 @@ The array to get the element type from.
 
 **`Since`**
 
-0.8.13
+0.9.0
 
 #### Type parameters
 
@@ -238,7 +238,7 @@ x is T
 
 **`Since`**
 
-0.8.13
+0.9.0
 
 ---
 
@@ -248,7 +248,7 @@ x is T
 
 **`Since`**
 
-0.8.13
+0.9.0
 
 ---
 
@@ -258,7 +258,7 @@ x is T
 
 **`Since`**
 
-0.8.13
+0.9.0
 
 #### Type parameters
 
@@ -274,7 +274,7 @@ x is T
 
 **`Since`**
 
-0.8.13
+0.9.0
 
 ---
 
@@ -284,7 +284,7 @@ x is T
 
 **`Since`**
 
-0.8.13
+0.9.0
 
 ---
 
@@ -596,7 +596,7 @@ x is \{ [key in string \| number \| symbol]: GuardReturnType\<ReturnType\<T[key]
 
 **`Since`**
 
-0.8.13
+0.9.0
 
 ---
 
@@ -636,7 +636,7 @@ x is T[]
 
 **`Since`**
 
-0.8.13
+0.9.0
 
 ---
 
@@ -676,7 +676,7 @@ x is \{ [key in string \| number \| symbol]: GuardReturnType\<T[key]\> }
 
 **`Since`**
 
-0.8.13
+0.9.0
 
 ---
 
@@ -714,7 +714,7 @@ x is undefined \| T
 
 **`Since`**
 
-0.8.13
+0.9.0
 
 ---
 
@@ -756,7 +756,7 @@ x is Record\<GuardReturnType\<K\>, GuardReturnType\<V\>\>
 
 **`Since`**
 
-0.8.13
+0.9.0
 
 ---
 
@@ -796,7 +796,7 @@ x is \{ [key in string \| number \| symbol]: GuardReturnType\<T[key]\> }
 
 **`Since`**
 
-0.8.13
+0.9.0
 
 ---
 
@@ -836,7 +836,7 @@ x is GuardReturnType\<T[number]\>
 
 **`Since`**
 
-0.8.13
+0.9.0
 
 ---
 
