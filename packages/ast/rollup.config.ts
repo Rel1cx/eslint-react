@@ -24,7 +24,7 @@ export default defineConfig([{
           mangle: false,
           module: true,
         },
-        target: "esnext",
+        target: "es2021",
       },
       minify: false,
     }),
