@@ -17,18 +17,26 @@
 - [MutRef](modules/MutRef.md)
 - [O](modules/O.md)
 - [Ord](modules/Ord.md)
+- [Pred](modules/Pred.md)
 - [Record](modules/Record.md)
 - [Ref](modules/Ref.md)
 
 ### Type Aliases
 
 - [ArrayElement](README.md#arrayelement)
+- [Assume](README.md#assume)
 - [Cast](README.md#cast)
 - [Combine](README.md#combine)
 - [DeepWriteable](README.md#deepwriteable)
+- [Defined](README.md#defined)
 - [FieldDiff](README.md#fielddiff)
 - [FromEntries](README.md#fromentries)
 - [FromEntriesWithReadOnly](README.md#fromentrieswithreadonly)
+- [Guard](README.md#guard)
+- [GuardRecord](README.md#guardrecord)
+- [GuardReturnType](README.md#guardreturntype)
+- [KeyGuard](README.md#keyguard)
+- [LazyGuardRecord](README.md#lazyguardrecord)
 - [LooseRecord](README.md#looserecord)
 - [Narrow](README.md#narrow)
 - [Pretty](README.md#pretty)
@@ -43,6 +51,13 @@
 - [fromEntries](README.md#fromentries-1)
 - [fromEntriesWithReadOnly](README.md#fromentrieswithreadonly-1)
 - [identity](README.md#identity)
+- [isKindObjectLazy](README.md#iskindobjectlazy)
+- [isKindOfArray](README.md#iskindofarray)
+- [isKindOfObject](README.md#iskindofobject)
+- [isKindOfOptional](README.md#iskindofoptional)
+- [isKindOfRecord](README.md#iskindofrecord)
+- [isKindOfTuple](README.md#iskindoftuple)
+- [isKindOfUnion](README.md#iskindofunion)
 - [keys](README.md#keys)
 - [narrow](README.md#narrow-1)
 - [noop](README.md#noop)
@@ -74,6 +89,23 @@ The array to get the element type from.
 | Name |
 | :--- |
 | `A`  |
+
+---
+
+### Assume
+
+Ƭ **Assume**\<`T`, `U`\>: `T` extends `U` ? `T` : `never`
+
+**`Since`**
+
+0.8.13
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `T`  |
+| `U`  |
 
 ---
 
@@ -123,6 +155,22 @@ The array to get the element type from.
 
 ---
 
+### Defined
+
+Ƭ **Defined**\<`T`\>: `T` extends `undefined` ? `never` : `T`
+
+**`Since`**
+
+0.8.13
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `T`  |
+
+---
+
 ### FieldDiff
 
 Ƭ **FieldDiff**\<`T1`, `T2`\>: `Omit`\<`T1`, keyof `T2`\> \| `Omit`\<`T2`, keyof `T1`\>
@@ -161,6 +209,82 @@ The array to get the element type from.
 | Name |
 | :--- |
 | `T`  |
+
+---
+
+### Guard
+
+Ƭ **Guard**\<`T`\>: (`x`: `unknown`) => x is T
+
+#### Type parameters
+
+| Name | Type      |
+| :--- | :-------- |
+| `T`  | `unknown` |
+
+#### Type declaration
+
+▸ (`x`): x is T
+
+##### Parameters
+
+| Name | Type      |
+| :--- | :-------- |
+| `x`  | `unknown` |
+
+##### Returns
+
+x is T
+
+**`Since`**
+
+0.8.13
+
+---
+
+### GuardRecord
+
+Ƭ **GuardRecord**: `Record`\<`PropertyKey`, [`Guard`](README.md#guard)\>
+
+**`Since`**
+
+0.8.13
+
+---
+
+### GuardReturnType
+
+Ƭ **GuardReturnType**\<`T`\>: `T` extends [`Guard`](README.md#guard)\<infer U\> ? `U` : `never`
+
+**`Since`**
+
+0.8.13
+
+#### Type parameters
+
+| Name | Type                               |
+| :--- | :--------------------------------- |
+| `T`  | extends [`Guard`](README.md#guard) |
+
+---
+
+### KeyGuard
+
+Ƭ **KeyGuard**: [`Guard`](README.md#guard)\<`number` \| `string` \| `symbol`\>
+
+**`Since`**
+
+0.8.13
+
+---
+
+### LazyGuardRecord
+
+Ƭ **LazyGuardRecord**: `Record`\<`PropertyKey`, () => [`Guard`](README.md#guard)\>
+
+**`Since`**
+
+0.8.13
 
 ---
 
@@ -271,7 +395,7 @@ type Result = UnionFromTuple<["foo", "bar", 1]>;
 
 ### UnionToIntersection
 
-Ƭ **UnionToIntersection**\<`U`\>: `U` extends `any` ? (`k`: `U`) => `void` : `never` extends (`k`: infer I) => `void` ? `I` : `never`
+Ƭ **UnionToIntersection**\<`U`\>: `U` extends `unknown` ? (`k`: `U`) => `void` : `never` extends (`k`: infer I) => `void` ? `I` : `never`
 
 **`Since`**
 
@@ -435,6 +559,284 @@ The object created from the entries.
 **`Since`**
 
 0.0.1
+
+---
+
+### isKindObjectLazy
+
+▸ **isKindObjectLazy**\<`T`\>(`guards`): (`x`: `unknown`) => x is \{ [key in string \| number \| symbol]: GuardReturnType\<ReturnType\<T[key]\>\> }
+
+#### Type parameters
+
+| Name | Type                                                   |
+| :--- | :----------------------------------------------------- |
+| `T`  | extends [`LazyGuardRecord`](README.md#lazyguardrecord) |
+
+#### Parameters
+
+| Name     | Type |
+| :------- | :--- |
+| `guards` | `T`  |
+
+#### Returns
+
+`fn`
+
+▸ (`x`): x is \{ [key in string \| number \| symbol]: GuardReturnType\<ReturnType\<T[key]\>\> }
+
+##### Parameters
+
+| Name | Type      |
+| :--- | :-------- |
+| `x`  | `unknown` |
+
+##### Returns
+
+x is \{ [key in string \| number \| symbol]: GuardReturnType\<ReturnType\<T[key]\>\> }
+
+**`Since`**
+
+0.8.13
+
+---
+
+### isKindOfArray
+
+▸ **isKindOfArray**\<`T`\>(`guard`): (`x`: `unknown`) => x is T[]
+
+#### Type parameters
+
+| Name | Type                               |
+| :--- | :--------------------------------- |
+| `T`  | extends [`Guard`](README.md#guard) |
+
+#### Parameters
+
+| Name    | Type | Description         |
+| :------ | :--- | :------------------ |
+| `guard` | `T`  | The guard to check. |
+
+#### Returns
+
+`fn`
+
+A guard that checks if given value is the kind of array.
+
+▸ (`x`): x is T[]
+
+##### Parameters
+
+| Name | Type      |
+| :--- | :-------- |
+| `x`  | `unknown` |
+
+##### Returns
+
+x is T[]
+
+**`Since`**
+
+0.8.13
+
+---
+
+### isKindOfObject
+
+▸ **isKindOfObject**\<`T`\>(`guards`): (`x`: `unknown`) => x is \{ [key in string \| number \| symbol]: GuardReturnType\<T[key]\> }
+
+#### Type parameters
+
+| Name | Type                                           |
+| :--- | :--------------------------------------------- |
+| `T`  | extends [`GuardRecord`](README.md#guardrecord) |
+
+#### Parameters
+
+| Name     | Type | Description          |
+| :------- | :--- | :------------------- |
+| `guards` | `T`  | The guards to check. |
+
+#### Returns
+
+`fn`
+
+A guard that checks if given value is the kind of object.
+
+▸ (`x`): x is \{ [key in string \| number \| symbol]: GuardReturnType\<T[key]\> }
+
+##### Parameters
+
+| Name | Type      |
+| :--- | :-------- |
+| `x`  | `unknown` |
+
+##### Returns
+
+x is \{ [key in string \| number \| symbol]: GuardReturnType\<T[key]\> }
+
+**`Since`**
+
+0.8.13
+
+---
+
+### isKindOfOptional
+
+▸ **isKindOfOptional**\<`T`\>(`guard`): (`x`: `unknown`) => x is undefined \| T
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `T`  |
+
+#### Parameters
+
+| Name    | Type                              |
+| :------ | :-------------------------------- |
+| `guard` | [`Guard`](README.md#guard)\<`T`\> |
+
+#### Returns
+
+`fn`
+
+▸ (`x`): x is undefined \| T
+
+##### Parameters
+
+| Name | Type      |
+| :--- | :-------- |
+| `x`  | `unknown` |
+
+##### Returns
+
+x is undefined \| T
+
+**`Since`**
+
+0.8.13
+
+---
+
+### isKindOfRecord
+
+▸ **isKindOfRecord**\<`K`, `V`\>(`isK`, `isV`): (`x`: `unknown`) => x is Record\<GuardReturnType\<K\>, GuardReturnType\<V\>\>
+
+#### Type parameters
+
+| Name | Type                                     |
+| :--- | :--------------------------------------- |
+| `K`  | extends [`KeyGuard`](README.md#keyguard) |
+| `V`  | extends [`Guard`](README.md#guard)       |
+
+#### Parameters
+
+| Name  | Type | Description              |
+| :---- | :--- | :----------------------- |
+| `isK` | `K`  | The guard for the key.   |
+| `isV` | `V`  | The guard for the value. |
+
+#### Returns
+
+`fn`
+
+A guard that checks if given value is the kind of record.
+
+▸ (`x`): x is Record\<GuardReturnType\<K\>, GuardReturnType\<V\>\>
+
+##### Parameters
+
+| Name | Type      |
+| :--- | :-------- |
+| `x`  | `unknown` |
+
+##### Returns
+
+x is Record\<GuardReturnType\<K\>, GuardReturnType\<V\>\>
+
+**`Since`**
+
+0.8.13
+
+---
+
+### isKindOfTuple
+
+▸ **isKindOfTuple**\<`T`\>(`guards`): (`x`: `unknown`) => x is \{ [key in string \| number \| symbol]: GuardReturnType\<T[key]\> }
+
+#### Type parameters
+
+| Name | Type                                 |
+| :--- | :----------------------------------- |
+| `T`  | extends [`Guard`](README.md#guard)[] |
+
+#### Parameters
+
+| Name     | Type | Description          |
+| :------- | :--- | :------------------- |
+| `guards` | `T`  | The guards to check. |
+
+#### Returns
+
+`fn`
+
+A guard that checks if given value is the kind of tuple.
+
+▸ (`x`): x is \{ [key in string \| number \| symbol]: GuardReturnType\<T[key]\> }
+
+##### Parameters
+
+| Name | Type      |
+| :--- | :-------- |
+| `x`  | `unknown` |
+
+##### Returns
+
+x is \{ [key in string \| number \| symbol]: GuardReturnType\<T[key]\> }
+
+**`Since`**
+
+0.8.13
+
+---
+
+### isKindOfUnion
+
+▸ **isKindOfUnion**\<`T`\>(`...guards`): (`x`: `unknown`) => x is GuardReturnType\<T[number]\>
+
+#### Type parameters
+
+| Name | Type                                 |
+| :--- | :----------------------------------- |
+| `T`  | extends [`Guard`](README.md#guard)[] |
+
+#### Parameters
+
+| Name        | Type | Description          |
+| :---------- | :--- | :------------------- |
+| `...guards` | `T`  | The guards to check. |
+
+#### Returns
+
+`fn`
+
+A guard that checks if given value is the kind of union.
+
+▸ (`x`): x is GuardReturnType\<T[number]\>
+
+##### Parameters
+
+| Name | Type      |
+| :--- | :-------- |
+| `x`  | `unknown` |
+
+##### Returns
+
+x is GuardReturnType\<T[number]\>
+
+**`Since`**
+
+0.8.13
 
 ---
 

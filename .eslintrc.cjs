@@ -142,6 +142,7 @@ module.exports = defineConfig({
         "functional/no-mixed-types": "off",
         "functional/no-return-void": "off",
         "functional/no-conditional-statements": "off",
+        "functional/functional-parameters": "off",
       },
     },
     {

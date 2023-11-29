@@ -147,8 +147,8 @@ importers:
         specifier: 0.31.3
         version: 0.31.3
       taze:
-        specifier: 0.12.2
-        version: 0.12.2
+        specifier: 0.12.3
+        version: 0.12.3
       tiny-invariant:
         specifier: 1.3.1
         version: 1.3.1
@@ -11624,8 +11624,8 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /taze@0.12.2:
-    resolution: {integrity: sha512-k6ZGUdqTcSmOQ181feZeizgPHEQLPlbK6ed8vCE3TJo+EWJ8DuS452b4uKa2rSdX4GlgdL8rBy7UpDMYrITOGg==}
+  /taze@0.12.3:
+    resolution: {integrity: sha512-kvc8+XM1nizAalJiVaFbVX0aLWuiCX4F/oW9ozt8otyy/ORejeqpe/6SIASmrY/T4CWsc1G3G4IfNg5KfGR11w==}
     hasBin: true
     dependencies:
       '@antfu/ni': 0.21.12

@@ -1,7 +1,7 @@
 /**
  * @since 0.0.1
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-function, functional/functional-parameters
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 export const noop = () => {};
 
 /**
