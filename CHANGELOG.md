@@ -70,6 +70,7 @@
 - `@eslint-react/monorepo`
   - Publish internal packages to NPM as well.
   - Update `@typescript-eslint`'s packages to `6.13.1`.
+  - Update `eslint-config-with-tsconfig` to `2.9.82`.
 
 #### 📝 Documentation
 
