@@ -1,4 +1,5 @@
-// Ported from: https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/utils/src/ast-utils/eslint-utils/astUtilities.ts
+/* eslint-disable @susisu/safe-typescript/no-type-assertion */
+// Ported from https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/utils/src/ast-utils/eslint-utils/astUtilities.ts
 
 import * as eslintUtils from "@eslint-community/eslint-utils";
 import type { TSESTree } from "@typescript-eslint/types";

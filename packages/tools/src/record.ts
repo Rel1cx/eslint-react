@@ -1,3 +1,4 @@
+/* eslint-disable @susisu/safe-typescript/no-type-assertion */
 import type { ArrayElement } from "./array";
 import type { Cast, Pretty } from "./helper";
 
