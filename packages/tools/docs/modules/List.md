@@ -26,7 +26,6 @@
 
 - [append](List.md#append)
 - [appendAll](List.md#appendall)
-- [appendAllNonEmpty](List.md#appendallnonempty)
 - [compact](List.md#compact)
 - [cons](List.md#cons)
 - [drop](List.md#drop)
@@ -36,7 +35,6 @@
 - [filterMap](List.md#filtermap)
 - [findFirst](List.md#findfirst)
 - [flatMap](List.md#flatmap)
-- [flatMapNonEmpty](List.md#flatmapnonempty)
 - [forEach](List.md#foreach)
 - [fromIterable](List.md#fromiterable)
 - [getEquivalence](List.md#getequivalence)
@@ -53,7 +51,6 @@
 - [partitionMap](List.md#partitionmap)
 - [prepend](List.md#prepend)
 - [prependAll](List.md#prependall)
-- [prependAllNonEmpty](List.md#prependallnonempty)
 - [prependAllReversed](List.md#prependallreversed)
 - [reduce](List.md#reduce)
 - [reduceRight](List.md#reduceright)
@@ -424,73 +421,6 @@ Applies the specified function to each element of the `List`.
 #### Returns
 
 `void`
-
-**`Since`**
-
-2.0.0
-
----
-
-### map
-
-▸ **map**\<`T`, `B`\>(`f`): (`self`: `T`) => [`With`](List.List.md#with)\<`T`, `B`\>
-
-Applies the specified mapping function to each element of the list.
-
-#### Type parameters
-
-| Name | Type                                    |
-| :--- | :-------------------------------------- |
-| `T`  | extends [`List`](List.md#list)\<`any`\> |
-| `B`  | `B`                                     |
-
-#### Parameters
-
-| Name | Type                                                              |
-| :--- | :---------------------------------------------------------------- |
-| `f`  | (`a`: [`Infer`](List.List.md#infer)\<`T`\>, `i`: `number`) => `B` |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): [`With`](List.List.md#with)\<`T`, `B`\>
-
-##### Parameters
-
-| Name   | Type |
-| :----- | :--- |
-| `self` | `T`  |
-
-##### Returns
-
-[`With`](List.List.md#with)\<`T`, `B`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **map**\<`T`, `B`\>(`self`, `f`): [`With`](List.List.md#with)\<`T`, `B`\>
-
-Applies the specified mapping function to each element of the list.
-
-#### Type parameters
-
-| Name | Type                                    |
-| :--- | :-------------------------------------- |
-| `T`  | extends [`List`](List.md#list)\<`any`\> |
-| `B`  | `B`                                     |
-
-#### Parameters
-
-| Name   | Type                                                              |
-| :----- | :---------------------------------------------------------------- |
-| `self` | `T`                                                               |
-| `f`    | (`a`: [`Infer`](List.List.md#infer)\<`T`\>, `i`: `number`) => `B` |
-
-#### Returns
-
-[`With`](List.List.md#with)\<`T`, `B`\>
 
 **`Since`**
 
@@ -915,159 +845,59 @@ Appends the specified element to the end of the `List`, creating a new `Cons`.
 
 ### appendAll
 
-▸ **appendAll**\<`B`\>(`that`): \<A\>(`self`: [`List`](List.md#list)\<`A`\>) => [`List`](List.md#list)\<`B` \| `A`\>
+▸ **appendAll**\<`S`, `T`\>(`that`): (`self`: `S`) => [`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
 
-Concatentates the specified lists together.
+Concatenates two lists, combining their elements.
+If either list is non-empty, the result is also a non-empty list.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `B`  |
+| Name | Type                                    |
+| :--- | :-------------------------------------- |
+| `S`  | extends [`List`](List.md#list)\<`any`\> |
+| `T`  | extends [`List`](List.md#list)\<`any`\> |
 
 #### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `that` | [`List`](List.md#list)\<`B`\> |
+| Name   | Type |
+| :----- | :--- |
+| `that` | `T`  |
 
 #### Returns
 
 `fn`
 
-▸ \<`A`\>(`self`): [`List`](List.md#list)\<`B` \| `A`\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
+▸ (`self`): [`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`List`](List.md#list)\<`A`\> |
+| Name   | Type |
+| :----- | :--- |
+| `self` | `S`  |
 
 ##### Returns
 
-[`List`](List.md#list)\<`B` \| `A`\>
+[`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
+
+**`Example`**
+
+```ts
+import * as List from "effect/List";
+
+assert.deepStrictEqual(
+  List.make(1, 2).pipe(List.appendAll(List.make("a", "b")), List.toArray),
+  [1, 2, "a", "b"],
+);
+```
 
 **`Since`**
 
 2.0.0
 
-▸ **appendAll**\<`A`, `B`\>(`self`, `that`): [`List`](List.md#list)\<`A` \| `B`\>
+▸ **appendAll**\<`A`, `B`\>(`self`, `that`): [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
 
-Concatentates the specified lists together.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`List`](List.md#list)\<`A`\> |
-| `that` | [`List`](List.md#list)\<`B`\> |
-
-#### Returns
-
-[`List`](List.md#list)\<`A` \| `B`\>
-
-**`Since`**
-
-2.0.0
-
----
-
-### appendAllNonEmpty
-
-▸ **appendAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: [`List`](List.md#list)\<`A`\>) => [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                        |
-| :----- | :------------------------------------------ |
-| `that` | [`Cons`](../interfaces/List.Cons.md)\<`B`\> |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`List`](List.md#list)\<`A`\> |
-
-##### Returns
-
-[`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **appendAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: [`Cons`](../interfaces/List.Cons.md)\<`A`\>) => [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `that` | [`List`](List.md#list)\<`B`\> |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                                        |
-| :----- | :------------------------------------------ |
-| `self` | [`Cons`](../interfaces/List.Cons.md)\<`A`\> |
-
-##### Returns
-
-[`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **appendAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
+Concatenates two lists, combining their elements.
+If either list is non-empty, the result is also a non-empty list.
 
 #### Type parameters
 
@@ -1087,11 +917,25 @@ Concatentates the specified lists together.
 
 [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
 
+**`Example`**
+
+```ts
+import * as List from "effect/List";
+
+assert.deepStrictEqual(
+  List.make(1, 2).pipe(List.appendAll(List.make("a", "b")), List.toArray),
+  [1, 2, "a", "b"],
+);
+```
+
 **`Since`**
 
 2.0.0
 
-▸ **appendAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
+▸ **appendAll**\<`A`, `B`\>(`self`, `that`): [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
+
+Concatenates two lists, combining their elements.
+If either list is non-empty, the result is also a non-empty list.
 
 #### Type parameters
 
@@ -1110,6 +954,55 @@ Concatentates the specified lists together.
 #### Returns
 
 [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
+
+**`Example`**
+
+```ts
+import * as List from "effect/List";
+
+assert.deepStrictEqual(
+  List.make(1, 2).pipe(List.appendAll(List.make("a", "b")), List.toArray),
+  [1, 2, "a", "b"],
+);
+```
+
+**`Since`**
+
+2.0.0
+
+▸ **appendAll**\<`A`, `B`\>(`self`, `that`): [`List`](List.md#list)\<`A` \| `B`\>
+
+Concatenates two lists, combining their elements.
+If either list is non-empty, the result is also a non-empty list.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
+| `that` | [`List`](List.md#list)\<`B`\> |
+
+#### Returns
+
+[`List`](List.md#list)\<`A` \| `B`\>
+
+**`Example`**
+
+```ts
+import * as List from "effect/List";
+
+assert.deepStrictEqual(
+  List.make(1, 2).pipe(List.appendAll(List.make("a", "b")), List.toArray),
+  [1, 2, "a", "b"],
+);
+```
 
 **`Since`**
 
@@ -1191,159 +1084,59 @@ Prepends the specified element to the beginning of the list.
 
 ### prependAll
 
-▸ **prependAll**\<`B`\>(`prefix`): \<A\>(`self`: [`List`](List.md#list)\<`A`\>) => [`List`](List.md#list)\<`B` \| `A`\>
+▸ **prependAll**\<`S`, `T`\>(`that`): (`self`: `S`) => [`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
 
 Prepends the specified prefix list to the beginning of the specified list.
+If either list is non-empty, the result is also a non-empty list.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `B`  |
+| Name | Type                                    |
+| :--- | :-------------------------------------- |
+| `S`  | extends [`List`](List.md#list)\<`any`\> |
+| `T`  | extends [`List`](List.md#list)\<`any`\> |
 
 #### Parameters
 
-| Name     | Type                          |
-| :------- | :---------------------------- |
-| `prefix` | [`List`](List.md#list)\<`B`\> |
+| Name   | Type |
+| :----- | :--- |
+| `that` | `T`  |
 
 #### Returns
 
 `fn`
 
-▸ \<`A`\>(`self`): [`List`](List.md#list)\<`B` \| `A`\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
+▸ (`self`): [`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
 
 ##### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`List`](List.md#list)\<`A`\> |
+| Name   | Type |
+| :----- | :--- |
+| `self` | `S`  |
 
 ##### Returns
 
-[`List`](List.md#list)\<`B` \| `A`\>
+[`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
+
+**`Example`**
+
+```ts
+import * as List from "effect/List";
+
+assert.deepStrictEqual(
+  List.make(1, 2).pipe(List.prependAll(List.make("a", "b")), List.toArray),
+  ["a", "b", 1, 2],
+);
+```
 
 **`Since`**
 
 2.0.0
 
-▸ **prependAll**\<`A`, `B`\>(`self`, `prefix`): [`List`](List.md#list)\<`A` \| `B`\>
+▸ **prependAll**\<`A`, `B`\>(`self`, `that`): [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
 
 Prepends the specified prefix list to the beginning of the specified list.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name     | Type                          |
-| :------- | :---------------------------- |
-| `self`   | [`List`](List.md#list)\<`A`\> |
-| `prefix` | [`List`](List.md#list)\<`B`\> |
-
-#### Returns
-
-[`List`](List.md#list)\<`A` \| `B`\>
-
-**`Since`**
-
-2.0.0
-
----
-
-### prependAllNonEmpty
-
-▸ **prependAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: [`List`](List.md#list)\<`A`\>) => [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                        |
-| :----- | :------------------------------------------ |
-| `that` | [`Cons`](../interfaces/List.Cons.md)\<`B`\> |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`List`](List.md#list)\<`A`\> |
-
-##### Returns
-
-[`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **prependAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: [`Cons`](../interfaces/List.Cons.md)\<`A`\>) => [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `that` | [`List`](List.md#list)\<`B`\> |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                                        |
-| :----- | :------------------------------------------ |
-| `self` | [`Cons`](../interfaces/List.Cons.md)\<`A`\> |
-
-##### Returns
-
-[`Cons`](../interfaces/List.Cons.md)\<`B` \| `A`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **prependAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
+If either list is non-empty, the result is also a non-empty list.
 
 #### Type parameters
 
@@ -1363,11 +1156,25 @@ Prepends the specified prefix list to the beginning of the specified list.
 
 [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
 
+**`Example`**
+
+```ts
+import * as List from "effect/List";
+
+assert.deepStrictEqual(
+  List.make(1, 2).pipe(List.prependAll(List.make("a", "b")), List.toArray),
+  ["a", "b", 1, 2],
+);
+```
+
 **`Since`**
 
 2.0.0
 
-▸ **prependAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
+▸ **prependAll**\<`A`, `B`\>(`self`, `that`): [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
+
+Prepends the specified prefix list to the beginning of the specified list.
+If either list is non-empty, the result is also a non-empty list.
 
 #### Type parameters
 
@@ -1386,6 +1193,55 @@ Prepends the specified prefix list to the beginning of the specified list.
 #### Returns
 
 [`Cons`](../interfaces/List.Cons.md)\<`A` \| `B`\>
+
+**`Example`**
+
+```ts
+import * as List from "effect/List";
+
+assert.deepStrictEqual(
+  List.make(1, 2).pipe(List.prependAll(List.make("a", "b")), List.toArray),
+  ["a", "b", 1, 2],
+);
+```
+
+**`Since`**
+
+2.0.0
+
+▸ **prependAll**\<`A`, `B`\>(`self`, `that`): [`List`](List.md#list)\<`A` \| `B`\>
+
+Prepends the specified prefix list to the beginning of the specified list.
+If either list is non-empty, the result is also a non-empty list.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                          |
+| :----- | :---------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\> |
+| `that` | [`List`](List.md#list)\<`B`\> |
+
+#### Returns
+
+[`List`](List.md#list)\<`A` \| `B`\>
+
+**`Example`**
+
+```ts
+import * as List from "effect/List";
+
+assert.deepStrictEqual(
+  List.make(1, 2).pipe(List.prependAll(List.make("a", "b")), List.toArray),
+  ["a", "b", 1, 2],
+);
+```
 
 **`Since`**
 
@@ -2317,6 +2173,73 @@ Returns the tail of the specified list, or `None` if the list is empty.
 
 2.0.0
 
+## mapping
+
+### map
+
+▸ **map**\<`T`, `B`\>(`f`): (`self`: `T`) => [`With`](List.List.md#with)\<`T`, `B`\>
+
+Applies the specified mapping function to each element of the list.
+
+#### Type parameters
+
+| Name | Type                                    |
+| :--- | :-------------------------------------- |
+| `T`  | extends [`List`](List.md#list)\<`any`\> |
+| `B`  | `B`                                     |
+
+#### Parameters
+
+| Name | Type                                                              |
+| :--- | :---------------------------------------------------------------- |
+| `f`  | (`a`: [`Infer`](List.List.md#infer)\<`T`\>, `i`: `number`) => `B` |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): [`With`](List.List.md#with)\<`T`, `B`\>
+
+##### Parameters
+
+| Name   | Type |
+| :----- | :--- |
+| `self` | `T`  |
+
+##### Returns
+
+[`With`](List.List.md#with)\<`T`, `B`\>
+
+**`Since`**
+
+2.0.0
+
+▸ **map**\<`T`, `B`\>(`self`, `f`): [`With`](List.List.md#with)\<`T`, `B`\>
+
+Applies the specified mapping function to each element of the list.
+
+#### Type parameters
+
+| Name | Type                                    |
+| :--- | :-------------------------------------- |
+| `T`  | extends [`List`](List.md#list)\<`any`\> |
+| `B`  | `B`                                     |
+
+#### Parameters
+
+| Name   | Type                                                              |
+| :----- | :---------------------------------------------------------------- |
+| `self` | `T`                                                               |
+| `f`    | (`a`: [`Infer`](List.List.md#infer)\<`T`\>, `i`: `number`) => `B` |
+
+#### Returns
+
+[`With`](List.List.md#with)\<`T`, `B`\>
+
+**`Since`**
+
+2.0.0
+
 ## models
 
 ### List
@@ -2445,9 +2368,46 @@ self is Nil\<A\>
 
 ### flatMap
 
-▸ **flatMap**\<`A`, `B`\>(`f`): (`self`: [`List`](List.md#list)\<`A`\>) => [`List`](List.md#list)\<`B`\>
+▸ **flatMap**\<`S`, `T`\>(`f`): (`self`: `S`) => [`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`T`\>\>
 
-Flat maps a list using the specified function.
+Applies a function to each element in a list and returns a new list containing the concatenated mapped elements.
+
+#### Type parameters
+
+| Name | Type                                    |
+| :--- | :-------------------------------------- |
+| `S`  | extends [`List`](List.md#list)\<`any`\> |
+| `T`  | extends [`List`](List.md#list)\<`any`\> |
+
+#### Parameters
+
+| Name | Type                                                              |
+| :--- | :---------------------------------------------------------------- |
+| `f`  | (`a`: [`Infer`](List.List.md#infer)\<`S`\>, `i`: `number`) => `T` |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): [`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`T`\>\>
+
+##### Parameters
+
+| Name   | Type |
+| :----- | :--- |
+| `self` | `S`  |
+
+##### Returns
+
+[`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`T`\>\>
+
+**`Since`**
+
+2.0.0
+
+▸ **flatMap**\<`A`, `B`\>(`self`, `f`): [`Cons`](../interfaces/List.Cons.md)\<`B`\>
+
+Applies a function to each element in a list and returns a new list containing the concatenated mapped elements.
 
 #### Type parameters
 
@@ -2458,25 +2418,14 @@ Flat maps a list using the specified function.
 
 #### Parameters
 
-| Name | Type                                        |
-| :--- | :------------------------------------------ |
-| `f`  | (`a`: `A`) => [`List`](List.md#list)\<`B`\> |
+| Name   | Type                                                                     |
+| :----- | :----------------------------------------------------------------------- |
+| `self` | [`Cons`](../interfaces/List.Cons.md)\<`A`\>                              |
+| `f`    | (`a`: `A`, `i`: `number`) => [`Cons`](../interfaces/List.Cons.md)\<`B`\> |
 
 #### Returns
 
-`fn`
-
-▸ (`self`): [`List`](List.md#list)\<`B`\>
-
-##### Parameters
-
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | [`List`](List.md#list)\<`A`\> |
-
-##### Returns
-
-[`List`](List.md#list)\<`B`\>
+[`Cons`](../interfaces/List.Cons.md)\<`B`\>
 
 **`Since`**
 
@@ -2484,7 +2433,7 @@ Flat maps a list using the specified function.
 
 ▸ **flatMap**\<`A`, `B`\>(`self`, `f`): [`List`](List.md#list)\<`B`\>
 
-Flat maps a list using the specified function.
+Applies a function to each element in a list and returns a new list containing the concatenated mapped elements.
 
 #### Type parameters
 
@@ -2495,77 +2444,14 @@ Flat maps a list using the specified function.
 
 #### Parameters
 
-| Name   | Type                                        |
-| :----- | :------------------------------------------ |
-| `self` | [`List`](List.md#list)\<`A`\>               |
-| `f`    | (`a`: `A`) => [`List`](List.md#list)\<`B`\> |
+| Name   | Type                                                       |
+| :----- | :--------------------------------------------------------- |
+| `self` | [`List`](List.md#list)\<`A`\>                              |
+| `f`    | (`a`: `A`, `i`: `number`) => [`List`](List.md#list)\<`B`\> |
 
 #### Returns
 
 [`List`](List.md#list)\<`B`\>
-
-**`Since`**
-
-2.0.0
-
----
-
-### flatMapNonEmpty
-
-▸ **flatMapNonEmpty**\<`A`, `B`\>(`f`): (`self`: [`Cons`](../interfaces/List.Cons.md)\<`A`\>) => [`Cons`](../interfaces/List.Cons.md)\<`B`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name | Type                                                      |
-| :--- | :-------------------------------------------------------- |
-| `f`  | (`a`: `A`) => [`Cons`](../interfaces/List.Cons.md)\<`B`\> |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): [`Cons`](../interfaces/List.Cons.md)\<`B`\>
-
-##### Parameters
-
-| Name   | Type                                        |
-| :----- | :------------------------------------------ |
-| `self` | [`Cons`](../interfaces/List.Cons.md)\<`A`\> |
-
-##### Returns
-
-[`Cons`](../interfaces/List.Cons.md)\<`B`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **flatMapNonEmpty**\<`A`, `B`\>(`self`, `f`): [`Cons`](../interfaces/List.Cons.md)\<`B`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                                      |
-| :----- | :-------------------------------------------------------- |
-| `self` | [`Cons`](../interfaces/List.Cons.md)\<`A`\>               |
-| `f`    | (`a`: `A`) => [`Cons`](../interfaces/List.Cons.md)\<`B`\> |
-
-#### Returns
-
-[`Cons`](../interfaces/List.Cons.md)\<`B`\>
 
 **`Since`**
 

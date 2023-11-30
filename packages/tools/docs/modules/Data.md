@@ -67,9 +67,9 @@ Provides a constructor for a Case Class.
 
 ##### Type parameters
 
-| Name | Type                                |
-| :--- | :---------------------------------- |
-| `A`  | extends `Record`\<`string`, `any`\> |
+| Name | Type                                     |
+| :--- | :--------------------------------------- |
+| `A`  | extends `Record`\<`string`, `any`\> = {} |
 
 ##### Parameters
 
@@ -117,9 +117,9 @@ Provides a constructor for a Case Class.
 
 ##### Type parameters
 
-| Name | Type                                |
-| :--- | :---------------------------------- |
-| `A`  | extends `Record`\<`string`, `any`\> |
+| Name | Type                                     |
+| :--- | :--------------------------------------- |
+| `A`  | extends `Record`\<`string`, `any`\> = {} |
 
 ##### Parameters
 
@@ -193,9 +193,9 @@ Provides a Tagged constructor for a Case Class.
 
 ##### Type parameters
 
-| Name | Type                                |
-| :--- | :---------------------------------- |
-| `A`  | extends `Record`\<`string`, `any`\> |
+| Name | Type                                     |
+| :--- | :--------------------------------------- |
+| `A`  | extends `Record`\<`string`, `any`\> = {} |
 
 ##### Parameters
 
@@ -257,9 +257,9 @@ assert.deepStrictEqual(mike1._tag, "Person");
 
 ##### Type parameters
 
-| Name | Type                                |
-| :--- | :---------------------------------- |
-| `A`  | extends `Record`\<`string`, `any`\> |
+| Name | Type                                     |
+| :--- | :--------------------------------------- |
+| `A`  | extends `Record`\<`string`, `any`\> = {} |
 
 ##### Parameters
 

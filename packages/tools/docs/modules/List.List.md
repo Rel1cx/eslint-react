@@ -14,6 +14,7 @@
 
 - [Infer](List.List.md#infer)
 - [With](List.List.md#with)
+- [With2](List.List.md#with2)
 
 ## Type Aliases
 
@@ -45,5 +46,23 @@
 
 | Name | Type                                    |
 | :--- | :-------------------------------------- |
+| `T`  | extends [`List`](List.md#list)\<`any`\> |
+| `A`  | `A`                                     |
+
+---
+
+### With2
+
+Ƭ **With2**\<`S`, `T`, `A`\>: `S` extends [`Cons`](../interfaces/List.Cons.md)\<`any`\> ? [`Cons`](../interfaces/List.Cons.md)\<`A`\> : `T` extends [`Cons`](../interfaces/List.Cons.md)\<`any`\> ? [`Cons`](../interfaces/List.Cons.md)\<`A`\> : [`List`](List.md#list)\<`A`\>
+
+**`Since`**
+
+2.0.0
+
+#### Type parameters
+
+| Name | Type                                    |
+| :--- | :-------------------------------------- |
+| `S`  | extends [`List`](List.md#list)\<`any`\> |
 | `T`  | extends [`List`](List.md#list)\<`any`\> |
 | `A`  | `A`                                     |

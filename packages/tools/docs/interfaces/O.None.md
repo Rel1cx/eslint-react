@@ -76,11 +76,11 @@
 
 #### Type declaration
 
-| Name | Type                                       |
-| :--- | :----------------------------------------- |
-| `_A` | (`_`: `never`) => `A`                      |
-| `_E` | (`_`: `never`) => `NoSuchElementException` |
-| `_R` | (`_`: `never`) => `never`                  |
+| Name | Type                                    |
+| :--- | :-------------------------------------- |
+| `_A` | `Covariant`\<`A`\>                      |
+| `_E` | `Covariant`\<`NoSuchElementException`\> |
+| `_R` | `Covariant`\<`never`\>                  |
 
 ---
 
@@ -90,9 +90,9 @@
 
 #### Type declaration
 
-| Name | Type                  |
-| :--- | :-------------------- |
-| `_A` | (`_`: `never`) => `A` |
+| Name | Type               |
+| :--- | :----------------- |
+| `_A` | `Covariant`\<`A`\> |
 
 ---
 

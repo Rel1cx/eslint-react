@@ -78,11 +78,11 @@
 
 #### Type declaration
 
-| Name | Type                      |
-| :--- | :------------------------ |
-| `_A` | (`_`: `never`) => `A`     |
-| `_E` | (`_`: `never`) => `E`     |
-| `_R` | (`_`: `never`) => `never` |
+| Name | Type                   |
+| :--- | :--------------------- |
+| `_A` | `Covariant`\<`A`\>     |
+| `_E` | `Covariant`\<`E`\>     |
+| `_R` | `Covariant`\<`never`\> |
 
 ---
 
@@ -92,10 +92,10 @@
 
 #### Type declaration
 
-| Name | Type                  |
-| :--- | :-------------------- |
-| `_A` | (`_`: `never`) => `A` |
-| `_E` | (`_`: `never`) => `E` |
+| Name | Type               |
+| :--- | :----------------- |
+| `_A` | `Covariant`\<`A`\> |
+| `_E` | `Covariant`\<`E`\> |
 
 ---
 

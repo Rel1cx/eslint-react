@@ -26,6 +26,7 @@
 ### Functions
 
 - [all](O.md#all)
+- [andThen](O.md#andthen)
 - [ap](O.md#ap)
 - [as](O.md#as)
 - [asUnit](O.md#asunit)
@@ -488,111 +489,6 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 #### Returns
 
 [`Option`](O.md#option)\<[`A`, ...A[]]\>
-
-**`Since`**
-
-2.0.0
-
----
-
-### zipWith
-
-▸ **zipWith**\<`B`, `A`, `C`\>(`that`, `f`): (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`C`\>
-
-Zips two `Option` values together using a provided function, returning a new `Option` of the result.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-| `A`  |
-| `C`  |
-
-#### Parameters
-
-| Name   | Type                           | Description                                                  |
-| :----- | :----------------------------- | :----------------------------------------------------------- |
-| `that` | [`Option`](O.md#option)\<`B`\> | The right-hand side of the zip operation                     |
-| `f`    | (`a`: `A`, `b`: `B`) => `C`    | The function used to combine the values of the two `Option`s |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): [`Option`](O.md#option)\<`C`\>
-
-##### Parameters
-
-| Name   | Type                           |
-| :----- | :----------------------------- |
-| `self` | [`Option`](O.md#option)\<`A`\> |
-
-##### Returns
-
-[`Option`](O.md#option)\<`C`\>
-
-**`Example`**
-
-```ts
-import * as O from "effect/Option";
-
-type Complex = [real: number, imaginary: number];
-
-const complex = (real: number, imaginary: number): Complex => [real, imaginary];
-
-assert.deepStrictEqual(O.zipWith(O.none(), O.none(), complex), O.none());
-assert.deepStrictEqual(O.zipWith(O.some(1), O.none(), complex), O.none());
-assert.deepStrictEqual(O.zipWith(O.none(), O.some(1), complex), O.none());
-assert.deepStrictEqual(O.zipWith(O.some(1), O.some(2), complex), O.some([1, 2]));
-
-assert.deepStrictEqual(O.zipWith(O.some(1), complex)(O.some(2)), O.some([2, 1]));
-```
-
-**`Since`**
-
-2.0.0
-
-▸ **zipWith**\<`A`, `B`, `C`\>(`self`, `that`, `f`): [`Option`](O.md#option)\<`C`\>
-
-Zips two `Option` values together using a provided function, returning a new `Option` of the result.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-
-#### Parameters
-
-| Name   | Type                           | Description                                                  |
-| :----- | :----------------------------- | :----------------------------------------------------------- |
-| `self` | [`Option`](O.md#option)\<`A`\> | The left-hand side of the zip operation                      |
-| `that` | [`Option`](O.md#option)\<`B`\> | The right-hand side of the zip operation                     |
-| `f`    | (`a`: `A`, `b`: `B`) => `C`    | The function used to combine the values of the two `Option`s |
-
-#### Returns
-
-[`Option`](O.md#option)\<`C`\>
-
-**`Example`**
-
-```ts
-import * as O from "effect/Option";
-
-type Complex = [real: number, imaginary: number];
-
-const complex = (real: number, imaginary: number): Complex => [real, imaginary];
-
-assert.deepStrictEqual(O.zipWith(O.none(), O.none(), complex), O.none());
-assert.deepStrictEqual(O.zipWith(O.some(1), O.none(), complex), O.none());
-assert.deepStrictEqual(O.zipWith(O.none(), O.some(1), complex), O.none());
-assert.deepStrictEqual(O.zipWith(O.some(1), O.some(2), complex), O.some([1, 2]));
-
-assert.deepStrictEqual(O.zipWith(O.some(1), complex)(O.some(2)), O.some([2, 1]));
-```
 
 **`Since`**
 
@@ -2666,6 +2562,149 @@ assert.deepStrictEqual(getOption(1), O.some(1));
 
 2.0.0
 
+## mapping
+
+### as
+
+▸ **as**\<`B`\>(`b`): \<_\>(`self`: [`Option`](O.md#option)\<`_`\>) => [`Option`](O.md#option)\<`B`\>
+
+Maps the `Some` value of this `Option` to the specified constant value.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `B`  |
+
+#### Parameters
+
+| Name | Type |
+| :--- | :--- |
+| `b`  | `B`  |
+
+#### Returns
+
+`fn`
+
+▸ \<`_`\>(`self`): [`Option`](O.md#option)\<`B`\>
+
+##### Type parameters
+
+| Name |
+| :--- |
+| `_`  |
+
+##### Parameters
+
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`_`\> |
+
+##### Returns
+
+[`Option`](O.md#option)\<`B`\>
+
+**`Since`**
+
+2.0.0
+
+---
+
+### asUnit
+
+▸ **asUnit**\<`_`\>(`self`): [`Option`](O.md#option)\<`void`\>
+
+Maps the `Some` value of this `Option` to the `void` constant value.
+
+This is useful when the value of the `Option` is not needed, but the presence or absence of the value is important.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `_`  |
+
+#### Parameters
+
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`_`\> |
+
+#### Returns
+
+[`Option`](O.md#option)\<`void`\>
+
+**`Since`**
+
+2.0.0
+
+---
+
+### map
+
+▸ **map**\<`A`, `B`\>(`f`): (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`B`\>
+
+Maps the `Some` side of an `Option` value to a new `Option` value.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name | Type              | Description                                        |
+| :--- | :---------------- | :------------------------------------------------- |
+| `f`  | (`a`: `A`) => `B` | The function to map over the value of the `Option` |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): [`Option`](O.md#option)\<`B`\>
+
+##### Parameters
+
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
+
+##### Returns
+
+[`Option`](O.md#option)\<`B`\>
+
+**`Since`**
+
+2.0.0
+
+▸ **map**\<`A`, `B`\>(`self`, `f`): [`Option`](O.md#option)\<`B`\>
+
+Maps the `Some` side of an `Option` value to a new `Option` value.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                           | Description                                        |
+| :----- | :----------------------------- | :------------------------------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> | An `Option` to map                                 |
+| `f`    | (`a`: `A`) => `B`              | The function to map over the value of the `Option` |
+
+#### Returns
+
+[`Option`](O.md#option)\<`B`\>
+
+**`Since`**
+
+2.0.0
+
 ## models
 
 ### Option
@@ -2791,110 +2830,38 @@ assert.deepStrictEqual(
 
 2.0.0
 
-## sorting
+## sequencing
 
-### getOrder
+### andThen
 
-▸ **getOrder**\<`A`\>(`O`): [`Order`](../interfaces/Ord.Order.md)\<[`Option`](O.md#option)\<`A`\>\>
+▸ **andThen**\<`A`, `B`\>(`f`): (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`B`\>
 
-The `Order` instance allows `Option` values to be compared with
-`compare`, whenever there is an `Order` instance for
-the type the `Option` contains.
-
-`None` is considered to be less than any `Some` value.
+Executes a sequence of two `Option`s. The second `Option` can be dependent on the result of the first `Option`.
 
 #### Type parameters
 
 | Name |
 | :--- |
 | `A`  |
+| `B`  |
 
 #### Parameters
 
 | Name | Type                                         |
 | :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
-
-#### Returns
-
-[`Order`](../interfaces/Ord.Order.md)\<[`Option`](O.md#option)\<`A`\>\>
-
-**`Example`**
-
-```ts
-import { none, some, getOrder } from "effect/Option";
-import * as N from "effect/Number";
-import { pipe } from "effect/Function";
-
-const O = getOrder(N.Order);
-assert.deepStrictEqual(O(none(), none()), 0);
-assert.deepStrictEqual(O(none(), some(1)), -1);
-assert.deepStrictEqual(O(some(1), none()), 1);
-assert.deepStrictEqual(O(some(1), some(2)), -1);
-assert.deepStrictEqual(O(some(1), some(1)), 0);
-```
-
-**`Since`**
-
-2.0.0
-
-## symbols
-
-### TypeId
-
-Ƭ **TypeId**: typeof [`TypeId`](O.md#typeid-1)
-
-**`Since`**
-
-2.0.0
-
----
-
-### TypeId
-
-• `Const` **TypeId**: unique `symbol`
-
-**`Since`**
-
-2.0.0
-
-## transforming
-
-### as
-
-▸ **as**\<`B`\>(`b`): \<_\>(`self`: [`Option`](O.md#option)\<`_`\>) => [`Option`](O.md#option)\<`B`\>
-
-Maps the `Some` value of this `Option` to the specified constant value.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name | Type |
-| :--- | :--- |
-| `b`  | `B`  |
+| `f`  | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
 `fn`
 
-▸ \<`_`\>(`self`): [`Option`](O.md#option)\<`B`\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `_`  |
+▸ (`self`): [`Option`](O.md#option)\<`B`\>
 
 ##### Parameters
 
 | Name   | Type                           |
 | :----- | :----------------------------- |
-| `self` | [`Option`](O.md#option)\<`_`\> |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
@@ -2904,31 +2871,95 @@ Maps the `Some` value of this `Option` to the specified constant value.
 
 2.0.0
 
----
+▸ **andThen**\<`B`\>(`f`): \<A\>(`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`B`\>
 
-### asUnit
-
-▸ **asUnit**\<`_`\>(`self`): [`Option`](O.md#option)\<`void`\>
-
-Maps the `Some` value of this `Option` to the `void` constant value.
-
-This is useful when the value of the `Option` is not needed, but the presence or absence of the value is important.
+Executes a sequence of two `Option`s. The second `Option` can be dependent on the result of the first `Option`.
 
 #### Type parameters
 
 | Name |
 | :--- |
-| `_`  |
+| `B`  |
+
+#### Parameters
+
+| Name | Type                           |
+| :--- | :----------------------------- |
+| `f`  | [`Option`](O.md#option)\<`B`\> |
+
+#### Returns
+
+`fn`
+
+▸ \<`A`\>(`self`): [`Option`](O.md#option)\<`B`\>
+
+##### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+##### Parameters
+
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
+
+##### Returns
+
+[`Option`](O.md#option)\<`B`\>
+
+**`Since`**
+
+2.0.0
+
+▸ **andThen**\<`A`, `B`\>(`self`, `f`): [`Option`](O.md#option)\<`B`\>
+
+Executes a sequence of two `Option`s. The second `Option` can be dependent on the result of the first `Option`.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                                         |
+| :----- | :------------------------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\>               |
+| `f`    | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
+
+#### Returns
+
+[`Option`](O.md#option)\<`B`\>
+
+**`Since`**
+
+2.0.0
+
+▸ **andThen**\<`A`, `B`\>(`self`, `f`): [`Option`](O.md#option)\<`B`\>
+
+Executes a sequence of two `Option`s. The second `Option` can be dependent on the result of the first `Option`.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
 
 #### Parameters
 
 | Name   | Type                           |
 | :----- | :----------------------------- |
-| `self` | [`Option`](O.md#option)\<`_`\> |
+| `self` | [`Option`](O.md#option)\<`A`\> |
+| `f`    | [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
-[`Option`](O.md#option)\<`void`\>
+[`Option`](O.md#option)\<`B`\>
 
 **`Since`**
 
@@ -3264,73 +3295,6 @@ assert.deepStrictEqual(
 
 ---
 
-### map
-
-▸ **map**\<`A`, `B`\>(`f`): (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`B`\>
-
-Maps the `Some` side of an `Option` value to a new `Option` value.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name | Type              | Description                                        |
-| :--- | :---------------- | :------------------------------------------------- |
-| `f`  | (`a`: `A`) => `B` | The function to map over the value of the `Option` |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): [`Option`](O.md#option)\<`B`\>
-
-##### Parameters
-
-| Name   | Type                           |
-| :----- | :----------------------------- |
-| `self` | [`Option`](O.md#option)\<`A`\> |
-
-##### Returns
-
-[`Option`](O.md#option)\<`B`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **map**\<`A`, `B`\>(`self`, `f`): [`Option`](O.md#option)\<`B`\>
-
-Maps the `Some` side of an `Option` value to a new `Option` value.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                           | Description                                        |
-| :----- | :----------------------------- | :------------------------------------------------- |
-| `self` | [`Option`](O.md#option)\<`A`\> | An `Option` to map                                 |
-| `f`    | (`a`: `A`) => `B`              | The function to map over the value of the `Option` |
-
-#### Returns
-
-[`Option`](O.md#option)\<`B`\>
-
-**`Since`**
-
-2.0.0
-
----
-
 ### tap
 
 ▸ **tap**\<`A`, `_`\>(`f`): (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`A`\>
@@ -3426,7 +3390,74 @@ assert.deepStrictEqual(O.tap(O.some(1.14), getInteger), O.none());
 
 2.0.0
 
+## sorting
+
+### getOrder
+
+▸ **getOrder**\<`A`\>(`O`): [`Order`](../interfaces/Ord.Order.md)\<[`Option`](O.md#option)\<`A`\>\>
+
+The `Order` instance allows `Option` values to be compared with
+`compare`, whenever there is an `Order` instance for
+the type the `Option` contains.
+
+`None` is considered to be less than any `Some` value.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+#### Parameters
+
+| Name | Type                                         |
+| :--- | :------------------------------------------- |
+| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+
+#### Returns
+
+[`Order`](../interfaces/Ord.Order.md)\<[`Option`](O.md#option)\<`A`\>\>
+
+**`Example`**
+
+```ts
+import { none, some, getOrder } from "effect/Option";
+import * as N from "effect/Number";
+import { pipe } from "effect/Function";
+
+const O = getOrder(N.Order);
+assert.deepStrictEqual(O(none(), none()), 0);
+assert.deepStrictEqual(O(none(), some(1)), -1);
+assert.deepStrictEqual(O(some(1), none()), 1);
+assert.deepStrictEqual(O(some(1), some(2)), -1);
+assert.deepStrictEqual(O(some(1), some(1)), 0);
+```
+
+**`Since`**
+
+2.0.0
+
+## symbols
+
+### TypeId
+
+Ƭ **TypeId**: typeof [`TypeId`](O.md#typeid-1)
+
+**`Since`**
+
+2.0.0
+
 ---
+
+### TypeId
+
+• `Const` **TypeId**: unique `symbol`
+
+**`Since`**
+
+2.0.0
+
+## zipping
 
 ### zipLeft
 
@@ -3565,6 +3596,111 @@ It is useful when we want to chain multiple operations, but only care about the 
 #### Returns
 
 [`Option`](O.md#option)\<`B`\>
+
+**`Since`**
+
+2.0.0
+
+---
+
+### zipWith
+
+▸ **zipWith**\<`B`, `A`, `C`\>(`that`, `f`): (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`C`\>
+
+Zips two `Option` values together using a provided function, returning a new `Option` of the result.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `B`  |
+| `A`  |
+| `C`  |
+
+#### Parameters
+
+| Name   | Type                           | Description                                                  |
+| :----- | :----------------------------- | :----------------------------------------------------------- |
+| `that` | [`Option`](O.md#option)\<`B`\> | The right-hand side of the zip operation                     |
+| `f`    | (`a`: `A`, `b`: `B`) => `C`    | The function used to combine the values of the two `Option`s |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): [`Option`](O.md#option)\<`C`\>
+
+##### Parameters
+
+| Name   | Type                           |
+| :----- | :----------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> |
+
+##### Returns
+
+[`Option`](O.md#option)\<`C`\>
+
+**`Example`**
+
+```ts
+import * as O from "effect/Option";
+
+type Complex = [real: number, imaginary: number];
+
+const complex = (real: number, imaginary: number): Complex => [real, imaginary];
+
+assert.deepStrictEqual(O.zipWith(O.none(), O.none(), complex), O.none());
+assert.deepStrictEqual(O.zipWith(O.some(1), O.none(), complex), O.none());
+assert.deepStrictEqual(O.zipWith(O.none(), O.some(1), complex), O.none());
+assert.deepStrictEqual(O.zipWith(O.some(1), O.some(2), complex), O.some([1, 2]));
+
+assert.deepStrictEqual(O.zipWith(O.some(1), complex)(O.some(2)), O.some([2, 1]));
+```
+
+**`Since`**
+
+2.0.0
+
+▸ **zipWith**\<`A`, `B`, `C`\>(`self`, `that`, `f`): [`Option`](O.md#option)\<`C`\>
+
+Zips two `Option` values together using a provided function, returning a new `Option` of the result.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+| `C`  |
+
+#### Parameters
+
+| Name   | Type                           | Description                                                  |
+| :----- | :----------------------------- | :----------------------------------------------------------- |
+| `self` | [`Option`](O.md#option)\<`A`\> | The left-hand side of the zip operation                      |
+| `that` | [`Option`](O.md#option)\<`B`\> | The right-hand side of the zip operation                     |
+| `f`    | (`a`: `A`, `b`: `B`) => `C`    | The function used to combine the values of the two `Option`s |
+
+#### Returns
+
+[`Option`](O.md#option)\<`C`\>
+
+**`Example`**
+
+```ts
+import * as O from "effect/Option";
+
+type Complex = [real: number, imaginary: number];
+
+const complex = (real: number, imaginary: number): Complex => [real, imaginary];
+
+assert.deepStrictEqual(O.zipWith(O.none(), O.none(), complex), O.none());
+assert.deepStrictEqual(O.zipWith(O.some(1), O.none(), complex), O.none());
+assert.deepStrictEqual(O.zipWith(O.none(), O.some(1), complex), O.none());
+assert.deepStrictEqual(O.zipWith(O.some(1), O.some(2), complex), O.some([1, 2]));
+
+assert.deepStrictEqual(O.zipWith(O.some(1), complex)(O.some(2)), O.some([2, 1]));
+```
 
 **`Since`**
 

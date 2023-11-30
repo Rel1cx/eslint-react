@@ -41,9 +41,9 @@
 
 #### Type declaration
 
-| Name | Type              |
-| :--- | :---------------- |
-| `_A` | (`_`: `A`) => `A` |
+| Name | Type               |
+| :--- | :----------------- |
+| `_A` | `Invariant`\<`A`\> |
 
 #### Inherited from
 

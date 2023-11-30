@@ -48,9 +48,9 @@
 
 #### Type declaration
 
-| Name | Type                  |
-| :--- | :-------------------- |
-| `_A` | (`_`: `never`) => `A` |
+| Name | Type               |
+| :--- | :----------------- |
+| `_A` | `Covariant`\<`A`\> |
 
 #### Inherited from
 

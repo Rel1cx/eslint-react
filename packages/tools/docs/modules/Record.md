@@ -12,7 +12,6 @@
 ### Functions
 
 - [collect](Record.md#collect)
-- [compact](Record.md#compact)
 - [difference](Record.md#difference)
 - [empty](Record.md#empty)
 - [every](Record.md#every)
@@ -22,6 +21,9 @@
 - [fromIterable](Record.md#fromiterable)
 - [get](Record.md#get)
 - [getEquivalence](Record.md#getequivalence)
+- [getLefts](Record.md#getlefts)
+- [getRights](Record.md#getrights)
+- [getSomes](Record.md#getsomes)
 - [has](Record.md#has)
 - [intersection](Record.md#intersection)
 - [isEmptyReadonlyRecord](Record.md#isemptyreadonlyrecord)
@@ -731,103 +733,6 @@ Retrieve the keys of a given record as an array.
 #### Returns
 
 `string`[]
-
-**`Since`**
-
-2.0.0
-
----
-
-### map
-
-▸ **map**\<`K`, `A`, `B`\>(`f`): (`self`: `Record`\<`K`, `A`\>) => `Record`\<`K`, `B`\>
-
-Maps a record into another record by applying a transformation function to each of its values.
-
-#### Type parameters
-
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
-| `B`  | `B`              |
-
-#### Parameters
-
-| Name | Type                          | Description                                                                         |
-| :--- | :---------------------------- | :---------------------------------------------------------------------------------- |
-| `f`  | (`a`: `A`, `key`: `K`) => `B` | A transformation function that will be applied to each of the values in the record. |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): `Record`\<`K`, `B`\>
-
-##### Parameters
-
-| Name   | Type                 |
-| :----- | :------------------- |
-| `self` | `Record`\<`K`, `A`\> |
-
-##### Returns
-
-`Record`\<`K`, `B`\>
-
-**`Example`**
-
-```ts
-import { map } from "effect/ReadonlyRecord";
-
-const f = (n: number) => `-${n}`;
-
-assert.deepStrictEqual(map({ a: 3, b: 5 }, f), { a: "-3", b: "-5" });
-
-const g = (n: number, key: string) => `${key.toUpperCase()}-${n}`;
-
-assert.deepStrictEqual(map({ a: 3, b: 5 }, g), { a: "A-3", b: "B-5" });
-```
-
-**`Since`**
-
-2.0.0
-
-▸ **map**\<`K`, `A`, `B`\>(`self`, `f`): `Record`\<`K`, `B`\>
-
-Maps a record into another record by applying a transformation function to each of its values.
-
-#### Type parameters
-
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
-| `B`  | `B`              |
-
-#### Parameters
-
-| Name   | Type                          | Description                                                                         |
-| :----- | :---------------------------- | :---------------------------------------------------------------------------------- |
-| `self` | `Record`\<`K`, `A`\>          | The record to be mapped.                                                            |
-| `f`    | (`a`: `A`, `key`: `K`) => `B` | A transformation function that will be applied to each of the values in the record. |
-
-#### Returns
-
-`Record`\<`K`, `B`\>
-
-**`Example`**
-
-```ts
-import { map } from "effect/ReadonlyRecord";
-
-const f = (n: number) => `-${n}`;
-
-assert.deepStrictEqual(map({ a: 3, b: 5 }, f), { a: "-3", b: "-5" });
-
-const g = (n: number, key: string) => `${key.toUpperCase()}-${n}`;
-
-assert.deepStrictEqual(map({ a: 3, b: 5 }, g), { a: "A-3", b: "B-5" });
-```
 
 **`Since`**
 
@@ -1831,46 +1736,6 @@ assert.deepStrictEqual(toEntries(x), [["a", 1], ["b", 2], ["c", 3]]);
 
 ## filtering
 
-### compact
-
-▸ **compact**\<`A`\>(`self`): `Record`\<`string`, `A`\>
-
-Given a record with `Option` values, returns a record with only the `Some` values, with the same keys.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name   | Type                                                                                         | Description                    |
-| :----- | :------------------------------------------------------------------------------------------- | :----------------------------- |
-| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<[`Option`](O.md#option)\<`A`\>\> | A record with `Option` values. |
-
-#### Returns
-
-`Record`\<`string`, `A`\>
-
-**`Example`**
-
-```ts
-import { compact } from "effect/ReadonlyRecord";
-import { some, none } from "effect/Option";
-
-assert.deepStrictEqual(
-  compact({ a: some(1), b: none(), c: some(2) }),
-  { a: 1, c: 2 },
-);
-```
-
-**`Since`**
-
-2.0.0
-
----
-
 ### filter
 
 ▸ **filter**\<`K`, `A`, `B`\>(`refinement`): (`self`: `Record`\<`K`, `A`\>) => `Record`\<`string`, `B`\>
@@ -2032,6 +1897,128 @@ import { filter } from "effect/ReadonlyRecord";
 
 const x = { a: 1, b: 2, c: 3, d: 4 };
 assert.deepStrictEqual(filter(x, (n) => n > 2), { c: 3, d: 4 });
+```
+
+**`Since`**
+
+2.0.0
+
+---
+
+### getLefts
+
+▸ **getLefts**\<`E`, `A`\>(`self`): `Record`\<`string`, `E`\>
+
+Given a record with `Either` values, returns a new record containing only the `Left` values, preserving the original keys.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `E`  |
+| `A`  |
+
+#### Parameters
+
+| Name   | Type                                                                                              |
+| :----- | :------------------------------------------------------------------------------------------------ |
+| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<[`Either`](E.md#either)\<`E`, `A`\>\> |
+
+#### Returns
+
+`Record`\<`string`, `E`\>
+
+**`Example`**
+
+```ts
+import { getLefts } from "effect/ReadonlyRecord";
+import { right, left } from "effect/Either";
+
+assert.deepStrictEqual(
+  getLefts({ a: right(1), b: left("err"), c: right(2) }),
+  { b: "err" },
+);
+```
+
+**`Since`**
+
+2.0.0
+
+---
+
+### getRights
+
+▸ **getRights**\<`E`, `A`\>(`self`): `Record`\<`string`, `A`\>
+
+Given a record with `Either` values, returns a new record containing only the `Right` values, preserving the original keys.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `E`  |
+| `A`  |
+
+#### Parameters
+
+| Name   | Type                                                                                              |
+| :----- | :------------------------------------------------------------------------------------------------ |
+| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<[`Either`](E.md#either)\<`E`, `A`\>\> |
+
+#### Returns
+
+`Record`\<`string`, `A`\>
+
+**`Example`**
+
+```ts
+import { getRights } from "effect/ReadonlyRecord";
+import { right, left } from "effect/Either";
+
+assert.deepStrictEqual(
+  getRights({ a: right(1), b: left("err"), c: right(2) }),
+  { a: 1, c: 2 },
+);
+```
+
+**`Since`**
+
+2.0.0
+
+---
+
+### getSomes
+
+▸ **getSomes**\<`A`\>(`self`): `Record`\<`string`, `A`\>
+
+Given a record with `Option` values, returns a new record containing only the `Some` values, preserving the original keys.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+#### Parameters
+
+| Name   | Type                                                                                         | Description                    |
+| :----- | :------------------------------------------------------------------------------------------- | :----------------------------- |
+| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<[`Option`](O.md#option)\<`A`\>\> | A record with `Option` values. |
+
+#### Returns
+
+`Record`\<`string`, `A`\>
+
+**`Example`**
+
+```ts
+import { getSomes } from "effect/ReadonlyRecord";
+import { some, none } from "effect/Option";
+
+assert.deepStrictEqual(
+  getSomes({ a: some(1), b: none(), c: some(2) }),
+  { a: 1, c: 2 },
+);
 ```
 
 **`Since`**
@@ -2519,6 +2506,103 @@ Create an `Equivalence` for records using the provided `Equivalence` for values.
 #### Returns
 
 `Equivalence`\<[`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\>\>
+
+**`Since`**
+
+2.0.0
+
+## mapping
+
+### map
+
+▸ **map**\<`K`, `A`, `B`\>(`f`): (`self`: `Record`\<`K`, `A`\>) => `Record`\<`K`, `B`\>
+
+Maps a record into another record by applying a transformation function to each of its values.
+
+#### Type parameters
+
+| Name | Type             |
+| :--- | :--------------- |
+| `K`  | extends `string` |
+| `A`  | `A`              |
+| `B`  | `B`              |
+
+#### Parameters
+
+| Name | Type                          | Description                                                                         |
+| :--- | :---------------------------- | :---------------------------------------------------------------------------------- |
+| `f`  | (`a`: `A`, `key`: `K`) => `B` | A transformation function that will be applied to each of the values in the record. |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): `Record`\<`K`, `B`\>
+
+##### Parameters
+
+| Name   | Type                 |
+| :----- | :------------------- |
+| `self` | `Record`\<`K`, `A`\> |
+
+##### Returns
+
+`Record`\<`K`, `B`\>
+
+**`Example`**
+
+```ts
+import { map } from "effect/ReadonlyRecord";
+
+const f = (n: number) => `-${n}`;
+
+assert.deepStrictEqual(map({ a: 3, b: 5 }, f), { a: "-3", b: "-5" });
+
+const g = (n: number, key: string) => `${key.toUpperCase()}-${n}`;
+
+assert.deepStrictEqual(map({ a: 3, b: 5 }, g), { a: "A-3", b: "B-5" });
+```
+
+**`Since`**
+
+2.0.0
+
+▸ **map**\<`K`, `A`, `B`\>(`self`, `f`): `Record`\<`K`, `B`\>
+
+Maps a record into another record by applying a transformation function to each of its values.
+
+#### Type parameters
+
+| Name | Type             |
+| :--- | :--------------- |
+| `K`  | extends `string` |
+| `A`  | `A`              |
+| `B`  | `B`              |
+
+#### Parameters
+
+| Name   | Type                          | Description                                                                         |
+| :----- | :---------------------------- | :---------------------------------------------------------------------------------- |
+| `self` | `Record`\<`K`, `A`\>          | The record to be mapped.                                                            |
+| `f`    | (`a`: `A`, `key`: `K`) => `B` | A transformation function that will be applied to each of the values in the record. |
+
+#### Returns
+
+`Record`\<`K`, `B`\>
+
+**`Example`**
+
+```ts
+import { map } from "effect/ReadonlyRecord";
+
+const f = (n: number) => `-${n}`;
+
+assert.deepStrictEqual(map({ a: 3, b: 5 }, f), { a: "-3", b: "-5" });
+
+const g = (n: number, key: string) => `${key.toUpperCase()}-${n}`;
+
+assert.deepStrictEqual(map({ a: 3, b: 5 }, g), { a: "A-3", b: "B-5" });
+```
 
 **`Since`**
 

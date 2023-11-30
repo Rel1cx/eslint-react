@@ -14,12 +14,13 @@
 
 - [Infer](Chunk.Chunk.md#infer)
 - [With](Chunk.Chunk.md#with)
+- [With2](Chunk.Chunk.md#with2)
 
 ## Type Aliases
 
 ### Infer
 
-Ƭ **Infer**\<`T`\>: `T` extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<infer A\> ? `A` : `never`
+Ƭ **Infer**\<`S`\>: `S` extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<infer A\> ? `A` : `never`
 
 **`Since`**
 
@@ -29,13 +30,13 @@
 
 | Name | Type                                                       |
 | :--- | :--------------------------------------------------------- |
-| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
+| `S`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
 
 ---
 
 ### With
 
-Ƭ **With**\<`T`, `A`\>: `T` extends [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`any`\> ? [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> : [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+Ƭ **With**\<`S`, `A`\>: `S` extends [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`any`\> ? [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> : [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
 **`Since`**
 
@@ -45,5 +46,23 @@
 
 | Name | Type                                                       |
 | :--- | :--------------------------------------------------------- |
+| `S`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
+| `A`  | `A`                                                        |
+
+---
+
+### With2
+
+Ƭ **With2**\<`S`, `T`, `A`\>: `S` extends [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`any`\> ? [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> : `T` extends [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`any`\> ? [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> : [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+
+**`Since`**
+
+2.0.0
+
+#### Type parameters
+
+| Name | Type                                                       |
+| :--- | :--------------------------------------------------------- |
+| `S`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
 | `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
 | `A`  | `A`                                                        |

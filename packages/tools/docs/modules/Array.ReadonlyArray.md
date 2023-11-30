@@ -14,12 +14,13 @@
 
 - [Infer](Array.ReadonlyArray.md#infer)
 - [With](Array.ReadonlyArray.md#with)
+- [With2](Array.ReadonlyArray.md#with2)
 
 ## Type Aliases
 
 ### Infer
 
-Ƭ **Infer**\<`T`\>: `T`[`number`]
+Ƭ **Infer**\<`T`\>: `T` extends `ReadonlyArray`\<infer A\> ? `A` : `T` extends `Iterable`\<infer A\> ? `A` : `never`
 
 **`Since`**
 
@@ -27,9 +28,9 @@
 
 #### Type parameters
 
-| Name | Type                             |
-| :--- | :------------------------------- |
-| `T`  | extends `ReadonlyArray`\<`any`\> |
+| Name | Type                                                    |
+| :--- | :------------------------------------------------------ |
+| `T`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
 
 ---
 
@@ -43,7 +44,25 @@
 
 #### Type parameters
 
-| Name | Type                             |
-| :--- | :------------------------------- |
-| `T`  | extends `ReadonlyArray`\<`any`\> |
-| `A`  | `A`                              |
+| Name | Type                                                    |
+| :--- | :------------------------------------------------------ |
+| `T`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
+| `A`  | `A`                                                     |
+
+---
+
+### With2
+
+Ƭ **With2**\<`S`, `T`, `A`\>: `S` extends [`NonEmptyReadonlyArray`](Array.md#nonemptyreadonlyarray)\<`any`\> ? [`NonEmptyArray`](Array.md#nonemptyarray)\<`A`\> : `T` extends [`NonEmptyReadonlyArray`](Array.md#nonemptyreadonlyarray)\<`any`\> ? [`NonEmptyArray`](Array.md#nonemptyarray)\<`A`\> : `A`[]
+
+**`Since`**
+
+2.0.0
+
+#### Type parameters
+
+| Name | Type                                                    |
+| :--- | :------------------------------------------------------ |
+| `S`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
+| `T`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
+| `A`  | `A`                                                     |

@@ -22,7 +22,6 @@
 
 - [append](Chunk.md#append)
 - [appendAll](Chunk.md#appendall)
-- [appendAllNonEmpty](Chunk.md#appendallnonempty)
 - [chunksOf](Chunk.md#chunksof)
 - [compact](Chunk.md#compact)
 - [contains](Chunk.md#contains)
@@ -42,9 +41,7 @@
 - [findLast](Chunk.md#findlast)
 - [findLastIndex](Chunk.md#findlastindex)
 - [flatMap](Chunk.md#flatmap)
-- [flatMapNonEmpty](Chunk.md#flatmapnonempty)
 - [flatten](Chunk.md#flatten)
-- [flattenNonEmpty](Chunk.md#flattennonempty)
 - [forEach](Chunk.md#foreach)
 - [fromIterable](Chunk.md#fromiterable)
 - [get](Chunk.md#get)
@@ -68,7 +65,6 @@
 - [partitionMap](Chunk.md#partitionmap)
 - [prepend](Chunk.md#prepend)
 - [prependAll](Chunk.md#prependall)
-- [prependAllNonEmpty](Chunk.md#prependallnonempty)
 - [range](Chunk.md#range)
 - [reduce](Chunk.md#reduce)
 - [reduceRight](Chunk.md#reduceright)
@@ -854,159 +850,59 @@ Appends the specified element to the end of the `Chunk`.
 
 ### appendAll
 
-▸ **appendAll**\<`B`\>(`that`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>
+▸ **appendAll**\<`S`, `T`\>(`that`): (`self`: `S`) => [`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
 
-Concatenates the two chunks
+Concatenates two chunks, combining their elements.
+If either chunk is non-empty, the result is also a non-empty chunk.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `B`  |
+| Name | Type                                                       |
+| :--- | :--------------------------------------------------------- |
+| `S`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
+| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
 
 #### Parameters
 
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
+| Name   | Type |
+| :----- | :--- |
+| `that` | `T`  |
 
 #### Returns
 
 `fn`
 
-▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
+▸ (`self`): [`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
 
 ##### Parameters
 
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| Name   | Type |
+| :----- | :--- |
+| `self` | `S`  |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>
+[`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
+
+**`Example`**
+
+```ts
+import * as Chunk from "effect/Chunk";
+
+assert.deepStrictEqual(
+  Chunk.make(1, 2).pipe(Chunk.appendAll(Chunk.make("a", "b")), Chunk.toArray),
+  [1, 2, "a", "b"],
+);
+```
 
 **`Since`**
 
 2.0.0
 
-▸ **appendAll**\<`A`, `B`\>(`self`, `that`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
+▸ **appendAll**\<`A`, `B`\>(`self`, `that`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
 
-Concatenates the two chunks
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
-
-#### Returns
-
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
-
-**`Since`**
-
-2.0.0
-
----
-
-### appendAllNonEmpty
-
-▸ **appendAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                                           |
-| :----- | :------------------------------------------------------------- |
-| `that` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\> |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-
-##### Returns
-
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **appendAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                                                           |
-| :----- | :------------------------------------------------------------- |
-| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> |
-
-##### Returns
-
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **appendAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
+Concatenates two chunks, combining their elements.
+If either chunk is non-empty, the result is also a non-empty chunk.
 
 #### Type parameters
 
@@ -1026,11 +922,25 @@ Concatenates the two chunks
 
 [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
 
+**`Example`**
+
+```ts
+import * as Chunk from "effect/Chunk";
+
+assert.deepStrictEqual(
+  Chunk.make(1, 2).pipe(Chunk.appendAll(Chunk.make("a", "b")), Chunk.toArray),
+  [1, 2, "a", "b"],
+);
+```
+
 **`Since`**
 
 2.0.0
 
-▸ **appendAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
+▸ **appendAll**\<`A`, `B`\>(`self`, `that`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
+
+Concatenates two chunks, combining their elements.
+If either chunk is non-empty, the result is also a non-empty chunk.
 
 #### Type parameters
 
@@ -1049,6 +959,55 @@ Concatenates the two chunks
 #### Returns
 
 [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
+
+**`Example`**
+
+```ts
+import * as Chunk from "effect/Chunk";
+
+assert.deepStrictEqual(
+  Chunk.make(1, 2).pipe(Chunk.appendAll(Chunk.make("a", "b")), Chunk.toArray),
+  [1, 2, "a", "b"],
+);
+```
+
+**`Since`**
+
+2.0.0
+
+▸ **appendAll**\<`A`, `B`\>(`self`, `that`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
+
+Concatenates two chunks, combining their elements.
+If either chunk is non-empty, the result is also a non-empty chunk.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
+
+#### Returns
+
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
+
+**`Example`**
+
+```ts
+import * as Chunk from "effect/Chunk";
+
+assert.deepStrictEqual(
+  Chunk.make(1, 2).pipe(Chunk.appendAll(Chunk.make("a", "b")), Chunk.toArray),
+  [1, 2, "a", "b"],
+);
+```
 
 **`Since`**
 
@@ -1130,155 +1089,59 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 ### prependAll
 
-▸ **prependAll**\<`B`\>(`that`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>
+▸ **prependAll**\<`S`, `T`\>(`that`): (`self`: `S`) => [`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
+
+Prepends the specified prefix chunk to the beginning of the specified chunk.
+If either chunk is non-empty, the result is also a non-empty chunk.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `B`  |
+| Name | Type                                                       |
+| :--- | :--------------------------------------------------------- |
+| `S`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
+| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
 
 #### Parameters
 
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
+| Name   | Type |
+| :----- | :--- |
+| `that` | `T`  |
 
 #### Returns
 
 `fn`
 
-▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
+▸ (`self`): [`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
 
 ##### Parameters
 
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| Name   | Type |
+| :----- | :--- |
+| `self` | `S`  |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B` \| `A`\>
+[`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
+
+**`Example`**
+
+```ts
+import * as Chunk from "effect/Chunk";
+
+assert.deepStrictEqual(
+  Chunk.make(1, 2).pipe(Chunk.prependAll(Chunk.make("a", "b")), Chunk.toArray),
+  ["a", "b", 1, 2],
+);
+```
 
 **`Since`**
 
 2.0.0
 
-▸ **prependAll**\<`A`, `B`\>(`self`, `that`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
+▸ **prependAll**\<`A`, `B`\>(`self`, `that`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
 
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
-
-#### Returns
-
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
-
-**`Since`**
-
-2.0.0
-
----
-
-### prependAllNonEmpty
-
-▸ **prependAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                                           |
-| :----- | :------------------------------------------------------------- |
-| `that` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\> |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-
-##### Returns
-
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **prependAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                                                           |
-| :----- | :------------------------------------------------------------- |
-| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> |
-
-##### Returns
-
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B` \| `A`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **prependAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
+Prepends the specified prefix chunk to the beginning of the specified chunk.
+If either chunk is non-empty, the result is also a non-empty chunk.
 
 #### Type parameters
 
@@ -1298,11 +1161,25 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
 
+**`Example`**
+
+```ts
+import * as Chunk from "effect/Chunk";
+
+assert.deepStrictEqual(
+  Chunk.make(1, 2).pipe(Chunk.prependAll(Chunk.make("a", "b")), Chunk.toArray),
+  ["a", "b", 1, 2],
+);
+```
+
 **`Since`**
 
 2.0.0
 
-▸ **prependAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
+▸ **prependAll**\<`A`, `B`\>(`self`, `that`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
+
+Prepends the specified prefix chunk to the beginning of the specified chunk.
+If either chunk is non-empty, the result is also a non-empty chunk.
 
 #### Type parameters
 
@@ -1321,6 +1198,55 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 #### Returns
 
 [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A` \| `B`\>
+
+**`Example`**
+
+```ts
+import * as Chunk from "effect/Chunk";
+
+assert.deepStrictEqual(
+  Chunk.make(1, 2).pipe(Chunk.prependAll(Chunk.make("a", "b")), Chunk.toArray),
+  ["a", "b", 1, 2],
+);
+```
+
+**`Since`**
+
+2.0.0
+
+▸ **prependAll**\<`A`, `B`\>(`self`, `that`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
+
+Prepends the specified prefix chunk to the beginning of the specified chunk.
+If either chunk is non-empty, the result is also a non-empty chunk.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
+
+#### Returns
+
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A` \| `B`\>
+
+**`Example`**
+
+```ts
+import * as Chunk from "effect/Chunk";
+
+assert.deepStrictEqual(
+  Chunk.make(1, 2).pipe(Chunk.prependAll(Chunk.make("a", "b")), Chunk.toArray),
+  ["a", "b", 1, 2],
+);
+```
 
 **`Since`**
 
@@ -3454,149 +3380,6 @@ Note: The function is reverse of `zip`.
 
 2.0.0
 
----
-
-### zip
-
-▸ **zip**\<`B`\>(`that`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`A`, `B`]\>
-
-Zips this chunk pointwise with the specified chunk.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`A`, `B`]\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-
-##### Returns
-
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`A`, `B`]\>
-
-**`Since`**
-
-2.0.0
-
-▸ **zip**\<`A`, `B`\>(`self`, `that`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`A`, `B`]\>
-
-Zips this chunk pointwise with the specified chunk.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
-
-#### Returns
-
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`A`, `B`]\>
-
-**`Since`**
-
-2.0.0
-
----
-
-### zipWith
-
-▸ **zipWith**\<`A`, `B`, `C`\>(`that`, `f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>
-
-Zips this chunk pointwise with the specified chunk using the specified combiner.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-
-#### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
-| `f`    | (`a`: `A`, `b`: `B`) => `C`                      |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>
-
-##### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-
-##### Returns
-
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **zipWith**\<`A`, `B`, `C`\>(`self`, `that`, `f`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>
-
-Zips this chunk pointwise with the specified chunk using the specified combiner.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-
-#### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
-| `f`    | (`a`: `A`, `b`: `B`) => `C`                      |
-
-#### Returns
-
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>
-
-**`Since`**
-
-2.0.0
-
 ## equivalence
 
 ### getEquivalence
@@ -4430,76 +4213,59 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 ### map
 
-▸ **map**\<`T`, `B`\>(`f`): (`self`: `T`) => [`With`](Chunk.Chunk.md#with)\<`T`, `B`\>
+▸ **map**\<`S`, `B`\>(`f`): (`self`: `S`) => [`With`](Chunk.Chunk.md#with)\<`S`, `B`\>
 
-Returns a chunk with the elements mapped by the specified f function.
+Transforms the elements of a chunk using the specified mapping function.
+If the input chunk is non-empty, the resulting chunk will also be non-empty.
 
 #### Type parameters
 
 | Name | Type                                                       |
 | :--- | :--------------------------------------------------------- |
-| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
+| `S`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
 | `B`  | `B`                                                        |
 
 #### Parameters
 
 | Name | Type                                                                |
 | :--- | :------------------------------------------------------------------ |
-| `f`  | (`a`: [`Infer`](Chunk.Chunk.md#infer)\<`T`\>, `i`: `number`) => `B` |
+| `f`  | (`a`: [`Infer`](Chunk.Chunk.md#infer)\<`S`\>, `i`: `number`) => `B` |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`With`](Chunk.Chunk.md#with)\<`T`, `B`\>
+▸ (`self`): [`With`](Chunk.Chunk.md#with)\<`S`, `B`\>
 
 ##### Parameters
 
 | Name   | Type |
 | :----- | :--- |
-| `self` | `T`  |
+| `self` | `S`  |
 
 ##### Returns
 
-[`With`](Chunk.Chunk.md#with)\<`T`, `B`\>
+[`With`](Chunk.Chunk.md#with)\<`S`, `B`\>
+
+**`Example`**
+
+```ts
+import * as Chunk from "effect/Chunk";
+
+assert.deepStrictEqual(
+  Chunk.map(Chunk.make(1, 2), (n) => n + 1),
+  Chunk.make(2, 3),
+);
+```
 
 **`Since`**
 
 2.0.0
 
-▸ **map**\<`T`, `B`\>(`self`, `f`): [`With`](Chunk.Chunk.md#with)\<`T`, `B`\>
+▸ **map**\<`A`, `B`\>(`self`, `f`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\>
 
-Returns a chunk with the elements mapped by the specified f function.
-
-#### Type parameters
-
-| Name | Type                                                       |
-| :--- | :--------------------------------------------------------- |
-| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
-| `B`  | `B`                                                        |
-
-#### Parameters
-
-| Name   | Type                                                                |
-| :----- | :------------------------------------------------------------------ |
-| `self` | `T`                                                                 |
-| `f`    | (`a`: [`Infer`](Chunk.Chunk.md#infer)\<`T`\>, `i`: `number`) => `B` |
-
-#### Returns
-
-[`With`](Chunk.Chunk.md#with)\<`T`, `B`\>
-
-**`Since`**
-
-2.0.0
-
-## sequencing
-
-### flatMap
-
-▸ **flatMap**\<`A`, `B`\>(`f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
-
-Returns a chunk with the elements mapped by the specified function.
+Transforms the elements of a chunk using the specified mapping function.
+If the input chunk is non-empty, the resulting chunk will also be non-empty.
 
 #### Type parameters
 
@@ -4510,25 +4276,130 @@ Returns a chunk with the elements mapped by the specified function.
 
 #### Parameters
 
-| Name | Type                                                                          |
-| :--- | :---------------------------------------------------------------------------- |
-| `f`  | (`a`: `A`, `i`: `number`) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
+| Name   | Type                                                           |
+| :----- | :------------------------------------------------------------- |
+| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> |
+| `f`    | (`a`: `A`, `i`: `number`) => `B`                               |
+
+#### Returns
+
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\>
+
+**`Example`**
+
+```ts
+import * as Chunk from "effect/Chunk";
+
+assert.deepStrictEqual(
+  Chunk.map(Chunk.make(1, 2), (n) => n + 1),
+  Chunk.make(2, 3),
+);
+```
+
+**`Since`**
+
+2.0.0
+
+▸ **map**\<`A`, `B`\>(`self`, `f`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
+
+Transforms the elements of a chunk using the specified mapping function.
+If the input chunk is non-empty, the resulting chunk will also be non-empty.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `f`    | (`a`: `A`, `i`: `number`) => `B`                 |
+
+#### Returns
+
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
+
+**`Example`**
+
+```ts
+import * as Chunk from "effect/Chunk";
+
+assert.deepStrictEqual(
+  Chunk.map(Chunk.make(1, 2), (n) => n + 1),
+  Chunk.make(2, 3),
+);
+```
+
+**`Since`**
+
+2.0.0
+
+## sequencing
+
+### flatMap
+
+▸ **flatMap**\<`S`, `T`\>(`f`): (`self`: `S`) => [`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
+
+Applies a function to each element in a chunk and returns a new chunk containing the concatenated mapped elements.
+
+#### Type parameters
+
+| Name | Type                                                       |
+| :--- | :--------------------------------------------------------- |
+| `S`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
+| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
+
+#### Parameters
+
+| Name | Type                                                                |
+| :--- | :------------------------------------------------------------------ |
+| `f`  | (`a`: [`Infer`](Chunk.Chunk.md#infer)\<`S`\>, `i`: `number`) => `T` |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
+▸ (`self`): [`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
 
 ##### Parameters
 
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| Name   | Type |
+| :----- | :--- |
+| `self` | `S`  |
 
 ##### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
+[`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
+
+**`Since`**
+
+2.0.0
+
+▸ **flatMap**\<`A`, `B`\>(`self`, `f`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\>
+
+Applies a function to each element in a chunk and returns a new chunk containing the concatenated mapped elements.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                                                                                        |
+| :----- | :------------------------------------------------------------------------------------------ |
+| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>                              |
+| `f`    | (`a`: `A`, `i`: `number`) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\> |
+
+#### Returns
+
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\>
 
 **`Since`**
 
@@ -4536,7 +4407,7 @@ Returns a chunk with the elements mapped by the specified function.
 
 ▸ **flatMap**\<`A`, `B`\>(`self`, `f`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>
 
-Returns a chunk with the elements mapped by the specified function.
+Applies a function to each element in a chunk and returns a new chunk containing the concatenated mapped elements.
 
 #### Type parameters
 
@@ -4562,70 +4433,31 @@ Returns a chunk with the elements mapped by the specified function.
 
 ---
 
-### flatMapNonEmpty
-
-▸ **flatMapNonEmpty**\<`A`, `B`\>(`f`): (`self`: [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name | Type                                                                                        |
-| :--- | :------------------------------------------------------------------------------------------ |
-| `f`  | (`a`: `A`, `i`: `number`) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\> |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\>
-
-##### Parameters
-
-| Name   | Type                                                           |
-| :----- | :------------------------------------------------------------- |
-| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> |
-
-##### Returns
-
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **flatMapNonEmpty**\<`A`, `B`\>(`self`, `f`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                                                                        |
-| :----- | :------------------------------------------------------------------------------------------ |
-| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>                              |
-| `f`    | (`a`: `A`, `i`: `number`) => [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\> |
-
-#### Returns
-
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`B`\>
-
-**`Since`**
-
-2.0.0
-
----
-
 ### flatten
+
+▸ **flatten**\<`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>
+
+Flattens a chunk of chunks into a single chunk by concatenating all chunks.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+#### Parameters
+
+| Name   | Type                                                                                                                      |
+| :----- | :------------------------------------------------------------------------------------------------------------------------ |
+| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>\> |
+
+#### Returns
+
+[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>
+
+**`Since`**
+
+2.0.0
 
 ▸ **flatten**\<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
 
@@ -4646,32 +4478,6 @@ Flattens a chunk of chunks into a single chunk by concatenating all chunks.
 #### Returns
 
 [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
-
-**`Since`**
-
-2.0.0
-
----
-
-### flattenNonEmpty
-
-▸ **flattenNonEmpty**\<`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name   | Type                                                                                                                      |
-| :----- | :------------------------------------------------------------------------------------------------------------------------ |
-| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>\> |
-
-#### Returns
-
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>
 
 **`Since`**
 
@@ -4859,6 +4665,149 @@ Returns the last element of this chunk.
 #### Returns
 
 `A`
+
+**`Since`**
+
+2.0.0
+
+## zipping
+
+### zip
+
+▸ **zip**\<`B`\>(`that`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`A`, `B`]\>
+
+Zips this chunk pointwise with the specified chunk.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
+
+#### Returns
+
+`fn`
+
+▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`A`, `B`]\>
+
+##### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+##### Parameters
+
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+
+##### Returns
+
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`A`, `B`]\>
+
+**`Since`**
+
+2.0.0
+
+▸ **zip**\<`A`, `B`\>(`self`, `that`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`A`, `B`]\>
+
+Zips this chunk pointwise with the specified chunk.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
+
+#### Returns
+
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`A`, `B`]\>
+
+**`Since`**
+
+2.0.0
+
+---
+
+### zipWith
+
+▸ **zipWith**\<`A`, `B`, `C`\>(`that`, `f`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>
+
+Zips this chunk pointwise with the specified chunk using the specified combiner.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+| `C`  |
+
+#### Parameters
+
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
+| `f`    | (`a`: `A`, `b`: `B`) => `C`                      |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>
+
+##### Parameters
+
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+
+##### Returns
+
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>
+
+**`Since`**
+
+2.0.0
+
+▸ **zipWith**\<`A`, `B`, `C`\>(`self`, `that`, `f`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>
+
+Zips this chunk pointwise with the specified chunk using the specified combiner.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+| `C`  |
+
+#### Parameters
+
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `that` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
+| `f`    | (`a`: `A`, `b`: `B`) => `C`                      |
+
+#### Returns
+
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`C`\>
 
 **`Since`**
 

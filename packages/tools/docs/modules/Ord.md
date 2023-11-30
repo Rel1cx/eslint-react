@@ -658,69 +658,6 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 ---
 
-### mapInput
-
-▸ **mapInput**\<`B`, `A`\>(`f`): (`self`: [`Order`](../interfaces/Ord.Order.md)\<`A`\>) => [`Order`](../interfaces/Ord.Order.md)\<`B`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-| `A`  |
-
-#### Parameters
-
-| Name | Type              |
-| :--- | :---------------- |
-| `f`  | (`b`: `B`) => `A` |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): [`Order`](../interfaces/Ord.Order.md)\<`B`\>
-
-##### Parameters
-
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
-| `self` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
-
-##### Returns
-
-[`Order`](../interfaces/Ord.Order.md)\<`B`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **mapInput**\<`A`, `B`\>(`self`, `f`): [`Order`](../interfaces/Ord.Order.md)\<`B`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
-| `self` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
-| `f`    | (`b`: `B`) => `A`                            |
-
-#### Returns
-
-[`Order`](../interfaces/Ord.Order.md)\<`B`\>
-
-**`Since`**
-
-2.0.0
-
----
-
 ### struct
 
 ▸ **struct**\<`R`\>(`fields`): [`Order`](../interfaces/Ord.Order.md)\<\{ [K in string \| number \| symbol]: [R[K]] extends [Order\<A\>] ? A : never }\>
@@ -1214,6 +1151,69 @@ of the tuple.
 #### Returns
 
 `0` \| `1` \| `-1`
+
+**`Since`**
+
+2.0.0
+
+## mapping
+
+### mapInput
+
+▸ **mapInput**\<`B`, `A`\>(`f`): (`self`: [`Order`](../interfaces/Ord.Order.md)\<`A`\>) => [`Order`](../interfaces/Ord.Order.md)\<`B`\>
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `B`  |
+| `A`  |
+
+#### Parameters
+
+| Name | Type              |
+| :--- | :---------------- |
+| `f`  | (`b`: `B`) => `A` |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): [`Order`](../interfaces/Ord.Order.md)\<`B`\>
+
+##### Parameters
+
+| Name   | Type                                         |
+| :----- | :------------------------------------------- |
+| `self` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+
+##### Returns
+
+[`Order`](../interfaces/Ord.Order.md)\<`B`\>
+
+**`Since`**
+
+2.0.0
+
+▸ **mapInput**\<`A`, `B`\>(`self`, `f`): [`Order`](../interfaces/Ord.Order.md)\<`B`\>
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                                         |
+| :----- | :------------------------------------------- |
+| `self` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+| `f`    | (`b`: `B`) => `A`                            |
+
+#### Returns
+
+[`Order`](../interfaces/Ord.Order.md)\<`B`\>
 
 **`Since`**
 

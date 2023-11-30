@@ -26,6 +26,7 @@
 - [all](E.md#all)
 - [andThen](E.md#andthen)
 - [ap](E.md#ap)
+- [filterOrLeft](E.md#filterorleft)
 - [flatMap](E.md#flatmap)
 - [flip](E.md#flip)
 - [fromNullable](E.md#fromnullable)
@@ -102,11 +103,11 @@
 
 ▸ **all**\<`I`\>(`input`): [`I`] extends [readonly [`Either`](E.md#either)\<`any`, `any`\>[]] ? [`Either`](E.md#either)\<`I`[`number`] extends `never` ? `never` : [`I`[`number`]] extends [[`Either`](E.md#either)\<`E`, `any`\>] ? `E` : `never`, \{ -readonly [K in string \| number \| symbol]: [I[K]] extends [Either\<any, A\>] ? A : never }\> : [`I`] extends [`Iterable`\<[`Either`](E.md#either)\<`E`, `A`\>\>] ? [`Either`](E.md#either)\<`E`, `A`[]\> : [`Either`](E.md#either)\<`I`[keyof `I`] extends `never` ? `never` : [`I`[keyof `I`]] extends [[`Either`](E.md#either)\<`E`, `any`\>] ? `E` : `never`, \{ -readonly [K in string \| number \| symbol]: [I[K]] extends [Either\<any, A\>] ? A : never }\>
 
-Takes a structure of `Option`s and returns an `Option` of values with the same structure.
+Takes a structure of `Either`s and returns an `Either` of values with the same structure.
 
-- If a tuple is supplied, then the returned `Option` will contain a tuple with the same length.
-- If a struct is supplied, then the returned `Option` will contain a struct with the same keys.
-- If an iterable is supplied, then the returned `Option` will contain an array.
+- If a tuple is supplied, then the returned `Either` will contain a tuple with the same length.
+- If a struct is supplied, then the returned `Either` will contain a struct with the same keys.
+- If an iterable is supplied, then the returned `Either` will contain an array.
 
 #### Type parameters
 
@@ -204,82 +205,6 @@ assert.deepStrictEqual(Either.all({ a: Either.right(1), b: Either.left("error") 
 | :----- | :------------------------------------------------ |
 | `self` | [`Either`](E.md#either)\<`E`, (`a`: `A`) => `B`\> |
 | `that` | [`Either`](E.md#either)\<`E2`, `A`\>              |
-
-#### Returns
-
-[`Either`](E.md#either)\<`E` \| `E2`, `B`\>
-
-**`Since`**
-
-2.0.0
-
----
-
-### zipWith
-
-▸ **zipWith**\<`E2`, `A2`, `A`, `B`\>(`that`, `f`): \<E\>(`self`: [`Either`](E.md#either)\<`E`, `A`\>) => [`Either`](E.md#either)\<`E2` \| `E`, `B`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `E2` |
-| `A2` |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                  |
-| :----- | :------------------------------------ |
-| `that` | [`Either`](E.md#either)\<`E2`, `A2`\> |
-| `f`    | (`a`: `A`, `b`: `A2`) => `B`          |
-
-#### Returns
-
-`fn`
-
-▸ \<`E`\>(`self`): [`Either`](E.md#either)\<`E2` \| `E`, `B`\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `E`  |
-
-##### Parameters
-
-| Name   | Type                                |
-| :----- | :---------------------------------- |
-| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
-
-##### Returns
-
-[`Either`](E.md#either)\<`E2` \| `E`, `B`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **zipWith**\<`E`, `A`, `E2`, `A2`, `B`\>(`self`, `that`, `f`): [`Either`](E.md#either)\<`E` \| `E2`, `B`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `E`  |
-| `A`  |
-| `E2` |
-| `A2` |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                  |
-| :----- | :------------------------------------ |
-| `self` | [`Either`](E.md#either)\<`E`, `A`\>   |
-| `that` | [`Either`](E.md#either)\<`E2`, `A2`\> |
-| `f`    | (`a`: `A`, `b`: `A2`) => `B`          |
 
 #### Returns
 
@@ -621,6 +546,262 @@ Returns `self` if it is a `Right` or `that` otherwise.
 #### Returns
 
 [`Either`](E.md#either)\<`E2`, `A` \| `B`\>
+
+**`Since`**
+
+2.0.0
+
+## filtering &amp; conditionals
+
+### filterOrLeft
+
+▸ **filterOrLeft**\<`A`, `B`, `X`, `E2`\>(`filter`, `orLeftWith`): \<E\>(`self`: [`Either`](E.md#either)\<`E`, `A`\>) => [`Either`](E.md#either)\<`E2` \| `E`, `B`\>
+
+Filter the right value with the provided function.
+If the predicate fails, set the left value with the result of the provided function.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+| `X`  |
+| `E2` |
+
+#### Parameters
+
+| Name         | Type                                                         |
+| :----------- | :----------------------------------------------------------- |
+| `filter`     | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> |
+| `orLeftWith` | (`a`: `X`) => `E2`                                           |
+
+#### Returns
+
+`fn`
+
+▸ \<`E`\>(`self`): [`Either`](E.md#either)\<`E2` \| `E`, `B`\>
+
+##### Type parameters
+
+| Name |
+| :--- |
+| `E`  |
+
+##### Parameters
+
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
+
+##### Returns
+
+[`Either`](E.md#either)\<`E2` \| `E`, `B`\>
+
+**`Example`**
+
+```ts
+import * as E from "effect/Either";
+import { pipe } from "effect/Function";
+
+const isPositive = (n: number): boolean => n > 0;
+
+assert.deepStrictEqual(
+  pipe(
+    E.right(1),
+    E.filterOrLeft(isPositive, n => `${n} is not positive`),
+  ),
+  E.right(1),
+);
+assert.deepStrictEqual(
+  pipe(
+    E.right(0),
+    E.filterOrLeft(isPositive, n => `${n} is not positive`),
+  ),
+  E.left("0 is not positive"),
+);
+```
+
+**`Since`**
+
+2.0.0
+
+▸ **filterOrLeft**\<`A`, `X`, `Y`, `E2`\>(`filter`, `orLeftWith`): \<E\>(`self`: [`Either`](E.md#either)\<`E`, `A`\>) => [`Either`](E.md#either)\<`E2` \| `E`, `A`\>
+
+Filter the right value with the provided function.
+If the predicate fails, set the left value with the result of the provided function.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `X`  |
+| `Y`  |
+| `E2` |
+
+#### Parameters
+
+| Name         | Type                                                  |
+| :----------- | :---------------------------------------------------- |
+| `filter`     | [`Predicate`](../interfaces/Pred.Predicate.md)\<`X`\> |
+| `orLeftWith` | (`a`: `Y`) => `E2`                                    |
+
+#### Returns
+
+`fn`
+
+▸ \<`E`\>(`self`): [`Either`](E.md#either)\<`E2` \| `E`, `A`\>
+
+##### Type parameters
+
+| Name |
+| :--- |
+| `E`  |
+
+##### Parameters
+
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
+
+##### Returns
+
+[`Either`](E.md#either)\<`E2` \| `E`, `A`\>
+
+**`Example`**
+
+```ts
+import * as E from "effect/Either";
+import { pipe } from "effect/Function";
+
+const isPositive = (n: number): boolean => n > 0;
+
+assert.deepStrictEqual(
+  pipe(
+    E.right(1),
+    E.filterOrLeft(isPositive, n => `${n} is not positive`),
+  ),
+  E.right(1),
+);
+assert.deepStrictEqual(
+  pipe(
+    E.right(0),
+    E.filterOrLeft(isPositive, n => `${n} is not positive`),
+  ),
+  E.left("0 is not positive"),
+);
+```
+
+**`Since`**
+
+2.0.0
+
+▸ **filterOrLeft**\<`E`, `A`, `B`, `X`, `E2`\>(`self`, `filter`, `orLeftWith`): [`Either`](E.md#either)\<`E` \| `E2`, `B`\>
+
+Filter the right value with the provided function.
+If the predicate fails, set the left value with the result of the provided function.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `E`  |
+| `A`  |
+| `B`  |
+| `X`  |
+| `E2` |
+
+#### Parameters
+
+| Name         | Type                                                         |
+| :----------- | :----------------------------------------------------------- |
+| `self`       | [`Either`](E.md#either)\<`E`, `A`\>                          |
+| `filter`     | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> |
+| `orLeftWith` | (`a`: `X`) => `E2`                                           |
+
+#### Returns
+
+[`Either`](E.md#either)\<`E` \| `E2`, `B`\>
+
+**`Example`**
+
+```ts
+import * as E from "effect/Either";
+import { pipe } from "effect/Function";
+
+const isPositive = (n: number): boolean => n > 0;
+
+assert.deepStrictEqual(
+  pipe(
+    E.right(1),
+    E.filterOrLeft(isPositive, n => `${n} is not positive`),
+  ),
+  E.right(1),
+);
+assert.deepStrictEqual(
+  pipe(
+    E.right(0),
+    E.filterOrLeft(isPositive, n => `${n} is not positive`),
+  ),
+  E.left("0 is not positive"),
+);
+```
+
+**`Since`**
+
+2.0.0
+
+▸ **filterOrLeft**\<`E`, `A`, `X`, `Y`, `E2`\>(`self`, `filter`, `orLeftWith`): [`Either`](E.md#either)\<`E` \| `E2`, `A`\>
+
+Filter the right value with the provided function.
+If the predicate fails, set the left value with the result of the provided function.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `E`  |
+| `A`  |
+| `X`  |
+| `Y`  |
+| `E2` |
+
+#### Parameters
+
+| Name         | Type                                                  |
+| :----------- | :---------------------------------------------------- |
+| `self`       | [`Either`](E.md#either)\<`E`, `A`\>                   |
+| `filter`     | [`Predicate`](../interfaces/Pred.Predicate.md)\<`X`\> |
+| `orLeftWith` | (`a`: `Y`) => `E2`                                    |
+
+#### Returns
+
+[`Either`](E.md#either)\<`E` \| `E2`, `A`\>
+
+**`Example`**
+
+```ts
+import * as E from "effect/Either";
+import { pipe } from "effect/Function";
+
+const isPositive = (n: number): boolean => n > 0;
+
+assert.deepStrictEqual(
+  pipe(
+    E.right(1),
+    E.filterOrLeft(isPositive, n => `${n} is not positive`),
+  ),
+  E.right(1),
+);
+assert.deepStrictEqual(
+  pipe(
+    E.right(0),
+    E.filterOrLeft(isPositive, n => `${n} is not positive`),
+  ),
+  E.left("0 is not positive"),
+);
+```
 
 **`Since`**
 
@@ -1780,6 +1961,82 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 ### TypeId
 
 • `Const` **TypeId**: unique `symbol`
+
+**`Since`**
+
+2.0.0
+
+## zipping
+
+### zipWith
+
+▸ **zipWith**\<`E2`, `A2`, `A`, `B`\>(`that`, `f`): \<E\>(`self`: [`Either`](E.md#either)\<`E`, `A`\>) => [`Either`](E.md#either)\<`E2` \| `E`, `B`\>
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `E2` |
+| `A2` |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                                  |
+| :----- | :------------------------------------ |
+| `that` | [`Either`](E.md#either)\<`E2`, `A2`\> |
+| `f`    | (`a`: `A`, `b`: `A2`) => `B`          |
+
+#### Returns
+
+`fn`
+
+▸ \<`E`\>(`self`): [`Either`](E.md#either)\<`E2` \| `E`, `B`\>
+
+##### Type parameters
+
+| Name |
+| :--- |
+| `E`  |
+
+##### Parameters
+
+| Name   | Type                                |
+| :----- | :---------------------------------- |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\> |
+
+##### Returns
+
+[`Either`](E.md#either)\<`E2` \| `E`, `B`\>
+
+**`Since`**
+
+2.0.0
+
+▸ **zipWith**\<`E`, `A`, `E2`, `A2`, `B`\>(`self`, `that`, `f`): [`Either`](E.md#either)\<`E` \| `E2`, `B`\>
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `E`  |
+| `A`  |
+| `E2` |
+| `A2` |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                                  |
+| :----- | :------------------------------------ |
+| `self` | [`Either`](E.md#either)\<`E`, `A`\>   |
+| `that` | [`Either`](E.md#either)\<`E2`, `A2`\> |
+| `f`    | (`a`: `A`, `b`: `A2`) => `B`          |
+
+#### Returns
+
+[`Either`](E.md#either)\<`E` \| `E2`, `B`\>
 
 **`Since`**
 

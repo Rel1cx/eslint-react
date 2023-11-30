@@ -21,22 +21,16 @@
 
 - [append](Array.md#append)
 - [appendAll](Array.md#appendall)
-- [appendAllNonEmpty](Array.md#appendallnonempty)
 - [cartesian](Array.md#cartesian)
 - [cartesianWith](Array.md#cartesianwith)
 - [chop](Array.md#chop)
-- [chopNonEmpty](Array.md#chopnonempty)
 - [chunksOf](Array.md#chunksof)
-- [chunksOfNonEmpty](Array.md#chunksofnonempty)
-- [compact](Array.md#compact)
 - [contains](Array.md#contains)
 - [containsWith](Array.md#containswith)
 - [copy](Array.md#copy)
 - [dedupe](Array.md#dedupe)
 - [dedupeAdjacent](Array.md#dedupeadjacent)
 - [dedupeAdjacentWith](Array.md#dedupeadjacentwith)
-- [dedupeNonEmpty](Array.md#dedupenonempty)
-- [dedupeNonEmptyWith](Array.md#dedupenonemptywith)
 - [dedupeWith](Array.md#dedupewith)
 - [difference](Array.md#difference)
 - [differenceWith](Array.md#differencewith)
@@ -54,10 +48,8 @@
 - [findLast](Array.md#findlast)
 - [findLastIndex](Array.md#findlastindex)
 - [flatMap](Array.md#flatmap)
-- [flatMapNonEmpty](Array.md#flatmapnonempty)
 - [flatMapNullable](Array.md#flatmapnullable)
 - [flatten](Array.md#flatten)
-- [flattenNonEmpty](Array.md#flattennonempty)
 - [forEach](Array.md#foreach)
 - [fromIterable](Array.md#fromiterable)
 - [fromNullable](Array.md#fromnullable)
@@ -65,7 +57,10 @@
 - [fromRecord](Array.md#fromrecord)
 - [get](Array.md#get)
 - [getEquivalence](Array.md#getequivalence)
+- [getLefts](Array.md#getlefts)
 - [getOrder](Array.md#getorder)
+- [getRights](Array.md#getrights)
+- [getSomes](Array.md#getsomes)
 - [group](Array.md#group)
 - [groupBy](Array.md#groupby)
 - [groupWith](Array.md#groupwith)
@@ -77,7 +72,6 @@
 - [intersection](Array.md#intersection)
 - [intersectionWith](Array.md#intersectionwith)
 - [intersperse](Array.md#intersperse)
-- [intersperseNonEmpty](Array.md#interspersenonempty)
 - [isEmptyArray](Array.md#isemptyarray)
 - [isEmptyReadonlyArray](Array.md#isemptyreadonlyarray)
 - [isNonEmptyArray](Array.md#isnonemptyarray)
@@ -108,7 +102,6 @@
 - [partitionMap](Array.md#partitionmap)
 - [prepend](Array.md#prepend)
 - [prependAll](Array.md#prependall)
-- [prependAllNonEmpty](Array.md#prependallnonempty)
 - [range](Array.md#range)
 - [reduce](Array.md#reduce)
 - [reduceRight](Array.md#reduceright)
@@ -117,9 +110,7 @@
 - [replaceOption](Array.md#replaceoption)
 - [replicate](Array.md#replicate)
 - [reverse](Array.md#reverse)
-- [reverseNonEmpty](Array.md#reversenonempty)
 - [rotate](Array.md#rotate)
-- [rotateNonEmpty](Array.md#rotatenonempty)
 - [scan](Array.md#scan)
 - [scanRight](Array.md#scanright)
 - [separate](Array.md#separate)
@@ -128,8 +119,6 @@
 - [some](Array.md#some)
 - [sort](Array.md#sort)
 - [sortBy](Array.md#sortby)
-- [sortByNonEmpty](Array.md#sortbynonempty)
-- [sortNonEmpty](Array.md#sortnonempty)
 - [sortWith](Array.md#sortwith)
 - [span](Array.md#span)
 - [splitAt](Array.md#splitat)
@@ -142,23 +131,18 @@
 - [unappend](Array.md#unappend)
 - [unfold](Array.md#unfold)
 - [union](Array.md#union)
-- [unionNonEmpty](Array.md#unionnonempty)
-- [unionNonEmptyWith](Array.md#unionnonemptywith)
 - [unionWith](Array.md#unionwith)
 - [unprepend](Array.md#unprepend)
 - [unsafeGet](Array.md#unsafeget)
 - [unzip](Array.md#unzip)
-- [unzipNonEmpty](Array.md#unzipnonempty)
 - [zip](Array.md#zip)
-- [zipNonEmpty](Array.md#zipnonempty)
-- [zipNonEmptyWith](Array.md#zipnonemptywith)
 - [zipWith](Array.md#zipwith)
 
 ## Other
 
 ### chop
 
-▸ **chop**\<`A`, `B`\>(`f`): (`self`: `Iterable`\<`A`\>) => `B`[]
+▸ **chop**\<`A`, `B`\>(`f`): \<T\>(`self`: `T`) => [`With`](Array.ReadonlyArray.md#with)\<`T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
 A useful recursion pattern for processing an `Iterable` to produce a new `Array`, often used for "chopping" up the input
 `Iterable`. Typically chop is called with some function that will consume an initial prefix of the `Iterable` and produce a
@@ -181,17 +165,51 @@ value and the rest of the `Array`.
 
 `fn`
 
-▸ (`self`): `B`[]
+▸ \<`T`\>(`self`): [`With`](Array.ReadonlyArray.md#with)\<`T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
+
+##### Type parameters
+
+| Name | Type                                            |
+| :--- | :---------------------------------------------- |
+| `T`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
+| Name   | Type |
+| :----- | :--- |
+| `self` | `T`  |
 
 ##### Returns
 
-`B`[]
+[`With`](Array.ReadonlyArray.md#with)\<`T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
+
+**`Since`**
+
+2.0.0
+
+▸ **chop**\<`A`, `B`\>(`self`, `f`): [`B`, ...B[]]
+
+A useful recursion pattern for processing an `Iterable` to produce a new `Array`, often used for "chopping" up the input
+`Iterable`. Typically chop is called with some function that will consume an initial prefix of the `Iterable` and produce a
+value and the rest of the `Array`.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                                                          |
+| :----- | :------------------------------------------------------------ |
+| `self` | readonly [`A`, `A`]                                           |
+| `f`    | (`as`: readonly [`A`, `A`]) => readonly [`B`, readonly `A`[]] |
+
+#### Returns
+
+[`B`, ...B[]]
 
 **`Since`**
 
@@ -220,77 +238,6 @@ value and the rest of the `Array`.
 #### Returns
 
 `B`[]
-
-**`Since`**
-
-2.0.0
-
----
-
-### chopNonEmpty
-
-▸ **chopNonEmpty**\<`A`, `B`\>(`f`): (`self`: readonly [`A`, `A`]) => [`B`, ...B[]]
-
-A useful recursion pattern for processing a `NonEmptyReadonlyArray` to produce a new `NonEmptyReadonlyArray`, often used for "chopping" up the input
-`NonEmptyReadonlyArray`. Typically `chop` is called with some function that will consume an initial prefix of the `NonEmptyReadonlyArray` and produce a
-value and the tail of the `NonEmptyReadonlyArray`.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name | Type                                                          |
-| :--- | :------------------------------------------------------------ |
-| `f`  | (`as`: readonly [`A`, `A`]) => readonly [`B`, readonly `A`[]] |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): [`B`, ...B[]]
-
-##### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
-
-##### Returns
-
-[`B`, ...B[]]
-
-**`Since`**
-
-2.0.0
-
-▸ **chopNonEmpty**\<`A`, `B`\>(`self`, `f`): [`B`, ...B[]]
-
-A useful recursion pattern for processing a `NonEmptyReadonlyArray` to produce a new `NonEmptyReadonlyArray`, often used for "chopping" up the input
-`NonEmptyReadonlyArray`. Typically `chop` is called with some function that will consume an initial prefix of the `NonEmptyReadonlyArray` and produce a
-value and the tail of the `NonEmptyReadonlyArray`.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                                          |
-| :----- | :------------------------------------------------------------ |
-| `self` | readonly [`A`, `A`]                                           |
-| `f`    | (`as`: readonly [`A`, `A`]) => readonly [`B`, readonly `A`[]] |
-
-#### Returns
-
-[`B`, ...B[]]
 
 **`Since`**
 
@@ -348,9 +295,35 @@ value and the tail of the `NonEmptyReadonlyArray`.
 
 ### dedupe
 
+▸ **dedupe**\<`A`\>(`self`): [`A`, ...A[]]
+
+Remove duplicates from an `Iterable`, preserving the order of the first occurrence of each element.
+The equivalence used to compare elements is provided by `Equal.equivalence()` from the `Equal` module.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+#### Parameters
+
+| Name   | Type                |
+| :----- | :------------------ |
+| `self` | readonly [`A`, `A`] |
+
+#### Returns
+
+[`A`, ...A[]]
+
+**`Since`**
+
+2.0.0
+
 ▸ **dedupe**\<`A`\>(`self`): `A`[]
 
-Remove duplicates from am `Iterable`, keeping the first occurrence of an element.
+Remove duplicates from an `Iterable`, preserving the order of the first occurrence of each element.
+The equivalence used to compare elements is provided by `Equal.equivalence()` from the `Equal` module.
 
 #### Type parameters
 
@@ -467,39 +440,12 @@ Deduplicates adjacent elements that are identical using the provided `isEquivale
 
 ---
 
-### dedupeNonEmpty
+### dedupeWith
 
-▸ **dedupeNonEmpty**\<`A`\>(`self`): [`A`, ...A[]]
+▸ **dedupeWith**\<`A`\>(`isEquivalent`): \<T\>(`self`: `T`) => [`With`](Array.ReadonlyArray.md#with)\<`T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
-Remove duplicates from a `NonEmptyReadonlyArray`, keeping the first occurrence of an element.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
-
-#### Returns
-
-[`A`, ...A[]]
-
-**`Since`**
-
-2.0.0
-
----
-
-### dedupeNonEmptyWith
-
-▸ **dedupeNonEmptyWith**\<`A`\>(`isEquivalent`): (`self`: readonly [`A`, `A`]) => [`A`, ...A[]]
-
-Remove duplicates from a `NonEmptyReadonlyArray`, keeping the first occurrence of an element using the provided `isEquivalent` function.
+Remove duplicates from an `Iterable` using the provided `isEquivalent` function,
+preserving the order of the first occurrence of each element.
 
 #### Type parameters
 
@@ -517,25 +463,32 @@ Remove duplicates from a `NonEmptyReadonlyArray`, keeping the first occurrence o
 
 `fn`
 
-▸ (`self`): [`A`, ...A[]]
+▸ \<`T`\>(`self`): [`With`](Array.ReadonlyArray.md#with)\<`T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
+
+##### Type parameters
+
+| Name | Type                                            |
+| :--- | :---------------------------------------------- |
+| `T`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 ##### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
+| Name   | Type |
+| :----- | :--- |
+| `self` | `T`  |
 
 ##### Returns
 
-[`A`, ...A[]]
+[`With`](Array.ReadonlyArray.md#with)\<`T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
 **`Since`**
 
 2.0.0
 
-▸ **dedupeNonEmptyWith**\<`A`\>(`self`, `isEquivalent`): [`A`, ...A[]]
+▸ **dedupeWith**\<`A`\>(`self`, `isEquivalent`): [`A`, ...A[]]
 
-Remove duplicates from a `NonEmptyReadonlyArray`, keeping the first occurrence of an element using the provided `isEquivalent` function.
+Remove duplicates from an `Iterable` using the provided `isEquivalent` function,
+preserving the order of the first occurrence of each element.
 
 #### Type parameters
 
@@ -558,49 +511,10 @@ Remove duplicates from a `NonEmptyReadonlyArray`, keeping the first occurrence o
 
 2.0.0
 
----
-
-### dedupeWith
-
-▸ **dedupeWith**\<`A`\>(`isEquivalent`): (`self`: `Iterable`\<`A`\>) => `A`[]
-
-Remove duplicates from am `Iterable` using the provided `isEquivalent` function, keeping the first occurrence of an element.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name           | Type                                    |
-| :------------- | :-------------------------------------- |
-| `isEquivalent` | (`self`: `A`, `that`: `A`) => `boolean` |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): `A`[]
-
-##### Parameters
-
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
-
-##### Returns
-
-`A`[]
-
-**`Since`**
-
-2.0.0
-
 ▸ **dedupeWith**\<`A`\>(`self`, `isEquivalent`): `A`[]
 
-Remove duplicates from am `Iterable` using the provided `isEquivalent` function, keeping the first occurrence of an element.
+Remove duplicates from an `Iterable` using the provided `isEquivalent` function,
+preserving the order of the first occurrence of each element.
 
 #### Type parameters
 
@@ -629,7 +543,7 @@ Remove duplicates from am `Iterable` using the provided `isEquivalent` function,
 
 ▸ **difference**\<`A`\>(`that`): (`self`: `Iterable`\<`A`\>) => `A`[]
 
-Creates a `Array` of values not included in the other given `Iterable` using the provided `isEquivalent` function.
+Creates a `Array` of values not included in the other given `Iterable`.
 The order and references of result values are determined by the first `Iterable`.
 
 #### Type parameters
@@ -666,7 +580,7 @@ The order and references of result values are determined by the first `Iterable`
 
 ▸ **difference**\<`A`\>(`self`, `that`): `A`[]
 
-Creates a `Array` of values not included in the other given `Iterable` using the provided `isEquivalent` function.
+Creates a `Array` of values not included in the other given `Iterable`.
 The order and references of result values are determined by the first `Iterable`.
 
 #### Type parameters
@@ -1104,81 +1018,10 @@ The order and references of result values are determined by the first `Iterable`
 
 ### intersperse
 
-▸ **intersperse**\<`B`\>(`middle`): \<A\>(`self`: `Iterable`\<`A`\>) => (`B` \| `A`)[]
+▸ **intersperse**\<`B`\>(`middle`): \<T\>(`self`: `T`) => [`With`](Array.ReadonlyArray.md#with)\<`T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
-Places an element in between members of an `Iterable`
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name     | Type |
-| :------- | :--- |
-| `middle` | `B`  |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): (`B` \| `A`)[]
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
-
-##### Returns
-
-(`B` \| `A`)[]
-
-**`Since`**
-
-2.0.0
-
-▸ **intersperse**\<`A`, `B`\>(`self`, `middle`): (`A` \| `B`)[]
-
-Places an element in between members of an `Iterable`
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name     | Type              |
-| :------- | :---------------- |
-| `self`   | `Iterable`\<`A`\> |
-| `middle` | `B`               |
-
-#### Returns
-
-(`A` \| `B`)[]
-
-**`Since`**
-
-2.0.0
-
----
-
-### intersperseNonEmpty
-
-▸ **intersperseNonEmpty**\<`B`\>(`middle`): \<A\>(`self`: readonly [`A`, `A`]) => [`B` \| `A`, ...(B \| A)[]]
-
-Places an element in between members of a `NonEmptyReadonlyArray`
+Places an element in between members of an `Iterable`.
+If the input is a non-empty array, the result is also a non-empty array.
 
 #### Type parameters
 
@@ -1196,31 +1039,32 @@ Places an element in between members of a `NonEmptyReadonlyArray`
 
 `fn`
 
-▸ \<`A`\>(`self`): [`B` \| `A`, ...(B \| A)[]]
+▸ \<`T`\>(`self`): [`With`](Array.ReadonlyArray.md#with)\<`T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
 ##### Type parameters
 
-| Name |
-| :--- |
-| `A`  |
+| Name | Type                                            |
+| :--- | :---------------------------------------------- |
+| `T`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 ##### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
+| Name   | Type |
+| :----- | :--- |
+| `self` | `T`  |
 
 ##### Returns
 
-[`B` \| `A`, ...(B \| A)[]]
+[`With`](Array.ReadonlyArray.md#with)\<`T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
 **`Since`**
 
 2.0.0
 
-▸ **intersperseNonEmpty**\<`A`, `B`\>(`self`, `middle`): [`A` \| `B`, ...(A \| B)[]]
+▸ **intersperse**\<`A`, `B`\>(`self`, `middle`): [`A` \| `B`, ...(A \| B)[]]
 
-Places an element in between members of a `NonEmptyReadonlyArray`
+Places an element in between members of an `Iterable`.
+If the input is a non-empty array, the result is also a non-empty array.
 
 #### Type parameters
 
@@ -1239,6 +1083,33 @@ Places an element in between members of a `NonEmptyReadonlyArray`
 #### Returns
 
 [`A` \| `B`, ...(A \| B)[]]
+
+**`Since`**
+
+2.0.0
+
+▸ **intersperse**\<`A`, `B`\>(`self`, `middle`): (`A` \| `B`)[]
+
+Places an element in between members of an `Iterable`.
+If the input is a non-empty array, the result is also a non-empty array.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name     | Type              |
+| :------- | :---------------- |
+| `self`   | `Iterable`\<`A`\> |
+| `middle` | `B`               |
+
+#### Returns
+
+(`A` \| `B`)[]
 
 **`Since`**
 
@@ -1859,9 +1730,10 @@ or return a copy of the input if the index is out of bounds.
 
 ### rotate
 
-▸ **rotate**(`n`): \<A\>(`self`: `Iterable`\<`A`\>) => `A`[]
+▸ **rotate**(`n`): \<T\>(`self`: `T`) => [`With`](Array.ReadonlyArray.md#with)\<`T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
 Rotate an `Iterable` by `n` steps.
+If the input is a non-empty array, the result is also a non-empty array.
 
 #### Parameters
 
@@ -1873,96 +1745,32 @@ Rotate an `Iterable` by `n` steps.
 
 `fn`
 
-▸ \<`A`\>(`self`): `A`[]
+▸ \<`T`\>(`self`): [`With`](Array.ReadonlyArray.md#with)\<`T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
 ##### Type parameters
 
-| Name |
-| :--- |
-| `A`  |
+| Name | Type                                            |
+| :--- | :---------------------------------------------- |
+| `T`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
+| Name   | Type |
+| :----- | :--- |
+| `self` | `T`  |
 
 ##### Returns
 
-`A`[]
+[`With`](Array.ReadonlyArray.md#with)\<`T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
 **`Since`**
 
 2.0.0
 
-▸ **rotate**\<`A`\>(`self`, `n`): `A`[]
+▸ **rotate**\<`A`\>(`self`, `n`): [`A`, ...A[]]
 
 Rotate an `Iterable` by `n` steps.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
-| `n`    | `number`          |
-
-#### Returns
-
-`A`[]
-
-**`Since`**
-
-2.0.0
-
----
-
-### rotateNonEmpty
-
-▸ **rotateNonEmpty**(`n`): \<A\>(`self`: readonly [`A`, `A`]) => [`A`, ...A[]]
-
-Rotate a `NonEmptyReadonlyArray` by `n` steps.
-
-#### Parameters
-
-| Name | Type     |
-| :--- | :------- |
-| `n`  | `number` |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`A`, ...A[]]
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
-
-##### Returns
-
-[`A`, ...A[]]
-
-**`Since`**
-
-2.0.0
-
-▸ **rotateNonEmpty**\<`A`\>(`self`, `n`): [`A`, ...A[]]
-
-Rotate a `NonEmptyReadonlyArray` by `n` steps.
+If the input is a non-empty array, the result is also a non-empty array.
 
 #### Type parameters
 
@@ -1980,6 +1788,32 @@ Rotate a `NonEmptyReadonlyArray` by `n` steps.
 #### Returns
 
 [`A`, ...A[]]
+
+**`Since`**
+
+2.0.0
+
+▸ **rotate**\<`A`\>(`self`, `n`): `A`[]
+
+Rotate an `Iterable` by `n` steps.
+If the input is a non-empty array, the result is also a non-empty array.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+#### Parameters
+
+| Name   | Type              |
+| :----- | :---------------- |
+| `self` | `Iterable`\<`A`\> |
+| `n`    | `number`          |
+
+#### Returns
+
+`A`[]
 
 **`Since`**
 
@@ -2133,41 +1967,89 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 
 ### union
 
-▸ **union**\<`B`\>(`that`): \<A\>(`self`: `Iterable`\<`A`\>) => (`B` \| `A`)[]
+▸ **union**\<`T`\>(`that`): \<S\>(`self`: `S`) => [`With2`](Array.ReadonlyArray.md#with2)\<`S`, `T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\> \| [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `B`  |
+| Name | Type                                            |
+| :--- | :---------------------------------------------- |
+| `T`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
-| `that` | `Iterable`\<`B`\> |
+| Name   | Type |
+| :----- | :--- |
+| `that` | `T`  |
 
 #### Returns
 
 `fn`
 
-▸ \<`A`\>(`self`): (`B` \| `A`)[]
+▸ \<`S`\>(`self`): [`With2`](Array.ReadonlyArray.md#with2)\<`S`, `T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\> \| [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
 ##### Type parameters
+
+| Name | Type                                            |
+| :--- | :---------------------------------------------- |
+| `S`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
+
+##### Parameters
+
+| Name   | Type |
+| :----- | :--- |
+| `self` | `S`  |
+
+##### Returns
+
+[`With2`](Array.ReadonlyArray.md#with2)\<`S`, `T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\> \| [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
+
+**`Since`**
+
+2.0.0
+
+▸ **union**\<`A`, `B`\>(`self`, `that`): [`A` \| `B`, ...(A \| B)[]]
+
+#### Type parameters
 
 | Name |
 | :--- |
 | `A`  |
+| `B`  |
 
-##### Parameters
+#### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
+| Name   | Type                |
+| :----- | :------------------ |
+| `self` | readonly [`A`, `A`] |
+| `that` | readonly `B`[]      |
 
-##### Returns
+#### Returns
 
-(`B` \| `A`)[]
+[`A` \| `B`, ...(A \| B)[]]
+
+**`Since`**
+
+2.0.0
+
+▸ **union**\<`A`, `B`\>(`self`, `that`): [`A` \| `B`, ...(A \| B)[]]
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                |
+| :----- | :------------------ |
+| `self` | readonly `A`[]      |
+| `that` | readonly [`B`, `B`] |
+
+#### Returns
+
+[`A` \| `B`, ...(A \| B)[]]
 
 **`Since`**
 
@@ -2199,292 +2081,45 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 
 ---
 
-### unionNonEmpty
-
-▸ **unionNonEmpty**\<`A`\>(`that`): (`self`: readonly `A`[]) => [`A`, ...A[]]
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `that` | readonly [`A`, `A`] |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): [`A`, ...A[]]
-
-##### Parameters
-
-| Name   | Type           |
-| :----- | :------------- |
-| `self` | readonly `A`[] |
-
-##### Returns
-
-[`A`, ...A[]]
-
-**`Since`**
-
-2.0.0
-
-▸ **unionNonEmpty**\<`A`\>(`that`): (`self`: readonly [`A`, `A`]) => [`A`, ...A[]]
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name   | Type           |
-| :----- | :------------- |
-| `that` | readonly `A`[] |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): [`A`, ...A[]]
-
-##### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
-
-##### Returns
-
-[`A`, ...A[]]
-
-**`Since`**
-
-2.0.0
-
-▸ **unionNonEmpty**\<`A`\>(`self`, `that`): [`A`, ...A[]]
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly `A`[]      |
-| `that` | readonly [`A`, `A`] |
-
-#### Returns
-
-[`A`, ...A[]]
-
-**`Since`**
-
-2.0.0
-
-▸ **unionNonEmpty**\<`A`\>(`self`, `that`): [`A`, ...A[]]
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
-| `that` | readonly `A`[]      |
-
-#### Returns
-
-[`A`, ...A[]]
-
-**`Since`**
-
-2.0.0
-
----
-
-### unionNonEmptyWith
-
-▸ **unionNonEmptyWith**\<`A`\>(`isEquivalent`): (`that`: readonly [`A`, `A`]) => (`self`: readonly `A`[]) => [`A`, ...A[]](`that`: readonly `A`[]) => (`self`: readonly [`A`, `A`]) => [`A`, ...A[]](`self`: readonly `A`[], `that`: readonly [`A`, `A`]) => [`A`, ...A[]](`self`: readonly [`A`, `A`], `that`: readonly `A`[]) => [`A`, ...A[]]
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name           | Type                                    |
-| :------------- | :-------------------------------------- |
-| `isEquivalent` | (`self`: `A`, `that`: `A`) => `boolean` |
-
-#### Returns
-
-`fn`
-
-▸ (`that`): (`self`: readonly `A`[]) => [`A`, ...A[]]
-
-##### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `that` | readonly [`A`, `A`] |
-
-##### Returns
-
-`fn`
-
-▸ (`self`): [`A`, ...A[]]
-
-##### Parameters
-
-| Name   | Type           |
-| :----- | :------------- |
-| `self` | readonly `A`[] |
-
-##### Returns
-
-[`A`, ...A[]]
-
-▸ (`that`): (`self`: readonly [`A`, `A`]) => [`A`, ...A[]]
-
-##### Parameters
-
-| Name   | Type           |
-| :----- | :------------- |
-| `that` | readonly `A`[] |
-
-##### Returns
-
-`fn`
-
-▸ (`self`): [`A`, ...A[]]
-
-##### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
-
-##### Returns
-
-[`A`, ...A[]]
-
-▸ (`self`, `that`): [`A`, ...A[]]
-
-##### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly `A`[]      |
-| `that` | readonly [`A`, `A`] |
-
-##### Returns
-
-[`A`, ...A[]]
-
-▸ (`self`, `that`): [`A`, ...A[]]
-
-##### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
-| `that` | readonly `A`[]      |
-
-##### Returns
-
-[`A`, ...A[]]
-
-**`Since`**
-
-2.0.0
-
----
-
 ### unionWith
 
-▸ **unionWith**\<`A`\>(`isEquivalent`): (`that`: `Iterable`\<`A`\>) => (`self`: `Iterable`\<`A`\>) => `A`[](`self`: `Iterable`\<`A`\>, `that`: `Iterable`\<`A`\>) => `A`[]
+▸ **unionWith**\<`S`, `T`\>(`that`, `isEquivalent`): (`self`: `S`) => [`With2`](Array.ReadonlyArray.md#with2)\<`S`, `T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\> \| [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `A`  |
+| Name | Type                                            |
+| :--- | :---------------------------------------------- |
+| `S`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
+| `T`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 #### Parameters
 
-| Name           | Type                                    |
-| :------------- | :-------------------------------------- |
-| `isEquivalent` | (`self`: `A`, `that`: `A`) => `boolean` |
+| Name           | Type                                                                                                                          |
+| :------------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| `that`         | `T`                                                                                                                           |
+| `isEquivalent` | (`self`: [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>, `that`: [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>) => `boolean` |
 
 #### Returns
 
 `fn`
 
-▸ (`that`): (`self`: `Iterable`\<`A`\>) => `A`[]
+▸ (`self`): [`With2`](Array.ReadonlyArray.md#with2)\<`S`, `T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\> \| [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
-| `that` | `Iterable`\<`A`\> |
+| Name   | Type |
+| :----- | :--- |
+| `self` | `S`  |
 
 ##### Returns
 
-`fn`
-
-▸ (`self`): `A`[]
-
-##### Parameters
-
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
-
-##### Returns
-
-`A`[]
-
-▸ (`self`, `that`): `A`[]
-
-##### Parameters
-
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
-| `that` | `Iterable`\<`A`\> |
-
-##### Returns
-
-`A`[]
+[`With2`](Array.ReadonlyArray.md#with2)\<`S`, `T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\> \| [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
 **`Since`**
 
 2.0.0
 
----
-
-### unzip
-
-▸ **unzip**\<`A`, `B`\>(`self`): [`A`[], `B`[]]
-
-This function is the inverse of `zip`. Takes an `Iterable` of pairs and return two corresponding `Array`s.
+▸ **unionWith**\<`A`, `B`\>(`self`, `that`, `isEquivalent`): [`A` \| `B`, ...(A \| B)[]]
 
 #### Type parameters
 
@@ -2495,13 +2130,65 @@ This function is the inverse of `zip`. Takes an `Iterable` of pairs and return t
 
 #### Parameters
 
-| Name   | Type                              |
-| :----- | :-------------------------------- |
-| `self` | `Iterable`\<readonly [`A`, `B`]\> |
+| Name           | Type                                    |
+| :------------- | :-------------------------------------- |
+| `self`         | readonly [`A`, `A`]                     |
+| `that`         | `Iterable`\<`B`\>                       |
+| `isEquivalent` | (`self`: `A`, `that`: `B`) => `boolean` |
 
 #### Returns
 
-[`A`[], `B`[]]
+[`A` \| `B`, ...(A \| B)[]]
+
+**`Since`**
+
+2.0.0
+
+▸ **unionWith**\<`A`, `B`\>(`self`, `that`, `isEquivalent`): [`A` \| `B`, ...(A \| B)[]]
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name           | Type                                    |
+| :------------- | :-------------------------------------- |
+| `self`         | `Iterable`\<`A`\>                       |
+| `that`         | readonly [`B`, `B`]                     |
+| `isEquivalent` | (`self`: `A`, `that`: `B`) => `boolean` |
+
+#### Returns
+
+[`A` \| `B`, ...(A \| B)[]]
+
+**`Since`**
+
+2.0.0
+
+▸ **unionWith**\<`A`, `B`\>(`self`, `that`, `isEquivalent`): (`A` \| `B`)[]
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name           | Type                                    |
+| :------------- | :-------------------------------------- |
+| `self`         | `Iterable`\<`A`\>                       |
+| `that`         | `Iterable`\<`B`\>                       |
+| `isEquivalent` | (`self`: `A`, `that`: `B`) => `boolean` |
+
+#### Returns
+
+(`A` \| `B`)[]
 
 **`Since`**
 
@@ -2509,9 +2196,11 @@ This function is the inverse of `zip`. Takes an `Iterable` of pairs and return t
 
 ---
 
-### unzipNonEmpty
+### unzip
 
-▸ **unzipNonEmpty**\<`A`, `B`\>(`self`): [[`A`, ...A[]], [`B`, ...B[]]]
+▸ **unzip**\<`A`, `B`\>(`self`): [[`A`, ...A[]], [`B`, ...B[]]]
+
+This function is the inverse of `zip`. Takes an `Iterable` of pairs and return two corresponding `Array`s.
 
 #### Type parameters
 
@@ -2534,59 +2223,9 @@ This function is the inverse of `zip`. Takes an `Iterable` of pairs and return t
 
 2.0.0
 
----
+▸ **unzip**\<`A`, `B`\>(`self`): [`A`[], `B`[]]
 
-### zip
-
-▸ **zip**\<`B`\>(`that`): \<A\>(`self`: `Iterable`\<`A`\>) => [`A`, `B`][]
-
-Takes two `Iterable`s and returns an `Array` of corresponding pairs.
-If one input `Iterable` is short, excess elements of the
-longer `Iterable` are discarded.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type              |
-| :----- | :---------------- |
-| `that` | `Iterable`\<`B`\> |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`A`, `B`][]
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
-
-##### Returns
-
-[`A`, `B`][]
-
-**`Since`**
-
-2.0.0
-
-▸ **zip**\<`A`, `B`\>(`self`, `that`): [`A`, `B`][]
-
-Takes two `Iterable`s and returns an `Array` of corresponding pairs.
-If one input `Iterable` is short, excess elements of the
-longer `Iterable` are discarded.
+This function is the inverse of `zip`. Takes an `Iterable` of pairs and return two corresponding `Array`s.
 
 #### Type parameters
 
@@ -2597,285 +2236,13 @@ longer `Iterable` are discarded.
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
-| `that` | `Iterable`\<`B`\> |
+| Name   | Type                              |
+| :----- | :-------------------------------- |
+| `self` | `Iterable`\<readonly [`A`, `B`]\> |
 
 #### Returns
 
-[`A`, `B`][]
-
-**`Since`**
-
-2.0.0
-
----
-
-### zipNonEmpty
-
-▸ **zipNonEmpty**\<`B`\>(`that`): \<A\>(`self`: readonly [`A`, `A`]) => [[`A`, `B`], ...[A, B][]]
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `that` | readonly [`B`, `B`] |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [[`A`, `B`], ...[A, B][]]
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
-
-##### Returns
-
-[[`A`, `B`], ...[A, B][]]
-
-**`Since`**
-
-2.0.0
-
-▸ **zipNonEmpty**\<`A`, `B`\>(`self`, `that`): [[`A`, `B`], ...[A, B][]]
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
-| `that` | readonly [`B`, `B`] |
-
-#### Returns
-
-[[`A`, `B`], ...[A, B][]]
-
-**`Since`**
-
-2.0.0
-
----
-
-### zipNonEmptyWith
-
-▸ **zipNonEmptyWith**\<`B`, `A`, `C`\>(`that`, `f`): (`self`: readonly [`A`, `A`]) => [`C`, ...C[]]
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-| `A`  |
-| `C`  |
-
-#### Parameters
-
-| Name   | Type                        |
-| :----- | :-------------------------- |
-| `that` | readonly [`B`, `B`]         |
-| `f`    | (`a`: `A`, `b`: `B`) => `C` |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): [`C`, ...C[]]
-
-##### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
-
-##### Returns
-
-[`C`, ...C[]]
-
-**`Since`**
-
-2.0.0
-
-▸ **zipNonEmptyWith**\<`A`, `B`, `C`\>(`self`, `that`, `f`): [`C`, ...C[]]
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-
-#### Parameters
-
-| Name   | Type                        |
-| :----- | :-------------------------- |
-| `self` | readonly [`A`, `A`]         |
-| `that` | readonly [`B`, `B`]         |
-| `f`    | (`a`: `A`, `b`: `B`) => `C` |
-
-#### Returns
-
-[`C`, ...C[]]
-
-**`Since`**
-
-2.0.0
-
----
-
-### zipWith
-
-▸ **zipWith**\<`B`, `A`, `C`\>(`that`, `f`): (`self`: `Iterable`\<`A`\>) => `C`[]
-
-Apply a function to pairs of elements at the same index in two `Iterable`s, collecting the results in a new `Array`. If one
-input `Iterable` is short, excess elements of the longer `Iterable` are discarded.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-| `A`  |
-| `C`  |
-
-#### Parameters
-
-| Name   | Type                        |
-| :----- | :-------------------------- |
-| `that` | `Iterable`\<`B`\>           |
-| `f`    | (`a`: `A`, `b`: `B`) => `C` |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): `C`[]
-
-##### Parameters
-
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
-
-##### Returns
-
-`C`[]
-
-**`Since`**
-
-2.0.0
-
-▸ **zipWith**\<`B`, `A`, `C`\>(`self`, `that`, `f`): `C`[]
-
-Apply a function to pairs of elements at the same index in two `Iterable`s, collecting the results in a new `Array`. If one
-input `Iterable` is short, excess elements of the longer `Iterable` are discarded.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-| `A`  |
-| `C`  |
-
-#### Parameters
-
-| Name   | Type                        |
-| :----- | :-------------------------- |
-| `self` | `Iterable`\<`A`\>           |
-| `that` | `Iterable`\<`B`\>           |
-| `f`    | (`a`: `A`, `b`: `B`) => `C` |
-
-#### Returns
-
-`C`[]
-
-**`Since`**
-
-2.0.0
-
-## combining
-
-### flatMapNullable
-
-▸ **flatMapNullable**\<`A`, `B`\>(`f`): (`self`: readonly `A`[]) => `NonNullable`\<`B`\>[]
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name | Type                                       |
-| :--- | :----------------------------------------- |
-| `f`  | (`a`: `A`) => `undefined` \| `null` \| `B` |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): `NonNullable`\<`B`\>[]
-
-##### Parameters
-
-| Name   | Type           |
-| :----- | :------------- |
-| `self` | readonly `A`[] |
-
-##### Returns
-
-`NonNullable`\<`B`\>[]
-
-**`Since`**
-
-2.0.0
-
-▸ **flatMapNullable**\<`A`, `B`\>(`self`, `f`): `NonNullable`\<`B`\>[]
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `self` | readonly `A`[]                             |
-| `f`    | (`a`: `A`) => `undefined` \| `null` \| `B` |
-
-#### Returns
-
-`NonNullable`\<`B`\>[]
+[`A`[], `B`[]]
 
 **`Since`**
 
@@ -2957,155 +2324,48 @@ Append an element to the end of an `Iterable`, creating a new `NonEmptyArray`.
 
 ### appendAll
 
-▸ **appendAll**\<`B`\>(`that`): \<A\>(`self`: `Iterable`\<`A`\>) => (`B` \| `A`)[]
+▸ **appendAll**\<`S`, `T`\>(`that`): (`self`: `S`) => [`With2`](Array.ReadonlyArray.md#with2)\<`S`, `T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\> \| [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
+
+Concatenates two arrays (or iterables), combining their elements.
+If either array is non-empty, the result is also a non-empty array.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `B`  |
+| Name | Type                                            |
+| :--- | :---------------------------------------------- |
+| `S`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
+| `T`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
-| `that` | `Iterable`\<`B`\> |
+| Name   | Type |
+| :----- | :--- |
+| `that` | `T`  |
 
 #### Returns
 
 `fn`
 
-▸ \<`A`\>(`self`): (`B` \| `A`)[]
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
+▸ (`self`): [`With2`](Array.ReadonlyArray.md#with2)\<`S`, `T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\> \| [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
+| Name   | Type |
+| :----- | :--- |
+| `self` | `S`  |
 
 ##### Returns
 
-(`B` \| `A`)[]
+[`With2`](Array.ReadonlyArray.md#with2)\<`S`, `T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\> \| [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
 **`Since`**
 
 2.0.0
 
-▸ **appendAll**\<`A`, `B`\>(`self`, `that`): (`A` \| `B`)[]
+▸ **appendAll**\<`A`, `B`\>(`self`, `that`): [`A` \| `B`, ...(A \| B)[]]
 
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
-| `that` | `Iterable`\<`B`\> |
-
-#### Returns
-
-(`A` \| `B`)[]
-
-**`Since`**
-
-2.0.0
-
----
-
-### appendAllNonEmpty
-
-▸ **appendAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: `Iterable`\<`A`\>) => [`B` \| `A`, ...(B \| A)[]]
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `that` | readonly [`B`, `B`] |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`B` \| `A`, ...(B \| A)[]]
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
-
-##### Returns
-
-[`B` \| `A`, ...(B \| A)[]]
-
-**`Since`**
-
-2.0.0
-
-▸ **appendAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: readonly [`A`, `A`]) => [`B` \| `A`, ...(B \| A)[]]
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type              |
-| :----- | :---------------- |
-| `that` | `Iterable`\<`B`\> |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`B` \| `A`, ...(B \| A)[]]
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
-
-##### Returns
-
-[`B` \| `A`, ...(B \| A)[]]
-
-**`Since`**
-
-2.0.0
-
-▸ **appendAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`A` \| `B`, ...(A \| B)[]]
+Concatenates two arrays (or iterables), combining their elements.
+If either array is non-empty, the result is also a non-empty array.
 
 #### Type parameters
 
@@ -3129,7 +2389,10 @@ Append an element to the end of an `Iterable`, creating a new `NonEmptyArray`.
 
 2.0.0
 
-▸ **appendAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`A` \| `B`, ...(A \| B)[]]
+▸ **appendAll**\<`A`, `B`\>(`self`, `that`): [`A` \| `B`, ...(A \| B)[]]
+
+Concatenates two arrays (or iterables), combining their elements.
+If either array is non-empty, the result is also a non-empty array.
 
 #### Type parameters
 
@@ -3148,6 +2411,33 @@ Append an element to the end of an `Iterable`, creating a new `NonEmptyArray`.
 #### Returns
 
 [`A` \| `B`, ...(A \| B)[]]
+
+**`Since`**
+
+2.0.0
+
+▸ **appendAll**\<`A`, `B`\>(`self`, `that`): (`A` \| `B`)[]
+
+Concatenates two arrays (or iterables), combining their elements.
+If either array is non-empty, the result is also a non-empty array.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type              |
+| :----- | :---------------- |
+| `self` | `Iterable`\<`A`\> |
+| `that` | `Iterable`\<`B`\> |
+
+#### Returns
+
+(`A` \| `B`)[]
 
 **`Since`**
 
@@ -3229,155 +2519,59 @@ Prepend an element to the front of an `Iterable`, creating a new `NonEmptyArray`
 
 ### prependAll
 
-▸ **prependAll**\<`B`\>(`that`): \<A\>(`self`: `Iterable`\<`A`\>) => (`B` \| `A`)[]
+▸ **prependAll**\<`S`, `T`\>(`that`): (`self`: `S`) => [`With2`](Array.ReadonlyArray.md#with2)\<`S`, `T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\> \| [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
+
+Prepends the specified prefix array (or iterable) to the beginning of the specified array (or iterable).
+If either array is non-empty, the result is also a non-empty array.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `B`  |
+| Name | Type                                            |
+| :--- | :---------------------------------------------- |
+| `S`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
+| `T`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
-| `that` | `Iterable`\<`B`\> |
+| Name   | Type |
+| :----- | :--- |
+| `that` | `T`  |
 
 #### Returns
 
 `fn`
 
-▸ \<`A`\>(`self`): (`B` \| `A`)[]
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
+▸ (`self`): [`With2`](Array.ReadonlyArray.md#with2)\<`S`, `T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\> \| [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
+| Name   | Type |
+| :----- | :--- |
+| `self` | `S`  |
 
 ##### Returns
 
-(`B` \| `A`)[]
+[`With2`](Array.ReadonlyArray.md#with2)\<`S`, `T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\> \| [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
+
+**`Example`**
+
+```ts
+import * as ReadonlyArray from "effect/ReadonlyArray";
+
+assert.deepStrictEqual(
+  ReadonlyArray.prependAll([1, 2], ["a", "b"]),
+  ["a", "b", 1, 2],
+);
+```
 
 **`Since`**
 
 2.0.0
 
-▸ **prependAll**\<`A`, `B`\>(`self`, `that`): (`A` \| `B`)[]
+▸ **prependAll**\<`A`, `B`\>(`self`, `that`): [`A` \| `B`, ...(A \| B)[]]
 
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
-| `that` | `Iterable`\<`B`\> |
-
-#### Returns
-
-(`A` \| `B`)[]
-
-**`Since`**
-
-2.0.0
-
----
-
-### prependAllNonEmpty
-
-▸ **prependAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: `Iterable`\<`A`\>) => [`B` \| `A`, ...(B \| A)[]]
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `that` | readonly [`B`, `B`] |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`B` \| `A`, ...(B \| A)[]]
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
-
-##### Returns
-
-[`B` \| `A`, ...(B \| A)[]]
-
-**`Since`**
-
-2.0.0
-
-▸ **prependAllNonEmpty**\<`B`\>(`that`): \<A\>(`self`: readonly [`A`, `A`]) => [`B` \| `A`, ...(B \| A)[]]
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type              |
-| :----- | :---------------- |
-| `that` | `Iterable`\<`B`\> |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`B` \| `A`, ...(B \| A)[]]
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
-
-##### Returns
-
-[`B` \| `A`, ...(B \| A)[]]
-
-**`Since`**
-
-2.0.0
-
-▸ **prependAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`A` \| `B`, ...(A \| B)[]]
+Prepends the specified prefix array (or iterable) to the beginning of the specified array (or iterable).
+If either array is non-empty, the result is also a non-empty array.
 
 #### Type parameters
 
@@ -3397,11 +2591,25 @@ Prepend an element to the front of an `Iterable`, creating a new `NonEmptyArray`
 
 [`A` \| `B`, ...(A \| B)[]]
 
+**`Example`**
+
+```ts
+import * as ReadonlyArray from "effect/ReadonlyArray";
+
+assert.deepStrictEqual(
+  ReadonlyArray.prependAll([1, 2], ["a", "b"]),
+  ["a", "b", 1, 2],
+);
+```
+
 **`Since`**
 
 2.0.0
 
-▸ **prependAllNonEmpty**\<`A`, `B`\>(`self`, `that`): [`A` \| `B`, ...(A \| B)[]]
+▸ **prependAll**\<`A`, `B`\>(`self`, `that`): [`A` \| `B`, ...(A \| B)[]]
+
+Prepends the specified prefix array (or iterable) to the beginning of the specified array (or iterable).
+If either array is non-empty, the result is also a non-empty array.
 
 #### Type parameters
 
@@ -3420,6 +2628,55 @@ Prepend an element to the front of an `Iterable`, creating a new `NonEmptyArray`
 #### Returns
 
 [`A` \| `B`, ...(A \| B)[]]
+
+**`Example`**
+
+```ts
+import * as ReadonlyArray from "effect/ReadonlyArray";
+
+assert.deepStrictEqual(
+  ReadonlyArray.prependAll([1, 2], ["a", "b"]),
+  ["a", "b", 1, 2],
+);
+```
+
+**`Since`**
+
+2.0.0
+
+▸ **prependAll**\<`A`, `B`\>(`self`, `that`): (`A` \| `B`)[]
+
+Prepends the specified prefix array (or iterable) to the beginning of the specified array (or iterable).
+If either array is non-empty, the result is also a non-empty array.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type              |
+| :----- | :---------------- |
+| `self` | `Iterable`\<`A`\> |
+| `that` | `Iterable`\<`B`\> |
+
+#### Returns
+
+(`A` \| `B`)[]
+
+**`Example`**
+
+```ts
+import * as ReadonlyArray from "effect/ReadonlyArray";
+
+assert.deepStrictEqual(
+  ReadonlyArray.prependAll([1, 2], ["a", "b"]),
+  ["a", "b", 1, 2],
+);
+```
 
 **`Since`**
 
@@ -4597,6 +3854,30 @@ Return the last index for which a predicate holds.
 
 ### reverse
 
+▸ **reverse**\<`A`\>(`self`): [`A`, ...A[]]
+
+Reverse an `Iterable`, creating a new `Array`.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+#### Parameters
+
+| Name   | Type                |
+| :----- | :------------------ |
+| `self` | readonly [`A`, `A`] |
+
+#### Returns
+
+[`A`, ...A[]]
+
+**`Since`**
+
+2.0.0
+
 ▸ **reverse**\<`A`\>(`self`): `A`[]
 
 Reverse an `Iterable`, creating a new `Array`.
@@ -4616,32 +3897,6 @@ Reverse an `Iterable`, creating a new `Array`.
 #### Returns
 
 `A`[]
-
-**`Since`**
-
-2.0.0
-
----
-
-### reverseNonEmpty
-
-▸ **reverseNonEmpty**\<`A`\>(`self`): [`A`, ...A[]]
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
-
-#### Returns
-
-[`A`, ...A[]]
 
 **`Since`**
 
@@ -4779,32 +4034,6 @@ self is readonly [A, A]
 2.0.0
 
 ## filtering
-
-### compact
-
-▸ **compact**\<`A`\>(`self`): `A`[]
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
-| `self` | `Iterable`\<[`Option`](O.md#option)\<`A`\>\> |
-
-#### Returns
-
-`A`[]
-
-**`Since`**
-
-2.0.0
-
----
 
 ### filter
 
@@ -5050,6 +4279,128 @@ Transforms all elements of the `readonlyArray` for as long as the specified func
 #### Returns
 
 `B`[]
+
+**`Since`**
+
+2.0.0
+
+---
+
+### getLefts
+
+▸ **getLefts**\<`E`, `A`\>(`self`): `E`[]
+
+Retrieves the `Left` values from an `Iterable` of `Either`s, collecting them into an array.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `E`  |
+| `A`  |
+
+#### Parameters
+
+| Name   | Type                                              |
+| :----- | :------------------------------------------------ |
+| `self` | `Iterable`\<[`Either`](E.md#either)\<`E`, `A`\>\> |
+
+#### Returns
+
+`E`[]
+
+**`Example`**
+
+```ts
+import { getLefts } from "effect/ReadonlyArray";
+import { right, left } from "effect/Either";
+
+assert.deepStrictEqual(
+  getLefts([right(1), left("err"), right(2)]),
+  ["err"],
+);
+```
+
+**`Since`**
+
+2.0.0
+
+---
+
+### getRights
+
+▸ **getRights**\<`E`, `A`\>(`self`): `A`[]
+
+Retrieves the `Right` values from an `Iterable` of `Either`s, collecting them into an array.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `E`  |
+| `A`  |
+
+#### Parameters
+
+| Name   | Type                                              |
+| :----- | :------------------------------------------------ |
+| `self` | `Iterable`\<[`Either`](E.md#either)\<`E`, `A`\>\> |
+
+#### Returns
+
+`A`[]
+
+**`Example`**
+
+```ts
+import { getRights } from "effect/ReadonlyArray";
+import { right, left } from "effect/Either";
+
+assert.deepStrictEqual(
+  getRights([right(1), left("err"), right(2)]),
+  [1, 2],
+);
+```
+
+**`Since`**
+
+2.0.0
+
+---
+
+### getSomes
+
+▸ **getSomes**\<`A`\>(`self`): `A`[]
+
+Retrieves the `Some` values from an `Iterable` of `Option`s, collecting them into an array.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+#### Parameters
+
+| Name   | Type                                         |
+| :----- | :------------------------------------------- |
+| `self` | `Iterable`\<[`Option`](O.md#option)\<`A`\>\> |
+
+#### Returns
+
+`A`[]
+
+**`Example`**
+
+```ts
+import { getSomes } from "effect/ReadonlyArray";
+import { some, none } from "effect/Option";
+
+assert.deepStrictEqual(
+  getSomes([some(1), none(), some(2)]),
+  [1, 2],
+);
+```
 
 **`Since`**
 
@@ -5815,7 +5166,7 @@ Reduce an `Iterable` from the right, keeping all intermediate results instead of
 
 ### chunksOf
 
-▸ **chunksOf**(`n`): \<A\>(`self`: `Iterable`\<`A`\>) => [`A`, ...A[]][]
+▸ **chunksOf**(`n`): \<T\>(`self`: `T`) => [`With`](Array.ReadonlyArray.md#with)\<`T`, [[`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>, ...Infer\<T\>[]]\>
 
 Splits an `Iterable` into length-`n` pieces. The last piece will be shorter if `n` does not evenly divide the length of
 the `Iterable`. Note that `chunksOf(n)([])` is `[]`, not `[[]]`. This is intentional, and is consistent with a recursive
@@ -5837,23 +5188,56 @@ whenever `n` evenly divides the length of `self`.
 
 `fn`
 
-▸ \<`A`\>(`self`): [`A`, ...A[]][]
+▸ \<`T`\>(`self`): [`With`](Array.ReadonlyArray.md#with)\<`T`, [[`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>, ...Infer\<T\>[]]\>
 
 ##### Type parameters
+
+| Name | Type                                            |
+| :--- | :---------------------------------------------- |
+| `T`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
+
+##### Parameters
+
+| Name   | Type |
+| :----- | :--- |
+| `self` | `T`  |
+
+##### Returns
+
+[`With`](Array.ReadonlyArray.md#with)\<`T`, [[`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>, ...Infer\<T\>[]]\>
+
+**`Since`**
+
+2.0.0
+
+▸ **chunksOf**\<`A`\>(`self`, `n`): [[`A`, ...A[]], ...[A, ...A[]][]]
+
+Splits an `Iterable` into length-`n` pieces. The last piece will be shorter if `n` does not evenly divide the length of
+the `Iterable`. Note that `chunksOf(n)([])` is `[]`, not `[[]]`. This is intentional, and is consistent with a recursive
+definition of `chunksOf`; it satisfies the property that
+
+```ts
+chunksOf(n)(xs).concat(chunksOf(n)(ys)) == chunksOf(n)(xs.concat(ys)))
+```
+
+whenever `n` evenly divides the length of `self`.
+
+#### Type parameters
 
 | Name |
 | :--- |
 | `A`  |
 
-##### Parameters
+#### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
+| Name   | Type                |
+| :----- | :------------------ |
+| `self` | readonly [`A`, `A`] |
+| `n`    | `number`            |
 
-##### Returns
+#### Returns
 
-[`A`, ...A[]][]
+[[`A`, ...A[]], ...[A, ...A[]][]]
 
 **`Since`**
 
@@ -5887,73 +5271,6 @@ whenever `n` evenly divides the length of `self`.
 #### Returns
 
 [`A`, ...A[]][]
-
-**`Since`**
-
-2.0.0
-
----
-
-### chunksOfNonEmpty
-
-▸ **chunksOfNonEmpty**(`n`): \<A\>(`self`: readonly [`A`, `A`]) => [[`A`, ...A[]], ...[A, ...A[]][]]
-
-Splits a `NonEmptyReadonlyArray` into length-`n` pieces. The last piece will be shorter if `n` does not evenly divide the length of
-the `NonEmptyReadonlyArray`.
-
-#### Parameters
-
-| Name | Type     |
-| :--- | :------- |
-| `n`  | `number` |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [[`A`, ...A[]], ...[A, ...A[]][]]
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
-
-##### Returns
-
-[[`A`, ...A[]], ...[A, ...A[]][]]
-
-**`Since`**
-
-2.0.0
-
-▸ **chunksOfNonEmpty**\<`A`\>(`self`, `n`): [[`A`, ...A[]], ...[A, ...A[]][]]
-
-Splits a `NonEmptyReadonlyArray` into length-`n` pieces. The last piece will be shorter if `n` does not evenly divide the length of
-the `NonEmptyReadonlyArray`.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
-| `n`    | `number`            |
-
-#### Returns
-
-[[`A`, ...A[]], ...[A, ...A[]][]]
 
 **`Since`**
 
@@ -6426,7 +5743,8 @@ Return the number of elements in a `ReadonlyArray`.
 
 ▸ **splitAt**(`n`): \<A\>(`self`: `Iterable`\<`A`\>) => [beforeIndex: A[], fromIndex: A[]]
 
-Splits an `Iterable` into two pieces, the first piece has max `n` elements.
+Splits an `Iterable` into two segments, with the first segment containing a maximum of `n` elements.
+The value of `n` can be `0`.
 
 #### Parameters
 
@@ -6462,7 +5780,8 @@ Splits an `Iterable` into two pieces, the first piece has max `n` elements.
 
 ▸ **splitAt**\<`A`\>(`self`, `n`): [beforeIndex: A[], fromIndex: A[]]
 
-Splits an `Iterable` into two pieces, the first piece has max `n` elements.
+Splits an `Iterable` into two segments, with the first segment containing a maximum of `n` elements.
+The value of `n` can be `0`.
 
 #### Type parameters
 
@@ -6491,7 +5810,8 @@ Splits an `Iterable` into two pieces, the first piece has max `n` elements.
 
 ▸ **splitNonEmptyAt**(`n`): \<A\>(`self`: readonly [`A`, `A`]) => [beforeIndex: [A, ...A[]], fromIndex: A[]]
 
-Splits a `NonEmptyReadonlyArray` into two pieces, the first piece has max `n` elements.
+Splits a `NonEmptyReadonlyArray` into two segments, with the first segment containing a maximum of `n` elements.
+The value of `n` must be `>= 1`.
 
 #### Parameters
 
@@ -6527,7 +5847,8 @@ Splits a `NonEmptyReadonlyArray` into two pieces, the first piece has max `n` el
 
 ▸ **splitNonEmptyAt**\<`A`\>(`self`, `n`): [beforeIndex: [A, ...A[]], fromIndex: A[]]
 
-Splits a `NonEmptyReadonlyArray` into two pieces, the first piece has max `n` elements.
+Splits a `NonEmptyReadonlyArray` into two segments, with the first segment containing a maximum of `n` elements.
+The value of `n` must be `>= 1`.
 
 #### Type parameters
 
@@ -7799,7 +7120,46 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 ### flatMap
 
-▸ **flatMap**\<`A`, `B`\>(`f`): (`self`: readonly `A`[]) => `B`[]
+▸ **flatMap**\<`S`, `T`\>(`f`): (`self`: `S`) => [`With2`](Array.ReadonlyArray.md#with2)\<`S`, `T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
+
+Applies a function to each element in an array and returns a new array containing the concatenated mapped elements.
+
+#### Type parameters
+
+| Name | Type                     |
+| :--- | :----------------------- |
+| `S`  | extends readonly `any`[] |
+| `T`  | extends readonly `any`[] |
+
+#### Parameters
+
+| Name | Type                                                                        |
+| :--- | :-------------------------------------------------------------------------- |
+| `f`  | (`a`: [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>, `i`: `number`) => `T` |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): [`With2`](Array.ReadonlyArray.md#with2)\<`S`, `T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
+
+##### Parameters
+
+| Name   | Type |
+| :----- | :--- |
+| `self` | `S`  |
+
+##### Returns
+
+[`With2`](Array.ReadonlyArray.md#with2)\<`S`, `T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
+
+**`Since`**
+
+2.0.0
+
+▸ **flatMap**\<`A`, `B`\>(`self`, `f`): [`B`, ...B[]]
+
+Applies a function to each element in an array and returns a new array containing the concatenated mapped elements.
 
 #### Type parameters
 
@@ -7810,31 +7170,22 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 #### Parameters
 
-| Name | Type                                        |
-| :--- | :------------------------------------------ |
-| `f`  | (`a`: `A`, `i`: `number`) => readonly `B`[] |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | readonly [`A`, `A`]                              |
+| `f`    | (`a`: `A`, `i`: `number`) => readonly [`B`, `B`] |
 
 #### Returns
 
-`fn`
-
-▸ (`self`): `B`[]
-
-##### Parameters
-
-| Name   | Type           |
-| :----- | :------------- |
-| `self` | readonly `A`[] |
-
-##### Returns
-
-`B`[]
+[`B`, ...B[]]
 
 **`Since`**
 
 2.0.0
 
 ▸ **flatMap**\<`A`, `B`\>(`self`, `f`): `B`[]
+
+Applies a function to each element in an array and returns a new array containing the concatenated mapped elements.
 
 #### Type parameters
 
@@ -7860,9 +7211,9 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 ---
 
-### flatMapNonEmpty
+### flatMapNullable
 
-▸ **flatMapNonEmpty**\<`A`, `B`\>(`f`): (`self`: readonly [`A`, `A`]) => [`B`, ...B[]]
+▸ **flatMapNullable**\<`A`, `B`\>(`f`): (`self`: readonly `A`[]) => `NonNullable`\<`B`\>[]
 
 #### Type parameters
 
@@ -7873,31 +7224,31 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 #### Parameters
 
-| Name | Type                                             |
-| :--- | :----------------------------------------------- |
-| `f`  | (`a`: `A`, `i`: `number`) => readonly [`B`, `B`] |
+| Name | Type                                       |
+| :--- | :----------------------------------------- |
+| `f`  | (`a`: `A`) => `undefined` \| `null` \| `B` |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`B`, ...B[]]
+▸ (`self`): `NonNullable`\<`B`\>[]
 
 ##### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
+| Name   | Type           |
+| :----- | :------------- |
+| `self` | readonly `A`[] |
 
 ##### Returns
 
-[`B`, ...B[]]
+`NonNullable`\<`B`\>[]
 
 **`Since`**
 
 2.0.0
 
-▸ **flatMapNonEmpty**\<`A`, `B`\>(`self`, `f`): [`B`, ...B[]]
+▸ **flatMapNullable**\<`A`, `B`\>(`self`, `f`): `NonNullable`\<`B`\>[]
 
 #### Type parameters
 
@@ -7908,14 +7259,14 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 #### Parameters
 
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | readonly [`A`, `A`]                              |
-| `f`    | (`a`: `A`, `i`: `number`) => readonly [`B`, `B`] |
+| Name   | Type                                       |
+| :----- | :----------------------------------------- |
+| `self` | readonly `A`[]                             |
+| `f`    | (`a`: `A`) => `undefined` \| `null` \| `B` |
 
 #### Returns
 
-[`B`, ...B[]]
+`NonNullable`\<`B`\>[]
 
 **`Since`**
 
@@ -7925,33 +7276,9 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 ### flatten
 
-▸ **flatten**\<`A`\>(`self`): `A`[]
+▸ **flatten**\<`A`\>(`self`): [`A`, ...A[]]
 
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name   | Type                    |
-| :----- | :---------------------- |
-| `self` | readonly readonly A[][] |
-
-#### Returns
-
-`A`[]
-
-**`Since`**
-
-2.0.0
-
----
-
-### flattenNonEmpty
-
-▸ **flattenNonEmpty**\<`A`\>(`self`): [`A`, ...A[]]
+Flattens an array of arrays into a single array by concatenating all arrays.
 
 #### Type parameters
 
@@ -7973,13 +7300,38 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 2.0.0
 
+▸ **flatten**\<`A`\>(`self`): `A`[]
+
+Flattens an array of arrays into a single array by concatenating all arrays.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+#### Parameters
+
+| Name   | Type                    |
+| :----- | :---------------------- |
+| `self` | readonly readonly A[][] |
+
+#### Returns
+
+`A`[]
+
+**`Since`**
+
+2.0.0
+
 ## sorting
 
 ### sort
 
-▸ **sort**\<`B`\>(`O`): \<A\>(`self`: `Iterable`\<`A`\>) => `A`[]
+▸ **sort**\<`B`\>(`O`): \<T\>(`self`: `T`) => [`With`](Array.ReadonlyArray.md#with)\<`T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
-Sort the elements of an `Iterable` in increasing order, creating a new `Array`.
+Create a new array with elements sorted in increasing order based on the specified comparator.
+If the input is a `NonEmptyReadonlyArray`, the output will also be a `NonEmptyReadonlyArray`.
 
 #### Type parameters
 
@@ -7997,23 +7349,50 @@ Sort the elements of an `Iterable` in increasing order, creating a new `Array`.
 
 `fn`
 
-▸ \<`A`\>(`self`): `A`[]
+▸ \<`T`\>(`self`): [`With`](Array.ReadonlyArray.md#with)\<`T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
 
 ##### Type parameters
+
+| Name | Type                                            |
+| :--- | :---------------------------------------------- |
+| `T`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
+
+##### Parameters
+
+| Name   | Type |
+| :----- | :--- |
+| `self` | `T`  |
+
+##### Returns
+
+[`With`](Array.ReadonlyArray.md#with)\<`T`, [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>\>
+
+**`Since`**
+
+2.0.0
+
+▸ **sort**\<`A`, `B`\>(`self`, `O`): [`A`, ...A[]]
+
+Create a new array with elements sorted in increasing order based on the specified comparator.
+If the input is a `NonEmptyReadonlyArray`, the output will also be a `NonEmptyReadonlyArray`.
+
+#### Type parameters
 
 | Name |
 | :--- |
 | `A`  |
+| `B`  |
 
-##### Parameters
+#### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
+| Name   | Type                                         |
+| :----- | :------------------------------------------- |
+| `self` | readonly [`A`, `A`]                          |
+| `O`    | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
 
-##### Returns
+#### Returns
 
-`A`[]
+[`A`, ...A[]]
 
 **`Since`**
 
@@ -8021,7 +7400,8 @@ Sort the elements of an `Iterable` in increasing order, creating a new `Array`.
 
 ▸ **sort**\<`A`, `B`\>(`self`, `O`): `A`[]
 
-Sort the elements of an `Iterable` in increasing order, creating a new `Array`.
+Create a new array with elements sorted in increasing order based on the specified comparator.
+If the input is a `NonEmptyReadonlyArray`, the output will also be a `NonEmptyReadonlyArray`.
 
 #### Type parameters
 
@@ -8049,54 +7429,10 @@ Sort the elements of an `Iterable` in increasing order, creating a new `Array`.
 
 ### sortBy
 
-▸ **sortBy**\<`B`\>(`...orders`): \<A\>(`self`: `Iterable`\<`A`\>) => `A`[]
+▸ **sortBy**\<`B`\>(`...orders`): \<A\>(`as`: readonly [`A`, `A`]) => [`A`, ...A[]]\<A_1\>(`self`: `Iterable`\<`A_1`\>) => `A_1`[]
 
 Sort the elements of an `Iterable` in increasing order, where elements are compared
 using first `orders[0]`, then `orders[1]`, etc...
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name        | Type                                                    |
-| :---------- | :------------------------------------------------------ |
-| `...orders` | readonly [`Order`](../interfaces/Ord.Order.md)\<`B`\>[] |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): `A`[]
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
-
-##### Returns
-
-`A`[]
-
-**`Since`**
-
-2.0.0
-
----
-
-### sortByNonEmpty
-
-▸ **sortByNonEmpty**\<`B`\>(`...orders`): \<A\>(`as`: readonly [`A`, `A`]) => [`A`, ...A[]]
 
 #### Type parameters
 
@@ -8132,77 +7468,23 @@ using first `orders[0]`, then `orders[1]`, etc...
 
 [`A`, ...A[]]
 
-**`Since`**
-
-2.0.0
-
----
-
-### sortNonEmpty
-
-▸ **sortNonEmpty**\<`B`\>(`O`): \<A\>(`self`: readonly [`A`, `A`]) => [`A`, ...A[]]
-
-Sort the elements of a `NonEmptyReadonlyArray` in increasing order, creating a new `NonEmptyArray`.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`A`, ...A[]]
+▸ \<`A_1`\>(`self`): `A_1`[]
 
 ##### Type parameters
 
-| Name |
-| :--- |
-| `A`  |
+| Name  |
+| :---- |
+| `A_1` |
 
 ##### Parameters
 
 | Name   | Type                |
 | :----- | :------------------ |
-| `self` | readonly [`A`, `A`] |
+| `self` | `Iterable`\<`A_1`\> |
 
 ##### Returns
 
-[`A`, ...A[]]
-
-**`Since`**
-
-2.0.0
-
-▸ **sortNonEmpty**\<`A`, `B`\>(`self`, `O`): [`A`, ...A[]]
-
-Sort the elements of a `NonEmptyReadonlyArray` in increasing order, creating a new `NonEmptyArray`.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
-| `self` | readonly [`A`, `A`]                          |
-| `O`    | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
-
-#### Returns
-
-[`A`, ...A[]]
+`A_1`[]
 
 **`Since`**
 
@@ -8268,6 +7550,296 @@ Gets an element unsafely, will throw on out of bounds.
 #### Returns
 
 `A`
+
+**`Since`**
+
+2.0.0
+
+## zipping
+
+### zip
+
+▸ **zip**\<`B`\>(`that`): \<A\>(`self`: readonly [`A`, `A`]) => [[`A`, `B`], ...[A, B][]]
+
+Takes two `Iterable`s and returns an `Array` of corresponding pairs.
+If one input `Iterable` is short, excess elements of the
+longer `Iterable` are discarded.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                |
+| :----- | :------------------ |
+| `that` | readonly [`B`, `B`] |
+
+#### Returns
+
+`fn`
+
+▸ \<`A`\>(`self`): [[`A`, `B`], ...[A, B][]]
+
+##### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+##### Parameters
+
+| Name   | Type                |
+| :----- | :------------------ |
+| `self` | readonly [`A`, `A`] |
+
+##### Returns
+
+[[`A`, `B`], ...[A, B][]]
+
+**`Since`**
+
+2.0.0
+
+▸ **zip**\<`B`\>(`that`): \<A\>(`self`: `Iterable`\<`A`\>) => [`A`, `B`][]
+
+Takes two `Iterable`s and returns an `Array` of corresponding pairs.
+If one input `Iterable` is short, excess elements of the
+longer `Iterable` are discarded.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type              |
+| :----- | :---------------- |
+| `that` | `Iterable`\<`B`\> |
+
+#### Returns
+
+`fn`
+
+▸ \<`A`\>(`self`): [`A`, `B`][]
+
+##### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+##### Parameters
+
+| Name   | Type              |
+| :----- | :---------------- |
+| `self` | `Iterable`\<`A`\> |
+
+##### Returns
+
+[`A`, `B`][]
+
+**`Since`**
+
+2.0.0
+
+▸ **zip**\<`A`, `B`\>(`self`, `that`): [[`A`, `B`], ...[A, B][]]
+
+Takes two `Iterable`s and returns an `Array` of corresponding pairs.
+If one input `Iterable` is short, excess elements of the
+longer `Iterable` are discarded.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                |
+| :----- | :------------------ |
+| `self` | readonly [`A`, `A`] |
+| `that` | readonly [`B`, `B`] |
+
+#### Returns
+
+[[`A`, `B`], ...[A, B][]]
+
+**`Since`**
+
+2.0.0
+
+▸ **zip**\<`A`, `B`\>(`self`, `that`): [`A`, `B`][]
+
+Takes two `Iterable`s and returns an `Array` of corresponding pairs.
+If one input `Iterable` is short, excess elements of the
+longer `Iterable` are discarded.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type              |
+| :----- | :---------------- |
+| `self` | `Iterable`\<`A`\> |
+| `that` | `Iterable`\<`B`\> |
+
+#### Returns
+
+[`A`, `B`][]
+
+**`Since`**
+
+2.0.0
+
+---
+
+### zipWith
+
+▸ **zipWith**\<`B`, `A`, `C`\>(`that`, `f`): (`self`: readonly [`A`, `A`]) => [`C`, ...C[]]
+
+Apply a function to pairs of elements at the same index in two `Iterable`s, collecting the results in a new `Array`. If one
+input `Iterable` is short, excess elements of the longer `Iterable` are discarded.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `B`  |
+| `A`  |
+| `C`  |
+
+#### Parameters
+
+| Name   | Type                        |
+| :----- | :-------------------------- |
+| `that` | readonly [`B`, `B`]         |
+| `f`    | (`a`: `A`, `b`: `B`) => `C` |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): [`C`, ...C[]]
+
+##### Parameters
+
+| Name   | Type                |
+| :----- | :------------------ |
+| `self` | readonly [`A`, `A`] |
+
+##### Returns
+
+[`C`, ...C[]]
+
+**`Since`**
+
+2.0.0
+
+▸ **zipWith**\<`B`, `A`, `C`\>(`that`, `f`): (`self`: `Iterable`\<`A`\>) => `C`[]
+
+Apply a function to pairs of elements at the same index in two `Iterable`s, collecting the results in a new `Array`. If one
+input `Iterable` is short, excess elements of the longer `Iterable` are discarded.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `B`  |
+| `A`  |
+| `C`  |
+
+#### Parameters
+
+| Name   | Type                        |
+| :----- | :-------------------------- |
+| `that` | `Iterable`\<`B`\>           |
+| `f`    | (`a`: `A`, `b`: `B`) => `C` |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): `C`[]
+
+##### Parameters
+
+| Name   | Type              |
+| :----- | :---------------- |
+| `self` | `Iterable`\<`A`\> |
+
+##### Returns
+
+`C`[]
+
+**`Since`**
+
+2.0.0
+
+▸ **zipWith**\<`A`, `B`, `C`\>(`self`, `that`, `f`): [`C`, ...C[]]
+
+Apply a function to pairs of elements at the same index in two `Iterable`s, collecting the results in a new `Array`. If one
+input `Iterable` is short, excess elements of the longer `Iterable` are discarded.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+| `C`  |
+
+#### Parameters
+
+| Name   | Type                        |
+| :----- | :-------------------------- |
+| `self` | readonly [`A`, `A`]         |
+| `that` | readonly [`B`, `B`]         |
+| `f`    | (`a`: `A`, `b`: `B`) => `C` |
+
+#### Returns
+
+[`C`, ...C[]]
+
+**`Since`**
+
+2.0.0
+
+▸ **zipWith**\<`B`, `A`, `C`\>(`self`, `that`, `f`): `C`[]
+
+Apply a function to pairs of elements at the same index in two `Iterable`s, collecting the results in a new `Array`. If one
+input `Iterable` is short, excess elements of the longer `Iterable` are discarded.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `B`  |
+| `A`  |
+| `C`  |
+
+#### Parameters
+
+| Name   | Type                        |
+| :----- | :-------------------------- |
+| `self` | `Iterable`\<`A`\>           |
+| `that` | `Iterable`\<`B`\>           |
+| `f`    | (`a`: `A`, `b`: `B`) => `C` |
+
+#### Returns
+
+`C`[]
 
 **`Since`**
 
