@@ -47,6 +47,7 @@
   - Optimize bundle size.
 
 - `@eslint-react/core`
+  - Fix `getComponentNameFromIdentifier` add additional `.` at the beginning of the name.
   - Optimize bundle size.
 
 - `@eslint-react/jsx`

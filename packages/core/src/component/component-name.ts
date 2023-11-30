@@ -6,7 +6,7 @@ export const RE_COMPONENT_NAME = /^[A-Z]/u;
 
 export function getComponentNameFromIdentifier(node: TSESTree.Identifier | TSESTree.Identifier[]) {
   return Array.isArray(node)
-    ? node.reduce((acc, cur) => `${acc}.${cur.name}`, "")
+    ? node.map(n => n.name).join(".")
     : node.name;
 }
 
