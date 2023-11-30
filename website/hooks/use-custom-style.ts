@@ -95,8 +95,11 @@ export function useCustomStyle() {
 
   useEffect(() => {
     const touchAndClickListener = (e: Event) => {
-      const currentElement = e.target as HTMLElement | null;
-      if (currentElement && currentElement.tagName === "data-lsp") {
+      const currentElement = e.target;
+      if (
+        currentElement instanceof HTMLElement
+        && currentElement.tagName === "data-lsp"
+      ) {
         e.preventDefault();
         rePositionTwoSlashBox(e);
       }

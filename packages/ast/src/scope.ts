@@ -33,6 +33,7 @@ export function getExternalRefs(params: {
     return [];
   }
 
+  // eslint-disable-next-line @susisu/safe-typescript/no-type-assertion
   const references = scope.references
     .filter((x) => x.isRead() && !scope.set.has(x.identifier.name))
     .map((x) => {

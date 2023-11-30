@@ -241,7 +241,7 @@ export default createRule<[], MessageID>({
       const leftType = getConstrainedTypeAtLocation(services, left);
       const leftTypeVariants = inspectVariantTypes(tsutils.unionTypeParts(leftType));
 
-      return leftTypeVariants.every(type => allowedVariants.includes(type as never))
+      return leftTypeVariants.every(type => allowedVariants.some(allowed => allowed === type))
         && isValidExpression(right);
     }
 

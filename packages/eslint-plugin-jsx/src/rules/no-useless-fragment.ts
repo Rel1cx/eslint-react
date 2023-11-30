@@ -46,8 +46,8 @@ function isFragmentHasLessThanTwoChildren(node: TSESTree.JSXElement | TSESTree.J
     (child) => !isPaddingSpaces(child),
   );
 
-  if (nonPaddingChildren.length === 1) {
-    return !containsCallExpression(nonPaddingChildren[0] as TSESTree.Node);
+  if (nonPaddingChildren.length === 1 && nonPaddingChildren[0]) {
+    return !containsCallExpression(nonPaddingChildren[0]);
   }
 
   return nonPaddingChildren.length === 0;

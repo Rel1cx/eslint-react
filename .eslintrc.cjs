@@ -49,9 +49,6 @@ module.exports = defineConfig({
         message: "no else",
       },
     ],
-    "@typescript-eslint/prefer-readonly": "warn",
-    "@typescript-eslint/prefer-nullish-coalescing": "warn",
-    "@typescript-eslint/strict-boolean-expressions": "error",
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
@@ -60,6 +57,10 @@ module.exports = defineConfig({
         varsIgnorePattern: "(^_)|(^ESLintUtils$)",
       },
     ],
+    "@typescript-eslint/prefer-readonly": "warn",
+    "@typescript-eslint/prefer-nullish-coalescing": "warn",
+    "@typescript-eslint/strict-boolean-expressions": "error",
+    "@susisu/safe-typescript/no-unsafe-object-property-check": "off",
     "import-access/jsdoc": ["error"],
     "jsdoc/require-jsdoc": "off",
     "jsdoc/require-param-description": "off",

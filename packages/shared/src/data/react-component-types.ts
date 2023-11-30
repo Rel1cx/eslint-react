@@ -1,3 +1,4 @@
+/* eslint-disable @susisu/safe-typescript/no-type-assertion */
 export type ReactHostComponentType = 0 | 1 | 2;
 
 export const ReactHostHTMLComponent = 0;
