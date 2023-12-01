@@ -76,6 +76,7 @@
 #### 📝 Documentation
 
 - `@eslint-react/monorepo`
+  - Add website urls to README.md
   - Add README.md to internal packages.
 
 #### Authors: 1
