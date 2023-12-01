@@ -1,42 +1,60 @@
 import { Tab, Tabs } from "nextra-theme-docs";
 
+import { Info } from "#/components/Callout";
+
 ## Install
 
-<Tabs items={[ "npm", "pnpm", "yarn", "Bun"]}>
+<Info>
+This plugin requires `typescript` and `@typescript-eslint/parser` as peer dependencies. Install them if you haven't already.
+</Info>
+
+<Tabs items={[ "npm", "pnpm", "yarn", "bun"]}>
 <Tab>
 ```bash filename="Terminal"
 npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react-hooks @eslint-react/eslint-plugin
+```
 
+Then install the plugin:
+
+```bash filename="Terminal"
 npm install --save-dev @eslint-react/eslint-plugin
 ```
 </Tab>
 <Tab>
 ```bash filename="Terminal"
 pnpm add --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react-hooks @eslint-react/eslint-plugin
-
-pnpm add --save-dev @eslint-react/eslint-plugin
 ```
 
+Then install the plugin:
+
+```bash filename="Terminal"
+pnpm add --save-dev @eslint-react/eslint-plugin
+```
 </Tab>
 <Tab>
 ```bash filename="Terminal"
 yarn add --dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react-hooks @eslint-react/eslint-plugin
+```
 
+Then install the plugin:
+
+```bash filename="Terminal"
 yarn add --dev @eslint-react/eslint-plugin
-
 ```
 </Tab>
 <Tab>
 ```bash filename="Terminal"
 bun add --dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react-hooks @eslint-react/eslint-plugin
-
-bun add --dev @eslint-react/eslint-plugin
 ```
 
+Then install the plugin:
+
+```bash filename="Terminal"
+bun add --dev @eslint-react/eslint-plugin
+```
 </Tab>
 </Tabs>
-
-## Setup
+## Configure
 
 <Tabs items={["LegacyConfig", "FlatConfig"]}>
 <Tab>

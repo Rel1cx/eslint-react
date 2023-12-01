@@ -22,6 +22,24 @@ A set of ESLint rules to catch common mistakes and improve your React code.
 
 ## Installation
 
+This plugin requires `typescript` and `@typescript-eslint/parser` as peer dependencies. Install them if you haven't already.
+
+```bash
+# npm
+npm install --save-dev typescript @typescript-eslint/parser
+
+# pnpm
+pnpm add --save-dev typescript @typescript-eslint/parser
+
+# yarn
+yarn add --dev typescript @typescript-eslint/parser
+
+# bun
+bun add --dev typescript @typescript-eslint/parser
+```
+
+Then install this plugin.
+
 ```bash
 # npm
 npm install --save-dev @eslint-react/eslint-plugin
