@@ -20,7 +20,6 @@ export const defaultParserOptions = {
     jsx: true,
   },
   ecmaVersion: 2021,
-  project: "./tsconfig.json",
   sourceType: "module",
   tsconfigRootDir: getFixturesRootDir(),
 } as const satisfies RuleTesterConfig["parserOptions"];

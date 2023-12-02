@@ -5,7 +5,10 @@ import rule, { RULE_NAME } from "./no-leaked-conditional-rendering";
 
 const ruleTester = new RuleTester({
   parser: "@typescript-eslint/parser",
-  parserOptions: defaultParserOptions,
+  parserOptions: {
+    ...defaultParserOptions,
+    project: "./tsconfig.json",
+  },
 });
 
 ruleTester.run(RULE_NAME, rule, {
