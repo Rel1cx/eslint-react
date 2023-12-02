@@ -18,7 +18,7 @@ A set of ESLint rules to catch common mistakes and improve your React code.
 
 ### Bun
 
-- 1.0.11 or later
+- 1.0.15 or later
 
 ## Installation
 
