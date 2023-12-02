@@ -50,7 +50,6 @@
     ".husky": true,
     ".npmignore": true,
     ".eslintcache": true,
-    ".eslintignore": true,
     ".markdownlint.json": true
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
