@@ -833,8 +833,8 @@ importers:
         specifier: 9.0.0
         version: 9.0.0(eslint@8.55.0)
       eslint-config-with-tsconfig:
-        specifier: 2.9.100
-        version: 2.9.100(eslint@8.55.0)(tailwindcss@3.3.5)(typescript@5.3.2)
+        specifier: 2.9.110
+        version: 2.9.110(eslint@8.55.0)(tailwindcss@3.3.5)(typescript@5.3.2)
       eslint-define-config:
         specifier: 1.24.1
         version: 1.24.1
@@ -5013,11 +5013,6 @@ packages:
       xdg-basedir: 5.1.0
     dev: true
 
-  /consola@3.2.3:
-    resolution: {integrity: sha512-I5qxpzLv+sJhTVEoLYNcTW+bThDCPsit0vLNKShZx6rLtpilNpmmeTPaeqJb9ZE9dV3DGaeby6Vuhrw38WjeyQ==}
-    engines: {node: ^14.18.0 || >=16.10.0}
-    dev: true
-
   /convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
 
@@ -6002,62 +5997,6 @@ packages:
       eslint: 8.55.0
     dev: true
 
-  /eslint-config-rel1cx@0.12.100(@babel/core@7.23.5)(@babel/eslint-parser@7.23.3)(@babel/preset-react@7.23.3)(@typescript-eslint/eslint-plugin@6.13.1)(@typescript-eslint/parser@6.13.1)(eslint-plugin-perfectionist@1.5.1)(eslint-plugin-promise@6.1.1)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react-refresh@0.4.4)(eslint-plugin-regexp@2.1.1)(eslint-plugin-rxjs@5.0.3)(eslint-plugin-security@1.7.1)(eslint-plugin-simple-import-sort@10.0.0)(eslint-plugin-sonarjs@0.23.0)(eslint-plugin-tailwindcss@3.13.0)(eslint-plugin-unicorn@49.0.0)(eslint@8.55.0)(typescript@5.3.2):
-    resolution: {integrity: sha512-c8oqbGMsG7wPNRJUyPaIPx+Hx89vkUfbzXRd1ALqMB13GWTL6uPpetO1iDCaWEC8iuZv7LW05uH5+mSCTV25QA==}
-    engines: {bun: '>=1.0.7', node: '>=18.15.0'}
-    peerDependencies:
-      '@babel/core': '>=7.23.5'
-      '@babel/eslint-parser': '>=7.23.3'
-      '@babel/preset-react': '>=7.23.3'
-      '@typescript-eslint/eslint-plugin': 6.13.1
-      '@typescript-eslint/parser': 6.13.1
-      eslint: '>=8.55.0'
-      eslint-plugin-perfectionist: 1.5.1
-      eslint-plugin-promise: '>=6.1.1'
-      eslint-plugin-react-hooks: '>=4.6.0'
-      eslint-plugin-react-refresh: '>=0.4.4'
-      eslint-plugin-regexp: '>=1.15.0'
-      eslint-plugin-rxjs: '>=5.0.3'
-      eslint-plugin-security: '>=1.7.1'
-      eslint-plugin-simple-import-sort: '>=10.0.0'
-      eslint-plugin-sonarjs: '>=0.23.0'
-      eslint-plugin-tailwindcss: '>=3.13.0'
-      eslint-plugin-unicorn: '>=48.0.1'
-      typescript: '>=5.3.2'
-    dependencies:
-      '@babel/core': 7.23.5
-      '@babel/eslint-parser': 7.23.3(@babel/core@7.23.5)(eslint@8.55.0)
-      '@babel/preset-react': 7.23.3(@babel/core@7.23.5)
-      '@susisu/eslint-plugin-safe-typescript': 0.4.1(@typescript-eslint/parser@6.13.1)(eslint@8.55.0)(typescript@5.3.2)
-      '@typescript-eslint/eslint-plugin': 6.13.1(@typescript-eslint/parser@6.13.1)(eslint@8.55.0)(typescript@5.3.2)
-      '@typescript-eslint/parser': 6.13.1(eslint@8.55.0)(typescript@5.3.2)
-      eslint: 8.55.0
-      eslint-plugin-perfectionist: 1.5.1(eslint@8.55.0)(typescript@5.3.2)
-      eslint-plugin-promise: 6.1.1(eslint@8.55.0)
-      eslint-plugin-react-hooks: 4.6.0(eslint@8.55.0)
-      eslint-plugin-react-refresh: 0.4.4(eslint@8.55.0)
-      eslint-plugin-regexp: 2.1.1(eslint@8.55.0)
-      eslint-plugin-rxjs: 5.0.3(eslint@8.55.0)(typescript@5.3.2)
-      eslint-plugin-security: 1.7.1
-      eslint-plugin-simple-import-sort: 10.0.0(eslint@8.55.0)
-      eslint-plugin-sonarjs: 0.23.0(eslint@8.55.0)
-      eslint-plugin-tailwindcss: 3.13.0(tailwindcss@3.3.5)
-      eslint-plugin-unicorn: 49.0.0(eslint@8.55.0)
-      typescript: 5.3.2
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-    bundledDependencies:
-      - birecord
-      - confusing-browser-globals
-      - get-tsconfig
-      - local-pkg
-      - lodash.merge
-      - rambda
-      - read-package-up
-      - tiny-invariant
-      - ts-pattern
-
   /eslint-config-rel1cx@0.12.110(@babel/core@7.23.5)(@babel/eslint-parser@7.23.3)(@babel/preset-react@7.23.3)(@typescript-eslint/eslint-plugin@6.13.1)(@typescript-eslint/parser@6.13.1)(eslint-plugin-perfectionist@1.5.1)(eslint-plugin-promise@6.1.1)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react-refresh@0.4.5)(eslint-plugin-regexp@2.1.1)(eslint-plugin-rxjs@5.0.3)(eslint-plugin-security@1.7.1)(eslint-plugin-simple-import-sort@10.0.0)(eslint-plugin-sonarjs@0.23.0)(eslint-plugin-tailwindcss@3.13.0)(eslint-plugin-unicorn@49.0.0)(eslint@8.55.0)(typescript@5.3.2):
     resolution: {integrity: sha512-4H5NtBCQd76RXkGktsGoU3uPl0H6OrjjDqIaU9tNH6hZfVQwMRfPV9vGPz9o7bjACDbPeIq+ULsOSSElsuGMPQ==}
     engines: {bun: '>=1.0.7', node: '>=18.15.0'}
@@ -6113,43 +6052,6 @@ packages:
       - read-package-up
       - tiny-invariant
       - ts-pattern
-
-  /eslint-config-with-tsconfig@2.9.100(eslint@8.55.0)(tailwindcss@3.3.5)(typescript@5.3.2):
-    resolution: {integrity: sha512-hbIBnHAcDonlnrbEDKm6Czie2N17xS39DL8c2nEjg+du3GbkPF+ufuTM2ojZlTqh3M4PGzycfHwUmEvjBC9K5w==}
-    engines: {bun: '>=1.0.3', node: '>=18.16.0'}
-    peerDependencies:
-      eslint: '>=8.55.0'
-      typescript: '>=5.3.2'
-    dependencies:
-      '@babel/core': 7.23.5
-      '@babel/eslint-parser': 7.23.3(@babel/core@7.23.5)(eslint@8.55.0)
-      '@babel/preset-react': 7.23.3(@babel/core@7.23.5)
-      '@typescript-eslint/eslint-plugin': 6.13.1(@typescript-eslint/parser@6.13.1)(eslint@8.55.0)(typescript@5.3.2)
-      '@typescript-eslint/parser': 6.13.1(eslint@8.55.0)(typescript@5.3.2)
-      consola: 3.2.3
-      eslint: 8.55.0
-      eslint-config-rel1cx: 0.12.100(@babel/core@7.23.5)(@babel/eslint-parser@7.23.3)(@babel/preset-react@7.23.3)(@typescript-eslint/eslint-plugin@6.13.1)(@typescript-eslint/parser@6.13.1)(eslint-plugin-perfectionist@1.5.1)(eslint-plugin-promise@6.1.1)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react-refresh@0.4.4)(eslint-plugin-regexp@2.1.1)(eslint-plugin-rxjs@5.0.3)(eslint-plugin-security@1.7.1)(eslint-plugin-simple-import-sort@10.0.0)(eslint-plugin-sonarjs@0.23.0)(eslint-plugin-tailwindcss@3.13.0)(eslint-plugin-unicorn@49.0.0)(eslint@8.55.0)(typescript@5.3.2)
-      eslint-define-config: 1.24.1
-      eslint-plugin-expect-type: 0.2.3(eslint@8.55.0)(typescript@5.3.2)
-      eslint-plugin-import-access: 2.1.2(eslint@8.55.0)(typescript@5.3.2)
-      eslint-plugin-perfectionist: 1.5.1(eslint@8.55.0)(typescript@5.3.2)
-      eslint-plugin-promise: 6.1.1(eslint@8.55.0)
-      eslint-plugin-react-hooks: 4.6.0(eslint@8.55.0)
-      eslint-plugin-react-refresh: 0.4.4(eslint@8.55.0)
-      eslint-plugin-regexp: 2.1.1(eslint@8.55.0)
-      eslint-plugin-rxjs: 5.0.3(eslint@8.55.0)(typescript@5.3.2)
-      eslint-plugin-security: 1.7.1
-      eslint-plugin-simple-import-sort: 10.0.0(eslint@8.55.0)
-      eslint-plugin-sonarjs: 0.23.0(eslint@8.55.0)
-      eslint-plugin-tailwindcss: 3.13.0(tailwindcss@3.3.5)
-      eslint-plugin-total-functions: 7.1.0(eslint@8.55.0)(typescript@5.3.2)
-      eslint-plugin-unicorn: 49.0.0(eslint@8.55.0)
-      get-tsconfig: 4.7.2
-      typescript: 5.3.2
-    transitivePeerDependencies:
-      - supports-color
-      - tailwindcss
-    dev: true
 
   /eslint-config-with-tsconfig@2.9.110(eslint@8.55.0)(tailwindcss@3.3.5)(typescript@5.3.2):
     resolution: {integrity: sha512-iEhhmQ786iJtdiMQOUnFih2Cr8RB96UCJe36SMYf+zsmMbWycuP84YZR1CcghdJwMu2QU8EK0GttNF3kdOrDGQ==}
