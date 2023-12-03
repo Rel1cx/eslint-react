@@ -18,7 +18,7 @@ module.exports = defineConfig({
   ],
   overrides: [
     {
-      files: ["**/*.ts", "**/*.tsx"],
+      files: ["*.ts", "*.tsx"],
       parser: "@typescript-eslint/parser",
       parserOptions: {
         ecmaVersion: "latest",

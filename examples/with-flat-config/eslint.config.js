@@ -6,10 +6,14 @@ import reactHooks from "eslint-plugin-react-hooks";
 export default [
   // TypeScript rules
   {
-    files: ["**/*.{ts,tsx}"],
+    files: ["*.ts", "*.tsx"],
     ignores: ["**/*.d.ts"],
     languageOptions: {
       parser: tsParser,
+      parserOptions: {
+        ecmaVersion: "latest",
+        project: "./tsconfig.json",
+      },
       sourceType: "module",
     },
     plugins: {
