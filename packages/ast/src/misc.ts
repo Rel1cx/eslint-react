@@ -1,5 +1,5 @@
+import { M } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-import { isMatching } from "ts-pattern";
 
 import { NodeType } from "./node-type";
 
@@ -20,7 +20,7 @@ export function unsafeIsToStringCall(node: TSESTree.Node): node is
       & { property: TSESTree.Identifier & { name: "toString" } };
   }
 {
-  return isMatching({
+  return M.isMatching({
     type: NodeType.CallExpression,
     callee: {
       type: NodeType.MemberExpression,
@@ -38,7 +38,7 @@ export function unsafeIsStringCall(node: TSESTree.Node): node is
     callee: TSESTree.Identifier & { name: "String" };
   }
 {
-  return isMatching({
+  return M.isMatching({
     type: NodeType.CallExpression,
     callee: {
       type: NodeType.Identifier,
@@ -53,7 +53,7 @@ export function unsafeIsStringCall(node: TSESTree.Node): node is
  * @returns `true` if node is directly inside `Array.from` call, `false` if not
  */
 export function unsafeIsArrayFromCall(node: TSESTree.Node | null): node is TSESTree.CallExpression {
-  return isMatching({
+  return M.isMatching({
     type: NodeType.CallExpression,
     callee: {
       type: NodeType.MemberExpression,
@@ -73,7 +73,7 @@ export function unsafeIsArrayFromCall(node: TSESTree.Node | null): node is TSEST
  * @returns `true` if node is directly inside `map` call, `false` if not
  */
 export function unsafeIsMapCall(node: TSESTree.Node | null): node is TSESTree.CallExpression {
-  return isMatching({
+  return M.isMatching({
     callee: {
       type: NodeType.MemberExpression,
       property: {

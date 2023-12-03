@@ -1,15 +1,14 @@
 import { NodeType } from "@eslint-react/ast";
 import { isCallFromPragma, isInitializedFromPragma } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/shared";
-import { F } from "@eslint-react/tools";
+import { F, M } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-import { match } from "ts-pattern";
 
 import { isValidReactHookName } from "./hook-name";
 
 export function isReactHookCallWithName(name: string) {
   return (node: TSESTree.CallExpression, context: RuleContext, pragma: string) => {
-    return match(node.callee)
+    return M.match(node.callee)
       .with({ type: NodeType.Identifier, name }, n => isInitializedFromPragma(n.name, context, pragma))
       .with({ type: NodeType.MemberExpression, object: { name: pragma }, property: { name } }, F.constTrue)
       .otherwise(F.constFalse);

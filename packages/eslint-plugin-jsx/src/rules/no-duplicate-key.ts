@@ -8,12 +8,11 @@ import {
   unsafeIsMapCall,
 } from "@eslint-react/ast";
 import { findPropInAttributes, getPragmaFromContext } from "@eslint-react/jsx";
-import { F, MutRef, O } from "@eslint-react/tools";
+import { F, M, MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { ConstantCase } from "string-ts";
-import { isMatching, match } from "ts-pattern";
 
 import { createRule, getChildrenToArraySelector } from "../utils";
 
@@ -64,7 +63,7 @@ export default createRule<[], MessageID>({
     }
 
     function checkExpression(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
-      return match(node)
+      return M.match(node)
         .with({ type: NodeType.JSXElement }, checkIteratorElement)
         .with({ type: NodeType.JSXFragment }, checkIteratorElement)
         .with({ type: NodeType.ConditionalExpression }, (n) => {
@@ -111,7 +110,7 @@ export default createRule<[], MessageID>({
           return;
         }
 
-        const elements = match(node)
+        const elements = M.match(node)
           .with({ type: NodeType.ArrayExpression }, ({ elements }) => elements)
           .with({ type: NodeType.JSXElement }, ({ parent }) => "children" in parent ? parent.children : [])
           .otherwise(() => [])
@@ -124,7 +123,7 @@ export default createRule<[], MessageID>({
                         const attr = element
                             .openingElement
                             .attributes
-                            .findLast(isMatching({ type: NodeType.JSXAttribute, name: { name: "key" } }));
+                            .findLast(M.isMatching({ type: NodeType.JSXAttribute, name: { name: "key" } }));
 
                         if (!attr || !("value" in attr) || attr.value === null) {
                             return acc;

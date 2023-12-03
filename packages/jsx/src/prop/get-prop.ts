@@ -1,8 +1,7 @@
 import { findVariableByNameUpToGlobal, getStaticValue, getVariableInit, is, NodeType } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
-import { F, O } from "@eslint-react/tools";
+import { F, M, O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import { match } from "ts-pattern";
 
 /**
  * Get the name of a JSX attribute with namespace
@@ -10,7 +9,7 @@ import { match } from "ts-pattern";
  * @returns string
  */
 export function getPropName(node: TSESTree.JSXAttribute) {
-  return match(node.name)
+  return M.match(node.name)
     .when(is(NodeType.JSXIdentifier), (n) => n.name)
     .when(is(NodeType.JSXNamespacedName), (n) => `${n.namespace.name}:${n.name.name}`)
     .exhaustive();
@@ -75,12 +74,12 @@ export function findPropInProperties(
   return (propName: string): O.Option<(typeof properties)[number]> => {
     return O.fromNullable(
       properties.find((prop) => {
-        return match(prop)
+        return M.match(prop)
           .when(is(NodeType.Property), (prop) => {
             return "name" in prop.key && prop.key.name === propName;
           })
           .when(is(NodeType.SpreadElement), (prop) => {
-            return match(prop.argument)
+            return M.match(prop.argument)
               .when(is(NodeType.Identifier), (argument) => {
                 const { name } = argument;
                 const maybeInit = O.flatMap(
@@ -142,10 +141,10 @@ export function findPropInAttributes(
   return (propName: string) => {
     return O.fromNullable(
       attributes.find((attr) => {
-        return match(attr)
+        return M.match(attr)
           .when(is(NodeType.JSXAttribute), (attr) => getPropName(attr) === propName)
           .when(is(NodeType.JSXSpreadAttribute), (attr) => {
-            return match<typeof attr.argument, boolean>(attr.argument)
+            return M.match<typeof attr.argument, boolean>(attr.argument)
               .with({ type: NodeType.Identifier }, (argument) => {
                 const { name } = argument;
                 const maybeInit = O.flatMap(

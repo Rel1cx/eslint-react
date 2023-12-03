@@ -1,11 +1,10 @@
 import { getFunctionIdentifier, isFunction, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { componentCollector, isValidComponentName } from "@eslint-react/core";
-import { E, O } from "@eslint-react/tools";
+import { E, M, MutRef, O } from "@eslint-react/tools";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
-import { isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -66,20 +65,24 @@ export default createRule<[], MessageID>({
             && components.some((component) => component.node === block);
         }
 
-        // eslint-disable-next-line prefer-const
-        for (let [scope, memberExpression] of memberExpressionWithNames) {
-          let isComponent = isFunctionComponent(scope.block);
+        for (const [scope, memberExpression] of memberExpressionWithNames) {
+          const scopeRef = MutRef.make(scope);
+          const isComponentRef = MutRef.make(isFunctionComponent(scope.block));
 
-          while (!isComponent && scope.upper && scope.upper !== scope) {
-            isComponent = isFunctionComponent(scope.upper.block);
-            scope = scope.upper;
+          while (
+            !MutRef.get(isComponentRef)
+            && MutRef.get(scopeRef).upper
+            && MutRef.get(scopeRef).upper !== MutRef.get(scopeRef)
+          ) {
+            MutRef.set(scopeRef, MutRef.get(scopeRef).upper);
+            MutRef.set(isComponentRef, isFunctionComponent(MutRef.get(scopeRef).block));
           }
 
-          if (!isComponent) {
+          if (!MutRef.get(isComponentRef)) {
             continue;
           }
 
-          const component = scope.block;
+          const component = MutRef.get(scopeRef).block;
 
           if (!("params" in component)) {
             continue;
@@ -87,7 +90,7 @@ export default createRule<[], MessageID>({
 
           const [props, ctx] = component.params;
 
-          const isMatch = isMatching({ name: memberExpression.object.name });
+          const isMatch = M.isMatching({ name: memberExpression.object.name });
 
           if (isMatch(props)) {
             context.report({

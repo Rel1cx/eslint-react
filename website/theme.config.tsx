@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useRouter } from "next/router";
 import type { DocsThemeConfig } from "nextra-theme-docs";
-import { match, P } from "ts-pattern";
+import * as M from "ts-pattern";
 
 import logo from "#/assets/logo.svg";
 import { Image } from "#/components/image";
@@ -13,12 +13,12 @@ export default {
     defaultMenuCollapseLevel: 1,
   },
   useNextSeoProps() {
-    return match(useRouter())
+    return M.match(useRouter())
       .with({ asPath: "/" }, () => ({
         title: "ESLint x React",
         description: "ESLint x React - A set of ESLint rules to catch common mistakes and improve your React code.",
       }))
-      .with({ asPath: P.string.startsWith("/rules/") }, () => ({
+      .with({ asPath: M.P.string.startsWith("/rules/") }, () => ({
         titleTemplate: "Rule: %s",
       }))
       .otherwise(() => ({

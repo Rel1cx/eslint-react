@@ -1,11 +1,10 @@
 import { findVariableByNameUpToGlobal, getVariableInitExpression, isJSX, NodeType } from "@eslint-react/ast";
-import { F, O } from "@eslint-react/tools";
+import { F, M, O } from "@eslint-react/tools";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { type TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 import * as tsutils from "ts-api-utils";
-import { match } from "ts-pattern";
 import ts from "typescript";
 
 import { createRule } from "../utils";
@@ -67,7 +66,7 @@ function inspectVariantTypes(types: ts.Type[]) {
     case booleans.length === 1 && !!booleans[0]: {
       const [first] = booleans;
       F.pipe(
-        match<typeof first, O.Option<VariantType>>(first)
+        M.match<typeof first, O.Option<VariantType>>(first)
           .when(tsutils.isTrueLiteralType, () => O.some("truthy boolean"))
           .when(tsutils.isFalseLiteralType, () => O.some("falsy boolean"))
           .otherwise(O.none),
@@ -87,7 +86,7 @@ function inspectVariantTypes(types: ts.Type[]) {
   const strings = types.filter(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.StringLike));
 
   if (strings.length > 0) {
-    const evaluated = match<ts.Type[], VariantType>(strings)
+    const evaluated = M.match<ts.Type[], VariantType>(strings)
       .when(
         types => types.every(type => type.isStringLiteral() && type.value !== ""),
         F.constant("truthy string"),
@@ -109,7 +108,7 @@ function inspectVariantTypes(types: ts.Type[]) {
   );
 
   if (numbers.length > 0) {
-    const evaluated = match<ts.Type[], VariantType>(numbers)
+    const evaluated = M.match<ts.Type[], VariantType>(numbers)
       .when(
         types => types.every(type => type.isNumberLiteral() && type.value !== 0),
         F.constant("truthy number"),
@@ -200,7 +199,7 @@ export default createRule<[], MessageID>({
     }
 
     function isValidExpression(node: TSESTree.Expression): boolean {
-      return match(node)
+      return M.match(node)
         .when(isJSX, F.constTrue)
         .with({ type: NodeType.LogicalExpression, operator: "&&" }, isValidLogicalExpression)
         .with({ type: NodeType.LogicalExpression, operator: "||" }, ({ left, right }) => {

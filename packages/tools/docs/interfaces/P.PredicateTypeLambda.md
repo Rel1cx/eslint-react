@@ -1,8 +1,8 @@
-[@eslint-react/tools](../README.md) / [Pred](../modules/Pred.md) / PredicateTypeLambda
+[@eslint-react/tools](../README.md) / [P](../modules/P.md) / PredicateTypeLambda
 
 # Interface: PredicateTypeLambda
 
-[Pred](../modules/Pred.md).PredicateTypeLambda
+[P](../modules/P.md).PredicateTypeLambda
 
 **`Since`**
 
@@ -18,11 +18,11 @@
 
 ### Properties
 
-- [In](Pred.PredicateTypeLambda.md#in)
-- [Out1](Pred.PredicateTypeLambda.md#out1)
-- [Out2](Pred.PredicateTypeLambda.md#out2)
-- [Target](Pred.PredicateTypeLambda.md#target)
-- [type](Pred.PredicateTypeLambda.md#type)
+- [In](P.PredicateTypeLambda.md#in)
+- [Out1](P.PredicateTypeLambda.md#out1)
+- [Out2](P.PredicateTypeLambda.md#out2)
+- [Target](P.PredicateTypeLambda.md#target)
+- [type](P.PredicateTypeLambda.md#type)
 
 ## Properties
 
@@ -68,4 +68,4 @@ TypeLambda.Target
 
 ### type
 
-• `Readonly` **type**: [`Predicate`](Pred.Predicate.md)\<`unknown`\>
+• `Readonly` **type**: [`Predicate`](P.Predicate.md)\<`unknown`\>

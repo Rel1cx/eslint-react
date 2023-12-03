@@ -7,11 +7,10 @@ import {
   unsafeIsMapCall,
 } from "@eslint-react/ast";
 import { getFragmentFromContext, getPragmaFromContext, hasProp } from "@eslint-react/jsx";
-import { MutRef, O } from "@eslint-react/tools";
+import { M, MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { match } from "ts-pattern";
 
 import { createRule, getChildrenToArraySelector } from "../utils";
 
@@ -63,7 +62,7 @@ export default createRule<[], MessageID>({
     }
 
     function checkExpression(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
-      return match(node)
+      return M.match(node)
         .with({ type: NodeType.JSXElement }, checkIteratorElement)
         .with({ type: NodeType.JSXFragment }, checkIteratorElement)
         .with({ type: NodeType.ConditionalExpression }, (n) => {

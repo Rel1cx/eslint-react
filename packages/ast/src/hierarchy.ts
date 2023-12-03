@@ -1,5 +1,5 @@
+import { M } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-import { isMatching, P } from "ts-pattern";
 
 import { NodeType } from "./node-type";
 
@@ -8,8 +8,8 @@ import { NodeType } from "./node-type";
  * @param node The node to check.
  * @returns `true` if the node is a function expression or arrow function expression of a object method, `false` otherwise.
  */
-export const isFunctionOfObjectMethod: (node: TSESTree.Node) => boolean = isMatching({
-  type: P.union([NodeType.FunctionExpression, NodeType.ArrowFunctionExpression]),
+export const isFunctionOfObjectMethod: (node: TSESTree.Node) => boolean = M.isMatching({
+  type: M.P.union([NodeType.FunctionExpression, NodeType.ArrowFunctionExpression]),
   parent: {
     type: NodeType.Property,
     parent: {
@@ -23,8 +23,8 @@ export const isFunctionOfObjectMethod: (node: TSESTree.Node) => boolean = isMatc
  * @param node The node to check.
  * @returns `true` if the node is a function expression or arrow function expression of a class method, `false` otherwise.
  */
-export const isFunctionOfClassMethod: (node: TSESTree.Node) => boolean = isMatching({
-  type: P.union([NodeType.FunctionExpression, NodeType.ArrowFunctionExpression]),
+export const isFunctionOfClassMethod: (node: TSESTree.Node) => boolean = M.isMatching({
+  type: M.P.union([NodeType.FunctionExpression, NodeType.ArrowFunctionExpression]),
   parent: {
     type: NodeType.MethodDefinition,
     parent: {
@@ -38,8 +38,8 @@ export const isFunctionOfClassMethod: (node: TSESTree.Node) => boolean = isMatch
  * @param node The node to check.
  * @returns `true` if the node is a function expression or arrow function expression of a class property, `false` otherwise.
  */
-export const isFunctionOfClassProperty: (node: TSESTree.Node) => boolean = isMatching({
-  type: P.union([NodeType.FunctionExpression, NodeType.ArrowFunctionExpression]),
+export const isFunctionOfClassProperty: (node: TSESTree.Node) => boolean = M.isMatching({
+  type: M.P.union([NodeType.FunctionExpression, NodeType.ArrowFunctionExpression]),
   parent: {
     type: NodeType.Property,
     parent: {

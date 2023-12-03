@@ -1,10 +1,9 @@
 import { findVariableByNameUpToGlobal, getVariableInit, is, isOneOf, NodeType } from "@eslint-react/ast";
 import { findPropInProperties, hasChildren, hasProp, isCreateElementCall, isLineBreak } from "@eslint-react/jsx";
-import { F, O, Pred } from "@eslint-react/tools";
+import { F, M, O, P } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
-import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -16,7 +15,7 @@ function firstChildIsText(node: TSESTree.JSXElement) {
   const [firstChild] = node.children;
 
   return node.children.length > 0
-    && !Pred.isNullable(firstChild)
+    && !P.isNullable(firstChild)
     && !isLineBreak(firstChild);
 }
 
@@ -42,7 +41,7 @@ export default createRule<[], MessageID>({
           return;
         }
         const props = node.arguments[1];
-        const maybeProperties = match(props)
+        const maybeProperties = M.match(props)
           .when(isOneOf([NodeType.ObjectExpression, NodeType.ObjectPattern]), (n) => {
             return "properties" in n ? O.some(n.properties) : O.none();
           })

@@ -8,10 +8,9 @@ import {
 } from "@eslint-react/ast";
 import { getPragmaFromContext, isChildrenOfCreateElement, isJSXValue } from "@eslint-react/jsx";
 import { type RuleContext, uid } from "@eslint-react/shared";
-import { E, MutList, MutRef, O } from "@eslint-react/tools";
+import { E, M, MutList, MutRef, O } from "@eslint-react/tools";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { match } from "ts-pattern";
 
 import { DEFAULT_COMPONENT_COLLECTOR_HINT, ExRComponentCollectorHint } from "./component-collector-hint";
 import { ExRFunctionComponentFlag } from "./component-flag";
@@ -42,17 +41,17 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
 }
 
 function getComponentFlag(initPath: ExRFunctionComponent["initPath"], pragma: string) {
-  const flag = MutRef.make(ExRFunctionComponentFlag.None);
+  const flagRef = MutRef.make(ExRFunctionComponentFlag.None);
 
   if (hasCallInInitPath("memo")(initPath) || hasCallInInitPath(`${pragma}.memo`)(initPath)) {
-    MutRef.update(flag, f => f | ExRFunctionComponentFlag.Memo);
+    MutRef.update(flagRef, f => f | ExRFunctionComponentFlag.Memo);
   }
 
   if (hasCallInInitPath("forwardRef")(initPath) || hasCallInInitPath(`${pragma}.forwardRef`)(initPath)) {
-    MutRef.update(flag, f => f | ExRFunctionComponentFlag.ForwardRef);
+    MutRef.update(flagRef, f => f | ExRFunctionComponentFlag.ForwardRef);
   }
 
-  return MutRef.get(flag);
+  return MutRef.get(flagRef);
 }
 
 export function componentCollector(
@@ -171,7 +170,7 @@ export function componentCollector(
         return;
       }
 
-      const maybeComponentName = match(left.object)
+      const maybeComponentName = M.match(left.object)
         .with({ type: NodeType.Identifier }, n => O.some(n.name))
         .otherwise(O.none);
 

@@ -1,8 +1,7 @@
 import { findVariableByName, getVariablesUpToGlobal, NodeType } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
-import { O } from "@eslint-react/tools";
+import { M, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-import { isMatching, match } from "ts-pattern";
 
 import { getPragmaFromContext } from "./get-pragma";
 
@@ -26,17 +25,17 @@ export function isInitializedFromPragma(
     const { init } = node;
 
     // check for: `variable = pragma.variable`
-    if (isMatching({ type: "MemberExpression", object: { type: "Identifier", name: pragma } }, init)) {
+    if (M.isMatching({ type: "MemberExpression", object: { type: "Identifier", name: pragma } }, init)) {
       return true;
     }
 
     // check for: `{ variable } = pragma`
-    if (isMatching({ type: "Identifier", name: pragma }, init)) {
+    if (M.isMatching({ type: "Identifier", name: pragma }, init)) {
       return true;
     }
 
     // check if from a require call: `require("react")`
-    const maybeRequireExpression = match(init)
+    const maybeRequireExpression = M.match(init)
       .with({
         type: NodeType.CallExpression,
         callee: { type: NodeType.Identifier, name: "require" },
@@ -65,11 +64,11 @@ export function isInitializedFromPragma(
   }
 
   // latest definition is an import declaration: import { variable } from 'react'
-  return isMatching({ type: "ImportDeclaration", source: { value: pragma.toLowerCase() } }, parent);
+  return M.isMatching({ type: "ImportDeclaration", source: { value: pragma.toLowerCase() } }, parent);
 }
 
 export function isPropertyOfPragma(name: string, context: RuleContext, pragma = getPragmaFromContext(context)) {
-  const isMatch: (node: TSESTree.Node) => boolean = isMatching({
+  const isMatch: (node: TSESTree.Node) => boolean = M.isMatching({
     type: NodeType.MemberExpression,
     object: {
       type: NodeType.Identifier,

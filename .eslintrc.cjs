@@ -51,6 +51,10 @@ module.exports = defineConfig({
         "no-restricted-syntax": [
           "error",
           {
+            selector: "VariableDeclaration[kind=let]",
+            message: "no let",
+          },
+          {
             selector: "IfStatement[alternate]",
             message: "no else",
           },

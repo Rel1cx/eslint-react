@@ -1,10 +1,9 @@
 import { NodeType, type TSESTreeClass, type TSESTreeFunction } from "@eslint-react/ast";
 import { getPragmaFromContext } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/shared";
-import type { O } from "@eslint-react/tools";
+import { M, type O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type TSESTree } from "@typescript-eslint/utils";
-import { match, P } from "ts-pattern";
 
 import type { ExRComponentCollectorHint } from "./component-collector-hint";
 import type { ExRClassComponentFlag, ExRFunctionComponentFlag } from "./component-flag";
@@ -48,13 +47,13 @@ export function isClassComponent(node: TSESTree.Node, context: RuleContext): nod
   const pragma = getPragmaFromContext(context);
   const { superClass } = node;
 
-  return match(superClass)
-    .with({ type: NodeType.Identifier, name: P.string }, ({ name }) => /^(Pure)?Component$/u.test(name))
+  return M.match(superClass)
+    .with({ type: NodeType.Identifier, name: M.P.string }, ({ name }) => /^(Pure)?Component$/u.test(name))
     .with(
       {
         type: NodeType.MemberExpression,
         object: { name: pragma },
-        property: { name: P.string },
+        property: { name: M.P.string },
       },
       ({ property }) => /^(Pure)?Component$/u.test(property.name),
     )

@@ -1,5 +1,5 @@
 import type { RuleContext } from "@eslint-react/shared";
-import { F, O, Pred } from "@eslint-react/tools";
+import { F, O, P } from "@eslint-react/tools";
 import type { ReactSettings } from "@eslint-react/types";
 import memo from "micro-memoize";
 
@@ -13,7 +13,7 @@ export function getFragmentFromContext<T extends RuleContext>(context: T) {
 
   const fragment = settings.react?.fragment;
 
-  if (Pred.isString(fragment) && RE_JS_IDENTIFIER_REGEX.test(fragment)) {
+  if (P.isString(fragment) && RE_JS_IDENTIFIER_REGEX.test(fragment)) {
     return fragment;
   }
 

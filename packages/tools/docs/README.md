@@ -13,11 +13,12 @@
 - [Equal](modules/Equal.md)
 - [F](modules/F.md)
 - [List](modules/List.md)
+- [M](modules/M.md)
 - [MutList](modules/MutList.md)
 - [MutRef](modules/MutRef.md)
 - [O](modules/O.md)
 - [Ord](modules/Ord.md)
-- [Pred](modules/Pred.md)
+- [P](modules/P.md)
 - [Record](modules/Record.md)
 - [Ref](modules/Ref.md)
 

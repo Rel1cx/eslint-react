@@ -1,6 +1,6 @@
 import { NodeType } from "@eslint-react/ast";
 import { findPropInAttributes, getPropValue } from "@eslint-react/jsx";
-import { F, O, Pred } from "@eslint-react/tools";
+import { F, O, P } from "@eslint-react/tools";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 
@@ -57,7 +57,7 @@ export default createRule<[], MessageID>({
           return F.pipe(
             getPropValue(attr, context),
             O.flatMapNullable(v => v?.value),
-            O.filter(Pred.isString),
+            O.filter(P.isString),
             O.exists(isExternalLinkLike),
           );
         });
@@ -70,7 +70,7 @@ export default createRule<[], MessageID>({
           findPropInAttributes(attributes, context)("rel"),
           O.flatMap(attr => getPropValue(attr, context)),
           O.flatMapNullable(v => v?.value),
-          O.filter(Pred.isString),
+          O.filter(P.isString),
           O.exists(isSafeRel),
         );
 

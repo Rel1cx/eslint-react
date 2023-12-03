@@ -11,15 +11,15 @@ import { isClassComponent } from "./component-kind";
  * @deprecated It will be removed in the future
  */
 export function getParentClassComponent(context: RuleContext): O.Option<TSESTreeClass> {
-  const scope = MutRef.make<O.Option<Scope>>(O.fromNullable(context.getScope()));
+  const scopeRef = MutRef.make<O.Option<Scope>>(O.fromNullable(context.getScope()));
 
   // eslint-disable-next-line functional/no-loop-statements
-  while (F.pipe(MutRef.get(scope), O.exists(({ type }) => type !== ScopeType.class))) {
-    MutRef.update(scope, O.flatMapNullable(s => s.upper));
+  while (F.pipe(MutRef.get(scopeRef), O.exists(({ type }) => type !== ScopeType.class))) {
+    MutRef.update(scopeRef, O.flatMapNullable(s => s.upper));
   }
 
   return F.pipe(
-    MutRef.get(scope),
+    MutRef.get(scopeRef),
     O.flatMapNullable(s => s.block),
     O.filter(isClass),
     O.filter(node => isClassComponent(node, context)),

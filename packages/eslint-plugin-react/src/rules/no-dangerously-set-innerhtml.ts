@@ -1,9 +1,8 @@
 import { findVariableByNameUpToGlobal, getVariableInit, is, isOneOf, NodeType } from "@eslint-react/ast";
 import { findPropInAttributes, findPropInProperties, isCreateElementCall } from "@eslint-react/jsx";
-import { F, O } from "@eslint-react/tools";
+import { F, M, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
-import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -34,7 +33,7 @@ export default createRule<[], MessageID>({
         }
 
         const props = node.arguments[1];
-        const maybeProperties = match(props)
+        const maybeProperties = M.match(props)
           .when(isOneOf([NodeType.ObjectExpression, NodeType.ObjectPattern]), (n) => {
             return "properties" in n ? O.some(n.properties) : O.none();
           })

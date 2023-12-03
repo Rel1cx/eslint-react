@@ -1,6 +1,6 @@
 import { NodeType } from "@eslint-react/ast";
 import { getParentClassComponent } from "@eslint-react/core";
-import { O, Pred } from "@eslint-react/tools";
+import { O, P } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
@@ -12,7 +12,7 @@ export const RULE_NAME = "no-string-refs";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 function containsStringLiteral({ value }: TSESTree.JSXAttribute) {
-  return value?.type === NodeType.Literal && Pred.isString(value.value);
+  return value?.type === NodeType.Literal && P.isString(value.value);
 }
 
 function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
@@ -21,7 +21,7 @@ function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
   }
 
   if (value.expression.type === NodeType.Literal) {
-    return Pred.isString(value.expression.value);
+    return P.isString(value.expression.value);
   }
 
   return value.expression.type === NodeType.TemplateLiteral;

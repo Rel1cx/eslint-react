@@ -571,10 +571,10 @@ If the predicate fails, set the left value with the result of the provided funct
 
 #### Parameters
 
-| Name         | Type                                                         |
-| :----------- | :----------------------------------------------------------- |
-| `filter`     | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> |
-| `orLeftWith` | (`a`: `X`) => `E2`                                           |
+| Name         | Type                                                      |
+| :----------- | :-------------------------------------------------------- |
+| `filter`     | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| `orLeftWith` | (`a`: `X`) => `E2`                                        |
 
 #### Returns
 
@@ -642,10 +642,10 @@ If the predicate fails, set the left value with the result of the provided funct
 
 #### Parameters
 
-| Name         | Type                                                  |
-| :----------- | :---------------------------------------------------- |
-| `filter`     | [`Predicate`](../interfaces/Pred.Predicate.md)\<`X`\> |
-| `orLeftWith` | (`a`: `Y`) => `E2`                                    |
+| Name         | Type                                               |
+| :----------- | :------------------------------------------------- |
+| `filter`     | [`Predicate`](../interfaces/P.Predicate.md)\<`X`\> |
+| `orLeftWith` | (`a`: `Y`) => `E2`                                 |
 
 #### Returns
 
@@ -714,11 +714,11 @@ If the predicate fails, set the left value with the result of the provided funct
 
 #### Parameters
 
-| Name         | Type                                                         |
-| :----------- | :----------------------------------------------------------- |
-| `self`       | [`Either`](E.md#either)\<`E`, `A`\>                          |
-| `filter`     | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> |
-| `orLeftWith` | (`a`: `X`) => `E2`                                           |
+| Name         | Type                                                      |
+| :----------- | :-------------------------------------------------------- |
+| `self`       | [`Either`](E.md#either)\<`E`, `A`\>                       |
+| `filter`     | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| `orLeftWith` | (`a`: `X`) => `E2`                                        |
 
 #### Returns
 
@@ -769,11 +769,11 @@ If the predicate fails, set the left value with the result of the provided funct
 
 #### Parameters
 
-| Name         | Type                                                  |
-| :----------- | :---------------------------------------------------- |
-| `self`       | [`Either`](E.md#either)\<`E`, `A`\>                   |
-| `filter`     | [`Predicate`](../interfaces/Pred.Predicate.md)\<`X`\> |
-| `orLeftWith` | (`a`: `Y`) => `E2`                                    |
+| Name         | Type                                               |
+| :----------- | :------------------------------------------------- |
+| `self`       | [`Either`](E.md#either)\<`E`, `A`\>                |
+| `filter`     | [`Predicate`](../interfaces/P.Predicate.md)\<`X`\> |
+| `orLeftWith` | (`a`: `Y`) => `E2`                                 |
 
 #### Returns
 

@@ -1,64 +1,64 @@
-[@eslint-react/tools](../README.md) / Pred
+[@eslint-react/tools](../README.md) / P
 
-# Namespace: Pred
+# Namespace: P
 
 ## Table of contents
 
 ### Interfaces
 
-- [Predicate](../interfaces/Pred.Predicate.md)
-- [PredicateTypeLambda](../interfaces/Pred.PredicateTypeLambda.md)
-- [Refinement](../interfaces/Pred.Refinement.md)
+- [Predicate](../interfaces/P.Predicate.md)
+- [PredicateTypeLambda](../interfaces/P.PredicateTypeLambda.md)
+- [Refinement](../interfaces/P.Refinement.md)
 
 ### Functions
 
-- [all](Pred.md#all)
-- [and](Pred.md#and)
-- [compose](Pred.md#compose)
-- [eqv](Pred.md#eqv)
-- [every](Pred.md#every)
-- [hasProperty](Pred.md#hasproperty)
-- [implies](Pred.md#implies)
-- [isBigInt](Pred.md#isbigint)
-- [isBoolean](Pred.md#isboolean)
-- [isDate](Pred.md#isdate)
-- [isError](Pred.md#iserror)
-- [isFunction](Pred.md#isfunction)
-- [isIterable](Pred.md#isiterable)
-- [isNever](Pred.md#isnever)
-- [isNotNull](Pred.md#isnotnull)
-- [isNotNullable](Pred.md#isnotnullable)
-- [isNotUndefined](Pred.md#isnotundefined)
-- [isNull](Pred.md#isnull)
-- [isNullable](Pred.md#isnullable)
-- [isNumber](Pred.md#isnumber)
-- [isObject](Pred.md#isobject)
-- [isPromise](Pred.md#ispromise)
-- [isReadonlyRecord](Pred.md#isreadonlyrecord)
-- [isRecord](Pred.md#isrecord)
-- [isString](Pred.md#isstring)
-- [isSymbol](Pred.md#issymbol)
-- [isTagged](Pred.md#istagged)
-- [isUint8Array](Pred.md#isuint8array)
-- [isUndefined](Pred.md#isundefined)
-- [isUnknown](Pred.md#isunknown)
-- [mapInput](Pred.md#mapinput)
-- [nand](Pred.md#nand)
-- [nor](Pred.md#nor)
-- [not](Pred.md#not)
-- [or](Pred.md#or)
-- [product](Pred.md#product)
-- [productMany](Pred.md#productmany)
-- [some](Pred.md#some)
-- [struct](Pred.md#struct)
-- [tuple](Pred.md#tuple)
-- [xor](Pred.md#xor)
+- [all](P.md#all)
+- [and](P.md#and)
+- [compose](P.md#compose)
+- [eqv](P.md#eqv)
+- [every](P.md#every)
+- [hasProperty](P.md#hasproperty)
+- [implies](P.md#implies)
+- [isBigInt](P.md#isbigint)
+- [isBoolean](P.md#isboolean)
+- [isDate](P.md#isdate)
+- [isError](P.md#iserror)
+- [isFunction](P.md#isfunction)
+- [isIterable](P.md#isiterable)
+- [isNever](P.md#isnever)
+- [isNotNull](P.md#isnotnull)
+- [isNotNullable](P.md#isnotnullable)
+- [isNotUndefined](P.md#isnotundefined)
+- [isNull](P.md#isnull)
+- [isNullable](P.md#isnullable)
+- [isNumber](P.md#isnumber)
+- [isObject](P.md#isobject)
+- [isPromise](P.md#ispromise)
+- [isReadonlyRecord](P.md#isreadonlyrecord)
+- [isRecord](P.md#isrecord)
+- [isString](P.md#isstring)
+- [isSymbol](P.md#issymbol)
+- [isTagged](P.md#istagged)
+- [isUint8Array](P.md#isuint8array)
+- [isUndefined](P.md#isundefined)
+- [isUnknown](P.md#isunknown)
+- [mapInput](P.md#mapinput)
+- [nand](P.md#nand)
+- [nor](P.md#nor)
+- [not](P.md#not)
+- [or](P.md#or)
+- [product](P.md#product)
+- [productMany](P.md#productmany)
+- [some](P.md#some)
+- [struct](P.md#struct)
+- [tuple](P.md#tuple)
+- [xor](P.md#xor)
 
 ## Other
 
 ### compose
 
-▸ **compose**\<`A`, `B`, `C`\>(`bc`): (`ab`: [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\>) => [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `C`\>
+▸ **compose**\<`A`, `B`, `C`\>(`bc`): (`ab`: [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\>) => [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `C`\>
 
 #### Type parameters
 
@@ -70,31 +70,31 @@
 
 #### Parameters
 
-| Name | Type                                                         |
-| :--- | :----------------------------------------------------------- |
-| `bc` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`B`, `C`\> |
+| Name | Type                                                      |
+| :--- | :-------------------------------------------------------- |
+| `bc` | [`Refinement`](../interfaces/P.Refinement.md)\<`B`, `C`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`ab`): [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `C`\>
+▸ (`ab`): [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `C`\>
 
 ##### Parameters
 
-| Name | Type                                                         |
-| :--- | :----------------------------------------------------------- |
-| `ab` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> |
+| Name | Type                                                      |
+| :--- | :-------------------------------------------------------- |
+| `ab` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
 
 ##### Returns
 
-[`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `C`\>
+[`Refinement`](../interfaces/P.Refinement.md)\<`A`, `C`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **compose**\<`A`, `B`, `C`\>(`ab`, `bc`): [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `C`\>
+▸ **compose**\<`A`, `B`, `C`\>(`ab`, `bc`): [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `C`\>
 
 #### Type parameters
 
@@ -106,14 +106,14 @@
 
 #### Parameters
 
-| Name | Type                                                         |
-| :--- | :----------------------------------------------------------- |
-| `ab` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> |
-| `bc` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`B`, `C`\> |
+| Name | Type                                                      |
+| :--- | :-------------------------------------------------------- |
+| `ab` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| `bc` | [`Refinement`](../interfaces/P.Refinement.md)\<`B`, `C`\> |
 
 #### Returns
 
-[`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `C`\>
+[`Refinement`](../interfaces/P.Refinement.md)\<`A`, `C`\>
 
 **`Since`**
 
@@ -123,13 +123,13 @@
 
 ### struct
 
-▸ **struct**\<`R`\>(`fields`): [`Predicate`](../interfaces/Pred.Predicate.md)\<\{ readonly [K in string \| number \| symbol]: [R[K]] extends [Predicate\<A\>] ? A : never }\>
+▸ **struct**\<`R`\>(`fields`): [`Predicate`](../interfaces/P.Predicate.md)\<\{ readonly [K in string \| number \| symbol]: [R[K]] extends [Predicate\<A\>] ? A : never }\>
 
 #### Type parameters
 
-| Name | Type                                                                                  |
-| :--- | :------------------------------------------------------------------------------------ |
-| `R`  | extends `Record`\<`string`, [`Predicate`](../interfaces/Pred.Predicate.md)\<`any`\>\> |
+| Name | Type                                                                               |
+| :--- | :--------------------------------------------------------------------------------- |
+| `R`  | extends `Record`\<`string`, [`Predicate`](../interfaces/P.Predicate.md)\<`any`\>\> |
 
 #### Parameters
 
@@ -139,7 +139,7 @@
 
 #### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<\{ readonly [K in string \| number \| symbol]: [R[K]] extends [Predicate\<A\>] ? A : never }\>
+[`Predicate`](../interfaces/P.Predicate.md)\<\{ readonly [K in string \| number \| symbol]: [R[K]] extends [Predicate\<A\>] ? A : never }\>
 
 **`Since`**
 
@@ -149,7 +149,7 @@
 
 ### tuple
 
-▸ **tuple**\<`T`\>(`...elements`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`Readonly`\<\{ [I in string \| number \| symbol]: [T[I]] extends [Predicate\<A\>] ? A : never }\>\>
+▸ **tuple**\<`T`\>(`...elements`): [`Predicate`](../interfaces/P.Predicate.md)\<`Readonly`\<\{ [I in string \| number \| symbol]: [T[I]] extends [Predicate\<A\>] ? A : never }\>\>
 
 Similar to `Promise.all` but operates on `Predicate`s.
 
@@ -159,9 +159,9 @@ Similar to `Promise.all` but operates on `Predicate`s.
 
 #### Type parameters
 
-| Name | Type                                                                       |
-| :--- | :------------------------------------------------------------------------- |
-| `T`  | extends readonly [`Predicate`](../interfaces/Pred.Predicate.md)\<`any`\>[] |
+| Name | Type                                                                    |
+| :--- | :---------------------------------------------------------------------- |
+| `T`  | extends readonly [`Predicate`](../interfaces/P.Predicate.md)\<`any`\>[] |
 
 #### Parameters
 
@@ -171,7 +171,7 @@ Similar to `Promise.all` but operates on `Predicate`s.
 
 #### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`Readonly`\<\{ [I in string \| number \| symbol]: [T[I]] extends [Predicate\<A\>] ? A : never }\>\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`Readonly`\<\{ [I in string \| number \| symbol]: [T[I]] extends [Predicate\<A\>] ? A : never }\>\>
 
 **`Since`**
 
@@ -181,7 +181,7 @@ Similar to `Promise.all` but operates on `Predicate`s.
 
 ### and
 
-▸ **and**\<`A`, `C`\>(`that`): \<B\>(`self`: [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\>) => [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B` & `C`\>
+▸ **and**\<`A`, `C`\>(`that`): \<B\>(`self`: [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\>) => [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B` & `C`\>
 
 Combines two predicates into a new predicate that returns `true` if both of the predicates returns `true`.
 
@@ -194,15 +194,15 @@ Combines two predicates into a new predicate that returns `true` if both of the 
 
 #### Parameters
 
-| Name   | Type                                                         | Description  |
-| :----- | :----------------------------------------------------------- | :----------- |
-| `that` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `C`\> | A predicate. |
+| Name   | Type                                                      | Description  |
+| :----- | :-------------------------------------------------------- | :----------- |
+| `that` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `C`\> | A predicate. |
 
 #### Returns
 
 `fn`
 
-▸ \<`B`\>(`self`): [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B` & `C`\>
+▸ \<`B`\>(`self`): [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B` & `C`\>
 
 ##### Type parameters
 
@@ -212,13 +212,13 @@ Combines two predicates into a new predicate that returns `true` if both of the 
 
 ##### Parameters
 
-| Name   | Type                                                         |
-| :----- | :----------------------------------------------------------- |
-| `self` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> |
+| Name   | Type                                                      |
+| :----- | :-------------------------------------------------------- |
+| `self` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
 
 ##### Returns
 
-[`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B` & `C`\>
+[`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B` & `C`\>
 
 **`Example`**
 
@@ -239,7 +239,7 @@ assert.deepStrictEqual(length(2)("aaa"), false);
 
 2.0.0
 
-▸ **and**\<`A`, `B`, `C`\>(`self`, `that`): [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B` & `C`\>
+▸ **and**\<`A`, `B`, `C`\>(`self`, `that`): [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B` & `C`\>
 
 Combines two predicates into a new predicate that returns `true` if both of the predicates returns `true`.
 
@@ -253,14 +253,14 @@ Combines two predicates into a new predicate that returns `true` if both of the 
 
 #### Parameters
 
-| Name   | Type                                                         | Description  |
-| :----- | :----------------------------------------------------------- | :----------- |
-| `self` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B`\> | A predicate. |
-| `that` | [`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `C`\> | A predicate. |
+| Name   | Type                                                      | Description  |
+| :----- | :-------------------------------------------------------- | :----------- |
+| `self` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> | A predicate. |
+| `that` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `C`\> | A predicate. |
 
 #### Returns
 
-[`Refinement`](../interfaces/Pred.Refinement.md)\<`A`, `B` & `C`\>
+[`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B` & `C`\>
 
 **`Example`**
 
@@ -281,7 +281,7 @@ assert.deepStrictEqual(length(2)("aaa"), false);
 
 2.0.0
 
-▸ **and**\<`A`\>(`that`): (`self`: [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>) => [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ **and**\<`A`\>(`that`): (`self`: [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>) => [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 Combines two predicates into a new predicate that returns `true` if both of the predicates returns `true`.
 
@@ -293,25 +293,25 @@ Combines two predicates into a new predicate that returns `true` if both of the 
 
 #### Parameters
 
-| Name   | Type                                                  | Description  |
-| :----- | :---------------------------------------------------- | :----------- |
-| `that` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> | A predicate. |
+| Name   | Type                                               | Description  |
+| :----- | :------------------------------------------------- | :----------- |
+| `that` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> | A predicate. |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ (`self`): [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 ##### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 ##### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 **`Example`**
 
@@ -332,7 +332,7 @@ assert.deepStrictEqual(length(2)("aaa"), false);
 
 2.0.0
 
-▸ **and**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ **and**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 Combines two predicates into a new predicate that returns `true` if both of the predicates returns `true`.
 
@@ -344,14 +344,14 @@ Combines two predicates into a new predicate that returns `true` if both of the 
 
 #### Parameters
 
-| Name   | Type                                                  | Description  |
-| :----- | :---------------------------------------------------- | :----------- |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> | A predicate. |
-| `that` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> | A predicate. |
+| Name   | Type                                               | Description  |
+| :----- | :------------------------------------------------- | :----------- |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> | A predicate. |
+| `that` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> | A predicate. |
 
 #### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 **`Example`**
 
@@ -376,7 +376,7 @@ assert.deepStrictEqual(length(2)("aaa"), false);
 
 ### eqv
 
-▸ **eqv**\<`A`\>(`that`): (`self`: [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>) => [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ **eqv**\<`A`\>(`that`): (`self`: [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>) => [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 #### Type parameters
 
@@ -386,31 +386,31 @@ assert.deepStrictEqual(length(2)("aaa"), false);
 
 #### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `that` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `that` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ (`self`): [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 ##### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 ##### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **eqv**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ **eqv**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 #### Type parameters
 
@@ -420,14 +420,14 @@ assert.deepStrictEqual(length(2)("aaa"), false);
 
 #### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
-| `that` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| `that` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 #### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 **`Since`**
 
@@ -437,7 +437,7 @@ assert.deepStrictEqual(length(2)("aaa"), false);
 
 ### implies
 
-▸ **implies**\<`A`\>(`that`): (`self`: [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>) => [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ **implies**\<`A`\>(`that`): (`self`: [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>) => [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 #### Type parameters
 
@@ -447,31 +447,31 @@ assert.deepStrictEqual(length(2)("aaa"), false);
 
 #### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `that` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `that` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ (`self`): [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 ##### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 ##### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **implies**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ **implies**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 #### Type parameters
 
@@ -481,14 +481,14 @@ assert.deepStrictEqual(length(2)("aaa"), false);
 
 #### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
-| `that` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| `that` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 #### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 **`Since`**
 
@@ -498,7 +498,7 @@ assert.deepStrictEqual(length(2)("aaa"), false);
 
 ### mapInput
 
-▸ **mapInput**\<`B`, `A`\>(`f`): (`self`: [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>) => [`Predicate`](../interfaces/Pred.Predicate.md)\<`B`\>
+▸ **mapInput**\<`B`, `A`\>(`f`): (`self`: [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>) => [`Predicate`](../interfaces/P.Predicate.md)\<`B`\>
 
 Given a `Predicate<A>` returns a `Predicate<B>`
 
@@ -519,17 +519,17 @@ Given a `Predicate<A>` returns a `Predicate<B>`
 
 `fn`
 
-▸ (`self`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`B`\>
+▸ (`self`): [`Predicate`](../interfaces/P.Predicate.md)\<`B`\>
 
 ##### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 ##### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`B`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`B`\>
 
 **`Example`**
 
@@ -549,7 +549,7 @@ assert.deepStrictEqual(minLength3("aaaa"), true);
 
 2.0.0
 
-▸ **mapInput**\<`A`, `B`\>(`self`, `f`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`B`\>
+▸ **mapInput**\<`A`, `B`\>(`self`, `f`): [`Predicate`](../interfaces/P.Predicate.md)\<`B`\>
 
 Given a `Predicate<A>` returns a `Predicate<B>`
 
@@ -562,14 +562,14 @@ Given a `Predicate<A>` returns a `Predicate<B>`
 
 #### Parameters
 
-| Name   | Type                                                  | Description                                             |
-| :----- | :---------------------------------------------------- | :------------------------------------------------------ |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> | the `Predicate<A>` to be transformed to `Predicate<B>`. |
-| `f`    | (`b`: `B`) => `A`                                     | a function to transform `B` to `A`.                     |
+| Name   | Type                                               | Description                                             |
+| :----- | :------------------------------------------------- | :------------------------------------------------------ |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> | the `Predicate<A>` to be transformed to `Predicate<B>`. |
+| `f`    | (`b`: `B`) => `A`                                  | a function to transform `B` to `A`.                     |
 
 #### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`B`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`B`\>
 
 **`Example`**
 
@@ -593,7 +593,7 @@ assert.deepStrictEqual(minLength3("aaaa"), true);
 
 ### nand
 
-▸ **nand**\<`A`\>(`that`): (`self`: [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>) => [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ **nand**\<`A`\>(`that`): (`self`: [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>) => [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 #### Type parameters
 
@@ -603,31 +603,31 @@ assert.deepStrictEqual(minLength3("aaaa"), true);
 
 #### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `that` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `that` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ (`self`): [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 ##### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 ##### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **nand**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ **nand**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 #### Type parameters
 
@@ -637,14 +637,14 @@ assert.deepStrictEqual(minLength3("aaaa"), true);
 
 #### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
-| `that` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| `that` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 #### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 **`Since`**
 
@@ -654,7 +654,7 @@ assert.deepStrictEqual(minLength3("aaaa"), true);
 
 ### nor
 
-▸ **nor**\<`A`\>(`that`): (`self`: [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>) => [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ **nor**\<`A`\>(`that`): (`self`: [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>) => [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 #### Type parameters
 
@@ -664,31 +664,31 @@ assert.deepStrictEqual(minLength3("aaaa"), true);
 
 #### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `that` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `that` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ (`self`): [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 ##### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 ##### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **nor**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ **nor**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 #### Type parameters
 
@@ -698,14 +698,14 @@ assert.deepStrictEqual(minLength3("aaaa"), true);
 
 #### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
-| `that` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| `that` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 #### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 **`Since`**
 
@@ -715,7 +715,7 @@ assert.deepStrictEqual(minLength3("aaaa"), true);
 
 ### not
 
-▸ **not**\<`A`\>(`self`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ **not**\<`A`\>(`self`): [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 Negates the result of a given predicate.
 
@@ -727,13 +727,13 @@ Negates the result of a given predicate.
 
 #### Parameters
 
-| Name   | Type                                                  | Description  |
-| :----- | :---------------------------------------------------- | :----------- |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> | A predicate. |
+| Name   | Type                                               | Description  |
+| :----- | :------------------------------------------------- | :----------- |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> | A predicate. |
 
 #### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 **`Example`**
 
@@ -756,7 +756,7 @@ assert.deepStrictEqual(isPositive(1), true);
 
 ### or
 
-▸ **or**\<`A`\>(`that`): (`self`: [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>) => [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ **or**\<`A`\>(`that`): (`self`: [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>) => [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 Combines two predicates into a new predicate that returns `true` if at least one of the predicates returns `true`.
 
@@ -768,25 +768,25 @@ Combines two predicates into a new predicate that returns `true` if at least one
 
 #### Parameters
 
-| Name   | Type                                                  | Description  |
-| :----- | :---------------------------------------------------- | :----------- |
-| `that` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> | A predicate. |
+| Name   | Type                                               | Description  |
+| :----- | :------------------------------------------------- | :----------- |
+| `that` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> | A predicate. |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ (`self`): [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 ##### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 ##### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 **`Example`**
 
@@ -805,7 +805,7 @@ assert.deepStrictEqual(nonZero(1), true);
 
 2.0.0
 
-▸ **or**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ **or**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 Combines two predicates into a new predicate that returns `true` if at least one of the predicates returns `true`.
 
@@ -817,14 +817,14 @@ Combines two predicates into a new predicate that returns `true` if at least one
 
 #### Parameters
 
-| Name   | Type                                                  | Description  |
-| :----- | :---------------------------------------------------- | :----------- |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> | A predicate. |
-| `that` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> | A predicate. |
+| Name   | Type                                               | Description  |
+| :----- | :------------------------------------------------- | :----------- |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> | A predicate. |
+| `that` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> | A predicate. |
 
 #### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 **`Example`**
 
@@ -847,7 +847,7 @@ assert.deepStrictEqual(nonZero(1), true);
 
 ### xor
 
-▸ **xor**\<`A`\>(`that`): (`self`: [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>) => [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ **xor**\<`A`\>(`that`): (`self`: [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>) => [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 #### Type parameters
 
@@ -857,31 +857,31 @@ assert.deepStrictEqual(nonZero(1), true);
 
 #### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `that` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `that` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ (`self`): [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 ##### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 ##### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **xor**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ **xor**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 #### Type parameters
 
@@ -891,14 +891,14 @@ assert.deepStrictEqual(nonZero(1), true);
 
 #### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
-| `that` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| `that` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
 
 #### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 **`Since`**
 
@@ -908,7 +908,7 @@ assert.deepStrictEqual(nonZero(1), true);
 
 ### all
 
-▸ **all**\<`A`\>(`collection`): [`Predicate`](../interfaces/Pred.Predicate.md)\<readonly `A`[]\>
+▸ **all**\<`A`\>(`collection`): [`Predicate`](../interfaces/P.Predicate.md)\<readonly `A`[]\>
 
 #### Type parameters
 
@@ -918,13 +918,13 @@ assert.deepStrictEqual(nonZero(1), true);
 
 #### Parameters
 
-| Name         | Type                                                                |
-| :----------- | :------------------------------------------------------------------ |
-| `collection` | `Iterable`\<[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>\> |
+| Name         | Type                                                             |
+| :----------- | :--------------------------------------------------------------- |
+| `collection` | `Iterable`\<[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>\> |
 
 #### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<readonly `A`[]\>
+[`Predicate`](../interfaces/P.Predicate.md)\<readonly `A`[]\>
 
 **`Since`**
 
@@ -934,7 +934,7 @@ assert.deepStrictEqual(nonZero(1), true);
 
 ### product
 
-▸ **product**\<`A`, `B`\>(`self`, `that`): [`Predicate`](../interfaces/Pred.Predicate.md)\<readonly [`A`, `B`]\>
+▸ **product**\<`A`, `B`\>(`self`, `that`): [`Predicate`](../interfaces/P.Predicate.md)\<readonly [`A`, `B`]\>
 
 #### Type parameters
 
@@ -945,14 +945,14 @@ assert.deepStrictEqual(nonZero(1), true);
 
 #### Parameters
 
-| Name   | Type                                                  |
-| :----- | :---------------------------------------------------- |
-| `self` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\> |
-| `that` | [`Predicate`](../interfaces/Pred.Predicate.md)\<`B`\> |
+| Name   | Type                                               |
+| :----- | :------------------------------------------------- |
+| `self` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| `that` | [`Predicate`](../interfaces/P.Predicate.md)\<`B`\> |
 
 #### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<readonly [`A`, `B`]\>
+[`Predicate`](../interfaces/P.Predicate.md)\<readonly [`A`, `B`]\>
 
 **`Since`**
 
@@ -962,7 +962,7 @@ assert.deepStrictEqual(nonZero(1), true);
 
 ### productMany
 
-▸ **productMany**\<`A`\>(`self`, `collection`): [`Predicate`](../interfaces/Pred.Predicate.md)\<readonly [`A`, `A`]\>
+▸ **productMany**\<`A`\>(`self`, `collection`): [`Predicate`](../interfaces/P.Predicate.md)\<readonly [`A`, `A`]\>
 
 #### Type parameters
 
@@ -972,14 +972,14 @@ assert.deepStrictEqual(nonZero(1), true);
 
 #### Parameters
 
-| Name         | Type                                                                |
-| :----------- | :------------------------------------------------------------------ |
-| `self`       | [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>               |
-| `collection` | `Iterable`\<[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>\> |
+| Name         | Type                                                             |
+| :----------- | :--------------------------------------------------------------- |
+| `self`       | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>               |
+| `collection` | `Iterable`\<[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>\> |
 
 #### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<readonly [`A`, `A`]\>
+[`Predicate`](../interfaces/P.Predicate.md)\<readonly [`A`, `A`]\>
 
 **`Since`**
 
@@ -989,7 +989,7 @@ assert.deepStrictEqual(nonZero(1), true);
 
 ### every
 
-▸ **every**\<`A`\>(`collection`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ **every**\<`A`\>(`collection`): [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 #### Type parameters
 
@@ -999,13 +999,13 @@ assert.deepStrictEqual(nonZero(1), true);
 
 #### Parameters
 
-| Name         | Type                                                                |
-| :----------- | :------------------------------------------------------------------ |
-| `collection` | `Iterable`\<[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>\> |
+| Name         | Type                                                             |
+| :----------- | :--------------------------------------------------------------- |
+| `collection` | `Iterable`\<[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>\> |
 
 #### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 **`Since`**
 
@@ -1015,7 +1015,7 @@ assert.deepStrictEqual(nonZero(1), true);
 
 ### some
 
-▸ **some**\<`A`\>(`collection`): [`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+▸ **some**\<`A`\>(`collection`): [`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 #### Type parameters
 
@@ -1025,13 +1025,13 @@ assert.deepStrictEqual(nonZero(1), true);
 
 #### Parameters
 
-| Name         | Type                                                                |
-| :----------- | :------------------------------------------------------------------ |
-| `collection` | `Iterable`\<[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>\> |
+| Name         | Type                                                             |
+| :----------- | :--------------------------------------------------------------- |
+| `collection` | `Iterable`\<[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>\> |
 
 #### Returns
 
-[`Predicate`](../interfaces/Pred.Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/P.Predicate.md)\<`A`\>
 
 **`Since`**
 

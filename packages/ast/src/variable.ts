@@ -1,4 +1,4 @@
-import { F, MutRef, O, Pred } from "@eslint-react/tools";
+import { F, MutRef, O, P } from "@eslint-react/tools";
 import type { Definition, Variable } from "@typescript-eslint/scope-manager";
 import { type Scope, ScopeType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -47,7 +47,7 @@ export function findVariableByNameUpToGlobal(name: string, startScope: Scope): O
 export function resolveDefinitionInit(
   def: Definition,
 ): O.Option<TSESTree.Expression | TSESTree.LetOrConstOrVarDeclaration> {
-  if ("init" in def.node && !Pred.isNullable(def.node.init)) {
+  if ("init" in def.node && !P.isNullable(def.node.init)) {
     return O.some(def.node.init);
   }
   // TODO: support other types of definitions

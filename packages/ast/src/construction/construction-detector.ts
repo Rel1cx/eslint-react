@@ -1,9 +1,8 @@
 import type { RuleContext } from "@eslint-react/shared";
-import { Data, O, Pred } from "@eslint-react/tools";
+import { Data, M, O, P } from "@eslint-react/tools";
 import { DefinitionType, type Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { isNil } from "rambda";
-import { match } from "ts-pattern";
 
 import { is, isOneOf, NodeType } from "../node-type";
 
@@ -71,7 +70,7 @@ export function constructionDetector<T extends RuleContext>(
    */
   // eslint-disable-next-line sonarjs/cognitive-complexity
   const detect = (node: TSESTree.Node, scope = context.getScope()): Construction => {
-    return match(node)
+    return M.match(node)
       .when(is(NodeType.ArrayExpression), (node) => Construction.Array({ node, usage: O.none() }))
       .when(is(NodeType.ObjectExpression), (node) => Construction.ObjectExpression({ node, usage: O.none() }))
       .when(is(NodeType.ClassExpression), (node) => Construction.ClassExpression({ node, usage: O.none() }))
@@ -140,7 +139,7 @@ export function constructionDetector<T extends RuleContext>(
         return detect(node.alternate);
       })
       .when(is(NodeType.Identifier), (node) => {
-        if (!("name" in node && Pred.isString(node.name))) {
+        if (!("name" in node && P.isString(node.name))) {
           return None;
         }
 
@@ -177,7 +176,7 @@ export function constructionDetector<T extends RuleContext>(
         return None;
       })
       .when(isOneOf([NodeType.TSAsExpression, NodeType.TSTypeAssertion]), () => {
-        if (!("expression" in node) || !Pred.isObject(node.expression)) {
+        if (!("expression" in node) || !P.isObject(node.expression)) {
           return None;
         }
 

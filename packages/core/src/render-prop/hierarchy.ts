@@ -1,7 +1,6 @@
 import { is, NodeType, traverseUpGuard } from "@eslint-react/ast";
-import { F, O } from "@eslint-react/tools";
+import { F, M, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-import { isMatching, P } from "ts-pattern";
 
 /**
  * Unsafe check whether given node is declared directly inside a render property
@@ -15,10 +14,10 @@ import { isMatching, P } from "ts-pattern";
  * @returns `true` if component is declared inside a render property, `false` if not
  */
 export function unsafeIsDirectValueOfRenderProperty(node: TSESTree.Node) {
-  const matching = isMatching({
+  const matching = M.isMatching({
     key: {
       type: NodeType.Identifier,
-      name: P.string.startsWith("render"),
+      name: M.P.string.startsWith("render"),
     },
     type: NodeType.Property,
   });
@@ -47,9 +46,9 @@ export function unsafeIsDeclaredInRenderProp(node: TSESTree.Node) {
     O.flatMapNullable(c => c.parent),
     O.filter(is(NodeType.JSXAttribute)),
     O.flatMapNullable(a => a.name),
-    O.exists(isMatching({
+    O.exists(M.isMatching({
       type: NodeType.JSXIdentifier,
-      name: P.string.startsWith("render"),
+      name: M.P.string.startsWith("render"),
     })),
   );
 }

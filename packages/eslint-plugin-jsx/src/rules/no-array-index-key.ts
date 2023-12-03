@@ -1,11 +1,10 @@
 import { isOneOf, NodeType, unsafeIsStringCall, unsafeIsToStringCall } from "@eslint-react/ast";
 import { getPragmaFromContext, isCloneElementCall, isCreateElementCall } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/shared";
-import { O, Record } from "@eslint-react/tools";
+import { M, O, Record } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { ConstantCase } from "string-ts";
-import { isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -48,7 +47,7 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
   }
   const pragma = getPragmaFromContext(context);
 
-  return isMatching({ object: { name: pragma } }, obj);
+  return M.isMatching({ object: { name: pragma } }, obj);
 }
 
 function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContext) {
@@ -187,7 +186,7 @@ export default createRule<[], MessageID>({
           }
 
           for (const prop of props.properties) {
-            if (!isMatching({ key: { name: "key" } }, prop)) {
+            if (!M.isMatching({ key: { name: "key" } }, prop)) {
               continue;
             }
 
