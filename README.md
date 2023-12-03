@@ -124,17 +124,16 @@ A set of ESLint rules to catch common mistakes and improve your React code.
 
 ## Philosophy
 
-- **Focus on code rather than style**.
-- **Linting errors are better than runtime crashes**.
-- **Types are the fundamental unit of correctness**.
+- **Do what a linter should do**
+- **Focus on code rather than style**
+- **Rules are better than options**
 
 ## Rule introduction or modification principles
 
-1. **TypeScript first**. If a behavior can already be enforced by TypeScript built-in checker, don't reimplement it.
-2. **Formatting independent**. Rules should check for correctness, not style. We recommend using style focused tools for formatting (e.g. [dprint](https://dprint.dev/) or [eslint-stylistic](https://github.com/eslint-stylistic/eslint-stylistic)).
-3. **No Auto-fix**. Auto-fix is a great feature, but it's not always safe and reliable. We prefer to not to do auto-fix at all than to implement it in a way that can cause more problems than it solves.
+1. **No Auto-fix**. Auto-fix is a great feature, but it's not always safe and reliable. We prefer to not to do auto-fix at all than to implement it in a way that can cause more problems than it solves.
+2. **Formatting independent**. Rules should check for correctness, not style. We recommend using style focused tools for formatting (e.g. [dprint](https://dprint.dev/)).
+3. **Rules over options [[1]](https://eslint-react.rel1cx.io/docs/rules-over-options)**. Each rule should have a single purpose. Make multiple rules work together to achieve more complex behaviors instead of adding options to a single rule.
 4. **Sensible defaults**. Rules should be easy to setup and use with minimal configuration and sensible defaults.
-5. **Rules over Options [[1]](https://eslint-react.rel1cx.io/docs/rules-over-options)**. Each rule should have a single purpose. Make multiple rules work together to achieve more complex behaviors instead of adding options to a single rule.
 
 ## Contributing
 
