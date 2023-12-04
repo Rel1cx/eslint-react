@@ -14,6 +14,14 @@
 - `@eslint-react/monorepo`
   - Update `eslint-config-with-tsconfig` to `2.9.120`.
 
+#### 📝 Documentation
+
+- `@eslint-react/eslint-plugin`
+  - Improve README.md
+
+- `@eslint-react/monorepo`
+  - Improve README.md
+
 #### Authors: 1
 
 ## v0.9.0 (Fri Dec 1 2023)
