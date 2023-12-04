@@ -2,7 +2,7 @@
 
 <h1 align="center" alt="title">ESLint x React</h1>
 
-A set of ESLint rules to catch common mistakes and improve your React code.
+More than 50 ESLint rules to catch common mistakes and improve your React code. Built (mostly) from scratch.
 
 ## Supported engines
 
