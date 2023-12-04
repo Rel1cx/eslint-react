@@ -1,3 +1,21 @@
+## v0.9.1 (Draft)
+
+### Release Notes
+
+#### Add `ts-pattern` as M
+
+---
+
+#### 🏠 Internal
+
+- `@eslint-react/tools`
+  - Add `ts-pattern` as M.
+
+- `@eslint-react/monorepo`
+  - Update `eslint-config-with-tsconfig` to `2.9.120`.
+
+#### Authors: 1
+
 ## v0.9.0 (Fri Dec 1 2023)
 
 ### Release Notes
