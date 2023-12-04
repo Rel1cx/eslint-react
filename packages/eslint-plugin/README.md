@@ -17,15 +17,59 @@ A set of ESLint rules to catch common mistakes and improve your React code.
 
 ## Installation
 
-[Installation Guide ↗](https://eslint-react.rel1cx.io/docs/installation)
+This plugin requires typescript and @typescript-eslint/parser as peer dependencies. Install them if you haven't already.
+
+```sh
+# npm
+npm install --save-dev typescript @typescript-eslint/parser
+
+# yarn
+yarn add --dev typescript @typescript-eslint/parser
+
+# pnpm
+pnpm add --save-dev typescript @typescript-eslint/parser
+
+# bun
+bun add --dev typescript @typescript-eslint/parser
+```
+
+Then install the plugin.
+
+```sh
+# npm
+npm install --save-dev @eslint-react/eslint-plugin
+
+# yarn
+yarn add --dev @eslint-react/eslint-plugin
+
+# pnpm
+pnpm add --save-dev @eslint-react/eslint-plugin
+
+# bun
+bun add --dev @eslint-react/eslint-plugin
+```
+
+## Usage
+
+Add `@eslint-react` to the plugins section of your `.eslintrc.js` configuration file.
+
+```js
+module.exports = {
+  // ...
+  parser: "@typescript-eslint/parser",
+  extends: ["plugin:@eslint-react/recommended"],
+  plugins: ["@eslint-react"],
+  // ...
+};
+```
 
 ## Presets
 
-[Presets List ↗](https://eslint-react.rel1cx.io/docs/presets)
+[Presets ↗](https://eslint-react.rel1cx.io/docs/presets)
 
 ## Rules
 
-[Rule List ↗](https://eslint-react.rel1cx.io/rules/overview)
+[Rules ↗](https://eslint-react.rel1cx.io/rules/overview)
 
 ## Philosophy
 
