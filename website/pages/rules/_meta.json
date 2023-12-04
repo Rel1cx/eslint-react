@@ -38,6 +38,7 @@
   "react-no-render-return-value": "react/no-render-return-value",
   "react-no-script-url": "react/no-script-url",
   "react-no-string-refs": "react/no-string-refs",
+  "react-no-unsafe-component-will-mount": "react/no-unsafe-component-will-mount",
   "react-no-unsafe-iframe-sandbox": "react/no-unsafe-iframe-sandbox",
   "react-no-unsafe-target-blank": "react/no-unsafe-target-blank",
   "react-no-unstable-default-props": "react/no-unstable-default-props",
