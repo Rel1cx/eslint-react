@@ -76,15 +76,16 @@
 
 #### Type declaration
 
-| Name          | Type                                                         |
-| :------------ | :----------------------------------------------------------- |
-| `_`           | `string`                                                     |
-| `displayName` | `O.Option`\<`TSESTree.Expression`\>                          |
-| `flag`        | [`ExRClassComponentFlag`](README.md#exrclasscomponentflag-1) |
-| `id`          | `O.Option`\<`TSESTree.Identifier`\>                          |
-| `kind`        | `"class"`                                                    |
-| `name`        | `O.Option`\<`string`\>                                       |
-| `node`        | `TSESTreeClass`                                              |
+| Name          | Type                                                             |
+| :------------ | :--------------------------------------------------------------- |
+| `_`           | `string`                                                         |
+| `displayName` | `O.Option`\<`TSESTree.Expression`\>                              |
+| `flag`        | [`ExRClassComponentFlag`](README.md#exrclasscomponentflag-1)     |
+| `id`          | `O.Option`\<`TSESTree.Identifier`\>                              |
+| `kind`        | `"class"`                                                        |
+| `methods`     | (`TSESTree.MethodDefinition` \| `TSESTree.PropertyDefinition`)[] |
+| `name`        | `O.Option`\<`string`\>                                           |
+| `node`        | `TSESTreeClass`                                                  |
 
 ---
 
@@ -172,10 +173,10 @@
 
 #### Type declaration
 
-| Name   | Type     |
-| :----- | :------- |
-| `None` | `bigint` |
-| `Pure` | `bigint` |
+| Name            | Type     |
+| :-------------- | :------- |
+| `None`          | `bigint` |
+| `PureComponent` | `bigint` |
 
 ---
 
