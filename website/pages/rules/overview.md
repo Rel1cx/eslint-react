@@ -37,6 +37,7 @@
 | [react/no-class-component](react-no-class-component)                                                 | disallow `class component`                                                                 |
 | [react/no-clone-element](react-no-clone-element)                                                     | disallow `cloneElement`                                                                    |
 | [react/no-component-will-mount](react-no-component-will-mount)                                       | disallow `componentWillMount`                                                              |
+| [react/no-component-will-update](react-no-component-will-update)                                     | disallow `componentWillUpdate`                                                             |
 | [react/no-constructed-context-value](react-no-constructed-context-value)                             | disallow passing constructed values to context providers                                   |
 | [react/no-create-ref](react-no-create-ref)                                                           | disallow `createRef` in function components                                                |
 | [react/no-dangerously-set-innerhtml](react-no-dangerously-set-innerhtml)                             | disallow when a DOM element is using `dangerouslySetInnerHTML`                             |
@@ -50,6 +51,7 @@
 | [react/no-script-url](react-no-script-url)                                                           | disallow `javascript:` URLs as JSX event handler prop's value                              |
 | [react/no-string-refs](react-no-string-refs)                                                         | disallow using deprecated string refs                                                      |
 | [react/no-unsafe-component-will-mount](react-no-unsafe-component-will-mount)                         | disallow usage of `UNSAFE_componentWillMount` in class components                          |
+| [react/no-unsafe-component-will-update](react-no-unsafe-component-will-update)                       | disallow usage of `UNSAFE_componentWillUpdate` in class components                         |
 | [react/no-unsafe-iframe-sandbox](react-no-unsafe-iframe-sandbox)                                     | disallow unsafe `iframe` `sandbox` attribute combinations                                  |
 | [react/no-unsafe-target-blank](react-no-unsafe-target-blank)                                         | disallow `target="_blank"` without `rel="noreferrer noopener"`                             |
 | [react/no-unstable-default-props](react-no-unstable-default-props)                                   | disallow usage of unstable value as default param in function component                    |
