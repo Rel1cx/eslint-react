@@ -63,10 +63,10 @@
     "@tsconfig/node20": "20.1.2",
     "@tsconfig/strictest": "2.0.2",
     "@types/node": "20.10.3",
-    "@typescript-eslint/eslint-plugin": "6.13.1",
-    "@typescript-eslint/parser": "6.13.1",
-    "@typescript-eslint/rule-tester": "6.13.1",
-    "@vitest/ui": "0.34.6",
+    "@typescript-eslint/eslint-plugin": "6.13.2",
+    "@typescript-eslint/parser": "6.13.2",
+    "@typescript-eslint/rule-tester": "6.13.2",
+    "@vitest/ui": "0.34.7",
     "bun": "1.0.15",
     "bun-types": "1.0.15",
     "cspell": "7.3.9",
@@ -107,7 +107,7 @@
     "vitest": "0.34.6"
   },
   "peerDependencies": {
-    "@typescript-eslint/parser": "6.13.1",
+    "@typescript-eslint/parser": ">=6.13.2",
     "eslint": ">=8.55.0",
     "typescript": ">=5.3.2"
   },
@@ -121,12 +121,12 @@
   },
   "pnpm": {
     "overrides": {
-      "@typescript-eslint/parser": "6.13.1",
-      "@typescript-eslint/scope-manager": "6.13.1",
-      "@typescript-eslint/type-utils": "6.13.1",
-      "@typescript-eslint/types": "6.13.1",
-      "@typescript-eslint/utils": "6.13.1",
-      "@typescript-eslint/eslint-plugin": "6.13.1",
+      "@typescript-eslint/parser": "6.13.2",
+      "@typescript-eslint/scope-manager": "6.13.2",
+      "@typescript-eslint/type-utils": "6.13.2",
+      "@typescript-eslint/types": "6.13.2",
+      "@typescript-eslint/utils": "6.13.2",
+      "@typescript-eslint/eslint-plugin": "6.13.2",
       "eslint": ">=8.55.0",
       "effect": "2.0.0-next.58",
       "react": "18.2.0",

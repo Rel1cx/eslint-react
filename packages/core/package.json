@@ -46,9 +46,9 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "6.13.1",
-    "@typescript-eslint/type-utils": "6.13.1",
-    "@typescript-eslint/types": "6.13.1",
-    "@typescript-eslint/utils": "6.13.1"
+    "@typescript-eslint/scope-manager": "6.13.2",
+    "@typescript-eslint/type-utils": "6.13.2",
+    "@typescript-eslint/types": "6.13.2",
+    "@typescript-eslint/utils": "6.13.2"
   }
 }
