@@ -2,11 +2,19 @@
 
 ### Release Notes
 
+#### Add rule `react/no-component-will-mount`
+
+#### Add rule `react/no-unsafe-component-will-mount`
+
 #### Add `ts-pattern` as M
 
 ---
 
 #### 🏠 Internal
+
+- `@eslint-react/eslint-plugin-react`
+  - Add rule `react/no-component-will-mount`.
+  - Add rule `react/no-unsafe-component-will-mount`.
 
 - `@eslint-react/tools`
   - Add `ts-pattern` as M.
