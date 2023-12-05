@@ -10,7 +10,7 @@ Prevents usage of `componentWillUpdate` in class components.
 
 ## Why is this bad?
 
-This API has been renamed from componentWillMount to UNSAFE_componentWillMount. The old name has been deprecated. In a future major version of React, only the new name will work.
+This API has been renamed from `componentWillUpdate` to `UNSAFE_componentWillUpdate`. The old name has been deprecated. In a future major version of React, only the new name will work.
 
 Run the [rename-unsafe-lifecycles codemod](https://github.com/reactjs/react-codemod#rename-unsafe-lifecycles) to automatically update your components.
 
