@@ -1,6 +1,6 @@
-import { getClassIdentifier, NodeType, type TSESTreeClass } from "@eslint-react/ast";
-import { isPureComponent } from "@eslint-react/core";
-import { F, MutList, O } from "@eslint-react/tools";
+import { isOneOf, NodeType } from "@eslint-react/ast";
+import { componentCollectorLegacy, ExRClassComponentFlag } from "@eslint-react/core";
+import { E, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
@@ -10,6 +10,12 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-redundant-should-component-update";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
+
+function isShouldComponentUpdate(node: TSESTree.ClassElement) {
+  return isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])(node)
+    && node.key.type === NodeType.Identifier
+    && node.key.name === "shouldComponentUpdate";
+}
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,
@@ -28,54 +34,37 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const classStack = MutList.make<[TSESTreeClass, boolean]>();
-    const onClassEnter = (node: TSESTreeClass) => {
-      MutList.append(classStack, [
-        node,
-        isPureComponent(node, context),
-      ]);
-    };
-    const onClassExit = () => MutList.pop(classStack);
-
-    function checkPropertyOrMethod(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
-      if (node.key.type !== NodeType.Identifier || node.key.name !== "shouldComponentUpdate") {
-        return;
-      }
-
-      const [classNode, isPureClassComponent] = MutList.tail(classStack) ?? [];
-
-      if (!classNode || !isPureClassComponent) {
-        return;
-      }
-
-      const componentName = F.pipe(
-        getClassIdentifier(classNode),
-        O.map(id => id.name),
-        O.getOrElse(() => "PureComponent"),
-      );
-
-      context.report({
-        node,
-        messageId: "NO_REDUNDANT_SHOULD_COMPONENT_UPDATE",
-        data: {
-          componentName,
-        },
-      });
-    }
+    const { ctx, listeners } = componentCollectorLegacy(context);
 
     return {
-      ClassDeclaration: onClassEnter,
-      "ClassDeclaration:exit": onClassExit,
-      ClassExpression: onClassEnter,
-      "ClassExpression:exit": onClassExit,
-      MethodDefinition(node) {
-        if (node.kind !== "method") {
+      ...listeners,
+      "Program:exit"() {
+        const maybeComponents = ctx.getAllComponents();
+        if (E.isLeft(maybeComponents)) {
           return;
         }
+        const components = maybeComponents.right;
 
-        checkPropertyOrMethod(node);
+        for (const { name, flag, node: component } of components.values()) {
+          if (!(flag & ExRClassComponentFlag.PureComponent)) {
+            continue;
+          }
+
+          const { body } = component.body;
+
+          for (const member of body) {
+            if (isShouldComponentUpdate(member)) {
+              context.report({
+                messageId: "NO_REDUNDANT_SHOULD_COMPONENT_UPDATE",
+                node: member,
+                data: {
+                  componentName: O.getOrElse(() => "PureComponent")(name),
+                },
+              });
+            }
+          }
+        }
       },
-      PropertyDefinition: checkPropertyOrMethod,
     };
   },
 });

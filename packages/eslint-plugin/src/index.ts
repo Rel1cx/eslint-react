@@ -97,6 +97,7 @@ const recommendedPreset = {
   "react/no-render-return-value": "error",
   "react/no-script-url": "warn",
   "react/no-string-refs": "error",
+  "react/no-unsafe-component-will-mount": "warn",
   "react/no-unsafe-iframe-sandbox": "warn",
   "react/no-unsafe-target-blank": "warn",
   "react/no-unstable-default-props": "warn",

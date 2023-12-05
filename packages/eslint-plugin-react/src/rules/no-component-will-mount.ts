@@ -1,6 +1,6 @@
-import { NodeType, type TSESTreeClass } from "@eslint-react/ast";
-import { isClassComponent } from "@eslint-react/core";
-import { MutList } from "@eslint-react/tools";
+import { isOneOf, NodeType } from "@eslint-react/ast";
+import { componentCollectorLegacy } from "@eslint-react/core";
+import { E } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
@@ -10,6 +10,12 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-component-will-mount";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
+
+function isComponentWillMount(node: TSESTree.ClassElement) {
+  return isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])(node)
+    && node.key.type === NodeType.Identifier
+    && node.key.name === "componentWillMount";
+}
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,
@@ -27,45 +33,30 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const classStack = MutList.make<[TSESTreeClass, boolean]>();
-    const onClassEnter = (node: TSESTreeClass) => {
-      MutList.append(classStack, [
-        node,
-        isClassComponent(node, context),
-      ]);
-    };
-    const onClassExit = () => MutList.pop(classStack);
-
-    function checkPropertyOrMethod(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
-      if (node.key.type !== NodeType.Identifier || node.key.name !== "componentWillMount") {
-        return;
-      }
-
-      const [classNode, isPureClassComponent] = MutList.tail(classStack) ?? [];
-
-      if (!classNode || !isPureClassComponent) {
-        return;
-      }
-
-      context.report({
-        node,
-        messageId: "NO_COMPONENT_WILL_MOUNT",
-      });
-    }
+    const { ctx, listeners } = componentCollectorLegacy(context);
 
     return {
-      ClassDeclaration: onClassEnter,
-      "ClassDeclaration:exit": onClassExit,
-      ClassExpression: onClassEnter,
-      "ClassExpression:exit": onClassExit,
-      MethodDefinition(node) {
-        if (node.kind !== "method") {
+      ...listeners,
+      "Program:exit"() {
+        const maybeComponents = ctx.getAllComponents();
+        if (E.isLeft(maybeComponents)) {
           return;
         }
+        const components = maybeComponents.right;
 
-        checkPropertyOrMethod(node);
+        for (const { node: component } of components.values()) {
+          const { body } = component.body;
+
+          for (const member of body) {
+            if (isComponentWillMount(member)) {
+              context.report({
+                messageId: "NO_COMPONENT_WILL_MOUNT",
+                node: member,
+              });
+            }
+          }
+        }
       },
-      PropertyDefinition: checkPropertyOrMethod,
     };
   },
 });
