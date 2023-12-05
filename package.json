@@ -64,7 +64,7 @@
     "@tsconfig/strictest": "2.0.2",
     "@types/node": "20.10.3",
     "@typescript-eslint/eslint-plugin": "6.13.2",
-    "@typescript-eslint/parser": "6.13.2",
+    "@typescript-eslint/parser": ">=6.13.2",
     "@typescript-eslint/rule-tester": "6.13.2",
     "@vitest/ui": "0.34.7",
     "bun": "1.0.15",
@@ -121,7 +121,7 @@
   },
   "pnpm": {
     "overrides": {
-      "@typescript-eslint/parser": "6.13.2",
+      "@typescript-eslint/parser": ">=6.13.2",
       "@typescript-eslint/scope-manager": "6.13.2",
       "@typescript-eslint/type-utils": "6.13.2",
       "@typescript-eslint/types": "6.13.2",
