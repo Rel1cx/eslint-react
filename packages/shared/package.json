@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/shared",
-  "version": "0.9.1-beta.2",
+  "version": "0.9.1-beta.3",
   "description": "ESLint x React's shared constants and utilities.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@eslint-react/tools": "workspace:*",
-    "@typescript-eslint/utils": "6.13.1",
+    "@typescript-eslint/utils": "6.13.2",
     "dedent": "1.5.1",
     "deepmerge-ts": "5.1.0",
     "short-unique-id": "5.0.3",

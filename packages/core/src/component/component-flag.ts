@@ -2,7 +2,7 @@ export type ExRClassComponentFlag = bigint;
 
 export const ExRClassComponentFlag = {
   None: 0n,
-  Pure: 1n << 0n,
+  PureComponent: 1n << 0n,
   // Reserved for future use
   // CreateElement: 1n << 1n,
 };

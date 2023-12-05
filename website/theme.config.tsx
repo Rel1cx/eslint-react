@@ -16,7 +16,8 @@ export default {
     return M.match(useRouter())
       .with({ asPath: "/" }, () => ({
         title: "ESLint x React",
-        description: "ESLint x React - A set of ESLint rules to catch common mistakes and improve your React code.",
+        description:
+          "ESLint x React - More than 50 ESLint rules to catch common mistakes and improve your React code. Built (mostly) from scratch.",
       }))
       .with({ asPath: M.P.string.startsWith("/rules/") }, () => ({
         titleTemplate: "Rule: %s",
@@ -31,7 +32,7 @@ export default {
       <meta property="og:title" content="ESLint x React" />
       <meta
         property="og:description"
-        content="ESLint x React - A set of ESLint rules to catch common mistakes and improve your React code."
+        content="ESLint x React - More than 50 ESLint rules to catch common mistakes and improve your React code. Built (mostly) from scratch."
       />
       <link
         rel="apple-touch-icon"

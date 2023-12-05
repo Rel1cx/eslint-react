@@ -3,7 +3,7 @@ import type { RuleContext } from "@eslint-react/shared";
 import { M, O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
-import { isClassComponent } from "./component-kind";
+import { isClassComponent } from "./component-collector-legacy";
 
 const isRenderMethodLike = M.isMatching({
   key: {

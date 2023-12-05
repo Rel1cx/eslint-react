@@ -3,7 +3,7 @@ import type { RuleContext } from "@eslint-react/shared";
 import { F, MutRef, O } from "@eslint-react/tools";
 import { type Scope, ScopeType } from "@typescript-eslint/scope-manager";
 
-import { isClassComponent } from "./component-kind";
+import { isClassComponent } from "./component-collector-legacy";
 
 /**
  * Get the parent class component of a node up to global scope

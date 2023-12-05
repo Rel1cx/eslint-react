@@ -1,3 +1,4 @@
+export * from "./component";
 export * from "./component-collector";
 export * from "./component-collector-hint";
 export * from "./component-collector-legacy";
