@@ -1,12 +1,10 @@
-## v0.9.1 (Draft)
+## v0.9.1 (Tue Dec 5 2023)
 
 ### Release Notes
 
 #### Add rule `react/no-component-will-mount`
 
 #### Add rule `react/no-unsafe-component-will-mount`
-
-#### Add `ts-pattern` as M
 
 ---
 
@@ -15,9 +13,13 @@
 - `@eslint-react/eslint-plugin-react`
   - Add rule `react/no-component-will-mount`.
   - Add rule `react/no-unsafe-component-will-mount`.
+  - Simplify class component related rules implementation.
 
 - `@eslint-react/tools`
-  - Add `ts-pattern` as M.
+  - Add `ts-pattern` as `M`.
+
+- `@eslint-react/core`
+  - Improve module structure.
 
 - `@eslint-react/monorepo`
   - Update `eslint-config-with-tsconfig` to `2.9.120`.
