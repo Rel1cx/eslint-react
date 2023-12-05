@@ -132,10 +132,11 @@ module.exports = {
 - [ ] `react/no-set-state-in-component-did-mount`
 - [ ] `react/no-set-state-in-component-did-update`
 - [ ] `react/no-set-state-in-component-will-update`
-- [ ] `react/no-unsafe-component-did-mount`
-- [ ] `react/no-unsafe-component-did-update`
+- [x] `react/no-component-will-mount`
+- [x] `react/no-component-will-update`
+- [x] `react/no-unsafe-component-will-mount`
+- [x] `react/no-unsafe-component-will-update`
 - [ ] `react/no-unsafe-component-will-receive-props`
-- [ ] `react/no-unsafe-component-will-update`
 - [x] `react/no-unsafe-iframe-sandbox`
 - [x] `react/no-unsafe-target-blank`
 - [ ] `react/no-unsorted-class-component-methods`
