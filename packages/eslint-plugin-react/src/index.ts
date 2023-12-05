@@ -11,6 +11,7 @@ import noChildrenToArray from "./rules/no-children-to-array";
 import noClassComponent from "./rules/no-class-component";
 import noCloneElement from "./rules/no-clone-element";
 import noComponentWillMount from "./rules/no-component-will-mount";
+import noComponentWillReceiveProps from "./rules/no-component-will-receive-props";
 import noComponentWillUpdate from "./rules/no-component-will-update";
 import noConstructedContextValue from "./rules/no-constructed-context-value";
 import noCreateRef from "./rules/no-create-ref";
@@ -26,6 +27,7 @@ import noRenderReturnValue from "./rules/no-render-return-value";
 import noScriptUrl from "./rules/no-script-url";
 import noStringRefs from "./rules/no-string-refs";
 import noUnsafeComponentWillMount from "./rules/no-unsafe-component-will-mount";
+import noUnsafeComponentWillReceiveProps from "./rules/no-unsafe-component-will-receive-props";
 import noUnsafeComponentWillUpdate from "./rules/no-unsafe-component-will-update";
 import noUnsafeIframeSandbox from "./rules/no-unsafe-iframe-sandbox";
 import noUnsafeTargetBlank from "./rules/no-unsafe-target-blank";
@@ -49,6 +51,7 @@ export const rules = {
   "no-class-component": noClassComponent,
   "no-clone-element": noCloneElement,
   "no-component-will-mount": noComponentWillMount,
+  "no-component-will-receive-props": noComponentWillReceiveProps,
   "no-component-will-update": noComponentWillUpdate,
   "no-constructed-context-value": noConstructedContextValue,
   "no-create-ref": noCreateRef,
@@ -64,6 +67,7 @@ export const rules = {
   "no-script-url": noScriptUrl,
   "no-string-refs": noStringRefs,
   "no-unsafe-component-will-mount": noUnsafeComponentWillMount,
+  "no-unsafe-component-will-receive-props": noUnsafeComponentWillReceiveProps,
   "no-unsafe-component-will-update": noUnsafeComponentWillUpdate,
   "no-unsafe-iframe-sandbox": noUnsafeIframeSandbox,
   "no-unsafe-target-blank": noUnsafeTargetBlank,

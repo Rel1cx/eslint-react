@@ -1,3 +1,31 @@
+## v0.9.2 (Draft)
+
+### Release Notes
+
+#### Add rule `react/no-component-will-update`
+
+#### Add rule `react/no-unsafe-component-will-update`
+
+#### Add rule `react/no-component-will-receive-props`
+
+#### Add rule `react/no-unsafe-component-will-receive-props`
+
+---
+
+#### 🏠 Internal
+
+- `@eslint-react/eslint-plugin-react`
+  - Add rule `react/no-component-will-update`.
+  - Add rule `react/no-unsafe-component-will-update`.
+  - Add rule `react/no-component-will-receive-props`.
+  - Add rule `react/no-unsafe-component-will-receive-props`.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
+
 ## v0.9.1 (Tue Dec 5 2023)
 
 ### Release Notes
