@@ -6,22 +6,22 @@ Suspicious.
 
 ## What it does
 
-TODO: add description
+Warns usage of `UNSAFE_componentWillMount` in class components.
 
 ## Why is this bad?
 
-TODO: add description
+Using unsafe lifecycle methods like `UNSAFE_componentWillMount` makes your component's behavior less predictable and are more likely to cause bugs.
 
 ## Examples
-
-TODO: add examples
 
 ### ❌ Incorrect
 
 ```tsx
-```
+import React from "react";
 
-### ✅ Correct
-
-```tsx
+class MyComponent extends React.Component {
+  UNSAFE_componentWillMount() {
+    // ...
+  }
+}
 ```
