@@ -1,60 +1,31 @@
 import { Tab, Tabs } from "nextra-theme-docs";
 
-import { Info } from "#/components/callout";
-
 ## Install
 
-<Info>
-This plugin requires `typescript` and `@typescript-eslint/parser` as peer dependencies. Install them if you haven't already.
-</Info>
-
-<Tabs items={[ "npm", "pnpm", "yarn", "bun"]}>
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
 <Tab>
 ```bash filename="Terminal"
-npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react-hooks @eslint-react/eslint-plugin
-```
-
-Then install the plugin:
-
-```bash filename="Terminal"
-npm install --save-dev @eslint-react/eslint-plugin
+npm install --save-dev eslint-plugin-react-hooks @eslint-react/eslint-plugin
 ```
 </Tab>
 <Tab>
 ```bash filename="Terminal"
-pnpm add --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react-hooks @eslint-react/eslint-plugin
-```
-
-Then install the plugin:
-
-```bash filename="Terminal"
-pnpm add --save-dev @eslint-react/eslint-plugin
+pnpm add --save-dev eslint-plugin-react-hooks @eslint-react/eslint-plugin
 ```
 </Tab>
 <Tab>
 ```bash filename="Terminal"
-yarn add --dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react-hooks @eslint-react/eslint-plugin
-```
-
-Then install the plugin:
-
-```bash filename="Terminal"
-yarn add --dev @eslint-react/eslint-plugin
+yarn add --dev eslint-plugin-react-hooks @eslint-react/eslint-plugin
 ```
 </Tab>
 <Tab>
 ```bash filename="Terminal"
-bun add --dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react-hooks @eslint-react/eslint-plugin
-```
-
-Then install the plugin:
-
-```bash filename="Terminal"
-bun add --dev @eslint-react/eslint-plugin
+bun add --dev eslint-plugin-react-hooks @eslint-react/eslint-plugin
 ```
 </Tab>
 </Tabs>
-## Configure
+
+## Setup
 
 <Tabs items={["LegacyConfig", "FlatConfig"]}>
 <Tab>
@@ -88,10 +59,6 @@ export default [
     ignores: ["eslint.config.js"],
     languageOptions: {
       parser: tsParser,
-        parserOptions: {
-        ecmaVersion: "latest",
-        project: "./tsconfig.json",
-      },
       sourceType: "module",
     },
     plugins: {
@@ -116,6 +83,86 @@ export default [
   {
     files: ["src/**/*.{ts,tsx}"],
     ...react.configs.recommended,
+  },
+];
+```
+</Tab>
+</Tabs>
+
+## Linting with type information
+
+<Tabs items={["LegacyConfig", "FlatConfig"]}>
+<Tab>
+Rules that require type information are not enabled by default. To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
+
+Then replace `plugin:@eslint-react/recommended-legacy` with `plugin:@eslint-react/recommended-type-checked-legacy`.
+
+```js filename=".eslintrc.js"
+module.exports = {
+  root: true,
+  env: { browser: true, es2021: true },
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaVersion: "2021",
+    project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
+  },
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@eslint-react/recommended-legacy",
+  ],
+  plugins: ["@typescript-eslint", "react-hooks"],
+  ignorePatterns: ["dist", ".eslintrc.js"],
+};
+```
+</Tab>
+<Tab>
+Rules that require type information are not enabled by default. To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
+
+Then replace `...react.configs.recommended` with `...react.configs["recommended-type-checked"]`.
+
+```js filename="eslint.config.js"
+import ts from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
+import react from "@eslint-react/eslint-plugin";
+import reactHooks from "eslint-plugin-react-hooks";
+
+export default [
+  // TypeScript rules
+  {
+    files: ["*.ts", "*.tsx"],
+    ignores: ["eslint.config.js"],
+    languageOptions: {
+      parser: tsParser,
+        parserOptions: {
+          ecmaVersion: "2021",
+          project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
+      },
+      sourceType: "module",
+    },
+    plugins: {
+      "@typescript-eslint": ts,
+    },
+    rules: {
+      ...ts.configs["eslint-recommended"].rules,
+      ...ts.configs["recommended"].rules,
+    },
+  },
+  // React Hooks rules
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    plugins: {
+      "react-hooks": reactHooks,
+    },
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+    },
+  },
+  // React rules
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    ...react.configs["recommended-type-checked"],
   },
 ];
 ```

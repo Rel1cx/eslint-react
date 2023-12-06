@@ -11,7 +11,7 @@ export default [
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        ecmaVersion: "latest",
+        ecmaVersion: "2021",
         project: "./tsconfig.json",
       },
       sourceType: "module",

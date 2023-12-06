@@ -15,41 +15,14 @@ More than 50 ESLint rules to catch common mistakes and improve your React code. 
 
 - 1.0.15 or later
 
-## Installation
-
-This plugin requires `typescript` and `@typescript-eslint/parser` as peer dependencies. Install them if you haven't already.
-
-```sh
-# npm
-npm install --save-dev typescript @typescript-eslint/parser
-
-# yarn
-yarn add --dev typescript @typescript-eslint/parser
-
-# pnpm
-pnpm add --save-dev typescript @typescript-eslint/parser
-
-# bun
-bun add --dev typescript @typescript-eslint/parser
-```
-
-Then install the plugin.
+### Install
 
 ```sh
 # npm
 npm install --save-dev @eslint-react/eslint-plugin
-
-# yarn
-yarn add --dev @eslint-react/eslint-plugin
-
-# pnpm
-pnpm add --save-dev @eslint-react/eslint-plugin
-
-# bun
-bun add --dev @eslint-react/eslint-plugin
 ```
 
-## Usage
+### Setup
 
 Add `@eslint-react` to the plugins section of your `.eslintrc.js` configuration file.
 
@@ -63,13 +36,64 @@ module.exports = {
 };
 ```
 
+### Linting with type information
+
+Rules that require type information are not enabled by default. To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
+
+Then replace `plugin:@eslint-react/recommended-legacy` with `plugin:@eslint-react/recommended-type-checked-legacy`.
+
+```js
+module.exports = {
+  // ...
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    project: "./tsconfig.json",
+  },
+  extends: ["plugin:@eslint-react/recommended-type-checked-legacy"],
+  plugins: ["@eslint-react"],
+  // ...
+};
+```
+
+[Full Installation Guide ↗](https://eslint-react.rel1cx.io/docs/installation)
+
 ## Presets
 
-[Presets ↗](https://eslint-react.rel1cx.io/docs/presets)
+The following presets are available in this plugin:
+
+### LegacyConfig presets
+
+- **recommended-legacy** (`plugin:@eslint-react/recommended-legacy`)\
+  Enforce recommended rules designed to catch common mistakes and prevent potential bugs.
+- **recommended-type-checked-legacy** (`plugin:@eslint-react/recommended-type-checked-legacy`)\
+  Same as recommended-legacy but with additional rules that require type information.
+- **debug-legacy** (`plugin:@eslint-react/debug-legacy`)\
+  Enable a series of rules that are useful for debugging purposes only.\
+  (Not recommended unless you know what you are doing)
+- **all-legacy** (`plugin:@eslint-react/all-legacy`)\
+  Enable all rules in this plugin except for debug rules.
+- **off-legacy** (`plugin:@eslint-react/off-legacy`)\
+  Disable all rules in this plugin except for debug rules.
+
+### FlatConfig presets
+
+- **recommended**\
+  Enforce recommended rules designed to catch common mistakes and prevent potential bugs.
+- **recommended-type-checked**\
+  Same as recommended but with additional rules that require type information.
+- **debug**\
+  Enable a series of rules that are useful for debugging purposes only.\
+  (Not recommended unless you know what you are doing)
+- **all**\
+  Enable all rules in this plugin except for debug rules.
+- **off**\
+  Disable all rules in this plugin except for debug rules.
+
+[Full Presets List↗](https://eslint-react.rel1cx.io/docs/presets)
 
 ## Rules
 
-[Rules ↗](https://eslint-react.rel1cx.io/rules/overview)
+[Rules Overview ↗](https://eslint-react.rel1cx.io/rules/overview)
 
 ## Philosophy
 

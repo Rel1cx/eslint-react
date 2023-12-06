@@ -11,7 +11,7 @@ module.exports = {
   ignorePatterns: ["dist"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    ecmaVersion: "latest",
+    ecmaVersion: "2021",
     project: "./tsconfig.json",
     sourceType: "module",
   },

@@ -149,7 +149,7 @@ function createLegacyConfig<T extends RulePreset>(rules: T, plugins = legacyConf
   return {
     parser: "@typescript-eslint/parser",
     parserOptions: {
-      ecmaVersion: "latest",
+      ecmaVersion: "2021",
       project: true,
       sourceType: "module",
     },
