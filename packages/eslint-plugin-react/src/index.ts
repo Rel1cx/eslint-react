@@ -25,6 +25,9 @@ import noNamespace from "./rules/no-namespace";
 import noRedundantShouldComponentUpdate from "./rules/no-redundant-should-component-update";
 import noRenderReturnValue from "./rules/no-render-return-value";
 import noScriptUrl from "./rules/no-script-url";
+import noSetStateInComponentDidMount from "./rules/no-set-state-in-component-did-mount";
+import noSetStateInComponentDidUpdate from "./rules/no-set-state-in-component-did-update";
+import noSetStateInComponentWillUpdate from "./rules/no-set-state-in-component-will-update";
 import noStringRefs from "./rules/no-string-refs";
 import noUnsafeComponentWillMount from "./rules/no-unsafe-component-will-mount";
 import noUnsafeComponentWillReceiveProps from "./rules/no-unsafe-component-will-receive-props";
@@ -65,6 +68,9 @@ export const rules = {
   "no-redundant-should-component-update": noRedundantShouldComponentUpdate,
   "no-render-return-value": noRenderReturnValue,
   "no-script-url": noScriptUrl,
+  "no-set-state-in-component-did-mount": noSetStateInComponentDidMount,
+  "no-set-state-in-component-did-update": noSetStateInComponentDidUpdate,
+  "no-set-state-in-component-will-update": noSetStateInComponentWillUpdate,
   "no-string-refs": noStringRefs,
   "no-unsafe-component-will-mount": noUnsafeComponentWillMount,
   "no-unsafe-component-will-receive-props": noUnsafeComponentWillReceiveProps,

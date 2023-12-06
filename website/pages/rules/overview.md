@@ -50,6 +50,9 @@
 | [react/no-redundant-should-component-update](react-no-redundant-should-component-update)             | disallow usage of `shouldComponentUpdate` in class component extends `React.PureComponent` |
 | [react/no-render-return-value](react-no-render-return-value)                                         | disallow usage of the return value of `ReactDOM.render`                                    |
 | [react/no-script-url](react-no-script-url)                                                           | disallow `javascript:` URLs as JSX event handler prop's value                              |
+| [react/no-set-state-in-component-did-mount](react-no-set-state-in-component-did-mount)               | disallow usage of `this.setState` in `componentDidMount`                                        |
+| [react/no-set-state-in-component-did-update](react-no-set-state-in-component-did-update)             | disallow usage of `this.setState` in `componentDidUpdate`                                       |
+| [react/no-set-state-in-component-will-update](react-no-set-state-in-component-will-update)           | disallow usage of `this.setState` in `componentWillUpdate`                                      |
 | [react/no-string-refs](react-no-string-refs)                                                         | disallow using deprecated string refs                                                      |
 | [react/no-unsafe-component-will-mount](react-no-unsafe-component-will-mount)                         | disallow usage of `UNSAFE_componentWillMount` in class components                          |
 | [react/no-unsafe-component-will-receive-props](react-no-unsafe-component-will-receive-props)         | disallow usage of `UNSAFE_componentWillReceiveProps` in class components                   |
