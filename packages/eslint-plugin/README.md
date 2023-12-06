@@ -57,7 +57,7 @@ Add `@eslint-react` to the plugins section of your `.eslintrc.js` configuration 
 module.exports = {
   // ...
   parser: "@typescript-eslint/parser",
-  extends: ["plugin:@eslint-react/recommended"],
+  extends: ["plugin:@eslint-react/recommended-legacy"],
   plugins: ["@eslint-react"],
   // ...
 };

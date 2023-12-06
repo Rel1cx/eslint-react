@@ -1,4 +1,4 @@
-## v0.9.2 (Draft)
+## v0.9.2 (Wed Dec 6 2023)
 
 ### Release Notes
 
