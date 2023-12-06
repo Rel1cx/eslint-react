@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "0.9.2-beta.1",
+  "version": "0.9.2-beta.2",
   "description": "ESLint x React's monorepo. More than 50 ESLint rules to catch common mistakes and improve your React code. Built (mostly) from scratch.",
   "keywords": [
     "eslint",
@@ -72,7 +72,7 @@
     "cspell": "7.3.9",
     "dedent": "1.5.1",
     "dprint": "0.43.2",
-    "effect": "2.0.0-next.58",
+    "effect": "2.0.0-next.59",
     "eslint": ">=8.55.0",
     "eslint-config-with-tsconfig": "2.9.120",
     "eslint-plugin-eslint-plugin": "5.1.1",
@@ -128,7 +128,7 @@
       "@typescript-eslint/utils": "6.13.2",
       "@typescript-eslint/eslint-plugin": "6.13.2",
       "eslint": ">=8.55.0",
-      "effect": "2.0.0-next.58",
+      "effect": "2.0.0-next.59",
       "react": "18.2.0",
       "react-dom": "18.2.0",
       "typescript": ">=5.3.2",

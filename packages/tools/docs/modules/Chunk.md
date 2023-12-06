@@ -79,6 +79,7 @@
 - [sortWith](Chunk.md#sortwith)
 - [split](Chunk.md#split)
 - [splitAt](Chunk.md#splitat)
+- [splitNonEmptyAt](Chunk.md#splitnonemptyat)
 - [splitWhere](Chunk.md#splitwhere)
 - [tail](Chunk.md#tail)
 - [tailNonEmpty](Chunk.md#tailnonempty)
@@ -850,7 +851,7 @@ Appends the specified element to the end of the `Chunk`.
 
 ### appendAll
 
-▸ **appendAll**\<`S`, `T`\>(`that`): (`self`: `S`) => [`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
+▸ **appendAll**\<`S`, `T`\>(`that`): (`self`: `S`) => [`OrNonEmpty`](Chunk.Chunk.md#ornonempty)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
 
 Concatenates two chunks, combining their elements.
 If either chunk is non-empty, the result is also a non-empty chunk.
@@ -872,7 +873,7 @@ If either chunk is non-empty, the result is also a non-empty chunk.
 
 `fn`
 
-▸ (`self`): [`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
+▸ (`self`): [`OrNonEmpty`](Chunk.Chunk.md#ornonempty)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
 
 ##### Parameters
 
@@ -882,7 +883,7 @@ If either chunk is non-empty, the result is also a non-empty chunk.
 
 ##### Returns
 
-[`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
+[`OrNonEmpty`](Chunk.Chunk.md#ornonempty)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
 
 **`Example`**
 
@@ -1089,7 +1090,7 @@ Prepend an element to the front of a `Chunk`, creating a new `NonEmptyChunk`.
 
 ### prependAll
 
-▸ **prependAll**\<`S`, `T`\>(`that`): (`self`: `S`) => [`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
+▸ **prependAll**\<`S`, `T`\>(`that`): (`self`: `S`) => [`OrNonEmpty`](Chunk.Chunk.md#ornonempty)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
 
 Prepends the specified prefix chunk to the beginning of the specified chunk.
 If either chunk is non-empty, the result is also a non-empty chunk.
@@ -1111,7 +1112,7 @@ If either chunk is non-empty, the result is also a non-empty chunk.
 
 `fn`
 
-▸ (`self`): [`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
+▸ (`self`): [`OrNonEmpty`](Chunk.Chunk.md#ornonempty)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
 
 ##### Parameters
 
@@ -1121,7 +1122,7 @@ If either chunk is non-empty, the result is also a non-empty chunk.
 
 ##### Returns
 
-[`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
+[`OrNonEmpty`](Chunk.Chunk.md#ornonempty)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`S`\> \| [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
 
 **`Example`**
 
@@ -1263,6 +1264,34 @@ assert.deepStrictEqual(
 | Name | Type    |
 | :--- | :------ |
 | `A`  | `never` |
+
+#### Returns
+
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+
+**`Since`**
+
+2.0.0
+
+---
+
+### fromIterable
+
+▸ **fromIterable**\<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+
+Creates a new `Chunk` from an iterable collection of values.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+#### Parameters
+
+| Name   | Type              |
+| :----- | :---------------- |
+| `self` | `Iterable`\<`A`\> |
 
 #### Returns
 
@@ -1467,34 +1496,6 @@ Create a non empty `Chunk` containing a range of integers, including both endpoi
 2.0.0
 
 ## conversions
-
-### fromIterable
-
-▸ **fromIterable**\<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
-
-Converts from an `Iterable<A>`
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
-
-#### Returns
-
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
-
-**`Since`**
-
-2.0.0
-
----
 
 ### toArray
 
@@ -2689,339 +2690,6 @@ Check if a predicate holds true for some `Chunk` element.
 #### Returns
 
 self is NonEmptyChunk\<A\>
-
-**`Since`**
-
-2.0.0
-
----
-
-### sort
-
-▸ **sort**\<`B`\>(`O`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
-
-Sort the elements of a Chunk in increasing order, creating a new Chunk.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `B`  |
-
-#### Parameters
-
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-
-##### Returns
-
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **sort**\<`A`, `B`\>(`self`, `O`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
-
-Sort the elements of a Chunk in increasing order, creating a new Chunk.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `O`    | [`Order`](../interfaces/Ord.Order.md)\<`B`\>     |
-
-#### Returns
-
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
-
-**`Since`**
-
-2.0.0
-
----
-
-### sortWith
-
-▸ **sortWith**\<`A`, `B`\>(`f`, `order`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name    | Type                                         |
-| :------ | :------------------------------------------- |
-| `f`     | (`a`: `A`) => `B`                            |
-| `order` | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
-
-##### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-
-##### Returns
-
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
-
-**`Since`**
-
-2.0.0
-
-▸ **sortWith**\<`A`, `B`\>(`self`, `f`, `order`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name    | Type                                             |
-| :------ | :----------------------------------------------- |
-| `self`  | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `f`     | (`a`: `A`) => `B`                                |
-| `order` | [`Order`](../interfaces/Ord.Order.md)\<`B`\>     |
-
-#### Returns
-
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
-
-**`Since`**
-
-2.0.0
-
----
-
-### split
-
-▸ **split**(`n`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
-
-Splits this chunk into `n` equally sized chunks.
-
-#### Parameters
-
-| Name | Type     |
-| :--- | :------- |
-| `n`  | `number` |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-
-##### Returns
-
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
-
-**`Since`**
-
-2.0.0
-
-▸ **split**\<`A`\>(`self`, `n`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
-
-Splits this chunk into `n` equally sized chunks.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `n`    | `number`                                         |
-
-#### Returns
-
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
-
-**`Since`**
-
-2.0.0
-
----
-
-### splitAt
-
-▸ **splitAt**(`n`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [beforeIndex: Chunk\<A\>, fromIndex: Chunk\<A\>]
-
-Returns two splits of this chunk at the specified index.
-
-#### Parameters
-
-| Name | Type     |
-| :--- | :------- |
-| `n`  | `number` |
-
-#### Returns
-
-`fn`
-
-▸ \<`A`\>(`self`): [beforeIndex: Chunk\<A\>, fromIndex: Chunk\<A\>]
-
-##### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-##### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-
-##### Returns
-
-[beforeIndex: Chunk\<A\>, fromIndex: Chunk\<A\>]
-
-**`Since`**
-
-2.0.0
-
-▸ **splitAt**\<`A`\>(`self`, `n`): [beforeIndex: Chunk\<A\>, fromIndex: Chunk\<A\>]
-
-Returns two splits of this chunk at the specified index.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
-| `n`    | `number`                                         |
-
-#### Returns
-
-[beforeIndex: Chunk\<A\>, fromIndex: Chunk\<A\>]
-
-**`Since`**
-
-2.0.0
-
----
-
-### splitWhere
-
-▸ **splitWhere**\<`B`, `A`\>(`predicate`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>) => [beforeMatch: Chunk\<B\>, fromMatch: Chunk\<B\>]
-
-Splits this chunk on the first element that matches this predicate.
-
-#### Type parameters
-
-| Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `B`  |
-
-#### Parameters
-
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): [beforeMatch: Chunk\<B\>, fromMatch: Chunk\<B\>]
-
-##### Parameters
-
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
-
-##### Returns
-
-[beforeMatch: Chunk\<B\>, fromMatch: Chunk\<B\>]
-
-**`Since`**
-
-2.0.0
-
-▸ **splitWhere**\<`A`\>(`self`, `predicate`): [beforeMatch: Chunk\<A\>, fromMatch: Chunk\<A\>]
-
-Splits this chunk on the first element that matches this predicate.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>   |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
-
-#### Returns
-
-[beforeMatch: Chunk\<A\>, fromMatch: Chunk\<A\>]
 
 **`Since`**
 
@@ -4342,7 +4010,7 @@ assert.deepStrictEqual(
 
 ### flatMap
 
-▸ **flatMap**\<`S`, `T`\>(`f`): (`self`: `S`) => [`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
+▸ **flatMap**\<`S`, `T`\>(`f`): (`self`: `S`) => [`AndNonEmpty`](Chunk.Chunk.md#andnonempty)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
 
 Applies a function to each element in a chunk and returns a new chunk containing the concatenated mapped elements.
 
@@ -4363,7 +4031,7 @@ Applies a function to each element in a chunk and returns a new chunk containing
 
 `fn`
 
-▸ (`self`): [`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
+▸ (`self`): [`AndNonEmpty`](Chunk.Chunk.md#andnonempty)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
 
 ##### Parameters
 
@@ -4373,7 +4041,7 @@ Applies a function to each element in a chunk and returns a new chunk containing
 
 ##### Returns
 
-[`With2`](Chunk.Chunk.md#with2)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
+[`AndNonEmpty`](Chunk.Chunk.md#andnonempty)\<`S`, `T`, [`Infer`](Chunk.Chunk.md#infer)\<`T`\>\>
 
 **`Since`**
 
@@ -4435,33 +4103,210 @@ Applies a function to each element in a chunk and returns a new chunk containing
 
 ### flatten
 
-▸ **flatten**\<`A`\>(`self`): [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>
+▸ **flatten**\<`S`\>(`self`): [`Flatten`](Chunk.Chunk.md#flatten)\<`S`\>
 
 Flattens a chunk of chunks into a single chunk by concatenating all chunks.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `A`  |
+| Name | Type                                                                                                    |
+| :--- | :------------------------------------------------------------------------------------------------------ |
+| `S`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\>\> |
 
 #### Parameters
 
-| Name   | Type                                                                                                                      |
-| :----- | :------------------------------------------------------------------------------------------------------------------------ |
-| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>\> |
+| Name   | Type |
+| :----- | :--- |
+| `self` | `S`  |
 
 #### Returns
 
-[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>
+[`Flatten`](Chunk.Chunk.md#flatten)\<`S`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **flatten**\<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+## sorting
 
-Flattens a chunk of chunks into a single chunk by concatenating all chunks.
+### sort
+
+▸ **sort**\<`B`\>(`O`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+
+Sort the elements of a Chunk in increasing order, creating a new Chunk.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `B`  |
+
+#### Parameters
+
+| Name | Type                                         |
+| :--- | :------------------------------------------- |
+| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
+
+#### Returns
+
+`fn`
+
+▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+
+##### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+##### Parameters
+
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+
+##### Returns
+
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+
+**`Since`**
+
+2.0.0
+
+▸ **sort**\<`A`, `B`\>(`self`, `O`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+
+Sort the elements of a Chunk in increasing order, creating a new Chunk.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `O`    | [`Order`](../interfaces/Ord.Order.md)\<`B`\>     |
+
+#### Returns
+
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+
+**`Since`**
+
+2.0.0
+
+---
+
+### sortWith
+
+▸ **sortWith**\<`A`, `B`\>(`f`, `order`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name    | Type                                         |
+| :------ | :------------------------------------------- |
+| `f`     | (`a`: `A`) => `B`                            |
+| `order` | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+
+##### Parameters
+
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+
+##### Returns
+
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+
+**`Since`**
+
+2.0.0
+
+▸ **sortWith**\<`A`, `B`\>(`self`, `f`, `order`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name    | Type                                             |
+| :------ | :----------------------------------------------- |
+| `self`  | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `f`     | (`a`: `A`) => `B`                                |
+| `order` | [`Order`](../interfaces/Ord.Order.md)\<`B`\>     |
+
+#### Returns
+
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+
+**`Since`**
+
+2.0.0
+
+## splitting
+
+### split
+
+▸ **split**(`n`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
+
+Splits this chunk into `n` equally sized chunks.
+
+#### Parameters
+
+| Name | Type     |
+| :--- | :------- |
+| `n`  | `number` |
+
+#### Returns
+
+`fn`
+
+▸ \<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
+
+##### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+##### Parameters
+
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+
+##### Returns
+
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
+
+**`Since`**
+
+2.0.0
+
+▸ **split**\<`A`\>(`self`, `n`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
+
+Splits this chunk into `n` equally sized chunks.
 
 #### Type parameters
 
@@ -4471,13 +4316,214 @@ Flattens a chunk of chunks into a single chunk by concatenating all chunks.
 
 #### Parameters
 
-| Name   | Type                                                                                          |
-| :----- | :-------------------------------------------------------------------------------------------- |
-| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\> |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `n`    | `number`                                         |
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>\>
+
+**`Since`**
+
+2.0.0
+
+---
+
+### splitAt
+
+▸ **splitAt**(`n`): \<A\>(`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>) => [beforeIndex: Chunk\<A\>, fromIndex: Chunk\<A\>]
+
+Returns two splits of this chunk at the specified index.
+
+#### Parameters
+
+| Name | Type     |
+| :--- | :------- |
+| `n`  | `number` |
+
+#### Returns
+
+`fn`
+
+▸ \<`A`\>(`self`): [beforeIndex: Chunk\<A\>, fromIndex: Chunk\<A\>]
+
+##### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+##### Parameters
+
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+
+##### Returns
+
+[beforeIndex: Chunk\<A\>, fromIndex: Chunk\<A\>]
+
+**`Since`**
+
+2.0.0
+
+▸ **splitAt**\<`A`\>(`self`, `n`): [beforeIndex: Chunk\<A\>, fromIndex: Chunk\<A\>]
+
+Returns two splits of this chunk at the specified index.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+#### Parameters
+
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> |
+| `n`    | `number`                                         |
+
+#### Returns
+
+[beforeIndex: Chunk\<A\>, fromIndex: Chunk\<A\>]
+
+**`Since`**
+
+2.0.0
+
+---
+
+### splitNonEmptyAt
+
+▸ **splitNonEmptyAt**(`n`): \<A\>(`self`: [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\>) => [beforeIndex: NonEmptyChunk\<A\>, fromIndex: Chunk\<A\>]
+
+Splits a `NonEmptyChunk` into two segments, with the first segment containing a maximum of `n` elements.
+The value of `n` must be `>= 1`.
+
+#### Parameters
+
+| Name | Type     |
+| :--- | :------- |
+| `n`  | `number` |
+
+#### Returns
+
+`fn`
+
+▸ \<`A`\>(`self`): [beforeIndex: NonEmptyChunk\<A\>, fromIndex: Chunk\<A\>]
+
+##### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+##### Parameters
+
+| Name   | Type                                                           |
+| :----- | :------------------------------------------------------------- |
+| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> |
+
+##### Returns
+
+[beforeIndex: NonEmptyChunk\<A\>, fromIndex: Chunk\<A\>]
+
+**`Since`**
+
+2.0.0
+
+▸ **splitNonEmptyAt**\<`A`\>(`self`, `n`): [beforeIndex: NonEmptyChunk\<A\>, fromIndex: Chunk\<A\>]
+
+Splits a `NonEmptyChunk` into two segments, with the first segment containing a maximum of `n` elements.
+The value of `n` must be `>= 1`.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+#### Parameters
+
+| Name   | Type                                                           |
+| :----- | :------------------------------------------------------------- |
+| `self` | [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> |
+| `n`    | `number`                                                       |
+
+#### Returns
+
+[beforeIndex: NonEmptyChunk\<A\>, fromIndex: Chunk\<A\>]
+
+**`Since`**
+
+2.0.0
+
+---
+
+### splitWhere
+
+▸ **splitWhere**\<`B`, `A`\>(`predicate`): (`self`: [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\>) => [beforeMatch: Chunk\<B\>, fromMatch: Chunk\<B\>]
+
+Splits this chunk on the first element that matches this predicate.
+Returns a tuple containing two chunks: the first one is before the match, and the second one is from the match onward.
+
+#### Type parameters
+
+| Name | Type |
+| :--- | :--- |
+| `B`  | `B`  |
+| `A`  | `B`  |
+
+#### Parameters
+
+| Name        | Type                                               |
+| :---------- | :------------------------------------------------- |
+| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): [beforeMatch: Chunk\<B\>, fromMatch: Chunk\<B\>]
+
+##### Parameters
+
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `self` | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`B`\> |
+
+##### Returns
+
+[beforeMatch: Chunk\<B\>, fromMatch: Chunk\<B\>]
+
+**`Since`**
+
+2.0.0
+
+▸ **splitWhere**\<`A`\>(`self`, `predicate`): [beforeMatch: Chunk\<A\>, fromMatch: Chunk\<A\>]
+
+Splits this chunk on the first element that matches this predicate.
+Returns a tuple containing two chunks: the first one is before the match, and the second one is from the match onward.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+#### Parameters
+
+| Name        | Type                                               |
+| :---------- | :------------------------------------------------- |
+| `self`      | [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>   |
+| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+
+#### Returns
+
+[beforeMatch: Chunk\<A\>, fromMatch: Chunk\<A\>]
 
 **`Since`**
 

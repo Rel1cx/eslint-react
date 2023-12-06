@@ -10,6 +10,12 @@
 
 #### Add rule `react/no-unsafe-component-will-receive-props`
 
+#### Add rule `react/no-set-state-in-component-did-mount`
+
+#### Add rule `react/no-set-state-in-component-did-update`
+
+#### Add rule `react/no-set-state-in-component-will-update`
+
 ---
 
 #### 🏠 Internal
@@ -19,6 +25,9 @@
   - Add rule `react/no-unsafe-component-will-update`.
   - Add rule `react/no-component-will-receive-props`.
   - Add rule `react/no-unsafe-component-will-receive-props`.
+  - Add rule `react/no-set-state-in-component-did-mount`.
+  - Add rule `react/no-set-state-in-component-did-update`.
+  - Add rule `react/no-set-state-in-component-will-update`.
 
 #### Authors: 1
 

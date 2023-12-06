@@ -270,7 +270,7 @@ Creates an empty `MutableList`.
 
 ▸ **fromIterable**\<`A`\>(`iterable`): [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\>
 
-Creates a new `MutableList` from an `Iterable`.
+Creates a new `MutableList` from an iterable collection of values.
 
 #### Type parameters
 

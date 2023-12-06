@@ -12,48 +12,16 @@
 
 ### Type Aliases
 
+- [AndNonEmpty](List.List.md#andnonempty)
 - [Infer](List.List.md#infer)
+- [OrNonEmpty](List.List.md#ornonempty)
 - [With](List.List.md#with)
-- [With2](List.List.md#with2)
 
 ## Type Aliases
 
-### Infer
+### AndNonEmpty
 
-Ƭ **Infer**\<`T`\>: `T` extends [`List`](List.md#list)\<infer A\> ? `A` : `never`
-
-**`Since`**
-
-2.0.0
-
-#### Type parameters
-
-| Name | Type                                    |
-| :--- | :-------------------------------------- |
-| `T`  | extends [`List`](List.md#list)\<`any`\> |
-
----
-
-### With
-
-Ƭ **With**\<`T`, `A`\>: `T` extends [`Cons`](../interfaces/List.Cons.md)\<`any`\> ? [`Cons`](../interfaces/List.Cons.md)\<`A`\> : [`List`](List.md#list)\<`A`\>
-
-**`Since`**
-
-2.0.0
-
-#### Type parameters
-
-| Name | Type                                    |
-| :--- | :-------------------------------------- |
-| `T`  | extends [`List`](List.md#list)\<`any`\> |
-| `A`  | `A`                                     |
-
----
-
-### With2
-
-Ƭ **With2**\<`S`, `T`, `A`\>: `S` extends [`Cons`](../interfaces/List.Cons.md)\<`any`\> ? [`Cons`](../interfaces/List.Cons.md)\<`A`\> : `T` extends [`Cons`](../interfaces/List.Cons.md)\<`any`\> ? [`Cons`](../interfaces/List.Cons.md)\<`A`\> : [`List`](List.md#list)\<`A`\>
+Ƭ **AndNonEmpty**\<`S`, `T`, `A`\>: `S` extends [`Cons`](../interfaces/List.Cons.md)\<`any`\> ? `T` extends [`Cons`](../interfaces/List.Cons.md)\<`any`\> ? [`Cons`](../interfaces/List.Cons.md)\<`A`\> : [`List`](List.md#list)\<`A`\> : [`List`](List.md#list)\<`A`\>
 
 **`Since`**
 
@@ -65,4 +33,55 @@
 | :--- | :-------------------------------------- |
 | `S`  | extends [`List`](List.md#list)\<`any`\> |
 | `T`  | extends [`List`](List.md#list)\<`any`\> |
+| `A`  | `A`                                     |
+
+---
+
+### Infer
+
+Ƭ **Infer**\<`S`\>: `S` extends [`List`](List.md#list)\<infer A\> ? `A` : `never`
+
+**`Since`**
+
+2.0.0
+
+#### Type parameters
+
+| Name | Type                                    |
+| :--- | :-------------------------------------- |
+| `S`  | extends [`List`](List.md#list)\<`any`\> |
+
+---
+
+### OrNonEmpty
+
+Ƭ **OrNonEmpty**\<`S`, `T`, `A`\>: `S` extends [`Cons`](../interfaces/List.Cons.md)\<`any`\> ? [`Cons`](../interfaces/List.Cons.md)\<`A`\> : `T` extends [`Cons`](../interfaces/List.Cons.md)\<`any`\> ? [`Cons`](../interfaces/List.Cons.md)\<`A`\> : [`List`](List.md#list)\<`A`\>
+
+**`Since`**
+
+2.0.0
+
+#### Type parameters
+
+| Name | Type                                    |
+| :--- | :-------------------------------------- |
+| `S`  | extends [`List`](List.md#list)\<`any`\> |
+| `T`  | extends [`List`](List.md#list)\<`any`\> |
+| `A`  | `A`                                     |
+
+---
+
+### With
+
+Ƭ **With**\<`S`, `A`\>: `S` extends [`Cons`](../interfaces/List.Cons.md)\<`any`\> ? [`Cons`](../interfaces/List.Cons.md)\<`A`\> : [`List`](List.md#list)\<`A`\>
+
+**`Since`**
+
+2.0.0
+
+#### Type parameters
+
+| Name | Type                                    |
+| :--- | :-------------------------------------- |
+| `S`  | extends [`List`](List.md#list)\<`any`\> |
 | `A`  | `A`                                     |

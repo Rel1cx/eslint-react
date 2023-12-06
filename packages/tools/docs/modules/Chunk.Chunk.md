@@ -12,11 +12,47 @@
 
 ### Type Aliases
 
+- [AndNonEmpty](Chunk.Chunk.md#andnonempty)
+- [Flatten](Chunk.Chunk.md#flatten)
 - [Infer](Chunk.Chunk.md#infer)
+- [OrNonEmpty](Chunk.Chunk.md#ornonempty)
 - [With](Chunk.Chunk.md#with)
-- [With2](Chunk.Chunk.md#with2)
 
 ## Type Aliases
+
+### AndNonEmpty
+
+Ƭ **AndNonEmpty**\<`S`, `T`, `A`\>: `S` extends [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`any`\> ? `T` extends [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`any`\> ? [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> : [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> : [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+
+**`Since`**
+
+2.0.0
+
+#### Type parameters
+
+| Name | Type                                                       |
+| :--- | :--------------------------------------------------------- |
+| `S`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
+| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
+| `A`  | `A`                                                        |
+
+---
+
+### Flatten
+
+Ƭ **Flatten**\<`T`\>: `T` extends [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<[`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<infer A\>\> ? [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> : `T` extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<infer A\>\> ? [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\> : `never`
+
+**`Since`**
+
+2.0.0
+
+#### Type parameters
+
+| Name | Type                                                                                                    |
+| :--- | :------------------------------------------------------------------------------------------------------ |
+| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\>\> |
+
+---
 
 ### Infer
 
@@ -34,6 +70,24 @@
 
 ---
 
+### OrNonEmpty
+
+Ƭ **OrNonEmpty**\<`S`, `T`, `A`\>: `S` extends [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`any`\> ? [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> : `T` extends [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`any`\> ? [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> : [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+
+**`Since`**
+
+2.0.0
+
+#### Type parameters
+
+| Name | Type                                                       |
+| :--- | :--------------------------------------------------------- |
+| `S`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
+| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
+| `A`  | `A`                                                        |
+
+---
+
 ### With
 
 Ƭ **With**\<`S`, `A`\>: `S` extends [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`any`\> ? [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> : [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
@@ -47,22 +101,4 @@
 | Name | Type                                                       |
 | :--- | :--------------------------------------------------------- |
 | `S`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
-| `A`  | `A`                                                        |
-
----
-
-### With2
-
-Ƭ **With2**\<`S`, `T`, `A`\>: `S` extends [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`any`\> ? [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> : `T` extends [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`any`\> ? [`NonEmptyChunk`](../interfaces/Chunk.NonEmptyChunk.md)\<`A`\> : [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
-
-**`Since`**
-
-2.0.0
-
-#### Type parameters
-
-| Name | Type                                                       |
-| :--- | :--------------------------------------------------------- |
-| `S`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
-| `T`  | extends [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`any`\> |
 | `A`  | `A`                                                        |

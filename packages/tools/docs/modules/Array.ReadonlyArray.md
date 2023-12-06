@@ -12,48 +12,17 @@
 
 ### Type Aliases
 
+- [AndNonEmpty](Array.ReadonlyArray.md#andnonempty)
+- [Flatten](Array.ReadonlyArray.md#flatten)
 - [Infer](Array.ReadonlyArray.md#infer)
+- [OrNonEmpty](Array.ReadonlyArray.md#ornonempty)
 - [With](Array.ReadonlyArray.md#with)
-- [With2](Array.ReadonlyArray.md#with2)
 
 ## Type Aliases
 
-### Infer
+### AndNonEmpty
 
-Ƭ **Infer**\<`T`\>: `T` extends `ReadonlyArray`\<infer A\> ? `A` : `T` extends `Iterable`\<infer A\> ? `A` : `never`
-
-**`Since`**
-
-2.0.0
-
-#### Type parameters
-
-| Name | Type                                                    |
-| :--- | :------------------------------------------------------ |
-| `T`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
-
----
-
-### With
-
-Ƭ **With**\<`T`, `A`\>: `T` extends [`NonEmptyReadonlyArray`](Array.md#nonemptyreadonlyarray)\<`any`\> ? [`NonEmptyArray`](Array.md#nonemptyarray)\<`A`\> : `A`[]
-
-**`Since`**
-
-2.0.0
-
-#### Type parameters
-
-| Name | Type                                                    |
-| :--- | :------------------------------------------------------ |
-| `T`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
-| `A`  | `A`                                                     |
-
----
-
-### With2
-
-Ƭ **With2**\<`S`, `T`, `A`\>: `S` extends [`NonEmptyReadonlyArray`](Array.md#nonemptyreadonlyarray)\<`any`\> ? [`NonEmptyArray`](Array.md#nonemptyarray)\<`A`\> : `T` extends [`NonEmptyReadonlyArray`](Array.md#nonemptyreadonlyarray)\<`any`\> ? [`NonEmptyArray`](Array.md#nonemptyarray)\<`A`\> : `A`[]
+Ƭ **AndNonEmpty**\<`S`, `T`, `A`\>: `S` extends [`NonEmptyReadonlyArray`](Array.md#nonemptyreadonlyarray)\<`any`\> ? `T` extends [`NonEmptyReadonlyArray`](Array.md#nonemptyreadonlyarray)\<`any`\> ? [`NonEmptyArray`](Array.md#nonemptyarray)\<`A`\> : `A`[] : `A`[]
 
 **`Since`**
 
@@ -65,4 +34,71 @@
 | :--- | :------------------------------------------------------ |
 | `S`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
 | `T`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
+| `A`  | `A`                                                     |
+
+---
+
+### Flatten
+
+Ƭ **Flatten**\<`T`\>: `T` extends [`NonEmptyReadonlyArray`](Array.md#nonemptyreadonlyarray)\<[`NonEmptyReadonlyArray`](Array.md#nonemptyreadonlyarray)\<infer A\>\> ? [`NonEmptyArray`](Array.md#nonemptyarray)\<`A`\> : `T` extends `ReadonlyArray`\<`ReadonlyArray`\<infer A\>\> ? `A`[] : `never`
+
+**`Since`**
+
+2.0.0
+
+#### Type parameters
+
+| Name | Type                                                |
+| :--- | :-------------------------------------------------- |
+| `T`  | extends `ReadonlyArray`\<`ReadonlyArray`\<`any`\>\> |
+
+---
+
+### Infer
+
+Ƭ **Infer**\<`S`\>: `S` extends `ReadonlyArray`\<infer A\> ? `A` : `S` extends `Iterable`\<infer A\> ? `A` : `never`
+
+**`Since`**
+
+2.0.0
+
+#### Type parameters
+
+| Name | Type                                                    |
+| :--- | :------------------------------------------------------ |
+| `S`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
+
+---
+
+### OrNonEmpty
+
+Ƭ **OrNonEmpty**\<`S`, `T`, `A`\>: `S` extends [`NonEmptyReadonlyArray`](Array.md#nonemptyreadonlyarray)\<`any`\> ? [`NonEmptyArray`](Array.md#nonemptyarray)\<`A`\> : `T` extends [`NonEmptyReadonlyArray`](Array.md#nonemptyreadonlyarray)\<`any`\> ? [`NonEmptyArray`](Array.md#nonemptyarray)\<`A`\> : `A`[]
+
+**`Since`**
+
+2.0.0
+
+#### Type parameters
+
+| Name | Type                                                    |
+| :--- | :------------------------------------------------------ |
+| `S`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
+| `T`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
+| `A`  | `A`                                                     |
+
+---
+
+### With
+
+Ƭ **With**\<`S`, `A`\>: `S` extends [`NonEmptyReadonlyArray`](Array.md#nonemptyreadonlyarray)\<`any`\> ? [`NonEmptyArray`](Array.md#nonemptyarray)\<`A`\> : `A`[]
+
+**`Since`**
+
+2.0.0
+
+#### Type parameters
+
+| Name | Type                                                    |
+| :--- | :------------------------------------------------------ |
+| `S`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
 | `A`  | `A`                                                     |

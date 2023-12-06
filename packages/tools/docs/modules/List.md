@@ -845,7 +845,7 @@ Appends the specified element to the end of the `List`, creating a new `Cons`.
 
 ### appendAll
 
-▸ **appendAll**\<`S`, `T`\>(`that`): (`self`: `S`) => [`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
+▸ **appendAll**\<`S`, `T`\>(`that`): (`self`: `S`) => [`OrNonEmpty`](List.List.md#ornonempty)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
 
 Concatenates two lists, combining their elements.
 If either list is non-empty, the result is also a non-empty list.
@@ -867,7 +867,7 @@ If either list is non-empty, the result is also a non-empty list.
 
 `fn`
 
-▸ (`self`): [`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
+▸ (`self`): [`OrNonEmpty`](List.List.md#ornonempty)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
 
 ##### Parameters
 
@@ -877,7 +877,7 @@ If either list is non-empty, the result is also a non-empty list.
 
 ##### Returns
 
-[`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
+[`OrNonEmpty`](List.List.md#ornonempty)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
 
 **`Example`**
 
@@ -1084,7 +1084,7 @@ Prepends the specified element to the beginning of the list.
 
 ### prependAll
 
-▸ **prependAll**\<`S`, `T`\>(`that`): (`self`: `S`) => [`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
+▸ **prependAll**\<`S`, `T`\>(`that`): (`self`: `S`) => [`OrNonEmpty`](List.List.md#ornonempty)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
 
 Prepends the specified prefix list to the beginning of the specified list.
 If either list is non-empty, the result is also a non-empty list.
@@ -1106,7 +1106,7 @@ If either list is non-empty, the result is also a non-empty list.
 
 `fn`
 
-▸ (`self`): [`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
+▸ (`self`): [`OrNonEmpty`](List.List.md#ornonempty)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
 
 ##### Parameters
 
@@ -1116,7 +1116,7 @@ If either list is non-empty, the result is also a non-empty list.
 
 ##### Returns
 
-[`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
+[`OrNonEmpty`](List.List.md#ornonempty)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`S`\> \| [`Infer`](List.List.md#infer)\<`T`\>\>
 
 **`Example`**
 
@@ -1380,7 +1380,7 @@ Alias of [nil](List.md#nil).
 
 ▸ **fromIterable**\<`A`\>(`prefix`): [`List`](List.md#list)\<`A`\>
 
-Constructs a new `List<A>` from the specified `Iterable<A>`.
+Creates a new `List` from an iterable collection of values.
 
 #### Type parameters
 
@@ -2177,7 +2177,7 @@ Returns the tail of the specified list, or `None` if the list is empty.
 
 ### map
 
-▸ **map**\<`T`, `B`\>(`f`): (`self`: `T`) => [`With`](List.List.md#with)\<`T`, `B`\>
+▸ **map**\<`S`, `B`\>(`f`): (`self`: `S`) => [`With`](List.List.md#with)\<`S`, `B`\>
 
 Applies the specified mapping function to each element of the list.
 
@@ -2185,36 +2185,36 @@ Applies the specified mapping function to each element of the list.
 
 | Name | Type                                    |
 | :--- | :-------------------------------------- |
-| `T`  | extends [`List`](List.md#list)\<`any`\> |
+| `S`  | extends [`List`](List.md#list)\<`any`\> |
 | `B`  | `B`                                     |
 
 #### Parameters
 
 | Name | Type                                                              |
 | :--- | :---------------------------------------------------------------- |
-| `f`  | (`a`: [`Infer`](List.List.md#infer)\<`T`\>, `i`: `number`) => `B` |
+| `f`  | (`a`: [`Infer`](List.List.md#infer)\<`S`\>, `i`: `number`) => `B` |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`With`](List.List.md#with)\<`T`, `B`\>
+▸ (`self`): [`With`](List.List.md#with)\<`S`, `B`\>
 
 ##### Parameters
 
 | Name   | Type |
 | :----- | :--- |
-| `self` | `T`  |
+| `self` | `S`  |
 
 ##### Returns
 
-[`With`](List.List.md#with)\<`T`, `B`\>
+[`With`](List.List.md#with)\<`S`, `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **map**\<`T`, `B`\>(`self`, `f`): [`With`](List.List.md#with)\<`T`, `B`\>
+▸ **map**\<`S`, `B`\>(`self`, `f`): [`With`](List.List.md#with)\<`S`, `B`\>
 
 Applies the specified mapping function to each element of the list.
 
@@ -2222,19 +2222,19 @@ Applies the specified mapping function to each element of the list.
 
 | Name | Type                                    |
 | :--- | :-------------------------------------- |
-| `T`  | extends [`List`](List.md#list)\<`any`\> |
+| `S`  | extends [`List`](List.md#list)\<`any`\> |
 | `B`  | `B`                                     |
 
 #### Parameters
 
 | Name   | Type                                                              |
 | :----- | :---------------------------------------------------------------- |
-| `self` | `T`                                                               |
-| `f`    | (`a`: [`Infer`](List.List.md#infer)\<`T`\>, `i`: `number`) => `B` |
+| `self` | `S`                                                               |
+| `f`    | (`a`: [`Infer`](List.List.md#infer)\<`S`\>, `i`: `number`) => `B` |
 
 #### Returns
 
-[`With`](List.List.md#with)\<`T`, `B`\>
+[`With`](List.List.md#with)\<`S`, `B`\>
 
 **`Since`**
 
@@ -2368,7 +2368,7 @@ self is Nil\<A\>
 
 ### flatMap
 
-▸ **flatMap**\<`S`, `T`\>(`f`): (`self`: `S`) => [`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`T`\>\>
+▸ **flatMap**\<`S`, `T`\>(`f`): (`self`: `S`) => [`AndNonEmpty`](List.List.md#andnonempty)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`T`\>\>
 
 Applies a function to each element in a list and returns a new list containing the concatenated mapped elements.
 
@@ -2389,7 +2389,7 @@ Applies a function to each element in a list and returns a new list containing t
 
 `fn`
 
-▸ (`self`): [`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`T`\>\>
+▸ (`self`): [`AndNonEmpty`](List.List.md#andnonempty)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`T`\>\>
 
 ##### Parameters
 
@@ -2399,7 +2399,7 @@ Applies a function to each element in a list and returns a new list containing t
 
 ##### Returns
 
-[`With2`](List.List.md#with2)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`T`\>\>
+[`AndNonEmpty`](List.List.md#andnonempty)\<`S`, `T`, [`Infer`](List.List.md#infer)\<`T`\>\>
 
 **`Since`**
 

@@ -19,6 +19,7 @@
 - [filterMap](Record.md#filtermap)
 - [fromEntries](Record.md#fromentries)
 - [fromIterable](Record.md#fromiterable)
+- [fromIterableWith](Record.md#fromiterablewith)
 - [get](Record.md#get)
 - [getEquivalence](Record.md#getequivalence)
 - [getLefts](Record.md#getlefts)
@@ -1445,6 +1446,129 @@ Creates a new, empty record.
 
 ---
 
+### fromIterable
+
+▸ **fromIterable**\<`V`\>(`entries`): `Record`\<`string`, `V`\>
+
+Creates a new record from an iterable collection of key/value pairs.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `V`  |
+
+#### Parameters
+
+| Name      | Type                                   |
+| :-------- | :------------------------------------- |
+| `entries` | `Iterable`\<readonly [`string`, `V`]\> |
+
+#### Returns
+
+`Record`\<`string`, `V`\>
+
+**`Since`**
+
+2.0.0
+
+---
+
+### fromIterableWith
+
+▸ **fromIterableWith**\<`A`, `B`\>(`f`): (`self`: `Iterable`\<`A`\>) => `Record`\<`string`, `B`\>
+
+Takes an iterable and a projection function and returns a record.
+The projection function maps each value of the iterable to a tuple of a key and a value, which is then added to the resulting record.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name | Type                                   | Description                                                                             |
+| :--- | :------------------------------------- | :-------------------------------------------------------------------------------------- |
+| `f`  | (`a`: `A`) => readonly [`string`, `B`] | A projection function that maps values of the iterable to a tuple of a key and a value. |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): `Record`\<`string`, `B`\>
+
+##### Parameters
+
+| Name   | Type              |
+| :----- | :---------------- |
+| `self` | `Iterable`\<`A`\> |
+
+##### Returns
+
+`Record`\<`string`, `B`\>
+
+**`Example`**
+
+```ts
+import { fromIterableWith } from "effect/ReadonlyRecord";
+
+const input = [1, 2, 3, 4];
+
+assert.deepStrictEqual(
+  fromIterableWith(input, a => [String(a), a * 2]),
+  { "1": 2, "2": 4, "3": 6, "4": 8 },
+);
+```
+
+**`Since`**
+
+2.0.0
+
+▸ **fromIterableWith**\<`A`, `B`\>(`self`, `f`): `Record`\<`string`, `B`\>
+
+Takes an iterable and a projection function and returns a record.
+The projection function maps each value of the iterable to a tuple of a key and a value, which is then added to the resulting record.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+| `B`  |
+
+#### Parameters
+
+| Name   | Type                                   | Description                                                                             |
+| :----- | :------------------------------------- | :-------------------------------------------------------------------------------------- |
+| `self` | `Iterable`\<`A`\>                      | An iterable of values to be mapped to a record.                                         |
+| `f`    | (`a`: `A`) => readonly [`string`, `B`] | A projection function that maps values of the iterable to a tuple of a key and a value. |
+
+#### Returns
+
+`Record`\<`string`, `B`\>
+
+**`Example`**
+
+```ts
+import { fromIterableWith } from "effect/ReadonlyRecord";
+
+const input = [1, 2, 3, 4];
+
+assert.deepStrictEqual(
+  fromIterableWith(input, a => [String(a), a * 2]),
+  { "1": 2, "2": 4, "3": 6, "4": 8 },
+);
+```
+
+**`Since`**
+
+2.0.0
+
+---
+
 ### singleton
 
 ▸ **singleton**\<`K`, `A`\>(`key`, `value`): `Record`\<`K`, `A`\>
@@ -1595,101 +1719,6 @@ import { fromEntries } from "effect/ReadonlyRecord";
 const input: Array<[string, number]> = [["a", 1], ["b", 2]];
 
 assert.deepStrictEqual(fromEntries(input), { a: 1, b: 2 });
-```
-
-**`Since`**
-
-2.0.0
-
----
-
-### fromIterable
-
-▸ **fromIterable**\<`A`, `B`\>(`f`): (`self`: `Iterable`\<`A`\>) => `Record`\<`string`, `B`\>
-
-Takes an iterable and a projection function and returns a record.
-The projection function maps each value of the iterable to a tuple of a key and a value, which is then added to the resulting record.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name | Type                                   | Description                                                                             |
-| :--- | :------------------------------------- | :-------------------------------------------------------------------------------------- |
-| `f`  | (`a`: `A`) => readonly [`string`, `B`] | A projection function that maps values of the iterable to a tuple of a key and a value. |
-
-#### Returns
-
-`fn`
-
-▸ (`self`): `Record`\<`string`, `B`\>
-
-##### Parameters
-
-| Name   | Type              |
-| :----- | :---------------- |
-| `self` | `Iterable`\<`A`\> |
-
-##### Returns
-
-`Record`\<`string`, `B`\>
-
-**`Example`**
-
-```ts
-import { fromIterable } from "effect/ReadonlyRecord";
-
-const input = [1, 2, 3, 4];
-
-assert.deepStrictEqual(
-  fromIterable(input, a => [String(a), a * 2]),
-  { "1": 2, "2": 4, "3": 6, "4": 8 },
-);
-```
-
-**`Since`**
-
-2.0.0
-
-▸ **fromIterable**\<`A`, `B`\>(`self`, `f`): `Record`\<`string`, `B`\>
-
-Takes an iterable and a projection function and returns a record.
-The projection function maps each value of the iterable to a tuple of a key and a value, which is then added to the resulting record.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-| `B`  |
-
-#### Parameters
-
-| Name   | Type                                   | Description                                                                             |
-| :----- | :------------------------------------- | :-------------------------------------------------------------------------------------- |
-| `self` | `Iterable`\<`A`\>                      | An iterable of values to be mapped to a record.                                         |
-| `f`    | (`a`: `A`) => readonly [`string`, `B`] | A projection function that maps values of the iterable to a tuple of a key and a value. |
-
-#### Returns
-
-`Record`\<`string`, `B`\>
-
-**`Example`**
-
-```ts
-import { fromIterable } from "effect/ReadonlyRecord";
-
-const input = [1, 2, 3, 4];
-
-assert.deepStrictEqual(
-  fromIterable(input, a => [String(a), a * 2]),
-  { "1": 2, "2": 4, "3": 6, "4": 8 },
-);
 ```
 
 **`Since`**

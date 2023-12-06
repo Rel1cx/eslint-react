@@ -496,6 +496,44 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 
 ## constructors
 
+### fromIterable
+
+▸ **fromIterable**\<`A`\>(`collection`): [`Option`](O.md#option)\<`A`\>
+
+Converts an `Iterable` of values into an `Option`. Returns the first value of the `Iterable` wrapped in a `Some`
+if the `Iterable` is not empty, otherwise returns `None`.
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `A`  |
+
+#### Parameters
+
+| Name         | Type              | Description                                    |
+| :----------- | :---------------- | :--------------------------------------------- |
+| `collection` | `Iterable`\<`A`\> | The `Iterable` to be converted to an `Option`. |
+
+#### Returns
+
+[`Option`](O.md#option)\<`A`\>
+
+**`Example`**
+
+```ts
+import { fromIterable, some, none } from "effect/Option";
+
+assert.deepStrictEqual(fromIterable([1, 2, 3]), some(1));
+assert.deepStrictEqual(fromIterable([]), none());
+```
+
+**`Since`**
+
+2.0.0
+
+---
+
 ### none
 
 ▸ **none**\<`A`\>(): [`Option`](O.md#option)\<`A`\>
@@ -545,44 +583,6 @@ Creates a new `Option` that wraps the given value.
 2.0.0
 
 ## conversions
-
-### fromIterable
-
-▸ **fromIterable**\<`A`\>(`collection`): [`Option`](O.md#option)\<`A`\>
-
-Converts an `Iterable` of values into an `Option`. Returns the first value of the `Iterable` wrapped in a `Some`
-if the `Iterable` is not empty, otherwise returns `None`.
-
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
-#### Parameters
-
-| Name         | Type              | Description                                    |
-| :----------- | :---------------- | :--------------------------------------------- |
-| `collection` | `Iterable`\<`A`\> | The `Iterable` to be converted to an `Option`. |
-
-#### Returns
-
-[`Option`](O.md#option)\<`A`\>
-
-**`Example`**
-
-```ts
-import { fromIterable, some, none } from "effect/Option";
-
-assert.deepStrictEqual(fromIterable([1, 2, 3]), some(1));
-assert.deepStrictEqual(fromIterable([]), none());
-```
-
-**`Since`**
-
-2.0.0
-
----
 
 ### fromNullable
 
