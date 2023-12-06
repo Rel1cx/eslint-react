@@ -104,6 +104,7 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: "2021",
+    sourceType: "module",
     project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
   },
   extends: [
@@ -137,6 +138,7 @@ export default [
       parser: tsParser,
         parserOptions: {
           ecmaVersion: "2021",
+          sourceType: "module",
           project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
       },
       sourceType: "module",

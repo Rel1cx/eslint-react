@@ -12,6 +12,7 @@ export default [
       parser: tsParser,
       parserOptions: {
         ecmaVersion: "2021",
+        sourceType: "module",
         project: "./tsconfig.json",
       },
       sourceType: "module",
