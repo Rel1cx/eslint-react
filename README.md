@@ -129,9 +129,9 @@ module.exports = {
 - [x] `react/no-script-url`
 - [ ] `react/no-direct-mutation-state`
 - [x] `react/no-redundant-should-component-update`
-- [ ] `react/no-set-state-in-component-did-mount`
-- [ ] `react/no-set-state-in-component-did-update`
-- [ ] `react/no-set-state-in-component-will-update`
+- [x] `react/no-set-state-in-component-did-mount`
+- [x] `react/no-set-state-in-component-did-update`
+- [x] `react/no-set-state-in-component-will-update`
 - [x] `react/no-component-will-mount`
 - [x] `react/no-component-will-update`
 - [x] `react/no-unsafe-component-will-mount`
