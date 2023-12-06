@@ -1,1 +1,1 @@
-export const PUBLIC_URL = "https://cdn.jsdelivr.net/gh/rel1cx/eslint-react@main/website/public";
+export const PUBLIC_URL = "https://eslint-react.rel1cx.io";
