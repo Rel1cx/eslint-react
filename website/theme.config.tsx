@@ -15,7 +15,7 @@ export default {
   },
   primarySaturation: {
     light: 75,
-    dark: 32,
+    dark: 100,
   },
   sidebar: {
     defaultMenuCollapseLevel: 1,
