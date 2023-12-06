@@ -38,6 +38,11 @@
       "pattern": "examples/*",
       "changeProcessCWD": true,
       "mode": "auto"
+    },
+    {
+      "pattern": "website",
+      "changeProcessCWD": true,
+      "mode": "auto"
     }
   ],
   "mdx.server.enable": true,
