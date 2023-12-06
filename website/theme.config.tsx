@@ -9,6 +9,14 @@ import { PUBLIC_URL } from "#/constants";
 
 export default {
   docsRepositoryBase: "https://github.com/rel1cx/eslint-react/tree/main/website",
+  primaryHue: {
+    light: 233,
+    dark: 204,
+  },
+  primarySaturation: {
+    light: 75,
+    dark: 32,
+  },
   sidebar: {
     defaultMenuCollapseLevel: 1,
   },

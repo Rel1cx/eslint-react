@@ -100,11 +100,9 @@ The following presets are available in this plugin:
 
 [Rules Overview ↗](https://eslint-react.rel1cx.io/rules/overview)
 
-## Rules status
+## Rules implementation status
 
-### Work in progress
-
-#### JSX rules
+### JSX rules
 
 - [x] `jsx/no-missing-key`
 - [x] `jsx/no-spreading-key`
@@ -118,7 +116,7 @@ The following presets are available in this plugin:
 - [x] `jsx/prefer-shorthand-boolean`
 - [x] `jsx/prefer-shorthand-fragment`
 
-#### Naming convention rules
+### Naming convention rules
 
 - [x] `naming-convention/component-name`
 - [x] `naming-convention/filename`
@@ -127,7 +125,7 @@ The following presets are available in this plugin:
 - [ ] `naming-convention/handler-prop`
 - [ ] `naming-convention/use-state`
 
-#### React rules
+### React rules
 
 - [x] `react/no-children-count`
 - [x] `react/no-children-for-each`
@@ -158,7 +156,7 @@ The following presets are available in this plugin:
 - [x] `react/no-component-will-update`
 - [x] `react/no-unsafe-component-will-mount`
 - [x] `react/no-unsafe-component-will-update`
-- [ ] `react/no-unsafe-component-will-receive-props`
+- [x] `react/no-unsafe-component-will-receive-props`
 - [x] `react/no-unsafe-iframe-sandbox`
 - [x] `react/no-unsafe-target-blank`
 - [ ] `react/no-unsorted-class-component-methods`
@@ -175,7 +173,7 @@ The following presets are available in this plugin:
 - [ ] `react/ban-html-props`
 - [ ] `react/ban-svg-props`
 
-#### React hooks rules
+### React hooks rules
 
 - [ ] `react-hooks/no-access-state-in-setstate`
 - [ ] `react-hooks/no-suppressing-exhaustive-deps`
@@ -183,7 +181,7 @@ The following presets are available in this plugin:
 - [x] `react-hooks/ensure-use-callback-has-non-empty-deps` (Proposed by @SukkaW)
 - [x] `react-hooks/ensure-custom-hooks-using-other-hooks` (Proposed by @SukkaW)
 
-#### Debug rules
+### Debug rules
 
 - [x] `debug/class-component`
 - [x] `debug/function-component`
@@ -209,8 +207,6 @@ The following presets are available in this plugin:
 Before you start working on something, it's best to check if there is an existing issue first. It's also a good idea to reach the maintainer and confirm if it makes sense or if someone else is already working on it.
 
 Please make sure to read the [Contributing Guide](./.github/CONTRIBUTING.md) before making a pull request.
-
-Pull requests submitted without prior discussion can also be rejected without prior discussion.
 
 Thank you to everyone contributing to ESLint x React!
 
