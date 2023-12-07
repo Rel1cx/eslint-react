@@ -36,8 +36,7 @@ export default createRule<[], MessageID>({
     return {
       ...listeners,
       CallExpression(node) {
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-        if (!isCreateRefCall(node, context, initialScope)) {
+        if (!isCreateRefCall(node, context)) {
           return;
         }
 

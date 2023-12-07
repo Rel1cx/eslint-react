@@ -87,7 +87,6 @@ export function isPropertyOfPragma(name: string, context: RuleContext, pragma = 
 export type CallFromPragmaPredicate = (
   node: TSESTree.Node,
   context: RuleContext,
-  initialScope: Scope,
 ) => node is TSESTree.CallExpression;
 
 /**
@@ -96,7 +95,8 @@ export type CallFromPragmaPredicate = (
  * @returns A predicate that checks if the given node is a call expression to the given function or method
  */
 export function isCallFromPragma(name: string) {
-  return (node: TSESTree.Node, context: RuleContext, initialScope: Scope): node is TSESTree.CallExpression => {
+  return (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
+    const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
     if (node.type !== NodeType.CallExpression || !("callee" in node)) {
       return false;
     }

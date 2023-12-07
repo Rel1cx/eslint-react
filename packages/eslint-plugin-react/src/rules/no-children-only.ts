@@ -28,8 +28,7 @@ export default createRule<[], MessageID>({
 
     return {
       MemberExpression(node) {
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-        if (isChildrenOnly(node, context, initialScope, pragma)) {
+        if (isChildrenOnly(node, context, pragma)) {
           context.report({
             messageId: "NO_CHILDREN_ONLY",
             node: node.property,

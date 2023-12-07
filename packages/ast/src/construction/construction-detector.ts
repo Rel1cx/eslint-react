@@ -1,6 +1,6 @@
 import type { RuleContext } from "@eslint-react/shared";
 import { Data, M, O, P } from "@eslint-react/tools";
-import { DefinitionType, type Scope } from "@typescript-eslint/scope-manager";
+import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { isNil } from "rambda";
 
@@ -59,20 +59,16 @@ const None = Construction.None();
  * @param context The rule context
  * @returns A function that detects the construction of a given node
  */
-export function constructionDetector<T extends RuleContext>(
-  context: T,
-): (node: TSESTree.Node, scope: Scope) => Construction {
+export function constructionDetector<T extends RuleContext>(context: T): (node: TSESTree.Node) => Construction {
   /**
    * Detect if a node is a constructed value.
    * @param node The AST node to detect the construction of
-   * @param scope The scope of the node
    * @returns The construction of the node
    */
-  const detect = (
-    node: TSESTree.Node,
-    scope = context.sourceCode.getScope?.(node) ?? context.getScope(),
-    // eslint-disable-next-line sonarjs/cognitive-complexity
-  ): Construction => {
+  // eslint-disable-next-line sonarjs/cognitive-complexity
+  const detect = (node: TSESTree.Node): Construction => {
+    const scope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
     return M.match(node)
       .when(is(NodeType.ArrayExpression), (node) => Construction.Array({ node, usage: O.none() }))
       .when(is(NodeType.ObjectExpression), (node) => Construction.ObjectExpression({ node, usage: O.none() }))

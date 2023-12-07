@@ -32,7 +32,7 @@ export default createRule<[], MessageID>({
       CallExpression(node) {
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
 
-        if (!unsafeIsReactHookCall(node) || !isUseMemoCall(node, context, initialScope, pragma)) {
+        if (!unsafeIsReactHookCall(node) || !isUseMemoCall(node, context, pragma)) {
           return;
         }
 

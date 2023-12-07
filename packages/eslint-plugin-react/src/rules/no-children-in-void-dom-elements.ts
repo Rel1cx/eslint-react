@@ -56,7 +56,7 @@ export default createRule<[], MessageID>({
 
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
 
-        if (!isCreateElementCall(node, context, initialScope)) {
+        if (!isCreateElementCall(node, context)) {
           return;
         }
 

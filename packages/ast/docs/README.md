@@ -187,7 +187,7 @@
 
 ### constructionDetector
 
-▸ **constructionDetector**\<`T`\>(`context`): (`node`: `TSESTree.Node`, `scope`: `Scope`) => [`Construction`](README.md#construction-1)
+▸ **constructionDetector**\<`T`\>(`context`): (`node`: `TSESTree.Node`) => [`Construction`](README.md#construction-1)
 
 Get a function that detects the construction of a given node.
 
@@ -209,14 +209,13 @@ Get a function that detects the construction of a given node.
 
 A function that detects the construction of a given node
 
-▸ (`node`, `scope`): [`Construction`](README.md#construction-1)
+▸ (`node`): [`Construction`](README.md#construction-1)
 
 ##### Parameters
 
-| Name    | Type            |
-| :------ | :-------------- |
-| `node`  | `TSESTree.Node` |
-| `scope` | `Scope`         |
+| Name   | Type            |
+| :----- | :-------------- |
+| `node` | `TSESTree.Node` |
 
 ##### Returns
 

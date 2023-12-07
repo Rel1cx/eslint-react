@@ -38,7 +38,7 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-        if (node.arguments.length < 2 || !isCreateElementCall(node, context, initialScope)) {
+        if (node.arguments.length < 2 || !isCreateElementCall(node, context)) {
           return;
         }
         const props = node.arguments[1];

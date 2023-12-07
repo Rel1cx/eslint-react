@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
 
         const hasTargetBlank = F.pipe(
           findPropInAttributes(attributes, context, initialScope)("target"),
-          O.flatMap(attr => getPropValue(attr, context, initialScope)),
+          O.flatMap(attr => getPropValue(attr, context)),
           O.exists(v => v?.value === "_blank"),
         );
 
@@ -56,7 +56,7 @@ export default createRule<[], MessageID>({
           }
 
           return F.pipe(
-            getPropValue(attr, context, initialScope),
+            getPropValue(attr, context),
             O.flatMapNullable(v => v?.value),
             O.filter(P.isString),
             O.exists(isExternalLinkLike),
@@ -69,7 +69,7 @@ export default createRule<[], MessageID>({
 
         const hasUnsafeRel = !F.pipe(
           findPropInAttributes(attributes, context, initialScope)("rel"),
-          O.flatMap(attr => getPropValue(attr, context, initialScope)),
+          O.flatMap(attr => getPropValue(attr, context)),
           O.flatMapNullable(v => v?.value),
           O.filter(P.isString),
           O.exists(isSafeRel),

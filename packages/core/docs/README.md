@@ -326,15 +326,14 @@ hints for component collector
 
 ### getFunctionComponentIdentifier
 
-▸ **getFunctionComponentIdentifier**(`node`, `context`, `initialScope`): `O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>
+▸ **getFunctionComponentIdentifier**(`node`, `context`): `O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `TSESTreeFunction`                                            |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `TSESTreeFunction`                                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
@@ -428,16 +427,15 @@ It will be removed in the future
 
 ### isChildrenCount
 
-▸ **isChildrenCount**(`node`, `context`, `initialScope`, `pragma?`): `boolean`
+▸ **isChildrenCount**(`node`, `context`, `pragma?`): `boolean`
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `MemberExpression`                                            |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
-| `pragma?`      | `string`                                                      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `MemberExpression`                                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma?` | `string`                                                      |
 
 #### Returns
 
@@ -447,16 +445,15 @@ It will be removed in the future
 
 ### isChildrenForEach
 
-▸ **isChildrenForEach**(`node`, `context`, `initialScope`, `pragma?`): `boolean`
+▸ **isChildrenForEach**(`node`, `context`, `pragma?`): `boolean`
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `MemberExpression`                                            |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
-| `pragma?`      | `string`                                                      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `MemberExpression`                                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma?` | `string`                                                      |
 
 #### Returns
 
@@ -466,16 +463,15 @@ It will be removed in the future
 
 ### isChildrenMap
 
-▸ **isChildrenMap**(`node`, `context`, `initialScope`, `pragma?`): `boolean`
+▸ **isChildrenMap**(`node`, `context`, `pragma?`): `boolean`
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `MemberExpression`                                            |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
-| `pragma?`      | `string`                                                      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `MemberExpression`                                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma?` | `string`                                                      |
 
 #### Returns
 
@@ -485,16 +481,15 @@ It will be removed in the future
 
 ### isChildrenOnly
 
-▸ **isChildrenOnly**(`node`, `context`, `initialScope`, `pragma?`): `boolean`
+▸ **isChildrenOnly**(`node`, `context`, `pragma?`): `boolean`
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `MemberExpression`                                            |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
-| `pragma?`      | `string`                                                      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `MemberExpression`                                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma?` | `string`                                                      |
 
 #### Returns
 
@@ -504,16 +499,15 @@ It will be removed in the future
 
 ### isChildrenToArray
 
-▸ **isChildrenToArray**(`node`, `context`, `initialScope`, `pragma?`): `boolean`
+▸ **isChildrenToArray**(`node`, `context`, `pragma?`): `boolean`
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `MemberExpression`                                            |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
-| `pragma?`      | `string`                                                      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `MemberExpression`                                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma?` | `string`                                                      |
 
 #### Returns
 
@@ -617,7 +611,7 @@ It will be removed in the future
 
 ### isMemberExpressionOfReactMember
 
-▸ **isMemberExpressionOfReactMember**(`pragmaMemberName`, `memberName`): (`node`: `TSESTree.MemberExpression`, `context`: `RuleContext`, `initialScope?`: `Scope`, `pragma?`: `string`) => `boolean`
+▸ **isMemberExpressionOfReactMember**(`pragmaMemberName`, `memberName`): (`node`: `TSESTree.MemberExpression`, `context`: `RuleContext`, `pragma?`: `string`) => `boolean`
 
 #### Parameters
 
@@ -630,16 +624,15 @@ It will be removed in the future
 
 `fn`
 
-▸ (`node`, `context`, `initialScope?`, `pragma?`): `boolean`
+▸ (`node`, `context`, `pragma?`): `boolean`
 
 ##### Parameters
 
-| Name            | Type                        |
-| :-------------- | :-------------------------- |
-| `node`          | `TSESTree.MemberExpression` |
-| `context`       | `RuleContext`               |
-| `initialScope?` | `Scope`                     |
-| `pragma?`       | `string`                    |
+| Name      | Type                        |
+| :-------- | :-------------------------- |
+| `node`    | `TSESTree.MemberExpression` |
+| `context` | `RuleContext`               |
+| `pragma?` | `string`                    |
 
 ##### Returns
 
@@ -649,15 +642,14 @@ It will be removed in the future
 
 ### isMemoOrForwardRefCall
 
-▸ **isMemoOrForwardRefCall**(`node`, `context`, `initialScope`): `boolean`
+▸ **isMemoOrForwardRefCall**(`node`, `context`): `boolean`
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `Node`                                                        |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `Node`                                                        |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
@@ -686,7 +678,7 @@ Check if a node is a React PureComponent
 
 ### isReactHookCallWithName
 
-▸ **isReactHookCallWithName**(`name`): (`node`: `CallExpression`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>, `initialScope`: `Scope`, `pragma`: `string`) => `boolean`
+▸ **isReactHookCallWithName**(`name`): (`node`: `CallExpression`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>, `pragma`: `string`) => `boolean`
 
 #### Parameters
 
@@ -698,16 +690,15 @@ Check if a node is a React PureComponent
 
 `fn`
 
-▸ (`node`, `context`, `initialScope`, `pragma`): `boolean`
+▸ (`node`, `context`, `pragma`): `boolean`
 
 ##### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `CallExpression`                                              |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
-| `pragma`       | `string`                                                      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
 
 ##### Returns
 
@@ -717,16 +708,15 @@ Check if a node is a React PureComponent
 
 ### isUseCallbackCall
 
-▸ **isUseCallbackCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
+▸ **isUseCallbackCall**(`node`, `context`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `CallExpression`                                              |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
-| `pragma`       | `string`                                                      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
 
 #### Returns
 
@@ -736,16 +726,15 @@ Check if a node is a React PureComponent
 
 ### isUseContextCall
 
-▸ **isUseContextCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
+▸ **isUseContextCall**(`node`, `context`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `CallExpression`                                              |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
-| `pragma`       | `string`                                                      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
 
 #### Returns
 
@@ -755,16 +744,15 @@ Check if a node is a React PureComponent
 
 ### isUseDebugValueCall
 
-▸ **isUseDebugValueCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
+▸ **isUseDebugValueCall**(`node`, `context`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `CallExpression`                                              |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
-| `pragma`       | `string`                                                      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
 
 #### Returns
 
@@ -774,16 +762,15 @@ Check if a node is a React PureComponent
 
 ### isUseEffectCall
 
-▸ **isUseEffectCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
+▸ **isUseEffectCall**(`node`, `context`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `CallExpression`                                              |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
-| `pragma`       | `string`                                                      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
 
 #### Returns
 
@@ -793,16 +780,15 @@ Check if a node is a React PureComponent
 
 ### isUseImperativeHandleCall
 
-▸ **isUseImperativeHandleCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
+▸ **isUseImperativeHandleCall**(`node`, `context`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `CallExpression`                                              |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
-| `pragma`       | `string`                                                      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
 
 #### Returns
 
@@ -812,16 +798,15 @@ Check if a node is a React PureComponent
 
 ### isUseLayoutEffectCall
 
-▸ **isUseLayoutEffectCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
+▸ **isUseLayoutEffectCall**(`node`, `context`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `CallExpression`                                              |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
-| `pragma`       | `string`                                                      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
 
 #### Returns
 
@@ -831,16 +816,15 @@ Check if a node is a React PureComponent
 
 ### isUseMemoCall
 
-▸ **isUseMemoCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
+▸ **isUseMemoCall**(`node`, `context`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `CallExpression`                                              |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
-| `pragma`       | `string`                                                      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
 
 #### Returns
 
@@ -850,16 +834,15 @@ Check if a node is a React PureComponent
 
 ### isUseReducerCall
 
-▸ **isUseReducerCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
+▸ **isUseReducerCall**(`node`, `context`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `CallExpression`                                              |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
-| `pragma`       | `string`                                                      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
 
 #### Returns
 
@@ -869,16 +852,15 @@ Check if a node is a React PureComponent
 
 ### isUseRefCall
 
-▸ **isUseRefCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
+▸ **isUseRefCall**(`node`, `context`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `CallExpression`                                              |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
-| `pragma`       | `string`                                                      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
 
 #### Returns
 
@@ -888,16 +870,15 @@ Check if a node is a React PureComponent
 
 ### isUseStateCall
 
-▸ **isUseStateCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
+▸ **isUseStateCall**(`node`, `context`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `CallExpression`                                              |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
-| `pragma`       | `string`                                                      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
 
 #### Returns
 

@@ -26,8 +26,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       CallExpression(node) {
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-        if (!isCloneElementCall(node, context, initialScope)) {
+        if (!isCloneElementCall(node, context)) {
           return;
         }
 

@@ -9,7 +9,6 @@ import {
 import { getPragmaFromContext, isChildrenOfCreateElement, isJSXValue } from "@eslint-react/jsx";
 import { type RuleContext, uid } from "@eslint-react/shared";
 import { M, MutList, MutRef, O } from "@eslint-react/tools";
-import type { Scope } from "@typescript-eslint/scope-manager";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
@@ -21,8 +20,8 @@ import { getComponentInitPath, hasCallInInitPath } from "./component-init-path";
 import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
 import { isFunctionOfRenderMethod } from "./component-render-method";
 
-function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, initialScope: Scope, hint: bigint) {
-  if (isChildrenOfCreateElement(node, context, initialScope) || isFunctionOfRenderMethod(node, context)) {
+function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: bigint) {
+  if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node, context)) {
     return false;
   }
 
@@ -95,12 +94,10 @@ export function componentCollector(
         return;
       }
 
-      const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-
       if (
         !hasNoneOrValidComponentName(currentFn)
         || !isJSXValue(node.argument, context, hint)
-        || !hasValidHierarchy(currentFn, context, initialScope, hint)
+        || !hasValidHierarchy(currentFn, context, hint)
       ) {
         return;
       }
@@ -108,7 +105,7 @@ export function componentCollector(
       MutList.pop(functionStack);
       MutList.append(functionStack, [currentFn, true]);
 
-      const id = getFunctionComponentIdentifier(currentFn, context, initialScope);
+      const id = getFunctionComponentIdentifier(currentFn, context);
       const key = uid.rnd();
       const name = O.flatMapNullable(
         id,
@@ -132,17 +129,15 @@ export function componentCollector(
     "ArrowFunctionExpression[body.type!='BlockStatement']"(node: TSESTree.ArrowFunctionExpression) {
       const { body } = node;
 
-      const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-
       if (
         !hasNoneOrValidComponentName(node)
         || !isJSXValue(body, context, hint)
-        || !hasValidHierarchy(node, context, initialScope, hint)
+        || !hasValidHierarchy(node, context, hint)
       ) {
         return;
       }
 
-      const id = getFunctionComponentIdentifier(node, context, initialScope);
+      const id = getFunctionComponentIdentifier(node, context);
       const key = uid.rnd();
       const name = O.flatMapNullable(
         id,

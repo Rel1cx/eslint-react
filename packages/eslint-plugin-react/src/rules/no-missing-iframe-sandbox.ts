@@ -47,7 +47,7 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-        if (!isCreateElementCall(node, context, initialScope)) {
+        if (!isCreateElementCall(node, context)) {
           return;
         }
 
@@ -110,7 +110,7 @@ export default createRule<[], MessageID>({
 
         if (O.isSome(maybeTypeAttribute)) {
           const hasSandboxValue = F.pipe(
-            getPropValue(maybeTypeAttribute.value, context, initialScope),
+            getPropValue(maybeTypeAttribute.value, context),
             O.flatMapNullable(v => v?.value),
             O.filter(P.isString),
             O.map((value) => value.split(" ")),

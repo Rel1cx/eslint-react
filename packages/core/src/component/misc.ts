@@ -13,7 +13,8 @@ import { isClassComponent } from "./component-collector-legacy";
  * @deprecated It will be removed in the future
  */
 export function getParentClassComponent(node: TSESTree.Node, context: RuleContext): O.Option<TSESTreeClass> {
-  const scopeRef = MutRef.make<O.Option<Scope>>(O.fromNullable(context.sourceCode.getScope?.(node)));
+  const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+  const scopeRef = MutRef.make<O.Option<Scope>>(O.fromNullable(initialScope));
   // eslint-disable-next-line functional/no-loop-statements
   while (F.pipe(MutRef.get(scopeRef), O.exists(({ type }) => type !== ScopeType.class))) {
     MutRef.update(scopeRef, O.flatMapNullable(s => s.upper));

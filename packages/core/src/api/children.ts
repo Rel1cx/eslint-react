@@ -1,5 +1,4 @@
 import type { RuleContext } from "@eslint-react/shared";
-import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { isMemberExpressionOfReactMember } from "../internal";
@@ -8,7 +7,6 @@ import { isMemberExpressionOfReactMember } from "../internal";
 type ChildrenMethodPredicate = (
   node: TSESTree.MemberExpression,
   context: RuleContext,
-  initialScope: Scope,
   pragma?: string,
 ) => boolean;
 

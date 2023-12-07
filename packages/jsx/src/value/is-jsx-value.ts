@@ -112,9 +112,7 @@ export function isJSXValue(
         return false;
       }
 
-      const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-
-      return isCreateElementCall(node, context, initialScope);
+      return isCreateElementCall(node, context);
     })
     .with({ type: NodeType.Identifier }, (node) => {
       const { name } = node;

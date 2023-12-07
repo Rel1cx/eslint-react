@@ -67,19 +67,18 @@
 
 ### CallFromPragmaPredicate
 
-Ƭ **CallFromPragmaPredicate**: (`node`: `TSESTree.Node`, `context`: `RuleContext`, `initialScope`: `Scope`) => node is TSESTree.CallExpression
+Ƭ **CallFromPragmaPredicate**: (`node`: `TSESTree.Node`, `context`: `RuleContext`) => node is TSESTree.CallExpression
 
 #### Type declaration
 
-▸ (`node`, `context`, `initialScope`): node is TSESTree.CallExpression
+▸ (`node`, `context`): node is TSESTree.CallExpression
 
 ##### Parameters
 
-| Name           | Type            |
-| :------------- | :-------------- |
-| `node`         | `TSESTree.Node` |
-| `context`      | `RuleContext`   |
-| `initialScope` | `Scope`         |
+| Name      | Type            |
+| :-------- | :-------------- |
+| `node`    | `TSESTree.Node` |
+| `context` | `RuleContext`   |
 
 ##### Returns
 
@@ -368,17 +367,16 @@ string
 
 ### getPropValue
 
-▸ **getPropValue**(`attribute`, `context`, `initialScope`): `None`\<`null` \| \{ `value`: `unknown` }\> \| `Some`\<`null` \| \{ `value`: `unknown` }\>
+▸ **getPropValue**(`attribute`, `context`): `None`\<`null` \| \{ `value`: `unknown` }\> \| `Some`\<`null` \| \{ `value`: `unknown` }\>
 
 Gets and resolves the static value of a JSX attribute
 
 #### Parameters
 
-| Name           | Type                                                          | Description                           |
-| :------------- | :------------------------------------------------------------ | :------------------------------------ |
-| `attribute`    | `JSXAttribute` \| `JSXSpreadAttribute`                        | The JSX attribute to get the value of |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context                      |
-| `initialScope` | `Scope`                                                       |                                       |
+| Name        | Type                                                          | Description                           |
+| :---------- | :------------------------------------------------------------ | :------------------------------------ |
+| `attribute` | `JSXAttribute` \| `JSXSpreadAttribute`                        | The JSX attribute to get the value of |
+| `context`   | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context                      |
 
 #### Returns
 
@@ -480,7 +478,7 @@ Check if the given prop name is present in the given attributes
 
 ### isCallFromPragma
 
-▸ **isCallFromPragma**(`name`): (`node`: `Node`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>, `initialScope`: `Scope`) => node is CallExpression
+▸ **isCallFromPragma**(`name`): (`node`: `Node`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>) => node is CallExpression
 
 Checks if the given node is a call expression to the given function or method of the pragma
 
@@ -496,15 +494,14 @@ Checks if the given node is a call expression to the given function or method of
 
 A predicate that checks if the given node is a call expression to the given function or method
 
-▸ (`node`, `context`, `initialScope`): node is CallExpression
+▸ (`node`, `context`): node is CallExpression
 
 ##### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `Node`                                                        |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `Node`                                                        |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 ##### Returns
 
@@ -534,15 +531,14 @@ node is JSXElement & Object
 
 ### isChildrenOfCreateElement
 
-▸ **isChildrenOfCreateElement**(`node`, `context`, `initialScope`): `boolean`
+▸ **isChildrenOfCreateElement**(`node`, `context`): `boolean`
 
 #### Parameters
 
-| Name           | Type                                                          |
-| :------------- | :------------------------------------------------------------ |
-| `node`         | `Node`                                                        |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `initialScope` | `Scope`                                                       |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `Node`                                                        |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
@@ -552,17 +548,16 @@ node is JSXElement & Object
 
 ### isCloneElementCall
 
-▸ **isCloneElementCall**(`node`, `context`, `initialScope`): node is CallExpression
+▸ **isCloneElementCall**(`node`, `context`): node is CallExpression
 
 Checks if the given node is a call expression to `cloneElement`
 
 #### Parameters
 
-| Name           | Type                                                          | Description           |
-| :------------- | :------------------------------------------------------------ | :-------------------- |
-| `node`         | `Node`                                                        | The AST node to check |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
-| `initialScope` | `Scope`                                                       | -                     |
+| Name      | Type                                                          | Description           |
+| :-------- | :------------------------------------------------------------ | :-------------------- |
+| `node`    | `Node`                                                        | The AST node to check |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
 
 #### Returns
 
@@ -574,17 +569,16 @@ node is CallExpression
 
 ### isCreateElementCall
 
-▸ **isCreateElementCall**(`node`, `context`, `initialScope`): node is CallExpression
+▸ **isCreateElementCall**(`node`, `context`): node is CallExpression
 
 Checks if the given node is a call expression to `createElement`
 
 #### Parameters
 
-| Name           | Type                                                          | Description           |
-| :------------- | :------------------------------------------------------------ | :-------------------- |
-| `node`         | `Node`                                                        | The AST node to check |
-| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
-| `initialScope` | `Scope`                                                       | -                     |
+| Name      | Type                                                          | Description           |
+| :-------- | :------------------------------------------------------------ | :-------------------- |
+| `node`    | `Node`                                                        | The AST node to check |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
 
 #### Returns
 

@@ -24,9 +24,8 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       CallExpression(node) {
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
         if (
-          isCreateElementCall(node, context, initialScope)
+          isCreateElementCall(node, context)
           && node.arguments.length > 0
           && node.arguments[0]?.type === AST_NODE_TYPES.Literal
         ) {

@@ -65,8 +65,7 @@ export default createRule<[], MessageID>({
         }
 
         const valueExpression = valueNode.expression;
-        const invocationScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-        const constructionDetail = detectConstruction(valueExpression, invocationScope);
+        const constructionDetail = detectConstruction(valueExpression);
 
         if (constructionDetail._tag === "None") {
           return;
