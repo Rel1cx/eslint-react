@@ -147,7 +147,7 @@ The following presets are available in this plugin:
 - [x] `react/no-missing-iframe-sandbox`
 - [x] `react/no-missing-component-display-name`
 - [x] `react/no-script-url`
-- [ ] `react/no-direct-mutation-state`
+- [x] `react/no-direct-mutation-state`
 - [x] `react/no-redundant-should-component-update`
 - [x] `react/no-set-state-in-component-did-mount`
 - [x] `react/no-set-state-in-component-did-update`

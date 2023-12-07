@@ -1,3 +1,22 @@
+## v0.9.3 (Draft)
+
+### Release Notes
+
+#### Add rule `react/no-direct-mutation-state`
+
+---
+
+#### 🏠 Internal
+
+- `@eslint-react/eslint-plugin-react`
+  - Add rule `react/no-direct-mutation-state`.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
+
 ## v0.9.2 (Wed Dec 6 2023)
 
 ### Release Notes

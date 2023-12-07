@@ -43,6 +43,7 @@
 | [react/no-create-ref](react-no-create-ref)                                                           | disallow `createRef` in function components                                                |
 | [react/no-dangerously-set-innerhtml](react-no-dangerously-set-innerhtml)                             | disallow when a DOM element is using `dangerouslySetInnerHTML`                             |
 | [react/no-dangerously-set-innerhtml-with-children](react-no-dangerously-set-innerhtml-with-children) | disallow when a DOM element is using both `children` and `dangerouslySetInnerHTML`         |
+| [react/no-direct-mutation-state](react-no-direct-mutation-state)                                     | disallow direct mutation of `this.state`                                                   |
 | [react/no-find-dom-node](react-no-find-dom-node)                                                     | disallow `findDOMNode`                                                                     |
 | [react/no-missing-button-type](react-no-missing-button-type)                                         | enforce that `button` elements have an explicit `type` attribute                           |
 | [react/no-missing-iframe-sandbox](react-no-missing-iframe-sandbox)                                   | enforce that `iframe` elements explicitly specify a `sandbox` attribute                    |
