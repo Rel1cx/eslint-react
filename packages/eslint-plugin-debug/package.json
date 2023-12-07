@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin-debug",
-  "version": "0.9.3-beta.0",
+  "version": "0.9.3-beta.1",
   "description": "ESLint x React's ESLint plugin for debugging related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
