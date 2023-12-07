@@ -45,14 +45,16 @@ export default createRule<[], MessageID>({
         return O.none();
       }
 
+      const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
       return F.pipe(
-        findPropInAttributes(node.openingElement.attributes, context)("key"),
+        findPropInAttributes(node.openingElement.attributes, context, initialScope)("key"),
         O.flatMapNullable((k) => "value" in k ? k.value : null),
         O.flatMap((v) => {
           return isNodeEqual(v, v)
             ? O.some({
               data: {
-                value: context.getSourceCode().getText(v),
+                value: context.sourceCode.getText(v),
               },
               messageId: "NO_DUPLICATE_KEY",
               node: v,
@@ -149,7 +151,7 @@ export default createRule<[], MessageID>({
           seen.add(element);
           context.report({
             data: {
-              value: context.getSourceCode().getText(value),
+              value: context.sourceCode.getText(value),
             },
             messageId: "NO_DUPLICATE_KEY",
             node: attr,

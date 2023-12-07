@@ -30,7 +30,9 @@ export default createRule<[], MessageID>({
 
     return {
       CallExpression(node) {
-        if (!unsafeIsReactHookCall(node) || !isUseCallbackCall(node, context, pragma)) {
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
+        if (!unsafeIsReactHookCall(node) || !isUseCallbackCall(node, context, initialScope, pragma)) {
           return;
         }
 
@@ -49,7 +51,7 @@ export default createRule<[], MessageID>({
           .with({ type: NodeType.ArrayExpression }, O.some)
           .with({ type: NodeType.Identifier }, n => {
             return F.pipe(
-              findVariableByNameUpToGlobal(n.name, context.getScope()),
+              findVariableByNameUpToGlobal(n.name, initialScope),
               O.flatMap(getVariableInit(0)),
               O.filter(is(NodeType.ArrayExpression)),
             );

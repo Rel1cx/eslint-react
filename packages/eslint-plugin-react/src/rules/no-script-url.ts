@@ -37,8 +37,9 @@ export default createRule<[], MessageID>({
           return;
         }
 
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
         const isJavaScript = F.pipe(
-          getPropValue(node, context),
+          getPropValue(node, context, initialScope),
           O.flatMapNullable(v => v?.value),
           O.filter(P.isString),
           O.exists(v => RE_JAVASCRIPT_PROTOCOL.test(v)),

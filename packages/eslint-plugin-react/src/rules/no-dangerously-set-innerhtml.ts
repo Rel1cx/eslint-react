@@ -28,7 +28,8 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       CallExpression(node) {
-        if (node.arguments.length < 2 || !isCreateElementCall(node, context)) {
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        if (node.arguments.length < 2 || !isCreateElementCall(node, context, initialScope)) {
           return;
         }
 
@@ -38,8 +39,10 @@ export default createRule<[], MessageID>({
             return "properties" in n ? O.some(n.properties) : O.none();
           })
           .when(is(NodeType.Identifier), (n) => {
+            const initialScope = context.sourceCode.getScope?.(n) ?? context.getScope();
+
             return F.pipe(
-              findVariableByNameUpToGlobal(n.name, context.getScope()),
+              findVariableByNameUpToGlobal(n.name, initialScope),
               O.flatMap(getVariableInit(0)),
               O.flatMapNullable((n) => "properties" in n ? n.properties : null),
             );
@@ -51,7 +54,7 @@ export default createRule<[], MessageID>({
         }
 
         const properties = maybeProperties.value;
-        const hasDanger = O.isSome(findPropInProperties(properties, context)("dangerouslySetInnerHTML"));
+        const hasDanger = O.isSome(findPropInProperties(properties, context, initialScope)("dangerouslySetInnerHTML"));
         if (hasDanger) {
           context.report({
             messageId: "NO_DANGEROUSLY_SET_INNERHTML",
@@ -60,7 +63,10 @@ export default createRule<[], MessageID>({
         }
       },
       JSXElement(node) {
-        const maybeDanger = findPropInAttributes(node.openingElement.attributes, context)("dangerouslySetInnerHTML");
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        const maybeDanger = findPropInAttributes(node.openingElement.attributes, context, initialScope)(
+          "dangerouslySetInnerHTML",
+        );
         if (O.isSome(maybeDanger)) {
           context.report({
             messageId: "NO_DANGEROUSLY_SET_INNERHTML",

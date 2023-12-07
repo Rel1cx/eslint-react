@@ -28,7 +28,8 @@ export default createRule<[], MessageID>({
 
     return {
       MemberExpression(node) {
-        if (isChildrenForEach(node, context, pragma)) {
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        if (isChildrenForEach(node, context, initialScope, pragma)) {
           context.report({
             messageId: "NO_CHILDREN_FOR_EACH",
             node: node.property,

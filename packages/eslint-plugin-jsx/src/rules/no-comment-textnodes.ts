@@ -32,7 +32,7 @@ export default createRule<[], MessageID>({
         return false;
       }
 
-      const rawValue = context.getSourceCode().getText(node);
+      const rawValue = context.sourceCode.getText(node);
 
       return /^\s*\/(\/|\*)/mu.test(rawValue) && node.parent.type.includes("JSX");
     }

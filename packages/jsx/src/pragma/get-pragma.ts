@@ -25,8 +25,10 @@ export const getPragmaFromContext: <T extends RuleContext>(context: T) => string
     // eslint-disable-next-line prefer-destructuring
     const settings: { react?: ReactSettings } = context.settings;
 
-    const sourceCode = context.getSourceCode();
-    const pragmaNode = sourceCode.getAllComments().find((node) => RE_JSX_ANNOTATION_REGEX.test(node.value));
+    const { sourceCode } = context;
+    const pragmaNode = sourceCode
+      .getAllComments()
+      .find((node) => RE_JSX_ANNOTATION_REGEX.test(node.value));
 
     return F.pipe(
       O.orElse(O.fromNullable(settings.react?.pragma), () =>

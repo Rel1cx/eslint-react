@@ -1,6 +1,6 @@
 import { getFunctionIdentifier } from "@eslint-react/ast";
 import { componentCollector, ExRFunctionComponentFlag } from "@eslint-react/core";
-import { E, O } from "@eslint-react/tools";
+import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type ConstantCase } from "string-ts";
 
@@ -29,14 +29,8 @@ export default createRule<[], MessageID>({
 
     return {
       ...listeners,
-      "Program:exit"() {
-        const maybeComponents = ctx.getAllComponents();
-        if (E.isLeft(maybeComponents)) {
-          console.error(maybeComponents.left);
-
-          return;
-        }
-        const components = maybeComponents.right;
+      "Program:exit"(node) {
+        const components = ctx.getAllComponents(node);
 
         for (const { displayName, flag, node } of components.values()) {
           const isMemoOrForwardRef = Boolean(flag & ExRFunctionComponentFlag.ForwardRef)

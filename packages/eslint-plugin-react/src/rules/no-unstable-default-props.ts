@@ -1,6 +1,5 @@
 import { isUnstableAssignmentPattern, NodeType, readableNodeType } from "@eslint-react/ast";
 import { componentCollector } from "@eslint-react/core";
-import { E } from "@eslint-react/tools";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
@@ -43,14 +42,8 @@ export default createRule<[], MessageID>({
 
     return {
       ...listeners,
-      "Program:exit"() {
-        const maybeComponents = ctx.getAllComponents();
-        if (E.isLeft(maybeComponents)) {
-          console.error(maybeComponents.left);
-
-          return;
-        }
-        const components = maybeComponents.right;
+      "Program:exit"(node) {
+        const components = ctx.getAllComponents(node);
         for (const { node: component } of components.values()) {
           const { params } = component;
           if (!hasUsedObjectDestructuringSyntax(params)) {

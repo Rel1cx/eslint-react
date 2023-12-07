@@ -1,6 +1,7 @@
 import { findVariableByName, getVariablesUpToGlobal, NodeType } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
 import { M, O } from "@eslint-react/tools";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { getPragmaFromContext } from "./get-pragma";
@@ -8,9 +9,10 @@ import { getPragmaFromContext } from "./get-pragma";
 export function isInitializedFromPragma(
   variableName: string,
   context: RuleContext,
+  initialScope: Scope,
   pragma = getPragmaFromContext(context),
 ) {
-  const variables = getVariablesUpToGlobal(context.getScope());
+  const variables = getVariablesUpToGlobal(initialScope);
   const maybeVariable = findVariableByName(variableName)(variables);
   const maybeLatestDef = O.flatMapNullable(maybeVariable, (variable) => variable.defs.at(-1));
 
@@ -82,7 +84,11 @@ export function isPropertyOfPragma(name: string, context: RuleContext, pragma = 
   return isMatch;
 }
 
-export type CallFromPragmaPredicate = (node: TSESTree.Node, context: RuleContext) => node is TSESTree.CallExpression;
+export type CallFromPragmaPredicate = (
+  node: TSESTree.Node,
+  context: RuleContext,
+  initialScope: Scope,
+) => node is TSESTree.CallExpression;
 
 /**
  * Checks if the given node is a call expression to the given function or method of the pragma
@@ -90,7 +96,7 @@ export type CallFromPragmaPredicate = (node: TSESTree.Node, context: RuleContext
  * @returns A predicate that checks if the given node is a call expression to the given function or method
  */
 export function isCallFromPragma(name: string) {
-  return (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
+  return (node: TSESTree.Node, context: RuleContext, initialScope: Scope): node is TSESTree.CallExpression => {
     if (node.type !== NodeType.CallExpression || !("callee" in node)) {
       return false;
     }
@@ -100,7 +106,7 @@ export function isCallFromPragma(name: string) {
     }
 
     if ("name" in node.callee && node.callee.name === name) {
-      return isInitializedFromPragma(name, context);
+      return isInitializedFromPragma(name, context, initialScope);
     }
 
     return false;

@@ -19,7 +19,9 @@ export function isMemberExpressionOfPragmaMember(
       node.object.type === NodeType.Identifier
       && node.object.name === pragmaMemberName
     ) {
-      return isInitializedFromPragma(node.object.name, context, pragma);
+      const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
+      return isInitializedFromPragma(node.object.name, context, initialScope, pragma);
     }
 
     if (

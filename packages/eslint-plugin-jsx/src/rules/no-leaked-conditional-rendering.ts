@@ -209,8 +209,10 @@ export default createRule<[], MessageID>({
           return isValidExpression(consequent) && isValidExpression(alternate);
         })
         .with({ type: NodeType.Identifier }, (n) => {
+          const initialScope = context.sourceCode.getScope?.(n) ?? context.getScope();
+
           const maybeInitExpression = F.pipe(
-            findVariableByNameUpToGlobal(n.name, context.getScope()),
+            findVariableByNameUpToGlobal(n.name, initialScope),
             O.flatMap(getVariableInitExpression(0)),
           );
 

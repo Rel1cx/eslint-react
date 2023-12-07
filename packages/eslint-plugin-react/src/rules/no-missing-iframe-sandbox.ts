@@ -46,7 +46,8 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       CallExpression(node) {
-        if (!isCreateElementCall(node, context)) {
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        if (!isCreateElementCall(node, context, initialScope)) {
           return;
         }
 
@@ -65,7 +66,7 @@ export default createRule<[], MessageID>({
           return;
         }
 
-        const maybeTypeProperty = findPropInProperties(props.properties, context)("sandbox");
+        const maybeTypeProperty = findPropInProperties(props.properties, context, initialScope)("sandbox");
 
         if (O.isSome(maybeTypeProperty)) {
           const maybeTypeValue = F.pipe(
@@ -104,12 +105,12 @@ export default createRule<[], MessageID>({
         }
 
         const { attributes } = node.openingElement;
-
-        const maybeTypeAttribute = findPropInAttributes(attributes, context)("sandbox");
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        const maybeTypeAttribute = findPropInAttributes(attributes, context, initialScope)("sandbox");
 
         if (O.isSome(maybeTypeAttribute)) {
           const hasSandboxValue = F.pipe(
-            getPropValue(maybeTypeAttribute.value, context),
+            getPropValue(maybeTypeAttribute.value, context, initialScope),
             O.flatMapNullable(v => v?.value),
             O.filter(P.isString),
             O.map((value) => value.split(" ")),

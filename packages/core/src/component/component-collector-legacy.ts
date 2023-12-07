@@ -1,7 +1,7 @@
 import { getClassIdentifier, NodeType, type TSESTreeClass } from "@eslint-react/ast";
 import { getPragmaFromContext } from "@eslint-react/jsx";
 import { type RuleContext, uid } from "@eslint-react/shared";
-import { E, M, O } from "@eslint-react/tools";
+import { M, O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
 import type { ExRClassComponent } from "./component";
@@ -40,7 +40,7 @@ export function isClassComponent(node: TSESTree.Node, context: RuleContext): nod
 export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
   const pragma = getPragmaFromContext(context);
 
-  const sourceCode = context.getSourceCode();
+  const { sourceCode } = context;
 
   if ("superClass" in node && node.superClass) {
     const text = sourceCode.getText(node.superClass);
@@ -56,12 +56,8 @@ export function componentCollectorLegacy(context: RuleContext) {
   const components = new Map<string, ExRClassComponent>();
 
   const ctx = {
-    getAllComponents(): E.Either<Error, typeof components> {
-      if (context.getScope().block.type !== NodeType.Program) {
-        return E.left(new Error("getAllComponents should only be called in Program:exit"));
-      }
-
-      return E.right(components);
+    getAllComponents(_: TSESTree.Program): typeof components {
+      return components;
     },
     getCurrentComponents() {
       return new Map(components);

@@ -1,6 +1,6 @@
 import { type Construction, constructionDetector, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { componentCollector } from "@eslint-react/core";
-import { E, O } from "@eslint-react/tools";
+import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils";
@@ -65,7 +65,7 @@ export default createRule<[], MessageID>({
         }
 
         const valueExpression = valueNode.expression;
-        const invocationScope = context.getScope();
+        const invocationScope = context.sourceCode.getScope?.(node) ?? context.getScope();
         const constructionDetail = detectConstruction(valueExpression, invocationScope);
 
         if (constructionDetail._tag === "None") {
@@ -74,15 +74,8 @@ export default createRule<[], MessageID>({
 
         O.map(ctx.getCurrentFunction(), ([currentFn]) => possibleValueConstructions.set(currentFn, constructionDetail));
       },
-      "Program:exit"() {
-        const maybeComponents = ctx.getAllComponents();
-        if (E.isLeft(maybeComponents)) {
-          console.error(maybeComponents.left);
-
-          return;
-        }
-
-        const components = Array.from(maybeComponents.right.values());
+      "Program:exit"(node) {
+        const components = Array.from(ctx.getAllComponents(node).values());
         for (const [fn, detail] of possibleValueConstructions.entries()) {
           if (
             !components.some((component) => component.node === fn)

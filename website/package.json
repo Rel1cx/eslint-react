@@ -20,7 +20,7 @@
   "devDependencies": {
     "@eslint-react/eslint-plugin": "latest",
     "@mdx-js/mdx": "3.0.0",
-    "@types/node": "20.10.3",
+    "@types/node": "20.10.4",
     "@types/react": "18.2.40",
     "@types/react-dom": "18.2.17",
     "@typescript-eslint/eslint-plugin": "6.13.2",

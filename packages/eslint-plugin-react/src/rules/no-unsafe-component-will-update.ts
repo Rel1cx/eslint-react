@@ -1,6 +1,5 @@
 import { isOneOf, NodeType } from "@eslint-react/ast";
 import { componentCollectorLegacy } from "@eslint-react/core";
-import { E } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
@@ -37,12 +36,8 @@ export default createRule<[], MessageID>({
 
     return {
       ...listeners,
-      "Program:exit"() {
-        const maybeComponents = ctx.getAllComponents();
-        if (E.isLeft(maybeComponents)) {
-          return;
-        }
-        const components = maybeComponents.right;
+      "Program:exit"(node) {
+        const components = ctx.getAllComponents(node);
 
         for (const { node: component } of components.values()) {
           const { body } = component.body;

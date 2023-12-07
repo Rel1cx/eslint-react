@@ -175,7 +175,12 @@ export default createRule<[], MessageID>({
 
     return {
       CallExpression(node) {
-        if ((isCreateElementCall(node, context) || isCloneElementCall(node, context)) && node.arguments.length > 1) {
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
+        if (
+          (isCreateElementCall(node, context, initialScope) || isCloneElementCall(node, context, initialScope))
+          && node.arguments.length > 1
+        ) {
           if (indexParamNames.length === 0) {
             return;
           }

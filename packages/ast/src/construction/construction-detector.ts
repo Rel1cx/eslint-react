@@ -68,8 +68,11 @@ export function constructionDetector<T extends RuleContext>(
    * @param scope The scope of the node
    * @returns The construction of the node
    */
-  // eslint-disable-next-line sonarjs/cognitive-complexity
-  const detect = (node: TSESTree.Node, scope = context.getScope()): Construction => {
+  const detect = (
+    node: TSESTree.Node,
+    scope = context.sourceCode.getScope?.(node) ?? context.getScope(),
+    // eslint-disable-next-line sonarjs/cognitive-complexity
+  ): Construction => {
     return M.match(node)
       .when(is(NodeType.ArrayExpression), (node) => Construction.Array({ node, usage: O.none() }))
       .when(is(NodeType.ObjectExpression), (node) => Construction.ObjectExpression({ node, usage: O.none() }))

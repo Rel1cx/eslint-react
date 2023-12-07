@@ -2,7 +2,7 @@ import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
 import { componentCollector, componentCollectorLegacy } from "@eslint-react/core";
 import { elementType } from "@eslint-react/jsx";
 import { getCaseValidator } from "@eslint-react/shared";
-import { E, O } from "@eslint-react/tools";
+import { O } from "@eslint-react/tools";
 import { type ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { type ConstantCase } from "string-ts";
@@ -103,21 +103,9 @@ export default createRule<Options, MessageID>({
           node,
         });
       },
-      "Program:exit"() {
-        const maybeFunctionComponents = collector.ctx.getAllComponents();
-        if (E.isLeft(maybeFunctionComponents)) {
-          console.error(maybeFunctionComponents.left);
-
-          return;
-        }
-        const functionComponents = maybeFunctionComponents.right;
-        const maybeClassComponents = collectorLegacy.ctx.getAllComponents();
-        if (E.isLeft(maybeClassComponents)) {
-          console.error(maybeClassComponents.left);
-
-          return;
-        }
-        const classComponents = maybeClassComponents.right;
+      "Program:exit"(node) {
+        const functionComponents = collector.ctx.getAllComponents(node);
+        const classComponents = collectorLegacy.ctx.getAllComponents(node);
 
         for (const { node: component } of functionComponents.values()) {
           const maybeId = getFunctionIdentifier(component);

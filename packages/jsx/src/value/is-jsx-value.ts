@@ -112,7 +112,9 @@ export function isJSXValue(
         return false;
       }
 
-      return isCreateElementCall(node, context);
+      const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
+      return isCreateElementCall(node, context, initialScope);
     })
     .with({ type: NodeType.Identifier }, (node) => {
       const { name } = node;
@@ -125,7 +127,9 @@ export function isJSXValue(
         return true;
       }
 
-      const maybeVariable = findVariableByNameUpToGlobal(name, context.getScope());
+      const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
+      const maybeVariable = findVariableByNameUpToGlobal(name, initialScope);
 
       return F.pipe(
         maybeVariable,

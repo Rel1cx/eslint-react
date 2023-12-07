@@ -82,12 +82,15 @@ export default createRule<[], MessageID>({
     const fragmentPragma = getFragmentFromContext(context);
 
     function checkNode(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
+      const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
       if (
         node.type === NodeType.JSXElement
         && hasProp(
           node.openingElement.attributes,
           "key",
           context,
+          initialScope,
         )
       ) {
         return;
