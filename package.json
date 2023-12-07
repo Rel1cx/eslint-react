@@ -91,7 +91,7 @@
     "publint": "0.2.6",
     "rollup": "4.6.1",
     "rollup-plugin-dts": "6.1.0",
-    "rollup-plugin-swc3": "0.10.4",
+    "rollup-plugin-swc3": "0.11.0",
     "rollup-plugin-visualizer": "5.10.0",
     "skott": "0.31.3",
     "taze": "0.13.0",
@@ -103,13 +103,13 @@
     "typedoc-plugin-markdown": "3.17.1",
     "typedoc-plugin-mermaid": "1.10.0",
     "typedoc-plugin-rename-defaults": "0.7.0",
-    "typescript": ">=5.3.2",
+    "typescript": ">=5.3.3",
     "vitest": "0.34.6"
   },
   "peerDependencies": {
     "@typescript-eslint/parser": ">=6.13.2",
     "eslint": ">=8.55.0",
-    "typescript": ">=5.3.2"
+    "typescript": ">=5.3.3"
   },
   "packageManager": "pnpm@8.11.0",
   "engines": {
@@ -131,7 +131,7 @@
       "effect": "2.0.0-next.59",
       "react": "18.2.0",
       "react-dom": "18.2.0",
-      "typescript": ">=5.3.2",
+      "typescript": ">=5.3.3",
       "eslint-plugin-import": "npm:eslint-plugin-i@latest",
       "has": "npm:@nolyfill/has@latest",
       "array-includes": "npm:@nolyfill/array-includes@latest",
