@@ -17,6 +17,7 @@ import noConstructedContextValue from "./rules/no-constructed-context-value";
 import noCreateRef from "./rules/no-create-ref";
 import noDangerouslySetInnerHTML from "./rules/no-dangerously-set-innerhtml";
 import noDangerouslySetInnerHTMLWithChildren from "./rules/no-dangerously-set-innerhtml-with-children";
+import noDirectMutationState from "./rules/no-direct-mutation-state";
 import noFindDomNode from "./rules/no-find-dom-node";
 import noMissingButtonType from "./rules/no-missing-button-type";
 import noMissingComponentDisplayName from "./rules/no-missing-component-display-name";
@@ -60,6 +61,7 @@ export const rules = {
   "no-create-ref": noCreateRef,
   "no-dangerously-set-innerhtml": noDangerouslySetInnerHTML,
   "no-dangerously-set-innerhtml-with-children": noDangerouslySetInnerHTMLWithChildren,
+  "no-direct-mutation-state": noDirectMutationState,
   "no-find-dom-node": noFindDomNode,
   "no-missing-button-type": noMissingButtonType,
   "no-missing-component-display-name": noMissingComponentDisplayName,
