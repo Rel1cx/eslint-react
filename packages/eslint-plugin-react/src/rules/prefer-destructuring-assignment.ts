@@ -1,6 +1,6 @@
 import { getFunctionIdentifier, isFunction, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { componentCollector, isValidComponentName } from "@eslint-react/core";
-import { E, M, MutRef, O } from "@eslint-react/tools";
+import { M, MutRef, O } from "@eslint-react/tools";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -40,19 +40,14 @@ export default createRule<[], MessageID>({
       ...listeners,
       MemberExpression(node) {
         if (isMemberExpressionWithObjectName(node)) {
-          memberExpressionWithNames.push([context.getScope(), node]);
+          const scope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
+          memberExpressionWithNames.push([scope, node]);
         }
       },
 
-      "Program:exit"() {
-        const maybeComponents = ctx.getAllComponents();
-        if (E.isLeft(maybeComponents)) {
-          console.error(maybeComponents.left);
-
-          return;
-        }
-
-        const components = Array.from(maybeComponents.right.values());
+      "Program:exit"(node) {
+        const components = Array.from(ctx.getAllComponents(node).values());
         function isFunctionComponent(block: TSESTree.Node): block is TSESTreeFunction {
           if (!isFunction(block)) {
             return false;

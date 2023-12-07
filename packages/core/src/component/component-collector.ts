@@ -8,7 +8,8 @@ import {
 } from "@eslint-react/ast";
 import { getPragmaFromContext, isChildrenOfCreateElement, isJSXValue } from "@eslint-react/jsx";
 import { type RuleContext, uid } from "@eslint-react/shared";
-import { E, M, MutList, MutRef, O } from "@eslint-react/tools";
+import { M, MutList, MutRef, O } from "@eslint-react/tools";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
@@ -20,8 +21,8 @@ import { getComponentInitPath, hasCallInInitPath } from "./component-init-path";
 import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
 import { isFunctionOfRenderMethod } from "./component-render-method";
 
-function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: bigint) {
-  if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node, context)) {
+function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, initialScope: Scope, hint: bigint) {
+  if (isChildrenOfCreateElement(node, context, initialScope) || isFunctionOfRenderMethod(node, context)) {
     return false;
   }
 
@@ -66,13 +67,8 @@ export function componentCollector(
   const onFunctionExit = () => MutList.pop(functionStack);
 
   const ctx = {
-    // get allComponents(): E.Either<Error, TSESTreeFunction[]>
-    getAllComponents(): E.Either<Error, typeof components> {
-      if (context.getScope().block.type !== NodeType.Program) {
-        return E.left(new Error("getAllComponents should only be called in Program:exit"));
-      }
-
-      return E.right(components);
+    getAllComponents(_: TSESTree.Program): typeof components {
+      return components;
     },
     getCurrentComponents() {
       return new Map(components);
@@ -99,10 +95,12 @@ export function componentCollector(
         return;
       }
 
+      const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
       if (
         !hasNoneOrValidComponentName(currentFn)
         || !isJSXValue(node.argument, context, hint)
-        || !hasValidHierarchy(currentFn, context, hint)
+        || !hasValidHierarchy(currentFn, context, initialScope, hint)
       ) {
         return;
       }
@@ -110,7 +108,7 @@ export function componentCollector(
       MutList.pop(functionStack);
       MutList.append(functionStack, [currentFn, true]);
 
-      const id = getFunctionComponentIdentifier(currentFn, context);
+      const id = getFunctionComponentIdentifier(currentFn, context, initialScope);
       const key = uid.rnd();
       const name = O.flatMapNullable(
         id,
@@ -133,15 +131,18 @@ export function componentCollector(
     // eslint-disable-next-line perfectionist/sort-objects
     "ArrowFunctionExpression[body.type!='BlockStatement']"(node: TSESTree.ArrowFunctionExpression) {
       const { body } = node;
+
+      const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
       if (
         !hasNoneOrValidComponentName(node)
         || !isJSXValue(body, context, hint)
-        || !hasValidHierarchy(node, context, hint)
+        || !hasValidHierarchy(node, context, initialScope, hint)
       ) {
         return;
       }
 
-      const id = getFunctionComponentIdentifier(node, context);
+      const id = getFunctionComponentIdentifier(node, context, initialScope);
       const key = uid.rnd();
       const name = O.flatMapNullable(
         id,

@@ -1,6 +1,7 @@
 import { is, NodeType, traverseUp } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { isCreateElementCall } from "./is-element-call";
@@ -12,8 +13,10 @@ import { isCreateElementCall } from "./is-element-call";
  * @returns `true` if the node is inside createElement's props
  */
 export function isInsideCreateElementProps(node: TSESTree.Node, context: RuleContext) {
+  const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
   return F.pipe(
-    traverseUp(node, n => isCreateElementCall(n, context)),
+    traverseUp(node, n => isCreateElementCall(n, context, initialScope)),
     O.filter(is(NodeType.CallExpression)),
     O.flatMapNullable(c => c.arguments.at(1)),
     O.filter(is(NodeType.ObjectExpression)),
@@ -22,10 +25,10 @@ export function isInsideCreateElementProps(node: TSESTree.Node, context: RuleCon
   );
 }
 
-export function isChildrenOfCreateElement(node: TSESTree.Node, context: RuleContext) {
+export function isChildrenOfCreateElement(node: TSESTree.Node, context: RuleContext, initialScope: Scope) {
   const maybeCallExpression = node.parent;
 
-  if (!maybeCallExpression || !isCreateElementCall(maybeCallExpression, context)) {
+  if (!maybeCallExpression || !isCreateElementCall(maybeCallExpression, context, initialScope)) {
     return false;
   }
 

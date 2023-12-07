@@ -20,10 +20,10 @@ export function findVariableByName(name: string) {
 
 /**
  * Get all variables from the given scope up to the global scope
- * @param startScope The scope to start from
+ * @param initialScope The scope to start from
  */
-export function getVariablesUpToGlobal(startScope: Scope) {
-  const scopeRef = MutRef.make(startScope);
+export function getVariablesUpToGlobal(initialScope: Scope) {
+  const scopeRef = MutRef.make(initialScope);
   const variablesRef = MutRef.make(MutRef.get(scopeRef).variables);
 
   // eslint-disable-next-line functional/no-loop-statements
@@ -38,10 +38,10 @@ export function getVariablesUpToGlobal(startScope: Scope) {
 /**
  * Find a variable through a list of variables by name, starting from the given scope and going up to the global scope
  * @param name The name of the variable to find
- * @param startScope The scope to start from
+ * @param initialScope The scope to start from
  */
-export function findVariableByNameUpToGlobal(name: string, startScope: Scope): O.Option<NonNullable<Variable>> {
-  return findVariableByName(name)(getVariablesUpToGlobal(startScope));
+export function findVariableByNameUpToGlobal(name: string, initialScope: Scope): O.Option<NonNullable<Variable>> {
+  return findVariableByName(name)(getVariablesUpToGlobal(initialScope));
 }
 
 export function resolveDefinitionInit(

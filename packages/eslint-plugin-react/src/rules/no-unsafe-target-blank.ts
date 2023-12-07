@@ -38,10 +38,11 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const { attributes } = node.openingElement;
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
 
         const hasTargetBlank = F.pipe(
-          findPropInAttributes(attributes, context)("target"),
-          O.flatMap(attr => getPropValue(attr, context)),
+          findPropInAttributes(attributes, context, initialScope)("target"),
+          O.flatMap(attr => getPropValue(attr, context, initialScope)),
           O.exists(v => v?.value === "_blank"),
         );
 
@@ -55,7 +56,7 @@ export default createRule<[], MessageID>({
           }
 
           return F.pipe(
-            getPropValue(attr, context),
+            getPropValue(attr, context, initialScope),
             O.flatMapNullable(v => v?.value),
             O.filter(P.isString),
             O.exists(isExternalLinkLike),
@@ -67,8 +68,8 @@ export default createRule<[], MessageID>({
         }
 
         const hasUnsafeRel = !F.pipe(
-          findPropInAttributes(attributes, context)("rel"),
-          O.flatMap(attr => getPropValue(attr, context)),
+          findPropInAttributes(attributes, context, initialScope)("rel"),
+          O.flatMap(attr => getPropValue(attr, context, initialScope)),
           O.flatMapNullable(v => v?.value),
           O.filter(P.isString),
           O.exists(isSafeRel),

@@ -56,7 +56,8 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXElement(node) {
-        O.map(getProp(node.openingElement.attributes, "children", context), prop => {
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        O.map(getProp(node.openingElement.attributes, "children", context, initialScope), prop => {
           context.report({
             messageId: "NO_CHILDREN_PROP",
             node: prop,
@@ -67,8 +68,8 @@ export default createRule<[], MessageID>({
         if (node.arguments.length === 0) {
           return;
         }
-
-        if (!isCreateElementCall(node, context)) {
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        if (!isCreateElementCall(node, context, initialScope)) {
           return;
         }
 
@@ -78,7 +79,7 @@ export default createRule<[], MessageID>({
           return;
         }
 
-        O.map(findPropInProperties(props.properties, context)("children"), prop => {
+        O.map(findPropInProperties(props.properties, context, initialScope)("children"), prop => {
           context.report({
             messageId: "NO_CHILDREN_PROP",
             node: prop,

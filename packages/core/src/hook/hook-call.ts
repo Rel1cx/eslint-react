@@ -2,14 +2,15 @@ import { NodeType } from "@eslint-react/ast";
 import { isCallFromPragma, isInitializedFromPragma } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/shared";
 import { F, M } from "@eslint-react/tools";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { isValidReactHookName } from "./hook-name";
 
 export function isReactHookCallWithName(name: string) {
-  return (node: TSESTree.CallExpression, context: RuleContext, pragma: string) => {
+  return (node: TSESTree.CallExpression, context: RuleContext, initialScope: Scope, pragma: string) => {
     return M.match(node.callee)
-      .with({ type: NodeType.Identifier, name }, n => isInitializedFromPragma(n.name, context, pragma))
+      .with({ type: NodeType.Identifier, name }, n => isInitializedFromPragma(n.name, context, initialScope, pragma))
       .with({ type: NodeType.MemberExpression, object: { name: pragma }, property: { name } }, F.constTrue)
       .otherwise(F.constFalse);
   };
@@ -50,6 +51,7 @@ export function unsafeIsReactHookCall(node: TSESTree.CallExpression) {
   return false;
 }
 
-export function isMemoOrForwardRefCall(node: TSESTree.Node, context: RuleContext) {
-  return isCallFromPragma("memo")(node, context) || isCallFromPragma("forwardRef")(node, context);
+export function isMemoOrForwardRefCall(node: TSESTree.Node, context: RuleContext, initialScope: Scope) {
+  return isCallFromPragma("memo")(node, context, initialScope)
+    || isCallFromPragma("forwardRef")(node, context, initialScope);
 }

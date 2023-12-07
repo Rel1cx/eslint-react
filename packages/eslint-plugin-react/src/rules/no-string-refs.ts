@@ -56,7 +56,7 @@ export default createRule<[], MessageID>({
         }
       },
       MemberExpression(node) {
-        const parentClassComponent = getParentClassComponent(context);
+        const parentClassComponent = getParentClassComponent(node, context);
 
         if (O.isNone(parentClassComponent)) {
           return;

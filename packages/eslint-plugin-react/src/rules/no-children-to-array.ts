@@ -28,7 +28,8 @@ export default createRule<[], MessageID>({
 
     return {
       MemberExpression(node) {
-        if (isChildrenToArray(node, context, pragma)) {
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        if (isChildrenToArray(node, context, initialScope, pragma)) {
           context.report({
             messageId: "NO_CHILDREN_TO_ARRAY",
             node: node.property,

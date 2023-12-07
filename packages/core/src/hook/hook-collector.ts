@@ -1,16 +1,16 @@
-import { getFunctionIdentifier, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
-import { type RuleContext, uid } from "@eslint-react/shared";
-import { E, O } from "@eslint-react/tools";
-import type { ESLintUtils } from "@typescript-eslint/utils";
+import { getFunctionIdentifier, type TSESTreeFunction } from "@eslint-react/ast";
+import { uid } from "@eslint-react/shared";
+import { O } from "@eslint-react/tools";
+import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
 import { unsafeIsReactHookCall } from "./hook-call";
 import type { ExRHook } from "./hook-kind";
 import { isValidReactHookName } from "./hook-name";
 
-export function hookCollector(context: RuleContext): {
+export function hookCollector(): {
   // manually specify the return type here to avoid @typescript-eslint/utils's TS2742 error
   ctx: {
-    getAllHooks(): E.Either<Error, Map<string, ExRHook>>;
+    getAllHooks(_: TSESTree.Program): Map<string, ExRHook>;
     getCurrentHooks(): Map<string, ExRHook>;
   };
   listeners: ESLintUtils.RuleListener;
@@ -45,12 +45,8 @@ export function hookCollector(context: RuleContext): {
   };
 
   const ctx = {
-    getAllHooks(): E.Either<Error, typeof hooks> {
-      if (context.getScope().block.type !== NodeType.Program) {
-        return E.left(new Error("getAllHooks should only be called in Program:exit"));
-      }
-
-      return E.right(hooks);
+    getAllHooks(_: TSESTree.Program): typeof hooks {
+      return hooks;
     },
     getCurrentHooks() {
       return new Map(hooks);

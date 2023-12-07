@@ -28,7 +28,8 @@ export default createRule<[], MessageID>({
 
     return {
       MemberExpression(node) {
-        if (isChildrenCount(node, context, pragma)) {
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        if (isChildrenCount(node, context, initialScope, pragma)) {
           context.report({
             messageId: "NO_CHILDREN_COUNT",
             node: node.property,

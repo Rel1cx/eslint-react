@@ -253,7 +253,7 @@ hints for component collector
 
 | Name                                                                                                           | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | :------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                                          | \{ `getCurrentFunction`: () => `Option`\<[`TSESTreeFunction`, `boolean`]\> ; `getAllComponents`: () => `Either`\<`Error`, `Map`\<`string`, [`ExRFunctionComponent`](README.md#exrfunctioncomponent)\>\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ExRFunctionComponent`](README.md#exrfunctioncomponent)\> ; `getCurrentFunctionStack`: () => [`TSESTreeFunction`, `boolean`][] }                                                                                                                                                                                                                     |
+| `ctx`                                                                                                          | \{ `getCurrentFunction`: () => `Option`\<[`TSESTreeFunction`, `boolean`]\> ; `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ExRFunctionComponent`](README.md#exrfunctioncomponent)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ExRFunctionComponent`](README.md#exrfunctioncomponent)\> ; `getCurrentFunctionStack`: () => [`TSESTreeFunction`, `boolean`][] }                                                                                                                                                                                                                            |
 | `ctx.getCurrentFunction`                                                                                       | () => `Option`\<[`TSESTreeFunction`, `boolean`]\>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `ctx.getAllComponents`                                                                                         | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | `ctx.getCurrentComponents`                                                                                     | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -281,14 +281,14 @@ hints for component collector
 
 `Object`
 
-| Name                         | Type                                                                                                                                                                                                                            |
-| :--------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ctx`                        | \{ `getAllComponents`: () => `Either`\<`Error`, `Map`\<`string`, [`ExRClassComponent`](README.md#exrclasscomponent)\>\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ExRClassComponent`](README.md#exrclasscomponent)\> } |
-| `ctx.getAllComponents`       | [object Object]                                                                                                                                                                                                                 |
-| `ctx.getCurrentComponents`   | [object Object]                                                                                                                                                                                                                 |
-| `listeners`                  | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect }                                                                                        |
-| `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                             |
-| `listeners.ClassExpression`  | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                             |
+| Name                         | Type                                                                                                                                                                                                                     |
+| :--------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                        | \{ `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ExRClassComponent`](README.md#exrclasscomponent)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ExRClassComponent`](README.md#exrclasscomponent)\> } |
+| `ctx.getAllComponents`       | [object Object]                                                                                                                                                                                                          |
+| `ctx.getCurrentComponents`   | [object Object]                                                                                                                                                                                                          |
+| `listeners`                  | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect }                                                                                 |
+| `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                      |
+| `listeners.ClassExpression`  | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                      |
 
 ---
 
@@ -326,14 +326,15 @@ hints for component collector
 
 ### getFunctionComponentIdentifier
 
-▸ **getFunctionComponentIdentifier**(`node`, `context`): `O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>
+▸ **getFunctionComponentIdentifier**(`node`, `context`, `initialScope`): `O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `TSESTreeFunction`                                            |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `TSESTreeFunction`                                            |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
 
 #### Returns
 
@@ -343,15 +344,16 @@ hints for component collector
 
 ### getParentClassComponent
 
-▸ **getParentClassComponent**(`context`): `O.Option`\<`TSESTreeClass`\>
+▸ **getParentClassComponent**(`node`, `context`): `O.Option`\<`TSESTreeClass`\>
 
 Get the parent class component of a node up to global scope
 
 #### Parameters
 
-| Name      | Type                                                          | Description      |
-| :-------- | :------------------------------------------------------------ | :--------------- |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context |
+| Name      | Type                                                          | Description                          |
+| :-------- | :------------------------------------------------------------ | :----------------------------------- |
+| `node`    | `Node`                                                        | The AST node to start searching from |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context                     |
 
 #### Returns
 
@@ -409,38 +411,33 @@ It will be removed in the future
 
 ### hookCollector
 
-▸ **hookCollector**(`context`): `Object`
-
-#### Parameters
-
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+▸ **hookCollector**(): `Object`
 
 #### Returns
 
 `Object`
 
-| Name                  | Type                                                                                                                                                                          |
-| :-------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                 | \{ `getAllHooks`: () => `Either`\<`Error`, `Map`\<`string`, [`ExRHook`](README.md#exrhook)\>\> ; `getCurrentHooks`: () => `Map`\<`string`, [`ExRHook`](README.md#exrhook)\> } |
-| `ctx.getAllHooks`     | [object Object]                                                                                                                                                               |
-| `ctx.getCurrentHooks` | [object Object]                                                                                                                                                               |
-| `listeners`           | `ESLintUtils.RuleListener`                                                                                                                                                    |
+| Name                  | Type                                                                                                                                                                   |
+| :-------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                 | \{ `getAllHooks`: (`_`: `Program`) => `Map`\<`string`, [`ExRHook`](README.md#exrhook)\> ; `getCurrentHooks`: () => `Map`\<`string`, [`ExRHook`](README.md#exrhook)\> } |
+| `ctx.getAllHooks`     | [object Object]                                                                                                                                                        |
+| `ctx.getCurrentHooks` | [object Object]                                                                                                                                                        |
+| `listeners`           | `ESLintUtils.RuleListener`                                                                                                                                             |
 
 ---
 
 ### isChildrenCount
 
-▸ **isChildrenCount**(`node`, `context`, `pragma?`): `boolean`
+▸ **isChildrenCount**(`node`, `context`, `initialScope`, `pragma?`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `MemberExpression`                                            |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string`                                                      |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `MemberExpression`                                            |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
+| `pragma?`      | `string`                                                      |
 
 #### Returns
 
@@ -450,15 +447,16 @@ It will be removed in the future
 
 ### isChildrenForEach
 
-▸ **isChildrenForEach**(`node`, `context`, `pragma?`): `boolean`
+▸ **isChildrenForEach**(`node`, `context`, `initialScope`, `pragma?`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `MemberExpression`                                            |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string`                                                      |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `MemberExpression`                                            |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
+| `pragma?`      | `string`                                                      |
 
 #### Returns
 
@@ -468,15 +466,16 @@ It will be removed in the future
 
 ### isChildrenMap
 
-▸ **isChildrenMap**(`node`, `context`, `pragma?`): `boolean`
+▸ **isChildrenMap**(`node`, `context`, `initialScope`, `pragma?`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `MemberExpression`                                            |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string`                                                      |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `MemberExpression`                                            |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
+| `pragma?`      | `string`                                                      |
 
 #### Returns
 
@@ -486,15 +485,16 @@ It will be removed in the future
 
 ### isChildrenOnly
 
-▸ **isChildrenOnly**(`node`, `context`, `pragma?`): `boolean`
+▸ **isChildrenOnly**(`node`, `context`, `initialScope`, `pragma?`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `MemberExpression`                                            |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string`                                                      |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `MemberExpression`                                            |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
+| `pragma?`      | `string`                                                      |
 
 #### Returns
 
@@ -504,15 +504,16 @@ It will be removed in the future
 
 ### isChildrenToArray
 
-▸ **isChildrenToArray**(`node`, `context`, `pragma?`): `boolean`
+▸ **isChildrenToArray**(`node`, `context`, `initialScope`, `pragma?`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `MemberExpression`                                            |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string`                                                      |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `MemberExpression`                                            |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
+| `pragma?`      | `string`                                                      |
 
 #### Returns
 
@@ -616,7 +617,7 @@ It will be removed in the future
 
 ### isMemberExpressionOfReactMember
 
-▸ **isMemberExpressionOfReactMember**(`pragmaMemberName`, `memberName`): (`node`: `MemberExpression`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>, `pragma`: `string`) => `boolean`
+▸ **isMemberExpressionOfReactMember**(`pragmaMemberName`, `memberName`): (`node`: `TSESTree.MemberExpression`, `context`: `RuleContext`, `initialScope?`: `Scope`, `pragma?`: `string`) => `boolean`
 
 #### Parameters
 
@@ -629,15 +630,16 @@ It will be removed in the future
 
 `fn`
 
-▸ (`node`, `context`, `pragma?`): `boolean`
+▸ (`node`, `context`, `initialScope?`, `pragma?`): `boolean`
 
 ##### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `MemberExpression`                                            |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| Name            | Type                        |
+| :-------------- | :-------------------------- |
+| `node`          | `TSESTree.MemberExpression` |
+| `context`       | `RuleContext`               |
+| `initialScope?` | `Scope`                     |
+| `pragma?`       | `string`                    |
 
 ##### Returns
 
@@ -647,14 +649,15 @@ It will be removed in the future
 
 ### isMemoOrForwardRefCall
 
-▸ **isMemoOrForwardRefCall**(`node`, `context`): `boolean`
+▸ **isMemoOrForwardRefCall**(`node`, `context`, `initialScope`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `Node`                                                        |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `Node`                                                        |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
 
 #### Returns
 
@@ -683,7 +686,7 @@ Check if a node is a React PureComponent
 
 ### isReactHookCallWithName
 
-▸ **isReactHookCallWithName**(`name`): (`node`: `CallExpression`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>, `pragma`: `string`) => `boolean`
+▸ **isReactHookCallWithName**(`name`): (`node`: `CallExpression`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>, `initialScope`: `Scope`, `pragma`: `string`) => `boolean`
 
 #### Parameters
 
@@ -695,15 +698,16 @@ Check if a node is a React PureComponent
 
 `fn`
 
-▸ (`node`, `context`, `pragma`): `boolean`
+▸ (`node`, `context`, `initialScope`, `pragma`): `boolean`
 
 ##### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `CallExpression`                                              |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
+| `pragma`       | `string`                                                      |
 
 ##### Returns
 
@@ -713,15 +717,16 @@ Check if a node is a React PureComponent
 
 ### isUseCallbackCall
 
-▸ **isUseCallbackCall**(`node`, `context`, `pragma`): `boolean`
+▸ **isUseCallbackCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `CallExpression`                                              |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
+| `pragma`       | `string`                                                      |
 
 #### Returns
 
@@ -731,15 +736,16 @@ Check if a node is a React PureComponent
 
 ### isUseContextCall
 
-▸ **isUseContextCall**(`node`, `context`, `pragma`): `boolean`
+▸ **isUseContextCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `CallExpression`                                              |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
+| `pragma`       | `string`                                                      |
 
 #### Returns
 
@@ -749,15 +755,16 @@ Check if a node is a React PureComponent
 
 ### isUseDebugValueCall
 
-▸ **isUseDebugValueCall**(`node`, `context`, `pragma`): `boolean`
+▸ **isUseDebugValueCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `CallExpression`                                              |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
+| `pragma`       | `string`                                                      |
 
 #### Returns
 
@@ -767,15 +774,16 @@ Check if a node is a React PureComponent
 
 ### isUseEffectCall
 
-▸ **isUseEffectCall**(`node`, `context`, `pragma`): `boolean`
+▸ **isUseEffectCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `CallExpression`                                              |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
+| `pragma`       | `string`                                                      |
 
 #### Returns
 
@@ -785,15 +793,16 @@ Check if a node is a React PureComponent
 
 ### isUseImperativeHandleCall
 
-▸ **isUseImperativeHandleCall**(`node`, `context`, `pragma`): `boolean`
+▸ **isUseImperativeHandleCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `CallExpression`                                              |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
+| `pragma`       | `string`                                                      |
 
 #### Returns
 
@@ -803,15 +812,16 @@ Check if a node is a React PureComponent
 
 ### isUseLayoutEffectCall
 
-▸ **isUseLayoutEffectCall**(`node`, `context`, `pragma`): `boolean`
+▸ **isUseLayoutEffectCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `CallExpression`                                              |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
+| `pragma`       | `string`                                                      |
 
 #### Returns
 
@@ -821,15 +831,16 @@ Check if a node is a React PureComponent
 
 ### isUseMemoCall
 
-▸ **isUseMemoCall**(`node`, `context`, `pragma`): `boolean`
+▸ **isUseMemoCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `CallExpression`                                              |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
+| `pragma`       | `string`                                                      |
 
 #### Returns
 
@@ -839,15 +850,16 @@ Check if a node is a React PureComponent
 
 ### isUseReducerCall
 
-▸ **isUseReducerCall**(`node`, `context`, `pragma`): `boolean`
+▸ **isUseReducerCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `CallExpression`                                              |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
+| `pragma`       | `string`                                                      |
 
 #### Returns
 
@@ -857,15 +869,16 @@ Check if a node is a React PureComponent
 
 ### isUseRefCall
 
-▸ **isUseRefCall**(`node`, `context`, `pragma`): `boolean`
+▸ **isUseRefCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `CallExpression`                                              |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
+| `pragma`       | `string`                                                      |
 
 #### Returns
 
@@ -875,15 +888,16 @@ Check if a node is a React PureComponent
 
 ### isUseStateCall
 
-▸ **isUseStateCall**(`node`, `context`, `pragma`): `boolean`
+▸ **isUseStateCall**(`node`, `context`, `initialScope`, `pragma`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `CallExpression`                                              |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
+| `pragma`       | `string`                                                      |
 
 #### Returns
 

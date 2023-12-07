@@ -1,5 +1,4 @@
 import { hookCollector } from "@eslint-react/core";
-import { E } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 
@@ -24,19 +23,12 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const { ctx, listeners } = hookCollector(context);
+    const { ctx, listeners } = hookCollector();
 
     return {
       ...listeners,
-      "Program:exit"() {
-        const maybeAllHooks = ctx.getAllHooks();
-        if (E.isLeft(maybeAllHooks)) {
-          console.error(maybeAllHooks.left);
-
-          return;
-        }
-
-        const allHooks = maybeAllHooks.right;
+      "Program:exit"(node) {
+        const allHooks = ctx.getAllHooks(node);
 
         for (const { name, cost, node } of allHooks.values()) {
           context.report({

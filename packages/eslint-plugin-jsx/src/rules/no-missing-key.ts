@@ -41,7 +41,9 @@ export default createRule<[], MessageID>({
     const childrenToArraySelector = getChildrenToArraySelector(reactPragma);
     const isWithinChildrenToArrayRef = MutRef.make(false);
     function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
-      if (node.type === NodeType.JSXElement && !hasProp(node.openingElement.attributes, "key", context)) {
+      const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
+      if (node.type === NodeType.JSXElement && !hasProp(node.openingElement.attributes, "key", context, initialScope)) {
         return O.some({
           messageId: "NO_MISSING_KEY",
           node,
@@ -110,8 +112,11 @@ export default createRule<[], MessageID>({
         if (elements.length === 0) {
           return;
         }
+
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
         for (const element of elements) {
-          if (!hasProp(element.openingElement.attributes, "key", context)) {
+          if (!hasProp(element.openingElement.attributes, "key", context, initialScope)) {
             context.report({
               messageId: "NO_MISSING_KEY",
               node: element,

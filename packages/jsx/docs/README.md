@@ -67,18 +67,19 @@
 
 ### CallFromPragmaPredicate
 
-Ƭ **CallFromPragmaPredicate**: (`node`: `TSESTree.Node`, `context`: `RuleContext`) => node is TSESTree.CallExpression
+Ƭ **CallFromPragmaPredicate**: (`node`: `TSESTree.Node`, `context`: `RuleContext`, `initialScope`: `Scope`) => node is TSESTree.CallExpression
 
 #### Type declaration
 
-▸ (`node`, `context`): node is TSESTree.CallExpression
+▸ (`node`, `context`, `initialScope`): node is TSESTree.CallExpression
 
 ##### Parameters
 
-| Name      | Type            |
-| :-------- | :-------------- |
-| `node`    | `TSESTree.Node` |
-| `context` | `RuleContext`   |
+| Name           | Type            |
+| :------------- | :-------------- |
+| `node`         | `TSESTree.Node` |
+| `context`      | `RuleContext`   |
+| `initialScope` | `Scope`         |
 
 ##### Returns
 
@@ -219,14 +220,15 @@ The element's tag name.
 
 ### findPropInAttributes
 
-▸ **findPropInAttributes**(`attributes`, `context`): (`propName`: `string`) => `Option`\<`NonNullable`\<`undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`\>\>
+▸ **findPropInAttributes**(`attributes`, `context`, `initialScope`): (`propName`: `string`) => `Option`\<`NonNullable`\<`undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`\>\>
 
 #### Parameters
 
-| Name         | Type                                                          | Description                 |
-| :----------- | :------------------------------------------------------------ | :-------------------------- |
-| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                    | The attributes to search in |
-| `context`    | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context            |
+| Name           | Type                                                          | Description                 |
+| :------------- | :------------------------------------------------------------ | :-------------------------- |
+| `attributes`   | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                    | The attributes to search in |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context            |
+| `initialScope` | `Scope`                                                       |                             |
 
 #### Returns
 
@@ -250,15 +252,16 @@ A function that searches for a property in the given attributes
 
 ### findPropInProperties
 
-▸ **findPropInProperties**(`properties`, `context`, `seenProps?`): (`propName`: `string`) => `Option`\<`PropertyComputedName` \| `PropertyNonComputedName` \| `RestElement` \| `SpreadElement`\>
+▸ **findPropInProperties**(`properties`, `context`, `initialScope`, `seenProps?`): (`propName`: `string`) => `Option`\<`PropertyComputedName` \| `PropertyNonComputedName` \| `RestElement` \| `SpreadElement`\>
 
 #### Parameters
 
-| Name         | Type                                                                           | Default value | Description                                |
-| :----------- | :----------------------------------------------------------------------------- | :------------ | :----------------------------------------- |
-| `properties` | `ObjectLiteralElement`[] \| (`Property` \| `RestElement` \| `SpreadElement`)[] | `undefined`   | The properties to search in                |
-| `context`    | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>                  | `undefined`   | The rule context                           |
-| `seenProps`  | `string`[]                                                                     | `[]`          | The properties that have already been seen |
+| Name           | Type                                                                           | Default value | Description                                |
+| :------------- | :----------------------------------------------------------------------------- | :------------ | :----------------------------------------- |
+| `properties`   | `ObjectLiteralElement`[] \| (`Property` \| `RestElement` \| `SpreadElement`)[] | `undefined`   | The properties to search in                |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>                  | `undefined`   | The rule context                           |
+| `initialScope` | `Scope`                                                                        | `undefined`   |                                            |
+| `seenProps`    | `string`[]                                                                     | `[]`          | The properties that have already been seen |
 
 #### Returns
 
@@ -326,15 +329,16 @@ A function that searches for a property in the given properties
 
 ### getProp
 
-▸ **getProp**(`props`, `propName`, `context`): `O.Option`\<`TSESTree.JSXAttribute` \| `TSESTree.JSXSpreadAttribute`\>
+▸ **getProp**(`props`, `propName`, `context`, `initialScope`): `O.Option`\<`TSESTree.JSXAttribute` \| `TSESTree.JSXSpreadAttribute`\>
 
 #### Parameters
 
-| Name       | Type                                                          |
-| :--------- | :------------------------------------------------------------ |
-| `props`    | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                    |
-| `propName` | `string`                                                      |
-| `context`  | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `props`        | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                    |
+| `propName`     | `string`                                                      |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
 
 #### Returns
 
@@ -364,16 +368,17 @@ string
 
 ### getPropValue
 
-▸ **getPropValue**(`attribute`, `context`): `None`\<`null` \| \{ `value`: `unknown` }\> \| `Some`\<`null` \| \{ `value`: `unknown` }\>
+▸ **getPropValue**(`attribute`, `context`, `initialScope`): `None`\<`null` \| \{ `value`: `unknown` }\> \| `Some`\<`null` \| \{ `value`: `unknown` }\>
 
 Gets and resolves the static value of a JSX attribute
 
 #### Parameters
 
-| Name        | Type                                                          | Description                           |
-| :---------- | :------------------------------------------------------------ | :------------------------------------ |
-| `attribute` | `JSXAttribute` \| `JSXSpreadAttribute`                        | The JSX attribute to get the value of |
-| `context`   | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context                      |
+| Name           | Type                                                          | Description                           |
+| :------------- | :------------------------------------------------------------ | :------------------------------------ |
+| `attribute`    | `JSXAttribute` \| `JSXSpreadAttribute`                        | The JSX attribute to get the value of |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context                      |
+| `initialScope` | `Scope`                                                       |                                       |
 
 #### Returns
 
@@ -385,17 +390,18 @@ The static value of the given JSX attribute
 
 ### hasAnyProp
 
-▸ **hasAnyProp**(`attributes`, `propNames`, `context`): `boolean`
+▸ **hasAnyProp**(`attributes`, `propNames`, `context`, `initialScope`): `boolean`
 
 Check if any of the given prop names are present in the given attributes
 
 #### Parameters
 
-| Name         | Type                                                          | Description                  |
-| :----------- | :------------------------------------------------------------ | :--------------------------- |
-| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                    | The attributes to search in  |
-| `propNames`  | `string`[]                                                    | The prop names to search for |
-| `context`    | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context             |
+| Name           | Type                                                          | Description                  |
+| :------------- | :------------------------------------------------------------ | :--------------------------- |
+| `attributes`   | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                    | The attributes to search in  |
+| `propNames`    | `string`[]                                                    | The prop names to search for |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context             |
+| `initialScope` | `Scope`                                                       |                              |
 
 #### Returns
 
@@ -428,17 +434,18 @@ Check if a `JSXElement` or `JSXFragment` has children
 
 ### hasEveryProp
 
-▸ **hasEveryProp**(`attributes`, `propNames`, `context`): `boolean`
+▸ **hasEveryProp**(`attributes`, `propNames`, `context`, `initialScope`): `boolean`
 
 Check if all of the given prop names are present in the given attributes
 
 #### Parameters
 
-| Name         | Type                                                          | Description                  |
-| :----------- | :------------------------------------------------------------ | :--------------------------- |
-| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                    | The attributes to search in  |
-| `propNames`  | `string`[]                                                    | The prop names to search for |
-| `context`    | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context             |
+| Name           | Type                                                          | Description                  |
+| :------------- | :------------------------------------------------------------ | :--------------------------- |
+| `attributes`   | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                    | The attributes to search in  |
+| `propNames`    | `string`[]                                                    | The prop names to search for |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context             |
+| `initialScope` | `Scope`                                                       |                              |
 
 #### Returns
 
@@ -450,17 +457,18 @@ Check if all of the given prop names are present in the given attributes
 
 ### hasProp
 
-▸ **hasProp**(`attributes`, `propName`, `context`): `boolean`
+▸ **hasProp**(`attributes`, `propName`, `context`, `initialScope`): `boolean`
 
 Check if the given prop name is present in the given attributes
 
 #### Parameters
 
-| Name         | Type                                                          | Description                 |
-| :----------- | :------------------------------------------------------------ | :-------------------------- |
-| `attributes` | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                    | The attributes to search in |
-| `propName`   | `string`                                                      | The prop name to search for |
-| `context`    | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context            |
+| Name           | Type                                                          | Description                 |
+| :------------- | :------------------------------------------------------------ | :-------------------------- |
+| `attributes`   | (`JSXAttribute` \| `JSXSpreadAttribute`)[]                    | The attributes to search in |
+| `propName`     | `string`                                                      | The prop name to search for |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context            |
+| `initialScope` | `Scope`                                                       |                             |
 
 #### Returns
 
@@ -472,7 +480,7 @@ Check if the given prop name is present in the given attributes
 
 ### isCallFromPragma
 
-▸ **isCallFromPragma**(`name`): (`node`: `Node`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>) => node is CallExpression
+▸ **isCallFromPragma**(`name`): (`node`: `Node`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>, `initialScope`: `Scope`) => node is CallExpression
 
 Checks if the given node is a call expression to the given function or method of the pragma
 
@@ -488,14 +496,15 @@ Checks if the given node is a call expression to the given function or method of
 
 A predicate that checks if the given node is a call expression to the given function or method
 
-▸ (`node`, `context`): node is CallExpression
+▸ (`node`, `context`, `initialScope`): node is CallExpression
 
 ##### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `Node`                                                        |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `Node`                                                        |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
 
 ##### Returns
 
@@ -525,14 +534,15 @@ node is JSXElement & Object
 
 ### isChildrenOfCreateElement
 
-▸ **isChildrenOfCreateElement**(`node`, `context`): `boolean`
+▸ **isChildrenOfCreateElement**(`node`, `context`, `initialScope`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `Node`                                                        |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| Name           | Type                                                          |
+| :------------- | :------------------------------------------------------------ |
+| `node`         | `Node`                                                        |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
 
 #### Returns
 
@@ -542,16 +552,17 @@ node is JSXElement & Object
 
 ### isCloneElementCall
 
-▸ **isCloneElementCall**(`node`, `context`): node is CallExpression
+▸ **isCloneElementCall**(`node`, `context`, `initialScope`): node is CallExpression
 
 Checks if the given node is a call expression to `cloneElement`
 
 #### Parameters
 
-| Name      | Type                                                          | Description           |
-| :-------- | :------------------------------------------------------------ | :-------------------- |
-| `node`    | `Node`                                                        | The AST node to check |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
+| Name           | Type                                                          | Description           |
+| :------------- | :------------------------------------------------------------ | :-------------------- |
+| `node`         | `Node`                                                        | The AST node to check |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
+| `initialScope` | `Scope`                                                       | -                     |
 
 #### Returns
 
@@ -563,16 +574,17 @@ node is CallExpression
 
 ### isCreateElementCall
 
-▸ **isCreateElementCall**(`node`, `context`): node is CallExpression
+▸ **isCreateElementCall**(`node`, `context`, `initialScope`): node is CallExpression
 
 Checks if the given node is a call expression to `createElement`
 
 #### Parameters
 
-| Name      | Type                                                          | Description           |
-| :-------- | :------------------------------------------------------------ | :-------------------- |
-| `node`    | `Node`                                                        | The AST node to check |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
+| Name           | Type                                                          | Description           |
+| :------------- | :------------------------------------------------------------ | :-------------------- |
+| `node`         | `Node`                                                        | The AST node to check |
+| `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
+| `initialScope` | `Scope`                                                       | -                     |
 
 #### Returns
 
@@ -662,7 +674,7 @@ boolean
 
 ### isInitializedFromPragma
 
-▸ **isInitializedFromPragma**(`variableName`, `context`, `pragma?`): `boolean`
+▸ **isInitializedFromPragma**(`variableName`, `context`, `initialScope`, `pragma?`): `boolean`
 
 #### Parameters
 
@@ -670,6 +682,7 @@ boolean
 | :------------- | :------------------------------------------------------------ |
 | `variableName` | `string`                                                      |
 | `context`      | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `initialScope` | `Scope`                                                       |
 | `pragma`       | `string`                                                      |
 
 #### Returns

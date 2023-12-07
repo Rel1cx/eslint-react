@@ -1,7 +1,7 @@
 import { type TSESTreeFunction } from "@eslint-react/ast";
 import { componentCollector } from "@eslint-react/core";
 import { isCallFromPragma } from "@eslint-react/jsx";
-import { E, O } from "@eslint-react/tools";
+import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
@@ -36,21 +36,15 @@ export default createRule<[], MessageID>({
     return {
       ...listeners,
       CallExpression(node) {
-        if (!isCreateRefCall(node, context)) {
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        if (!isCreateRefCall(node, context, initialScope)) {
           return;
         }
 
         O.map(ctx.getCurrentFunction(), ([currentFn]) => possibleCreateRefCalls.set(currentFn, node));
       },
-      "Program:exit"() {
-        const maybeComponents = ctx.getAllComponents();
-        if (E.isLeft(maybeComponents)) {
-          console.error(maybeComponents.left);
-
-          return;
-        }
-
-        const components = Array.from(maybeComponents.right.values());
+      "Program:exit"(node) {
+        const components = Array.from(ctx.getAllComponents(node).values());
         for (const [fn, call] of possibleCreateRefCalls.entries()) {
           if (!components.some((component) => component.node === fn)) {
             continue;

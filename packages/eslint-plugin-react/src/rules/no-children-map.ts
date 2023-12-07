@@ -28,7 +28,8 @@ export default createRule<[], MessageID>({
 
     return {
       MemberExpression(node) {
-        if (isChildrenMap(node, context, pragma)) {
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        if (isChildrenMap(node, context, initialScope, pragma)) {
           context.report({
             messageId: "NO_CHILDREN_MAP",
             node: node.property,

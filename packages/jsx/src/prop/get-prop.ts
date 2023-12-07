@@ -1,6 +1,7 @@
 import { findVariableByNameUpToGlobal, getStaticValue, getVariableInit, is, NodeType } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
 import { F, M, O } from "@eslint-react/tools";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
 /**
@@ -19,53 +20,55 @@ export function getProp(
   props: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
   propName: string,
   context: RuleContext,
+  initialScope: Scope,
 ): O.Option<TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute> {
-  return findPropInAttributes(props, context)(propName);
+  return findPropInAttributes(props, context, initialScope)(propName);
 }
 
 /**
  * Gets and resolves the static value of a JSX attribute
  * @param attribute The JSX attribute to get the value of
  * @param context The rule context
+ * @param initialScope
  * @returns  The static value of the given JSX attribute
  */
 export function getPropValue(
   attribute: TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute,
   context: RuleContext,
+  initialScope: Scope,
 ) {
-  const scope = context.getScope();
   if (attribute.type === NodeType.JSXAttribute && "value" in attribute) {
     const { value } = attribute;
     if (value === null) {
       return O.none();
     }
     if (value.type === NodeType.Literal) {
-      return O.some(getStaticValue(value, scope));
+      return O.some(getStaticValue(value, initialScope));
     }
     if (value.type === NodeType.JSXExpressionContainer) {
-      return O.some(getStaticValue(value.expression, scope));
+      return O.some(getStaticValue(value.expression, initialScope));
     }
 
     return O.none();
   }
   const { argument } = attribute;
 
-  return O.some(getStaticValue(argument, scope));
+  return O.some(getStaticValue(argument, initialScope));
 }
 
 /**
  * @param properties The properties to search in
  * @param context The rule context
+ * @param initialScope
  * @param seenProps The properties that have already been seen
  * @returns A function that searches for a property in the given properties
  */
 export function findPropInProperties(
   properties: (TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement)[] | TSESTree.ObjectLiteralElement[],
   context: RuleContext,
+  initialScope: Scope,
   seenProps: string[] = [],
 ) {
-  const startScope = context.getScope();
-
   /**
    * Search for a property in the given properties
    * @param propName The name of the property to search for
@@ -83,7 +86,7 @@ export function findPropInProperties(
               .when(is(NodeType.Identifier), (argument) => {
                 const { name } = argument;
                 const maybeInit = O.flatMap(
-                  findVariableByNameUpToGlobal(name, startScope),
+                  findVariableByNameUpToGlobal(name, initialScope),
                   getVariableInit(0),
                 );
                 if (O.isNone(maybeInit)) {
@@ -99,10 +102,12 @@ export function findPropInProperties(
                   return false;
                 }
 
-                return O.isSome(findPropInProperties(init.properties, context, [...seenProps, name])(propName));
+                return O.isSome(
+                  findPropInProperties(init.properties, context, initialScope, [...seenProps, name])(propName),
+                );
               })
               .when(is(NodeType.ObjectExpression), (argument) => {
-                return O.isSome(findPropInProperties(argument.properties, context, seenProps)(propName));
+                return O.isSome(findPropInProperties(argument.properties, context, initialScope, seenProps)(propName));
               })
               .when(is(NodeType.MemberExpression), () => {
                 // Not implemented
@@ -125,14 +130,14 @@ export function findPropInProperties(
 /**
  * @param attributes The attributes to search in
  * @param context The rule context
+ * @param initialScope
  * @returns A function that searches for a property in the given attributes
  */
 export function findPropInAttributes(
   attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
   context: RuleContext,
+  initialScope: Scope,
 ) {
-  const startScope = context.getScope();
-
   /**
    * Search for a property in the given attributes
    * @param propName The name of the property to search for
@@ -148,7 +153,7 @@ export function findPropInAttributes(
               .with({ type: NodeType.Identifier }, (argument) => {
                 const { name } = argument;
                 const maybeInit = O.flatMap(
-                  findVariableByNameUpToGlobal(name, startScope),
+                  findVariableByNameUpToGlobal(name, initialScope),
                   getVariableInit(0),
                 );
                 if (O.isNone(maybeInit)) {
@@ -160,10 +165,10 @@ export function findPropInAttributes(
                   return false;
                 }
 
-                return O.isSome(findPropInProperties(init.properties, context)(propName));
+                return O.isSome(findPropInProperties(init.properties, context, initialScope)(propName));
               })
               .when(is(NodeType.ObjectExpression), (argument) => {
-                return O.isSome(findPropInProperties(argument.properties, context)(propName));
+                return O.isSome(findPropInProperties(argument.properties, context, initialScope)(propName));
               })
               .when(is(NodeType.MemberExpression), () => {
                 // Not implemented

@@ -273,16 +273,16 @@ Find a variable through a list of variables by name
 
 ### findVariableByNameUpToGlobal
 
-▸ **findVariableByNameUpToGlobal**(`name`, `startScope`): `O.Option`\<`NonNullable`\<`Variable`\>\>
+▸ **findVariableByNameUpToGlobal**(`name`, `initialScope`): `O.Option`\<`NonNullable`\<`Variable`\>\>
 
 Find a variable through a list of variables by name, starting from the given scope and going up to the global scope
 
 #### Parameters
 
-| Name         | Type     | Description                      |
-| :----------- | :------- | :------------------------------- |
-| `name`       | `string` | The name of the variable to find |
-| `startScope` | `Scope`  | The scope to start from          |
+| Name           | Type     | Description                      |
+| :------------- | :------- | :------------------------------- |
+| `name`         | `string` | The name of the variable to find |
+| `initialScope` | `Scope`  | The scope to start from          |
 
 #### Returns
 
@@ -577,15 +577,15 @@ A function that takes a variable and returns the init node of the nth definition
 
 ### getVariablesUpToGlobal
 
-▸ **getVariablesUpToGlobal**(`startScope`): `Variable`[]
+▸ **getVariablesUpToGlobal**(`initialScope`): `Variable`[]
 
 Get all variables from the given scope up to the global scope
 
 #### Parameters
 
-| Name         | Type    | Description             |
-| :----------- | :------ | :---------------------- |
-| `startScope` | `Scope` | The scope to start from |
+| Name           | Type    | Description             |
+| :------------- | :------ | :---------------------- |
+| `initialScope` | `Scope` | The scope to start from |
 
 #### Returns
 

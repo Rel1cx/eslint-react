@@ -54,7 +54,9 @@ export default createRule<[], MessageID>({
           return;
         }
 
-        if (!isCreateElementCall(node, context)) {
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
+        if (!isCreateElementCall(node, context, initialScope)) {
           return;
         }
 
@@ -94,7 +96,7 @@ export default createRule<[], MessageID>({
 
         const props = propsNode.properties;
 
-        const findProp = findPropInProperties(props, context);
+        const findProp = findPropInProperties(props, context, initialScope);
 
         const hasChildrenOrDangerProp = O.isSome(findProp("children")) || O.isSome(findProp("dangerouslySetInnerHTML"));
 
@@ -130,7 +132,9 @@ export default createRule<[], MessageID>({
 
           const { attributes } = node.openingElement;
 
-          const findAttr = findPropInAttributes(attributes, context);
+          const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
+          const findAttr = findPropInAttributes(attributes, context, initialScope);
 
           const hasChildrenOrDangerAttr = O.isSome(findAttr("children"))
             || O.isSome(findAttr("dangerouslySetInnerHTML"));

@@ -28,7 +28,8 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXOpeningElement(node) {
-        const maybeKeyAttribute = findPropInAttributes(node.attributes, context)("key");
+        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        const maybeKeyAttribute = findPropInAttributes(node.attributes, context, initialScope)("key");
 
         if (O.isNone(maybeKeyAttribute)) {
           return;

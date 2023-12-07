@@ -1,10 +1,16 @@
 import type { RuleContext } from "@eslint-react/shared";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { isMemberExpressionOfReactMember } from "../internal";
 
 // workaround for @typescript-eslint/utils's TS2742 error.
-type ChildrenMethodPredicate = (node: TSESTree.MemberExpression, context: RuleContext, pragma?: string) => boolean;
+type ChildrenMethodPredicate = (
+  node: TSESTree.MemberExpression,
+  context: RuleContext,
+  initialScope: Scope,
+  pragma?: string,
+) => boolean;
 
 export const isChildrenCount: ChildrenMethodPredicate = isMemberExpressionOfReactMember("Children", "count");
 

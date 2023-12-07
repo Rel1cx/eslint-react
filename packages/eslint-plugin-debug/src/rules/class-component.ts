@@ -1,5 +1,5 @@
 import { componentCollectorLegacy } from "@eslint-react/core";
-import { E, F, O } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils";
@@ -28,14 +28,8 @@ export default createRule<[], MessageID>({
 
     return {
       ...listeners,
-      "Program:exit"() {
-        const maybeComponents = ctx.getAllComponents();
-        if (E.isLeft(maybeComponents)) {
-          console.error(maybeComponents.left);
-
-          return;
-        }
-        const components = maybeComponents.right;
+      "Program:exit"(node) {
+        const components = ctx.getAllComponents(node);
 
         for (const { name, node: component } of components.values()) {
           context.report({
