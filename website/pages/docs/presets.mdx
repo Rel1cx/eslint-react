@@ -1,19 +1,17 @@
 import { Tab, Tabs } from "nextra-theme-docs";
 
-import { Warning } from "#/components/callout";
+import { Info } from "#/components/callout";
 
 # Presets
-
-<Warning>
-**Note:**\
-Presets with `-type-checked` or `type-checked-legacy` suffix require type information.\
-Make sure the `parserOptions.project` option is set correctly in your ESLint config when using them.
-</Warning>
 
 The following presets are available in this plugin:
 
 <Tabs items={["LegacyConfig", "FlatConfig"]}>
 <Tab>
+<Info>
+These presets are for ESLint `LegacyConfig` (`.eslintrc.*`) only.
+</Info>
+
 - **recommended-legacy** (`plugin:@eslint-react/recommended-legacy`)\
   Enforce recommended rules designed to catch common mistakes and prevent potential bugs.
 - **recommended-type-checked-legacy** (`plugin:@eslint-react/recommended-type-checked-legacy`)\
@@ -27,6 +25,10 @@ The following presets are available in this plugin:
   Disable all rules in this plugin except for debug rules.
 </Tab>
 <Tab>
+<Info>
+These presets are for ESLint `FlatConfig` (`eslint.config.js`) only.
+</Info>
+
 - **recommended**\
   Enforce recommended rules designed to catch common mistakes and prevent potential bugs.
 - **recommended-type-checked**\

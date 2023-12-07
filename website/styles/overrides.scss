@@ -30,3 +30,11 @@
     font-weight: 500;
   }
 }
+
+.nextra-content {
+  div[role="tabpanel"] {
+    >.nextra-callout:nth-child(1) {
+      margin-top: 0;
+    }
+  }
+}

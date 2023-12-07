@@ -1,5 +1,7 @@
 import { Tab, Tabs } from "nextra-theme-docs";
 
+import { Info } from "#/components/Callout";
+
 ## Install
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
@@ -93,9 +95,11 @@ export default [
 
 <Tabs items={["LegacyConfig", "FlatConfig"]}>
 <Tab>
+<Info>
 Rules that require type information are not enabled by default. To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
 
 Then replace `plugin:@eslint-react/recommended-legacy` with `plugin:@eslint-react/recommended-type-checked-legacy`.
+</Info>
 
 ```js filename=".eslintrc.js"
 module.exports = {
@@ -119,9 +123,11 @@ module.exports = {
 ```
 </Tab>
 <Tab>
+<Info>
 Rules that require type information are not enabled by default. To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
 
 Then replace `...react.configs.recommended` with `...react.configs["recommended-type-checked"]`.
+</Info>
 
 ```js filename="eslint.config.js"
 import ts from "@typescript-eslint/eslint-plugin";

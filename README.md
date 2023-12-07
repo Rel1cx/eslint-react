@@ -43,16 +43,17 @@ module.exports = {
 
 ### Linting with type information
 
-Rules that require type information are not enabled by default. To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
-
-Then replace `plugin:@eslint-react/recommended-legacy` with `plugin:@eslint-react/recommended-type-checked-legacy`.
+> [!NOTE]\
+> Rules that require type information are not enabled by default. To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
+>
+> Then replace `plugin:@eslint-react/recommended-legacy` with `plugin:@eslint-react/recommended-type-checked-legacy`.
 
 ```js
 module.exports = {
   // ...
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: "./tsconfig.json",
+    project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
   },
   extends: ["plugin:@eslint-react/recommended-type-checked-legacy"],
   plugins: ["@eslint-react"],
@@ -64,9 +65,10 @@ module.exports = {
 
 ## Presets
 
-The following presets are available in this plugin:
-
 ### LegacyConfig presets
+
+> [!IMPORTANT]\
+> These presets are for ESLint `LegacyConfig` (`.eslintrc.*`) only
 
 - **recommended-legacy** (`plugin:@eslint-react/recommended-legacy`)\
   Enforce recommended rules designed to catch common mistakes and prevent potential bugs.
@@ -81,6 +83,9 @@ The following presets are available in this plugin:
   Disable all rules in this plugin except for debug rules.
 
 ### FlatConfig presets
+
+> [!IMPORTANT]\
+> These presets are for ESLint `FlatConfig` (`eslint.config.js`) only
 
 - **recommended**\
   Enforce recommended rules designed to catch common mistakes and prevent potential bugs.
