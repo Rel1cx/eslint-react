@@ -7,7 +7,6 @@ More than 50 ESLint rules to catch common mistakes and improve your React code. 
 ## Public packages
 
 - [`@eslint-react/eslint-plugin`](./packages/eslint-plugin) - The main ESLint plugin package including all rules and configs in this repository.
-- [`@eslint-react/jsx`](./packages/jsx) - TSESTree AST utility module for static analysis of JSX.
 
 ## Supported engines
 
