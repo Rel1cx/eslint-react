@@ -9,15 +9,13 @@ import { Warning } from "#/components/callout";
 
 ### Children
 
-When you nest content inside a JSX tag, the parent component will receive that content in a prop called `children`.
+The `children` is a special prop that is passed to components automatically.
+
+When nest content inside a JSX tag, the parent component will receive that content in a prop called `children`.
 
 ### Class Component
 
 A class component is a component defined as a [JavaScript class](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes).
-
-### Clone Element
-
-The `cloneElement` is a React API that lets you create a new React element using another element as a starting point.
 
 ### Component
 
@@ -41,21 +39,19 @@ As for `Context.Consumer` component, It's an older way to read context, Before `
 
 ### Context Provider
 
+The component that provides the context value.
+
 A component to provide that context from the component that specifies the data.
 
 ### Context Value
 
 The data that is provided by the context provider.
 
-### Create Ref
-
-A Legacy React API that creates a ref object which can contain arbitrary value.
-
 ### Deps
 
 The `deps` is an abbreviation for React Hook's dependencies array.
 
-### DisplayName
+### Display Name
 
 The `displayName` is a string used in debugging messages. It is used by React DevTools to determine what to display for the name of a `component` or `context`.
 
@@ -111,6 +107,8 @@ The `memo` is a React API lets you skip re-rendering a component when its props 
 
 ### Props
 
+React Component's Properties.
+
 When React sees an element representing a user-defined component, it passes JSX attributes and children to this component as a single object. We call this object "props".
 
 ### Ref
@@ -119,7 +117,7 @@ The `ref` lets you referencing values in React.
 
 ### Legacy React APIs
 
-APIs are exported from the `react` package, but they are not recommended for use in newly written code. See the linked individual API pages for the suggested alternatives.
+[APIs](https://react.dev/reference/react/legacy) are exported from the `react` package, but they are not recommended for use in newly written code.
 
 ### Legacy Children
 

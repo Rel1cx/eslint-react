@@ -23,24 +23,24 @@ export default {
   useNextSeoProps() {
     return M.match(useRouter())
       .with({ asPath: "/" }, () => ({
-        title: "ESLint x React",
+        title: "ESLint React",
         description:
-          "ESLint x React - More than 50 ESLint rules to catch common mistakes and improve your React code. Built (mostly) from scratch.",
+          "ESLint React - More than 50 ESLint rules to catch common mistakes and improve your React code. Built (mostly) from scratch.",
       }))
       .with({ asPath: M.P.string.startsWith("/rules/") }, () => ({
         titleTemplate: "Rule: %s",
       }))
       .otherwise(() => ({
-        titleTemplate: "%s – ESLint x React",
+        titleTemplate: "%s – ESLint React",
       }));
   },
   head: (
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta property="og:title" content="ESLint x React" />
+      <meta property="og:title" content="ESLint React" />
       <meta
         property="og:description"
-        content="ESLint x React - More than 50 ESLint rules to catch common mistakes and improve your React code. Built (mostly) from scratch."
+        content="ESLint React - More than 50 ESLint rules to catch common mistakes and improve your React code. Built (mostly) from scratch."
       />
       <link
         rel="apple-touch-icon"
@@ -71,6 +71,6 @@ export default {
     link: "https://github.com/rel1cx/eslint-react",
   },
   footer: {
-    text: <span>MIT {new Date().getFullYear()} © ESLint x React.</span>,
+    text: <span>MIT {new Date().getFullYear()} © ESLint React.</span>,
   },
 } satisfies DocsThemeConfig;

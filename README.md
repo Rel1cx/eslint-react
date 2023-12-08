@@ -1,6 +1,6 @@
 <p align="center"><img src="https://eslint-react.rel1cx.io/logo.svg" alt="logo" width="150" /></p>
 
-<h1 align="center" alt="title">ESLint x React</h1>
+<h1 align="center" alt="title">ESLint React</h1>
 
 More than 50 ESLint rules to catch common mistakes and improve your React code. Built (mostly) from scratch.
 
@@ -129,7 +129,7 @@ module.exports = {
 - [x] `naming-convention/filename-extension`
 - [ ] `naming-convention/boolean-prop`
 - [ ] `naming-convention/handler-prop`
-- [ ] `naming-convention/use-state`
+- [x] `naming-convention/use-state`
 
 ### React rules
 
@@ -171,7 +171,6 @@ module.exports = {
 - [x] `react/no-constructed-context-value`
 - [ ] `react/no-unused-class-component-methods`
 - [ ] `react/no-unused-state`
-- [ ] `react/no-access-ref-current-during-rendering`
 - [x] `react/prefer-destructuring-assignment`
 - [ ] `react/prefer-readonly-props`
 - [ ] `react/ban-components`
@@ -214,7 +213,7 @@ Before you start working on something, it's best to check if there is an existin
 
 Please make sure to read the [Contributing Guide](./.github/CONTRIBUTING.md) before making a pull request.
 
-Thank you to everyone contributing to ESLint x React!
+Thank you to everyone contributing to ESLint React!
 
 ## License
 
