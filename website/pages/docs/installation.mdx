@@ -1,36 +1,52 @@
 import { Tab, Tabs } from "nextra-theme-docs";
 
 import { Info } from "#/components/callout";
+import { Config, ESLintConfig } from "#/components/eslint-config";
 
 ## Install
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+
 <Tab>
+
 ```bash filename="Terminal"
 npm install --save-dev eslint-plugin-react-hooks @eslint-react/eslint-plugin
 ```
+
 </Tab>
+
 <Tab>
+
 ```bash filename="Terminal"
 pnpm add --save-dev eslint-plugin-react-hooks @eslint-react/eslint-plugin
 ```
+
 </Tab>
+
 <Tab>
+
 ```bash filename="Terminal"
 yarn add --dev eslint-plugin-react-hooks @eslint-react/eslint-plugin
 ```
+
 </Tab>
+
 <Tab>
+
 ```bash filename="Terminal"
 bun add --dev eslint-plugin-react-hooks @eslint-react/eslint-plugin
 ```
+
 </Tab>
+
 </Tabs>
 
 ## Setup
 
-<Tabs items={["LegacyConfig", "FlatConfig"]}>
-<Tab>
+<ESLintConfig>
+
+<Config>
+
 ```js filename=".eslintrc.js"
 module.exports = {
   root: true,
@@ -46,8 +62,11 @@ module.exports = {
   ignorePatterns: ["dist", ".eslintrc.js"],
 };
 ```
-</Tab>
-<Tab>
+
+</Config>
+
+<Config>
+
 ```js filename="eslint.config.js"
 import ts from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
@@ -88,17 +107,22 @@ export default [
   },
 ];
 ```
-</Tab>
-</Tabs>
+
+</Config>
+
+</ESLintConfig>
 
 ## Linting with type information
 
-<Tabs items={["LegacyConfig", "FlatConfig"]}>
-<Tab>
+<ESLintConfig>
+
+<Config>
+
 <Info>
 Rules that require type information are not enabled by default. To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
 
 Then replace `plugin:@eslint-react/recommended-legacy` with `plugin:@eslint-react/recommended-type-checked-legacy`.
+
 </Info>
 
 ```js filename=".eslintrc.js"
@@ -121,12 +145,16 @@ module.exports = {
   ignorePatterns: ["dist", ".eslintrc.js"],
 };
 ```
-</Tab>
-<Tab>
+
+</Config>
+
+<Config>
+
 <Info>
 Rules that require type information are not enabled by default. To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
 
 Then replace `...react.configs.recommended` with `...react.configs["recommended-type-checked"]`.
+
 </Info>
 
 ```js filename="eslint.config.js"
@@ -144,7 +172,7 @@ export default [
       parser: tsParser,
       sourceType: "module",
       parserOptions: {
-          project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
+        project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
       },
       sourceType: "module",
     },
@@ -173,5 +201,7 @@ export default [
   },
 ];
 ```
-</Tab>
-</Tabs>
+
+</Config>
+
+</ESLintConfig>

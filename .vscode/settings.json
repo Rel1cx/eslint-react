@@ -6,7 +6,7 @@
     }
   },
   "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.defaultFormatter": "dprint.dprint",
     "editor.quickSuggestions": {
       "strings": true
     }
@@ -30,9 +30,9 @@
     "editor.tabSize": 2
   },
   "editor.codeActionsOnSave": {
-    "eslint.autoFix": false,
-    "source.fixAll": false,
-    "source.organizeImports": false
+    "eslint.autoFix": "never",
+    "source.fixAll": "never",
+    "source.organizeImports": "never"
   },
   "eslint.workingDirectories": [
     {
@@ -52,6 +52,16 @@
   ],
   "mdx.server.enable": true,
   "eslint.experimental.useFlatConfig": false,
+  "eslint.options": {
+    "extensions": [".js", ".jsx", ".mdx", ".ts", ".tsx"]
+  },
+  "eslint.validate": [
+    "mdx",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
   "search.exclude": {
     "pnpm-lock.yaml": true
   },
@@ -59,8 +69,7 @@
     "**/.turbo": true,
     ".husky": true,
     ".npmignore": true,
-    ".eslintcache": true,
-    ".markdownlint.json": true
+    ".eslintcache": true
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.tsdk": "node_modules/typescript/lib"
