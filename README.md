@@ -44,7 +44,9 @@ module.exports = {
 ### Linting with type information
 
 > [!NOTE]\
-> Rules that require type information are not enabled by default. To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
+> Rules that require type information are not enabled by default.
+>
+> To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
 >
 > Then replace `plugin:@eslint-react/recommended-legacy` with `plugin:@eslint-react/recommended-type-checked-legacy`.
 
