@@ -37,4 +37,10 @@
       margin-top: 0;
     }
   }
+
+  div[role="tablist"] {
+    >button[role="tab"] {
+      font-family: var(--font-family-ui);
+    }
+  }
 }

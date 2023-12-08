@@ -61,15 +61,6 @@ html[lang] {
 
 h1,
 h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-family-ui);
-}
-
-h1,
-h2,
 h3 {
   &+img {
     margin-top: 24px;

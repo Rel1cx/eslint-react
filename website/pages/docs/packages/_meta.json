@@ -1,12 +1,7 @@
 {
   "@eslint-react/eslint-plugin": {
     "title": "@eslint-react/eslint-plugin",
-    "href": "https://github.com/rel1cx/eslint-react",
-    "newWindow": true
-  },
-  "@eslint-react/jsx": {
-    "title": "@eslint-react/jsx",
-    "href": "https://github.com/rel1cx/eslint-react/tree/main/packages/jsx",
+    "href": "https://www.npmjs.com/package/@eslint-react/eslint-plugin",
     "newWindow": true
   }
 }
