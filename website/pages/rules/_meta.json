@@ -56,6 +56,7 @@
   "naming-convention-component-name": "naming-convention/component-name",
   "naming-convention-filename": "naming-convention/filename",
   "naming-convention-filename-extension": "naming-convention/filename-extension",
+  "naming-convention-use-state": "naming-convention/use-state",
   "debug-class-component": "debug/class-component",
   "debug-function-component": "debug/function-component",
   "debug-react-hooks": "debug/react-hooks"
