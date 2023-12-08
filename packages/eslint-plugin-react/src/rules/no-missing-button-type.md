@@ -28,6 +28,6 @@ The `button` element's `type` attribute must be specified explicitly. The defaul
 <button type="button">Click me</button>;
 ```
 
-## When Not To Use It
+## Further Reading
 
-If you use only "submit" buttons, you can disable this rule
+- [MDN: button - notes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#notes)

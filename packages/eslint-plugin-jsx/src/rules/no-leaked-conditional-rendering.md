@@ -153,10 +153,6 @@ function Component({ elements }) {
 }
 ```
 
-## When Not To Use It
-
-If you are working in a typed-codebase which encourages you to always use boolean conditions, this rule can be disabled.
-
 ## Further Reading
 
 - [react.dev: Conditional Rendering](https://react.dev/learn/conditional-rendering)

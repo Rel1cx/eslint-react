@@ -60,6 +60,6 @@ const Component = () => {
 };
 ```
 
-## When not to use
+## Further Reading
 
-If you don't want to enforce sandbox attribute on iframe elements.
+- [MDN: iframe - sandbox](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attributes)

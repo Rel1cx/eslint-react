@@ -57,10 +57,6 @@ const Component = () => {
 };
 ```
 
-## When not to use
-
-If you don't want to enforce sandbox attribute on iframe elements.
-
 ## Further Reading
 
--[MDN: Element/iframe#attr-sandbox](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attr-sandbox)
+-[MDN: iframe - sandbox](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attributes)
