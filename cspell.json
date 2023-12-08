@@ -36,8 +36,8 @@
     "deepmerge",
     "dprint",
     "ExR",
-    "frontmatter",
     "flexsearch",
+    "frontmatter",
     "greenlighted",
     "hatchpath",
     "Hoistable",
@@ -80,6 +80,7 @@
     "tsup",
     "twoslash",
     "typeclass",
+    "unoptimized",
     "weakref",
     "Zhou"
   ]

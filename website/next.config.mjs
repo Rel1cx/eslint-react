@@ -40,7 +40,7 @@ const withNextra = nextra({
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    // unoptimized: true
+    unoptimized: true,
   },
   output: "standalone",
 };
