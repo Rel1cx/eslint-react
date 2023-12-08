@@ -31,6 +31,7 @@ const rulePreset = {
   "naming-convention/component-name": "warn",
   "naming-convention/filename": "warn",
   "naming-convention/filename-extension": "warn",
+  "naming-convention/use-state": "warn",
 
   "react/no-children-count": "warn",
   "react/no-children-for-each": "warn",
@@ -80,6 +81,7 @@ const recommendedPreset = {
   "jsx/no-comment-textnodes": "warn",
   "jsx/no-complicated-conditional-rendering": "warn",
   "jsx/no-duplicate-key": "error",
+  // "jsx/no-leaked-conditional-rendering": "warn",
   "jsx/no-missing-key": "error",
   "jsx/no-spreading-key": "warn",
   "jsx/no-useless-fragment": "warn",
@@ -87,10 +89,18 @@ const recommendedPreset = {
   "jsx/prefer-shorthand-fragment": "warn",
 
   "naming-convention/component-name": "warn",
+  // "naming-convention/filename": "warn",
+  // "naming-convention/filename-extension": "warn",
+  "naming-convention/use-state": "warn",
 
+  "react/no-children-count": "warn",
+  "react/no-children-for-each": "warn",
   "react/no-children-in-void-dom-elements": "warn",
+  "react/no-children-map": "warn",
+  "react/no-children-only": "warn",
   "react/no-children-prop": "warn",
-  "react/no-class-component": "warn",
+  "react/no-children-to-array": "warn",
+  // "react/no-class-component": "warn",
   "react/no-clone-element": "warn",
   "react/no-component-will-mount": "error",
   "react/no-component-will-receive-props": "error",
@@ -102,6 +112,7 @@ const recommendedPreset = {
   "react/no-direct-mutation-state": "error",
   "react/no-find-dom-node": "error",
   "react/no-missing-button-type": "warn",
+  // "react/no-missing-component-display-name": "warn",
   "react/no-missing-iframe-sandbox": "warn",
   "react/no-namespace": "error",
   "react/no-redundant-should-component-update": "warn",
@@ -121,6 +132,8 @@ const recommendedPreset = {
   "react/prefer-destructuring-assignment": "warn",
 
   "react-hooks/ensure-custom-hooks-using-other-hooks": "warn",
+  // "react-hooks/ensure-use-callback-has-non-empty-deps": "warn",
+  // "react-hooks/ensure-use-memo-has-non-empty-deps": "warn",
 } as const satisfies RulePreset;
 
 const recommendedTypeCheckedPreset = {

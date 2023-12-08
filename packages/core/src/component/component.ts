@@ -15,6 +15,7 @@ export type ExRFunctionComponent = {
   flag: ExRFunctionComponentFlag;
   hint: ExRComponentCollectorHint;
   initPath: O.Option<ExRComponentInitPath>;
+  hookCalls: TSESTree.CallExpression[];
   displayName: O.Option<TSESTree.Expression>;
 };
 

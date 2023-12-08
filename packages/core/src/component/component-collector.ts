@@ -12,6 +12,7 @@ import { M, MutList, MutRef, O } from "@eslint-react/tools";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
+import { unsafeIsReactHookCall } from "../hook";
 import type { ExRFunctionComponent } from "./component";
 import { DEFAULT_COMPONENT_COLLECTOR_HINT, ExRComponentCollectorHint } from "./component-collector-hint";
 import { ExRFunctionComponentFlag } from "./component-flag";
@@ -60,9 +61,9 @@ export function componentCollector(
   pragma = getPragmaFromContext(context),
 ) {
   const components = new Map<string, ExRFunctionComponent>();
-  const functionStack = MutList.make<[TSESTreeFunction, boolean]>();
+  const functionStack = MutList.make<[TSESTreeFunction, boolean, TSESTree.CallExpression[]]>();
   const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
-  const onFunctionEnter = (node: TSESTreeFunction) => MutList.append(functionStack, [node, false]);
+  const onFunctionEnter = (node: TSESTreeFunction) => MutList.append(functionStack, [node, false, []]);
   const onFunctionExit = () => MutList.pop(functionStack);
 
   const ctx = {
@@ -88,7 +89,7 @@ export function componentCollector(
         return;
       }
 
-      const [currentFn, isComponent] = maybeCurrentFn.value;
+      const [currentFn, isComponent, hookCalls] = maybeCurrentFn.value;
 
       if (isComponent) {
         return;
@@ -103,7 +104,7 @@ export function componentCollector(
       }
 
       MutList.pop(functionStack);
-      MutList.append(functionStack, [currentFn, true]);
+      MutList.append(functionStack, [currentFn, true, []]);
 
       const id = getFunctionComponentIdentifier(currentFn, context);
       const key = uid.rnd();
@@ -121,29 +122,38 @@ export function componentCollector(
         displayName: O.none(),
         flag: getComponentFlag(initPath, pragma),
         hint,
+        hookCalls,
         initPath,
         node: currentFn,
       });
     },
     // eslint-disable-next-line perfectionist/sort-objects
-    "ArrowFunctionExpression[body.type!='BlockStatement']"(node: TSESTree.ArrowFunctionExpression) {
-      const { body } = node;
+    "ArrowFunctionExpression[body.type!='BlockStatement']"() {
+      const maybeCurrentFn = getCurrentFunction();
+
+      if (O.isNone(maybeCurrentFn)) {
+        return;
+      }
+
+      const [currentFn, _, hookCalls] = maybeCurrentFn.value;
+
+      const { body } = currentFn;
 
       if (
-        !hasNoneOrValidComponentName(node)
+        !hasNoneOrValidComponentName(currentFn)
         || !isJSXValue(body, context, hint)
-        || !hasValidHierarchy(node, context, hint)
+        || !hasValidHierarchy(currentFn, context, hint)
       ) {
         return;
       }
 
-      const id = getFunctionComponentIdentifier(node, context);
+      const id = getFunctionComponentIdentifier(currentFn, context);
       const key = uid.rnd();
       const name = O.flatMapNullable(
         id,
         getComponentNameFromIdentifier,
       );
-      const initPath = getComponentInitPath(node);
+      const initPath = getComponentInitPath(currentFn);
 
       components.set(key, {
         _: key,
@@ -153,10 +163,28 @@ export function componentCollector(
         displayName: O.none(),
         flag: getComponentFlag(initPath, pragma),
         hint,
+        hookCalls,
         initPath,
-        node,
+        node: currentFn,
       });
     },
+    "CallExpression:exit"(node: TSESTree.CallExpression) {
+      if (!unsafeIsReactHookCall(node)) {
+        return;
+      }
+
+      const maybeCurrentFn = getCurrentFunction();
+
+      if (O.isNone(maybeCurrentFn)) {
+        return;
+      }
+
+      const [currentFn, IsComponent, hookCalls] = maybeCurrentFn.value;
+
+      MutList.pop(functionStack);
+      MutList.append(functionStack, [currentFn, IsComponent, [...hookCalls, node]]);
+    },
+    // eslint-disable-next-line perfectionist/sort-objects
     "AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']"(
       node: TSESTree.AssignmentExpression,
     ) {

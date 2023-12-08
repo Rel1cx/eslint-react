@@ -20,7 +20,8 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      FUNCTION_COMPONENT: "[function component] name: {{name}}, memo: {{memo}}, forwardRef: {{forwardRef}}",
+      FUNCTION_COMPONENT:
+        "[function component] name: {{name}}, memo: {{memo}}, forwardRef: {{forwardRef}}, hookCalls: {{hookCalls}}",
     },
   },
   defaultOptions: [],
@@ -32,12 +33,13 @@ export default createRule<[], MessageID>({
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
 
-        for (const { name, flag, node } of components.values()) {
+        for (const { name, flag, node, hookCalls } of components.values()) {
           context.report({
             data: {
               name: O.getOrElse(name, F.constant("anonymous")),
               forwardRef: Boolean(flag & ExRFunctionComponentFlag.ForwardRef),
               memo: Boolean(flag & ExRFunctionComponentFlag.Memo),
+              hookCalls: hookCalls.length,
             },
             messageId: "FUNCTION_COMPONENT",
             node,
