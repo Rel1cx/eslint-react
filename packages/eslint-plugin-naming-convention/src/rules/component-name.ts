@@ -13,12 +13,14 @@ export const RULE_NAME = "component-name";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
+/* eslint-disable no-restricted-syntax */
 type Options = readonly [
   {
     excepts?: readonly string[];
     rule?: "CONSTANT_CASE" | "PascalCase";
   }?,
 ];
+/* eslint-enable no-restricted-syntax */
 
 const defaultOptions = [
   {

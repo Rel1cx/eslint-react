@@ -11,12 +11,14 @@ export const RULE_NAME = "filename";
 
 export type MessageID = "FILENAME_CASE_MISMATCH" | "FILENAME_CASE_MISMATCH_SUGGESTION" | "FILENAME_EMPTY";
 
+/* eslint-disable no-restricted-syntax */
 type Options = readonly [
   {
     excepts?: readonly string[];
     rule?: "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
   }?,
 ];
+/* eslint-enable no-restricted-syntax */
 
 const defaultOptions = [
   {

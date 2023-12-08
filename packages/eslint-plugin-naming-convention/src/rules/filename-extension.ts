@@ -9,11 +9,13 @@ export const RULE_NAME = "filename-extension";
 
 export type MessageID = "INVALID" | "UNEXPECTED";
 
+/* eslint-disable no-restricted-syntax */
 type Options = readonly [
   {
     rule?: "always" | "as-needed";
   }?,
 ];
+/* eslint-enable no-restricted-syntax */
 
 const defaultOptions = [
   {

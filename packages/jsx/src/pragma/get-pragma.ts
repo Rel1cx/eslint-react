@@ -8,7 +8,7 @@ const RE_JSX_ANNOTATION_REGEX = /@jsx\s+(\S+)/u;
 const RE_JS_IDENTIFIER_REGEX = /^[$A-Z_a-z][\w$]*$/u;
 
 export function getFragmentFromContext<T extends RuleContext>(context: T) {
-  // eslint-disable-next-line prefer-destructuring
+  // eslint-disable-next-line prefer-destructuring, no-restricted-syntax
   const settings: { react?: ReactSettings } = context.settings;
 
   const fragment = settings.react?.fragment;
@@ -22,7 +22,7 @@ export function getFragmentFromContext<T extends RuleContext>(context: T) {
 
 export const getPragmaFromContext: <T extends RuleContext>(context: T) => string = memo(
   (context) => {
-    // eslint-disable-next-line prefer-destructuring
+    // eslint-disable-next-line prefer-destructuring, no-restricted-syntax
     const settings: { react?: ReactSettings } = context.settings;
 
     const { sourceCode } = context;

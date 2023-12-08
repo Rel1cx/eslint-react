@@ -48,17 +48,6 @@ module.exports = defineConfig({
         "newline-before-return": "warn",
         "prefer-object-has-own": "error",
         "array-callback-return": "off",
-        "no-restricted-syntax": [
-          "error",
-          {
-            selector: "VariableDeclaration[kind=let]",
-            message: "no let",
-          },
-          {
-            selector: "IfStatement[alternate]",
-            message: "no else",
-          },
-        ],
         "@typescript-eslint/no-unused-vars": [
           "warn",
           {
@@ -126,6 +115,21 @@ module.exports = defineConfig({
         "simple-import-sort/exports": "warn",
         "simple-import-sort/imports": "warn",
         "unicorn/template-indent": ["warn", { indent: 2 }],
+        "no-restricted-syntax": [
+          "error",
+          {
+            selector: "VariableDeclaration[kind=let]",
+            message: "no let",
+          },
+          {
+            selector: "IfStatement[alternate]",
+            message: "no else",
+          },
+          {
+            selector: "TSPropertySignature[optional=true]",
+            message: "no optional",
+          },
+        ],
       },
       settings: {
         "functional-core": {

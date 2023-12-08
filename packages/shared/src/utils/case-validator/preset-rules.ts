@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable security/detect-object-injection */
 /* eslint-disable security/detect-non-literal-regexp */
 // Copied from https://github.com/epaew/eslint-plugin-filenames-simple/blob/master/src/utils/preset-rules.ts
