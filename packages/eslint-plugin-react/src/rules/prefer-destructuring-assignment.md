@@ -72,7 +72,7 @@ function Component({ items, ...rest }) {
 }
 ```
 
-### Further Reading
+## Further Reading
 
 - [MDN: Destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
 - [react.dev: passing-props-to-a-component](https://react.dev/learn/passing-props-to-a-component#step-2-read-props-inside-the-child-component)

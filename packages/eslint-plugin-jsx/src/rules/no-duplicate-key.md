@@ -38,4 +38,4 @@ const TodoList = ({ todos }) => (
 
 ## Further Reading
 
-[react.dev why-does-react-need-keys](https://react.dev/learn/rendering-lists#why-does-react-need-keys)
+- [react.dev why-does-react-need-keys](https://react.dev/learn/rendering-lists#why-does-react-need-keys)

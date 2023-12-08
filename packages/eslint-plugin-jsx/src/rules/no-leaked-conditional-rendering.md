@@ -159,4 +159,4 @@ If you are working in a typed-codebase which encourages you to always use boolea
 
 ## Further Reading
 
-[react.dev: Conditional Rendering](https://react.dev/learn/conditional-rendering)
+- [react.dev: Conditional Rendering](https://react.dev/learn/conditional-rendering)

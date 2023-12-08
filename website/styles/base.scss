@@ -43,10 +43,29 @@
     Consolas,
     "Liberation Mono",
     monospace;
+
+  --font-family-ui-mono:
+    ui-monospace,
+    "SFMono-Regular",
+    Menlo,
+    Monaco,
+    Consolas,
+    "Liberation Mono",
+    "Courier New",
+    monospace;
 }
 
 html[lang] {
-  font-family: var(--font-family-body);
+  font-family: var(--font-family-ui-mono);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-ui);
 }
 
 h1,

@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_MISSING_COMPONENT_DISPLAY_NAME: "no missing display name",
+      NO_MISSING_COMPONENT_DISPLAY_NAME: "no missing `displayName`",
     },
   },
   defaultOptions: [],

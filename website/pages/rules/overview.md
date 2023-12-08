@@ -40,6 +40,7 @@
 - [`react/no-direct-mutation-state`](react-no-direct-mutation-state) - disallow direct mutation of `this.state`
 - [`react/no-find-dom-node`](react-no-find-dom-node) - disallow `findDOMNode`
 - [`react/no-missing-button-type`](react-no-missing-button-type) - enforce that `button` elements have an explicit `type` attribute
+- [`react/no-missing-component-display-name`](react-no-missing-component-display-name) - enforce `displayName` for `memo` and `forwardRef` components
 - [`react/no-missing-iframe-sandbox`](react-no-missing-iframe-sandbox) - enforce that `iframe` elements explicitly specify a `sandbox` attribute
 - [`react/no-namespace`](react-no-namespace) - enforce that namespaces are not used in React elements
 - [`react/no-redundant-should-component-update`](react-no-redundant-should-component-update) - disallow usage of `shouldComponentUpdate` in class component extends `React.PureComponent`
