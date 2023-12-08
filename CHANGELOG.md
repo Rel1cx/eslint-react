@@ -4,12 +4,15 @@
 
 #### Add rule `react/no-direct-mutation-state`
 
+#### Add rule `naming-convention/use-state`
+
 ---
 
 #### 🏠 Internal
 
 - `@eslint-react/eslint-plugin-react`
   - Add rule `react/no-direct-mutation-state`.
+  - Add rule `naming-convention/use-state`.
 
 #### 📝 Documentation
 
