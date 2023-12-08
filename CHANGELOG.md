@@ -11,6 +11,11 @@
 - `@eslint-react/eslint-plugin-react`
   - Add rule `react/no-direct-mutation-state`.
 
+#### 📝 Documentation
+
+- `@eslint-react/website`
+  - Improve rules overview page.
+
 #### Authors: 1
 
 - Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
@@ -79,14 +84,6 @@
 
 - `@eslint-react/monorepo`
   - Update `eslint-config-with-tsconfig` to `2.9.120`.
-
-#### 📝 Documentation
-
-- `@eslint-react/eslint-plugin`
-  - Improve README.md
-
-- `@eslint-react/monorepo`
-  - Improve README.md
 
 #### Authors: 1
 
