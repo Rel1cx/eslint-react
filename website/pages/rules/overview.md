@@ -64,6 +64,7 @@
 - [`naming-convention/component-name`](naming-convention-component-name) - enforce component naming convention to `PascalCase` or `CONSTANT_CASE`
 - [`naming-convention/filename`](naming-convention-filename) - enforce naming convention for JSX file names
 - [`naming-convention/filename-extension`](naming-convention-filename-extension) - enforce naming convention for JSX file extensions
+- [`naming-convention/use-state`](naming-convention-use-state) - enforce destructuring and symmetric naming of `useState` hook value and setter variables
 
 ## Debug
 

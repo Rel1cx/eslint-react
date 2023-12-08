@@ -1,7 +1,7 @@
 import { NodeType } from "@eslint-react/ast";
 import { componentCollector, isUseStateCall } from "@eslint-react/core";
 import { getPragmaFromContext } from "@eslint-react/jsx";
-import { M, O } from "@eslint-react/tools";
+import { F, M, O, P } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { capitalize, type ConstantCase } from "string-ts";
@@ -12,17 +12,25 @@ export const RULE_NAME = "use-state";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
+function isValidSetterNameLoose(name: string) {
+  const fourthChar = [...name][3];
+
+  return name.startsWith("set")
+    && fourthChar === fourthChar?.toUpperCase();
+}
+
 export default createRule<[], MessageID>({
   name: RULE_NAME,
   meta: {
     type: "suggestion",
     docs: {
       description: "enforce destructuring and symmetric naming of `useState` hook value and setter variables",
+      recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      USE_STATE: "Use `{{setterName}}` as the name of the setter variable for `{{stateName}}`.",
+      USE_STATE: "`useState` call is not destructured into value + setter pair.",
     },
   },
   defaultOptions: [],
@@ -50,43 +58,44 @@ export default createRule<[], MessageID>({
             }
 
             const { id } = hookCall.parent;
+            const descriptor = O.some({ messageId: "USE_STATE", node: id } as const);
 
-            const maybeDescriptor = M.match<typeof id, O.Option<ReportDescriptor<MessageID>>>(id)
-              .with({ type: NodeType.Identifier }, n => {
-                return O.some({
-                  messageId: "USE_STATE",
-                  node: n,
-                });
-              })
-              .with({ type: NodeType.ArrayPattern }, n => {
-                const [state, setState] = n.elements;
+            F.pipe(
+              M.match<typeof id, O.Option<ReportDescriptor<MessageID>>>(id)
+                .with({ type: NodeType.Identifier }, F.constant(descriptor))
+                .with({ type: NodeType.ArrayPattern }, n => {
+                  const [state, setState] = n.elements;
 
-                if (state?.type !== NodeType.Identifier || setState?.type !== NodeType.Identifier) {
-                  return O.none();
-                }
+                  if (
+                    state?.type === NodeType.ObjectPattern
+                    && setState?.type === NodeType.Identifier
+                  ) {
+                    return F.pipe(
+                      O.liftPredicate(P.not(isValidSetterNameLoose))(setState.name),
+                      O.flatMap(F.constant(descriptor)),
+                    );
+                  }
 
-                const [stateName, setStateName] = [state.name, setState.name];
+                  if (
+                    state?.type !== NodeType.Identifier
+                    || setState?.type !== NodeType.Identifier
+                  ) {
+                    return O.none();
+                  }
 
-                const expectedSetterName = `set${capitalize(stateName)}`;
+                  const [stateName, setStateName] = [state.name, setState.name];
 
-                if (setStateName === expectedSetterName) {
-                  return O.none();
-                }
+                  const expectedSetterName = `set${capitalize(stateName)}`;
 
-                return O.some(
-                  {
-                    messageId: "USE_STATE",
-                    node: n,
-                    data: {
-                      setterName: expectedSetterName,
-                      stateName,
-                    },
-                  } as const,
-                );
-              })
-              .otherwise(O.none);
+                  if (setStateName === expectedSetterName) {
+                    return O.none();
+                  }
 
-            O.map(maybeDescriptor, context.report);
+                  return descriptor;
+                })
+                .otherwise(O.none),
+              O.map(context.report),
+            );
           }
         }
       },

@@ -20,6 +20,24 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
+    dedent`
+      import { useState } from "react";
+
+      function Component() {
+        const [{foo, bar, baz}, setFooBarBaz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"})
+
+        return <div />;
+      }
+    `,
+    dedent`
+      import { useState } from "react";
+
+      function Component() {
+        const [{foo, bar, baz}, set_foo_bar_baz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"})
+
+        return <div />;
+      }
+    `,
   ],
   invalid: [
     {
@@ -46,6 +64,24 @@ ruleTester.run(RULE_NAME, rule, {
 
         function Component() {
           const [state, setstate] = useState(0);
+
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "USE_STATE",
+        data: {
+          setterName: "setState",
+          stateName: "state",
+        },
+      }],
+    },
+    {
+      code: dedent`
+        import { useState } from "react";
+
+        function Component() {
+          const [{foo, bar, baz}, foobarbaz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"})
 
           return <div />;
         }

@@ -6,6 +6,8 @@
 
 #### Add rule `naming-convention/use-state`
 
+#### Update `recommended` and `recommended-legacy` presets
+
 ---
 
 #### 🏠 Internal
