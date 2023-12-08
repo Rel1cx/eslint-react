@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin-naming-convention",
-  "version": "0.9.3-beta.4",
+  "version": "0.9.3",
   "description": "ESLint x React's ESLint plugin for naming convention related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
