@@ -6,7 +6,7 @@ Perf.
 
 ## What it does
 
-Prevents non-stable values (i.e. object identities) from being used as a value for Context.Provider.
+Prevents non-stable values (i.e. object identities) from being used as a value for `Context.Provider`.
 
 ## Why is this bad?
 

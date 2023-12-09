@@ -68,6 +68,7 @@ export default createRule<[], MessageID>({
     type: "suggestion",
     docs: {
       description: "disallow unnecessary fragments",
+      recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],

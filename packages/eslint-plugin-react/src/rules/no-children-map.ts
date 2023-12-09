@@ -12,9 +12,10 @@ export type MessageID = ConstantCase<typeof RULE_NAME>;
 export default createRule<[], MessageID>({
   name: RULE_NAME,
   meta: {
-    type: "problem",
+    type: "suggestion",
     docs: {
       description: "disallow `Children.map`",
+      recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
