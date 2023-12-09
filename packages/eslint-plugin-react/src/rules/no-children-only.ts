@@ -14,7 +14,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow `Children.only()`",
+      description: "disallow `Children.only`",
       requiresTypeChecking: false,
     },
     schema: [],

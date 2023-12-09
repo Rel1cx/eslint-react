@@ -81,7 +81,7 @@
     "eslint-plugin-functional-core": "1.7.1",
     "eslint-plugin-jsdoc": "46.9.0",
     "eslint-plugin-total-functions": "7.1.0",
-    "eslint-plugin-vitest": "0.3.10",
+    "eslint-plugin-vitest": "0.3.12",
     "fast-equals": "5.0.1",
     "fast-glob": "3.3.2",
     "husky": "8.0.3",

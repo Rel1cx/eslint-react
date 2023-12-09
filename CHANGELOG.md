@@ -1,3 +1,50 @@
+## v0.9.4 (Fri Dec 8 2023)
+
+### Release Notes
+
+---
+
+#### 📝 Documentation
+
+- `@eslint-react/website`
+  - Improve rule docs.
+  - Rename "ESLint x React" to "ESLint React".
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
+
+## v0.9.3 (Fri Dec 8 2023)
+
+### Release Notes
+
+#### Add rule `react/no-direct-mutation-state`
+
+#### Add rule `naming-convention/use-state`
+
+#### Update `recommended` and `recommended-legacy` presets
+
+---
+
+#### 🏠 Internal
+
+- `@eslint-react/eslint-plugin-react`
+  - Add rule `react/no-direct-mutation-state`.
+  - Add rule `naming-convention/use-state`.
+
+#### 📝 Documentation
+
+- `@eslint-react/website`
+  - Improve rules overview page.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
+
 ## v0.9.3 (Draft)
 
 ### Release Notes

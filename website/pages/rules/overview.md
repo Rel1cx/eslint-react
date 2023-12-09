@@ -25,9 +25,9 @@
 - [`react/no-children-for-each`](react-no-children-for-each) - disallow `Children.forEach`
 - [`react/no-children-in-void-dom-elements`](react-no-children-in-void-dom-elements) - disallow passing `children` to void DOM elements
 - [`react/no-children-map`](react-no-children-map) - disallow `Children.map`
-- [`react/no-children-only`](react-no-children-only) - disallow `Children.only()`
+- [`react/no-children-only`](react-no-children-only) - disallow `Children.only`
 - [`react/no-children-prop`](react-no-children-prop) - disallow passing of `children` as props
-- [`react/no-children-to-array`](react-no-children-to-array) - disallow `Children.toArray()`
+- [`react/no-children-to-array`](react-no-children-to-array) - disallow `Children.toArray`
 - [`react/no-class-component`](react-no-class-component) - disallow `class component`
 - [`react/no-clone-element`](react-no-clone-element) - disallow `cloneElement`
 - [`react/no-component-will-mount`](react-no-component-will-mount) - disallow `componentWillMount`

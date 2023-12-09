@@ -8,7 +8,7 @@ Restriction.
 
 ## What it does
 
-Checks usage of `React.Children.toArray()`.
+Checks usage of `React.Children.toArray`.
 
 ## Why is this bad?
 

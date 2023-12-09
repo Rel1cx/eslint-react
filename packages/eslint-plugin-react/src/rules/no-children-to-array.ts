@@ -14,7 +14,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow `Children.toArray()`",
+      description: "disallow `Children.toArray`",
       requiresTypeChecking: false,
     },
     schema: [],
