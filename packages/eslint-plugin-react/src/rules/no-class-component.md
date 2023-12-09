@@ -1,7 +1,5 @@
 # react/no-class-component
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Restriction.

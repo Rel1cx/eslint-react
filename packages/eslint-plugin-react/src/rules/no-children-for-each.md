@@ -1,7 +1,5 @@
 # react/no-children-for-each
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Restriction.

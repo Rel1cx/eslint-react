@@ -1,7 +1,5 @@
 # jsx/no-spreading-key
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Suspicious.

@@ -1,7 +1,5 @@
 # jsx/no-duplicate-key
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Correctness.
@@ -38,4 +36,4 @@ const TodoList = ({ todos }) => (
 
 ## Further Reading
 
-- [react.dev why-does-react-need-keys](https://react.dev/learn/rendering-lists#why-does-react-need-keys)
+- [react.dev: Why does React need keys?](https://react.dev/learn/rendering-lists#why-does-react-need-keys)

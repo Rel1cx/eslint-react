@@ -1,7 +1,5 @@
 # react/no-missing-iframe-sandbox
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Security.

@@ -2,8 +2,6 @@
 
 💭 This rule requires type information.
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Suspicious.

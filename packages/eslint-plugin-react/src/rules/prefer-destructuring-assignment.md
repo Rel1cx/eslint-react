@@ -1,7 +1,5 @@
 # react/prefer-destructuring-assignment
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Style.

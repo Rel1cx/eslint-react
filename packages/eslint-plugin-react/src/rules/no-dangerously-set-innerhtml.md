@@ -1,7 +1,5 @@
 # react/no-dangerously-set-innerhtml
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Security.

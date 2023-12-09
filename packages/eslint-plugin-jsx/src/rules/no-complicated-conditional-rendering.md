@@ -1,7 +1,5 @@
 # jsx/no-complicated-conditional-rendering
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Complexity.

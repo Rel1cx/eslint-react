@@ -1,7 +1,5 @@
 # react/no-clone-element
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Restriction.

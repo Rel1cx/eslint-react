@@ -1,7 +1,5 @@
 # react/no-dangerously-set-innerhtml-with-children
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Correctness.

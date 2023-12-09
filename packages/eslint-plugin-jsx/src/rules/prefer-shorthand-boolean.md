@@ -1,7 +1,5 @@
 # jsx/prefer-shorthand-boolean
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Style.

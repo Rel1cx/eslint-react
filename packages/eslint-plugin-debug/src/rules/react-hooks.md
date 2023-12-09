@@ -1,7 +1,5 @@
 # debug/react-hooks
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Debug.

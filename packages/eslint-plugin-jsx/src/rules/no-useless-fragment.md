@@ -1,7 +1,5 @@
 # jsx/no-useless-fragment
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Correctness.

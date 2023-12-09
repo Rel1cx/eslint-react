@@ -78,8 +78,8 @@ const rulePreset = {
 
 const recommendedPreset = {
   "jsx/no-array-index-key": "warn",
-  "jsx/no-comment-textnodes": "warn",
-  "jsx/no-complicated-conditional-rendering": "warn",
+  // "jsx/no-comment-textnodes": "warn",
+  // "jsx/no-complicated-conditional-rendering": "warn",
   "jsx/no-duplicate-key": "error",
   // "jsx/no-leaked-conditional-rendering": "warn",
   "jsx/no-missing-key": "error",

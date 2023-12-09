@@ -1,7 +1,5 @@
 # jsx/prefer-shorthand-fragment
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Stylistic.

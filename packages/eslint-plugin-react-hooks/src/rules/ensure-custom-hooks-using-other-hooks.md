@@ -1,7 +1,5 @@
 # react-hooks/ensure-custom-hooks-using-other-hooks
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Pedantic.

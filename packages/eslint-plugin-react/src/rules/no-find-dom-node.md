@@ -1,7 +1,5 @@
 # react/no-find-dom-node
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Restriction.

@@ -1,7 +1,5 @@
 # react/no-unstable-default-props
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Perf.

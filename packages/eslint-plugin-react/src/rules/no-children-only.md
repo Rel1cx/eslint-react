@@ -1,7 +1,5 @@
 # react/no-children-only
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Restriction.

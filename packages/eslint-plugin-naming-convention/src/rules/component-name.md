@@ -1,7 +1,5 @@
 # naming-convention/component-name
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Style.

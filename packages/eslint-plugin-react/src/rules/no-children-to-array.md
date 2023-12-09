@@ -1,7 +1,5 @@
 # react/no-children-to-array
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Restriction.

@@ -1,7 +1,5 @@
 # react/no-constructed-context-value
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Perf.

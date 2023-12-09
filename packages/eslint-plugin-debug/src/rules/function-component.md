@@ -1,7 +1,5 @@
 # debug/function-component
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Debug.

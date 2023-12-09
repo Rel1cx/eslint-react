@@ -1,7 +1,5 @@
 # jsx/no-comment-textnodes
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Suspicious.

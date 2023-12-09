@@ -1,7 +1,5 @@
 # debug/class-component
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Debug.

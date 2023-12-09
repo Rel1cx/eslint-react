@@ -186,7 +186,6 @@ export default createRule<[], MessageID>({
     },
   },
   defaultOptions: [],
-
   create(context) {
     const services = ESLintUtils.getParserServices(context);
 

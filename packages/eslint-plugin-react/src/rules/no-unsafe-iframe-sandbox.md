@@ -1,7 +1,5 @@
 # react/no-unsafe-iframe-sandbox
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Security.

@@ -1,7 +1,5 @@
 # react-hooks/ensure-use-callback-has-non-empty-deps
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Correctness.

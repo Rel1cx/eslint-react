@@ -1,7 +1,5 @@
 # react/no-missing-component-display-name
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Debug.

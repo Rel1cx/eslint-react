@@ -42,4 +42,4 @@ class MyComponent extends React.Component {
 
 ## Further Reading
 
-- [react.dev Legacy React APIs componentWillMount](https://react.dev/reference/react/Component#componentwillmount)
+- [react.dev: Legacy React APIs componentWillMount](https://react.dev/reference/react/Component#componentwillmount)

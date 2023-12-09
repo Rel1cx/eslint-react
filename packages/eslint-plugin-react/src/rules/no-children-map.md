@@ -1,7 +1,5 @@
 # react/no-children-map
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Restriction.

@@ -1,7 +1,5 @@
 # react/no-unstable-nested-components
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Correctness.

@@ -1,7 +1,5 @@
 # react/no-script-url
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Security.

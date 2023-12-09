@@ -1,7 +1,5 @@
 # react/no-missing-button-type
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Suspicious.

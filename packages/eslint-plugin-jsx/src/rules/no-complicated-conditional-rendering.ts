@@ -16,7 +16,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow complicated conditional rendering",
-      recommended: "recommended",
       requiresTypeChecking: true,
     },
     schema: [],

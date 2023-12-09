@@ -1,7 +1,5 @@
 # react/no-string-refs
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Restriction.

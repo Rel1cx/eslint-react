@@ -1,7 +1,5 @@
 # naming-convention/filename
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Style.

@@ -42,4 +42,4 @@ class MyComponent extends React.Component {
 
 ## Further Reading
 
-- [react.dev Legacy React APIs componentWillUpdate](https://react.dev/reference/react/Component#componentwillupdate)
+- [react.dev: Legacy React APIs componentWillUpdate](https://react.dev/reference/react/Component#componentwillupdate)

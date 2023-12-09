@@ -1,7 +1,5 @@
 # react/no-children-in-void-dom-elements
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Correctness.

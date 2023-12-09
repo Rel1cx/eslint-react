@@ -1,7 +1,5 @@
 # react/no-create-ref
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Restriction.

@@ -1,7 +1,5 @@
 # react/no-unsafe-target-blank
 
-<!-- end auto-generated rule header -->
-
 ## Rule category
 
 Security.
