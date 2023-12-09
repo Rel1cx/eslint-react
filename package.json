@@ -92,7 +92,7 @@
     "rollup": "4.7.0",
     "rollup-plugin-dts": "6.1.0",
     "rollup-plugin-swc3": "0.11.0",
-    "rollup-plugin-visualizer": "5.10.0",
+    "rollup-plugin-visualizer": "5.11.0",
     "skott": "0.31.3",
     "taze": "0.13.0",
     "tiny-invariant": "1.3.1",
