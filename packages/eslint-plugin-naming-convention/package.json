@@ -13,6 +13,7 @@
   },
   "license": "MIT",
   "author": "Eva1ent<let@ik.me>",
+  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
