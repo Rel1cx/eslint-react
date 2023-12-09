@@ -40,7 +40,6 @@ module.exports = defineConfig({
       ],
       plugins: ["functional", "functional-core", "total-functions", "filenames-simple"],
       rules: {
-        quotes: ["error", "double", { avoidEscape: true }],
         "no-undef": "off",
         "no-console": ["warn", { allow: ["warn", "error"] }],
         "max-len": "off",
