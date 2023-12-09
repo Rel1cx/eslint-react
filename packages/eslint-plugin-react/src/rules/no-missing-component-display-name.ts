@@ -1,5 +1,5 @@
 import { getFunctionIdentifier } from "@eslint-react/ast";
-import { componentCollector, ExRFunctionComponentFlag } from "@eslint-react/core";
+import { componentCollector, ERFunctionComponentFlag } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type ConstantCase } from "string-ts";
@@ -33,8 +33,8 @@ export default createRule<[], MessageID>({
         const components = ctx.getAllComponents(node);
 
         for (const { displayName, flag, node } of components.values()) {
-          const isMemoOrForwardRef = Boolean(flag & ExRFunctionComponentFlag.ForwardRef)
-            || Boolean(flag & ExRFunctionComponentFlag.Memo);
+          const isMemoOrForwardRef = Boolean(flag & ERFunctionComponentFlag.ForwardRef)
+            || Boolean(flag & ERFunctionComponentFlag.Memo);
 
           if (O.isSome(getFunctionIdentifier(node))) {
             continue;

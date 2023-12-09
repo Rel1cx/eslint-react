@@ -1,3 +1,34 @@
+## v0.9.5 (Draft)
+
+### Release Notes
+
+---
+
+#### 📝 Documentation
+
+- `@eslint-react/website`
+  - Rename "ExR" to "ER".
+
+#### 🏠 Internal
+
+- `@eslint-react/eslint-plugin-react`
+  - Rename "ExR" to "ER".
+
+- `@eslint-react/eslint-plugin-debug`
+  - Rename "ExR" to "ER".
+
+- `@eslint-react/core`
+  - Rename "ExR" to "ER".
+
+- `@eslint-react/types`
+  - Rename "ExR" to "ER".
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
+
 ## v0.9.4 (Fri Dec 8 2023)
 
 ### Release Notes

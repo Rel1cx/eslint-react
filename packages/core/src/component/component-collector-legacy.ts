@@ -4,8 +4,8 @@ import { type RuleContext, uid } from "@eslint-react/shared";
 import { M, O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
-import type { ExRClassComponent } from "./component";
-import { ExRClassComponentFlag } from "./component-flag";
+import type { ERClassComponent } from "./component";
+import { ERClassComponentFlag } from "./component-flag";
 
 /**
  * Check if a node is a React class component
@@ -53,7 +53,7 @@ export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
 }
 
 export function componentCollectorLegacy(context: RuleContext) {
-  const components = new Map<string, ExRClassComponent>();
+  const components = new Map<string, ERClassComponent>();
 
   const ctx = {
     getAllComponents(_: TSESTree.Program): typeof components {
@@ -72,8 +72,8 @@ export function componentCollectorLegacy(context: RuleContext) {
     const id = getClassIdentifier(node);
     const key = uid.rnd();
     const flag = isPureComponent(node, context)
-      ? ExRClassComponentFlag.PureComponent
-      : ExRClassComponentFlag.None;
+      ? ERClassComponentFlag.PureComponent
+      : ERClassComponentFlag.None;
     components.set(
       key,
       {

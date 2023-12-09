@@ -13,9 +13,9 @@ import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { unsafeIsReactHookCall } from "../hook";
-import type { ExRFunctionComponent } from "./component";
-import { DEFAULT_COMPONENT_COLLECTOR_HINT, ExRComponentCollectorHint } from "./component-collector-hint";
-import { ExRFunctionComponentFlag } from "./component-flag";
+import type { ERFunctionComponent } from "./component";
+import { DEFAULT_COMPONENT_COLLECTOR_HINT, ERComponentCollectorHint } from "./component-collector-hint";
+import { ERFunctionComponentFlag } from "./component-flag";
 import { getFunctionComponentIdentifier } from "./component-Identifier";
 import { getComponentInitPath, hasCallInInitPath } from "./component-init-path";
 import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
@@ -26,30 +26,30 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
     return false;
   }
 
-  if (hint & ExRComponentCollectorHint.SkipMapCallback && unsafeIsMapCall(node.parent)) {
+  if (hint & ERComponentCollectorHint.SkipMapCallback && unsafeIsMapCall(node.parent)) {
     return false;
   }
 
-  if (hint & ExRComponentCollectorHint.SkipObjectMethod && isFunctionOfObjectMethod(node.parent)) {
+  if (hint & ERComponentCollectorHint.SkipObjectMethod && isFunctionOfObjectMethod(node.parent)) {
     return false;
   }
 
-  if (hint & ExRComponentCollectorHint.SkipClassMethod && isFunctionOfClassMethod(node.parent)) {
+  if (hint & ERComponentCollectorHint.SkipClassMethod && isFunctionOfClassMethod(node.parent)) {
     return false;
   }
 
-  return !(hint & ExRComponentCollectorHint.SkipClassProperty && isFunctionOfClassProperty(node.parent));
+  return !(hint & ERComponentCollectorHint.SkipClassProperty && isFunctionOfClassProperty(node.parent));
 }
 
-function getComponentFlag(initPath: ExRFunctionComponent["initPath"], pragma: string) {
-  const flagRef = MutRef.make(ExRFunctionComponentFlag.None);
+function getComponentFlag(initPath: ERFunctionComponent["initPath"], pragma: string) {
+  const flagRef = MutRef.make(ERFunctionComponentFlag.None);
 
   if (hasCallInInitPath("memo")(initPath) || hasCallInInitPath(`${pragma}.memo`)(initPath)) {
-    MutRef.update(flagRef, f => f | ExRFunctionComponentFlag.Memo);
+    MutRef.update(flagRef, f => f | ERFunctionComponentFlag.Memo);
   }
 
   if (hasCallInInitPath("forwardRef")(initPath) || hasCallInInitPath(`${pragma}.forwardRef`)(initPath)) {
-    MutRef.update(flagRef, f => f | ExRFunctionComponentFlag.ForwardRef);
+    MutRef.update(flagRef, f => f | ERFunctionComponentFlag.ForwardRef);
   }
 
   return MutRef.get(flagRef);
@@ -60,7 +60,7 @@ export function componentCollector(
   hint: bigint = DEFAULT_COMPONENT_COLLECTOR_HINT,
   pragma = getPragmaFromContext(context),
 ) {
-  const components = new Map<string, ExRFunctionComponent>();
+  const components = new Map<string, ERFunctionComponent>();
   const functionStack = MutList.make<[TSESTreeFunction, boolean, TSESTree.CallExpression[]]>();
   const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
   const onFunctionEnter = (node: TSESTreeFunction) => MutList.append(functionStack, [node, false, []]);

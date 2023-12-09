@@ -1,7 +1,7 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import type { TSESTree } from "@typescript-eslint/types";
 
-export type ExRHook = {
+export type ERHook = {
   // The unique key of the hook
   _: string;
   // The identifier of the hook

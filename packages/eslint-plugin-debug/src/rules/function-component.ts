@@ -1,4 +1,4 @@
-import { componentCollector, ExRFunctionComponentFlag } from "@eslint-react/core";
+import { componentCollector, ERFunctionComponentFlag } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type ConstantCase } from "string-ts";
@@ -37,8 +37,8 @@ export default createRule<[], MessageID>({
           context.report({
             data: {
               name: O.getOrElse(name, F.constant("anonymous")),
-              forwardRef: Boolean(flag & ExRFunctionComponentFlag.ForwardRef),
-              memo: Boolean(flag & ExRFunctionComponentFlag.Memo),
+              forwardRef: Boolean(flag & ERFunctionComponentFlag.ForwardRef),
+              memo: Boolean(flag & ERFunctionComponentFlag.Memo),
               hookCalls: hookCalls.length,
             },
             messageId: "FUNCTION_COMPONENT",

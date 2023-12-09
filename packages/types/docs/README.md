@@ -6,14 +6,14 @@
 
 ### Type Aliases
 
-- [ExRSettings](README.md#exrsettings)
+- [ERSettings](README.md#ersettings)
 - [ReactSettings](README.md#reactsettings)
 
 ## Type Aliases
 
-### ExRSettings
+### ERSettings
 
-Ƭ **ExRSettings**: `ReadonlyDeep`\<\{ `[key: string]`: `unknown`; `react`: [`ReactSettings`](README.md#reactsettings) }\>
+Ƭ **ERSettings**: `ReadonlyDeep`\<\{ `[key: string]`: `unknown`; `react`: [`ReactSettings`](README.md#reactsettings) }\>
 
 ---
 

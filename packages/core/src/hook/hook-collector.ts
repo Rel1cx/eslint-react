@@ -4,18 +4,18 @@ import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
 import { unsafeIsReactHookCall } from "./hook-call";
-import type { ExRHook } from "./hook-kind";
+import type { ERHook } from "./hook-kind";
 import { isValidReactHookName } from "./hook-name";
 
 export function hookCollector(): {
   // manually specify the return type here to avoid @typescript-eslint/utils's TS2742 error
   ctx: {
-    getAllHooks(_: TSESTree.Program): Map<string, ExRHook>;
-    getCurrentHooks(): Map<string, ExRHook>;
+    getAllHooks(_: TSESTree.Program): Map<string, ERHook>;
+    getCurrentHooks(): Map<string, ERHook>;
   };
   listeners: ESLintUtils.RuleListener;
 } {
-  const hooks = new Map<string, ExRHook>();
+  const hooks = new Map<string, ERHook>();
   const functionStack: TSESTreeFunction[] = [];
   const getCurrentFunction = () => functionStack[functionStack.length - 1];
   const onFunctionEnter = (node: TSESTreeFunction) => {

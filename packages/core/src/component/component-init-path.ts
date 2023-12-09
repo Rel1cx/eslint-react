@@ -3,7 +3,7 @@ import { NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
-export type ExRComponentInitPath =
+export type ERComponentInitPath =
   /**
    * function Comp() { return <div />; }
    */
@@ -102,7 +102,7 @@ export type ExRComponentInitPath =
     TSESTreeFunction,
   ];
 
-export function getComponentInitPath(node: TSESTreeFunction): O.Option<ExRComponentInitPath> {
+export function getComponentInitPath(node: TSESTreeFunction): O.Option<ERComponentInitPath> {
   const { parent } = node;
 
   if (node.type === NodeType.FunctionDeclaration) {
@@ -193,7 +193,7 @@ export function getComponentInitPath(node: TSESTreeFunction): O.Option<ExRCompon
 }
 
 export function hasCallInInitPath(callName: string) {
-  return (initPath: O.Option<ExRComponentInitPath>) => {
+  return (initPath: O.Option<ERComponentInitPath>) => {
     return F.pipe(
       initPath,
       O.filter(p => p.length > 0),

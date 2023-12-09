@@ -1,5 +1,5 @@
 import { isOneOf, NodeType } from "@eslint-react/ast";
-import { componentCollectorLegacy, ExRClassComponentFlag } from "@eslint-react/core";
+import { componentCollectorLegacy, ERClassComponentFlag } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
         const components = ctx.getAllComponents(node);
 
         for (const { name, flag, node: component } of components.values()) {
-          if (!(flag & ExRClassComponentFlag.PureComponent)) {
+          if (!(flag & ERClassComponentFlag.PureComponent)) {
             continue;
           }
 

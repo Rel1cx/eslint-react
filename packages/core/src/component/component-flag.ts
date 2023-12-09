@@ -1,16 +1,16 @@
-export type ExRClassComponentFlag = bigint;
+export type ERClassComponentFlag = bigint;
 
-export const ExRClassComponentFlag = {
+export const ERClassComponentFlag = {
   None: 0n,
   PureComponent: 1n << 0n,
   // Reserved for future use
   // CreateElement: 1n << 1n,
 };
 
-export type ExRFunctionComponentFlag = bigint;
+export type ERFunctionComponentFlag = bigint;
 
 /* eslint-disable perfectionist/sort-objects */
-export const ExRFunctionComponentFlag = {
+export const ERFunctionComponentFlag = {
   None: 0n,
   Memo: 1n << 0n,
   ForwardRef: 1n << 1n,
