@@ -7,6 +7,6 @@ export function isRegExpLiteral(node: TSESTree.Node): node is TSESTree.RegExpLit
   return node.type === NodeType.Literal && "regex" in node;
 }
 
-export function isStringLiteral(node: TSESTree.Node | null | undefined): node is TSESTree.StringLiteral {
-  return node?.type === NodeType.Literal && P.isString(node.value);
+export function isStringLiteral(node: TSESTree.Node): node is TSESTree.StringLiteral {
+  return node.type === NodeType.Literal && P.isString(node.value);
 }

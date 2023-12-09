@@ -119,31 +119,34 @@ export default createRule<[], MessageID>({
           .filter(is(NodeType.JSXElement))
           .filter((element) => !seen.has(element));
 
-        // dprint-ignore
-        const keys = elements.reduce<[TSESTree.JSXElement, TSESTree.JSXAttribute, TSESTree.JSXExpression | TSESTree.Literal][]>(
-                    (acc, element) => {
-                        const attr = element
-                            .openingElement
-                            .attributes
-                            .findLast(M.isMatching({ type: NodeType.JSXAttribute, name: { name: "key" } }));
+        const keys = elements.reduce<[
+          TSESTree.JSXElement,
+          TSESTree.JSXAttribute,
+          TSESTree.JSXExpression | TSESTree.Literal,
+        ][]>(
+          (acc, element) => {
+            const attr = element
+              .openingElement
+              .attributes
+              .findLast(M.isMatching({ type: NodeType.JSXAttribute, name: { name: "key" } }));
 
-                        if (!attr || !("value" in attr) || attr.value === null) {
-                            return acc;
-                        }
+            if (!attr || !("value" in attr) || attr.value === null) {
+              return acc;
+            }
 
-                        const { value } = attr;
-                        if (acc.length === 0) {
-                            return [[element, attr, value]];
-                        }
+            const { value } = attr;
+            if (acc.length === 0) {
+              return [[element, attr, value]];
+            }
 
-                        if (acc.some(([_, _1, v]) => isNodeEqual(v, value))) {
-                            return [...acc, [element, attr, value]];
-                        }
+            if (acc.some(([_, _1, v]) => isNodeEqual(v, value))) {
+              return [...acc, [element, attr, value]];
+            }
 
-                        return acc;
-                    },
-                    [],
-                );
+            return acc;
+          },
+          [],
+        );
         if (keys.length < 2) {
           return;
         }

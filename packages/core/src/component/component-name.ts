@@ -10,7 +10,7 @@ export function getComponentNameFromIdentifier(node: TSESTree.Identifier | TSEST
     : node.name;
 }
 
-export function isValidComponentName(name: null | string | undefined): name is string {
+export function isValidComponentName(name: string): name is string {
   return !!name && RE_COMPONENT_NAME.test(name);
 }
 

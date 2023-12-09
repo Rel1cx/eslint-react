@@ -894,9 +894,9 @@ Check if a node is a React PureComponent
 
 #### Parameters
 
-| Name   | Type                              |
-| :----- | :-------------------------------- |
-| `name` | `undefined` \| `null` \| `string` |
+| Name   | Type     |
+| :----- | :------- |
+| `name` | `string` |
 
 #### Returns
 
@@ -906,17 +906,17 @@ name is string
 
 ### isValidReactHookName
 
-▸ **isValidReactHookName**(`name`): name is string
+▸ **isValidReactHookName**(`name`): `boolean`
 
 #### Parameters
 
-| Name   | Type                              |
-| :----- | :-------------------------------- |
-| `name` | `undefined` \| `null` \| `string` |
+| Name   | Type     |
+| :----- | :------- |
+| `name` | `string` |
 
 #### Returns
 
-name is string
+`boolean`
 
 ---
 

@@ -1194,9 +1194,9 @@ node is RegExpLiteral
 
 #### Parameters
 
-| Name   | Type                            |
-| :----- | :------------------------------ |
-| `node` | `undefined` \| `null` \| `Node` |
+| Name   | Type   |
+| :----- | :----- |
+| `node` | `Node` |
 
 #### Returns
 
