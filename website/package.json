@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/website",
-  "version": "0.0.0",
+  "version": "0.9.4",
   "scripts": {
     "build": "next build",
     "clean": "rm -rf .next node_modules/.cache",
@@ -33,8 +33,8 @@
     "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "9.1.0",
     "eslint-config-with-tsconfig": "2.9.120",
-    "eslint-define-config": "1.24.1",
-    "eslint-plugin-mdx": "2.2.0",
+    "eslint-define-config": "2.0.0",
+    "eslint-plugin-mdx": "3.0.0",
     "eslint-plugin-react-hooks": "4.6.0",
     "postcss": "8.4.32",
     "rehype-raw": "7.0.0",
