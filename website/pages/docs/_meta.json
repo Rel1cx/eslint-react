@@ -9,15 +9,15 @@
   "presets": {
     "title": "Presets"
   },
+  "-Other": {
+    "title": "Other",
+    "type": "separator"
+  },
   "packages": {
     "title": "Packages"
   },
   "glossary": {
     "title": "Glossary"
-  },
-  "-Other": {
-    "title": "Other",
-    "type": "separator"
   },
   "rules-over-options": {
     "title": "Rules Over Options"

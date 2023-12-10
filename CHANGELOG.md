@@ -2,6 +2,8 @@
 
 ### Release Notes
 
+#### Improve rule `jsx/no-leaked-conditional-rendering` error marker position and range
+
 ---
 
 #### 📝 Documentation
@@ -10,6 +12,9 @@
   - Rename "ExR" to "ER".
 
 #### 🏠 Internal
+
+- `@eslint-react/eslint-plugin-jsx`
+  - Improve rule `jsx/no-leaked-conditional-rendering` error marker position and range.
 
 - `@eslint-react/eslint-plugin-react`
   - Rename "ExR" to "ER".
