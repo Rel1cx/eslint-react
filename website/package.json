@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/website",
-  "version": "0.9.5-beta.3",
+  "version": "0.9.5",
   "scripts": {
     "build": "next build",
     "clean": "rm -rf .next node_modules/.cache",
@@ -32,7 +32,7 @@
     "eslint": ">=8.55.0",
     "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "9.1.0",
-    "eslint-config-with-tsconfig": "2.9.120",
+    "eslint-config-with-tsconfig": "2.9.130",
     "eslint-define-config": "2.0.0",
     "eslint-plugin-mdx": "3.0.0",
     "eslint-plugin-react-hooks": "4.6.0",
