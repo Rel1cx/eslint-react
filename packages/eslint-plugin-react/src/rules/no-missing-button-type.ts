@@ -61,16 +61,14 @@ export default createRule<[], MessageID>({
           return;
         }
 
-        const hasValidType = F.pipe(
-          maybeTypeProperty,
-          O.exists(M.isMatching({
-            type: NodeType.Property,
-            value: {
-              type: NodeType.Literal,
-              value: M.P.union(...validTypes),
-            },
-          })),
-        );
+        const typeProperty = maybeTypeProperty.value;
+        const hasValidType = M.isMatching({
+          type: NodeType.Property,
+          value: {
+            type: NodeType.Literal,
+            value: M.P.union(...validTypes),
+          },
+        }, typeProperty);
 
         if (hasValidType) {
           return;
@@ -78,7 +76,7 @@ export default createRule<[], MessageID>({
 
         context.report({
           messageId: "NO_MISSING_BUTTON_TYPE",
-          node,
+          node: typeProperty,
         });
       },
       JSXElement(node) {
@@ -101,9 +99,10 @@ export default createRule<[], MessageID>({
           return;
         }
 
+        const typeAttribute = maybeTypeAttribute.value;
+
         const hasValidType = F.pipe(
-          maybeTypeAttribute,
-          O.flatMap((a) => getPropValue(a, context)),
+          getPropValue(typeAttribute, context),
           O.flatMapNullable(v => v?.value),
           O.filter(P.isString),
           O.exists((value) => validTypes.some((type) => type === value)),
@@ -115,7 +114,7 @@ export default createRule<[], MessageID>({
 
         context.report({
           messageId: "NO_MISSING_BUTTON_TYPE",
-          node,
+          node: typeAttribute,
         });
       },
     };

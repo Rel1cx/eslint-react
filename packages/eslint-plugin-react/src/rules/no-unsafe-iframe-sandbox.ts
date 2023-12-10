@@ -54,7 +54,7 @@ export default createRule<[], MessageID>({
           return;
         }
 
-        const maybeUnsafeSandboxValue = F.pipe(
+        const isSafeSandboxValue = !F.pipe(
           maybeSandboxProperty,
           O.filter(M.isMatching({
             type: NodeType.Property,
@@ -65,18 +65,18 @@ export default createRule<[], MessageID>({
           })),
           O.flatMapNullable(v => v.value.value),
           O.map(v => v.split(" ")),
-          O.filter(values =>
+          O.exists(values =>
             unsafeCombinations.some(combinations => combinations.every(unsafeValue => values.includes(unsafeValue)))
           ),
         );
 
-        if (O.isNone(maybeUnsafeSandboxValue)) {
+        if (isSafeSandboxValue) {
           return;
         }
 
         context.report({
           messageId: "NO_UNSAFE_IFRAME_SANDBOX",
-          node,
+          node: maybeSandboxProperty.value,
         });
       },
       JSXElement(node) {
@@ -89,21 +89,20 @@ export default createRule<[], MessageID>({
         const { attributes } = node.openingElement;
 
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-        const maybeTypeAttribute = findPropInAttributes(attributes, context, initialScope)("sandbox");
+        const maybeSandboxAttribute = findPropInAttributes(attributes, context, initialScope)("sandbox");
 
-        if (O.isNone(maybeTypeAttribute)) {
+        if (O.isNone(maybeSandboxAttribute)) {
           return;
         }
 
-        const isSafeSandboxValue = F.pipe(
-          getPropValue(maybeTypeAttribute.value, context),
+        const isSafeSandboxValue = !F.pipe(
+          getPropValue(maybeSandboxAttribute.value, context),
           O.flatMapNullable(v => v?.value),
           O.filter(P.isString),
           O.map((value) => value.split(" ")),
-          O.filter(values =>
+          O.exists(values =>
             unsafeCombinations.some(combinations => combinations.every(unsafeValue => values.includes(unsafeValue)))
           ),
-          O.isNone,
         );
 
         if (isSafeSandboxValue) {
@@ -112,7 +111,7 @@ export default createRule<[], MessageID>({
 
         context.report({
           messageId: "NO_UNSAFE_IFRAME_SANDBOX",
-          node,
+          node: maybeSandboxAttribute.value,
         });
       },
     };

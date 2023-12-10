@@ -66,24 +66,9 @@ export default createRule<[], MessageID>({
           return;
         }
 
-        const maybeTypeProperty = findPropInProperties(props.properties, context, initialScope)("sandbox");
+        const maybeSandboxProperty = findPropInProperties(props.properties, context, initialScope)("sandbox");
 
-        if (O.isSome(maybeTypeProperty)) {
-          const maybeTypeValue = F.pipe(
-            maybeTypeProperty,
-            O.filter(M.isMatching({
-              type: NodeType.Property,
-              value: {
-                type: NodeType.Literal,
-                value: M.P.union(...validTypes),
-              },
-            })),
-          );
-
-          if (O.isSome(maybeTypeValue)) {
-            return;
-          }
-
+        if (O.isNone(maybeSandboxProperty)) {
           context.report({
             messageId: "NO_MISSING_IFRAME_SANDBOX",
             node,
@@ -92,9 +77,22 @@ export default createRule<[], MessageID>({
           return;
         }
 
+        const sandboxProperty = maybeSandboxProperty.value;
+        const hasValidSandbox = M.isMatching({
+          type: NodeType.Property,
+          value: {
+            type: NodeType.Literal,
+            value: M.P.union(...validTypes),
+          },
+        }, sandboxProperty);
+
+        if (hasValidSandbox) {
+          return;
+        }
+
         context.report({
           messageId: "NO_MISSING_IFRAME_SANDBOX",
-          node,
+          node: sandboxProperty,
         });
       },
       JSXElement(node) {
@@ -106,21 +104,9 @@ export default createRule<[], MessageID>({
 
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-        const maybeTypeAttribute = findPropInAttributes(attributes, context, initialScope)("sandbox");
+        const maybeSandboxAttribute = findPropInAttributes(attributes, context, initialScope)("sandbox");
 
-        if (O.isSome(maybeTypeAttribute)) {
-          const hasSandboxValue = F.pipe(
-            getPropValue(maybeTypeAttribute.value, context),
-            O.flatMapNullable(v => v?.value),
-            O.filter(P.isString),
-            O.map((value) => value.split(" ")),
-            O.exists((values) => values.every((value) => validTypes.some((validType) => validType === value))),
-          );
-
-          if (hasSandboxValue) {
-            return;
-          }
-
+        if (O.isNone(maybeSandboxAttribute)) {
           context.report({
             messageId: "NO_MISSING_IFRAME_SANDBOX",
             node,
@@ -129,9 +115,23 @@ export default createRule<[], MessageID>({
           return;
         }
 
+        const sandboxAttribute = maybeSandboxAttribute.value;
+
+        const hasValidSandbox = F.pipe(
+          getPropValue(sandboxAttribute, context),
+          O.flatMapNullable(v => v?.value),
+          O.filter(P.isString),
+          O.map((value) => value.split(" ")),
+          O.exists((values) => values.every((value) => validTypes.some((validType) => validType === value))),
+        );
+
+        if (hasValidSandbox) {
+          return;
+        }
+
         context.report({
           messageId: "NO_MISSING_IFRAME_SANDBOX",
-          node,
+          node: sandboxAttribute,
         });
       },
     };
