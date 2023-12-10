@@ -68,7 +68,9 @@ export function hookCollector(): {
       // "Custom Hooks may call other Hooks (that’s their whole purpose)." from https://react.dev/warnings/invalid-hook-call-warning
       // Further Reading: https://react.dev/learn/reusing-logic-with-custom-hooks#should-all-functions-called-during-rendering-start-with-the-use-prefix
       if (unsafeIsReactHookCall(node)) {
-        const hook = Array.from(hooks.values()).find((hook) => hook.node === currentFn);
+        const hook = Array
+          .from(hooks.values())
+          .find((hook) => hook.node === currentFn);
         if (!hook) {
           return;
         }

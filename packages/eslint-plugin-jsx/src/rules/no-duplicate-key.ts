@@ -125,12 +125,19 @@ export default createRule<[], MessageID>({
           TSESTree.JSXExpression | TSESTree.Literal,
         ][]>(
           (acc, element) => {
-            const attr = element
-              .openingElement
-              .attributes
-              .findLast(M.isMatching({ type: NodeType.JSXAttribute, name: { name: "key" } }));
+            const attr = element.openingElement.attributes
+              .findLast(M.isMatching({
+                type: NodeType.JSXAttribute,
+                name: {
+                  name: "key",
+                },
+              }));
 
-            if (!attr || !("value" in attr) || attr.value === null) {
+            if (
+              !attr
+              || !("value" in attr)
+              || attr.value === null
+            ) {
               return acc;
             }
 

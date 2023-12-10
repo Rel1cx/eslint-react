@@ -202,10 +202,9 @@ export function componentCollector(
         return;
       }
 
-      const component = Array.from(components.values()).findLast(c => {
-        return O.isSome(c.name)
-          && c.name.value === maybeComponentName.value;
-      });
+      const component = Array
+        .from(components.values())
+        .findLast(({ name }) => O.exists(name, n => n === maybeComponentName.value));
 
       if (!component) {
         return;

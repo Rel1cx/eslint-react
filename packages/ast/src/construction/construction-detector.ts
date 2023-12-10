@@ -161,7 +161,10 @@ export function constructionDetector<T extends RuleContext>(context: T): (node: 
           });
         }
 
-        if (!("init" in latestDef.node) || latestDef.node.init === null) {
+        if (
+          !("init" in latestDef.node)
+          || latestDef.node.init === null
+        ) {
           return None;
         }
 
