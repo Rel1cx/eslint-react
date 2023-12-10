@@ -3,6 +3,7 @@ import { F, M, O } from "@eslint-react/tools";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { type TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
+import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { ConstantCase } from "string-ts";
 import * as tsutils from "ts-api-utils";
 import ts from "typescript";
@@ -197,70 +198,55 @@ export default createRule<[], MessageID>({
       });
     }
 
-    function isValidExpression(node: TSESTree.Expression): boolean {
-      return M.match(node)
-        .when(isJSX, F.constTrue)
-        .with({ type: NodeType.LogicalExpression, operator: "&&" }, isValidLogicalExpression)
+    function checkExpression(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
+      return M.match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
+        .when(isJSX, O.none)
+        .with({ type: NodeType.LogicalExpression, operator: "&&" }, ({ left, right }) => {
+          const isLeftUnaryNot = left.type === NodeType.UnaryExpression
+            && left.operator === "!";
+          if (isLeftUnaryNot) {
+            return checkExpression(right);
+          }
+          const leftType = getConstrainedTypeAtLocation(services, left);
+          const leftTypeVariants = inspectVariantTypes(tsutils.unionTypeParts(leftType));
+          const isLeftValid = leftTypeVariants.every(type => allowedVariants.some(allowed => allowed === type));
+          if (!isLeftValid) {
+            return O.some({
+              messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+              node: left,
+            });
+          }
+
+          return checkExpression(right);
+        })
         .with({ type: NodeType.LogicalExpression, operator: "||" }, ({ left, right }) => {
-          return isValidExpression(left) && isValidExpression(right);
+          return O.orElse(checkExpression(left), () => checkExpression(right));
         })
         .with({ type: NodeType.ConditionalExpression }, ({ alternate, consequent }) => {
-          return isValidExpression(consequent) && isValidExpression(alternate);
+          return O.orElse(checkExpression(consequent), () => checkExpression(alternate));
         })
         .with({ type: NodeType.Identifier }, (n) => {
           const initialScope = context.sourceCode.getScope?.(n) ?? context.getScope();
-
           const maybeInitExpression = F.pipe(
             findVariableByNameUpToGlobal(n.name, initialScope),
             O.flatMap(getVariableInitExpression(0)),
           );
-
           if (O.isNone(maybeInitExpression)) {
-            return true;
+            return O.none();
           }
-
           const initExpression = maybeInitExpression.value;
 
-          return isValidExpression(initExpression);
+          return checkExpression(initExpression);
         })
-        .otherwise(F.constTrue);
-    }
-
-    function isValidLogicalExpression(
-      node: TSESTree.LogicalExpression,
-    ): boolean {
-      const { left, right } = node;
-
-      const isLeftUnaryNot = left.type === NodeType.UnaryExpression
-        && left.operator === "!";
-
-      if (isLeftUnaryNot) {
-        return isValidExpression(right);
-      }
-
-      const leftType = getConstrainedTypeAtLocation(services, left);
-      const leftTypeVariants = inspectVariantTypes(tsutils.unionTypeParts(leftType));
-
-      return leftTypeVariants.every(type => allowedVariants.some(allowed => allowed === type))
-        && isValidExpression(right);
+        .otherwise(O.none);
     }
 
     return {
       "JSXExpressionContainer > ConditionalExpression"(node: TSESTree.ConditionalExpression) {
-        if (!isValidExpression(node)) {
-          context.report({
-            messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-            node,
-          });
-        }
+        O.map(checkExpression(node), context.report);
       },
       "JSXExpressionContainer > LogicalExpression"(node: TSESTree.LogicalExpression) {
-        if (!isValidExpression(node)) {
-          context.report({
-            messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-            node,
-          });
-        }
+        O.map(checkExpression(node), context.report);
       },
     };
   },
