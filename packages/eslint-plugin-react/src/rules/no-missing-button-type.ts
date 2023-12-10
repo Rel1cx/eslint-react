@@ -52,27 +52,27 @@ export default createRule<[], MessageID>({
 
         const maybeTypeProperty = findPropInProperties(props.properties, context, initialScope)("type");
 
-        if (O.isSome(maybeTypeProperty)) {
-          const maybeTypeValue = F.pipe(
-            maybeTypeProperty,
-            O.filter(M.isMatching({
-              type: NodeType.Property,
-              value: {
-                type: NodeType.Literal,
-                value: M.P.union(...validTypes),
-              },
-            })),
-          );
-
-          if (O.isSome(maybeTypeValue)) {
-            return;
-          }
-
+        if (O.isNone(maybeTypeProperty)) {
           context.report({
             messageId: "NO_MISSING_BUTTON_TYPE",
             node,
           });
 
+          return;
+        }
+
+        const hasValidType = F.pipe(
+          maybeTypeProperty,
+          O.exists(M.isMatching({
+            type: NodeType.Property,
+            value: {
+              type: NodeType.Literal,
+              value: M.P.union(...validTypes),
+            },
+          })),
+        );
+
+        if (hasValidType) {
           return;
         }
 
@@ -92,23 +92,24 @@ export default createRule<[], MessageID>({
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
         const maybeTypeAttribute = findPropInAttributes(attributes, context, initialScope)("type");
 
-        if (O.isSome(maybeTypeAttribute)) {
-          const isButtonTypeValue = F.pipe(
-            getPropValue(maybeTypeAttribute.value, context),
-            O.flatMapNullable(v => v?.value),
-            O.filter(P.isString),
-            O.exists((value) => validTypes.some((type) => type === value)),
-          );
-
-          if (isButtonTypeValue) {
-            return;
-          }
-
+        if (O.isNone(maybeTypeAttribute)) {
           context.report({
             messageId: "NO_MISSING_BUTTON_TYPE",
             node,
           });
 
+          return;
+        }
+
+        const hasValidType = F.pipe(
+          maybeTypeAttribute,
+          O.flatMap((a) => getPropValue(a, context)),
+          O.flatMapNullable(v => v?.value),
+          O.filter(P.isString),
+          O.exists((value) => validTypes.some((type) => type === value)),
+        );
+
+        if (hasValidType) {
           return;
         }
 
