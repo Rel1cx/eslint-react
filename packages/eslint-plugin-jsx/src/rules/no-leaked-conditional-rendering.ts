@@ -227,16 +227,12 @@ export default createRule<[], MessageID>({
         })
         .with({ type: NodeType.Identifier }, (n) => {
           const initialScope = context.sourceCode.getScope?.(n) ?? context.getScope();
-          const maybeInitExpression = F.pipe(
+
+          return F.pipe(
             findVariableByNameUpToGlobal(n.name, initialScope),
             O.flatMap(getVariableInitExpression(0)),
+            O.flatMap(checkExpression),
           );
-          if (O.isNone(maybeInitExpression)) {
-            return O.none();
-          }
-          const initExpression = maybeInitExpression.value;
-
-          return checkExpression(initExpression);
         })
         .otherwise(O.none);
     }
