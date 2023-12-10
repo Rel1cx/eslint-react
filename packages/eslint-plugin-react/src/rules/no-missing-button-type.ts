@@ -44,7 +44,7 @@ export default createRule<[], MessageID>({
         if (!props || props.type !== NodeType.ObjectExpression) {
           context.report({
             messageId: "NO_MISSING_BUTTON_TYPE",
-            node,
+            node: props ?? node,
           });
 
           return;
@@ -55,7 +55,7 @@ export default createRule<[], MessageID>({
         if (O.isNone(maybeTypeProperty)) {
           context.report({
             messageId: "NO_MISSING_BUTTON_TYPE",
-            node,
+            node: props,
           });
 
           return;
@@ -93,7 +93,7 @@ export default createRule<[], MessageID>({
         if (O.isNone(maybeTypeAttribute)) {
           context.report({
             messageId: "NO_MISSING_BUTTON_TYPE",
-            node,
+            node: node.openingElement,
           });
 
           return;

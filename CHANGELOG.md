@@ -4,6 +4,12 @@
 
 #### Improve rule `jsx/no-leaked-conditional-rendering` error marker position and range
 
+#### Improve rule `react/no-missing-button-type` error marker position and range
+
+#### Improve rule `react/no-missing-iframe-sandbox` error marker position and range
+
+#### Improve rule `react/no-unsafe-iframe-sandbox` error marker position and range
+
 ---
 
 #### 📝 Documentation
@@ -15,6 +21,9 @@
 
 - `@eslint-react/eslint-plugin-jsx`
   - Improve rule `jsx/no-leaked-conditional-rendering` error marker position and range.
+  - Improve rule `react/no-missing-button-type` error marker position and range.
+  - Improve rule `react/no-missing-iframe-sandbox` error marker position and range.
+  - Improve rule `react/no-unsafe-iframe-sandbox` error marker position and range.
 
 - `@eslint-react/eslint-plugin-react`
   - Rename "ExR" to "ER".

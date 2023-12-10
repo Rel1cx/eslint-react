@@ -60,7 +60,7 @@ export default createRule<[], MessageID>({
         if (!props || props.type !== NodeType.ObjectExpression) {
           context.report({
             messageId: "NO_MISSING_IFRAME_SANDBOX",
-            node,
+            node: props ?? node,
           });
 
           return;
@@ -71,7 +71,7 @@ export default createRule<[], MessageID>({
         if (O.isNone(maybeSandboxProperty)) {
           context.report({
             messageId: "NO_MISSING_IFRAME_SANDBOX",
-            node,
+            node: props,
           });
 
           return;
@@ -109,7 +109,7 @@ export default createRule<[], MessageID>({
         if (O.isNone(maybeSandboxAttribute)) {
           context.report({
             messageId: "NO_MISSING_IFRAME_SANDBOX",
-            node,
+            node: node.openingElement,
           });
 
           return;
