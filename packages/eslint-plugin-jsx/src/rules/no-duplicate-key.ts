@@ -49,7 +49,7 @@ export default createRule<[], MessageID>({
 
       return F.pipe(
         findPropInAttributes(node.openingElement.attributes, context, initialScope)("key"),
-        O.flatMapNullable((k) => "value" in k ? k.value : null),
+        O.flatMap((k) => "value" in k ? O.fromNullable(k.value) : O.none()),
         O.flatMap((v) => {
           return isNodeEqual(v, v)
             ? O.some({

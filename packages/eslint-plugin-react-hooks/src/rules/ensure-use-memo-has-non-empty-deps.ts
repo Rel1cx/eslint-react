@@ -47,30 +47,25 @@ export default createRule<[], MessageID>({
           return;
         }
 
-        const depsArray = M.match(deps)
-          .with({ type: NodeType.ArrayExpression }, O.some)
-          .with({ type: NodeType.Identifier }, n => {
-            return F.pipe(
-              findVariableByNameUpToGlobal(n.name, initialScope),
-              O.flatMap(getVariableInit(0)),
-              O.filter(is(NodeType.ArrayExpression)),
-            );
-          })
-          .otherwise(O.none);
-
-        const hasEmptyDepsArray = F.pipe(
-          depsArray,
-          O.exists(x => x.elements.length === 0),
+        const maybeDescriptor = F.pipe(
+          M.match(deps)
+            .with({ type: NodeType.ArrayExpression }, O.some)
+            .with({ type: NodeType.Identifier }, n => {
+              return F.pipe(
+                findVariableByNameUpToGlobal(n.name, initialScope),
+                O.flatMap(getVariableInit(0)),
+                O.filter(is(NodeType.ArrayExpression)),
+              );
+            })
+            .otherwise(O.none),
+          O.filter(x => x.elements.length === 0),
+          O.map(() => ({
+            node,
+            messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          } as const)),
         );
 
-        if (!hasEmptyDepsArray) {
-          return;
-        }
-
-        context.report({
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
-          node,
-        });
+        O.map(maybeDescriptor, context.report);
       },
     };
   },
