@@ -1,3 +1,29 @@
+## v0.9.6 (Draft)
+
+### Release Notes
+
+#### Add rule `react-hooks/prefer-use-state-lazy-initialization`
+
+---
+
+#### 🏠 Internal
+
+- `@eslint-react/eslint-plugin-react-hooks`
+  - Add rule `react-hooks/prefer-use-state-lazy-initialization`.
+
+- `@eslint-react/eslint-plugin-debug`
+  - Report `hookCalls.length` instead of `cost`.
+
+- `@eslint-react/core`
+  - Replace `cost` field in `ERHook` with `hookCalls` field.
+  - `hookCollector` add `hookCalls` collect.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
+
 ## v0.9.5 (Mon Dec 11 2023)
 
 ### Release Notes

@@ -25,7 +25,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "REACT_HOOKS",
           data: {
             name: "useToggle",
-            cost: 2,
+            hookCalls: 1,
           },
         },
       ],
@@ -42,7 +42,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "REACT_HOOKS",
           data: {
             name: "useSorted",
-            cost: 1,
+            hookCalls: 0,
           },
         },
       ],
@@ -64,14 +64,14 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "REACT_HOOKS",
           data: {
             name: "useToggle",
-            cost: 2,
+            hookCalls: 1,
           },
         },
         {
           messageId: "REACT_HOOKS",
           data: {
             name: "useSorted",
-            cost: 1,
+            hookCalls: 0,
           },
         },
       ],
@@ -95,7 +95,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "REACT_HOOKS",
           data: {
             name: "useClassnames",
-            cost: 1,
+            hookCalls: 0,
           },
         },
       ],
@@ -119,7 +119,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "REACT_HOOKS",
           data: {
             name: "useClassnames",
-            cost: 1,
+            hookCalls: 0,
           },
         },
       ],
@@ -140,14 +140,14 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "REACT_HOOKS",
           data: {
             name: "useNestedHook",
-            cost: 2,
+            hookCalls: 1,
           },
         },
         {
           messageId: "REACT_HOOKS",
           data: {
             name: "useInnerHook",
-            cost: 1,
+            hookCalls: 0,
           },
         },
       ],
@@ -168,14 +168,14 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "REACT_HOOKS",
           data: {
             name: "useNestedHook",
-            cost: 1,
+            hookCalls: 0,
           },
         },
         {
           messageId: "REACT_HOOKS",
           data: {
             name: "useInnerHook",
-            cost: 2,
+            hookCalls: 1,
           },
         },
       ],
@@ -196,7 +196,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "REACT_HOOKS",
           data: {
             name: "useNestedHook",
-            cost: 1,
+            hookCalls: 0,
           },
         },
       ],

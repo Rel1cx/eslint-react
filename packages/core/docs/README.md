@@ -48,6 +48,7 @@
 - [isMemberExpressionOfReactMember](README.md#ismemberexpressionofreactmember)
 - [isMemoOrForwardRefCall](README.md#ismemoorforwardrefcall)
 - [isPureComponent](README.md#ispurecomponent)
+- [isReactHookCall](README.md#isreacthookcall)
 - [isReactHookCallWithName](README.md#isreacthookcallwithname)
 - [isUseCallbackCall](README.md#isusecallbackcall)
 - [isUseContextCall](README.md#isusecontextcall)
@@ -152,13 +153,13 @@
 
 #### Type declaration
 
-| Name   | Type                  |
-| :----- | :-------------------- |
-| `_`    | `string`              |
-| `cost` | `number`              |
-| `id`   | `TSESTree.Identifier` |
-| `name` | `string`              |
-| `node` | `TSESTreeFunction`    |
+| Name        | Type                        |
+| :---------- | :-------------------------- |
+| `_`         | `string`                    |
+| `hookCalls` | `TSESTree.CallExpression`[] |
+| `id`        | `TSESTree.Identifier`       |
+| `name`      | `string`                    |
+| `node`      | `TSESTreeFunction`          |
 
 ## Variables
 
@@ -678,6 +679,25 @@ Check if a node is a React PureComponent
 
 ---
 
+### isReactHookCall
+
+▸ **isReactHookCall**(`node`): `void`
+
+TODO: Implement this function.
+Check if the given node is a React Hook call by its name and its hierarchy.
+
+#### Parameters
+
+| Name   | Type             | Description        |
+| :----- | :--------------- | :----------------- |
+| `node` | `CallExpression` | The node to check. |
+
+#### Returns
+
+`void`
+
+---
+
 ### isReactHookCallWithName
 
 ▸ **isReactHookCallWithName**(`name`): (`node`: `CallExpression`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>, `pragma`: `string`) => `boolean`
@@ -993,15 +1013,19 @@ _ = <Component rows={[{ render: () => <div /> }]} />;
 
 ▸ **unsafeIsReactHookCall**(`node`): `boolean`
 
+Check if the given node is a React Hook call by its name.
+
 #### Parameters
 
-| Name   | Type             |
-| :----- | :--------------- |
-| `node` | `CallExpression` |
+| Name   | Type             | Description        |
+| :----- | :--------------- | :----------------- |
+| `node` | `CallExpression` | The node to check. |
 
 #### Returns
 
 `boolean`
+
+`true` if the node is a React hook call, `false` otherwise.
 
 ---
 

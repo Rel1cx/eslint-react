@@ -3,8 +3,8 @@ import { uid } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
+import type { ERHook } from "./hook";
 import { unsafeIsReactHookCall } from "./hook-call";
-import type { ERHook } from "./hook-kind";
 import { isValidReactHookName } from "./hook-name";
 
 export function hookCollector(): {
@@ -34,7 +34,7 @@ export function hookCollector(): {
         _: key,
         id,
         name,
-        cost: 1,
+        hookCalls: [],
         node: currentFn,
       });
     }
@@ -76,7 +76,10 @@ export function hookCollector(): {
         }
         hooks.set(hook._, {
           ...hook,
-          cost: hook.cost + 1,
+          hookCalls: [
+            ...hook.hookCalls,
+            node,
+          ],
         });
       }
     },

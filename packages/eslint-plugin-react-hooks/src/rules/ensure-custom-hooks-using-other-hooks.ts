@@ -29,8 +29,8 @@ export default createRule<[], MessageID>({
       ...listeners,
       "Program:exit"(node) {
         const allHooks = ctx.getAllHooks(node);
-        for (const { name, cost, node } of allHooks.values()) {
-          if (cost > 1) {
+        for (const { name, hookCalls, node } of allHooks.values()) {
+          if (hookCalls.length > 0) {
             continue;
           }
 
