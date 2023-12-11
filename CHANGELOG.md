@@ -1,3 +1,20 @@
+## v0.9.6-beta.5 (Draft)
+
+### Release Notes
+
+#### Update `@typescript-eslint`'s packages to `6.14.0`
+
+---
+
+#### 🏠 Internal
+
+- `@eslint-react/monorepo`
+  - Update `@typescript-eslint`'s packages to `6.14.0`.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
 ## v0.9.6-beta.4 (Mon Dec 11 2023)
 
 ### Release Notes
