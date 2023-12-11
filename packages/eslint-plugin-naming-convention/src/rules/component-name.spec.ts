@@ -33,6 +33,14 @@ ruleTester.run(RULE_NAME, rule, {
     "<FULLUPPERCASE />",
     {
       code: "<_TestComponent />",
+      options: ["PascalCase"],
+    },
+    {
+      code: "<_TEST_COMPONENT />",
+      options: ["CONSTANT_CASE"],
+    },
+    {
+      code: "<_TestComponent />",
       options: [{ rule: "PascalCase" }],
     },
     {
@@ -95,6 +103,11 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: "<TestComponent />",
       options: [{ rule: "CONSTANT_CASE" }],
+      errors: [{ messageId: "COMPONENT_NAME" }],
+    },
+    {
+      code: "<TestComponent />",
+      options: ["CONSTANT_CASE"],
       errors: [{ messageId: "COMPONENT_NAME" }],
     },
     {

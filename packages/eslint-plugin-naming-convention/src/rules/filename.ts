@@ -1,5 +1,5 @@
 import { getCaseValidator } from "@eslint-react/shared";
-import { O } from "@eslint-react/tools";
+import { O, P } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -13,37 +13,44 @@ export type MessageID = "FILENAME_CASE_MISMATCH" | "FILENAME_CASE_MISMATCH_SUGGE
 
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [
-  {
+  | {
     excepts?: readonly string[];
     rule?: "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
-  }?,
+  }
+  | string
+  | undefined,
 ];
 /* eslint-enable no-restricted-syntax */
 
 const defaultOptions = [
   {
-    excepts: [],
-    // eslint-disable-next-line sonarjs/no-duplicate-string
-    rule: "kebab-case",
+    excepts: ["index"],
+    rule: "PascalCase",
   },
 ] as const satisfies Options;
 
 const schema = [
   {
-    type: "object",
-    additionalProperties: false,
-    properties: {
-      excepts: {
-        type: "array",
-        default: ["index"],
-        items: { type: "string", format: "regex" },
-      },
-      rule: {
+    anyOf: [
+      {
         type: "string",
-        default: "kebab-case",
-        enum: ["camelCase", "kebab-case", "PascalCase", "snake_case"],
+        enum: ["PascalCase", "camelCase", "kebab-case", "snake_case"],
       },
-    },
+      {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          excepts: {
+            type: "array",
+            items: { type: "string", format: "regex" },
+          },
+          rule: {
+            type: "string",
+            enum: ["PascalCase", "camelCase", "kebab-case", "snake_case"],
+          },
+        },
+      },
+    ] satisfies JSONSchema4[],
   },
 ] satisfies [JSONSchema4];
 
@@ -65,10 +72,9 @@ export default createRule<Options, MessageID>({
   },
   defaultOptions,
   create(context) {
-    const [option] = context.options;
-    const [defaultOption] = defaultOptions;
-    const rule = option?.rule ?? defaultOption.rule;
-    const excepts = option?.excepts ?? defaultOption.excepts;
+    const options = context.options[0] ?? defaultOptions[0];
+    const rule = P.isString(options) ? options : options.rule ?? "PascalCase";
+    const excepts = P.isString(options) ? [] : options.excepts ?? [];
 
     const filename = context.getFilename();
     const fileNameExt = filename.slice(filename.lastIndexOf("."));

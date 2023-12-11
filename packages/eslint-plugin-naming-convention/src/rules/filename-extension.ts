@@ -1,4 +1,4 @@
-import { MutRef, O } from "@eslint-react/tools";
+import { MutRef, O, P } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -11,9 +11,19 @@ export type MessageID = "FILE_NAME_EXTENSION_INVALID" | "FILE_NAME_EXTENSION_UNE
 
 type Cond = "always" | "as-needed";
 
-type Options = readonly [Cond?];
+/* eslint-disable no-restricted-syntax */
+type Options = readonly [
+  | {
+    rule?: Cond;
+    // Reserved for future use
+    // excepts?: readonly string[];
+  }
+  | Cond
+  | undefined,
+];
+/* eslint-enable no-restricted-syntax */
 
-const defaultOptions = ["always"] as const satisfies Options;
+const defaultOptions = ["as-needed"] as const satisfies Options;
 
 const schema = [
   {
@@ -21,6 +31,16 @@ const schema = [
       {
         type: "string",
         enum: ["always", "as-needed"],
+      },
+      {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          rule: {
+            type: "string",
+            enum: ["always", "as-needed"],
+          },
+        },
       },
     ],
   },
@@ -42,7 +62,9 @@ export default createRule<Options, MessageID>({
   },
   defaultOptions,
   create(context) {
-    const cond = context.options[0] ?? defaultOptions[0];
+    const options = context.options[0] ?? defaultOptions[0];
+    const cond = P.isString(options) ? options : options.rule ?? "as-needed";
+
     const filename = context.getFilename();
     const jsxNodeRef = MutRef.make<O.Option<TSESTree.JSXElement | TSESTree.JSXFragment>>(O.none());
 

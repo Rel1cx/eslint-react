@@ -2,7 +2,7 @@ import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
 import { componentCollector, componentCollectorLegacy } from "@eslint-react/core";
 import { elementType } from "@eslint-react/jsx";
 import { getCaseValidator } from "@eslint-react/shared";
-import { O } from "@eslint-react/tools";
+import { O, P } from "@eslint-react/tools";
 import { type ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { type ConstantCase } from "string-ts";
@@ -15,10 +15,12 @@ export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [
-  {
+  | {
     excepts?: readonly string[];
     rule?: "CONSTANT_CASE" | "PascalCase";
-  }?,
+  }
+  | string
+  | undefined,
 ];
 /* eslint-enable no-restricted-syntax */
 
@@ -31,19 +33,26 @@ const defaultOptions = [
 
 const schema = [
   {
-    type: "object",
-    additionalProperties: false,
-    properties: {
-      excepts: {
-        type: "array",
-        items: { type: "string", format: "regex" },
-      },
-      rule: {
+    anyOf: [
+      {
         type: "string",
-        default: "PascalCase",
         enum: ["PascalCase", "CONSTANT_CASE"],
       },
-    },
+      {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          excepts: {
+            type: "array",
+            items: { type: "string", format: "regex" },
+          },
+          rule: {
+            type: "string",
+            enum: ["PascalCase", "CONSTANT_CASE"],
+          },
+        },
+      },
+    ] satisfies JSONSchema4[],
   },
 ] satisfies [JSONSchema4];
 
@@ -63,10 +72,9 @@ export default createRule<Options, MessageID>({
   },
   defaultOptions,
   create(context) {
-    const [option] = context.options;
-    const [defaultOption] = defaultOptions;
-    const rule = option?.rule ?? defaultOption.rule;
-    const excepts = option?.excepts ?? defaultOption.excepts;
+    const options = context.options[0] ?? defaultOptions[0];
+    const excepts = P.isString(options) ? [] : options.excepts ?? [];
+    const rule = P.isString(options) ? options : options.rule ?? "PascalCase";
 
     const collector = componentCollector(context);
     const collectorLegacy = componentCollectorLegacy(context);

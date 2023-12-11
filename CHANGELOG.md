@@ -1,4 +1,27 @@
-## v0.9.6-beta.3 (Draft)
+## v0.9.6-beta.4 (Mon Dec 11 2023)
+
+### Release Notes
+
+#### Rule `named-convention/component-name` add both `string` and `object` options support
+
+#### Rule `named-convention/filename` add both `string` and `object` options support
+
+#### Rule `named-convention/filename-extension` add both `string` and `object` options support
+
+---
+
+#### 🏠 Internal
+
+- `@eslint-react/eslint-plugin-naming-convention`
+  - Rule `named-convention/component-name` add both `string` and `object` options support.
+  - Rule `named-convention/filename` add both `string` and `object` options support.
+  - Rule `named-convention/filename-extension` add both `string` and `object` options support.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+## v0.9.6-beta.3 (Mon Dec 11 2023)
 
 ### Release Notes
 

@@ -27,6 +27,12 @@ ruleTester.run(RULE_NAME, rule, {
     {
       filename: "react.tsx",
       code: withoutJSX,
+      options: ["always"],
+    },
+    {
+      filename: "react.tsx",
+      code: withoutJSX,
+      options: [{ rule: "always" }],
     },
   ],
   invalid: [
@@ -34,6 +40,16 @@ ruleTester.run(RULE_NAME, rule, {
       filename: "react.tsx",
       code: withoutJSX,
       options: ["as-needed"],
+      errors: [
+        {
+          messageId: "FILE_NAME_EXTENSION_UNEXPECTED",
+        },
+      ],
+    },
+    {
+      filename: "react.tsx",
+      code: withoutJSX,
+      options: [{ rule: "as-needed" }],
       errors: [
         {
           messageId: "FILE_NAME_EXTENSION_UNEXPECTED",

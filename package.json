@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "0.9.6-beta.3",
+  "version": "0.9.6-beta.4",
   "description": "ESLint React's monorepo. More than 50 ESLint rules to catch common mistakes and improve your React code. Built (mostly) from scratch.",
   "keywords": [
     "eslint",
@@ -75,7 +75,7 @@
     "effect": "2.0.0-next.60",
     "eslint": ">=8.55.0",
     "eslint-config-with-tsconfig": "2.9.130",
-    "eslint-plugin-eslint-plugin": "5.2.0",
+    "eslint-plugin-eslint-plugin": "5.2.1",
     "eslint-plugin-filenames-simple": "0.9.0",
     "eslint-plugin-functional": "6.0.0",
     "eslint-plugin-functional-core": "1.7.1",
@@ -89,7 +89,7 @@
     "markdownlint": "0.32.1",
     "pathe": "1.1.1",
     "publint": "0.2.6",
-    "rollup": "4.7.0",
+    "rollup": "4.8.0",
     "rollup-plugin-dts": "6.1.0",
     "rollup-plugin-swc3": "0.11.0",
     "rollup-plugin-visualizer": "5.11.0",

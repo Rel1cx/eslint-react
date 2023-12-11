@@ -11,23 +11,38 @@ const code = "export {}";
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     {
+      filename: "PascalCase.tsx",
+      code,
+    },
+    {
       filename: "kebab-case.tsx",
       code,
+      options: ["kebab-case"],
     },
     {
       filename: "PascalCase.tsx",
       code,
-      options: [{ rule: "PascalCase" }],
+      options: ["PascalCase"],
     },
     {
       filename: "camelCase.tsx",
       code,
-      options: [{ rule: "camelCase" }],
+      options: ["camelCase"],
+    },
+    {
+      filename: "snake_case.tsx",
+      code,
+      options: ["snake_case"],
     },
     {
       filename: "kebab-case.tsx",
       code,
       options: [{ rule: "kebab-case" }],
+    },
+    {
+      filename: "camelCase.tsx",
+      code,
+      options: [{ rule: "camelCase" }],
     },
     {
       filename: "snake_case.tsx",
@@ -39,6 +54,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       filename: "PascalCase.tsx",
       code,
+      options: ["kebab-case"],
       errors: [
         {
           messageId: "FILENAME_CASE_MISMATCH_SUGGESTION",

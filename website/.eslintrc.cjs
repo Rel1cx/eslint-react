@@ -38,6 +38,9 @@ module.exports = defineConfig({
         "plugin:react-hooks/recommended",
         "plugin:@eslint-react/all-legacy",
       ],
+      rules: {
+        "@eslint-react/naming-convention/filename": ["warn", "kebab-case"],
+      },
     },
     {
       files: ["*.d.ts"],
