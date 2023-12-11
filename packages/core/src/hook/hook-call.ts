@@ -37,6 +37,11 @@ export const isUseImperativeHandleCall = isReactHookCallWithName("useImperativeH
 
 export const isUseDebugValueCall = isReactHookCallWithName("useDebugValue");
 
+/**
+ * Check if the given node is a React Hook call by its name.
+ * @param node The node to check.
+ * @returns `true` if the node is a React hook call, `false` otherwise.
+ */
 export function unsafeIsReactHookCall(node: TSESTree.CallExpression) {
   if (node.callee.type === NodeType.Identifier) {
     return isValidReactHookName(node.callee.name);
@@ -50,6 +55,17 @@ export function unsafeIsReactHookCall(node: TSESTree.CallExpression) {
   }
 
   return false;
+}
+
+/**
+ * TODO: Implement this function.
+ * Check if the given node is a React Hook call by its name and its hierarchy.
+ * @param node The node to check.
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function isReactHookCall(node: TSESTree.CallExpression) {
+  // eslint-disable-next-line functional/no-throw-statements
+  throw new Error("Not implemented");
 }
 
 export function isMemoOrForwardRefCall(node: TSESTree.Node, context: RuleContext) {

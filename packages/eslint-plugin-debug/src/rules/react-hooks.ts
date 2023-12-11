@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      REACT_HOOKS: "[react hooks] name: {{name}}, cost: {{cost}}",
+      REACT_HOOKS: "[react hooks] name: {{name}}, hookCalls: {{hookCalls}}",
     },
   },
   defaultOptions: [],
@@ -30,11 +30,11 @@ export default createRule<[], MessageID>({
       "Program:exit"(node) {
         const allHooks = ctx.getAllHooks(node);
 
-        for (const { name, cost, node } of allHooks.values()) {
+        for (const { name, hookCalls, node } of allHooks.values()) {
           context.report({
             data: {
               name,
-              cost,
+              hookCalls: hookCalls.length,
             },
             messageId: "REACT_HOOKS",
             node,

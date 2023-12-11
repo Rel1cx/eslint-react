@@ -17,5 +17,7 @@ export type ERHook = {
   // The number of hooks defined in the hook, reserved for future use
   // size: number;
   // The number of slots the hook takes, (1 + the number of other hooks it calls)
-  cost: number;
+  // cost: number;
+  // The other hooks called by the hook
+  hookCalls: TSESTree.CallExpression[];
 };
