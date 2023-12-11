@@ -7,33 +7,22 @@ import { createRule, isJSXFile } from "../utils";
 
 export const RULE_NAME = "filename-extension";
 
-export type MessageID = "INVALID" | "UNEXPECTED";
+export type MessageID = "FILE_NAME_EXTENSION_INVALID" | "FILE_NAME_EXTENSION_UNEXPECTED";
 
-/* eslint-disable no-restricted-syntax */
-type Options = readonly [
-  {
-    rule?: "always" | "as-needed";
-  }?,
-];
-/* eslint-enable no-restricted-syntax */
+type Cond = "always" | "as-needed";
 
-const defaultOptions = [
-  {
-    rule: "always",
-  },
-] as const satisfies Options;
+type Options = readonly [Cond?];
+
+const defaultOptions = ["always"] as const satisfies Options;
 
 const schema = [
   {
-    type: "object",
-    additionalProperties: false,
-    properties: {
-      rule: {
+    anyOf: [
+      {
         type: "string",
-        default: "always",
         enum: ["always", "as-needed"],
       },
-    },
+    ],
   },
 ] satisfies [JSONSchema4];
 
@@ -47,13 +36,13 @@ export default createRule<Options, MessageID>({
     },
     schema,
     messages: {
-      INVALID: "JSX files must have a `.jsx` or `.tsx` extension",
-      UNEXPECTED: "use `.jsx` or `.tsx` extension as needed",
+      FILE_NAME_EXTENSION_INVALID: "JSX files must have a `.jsx` or `.tsx` extension",
+      FILE_NAME_EXTENSION_UNEXPECTED: "use `.jsx` or `.tsx` extension as needed",
     },
   },
   defaultOptions,
   create(context) {
-    const rule = context.options[0]?.rule ?? "always";
+    const cond = context.options[0] ?? defaultOptions[0];
     const filename = context.getFilename();
     const jsxNodeRef = MutRef.make<O.Option<TSESTree.JSXElement | TSESTree.JSXFragment>>(O.none());
 
@@ -70,7 +59,7 @@ export default createRule<Options, MessageID>({
         if (O.isSome(MutRef.get(jsxNodeRef))) {
           if (!isJSXFile(fileNameExt)) {
             context.report({
-              messageId: "INVALID",
+              messageId: "FILE_NAME_EXTENSION_INVALID",
               node,
             });
           }
@@ -78,9 +67,9 @@ export default createRule<Options, MessageID>({
           return;
         }
 
-        if (rule === "as-needed" && isJSXFile(fileNameExt)) {
+        if (cond === "as-needed" && isJSXFile(fileNameExt)) {
           context.report({
-            messageId: "UNEXPECTED",
+            messageId: "FILE_NAME_EXTENSION_UNEXPECTED",
             node,
           });
         }

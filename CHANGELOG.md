@@ -1,3 +1,25 @@
+## v0.9.6-beta.2 (Mon Dec 11 2023)
+
+### Release Notes
+
+#### Add rule `react-hooks/prefer-use-state-lazy-initialization`
+
+#### Rule `named-convention/filename-extension` switch options format from object to tuple
+
+---
+
+#### 🏠 Internal
+
+- `@eslint-react/eslint-plugin-naming-convention`
+  - Rule `named-convention/filename-extension` switch options from object to tuple.
+
+- `@eslint-react/eslint-plugin-react-hooks`
+  - Add rule `react-hooks/prefer-use-state-lazy-initialization`.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
 ## v0.9.6-beta.1 (Mon Dec 11 2023)
 
 ### Release Notes
@@ -7,9 +29,6 @@
 ---
 
 #### 🏠 Internal
-
-- `@eslint-react/eslint-plugin-react-hooks`
-  - Add rule `react-hooks/prefer-use-state-lazy-initialization`.
 
 - `@eslint-react/eslint-plugin-debug`
   - Rule `debug/react-hooks` reports `hookCalls.length` instead of `cost`.
