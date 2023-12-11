@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "0.9.5",
+  "version": "0.9.6-beta.0",
   "description": "ESLint React's main ESLint plugin. More than 50 ESLint rules to catch common mistakes and improve your React code. Built (mostly) from scratch.",
   "keywords": [
     "eslint",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rel1cx/eslint-react.git",
+    "url": "https://github.com/Rel1cx/eslint-react",
     "directory": "packages/eslint-plugin"
   },
   "license": "MIT",
