@@ -1,4 +1,5 @@
 export * from "./assignment";
+export * from "./call";
 export * from "./construction";
 export * from "./equal";
 export * from "./eslint-community-eslint-utils";

@@ -35,6 +35,7 @@
 - [getFunctionHeadLocation](README.md#getfunctionheadlocation)
 - [getFunctionIdentifier](README.md#getfunctionidentifier)
 - [getFunctionNameWithKind](README.md#getfunctionnamewithkind)
+- [getNestedCallExpressions](README.md#getnestedcallexpressions)
 - [getNestedIdentifiers](README.md#getnestedidentifiers)
 - [getNestedReturnStatements](README.md#getnestedreturnstatements)
 - [getPropertyName](README.md#getpropertyname)
@@ -391,6 +392,22 @@ Get the name and kind of a given function node.
 **`See`**
 
 [https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getfunctionnamewithkind](https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getfunctionnamewithkind)
+
+---
+
+### getNestedCallExpressions
+
+▸ **getNestedCallExpressions**(`node`): `TSESTree.CallExpression`[]
+
+#### Parameters
+
+| Name   | Type   |
+| :----- | :----- |
+| `node` | `Node` |
+
+#### Returns
+
+`TSESTree.CallExpression`[]
 
 ---
 
