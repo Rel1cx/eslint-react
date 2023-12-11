@@ -33,10 +33,10 @@ ruleTester.run(RULE_NAME, rule, {
     {
       filename: "react.tsx",
       code: withoutJSX,
-      options: [{ rule: "as-needed" }],
+      options: ["as-needed"],
       errors: [
         {
-          messageId: "UNEXPECTED",
+          messageId: "FILE_NAME_EXTENSION_UNEXPECTED",
         },
       ],
     },
