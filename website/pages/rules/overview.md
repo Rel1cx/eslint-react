@@ -18,6 +18,7 @@
 - [`react-hooks/ensure-custom-hooks-using-other-hooks`](react-hooks-ensure-custom-hooks-using-other-hooks) - enforce custom hooks using other hooks
 - [`react-hooks/ensure-use-callback-has-non-empty-deps`](react-hooks-ensure-use-callback-has-non-empty-deps) - enforce `useCallback` has non-empty dependencies array
 - [`react-hooks/ensure-use-memo-has-non-empty-deps`](react-hooks-ensure-use-memo-has-non-empty-deps) - enforce `useMemo` has non-empty dependencies array
+- [`react-hooks/prefer-use-state-lazy-initialization`](react-hooks-prefer-use-state-lazy-initialization) - disallow function calls in `useState` that aren't wrapped in an initializer
 
 ## React
 
