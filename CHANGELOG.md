@@ -1,3 +1,20 @@
+## v0.9.6-beta.3 (Draft)
+
+### Release Notes
+
+#### Remove rule `react-hooks/prefer-use-state-lazy-initialization` from `recommended` and `recommended-legacy` presets
+
+---
+
+#### 🏠 Internal
+
+- `@eslint-react/eslint-plugin`
+  - Remove rule `react-hooks/prefer-use-state-lazy-initialization` from `recommended` and `recommended-legacy` presets.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
 ## v0.9.6-beta.2 (Mon Dec 11 2023)
 
 ### Release Notes

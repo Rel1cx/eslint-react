@@ -135,7 +135,7 @@ const recommendedPreset = {
   "react-hooks/ensure-custom-hooks-using-other-hooks": "warn",
   // "react-hooks/ensure-use-callback-has-non-empty-deps": "warn",
   // "react-hooks/ensure-use-memo-has-non-empty-deps": "warn",
-  "react-hooks/prefer-use-state-lazy-initialization": "warn",
+  // "react-hooks/prefer-use-state-lazy-initialization": "warn",
 } as const satisfies RulePreset;
 
 const recommendedTypeCheckedPreset = {

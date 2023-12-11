@@ -14,17 +14,7 @@ export type MessageID = ConstantCase<typeof RULE_NAME>;
 // variables should be defined here
 const ALLOW_LIST = Object.freeze(["Boolean", "String", "Number"]);
 
-// ----------------------------------------------------------------------
-// Helpers
-// ----------------------------------------------------------------------
-
-// any helper functions should go here or else delete this section
-
 // rule takes inspiration from https://github.com/facebook/react/issues/26520
-// ----------------------------------------------------------------------
-// Public
-// ----------------------------------------------------------------------
-
 export default createRule<[], MessageID>({
   name: RULE_NAME,
   meta: {
