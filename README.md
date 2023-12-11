@@ -185,6 +185,7 @@ module.exports = {
 - [x] `react-hooks/ensure-use-memo-has-non-empty-deps` (Proposed by @SukkaW)
 - [x] `react-hooks/ensure-use-callback-has-non-empty-deps` (Proposed by @SukkaW)
 - [x] `react-hooks/ensure-custom-hooks-using-other-hooks` (Proposed by @SukkaW)
+- [x] `react-hooks/prefer-use-state-lazy-initialization` (Proposed by @SukkaW)
 
 ### Debug rules
 

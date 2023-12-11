@@ -42,7 +42,7 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "effect": "2.0.0-next.59",
+    "effect": "2.0.0-next.60",
     "ts-pattern": "5.0.6"
   }
 }

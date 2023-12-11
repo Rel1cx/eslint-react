@@ -18,7 +18,7 @@
     "ts-pattern": "5.0.6"
   },
   "devDependencies": {
-    "@eslint-react/eslint-plugin": "latest",
+    "@eslint-react/eslint-plugin": "workspace:*",
     "@mdx-js/mdx": "3.0.0",
     "@types/node": "20.10.4",
     "@types/react": "18.2.43",
@@ -28,7 +28,7 @@
     "@vanilla-extract/css": "1.14.0",
     "@vanilla-extract/next-plugin": "2.3.2",
     "autoprefixer": "10.4.16",
-    "effect": "2.0.0-next.59",
+    "effect": "2.0.0-next.60",
     "eslint": ">=8.55.0",
     "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "9.1.0",

@@ -12,7 +12,7 @@ overrides:
   '@typescript-eslint/utils': 6.13.2
   '@typescript-eslint/eslint-plugin': 6.13.2
   eslint: '>=8.55.0'
-  effect: 2.0.0-next.59
+  effect: 2.0.0-next.60
   next: 14.0.4
   react: 18.2.0
   react-dom: 18.2.0
@@ -91,8 +91,8 @@ importers:
         specifier: 0.43.2
         version: 0.43.2
       effect:
-        specifier: 2.0.0-next.59
-        version: 2.0.0-next.59
+        specifier: 2.0.0-next.60
+        version: 2.0.0-next.60
       eslint:
         specifier: '>=8.55.0'
         version: 8.55.0
@@ -438,8 +438,8 @@ importers:
         specifier: 1.5.1
         version: 1.5.1
       effect:
-        specifier: 2.0.0-next.59
-        version: 2.0.0-next.59
+        specifier: 2.0.0-next.60
+        version: 2.0.0-next.60
       eslint:
         specifier: '>=8.55.0'
         version: 8.55.0
@@ -495,8 +495,8 @@ importers:
         specifier: 1.5.1
         version: 1.5.1
       effect:
-        specifier: 2.0.0-next.59
-        version: 2.0.0-next.59
+        specifier: 2.0.0-next.60
+        version: 2.0.0-next.60
       eslint:
         specifier: '>=8.55.0'
         version: 8.55.0
@@ -552,8 +552,8 @@ importers:
         specifier: 1.5.1
         version: 1.5.1
       effect:
-        specifier: 2.0.0-next.59
-        version: 2.0.0-next.59
+        specifier: 2.0.0-next.60
+        version: 2.0.0-next.60
       eslint:
         specifier: '>=8.55.0'
         version: 8.55.0
@@ -609,8 +609,8 @@ importers:
         specifier: 1.5.1
         version: 1.5.1
       effect:
-        specifier: 2.0.0-next.59
-        version: 2.0.0-next.59
+        specifier: 2.0.0-next.60
+        version: 2.0.0-next.60
       eslint:
         specifier: '>=8.55.0'
         version: 8.55.0
@@ -666,8 +666,8 @@ importers:
         specifier: 1.5.1
         version: 1.5.1
       effect:
-        specifier: 2.0.0-next.59
-        version: 2.0.0-next.59
+        specifier: 2.0.0-next.60
+        version: 2.0.0-next.60
       eslint:
         specifier: '>=8.55.0'
         version: 8.55.0
@@ -735,8 +735,8 @@ importers:
   packages/tools:
     dependencies:
       effect:
-        specifier: 2.0.0-next.59
-        version: 2.0.0-next.59
+        specifier: 2.0.0-next.60
+        version: 2.0.0-next.60
       ts-pattern:
         specifier: 5.0.6
         version: 5.0.6
@@ -781,7 +781,7 @@ importers:
         version: 5.0.6
     devDependencies:
       '@eslint-react/eslint-plugin':
-        specifier: latest
+        specifier: workspace:*
         version: link:../packages/eslint-plugin
       '@mdx-js/mdx':
         specifier: 3.0.0
@@ -811,8 +811,8 @@ importers:
         specifier: 10.4.16
         version: 10.4.16(postcss@8.4.32)
       effect:
-        specifier: 2.0.0-next.59
-        version: 2.0.0-next.59
+        specifier: 2.0.0-next.60
+        version: 2.0.0-next.60
       eslint:
         specifier: '>=8.55.0'
         version: 8.55.0
@@ -5252,8 +5252,8 @@ packages:
       wcwidth: 1.0.1
     dev: true
 
-  /effect@2.0.0-next.59:
-    resolution: {integrity: sha512-EE87vFl0/zIN5lKDtFccU3YCnbPqjxg9rY72obNN65/GE4JOJsXciyX8XC4pIDr3lE6KeJ0le8IXf+A7d92ntQ==}
+  /effect@2.0.0-next.60:
+    resolution: {integrity: sha512-23KhlVACgrg5UPFu9i4szybSU4cCU4T/7CX4pe0jV84QBZX0zm96WzwCtg6dqOnmUzBL7hm6S+iiPW2Rab13Uw==}
 
   /electron-to-chromium@1.4.609:
     resolution: {integrity: sha512-ihiCP7PJmjoGNuLpl7TjNA8pCQWu09vGyjlPYw1Rqww4gvNuCcmvl+44G+2QyJ6S2K4o+wbTS++Xz0YN8Q9ERw==}
