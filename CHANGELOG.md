@@ -10,6 +10,7 @@
 
 - `@eslint-react/monorepo`
   - Update `@typescript-eslint`'s packages to `6.14.0`.
+  - Add `update:version` script.
 
 #### Authors: 1
 

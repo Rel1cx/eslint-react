@@ -52,8 +52,8 @@
     "test": "vitest --run --logHeapUsage",
     "test:ui": "vitest --ui",
     "update:deps": "taze",
-    "update:website": "bun run --bun ./scripts/update-website.ts",
-    "update:version": "bun run --bun ./scripts/update-version.ts"
+    "update:version": "bun run --bun ./scripts/update-version.ts",
+    "update:website": "bun run --bun ./scripts/update-website.ts"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "25.0.7",

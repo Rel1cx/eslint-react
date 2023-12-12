@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/website",
-  "version": "0.9.6-beta.5",
+  "version": "0.1.0",
   "scripts": {
     "build": "next build",
     "clean": "rm -rf .next node_modules/.cache",
