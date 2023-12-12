@@ -166,7 +166,7 @@ function inspectVariantTypes(types: ts.Type[]) {
     variantTypes.add("never");
   }
 
-  return [...variantTypes];
+  return variantTypes;
 }
 
 export default createRule<[], MessageID>({
@@ -202,22 +202,26 @@ export default createRule<[], MessageID>({
       return M.match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
         .when(isJSX, O.none)
         .with({ type: NodeType.LogicalExpression, operator: "&&" }, ({ left, right }) => {
-          const isLeftUnaryNot = left.type === NodeType.UnaryExpression
-            && left.operator === "!";
+          const isLeftUnaryNot = M.isMatching({
+            type: NodeType.UnaryExpression,
+            operator: "!",
+          }, left);
           if (isLeftUnaryNot) {
             return checkExpression(right);
           }
           const leftType = getConstrainedTypeAtLocation(services, left);
           const leftTypeVariants = inspectVariantTypes(tsutils.unionTypeParts(leftType));
-          const isLeftValid = leftTypeVariants.every(type => allowedVariants.some(allowed => allowed === type));
-          if (!isLeftValid) {
-            return O.some({
-              messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-              node: left,
-            });
+          const isLeftValid = Array
+            .from(leftTypeVariants.values())
+            .every(type => allowedVariants.some(allowed => allowed === type));
+          if (isLeftValid) {
+            return checkExpression(right);
           }
 
-          return checkExpression(right);
+          return O.some({
+            messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+            node: left,
+          });
         })
         .with({ type: NodeType.LogicalExpression, operator: "||" }, ({ left, right }) => {
           return O.orElse(checkExpression(left), () => checkExpression(right));
