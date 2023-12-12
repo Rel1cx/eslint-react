@@ -50,6 +50,6 @@
     "@typescript-eslint/types": "6.14.0",
     "@typescript-eslint/utils": "6.14.0",
     "rambda": "8.6.0",
-    "string-ts": "1.3.2"
+    "string-ts": "1.3.3"
   }
 }
