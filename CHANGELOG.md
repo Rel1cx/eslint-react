@@ -1,3 +1,48 @@
+## v0.9.6 (Tue Dec 12 2023)
+
+### Release Notes
+
+#### Rule `debug/react-hooks` reports `hookCalls.length` instead of `cost`
+
+#### Add rule `react-hooks/prefer-use-state-lazy-initialization`
+
+#### Rule `named-convention/component-name` add both `string` and `object` options support
+
+#### Rule `named-convention/filename` add both `string` and `object` options support
+
+#### Rule `named-convention/filename-extension` add both `string` and `object` options support
+
+#### Update `@typescript-eslint`'s packages to `6.14.0`
+
+---
+
+#### 🏠 Internal
+
+- `@eslint-react/eslint-plugin-naming-convention`
+  - Rule `named-convention/component-name` add both `string` and `object` options support.
+  - Rule `named-convention/filename` add both `string` and `object` options support.
+  - Rule `named-convention/filename-extension` add both `string` and `object` options support.
+
+- `@eslint-react/eslint-plugin-react-hooks`
+  - Add rule `react-hooks/prefer-use-state-lazy-initialization`.
+
+- `@eslint-react/eslint-plugin-debug`
+  - Rule `debug/react-hooks` reports `hookCalls.length` instead of `cost`.
+
+- `@eslint-react/core`
+  - Replace `cost` field in `ERHook` with `hookCalls` field.
+  - `hookCollector` add `hookCalls` collect.
+
+- `@eslint-react/monorepo`
+  - Update `@typescript-eslint`'s packages to `6.14.0`.
+  - Add `update:version` script.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
+
 ## v0.9.6-beta.5 (Tue Dec 12 2023)
 
 ### Release Notes
@@ -15,6 +60,8 @@
 #### Authors: 1
 
 - Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
 
 ## v0.9.6-beta.4 (Mon Dec 11 2023)
 
@@ -39,6 +86,8 @@
 
 - Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
 
+---
+
 ## v0.9.6-beta.3 (Mon Dec 11 2023)
 
 ### Release Notes
@@ -55,6 +104,8 @@
 #### Authors: 1
 
 - Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
 
 ## v0.9.6-beta.2 (Mon Dec 11 2023)
 
@@ -77,6 +128,8 @@
 #### Authors: 1
 
 - Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
 
 ## v0.9.6-beta.1 (Mon Dec 11 2023)
 
