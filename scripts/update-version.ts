@@ -8,8 +8,9 @@ async function makeTask(file: BunFile) {
     return;
   }
 
+  const packageJson = await file.json<PackageJson>();
   const packageJsonUpdated = {
-    ...await file.json<PackageJson>(),
+    ...packageJson,
     version,
   };
 
