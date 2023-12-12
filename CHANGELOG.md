@@ -1,3 +1,20 @@
+## v0.9.7-beta.0 (Draft)
+
+### Release Notes
+
+---
+
+#### 🏠 Internal
+
+- `@eslint-react/monorepo`
+  - Update `bun` to `1.0.17`.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
+
 ## v0.9.6 (Tue Dec 12 2023)
 
 ### Release Notes
