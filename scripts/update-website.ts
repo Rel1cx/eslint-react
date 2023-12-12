@@ -1,11 +1,10 @@
 import * as MutList from "effect/MutableList";
 import * as MutRef from "effect/MutableRef";
-import glob from "fast-glob";
 import path from "path";
 
 import { copyFile } from "./lib/fs";
 
-const docs = glob.sync("packages/eslint-plugin-*/src/rules/*.md");
+const docs = new Bun.Glob("packages/eslint-plugin-*/src/rules/*.md").scanSync();
 
 const order = ["jsx", "react", "react-hooks", "naming-convention", "debug"] as const;
 const files = MutList.make<[string, string]>();

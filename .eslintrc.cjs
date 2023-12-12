@@ -38,7 +38,12 @@ module.exports = defineConfig({
         "plugin:jsdoc/recommended-typescript",
         "plugin:eslint-plugin/all",
       ],
-      plugins: ["functional", "functional-core", "total-functions", "filenames-simple"],
+      plugins: [
+        "functional",
+        "functional-core",
+        "total-functions",
+        "filenames-simple",
+      ],
       rules: {
         "no-undef": "off",
         "no-console": ["warn", { allow: ["warn", "error"] }],
