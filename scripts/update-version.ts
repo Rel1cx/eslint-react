@@ -16,13 +16,8 @@ async function makeTask(file: BunFile) {
 
   await Bun.write(file, JSON.stringify(packageJsonUpdated, null, 2));
 
-  Bun.spawnSync(["bun", "x", "sort-package-json", file.name], {
-    stdio: ["inherit", "inherit", "inherit"],
-  });
-
-  Bun.spawn(["bun", "x", "dprint", "fmt", file.name], {
-    stdio: ["inherit", "inherit", "inherit"],
-  });
+  Bun.spawnSync(["bun", "x", "sort-package-json", file.name]);
+  Bun.spawn(["bun", "x", "dprint", "fmt", file.name]);
 }
 
 const tasks = Array
