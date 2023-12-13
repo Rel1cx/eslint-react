@@ -1,5 +1,4 @@
-import { MutRef, O, P } from "@eslint-react/tools";
-import type { TSESTree } from "@typescript-eslint/types";
+import { MutRef, P } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
@@ -66,30 +65,34 @@ export default createRule<Options, MessageID>({
     const cond = P.isString(options) ? options : options.rule ?? "as-needed";
 
     const filename = context.getFilename();
-    const jsxNodeRef = MutRef.make<O.Option<TSESTree.JSXElement | TSESTree.JSXFragment>>(O.none());
+    const hasJSXNodeRef = MutRef.make<boolean>(false);
 
     return {
-      JSXElement(node) {
-        MutRef.set(jsxNodeRef, O.some(node));
+      JSXElement() {
+        MutRef.set(hasJSXNodeRef, true);
       },
-      JSXFragment(node) {
-        MutRef.set(jsxNodeRef, O.some(node));
+      JSXFragment() {
+        MutRef.set(hasJSXNodeRef, true);
       },
       "Program:exit"(node) {
         const fileNameExt = filename.slice(filename.lastIndexOf("."));
+        const isJSX = isJSXFile(fileNameExt);
+        const hasJSXCode = MutRef.get(hasJSXNodeRef);
 
-        if (O.isSome(MutRef.get(jsxNodeRef))) {
-          if (!isJSXFile(fileNameExt)) {
-            context.report({
-              messageId: "FILE_NAME_EXTENSION_INVALID",
-              node,
-            });
-          }
+        if (!isJSX && hasJSXCode) {
+          context.report({
+            messageId: "FILE_NAME_EXTENSION_INVALID",
+            node,
+          });
 
           return;
         }
 
-        if (cond === "as-needed" && isJSXFile(fileNameExt)) {
+        if (
+          isJSX
+          && !hasJSXCode
+          && cond === "as-needed"
+        ) {
           context.report({
             messageId: "FILE_NAME_EXTENSION_UNEXPECTED",
             node,
