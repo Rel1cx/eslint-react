@@ -1,13 +1,29 @@
-## v0.9.7-beta.0 (Draft)
+## v0.9.7-beta.0 (Thu Dec 14 2023)
 
 ### Release Notes
+
+#### Rule `named-convention/filename` add `extensions` option
+
+#### Rule `named-convention/filename-extension` add `extensions` option
+
+#### Rule `named-convention/filename-extension` rename `rule` option to `allow`
 
 ---
 
 #### 🏠 Internal
 
+- `@eslint-react/eslint-plugin-naming-convention`
+  - Rule `named-convention/filename` add `extensions` option.
+  - Rule `named-convention/filename-extension` rename `rule` option to `allow`.
+  - Rule `named-convention/filename-extension` add `extensions` option.
+
+- `@eslint-react/shared`
+  - Remove `JSX_EXTENSIONS` from `@eslint-react/shared`.
+
 - `@eslint-react/monorepo`
   - Update `bun` to `1.0.17`.
+  - Update `vitest` to `1.0.4`.
+  - Update `eslint-config-with-tsconfig` to `2.9.160`.
 
 #### Authors: 1
 

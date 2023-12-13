@@ -39,7 +39,6 @@
 - [GITHUB\_URL](README.md#github_url)
 - [HostHTMLComponentTypes](README.md#hosthtmlcomponenttypes)
 - [HostSVGComponentTypes](README.md#hostsvgcomponenttypes)
-- [JSX\_EXTENSIONS](README.md#jsx_extensions)
 - [NPM\_SCOPE](README.md#npm_scope)
 - [RE\_JAVASCRIPT\_PROTOCOL](README.md#re_javascript_protocol)
 - [ReactHostHTMLComponent](README.md#reacthosthtmlcomponent)
@@ -257,12 +256,6 @@ Rule severity.
 ### HostSVGComponentTypes
 
 • `Const` **HostSVGComponentTypes**: readonly [`"a"`, `"animate"`, `"animateMotion"`, `"animateTransform"`, `"circle"`, `"clipPath"`, `"defs"`, `"desc"`, `"discard"`, `"ellipse"`, `"feBlend"`, `"feColorMatrix"`, `"feComponentTransfer"`, `"feComposite"`, `"feConvolveMatrix"`, `"feDiffuseLighting"`, `"feDisplacementMap"`, `"feDistantLight"`, `"feDropShadow"`, `"feFlood"`, `"feFuncA"`, `"feFuncB"`, `"feFuncG"`, `"feFuncR"`, `"feGaussianBlur"`, `"feImage"`, `"feMerge"`, `"feMergeNode"`, `"feMorphology"`, `"feOffset"`, `"fePointLight"`, `"feSpecularLighting"`, `"feSpotLight"`, `"feTile"`, `"feTurbulence"`, `"filter"`, `"foreignObject"`, `"g"`, `"hatch"`, `"hatchpath"`, `"image"`, `"line"`, `"linearGradient"`, `"marker"`, `"mask"`, `"metadata"`, `"mpath"`, `"path"`, `"pattern"`, `"polygon"`, `"polyline"`, `"radialGradient"`, `"rect"`, `"script"`, `"set"`, `"stop"`, `"style"`, `"svg"`, `"switch"`, `"symbol"`, `"text"`, `"textPath"`, `"title"`, `"tspan"`, `"use"`, `"view"`]
-
----
-
-### JSX\_EXTENSIONS
-
-• `Const` **JSX\_EXTENSIONS**: `string`[]
 
 ---
 

@@ -67,3 +67,4 @@ src/components/example-component.tsx
   - `kebab-case`: kebab-case
   - `snake_case`: snake_case
 - `excepts`: List of file names that should be ignored by this rule.
+- `extensions`: List of file extensions that should be checked by this rule. By default, it checks `.jsx`, `.tsx` and `.mtx` files.

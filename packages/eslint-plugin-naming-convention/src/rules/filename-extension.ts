@@ -2,7 +2,7 @@ import { MutRef, P } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
-import { createRule, isJSXFile } from "../utils";
+import { createRule } from "../utils";
 
 export const RULE_NAME = "filename-extension";
 
@@ -13,7 +13,8 @@ type Cond = "always" | "as-needed";
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [
   | {
-    rule?: Cond;
+    allow?: Cond;
+    extensions?: readonly string[];
     // Reserved for future use
     // excepts?: readonly string[];
   }
@@ -22,7 +23,10 @@ type Options = readonly [
 ];
 /* eslint-enable no-restricted-syntax */
 
-const defaultOptions = ["as-needed"] as const satisfies Options;
+const defaultOptions = [{
+  allow: "as-needed",
+  extensions: ["jsx", "tsx", "mtx"],
+}] as const satisfies Options;
 
 const schema = [
   {
@@ -35,9 +39,16 @@ const schema = [
         type: "object",
         additionalProperties: false,
         properties: {
-          rule: {
+          allow: {
             type: "string",
             enum: ["always", "as-needed"],
+          },
+          extensions: {
+            type: "array",
+            items: {
+              type: "string",
+            },
+            uniqueItems: true,
           },
         },
       },
@@ -55,14 +66,17 @@ export default createRule<Options, MessageID>({
     },
     schema,
     messages: {
-      FILE_NAME_EXTENSION_INVALID: "JSX files must have a `.jsx` or `.tsx` extension",
-      FILE_NAME_EXTENSION_UNEXPECTED: "use `.jsx` or `.tsx` extension as needed",
+      FILE_NAME_EXTENSION_INVALID: "JSX file extension is required",
+      FILE_NAME_EXTENSION_UNEXPECTED: "use JSX file extension as needed",
     },
   },
   defaultOptions,
   create(context) {
     const options = context.options[0] ?? defaultOptions[0];
-    const cond = P.isString(options) ? options : options.rule ?? "as-needed";
+    const allow = P.isObject(options) ? options.allow : options;
+    const extensions = P.isObject(options) && "extensions" in options
+      ? options.extensions
+      : defaultOptions[0].extensions;
 
     const filename = context.getFilename();
     const hasJSXNodeRef = MutRef.make<boolean>(false);
@@ -75,11 +89,13 @@ export default createRule<Options, MessageID>({
         MutRef.set(hasJSXNodeRef, true);
       },
       "Program:exit"(node) {
-        const fileNameExt = filename.slice(filename.lastIndexOf("."));
-        const isJSX = isJSXFile(fileNameExt);
+        const fileNameExt = filename
+          .slice(filename.lastIndexOf("."))
+          .replace(".", "");
+        const isJSXExt = extensions.includes(fileNameExt);
         const hasJSXCode = MutRef.get(hasJSXNodeRef);
 
-        if (!isJSX && hasJSXCode) {
+        if (hasJSXCode && !isJSXExt) {
           context.report({
             messageId: "FILE_NAME_EXTENSION_INVALID",
             node,
@@ -89,9 +105,9 @@ export default createRule<Options, MessageID>({
         }
 
         if (
-          isJSX
-          && !hasJSXCode
-          && cond === "as-needed"
+          !hasJSXCode
+          && isJSXExt
+          && allow === "as-needed"
         ) {
           context.report({
             messageId: "FILE_NAME_EXTENSION_UNEXPECTED",

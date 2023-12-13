@@ -5,7 +5,7 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import path from "pathe";
 
-import { createRule, isJSXFile } from "../utils";
+import { createRule } from "../utils";
 
 export const RULE_NAME = "filename";
 
@@ -14,6 +14,7 @@ export type MessageID = "FILENAME_CASE_MISMATCH" | "FILENAME_CASE_MISMATCH_SUGGE
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [
   | {
+    extensions?: readonly string[];
     excepts?: readonly string[];
     rule?: "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
   }
@@ -24,6 +25,7 @@ type Options = readonly [
 
 const defaultOptions = [
   {
+    extensions: ["jsx", "tsx", "mtx"],
     excepts: ["index"],
     rule: "PascalCase",
   },
@@ -40,6 +42,11 @@ const schema = [
         type: "object",
         additionalProperties: false,
         properties: {
+          extensions: {
+            type: "array",
+            items: { type: "string" },
+            uniqueItems: true,
+          },
           excepts: {
             type: "array",
             items: { type: "string", format: "regex" },
@@ -59,7 +66,7 @@ export default createRule<Options, MessageID>({
   meta: {
     type: "suggestion",
     docs: {
-      description: "enforce naming convention for JSX file names",
+      description: "enforce naming convention for JSX filenames",
       requiresTypeChecking: false,
     },
     schema,
@@ -75,11 +82,16 @@ export default createRule<Options, MessageID>({
     const options = context.options[0] ?? defaultOptions[0];
     const rule = P.isString(options) ? options : options.rule ?? "PascalCase";
     const excepts = P.isString(options) ? [] : options.excepts ?? [];
+    const extensions = P.isObject(options) && "extensions" in options
+      ? options.extensions
+      : defaultOptions[0].extensions;
 
     const filename = context.getFilename();
-    const fileNameExt = filename.slice(filename.lastIndexOf("."));
+    const fileNameExt = filename
+      .slice(filename.lastIndexOf("."))
+      .replace(".", "");
 
-    if (!isJSXFile(fileNameExt)) {
+    if (!extensions.includes(fileNameExt)) {
       return {};
     }
 

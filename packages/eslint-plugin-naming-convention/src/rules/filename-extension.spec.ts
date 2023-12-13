@@ -32,7 +32,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       filename: "react.tsx",
       code: withoutJSX,
-      options: [{ rule: "always" }],
+      options: [{ allow: "always" }],
     },
   ],
   invalid: [
@@ -49,10 +49,25 @@ ruleTester.run(RULE_NAME, rule, {
     {
       filename: "react.tsx",
       code: withoutJSX,
-      options: [{ rule: "as-needed" }],
+      options: [{ allow: "as-needed" }],
       errors: [
         {
           messageId: "FILE_NAME_EXTENSION_UNEXPECTED",
+        },
+      ],
+    },
+    {
+      filename: "react.tsx",
+      code: withJSXElement,
+      options: [
+        {
+          allow: "as-needed",
+          extensions: ["mtx"],
+        },
+      ],
+      errors: [
+        {
+          messageId: "FILE_NAME_EXTENSION_INVALID",
         },
       ],
     },
