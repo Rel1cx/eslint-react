@@ -23,4 +23,4 @@ This rule enforces consistent file extensions for JSX files.
 - `allow`: When to allow a JSX filename extension.
   - `"always"`: (default) allow all file use JSX file extension.
   - `"as-needed"`: allow JSX file extension only if the file contains JSX syntax.
-- `extensions`: List of file extensions that should be checked by this rule. By default, it checks `.jsx`, `.tsx` and `.mtx` files.
+- `extensions`: List of file extensions that should be checked by this rule. By default, it checks `.jsx`, `.tsx` files.

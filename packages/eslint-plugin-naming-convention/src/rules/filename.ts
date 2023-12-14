@@ -1,4 +1,5 @@
 import { O, P } from "@eslint-react/tools";
+import { parseESLintPluginSettings } from "@eslint-react/types";
 import { getCaseValidator } from "@eslint-react/utils";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -28,7 +29,7 @@ type Options = readonly [
 
 const defaultOptions = [
   {
-    extensions: [".jsx", ".tsx", ".mtx"],
+    extensions: [".jsx", ".tsx"],
     excepts: ["index"],
     rule: "PascalCase",
   },
@@ -82,12 +83,13 @@ export default createRule<Options, MessageID>({
   },
   defaultOptions,
   create(context) {
+    const configs = parseESLintPluginSettings(context.settings).eslintReact;
     const options = context.options[0] ?? defaultOptions[0];
     const rule = P.isString(options) ? options : options.rule ?? "PascalCase";
     const excepts = P.isString(options) ? [] : options.excepts ?? [];
     const extensions = P.isObject(options) && "extensions" in options
       ? options.extensions
-      : defaultOptions[0].extensions;
+      : configs?.jsxExtensions ?? defaultOptions[0].extensions;
 
     const filename = context.getFilename();
     const fileNameExt = filename

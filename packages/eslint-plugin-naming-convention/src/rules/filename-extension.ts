@@ -1,4 +1,5 @@
 import { MutRef, P } from "@eslint-react/tools";
+import { parseESLintPluginSettings } from "@eslint-react/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
@@ -10,24 +11,24 @@ export type MessageID =
   | "FILE_NAME_EXTENSION_INVALID"
   | "FILE_NAME_EXTENSION_UNEXPECTED";
 
-type Cond = "always" | "as-needed";
+type Allow = "always" | "as-needed";
 
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [
   | {
-    allow?: Cond;
+    allow?: Allow;
     extensions?: readonly string[];
     // Reserved for future use
     // excepts?: readonly string[];
   }
-  | Cond
+  | Allow
   | undefined,
 ];
 /* eslint-enable no-restricted-syntax */
 
 const defaultOptions = [{
   allow: "as-needed",
-  extensions: [".jsx", ".tsx", ".mtx"],
+  extensions: [".jsx", ".tsx"],
 }] as const satisfies Options;
 
 const schema = [
@@ -74,11 +75,12 @@ export default createRule<Options, MessageID>({
   },
   defaultOptions,
   create(context) {
+    const configs = parseESLintPluginSettings(context.settings).eslintReact;
     const options = context.options[0] ?? defaultOptions[0];
     const allow = P.isObject(options) ? options.allow : options;
     const extensions = P.isObject(options) && "extensions" in options
       ? options.extensions
-      : defaultOptions[0].extensions;
+      : configs?.jsxExtensions ?? defaultOptions[0].extensions;
 
     const filename = context.getFilename();
     const hasJSXNodeRef = MutRef.make<boolean>(false);
