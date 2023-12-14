@@ -3,8 +3,8 @@ import * as jsx from "@eslint-react/eslint-plugin-jsx";
 import * as namingConvention from "@eslint-react/eslint-plugin-naming-convention";
 import * as react from "@eslint-react/eslint-plugin-react";
 import * as hooks from "@eslint-react/eslint-plugin-react-hooks";
-import type { RulePreset } from "@eslint-react/shared";
 import { entries, fromEntries } from "@eslint-react/tools";
+import type * as ER from "@eslint-react/types";
 import tsParser from "@typescript-eslint/parser";
 // workaround for @typescript-eslint/utils's TS2742 error.
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -75,7 +75,7 @@ const rulePreset = {
   "react-hooks/ensure-use-callback-has-non-empty-deps": "warn",
   "react-hooks/ensure-use-memo-has-non-empty-deps": "warn",
   "react-hooks/prefer-use-state-lazy-initialization": "warn",
-} as const satisfies RulePreset;
+} as const satisfies ER.RulePreset;
 
 const recommendedPreset = {
   "jsx/no-array-index-key": "warn",
@@ -136,12 +136,12 @@ const recommendedPreset = {
   // "react-hooks/ensure-use-callback-has-non-empty-deps": "warn",
   // "react-hooks/ensure-use-memo-has-non-empty-deps": "warn",
   // "react-hooks/prefer-use-state-lazy-initialization": "warn",
-} as const satisfies RulePreset;
+} as const satisfies ER.RulePreset;
 
 const recommendedTypeCheckedPreset = {
   ...recommendedPreset,
   "jsx/no-leaked-conditional-rendering": "warn",
-} as const satisfies RulePreset;
+} as const satisfies ER.RulePreset;
 
 const rulePresetEntries = entries(rulePreset);
 const debugPreset = fromEntries(rulePresetEntries.filter(([key]) => key.startsWith("debug/")));
@@ -162,7 +162,7 @@ const flatConfigPlugins = {
   "@eslint-react/react-hooks": hooks,
 } as const;
 
-function createLegacyConfig<T extends RulePreset>(rules: T, plugins = legacyConfigPlugins) {
+function createLegacyConfig<T extends ER.RulePreset>(rules: T, plugins = legacyConfigPlugins) {
   return {
     parser: "@typescript-eslint/parser",
     parserOptions: {
@@ -175,7 +175,7 @@ function createLegacyConfig<T extends RulePreset>(rules: T, plugins = legacyConf
   } as const;
 }
 
-function createFlatConfig<T extends RulePreset>(rules: T, plugins = flatConfigPlugins) {
+function createFlatConfig<T extends ER.RulePreset>(rules: T, plugins = flatConfigPlugins) {
   return {
     languageOptions: {
       parser: tsParser,

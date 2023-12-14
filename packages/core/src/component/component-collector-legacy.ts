@@ -1,7 +1,8 @@
 import { getClassIdentifier, NodeType, type TSESTreeClass } from "@eslint-react/ast";
 import { getPragmaFromContext } from "@eslint-react/jsx";
-import { type RuleContext, uid } from "@eslint-react/shared";
 import { M, O } from "@eslint-react/tools";
+import type * as ER from "@eslint-react/types";
+import { uid } from "@eslint-react/utils";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
 import type { ERClassComponent } from "./component";
@@ -12,7 +13,7 @@ import { ERClassComponentFlag } from "./component-flag";
  * @param node The AST node to check
  * @param context The rule context
  */
-export function isClassComponent(node: TSESTree.Node, context: RuleContext): node is TSESTreeClass {
+export function isClassComponent(node: TSESTree.Node, context: ER.RuleContext): node is TSESTreeClass {
   if (!("superClass" in node && node.superClass)) {
     return false;
   }
@@ -37,7 +38,7 @@ export function isClassComponent(node: TSESTree.Node, context: RuleContext): nod
  * @param node The AST node to check
  * @param context The rule context
  */
-export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
+export function isPureComponent(node: TSESTree.Node, context: ER.RuleContext) {
   const pragma = getPragmaFromContext(context);
 
   const { sourceCode } = context;
@@ -52,7 +53,7 @@ export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
   return false;
 }
 
-export function componentCollectorLegacy(context: RuleContext) {
+export function componentCollectorLegacy(context: ER.RuleContext) {
   const components = new Map<string, ERClassComponent>();
 
   const ctx = {

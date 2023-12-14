@@ -1,7 +1,7 @@
 {
   "name": "@eslint-react/shared",
-  "version": "0.9.7-beta.0",
-  "description": "ESLint React's shared constants and utilities.",
+  "version": "0.9.7-beta.1",
+  "description": "ESLint React's shared data and constants.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
     "url": "https://github.com/rel1cx/eslint-react/issues"
@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@eslint-react/tools": "workspace:*",
+    "@eslint-react/types": "workspace:*",
     "@typescript-eslint/utils": "6.14.0",
     "dedent": "1.5.1",
     "deepmerge-ts": "5.1.0",

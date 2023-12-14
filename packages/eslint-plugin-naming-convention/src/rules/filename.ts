@@ -1,5 +1,5 @@
-import { getCaseValidator } from "@eslint-react/shared";
 import { O, P } from "@eslint-react/tools";
+import { getCaseValidator } from "@eslint-react/utils";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -9,7 +9,10 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "filename";
 
-export type MessageID = "FILENAME_CASE_MISMATCH" | "FILENAME_CASE_MISMATCH_SUGGESTION" | "FILENAME_EMPTY";
+export type MessageID =
+  | "FILENAME_CASE_MISMATCH"
+  | "FILENAME_CASE_MISMATCH_SUGGESTION"
+  | "FILENAME_EMPTY";
 
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [

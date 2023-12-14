@@ -2,6 +2,7 @@ const packages = [
   "tools",
   "types",
   "shared",
+  "utils",
   "ast",
   "jsx",
   "core",
