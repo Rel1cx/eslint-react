@@ -62,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
       options: [
         {
           allow: "as-needed",
-          extensions: ["mtx"],
+          extensions: [".mtx"],
         },
       ],
       errors: [

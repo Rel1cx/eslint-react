@@ -27,7 +27,7 @@ type Options = readonly [
 
 const defaultOptions = [{
   allow: "as-needed",
-  extensions: ["jsx", "tsx", "mtx"],
+  extensions: [".jsx", ".tsx", ".mtx"],
 }] as const satisfies Options;
 
 const schema = [
@@ -91,9 +91,7 @@ export default createRule<Options, MessageID>({
         MutRef.set(hasJSXNodeRef, true);
       },
       "Program:exit"(node) {
-        const fileNameExt = filename
-          .slice(filename.lastIndexOf("."))
-          .replace(".", "");
+        const fileNameExt = filename.slice(filename.lastIndexOf("."));
         const isJSXExt = extensions.includes(fileNameExt);
         const hasJSXCode = MutRef.get(hasJSXNodeRef);
 

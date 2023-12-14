@@ -28,7 +28,7 @@ type Options = readonly [
 
 const defaultOptions = [
   {
-    extensions: ["jsx", "tsx", "mtx"],
+    extensions: [".jsx", ".tsx", ".mtx"],
     excepts: ["index"],
     rule: "PascalCase",
   },
@@ -91,8 +91,7 @@ export default createRule<Options, MessageID>({
 
     const filename = context.getFilename();
     const fileNameExt = filename
-      .slice(filename.lastIndexOf("."))
-      .replace(".", "");
+      .slice(filename.lastIndexOf("."));
 
     if (!extensions.includes(fileNameExt)) {
       return {};
