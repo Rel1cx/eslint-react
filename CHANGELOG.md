@@ -1,3 +1,23 @@
+## v0.9.7-beta.1 (Draft)
+
+### Release Notes
+
+---
+
+#### 🏠 Internal
+
+- `@eslint-react/shared`
+  - Move utils from `@eslint-react/shared` to `@eslint-react/utils`.
+
+- `@eslint-react/monorepo`
+  - Add `@eslint-react/utils` package.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
+
 ## v0.9.7-beta.0 (Thu Dec 14 2023)
 
 ### Release Notes
