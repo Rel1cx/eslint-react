@@ -5,7 +5,6 @@ export default {
   ignoreDependencies: [
     "eslint-config-with-tsconfig",
     "eslint-plugin-filenames-simple",
-    "eslint-plugin-functional-core",
     "eslint-plugin-jsdoc",
     "swc3",
     "@eslint-react/types",

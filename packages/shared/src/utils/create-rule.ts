@@ -1,4 +1,3 @@
-// eslint-disable-next-line functional-core/purity
 import { ESLintUtils } from "@typescript-eslint/utils";
 
 import { WEBSITE_URL } from "../constants";

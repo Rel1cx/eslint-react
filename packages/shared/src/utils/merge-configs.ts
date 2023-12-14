@@ -1,4 +1,3 @@
-/* eslint-disable functional-core/purity */
 // Copied from https://github.com/eslint-functional/eslint-plugin-functional/blob/e4bd4ad79502ff77ae26e703e1761ab80a46868b/src/utils/merge-configs.ts
 import { deepmergeCustom } from "deepmerge-ts";
 

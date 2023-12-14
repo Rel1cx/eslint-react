@@ -33,14 +33,12 @@ module.exports = defineConfig({
         "with-tsconfig",
         "plugin:perfectionist/recommended-natural",
         "plugin:functional/recommended",
-        "plugin:functional-core/recommended",
         "plugin:filenames-simple/recommended",
         "plugin:jsdoc/recommended-typescript",
         "plugin:eslint-plugin/all",
       ],
       plugins: [
         "functional",
-        "functional-core",
         "total-functions",
         "filenames-simple",
       ],
@@ -73,7 +71,6 @@ module.exports = defineConfig({
         "functional/no-return-void": "off",
         "functional/functional-parameters": "off",
         "functional/prefer-immutable-types": "off",
-        "functional-core/purity": ["error", { allowThrow: false }],
         "total-functions/no-enums": "error",
         "total-functions/require-strict-mode": "error",
         "total-functions/no-partial-division": "warn",
@@ -134,15 +131,6 @@ module.exports = defineConfig({
             message: "no optional",
           },
         ],
-      },
-      settings: {
-        "functional-core": {
-          purePaths: [
-            "./packages/tools",
-            "./packages/types",
-            "./packages/shared",
-          ],
-        },
       },
     },
     {
@@ -223,7 +211,6 @@ module.exports = defineConfig({
         "@typescript-eslint/no-unsafe-argument": "off",
         "@typescript-eslint/no-unsafe-assignment": "off",
         "@typescript-eslint/no-unsafe-member-access": "off",
-        "functional-core/purity": "off",
       },
     },
     {

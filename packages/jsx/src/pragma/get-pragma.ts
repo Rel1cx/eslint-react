@@ -1,6 +1,6 @@
 import type { RuleContext } from "@eslint-react/shared";
 import { F, O, P } from "@eslint-react/tools";
-import type { ReactSettings } from "@eslint-react/types";
+import { parseESLintPluginSettings } from "@eslint-react/types";
 import memo from "micro-memoize";
 
 const RE_JSX_ANNOTATION_REGEX = /@jsx\s+(\S+)/u;
@@ -8,10 +8,8 @@ const RE_JSX_ANNOTATION_REGEX = /@jsx\s+(\S+)/u;
 const RE_JS_IDENTIFIER_REGEX = /^[$A-Z_a-z][\w$]*$/u;
 
 export function getFragmentFromContext<T extends RuleContext>(context: T) {
-  // eslint-disable-next-line prefer-destructuring, no-restricted-syntax
-  const settings: { react?: ReactSettings } = context.settings;
-
-  const fragment = settings.react?.fragment;
+  const settings = parseESLintPluginSettings(context.settings);
+  const fragment = settings.eslintReact?.fragment;
 
   if (P.isString(fragment) && RE_JS_IDENTIFIER_REGEX.test(fragment)) {
     return fragment;
@@ -22,8 +20,8 @@ export function getFragmentFromContext<T extends RuleContext>(context: T) {
 
 export const getPragmaFromContext: <T extends RuleContext>(context: T) => string = memo(
   (context) => {
-    // eslint-disable-next-line prefer-destructuring, no-restricted-syntax
-    const settings: { react?: ReactSettings } = context.settings;
+    const settings = parseESLintPluginSettings(context.settings);
+    const pragma = settings.eslintReact?.pragma;
 
     const { sourceCode } = context;
     const pragmaNode = sourceCode
@@ -31,7 +29,7 @@ export const getPragmaFromContext: <T extends RuleContext>(context: T) => string
       .find((node) => RE_JSX_ANNOTATION_REGEX.test(node.value));
 
     return F.pipe(
-      O.orElse(O.fromNullable(settings.react?.pragma), () =>
+      O.orElse(O.fromNullable(pragma), () =>
         F.pipe(
           O.fromNullable(pragmaNode),
           O.map(({ value }) => RE_JSX_ANNOTATION_REGEX.exec(value)),
