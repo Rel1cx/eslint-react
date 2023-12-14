@@ -2,19 +2,19 @@
 
 ### Release Notes
 
+#### ⚠️ Rule `named-convention/filename-extension` rename `rule` option to `allow`
+
 #### Rule `named-convention/filename` add `extensions` option
 
 #### Rule `named-convention/filename-extension` add `extensions` option
-
-#### Rule `named-convention/filename-extension` rename `rule` option to `allow`
 
 ---
 
 #### 🏠 Internal
 
 - `@eslint-react/eslint-plugin-naming-convention`
+  - ⚠️ Rule `named-convention/filename-extension` rename `rule` option to `allow`.
   - Rule `named-convention/filename` add `extensions` option.
-  - Rule `named-convention/filename-extension` rename `rule` option to `allow`.
   - Rule `named-convention/filename-extension` add `extensions` option.
 
 - `@eslint-react/shared`
