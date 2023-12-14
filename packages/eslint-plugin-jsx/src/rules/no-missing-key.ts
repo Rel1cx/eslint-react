@@ -16,7 +16,9 @@ import { createRule, getChildrenToArraySelector } from "../utils";
 
 export const RULE_NAME = "no-missing-key";
 
-export type MessageID = "NO_MISSING_KEY" | "NO_MISSING_KEY_WITH_FRAGMENT";
+export type MessageID =
+  | "NO_MISSING_KEY"
+  | "NO_MISSING_KEY_WITH_FRAGMENT";
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,

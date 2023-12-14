@@ -12,7 +12,9 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "no-leaked-conditional-rendering";
 
-export type MessageID = "NEEDS_TYPE_CHECKING_SERVICE" | ConstantCase<typeof RULE_NAME>;
+export type MessageID =
+  | "NEEDS_TYPE_CHECKING_SERVICE"
+  | ConstantCase<typeof RULE_NAME>;
 
 /** The types we care about */
 type VariantType =

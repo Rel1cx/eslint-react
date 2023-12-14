@@ -1,4 +1,4 @@
-import type { RuleContext } from "@eslint-react/shared";
+import type * as ER from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { isMemberExpressionOfReactMember } from "../internal";
@@ -6,7 +6,7 @@ import { isMemberExpressionOfReactMember } from "../internal";
 // workaround for @typescript-eslint/utils's TS2742 error.
 type ChildrenMethodPredicate = (
   node: TSESTree.MemberExpression,
-  context: RuleContext,
+  context: ER.RuleContext,
   pragma?: string,
 ) => boolean;
 

@@ -6,7 +6,9 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "filename-extension";
 
-export type MessageID = "FILE_NAME_EXTENSION_INVALID" | "FILE_NAME_EXTENSION_UNEXPECTED";
+export type MessageID =
+  | "FILE_NAME_EXTENSION_INVALID"
+  | "FILE_NAME_EXTENSION_UNEXPECTED";
 
 type Cond = "always" | "as-needed";
 

@@ -1,8 +1,8 @@
 import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
 import { componentCollector, componentCollectorLegacy } from "@eslint-react/core";
 import { elementType } from "@eslint-react/jsx";
-import { getCaseValidator } from "@eslint-react/shared";
 import { O, P } from "@eslint-react/tools";
+import { getCaseValidator } from "@eslint-react/utils";
 import { type ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { type ConstantCase } from "string-ts";

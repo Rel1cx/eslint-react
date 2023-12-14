@@ -8,3 +8,5 @@ export const WEBSITE_URL = "https://eslint-react.rel1cx.io";
 // dprint-ignore
 // eslint-disable-next-line no-control-regex
 export const RE_JAVASCRIPT_PROTOCOL = /^[\u0000-\u001F ]*j[\t\n\r]*a[\t\n\r]*v[\t\n\r]*a[\t\n\r]*s[\t\n\r]*c[\t\n\r]*r[\t\n\r]*i[\t\n\r]*p[\t\n\r]*t[\t\n\r]*:/iu;
+
+export const DEFAULT_ESLINT_REACT_SETTINGS = {};

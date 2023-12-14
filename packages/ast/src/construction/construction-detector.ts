@@ -1,5 +1,5 @@
-import type { RuleContext } from "@eslint-react/shared";
 import { Data, M, O, P } from "@eslint-react/tools";
+import type * as ER from "@eslint-react/types";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { isNil } from "rambda";
@@ -59,7 +59,7 @@ const None = Construction.None();
  * @param context The rule context
  * @returns A function that detects the construction of a given node
  */
-export function constructionDetector<T extends RuleContext>(context: T): (node: TSESTree.Node) => Construction {
+export function constructionDetector<T extends ER.RuleContext>(context: T): (node: TSESTree.Node) => Construction {
   /**
    * Detect if a node is a constructed value.
    * @param node The AST node to detect the construction of

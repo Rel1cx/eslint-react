@@ -1,6 +1,6 @@
 import { getFunctionIdentifier, type TSESTreeFunction } from "@eslint-react/ast";
-import { uid } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
+import { uid } from "@eslint-react/utils";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
 import type { ERHook } from "./hook";

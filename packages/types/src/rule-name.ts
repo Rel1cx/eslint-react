@@ -1,21 +1,20 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // Rule name primitive definitions, used to guide rule naming.
 // The plural nouns are used only when there is a clear indication of multiple things.
 // Most of the terms are taken from the React glossary on https://react.dev.
 // This file is also used to help GitHub copilot suggest rule names.
 
-export type Namespace = "debug" | "experimental" | "jsx" | "naming-convention" | "react" | "react-hooks";
+type Ban = "ban";
 
-export type Ban = "ban";
+type PositiveModifier = "ensure" | "prefer" | "strict";
 
-export type PositiveModifier = "ensure" | "prefer" | "strict";
+type NegativeModifier = "no";
 
-export type NegativeModifier = "no";
+type NeutralModifier = "max" | "min";
 
-export type NeutralModifier = "max" | "min";
+type Modifier = NegativeModifier | NeutralModifier | PositiveModifier;
 
-export type Modifier = NegativeModifier | NeutralModifier | PositiveModifier;
-
-export type NegativeDescriptive =
+type NegativeDescriptive =
   | "complicated"
   | "confusing"
   | "constructed"
@@ -42,18 +41,18 @@ export type NegativeDescriptive =
   | "unused"
   | "useless";
 
-export type PositiveDescriptive = "explicit" | "optimal" | "optimized" | "standard" | "strict";
+type PositiveDescriptive = "explicit" | "optimal" | "optimized" | "standard" | "strict";
 
-export type NeutralDescriptive =
+type NeutralDescriptive =
   | "access"
   | "calling"
   | "inside"
   | "outside";
 
-export type Descriptive = NegativeDescriptive | NeutralDescriptive | PositiveDescriptive;
+type Descriptive = NegativeDescriptive | NeutralDescriptive | PositiveDescriptive;
 
 // Comment out unused terms to reduce the type checking overhead
-export type Term =
+type Term =
   | "argument"
   | "array"
   | "array-index"
@@ -142,9 +141,9 @@ export type Term =
   | "value"
   | "variable";
 
-export type Additional = string;
+type Additional = string;
 
-export type RuleName =
+type RuleName =
   | `${Ban}-${Term}`
   | `${NeutralModifier}-${Term}`
   // eslint-disable-next-line perfectionist/sort-union-types
@@ -153,7 +152,7 @@ export type RuleName =
   | `${PositiveModifier}-${NeutralDescriptive}-${Term}`
   | `${PositiveModifier}-${PositiveDescriptive}-${Term}`;
 
-export type RuleNameWithAdditional = `${RuleName}-${Additional}`;
+type RuleNameWithAdditional = `${RuleName}-${Additional}`;
 
 // Example rule names
 const _: RuleName = "no-constructed-context-value";

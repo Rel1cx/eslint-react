@@ -15,7 +15,9 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "no-useless-fragment";
 
-export type MessageID = "NO_USELESS_FRAGMENT" | "NO_USELESS_FRAGMENT_IN_BUILT_IN";
+export type MessageID =
+  | "NO_USELESS_FRAGMENT"
+  | "NO_USELESS_FRAGMENT_IN_BUILT_IN";
 
 const allowExpressions = true;
 
