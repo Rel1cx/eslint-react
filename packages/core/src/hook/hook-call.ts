@@ -1,13 +1,13 @@
 import { NodeType } from "@eslint-react/ast";
 import { isCallFromPragma, isInitializedFromPragma } from "@eslint-react/jsx";
 import { F, M } from "@eslint-react/tools";
-import type * as ER from "@eslint-react/types";
+import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { isValidReactHookName } from "./hook-name";
 
 export function isReactHookCallWithName(name: string) {
-  return (node: TSESTree.CallExpression, context: ER.RuleContext, pragma: string) => {
+  return (node: TSESTree.CallExpression, context: RuleContext, pragma: string) => {
     const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
 
     return M.match(node.callee)
@@ -68,7 +68,7 @@ export function isReactHookCall(node: TSESTree.CallExpression) {
   throw new Error("Not implemented");
 }
 
-export function isMemoOrForwardRefCall(node: TSESTree.Node, context: ER.RuleContext) {
+export function isMemoOrForwardRefCall(node: TSESTree.Node, context: RuleContext) {
   return isCallFromPragma("memo")(node, context)
     || isCallFromPragma("forwardRef")(node, context);
 }

@@ -614,7 +614,7 @@ It will be removed in the future
 
 ### isMemberExpressionOfReactMember
 
-▸ **isMemberExpressionOfReactMember**(`pragmaMemberName`, `memberName`): (`node`: `TSESTree.MemberExpression`, `context`: `ER.RuleContext`, `pragma?`: `string`) => `boolean`
+▸ **isMemberExpressionOfReactMember**(`pragmaMemberName`, `memberName`): (`node`: `TSESTree.MemberExpression`, `context`: `RuleContext`, `pragma?`: `string`) => `boolean`
 
 #### Parameters
 
@@ -634,7 +634,7 @@ It will be removed in the future
 | Name      | Type                        |
 | :-------- | :-------------------------- |
 | `node`    | `TSESTree.MemberExpression` |
-| `context` | `ER.RuleContext`            |
+| `context` | `RuleContext`               |
 | `pragma?` | `string`                    |
 
 ##### Returns

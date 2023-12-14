@@ -1,6 +1,6 @@
 import { findVariableByNameUpToGlobal, getVariableInit, isJSXTagNameExpression, NodeType } from "@eslint-react/ast";
 import { F, M, O } from "@eslint-react/tools";
-import type * as ER from "@eslint-react/types";
+import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/utils";
 
 import { isCreateElementCall } from "../element";
@@ -46,7 +46,7 @@ export const DEFAULT_JSX_VALUE_CHECK_HINT = JSXValueCheckHint.SkipUndefinedLiter
 
 export function isJSXValue(
   node: TSESTree.Node | null | undefined,
-  context: ER.RuleContext,
+  context: RuleContext,
   hint: bigint = DEFAULT_JSX_VALUE_CHECK_HINT,
 ): boolean {
   if (!node) {

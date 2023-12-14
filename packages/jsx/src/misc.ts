@@ -1,5 +1,5 @@
 import { getNestedReturnStatements, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
-import type * as ER from "@eslint-react/types";
+import type { RuleContext } from "@eslint-react/types";
 
 import { DEFAULT_JSX_VALUE_CHECK_HINT, isJSXValue } from "./value";
 
@@ -12,7 +12,7 @@ import { DEFAULT_JSX_VALUE_CHECK_HINT, isJSXValue } from "./value";
  */
 export function isFunctionReturningJSXValue(
   node: TSESTreeFunction,
-  context: ER.RuleContext,
+  context: RuleContext,
   hint = DEFAULT_JSX_VALUE_CHECK_HINT,
 ) {
   if (node.body.type !== NodeType.BlockStatement) {

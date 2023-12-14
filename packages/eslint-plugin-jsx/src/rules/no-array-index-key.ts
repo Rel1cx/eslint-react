@@ -1,7 +1,7 @@
 import { isOneOf, NodeType, unsafeIsStringCall, unsafeIsToStringCall } from "@eslint-react/ast";
 import { getPragmaFromContext, isCloneElementCall, isCreateElementCall } from "@eslint-react/jsx";
 import { M, O, Record } from "@eslint-react/tools";
-import type * as ER from "@eslint-react/types";
+import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { ConstantCase } from "string-ts";
@@ -33,7 +33,7 @@ const iteratorFunctionIndexParamPosition = {
   some: 1,
 } as const;
 
-function isUsingReactChildren(node: TSESTree.CallExpression, context: ER.RuleContext) {
+function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContext) {
   const { callee } = node;
   if (!("property" in callee) || !("object" in callee) || !("name" in callee.property)) {
     return false;
@@ -50,7 +50,7 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: ER.RuleCon
   return M.isMatching({ object: { name: pragma } }, obj);
 }
 
-function getMapIndexParamName(node: TSESTree.CallExpression, context: ER.RuleContext) {
+function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContext) {
   const { callee } = node;
   if (callee.type !== NodeType.MemberExpression) {
     return O.none();

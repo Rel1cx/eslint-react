@@ -67,7 +67,7 @@
 
 ### CallFromPragmaPredicate
 
-Ƭ **CallFromPragmaPredicate**: (`node`: `TSESTree.Node`, `context`: `ER.RuleContext`) => node is TSESTree.CallExpression
+Ƭ **CallFromPragmaPredicate**: (`node`: `TSESTree.Node`, `context`: `RuleContext`) => node is TSESTree.CallExpression
 
 #### Type declaration
 
@@ -75,10 +75,10 @@
 
 ##### Parameters
 
-| Name      | Type             |
-| :-------- | :--------------- |
-| `node`    | `TSESTree.Node`  |
-| `context` | `ER.RuleContext` |
+| Name      | Type            |
+| :-------- | :-------------- |
+| `node`    | `TSESTree.Node` |
+| `context` | `RuleContext`   |
 
 ##### Returns
 

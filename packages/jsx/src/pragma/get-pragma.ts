@@ -1,14 +1,14 @@
+import { ESLintSettingsSchema, parse } from "@eslint-react/shared";
 import { F, O, P } from "@eslint-react/tools";
-import type * as ER from "@eslint-react/types";
-import { parseESLintPluginSettings } from "@eslint-react/types";
+import type { RuleContext } from "@eslint-react/types";
 import memo from "micro-memoize";
 
 const RE_JSX_ANNOTATION_REGEX = /@jsx\s+(\S+)/u;
 // Does not check for reserved keywords or unicode characters
 const RE_JS_IDENTIFIER_REGEX = /^[$A-Z_a-z][\w$]*$/u;
 
-export function getFragmentFromContext<T extends ER.RuleContext>(context: T) {
-  const settings = parseESLintPluginSettings(context.settings);
+export function getFragmentFromContext<T extends RuleContext>(context: T) {
+  const settings = parse(ESLintSettingsSchema, context.settings);
   const fragment = settings.eslintReact?.fragment;
 
   if (P.isString(fragment) && RE_JS_IDENTIFIER_REGEX.test(fragment)) {
@@ -18,9 +18,9 @@ export function getFragmentFromContext<T extends ER.RuleContext>(context: T) {
   return "Fragment";
 }
 
-export const getPragmaFromContext: <T extends ER.RuleContext>(context: T) => string = memo(
+export const getPragmaFromContext: <T extends RuleContext>(context: T) => string = memo(
   (context) => {
-    const settings = parseESLintPluginSettings(context.settings);
+    const settings = parse(ESLintSettingsSchema, context.settings);
     const pragma = settings.eslintReact?.pragma;
 
     const { sourceCode } = context;

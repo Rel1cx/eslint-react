@@ -1,5 +1,5 @@
 import type { ReadonlyDeep } from "type-fest";
-import { array, object, optional, type Output, parse, safeParse, string } from "valibot";
+import { array, object, optional, type Output, string } from "valibot";
 
 export const ESLintReactSettingsSchema = object({
   fragment: optional(string()),
@@ -27,21 +27,13 @@ export const ESLintReactSettingsSchema = object({
 
 export type ESLintReactSettings = Output<typeof ESLintReactSettingsSchema>;
 
-export const parseESLintReactSettings = (data: unknown) => parse(ESLintReactSettingsSchema, data);
-
-export const safeParseESLintReactSettings = (data: unknown) => safeParse(ESLintReactSettingsSchema, data);
-
-export const ESLintPluginSettingsSchema = object({
+export const ESLintSettingsSchema = object({
   eslintReact: optional(ESLintReactSettingsSchema),
 });
 
-export const parseESLintPluginSettings = (data: unknown) => parse(ESLintPluginSettingsSchema, data);
-
-export const safeParseESLintPluginSettings = (data: unknown) => safeParse(ESLintPluginSettingsSchema, data);
-
 // The `settings` object in eslint config for all plugins.
 // We only care about the `eslintReact` field at the moment.
-export type ESLintPluginSettings = ReadonlyDeep<{
+export type ESLintSettings = ReadonlyDeep<{
   [key: string]: unknown;
   eslintReact: ESLintReactSettings;
 }>;

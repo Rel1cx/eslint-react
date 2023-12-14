@@ -1,6 +1,6 @@
 import { findVariableByNameUpToGlobal, getStaticValue, getVariableInit, is, NodeType } from "@eslint-react/ast";
 import { F, M, O } from "@eslint-react/tools";
-import type * as ER from "@eslint-react/types";
+import type { RuleContext } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
@@ -19,7 +19,7 @@ export function getPropName(node: TSESTree.JSXAttribute) {
 export function getProp(
   props: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
   propName: string,
-  context: ER.RuleContext,
+  context: RuleContext,
   initialScope: Scope,
 ): O.Option<TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute> {
   return findPropInAttributes(props, context, initialScope)(propName);
@@ -33,7 +33,7 @@ export function getProp(
  */
 export function getPropValue(
   attribute: TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute,
-  context: ER.RuleContext,
+  context: RuleContext,
 ) {
   const initialScope = context.sourceCode.getScope?.(attribute) ?? context.getScope();
   if (attribute.type === NodeType.JSXAttribute && "value" in attribute) {
@@ -64,7 +64,7 @@ export function getPropValue(
  */
 export function findPropInProperties(
   properties: (TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement)[] | TSESTree.ObjectLiteralElement[],
-  context: ER.RuleContext,
+  context: RuleContext,
   initialScope: Scope,
   seenProps: string[] = [],
 ) {
@@ -134,7 +134,7 @@ export function findPropInProperties(
  */
 export function findPropInAttributes(
   attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
-  context: ER.RuleContext,
+  context: RuleContext,
   initialScope: Scope,
 ) {
   /**

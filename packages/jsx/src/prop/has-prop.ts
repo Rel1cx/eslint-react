@@ -1,5 +1,5 @@
 import { O } from "@eslint-react/tools";
-import type * as ER from "@eslint-react/types";
+import type { RuleContext } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -17,7 +17,7 @@ import { findPropInAttributes } from "./get-prop";
 export function hasProp(
   attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
   propName: string,
-  context: ER.RuleContext,
+  context: RuleContext,
   initialScope: Scope,
 ) {
   return O.isSome(findPropInAttributes(attributes, context, initialScope)(propName));
@@ -34,7 +34,7 @@ export function hasProp(
 export function hasAnyProp(
   attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
   propNames: string[],
-  context: ER.RuleContext,
+  context: RuleContext,
   initialScope: Scope,
 ) {
   return propNames.some((propName) => hasProp(attributes, propName, context, initialScope));
@@ -51,7 +51,7 @@ export function hasAnyProp(
 export function hasEveryProp(
   attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
   propNames: string[],
-  context: ER.RuleContext,
+  context: RuleContext,
   initialScope: Scope,
 ) {
   return propNames.every((propName) => hasProp(attributes, propName, context, initialScope));

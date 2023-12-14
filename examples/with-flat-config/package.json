@@ -1,6 +1,6 @@
 {
   "name": "with-flat-config",
-  "version": "0.9.7-beta.1",
+  "version": "0.9.7-beta.2",
   "private": true,
   "type": "module",
   "scripts": {

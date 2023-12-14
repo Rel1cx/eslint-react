@@ -1,6 +1,6 @@
 import { isClass, type TSESTreeClass } from "@eslint-react/ast";
 import { F, MutRef, O } from "@eslint-react/tools";
-import type * as ER from "@eslint-react/types";
+import type { RuleContext } from "@eslint-react/types";
 import { type Scope, ScopeType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -12,7 +12,7 @@ import { isClassComponent } from "./component-collector-legacy";
  * @param context The rule context
  * @deprecated It will be removed in the future
  */
-export function getParentClassComponent(node: TSESTree.Node, context: ER.RuleContext): O.Option<TSESTreeClass> {
+export function getParentClassComponent(node: TSESTree.Node, context: RuleContext): O.Option<TSESTreeClass> {
   const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
   const scopeRef = MutRef.make<O.Option<Scope>>(O.fromNullable(initialScope));
   // eslint-disable-next-line functional/no-loop-statements

@@ -1,6 +1,6 @@
 import { findVariableByName, getVariablesUpToGlobal, NodeType } from "@eslint-react/ast";
 import { M, O } from "@eslint-react/tools";
-import type * as ER from "@eslint-react/types";
+import type { RuleContext } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -8,7 +8,7 @@ import { getPragmaFromContext } from "./get-pragma";
 
 export function isInitializedFromPragma(
   variableName: string,
-  context: ER.RuleContext,
+  context: RuleContext,
   initialScope: Scope,
   pragma = getPragmaFromContext(context),
 ) {
@@ -69,7 +69,7 @@ export function isInitializedFromPragma(
   return M.isMatching({ type: "ImportDeclaration", source: { value: pragma.toLowerCase() } }, parent);
 }
 
-export function isPropertyOfPragma(name: string, context: ER.RuleContext, pragma = getPragmaFromContext(context)) {
+export function isPropertyOfPragma(name: string, context: RuleContext, pragma = getPragmaFromContext(context)) {
   const isMatch: (node: TSESTree.Node) => boolean = M.isMatching({
     type: NodeType.MemberExpression,
     object: {
@@ -86,7 +86,7 @@ export function isPropertyOfPragma(name: string, context: ER.RuleContext, pragma
 
 export type CallFromPragmaPredicate = (
   node: TSESTree.Node,
-  context: ER.RuleContext,
+  context: RuleContext,
 ) => node is TSESTree.CallExpression;
 
 /**
@@ -95,7 +95,7 @@ export type CallFromPragmaPredicate = (
  * @returns A predicate that checks if the given node is a call expression to the given function or method
  */
 export function isCallFromPragma(name: string) {
-  return (node: TSESTree.Node, context: ER.RuleContext): node is TSESTree.CallExpression => {
+  return (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
     const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
     if (node.type !== NodeType.CallExpression || !("callee" in node)) {
       return false;

@@ -8,7 +8,7 @@ import {
 } from "@eslint-react/ast";
 import { getPragmaFromContext, isChildrenOfCreateElement, isJSXValue } from "@eslint-react/jsx";
 import { M, MutList, MutRef, O } from "@eslint-react/tools";
-import type * as ER from "@eslint-react/types";
+import type { RuleContext } from "@eslint-react/types";
 import { uid } from "@eslint-react/utils";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -22,7 +22,7 @@ import { getComponentInitPath, hasCallInInitPath } from "./component-init-path";
 import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
 import { isFunctionOfRenderMethod } from "./component-render-method";
 
-function hasValidHierarchy(node: TSESTreeFunction, context: ER.RuleContext, hint: bigint) {
+function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: bigint) {
   if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node, context)) {
     return false;
   }
@@ -57,7 +57,7 @@ function getComponentFlag(initPath: ERFunctionComponent["initPath"], pragma: str
 }
 
 export function componentCollector(
-  context: ER.RuleContext,
+  context: RuleContext,
   hint: bigint = DEFAULT_COMPONENT_COLLECTOR_HINT,
   pragma = getPragmaFromContext(context),
 ) {

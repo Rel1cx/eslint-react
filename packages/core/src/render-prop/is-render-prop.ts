@@ -1,7 +1,7 @@
 import { getFunctionIdentifier, isFunction, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { isJSXValue, JSXValueCheckHint } from "@eslint-react/jsx";
 import { M, O } from "@eslint-react/tools";
-import type * as ER from "@eslint-react/types";
+import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
 /**
@@ -16,7 +16,7 @@ import type { TSESTree } from "@typescript-eslint/types";
  * @param context The rule context
  * @returns `true` if node is a render function, `false` if not
  */
-export function unsafeIsRenderFunction(node: TSESTreeFunction, context: ER.RuleContext) {
+export function unsafeIsRenderFunction(node: TSESTreeFunction, context: RuleContext) {
   const { body, parent } = node;
 
   const maybeId = getFunctionIdentifier(node);
@@ -54,7 +54,7 @@ export function unsafeIsRenderFunction(node: TSESTreeFunction, context: ER.RuleC
  * @param context The rule context
  * @returns `true` if node is a render prop, `false` if not
  */
-export function unsafeIsRenderProp(node: TSESTree.JSXAttribute, context: ER.RuleContext) {
+export function unsafeIsRenderProp(node: TSESTree.JSXAttribute, context: RuleContext) {
   return M.isMatching({
     type: NodeType.JSXAttribute,
     name: {

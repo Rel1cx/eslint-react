@@ -1,5 +1,5 @@
+import { ESLintSettingsSchema, parse } from "@eslint-react/shared";
 import { O, P } from "@eslint-react/tools";
-import { parseESLintPluginSettings } from "@eslint-react/types";
 import { getCaseValidator } from "@eslint-react/utils";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -83,7 +83,7 @@ export default createRule<Options, MessageID>({
   },
   defaultOptions,
   create(context) {
-    const configs = parseESLintPluginSettings(context.settings).eslintReact;
+    const configs = parse(ESLintSettingsSchema, context.settings).eslintReact;
     const options = context.options[0] ?? defaultOptions[0];
     const rule = P.isString(options) ? options : options.rule ?? "PascalCase";
     const excepts = P.isString(options) ? [] : options.excepts ?? [];

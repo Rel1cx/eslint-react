@@ -1,6 +1,6 @@
 {
   "name": "with-legacy-config",
-  "version": "0.9.7-beta.1",
+  "version": "0.9.7-beta.2",
   "private": true,
   "scripts": {
     "build": "tsc && vite build",

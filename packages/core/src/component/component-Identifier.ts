@@ -2,17 +2,17 @@
 import { isOneOf, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { isCallFromPragma } from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
-import type * as ER from "@eslint-react/types";
+import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
-function isMemoOrForwardRefCall(node: TSESTree.Node, context: ER.RuleContext) {
+function isMemoOrForwardRefCall(node: TSESTree.Node, context: RuleContext) {
   return isCallFromPragma("memo")(node, context)
     || isCallFromPragma("forwardRef")(node, context);
 }
 
 export function getFunctionComponentIdentifier(
   node: TSESTreeFunction,
-  context: ER.RuleContext,
+  context: RuleContext,
 ): O.Option<TSESTree.Identifier | TSESTree.Identifier[]> {
   const { id, parent } = node;
 
