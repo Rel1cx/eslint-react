@@ -3,6 +3,8 @@ import type { PackageJson } from "type-fest";
 
 import { version } from "./version";
 
+const GLOB_PACKAGE_JSON = "{packages,examples}/*/package.json";
+
 async function makeTask(file: BunFile) {
   if (!file.name) {
     return;
@@ -15,13 +17,10 @@ async function makeTask(file: BunFile) {
   };
 
   await Bun.write(file, JSON.stringify(packageJsonUpdated, null, 2));
-
-  Bun.spawnSync(["bun", "x", "sort-package-json", file.name]);
-  Bun.spawn(["bun", "x", "dprint", "fmt", file.name]);
 }
 
 const tasks = Array
-  .from(new Bun.Glob("{packages,examples}/*/package.json").scanSync())
+  .from(new Bun.Glob(GLOB_PACKAGE_JSON).scanSync())
   .map(p => Bun.file(p))
   .map(makeTask);
 
