@@ -79,8 +79,8 @@ importers:
         specifier: 1.0.18
         version: 1.0.18
       bun-types:
-        specifier: 1.0.17
-        version: 1.0.17
+        specifier: 1.0.18
+        version: 1.0.18
       cspell:
         specifier: 8.1.3
         version: 8.1.3
@@ -4241,8 +4241,8 @@ packages:
       semver: 7.5.4
     dev: true
 
-  /bun-types@1.0.17:
-    resolution: {integrity: sha512-5dj7Pi0qmZB1gaY2LmtKKrKixgnxi/qDcawsA4ttWQhT0jWyecSEB8la7c6DIgrMkJciixAtyLLe3aj0SJaRAw==}
+  /bun-types@1.0.18:
+    resolution: {integrity: sha512-1XZ7AxOF8oO8FZtw1xj006JAKxEjulK3dUhsktZVN95vXBlsf4NIjQxfistVdpt24v3H2I9BwHp+UU+gXSSpAw==}
     dev: true
 
   /bun@1.0.18:
