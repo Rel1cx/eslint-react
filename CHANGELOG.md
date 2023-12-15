@@ -16,6 +16,10 @@
 - `@eslint-react/shared`
   - ⚠️ Change `ESLintReactSettingsSchema`.
 
+- `@eslint-react/core`
+  - Add `alias` argument to `isReactHookCallWithName`.
+  - Add `isReactHook` function.
+
 - `@eslint-react/monorepo`
   - Add `format:package-json` script.
   - Minor improvements.
