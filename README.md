@@ -180,8 +180,7 @@ module.exports = {
 
 ### React hooks rules
 
-- [ ] `react-hooks/no-access-state-in-setstate`
-- [ ] `react-hooks/no-suppressing-exhaustive-deps`
+- [ ] `react-hooks/no-access-state-in-set-state`
 - [x] `react-hooks/ensure-use-memo-has-non-empty-deps` (Proposed by @SukkaW)
 - [x] `react-hooks/ensure-use-callback-has-non-empty-deps` (Proposed by @SukkaW)
 - [x] `react-hooks/ensure-custom-hooks-using-other-hooks` (Proposed by @SukkaW)
