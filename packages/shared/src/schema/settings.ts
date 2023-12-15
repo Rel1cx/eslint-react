@@ -35,5 +35,6 @@ export const ESLintSettingsSchema = object({
 // We only care about the `eslintReact` field at the moment.
 export type ESLintSettings = ReadonlyDeep<{
   [key: string]: unknown;
-  eslintReact: ESLintReactSettings;
+  // eslint-disable-next-line no-restricted-syntax
+  eslintReact?: ESLintReactSettings;
 }>;
