@@ -1,9 +1,9 @@
-import { is, NodeType, traverseUp } from "@eslint-react/ast";
+import { isFunction, traverseUpGuard } from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { unsafeIsReactHookCall } from "./hook-call";
+import { isReactHook } from "./is";
 
-export function unsafeIsInsideReactHookCall(node: TSESTree.Node): boolean {
-  return O.isSome(traverseUp(node, n => is(NodeType.CallExpression)(n) && unsafeIsReactHookCall(n)));
+export function isInsideReactHook(node: TSESTree.Node) {
+  return O.exists(traverseUpGuard(node, isFunction), isReactHook);
 }

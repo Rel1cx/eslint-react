@@ -44,22 +44,29 @@
 - [isClassComponent](README.md#isclasscomponent)
 - [isCreateContext](README.md#iscreatecontext)
 - [isFunctionOfRenderMethod](README.md#isfunctionofrendermethod)
+- [isInsideReactHook](README.md#isinsidereacthook)
 - [isInsideRenderMethod](README.md#isinsiderendermethod)
 - [isMemberExpressionOfReactMember](README.md#ismemberexpressionofreactmember)
 - [isMemoOrForwardRefCall](README.md#ismemoorforwardrefcall)
 - [isPureComponent](README.md#ispurecomponent)
+- [isReactHook](README.md#isreacthook)
 - [isReactHookCall](README.md#isreacthookcall)
 - [isReactHookCallWithName](README.md#isreacthookcallwithname)
 - [isUseCallbackCall](README.md#isusecallbackcall)
 - [isUseContextCall](README.md#isusecontextcall)
 - [isUseDebugValueCall](README.md#isusedebugvaluecall)
+- [isUseDeferredValueCall](README.md#isusedeferredvaluecall)
 - [isUseEffectCall](README.md#isuseeffectcall)
+- [isUseIdCall](README.md#isuseidcall)
 - [isUseImperativeHandleCall](README.md#isuseimperativehandlecall)
+- [isUseInsertionEffectCall](README.md#isuseinsertioneffectcall)
 - [isUseLayoutEffectCall](README.md#isuselayouteffectcall)
 - [isUseMemoCall](README.md#isusememocall)
 - [isUseReducerCall](README.md#isusereducercall)
 - [isUseRefCall](README.md#isuserefcall)
 - [isUseStateCall](README.md#isusestatecall)
+- [isUseSyncExternalStoreCall](README.md#isusesyncexternalstorecall)
+- [isUseTransitionCall](README.md#isusetransitioncall)
 - [isValidComponentName](README.md#isvalidcomponentname)
 - [isValidReactHookName](README.md#isvalidreacthookname)
 - [unsafeIsDeclaredInRenderProp](README.md#unsafeisdeclaredinrenderprop)
@@ -574,6 +581,22 @@ Determines whether `createContext` is used
 
 ---
 
+### isInsideReactHook
+
+▸ **isInsideReactHook**(`node`): `boolean`
+
+#### Parameters
+
+| Name   | Type   |
+| :----- | :----- |
+| `node` | `Node` |
+
+#### Returns
+
+`boolean`
+
+---
+
 ### isInsideRenderMethod
 
 ▸ **isInsideRenderMethod**(`node`, `context`): `boolean`
@@ -679,6 +702,22 @@ Check if a node is a React PureComponent
 
 ---
 
+### isReactHook
+
+▸ **isReactHook**(`node`): `boolean`
+
+#### Parameters
+
+| Name   | Type               |
+| :----- | :----------------- |
+| `node` | `TSESTreeFunction` |
+
+#### Returns
+
+`boolean`
+
+---
+
 ### isReactHookCall
 
 ▸ **isReactHookCall**(`node`): `void`
@@ -700,13 +739,14 @@ Check if the given node is a React Hook call by its name and its hierarchy.
 
 ### isReactHookCallWithName
 
-▸ **isReactHookCallWithName**(`name`): (`node`: `CallExpression`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>, `pragma`: `string`) => `boolean`
+▸ **isReactHookCallWithName**(`name`, `alias?`): (`node`: `CallExpression`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>, `pragma`: `string`) => `boolean`
 
 #### Parameters
 
-| Name   | Type     |
-| :----- | :------- |
-| `name` | `string` |
+| Name     | Type       |
+| :------- | :--------- |
+| `name`   | `string`   |
+| `alias?` | `string`[] |
 
 #### Returns
 
@@ -782,6 +822,24 @@ Check if the given node is a React Hook call by its name and its hierarchy.
 
 ---
 
+### isUseDeferredValueCall
+
+▸ **isUseDeferredValueCall**(`node`, `context`, `pragma`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
 ### isUseEffectCall
 
 ▸ **isUseEffectCall**(`node`, `context`, `pragma`): `boolean`
@@ -800,9 +858,45 @@ Check if the given node is a React Hook call by its name and its hierarchy.
 
 ---
 
+### isUseIdCall
+
+▸ **isUseIdCall**(`node`, `context`, `pragma`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
 ### isUseImperativeHandleCall
 
 ▸ **isUseImperativeHandleCall**(`node`, `context`, `pragma`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isUseInsertionEffectCall
+
+▸ **isUseInsertionEffectCall**(`node`, `context`, `pragma`): `boolean`
 
 #### Parameters
 
@@ -893,6 +987,42 @@ Check if the given node is a React Hook call by its name and its hierarchy.
 ### isUseStateCall
 
 ▸ **isUseStateCall**(`node`, `context`, `pragma`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isUseSyncExternalStoreCall
+
+▸ **isUseSyncExternalStoreCall**(`node`, `context`, `pragma`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma`  | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isUseTransitionCall
+
+▸ **isUseTransitionCall**(`node`, `context`, `pragma`): `boolean`
 
 #### Parameters
 

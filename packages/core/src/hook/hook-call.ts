@@ -1,14 +1,25 @@
-import { NodeType } from "@eslint-react/ast";
+import { is, NodeType, traverseUp } from "@eslint-react/ast";
 import { isCallFromPragma, isInitializedFromPragma } from "@eslint-react/jsx";
-import { F, M } from "@eslint-react/tools";
+import { F, M, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { isValidReactHookName } from "./hook-name";
 
-export function isReactHookCallWithName(name: string) {
+export function isReactHookCallWithName(name: string, alias?: string[]) {
   return (node: TSESTree.CallExpression, context: RuleContext, pragma: string) => {
     const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
+    if (alias) {
+      const isAlias = M.match(node.callee)
+        .with({ type: NodeType.Identifier, name }, n => alias.includes(n.name))
+        .with({ type: NodeType.MemberExpression, object: { name: pragma }, property: { name } }, F.constTrue)
+        .otherwise(F.constFalse);
+
+      if (isAlias) {
+        return true;
+      }
+    }
 
     return M.match(node.callee)
       .with({ type: NodeType.Identifier, name }, n => isInitializedFromPragma(n.name, context, initialScope, pragma))
@@ -17,25 +28,21 @@ export function isReactHookCallWithName(name: string) {
   };
 }
 
-export const isUseMemoCall = isReactHookCallWithName("useMemo");
-
 export const isUseCallbackCall = isReactHookCallWithName("useCallback");
-
-export const isUseEffectCall = isReactHookCallWithName("useEffect");
-
-export const isUseLayoutEffectCall = isReactHookCallWithName("useLayoutEffect");
-
-export const isUseRefCall = isReactHookCallWithName("useRef");
-
-export const isUseStateCall = isReactHookCallWithName("useState");
-
-export const isUseReducerCall = isReactHookCallWithName("useReducer");
-
 export const isUseContextCall = isReactHookCallWithName("useContext");
-
-export const isUseImperativeHandleCall = isReactHookCallWithName("useImperativeHandle");
-
 export const isUseDebugValueCall = isReactHookCallWithName("useDebugValue");
+export const isUseDeferredValueCall = isReactHookCallWithName("useDeferredValue");
+export const isUseEffectCall = isReactHookCallWithName("useEffect");
+export const isUseIdCall = isReactHookCallWithName("useId");
+export const isUseImperativeHandleCall = isReactHookCallWithName("useImperativeHandle");
+export const isUseInsertionEffectCall = isReactHookCallWithName("useInsertionEffect");
+export const isUseLayoutEffectCall = isReactHookCallWithName("useLayoutEffect");
+export const isUseMemoCall = isReactHookCallWithName("useMemo");
+export const isUseReducerCall = isReactHookCallWithName("useReducer");
+export const isUseRefCall = isReactHookCallWithName("useRef");
+export const isUseStateCall = isReactHookCallWithName("useState");
+export const isUseSyncExternalStoreCall = isReactHookCallWithName("useSyncExternalStore");
+export const isUseTransitionCall = isReactHookCallWithName("useTransition");
 
 /**
  * Check if the given node is a React Hook call by its name.
@@ -71,4 +78,8 @@ export function isReactHookCall(node: TSESTree.CallExpression) {
 export function isMemoOrForwardRefCall(node: TSESTree.Node, context: RuleContext) {
   return isCallFromPragma("memo")(node, context)
     || isCallFromPragma("forwardRef")(node, context);
+}
+
+export function unsafeIsInsideReactHookCall(node: TSESTree.Node): boolean {
+  return O.isSome(traverseUp(node, n => is(NodeType.CallExpression)(n) && unsafeIsReactHookCall(n)));
 }

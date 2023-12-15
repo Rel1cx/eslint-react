@@ -130,6 +130,10 @@ module.exports = defineConfig({
             selector: "TSPropertySignature[optional=true]",
             message: "no optional",
           },
+          {
+            selector: 'ImportDeclaration[source.value="."]',
+            message: "potential circular dependency",
+          },
         ],
       },
     },
