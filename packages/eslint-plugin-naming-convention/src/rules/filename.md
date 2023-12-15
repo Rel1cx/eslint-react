@@ -6,7 +6,7 @@ Style.
 
 ## What it does
 
-Enforces naming convention for JSX files. By default, it enforces `kebab-case` for file names.
+Enforces naming convention for JSX files. By default, it enforces `PascalCase` for file names.
 
 ## Why is this good?
 
