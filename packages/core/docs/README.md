@@ -4,17 +4,20 @@
 
 ## Table of contents
 
+### Interfaces
+
+- [ERClassComponent](interfaces/ERClassComponent.md)
+- [ERFunctionComponent](interfaces/ERFunctionComponent.md)
+- [ERHook](interfaces/ERHook.md)
+
 ### Type Aliases
 
-- [ERClassComponent](README.md#erclasscomponent)
 - [ERClassComponentFlag](README.md#erclasscomponentflag)
 - [ERComponent](README.md#ercomponent)
 - [ERComponentCollectorHint](README.md#ercomponentcollectorhint)
 - [ERComponentInitPath](README.md#ercomponentinitpath)
 - [ERComponentKind](README.md#ercomponentkind)
-- [ERFunctionComponent](README.md#erfunctioncomponent)
 - [ERFunctionComponentFlag](README.md#erfunctioncomponentflag)
-- [ERHook](README.md#erhook)
 
 ### Variables
 
@@ -78,25 +81,6 @@
 
 ## Type Aliases
 
-### ERClassComponent
-
-Ƭ **ERClassComponent**: `Object`
-
-#### Type declaration
-
-| Name          | Type                                                             |
-| :------------ | :--------------------------------------------------------------- |
-| `_`           | `string`                                                         |
-| `displayName` | `O.Option`\<`TSESTree.Expression`\>                              |
-| `flag`        | [`ERClassComponentFlag`](README.md#erclasscomponentflag-1)       |
-| `id`          | `O.Option`\<`TSESTree.Identifier`\>                              |
-| `kind`        | `"class"`                                                        |
-| `methods`     | (`TSESTree.MethodDefinition` \| `TSESTree.PropertyDefinition`)[] |
-| `name`        | `O.Option`\<`string`\>                                           |
-| `node`        | `TSESTreeClass`                                                  |
-
----
-
 ### ERClassComponentFlag
 
 Ƭ **ERClassComponentFlag**: `bigint`
@@ -105,7 +89,7 @@
 
 ### ERComponent
 
-Ƭ **ERComponent**: [`ERClassComponent`](README.md#erclasscomponent) \| [`ERFunctionComponent`](README.md#erfunctioncomponent)
+Ƭ **ERComponent**: [`ERClassComponent`](interfaces/ERClassComponent.md) \| [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)
 
 ---
 
@@ -127,46 +111,9 @@
 
 ---
 
-### ERFunctionComponent
-
-Ƭ **ERFunctionComponent**: `Object`
-
-#### Type declaration
-
-| Name          | Type                                                                 |
-| :------------ | :------------------------------------------------------------------- |
-| `_`           | `string`                                                             |
-| `displayName` | `O.Option`\<`TSESTree.Expression`\>                                  |
-| `flag`        | [`ERFunctionComponentFlag`](README.md#erfunctioncomponentflag-1)     |
-| `hint`        | [`ERComponentCollectorHint`](README.md#ercomponentcollectorhint-1)   |
-| `hookCalls`   | `TSESTree.CallExpression`[]                                          |
-| `id`          | `O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>       |
-| `initPath`    | `O.Option`\<[`ERComponentInitPath`](README.md#ercomponentinitpath)\> |
-| `kind`        | `"function"`                                                         |
-| `name`        | `O.Option`\<`string`\>                                               |
-| `node`        | `TSESTreeFunction`                                                   |
-
----
-
 ### ERFunctionComponentFlag
 
 Ƭ **ERFunctionComponentFlag**: `bigint`
-
----
-
-### ERHook
-
-Ƭ **ERHook**: `Object`
-
-#### Type declaration
-
-| Name        | Type                        |
-| :---------- | :-------------------------- |
-| `_`         | `string`                    |
-| `hookCalls` | `TSESTree.CallExpression`[] |
-| `id`        | `TSESTree.Identifier`       |
-| `name`      | `string`                    |
-| `node`      | `TSESTreeFunction`          |
 
 ## Variables
 
@@ -262,7 +209,7 @@ hints for component collector
 
 | Name                                                                                                           | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | :------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ctx`                                                                                                          | \{ `getCurrentFunction`: () => `Option`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> ; `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ERFunctionComponent`](README.md#erfunctioncomponent)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ERFunctionComponent`](README.md#erfunctioncomponent)\> ; `getCurrentFunctionStack`: () => [`TSESTreeFunction`, `boolean`, `CallExpression`[]][] }                                                                                                                                                                                 |
+| `ctx`                                                                                                          | \{ `getCurrentFunction`: () => `Option`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> ; `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)\> ; `getCurrentFunctionStack`: () => [`TSESTreeFunction`, `boolean`, `CallExpression`[]][] }                                                                                                                                                                         |
 | `ctx.getCurrentFunction`                                                                                       | () => `Option`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `ctx.getAllComponents`                                                                                         | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | `ctx.getCurrentComponents`                                                                                     | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
@@ -291,14 +238,14 @@ hints for component collector
 
 `Object`
 
-| Name                         | Type                                                                                                                                                                                                                 |
-| :--------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                        | \{ `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ERClassComponent`](README.md#erclasscomponent)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ERClassComponent`](README.md#erclasscomponent)\> } |
-| `ctx.getAllComponents`       | [object Object]                                                                                                                                                                                                      |
-| `ctx.getCurrentComponents`   | [object Object]                                                                                                                                                                                                      |
-| `listeners`                  | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect }                                                                             |
-| `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                  |
-| `listeners.ClassExpression`  | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                  |
+| Name                         | Type                                                                                                                                                                                                                         |
+| :--------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                        | \{ `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ERClassComponent`](interfaces/ERClassComponent.md)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ERClassComponent`](interfaces/ERClassComponent.md)\> } |
+| `ctx.getAllComponents`       | [object Object]                                                                                                                                                                                                              |
+| `ctx.getCurrentComponents`   | [object Object]                                                                                                                                                                                                              |
+| `listeners`                  | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect }                                                                                     |
+| `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                          |
+| `listeners.ClassExpression`  | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                          |
 
 ---
 
@@ -426,12 +373,12 @@ It will be removed in the future
 
 `Object`
 
-| Name                  | Type                                                                                                                                                               |
-| :-------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                 | \{ `getAllHooks`: (`_`: `Program`) => `Map`\<`string`, [`ERHook`](README.md#erhook)\> ; `getCurrentHooks`: () => `Map`\<`string`, [`ERHook`](README.md#erhook)\> } |
-| `ctx.getAllHooks`     | [object Object]                                                                                                                                                    |
-| `ctx.getCurrentHooks` | [object Object]                                                                                                                                                    |
-| `listeners`           | `ESLintUtils.RuleListener`                                                                                                                                         |
+| Name                  | Type                                                                                                                                                                       |
+| :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                 | \{ `getAllHooks`: (`_`: `Program`) => `Map`\<`string`, [`ERHook`](interfaces/ERHook.md)\> ; `getCurrentHooks`: () => `Map`\<`string`, [`ERHook`](interfaces/ERHook.md)\> } |
+| `ctx.getAllHooks`     | [object Object]                                                                                                                                                            |
+| `ctx.getCurrentHooks` | [object Object]                                                                                                                                                            |
+| `listeners`           | `ESLintUtils.RuleListener`                                                                                                                                                 |
 
 ---
 

@@ -80,7 +80,7 @@ export default createRule<Options, MessageID>({
     const allow = P.isObject(options) ? options.allow : options;
     const extensions = P.isObject(options) && "extensions" in options
       ? options.extensions
-      : configs?.jsxExtensions ?? defaultOptions[0].extensions;
+      : configs?.jsx?.extensions ?? defaultOptions[0].extensions;
 
     const filename = context.getFilename();
     const hasJSXNodeRef = MutRef.make<boolean>(false);

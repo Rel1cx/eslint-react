@@ -61,6 +61,8 @@ module.exports = defineConfig({
         "@typescript-eslint/prefer-readonly": "warn",
         "@typescript-eslint/prefer-nullish-coalescing": "warn",
         "@typescript-eslint/strict-boolean-expressions": "error",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
         "@susisu/safe-typescript/no-unsafe-object-property-check": "off",
         "import-access/jsdoc": ["error"],
         "jsdoc/require-jsdoc": "off",

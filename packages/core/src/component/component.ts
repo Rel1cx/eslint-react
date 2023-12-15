@@ -6,7 +6,8 @@ import type { ERComponentCollectorHint } from "./component-collector-hint";
 import type { ERClassComponentFlag, ERFunctionComponentFlag } from "./component-flag";
 import type { ERComponentInitPath } from "./component-init-path";
 
-export type ERFunctionComponent = {
+/* eslint-disable perfectionist/sort-interfaces */
+export interface ERFunctionComponent {
   _: string;
   id: O.Option<TSESTree.Identifier | TSESTree.Identifier[]>;
   kind: "function";
@@ -17,9 +18,9 @@ export type ERFunctionComponent = {
   initPath: O.Option<ERComponentInitPath>;
   hookCalls: TSESTree.CallExpression[];
   displayName: O.Option<TSESTree.Expression>;
-};
+}
 
-export type ERClassComponent = {
+export interface ERClassComponent {
   _: string;
   id: O.Option<TSESTree.Identifier>;
   kind: "class";
@@ -28,6 +29,7 @@ export type ERClassComponent = {
   flag: ERClassComponentFlag;
   methods: (TSESTree.MethodDefinition | TSESTree.PropertyDefinition)[];
   displayName: O.Option<TSESTree.Expression>;
-};
+}
+/* eslint-enable perfectionist/sort-interfaces */
 
 export type ERComponent = ERClassComponent | ERFunctionComponent;

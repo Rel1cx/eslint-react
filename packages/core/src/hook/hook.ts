@@ -1,7 +1,8 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import type { TSESTree } from "@typescript-eslint/types";
 
-export type ERHook = {
+/* eslint-disable perfectionist/sort-interfaces */
+export interface ERHook {
   // The unique key of the hook
   _: string;
   // The identifier of the hook
@@ -20,4 +21,5 @@ export type ERHook = {
   // cost: number;
   // The other hooks called by the hook
   hookCalls: TSESTree.CallExpression[];
-};
+}
+/* eslint-enable perfectionist/sort-interfaces */

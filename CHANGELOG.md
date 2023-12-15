@@ -1,3 +1,31 @@
+## v0.9.7-beta.2 (Sat Dec 16 2023)
+
+### Release Notes
+
+#### Update default rule option in `named-convention/filename` to `PascalCase`
+
+---
+
+#### 📝 Documentation
+
+- `@eslint-react/eslint-plugin-naming-convention`
+  - Update default rule option in `named-convention/filename` to `PascalCase`.
+
+#### 🏠 Internal
+
+- `@eslint-react/shared`
+  - ⚠️ Change `ESLintReactSettingsSchema`.
+
+- `@eslint-react/monorepo`
+  - Add `format:package-json` script.
+  - Minor improvements.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
+
 ## v0.9.7-beta.1 (Thu Dec 14 2023)
 
 ### Release Notes
