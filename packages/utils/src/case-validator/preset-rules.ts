@@ -4,19 +4,19 @@
 // Copied from https://github.com/epaew/eslint-plugin-filenames-simple/blob/master/src/utils/preset-rules.ts
 import { splitName } from "./split-name";
 
-type Rule = {
+interface Rule {
   expression: RegExp;
   recommendationBuilder?: (name: string) => string;
-};
+}
 
-type PresetRules = {
+interface PresetRules {
   [key: string]: Required<Rule> | undefined;
+  CONSTANT_CASE: Required<Rule>;
   PascalCase: Required<Rule>;
   camelCase: Required<Rule>;
   "kebab-case": Required<Rule>;
   snake_case: Required<Rule>;
-  CONSTANT_CASE: Required<Rule>;
-};
+}
 
 export const presetRules: PresetRules = {
   PascalCase: {

@@ -2,30 +2,38 @@ import type { ReadonlyDeep } from "type-fest";
 import { array, object, optional, type Output, string } from "valibot";
 
 export const ESLintReactSettingsSchema = object({
-  fragment: optional(string()),
-  jsxExtensions: optional(array(string())),
-  pragma: optional(string()),
-  reactHooksVariants: optional(object({
-    useCallback: optional(array(string())),
-    useContext: optional(array(string())),
-    useDebugValue: optional(array(string())),
-    useDeferredValue: optional(array(string())),
-    useEffect: optional(array(string())),
-    useId: optional(array(string())),
-    useImperativeHandle: optional(array(string())),
-    useInsertionEffect: optional(array(string())),
-    useLayoutEffect: optional(array(string())),
-    useMemo: optional(array(string())),
-    useReducer: optional(array(string())),
-    useRef: optional(array(string())),
-    useState: optional(array(string())),
-    useSyncExternalStore: optional(array(string())),
-    useTransition: optional(array(string())),
+  jsx: optional(object({
+    extensions: optional(array(string())),
+    fragment: optional(string()),
+    pragma: optional(string()),
   })),
-  version: optional(string()),
+  namingConvention: optional(object({})),
+  react: optional(object({
+    version: optional(string()),
+  })),
+  reactHooks: optional(object({
+    alias: optional(object({
+      useCallback: optional(array(string())),
+      useContext: optional(array(string())),
+      useDebugValue: optional(array(string())),
+      useDeferredValue: optional(array(string())),
+      useEffect: optional(array(string())),
+      useId: optional(array(string())),
+      useImperativeHandle: optional(array(string())),
+      useInsertionEffect: optional(array(string())),
+      useLayoutEffect: optional(array(string())),
+      useMemo: optional(array(string())),
+      useReducer: optional(array(string())),
+      useRef: optional(array(string())),
+      useState: optional(array(string())),
+      useSyncExternalStore: optional(array(string())),
+      useTransition: optional(array(string())),
+    })),
+    debug: optional(object({})),
+  })),
 });
 
-export type ESLintReactSettings = Output<typeof ESLintReactSettingsSchema>;
+export type ESLintReactSettings = ReadonlyDeep<Output<typeof ESLintReactSettingsSchema>>;
 
 export const ESLintSettingsSchema = object({
   eslintReact: optional(ESLintReactSettingsSchema),

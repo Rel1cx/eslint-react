@@ -89,7 +89,7 @@ export default createRule<Options, MessageID>({
     const excepts = P.isString(options) ? [] : options.excepts ?? [];
     const extensions = P.isObject(options) && "extensions" in options
       ? options.extensions
-      : configs?.jsxExtensions ?? defaultOptions[0].extensions;
+      : configs?.jsx?.extensions ?? defaultOptions[0].extensions;
 
     const filename = context.getFilename();
     const fileNameExt = filename
