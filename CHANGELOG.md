@@ -2,7 +2,20 @@
 
 ### Release Notes
 
+#### Reduce false positives in rule `react/no-unstable-nested-components`
+
+#### Reduce false positives in rule `debug/function-component`
+
 ---
+
+#### 🏠 Internal
+
+- `@eslint-react/ast`
+  - Refactor `getFunctionIdentifier` function to follow spec convention for `IsAnonymousFunctionDefinition()` usage in ECMAScript spec.
+  - Improve module structure.
+
+- `@eslint-react/core`
+  - Move construction detection from `@eslint-react/ast` to `@eslint-react/core`.
 
 #### Authors: 1
 

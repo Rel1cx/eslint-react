@@ -10,7 +10,7 @@
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { NodeType, type TSESTreeFunction } from "../node";
+import { isOneOf, NodeType, type TSESTreeFunction } from "../node";
 
 export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree.Identifier> {
   if (node.id) {
@@ -47,13 +47,16 @@ export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree
     // {useHook: () => {}}
     // {useHook() {}}
     return O.some(node.parent.key);
+  }
 
-    // NOTE: We could also support `ClassProperty` and `MethodDefinition`
-    // here to be pedantic. However, hooks in a class are an anti-pattern. So
-    // we don't allow it to error early.
-    //
+  if (
+    isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])(node.parent)
+    && node.parent.value === node
+    && node.parent.key.type === NodeType.Identifier
+  ) {
     // class {useHook = () => {}}
     // class {useHook() {}}
+    return O.some(node.parent.key);
   }
 
   if (
