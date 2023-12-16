@@ -8,8 +8,6 @@ Pedantic.
 
 Helps find custom Hooks that don't use other Hooks.
 
-> :warning: **This rule is in early-access!** Please report any bugs or feedback on the [issue tracker](https://github.com/rel1cx/eslint-react/issues/31)
-
 ## Why is this good?
 
 Custom Hooks may call other Hooks (that’s their whole purpose). If a custom Hook is not calling other Hooks, it might be a sign that it's unnecessary or incorrectly implemented. This rule helps you catch those cases.
