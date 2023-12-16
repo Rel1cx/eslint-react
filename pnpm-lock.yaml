@@ -756,8 +756,8 @@ importers:
   packages/tools:
     dependencies:
       '@effect/schema':
-        specifier: 0.53.2
-        version: 0.53.2(effect@2.0.0-next.60)(fast-check@3.14.0)
+        specifier: 0.53.3
+        version: 0.53.3(effect@2.0.0-next.60)(fast-check@3.14.0)
       effect:
         specifier: 2.0.0-next.60
         version: 2.0.0-next.60
@@ -1706,8 +1706,8 @@ packages:
       '@effect/data': 0.4.1
     dev: true
 
-  /@effect/schema@0.53.2(effect@2.0.0-next.60)(fast-check@3.14.0):
-    resolution: {integrity: sha512-byk2qHRQSnLSj736pvkGRaa21xAp1TJw3rED8rMiUELGsXW7PjAOKhl4NaMYxRrAxPODSllwCGhRiEaaSDkyuA==}
+  /@effect/schema@0.53.3(effect@2.0.0-next.60)(fast-check@3.14.0):
+    resolution: {integrity: sha512-QycmIqn2E7v0IPzHqSXmdnX7fhgr102z90BAjBUsifJy5MOfC9EdxTJ5DY8Vxiq9gjbLz7QWBQuCyqRDJ6eNAQ==}
     peerDependencies:
       effect: 2.0.0-next.60
       fast-check: ^3.13.2
