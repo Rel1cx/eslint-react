@@ -85,7 +85,7 @@
     "eslint-plugin-vitest": "0.3.17",
     "fast-equals": "5.0.1",
     "husky": "8.0.3",
-    "knip": "3.8.0",
+    "knip": "3.8.1",
     "markdownlint": "0.32.1",
     "pathe": "1.1.1",
     "publint": "0.2.6",
