@@ -75,7 +75,7 @@
     "dedent": "1.5.1",
     "dprint": "0.43.2",
     "effect": "2.0.0-next.60",
-    "eslint": ">=8.55.0",
+    "eslint": ">=8.56.0",
     "eslint-config-with-tsconfig": "2.9.160",
     "eslint-plugin-eslint-plugin": "5.2.1",
     "eslint-plugin-filenames-simple": "0.9.0",
@@ -109,7 +109,7 @@
   },
   "peerDependencies": {
     "@typescript-eslint/parser": ">=6.14.0",
-    "eslint": ">=8.55.0",
+    "eslint": ">=8.56.0",
     "typescript": ">=5.3.3"
   },
   "packageManager": "pnpm@8.12.0",
@@ -128,7 +128,7 @@
       "@typescript-eslint/types": "6.14.0",
       "@typescript-eslint/utils": "6.14.0",
       "@typescript-eslint/eslint-plugin": "6.14.0",
-      "eslint": ">=8.55.0",
+      "eslint": ">=8.56.0",
       "effect": "2.0.0-next.60",
       "next": "14.0.4",
       "react": "18.2.0",
