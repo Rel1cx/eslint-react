@@ -12,6 +12,7 @@
 
 ### Type Aliases
 
+- [Construction](README.md#construction)
 - [ERClassComponentFlag](README.md#erclasscomponentflag)
 - [ERComponent](README.md#ercomponent)
 - [ERComponentCollectorHint](README.md#ercomponentcollectorhint)
@@ -21,6 +22,7 @@
 
 ### Variables
 
+- [Construction](README.md#construction-1)
 - [DEFAULT\_COMPONENT\_COLLECTOR\_HINT](README.md#default_component_collector_hint)
 - [ERClassComponentFlag](README.md#erclasscomponentflag-1)
 - [ERComponentCollectorHint](README.md#ercomponentcollectorhint-1)
@@ -32,6 +34,7 @@
 
 - [componentCollector](README.md#componentcollector)
 - [componentCollectorLegacy](README.md#componentcollectorlegacy)
+- [constructionDetector](README.md#constructiondetector)
 - [getComponentInitPath](README.md#getcomponentinitpath)
 - [getComponentNameFromIdentifier](README.md#getcomponentnamefromidentifier)
 - [getFunctionComponentIdentifier](README.md#getfunctioncomponentidentifier)
@@ -81,6 +84,12 @@
 
 ## Type Aliases
 
+### Construction
+
+Ƭ **Construction**: `Data.TaggedEnum`\<\{ `Array`: \{ `node`: `TSESTree.ArrayExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `AssignmentExpression`: \{ `node`: `TSESTree.Node` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `ClassExpression`: \{ `node`: `TSESTree.ClassExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `FunctionDeclaration`: \{ `node`: `TSESTree.FunctionDeclaration` ; `usage`: `O.Option`\<`TSESTree.Expression` \| `TSESTree.Identifier`\> } ; `FunctionExpression`: \{ `node`: `TSESTree.ArrowFunctionExpression` \| `TSESTree.FunctionExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `JSXElement`: \{ `node`: `TSESTree.JSXElement` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `JSXFragment`: \{ `node`: `TSESTree.JSXFragment` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `NewExpression`: \{ `node`: `TSESTree.NewExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `None`: {} ; `ObjectExpression`: \{ `node`: `TSESTree.ObjectExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `RegExpLiteral`: \{ `node`: `TSESTree.Literal` ; `usage`: `O.Option`\<`TSESTree.Node`\> } }\>
+
+---
+
 ### ERClassComponentFlag
 
 Ƭ **ERClassComponentFlag**: `bigint`
@@ -116,6 +125,28 @@
 Ƭ **ERFunctionComponentFlag**: `bigint`
 
 ## Variables
+
+### Construction
+
+• **Construction**: `Object`
+
+#### Type declaration
+
+| Name                   | Type                                                                                                                                                               |
+| :--------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Array`                | `Constructor`\<`Data`\<\{ `_tag`: `"Array"` ; `node`: `ArrayExpression` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                              |
+| `AssignmentExpression` | `Constructor`\<`Data`\<\{ `_tag`: `"AssignmentExpression"` ; `node`: `Node` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                          |
+| `ClassExpression`      | `Constructor`\<`Data`\<\{ `_tag`: `"ClassExpression"` ; `node`: `ClassExpression` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                    |
+| `FunctionDeclaration`  | `Constructor`\<`Data`\<\{ `_tag`: `"FunctionDeclaration"` ; `node`: `FunctionDeclaration` ; `usage`: `Option`\<`Expression`\> }\>, `"_tag"`\>                      |
+| `FunctionExpression`   | `Constructor`\<`Data`\<\{ `_tag`: `"FunctionExpression"` ; `node`: `ArrowFunctionExpression` \| `FunctionExpression` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\> |
+| `JSXElement`           | `Constructor`\<`Data`\<\{ `_tag`: `"JSXElement"` ; `node`: `JSXElement` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                              |
+| `JSXFragment`          | `Constructor`\<`Data`\<\{ `_tag`: `"JSXFragment"` ; `node`: `JSXFragment` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                            |
+| `NewExpression`        | `Constructor`\<`Data`\<\{ `_tag`: `"NewExpression"` ; `node`: `NewExpression` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                        |
+| `None`                 | `Constructor`\<`Data`\<\{ `_tag`: `"None"` }\>, `"_tag"`\>                                                                                                         |
+| `ObjectExpression`     | `Constructor`\<`Data`\<\{ `_tag`: `"ObjectExpression"` ; `node`: `ObjectExpression` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                  |
+| `RegExpLiteral`        | `Constructor`\<`Data`\<\{ `_tag`: `"RegExpLiteral"` ; `node`: `Literal` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                              |
+
+---
 
 ### DEFAULT\_COMPONENT\_COLLECTOR\_HINT
 
@@ -246,6 +277,44 @@ hints for component collector
 | `listeners`                  | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect }                                                                                     |
 | `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                          |
 | `listeners.ClassExpression`  | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                          |
+
+---
+
+### constructionDetector
+
+▸ **constructionDetector**\<`T`\>(`context`): (`node`: `TSESTree.Node`) => [`Construction`](README.md#construction-1)
+
+Get a function that detects the construction of a given node.
+
+#### Type parameters
+
+| Name | Type                                                                  |
+| :--- | :-------------------------------------------------------------------- |
+| `T`  | extends `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+#### Parameters
+
+| Name      | Type | Description      |
+| :-------- | :--- | :--------------- |
+| `context` | `T`  | The rule context |
+
+#### Returns
+
+`fn`
+
+A function that detects the construction of a given node
+
+▸ (`node`): [`Construction`](README.md#construction-1)
+
+##### Parameters
+
+| Name   | Type            |
+| :----- | :-------------- |
+| `node` | `TSESTree.Node` |
+
+##### Returns
+
+[`Construction`](README.md#construction-1)
 
 ---
 

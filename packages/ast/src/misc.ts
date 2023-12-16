@@ -1,84 +1,28 @@
-import { M } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
+import { type } from "rambda";
+import { delimiterCase, replace, toLowerCase } from "string-ts";
 
-import { NodeType } from "./node-type";
+import { isJSX, NodeType } from "./node";
 
 /**
- * Check if a node is multiline
- * @param node The AST node to check
- * @returns  `true` if the node is multiline
+ * Returns human readable node type for given AST node
+ * @param node AST node
+ * @returns Human readable node type
  */
-export function isMultiLine(node: TSESTree.Node) {
-  return node.loc.start.line !== node.loc.end.line;
-}
+export function readableNodeType(node: TSESTree.Node) {
+  if (node.type === NodeType.Literal) {
+    if ("regex" in node) {
+      return "RegExp literal";
+    }
 
-export function unsafeIsToStringCall(node: TSESTree.Node): node is
-  & TSESTree.CallExpression
-  & {
-    callee:
-      & TSESTree.MemberExpression
-      & { property: TSESTree.Identifier & { name: "toString" } };
+    return `${type(node.value)} literal` as const;
   }
-{
-  return M.isMatching({
-    type: NodeType.CallExpression,
-    callee: {
-      type: NodeType.MemberExpression,
-      property: {
-        type: NodeType.Identifier,
-        name: "toString",
-      },
-    },
-  }, node);
-}
 
-export function unsafeIsStringCall(node: TSESTree.Node): node is
-  & TSESTree.CallExpression
-  & {
-    callee: TSESTree.Identifier & { name: "String" };
+  if (isJSX(node)) {
+    return `JSX ${toLowerCase(delimiterCase(replace(node.type, "JSX", ""), " "))}` as const;
   }
-{
-  return M.isMatching({
-    type: NodeType.CallExpression,
-    callee: {
-      type: NodeType.Identifier,
-      name: "String",
-    },
-  }, node);
+
+  return toLowerCase(delimiterCase(node.type, " "));
 }
 
-/**
- * Unsafe check whether given node or its parent is directly inside `Array.from` call
- * @param node The AST node to check
- * @returns `true` if node is directly inside `Array.from` call, `false` if not
- */
-export function unsafeIsArrayFromCall(node: TSESTree.Node | null): node is TSESTree.CallExpression {
-  return M.isMatching({
-    type: NodeType.CallExpression,
-    callee: {
-      type: NodeType.MemberExpression,
-      property: {
-        name: "from",
-      },
-    },
-  }, node);
-}
-/**
- * Unsafe check whether given node or its parent is directly inside `map` call
- * ```jsx
- * _ = <div>{items.map(item => <li />)}</div>
- * `                   ^^^^^^^^^^^^^^       `
- * ```
- * @param node The AST node to check
- * @returns `true` if node is directly inside `map` call, `false` if not
- */
-export function unsafeIsMapCall(node: TSESTree.Node | null): node is TSESTree.CallExpression {
-  return M.isMatching({
-    callee: {
-      type: NodeType.MemberExpression,
-      property: {
-        name: "map",
-      },
-    },
-  }, node);
-}
+export type ReadableNodeType = ReturnType<typeof readableNodeType>;
