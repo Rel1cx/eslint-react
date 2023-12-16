@@ -14,7 +14,7 @@ Using unsafe lifecycle methods like `UNSAFE_componentWillReceiveProps` makes you
 
 ## Examples
 
-### Fail
+### Failing
 
 ```tsx
 import React from "react";

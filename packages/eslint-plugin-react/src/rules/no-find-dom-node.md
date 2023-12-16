@@ -14,7 +14,7 @@ This API will be removed in a future major version of React. [See the alternativ
 
 ## Examples
 
-### Fail
+### Failing
 
 ```tsx
 import { Component } from "react";
@@ -33,7 +33,7 @@ class AutoSelectingInput extends Component {
 export default AutoSelectingInput;
 ```
 
-### Pass
+### Passing
 
 ```tsx
 import { createRef, Component } from "react";

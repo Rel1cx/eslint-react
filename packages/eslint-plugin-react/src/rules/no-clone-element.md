@@ -14,7 +14,7 @@ Using cloneElement is uncommon and can lead to fragile code. This also makes it 
 
 ## Examples
 
-### Fail
+### Failing
 
 ```tsx
 import { cloneElement } from "react";
@@ -32,7 +32,7 @@ const clonedElement = cloneElement(
 console.log(clonedElement); // <Row title="Cabbage" isHighlighted={true}>Goodbye</Row>
 ```
 
-### Pass
+### Passing
 
 ```tsx
 export default function List({ items, renderItem }) {

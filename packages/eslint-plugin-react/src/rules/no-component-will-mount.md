@@ -16,7 +16,7 @@ Run the [rename-unsafe-lifecycles codemod](https://github.com/reactjs/react-code
 
 ## Examples
 
-### Fail
+### Failing
 
 ```tsx
 import React from "react";
@@ -28,7 +28,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-### Pass
+### Passing
 
 ```tsx
 import React from "react";

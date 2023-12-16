@@ -465,6 +465,44 @@ ruleTester.run(RULE_NAME, rule, {
           );
       }
     `,
+    dedent`
+      function ComponentWithProps(props) {
+        return <div />;
+      }
+
+      function ParentComponent() {
+        return (
+          <ComponentWithProps
+            footer={
+              function SomeFooter() {
+                return <div />;
+              }
+            } />
+        );
+      }
+    `,
+    dedent`
+      function ComponentWithProps(props) {
+        return <div />;
+      }
+
+      function ParentComponent() {
+          return (
+            <ComponentWithProps footer={() => <div />} />
+          );
+      }
+    `,
+    dedent`
+      function ComponentForProps(props) {
+        return <div />;
+      }
+
+      function ParentComponent() {
+        return (
+          <ComponentForProps notPrefixedWithRender={() => <div />} />
+        );
+      }
+    `,
   ],
   invalid: [
     {
@@ -814,25 +852,6 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: dedent`
         function ComponentWithProps(props) {
-          return <div />;
-        }
-
-        function ParentComponent() {
-          return (
-            <ComponentWithProps
-              footer={
-                function SomeFooter() {
-                  return <div />;
-                }
-              } />
-          );
-        }
-      `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" }],
-    },
-    {
-      code: dedent`
-        function ComponentWithProps(props) {
           return React.createElement("div", null);
         }
 
@@ -842,20 +861,6 @@ ruleTester.run(RULE_NAME, rule, {
               return React.createElement("div", null);
             }
           });
-        }
-      `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" }],
-    },
-    {
-      code: dedent`
-        function ComponentWithProps(props) {
-          return <div />;
-        }
-
-        function ParentComponent() {
-            return (
-              <ComponentWithProps footer={() => <div />} />
-            );
         }
       `,
       errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" }],
@@ -899,20 +904,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
-    },
-    {
-      code: dedent`
-        function ComponentForProps(props) {
-          return <div />;
-        }
-
-        function ParentComponent() {
-          return (
-            <ComponentForProps notPrefixedWithRender={() => <div />} />
-          );
-        }
-      `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" }],
     },
     {
       code: dedent`

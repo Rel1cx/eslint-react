@@ -14,7 +14,7 @@ React Hooks `useMemo` has empty dependencies array like what's in the examples, 
 
 ## Examples
 
-### Fail
+### Failing
 
 ```tsx
 const Comp = () => {
@@ -27,7 +27,7 @@ const Comp = () => {
 };
 ```
 
-### Pass
+### Passing
 
 ```tsx
 const style = (theme: MantineTheme) => ({

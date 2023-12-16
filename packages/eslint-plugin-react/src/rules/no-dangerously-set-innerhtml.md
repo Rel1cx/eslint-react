@@ -16,7 +16,7 @@ Read more about using [dangerouslySetInnerHTML](https://react.dev/reference/reac
 
 ## Examples
 
-### Fail
+### Failing
 
 ```tsx
 function Component() {

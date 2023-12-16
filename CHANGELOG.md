@@ -1,3 +1,72 @@
+## v0.9.7 (Sun Dec 17 2023)
+
+### Release Notes
+
+#### Fix where functions in `<Component footer={() => <div />} />` or `<Component Footer={() => <div />} />` are treated as components
+
+#### Fix false positive in rule `react/no-unstable-nested-components`
+
+#### Fix false positive in rule `debug/function-component`
+
+#### ⚠️ Change `ESLintReactSettingsSchema`
+
+#### ⚠️ Rule `named-convention/filename-extension` rename `rule` option to `allow`
+
+#### Rule `named-convention/filename` add `extensions` option
+
+#### Rule `named-convention/filename-extension` add `extensions` option
+
+#### Rules now support reading JSX extensions from `settings.eslintReact.jsx.extensions`
+
+#### Replace ❌ Incorrect and ✅ Correct with Failing and Passing in rule docs
+
+---
+
+#### 🐛 Bug Fix
+
+- `@eslint-react/eslint-plugin-react`
+  - Fix where functions in `<Component footer={() => <div />} />` or `<Component Footer={() => <div />} />` are treated as components
+  - Fix false positive in rule `react/no-unstable-nested-components`.
+
+- `@eslint-react/eslint-plugin-debug`
+  - Fix false positive in rule `debug/function-component`.
+
+#### 📝 Documentation
+
+- `@eslint-react/eslint-plugin-naming-convention`
+  - Replace ❌ Incorrect and ✅ Correct with Failing and Passing in rule docs.
+  - Update default rule option in `named-convention/filename` to `PascalCase`.
+
+#### 🏠 Internal
+
+- `@eslint-react/eslint-plugin-naming-convention`
+  - ⚠️ Rule `named-convention/filename-extension` rename `rule` option to `allow`.
+  - Rule `named-convention/filename` add `extensions` option.
+  - Rule `named-convention/filename-extension` add `extensions` option.
+
+- `@eslint-react/core`
+  - Add `alias` argument to `isReactHookCallWithName`.
+  - Add `isReactHook` function.
+
+- `@eslint-react/shared`
+  - ⚠️ Change `ESLintReactSettingsSchema`.
+  - Move utils from `@eslint-react/shared` to `@eslint-react/utils`.
+  - Remove `JSX_EXTENSIONS` from `@eslint-react/shared`.
+
+- `@eslint-react/monorepo`
+  - Add `@eslint-react/utils` package.
+  - Add `format:package-json` script.
+  - Update `bun` to `1.0.17`.
+  - Update `vitest` to `1.0.4`.
+  - Update `eslint-config-with-tsconfig` to `2.9.160`.
+  - Minor improvements.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
+
 ## v0.9.7-beta.2 (Sat Dec 16 2023)
 
 ### Release Notes

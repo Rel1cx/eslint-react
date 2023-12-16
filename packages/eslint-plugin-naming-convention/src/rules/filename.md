@@ -21,7 +21,7 @@ This rule can be configured to enforce one of the following naming conventions:
 - kebab-case
 - snake_case
 
-### Fail
+### Failing
 
 ```bash
 npx eslint --rule '@eslint-react/naming-convention/filename: ["error", { "rule": "PascalCase" }]' .
@@ -41,7 +41,7 @@ src/components/example_component.tsx
 ✖ 1 problems (1 errors, 0 warnings)
 ```
 
-### Pass
+### Passing
 
 ```bash
 npx eslint --rule '@eslint-react/naming-convention/filename: ["error", { "rule": "PascalCase" }]' .

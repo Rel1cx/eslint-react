@@ -16,7 +16,7 @@ Following naming conventions can make codebase more consistent and easier to und
 
 This rule enforces naming conventions for components. default to `PascalCase`.
 
-### Fail
+### Failing
 
 ```tsx
 // filename: my-component.tsx
@@ -26,7 +26,7 @@ export const My_Component = () => {
 };
 ```
 
-### Pass
+### Passing
 
 ```tsx
 // filename: my-component.tsx

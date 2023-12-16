@@ -14,7 +14,7 @@ Using unsafe lifecycle methods like `UNSAFE_componentWillUpdate` makes your comp
 
 ## Examples
 
-### Fail
+### Failing
 
 ```tsx
 import React from "react";

@@ -26,7 +26,7 @@ function Component({ items = emptyArray }) {
 
 ## Examples
 
-### Fail
+### Failing
 
 ```tsx
 function Component({ items = [] }) {
@@ -46,7 +46,7 @@ function Component({ items = () => {} }) {
 }
 ```
 
-### Pass
+### Passing
 
 ```tsx
 const emptyArray = [];

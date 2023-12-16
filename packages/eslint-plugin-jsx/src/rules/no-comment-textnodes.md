@@ -14,7 +14,7 @@ This could be a mistake during code editing or it could be a misunderstanding of
 
 ## Examples
 
-### Fail
+### Failing
 
 ```tsx
 function Component() {
@@ -30,7 +30,7 @@ function Component() {
 }
 ```
 
-### Pass
+### Passing
 
 ```tsx
 function Component() {

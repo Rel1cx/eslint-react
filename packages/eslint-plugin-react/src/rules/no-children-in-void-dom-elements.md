@@ -16,7 +16,7 @@ Self-closing HTML elements (e.g. `<img />`, `<br />`, `<hr />`) are collectively
 
 ## Examples
 
-### Fail
+### Failing
 
 ```tsx
 <br>Children</br>
@@ -27,7 +27,7 @@ React.createElement('br', { children: 'Children' })
 React.createElement('br', { dangerouslySetInnerHTML: { __html: 'HTML' } })
 ```
 
-### Pass
+### Passing
 
 ```tsx
 <div>Children</div>

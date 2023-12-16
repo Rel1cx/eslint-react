@@ -18,7 +18,7 @@ And it's also be proposed to be deprecated is this RFC: [Deprecate spreading key
 
 This rule aims to prevent spreading key from objects.
 
-### Fail
+### Failing
 
 ```tsx
 function List({ items }) {
@@ -30,7 +30,7 @@ function List({ items }) {
 }
 ```
 
-### Pass
+### Passing
 
 ```tsx
 function List({ items }) {

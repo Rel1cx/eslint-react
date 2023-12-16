@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/utils",
-  "version": "0.9.7-beta.2",
+  "version": "0.9.7",
   "description": "ESLint React's utilities.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {

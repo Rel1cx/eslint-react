@@ -14,7 +14,7 @@ Using `Children` is uncommon and can lead to fragile code. [See common alternati
 
 ## Examples
 
-### Fail
+### Failing
 
 ```tsx
 import { Children } from "react";

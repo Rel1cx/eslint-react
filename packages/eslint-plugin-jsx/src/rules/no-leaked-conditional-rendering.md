@@ -43,7 +43,7 @@ This can be avoided by:
 - coercing the conditional to a boolean: {!!someValue && \<Something />}
 - transforming the binary expression into a ternary expression which returns null for falsy values: {someValue ? \<Something /> : null}
 
-### Fail
+### Failing
 
 ```tsx
 function Component({ count, title }) {
@@ -93,7 +93,7 @@ function Component({ someBool }) {
 }
 ```
 
-### Pass
+### Passing
 
 ```tsx
 function Component({ elements }) {

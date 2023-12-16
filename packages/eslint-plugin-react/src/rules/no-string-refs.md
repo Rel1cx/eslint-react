@@ -14,7 +14,7 @@ String refs are deprecated in React. Use callback refs instead.
 
 ## Examples
 
-### Fail
+### Failing
 
 ```tsx
 function Component() {
@@ -22,7 +22,7 @@ function Component() {
 }
 ```
 
-### Pass
+### Passing
 
 ```tsx
 function Component() {

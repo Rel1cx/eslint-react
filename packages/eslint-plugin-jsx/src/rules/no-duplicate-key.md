@@ -14,7 +14,7 @@ React uses keys to identify elements in an array. If two elements have the same 
 
 ## Examples
 
-### Fail
+### Failing
 
 ```tsx
 const TodoList = ({ todos }) => (
@@ -24,7 +24,7 @@ const TodoList = ({ todos }) => (
 );
 ```
 
-### Pass
+### Passing
 
 ```tsx
 const TodoList = ({ todos }) => (

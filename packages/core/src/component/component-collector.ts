@@ -1,13 +1,16 @@
 import {
+  is,
   isFunctionOfClassMethod,
   isFunctionOfClassProperty,
   isFunctionOfObjectMethod,
+  isOneOf,
   NodeType,
+  traverseUp,
   type TSESTreeFunction,
   unsafeIsMapCall,
 } from "@eslint-react/ast";
 import { getPragmaFromContext, isChildrenOfCreateElement, isJSXValue } from "@eslint-react/jsx";
-import { M, MutList, MutRef, O } from "@eslint-react/tools";
+import { F, M, MutList, MutRef, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { uid } from "@eslint-react/utils";
 import { type TSESTree } from "@typescript-eslint/types";
@@ -39,7 +42,23 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
     return false;
   }
 
-  return !(hint & ERComponentCollectorHint.SkipClassProperty && isFunctionOfClassProperty(node.parent));
+  if (hint & ERComponentCollectorHint.SkipClassProperty && isFunctionOfClassProperty(node.parent)) {
+    return false;
+  }
+
+  return !F.pipe(
+    traverseUp(
+      node,
+      isOneOf([
+        NodeType.JSXExpressionContainer,
+        NodeType.ArrowFunctionExpression,
+        NodeType.FunctionExpression,
+        NodeType.Property,
+        NodeType.ClassBody,
+      ]),
+    ),
+    O.exists(is(NodeType.JSXExpressionContainer)),
+  );
 }
 
 function getComponentFlag(initPath: ERFunctionComponent["initPath"], pragma: string) {
@@ -107,14 +126,14 @@ export function componentCollector(
       MutList.pop(functionStack);
       MutList.append(functionStack, [currentFn, true, []]);
 
+      const initPath = getComponentInitPath(currentFn);
       const id = getFunctionComponentIdentifier(currentFn, context);
-      const key = uid.rnd();
       const name = O.flatMapNullable(
         id,
         getComponentNameFromIdentifier,
       );
-      const initPath = getComponentInitPath(currentFn);
 
+      const key = uid.rnd();
       components.set(key, {
         _: key,
         id,
@@ -148,14 +167,14 @@ export function componentCollector(
         return;
       }
 
+      const initPath = getComponentInitPath(currentFn);
       const id = getFunctionComponentIdentifier(currentFn, context);
-      const key = uid.rnd();
       const name = O.flatMapNullable(
         id,
         getComponentNameFromIdentifier,
       );
-      const initPath = getComponentInitPath(currentFn);
 
+      const key = uid.rnd();
       components.set(key, {
         _: key,
         id,

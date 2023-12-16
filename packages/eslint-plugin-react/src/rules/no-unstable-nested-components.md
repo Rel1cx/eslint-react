@@ -14,7 +14,7 @@ Nesting component definitions inside other components is a common mistake that c
 
 ## Examples
 
-### Fail
+### Failing
 
 ```tsx
 export default function Gallery() {
@@ -26,7 +26,7 @@ export default function Gallery() {
 }
 ```
 
-### Pass
+### Passing
 
 ```tsx
 export default function Gallery() {

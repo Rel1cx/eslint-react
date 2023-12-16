@@ -18,7 +18,7 @@ It also helps with code readability and maintainability.
 
 This rule aims to enforce the use of destructuring assignment over property assignment.
 
-### Fail
+### Failing
 
 ```tsx
 function Component(props) {
@@ -42,7 +42,7 @@ function Component(props) {
 }
 ```
 
-### Pass
+### Passing
 
 ```tsx
 function Component(props) {
