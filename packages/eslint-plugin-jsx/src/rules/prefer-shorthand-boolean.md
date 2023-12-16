@@ -16,13 +16,13 @@ The shorthand syntax is shorter and easier to read. And it adds consistency and 
 
 This rule enforces the use of shorthand syntax for boolean attributes.
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 <Component hidden={true} disabled={false} />;
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 <Component hidden disabled />;

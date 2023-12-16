@@ -14,7 +14,7 @@ While having `shouldComponentUpdate` will still work, it becomes pointless to ex
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 class Foo extends React.PureComponent {
@@ -40,7 +40,7 @@ function Bar() {
 }
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 class Foo extends React.Component {

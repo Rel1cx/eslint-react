@@ -14,7 +14,7 @@ Using `Children` is uncommon and can lead to fragile code. [See common alternati
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 function Box({ children }) {

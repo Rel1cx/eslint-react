@@ -16,7 +16,7 @@ And, it adds unnecessary visual noise to the code.
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 <>{foo}</>
@@ -41,7 +41,7 @@ And, it adds unnecessary visual noise to the code.
 {showFullName ? <>{fullName}</> : <>{firstName}</>}
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 {foo}

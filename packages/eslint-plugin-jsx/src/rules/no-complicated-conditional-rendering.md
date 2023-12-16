@@ -14,7 +14,7 @@ Complicated conditional rendering is hard to read and understand.
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 function Component({ hideShapes, debugSvg }) {
@@ -22,7 +22,7 @@ function Component({ hideShapes, debugSvg }) {
 }
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 function Component({ hideShapes, debugSvg }) {

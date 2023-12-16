@@ -14,7 +14,7 @@ When defining a React component, if you specify its component name in a way that
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 const Button = React.memo(() => <div />);
@@ -30,7 +30,7 @@ const Button = React.forwardRef(() => <div />);
 export default () => <div />;
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 const Button = React.memo(function Button() {

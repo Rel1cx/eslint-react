@@ -14,7 +14,7 @@ The order of items in a list rendering can change over time if an item is insert
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 const TodoList = ({ todos }) => (
@@ -24,7 +24,7 @@ const TodoList = ({ todos }) => (
 );
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 const TodoList = ({ todos }) => (

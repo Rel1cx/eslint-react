@@ -14,7 +14,7 @@ Enforces the usage of `<></>` over `<React.Fragment></React.Fragment>`.
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 <React.Fragment>
@@ -29,7 +29,7 @@ Enforces the usage of `<></>` over `<React.Fragment></React.Fragment>`.
 </React.Fragment>;
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 <>

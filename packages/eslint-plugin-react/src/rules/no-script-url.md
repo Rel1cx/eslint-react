@@ -14,7 +14,7 @@ Using `javascript:` URLs is harmful to code maintainability, readability, and ap
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 <a href="javascript:"></a>
@@ -22,7 +22,7 @@ Using `javascript:` URLs is harmful to code maintainability, readability, and ap
 <a href="j\n\n\na\rv\tascript:"></a>
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 <Foo href="javascript:"></Foo>

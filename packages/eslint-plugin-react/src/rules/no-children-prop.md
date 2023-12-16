@@ -16,7 +16,7 @@ When using JSX, the `children` should be nested between the opening and closing 
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 <div children='Children' />
@@ -27,7 +27,7 @@ When using JSX, the `children` should be nested between the opening and closing 
 React.createElement("div", { children: 'Children' })
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 <div>Children</div>

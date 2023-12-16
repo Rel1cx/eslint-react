@@ -18,7 +18,7 @@ It is recommended to define components as functions instead of classes. [See how
 
 This rule aims to prevent usage of class components in React.
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 class Greeting extends Component {
@@ -28,7 +28,7 @@ class Greeting extends Component {
 }
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 function Greeting(props) {

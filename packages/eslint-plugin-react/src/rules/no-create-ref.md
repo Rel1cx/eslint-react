@@ -14,7 +14,7 @@ Prevents usage of `createRef()` in function components.
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 function Component() {
@@ -24,7 +24,7 @@ function Component() {
 }
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 function Component() {

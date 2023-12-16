@@ -14,7 +14,7 @@ Following naming conventions can make codebase more consistent and easier to und
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 import React, { useState } from "react";
@@ -26,7 +26,7 @@ const Counter = () => {
 };
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 import React from "react";

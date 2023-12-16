@@ -14,13 +14,13 @@ When using `dangerouslySetInnerHTML`, the content of the DOM element is set from
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 <div dangerouslySetInnerHTML={{ __html: "Hello World" }}>Hello World</div>;
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 <div dangerouslySetInnerHTML={{ __html: "Hello World" }} />;

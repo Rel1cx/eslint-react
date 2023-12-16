@@ -16,7 +16,7 @@ Custom Hooks may call other Hooks (that’s their whole purpose). If a custom Ho
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 const useClassnames = (obj) => {
@@ -32,7 +32,7 @@ const useClassnames = (obj) => {
 };
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 const useData = (key) => {

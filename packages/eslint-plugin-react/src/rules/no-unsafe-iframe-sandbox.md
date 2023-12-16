@@ -16,7 +16,7 @@ If `sandbox` attribute is not set, the iframe content can have abilities that ar
 
 This rule reports cases where attribute contains `allow-scripts` and `allow-same-origin` at the same time as this combination allows the embedded document to remove the sandbox attribute and bypass the restrictions.
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 import React from "react";
@@ -37,7 +37,7 @@ const Component = () => {
 };
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 import React from "react";

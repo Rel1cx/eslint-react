@@ -14,13 +14,13 @@ The `button` element's `type` attribute must be specified explicitly. The defaul
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 <button>Click me</button>;
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 <button type="button">Click me</button>;

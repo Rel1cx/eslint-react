@@ -16,7 +16,7 @@ The sandbox attribute enables an extra set of restrictions for the content in th
 
 This rule checks all React iframe elements and verifies that there is sandbox attribute and that it's value is valid.
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 import React from "react";
@@ -34,7 +34,7 @@ const Component = () => {
 };
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 import React from "react";

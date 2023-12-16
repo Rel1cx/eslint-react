@@ -14,14 +14,14 @@ disallows usage of the return value of `ReactDOM.render`
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 const inst = ReactDOM.render(<App />, document.body);
 doSomethingWithInst(inst);
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 ReactDOM.render(<App ref={doSomethingWithInst} />, document.body);

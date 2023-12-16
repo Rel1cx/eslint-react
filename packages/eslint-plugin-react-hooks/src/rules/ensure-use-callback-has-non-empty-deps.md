@@ -14,7 +14,7 @@ React Hooks `useCallback` has empty dependencies array like what's in the exampl
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 const Comp = () => {
@@ -26,7 +26,7 @@ const Comp = () => {
 };
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 const onClick = () => {

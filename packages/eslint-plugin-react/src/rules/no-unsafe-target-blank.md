@@ -10,13 +10,13 @@ Prevents the use of `target="_blank"` without `rel="noreferrer noopener"`.
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 <a href="https://example.com" target="_blank">Example</a>;
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 <a href="https://example.com" target="_blank" rel="noreferrer noopener">Example</a>;

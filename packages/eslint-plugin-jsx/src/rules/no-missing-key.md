@@ -10,7 +10,7 @@ Prevents missing `key` prop on items in list rendering.
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 const TodoList = ({ todos }) => (
@@ -20,7 +20,7 @@ const TodoList = ({ todos }) => (
 );
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 const TodoList = ({ todos }) => (

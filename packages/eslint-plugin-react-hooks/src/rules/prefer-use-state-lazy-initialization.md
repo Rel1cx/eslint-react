@@ -16,13 +16,13 @@ To combat this issue React allows useState calls to use an [initializer function
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 const [value, setValue] = useState(generateTodos());
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 const [value, setValue] = useState(() => generateTodos());

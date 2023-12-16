@@ -16,7 +16,7 @@ The only place that's acceptable to assign `this.state` is in a class component'
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 import React from "react";
@@ -36,7 +36,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 import React from "react";

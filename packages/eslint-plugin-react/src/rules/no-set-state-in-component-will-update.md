@@ -14,7 +14,7 @@ Updating the state after a component mount will trigger a second render() call a
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 import React from "react";
@@ -30,7 +30,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 import React from "react";

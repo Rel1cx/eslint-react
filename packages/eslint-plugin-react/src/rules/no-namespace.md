@@ -14,14 +14,14 @@ Namespaces, such as with `svg:circle` are not supported in React.
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```jsx
 <ns:TestComponent />;
 <Ns:TestComponent />;
 ```
 
-### ✅ Correct
+### Pass
 
 ```jsx
 <TestComponent />;

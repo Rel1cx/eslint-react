@@ -14,7 +14,7 @@ React will re-render all consumers of a context whenever the context value chang
 
 ## Examples
 
-### ❌ Incorrect
+### Fail
 
 ```tsx
 const ExampleContext = React.createContext({});
@@ -28,7 +28,7 @@ const ExampleProvider = () => {
 };
 ```
 
-### ✅ Correct
+### Pass
 
 ```tsx
 const ExampleContext = React.createContext({});
