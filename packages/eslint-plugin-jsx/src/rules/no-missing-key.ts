@@ -103,6 +103,9 @@ export default createRule<[], MessageID>({
     }
 
     return {
+      [childrenToArraySelector]() {
+        MutRef.set(isWithinChildrenToArrayRef, true);
+      },
       [`${childrenToArraySelector}:exit`]() {
         MutRef.set(isWithinChildrenToArrayRef, false);
       },
@@ -162,9 +165,6 @@ export default createRule<[], MessageID>({
             node,
           });
         }
-      },
-      [childrenToArraySelector]() {
-        MutRef.set(isWithinChildrenToArrayRef, true);
       },
     };
   },

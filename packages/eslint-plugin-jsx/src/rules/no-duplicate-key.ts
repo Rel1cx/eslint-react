@@ -104,6 +104,9 @@ export default createRule<[], MessageID>({
     const seen = new WeakSet<TSESTree.JSXElement>();
 
     return {
+      [childrenToArraySelector]() {
+        MutRef.set(isWithinChildrenToArrayRef, true);
+      },
       [`${childrenToArraySelector}:exit`]() {
         MutRef.set(isWithinChildrenToArrayRef, false);
       },
@@ -189,9 +192,6 @@ export default createRule<[], MessageID>({
           return;
         }
         O.map(checkExpression(fn.body), context.report);
-      },
-      [childrenToArraySelector]() {
-        MutRef.set(isWithinChildrenToArrayRef, true);
       },
     };
   },
