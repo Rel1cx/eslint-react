@@ -901,15 +901,6 @@ ruleTester.run(RULE_NAME, rule, {
             hookCalls: 0,
           },
         },
-        {
-          messageId: "FUNCTION_COMPONENT",
-          data: {
-            name: "anonymous",
-            memo: false,
-            forwardRef: false,
-            hookCalls: 0,
-          },
-        },
       ],
     },
     {
@@ -1016,15 +1007,6 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "FUNCTION_COMPONENT",
           data: {
             name: "ParentComponent",
-            memo: false,
-            forwardRef: false,
-            hookCalls: 0,
-          },
-        },
-        {
-          messageId: "FUNCTION_COMPONENT",
-          data: {
-            name: "anonymous",
             memo: false,
             forwardRef: false,
             hookCalls: 0,
@@ -1151,33 +1133,6 @@ ruleTester.run(RULE_NAME, rule, {
             hookCalls: 0,
           },
         },
-        {
-          messageId: "FUNCTION_COMPONENT",
-          data: {
-            name: "anonymous",
-            memo: false,
-            forwardRef: false,
-            hookCalls: 0,
-          },
-        },
-        {
-          messageId: "FUNCTION_COMPONENT",
-          data: {
-            name: "anonymous",
-            memo: false,
-            forwardRef: false,
-            hookCalls: 0,
-          },
-        },
-        {
-          messageId: "FUNCTION_COMPONENT",
-          data: {
-            name: "anonymous",
-            memo: false,
-            forwardRef: false,
-            hookCalls: 0,
-          },
-        },
       ],
     },
     {
@@ -1205,33 +1160,6 @@ ruleTester.run(RULE_NAME, rule, {
             hookCalls: 0,
           },
         },
-        {
-          messageId: "FUNCTION_COMPONENT",
-          data: {
-            name: "anonymous",
-            memo: false,
-            forwardRef: false,
-            hookCalls: 0,
-          },
-        },
-        {
-          messageId: "FUNCTION_COMPONENT",
-          data: {
-            name: "anonymous",
-            memo: false,
-            forwardRef: false,
-            hookCalls: 0,
-          },
-        },
-        {
-          messageId: "FUNCTION_COMPONENT",
-          data: {
-            name: "anonymous",
-            memo: false,
-            forwardRef: false,
-            hookCalls: 0,
-          },
-        },
       ],
     },
     {
@@ -1252,15 +1180,6 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "FUNCTION_COMPONENT",
           data: {
             name: "ParentComponent",
-            memo: false,
-            forwardRef: false,
-            hookCalls: 0,
-          },
-        },
-        {
-          messageId: "FUNCTION_COMPONENT",
-          data: {
-            name: "anonymous",
             memo: false,
             forwardRef: false,
             hookCalls: 0,

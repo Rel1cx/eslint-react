@@ -1,10 +1,8 @@
+import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import { Data, M, O, P } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import { isNil } from "rambda";
-
-import { is, isOneOf, NodeType } from "../node-type";
 
 export type Construction = Data.TaggedEnum<{
   None: {};
@@ -125,7 +123,7 @@ export function constructionDetector<T extends RuleContext>(context: T): (node: 
         return detect(node.right);
       })
       .when(is(NodeType.ConditionalExpression), (node) => {
-        if (!("consequent" in node && "alternate" in node && !isNil(node.alternate))) {
+        if (!("consequent" in node && "alternate" in node && !P.isNullable(node.alternate))) {
           return None;
         }
 

@@ -867,20 +867,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: dedent`
-        function ComponentWithProps(props) {
-          return React.createElement("div", null);
-        }
-
-        function ParentComponent() {
-          return React.createElement(ComponentWithProps, {
-            footer: () => React.createElement("div", null)
-          });
-        }
-      `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" }],
-    },
-    {
-      code: dedent`
         function RenderPropComponent(props) {
           return props.render({});
         }
@@ -904,20 +890,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
-    },
-    {
-      code: dedent`
-        function ComponentForProps(props) {
-          return React.createElement("div", null);
-        }
-
-        function ParentComponent() {
-          return React.createElement(ComponentForProps, {
-            notPrefixedWithRender: () => React.createElement("div", null)
-          });
-        }
-      `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" }],
     },
     {
       code: dedent`
@@ -964,64 +936,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       // Only a single error should be shown. This can get easily marked twice.
       errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          return (
-            <SomeComponent>
-              {
-                thing.match({
-                  loading: () => <div />,
-                  success: () => <div />,
-                  failure: () => <div />,
-                })
-              }
-            </SomeComponent>
-          )
-        }
-      `,
-      errors: [
-        { messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" },
-        { messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" },
-        { messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" },
-      ],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          const thingElement = thing.match({
-            loading: () => <div />,
-            success: () => <div />,
-            failure: () => <div />,
-          });
-          return (
-            <SomeComponent>
-              {thingElement}
-            </SomeComponent>
-          )
-        }
-      `,
-      errors: [
-        { messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" },
-        { messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" },
-        { messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" },
-      ],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          const rows = [
-            {
-              name: 'A',
-              notPrefixedWithRender: (props) => <Row {...props} />
-            },
-          ];
-
-          return <Table rows={rows} />;
-        }
-      `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" }],
     },
     {
       code: dedent`

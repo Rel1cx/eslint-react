@@ -1,7 +1,7 @@
 import { M } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { NodeType } from "./node-type";
+import { NodeType } from "../node";
 
 /**
  * Checks if the given node is a function expression or arrow function expression of a object method.

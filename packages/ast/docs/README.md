@@ -6,7 +6,6 @@
 
 ### Type Aliases
 
-- [Construction](README.md#construction)
 - [ReadableNodeType](README.md#readablenodetype)
 - [TSESTreeArrayTupleType](README.md#tsestreearraytupletype)
 - [TSESTreeClass](README.md#tsestreeclass)
@@ -20,18 +19,13 @@
 
 ### Variables
 
-- [Construction](README.md#construction-1)
 - [NodeType](README.md#nodetype)
-- [unstableAssignmentPatternTypes](README.md#unstableassignmentpatterntypes)
 
 ### Functions
 
-- [constructionDetector](README.md#constructiondetector)
-- [findPropertyWithIdentifierKey](README.md#findpropertywithidentifierkey)
 - [findVariableByName](README.md#findvariablebyname)
 - [findVariableByNameUpToGlobal](README.md#findvariablebynameuptoglobal)
 - [getClassIdentifier](README.md#getclassidentifier)
-- [getExternalRefs](README.md#getexternalrefs)
 - [getFunctionHeadLocation](README.md#getfunctionheadlocation)
 - [getFunctionIdentifier](README.md#getfunctionidentifier)
 - [getFunctionNameWithKind](README.md#getfunctionnamewithkind)
@@ -48,15 +42,12 @@
 - [is](README.md#is)
 - [isArrayTupleType](README.md#isarraytupletype)
 - [isClass](README.md#isclass)
-- [isDeclaredInNode](README.md#isdeclaredinnode)
 - [isDestructuringPattern](README.md#isdestructuringpattern)
 - [isFunction](README.md#isfunction)
 - [isFunctionOfClassMethod](README.md#isfunctionofclassmethod)
 - [isFunctionOfClassProperty](README.md#isfunctionofclassproperty)
 - [isFunctionOfObjectMethod](README.md#isfunctionofobjectmethod)
 - [isFunctionType](README.md#isfunctiontype)
-- [isIdentifierWithName](README.md#isidentifierwithname)
-- [isIdentifierWithOneOfNames](README.md#isidentifierwithoneofnames)
 - [isJSX](README.md#isjsx)
 - [isJSXElement](README.md#isjsxelement)
 - [isJSXFragment](README.md#isjsxfragment)
@@ -69,14 +60,11 @@
 - [isOneOf](README.md#isoneof)
 - [isParenthesized](README.md#isparenthesized)
 - [isProperty](README.md#isproperty)
-- [isPropertyOfObjectExpression](README.md#ispropertyofobjectexpression)
-- [isPropertyWithIdentifierKey](README.md#ispropertywithidentifierkey)
 - [isRegExpLiteral](README.md#isregexpliteral)
 - [isStringLiteral](README.md#isstringliteral)
 - [isTypeDeclaration](README.md#istypedeclaration)
 - [isUnstableAssignmentPattern](README.md#isunstableassignmentpattern)
 - [readableNodeType](README.md#readablenodetype-1)
-- [resolveDefinitionInit](README.md#resolvedefinitioninit)
 - [traverseUp](README.md#traverseup)
 - [traverseUpGuard](README.md#traverseupguard)
 - [unsafeIsArrayFromCall](README.md#unsafeisarrayfromcall)
@@ -85,12 +73,6 @@
 - [unsafeIsToStringCall](README.md#unsafeistostringcall)
 
 ## Type Aliases
-
-### Construction
-
-Ƭ **Construction**: `Data.TaggedEnum`\<\{ `Array`: \{ `node`: `TSESTree.ArrayExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `AssignmentExpression`: \{ `node`: `TSESTree.Node` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `ClassExpression`: \{ `node`: `TSESTree.ClassExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `FunctionDeclaration`: \{ `node`: `TSESTree.FunctionDeclaration` ; `usage`: `O.Option`\<`TSESTree.Expression` \| `TSESTree.Identifier`\> } ; `FunctionExpression`: \{ `node`: `TSESTree.ArrowFunctionExpression` \| `TSESTree.FunctionExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `JSXElement`: \{ `node`: `TSESTree.JSXElement` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `JSXFragment`: \{ `node`: `TSESTree.JSXFragment` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `NewExpression`: \{ `node`: `TSESTree.NewExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `None`: {} ; `ObjectExpression`: \{ `node`: `TSESTree.ObjectExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `RegExpLiteral`: \{ `node`: `TSESTree.Literal` ; `usage`: `O.Option`\<`TSESTree.Node`\> } }\>
-
----
 
 ### ReadableNodeType
 
@@ -152,94 +134,11 @@
 
 ## Variables
 
-### Construction
-
-• **Construction**: `Object`
-
-#### Type declaration
-
-| Name                   | Type                                                                                                                                                               |
-| :--------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Array`                | `Constructor`\<`Data`\<\{ `_tag`: `"Array"` ; `node`: `ArrayExpression` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                              |
-| `AssignmentExpression` | `Constructor`\<`Data`\<\{ `_tag`: `"AssignmentExpression"` ; `node`: `Node` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                          |
-| `ClassExpression`      | `Constructor`\<`Data`\<\{ `_tag`: `"ClassExpression"` ; `node`: `ClassExpression` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                    |
-| `FunctionDeclaration`  | `Constructor`\<`Data`\<\{ `_tag`: `"FunctionDeclaration"` ; `node`: `FunctionDeclaration` ; `usage`: `Option`\<`Expression`\> }\>, `"_tag"`\>                      |
-| `FunctionExpression`   | `Constructor`\<`Data`\<\{ `_tag`: `"FunctionExpression"` ; `node`: `ArrowFunctionExpression` \| `FunctionExpression` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\> |
-| `JSXElement`           | `Constructor`\<`Data`\<\{ `_tag`: `"JSXElement"` ; `node`: `JSXElement` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                              |
-| `JSXFragment`          | `Constructor`\<`Data`\<\{ `_tag`: `"JSXFragment"` ; `node`: `JSXFragment` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                            |
-| `NewExpression`        | `Constructor`\<`Data`\<\{ `_tag`: `"NewExpression"` ; `node`: `NewExpression` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                        |
-| `None`                 | `Constructor`\<`Data`\<\{ `_tag`: `"None"` }\>, `"_tag"`\>                                                                                                         |
-| `ObjectExpression`     | `Constructor`\<`Data`\<\{ `_tag`: `"ObjectExpression"` ; `node`: `ObjectExpression` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                  |
-| `RegExpLiteral`        | `Constructor`\<`Data`\<\{ `_tag`: `"RegExpLiteral"` ; `node`: `Literal` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                              |
-
----
-
 ### NodeType
 
 • `Const` **NodeType**: typeof `AST_NODE_TYPES` = `AST_NODE_TYPES`
 
----
-
-### unstableAssignmentPatternTypes
-
-• `Const` **unstableAssignmentPatternTypes**: readonly [`JSXElement`, `ArrayExpression`, `ObjectExpression`, `FunctionExpression`, `ArrowFunctionExpression`, `ClassExpression`, `NewExpression`, `CallExpression`]
-
 ## Functions
-
-### constructionDetector
-
-▸ **constructionDetector**\<`T`\>(`context`): (`node`: `TSESTree.Node`) => [`Construction`](README.md#construction-1)
-
-Get a function that detects the construction of a given node.
-
-#### Type parameters
-
-| Name | Type                                                                  |
-| :--- | :-------------------------------------------------------------------- |
-| `T`  | extends `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Parameters
-
-| Name      | Type | Description      |
-| :-------- | :--- | :--------------- |
-| `context` | `T`  | The rule context |
-
-#### Returns
-
-`fn`
-
-A function that detects the construction of a given node
-
-▸ (`node`): [`Construction`](README.md#construction-1)
-
-##### Parameters
-
-| Name   | Type            |
-| :----- | :-------------- |
-| `node` | `TSESTree.Node` |
-
-##### Returns
-
-[`Construction`](README.md#construction-1)
-
----
-
-### findPropertyWithIdentifierKey
-
-▸ **findPropertyWithIdentifierKey**(`properties`, `key`): `Option`\<`NonNullable`\<`undefined` \| `ObjectLiteralElement`\>\>
-
-#### Parameters
-
-| Name         | Type                     |
-| :----------- | :----------------------- |
-| `properties` | `ObjectLiteralElement`[] |
-| `key`        | `string`                 |
-
-#### Returns
-
-`Option`\<`NonNullable`\<`undefined` \| `ObjectLiteralElement`\>\>
-
----
 
 ### findVariableByName
 
@@ -310,25 +209,6 @@ class identifier or null
 
 ---
 
-### getExternalRefs
-
-▸ **getExternalRefs**(`params`): `TSESLint.Scope.Reference`[]
-
-#### Parameters
-
-| Name                  | Type                       |
-| :-------------------- | :------------------------- |
-| `params`              | `Object`                   |
-| `params.node`         | `Node`                     |
-| `params.scopeManager` | `ScopeManager`             |
-| `params.sourceCode`   | `Readonly`\<`SourceCode`\> |
-
-#### Returns
-
-`TSESLint.Scope.Reference`[]
-
----
-
 ### getFunctionHeadLocation
 
 ▸ **getFunctionHeadLocation**(`node`, `sourceCode`): `SourceLocation`
@@ -356,19 +236,15 @@ Get the proper location of a given function node to report.
 
 ▸ **getFunctionIdentifier**(`node`): `O.Option`\<`TSESTree.Identifier`\>
 
-Gets FunctionDeclaration's identifier or FunctionExpression's parent identifier if it exists
-
 #### Parameters
 
-| Name   | Type                                             | Description           |
-| :----- | :----------------------------------------------- | :-------------------- |
-| `node` | [`TSESTreeFunction`](README.md#tsestreefunction) | The AST node to check |
+| Name   | Type                                             |
+| :----- | :----------------------------------------------- |
+| `node` | [`TSESTreeFunction`](README.md#tsestreefunction) |
 
 #### Returns
 
 `O.Option`\<`TSESTree.Identifier`\>
-
-function identifier or null
 
 ---
 
@@ -462,7 +338,7 @@ If the node is a computed property, this tries to compute the property name by t
 
 | Name            | Type                                                                           |
 | :-------------- | :----------------------------------------------------------------------------- |
-| `node`          | `PropertyDefinition` \| `MemberExpression` \| `MethodDefinition` \| `Property` |
+| `node`          | `MemberExpression` \| `MethodDefinition` \| `Property` \| `PropertyDefinition` |
 | `initialScope?` | `Scope`                                                                        |
 
 #### Returns
@@ -720,25 +596,6 @@ node is ClassDeclarationWithName \| ClassDeclarationWithOptionalName \| ClassExp
 
 ---
 
-### isDeclaredInNode
-
-▸ **isDeclaredInNode**(`«destructured»`): `boolean`
-
-#### Parameters
-
-| Name             | Type           |
-| :--------------- | :------------- |
-| `«destructured»` | `Object`       |
-| › `functionNode` | `Node`         |
-| › `reference`    | `Reference`    |
-| › `scopeManager` | `ScopeManager` |
-
-#### Returns
-
-`boolean`
-
----
-
 ### isDestructuringPattern
 
 ▸ **isDestructuringPattern**(`node`): node is ArrayPattern \| AssignmentPattern \| ObjectPattern \| RestElement
@@ -847,63 +704,9 @@ node is ArrowFunctionExpression \| FunctionDeclarationWithName \| FunctionDeclar
 
 ---
 
-### isIdentifierWithName
-
-▸ **isIdentifierWithName**\<`T`\>(`node`, `name`): node is Identifier & Object
-
-Checks if a node is an identifier with a given name
-
-#### Type parameters
-
-| Name | Type             |
-| :--- | :--------------- |
-| `T`  | extends `string` |
-
-#### Parameters
-
-| Name   | Type   | Description  |
-| :----- | :----- | :----------- |
-| `node` | `Node` | The AST node |
-| `name` | `T`    | The name     |
-
-#### Returns
-
-node is Identifier & Object
-
-`true if the node is an identifier with the given name
-
----
-
-### isIdentifierWithOneOfNames
-
-▸ **isIdentifierWithOneOfNames**\<`T`\>(`node`, `name`): node is Identifier & Object
-
-Checks if a node is an identifier with one of names
-
-#### Type parameters
-
-| Name | Type               |
-| :--- | :----------------- |
-| `T`  | extends `string`[] |
-
-#### Parameters
-
-| Name   | Type   | Description  |
-| :----- | :----- | :----------- |
-| `node` | `Node` | The AST node |
-| `name` | `T`    | The name     |
-
-#### Returns
-
-node is Identifier & Object
-
-`true` if the node is an identifier with one of names
-
----
-
 ### isJSX
 
-▸ **isJSX**(`node`): node is JSXAttribute \| JSXElement \| JSXExpressionContainer \| JSXSpreadChild \| JSXFragment \| JSXText \| JSXClosingElement \| JSXClosingFragment \| JSXEmptyExpression \| JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName \| JSXOpeningElement \| JSXOpeningFragment \| JSXSpreadAttribute
+▸ **isJSX**(`node`): node is JSXAttribute \| JSXClosingElement \| JSXClosingFragment \| JSXElement \| JSXEmptyExpression \| JSXExpressionContainer \| JSXFragment \| JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName \| JSXOpeningElement \| JSXOpeningFragment \| JSXSpreadAttribute \| JSXSpreadChild \| JSXText
 
 #### Parameters
 
@@ -913,7 +716,7 @@ node is Identifier & Object
 
 #### Returns
 
-node is JSXAttribute \| JSXElement \| JSXExpressionContainer \| JSXSpreadChild \| JSXFragment \| JSXText \| JSXClosingElement \| JSXClosingFragment \| JSXEmptyExpression \| JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName \| JSXOpeningElement \| JSXOpeningFragment \| JSXSpreadAttribute
+node is JSXAttribute \| JSXClosingElement \| JSXClosingFragment \| JSXElement \| JSXEmptyExpression \| JSXExpressionContainer \| JSXFragment \| JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName \| JSXOpeningElement \| JSXOpeningFragment \| JSXSpreadAttribute \| JSXSpreadChild \| JSXText
 
 ---
 
@@ -967,7 +770,7 @@ node is JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName
 
 ### isLeftHandSideExpression
 
-▸ **isLeftHandSideExpression**(`node`): node is ArrowFunctionExpression \| FunctionExpression \| ClassExpression \| JSXElement \| JSXFragment \| ArrayPattern \| ObjectPattern \| ArrayExpression \| CallExpression \| Identifier \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| MetaProperty \| ObjectExpression \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression
+▸ **isLeftHandSideExpression**(`node`): node is ArrowFunctionExpression \| FunctionExpression \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| ArrayExpression \| ArrayPattern \| CallExpression \| ClassExpression \| Identifier \| JSXElement \| JSXFragment \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MetaProperty \| ObjectExpression \| ObjectPattern \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression
 
 #### Parameters
 
@@ -977,13 +780,13 @@ node is JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName
 
 #### Returns
 
-node is ArrowFunctionExpression \| FunctionExpression \| ClassExpression \| JSXElement \| JSXFragment \| ArrayPattern \| ObjectPattern \| ArrayExpression \| CallExpression \| Identifier \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| MetaProperty \| ObjectExpression \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression
+node is ArrowFunctionExpression \| FunctionExpression \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| ArrayExpression \| ArrayPattern \| CallExpression \| ClassExpression \| Identifier \| JSXElement \| JSXFragment \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MetaProperty \| ObjectExpression \| ObjectPattern \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression
 
 ---
 
 ### isLeftHandSideExpressionType
 
-▸ **isLeftHandSideExpressionType**(`node`): node is ArrowFunctionExpression \| FunctionExpression \| ClassExpression \| JSXElement \| JSXFragment \| ArrayPattern \| ObjectPattern \| ArrayExpression \| CallExpression \| Identifier \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| MetaProperty \| ObjectExpression \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression \| TSAsExpression \| TSNonNullExpression \| TSTypeAssertion
+▸ **isLeftHandSideExpressionType**(`node`): node is ArrowFunctionExpression \| FunctionExpression \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| ArrayExpression \| ArrayPattern \| CallExpression \| ClassExpression \| Identifier \| JSXElement \| JSXFragment \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MetaProperty \| ObjectExpression \| ObjectPattern \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression \| TSAsExpression \| TSNonNullExpression \| TSTypeAssertion
 
 #### Parameters
 
@@ -993,7 +796,7 @@ node is ArrowFunctionExpression \| FunctionExpression \| ClassExpression \| JSXE
 
 #### Returns
 
-node is ArrowFunctionExpression \| FunctionExpression \| ClassExpression \| JSXElement \| JSXFragment \| ArrayPattern \| ObjectPattern \| ArrayExpression \| CallExpression \| Identifier \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| MetaProperty \| ObjectExpression \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression \| TSAsExpression \| TSNonNullExpression \| TSTypeAssertion
+node is ArrowFunctionExpression \| FunctionExpression \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| ArrayExpression \| ArrayPattern \| CallExpression \| ClassExpression \| Identifier \| JSXElement \| JSXFragment \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MetaProperty \| ObjectExpression \| ObjectPattern \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression \| TSAsExpression \| TSNonNullExpression \| TSTypeAssertion
 
 ---
 
@@ -1150,45 +953,6 @@ node is PropertyDefinitionComputedName \| PropertyDefinitionNonComputedName \| T
 
 ---
 
-### isPropertyOfObjectExpression
-
-▸ **isPropertyOfObjectExpression**(`node`): node is Node & Object
-
-#### Parameters
-
-| Name   | Type   |
-| :----- | :----- |
-| `node` | `Node` |
-
-#### Returns
-
-node is Node & Object
-
----
-
-### isPropertyWithIdentifierKey
-
-▸ **isPropertyWithIdentifierKey**\<`T`\>(`node`, `key`): node is Object
-
-#### Type parameters
-
-| Name | Type             |
-| :--- | :--------------- |
-| `T`  | extends `string` |
-
-#### Parameters
-
-| Name   | Type   |
-| :----- | :----- |
-| `node` | `Node` |
-| `key`  | `T`    |
-
-#### Returns
-
-node is Object
-
----
-
 ### isRegExpLiteral
 
 ▸ **isRegExpLiteral**(`node`): node is RegExpLiteral
@@ -1257,7 +1021,7 @@ node is AssignmentPattern & Object
 
 ### readableNodeType
 
-▸ **readableNodeType**(`node`): `"RegExp literal"` \| `"Object literal"` \| `"Number literal"` \| `"Boolean literal"` \| `"String literal"` \| `"Null literal"` \| `"Array literal"` \| `"NaN literal"` \| `"Function literal"` \| `"Undefined literal"` \| `"Async literal"` \| `"Promise literal"` \| `"Symbol literal"` \| `"Set literal"` \| `"Error literal"` \| `"Map literal"` \| `"WeakMap literal"` \| `"Generator literal"` \| `"GeneratorFunction literal"` \| `"BigInt literal"` \| `"ArrayBuffer literal"` \| `"Date literal"` \| `"identifier"` \| `"member expression"` \| `"JSX attribute"` \| `"JSX element"` \| `"JSX fragment"` \| `"JSX identifier"` \| `"JSX text"` \| `"JSX closing element"` \| `"JSX closing fragment"` \| `"JSX empty expression"` \| `"JSX expression container"` \| `"JSX member expression"` \| `"JSX namespaced name"` \| `"JSX opening element"` \| `"JSX opening fragment"` \| `"JSX spread attribute"` \| `"JSX spread child"` \| `"decorator"` \| `"program"` \| `"property"` \| `"super"` \| `"accessor property"` \| `"array expression"` \| `"array pattern"` \| `"function expression"` \| `"arrow function expression"` \| `"assignment expression"` \| `"assignment pattern"` \| `"await expression"` \| `"binary expression"` \| `"block statement"` \| `"break statement"` \| `"call expression"` \| `"catch clause"` \| `"chain expression"` \| `"class body"` \| `"class declaration"` \| `"class expression"` \| `"conditional expression"` \| `"continue statement"` \| `"debugger statement"` \| `"while statement"` \| `"do while statement"` \| `"empty statement"` \| `"export all declaration"` \| `"export default declaration"` \| `"export named declaration"` \| `"export specifier"` \| `"expression statement"` \| `"for in statement"` \| `"for of statement"` \| `"for statement"` \| `"function declaration"` \| `"if statement"` \| `"import attribute"` \| `"import declaration"` \| `"import default specifier"` \| `"import expression"` \| `"import namespace specifier"` \| `"import specifier"` \| `"labeled statement"` \| `"logical expression"` \| `"meta property"` \| `"method definition"` \| `"new expression"` \| `"object expression"` \| `"object pattern"` \| `"private identifier"` \| `"property definition"` \| `"rest element"` \| `"return statement"` \| `"sequence expression"` \| `"spread element"` \| `"static block"` \| `"switch case"` \| `"switch statement"` \| `"tagged template expression"` \| `"template element"` \| `"template literal"` \| `"this expression"` \| `"throw statement"` \| `"try statement"` \| `"unary expression"` \| `"update expression"` \| `"variable declaration"` \| `"variable declarator"` \| `"with statement"` \| `"yield expression"` \| `"ts abstract accessor property"` \| `"ts abstract keyword"` \| `"ts abstract method definition"` \| `"ts abstract property definition"` \| `"ts any keyword"` \| `"ts array type"` \| `"ts as expression"` \| `"ts async keyword"` \| `"ts big int keyword"` \| `"ts boolean keyword"` \| `"ts call signature declaration"` \| `"ts class implements"` \| `"ts conditional type"` \| `"ts constructor type"` \| `"ts construct signature declaration"` \| `"ts declare function"` \| `"ts declare keyword"` \| `"ts empty body function expression"` \| `"ts enum declaration"` \| `"ts enum member"` \| `"ts export assignment"` \| `"ts export keyword"` \| `"ts external module reference"` \| `"ts function type"` \| `"ts instantiation expression"` \| `"ts import equals declaration"` \| `"ts import type"` \| `"ts indexed access type"` \| `"ts index signature"` \| `"ts infer type"` \| `"ts interface body"` \| `"ts interface declaration"` \| `"ts interface heritage"` \| `"ts intersection type"` \| `"ts intrinsic keyword"` \| `"ts literal type"` \| `"ts mapped type"` \| `"ts method signature"` \| `"ts module block"` \| `"ts module declaration"` \| `"ts named tuple member"` \| `"ts namespace export declaration"` \| `"ts never keyword"` \| `"ts non null expression"` \| `"ts null keyword"` \| `"ts number keyword"` \| `"ts object keyword"` \| `"ts optional type"` \| `"ts parameter property"` \| `"ts private keyword"` \| `"ts property signature"` \| `"ts protected keyword"` \| `"ts public keyword"` \| `"ts qualified name"` \| `"ts readonly keyword"` \| `"ts rest type"` \| `"ts satisfies expression"` \| `"ts static keyword"` \| `"ts string keyword"` \| `"ts symbol keyword"` \| `"ts template literal type"` \| `"ts this type"` \| `"ts tuple type"` \| `"ts type alias declaration"` \| `"ts type annotation"` \| `"ts type assertion"` \| `"ts type literal"` \| `"ts type operator"` \| `"ts type parameter"` \| `"ts type parameter declaration"` \| `"ts type parameter instantiation"` \| `"ts type predicate"` \| `"ts type query"` \| `"ts type reference"` \| `"ts undefined keyword"` \| `"ts union type"` \| `"ts unknown keyword"` \| `"ts void keyword"`
+▸ **readableNodeType**(`node`): `"property"` \| `"RegExp literal"` \| `"String literal"` \| `"Object literal"` \| `"Number literal"` \| `"Boolean literal"` \| `"Null literal"` \| `"Array literal"` \| `"NaN literal"` \| `"Function literal"` \| `"Undefined literal"` \| `"Async literal"` \| `"Promise literal"` \| `"Symbol literal"` \| `"Set literal"` \| `"Error literal"` \| `"Map literal"` \| `"WeakMap literal"` \| `"Generator literal"` \| `"GeneratorFunction literal"` \| `"BigInt literal"` \| `"ArrayBuffer literal"` \| `"Date literal"` \| `"identifier"` \| `"member expression"` \| `"JSX attribute"` \| `"JSX element"` \| `"JSX fragment"` \| `"JSX identifier"` \| `"JSX text"` \| `"JSX closing element"` \| `"JSX closing fragment"` \| `"JSX empty expression"` \| `"JSX expression container"` \| `"JSX member expression"` \| `"JSX namespaced name"` \| `"JSX opening element"` \| `"JSX opening fragment"` \| `"JSX spread attribute"` \| `"JSX spread child"` \| `"decorator"` \| `"program"` \| `"super"` \| `"accessor property"` \| `"array expression"` \| `"array pattern"` \| `"function expression"` \| `"arrow function expression"` \| `"assignment expression"` \| `"assignment pattern"` \| `"await expression"` \| `"binary expression"` \| `"block statement"` \| `"break statement"` \| `"call expression"` \| `"catch clause"` \| `"chain expression"` \| `"class body"` \| `"class declaration"` \| `"class expression"` \| `"conditional expression"` \| `"continue statement"` \| `"debugger statement"` \| `"while statement"` \| `"do while statement"` \| `"empty statement"` \| `"export all declaration"` \| `"export default declaration"` \| `"export named declaration"` \| `"export specifier"` \| `"expression statement"` \| `"for in statement"` \| `"for of statement"` \| `"for statement"` \| `"function declaration"` \| `"if statement"` \| `"import attribute"` \| `"import declaration"` \| `"import default specifier"` \| `"import expression"` \| `"import namespace specifier"` \| `"import specifier"` \| `"labeled statement"` \| `"logical expression"` \| `"meta property"` \| `"method definition"` \| `"new expression"` \| `"object expression"` \| `"object pattern"` \| `"private identifier"` \| `"property definition"` \| `"rest element"` \| `"return statement"` \| `"sequence expression"` \| `"spread element"` \| `"static block"` \| `"switch case"` \| `"switch statement"` \| `"tagged template expression"` \| `"template element"` \| `"template literal"` \| `"this expression"` \| `"throw statement"` \| `"try statement"` \| `"unary expression"` \| `"update expression"` \| `"variable declaration"` \| `"variable declarator"` \| `"with statement"` \| `"yield expression"` \| `"ts abstract accessor property"` \| `"ts abstract keyword"` \| `"ts abstract method definition"` \| `"ts abstract property definition"` \| `"ts any keyword"` \| `"ts array type"` \| `"ts as expression"` \| `"ts async keyword"` \| `"ts big int keyword"` \| `"ts boolean keyword"` \| `"ts call signature declaration"` \| `"ts class implements"` \| `"ts conditional type"` \| `"ts constructor type"` \| `"ts construct signature declaration"` \| `"ts declare function"` \| `"ts declare keyword"` \| `"ts empty body function expression"` \| `"ts enum declaration"` \| `"ts enum member"` \| `"ts export assignment"` \| `"ts export keyword"` \| `"ts external module reference"` \| `"ts function type"` \| `"ts instantiation expression"` \| `"ts import equals declaration"` \| `"ts import type"` \| `"ts indexed access type"` \| `"ts index signature"` \| `"ts infer type"` \| `"ts interface body"` \| `"ts interface declaration"` \| `"ts interface heritage"` \| `"ts intersection type"` \| `"ts intrinsic keyword"` \| `"ts literal type"` \| `"ts mapped type"` \| `"ts method signature"` \| `"ts module block"` \| `"ts module declaration"` \| `"ts named tuple member"` \| `"ts namespace export declaration"` \| `"ts never keyword"` \| `"ts non null expression"` \| `"ts null keyword"` \| `"ts number keyword"` \| `"ts object keyword"` \| `"ts optional type"` \| `"ts parameter property"` \| `"ts private keyword"` \| `"ts property signature"` \| `"ts protected keyword"` \| `"ts public keyword"` \| `"ts qualified name"` \| `"ts readonly keyword"` \| `"ts rest type"` \| `"ts satisfies expression"` \| `"ts static keyword"` \| `"ts string keyword"` \| `"ts symbol keyword"` \| `"ts template literal type"` \| `"ts this type"` \| `"ts tuple type"` \| `"ts type alias declaration"` \| `"ts type annotation"` \| `"ts type assertion"` \| `"ts type literal"` \| `"ts type operator"` \| `"ts type parameter"` \| `"ts type parameter declaration"` \| `"ts type parameter instantiation"` \| `"ts type predicate"` \| `"ts type query"` \| `"ts type reference"` \| `"ts undefined keyword"` \| `"ts union type"` \| `"ts unknown keyword"` \| `"ts void keyword"`
 
 Returns human readable node type for given AST node
 
@@ -1269,25 +1033,9 @@ Returns human readable node type for given AST node
 
 #### Returns
 
-`"RegExp literal"` \| `"Object literal"` \| `"Number literal"` \| `"Boolean literal"` \| `"String literal"` \| `"Null literal"` \| `"Array literal"` \| `"NaN literal"` \| `"Function literal"` \| `"Undefined literal"` \| `"Async literal"` \| `"Promise literal"` \| `"Symbol literal"` \| `"Set literal"` \| `"Error literal"` \| `"Map literal"` \| `"WeakMap literal"` \| `"Generator literal"` \| `"GeneratorFunction literal"` \| `"BigInt literal"` \| `"ArrayBuffer literal"` \| `"Date literal"` \| `"identifier"` \| `"member expression"` \| `"JSX attribute"` \| `"JSX element"` \| `"JSX fragment"` \| `"JSX identifier"` \| `"JSX text"` \| `"JSX closing element"` \| `"JSX closing fragment"` \| `"JSX empty expression"` \| `"JSX expression container"` \| `"JSX member expression"` \| `"JSX namespaced name"` \| `"JSX opening element"` \| `"JSX opening fragment"` \| `"JSX spread attribute"` \| `"JSX spread child"` \| `"decorator"` \| `"program"` \| `"property"` \| `"super"` \| `"accessor property"` \| `"array expression"` \| `"array pattern"` \| `"function expression"` \| `"arrow function expression"` \| `"assignment expression"` \| `"assignment pattern"` \| `"await expression"` \| `"binary expression"` \| `"block statement"` \| `"break statement"` \| `"call expression"` \| `"catch clause"` \| `"chain expression"` \| `"class body"` \| `"class declaration"` \| `"class expression"` \| `"conditional expression"` \| `"continue statement"` \| `"debugger statement"` \| `"while statement"` \| `"do while statement"` \| `"empty statement"` \| `"export all declaration"` \| `"export default declaration"` \| `"export named declaration"` \| `"export specifier"` \| `"expression statement"` \| `"for in statement"` \| `"for of statement"` \| `"for statement"` \| `"function declaration"` \| `"if statement"` \| `"import attribute"` \| `"import declaration"` \| `"import default specifier"` \| `"import expression"` \| `"import namespace specifier"` \| `"import specifier"` \| `"labeled statement"` \| `"logical expression"` \| `"meta property"` \| `"method definition"` \| `"new expression"` \| `"object expression"` \| `"object pattern"` \| `"private identifier"` \| `"property definition"` \| `"rest element"` \| `"return statement"` \| `"sequence expression"` \| `"spread element"` \| `"static block"` \| `"switch case"` \| `"switch statement"` \| `"tagged template expression"` \| `"template element"` \| `"template literal"` \| `"this expression"` \| `"throw statement"` \| `"try statement"` \| `"unary expression"` \| `"update expression"` \| `"variable declaration"` \| `"variable declarator"` \| `"with statement"` \| `"yield expression"` \| `"ts abstract accessor property"` \| `"ts abstract keyword"` \| `"ts abstract method definition"` \| `"ts abstract property definition"` \| `"ts any keyword"` \| `"ts array type"` \| `"ts as expression"` \| `"ts async keyword"` \| `"ts big int keyword"` \| `"ts boolean keyword"` \| `"ts call signature declaration"` \| `"ts class implements"` \| `"ts conditional type"` \| `"ts constructor type"` \| `"ts construct signature declaration"` \| `"ts declare function"` \| `"ts declare keyword"` \| `"ts empty body function expression"` \| `"ts enum declaration"` \| `"ts enum member"` \| `"ts export assignment"` \| `"ts export keyword"` \| `"ts external module reference"` \| `"ts function type"` \| `"ts instantiation expression"` \| `"ts import equals declaration"` \| `"ts import type"` \| `"ts indexed access type"` \| `"ts index signature"` \| `"ts infer type"` \| `"ts interface body"` \| `"ts interface declaration"` \| `"ts interface heritage"` \| `"ts intersection type"` \| `"ts intrinsic keyword"` \| `"ts literal type"` \| `"ts mapped type"` \| `"ts method signature"` \| `"ts module block"` \| `"ts module declaration"` \| `"ts named tuple member"` \| `"ts namespace export declaration"` \| `"ts never keyword"` \| `"ts non null expression"` \| `"ts null keyword"` \| `"ts number keyword"` \| `"ts object keyword"` \| `"ts optional type"` \| `"ts parameter property"` \| `"ts private keyword"` \| `"ts property signature"` \| `"ts protected keyword"` \| `"ts public keyword"` \| `"ts qualified name"` \| `"ts readonly keyword"` \| `"ts rest type"` \| `"ts satisfies expression"` \| `"ts static keyword"` \| `"ts string keyword"` \| `"ts symbol keyword"` \| `"ts template literal type"` \| `"ts this type"` \| `"ts tuple type"` \| `"ts type alias declaration"` \| `"ts type annotation"` \| `"ts type assertion"` \| `"ts type literal"` \| `"ts type operator"` \| `"ts type parameter"` \| `"ts type parameter declaration"` \| `"ts type parameter instantiation"` \| `"ts type predicate"` \| `"ts type query"` \| `"ts type reference"` \| `"ts undefined keyword"` \| `"ts union type"` \| `"ts unknown keyword"` \| `"ts void keyword"`
+`"property"` \| `"RegExp literal"` \| `"String literal"` \| `"Object literal"` \| `"Number literal"` \| `"Boolean literal"` \| `"Null literal"` \| `"Array literal"` \| `"NaN literal"` \| `"Function literal"` \| `"Undefined literal"` \| `"Async literal"` \| `"Promise literal"` \| `"Symbol literal"` \| `"Set literal"` \| `"Error literal"` \| `"Map literal"` \| `"WeakMap literal"` \| `"Generator literal"` \| `"GeneratorFunction literal"` \| `"BigInt literal"` \| `"ArrayBuffer literal"` \| `"Date literal"` \| `"identifier"` \| `"member expression"` \| `"JSX attribute"` \| `"JSX element"` \| `"JSX fragment"` \| `"JSX identifier"` \| `"JSX text"` \| `"JSX closing element"` \| `"JSX closing fragment"` \| `"JSX empty expression"` \| `"JSX expression container"` \| `"JSX member expression"` \| `"JSX namespaced name"` \| `"JSX opening element"` \| `"JSX opening fragment"` \| `"JSX spread attribute"` \| `"JSX spread child"` \| `"decorator"` \| `"program"` \| `"super"` \| `"accessor property"` \| `"array expression"` \| `"array pattern"` \| `"function expression"` \| `"arrow function expression"` \| `"assignment expression"` \| `"assignment pattern"` \| `"await expression"` \| `"binary expression"` \| `"block statement"` \| `"break statement"` \| `"call expression"` \| `"catch clause"` \| `"chain expression"` \| `"class body"` \| `"class declaration"` \| `"class expression"` \| `"conditional expression"` \| `"continue statement"` \| `"debugger statement"` \| `"while statement"` \| `"do while statement"` \| `"empty statement"` \| `"export all declaration"` \| `"export default declaration"` \| `"export named declaration"` \| `"export specifier"` \| `"expression statement"` \| `"for in statement"` \| `"for of statement"` \| `"for statement"` \| `"function declaration"` \| `"if statement"` \| `"import attribute"` \| `"import declaration"` \| `"import default specifier"` \| `"import expression"` \| `"import namespace specifier"` \| `"import specifier"` \| `"labeled statement"` \| `"logical expression"` \| `"meta property"` \| `"method definition"` \| `"new expression"` \| `"object expression"` \| `"object pattern"` \| `"private identifier"` \| `"property definition"` \| `"rest element"` \| `"return statement"` \| `"sequence expression"` \| `"spread element"` \| `"static block"` \| `"switch case"` \| `"switch statement"` \| `"tagged template expression"` \| `"template element"` \| `"template literal"` \| `"this expression"` \| `"throw statement"` \| `"try statement"` \| `"unary expression"` \| `"update expression"` \| `"variable declaration"` \| `"variable declarator"` \| `"with statement"` \| `"yield expression"` \| `"ts abstract accessor property"` \| `"ts abstract keyword"` \| `"ts abstract method definition"` \| `"ts abstract property definition"` \| `"ts any keyword"` \| `"ts array type"` \| `"ts as expression"` \| `"ts async keyword"` \| `"ts big int keyword"` \| `"ts boolean keyword"` \| `"ts call signature declaration"` \| `"ts class implements"` \| `"ts conditional type"` \| `"ts constructor type"` \| `"ts construct signature declaration"` \| `"ts declare function"` \| `"ts declare keyword"` \| `"ts empty body function expression"` \| `"ts enum declaration"` \| `"ts enum member"` \| `"ts export assignment"` \| `"ts export keyword"` \| `"ts external module reference"` \| `"ts function type"` \| `"ts instantiation expression"` \| `"ts import equals declaration"` \| `"ts import type"` \| `"ts indexed access type"` \| `"ts index signature"` \| `"ts infer type"` \| `"ts interface body"` \| `"ts interface declaration"` \| `"ts interface heritage"` \| `"ts intersection type"` \| `"ts intrinsic keyword"` \| `"ts literal type"` \| `"ts mapped type"` \| `"ts method signature"` \| `"ts module block"` \| `"ts module declaration"` \| `"ts named tuple member"` \| `"ts namespace export declaration"` \| `"ts never keyword"` \| `"ts non null expression"` \| `"ts null keyword"` \| `"ts number keyword"` \| `"ts object keyword"` \| `"ts optional type"` \| `"ts parameter property"` \| `"ts private keyword"` \| `"ts property signature"` \| `"ts protected keyword"` \| `"ts public keyword"` \| `"ts qualified name"` \| `"ts readonly keyword"` \| `"ts rest type"` \| `"ts satisfies expression"` \| `"ts static keyword"` \| `"ts string keyword"` \| `"ts symbol keyword"` \| `"ts template literal type"` \| `"ts this type"` \| `"ts tuple type"` \| `"ts type alias declaration"` \| `"ts type annotation"` \| `"ts type assertion"` \| `"ts type literal"` \| `"ts type operator"` \| `"ts type parameter"` \| `"ts type parameter declaration"` \| `"ts type parameter instantiation"` \| `"ts type predicate"` \| `"ts type query"` \| `"ts type reference"` \| `"ts undefined keyword"` \| `"ts union type"` \| `"ts unknown keyword"` \| `"ts void keyword"`
 
 Human readable node type
-
----
-
-### resolveDefinitionInit
-
-▸ **resolveDefinitionInit**(`def`): `O.Option`\<`TSESTree.Expression` \| `TSESTree.LetOrConstOrVarDeclaration`\>
-
-#### Parameters
-
-| Name  | Type         |
-| :---- | :----------- |
-| `def` | `Definition` |
-
-#### Returns
-
-`O.Option`\<`TSESTree.Expression` \| `TSESTree.LetOrConstOrVarDeclaration`\>
 
 ---
 

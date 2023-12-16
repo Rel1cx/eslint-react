@@ -1,5 +1,5 @@
-import { type Construction, constructionDetector, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
-import { componentCollector } from "@eslint-react/core";
+import { NodeType, type TSESTreeFunction } from "@eslint-react/ast";
+import { componentCollector, type Construction, constructionDetector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
