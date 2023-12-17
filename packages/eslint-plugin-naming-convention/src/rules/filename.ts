@@ -3,7 +3,6 @@ import { O, P } from "@eslint-react/tools";
 import { getCaseValidator } from "@eslint-react/utils";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import path from "pathe";
 
 import { createRule } from "../utils";
@@ -15,14 +14,16 @@ export type MessageID =
   | "FILENAME_CASE_MISMATCH_SUGGESTION"
   | "FILENAME_EMPTY";
 
+type Case = "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
+
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [
   | {
     extensions?: readonly string[];
     excepts?: readonly string[];
-    rule?: "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
+    rule?: Case;
   }
-  | string
+  | Case
   | undefined,
 ];
 /* eslint-enable no-restricted-syntax */
@@ -100,8 +101,8 @@ export default createRule<Options, MessageID>({
     }
 
     const validator = getCaseValidator(rule, [...excepts]);
-    const validate = (n: string) => validator.validate(n);
-    const getRecommendedName = (n: string) => validator.getRecommendedName(n);
+    const validate = (name: string) => validator.validate(name);
+    const getRecommendedName = (name: string) => validator.getRecommendedName(name);
 
     return {
       Program(node) {
@@ -116,27 +117,27 @@ export default createRule<Options, MessageID>({
         }
 
         const maybeSuggestion = O.liftThrowable(getRecommendedName)(basename);
-        const descriptor: ReportDescriptor<MessageID> = O.match(maybeSuggestion, {
-          onNone: () => ({
+
+        if (O.isNone(maybeSuggestion)) {
+          return context.report({
             data: {
-              name: basename,
+              name: filename,
               rule,
             },
             messageId: "FILENAME_CASE_MISMATCH",
             node,
-          }),
-          onSome: (value) => ({
-            data: {
-              name: filename,
-              rule,
-              suggestion: `${[value, ...rest].join(".")}`,
-            },
-            messageId: "FILENAME_CASE_MISMATCH_SUGGESTION",
-            node,
-          }),
-        });
+          });
+        }
 
-        context.report(descriptor);
+        context.report({
+          data: {
+            name: filename,
+            rule,
+            suggestion: `${[maybeSuggestion.value, ...rest].join(".")}`,
+          },
+          messageId: "FILENAME_CASE_MISMATCH_SUGGESTION",
+          node,
+        });
       },
     };
   },

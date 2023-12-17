@@ -16,6 +16,7 @@
 ### Functions
 
 - [createRuleForPlugin](README.md#createruleforplugin)
+- [getCaseConverter](README.md#getcaseconverter)
 - [getCaseValidator](README.md#getcasevalidator)
 - [getRule](README.md#getrule)
 - [mergeConfigs](README.md#mergeconfigs)
@@ -71,6 +72,22 @@ Creates reusable function to create rules with default options and docs URLs.
 `RuleModule`\<`TMessageIds`, `TOptions`, `RuleListener`\>
 
 Function to create a rule with the docs URL format.
+
+---
+
+### getCaseConverter
+
+▸ **getCaseConverter**(`rule`): \<T\>(`str`: `T`) => `ConstantCase`\<`T`\> \| \<T\>(`str`: `T`) => `PascalCase`\<`T`\> \| \<T\>(`str`: `T`) => `CamelCase`\<`T`\> \| \<T\>(`str`: `T`) => `KebabCase`\<`T`\> \| \<T\>(`str`: `T`) => `SnakeCase`\<`T`\>
+
+#### Parameters
+
+| Name   | Type                                                                                     |
+| :----- | :--------------------------------------------------------------------------------------- |
+| `rule` | `"CONSTANT_CASE"` \| `"PascalCase"` \| `"camelCase"` \| `"kebab-case"` \| `"snake_case"` |
+
+#### Returns
+
+\<T\>(`str`: `T`) => `ConstantCase`\<`T`\> \| \<T\>(`str`: `T`) => `PascalCase`\<`T`\> \| \<T\>(`str`: `T`) => `CamelCase`\<`T`\> \| \<T\>(`str`: `T`) => `KebabCase`\<`T`\> \| \<T\>(`str`: `T`) => `SnakeCase`\<`T`\>
 
 ---
 

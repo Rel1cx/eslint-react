@@ -13,13 +13,15 @@ export const RULE_NAME = "component-name";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
+type Case = "CONSTANT_CASE" | "PascalCase";
+
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [
   | {
     excepts?: readonly string[];
-    rule?: "CONSTANT_CASE" | "PascalCase";
+    rule?: Case;
   }
-  | string
+  | Case
   | undefined,
 ];
 /* eslint-enable no-restricted-syntax */
@@ -76,11 +78,11 @@ export default createRule<Options, MessageID>({
     const excepts = P.isString(options) ? [] : options.excepts ?? [];
     const rule = P.isString(options) ? options : options.rule ?? "PascalCase";
 
+    const validator = getCaseValidator(rule, [...excepts]);
+    const validate = (name: string) => validator.validate(name);
+
     const collector = componentCollector(context);
     const collectorLegacy = componentCollectorLegacy(context);
-
-    const validator = getCaseValidator(rule, [...excepts]);
-    const validate = (n: string) => validator.validate(n);
 
     return {
       ...collector.listeners,
