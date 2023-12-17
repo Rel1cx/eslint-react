@@ -22,6 +22,7 @@
 
 ## React
 
+- [`react/ensure-forward-ref-using-ref`](react-ensure-forward-ref-using-ref) - requires that components wrapped with `forwardRef` must have a `ref` parameter
 - [`react/no-children-count`](react-no-children-count) - disallow `Children.count`
 - [`react/no-children-for-each`](react-no-children-for-each) - disallow `Children.forEach`
 - [`react/no-children-in-void-dom-elements`](react-no-children-in-void-dom-elements) - disallow passing `children` to void DOM elements

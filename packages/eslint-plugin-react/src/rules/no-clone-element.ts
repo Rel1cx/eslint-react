@@ -11,7 +11,7 @@ export type MessageID = ConstantCase<typeof RULE_NAME>;
 export default createRule<[], MessageID>({
   name: RULE_NAME,
   meta: {
-    type: "suggestion",
+    type: "problem",
     docs: {
       description: "disallow `cloneElement`",
       recommended: "recommended",

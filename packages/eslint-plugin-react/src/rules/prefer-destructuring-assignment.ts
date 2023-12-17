@@ -21,7 +21,7 @@ function isMemberExpressionWithObjectName(node: TSESTree.MemberExpression): node
 export default createRule<[], MessageID>({
   name: RULE_NAME,
   meta: {
-    type: "suggestion",
+    type: "problem",
     docs: {
       description: "enforce using destructuring assignment in component props and context",
       recommended: "recommended",

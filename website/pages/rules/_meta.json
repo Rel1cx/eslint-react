@@ -13,6 +13,7 @@
   "jsx-no-useless-fragment": "jsx/no-useless-fragment",
   "jsx-prefer-shorthand-boolean": "jsx/prefer-shorthand-boolean",
   "jsx-prefer-shorthand-fragment": "jsx/prefer-shorthand-fragment",
+  "react-ensure-forward-ref-using-ref": "react/ensure-forward-ref-using-ref",
   "react-hooks-ensure-custom-hooks-using-other-hooks": "react-hooks/ensure-custom-hooks-using-other-hooks",
   "react-hooks-ensure-use-callback-has-non-empty-deps": "react-hooks/ensure-use-callback-has-non-empty-deps",
   "react-hooks-ensure-use-memo-has-non-empty-deps": "react-hooks/ensure-use-memo-has-non-empty-deps",

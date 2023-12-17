@@ -33,6 +33,7 @@ const rulePreset = {
   "naming-convention/filename-extension": "warn",
   "naming-convention/use-state": "warn",
 
+  "react/ensure-forward-ref-using-ref": "error",
   "react/no-children-count": "warn",
   "react/no-children-for-each": "warn",
   "react/no-children-in-void-dom-elements": "warn",
@@ -94,6 +95,7 @@ const recommendedPreset = {
   // "naming-convention/filename-extension": "warn",
   "naming-convention/use-state": "warn",
 
+  "react/ensure-forward-ref-using-ref": "error",
   "react/no-children-count": "warn",
   "react/no-children-for-each": "warn",
   "react/no-children-in-void-dom-elements": "warn",

@@ -1,6 +1,7 @@
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { name, version } from "../package.json";
+import ensureForwardRefUsingRef from "./rules/ensure-forward-ref-using-ref";
 import noChildrenCount from "./rules/no-children-count";
 import noChildrenForEach from "./rules/no-children-for-each";
 import noChildrenInVoidDomElements from "./rules/no-children-in-void-dom-elements";
@@ -45,6 +46,7 @@ export const meta = {
 } as const;
 
 export const rules = {
+  "ensure-forward-ref-using-ref": ensureForwardRefUsingRef,
   "no-children-count": noChildrenCount,
   "no-children-for-each": noChildrenForEach,
   "no-children-in-void-dom-elements": noChildrenInVoidDomElements,

@@ -10,7 +10,7 @@ export type MessageID = ConstantCase<typeof RULE_NAME>;
 export default createRule<[], MessageID>({
   name: RULE_NAME,
   meta: {
-    type: "suggestion",
+    type: "problem",
     docs: {
       // eslint-disable-next-line eslint-plugin/require-meta-docs-description
       description: "report all react hooks",
