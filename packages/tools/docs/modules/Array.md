@@ -3288,9 +3288,9 @@ Check if a predicate holds true for every `ReadonlyArray` element.
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -3324,9 +3324,9 @@ Check if a predicate holds true for every `ReadonlyArray` element.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -3361,10 +3361,10 @@ Check if a predicate holds true for every `ReadonlyArray` element.
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `self`       | readonly `A`[]                                            |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `self`       | readonly `A`[]                                           |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -3386,10 +3386,10 @@ Check if a predicate holds true for every `ReadonlyArray` element.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `self`      | readonly `A`[]                                     |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `self`      | readonly `A`[]                                    |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -3417,9 +3417,9 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -3455,9 +3455,9 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -3493,10 +3493,10 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `self`       | `Iterable`\<`A`\>                                         |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `self`       | `Iterable`\<`A`\>                                        |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -3519,10 +3519,10 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `self`      | `Iterable`\<`A`\>                                  |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `self`      | `Iterable`\<`A`\>                                 |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -3548,9 +3548,9 @@ Return the first index for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -3584,10 +3584,10 @@ Return the first index for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `self`      | `Iterable`\<`A`\>                                  |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `self`      | `Iterable`\<`A`\>                                 |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -3614,9 +3614,9 @@ Find the last element for which a predicate holds.
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -3651,9 +3651,9 @@ Find the last element for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -3688,10 +3688,10 @@ Find the last element for which a predicate holds.
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `self`       | `Iterable`\<`A`\>                                         |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `self`       | `Iterable`\<`A`\>                                        |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -3713,10 +3713,10 @@ Find the last element for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `self`      | `Iterable`\<`A`\>                                  |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `self`      | `Iterable`\<`A`\>                                 |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -3742,9 +3742,9 @@ Return the last index for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -3778,10 +3778,10 @@ Return the last index for which a predicate holds.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `self`      | `Iterable`\<`A`\>                                  |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `self`      | `Iterable`\<`A`\>                                 |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -3836,9 +3836,9 @@ Check if a predicate holds true for some `ReadonlyArray` element.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -3872,10 +3872,10 @@ Check if a predicate holds true for some `ReadonlyArray` element.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `self`      | readonly `A`[]                                     |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `self`      | readonly `A`[]                                    |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -5092,9 +5092,9 @@ Remove the longest initial subarray for which all element satisfy the specified 
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -5128,10 +5128,10 @@ Remove the longest initial subarray for which all element satisfy the specified 
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `self`      | `Iterable`\<`A`\>                                  |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `self`      | `Iterable`\<`A`\>                                 |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -5607,9 +5607,9 @@ Calculate the longest initial subarray for which all element satisfy the specifi
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -5644,9 +5644,9 @@ Calculate the longest initial subarray for which all element satisfy the specifi
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -5681,10 +5681,10 @@ Calculate the longest initial subarray for which all element satisfy the specifi
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `self`       | `Iterable`\<`A`\>                                         |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `self`       | `Iterable`\<`A`\>                                        |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -5706,10 +5706,10 @@ Calculate the longest initial subarray for which all element satisfy the specifi
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `self`      | `Iterable`\<`A`\>                                  |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `self`      | `Iterable`\<`A`\>                                 |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -6221,9 +6221,9 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -6255,9 +6255,9 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -7048,9 +7048,9 @@ Split an `Iterable` into two parts:
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -7088,9 +7088,9 @@ Split an `Iterable` into two parts:
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -7128,10 +7128,10 @@ Split an `Iterable` into two parts:
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `self`       | `Iterable`\<`A`\>                                         |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `self`       | `Iterable`\<`A`\>                                        |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -7156,10 +7156,10 @@ Split an `Iterable` into two parts:
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `self`      | `Iterable`\<`A`\>                                  |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `self`      | `Iterable`\<`A`\>                                 |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -7386,9 +7386,9 @@ Returns a tuple containing two arrays: the first one is before the match, and th
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -7423,10 +7423,10 @@ Returns a tuple containing two arrays: the first one is before the match, and th
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `self`      | `Iterable`\<`A`\>                                  |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `self`      | `Iterable`\<`A`\>                                 |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 

@@ -87,11 +87,11 @@
 
 - `@eslint-react/shared`
   - ⚠️ Change `ESLintReactSettingsSchema`.
-  - Move utils from `@eslint-react/shared` to `@eslint-react/utils`.
+  - Move utils from `@eslint-react/shared` to `@eslint-react/eslint-utils`.
   - Remove `JSX_EXTENSIONS` from `@eslint-react/shared`.
 
 - `@eslint-react/monorepo`
-  - Add `@eslint-react/utils` package.
+  - Add `@eslint-react/eslint-utils` package.
   - Add `format:package-json` script.
   - Update `bun` to `1.0.17`.
   - Update `vitest` to `1.0.4`.
@@ -145,10 +145,10 @@
 #### 🏠 Internal
 
 - `@eslint-react/shared`
-  - Move utils from `@eslint-react/shared` to `@eslint-react/utils`.
+  - Move utils from `@eslint-react/shared` to `@eslint-react/eslint-utils`.
 
 - `@eslint-react/monorepo`
-  - Add `@eslint-react/utils` package.
+  - Add `@eslint-react/eslint-utils` package.
 
 #### Authors: 1
 

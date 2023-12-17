@@ -8,12 +8,6 @@ export default {
     "eslint-plugin-jsdoc",
     "swc3",
     "@eslint-react/types",
-    "dedent",
-    "effect",
-    "rambda",
-    "string-ts",
-    "ts-pattern",
-    "tslib",
   ],
   ignoreWorkspaces: [
     "examples/*",

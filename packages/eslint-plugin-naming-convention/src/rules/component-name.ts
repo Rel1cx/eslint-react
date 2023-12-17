@@ -1,13 +1,15 @@
 import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
 import { componentCollector, componentCollectorLegacy } from "@eslint-react/core";
 import { elementType } from "@eslint-react/jsx";
-import { O, P } from "@eslint-react/tools";
-import { getCaseValidator } from "@eslint-react/utils";
+import { ESLintPluginFilenamesSimple } from "@eslint-react/third-party";
+import { _, O } from "@eslint-react/tools";
 import { type ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { type ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
+
+const { getCaseValidator } = ESLintPluginFilenamesSimple;
 
 export const RULE_NAME = "component-name";
 
@@ -75,8 +77,8 @@ export default createRule<Options, MessageID>({
   defaultOptions,
   create(context) {
     const options = context.options[0] ?? defaultOptions[0];
-    const excepts = P.isString(options) ? [] : options.excepts ?? [];
-    const rule = P.isString(options) ? options : options.rule ?? "PascalCase";
+    const excepts = _.isString(options) ? [] : options.excepts ?? [];
+    const rule = _.isString(options) ? options : options.rule ?? "PascalCase";
 
     const validator = getCaseValidator(rule, [...excepts]);
     const validate = (name: string) => validator.validate(name);

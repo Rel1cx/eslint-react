@@ -1,4 +1,4 @@
-import { P } from "@eslint-react/tools";
+import { _ } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { NodeType } from "../node";
@@ -8,5 +8,5 @@ export function isRegExpLiteral(node: TSESTree.Node): node is TSESTree.RegExpLit
 }
 
 export function isStringLiteral(node: TSESTree.Node): node is TSESTree.StringLiteral {
-  return node.type === NodeType.Literal && P.isString(node.value);
+  return node.type === NodeType.Literal && _.isString(node.value);
 }

@@ -1,8 +1,11 @@
-import { findVariableByNameUpToGlobal, getStaticValue, getVariableInit, is, NodeType } from "@eslint-react/ast";
-import { F, M, O } from "@eslint-react/tools";
+import { findVariableByNameUpToGlobal, getVariableInit, is, NodeType } from "@eslint-react/ast";
+import { ESLintCommunityESLintUtils } from "@eslint-react/third-party";
+import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import { match } from "ts-pattern";
+const { getStaticValue } = ESLintCommunityESLintUtils;
 
 /**
  * Get the name of a JSX attribute with namespace
@@ -10,7 +13,7 @@ import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
  * @returns string
  */
 export function getPropName(node: TSESTree.JSXAttribute) {
-  return M.match(node.name)
+  return match(node.name)
     .when(is(NodeType.JSXIdentifier), (n) => n.name)
     .when(is(NodeType.JSXNamespacedName), (n) => `${n.namespace.name}:${n.name.name}`)
     .exhaustive();
@@ -76,12 +79,12 @@ export function findPropInProperties(
   return (propName: string): O.Option<(typeof properties)[number]> => {
     return O.fromNullable(
       properties.find((prop) => {
-        return M.match(prop)
+        return match(prop)
           .when(is(NodeType.Property), (prop) => {
             return "name" in prop.key && prop.key.name === propName;
           })
           .when(is(NodeType.SpreadElement), (prop) => {
-            return M.match(prop.argument)
+            return match(prop.argument)
               .when(is(NodeType.Identifier), (argument) => {
                 const { name } = argument;
                 const maybeInit = O.flatMap(
@@ -145,10 +148,10 @@ export function findPropInAttributes(
   return (propName: string) => {
     return O.fromNullable(
       attributes.find((attr) => {
-        return M.match(attr)
+        return match(attr)
           .when(is(NodeType.JSXAttribute), (attr) => getPropName(attr) === propName)
           .when(is(NodeType.JSXSpreadAttribute), (attr) => {
-            return M.match<typeof attr.argument, boolean>(attr.argument)
+            return match<typeof attr.argument, boolean>(attr.argument)
               .with({ type: NodeType.Identifier }, (argument) => {
                 const { name } = argument;
                 const maybeInit = O.flatMap(

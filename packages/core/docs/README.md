@@ -6,6 +6,7 @@
 
 ### Interfaces
 
+- [ERAnalyzerNode](interfaces/ERAnalyzerNode.md)
 - [ERClassComponent](interfaces/ERClassComponent.md)
 - [ERFunctionComponent](interfaces/ERFunctionComponent.md)
 - [ERHook](interfaces/ERHook.md)
@@ -29,6 +30,7 @@
 - [ERFunctionComponentFlag](README.md#erfunctioncomponentflag-1)
 - [RE\_COMPONENT\_NAME](README.md#re_component_name)
 - [RE\_HOOK\_NAME](README.md#re_hook_name)
+- [uid](README.md#uid)
 
 ### Functions
 
@@ -43,21 +45,39 @@
 - [hasNoneOrValidComponentName](README.md#hasnoneorvalidcomponentname)
 - [hookCollector](README.md#hookcollector)
 - [isChildrenCount](README.md#ischildrencount)
+- [isChildrenCountCall](README.md#ischildrencountcall)
 - [isChildrenForEach](README.md#ischildrenforeach)
+- [isChildrenForEachCall](README.md#ischildrenforeachcall)
 - [isChildrenMap](README.md#ischildrenmap)
+- [isChildrenMapCall](README.md#ischildrenmapcall)
 - [isChildrenOnly](README.md#ischildrenonly)
+- [isChildrenOnlyCall](README.md#ischildrenonlycall)
 - [isChildrenToArray](README.md#ischildrentoarray)
+- [isChildrenToArrayCall](README.md#ischildrentoarraycall)
 - [isClassComponent](README.md#isclasscomponent)
+- [isCloneElement](README.md#iscloneelement)
+- [isCloneElementCall](README.md#iscloneelementcall)
 - [isCreateContext](README.md#iscreatecontext)
+- [isCreateContextCall](README.md#iscreatecontextcall)
+- [isCreateElement](README.md#iscreateelement)
+- [isCreateElementCall](README.md#iscreateelementcall)
+- [isCreateRef](README.md#iscreateref)
+- [isCreateRefCall](README.md#iscreaterefcall)
+- [isForwardRef](README.md#isforwardref)
+- [isForwardRefCall](README.md#isforwardrefcall)
 - [isFunctionOfRenderMethod](README.md#isfunctionofrendermethod)
 - [isInsideReactHook](README.md#isinsidereacthook)
 - [isInsideRenderMethod](README.md#isinsiderendermethod)
 - [isMemberExpressionOfReactMember](README.md#ismemberexpressionofreactmember)
-- [isMemoOrForwardRefCall](README.md#ismemoorforwardrefcall)
+- [isMemo](README.md#ismemo)
+- [isMemoCall](README.md#ismemocall)
 - [isPureComponent](README.md#ispurecomponent)
+- [isReactAPI](README.md#isreactapi)
+- [isReactAPICall](README.md#isreactapicall)
 - [isReactHook](README.md#isreacthook)
 - [isReactHookCall](README.md#isreacthookcall)
 - [isReactHookCallWithName](README.md#isreacthookcallwithname)
+- [isUnstableAssignmentPattern](README.md#isunstableassignmentpattern)
 - [isUseCallbackCall](README.md#isusecallbackcall)
 - [isUseContextCall](README.md#isusecontextcall)
 - [isUseDebugValueCall](README.md#isusedebugvaluecall)
@@ -219,6 +239,12 @@ hints for component collector
 ### RE\_HOOK\_NAME
 
 • `Const` **RE\_HOOK\_NAME**: `RegExp`
+
+---
+
+### uid
+
+• `Const` **uid**: `default`
 
 ## Functions
 
@@ -469,6 +495,24 @@ It will be removed in the future
 
 ---
 
+### isChildrenCountCall
+
+▸ **isChildrenCountCall**(`node`, `context`, `pragma?`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma?` | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
 ### isChildrenForEach
 
 ▸ **isChildrenForEach**(`node`, `context`, `pragma?`): `boolean`
@@ -478,6 +522,24 @@ It will be removed in the future
 | Name      | Type                                                          |
 | :-------- | :------------------------------------------------------------ |
 | `node`    | `MemberExpression`                                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma?` | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isChildrenForEachCall
+
+▸ **isChildrenForEachCall**(`node`, `context`, `pragma?`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 | `pragma?` | `string`                                                      |
 
@@ -505,6 +567,24 @@ It will be removed in the future
 
 ---
 
+### isChildrenMapCall
+
+▸ **isChildrenMapCall**(`node`, `context`, `pragma?`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma?` | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
 ### isChildrenOnly
 
 ▸ **isChildrenOnly**(`node`, `context`, `pragma?`): `boolean`
@@ -523,6 +603,24 @@ It will be removed in the future
 
 ---
 
+### isChildrenOnlyCall
+
+▸ **isChildrenOnlyCall**(`node`, `context`, `pragma?`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma?` | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
 ### isChildrenToArray
 
 ▸ **isChildrenToArray**(`node`, `context`, `pragma?`): `boolean`
@@ -532,6 +630,24 @@ It will be removed in the future
 | Name      | Type                                                          |
 | :-------- | :------------------------------------------------------------ |
 | `node`    | `MemberExpression`                                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| `pragma?` | `string`                                                      |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isChildrenToArrayCall
+
+▸ **isChildrenToArrayCall**(`node`, `context`, `pragma?`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 | `pragma?` | `string`                                                      |
 
@@ -560,23 +676,173 @@ node is TSESTreeClass
 
 ---
 
-### isCreateContext
+### isCloneElement
 
-▸ **isCreateContext**(`node`): `boolean`
-
-Determines whether `createContext` is used
+▸ **isCloneElement**(`node`, `context`): `boolean`
 
 #### Parameters
 
-| Name   | Type   | Description           |
-| :----- | :----- | :-------------------- |
-| `node` | `Node` | The AST node to check |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `Identifier` \| `MemberExpression`                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
 `boolean`
 
-`true` if the node is a call expression to `createContext`
+---
+
+### isCloneElementCall
+
+▸ **isCloneElementCall**(`node`, `context`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isCreateContext
+
+▸ **isCreateContext**(`node`, `context`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `Identifier` \| `MemberExpression`                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isCreateContextCall
+
+▸ **isCreateContextCall**(`node`, `context`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isCreateElement
+
+▸ **isCreateElement**(`node`, `context`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `Identifier` \| `MemberExpression`                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isCreateElementCall
+
+▸ **isCreateElementCall**(`node`, `context`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isCreateRef
+
+▸ **isCreateRef**(`node`, `context`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `Identifier` \| `MemberExpression`                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isCreateRefCall
+
+▸ **isCreateRefCall**(`node`, `context`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isForwardRef
+
+▸ **isForwardRef**(`node`, `context`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `Identifier` \| `MemberExpression`                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isForwardRefCall
+
+▸ **isForwardRefCall**(`node`, `context`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+#### Returns
+
+`boolean`
 
 ---
 
@@ -666,6 +932,8 @@ It will be removed in the future
 
 `fn`
 
+A function that checks if a given node is a member expression of a Pragma member.
+
 ▸ (`node`, `context`, `pragma?`): `boolean`
 
 ##### Parameters
@@ -682,15 +950,32 @@ It will be removed in the future
 
 ---
 
-### isMemoOrForwardRefCall
+### isMemo
 
-▸ **isMemoOrForwardRefCall**(`node`, `context`): `boolean`
+▸ **isMemo**(`node`, `context`): `boolean`
 
 #### Parameters
 
 | Name      | Type                                                          |
 | :-------- | :------------------------------------------------------------ |
-| `node`    | `Node`                                                        |
+| `node`    | `Identifier` \| `MemberExpression`                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isMemoCall
+
+▸ **isMemoCall**(`node`, `context`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
@@ -715,6 +1000,64 @@ Check if a node is a React PureComponent
 #### Returns
 
 `boolean`
+
+---
+
+### isReactAPI
+
+▸ **isReactAPI**(`name`): `ReturnType`\<typeof `isFromPragma`\>
+
+#### Parameters
+
+| Name   | Type     |
+| :----- | :------- |
+| `name` | `string` |
+
+#### Returns
+
+`ReturnType`\<typeof `isFromPragma`\>
+
+▸ **isReactAPI**(`name`, `member`): `ReturnType`\<typeof `isFromPragmaMember`\>
+
+#### Parameters
+
+| Name     | Type     |
+| :------- | :------- |
+| `name`   | `string` |
+| `member` | `string` |
+
+#### Returns
+
+`ReturnType`\<typeof `isFromPragmaMember`\>
+
+---
+
+### isReactAPICall
+
+▸ **isReactAPICall**(`name`): `ReturnType`\<typeof `isCallFromPragma`\>
+
+#### Parameters
+
+| Name   | Type     |
+| :----- | :------- |
+| `name` | `string` |
+
+#### Returns
+
+`ReturnType`\<typeof `isCallFromPragma`\>
+
+▸ **isReactAPICall**(`name`, `member`): `ReturnType`\<typeof `isCallFromPragmaMember`\>
+
+#### Parameters
+
+| Name     | Type     |
+| :------- | :------- |
+| `name`   | `string` |
+| `member` | `string` |
+
+#### Returns
+
+`ReturnType`\<typeof `isCallFromPragmaMember`\>
 
 ---
 
@@ -781,6 +1124,24 @@ Check if the given node is a React Hook call by its name and its hierarchy.
 ##### Returns
 
 `boolean`
+
+---
+
+### isUnstableAssignmentPattern
+
+▸ **isUnstableAssignmentPattern**(`node`): node is AssignmentPattern & Object
+
+Check if the given node is an unstable assignment pattern (will change between assignments)
+
+#### Parameters
+
+| Name   | Type                | Description           |
+| :----- | :------------------ | :-------------------- |
+| `node` | `AssignmentPattern` | The AST node to check |
+
+#### Returns
+
+node is AssignmentPattern & Object
 
 ---
 

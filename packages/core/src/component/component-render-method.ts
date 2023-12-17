@@ -1,16 +1,17 @@
 import { NodeType, traverseUp, type TSESTreeFunction } from "@eslint-react/ast";
-import { M, O } from "@eslint-react/tools";
+import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import { isMatching, P } from "ts-pattern";
 
 import { isClassComponent } from "./component-collector-legacy";
 
-const isRenderMethodLike = M.isMatching({
+const isRenderMethodLike = isMatching({
   key: {
     type: NodeType.Identifier,
     name: "render",
   },
-  type: M.P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),
+  type: P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),
   parent: {
     type: NodeType.ClassBody,
     parent: {

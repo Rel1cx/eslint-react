@@ -1,5 +1,5 @@
 import { isMultiLine, isOneOf, NodeType } from "@eslint-react/ast";
-import { P } from "@eslint-react/tools";
+import { _ } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
 /**
@@ -15,7 +15,7 @@ export const isLiteral = isOneOf([NodeType.Literal, NodeType.JSXText]);
  * @returns boolean `true` if the node is whitespace
  */
 export function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
-  return P.isString(node.value) && node.value.trim() === "";
+  return _.isString(node.value) && node.value.trim() === "";
 }
 
 /**

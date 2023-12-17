@@ -1,10 +1,11 @@
 import { getFunctionIdentifier, isFunction, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { componentCollector, isValidComponentName } from "@eslint-react/core";
-import { M, MutRef, O } from "@eslint-react/tools";
+import { MutRef, O } from "@eslint-react/tools";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
+import { isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -85,7 +86,7 @@ export default createRule<[], MessageID>({
 
           const [props, ctx] = component.params;
 
-          const isMatch = M.isMatching({ name: memberExpression.object.name });
+          const isMatch = isMatching({ name: memberExpression.object.name });
 
           if (isMatch(props)) {
             context.report({

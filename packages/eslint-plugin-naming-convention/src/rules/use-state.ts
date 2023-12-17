@@ -1,10 +1,11 @@
 import { NodeType } from "@eslint-react/ast";
 import { componentCollector, isUseStateCall } from "@eslint-react/core";
 import { getPragmaFromContext } from "@eslint-react/jsx";
-import { F, M, O, P } from "@eslint-react/tools";
+import { _, F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { capitalize, type ConstantCase } from "string-ts";
+import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -61,7 +62,7 @@ export default createRule<[], MessageID>({
             const descriptor = O.some({ messageId: "USE_STATE", node: id } as const);
 
             F.pipe(
-              M.match<typeof id, O.Option<ReportDescriptor<MessageID>>>(id)
+              match<typeof id, O.Option<ReportDescriptor<MessageID>>>(id)
                 .with({ type: NodeType.Identifier }, F.constant(descriptor))
                 .with({ type: NodeType.ArrayPattern }, n => {
                   const [state, setState] = n.elements;
@@ -71,7 +72,7 @@ export default createRule<[], MessageID>({
                     && setState?.type === NodeType.Identifier
                   ) {
                     return F.pipe(
-                      O.liftPredicate(P.not(isValidSetterNameLoose))(setState.name),
+                      O.liftPredicate(_.not(isValidSetterNameLoose))(setState.name),
                       O.flatMap(F.constant(descriptor)),
                     );
                   }

@@ -1,8 +1,9 @@
 import { getFunctionIdentifier, isFunction, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { isJSXValue, JSXValueCheckHint } from "@eslint-react/jsx";
-import { M, O } from "@eslint-react/tools";
+import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
+import { isMatching, P } from "ts-pattern";
 
 /**
  * Unsafe check whether given node is a render function
@@ -22,13 +23,13 @@ export function unsafeIsRenderFunction(node: TSESTreeFunction, context: RuleCont
   const maybeId = getFunctionIdentifier(node);
 
   if (O.isSome(maybeId) && !maybeId.value.name.startsWith("render")) {
-    return M.isMatching({
+    return isMatching({
       type: NodeType.JSXExpressionContainer,
       parent: {
         type: NodeType.JSXAttribute,
         name: {
           type: NodeType.JSXIdentifier,
-          name: M.P.string.startsWith("render"),
+          name: P.string.startsWith("render"),
         },
       },
     }, parent);
@@ -55,15 +56,15 @@ export function unsafeIsRenderFunction(node: TSESTreeFunction, context: RuleCont
  * @returns `true` if node is a render prop, `false` if not
  */
 export function unsafeIsRenderProp(node: TSESTree.JSXAttribute, context: RuleContext) {
-  return M.isMatching({
+  return isMatching({
     type: NodeType.JSXAttribute,
     name: {
       type: NodeType.JSXIdentifier,
-      name: M.P.string.startsWith("render"),
+      name: P.string.startsWith("render"),
     },
     value: {
       type: NodeType.JSXExpressionContainer,
-      expression: M.P.when(isFunction),
+      expression: P.when(isFunction),
     },
   }, node) && unsafeIsRenderFunction(node.value.expression, context);
 }

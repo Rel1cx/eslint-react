@@ -1,8 +1,9 @@
 import { isOneOf, NodeType } from "@eslint-react/ast";
-import { F, M } from "@eslint-react/tools";
+import { F } from "@eslint-react/tools";
 import { type TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
+import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -29,7 +30,7 @@ export default createRule<[], MessageID>({
     const isConditionalOrLogicalExp = isOneOf([NodeType.ConditionalExpression, NodeType.LogicalExpression]);
 
     function isComplicatedExpression(node: TSESTree.Expression): boolean {
-      return M.match(node)
+      return match(node)
         .with({ type: NodeType.LogicalExpression }, ({ left, right }) => {
           return isConditionalOrLogicalExp(left) || isConditionalOrLogicalExp(right);
         })

@@ -1,5 +1,5 @@
 import { ESLintSettingsSchema, parse } from "@eslint-react/shared";
-import { F, O, P } from "@eslint-react/tools";
+import { _, F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import memo from "micro-memoize";
 
@@ -11,7 +11,7 @@ export function getFragmentFromContext<T extends RuleContext>(context: T) {
   const settings = parse(ESLintSettingsSchema, context.settings);
   const fragment = settings.eslintReact?.jsx?.fragment;
 
-  if (P.isString(fragment) && RE_JS_IDENTIFIER_REGEX.test(fragment)) {
+  if (_.isString(fragment) && RE_JS_IDENTIFIER_REGEX.test(fragment)) {
     return fragment;
   }
 

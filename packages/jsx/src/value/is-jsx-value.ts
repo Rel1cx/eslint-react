@@ -1,7 +1,8 @@
 import { findVariableByNameUpToGlobal, getVariableInit, isJSXTagNameExpression, NodeType } from "@eslint-react/ast";
-import { F, M, O } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/utils";
+import { match, P } from "ts-pattern";
 
 import { isCreateElementCall } from "../element";
 
@@ -53,17 +54,17 @@ export function isJSXValue(
     return false;
   }
 
-  return M.match<typeof node, boolean>(node)
+  return match<typeof node, boolean>(node)
     .with({ type: NodeType.JSXElement }, F.constTrue)
     .with({ type: NodeType.JSXFragment }, F.constTrue)
     .with({ type: NodeType.JSXMemberExpression }, F.constTrue)
     .with({ type: NodeType.JSXNamespacedName }, F.constTrue)
     .with({ type: NodeType.Literal }, (node) => {
-      return M.match(node.value)
+      return match(node.value)
         .with(null, () => !(hint & JSXValueCheckHint.SkipNullLiteral))
-        .with(M.P.boolean, () => !(hint & JSXValueCheckHint.SkipBooleanLiteral))
-        .with(M.P.string, () => !(hint & JSXValueCheckHint.SkipStringLiteral))
-        .with(M.P.number, () => !(hint & JSXValueCheckHint.SkipNumberLiteral))
+        .with(P.boolean, () => !(hint & JSXValueCheckHint.SkipBooleanLiteral))
+        .with(P.string, () => !(hint & JSXValueCheckHint.SkipStringLiteral))
+        .with(P.number, () => !(hint & JSXValueCheckHint.SkipNumberLiteral))
         .otherwise(F.constFalse);
     })
     .with({ type: NodeType.TemplateLiteral }, () => {

@@ -26,19 +26,13 @@
 - [findVariableByName](README.md#findvariablebyname)
 - [findVariableByNameUpToGlobal](README.md#findvariablebynameuptoglobal)
 - [getClassIdentifier](README.md#getclassidentifier)
-- [getFunctionHeadLocation](README.md#getfunctionheadlocation)
 - [getFunctionIdentifier](README.md#getfunctionidentifier)
-- [getFunctionNameWithKind](README.md#getfunctionnamewithkind)
 - [getNestedCallExpressions](README.md#getnestedcallexpressions)
 - [getNestedIdentifiers](README.md#getnestedidentifiers)
 - [getNestedReturnStatements](README.md#getnestedreturnstatements)
-- [getPropertyName](README.md#getpropertyname)
-- [getStaticValue](README.md#getstaticvalue)
-- [getStringIfConstant](README.md#getstringifconstant)
 - [getVariableInit](README.md#getvariableinit)
 - [getVariableInitExpression](README.md#getvariableinitexpression)
 - [getVariablesUpToGlobal](README.md#getvariablesuptoglobal)
-- [hasSideEffect](README.md#hassideeffect)
 - [is](README.md#is)
 - [isArrayTupleType](README.md#isarraytupletype)
 - [isClass](README.md#isclass)
@@ -58,12 +52,10 @@
 - [isMultiLine](README.md#ismultiline)
 - [isNodeEqual](README.md#isnodeequal)
 - [isOneOf](README.md#isoneof)
-- [isParenthesized](README.md#isparenthesized)
 - [isProperty](README.md#isproperty)
 - [isRegExpLiteral](README.md#isregexpliteral)
 - [isStringLiteral](README.md#isstringliteral)
 - [isTypeDeclaration](README.md#istypedeclaration)
-- [isUnstableAssignmentPattern](README.md#isunstableassignmentpattern)
 - [readableNodeType](README.md#readablenodetype-1)
 - [traverseUp](README.md#traverseup)
 - [traverseUpGuard](README.md#traverseupguard)
@@ -209,29 +201,6 @@ class identifier or null
 
 ---
 
-### getFunctionHeadLocation
-
-▸ **getFunctionHeadLocation**(`node`, `sourceCode`): `SourceLocation`
-
-Get the proper location of a given function node to report.
-
-#### Parameters
-
-| Name         | Type                                                                       |
-| :----------- | :------------------------------------------------------------------------- |
-| `node`       | `ArrowFunctionExpression` \| `FunctionDeclaration` \| `FunctionExpression` |
-| `sourceCode` | `SourceCode`                                                               |
-
-#### Returns
-
-`SourceLocation`
-
-**`See`**
-
-[https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getfunctionheadlocation](https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getfunctionheadlocation)
-
----
-
 ### getFunctionIdentifier
 
 ▸ **getFunctionIdentifier**(`node`): `O.Option`\<`TSESTree.Identifier`\>
@@ -245,29 +214,6 @@ Get the proper location of a given function node to report.
 #### Returns
 
 `O.Option`\<`TSESTree.Identifier`\>
-
----
-
-### getFunctionNameWithKind
-
-▸ **getFunctionNameWithKind**(`node`, `sourceCode?`): `string`
-
-Get the name and kind of a given function node.
-
-#### Parameters
-
-| Name          | Type                                                                       |
-| :------------ | :------------------------------------------------------------------------- |
-| `node`        | `ArrowFunctionExpression` \| `FunctionDeclaration` \| `FunctionExpression` |
-| `sourceCode?` | `SourceCode`                                                               |
-
-#### Returns
-
-`string`
-
-**`See`**
-
-[https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getfunctionnamewithkind](https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getfunctionnamewithkind)
 
 ---
 
@@ -324,86 +270,6 @@ Gets nested return statements in a node
 `TSESTree.ReturnStatement`[]
 
 The nested return statements
-
----
-
-### getPropertyName
-
-▸ **getPropertyName**(`node`, `initialScope?`): `null` \| `string`
-
-Get the property name of a given property node.
-If the node is a computed property, this tries to compute the property name by the getStringIfConstant function.
-
-#### Parameters
-
-| Name            | Type                                                                           |
-| :-------------- | :----------------------------------------------------------------------------- |
-| `node`          | `MemberExpression` \| `MethodDefinition` \| `Property` \| `PropertyDefinition` |
-| `initialScope?` | `Scope`                                                                        |
-
-#### Returns
-
-`null` \| `string`
-
-The property name of the node. If the property name is not constant then it returns `null`.
-
-**`See`**
-
-[https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getpropertyname](https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getpropertyname)
-
----
-
-### getStaticValue
-
-▸ **getStaticValue**(`node`, `initialScope?`): `null` \| \{ `value`: `unknown` }
-
-Get the value of a given node if it can decide the value statically.
-If the 2nd parameter `initialScope` was given, this function tries to resolve identifier references which are in the
-given node as much as possible. In the resolving way, it does on the assumption that built-in global objects have
-not been modified.
-For example, it considers `Symbol.iterator`, `String.raw`hello``, and `Object.freeze({a: 1}).a` as static.
-
-#### Parameters
-
-| Name            | Type    |
-| :-------------- | :------ |
-| `node`          | `Node`  |
-| `initialScope?` | `Scope` |
-
-#### Returns
-
-`null` \| \{ `value`: `unknown` }
-
-The `{ value: any }` shaped object. The `value` property is the static value. If it couldn't compute the
-static value of the node, it returns `null`.
-
-**`See`**
-
-[https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getstaticvalue](https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getstaticvalue)
-
----
-
-### getStringIfConstant
-
-▸ **getStringIfConstant**(`node`, `initialScope?`): `null` \| `string`
-
-Get the string value of a given node.
-This function is a tiny wrapper of the getStaticValue function.
-
-#### Parameters
-
-| Name            | Type    |
-| :-------------- | :------ |
-| `node`          | `Node`  |
-| `initialScope?` | `Scope` |
-
-#### Returns
-
-`null` \| `string`
-
-**`See`**
-
-[https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getstringifconstant](https://eslint-community.github.io/eslint-utils/api/ast-utils.html#getstringifconstant)
 
 ---
 
@@ -482,51 +348,6 @@ Get all variables from the given scope up to the global scope
 #### Returns
 
 `Variable`[]
-
----
-
-### hasSideEffect
-
-▸ **hasSideEffect**(`node`, `sourceCode`, `options?`): `boolean`
-
-Check whether a given node has any side effect or not.
-The side effect means that it may modify a certain variable or object member. This function considers the node which
-contains the following types as the node which has side effects:
-
-- `AssignmentExpression`
-- `AwaitExpression`
-- `CallExpression`
-- `ImportExpression`
-- `NewExpression`
-- `UnaryExpression([operator = "delete"])`
-- `UpdateExpression`
-- `YieldExpression`
-- When `options.considerGetters` is `true`:
-- `MemberExpression`
-- When `options.considerImplicitTypeConversion` is `true`:
-- `BinaryExpression([operator = "==" | "!=" | "<" | "<=" | ">" | ">=" | "<<" | ">>" | ">>>" | "+" | "-" | "*" | "/" | "%" | "|" | "^" | "&" | "in"])`
-- `MemberExpression([computed = true])`
-- `MethodDefinition([computed = true])`
-- `Property([computed = true])`
-- `UnaryExpression([operator = "-" | "+" | "!" | "~"])`
-
-#### Parameters
-
-| Name                                      | Type         |
-| :---------------------------------------- | :----------- |
-| `node`                                    | `Node`       |
-| `sourceCode`                              | `SourceCode` |
-| `options?`                                | `Object`     |
-| `options.considerGetters?`                | `boolean`    |
-| `options.considerImplicitTypeConversion?` | `boolean`    |
-
-#### Returns
-
-`boolean`
-
-**`See`**
-
-[https://eslint-community.github.io/eslint-utils/api/ast-utils.html#hassideeffect](https://eslint-community.github.io/eslint-utils/api/ast-utils.html#hassideeffect)
 
 ---
 
@@ -706,7 +527,7 @@ node is ArrowFunctionExpression \| FunctionDeclarationWithName \| FunctionDeclar
 
 ### isJSX
 
-▸ **isJSX**(`node`): node is JSXAttribute \| JSXClosingElement \| JSXClosingFragment \| JSXElement \| JSXEmptyExpression \| JSXExpressionContainer \| JSXFragment \| JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName \| JSXOpeningElement \| JSXOpeningFragment \| JSXSpreadAttribute \| JSXSpreadChild \| JSXText
+▸ **isJSX**(`node`): node is JSXAttribute \| JSXElement \| JSXExpressionContainer \| JSXSpreadChild \| JSXFragment \| JSXText \| JSXClosingElement \| JSXClosingFragment \| JSXEmptyExpression \| JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName \| JSXOpeningElement \| JSXOpeningFragment \| JSXSpreadAttribute
 
 #### Parameters
 
@@ -716,7 +537,7 @@ node is ArrowFunctionExpression \| FunctionDeclarationWithName \| FunctionDeclar
 
 #### Returns
 
-node is JSXAttribute \| JSXClosingElement \| JSXClosingFragment \| JSXElement \| JSXEmptyExpression \| JSXExpressionContainer \| JSXFragment \| JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName \| JSXOpeningElement \| JSXOpeningFragment \| JSXSpreadAttribute \| JSXSpreadChild \| JSXText
+node is JSXAttribute \| JSXElement \| JSXExpressionContainer \| JSXSpreadChild \| JSXFragment \| JSXText \| JSXClosingElement \| JSXClosingFragment \| JSXEmptyExpression \| JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName \| JSXOpeningElement \| JSXOpeningFragment \| JSXSpreadAttribute
 
 ---
 
@@ -770,7 +591,7 @@ node is JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName
 
 ### isLeftHandSideExpression
 
-▸ **isLeftHandSideExpression**(`node`): node is ArrowFunctionExpression \| FunctionExpression \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| ArrayExpression \| ArrayPattern \| CallExpression \| ClassExpression \| Identifier \| JSXElement \| JSXFragment \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MetaProperty \| ObjectExpression \| ObjectPattern \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression
+▸ **isLeftHandSideExpression**(`node`): node is ArrowFunctionExpression \| FunctionExpression \| ClassExpression \| JSXElement \| JSXFragment \| ArrayPattern \| ObjectPattern \| ArrayExpression \| CallExpression \| Identifier \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| MetaProperty \| ObjectExpression \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression
 
 #### Parameters
 
@@ -780,13 +601,13 @@ node is JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName
 
 #### Returns
 
-node is ArrowFunctionExpression \| FunctionExpression \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| ArrayExpression \| ArrayPattern \| CallExpression \| ClassExpression \| Identifier \| JSXElement \| JSXFragment \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MetaProperty \| ObjectExpression \| ObjectPattern \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression
+node is ArrowFunctionExpression \| FunctionExpression \| ClassExpression \| JSXElement \| JSXFragment \| ArrayPattern \| ObjectPattern \| ArrayExpression \| CallExpression \| Identifier \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| MetaProperty \| ObjectExpression \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression
 
 ---
 
 ### isLeftHandSideExpressionType
 
-▸ **isLeftHandSideExpressionType**(`node`): node is ArrowFunctionExpression \| FunctionExpression \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| ArrayExpression \| ArrayPattern \| CallExpression \| ClassExpression \| Identifier \| JSXElement \| JSXFragment \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MetaProperty \| ObjectExpression \| ObjectPattern \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression \| TSAsExpression \| TSNonNullExpression \| TSTypeAssertion
+▸ **isLeftHandSideExpressionType**(`node`): node is ArrowFunctionExpression \| FunctionExpression \| ClassExpression \| JSXElement \| JSXFragment \| ArrayPattern \| ObjectPattern \| ArrayExpression \| CallExpression \| Identifier \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| MetaProperty \| ObjectExpression \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression \| TSAsExpression \| TSNonNullExpression \| TSTypeAssertion
 
 #### Parameters
 
@@ -796,7 +617,7 @@ node is ArrowFunctionExpression \| FunctionExpression \| MemberExpressionCompute
 
 #### Returns
 
-node is ArrowFunctionExpression \| FunctionExpression \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| ArrayExpression \| ArrayPattern \| CallExpression \| ClassExpression \| Identifier \| JSXElement \| JSXFragment \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MetaProperty \| ObjectExpression \| ObjectPattern \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression \| TSAsExpression \| TSNonNullExpression \| TSTypeAssertion
+node is ArrowFunctionExpression \| FunctionExpression \| ClassExpression \| JSXElement \| JSXFragment \| ArrayPattern \| ObjectPattern \| ArrayExpression \| CallExpression \| Identifier \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| MetaProperty \| ObjectExpression \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression \| TSAsExpression \| TSNonNullExpression \| TSTypeAssertion
 
 ---
 
@@ -895,48 +716,6 @@ node is Extract\<Program, Object\> \| Extract\<AccessorPropertyComputedName, Obj
 
 ---
 
-### isParenthesized
-
-▸ **isParenthesized**(`node`, `sourceCode`): `boolean`
-
-Check whether a given node is parenthesized or not.
-This function detects it correctly even if it's parenthesized by specific syntax.
-
-#### Parameters
-
-| Name         | Type         |
-| :----------- | :----------- |
-| `node`       | `Node`       |
-| `sourceCode` | `SourceCode` |
-
-#### Returns
-
-`boolean`
-
-`true` if the node is parenthesized.
-If `times` was given, it returns `true` only if the node is parenthesized the `times` times.
-For example, `isParenthesized(2, node, sourceCode)` returns true for `((foo))`, but not for `(foo)`.
-
-**`See`**
-
-[https://eslint-community.github.io/eslint-utils/api/ast-utils.html#isparenthesized](https://eslint-community.github.io/eslint-utils/api/ast-utils.html#isparenthesized)
-
-▸ **isParenthesized**(`times`, `node`, `sourceCode`): `boolean`
-
-#### Parameters
-
-| Name         | Type         |
-| :----------- | :----------- |
-| `times`      | `number`     |
-| `node`       | `Node`       |
-| `sourceCode` | `SourceCode` |
-
-#### Returns
-
-`boolean`
-
----
-
 ### isProperty
 
 ▸ **isProperty**(`node`): node is PropertyDefinitionComputedName \| PropertyDefinitionNonComputedName \| TSIndexSignature \| TSParameterProperty \| TSPropertySignatureComputedName \| TSPropertySignatureNonComputedName
@@ -998,24 +777,6 @@ node is StringLiteral
 #### Returns
 
 node is TSInterfaceDeclaration \| TSTypeAliasDeclaration
-
----
-
-### isUnstableAssignmentPattern
-
-▸ **isUnstableAssignmentPattern**(`node`): node is AssignmentPattern & Object
-
-Check if the given node is an unstable assignment pattern (will change between assignments)
-
-#### Parameters
-
-| Name   | Type                | Description           |
-| :----- | :------------------ | :-------------------- |
-| `node` | `AssignmentPattern` | The AST node to check |
-
-#### Returns
-
-node is AssignmentPattern & Object
 
 ---
 

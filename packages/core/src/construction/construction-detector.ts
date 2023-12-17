@@ -1,8 +1,40 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
-import { Data, M, O, P } from "@eslint-react/tools";
+import type { Helper } from "@eslint-react/tools";
+import { _, Data, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
+import { match } from "ts-pattern";
+
+const unstableAssignmentPatternTypes = [
+  NodeType.JSXElement,
+  NodeType.ArrayExpression,
+  NodeType.ObjectExpression,
+  NodeType.FunctionExpression,
+  NodeType.ArrowFunctionExpression,
+  NodeType.ClassExpression,
+  NodeType.NewExpression,
+  NodeType.CallExpression,
+] as const;
+
+/**
+ * Check if the given node is an unstable assignment pattern (will change between assignments)
+ * @param node The AST node to check
+ * @param node.right The right side of the assignment
+ */
+export function isUnstableAssignmentPattern(node: TSESTree.AssignmentPattern): node is
+  & TSESTree.AssignmentPattern
+  & Helper.Narrow<{
+    right: TSESTree.RegExpLiteral | typeof unstableAssignmentPatternTypes[number];
+  }>
+{
+  const { right } = node;
+  if (right.type === NodeType.Literal) {
+    return "regex" in right;
+  }
+
+  return isOneOf(unstableAssignmentPatternTypes)(right);
+}
 
 export type Construction = Data.TaggedEnum<{
   None: {};
@@ -67,7 +99,7 @@ export function constructionDetector<T extends RuleContext>(context: T): (node: 
   const detect = (node: TSESTree.Node): Construction => {
     const scope = context.sourceCode.getScope?.(node) ?? context.getScope();
 
-    return M.match(node)
+    return match(node)
       .when(is(NodeType.ArrayExpression), (node) => Construction.Array({ node, usage: O.none() }))
       .when(is(NodeType.ObjectExpression), (node) => Construction.ObjectExpression({ node, usage: O.none() }))
       .when(is(NodeType.ClassExpression), (node) => Construction.ClassExpression({ node, usage: O.none() }))
@@ -123,7 +155,7 @@ export function constructionDetector<T extends RuleContext>(context: T): (node: 
         return detect(node.right);
       })
       .when(is(NodeType.ConditionalExpression), (node) => {
-        if (!("consequent" in node && "alternate" in node && !P.isNullable(node.alternate))) {
+        if (!("consequent" in node && "alternate" in node && !_.isNullable(node.alternate))) {
           return None;
         }
 
@@ -136,7 +168,7 @@ export function constructionDetector<T extends RuleContext>(context: T): (node: 
         return detect(node.alternate);
       })
       .when(is(NodeType.Identifier), (node) => {
-        if (!("name" in node && P.isString(node.name))) {
+        if (!("name" in node && _.isString(node.name))) {
           return None;
         }
 
@@ -176,7 +208,7 @@ export function constructionDetector<T extends RuleContext>(context: T): (node: 
         return None;
       })
       .when(isOneOf([NodeType.TSAsExpression, NodeType.TSTypeAssertion]), () => {
-        if (!("expression" in node) || !P.isObject(node.expression)) {
+        if (!("expression" in node) || !_.isObject(node.expression)) {
           return None;
         }
 

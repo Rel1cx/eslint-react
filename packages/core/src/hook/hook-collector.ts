@@ -1,8 +1,8 @@
 import { getFunctionIdentifier, type TSESTreeFunction } from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
-import { uid } from "@eslint-react/utils";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
+import { uid } from "../utils";
 import type { ERHook } from "./hook";
 import { unsafeIsReactHookCall } from "./hook-call";
 import { isValidReactHookName } from "./hook-name";

@@ -42,13 +42,9 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@eslint-react/tools": "workspace:*",
-    "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/utils": "6.14.0",
-    "dedent": "1.5.1",
-    "deepmerge-ts": "5.1.0",
-    "short-unique-id": "5.0.3",
-    "tslib": "2.6.2",
     "valibot": "0.24.1"
+  },
+  "devDependencies": {
+    "type-fest": "4.8.3"
   }
 }

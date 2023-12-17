@@ -1,6 +1,5 @@
 import { type TSESTreeFunction } from "@eslint-react/ast";
-import { componentCollector } from "@eslint-react/core";
-import { isCallFromPragma } from "@eslint-react/jsx";
+import { componentCollector, isCreateRefCall } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -11,8 +10,6 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-create-ref";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
-
-const isCreateRefCall = isCallFromPragma("createRef");
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,

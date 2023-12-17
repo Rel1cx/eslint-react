@@ -1,9 +1,10 @@
 import { findVariableByNameUpToGlobal, getVariableInit, is, NodeType } from "@eslint-react/ast";
 import { isUseMemoCall, unsafeIsReactHookCall } from "@eslint-react/core";
 import { getPragmaFromContext } from "@eslint-react/jsx";
-import { F, M, O } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type ConstantCase } from "string-ts";
+import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -48,7 +49,7 @@ export default createRule<[], MessageID>({
         }
 
         const maybeDescriptor = F.pipe(
-          M.match(deps)
+          match(deps)
             .with({ type: NodeType.ArrayExpression }, O.some)
             .with({ type: NodeType.Identifier }, n => {
               return F.pipe(

@@ -176,9 +176,9 @@ Filters a list using the specified predicate.
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -213,9 +213,9 @@ Filters a list using the specified predicate.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -250,10 +250,10 @@ Filters a list using the specified predicate.
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `self`       | [`List`](List.md#list)\<`A`\>                             |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `self`       | [`List`](List.md#list)\<`A`\>                            |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -275,10 +275,10 @@ Filters a list using the specified predicate.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `self`      | [`List`](List.md#list)\<`A`\>                      |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `self`      | [`List`](List.md#list)\<`A`\>                     |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -446,9 +446,9 @@ all elements that did satisfy the specified predicate.
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -485,9 +485,9 @@ all elements that did satisfy the specified predicate.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -524,10 +524,10 @@ all elements that did satisfy the specified predicate.
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `self`       | [`List`](List.md#list)\<`A`\>                             |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `self`       | [`List`](List.md#list)\<`A`\>                            |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -551,10 +551,10 @@ all elements that did satisfy the specified predicate.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `self`      | [`List`](List.md#list)\<`A`\>                      |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `self`      | [`List`](List.md#list)\<`A`\>                     |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -1512,7 +1512,7 @@ Converts the specified `List` to an `Array`.
 
 ### toChunk
 
-▸ **toChunk**\<`A`\>(`self`): [`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+▸ **toChunk**\<`A`\>(`self`): `Chunk`\<`A`\>
 
 Converts the specified `List` to a `Chunk`.
 
@@ -1530,7 +1530,7 @@ Converts the specified `List` to a `Chunk`.
 
 #### Returns
 
-[`Chunk`](../interfaces/Chunk.Chunk-1.md)\<`A`\>
+`Chunk`\<`A`\>
 
 **`Since`**
 
@@ -1553,9 +1553,9 @@ Check if a predicate holds true for every `List` element.
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -1589,9 +1589,9 @@ Check if a predicate holds true for every `List` element.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -1626,10 +1626,10 @@ Check if a predicate holds true for every `List` element.
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `self`       | [`List`](List.md#list)\<`A`\>                             |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `self`       | [`List`](List.md#list)\<`A`\>                            |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -1651,10 +1651,10 @@ Check if a predicate holds true for every `List` element.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `self`      | [`List`](List.md#list)\<`A`\>                      |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `self`      | [`List`](List.md#list)\<`A`\>                     |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -1682,9 +1682,9 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -1720,9 +1720,9 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -1758,10 +1758,10 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name         | Type                                                      |
-| :----------- | :-------------------------------------------------------- |
-| `self`       | [`List`](List.md#list)\<`A`\>                             |
-| `refinement` | [`Refinement`](../interfaces/P.Refinement.md)\<`A`, `B`\> |
+| Name         | Type                                                     |
+| :----------- | :------------------------------------------------------- |
+| `self`       | [`List`](List.md#list)\<`A`\>                            |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -1784,10 +1784,10 @@ predicate, or `None` if no such element exists.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `self`      | [`List`](List.md#list)\<`A`\>                      |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `self`      | [`List`](List.md#list)\<`A`\>                     |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -1842,9 +1842,9 @@ Check if a predicate holds true for some `List` element.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 
@@ -1878,10 +1878,10 @@ Check if a predicate holds true for some `List` element.
 
 #### Parameters
 
-| Name        | Type                                               |
-| :---------- | :------------------------------------------------- |
-| `self`      | [`List`](List.md#list)\<`A`\>                      |
-| `predicate` | [`Predicate`](../interfaces/P.Predicate.md)\<`A`\> |
+| Name        | Type                                              |
+| :---------- | :------------------------------------------------ |
+| `self`      | [`List`](List.md#list)\<`A`\>                     |
+| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
 

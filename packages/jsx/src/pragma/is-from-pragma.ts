@@ -1,8 +1,9 @@
-import { findVariableByName, getVariablesUpToGlobal, NodeType } from "@eslint-react/ast";
-import { M, O } from "@eslint-react/tools";
+import { findVariableByName, getVariablesUpToGlobal, is, isOneOf, NodeType } from "@eslint-react/ast";
+import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
+import { isMatching, match } from "ts-pattern";
 
 import { getPragmaFromContext } from "./get-pragma";
 
@@ -27,17 +28,17 @@ export function isInitializedFromPragma(
     const { init } = node;
 
     // check for: `variable = pragma.variable`
-    if (M.isMatching({ type: "MemberExpression", object: { type: "Identifier", name: pragma } }, init)) {
+    if (isMatching({ type: "MemberExpression", object: { type: "Identifier", name: pragma } }, init)) {
       return true;
     }
 
     // check for: `{ variable } = pragma`
-    if (M.isMatching({ type: "Identifier", name: pragma }, init)) {
+    if (isMatching({ type: "Identifier", name: pragma }, init)) {
       return true;
     }
 
     // check if from a require call: `require("react")`
-    const maybeRequireExpression = M.match(init)
+    const maybeRequireExpression = match(init)
       .with({
         type: NodeType.CallExpression,
         callee: { type: NodeType.Identifier, name: "require" },
@@ -66,11 +67,11 @@ export function isInitializedFromPragma(
   }
 
   // latest definition is an import declaration: import { variable } from 'react'
-  return M.isMatching({ type: "ImportDeclaration", source: { value: pragma.toLowerCase() } }, parent);
+  return isMatching({ type: "ImportDeclaration", source: { value: pragma.toLowerCase() } }, parent);
 }
 
 export function isPropertyOfPragma(name: string, context: RuleContext, pragma = getPragmaFromContext(context)) {
-  const isMatch: (node: TSESTree.Node) => boolean = M.isMatching({
+  const isMatch: (node: TSESTree.Node) => boolean = isMatching({
     type: NodeType.MemberExpression,
     object: {
       type: NodeType.Identifier,
@@ -94,21 +95,87 @@ export type CallFromPragmaPredicate = (
  * @param name The name of the function or method to check
  * @returns A predicate that checks if the given node is a call expression to the given function or method
  */
-export function isCallFromPragma(name: string) {
-  return (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
+export function isFromPragma(name: string) {
+  return (
+    node: TSESTree.Identifier | TSESTree.MemberExpression,
+    context: RuleContext,
+  ) => {
     const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-    if (node.type !== NodeType.CallExpression || !("callee" in node)) {
-      return false;
+    if (node.type === NodeType.MemberExpression) {
+      return isPropertyOfPragma(name, context)(node);
     }
 
-    if (node.callee.type === NodeType.MemberExpression) {
-      return isPropertyOfPragma(name, context)(node.callee);
-    }
-
-    if ("name" in node.callee && node.callee.name === name) {
+    if (node.name === name) {
       return isInitializedFromPragma(name, context, initialScope);
     }
 
     return false;
+  };
+}
+
+/**
+ * @internal
+ * @param pragmaMemberName
+ * @param name
+ * @returns A function that checks if a given node is a member expression of a Pragma member.
+ */
+export function isFromPragmaMember(
+  pragmaMemberName: string,
+  name: string,
+): (node: TSESTree.MemberExpression, context: RuleContext, pragma?: string) => boolean {
+  return (
+    node: TSESTree.MemberExpression,
+    context: RuleContext,
+    pragma = getPragmaFromContext(context),
+  ) => {
+    const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+
+    if (
+      node.property.type !== NodeType.Identifier
+      || node.property.name !== name
+    ) {
+      return false;
+    }
+
+    if (
+      node.object.type === NodeType.Identifier
+      && node.object.name === pragmaMemberName
+    ) {
+      return isInitializedFromPragma(node.object.name, context, initialScope, pragma);
+    }
+
+    if (
+      node.object.type === NodeType.MemberExpression
+      && node.object.object.type === NodeType.Identifier
+      && node.object.object.name === pragma
+      && node.object.property.type === NodeType.Identifier
+    ) {
+      return node.object.property.name === pragmaMemberName;
+    }
+
+    return false;
+  };
+}
+
+export function isCallFromPragma(name: string) {
+  return (node: TSESTree.CallExpression, context: RuleContext) => {
+    if (!isOneOf([NodeType.Identifier, NodeType.MemberExpression])(node.callee)) {
+      return false;
+    }
+
+    return isFromPragma(name)(node.callee, context);
+  };
+}
+
+export function isCallFromPragmaMember(
+  pragmaMemberName: string,
+  name: string,
+) {
+  return (node: TSESTree.CallExpression, context: RuleContext) => {
+    if (!is(NodeType.MemberExpression)(node.callee)) {
+      return false;
+    }
+
+    return isFromPragmaMember(pragmaMemberName, name)(node.callee, context);
   };
 }

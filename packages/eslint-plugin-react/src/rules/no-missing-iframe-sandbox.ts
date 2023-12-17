@@ -1,8 +1,9 @@
 import { NodeType } from "@eslint-react/ast";
 import { findPropInAttributes, findPropInProperties, getPropValue, isCreateElementCall } from "@eslint-react/jsx";
-import { F, M, O, P } from "@eslint-react/tools";
+import { _, F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
+import { isMatching, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -53,7 +54,7 @@ export default createRule<[], MessageID>({
 
         const [name, props] = node.arguments;
 
-        if (!M.isMatching({ type: NodeType.Literal, value: "iframe" }, name)) {
+        if (!isMatching({ type: NodeType.Literal, value: "iframe" }, name)) {
           return;
         }
 
@@ -78,11 +79,11 @@ export default createRule<[], MessageID>({
         }
 
         const sandboxProperty = maybeSandboxProperty.value;
-        const hasValidSandbox = M.isMatching({
+        const hasValidSandbox = isMatching({
           type: NodeType.Property,
           value: {
             type: NodeType.Literal,
-            value: M.P.union(...validTypes),
+            value: P.union(...validTypes),
           },
         }, sandboxProperty);
 
@@ -120,7 +121,7 @@ export default createRule<[], MessageID>({
         const hasValidSandbox = F.pipe(
           getPropValue(sandboxAttribute, context),
           O.flatMapNullable(v => v?.value),
-          O.filter(P.isString),
+          O.filter(_.isString),
           O.map((value) => value.split(" ")),
           O.exists((values) => values.every((value) => validTypes.some((validType) => validType === value))),
         );

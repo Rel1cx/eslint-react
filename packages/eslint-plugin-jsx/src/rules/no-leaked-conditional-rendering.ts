@@ -1,11 +1,12 @@
 import { findVariableByNameUpToGlobal, getVariableInitExpression, isJSX, NodeType } from "@eslint-react/ast";
-import { F, M, O } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/tools";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { type TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { ConstantCase } from "string-ts";
 import * as tsutils from "ts-api-utils";
+import { isMatching, match } from "ts-pattern";
 import ts from "typescript";
 
 import { createRule } from "../utils";
@@ -69,7 +70,7 @@ function inspectVariantTypes(types: ts.Type[]) {
     case booleans.length === 1 && !!booleans[0]: {
       const [first] = booleans;
       F.pipe(
-        M.match<typeof first, O.Option<VariantType>>(first)
+        match<typeof first, O.Option<VariantType>>(first)
           .when(tsutils.isTrueLiteralType, () => O.some("truthy boolean"))
           .when(tsutils.isFalseLiteralType, () => O.some("falsy boolean"))
           .otherwise(O.none),
@@ -89,7 +90,7 @@ function inspectVariantTypes(types: ts.Type[]) {
   const strings = types.filter(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.StringLike));
 
   if (strings.length > 0) {
-    const evaluated = M.match<ts.Type[], VariantType>(strings)
+    const evaluated = match<ts.Type[], VariantType>(strings)
       .when(
         types => types.every(type => type.isStringLiteral() && type.value !== ""),
         F.constant("truthy string"),
@@ -111,7 +112,7 @@ function inspectVariantTypes(types: ts.Type[]) {
   );
 
   if (numbers.length > 0) {
-    const evaluated = M.match<ts.Type[], VariantType>(numbers)
+    const evaluated = match<ts.Type[], VariantType>(numbers)
       .when(
         types => types.every(type => type.isNumberLiteral() && type.value !== 0),
         F.constant("truthy number"),
@@ -201,10 +202,10 @@ export default createRule<[], MessageID>({
     }
 
     function checkExpression(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
-      return M.match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
+      return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
         .when(isJSX, O.none)
         .with({ type: NodeType.LogicalExpression, operator: "&&" }, ({ left, right }) => {
-          const isLeftUnaryNot = M.isMatching({
+          const isLeftUnaryNot = isMatching({
             type: NodeType.UnaryExpression,
             operator: "!",
           }, left);
