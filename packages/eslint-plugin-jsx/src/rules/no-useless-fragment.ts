@@ -67,7 +67,7 @@ function isFragmentWithSingleExpression(node: TSESTree.JSXElement | TSESTree.JSX
 export default createRule<[], MessageID>({
   name: RULE_NAME,
   meta: {
-    type: "suggestion",
+    type: "problem",
     docs: {
       description: "disallow unnecessary fragments",
       recommended: "recommended",

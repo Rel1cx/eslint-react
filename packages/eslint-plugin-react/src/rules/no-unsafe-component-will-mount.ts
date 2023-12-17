@@ -19,7 +19,7 @@ function isUnsafeComponentWillMount(node: TSESTree.ClassElement) {
 export default createRule<[], MessageID>({
   name: RULE_NAME,
   meta: {
-    type: "suggestion",
+    type: "problem",
     docs: {
       description: "disallow usage of `UNSAFE_componentWillMount`",
       recommended: "recommended",

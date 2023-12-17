@@ -22,7 +22,7 @@ function isValidSetterNameLoose(name: string) {
 export default createRule<[], MessageID>({
   name: RULE_NAME,
   meta: {
-    type: "suggestion",
+    type: "problem",
     docs: {
       description: "enforce destructuring and symmetric naming of `useState` hook value and setter variables",
       recommended: "recommended",

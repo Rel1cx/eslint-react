@@ -11,7 +11,7 @@ export type MessageID = "CLASS_COMPONENT";
 export default createRule<[], MessageID>({
   name: RULE_NAME,
   meta: {
-    type: "suggestion",
+    type: "problem",
     docs: {
       // eslint-disable-next-line eslint-plugin/require-meta-docs-description
       description: "report all class components, including anonymous ones",

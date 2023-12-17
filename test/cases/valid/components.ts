@@ -19,13 +19,13 @@ export const memoComponent = dedent`
 export const forwardRefComponent = dedent`
   import { forwardRef } from 'react'
 
-  const ForwardRefComponent = forwardRef(() => <div></div>)
+  const ForwardRefComponent = forwardRef((props, ref) => <div></div>)
 `;
 
 export const memoForwardRefComponent = dedent`
   import { memo, forwardRef } from 'react'
 
-  const MemoForwardRefComponent = memo(forwardRef(() => <div></div>))
+  const MemoForwardRefComponent = memo(forwardRef((props, ref) => <div></div>))
 `;
 
 export const allComponents = [

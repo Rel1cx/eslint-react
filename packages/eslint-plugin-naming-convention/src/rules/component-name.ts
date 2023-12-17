@@ -61,7 +61,7 @@ const schema = [
 export default createRule<Options, MessageID>({
   name: RULE_NAME,
   meta: {
-    type: "suggestion",
+    type: "problem",
     docs: {
       description: "enforce component naming convention to `PascalCase` or `CONSTANT_CASE`",
       recommended: "recommended",

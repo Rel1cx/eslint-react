@@ -69,7 +69,7 @@ const schema = [
 export default createRule<Options, MessageID>({
   name: RULE_NAME,
   meta: {
-    type: "suggestion",
+    type: "problem",
     docs: {
       description: "enforce naming convention for JSX filenames",
       requiresTypeChecking: false,

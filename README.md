@@ -171,6 +171,7 @@ module.exports = {
 - [x] `react/no-constructed-context-value`
 - [ ] `react/no-unused-class-component-methods`
 - [ ] `react/no-unused-state`
+- [ ] `react/ensure-forward-ref-using-ref`
 - [x] `react/prefer-destructuring-assignment`
 - [ ] `react/prefer-readonly-props`
 - [ ] `react/ban-components`

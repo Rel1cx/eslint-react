@@ -1,6 +1,8 @@
-## v0.9.8-beta.0 (Draft)
+## v0.9.8-beta.0 (Sun Dec 17 2023)
 
 ### Release Notes
+
+#### Add rule `react/ensure-forward-ref-using-ref`
 
 #### Reduce false positives in rule `react/no-unstable-nested-components`
 
@@ -10,12 +12,22 @@
 
 #### 🏠 Internal
 
+- `@eslint-react/eslint-plugin-react`
+  - Add rule `react/ensure-forward-ref-using-ref`.
+  - Reduce false positives in rule `react/no-unstable-nested-components`.
+
+- `@eslint-react/eslint-plugin-debug`
+  - Reduce false positives in rule `debug/function-component`.
+
 - `@eslint-react/ast`
   - Refactor `getFunctionIdentifier` function to follow spec convention for `IsAnonymousFunctionDefinition()` usage in ECMAScript spec.
   - Improve module structure.
 
 - `@eslint-react/core`
   - Move construction detection from `@eslint-react/ast` to `@eslint-react/core`.
+
+- `@eslint-react/monorepo`
+  - Update `rollup` to `4.9.1`.
 
 #### Authors: 1
 
