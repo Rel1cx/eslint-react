@@ -1,5 +1,4 @@
 const packages = [
-  "third-party",
   "tools",
   "types",
   "shared",

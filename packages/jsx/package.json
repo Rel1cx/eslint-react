@@ -43,8 +43,8 @@
   },
   "dependencies": {
     "@eslint-react/ast": "workspace:*",
+    "@eslint-react/eslint-utils": "workspace:*",
     "@eslint-react/shared": "workspace:*",
-    "@eslint-react/third-party": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "@typescript-eslint/scope-manager": "6.15.0",

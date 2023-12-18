@@ -1,13 +1,10 @@
-import { ESLintSettingsSchema, parse } from "@eslint-react/shared";
-import { ESLintPluginFilenamesSimple } from "@eslint-react/third-party";
+import { ESLintSettingsSchema, getCaseValidator, parse } from "@eslint-react/shared";
 import { _, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import path from "pathe";
 
 import { createRule } from "../utils";
-
-const { getCaseValidator } = ESLintPluginFilenamesSimple;
 
 export const RULE_NAME = "filename";
 

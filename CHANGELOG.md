@@ -1,3 +1,43 @@
+## v0.9.8-beta.1 (Draft)
+
+### Release Notes
+
+#### No public changes
+
+---
+
+#### 🏠 Internal
+
+- `@eslint-react/tools`
+  - Integrate utility functions into std and helper.
+
+- `@eslint-react/shared`
+  - Extract eslint utils to `@eslint-react/eslint-utils`.
+
+- `@eslint-react/utils`
+  - Migration to `@eslint-react/eslint-utils` package.
+
+- `@eslint-react/ast`
+  - Move construction detection from `@eslint-react/ast` to `@eslint-react/core`.
+  - Minor improvements.
+
+- `@eslint-react/jsx`
+  - Migrate fragment related functions to `isFromPragma`, `isFromPragmaWithName`, `isCallFromPragma`, `isCallFromPragmaWithName`.
+  - Add `isReactAPI` and `isReactAPICall` functions.
+  - Minor improvements.
+
+- `@eslint-react/core`
+  - Minor improvements.
+
+- `@eslint-react/monorepo`
+  - Make packages more sensible.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
+
 ## v0.9.8-beta.0 (Sun Dec 17 2023)
 
 ### Release Notes

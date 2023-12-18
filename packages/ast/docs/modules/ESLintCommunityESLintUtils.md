@@ -1,4 +1,4 @@
-[@eslint-react/third-party](../README.md) / ESLintCommunityESLintUtils
+[@eslint-react/ast](../README.md) / ESLintCommunityESLintUtils
 
 # Namespace: ESLintCommunityESLintUtils
 

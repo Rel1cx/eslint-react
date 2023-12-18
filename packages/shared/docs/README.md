@@ -4,6 +4,10 @@
 
 ## Table of contents
 
+### Classes
+
+- [CaseValidator](classes/CaseValidator.md)
+
 ### Type Aliases
 
 - [ESLintReactSettings](README.md#eslintreactsettings)
@@ -19,11 +23,15 @@
 - [NPM\_SCOPE](README.md#npm_scope)
 - [RE\_JAVASCRIPT\_PROTOCOL](README.md#re_javascript_protocol)
 - [WEBSITE\_URL](README.md#website_url)
+- [presetRules](README.md#presetrules)
 
 ### Functions
 
+- [getCaseValidator](README.md#getcasevalidator)
+- [getRule](README.md#getrule)
 - [parse](README.md#parse)
 - [safeParse](README.md#safeparse)
+- [splitName](README.md#splitname)
 
 ## Type Aliases
 
@@ -85,7 +93,47 @@ ___
 
 • `Const` **WEBSITE\_URL**: ``"https://eslint-react.rel1cx.io"``
 
+___
+
+### presetRules
+
+• `Const` **presetRules**: `PresetRules`
+
 ## Functions
+
+### getCaseValidator
+
+▸ **getCaseValidator**(`ruleName`, `ignorePattern?`): [`CaseValidator`](classes/CaseValidator.md)
+
+#### Parameters
+
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `ruleName` | `string` | `undefined` |
+| `ignorePattern` | `string`[] | `[]` |
+
+#### Returns
+
+[`CaseValidator`](classes/CaseValidator.md)
+
+___
+
+### getRule
+
+▸ **getRule**(`expression`, `preset?`): `Rule`
+
+#### Parameters
+
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `expression` | `string` | `undefined` |
+| `preset` | `PresetRules` | `presetRules` |
+
+#### Returns
+
+`Rule`
+
+___
 
 ### parse
 
@@ -140,3 +188,19 @@ Parses unknown input based on a schema.
 `SafeParseResult`\<`TSchema`\>
 
 The parsed output.
+
+___
+
+### splitName
+
+▸ **splitName**(`name`): `string`[]
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
+
+#### Returns
+
+`string`[]

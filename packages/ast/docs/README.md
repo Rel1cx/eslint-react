@@ -4,6 +4,10 @@
 
 ## Table of contents
 
+### Namespaces
+
+- [ESLintCommunityESLintUtils](modules/ESLintCommunityESLintUtils.md)
+
 ### Type Aliases
 
 - [ReadableNodeType](README.md#readablenodetype)
@@ -527,7 +531,7 @@ ___
 
 ### isJSX
 
-▸ **isJSX**(`node`): node is JSXAttribute \| JSXElement \| JSXExpressionContainer \| JSXSpreadChild \| JSXFragment \| JSXText \| JSXClosingElement \| JSXClosingFragment \| JSXEmptyExpression \| JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName \| JSXOpeningElement \| JSXOpeningFragment \| JSXSpreadAttribute
+▸ **isJSX**(`node`): node is JSXAttribute \| JSXClosingElement \| JSXClosingFragment \| JSXElement \| JSXEmptyExpression \| JSXExpressionContainer \| JSXFragment \| JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName \| JSXOpeningElement \| JSXOpeningFragment \| JSXSpreadAttribute \| JSXSpreadChild \| JSXText
 
 #### Parameters
 
@@ -537,7 +541,7 @@ ___
 
 #### Returns
 
-node is JSXAttribute \| JSXElement \| JSXExpressionContainer \| JSXSpreadChild \| JSXFragment \| JSXText \| JSXClosingElement \| JSXClosingFragment \| JSXEmptyExpression \| JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName \| JSXOpeningElement \| JSXOpeningFragment \| JSXSpreadAttribute
+node is JSXAttribute \| JSXClosingElement \| JSXClosingFragment \| JSXElement \| JSXEmptyExpression \| JSXExpressionContainer \| JSXFragment \| JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName \| JSXOpeningElement \| JSXOpeningFragment \| JSXSpreadAttribute \| JSXSpreadChild \| JSXText
 
 ___
 
@@ -591,7 +595,7 @@ ___
 
 ### isLeftHandSideExpression
 
-▸ **isLeftHandSideExpression**(`node`): node is ArrowFunctionExpression \| FunctionExpression \| ClassExpression \| JSXElement \| JSXFragment \| ArrayPattern \| ObjectPattern \| ArrayExpression \| CallExpression \| Identifier \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| MetaProperty \| ObjectExpression \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression
+▸ **isLeftHandSideExpression**(`node`): node is ArrowFunctionExpression \| FunctionExpression \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| ArrayExpression \| ArrayPattern \| CallExpression \| ClassExpression \| Identifier \| JSXElement \| JSXFragment \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MetaProperty \| ObjectExpression \| ObjectPattern \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression
 
 #### Parameters
 
@@ -601,13 +605,13 @@ ___
 
 #### Returns
 
-node is ArrowFunctionExpression \| FunctionExpression \| ClassExpression \| JSXElement \| JSXFragment \| ArrayPattern \| ObjectPattern \| ArrayExpression \| CallExpression \| Identifier \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| MetaProperty \| ObjectExpression \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression
+node is ArrowFunctionExpression \| FunctionExpression \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| ArrayExpression \| ArrayPattern \| CallExpression \| ClassExpression \| Identifier \| JSXElement \| JSXFragment \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MetaProperty \| ObjectExpression \| ObjectPattern \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression
 
 ___
 
 ### isLeftHandSideExpressionType
 
-▸ **isLeftHandSideExpressionType**(`node`): node is ArrowFunctionExpression \| FunctionExpression \| ClassExpression \| JSXElement \| JSXFragment \| ArrayPattern \| ObjectPattern \| ArrayExpression \| CallExpression \| Identifier \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| MetaProperty \| ObjectExpression \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression \| TSAsExpression \| TSNonNullExpression \| TSTypeAssertion
+▸ **isLeftHandSideExpressionType**(`node`): node is ArrowFunctionExpression \| FunctionExpression \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| ArrayExpression \| ArrayPattern \| CallExpression \| ClassExpression \| Identifier \| JSXElement \| JSXFragment \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MetaProperty \| ObjectExpression \| ObjectPattern \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression \| TSAsExpression \| TSNonNullExpression \| TSTypeAssertion
 
 #### Parameters
 
@@ -617,7 +621,7 @@ ___
 
 #### Returns
 
-node is ArrowFunctionExpression \| FunctionExpression \| ClassExpression \| JSXElement \| JSXFragment \| ArrayPattern \| ObjectPattern \| ArrayExpression \| CallExpression \| Identifier \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| MetaProperty \| ObjectExpression \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression \| TSAsExpression \| TSNonNullExpression \| TSTypeAssertion
+node is ArrowFunctionExpression \| FunctionExpression \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| ArrayExpression \| ArrayPattern \| CallExpression \| ClassExpression \| Identifier \| JSXElement \| JSXFragment \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| MetaProperty \| ObjectExpression \| ObjectPattern \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression \| TSAsExpression \| TSNonNullExpression \| TSTypeAssertion
 
 ___
 

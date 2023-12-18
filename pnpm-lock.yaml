@@ -287,6 +287,9 @@ importers:
 
   packages/ast:
     dependencies:
+      '@eslint-community/eslint-utils':
+        specifier: 4.4.0
+        version: 4.4.0(eslint@8.56.0)
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../shared
@@ -512,9 +515,6 @@ importers:
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../shared
-      '@eslint-react/third-party':
-        specifier: workspace:*
-        version: link:../third-party
       '@eslint-react/tools':
         specifier: workspace:*
         version: link:../tools
@@ -659,12 +659,12 @@ importers:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../ast
+      '@eslint-react/eslint-utils':
+        specifier: workspace:*
+        version: link:../eslint-utils
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../shared
-      '@eslint-react/third-party':
-        specifier: workspace:*
-        version: link:../third-party
       '@eslint-react/tools':
         specifier: workspace:*
         version: link:../tools
@@ -693,21 +693,6 @@ importers:
       type-fest:
         specifier: 4.8.3
         version: 4.8.3
-
-  packages/third-party:
-    dependencies:
-      '@eslint-community/eslint-utils':
-        specifier: 4.4.0
-        version: 4.4.0(eslint@8.56.0)
-      '@typescript-eslint/types':
-        specifier: 6.15.0
-        version: 6.15.0
-      '@typescript-eslint/utils':
-        specifier: 6.15.0
-        version: 6.15.0(eslint@8.56.0)(typescript@5.3.3)
-      tslib:
-        specifier: 2.6.2
-        version: 2.6.2
 
   packages/tools:
     dependencies:

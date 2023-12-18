@@ -1,5 +1,10 @@
-import { findVariableByNameUpToGlobal, getVariableInit, is, NodeType } from "@eslint-react/ast";
-import { ESLintCommunityESLintUtils } from "@eslint-react/third-party";
+import {
+  ESLintCommunityESLintUtils,
+  findVariableByNameUpToGlobal,
+  getVariableInit,
+  is,
+  NodeType,
+} from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";

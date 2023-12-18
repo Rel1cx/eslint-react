@@ -1,15 +1,13 @@
 import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
 import { componentCollector, componentCollectorLegacy } from "@eslint-react/core";
 import { elementType } from "@eslint-react/jsx";
-import { ESLintPluginFilenamesSimple } from "@eslint-react/third-party";
+import { getCaseValidator } from "@eslint-react/shared";
 import { _, O } from "@eslint-react/tools";
 import { type ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { type ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
-
-const { getCaseValidator } = ESLintPluginFilenamesSimple;
 
 export const RULE_NAME = "component-name";
 

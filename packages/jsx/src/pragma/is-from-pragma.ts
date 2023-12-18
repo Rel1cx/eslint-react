@@ -85,11 +85,6 @@ export function isPropertyOfPragma(name: string, context: RuleContext, pragma = 
   return isMatch;
 }
 
-export type CallFromPragmaPredicate = (
-  node: TSESTree.Node,
-  context: RuleContext,
-) => node is TSESTree.CallExpression;
-
 /**
  * Checks if the given node is a call expression to the given function or method of the pragma
  * @param name The name of the function or method to check

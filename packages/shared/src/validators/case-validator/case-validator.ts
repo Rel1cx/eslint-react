@@ -1,3 +1,5 @@
+/* eslint-disable functional/no-this-expressions */
+/* eslint-disable functional/prefer-immutable-types */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-classes */
 /* eslint-disable functional/no-throw-statements */

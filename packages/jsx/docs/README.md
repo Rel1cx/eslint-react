@@ -4,10 +4,6 @@
 
 ## Table of contents
 
-### Type Aliases
-
-- [CallFromPragmaPredicate](README.md#callfrompragmapredicate)
-
 ### Variables
 
 - [DEFAULT\_JSX\_VALUE\_CHECK\_HINT](README.md#default_jsx_value_check_hint)
@@ -67,27 +63,6 @@
 - [isPropertyOfPragma](README.md#ispropertyofpragma)
 - [isWhiteSpace](README.md#iswhitespace)
 - [traverseUpProp](README.md#traverseupprop)
-
-## Type Aliases
-
-### CallFromPragmaPredicate
-
-Ƭ **CallFromPragmaPredicate**: (`node`: `TSESTree.Node`, `context`: `RuleContext`) => node is TSESTree.CallExpression
-
-#### Type declaration
-
-▸ (`node`, `context`): node is TSESTree.CallExpression
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `TSESTree.Node` |
-| `context` | `RuleContext` |
-
-##### Returns
-
-node is TSESTree.CallExpression
 
 ## Variables
 

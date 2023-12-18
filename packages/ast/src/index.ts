@@ -1,5 +1,6 @@
 export * from "./call";
 export * from "./class";
+export * from "./eslint-community-eslint-utils";
 export * from "./function";
 export * from "./identifier";
 export * from "./literal";
