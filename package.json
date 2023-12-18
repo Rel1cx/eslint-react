@@ -57,6 +57,8 @@
     "update:website": "bun run --bun ./scripts/update-website.ts"
   },
   "devDependencies": {
+    "@lerna-lite/cli": "3.1.0",
+    "@lerna-lite/publish": "3.1.0",
     "@rollup/plugin-commonjs": "25.0.7",
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "15.2.3",

@@ -1,0 +1,8 @@
+{
+  "$schema": "node_modules/@lerna-lite/cli/schemas/lerna-schema.json",
+  "npmClient": "pnpm",
+  "packages": [
+    "packages/*"
+  ],
+  "version": "0.9.8-beta.0"
+}
