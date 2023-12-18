@@ -1,5 +1,5 @@
 import { NodeType, type TSESTreeFunction } from "@eslint-react/ast";
-import { componentCollector, type Construction, constructionDetector } from "@eslint-react/core";
+import { componentCollector, constructionDetector, type ERConstruction } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
   create(context) {
     const { ctx, listeners } = componentCollector(context);
     const detectConstruction = constructionDetector(context);
-    const possibleValueConstructions = new Map<TSESTreeFunction, Construction>();
+    const possibleValueConstructions = new Map<TSESTreeFunction, ERConstruction>();
 
     return {
       ...listeners,
