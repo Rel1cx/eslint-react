@@ -10,10 +10,10 @@
 
 ## Type parameters
 
-| Name  | Type                             |
-| :---- | :------------------------------- |
-| `A`   | extends [`Case`](Data.Case-1.md) |
-| `Tag` | extends keyof `A` = `never`      |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends [`Case`](Data.Case-1.md) |
+| `Tag` | extends keyof `A` = `never` |
 
 ## Callable
 
@@ -23,9 +23,9 @@
 
 #### Parameters
 
-| Name   | Type                                                                                                                                                                                                |
-| :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `args` | `Equals`\<`Omit`\<`A`, `Tag` \| keyof [`Equal`](Equal.Equal.md)\>, {}\> extends `true` ? `void` : \{ readonly [P in string \| number \| symbol as P extends Tag \| keyof Equal ? never : P]: A[P] } |
+| Name | Type |
+| :------ | :------ |
+| `args` | `Equals`\<`Omit`\<`A`, `Tag` \| keyof [`Equal`](Equal.Equal.md)\>, {}\> extends ``true`` ? `void` : \{ readonly [P in string \| number \| symbol as P extends Tag \| keyof Equal ? never : P]: A[P] } |
 
 #### Returns
 

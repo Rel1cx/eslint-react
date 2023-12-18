@@ -35,15 +35,15 @@
 
 #### Parameters
 
-| Name   | Type                      |
-| :----- | :------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `that` | [`Equal`](Equal.Equal.md) |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### [symbol]
 

@@ -42,21 +42,21 @@
 
 ### between
 
-▸ **between**\<`A`\>(`O`): (`options`: \{ `maximum`: `A` ; `minimum`: `A` }) => (`self`: `A`) => `boolean`(`self`: `A`, `options`: \{ `maximum`: `A` ; `minimum`: `A` }) => `boolean`
+▸ **between**\<`A`\>(`O`): (`options`: \{ `maximum`: `A` ; `minimum`: `A`  }) => (`self`: `A`) => `boolean`(`self`: `A`, `options`: \{ `maximum`: `A` ; `minimum`: `A`  }) => `boolean`
 
 Test whether a value is between a minimum and a maximum (inclusive).
 
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
 
@@ -66,11 +66,11 @@ Test whether a value is between a minimum and a maximum (inclusive).
 
 ##### Parameters
 
-| Name              | Type     |
-| :---------------- | :------- |
-| `options`         | `Object` |
-| `options.maximum` | `A`      |
-| `options.minimum` | `A`      |
+| Name | Type |
+| :------ | :------ |
+| `options` | `Object` |
+| `options.maximum` | `A` |
+| `options.minimum` | `A` |
 
 ##### Returns
 
@@ -80,9 +80,9 @@ Test whether a value is between a minimum and a maximum (inclusive).
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
 
 ##### Returns
 
@@ -92,12 +92,12 @@ Test whether a value is between a minimum and a maximum (inclusive).
 
 ##### Parameters
 
-| Name              | Type     |
-| :---------------- | :------- |
-| `self`            | `A`      |
-| `options`         | `Object` |
-| `options.maximum` | `A`      |
-| `options.minimum` | `A`      |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
+| `options` | `Object` |
+| `options.maximum` | `A` |
+| `options.minimum` | `A` |
 
 ##### Returns
 
@@ -107,25 +107,25 @@ Test whether a value is between a minimum and a maximum (inclusive).
 
 2.0.0
 
----
+___
 
 ### clamp
 
-▸ **clamp**\<`A`\>(`O`): (`options`: \{ `maximum`: `A` ; `minimum`: `A` }) => (`self`: `A`) => `A`(`self`: `A`, `options`: \{ `maximum`: `A` ; `minimum`: `A` }) => `A`
+▸ **clamp**\<`A`\>(`O`): (`options`: \{ `maximum`: `A` ; `minimum`: `A`  }) => (`self`: `A`) => `A`(`self`: `A`, `options`: \{ `maximum`: `A` ; `minimum`: `A`  }) => `A`
 
 Clamp a value between a minimum and a maximum.
 
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
 
@@ -135,11 +135,11 @@ Clamp a value between a minimum and a maximum.
 
 ##### Parameters
 
-| Name              | Type     |
-| :---------------- | :------- |
-| `options`         | `Object` |
-| `options.maximum` | `A`      |
-| `options.minimum` | `A`      |
+| Name | Type |
+| :------ | :------ |
+| `options` | `Object` |
+| `options.maximum` | `A` |
+| `options.minimum` | `A` |
 
 ##### Returns
 
@@ -149,9 +149,9 @@ Clamp a value between a minimum and a maximum.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
 
 ##### Returns
 
@@ -161,12 +161,12 @@ Clamp a value between a minimum and a maximum.
 
 ##### Parameters
 
-| Name              | Type     |
-| :---------------- | :------- |
-| `self`            | `A`      |
-| `options`         | `Object` |
-| `options.maximum` | `A`      |
-| `options.minimum` | `A`      |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
+| `options` | `Object` |
+| `options.maximum` | `A` |
+| `options.minimum` | `A` |
 
 ##### Returns
 
@@ -175,21 +175,21 @@ Clamp a value between a minimum and a maximum.
 **`Example`**
 
 ```ts
-import * as Order from "effect/Order";
-import * as Number from "effect/Number";
+import * as Order from "effect/Order"
+import * as Number from "effect/Number"
 
-const clamp = Order.clamp(Number.Order)({ minimum: 1, maximum: 5 });
+const clamp = Order.clamp(Number.Order)({ minimum: 1, maximum: 5 })
 
-assert.equal(clamp(3), 3);
-assert.equal(clamp(0), 1);
-assert.equal(clamp(6), 5);
+assert.equal(clamp(3), 3)
+assert.equal(clamp(0), 1)
+assert.equal(clamp(6), 5)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### empty
 
@@ -198,8 +198,8 @@ assert.equal(clamp(6), 5);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Returns
 
@@ -209,7 +209,7 @@ assert.equal(clamp(6), 5);
 
 2.0.0
 
----
+___
 
 ### greaterThan
 
@@ -220,14 +220,14 @@ Test whether one value is _strictly greater than_ another.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
 
@@ -237,9 +237,9 @@ Test whether one value is _strictly greater than_ another.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `that` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `that` | `A` |
 
 ##### Returns
 
@@ -249,9 +249,9 @@ Test whether one value is _strictly greater than_ another.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
 
 ##### Returns
 
@@ -261,10 +261,10 @@ Test whether one value is _strictly greater than_ another.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `A`  |
-| `that` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
+| `that` | `A` |
 
 ##### Returns
 
@@ -274,7 +274,7 @@ Test whether one value is _strictly greater than_ another.
 
 2.0.0
 
----
+___
 
 ### greaterThanOrEqualTo
 
@@ -285,14 +285,14 @@ Test whether one value is _non-strictly greater than_ another.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
 
@@ -302,9 +302,9 @@ Test whether one value is _non-strictly greater than_ another.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `that` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `that` | `A` |
 
 ##### Returns
 
@@ -314,9 +314,9 @@ Test whether one value is _non-strictly greater than_ another.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
 
 ##### Returns
 
@@ -326,10 +326,10 @@ Test whether one value is _non-strictly greater than_ another.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `A`  |
-| `that` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
+| `that` | `A` |
 
 ##### Returns
 
@@ -339,7 +339,7 @@ Test whether one value is _non-strictly greater than_ another.
 
 2.0.0
 
----
+___
 
 ### lessThan
 
@@ -350,14 +350,14 @@ Test whether one value is _strictly less than_ another.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
 
@@ -367,9 +367,9 @@ Test whether one value is _strictly less than_ another.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `that` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `that` | `A` |
 
 ##### Returns
 
@@ -379,9 +379,9 @@ Test whether one value is _strictly less than_ another.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
 
 ##### Returns
 
@@ -391,10 +391,10 @@ Test whether one value is _strictly less than_ another.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `A`  |
-| `that` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
+| `that` | `A` |
 
 ##### Returns
 
@@ -404,7 +404,7 @@ Test whether one value is _strictly less than_ another.
 
 2.0.0
 
----
+___
 
 ### lessThanOrEqualTo
 
@@ -415,14 +415,14 @@ Test whether one value is _non-strictly less than_ another.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
 
@@ -432,9 +432,9 @@ Test whether one value is _non-strictly less than_ another.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `that` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `that` | `A` |
 
 ##### Returns
 
@@ -444,9 +444,9 @@ Test whether one value is _non-strictly less than_ another.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
 
 ##### Returns
 
@@ -456,10 +456,10 @@ Test whether one value is _non-strictly less than_ another.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `A`  |
-| `that` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
+| `that` | `A` |
 
 ##### Returns
 
@@ -469,7 +469,7 @@ Test whether one value is _non-strictly less than_ another.
 
 2.0.0
 
----
+___
 
 ### max
 
@@ -480,14 +480,14 @@ Take the maximum of two values. If they are considered equal, the first argument
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
 
@@ -497,9 +497,9 @@ Take the maximum of two values. If they are considered equal, the first argument
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `that` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `that` | `A` |
 
 ##### Returns
 
@@ -509,9 +509,9 @@ Take the maximum of two values. If they are considered equal, the first argument
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
 
 ##### Returns
 
@@ -521,10 +521,10 @@ Take the maximum of two values. If they are considered equal, the first argument
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `A`  |
-| `that` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
+| `that` | `A` |
 
 ##### Returns
 
@@ -534,7 +534,7 @@ Take the maximum of two values. If they are considered equal, the first argument
 
 2.0.0
 
----
+___
 
 ### min
 
@@ -545,14 +545,14 @@ Take the minimum of two values. If they are considered equal, the first argument
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
 
@@ -562,9 +562,9 @@ Take the minimum of two values. If they are considered equal, the first argument
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `that` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `that` | `A` |
 
 ##### Returns
 
@@ -574,9 +574,9 @@ Take the minimum of two values. If they are considered equal, the first argument
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
 
 ##### Returns
 
@@ -586,10 +586,10 @@ Take the minimum of two values. If they are considered equal, the first argument
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `A`  |
-| `that` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
+| `that` | `A` |
 
 ##### Returns
 
@@ -599,7 +599,7 @@ Take the minimum of two values. If they are considered equal, the first argument
 
 2.0.0
 
----
+___
 
 ### reverse
 
@@ -608,14 +608,14 @@ Take the minimum of two values. If they are considered equal, the first argument
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
 
@@ -639,14 +639,14 @@ It is useful when you need to compare two arrays of the same type and you have a
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
 
@@ -656,7 +656,7 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 2.0.0
 
----
+___
 
 ### struct
 
@@ -667,15 +667,15 @@ for each property in the struct.
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `R`  | extends `Object` |
+| Name | Type |
+| :------ | :------ |
+| `R` | extends `Object` |
 
 #### Parameters
 
-| Name     | Type |
-| :------- | :--- |
-| `fields` | `R`  |
+| Name | Type |
+| :------ | :------ |
+| `fields` | `R` |
 
 #### Returns
 
@@ -685,7 +685,7 @@ for each property in the struct.
 
 2.0.0
 
----
+___
 
 ### tuple
 
@@ -704,15 +704,15 @@ of the tuple.
 
 #### Type parameters
 
-| Name | Type                                                              |
-| :--- | :---------------------------------------------------------------- |
-| `T`  | extends readonly [`Order`](../interfaces/Ord.Order.md)\<`any`\>[] |
+| Name | Type |
+| :------ | :------ |
+| `T` | extends readonly [`Order`](../interfaces/Ord.Order.md)\<`any`\>[] |
 
 #### Parameters
 
-| Name          | Type |
-| :------------ | :--- |
-| `...elements` | `T`  |
+| Name | Type |
+| :------ | :------ |
+| `...elements` | `T` |
 
 #### Returns
 
@@ -731,13 +731,13 @@ of the tuple.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name         | Type                                                       |
-| :----------- | :--------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `collection` | `Iterable`\<[`Order`](../interfaces/Ord.Order.md)\<`A`\>\> |
 
 #### Returns
@@ -748,7 +748,7 @@ of the tuple.
 
 2.0.0
 
----
+___
 
 ### combine
 
@@ -757,13 +757,13 @@ of the tuple.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `that` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
@@ -774,8 +774,8 @@ of the tuple.
 
 ##### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 ##### Returns
@@ -791,13 +791,13 @@ of the tuple.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 | `that` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
@@ -809,7 +809,7 @@ of the tuple.
 
 2.0.0
 
----
+___
 
 ### combineAll
 
@@ -818,13 +818,13 @@ of the tuple.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name         | Type                                                       |
-| :----------- | :--------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `collection` | `Iterable`\<[`Order`](../interfaces/Ord.Order.md)\<`A`\>\> |
 
 #### Returns
@@ -835,7 +835,7 @@ of the tuple.
 
 2.0.0
 
----
+___
 
 ### combineMany
 
@@ -844,13 +844,13 @@ of the tuple.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name         | Type                                                       |
-| :----------- | :--------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `collection` | `Iterable`\<[`Order`](../interfaces/Ord.Order.md)\<`A`\>\> |
 
 #### Returns
@@ -861,8 +861,8 @@ of the tuple.
 
 ##### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 ##### Returns
@@ -878,14 +878,14 @@ of the tuple.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name         | Type                                                       |
-| :----------- | :--------------------------------------------------------- |
-| `self`       | [`Order`](../interfaces/Ord.Order.md)\<`A`\>               |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 | `collection` | `Iterable`\<[`Order`](../interfaces/Ord.Order.md)\<`A`\>\> |
 
 #### Returns
@@ -896,7 +896,7 @@ of the tuple.
 
 2.0.0
 
----
+___
 
 ### product
 
@@ -905,13 +905,13 @@ of the tuple.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `that` | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
 
 #### Returns
@@ -923,13 +923,13 @@ of the tuple.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 ##### Returns
@@ -945,14 +945,14 @@ of the tuple.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 | `that` | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
 
@@ -964,7 +964,7 @@ of the tuple.
 
 2.0.0
 
----
+___
 
 ### productMany
 
@@ -973,13 +973,13 @@ of the tuple.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name         | Type                                                       |
-| :----------- | :--------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `collection` | `Iterable`\<[`Order`](../interfaces/Ord.Order.md)\<`A`\>\> |
 
 #### Returns
@@ -990,8 +990,8 @@ of the tuple.
 
 ##### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 ##### Returns
@@ -1007,14 +1007,14 @@ of the tuple.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name         | Type                                                       |
-| :----------- | :--------------------------------------------------------- |
-| `self`       | [`Order`](../interfaces/Ord.Order.md)\<`A`\>               |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 | `collection` | `Iterable`\<[`Order`](../interfaces/Ord.Order.md)\<`A`\>\> |
 
 #### Returns
@@ -1034,14 +1034,14 @@ of the tuple.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name      | Type                                             |
-| :-------- | :----------------------------------------------- |
-| `compare` | (`self`: `A`, `that`: `A`) => `0` \| `1` \| `-1` |
+| Name | Type |
+| :------ | :------ |
+| `compare` | (`self`: `A`, `that`: `A`) => ``0`` \| ``1`` \| ``-1`` |
 
 #### Returns
 
@@ -1055,102 +1055,102 @@ of the tuple.
 
 ### Date
 
-▸ **Date**(`self`, `that`): `0` \| `1` \| `-1`
+▸ **Date**(`self`, `that`): ``0`` \| ``1`` \| ``-1``
 
 #### Parameters
 
-| Name   | Type   |
-| :----- | :----- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Date` |
 | `that` | `Date` |
 
 #### Returns
 
-`0` \| `1` \| `-1`
+``0`` \| ``1`` \| ``-1``
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### bigint
 
-▸ **bigint**(`self`, `that`): `0` \| `1` \| `-1`
+▸ **bigint**(`self`, `that`): ``0`` \| ``1`` \| ``-1``
 
 #### Parameters
 
-| Name   | Type     |
-| :----- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `bigint` |
 | `that` | `bigint` |
 
 #### Returns
 
-`0` \| `1` \| `-1`
+``0`` \| ``1`` \| ``-1``
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### boolean
 
-▸ **boolean**(`self`, `that`): `0` \| `1` \| `-1`
+▸ **boolean**(`self`, `that`): ``0`` \| ``1`` \| ``-1``
 
 #### Parameters
 
-| Name   | Type      |
-| :----- | :-------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `boolean` |
 | `that` | `boolean` |
 
 #### Returns
 
-`0` \| `1` \| `-1`
+``0`` \| ``1`` \| ``-1``
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### number
 
-▸ **number**(`self`, `that`): `0` \| `1` \| `-1`
+▸ **number**(`self`, `that`): ``0`` \| ``1`` \| ``-1``
 
 #### Parameters
 
-| Name   | Type     |
-| :----- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `number` |
 | `that` | `number` |
 
 #### Returns
 
-`0` \| `1` \| `-1`
+``0`` \| ``1`` \| ``-1``
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### string
 
-▸ **string**(`self`, `that`): `0` \| `1` \| `-1`
+▸ **string**(`self`, `that`): ``0`` \| ``1`` \| ``-1``
 
 #### Parameters
 
-| Name   | Type     |
-| :----- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `string` |
 | `that` | `string` |
 
 #### Returns
 
-`0` \| `1` \| `-1`
+``0`` \| ``1`` \| ``-1``
 
 **`Since`**
 
@@ -1165,15 +1165,15 @@ of the tuple.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
-| `A`  |
+| :------ |
+| `B` |
+| `A` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `f`  | (`b`: `B`) => `A` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`b`: `B`) => `A` |
 
 #### Returns
 
@@ -1183,8 +1183,8 @@ of the tuple.
 
 ##### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 ##### Returns
@@ -1200,16 +1200,16 @@ of the tuple.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
-| `f`    | (`b`: `B`) => `A`                            |
+| `f` | (`b`: `B`) => `A` |
 
 #### Returns
 

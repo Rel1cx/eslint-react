@@ -11,22 +11,22 @@
 ## Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ## Callable
 
 ### Order
 
-▸ **Order**(`self`, `that`): `0` \| `1` \| `-1`
+▸ **Order**(`self`, `that`): ``0`` \| ``1`` \| ``-1``
 
 #### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `A`  |
-| `that` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
+| `that` | `A` |
 
 #### Returns
 
-`0` \| `1` \| `-1`
+``0`` \| ``1`` \| ``-1``

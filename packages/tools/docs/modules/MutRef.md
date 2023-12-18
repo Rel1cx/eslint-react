@@ -39,8 +39,8 @@
 
 #### Parameters
 
-| Name   | Type                                                            |
-| :----- | :-------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`boolean`\> |
 
 #### Returns
@@ -60,14 +60,14 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name    | Type |
-| :------ | :--- |
-| `value` | `T`  |
+| Name | Type |
+| :------ | :------ |
+| `value` | `T` |
 
 #### Returns
 
@@ -86,15 +86,15 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name       | Type |
-| :--------- | :--- |
-| `oldValue` | `T`  |
-| `newValue` | `T`  |
+| Name | Type |
+| :------ | :------ |
+| `oldValue` | `T` |
+| `newValue` | `T` |
 
 #### Returns
 
@@ -104,8 +104,8 @@
 
 ##### Parameters
 
-| Name   | Type                                                      |
-| :----- | :-------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
 
 ##### Returns
@@ -121,16 +121,16 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name       | Type                                                      |
-| :--------- | :-------------------------------------------------------- |
-| `self`     | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
-| `oldValue` | `T`                                                       |
-| `newValue` | `T`                                                       |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
+| `oldValue` | `T` |
+| `newValue` | `T` |
 
 #### Returns
 
@@ -140,7 +140,7 @@
 
 2.0.0
 
----
+___
 
 ### get
 
@@ -149,13 +149,13 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name   | Type                                                      |
-| :----- | :-------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
 
 #### Returns
@@ -166,7 +166,7 @@
 
 2.0.0
 
----
+___
 
 ### getAndSet
 
@@ -175,14 +175,14 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name    | Type |
-| :------ | :--- |
-| `value` | `T`  |
+| Name | Type |
+| :------ | :------ |
+| `value` | `T` |
 
 #### Returns
 
@@ -192,8 +192,8 @@
 
 ##### Parameters
 
-| Name   | Type                                                      |
-| :----- | :-------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
 
 ##### Returns
@@ -209,15 +209,15 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name    | Type                                                      |
-| :------ | :-------------------------------------------------------- |
-| `self`  | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
-| `value` | `T`                                                       |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
+| `value` | `T` |
 
 #### Returns
 
@@ -227,7 +227,7 @@
 
 2.0.0
 
----
+___
 
 ### getAndUpdate
 
@@ -236,14 +236,14 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name | Type                  |
-| :--- | :-------------------- |
-| `f`  | (`value`: `T`) => `T` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`value`: `T`) => `T` |
 
 #### Returns
 
@@ -253,8 +253,8 @@
 
 ##### Parameters
 
-| Name   | Type                                                      |
-| :----- | :-------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
 
 ##### Returns
@@ -270,15 +270,15 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name   | Type                                                      |
-| :----- | :-------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
-| `f`    | (`value`: `T`) => `T`                                     |
+| `f` | (`value`: `T`) => `T` |
 
 #### Returns
 
@@ -288,7 +288,7 @@
 
 2.0.0
 
----
+___
 
 ### set
 
@@ -297,14 +297,14 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name    | Type |
-| :------ | :--- |
-| `value` | `T`  |
+| Name | Type |
+| :------ | :------ |
+| `value` | `T` |
 
 #### Returns
 
@@ -314,8 +314,8 @@
 
 ##### Parameters
 
-| Name   | Type                                                      |
-| :----- | :-------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
 
 ##### Returns
@@ -331,15 +331,15 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name    | Type                                                      |
-| :------ | :-------------------------------------------------------- |
-| `self`  | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
-| `value` | `T`                                                       |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
+| `value` | `T` |
 
 #### Returns
 
@@ -349,7 +349,7 @@
 
 2.0.0
 
----
+___
 
 ### setAndGet
 
@@ -358,14 +358,14 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name    | Type |
-| :------ | :--- |
-| `value` | `T`  |
+| Name | Type |
+| :------ | :------ |
+| `value` | `T` |
 
 #### Returns
 
@@ -375,8 +375,8 @@
 
 ##### Parameters
 
-| Name   | Type                                                      |
-| :----- | :-------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
 
 ##### Returns
@@ -392,15 +392,15 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name    | Type                                                      |
-| :------ | :-------------------------------------------------------- |
-| `self`  | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
-| `value` | `T`                                                       |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
+| `value` | `T` |
 
 #### Returns
 
@@ -410,7 +410,7 @@
 
 2.0.0
 
----
+___
 
 ### update
 
@@ -419,14 +419,14 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name | Type                  |
-| :--- | :-------------------- |
-| `f`  | (`value`: `T`) => `T` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`value`: `T`) => `T` |
 
 #### Returns
 
@@ -436,8 +436,8 @@
 
 ##### Parameters
 
-| Name   | Type                                                      |
-| :----- | :-------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
 
 ##### Returns
@@ -453,15 +453,15 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name   | Type                                                      |
-| :----- | :-------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
-| `f`    | (`value`: `T`) => `T`                                     |
+| `f` | (`value`: `T`) => `T` |
 
 #### Returns
 
@@ -471,7 +471,7 @@
 
 2.0.0
 
----
+___
 
 ### updateAndGet
 
@@ -480,14 +480,14 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name | Type                  |
-| :--- | :-------------------- |
-| `f`  | (`value`: `T`) => `T` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`value`: `T`) => `T` |
 
 #### Returns
 
@@ -497,8 +497,8 @@
 
 ##### Parameters
 
-| Name   | Type                                                      |
-| :----- | :-------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
 
 ##### Returns
@@ -514,15 +514,15 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name   | Type                                                      |
-| :----- | :-------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`T`\> |
-| `f`    | (`value`: `T`) => `T`                                     |
+| `f` | (`value`: `T`) => `T` |
 
 #### Returns
 
@@ -540,8 +540,8 @@
 
 #### Parameters
 
-| Name   | Type                                                           |
-| :----- | :------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`number`\> |
 
 #### Returns
@@ -552,7 +552,7 @@
 
 2.0.0
 
----
+___
 
 ### decrementAndGet
 
@@ -560,8 +560,8 @@
 
 #### Parameters
 
-| Name   | Type                                                           |
-| :----- | :------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`number`\> |
 
 #### Returns
@@ -572,7 +572,7 @@
 
 2.0.0
 
----
+___
 
 ### getAndDecrement
 
@@ -580,8 +580,8 @@
 
 #### Parameters
 
-| Name   | Type                                                           |
-| :----- | :------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`number`\> |
 
 #### Returns
@@ -592,7 +592,7 @@
 
 2.0.0
 
----
+___
 
 ### getAndIncrement
 
@@ -600,8 +600,8 @@
 
 #### Parameters
 
-| Name   | Type                                                           |
-| :----- | :------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`number`\> |
 
 #### Returns
@@ -612,7 +612,7 @@
 
 2.0.0
 
----
+___
 
 ### increment
 
@@ -620,8 +620,8 @@
 
 #### Parameters
 
-| Name   | Type                                                           |
-| :----- | :------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`number`\> |
 
 #### Returns
@@ -632,7 +632,7 @@
 
 2.0.0
 
----
+___
 
 ### incrementAndGet
 
@@ -640,8 +640,8 @@
 
 #### Parameters
 
-| Name   | Type                                                           |
-| :----- | :------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableRef`](../interfaces/MutRef.MutableRef.md)\<`number`\> |
 
 #### Returns

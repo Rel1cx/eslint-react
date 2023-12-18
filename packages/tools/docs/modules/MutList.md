@@ -39,13 +39,13 @@ Removes the last value from the list and returns it, if it exists.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                         |
-| :----- | :----------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 #### Returns
@@ -56,7 +56,7 @@ Removes the last value from the list and returns it, if it exists.
 
 0.0.1
 
----
+___
 
 ### reset
 
@@ -67,13 +67,13 @@ Removes all elements from the doubly-linked list.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                         |
-| :----- | :----------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 #### Returns
@@ -84,7 +84,7 @@ Removes all elements from the doubly-linked list.
 
 2.0.0
 
----
+___
 
 ### shift
 
@@ -95,13 +95,13 @@ Removes the first value from the list and returns it, if it exists.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                         |
-| :----- | :----------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 #### Returns
@@ -123,14 +123,14 @@ Appends the specified element to the end of the `MutableList`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name    | Type |
-| :------ | :--- |
-| `value` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `value` | `A` |
 
 #### Returns
 
@@ -140,8 +140,8 @@ Appends the specified element to the end of the `MutableList`.
 
 ##### Parameters
 
-| Name   | Type                                                         |
-| :----- | :----------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 ##### Returns
@@ -159,15 +159,15 @@ Appends the specified element to the end of the `MutableList`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name    | Type                                                         |
-| :------ | :----------------------------------------------------------- |
-| `self`  | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
-| `value` | `A`                                                          |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
+| `value` | `A` |
 
 #### Returns
 
@@ -177,7 +177,7 @@ Appends the specified element to the end of the `MutableList`.
 
 2.0.0
 
----
+___
 
 ### prepend
 
@@ -188,14 +188,14 @@ Prepends the specified value to the beginning of the list.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name    | Type |
-| :------ | :--- |
-| `value` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `value` | `A` |
 
 #### Returns
 
@@ -205,8 +205,8 @@ Prepends the specified value to the beginning of the list.
 
 ##### Parameters
 
-| Name   | Type                                                         |
-| :----- | :----------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 ##### Returns
@@ -224,15 +224,15 @@ Prepends the specified value to the beginning of the list.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name    | Type                                                         |
-| :------ | :----------------------------------------------------------- |
-| `self`  | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
-| `value` | `A`                                                          |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
+| `value` | `A` |
 
 #### Returns
 
@@ -253,8 +253,8 @@ Creates an empty `MutableList`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Returns
 
@@ -264,7 +264,7 @@ Creates an empty `MutableList`.
 
 2.0.0
 
----
+___
 
 ### fromIterable
 
@@ -275,13 +275,13 @@ Creates a new `MutableList` from an iterable collection of values.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name       | Type              |
-| :--------- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `iterable` | `Iterable`\<`A`\> |
 
 #### Returns
@@ -292,7 +292,7 @@ Creates a new `MutableList` from an iterable collection of values.
 
 2.0.0
 
----
+___
 
 ### make
 
@@ -303,13 +303,13 @@ Creates a new `MutableList` from the specified elements.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name          | Type           |
-| :------------ | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `...elements` | readonly `A`[] |
 
 #### Returns
@@ -331,13 +331,13 @@ Returns the first element of the list, if it exists.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                         |
-| :----- | :----------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 #### Returns
@@ -348,7 +348,7 @@ Returns the first element of the list, if it exists.
 
 2.0.0
 
----
+___
 
 ### isEmpty
 
@@ -359,13 +359,13 @@ Returns `true` if the list contains zero elements, `false`, otherwise.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                         |
-| :----- | :----------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 #### Returns
@@ -376,7 +376,7 @@ Returns `true` if the list contains zero elements, `false`, otherwise.
 
 2.0.0
 
----
+___
 
 ### length
 
@@ -387,13 +387,13 @@ Returns the length of the list.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                         |
-| :----- | :----------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 #### Returns
@@ -404,7 +404,7 @@ Returns the length of the list.
 
 2.0.0
 
----
+___
 
 ### tail
 
@@ -415,13 +415,13 @@ Returns the last element of the list, if it exists.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                         |
-| :----- | :----------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 #### Returns
@@ -453,14 +453,14 @@ Executes the specified function `f` for each element in the list.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                       |
-| :--- | :------------------------- |
-| `f`  | (`element`: `A`) => `void` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`element`: `A`) => `void` |
 
 #### Returns
 
@@ -470,8 +470,8 @@ Executes the specified function `f` for each element in the list.
 
 ##### Parameters
 
-| Name   | Type                                                         |
-| :----- | :----------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
 
 ##### Returns
@@ -489,15 +489,15 @@ Executes the specified function `f` for each element in the list.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                         |
-| :----- | :----------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`MutableList`](../interfaces/MutList.MutableList.md)\<`A`\> |
-| `f`    | (`element`: `A`) => `void`                                   |
+| `f` | (`element`: `A`) => `void` |
 
 #### Returns
 

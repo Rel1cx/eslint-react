@@ -10,9 +10,9 @@
 
 ## Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `A`  | extends `Object` |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends `Object` |
 
 ## Table of contents
 

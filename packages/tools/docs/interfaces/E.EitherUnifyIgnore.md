@@ -20,16 +20,16 @@
 
 ### Effect
 
-• `Optional` **Effect**: `true`
+• `Optional` **Effect**: ``true``
 
----
+___
 
 ### Option
 
-• `Optional` **Option**: `true`
+• `Optional` **Option**: ``true``
 
----
+___
 
 ### Tag
 
-• `Optional` **Tag**: `true`
+• `Optional` **Tag**: ``true``

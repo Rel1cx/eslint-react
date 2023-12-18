@@ -47,16 +47,16 @@ This function is useful for discarding the first argument passed to it and retur
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type | Description                         |
-| :--- | :--- | :---------------------------------- |
-| `_`  | `A`  | The first argument to be discarded. |
-| `b`  | `B`  | The second argument to be returned. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_` | `A` | The first argument to be discarded. |
+| `b` | `B` | The second argument to be returned. |
 
 #### Returns
 
@@ -67,14 +67,14 @@ This function is useful for discarding the first argument passed to it and retur
 ```ts
 import { SK } from "effect/Function";
 
-assert.deepStrictEqual(SK(0, "hello"), "hello");
+assert.deepStrictEqual(SK(0, "hello"), "hello")
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### absurd
 
@@ -88,14 +88,14 @@ This function is particularly when it's necessary to specify that certain cases 
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type    |
-| :--- | :------ |
-| `_`  | `never` |
+| Name | Type |
+| :------ | :------ |
+| `_` | `never` |
 
 #### Returns
 
@@ -105,7 +105,7 @@ This function is particularly when it's necessary to specify that certain cases 
 
 2.0.0
 
----
+___
 
 ### apply
 
@@ -116,14 +116,14 @@ Apply a function to a given value.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type | Description                                     |
-| :--- | :--- | :---------------------------------------------- |
-| `a`  | `A`  | The value that the function will be applied to. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `a` | `A` | The value that the function will be applied to. |
 
 #### Returns
 
@@ -134,13 +134,13 @@ Apply a function to a given value.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | (`a`: `A`) => `B` |
 
 ##### Returns
@@ -150,17 +150,17 @@ Apply a function to a given value.
 **`Example`**
 
 ```ts
-import { pipe, apply } from "effect/Function";
-import { length } from "effect/String";
+import { pipe, apply } from "effect/Function"
+import { length } from 'effect/String'
 
-assert.deepStrictEqual(pipe(length, apply("hello")), 5);
+assert.deepStrictEqual(pipe(length, apply("hello")), 5)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### compose
 
@@ -172,14 +172,14 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
-| `C`  |
+| :------ |
+| `B` |
+| `C` |
 
 #### Parameters
 
-| Name | Type              | Description                           |
-| :--- | :---------------- | :------------------------------------ |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `bc` | (`b`: `B`) => `C` | A function that maps from `B` to `C`. |
 
 #### Returns
@@ -191,13 +191,13 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | (`a`: `A`) => `B` |
 
 ##### Returns
@@ -209,8 +209,8 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 ##### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `A`  |
+| :------ | :------ |
+| `a` | `A` |
 
 ##### Returns
 
@@ -219,7 +219,7 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 **`Example`**
 
 ```ts
-import { compose } from "effect/Function";
+import { compose } from "effect/Function"
 
 const increment = (n: number) => n + 1;
 const square = (n: number) => n * n;
@@ -239,17 +239,17 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
 
 #### Parameters
 
-| Name   | Type              | Description                           |
-| :----- | :---------------- | :------------------------------------ |
-| `self` | (`a`: `A`) => `B` | -                                     |
-| `bc`   | (`b`: `B`) => `C` | A function that maps from `B` to `C`. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | A function that maps from `B` to `C`. |
 
 #### Returns
 
@@ -260,8 +260,8 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 ##### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `A`  |
+| :------ | :------ |
+| `a` | `A` |
 
 ##### Returns
 
@@ -270,7 +270,7 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 **`Example`**
 
 ```ts
-import { compose } from "effect/Function";
+import { compose } from "effect/Function"
 
 const increment = (n: number) => n + 1;
 const square = (n: number) => n * n;
@@ -282,7 +282,7 @@ assert.strictEqual(compose(increment, square)(2), 9);
 
 2.0.0
 
----
+___
 
 ### constFalse
 
@@ -297,40 +297,40 @@ A thunk that returns always `false`.
 **`Example`**
 
 ```ts
-import { constFalse } from "effect/Function";
+import { constFalse } from "effect/Function"
 
-assert.deepStrictEqual(constFalse(), false);
+assert.deepStrictEqual(constFalse(), false)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### constNull
 
-▸ **constNull**(): `null`
+▸ **constNull**(): ``null``
 
 A thunk that returns always `null`.
 
 #### Returns
 
-`null`
+``null``
 
 **`Example`**
 
 ```ts
-import { constNull } from "effect/Function";
+import { constNull } from "effect/Function"
 
-assert.deepStrictEqual(constNull(), null);
+assert.deepStrictEqual(constNull(), null)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### constTrue
 
@@ -345,16 +345,16 @@ A thunk that returns always `true`.
 **`Example`**
 
 ```ts
-import { constTrue } from "effect/Function";
+import { constTrue } from "effect/Function"
 
-assert.deepStrictEqual(constTrue(), true);
+assert.deepStrictEqual(constTrue(), true)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### constUndefined
 
@@ -369,16 +369,16 @@ A thunk that returns always `undefined`.
 **`Example`**
 
 ```ts
-import { constUndefined } from "effect/Function";
+import { constUndefined } from "effect/Function"
 
-assert.deepStrictEqual(constUndefined(), undefined);
+assert.deepStrictEqual(constUndefined(), undefined)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### constVoid
 
@@ -393,16 +393,16 @@ A thunk that returns always `void`.
 **`Example`**
 
 ```ts
-import { constVoid } from "effect/Function";
+import { constVoid } from "effect/Function"
 
-assert.deepStrictEqual(constVoid(), undefined);
+assert.deepStrictEqual(constVoid(), undefined)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### constant
 
@@ -416,14 +416,14 @@ and want that inner function to always use the same value, no matter how many ti
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name    | Type | Description                        |
-| :------ | :--- | :--------------------------------- |
-| `value` | `A`  | The constant value to be returned. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `value` | `A` | The constant value to be returned. |
 
 #### Returns
 
@@ -432,19 +432,19 @@ and want that inner function to always use the same value, no matter how many ti
 **`Example`**
 
 ```ts
-import { constant } from "effect/Function";
+import { constant } from "effect/Function"
 
-const constNull = constant(null);
+const constNull = constant(null)
 
-assert.deepStrictEqual(constNull(), null);
-assert.deepStrictEqual(constNull(), null);
+assert.deepStrictEqual(constNull(), null)
+assert.deepStrictEqual(constNull(), null)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### dual
 
@@ -464,17 +464,17 @@ function is being used in a data-first or data-last style.
 
 #### Type parameters
 
-| Name        | Type                                  |
-| :---------- | :------------------------------------ |
-| `DataLast`  | extends (...`args`: `any`[]) => `any` |
+| Name | Type |
+| :------ | :------ |
+| `DataLast` | extends (...`args`: `any`[]) => `any` |
 | `DataFirst` | extends (...`args`: `any`[]) => `any` |
 
 #### Parameters
 
-| Name    | Type                                    | Description                                                                                                                                  |
-| :------ | :-------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
-| `arity` | `Parameters`\<`DataFirst`\>[`"length"`] | Either the arity of the uncurried function or a predicate which determines if the function is being used in a data-first or data-last style. |
-| `body`  | `DataFirst`                             | The definition of the uncurried function.                                                                                                    |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `arity` | `Parameters`\<`DataFirst`\>[``"length"``] | Either the arity of the uncurried function or a predicate which determines if the function is being used in a data-first or data-last style. |
+| `body` | `DataFirst` | The definition of the uncurried function. |
 
 #### Returns
 
@@ -483,25 +483,25 @@ function is being used in a data-first or data-last style.
 **`Example`**
 
 ```ts
-import { dual, pipe } from "effect/Function";
+import { dual, pipe } from "effect/Function"
 
 // Exampe using arity to determine data-first or data-last style
 const sum: {
-  (that: number): (self: number) => number;
-  (self: number, that: number): number;
-} = dual(2, (self: number, that: number): number => self + that);
+  (that: number): (self: number) => number
+  (self: number, that: number): number
+} = dual(2, (self: number, that: number): number => self + that)
 
-assert.deepStrictEqual(sum(2, 3), 5);
-assert.deepStrictEqual(pipe(2, sum(3)), 5);
+assert.deepStrictEqual(sum(2, 3), 5)
+assert.deepStrictEqual(pipe(2, sum(3)), 5)
 
 // Example using a predicate to determine data-first or data-last style
 const sum2: {
-  (that: number): (self: number) => number;
-  (self: number, that: number): number;
-} = dual((args) => args.length === 1, (self: number, that: number): number => self + that);
+  (that: number): (self: number) => number
+  (self: number, that: number): number
+} = dual((args) => args.length === 1, (self: number, that: number): number => self + that)
 
-assert.deepStrictEqual(sum(2, 3), 5);
-assert.deepStrictEqual(pipe(2, sum(3)), 5);
+assert.deepStrictEqual(sum(2, 3), 5)
+assert.deepStrictEqual(pipe(2, sum(3)), 5)
 ```
 
 **`Since`**
@@ -524,17 +524,17 @@ function is being used in a data-first or data-last style.
 
 #### Type parameters
 
-| Name        | Type                                  |
-| :---------- | :------------------------------------ |
-| `DataLast`  | extends (...`args`: `any`[]) => `any` |
+| Name | Type |
+| :------ | :------ |
+| `DataLast` | extends (...`args`: `any`[]) => `any` |
 | `DataFirst` | extends (...`args`: `any`[]) => `any` |
 
 #### Parameters
 
-| Name          | Type                                | Description                               |
-| :------------ | :---------------------------------- | :---------------------------------------- |
-| `isDataFirst` | (`args`: `IArguments`) => `boolean` | -                                         |
-| `body`        | `DataFirst`                         | The definition of the uncurried function. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `isDataFirst` | (`args`: `IArguments`) => `boolean` | - |
+| `body` | `DataFirst` | The definition of the uncurried function. |
 
 #### Returns
 
@@ -543,32 +543,32 @@ function is being used in a data-first or data-last style.
 **`Example`**
 
 ```ts
-import { dual, pipe } from "effect/Function";
+import { dual, pipe } from "effect/Function"
 
 // Exampe using arity to determine data-first or data-last style
 const sum: {
-  (that: number): (self: number) => number;
-  (self: number, that: number): number;
-} = dual(2, (self: number, that: number): number => self + that);
+  (that: number): (self: number) => number
+  (self: number, that: number): number
+} = dual(2, (self: number, that: number): number => self + that)
 
-assert.deepStrictEqual(sum(2, 3), 5);
-assert.deepStrictEqual(pipe(2, sum(3)), 5);
+assert.deepStrictEqual(sum(2, 3), 5)
+assert.deepStrictEqual(pipe(2, sum(3)), 5)
 
 // Example using a predicate to determine data-first or data-last style
 const sum2: {
-  (that: number): (self: number) => number;
-  (self: number, that: number): number;
-} = dual((args) => args.length === 1, (self: number, that: number): number => self + that);
+  (that: number): (self: number) => number
+  (self: number, that: number): number
+} = dual((args) => args.length === 1, (self: number, that: number): number => self + that)
 
-assert.deepStrictEqual(sum(2, 3), 5);
-assert.deepStrictEqual(pipe(2, sum(3)), 5);
+assert.deepStrictEqual(sum(2, 3), 5)
+assert.deepStrictEqual(pipe(2, sum(3)), 5)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### flip
 
@@ -578,17 +578,17 @@ Reverses the order of arguments for a curried function.
 
 #### Type parameters
 
-| Name | Type                |
-| :--- | :------------------ |
-| `A`  | extends `unknown`[] |
-| `B`  | extends `unknown`[] |
-| `C`  | `C`                 |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends `unknown`[] |
+| `B` | extends `unknown`[] |
+| `C` | `C` |
 
 #### Parameters
 
-| Name | Type                                  | Description                                       |
-| :--- | :------------------------------------ | :------------------------------------------------ |
-| `f`  | (...`a`: `A`) => (...`b`: `B`) => `C` | A curried function that takes multiple arguments. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `f` | (...`a`: `A`) => (...`b`: `B`) => `C` | A curried function that takes multiple arguments. |
 
 #### Returns
 
@@ -598,9 +598,9 @@ Reverses the order of arguments for a curried function.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `...b` | `B`  |
+| Name | Type |
+| :------ | :------ |
+| `...b` | `B` |
 
 ##### Returns
 
@@ -610,9 +610,9 @@ Reverses the order of arguments for a curried function.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `...a` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `...a` | `A` |
 
 ##### Returns
 
@@ -621,18 +621,18 @@ Reverses the order of arguments for a curried function.
 **`Example`**
 
 ```ts
-import { flip } from "effect/Function";
+import { flip } from "effect/Function"
 
-const f = (a: number) => (b: string) => a - b.length;
+const f = (a: number) => (b: string) => a - b.length
 
-assert.deepStrictEqual(flip(f)("aaa")(2), -1);
+assert.deepStrictEqual(flip(f)('aaa')(2), -1)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### flow
 
@@ -644,15 +644,15 @@ See also [`pipe`](#pipe).
 
 #### Type parameters
 
-| Name | Type                         |
-| :--- | :--------------------------- |
-| `A`  | extends readonly `unknown`[] |
-| `B`  | `B`                          |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends readonly `unknown`[] |
+| `B` | `B` |
 
 #### Parameters
 
-| Name | Type                 |
-| :--- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `ab` | (...`a`: `A`) => `B` |
 
 #### Returns
@@ -663,9 +663,9 @@ See also [`pipe`](#pipe).
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `...a` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `...a` | `A` |
 
 ##### Returns
 
@@ -674,14 +674,14 @@ See also [`pipe`](#pipe).
 **`Example`**
 
 ```ts
-import { flow } from "effect/Function";
+import { flow } from "effect/Function"
 
-const len = (s: string): number => s.length;
-const double = (n: number): number => n * 2;
+const len = (s: string): number => s.length
+const double = (n: number): number => n * 2
 
-const f = flow(len, double);
+const f = flow(len, double)
 
-assert.strictEqual(f("aaa"), 6);
+assert.strictEqual(f('aaa'), 6)
 ```
 
 **`Since`**
@@ -692,18 +692,18 @@ assert.strictEqual(f("aaa"), 6);
 
 #### Type parameters
 
-| Name | Type                         |
-| :--- | :--------------------------- |
-| `A`  | extends readonly `unknown`[] |
-| `B`  | `B`                          |
-| `C`  | `C`                          |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends readonly `unknown`[] |
+| `B` | `B` |
+| `C` | `C` |
 
 #### Parameters
 
-| Name | Type                 |
-| :--- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `ab` | (...`a`: `A`) => `B` |
-| `bc` | (`b`: `B`) => `C`    |
+| `bc` | (`b`: `B`) => `C` |
 
 #### Returns
 
@@ -713,9 +713,9 @@ assert.strictEqual(f("aaa"), 6);
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `...a` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `...a` | `A` |
 
 ##### Returns
 
@@ -725,20 +725,20 @@ assert.strictEqual(f("aaa"), 6);
 
 #### Type parameters
 
-| Name | Type                         |
-| :--- | :--------------------------- |
-| `A`  | extends readonly `unknown`[] |
-| `B`  | `B`                          |
-| `C`  | `C`                          |
-| `D`  | `D`                          |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends readonly `unknown`[] |
+| `B` | `B` |
+| `C` | `C` |
+| `D` | `D` |
 
 #### Parameters
 
-| Name | Type                 |
-| :--- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `ab` | (...`a`: `A`) => `B` |
-| `bc` | (`b`: `B`) => `C`    |
-| `cd` | (`c`: `C`) => `D`    |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
 
 #### Returns
 
@@ -748,9 +748,9 @@ assert.strictEqual(f("aaa"), 6);
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `...a` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `...a` | `A` |
 
 ##### Returns
 
@@ -760,22 +760,22 @@ assert.strictEqual(f("aaa"), 6);
 
 #### Type parameters
 
-| Name | Type                         |
-| :--- | :--------------------------- |
-| `A`  | extends readonly `unknown`[] |
-| `B`  | `B`                          |
-| `C`  | `C`                          |
-| `D`  | `D`                          |
-| `E`  | `E`                          |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends readonly `unknown`[] |
+| `B` | `B` |
+| `C` | `C` |
+| `D` | `D` |
+| `E` | `E` |
 
 #### Parameters
 
-| Name | Type                 |
-| :--- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `ab` | (...`a`: `A`) => `B` |
-| `bc` | (`b`: `B`) => `C`    |
-| `cd` | (`c`: `C`) => `D`    |
-| `de` | (`d`: `D`) => `E`    |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
 
 #### Returns
 
@@ -785,9 +785,9 @@ assert.strictEqual(f("aaa"), 6);
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `...a` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `...a` | `A` |
 
 ##### Returns
 
@@ -797,24 +797,24 @@ assert.strictEqual(f("aaa"), 6);
 
 #### Type parameters
 
-| Name | Type                         |
-| :--- | :--------------------------- |
-| `A`  | extends readonly `unknown`[] |
-| `B`  | `B`                          |
-| `C`  | `C`                          |
-| `D`  | `D`                          |
-| `E`  | `E`                          |
-| `F`  | `F`                          |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends readonly `unknown`[] |
+| `B` | `B` |
+| `C` | `C` |
+| `D` | `D` |
+| `E` | `E` |
+| `F` | `F` |
 
 #### Parameters
 
-| Name | Type                 |
-| :--- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `ab` | (...`a`: `A`) => `B` |
-| `bc` | (`b`: `B`) => `C`    |
-| `cd` | (`c`: `C`) => `D`    |
-| `de` | (`d`: `D`) => `E`    |
-| `ef` | (`e`: `E`) => `F`    |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
 
 #### Returns
 
@@ -824,9 +824,9 @@ assert.strictEqual(f("aaa"), 6);
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `...a` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `...a` | `A` |
 
 ##### Returns
 
@@ -836,26 +836,26 @@ assert.strictEqual(f("aaa"), 6);
 
 #### Type parameters
 
-| Name | Type                         |
-| :--- | :--------------------------- |
-| `A`  | extends readonly `unknown`[] |
-| `B`  | `B`                          |
-| `C`  | `C`                          |
-| `D`  | `D`                          |
-| `E`  | `E`                          |
-| `F`  | `F`                          |
-| `G`  | `G`                          |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends readonly `unknown`[] |
+| `B` | `B` |
+| `C` | `C` |
+| `D` | `D` |
+| `E` | `E` |
+| `F` | `F` |
+| `G` | `G` |
 
 #### Parameters
 
-| Name | Type                 |
-| :--- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `ab` | (...`a`: `A`) => `B` |
-| `bc` | (`b`: `B`) => `C`    |
-| `cd` | (`c`: `C`) => `D`    |
-| `de` | (`d`: `D`) => `E`    |
-| `ef` | (`e`: `E`) => `F`    |
-| `fg` | (`f`: `F`) => `G`    |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
 
 #### Returns
 
@@ -865,9 +865,9 @@ assert.strictEqual(f("aaa"), 6);
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `...a` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `...a` | `A` |
 
 ##### Returns
 
@@ -877,28 +877,28 @@ assert.strictEqual(f("aaa"), 6);
 
 #### Type parameters
 
-| Name | Type                         |
-| :--- | :--------------------------- |
-| `A`  | extends readonly `unknown`[] |
-| `B`  | `B`                          |
-| `C`  | `C`                          |
-| `D`  | `D`                          |
-| `E`  | `E`                          |
-| `F`  | `F`                          |
-| `G`  | `G`                          |
-| `H`  | `H`                          |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends readonly `unknown`[] |
+| `B` | `B` |
+| `C` | `C` |
+| `D` | `D` |
+| `E` | `E` |
+| `F` | `F` |
+| `G` | `G` |
+| `H` | `H` |
 
 #### Parameters
 
-| Name | Type                 |
-| :--- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `ab` | (...`a`: `A`) => `B` |
-| `bc` | (`b`: `B`) => `C`    |
-| `cd` | (`c`: `C`) => `D`    |
-| `de` | (`d`: `D`) => `E`    |
-| `ef` | (`e`: `E`) => `F`    |
-| `fg` | (`f`: `F`) => `G`    |
-| `gh` | (`g`: `G`) => `H`    |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
+| `gh` | (`g`: `G`) => `H` |
 
 #### Returns
 
@@ -908,9 +908,9 @@ assert.strictEqual(f("aaa"), 6);
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `...a` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `...a` | `A` |
 
 ##### Returns
 
@@ -920,30 +920,30 @@ assert.strictEqual(f("aaa"), 6);
 
 #### Type parameters
 
-| Name | Type                         |
-| :--- | :--------------------------- |
-| `A`  | extends readonly `unknown`[] |
-| `B`  | `B`                          |
-| `C`  | `C`                          |
-| `D`  | `D`                          |
-| `E`  | `E`                          |
-| `F`  | `F`                          |
-| `G`  | `G`                          |
-| `H`  | `H`                          |
-| `I`  | `I`                          |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends readonly `unknown`[] |
+| `B` | `B` |
+| `C` | `C` |
+| `D` | `D` |
+| `E` | `E` |
+| `F` | `F` |
+| `G` | `G` |
+| `H` | `H` |
+| `I` | `I` |
 
 #### Parameters
 
-| Name | Type                 |
-| :--- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `ab` | (...`a`: `A`) => `B` |
-| `bc` | (`b`: `B`) => `C`    |
-| `cd` | (`c`: `C`) => `D`    |
-| `de` | (`d`: `D`) => `E`    |
-| `ef` | (`e`: `E`) => `F`    |
-| `fg` | (`f`: `F`) => `G`    |
-| `gh` | (`g`: `G`) => `H`    |
-| `hi` | (`h`: `H`) => `I`    |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
+| `gh` | (`g`: `G`) => `H` |
+| `hi` | (`h`: `H`) => `I` |
 
 #### Returns
 
@@ -953,9 +953,9 @@ assert.strictEqual(f("aaa"), 6);
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `...a` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `...a` | `A` |
 
 ##### Returns
 
@@ -965,32 +965,32 @@ assert.strictEqual(f("aaa"), 6);
 
 #### Type parameters
 
-| Name | Type                         |
-| :--- | :--------------------------- |
-| `A`  | extends readonly `unknown`[] |
-| `B`  | `B`                          |
-| `C`  | `C`                          |
-| `D`  | `D`                          |
-| `E`  | `E`                          |
-| `F`  | `F`                          |
-| `G`  | `G`                          |
-| `H`  | `H`                          |
-| `I`  | `I`                          |
-| `J`  | `J`                          |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends readonly `unknown`[] |
+| `B` | `B` |
+| `C` | `C` |
+| `D` | `D` |
+| `E` | `E` |
+| `F` | `F` |
+| `G` | `G` |
+| `H` | `H` |
+| `I` | `I` |
+| `J` | `J` |
 
 #### Parameters
 
-| Name | Type                 |
-| :--- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `ab` | (...`a`: `A`) => `B` |
-| `bc` | (`b`: `B`) => `C`    |
-| `cd` | (`c`: `C`) => `D`    |
-| `de` | (`d`: `D`) => `E`    |
-| `ef` | (`e`: `E`) => `F`    |
-| `fg` | (`f`: `F`) => `G`    |
-| `gh` | (`g`: `G`) => `H`    |
-| `hi` | (`h`: `H`) => `I`    |
-| `ij` | (`i`: `I`) => `J`    |
+| `bc` | (`b`: `B`) => `C` |
+| `cd` | (`c`: `C`) => `D` |
+| `de` | (`d`: `D`) => `E` |
+| `ef` | (`e`: `E`) => `F` |
+| `fg` | (`f`: `F`) => `G` |
+| `gh` | (`g`: `G`) => `H` |
+| `hi` | (`h`: `H`) => `I` |
+| `ij` | (`i`: `I`) => `J` |
 
 #### Returns
 
@@ -1000,15 +1000,15 @@ assert.strictEqual(f("aaa"), 6);
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `...a` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `...a` | `A` |
 
 ##### Returns
 
 `J`
 
----
+___
 
 ### hole
 
@@ -1019,8 +1019,8 @@ Type hole simulation.
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Returns
 
@@ -1030,7 +1030,7 @@ Type hole simulation.
 
 2.0.0
 
----
+___
 
 ### identity
 
@@ -1041,14 +1041,14 @@ The identity function, i.e. A function that returns its input argument.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type | Description         |
-| :--- | :--- | :------------------ |
-| `a`  | `A`  | The input argument. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `a` | `A` | The input argument. |
 
 #### Returns
 
@@ -1057,16 +1057,16 @@ The identity function, i.e. A function that returns its input argument.
 **`Example`**
 
 ```ts
-import { identity } from "effect/Function";
+import { identity } from "effect/Function"
 
-assert.deepStrictEqual(identity(5), 5);
+assert.deepStrictEqual(identity(5), 5)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### pipe
 
@@ -1083,14 +1083,14 @@ as.map(f).filter(g) -> pipe(as, map(f), filter(g))
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `A`  |
+| :------ | :------ |
+| `a` | `A` |
 
 #### Returns
 
@@ -1099,13 +1099,13 @@ as.map(f).filter(g) -> pipe(as, map(f), filter(g))
 **`Example`**
 
 ```ts
-import { pipe } from "effect/Function";
+import { pipe } from "effect/Function"
 
-const length = (s: string): number => s.length;
-const double = (n: number): number => n * 2;
-const decrement = (n: number): number => n - 1;
+const length = (s: string): number => s.length
+const double = (n: number): number => n * 2
+const decrement = (n: number): number => n - 1
 
-assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
+assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 ```
 
 **`Since`**
@@ -1117,15 +1117,15 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 
 #### Returns
@@ -1137,16 +1137,16 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 
@@ -1159,17 +1159,17 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
+| `D` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 | `cd` | (`c`: `C`) => `D` |
@@ -1183,18 +1183,18 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
-| `E`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
+| `D` |
+| `E` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 | `cd` | (`c`: `C`) => `D` |
@@ -1209,19 +1209,19 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
-| `E`  |
-| `F`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
+| `D` |
+| `E` |
+| `F` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 | `cd` | (`c`: `C`) => `D` |
@@ -1237,20 +1237,20 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
-| `E`  |
-| `F`  |
-| `G`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
+| `D` |
+| `E` |
+| `F` |
+| `G` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 | `cd` | (`c`: `C`) => `D` |
@@ -1267,21 +1267,21 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
-| `E`  |
-| `F`  |
-| `G`  |
-| `H`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
+| `D` |
+| `E` |
+| `F` |
+| `G` |
+| `H` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 | `cd` | (`c`: `C`) => `D` |
@@ -1299,22 +1299,22 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
-| `E`  |
-| `F`  |
-| `G`  |
-| `H`  |
-| `I`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
+| `D` |
+| `E` |
+| `F` |
+| `G` |
+| `H` |
+| `I` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 | `cd` | (`c`: `C`) => `D` |
@@ -1333,23 +1333,23 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
-| `E`  |
-| `F`  |
-| `G`  |
-| `H`  |
-| `I`  |
-| `J`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
+| `D` |
+| `E` |
+| `F` |
+| `G` |
+| `H` |
+| `I` |
+| `J` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 | `cd` | (`c`: `C`) => `D` |
@@ -1369,24 +1369,24 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
-| `E`  |
-| `F`  |
-| `G`  |
-| `H`  |
-| `I`  |
-| `J`  |
-| `K`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
+| `D` |
+| `E` |
+| `F` |
+| `G` |
+| `H` |
+| `I` |
+| `J` |
+| `K` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 | `cd` | (`c`: `C`) => `D` |
@@ -1407,25 +1407,25 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
-| `E`  |
-| `F`  |
-| `G`  |
-| `H`  |
-| `I`  |
-| `J`  |
-| `K`  |
-| `L`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
+| `D` |
+| `E` |
+| `F` |
+| `G` |
+| `H` |
+| `I` |
+| `J` |
+| `K` |
+| `L` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 | `cd` | (`c`: `C`) => `D` |
@@ -1447,26 +1447,26 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
-| `E`  |
-| `F`  |
-| `G`  |
-| `H`  |
-| `I`  |
-| `J`  |
-| `K`  |
-| `L`  |
-| `M`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
+| `D` |
+| `E` |
+| `F` |
+| `G` |
+| `H` |
+| `I` |
+| `J` |
+| `K` |
+| `L` |
+| `M` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 | `cd` | (`c`: `C`) => `D` |
@@ -1489,27 +1489,27 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
-| `E`  |
-| `F`  |
-| `G`  |
-| `H`  |
-| `I`  |
-| `J`  |
-| `K`  |
-| `L`  |
-| `M`  |
-| `N`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
+| `D` |
+| `E` |
+| `F` |
+| `G` |
+| `H` |
+| `I` |
+| `J` |
+| `K` |
+| `L` |
+| `M` |
+| `N` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 | `cd` | (`c`: `C`) => `D` |
@@ -1533,28 +1533,28 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
-| `E`  |
-| `F`  |
-| `G`  |
-| `H`  |
-| `I`  |
-| `J`  |
-| `K`  |
-| `L`  |
-| `M`  |
-| `N`  |
-| `O`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
+| `D` |
+| `E` |
+| `F` |
+| `G` |
+| `H` |
+| `I` |
+| `J` |
+| `K` |
+| `L` |
+| `M` |
+| `N` |
+| `O` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 | `cd` | (`c`: `C`) => `D` |
@@ -1579,29 +1579,29 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
-| `E`  |
-| `F`  |
-| `G`  |
-| `H`  |
-| `I`  |
-| `J`  |
-| `K`  |
-| `L`  |
-| `M`  |
-| `N`  |
-| `O`  |
-| `P`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
+| `D` |
+| `E` |
+| `F` |
+| `G` |
+| `H` |
+| `I` |
+| `J` |
+| `K` |
+| `L` |
+| `M` |
+| `N` |
+| `O` |
+| `P` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 | `cd` | (`c`: `C`) => `D` |
@@ -1627,30 +1627,30 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
-| `E`  |
-| `F`  |
-| `G`  |
-| `H`  |
-| `I`  |
-| `J`  |
-| `K`  |
-| `L`  |
-| `M`  |
-| `N`  |
-| `O`  |
-| `P`  |
-| `Q`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
+| `D` |
+| `E` |
+| `F` |
+| `G` |
+| `H` |
+| `I` |
+| `J` |
+| `K` |
+| `L` |
+| `M` |
+| `N` |
+| `O` |
+| `P` |
+| `Q` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 | `cd` | (`c`: `C`) => `D` |
@@ -1677,31 +1677,31 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
-| `E`  |
-| `F`  |
-| `G`  |
-| `H`  |
-| `I`  |
-| `J`  |
-| `K`  |
-| `L`  |
-| `M`  |
-| `N`  |
-| `O`  |
-| `P`  |
-| `Q`  |
-| `R`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
+| `D` |
+| `E` |
+| `F` |
+| `G` |
+| `H` |
+| `I` |
+| `J` |
+| `K` |
+| `L` |
+| `M` |
+| `N` |
+| `O` |
+| `P` |
+| `Q` |
+| `R` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 | `cd` | (`c`: `C`) => `D` |
@@ -1729,32 +1729,32 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
-| `E`  |
-| `F`  |
-| `G`  |
-| `H`  |
-| `I`  |
-| `J`  |
-| `K`  |
-| `L`  |
-| `M`  |
-| `N`  |
-| `O`  |
-| `P`  |
-| `Q`  |
-| `R`  |
-| `S`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
+| `D` |
+| `E` |
+| `F` |
+| `G` |
+| `H` |
+| `I` |
+| `J` |
+| `K` |
+| `L` |
+| `M` |
+| `N` |
+| `O` |
+| `P` |
+| `Q` |
+| `R` |
+| `S` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 | `cd` | (`c`: `C`) => `D` |
@@ -1783,33 +1783,33 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
-| `D`  |
-| `E`  |
-| `F`  |
-| `G`  |
-| `H`  |
-| `I`  |
-| `J`  |
-| `K`  |
-| `L`  |
-| `M`  |
-| `N`  |
-| `O`  |
-| `P`  |
-| `Q`  |
-| `R`  |
-| `S`  |
-| `T`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
+| `D` |
+| `E` |
+| `F` |
+| `G` |
+| `H` |
+| `I` |
+| `J` |
+| `K` |
+| `L` |
+| `M` |
+| `N` |
+| `O` |
+| `P` |
+| `Q` |
+| `R` |
+| `S` |
+| `T` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `a`  | `A`               |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
 | `ab` | (`a`: `A`) => `B` |
 | `bc` | (`b`: `B`) => `C` |
 | `cd` | (`c`: `C`) => `D` |
@@ -1834,7 +1834,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9);
 
 `T`
 
----
+___
 
 ### tupled
 
@@ -1844,16 +1844,16 @@ Creates a tupled version of this function: instead of `n` arguments, it accepts 
 
 #### Type parameters
 
-| Name | Type                         |
-| :--- | :--------------------------- |
-| `A`  | extends readonly `unknown`[] |
-| `B`  | `B`                          |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends readonly `unknown`[] |
+| `B` | `B` |
 
 #### Parameters
 
-| Name | Type                 |
-| :--- | :------------------- |
-| `f`  | (...`a`: `A`) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (...`a`: `A`) => `B` |
 
 #### Returns
 
@@ -1864,8 +1864,8 @@ Creates a tupled version of this function: instead of `n` arguments, it accepts 
 ##### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `A`  |
+| :------ | :------ |
+| `a` | `A` |
 
 ##### Returns
 
@@ -1874,18 +1874,18 @@ Creates a tupled version of this function: instead of `n` arguments, it accepts 
 **`Example`**
 
 ```ts
-import { tupled } from "effect/Function";
+import { tupled } from "effect/Function"
 
-const sumTupled = tupled((x: number, y: number): number => x + y);
+const sumTupled = tupled((x: number, y: number): number => x + y)
 
-assert.deepStrictEqual(sumTupled([1, 2]), 3);
+assert.deepStrictEqual(sumTupled([1, 2]), 3)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### unsafeCoerce
 
@@ -1896,15 +1896,15 @@ Casts the result to the specified type.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type | Description                                |
-| :--- | :--- | :----------------------------------------- |
-| `a`  | `A`  | The value to be casted to the target type. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `a` | `A` | The value to be casted to the target type. |
 
 #### Returns
 
@@ -1913,16 +1913,16 @@ Casts the result to the specified type.
 **`Example`**
 
 ```ts
-import { unsafeCoerce, identity } from "effect/Function";
+import { unsafeCoerce, identity } from "effect/Function"
 
-assert.deepStrictEqual(unsafeCoerce, identity);
+assert.deepStrictEqual(unsafeCoerce, identity)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### untupled
 
@@ -1932,16 +1932,16 @@ Inverse function of `tupled`
 
 #### Type parameters
 
-| Name | Type                         |
-| :--- | :--------------------------- |
-| `A`  | extends readonly `unknown`[] |
-| `B`  | `B`                          |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends readonly `unknown`[] |
+| `B` | `B` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `f`  | (`a`: `A`) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`) => `B` |
 
 #### Returns
 
@@ -1951,9 +1951,9 @@ Inverse function of `tupled`
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `...a` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `...a` | `A` |
 
 ##### Returns
 
@@ -1962,11 +1962,11 @@ Inverse function of `tupled`
 **`Example`**
 
 ```ts
-import { untupled } from "effect/Function";
+import { untupled } from "effect/Function"
 
-const getFirst = untupled(<A, B>(tuple: [A, B]): A => tuple[0]);
+const getFirst = untupled(<A, B>(tuple: [A, B]): A => tuple[0])
 
-assert.deepStrictEqual(getFirst(1, 2), 1);
+assert.deepStrictEqual(getFirst(1, 2), 1)
 ```
 
 **`Since`**
@@ -1983,8 +1983,8 @@ Tests if a value is a `function`.
 
 #### Parameters
 
-| Name    | Type      | Description        |
-| :------ | :-------- | :----------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `input` | `unknown` | The value to test. |
 
 #### Returns
@@ -1994,10 +1994,10 @@ input is Function
 **`Example`**
 
 ```ts
-import { isFunction } from "effect/Predicate";
+import { isFunction } from 'effect/Predicate'
 
-assert.deepStrictEqual(isFunction(isFunction), true);
-assert.deepStrictEqual(isFunction("function"), false);
+assert.deepStrictEqual(isFunction(isFunction), true)
+assert.deepStrictEqual(isFunction("function"), false)
 ```
 
 **`Since`**

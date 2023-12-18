@@ -32,13 +32,13 @@
 
 [ERAnalyzerNode](ERAnalyzerNode.md).[_](ERAnalyzerNode.md#_)
 
----
+___
 
 ### displayName
 
 • **displayName**: `Option`\<`Expression`\>
 
----
+___
 
 ### flag
 
@@ -48,7 +48,7 @@
 
 [ERAnalyzerNode](ERAnalyzerNode.md).[flag](ERAnalyzerNode.md#flag)
 
----
+___
 
 ### hint
 
@@ -58,7 +58,7 @@
 
 [ERAnalyzerNode](ERAnalyzerNode.md).[hint](ERAnalyzerNode.md#hint)
 
----
+___
 
 ### id
 
@@ -68,23 +68,23 @@
 
 [ERAnalyzerNode](ERAnalyzerNode.md).[id](ERAnalyzerNode.md#id)
 
----
+___
 
 ### kind
 
-• **kind**: `"class"`
+• **kind**: ``"class"``
 
 #### Overrides
 
 [ERAnalyzerNode](ERAnalyzerNode.md).[kind](ERAnalyzerNode.md#kind)
 
----
+___
 
 ### methods
 
 • **methods**: (`MethodDefinition` \| `PropertyDefinition`)[]
 
----
+___
 
 ### name
 
@@ -94,7 +94,7 @@
 
 [ERAnalyzerNode](ERAnalyzerNode.md).[name](ERAnalyzerNode.md#name)
 
----
+___
 
 ### node
 

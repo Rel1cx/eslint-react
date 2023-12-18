@@ -10,8 +10,8 @@
 
 ## Type parameters
 
-| Name    | Type             |
-| :------ | :--------------- |
+| Name | Type |
+| :------ | :------ |
 | `Count` | extends `number` |
 
 ## Table of contents
@@ -31,32 +31,32 @@
 
 • `Readonly` **A**: `unknown`
 
----
+___
 
 ### B
 
 • `Readonly` **B**: `unknown`
 
----
+___
 
 ### C
 
 • `Readonly` **C**: `unknown`
 
----
+___
 
 ### D
 
 • `Readonly` **D**: `unknown`
 
----
+___
 
 ### numberOfGenerics
 
 • `Readonly` **numberOfGenerics**: `Count`
 
----
+___
 
 ### taggedEnum
 
-• `Readonly` **taggedEnum**: [`Data`](../modules/Data.md#data)\<\{ `_tag`: `string` }\>
+• `Readonly` **taggedEnum**: [`Data`](../modules/Data.md#data)\<\{ `_tag`: `string`  }\>

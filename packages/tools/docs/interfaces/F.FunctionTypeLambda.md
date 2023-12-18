@@ -34,7 +34,7 @@
 
 TypeLambda.In
 
----
+___
 
 ### Out1
 
@@ -44,7 +44,7 @@ TypeLambda.In
 
 TypeLambda.Out1
 
----
+___
 
 ### Out2
 
@@ -54,7 +54,7 @@ TypeLambda.Out1
 
 TypeLambda.Out2
 
----
+___
 
 ### Target
 
@@ -64,7 +64,7 @@ TypeLambda.Out2
 
 TypeLambda.Target
 
----
+___
 
 ### type
 
@@ -76,9 +76,9 @@ TypeLambda.Target
 
 ##### Parameters
 
-| Name | Type      |
-| :--- | :-------- |
-| `a`  | `unknown` |
+| Name | Type |
+| :------ | :------ |
+| `a` | `unknown` |
 
 ##### Returns
 

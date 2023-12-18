@@ -17,8 +17,8 @@
 
 #### Parameters
 
-| Name         | Type     |
-| :----------- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `pluginName` | `string` |
 
 #### Returns
@@ -31,15 +31,15 @@ Creates reusable function to create rules with default options and docs URLs.
 
 ##### Type parameters
 
-| Name          | Type                         |
-| :------------ | :--------------------------- |
-| `TOptions`    | extends readonly `unknown`[] |
-| `TMessageIds` | extends `string`             |
+| Name | Type |
+| :------ | :------ |
+| `TOptions` | extends readonly `unknown`[] |
+| `TMessageIds` | extends `string` |
 
 ##### Parameters
 
-| Name         | Type                                                             | Description                                        |
-| :----------- | :--------------------------------------------------------------- | :------------------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `urlCreator` | `Readonly`\<`RuleWithMetaAndName`\<`TOptions`, `TMessageIds`\>\> | Creates a documentation URL for a given rule name. |
 
 ##### Returns
@@ -48,26 +48,26 @@ Creates reusable function to create rules with default options and docs URLs.
 
 Function to create a rule with the docs URL format.
 
----
+___
 
 ### mergeConfigs
 
-▸ **mergeConfigs**\<`Ts`\>(`...objects`): `DeepMergeHKT`\<`Ts`, `Readonly`\<\{ `DeepMergeArraysURI`: `"DeepMergeArraysDefaultURI"` ; `DeepMergeMapsURI`: `"DeepMergeMapsDefaultURI"` ; `DeepMergeOthersURI`: `"DeepMergeLeafURI"` ; `DeepMergeRecordsURI`: `"DeepMergeRecordsDefaultURI"` ; `DeepMergeSetsURI`: `"DeepMergeSetsDefaultURI"` }\>, \{ `keyPath`: `PropertyKey`[] }\>
+▸ **mergeConfigs**\<`Ts`\>(`...objects`): `DeepMergeHKT`\<`Ts`, `Readonly`\<\{ `DeepMergeArraysURI`: ``"DeepMergeArraysDefaultURI"`` ; `DeepMergeMapsURI`: ``"DeepMergeMapsDefaultURI"`` ; `DeepMergeOthersURI`: ``"DeepMergeLeafURI"`` ; `DeepMergeRecordsURI`: ``"DeepMergeRecordsDefaultURI"`` ; `DeepMergeSetsURI`: ``"DeepMergeSetsDefaultURI"``  }\>, \{ `keyPath`: `PropertyKey`[]  }\>
 
 Deeply merge two or more objects using the given options and meta data.
 
 #### Type parameters
 
-| Name | Type                         |
-| :--- | :--------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `Ts` | extends readonly `unknown`[] |
 
 #### Parameters
 
-| Name         | Type |
-| :----------- | :--- |
+| Name | Type |
+| :------ | :------ |
 | `...objects` | `Ts` |
 
 #### Returns
 
-`DeepMergeHKT`\<`Ts`, `Readonly`\<\{ `DeepMergeArraysURI`: `"DeepMergeArraysDefaultURI"` ; `DeepMergeMapsURI`: `"DeepMergeMapsDefaultURI"` ; `DeepMergeOthersURI`: `"DeepMergeLeafURI"` ; `DeepMergeRecordsURI`: `"DeepMergeRecordsDefaultURI"` ; `DeepMergeSetsURI`: `"DeepMergeSetsDefaultURI"` }\>, \{ `keyPath`: `PropertyKey`[] }\>
+`DeepMergeHKT`\<`Ts`, `Readonly`\<\{ `DeepMergeArraysURI`: ``"DeepMergeArraysDefaultURI"`` ; `DeepMergeMapsURI`: ``"DeepMergeMapsDefaultURI"`` ; `DeepMergeOthersURI`: ``"DeepMergeLeafURI"`` ; `DeepMergeRecordsURI`: ``"DeepMergeRecordsDefaultURI"`` ; `DeepMergeSetsURI`: ``"DeepMergeSetsDefaultURI"``  }\>, \{ `keyPath`: `PropertyKey`[]  }\>

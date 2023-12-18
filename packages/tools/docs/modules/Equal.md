@@ -27,14 +27,14 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `that` | `B`  |
+| Name | Type |
+| :------ | :------ |
+| `that` | `B` |
 
 #### Returns
 
@@ -45,14 +45,14 @@
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
 
 ##### Returns
 
@@ -67,16 +67,16 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `A`  |
-| `that` | `B`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `A` |
+| `that` | `B` |
 
 #### Returns
 
@@ -90,9 +90,9 @@
 
 #### Parameters
 
-| Name | Type      |
-| :--- | :-------- |
-| `u`  | `unknown` |
+| Name | Type |
+| :------ | :------ |
+| `u` | `unknown` |
 
 #### Returns
 
@@ -111,8 +111,8 @@ u is Equal
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Returns
 

@@ -24,17 +24,17 @@
 **`Example`**
 
 ```ts
-type Result = UnionFromTuple<["foo", "bar", 1]>;
+type Result = UnionFromTuple<['foo', 'bar', 1]>
 // Result = 'foo' | 'bar' | 1
 ```
 
 #### Type parameters
 
-| Name | Description                    |
-| :--- | :----------------------------- |
-| `T`  | The type to get the union from |
+| Name | Description |
+| :------ | :------ |
+| `T` | The type to get the union from |
 
----
+___
 
 ### UnionToIntersection
 
@@ -51,12 +51,12 @@ The type to get the intersection from
 **`Example`**
 
 ```ts
-type Result = IntersectionFromTuple<["foo", "bar", 1]>;
+type Result = IntersectionFromTuple<['foo', 'bar', 1]>
 // Result = 'foo' & 'bar' & 1
 ```
 
 #### Type parameters
 
 | Name |
-| :--- |
-| `U`  |
+| :------ |
+| `U` |

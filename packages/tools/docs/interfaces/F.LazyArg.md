@@ -9,9 +9,9 @@ A lazy argument.
 **`Example`**
 
 ```ts
-import { LazyArg, constant } from "effect/Function";
+import { LazyArg, constant } from "effect/Function"
 
-const constNull: LazyArg<null> = constant(null);
+const constNull: LazyArg<null> = constant(null)
 ```
 
 **`Since`**
@@ -21,8 +21,8 @@ const constNull: LazyArg<null> = constant(null);
 ## Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ## Callable
 

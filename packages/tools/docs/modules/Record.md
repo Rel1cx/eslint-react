@@ -61,13 +61,13 @@ Merge two records, preserving only the entries that are unique to each record.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                              | Description                                  |
-| :----- | :---------------------------------------------------------------- | :------------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `that` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The second record to compare with the first. |
 
 #### Returns
@@ -78,8 +78,8 @@ Merge two records, preserving only the entries that are unique to each record.
 
 ##### Parameters
 
-| Name   | Type                                                              |
-| :----- | :---------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
 
 ##### Returns
@@ -97,14 +97,14 @@ Merge two records, preserving only the entries that are unique to each record.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                              | Description                                  |
-| :----- | :---------------------------------------------------------------- | :------------------------------------------- |
-| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The first record.                            |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The first record. |
 | `that` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The second record to compare with the first. |
 
 #### Returns
@@ -115,7 +115,7 @@ Merge two records, preserving only the entries that are unique to each record.
 
 2.0.0
 
----
+___
 
 ### every
 
@@ -125,16 +125,16 @@ Check if all entries in a record meet a specific condition.
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `A`  | `A`              |
-| `K`  | extends `string` |
-| `B`  | `B`              |
+| Name | Type |
+| :------ | :------ |
+| `A` | `A` |
+| `K` | extends `string` |
+| `B` | `B` |
 
 #### Parameters
 
-| Name         | Type                                     |
-| :----------- | :--------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `refinement` | (`value`: `A`, `key`: `K`) => value is B |
 
 #### Returns
@@ -145,8 +145,8 @@ Check if all entries in a record meet a specific condition.
 
 ##### Parameters
 
-| Name   | Type                 |
-| :----- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Record`\<`K`, `A`\> |
 
 ##### Returns
@@ -163,15 +163,15 @@ Check if all entries in a record meet a specific condition.
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `A`  | `A`              |
-| `K`  | extends `string` |
+| Name | Type |
+| :------ | :------ |
+| `A` | `A` |
+| `K` | extends `string` |
 
 #### Parameters
 
-| Name        | Type                                    | Description                                 |
-| :---------- | :-------------------------------------- | :------------------------------------------ |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `predicate` | (`value`: `A`, `key`: `K`) => `boolean` | The condition to test entries (value, key). |
 
 #### Returns
@@ -182,8 +182,8 @@ Check if all entries in a record meet a specific condition.
 
 ##### Parameters
 
-| Name   | Type                 |
-| :----- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Record`\<`K`, `A`\> |
 
 ##### Returns
@@ -200,18 +200,18 @@ Check if all entries in a record meet a specific condition.
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `A`  | `A`              |
-| `K`  | extends `string` |
-| `B`  | `B`              |
+| Name | Type |
+| :------ | :------ |
+| `A` | `A` |
+| `K` | extends `string` |
+| `B` | `B` |
 
 #### Parameters
 
-| Name         | Type                                     | Description          |
-| :----------- | :--------------------------------------- | :------------------- |
-| `self`       | `Record`\<`K`, `A`\>                     | The record to check. |
-| `refinement` | (`value`: `A`, `key`: `K`) => value is B | -                    |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | `Record`\<`K`, `A`\> | The record to check. |
+| `refinement` | (`value`: `A`, `key`: `K`) => value is B | - |
 
 #### Returns
 
@@ -227,16 +227,16 @@ Check if all entries in a record meet a specific condition.
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
 
 #### Parameters
 
-| Name        | Type                                    | Description                                 |
-| :---------- | :-------------------------------------- | :------------------------------------------ |
-| `self`      | `Record`\<`K`, `A`\>                    | The record to check.                        |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | `Record`\<`K`, `A`\> | The record to check. |
 | `predicate` | (`value`: `A`, `key`: `K`) => `boolean` | The condition to test entries (value, key). |
 
 #### Returns
@@ -247,7 +247,7 @@ Check if all entries in a record meet a specific condition.
 
 2.0.0
 
----
+___
 
 ### filterMap
 
@@ -258,17 +258,17 @@ If the function returns `Some`, the key-value pair is included in the output rec
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
-| `B`  | `B`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
+| `B` | `B` |
 
 #### Parameters
 
-| Name | Type                                                     | Description                  |
-| :--- | :------------------------------------------------------- | :--------------------------- |
-| `f`  | (`a`: `A`, `key`: `K`) => [`Option`](O.md#option)\<`B`\> | The transformation function. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `f` | (`a`: `A`, `key`: `K`) => [`Option`](O.md#option)\<`B`\> | The transformation function. |
 
 #### Returns
 
@@ -278,8 +278,8 @@ If the function returns `Some`, the key-value pair is included in the output rec
 
 ##### Parameters
 
-| Name   | Type                 |
-| :----- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Record`\<`K`, `A`\> |
 
 ##### Returns
@@ -289,12 +289,12 @@ If the function returns `Some`, the key-value pair is included in the output rec
 **`Example`**
 
 ```ts
-import { filterMap } from "effect/ReadonlyRecord";
-import { some, none } from "effect/Option";
+import { filterMap } from "effect/ReadonlyRecord"
+import { some, none } from 'effect/Option'
 
-const x = { a: 1, b: 2, c: 3 };
-const f = (a: number, key: string) => a > 2 ? some(a * 2) : none();
-assert.deepStrictEqual(filterMap(x, f), { c: 6 });
+const x = { a: 1, b: 2, c: 3 }
+const f = (a: number, key: string) => a > 2 ? some(a * 2) : none()
+assert.deepStrictEqual(filterMap(x, f), { c: 6 })
 ```
 
 **`Since`**
@@ -308,18 +308,18 @@ If the function returns `Some`, the key-value pair is included in the output rec
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
-| `B`  | `B`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
+| `B` | `B` |
 
 #### Parameters
 
-| Name   | Type                                                     | Description                  |
-| :----- | :------------------------------------------------------- | :--------------------------- |
-| `self` | `Record`\<`K`, `A`\>                                     | The input record.            |
-| `f`    | (`a`: `A`, `key`: `K`) => [`Option`](O.md#option)\<`B`\> | The transformation function. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | `Record`\<`K`, `A`\> | The input record. |
+| `f` | (`a`: `A`, `key`: `K`) => [`Option`](O.md#option)\<`B`\> | The transformation function. |
 
 #### Returns
 
@@ -328,19 +328,19 @@ If the function returns `Some`, the key-value pair is included in the output rec
 **`Example`**
 
 ```ts
-import { filterMap } from "effect/ReadonlyRecord";
-import { some, none } from "effect/Option";
+import { filterMap } from "effect/ReadonlyRecord"
+import { some, none } from 'effect/Option'
 
-const x = { a: 1, b: 2, c: 3 };
-const f = (a: number, key: string) => a > 2 ? some(a * 2) : none();
-assert.deepStrictEqual(filterMap(x, f), { c: 6 });
+const x = { a: 1, b: 2, c: 3 }
+const f = (a: number, key: string) => a > 2 ? some(a * 2) : none()
+assert.deepStrictEqual(filterMap(x, f), { c: 6 })
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### get
 
@@ -350,8 +350,8 @@ Retrieve a value at a particular key from a record, returning it wrapped in an `
 
 #### Parameters
 
-| Name  | Type     | Description                  |
-| :---- | :------- | :--------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `key` | `string` | Key to retrieve from record. |
 
 #### Returns
@@ -363,13 +363,13 @@ Retrieve a value at a particular key from a record, returning it wrapped in an `
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                                                              |
-| :----- | :---------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
 
 ##### Returns
@@ -379,13 +379,13 @@ Retrieve a value at a particular key from a record, returning it wrapped in an `
 **`Example`**
 
 ```ts
-import { get } from "effect/ReadonlyRecord";
-import { some, none } from "effect/Option";
+import { get } from "effect/ReadonlyRecord"
+import { some, none } from "effect/Option"
 
-const person = { name: "John Doe", age: 35 };
+const person = { name: "John Doe", age: 35 }
 
-assert.deepStrictEqual(get(person, "name"), some("John Doe"));
-assert.deepStrictEqual(get(person, "email"), none());
+assert.deepStrictEqual(get(person, "name"), some("John Doe"))
+assert.deepStrictEqual(get(person, "email"), none())
 ```
 
 **`Since`**
@@ -399,15 +399,15 @@ Retrieve a value at a particular key from a record, returning it wrapped in an `
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                              | Description                        |
-| :----- | :---------------------------------------------------------------- | :--------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The record to retrieve value from. |
-| `key`  | `string`                                                          | Key to retrieve from record.       |
+| `key` | `string` | Key to retrieve from record. |
 
 #### Returns
 
@@ -416,20 +416,20 @@ Retrieve a value at a particular key from a record, returning it wrapped in an `
 **`Example`**
 
 ```ts
-import { get } from "effect/ReadonlyRecord";
-import { some, none } from "effect/Option";
+import { get } from "effect/ReadonlyRecord"
+import { some, none } from "effect/Option"
 
-const person = { name: "John Doe", age: 35 };
+const person = { name: "John Doe", age: 35 }
 
-assert.deepStrictEqual(get(person, "name"), some("John Doe"));
-assert.deepStrictEqual(get(person, "email"), none());
+assert.deepStrictEqual(get(person, "name"), some("John Doe"))
+assert.deepStrictEqual(get(person, "email"), none())
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### has
 
@@ -439,8 +439,8 @@ Check if a given `key` exists in a record.
 
 #### Parameters
 
-| Name  | Type     | Description                        |
-| :---- | :------- | :--------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `key` | `string` | the key to look for in the record. |
 
 #### Returns
@@ -452,13 +452,13 @@ Check if a given `key` exists in a record.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                                                              |
-| :----- | :---------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
 
 ##### Returns
@@ -468,7 +468,7 @@ Check if a given `key` exists in a record.
 **`Example`**
 
 ```ts
-import { has } from "effect/ReadonlyRecord";
+import { has } from "effect/ReadonlyRecord"
 
 assert.deepStrictEqual(has({ a: 1, b: 2 }, "a"), true);
 assert.deepStrictEqual(has({ a: 1, b: 2 }, "c"), false);
@@ -485,15 +485,15 @@ Check if a given `key` exists in a record.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                              | Description                        |
-| :----- | :---------------------------------------------------------------- | :--------------------------------- |
-| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | the record to look in.             |
-| `key`  | `string`                                                          | the key to look for in the record. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | the record to look in. |
+| `key` | `string` | the key to look for in the record. |
 
 #### Returns
 
@@ -502,7 +502,7 @@ Check if a given `key` exists in a record.
 **`Example`**
 
 ```ts
-import { has } from "effect/ReadonlyRecord";
+import { has } from "effect/ReadonlyRecord"
 
 assert.deepStrictEqual(has({ a: 1, b: 2 }, "a"), true);
 assert.deepStrictEqual(has({ a: 1, b: 2 }, "c"), false);
@@ -512,7 +512,7 @@ assert.deepStrictEqual(has({ a: 1, b: 2 }, "c"), false);
 
 2.0.0
 
----
+___
 
 ### intersection
 
@@ -523,15 +523,15 @@ Merge two records, retaining only the entries that exist in both records.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name      | Type                                                              | Description                                                   |
-| :-------- | :---------------------------------------------------------------- | :------------------------------------------------------------ |
-| `that`    | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The second record to merge with the first.                    |
-| `combine` | (`selfValue`: `A`, `thatValue`: `A`) => `A`                       | A function to specify how to merge entries with the same key. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `that` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The second record to merge with the first. |
+| `combine` | (`selfValue`: `A`, `thatValue`: `A`) => `A` | A function to specify how to merge entries with the same key. |
 
 #### Returns
 
@@ -541,8 +541,8 @@ Merge two records, retaining only the entries that exist in both records.
 
 ##### Parameters
 
-| Name   | Type                                                              |
-| :----- | :---------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
 
 ##### Returns
@@ -560,16 +560,16 @@ Merge two records, retaining only the entries that exist in both records.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name      | Type                                                              | Description                                                   |
-| :-------- | :---------------------------------------------------------------- | :------------------------------------------------------------ |
-| `self`    | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The first record.                                             |
-| `that`    | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The second record to merge with the first.                    |
-| `combine` | (`selfValue`: `A`, `thatValue`: `A`) => `A`                       | A function to specify how to merge entries with the same key. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The first record. |
+| `that` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The second record to merge with the first. |
+| `combine` | (`selfValue`: `A`, `thatValue`: `A`) => `A` | A function to specify how to merge entries with the same key. |
 
 #### Returns
 
@@ -579,7 +579,7 @@ Merge two records, retaining only the entries that exist in both records.
 
 2.0.0
 
----
+___
 
 ### isSubrecord
 
@@ -591,13 +591,13 @@ This comparison uses default equality checks (`Equal.equivalence()`).
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                              | Description                           |
-| :----- | :---------------------------------------------------------------- | :------------------------------------ |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `that` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The second record to compare against. |
 
 #### Returns
@@ -608,8 +608,8 @@ This comparison uses default equality checks (`Equal.equivalence()`).
 
 ##### Parameters
 
-| Name   | Type                                                              |
-| :----- | :---------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
 
 ##### Returns
@@ -628,14 +628,14 @@ This comparison uses default equality checks (`Equal.equivalence()`).
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                              | Description                           |
-| :----- | :---------------------------------------------------------------- | :------------------------------------ |
-| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The first record to check.            |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The first record to check. |
 | `that` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The second record to compare against. |
 
 #### Returns
@@ -646,7 +646,7 @@ This comparison uses default equality checks (`Equal.equivalence()`).
 
 2.0.0
 
----
+___
 
 ### isSubrecordBy
 
@@ -657,13 +657,13 @@ Check if all the keys and values in one record are also found in another record.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name          | Type                 | Description                   |
-| :------------ | :------------------- | :---------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `equivalence` | `Equivalence`\<`A`\> | A function to compare values. |
 
 #### Returns
@@ -674,8 +674,8 @@ Check if all the keys and values in one record are also found in another record.
 
 ##### Parameters
 
-| Name   | Type                                                              |
-| :----- | :---------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `that` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
 
 ##### Returns
@@ -686,8 +686,8 @@ Check if all the keys and values in one record are also found in another record.
 
 ##### Parameters
 
-| Name   | Type                                                              |
-| :----- | :---------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
 
 ##### Returns
@@ -698,8 +698,8 @@ Check if all the keys and values in one record are also found in another record.
 
 ##### Parameters
 
-| Name   | Type                                                              |
-| :----- | :---------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
 | `that` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
 
@@ -711,7 +711,7 @@ Check if all the keys and values in one record are also found in another record.
 
 2.0.0
 
----
+___
 
 ### keys
 
@@ -722,13 +722,13 @@ Retrieve the keys of a given record as an array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                              | Description                                    |
-| :----- | :---------------------------------------------------------------- | :--------------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The object for which you want to get the keys. |
 
 #### Returns
@@ -739,7 +739,7 @@ Retrieve the keys of a given record as an array.
 
 2.0.0
 
----
+___
 
 ### modifyOption
 
@@ -751,16 +751,16 @@ or return `None` if the key doesn't exist.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name  | Type              | Description                           |
-| :---- | :---------------- | :------------------------------------ |
-| `key` | `string`          | The key of the element to modify.     |
-| `f`   | (`a`: `A`) => `B` | The function to apply to the element. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `key` | `string` | The key of the element to modify. |
+| `f` | (`a`: `A`) => `B` | The function to apply to the element. |
 
 #### Returns
 
@@ -770,8 +770,8 @@ or return `None` if the key doesn't exist.
 
 ##### Parameters
 
-| Name   | Type                                                              |
-| :----- | :---------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
 
 ##### Returns
@@ -781,19 +781,19 @@ or return `None` if the key doesn't exist.
 **`Example`**
 
 ```ts
-import { modifyOption } from "effect/ReadonlyRecord";
-import { some, none } from "effect/Option";
+import { modifyOption } from "effect/ReadonlyRecord"
+import { some, none } from "effect/Option"
 
-const f = (x: number) => x * 2;
+const f = (x: number) => x * 2
 
 assert.deepStrictEqual(
-  modifyOption({ a: 3 }, "a", f),
-  some({ a: 6 }),
-);
+ modifyOption({ a: 3 }, 'a', f),
+ some({ a: 6 })
+)
 assert.deepStrictEqual(
-  modifyOption({ a: 3 }, "b", f),
-  none(),
-);
+ modifyOption({ a: 3 }, 'b', f),
+ none()
+)
 ```
 
 **`Since`**
@@ -808,17 +808,17 @@ or return `None` if the key doesn't exist.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                                              | Description                           |
-| :----- | :---------------------------------------------------------------- | :------------------------------------ |
-| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The record to be updated.             |
-| `key`  | `string`                                                          | The key of the element to modify.     |
-| `f`    | (`a`: `A`) => `B`                                                 | The function to apply to the element. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The record to be updated. |
+| `key` | `string` | The key of the element to modify. |
+| `f` | (`a`: `A`) => `B` | The function to apply to the element. |
 
 #### Returns
 
@@ -827,26 +827,26 @@ or return `None` if the key doesn't exist.
 **`Example`**
 
 ```ts
-import { modifyOption } from "effect/ReadonlyRecord";
-import { some, none } from "effect/Option";
+import { modifyOption } from "effect/ReadonlyRecord"
+import { some, none } from "effect/Option"
 
-const f = (x: number) => x * 2;
+const f = (x: number) => x * 2
 
 assert.deepStrictEqual(
-  modifyOption({ a: 3 }, "a", f),
-  some({ a: 6 }),
-);
+ modifyOption({ a: 3 }, 'a', f),
+ some({ a: 6 })
+)
 assert.deepStrictEqual(
-  modifyOption({ a: 3 }, "b", f),
-  none(),
-);
+ modifyOption({ a: 3 }, 'b', f),
+ none()
+)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### remove
 
@@ -856,8 +856,8 @@ Removes a key from a record and returns a new record
 
 #### Parameters
 
-| Name  | Type     | Description                        |
-| :---- | :------- | :--------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `key` | `string` | the key to remove from the record. |
 
 #### Returns
@@ -869,13 +869,13 @@ Removes a key from a record and returns a new record
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                                                              |
-| :----- | :---------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
 
 ##### Returns
@@ -885,9 +885,9 @@ Removes a key from a record and returns a new record
 **`Example`**
 
 ```ts
-import { remove } from "effect/ReadonlyRecord";
+import { remove } from "effect/ReadonlyRecord"
 
-assert.deepStrictEqual(remove({ a: 1, b: 2 }, "a"), { b: 2 });
+assert.deepStrictEqual(remove({ a: 1, b: 2 }, "a"), { b: 2 })
 ```
 
 **`Since`**
@@ -901,15 +901,15 @@ Removes a key from a record and returns a new record
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                              | Description                        |
-| :----- | :---------------------------------------------------------------- | :--------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | the record to remove the key from. |
-| `key`  | `string`                                                          | the key to remove from the record. |
+| `key` | `string` | the key to remove from the record. |
 
 #### Returns
 
@@ -918,16 +918,16 @@ Removes a key from a record and returns a new record
 **`Example`**
 
 ```ts
-import { remove } from "effect/ReadonlyRecord";
+import { remove } from "effect/ReadonlyRecord"
 
-assert.deepStrictEqual(remove({ a: 1, b: 2 }, "a"), { b: 2 });
+assert.deepStrictEqual(remove({ a: 1, b: 2 }, "a"), { b: 2 })
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### replaceOption
 
@@ -938,15 +938,15 @@ Replaces a value in the record with the new value passed as parameter.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name  | Type     | Description                                       |
-| :---- | :------- | :------------------------------------------------ |
-| `key` | `string` | The key to search for in the record.              |
-| `b`   | `B`      | The new value to replace the existing value with. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `key` | `string` | The key to search for in the record. |
+| `b` | `B` | The new value to replace the existing value with. |
 
 #### Returns
 
@@ -957,13 +957,13 @@ Replaces a value in the record with the new value passed as parameter.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                                                              |
-| :----- | :---------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
 
 ##### Returns
@@ -973,14 +973,14 @@ Replaces a value in the record with the new value passed as parameter.
 **`Example`**
 
 ```ts
-import { replaceOption } from "effect/ReadonlyRecord";
-import { some, none } from "effect/Option";
+import { replaceOption } from "effect/ReadonlyRecord"
+import { some, none } from "effect/Option"
 
 assert.deepStrictEqual(
-  replaceOption({ a: 1, b: 2, c: 3 }, "a", 10),
-  some({ a: 10, b: 2, c: 3 }),
-);
-assert.deepStrictEqual(replaceOption({}, "a", 10), none());
+  replaceOption({ a: 1, b: 2, c: 3 }, 'a', 10),
+  some({ a: 10, b: 2, c: 3 })
+)
+assert.deepStrictEqual(replaceOption({}, 'a', 10), none())
 ```
 
 **`Since`**
@@ -994,17 +994,17 @@ Replaces a value in the record with the new value passed as parameter.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                                              | Description                                       |
-| :----- | :---------------------------------------------------------------- | :------------------------------------------------ |
-| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The record to be updated.                         |
-| `key`  | `string`                                                          | The key to search for in the record.              |
-| `b`    | `B`                                                               | The new value to replace the existing value with. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The record to be updated. |
+| `key` | `string` | The key to search for in the record. |
+| `b` | `B` | The new value to replace the existing value with. |
 
 #### Returns
 
@@ -1013,21 +1013,21 @@ Replaces a value in the record with the new value passed as parameter.
 **`Example`**
 
 ```ts
-import { replaceOption } from "effect/ReadonlyRecord";
-import { some, none } from "effect/Option";
+import { replaceOption } from "effect/ReadonlyRecord"
+import { some, none } from "effect/Option"
 
 assert.deepStrictEqual(
-  replaceOption({ a: 1, b: 2, c: 3 }, "a", 10),
-  some({ a: 10, b: 2, c: 3 }),
-);
-assert.deepStrictEqual(replaceOption({}, "a", 10), none());
+  replaceOption({ a: 1, b: 2, c: 3 }, 'a', 10),
+  some({ a: 10, b: 2, c: 3 })
+)
+assert.deepStrictEqual(replaceOption({}, 'a', 10), none())
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### size
 
@@ -1038,13 +1038,13 @@ Returns the number of key/value pairs in a record.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                              | Description                                             |
-| :----- | :---------------------------------------------------------------- | :------------------------------------------------------ |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | A record to calculate the number of key/value pairs in. |
 
 #### Returns
@@ -1063,7 +1063,7 @@ assert.deepStrictEqual(size({ a: "a", b: 1, c: true }), 3);
 
 2.0.0
 
----
+___
 
 ### some
 
@@ -1073,15 +1073,15 @@ Check if any entry in a record meets a specific condition.
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `A`  | `A`              |
-| `K`  | extends `string` |
+| Name | Type |
+| :------ | :------ |
+| `A` | `A` |
+| `K` | extends `string` |
 
 #### Parameters
 
-| Name        | Type                                    | Description                                 |
-| :---------- | :-------------------------------------- | :------------------------------------------ |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `predicate` | (`value`: `A`, `key`: `K`) => `boolean` | The condition to test entries (value, key). |
 
 #### Returns
@@ -1092,8 +1092,8 @@ Check if any entry in a record meets a specific condition.
 
 ##### Parameters
 
-| Name   | Type                 |
-| :----- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Record`\<`K`, `A`\> |
 
 ##### Returns
@@ -1110,16 +1110,16 @@ Check if any entry in a record meets a specific condition.
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
 
 #### Parameters
 
-| Name        | Type                                    | Description                                 |
-| :---------- | :-------------------------------------- | :------------------------------------------ |
-| `self`      | `Record`\<`K`, `A`\>                    | The record to check.                        |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | `Record`\<`K`, `A`\> | The record to check. |
 | `predicate` | (`value`: `A`, `key`: `K`) => `boolean` | The condition to test entries (value, key). |
 
 #### Returns
@@ -1130,7 +1130,7 @@ Check if any entry in a record meets a specific condition.
 
 2.0.0
 
----
+___
 
 ### union
 
@@ -1140,17 +1140,17 @@ Merge two records, preserving entries that exist in either of the records.
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
+| Name | Type |
+| :------ | :------ |
 | `K1` | extends `string` |
-| `V0` | `V0`             |
-| `V1` | `V1`             |
+| `V0` | `V0` |
+| `V1` | `V1` |
 
 #### Parameters
 
-| Name      | Type                                                   | Description                                                   |
-| :-------- | :----------------------------------------------------- | :------------------------------------------------------------ |
-| `that`    | `Record`\<`K1`, `V1`\>                                 | The second record to combine with the first.                  |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `that` | `Record`\<`K1`, `V1`\> | The second record to combine with the first. |
 | `combine` | (`selfValue`: `V0`, `thatValue`: `V1`) => `V0` \| `V1` | A function to specify how to merge entries with the same key. |
 
 #### Returns
@@ -1161,14 +1161,14 @@ Merge two records, preserving entries that exist in either of the records.
 
 ##### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
+| Name | Type |
+| :------ | :------ |
 | `K0` | extends `string` |
 
 ##### Parameters
 
-| Name   | Type                   |
-| :----- | :--------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Record`\<`K0`, `V0`\> |
 
 ##### Returns
@@ -1185,19 +1185,19 @@ Merge two records, preserving entries that exist in either of the records.
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
+| Name | Type |
+| :------ | :------ |
 | `K0` | extends `string` |
-| `V0` | `V0`             |
+| `V0` | `V0` |
 | `K1` | extends `string` |
-| `V1` | `V1`             |
+| `V1` | `V1` |
 
 #### Parameters
 
-| Name      | Type                                                   | Description                                                   |
-| :-------- | :----------------------------------------------------- | :------------------------------------------------------------ |
-| `self`    | `Record`\<`K0`, `V0`\>                                 | The first record.                                             |
-| `that`    | `Record`\<`K1`, `V1`\>                                 | The second record to combine with the first.                  |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | `Record`\<`K0`, `V0`\> | The first record. |
+| `that` | `Record`\<`K1`, `V1`\> | The second record to combine with the first. |
 | `combine` | (`selfValue`: `V0`, `thatValue`: `V1`) => `V0` \| `V1` | A function to specify how to merge entries with the same key. |
 
 #### Returns
@@ -1208,7 +1208,7 @@ Merge two records, preserving entries that exist in either of the records.
 
 2.0.0
 
----
+___
 
 ### update
 
@@ -1219,15 +1219,15 @@ Replace a key's value in a record and return the updated record.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name    | Type     | Description                              |
-| :------ | :------- | :--------------------------------------- |
-| `key`   | `string` | The key to replace.                      |
-| `value` | `B`      | The new value to associate with the key. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `key` | `string` | The key to replace. |
+| `value` | `B` | The new value to associate with the key. |
 
 #### Returns
 
@@ -1238,13 +1238,13 @@ Replace a key's value in a record and return the updated record.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                                                              |
-| :----- | :---------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
 
 ##### Returns
@@ -1254,8 +1254,8 @@ Replace a key's value in a record and return the updated record.
 **`Example`**
 
 ```ts
-import { update } from "effect/ReadonlyRecord";
-import { some, none } from "effect/Option";
+import { update } from "effect/ReadonlyRecord"
+import { some, none } from "effect/Option"
 
 assert.deepStrictEqual(update("a", 3)({ a: 1, b: 2 }), { a: 3, b: 2 });
 assert.deepStrictEqual(update("c", 3)({ a: 1, b: 2 }), { a: 1, b: 2 });
@@ -1272,17 +1272,17 @@ Replace a key's value in a record and return the updated record.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name    | Type                                                              | Description                              |
-| :------ | :---------------------------------------------------------------- | :--------------------------------------- |
-| `self`  | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The original record.                     |
-| `key`   | `string`                                                          | The key to replace.                      |
-| `value` | `B`                                                               | The new value to associate with the key. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The original record. |
+| `key` | `string` | The key to replace. |
+| `value` | `B` | The new value to associate with the key. |
 
 #### Returns
 
@@ -1291,8 +1291,8 @@ Replace a key's value in a record and return the updated record.
 **`Example`**
 
 ```ts
-import { update } from "effect/ReadonlyRecord";
-import { some, none } from "effect/Option";
+import { update } from "effect/ReadonlyRecord"
+import { some, none } from "effect/Option"
 
 assert.deepStrictEqual(update("a", 3)({ a: 1, b: 2 }), { a: 3, b: 2 });
 assert.deepStrictEqual(update("c", 3)({ a: 1, b: 2 }), { a: 1, b: 2 });
@@ -1302,7 +1302,7 @@ assert.deepStrictEqual(update("c", 3)({ a: 1, b: 2 }), { a: 1, b: 2 });
 
 2.0.0
 
----
+___
 
 ### upsert
 
@@ -1313,15 +1313,15 @@ Add a new key-value pair or update an existing key's value in a record.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name    | Type     | Description                        |
-| :------ | :------- | :--------------------------------- |
-| `key`   | `string` | The key you want to add or update. |
-| `value` | `B`      | -                                  |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `key` | `string` | The key you want to add or update. |
+| `value` | `B` | - |
 
 #### Returns
 
@@ -1332,13 +1332,13 @@ Add a new key-value pair or update an existing key's value in a record.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                                                              |
-| :----- | :---------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
 
 ##### Returns
@@ -1348,7 +1348,7 @@ Add a new key-value pair or update an existing key's value in a record.
 **`Example`**
 
 ```ts
-import { upsert } from "effect/ReadonlyRecord";
+import { upsert } from "effect/ReadonlyRecord"
 
 assert.deepStrictEqual(upsert("a", 5)({ a: 1, b: 2 }), { a: 5, b: 2 });
 assert.deepStrictEqual(upsert("c", 5)({ a: 1, b: 2 }), { a: 1, b: 2, c: 5 });
@@ -1365,17 +1365,17 @@ Add a new key-value pair or update an existing key's value in a record.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name    | Type                                                              | Description                                                     |
-| :------ | :---------------------------------------------------------------- | :-------------------------------------------------------------- |
-| `self`  | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The record to which you want to add or update a key-value pair. |
-| `key`   | `string`                                                          | The key you want to add or update.                              |
-| `value` | `B`                                                               | -                                                               |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The record to which you want to add or update a key-value pair. |
+| `key` | `string` | The key you want to add or update. |
+| `value` | `B` | - |
 
 #### Returns
 
@@ -1384,7 +1384,7 @@ Add a new key-value pair or update an existing key's value in a record.
 **`Example`**
 
 ```ts
-import { upsert } from "effect/ReadonlyRecord";
+import { upsert } from "effect/ReadonlyRecord"
 
 assert.deepStrictEqual(upsert("a", 5)({ a: 1, b: 2 }), { a: 5, b: 2 });
 assert.deepStrictEqual(upsert("c", 5)({ a: 1, b: 2 }), { a: 1, b: 2, c: 5 });
@@ -1394,7 +1394,7 @@ assert.deepStrictEqual(upsert("c", 5)({ a: 1, b: 2 }), { a: 1, b: 2, c: 5 });
 
 2.0.0
 
----
+___
 
 ### values
 
@@ -1405,13 +1405,13 @@ Retrieve the values of a given record as an array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                              | Description                                      |
-| :----- | :---------------------------------------------------------------- | :----------------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The object for which you want to get the values. |
 
 #### Returns
@@ -1433,8 +1433,8 @@ Creates a new, empty record.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Returns
 
@@ -1444,7 +1444,7 @@ Creates a new, empty record.
 
 2.0.0
 
----
+___
 
 ### fromIterable
 
@@ -1455,13 +1455,13 @@ Creates a new record from an iterable collection of key/value pairs.
 #### Type parameters
 
 | Name |
-| :--- |
-| `V`  |
+| :------ |
+| `V` |
 
 #### Parameters
 
-| Name      | Type                                   |
-| :-------- | :------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `entries` | `Iterable`\<readonly [`string`, `V`]\> |
 
 #### Returns
@@ -1472,7 +1472,7 @@ Creates a new record from an iterable collection of key/value pairs.
 
 2.0.0
 
----
+___
 
 ### fromIterableWith
 
@@ -1484,15 +1484,15 @@ The projection function maps each value of the iterable to a tuple of a key and 
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type                                   | Description                                                                             |
-| :--- | :------------------------------------- | :-------------------------------------------------------------------------------------- |
-| `f`  | (`a`: `A`) => readonly [`string`, `B`] | A projection function that maps values of the iterable to a tuple of a key and a value. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `f` | (`a`: `A`) => readonly [`string`, `B`] | A projection function that maps values of the iterable to a tuple of a key and a value. |
 
 #### Returns
 
@@ -1502,8 +1502,8 @@ The projection function maps each value of the iterable to a tuple of a key and 
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -1513,14 +1513,14 @@ The projection function maps each value of the iterable to a tuple of a key and 
 **`Example`**
 
 ```ts
-import { fromIterableWith } from "effect/ReadonlyRecord";
+import { fromIterableWith } from "effect/ReadonlyRecord"
 
-const input = [1, 2, 3, 4];
+const input = [1, 2, 3, 4]
 
 assert.deepStrictEqual(
   fromIterableWith(input, a => [String(a), a * 2]),
-  { "1": 2, "2": 4, "3": 6, "4": 8 },
-);
+  { '1': 2, '2': 4, '3': 6, '4': 8 }
+)
 ```
 
 **`Since`**
@@ -1535,16 +1535,16 @@ The projection function maps each value of the iterable to a tuple of a key and 
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                   | Description                                                                             |
-| :----- | :------------------------------------- | :-------------------------------------------------------------------------------------- |
-| `self` | `Iterable`\<`A`\>                      | An iterable of values to be mapped to a record.                                         |
-| `f`    | (`a`: `A`) => readonly [`string`, `B`] | A projection function that maps values of the iterable to a tuple of a key and a value. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | `Iterable`\<`A`\> | An iterable of values to be mapped to a record. |
+| `f` | (`a`: `A`) => readonly [`string`, `B`] | A projection function that maps values of the iterable to a tuple of a key and a value. |
 
 #### Returns
 
@@ -1553,21 +1553,21 @@ The projection function maps each value of the iterable to a tuple of a key and 
 **`Example`**
 
 ```ts
-import { fromIterableWith } from "effect/ReadonlyRecord";
+import { fromIterableWith } from "effect/ReadonlyRecord"
 
-const input = [1, 2, 3, 4];
+const input = [1, 2, 3, 4]
 
 assert.deepStrictEqual(
   fromIterableWith(input, a => [String(a), a * 2]),
-  { "1": 2, "2": 4, "3": 6, "4": 8 },
-);
+  { '1': 2, '2': 4, '3': 6, '4': 8 }
+)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### singleton
 
@@ -1577,17 +1577,17 @@ Create a non-empty record from a single element.
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
 
 #### Parameters
 
-| Name    | Type | Description                        |
-| :------ | :--- | :--------------------------------- |
-| `key`   | `K`  | The key for the element.           |
-| `value` | `A`  | The value associated with the key. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `key` | `K` | The key for the element. |
+| `value` | `A` | The value associated with the key. |
 
 #### Returns
 
@@ -1607,17 +1607,17 @@ Transforms the values of a record into an `Array` with a custom mapping function
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
-| `B`  | `B`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
+| `B` | `B` |
 
 #### Parameters
 
-| Name | Type                          | Description                                                           |
-| :--- | :---------------------------- | :-------------------------------------------------------------------- |
-| `f`  | (`key`: `K`, `a`: `A`) => `B` | The custom mapping function to apply to each key/value of the record. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `f` | (`key`: `K`, `a`: `A`) => `B` | The custom mapping function to apply to each key/value of the record. |
 
 #### Returns
 
@@ -1627,8 +1627,8 @@ Transforms the values of a record into an `Array` with a custom mapping function
 
 ##### Parameters
 
-| Name   | Type                 |
-| :----- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Record`\<`K`, `A`\> |
 
 ##### Returns
@@ -1638,10 +1638,10 @@ Transforms the values of a record into an `Array` with a custom mapping function
 **`Example`**
 
 ```ts
-import { collect } from "effect/ReadonlyRecord";
+import { collect } from "effect/ReadonlyRecord"
 
-const x = { a: 1, b: 2, c: 3 };
-assert.deepStrictEqual(collect(x, (key, n) => [key, n]), [["a", 1], ["b", 2], ["c", 3]]);
+const x = { a: 1, b: 2, c: 3 }
+assert.deepStrictEqual(collect(x, (key, n) => [key, n]), [["a", 1], ["b", 2], ["c", 3]])
 ```
 
 **`Since`**
@@ -1654,18 +1654,18 @@ Transforms the values of a record into an `Array` with a custom mapping function
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
-| `B`  | `B`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
+| `B` | `B` |
 
 #### Parameters
 
-| Name   | Type                          | Description                                                           |
-| :----- | :---------------------------- | :-------------------------------------------------------------------- |
-| `self` | `Record`\<`K`, `A`\>          | The record to transform.                                              |
-| `f`    | (`key`: `K`, `a`: `A`) => `B` | The custom mapping function to apply to each key/value of the record. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | `Record`\<`K`, `A`\> | The record to transform. |
+| `f` | (`key`: `K`, `a`: `A`) => `B` | The custom mapping function to apply to each key/value of the record. |
 
 #### Returns
 
@@ -1674,17 +1674,17 @@ Transforms the values of a record into an `Array` with a custom mapping function
 **`Example`**
 
 ```ts
-import { collect } from "effect/ReadonlyRecord";
+import { collect } from "effect/ReadonlyRecord"
 
-const x = { a: 1, b: 2, c: 3 };
-assert.deepStrictEqual(collect(x, (key, n) => [key, n]), [["a", 1], ["b", 2], ["c", 3]]);
+const x = { a: 1, b: 2, c: 3 }
+assert.deepStrictEqual(collect(x, (key, n) => [key, n]), [["a", 1], ["b", 2], ["c", 3]])
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### fromEntries
 
@@ -1698,13 +1698,13 @@ previous ones. So the resulting record will only have the value of the last occu
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                   | Description                      |
-| :----- | :------------------------------------- | :------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | `Iterable`\<readonly [`string`, `A`]\> | The iterable of key-value pairs. |
 
 #### Returns
@@ -1714,18 +1714,18 @@ previous ones. So the resulting record will only have the value of the last occu
 **`Example`**
 
 ```ts
-import { fromEntries } from "effect/ReadonlyRecord";
+import { fromEntries } from "effect/ReadonlyRecord"
 
-const input: Array<[string, number]> = [["a", 1], ["b", 2]];
+const input: Array<[string, number]> = [["a", 1], ["b", 2]]
 
-assert.deepStrictEqual(fromEntries(input), { a: 1, b: 2 });
+assert.deepStrictEqual(fromEntries(input), { a: 1, b: 2 })
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### toEntries
 
@@ -1735,15 +1735,15 @@ Takes a record and returns an array of tuples containing its keys and values.
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
 
 #### Parameters
 
-| Name   | Type                 | Description              |
-| :----- | :------------------- | :----------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | `Record`\<`K`, `A`\> | The record to transform. |
 
 #### Returns
@@ -1753,10 +1753,10 @@ Takes a record and returns an array of tuples containing its keys and values.
 **`Example`**
 
 ```ts
-import { toEntries } from "effect/ReadonlyRecord";
+import { toEntries } from "effect/ReadonlyRecord"
 
-const x = { a: 1, b: 2, c: 3 };
-assert.deepStrictEqual(toEntries(x), [["a", 1], ["b", 2], ["c", 3]]);
+const x = { a: 1, b: 2, c: 3 }
+assert.deepStrictEqual(toEntries(x), [["a", 1], ["b", 2], ["c", 3]])
 ```
 
 **`Since`**
@@ -1773,16 +1773,16 @@ Selects properties from a record whose values match the given predicate.
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
-| `B`  | `B`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
+| `B` | `B` |
 
 #### Parameters
 
-| Name         | Type                             |
-| :----------- | :------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `refinement` | (`a`: `A`, `key`: `K`) => a is B |
 
 #### Returns
@@ -1793,8 +1793,8 @@ Selects properties from a record whose values match the given predicate.
 
 ##### Parameters
 
-| Name   | Type                 |
-| :----- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Record`\<`K`, `A`\> |
 
 ##### Returns
@@ -1804,10 +1804,10 @@ Selects properties from a record whose values match the given predicate.
 **`Example`**
 
 ```ts
-import { filter } from "effect/ReadonlyRecord";
+import { filter } from "effect/ReadonlyRecord"
 
-const x = { a: 1, b: 2, c: 3, d: 4 };
-assert.deepStrictEqual(filter(x, (n) => n > 2), { c: 3, d: 4 });
+const x = { a: 1, b: 2, c: 3, d: 4 }
+assert.deepStrictEqual(filter(x, (n) => n > 2), { c: 3, d: 4 })
 ```
 
 **`Since`**
@@ -1820,16 +1820,16 @@ Selects properties from a record whose values match the given predicate.
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `B`  | `B`              |
-| `A`  | `B`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `B` | `B` |
+| `A` | `B` |
 
 #### Parameters
 
-| Name        | Type                                | Description                                                                                               |
-| :---------- | :---------------------------------- | :-------------------------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `predicate` | (`A`: `A`, `key`: `K`) => `boolean` | A function that returns a `boolean` value to determine if the entry should be included in the new record. |
 
 #### Returns
@@ -1840,8 +1840,8 @@ Selects properties from a record whose values match the given predicate.
 
 ##### Parameters
 
-| Name   | Type                 |
-| :----- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Record`\<`K`, `B`\> |
 
 ##### Returns
@@ -1851,10 +1851,10 @@ Selects properties from a record whose values match the given predicate.
 **`Example`**
 
 ```ts
-import { filter } from "effect/ReadonlyRecord";
+import { filter } from "effect/ReadonlyRecord"
 
-const x = { a: 1, b: 2, c: 3, d: 4 };
-assert.deepStrictEqual(filter(x, (n) => n > 2), { c: 3, d: 4 });
+const x = { a: 1, b: 2, c: 3, d: 4 }
+assert.deepStrictEqual(filter(x, (n) => n > 2), { c: 3, d: 4 })
 ```
 
 **`Since`**
@@ -1867,18 +1867,18 @@ Selects properties from a record whose values match the given predicate.
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
-| `B`  | `B`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
+| `B` | `B` |
 
 #### Parameters
 
-| Name         | Type                             | Description           |
-| :----------- | :------------------------------- | :-------------------- |
-| `self`       | `Record`\<`K`, `A`\>             | The record to filter. |
-| `refinement` | (`a`: `A`, `key`: `K`) => a is B | -                     |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | `Record`\<`K`, `A`\> | The record to filter. |
+| `refinement` | (`a`: `A`, `key`: `K`) => a is B | - |
 
 #### Returns
 
@@ -1887,10 +1887,10 @@ Selects properties from a record whose values match the given predicate.
 **`Example`**
 
 ```ts
-import { filter } from "effect/ReadonlyRecord";
+import { filter } from "effect/ReadonlyRecord"
 
-const x = { a: 1, b: 2, c: 3, d: 4 };
-assert.deepStrictEqual(filter(x, (n) => n > 2), { c: 3, d: 4 });
+const x = { a: 1, b: 2, c: 3, d: 4 }
+assert.deepStrictEqual(filter(x, (n) => n > 2), { c: 3, d: 4 })
 ```
 
 **`Since`**
@@ -1903,16 +1903,16 @@ Selects properties from a record whose values match the given predicate.
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
 
 #### Parameters
 
-| Name        | Type                                | Description                                                                                               |
-| :---------- | :---------------------------------- | :-------------------------------------------------------------------------------------------------------- |
-| `self`      | `Record`\<`K`, `A`\>                | The record to filter.                                                                                     |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | `Record`\<`K`, `A`\> | The record to filter. |
 | `predicate` | (`a`: `A`, `key`: `K`) => `boolean` | A function that returns a `boolean` value to determine if the entry should be included in the new record. |
 
 #### Returns
@@ -1922,17 +1922,17 @@ Selects properties from a record whose values match the given predicate.
 **`Example`**
 
 ```ts
-import { filter } from "effect/ReadonlyRecord";
+import { filter } from "effect/ReadonlyRecord"
 
-const x = { a: 1, b: 2, c: 3, d: 4 };
-assert.deepStrictEqual(filter(x, (n) => n > 2), { c: 3, d: 4 });
+const x = { a: 1, b: 2, c: 3, d: 4 }
+assert.deepStrictEqual(filter(x, (n) => n > 2), { c: 3, d: 4 })
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### getLefts
 
@@ -1943,14 +1943,14 @@ Given a record with `Either` values, returns a new record containing only the `L
 #### Type parameters
 
 | Name |
-| :--- |
-| `E`  |
-| `A`  |
+| :------ |
+| `E` |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                                                              |
-| :----- | :------------------------------------------------------------------------------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<[`Either`](E.md#either)\<`E`, `A`\>\> |
 
 #### Returns
@@ -1960,20 +1960,20 @@ Given a record with `Either` values, returns a new record containing only the `L
 **`Example`**
 
 ```ts
-import { getLefts } from "effect/ReadonlyRecord";
-import { right, left } from "effect/Either";
+import { getLefts } from "effect/ReadonlyRecord"
+import { right, left } from "effect/Either"
 
 assert.deepStrictEqual(
   getLefts({ a: right(1), b: left("err"), c: right(2) }),
-  { b: "err" },
-);
+  { b: "err" }
+)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### getRights
 
@@ -1984,14 +1984,14 @@ Given a record with `Either` values, returns a new record containing only the `R
 #### Type parameters
 
 | Name |
-| :--- |
-| `E`  |
-| `A`  |
+| :------ |
+| `E` |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                                                              |
-| :----- | :------------------------------------------------------------------------------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<[`Either`](E.md#either)\<`E`, `A`\>\> |
 
 #### Returns
@@ -2001,20 +2001,20 @@ Given a record with `Either` values, returns a new record containing only the `R
 **`Example`**
 
 ```ts
-import { getRights } from "effect/ReadonlyRecord";
-import { right, left } from "effect/Either";
+import { getRights } from "effect/ReadonlyRecord"
+import { right, left } from "effect/Either"
 
 assert.deepStrictEqual(
   getRights({ a: right(1), b: left("err"), c: right(2) }),
-  { a: 1, c: 2 },
-);
+  { a: 1, c: 2 }
+)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### getSomes
 
@@ -2025,13 +2025,13 @@ Given a record with `Option` values, returns a new record containing only the `S
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                                                         | Description                    |
-| :----- | :------------------------------------------------------------------------------------------- | :----------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<[`Option`](O.md#option)\<`A`\>\> | A record with `Option` values. |
 
 #### Returns
@@ -2041,20 +2041,20 @@ Given a record with `Option` values, returns a new record containing only the `S
 **`Example`**
 
 ```ts
-import { getSomes } from "effect/ReadonlyRecord";
-import { some, none } from "effect/Option";
+import { getSomes } from "effect/ReadonlyRecord"
+import { some, none } from "effect/Option"
 
 assert.deepStrictEqual(
   getSomes({ a: some(1), b: none(), c: some(2) }),
-  { a: 1, c: 2 },
-);
+  { a: 1, c: 2 }
+)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### partition
 
@@ -2064,17 +2064,17 @@ Partitions a record into two separate records based on the result of a predicate
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `C`  | `C`              |
-| `B`  | `B`              |
-| `A`  | `C`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `C` | `C` |
+| `B` | `B` |
+| `A` | `C` |
 
 #### Parameters
 
-| Name         | Type                             |
-| :----------- | :------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `refinement` | (`a`: `A`, `key`: `K`) => a is B |
 
 #### Returns
@@ -2085,8 +2085,8 @@ Partitions a record into two separate records based on the result of a predicate
 
 ##### Parameters
 
-| Name   | Type                 |
-| :----- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Record`\<`K`, `C`\> |
 
 ##### Returns
@@ -2096,12 +2096,12 @@ Partitions a record into two separate records based on the result of a predicate
 **`Example`**
 
 ```ts
-import { partition } from "effect/ReadonlyRecord";
+import { partition } from "effect/ReadonlyRecord"
 
 assert.deepStrictEqual(
   partition({ a: 1, b: 3 }, (n) => n > 2),
-  [{ a: 1 }, { b: 3 }],
-);
+  [{ a: 1 }, { b: 3 }]
+)
 ```
 
 **`Since`**
@@ -2114,16 +2114,16 @@ Partitions a record into two separate records based on the result of a predicate
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `B`  | `B`              |
-| `A`  | `B`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `B` | `B` |
+| `A` | `B` |
 
 #### Parameters
 
-| Name        | Type                                | Description                                                                          |
-| :---------- | :---------------------------------- | :----------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `predicate` | (`a`: `A`, `key`: `K`) => `boolean` | The partitioning function to determine the partitioning of each value of the record. |
 
 #### Returns
@@ -2134,8 +2134,8 @@ Partitions a record into two separate records based on the result of a predicate
 
 ##### Parameters
 
-| Name   | Type                 |
-| :----- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Record`\<`K`, `B`\> |
 
 ##### Returns
@@ -2145,12 +2145,12 @@ Partitions a record into two separate records based on the result of a predicate
 **`Example`**
 
 ```ts
-import { partition } from "effect/ReadonlyRecord";
+import { partition } from "effect/ReadonlyRecord"
 
 assert.deepStrictEqual(
   partition({ a: 1, b: 3 }, (n) => n > 2),
-  [{ a: 1 }, { b: 3 }],
-);
+  [{ a: 1 }, { b: 3 }]
+)
 ```
 
 **`Since`**
@@ -2163,18 +2163,18 @@ Partitions a record into two separate records based on the result of a predicate
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
-| `B`  | `B`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
+| `B` | `B` |
 
 #### Parameters
 
-| Name         | Type                             | Description                    |
-| :----------- | :------------------------------- | :----------------------------- |
-| `self`       | `Record`\<`K`, `A`\>             | The input record to partition. |
-| `refinement` | (`a`: `A`, `key`: `K`) => a is B | -                              |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | `Record`\<`K`, `A`\> | The input record to partition. |
+| `refinement` | (`a`: `A`, `key`: `K`) => a is B | - |
 
 #### Returns
 
@@ -2183,12 +2183,12 @@ Partitions a record into two separate records based on the result of a predicate
 **`Example`**
 
 ```ts
-import { partition } from "effect/ReadonlyRecord";
+import { partition } from "effect/ReadonlyRecord"
 
 assert.deepStrictEqual(
   partition({ a: 1, b: 3 }, (n) => n > 2),
-  [{ a: 1 }, { b: 3 }],
-);
+  [{ a: 1 }, { b: 3 }]
+)
 ```
 
 **`Since`**
@@ -2201,16 +2201,16 @@ Partitions a record into two separate records based on the result of a predicate
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
 
 #### Parameters
 
-| Name        | Type                                | Description                                                                          |
-| :---------- | :---------------------------------- | :----------------------------------------------------------------------------------- |
-| `self`      | `Record`\<`K`, `A`\>                | The input record to partition.                                                       |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | `Record`\<`K`, `A`\> | The input record to partition. |
 | `predicate` | (`a`: `A`, `key`: `K`) => `boolean` | The partitioning function to determine the partitioning of each value of the record. |
 
 #### Returns
@@ -2220,19 +2220,19 @@ Partitions a record into two separate records based on the result of a predicate
 **`Example`**
 
 ```ts
-import { partition } from "effect/ReadonlyRecord";
+import { partition } from "effect/ReadonlyRecord"
 
 assert.deepStrictEqual(
   partition({ a: 1, b: 3 }, (n) => n > 2),
-  [{ a: 1 }, { b: 3 }],
-);
+  [{ a: 1 }, { b: 3 }]
+)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### partitionMap
 
@@ -2242,18 +2242,18 @@ Partitions the elements of a record into two groups: those that match a predicat
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
-| `B`  | `B`              |
-| `C`  | `C`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
+| `B` | `B` |
+| `C` | `C` |
 
 #### Parameters
 
-| Name | Type                                                          | Description                                      |
-| :--- | :------------------------------------------------------------ | :----------------------------------------------- |
-| `f`  | (`a`: `A`, `key`: `K`) => [`Either`](E.md#either)\<`B`, `C`\> | The predicate function to apply to each element. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `f` | (`a`: `A`, `key`: `K`) => [`Either`](E.md#either)\<`B`, `C`\> | The predicate function to apply to each element. |
 
 #### Returns
 
@@ -2263,8 +2263,8 @@ Partitions the elements of a record into two groups: those that match a predicat
 
 ##### Parameters
 
-| Name   | Type                 |
-| :----- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Record`\<`K`, `A`\> |
 
 ##### Returns
@@ -2274,12 +2274,12 @@ Partitions the elements of a record into two groups: those that match a predicat
 **`Example`**
 
 ```ts
-import { partitionMap } from "effect/ReadonlyRecord";
-import { left, right } from "effect/Either";
+import { partitionMap } from "effect/ReadonlyRecord"
+import { left, right } from 'effect/Either'
 
-const x = { a: 1, b: 2, c: 3 };
-const f = (n: number) => (n % 2 === 0 ? right(n) : left(n));
-assert.deepStrictEqual(partitionMap(x, f), [{ a: 1, c: 3 }, { b: 2 }]);
+const x = { a: 1, b: 2, c: 3 }
+const f = (n: number) => (n % 2 === 0 ? right(n) : left(n))
+assert.deepStrictEqual(partitionMap(x, f), [{ a: 1, c: 3 }, { b: 2}])
 ```
 
 **`Since`**
@@ -2292,19 +2292,19 @@ Partitions the elements of a record into two groups: those that match a predicat
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
-| `B`  | `B`              |
-| `C`  | `C`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
+| `B` | `B` |
+| `C` | `C` |
 
 #### Parameters
 
-| Name   | Type                                                          | Description                                      |
-| :----- | :------------------------------------------------------------ | :----------------------------------------------- |
-| `self` | `Record`\<`K`, `A`\>                                          | The record to partition.                         |
-| `f`    | (`a`: `A`, `key`: `K`) => [`Either`](E.md#either)\<`B`, `C`\> | The predicate function to apply to each element. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | `Record`\<`K`, `A`\> | The record to partition. |
+| `f` | (`a`: `A`, `key`: `K`) => [`Either`](E.md#either)\<`B`, `C`\> | The predicate function to apply to each element. |
 
 #### Returns
 
@@ -2313,19 +2313,19 @@ Partitions the elements of a record into two groups: those that match a predicat
 **`Example`**
 
 ```ts
-import { partitionMap } from "effect/ReadonlyRecord";
-import { left, right } from "effect/Either";
+import { partitionMap } from "effect/ReadonlyRecord"
+import { left, right } from 'effect/Either'
 
-const x = { a: 1, b: 2, c: 3 };
-const f = (n: number) => (n % 2 === 0 ? right(n) : left(n));
-assert.deepStrictEqual(partitionMap(x, f), [{ a: 1, c: 3 }, { b: 2 }]);
+const x = { a: 1, b: 2, c: 3 }
+const f = (n: number) => (n % 2 === 0 ? right(n) : left(n))
+assert.deepStrictEqual(partitionMap(x, f), [{ a: 1, c: 3 }, { b: 2}])
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### separate
 
@@ -2337,14 +2337,14 @@ one with the `Left` values and one with the `Right` values.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                                                                              | Description              |
-| :----- | :------------------------------------------------------------------------------------------------ | :----------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<[`Either`](E.md#either)\<`A`, `B`\>\> | the record to partition. |
 
 #### Returns
@@ -2354,13 +2354,13 @@ one with the `Left` values and one with the `Right` values.
 **`Example`**
 
 ```ts
-import { separate } from "effect/ReadonlyRecord";
-import { left, right } from "effect/Either";
+import { separate } from "effect/ReadonlyRecord"
+import { left, right } from 'effect/Either'
 
 assert.deepStrictEqual(
   separate({ a: left("e"), b: right(1) }),
-  [{ a: "e" }, { b: 1 }],
-);
+  [{ a: "e" }, { b: 1 }]
+)
 ```
 
 **`Since`**
@@ -2377,18 +2377,18 @@ Reduce a record to a single value by combining its entries with a specified func
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `Z`  | `Z`              |
-| `V`  | `V`              |
-| `K`  | extends `string` |
+| Name | Type |
+| :------ | :------ |
+| `Z` | `Z` |
+| `V` | `V` |
+| `K` | extends `string` |
 
 #### Parameters
 
-| Name   | Type                                                  | Description                                                |
-| :----- | :---------------------------------------------------- | :--------------------------------------------------------- |
-| `zero` | `Z`                                                   | The initial value of the accumulator.                      |
-| `f`    | (`accumulator`: `Z`, `value`: `V`, `key`: `K`) => `Z` | The function to combine entries (accumulator, value, key). |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `zero` | `Z` | The initial value of the accumulator. |
+| `f` | (`accumulator`: `Z`, `value`: `V`, `key`: `K`) => `Z` | The function to combine entries (accumulator, value, key). |
 
 #### Returns
 
@@ -2398,8 +2398,8 @@ Reduce a record to a single value by combining its entries with a specified func
 
 ##### Parameters
 
-| Name   | Type                 |
-| :----- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Record`\<`K`, `V`\> |
 
 ##### Returns
@@ -2416,19 +2416,19 @@ Reduce a record to a single value by combining its entries with a specified func
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `V`  | `V`              |
-| `Z`  | `Z`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `V` | `V` |
+| `Z` | `Z` |
 
 #### Parameters
 
-| Name   | Type                                                  | Description                                                |
-| :----- | :---------------------------------------------------- | :--------------------------------------------------------- |
-| `self` | `Record`\<`K`, `V`\>                                  | The record to reduce.                                      |
-| `zero` | `Z`                                                   | The initial value of the accumulator.                      |
-| `f`    | (`accumulator`: `Z`, `value`: `V`, `key`: `K`) => `Z` | The function to combine entries (accumulator, value, key). |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | `Record`\<`K`, `V`\> | The record to reduce. |
+| `zero` | `Z` | The initial value of the accumulator. |
+| `f` | (`accumulator`: `Z`, `value`: `V`, `key`: `K`) => `Z` | The function to combine entries (accumulator, value, key). |
 
 #### Returns
 
@@ -2449,13 +2449,13 @@ Determine if a record is empty.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                              | Description                   |
-| :----- | :---------------------------------------------------------------- | :---------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | record to test for emptiness. |
 
 #### Returns
@@ -2465,7 +2465,7 @@ self is ReadonlyRecord\<never\>
 **`Example`**
 
 ```ts
-import { isEmptyReadonlyRecord } from "effect/ReadonlyRecord";
+import { isEmptyReadonlyRecord } from "effect/ReadonlyRecord"
 
 assert.deepStrictEqual(isEmptyReadonlyRecord({}), true);
 assert.deepStrictEqual(isEmptyReadonlyRecord({ a: 3 }), false);
@@ -2475,7 +2475,7 @@ assert.deepStrictEqual(isEmptyReadonlyRecord({ a: 3 }), false);
 
 2.0.0
 
----
+___
 
 ### isEmptyRecord
 
@@ -2486,13 +2486,13 @@ Determine if a record is empty.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                      | Description                   |
-| :----- | :------------------------ | :---------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | `Record`\<`string`, `A`\> | record to test for emptiness. |
 
 #### Returns
@@ -2502,7 +2502,7 @@ self is Record\<string, never\>
 **`Example`**
 
 ```ts
-import { isEmptyRecord } from "effect/ReadonlyRecord";
+import { isEmptyRecord } from "effect/ReadonlyRecord"
 
 assert.deepStrictEqual(isEmptyRecord({}), true);
 assert.deepStrictEqual(isEmptyRecord({ a: 3 }), false);
@@ -2523,13 +2523,13 @@ Create an `Equivalence` for records using the provided `Equivalence` for values.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name          | Type                 | Description                                               |
-| :------------ | :------------------- | :-------------------------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `equivalence` | `Equivalence`\<`A`\> | An `Equivalence` for the values contained in the records. |
 
 #### Returns
@@ -2550,17 +2550,17 @@ Maps a record into another record by applying a transformation function to each 
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
-| `B`  | `B`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
+| `B` | `B` |
 
 #### Parameters
 
-| Name | Type                          | Description                                                                         |
-| :--- | :---------------------------- | :---------------------------------------------------------------------------------- |
-| `f`  | (`a`: `A`, `key`: `K`) => `B` | A transformation function that will be applied to each of the values in the record. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `f` | (`a`: `A`, `key`: `K`) => `B` | A transformation function that will be applied to each of the values in the record. |
 
 #### Returns
 
@@ -2570,8 +2570,8 @@ Maps a record into another record by applying a transformation function to each 
 
 ##### Parameters
 
-| Name   | Type                 |
-| :----- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Record`\<`K`, `A`\> |
 
 ##### Returns
@@ -2581,15 +2581,15 @@ Maps a record into another record by applying a transformation function to each 
 **`Example`**
 
 ```ts
-import { map } from "effect/ReadonlyRecord";
+import { map } from "effect/ReadonlyRecord"
 
-const f = (n: number) => `-${n}`;
+const f = (n: number) => `-${n}`
 
-assert.deepStrictEqual(map({ a: 3, b: 5 }, f), { a: "-3", b: "-5" });
+assert.deepStrictEqual(map({ a: 3, b: 5 }, f), { a: "-3", b: "-5" })
 
-const g = (n: number, key: string) => `${key.toUpperCase()}-${n}`;
+const g = (n: number, key: string) => `${key.toUpperCase()}-${n}`
 
-assert.deepStrictEqual(map({ a: 3, b: 5 }, g), { a: "A-3", b: "B-5" });
+assert.deepStrictEqual(map({ a: 3, b: 5 }, g), { a: "A-3", b: "B-5" })
 ```
 
 **`Since`**
@@ -2602,18 +2602,18 @@ Maps a record into another record by applying a transformation function to each 
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
-| `B`  | `B`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
+| `B` | `B` |
 
 #### Parameters
 
-| Name   | Type                          | Description                                                                         |
-| :----- | :---------------------------- | :---------------------------------------------------------------------------------- |
-| `self` | `Record`\<`K`, `A`\>          | The record to be mapped.                                                            |
-| `f`    | (`a`: `A`, `key`: `K`) => `B` | A transformation function that will be applied to each of the values in the record. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | `Record`\<`K`, `A`\> | The record to be mapped. |
+| `f` | (`a`: `A`, `key`: `K`) => `B` | A transformation function that will be applied to each of the values in the record. |
 
 #### Returns
 
@@ -2622,15 +2622,15 @@ Maps a record into another record by applying a transformation function to each 
 **`Example`**
 
 ```ts
-import { map } from "effect/ReadonlyRecord";
+import { map } from "effect/ReadonlyRecord"
 
-const f = (n: number) => `-${n}`;
+const f = (n: number) => `-${n}`
 
-assert.deepStrictEqual(map({ a: 3, b: 5 }, f), { a: "-3", b: "-5" });
+assert.deepStrictEqual(map({ a: 3, b: 5 }, f), { a: "-3", b: "-5" })
 
-const g = (n: number, key: string) => `${key.toUpperCase()}-${n}`;
+const g = (n: number, key: string) => `${key.toUpperCase()}-${n}`
 
-assert.deepStrictEqual(map({ a: 3, b: 5 }, g), { a: "A-3", b: "B-5" });
+assert.deepStrictEqual(map({ a: 3, b: 5 }, g), { a: "A-3", b: "B-5" })
 ```
 
 **`Since`**
@@ -2649,8 +2649,8 @@ If the key is not present, returns `O.none`.
 
 #### Parameters
 
-| Name  | Type     | Description                          |
-| :---- | :------- | :----------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `key` | `string` | The key of the property to retrieve. |
 
 #### Returns
@@ -2662,13 +2662,13 @@ If the key is not present, returns `O.none`.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                                                              |
-| :----- | :---------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
 
 ##### Returns
@@ -2678,11 +2678,11 @@ If the key is not present, returns `O.none`.
 **`Example`**
 
 ```ts
-import { pop } from "effect/ReadonlyRecord";
-import { some, none } from "effect/Option";
+import { pop } from "effect/ReadonlyRecord"
+import { some, none } from 'effect/Option'
 
-assert.deepStrictEqual(pop({ a: 1, b: 2 }, "a"), some([1, { b: 2 }]));
-assert.deepStrictEqual(pop({ a: 1, b: 2 }, "c"), none());
+assert.deepStrictEqual(pop({ a: 1, b: 2 }, "a"), some([1, { b: 2 }]))
+assert.deepStrictEqual(pop({ a: 1, b: 2 }, "c"), none())
 ```
 
 **`Since`**
@@ -2698,15 +2698,15 @@ If the key is not present, returns `O.none`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                              | Description                          |
-| :----- | :---------------------------------------------------------------- | :----------------------------------- |
-| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The input record.                    |
-| `key`  | `string`                                                          | The key of the property to retrieve. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> | The input record. |
+| `key` | `string` | The key of the property to retrieve. |
 
 #### Returns
 
@@ -2715,11 +2715,11 @@ If the key is not present, returns `O.none`.
 **`Example`**
 
 ```ts
-import { pop } from "effect/ReadonlyRecord";
-import { some, none } from "effect/Option";
+import { pop } from "effect/ReadonlyRecord"
+import { some, none } from 'effect/Option'
 
-assert.deepStrictEqual(pop({ a: 1, b: 2 }, "a"), some([1, { b: 2 }]));
-assert.deepStrictEqual(pop({ a: 1, b: 2 }, "c"), none());
+assert.deepStrictEqual(pop({ a: 1, b: 2 }, "a"), some([1, { b: 2 }]))
+assert.deepStrictEqual(pop({ a: 1, b: 2 }, "c"), none())
 ```
 
 **`Since`**

@@ -11,8 +11,8 @@
 ## Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ## Indexable
 

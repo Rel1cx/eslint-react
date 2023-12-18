@@ -16,10 +16,10 @@
 
 #### Parameters
 
-| Name            | Type       | Default value |
-| :-------------- | :--------- | :------------ |
-| `ruleName`      | `string`   | `undefined`   |
-| `ignorePattern` | `string`[] | `[]`          |
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `ruleName` | `string` | `undefined` |
+| `ignorePattern` | `string`[] | `[]` |
 
 #### Returns
 

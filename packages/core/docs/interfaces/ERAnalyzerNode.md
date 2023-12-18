@@ -28,37 +28,37 @@
 
 • **\_**: `string`
 
----
+___
 
 ### flag
 
 • **flag**: `bigint`
 
----
+___
 
 ### hint
 
 • **hint**: `bigint`
 
----
+___
 
 ### id
 
 • **id**: `Option`\<`Identifier` \| `Identifier`[]\>
 
----
+___
 
 ### kind
 
 • **kind**: `string`
 
----
+___
 
 ### name
 
 • **name**: `Option`\<`string`\>
 
----
+___
 
 ### node
 

@@ -46,14 +46,14 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name    | Type |
-| :------ | :--- |
-| `value` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `value` | `A` |
 
 #### Returns
 
@@ -72,13 +72,13 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
 
 #### Returns
@@ -99,7 +99,7 @@
 
 2.0.0
 
----
+___
 
 ### RefTypeId
 
@@ -118,14 +118,14 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name    | Type |
-| :------ | :--- |
-| `value` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `value` | `A` |
 
 #### Returns
 
@@ -144,14 +144,14 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name    | Type |
-| :------ | :--- |
-| `value` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `value` | `A` |
 
 #### Returns
 
@@ -161,8 +161,8 @@
 
 ##### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
 
 ##### Returns
@@ -178,15 +178,15 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name    | Type                                       |
-| :------ | :----------------------------------------- |
-| `self`  | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
-| `value` | `A`                                        |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
+| `value` | `A` |
 
 #### Returns
 
@@ -196,7 +196,7 @@
 
 2.0.0
 
----
+___
 
 ### getAndUpdate
 
@@ -205,14 +205,14 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `f`  | (`a`: `A`) => `A` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`) => `A` |
 
 #### Returns
 
@@ -222,8 +222,8 @@
 
 ##### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
 
 ##### Returns
@@ -239,15 +239,15 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
-| `f`    | (`a`: `A`) => `A`                          |
+| `f` | (`a`: `A`) => `A` |
 
 #### Returns
 
@@ -257,7 +257,7 @@
 
 2.0.0
 
----
+___
 
 ### getAndUpdateSome
 
@@ -266,13 +266,13 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `pf` | (`a`: `A`) => [`Option`](O.md#option)\<`A`\> |
 
 #### Returns
@@ -283,8 +283,8 @@
 
 ##### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
 
 ##### Returns
@@ -300,15 +300,15 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
-| `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>   |
-| `pf`   | (`a`: `A`) => [`Option`](O.md#option)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
+| `pf` | (`a`: `A`) => [`Option`](O.md#option)\<`A`\> |
 
 #### Returns
 
@@ -318,7 +318,7 @@
 
 2.0.0
 
----
+___
 
 ### modify
 
@@ -327,15 +327,15 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type                              |
-| :--- | :-------------------------------- |
-| `f`  | (`a`: `A`) => readonly [`B`, `A`] |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`) => readonly [`B`, `A`] |
 
 #### Returns
 
@@ -345,8 +345,8 @@
 
 ##### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
 
 ##### Returns
@@ -362,16 +362,16 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
-| `f`    | (`a`: `A`) => readonly [`B`, `A`]          |
+| `f` | (`a`: `A`) => readonly [`B`, `A`] |
 
 #### Returns
 
@@ -381,7 +381,7 @@
 
 2.0.0
 
----
+___
 
 ### modifySome
 
@@ -390,16 +390,16 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
-| `A`  |
+| :------ |
+| `B` |
+| `A` |
 
 #### Parameters
 
-| Name       | Type                                                         |
-| :--------- | :----------------------------------------------------------- |
-| `fallback` | `B`                                                          |
-| `pf`       | (`a`: `A`) => [`Option`](O.md#option)\<readonly [`B`, `A`]\> |
+| Name | Type |
+| :------ | :------ |
+| `fallback` | `B` |
+| `pf` | (`a`: `A`) => [`Option`](O.md#option)\<readonly [`B`, `A`]\> |
 
 #### Returns
 
@@ -409,8 +409,8 @@
 
 ##### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
 
 ##### Returns
@@ -426,17 +426,17 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name       | Type                                                         |
-| :--------- | :----------------------------------------------------------- |
-| `self`     | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>                   |
-| `fallback` | `B`                                                          |
-| `pf`       | (`a`: `A`) => [`Option`](O.md#option)\<readonly [`B`, `A`]\> |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
+| `fallback` | `B` |
+| `pf` | (`a`: `A`) => [`Option`](O.md#option)\<readonly [`B`, `A`]\> |
 
 #### Returns
 
@@ -446,7 +446,7 @@
 
 2.0.0
 
----
+___
 
 ### set
 
@@ -455,14 +455,14 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name    | Type |
-| :------ | :--- |
-| `value` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `value` | `A` |
 
 #### Returns
 
@@ -472,8 +472,8 @@
 
 ##### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
 
 ##### Returns
@@ -489,15 +489,15 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name    | Type                                       |
-| :------ | :----------------------------------------- |
-| `self`  | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
-| `value` | `A`                                        |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
+| `value` | `A` |
 
 #### Returns
 
@@ -507,7 +507,7 @@
 
 2.0.0
 
----
+___
 
 ### setAndGet
 
@@ -516,14 +516,14 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name    | Type |
-| :------ | :--- |
-| `value` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `value` | `A` |
 
 #### Returns
 
@@ -533,8 +533,8 @@
 
 ##### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
 
 ##### Returns
@@ -550,15 +550,15 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name    | Type                                       |
-| :------ | :----------------------------------------- |
-| `self`  | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
-| `value` | `A`                                        |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
+| `value` | `A` |
 
 #### Returns
 
@@ -568,7 +568,7 @@
 
 2.0.0
 
----
+___
 
 ### update
 
@@ -577,14 +577,14 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `f`  | (`a`: `A`) => `A` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`) => `A` |
 
 #### Returns
 
@@ -594,8 +594,8 @@
 
 ##### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
 
 ##### Returns
@@ -611,15 +611,15 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
-| `f`    | (`a`: `A`) => `A`                          |
+| `f` | (`a`: `A`) => `A` |
 
 #### Returns
 
@@ -629,7 +629,7 @@
 
 2.0.0
 
----
+___
 
 ### updateAndGet
 
@@ -638,14 +638,14 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `f`  | (`a`: `A`) => `A` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`) => `A` |
 
 #### Returns
 
@@ -655,8 +655,8 @@
 
 ##### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
 
 ##### Returns
@@ -672,15 +672,15 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
-| `f`    | (`a`: `A`) => `A`                          |
+| `f` | (`a`: `A`) => `A` |
 
 #### Returns
 
@@ -690,7 +690,7 @@
 
 2.0.0
 
----
+___
 
 ### updateSome
 
@@ -699,14 +699,14 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `f`  | (`a`: `A`) => [`Option`](O.md#option)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`) => [`Option`](O.md#option)\<`A`\> |
 
 #### Returns
 
@@ -716,8 +716,8 @@
 
 ##### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
 
 ##### Returns
@@ -733,15 +733,15 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
-| `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>   |
-| `f`    | (`a`: `A`) => [`Option`](O.md#option)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
+| `f` | (`a`: `A`) => [`Option`](O.md#option)\<`A`\> |
 
 #### Returns
 
@@ -751,7 +751,7 @@
 
 2.0.0
 
----
+___
 
 ### updateSomeAndGet
 
@@ -760,13 +760,13 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `pf` | (`a`: `A`) => [`Option`](O.md#option)\<`A`\> |
 
 #### Returns
@@ -777,8 +777,8 @@
 
 ##### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
 
 ##### Returns
@@ -794,15 +794,15 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
-| `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>   |
-| `pf`   | (`a`: `A`) => [`Option`](O.md#option)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\> |
+| `pf` | (`a`: `A`) => [`Option`](O.md#option)\<`A`\> |
 
 #### Returns
 

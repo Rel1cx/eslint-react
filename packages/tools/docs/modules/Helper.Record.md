@@ -30,10 +30,10 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
----
+___
 
 ### FromEntries
 
@@ -42,10 +42,10 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
----
+___
 
 ### FromEntriesWithReadOnly
 
@@ -54,10 +54,10 @@
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
----
+___
 
 ### LooseRecord
 
@@ -71,9 +71,9 @@ A record with loose keys.
 
 #### Type parameters
 
-| Name | Description             |
-| :--- | :---------------------- |
-| `T`  | The type of the values. |
+| Name | Description |
+| :------ | :------ |
+| `T` | The type of the values. |
 
 ## Functions
 
@@ -85,15 +85,15 @@ type-safe version of Object.entries
 
 #### Type parameters
 
-| Name | Type                                                               |
-| :--- | :----------------------------------------------------------------- |
-| `T`  | extends [`LooseRecord`](Helper.Record.md#looserecord)\<`unknown`\> |
+| Name | Type |
+| :------ | :------ |
+| `T` | extends [`LooseRecord`](Helper.Record.md#looserecord)\<`unknown`\> |
 
 #### Parameters
 
-| Name    | Type | Description                        |
-| :------ | :--- | :--------------------------------- |
-| `value` | `T`  | The value to get the entries from. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `value` | `T` | The value to get the entries from. |
 
 #### Returns
 
@@ -105,7 +105,7 @@ The entries of the value.
 
 0.4.0
 
----
+___
 
 ### fromEntries
 
@@ -115,15 +115,15 @@ type-safe version of Object.fromEntries
 
 #### Type parameters
 
-| Name | Type                                 |
-| :--- | :----------------------------------- |
-| `T`  | extends [`PropertyKey`, `unknown`][] |
+| Name | Type |
+| :------ | :------ |
+| `T` | extends [`PropertyKey`, `unknown`][] |
 
 #### Parameters
 
-| Name      | Type | Description                            |
-| :-------- | :--- | :------------------------------------- |
-| `entries` | `T`  | The entries to create the object from. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `entries` | `T` | The entries to create the object from. |
 
 #### Returns
 
@@ -135,7 +135,7 @@ The object created from the entries.
 
 0.4.0
 
----
+___
 
 ### fromEntriesWithReadOnly
 
@@ -145,15 +145,15 @@ type-safe version of Object.fromEntries
 
 #### Type parameters
 
-| Name | Type                                 |
-| :--- | :----------------------------------- |
-| `T`  | extends [`PropertyKey`, `unknown`][] |
+| Name | Type |
+| :------ | :------ |
+| `T` | extends [`PropertyKey`, `unknown`][] |
 
 #### Parameters
 
-| Name      | Type | Description                            |
-| :-------- | :--- | :------------------------------------- |
-| `entries` | `T`  | The entries to create the object from. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `entries` | `T` | The entries to create the object from. |
 
 #### Returns
 
@@ -165,7 +165,7 @@ The object created from the entries.
 
 0.4.0
 
----
+___
 
 ### keys
 
@@ -175,15 +175,15 @@ type-safe version of Object.keys
 
 #### Type parameters
 
-| Name | Type                                                               |
-| :--- | :----------------------------------------------------------------- |
-| `T`  | extends [`LooseRecord`](Helper.Record.md#looserecord)\<`unknown`\> |
+| Name | Type |
+| :------ | :------ |
+| `T` | extends [`LooseRecord`](Helper.Record.md#looserecord)\<`unknown`\> |
 
 #### Parameters
 
-| Name    | Type | Description                     |
-| :------ | :--- | :------------------------------ |
-| `value` | `T`  | The value to get the keys from. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `value` | `T` | The value to get the keys from. |
 
 #### Returns
 
@@ -195,7 +195,7 @@ The keys of the value.
 
 0.4.0
 
----
+___
 
 ### values
 
@@ -205,15 +205,15 @@ type-safe version of Object.values
 
 #### Type parameters
 
-| Name | Type                                                               |
-| :--- | :----------------------------------------------------------------- |
-| `T`  | extends [`LooseRecord`](Helper.Record.md#looserecord)\<`unknown`\> |
+| Name | Type |
+| :------ | :------ |
+| `T` | extends [`LooseRecord`](Helper.Record.md#looserecord)\<`unknown`\> |
 
 #### Parameters
 
-| Name    | Type | Description                       |
-| :------ | :--- | :-------------------------------- |
-| `value` | `T`  | The value to get the values from. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `value` | `T` | The value to get the values from. |
 
 #### Returns
 

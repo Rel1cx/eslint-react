@@ -41,8 +41,8 @@ for a constructor, `Hash`, and `Equal`.
 
 #### Parameters
 
-| Name   | Type                      |
-| :----- | :------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `that` | [`Equal`](Equal.Equal.md) |
 
 #### Returns
@@ -53,7 +53,7 @@ for a constructor, `Hash`, and `Equal`.
 
 [Equal](Equal.Equal.md).[[symbol]](Equal.Equal.md#[symbol]-1)
 
----
+___
 
 ### [symbol]
 

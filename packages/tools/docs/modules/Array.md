@@ -152,16 +152,16 @@ value and the rest of the `Array`.
 
 #### Type parameters
 
-| Name | Type                                            |
-| :--- | :---------------------------------------------- |
-| `S`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
-| `B`  | `B`                                             |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly `any`[] \| `Iterable`\<`any`\> |
+| `B` | `B` |
 
 #### Parameters
 
-| Name | Type                                                                                                                                                                                           |
-| :--- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `f`  | (`as`: readonly [[`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>, [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>]) => readonly [`B`, readonly [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>[]] |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`as`: readonly [[`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>, [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>]) => readonly [`B`, readonly [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>[]] |
 
 #### Returns
 
@@ -171,9 +171,9 @@ value and the rest of the `Array`.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `S`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
 
 ##### Returns
 
@@ -192,16 +192,16 @@ value and the rest of the `Array`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                                          |
-| :----- | :------------------------------------------------------------ |
-| `self` | readonly [`A`, `A`]                                           |
-| `f`    | (`as`: readonly [`A`, `A`]) => readonly [`B`, readonly `A`[]] |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly [`A`, `A`] |
+| `f` | (`as`: readonly [`A`, `A`]) => readonly [`B`, readonly `A`[]] |
 
 #### Returns
 
@@ -220,16 +220,16 @@ value and the rest of the `Array`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                                          |
-| :----- | :------------------------------------------------------------ |
-| `self` | `Iterable`\<`A`\>                                             |
-| `f`    | (`as`: readonly [`A`, `A`]) => readonly [`B`, readonly `A`[]] |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `f` | (`as`: readonly [`A`, `A`]) => readonly [`B`, readonly `A`[]] |
 
 #### Returns
 
@@ -239,7 +239,7 @@ value and the rest of the `Array`.
 
 2.0.0
 
----
+___
 
 ### copy
 
@@ -248,13 +248,13 @@ value and the rest of the `Array`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 #### Returns
@@ -270,13 +270,13 @@ value and the rest of the `Array`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `A`[] |
 
 #### Returns
@@ -287,7 +287,7 @@ value and the rest of the `Array`.
 
 2.0.0
 
----
+___
 
 ### dedupe
 
@@ -298,15 +298,15 @@ The equivalence used to compare elements is provided by `Equal.equivalence()` fr
 
 #### Type parameters
 
-| Name | Type                                                   |
-| :--- | :----------------------------------------------------- |
-| `S`  | extends readonly [`any`, `any`] \| `Iterable`\<`any`\> |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly [`any`, `any`] \| `Iterable`\<`any`\> |
 
 #### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `S`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
 
 #### Returns
 
@@ -316,7 +316,7 @@ The equivalence used to compare elements is provided by `Equal.equivalence()` fr
 
 2.0.0
 
----
+___
 
 ### dedupeAdjacent
 
@@ -327,13 +327,13 @@ Deduplicates adjacent elements that are identical.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 #### Returns
@@ -344,7 +344,7 @@ Deduplicates adjacent elements that are identical.
 
 2.0.0
 
----
+___
 
 ### dedupeAdjacentWith
 
@@ -355,13 +355,13 @@ Deduplicates adjacent elements that are identical using the provided `isEquivale
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name           | Type                                    |
-| :------------- | :-------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `isEquivalent` | (`self`: `A`, `that`: `A`) => `boolean` |
 
 #### Returns
@@ -372,8 +372,8 @@ Deduplicates adjacent elements that are identical using the provided `isEquivale
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -391,14 +391,14 @@ Deduplicates adjacent elements that are identical using the provided `isEquivale
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name           | Type                                    |
-| :------------- | :-------------------------------------- |
-| `self`         | `Iterable`\<`A`\>                       |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `isEquivalent` | (`self`: `A`, `that`: `A`) => `boolean` |
 
 #### Returns
@@ -409,7 +409,7 @@ Deduplicates adjacent elements that are identical using the provided `isEquivale
 
 2.0.0
 
----
+___
 
 ### dedupeWith
 
@@ -420,14 +420,14 @@ preserving the order of the first occurrence of each element.
 
 #### Type parameters
 
-| Name | Type                                            |
-| :--- | :---------------------------------------------- |
-| `S`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 #### Parameters
 
-| Name           | Type                                                                                                                          |
-| :------------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `isEquivalent` | (`self`: [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>, `that`: [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>) => `boolean` |
 
 #### Returns
@@ -438,9 +438,9 @@ preserving the order of the first occurrence of each element.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `S`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
 
 ##### Returns
 
@@ -458,14 +458,14 @@ preserving the order of the first occurrence of each element.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name           | Type                                    |
-| :------------- | :-------------------------------------- |
-| `self`         | readonly [`A`, `A`]                     |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly [`A`, `A`] |
 | `isEquivalent` | (`self`: `A`, `that`: `A`) => `boolean` |
 
 #### Returns
@@ -484,14 +484,14 @@ preserving the order of the first occurrence of each element.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name           | Type                                    |
-| :------------- | :-------------------------------------- |
-| `self`         | `Iterable`\<`A`\>                       |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `isEquivalent` | (`self`: `A`, `that`: `A`) => `boolean` |
 
 #### Returns
@@ -502,7 +502,7 @@ preserving the order of the first occurrence of each element.
 
 2.0.0
 
----
+___
 
 ### difference
 
@@ -514,13 +514,13 @@ The order and references of result values are determined by the first `Iterable`
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `that` | `Iterable`\<`A`\> |
 
 #### Returns
@@ -531,8 +531,8 @@ The order and references of result values are determined by the first `Iterable`
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -551,13 +551,13 @@ The order and references of result values are determined by the first `Iterable`
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 | `that` | `Iterable`\<`A`\> |
 
@@ -569,7 +569,7 @@ The order and references of result values are determined by the first `Iterable`
 
 2.0.0
 
----
+___
 
 ### differenceWith
 
@@ -581,13 +581,13 @@ The order and references of result values are determined by the first `Iterable`
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name           | Type                                    |
-| :------------- | :-------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `isEquivalent` | (`self`: `A`, `that`: `A`) => `boolean` |
 
 #### Returns
@@ -598,8 +598,8 @@ The order and references of result values are determined by the first `Iterable`
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `that` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -610,8 +610,8 @@ The order and references of result values are determined by the first `Iterable`
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -622,8 +622,8 @@ The order and references of result values are determined by the first `Iterable`
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 | `that` | `Iterable`\<`A`\> |
 
@@ -635,7 +635,7 @@ The order and references of result values are determined by the first `Iterable`
 
 2.0.0
 
----
+___
 
 ### extend
 
@@ -644,15 +644,15 @@ The order and references of result values are determined by the first `Iterable`
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type                          |
-| :--- | :---------------------------- |
-| `f`  | (`as`: readonly `A`[]) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`as`: readonly `A`[]) => `B` |
 
 #### Returns
 
@@ -662,8 +662,8 @@ The order and references of result values are determined by the first `Iterable`
 
 ##### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `A`[] |
 
 ##### Returns
@@ -679,16 +679,16 @@ The order and references of result values are determined by the first `Iterable`
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                          |
-| :----- | :---------------------------- |
-| `self` | readonly `A`[]                |
-| `f`    | (`as`: readonly `A`[]) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly `A`[] |
+| `f` | (`as`: readonly `A`[]) => `B` |
 
 #### Returns
 
@@ -698,7 +698,7 @@ The order and references of result values are determined by the first `Iterable`
 
 2.0.0
 
----
+___
 
 ### forEach
 
@@ -709,14 +709,14 @@ Iterate over the `Iterable` applying `f`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                |
-| :--- | :---------------------------------- |
-| `f`  | (`a`: `A`, `i`: `number`) => `void` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`, `i`: `number`) => `void` |
 
 #### Returns
 
@@ -726,8 +726,8 @@ Iterate over the `Iterable` applying `f`.
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -745,15 +745,15 @@ Iterate over the `Iterable` applying `f`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                |
-| :----- | :---------------------------------- |
-| `self` | `Iterable`\<`A`\>                   |
-| `f`    | (`a`: `A`, `i`: `number`) => `void` |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `f` | (`a`: `A`, `i`: `number`) => `void` |
 
 #### Returns
 
@@ -763,7 +763,7 @@ Iterate over the `Iterable` applying `f`.
 
 2.0.0
 
----
+___
 
 ### insertAt
 
@@ -775,15 +775,15 @@ or return `None` if the index is out of bounds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name | Type     |
-| :--- | :------- |
-| `i`  | `number` |
-| `b`  | `B`      |
+| Name | Type |
+| :------ | :------ |
+| `i` | `number` |
+| `b` | `B` |
 
 #### Returns
 
@@ -794,13 +794,13 @@ or return `None` if the index is out of bounds.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -819,17 +819,17 @@ or return `None` if the index is out of bounds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `i`    | `number`          |
-| `b`    | `B`               |
+| `i` | `number` |
+| `b` | `B` |
 
 #### Returns
 
@@ -839,7 +839,7 @@ or return `None` if the index is out of bounds.
 
 2.0.0
 
----
+___
 
 ### intersection
 
@@ -851,13 +851,13 @@ The order and references of result values are determined by the first `Iterable`
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `that` | `Iterable`\<`B`\> |
 
 #### Returns
@@ -869,13 +869,13 @@ The order and references of result values are determined by the first `Iterable`
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -894,14 +894,14 @@ The order and references of result values are determined by the first `Iterable`
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 | `that` | `Iterable`\<`B`\> |
 
@@ -913,7 +913,7 @@ The order and references of result values are determined by the first `Iterable`
 
 2.0.0
 
----
+___
 
 ### intersectionWith
 
@@ -925,13 +925,13 @@ The order and references of result values are determined by the first `Iterable`
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name           | Type                                    |
-| :------------- | :-------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `isEquivalent` | (`self`: `A`, `that`: `A`) => `boolean` |
 
 #### Returns
@@ -942,8 +942,8 @@ The order and references of result values are determined by the first `Iterable`
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `that` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -954,8 +954,8 @@ The order and references of result values are determined by the first `Iterable`
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -966,8 +966,8 @@ The order and references of result values are determined by the first `Iterable`
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 | `that` | `Iterable`\<`A`\> |
 
@@ -979,7 +979,7 @@ The order and references of result values are determined by the first `Iterable`
 
 2.0.0
 
----
+___
 
 ### intersperse
 
@@ -991,14 +991,14 @@ If the input is a non-empty array, the result is also a non-empty array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name     | Type |
-| :------- | :--- |
-| `middle` | `B`  |
+| Name | Type |
+| :------ | :------ |
+| `middle` | `B` |
 
 #### Returns
 
@@ -1008,15 +1008,15 @@ If the input is a non-empty array, the result is also a non-empty array.
 
 ##### Type parameters
 
-| Name | Type                                            |
-| :--- | :---------------------------------------------- |
-| `S`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `S`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
 
 ##### Returns
 
@@ -1034,16 +1034,16 @@ If the input is a non-empty array, the result is also a non-empty array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name     | Type                |
-| :------- | :------------------ |
-| `self`   | readonly [`A`, `A`] |
-| `middle` | `B`                 |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly [`A`, `A`] |
+| `middle` | `B` |
 
 #### Returns
 
@@ -1061,16 +1061,16 @@ If the input is a non-empty array, the result is also a non-empty array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name     | Type              |
-| :------- | :---------------- |
-| `self`   | `Iterable`\<`A`\> |
-| `middle` | `B`               |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `middle` | `B` |
 
 #### Returns
 
@@ -1080,7 +1080,7 @@ If the input is a non-empty array, the result is also a non-empty array.
 
 2.0.0
 
----
+___
 
 ### max
 
@@ -1089,14 +1089,14 @@ If the input is a non-empty array, the result is also a non-empty array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
 
@@ -1106,8 +1106,8 @@ If the input is a non-empty array, the result is also a non-empty array.
 
 ##### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 ##### Returns
@@ -1123,15 +1123,15 @@ If the input is a non-empty array, the result is also a non-empty array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
-| `self` | readonly [`A`, `A`]                          |
-| `O`    | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly [`A`, `A`] |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
 
@@ -1141,7 +1141,7 @@ If the input is a non-empty array, the result is also a non-empty array.
 
 2.0.0
 
----
+___
 
 ### min
 
@@ -1150,14 +1150,14 @@ If the input is a non-empty array, the result is also a non-empty array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
 
@@ -1167,8 +1167,8 @@ If the input is a non-empty array, the result is also a non-empty array.
 
 ##### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 ##### Returns
@@ -1184,15 +1184,15 @@ If the input is a non-empty array, the result is also a non-empty array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
-| `self` | readonly [`A`, `A`]                          |
-| `O`    | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly [`A`, `A`] |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
 
@@ -1202,7 +1202,7 @@ If the input is a non-empty array, the result is also a non-empty array.
 
 2.0.0
 
----
+___
 
 ### modify
 
@@ -1214,16 +1214,16 @@ or return a copy of the input if the index is out of bounds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `i`  | `number`          |
-| `f`  | (`a`: `A`) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `i` | `number` |
+| `f` | (`a`: `A`) => `B` |
 
 #### Returns
 
@@ -1233,8 +1233,8 @@ or return a copy of the input if the index is out of bounds.
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -1253,17 +1253,17 @@ or return a copy of the input if the index is out of bounds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `i`    | `number`          |
-| `f`    | (`a`: `A`) => `B` |
+| `i` | `number` |
+| `f` | (`a`: `A`) => `B` |
 
 #### Returns
 
@@ -1273,7 +1273,7 @@ or return a copy of the input if the index is out of bounds.
 
 2.0.0
 
----
+___
 
 ### modifyNonEmptyHead
 
@@ -1284,15 +1284,15 @@ Apply a function to the head, creating a new `NonEmptyReadonlyArray`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `f`  | (`a`: `A`) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`) => `B` |
 
 #### Returns
 
@@ -1302,8 +1302,8 @@ Apply a function to the head, creating a new `NonEmptyReadonlyArray`.
 
 ##### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 ##### Returns
@@ -1321,16 +1321,16 @@ Apply a function to the head, creating a new `NonEmptyReadonlyArray`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
-| `f`    | (`a`: `A`) => `B`   |
+| `f` | (`a`: `A`) => `B` |
 
 #### Returns
 
@@ -1340,7 +1340,7 @@ Apply a function to the head, creating a new `NonEmptyReadonlyArray`.
 
 2.0.0
 
----
+___
 
 ### modifyNonEmptyLast
 
@@ -1351,15 +1351,15 @@ Apply a function to the last element, creating a new `NonEmptyReadonlyArray`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `f`  | (`a`: `A`) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`) => `B` |
 
 #### Returns
 
@@ -1369,8 +1369,8 @@ Apply a function to the last element, creating a new `NonEmptyReadonlyArray`.
 
 ##### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 ##### Returns
@@ -1388,16 +1388,16 @@ Apply a function to the last element, creating a new `NonEmptyReadonlyArray`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
-| `f`    | (`a`: `A`) => `B`   |
+| `f` | (`a`: `A`) => `B` |
 
 #### Returns
 
@@ -1407,7 +1407,7 @@ Apply a function to the last element, creating a new `NonEmptyReadonlyArray`.
 
 2.0.0
 
----
+___
 
 ### modifyOption
 
@@ -1419,16 +1419,16 @@ or return `None` if the index is out of bounds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type              |
-| :--- | :---------------- |
-| `i`  | `number`          |
-| `f`  | (`a`: `A`) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `i` | `number` |
+| `f` | (`a`: `A`) => `B` |
 
 #### Returns
 
@@ -1438,8 +1438,8 @@ or return `None` if the index is out of bounds.
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -1458,17 +1458,17 @@ or return `None` if the index is out of bounds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `i`    | `number`          |
-| `f`    | (`a`: `A`) => `B` |
+| `i` | `number` |
+| `f` | (`a`: `A`) => `B` |
 
 #### Returns
 
@@ -1478,7 +1478,7 @@ or return `None` if the index is out of bounds.
 
 2.0.0
 
----
+___
 
 ### remove
 
@@ -1489,9 +1489,9 @@ or return a copy of the input if the index is out of bounds.
 
 #### Parameters
 
-| Name | Type     |
-| :--- | :------- |
-| `i`  | `number` |
+| Name | Type |
+| :------ | :------ |
+| `i` | `number` |
 
 #### Returns
 
@@ -1502,13 +1502,13 @@ or return a copy of the input if the index is out of bounds.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -1527,15 +1527,15 @@ or return a copy of the input if the index is out of bounds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `i`    | `number`          |
+| `i` | `number` |
 
 #### Returns
 
@@ -1545,7 +1545,7 @@ or return a copy of the input if the index is out of bounds.
 
 2.0.0
 
----
+___
 
 ### replace
 
@@ -1557,15 +1557,15 @@ or return a copy of the input if the index is out of bounds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name | Type     |
-| :--- | :------- |
-| `i`  | `number` |
-| `b`  | `B`      |
+| Name | Type |
+| :------ | :------ |
+| `i` | `number` |
+| `b` | `B` |
 
 #### Returns
 
@@ -1576,13 +1576,13 @@ or return a copy of the input if the index is out of bounds.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -1601,17 +1601,17 @@ or return a copy of the input if the index is out of bounds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `i`    | `number`          |
-| `b`    | `B`               |
+| `i` | `number` |
+| `b` | `B` |
 
 #### Returns
 
@@ -1621,7 +1621,7 @@ or return a copy of the input if the index is out of bounds.
 
 2.0.0
 
----
+___
 
 ### replaceOption
 
@@ -1630,15 +1630,15 @@ or return a copy of the input if the index is out of bounds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name | Type     |
-| :--- | :------- |
-| `i`  | `number` |
-| `b`  | `B`      |
+| Name | Type |
+| :------ | :------ |
+| `i` | `number` |
+| `b` | `B` |
 
 #### Returns
 
@@ -1649,13 +1649,13 @@ or return a copy of the input if the index is out of bounds.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -1671,17 +1671,17 @@ or return a copy of the input if the index is out of bounds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `i`    | `number`          |
-| `b`    | `B`               |
+| `i` | `number` |
+| `b` | `B` |
 
 #### Returns
 
@@ -1691,7 +1691,7 @@ or return a copy of the input if the index is out of bounds.
 
 2.0.0
 
----
+___
 
 ### rotate
 
@@ -1702,9 +1702,9 @@ If the input is a non-empty array, the result is also a non-empty array.
 
 #### Parameters
 
-| Name | Type     |
-| :--- | :------- |
-| `n`  | `number` |
+| Name | Type |
+| :------ | :------ |
+| `n` | `number` |
 
 #### Returns
 
@@ -1714,15 +1714,15 @@ If the input is a non-empty array, the result is also a non-empty array.
 
 ##### Type parameters
 
-| Name | Type                                            |
-| :--- | :---------------------------------------------- |
-| `S`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `S`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
 
 ##### Returns
 
@@ -1740,15 +1740,15 @@ If the input is a non-empty array, the result is also a non-empty array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
-| `n`    | `number`            |
+| `n` | `number` |
 
 #### Returns
 
@@ -1766,15 +1766,15 @@ If the input is a non-empty array, the result is also a non-empty array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `n`    | `number`          |
+| `n` | `number` |
 
 #### Returns
 
@@ -1784,7 +1784,7 @@ If the input is a non-empty array, the result is also a non-empty array.
 
 2.0.0
 
----
+___
 
 ### setNonEmptyHead
 
@@ -1795,14 +1795,14 @@ Change the head, creating a new `NonEmptyReadonlyArray`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `b`  | `B`  |
+| :------ | :------ |
+| `b` | `B` |
 
 #### Returns
 
@@ -1813,13 +1813,13 @@ Change the head, creating a new `NonEmptyReadonlyArray`.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 ##### Returns
@@ -1837,16 +1837,16 @@ Change the head, creating a new `NonEmptyReadonlyArray`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
-| `b`    | `B`                 |
+| `b` | `B` |
 
 #### Returns
 
@@ -1856,7 +1856,7 @@ Change the head, creating a new `NonEmptyReadonlyArray`.
 
 2.0.0
 
----
+___
 
 ### setNonEmptyLast
 
@@ -1867,14 +1867,14 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `b`  | `B`  |
+| :------ | :------ |
+| `b` | `B` |
 
 #### Returns
 
@@ -1885,13 +1885,13 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 ##### Returns
@@ -1909,16 +1909,16 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
-| `b`    | `B`                 |
+| `b` | `B` |
 
 #### Returns
 
@@ -1928,7 +1928,7 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 
 2.0.0
 
----
+___
 
 ### union
 
@@ -1936,15 +1936,15 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 
 #### Type parameters
 
-| Name | Type                                            |
-| :--- | :---------------------------------------------- |
-| `T`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
+| Name | Type |
+| :------ | :------ |
+| `T` | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 #### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `that` | `T`  |
+| Name | Type |
+| :------ | :------ |
+| `that` | `T` |
 
 #### Returns
 
@@ -1954,15 +1954,15 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 
 ##### Type parameters
 
-| Name | Type                                            |
-| :--- | :---------------------------------------------- |
-| `S`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `S`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
 
 ##### Returns
 
@@ -1977,16 +1977,16 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
-| `that` | readonly `B`[]      |
+| `that` | readonly `B`[] |
 
 #### Returns
 
@@ -2001,15 +2001,15 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | readonly `A`[]      |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly `A`[] |
 | `that` | readonly [`B`, `B`] |
 
 #### Returns
@@ -2025,14 +2025,14 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 | `that` | `Iterable`\<`B`\> |
 
@@ -2044,7 +2044,7 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 
 2.0.0
 
----
+___
 
 ### unionWith
 
@@ -2052,16 +2052,16 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 
 #### Type parameters
 
-| Name | Type                                            |
-| :--- | :---------------------------------------------- |
-| `S`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
-| `T`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly `any`[] \| `Iterable`\<`any`\> |
+| `T` | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 #### Parameters
 
-| Name           | Type                                                                                                                          |
-| :------------- | :---------------------------------------------------------------------------------------------------------------------------- |
-| `that`         | `T`                                                                                                                           |
+| Name | Type |
+| :------ | :------ |
+| `that` | `T` |
 | `isEquivalent` | (`self`: [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>, `that`: [`Infer`](Array.ReadonlyArray.md#infer)\<`T`\>) => `boolean` |
 
 #### Returns
@@ -2072,9 +2072,9 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `S`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
 
 ##### Returns
 
@@ -2089,16 +2089,16 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name           | Type                                    |
-| :------------- | :-------------------------------------- |
-| `self`         | readonly [`A`, `A`]                     |
-| `that`         | `Iterable`\<`B`\>                       |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly [`A`, `A`] |
+| `that` | `Iterable`\<`B`\> |
 | `isEquivalent` | (`self`: `A`, `that`: `B`) => `boolean` |
 
 #### Returns
@@ -2114,16 +2114,16 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name           | Type                                    |
-| :------------- | :-------------------------------------- |
-| `self`         | `Iterable`\<`A`\>                       |
-| `that`         | readonly [`B`, `B`]                     |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `that` | readonly [`B`, `B`] |
 | `isEquivalent` | (`self`: `A`, `that`: `B`) => `boolean` |
 
 #### Returns
@@ -2139,16 +2139,16 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name           | Type                                    |
-| :------------- | :-------------------------------------- |
-| `self`         | `Iterable`\<`A`\>                       |
-| `that`         | `Iterable`\<`B`\>                       |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `that` | `Iterable`\<`B`\> |
 | `isEquivalent` | (`self`: `A`, `that`: `B`) => `boolean` |
 
 #### Returns
@@ -2159,7 +2159,7 @@ Change the last element, creating a new `NonEmptyReadonlyArray`.
 
 2.0.0
 
----
+___
 
 ### unzip
 
@@ -2169,15 +2169,15 @@ This function is the inverse of `zip`. Takes an `Iterable` of pairs and return t
 
 #### Type parameters
 
-| Name | Type                                                                                                         |
-| :--- | :----------------------------------------------------------------------------------------------------------- |
-| `S`  | extends `Iterable`\<readonly [`any`, `any`]\> \| readonly [readonly [`any`, `any`], readonly [`any`, `any`]] |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends `Iterable`\<readonly [`any`, `any`]\> \| readonly [readonly [`any`, `any`], readonly [`any`, `any`]] |
 
 #### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `S`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
 
 #### Returns
 
@@ -2198,14 +2198,14 @@ Append an element to the end of an `Iterable`, creating a new `NonEmptyArray`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `last` | `B`  |
+| Name | Type |
+| :------ | :------ |
+| `last` | `B` |
 
 #### Returns
 
@@ -2216,13 +2216,13 @@ Append an element to the end of an `Iterable`, creating a new `NonEmptyArray`.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -2240,16 +2240,16 @@ Append an element to the end of an `Iterable`, creating a new `NonEmptyArray`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `last` | `B`               |
+| `last` | `B` |
 
 #### Returns
 
@@ -2259,7 +2259,7 @@ Append an element to the end of an `Iterable`, creating a new `NonEmptyArray`.
 
 2.0.0
 
----
+___
 
 ### appendAll
 
@@ -2270,16 +2270,16 @@ If either array is non-empty, the result is also a non-empty array.
 
 #### Type parameters
 
-| Name | Type                                            |
-| :--- | :---------------------------------------------- |
-| `S`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
-| `T`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly `any`[] \| `Iterable`\<`any`\> |
+| `T` | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 #### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `that` | `T`  |
+| Name | Type |
+| :------ | :------ |
+| `that` | `T` |
 
 #### Returns
 
@@ -2289,9 +2289,9 @@ If either array is non-empty, the result is also a non-empty array.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `S`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
 
 ##### Returns
 
@@ -2309,15 +2309,15 @@ If either array is non-empty, the result is also a non-empty array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | `Iterable`\<`A`\>   |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `that` | readonly [`B`, `B`] |
 
 #### Returns
@@ -2336,16 +2336,16 @@ If either array is non-empty, the result is also a non-empty array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
-| `that` | `Iterable`\<`B`\>   |
+| `that` | `Iterable`\<`B`\> |
 
 #### Returns
 
@@ -2363,14 +2363,14 @@ If either array is non-empty, the result is also a non-empty array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 | `that` | `Iterable`\<`B`\> |
 
@@ -2382,7 +2382,7 @@ If either array is non-empty, the result is also a non-empty array.
 
 2.0.0
 
----
+___
 
 ### prepend
 
@@ -2393,14 +2393,14 @@ Prepend an element to the front of an `Iterable`, creating a new `NonEmptyArray`
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `head` | `B`  |
+| Name | Type |
+| :------ | :------ |
+| `head` | `B` |
 
 #### Returns
 
@@ -2411,13 +2411,13 @@ Prepend an element to the front of an `Iterable`, creating a new `NonEmptyArray`
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -2435,16 +2435,16 @@ Prepend an element to the front of an `Iterable`, creating a new `NonEmptyArray`
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `head` | `B`               |
+| `head` | `B` |
 
 #### Returns
 
@@ -2454,7 +2454,7 @@ Prepend an element to the front of an `Iterable`, creating a new `NonEmptyArray`
 
 2.0.0
 
----
+___
 
 ### prependAll
 
@@ -2465,16 +2465,16 @@ If either array is non-empty, the result is also a non-empty array.
 
 #### Type parameters
 
-| Name | Type                                            |
-| :--- | :---------------------------------------------- |
-| `S`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
-| `T`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly `any`[] \| `Iterable`\<`any`\> |
+| `T` | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 #### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `that` | `T`  |
+| Name | Type |
+| :------ | :------ |
+| `that` | `T` |
 
 #### Returns
 
@@ -2484,9 +2484,9 @@ If either array is non-empty, the result is also a non-empty array.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `S`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
 
 ##### Returns
 
@@ -2495,12 +2495,12 @@ If either array is non-empty, the result is also a non-empty array.
 **`Example`**
 
 ```ts
-import * as ReadonlyArray from "effect/ReadonlyArray";
+import * as ReadonlyArray from "effect/ReadonlyArray"
 
 assert.deepStrictEqual(
   ReadonlyArray.prependAll([1, 2], ["a", "b"]),
-  ["a", "b", 1, 2],
-);
+  ["a", "b", 1, 2]
+)
 ```
 
 **`Since`**
@@ -2515,15 +2515,15 @@ If either array is non-empty, the result is also a non-empty array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
-| `self` | `Iterable`\<`A`\>   |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `that` | readonly [`B`, `B`] |
 
 #### Returns
@@ -2533,12 +2533,12 @@ If either array is non-empty, the result is also a non-empty array.
 **`Example`**
 
 ```ts
-import * as ReadonlyArray from "effect/ReadonlyArray";
+import * as ReadonlyArray from "effect/ReadonlyArray"
 
 assert.deepStrictEqual(
   ReadonlyArray.prependAll([1, 2], ["a", "b"]),
-  ["a", "b", 1, 2],
-);
+  ["a", "b", 1, 2]
+)
 ```
 
 **`Since`**
@@ -2553,16 +2553,16 @@ If either array is non-empty, the result is also a non-empty array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
-| `that` | `Iterable`\<`B`\>   |
+| `that` | `Iterable`\<`B`\> |
 
 #### Returns
 
@@ -2571,12 +2571,12 @@ If either array is non-empty, the result is also a non-empty array.
 **`Example`**
 
 ```ts
-import * as ReadonlyArray from "effect/ReadonlyArray";
+import * as ReadonlyArray from "effect/ReadonlyArray"
 
 assert.deepStrictEqual(
   ReadonlyArray.prependAll([1, 2], ["a", "b"]),
-  ["a", "b", 1, 2],
-);
+  ["a", "b", 1, 2]
+)
 ```
 
 **`Since`**
@@ -2591,14 +2591,14 @@ If either array is non-empty, the result is also a non-empty array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 | `that` | `Iterable`\<`B`\> |
 
@@ -2609,12 +2609,12 @@ If either array is non-empty, the result is also a non-empty array.
 **`Example`**
 
 ```ts
-import * as ReadonlyArray from "effect/ReadonlyArray";
+import * as ReadonlyArray from "effect/ReadonlyArray"
 
 assert.deepStrictEqual(
   ReadonlyArray.prependAll([1, 2], ["a", "b"]),
-  ["a", "b", 1, 2],
-);
+  ["a", "b", 1, 2]
+)
 ```
 
 **`Since`**
@@ -2629,9 +2629,9 @@ assert.deepStrictEqual(
 
 #### Type parameters
 
-| Name | Type    |
-| :--- | :------ |
-| `A`  | `never` |
+| Name | Type |
+| :------ | :------ |
+| `A` | `never` |
 
 #### Returns
 
@@ -2641,7 +2641,7 @@ assert.deepStrictEqual(
 
 2.0.0
 
----
+___
 
 ### fromIterable
 
@@ -2652,13 +2652,13 @@ Creates a new `Array` from an iterable collection of values.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name         | Type              |
-| :----------- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `collection` | `Iterable`\<`A`\> |
 
 #### Returns
@@ -2669,7 +2669,7 @@ Creates a new `Array` from an iterable collection of values.
 
 2.0.0
 
----
+___
 
 ### make
 
@@ -2679,14 +2679,14 @@ Builds a `NonEmptyArray` from an non-empty collection of elements.
 
 #### Type parameters
 
-| Name       | Type                      |
-| :--------- | :------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `Elements` | extends [`any`, ...any[]] |
 
 #### Parameters
 
-| Name          | Type       |
-| :------------ | :--------- |
+| Name | Type |
+| :------ | :------ |
 | `...elements` | `Elements` |
 
 #### Returns
@@ -2697,7 +2697,7 @@ Builds a `NonEmptyArray` from an non-empty collection of elements.
 
 2.0.0
 
----
+___
 
 ### makeBy
 
@@ -2710,15 +2710,15 @@ Return a `NonEmptyArray` of length `n` with element `i` initialized with `f(i)`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                   |
-| :--- | :--------------------- |
-| `n`  | `number`               |
-| `f`  | (`i`: `number`) => `A` |
+| Name | Type |
+| :------ | :------ |
+| `n` | `number` |
+| `f` | (`i`: `number`) => `A` |
 
 #### Returns
 
@@ -2727,16 +2727,16 @@ Return a `NonEmptyArray` of length `n` with element `i` initialized with `f(i)`.
 **`Example`**
 
 ```ts
-import { makeBy } from "effect/ReadonlyArray";
+import { makeBy } from 'effect/ReadonlyArray'
 
-assert.deepStrictEqual(makeBy(5, n => n * 2), [0, 2, 4, 6, 8]);
+assert.deepStrictEqual(makeBy(5, n => n * 2), [0, 2, 4, 6, 8])
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### of
 
@@ -2747,14 +2747,14 @@ Constructs a new `NonEmptyArray<A>` from the specified value.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `A`  |
+| :------ | :------ |
+| `a` | `A` |
 
 #### Returns
 
@@ -2764,7 +2764,7 @@ Constructs a new `NonEmptyArray<A>` from the specified value.
 
 2.0.0
 
----
+___
 
 ### range
 
@@ -2774,10 +2774,10 @@ Return a `NonEmptyArray` containing a range of integers, including both endpoint
 
 #### Parameters
 
-| Name    | Type     |
-| :------ | :------- |
+| Name | Type |
+| :------ | :------ |
 | `start` | `number` |
-| `end`   | `number` |
+| `end` | `number` |
 
 #### Returns
 
@@ -2786,16 +2786,16 @@ Return a `NonEmptyArray` containing a range of integers, including both endpoint
 **`Example`**
 
 ```ts
-import { range } from "effect/ReadonlyArray";
+import { range } from 'effect/ReadonlyArray'
 
-assert.deepStrictEqual(range(1, 3), [1, 2, 3]);
+assert.deepStrictEqual(range(1, 3), [1, 2, 3])
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### replicate
 
@@ -2807,9 +2807,9 @@ Return a `NonEmptyArray` containing a value repeated the specified number of tim
 
 #### Parameters
 
-| Name | Type     |
-| :--- | :------- |
-| `n`  | `number` |
+| Name | Type |
+| :------ | :------ |
+| `n` | `number` |
 
 #### Returns
 
@@ -2820,14 +2820,14 @@ Return a `NonEmptyArray` containing a value repeated the specified number of tim
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `A`  |
+| :------ | :------ |
+| `a` | `A` |
 
 ##### Returns
 
@@ -2836,9 +2836,9 @@ Return a `NonEmptyArray` containing a value repeated the specified number of tim
 **`Example`**
 
 ```ts
-import { replicate } from "effect/ReadonlyArray";
+import { replicate } from 'effect/ReadonlyArray'
 
-assert.deepStrictEqual(replicate("a", 3), ["a", "a", "a"]);
+assert.deepStrictEqual(replicate("a", 3), ["a", "a", "a"])
 ```
 
 **`Since`**
@@ -2854,15 +2854,15 @@ Return a `NonEmptyArray` containing a value repeated the specified number of tim
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type     |
-| :--- | :------- |
-| `a`  | `A`      |
-| `n`  | `number` |
+| Name | Type |
+| :------ | :------ |
+| `a` | `A` |
+| `n` | `number` |
 
 #### Returns
 
@@ -2871,16 +2871,16 @@ Return a `NonEmptyArray` containing a value repeated the specified number of tim
 **`Example`**
 
 ```ts
-import { replicate } from "effect/ReadonlyArray";
+import { replicate } from 'effect/ReadonlyArray'
 
-assert.deepStrictEqual(replicate("a", 3), ["a", "a", "a"]);
+assert.deepStrictEqual(replicate("a", 3), ["a", "a", "a"])
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### unfold
 
@@ -2889,16 +2889,16 @@ assert.deepStrictEqual(replicate("a", 3), ["a", "a", "a"]);
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
-| `A`  |
+| :------ |
+| `B` |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                                         |
-| :--- | :----------------------------------------------------------- |
-| `b`  | `B`                                                          |
-| `f`  | (`b`: `B`) => [`Option`](O.md#option)\<readonly [`A`, `B`]\> |
+| Name | Type |
+| :------ | :------ |
+| `b` | `B` |
+| `f` | (`b`: `B`) => [`Option`](O.md#option)\<readonly [`A`, `B`]\> |
 
 #### Returns
 
@@ -2917,14 +2917,14 @@ assert.deepStrictEqual(replicate("a", 3), ["a", "a", "a"]);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `A`  |
+| :------ | :------ |
+| `a` | `A` |
 
 #### Returns
 
@@ -2934,7 +2934,7 @@ assert.deepStrictEqual(replicate("a", 3), ["a", "a", "a"]);
 
 2.0.0
 
----
+___
 
 ### fromOption
 
@@ -2943,13 +2943,13 @@ assert.deepStrictEqual(replicate("a", 3), ["a", "a", "a"]);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 #### Returns
@@ -2960,7 +2960,7 @@ assert.deepStrictEqual(replicate("a", 3), ["a", "a", "a"]);
 
 2.0.0
 
----
+___
 
 ### fromRecord
 
@@ -2970,15 +2970,15 @@ Takes a record and returns an array of tuples containing its keys and values.
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `K`  | extends `string` |
-| `A`  | `A`              |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `string` |
+| `A` | `A` |
 
 #### Parameters
 
-| Name   | Type                               | Description              |
-| :----- | :--------------------------------- | :----------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | `Readonly`\<`Record`\<`K`, `A`\>\> | The record to transform. |
 
 #### Returns
@@ -2988,10 +2988,10 @@ Takes a record and returns an array of tuples containing its keys and values.
 **`Example`**
 
 ```ts
-import { fromRecord } from "effect/ReadonlyArray";
+import { fromRecord } from "effect/ReadonlyArray"
 
-const x = { a: 1, b: 2, c: 3 };
-assert.deepStrictEqual(fromRecord(x), [["a", 1], ["b", 2], ["c", 3]]);
+const x = { a: 1, b: 2, c: 3 }
+assert.deepStrictEqual(fromRecord(x), [["a", 1], ["b", 2], ["c", 3]])
 ```
 
 **`Since`**
@@ -3009,13 +3009,13 @@ Zips this chunk crosswise with the specified chunk.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `that` | readonly `B`[] |
 
 #### Returns
@@ -3027,13 +3027,13 @@ Zips this chunk crosswise with the specified chunk.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `A`[] |
 
 ##### Returns
@@ -3051,14 +3051,14 @@ Zips this chunk crosswise with the specified chunk.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `A`[] |
 | `that` | readonly `B`[] |
 
@@ -3070,7 +3070,7 @@ Zips this chunk crosswise with the specified chunk.
 
 2.0.0
 
----
+___
 
 ### cartesianWith
 
@@ -3081,17 +3081,17 @@ Zips this chunk crosswise with the specified chunk using the specified combiner.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
 
 #### Parameters
 
-| Name   | Type                        |
-| :----- | :-------------------------- |
-| `that` | readonly `B`[]              |
-| `f`    | (`a`: `A`, `b`: `B`) => `C` |
+| Name | Type |
+| :------ | :------ |
+| `that` | readonly `B`[] |
+| `f` | (`a`: `A`, `b`: `B`) => `C` |
 
 #### Returns
 
@@ -3101,8 +3101,8 @@ Zips this chunk crosswise with the specified chunk using the specified combiner.
 
 ##### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `A`[] |
 
 ##### Returns
@@ -3120,18 +3120,18 @@ Zips this chunk crosswise with the specified chunk using the specified combiner.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
 
 #### Parameters
 
-| Name   | Type                        |
-| :----- | :-------------------------- |
-| `self` | readonly `A`[]              |
-| `that` | readonly `B`[]              |
-| `f`    | (`a`: `A`, `b`: `B`) => `C` |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly `A`[] |
+| `that` | readonly `B`[] |
+| `f` | (`a`: `A`, `b`: `B`) => `C` |
 
 #### Returns
 
@@ -3141,7 +3141,7 @@ Zips this chunk crosswise with the specified chunk using the specified combiner.
 
 2.0.0
 
----
+___
 
 ### contains
 
@@ -3152,14 +3152,14 @@ Returns a function that checks if a `ReadonlyArray` contains a given value using
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `A`  |
+| :------ | :------ |
+| `a` | `A` |
 
 #### Returns
 
@@ -3169,8 +3169,8 @@ Returns a function that checks if a `ReadonlyArray` contains a given value using
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -3188,15 +3188,15 @@ Returns a function that checks if a `ReadonlyArray` contains a given value using
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `a`    | `A`               |
+| `a` | `A` |
 
 #### Returns
 
@@ -3206,7 +3206,7 @@ Returns a function that checks if a `ReadonlyArray` contains a given value using
 
 2.0.0
 
----
+___
 
 ### containsWith
 
@@ -3217,13 +3217,13 @@ Returns a function that checks if a `ReadonlyArray` contains a given value using
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name           | Type                                    |
-| :------------- | :-------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `isEquivalent` | (`self`: `A`, `that`: `A`) => `boolean` |
 
 #### Returns
@@ -3235,8 +3235,8 @@ Returns a function that checks if a `ReadonlyArray` contains a given value using
 ##### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `A`  |
+| :------ | :------ |
+| `a` | `A` |
 
 ##### Returns
 
@@ -3246,8 +3246,8 @@ Returns a function that checks if a `ReadonlyArray` contains a given value using
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -3258,10 +3258,10 @@ Returns a function that checks if a `ReadonlyArray` contains a given value using
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `a`    | `A`               |
+| `a` | `A` |
 
 ##### Returns
 
@@ -3271,7 +3271,7 @@ Returns a function that checks if a `ReadonlyArray` contains a given value using
 
 2.0.0
 
----
+___
 
 ### every
 
@@ -3282,14 +3282,14 @@ Check if a predicate holds true for every `ReadonlyArray` element.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                                     |
-| :----------- | :------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
@@ -3300,8 +3300,8 @@ Check if a predicate holds true for every `ReadonlyArray` element.
 
 ##### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `A`[] |
 
 ##### Returns
@@ -3319,13 +3319,13 @@ Check if a predicate holds true for every `ReadonlyArray` element.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -3336,8 +3336,8 @@ Check if a predicate holds true for every `ReadonlyArray` element.
 
 ##### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `A`[] |
 
 ##### Returns
@@ -3355,15 +3355,15 @@ Check if a predicate holds true for every `ReadonlyArray` element.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                                     |
-| :----------- | :------------------------------------------------------- |
-| `self`       | readonly `A`[]                                           |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly `A`[] |
 | `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
@@ -3381,14 +3381,14 @@ Check if a predicate holds true for every `ReadonlyArray` element.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
-| `self`      | readonly `A`[]                                    |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly `A`[] |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -3399,7 +3399,7 @@ Check if a predicate holds true for every `ReadonlyArray` element.
 
 2.0.0
 
----
+___
 
 ### findFirst
 
@@ -3411,14 +3411,14 @@ predicate, or `None` if no such element exists.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                                     |
-| :----------- | :------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
@@ -3429,8 +3429,8 @@ predicate, or `None` if no such element exists.
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -3449,14 +3449,14 @@ predicate, or `None` if no such element exists.
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `B`  |
+| :------ | :------ |
+| `B` | `B` |
+| `A` | `B` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -3467,8 +3467,8 @@ predicate, or `None` if no such element exists.
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`B`\> |
 
 ##### Returns
@@ -3487,15 +3487,15 @@ predicate, or `None` if no such element exists.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                                     |
-| :----------- | :------------------------------------------------------- |
-| `self`       | `Iterable`\<`A`\>                                        |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
@@ -3514,14 +3514,14 @@ predicate, or `None` if no such element exists.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
-| `self`      | `Iterable`\<`A`\>                                 |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -3532,7 +3532,7 @@ predicate, or `None` if no such element exists.
 
 2.0.0
 
----
+___
 
 ### findFirstIndex
 
@@ -3543,13 +3543,13 @@ Return the first index for which a predicate holds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -3560,8 +3560,8 @@ Return the first index for which a predicate holds.
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -3579,14 +3579,14 @@ Return the first index for which a predicate holds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
-| `self`      | `Iterable`\<`A`\>                                 |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -3597,7 +3597,7 @@ Return the first index for which a predicate holds.
 
 2.0.0
 
----
+___
 
 ### findLast
 
@@ -3608,14 +3608,14 @@ Find the last element for which a predicate holds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                                     |
-| :----------- | :------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
@@ -3626,8 +3626,8 @@ Find the last element for which a predicate holds.
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -3645,14 +3645,14 @@ Find the last element for which a predicate holds.
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `B`  |
+| :------ | :------ |
+| `B` | `B` |
+| `A` | `B` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -3663,8 +3663,8 @@ Find the last element for which a predicate holds.
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`B`\> |
 
 ##### Returns
@@ -3682,15 +3682,15 @@ Find the last element for which a predicate holds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                                     |
-| :----------- | :------------------------------------------------------- |
-| `self`       | `Iterable`\<`A`\>                                        |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
@@ -3708,14 +3708,14 @@ Find the last element for which a predicate holds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
-| `self`      | `Iterable`\<`A`\>                                 |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -3726,7 +3726,7 @@ Find the last element for which a predicate holds.
 
 2.0.0
 
----
+___
 
 ### findLastIndex
 
@@ -3737,13 +3737,13 @@ Return the last index for which a predicate holds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -3754,8 +3754,8 @@ Return the last index for which a predicate holds.
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -3773,14 +3773,14 @@ Return the last index for which a predicate holds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
-| `self`      | `Iterable`\<`A`\>                                 |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -3791,7 +3791,7 @@ Return the last index for which a predicate holds.
 
 2.0.0
 
----
+___
 
 ### reverse
 
@@ -3801,15 +3801,15 @@ Reverse an `Iterable`, creating a new `Array`.
 
 #### Type parameters
 
-| Name | Type                                                   |
-| :--- | :----------------------------------------------------- |
-| `S`  | extends readonly [`any`, `any`] \| `Iterable`\<`any`\> |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly [`any`, `any`] \| `Iterable`\<`any`\> |
 
 #### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `S`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
 
 #### Returns
 
@@ -3819,7 +3819,7 @@ Reverse an `Iterable`, creating a new `Array`.
 
 2.0.0
 
----
+___
 
 ### some
 
@@ -3830,14 +3830,14 @@ Check if a predicate holds true for some `ReadonlyArray` element.
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `B`  |
+| :------ | :------ |
+| `B` | `B` |
+| `A` | `B` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -3848,8 +3848,8 @@ Check if a predicate holds true for some `ReadonlyArray` element.
 
 ##### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `B`[] |
 
 ##### Returns
@@ -3867,14 +3867,14 @@ Check if a predicate holds true for some `ReadonlyArray` element.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
-| `self`      | readonly `A`[]                                    |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly `A`[] |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -3885,7 +3885,7 @@ self is readonly [A, A]
 
 2.0.0
 
----
+___
 
 ### sortWith
 
@@ -3894,15 +3894,15 @@ self is readonly [A, A]
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name    | Type                                         |
-| :------ | :------------------------------------------- |
-| `f`     | (`a`: `A`) => `B`                            |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`) => `B` |
 | `order` | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
 
 #### Returns
@@ -3913,8 +3913,8 @@ self is readonly [A, A]
 
 ##### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `A`[] |
 
 ##### Returns
@@ -3930,16 +3930,16 @@ self is readonly [A, A]
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name    | Type                                         |
-| :------ | :------------------------------------------- |
-| `self`  | readonly `A`[]                               |
-| `f`     | (`a`: `A`) => `B`                            |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly `A`[] |
+| `f` | (`a`: `A`) => `B` |
 | `order` | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
 
 #### Returns
@@ -3959,14 +3959,14 @@ self is readonly [A, A]
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                |
-| :----------- | :---------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `refinement` | (`a`: `A`, `i`: `number`) => a is B |
 
 #### Returns
@@ -3977,8 +3977,8 @@ self is readonly [A, A]
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -3994,14 +3994,14 @@ self is readonly [A, A]
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name        | Type                                   |
-| :---------- | :------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `predicate` | (`b`: `B`, `i`: `number`) => `boolean` |
 
 #### Returns
@@ -4012,8 +4012,8 @@ self is readonly [A, A]
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -4029,15 +4029,15 @@ self is readonly [A, A]
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                |
-| :----------- | :---------------------------------- |
-| `self`       | `Iterable`\<`A`\>                   |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `refinement` | (`a`: `A`, `i`: `number`) => a is B |
 
 #### Returns
@@ -4053,14 +4053,14 @@ self is readonly [A, A]
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                   |
-| :---------- | :------------------------------------- |
-| `self`      | `Iterable`\<`A`\>                      |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
@@ -4071,7 +4071,7 @@ self is readonly [A, A]
 
 2.0.0
 
----
+___
 
 ### filterMap
 
@@ -4080,15 +4080,15 @@ self is readonly [A, A]
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type                                                        |
-| :--- | :---------------------------------------------------------- |
-| `f`  | (`a`: `A`, `i`: `number`) => [`Option`](O.md#option)\<`B`\> |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`, `i`: `number`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -4098,8 +4098,8 @@ self is readonly [A, A]
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -4115,16 +4115,16 @@ self is readonly [A, A]
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                                        |
-| :----- | :---------------------------------------------------------- |
-| `self` | `Iterable`\<`A`\>                                           |
-| `f`    | (`a`: `A`, `i`: `number`) => [`Option`](O.md#option)\<`B`\> |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `f` | (`a`: `A`, `i`: `number`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -4134,7 +4134,7 @@ self is readonly [A, A]
 
 2.0.0
 
----
+___
 
 ### filterMapWhile
 
@@ -4145,15 +4145,15 @@ Transforms all elements of the `readonlyArray` for as long as the specified func
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `f`  | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -4163,8 +4163,8 @@ Transforms all elements of the `readonlyArray` for as long as the specified func
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -4182,16 +4182,16 @@ Transforms all elements of the `readonlyArray` for as long as the specified func
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
-| `self` | `Iterable`\<`A`\>                            |
-| `f`    | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `f` | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -4201,7 +4201,7 @@ Transforms all elements of the `readonlyArray` for as long as the specified func
 
 2.0.0
 
----
+___
 
 ### getLefts
 
@@ -4212,14 +4212,14 @@ Retrieves the `Left` values from an `Iterable` of `Either`s, collecting them int
 #### Type parameters
 
 | Name |
-| :--- |
-| `E`  |
-| `A`  |
+| :------ |
+| `E` |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                              |
-| :----- | :------------------------------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<[`Either`](E.md#either)\<`E`, `A`\>\> |
 
 #### Returns
@@ -4229,20 +4229,20 @@ Retrieves the `Left` values from an `Iterable` of `Either`s, collecting them int
 **`Example`**
 
 ```ts
-import { getLefts } from "effect/ReadonlyArray";
-import { right, left } from "effect/Either";
+import { getLefts } from "effect/ReadonlyArray"
+import { right, left } from "effect/Either"
 
 assert.deepStrictEqual(
   getLefts([right(1), left("err"), right(2)]),
-  ["err"],
-);
+  ["err"]
+)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### getRights
 
@@ -4253,14 +4253,14 @@ Retrieves the `Right` values from an `Iterable` of `Either`s, collecting them in
 #### Type parameters
 
 | Name |
-| :--- |
-| `E`  |
-| `A`  |
+| :------ |
+| `E` |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                              |
-| :----- | :------------------------------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<[`Either`](E.md#either)\<`E`, `A`\>\> |
 
 #### Returns
@@ -4270,20 +4270,20 @@ Retrieves the `Right` values from an `Iterable` of `Either`s, collecting them in
 **`Example`**
 
 ```ts
-import { getRights } from "effect/ReadonlyArray";
-import { right, left } from "effect/Either";
+import { getRights } from "effect/ReadonlyArray"
+import { right, left } from "effect/Either"
 
 assert.deepStrictEqual(
   getRights([right(1), left("err"), right(2)]),
-  [1, 2],
-);
+  [1, 2]
+)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### getSomes
 
@@ -4294,13 +4294,13 @@ Retrieves the `Some` values from an `Iterable` of `Option`s, collecting them int
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<[`Option`](O.md#option)\<`A`\>\> |
 
 #### Returns
@@ -4310,20 +4310,20 @@ Retrieves the `Some` values from an `Iterable` of `Option`s, collecting them int
 **`Example`**
 
 ```ts
-import { getSomes } from "effect/ReadonlyArray";
-import { some, none } from "effect/Option";
+import { getSomes } from "effect/ReadonlyArray"
+import { some, none } from "effect/Option"
 
 assert.deepStrictEqual(
   getSomes([some(1), none(), some(2)]),
-  [1, 2],
-);
+  [1, 2]
+)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### partition
 
@@ -4334,15 +4334,15 @@ Separate elements based on a predicate that also exposes the index of the elemen
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `C`  | `C`  |
-| `B`  | `B`  |
-| `A`  | `C`  |
+| :------ | :------ |
+| `C` | `C` |
+| `B` | `B` |
+| `A` | `C` |
 
 #### Parameters
 
-| Name         | Type                                |
-| :----------- | :---------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `refinement` | (`a`: `A`, `i`: `number`) => a is B |
 
 #### Returns
@@ -4353,8 +4353,8 @@ Separate elements based on a predicate that also exposes the index of the elemen
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`C`\> |
 
 ##### Returns
@@ -4372,14 +4372,14 @@ Separate elements based on a predicate that also exposes the index of the elemen
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `B`  |
+| :------ | :------ |
+| `B` | `B` |
+| `A` | `B` |
 
 #### Parameters
 
-| Name        | Type                                   |
-| :---------- | :------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
@@ -4390,8 +4390,8 @@ Separate elements based on a predicate that also exposes the index of the elemen
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`B`\> |
 
 ##### Returns
@@ -4409,15 +4409,15 @@ Separate elements based on a predicate that also exposes the index of the elemen
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                |
-| :----------- | :---------------------------------- |
-| `self`       | `Iterable`\<`A`\>                   |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `refinement` | (`a`: `A`, `i`: `number`) => a is B |
 
 #### Returns
@@ -4435,14 +4435,14 @@ Separate elements based on a predicate that also exposes the index of the elemen
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                   |
-| :---------- | :------------------------------------- |
-| `self`      | `Iterable`\<`A`\>                      |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
@@ -4453,7 +4453,7 @@ Separate elements based on a predicate that also exposes the index of the elemen
 
 2.0.0
 
----
+___
 
 ### partitionMap
 
@@ -4462,16 +4462,16 @@ Separate elements based on a predicate that also exposes the index of the elemen
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
 
 #### Parameters
 
-| Name | Type                                                             |
-| :--- | :--------------------------------------------------------------- |
-| `f`  | (`a`: `A`, `i`: `number`) => [`Either`](E.md#either)\<`B`, `C`\> |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`, `i`: `number`) => [`Either`](E.md#either)\<`B`, `C`\> |
 
 #### Returns
 
@@ -4481,8 +4481,8 @@ Separate elements based on a predicate that also exposes the index of the elemen
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -4498,17 +4498,17 @@ Separate elements based on a predicate that also exposes the index of the elemen
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
 
 #### Parameters
 
-| Name   | Type                                                             |
-| :----- | :--------------------------------------------------------------- |
-| `self` | `Iterable`\<`A`\>                                                |
-| `f`    | (`a`: `A`, `i`: `number`) => [`Either`](E.md#either)\<`B`, `C`\> |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `f` | (`a`: `A`, `i`: `number`) => [`Either`](E.md#either)\<`B`, `C`\> |
 
 #### Returns
 
@@ -4518,7 +4518,7 @@ Separate elements based on a predicate that also exposes the index of the elemen
 
 2.0.0
 
----
+___
 
 ### separate
 
@@ -4527,14 +4527,14 @@ Separate elements based on a predicate that also exposes the index of the elemen
 #### Type parameters
 
 | Name |
-| :--- |
-| `E`  |
-| `A`  |
+| :------ |
+| `E` |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                              |
-| :----- | :------------------------------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<[`Either`](E.md#either)\<`E`, `A`\>\> |
 
 #### Returns
@@ -4555,8 +4555,8 @@ Joins the elements together with "sep" in the middle.
 
 #### Parameters
 
-| Name  | Type     |
-| :---- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `sep` | `string` |
 
 #### Returns
@@ -4567,8 +4567,8 @@ Joins the elements together with "sep" in the middle.
 
 ##### Parameters
 
-| Name   | Type                   |
-| :----- | :--------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`string`\> |
 
 ##### Returns
@@ -4585,10 +4585,10 @@ Joins the elements together with "sep" in the middle.
 
 #### Parameters
 
-| Name   | Type                   |
-| :----- | :--------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`string`\> |
-| `sep`  | `string`               |
+| `sep` | `string` |
 
 #### Returns
 
@@ -4598,7 +4598,7 @@ Joins the elements together with "sep" in the middle.
 
 2.0.0
 
----
+___
 
 ### mapAccum
 
@@ -4609,17 +4609,17 @@ Statefully maps over the chunk, producing new elements of type `B`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `S`  |
-| `A`  |
-| `B`  |
+| :------ |
+| `S` |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type                                        |
-| :--- | :------------------------------------------ |
-| `s`  | `S`                                         |
-| `f`  | (`s`: `S`, `a`: `A`) => readonly [`S`, `B`] |
+| Name | Type |
+| :------ | :------ |
+| `s` | `S` |
+| `f` | (`s`: `S`, `a`: `A`) => readonly [`S`, `B`] |
 
 #### Returns
 
@@ -4629,8 +4629,8 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -4648,18 +4648,18 @@ Statefully maps over the chunk, producing new elements of type `B`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `S`  |
-| `A`  |
-| `B`  |
+| :------ |
+| `S` |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                        |
-| :----- | :------------------------------------------ |
-| `self` | `Iterable`\<`A`\>                           |
-| `s`    | `S`                                         |
-| `f`    | (`s`: `S`, `a`: `A`) => readonly [`S`, `B`] |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `s` | `S` |
+| `f` | (`s`: `S`, `a`: `A`) => readonly [`S`, `B`] |
 
 #### Returns
 
@@ -4669,7 +4669,7 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 2.0.0
 
----
+___
 
 ### reduce
 
@@ -4678,16 +4678,16 @@ Statefully maps over the chunk, producing new elements of type `B`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
-| `A`  |
+| :------ |
+| `B` |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                       |
-| :--- | :----------------------------------------- |
-| `b`  | `B`                                        |
-| `f`  | (`b`: `B`, `a`: `A`, `i`: `number`) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `b` | `B` |
+| `f` | (`b`: `B`, `a`: `A`, `i`: `number`) => `B` |
 
 #### Returns
 
@@ -4697,8 +4697,8 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -4714,17 +4714,17 @@ Statefully maps over the chunk, producing new elements of type `B`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `self` | `Iterable`\<`A`\>                          |
-| `b`    | `B`                                        |
-| `f`    | (`b`: `B`, `a`: `A`, `i`: `number`) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `b` | `B` |
+| `f` | (`b`: `B`, `a`: `A`, `i`: `number`) => `B` |
 
 #### Returns
 
@@ -4734,7 +4734,7 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 2.0.0
 
----
+___
 
 ### reduceRight
 
@@ -4743,16 +4743,16 @@ Statefully maps over the chunk, producing new elements of type `B`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
-| `A`  |
+| :------ |
+| `B` |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                       |
-| :--- | :----------------------------------------- |
-| `b`  | `B`                                        |
-| `f`  | (`b`: `B`, `a`: `A`, `i`: `number`) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `b` | `B` |
+| `f` | (`b`: `B`, `a`: `A`, `i`: `number`) => `B` |
 
 #### Returns
 
@@ -4762,8 +4762,8 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -4779,17 +4779,17 @@ Statefully maps over the chunk, producing new elements of type `B`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `self` | `Iterable`\<`A`\>                          |
-| `b`    | `B`                                        |
-| `f`    | (`b`: `B`, `a`: `A`, `i`: `number`) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `b` | `B` |
+| `f` | (`b`: `B`, `a`: `A`, `i`: `number`) => `B` |
 
 #### Returns
 
@@ -4799,7 +4799,7 @@ Statefully maps over the chunk, producing new elements of type `B`.
 
 2.0.0
 
----
+___
 
 ### scan
 
@@ -4810,16 +4810,16 @@ Reduce an `Iterable` from the left, keeping all intermediate results instead of 
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
-| `A`  |
+| :------ |
+| `B` |
+| `A` |
 
 #### Parameters
 
-| Name | Type                        |
-| :--- | :-------------------------- |
-| `b`  | `B`                         |
-| `f`  | (`b`: `B`, `a`: `A`) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `b` | `B` |
+| `f` | (`b`: `B`, `a`: `A`) => `B` |
 
 #### Returns
 
@@ -4829,8 +4829,8 @@ Reduce an `Iterable` from the left, keeping all intermediate results instead of 
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -4848,17 +4848,17 @@ Reduce an `Iterable` from the left, keeping all intermediate results instead of 
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                        |
-| :----- | :-------------------------- |
-| `self` | `Iterable`\<`A`\>           |
-| `b`    | `B`                         |
-| `f`    | (`b`: `B`, `a`: `A`) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `b` | `B` |
+| `f` | (`b`: `B`, `a`: `A`) => `B` |
 
 #### Returns
 
@@ -4868,7 +4868,7 @@ Reduce an `Iterable` from the left, keeping all intermediate results instead of 
 
 2.0.0
 
----
+___
 
 ### scanRight
 
@@ -4879,16 +4879,16 @@ Reduce an `Iterable` from the right, keeping all intermediate results instead of
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
-| `A`  |
+| :------ |
+| `B` |
+| `A` |
 
 #### Parameters
 
-| Name | Type                        |
-| :--- | :-------------------------- |
-| `b`  | `B`                         |
-| `f`  | (`b`: `B`, `a`: `A`) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `b` | `B` |
+| `f` | (`b`: `B`, `a`: `A`) => `B` |
 
 #### Returns
 
@@ -4898,8 +4898,8 @@ Reduce an `Iterable` from the right, keeping all intermediate results instead of
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -4917,17 +4917,17 @@ Reduce an `Iterable` from the right, keeping all intermediate results instead of
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                        |
-| :----- | :-------------------------- |
-| `self` | `Iterable`\<`A`\>           |
-| `b`    | `B`                         |
-| `f`    | (`b`: `B`, `a`: `A`) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `b` | `B` |
+| `f` | (`b`: `B`, `a`: `A`) => `B` |
 
 #### Returns
 
@@ -4949,9 +4949,9 @@ Drop a max number of elements from the start of an `Iterable`, creating a new `A
 
 #### Parameters
 
-| Name | Type     |
-| :--- | :------- |
-| `n`  | `number` |
+| Name | Type |
+| :------ | :------ |
+| `n` | `number` |
 
 #### Returns
 
@@ -4962,13 +4962,13 @@ Drop a max number of elements from the start of an `Iterable`, creating a new `A
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -4988,15 +4988,15 @@ Drop a max number of elements from the start of an `Iterable`, creating a new `A
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `n`    | `number`          |
+| `n` | `number` |
 
 #### Returns
 
@@ -5006,7 +5006,7 @@ Drop a max number of elements from the start of an `Iterable`, creating a new `A
 
 2.0.0
 
----
+___
 
 ### dropRight
 
@@ -5018,9 +5018,9 @@ Drop a max number of elements from the end of an `Iterable`, creating a new `Arr
 
 #### Parameters
 
-| Name | Type     |
-| :--- | :------- |
-| `n`  | `number` |
+| Name | Type |
+| :------ | :------ |
+| `n` | `number` |
 
 #### Returns
 
@@ -5031,13 +5031,13 @@ Drop a max number of elements from the end of an `Iterable`, creating a new `Arr
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -5057,15 +5057,15 @@ Drop a max number of elements from the end of an `Iterable`, creating a new `Arr
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `n`    | `number`          |
+| `n` | `number` |
 
 #### Returns
 
@@ -5075,7 +5075,7 @@ Drop a max number of elements from the end of an `Iterable`, creating a new `Arr
 
 2.0.0
 
----
+___
 
 ### dropWhile
 
@@ -5086,14 +5086,14 @@ Remove the longest initial subarray for which all element satisfy the specified 
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `B`  |
+| :------ | :------ |
+| `B` | `B` |
+| `A` | `B` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -5104,8 +5104,8 @@ Remove the longest initial subarray for which all element satisfy the specified 
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`B`\> |
 
 ##### Returns
@@ -5123,14 +5123,14 @@ Remove the longest initial subarray for which all element satisfy the specified 
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
-| `self`      | `Iterable`\<`A`\>                                 |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -5141,7 +5141,7 @@ Remove the longest initial subarray for which all element satisfy the specified 
 
 2.0.0
 
----
+___
 
 ### get
 
@@ -5151,8 +5151,8 @@ This function provides a safe way to read a value at a particular index from a `
 
 #### Parameters
 
-| Name    | Type     |
-| :------ | :------- |
+| Name | Type |
+| :------ | :------ |
 | `index` | `number` |
 
 #### Returns
@@ -5164,13 +5164,13 @@ This function provides a safe way to read a value at a particular index from a `
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `A`[] |
 
 ##### Returns
@@ -5188,15 +5188,15 @@ This function provides a safe way to read a value at a particular index from a `
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name    | Type           |
-| :------ | :------------- |
-| `self`  | readonly `A`[] |
-| `index` | `number`       |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly `A`[] |
+| `index` | `number` |
 
 #### Returns
 
@@ -5206,7 +5206,7 @@ This function provides a safe way to read a value at a particular index from a `
 
 2.0.0
 
----
+___
 
 ### head
 
@@ -5217,13 +5217,13 @@ Get the first element of a `ReadonlyArray`, or `None` if the `ReadonlyArray` is 
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `A`[] |
 
 #### Returns
@@ -5234,7 +5234,7 @@ Get the first element of a `ReadonlyArray`, or `None` if the `ReadonlyArray` is 
 
 2.0.0
 
----
+___
 
 ### headNonEmpty
 
@@ -5243,13 +5243,13 @@ Get the first element of a `ReadonlyArray`, or `None` if the `ReadonlyArray` is 
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 #### Returns
@@ -5260,7 +5260,7 @@ Get the first element of a `ReadonlyArray`, or `None` if the `ReadonlyArray` is 
 
 2.0.0
 
----
+___
 
 ### init
 
@@ -5271,13 +5271,13 @@ Get all but the last element of an `Iterable`, creating a new `Array`, or `None`
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 #### Returns
@@ -5288,7 +5288,7 @@ Get all but the last element of an `Iterable`, creating a new `Array`, or `None`
 
 2.0.0
 
----
+___
 
 ### initNonEmpty
 
@@ -5299,13 +5299,13 @@ Get all but the last element of a non empty array, creating a new array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 #### Returns
@@ -5316,7 +5316,7 @@ Get all but the last element of a non empty array, creating a new array.
 
 2.0.0
 
----
+___
 
 ### last
 
@@ -5327,13 +5327,13 @@ Get the last element in a `ReadonlyArray`, or `None` if the `ReadonlyArray` is e
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `A`[] |
 
 #### Returns
@@ -5344,7 +5344,7 @@ Get the last element in a `ReadonlyArray`, or `None` if the `ReadonlyArray` is e
 
 2.0.0
 
----
+___
 
 ### lastNonEmpty
 
@@ -5353,13 +5353,13 @@ Get the last element in a `ReadonlyArray`, or `None` if the `ReadonlyArray` is e
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 #### Returns
@@ -5370,7 +5370,7 @@ Get the last element in a `ReadonlyArray`, or `None` if the `ReadonlyArray` is e
 
 2.0.0
 
----
+___
 
 ### length
 
@@ -5381,13 +5381,13 @@ Return the number of elements in a `ReadonlyArray`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `A`[] |
 
 #### Returns
@@ -5398,7 +5398,7 @@ Return the number of elements in a `ReadonlyArray`.
 
 2.0.0
 
----
+___
 
 ### tail
 
@@ -5409,13 +5409,13 @@ Get all but the first element of an `Iterable`, creating a new `Array`, or `None
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 #### Returns
@@ -5426,7 +5426,7 @@ Get all but the first element of an `Iterable`, creating a new `Array`, or `None
 
 2.0.0
 
----
+___
 
 ### tailNonEmpty
 
@@ -5435,13 +5435,13 @@ Get all but the first element of an `Iterable`, creating a new `Array`, or `None
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 #### Returns
@@ -5452,7 +5452,7 @@ Get all but the first element of an `Iterable`, creating a new `Array`, or `None
 
 2.0.0
 
----
+___
 
 ### take
 
@@ -5464,9 +5464,9 @@ Keep only a max number of elements from the start of an `Iterable`, creating a n
 
 #### Parameters
 
-| Name | Type     |
-| :--- | :------- |
-| `n`  | `number` |
+| Name | Type |
+| :------ | :------ |
+| `n` | `number` |
 
 #### Returns
 
@@ -5477,13 +5477,13 @@ Keep only a max number of elements from the start of an `Iterable`, creating a n
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -5503,15 +5503,15 @@ Keep only a max number of elements from the start of an `Iterable`, creating a n
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `n`    | `number`          |
+| `n` | `number` |
 
 #### Returns
 
@@ -5521,7 +5521,7 @@ Keep only a max number of elements from the start of an `Iterable`, creating a n
 
 2.0.0
 
----
+___
 
 ### takeRight
 
@@ -5533,9 +5533,9 @@ Keep only a max number of elements from the end of an `Iterable`, creating a new
 
 #### Parameters
 
-| Name | Type     |
-| :--- | :------- |
-| `n`  | `number` |
+| Name | Type |
+| :------ | :------ |
+| `n` | `number` |
 
 #### Returns
 
@@ -5546,13 +5546,13 @@ Keep only a max number of elements from the end of an `Iterable`, creating a new
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -5572,15 +5572,15 @@ Keep only a max number of elements from the end of an `Iterable`, creating a new
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `n`    | `number`          |
+| `n` | `number` |
 
 #### Returns
 
@@ -5590,7 +5590,7 @@ Keep only a max number of elements from the end of an `Iterable`, creating a new
 
 2.0.0
 
----
+___
 
 ### takeWhile
 
@@ -5601,14 +5601,14 @@ Calculate the longest initial subarray for which all element satisfy the specifi
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                                     |
-| :----------- | :------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
@@ -5619,8 +5619,8 @@ Calculate the longest initial subarray for which all element satisfy the specifi
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -5638,14 +5638,14 @@ Calculate the longest initial subarray for which all element satisfy the specifi
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `B`  |
+| :------ | :------ |
+| `B` | `B` |
+| `A` | `B` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -5656,8 +5656,8 @@ Calculate the longest initial subarray for which all element satisfy the specifi
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`B`\> |
 
 ##### Returns
@@ -5675,15 +5675,15 @@ Calculate the longest initial subarray for which all element satisfy the specifi
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                                     |
-| :----------- | :------------------------------------------------------- |
-| `self`       | `Iterable`\<`A`\>                                        |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
@@ -5701,14 +5701,14 @@ Calculate the longest initial subarray for which all element satisfy the specifi
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
-| `self`      | `Iterable`\<`A`\>                                 |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -5730,13 +5730,13 @@ Group equal, consecutive elements of a `NonEmptyReadonlyArray` into `NonEmptyArr
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 #### Returns
@@ -5747,7 +5747,7 @@ Group equal, consecutive elements of a `NonEmptyReadonlyArray` into `NonEmptyArr
 
 2.0.0
 
----
+___
 
 ### groupBy
 
@@ -5759,14 +5759,14 @@ function on each element, and grouping the results according to values returned
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                   |
-| :--- | :--------------------- |
-| `f`  | (`a`: `A`) => `string` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`) => `string` |
 
 #### Returns
 
@@ -5776,8 +5776,8 @@ function on each element, and grouping the results according to values returned
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -5796,15 +5796,15 @@ function on each element, and grouping the results according to values returned
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                   |
-| :----- | :--------------------- |
-| `self` | `Iterable`\<`A`\>      |
-| `f`    | (`a`: `A`) => `string` |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `f` | (`a`: `A`) => `string` |
 
 #### Returns
 
@@ -5814,7 +5814,7 @@ function on each element, and grouping the results according to values returned
 
 2.0.0
 
----
+___
 
 ### groupWith
 
@@ -5825,13 +5825,13 @@ Group equal, consecutive elements of a `NonEmptyReadonlyArray` into `NonEmptyArr
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name           | Type                                    |
-| :------------- | :-------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `isEquivalent` | (`self`: `A`, `that`: `A`) => `boolean` |
 
 #### Returns
@@ -5842,8 +5842,8 @@ Group equal, consecutive elements of a `NonEmptyReadonlyArray` into `NonEmptyArr
 
 ##### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 ##### Returns
@@ -5861,14 +5861,14 @@ Group equal, consecutive elements of a `NonEmptyReadonlyArray` into `NonEmptyArr
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name           | Type                                    |
-| :------------- | :-------------------------------------- |
-| `self`         | readonly [`A`, `A`]                     |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly [`A`, `A`] |
 | `isEquivalent` | (`self`: `A`, `that`: `A`) => `boolean` |
 
 #### Returns
@@ -5890,13 +5890,13 @@ Determine if an `Array` is empty narrowing down the type to `[]`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type  | Description           |
-| :----- | :---- | :-------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | `A`[] | The `Array` to check. |
 
 #### Returns
@@ -5906,7 +5906,7 @@ self is []
 **`Example`**
 
 ```ts
-import { isEmptyArray } from "effect/ReadonlyArray";
+import { isEmptyArray } from "effect/ReadonlyArray"
 
 assert.deepStrictEqual(isEmptyArray([]), true);
 assert.deepStrictEqual(isEmptyArray([1, 2, 3]), false);
@@ -5916,7 +5916,7 @@ assert.deepStrictEqual(isEmptyArray([1, 2, 3]), false);
 
 2.0.0
 
----
+___
 
 ### isEmptyReadonlyArray
 
@@ -5927,13 +5927,13 @@ Determine if a `ReadonlyArray` is empty narrowing down the type to `readonly []`
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type           | Description                   |
-| :----- | :------------- | :---------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | readonly `A`[] | The `ReadonlyArray` to check. |
 
 #### Returns
@@ -5943,7 +5943,7 @@ self is readonly []
 **`Example`**
 
 ```ts
-import { isEmptyReadonlyArray } from "effect/ReadonlyArray";
+import { isEmptyReadonlyArray } from "effect/ReadonlyArray"
 
 assert.deepStrictEqual(isEmptyReadonlyArray([]), true);
 assert.deepStrictEqual(isEmptyReadonlyArray([1, 2, 3]), false);
@@ -5953,7 +5953,7 @@ assert.deepStrictEqual(isEmptyReadonlyArray([1, 2, 3]), false);
 
 2.0.0
 
----
+___
 
 ### isNonEmptyArray
 
@@ -5966,13 +5966,13 @@ An `Array` is considered to be a `NonEmptyArray` if it contains at least one ele
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type  | Description           |
-| :----- | :---- | :-------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | `A`[] | The `Array` to check. |
 
 #### Returns
@@ -5982,7 +5982,7 @@ self is [A, ...A[]]
 **`Example`**
 
 ```ts
-import { isNonEmptyArray } from "effect/ReadonlyArray";
+import { isNonEmptyArray } from "effect/ReadonlyArray"
 
 assert.deepStrictEqual(isNonEmptyArray([]), false);
 assert.deepStrictEqual(isNonEmptyArray([1, 2, 3]), true);
@@ -5992,7 +5992,7 @@ assert.deepStrictEqual(isNonEmptyArray([1, 2, 3]), true);
 
 2.0.0
 
----
+___
 
 ### isNonEmptyReadonlyArray
 
@@ -6005,13 +6005,13 @@ A `ReadonlyArray` is considered to be a `NonEmptyReadonlyArray` if it contains a
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type           | Description                   |
-| :----- | :------------- | :---------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | readonly `A`[] | The `ReadonlyArray` to check. |
 
 #### Returns
@@ -6021,7 +6021,7 @@ self is readonly [A, A]
 **`Example`**
 
 ```ts
-import { isNonEmptyReadonlyArray } from "effect/ReadonlyArray";
+import { isNonEmptyReadonlyArray } from "effect/ReadonlyArray"
 
 assert.deepStrictEqual(isNonEmptyReadonlyArray([]), false);
 assert.deepStrictEqual(isNonEmptyReadonlyArray([1, 2, 3]), true);
@@ -6040,13 +6040,13 @@ assert.deepStrictEqual(isNonEmptyReadonlyArray([1, 2, 3]), true);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name           | Type                 |
-| :------------- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `isEquivalent` | `Equivalence`\<`A`\> |
 
 #### Returns
@@ -6057,7 +6057,7 @@ assert.deepStrictEqual(isNonEmptyReadonlyArray([1, 2, 3]), true);
 
 2.0.0
 
----
+___
 
 ### getOrder
 
@@ -6071,14 +6071,14 @@ It is useful when you need to compare two arrays of the same type and you have a
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
 
@@ -6096,17 +6096,17 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 #### Type parameters
 
-| Name | Type                |
-| :--- | :------------------ |
-| `A`  | extends `unknown`[] |
-| `E`  | `E`                 |
-| `B`  | `B`                 |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends `unknown`[] |
+| `E` | `E` |
+| `B` | `B` |
 
 #### Parameters
 
-| Name | Type                                                 |
-| :--- | :--------------------------------------------------- |
-| `f`  | (...`a`: `A`) => [`Either`](E.md#either)\<`E`, `B`\> |
+| Name | Type |
+| :------ | :------ |
+| `f` | (...`a`: `A`) => [`Either`](E.md#either)\<`E`, `B`\> |
 
 #### Returns
 
@@ -6116,9 +6116,9 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `...a` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `...a` | `A` |
 
 ##### Returns
 
@@ -6128,7 +6128,7 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 2.0.0
 
----
+___
 
 ### liftNullable
 
@@ -6136,16 +6136,16 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 #### Type parameters
 
-| Name | Type                |
-| :--- | :------------------ |
-| `A`  | extends `unknown`[] |
-| `B`  | `B`                 |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends `unknown`[] |
+| `B` | `B` |
 
 #### Parameters
 
-| Name | Type                                          |
-| :--- | :-------------------------------------------- |
-| `f`  | (...`a`: `A`) => `undefined` \| `null` \| `B` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (...`a`: `A`) => `undefined` \| ``null`` \| `B` |
 
 #### Returns
 
@@ -6155,9 +6155,9 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `...a` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `...a` | `A` |
 
 ##### Returns
 
@@ -6167,7 +6167,7 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 2.0.0
 
----
+___
 
 ### liftOption
 
@@ -6175,16 +6175,16 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 #### Type parameters
 
-| Name | Type                |
-| :--- | :------------------ |
-| `A`  | extends `unknown`[] |
-| `B`  | `B`                 |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends `unknown`[] |
+| `B` | `B` |
 
 #### Parameters
 
-| Name | Type                                            |
-| :--- | :---------------------------------------------- |
-| `f`  | (...`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
+| Name | Type |
+| :------ | :------ |
+| `f` | (...`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -6194,9 +6194,9 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `...a` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `...a` | `A` |
 
 ##### Returns
 
@@ -6206,7 +6206,7 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 2.0.0
 
----
+___
 
 ### liftPredicate
 
@@ -6215,14 +6215,14 @@ It is useful when you need to compare two arrays of the same type and you have a
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                                     |
-| :----------- | :------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
@@ -6234,8 +6234,8 @@ It is useful when you need to compare two arrays of the same type and you have a
 ##### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `A`  |
+| :------ | :------ |
+| `a` | `A` |
 
 ##### Returns
 
@@ -6250,13 +6250,13 @@ It is useful when you need to compare two arrays of the same type and you have a
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -6268,14 +6268,14 @@ It is useful when you need to compare two arrays of the same type and you have a
 ##### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 ##### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `b`  | `B`  |
+| :------ | :------ |
+| `b` | `B` |
 
 ##### Returns
 
@@ -6293,16 +6293,16 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 #### Type parameters
 
-| Name | Type                     |
-| :--- | :----------------------- |
-| `S`  | extends readonly `any`[] |
-| `B`  | `B`                      |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly `any`[] |
+| `B` | `B` |
 
 #### Parameters
 
-| Name | Type                                                                        |
-| :--- | :-------------------------------------------------------------------------- |
-| `f`  | (`a`: [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>, `i`: `number`) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>, `i`: `number`) => `B` |
 
 #### Returns
 
@@ -6312,9 +6312,9 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `S`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
 
 ##### Returns
 
@@ -6328,17 +6328,17 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 #### Type parameters
 
-| Name | Type                     |
-| :--- | :----------------------- |
-| `S`  | extends readonly `any`[] |
-| `B`  | `B`                      |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly `any`[] |
+| `B` | `B` |
 
 #### Parameters
 
-| Name   | Type                                                                        |
-| :----- | :-------------------------------------------------------------------------- |
-| `self` | `S`                                                                         |
-| `f`    | (`a`: [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>, `i`: `number`) => `B` |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
+| `f` | (`a`: [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>, `i`: `number`) => `B` |
 
 #### Returns
 
@@ -6361,10 +6361,10 @@ It is useful when you need to compare two arrays of the same type and you have a
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
----
+___
 
 ### NonEmptyReadonlyArray
 
@@ -6377,8 +6377,8 @@ It is useful when you need to compare two arrays of the same type and you have a
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ## pattern matching
 
@@ -6389,18 +6389,18 @@ It is useful when you need to compare two arrays of the same type and you have a
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `A`  |
-| `C`  | `B`  |
+| :------ | :------ |
+| `B` | `B` |
+| `A` | `A` |
+| `C` | `B` |
 
 #### Parameters
 
-| Name                 | Type                                           |
-| :------------------- | :--------------------------------------------- |
-| `options`            | `Object`                                       |
-| `options.onEmpty`    | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> |
-| `options.onNonEmpty` | (`self`: readonly [`A`, `A`]) => `C`           |
+| Name | Type |
+| :------ | :------ |
+| `options` | `Object` |
+| `options.onEmpty` | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> |
+| `options.onNonEmpty` | (`self`: readonly [`A`, `A`]) => `C` |
 
 #### Returns
 
@@ -6410,8 +6410,8 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 ##### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `A`[] |
 
 ##### Returns
@@ -6427,19 +6427,19 @@ It is useful when you need to compare two arrays of the same type and you have a
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `A`  | `A`  |
-| `B`  | `B`  |
-| `C`  | `B`  |
+| :------ | :------ |
+| `A` | `A` |
+| `B` | `B` |
+| `C` | `B` |
 
 #### Parameters
 
-| Name                 | Type                                           |
-| :------------------- | :--------------------------------------------- |
-| `self`               | readonly `A`[]                                 |
-| `options`            | `Object`                                       |
-| `options.onEmpty`    | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> |
-| `options.onNonEmpty` | (`self`: readonly [`A`, `A`]) => `C`           |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly `A`[] |
+| `options` | `Object` |
+| `options.onEmpty` | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> |
+| `options.onNonEmpty` | (`self`: readonly [`A`, `A`]) => `C` |
 
 #### Returns
 
@@ -6449,7 +6449,7 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 2.0.0
 
----
+___
 
 ### matchLeft
 
@@ -6458,18 +6458,18 @@ It is useful when you need to compare two arrays of the same type and you have a
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `A`  |
-| `C`  | `B`  |
+| :------ | :------ |
+| `B` | `B` |
+| `A` | `A` |
+| `C` | `B` |
 
 #### Parameters
 
-| Name                 | Type                                           |
-| :------------------- | :--------------------------------------------- |
-| `options`            | `Object`                                       |
-| `options.onEmpty`    | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> |
-| `options.onNonEmpty` | (`head`: `A`, `tail`: `A`[]) => `C`            |
+| Name | Type |
+| :------ | :------ |
+| `options` | `Object` |
+| `options.onEmpty` | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> |
+| `options.onNonEmpty` | (`head`: `A`, `tail`: `A`[]) => `C` |
 
 #### Returns
 
@@ -6479,8 +6479,8 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 ##### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `A`[] |
 
 ##### Returns
@@ -6496,19 +6496,19 @@ It is useful when you need to compare two arrays of the same type and you have a
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `A`  | `A`  |
-| `B`  | `B`  |
-| `C`  | `B`  |
+| :------ | :------ |
+| `A` | `A` |
+| `B` | `B` |
+| `C` | `B` |
 
 #### Parameters
 
-| Name                 | Type                                           |
-| :------------------- | :--------------------------------------------- |
-| `self`               | readonly `A`[]                                 |
-| `options`            | `Object`                                       |
-| `options.onEmpty`    | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> |
-| `options.onNonEmpty` | (`head`: `A`, `tail`: `A`[]) => `C`            |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly `A`[] |
+| `options` | `Object` |
+| `options.onEmpty` | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> |
+| `options.onNonEmpty` | (`head`: `A`, `tail`: `A`[]) => `C` |
 
 #### Returns
 
@@ -6518,7 +6518,7 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 2.0.0
 
----
+___
 
 ### matchRight
 
@@ -6527,18 +6527,18 @@ It is useful when you need to compare two arrays of the same type and you have a
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `A`  |
-| `C`  | `B`  |
+| :------ | :------ |
+| `B` | `B` |
+| `A` | `A` |
+| `C` | `B` |
 
 #### Parameters
 
-| Name                 | Type                                           |
-| :------------------- | :--------------------------------------------- |
-| `options`            | `Object`                                       |
-| `options.onEmpty`    | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> |
-| `options.onNonEmpty` | (`init`: `A`[], `last`: `A`) => `C`            |
+| Name | Type |
+| :------ | :------ |
+| `options` | `Object` |
+| `options.onEmpty` | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> |
+| `options.onNonEmpty` | (`init`: `A`[], `last`: `A`) => `C` |
 
 #### Returns
 
@@ -6548,8 +6548,8 @@ It is useful when you need to compare two arrays of the same type and you have a
 
 ##### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `A`[] |
 
 ##### Returns
@@ -6565,19 +6565,19 @@ It is useful when you need to compare two arrays of the same type and you have a
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `A`  | `A`  |
-| `B`  | `B`  |
-| `C`  | `B`  |
+| :------ | :------ |
+| `A` | `A` |
+| `B` | `B` |
+| `C` | `B` |
 
 #### Parameters
 
-| Name                 | Type                                           |
-| :------------------- | :--------------------------------------------- |
-| `self`               | readonly `A`[]                                 |
-| `options`            | `Object`                                       |
-| `options.onEmpty`    | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> |
-| `options.onNonEmpty` | (`init`: `A`[], `last`: `A`) => `C`            |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly `A`[] |
+| `options` | `Object` |
+| `options.onEmpty` | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> |
+| `options.onNonEmpty` | (`init`: `A`[], `last`: `A`) => `C` |
 
 #### Returns
 
@@ -6597,16 +6597,16 @@ Applies a function to each element in an array and returns a new array containin
 
 #### Type parameters
 
-| Name | Type                     |
-| :--- | :----------------------- |
-| `S`  | extends readonly `any`[] |
-| `T`  | extends readonly `any`[] |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly `any`[] |
+| `T` | extends readonly `any`[] |
 
 #### Parameters
 
-| Name | Type                                                                        |
-| :--- | :-------------------------------------------------------------------------- |
-| `f`  | (`a`: [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>, `i`: `number`) => `T` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>, `i`: `number`) => `T` |
 
 #### Returns
 
@@ -6616,9 +6616,9 @@ Applies a function to each element in an array and returns a new array containin
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `S`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
 
 ##### Returns
 
@@ -6635,16 +6635,16 @@ Applies a function to each element in an array and returns a new array containin
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                             |
-| :----- | :----------------------------------------------- |
-| `self` | readonly [`A`, `A`]                              |
-| `f`    | (`a`: `A`, `i`: `number`) => readonly [`B`, `B`] |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly [`A`, `A`] |
+| `f` | (`a`: `A`, `i`: `number`) => readonly [`B`, `B`] |
 
 #### Returns
 
@@ -6661,16 +6661,16 @@ Applies a function to each element in an array and returns a new array containin
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                        |
-| :----- | :------------------------------------------ |
-| `self` | readonly `A`[]                              |
-| `f`    | (`a`: `A`, `i`: `number`) => readonly `B`[] |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly `A`[] |
+| `f` | (`a`: `A`, `i`: `number`) => readonly `B`[] |
 
 #### Returns
 
@@ -6680,7 +6680,7 @@ Applies a function to each element in an array and returns a new array containin
 
 2.0.0
 
----
+___
 
 ### flatMapNullable
 
@@ -6689,15 +6689,15 @@ Applies a function to each element in an array and returns a new array containin
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type                                       |
-| :--- | :----------------------------------------- |
-| `f`  | (`a`: `A`) => `undefined` \| `null` \| `B` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`) => `undefined` \| ``null`` \| `B` |
 
 #### Returns
 
@@ -6707,8 +6707,8 @@ Applies a function to each element in an array and returns a new array containin
 
 ##### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `A`[] |
 
 ##### Returns
@@ -6724,16 +6724,16 @@ Applies a function to each element in an array and returns a new array containin
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `self` | readonly `A`[]                             |
-| `f`    | (`a`: `A`) => `undefined` \| `null` \| `B` |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly `A`[] |
+| `f` | (`a`: `A`) => `undefined` \| ``null`` \| `B` |
 
 #### Returns
 
@@ -6743,7 +6743,7 @@ Applies a function to each element in an array and returns a new array containin
 
 2.0.0
 
----
+___
 
 ### flatten
 
@@ -6753,15 +6753,15 @@ Flattens an array of arrays into a single array by concatenating all arrays.
 
 #### Type parameters
 
-| Name | Type                              |
-| :--- | :-------------------------------- |
-| `S`  | extends readonly readonly any[][] |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly readonly any[][] |
 
 #### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `S`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
 
 #### Returns
 
@@ -6783,14 +6783,14 @@ If the input is a `NonEmptyReadonlyArray`, the output will also be a `NonEmptyRe
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
+| Name | Type |
+| :------ | :------ |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
 
 #### Returns
 
@@ -6800,15 +6800,15 @@ If the input is a `NonEmptyReadonlyArray`, the output will also be a `NonEmptyRe
 
 ##### Type parameters
 
-| Name | Type                                            |
-| :--- | :---------------------------------------------- |
-| `S`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `S`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
 
 ##### Returns
 
@@ -6826,16 +6826,16 @@ If the input is a `NonEmptyReadonlyArray`, the output will also be a `NonEmptyRe
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
-| `self` | readonly [`A`, `A`]                          |
-| `O`    | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly [`A`, `A`] |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
 
 #### Returns
 
@@ -6853,16 +6853,16 @@ If the input is a `NonEmptyReadonlyArray`, the output will also be a `NonEmptyRe
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
-| `self` | `Iterable`\<`A`\>                            |
-| `O`    | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
 
 #### Returns
 
@@ -6872,7 +6872,7 @@ If the input is a `NonEmptyReadonlyArray`, the output will also be a `NonEmptyRe
 
 2.0.0
 
----
+___
 
 ### sortBy
 
@@ -6883,14 +6883,14 @@ using first `orders[0]`, then `orders[1]`, etc...
 
 #### Type parameters
 
-| Name | Type                                                   |
-| :--- | :----------------------------------------------------- |
-| `S`  | extends readonly [`any`, `any`] \| `Iterable`\<`any`\> |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly [`any`, `any`] \| `Iterable`\<`any`\> |
 
 #### Parameters
 
-| Name        | Type                                                                                               |
-| :---------- | :------------------------------------------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `...orders` | readonly [`Order`](../interfaces/Ord.Order.md)\<[`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>\>[] |
 
 #### Returns
@@ -6901,9 +6901,9 @@ using first `orders[0]`, then `orders[1]`, etc...
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `S`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
 
 ##### Returns
 
@@ -6931,9 +6931,9 @@ whenever `n` evenly divides the length of `self`.
 
 #### Parameters
 
-| Name | Type     |
-| :--- | :------- |
-| `n`  | `number` |
+| Name | Type |
+| :------ | :------ |
+| `n` | `number` |
 
 #### Returns
 
@@ -6943,15 +6943,15 @@ whenever `n` evenly divides the length of `self`.
 
 ##### Type parameters
 
-| Name | Type                                            |
-| :--- | :---------------------------------------------- |
-| `S`  | extends readonly `any`[] \| `Iterable`\<`any`\> |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly `any`[] \| `Iterable`\<`any`\> |
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `self` | `S`  |
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
 
 ##### Returns
 
@@ -6976,15 +6976,15 @@ whenever `n` evenly divides the length of `self`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
-| `n`    | `number`            |
+| `n` | `number` |
 
 #### Returns
 
@@ -7009,15 +7009,15 @@ whenever `n` evenly divides the length of `self`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `n`    | `number`          |
+| `n` | `number` |
 
 #### Returns
 
@@ -7027,7 +7027,7 @@ whenever `n` evenly divides the length of `self`.
 
 2.0.0
 
----
+___
 
 ### span
 
@@ -7041,15 +7041,15 @@ Split an `Iterable` into two parts:
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `C`  | `C`  |
-| `B`  | `B`  |
-| `A`  | `C`  |
+| :------ | :------ |
+| `C` | `C` |
+| `B` | `B` |
+| `A` | `C` |
 
 #### Parameters
 
-| Name         | Type                                                     |
-| :----------- | :------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
@@ -7060,8 +7060,8 @@ Split an `Iterable` into two parts:
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`C`\> |
 
 ##### Returns
@@ -7082,14 +7082,14 @@ Split an `Iterable` into two parts:
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `B`  |
+| :------ | :------ |
+| `B` | `B` |
+| `A` | `B` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -7100,8 +7100,8 @@ Split an `Iterable` into two parts:
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`B`\> |
 
 ##### Returns
@@ -7122,15 +7122,15 @@ Split an `Iterable` into two parts:
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                                     |
-| :----------- | :------------------------------------------------------- |
-| `self`       | `Iterable`\<`A`\>                                        |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
@@ -7151,14 +7151,14 @@ Split an `Iterable` into two parts:
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
-| `self`      | `Iterable`\<`A`\>                                 |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -7169,7 +7169,7 @@ Split an `Iterable` into two parts:
 
 2.0.0
 
----
+___
 
 ### split
 
@@ -7179,9 +7179,9 @@ Splits this iterable into `n` equally sized arrays.
 
 #### Parameters
 
-| Name | Type     |
-| :--- | :------- |
-| `n`  | `number` |
+| Name | Type |
+| :------ | :------ |
+| `n` | `number` |
 
 #### Returns
 
@@ -7192,13 +7192,13 @@ Splits this iterable into `n` equally sized arrays.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -7216,15 +7216,15 @@ Splits this iterable into `n` equally sized arrays.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `n`    | `number`          |
+| `n` | `number` |
 
 #### Returns
 
@@ -7234,7 +7234,7 @@ Splits this iterable into `n` equally sized arrays.
 
 2.0.0
 
----
+___
 
 ### splitAt
 
@@ -7245,9 +7245,9 @@ The value of `n` can be `0`.
 
 #### Parameters
 
-| Name | Type     |
-| :--- | :------- |
-| `n`  | `number` |
+| Name | Type |
+| :------ | :------ |
+| `n` | `number` |
 
 #### Returns
 
@@ -7258,13 +7258,13 @@ The value of `n` can be `0`.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -7283,15 +7283,15 @@ The value of `n` can be `0`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `n`    | `number`          |
+| `n` | `number` |
 
 #### Returns
 
@@ -7301,7 +7301,7 @@ The value of `n` can be `0`.
 
 2.0.0
 
----
+___
 
 ### splitNonEmptyAt
 
@@ -7312,9 +7312,9 @@ The value of `n` must be `>= 1`.
 
 #### Parameters
 
-| Name | Type     |
-| :--- | :------- |
-| `n`  | `number` |
+| Name | Type |
+| :------ | :------ |
+| `n` | `number` |
 
 #### Returns
 
@@ -7325,13 +7325,13 @@ The value of `n` must be `>= 1`.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 ##### Returns
@@ -7350,15 +7350,15 @@ The value of `n` must be `>= 1`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
-| `n`    | `number`            |
+| `n` | `number` |
 
 #### Returns
 
@@ -7368,7 +7368,7 @@ The value of `n` must be `>= 1`.
 
 2.0.0
 
----
+___
 
 ### splitWhere
 
@@ -7380,14 +7380,14 @@ Returns a tuple containing two arrays: the first one is before the match, and th
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `B`  |
+| :------ | :------ |
+| `B` | `B` |
+| `A` | `B` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -7398,8 +7398,8 @@ Returns a tuple containing two arrays: the first one is before the match, and th
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`B`\> |
 
 ##### Returns
@@ -7418,14 +7418,14 @@ Returns a tuple containing two arrays: the first one is before the match, and th
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                              |
-| :---------- | :------------------------------------------------ |
-| `self`      | `Iterable`\<`A`\>                                 |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
 
 #### Returns
@@ -7436,7 +7436,7 @@ Returns a tuple containing two arrays: the first one is before the match, and th
 
 2.0.0
 
----
+___
 
 ### unappend
 
@@ -7447,13 +7447,13 @@ Return a tuple containing a copy of the `NonEmptyReadonlyArray` without its last
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 #### Returns
@@ -7464,7 +7464,7 @@ Return a tuple containing a copy of the `NonEmptyReadonlyArray` without its last
 
 2.0.0
 
----
+___
 
 ### unprepend
 
@@ -7475,13 +7475,13 @@ Return a tuple containing the first element, and a new `Array` of the remaining 
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 #### Returns
@@ -7502,8 +7502,8 @@ Gets an element unsafely, will throw on out of bounds.
 
 #### Parameters
 
-| Name    | Type     |
-| :------ | :------- |
+| Name | Type |
+| :------ | :------ |
 | `index` | `number` |
 
 #### Returns
@@ -7515,13 +7515,13 @@ Gets an element unsafely, will throw on out of bounds.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly `A`[] |
 
 ##### Returns
@@ -7539,15 +7539,15 @@ Gets an element unsafely, will throw on out of bounds.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name    | Type           |
-| :------ | :------------- |
-| `self`  | readonly `A`[] |
-| `index` | `number`       |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly `A`[] |
+| `index` | `number` |
 
 #### Returns
 
@@ -7570,13 +7570,13 @@ longer `Iterable` are discarded.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `that` | readonly [`B`, `B`] |
 
 #### Returns
@@ -7588,13 +7588,13 @@ longer `Iterable` are discarded.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 ##### Returns
@@ -7614,13 +7614,13 @@ longer `Iterable` are discarded.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `that` | `Iterable`\<`B`\> |
 
 #### Returns
@@ -7632,13 +7632,13 @@ longer `Iterable` are discarded.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -7658,14 +7658,14 @@ longer `Iterable` are discarded.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 | `that` | readonly [`B`, `B`] |
 
@@ -7686,14 +7686,14 @@ longer `Iterable` are discarded.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 | `that` | `Iterable`\<`B`\> |
 
@@ -7705,7 +7705,7 @@ longer `Iterable` are discarded.
 
 2.0.0
 
----
+___
 
 ### zipWith
 
@@ -7717,17 +7717,17 @@ input `Iterable` is short, excess elements of the longer `Iterable` are discarde
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
-| `A`  |
-| `C`  |
+| :------ |
+| `B` |
+| `A` |
+| `C` |
 
 #### Parameters
 
-| Name   | Type                        |
-| :----- | :-------------------------- |
-| `that` | readonly [`B`, `B`]         |
-| `f`    | (`a`: `A`, `b`: `B`) => `C` |
+| Name | Type |
+| :------ | :------ |
+| `that` | readonly [`B`, `B`] |
+| `f` | (`a`: `A`, `b`: `B`) => `C` |
 
 #### Returns
 
@@ -7737,8 +7737,8 @@ input `Iterable` is short, excess elements of the longer `Iterable` are discarde
 
 ##### Parameters
 
-| Name   | Type                |
-| :----- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `self` | readonly [`A`, `A`] |
 
 ##### Returns
@@ -7757,17 +7757,17 @@ input `Iterable` is short, excess elements of the longer `Iterable` are discarde
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
-| `A`  |
-| `C`  |
+| :------ |
+| `B` |
+| `A` |
+| `C` |
 
 #### Parameters
 
-| Name   | Type                        |
-| :----- | :-------------------------- |
-| `that` | `Iterable`\<`B`\>           |
-| `f`    | (`a`: `A`, `b`: `B`) => `C` |
+| Name | Type |
+| :------ | :------ |
+| `that` | `Iterable`\<`B`\> |
+| `f` | (`a`: `A`, `b`: `B`) => `C` |
 
 #### Returns
 
@@ -7777,8 +7777,8 @@ input `Iterable` is short, excess elements of the longer `Iterable` are discarde
 
 ##### Parameters
 
-| Name   | Type              |
-| :----- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 
 ##### Returns
@@ -7797,18 +7797,18 @@ input `Iterable` is short, excess elements of the longer `Iterable` are discarde
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
 
 #### Parameters
 
-| Name   | Type                        |
-| :----- | :-------------------------- |
-| `self` | readonly [`A`, `A`]         |
-| `that` | readonly [`B`, `B`]         |
-| `f`    | (`a`: `A`, `b`: `B`) => `C` |
+| Name | Type |
+| :------ | :------ |
+| `self` | readonly [`A`, `A`] |
+| `that` | readonly [`B`, `B`] |
+| `f` | (`a`: `A`, `b`: `B`) => `C` |
 
 #### Returns
 
@@ -7826,18 +7826,18 @@ input `Iterable` is short, excess elements of the longer `Iterable` are discarde
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
-| `A`  |
-| `C`  |
+| :------ |
+| `B` |
+| `A` |
+| `C` |
 
 #### Parameters
 
-| Name   | Type                        |
-| :----- | :-------------------------- |
-| `self` | `Iterable`\<`A`\>           |
-| `that` | `Iterable`\<`B`\>           |
-| `f`    | (`a`: `A`, `b`: `B`) => `C` |
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `that` | `Iterable`\<`B`\> |
+| `f` | (`a`: `A`, `b`: `B`) => `C` |
 
 #### Returns
 

@@ -18,25 +18,25 @@
 
 • **\_**: `string`
 
----
+___
 
 ### hookCalls
 
 • **hookCalls**: `CallExpression`[]
 
----
+___
 
 ### id
 
 • **id**: `Identifier`
 
----
+___
 
 ### name
 
 • **name**: `string`
 
----
+___
 
 ### node
 

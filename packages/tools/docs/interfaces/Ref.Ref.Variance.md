@@ -11,8 +11,8 @@
 ## Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ## Hierarchy
 
@@ -34,6 +34,6 @@
 
 #### Type declaration
 
-| Name | Type               |
-| :--- | :----------------- |
+| Name | Type |
+| :------ | :------ |
 | `_A` | `Invariant`\<`A`\> |

@@ -41,7 +41,7 @@ Type to infer
 **`Example`**
 
 ```ts
-type Result = Narrow<["foo", "bar", 1]>;
+type Result = Narrow<['foo', 'bar', 1]>
 ```
 
 **`See`**
@@ -50,7 +50,7 @@ https://twitter.com/hd_nvim/status/1578567206190780417
 
 #### Type parameters
 
-| Name    |
+| Name |
 | :------ |
 | `TType` |
 
@@ -63,14 +63,14 @@ https://twitter.com/hd_nvim/status/1578567206190780417
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name | Type | Description         |
-| :--- | :--- | :------------------ |
-| `a`  | `T`  | The value to infer. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `a` | `T` | The value to infer. |
 
 #### Returns
 
@@ -80,7 +80,7 @@ https://twitter.com/hd_nvim/status/1578567206190780417
 
 0.0.1
 
----
+___
 
 ### constant
 
@@ -89,14 +89,14 @@ https://twitter.com/hd_nvim/status/1578567206190780417
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `T`  |
+| :------ | :------ |
+| `a` | `T` |
 
 #### Returns
 
@@ -112,7 +112,7 @@ https://twitter.com/hd_nvim/status/1578567206190780417
 
 0.0.1
 
----
+___
 
 ### id
 
@@ -121,14 +121,14 @@ https://twitter.com/hd_nvim/status/1578567206190780417
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `T`  |
+| :------ | :------ |
+| `a` | `T` |
 
 #### Returns
 
@@ -138,7 +138,7 @@ https://twitter.com/hd_nvim/status/1578567206190780417
 
 0.0.1
 
----
+___
 
 ### narrow
 
@@ -149,15 +149,15 @@ Same as `as const` but without setting the object as readonly and without needin
 
 #### Type parameters
 
-| Name    |
+| Name |
 | :------ |
 | `TType` |
 
 #### Parameters
 
-| Name | Type                                    | Description    |
-| :--- | :-------------------------------------- | :------------- |
-| `a`  | [`Narrow`](Helper.md#narrow)\<`TType`\> | Value to infer |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `a` | [`Narrow`](Helper.md#narrow)\<`TType`\> | Value to infer |
 
 #### Returns
 
@@ -172,10 +172,10 @@ Value with embedded type inferred
 **`Example`**
 
 ```ts
-const result = narrow(["foo", "bar", 1]);
+const result = narrow(['foo', 'bar', 1])
 ```
 
----
+___
 
 ### noop
 

@@ -106,39 +106,39 @@
 
 ### Construction
 
-Ƭ **Construction**: `Data.TaggedEnum`\<\{ `Array`: \{ `node`: `TSESTree.ArrayExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `AssignmentExpression`: \{ `node`: `TSESTree.Node` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `ClassExpression`: \{ `node`: `TSESTree.ClassExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `FunctionDeclaration`: \{ `node`: `TSESTree.FunctionDeclaration` ; `usage`: `O.Option`\<`TSESTree.Expression` \| `TSESTree.Identifier`\> } ; `FunctionExpression`: \{ `node`: `TSESTree.ArrowFunctionExpression` \| `TSESTree.FunctionExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `JSXElement`: \{ `node`: `TSESTree.JSXElement` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `JSXFragment`: \{ `node`: `TSESTree.JSXFragment` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `NewExpression`: \{ `node`: `TSESTree.NewExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `None`: {} ; `ObjectExpression`: \{ `node`: `TSESTree.ObjectExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\> } ; `RegExpLiteral`: \{ `node`: `TSESTree.Literal` ; `usage`: `O.Option`\<`TSESTree.Node`\> } }\>
+Ƭ **Construction**: `Data.TaggedEnum`\<\{ `Array`: \{ `node`: `TSESTree.ArrayExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\>  } ; `AssignmentExpression`: \{ `node`: `TSESTree.Node` ; `usage`: `O.Option`\<`TSESTree.Node`\>  } ; `ClassExpression`: \{ `node`: `TSESTree.ClassExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\>  } ; `FunctionDeclaration`: \{ `node`: `TSESTree.FunctionDeclaration` ; `usage`: `O.Option`\<`TSESTree.Expression` \| `TSESTree.Identifier`\>  } ; `FunctionExpression`: \{ `node`: `TSESTree.ArrowFunctionExpression` \| `TSESTree.FunctionExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\>  } ; `JSXElement`: \{ `node`: `TSESTree.JSXElement` ; `usage`: `O.Option`\<`TSESTree.Node`\>  } ; `JSXFragment`: \{ `node`: `TSESTree.JSXFragment` ; `usage`: `O.Option`\<`TSESTree.Node`\>  } ; `NewExpression`: \{ `node`: `TSESTree.NewExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\>  } ; `None`: {} ; `ObjectExpression`: \{ `node`: `TSESTree.ObjectExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\>  } ; `RegExpLiteral`: \{ `node`: `TSESTree.Literal` ; `usage`: `O.Option`\<`TSESTree.Node`\>  }  }\>
 
----
+___
 
 ### ERClassComponentFlag
 
 Ƭ **ERClassComponentFlag**: `bigint`
 
----
+___
 
 ### ERComponent
 
 Ƭ **ERComponent**: [`ERClassComponent`](interfaces/ERClassComponent.md) \| [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)
 
----
+___
 
 ### ERComponentCollectorHint
 
 Ƭ **ERComponentCollectorHint**: `bigint`
 
----
+___
 
 ### ERComponentInitPath
 
 Ƭ **ERComponentInitPath**: readonly [`TSESTree.FunctionDeclaration`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.CallExpression`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.CallExpression`, `TSESTree.CallExpression`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.ObjectExpression`, `TSESTree.Property`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.ObjectExpression`, `TSESTree.Property`, `TSESTree.CallExpression`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.ObjectExpression`, `TSESTree.Property`, `TSESTree.CallExpression`, `TSESTree.CallExpression`, `TSESTreeFunction`] \| readonly [`TSESTree.ClassDeclaration`, `TSESTree.ClassBody`, `TSESTree.MethodDefinition`, `TSESTreeFunction`] \| readonly [`TSESTree.ClassDeclaration`, `TSESTree.ClassBody`, `TSESTree.PropertyDefinition`, `TSESTreeFunction`]
 
----
+___
 
 ### ERComponentKind
 
-Ƭ **ERComponentKind**: `"class"` \| `"function"`
+Ƭ **ERComponentKind**: ``"class"`` \| ``"function"``
 
----
+___
 
 ### ERFunctionComponentFlag
 
@@ -152,27 +152,27 @@
 
 #### Type declaration
 
-| Name                   | Type                                                                                                                                                               |
-| :--------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Array`                | `Constructor`\<`Data`\<\{ `_tag`: `"Array"` ; `node`: `ArrayExpression` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                              |
-| `AssignmentExpression` | `Constructor`\<`Data`\<\{ `_tag`: `"AssignmentExpression"` ; `node`: `Node` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                          |
-| `ClassExpression`      | `Constructor`\<`Data`\<\{ `_tag`: `"ClassExpression"` ; `node`: `ClassExpression` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                    |
-| `FunctionDeclaration`  | `Constructor`\<`Data`\<\{ `_tag`: `"FunctionDeclaration"` ; `node`: `FunctionDeclaration` ; `usage`: `Option`\<`Expression`\> }\>, `"_tag"`\>                      |
-| `FunctionExpression`   | `Constructor`\<`Data`\<\{ `_tag`: `"FunctionExpression"` ; `node`: `ArrowFunctionExpression` \| `FunctionExpression` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\> |
-| `JSXElement`           | `Constructor`\<`Data`\<\{ `_tag`: `"JSXElement"` ; `node`: `JSXElement` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                              |
-| `JSXFragment`          | `Constructor`\<`Data`\<\{ `_tag`: `"JSXFragment"` ; `node`: `JSXFragment` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                            |
-| `NewExpression`        | `Constructor`\<`Data`\<\{ `_tag`: `"NewExpression"` ; `node`: `NewExpression` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                        |
-| `None`                 | `Constructor`\<`Data`\<\{ `_tag`: `"None"` }\>, `"_tag"`\>                                                                                                         |
-| `ObjectExpression`     | `Constructor`\<`Data`\<\{ `_tag`: `"ObjectExpression"` ; `node`: `ObjectExpression` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                  |
-| `RegExpLiteral`        | `Constructor`\<`Data`\<\{ `_tag`: `"RegExpLiteral"` ; `node`: `Literal` ; `usage`: `Option`\<`Node`\> }\>, `"_tag"`\>                                              |
+| Name | Type |
+| :------ | :------ |
+| `Array` | `Constructor`\<`Data`\<\{ `_tag`: ``"Array"`` ; `node`: `ArrayExpression` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
+| `AssignmentExpression` | `Constructor`\<`Data`\<\{ `_tag`: ``"AssignmentExpression"`` ; `node`: `Node` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
+| `ClassExpression` | `Constructor`\<`Data`\<\{ `_tag`: ``"ClassExpression"`` ; `node`: `ClassExpression` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
+| `FunctionDeclaration` | `Constructor`\<`Data`\<\{ `_tag`: ``"FunctionDeclaration"`` ; `node`: `FunctionDeclaration` ; `usage`: `Option`\<`Expression`\>  }\>, ``"_tag"``\> |
+| `FunctionExpression` | `Constructor`\<`Data`\<\{ `_tag`: ``"FunctionExpression"`` ; `node`: `ArrowFunctionExpression` \| `FunctionExpression` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
+| `JSXElement` | `Constructor`\<`Data`\<\{ `_tag`: ``"JSXElement"`` ; `node`: `JSXElement` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
+| `JSXFragment` | `Constructor`\<`Data`\<\{ `_tag`: ``"JSXFragment"`` ; `node`: `JSXFragment` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
+| `NewExpression` | `Constructor`\<`Data`\<\{ `_tag`: ``"NewExpression"`` ; `node`: `NewExpression` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
+| `None` | `Constructor`\<`Data`\<\{ `_tag`: ``"None"``  }\>, ``"_tag"``\> |
+| `ObjectExpression` | `Constructor`\<`Data`\<\{ `_tag`: ``"ObjectExpression"`` ; `node`: `ObjectExpression` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
+| `RegExpLiteral` | `Constructor`\<`Data`\<\{ `_tag`: ``"RegExpLiteral"`` ; `node`: `Literal` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
 
----
+___
 
 ### DEFAULT\_COMPONENT\_COLLECTOR\_HINT
 
 • `Const` **DEFAULT\_COMPONENT\_COLLECTOR\_HINT**: `bigint`
 
----
+___
 
 ### ERClassComponentFlag
 
@@ -180,12 +180,12 @@
 
 #### Type declaration
 
-| Name            | Type     |
-| :-------------- | :------- |
-| `None`          | `bigint` |
+| Name | Type |
+| :------ | :------ |
+| `None` | `bigint` |
 | `PureComponent` | `bigint` |
 
----
+___
 
 ### ERComponentCollectorHint
 
@@ -195,26 +195,26 @@ hints for component collector
 
 #### Type declaration
 
-| Name                   | Type     |
-| :--------------------- | :------- |
-| `None`                 | `0n`     |
-| `SkipBooleanLiteral`   | `bigint` |
-| `SkipClassMethod`      | `bigint` |
-| `SkipClassProperty`    | `bigint` |
-| `SkipCreateElement`    | `bigint` |
-| `SkipForwardRef`       | `bigint` |
-| `SkipMapCallback`      | `bigint` |
-| `SkipMemo`             | `bigint` |
-| `SkipNullLiteral`      | `bigint` |
-| `SkipNumberLiteral`    | `bigint` |
-| `SkipObjectMethod`     | `bigint` |
-| `SkipStringLiteral`    | `bigint` |
+| Name | Type |
+| :------ | :------ |
+| `None` | `0n` |
+| `SkipBooleanLiteral` | `bigint` |
+| `SkipClassMethod` | `bigint` |
+| `SkipClassProperty` | `bigint` |
+| `SkipCreateElement` | `bigint` |
+| `SkipForwardRef` | `bigint` |
+| `SkipMapCallback` | `bigint` |
+| `SkipMemo` | `bigint` |
+| `SkipNullLiteral` | `bigint` |
+| `SkipNumberLiteral` | `bigint` |
+| `SkipObjectMethod` | `bigint` |
+| `SkipStringLiteral` | `bigint` |
 | `SkipUndefinedLiteral` | `bigint` |
-| `StrictArray`          | `bigint` |
-| `StrictConditional`    | `bigint` |
-| `StrictLogical`        | `bigint` |
+| `StrictArray` | `bigint` |
+| `StrictConditional` | `bigint` |
+| `StrictLogical` | `bigint` |
 
----
+___
 
 ### ERFunctionComponentFlag
 
@@ -222,25 +222,25 @@ hints for component collector
 
 #### Type declaration
 
-| Name         | Type     |
-| :----------- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `ForwardRef` | `bigint` |
-| `Memo`       | `bigint` |
-| `None`       | `bigint` |
+| `Memo` | `bigint` |
+| `None` | `bigint` |
 
----
+___
 
 ### RE\_COMPONENT\_NAME
 
 • `Const` **RE\_COMPONENT\_NAME**: `RegExp`
 
----
+___
 
 ### RE\_HOOK\_NAME
 
 • `Const` **RE\_HOOK\_NAME**: `RegExp`
 
----
+___
 
 ### uid
 
@@ -254,32 +254,32 @@ hints for component collector
 
 #### Parameters
 
-| Name      | Type                                                          | Default value                      |
-| :-------- | :------------------------------------------------------------ | :--------------------------------- |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined`                        |
-| `hint`    | `bigint`                                                      | `DEFAULT_COMPONENT_COLLECTOR_HINT` |
-| `pragma`  | `string`                                                      | `undefined`                        |
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined` |
+| `hint` | `bigint` | `DEFAULT_COMPONENT_COLLECTOR_HINT` |
+| `pragma` | `string` | `undefined` |
 
 #### Returns
 
 `Object`
 
-| Name                                                                                                           | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| :------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ctx`                                                                                                          | \{ `getCurrentFunction`: () => `Option`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> ; `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)\> ; `getCurrentFunctionStack`: () => [`TSESTreeFunction`, `boolean`, `CallExpression`[]][] }                                                                                                                                                                         |
-| `ctx.getCurrentFunction`                                                                                       | () => `Option`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `ctx.getAllComponents`                                                                                         | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `ctx.getCurrentComponents`                                                                                     | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `ctx.getCurrentFunctionStack`                                                                                  | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `listeners`                                                                                                    | \{ `:function`: (`node`: `TSESTreeFunction`) => `MutableList`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> = onFunctionEnter; `:function:exit`: () => `undefined` \| [`TSESTreeFunction`, `boolean`, `CallExpression`[]] = onFunctionExit; `ArrowFunctionExpression[body.type!='BlockStatement']`: () => `void` ; `AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']`: (`node`: `AssignmentExpression`) => `void` ; `CallExpression:exit`: (`node`: `CallExpression`) => `void` ; `ReturnStatement`: (`node`: `ReturnStatement`) => `void` } |
-| `listeners.:function`                                                                                          | (`node`: `TSESTreeFunction`) => `MutableList`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `listeners.:function:exit`                                                                                     | () => `undefined` \| [`TSESTreeFunction`, `boolean`, `CallExpression`[]]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `listeners.ArrowFunctionExpression[body.type!='BlockStatement']`                                               | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `listeners.AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']` | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `listeners.CallExpression:exit`                                                                                | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `listeners.ReturnStatement`                                                                                    | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Name | Type |
+| :------ | :------ |
+| `ctx` | \{ `getCurrentFunction`: () => `Option`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> ; `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)\> ; `getCurrentFunctionStack`: () => [`TSESTreeFunction`, `boolean`, `CallExpression`[]][]  } |
+| `ctx.getCurrentFunction` | () => `Option`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> |
+| `ctx.getAllComponents` | [object Object] |
+| `ctx.getCurrentComponents` | [object Object] |
+| `ctx.getCurrentFunctionStack` | [object Object] |
+| `listeners` | \{ `:function`: (`node`: `TSESTreeFunction`) => `MutableList`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> = onFunctionEnter; `:function:exit`: () => `undefined` \| [`TSESTreeFunction`, `boolean`, `CallExpression`[]] = onFunctionExit; `ArrowFunctionExpression[body.type!='BlockStatement']`: () => `void` ; `AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']`: (`node`: `AssignmentExpression`) => `void` ; `CallExpression:exit`: (`node`: `CallExpression`) => `void` ; `ReturnStatement`: (`node`: `ReturnStatement`) => `void`  } |
+| `listeners.:function` | (`node`: `TSESTreeFunction`) => `MutableList`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> |
+| `listeners.:function:exit` | () => `undefined` \| [`TSESTreeFunction`, `boolean`, `CallExpression`[]] |
+| `listeners.ArrowFunctionExpression[body.type!='BlockStatement']` | [object Object] |
+| `listeners.AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']` | [object Object] |
+| `listeners.CallExpression:exit` | [object Object] |
+| `listeners.ReturnStatement` | [object Object] |
 
----
+___
 
 ### componentCollectorLegacy
 
@@ -287,24 +287,24 @@ hints for component collector
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
+| Name | Type |
+| :------ | :------ |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
 `Object`
 
-| Name                         | Type                                                                                                                                                                                                                         |
-| :--------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                        | \{ `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ERClassComponent`](interfaces/ERClassComponent.md)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ERClassComponent`](interfaces/ERClassComponent.md)\> } |
-| `ctx.getAllComponents`       | [object Object]                                                                                                                                                                                                              |
-| `ctx.getCurrentComponents`   | [object Object]                                                                                                                                                                                                              |
-| `listeners`                  | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect }                                                                                     |
-| `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                          |
-| `listeners.ClassExpression`  | (`node`: `TSESTreeClass`) => `void`                                                                                                                                                                                          |
+| Name | Type |
+| :------ | :------ |
+| `ctx` | \{ `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ERClassComponent`](interfaces/ERClassComponent.md)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ERClassComponent`](interfaces/ERClassComponent.md)\>  } |
+| `ctx.getAllComponents` | [object Object] |
+| `ctx.getCurrentComponents` | [object Object] |
+| `listeners` | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect } |
+| `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void` |
+| `listeners.ClassExpression` | (`node`: `TSESTreeClass`) => `void` |
 
----
+___
 
 ### constructionDetector
 
@@ -314,15 +314,15 @@ Get a function that detects the construction of a given node.
 
 #### Type parameters
 
-| Name | Type                                                                  |
-| :--- | :-------------------------------------------------------------------- |
-| `T`  | extends `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+| Name | Type |
+| :------ | :------ |
+| `T` | extends `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Parameters
 
-| Name      | Type | Description      |
-| :-------- | :--- | :--------------- |
-| `context` | `T`  | The rule context |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `context` | `T` | The rule context |
 
 #### Returns
 
@@ -334,15 +334,15 @@ A function that detects the construction of a given node
 
 ##### Parameters
 
-| Name   | Type            |
-| :----- | :-------------- |
+| Name | Type |
+| :------ | :------ |
 | `node` | `TSESTree.Node` |
 
 ##### Returns
 
 [`Construction`](README.md#construction-1)
 
----
+___
 
 ### getComponentInitPath
 
@@ -350,15 +350,15 @@ A function that detects the construction of a given node
 
 #### Parameters
 
-| Name   | Type               |
-| :----- | :----------------- |
+| Name | Type |
+| :------ | :------ |
 | `node` | `TSESTreeFunction` |
 
 #### Returns
 
 `O.Option`\<[`ERComponentInitPath`](README.md#ercomponentinitpath)\>
 
----
+___
 
 ### getComponentNameFromIdentifier
 
@@ -366,15 +366,15 @@ A function that detects the construction of a given node
 
 #### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `node` | `Identifier` \| `Identifier`[] |
 
 #### Returns
 
 `string`
 
----
+___
 
 ### getFunctionComponentIdentifier
 
@@ -382,16 +382,16 @@ A function that detects the construction of a given node
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `TSESTreeFunction`                                            |
+| Name | Type |
+| :------ | :------ |
+| `node` | `TSESTreeFunction` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
 `O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>
 
----
+___
 
 ### getParentClassComponent
 
@@ -401,10 +401,10 @@ Get the parent class component of a node up to global scope
 
 #### Parameters
 
-| Name      | Type                                                          | Description                          |
-| :-------- | :------------------------------------------------------------ | :----------------------------------- |
-| `node`    | `Node`                                                        | The AST node to start searching from |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context                     |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `node` | `Node` | The AST node to start searching from |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context |
 
 #### Returns
 
@@ -414,7 +414,7 @@ Get the parent class component of a node up to global scope
 
 It will be removed in the future
 
----
+___
 
 ### hasCallInInitPath
 
@@ -422,8 +422,8 @@ It will be removed in the future
 
 #### Parameters
 
-| Name       | Type     |
-| :--------- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `callName` | `string` |
 
 #### Returns
@@ -434,15 +434,15 @@ It will be removed in the future
 
 ##### Parameters
 
-| Name       | Type                                                               |
-| :--------- | :----------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `initPath` | `Option`\<[`ERComponentInitPath`](README.md#ercomponentinitpath)\> |
 
 ##### Returns
 
 `boolean`
 
----
+___
 
 ### hasNoneOrValidComponentName
 
@@ -450,15 +450,15 @@ It will be removed in the future
 
 #### Parameters
 
-| Name   | Type               |
-| :----- | :----------------- |
+| Name | Type |
+| :------ | :------ |
 | `node` | `TSESTreeFunction` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### hookCollector
 
@@ -468,14 +468,14 @@ It will be removed in the future
 
 `Object`
 
-| Name                  | Type                                                                                                                                                                       |
-| :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                 | \{ `getAllHooks`: (`_`: `Program`) => `Map`\<`string`, [`ERHook`](interfaces/ERHook.md)\> ; `getCurrentHooks`: () => `Map`\<`string`, [`ERHook`](interfaces/ERHook.md)\> } |
-| `ctx.getAllHooks`     | [object Object]                                                                                                                                                            |
-| `ctx.getCurrentHooks` | [object Object]                                                                                                                                                            |
-| `listeners`           | `ESLintUtils.RuleListener`                                                                                                                                                 |
+| Name | Type |
+| :------ | :------ |
+| `ctx` | \{ `getAllHooks`: (`_`: `Program`) => `Map`\<`string`, [`ERHook`](interfaces/ERHook.md)\> ; `getCurrentHooks`: () => `Map`\<`string`, [`ERHook`](interfaces/ERHook.md)\>  } |
+| `ctx.getAllHooks` | [object Object] |
+| `ctx.getCurrentHooks` | [object Object] |
+| `listeners` | `ESLintUtils.RuleListener` |
 
----
+___
 
 ### isChildrenCount
 
@@ -483,17 +483,17 @@ It will be removed in the future
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `MemberExpression`                                            |
+| Name | Type |
+| :------ | :------ |
+| `node` | `MemberExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string`                                                      |
+| `pragma?` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isChildrenCountCall
 
@@ -501,17 +501,17 @@ It will be removed in the future
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string`                                                      |
+| `pragma?` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isChildrenForEach
 
@@ -519,17 +519,17 @@ It will be removed in the future
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `MemberExpression`                                            |
+| Name | Type |
+| :------ | :------ |
+| `node` | `MemberExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string`                                                      |
+| `pragma?` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isChildrenForEachCall
 
@@ -537,17 +537,17 @@ It will be removed in the future
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string`                                                      |
+| `pragma?` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isChildrenMap
 
@@ -555,17 +555,17 @@ It will be removed in the future
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `MemberExpression`                                            |
+| Name | Type |
+| :------ | :------ |
+| `node` | `MemberExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string`                                                      |
+| `pragma?` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isChildrenMapCall
 
@@ -573,17 +573,17 @@ It will be removed in the future
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string`                                                      |
+| `pragma?` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isChildrenOnly
 
@@ -591,17 +591,17 @@ It will be removed in the future
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `MemberExpression`                                            |
+| Name | Type |
+| :------ | :------ |
+| `node` | `MemberExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string`                                                      |
+| `pragma?` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isChildrenOnlyCall
 
@@ -609,17 +609,17 @@ It will be removed in the future
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string`                                                      |
+| `pragma?` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isChildrenToArray
 
@@ -627,17 +627,17 @@ It will be removed in the future
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `MemberExpression`                                            |
+| Name | Type |
+| :------ | :------ |
+| `node` | `MemberExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string`                                                      |
+| `pragma?` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isChildrenToArrayCall
 
@@ -645,17 +645,17 @@ It will be removed in the future
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string`                                                      |
+| `pragma?` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isClassComponent
 
@@ -665,16 +665,16 @@ Check if a node is a React class component
 
 #### Parameters
 
-| Name      | Type                                                          | Description           |
-| :-------- | :------------------------------------------------------------ | :-------------------- |
-| `node`    | `Node`                                                        | The AST node to check |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `node` | `Node` | The AST node to check |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context |
 
 #### Returns
 
 node is TSESTreeClass
 
----
+___
 
 ### isCloneElement
 
@@ -682,16 +682,16 @@ node is TSESTreeClass
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `Identifier` \| `MemberExpression`                            |
+| Name | Type |
+| :------ | :------ |
+| `node` | `Identifier` \| `MemberExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isCloneElementCall
 
@@ -699,16 +699,16 @@ node is TSESTreeClass
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isCreateContext
 
@@ -716,16 +716,16 @@ node is TSESTreeClass
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `Identifier` \| `MemberExpression`                            |
+| Name | Type |
+| :------ | :------ |
+| `node` | `Identifier` \| `MemberExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isCreateContextCall
 
@@ -733,16 +733,16 @@ node is TSESTreeClass
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isCreateElement
 
@@ -750,16 +750,16 @@ node is TSESTreeClass
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `Identifier` \| `MemberExpression`                            |
+| Name | Type |
+| :------ | :------ |
+| `node` | `Identifier` \| `MemberExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isCreateElementCall
 
@@ -767,16 +767,16 @@ node is TSESTreeClass
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isCreateRef
 
@@ -784,16 +784,16 @@ node is TSESTreeClass
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `Identifier` \| `MemberExpression`                            |
+| Name | Type |
+| :------ | :------ |
+| `node` | `Identifier` \| `MemberExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isCreateRefCall
 
@@ -801,16 +801,16 @@ node is TSESTreeClass
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isForwardRef
 
@@ -818,16 +818,16 @@ node is TSESTreeClass
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `Identifier` \| `MemberExpression`                            |
+| Name | Type |
+| :------ | :------ |
+| `node` | `Identifier` \| `MemberExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isForwardRefCall
 
@@ -835,16 +835,16 @@ node is TSESTreeClass
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isFunctionOfRenderMethod
 
@@ -852,16 +852,16 @@ node is TSESTreeClass
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `TSESTreeFunction`                                            |
+| Name | Type |
+| :------ | :------ |
+| `node` | `TSESTreeFunction` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isInsideReactHook
 
@@ -869,41 +869,38 @@ node is TSESTreeClass
 
 #### Parameters
 
-| Name   | Type   |
-| :----- | :----- |
+| Name | Type |
+| :------ | :------ |
 | `node` | `Node` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isInsideRenderMethod
 
 ▸ **isInsideRenderMethod**(`node`, `context`): `boolean`
 
 Check whether given node is declared inside class component's render block
-
 ```jsx
 class Component extends React.Component {
   render() {
     class NestedClassComponent extends React.Component {
-      render() {
-        return <div />;
-      }
+     render() { return <div />; }
     }
     const nestedFunctionComponent = () => <div />;
-  }
+ }
 }
 ```
 
 #### Parameters
 
-| Name      | Type                                                          | Description                |
-| :-------- | :------------------------------------------------------------ | :------------------------- |
-| `node`    | `Node`                                                        | The AST node being checked |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |                            |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `node` | `Node` | The AST node being checked |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |  |
 
 #### Returns
 
@@ -915,7 +912,7 @@ class Component extends React.Component {
 
 It will be removed in the future
 
----
+___
 
 ### isMemberExpressionOfReactMember
 
@@ -923,10 +920,10 @@ It will be removed in the future
 
 #### Parameters
 
-| Name               | Type     |
-| :----------------- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `pragmaMemberName` | `string` |
-| `memberName`       | `string` |
+| `memberName` | `string` |
 
 #### Returns
 
@@ -938,17 +935,17 @@ A function that checks if a given node is a member expression of a Pragma member
 
 ##### Parameters
 
-| Name      | Type                        |
-| :-------- | :-------------------------- |
-| `node`    | `TSESTree.MemberExpression` |
-| `context` | `RuleContext`               |
-| `pragma?` | `string`                    |
+| Name | Type |
+| :------ | :------ |
+| `node` | `TSESTree.MemberExpression` |
+| `context` | `RuleContext` |
+| `pragma?` | `string` |
 
 ##### Returns
 
 `boolean`
 
----
+___
 
 ### isMemo
 
@@ -956,16 +953,16 @@ A function that checks if a given node is a member expression of a Pragma member
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `Identifier` \| `MemberExpression`                            |
+| Name | Type |
+| :------ | :------ |
+| `node` | `Identifier` \| `MemberExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isMemoCall
 
@@ -973,16 +970,16 @@ A function that checks if a given node is a member expression of a Pragma member
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isPureComponent
 
@@ -992,16 +989,16 @@ Check if a node is a React PureComponent
 
 #### Parameters
 
-| Name      | Type                                                          | Description           |
-| :-------- | :------------------------------------------------------------ | :-------------------- |
-| `node`    | `Node`                                                        | The AST node to check |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `node` | `Node` | The AST node to check |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isReactAPI
 
@@ -1009,8 +1006,8 @@ Check if a node is a React PureComponent
 
 #### Parameters
 
-| Name   | Type     |
-| :----- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `name` | `string` |
 
 #### Returns
@@ -1021,16 +1018,16 @@ Check if a node is a React PureComponent
 
 #### Parameters
 
-| Name     | Type     |
-| :------- | :------- |
-| `name`   | `string` |
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
 | `member` | `string` |
 
 #### Returns
 
 `ReturnType`\<typeof `isFromPragmaMember`\>
 
----
+___
 
 ### isReactAPICall
 
@@ -1038,8 +1035,8 @@ Check if a node is a React PureComponent
 
 #### Parameters
 
-| Name   | Type     |
-| :----- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `name` | `string` |
 
 #### Returns
@@ -1050,16 +1047,16 @@ Check if a node is a React PureComponent
 
 #### Parameters
 
-| Name     | Type     |
-| :------- | :------- |
-| `name`   | `string` |
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
 | `member` | `string` |
 
 #### Returns
 
 `ReturnType`\<typeof `isCallFromPragmaMember`\>
 
----
+___
 
 ### isReactHook
 
@@ -1067,15 +1064,15 @@ Check if a node is a React PureComponent
 
 #### Parameters
 
-| Name   | Type               |
-| :----- | :----------------- |
+| Name | Type |
+| :------ | :------ |
 | `node` | `TSESTreeFunction` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isReactHookCall
 
@@ -1086,15 +1083,15 @@ Check if the given node is a React Hook call by its name and its hierarchy.
 
 #### Parameters
 
-| Name   | Type             | Description        |
-| :----- | :--------------- | :----------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `node` | `CallExpression` | The node to check. |
 
 #### Returns
 
 `void`
 
----
+___
 
 ### isReactHookCallWithName
 
@@ -1102,9 +1099,9 @@ Check if the given node is a React Hook call by its name and its hierarchy.
 
 #### Parameters
 
-| Name     | Type       |
-| :------- | :--------- |
-| `name`   | `string`   |
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
 | `alias?` | `string`[] |
 
 #### Returns
@@ -1115,17 +1112,17 @@ Check if the given node is a React Hook call by its name and its hierarchy.
 
 ##### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| `pragma` | `string` |
 
 ##### Returns
 
 `boolean`
 
----
+___
 
 ### isUnstableAssignmentPattern
 
@@ -1135,15 +1132,15 @@ Check if the given node is an unstable assignment pattern (will change between a
 
 #### Parameters
 
-| Name   | Type                | Description           |
-| :----- | :------------------ | :-------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `node` | `AssignmentPattern` | The AST node to check |
 
 #### Returns
 
 node is AssignmentPattern & Object
 
----
+___
 
 ### isUseCallbackCall
 
@@ -1151,17 +1148,17 @@ node is AssignmentPattern & Object
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| `pragma` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isUseContextCall
 
@@ -1169,17 +1166,17 @@ node is AssignmentPattern & Object
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| `pragma` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isUseDebugValueCall
 
@@ -1187,17 +1184,17 @@ node is AssignmentPattern & Object
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| `pragma` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isUseDeferredValueCall
 
@@ -1205,17 +1202,17 @@ node is AssignmentPattern & Object
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| `pragma` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isUseEffectCall
 
@@ -1223,17 +1220,17 @@ node is AssignmentPattern & Object
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| `pragma` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isUseIdCall
 
@@ -1241,17 +1238,17 @@ node is AssignmentPattern & Object
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| `pragma` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isUseImperativeHandleCall
 
@@ -1259,17 +1256,17 @@ node is AssignmentPattern & Object
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| `pragma` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isUseInsertionEffectCall
 
@@ -1277,17 +1274,17 @@ node is AssignmentPattern & Object
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| `pragma` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isUseLayoutEffectCall
 
@@ -1295,17 +1292,17 @@ node is AssignmentPattern & Object
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| `pragma` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isUseMemoCall
 
@@ -1313,17 +1310,17 @@ node is AssignmentPattern & Object
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| `pragma` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isUseReducerCall
 
@@ -1331,17 +1328,17 @@ node is AssignmentPattern & Object
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| `pragma` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isUseRefCall
 
@@ -1349,17 +1346,17 @@ node is AssignmentPattern & Object
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| `pragma` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isUseStateCall
 
@@ -1367,17 +1364,17 @@ node is AssignmentPattern & Object
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| `pragma` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isUseSyncExternalStoreCall
 
@@ -1385,17 +1382,17 @@ node is AssignmentPattern & Object
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| `pragma` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isUseTransitionCall
 
@@ -1403,17 +1400,17 @@ node is AssignmentPattern & Object
 
 #### Parameters
 
-| Name      | Type                                                          |
-| :-------- | :------------------------------------------------------------ |
-| `node`    | `CallExpression`                                              |
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma`  | `string`                                                      |
+| `pragma` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### isValidComponentName
 
@@ -1421,15 +1418,15 @@ node is AssignmentPattern & Object
 
 #### Parameters
 
-| Name   | Type     |
-| :----- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `name` | `string` |
 
 #### Returns
 
 name is string
 
----
+___
 
 ### isValidReactHookName
 
@@ -1437,33 +1434,32 @@ name is string
 
 #### Parameters
 
-| Name   | Type     |
-| :----- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `name` | `string` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### unsafeIsDeclaredInRenderProp
 
 ▸ **unsafeIsDeclaredInRenderProp**(`node`): `boolean`
 
 Unsafe check whether given node is declared inside a render prop
-
 ```jsx
-_ = <Component renderRow={"node"} />;
-`                         ^^^^^^   `;
-_ = <Component rows={[{ render: "node" }]} />;
-`                                ^^^^^^       `;
+_ = <Component renderRow={"node"} />
+`                         ^^^^^^   `
+_ = <Component rows={ [{ render: "node" }] } />
+`                                ^^^^^^       `
 ```
 
 #### Parameters
 
-| Name   | Type   | Description           |
-| :----- | :----- | :-------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `node` | `Node` | The AST node to check |
 
 #### Returns
@@ -1472,24 +1468,24 @@ _ = <Component rows={[{ render: "node" }]} />;
 
 `true` if component is declared inside a render prop, `false` if not
 
----
+___
 
 ### unsafeIsDirectValueOfRenderProperty
 
 ▸ **unsafeIsDirectValueOfRenderProperty**(`node`): `boolean`
 
 Unsafe check whether given node is declared directly inside a render property
-
 ```jsx
-const rows = { render: () => <div /> }`                      ^^^^^^^^^^^^^ `;
-_ = <Component rows={[{ render: () => <div /> }]} />;
-`                                ^^^^^^^^^^^^^       `;
-```
+const rows = { render: () => <div /> }
+`                      ^^^^^^^^^^^^^ `
+_ = <Component rows={ [{ render: () => <div /> }] } />
+`                                ^^^^^^^^^^^^^       `
+ ```
 
 #### Parameters
 
-| Name   | Type   | Description           |
-| :----- | :----- | :-------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `node` | `Node` | The AST node to check |
 
 #### Returns
@@ -1498,7 +1494,7 @@ _ = <Component rows={[{ render: () => <div /> }]} />;
 
 `true` if component is declared inside a render property, `false` if not
 
----
+___
 
 ### unsafeIsInsideReactHookCall
 
@@ -1506,15 +1502,15 @@ _ = <Component rows={[{ render: () => <div /> }]} />;
 
 #### Parameters
 
-| Name   | Type   |
-| :----- | :----- |
+| Name | Type |
+| :------ | :------ |
 | `node` | `Node` |
 
 #### Returns
 
 `boolean`
 
----
+___
 
 ### unsafeIsReactHookCall
 
@@ -1524,8 +1520,8 @@ Check if the given node is a React Hook call by its name.
 
 #### Parameters
 
-| Name   | Type             | Description        |
-| :----- | :--------------- | :----------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `node` | `CallExpression` | The node to check. |
 
 #### Returns
@@ -1534,27 +1530,26 @@ Check if the given node is a React Hook call by its name.
 
 `true` if the node is a React hook call, `false` otherwise.
 
----
+___
 
 ### unsafeIsRenderFunction
 
 ▸ **unsafeIsRenderFunction**(`node`, `context`): `boolean`
 
 Unsafe check whether given node is a render function
-
 ```jsx
-const renderRow = () => <div />;
-`                 ^^^^^^^^^^^^`;
-_ = <Component renderRow={() => <div />} />;
-`                         ^^^^^^^^^^^^^   `;
+const renderRow = () => <div />
+`                 ^^^^^^^^^^^^`
+_ = <Component renderRow={() => <div />} />
+`                         ^^^^^^^^^^^^^   `
 ```
 
 #### Parameters
 
-| Name      | Type                                                          | Description           |
-| :-------- | :------------------------------------------------------------ | :-------------------- |
-| `node`    | `TSESTreeFunction`                                            | The AST node to check |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `node` | `TSESTreeFunction` | The AST node to check |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context |
 
 #### Returns
 
@@ -1562,25 +1557,24 @@ _ = <Component renderRow={() => <div />} />;
 
 `true` if node is a render function, `false` if not
 
----
+___
 
 ### unsafeIsRenderProp
 
 ▸ **unsafeIsRenderProp**(`node`, `context`): `boolean`
 
 Unsafe check whether given JSXAttribute is a render prop
-
 ```jsx
-_ = <Component renderRow={() => <div />} />;
-`              ^^^^^^^^^^^^^^^^^^^^^^^^^  `;
+_ = <Component renderRow={() => <div />} />
+`              ^^^^^^^^^^^^^^^^^^^^^^^^^  `
 ```
 
 #### Parameters
 
-| Name      | Type                                                          | Description           |
-| :-------- | :------------------------------------------------------------ | :-------------------- |
-| `node`    | `JSXAttribute`                                                | The AST node to check |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `node` | `JSXAttribute` | The AST node to check |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context |
 
 #### Returns
 

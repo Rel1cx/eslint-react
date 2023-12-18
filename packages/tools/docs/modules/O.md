@@ -89,7 +89,7 @@
 
 2.0.0
 
----
+___
 
 ### exists
 
@@ -100,14 +100,14 @@ Check if a value in an `Option` type meets a certain predicate.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                                     |
-| :----------- | :------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
@@ -118,8 +118,8 @@ Check if a value in an `Option` type meets a certain predicate.
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -129,14 +129,14 @@ self is Option\<B\>
 **`Example`**
 
 ```ts
-import { some, none, exists } from "effect/Option";
-import { pipe } from "effect/Function";
+import { some, none, exists } from 'effect/Option'
+import { pipe } from "effect/Function"
 
-const isEven = (n: number) => n % 2 === 0;
+const isEven = (n: number) => n % 2 === 0
 
-assert.deepStrictEqual(pipe(some(2), exists(isEven)), true);
-assert.deepStrictEqual(pipe(some(1), exists(isEven)), false);
-assert.deepStrictEqual(pipe(none(), exists(isEven)), false);
+assert.deepStrictEqual(pipe(some(2), exists(isEven)), true)
+assert.deepStrictEqual(pipe(some(1), exists(isEven)), false)
+assert.deepStrictEqual(pipe(none(), exists(isEven)), false)
 ```
 
 **`Since`**
@@ -150,14 +150,14 @@ Check if a value in an `Option` type meets a certain predicate.
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `B`  |
+| :------ | :------ |
+| `B` | `B` |
+| `A` | `B` |
 
 #### Parameters
 
-| Name        | Type                                              | Description             |
-| :---------- | :------------------------------------------------ | :---------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> | The condition to check. |
 
 #### Returns
@@ -168,8 +168,8 @@ Check if a value in an `Option` type meets a certain predicate.
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`B`\> |
 
 ##### Returns
@@ -179,14 +179,14 @@ Check if a value in an `Option` type meets a certain predicate.
 **`Example`**
 
 ```ts
-import { some, none, exists } from "effect/Option";
-import { pipe } from "effect/Function";
+import { some, none, exists } from 'effect/Option'
+import { pipe } from "effect/Function"
 
-const isEven = (n: number) => n % 2 === 0;
+const isEven = (n: number) => n % 2 === 0
 
-assert.deepStrictEqual(pipe(some(2), exists(isEven)), true);
-assert.deepStrictEqual(pipe(some(1), exists(isEven)), false);
-assert.deepStrictEqual(pipe(none(), exists(isEven)), false);
+assert.deepStrictEqual(pipe(some(2), exists(isEven)), true)
+assert.deepStrictEqual(pipe(some(1), exists(isEven)), false)
+assert.deepStrictEqual(pipe(none(), exists(isEven)), false)
 ```
 
 **`Since`**
@@ -200,16 +200,16 @@ Check if a value in an `Option` type meets a certain predicate.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                                     | Description            |
-| :----------- | :------------------------------------------------------- | :--------------------- |
-| `self`       | [`Option`](O.md#option)\<`A`\>                           | The `Option` to check. |
-| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> | -                      |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to check. |
+| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> | - |
 
 #### Returns
 
@@ -218,14 +218,14 @@ self is Option\<B\>
 **`Example`**
 
 ```ts
-import { some, none, exists } from "effect/Option";
-import { pipe } from "effect/Function";
+import { some, none, exists } from 'effect/Option'
+import { pipe } from "effect/Function"
 
-const isEven = (n: number) => n % 2 === 0;
+const isEven = (n: number) => n % 2 === 0
 
-assert.deepStrictEqual(pipe(some(2), exists(isEven)), true);
-assert.deepStrictEqual(pipe(some(1), exists(isEven)), false);
-assert.deepStrictEqual(pipe(none(), exists(isEven)), false);
+assert.deepStrictEqual(pipe(some(2), exists(isEven)), true)
+assert.deepStrictEqual(pipe(some(1), exists(isEven)), false)
+assert.deepStrictEqual(pipe(none(), exists(isEven)), false)
 ```
 
 **`Since`**
@@ -239,14 +239,14 @@ Check if a value in an `Option` type meets a certain predicate.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                              | Description             |
-| :---------- | :------------------------------------------------ | :---------------------- |
-| `self`      | [`Option`](O.md#option)\<`A`\>                    | The `Option` to check.  |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to check. |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> | The condition to check. |
 
 #### Returns
@@ -256,21 +256,21 @@ Check if a value in an `Option` type meets a certain predicate.
 **`Example`**
 
 ```ts
-import { some, none, exists } from "effect/Option";
-import { pipe } from "effect/Function";
+import { some, none, exists } from 'effect/Option'
+import { pipe } from "effect/Function"
 
-const isEven = (n: number) => n % 2 === 0;
+const isEven = (n: number) => n % 2 === 0
 
-assert.deepStrictEqual(pipe(some(2), exists(isEven)), true);
-assert.deepStrictEqual(pipe(some(1), exists(isEven)), false);
-assert.deepStrictEqual(pipe(none(), exists(isEven)), false);
+assert.deepStrictEqual(pipe(some(2), exists(isEven)), true)
+assert.deepStrictEqual(pipe(some(1), exists(isEven)), false)
+assert.deepStrictEqual(pipe(none(), exists(isEven)), false)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### let
 
@@ -278,18 +278,18 @@ assert.deepStrictEqual(pipe(none(), exists(isEven)), false);
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `N`  | extends `string` |
-| `A`  | extends `object` |
-| `B`  | `B`              |
+| Name | Type |
+| :------ | :------ |
+| `N` | extends `string` |
+| `A` | extends `object` |
+| `B` | `B` |
 
 #### Parameters
 
-| Name   | Type                        |
-| :----- | :-------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `name` | `Exclude`\<`N`, keyof `A`\> |
-| `f`    | (`a`: `A`) => `B`           |
+| `f` | (`a`: `A`) => `B` |
 
 #### Returns
 
@@ -299,8 +299,8 @@ assert.deepStrictEqual(pipe(none(), exists(isEven)), false);
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -311,19 +311,19 @@ assert.deepStrictEqual(pipe(none(), exists(isEven)), false);
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `A`  | extends `object` |
-| `N`  | extends `string` |
-| `B`  | `B`              |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends `object` |
+| `N` | extends `string` |
+| `B` | `B` |
 
 #### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
-| `name` | `Exclude`\<`N`, keyof `A`\>    |
-| `f`    | (`a`: `A`) => `B`              |
+| `name` | `Exclude`\<`N`, keyof `A`\> |
+| `f` | (`a`: `A`) => `B` |
 
 #### Returns
 
@@ -343,15 +343,15 @@ Takes a structure of `Option`s and returns an `Option` of values with the same s
 
 #### Type parameters
 
-| Name | Type                                                                                                             |
-| :--- | :--------------------------------------------------------------------------------------------------------------- |
-| `I`  | extends `Iterable`\<[`Option`](O.md#option)\<`any`\>\> \| `Record`\<`string`, [`Option`](O.md#option)\<`any`\>\> |
+| Name | Type |
+| :------ | :------ |
+| `I` | extends `Iterable`\<[`Option`](O.md#option)\<`any`\>\> \| `Record`\<`string`, [`Option`](O.md#option)\<`any`\>\> |
 
 #### Parameters
 
-| Name    | Type |
-| :------ | :--- |
-| `input` | `I`  |
+| Name | Type |
+| :------ | :------ |
+| `input` | `I` |
 
 #### Returns
 
@@ -360,18 +360,18 @@ Takes a structure of `Option`s and returns an `Option` of values with the same s
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
-assert.deepStrictEqual(O.all([O.some(1), O.some(2)]), O.some([1, 2]));
-assert.deepStrictEqual(O.all({ a: O.some(1), b: O.some("hello") }), O.some({ a: 1, b: "hello" }));
-assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
+assert.deepStrictEqual(O.all([O.some(1), O.some(2)]), O.some([1, 2]))
+assert.deepStrictEqual(O.all({ a: O.some(1), b: O.some("hello") }), O.some({ a: 1, b: "hello" }))
+assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none())
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### ap
 
@@ -380,13 +380,13 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `that` | [`Option`](O.md#option)\<`A`\> |
 
 #### Returns
@@ -398,13 +398,13 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 ##### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 ##### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<(`a`: `A`) => `B`\> |
 
 ##### Returns
@@ -420,16 +420,16 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<(`a`: `A`) => `B`\> |
-| `that` | [`Option`](O.md#option)\<`A`\>               |
+| `that` | [`Option`](O.md#option)\<`A`\> |
 
 #### Returns
 
@@ -439,7 +439,7 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 
 2.0.0
 
----
+___
 
 ### product
 
@@ -448,14 +448,14 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 | `that` | [`Option`](O.md#option)\<`B`\> |
 
@@ -467,7 +467,7 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 
 2.0.0
 
----
+___
 
 ### productMany
 
@@ -476,14 +476,14 @@ assert.deepStrictEqual(O.all({ a: O.some(1), b: O.none() }), O.none());
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name         | Type                                         |
-| :----------- | :------------------------------------------- |
-| `self`       | [`Option`](O.md#option)\<`A`\>               |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 | `collection` | `Iterable`\<[`Option`](O.md#option)\<`A`\>\> |
 
 #### Returns
@@ -506,13 +506,13 @@ if the `Iterable` is not empty, otherwise returns `None`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name         | Type              | Description                                    |
-| :----------- | :---------------- | :--------------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `collection` | `Iterable`\<`A`\> | The `Iterable` to be converted to an `Option`. |
 
 #### Returns
@@ -522,17 +522,17 @@ if the `Iterable` is not empty, otherwise returns `None`.
 **`Example`**
 
 ```ts
-import { fromIterable, some, none } from "effect/Option";
+import { fromIterable, some, none } from 'effect/Option'
 
-assert.deepStrictEqual(fromIterable([1, 2, 3]), some(1));
-assert.deepStrictEqual(fromIterable([]), none());
+assert.deepStrictEqual(fromIterable([1, 2, 3]), some(1))
+assert.deepStrictEqual(fromIterable([]), none())
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### none
 
@@ -542,9 +542,9 @@ Creates a new `Option` that represents the absence of a value.
 
 #### Type parameters
 
-| Name | Type    |
-| :--- | :------ |
-| `A`  | `never` |
+| Name | Type |
+| :------ | :------ |
+| `A` | `never` |
 
 #### Returns
 
@@ -554,7 +554,7 @@ Creates a new `Option` that represents the absence of a value.
 
 2.0.0
 
----
+___
 
 ### some
 
@@ -565,14 +565,14 @@ Creates a new `Option` that wraps the given value.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name    | Type | Description        |
-| :------ | :--- | :----------------- |
-| `value` | `A`  | The value to wrap. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `value` | `A` | The value to wrap. |
 
 #### Returns
 
@@ -594,14 +594,14 @@ returns the value wrapped in a `Some`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name            | Type | Description                                        |
-| :-------------- | :--- | :------------------------------------------------- |
-| `nullableValue` | `A`  | The nullable value to be converted to an `Option`. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `nullableValue` | `A` | The nullable value to be converted to an `Option`. |
 
 #### Returns
 
@@ -610,18 +610,18 @@ returns the value wrapped in a `Some`.
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
-assert.deepStrictEqual(O.fromNullable(undefined), O.none());
-assert.deepStrictEqual(O.fromNullable(null), O.none());
-assert.deepStrictEqual(O.fromNullable(1), O.some(1));
+assert.deepStrictEqual(O.fromNullable(undefined), O.none())
+assert.deepStrictEqual(O.fromNullable(null), O.none())
+assert.deepStrictEqual(O.fromNullable(1), O.some(1))
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### getLeft
 
@@ -632,14 +632,14 @@ Converts a `Either` to an `Option` discarding the value.
 #### Type parameters
 
 | Name |
-| :--- |
-| `E`  |
-| `A`  |
+| :------ |
+| `E` |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                |
-| :----- | :---------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Either`](E.md#either)\<`E`, `A`\> |
 
 #### Returns
@@ -649,18 +649,18 @@ Converts a `Either` to an `Option` discarding the value.
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
-import * as E from "effect/Either";
+import * as O from "effect/Option"
+import * as E from "effect/Either"
 
-assert.deepStrictEqual(O.getLeft(E.right("ok")), O.none());
-assert.deepStrictEqual(O.getLeft(E.left("a")), O.some("a"));
+assert.deepStrictEqual(O.getLeft(E.right("ok")), O.none())
+assert.deepStrictEqual(O.getLeft(E.left("a")), O.some("a"))
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### getOrThrow
 
@@ -668,18 +668,18 @@ assert.deepStrictEqual(O.getLeft(E.left("a")), O.some("a"));
 
 Extracts the value of an `Option` or throws if the `Option` is `None`.
 
-The thrown error is a default error. To configure the error thrown, see [getOrThrowWith](O.md#getorthrowwith).
+The thrown error is a default error. To configure the error thrown, see  [getOrThrowWith](O.md#getorthrowwith).
 
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                           | Description                             |
-| :----- | :----------------------------- | :-------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to extract the value from. |
 
 #### Returns
@@ -693,17 +693,17 @@ The thrown error is a default error. To configure the error thrown, see [getOrTh
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
-assert.deepStrictEqual(O.getOrThrow(O.some(1)), 1);
-assert.throws(() => O.getOrThrow(O.none()));
+assert.deepStrictEqual(O.getOrThrow(O.some(1)), 1)
+assert.throws(() => O.getOrThrow(O.none()))
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### getOrThrowWith
 
@@ -715,8 +715,8 @@ If a default error is sufficient for your use case and you don't need to configu
 
 #### Parameters
 
-| Name     | Type            | Description                                                                                  |
-| :------- | :-------------- | :------------------------------------------------------------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `onNone` | () => `unknown` | A function that will be called if the `Option` is `None`. It returns the error to be thrown. |
 
 #### Returns
@@ -728,13 +728,13 @@ If a default error is sufficient for your use case and you don't need to configu
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -744,13 +744,13 @@ If a default error is sufficient for your use case and you don't need to configu
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
 assert.deepStrictEqual(
-  O.getOrThrowWith(O.some(1), () => new Error("Unexpected None")),
-  1,
-);
-assert.throws(() => O.getOrThrowWith(O.none(), () => new Error("Unexpected None")));
+  O.getOrThrowWith(O.some(1), () => new Error('Unexpected None')),
+  1
+)
+assert.throws(() => O.getOrThrowWith(O.none(), () => new Error('Unexpected None')))
 ```
 
 **`Since`**
@@ -766,15 +766,15 @@ If a default error is sufficient for your use case and you don't need to configu
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name     | Type                           | Description                                                                                  |
-| :------- | :----------------------------- | :------------------------------------------------------------------------------------------- |
-| `self`   | [`Option`](O.md#option)\<`A`\> | The `Option` to extract the value from.                                                      |
-| `onNone` | () => `unknown`                | A function that will be called if the `Option` is `None`. It returns the error to be thrown. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to extract the value from. |
+| `onNone` | () => `unknown` | A function that will be called if the `Option` is `None`. It returns the error to be thrown. |
 
 #### Returns
 
@@ -783,20 +783,20 @@ If a default error is sufficient for your use case and you don't need to configu
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
 assert.deepStrictEqual(
-  O.getOrThrowWith(O.some(1), () => new Error("Unexpected None")),
-  1,
-);
-assert.throws(() => O.getOrThrowWith(O.none(), () => new Error("Unexpected None")));
+  O.getOrThrowWith(O.some(1), () => new Error('Unexpected None')),
+  1
+)
+assert.throws(() => O.getOrThrowWith(O.none(), () => new Error('Unexpected None')))
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### getRight
 
@@ -809,14 +809,14 @@ Alias of fromEither.
 #### Type parameters
 
 | Name |
-| :--- |
-| `E`  |
-| `A`  |
+| :------ |
+| `E` |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                |
-| :----- | :---------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Either`](E.md#either)\<`E`, `A`\> |
 
 #### Returns
@@ -826,18 +826,18 @@ Alias of fromEither.
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
-import * as E from "effect/Either";
+import * as O from "effect/Option"
+import * as E from "effect/Either"
 
-assert.deepStrictEqual(O.getRight(E.right("ok")), O.some("ok"));
-assert.deepStrictEqual(O.getRight(E.left("err")), O.none());
+assert.deepStrictEqual(O.getRight(E.right('ok')), O.some('ok'))
+assert.deepStrictEqual(O.getRight(E.left('err')), O.none())
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### liftNullable
 
@@ -847,16 +847,16 @@ This API is useful for lifting a function that returns `null` or `undefined` int
 
 #### Type parameters
 
-| Name | Type                         |
-| :--- | :--------------------------- |
-| `A`  | extends readonly `unknown`[] |
-| `B`  | `B`                          |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends readonly `unknown`[] |
+| `B` | `B` |
 
 #### Parameters
 
-| Name | Type                                          |
-| :--- | :-------------------------------------------- |
-| `f`  | (...`a`: `A`) => `undefined` \| `null` \| `B` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (...`a`: `A`) => `undefined` \| ``null`` \| `B` |
 
 #### Returns
 
@@ -866,9 +866,9 @@ This API is useful for lifting a function that returns `null` or `undefined` int
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `...a` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `...a` | `A` |
 
 ##### Returns
 
@@ -877,24 +877,24 @@ This API is useful for lifting a function that returns `null` or `undefined` int
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
 const parse = (s: string): number | undefined => {
-  const n = parseFloat(s);
-  return isNaN(n) ? undefined : n;
-};
+  const n = parseFloat(s)
+  return isNaN(n) ? undefined : n
+}
 
-const parseOption = O.liftNullable(parse);
+const parseOption = O.liftNullable(parse)
 
-assert.deepStrictEqual(parseOption("1"), O.some(1));
-assert.deepStrictEqual(parseOption("not a number"), O.none());
+assert.deepStrictEqual(parseOption('1'), O.some(1))
+assert.deepStrictEqual(parseOption('not a number'), O.none())
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### liftThrowable
 
@@ -907,16 +907,16 @@ the exception in a more functional way.
 
 #### Type parameters
 
-| Name | Type                         |
-| :--- | :--------------------------- |
-| `A`  | extends readonly `unknown`[] |
-| `B`  | `B`                          |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends readonly `unknown`[] |
+| `B` | `B` |
 
 #### Parameters
 
-| Name | Type                 | Description                             |
-| :--- | :------------------- | :-------------------------------------- |
-| `f`  | (...`a`: `A`) => `B` | the function that can throw exceptions. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `f` | (...`a`: `A`) => `B` | the function that can throw exceptions. |
 
 #### Returns
 
@@ -926,9 +926,9 @@ the exception in a more functional way.
 
 ##### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `...a` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `...a` | `A` |
 
 ##### Returns
 
@@ -937,19 +937,19 @@ the exception in a more functional way.
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
-const parse = O.liftThrowable(JSON.parse);
+const parse = O.liftThrowable(JSON.parse)
 
-assert.deepStrictEqual(parse("1"), O.some(1));
-assert.deepStrictEqual(parse(""), O.none());
+assert.deepStrictEqual(parse("1"), O.some(1))
+assert.deepStrictEqual(parse(""), O.none())
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### toArray
 
@@ -962,13 +962,13 @@ If the input is `Some`, the value is wrapped in an array.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                           | Description                          |
-| :----- | :----------------------------- | :----------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to convert to an array. |
 
 #### Returns
@@ -978,17 +978,17 @@ If the input is `Some`, the value is wrapped in an array.
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
-assert.deepStrictEqual(O.toArray(O.some(1)), [1]);
-assert.deepStrictEqual(O.toArray(O.none()), []);
+assert.deepStrictEqual(O.toArray(O.some(1)), [1])
+assert.deepStrictEqual(O.toArray(O.none()), [])
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### toRefinement
 
@@ -1000,15 +1000,15 @@ This function ensures that a type guard definition is type-safe.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `f`  | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -1019,8 +1019,8 @@ This function ensures that a type guard definition is type-safe.
 ##### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `A`  |
+| :------ | :------ |
+| `a` | `A` |
 
 ##### Returns
 
@@ -1029,14 +1029,15 @@ a is B
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
-const parsePositive = (n: number): O.Option<number> => n > 0 ? O.some(n) : O.none();
+const parsePositive = (n: number): O.Option<number> =>
+  n > 0 ? O.some(n) : O.none()
 
-const isPositive = O.toRefinement(parsePositive);
+const isPositive = O.toRefinement(parsePositive)
 
-assert.deepStrictEqual(isPositive(1), true);
-assert.deepStrictEqual(isPositive(-1), false);
+assert.deepStrictEqual(isPositive(1), true)
+assert.deepStrictEqual(isPositive(-1), false)
 ```
 
 **`Since`**
@@ -1053,7 +1054,7 @@ assert.deepStrictEqual(isPositive(-1), false);
 
 2.0.0
 
----
+___
 
 ### bind
 
@@ -1061,18 +1062,18 @@ assert.deepStrictEqual(isPositive(-1), false);
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `N`  | extends `string` |
-| `A`  | extends `object` |
-| `B`  | `B`              |
+| Name | Type |
+| :------ | :------ |
+| `N` | extends `string` |
+| `A` | extends `object` |
+| `B` | `B` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
-| `name` | `Exclude`\<`N`, keyof `A`\>                  |
-| `f`    | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
+| Name | Type |
+| :------ | :------ |
+| `name` | `Exclude`\<`N`, keyof `A`\> |
+| `f` | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -1082,8 +1083,8 @@ assert.deepStrictEqual(isPositive(-1), false);
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -1098,19 +1099,19 @@ assert.deepStrictEqual(isPositive(-1), false);
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `A`  | extends `object` |
-| `N`  | extends `string` |
-| `B`  | `B`              |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends `object` |
+| `N` | extends `string` |
+| `B` | `B` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
-| `self` | [`Option`](O.md#option)\<`A`\>               |
-| `name` | `Exclude`\<`N`, keyof `A`\>                  |
-| `f`    | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> |
+| `name` | `Exclude`\<`N`, keyof `A`\> |
+| `f` | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -1120,7 +1121,7 @@ assert.deepStrictEqual(isPositive(-1), false);
 
 2.0.0
 
----
+___
 
 ### bindTo
 
@@ -1128,15 +1129,15 @@ assert.deepStrictEqual(isPositive(-1), false);
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `N`  | extends `string` |
+| Name | Type |
+| :------ | :------ |
+| `N` | extends `string` |
 
 #### Parameters
 
-| Name   | Type |
-| :----- | :--- |
-| `name` | `N`  |
+| Name | Type |
+| :------ | :------ |
+| `name` | `N` |
 
 #### Returns
 
@@ -1147,13 +1148,13 @@ assert.deepStrictEqual(isPositive(-1), false);
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -1168,17 +1169,17 @@ assert.deepStrictEqual(isPositive(-1), false);
 
 #### Type parameters
 
-| Name | Type             |
-| :--- | :--------------- |
-| `A`  | `A`              |
-| `N`  | extends `string` |
+| Name | Type |
+| :------ | :------ |
+| `A` | `A` |
+| `N` | extends `string` |
 
 #### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
-| `name` | `N`                            |
+| `name` | `N` |
 
 #### Returns
 
@@ -1199,14 +1200,14 @@ Returns a function that checks if an `Option` contains a given value using the d
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `A`  |
+| :------ | :------ |
+| `a` | `A` |
 
 #### Returns
 
@@ -1216,8 +1217,8 @@ Returns a function that checks if an `Option` contains a given value using the d
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -1235,15 +1236,15 @@ Returns a function that checks if an `Option` contains a given value using the d
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
-| `a`    | `A`                            |
+| `a` | `A` |
 
 #### Returns
 
@@ -1253,7 +1254,7 @@ Returns a function that checks if an `Option` contains a given value using the d
 
 2.0.0
 
----
+___
 
 ### containsWith
 
@@ -1264,13 +1265,13 @@ Returns a function that checks if a `Option` contains a given value using a prov
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name           | Type                                    |
-| :------------- | :-------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `isEquivalent` | (`self`: `A`, `that`: `A`) => `boolean` |
 
 #### Returns
@@ -1282,8 +1283,8 @@ Returns a function that checks if a `Option` contains a given value using a prov
 ##### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `A`  |
+| :------ | :------ |
+| `a` | `A` |
 
 ##### Returns
 
@@ -1293,8 +1294,8 @@ Returns a function that checks if a `Option` contains a given value using a prov
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -1305,10 +1306,10 @@ Returns a function that checks if a `Option` contains a given value using a prov
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
-| `a`    | `A`                            |
+| `a` | `A` |
 
 ##### Returns
 
@@ -1317,13 +1318,13 @@ Returns a function that checks if a `Option` contains a given value using a prov
 **`Example`**
 
 ```ts
-import { some, none, containsWith } from "effect/Option";
-import { Equivalence } from "effect/Number";
-import { pipe } from "effect/Function";
+import { some, none, containsWith } from 'effect/Option'
+import { Equivalence } from 'effect/Number'
+import { pipe } from "effect/Function"
 
-assert.deepStrictEqual(pipe(some(2), containsWith(Equivalence)(2)), true);
-assert.deepStrictEqual(pipe(some(1), containsWith(Equivalence)(2)), false);
-assert.deepStrictEqual(pipe(none(), containsWith(Equivalence)(2)), false);
+assert.deepStrictEqual(pipe(some(2), containsWith(Equivalence)(2)), true)
+assert.deepStrictEqual(pipe(some(1), containsWith(Equivalence)(2)), false)
+assert.deepStrictEqual(pipe(none(), containsWith(Equivalence)(2)), false)
 ```
 
 **`Since`**
@@ -1339,13 +1340,13 @@ assert.deepStrictEqual(pipe(none(), containsWith(Equivalence)(2)), false);
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name           | Type                 |
-| :------------- | :------------------- |
+| Name | Type |
+| :------ | :------ |
 | `isEquivalent` | `Equivalence`\<`A`\> |
 
 #### Returns
@@ -1355,15 +1356,15 @@ assert.deepStrictEqual(pipe(none(), containsWith(Equivalence)(2)), false);
 **`Example`**
 
 ```ts
-import { none, some, getEquivalence } from "effect/Option";
-import * as N from "effect/Number";
+import { none, some, getEquivalence } from 'effect/Option'
+import * as N from 'effect/Number'
 
-const isEquivalent = getEquivalence(N.Equivalence);
-assert.deepStrictEqual(isEquivalent(none(), none()), true);
-assert.deepStrictEqual(isEquivalent(none(), some(1)), false);
-assert.deepStrictEqual(isEquivalent(some(1), none()), false);
-assert.deepStrictEqual(isEquivalent(some(1), some(2)), false);
-assert.deepStrictEqual(isEquivalent(some(1), some(1)), true);
+const isEquivalent = getEquivalence(N.Equivalence)
+assert.deepStrictEqual(isEquivalent(none(), none()), true)
+assert.deepStrictEqual(isEquivalent(none(), some(1)), false)
+assert.deepStrictEqual(isEquivalent(some(1), none()), false)
+assert.deepStrictEqual(isEquivalent(some(1), some(2)), false)
+assert.deepStrictEqual(isEquivalent(some(1), some(1)), true)
 ```
 
 **`Since`**
@@ -1381,13 +1382,13 @@ Given an `Iterable` collection of `Option`s, returns the first `Some` found in t
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name         | Type                                         | Description                                        |
-| :----------- | :------------------------------------------- | :------------------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `collection` | `Iterable`\<[`Option`](O.md#option)\<`A`\>\> | An iterable collection of `Option` to be searched. |
 
 #### Returns
@@ -1397,16 +1398,16 @@ Given an `Iterable` collection of `Option`s, returns the first `Some` found in t
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
-assert.deepStrictEqual(O.firstSomeOf([O.none(), O.some(1), O.some(2)]), O.some(1));
+assert.deepStrictEqual(O.firstSomeOf([O.none(), O.some(1), O.some(2)]), O.some(1))
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### orElse
 
@@ -1417,13 +1418,13 @@ Returns the provided `Option` `that` if `self` is `None`, otherwise returns `sel
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                                                      | Description                                 |
-| :----- | :------------------------------------------------------------------------ | :------------------------------------------ |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `that` | [`LazyArg`](../interfaces/F.LazyArg.md)\<[`Option`](O.md#option)\<`B`\>\> | The `Option` to return if `self` is `None`. |
 
 #### Returns
@@ -1435,13 +1436,13 @@ Returns the provided `Option` `that` if `self` is `None`, otherwise returns `sel
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -1451,37 +1452,37 @@ Returns the provided `Option` `that` if `self` is `None`, otherwise returns `sel
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
-import { pipe } from "effect/Function";
+import * as O from "effect/Option"
+import { pipe } from "effect/Function"
 
 assert.deepStrictEqual(
   pipe(
     O.none(),
-    O.orElse(() => O.none()),
+    O.orElse(() => O.none())
   ),
-  O.none(),
-);
+  O.none()
+)
 assert.deepStrictEqual(
   pipe(
-    O.some("a"),
-    O.orElse(() => O.none()),
+    O.some('a'),
+    O.orElse(() => O.none())
   ),
-  O.some("a"),
-);
+  O.some('a')
+)
 assert.deepStrictEqual(
   pipe(
     O.none(),
-    O.orElse(() => O.some("b")),
+    O.orElse(() => O.some('b'))
   ),
-  O.some("b"),
-);
+  O.some('b')
+)
 assert.deepStrictEqual(
   pipe(
-    O.some("a"),
-    O.orElse(() => O.some("b")),
+    O.some('a'),
+    O.orElse(() => O.some('b'))
   ),
-  O.some("a"),
-);
+  O.some('a')
+)
 ```
 
 **`Since`**
@@ -1495,15 +1496,15 @@ Returns the provided `Option` `that` if `self` is `None`, otherwise returns `sel
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                                                      | Description                                 |
-| :----- | :------------------------------------------------------------------------ | :------------------------------------------ |
-| `self` | [`Option`](O.md#option)\<`A`\>                                            | The first `Option` to be checked.           |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> | The first `Option` to be checked. |
 | `that` | [`LazyArg`](../interfaces/F.LazyArg.md)\<[`Option`](O.md#option)\<`B`\>\> | The `Option` to return if `self` is `None`. |
 
 #### Returns
@@ -1513,44 +1514,44 @@ Returns the provided `Option` `that` if `self` is `None`, otherwise returns `sel
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
-import { pipe } from "effect/Function";
+import * as O from "effect/Option"
+import { pipe } from "effect/Function"
 
 assert.deepStrictEqual(
   pipe(
     O.none(),
-    O.orElse(() => O.none()),
+    O.orElse(() => O.none())
   ),
-  O.none(),
-);
+  O.none()
+)
 assert.deepStrictEqual(
   pipe(
-    O.some("a"),
-    O.orElse(() => O.none()),
+    O.some('a'),
+    O.orElse(() => O.none())
   ),
-  O.some("a"),
-);
+  O.some('a')
+)
 assert.deepStrictEqual(
   pipe(
     O.none(),
-    O.orElse(() => O.some("b")),
+    O.orElse(() => O.some('b'))
   ),
-  O.some("b"),
-);
+  O.some('b')
+)
 assert.deepStrictEqual(
   pipe(
-    O.some("a"),
-    O.orElse(() => O.some("b")),
+    O.some('a'),
+    O.orElse(() => O.some('b'))
   ),
-  O.some("a"),
-);
+  O.some('a')
+)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### orElseEither
 
@@ -1564,13 +1565,13 @@ This is useful when it's important to know whether the value was retrieved from 
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                                                      | Description                                                           |
-| :----- | :------------------------------------------------------------------------ | :-------------------------------------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `that` | [`LazyArg`](../interfaces/F.LazyArg.md)\<[`Option`](O.md#option)\<`B`\>\> | The second `Option` to be considered if the first `Option` is `None`. |
 
 #### Returns
@@ -1582,13 +1583,13 @@ This is useful when it's important to know whether the value was retrieved from 
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -1609,15 +1610,15 @@ This is useful when it's important to know whether the value was retrieved from 
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                                                      | Description                                                           |
-| :----- | :------------------------------------------------------------------------ | :-------------------------------------------------------------------- |
-| `self` | [`Option`](O.md#option)\<`A`\>                                            | The first `Option` to be checked.                                     |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> | The first `Option` to be checked. |
 | `that` | [`LazyArg`](../interfaces/F.LazyArg.md)\<[`Option`](O.md#option)\<`B`\>\> | The second `Option` to be considered if the first `Option` is `None`. |
 
 #### Returns
@@ -1641,14 +1642,14 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                                     |
-| :----------- | :------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
@@ -1659,8 +1660,8 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -1670,21 +1671,21 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
 // predicate
-const isEven = (n: number) => n % 2 === 0;
+const isEven = (n: number) => n % 2 === 0
 
-assert.deepStrictEqual(O.filter(O.none(), isEven), O.none());
-assert.deepStrictEqual(O.filter(O.some(3), isEven), O.none());
-assert.deepStrictEqual(O.filter(O.some(2), isEven), O.some(2));
+assert.deepStrictEqual(O.filter(O.none(), isEven), O.none())
+assert.deepStrictEqual(O.filter(O.some(3), isEven), O.none())
+assert.deepStrictEqual(O.filter(O.some(2), isEven), O.some(2))
 
 // refinement
-const isNumber = (v: unknown): v is number => typeof v === "number";
+const isNumber = (v: unknown): v is number => typeof v === "number"
 
-assert.deepStrictEqual(O.filter(O.none(), isNumber), O.none());
-assert.deepStrictEqual(O.filter(O.some("hello"), isNumber), O.none());
-assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2));
+assert.deepStrictEqual(O.filter(O.none(), isNumber), O.none())
+assert.deepStrictEqual(O.filter(O.some('hello'), isNumber), O.none())
+assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2))
 ```
 
 **`Since`**
@@ -1700,14 +1701,14 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `B`  |
+| :------ | :------ |
+| `B` | `B` |
+| `A` | `B` |
 
 #### Parameters
 
-| Name        | Type                                              | Description                                          |
-| :---------- | :------------------------------------------------ | :--------------------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> | A predicate function to apply to the `Option` value. |
 
 #### Returns
@@ -1718,8 +1719,8 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`B`\> |
 
 ##### Returns
@@ -1729,21 +1730,21 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
 // predicate
-const isEven = (n: number) => n % 2 === 0;
+const isEven = (n: number) => n % 2 === 0
 
-assert.deepStrictEqual(O.filter(O.none(), isEven), O.none());
-assert.deepStrictEqual(O.filter(O.some(3), isEven), O.none());
-assert.deepStrictEqual(O.filter(O.some(2), isEven), O.some(2));
+assert.deepStrictEqual(O.filter(O.none(), isEven), O.none())
+assert.deepStrictEqual(O.filter(O.some(3), isEven), O.none())
+assert.deepStrictEqual(O.filter(O.some(2), isEven), O.some(2))
 
 // refinement
-const isNumber = (v: unknown): v is number => typeof v === "number";
+const isNumber = (v: unknown): v is number => typeof v === "number"
 
-assert.deepStrictEqual(O.filter(O.none(), isNumber), O.none());
-assert.deepStrictEqual(O.filter(O.some("hello"), isNumber), O.none());
-assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2));
+assert.deepStrictEqual(O.filter(O.none(), isNumber), O.none())
+assert.deepStrictEqual(O.filter(O.some('hello'), isNumber), O.none())
+assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2))
 ```
 
 **`Since`**
@@ -1759,15 +1760,15 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                                     |
-| :----------- | :------------------------------------------------------- |
-| `self`       | [`Option`](O.md#option)\<`A`\>                           |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 | `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
@@ -1777,21 +1778,21 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
 // predicate
-const isEven = (n: number) => n % 2 === 0;
+const isEven = (n: number) => n % 2 === 0
 
-assert.deepStrictEqual(O.filter(O.none(), isEven), O.none());
-assert.deepStrictEqual(O.filter(O.some(3), isEven), O.none());
-assert.deepStrictEqual(O.filter(O.some(2), isEven), O.some(2));
+assert.deepStrictEqual(O.filter(O.none(), isEven), O.none())
+assert.deepStrictEqual(O.filter(O.some(3), isEven), O.none())
+assert.deepStrictEqual(O.filter(O.some(2), isEven), O.some(2))
 
 // refinement
-const isNumber = (v: unknown): v is number => typeof v === "number";
+const isNumber = (v: unknown): v is number => typeof v === "number"
 
-assert.deepStrictEqual(O.filter(O.none(), isNumber), O.none());
-assert.deepStrictEqual(O.filter(O.some("hello"), isNumber), O.none());
-assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2));
+assert.deepStrictEqual(O.filter(O.none(), isNumber), O.none())
+assert.deepStrictEqual(O.filter(O.some('hello'), isNumber), O.none())
+assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2))
 ```
 
 **`Since`**
@@ -1807,14 +1808,14 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name        | Type                                              | Description                                          |
-| :---------- | :------------------------------------------------ | :--------------------------------------------------- |
-| `self`      | [`Option`](O.md#option)\<`A`\>                    | -                                                    |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> | - |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> | A predicate function to apply to the `Option` value. |
 
 #### Returns
@@ -1824,28 +1825,28 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
 // predicate
-const isEven = (n: number) => n % 2 === 0;
+const isEven = (n: number) => n % 2 === 0
 
-assert.deepStrictEqual(O.filter(O.none(), isEven), O.none());
-assert.deepStrictEqual(O.filter(O.some(3), isEven), O.none());
-assert.deepStrictEqual(O.filter(O.some(2), isEven), O.some(2));
+assert.deepStrictEqual(O.filter(O.none(), isEven), O.none())
+assert.deepStrictEqual(O.filter(O.some(3), isEven), O.none())
+assert.deepStrictEqual(O.filter(O.some(2), isEven), O.some(2))
 
 // refinement
-const isNumber = (v: unknown): v is number => typeof v === "number";
+const isNumber = (v: unknown): v is number => typeof v === "number"
 
-assert.deepStrictEqual(O.filter(O.none(), isNumber), O.none());
-assert.deepStrictEqual(O.filter(O.some("hello"), isNumber), O.none());
-assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2));
+assert.deepStrictEqual(O.filter(O.none(), isNumber), O.none())
+assert.deepStrictEqual(O.filter(O.some('hello'), isNumber), O.none())
+assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2))
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### filterMap
 
@@ -1858,15 +1859,15 @@ Useful when in addition to filtering you also want to change the type of the `Op
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type                                         | Description                                       |
-| :--- | :------------------------------------------- | :------------------------------------------------ |
-| `f`  | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> | A function to apply to the value of the `Option`. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `f` | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> | A function to apply to the value of the `Option`. |
 
 #### Returns
 
@@ -1876,8 +1877,8 @@ Useful when in addition to filtering you also want to change the type of the `Op
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -1887,13 +1888,13 @@ Useful when in addition to filtering you also want to change the type of the `Op
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
-const evenNumber = (n: number) => n % 2 === 0 ? O.some(n) : O.none();
+const evenNumber = (n: number) => n % 2 === 0 ? O.some(n) : O.none()
 
-assert.deepStrictEqual(O.filterMap(O.none(), evenNumber), O.none());
-assert.deepStrictEqual(O.filterMap(O.some(3), evenNumber), O.none());
-assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2));
+assert.deepStrictEqual(O.filterMap(O.none(), evenNumber), O.none())
+assert.deepStrictEqual(O.filterMap(O.some(3), evenNumber), O.none())
+assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2))
 ```
 
 **`Since`**
@@ -1909,16 +1910,16 @@ Useful when in addition to filtering you also want to change the type of the `Op
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                         | Description                                       |
-| :----- | :------------------------------------------- | :------------------------------------------------ |
-| `self` | [`Option`](O.md#option)\<`A`\>               | The `Option` to map over.                         |
-| `f`    | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> | A function to apply to the value of the `Option`. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to map over. |
+| `f` | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> | A function to apply to the value of the `Option`. |
 
 #### Returns
 
@@ -1927,20 +1928,20 @@ Useful when in addition to filtering you also want to change the type of the `Op
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
-const evenNumber = (n: number) => n % 2 === 0 ? O.some(n) : O.none();
+const evenNumber = (n: number) => n % 2 === 0 ? O.some(n) : O.none()
 
-assert.deepStrictEqual(O.filterMap(O.none(), evenNumber), O.none());
-assert.deepStrictEqual(O.filterMap(O.some(3), evenNumber), O.none());
-assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2));
+assert.deepStrictEqual(O.filterMap(O.none(), evenNumber), O.none())
+assert.deepStrictEqual(O.filterMap(O.some(3), evenNumber), O.none())
+assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2))
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### partitionMap
 
@@ -1949,16 +1950,16 @@ assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2));
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
 
 #### Parameters
 
-| Name | Type                                              |
-| :--- | :------------------------------------------------ |
-| `f`  | (`a`: `A`) => [`Either`](E.md#either)\<`B`, `C`\> |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`) => [`Either`](E.md#either)\<`B`, `C`\> |
 
 #### Returns
 
@@ -1968,8 +1969,8 @@ assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2));
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -1985,17 +1986,17 @@ assert.deepStrictEqual(O.filterMap(O.some(2), evenNumber), O.some(2));
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
 
 #### Parameters
 
-| Name   | Type                                              |
-| :----- | :------------------------------------------------ |
-| `self` | [`Option`](O.md#option)\<`A`\>                    |
-| `f`    | (`a`: `A`) => [`Either`](E.md#either)\<`B`, `C`\> |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> |
+| `f` | (`a`: `A`) => [`Either`](E.md#either)\<`B`, `C`\> |
 
 #### Returns
 
@@ -2016,16 +2017,16 @@ Reduces an `Iterable` of `Option<A>` to a single value of type `B`, elements tha
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
-| `A`  |
+| :------ |
+| `B` |
+| `A` |
 
 #### Parameters
 
-| Name | Type                        | Description                                                                                               |
-| :--- | :-------------------------- | :-------------------------------------------------------------------------------------------------------- |
-| `b`  | `B`                         | The initial value of the accumulator.                                                                     |
-| `f`  | (`b`: `B`, `a`: `A`) => `B` | The reducing function that takes the current accumulator value and the unwrapped value of an `Option<A>`. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `b` | `B` | The initial value of the accumulator. |
+| `f` | (`b`: `B`, `a`: `A`) => `B` | The reducing function that takes the current accumulator value and the unwrapped value of an `Option<A>`. |
 
 #### Returns
 
@@ -2035,8 +2036,8 @@ Reduces an `Iterable` of `Option<A>` to a single value of type `B`, elements tha
 
 ##### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | `Iterable`\<[`Option`](O.md#option)\<`A`\>\> |
 
 ##### Returns
@@ -2046,11 +2047,11 @@ Reduces an `Iterable` of `Option<A>` to a single value of type `B`, elements tha
 **`Example`**
 
 ```ts
-import { some, none, reduceCompact } from "effect/Option";
-import { pipe } from "effect/Function";
+import { some, none, reduceCompact } from 'effect/Option'
+import { pipe } from "effect/Function"
 
-const iterable = [some(1), none(), some(2), none()];
-assert.deepStrictEqual(pipe(iterable, reduceCompact(0, (b, a) => b + a)), 3);
+const iterable = [some(1), none(), some(2), none()]
+assert.deepStrictEqual(pipe(iterable, reduceCompact(0, (b, a) => b + a)), 3)
 ```
 
 **`Since`**
@@ -2064,17 +2065,17 @@ Reduces an `Iterable` of `Option<A>` to a single value of type `B`, elements tha
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                         | Description                                                                                               |
-| :----- | :------------------------------------------- | :-------------------------------------------------------------------------------------------------------- |
-| `self` | `Iterable`\<[`Option`](O.md#option)\<`A`\>\> | The Iterable of `Option<A>` to be reduced.                                                                |
-| `b`    | `B`                                          | The initial value of the accumulator.                                                                     |
-| `f`    | (`b`: `B`, `a`: `A`) => `B`                  | The reducing function that takes the current accumulator value and the unwrapped value of an `Option<A>`. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | `Iterable`\<[`Option`](O.md#option)\<`A`\>\> | The Iterable of `Option<A>` to be reduced. |
+| `b` | `B` | The initial value of the accumulator. |
+| `f` | (`b`: `B`, `a`: `A`) => `B` | The reducing function that takes the current accumulator value and the unwrapped value of an `Option<A>`. |
 
 #### Returns
 
@@ -2083,11 +2084,11 @@ Reduces an `Iterable` of `Option<A>` to a single value of type `B`, elements tha
 **`Example`**
 
 ```ts
-import { some, none, reduceCompact } from "effect/Option";
-import { pipe } from "effect/Function";
+import { some, none, reduceCompact } from 'effect/Option'
+import { pipe } from "effect/Function"
 
-const iterable = [some(1), none(), some(2), none()];
-assert.deepStrictEqual(pipe(iterable, reduceCompact(0, (b, a) => b + a)), 3);
+const iterable = [some(1), none(), some(2), none()]
+assert.deepStrictEqual(pipe(iterable, reduceCompact(0, (b, a) => b + a)), 3)
 ```
 
 **`Since`**
@@ -2102,15 +2103,15 @@ assert.deepStrictEqual(pipe(iterable, reduceCompact(0, (b, a) => b + a)), 3);
 
 #### Type parameters
 
-| Name | Type                                                                                                 |
-| :--- | :--------------------------------------------------------------------------------------------------- |
-| `K`  | extends `Variance`\<[`OptionTypeLambda`](../interfaces/O.OptionTypeLambda.md), `any`, `any`, `any`\> |
-| `A`  | `A`                                                                                                  |
+| Name | Type |
+| :------ | :------ |
+| `K` | extends `Variance`\<[`OptionTypeLambda`](../interfaces/O.OptionTypeLambda.md), `any`, `any`, `any`\> |
+| `A` | `A` |
 
 #### Parameters
 
-| Name   | Type                                                                                                                     |
-| :----- | :----------------------------------------------------------------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `body` | (`resume`: `Adapter`\<[`OptionTypeLambda`](../interfaces/O.OptionTypeLambda.md)\>) => `Generator`\<`K`, `A`, `unknown`\> |
 
 #### Returns
@@ -2132,13 +2133,13 @@ Returns the value of the `Option` if it is `Some`, otherwise returns `onNone`
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name     | Type                                           | Description                                                                  |
-| :------- | :--------------------------------------------- | :--------------------------------------------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `onNone` | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> | Function that returns the default value to return if the `Option` is `None`. |
 
 #### Returns
@@ -2150,13 +2151,13 @@ Returns the value of the `Option` if it is `Some`, otherwise returns `onNone`
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -2166,11 +2167,11 @@ Returns the value of the `Option` if it is `Some`, otherwise returns `onNone`
 **`Example`**
 
 ```ts
-import { some, none, getOrElse } from "effect/Option";
-import { pipe } from "effect/Function";
+import { some, none, getOrElse } from 'effect/Option'
+import { pipe } from "effect/Function"
 
-assert.deepStrictEqual(pipe(some(1), getOrElse(() => 0)), 1);
-assert.deepStrictEqual(pipe(none(), getOrElse(() => 0)), 0);
+assert.deepStrictEqual(pipe(some(1), getOrElse(() => 0)), 1)
+assert.deepStrictEqual(pipe(none(), getOrElse(() => 0)), 0)
 ```
 
 **`Since`**
@@ -2184,15 +2185,15 @@ Returns the value of the `Option` if it is `Some`, otherwise returns `onNone`
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name     | Type                                           | Description                                                                  |
-| :------- | :--------------------------------------------- | :--------------------------------------------------------------------------- |
-| `self`   | [`Option`](O.md#option)\<`A`\>                 | The `Option` to get the value of.                                            |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to get the value of. |
 | `onNone` | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> | Function that returns the default value to return if the `Option` is `None`. |
 
 #### Returns
@@ -2202,55 +2203,55 @@ Returns the value of the `Option` if it is `Some`, otherwise returns `onNone`
 **`Example`**
 
 ```ts
-import { some, none, getOrElse } from "effect/Option";
-import { pipe } from "effect/Function";
+import { some, none, getOrElse } from 'effect/Option'
+import { pipe } from "effect/Function"
 
-assert.deepStrictEqual(pipe(some(1), getOrElse(() => 0)), 1);
-assert.deepStrictEqual(pipe(none(), getOrElse(() => 0)), 0);
+assert.deepStrictEqual(pipe(some(1), getOrElse(() => 0)), 1)
+assert.deepStrictEqual(pipe(none(), getOrElse(() => 0)), 0)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### getOrNull
 
-▸ **getOrNull**\<`A`\>(`self`): `null` \| `A`
+▸ **getOrNull**\<`A`\>(`self`): ``null`` \| `A`
 
 Returns the value of the `Option` if it is a `Some`, otherwise returns `null`.
 
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                           | Description                             |
-| :----- | :----------------------------- | :-------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to extract the value from. |
 
 #### Returns
 
-`null` \| `A`
+``null`` \| `A`
 
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
-assert.deepStrictEqual(O.getOrNull(O.some(1)), 1);
-assert.deepStrictEqual(O.getOrNull(O.none()), null);
+assert.deepStrictEqual(O.getOrNull(O.some(1)), 1)
+assert.deepStrictEqual(O.getOrNull(O.none()), null)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### getOrUndefined
 
@@ -2261,13 +2262,13 @@ Returns the value of the `Option` if it is a `Some`, otherwise returns `undefine
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                           | Description                             |
-| :----- | :----------------------------- | :-------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to extract the value from. |
 
 #### Returns
@@ -2277,10 +2278,10 @@ Returns the value of the `Option` if it is a `Some`, otherwise returns `undefine
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
-assert.deepStrictEqual(O.getOrUndefined(O.some(1)), 1);
-assert.deepStrictEqual(O.getOrUndefined(O.none()), undefined);
+assert.deepStrictEqual(O.getOrUndefined(O.some(1)), 1)
+assert.deepStrictEqual(O.getOrUndefined(O.none()), undefined)
 ```
 
 **`Since`**
@@ -2298,13 +2299,13 @@ Determine if a `Option` is a `None`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                           | Description            |
-| :----- | :----------------------------- | :--------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to check. |
 
 #### Returns
@@ -2314,17 +2315,17 @@ self is None\<A\>
 **`Example`**
 
 ```ts
-import { some, none, isNone } from "effect/Option";
+import { some, none, isNone } from 'effect/Option'
 
-assert.deepStrictEqual(isNone(some(1)), false);
-assert.deepStrictEqual(isNone(none()), true);
+assert.deepStrictEqual(isNone(some(1)), false)
+assert.deepStrictEqual(isNone(none()), true)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### isOption
 
@@ -2334,8 +2335,8 @@ Tests if a value is a `Option`.
 
 #### Parameters
 
-| Name    | Type      | Description         |
-| :------ | :-------- | :------------------ |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `input` | `unknown` | The value to check. |
 
 #### Returns
@@ -2345,18 +2346,18 @@ input is Option\<unknown\>
 **`Example`**
 
 ```ts
-import { some, none, isOption } from "effect/Option";
+import { some, none, isOption } from 'effect/Option'
 
-assert.deepStrictEqual(isOption(some(1)), true);
-assert.deepStrictEqual(isOption(none()), true);
-assert.deepStrictEqual(isOption({}), false);
+assert.deepStrictEqual(isOption(some(1)), true)
+assert.deepStrictEqual(isOption(none()), true)
+assert.deepStrictEqual(isOption({}), false)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### isSome
 
@@ -2367,13 +2368,13 @@ Determine if a `Option` is a `Some`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                           | Description            |
-| :----- | :----------------------------- | :--------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to check. |
 
 #### Returns
@@ -2383,10 +2384,10 @@ self is Some\<A\>
 **`Example`**
 
 ```ts
-import { some, none, isSome } from "effect/Option";
+import { some, none, isSome } from 'effect/Option'
 
-assert.deepStrictEqual(isSome(some(1)), true);
-assert.deepStrictEqual(isSome(none()), false);
+assert.deepStrictEqual(isSome(some(1)), true)
+assert.deepStrictEqual(isSome(none()), false)
 ```
 
 **`Since`**
@@ -2404,16 +2405,16 @@ Lifts a binary function into `Option`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
 
 #### Parameters
 
-| Name | Type                        | Description           |
-| :--- | :-------------------------- | :-------------------- |
-| `f`  | (`a`: `A`, `b`: `B`) => `C` | The function to lift. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `f` | (`a`: `A`, `b`: `B`) => `C` | The function to lift. |
 
 #### Returns
 
@@ -2423,8 +2424,8 @@ Lifts a binary function into `Option`.
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `that` | [`Option`](O.md#option)\<`B`\> |
 
 ##### Returns
@@ -2435,8 +2436,8 @@ Lifts a binary function into `Option`.
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -2447,8 +2448,8 @@ Lifts a binary function into `Option`.
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 | `that` | [`Option`](O.md#option)\<`B`\> |
 
@@ -2460,7 +2461,7 @@ Lifts a binary function into `Option`.
 
 2.0.0
 
----
+___
 
 ### liftPredicate
 
@@ -2472,14 +2473,14 @@ if the predicate returns `false`.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name         | Type                                                     |
-| :----------- | :------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
@@ -2491,8 +2492,8 @@ if the predicate returns `false`.
 ##### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `A`  |
+| :------ | :------ |
+| `a` | `A` |
 
 ##### Returns
 
@@ -2501,12 +2502,12 @@ if the predicate returns `false`.
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
-const getOption = O.liftPredicate((n: number) => n >= 0);
+const getOption = O.liftPredicate((n: number) => n >= 0)
 
-assert.deepStrictEqual(getOption(-1), O.none());
-assert.deepStrictEqual(getOption(1), O.some(1));
+assert.deepStrictEqual(getOption(-1), O.none())
+assert.deepStrictEqual(getOption(1), O.some(1))
 ```
 
 **`Since`**
@@ -2521,14 +2522,14 @@ if the predicate returns `false`.
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `B`  |
+| :------ | :------ |
+| `B` | `B` |
+| `A` | `B` |
 
 #### Parameters
 
-| Name        | Type                                              | Description                                                                     |
-| :---------- | :------------------------------------------------ | :------------------------------------------------------------------------------ |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> | A `Predicate` function that takes in a value of type `A` and returns a boolean. |
 
 #### Returns
@@ -2540,8 +2541,8 @@ if the predicate returns `false`.
 ##### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `b`  | `B`  |
+| :------ | :------ |
+| `b` | `B` |
 
 ##### Returns
 
@@ -2550,12 +2551,12 @@ if the predicate returns `false`.
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
-const getOption = O.liftPredicate((n: number) => n >= 0);
+const getOption = O.liftPredicate((n: number) => n >= 0)
 
-assert.deepStrictEqual(getOption(-1), O.none());
-assert.deepStrictEqual(getOption(1), O.some(1));
+assert.deepStrictEqual(getOption(-1), O.none())
+assert.deepStrictEqual(getOption(1), O.some(1))
 ```
 
 **`Since`**
@@ -2573,14 +2574,14 @@ Maps the `Some` value of this `Option` to the specified constant value.
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `b`  | `B`  |
+| :------ | :------ |
+| `b` | `B` |
 
 #### Returns
 
@@ -2591,13 +2592,13 @@ Maps the `Some` value of this `Option` to the specified constant value.
 ##### Type parameters
 
 | Name |
-| :--- |
-| `_`  |
+| :------ |
+| `_` |
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`_`\> |
 
 ##### Returns
@@ -2608,7 +2609,7 @@ Maps the `Some` value of this `Option` to the specified constant value.
 
 2.0.0
 
----
+___
 
 ### asUnit
 
@@ -2621,13 +2622,13 @@ This is useful when the value of the `Option` is not needed, but the presence or
 #### Type parameters
 
 | Name |
-| :--- |
-| `_`  |
+| :------ |
+| `_` |
 
 #### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`_`\> |
 
 #### Returns
@@ -2638,7 +2639,7 @@ This is useful when the value of the `Option` is not needed, but the presence or
 
 2.0.0
 
----
+___
 
 ### map
 
@@ -2649,15 +2650,15 @@ Maps the `Some` side of an `Option` value to a new `Option` value.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type              | Description                                        |
-| :--- | :---------------- | :------------------------------------------------- |
-| `f`  | (`a`: `A`) => `B` | The function to map over the value of the `Option` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `f` | (`a`: `A`) => `B` | The function to map over the value of the `Option` |
 
 #### Returns
 
@@ -2667,8 +2668,8 @@ Maps the `Some` side of an `Option` value to a new `Option` value.
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -2686,16 +2687,16 @@ Maps the `Some` side of an `Option` value to a new `Option` value.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                           | Description                                        |
-| :----- | :----------------------------- | :------------------------------------------------- |
-| `self` | [`Option`](O.md#option)\<`A`\> | An `Option` to map                                 |
-| `f`    | (`a`: `A`) => `B`              | The function to map over the value of the `Option` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> | An `Option` to map |
+| `f` | (`a`: `A`) => `B` | The function to map over the value of the `Option` |
 
 #### Returns
 
@@ -2718,8 +2719,8 @@ Maps the `Some` side of an `Option` value to a new `Option` value.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ## pattern matching
 
@@ -2733,18 +2734,18 @@ function when passed the `Option`'s value.
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `B`  | `B`  |
-| `A`  | `A`  |
-| `C`  | `B`  |
+| :------ | :------ |
+| `B` | `B` |
+| `A` | `A` |
+| `C` | `B` |
 
 #### Parameters
 
-| Name             | Type                                           |
-| :--------------- | :--------------------------------------------- |
-| `options`        | `Object`                                       |
+| Name | Type |
+| :------ | :------ |
+| `options` | `Object` |
 | `options.onNone` | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> |
-| `options.onSome` | (`a`: `A`) => `C`                              |
+| `options.onSome` | (`a`: `A`) => `C` |
 
 #### Returns
 
@@ -2754,8 +2755,8 @@ function when passed the `Option`'s value.
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -2765,18 +2766,18 @@ function when passed the `Option`'s value.
 **`Example`**
 
 ```ts
-import { some, none, match } from "effect/Option";
-import { pipe } from "effect/Function";
+import { some, none, match } from 'effect/Option'
+import { pipe } from "effect/Function"
 
 assert.deepStrictEqual(
-  pipe(some(1), match({ onNone: () => "a none", onSome: (a) => `a some containing ${a}` })),
-  "a some containing 1",
-);
+  pipe(some(1), match({ onNone: () => 'a none', onSome: (a) => `a some containing ${a}` })),
+  'a some containing 1'
+)
 
 assert.deepStrictEqual(
-  pipe(none(), match({ onNone: () => "a none", onSome: (a) => `a some containing ${a}` })),
-  "a none",
-);
+  pipe(none(), match({ onNone: () => 'a none', onSome: (a) => `a some containing ${a}` })),
+  'a none'
+)
 ```
 
 **`Since`**
@@ -2791,19 +2792,19 @@ function when passed the `Option`'s value.
 #### Type parameters
 
 | Name | Type |
-| :--- | :--- |
-| `A`  | `A`  |
-| `B`  | `B`  |
-| `C`  | `B`  |
+| :------ | :------ |
+| `A` | `A` |
+| `B` | `B` |
+| `C` | `B` |
 
 #### Parameters
 
-| Name             | Type                                           | Description           |
-| :--------------- | :--------------------------------------------- | :-------------------- |
-| `self`           | [`Option`](O.md#option)\<`A`\>                 | The `Option` to match |
-| `options`        | `Object`                                       | -                     |
-| `options.onNone` | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> | -                     |
-| `options.onSome` | (`a`: `A`) => `C`                              | -                     |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to match |
+| `options` | `Object` | - |
+| `options.onNone` | [`LazyArg`](../interfaces/F.LazyArg.md)\<`B`\> | - |
+| `options.onSome` | (`a`: `A`) => `C` | - |
 
 #### Returns
 
@@ -2812,18 +2813,18 @@ function when passed the `Option`'s value.
 **`Example`**
 
 ```ts
-import { some, none, match } from "effect/Option";
-import { pipe } from "effect/Function";
+import { some, none, match } from 'effect/Option'
+import { pipe } from "effect/Function"
 
 assert.deepStrictEqual(
-  pipe(some(1), match({ onNone: () => "a none", onSome: (a) => `a some containing ${a}` })),
-  "a some containing 1",
-);
+  pipe(some(1), match({ onNone: () => 'a none', onSome: (a) => `a some containing ${a}` })),
+  'a some containing 1'
+)
 
 assert.deepStrictEqual(
-  pipe(none(), match({ onNone: () => "a none", onSome: (a) => `a some containing ${a}` })),
-  "a none",
-);
+  pipe(none(), match({ onNone: () => 'a none', onSome: (a) => `a some containing ${a}` })),
+  'a none'
+)
 ```
 
 **`Since`**
@@ -2841,15 +2842,15 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `f`  | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -2859,8 +2860,8 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -2878,14 +2879,14 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name | Type                           |
-| :--- | :----------------------------- |
-| `f`  | [`Option`](O.md#option)\<`B`\> |
+| Name | Type |
+| :------ | :------ |
+| `f` | [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -2896,13 +2897,13 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -2920,16 +2921,16 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
-| `self` | [`Option`](O.md#option)\<`A`\>               |
-| `f`    | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> |
+| `f` | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -2946,16 +2947,16 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
-| `f`    | [`Option`](O.md#option)\<`B`\> |
+| `f` | [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -2965,7 +2966,7 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 2.0.0
 
----
+___
 
 ### composeK
 
@@ -2974,14 +2975,14 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
-| `C`  |
+| :------ |
+| `B` |
+| `C` |
 
 #### Parameters
 
-| Name  | Type                                         |
-| :---- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `bfc` | (`b`: `B`) => [`Option`](O.md#option)\<`C`\> |
 
 #### Returns
@@ -2993,13 +2994,13 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name  | Type                                         |
-| :---- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `afb` | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 ##### Returns
@@ -3011,8 +3012,8 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 ##### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `A`  |
+| :------ | :------ |
+| `a` | `A` |
 
 ##### Returns
 
@@ -3027,15 +3028,15 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
 
 #### Parameters
 
-| Name  | Type                                         |
-| :---- | :------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `afb` | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 | `bfc` | (`b`: `B`) => [`Option`](O.md#option)\<`C`\> |
 
@@ -3048,8 +3049,8 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 ##### Parameters
 
 | Name | Type |
-| :--- | :--- |
-| `a`  | `A`  |
+| :------ | :------ |
+| `a` | `A` |
 
 ##### Returns
 
@@ -3059,7 +3060,7 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 2.0.0
 
----
+___
 
 ### flatMap
 
@@ -3070,15 +3071,15 @@ Applies a function to the value of an `Option` and flattens the result, if the i
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `f`  | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -3088,8 +3089,8 @@ Applies a function to the value of an `Option` and flattens the result, if the i
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -3107,16 +3108,16 @@ Applies a function to the value of an `Option` and flattens the result, if the i
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                         |
-| :----- | :------------------------------------------- |
-| `self` | [`Option`](O.md#option)\<`A`\>               |
-| `f`    | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> |
+| `f` | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -3126,7 +3127,7 @@ Applies a function to the value of an `Option` and flattens the result, if the i
 
 2.0.0
 
----
+___
 
 ### flatMapNullable
 
@@ -3137,15 +3138,15 @@ This is `flatMap` + `fromNullable`, useful when working with optional values.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name | Type                                       |
-| :--- | :----------------------------------------- |
-| `f`  | (`a`: `A`) => `undefined` \| `null` \| `B` |
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`) => `undefined` \| ``null`` \| `B` |
 
 #### Returns
 
@@ -3155,8 +3156,8 @@ This is `flatMap` + `fromNullable`, useful when working with optional values.
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -3166,38 +3167,38 @@ This is `flatMap` + `fromNullable`, useful when working with optional values.
 **`Example`**
 
 ```ts
-import { some, none, flatMapNullable } from "effect/Option";
-import { pipe } from "effect/Function";
+import { some, none, flatMapNullable } from 'effect/Option'
+import { pipe } from "effect/Function"
 
 interface Employee {
   company?: {
     address?: {
       street?: {
-        name?: string;
-      };
-    };
-  };
+        name?: string
+      }
+    }
+  }
 }
 
-const employee1: Employee = { company: { address: { street: { name: "high street" } } } };
+const employee1: Employee = { company: { address: { street: { name: 'high street' } } } }
 
 assert.deepStrictEqual(
   pipe(
     some(employee1),
     flatMapNullable(employee => employee.company?.address?.street?.name),
   ),
-  some("high street"),
-);
+  some('high street')
+)
 
-const employee2: Employee = { company: { address: { street: {} } } };
+const employee2: Employee = { company: { address: { street: {} } } }
 
 assert.deepStrictEqual(
   pipe(
     some(employee2),
     flatMapNullable(employee => employee.company?.address?.street?.name),
   ),
-  none(),
-);
+  none()
+)
 ```
 
 **`Since`**
@@ -3211,16 +3212,16 @@ This is `flatMap` + `fromNullable`, useful when working with optional values.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                                       |
-| :----- | :----------------------------------------- |
-| `self` | [`Option`](O.md#option)\<`A`\>             |
-| `f`    | (`a`: `A`) => `undefined` \| `null` \| `B` |
+| Name | Type |
+| :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> |
+| `f` | (`a`: `A`) => `undefined` \| ``null`` \| `B` |
 
 #### Returns
 
@@ -3229,45 +3230,45 @@ This is `flatMap` + `fromNullable`, useful when working with optional values.
 **`Example`**
 
 ```ts
-import { some, none, flatMapNullable } from "effect/Option";
-import { pipe } from "effect/Function";
+import { some, none, flatMapNullable } from 'effect/Option'
+import { pipe } from "effect/Function"
 
 interface Employee {
   company?: {
     address?: {
       street?: {
-        name?: string;
-      };
-    };
-  };
+        name?: string
+      }
+    }
+  }
 }
 
-const employee1: Employee = { company: { address: { street: { name: "high street" } } } };
+const employee1: Employee = { company: { address: { street: { name: 'high street' } } } }
 
 assert.deepStrictEqual(
   pipe(
     some(employee1),
     flatMapNullable(employee => employee.company?.address?.street?.name),
   ),
-  some("high street"),
-);
+  some('high street')
+)
 
-const employee2: Employee = { company: { address: { street: {} } } };
+const employee2: Employee = { company: { address: { street: {} } } }
 
 assert.deepStrictEqual(
   pipe(
     some(employee2),
     flatMapNullable(employee => employee.company?.address?.street?.name),
   ),
-  none(),
-);
+  none()
+)
 ```
 
 **`Since`**
 
 2.0.0
 
----
+___
 
 ### flatten
 
@@ -3276,13 +3277,13 @@ assert.deepStrictEqual(
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name   | Type                                                      |
-| :----- | :-------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<[`Option`](O.md#option)\<`A`\>\> |
 
 #### Returns
@@ -3293,7 +3294,7 @@ assert.deepStrictEqual(
 
 2.0.0
 
----
+___
 
 ### tap
 
@@ -3307,15 +3308,15 @@ This function is useful for performing additional computations on the value of t
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `_`  |
+| :------ |
+| `A` |
+| `_` |
 
 #### Parameters
 
-| Name | Type                                         | Description                                                    |
-| :--- | :------------------------------------------- | :------------------------------------------------------------- |
-| `f`  | (`a`: `A`) => [`Option`](O.md#option)\<`_`\> | Function to apply to the value of the `Option` if it is `Some` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `f` | (`a`: `A`) => [`Option`](O.md#option)\<`_`\> | Function to apply to the value of the `Option` if it is `Some` |
 
 #### Returns
 
@@ -3325,8 +3326,8 @@ This function is useful for performing additional computations on the value of t
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -3336,13 +3337,13 @@ This function is useful for performing additional computations on the value of t
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
-const getInteger = (n: number) => Number.isInteger(n) ? O.some(n) : O.none();
+const getInteger = (n: number) => Number.isInteger(n) ? O.some(n) : O.none()
 
-assert.deepStrictEqual(O.tap(O.none(), getInteger), O.none());
-assert.deepStrictEqual(O.tap(O.some(1), getInteger), O.some(1));
-assert.deepStrictEqual(O.tap(O.some(1.14), getInteger), O.none());
+assert.deepStrictEqual(O.tap(O.none(), getInteger), O.none())
+assert.deepStrictEqual(O.tap(O.some(1), getInteger), O.some(1))
+assert.deepStrictEqual(O.tap(O.some(1.14), getInteger), O.none())
 ```
 
 **`Since`**
@@ -3359,16 +3360,16 @@ This function is useful for performing additional computations on the value of t
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `_`  |
+| :------ |
+| `A` |
+| `_` |
 
 #### Parameters
 
-| Name   | Type                                         | Description                                                    |
-| :----- | :------------------------------------------- | :------------------------------------------------------------- |
-| `self` | [`Option`](O.md#option)\<`A`\>               | The `Option` to apply the function to                          |
-| `f`    | (`a`: `A`) => [`Option`](O.md#option)\<`_`\> | Function to apply to the value of the `Option` if it is `Some` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to apply the function to |
+| `f` | (`a`: `A`) => [`Option`](O.md#option)\<`_`\> | Function to apply to the value of the `Option` if it is `Some` |
 
 #### Returns
 
@@ -3377,13 +3378,13 @@ This function is useful for performing additional computations on the value of t
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
-const getInteger = (n: number) => Number.isInteger(n) ? O.some(n) : O.none();
+const getInteger = (n: number) => Number.isInteger(n) ? O.some(n) : O.none()
 
-assert.deepStrictEqual(O.tap(O.none(), getInteger), O.none());
-assert.deepStrictEqual(O.tap(O.some(1), getInteger), O.some(1));
-assert.deepStrictEqual(O.tap(O.some(1.14), getInteger), O.none());
+assert.deepStrictEqual(O.tap(O.none(), getInteger), O.none())
+assert.deepStrictEqual(O.tap(O.some(1), getInteger), O.some(1))
+assert.deepStrictEqual(O.tap(O.some(1.14), getInteger), O.none())
 ```
 
 **`Since`**
@@ -3405,14 +3406,14 @@ the type the `Option` contains.
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 #### Parameters
 
-| Name | Type                                         |
-| :--- | :------------------------------------------- |
-| `O`  | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
+| Name | Type |
+| :------ | :------ |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`A`\> |
 
 #### Returns
 
@@ -3421,16 +3422,16 @@ the type the `Option` contains.
 **`Example`**
 
 ```ts
-import { none, some, getOrder } from "effect/Option";
-import * as N from "effect/Number";
-import { pipe } from "effect/Function";
+import { none, some, getOrder } from 'effect/Option'
+import * as N from 'effect/Number'
+import { pipe } from "effect/Function"
 
-const O = getOrder(N.Order);
-assert.deepStrictEqual(O(none(), none()), 0);
-assert.deepStrictEqual(O(none(), some(1)), -1);
-assert.deepStrictEqual(O(some(1), none()), 1);
-assert.deepStrictEqual(O(some(1), some(2)), -1);
-assert.deepStrictEqual(O(some(1), some(1)), 0);
+const O = getOrder(N.Order)
+assert.deepStrictEqual(O(none(), none()), 0)
+assert.deepStrictEqual(O(none(), some(1)), -1)
+assert.deepStrictEqual(O(some(1), none()), 1)
+assert.deepStrictEqual(O(some(1), some(2)), -1)
+assert.deepStrictEqual(O(some(1), some(1)), 0)
 ```
 
 **`Since`**
@@ -3447,7 +3448,7 @@ assert.deepStrictEqual(O(some(1), some(1)), 0);
 
 2.0.0
 
----
+___
 
 ### TypeId
 
@@ -3470,13 +3471,13 @@ It is useful when we want to chain multiple operations, but only care about the 
 #### Type parameters
 
 | Name |
-| :--- |
-| `_`  |
+| :------ |
+| `_` |
 
 #### Parameters
 
-| Name   | Type                           | Description                                                  |
-| :----- | :----------------------------- | :----------------------------------------------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `that` | [`Option`](O.md#option)\<`_`\> | The `Option` that will be ignored in the chain and discarded |
 
 #### Returns
@@ -3488,13 +3489,13 @@ It is useful when we want to chain multiple operations, but only care about the 
 ##### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
+| :------ |
+| `A` |
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -3514,15 +3515,15 @@ It is useful when we want to chain multiple operations, but only care about the 
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `_`  |
+| :------ |
+| `A` |
+| `_` |
 
 #### Parameters
 
-| Name   | Type                           | Description                                                  |
-| :----- | :----------------------------- | :----------------------------------------------------------- |
-| `self` | [`Option`](O.md#option)\<`A`\> | The `Option` we care about                                   |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> | The `Option` we care about |
 | `that` | [`Option`](O.md#option)\<`_`\> | The `Option` that will be ignored in the chain and discarded |
 
 #### Returns
@@ -3533,7 +3534,7 @@ It is useful when we want to chain multiple operations, but only care about the 
 
 2.0.0
 
----
+___
 
 ### zipRight
 
@@ -3542,13 +3543,13 @@ It is useful when we want to chain multiple operations, but only care about the 
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
+| :------ |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `that` | [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
@@ -3560,13 +3561,13 @@ It is useful when we want to chain multiple operations, but only care about the 
 ##### Type parameters
 
 | Name |
-| :--- |
-| `_`  |
+| :------ |
+| `_` |
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`_`\> |
 
 ##### Returns
@@ -3582,14 +3583,14 @@ It is useful when we want to chain multiple operations, but only care about the 
 #### Type parameters
 
 | Name |
-| :--- |
-| `_`  |
-| `B`  |
+| :------ |
+| `_` |
+| `B` |
 
 #### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`_`\> |
 | `that` | [`Option`](O.md#option)\<`B`\> |
 
@@ -3601,7 +3602,7 @@ It is useful when we want to chain multiple operations, but only care about the 
 
 2.0.0
 
----
+___
 
 ### zipWith
 
@@ -3612,17 +3613,17 @@ Zips two `Option` values together using a provided function, returning a new `Op
 #### Type parameters
 
 | Name |
-| :--- |
-| `B`  |
-| `A`  |
-| `C`  |
+| :------ |
+| `B` |
+| `A` |
+| `C` |
 
 #### Parameters
 
-| Name   | Type                           | Description                                                  |
-| :----- | :----------------------------- | :----------------------------------------------------------- |
-| `that` | [`Option`](O.md#option)\<`B`\> | The right-hand side of the zip operation                     |
-| `f`    | (`a`: `A`, `b`: `B`) => `C`    | The function used to combine the values of the two `Option`s |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `that` | [`Option`](O.md#option)\<`B`\> | The right-hand side of the zip operation |
+| `f` | (`a`: `A`, `b`: `B`) => `C` | The function used to combine the values of the two `Option`s |
 
 #### Returns
 
@@ -3632,8 +3633,8 @@ Zips two `Option` values together using a provided function, returning a new `Op
 
 ##### Parameters
 
-| Name   | Type                           |
-| :----- | :----------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
@@ -3643,18 +3644,18 @@ Zips two `Option` values together using a provided function, returning a new `Op
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
-type Complex = [real: number, imaginary: number];
+type Complex = [real: number, imaginary: number]
 
-const complex = (real: number, imaginary: number): Complex => [real, imaginary];
+const complex = (real: number, imaginary: number): Complex => [real, imaginary]
 
-assert.deepStrictEqual(O.zipWith(O.none(), O.none(), complex), O.none());
-assert.deepStrictEqual(O.zipWith(O.some(1), O.none(), complex), O.none());
-assert.deepStrictEqual(O.zipWith(O.none(), O.some(1), complex), O.none());
-assert.deepStrictEqual(O.zipWith(O.some(1), O.some(2), complex), O.some([1, 2]));
+assert.deepStrictEqual(O.zipWith(O.none(), O.none(), complex), O.none())
+assert.deepStrictEqual(O.zipWith(O.some(1), O.none(), complex), O.none())
+assert.deepStrictEqual(O.zipWith(O.none(), O.some(1), complex), O.none())
+assert.deepStrictEqual(O.zipWith(O.some(1), O.some(2), complex), O.some([1, 2]))
 
-assert.deepStrictEqual(O.zipWith(O.some(1), complex)(O.some(2)), O.some([2, 1]));
+assert.deepStrictEqual(O.zipWith(O.some(1), complex)(O.some(2)), O.some([2, 1]))
 ```
 
 **`Since`**
@@ -3668,18 +3669,18 @@ Zips two `Option` values together using a provided function, returning a new `Op
 #### Type parameters
 
 | Name |
-| :--- |
-| `A`  |
-| `B`  |
-| `C`  |
+| :------ |
+| `A` |
+| `B` |
+| `C` |
 
 #### Parameters
 
-| Name   | Type                           | Description                                                  |
-| :----- | :----------------------------- | :----------------------------------------------------------- |
-| `self` | [`Option`](O.md#option)\<`A`\> | The left-hand side of the zip operation                      |
-| `that` | [`Option`](O.md#option)\<`B`\> | The right-hand side of the zip operation                     |
-| `f`    | (`a`: `A`, `b`: `B`) => `C`    | The function used to combine the values of the two `Option`s |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `self` | [`Option`](O.md#option)\<`A`\> | The left-hand side of the zip operation |
+| `that` | [`Option`](O.md#option)\<`B`\> | The right-hand side of the zip operation |
+| `f` | (`a`: `A`, `b`: `B`) => `C` | The function used to combine the values of the two `Option`s |
 
 #### Returns
 
@@ -3688,18 +3689,18 @@ Zips two `Option` values together using a provided function, returning a new `Op
 **`Example`**
 
 ```ts
-import * as O from "effect/Option";
+import * as O from "effect/Option"
 
-type Complex = [real: number, imaginary: number];
+type Complex = [real: number, imaginary: number]
 
-const complex = (real: number, imaginary: number): Complex => [real, imaginary];
+const complex = (real: number, imaginary: number): Complex => [real, imaginary]
 
-assert.deepStrictEqual(O.zipWith(O.none(), O.none(), complex), O.none());
-assert.deepStrictEqual(O.zipWith(O.some(1), O.none(), complex), O.none());
-assert.deepStrictEqual(O.zipWith(O.none(), O.some(1), complex), O.none());
-assert.deepStrictEqual(O.zipWith(O.some(1), O.some(2), complex), O.some([1, 2]));
+assert.deepStrictEqual(O.zipWith(O.none(), O.none(), complex), O.none())
+assert.deepStrictEqual(O.zipWith(O.some(1), O.none(), complex), O.none())
+assert.deepStrictEqual(O.zipWith(O.none(), O.some(1), complex), O.none())
+assert.deepStrictEqual(O.zipWith(O.some(1), O.some(2), complex), O.some([1, 2]))
 
-assert.deepStrictEqual(O.zipWith(O.some(1), complex)(O.some(2)), O.some([2, 1]));
+assert.deepStrictEqual(O.zipWith(O.some(1), complex)(O.some(2)), O.some([2, 1]))
 ```
 
 **`Since`**

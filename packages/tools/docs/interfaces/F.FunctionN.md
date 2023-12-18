@@ -7,9 +7,9 @@
 **`Example`**
 
 ```ts
-import { FunctionN } from "effect/Function";
+import { FunctionN } from "effect/Function"
 
-const sum: FunctionN<[number, number], number> = (a, b) => a + b;
+const sum: FunctionN<[number, number], number> = (a, b) => a + b
 ```
 
 **`Since`**
@@ -18,10 +18,10 @@ const sum: FunctionN<[number, number], number> = (a, b) => a + b;
 
 ## Type parameters
 
-| Name | Type                                 |
-| :--- | :----------------------------------- |
-| `A`  | extends `ReadonlyArray`\<`unknown`\> |
-| `B`  | `B`                                  |
+| Name | Type |
+| :------ | :------ |
+| `A` | extends `ReadonlyArray`\<`unknown`\> |
+| `B` | `B` |
 
 ## Callable
 
@@ -31,9 +31,9 @@ const sum: FunctionN<[number, number], number> = (a, b) => a + b;
 
 #### Parameters
 
-| Name      | Type |
-| :-------- | :--- |
-| `...args` | `A`  |
+| Name | Type |
+| :------ | :------ |
+| `...args` | `A` |
 
 #### Returns
 

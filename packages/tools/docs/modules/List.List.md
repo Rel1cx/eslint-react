@@ -29,13 +29,13 @@
 
 #### Type parameters
 
-| Name | Type                                    |
-| :--- | :-------------------------------------- |
-| `S`  | extends [`List`](List.md#list)\<`any`\> |
-| `T`  | extends [`List`](List.md#list)\<`any`\> |
-| `A`  | `A`                                     |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends [`List`](List.md#list)\<`any`\> |
+| `T` | extends [`List`](List.md#list)\<`any`\> |
+| `A` | `A` |
 
----
+___
 
 ### Infer
 
@@ -47,11 +47,11 @@
 
 #### Type parameters
 
-| Name | Type                                    |
-| :--- | :-------------------------------------- |
-| `S`  | extends [`List`](List.md#list)\<`any`\> |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends [`List`](List.md#list)\<`any`\> |
 
----
+___
 
 ### OrNonEmpty
 
@@ -63,13 +63,13 @@
 
 #### Type parameters
 
-| Name | Type                                    |
-| :--- | :-------------------------------------- |
-| `S`  | extends [`List`](List.md#list)\<`any`\> |
-| `T`  | extends [`List`](List.md#list)\<`any`\> |
-| `A`  | `A`                                     |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends [`List`](List.md#list)\<`any`\> |
+| `T` | extends [`List`](List.md#list)\<`any`\> |
+| `A` | `A` |
 
----
+___
 
 ### With
 
@@ -81,7 +81,7 @@
 
 #### Type parameters
 
-| Name | Type                                    |
-| :--- | :-------------------------------------- |
-| `S`  | extends [`List`](List.md#list)\<`any`\> |
-| `A`  | `A`                                     |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends [`List`](List.md#list)\<`any`\> |
+| `A` | `A` |

@@ -30,13 +30,13 @@
 
 #### Type parameters
 
-| Name | Type                                                    |
-| :--- | :------------------------------------------------------ |
-| `S`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
-| `T`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
-| `A`  | `A`                                                     |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
+| `T` | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
+| `A` | `A` |
 
----
+___
 
 ### Flatten
 
@@ -48,11 +48,11 @@
 
 #### Type parameters
 
-| Name | Type                                                |
-| :--- | :-------------------------------------------------- |
-| `T`  | extends `ReadonlyArray`\<`ReadonlyArray`\<`any`\>\> |
+| Name | Type |
+| :------ | :------ |
+| `T` | extends `ReadonlyArray`\<`ReadonlyArray`\<`any`\>\> |
 
----
+___
 
 ### Infer
 
@@ -64,11 +64,11 @@
 
 #### Type parameters
 
-| Name | Type                                                    |
-| :--- | :------------------------------------------------------ |
-| `S`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
 
----
+___
 
 ### OrNonEmpty
 
@@ -80,13 +80,13 @@
 
 #### Type parameters
 
-| Name | Type                                                    |
-| :--- | :------------------------------------------------------ |
-| `S`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
-| `T`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
-| `A`  | `A`                                                     |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
+| `T` | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
+| `A` | `A` |
 
----
+___
 
 ### With
 
@@ -98,7 +98,7 @@
 
 #### Type parameters
 
-| Name | Type                                                    |
-| :--- | :------------------------------------------------------ |
-| `S`  | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
-| `A`  | `A`                                                     |
+| Name | Type |
+| :------ | :------ |
+| `S` | extends `ReadonlyArray`\<`any`\> \| `Iterable`\<`any`\> |
+| `A` | `A` |

@@ -20,7 +20,7 @@
 
 ### Cond
 
-Ƭ **Cond**: `"always"` \| `"never"`
+Ƭ **Cond**: ``"always"`` \| ``"never"``
 
 Rule application condition.
 
@@ -28,11 +28,11 @@ Rule application condition.
 
 0.0.1
 
----
+___
 
 ### CreateRule
 
-Ƭ **CreateRule**: `Parameters`\<`ReturnType`\<typeof `ESLintUtils.RuleCreator`\>\>[`0`][`"create"`]
+Ƭ **CreateRule**: `Parameters`\<`ReturnType`\<typeof `ESLintUtils.RuleCreator`\>\>[``0``][``"create"``]
 
 Rule creator function.
 
@@ -40,17 +40,17 @@ Rule creator function.
 
 0.0.1
 
----
+___
 
 ### RuleCategory
 
-Ƭ **RuleCategory**: `"complexity"` \| `"correctness"` \| `"debug"` \| `"deprecated"` \| `"nursery"` \| `"pedantic"` \| `"perf"` \| `"restriction"` \| `"security"` \| `"style"` \| `"suspicious"` \| `"verbose"`
+Ƭ **RuleCategory**: ``"complexity"`` \| ``"correctness"`` \| ``"debug"`` \| ``"deprecated"`` \| ``"nursery"`` \| ``"pedantic"`` \| ``"perf"`` \| ``"restriction"`` \| ``"security"`` \| ``"style"`` \| ``"suspicious"`` \| ``"verbose"``
 
----
+___
 
 ### RuleContext
 
-Ƭ **RuleContext**: `Parameters`\<[`CreateRule`](README.md#createrule)\>[`0`]
+Ƭ **RuleContext**: `Parameters`\<[`CreateRule`](README.md#createrule)\>[``0``]
 
 Rule context.
 
@@ -58,7 +58,7 @@ Rule context.
 
 0.0.1
 
----
+___
 
 ### RuleDeclaration
 
@@ -70,17 +70,17 @@ Rule declaration.
 
 0.0.1
 
----
+___
 
 ### RuleNamespace
 
-Ƭ **RuleNamespace**: `"debug"` \| `"experimental"` \| `"jsx"` \| `"naming-convention"` \| `"react"` \| `"react-hooks"`
+Ƭ **RuleNamespace**: ``"debug"`` \| ``"experimental"`` \| ``"jsx"`` \| ``"naming-convention"`` \| ``"react"`` \| ``"react-hooks"``
 
----
+___
 
 ### RuleOptions
 
-Ƭ **RuleOptions**: `Parameters`\<[`CreateRule`](README.md#createrule)\>[`1`]
+Ƭ **RuleOptions**: `Parameters`\<[`CreateRule`](README.md#createrule)\>[``1``]
 
 Rule options.
 
@@ -88,7 +88,7 @@ Rule options.
 
 0.0.1
 
----
+___
 
 ### RulePreset
 
@@ -100,11 +100,11 @@ Rule config preset.
 
 0.0.1
 
----
+___
 
 ### Severity
 
-Ƭ **Severity**: `"error"` \| `"off"` \| `"warn"`
+Ƭ **Severity**: ``"error"`` \| ``"off"`` \| ``"warn"``
 
 Rule severity.
 
