@@ -8,6 +8,10 @@ Correctness.
 
 Prevents missing `key` prop on items in list rendering.
 
+## Why is this bad?
+
+React needs keys to identify items in the list. If you don’t specify a key, React will use the array index as a key, which often leads to subtle and confusing bugs.
+
 ## Examples
 
 ### Failing
