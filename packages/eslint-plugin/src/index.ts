@@ -3,7 +3,7 @@ import * as jsx from "@eslint-react/eslint-plugin-jsx";
 import * as namingConvention from "@eslint-react/eslint-plugin-naming-convention";
 import * as react from "@eslint-react/eslint-plugin-react";
 import * as hooks from "@eslint-react/eslint-plugin-react-hooks";
-import { entries, fromEntries } from "@eslint-react/tools";
+import { Helper } from "@eslint-react/tools";
 import type { RulePreset } from "@eslint-react/types";
 import tsParser from "@typescript-eslint/parser";
 // workaround for @typescript-eslint/utils's TS2742 error.
@@ -11,6 +11,8 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { name, version } from "../package.json";
 import { padKeysLeft } from "./utils";
+
+const { entries, fromEntries } = Helper.Record;
 
 const rulePreset = {
   "debug/class-component": "warn",

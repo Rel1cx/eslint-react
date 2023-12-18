@@ -1,6 +1,6 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3667
 import { isFunction } from "@eslint-react/ast";
-import { isCallFromPragma } from "@eslint-react/jsx";
+import { isForwardRefCall } from "@eslint-react/core";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 
@@ -9,8 +9,6 @@ import { createRule } from "../utils";
 export const RULE_NAME = "ensure-forward-ref-using-ref";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
-
-const isForwardRefCall = isCallFromPragma("forwardRef");
 
 export default createRule<[], MessageID>({
   name: RULE_NAME,

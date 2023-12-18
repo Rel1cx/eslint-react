@@ -1,8 +1,9 @@
 import { NodeType } from "@eslint-react/ast";
 import { findPropInAttributes, findPropInProperties, getPropValue, isCreateElementCall } from "@eslint-react/jsx";
-import { F, M, O, P } from "@eslint-react/tools";
+import { _, F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
+import { isMatching, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -37,7 +38,7 @@ export default createRule<[], MessageID>({
 
         const [name, props] = node.arguments;
 
-        if (!M.isMatching({ type: NodeType.Literal, value: "button" }, name)) {
+        if (!isMatching({ type: NodeType.Literal, value: "button" }, name)) {
           return;
         }
 
@@ -62,11 +63,11 @@ export default createRule<[], MessageID>({
         }
 
         const typeProperty = maybeTypeProperty.value;
-        const hasValidType = M.isMatching({
+        const hasValidType = isMatching({
           type: NodeType.Property,
           value: {
             type: NodeType.Literal,
-            value: M.P.union(...validTypes),
+            value: P.union(...validTypes),
           },
         }, typeProperty);
 
@@ -104,7 +105,7 @@ export default createRule<[], MessageID>({
         const hasValidType = F.pipe(
           getPropValue(typeAttribute, context),
           O.flatMapNullable(v => v?.value),
-          O.filter(P.isString),
+          O.filter(_.isString),
           O.exists((value) => validTypes.some((type) => type === value)),
         );
 

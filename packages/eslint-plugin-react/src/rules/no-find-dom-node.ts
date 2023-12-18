@@ -1,7 +1,8 @@
 import { NodeType } from "@eslint-react/ast";
-import { F, M } from "@eslint-react/tools";
+import { F } from "@eslint-react/tools";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
+import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -30,7 +31,7 @@ export default createRule<[], MessageID>({
       CallExpression(node) {
         const { callee } = node;
 
-        const isFindDOMNode = M.match(callee)
+        const isFindDOMNode = match(callee)
           .with({ type: NodeType.Identifier }, ({ name }) => name === "findDOMNode")
           .with(
             { type: NodeType.MemberExpression },

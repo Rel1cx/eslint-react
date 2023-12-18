@@ -1,5 +1,5 @@
 import { ESLintSettingsSchema, parse } from "@eslint-react/shared";
-import { MutRef, P } from "@eslint-react/tools";
+import { _, MutRef } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
@@ -77,8 +77,8 @@ export default createRule<Options, MessageID>({
   create(context) {
     const configs = parse(ESLintSettingsSchema, context.settings).eslintReact;
     const options = context.options[0] ?? defaultOptions[0];
-    const allow = P.isObject(options) ? options.allow : options;
-    const extensions = P.isObject(options) && "extensions" in options
+    const allow = _.isObject(options) ? options.allow : options;
+    const extensions = _.isObject(options) && "extensions" in options
       ? options.extensions
       : configs?.jsx?.extensions ?? defaultOptions[0].extensions;
 

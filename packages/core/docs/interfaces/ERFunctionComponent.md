@@ -2,6 +2,12 @@
 
 # Interface: ERFunctionComponent
 
+## Hierarchy
+
+- [`ERAnalyzerNode`](ERAnalyzerNode.md)
+
+  ↳ **`ERFunctionComponent`**
+
 ## Table of contents
 
 ### Properties
@@ -23,6 +29,10 @@
 
 • **\_**: `string`
 
+#### Inherited from
+
+[ERAnalyzerNode](ERAnalyzerNode.md).[_](ERAnalyzerNode.md#_)
+
 ---
 
 ### displayName
@@ -35,11 +45,19 @@
 
 • **flag**: `bigint`
 
+#### Overrides
+
+[ERAnalyzerNode](ERAnalyzerNode.md).[flag](ERAnalyzerNode.md#flag)
+
 ---
 
 ### hint
 
 • **hint**: `bigint`
+
+#### Overrides
+
+[ERAnalyzerNode](ERAnalyzerNode.md).[hint](ERAnalyzerNode.md#hint)
 
 ---
 
@@ -53,6 +71,10 @@
 
 • **id**: `Option`\<`Identifier` \| `Identifier`[]\>
 
+#### Overrides
+
+[ERAnalyzerNode](ERAnalyzerNode.md).[id](ERAnalyzerNode.md#id)
+
 ---
 
 ### initPath
@@ -65,14 +87,26 @@
 
 • **kind**: `"function"`
 
+#### Overrides
+
+[ERAnalyzerNode](ERAnalyzerNode.md).[kind](ERAnalyzerNode.md#kind)
+
 ---
 
 ### name
 
 • **name**: `Option`\<`string`\>
 
+#### Inherited from
+
+[ERAnalyzerNode](ERAnalyzerNode.md).[name](ERAnalyzerNode.md#name)
+
 ---
 
 ### node
 
 • **node**: `TSESTreeFunction`
+
+#### Overrides
+
+[ERAnalyzerNode](ERAnalyzerNode.md).[node](ERAnalyzerNode.md#node)

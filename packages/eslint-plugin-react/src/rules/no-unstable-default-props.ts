@@ -1,5 +1,5 @@
-import { isUnstableAssignmentPattern, NodeType, readableNodeType } from "@eslint-react/ast";
-import { componentCollector } from "@eslint-react/core";
+import { NodeType, readableNodeType } from "@eslint-react/ast";
+import { componentCollector, isUnstableAssignmentPattern } from "@eslint-react/core";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";

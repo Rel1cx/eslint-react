@@ -1,11 +1,13 @@
 import { ESLintSettingsSchema, parse } from "@eslint-react/shared";
-import { O, P } from "@eslint-react/tools";
-import { getCaseValidator } from "@eslint-react/utils";
+import { ESLintPluginFilenamesSimple } from "@eslint-react/third-party";
+import { _, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import path from "pathe";
 
 import { createRule } from "../utils";
+
+const { getCaseValidator } = ESLintPluginFilenamesSimple;
 
 export const RULE_NAME = "filename";
 
@@ -86,9 +88,9 @@ export default createRule<Options, MessageID>({
   create(context) {
     const configs = parse(ESLintSettingsSchema, context.settings).eslintReact;
     const options = context.options[0] ?? defaultOptions[0];
-    const rule = P.isString(options) ? options : options.rule ?? "PascalCase";
-    const excepts = P.isString(options) ? [] : options.excepts ?? [];
-    const extensions = P.isObject(options) && "extensions" in options
+    const rule = _.isString(options) ? options : options.rule ?? "PascalCase";
+    const excepts = _.isString(options) ? [] : options.excepts ?? [];
+    const extensions = _.isObject(options) && "extensions" in options
       ? options.extensions
       : configs?.jsx?.extensions ?? defaultOptions[0].extensions;
 
@@ -133,7 +135,7 @@ export default createRule<Options, MessageID>({
           data: {
             name: filename,
             rule,
-            suggestion: `${[maybeSuggestion.value, ...rest].join(".")}`,
+            suggestion: [maybeSuggestion.value, ...rest].join("."),
           },
           messageId: "FILENAME_CASE_MISMATCH_SUGGESTION",
           node,

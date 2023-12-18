@@ -1,8 +1,9 @@
 import { is, NodeType, traverseUp } from "@eslint-react/ast";
-import { isCallFromPragma, isInitializedFromPragma } from "@eslint-react/jsx";
-import { F, M, O } from "@eslint-react/tools";
+import { isInitializedFromPragma } from "@eslint-react/jsx";
+import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
+import { match } from "ts-pattern";
 
 import { isValidReactHookName } from "./hook-name";
 
@@ -11,7 +12,7 @@ export function isReactHookCallWithName(name: string, alias?: string[]) {
     const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
 
     if (alias) {
-      const isAlias = M.match(node.callee)
+      const isAlias = match(node.callee)
         .with({ type: NodeType.Identifier, name }, n => alias.includes(n.name))
         .with({ type: NodeType.MemberExpression, object: { name: pragma }, property: { name } }, F.constTrue)
         .otherwise(F.constFalse);
@@ -21,7 +22,7 @@ export function isReactHookCallWithName(name: string, alias?: string[]) {
       }
     }
 
-    return M.match(node.callee)
+    return match(node.callee)
       .with({ type: NodeType.Identifier, name }, n => isInitializedFromPragma(n.name, context, initialScope, pragma))
       .with({ type: NodeType.MemberExpression, object: { name: pragma }, property: { name } }, F.constTrue)
       .otherwise(F.constFalse);
@@ -73,11 +74,6 @@ export function unsafeIsReactHookCall(node: TSESTree.CallExpression) {
 export function isReactHookCall(node: TSESTree.CallExpression) {
   // eslint-disable-next-line functional/no-throw-statements
   throw new Error("Not implemented");
-}
-
-export function isMemoOrForwardRefCall(node: TSESTree.Node, context: RuleContext) {
-  return isCallFromPragma("memo")(node, context)
-    || isCallFromPragma("forwardRef")(node, context);
 }
 
 export function unsafeIsInsideReactHookCall(node: TSESTree.Node): boolean {

@@ -1,11 +1,12 @@
 const packages = [
+  "third-party",
   "tools",
   "types",
   "shared",
-  "utils",
   "ast",
   "jsx",
   "core",
+  "eslint-utils",
   "eslint-plugin-debug",
   "eslint-plugin-naming-convention",
   "eslint-plugin-jsx",

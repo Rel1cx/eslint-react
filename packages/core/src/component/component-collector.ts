@@ -10,13 +10,14 @@ import {
   unsafeIsMapCall,
 } from "@eslint-react/ast";
 import { getPragmaFromContext, isChildrenOfCreateElement, isJSXValue } from "@eslint-react/jsx";
-import { F, M, MutList, MutRef, O } from "@eslint-react/tools";
+import { F, MutList, MutRef, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
-import { uid } from "@eslint-react/utils";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import { match } from "ts-pattern";
 
 import { unsafeIsReactHookCall } from "../hook";
+import { uid } from "../utils";
 import type { ERFunctionComponent } from "./component";
 import { DEFAULT_COMPONENT_COLLECTOR_HINT, ERComponentCollectorHint } from "./component-collector-hint";
 import { ERFunctionComponentFlag } from "./component-flag";
@@ -214,7 +215,7 @@ export function componentCollector(
         return;
       }
 
-      const maybeComponentName = M.match(left.object)
+      const maybeComponentName = match(left.object)
         .with({ type: NodeType.Identifier }, n => O.some(n.name))
         .otherwise(O.none);
 

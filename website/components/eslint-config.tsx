@@ -1,10 +1,10 @@
 import { Tabs } from "nextra-theme-docs";
 import React from "react";
 
-export type ESLintConfigProps = {
+export interface ESLintConfigProps {
   defaultIndex?: number;
   children: React.ReactNode;
-};
+}
 
 export function ESLintConfig({
   defaultIndex = 0,

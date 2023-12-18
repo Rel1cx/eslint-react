@@ -42,13 +42,18 @@
 - [hasEveryProp](README.md#haseveryprop)
 - [hasProp](README.md#hasprop)
 - [isCallFromPragma](README.md#iscallfrompragma)
+- [isCallFromPragmaMember](README.md#iscallfrompragmamember)
 - [isChildOfJSXElement](README.md#ischildofjsxelement)
 - [isChildrenOfCreateElement](README.md#ischildrenofcreateelement)
+- [isCloneElement](README.md#iscloneelement)
 - [isCloneElementCall](README.md#iscloneelementcall)
+- [isCreateElement](README.md#iscreateelement)
 - [isCreateElementCall](README.md#iscreateelementcall)
 - [isFragment](README.md#isfragment)
 - [isFragmentElement](README.md#isfragmentelement)
 - [isFragmentSyntax](README.md#isfragmentsyntax)
+- [isFromPragma](README.md#isfrompragma)
+- [isFromPragmaMember](README.md#isfrompragmamember)
 - [isFunctionReturningJSXValue](README.md#isfunctionreturningjsxvalue)
 - [isInitializedFromPragma](README.md#isinitializedfrompragma)
 - [isInsideCreateElementProps](README.md#isinsidecreateelementprops)
@@ -478,34 +483,60 @@ Check if the given prop name is present in the given attributes
 
 ### isCallFromPragma
 
-▸ **isCallFromPragma**(`name`): (`node`: `Node`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>) => node is CallExpression
-
-Checks if the given node is a call expression to the given function or method of the pragma
+▸ **isCallFromPragma**(`name`): (`node`: `CallExpression`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>) => `boolean`
 
 #### Parameters
 
-| Name   | Type     | Description                                 |
-| :----- | :------- | :------------------------------------------ |
-| `name` | `string` | The name of the function or method to check |
+| Name   | Type     |
+| :----- | :------- |
+| `name` | `string` |
 
 #### Returns
 
 `fn`
 
-A predicate that checks if the given node is a call expression to the given function or method
-
-▸ (`node`, `context`): node is CallExpression
+▸ (`node`, `context`): `boolean`
 
 ##### Parameters
 
 | Name      | Type                                                          |
 | :-------- | :------------------------------------------------------------ |
-| `node`    | `Node`                                                        |
+| `node`    | `CallExpression`                                              |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 ##### Returns
 
-node is CallExpression
+`boolean`
+
+---
+
+### isCallFromPragmaMember
+
+▸ **isCallFromPragmaMember**(`pragmaMemberName`, `name`): (`node`: `CallExpression`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>) => `boolean`
+
+#### Parameters
+
+| Name               | Type     |
+| :----------------- | :------- |
+| `pragmaMemberName` | `string` |
+| `name`             | `string` |
+
+#### Returns
+
+`fn`
+
+▸ (`node`, `context`): `boolean`
+
+##### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+##### Returns
+
+`boolean`
 
 ---
 
@@ -546,45 +577,71 @@ node is JSXElement & Object
 
 ---
 
-### isCloneElementCall
+### isCloneElement
 
-▸ **isCloneElementCall**(`node`, `context`): node is CallExpression
-
-Checks if the given node is a call expression to `cloneElement`
+▸ **isCloneElement**(`node`, `context`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          | Description           |
-| :-------- | :------------------------------------------------------------ | :-------------------- |
-| `node`    | `Node`                                                        | The AST node to check |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `Identifier` \| `MemberExpression`                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
-node is CallExpression
+`boolean`
 
-`true` if the node is a call expression to `cloneElement`
+---
+
+### isCloneElementCall
+
+▸ **isCloneElementCall**(`node`, `context`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+#### Returns
+
+`boolean`
+
+---
+
+### isCreateElement
+
+▸ **isCreateElement**(`node`, `context`): `boolean`
+
+#### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `Identifier` \| `MemberExpression`                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+#### Returns
+
+`boolean`
 
 ---
 
 ### isCreateElementCall
 
-▸ **isCreateElementCall**(`node`, `context`): node is CallExpression
-
-Checks if the given node is a call expression to `createElement`
+▸ **isCreateElementCall**(`node`, `context`): `boolean`
 
 #### Parameters
 
-| Name      | Type                                                          | Description           |
-| :-------- | :------------------------------------------------------------ | :-------------------- |
-| `node`    | `Node`                                                        | The AST node to check |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context      |
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `CallExpression`                                              |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
-node is CallExpression
-
-`true` if the node is a call expression to `createElement`
+`boolean`
 
 ---
 
@@ -641,6 +698,72 @@ Check if a node is `<></>`
 #### Returns
 
 node is JSXFragment
+
+---
+
+### isFromPragma
+
+▸ **isFromPragma**(`name`): (`node`: `Identifier` \| `MemberExpression`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>) => `boolean`
+
+Checks if the given node is a call expression to the given function or method of the pragma
+
+#### Parameters
+
+| Name   | Type     | Description                                 |
+| :----- | :------- | :------------------------------------------ |
+| `name` | `string` | The name of the function or method to check |
+
+#### Returns
+
+`fn`
+
+A predicate that checks if the given node is a call expression to the given function or method
+
+▸ (`node`, `context`): `boolean`
+
+##### Parameters
+
+| Name      | Type                                                          |
+| :-------- | :------------------------------------------------------------ |
+| `node`    | `Identifier` \| `MemberExpression`                            |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+##### Returns
+
+`boolean`
+
+---
+
+### isFromPragmaMember
+
+▸ **isFromPragmaMember**(`pragmaMemberName`, `name`): (`node`: `TSESTree.MemberExpression`, `context`: `RuleContext`, `pragma?`: `string`) => `boolean`
+
+#### Parameters
+
+| Name               | Type     |
+| :----------------- | :------- |
+| `pragmaMemberName` | `string` |
+| `name`             | `string` |
+
+#### Returns
+
+`fn`
+
+A function that checks if a given node is a member expression of a Pragma member.
+
+▸ (`node`, `context`, `pragma?`): `boolean`
+
+##### Parameters
+
+| Name      | Type                        |
+| :-------- | :-------------------------- |
+| `node`    | `TSESTree.MemberExpression` |
+| `context` | `RuleContext`               |
+| `pragma?` | `string`                    |
+
+##### Returns
+
+`boolean`
 
 ---
 

@@ -3,7 +3,7 @@ import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { isCreateElementCall } from "./is-element-call";
+import { isCreateElementCall } from "./api";
 
 /**
  * Determines whether inside createElement's props.
@@ -13,7 +13,7 @@ import { isCreateElementCall } from "./is-element-call";
  */
 export function isInsideCreateElementProps(node: TSESTree.Node, context: RuleContext) {
   return F.pipe(
-    traverseUp(node, n => isCreateElementCall(n, context)),
+    traverseUp(node, n => is(NodeType.CallExpression)(n) && isCreateElementCall(n, context)),
     O.filter(is(NodeType.CallExpression)),
     O.flatMapNullable(c => c.arguments.at(1)),
     O.filter(is(NodeType.ObjectExpression)),
@@ -23,15 +23,16 @@ export function isInsideCreateElementProps(node: TSESTree.Node, context: RuleCon
 }
 
 export function isChildrenOfCreateElement(node: TSESTree.Node, context: RuleContext) {
-  const maybeCallExpression = node.parent;
-
-  if (!maybeCallExpression || !isCreateElementCall(maybeCallExpression, context)) {
-    return false;
-  }
-
-  return maybeCallExpression.arguments
-    .slice(2)
-    .some((child) => child === node);
+  return F.pipe(
+    O.fromNullable(node.parent),
+    O.filter(is(NodeType.CallExpression)),
+    O.filter(n => isCreateElementCall(n, context)),
+    O.exists(n =>
+      n.arguments
+        .slice(2)
+        .some(arg => arg === node)
+    ),
+  );
 }
 
 /**

@@ -1,10 +1,11 @@
 import { getClassIdentifier, NodeType, type TSESTreeClass } from "@eslint-react/ast";
 import { getPragmaFromContext } from "@eslint-react/jsx";
-import { M, O } from "@eslint-react/tools";
+import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
-import { uid } from "@eslint-react/utils";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import { match, P } from "ts-pattern";
 
+import { uid } from "../utils";
 import type { ERClassComponent } from "./component";
 import { ERClassComponentFlag } from "./component-flag";
 
@@ -20,13 +21,13 @@ export function isClassComponent(node: TSESTree.Node, context: RuleContext): nod
   const pragma = getPragmaFromContext(context);
   const { superClass } = node;
 
-  return M.match(superClass)
-    .with({ type: NodeType.Identifier, name: M.P.string }, ({ name }) => /^(Pure)?Component$/u.test(name))
+  return match(superClass)
+    .with({ type: NodeType.Identifier, name: P.string }, ({ name }) => /^(Pure)?Component$/u.test(name))
     .with(
       {
         type: NodeType.MemberExpression,
         object: { name: pragma },
-        property: { name: M.P.string },
+        property: { name: P.string },
       },
       ({ property }) => /^(Pure)?Component$/u.test(property.name),
     )
@@ -85,6 +86,7 @@ export function componentCollectorLegacy(context: RuleContext) {
         // TODO: get displayName of class component
         displayName: O.none(),
         flag,
+        hint: 0n,
         // TODO: get methods of class component
         methods: [],
         node,
