@@ -12,7 +12,7 @@ overrides:
   '@typescript-eslint/utils': 6.15.0
   '@typescript-eslint/eslint-plugin': 6.15.0
   eslint: '>=8.56.0'
-  effect: 2.0.0-next.60
+  effect: 2.0.0-next.61
   next: 14.0.4
   react: 18.2.0
   react-dom: 18.2.0
@@ -91,8 +91,8 @@ importers:
         specifier: 0.44.0
         version: 0.44.0
       effect:
-        specifier: 2.0.0-next.60
-        version: 2.0.0-next.60
+        specifier: 2.0.0-next.61
+        version: 2.0.0-next.61
       eslint:
         specifier: '>=8.56.0'
         version: 8.56.0
@@ -697,8 +697,8 @@ importers:
   packages/tools:
     dependencies:
       effect:
-        specifier: 2.0.0-next.60
-        version: 2.0.0-next.60
+        specifier: 2.0.0-next.61
+        version: 2.0.0-next.61
 
   packages/types:
     dependencies:
@@ -767,8 +767,8 @@ importers:
         specifier: 10.4.16
         version: 10.4.16(postcss@8.4.32)
       effect:
-        specifier: 2.0.0-next.60
-        version: 2.0.0-next.60
+        specifier: 2.0.0-next.61
+        version: 2.0.0-next.61
       eslint:
         specifier: '>=8.56.0'
         version: 8.56.0
@@ -5235,8 +5235,8 @@ packages:
       wcwidth: 1.0.1
     dev: true
 
-  /effect@2.0.0-next.60:
-    resolution: {integrity: sha512-23KhlVACgrg5UPFu9i4szybSU4cCU4T/7CX4pe0jV84QBZX0zm96WzwCtg6dqOnmUzBL7hm6S+iiPW2Rab13Uw==}
+  /effect@2.0.0-next.61:
+    resolution: {integrity: sha512-BuRr9SEwYdMVLQunATRjm3MAkTgWI21Tyn5ooWVZnTeXj0lUqSV0fjaqNFksEymssmwJ1ucogbuYQ/3RLmwxgA==}
 
   /electron-to-chromium@1.4.614:
     resolution: {integrity: sha512-X4ze/9Sc3QWs6h92yerwqv7aB/uU8vCjZcrMjA8N9R1pjMFRe44dLsck5FzLilOYvcXuDn93B+bpGYyufc70gQ==}
