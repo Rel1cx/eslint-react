@@ -6,7 +6,11 @@ More than 50 ESLint rules to catch common mistakes and improve your React code. 
 
 ## Public packages
 
-- [`@eslint-react/eslint-plugin`](./packages/eslint-plugin) - The main ESLint plugin package including all rules and config presets in this repository.
+- [`@eslint-react/eslint-plugin`](https://npm.im/@eslint-react/eslint-plugin) - The main ESLint plugin package including all rules and config presets in this repository.
+
+## Supported React versions
+
+- 18.2.0 or later
 
 ## Supported engines
 
@@ -104,96 +108,112 @@ module.exports = {
 
 ## Rules
 
-[Rules Overview ↗](https://eslint-react.rel1cx.io/rules/overview)
+### JSX
 
-## Rules implementation status
+- [`jsx/no-array-index-key`](jsx-no-array-index-key) - disallow using Array index as `key`
+- [`jsx/no-comment-textnodes`](jsx-no-comment-textnodes) - disallow comments from being inserted as text nodes
+- [`jsx/no-complicated-conditional-rendering`](jsx-no-complicated-conditional-rendering) - disallow complicated conditional rendering
+- [`jsx/no-duplicate-key`](jsx-no-duplicate-key) - disallow duplicate keys in `key` prop when rendering list
+- [`jsx/no-leaked-conditional-rendering`](jsx-no-leaked-conditional-rendering) - disallow problematic leaked values from being rendered
+- [`jsx/no-missing-key`](jsx-no-missing-key) - require `key` prop when rendering list
+- [`jsx/no-spreading-key`](jsx-no-spreading-key) - disallow spreading `key` from objects.
+- [`jsx/no-useless-fragment`](jsx-no-useless-fragment) - disallow unnecessary fragments
+- [`jsx/prefer-shorthand-boolean`](jsx-prefer-shorthand-boolean) - enforce `boolean` attributes notation in JSX
+- [`jsx/prefer-shorthand-fragment`](jsx-prefer-shorthand-fragment) - enforce using fragment syntax instead of `Fragment` component
+
+### React Hooks
+
+- [`react-hooks/ensure-custom-hooks-using-other-hooks`](react-hooks-ensure-custom-hooks-using-other-hooks) - enforce custom hooks using other hooks
+- [`react-hooks/ensure-use-callback-has-non-empty-deps`](react-hooks-ensure-use-callback-has-non-empty-deps) - enforce `useCallback` has non-empty dependencies array
+- [`react-hooks/ensure-use-memo-has-non-empty-deps`](react-hooks-ensure-use-memo-has-non-empty-deps) - enforce `useMemo` has non-empty dependencies array
+- [`react-hooks/prefer-use-state-lazy-initialization`](react-hooks-prefer-use-state-lazy-initialization) - disallow function calls in `useState` that aren't wrapped in an initializer
+
+### React
+
+- [`react/ensure-forward-ref-using-ref`](react-ensure-forward-ref-using-ref) - requires that components wrapped with `forwardRef` must have a `ref` parameter
+- [`react/no-children-count`](react-no-children-count) - disallow `Children.count`
+- [`react/no-children-for-each`](react-no-children-for-each) - disallow `Children.forEach`
+- [`react/no-children-in-void-dom-elements`](react-no-children-in-void-dom-elements) - disallow passing `children` to void DOM elements
+- [`react/no-children-map`](react-no-children-map) - disallow `Children.map`
+- [`react/no-children-only`](react-no-children-only) - disallow `Children.only`
+- [`react/no-children-prop`](react-no-children-prop) - disallow passing of `children` as props
+- [`react/no-children-to-array`](react-no-children-to-array) - disallow `Children.toArray`
+- [`react/no-class-component`](react-no-class-component) - disallow `class component`
+- [`react/no-clone-element`](react-no-clone-element) - disallow `cloneElement`
+- [`react/no-component-will-mount`](react-no-component-will-mount) - disallow `componentWillMount`
+- [`react/no-component-will-receive-props`](react-no-component-will-receive-props) - disallow `componentWillReceiveProps`
+- [`react/no-component-will-update`](react-no-component-will-update) - disallow `componentWillUpdate`
+- [`react/no-constructed-context-value`](react-no-constructed-context-value) - disallow passing constructed values to context providers
+- [`react/no-create-ref`](react-no-create-ref) - disallow `createRef` in function components
+- [`react/no-dangerously-set-innerhtml`](react-no-dangerously-set-innerhtml) - disallow when a DOM element is using `dangerouslySetInnerHTML`
+- [`react/no-dangerously-set-innerhtml-with-children`](react-no-dangerously-set-innerhtml-with-children) - disallow when a DOM element is using both `children` and `dangerouslySetInnerHTML`
+- [`react/no-direct-mutation-state`](react-no-direct-mutation-state) - disallow direct mutation of `this.state`
+- [`react/no-find-dom-node`](react-no-find-dom-node) - disallow `findDOMNode`
+- [`react/no-missing-button-type`](react-no-missing-button-type) - enforce that `button` elements have an explicit `type` attribute
+- [`react/no-missing-component-display-name`](react-no-missing-component-display-name) - enforce `displayName` for `memo` and `forwardRef` components
+- [`react/no-missing-iframe-sandbox`](react-no-missing-iframe-sandbox) - enforce that `iframe` elements explicitly specify a `sandbox` attribute
+- [`react/no-namespace`](react-no-namespace) - enforce that namespaces are not used in React elements
+- [`react/no-redundant-should-component-update`](react-no-redundant-should-component-update) - disallow usage of `shouldComponentUpdate` in class component extends `React.PureComponent`
+- [`react/no-render-return-value`](react-no-render-return-value) - disallow usage of the return value of `ReactDOM.render`
+- [`react/no-script-url`](react-no-script-url) - disallow `javascript:` URLs as JSX event handler prop's value
+- [`react/no-set-state-in-component-did-mount`](react-no-set-state-in-component-did-mount) - disallow usage of `this.setState` in `componentDidMount`
+- [`react/no-set-state-in-component-did-update`](react-no-set-state-in-component-did-update) - disallow usage of `this.setState` in `componentDidUpdate`
+- [`react/no-set-state-in-component-will-update`](react-no-set-state-in-component-will-update) - disallow usage of `this.setState` in `componentWillUpdate`
+- [`react/no-string-refs`](react-no-string-refs) - disallow using deprecated string refs
+- [`react/no-unsafe-component-will-mount`](react-no-unsafe-component-will-mount) - disallow usage of `UNSAFE_componentWillMount` in class components
+- [`react/no-unsafe-component-will-receive-props`](react-no-unsafe-component-will-receive-props) - disallow usage of `UNSAFE_componentWillReceiveProps` in class components
+- [`react/no-unsafe-component-will-update`](react-no-unsafe-component-will-update) - disallow usage of `UNSAFE_componentWillUpdate` in class components
+- [`react/no-unsafe-iframe-sandbox`](react-no-unsafe-iframe-sandbox) - disallow unsafe `iframe` `sandbox` attribute combinations
+- [`react/no-unsafe-target-blank`](react-no-unsafe-target-blank) - disallow `target="_blank"` without `rel="noreferrer noopener"`
+- [`react/no-unstable-default-props`](react-no-unstable-default-props) - disallow usage of unstable value as default param in function component
+- [`react/no-unstable-nested-components`](react-no-unstable-nested-components) - disallow usage of unstable nested components
+- [`react/prefer-destructuring-assignment`](react-prefer-destructuring-assignment) - enforce using destructuring assignment in component props and context
+
+### Naming Convention
+
+- [`naming-convention/component-name`](naming-convention-component-name) - enforce component naming convention to `PascalCase` or `CONSTANT_CASE`
+- [`naming-convention/filename`](naming-convention-filename) - enforce naming convention for JSX file names
+- [`naming-convention/filename-extension`](naming-convention-filename-extension) - enforce naming convention for JSX file extensions
+- [`naming-convention/use-state`](naming-convention-use-state) - enforce destructuring and symmetric naming of `useState` hook value and setter variables
+
+### Debug
+
+- [`debug/class-component`](debug-class-component) - report all class components, including anonymous ones
+- [`debug/function-component`](debug-function-component) - report all function components, including anonymous ones
+- [`debug/react-hooks`](debug-react-hooks) - report all react hooks
+
+[Rules Documentation ↗](https://eslint-react.rel1cx.io/rules/overview)
+
+## Work in progress rules
 
 ### JSX rules
 
-- [x] `jsx/no-missing-key`
-- [x] `jsx/no-spreading-key`
-- [x] `jsx/no-duplicate-key`
-- [x] `jsx/no-array-index-key`
 - [ ] `jsx/max-depth`
-- [x] `jsx/no-useless-fragment`
-- [x] `jsx/no-comment-textnodes`
-- [x] `jsx/no-complicated-conditional-rendering`
-- [x] `jsx/no-leaked-conditional-rendering`
-- [x] `jsx/prefer-shorthand-boolean`
-- [x] `jsx/prefer-shorthand-fragment`
 
 ### Naming convention rules
 
-- [x] `naming-convention/component-name`
-- [x] `naming-convention/filename`
-- [x] `naming-convention/filename-extension`
 - [ ] `naming-convention/boolean-prop`
 - [ ] `naming-convention/handler-prop`
-- [x] `naming-convention/use-state`
 
 ### React rules
 
-- [x] `react/ensure-forward-ref-using-ref`
-- [x] `react/no-children-count`
-- [x] `react/no-children-for-each`
-- [x] `react/no-children-map`
-- [x] `react/no-children-only`
-- [x] `react/no-children-to-array`
-- [x] `react/no-children-prop`
-- [x] `react/no-children-in-void-dom-elements`
-- [x] `react/no-find-dom-node`
-- [x] `react/no-class-component`
-- [x] `react/no-clone-element`
-- [x] `react/no-createRef`
-- [x] `react/no-namespace`
-- [x] `react/no-string-refs`
-- [x] `react/no-render-return-value`
-- [x] `react/no-dangerously-set-innerhtml`
-- [x] `react/no-dangerously-set-innerhtml-with-children`
-- [x] `react/no-missing-button-type`
-- [x] `react/no-missing-iframe-sandbox`
-- [x] `react/no-missing-component-display-name`
-- [x] `react/no-script-url`
-- [x] `react/no-direct-mutation-state`
-- [x] `react/no-redundant-should-component-update`
-- [x] `react/no-set-state-in-component-did-mount`
-- [x] `react/no-set-state-in-component-did-update`
-- [x] `react/no-set-state-in-component-will-update`
-- [x] `react/no-component-will-mount`
-- [x] `react/no-component-will-update`
-- [x] `react/no-unsafe-component-will-mount`
-- [x] `react/no-unsafe-component-will-update`
-- [x] `react/no-unsafe-component-will-receive-props`
-- [x] `react/no-unsafe-iframe-sandbox`
-- [x] `react/no-unsafe-target-blank`
-- [ ] `react/no-unsorted-class-component-methods`
-- [x] `react/no-unstable-default-props`
-- [x] `react/no-unstable-nested-components`
-- [x] `react/no-constructed-context-value`
-- [ ] `react/no-unused-class-component-methods`
-- [ ] `react/no-unused-state`
-- [x] `react/prefer-destructuring-assignment`
-- [ ] `react/prefer-readonly-props`
-- [ ] `react/ban-components`
 - [ ] `react/ban-component-props`
+- [ ] `react/ban-components`
 - [ ] `react/ban-html-props`
 - [ ] `react/ban-svg-props`
+- [ ] `react/no-unsorted-class-component-methods`
+- [ ] `react/no-unused-class-component-methods`
+- [ ] `react/no-unused-state`
+- [ ] `react/prefer-readonly-props`
 
 ### React hooks rules
 
 - [ ] `react-hooks/no-access-state-in-set-state`
-- [x] `react-hooks/ensure-use-memo-has-non-empty-deps` (Proposed by @SukkaW)
-- [x] `react-hooks/ensure-use-callback-has-non-empty-deps` (Proposed by @SukkaW)
-- [x] `react-hooks/ensure-custom-hooks-using-other-hooks` (Proposed by @SukkaW)
-- [x] `react-hooks/prefer-use-state-lazy-initialization` (Proposed by @SukkaW)
 
 ### Debug rules
 
-- [x] `debug/class-component`
-- [x] `debug/function-component`
-- [x] `debug/react-hooks`
-- [ ] `debug/render-prop`
 - [ ] `debug/context`
+- [ ] `debug/render-prop`
 
 ## Philosophy
 

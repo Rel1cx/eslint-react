@@ -4,6 +4,10 @@
 
 More than 50 ESLint rules to catch common mistakes and improve your React code. Built (mostly) from scratch.
 
+## Supported React versions
+
+- 18.2.0 or later
+
 ## Supported engines
 
 ### Node.js
