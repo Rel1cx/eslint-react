@@ -1,5 +1,5 @@
 export type RuleCategory =
-  | "complexity" // Rules to indicate code that does something simple but in a complex way or help prevent complex code
+  | "complexity" // Rules to indicate code that does something simple but in a complex way
   | "correctness" // Rules to indicate code that is outright wrong or useless
   | "debug" // Rules to help debug code (e.g. debug-function-component)
   | "deprecated" // Rules that already deprecated and should not be used

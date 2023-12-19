@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "0.9.8-beta.1",
+  "version": "0.9.8-beta.2",
   "description": "ESLint React's monorepo. More than 50 ESLint rules to catch common mistakes and improve your React code. Built (mostly) from scratch.",
   "keywords": [
     "eslint",
@@ -70,7 +70,7 @@
     "@typescript-eslint/rule-tester": "6.15.0",
     "@vitest/ui": "1.0.4",
     "bun": "1.0.18",
-    "bun-types": "1.0.18-1",
+    "bun-types": "1.0.18-canary.20231218T214637",
     "cspell": "8.1.3",
     "dedent": "1.5.1",
     "dprint": "0.44.0",

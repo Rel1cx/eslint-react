@@ -19,6 +19,7 @@
 - [filterMap](Record.md#filtermap)
 - [fromEntries](Record.md#fromentries)
 - [fromIterable](Record.md#fromiterable)
+- [fromIterableBy](Record.md#fromiterableby)
 - [fromIterableWith](Record.md#fromiterablewith)
 - [get](Record.md#get)
 - [getEquivalence](Record.md#getequivalence)
@@ -1467,6 +1468,54 @@ Creates a new record from an iterable collection of key/value pairs.
 #### Returns
 
 `Record`\<`string`, `V`\>
+
+**`Since`**
+
+2.0.0
+
+___
+
+### fromIterableBy
+
+▸ **fromIterableBy**\<`A`\>(`items`, `f`): `Record`\<`string`, `A`\>
+
+Creates a new record from an iterable, utilizing the provided function to determine the key for each element.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `A` |
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `items` | `Iterable`\<`A`\> | An iterable containing elements. |
+| `f` | (`a`: `A`) => `string` | A function that extracts the key for each element. |
+
+#### Returns
+
+`Record`\<`string`, `A`\>
+
+**`Example`**
+
+```ts
+import { fromIterableBy } from "effect/ReadonlyRecord"
+
+const users = [
+  { id: "2", name: "name2" },
+  { id: "1", name: "name1" }
+]
+
+assert.deepStrictEqual(
+  fromIterableBy(users, user => user.id),
+  {
+    "2": { id: "2", name: "name2" },
+    "1": { id: "1", name: "name1" }
+  }
+)
+```
 
 **`Since`**
 

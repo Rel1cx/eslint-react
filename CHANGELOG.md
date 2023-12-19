@@ -1,3 +1,22 @@
+## v0.9.8-beta.2 (Tue Dec 19 2023)
+
+### Release Notes
+
+Optimize `recommended` and `recommended-legacy` presets.
+
+---
+
+🚀 Enhancement
+
+- `@eslint-react/eslint-plugin`
+  - Optimize `recommended` and `recommended-legacy` presets.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
+
 ## v0.9.8-beta.1 (Tue Dec 19 2023)
 
 ### Release Notes

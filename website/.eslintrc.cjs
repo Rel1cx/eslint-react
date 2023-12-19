@@ -36,6 +36,7 @@ module.exports = defineConfig({
       files: ["*.ts", "*.tsx"],
       extends: [
         "plugin:react-hooks/recommended",
+        // Using all preset here because we also use it for testing purposes, not recommended for normal projects
         "plugin:@eslint-react/all-legacy",
       ],
       rules: {

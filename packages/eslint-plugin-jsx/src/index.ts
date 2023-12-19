@@ -1,4 +1,4 @@
-// workaround for @typescript-eslint/utils's TS2742 error.
+// Workaround for @typescript-eslint/utils's TS2742 error.
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { name, version } from "../package.json";

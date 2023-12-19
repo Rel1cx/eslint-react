@@ -6,7 +6,7 @@ import * as hooks from "@eslint-react/eslint-plugin-react-hooks";
 import { Helper } from "@eslint-react/tools";
 import type { RulePreset } from "@eslint-react/types";
 import tsParser from "@typescript-eslint/parser";
-// workaround for @typescript-eslint/utils's TS2742 error.
+// Workaround for @typescript-eslint/utils's TS2742 error.
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { name, version } from "../package.json";
@@ -82,9 +82,12 @@ const rulePreset = {
 
 const recommendedPreset = {
   "jsx/no-array-index-key": "warn",
+  // Not enabled because it rarely happens.
   // "jsx/no-comment-textnodes": "warn",
+  // Not enabled because it's style related.
   // "jsx/no-complicated-conditional-rendering": "warn",
   "jsx/no-duplicate-key": "error",
+  // Not enabled because it requires type information.
   // "jsx/no-leaked-conditional-rendering": "warn",
   "jsx/no-missing-key": "error",
   "jsx/no-spreading-key": "warn",
@@ -92,12 +95,13 @@ const recommendedPreset = {
   "jsx/prefer-shorthand-boolean": "warn",
   "jsx/prefer-shorthand-fragment": "warn",
 
-  "naming-convention/component-name": "warn",
+  // Not enabled because naming convention rules are dependent on the project.
+  // "naming-convention/component-name": "warn",
   // "naming-convention/filename": "warn",
   // "naming-convention/filename-extension": "warn",
-  "naming-convention/use-state": "warn",
+  // "naming-convention/use-state": "warn",
 
-  "react/ensure-forward-ref-using-ref": "error",
+  "react/ensure-forward-ref-using-ref": "warn",
   "react/no-children-count": "warn",
   "react/no-children-for-each": "warn",
   "react/no-children-in-void-dom-elements": "warn",
@@ -105,8 +109,10 @@ const recommendedPreset = {
   "react/no-children-only": "warn",
   "react/no-children-prop": "warn",
   "react/no-children-to-array": "warn",
+  // Not enabled because it depends on the project.
   // "react/no-class-component": "warn",
-  "react/no-clone-element": "warn",
+  // Not enabled because it's legacy but still widely used.
+  // "react/no-clone-element": "warn",
   "react/no-component-will-mount": "error",
   "react/no-component-will-receive-props": "error",
   "react/no-component-will-update": "error",
@@ -117,10 +123,11 @@ const recommendedPreset = {
   "react/no-direct-mutation-state": "error",
   "react/no-find-dom-node": "error",
   "react/no-missing-button-type": "warn",
+  // Not enabled because it's only useful when using devtools.
   // "react/no-missing-component-display-name": "warn",
   "react/no-missing-iframe-sandbox": "warn",
   "react/no-namespace": "error",
-  "react/no-redundant-should-component-update": "warn",
+  "react/no-redundant-should-component-update": "error",
   "react/no-render-return-value": "error",
   "react/no-script-url": "warn",
   "react/no-set-state-in-component-did-mount": "warn",
@@ -132,11 +139,13 @@ const recommendedPreset = {
   "react/no-unsafe-component-will-update": "warn",
   "react/no-unsafe-iframe-sandbox": "warn",
   "react/no-unsafe-target-blank": "warn",
-  "react/no-unstable-default-props": "warn",
+  "react/no-unstable-default-props": "error",
   "react/no-unstable-nested-components": "warn",
-  "react/prefer-destructuring-assignment": "warn",
+  // Not enabled because it's style related.
+  // "react/prefer-destructuring-assignment": "warn",
 
-  "react-hooks/ensure-custom-hooks-using-other-hooks": "warn",
+  // Not enabled because it triggers prematurely before the code is fully written.
+  // "react-hooks/ensure-custom-hooks-using-other-hooks": "warn",
   // "react-hooks/ensure-use-callback-has-non-empty-deps": "warn",
   // "react-hooks/ensure-use-memo-has-non-empty-deps": "warn",
   // "react-hooks/prefer-use-state-lazy-initialization": "warn",

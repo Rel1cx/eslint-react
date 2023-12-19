@@ -10,7 +10,7 @@ Prevents nesting component definitions inside other components.
 
 ## Why is this bad?
 
-Nesting component definitions inside other components is a common mistake that can be extremely slow and cause issues and bugs. Instead, define every component at the top level.
+Nesting component definitions inside other components is a common mistake that can be extremely slow and cause issues and bugs, and the state of components defined during rendering will not be preserved by React. Instead, define every component at the top level.
 
 ## Examples
 

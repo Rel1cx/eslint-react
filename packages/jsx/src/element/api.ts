@@ -4,7 +4,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 
 import { isFromPragma } from "../pragma";
 
-// workaround for @typescript-eslint/utils's TS2742 error.
+// Workaround for @typescript-eslint/utils's TS2742 error.
 type _ = (node: TSESTree.Identifier | TSESTree.MemberExpression, context: RuleContext) => boolean;
 
 export const isCreateElement: _ = isFromPragma("createElement");
