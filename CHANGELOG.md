@@ -1,15 +1,78 @@
-## v0.9.8-beta.2 (Tue Dec 19 2023)
+## v0.9.8 (Tue Dec 19 2023)
 
 ### Release Notes
 
-Optimize `recommended` and `recommended-legacy` presets.
+#### Add rule `react/ensure-forward-ref-using-ref`
+
+#### Reduce false positives in rule `react/no-unstable-nested-components`
+
+#### Reduce false positives in rule `debug/function-component`
+
+#### Optimize `recommended` and `recommended-legacy` presets
+
+#### Update `@typescript-eslint`'s packages to `6.15.0`
 
 ---
 
 🚀 Enhancement
 
-- `@eslint-react/eslint-plugin`
-  - Optimize `recommended` and `recommended-legacy` presets.
+- Optimize `recommended` and `recommended-legacy` presets.
+
+#### 🐛 Bug Fix
+
+- Reduce false positives in rule `react/no-unstable-nested-components`.
+- Reduce false positives in rule `debug/function-component`.
+
+#### 🏠 Internal
+
+- `@eslint-react/eslint-plugin-react`
+  - Reduce false positives in rule `react/no-unstable-nested-components`.
+
+- `@eslint-react/eslint-plugin-debug`
+  - Reduce false positives in rule `debug/function-component`.
+
+- `@eslint-react/core`
+  - Move construction detection from `@eslint-react/ast` to `@eslint-react/core`.
+
+- `@eslint-react/jsx`
+  - Migrate fragment related functions to `isFromPragma`, `isFromPragmaWithName`, `isCallFromPragma`, `isCallFromPragmaWithName`.
+  - Add `isReactAPI` and `isReactAPICall` functions.
+
+- `@eslint-react/ast`
+  - Move construction detection from `@eslint-react/ast` to `@eslint-react/core`.
+  - Refactor `getFunctionIdentifier` function to follow spec convention for `IsAnonymousFunctionDefinition()` usage in ECMAScript spec.
+  - Improve module structure.
+
+- `@eslint-react/shared`
+  - Extract eslint utils to `@eslint-react/eslint-utils`.
+
+- `@eslint-react/utils`
+  - Migration to `@eslint-react/eslint-utils` package.
+
+- `@eslint-react/tools`
+  - Integrate into std and helper.
+
+- `@eslint-react/monorepo`
+  - Make packages more sensible.
+  - Update `@typescript-eslint`'s packages to `6.15.0`.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
+
+## v0.9.8-beta.2 (Tue Dec 19 2023)
+
+### Release Notes
+
+#### Optimize `recommended` and `recommended-legacy` presets
+
+---
+
+🚀 Enhancement
+
+- Optimize `recommended` and `recommended-legacy` presets.
 
 #### Authors: 1
 
@@ -28,7 +91,7 @@ Optimize `recommended` and `recommended-legacy` presets.
 #### 🏠 Internal
 
 - `@eslint-react/tools`
-  - Integrate utility functions into std and helper.
+  - Integrate into std and helper.
 
 - `@eslint-react/shared`
   - Extract eslint utils to `@eslint-react/eslint-utils`.
