@@ -3,11 +3,13 @@ import { getPragmaFromContext } from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import ShortUniqueId from "short-unique-id";
 import { match, P } from "ts-pattern";
 
-import { uid } from "../utils";
 import type { ERClassComponent } from "./component";
 import { ERClassComponentFlag } from "./component-flag";
+
+const uid = new ShortUniqueId({ length: 10 });
 
 /**
  * Check if a node is a React class component

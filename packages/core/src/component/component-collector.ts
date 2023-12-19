@@ -14,10 +14,10 @@ import { F, MutList, MutRef, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import ShortUniqueId from "short-unique-id";
 import { match } from "ts-pattern";
 
 import { unsafeIsReactHookCall } from "../hook";
-import { uid } from "../utils";
 import type { ERFunctionComponent } from "./component";
 import { DEFAULT_COMPONENT_COLLECTOR_HINT, ERComponentCollectorHint } from "./component-collector-hint";
 import { ERFunctionComponentFlag } from "./component-flag";
@@ -25,6 +25,8 @@ import { getFunctionComponentIdentifier } from "./component-Identifier";
 import { getComponentInitPath, hasCallInInitPath } from "./component-init-path";
 import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
 import { isFunctionOfRenderMethod } from "./component-render-method";
+
+const uid = new ShortUniqueId({ length: 10 });
 
 function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: bigint) {
   if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node, context)) {

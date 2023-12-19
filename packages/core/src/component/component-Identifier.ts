@@ -4,7 +4,7 @@ import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { isForwardRefCall, isMemoCall } from "../api";
+import { isForwardRefCall, isMemoCall } from "../react-api";
 
 function isMemoOrForwardRefCall(node: TSESTree.Node, context: RuleContext) {
   if (node.type !== NodeType.CallExpression) {

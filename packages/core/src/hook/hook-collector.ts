@@ -1,11 +1,13 @@
 import { getFunctionIdentifier, type TSESTreeFunction } from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import ShortUniqueId from "short-unique-id";
 
-import { uid } from "../utils";
 import type { ERHook } from "./hook";
 import { unsafeIsReactHookCall } from "./hook-call";
 import { isValidReactHookName } from "./hook-name";
+
+const uid = new ShortUniqueId({ length: 10 });
 
 export function hookCollector(): {
   // manually specify the return type here to avoid @typescript-eslint/utils's TS2742 error

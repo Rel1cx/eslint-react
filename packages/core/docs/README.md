@@ -30,7 +30,6 @@
 - [ERFunctionComponentFlag](README.md#erfunctioncomponentflag-1)
 - [RE\_COMPONENT\_NAME](README.md#re_component_name)
 - [RE\_HOOK\_NAME](README.md#re_hook_name)
-- [uid](README.md#uid)
 
 ### Functions
 
@@ -68,7 +67,6 @@
 - [isFunctionOfRenderMethod](README.md#isfunctionofrendermethod)
 - [isInsideReactHook](README.md#isinsidereacthook)
 - [isInsideRenderMethod](README.md#isinsiderendermethod)
-- [isMemberExpressionOfReactMember](README.md#ismemberexpressionofreactmember)
 - [isMemo](README.md#ismemo)
 - [isMemoCall](README.md#ismemocall)
 - [isPureComponent](README.md#ispurecomponent)
@@ -239,12 +237,6 @@ ___
 ### RE\_HOOK\_NAME
 
 • `Const` **RE\_HOOK\_NAME**: `RegExp`
-
-___
-
-### uid
-
-• `Const` **uid**: `default`
 
 ## Functions
 
@@ -911,39 +903,6 @@ class Component extends React.Component {
 **`Deprecated`**
 
 It will be removed in the future
-
-___
-
-### isMemberExpressionOfReactMember
-
-▸ **isMemberExpressionOfReactMember**(`pragmaMemberName`, `memberName`): (`node`: `TSESTree.MemberExpression`, `context`: `RuleContext`, `pragma?`: `string`) => `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `pragmaMemberName` | `string` |
-| `memberName` | `string` |
-
-#### Returns
-
-`fn`
-
-A function that checks if a given node is a member expression of a Pragma member.
-
-▸ (`node`, `context`, `pragma?`): `boolean`
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `TSESTree.MemberExpression` |
-| `context` | `RuleContext` |
-| `pragma?` | `string` |
-
-##### Returns
-
-`boolean`
 
 ___
 
