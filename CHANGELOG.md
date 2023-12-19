@@ -16,6 +16,7 @@
 
 🚀 Enhancement
 
+- Add rule `react/ensure-forward-ref-using-ref`
 - Optimize `recommended` and `recommended-legacy` presets.
 
 #### 🐛 Bug Fix
