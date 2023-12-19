@@ -197,14 +197,14 @@ module.exports = {
 
 ### React rules
 
+- [ ] `react/prefer-readonly-props`
 - [ ] `react/ban-component-props`
 - [ ] `react/ban-components`
 - [ ] `react/ban-html-props`
 - [ ] `react/ban-svg-props`
-- [ ] `react/no-unsorted-class-component-methods`
-- [ ] `react/no-unused-class-component-methods`
 - [ ] `react/no-unused-state`
-- [ ] `react/prefer-readonly-props`
+- [ ] `react/no-unused-class-component-methods`
+- [ ] `react/no-unsorted-class-component-methods`
 
 ### React hooks rules
 
