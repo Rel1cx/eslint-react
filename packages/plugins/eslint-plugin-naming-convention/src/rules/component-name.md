@@ -8,10 +8,6 @@ Style.
 
 Enforces naming conventions for components.
 
-## Why is this good?
-
-Following naming conventions can make codebase more consistent and easier to understand, navigate and work with.
-
 ## Examples
 
 This rule enforces naming conventions for components. default to `PascalCase`.
@@ -42,3 +38,15 @@ export const MyComponent = () => {
   - `PascalCase`: PascalCase
   - `CONSTANT_CASE`: CONSTANT_CASE
 - `excepts`: List of component names that should be ignored by this rule.
+
+```json
+{
+  "@eslint-react/naming-convention/component-name": ["warn", "PascalCase"]
+}
+```
+
+```json
+{
+  "@eslint-react/naming-convention/component-name": ["warn", { "rule": "PascalCase", "excepts": ["MyComponent"] }]
+}
+```

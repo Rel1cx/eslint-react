@@ -1,6 +1,7 @@
 {
-  "name": "with-legacy-config",
+  "name": "vite-react-ts",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "tsc && vite build",
     "dev": "vite",

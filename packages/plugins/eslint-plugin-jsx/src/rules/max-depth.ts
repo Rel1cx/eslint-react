@@ -14,29 +14,37 @@ export const RULE_NAME = "max-depth";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
-const DEFAULT_MAX_DEPTH = 12;
-
 /* eslint-disable no-restricted-syntax */
 type Options = [
-  {
+  | {
     max?: number;
-  }?,
+  }
+  | number
+  | undefined,
 ];
 /* eslint-enable no-restricted-syntax */
 
 const defaultOptions = [{
-  max: DEFAULT_MAX_DEPTH,
+  max: 12,
 }] as const satisfies Options;
 
 const schema = [{
-  type: "object",
-  properties: {
-    max: {
+  anyOf: [
+    {
       type: "integer",
       minimum: 0,
     },
-  },
-  additionalProperties: false,
+    {
+      type: "object",
+      properties: {
+        max: {
+          type: "integer",
+          minimum: 0,
+        },
+      },
+      additionalProperties: false,
+    },
+  ] satisfies JSONSchema4[],
 }] satisfies [JSONSchema4];
 
 const isJSX = isOneOf([NodeType.JSXElement, NodeType.JSXFragment]);
@@ -104,7 +112,8 @@ export default createRule<Options, MessageID>({
   },
   defaultOptions,
   create(context) {
-    const maxDepth = context.options[0]?.max ?? defaultOptions[0].max;
+    const options = context.options[0] ?? defaultOptions[0];
+    const maxDepth = _.isNumber(options) ? options : options.max ?? defaultOptions[0].max;
 
     return {
       "JSXElement, JSXFragment": F.flow(getChecker(maxDepth), O.map(context.report)),

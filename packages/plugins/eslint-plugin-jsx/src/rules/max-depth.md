@@ -12,8 +12,34 @@ Enforces a maximum depth that JSX elements can be nested.
 
 ### Failing
 
-TODO: Add examples.
+```tsx
+// max-depth: 3
+<App>
+  <Foo>
+    <Bar>
+      <Baz />
+    </Bar>
+  </Foo>
+</App>;
+```
 
 ### Passing
 
-TODO: Add examples.
+```tsx
+// max-depth: 3
+<App>
+  <Foo>
+    <Bar />
+  </Foo>
+</App>;
+```
+
+## Rule Options
+
+- `max`: The maximum depth that JSX elements can be nested. Defaults to `12`.
+
+```json
+{
+  "@eslint-react/jsx/max-depth": ["warn", { "max": 12 }]
+}
+```

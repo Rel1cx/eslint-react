@@ -8,10 +8,6 @@ Style.
 
 Enforces naming convention for JSX files. By default, it enforces `PascalCase` for file names.
 
-## Why is this good?
-
-Following naming conventions can make codebase more consistent and easier to understand, navigate and work with.
-
 ## Examples
 
 This rule can be configured to enforce one of the following naming conventions:
@@ -24,27 +20,27 @@ This rule can be configured to enforce one of the following naming conventions:
 ### Failing
 
 ```bash
-npx eslint --rule '@eslint-react/naming-convention/filename: ["error", { "rule": "PascalCase" }]' .
+npx eslint --rule '@eslint-react/naming-convention/filename: ["warn", { "rule": "PascalCase" }]' .
 
 src/components/Component.tsx
     1:1  error  "File name `Component.tsx` does not match `PascalCase`. Should rename to `Component.tsx`  react/jsx-filename-naming-convention
 
-✖ 1 problems (1 errors, 0 warnings)
+✖ 1 problems (0 errors, 1 warnings)
 ```
 
 ```bash
-npx eslint --rule '@eslint-react/naming-convention/filename: ["error", { "rule": "kebab-case" }]' .
+npx eslint --rule '@eslint-react/naming-convention/filename: ["warn", { "rule": "kebab-case" }]' .
 
 src/components/example_component.tsx
     1:1  error  "File name `example_component.tsx` does not match `kebab-case`. Should rename to `example-component.tsx`  react/jsx-filename-naming-convention
 
-✖ 1 problems (1 errors, 0 warnings)
+✖ 1 problems (0 errors, 1 warnings)
 ```
 
 ### Passing
 
 ```bash
-npx eslint --rule '@eslint-react/naming-convention/filename: ["error", { "rule": "PascalCase" }]' .
+npx eslint --rule '@eslint-react/naming-convention/filename: ["warn", { "rule": "PascalCase" }]' .
 
 src/components/Component.tsx
 
@@ -52,7 +48,7 @@ src/components/Component.tsx
 ```
 
 ```bash
-npx eslint --rule '@eslint-react/naming-convention/filename: ["error", { "rule": "kebab-case" }]' .
+npx eslint --rule '@eslint-react/naming-convention/filename: ["warn", { "rule": "kebab-case" }]' .
 
 src/components/example-component.tsx
 
@@ -68,3 +64,22 @@ src/components/example-component.tsx
   - `snake_case`: snake_case
 - `excepts`: List of file names that should be ignored by this rule.
 - `extensions`: List of file extensions that should be checked by this rule. By default, it checks `.jsx`, `.tsx` files.
+
+```json
+{
+  "@eslint-react/naming-convention/filename": ["warn", "kebab-case"]
+}
+```
+
+```json
+{
+  "@eslint-react/naming-convention/filename": [
+    "warn",
+    {
+      "rule": "PascalCase",
+      "excepts": ["index"],
+      "extensions": [".jsx", ".tsx"]
+    }
+  ]
+}
+```
