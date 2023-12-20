@@ -1,4 +1,4 @@
-// Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/b4b7497eaf49360449883d5fe80e7590e69ae143/tests/lib/rules/jsx-max-depth.js
+// Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/b4b7497eaf49360449883d5fe80e7590e69ae143/lib/rules/jsx-max-depth.js
 // with some modifications, credits to the original authors.
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import { _, F, O } from "@eslint-react/tools";
