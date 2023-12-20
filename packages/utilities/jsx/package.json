@@ -36,7 +36,6 @@
   ],
   "scripts": {
     "build": "rollup -c rollup.config.ts --configPlugin swc3 && cp dist/index.d.ts dist/index.d.mts",
-    "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:type": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"

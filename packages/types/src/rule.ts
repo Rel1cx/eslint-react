@@ -8,8 +8,8 @@ export type Severity = "error" | "off" | "warn";
 
 /**
  * Rule declaration.
- * @since 0.0.1
  * @internal
+ * @since 0.0.1
  */
 export type RuleDeclaration = [Severity, Record<string, unknown>?] | Severity;
 

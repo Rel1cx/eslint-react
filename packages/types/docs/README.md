@@ -10,7 +10,6 @@
 - [CreateRule](README.md#createrule)
 - [RuleCategory](README.md#rulecategory)
 - [RuleContext](README.md#rulecontext)
-- [RuleDeclaration](README.md#ruledeclaration)
 - [RuleNamespace](README.md#rulenamespace)
 - [RuleOptions](README.md#ruleoptions)
 - [RulePreset](README.md#rulepreset)
@@ -60,18 +59,6 @@ Rule context.
 
 ___
 
-### RuleDeclaration
-
-Ƭ **RuleDeclaration**: [[`Severity`](README.md#severity), Record\<string, unknown\>?] \| [`Severity`](README.md#severity)
-
-Rule declaration.
-
-**`Since`**
-
-0.0.1
-
-___
-
 ### RuleNamespace
 
 Ƭ **RuleNamespace**: ``"debug"`` \| ``"experimental"`` \| ``"jsx"`` \| ``"naming-convention"`` \| ``"react"`` \| ``"react-hooks"``
@@ -92,7 +79,7 @@ ___
 
 ### RulePreset
 
-Ƭ **RulePreset**: `Record`\<`string`, [`RuleDeclaration`](README.md#ruledeclaration)\>
+Ƭ **RulePreset**: `Record`\<`string`, `RuleDeclaration`\>
 
 Rule config preset.
 

@@ -10,6 +10,9 @@ export const WEBSITE_URL = "https://eslint-react.rel1cx.io";
 export const RE_JAVASCRIPT_PROTOCOL = /^[\u0000-\u001F ]*j[\t\n\r]*a[\t\n\r]*v[\t\n\r]*a[\t\n\r]*s[\t\n\r]*c[\t\n\r]*r[\t\n\r]*i[\t\n\r]*p[\t\n\r]*t[\t\n\r]*:/iu;
 
 // source: https://react.dev/reference/react-dom/components#all-html-components
+/**
+ * @internal
+ */
 export const HOST_HTML_COMPONENT_TYPES = [
   "aside",
   "audio",
@@ -115,6 +118,9 @@ export const HOST_HTML_COMPONENT_TYPES = [
 ] as const;
 
 // source: https://react.dev/reference/react-dom/components#all-svg-components
+/**
+ * @internal
+ */
 export const HOST_SVG_COMPONENT_TYPES = [
   "a",
   "animate",

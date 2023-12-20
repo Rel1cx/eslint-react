@@ -1,6 +1,9 @@
 import type { ReadonlyDeep } from "type-fest";
 import { array, object, optional, type Output, string } from "valibot";
 
+/**
+ * @internal
+ */
 export const ESLintReactSettingsSchema = object({
   jsx: optional(object({
     extensions: optional(array(string())),
@@ -35,6 +38,9 @@ export const ESLintReactSettingsSchema = object({
 
 export type ESLintReactSettings = ReadonlyDeep<Output<typeof ESLintReactSettingsSchema>>;
 
+/**
+ * @internal
+ */
 export const ESLintSettingsSchema = object({
   eslintReact: optional(ESLintReactSettingsSchema),
 });
