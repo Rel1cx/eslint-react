@@ -20,7 +20,7 @@
     "**/dist",
     "bun.lockb",
     "**/.next",
-    "packages/*/docs",
+    "packages/**/docs",
     "website/pages/rules"
   ],
   "plugins": [

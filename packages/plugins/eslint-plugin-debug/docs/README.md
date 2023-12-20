@@ -17,12 +17,12 @@
 
 #### Type declaration
 
-| Name      | Type     |
-| :-------- | :------- |
-| `name`    | `string` |
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
 | `version` | `string` |
 
----
+___
 
 ### rules
 
@@ -30,8 +30,8 @@
 
 #### Type declaration
 
-| Name                 | Type                                                       |
-| :------------------- | :--------------------------------------------------------- |
-| `class-component`    | `RuleModule`\<`"CLASS_COMPONENT"`, [], `RuleListener`\>    |
-| `function-component` | `RuleModule`\<`"FUNCTION_COMPONENT"`, [], `RuleListener`\> |
-| `react-hooks`        | `RuleModule`\<`"REACT_HOOKS"`, [], `RuleListener`\>        |
+| Name | Type |
+| :------ | :------ |
+| `class-component` | `RuleModule`\<``"CLASS_COMPONENT"``, [], `RuleListener`\> |
+| `function-component` | `RuleModule`\<``"FUNCTION_COMPONENT"``, [], `RuleListener`\> |
+| `react-hooks` | `RuleModule`\<``"REACT_HOOKS"``, [], `RuleListener`\> |

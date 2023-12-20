@@ -17,12 +17,12 @@
 
 #### Type declaration
 
-| Name      | Type     |
-| :-------- | :------- |
-| `name`    | `string` |
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
 | `version` | `string` |
 
----
+___
 
 ### rules
 
@@ -30,9 +30,9 @@
 
 #### Type declaration
 
-| Name                 | Type                                                          |
-| :------------------- | :------------------------------------------------------------ |
-| `component-name`     | `RuleModule`\<`"COMPONENT_NAME"`, `Options`, `RuleListener`\> |
-| `filename`           | `RuleModule`\<`MessageID`, `Options`, `RuleListener`\>        |
-| `filename-extension` | `RuleModule`\<`MessageID`, `Options`, `RuleListener`\>        |
-| `use-state`          | `RuleModule`\<`"USE_STATE"`, [], `RuleListener`\>             |
+| Name | Type |
+| :------ | :------ |
+| `component-name` | `RuleModule`\<``"COMPONENT_NAME"``, `Options`, `RuleListener`\> |
+| `filename` | `RuleModule`\<`MessageID`, `Options`, `RuleListener`\> |
+| `filename-extension` | `RuleModule`\<`MessageID`, `Options`, `RuleListener`\> |
+| `use-state` | `RuleModule`\<``"USE_STATE"``, [], `RuleListener`\> |
