@@ -1,5 +1,6 @@
 const GLOBS = [
   "{packages,examples}/*/package.json",
+  "packages/{plugins,utilities}/*/package.json",
   "website/package.json",
   "package.json",
 ] as const;
