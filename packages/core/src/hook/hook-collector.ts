@@ -1,5 +1,5 @@
 import { getFunctionIdentifier, type TSESTreeFunction } from "@eslint-react/ast";
-import { O } from "@eslint-react/tools";
+import { MutList, O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import ShortUniqueId from "short-unique-id";
 
@@ -18,10 +18,10 @@ export function hookCollector(): {
   listeners: ESLintUtils.RuleListener;
 } {
   const hooks = new Map<string, ERHook>();
-  const functionStack: TSESTreeFunction[] = [];
-  const getCurrentFunction = () => functionStack[functionStack.length - 1];
+  const functionStack = MutList.make<TSESTreeFunction>();
+  const getCurrentFunction = () => MutList.tail(functionStack);
   const onFunctionEnter = (node: TSESTreeFunction) => {
-    functionStack.push(node);
+    MutList.append(functionStack, node);
     const currentFn = getCurrentFunction();
     if (!currentFn) {
       return;
@@ -43,7 +43,7 @@ export function hookCollector(): {
   };
 
   const onFunctionExit = () => {
-    functionStack.pop();
+    MutList.pop(functionStack);
   };
 
   const ctx = {

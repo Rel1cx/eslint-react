@@ -27,10 +27,12 @@
 
 ### Functions
 
+- [createRuleForPlugin](README.md#createruleforplugin)
 - [getCaseValidator](README.md#getcasevalidator)
 - [getRule](README.md#getrule)
-- [parse](README.md#parse)
-- [safeParse](README.md#safeparse)
+- [mergeConfigs](README.md#mergeconfigs)
+- [parseSchema](README.md#parseschema)
+- [safeParseSchema](README.md#safeparseschema)
 - [splitName](README.md#splitname)
 
 ## Type Aliases
@@ -101,6 +103,45 @@ ___
 
 ## Functions
 
+### createRuleForPlugin
+
+▸ **createRuleForPlugin**(`pluginName`): \<TOptions, TMessageIds\>(`urlCreator`: `Readonly`\<`RuleWithMetaAndName`\<`TOptions`, `TMessageIds`\>\>) => `RuleModule`\<`TMessageIds`, `TOptions`, `RuleListener`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `pluginName` | `string` |
+
+#### Returns
+
+`fn`
+
+▸ \<`TOptions`, `TMessageIds`\>(`urlCreator`): `RuleModule`\<`TMessageIds`, `TOptions`, `RuleListener`\>
+
+Creates reusable function to create rules with default options and docs URLs.
+
+##### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TOptions` | extends readonly `unknown`[] |
+| `TMessageIds` | extends `string` |
+
+##### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `urlCreator` | `Readonly`\<`RuleWithMetaAndName`\<`TOptions`, `TMessageIds`\>\> | Creates a documentation URL for a given rule name. |
+
+##### Returns
+
+`RuleModule`\<`TMessageIds`, `TOptions`, `RuleListener`\>
+
+Function to create a rule with the docs URL format.
+
+___
+
 ### getCaseValidator
 
 ▸ **getCaseValidator**(`ruleName`, `ignorePattern?`): [`CaseValidator`](classes/CaseValidator.md)
@@ -135,9 +176,33 @@ ___
 
 ___
 
-### parse
+### mergeConfigs
 
-▸ **parse**\<`TSchema`\>(`schema`, `input`, `info?`): `Output`\<`TSchema`\>
+▸ **mergeConfigs**\<`Ts`\>(`...objects`): `DeepMergeHKT`\<`Ts`, `Readonly`\<\{ `DeepMergeArraysURI`: ``"DeepMergeArraysDefaultURI"`` ; `DeepMergeMapsURI`: ``"DeepMergeMapsDefaultURI"`` ; `DeepMergeOthersURI`: ``"DeepMergeLeafURI"`` ; `DeepMergeRecordsURI`: ``"DeepMergeRecordsDefaultURI"`` ; `DeepMergeSetsURI`: ``"DeepMergeSetsDefaultURI"``  }\>, \{ `keyPath`: `PropertyKey`[]  }\>
+
+Deeply merge two or more objects using the given options and meta data.
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `Ts` | extends readonly `unknown`[] |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `...objects` | `Ts` |
+
+#### Returns
+
+`DeepMergeHKT`\<`Ts`, `Readonly`\<\{ `DeepMergeArraysURI`: ``"DeepMergeArraysDefaultURI"`` ; `DeepMergeMapsURI`: ``"DeepMergeMapsDefaultURI"`` ; `DeepMergeOthersURI`: ``"DeepMergeLeafURI"`` ; `DeepMergeRecordsURI`: ``"DeepMergeRecordsDefaultURI"`` ; `DeepMergeSetsURI`: ``"DeepMergeSetsDefaultURI"``  }\>, \{ `keyPath`: `PropertyKey`[]  }\>
+
+___
+
+### parseSchema
+
+▸ **parseSchema**\<`TSchema`\>(`schema`, `input`, `info?`): `Output`\<`TSchema`\>
 
 Parses unknown input based on a schema.
 
@@ -163,9 +228,9 @@ The parsed output.
 
 ___
 
-### safeParse
+### safeParseSchema
 
-▸ **safeParse**\<`TSchema`\>(`schema`, `input`, `info?`): `SafeParseResult`\<`TSchema`\>
+▸ **safeParseSchema**\<`TSchema`\>(`schema`, `input`, `info?`): `SafeParseResult`\<`TSchema`\>
 
 Parses unknown input based on a schema.
 

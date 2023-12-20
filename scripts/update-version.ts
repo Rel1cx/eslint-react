@@ -3,7 +3,7 @@ import type { PackageJson } from "type-fest";
 
 import { version } from "./version";
 
-const GLOB_PACKAGE_JSON = "packages/*/package.json";
+const GLOB_PACKAGE_JSON = "packages/**/package.json";
 
 async function makeTask(file: BunFile) {
   if (!file.name) {

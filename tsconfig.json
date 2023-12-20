@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.base.json",
+  "extends": "eslint-config-with-tsconfig/tsconfig.base.json",
   "compilerOptions": {
     "types": [
       "bun-types"
@@ -11,7 +11,7 @@
     "knip.ts",
     "scripts/**/*.ts",
     "test",
-    "packages/*/*.config.ts",
-    "packages/*/scripts/**/*.ts"
+    "packages/**/*.config.ts",
+    "packages/**/scripts/**/*.ts"
   ]
 }

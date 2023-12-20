@@ -24,17 +24,16 @@
   "license": "MIT",
   "author": "Eva1ent<let@ik.me>",
   "workspaces": [
-    "packages/*",
+    "packages/**",
     "examples/*",
     "website"
   ],
   "scripts": {
-    "build": "pnpm run update:version && turbo build --filter='./packages/*'",
+    "build": "pnpm run update:version && turbo build --filter='./packages/**'",
     "build:all": "pnpm run build && pnpm run build:docs && pnpm run build:website",
-    "build:docs": "turbo build:docs --filter='./packages/*'",
-    "build:force": "turbo build --force --filter='./packages/*'",
+    "build:docs": "turbo build:docs --filter='./packages/**'",
+    "build:force": "turbo build --force --filter='./packages/**'",
     "build:website": "pnpm run update:website && cd website && pnpm run build",
-    "clean": "rm -r -f packages/*/dist packages/*/docs **/*/node_modules pnpm-lock.yaml",
     "format:check": "dprint check",
     "format:package-json": "bun run --bun ./scripts/format-package-json.ts",
     "format:write": "dprint fmt",
@@ -76,7 +75,7 @@
     "dprint": "0.44.0",
     "effect": "2.0.0-next.61",
     "eslint": ">=8.56.0",
-    "eslint-config-with-tsconfig": "2.9.210",
+    "eslint-config-with-tsconfig": "2.9.212",
     "eslint-plugin-eslint-plugin": "5.2.1",
     "eslint-plugin-filenames-simple": "0.9.0",
     "eslint-plugin-functional": "6.0.0",
@@ -112,7 +111,7 @@
     "eslint": ">=8.56.0",
     "typescript": ">=5.3.3"
   },
-  "packageManager": "pnpm@8.12.0",
+  "packageManager": "pnpm@8.12.1",
   "engines": {
     "bun": ">=1.0.11",
     "node": ">=18.15.0"

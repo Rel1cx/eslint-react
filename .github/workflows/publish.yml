@@ -42,13 +42,13 @@ jobs:
         run: |
           if git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+$";
           then
-            pnpm --filter "./packages/*" publish --provenance --access public
+            pnpm --filter "./packages/**" publish --provenance --access public
           elif git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+-beta\.[0-9]\+$";
           then
-            pnpm --filter "./packages/*" publish --provenance --access public --tag beta
+            pnpm --filter "./packages/**" publish --provenance --access public --tag beta
           elif git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+";
           then
-            pnpm --filter "./packages/*" publish --provenance --access public --tag next
+            pnpm --filter "./packages/**" publish --provenance --access public --tag next
           else
             echo "Not a release, skipping publish"
           fi

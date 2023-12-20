@@ -21,7 +21,7 @@ export default {
       entry: "src/main.ts",
       project: ["src/**/*.ts", "src/**/*.tsx"],
     },
-    "packages/*": {
+    "packages/**": {
       entry: "src/index.ts",
       project: ["src/**/*.ts"],
     },

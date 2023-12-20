@@ -24,7 +24,7 @@ module.exports = defineConfig({
         ecmaVersion: "latest",
         project: [
           "./tsconfig.json",
-          "./packages/*/tsconfig.json",
+          "./packages/**/tsconfig.json",
         ],
         sourceType: "module",
         tsconfigRootDir: __dirname,
@@ -32,7 +32,7 @@ module.exports = defineConfig({
       extends: [
         "with-tsconfig",
         "plugin:perfectionist/recommended-natural",
-        "plugin:functional/recommended",
+        "plugin:functional/lite",
         "plugin:filenames-simple/recommended",
         "plugin:jsdoc/recommended-typescript",
         "plugin:eslint-plugin/all",
@@ -139,7 +139,6 @@ module.exports = defineConfig({
       files: [
         "./packages/tools/src/**/*.ts",
         "./packages/types/src/**/*.ts",
-        "./packages/shared/src/**/*.ts",
       ],
       extends: [
         "plugin:functional/strict",
@@ -153,9 +152,7 @@ module.exports = defineConfig({
     },
     {
       files: [
-        "./packages/ast/**/*",
-        "./packages/jsx/**/*",
-        "./packages/core/**/*",
+        "./packages/utilities/**/*.ts",
       ],
       extends: [
         "plugin:functional/strict",
@@ -170,7 +167,7 @@ module.exports = defineConfig({
       },
     },
     {
-      files: ["./packages/eslint-*/src/rules/**/*"],
+      files: ["./packages/plugins/*/src/rules/**/*.ts"],
       extends: [
         "plugin:functional/off",
       ],
@@ -208,7 +205,7 @@ module.exports = defineConfig({
       },
     },
     {
-      files: ["./packages/*/*.config.ts"],
+      files: ["./packages/**/*.config.ts"],
       rules: {
         "@typescript-eslint/no-unsafe-argument": "off",
         "@typescript-eslint/no-unsafe-assignment": "off",

@@ -1,6 +1,6 @@
 # `@eslint-react/shared`
 
-> ESLint React's shared data and constants.
+> ESLint React's Shared constants and functions.
 
 ## ✋ Internal Package
 
