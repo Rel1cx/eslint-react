@@ -1,7 +1,7 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/b4b7497eaf49360449883d5fe80e7590e69ae143/tests/lib/rules/jsx-max-depth.js
 // with some modifications, credits to the original authors.
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
-import { F, O } from "@eslint-react/tools";
+import { _, F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -60,7 +60,6 @@ function getDepth(node: TSESTree.Node, depth = 0) {
   if (isJSX(node)) {
     return getDepth(node.parent, depth + 1);
   }
-
   if (isExpression(node)) {
     return getDepth(node.parent, depth);
   }
@@ -68,25 +67,25 @@ function getDepth(node: TSESTree.Node, depth = 0) {
   return depth;
 }
 
-function checkJSX(maxDepth: number) {
+function getChecker(maxDepth: number) {
   return (node: TSESTree.JSXElement | TSESTree.JSXFragment): O.Option<ReportDescriptor<MessageID>> => {
     if (!isLeaf(node)) {
       return O.none();
     }
 
     const depth = getDepth(node);
-    if (depth > maxDepth) {
-      return O.some({
-        node,
-        messageId: "MAX_DEPTH",
-        data: {
-          maxDepth,
-          depth,
-        },
-      });
+    if (depth <= maxDepth) {
+      return O.none();
     }
 
-    return O.none();
+    return O.some({
+      node,
+      messageId: "MAX_DEPTH",
+      data: {
+        maxDepth,
+        depth,
+      },
+    });
   };
 }
 
@@ -108,7 +107,7 @@ export default createRule<Options, MessageID>({
     const maxDepth = context.options[0]?.max ?? defaultOptions[0].max;
 
     return {
-      "JSXElement, JSXFragment": F.flow(checkJSX(maxDepth), O.map(context.report)),
+      "JSXElement, JSXFragment": F.flow(getChecker(maxDepth), O.map(context.report)),
     };
   },
 });

@@ -32,6 +32,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
+| `max-depth` | `RuleModule`\<``"MAX_DEPTH"``, `Options`, `RuleListener`\> |
 | `no-array-index-key` | `RuleModule`\<``"NO_ARRAY_INDEX_KEY"``, [], `RuleListener`\> |
 | `no-comment-textnodes` | `RuleModule`\<``"NO_COMMENT_TEXTNODES"``, [], `RuleListener`\> |
 | `no-complicated-conditional-rendering` | `RuleModule`\<``"NO_COMPLICATED_CONDITIONAL_RENDERING"``, [], `RuleListener`\> |
