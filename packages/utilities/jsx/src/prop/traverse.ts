@@ -13,9 +13,9 @@ export function traverseUpProp(
   node: TSESTree.Node,
   predicate: (node: TSESTree.JSXAttribute) => boolean = F.constTrue,
 ): O.Option<TSESTree.JSXAttribute> {
-  const matcher = (node: TSESTree.Node): node is TSESTree.JSXAttribute => {
+  const guard = (node: TSESTree.Node): node is TSESTree.JSXAttribute => {
     return node.type === NodeType.JSXAttribute && predicate(node);
   };
 
-  return traverseUpGuard(node, matcher);
+  return traverseUpGuard(node, guard);
 }
