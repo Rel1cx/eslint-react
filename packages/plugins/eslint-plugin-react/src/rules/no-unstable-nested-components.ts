@@ -11,10 +11,10 @@ import {
   componentCollector,
   componentCollectorLegacy,
   ERComponentCollectorHint,
+  isInsideReactHookCall,
   isInsideRenderMethod,
   unsafeIsDeclaredInRenderProp,
   unsafeIsDirectValueOfRenderProperty,
-  unsafeIsInsideReactHookCall,
 } from "@eslint-react/core";
 import { isInsideCreateElementProps, isInsidePropValue } from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
@@ -75,7 +75,7 @@ export default createRule<[], MessageID>({
         for (const { node: component } of functionComponents) {
           if (
             // Do not mark components declared inside hooks (or falsy '() => null' clean-up methods)
-            unsafeIsInsideReactHookCall(component)
+            isInsideReactHookCall(component)
             // Do not mark objects containing render methods
             || unsafeIsDirectValueOfRenderProperty(component)
           ) {

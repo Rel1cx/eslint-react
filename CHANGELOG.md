@@ -1,3 +1,18 @@
+## v0.10.1-beta.0 (Draft)
+
+### Release Notes
+
+#### 🏠 Internal
+
+- `@eslint-react/core`
+  - Improve React Hooks related utils.
+
+#### Authors: 1
+
+- Eva1ent ([@Rel1cx](https://github.com/Rel1cx))
+
+---
+
 ## v0.10.0 (Thu Dec 21 2023)
 
 ### Release Notes

@@ -17,7 +17,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import ShortUniqueId from "short-unique-id";
 import { match } from "ts-pattern";
 
-import { unsafeIsReactHookCall } from "../hook";
+import { isReactHookCall } from "../hook";
 import type { ERFunctionComponent } from "./component";
 import { DEFAULT_COMPONENT_COLLECTOR_HINT, ERComponentCollectorHint } from "./component-collector-hint";
 import { ERFunctionComponentFlag } from "./component-flag";
@@ -192,7 +192,7 @@ export function componentCollector(
       });
     },
     "CallExpression:exit"(node: TSESTree.CallExpression) {
-      if (!unsafeIsReactHookCall(node)) {
+      if (!isReactHookCall(node)) {
         return;
       }
 

@@ -4,8 +4,8 @@ import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import ShortUniqueId from "short-unique-id";
 
 import type { ERHook } from "./hook";
-import { unsafeIsReactHookCall } from "./hook-call";
 import { isValidReactHookName } from "./hook-name";
+import { isReactHookCall } from "./is";
 
 const uid = new ShortUniqueId({ length: 10 });
 
@@ -69,7 +69,7 @@ export function hookCollector(): {
       // In the realm of React, hooks are like colored functions, and defining a custom hook that doesn't call other hooks is like defining a generator function that doesn't yield or an async function that doesn't await.
       // "Custom Hooks may call other Hooks (that’s their whole purpose)." from https://react.dev/warnings/invalid-hook-call-warning
       // Further Reading: https://react.dev/learn/reusing-logic-with-custom-hooks#should-all-functions-called-during-rendering-start-with-the-use-prefix
-      if (unsafeIsReactHookCall(node)) {
+      if (isReactHookCall(node)) {
         const hook = Array
           .from(hooks.values())
           .find((hook) => hook.node === currentFn);

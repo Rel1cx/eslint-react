@@ -66,12 +66,13 @@
 - [isForwardRefCall](README.md#isforwardrefcall)
 - [isFunctionOfRenderMethod](README.md#isfunctionofrendermethod)
 - [isInsideReactHook](README.md#isinsidereacthook)
+- [isInsideReactHookCall](README.md#isinsidereacthookcall)
 - [isInsideRenderMethod](README.md#isinsiderendermethod)
 - [isMemo](README.md#ismemo)
 - [isMemoCall](README.md#ismemocall)
 - [isPureComponent](README.md#ispurecomponent)
-- [isReactAPI](README.md#isreactapi)
-- [isReactAPICall](README.md#isreactapicall)
+- [isReactAPICallWithName](README.md#isreactapicallwithname)
+- [isReactAPIWithName](README.md#isreactapiwithname)
 - [isReactHook](README.md#isreacthook)
 - [isReactHookCall](README.md#isreacthookcall)
 - [isReactHookCallWithName](README.md#isreacthookcallwithname)
@@ -95,8 +96,6 @@
 - [isValidReactHookName](README.md#isvalidreacthookname)
 - [unsafeIsDeclaredInRenderProp](README.md#unsafeisdeclaredinrenderprop)
 - [unsafeIsDirectValueOfRenderProperty](README.md#unsafeisdirectvalueofrenderproperty)
-- [unsafeIsInsideReactHookCall](README.md#unsafeisinsidereacthookcall)
-- [unsafeIsReactHookCall](README.md#unsafeisreacthookcall)
 - [unsafeIsRenderFunction](README.md#unsafeisrenderfunction)
 - [unsafeIsRenderProp](README.md#unsafeisrenderprop)
 
@@ -871,6 +870,22 @@ ___
 
 ___
 
+### isInsideReactHookCall
+
+▸ **isInsideReactHookCall**(`node`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `node` | `Node` |
+
+#### Returns
+
+`boolean`
+
+___
+
 ### isInsideRenderMethod
 
 ▸ **isInsideRenderMethod**(`node`, `context`): `boolean`
@@ -959,38 +974,9 @@ Check if a node is a React PureComponent
 
 ___
 
-### isReactAPI
+### isReactAPICallWithName
 
-▸ **isReactAPI**(`name`): `ReturnType`\<typeof `isFromPragma`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-
-#### Returns
-
-`ReturnType`\<typeof `isFromPragma`\>
-
-▸ **isReactAPI**(`name`, `member`): `ReturnType`\<typeof `isFromPragmaMember`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `member` | `string` |
-
-#### Returns
-
-`ReturnType`\<typeof `isFromPragmaMember`\>
-
-___
-
-### isReactAPICall
-
-▸ **isReactAPICall**(`name`): `ReturnType`\<typeof `isCallFromPragma`\>
+▸ **isReactAPICallWithName**(`name`): `ReturnType`\<typeof `isCallFromPragma`\>
 
 #### Parameters
 
@@ -1002,7 +988,7 @@ ___
 
 `ReturnType`\<typeof `isCallFromPragma`\>
 
-▸ **isReactAPICall**(`name`, `member`): `ReturnType`\<typeof `isCallFromPragmaMember`\>
+▸ **isReactAPICallWithName**(`name`, `member`): `ReturnType`\<typeof `isCallFromPragmaMember`\>
 
 #### Parameters
 
@@ -1014,6 +1000,35 @@ ___
 #### Returns
 
 `ReturnType`\<typeof `isCallFromPragmaMember`\>
+
+___
+
+### isReactAPIWithName
+
+▸ **isReactAPIWithName**(`name`): `ReturnType`\<typeof `isFromPragma`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
+
+#### Returns
+
+`ReturnType`\<typeof `isFromPragma`\>
+
+▸ **isReactAPIWithName**(`name`, `member`): `ReturnType`\<typeof `isFromPragmaMember`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
+| `member` | `string` |
+
+#### Returns
+
+`ReturnType`\<typeof `isFromPragmaMember`\>
 
 ___
 
@@ -1035,10 +1050,9 @@ ___
 
 ### isReactHookCall
 
-▸ **isReactHookCall**(`node`): `void`
+▸ **isReactHookCall**(`node`): `boolean`
 
-TODO: Implement this function.
-Check if the given node is a React Hook call by its name and its hierarchy.
+Check if the given node is a React Hook call by its name.
 
 #### Parameters
 
@@ -1048,7 +1062,9 @@ Check if the given node is a React Hook call by its name and its hierarchy.
 
 #### Returns
 
-`void`
+`boolean`
+
+`true` if the node is a React Hook call, `false` otherwise.
 
 ___
 
@@ -1452,42 +1468,6 @@ _ = <Component rows={ [{ render: () => <div /> }] } />
 `boolean`
 
 `true` if component is declared inside a render property, `false` if not
-
-___
-
-### unsafeIsInsideReactHookCall
-
-▸ **unsafeIsInsideReactHookCall**(`node`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `Node` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### unsafeIsReactHookCall
-
-▸ **unsafeIsReactHookCall**(`node`): `boolean`
-
-Check if the given node is a React Hook call by its name.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `node` | `CallExpression` | The node to check. |
-
-#### Returns
-
-`boolean`
-
-`true` if the node is a React hook call, `false` otherwise.
 
 ___
 

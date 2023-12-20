@@ -1,5 +1,5 @@
 import { findVariableByNameUpToGlobal, getVariableInit, is, NodeType } from "@eslint-react/ast";
-import { isUseMemoCall, unsafeIsReactHookCall } from "@eslint-react/core";
+import { isReactHookCall, isUseMemoCall } from "@eslint-react/core";
 import { getPragmaFromContext } from "@eslint-react/jsx";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
       CallExpression(node) {
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
 
-        if (!unsafeIsReactHookCall(node) || !isUseMemoCall(node, context, pragma)) {
+        if (!isReactHookCall(node) || !isUseMemoCall(node, context, pragma)) {
           return;
         }
 

@@ -114,7 +114,7 @@ module.exports = {
 
 ### JSX rules
 
-- [ ] `jsx/max-depth`
+- [x] `jsx/max-depth`
 
 ### Naming convention rules
 
