@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "../../../typedoc.base.json"
+  ],
+  "name": "@eslint-react/eslint-plugin-naming-convention",
+  "entryPoints": [
+    "src/index.ts"
+  ],
+  "out": "docs"
+}
