@@ -2,6 +2,7 @@
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { name, version } from "../package.json";
+import maxDepth from "./rules/max-depth";
 import noArrayIndexKey from "./rules/no-array-index-key";
 import noMisusedCommentInTextNode from "./rules/no-comment-textnodes";
 import noComplicatedConditionalRendering from "./rules/no-complicated-conditional-rendering";
@@ -19,6 +20,7 @@ export const meta = {
 } as const;
 
 export const rules = {
+  "max-depth": maxDepth,
   "no-array-index-key": noArrayIndexKey,
   "no-comment-textnodes": noMisusedCommentInTextNode,
   "no-complicated-conditional-rendering": noComplicatedConditionalRendering,

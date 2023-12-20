@@ -2,6 +2,7 @@
 
 ## JSX
 
+- [`jsx/max-depth`](jsx-max-depth) - enforce a maximum depth that JSX can be nested
 - [`jsx/no-array-index-key`](jsx-no-array-index-key) - disallow using Array index as `key`
 - [`jsx/no-comment-textnodes`](jsx-no-comment-textnodes) - disallow comments from being inserted as text nodes
 - [`jsx/no-complicated-conditional-rendering`](jsx-no-complicated-conditional-rendering) - disallow complicated conditional rendering

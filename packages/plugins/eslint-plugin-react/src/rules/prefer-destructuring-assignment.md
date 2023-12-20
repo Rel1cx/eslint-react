@@ -8,12 +8,6 @@ Style.
 
 Enforces the use of destructuring assignment over property assignment.
 
-## Why is this good?
-
-Usually we don’t need the whole props object itself, so it’s better to destructure it into individual props.
-
-It also helps with code readability and maintainability.
-
 ## Examples
 
 This rule aims to enforce the use of destructuring assignment over property assignment.

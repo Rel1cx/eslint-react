@@ -8,12 +8,6 @@ Style.
 
 Enforces consistent use of the JSX file extension.
 
-## Why is this good?
-
-Following naming conventions can make codebase more consistent and easier to understand, navigate and work with.
-
-And it's not a good practice to use `.jsx`, `.tsx` file extensions for files that don't contain JSX syntax.
-
 ## Examples
 
 This rule enforces consistent file extensions for JSX files.
@@ -24,3 +18,21 @@ This rule enforces consistent file extensions for JSX files.
   - `"always"`: (default) allow all file use JSX file extension.
   - `"as-needed"`: allow JSX file extension only if the file contains JSX syntax.
 - `extensions`: List of file extensions that should be checked by this rule. By default, it checks `.jsx`, `.tsx` files.
+
+```json
+{
+  "@eslint-react/naming-convention/filename-extension": ["warn", "as-needed"]
+}
+```
+
+```json
+{
+  "@eslint-react/naming-convention/filename-extension": ["warn", { "allow": "as-needed" }]
+}
+```
+
+```json
+{
+  "@eslint-react/naming-convention/filename-extension": ["warn", { "allow": "always", "extensions": [".jsx", ".tsx"] }]
+}
+```

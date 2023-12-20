@@ -5,10 +5,11 @@
   ],
   "compilerOptions": {
     "noEmit": true,
+    "composite": true,
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true
   },
-  "include": ["*.config.ts", "*.config.js", "*.d.ts", ".eslintrc.js"]
+  "include": ["*.config.ts", "*.config.js", "*.d.ts"]
 }

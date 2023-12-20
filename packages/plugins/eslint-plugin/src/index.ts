@@ -19,6 +19,7 @@ const rulePreset = {
   "debug/function-component": "warn",
   "debug/react-hooks": "warn",
 
+  "jsx/max-depth": "warn",
   "jsx/no-array-index-key": "warn",
   "jsx/no-comment-textnodes": "warn",
   "jsx/no-complicated-conditional-rendering": "warn",

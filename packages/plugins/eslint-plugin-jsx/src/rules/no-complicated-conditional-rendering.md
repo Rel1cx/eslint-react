@@ -8,10 +8,6 @@ Style.
 
 Prevents complicated conditional rendering in JSX.
 
-## Why is this bad?
-
-Complicated conditional rendering is hard to read and understand.
-
 ## Examples
 
 ### Failing

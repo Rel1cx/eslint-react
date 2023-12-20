@@ -1,5 +1,5 @@
 {
-  "name": "with-flat-config",
+  "name": "vite-react-ts-flat",
   "private": true,
   "type": "module",
   "scripts": {
