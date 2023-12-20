@@ -69,7 +69,7 @@
     "@typescript-eslint/rule-tester": "6.15.0",
     "@vitest/ui": "1.1.0",
     "bun": "1.0.18",
-    "bun-types": "1.0.18-canary.20231220T140133",
+    "bun-types": "1.0.18-1",
     "cspell": "8.2.1",
     "dedent": "1.5.1",
     "dprint": "0.44.0",
