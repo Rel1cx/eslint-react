@@ -79,8 +79,8 @@ importers:
         specifier: 1.0.18
         version: 1.0.18
       bun-types:
-        specifier: 1.0.18-canary.20231221T140128
-        version: 1.0.18-canary.20231221T140128
+        specifier: 1.0.18-1
+        version: 1.0.18-1
       cspell:
         specifier: 8.2.1
         version: 8.2.1
@@ -3131,12 +3131,6 @@ packages:
   /@types/unist@3.0.2:
     resolution: {integrity: sha512-dqId9J8K/vGi5Zr7oo212BGii5m3q5Hxlkwy3WpYuKPklmBEvsbMYYyLxAQpSffdLl/gdW0XUpKWFvYmyoWCoQ==}
 
-  /@types/ws@8.5.10:
-    resolution: {integrity: sha512-vmQSUcfalpIq0R9q7uTo2lXs6eGIpt9wtnLdMv9LVpIjCA/+ufZRozlVoVelIYixx1ugCBKDhn89vnsEGOCx9A==}
-    dependencies:
-      '@types/node': 20.10.5
-    dev: true
-
   /@types/yargs-parser@21.0.3:
     resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
     dev: true
@@ -3993,12 +3987,8 @@ packages:
       semver: 7.5.4
     dev: true
 
-  /bun-types@1.0.18-canary.20231221T140128:
-    resolution: {integrity: sha512-csEAJPJ/belpCAKDc08A4Py6WAkiyzOC5a6r/ATwvOooimtMEUzVX932nhAP/G0uTa6DAXh4YMdo9w0f2pTCEQ==}
-    dependencies:
-      '@types/node': 20.10.5
-      '@types/ws': 8.5.10
-      undici-types: 5.26.5
+  /bun-types@1.0.18-1:
+    resolution: {integrity: sha512-uq9HwABWG43t2fDpEyvjbyRFpwaXJWuSg/8lVNVdbNe4/RuXJ7zJ6yBhQji8X/hddCM6EaUu0pqcAG0DAR8C8g==}
     dev: true
 
   /bun@1.0.18:
@@ -4275,6 +4265,7 @@ packages:
   /clone@1.0.4:
     resolution: {integrity: sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==}
     engines: {node: '>=0.8'}
+    requiresBuild: true
     dev: true
 
   /clsx@2.0.0:
@@ -5007,6 +4998,7 @@ packages:
 
   /defaults@1.0.4:
     resolution: {integrity: sha512-eFuaLoy/Rxalv2kr+lqMlUnrDWV+3j4pljOIJgLIhI058IQfWJ7vXhyEIHu+HtC738klGALYxOKDO0bQP3tg8A==}
+    requiresBuild: true
     dependencies:
       clone: 1.0.4
     dev: true
