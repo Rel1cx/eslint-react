@@ -110,37 +110,6 @@ module.exports = {
 
 [Rules Overview ↗](https://eslint-react.rel1cx.io/rules/overview)
 
-## Work in progress rules
-
-### JSX rules
-
-- [x] `jsx/max-depth`
-
-### Naming convention rules
-
-- [ ] `naming-convention/boolean-prop`
-- [ ] `naming-convention/handler-prop`
-
-### React rules
-
-- [ ] `react/prefer-readonly-props`
-- [ ] `react/ban-component-props`
-- [ ] `react/ban-components`
-- [ ] `react/ban-html-props`
-- [ ] `react/ban-svg-props`
-- [ ] `react/no-unused-state`
-- [ ] `react/no-unused-class-component-methods`
-- [ ] `react/no-unsorted-class-component-methods`
-
-### React hooks rules
-
-- [ ] `react-hooks/no-access-state-in-set-state`
-
-### Debug rules
-
-- [ ] `debug/context`
-- [ ] `debug/render-prop`
-
 ## Philosophy
 
 - **Do what a linter should do**
