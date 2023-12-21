@@ -79,8 +79,8 @@ importers:
         specifier: 1.0.18
         version: 1.0.18
       bun-types:
-        specifier: 1.0.18-canary.20231220T140133
-        version: 1.0.18-canary.20231220T140133
+        specifier: 1.0.18-canary.20231221T140128
+        version: 1.0.18-canary.20231221T140128
       cspell:
         specifier: 8.2.1
         version: 8.2.1
@@ -148,8 +148,8 @@ importers:
         specifier: 5.11.0
         version: 5.11.0(rollup@4.9.1)
       skott:
-        specifier: 0.31.3
-        version: 0.31.3
+        specifier: 0.31.4
+        version: 0.31.4
       sort-package-json:
         specifier: 2.6.0
         version: 2.6.0
@@ -4001,8 +4001,8 @@ packages:
       semver: 7.5.4
     dev: true
 
-  /bun-types@1.0.18-canary.20231220T140133:
-    resolution: {integrity: sha512-Pn2BcjOTc+2Kh4FaDWtDM91hz2+EaULAv7oHgtTiPsPmGuLjfzo3/b0QzgsvJhc+OGMLhgH4EhM1NRCMtsd1Vg==}
+  /bun-types@1.0.18-canary.20231221T140128:
+    resolution: {integrity: sha512-csEAJPJ/belpCAKDc08A4Py6WAkiyzOC5a6r/ATwvOooimtMEUzVX932nhAP/G0uTa6DAXh4YMdo9w0f2pTCEQ==}
     dependencies:
       '@types/node': 20.10.5
       '@types/ws': 8.5.10
@@ -6409,8 +6409,8 @@ packages:
       minipass: 7.0.4
     dev: true
 
-  /fs-tree-structure@0.0.3:
-    resolution: {integrity: sha512-LbKI+jcVkKxcIsQERa06L+04Po3WYZ+FJohUuhTwKbUfKL3yZNaMtUQTlEPTsli+iHiEIgnHXP8EEpjRwuC5Nw==}
+  /fs-tree-structure@0.0.4:
+    resolution: {integrity: sha512-pAtZat+Msvc34RPo3ObNCnWy0/iV8mopFBPFDNSEN5PX9uhWKe0R1fdDUNFTTA6XpLNOHH5XjmpuJkxk7qkiAA==}
     dependencies:
       lodash.set: 4.3.2
     dev: true
@@ -10817,8 +10817,8 @@ packages:
     resolution: {integrity: sha512-855yMtsRqLNFXc/RMV3l/cipSuPbubdM4KhR9gBdxlOqTAhwTtBonpT7EMwaffFoQxdcVz/QkE2LUez7N3xCOw==}
     dev: true
 
-  /skott@0.31.3:
-    resolution: {integrity: sha512-q1nz7b1wAf1KqBevG2Dnyct6EBNBcjxuCdGB2gSGlPi41mGyo5OfurdXw+snAOI8OMuuRk7rmh9z5VpsRxnXnA==}
+  /skott@0.31.4:
+    resolution: {integrity: sha512-SeXTm/wYXNpAKWyQytGfXl5JRgLXQ4FP9+NwbloGrf+Tut2UcX01SQe8DMT6mfQBYIFw4GwX9z7vUMZH1ZzGpQ==}
     hasBin: true
     dependencies:
       '@effect/data': 0.4.1
@@ -10830,7 +10830,7 @@ packages:
       digraph-js: 2.2.3
       estree-walker: 3.0.3
       fp-ts: 2.5.0
-      fs-tree-structure: 0.0.3
+      fs-tree-structure: 0.0.4
       ignore-walk: 6.0.4
       io-ts: 2.2.21(fp-ts@2.5.0)
       is-wsl: 3.1.0
