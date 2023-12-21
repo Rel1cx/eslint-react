@@ -209,14 +209,3 @@
 
 - Update Options of rule `jsx/no-useless-fragment`.
 - Optimize bundle size.
-
-## v0.8.12 (Tue Nov 28 2023)
-
-### ✨ New
-
-- Add rule `react/no-render-return-value`.
-
-### 🪄 Improvements
-
-- Optimize bundle size.
-- Add documentation for presets.

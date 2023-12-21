@@ -2,7 +2,7 @@ import { isOneOf, NodeType } from "@eslint-react/ast";
 import { componentCollectorLegacy, ERClassComponentFlag } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { ESLintUtils } from "@typescript-eslint/utils";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -63,4 +63,4 @@ export default createRule<[], MessageID>({
       },
     };
   },
-});
+}) satisfies ESLintUtils.RuleModule<MessageID>;

@@ -1,5 +1,5 @@
 import { isCloneElementCall } from "@eslint-react/jsx";
-import { ESLintUtils } from "@typescript-eslint/utils";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -37,4 +37,4 @@ export default createRule<[], MessageID>({
       },
     };
   },
-});
+}) satisfies ESLintUtils.RuleModule<MessageID>;

@@ -131,4 +131,4 @@ export default createRule<[], MessageID>({
       },
     };
   },
-});
+}) satisfies ESLintUtils.RuleModule<MessageID>;

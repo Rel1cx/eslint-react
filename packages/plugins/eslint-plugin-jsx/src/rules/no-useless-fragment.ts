@@ -128,4 +128,4 @@ export default createRule<[], MessageID>({
       JSXFragment: checkNode,
     };
   },
-});
+}) satisfies ESLintUtils.RuleModule<MessageID>;

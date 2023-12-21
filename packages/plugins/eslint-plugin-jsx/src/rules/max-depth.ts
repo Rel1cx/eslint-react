@@ -119,4 +119,4 @@ export default createRule<Options, MessageID>({
       "JSXElement, JSXFragment": F.flow(getChecker(maxDepth), O.map(context.report)),
     };
   },
-});
+}) satisfies ESLintUtils.RuleModule<MessageID, Options>;

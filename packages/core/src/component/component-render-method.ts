@@ -1,7 +1,7 @@
 import { NodeType, traverseUp, type TSESTreeFunction } from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
-import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import { isMatching, P } from "ts-pattern";
 
 import { isClassComponent } from "./component-collector-legacy";

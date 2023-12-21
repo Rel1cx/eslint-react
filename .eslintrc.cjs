@@ -50,14 +50,6 @@ module.exports = defineConfig({
         "newline-before-return": "warn",
         "prefer-object-has-own": "error",
         "array-callback-return": "off",
-        "@typescript-eslint/no-unused-vars": [
-          "warn",
-          {
-            argsIgnorePattern: "^_",
-            destructuredArrayIgnorePattern: "^_",
-            varsIgnorePattern: "(^_)|(^ESLintUtils$)",
-          },
-        ],
         "@susisu/safe-typescript/no-unsafe-object-property-check": "off",
         "import-access/jsdoc": ["error"],
         "jsdoc/require-jsdoc": "off",

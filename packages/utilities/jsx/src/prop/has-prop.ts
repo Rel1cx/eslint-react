@@ -2,7 +2,6 @@ import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { findPropInAttributes } from "./get-prop";
 

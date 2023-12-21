@@ -12,7 +12,6 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      // eslint-disable-next-line eslint-plugin/require-meta-docs-description
       description: "report all React Hooks",
       requiresTypeChecking: false,
     },
@@ -43,4 +42,4 @@ export default createRule<[], MessageID>({
       },
     };
   },
-});
+}) satisfies ESLintUtils.RuleModule<MessageID>;

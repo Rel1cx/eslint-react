@@ -1,7 +1,7 @@
 import { isOneOf, NodeType } from "@eslint-react/ast";
 import { F } from "@eslint-react/tools";
 import { type TSESTree } from "@typescript-eslint/types";
-import { ESLintUtils } from "@typescript-eslint/utils";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
 
@@ -59,4 +59,4 @@ export default createRule<[], MessageID>({
       },
     };
   },
-});
+}) satisfies ESLintUtils.RuleModule<MessageID>;

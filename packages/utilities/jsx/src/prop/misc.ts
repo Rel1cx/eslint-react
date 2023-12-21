@@ -1,7 +1,6 @@
 import { isStringLiteral, NodeType } from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { traverseUpProp } from "./traverse";
 

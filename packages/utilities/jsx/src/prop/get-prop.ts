@@ -8,6 +8,8 @@ import {
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
+// Workaround for @typescript-eslint/utils's TS2742 error.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { match } from "ts-pattern";
 const { getStaticValue } = ESLintCommunityESLintUtils;

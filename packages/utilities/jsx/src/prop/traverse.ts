@@ -1,7 +1,6 @@
 import { NodeType, traverseUpGuard } from "@eslint-react/ast";
 import { F, type O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-import type { ESLintUtils } from "@typescript-eslint/utils";
 
 /**
  * Traverses up prop node

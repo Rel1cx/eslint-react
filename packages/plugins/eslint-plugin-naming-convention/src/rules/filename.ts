@@ -140,4 +140,4 @@ export default createRule<Options, MessageID>({
       },
     };
   },
-});
+}) satisfies ESLintUtils.RuleModule<MessageID, Options>;

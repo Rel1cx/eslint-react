@@ -54,4 +54,4 @@ export default createRule<[], MessageID>({
       Literal: check,
     };
   },
-});
+}) satisfies ESLintUtils.RuleModule<MessageID>;
