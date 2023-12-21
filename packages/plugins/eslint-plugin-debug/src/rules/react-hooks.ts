@@ -13,7 +13,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       // eslint-disable-next-line eslint-plugin/require-meta-docs-description
-      description: "report all react hooks",
+      description: "report all React Hooks",
       requiresTypeChecking: false,
     },
     schema: [],

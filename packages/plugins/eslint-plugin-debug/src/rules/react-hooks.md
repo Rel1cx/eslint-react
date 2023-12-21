@@ -6,7 +6,7 @@ Debug.
 
 ## What it does
 
-Reports all react hooks. Useful for debugging.
+Reports all React Hooks. Useful for debugging.
 
 > **Warning**
 > This rule should only be used for debugging purposes.
