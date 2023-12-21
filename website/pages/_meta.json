@@ -4,7 +4,8 @@
     "type": "page",
     "theme": {
       "breadcrumb": false
-    }
+    },
+    "display": "hidden"
   },
   "docs": {
     "title": "Documentation",
