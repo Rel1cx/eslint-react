@@ -37,7 +37,7 @@ const rulePreset = {
   "naming-convention/filename-extension": "warn",
   "naming-convention/use-state": "warn",
 
-  "react/ensure-forward-ref-using-ref": "error",
+  "react/ensure-forward-ref-using-ref": "warn",
   "react/no-children-count": "warn",
   "react/no-children-for-each": "warn",
   "react/no-children-in-void-dom-elements": "warn",
@@ -60,7 +60,7 @@ const rulePreset = {
   "react/no-missing-component-display-name": "warn",
   "react/no-missing-iframe-sandbox": "warn",
   "react/no-namespace": "error",
-  "react/no-redundant-should-component-update": "warn",
+  "react/no-redundant-should-component-update": "error",
   "react/no-render-return-value": "error",
   "react/no-script-url": "warn",
   "react/no-set-state-in-component-did-mount": "warn",
@@ -72,7 +72,7 @@ const rulePreset = {
   "react/no-unsafe-component-will-update": "warn",
   "react/no-unsafe-iframe-sandbox": "warn",
   "react/no-unsafe-target-blank": "warn",
-  "react/no-unstable-default-props": "warn",
+  "react/no-unstable-default-props": "error",
   "react/no-unstable-nested-components": "warn",
   "react/prefer-destructuring-assignment": "warn",
 
@@ -83,14 +83,12 @@ const rulePreset = {
 } as const satisfies RulePreset;
 
 const recommendedPreset = {
+  // "jsx/max-depth": "warn", // Not enabled because it's style related.
   "jsx/no-array-index-key": "warn",
-  // Not enabled because it rarely happens.
-  // "jsx/no-comment-textnodes": "warn",
-  // Not enabled because it's style related.
-  // "jsx/no-complicated-conditional-rendering": "warn",
+  // "jsx/no-comment-textnodes": "warn", // Not enabled because it rarely happens.
+  // "jsx/no-complicated-conditional-rendering": "warn", // Not enabled because it's style related.
   "jsx/no-duplicate-key": "error",
-  // Not enabled because it requires type information.
-  // "jsx/no-leaked-conditional-rendering": "warn",
+  // "jsx/no-leaked-conditional-rendering": "warn", // Not enabled because it requires type information.
   "jsx/no-missing-key": "error",
   "jsx/no-spreading-key": "warn",
   "jsx/no-useless-fragment": "warn",
@@ -111,10 +109,8 @@ const recommendedPreset = {
   "react/no-children-only": "warn",
   "react/no-children-prop": "warn",
   "react/no-children-to-array": "warn",
-  // Not enabled because it depends on the project.
-  // "react/no-class-component": "warn",
-  // Not enabled because it's legacy but still widely used.
-  // "react/no-clone-element": "warn",
+  // "react/no-class-component": "warn", // Not enabled because it depends on the project.
+  "react/no-clone-element": "warn",
   "react/no-component-will-mount": "error",
   "react/no-component-will-receive-props": "error",
   "react/no-component-will-update": "error",
@@ -125,8 +121,7 @@ const recommendedPreset = {
   "react/no-direct-mutation-state": "error",
   "react/no-find-dom-node": "error",
   "react/no-missing-button-type": "warn",
-  // Not enabled because it's only useful when using devtools.
-  // "react/no-missing-component-display-name": "warn",
+  // "react/no-missing-component-display-name": "warn", // Not enabled because it's only useful when using devtools.
   "react/no-missing-iframe-sandbox": "warn",
   "react/no-namespace": "error",
   "react/no-redundant-should-component-update": "error",
@@ -143,8 +138,7 @@ const recommendedPreset = {
   "react/no-unsafe-target-blank": "warn",
   "react/no-unstable-default-props": "error",
   "react/no-unstable-nested-components": "warn",
-  // Not enabled because it's style related.
-  // "react/prefer-destructuring-assignment": "warn",
+  // "react/prefer-destructuring-assignment": "warn", // Not enabled because it's style related.
 
   // Not enabled because it triggers prematurely before the code is fully written.
   // "react-hooks/ensure-custom-hooks-using-other-hooks": "warn",
