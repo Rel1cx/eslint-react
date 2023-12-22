@@ -16,8 +16,7 @@ More than 50 ESLint rules to catch common mistakes and improve your React code. 
 
 ### Node.js
 
-- 18.x LTS Hydrogen
-- 20.x Current
+- 18.15.0 or later
 
 ### Bun
 
