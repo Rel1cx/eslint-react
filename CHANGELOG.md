@@ -1,3 +1,9 @@
+## v0.10.1-beta.0 (Draft)
+
+### 🪄 Improvements
+
+- Add `react/no-clone-element` to `recommended` and `recommended-legacy` presets.
+
 ## v0.10.0 (Thu Dec 21 2023)
 
 ### ✨ New
