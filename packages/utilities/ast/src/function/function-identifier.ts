@@ -14,8 +14,8 @@ import { isOneOf, NodeType, type TSESTreeFunction } from "../node";
 
 export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree.Identifier> {
   if (node.id) {
-    // function useHook() {}
-    // const whatever = function useHook() {};
+    // function MaybeComponent() {}
+    // const whatever = function MaybeComponent() {};
     return O.some(node.id);
   }
 
@@ -24,7 +24,7 @@ export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree
     && node.parent.init === node
     && node.parent.id.type === NodeType.Identifier
   ) {
-    // const useHook = () => {};
+    // const MaybeComponent = () => {};
     return O.some(node.parent.id);
   }
 
@@ -34,7 +34,7 @@ export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree
     && node.parent.operator === "="
     && node.parent.left.type === NodeType.Identifier
   ) {
-    // useHook = () => {};
+    // MaybeComponent = () => {};
     return O.some(node.parent.left);
   }
 
@@ -44,8 +44,8 @@ export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree
     && !node.parent.computed
     && node.parent.key.type === NodeType.Identifier
   ) {
-    // {useHook: () => {}}
-    // {useHook() {}}
+    // {MaybeComponent: () => {}}
+    // {MaybeComponent() {}}
     return O.some(node.parent.key);
   }
 
@@ -54,8 +54,8 @@ export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree
     && node.parent.value === node
     && node.parent.key.type === NodeType.Identifier
   ) {
-    // class {useHook = () => {}}
-    // class {useHook() {}}
+    // class {MaybeComponent = () => {}}
+    // class {MaybeComponent() {}}
     return O.some(node.parent.key);
   }
 
@@ -66,8 +66,8 @@ export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree
   ) {
     // Follow spec convention for `IsAnonymousFunctionDefinition()` usage.
     //
-    // const {useHook = () => {}} = {};
-    // ({useHook = () => {}} = {});
+    // const {MaybeComponent = () => {}} = {};
+    // ({MaybeComponent = () => {}} = {});
     return O.some(node.parent.left);
   }
 

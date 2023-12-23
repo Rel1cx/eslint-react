@@ -87,7 +87,7 @@
     "knip": "3.8.4",
     "markdownlint": "0.32.1",
     "pathe": "1.1.1",
-    "publint": "0.2.6",
+    "publint": "0.2.7",
     "rollup": "4.9.1",
     "rollup-plugin-dts": "6.1.0",
     "rollup-plugin-swc3": "0.11.0",
