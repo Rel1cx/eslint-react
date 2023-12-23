@@ -27,7 +27,7 @@ MutRef.update(metas, (m) =>
   Object.fromEntries(
     [...Object.entries(m)]
       .sort(([a], [b]) => a.localeCompare(b))
-      .sort(([a], [b]) => order.findIndex((x) => a.startsWith(x)) - order.findIndex((x) => b.startsWith(x))),
+      .sort(([a], [b]) => order.findLastIndex((x) => a.startsWith(x)) - order.findLastIndex((x) => b.startsWith(x))),
   ));
 MutRef.update(metas, (m) => ({
   overview: "Overview",
