@@ -14,13 +14,6 @@
 - [`jsx/prefer-shorthand-boolean`](jsx-prefer-shorthand-boolean) - enforce `boolean` attributes notation in JSX
 - [`jsx/prefer-shorthand-fragment`](jsx-prefer-shorthand-fragment) - enforce using fragment syntax instead of `Fragment` component
 
-## React Hooks
-
-- [`react-hooks/ensure-custom-hooks-using-other-hooks`](react-hooks-ensure-custom-hooks-using-other-hooks) - enforce custom hooks using other hooks
-- [`react-hooks/ensure-use-callback-has-non-empty-deps`](react-hooks-ensure-use-callback-has-non-empty-deps) - enforce `useCallback` has non-empty dependencies array
-- [`react-hooks/ensure-use-memo-has-non-empty-deps`](react-hooks-ensure-use-memo-has-non-empty-deps) - enforce `useMemo` has non-empty dependencies array
-- [`react-hooks/prefer-use-state-lazy-initialization`](react-hooks-prefer-use-state-lazy-initialization) - disallow function calls in `useState` that aren't wrapped in an initializer
-
 ## React
 
 - [`react/ensure-forward-ref-using-ref`](react-ensure-forward-ref-using-ref) - requires that components wrapped with `forwardRef` must have a `ref` parameter
@@ -61,6 +54,13 @@
 - [`react/no-unstable-default-props`](react-no-unstable-default-props) - disallow usage of unstable value as default param in function component
 - [`react/no-unstable-nested-components`](react-no-unstable-nested-components) - disallow usage of unstable nested components
 - [`react/prefer-destructuring-assignment`](react-prefer-destructuring-assignment) - enforce using destructuring assignment in component props and context
+
+## React Hooks
+
+- [`react-hooks/ensure-custom-hooks-using-other-hooks`](react-hooks-ensure-custom-hooks-using-other-hooks) - enforce custom hooks using other hooks
+- [`react-hooks/ensure-use-callback-has-non-empty-deps`](react-hooks-ensure-use-callback-has-non-empty-deps) - enforce `useCallback` has non-empty dependencies array
+- [`react-hooks/ensure-use-memo-has-non-empty-deps`](react-hooks-ensure-use-memo-has-non-empty-deps) - enforce `useMemo` has non-empty dependencies array
+- [`react-hooks/prefer-use-state-lazy-initialization`](react-hooks-prefer-use-state-lazy-initialization) - disallow function calls in `useState` that aren't wrapped in an initializer
 
 ## Naming Convention
 
