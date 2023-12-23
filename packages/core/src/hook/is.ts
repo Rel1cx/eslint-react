@@ -5,13 +5,13 @@ import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
-import { isValidReactHookName } from "./hook-name";
+import { isReactHookName } from "./hook-name";
 
 export function isReactHook(node: TSESTreeFunction) {
   return F.pipe(
     getFunctionIdentifier(node),
     O.flatMapNullable((id) => id.name),
-    O.exists(isValidReactHookName),
+    O.exists(isReactHookName),
   );
 }
 
@@ -22,13 +22,13 @@ export function isReactHook(node: TSESTreeFunction) {
  */
 export function isReactHookCall(node: TSESTree.CallExpression) {
   if (node.callee.type === NodeType.Identifier) {
-    return isValidReactHookName(node.callee.name);
+    return isReactHookName(node.callee.name);
   }
 
   if (node.callee.type === NodeType.MemberExpression) {
     return (
       node.callee.property.type === NodeType.Identifier
-      && isValidReactHookName(node.callee.property.name)
+      && isReactHookName(node.callee.property.name)
     );
   }
 

@@ -1,5 +1,5 @@
 import { getFunctionIdentifier, isFunction, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
-import { componentCollector, isValidComponentName } from "@eslint-react/core";
+import { componentCollector, isComponentName } from "@eslint-react/core";
 import { MutRef, O } from "@eslint-react/tools";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { type TSESTree } from "@typescript-eslint/types";
@@ -57,7 +57,7 @@ export default createRule<[], MessageID>({
           const maybeId = getFunctionIdentifier(block);
 
           return O.isSome(maybeId)
-            && isValidComponentName(maybeId.value.name)
+            && isComponentName(maybeId.value.name)
             && components.some((component) => component.node === block);
         }
 

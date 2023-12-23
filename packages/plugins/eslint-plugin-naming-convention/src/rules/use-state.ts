@@ -13,7 +13,7 @@ export const RULE_NAME = "use-state";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
-function isValidSetterNameLoose(name: string) {
+function isSetterNameLoose(name: string) {
   const fourthChar = [...name][3];
 
   return name.startsWith("set")
@@ -72,7 +72,7 @@ export default createRule<[], MessageID>({
                     && setState?.type === NodeType.Identifier
                   ) {
                     return F.pipe(
-                      O.liftPredicate(_.not(isValidSetterNameLoose))(setState.name),
+                      O.liftPredicate(_.not(isSetterNameLoose))(setState.name),
                       O.flatMap(F.constant(descriptor)),
                     );
                   }

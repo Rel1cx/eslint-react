@@ -4,7 +4,7 @@ import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import ShortUniqueId from "short-unique-id";
 
 import type { ERHook } from "./hook";
-import { isValidReactHookName } from "./hook-name";
+import { isReactHookName } from "./hook-name";
 import { isReactHookCall } from "./is";
 
 const uid = new ShortUniqueId({ length: 10 });
@@ -28,7 +28,7 @@ export function hookCollector(): {
     }
     const maybeId = getFunctionIdentifier(currentFn);
     const maybeName = O.flatMapNullable(maybeId, (id) => id.name);
-    if (O.isSome(maybeId) && O.isSome(maybeName) && isValidReactHookName(maybeName.value)) {
+    if (O.isSome(maybeId) && O.isSome(maybeName) && isReactHookName(maybeName.value)) {
       const id = maybeId.value;
       const name = maybeName.value;
       const key = uid.rnd();

@@ -11,6 +11,7 @@ import { isMatching, P } from "ts-pattern";
  * _ = <Component rows={ [{ render: () => <div /> }] } />
  * `                                ^^^^^^^^^^^^^       `
  *  ```
+ * @internal
  * @param node The AST node to check
  * @returns `true` if component is declared inside a render property, `false` if not
  */

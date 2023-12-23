@@ -56,6 +56,7 @@
 - [isClassComponent](README.md#isclasscomponent)
 - [isCloneElement](README.md#iscloneelement)
 - [isCloneElementCall](README.md#iscloneelementcall)
+- [isComponentName](README.md#iscomponentname)
 - [isCreateContext](README.md#iscreatecontext)
 - [isCreateContextCall](README.md#iscreatecontextcall)
 - [isCreateElement](README.md#iscreateelement)
@@ -76,6 +77,7 @@
 - [isReactHook](README.md#isreacthook)
 - [isReactHookCall](README.md#isreacthookcall)
 - [isReactHookCallWithName](README.md#isreacthookcallwithname)
+- [isReactHookName](README.md#isreacthookname)
 - [isUnstableAssignmentPattern](README.md#isunstableassignmentpattern)
 - [isUseCallbackCall](README.md#isusecallbackcall)
 - [isUseContextCall](README.md#isusecontextcall)
@@ -92,10 +94,7 @@
 - [isUseStateCall](README.md#isusestatecall)
 - [isUseSyncExternalStoreCall](README.md#isusesyncexternalstorecall)
 - [isUseTransitionCall](README.md#isusetransitioncall)
-- [isValidComponentName](README.md#isvalidcomponentname)
-- [isValidReactHookName](README.md#isvalidreacthookname)
 - [unsafeIsDeclaredInRenderProp](README.md#unsafeisdeclaredinrenderprop)
-- [unsafeIsDirectValueOfRenderProperty](README.md#unsafeisdirectvalueofrenderproperty)
 - [unsafeIsRenderFunction](README.md#unsafeisrenderfunction)
 - [unsafeIsRenderProp](README.md#unsafeisrenderprop)
 
@@ -701,6 +700,22 @@ ___
 
 ___
 
+### isComponentName
+
+▸ **isComponentName**(`name`): name is string
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
+
+#### Returns
+
+name is string
+
+___
+
 ### isCreateContext
 
 ▸ **isCreateContext**(`node`, `context`): `boolean`
@@ -1099,6 +1114,22 @@ ___
 
 ___
 
+### isReactHookName
+
+▸ **isReactHookName**(`name`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
+
+#### Returns
+
+`boolean`
+
+___
+
 ### isUnstableAssignmentPattern
 
 ▸ **isUnstableAssignmentPattern**(`node`): node is AssignmentPattern & Object
@@ -1387,38 +1418,6 @@ ___
 
 ___
 
-### isValidComponentName
-
-▸ **isValidComponentName**(`name`): name is string
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-
-#### Returns
-
-name is string
-
-___
-
-### isValidReactHookName
-
-▸ **isValidReactHookName**(`name`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
 ### unsafeIsDeclaredInRenderProp
 
 ▸ **unsafeIsDeclaredInRenderProp**(`node`): `boolean`
@@ -1442,32 +1441,6 @@ _ = <Component rows={ [{ render: "node" }] } />
 `boolean`
 
 `true` if component is declared inside a render prop, `false` if not
-
-___
-
-### unsafeIsDirectValueOfRenderProperty
-
-▸ **unsafeIsDirectValueOfRenderProperty**(`node`): `boolean`
-
-Unsafe check whether given node is declared directly inside a render property
-```jsx
-const rows = { render: () => <div /> }
-`                      ^^^^^^^^^^^^^ `
-_ = <Component rows={ [{ render: () => <div /> }] } />
-`                                ^^^^^^^^^^^^^       `
- ```
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `node` | `Node` | The AST node to check |
-
-#### Returns
-
-`boolean`
-
-`true` if component is declared inside a render property, `false` if not
 
 ___
 

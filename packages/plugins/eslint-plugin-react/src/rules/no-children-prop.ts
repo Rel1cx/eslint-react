@@ -11,7 +11,7 @@ export const RULE_NAME = "no-children-prop";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 // No need to check because TypeScript does it for us
-// function isValidAttribute(
+// function isAttribute(
 //   prop: TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute,
 // ) {
 //   return (
@@ -23,7 +23,7 @@ export type MessageID = ConstantCase<typeof RULE_NAME>;
 // }
 
 // No need to check because TypeScript does it for us
-// function isValidProperty(
+// function isProperty(
 //   prop:
 //     | TSESTree.PropertyComputedName
 //     | TSESTree.PropertyNonComputedName
