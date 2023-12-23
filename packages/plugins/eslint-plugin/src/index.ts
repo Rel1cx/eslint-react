@@ -13,7 +13,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import { name, version } from "../package.json";
 import { padKeysLeft } from "./utils";
 
-const { entries, fromEntries } = Helper.Record;
+const { entries, fromEntries } = Helper;
 
 const rulePreset = {
   "debug/class-component": "warn",
