@@ -48,63 +48,6 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     dedent`
-      function ParentComponent() {
-        const MemoizedNestedComponent = React.useCallback(() => <div />, []);
-
-        return (
-          <div>
-            <MemoizedNestedComponent />
-          </div>
-        );
-      }
-    `,
-    dedent`
-      function ParentComponent() {
-        const MemoizedNestedComponent = React.useCallback(
-          () => React.createElement("div", null),
-          []
-        );
-
-        return React.createElement(
-          "div",
-          null,
-          React.createElement(MemoizedNestedComponent, null)
-        );
-      }
-    `,
-    dedent`
-      function ParentComponent() {
-        const MemoizedNestedFunctionComponent = React.useCallback(
-          function () {
-            return <div />;
-          },
-          []
-        );
-
-        return (
-          <div>
-            <MemoizedNestedFunctionComponent />
-          </div>
-        );
-      }
-    `,
-    dedent`
-      function ParentComponent() {
-        const MemoizedNestedFunctionComponent = React.useCallback(
-          function () {
-            return React.createElement("div", null);
-          },
-          []
-        );
-
-        return React.createElement(
-          "div",
-          null,
-          React.createElement(MemoizedNestedFunctionComponent, null)
-        );
-      }
-    `,
-    dedent`
       function ParentComponent(props) {
         // Should not interfere handler declarations
         function onClick(event) {
@@ -400,69 +343,6 @@ ruleTester.run(RULE_NAME, rule, {
             return <div />;
           }
         }
-      }
-    `,
-    dedent`
-      function App({ locale }: AppProps) {
-          const route = Router.useRoute(["Home", "BotArea", "NotFound"]);
-
-          return (
-              <TypesafeI18n locale={locale}>
-                  <MantineProvider theme={mantineTheme}>
-                      <div className={css.root}>
-                          <React.Suspense fallback={<RootLayout navHeader={<small className={css.loading} />} />}>
-                              {React.useMemo(
-                                  () => match(route)
-                                          .with({ name: "Home" }, () => <Redirect to="/bots/ChatGPT" />)
-                                          .with({ name: "BotArea" }, ({ params }) => <BotArea botName={params.botName} />)
-                                          .otherwise(() => <NotFound />),
-                                  [loaded, route],
-                              )}
-                          </React.Suspense>
-                      </div>
-                  </MantineProvider>
-              </TypesafeI18n>
-          );
-      }
-    `,
-    dedent`
-      function BotArea({ botName }: BotAreaProps) {
-          const bot = useAtomValue(botsDb.item(botName));
-          const route = Router.useRoute(["BotRoot", "BotChat", "BotNewChat", "BotSettings"]);
-          const botList = useAtomValue(botListAtom);
-
-          const contentView = React.useMemo(
-              () =>
-                  match(route)
-                      .with({ name: "BotRoot" }, ({ params }) => <RedirectChat botName={params.botName} />)
-                      .with({ name: "BotNewChat" }, ({ params }) => <RedirectChat botName={params.botName} />)
-                      .with({ name: "BotSettings" }, ({ params }) => <BotSettings botName={params.botName} />)
-                      .with({ name: "BotChat" }, ({ params }) => {
-                          const { botName, chatID } = params;
-
-                          if (!ID.isChatID(chatID)) {
-                              return <Redirect to="/404" />;
-                          }
-
-                          return <ChatDetail botName={botName} chatID={chatID} />;
-                      })
-                      .otherwise(() => null),
-              [route],
-          );
-
-          if (!bot) {
-              return <Redirect to="/404" />;
-          }
-
-          return (
-              <BotProvider botName={botName}>
-                  <RootLayout nav={<BotList items={botList} selected={botName} />}>
-                      <ErrorBoundary fallback={<p className="p-2">Failed to render bot area.</p>}>
-                          <React.Suspense>{contentView}</React.Suspense>
-                      </ErrorBoundary>
-                  </RootLayout>
-              </BotProvider>
-          );
       }
     `,
     dedent`
@@ -1007,45 +887,72 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: dedent`
-        export function BotList({ items, selected }: BotListProps) {
-            return (
-                <div className={css.root}>
-                    {items.map((item) => {
-                        return match(item)
-                            .when(
-                                ({ id }) => id === selected,
-                                ({ id, title, icon }) => (
-                                    <BotMenu botName={title} key={id}>
-                                        <Button
-                                            aria-label="bot-button"
-                                            render={<button type="button" />}
-                                            clickOnEnter
-                                            clickOnSpace
-                                        >
-                                            <Avatar bg={icon} />
-                                        </Button>
-                                    </BotMenu>
-                                ),
-                            )
-                            .otherwise(({ id, title, icon }) => (
-                                <Link key={id} to={\`/bots/\${title}\`}>
-                                    <Avatar bg={icon} />
-                                </Link>
-                            ));
-                    })}
-                    <Indicator label="WIP" size={14} inline>
-                        <div className={css.plus}>
-                            <Icon as={Plus} color={vars.colors.overlay} size={24} />
-                        </div>
-                    </Indicator>
-                </div>
-            );
+        function ParentComponent() {
+          const MemoizedNestedComponent = React.useCallback(() => <div />, []);
+
+          return (
+            <div>
+              <MemoizedNestedComponent />
+            </div>
+          );
         }
       `,
-      errors: [
-        { messageId: "UNSTABLE_NESTED_COMPONENT" },
-        { messageId: "UNSTABLE_NESTED_COMPONENT" },
-      ],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          const MemoizedNestedComponent = React.useCallback(
+            () => React.createElement("div", null),
+            []
+          );
+
+          return React.createElement(
+            "div",
+            null,
+            React.createElement(MemoizedNestedComponent, null)
+          );
+        }
+      `,
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          const MemoizedNestedFunctionComponent = React.useCallback(
+            function () {
+              return <div />;
+            },
+            []
+          );
+
+          return (
+            <div>
+              <MemoizedNestedFunctionComponent />
+            </div>
+          );
+        }
+      `,
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          const MemoizedNestedFunctionComponent = React.useCallback(
+            function () {
+              return React.createElement("div", null);
+            },
+            []
+          );
+
+          return React.createElement(
+            "div",
+            null,
+            React.createElement(MemoizedNestedFunctionComponent, null)
+          );
+        }
+      `,
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
     },
   ],
 });

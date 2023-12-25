@@ -3,6 +3,7 @@
 ### 🪄 Improvements
 
 - Add `react/no-clone-element` to `recommended` and `recommended-legacy` presets.
+- Improve rule `react/no-unstable-nested-components`, make its behavior closer to [react-hooks/no-nested-components](https://github.com/facebook/react/pull/25360).
 
 ## v0.10.0 (Thu Dec 21 2023)
 

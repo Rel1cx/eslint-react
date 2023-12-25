@@ -9,7 +9,6 @@ import {
 } from "@eslint-react/ast";
 import {
   ERComponentCollectorHint,
-  isInsideReactHookCall,
   isInsideRenderMethod,
   unsafeIsDeclaredInRenderProp,
   unsafeIsDirectValueOfRenderProperty,
@@ -73,12 +72,8 @@ export default createRule<[], MessageID>({
           return isClass(node) && classComponents.some(component => component.node === node);
         };
         for (const { node: component } of functionComponents) {
-          if (
-            // Do not mark components declared inside hooks (or falsy '() => null' clean-up methods)
-            isInsideReactHookCall(component)
-            // Do not mark objects containing render methods
-            || unsafeIsDirectValueOfRenderProperty(component)
-          ) {
+          // Do not mark objects containing render methods
+          if (unsafeIsDirectValueOfRenderProperty(component)) {
             continue;
           }
           const isInsideProperty = component.parent.type === NodeType.Property;
