@@ -1,5 +1,5 @@
 import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
-import { componentCollector, componentCollectorLegacy } from "@eslint-react/core";
+import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
 import { elementType } from "@eslint-react/jsx";
 import { getCaseValidator } from "@eslint-react/shared";
 import { _, O } from "@eslint-react/tools";
@@ -81,8 +81,8 @@ export default createRule<Options, MessageID>({
     const validator = getCaseValidator(rule, [...excepts]);
     const validate = (name: string) => validator.validate(name);
 
-    const collector = componentCollector(context);
-    const collectorLegacy = componentCollectorLegacy(context);
+    const collector = useComponentCollector(context);
+    const collectorLegacy = useComponentCollectorLegacy(context);
 
     return {
       ...collector.listeners,

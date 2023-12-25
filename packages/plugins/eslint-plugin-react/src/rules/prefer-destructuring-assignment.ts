@@ -1,5 +1,5 @@
 import { getFunctionIdentifier, isFunction, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
-import { componentCollector, isComponentName } from "@eslint-react/core";
+import { isComponentName, useComponentCollector } from "@eslint-react/core";
 import { MutRef, O } from "@eslint-react/tools";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { type TSESTree } from "@typescript-eslint/types";
@@ -34,7 +34,7 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const { ctx, listeners } = componentCollector(context);
+    const { ctx, listeners } = useComponentCollector(context);
     const memberExpressionWithNames: [Scope, MemberExpressionWithObjectName][] = [];
 
     return {

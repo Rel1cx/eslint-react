@@ -1,4 +1,4 @@
-import { componentCollector, ERFunctionComponentFlag } from "@eslint-react/core";
+import { ERFunctionComponentFlag, useComponentCollector } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type ConstantCase } from "string-ts";
@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const { ctx, listeners } = componentCollector(context);
+    const { ctx, listeners } = useComponentCollector(context);
 
     return {
       ...listeners,

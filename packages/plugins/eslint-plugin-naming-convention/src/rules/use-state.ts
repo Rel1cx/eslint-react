@@ -1,5 +1,5 @@
 import { NodeType } from "@eslint-react/ast";
-import { componentCollector, isUseStateCall } from "@eslint-react/core";
+import { isUseStateCall, useComponentCollector } from "@eslint-react/core";
 import { getPragmaFromContext } from "@eslint-react/jsx";
 import { _, F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -36,7 +36,7 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const { ctx, listeners } = componentCollector(context);
+    const { ctx, listeners } = useComponentCollector(context);
 
     return {
       ...listeners,

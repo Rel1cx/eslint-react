@@ -1,4 +1,4 @@
-import { hookCollector } from "@eslint-react/core";
+import { useHookCollector } from "@eslint-react/core";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 
@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const { ctx, listeners } = hookCollector();
+    const { ctx, listeners } = useHookCollector();
 
     return {
       ...listeners,

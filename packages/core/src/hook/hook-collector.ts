@@ -9,7 +9,7 @@ import { isReactHookCall } from "./is";
 
 const uid = new ShortUniqueId({ length: 10 });
 
-export function hookCollector(): {
+export function useHookCollector(): {
   // manually specify the return type here to avoid @typescript-eslint/utils's TS2742 error
   ctx: {
     getAllHooks(_: TSESTree.Program): Map<string, ERHook>;

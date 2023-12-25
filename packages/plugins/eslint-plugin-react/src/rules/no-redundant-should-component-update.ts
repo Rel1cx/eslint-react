@@ -1,5 +1,5 @@
 import { isOneOf, NodeType } from "@eslint-react/ast";
-import { componentCollectorLegacy, ERClassComponentFlag } from "@eslint-react/core";
+import { ERClassComponentFlag, useComponentCollectorLegacy } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -34,7 +34,7 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const { ctx, listeners } = componentCollectorLegacy(context);
+    const { ctx, listeners } = useComponentCollectorLegacy(context);
 
     return {
       ...listeners,

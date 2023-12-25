@@ -56,7 +56,7 @@ export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
   return false;
 }
 
-export function componentCollectorLegacy(context: RuleContext) {
+export function useComponentCollectorLegacy(context: RuleContext) {
   const components = new Map<string, ERClassComponent>();
 
   const ctx = {

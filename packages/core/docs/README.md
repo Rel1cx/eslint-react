@@ -33,8 +33,6 @@
 
 ### Functions
 
-- [componentCollector](README.md#componentcollector)
-- [componentCollectorLegacy](README.md#componentcollectorlegacy)
 - [constructionDetector](README.md#constructiondetector)
 - [getComponentInitPath](README.md#getcomponentinitpath)
 - [getComponentNameFromIdentifier](README.md#getcomponentnamefromidentifier)
@@ -42,7 +40,6 @@
 - [getParentClassComponent](README.md#getparentclasscomponent)
 - [hasCallInInitPath](README.md#hascallininitpath)
 - [hasNoneOrValidComponentName](README.md#hasnoneorvalidcomponentname)
-- [hookCollector](README.md#hookcollector)
 - [isChildrenCount](README.md#ischildrencount)
 - [isChildrenCountCall](README.md#ischildrencountcall)
 - [isChildrenForEach](README.md#ischildrenforeach)
@@ -97,6 +94,9 @@
 - [unsafeIsDeclaredInRenderProp](README.md#unsafeisdeclaredinrenderprop)
 - [unsafeIsRenderFunction](README.md#unsafeisrenderfunction)
 - [unsafeIsRenderProp](README.md#unsafeisrenderprop)
+- [useComponentCollector](README.md#usecomponentcollector)
+- [useComponentCollectorLegacy](README.md#usecomponentcollectorlegacy)
+- [useHookCollector](README.md#usehookcollector)
 
 ## Type Aliases
 
@@ -237,64 +237,6 @@ ___
 • `Const` **RE\_HOOK\_NAME**: `RegExp`
 
 ## Functions
-
-### componentCollector
-
-▸ **componentCollector**(`context`, `hint?`, `pragma?`): `Object`
-
-#### Parameters
-
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined` |
-| `hint` | `bigint` | `DEFAULT_COMPONENT_COLLECTOR_HINT` |
-| `pragma` | `string` | `undefined` |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `ctx` | \{ `getCurrentFunction`: () => `Option`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> ; `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)\> ; `getCurrentFunctionStack`: () => [`TSESTreeFunction`, `boolean`, `CallExpression`[]][]  } |
-| `ctx.getCurrentFunction` | () => `Option`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> |
-| `ctx.getAllComponents` | [object Object] |
-| `ctx.getCurrentComponents` | [object Object] |
-| `ctx.getCurrentFunctionStack` | [object Object] |
-| `listeners` | \{ `:function`: (`node`: `TSESTreeFunction`) => `MutableList`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> = onFunctionEnter; `:function:exit`: () => `undefined` \| [`TSESTreeFunction`, `boolean`, `CallExpression`[]] = onFunctionExit; `ArrowFunctionExpression[body.type!='BlockStatement']`: () => `void` ; `AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']`: (`node`: `AssignmentExpression`) => `void` ; `CallExpression:exit`: (`node`: `CallExpression`) => `void` ; `ReturnStatement`: (`node`: `ReturnStatement`) => `void`  } |
-| `listeners.:function` | (`node`: `TSESTreeFunction`) => `MutableList`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> |
-| `listeners.:function:exit` | () => `undefined` \| [`TSESTreeFunction`, `boolean`, `CallExpression`[]] |
-| `listeners.ArrowFunctionExpression[body.type!='BlockStatement']` | [object Object] |
-| `listeners.AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']` | [object Object] |
-| `listeners.CallExpression:exit` | [object Object] |
-| `listeners.ReturnStatement` | [object Object] |
-
-___
-
-### componentCollectorLegacy
-
-▸ **componentCollectorLegacy**(`context`): `Object`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `ctx` | \{ `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ERClassComponent`](interfaces/ERClassComponent.md)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ERClassComponent`](interfaces/ERClassComponent.md)\>  } |
-| `ctx.getAllComponents` | [object Object] |
-| `ctx.getCurrentComponents` | [object Object] |
-| `listeners` | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect } |
-| `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void` |
-| `listeners.ClassExpression` | (`node`: `TSESTreeClass`) => `void` |
-
-___
 
 ### constructionDetector
 
@@ -447,23 +389,6 @@ ___
 #### Returns
 
 `boolean`
-
-___
-
-### hookCollector
-
-▸ **hookCollector**(): `Object`
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `ctx` | \{ `getAllHooks`: (`_`: `Program`) => `Map`\<`string`, [`ERHook`](interfaces/ERHook.md)\> ; `getCurrentHooks`: () => `Map`\<`string`, [`ERHook`](interfaces/ERHook.md)\>  } |
-| `ctx.getAllHooks` | [object Object] |
-| `ctx.getCurrentHooks` | [object Object] |
-| `listeners` | `ESLintUtils.RuleListener` |
 
 ___
 
@@ -1493,3 +1418,78 @@ _ = <Component renderRow={() => <div />} />
 `boolean`
 
 `true` if node is a render prop, `false` if not
+
+___
+
+### useComponentCollector
+
+▸ **useComponentCollector**(`context`, `hint?`, `pragma?`): `Object`
+
+#### Parameters
+
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined` |
+| `hint` | `bigint` | `DEFAULT_COMPONENT_COLLECTOR_HINT` |
+| `pragma` | `string` | `undefined` |
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `ctx` | \{ `getCurrentFunction`: () => `Option`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> ; `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)\> ; `getCurrentFunctionStack`: () => [`TSESTreeFunction`, `boolean`, `CallExpression`[]][]  } |
+| `ctx.getCurrentFunction` | () => `Option`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> |
+| `ctx.getAllComponents` | [object Object] |
+| `ctx.getCurrentComponents` | [object Object] |
+| `ctx.getCurrentFunctionStack` | [object Object] |
+| `listeners` | \{ `:function`: (`node`: `TSESTreeFunction`) => `MutableList`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> = onFunctionEnter; `:function:exit`: () => `undefined` \| [`TSESTreeFunction`, `boolean`, `CallExpression`[]] = onFunctionExit; `ArrowFunctionExpression[body.type!='BlockStatement']`: () => `void` ; `AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']`: (`node`: `AssignmentExpression`) => `void` ; `CallExpression:exit`: (`node`: `CallExpression`) => `void` ; `ReturnStatement`: (`node`: `ReturnStatement`) => `void`  } |
+| `listeners.:function` | (`node`: `TSESTreeFunction`) => `MutableList`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> |
+| `listeners.:function:exit` | () => `undefined` \| [`TSESTreeFunction`, `boolean`, `CallExpression`[]] |
+| `listeners.ArrowFunctionExpression[body.type!='BlockStatement']` | [object Object] |
+| `listeners.AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']` | [object Object] |
+| `listeners.CallExpression:exit` | [object Object] |
+| `listeners.ReturnStatement` | [object Object] |
+
+___
+
+### useComponentCollectorLegacy
+
+▸ **useComponentCollectorLegacy**(`context`): `Object`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `ctx` | \{ `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ERClassComponent`](interfaces/ERClassComponent.md)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ERClassComponent`](interfaces/ERClassComponent.md)\>  } |
+| `ctx.getAllComponents` | [object Object] |
+| `ctx.getCurrentComponents` | [object Object] |
+| `listeners` | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect } |
+| `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void` |
+| `listeners.ClassExpression` | (`node`: `TSESTreeClass`) => `void` |
+
+___
+
+### useHookCollector
+
+▸ **useHookCollector**(): `Object`
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `ctx` | \{ `getAllHooks`: (`_`: `Program`) => `Map`\<`string`, [`ERHook`](interfaces/ERHook.md)\> ; `getCurrentHooks`: () => `Map`\<`string`, [`ERHook`](interfaces/ERHook.md)\>  } |
+| `ctx.getAllHooks` | [object Object] |
+| `ctx.getCurrentHooks` | [object Object] |
+| `listeners` | `ESLintUtils.RuleListener` |

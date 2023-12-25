@@ -1,5 +1,5 @@
 import { type TSESTreeFunction } from "@eslint-react/ast";
-import { componentCollector, isCreateRefCall } from "@eslint-react/core";
+import { isCreateRefCall, useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -27,7 +27,7 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const { ctx, listeners } = componentCollector(context);
+    const { ctx, listeners } = useComponentCollector(context);
     const possibleCreateRefCalls = new Map<TSESTreeFunction, TSESTree.CallExpression>();
 
     return {

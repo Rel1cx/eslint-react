@@ -1,4 +1,4 @@
-import { componentCollectorLegacy } from "@eslint-react/core";
+import { useComponentCollectorLegacy } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type ConstantCase } from "string-ts";
@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const { ctx, listeners } = componentCollectorLegacy(context);
+    const { ctx, listeners } = useComponentCollectorLegacy(context);
 
     return {
       ...listeners,

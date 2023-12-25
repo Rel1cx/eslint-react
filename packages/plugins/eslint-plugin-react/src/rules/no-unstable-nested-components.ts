@@ -8,13 +8,13 @@ import {
   type TSESTreeFunction,
 } from "@eslint-react/ast";
 import {
-  componentCollector,
-  componentCollectorLegacy,
   ERComponentCollectorHint,
   isInsideReactHookCall,
   isInsideRenderMethod,
   unsafeIsDeclaredInRenderProp,
   unsafeIsDirectValueOfRenderProperty,
+  useComponentCollector,
+  useComponentCollectorLegacy,
 } from "@eslint-react/core";
 import { isInsideCreateElementProps, isInsidePropValue } from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
@@ -57,8 +57,8 @@ export default createRule<[], MessageID>({
       | ERComponentCollectorHint.StrictLogical
       | ERComponentCollectorHint.StrictConditional;
 
-    const collector = componentCollector(context, hint);
-    const collectorLegacy = componentCollectorLegacy(context);
+    const collector = useComponentCollector(context, hint);
+    const collectorLegacy = useComponentCollectorLegacy(context);
 
     return {
       ...collector.listeners,

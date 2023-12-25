@@ -78,7 +78,7 @@ function getComponentFlag(initPath: ERFunctionComponent["initPath"], pragma: str
   return MutRef.get(flagRef);
 }
 
-export function componentCollector(
+export function useComponentCollector(
   context: RuleContext,
   hint: bigint = DEFAULT_COMPONENT_COLLECTOR_HINT,
   pragma = getPragmaFromContext(context),
