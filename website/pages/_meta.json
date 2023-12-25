@@ -14,5 +14,9 @@
   "rules": {
     "title": "Rules",
     "type": "page"
+  },
+  "presets": {
+    "title": "Presets",
+    "type": "page"
   }
 }

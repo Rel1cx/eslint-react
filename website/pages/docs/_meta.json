@@ -6,11 +6,8 @@
   "installation": {
     "title": "Installation"
   },
-  "presets": {
-    "title": "Presets"
-  },
-  "settings": {
-    "title": "Settings"
+  "configuration": {
+    "title": "Configuration"
   },
   "-Other": {
     "title": "Other",
