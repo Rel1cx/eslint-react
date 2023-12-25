@@ -1,4 +1,4 @@
-## v0.10.1-beta.0 (Draft)
+## v0.10.1-beta.0 (Mon Dec 25 2023)
 
 ### 🪄 Improvements
 
