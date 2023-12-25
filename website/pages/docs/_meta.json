@@ -9,6 +9,9 @@
   "presets": {
     "title": "Presets"
   },
+  "settings": {
+    "title": "Settings"
+  },
   "-Other": {
     "title": "Other",
     "type": "separator"

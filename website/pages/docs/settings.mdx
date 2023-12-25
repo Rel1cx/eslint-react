@@ -1,0 +1,80 @@
+import { Warning } from "#/components/callout";
+import { Config, ESLintConfig } from "#/components/eslint-config";
+
+<Warning>
+  Please note that the settings functionality is currently under construction and some
+  sections may be incomplete or subject to changes.
+</Warning>
+
+You can configure `@eslint-react/eslint-plugin` by adding a `eslintReact` property to the `settings` field of your ESLint configuration.
+
+- jsx
+  - pragma - Pragma to use, default to `"React"`.
+  - fragment - Fragment to use, default to `"Fragment"`.
+  - extensions - An Array of file extensions to be considered as JSX, default to `[".jsx", ".tsx"]`.
+- react
+  - version - React version to use, default to `"detect"`.
+- reactHooks
+  - alias - An object of alias of React's built-in Hooks, ESLint React will treat them as same as the built-in Hooks, default to `{}`. (e.g. `{ useState: ["useLocalStorageState"] }`)
+
+<ESLintConfig>
+
+<Config>
+
+```js filename=".eslintrc.js"
+module.exports = {
+  settings: {
+    eslintReact: {
+      jsx: {
+        pragma: "React",
+        fragment: "Fragment",
+        extensions: [".tsx"]
+      },
+      react: {
+        version: "detect"
+      },
+      reactHooks: {
+        alias: {
+          useState: ["useLocalStorageState"],
+          // ...
+        }
+      }
+    }
+  }
+}
+```
+
+</Config>
+
+<Config>
+
+```js filename="eslint.config.js"
+export default [
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    ...react.configs.recommended,
+    settings: {
+      eslintReact: {
+        jsx: {
+          pragma: "React",
+          fragment: "Fragment",
+          extensions: [".tsx"]
+        },
+        react: {
+          version: "detect"
+        },
+        reactHooks: {
+          alias: {
+            useState: ["useLocalStorageState"],
+            // ...
+          }
+        }
+      }
+    },
+  },
+];
+```
+
+</Config>
+
+</ESLintConfig>
