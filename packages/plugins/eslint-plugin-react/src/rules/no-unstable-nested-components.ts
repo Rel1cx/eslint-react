@@ -28,7 +28,6 @@ export type MessageID =
   | "UNSTABLE_NESTED_COMPONENT"
   | "UNSTABLE_NESTED_COMPONENT_IN_PROPS";
 
-// TODO: add more details to the report messages and data
 export default createRule<[], MessageID>({
   name: RULE_NAME,
   meta: {

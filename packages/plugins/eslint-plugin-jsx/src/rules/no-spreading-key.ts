@@ -1,7 +1,8 @@
-import { NodeType } from "@eslint-react/ast";
+import { is, NodeType } from "@eslint-react/ast";
 import { findPropInAttributes } from "@eslint-react/jsx";
-import { O } from "@eslint-react/tools";
-import type { ESLintUtils } from "@typescript-eslint/utils";
+import { F, O } from "@eslint-react/tools";
+import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -26,26 +27,21 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    return {
-      JSXOpeningElement(node) {
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-        const maybeKeyAttribute = findPropInAttributes(node.attributes, context, initialScope)("key");
+    function check(node: TSESTree.JSXOpeningElement): O.Option<ReportDescriptor<MessageID>> {
+      const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
 
-        if (O.isNone(maybeKeyAttribute)) {
-          return;
-        }
-
-        const keyAttribute = maybeKeyAttribute.value;
-
-        if (keyAttribute.type !== NodeType.JSXSpreadAttribute) {
-          return;
-        }
-
-        context.report({
+      return F.pipe(
+        findPropInAttributes(node.attributes, context, initialScope)("key"),
+        O.filter(is(NodeType.JSXSpreadAttribute)),
+        O.map((key) => ({
           messageId: "NO_SPREADING_KEY",
-          node: keyAttribute,
-        });
-      },
+          node: key,
+        })),
+      );
+    }
+
+    return {
+      JSXOpeningElement: F.flow(check, O.map(context.report)),
     };
   },
 }) satisfies ESLintUtils.RuleModule<MessageID>;

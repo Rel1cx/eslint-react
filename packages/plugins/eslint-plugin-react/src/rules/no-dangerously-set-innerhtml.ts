@@ -35,6 +35,11 @@ export default createRule<[], MessageID>({
         }
 
         const props = node.arguments[1];
+
+        if (!props) {
+          return;
+        }
+
         const maybeProperties = match(props)
           .when(isOneOf([NodeType.ObjectExpression, NodeType.ObjectPattern]), (n) => {
             return "properties" in n ? O.some(n.properties) : O.none();

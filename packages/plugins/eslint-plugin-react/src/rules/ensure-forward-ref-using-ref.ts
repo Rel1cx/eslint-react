@@ -38,7 +38,8 @@ export default createRule<[], MessageID>({
           return;
         }
 
-        const [_, ref] = component.params;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const [props, ref] = component.params;
 
         if (!ref) {
           context.report({

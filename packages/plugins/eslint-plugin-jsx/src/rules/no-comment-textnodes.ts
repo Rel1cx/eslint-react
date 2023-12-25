@@ -41,12 +41,14 @@ export default createRule<[], MessageID>({
         return;
       }
 
-      if (checkText(node)) {
-        context.report({
-          messageId: "NO_COMMENT_TEXTNODES",
-          node,
-        });
+      if (!checkText(node)) {
+        return;
       }
+
+      context.report({
+        messageId: "NO_COMMENT_TEXTNODES",
+        node,
+      });
     };
 
     return {

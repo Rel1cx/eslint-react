@@ -25,7 +25,6 @@ export default createRule<[], MessageID>({
     },
   },
   defaultOptions: [],
-
   create(context) {
     const isConditionalOrLogicalExp = isOneOf([NodeType.ConditionalExpression, NodeType.LogicalExpression]);
 

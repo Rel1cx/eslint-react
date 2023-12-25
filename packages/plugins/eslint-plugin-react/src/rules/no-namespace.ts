@@ -1,4 +1,5 @@
 import { elementType, isCreateElementCall } from "@eslint-react/jsx";
+import { _ } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
@@ -30,7 +31,7 @@ export default createRule<[], MessageID>({
           && node.arguments[0]?.type === AST_NODE_TYPES.Literal
         ) {
           const name = node.arguments[0].value;
-          if (typeof name !== "string" || !name.includes(":")) {
+          if (!_.isString(name) || !name.includes(":")) {
             return;
           }
           context.report({
@@ -44,7 +45,7 @@ export default createRule<[], MessageID>({
       },
       JSXOpeningElement(node) {
         const name = elementType(node);
-        if (typeof name !== "string" || !name.includes(":")) {
+        if (!_.isString(name) || !name.includes(":")) {
           return;
         }
         context.report({

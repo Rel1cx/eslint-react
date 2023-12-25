@@ -111,7 +111,10 @@ export default createRule<[], MessageID>({
         });
       }
 
-      if (isJSXElementOfBuiltinComponent(node.parent)) {
+      if (
+        node.parent.type === NodeType.JSXElement
+        && isJSXElementOfBuiltinComponent(node.parent)
+      ) {
         context.report({
           messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN",
           node,
