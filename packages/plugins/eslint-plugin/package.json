@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "0.10.1-beta.0",
+  "version": "0.10.1-beta.1",
   "description": "ESLint React's main ESLint plugin. More than 50 ESLint rules to catch common mistakes and improve your React code. Rewritten from the scratch (mostly).",
   "keywords": [
     "eslint",
@@ -60,18 +60,14 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/parser": ">=6.15.0",
+    "@typescript-eslint/parser": ">=6.16.0",
     "@typescript-eslint/scope-manager": "6.16.0",
     "@typescript-eslint/type-utils": "6.16.0",
-    "@typescript-eslint/types": "6.15.0",
-    "@typescript-eslint/utils": "6.15.0"
-  },
-  "peerDependencies": {
-    "eslint": ">=8.56.0",
-    "typescript": ">=5.3.3"
+    "@typescript-eslint/types": "6.16.0",
+    "@typescript-eslint/utils": "6.16.0"
   },
   "engines": {
-    "bun": ">=1.0.11",
+    "bun": ">=1.0.15",
     "node": ">=18.15.0"
   },
   "publishConfig": {

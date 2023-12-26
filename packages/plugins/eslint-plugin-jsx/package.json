@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin-jsx",
-  "version": "0.10.1-beta.0",
+  "version": "0.10.1-beta.1",
   "description": "ESLint React's ESLint plugin for JSX related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -48,22 +48,22 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/parser": ">=6.15.0",
+    "@typescript-eslint/parser": ">=6.16.0",
     "@typescript-eslint/scope-manager": "6.16.0",
     "@typescript-eslint/type-utils": "6.16.0",
-    "@typescript-eslint/types": "6.15.0",
-    "@typescript-eslint/utils": "6.15.0",
+    "@typescript-eslint/types": "6.16.0",
+    "@typescript-eslint/utils": "6.16.0",
     "ts-api-utils": "1.0.3",
     "typescript": ">=5.3.3"
   },
   "peerDependencies": {
-    "@typescript-eslint/parser": ">=6.15.0",
+    "@typescript-eslint/parser": ">=6.16.0",
     "eslint": ">=8.56.0",
     "string-ts": "2.0.0",
     "typescript": ">=5.3.3"
   },
   "engines": {
-    "bun": ">=1.0.11",
+    "bun": ">=1.0.15",
     "node": ">=18.15.0"
   },
   "publishConfig": {

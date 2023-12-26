@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "0.10.1-beta.0",
+  "version": "0.10.1-beta.1",
   "description": "ESLint React's monorepo. More than 50 ESLint rules to catch common mistakes and improve your React code. Rewritten from the scratch (mostly).",
   "keywords": [
     "eslint",
@@ -65,14 +65,14 @@
     "@tsconfig/strictest": "2.0.2",
     "@types/node": "20.10.5",
     "@typescript-eslint/eslint-plugin": "6.16.0",
-    "@typescript-eslint/parser": ">=6.15.0",
+    "@typescript-eslint/parser": ">=6.16.0",
     "@typescript-eslint/rule-tester": "6.16.0",
     "@vitest/ui": "1.1.0",
     "bun": "1.0.20",
     "bun-types": "1.0.20",
     "cspell": "8.2.3",
     "dedent": "1.5.1",
-    "dprint": "0.44.0",
+    "dprint": "0.45.0",
     "effect": "2.0.0-next.62",
     "eslint": ">=8.56.0",
     "eslint-config-with-tsconfig": "2.9.230",
@@ -106,14 +106,9 @@
     "typescript": ">=5.3.3",
     "vitest": "1.1.0"
   },
-  "peerDependencies": {
-    "@typescript-eslint/parser": ">=6.15.0",
-    "eslint": ">=8.56.0",
-    "typescript": ">=5.3.3"
-  },
   "packageManager": "pnpm@8.12.1",
   "engines": {
-    "bun": ">=1.0.11",
+    "bun": ">=1.0.15",
     "node": ">=18.15.0"
   },
   "publishConfig": {
@@ -121,11 +116,11 @@
   },
   "pnpm": {
     "overrides": {
-      "@typescript-eslint/parser": ">=6.15.0",
-      "@typescript-eslint/scope-manager": "6.15.0",
-      "@typescript-eslint/type-utils": "6.15.0",
-      "@typescript-eslint/types": "6.15.0",
-      "@typescript-eslint/utils": "6.15.0",
+      "@typescript-eslint/parser": ">=6.16.0",
+      "@typescript-eslint/scope-manager": "6.16.0",
+      "@typescript-eslint/type-utils": "6.16.0",
+      "@typescript-eslint/types": "6.16.0",
+      "@typescript-eslint/utils": "6.16.0",
       "@typescript-eslint/eslint-plugin": "6.16.0",
       "eslint": ">=8.56.0",
       "effect": "2.0.0-next.62",
