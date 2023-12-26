@@ -8,7 +8,6 @@
   "include": [
     "*.config.ts",
     ".eslintrc.cjs",
-    "knip.ts",
     "scripts/**/*.ts",
     "test",
     "packages/**/*.config.ts",
