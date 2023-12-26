@@ -399,7 +399,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } }],
     },
     {
       code: dedent`
@@ -415,7 +415,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } }],
     },
     {
       code: dedent`
@@ -431,7 +431,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedVariableComponent" } }],
     },
     {
       code: dedent`
@@ -447,7 +447,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedVariableComponent" } }],
     },
     {
       code: dedent`
@@ -463,7 +463,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } }],
     },
     {
       code: dedent`
@@ -479,7 +479,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } }],
     },
     {
       code: dedent`
@@ -495,7 +495,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } }],
     },
     {
       code: dedent`
@@ -511,7 +511,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         };
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } }],
     },
     {
       code: dedent`
@@ -527,7 +527,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedVariableComponent" } }],
     },
     {
       code: dedent`
@@ -543,7 +543,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedVariableComponent" } }],
     },
     {
       code: dedent`
@@ -561,7 +561,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedClassComponent" } }],
     },
     {
       code: dedent`
@@ -579,7 +579,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedClassComponent" } }],
     },
     {
       code: dedent`
@@ -599,7 +599,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedClassComponent" } }],
     },
     {
       code: dedent`
@@ -619,7 +619,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedClassComponent" } }],
     },
     {
       code: dedent`
@@ -637,7 +637,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } }],
     },
     {
       code: dedent`
@@ -655,7 +655,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedClassComponent" } }],
     },
     {
       code: dedent`
@@ -673,7 +673,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedVariableComponent" } }],
     },
     {
       code: `
@@ -691,7 +691,7 @@ ruleTester.run(RULE_NAME, rule, {
               }
             }
           `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedClassComponent" } }],
     },
     {
       code: dedent`
@@ -711,7 +711,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "NestedUnstableFunctionComponent" } }],
     },
     {
       code: dedent`
@@ -727,7 +727,7 @@ ruleTester.run(RULE_NAME, rule, {
           return React.createElement("div", null, getComponent());
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "NestedUnstableFunctionComponent" } }],
     },
     {
       code: dedent`
@@ -743,7 +743,7 @@ ruleTester.run(RULE_NAME, rule, {
           });
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS", data: { name: "SomeFooter" } }],
     },
     {
       code: dedent`
@@ -769,7 +769,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedComponent" } }],
     },
     {
       code: dedent`
@@ -779,7 +779,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS", data: { name: "Header" } }],
     },
     {
       code: dedent`
@@ -793,7 +793,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "List" } }],
     },
     {
       code: dedent`
@@ -814,8 +814,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      // Only a single error should be shown. This can get easily marked twice.
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "List" } }],
     },
     {
       code: dedent`
@@ -831,7 +830,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedComponent" } }],
     },
     {
       code: dedent`
@@ -847,7 +846,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedComponent" } }],
     },
     {
       code: dedent`
@@ -865,7 +864,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedComponent" } }],
     },
     {
       code: dedent`
@@ -883,7 +882,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "UnstableNestedComponent" } }],
     },
     {
       code: dedent`
@@ -897,7 +896,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "MemoizedNestedComponent" } }],
     },
     {
       code: dedent`
@@ -914,7 +913,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "MemoizedNestedComponent" } }],
     },
     {
       code: dedent`
@@ -933,7 +932,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "MemoizedNestedFunctionComponent" } }],
     },
     {
       code: dedent`
@@ -952,7 +951,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT" }],
+      errors: [{ messageId: "UNSTABLE_NESTED_COMPONENT", data: { name: "MemoizedNestedFunctionComponent" } }],
     },
   ],
 });

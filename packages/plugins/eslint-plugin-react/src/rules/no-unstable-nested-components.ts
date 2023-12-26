@@ -70,11 +70,12 @@ export default createRule<[], MessageID>({
         const isClassComponent = (node: TSESTree.Node): node is TSESTreeClass => {
           return isClass(node) && classComponents.some(component => component.node === node);
         };
-        for (const { node: component } of functionComponents) {
+        for (const { node: component, name: componentName } of functionComponents) {
           // Do not mark objects containing render methods
           if (unsafeIsDirectValueOfRenderProperty(component)) {
             continue;
           }
+          const name = O.getOrElse(() => "unknown")(componentName);
           const isInsideProperty = component.parent.type === NodeType.Property;
           const isInsideJSXPropValue = isInsidePropValue(component);
           if (isInsideJSXPropValue) {
@@ -82,6 +83,9 @@ export default createRule<[], MessageID>({
               context.report({
                 messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS",
                 node: component,
+                data: {
+                  name,
+                },
               });
             }
 
@@ -91,6 +95,9 @@ export default createRule<[], MessageID>({
             context.report({
               messageId: "UNSTABLE_NESTED_COMPONENT_IN_PROPS",
               node: component,
+              data: {
+                name,
+              },
             });
 
             continue;
@@ -100,6 +107,9 @@ export default createRule<[], MessageID>({
             context.report({
               messageId: isInsideProperty ? "UNSTABLE_NESTED_COMPONENT_IN_PROPS" : "UNSTABLE_NESTED_COMPONENT",
               node: component,
+              data: {
+                name,
+              },
             });
 
             continue;
@@ -109,10 +119,13 @@ export default createRule<[], MessageID>({
             context.report({
               messageId: "UNSTABLE_NESTED_COMPONENT",
               node: component,
+              data: {
+                name,
+              },
             });
           }
         }
-        for (const { node: component } of classComponents) {
+        for (const { node: component, name } of classComponents) {
           if (O.isNone(traverseUp(component, node => isClassComponent(node) || isFunctionComponent(node)))) {
             continue;
           }
@@ -120,6 +133,9 @@ export default createRule<[], MessageID>({
           context.report({
             messageId: "UNSTABLE_NESTED_COMPONENT",
             node: component,
+            data: {
+              name: O.getOrElse(() => "unknown")(name),
+            },
           });
         }
       },
