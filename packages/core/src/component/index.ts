@@ -3,7 +3,7 @@ export * from "./component-collector";
 export * from "./component-collector-hint";
 export * from "./component-collector-legacy";
 export * from "./component-flag";
-export * from "./component-Identifier";
+export * from "./component-identifier";
 export * from "./component-init-path";
 export * from "./component-kind";
 export * from "./component-name";

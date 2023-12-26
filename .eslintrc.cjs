@@ -56,6 +56,7 @@ module.exports = defineConfig({
         "jsdoc/require-param-description": "off",
         "jsdoc/require-returns": "off",
         "filenames-simple/named-export": "off",
+        "filenames-simple/naming-convention": ["error", { rule: "kebab-case" }],
         "functional/no-mixed-types": "off",
         "functional/no-return-void": "off",
         "functional/functional-parameters": "off",

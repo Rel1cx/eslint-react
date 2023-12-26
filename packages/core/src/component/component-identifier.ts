@@ -1,4 +1,3 @@
-/* eslint-disable filenames-simple/naming-convention */
 import { isOneOf, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";

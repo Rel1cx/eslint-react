@@ -21,7 +21,7 @@ import { isReactHookCall } from "../hook";
 import type { ERFunctionComponent } from "./component";
 import { DEFAULT_COMPONENT_COLLECTOR_HINT, ERComponentCollectorHint } from "./component-collector-hint";
 import { ERFunctionComponentFlag } from "./component-flag";
-import { getFunctionComponentIdentifier } from "./component-Identifier";
+import { getFunctionComponentIdentifier } from "./component-identifier";
 import { getComponentInitPath, hasCallInInitPath } from "./component-init-path";
 import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
 import { isFunctionOfRenderMethod } from "./component-render-method";
