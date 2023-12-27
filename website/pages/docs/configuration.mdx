@@ -4,7 +4,7 @@ import { Config, ESLintConfig } from "#/components/eslint-config";
 # Configuration
 
 <Warning>
-  Please note that the settings functionality is currently under construction and some
+  Please note that the configuration functionality is currently under construction and some
   sections may be incomplete or subject to changes.
 </Warning>
 
@@ -26,7 +26,7 @@ Fragment to use.
 
 (default: `[".jsx", ".tsx"]`)
 
-An Array of file extensions to be considered as JSX.
+An Array of file extensions to be considered as JSX files.
 
 ### `react.version` - `string`
 
@@ -34,7 +34,7 @@ An Array of file extensions to be considered as JSX.
 
 React version to use, `"detect"` means auto detect React version from the project's dependencies.
 
-### `reactHooks.alias` - `record<string, string[]>`
+### `reactHooks.alias` - `Record<string, string[]>`
 
 (default: `{}`)\
 (e.g. `{ useState: ["useLocalStorageState"] }`)
