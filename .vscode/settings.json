@@ -6,7 +6,7 @@
     }
   },
   "[jsonc]": {
-    "editor.defaultFormatter": "dprint.dprint",
+    "editor.defaultFormatter": "vscode.json-language-features",
     "editor.quickSuggestions": {
       "strings": true
     }

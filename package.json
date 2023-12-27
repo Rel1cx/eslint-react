@@ -126,7 +126,7 @@
       "react": "18.2.0",
       "react-dom": "18.2.0",
       "typescript": ">=5.3.3",
-      "esbuild": "0.19.8",
+      "esbuild": "0.19.10",
       "eslint-plugin-import": "npm:eslint-plugin-i@latest",
       "has": "npm:@nolyfill/has@latest",
       "array-includes": "npm:@nolyfill/array-includes@latest",
