@@ -10,11 +10,36 @@ import { Config, ESLintConfig } from "#/components/eslint-config";
 
 You can configure `@eslint-react/eslint-plugin` by adding a `eslintReact` property to the `settings` field of your ESLint configuration.
 
-- `jsx.pragma` - Pragma to use, default to `"React"`.
-- `jsx.fragment` - Fragment to use, default to `"Fragment"`.
-- `jsx.extensions` - An Array of file extensions to be considered as JSX, default to `[".jsx", ".tsx"]`.
-- `react.version` - React version to use, default to `"detect"`.
-- `reactHooks.alias` - An object of alias of React's built-in Hooks, ESLint React will treat them as same as the built-in Hooks, default to `{}`. (e.g. `{ useState: ["useLocalStorageState"] }`)
+### `jsx.pragma` - `string`
+
+(default: `"React"`)
+
+Pragma to use.
+
+### `jsx.fragment` - `string`
+
+(default: `"Fragment"`)
+
+Fragment to use.
+
+### `jsx.extensions` - `string[]`
+
+(default: `[".jsx", ".tsx"]`)
+
+An Array of file extensions to be considered as JSX.
+
+### `react.version` - `string`
+
+(default: `"detect"`)
+
+React version to use, `"detect"` means auto detect React version from the project's dependencies.
+
+### `reactHooks.alias` - `record<string, string[]>`
+
+(default: `{}`)\
+(e.g. `{ useState: ["useLocalStorageState"] }`)
+
+An record of alias of React's built-in Hooks, ESLint React will treat them as same as the built-in Hooks.
 
 ## Example
 
