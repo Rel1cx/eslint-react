@@ -58,10 +58,10 @@ src/components/example-component.tsx
 ## Rule Options
 
 - `rule`: The rule to apply to the file name. Can be one of the following:
-  - `PascalCase`: PascalCase
-  - `camelCase`: camelCase
-  - `kebab-case`: kebab-case
-  - `snake_case`: snake_case
+  1. `PascalCase`: PascalCase
+  2. `camelCase`: camelCase
+  3. `kebab-case`: kebab-case
+  4. `snake_case`: snake_case
 - `excepts`: List of file names that should be ignored by this rule.
 - `extensions`: List of file extensions that should be checked by this rule. By default, it checks `.jsx`, `.tsx` files.
 

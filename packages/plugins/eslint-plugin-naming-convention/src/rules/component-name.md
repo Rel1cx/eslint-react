@@ -35,8 +35,8 @@ export const MyComponent = () => {
 ## Rule Options
 
 - `rule`: The rule to apply to the file name. Can be one of the following:
-  - `PascalCase`: PascalCase
-  - `CONSTANT_CASE`: CONSTANT_CASE
+  1. `PascalCase`: PascalCase
+  2. `CONSTANT_CASE`: CONSTANT_CASE
 - `excepts`: List of component names that should be ignored by this rule.
 
 ```json
