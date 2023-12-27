@@ -1,3 +1,11 @@
+## v0.10.1 (Wed Dec 27 2023)
+
+### 🪄 Improvements
+
+- Add `react/no-clone-element` to `recommended` and `recommended-legacy` presets.
+- Improve rule `react/no-unstable-nested-components`, make its behavior closer to [react-hooks/no-nested-components](https://github.com/facebook/react/pull/25360).
+- Update `@typescript-eslint`'s packages to `6.16.0`.
+
 ## v0.10.1-beta.1 (Tue Dec 26 2023)
 
 ### 🪄 Improvements
