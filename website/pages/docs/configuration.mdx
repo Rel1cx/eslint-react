@@ -8,7 +8,9 @@ import { Config, ESLintConfig } from "#/components/eslint-config";
   sections may be incomplete or subject to changes.
 </Warning>
 
-You can configure `@eslint-react/eslint-plugin` by adding a `eslintReact` property to the `settings` field of your ESLint configuration.
+ESLint React comes with a configuration that works for most typical React projects, but if that doesn't meet your project's needs, you can customise `@eslint-react/eslint-plugin` by adding a `eslintReact` field to the `settings` field of your ESLint configuration.
+
+## Properties
 
 ### `jsx.pragma` - `string`
 
@@ -37,11 +39,12 @@ React version to use, `"detect"` means auto detect React version from the projec
 ### `reactHooks.alias` - `Record<string, string[]>`
 
 (default: `{}`)\
-(e.g. `{ useState: ["useLocalStorageState"] }`)
+(e.g. `{ useState: ["useLocalStorageState"], useLayoutEffect: ["useIsomorphicLayoutEffect"] }`)\
+(**under construction**)
 
-An record of alias of React's built-in Hooks, ESLint React will treat them as same as the built-in Hooks.
+A Record of alias of React's built-in Hooks, ESLint React will treat them as same as the built-in Hooks in all its rules.
 
-## Example
+## Examples
 
 <ESLintConfig>
 
@@ -56,7 +59,7 @@ module.exports = {
       jsx: {
         pragma: "React",
         fragment: "Fragment",
-        extensions: [".tsx"]
+        extensions: [".jsx", ".tsx"]
       },
       react: {
         version: "detect"
@@ -64,6 +67,7 @@ module.exports = {
       reactHooks: {
         alias: {
           useState: ["useLocalStorageState"],
+          useLayoutEffect: ["useIsomorphicLayoutEffect"],
           // ...
         }
       }
@@ -89,7 +93,7 @@ export default [
         jsx: {
           pragma: "React",
           fragment: "Fragment",
-          extensions: [".tsx"]
+          extensions: [".jsx", ".tsx"]
         },
         react: {
           version: "detect"
@@ -97,6 +101,7 @@ export default [
         reactHooks: {
           alias: {
             useState: ["useLocalStorageState"],
+            useLayoutEffect: ["useIsomorphicLayoutEffect"],
             // ...
           }
         }
