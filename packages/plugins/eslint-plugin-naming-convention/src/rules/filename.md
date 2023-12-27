@@ -6,16 +6,9 @@ Style.
 
 ## What it does
 
-Enforces naming convention for JSX files. By default, it enforces `PascalCase` for file names.
+Enforces naming convention for JSX files. Can be used to enforce PascalCase, camelCase, kebab-case, snake_case. By default, it enforces PascalCase.
 
 ## Examples
-
-This rule can be configured to enforce one of the following naming conventions:
-
-- PascalCase
-- camelCase
-- kebab-case
-- snake_case
 
 ### Failing
 
