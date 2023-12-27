@@ -90,7 +90,7 @@
     "rollup": "4.9.1",
     "rollup-plugin-dts": "6.1.0",
     "rollup-plugin-swc3": "0.11.0",
-    "rollup-plugin-visualizer": "5.11.0",
+    "rollup-plugin-visualizer": "5.12.0",
     "skott": "0.31.4",
     "sort-package-json": "2.6.0",
     "taze": "0.13.1",
