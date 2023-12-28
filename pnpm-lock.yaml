@@ -166,8 +166,8 @@ importers:
         specifier: 1.11.2
         version: 1.11.2
       type-fest:
-        specifier: 4.8.3
-        version: 4.8.3
+        specifier: 4.9.0
+        version: 4.9.0
       typedoc:
         specifier: 0.25.4
         version: 0.25.4(typescript@5.3.3)
@@ -601,8 +601,8 @@ importers:
         version: 0.24.1
     devDependencies:
       type-fest:
-        specifier: 4.8.3
-        version: 4.8.3
+        specifier: 4.9.0
+        version: 4.9.0
 
   packages/tools:
     dependencies:
@@ -10656,6 +10656,7 @@ packages:
 
   /semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
+    hasBin: true
 
   /semver@7.5.4:
     resolution: {integrity: sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==}
@@ -11548,8 +11549,8 @@ packages:
     engines: {node: '>=14.16'}
     dev: true
 
-  /type-fest@4.8.3:
-    resolution: {integrity: sha512-//BaTm14Q/gHBn09xlnKNqfI8t6bmdzx2DXYfPBNofN0WUybCEUDcbCWcTa0oF09lzLjZgPphXAsvRiMK0V6Bw==}
+  /type-fest@4.9.0:
+    resolution: {integrity: sha512-KS/6lh/ynPGiHD/LnAobrEFq3Ad4pBzOlJ1wAnJx9N4EYoqFhMfLIBjUT2UEx4wg5ZE+cC1ob6DCSpppVo+rtg==}
     engines: {node: '>=16'}
     dev: true
 
