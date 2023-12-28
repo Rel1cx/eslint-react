@@ -749,8 +749,8 @@ importers:
         specifier: 2.9.240
         version: 2.9.240(@susisu/eslint-plugin-safe-typescript@0.5.2)(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3)
       eslint-define-config:
-        specifier: 2.0.0
-        version: 2.0.0
+        specifier: 2.1.0
+        version: 2.1.0
       eslint-plugin-mdx:
         specifier: 3.1.1
         version: 3.1.1(eslint@8.56.0)
@@ -5494,6 +5494,11 @@ packages:
 
   /eslint-define-config@2.0.0:
     resolution: {integrity: sha512-M8ao9mAE35BGwjZeT8ZlsRA42wcJHWS29Avd0qfeclRXig6uTnGXcaO7UxVyFzUA1VJtxeV/acw4KrhJA3JqxQ==}
+    engines: {node: '>=18.0.0', npm: '>=9.0.0', pnpm: '>=8.6.0'}
+    dev: true
+
+  /eslint-define-config@2.1.0:
+    resolution: {integrity: sha512-QUp6pM9pjKEVannNAbSJNeRuYwW3LshejfyBBpjeMGaJjaDUpVps4C6KVR8R7dWZnD3i0synmrE36znjTkJvdQ==}
     engines: {node: '>=18.0.0', npm: '>=9.0.0', pnpm: '>=8.6.0'}
     dev: true
 

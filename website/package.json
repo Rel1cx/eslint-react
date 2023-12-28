@@ -33,7 +33,7 @@
     "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "9.1.0",
     "eslint-config-with-tsconfig": "2.9.240",
-    "eslint-define-config": "2.0.0",
+    "eslint-define-config": "2.1.0",
     "eslint-plugin-mdx": "3.1.1",
     "eslint-plugin-react-hooks": "4.6.0",
     "postcss": "8.4.32",
