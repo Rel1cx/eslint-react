@@ -8,9 +8,9 @@ import { Config, ESLintConfig } from "#/components/eslint-config";
   sections may be incomplete or subject to changes.
 </Warning>
 
-ESLint React comes with a configuration that works for most typical React projects, but if that doesn't meet your project's needs, you can customise `@eslint-react/eslint-plugin` by adding a `eslintReact` field to the `settings` field of your ESLint configuration.
+This plugin exposes some settings to help you customize the behavior of the plugin itself.
 
-## Properties
+## Settings
 
 ### `jsx.pragma` - `string`
 
@@ -38,7 +38,6 @@ React version to use, `"detect"` means auto detect React version from the projec
 
 ### `reactHooks.alias` - `Record<string, string[]>`
 
-(default: `{}`)\
 (e.g. `{ useState: ["useLocalStorageState"], useLayoutEffect: ["useIsomorphicLayoutEffect"] }`)\
 (**under construction**)
 
