@@ -21,7 +21,7 @@
     "@eslint-react/eslint-plugin": "workspace:*",
     "@mdx-js/mdx": "3.0.0",
     "@types/node": "20.10.5",
-    "@types/react": "18.2.45",
+    "@types/react": "18.2.46",
     "@types/react-dom": "18.2.18",
     "@typescript-eslint/eslint-plugin": "6.16.0",
     "@typescript-eslint/parser": ">=6.16.0",

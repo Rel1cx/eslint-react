@@ -206,8 +206,8 @@ importers:
         specifier: 2.0.2
         version: 2.0.2
       '@types/react':
-        specifier: 18.2.45
-        version: 18.2.45
+        specifier: 18.2.46
+        version: 18.2.46
       '@types/react-dom':
         specifier: 18.2.18
         version: 18.2.18
@@ -255,8 +255,8 @@ importers:
         specifier: 2.0.2
         version: 2.0.2
       '@types/react':
-        specifier: 18.2.45
-        version: 18.2.45
+        specifier: 18.2.46
+        version: 18.2.46
       '@types/react-dom':
         specifier: 18.2.18
         version: 18.2.18
@@ -713,8 +713,8 @@ importers:
         specifier: 20.10.5
         version: 20.10.5
       '@types/react':
-        specifier: 18.2.45
-        version: 18.2.45
+        specifier: 18.2.46
+        version: 18.2.46
       '@types/react-dom':
         specifier: 18.2.18
         version: 18.2.18
@@ -2076,7 +2076,7 @@ packages:
       react: 18.2.0
     dependencies:
       '@types/mdx': 2.0.10
-      '@types/react': 18.2.45
+      '@types/react': 18.2.46
       react: 18.2.0
     dev: false
 
@@ -3138,11 +3138,11 @@ packages:
   /@types/react-dom@18.2.18:
     resolution: {integrity: sha512-TJxDm6OfAX2KJWJdMEVTwWke5Sc/E/RlnPGvGfS0W7+6ocy2xhDVQVh/KvC2Uf7kACs+gDytdusDSdWfWkaNzw==}
     dependencies:
-      '@types/react': 18.2.45
+      '@types/react': 18.2.46
     dev: true
 
-  /@types/react@18.2.45:
-    resolution: {integrity: sha512-TtAxCNrlrBp8GoeEp1npd5g+d/OejJHFxS3OWmrPBMFaVQMSN0OFySozJio5BHxTuTeug00AVXVAjfDSfk+lUg==}
+  /@types/react@18.2.46:
+    resolution: {integrity: sha512-nNCvVBcZlvX4NU1nRRNV/mFl1nNRuTuslAJglQsq+8ldXe5Xv0Wd2f7WTE3jOxhLH2BFfiZGC6GCp+kHQbgG+w==}
     dependencies:
       '@types/prop-types': 15.7.11
       '@types/scheduler': 0.16.8
@@ -3888,6 +3888,7 @@ packages:
   /autoprefixer@10.4.16(postcss@8.4.32):
     resolution: {integrity: sha512-7vd3UC6xKp0HLfua5IjZlcXvGAGy7cBAXTg2lyQ/8WpNhd6SiZ8Be+xm3FyBSYJx5GKcpRCzBh7RH4/0dnY+uQ==}
     engines: {node: ^10 || ^12 || >=14}
+    hasBin: true
     peerDependencies:
       postcss: ^8.1.0
     dependencies:
@@ -5390,6 +5391,7 @@ packages:
 
   /eslint-config-prettier@9.1.0(eslint@8.56.0):
     resolution: {integrity: sha512-NSWl5BFQWEPi1j4TjVNItzYV7dZXZ+wP6I6ZhrBGpChQhZRUaElihE9uRRkcbRnNb76UMKDF3r+WTmNcGPKsqw==}
+    hasBin: true
     peerDependencies:
       eslint: '>=8.56.0'
     dependencies:
@@ -9210,6 +9212,7 @@ packages:
   /next@14.0.4(@babel/core@7.23.6)(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5):
     resolution: {integrity: sha512-qbwypnM7327SadwFtxXnQdGiKpkuhaRLE2uq62/nRul9cj9KhQ5LhHmlziTNqUidZotw/Q1I9OjirBROdUJNgA==}
     engines: {node: '>=18.17.0'}
+    hasBin: true
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
       react: 18.2.0
@@ -10495,6 +10498,7 @@ packages:
   /rollup-plugin-visualizer@5.12.0(rollup@4.9.1):
     resolution: {integrity: sha512-8/NU9jXcHRs7Nnj07PF2o4gjxmm9lXIrZ8r175bT9dK8qoLlvKTwRMArRCMgpMGlq8CTLugRvEmyMeMXIU2pNQ==}
     engines: {node: '>=14'}
+    hasBin: true
     peerDependencies:
       rollup: 2.x || 3.x || 4.x
     peerDependenciesMeta:
@@ -10648,6 +10652,7 @@ packages:
 
   /semver@5.7.2:
     resolution: {integrity: sha512-cBznnQ9KjJqU67B52RMC65CMarK2600WFnbkcaiwWq3xy/5haFJlshgnpjovMVJ+Hff49d8GEn0b87C5pDQ10g==}
+    hasBin: true
     dev: true
 
   /semver@6.3.1:
@@ -11399,6 +11404,7 @@ packages:
 
   /tsutils-etc@1.4.2(tsutils@3.21.0)(typescript@5.3.3):
     resolution: {integrity: sha512-2Dn5SxTDOu6YWDNKcx1xu2YUy6PUeKrWZB/x2cQ8vY2+iz3JRembKn/iZ0JLT1ZudGNwQQvtFX9AwvRHbXuPUg==}
+    hasBin: true
     peerDependencies:
       tsutils: ^3.0.0
       typescript: '>=5.3.3'
@@ -11582,6 +11588,7 @@ packages:
   /typedoc@0.25.4(typescript@5.3.3):
     resolution: {integrity: sha512-Du9ImmpBCw54bX275yJrxPVnjdIyJO/84co0/L9mwe0R3G4FSR6rQ09AlXVRvZEGMUg09+z/usc8mgygQ1aidA==}
     engines: {node: '>= 16'}
+    hasBin: true
     peerDependencies:
       typescript: '>=5.3.3'
     dependencies:
@@ -11866,6 +11873,7 @@ packages:
 
   /update-browserslist-db@1.0.13(browserslist@4.22.2):
     resolution: {integrity: sha512-xebP81SNcPuNpPP3uzeW1NYXxI3rxyJzF3pD6sH4jE7o/IX+WtSpwnVU+qIsDPyk0d3hmFQ7mjqc6AtV604hbg==}
+    hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
     dependencies:
@@ -12050,6 +12058,7 @@ packages:
   /vite@4.5.1(@types/node@20.10.5)(sass@1.69.5):
     resolution: {integrity: sha512-AXXFaAJ8yebyqzoNB9fu2pHoo/nWX+xZlaRwoeYUxEqBO+Zj4msE5G+BhGBll9lYEKv9Hfks52PAF2X7qDYXQA==}
     engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
     peerDependencies:
       '@types/node': '>= 14'
       less: '*'
@@ -12086,6 +12095,7 @@ packages:
   /vite@5.0.10(@types/node@20.10.5):
     resolution: {integrity: sha512-2P8J7WWgmc355HUMlFrwofacvr98DAjoE52BfdbwQtyLH06XKwaL/FMnmKM2crF0iX4MpmMKoDlNCB1ok7zHCw==}
     engines: {node: ^18.0.0 || >=20.0.0}
+    hasBin: true
     peerDependencies:
       '@types/node': ^18.0.0 || >=20.0.0
       less: '*'
@@ -12121,6 +12131,7 @@ packages:
   /vitest@1.1.0(@types/node@20.10.5)(@vitest/ui@1.1.0):
     resolution: {integrity: sha512-oDFiCrw7dd3Jf06HoMtSRARivvyjHJaTxikFxuqJjO76U436PqlVw1uLn7a8OSPrhSfMGVaRakKpA2lePdw79A==}
     engines: {node: ^18.0.0 || >=20.0.0}
+    hasBin: true
     peerDependencies:
       '@edge-runtime/vm': '*'
       '@types/node': ^18.0.0 || >=20.0.0
