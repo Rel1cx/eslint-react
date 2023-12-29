@@ -1,11 +1,12 @@
 import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
 import { elementType } from "@eslint-react/jsx";
-import { getCaseValidator } from "@eslint-react/shared";
+import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
 import { _, O } from "@eslint-react/tools";
 import { type ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { type ConstantCase } from "string-ts";
+import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -78,8 +79,17 @@ export default createRule<Options, MessageID>({
     const excepts = _.isString(options) ? [] : options.excepts ?? [];
     const rule = _.isString(options) ? options : options.rule ?? "PascalCase";
 
-    const validator = getCaseValidator(rule, [...excepts]);
-    const validate = (name: string) => validator.validate(name);
+    function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
+      // eslint-disable-next-line security/detect-non-literal-regexp
+      if (ignores.map((pattern) => new RegExp(`^${pattern}$`, "u")).some((pattern) => pattern.test(name))) {
+        return true;
+      }
+
+      return match(casing)
+        .with("CONSTANT_CASE", () => RE_CONSTANT_CASE.test(name))
+        .with("PascalCase", () => RE_PASCAL_CASE.test(name))
+        .exhaustive();
+    }
 
     const collector = useComponentCollector(context);
     const collectorLegacy = useComponentCollectorLegacy(context);
