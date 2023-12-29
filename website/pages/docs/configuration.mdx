@@ -12,36 +12,36 @@ This plugin exposes some settings to help you customize the behavior of the plug
 
 ## Settings
 
-### `jsx.pragma` - `string`
+### `jsx.pragma`
 
-(default: `"React"`)
+(type: `string`, default: `"React"`)
 
 Pragma to use.
 
-### `jsx.fragment` - `string`
+### `jsx.fragment`
 
-(default: `"Fragment"`)
+(type: `string`, default: `"Fragment"`)
 
 Fragment to use.
 
-### `jsx.extensions` - `string[]`
+### `jsx.extensions`
 
-(default: `[".jsx", ".tsx"]`)
+(type: `string[]`, default: `[".jsx", ".tsx"]`)
 
 An Array of file extensions to be considered as JSX files.
 
-### `react.version` - `string`
+### `react.version`
 
-(default: `"detect"`)
+(type: `string`, default: `"detect"`)
 
 React version to use, `"detect"` means auto detect React version from the project's dependencies.
 
-### `reactHooks.alias` - `Record<string, string[]>`
+### `reactHooks.alias`
 
-(e.g. `{ useState: ["useLocalStorageState"], useLayoutEffect: ["useIsomorphicLayoutEffect"] }`)\
-(**under construction**)
+(type: `Record<string, string[]>`)\
+(**WIP**)
 
-A Record of alias of React's built-in Hooks, ESLint React will treat them as same as the built-in Hooks in all its rules.
+A Record of alias of React's built-in Hooks, ESLint React will treat them as same as the built-in Hooks in all its rules (e.g. `{ useState: ["useLocalStorageState"] }`).
 
 ## Examples
 
@@ -66,7 +66,6 @@ module.exports = {
       reactHooks: {
         alias: {
           useState: ["useLocalStorageState"],
-          useLayoutEffect: ["useIsomorphicLayoutEffect"],
           // ...
         }
       }
@@ -100,7 +99,6 @@ export default [
         reactHooks: {
           alias: {
             useState: ["useLocalStorageState"],
-            useLayoutEffect: ["useIsomorphicLayoutEffect"],
             // ...
           }
         }

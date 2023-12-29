@@ -35,20 +35,9 @@ export function isReactHookCall(node: TSESTree.CallExpression) {
   return false;
 }
 
-export function isReactHookCallWithName(name: string, alias?: string[]) {
+export function isReactHookCallWithName(name: string) {
   return (node: TSESTree.CallExpression, context: RuleContext, pragma: string) => {
     const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-
-    if (alias) {
-      const isAlias = match(node.callee)
-        .with({ type: NodeType.Identifier, name }, n => alias.includes(n.name))
-        .with({ type: NodeType.MemberExpression, object: { name: pragma }, property: { name } }, F.constTrue)
-        .otherwise(F.constFalse);
-
-      if (isAlias) {
-        return true;
-      }
-    }
 
     return match(node.callee)
       .with({ type: NodeType.Identifier, name }, n => isInitializedFromPragma(n.name, context, initialScope, pragma))

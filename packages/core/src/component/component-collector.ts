@@ -7,7 +7,6 @@ import {
   NodeType,
   traverseUp,
   type TSESTreeFunction,
-  unsafeIsMapCall,
 } from "@eslint-react/ast";
 import { getPragmaFromContext, isChildrenOfCreateElement, isJSXValue } from "@eslint-react/jsx";
 import { F, MutList, MutRef, O } from "@eslint-react/tools";
@@ -15,7 +14,7 @@ import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import ShortUniqueId from "short-unique-id";
-import { match } from "ts-pattern";
+import { isMatching, match } from "ts-pattern";
 
 import { isReactHookCall } from "../hook";
 import type { ERFunctionComponent } from "./component";
@@ -28,12 +27,23 @@ import { isFunctionOfRenderMethod } from "./component-render-method";
 
 const uid = new ShortUniqueId({ length: 10 });
 
+function isMapCall(node: TSESTree.Node) {
+  return isMatching({
+    callee: {
+      type: NodeType.MemberExpression,
+      property: {
+        name: "map",
+      },
+    },
+  }, node);
+}
+
 function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: bigint) {
   if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node, context)) {
     return false;
   }
 
-  if (hint & ERComponentCollectorHint.SkipMapCallback && unsafeIsMapCall(node.parent)) {
+  if (hint & ERComponentCollectorHint.SkipMapCallback && isMapCall(node.parent)) {
     return false;
   }
 

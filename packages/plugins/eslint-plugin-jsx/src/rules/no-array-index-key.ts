@@ -1,4 +1,4 @@
-import { isOneOf, NodeType, unsafeIsStringCall, unsafeIsToStringCall } from "@eslint-react/ast";
+import { isOneOf, NodeType } from "@eslint-react/ast";
 import { getPragmaFromContext, isCloneElementCall, isCreateElementCall } from "@eslint-react/jsx";
 import { O, Record } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
@@ -155,8 +155,18 @@ export default createRule<[], MessageID>({
           return acc;
         }, []);
       }
+      const isToStringCall = isMatching({
+        type: NodeType.CallExpression,
+        callee: {
+          type: NodeType.MemberExpression,
+          property: {
+            type: NodeType.Identifier,
+            name: "toString",
+          },
+        },
+      }, node);
       // key={bar.toString()}
-      if (unsafeIsToStringCall(node)) {
+      if (isToStringCall) {
         if (!("object" in node.callee && isArrayIndex(node.callee.object))) {
           return [];
         }
@@ -164,7 +174,14 @@ export default createRule<[], MessageID>({
         return [{ messageId: "NO_ARRAY_INDEX_KEY", node: node.callee.object }];
       }
       // key={String(bar)}
-      if (unsafeIsStringCall(node)) {
+      const isStringCall = isMatching({
+        type: NodeType.CallExpression,
+        callee: {
+          type: NodeType.Identifier,
+          name: "String",
+        },
+      }, node);
+      if (isStringCall) {
         const [arg] = node.arguments;
         if (arg && isArrayIndex(arg)) {
           return [{ messageId: "NO_ARRAY_INDEX_KEY", node: arg }];
