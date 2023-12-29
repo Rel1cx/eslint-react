@@ -1,8 +1,18 @@
-import { ESLintSettingsSchema, getCaseValidator, parseSchema } from "@eslint-react/shared";
-import { _, O } from "@eslint-react/tools";
+/* eslint-disable sonarjs/no-duplicate-string */
+import {
+  ESLintSettingsSchema,
+  parseSchema,
+  RE_CAMEL_CASE,
+  RE_KEBAB_CASE,
+  RE_PASCAL_CASE,
+  RE_SNAKE_CASE,
+} from "@eslint-react/shared";
+import { _ } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import path from "pathe";
+import { camelCase, kebabCase, pascalCase, snakeCase } from "string-ts";
+import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -91,7 +101,8 @@ export default createRule<Options, MessageID>({
       ? options.extensions
       : configs?.jsx?.extensions ?? defaultOptions[0].extensions;
 
-    const filename = context.getFilename();
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const filename = context.filename ?? context.getFilename();
     const fileNameExt = filename
       .slice(filename.lastIndexOf("."));
 
@@ -99,13 +110,33 @@ export default createRule<Options, MessageID>({
       return {};
     }
 
-    const validator = getCaseValidator(rule, [...excepts]);
-    const validate = (name: string) => validator.validate(name);
-    const getRecommendedName = (name: string) => validator.getRecommendedName(name);
+    function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
+      // eslint-disable-next-line security/detect-non-literal-regexp
+      if (ignores.map((pattern) => new RegExp(`^${pattern}$`, "u")).some((pattern) => pattern.test(name))) {
+        return true;
+      }
+
+      return match(casing)
+        .with("PascalCase", () => RE_PASCAL_CASE.test(name))
+        .with("camelCase", () => RE_CAMEL_CASE.test(name))
+        .with("kebab-case", () => RE_KEBAB_CASE.test(name))
+        .with("snake_case", () => RE_SNAKE_CASE.test(name))
+        .exhaustive();
+    }
+
+    function getSuggestion(name: string, casing: Case = rule) {
+      return match(casing)
+        .with("PascalCase", () => pascalCase(name))
+        .with("camelCase", () => camelCase(name))
+        .with("kebab-case", () => kebabCase(name))
+        .with("snake_case", () => snakeCase(name))
+        .exhaustive();
+    }
 
     return {
       Program(node) {
-        const [basename = "", ...rest] = path.basename(context.getFilename()).split(".");
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        const [basename = "", ...rest] = path.basename(context.filename ?? context.getFilename()).split(".");
 
         if (basename.length === 0) {
           return context.report({ messageId: "FILENAME_EMPTY", node });
@@ -115,24 +146,11 @@ export default createRule<Options, MessageID>({
           return;
         }
 
-        const maybeSuggestion = O.liftThrowable(getRecommendedName)(basename);
-
-        if (O.isNone(maybeSuggestion)) {
-          return context.report({
-            data: {
-              name: filename,
-              rule,
-            },
-            messageId: "FILENAME_CASE_MISMATCH",
-            node,
-          });
-        }
-
         context.report({
           data: {
             name: filename,
             rule,
-            suggestion: [maybeSuggestion.value, ...rest].join("."),
+            suggestion: [getSuggestion(basename), ...rest].join("."),
           },
           messageId: "FILENAME_CASE_MISMATCH_SUGGESTION",
           node,

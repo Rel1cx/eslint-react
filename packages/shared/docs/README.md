@@ -4,10 +4,6 @@
 
 ## Table of contents
 
-### Classes
-
-- [CaseValidator](classes/CaseValidator.md)
-
 ### Type Aliases
 
 - [ESLintReactSettings](README.md#eslintreactsettings)
@@ -17,18 +13,19 @@
 
 - [GITHUB\_URL](README.md#github_url)
 - [NPM\_SCOPE](README.md#npm_scope)
+- [RE\_CAMEL\_CASE](README.md#re_camel_case)
+- [RE\_CONSTANT\_CASE](README.md#re_constant_case)
 - [RE\_JAVASCRIPT\_PROTOCOL](README.md#re_javascript_protocol)
+- [RE\_KEBAB\_CASE](README.md#re_kebab_case)
+- [RE\_PASCAL\_CASE](README.md#re_pascal_case)
+- [RE\_SNAKE\_CASE](README.md#re_snake_case)
 - [WEBSITE\_URL](README.md#website_url)
-- [presetRules](README.md#presetrules)
 
 ### Functions
 
 - [createRuleForPlugin](README.md#createruleforplugin)
-- [getCaseValidator](README.md#getcasevalidator)
-- [getRule](README.md#getrule)
 - [parseSchema](README.md#parseschema)
 - [safeParseSchema](README.md#safeparseschema)
-- [splitName](README.md#splitname)
 
 ## Type Aliases
 
@@ -54,6 +51,22 @@ ___
 
 • `Const` **NPM\_SCOPE**: ``"@eslint-react"``
 
+-----------------------------------------------------------------------------
+Meta
+-----------------------------------------------------------------------------
+
+___
+
+### RE\_CAMEL\_CASE
+
+• `Const` **RE\_CAMEL\_CASE**: `RegExp`
+
+___
+
+### RE\_CONSTANT\_CASE
+
+• `Const` **RE\_CONSTANT\_CASE**: `RegExp`
+
 ___
 
 ### RE\_JAVASCRIPT\_PROTOCOL
@@ -62,15 +75,31 @@ ___
 
 ___
 
-### WEBSITE\_URL
+### RE\_KEBAB\_CASE
 
-• `Const` **WEBSITE\_URL**: ``"https://eslint-react.rel1cx.io"``
+• `Const` **RE\_KEBAB\_CASE**: `RegExp`
 
 ___
 
-### presetRules
+### RE\_PASCAL\_CASE
 
-• `Const` **presetRules**: `PresetRules`
+• `Const` **RE\_PASCAL\_CASE**: `RegExp`
+
+-----------------------------------------------------------------------------
+RegExps
+-----------------------------------------------------------------------------
+
+___
+
+### RE\_SNAKE\_CASE
+
+• `Const` **RE\_SNAKE\_CASE**: `RegExp`
+
+___
+
+### WEBSITE\_URL
+
+• `Const` **WEBSITE\_URL**: ``"https://eslint-react.rel1cx.io"``
 
 ## Functions
 
@@ -110,40 +139,6 @@ Creates reusable function to create rules with default options and docs URLs.
 `RuleModule`\<`TMessageIds`, `TOptions`, `RuleListener`\>
 
 Function to create a rule with the docs URL format.
-
-___
-
-### getCaseValidator
-
-▸ **getCaseValidator**(`ruleName`, `ignorePattern?`): [`CaseValidator`](classes/CaseValidator.md)
-
-#### Parameters
-
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `ruleName` | `string` | `undefined` |
-| `ignorePattern` | `string`[] | `[]` |
-
-#### Returns
-
-[`CaseValidator`](classes/CaseValidator.md)
-
-___
-
-### getRule
-
-▸ **getRule**(`expression`, `preset?`): `Rule`
-
-#### Parameters
-
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `expression` | `string` | `undefined` |
-| `preset` | `PresetRules` | `presetRules` |
-
-#### Returns
-
-`Rule`
 
 ___
 
@@ -200,19 +195,3 @@ Parses unknown input based on a schema.
 `SafeParseResult`\<`TSchema`\>
 
 The parsed output.
-
-___
-
-### splitName
-
-▸ **splitName**(`name`): `string`[]
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-
-#### Returns
-
-`string`[]
