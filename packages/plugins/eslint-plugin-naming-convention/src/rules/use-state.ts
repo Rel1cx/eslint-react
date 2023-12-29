@@ -1,6 +1,7 @@
 import { NodeType } from "@eslint-react/ast";
-import { isUseStateCall, useComponentCollector } from "@eslint-react/core";
+import { isReactHookCallWithNameLoose, isUseStateCall, useComponentCollector } from "@eslint-react/core";
 import { getPragmaFromContext } from "@eslint-react/jsx";
+import { ESLintSettingsSchema, parseSchema } from "@eslint-react/shared";
 import { _, F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -36,6 +37,7 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
+    const alias = parseSchema(ESLintSettingsSchema, context.settings).eslintReact?.reactHooks?.alias?.useState ?? [];
     const { ctx, listeners } = useComponentCollector(context);
 
     return {
@@ -50,7 +52,10 @@ export default createRule<[], MessageID>({
           }
 
           for (const hookCall of hookCalls) {
-            if (!isUseStateCall(hookCall, context, pragma)) {
+            if (
+              !isUseStateCall(hookCall, context, pragma)
+              && !alias.some(F.flip(isReactHookCallWithNameLoose)(hookCall))
+            ) {
               continue;
             }
 

@@ -46,6 +46,15 @@ export function isReactHookCallWithName(name: string) {
   };
 }
 
+export function isReactHookCallWithNameLoose(name: string) {
+  return (node: TSESTree.CallExpression) => {
+    return match(node.callee)
+      .with({ type: NodeType.Identifier, name }, F.constTrue)
+      .with({ type: NodeType.MemberExpression, property: { name } }, F.constTrue)
+      .otherwise(F.constFalse);
+  };
+}
+
 export const isUseCallbackCall = isReactHookCallWithName("useCallback");
 export const isUseContextCall = isReactHookCallWithName("useContext");
 export const isUseDebugValueCall = isReactHookCallWithName("useDebugValue");

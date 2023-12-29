@@ -162,5 +162,30 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: dedent`
+        import React from "react";
+
+        function App({ items }) {
+          const memoizedValue = useCustomMemo(() => [0, 1, 2].sort(), []);
+
+          return <div>{count}</div>;
+        }
+      `,
+      errors: [
+        {
+          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+      settings: {
+        eslintReact: {
+          reactHooks: {
+            alias: {
+              useMemo: ["useCustomMemo"],
+            },
+          },
+        },
+      },
+    },
   ],
 });
