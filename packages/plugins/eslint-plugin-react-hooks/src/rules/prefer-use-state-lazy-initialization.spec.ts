@@ -79,6 +79,18 @@ ruleTester.run(RULE_NAME, rule, {
     'const { useState } = require("react"); useState(1 < 2 ? 3 : 4)',
     'const { useState } = require("react"); useState(1 == 2 ? 3 : 4)',
     'const { useState } = require("react"); useState(1 === 2 ? 3 : 4)',
+    {
+      code: "useLocalStorageState()",
+      settings: {
+        eslintReact: {
+          reactHooks: {
+            alias: {
+              useState: ["useLocalStorageState"],
+            },
+          },
+        },
+      },
+    },
   ],
   invalid: [
     {
@@ -242,6 +254,24 @@ ruleTester.run(RULE_NAME, rule, {
           type: NodeType.ObjectExpression,
         },
       ],
+    },
+    {
+      code: "useLocalStorageState(1 || getValue())",
+      errors: [
+        {
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          type: NodeType.LogicalExpression,
+        },
+      ],
+      settings: {
+        eslintReact: {
+          reactHooks: {
+            alias: {
+              useState: ["useLocalStorageState"],
+            },
+          },
+        },
+      },
     },
   ],
 });

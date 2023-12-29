@@ -195,5 +195,33 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: dedent`
+        import React from "react";
+
+        const Comp = () => {
+          const style = useCustomCallback((theme: MantineTheme) => ({
+            input: {
+              fontFamily: theme.fontFamilyMonospace
+            }
+          }), []);
+          return <Button sx={style} />
+        }
+      `,
+      errors: [
+        {
+          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+      settings: {
+        eslintReact: {
+          reactHooks: {
+            alias: {
+              useCallback: ["useCustomCallback"],
+            },
+          },
+        },
+      },
+    },
   ],
 });

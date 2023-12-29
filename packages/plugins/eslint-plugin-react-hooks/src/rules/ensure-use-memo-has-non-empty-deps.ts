@@ -1,13 +1,13 @@
 import { findVariableByNameUpToGlobal, getVariableInit, is, NodeType } from "@eslint-react/ast";
-import { isReactHookCall, isUseMemoCall } from "@eslint-react/core";
+import { isReactHookCall, isReactHookCallWithNameLoose, isUseMemoCall } from "@eslint-react/core";
 import { getPragmaFromContext } from "@eslint-react/jsx";
+import { ESLintSettingsSchema, parseSchema } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
-
 export const RULE_NAME = "ensure-use-memo-has-non-empty-deps";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
@@ -27,13 +27,21 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
+    const alias = parseSchema(ESLintSettingsSchema, context.settings).eslintReact?.reactHooks?.alias?.useMemo ?? [];
     const pragma = getPragmaFromContext(context);
 
     return {
       CallExpression(node) {
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
 
-        if (!isReactHookCall(node) || !isUseMemoCall(node, context, pragma)) {
+        if (!isReactHookCall(node)) {
+          return;
+        }
+
+        if (
+          !isUseMemoCall(node, context, pragma)
+          && !alias.some(F.flip(isReactHookCallWithNameLoose)(node))
+        ) {
           return;
         }
 

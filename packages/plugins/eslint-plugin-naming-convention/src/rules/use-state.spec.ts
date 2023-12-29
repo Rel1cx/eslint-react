@@ -94,5 +94,32 @@ ruleTester.run(RULE_NAME, rule, {
         },
       }],
     },
+    {
+      code: dedent`
+        import { useState } from "react";
+
+        function Component() {
+          const [state, setstate] = useLocalStorageState(0);
+
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "USE_STATE",
+        data: {
+          setterName: "setState",
+          stateName: "state",
+        },
+      }],
+      settings: {
+        eslintReact: {
+          reactHooks: {
+            alias: {
+              useState: ["useLocalStorageState"],
+            },
+          },
+        },
+      },
+    },
   ],
 });

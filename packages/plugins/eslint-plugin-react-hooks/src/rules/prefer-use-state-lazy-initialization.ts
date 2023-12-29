@@ -1,7 +1,9 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3579/commits/ebb739a0fe99a2ee77055870bfda9f67a2691374
 import { getNestedCallExpressions } from "@eslint-react/ast";
-import { isReactHookCall, isUseStateCall } from "@eslint-react/core";
+import { isReactHookCall, isReactHookCallWithNameLoose, isUseStateCall } from "@eslint-react/core";
 import { getPragmaFromContext } from "@eslint-react/jsx";
+import { ESLintSettingsSchema, parseSchema } from "@eslint-react/shared";
+import { F } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type ConstantCase } from "string-ts";
 
@@ -31,11 +33,19 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
+    const alias = parseSchema(ESLintSettingsSchema, context.settings).eslintReact?.reactHooks?.alias?.useState ?? [];
     const pragma = getPragmaFromContext(context);
 
     return {
       CallExpression(node) {
-        if (!isReactHookCall(node) || !isUseStateCall(node, context, pragma)) {
+        if (!isReactHookCall(node)) {
+          return;
+        }
+
+        if (
+          !isUseStateCall(node, context, pragma)
+          && !alias.some(F.flip(isReactHookCallWithNameLoose)(node))
+        ) {
           return;
         }
 

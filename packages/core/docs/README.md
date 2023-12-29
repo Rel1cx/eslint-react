@@ -74,6 +74,7 @@
 - [isReactHook](README.md#isreacthook)
 - [isReactHookCall](README.md#isreacthookcall)
 - [isReactHookCallWithName](README.md#isreacthookcallwithname)
+- [isReactHookCallWithNameLoose](README.md#isreacthookcallwithnameloose)
 - [isReactHookName](README.md#isreacthookname)
 - [isUnstableAssignmentPattern](README.md#isunstableassignmentpattern)
 - [isUseCallbackCall](README.md#isusecallbackcall)
@@ -1031,6 +1032,34 @@ ___
 | `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 | `pragma` | `string` |
+
+##### Returns
+
+`boolean`
+
+___
+
+### isReactHookCallWithNameLoose
+
+▸ **isReactHookCallWithNameLoose**(`name`): (`node`: `CallExpression`) => `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
+
+#### Returns
+
+`fn`
+
+▸ (`node`): `boolean`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `node` | `CallExpression` |
 
 ##### Returns
 

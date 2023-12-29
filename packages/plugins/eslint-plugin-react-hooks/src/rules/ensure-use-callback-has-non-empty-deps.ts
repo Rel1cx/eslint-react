@@ -1,6 +1,7 @@
 import { findVariableByNameUpToGlobal, getVariableInit, is, NodeType } from "@eslint-react/ast";
-import { isReactHookCall, isUseCallbackCall } from "@eslint-react/core";
+import { isReactHookCall, isReactHookCallWithNameLoose, isUseCallbackCall } from "@eslint-react/core";
 import { getPragmaFromContext } from "@eslint-react/jsx";
+import { ESLintSettingsSchema, parseSchema } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type ConstantCase } from "string-ts";
@@ -27,13 +28,21 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
+    const alias = parseSchema(ESLintSettingsSchema, context.settings).eslintReact?.reactHooks?.alias?.useCallback ?? [];
     const pragma = getPragmaFromContext(context);
 
     return {
       CallExpression(node) {
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
 
-        if (!isReactHookCall(node) || !isUseCallbackCall(node, context, pragma)) {
+        if (!isReactHookCall(node)) {
+          return;
+        }
+
+        if (
+          !isUseCallbackCall(node, context, pragma)
+          && !alias.some(F.flip(isReactHookCallWithNameLoose)(node))
+        ) {
           return;
         }
 
