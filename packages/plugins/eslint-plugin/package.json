@@ -1,7 +1,7 @@
 {
   "name": "@eslint-react/eslint-plugin",
   "version": "0.10.2-beta.0",
-  "description": "ESLint React's main ESLint plugin. More than 50 ESLint rules to catch common mistakes and improve your React code. Rewritten from the scratch (mostly).",
+  "description": "ESLint React's main ESLint plugin. A full TypeScript rewrite of eslint-plugin-react, with well-designed rule behaviors and sensible defaults for modern React apps.",
   "keywords": [
     "eslint",
     "eslint-plugin",
@@ -68,7 +68,7 @@
   },
   "engines": {
     "bun": ">=1.0.15",
-    "node": ">=18.15.0"
+    "node": ">=18.18.0"
   },
   "publishConfig": {
     "access": "public"

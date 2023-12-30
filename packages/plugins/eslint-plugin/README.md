@@ -2,7 +2,7 @@
 
 <h1 align="center" alt="title">ESLint React</h1>
 
-More than 50 ESLint rules to catch common mistakes and improve your React code. Rewritten from the scratch (mostly).
+A full TypeScript rewrite of eslint-plugin-react, with well-designed rule behaviors and sensible defaults for modern React apps.
 
 ## Supported React versions
 
@@ -12,7 +12,7 @@ More than 50 ESLint rules to catch common mistakes and improve your React code. 
 
 ### Node.js
 
-- 18.15.0 or later
+- 18.18.0 or later
 
 ### Bun
 
