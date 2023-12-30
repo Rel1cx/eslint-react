@@ -34,7 +34,7 @@ export default [
       ...reactHooks.configs.recommended.rules,
     },
   },
-  // React rules
+  // ESLint React rules
   {
     files: ["src/**/*.{ts,tsx}"],
     ...eslintReact.configs.recommended,

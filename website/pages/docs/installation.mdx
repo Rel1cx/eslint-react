@@ -5,7 +5,7 @@ import { Config, ESLintConfig } from "#/components/eslint-config";
 
 ## Install
 
-<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+<Tabs items={["npm", "yarn", "pnpm", "bun"]}>
 
 <Tab>
 
@@ -18,7 +18,7 @@ npm install --save-dev eslint-plugin-react-hooks @eslint-react/eslint-plugin
 <Tab>
 
 ```bash filename="Terminal"
-pnpm add --save-dev eslint-plugin-react-hooks @eslint-react/eslint-plugin
+yarn add --dev eslint-plugin-react-hooks @eslint-react/eslint-plugin
 ```
 
 </Tab>
@@ -26,7 +26,7 @@ pnpm add --save-dev eslint-plugin-react-hooks @eslint-react/eslint-plugin
 <Tab>
 
 ```bash filename="Terminal"
-yarn add --dev eslint-plugin-react-hooks @eslint-react/eslint-plugin
+pnpm add --save-dev eslint-plugin-react-hooks @eslint-react/eslint-plugin
 ```
 
 </Tab>
@@ -100,7 +100,7 @@ export default [
       ...reactHooks.configs.recommended.rules,
     },
   },
-  // React rules
+  // ESLint React rules
   {
     files: ["src/**/*.{ts,tsx}"],
     ...eslintReact.configs.recommended,
@@ -198,7 +198,7 @@ export default [
       ...reactHooks.configs.recommended.rules,
     },
   },
-  // React rules
+  // ESLint React rules
   {
     files: ["src/**/*.{ts,tsx}"],
     ...eslintReact.configs["recommended-type-checked"],
