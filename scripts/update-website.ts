@@ -38,11 +38,3 @@ MutRef.update(metas, (m) => ({
   ...m,
 }));
 await Bun.write(metaFile, JSON.stringify(MutRef.get(metas), null, 2));
-
-// const overview = Bun.file(path.join("website", "pages", "rules", "overview.md"));
-// const overviewContent = await overview.text();
-// const overviewContentUpdated = overviewContent.replaceAll(
-//   /[./]+packages\/eslint-plugin-([\w-]+)\/src\/rules\/([\w-]+)\.md/gu,
-//   (_, ns, name) => `${ns}-${name}`,
-// );
-// await Bun.write(overview, overviewContentUpdated);
