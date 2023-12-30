@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "0.10.2-beta.0",
+  "version": "0.10.2",
   "description": "ESLint React's monorepo. A full TypeScript rewrite of eslint-plugin-react, with well-designed rule behaviors and sensible defaults for modern React apps.",
   "keywords": [
     "eslint",
