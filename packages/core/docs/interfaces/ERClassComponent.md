@@ -82,7 +82,7 @@ ___
 
 ### methods
 
-• **methods**: (`MethodDefinition` \| `PropertyDefinition`)[]
+• **methods**: (`MethodDefinitionComputedName` \| `MethodDefinitionNonComputedName` \| `PropertyDefinitionComputedName` \| `PropertyDefinitionNonComputedName`)[]
 
 ___
 

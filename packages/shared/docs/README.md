@@ -105,7 +105,7 @@ ___
 
 ### createRuleForPlugin
 
-▸ **createRuleForPlugin**(`pluginName`): \<TOptions, TMessageIds\>(`urlCreator`: `Readonly`\<`RuleWithMetaAndName`\<`TOptions`, `TMessageIds`\>\>) => `RuleModule`\<`TMessageIds`, `TOptions`, `RuleListener`\>
+▸ **createRuleForPlugin**(`pluginName`): \<TOptions, TMessageIds\>(`__namedParameters`: `Readonly`\<`RuleWithMetaAndName`\<`TOptions`, `TMessageIds`\>\>) => `RuleModule`\<`TMessageIds`, `TOptions`, `RuleListener`\>
 
 #### Parameters
 
@@ -117,9 +117,7 @@ ___
 
 `fn`
 
-▸ \<`TOptions`, `TMessageIds`\>(`urlCreator`): `RuleModule`\<`TMessageIds`, `TOptions`, `RuleListener`\>
-
-Creates reusable function to create rules with default options and docs URLs.
+▸ \<`TOptions`, `TMessageIds`\>(`«destructured»`): `RuleModule`\<`TMessageIds`, `TOptions`, `RuleListener`\>
 
 ##### Type parameters
 
@@ -130,15 +128,13 @@ Creates reusable function to create rules with default options and docs URLs.
 
 ##### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `urlCreator` | `Readonly`\<`RuleWithMetaAndName`\<`TOptions`, `TMessageIds`\>\> | Creates a documentation URL for a given rule name. |
+| Name | Type |
+| :------ | :------ |
+| `«destructured»` | `Readonly`\<`RuleWithMetaAndName`\<`TOptions`, `TMessageIds`\>\> |
 
 ##### Returns
 
 `RuleModule`\<`TMessageIds`, `TOptions`, `RuleListener`\>
-
-Function to create a rule with the docs URL format.
 
 ___
 

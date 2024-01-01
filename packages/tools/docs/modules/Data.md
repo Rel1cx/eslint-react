@@ -59,6 +59,30 @@
 
 • `Const` **Class**: \<A\>(`args`: `Types.Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends ``true`` ? `void` : \{ readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] }) => [`Data`](Data.md#data)\<`Readonly`\<`A`\>\>
 
+Provides a constructor for a Case Class.
+
+**`Example`**
+
+```ts
+import * as Data from "effect/Data"
+import * as Equal from "effect/Equal"
+
+class Person extends Data.Class<{ readonly name: string }> {}
+
+// Creating instances of Person
+const mike1 = new Person({ name: "Mike" })
+const mike2 = new Person({ name: "Mike" })
+const john = new Person({ name: "John" })
+
+// Checking equality
+assert.deepStrictEqual(Equal.equals(mike1, mike2), true)
+assert.deepStrictEqual(Equal.equals(mike1, john), false)
+```
+
+**`Since`**
+
+2.0.0
+
 #### Type declaration
 
 • \<`A`\>(`args`): [`Data`](Data.md#data)\<`Readonly`\<`A`\>\>
@@ -109,6 +133,12 @@ ___
 
 • `Const` **Error**: \<A\>(`args`: `Types.Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends ``true`` ? `void` : \{ readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] }) => `Cause.YieldableError` & `Readonly`\<`A`\>
 
+Provides a constructor for a Case Class.
+
+**`Since`**
+
+2.0.0
+
 #### Type declaration
 
 • \<`A`\>(`args`): `Cause.YieldableError` & `Readonly`\<`A`\>
@@ -141,6 +171,10 @@ ___
 
 • `Const` **Structural**: \<A\>(`args`: `Types.Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends ``true`` ? `void` : \{ readonly [P in keyof A as P extends keyof Equal ? never : P]: A[P] }) => [`Case`](../interfaces/Data.Case-1.md)
 
+**`Since`**
+
+2.0.0
+
 #### Type declaration
 
 • \<`A`\>(`args`): [`Case`](../interfaces/Data.Case-1.md)
@@ -169,7 +203,7 @@ ___
 
 ### TaggedClass
 
-▸ **TaggedClass**\<`Tag`\>(`tag`): \<A\>(`args`: `Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends ``true`` ? `void` : \{ readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] }) => [`Data`](Data.md#data)\<`Readonly`\<`A`\> & \{ `_tag`: `Tag`  }\>
+▸ **TaggedClass**\<`Tag`\>(`tag`): \<A\>(`args`: `Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends ``true`` ? `void` : \{ readonly [P in string \| number \| symbol as P extends typeof symbol \| typeof symbol \| "\_tag" ? never : P]: A[P] }) => [`Data`](Data.md#data)\<`Readonly`\<`A`\> & \{ `_tag`: `Tag`  }\>
 
 Provides a Tagged constructor for a Case Class.
 
@@ -201,7 +235,7 @@ Provides a Tagged constructor for a Case Class.
 
 | Name | Type |
 | :------ | :------ |
-| `args` | `Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends ``true`` ? `void` : \{ readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] } |
+| `args` | `Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends ``true`` ? `void` : \{ readonly [P in string \| number \| symbol as P extends typeof symbol \| typeof symbol \| "\_tag" ? never : P]: A[P] } |
 
 ##### Returns
 
@@ -235,7 +269,7 @@ ___
 
 ### TaggedError
 
-▸ **TaggedError**\<`Tag`\>(`tag`): \<A\>(`args`: `Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends ``true`` ? `void` : \{ readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] }) => `YieldableError` & \{ `_tag`: `Tag`  } & `Readonly`\<`A`\>
+▸ **TaggedError**\<`Tag`\>(`tag`): \<A\>(`args`: `Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends ``true`` ? `void` : \{ readonly [P in string \| number \| symbol as P extends typeof symbol \| typeof symbol \| "\_tag" ? never : P]: A[P] }) => `YieldableError` & \{ `_tag`: `Tag`  } & `Readonly`\<`A`\>
 
 #### Type parameters
 
@@ -265,7 +299,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `args` | `Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends ``true`` ? `void` : \{ readonly [P in string \| number \| symbol as P extends keyof Equal \| "\_tag" ? never : P]: A[P] } |
+| `args` | `Equals`\<`Omit`\<`A`, keyof [`Equal`](../interfaces/Equal.Equal.md)\>, {}\> extends ``true`` ? `void` : \{ readonly [P in string \| number \| symbol as P extends typeof symbol \| typeof symbol \| "\_tag" ? never : P]: A[P] } |
 
 ##### Returns
 

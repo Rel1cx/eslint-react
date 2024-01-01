@@ -24,12 +24,12 @@
 
 ### Option
 
-• `Optional` **Option**: () => `A`[typeof `typeSymbol`] extends [`Option`](../modules/O.md#option)\<`A0`\> \| `_` ? [`Option`](../modules/O.md#option)\<`A0`\> : `never`
+• `Optional` **Option**: () => `A`[typeof `typeSymbol`] extends [`None`](O.None.md)\<`A0`\> \| [`Some`](O.Some.md)\<`A0`\> \| `_` ? [`Option`](../modules/O.md#option)\<`A0`\> : `never`
 
 #### Type declaration
 
-▸ (): `A`[typeof `typeSymbol`] extends [`Option`](../modules/O.md#option)\<`A0`\> \| `_` ? [`Option`](../modules/O.md#option)\<`A0`\> : `never`
+▸ (): `A`[typeof `typeSymbol`] extends [`None`](O.None.md)\<`A0`\> \| [`Some`](O.Some.md)\<`A0`\> \| `_` ? [`Option`](../modules/O.md#option)\<`A0`\> : `never`
 
 ##### Returns
 
-`A`[typeof `typeSymbol`] extends [`Option`](../modules/O.md#option)\<`A0`\> \| `_` ? [`Option`](../modules/O.md#option)\<`A0`\> : `never`
+`A`[typeof `typeSymbol`] extends [`None`](O.None.md)\<`A0`\> \| [`Some`](O.Some.md)\<`A0`\> \| `_` ? [`Option`](../modules/O.md#option)\<`A0`\> : `never`

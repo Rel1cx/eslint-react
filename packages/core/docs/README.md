@@ -241,7 +241,7 @@ ___
 
 ### constructionDetector
 
-▸ **constructionDetector**\<`T`\>(`context`): (`node`: `TSESTree.Node`) => [`ERConstruction`](README.md#erconstruction-1)
+▸ **constructionDetector**\<`T`\>(`context`): (`node`: `TSESTree.Node`) => [`ERConstruction`](README.md#erconstruction)
 
 Get a function that detects the construction of a given node.
 
@@ -263,7 +263,7 @@ Get a function that detects the construction of a given node.
 
 A function that detects the construction of a given node
 
-▸ (`node`): [`ERConstruction`](README.md#erconstruction-1)
+▸ (`node`): [`ERConstruction`](README.md#erconstruction)
 
 ##### Parameters
 
@@ -273,7 +273,7 @@ A function that detects the construction of a given node
 
 ##### Returns
 
-[`ERConstruction`](README.md#erconstruction-1)
+[`ERConstruction`](README.md#erconstruction)
 
 ___
 
@@ -600,7 +600,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `node` | `Identifier` \| `MemberExpression` |
+| `node` | `Identifier` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
@@ -650,7 +650,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `node` | `Identifier` \| `MemberExpression` |
+| `node` | `Identifier` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
@@ -684,7 +684,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `node` | `Identifier` \| `MemberExpression` |
+| `node` | `Identifier` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
@@ -718,7 +718,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `node` | `Identifier` \| `MemberExpression` |
+| `node` | `Identifier` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
@@ -752,7 +752,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `node` | `Identifier` \| `MemberExpression` |
+| `node` | `Identifier` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
@@ -870,7 +870,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `node` | `Identifier` \| `MemberExpression` |
+| `node` | `Identifier` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
