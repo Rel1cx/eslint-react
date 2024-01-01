@@ -65,7 +65,7 @@
     "@tsconfig/strictest": "2.0.2",
     "@types/node": "20.10.6",
     "@typescript-eslint/eslint-plugin": "6.16.0",
-    "@typescript-eslint/parser": ">=6.16.0",
+    "@typescript-eslint/parser": ">=6.17.0",
     "@typescript-eslint/rule-tester": "6.16.0",
     "@vitest/ui": "1.1.1",
     "bun": "1.0.20",
