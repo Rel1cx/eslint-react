@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin-react",
-  "version": "0.10.2",
+  "version": "0.10.3-beta.0",
   "description": "ESLint React's ESLint plugin for React related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -51,7 +51,7 @@
     "@typescript-eslint/parser": ">=6.17.0",
     "@typescript-eslint/scope-manager": "6.17.0",
     "@typescript-eslint/type-utils": "6.17.0",
-    "@typescript-eslint/types": "6.16.0",
+    "@typescript-eslint/types": "6.17.0",
     "@typescript-eslint/utils": "6.17.0",
     "string-ts": "2.0.0",
     "typescript": ">=5.3.3"

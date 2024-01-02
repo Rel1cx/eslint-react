@@ -6755,7 +6755,7 @@ Flattens an array of arrays into a single array by concatenating all arrays.
 
 | Name | Type |
 | :------ | :------ |
-| `S` | extends readonly readonly any[][] |
+| `S` | extends readonly readonly `any`[][] |
 
 #### Parameters
 
