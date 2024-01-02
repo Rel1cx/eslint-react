@@ -48,7 +48,7 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/parser": ">=6.16.0",
+    "@typescript-eslint/parser": ">=6.17.0",
     "@typescript-eslint/scope-manager": "6.16.0",
     "@typescript-eslint/type-utils": "6.16.0",
     "@typescript-eslint/types": "6.16.0",
@@ -57,7 +57,7 @@
     "typescript": ">=5.3.3"
   },
   "peerDependencies": {
-    "@typescript-eslint/parser": ">=6.16.0",
+    "@typescript-eslint/parser": ">=6.17.0",
     "eslint": ">=8.56.0",
     "string-ts": "2.0.0",
     "typescript": ">=5.3.3"
