@@ -52,7 +52,7 @@
     "@typescript-eslint/scope-manager": "6.17.0",
     "@typescript-eslint/type-utils": "6.17.0",
     "@typescript-eslint/types": "6.16.0",
-    "@typescript-eslint/utils": "6.16.0",
+    "@typescript-eslint/utils": "6.17.0",
     "ts-api-utils": "1.0.3",
     "typescript": ">=5.3.3"
   },
