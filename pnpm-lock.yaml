@@ -73,8 +73,8 @@ importers:
         specifier: '>=6.16.0'
         version: 6.17.0(eslint@8.56.0)(typescript@5.3.3)
       '@typescript-eslint/rule-tester':
-        specifier: 6.16.0
-        version: 6.16.0(@eslint/eslintrc@3.0.0)(eslint@8.56.0)(typescript@5.3.3)
+        specifier: 6.17.0
+        version: 6.17.0(@eslint/eslintrc@3.0.0)(eslint@8.56.0)(typescript@5.3.3)
       '@vitest/ui':
         specifier: 1.1.1
         version: 1.1.1(vitest@1.1.1)
@@ -3314,15 +3314,15 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/rule-tester@6.16.0(@eslint/eslintrc@3.0.0)(eslint@8.56.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-lMKPwQw+GEtAGQFnYkaZ+hoKZ89S31rtP2vViGPbx6ntLO36gmu22yods5HNmS3wfm5/5jMKCP8hoCxFOgCrxg==}
+  /@typescript-eslint/rule-tester@6.17.0(@eslint/eslintrc@3.0.0)(eslint@8.56.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-GZcB3//uVSTYUOnU1UnEX+q9T6hqL8rCrQI3r5yHfY111q6DWkHq42YSKWeh1I4+cCh++iFUjTR3trc6Wlw2YQ==}
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
       '@eslint/eslintrc': '>=2'
       eslint: '>=8.56.0'
     dependencies:
       '@eslint/eslintrc': 3.0.0
-      '@typescript-eslint/typescript-estree': 6.16.0(typescript@5.3.3)
+      '@typescript-eslint/typescript-estree': 6.17.0(typescript@5.3.3)
       '@typescript-eslint/utils': 6.16.0(eslint@8.56.0)(typescript@5.3.3)
       ajv: 6.12.6
       eslint: 8.56.0
