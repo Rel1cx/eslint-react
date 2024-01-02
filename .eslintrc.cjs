@@ -1,13 +1,13 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 // @ts-check
 const { defineConfig } = require("eslint-define-config");
 
 module.exports = defineConfig({
   root: true,
+  // eslint-disable-next-line perfectionist/sort-objects
   env: {
-    node: true,
     browser: false,
     es2024: true,
+    node: true,
   },
   ignorePatterns: [
     "**/dist",
@@ -18,6 +18,14 @@ module.exports = defineConfig({
   ],
   overrides: [
     {
+      extends: [
+        "with-tsconfig",
+        "plugin:perfectionist/recommended-natural",
+        "plugin:functional/lite",
+        "plugin:filenames-simple/recommended",
+        "plugin:jsdoc/recommended-typescript",
+        "plugin:eslint-plugin/all",
+      ],
       files: ["*.ts", "*.tsx"],
       parser: "@typescript-eslint/parser",
       parserOptions: {
@@ -29,53 +37,57 @@ module.exports = defineConfig({
         sourceType: "module",
         tsconfigRootDir: __dirname,
       },
-      extends: [
-        "with-tsconfig",
-        "plugin:perfectionist/recommended-natural",
-        "plugin:functional/lite",
-        "plugin:filenames-simple/recommended",
-        "plugin:jsdoc/recommended-typescript",
-        "plugin:eslint-plugin/all",
-      ],
       plugins: [
         "functional",
         "total-functions",
         "filenames-simple",
       ],
       rules: {
-        "no-undef": "off",
-        "no-console": ["warn", { allow: ["warn", "error"] }],
-        "max-len": "off",
-        "max-depth": ["warn", 3],
-        "newline-before-return": "warn",
-        "prefer-object-has-own": "error",
-        "array-callback-return": "off",
         "@susisu/safe-typescript/no-unsafe-object-property-check": "off",
+        "array-callback-return": "off",
+        "eslint-plugin/require-meta-docs-url": "off",
+        "filenames-simple/named-export": "off",
+        "filenames-simple/naming-convention": ["error", { rule: "kebab-case" }],
+        "functional/functional-parameters": "off",
+        "functional/no-mixed-types": "off",
+        "functional/no-return-void": "off",
+        "functional/prefer-immutable-types": "off",
         "import-access/jsdoc": ["error"],
         "jsdoc/require-jsdoc": "off",
         "jsdoc/require-param-description": "off",
         "jsdoc/require-returns": "off",
-        "filenames-simple/named-export": "off",
-        "filenames-simple/naming-convention": ["error", { rule: "kebab-case" }],
-        "functional/no-mixed-types": "off",
-        "functional/no-return-void": "off",
-        "functional/functional-parameters": "off",
-        "functional/prefer-immutable-types": "off",
-        "total-functions/no-enums": "error",
-        "total-functions/require-strict-mode": "error",
-        "total-functions/no-partial-division": "warn",
-        "total-functions/no-partial-array-reduce": "warn",
-        "total-functions/no-partial-url-constructor": "warn",
-        "eslint-plugin/require-meta-docs-url": "off",
+        "max-depth": ["warn", 3],
+        "max-len": "off",
+        "newline-before-return": "warn",
+        "no-console": ["warn", { allow: ["warn", "error"] }],
+        "no-restricted-syntax": [
+          "error",
+          {
+            message: "no let",
+            selector: "VariableDeclaration[kind=let]",
+          },
+          {
+            message: "no else",
+            selector: "IfStatement[alternate]",
+          },
+          {
+            message: "no optional",
+            selector: "TSPropertySignature[optional=true]",
+          },
+          {
+            message: "potential circular dependency",
+            selector: 'ImportDeclaration[source.value="."]',
+          },
+        ],
+        "no-undef": "off",
         "perfectionist/sort-exports": "off",
         "perfectionist/sort-imports": "off",
-        "perfectionist/sort-named-imports": "off",
         "perfectionist/sort-named-exports": "off",
+        "perfectionist/sort-named-imports": "off",
         "perfectionist/sort-object-types": "off",
         "perfectionist/sort-objects": [
           "warn",
           {
-            type: "natural",
             "always-on-top": [
               "_",
               "id",
@@ -93,98 +105,88 @@ module.exports = defineConfig({
               "defaultOptions",
             ],
             order: "asc",
+            type: "natural",
           },
         ],
         "perfectionist/sort-union-types": [
           "warn",
           {
-            type: "natural",
             order: "asc",
+            type: "natural",
           },
         ],
+        "prefer-object-has-own": "error",
         "regexp/no-unused-capturing-group": "off",
         "regexp/prefer-named-capture-group": "off",
         "simple-import-sort/exports": "warn",
         "simple-import-sort/imports": "warn",
+        "sonarjs/no-duplicate-string": "off",
+        "total-functions/no-enums": "error",
+        "total-functions/no-partial-array-reduce": "warn",
+        "total-functions/no-partial-division": "warn",
+        "total-functions/no-partial-url-constructor": "warn",
+        "total-functions/require-strict-mode": "error",
         "unicorn/template-indent": ["warn", { indent: 2 }],
-        "no-restricted-syntax": [
-          "error",
-          {
-            selector: "VariableDeclaration[kind=let]",
-            message: "no let",
-          },
-          {
-            selector: "IfStatement[alternate]",
-            message: "no else",
-          },
-          {
-            selector: "TSPropertySignature[optional=true]",
-            message: "no optional",
-          },
-          {
-            selector: 'ImportDeclaration[source.value="."]',
-            message: "potential circular dependency",
-          },
-        ],
       },
     },
     {
+      extends: [
+        "plugin:functional/strict",
+      ],
       files: [
         "./packages/tools/src/**/*.ts",
         "./packages/types/src/**/*.ts",
       ],
-      extends: [
-        "plugin:functional/strict",
-      ],
       rules: {
+        "functional/functional-parameters": "off",
+        "functional/no-conditional-statements": "off",
         "functional/no-mixed-types": "off",
         "functional/no-return-void": "off",
-        "functional/no-conditional-statements": "off",
-        "functional/functional-parameters": "off",
       },
     },
     {
+      extends: [
+        "plugin:functional/strict",
+      ],
       files: [
         "./packages/utilities/**/*.ts",
       ],
-      extends: [
-        "plugin:functional/strict",
-      ],
       rules: {
-        "functional/no-return-void": "off",
-        "functional/no-expression-statements": "off",
-        "functional/no-conditional-statements": "off",
-        "functional/immutable-data": "off",
-        "functional/prefer-immutable-types": "off",
         "functional/functional-parameters": "off",
+        "functional/immutable-data": "off",
+        "functional/no-conditional-statements": "off",
+        "functional/no-expression-statements": "off",
+        "functional/no-return-void": "off",
+        "functional/prefer-immutable-types": "off",
       },
     },
     {
-      files: ["./packages/plugins/*/src/rules/**/*.ts"],
       extends: [
+        // eslint-disable-next-line sonarjs/no-duplicate-string
         "plugin:functional/off",
       ],
+      files: ["./packages/plugins/*/src/rules/**/*.ts"],
       rules: {
         "perfectionist/sort-objects": "off",
       },
     },
     {
+      extends: [
+        "plugin:functional/off",
+      ],
       files: ["./scripts/**/*.ts"],
       globals: {
         Bun: "readonly",
       },
-      extends: [
-        "plugin:functional/off",
-      ],
       rules: {
         "no-await-in-loop": "off",
       },
     },
     {
-      files: ["./test/**/*"],
       extends: [
         "plugin:functional/off",
       ],
+      files: ["./test/**/*"],
     },
     {
       extends: ["plugin:vitest/recommended", "plugin:functional/off"],
@@ -206,13 +208,17 @@ module.exports = defineConfig({
       },
     },
     {
-      files: ["./.eslintrc.cjs"],
+      extends: [
+        "with-tsconfig",
+        "plugin:perfectionist/recommended-natural",
+      ],
+      files: [".eslintrc.cjs"],
       rules: {
-        "jsdoc/check-tag-names": "off",
-        "perfectionist/sort-objects": "off",
+        "filenames-simple/naming-convention": "off",
+        // "perfectionist/sort-objects": "off",
         "functional/immutable-data": "off",
         "functional/no-expression-statements": "off",
-        "filenames-simple/naming-convention": "off",
+        "jsdoc/check-tag-names": "off",
       },
     },
     {
