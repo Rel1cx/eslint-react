@@ -44,6 +44,6 @@
   "dependencies": {
     "@eslint-react/tools": "workspace:*",
     "@typescript-eslint/types": "6.16.0",
-    "@typescript-eslint/utils": "6.16.0"
+    "@typescript-eslint/utils": "6.17.0"
   }
 }
