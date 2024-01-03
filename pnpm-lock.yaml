@@ -752,8 +752,8 @@ importers:
         specifier: 2.1.0
         version: 2.1.0
       eslint-plugin-mdx:
-        specifier: 3.1.1
-        version: 3.1.1(eslint@8.56.0)
+        specifier: 3.1.2
+        version: 3.1.2(eslint@8.56.0)
       eslint-plugin-react-hooks:
         specifier: 4.6.0
         version: 4.6.0(eslint@8.56.0)
@@ -5704,8 +5704,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-mdx@3.1.1(eslint@8.56.0):
-    resolution: {integrity: sha512-6s2pFy4kzu5Tvse5ZjynwVDnMpgSidNvk4IB6j9jo7MIq4oYrXUtQMLmGIidRLL9X25khyjw1iJii9XTbOBgzg==}
+  /eslint-plugin-mdx@3.1.2(eslint@8.56.0):
+    resolution: {integrity: sha512-yqSIu8jquV2WOmVzHL9QQF3/eUVQHTuZi8IuB/88GmmO90DbWOz8g2fiI02Ifn0AePvxmQ7yR1/GiUOAX7gghA==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       eslint: '>=8.56.0'
