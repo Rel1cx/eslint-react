@@ -112,8 +112,8 @@ importers:
         specifier: 6.0.0
         version: 6.0.0(eslint@8.56.0)(typescript@5.3.3)
       eslint-plugin-jsdoc:
-        specifier: 47.0.2
-        version: 47.0.2(eslint@8.56.0)
+        specifier: 48.0.2
+        version: 48.0.2(eslint@8.56.0)
       eslint-plugin-total-functions:
         specifier: 7.1.0
         version: 7.1.0(eslint@8.56.0)(typescript@5.3.3)
@@ -5648,9 +5648,9 @@ packages:
       - typescript
     dev: true
 
-  /eslint-plugin-jsdoc@47.0.2(eslint@8.56.0):
-    resolution: {integrity: sha512-sIq81Pv+yrhhwY0m1JH79rdZRgDNunehv3S0Yv0UfewpoeJyPkODFn2o4o20nofVoI2tjku9/QBcCYUmmeWFXA==}
-    engines: {node: '>=16'}
+  /eslint-plugin-jsdoc@48.0.2(eslint@8.56.0):
+    resolution: {integrity: sha512-CBFl5Jc7+jlV36RwDm+PQ8Uw5r28pn2/uW/OaB+Gw5bFwn4Py/1eYMZ3hGf9S4meUFZ/sRvS+hVif2mRAp6WqQ==}
+    engines: {node: '>=18'}
     peerDependencies:
       eslint: '>=8.56.0'
     dependencies:
