@@ -100,8 +100,8 @@ importers:
         specifier: '>=8.56.0'
         version: 8.56.0
       eslint-config-with-tsconfig:
-        specifier: 2.9.260
-        version: 2.9.260(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3)
+        specifier: 2.9.270
+        version: 2.9.270(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3)
       eslint-plugin-eslint-plugin:
         specifier: 5.2.1
         version: 5.2.1(eslint@8.56.0)
@@ -746,8 +746,8 @@ importers:
         specifier: 9.1.0
         version: 9.1.0(eslint@8.56.0)
       eslint-config-with-tsconfig:
-        specifier: 2.9.260
-        version: 2.9.260(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3)
+        specifier: 2.9.270
+        version: 2.9.270(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3)
       eslint-define-config:
         specifier: 2.1.0
         version: 2.1.0
@@ -965,6 +965,7 @@ packages:
   /@babel/highlight@7.23.4:
     resolution: {integrity: sha512-acGdbYSfp2WheJoJm/EBBBLh/ID8KDc64ISZ9DYtBmC8/Q204PZJLHyzeB5qMzJ5trcOkybd78M4x2KWsUq++A==}
     engines: {node: '>=6.9.0'}
+    requiresBuild: true
     dependencies:
       '@babel/helper-validator-identifier': 7.22.20
       chalk: 2.4.2
@@ -5385,8 +5386,8 @@ packages:
       eslint: 8.56.0
     dev: true
 
-  /eslint-config-rel1cx@0.12.260(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-I7dx+r/lblgKly3iqER7ZwKgIOG83REZa5V3VCE6vryVyS/4KYHHmvGc39K/um2mXBbS/5GZnaIWmFcGN/DffA==}
+  /eslint-config-rel1cx@0.12.270(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-fE1FpUk2ibgHnrR1RR8ayKEZ6yERia8J7BTG3T3onVQzOKKGH7RlHQ15eZ9Q4ibnJ036XEgHRtCmWGui5RxiFg==}
     engines: {bun: '>=1.0.7', node: '>=18.15.0'}
     peerDependencies:
       eslint: '>=8.56.0'
@@ -5424,8 +5425,8 @@ packages:
       - tailwindcss
     dev: true
 
-  /eslint-config-with-tsconfig@2.9.260(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-FT6luQBwyJpsVEvugzSI8C+110MRviUzaaMpN1eUpg5ee82zVP5/uS5vV2IM1S6cy3TxyjXiiC9HL+iyzd7tSQ==}
+  /eslint-config-with-tsconfig@2.9.270(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-gasusp4g4MkspUj/ax1ZQrFuPJREVLHO/1HM2qoaNdyu3i7ZYJYTVscE3LGDcvp+dbbOKoZKm5NiFgqPI3GKFQ==}
     engines: {bun: '>=1.0.13', node: '>=18.15.0'}
     peerDependencies:
       eslint: '>=8.56.0'
@@ -5436,7 +5437,7 @@ packages:
       '@typescript-eslint/eslint-plugin': 6.17.0(@typescript-eslint/parser@6.17.0)(eslint@8.56.0)(typescript@5.3.3)
       '@typescript-eslint/parser': 6.17.0(eslint@8.56.0)(typescript@5.3.3)
       eslint: 8.56.0
-      eslint-config-rel1cx: 0.12.260(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3)
+      eslint-config-rel1cx: 0.12.270(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3)
       eslint-define-config: 2.1.0
       eslint-plugin-expect-type: 0.3.0(@typescript-eslint/parser@6.17.0)(eslint@8.56.0)(typescript@5.3.3)
       eslint-plugin-import-access: 2.1.2(eslint@8.56.0)(typescript@5.3.3)
