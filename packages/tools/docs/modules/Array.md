@@ -3403,6 +3403,44 @@ ___
 
 ### findFirst
 
+▸ **findFirst**\<`A`, `B`\>(`f`): (`self`: `Iterable`\<`A`\>) => [`Option`](O.md#option)\<`B`\>
+
+Returns the first element that satisfies the specified
+predicate, or `None` if no such element exists.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `A` |
+| `B` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`, `i`: `number`) => [`Option`](O.md#option)\<`B`\> |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): [`Option`](O.md#option)\<`B`\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+
+##### Returns
+
+[`Option`](O.md#option)\<`B`\>
+
+**`Since`**
+
+2.0.0
+
 ▸ **findFirst**\<`A`, `B`\>(`refinement`): (`self`: `Iterable`\<`A`\>) => [`Option`](O.md#option)\<`B`\>
 
 Returns the first element that satisfies the specified
@@ -3419,7 +3457,7 @@ predicate, or `None` if no such element exists.
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
+| `refinement` | (`a`: `A`, `i`: `number`) => a is B |
 
 #### Returns
 
@@ -3457,7 +3495,7 @@ predicate, or `None` if no such element exists.
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -3472,6 +3510,33 @@ predicate, or `None` if no such element exists.
 | `self` | `Iterable`\<`B`\> |
 
 ##### Returns
+
+[`Option`](O.md#option)\<`B`\>
+
+**`Since`**
+
+2.0.0
+
+▸ **findFirst**\<`A`, `B`\>(`self`, `f`): [`Option`](O.md#option)\<`B`\>
+
+Returns the first element that satisfies the specified
+predicate, or `None` if no such element exists.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `A` |
+| `B` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `f` | (`a`: `A`, `i`: `number`) => [`Option`](O.md#option)\<`B`\> |
+
+#### Returns
 
 [`Option`](O.md#option)\<`B`\>
 
@@ -3496,7 +3561,7 @@ predicate, or `None` if no such element exists.
 | Name | Type |
 | :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
+| `refinement` | (`a`: `A`, `i`: `number`) => a is B |
 
 #### Returns
 
@@ -3522,7 +3587,7 @@ predicate, or `None` if no such element exists.
 | Name | Type |
 | :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -3601,6 +3666,43 @@ ___
 
 ### findLast
 
+▸ **findLast**\<`A`, `B`\>(`f`): (`self`: `Iterable`\<`A`\>) => [`Option`](O.md#option)\<`B`\>
+
+Find the last element for which a predicate holds.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `A` |
+| `B` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`, `i`: `number`) => [`Option`](O.md#option)\<`B`\> |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): [`Option`](O.md#option)\<`B`\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+
+##### Returns
+
+[`Option`](O.md#option)\<`B`\>
+
+**`Since`**
+
+2.0.0
+
 ▸ **findLast**\<`A`, `B`\>(`refinement`): (`self`: `Iterable`\<`A`\>) => [`Option`](O.md#option)\<`B`\>
 
 Find the last element for which a predicate holds.
@@ -3616,7 +3718,7 @@ Find the last element for which a predicate holds.
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
+| `refinement` | (`a`: `A`, `i`: `number`) => a is B |
 
 #### Returns
 
@@ -3653,7 +3755,7 @@ Find the last element for which a predicate holds.
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -3668,6 +3770,32 @@ Find the last element for which a predicate holds.
 | `self` | `Iterable`\<`B`\> |
 
 ##### Returns
+
+[`Option`](O.md#option)\<`B`\>
+
+**`Since`**
+
+2.0.0
+
+▸ **findLast**\<`A`, `B`\>(`self`, `f`): [`Option`](O.md#option)\<`B`\>
+
+Find the last element for which a predicate holds.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `A` |
+| `B` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `self` | `Iterable`\<`A`\> |
+| `f` | (`a`: `A`, `i`: `number`) => [`Option`](O.md#option)\<`B`\> |
+
+#### Returns
 
 [`Option`](O.md#option)\<`B`\>
 
@@ -3691,7 +3819,7 @@ Find the last element for which a predicate holds.
 | Name | Type |
 | :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
+| `refinement` | (`a`: `A`, `i`: `number`) => a is B |
 
 #### Returns
 
@@ -3716,7 +3844,7 @@ Find the last element for which a predicate holds.
 | Name | Type |
 | :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
