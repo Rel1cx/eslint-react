@@ -50,10 +50,7 @@ export default createRule<[], MessageID>({
       "Program:exit"(node) {
         const components = Array.from(ctx.getAllComponents(node).values());
         function isFunctionComponent(block: TSESTree.Node): block is TSESTreeFunction {
-          if (!isFunction(block)) {
-            return false;
-          }
-
+          if (!isFunction(block)) return false;
           const maybeId = getFunctionIdentifier(block);
 
           return O.isSome(maybeId)
@@ -64,7 +61,6 @@ export default createRule<[], MessageID>({
         for (const [scope, memberExpression] of memberExpressionWithNames) {
           const scopeRef = MutRef.make(scope);
           const isComponentRef = MutRef.make(isFunctionComponent(scope.block));
-
           while (
             !MutRef.get(isComponentRef)
             && MutRef.get(scopeRef).upper
@@ -73,28 +69,17 @@ export default createRule<[], MessageID>({
             MutRef.set(scopeRef, MutRef.get(scopeRef).upper);
             MutRef.set(isComponentRef, isFunctionComponent(MutRef.get(scopeRef).block));
           }
-
-          if (!MutRef.get(isComponentRef)) {
-            continue;
-          }
-
+          if (!MutRef.get(isComponentRef)) continue;
           const component = MutRef.get(scopeRef).block;
-
-          if (!("params" in component)) {
-            continue;
-          }
-
+          if (!("params" in component)) continue;
           const [props, ctx] = component.params;
-
           const isMatch = isMatching({ name: memberExpression.object.name });
-
           if (isMatch(props)) {
             context.report({
               messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
               node: memberExpression,
             });
           }
-
           if (isMatch(ctx)) {
             context.report({
               messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",

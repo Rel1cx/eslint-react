@@ -104,11 +104,7 @@ export type ERComponentInitPath =
 
 export function getComponentInitPath(node: TSESTreeFunction): O.Option<ERComponentInitPath> {
   const { parent } = node;
-
-  if (node.type === NodeType.FunctionDeclaration) {
-    return O.some([node]);
-  }
-
+  if (node.type === NodeType.FunctionDeclaration) return O.some([node]);
   if (
     parent.type === NodeType.VariableDeclarator
     && parent.parent.type === NodeType.VariableDeclaration

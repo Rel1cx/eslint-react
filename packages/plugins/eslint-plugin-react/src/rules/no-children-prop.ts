@@ -65,20 +65,11 @@ export default createRule<[], MessageID>({
         });
       },
       CallExpression(node) {
-        if (node.arguments.length === 0) {
-          return;
-        }
+        if (node.arguments.length === 0) return;
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-        if (!isCreateElementCall(node, context)) {
-          return;
-        }
-
+        if (!isCreateElementCall(node, context)) return;
         const [_, props] = node.arguments;
-
-        if (!props || props.type !== NodeType.ObjectExpression) {
-          return;
-        }
-
+        if (!props || props.type !== NodeType.ObjectExpression) return;
         O.map(findPropInProperties(props.properties, context, initialScope)("children"), prop => {
           context.report({
             messageId: "NO_CHILDREN_PROP",

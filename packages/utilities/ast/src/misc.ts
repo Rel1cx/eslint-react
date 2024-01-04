@@ -11,16 +11,11 @@ import { isJSX, NodeType } from "./node";
  */
 export function readableNodeType(node: TSESTree.Node) {
   if (node.type === NodeType.Literal) {
-    if ("regex" in node) {
-      return "RegExp literal";
-    }
+    if ("regex" in node) return "RegExp literal";
 
     return `${type(node.value)} literal` as const;
   }
-
-  if (isJSX(node)) {
-    return `JSX ${toLowerCase(delimiterCase(replace(node.type, "JSX", ""), " "))}` as const;
-  }
+  if (isJSX(node)) return `JSX ${toLowerCase(delimiterCase(replace(node.type, "JSX", ""), " "))}` as const;
 
   return toLowerCase(delimiterCase(node.type, " "));
 }

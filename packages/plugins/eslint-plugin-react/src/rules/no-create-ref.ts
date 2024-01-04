@@ -33,19 +33,13 @@ export default createRule<[], MessageID>({
     return {
       ...listeners,
       CallExpression(node) {
-        if (!isCreateRefCall(node, context)) {
-          return;
-        }
-
+        if (!isCreateRefCall(node, context)) return;
         O.map(ctx.getCurrentFunction(), ([currentFn]) => possibleCreateRefCalls.set(currentFn, node));
       },
       "Program:exit"(node) {
         const components = Array.from(ctx.getAllComponents(node).values());
         for (const [fn, call] of possibleCreateRefCalls.entries()) {
-          if (!components.some((component) => component.node === fn)) {
-            continue;
-          }
-
+          if (!components.some((component) => component.node === fn)) continue;
           context.report({
             messageId: "NO_CREATE_REF",
             node: call,

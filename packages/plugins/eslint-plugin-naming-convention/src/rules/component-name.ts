@@ -99,8 +99,7 @@ export default createRule<Options, MessageID>({
       ...collectorLegacy.listeners,
       JSXOpeningElement(node) {
         const name = elementType(node);
-
-        if (
+        const shouldIgnore =
           // Ignore built-in element names
           /^[a-z]/u.test(name)
           // Ignore non-Latin character names
@@ -108,15 +107,10 @@ export default createRule<Options, MessageID>({
           // Ignore JSX member expression names
           || name.includes(".")
           // Ignore JSX namespace names
-          || name.includes(":")
-        ) {
+          || name.includes(":");
+        if (shouldIgnore || validate(name.replace(/^_/u, ""))) {
           return;
         }
-
-        if (validate(name.replace(/^_/u, ""))) {
-          return;
-        }
-
         context.report({
           data: {
             case: rule,
@@ -128,22 +122,12 @@ export default createRule<Options, MessageID>({
       "Program:exit"(node) {
         const functionComponents = collector.ctx.getAllComponents(node);
         const classComponents = collectorLegacy.ctx.getAllComponents(node);
-
         for (const { node: component } of functionComponents.values()) {
           const maybeId = getFunctionIdentifier(component);
-
-          if (O.isNone(maybeId)) {
-            continue;
-          }
-
+          if (O.isNone(maybeId)) continue;
           const id = maybeId.value;
-
           const { name } = id;
-
-          if (validate(name)) {
-            continue;
-          }
-
+          if (validate(name)) continue;
           context.report({
             data: {
               case: rule,
@@ -154,19 +138,10 @@ export default createRule<Options, MessageID>({
         }
         for (const { node: component } of classComponents.values()) {
           const maybeId = getClassIdentifier(component);
-
-          if (O.isNone(maybeId)) {
-            continue;
-          }
-
+          if (O.isNone(maybeId)) continue;
           const id = maybeId.value;
-
           const { name } = id;
-
-          if (validate(name)) {
-            continue;
-          }
-
+          if (validate(name)) continue;
           context.report({
             data: {
               case: rule,

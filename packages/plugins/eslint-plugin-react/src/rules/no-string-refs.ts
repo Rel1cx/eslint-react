@@ -16,13 +16,8 @@ function containsStringLiteral({ value }: TSESTree.JSXAttribute) {
 }
 
 function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
-  if (value?.type !== NodeType.JSXExpressionContainer) {
-    return false;
-  }
-
-  if (value.expression.type === NodeType.Literal) {
-    return _.isString(value.expression.value);
-  }
+  if (value?.type !== NodeType.JSXExpressionContainer) return false;
+  if (value.expression.type === NodeType.Literal) return _.isString(value.expression.value);
 
   return value.expression.type === NodeType.TemplateLiteral;
 }
@@ -45,9 +40,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXAttribute(node) {
-        if (node.name.name !== "ref") {
-          return;
-        }
+        if (node.name.name !== "ref") return;
         if (containsStringLiteral(node) || containsStringExpressionContainer(node)) {
           context.report({
             messageId: "NO_STRING_REFS",
@@ -57,10 +50,7 @@ export default createRule<[], MessageID>({
       },
       MemberExpression(node) {
         const parentClassComponent = getParentClassComponent(node, context);
-
-        if (O.isNone(parentClassComponent)) {
-          return;
-        }
+        if (O.isNone(parentClassComponent)) return;
 
         // Check if the member expression is `this.refs`
         return node.object.type === NodeType.ThisExpression

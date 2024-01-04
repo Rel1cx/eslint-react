@@ -7,10 +7,7 @@
 import { _ } from "@eslint-react/tools";
 
 export function transformKeys<T>(obj: T, transform: (s: string) => string): T {
-  if (!_.isObject(obj)) {
-    return obj;
-  }
-
+  if (!_.isObject(obj)) return obj;
   const res = {} as T;
   for (const key in obj) {
     res[transform(key) as keyof T] = obj[key];

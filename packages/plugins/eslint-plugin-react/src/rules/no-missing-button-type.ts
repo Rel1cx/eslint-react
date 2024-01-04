@@ -32,16 +32,9 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-        if (!isCreateElementCall(node, context)) {
-          return;
-        }
-
+        if (!isCreateElementCall(node, context)) return;
         const [name, props] = node.arguments;
-
-        if (!isMatching({ type: NodeType.Literal, value: "button" }, name)) {
-          return;
-        }
-
+        if (!isMatching({ type: NodeType.Literal, value: "button" }, name)) return;
         if (!props || props.type !== NodeType.ObjectExpression) {
           context.report({
             messageId: "NO_MISSING_BUTTON_TYPE",
@@ -50,9 +43,7 @@ export default createRule<[], MessageID>({
 
           return;
         }
-
         const maybeTypeProperty = findPropInProperties(props.properties, context, initialScope)("type");
-
         if (O.isNone(maybeTypeProperty)) {
           context.report({
             messageId: "NO_MISSING_BUTTON_TYPE",
@@ -61,7 +52,6 @@ export default createRule<[], MessageID>({
 
           return;
         }
-
         const typeProperty = maybeTypeProperty.value;
         const hasValidType = isMatching({
           type: NodeType.Property,
@@ -71,10 +61,7 @@ export default createRule<[], MessageID>({
           },
         }, typeProperty);
 
-        if (hasValidType) {
-          return;
-        }
-
+        if (hasValidType) return;
         context.report({
           messageId: "NO_MISSING_BUTTON_TYPE",
           node: typeProperty,
@@ -82,15 +69,10 @@ export default createRule<[], MessageID>({
       },
       JSXElement(node) {
         const { name } = node.openingElement;
-
-        if (name.type !== NodeType.JSXIdentifier || name.name !== "button") {
-          return;
-        }
-
+        if (name.type !== NodeType.JSXIdentifier || name.name !== "button") return;
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
         const maybeTypeAttribute = findPropInAttributes(attributes, context, initialScope)("type");
-
         if (O.isNone(maybeTypeAttribute)) {
           context.report({
             messageId: "NO_MISSING_BUTTON_TYPE",
@@ -99,20 +81,14 @@ export default createRule<[], MessageID>({
 
           return;
         }
-
         const typeAttribute = maybeTypeAttribute.value;
-
         const hasValidType = F.pipe(
           getPropValue(typeAttribute, context),
           O.flatMapNullable(v => v?.value),
           O.filter(_.isString),
           O.exists((value) => validTypes.some((type) => type === value)),
         );
-
-        if (hasValidType) {
-          return;
-        }
-
+        if (hasValidType) return;
         context.report({
           messageId: "NO_MISSING_BUTTON_TYPE",
           node: typeAttribute,

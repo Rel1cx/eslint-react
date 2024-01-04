@@ -33,17 +33,13 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXAttribute(node) {
-        if (node.name.type !== NodeType.JSXIdentifier || !node.value) {
-          return;
-        }
-
+        if (node.name.type !== NodeType.JSXIdentifier || !node.value) return;
         const isJavaScript = F.pipe(
           getPropValue(node, context),
           O.flatMapNullable(v => v?.value),
           O.filter(_.isString),
           O.exists(v => RE_JAVASCRIPT_PROTOCOL.test(v)),
         );
-
         if (isJavaScript) {
           context.report({
             messageId: "NO_SCRIPT_URL",

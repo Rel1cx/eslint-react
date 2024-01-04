@@ -53,38 +53,20 @@ export default createRule<[], MessageID>({
         ) {
           return;
         }
-
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-
-        if (!isCreateElementCall(node, context)) {
-          return;
-        }
-
+        if (!isCreateElementCall(node, context)) return;
         const args = node.arguments;
-
-        if (args.length < 2) {
-          // React.createElement() with only one argument is valid (definitely no children)
-          return;
-        }
-
+        // React.createElement() with only one argument is valid (definitely no children)
+        if (args.length < 2) return;
         const elementNameNode = args[0];
-        if (!elementNameNode || !("value" in elementNameNode)) {
-          return;
-        }
-
+        if (!elementNameNode || !("value" in elementNameNode)) return;
         const elementName = elementNameNode.value;
-        if (typeof elementName !== "string" || !voidElements.has(elementName)) {
-          return;
-        }
-
+        if (typeof elementName !== "string" || !voidElements.has(elementName)) return;
         const propsNode = args[1];
-        if (propsNode?.type !== NodeType.ObjectExpression) {
-          return;
-        }
-
+        if (propsNode?.type !== NodeType.ObjectExpression) return;
         const firstChild = args[2];
+        // e.g. React.createElement('br', undefined, 'Foo')
         if (firstChild) {
-          // e.g. React.createElement('br', undefined, 'Foo')
           context.report({
             data: {
               element: elementName,
@@ -93,13 +75,9 @@ export default createRule<[], MessageID>({
             node,
           });
         }
-
         const props = propsNode.properties;
-
         const findProp = findPropInProperties(props, context, initialScope);
-
         const hasChildrenOrDangerProp = O.isSome(findProp("children")) || O.isSome(findProp("dangerouslySetInnerHTML"));
-
         if (hasChildrenOrDangerProp) {
           // e.g. React.createElement('br', { children: 'Foo' })
           context.report({
@@ -115,11 +93,7 @@ export default createRule<[], MessageID>({
         const openingElementNameExpression = node.openingElement.name;
         if ("name" in openingElementNameExpression) {
           const elementName = openingElementNameExpression.name;
-
-          if (typeof elementName !== "string" || !voidElements.has(elementName)) {
-            return;
-          }
-
+          if (typeof elementName !== "string" || !voidElements.has(elementName)) return;
           if (node.children.length > 0) {
             context.report({
               data: {
@@ -129,16 +103,11 @@ export default createRule<[], MessageID>({
               node,
             });
           }
-
           const { attributes } = node.openingElement;
-
           const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-
           const findAttr = findPropInAttributes(attributes, context, initialScope);
-
           const hasChildrenOrDangerAttr = O.isSome(findAttr("children"))
             || O.isSome(findAttr("dangerouslySetInnerHTML"));
-
           if (hasChildrenOrDangerAttr) {
             // e.g. <br children="Foo" />
             context.report({

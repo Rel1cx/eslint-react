@@ -3,42 +3,24 @@ const { defineConfig } = require("eslint-define-config");
 
 module.exports = defineConfig({
   root: true,
+  // eslint-disable-next-line perfectionist/sort-objects
   env: {
     browser: true,
     es2024: true,
     node: true,
-  },
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    ecmaVersion: "latest",
-    project: true,
-    sourceType: "module",
   },
   extends: [
     "with-tsconfig",
     "next",
     "next/core-web-vitals",
   ],
-  plugins: ["react-hooks"],
-  rules: {
-    "unicorn/new-for-builtins": "off",
-    "unicorn/no-keyword-prefix": "off",
-    "unicorn/no-array-method-this-argument": "off",
-    "unicorn/template-indent": [
-      "warn",
-      {
-        indent: 2,
-      },
-    ],
-  },
   overrides: [
     {
-      files: ["*.ts", "*.tsx"],
       extends: [
-        "plugin:react-hooks/recommended",
         // Using all preset here because we also use it for testing purposes, not recommended for normal projects
         "plugin:@eslint-react/all-legacy",
       ],
+      files: ["*.ts", "*.tsx"],
       rules: {
         "@eslint-react/naming-convention/filename": ["warn", "kebab-case"],
       },
@@ -50,8 +32,34 @@ module.exports = defineConfig({
       },
     },
     {
-      files: ["*.mdx"],
       extends: ["plugin:mdx/recommended"],
+      files: ["*.mdx"],
+    },
+    {
+      extends: [
+        "with-tsconfig",
+        "plugin:perfectionist/recommended-natural",
+      ],
+      files: [".eslintrc.cjs"],
+      rules: {
+        "filenames-simple/naming-convention": "off",
+        // "perfectionist/sort-objects": "off",
+        "functional/immutable-data": "off",
+        "functional/no-expression-statements": "off",
+        "jsdoc/check-tag-names": "off",
+      },
     },
   ],
+  rules: {
+    curly: "off",
+    "unicorn/new-for-builtins": "off",
+    "unicorn/no-array-method-this-argument": "off",
+    "unicorn/no-keyword-prefix": "off",
+    "unicorn/template-indent": [
+      "warn",
+      {
+        indent: 2,
+      },
+    ],
+  },
 });

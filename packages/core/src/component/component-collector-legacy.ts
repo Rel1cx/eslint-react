@@ -17,9 +17,7 @@ const uid = new ShortUniqueId({ length: 10 });
  * @param context The rule context
  */
 export function isClassComponent(node: TSESTree.Node, context: RuleContext): node is TSESTreeClass {
-  if (!("superClass" in node && node.superClass)) {
-    return false;
-  }
+  if (!("superClass" in node && node.superClass)) return false;
   const pragma = getPragmaFromContext(context);
   const { superClass } = node;
 
@@ -69,10 +67,7 @@ export function useComponentCollectorLegacy(context: RuleContext) {
   } as const;
 
   const collect = (node: TSESTreeClass) => {
-    if (!isClassComponent(node, context)) {
-      return;
-    }
-
+    if (!isClassComponent(node, context)) return;
     const id = getClassIdentifier(node);
     const key = uid.rnd();
     const flag = isPureComponent(node, context)

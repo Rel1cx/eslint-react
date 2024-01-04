@@ -30,7 +30,6 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         const { callee } = node;
-
         const isFindDOMNode = match(callee)
           .with({ type: NodeType.Identifier }, ({ name }) => name === "findDOMNode")
           .with(
@@ -38,11 +37,7 @@ export default createRule<[], MessageID>({
             ({ property }) => "name" in property && property.name === "findDOMNode",
           )
           .otherwise(F.constFalse);
-
-        if (!isFindDOMNode) {
-          return;
-        }
-
+        if (!isFindDOMNode) return;
         context.report({
           messageId: "NO_FIND_DOM_NODE",
           node,

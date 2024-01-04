@@ -23,15 +23,14 @@ export function useHookCollector(): {
   const onFunctionEnter = (node: TSESTreeFunction) => {
     MutList.append(functionStack, node);
     const currentFn = getCurrentFunction();
-    if (!currentFn) {
-      return;
-    }
+    if (!currentFn) return;
     const maybeId = getFunctionIdentifier(currentFn);
     const maybeName = O.flatMapNullable(maybeId, (id) => id.name);
     if (O.isSome(maybeId) && O.isSome(maybeName) && isReactHookName(maybeName.value)) {
       const id = maybeId.value;
       const name = maybeName.value;
       const key = uid.rnd();
+
       hooks.set(key, {
         _: key,
         id,
@@ -60,10 +59,7 @@ export function useHookCollector(): {
     ":function:exit": onFunctionExit,
     CallExpression(node) {
       const currentFn = getCurrentFunction();
-      if (!currentFn) {
-        return;
-      }
-
+      if (!currentFn) return;
       // Detect the number of other hooks called inside the current hook
       // Hooks that are not call other hooks are redundant
       // In the realm of React, hooks are like colored functions, and defining a custom hook that doesn't call other hooks is like defining a generator function that doesn't yield or an async function that doesn't await.
@@ -73,9 +69,8 @@ export function useHookCollector(): {
         const hook = Array
           .from(hooks.values())
           .find((hook) => hook.node === currentFn);
-        if (!hook) {
-          return;
-        }
+        if (!hook) return;
+
         hooks.set(hook._, {
           ...hook,
           hookCalls: [

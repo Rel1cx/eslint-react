@@ -35,26 +35,12 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-        if (!isCreateElementCall(node, context)) {
-          return;
-        }
-
+        if (!isCreateElementCall(node, context)) return;
         const [name, props] = node.arguments;
-
-        if (!isMatching({ type: NodeType.Literal, value: "iframe" }, name)) {
-          return;
-        }
-
-        if (!props || props.type !== NodeType.ObjectExpression) {
-          return;
-        }
-
+        if (!isMatching({ type: NodeType.Literal, value: "iframe" }, name)) return;
+        if (!props || props.type !== NodeType.ObjectExpression) return;
         const maybeSandboxProperty = findPropInProperties(props.properties, context, initialScope)("sandbox");
-
-        if (O.isNone(maybeSandboxProperty)) {
-          return;
-        }
-
+        if (O.isNone(maybeSandboxProperty)) return;
         const isSafeSandboxValue = !F.pipe(
           maybeSandboxProperty,
           O.filter(isMatching({
@@ -70,11 +56,7 @@ export default createRule<[], MessageID>({
             unsafeCombinations.some(combinations => combinations.every(unsafeValue => values.includes(unsafeValue)))
           ),
         );
-
-        if (isSafeSandboxValue) {
-          return;
-        }
-
+        if (isSafeSandboxValue) return;
         context.report({
           messageId: "NO_UNSAFE_IFRAME_SANDBOX",
           node: maybeSandboxProperty.value,
@@ -82,20 +64,11 @@ export default createRule<[], MessageID>({
       },
       JSXElement(node) {
         const { name } = node.openingElement;
-
-        if (name.type !== NodeType.JSXIdentifier || name.name !== "iframe") {
-          return;
-        }
-
+        if (name.type !== NodeType.JSXIdentifier || name.name !== "iframe") return;
         const { attributes } = node.openingElement;
-
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
         const maybeSandboxAttribute = findPropInAttributes(attributes, context, initialScope)("sandbox");
-
-        if (O.isNone(maybeSandboxAttribute)) {
-          return;
-        }
-
+        if (O.isNone(maybeSandboxAttribute)) return;
         const isSafeSandboxValue = !F.pipe(
           getPropValue(maybeSandboxAttribute.value, context),
           O.flatMapNullable(v => v?.value),
@@ -105,11 +78,7 @@ export default createRule<[], MessageID>({
             unsafeCombinations.some(combinations => combinations.every(unsafeValue => values.includes(unsafeValue)))
           ),
         );
-
-        if (isSafeSandboxValue) {
-          return;
-        }
-
+        if (isSafeSandboxValue) return;
         context.report({
           messageId: "NO_UNSAFE_IFRAME_SANDBOX",
           node: maybeSandboxAttribute.value,

@@ -21,15 +21,9 @@ export function isReactHook(node: TSESTreeFunction) {
  * @returns `true` if the node is a React Hook call, `false` otherwise.
  */
 export function isReactHookCall(node: TSESTree.CallExpression) {
-  if (node.callee.type === NodeType.Identifier) {
-    return isReactHookName(node.callee.name);
-  }
-
+  if (node.callee.type === NodeType.Identifier) return isReactHookName(node.callee.name);
   if (node.callee.type === NodeType.MemberExpression) {
-    return (
-      node.callee.property.type === NodeType.Identifier
-      && isReactHookName(node.callee.property.name)
-    );
+    return node.callee.property.type === NodeType.Identifier && isReactHookName(node.callee.property.name);
   }
 
   return false;

@@ -47,10 +47,7 @@ export default createRule<[], MessageID>({
         const components = ctx.getAllComponents(node);
 
         for (const { hookCalls } of components.values()) {
-          if (hookCalls.length === 0) {
-            continue;
-          }
-
+          if (hookCalls.length === 0) continue;
           for (const hookCall of hookCalls) {
             if (
               !isUseStateCall(hookCall, context, pragma)
@@ -58,44 +55,26 @@ export default createRule<[], MessageID>({
             ) {
               continue;
             }
-
             if (hookCall.parent.type !== NodeType.VariableDeclarator) {
               continue;
             }
-
             const { id } = hookCall.parent;
             const descriptor = O.some({ messageId: "USE_STATE", node: id } as const);
-
             F.pipe(
               match<typeof id, O.Option<ReportDescriptor<MessageID>>>(id)
                 .with({ type: NodeType.Identifier }, F.constant(descriptor))
                 .with({ type: NodeType.ArrayPattern }, n => {
                   const [state, setState] = n.elements;
-
-                  if (
-                    state?.type === NodeType.ObjectPattern
-                    && setState?.type === NodeType.Identifier
-                  ) {
+                  if (state?.type === NodeType.ObjectPattern && setState?.type === NodeType.Identifier) {
                     return F.pipe(
                       O.liftPredicate(_.not(isSetterNameLoose))(setState.name),
                       O.flatMap(F.constant(descriptor)),
                     );
                   }
-
-                  if (
-                    state?.type !== NodeType.Identifier
-                    || setState?.type !== NodeType.Identifier
-                  ) {
-                    return O.none();
-                  }
-
+                  if (state?.type !== NodeType.Identifier || setState?.type !== NodeType.Identifier) return O.none();
                   const [stateName, setStateName] = [state.name, setState.name];
-
                   const expectedSetterName = `set${capitalize(stateName)}`;
-
-                  if (setStateName === expectedSetterName) {
-                    return O.none();
-                  }
+                  if (setStateName === expectedSetterName) return O.none();
 
                   return descriptor;
                 })

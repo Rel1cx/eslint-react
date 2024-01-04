@@ -31,9 +31,7 @@ export default createRule<[], MessageID>({
           && node.arguments[0]?.type === AST_NODE_TYPES.Literal
         ) {
           const name = node.arguments[0].value;
-          if (!_.isString(name) || !name.includes(":")) {
-            return;
-          }
+          if (!_.isString(name) || !name.includes(":")) return;
           context.report({
             data: {
               name,
@@ -45,9 +43,7 @@ export default createRule<[], MessageID>({
       },
       JSXOpeningElement(node) {
         const name = elementType(node);
-        if (!_.isString(name) || !name.includes(":")) {
-          return;
-        }
+        if (!_.isString(name) || !name.includes(":")) return;
         context.report({
           data: {
             name,

@@ -46,38 +46,16 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       CallExpression(node) {
-        if (!isThisSetState(node)) {
-          return;
-        }
-
+        if (!isThisSetState(node)) return;
         const maybeParentClass = traverseUp(node, isOneOf([NodeType.ClassDeclaration, NodeType.ClassExpression]));
-
-        if (O.isNone(maybeParentClass)) {
-          return;
-        }
-
+        if (O.isNone(maybeParentClass)) return;
         const parentClass = maybeParentClass.value;
-
-        if (!isClassComponent(parentClass, context)) {
-          return;
-        }
-
+        if (!isClassComponent(parentClass, context)) return;
         const maybeParentMethod = traverseUp(node, isComponentDidUpdate);
-
-        if (O.isNone(maybeParentMethod)) {
-          return;
-        }
-
+        if (O.isNone(maybeParentMethod)) return;
         const parentMethod = maybeParentMethod.value;
-
-        if (parentMethod.parent !== parentClass.body) {
-          return;
-        }
-
-        if (context.sourceCode.getScope?.(node).upper !== context.sourceCode.getScope?.(parentMethod)) {
-          return;
-        }
-
+        if (parentMethod.parent !== parentClass.body) return;
+        if (context.sourceCode.getScope?.(node).upper !== context.sourceCode.getScope?.(parentMethod)) return;
         context.report({
           node,
           messageId: "NO_SET_STATE_IN_COMPONENT_DID_UPDATE",

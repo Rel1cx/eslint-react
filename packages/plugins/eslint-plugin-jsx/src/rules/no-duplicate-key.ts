@@ -34,10 +34,7 @@ export default createRule<[], MessageID>({
     const isWithinChildrenToArrayRef = MutRef.make(false);
 
     function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
-      if (node.type !== NodeType.JSXElement) {
-        return O.none();
-      }
-
+      if (node.type !== NodeType.JSXElement) return O.none();
       const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
 
       return F.pipe(
@@ -62,16 +59,12 @@ export default createRule<[], MessageID>({
         .with({ type: NodeType.JSXElement }, checkIteratorElement)
         .with({ type: NodeType.JSXFragment }, checkIteratorElement)
         .with({ type: NodeType.ConditionalExpression }, (n) => {
-          if (!("consequent" in n)) {
-            return O.none();
-          }
+          if (!("consequent" in n)) return O.none();
 
           return O.orElse(checkIteratorElement(n.consequent), () => checkIteratorElement(n.alternate));
         })
         .with({ type: NodeType.LogicalExpression }, (n) => {
-          if (!("left" in n)) {
-            return O.none();
-          }
+          if (!("left" in n)) return O.none();
 
           return O.orElse(checkIteratorElement(n.left), () => checkIteratorElement(n.right));
         })
@@ -81,13 +74,9 @@ export default createRule<[], MessageID>({
     function checkBlockStatement(node: TSESTree.BlockStatement) {
       return getNestedReturnStatements(node)
         .reduce<ReportDescriptor<MessageID>[]>((acc, statement) => {
-          if (!statement.argument) {
-            return acc;
-          }
+          if (!statement.argument) return acc;
           const maybeDescriptor = checkIteratorElement(statement.argument);
-          if (O.isNone(maybeDescriptor)) {
-            return acc;
-          }
+          if (O.isNone(maybeDescriptor)) return acc;
           const descriptor = maybeDescriptor.value;
 
           return [...acc, descriptor];
@@ -182,16 +171,10 @@ export default createRule<[], MessageID>({
             },
           },
         }, node);
-        if (!isMapCall && !isArrayFromCall) {
-          return;
-        }
-        if (MutRef.get(isWithinChildrenToArrayRef)) {
-          return;
-        }
+        if (!isMapCall && !isArrayFromCall) return;
+        if (MutRef.get(isWithinChildrenToArrayRef)) return;
         const fn = node.arguments[isMapCall ? 0 : 1];
-        if (!isOneOf([NodeType.ArrowFunctionExpression, NodeType.FunctionExpression])(fn)) {
-          return;
-        }
+        if (!isOneOf([NodeType.ArrowFunctionExpression, NodeType.FunctionExpression])(fn)) return;
         if (fn.body.type === NodeType.BlockStatement) {
           for (const descriptor of checkBlockStatement(fn.body)) {
             context.report(descriptor);

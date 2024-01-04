@@ -71,19 +71,10 @@ export function useCustomStyle() {
   const rePositionTwoSlashBox = (e: Event) => {
     const isMobile = globalThis.matchMedia("(max-width: 767px)").matches;
     const currentElement = e.target;
-
-    if (!(currentElement instanceof HTMLElement) || !isMobile) {
-      return;
-    }
-
-    if (O.isNone(getPositionInCodeContainer(currentElement))) {
-      return;
-    }
-
+    if (!(currentElement instanceof HTMLElement) || !isMobile) return;
+    if (O.isNone(getPositionInCodeContainer(currentElement))) return;
     const { elementXPos, allowedContentFullWidth } = getValuesForCSSLeft(currentElement);
-
     const contentWidth = getPseudoElementWidth(currentElement, ":before");
-
     setCurrentStyle(
       computeTwoSlashOverrideStyle({
         contentWidth,

@@ -6,9 +6,7 @@ export const isFragment = (
   pragma: string,
   fragment: string,
 ): node is TSESTree.JSXElement | TSESTree.JSXFragment => {
-  if (!isOneOf([NodeType.JSXElement, NodeType.JSXFragment])(node)) {
-    return false;
-  }
+  if (!isOneOf([NodeType.JSXElement, NodeType.JSXFragment])(node)) return false;
 
   return isFragmentSyntax(node) || isFragmentElement(node, pragma, fragment);
 };
@@ -28,9 +26,7 @@ export function isFragmentElement(node: TSESTree.JSXElement, pragma: string, fra
   const { name } = node.openingElement;
 
   // <Fragment>
-  if (name.type === NodeType.JSXIdentifier && name.name === fragment) {
-    return true;
-  }
+  if (name.type === NodeType.JSXIdentifier && name.name === fragment) return true;
 
   // <Pragma.Fragment>
   return name.type === NodeType.JSXMemberExpression

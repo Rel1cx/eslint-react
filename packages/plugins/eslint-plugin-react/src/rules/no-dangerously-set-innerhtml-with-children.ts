@@ -39,9 +39,7 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-        if (node.arguments.length < 2 || !isCreateElementCall(node, context)) {
-          return;
-        }
+        if (node.arguments.length < 2 || !isCreateElementCall(node, context)) return;
         const props = node.arguments[1];
         const maybeProperties = match(props)
           .when(isOneOf([NodeType.ObjectExpression, NodeType.ObjectPattern]), (n) => {
@@ -57,9 +55,7 @@ export default createRule<[], MessageID>({
             );
           })
           .otherwise(O.none);
-        if (O.isNone(maybeProperties)) {
-          return;
-        }
+        if (O.isNone(maybeProperties)) return;
         const properties = maybeProperties.value;
         const hasDanger = O.isSome(findPropInProperties(properties, context, initialScope)("dangerouslySetInnerHTML"));
         const hasRestChildren = node.arguments.length > 2;
@@ -79,11 +75,7 @@ export default createRule<[], MessageID>({
         const hasChildrenProp = () => hasProp(node.openingElement.attributes, "children", context, initialScope);
         // dprint-ignore
         const hasDanger = () => hasProp(node.openingElement.attributes, "dangerouslySetInnerHTML", context, initialScope);
-
-        if (!(hasChildrenWithIn() || hasChildrenProp()) || !hasDanger()) {
-          return;
-        }
-
+        if (!(hasChildrenWithIn() || hasChildrenProp()) || !hasDanger()) return;
         context.report({
           messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN",
           node,

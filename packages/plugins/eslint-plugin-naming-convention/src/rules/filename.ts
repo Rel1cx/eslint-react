@@ -104,10 +104,7 @@ export default createRule<Options, MessageID>({
     const filename = context.filename ?? context.getFilename();
     const fileNameExt = filename
       .slice(filename.lastIndexOf("."));
-
-    if (!extensions.includes(fileNameExt)) {
-      return {};
-    }
+    if (!extensions.includes(fileNameExt)) return {};
 
     function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
       // eslint-disable-next-line security/detect-non-literal-regexp
@@ -136,15 +133,12 @@ export default createRule<Options, MessageID>({
       Program(node) {
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         const [basename = "", ...rest] = path.basename(context.filename ?? context.getFilename()).split(".");
-
         if (basename.length === 0) {
-          return context.report({ messageId: "FILENAME_EMPTY", node });
-        }
+          context.report({ messageId: "FILENAME_EMPTY", node });
 
-        if (validate(basename)) {
           return;
         }
-
+        if (validate(basename)) return;
         context.report({
           data: {
             name: filename,

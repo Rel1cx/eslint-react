@@ -42,12 +42,8 @@ export default createRule<[], MessageID>({
         const components = ctx.getAllComponents(node);
 
         for (const { name, flag, node: component } of components.values()) {
-          if (!(flag & ERClassComponentFlag.PureComponent)) {
-            continue;
-          }
-
+          if (!(flag & ERClassComponentFlag.PureComponent)) continue;
           const { body } = component.body;
-
           for (const member of body) {
             if (isShouldComponentUpdate(member)) {
               context.report({

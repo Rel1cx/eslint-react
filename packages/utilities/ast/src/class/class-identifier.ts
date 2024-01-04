@@ -9,10 +9,7 @@ import { NodeType, type TSESTreeClass } from "../node";
  * @returns class identifier or null
  */
 export function getClassIdentifier(node: TSESTreeClass): O.Option<TSESTree.Identifier> {
-  if (node.id) {
-    return O.fromNullable(node.id);
-  }
-
+  if (node.id) return O.fromNullable(node.id);
   if (node.parent.type === NodeType.VariableDeclarator && node.parent.id.type === NodeType.Identifier) {
     return O.fromNullable(node.parent.id);
   }

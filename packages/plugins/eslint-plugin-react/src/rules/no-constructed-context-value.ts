@@ -41,36 +41,20 @@ export default createRule<[], MessageID>({
       ...listeners,
       JSXOpeningElement(node) {
         const openingElementName = node.name;
-        if (openingElementName.type !== NodeType.JSXMemberExpression) {
-          return;
-        }
-
-        if (openingElementName.property.name !== "Provider") {
-          return;
-        }
-
+        if (openingElementName.type !== NodeType.JSXMemberExpression) return;
+        if (openingElementName.property.name !== "Provider") return;
         const maybeJSXValueAttribute = O.fromNullable(
           node.attributes.find((attribute) => {
             return attribute.type === NodeType.JSXAttribute
               && attribute.name.name === "value";
           }),
         );
-        if (O.isNone(maybeJSXValueAttribute) || !("value" in maybeJSXValueAttribute.value)) {
-          return;
-        }
-
+        if (O.isNone(maybeJSXValueAttribute) || !("value" in maybeJSXValueAttribute.value)) return;
         const valueNode = maybeJSXValueAttribute.value.value;
-        if (valueNode?.type !== NodeType.JSXExpressionContainer) {
-          return;
-        }
-
+        if (valueNode?.type !== NodeType.JSXExpressionContainer) return;
         const valueExpression = valueNode.expression;
         const constructionDetail = detectConstruction(valueExpression);
-
-        if (constructionDetail._tag === "None") {
-          return;
-        }
-
+        if (constructionDetail._tag === "None") return;
         O.map(ctx.getCurrentFunction(), ([currentFn]) => possibleValueConstructions.set(currentFn, constructionDetail));
       },
       "Program:exit"(node) {

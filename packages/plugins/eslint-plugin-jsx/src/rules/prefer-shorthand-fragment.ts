@@ -31,11 +31,7 @@ export default createRule<[], MessageID>({
       JSXElement(node) {
         if (isFragmentElement(node, reactPragma, fragmentPragma)) {
           const hasAttributes = node.openingElement.attributes.length > 0;
-
-          if (hasAttributes) {
-            return;
-          }
-
+          if (hasAttributes) return;
           context.report({
             data: {
               fragmentPragma,

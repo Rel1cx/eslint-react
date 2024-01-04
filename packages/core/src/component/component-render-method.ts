@@ -21,9 +21,7 @@ const isRenderMethodLike = isMatching({
 });
 
 export function isFunctionOfRenderMethod(node: TSESTreeFunction, context: RuleContext) {
-  if (!isRenderMethodLike(node.parent)) {
-    return false;
-  }
+  if (!isRenderMethodLike(node.parent)) return false;
 
   return isClassComponent(node.parent.parent.parent, context);
 }
@@ -47,9 +45,7 @@ export function isFunctionOfRenderMethod(node: TSESTreeFunction, context: RuleCo
  */
 export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) {
   const predicate = (node: TSESTree.Node): node is TSESTree.MethodDefinition => {
-    const isRenderMethod = isRenderMethodLike(node);
-
-    return isRenderMethod && isClassComponent(node.parent.parent, context);
+    return isRenderMethodLike(node) && isClassComponent(node.parent.parent, context);
   };
 
   return O.isSome(traverseUp(node, predicate));

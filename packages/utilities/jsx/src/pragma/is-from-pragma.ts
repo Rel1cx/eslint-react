@@ -16,27 +16,15 @@ export function isInitializedFromPragma(
   const variables = getVariablesUpToGlobal(initialScope);
   const maybeVariable = findVariableByName(variableName)(variables);
   const maybeLatestDef = O.flatMapNullable(maybeVariable, (variable) => variable.defs.at(-1));
-
-  if (O.isNone(maybeLatestDef)) {
-    return false;
-  }
-
+  if (O.isNone(maybeLatestDef)) return false;
   const latestDef = maybeLatestDef.value;
   const { node, parent } = latestDef;
-
   if (node.type === NodeType.VariableDeclarator && node.init) {
     const { init } = node;
-
     // check for: `variable = pragma.variable`
-    if (isMatching({ type: "MemberExpression", object: { type: "Identifier", name: pragma } }, init)) {
-      return true;
-    }
-
+    if (isMatching({ type: "MemberExpression", object: { type: "Identifier", name: pragma } }, init)) return true;
     // check for: `{ variable } = pragma`
-    if (isMatching({ type: "Identifier", name: pragma }, init)) {
-      return true;
-    }
-
+    if (isMatching({ type: "Identifier", name: pragma }, init)) return true;
     // check if from a require call: `require("react")`
     const maybeRequireExpression = match(init)
       .with({
@@ -54,14 +42,10 @@ export function isInitializedFromPragma(
         ({ object }) => O.some(object),
       )
       .otherwise(O.none);
-    if (O.isNone(maybeRequireExpression)) {
-      return false;
-    }
+    if (O.isNone(maybeRequireExpression)) return false;
     const requireExpression = maybeRequireExpression.value;
     const [firstArg] = requireExpression.arguments;
-    if (firstArg?.type !== NodeType.Literal) {
-      return false;
-    }
+    if (firstArg?.type !== NodeType.Literal) return false;
 
     return firstArg.value === pragma.toLowerCase();
   }
@@ -96,13 +80,8 @@ export function isFromPragma(name: string) {
     context: RuleContext,
   ) => {
     const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-    if (node.type === NodeType.MemberExpression) {
-      return isPropertyOfPragma(name, context)(node);
-    }
-
-    if (node.name === name) {
-      return isInitializedFromPragma(name, context, initialScope);
-    }
+    if (node.type === NodeType.MemberExpression) return isPropertyOfPragma(name, context)(node);
+    if (node.name === name) return isInitializedFromPragma(name, context, initialScope);
 
     return false;
   };
@@ -124,21 +103,10 @@ export function isFromPragmaMember(
     pragma = getPragmaFromContext(context),
   ) => {
     const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-
-    if (
-      node.property.type !== NodeType.Identifier
-      || node.property.name !== name
-    ) {
-      return false;
-    }
-
-    if (
-      node.object.type === NodeType.Identifier
-      && node.object.name === pragmaMemberName
-    ) {
+    if (node.property.type !== NodeType.Identifier || node.property.name !== name) return false;
+    if (node.object.type === NodeType.Identifier && node.object.name === pragmaMemberName) {
       return isInitializedFromPragma(node.object.name, context, initialScope, pragma);
     }
-
     if (
       node.object.type === NodeType.MemberExpression
       && node.object.object.type === NodeType.Identifier
@@ -154,9 +122,7 @@ export function isFromPragmaMember(
 
 export function isCallFromPragma(name: string) {
   return (node: TSESTree.CallExpression, context: RuleContext) => {
-    if (!isOneOf([NodeType.Identifier, NodeType.MemberExpression])(node.callee)) {
-      return false;
-    }
+    if (!isOneOf([NodeType.Identifier, NodeType.MemberExpression])(node.callee)) return false;
 
     return isFromPragma(name)(node.callee, context);
   };
@@ -167,9 +133,7 @@ export function isCallFromPragmaMember(
   name: string,
 ) {
   return (node: TSESTree.CallExpression, context: RuleContext) => {
-    if (!is(NodeType.MemberExpression)(node.callee)) {
-      return false;
-    }
+    if (!is(NodeType.MemberExpression)(node.callee)) return false;
 
     return isFromPragmaMember(pragmaMemberName, name)(node.callee, context);
   };

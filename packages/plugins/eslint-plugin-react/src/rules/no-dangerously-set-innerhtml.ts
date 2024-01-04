@@ -30,16 +30,9 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-        if (node.arguments.length < 2 || !isCreateElementCall(node, context)) {
-          return;
-        }
-
+        if (node.arguments.length < 2 || !isCreateElementCall(node, context)) return;
         const props = node.arguments[1];
-
-        if (!props) {
-          return;
-        }
-
+        if (!props) return;
         const maybeProperties = match(props)
           .when(isOneOf([NodeType.ObjectExpression, NodeType.ObjectPattern]), (n) => {
             return "properties" in n ? O.some(n.properties) : O.none();
@@ -55,10 +48,7 @@ export default createRule<[], MessageID>({
           })
           .otherwise(O.none);
 
-        if (O.isNone(maybeProperties)) {
-          return;
-        }
-
+        if (O.isNone(maybeProperties)) return;
         const properties = maybeProperties.value;
         const hasDanger = O.isSome(findPropInProperties(properties, context, initialScope)("dangerouslySetInnerHTML"));
         if (hasDanger) {

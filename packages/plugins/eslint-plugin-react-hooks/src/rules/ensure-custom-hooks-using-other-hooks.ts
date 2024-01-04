@@ -30,10 +30,7 @@ export default createRule<[], MessageID>({
       "Program:exit"(node) {
         const allHooks = ctx.getAllHooks(node);
         for (const { name, hookCalls, node } of allHooks.values()) {
-          if (hookCalls.length > 0) {
-            continue;
-          }
-
+          if (hookCalls.length > 0) continue;
           context.report({
             data: {
               name,

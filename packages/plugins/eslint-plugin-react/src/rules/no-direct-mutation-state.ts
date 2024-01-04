@@ -50,28 +50,13 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       AssignmentExpression(node) {
-        if (!isAssignmentToThisState(node)) {
-          return;
-        }
-
+        if (!isAssignmentToThisState(node)) return;
         const maybeParentClass = traverseUpGuard(node, isOneOf([NodeType.ClassDeclaration, NodeType.ClassExpression]));
-
-        if (O.isNone(maybeParentClass)) {
-          return;
-        }
-
+        if (O.isNone(maybeParentClass)) return;
         const parentClass = maybeParentClass.value;
-
-        if (!isClassComponent(parentClass, context)) {
-          return;
-        }
-
+        if (!isClassComponent(parentClass, context)) return;
         const maybeParentConstructor = traverseUpGuard(node, isConstructorFunction);
-
-        if (O.exists(maybeParentConstructor, n => context.sourceCode.getScope?.(node).block === n)) {
-          return;
-        }
-
+        if (O.exists(maybeParentConstructor, n => context.sourceCode.getScope?.(node).block === n)) return;
         context.report({
           node,
           messageId: "NO_DIRECT_MUTATION_STATE",

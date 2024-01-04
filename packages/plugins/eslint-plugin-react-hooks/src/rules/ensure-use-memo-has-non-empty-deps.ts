@@ -33,20 +33,14 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-
-        if (!isReactHookCall(node)) {
-          return;
-        }
-
+        if (!isReactHookCall(node)) return;
         if (
           !isUseMemoCall(node, context, pragma)
           && !alias.some(F.flip(isReactHookCallWithNameLoose)(node))
         ) {
           return;
         }
-
         const [_, deps] = node.arguments;
-
         if (!deps) {
           context.report({
             messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",

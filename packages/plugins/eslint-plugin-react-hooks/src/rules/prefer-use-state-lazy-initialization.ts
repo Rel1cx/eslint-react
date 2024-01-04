@@ -38,34 +38,16 @@ export default createRule<[], MessageID>({
 
     return {
       CallExpression(node) {
-        if (!isReactHookCall(node)) {
-          return;
-        }
-
-        if (
-          !isUseStateCall(node, context, pragma)
-          && !alias.some(F.flip(isReactHookCallWithNameLoose)(node))
-        ) {
-          return;
-        }
-
+        if (!isReactHookCall(node)) return;
+        if (!isUseStateCall(node, context, pragma) && !alias.some(F.flip(isReactHookCallWithNameLoose)(node))) return;
         const [useStateInput] = node.arguments;
-
-        if (!useStateInput) {
-          return;
-        }
-
+        if (!useStateInput) return;
         const nestedCallExpressions = getNestedCallExpressions(useStateInput);
-
         const hasFunctionCall = nestedCallExpressions.some((n) => {
           return "name" in n.callee
             && !ALLOW_LIST.includes(n.callee.name);
         });
-
-        if (!hasFunctionCall) {
-          return;
-        }
-
+        if (!hasFunctionCall) return;
         context.report({
           node: useStateInput,
           messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",

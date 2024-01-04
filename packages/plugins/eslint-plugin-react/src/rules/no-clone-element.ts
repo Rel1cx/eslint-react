@@ -26,10 +26,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       CallExpression(node) {
-        if (!isCloneElementCall(node, context)) {
-          return;
-        }
-
+        if (!isCloneElementCall(node, context)) return;
         context.report({
           messageId: "NO_CLONE_ELEMENT",
           node,

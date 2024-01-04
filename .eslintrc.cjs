@@ -45,6 +45,7 @@ module.exports = defineConfig({
       rules: {
         "@susisu/safe-typescript/no-unsafe-object-property-check": "off",
         "array-callback-return": "off",
+        curly: "off",
         "eslint-plugin/require-meta-docs-url": "off",
         "filenames-simple/named-export": "off",
         "filenames-simple/naming-convention": ["error", { rule: "kebab-case" }],

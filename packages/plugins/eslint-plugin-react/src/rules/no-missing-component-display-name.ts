@@ -35,15 +35,8 @@ export default createRule<[], MessageID>({
         for (const { displayName, flag, node } of components.values()) {
           const isMemoOrForwardRef = Boolean(flag & ERFunctionComponentFlag.ForwardRef)
             || Boolean(flag & ERFunctionComponentFlag.Memo);
-
-          if (O.isSome(getFunctionIdentifier(node))) {
-            continue;
-          }
-
-          if (!isMemoOrForwardRef) {
-            continue;
-          }
-
+          if (O.isSome(getFunctionIdentifier(node))) continue;
+          if (!isMemoOrForwardRef) continue;
           if (O.isNone(displayName)) {
             context.report({
               messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",

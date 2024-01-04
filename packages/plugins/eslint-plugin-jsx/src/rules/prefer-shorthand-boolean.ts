@@ -29,15 +29,10 @@ export default createRule<[], MessageID>({
       JSXAttribute(node) {
         const { value } = node;
         const propName = getPropName(node);
-
         const hasValueTrue = value?.type === NodeType.JSXExpressionContainer
           && value.expression.type === NodeType.Literal
           && value.expression.value === true;
-
-        if (!hasValueTrue) {
-          return;
-        }
-
+        if (!hasValueTrue) return;
         context.report({
           data: {
             propName,

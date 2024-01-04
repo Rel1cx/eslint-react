@@ -27,16 +27,14 @@ import { isFunctionOfRenderMethod } from "./component-render-method";
 
 const uid = new ShortUniqueId({ length: 10 });
 
-function isMapCall(node: TSESTree.Node) {
-  return isMatching({
-    callee: {
-      type: NodeType.MemberExpression,
-      property: {
-        name: "map",
-      },
+const isMapCall = isMatching({
+  callee: {
+    type: NodeType.MemberExpression,
+    property: {
+      name: "map",
     },
-  }, node);
-}
+  },
+});
 
 function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: bigint) {
   if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node, context)) {
@@ -117,36 +115,23 @@ export function useComponentCollector(
     ":function:exit": onFunctionExit,
     ReturnStatement(node: TSESTree.ReturnStatement) {
       const maybeCurrentFn = getCurrentFunction();
-
-      if (O.isNone(maybeCurrentFn)) {
-        return;
-      }
-
-      const [currentFn, isComponent, hookCalls] = maybeCurrentFn.value;
-
-      if (isComponent) {
-        return;
-      }
-
-      if (
-        !hasNoneOrValidComponentName(currentFn)
-        || !isJSXValue(node.argument, context, hint)
-        || !hasValidHierarchy(currentFn, context, hint)
-      ) {
-        return;
-      }
+      if (O.isNone(maybeCurrentFn)) return;
+      const [currentFn, isKnown, hookCalls] = maybeCurrentFn.value;
+      if (isKnown) return;
+      const isComponent = F.constTrue()
+        && hasNoneOrValidComponentName(currentFn)
+        && isJSXValue(node.argument, context, hint)
+        && hasValidHierarchy(currentFn, context, hint);
+      if (!isComponent) return;
 
       MutList.pop(functionStack);
       MutList.append(functionStack, [currentFn, true, []]);
 
       const initPath = getComponentInitPath(currentFn);
       const id = getFunctionComponentIdentifier(currentFn, context);
-      const name = O.flatMapNullable(
-        id,
-        getComponentNameFromIdentifier,
-      );
-
+      const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
       const key = uid.rnd();
+
       components.set(key, {
         _: key,
         id,
@@ -163,31 +148,19 @@ export function useComponentCollector(
     // eslint-disable-next-line perfectionist/sort-objects
     "ArrowFunctionExpression[body.type!='BlockStatement']"() {
       const maybeCurrentFn = getCurrentFunction();
-
-      if (O.isNone(maybeCurrentFn)) {
-        return;
-      }
-
+      if (O.isNone(maybeCurrentFn)) return;
       const [currentFn, _, hookCalls] = maybeCurrentFn.value;
-
       const { body } = currentFn;
-
-      if (
-        !hasNoneOrValidComponentName(currentFn)
-        || !isJSXValue(body, context, hint)
-        || !hasValidHierarchy(currentFn, context, hint)
-      ) {
-        return;
-      }
-
+      const isComponent = F.constTrue()
+        && hasNoneOrValidComponentName(currentFn)
+        && isJSXValue(body, context, hint)
+        && hasValidHierarchy(currentFn, context, hint);
+      if (!isComponent) return;
       const initPath = getComponentInitPath(currentFn);
       const id = getFunctionComponentIdentifier(currentFn, context);
-      const name = O.flatMapNullable(
-        id,
-        getComponentNameFromIdentifier,
-      );
-
+      const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
       const key = uid.rnd();
+
       components.set(key, {
         _: key,
         id,
@@ -202,16 +175,9 @@ export function useComponentCollector(
       });
     },
     "CallExpression:exit"(node: TSESTree.CallExpression) {
-      if (!isReactHookCall(node)) {
-        return;
-      }
-
+      if (!isReactHookCall(node)) return;
       const maybeCurrentFn = getCurrentFunction();
-
-      if (O.isNone(maybeCurrentFn)) {
-        return;
-      }
-
+      if (O.isNone(maybeCurrentFn)) return;
       const [currentFn, IsComponent, hookCalls] = maybeCurrentFn.value;
 
       MutList.pop(functionStack);
@@ -219,29 +185,19 @@ export function useComponentCollector(
     },
     // eslint-disable-next-line perfectionist/sort-objects
     "AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']"(
-      node: TSESTree.AssignmentExpression,
+      node: TSESTree.Node,
     ) {
+      if (node.type !== NodeType.AssignmentExpression) return;
       const { left, right } = node;
-
-      if (left.type !== NodeType.MemberExpression) {
-        return;
-      }
-
+      if (left.type !== NodeType.MemberExpression) return;
       const maybeComponentName = match(left.object)
         .with({ type: NodeType.Identifier }, n => O.some(n.name))
         .otherwise(O.none);
-
-      if (O.isNone(maybeComponentName)) {
-        return;
-      }
-
+      if (O.isNone(maybeComponentName)) return;
       const component = Array
         .from(components.values())
         .findLast(({ name }) => O.exists(name, n => n === maybeComponentName.value));
-
-      if (!component) {
-        return;
-      }
+      if (!component) return;
 
       components.set(component._, {
         ...component,

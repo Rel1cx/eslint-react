@@ -35,21 +35,10 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         const { callee, parent } = node;
-
-        if (callee.type !== NodeType.MemberExpression) {
-          return;
-        }
-
-        if (callee.object.type !== NodeType.Identifier) {
-          return;
-        }
-
-        if (!("name" in callee.object)) {
-          return;
-        }
-
+        if (callee.type !== NodeType.MemberExpression) return;
+        if (callee.object.type !== NodeType.Identifier) return;
+        if (!("name" in callee.object)) return;
         const objectName = callee.object.name;
-
         if (
           objectName.toLowerCase() !== "reactdom"
           || callee.property.type !== NodeType.Identifier
@@ -58,7 +47,6 @@ export default createRule<[], MessageID>({
         ) {
           return;
         }
-
         context.report({
           messageId: "NO_RENDER_RETURN_VALUE",
           node,

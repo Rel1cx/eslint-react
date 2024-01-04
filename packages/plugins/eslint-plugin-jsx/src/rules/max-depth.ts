@@ -51,9 +51,7 @@ const isJSX = isOneOf([NodeType.JSXElement, NodeType.JSXFragment]);
 const isExpression = is(NodeType.JSXExpressionContainer);
 
 function hasJSX(node: TSESTree.Node) {
-  if (isJSX(node)) {
-    return true;
-  }
+  if (isJSX(node)) return true;
 
   return isExpression(node) && isJSX(node.expression);
 }
@@ -77,14 +75,9 @@ function getDepth(node: TSESTree.Node, depth = 0) {
 
 function getChecker(maxDepth: number) {
   return (node: TSESTree.JSXElement | TSESTree.JSXFragment): O.Option<ReportDescriptor<MessageID>> => {
-    if (!isLeaf(node)) {
-      return O.none();
-    }
-
+    if (!isLeaf(node)) return O.none();
     const depth = getDepth(node);
-    if (depth <= maxDepth) {
-      return O.none();
-    }
+    if (depth <= maxDepth) return O.none();
 
     return O.some({
       node,

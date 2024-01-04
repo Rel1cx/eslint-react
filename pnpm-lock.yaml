@@ -754,9 +754,6 @@ importers:
       eslint-plugin-mdx:
         specifier: 3.1.2
         version: 3.1.2(eslint@8.56.0)
-      eslint-plugin-react-hooks:
-        specifier: 4.6.0
-        version: 4.6.0(eslint@8.56.0)
       postcss:
         specifier: 8.4.32
         version: 8.4.32

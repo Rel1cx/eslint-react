@@ -39,13 +39,9 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
   if (!("property" in callee) || !("object" in callee) || !("name" in callee.property)) {
     return false;
   }
-  if (!isReactChildrenMethod(callee.property.name)) {
-    return false;
-  }
+  if (!isReactChildrenMethod(callee.property.name)) return false;
   const obj = callee.object;
-  if ("name" in obj && obj.name === "Children") {
-    return true;
-  }
+  if ("name" in obj && obj.name === "Children") return true;
   const pragma = getPragmaFromContext(context);
 
   return isMatching({ object: { name: pragma } }, obj);
@@ -53,49 +49,25 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
 
 function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContext) {
   const { callee } = node;
-  if (callee.type !== NodeType.MemberExpression) {
-    return O.none();
-  }
-
-  if (callee.property.type !== NodeType.Identifier) {
-    return O.none();
-  }
-
+  if (callee.type !== NodeType.MemberExpression) return O.none();
+  if (callee.property.type !== NodeType.Identifier) return O.none();
   const { name } = callee.property;
-  if (!Record.has(iteratorFunctionIndexParamPosition, name)) {
-    return O.none();
-  }
-
+  if (!Record.has(iteratorFunctionIndexParamPosition, name)) return O.none();
   const callbackArg = node.arguments[isUsingReactChildren(node, context) ? 1 : 0];
-  if (!callbackArg) {
-    return O.none();
-  }
-
-  if (!isOneOf([NodeType.ArrowFunctionExpression, NodeType.FunctionExpression])(callbackArg)) {
-    return O.none();
-  }
-
+  if (!callbackArg) return O.none();
+  if (!isOneOf([NodeType.ArrowFunctionExpression, NodeType.FunctionExpression])(callbackArg)) return O.none();
   const { params } = callbackArg;
   const maybeIndexParamPosition = Record.get(iteratorFunctionIndexParamPosition, name);
-  if (O.isNone(maybeIndexParamPosition)) {
-    return O.none();
-  }
-
+  if (O.isNone(maybeIndexParamPosition)) return O.none();
   const indexParamPosition = maybeIndexParamPosition.value;
-  if (params.length < indexParamPosition + 1) {
-    return O.none();
-  }
-
+  if (params.length < indexParamPosition + 1) return O.none();
   const param = params.at(indexParamPosition);
 
   return param && "name" in param ? O.some(param.name) : O.none();
 }
 
 function getIdentifiersFromBinaryExpression(side: TSESTree.Node): TSESTree.Identifier[] {
-  if (side.type === NodeType.Identifier) {
-    return [side];
-  }
-
+  if (side.type === NodeType.Identifier) return [side];
   if (side.type === NodeType.BinaryExpression) {
     return [
       ...getIdentifiersFromBinaryExpression(side.left),
@@ -148,9 +120,7 @@ export default createRule<[], MessageID>({
           : getIdentifiersFromBinaryExpression(node);
 
         return exps.reduce<ReportDescriptor<MessageID>[]>((acc, exp) => {
-          if (isArrayIndex(exp)) {
-            return [...acc, { messageId: "NO_ARRAY_INDEX_KEY", node: exp }];
-          }
+          if (isArrayIndex(exp)) return [...acc, { messageId: "NO_ARRAY_INDEX_KEY", node: exp }];
 
           return acc;
         }, []);
@@ -167,9 +137,7 @@ export default createRule<[], MessageID>({
       }, node);
       // key={bar.toString()}
       if (isToStringCall) {
-        if (!("object" in node.callee && isArrayIndex(node.callee.object))) {
-          return [];
-        }
+        if (!("object" in node.callee && isArrayIndex(node.callee.object))) return [];
 
         return [{ messageId: "NO_ARRAY_INDEX_KEY", node: node.callee.object }];
       }
@@ -183,9 +151,7 @@ export default createRule<[], MessageID>({
       }, node);
       if (isStringCall) {
         const [arg] = node.arguments;
-        if (arg && isArrayIndex(arg)) {
-          return [{ messageId: "NO_ARRAY_INDEX_KEY", node: arg }];
-        }
+        if (arg && isArrayIndex(arg)) return [{ messageId: "NO_ARRAY_INDEX_KEY", node: arg }];
       }
 
       return [];
@@ -197,24 +163,12 @@ export default createRule<[], MessageID>({
           (isCreateElementCall(node, context) || isCloneElementCall(node, context))
           && node.arguments.length > 1
         ) {
-          if (indexParamNames.length === 0) {
-            return;
-          }
-
+          if (indexParamNames.length === 0) return;
           const props = node.arguments[1];
-          if (props?.type !== NodeType.ObjectExpression) {
-            return;
-          }
-
+          if (props?.type !== NodeType.ObjectExpression) return;
           for (const prop of props.properties) {
-            if (!isMatching({ key: { name: "key" } }, prop)) {
-              continue;
-            }
-
-            if (!("value" in prop)) {
-              continue;
-            }
-
+            if (!isMatching({ key: { name: "key" } }, prop)) continue;
+            if (!("value" in prop)) continue;
             const descriptors = checkPropValue(prop.value);
             for (const descriptor of descriptors) {
               context.report(descriptor);
@@ -226,19 +180,10 @@ export default createRule<[], MessageID>({
       },
       "CallExpression:exit": popIndexParamName,
       JSXAttribute(node) {
-        if (node.name.name !== "key") {
-          return;
-        }
-
-        if (indexParamNames.length === 0) {
-          return;
-        }
-
+        if (node.name.name !== "key") return;
+        if (indexParamNames.length === 0) return;
         const { value } = node;
-        if (value?.type !== NodeType.JSXExpressionContainer) {
-          return;
-        }
-
+        if (value?.type !== NodeType.JSXExpressionContainer) return;
         const descriptors = checkPropValue(value.expression);
         for (const descriptor of descriptors) {
           context.report(descriptor);

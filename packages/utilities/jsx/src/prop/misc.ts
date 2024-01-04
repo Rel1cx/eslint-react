@@ -10,9 +10,7 @@ import { traverseUpProp } from "./traverse";
  * @returns `true` if the node is inside a prop's value
  */
 export function isInsidePropValue(node: TSESTree.Node): boolean {
-  if (isStringLiteral(node)) {
-    return node.parent.type === NodeType.JSXAttribute;
-  }
+  if (isStringLiteral(node)) return node.parent.type === NodeType.JSXAttribute;
 
   return O.isSome(traverseUpProp(node, n => n.value?.type === NodeType.JSXExpressionContainer));
 }

@@ -72,9 +72,7 @@ export default createRule<[], MessageID>({
         };
         for (const { node: component, name: componentName } of functionComponents) {
           // Do not mark objects containing render methods
-          if (unsafeIsDirectValueOfRenderProperty(component)) {
-            continue;
-          }
+          if (unsafeIsDirectValueOfRenderProperty(component)) continue;
           const name = O.getOrElse(() => "unknown")(componentName);
           const isInsideProperty = component.parent.type === NodeType.Property;
           const isInsideJSXPropValue = isInsidePropValue(component);
@@ -126,10 +124,7 @@ export default createRule<[], MessageID>({
           }
         }
         for (const { node: component, name } of classComponents) {
-          if (O.isNone(traverseUp(component, node => isClassComponent(node) || isFunctionComponent(node)))) {
-            continue;
-          }
-
+          if (O.isNone(traverseUp(component, node => isClassComponent(node) || isFunctionComponent(node)))) continue;
           context.report({
             messageId: "UNSTABLE_NESTED_COMPONENT",
             node: component,

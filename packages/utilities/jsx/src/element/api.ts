@@ -13,9 +13,7 @@ export const isCreateElementCall = (
   node: TSESTree.CallExpression,
   context: RuleContext,
 ) => {
-  if (!isOneOf([NodeType.Identifier, NodeType.MemberExpression])(node.callee)) {
-    return false;
-  }
+  if (!isOneOf([NodeType.Identifier, NodeType.MemberExpression])(node.callee)) return false;
 
   return isCreateElement(node.callee, context);
 };
@@ -26,9 +24,7 @@ export const isCloneElementCall = (
   node: TSESTree.CallExpression,
   context: RuleContext,
 ) => {
-  if (!isOneOf([NodeType.Identifier, NodeType.MemberExpression])(node.callee)) {
-    return false;
-  }
+  if (!isOneOf([NodeType.Identifier, NodeType.MemberExpression])(node.callee)) return false;
 
   return isCloneElement(node.callee, context);
 };

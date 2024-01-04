@@ -209,17 +209,13 @@ export default createRule<[], MessageID>({
             type: NodeType.UnaryExpression,
             operator: "!",
           }, left);
-          if (isLeftUnaryNot) {
-            return checkExpression(right);
-          }
+          if (isLeftUnaryNot) return checkExpression(right);
           const leftType = getConstrainedTypeAtLocation(services, left);
           const leftTypeVariants = inspectVariantTypes(tsutils.unionTypeParts(leftType));
           const isLeftValid = Array
             .from(leftTypeVariants.values())
             .every(type => allowedVariants.some(allowed => allowed === type));
-          if (isLeftValid) {
-            return checkExpression(right);
-          }
+          if (isLeftValid) return checkExpression(right);
 
           return O.some({
             messageId: "NO_LEAKED_CONDITIONAL_RENDERING",

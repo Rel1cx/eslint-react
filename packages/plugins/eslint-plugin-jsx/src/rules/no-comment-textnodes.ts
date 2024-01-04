@@ -27,23 +27,15 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
   create(context) {
     function checkText(node: TSESTree.JSXText | TSESTree.Literal) {
-      if (isOneOf([N.JSXAttribute, N.JSXExpressionContainer])(node.parent)) {
-        return false;
-      }
-
+      if (isOneOf([N.JSXAttribute, N.JSXExpressionContainer])(node.parent)) return false;
       const rawValue = context.sourceCode.getText(node);
 
       return /^\s*\/(\/|\*)/mu.test(rawValue) && node.parent.type.includes("JSX");
     }
 
     const check = (node: TSESTree.JSXText | TSESTree.Literal) => {
-      if (!isOneOf([N.JSXElement, N.JSXFragment])(node.parent)) {
-        return;
-      }
-
-      if (!checkText(node)) {
-        return;
-      }
+      if (!isOneOf([N.JSXElement, N.JSXFragment])(node.parent)) return;
+      if (!checkText(node)) return;
 
       context.report({
         messageId: "NO_COMMENT_TEXTNODES",

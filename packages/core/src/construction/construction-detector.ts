@@ -29,9 +29,7 @@ export function isUnstableAssignmentPattern(node: TSESTree.AssignmentPattern): n
   }>
 {
   const { right } = node;
-  if (right.type === NodeType.Literal) {
-    return "regex" in right;
-  }
+  if (right.type === NodeType.Literal) return "regex" in right;
 
   return isOneOf(unstableAssignmentPatternTypes)(right);
 }
@@ -110,15 +108,9 @@ export function constructionDetector<T extends RuleContext>(context: T): (node: 
         return ERConstruction.FunctionExpression({ node, usage: O.none() });
       })
       .when(is(NodeType.MemberExpression), (node) => {
-        if (!("object" in node)) {
-          return None;
-        }
-
+        if (!("object" in node)) return None;
         const object = detect(node.object);
-
-        if (object._tag === "None") {
-          return object;
-        }
+        if (object._tag === "None") return object;
 
         return {
           ...object,
@@ -126,15 +118,9 @@ export function constructionDetector<T extends RuleContext>(context: T): (node: 
         } as const satisfies ERConstruction;
       })
       .when(is(NodeType.AssignmentExpression), (node) => {
-        if (!("right" in node)) {
-          return None;
-        }
-
+        if (!("right" in node)) return None;
         const right = detect(node.right);
-
-        if (right._tag === "None") {
-          return right;
-        }
+        if (right._tag === "None") return right;
 
         return ERConstruction.AssignmentExpression({
           node: right.node,
@@ -142,15 +128,9 @@ export function constructionDetector<T extends RuleContext>(context: T): (node: 
         });
       })
       .when(is(NodeType.LogicalExpression), (node) => {
-        if (!("left" in node && "right" in node)) {
-          return None;
-        }
-
+        if (!("left" in node && "right" in node)) return None;
         const left = detect(node.left);
-
-        if (left._tag === "None") {
-          return None;
-        }
+        if (left._tag === "None") return None;
 
         return detect(node.right);
       })
@@ -158,59 +138,36 @@ export function constructionDetector<T extends RuleContext>(context: T): (node: 
         if (!("consequent" in node && "alternate" in node && !_.isNullable(node.alternate))) {
           return None;
         }
-
         const consequent = detect(node.consequent);
-
-        if (consequent._tag === "None") {
-          return None;
-        }
+        if (consequent._tag === "None") return None;
 
         return detect(node.alternate);
       })
       .when(is(NodeType.Identifier), (node) => {
-        if (!("name" in node && _.isString(node.name))) {
-          return None;
-        }
-
+        if (!("name" in node && _.isString(node.name))) return None;
         const maybeLatestDef = O.fromNullable(scope.set.get(node.name)?.defs.at(-1));
-
-        if (O.isNone(maybeLatestDef)) {
-          return None;
-        }
-
+        if (O.isNone(maybeLatestDef)) return None;
         const latestDef = maybeLatestDef.value;
-
         if (latestDef.type !== DefinitionType.Variable && latestDef.type !== DefinitionType.FunctionName) {
           return None;
         }
-
         if (latestDef.node.type === NodeType.FunctionDeclaration) {
           return ERConstruction.FunctionDeclaration({
             node: latestDef.node,
             usage: O.some(node),
           });
         }
-
-        if (
-          !("init" in latestDef.node)
-          || latestDef.node.init === null
-        ) {
-          return None;
-        }
+        if (!("init" in latestDef.node) || latestDef.node.init === null) return None;
 
         return detect(latestDef.node.init);
       })
       .when(is(NodeType.Literal), (node) => {
-        if ("regex" in node) {
-          return ERConstruction.RegExpLiteral({ node, usage: O.none() });
-        }
+        if ("regex" in node) return ERConstruction.RegExpLiteral({ node, usage: O.none() });
 
         return None;
       })
       .when(isOneOf([NodeType.TSAsExpression, NodeType.TSTypeAssertion]), () => {
-        if (!("expression" in node) || !_.isObject(node.expression)) {
-          return None;
-        }
+        if (!("expression" in node) || !_.isObject(node.expression)) return None;
 
         return detect(node.expression);
       })

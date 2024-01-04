@@ -34,20 +34,11 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-
-        if (!isReactHookCall(node)) {
+        if (!isReactHookCall(node)) return;
+        if (!isUseCallbackCall(node, context, pragma) && !alias.some(F.flip(isReactHookCallWithNameLoose)(node))) {
           return;
         }
-
-        if (
-          !isUseCallbackCall(node, context, pragma)
-          && !alias.some(F.flip(isReactHookCallWithNameLoose)(node))
-        ) {
-          return;
-        }
-
         const [_, deps] = node.arguments;
-
         if (!deps) {
           context.report({
             messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",

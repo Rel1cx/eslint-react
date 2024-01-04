@@ -48,15 +48,9 @@ export function getPropValue(
   const initialScope = context.sourceCode.getScope?.(attribute) ?? context.getScope();
   if (attribute.type === NodeType.JSXAttribute && "value" in attribute) {
     const { value } = attribute;
-    if (value === null) {
-      return O.none();
-    }
-    if (value.type === NodeType.Literal) {
-      return O.some(getStaticValue(value, initialScope));
-    }
-    if (value.type === NodeType.JSXExpressionContainer) {
-      return O.some(getStaticValue(value.expression, initialScope));
-    }
+    if (value === null) return O.none();
+    if (value.type === NodeType.Literal) return O.some(getStaticValue(value, initialScope));
+    if (value.type === NodeType.JSXExpressionContainer) return O.some(getStaticValue(value.expression, initialScope));
 
     return O.none();
   }
@@ -98,18 +92,10 @@ export function findPropInProperties(
                   findVariableByNameUpToGlobal(name, initialScope),
                   getVariableInit(0),
                 );
-                if (O.isNone(maybeInit)) {
-                  return false;
-                }
+                if (O.isNone(maybeInit)) return false;
                 const init = maybeInit.value;
-
-                if (init.type !== NodeType.ObjectExpression) {
-                  return false;
-                }
-
-                if (seenProps.includes(name)) {
-                  return false;
-                }
+                if (init.type !== NodeType.ObjectExpression) return false;
+                if (seenProps.includes(name)) return false;
 
                 return O.isSome(
                   findPropInProperties(init.properties, context, initialScope, [...seenProps, name])(propName),
@@ -165,14 +151,9 @@ export function findPropInAttributes(
                   findVariableByNameUpToGlobal(name, initialScope),
                   getVariableInit(0),
                 );
-                if (O.isNone(maybeInit)) {
-                  return false;
-                }
+                if (O.isNone(maybeInit)) return false;
                 const init = maybeInit.value;
-
-                if (!("properties" in init)) {
-                  return false;
-                }
+                if (!("properties" in init)) return false;
 
                 return O.isSome(findPropInProperties(init.properties, context, initialScope)(propName));
               })

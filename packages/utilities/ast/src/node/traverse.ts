@@ -11,10 +11,7 @@ import { NodeType } from "./node-type";
  */
 export function traverseUp(node: TSESTree.Node, predicate: (node: TSESTree.Node) => boolean): O.Option<TSESTree.Node> {
   const { parent } = node;
-
-  if (!parent || parent.type === NodeType.Program) {
-    return O.none();
-  }
+  if (!parent || parent.type === NodeType.Program) return O.none();
 
   return predicate(parent)
     ? O.some(parent)
@@ -33,10 +30,7 @@ export function traverseUpGuard<T extends TSESTree.Node>(
   predicate: (node: TSESTree.Node) => node is T,
 ): O.Option<T> {
   const { parent } = node;
-
-  if (!parent || parent.type === NodeType.Program) {
-    return O.none();
-  }
+  if (!parent || parent.type === NodeType.Program) return O.none();
 
   return predicate(parent)
     ? O.some(parent)

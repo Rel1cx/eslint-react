@@ -13,61 +13,55 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { isOneOf, NodeType, type TSESTreeFunction } from "../node";
 
 export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree.Identifier> {
-  if (node.id) {
-    // function MaybeComponent() {}
-    // const whatever = function MaybeComponent() {};
-    return O.some(node.id);
-  }
-
+  // function MaybeComponent() {}
+  // const whatever = function MaybeComponent() {};
+  if (node.id) return O.some(node.id);
+  // const MaybeComponent = () => {};
   if (
     node.parent.type === NodeType.VariableDeclarator
     && node.parent.init === node
     && node.parent.id.type === NodeType.Identifier
   ) {
-    // const MaybeComponent = () => {};
     return O.some(node.parent.id);
   }
-
+  // MaybeComponent = () => {};
   if (
     node.parent.type === NodeType.AssignmentExpression
     && node.parent.right === node
     && node.parent.operator === "="
     && node.parent.left.type === NodeType.Identifier
   ) {
-    // MaybeComponent = () => {};
     return O.some(node.parent.left);
   }
-
+  // {MaybeComponent: () => {}}
+  // {MaybeComponent() {}}
   if (
     node.parent.type === NodeType.Property
     && node.parent.value === node
     && !node.parent.computed
     && node.parent.key.type === NodeType.Identifier
   ) {
-    // {MaybeComponent: () => {}}
-    // {MaybeComponent() {}}
     return O.some(node.parent.key);
   }
 
+  // class {MaybeComponent = () => {}}
+  // class {MaybeComponent() {}}
   if (
     isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])(node.parent)
     && node.parent.value === node
     && node.parent.key.type === NodeType.Identifier
   ) {
-    // class {MaybeComponent = () => {}}
-    // class {MaybeComponent() {}}
     return O.some(node.parent.key);
   }
-
+  // Follow spec convention for `IsAnonymousFunctionDefinition()` usage.
+  //
+  // const {MaybeComponent = () => {}} = {};
+  // ({MaybeComponent = () => {}} = {});
   if (
     node.parent.type === NodeType.AssignmentPattern
     && node.parent.right === node
     && node.parent.left.type === NodeType.Identifier
   ) {
-    // Follow spec convention for `IsAnonymousFunctionDefinition()` usage.
-    //
-    // const {MaybeComponent = () => {}} = {};
-    // ({MaybeComponent = () => {}} = {});
     return O.some(node.parent.left);
   }
 

@@ -50,9 +50,7 @@ export function isJSXValue(
   context: RuleContext,
   hint: bigint = DEFAULT_JSX_VALUE_CHECK_HINT,
 ): boolean {
-  if (!node) {
-    return false;
-  }
+  if (!node) return false;
 
   return match<typeof node, boolean>(node)
     .with({ type: NodeType.JSXElement }, F.constTrue)
@@ -67,13 +65,9 @@ export function isJSXValue(
         .with(P.number, () => !(hint & JSXValueCheckHint.SkipNumberLiteral))
         .otherwise(F.constFalse);
     })
-    .with({ type: NodeType.TemplateLiteral }, () => {
-      return !(hint & JSXValueCheckHint.SkipStringLiteral);
-    })
+    .with({ type: NodeType.TemplateLiteral }, () => !(hint & JSXValueCheckHint.SkipStringLiteral))
     .with({ type: NodeType.ArrayExpression }, (node) => {
-      if (hint & JSXValueCheckHint.StrictArray) {
-        return node.elements.every((n) => isJSXValue(n, context, hint));
-      }
+      if (hint & JSXValueCheckHint.StrictArray) return node.elements.every((n) => isJSXValue(n, context, hint));
 
       return node.elements.some((n) => isJSXValue(n, context, hint));
     })
@@ -109,25 +103,15 @@ export function isJSXValue(
       return isJSXValue(exp, context, hint);
     })
     .with({ type: NodeType.CallExpression }, (node) => {
-      if (hint & JSXValueCheckHint.SkipCreateElement) {
-        return false;
-      }
+      if (hint & JSXValueCheckHint.SkipCreateElement) return false;
 
       return isCreateElementCall(node, context);
     })
     .with({ type: NodeType.Identifier }, (node) => {
       const { name } = node;
-
-      if (name === "undefined") {
-        return !(hint & JSXValueCheckHint.SkipUndefinedLiteral);
-      }
-
-      if (isJSXTagNameExpression(node)) {
-        return true;
-      }
-
+      if (name === "undefined") return !(hint & JSXValueCheckHint.SkipUndefinedLiteral);
+      if (isJSXTagNameExpression(node)) return true;
       const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-
       const maybeVariable = findVariableByNameUpToGlobal(name, initialScope);
 
       return F.pipe(

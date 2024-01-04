@@ -6,12 +6,9 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { isForwardRefCall, isMemoCall } from "../react-api";
 
 function isMemoOrForwardRefCall(node: TSESTree.Node, context: RuleContext) {
-  if (node.type !== NodeType.CallExpression) {
-    return false;
-  }
+  if (node.type !== NodeType.CallExpression) return false;
 
-  return isMemoCall(node, context)
-    || isForwardRefCall(node, context);
+  return isMemoCall(node, context) || isForwardRefCall(node, context);
 }
 
 export function getFunctionComponentIdentifier(
@@ -19,11 +16,7 @@ export function getFunctionComponentIdentifier(
   context: RuleContext,
 ): O.Option<TSESTree.Identifier | TSESTree.Identifier[]> {
   const { id, parent } = node;
-
-  if (node.type === NodeType.FunctionDeclaration) {
-    return O.fromNullable(id);
-  }
-
+  if (node.type === NodeType.FunctionDeclaration) return O.fromNullable(id);
   if (
     parent.type === NodeType.VariableDeclarator
     && parent.id.type === NodeType.Identifier
