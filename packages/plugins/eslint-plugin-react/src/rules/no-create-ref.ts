@@ -28,22 +28,29 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
   create(context) {
     const { ctx, listeners } = useComponentCollector(context);
-    const possibleCreateRefCalls = new Map<TSESTreeFunction, TSESTree.CallExpression>();
+    const possibleCreateRefCalls = new Map<TSESTreeFunction, TSESTree.CallExpression[]>();
 
     return {
       ...listeners,
       CallExpression(node) {
         if (!isCreateRefCall(node, context)) return;
-        O.map(ctx.getCurrentFunction(), ([currentFn]) => possibleCreateRefCalls.set(currentFn, node));
+        O.map(
+          ctx.getCurrentFunction(),
+          ([currentFn]) =>
+            possibleCreateRefCalls.set(currentFn, [...possibleCreateRefCalls.get(currentFn) ?? [], node]),
+        );
       },
       "Program:exit"(node) {
         const components = Array.from(ctx.getAllComponents(node).values());
-        for (const [fn, call] of possibleCreateRefCalls.entries()) {
-          if (!components.some((component) => component.node === fn)) continue;
-          context.report({
-            messageId: "NO_CREATE_REF",
-            node: call,
-          });
+        for (const { node: component } of components) {
+          const createRefCalls = possibleCreateRefCalls.get(component);
+          if (!createRefCalls) continue;
+          for (const createRefCall of createRefCalls) {
+            context.report({
+              node: createRefCall,
+              messageId: "NO_CREATE_REF",
+            });
+          }
         }
       },
     };
