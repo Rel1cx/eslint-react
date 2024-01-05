@@ -46,6 +46,14 @@ function Component({ items = () => {} }) {
 }
 ```
 
+```tsx
+function Component(props) {
+  const { items = [] } = props;
+
+  return <div>{items}</div>;
+}
+```
+
 ### Passing
 
 ```tsx
@@ -66,6 +74,15 @@ function Component({ items = emptyObject }) {
 ```tsx
 const noopFunc = () => {};
 function Component({ items = noopFunc }) {
+  return <div>{items}</div>;
+}
+```
+
+```tsx
+const emptyArray = [];
+function Component(props) {
+  const { items = emptyArray } = props;
+
   return <div>{items}</div>;
 }
 ```

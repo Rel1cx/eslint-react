@@ -128,6 +128,14 @@ ruleTester.run(RULE_NAME, rule, {
           return null
       }
     `,
+    dedent`
+      const emptyArray = [];
+      function Component(props) {
+        const { items = emptyArray } = props;
+
+        return <div>{items}</div>;
+      }
+    `,
     dedent`export default function NonComponent({ foo = {} }) {}`,
   ],
   invalid: [
