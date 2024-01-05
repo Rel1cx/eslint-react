@@ -1,3 +1,15 @@
+## v0.10.4 (Sat Jan 6 2024)
+
+### 🪄 Improvements
+
+- Improve rule `react/no-unstable-default-props` to support checking for ObjectPatterns within VariableDeclarators that occur on props.
+- Improve function component detection in rule `react/no-unstable-nested-components` and `debug/function-component`.
+
+### 🐞 Fixes
+
+- Fix same kind of error inside a component should not only be reported once in rule `react/no-create-ref` and `react/no-constructed-context-value`.
+- Fix an issue where render functions wrapped in `useCallback` were accidentally detected as function components in rules `react/no-unstable-nested-components` and `debug/function-component`.
+
 ## v0.10.4-beta.1 (Sat Jan 6 2024)
 
 ### 🪄 Improvements
