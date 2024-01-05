@@ -133,6 +133,49 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: dedent`
+        function App({ foo = [], ...rest }) {
+            return null
+        }
+      `,
+      errors: [{
+        messageId: MESSAGE_ID,
+        data: {
+          propName: "foo",
+          forbiddenType: "array expression",
+        },
+      }],
+    },
+    {
+      code: dedent`
+        function App({ foo = {}, ...rest }) {
+            return null
+        }
+      `,
+      errors: [{
+        messageId: MESSAGE_ID,
+        data: {
+          propName: "foo",
+          forbiddenType: "object expression",
+        },
+      }],
+    },
+    {
+      code: dedent`
+        function App(props) {
+            const { foo = [] } = props
+            return null
+        }
+      `,
+      errors: [{
+        messageId: MESSAGE_ID,
+        data: {
+          propName: "foo",
+          forbiddenType: "array expression",
+        },
+      }],
+    },
+    {
+      code: dedent`
         function App({
             a = {},
             b = ['one', 'two'],

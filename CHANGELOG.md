@@ -1,3 +1,9 @@
+## v0.10.4-beta.0 (Sat Jan 6 2024)
+
+### 🪄 Improvements
+
+- Improve rule `react/no-unstable-default-props` to support checking for ObjectPatterns within VariableDeclarators that occur on props.
+
 ## v0.10.3 (Fri Jan 5 2024)
 
 ### 🪄 Improvements
