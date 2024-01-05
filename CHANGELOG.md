@@ -4,6 +4,10 @@
 
 - Improve function component detection in rule `react/no-unstable-nested-components` and `debug/function-component`.
 
+### 🐞 Fixes
+
+- Fix an issue where render functions wrapped in `useCallback` were accidentally detected as function components in rules `react/no-unstable-nested-components` and `debug/function-component`.
+
 ## v0.10.4-beta.0 (Sat Jan 6 2024)
 
 ### 🪄 Improvements
