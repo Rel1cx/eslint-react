@@ -829,7 +829,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "FUNCTION_COMPONENT",
           data: {
-            name: "anonymous",
+            name: "SomeFooter",
             memo: false,
             forwardRef: false,
             hookCalls: 0,
@@ -1035,7 +1035,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "FUNCTION_COMPONENT",
           data: {
-            name: "anonymous",
+            name: "Header",
             memo: false,
             forwardRef: false,
             hookCalls: 0,

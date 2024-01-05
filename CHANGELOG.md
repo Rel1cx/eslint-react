@@ -1,3 +1,9 @@
+## v0.10.4-beta.1 (Sat Jan 6 2024)
+
+### 🪄 Improvements
+
+- Improve function component detection in rule `react/no-unstable-nested-components` and `debug/function-component`.
+
 ## v0.10.4-beta.0 (Sat Jan 6 2024)
 
 ### 🪄 Improvements
