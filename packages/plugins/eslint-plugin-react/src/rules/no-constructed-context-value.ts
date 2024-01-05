@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
   create(context) {
     const { ctx, listeners } = useComponentCollector(context);
     const detectConstruction = constructionDetector(context);
-    const possibleValueConstructions = new Map<TSESTreeFunction, ERConstruction>();
+    const possibleValueConstructions = new Map<TSESTreeFunction, ERConstruction[]>();
 
     return {
       ...listeners,
@@ -55,30 +55,34 @@ export default createRule<[], MessageID>({
         const valueExpression = valueNode.expression;
         const constructionDetail = detectConstruction(valueExpression);
         if (constructionDetail._tag === "None") return;
-        O.map(ctx.getCurrentFunction(), ([currentFn]) => possibleValueConstructions.set(currentFn, constructionDetail));
+        O.map(
+          ctx.getCurrentFunction(),
+          ([currentFn]) =>
+            possibleValueConstructions.set(currentFn, [
+              ...possibleValueConstructions.get(currentFn) ?? [],
+              constructionDetail,
+            ]),
+        );
       },
       "Program:exit"(node) {
         const components = Array.from(ctx.getAllComponents(node).values());
-        for (const [fn, detail] of possibleValueConstructions.entries()) {
-          if (
-            !components.some((component) => component.node === fn)
-            || detail._tag === "None"
-          ) {
-            continue;
+        for (const { node: component } of components) {
+          const constructions = possibleValueConstructions.get(component);
+          if (!constructions) continue;
+          for (const construction of constructions) {
+            if (construction._tag === "None") continue;
+            const { _tag, node: constructionNode } = construction;
+            const messageId = _tag.startsWith("Function")
+              ? "NO_CONSTRUCTED_CONTEXT_VALUE_WITH_FUNCTION"
+              : "NO_CONSTRUCTED_CONTEXT_VALUE_WITH_IDENTIFIER";
+            context.report({
+              node: constructionNode,
+              messageId,
+              data: {
+                type: constructionNode.type,
+              },
+            });
           }
-
-          const messageId = detail._tag.startsWith("Function")
-            ? "NO_CONSTRUCTED_CONTEXT_VALUE_WITH_FUNCTION"
-            : "NO_CONSTRUCTED_CONTEXT_VALUE_WITH_IDENTIFIER";
-          const { _tag, node } = detail;
-
-          context.report({
-            data: {
-              type: _tag.replaceAll("_", "").toLowerCase(),
-            },
-            messageId,
-            node,
-          });
         }
       },
     };
