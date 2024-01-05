@@ -379,13 +379,14 @@ ___
 
 ### hasNoneOrValidComponentName
 
-▸ **hasNoneOrValidComponentName**(`node`): `boolean`
+▸ **hasNoneOrValidComponentName**(`node`, `context`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `node` | `TSESTreeFunction` |
+| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
 
@@ -628,7 +629,7 @@ ___
 
 ### isComponentName
 
-▸ **isComponentName**(`name`): name is string
+▸ **isComponentName**(`name`): `boolean`
 
 #### Parameters
 
@@ -638,7 +639,7 @@ ___
 
 #### Returns
 
-name is string
+`boolean`
 
 ___
 
