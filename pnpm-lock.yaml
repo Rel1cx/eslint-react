@@ -100,8 +100,8 @@ importers:
         specifier: '>=8.56.0'
         version: 8.56.0
       eslint-config-with-tsconfig:
-        specifier: 2.9.270
-        version: 2.9.270(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3)
+        specifier: 2.9.271
+        version: 2.9.271(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3)
       eslint-plugin-eslint-plugin:
         specifier: 5.2.1
         version: 5.2.1(eslint@8.56.0)
@@ -746,8 +746,8 @@ importers:
         specifier: 9.1.0
         version: 9.1.0(eslint@8.56.0)
       eslint-config-with-tsconfig:
-        specifier: 2.9.270
-        version: 2.9.270(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3)
+        specifier: 2.9.271
+        version: 2.9.271(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3)
       eslint-define-config:
         specifier: 2.1.0
         version: 2.1.0
@@ -5392,8 +5392,8 @@ packages:
       eslint: 8.56.0
     dev: true
 
-  /eslint-config-rel1cx@0.12.270(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-fE1FpUk2ibgHnrR1RR8ayKEZ6yERia8J7BTG3T3onVQzOKKGH7RlHQ15eZ9Q4ibnJ036XEgHRtCmWGui5RxiFg==}
+  /eslint-config-rel1cx@0.12.271(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-uwOxKgPESIYL+UO774hea5GLUU5zep7Q4nuMrnQZKvICL7lSr0tDX7dyzGRsoI+0MgnU24YbmX23mQtwUxfX3Q==}
     engines: {bun: '>=1.0.7', node: '>=18.15.0'}
     peerDependencies:
       eslint: '>=8.56.0'
@@ -5431,8 +5431,8 @@ packages:
       - tailwindcss
     dev: true
 
-  /eslint-config-with-tsconfig@2.9.270(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-gasusp4g4MkspUj/ax1ZQrFuPJREVLHO/1HM2qoaNdyu3i7ZYJYTVscE3LGDcvp+dbbOKoZKm5NiFgqPI3GKFQ==}
+  /eslint-config-with-tsconfig@2.9.271(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-lfuB3bpOMEJHAuYQ5AfjPvdxNTRgx9QHRg167MML5co2JNIMM3fA2N6VCLLDBLITocfUqJCYDZATaw+F6xDnBg==}
     engines: {bun: '>=1.0.13', node: '>=18.15.0'}
     peerDependencies:
       eslint: '>=8.56.0'
@@ -5443,7 +5443,7 @@ packages:
       '@typescript-eslint/eslint-plugin': 6.17.0(@typescript-eslint/parser@6.17.0)(eslint@8.56.0)(typescript@5.3.3)
       '@typescript-eslint/parser': 6.17.0(eslint@8.56.0)(typescript@5.3.3)
       eslint: 8.56.0
-      eslint-config-rel1cx: 0.12.270(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3)
+      eslint-config-rel1cx: 0.12.271(eslint@8.56.0)(tailwindcss@3.4.0)(typescript@5.3.3)
       eslint-define-config: 2.1.0
       eslint-plugin-expect-type: 0.3.0(@typescript-eslint/parser@6.17.0)(eslint@8.56.0)(typescript@5.3.3)
       eslint-plugin-import-access: 2.1.2(eslint@8.56.0)(typescript@5.3.3)

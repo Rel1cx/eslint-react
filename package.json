@@ -75,7 +75,7 @@
     "dprint": "0.45.0",
     "effect": "2.0.0",
     "eslint": ">=8.56.0",
-    "eslint-config-with-tsconfig": "2.9.270",
+    "eslint-config-with-tsconfig": "2.9.271",
     "eslint-plugin-eslint-plugin": "5.2.1",
     "eslint-plugin-filenames-simple": "0.9.0",
     "eslint-plugin-functional": "6.0.0",
