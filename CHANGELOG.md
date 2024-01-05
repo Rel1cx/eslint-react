@@ -4,6 +4,10 @@
 
 - Improve rule `react/no-unstable-default-props` to support checking for ObjectPatterns within VariableDeclarators that occur on props.
 
+### 🐞 Fixes
+
+- Fix same kind of error inside a component should not only be reported once in rule `react/no-create-ref` and `react/no-constructed-context-value`.
+
 ## v0.10.3 (Fri Jan 5 2024)
 
 ### 🪄 Improvements
