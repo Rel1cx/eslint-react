@@ -19,13 +19,8 @@ export function getFunctionComponentIdentifier(
   context: RuleContext,
 ): O.Option<TSESTree.Identifier | TSESTree.Identifier[]> {
   const functionId = getFunctionIdentifier(node);
-
-  if (O.isSome(functionId)) {
-    return functionId;
-  }
-
+  if (O.isSome(functionId)) return functionId;
   const { parent } = node;
-
   if (
     parent.type === NodeType.CallExpression
     && isComponentWrapperCall(parent, context)
