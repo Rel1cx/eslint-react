@@ -69,4 +69,5 @@ ___
 | `no-unsafe-target-blank` | `RuleModule`\<``"NO_UNSAFE_TARGET_BLANK"``, [], `RuleListener`\> |
 | `no-unstable-default-props` | `RuleModule`\<``"NO_UNSTABLE_DEFAULT_PROPS"``, [], `RuleListener`\> |
 | `no-unstable-nested-components` | `RuleModule`\<`MessageID`, [], `RuleListener`\> |
+| `no-unused-class-component-members` | `RuleModule`\<``"NO_UNUSED_CLASS_COMPONENT_MEMBERS"``, [], `RuleListener`\> |
 | `prefer-destructuring-assignment` | `RuleModule`\<``"PREFER_DESTRUCTURING_ASSIGNMENT"``, [], `RuleListener`\> |

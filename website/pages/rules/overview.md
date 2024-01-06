@@ -53,6 +53,7 @@
 - [`react/no-unsafe-target-blank`](react-no-unsafe-target-blank) - disallow `target="_blank"` without `rel="noreferrer noopener"`.
 - [`react/no-unstable-default-props`](react-no-unstable-default-props) - disallow usage of unstable value as default param in function component.
 - [`react/no-unstable-nested-components`](react-no-unstable-nested-components) - disallow usage of unstable nested components.
+- [`react/no-unused-class-component-members`](react-no-unused-class-component-members) - disallow unused class component methods and properties.
 - [`react/prefer-destructuring-assignment`](react-prefer-destructuring-assignment) - enforce using destructuring assignment in component props and context.
 
 ## React Hooks

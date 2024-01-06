@@ -40,6 +40,7 @@ import noUnsafeIframeSandbox from "./rules/no-unsafe-iframe-sandbox";
 import noUnsafeTargetBlank from "./rules/no-unsafe-target-blank";
 import noUnstableDefaultProps from "./rules/no-unstable-default-props";
 import noUnstableNestedComponents from "./rules/no-unstable-nested-components";
+import noUnusedClassComponentMembers from "./rules/no-unused-class-component-members";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
 
 export const meta = {
@@ -85,5 +86,6 @@ export const rules = {
   "no-unsafe-target-blank": noUnsafeTargetBlank,
   "no-unstable-default-props": noUnstableDefaultProps,
   "no-unstable-nested-components": noUnstableNestedComponents,
+  "no-unused-class-component-members": noUnusedClassComponentMembers,
   "prefer-destructuring-assignment": preferDestructuringAssignment,
 } as const;

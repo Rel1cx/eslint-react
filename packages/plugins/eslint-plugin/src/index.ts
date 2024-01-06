@@ -74,6 +74,7 @@ const rulePreset = {
   "react/no-unsafe-target-blank": "warn",
   "react/no-unstable-default-props": "error",
   "react/no-unstable-nested-components": "warn",
+  "react/no-unused-class-component-members": "warn",
   "react/prefer-destructuring-assignment": "warn",
 
   "react-hooks/ensure-custom-hooks-using-other-hooks": "warn",
@@ -138,6 +139,7 @@ const recommendedPreset = {
   "react/no-unsafe-target-blank": "warn",
   "react/no-unstable-default-props": "error",
   "react/no-unstable-nested-components": "warn",
+  "react/no-unused-class-component-members": "warn",
   // "react/prefer-destructuring-assignment": "warn", // Not enabled because it's style related.
 
   // Not enabled because it triggers prematurely before the code is fully written.
