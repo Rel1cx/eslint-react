@@ -32,7 +32,7 @@ export default createRule<[], MessageID>({
         for (const { name, hookCalls, node } of allHooks.values()) {
           context.report({
             data: {
-              name,
+              name: name.value,
               hookCalls: hookCalls.length,
             },
             messageId: "REACT_HOOKS",

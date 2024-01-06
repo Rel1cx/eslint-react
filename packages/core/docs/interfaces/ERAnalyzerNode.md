@@ -10,6 +10,8 @@
 
   ↳ [`ERClassComponent`](ERClassComponent.md)
 
+  ↳ [`ERHook`](ERHook.md)
+
 ## Table of contents
 
 ### Properties

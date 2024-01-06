@@ -1,16 +1,17 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
+import type { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
+import type { ERAnalyzerNode } from "../internal";
+
 /* eslint-disable perfectionist/sort-interfaces */
-export interface ERHook {
-  // The unique key of the hook
-  _: string;
+export interface ERHook extends ERAnalyzerNode {
   // The identifier of the hook
-  id: TSESTree.Identifier;
+  id: O.Some<TSESTree.Identifier>;
   // The AST node of the hook
   node: TSESTreeFunction;
   // The name of the hook
-  name: string;
+  name: O.Some<string>;
   // The `HookFlag` of the hook, reserved for future use
   // flag: bigint;
   // The type of the hook, reserved for future use

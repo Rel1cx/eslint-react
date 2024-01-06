@@ -24,17 +24,18 @@ export function useHookCollector(): {
     MutList.append(functionStack, node);
     const currentFn = getCurrentFunction();
     if (!currentFn) return;
-    const maybeId = getFunctionIdentifier(currentFn);
-    const maybeName = O.flatMapNullable(maybeId, (id) => id.name);
-    if (O.isSome(maybeId) && O.isSome(maybeName) && isReactHookName(maybeName.value)) {
-      const id = maybeId.value;
-      const name = maybeName.value;
+    const id = getFunctionIdentifier(currentFn);
+    const name = O.flatMapNullable(id, (id) => id.name);
+    if (O.isSome(id) && O.isSome(name) && isReactHookName(name.value)) {
       const key = uid.rnd();
 
       hooks.set(key, {
         _: key,
         id,
+        kind: "function",
         name,
+        flag: 0n,
+        hint: 0n,
         hookCalls: [],
         node: currentFn,
       });

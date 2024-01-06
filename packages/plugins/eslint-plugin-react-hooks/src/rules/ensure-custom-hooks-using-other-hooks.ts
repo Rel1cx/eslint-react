@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
           if (hookCalls.length > 0) continue;
           context.report({
             data: {
-              name,
+              name: name.value,
             },
             messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
             node,
