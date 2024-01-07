@@ -1,5 +1,7 @@
+import type { Construction } from "@eslint-react/ast";
+import { inspectConstruction } from "@eslint-react/ast";
 import { NodeType, type TSESTreeFunction } from "@eslint-react/ast";
-import { constructionDetector, type ERConstruction, useComponentCollector } from "@eslint-react/core";
+import { useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
@@ -34,8 +36,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
   create(context) {
     const { ctx, listeners } = useComponentCollector(context);
-    const detectConstruction = constructionDetector(context);
-    const possibleValueConstructions = new Map<TSESTreeFunction, ERConstruction[]>();
+    const possibleValueConstructions = new Map<TSESTreeFunction, Construction[]>();
 
     return {
       ...listeners,
@@ -53,14 +54,14 @@ export default createRule<[], MessageID>({
         const valueNode = maybeJSXValueAttribute.value.value;
         if (valueNode?.type !== NodeType.JSXExpressionContainer) return;
         const valueExpression = valueNode.expression;
-        const constructionDetail = detectConstruction(valueExpression);
-        if (constructionDetail._tag === "None") return;
+        const construction = inspectConstruction(valueExpression, context);
+        if (construction._tag === "None") return;
         O.map(
           ctx.getCurrentFunction(),
           ([currentFn]) =>
             possibleValueConstructions.set(currentFn, [
               ...possibleValueConstructions.get(currentFn) ?? [],
-              constructionDetail,
+              construction,
             ]),
         );
       },

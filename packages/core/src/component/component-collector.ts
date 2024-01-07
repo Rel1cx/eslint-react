@@ -18,7 +18,7 @@ import { isMatching, match } from "ts-pattern";
 
 import { isReactHookCall } from "../hook";
 import type { ERFunctionComponent } from "./component";
-import { DEFAULT_COMPONENT_COLLECTOR_HINT, ERComponentCollectorHint } from "./component-collector-hint";
+import { DEFAULT_COMPONENT_HINT, ERComponentHint } from "./component-collector-hint";
 import { ERFunctionComponentFlag } from "./component-flag";
 import { getFunctionComponentIdentifier } from "./component-identifier";
 import { getComponentInitPath, hasCallInInitPath } from "./component-init-path";
@@ -41,19 +41,19 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
     return false;
   }
 
-  if (hint & ERComponentCollectorHint.SkipMapCallback && isMapCall(node.parent)) {
+  if (hint & ERComponentHint.SkipMapCallback && isMapCall(node.parent)) {
     return false;
   }
 
-  if (hint & ERComponentCollectorHint.SkipObjectMethod && isFunctionOfObjectMethod(node.parent)) {
+  if (hint & ERComponentHint.SkipObjectMethod && isFunctionOfObjectMethod(node.parent)) {
     return false;
   }
 
-  if (hint & ERComponentCollectorHint.SkipClassMethod && isFunctionOfClassMethod(node.parent)) {
+  if (hint & ERComponentHint.SkipClassMethod && isFunctionOfClassMethod(node.parent)) {
     return false;
   }
 
-  if (hint & ERComponentCollectorHint.SkipClassProperty && isFunctionOfClassProperty(node.parent)) {
+  if (hint & ERComponentHint.SkipClassProperty && isFunctionOfClassProperty(node.parent)) {
     return false;
   }
 
@@ -88,7 +88,7 @@ function getComponentFlag(initPath: ERFunctionComponent["initPath"], pragma: str
 
 export function useComponentCollector(
   context: RuleContext,
-  hint: bigint = DEFAULT_COMPONENT_COLLECTOR_HINT,
+  hint: bigint = DEFAULT_COMPONENT_HINT,
   pragma = getPragmaFromContext(context),
 ) {
   const components = new Map<string, ERFunctionComponent>();

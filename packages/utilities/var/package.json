@@ -1,7 +1,7 @@
 {
-  "name": "@eslint-react/types",
+  "name": "@eslint-react/var",
   "version": "0.10.6-beta.0",
-  "description": "ESLint React's type definitions.",
+  "description": "TSESTree AST utility module for static analysis of variables",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
     "url": "https://github.com/rel1cx/eslint-react/issues"
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Rel1cx/eslint-react",
-    "directory": "packages/types"
+    "directory": "packages/utilities/var"
   },
   "license": "MIT",
   "author": "Eva1ent<let@ik.me>",
@@ -36,14 +36,18 @@
   ],
   "scripts": {
     "build": "rollup -c rollup.config.ts --configPlugin swc3 && cp dist/index.d.ts dist/index.d.mts",
-    "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:type": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
+    "@eslint-react/ast": "workspace:*",
     "@eslint-react/tools": "workspace:*",
+    "@eslint-react/types": "workspace:*",
+    "@typescript-eslint/scope-manager": "6.18.0",
     "@typescript-eslint/types": "6.18.0",
-    "@typescript-eslint/utils": "6.18.0"
+    "@typescript-eslint/utils": "6.18.0",
+    "rambda": "8.6.0",
+    "string-ts": "2.0.0"
   }
 }

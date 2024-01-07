@@ -3,7 +3,7 @@ import type { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import type { ERAnalyzerNode } from "../internal";
-import type { ERComponentCollectorHint } from "./component-collector-hint";
+import type { ERComponentHint } from "./component-collector-hint";
 import type { ERClassComponentFlag, ERFunctionComponentFlag } from "./component-flag";
 import type { ERComponentInitPath } from "./component-init-path";
 
@@ -13,7 +13,7 @@ export interface ERFunctionComponent extends ERAnalyzerNode {
   kind: "function";
   node: TSESTreeFunction;
   flag: ERFunctionComponentFlag;
-  hint: ERComponentCollectorHint;
+  hint: ERComponentHint;
   initPath: O.Option<ERComponentInitPath>;
   hookCalls: TSESTree.CallExpression[];
   displayName: O.Option<TSESTree.Expression>;
@@ -24,7 +24,7 @@ export interface ERClassComponent extends ERAnalyzerNode {
   kind: "class";
   node: TSESTreeClass;
   flag: ERClassComponentFlag;
-  hint: ERComponentCollectorHint;
+  hint: ERComponentHint;
   methods: (TSESTree.MethodDefinition | TSESTree.PropertyDefinition)[];
   displayName: O.Option<TSESTree.Expression>;
 }

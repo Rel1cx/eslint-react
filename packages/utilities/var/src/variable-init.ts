@@ -1,8 +1,7 @@
+import { NodeType } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { Variable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-
-import { NodeType } from "../node";
 
 /**
  * Get the init node of the nth definition of a variable

@@ -1,6 +1,7 @@
-import { findVariableByName, getVariablesUpToGlobal, is, isOneOf, NodeType } from "@eslint-react/ast";
+import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
+import { findVariableByName, getVariablesUpToGlobal } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { isMatching, match } from "ts-pattern";

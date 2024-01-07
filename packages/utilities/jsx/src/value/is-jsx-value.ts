@@ -1,6 +1,7 @@
-import { findVariableByNameUpToGlobal, getVariableInit, isJSXTagNameExpression, NodeType } from "@eslint-react/ast";
+import { isJSXTagNameExpression, NodeType } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
+import { findVariableByNameUpToGlobal, getVariableInit } from "@eslint-react/var";
 import { type TSESTree } from "@typescript-eslint/utils";
 import { match, P } from "ts-pattern";
 
@@ -20,7 +21,7 @@ import { isCreateElementCall } from "../element";
 //   ];
 
 /* eslint-disable perfectionist/sort-objects */
-export const JSXValueCheckHint = {
+export const JSXValueHint = {
   None: 0n,
   SkipNullLiteral: 1n << 0n,
   SkipUndefinedLiteral: 1n << 1n,
@@ -34,21 +35,21 @@ export const JSXValueCheckHint = {
 } as const;
 /* eslint-enable perfectionist/sort-objects */
 
-export const DEFAULT_JSX_VALUE_CHECK_HINT = JSXValueCheckHint.SkipUndefinedLiteral
-  | JSXValueCheckHint.SkipBooleanLiteral;
+export const DEFAULT_JSX_VALUE_HINT = JSXValueHint.SkipUndefinedLiteral
+  | JSXValueHint.SkipBooleanLiteral;
 
 /**
  * Check if a node is a JSX value
  * @param node The AST node to check
  * @param context The rule context
- * @param hint The `JSXValueCheckHint` to use
+ * @param hint The `JSXValueHint` to use
  * @returns boolean
  */
 
 export function isJSXValue(
   node: TSESTree.Node | null | undefined,
   context: RuleContext,
-  hint: bigint = DEFAULT_JSX_VALUE_CHECK_HINT,
+  hint: bigint = DEFAULT_JSX_VALUE_HINT,
 ): boolean {
   if (!node) return false;
 
@@ -59,22 +60,22 @@ export function isJSXValue(
     .with({ type: NodeType.JSXNamespacedName }, F.constTrue)
     .with({ type: NodeType.Literal }, (node) => {
       return match(node.value)
-        .with(null, () => !(hint & JSXValueCheckHint.SkipNullLiteral))
-        .with(P.boolean, () => !(hint & JSXValueCheckHint.SkipBooleanLiteral))
-        .with(P.string, () => !(hint & JSXValueCheckHint.SkipStringLiteral))
-        .with(P.number, () => !(hint & JSXValueCheckHint.SkipNumberLiteral))
+        .with(null, () => !(hint & JSXValueHint.SkipNullLiteral))
+        .with(P.boolean, () => !(hint & JSXValueHint.SkipBooleanLiteral))
+        .with(P.string, () => !(hint & JSXValueHint.SkipStringLiteral))
+        .with(P.number, () => !(hint & JSXValueHint.SkipNumberLiteral))
         .otherwise(F.constFalse);
     })
-    .with({ type: NodeType.TemplateLiteral }, () => !(hint & JSXValueCheckHint.SkipStringLiteral))
+    .with({ type: NodeType.TemplateLiteral }, () => !(hint & JSXValueHint.SkipStringLiteral))
     .with({ type: NodeType.ArrayExpression }, (node) => {
-      if (hint & JSXValueCheckHint.StrictArray) return node.elements.every((n) => isJSXValue(n, context, hint));
+      if (hint & JSXValueHint.StrictArray) return node.elements.every((n) => isJSXValue(n, context, hint));
 
       return node.elements.some((n) => isJSXValue(n, context, hint));
     })
     .with({ type: NodeType.ConditionalExpression }, (node) => {
       function leftHasJSX(node: TSESTree.ConditionalExpression) {
         if (Array.isArray(node.consequent)) {
-          if (hint & JSXValueCheckHint.StrictArray) {
+          if (hint & JSXValueHint.StrictArray) {
             return node.consequent.every((n: TSESTree.Expression) => isJSXValue(n, context, hint));
           }
 
@@ -88,7 +89,7 @@ export function isJSXValue(
         return isJSXValue(node.alternate, context, hint);
       }
 
-      if (hint & JSXValueCheckHint.StrictConditional) {
+      if (hint & JSXValueHint.StrictConditional) {
         return leftHasJSX(node) && rightHasJSX(node);
       }
 
@@ -103,13 +104,13 @@ export function isJSXValue(
       return isJSXValue(exp, context, hint);
     })
     .with({ type: NodeType.CallExpression }, (node) => {
-      if (hint & JSXValueCheckHint.SkipCreateElement) return false;
+      if (hint & JSXValueHint.SkipCreateElement) return false;
 
       return isCreateElementCall(node, context);
     })
     .with({ type: NodeType.Identifier }, (node) => {
       const { name } = node;
-      if (name === "undefined") return !(hint & JSXValueCheckHint.SkipUndefinedLiteral);
+      if (name === "undefined") return !(hint & JSXValueHint.SkipUndefinedLiteral);
       if (isJSXTagNameExpression(node)) return true;
       const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
       const maybeVariable = findVariableByNameUpToGlobal(name, initialScope);

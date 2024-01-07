@@ -1,6 +1,7 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
+import { ConstructionHint, inspectConstruction } from "@eslint-react/ast";
 import { NodeType, readableNodeType } from "@eslint-react/ast";
-import { isUnstableAssignmentPattern, useComponentCollector } from "@eslint-react/core";
+import { useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -73,7 +74,8 @@ export default createRule<[], MessageID>({
             if (prop.type !== NodeType.Property || prop.value.type !== NodeType.AssignmentPattern) continue;
             const { value } = prop;
             const { right } = value;
-            if (!isUnstableAssignmentPattern(value)) continue;
+            const construction = inspectConstruction(value, context, ConstructionHint.StrictCallExpression);
+            if (construction._tag === "None") continue;
             const forbiddenType = readableNodeType(right);
             context.report({
               data: {

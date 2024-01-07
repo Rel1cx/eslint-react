@@ -1,6 +1,7 @@
-import { findVariableByNameUpToGlobal, getVariableInit, is, isOneOf, NodeType } from "@eslint-react/ast";
+import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import { findPropInAttributes, findPropInProperties, isCreateElementCall } from "@eslint-react/jsx";
 import { F, O } from "@eslint-react/tools";
+import { findVariableByNameUpToGlobal, getVariableInit } from "@eslint-react/var";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";

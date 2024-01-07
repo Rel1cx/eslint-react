@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin-react-hooks",
-  "version": "0.10.5",
+  "version": "0.10.6-beta.0",
   "description": "ESLint React's ESLint plugin for React Hooks related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Rel1cx/eslint-react",
-    "directory": "packages/eslint-plugin-react-hooks"
+    "directory": "packages/plugins/eslint-plugin-react-hooks"
   },
   "license": "MIT",
   "author": "Eva1ent<let@ik.me>",
@@ -48,6 +48,7 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
+    "@eslint-react/var": "workspace:*",
     "@typescript-eslint/parser": ">=6.18.0",
     "@typescript-eslint/scope-manager": "6.18.0",
     "@typescript-eslint/type-utils": "6.18.0",

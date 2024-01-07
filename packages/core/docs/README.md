@@ -15,25 +15,22 @@
 
 - [ERClassComponentFlag](README.md#erclasscomponentflag)
 - [ERComponent](README.md#ercomponent)
-- [ERComponentCollectorHint](README.md#ercomponentcollectorhint)
+- [ERComponentHint](README.md#ercomponenthint)
 - [ERComponentInitPath](README.md#ercomponentinitpath)
 - [ERComponentKind](README.md#ercomponentkind)
-- [ERConstruction](README.md#erconstruction)
 - [ERFunctionComponentFlag](README.md#erfunctioncomponentflag)
 
 ### Variables
 
-- [DEFAULT\_COMPONENT\_COLLECTOR\_HINT](README.md#default_component_collector_hint)
+- [DEFAULT\_COMPONENT\_HINT](README.md#default_component_hint)
 - [ERClassComponentFlag](README.md#erclasscomponentflag-1)
-- [ERComponentCollectorHint](README.md#ercomponentcollectorhint-1)
-- [ERConstruction](README.md#erconstruction-1)
+- [ERComponentHint](README.md#ercomponenthint-1)
 - [ERFunctionComponentFlag](README.md#erfunctioncomponentflag-1)
 - [RE\_COMPONENT\_NAME](README.md#re_component_name)
 - [RE\_HOOK\_NAME](README.md#re_hook_name)
 
 ### Functions
 
-- [constructionDetector](README.md#constructiondetector)
 - [getComponentInitPath](README.md#getcomponentinitpath)
 - [getComponentNameFromIdentifier](README.md#getcomponentnamefromidentifier)
 - [getFunctionComponentIdentifier](README.md#getfunctioncomponentidentifier)
@@ -76,7 +73,6 @@
 - [isReactHookCallWithName](README.md#isreacthookcallwithname)
 - [isReactHookCallWithNameLoose](README.md#isreacthookcallwithnameloose)
 - [isReactHookName](README.md#isreacthookname)
-- [isUnstableAssignmentPattern](README.md#isunstableassignmentpattern)
 - [isUseCallbackCall](README.md#isusecallbackcall)
 - [isUseContextCall](README.md#isusecontextcall)
 - [isUseDebugValueCall](README.md#isusedebugvaluecall)
@@ -113,9 +109,9 @@ ___
 
 ___
 
-### ERComponentCollectorHint
+### ERComponentHint
 
-Ƭ **ERComponentCollectorHint**: `bigint`
+Ƭ **ERComponentHint**: `bigint`
 
 ___
 
@@ -131,21 +127,15 @@ ___
 
 ___
 
-### ERConstruction
-
-Ƭ **ERConstruction**: `Data.TaggedEnum`\<\{ `Array`: \{ `node`: `TSESTree.ArrayExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\>  } ; `AssignmentExpression`: \{ `node`: `TSESTree.Node` ; `usage`: `O.Option`\<`TSESTree.Node`\>  } ; `ClassExpression`: \{ `node`: `TSESTree.ClassExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\>  } ; `FunctionDeclaration`: \{ `node`: `TSESTree.FunctionDeclaration` ; `usage`: `O.Option`\<`TSESTree.Expression` \| `TSESTree.Identifier`\>  } ; `FunctionExpression`: \{ `node`: `TSESTree.ArrowFunctionExpression` \| `TSESTree.FunctionExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\>  } ; `JSXElement`: \{ `node`: `TSESTree.JSXElement` ; `usage`: `O.Option`\<`TSESTree.Node`\>  } ; `JSXFragment`: \{ `node`: `TSESTree.JSXFragment` ; `usage`: `O.Option`\<`TSESTree.Node`\>  } ; `NewExpression`: \{ `node`: `TSESTree.NewExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\>  } ; `None`: {} ; `ObjectExpression`: \{ `node`: `TSESTree.ObjectExpression` ; `usage`: `O.Option`\<`TSESTree.Node`\>  } ; `RegExpLiteral`: \{ `node`: `TSESTree.Literal` ; `usage`: `O.Option`\<`TSESTree.Node`\>  }  }\>
-
-___
-
 ### ERFunctionComponentFlag
 
 Ƭ **ERFunctionComponentFlag**: `bigint`
 
 ## Variables
 
-### DEFAULT\_COMPONENT\_COLLECTOR\_HINT
+### DEFAULT\_COMPONENT\_HINT
 
-• `Const` **DEFAULT\_COMPONENT\_COLLECTOR\_HINT**: `bigint`
+• `Const` **DEFAULT\_COMPONENT\_HINT**: `bigint`
 
 ___
 
@@ -162,9 +152,9 @@ ___
 
 ___
 
-### ERComponentCollectorHint
+### ERComponentHint
 
-• **ERComponentCollectorHint**: `Object`
+• **ERComponentHint**: `Object`
 
 hints for component collector
 
@@ -188,28 +178,6 @@ hints for component collector
 | `StrictArray` | `bigint` |
 | `StrictConditional` | `bigint` |
 | `StrictLogical` | `bigint` |
-
-___
-
-### ERConstruction
-
-• **ERConstruction**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `Array` | `Constructor`\<`Data`\<\{ `_tag`: ``"Array"`` ; `node`: `ArrayExpression` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
-| `AssignmentExpression` | `Constructor`\<`Data`\<\{ `_tag`: ``"AssignmentExpression"`` ; `node`: `Node` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
-| `ClassExpression` | `Constructor`\<`Data`\<\{ `_tag`: ``"ClassExpression"`` ; `node`: `ClassExpression` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
-| `FunctionDeclaration` | `Constructor`\<`Data`\<\{ `_tag`: ``"FunctionDeclaration"`` ; `node`: `FunctionDeclaration` ; `usage`: `Option`\<`Expression`\>  }\>, ``"_tag"``\> |
-| `FunctionExpression` | `Constructor`\<`Data`\<\{ `_tag`: ``"FunctionExpression"`` ; `node`: `ArrowFunctionExpression` \| `FunctionExpression` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
-| `JSXElement` | `Constructor`\<`Data`\<\{ `_tag`: ``"JSXElement"`` ; `node`: `JSXElement` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
-| `JSXFragment` | `Constructor`\<`Data`\<\{ `_tag`: ``"JSXFragment"`` ; `node`: `JSXFragment` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
-| `NewExpression` | `Constructor`\<`Data`\<\{ `_tag`: ``"NewExpression"`` ; `node`: `NewExpression` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
-| `None` | `Constructor`\<`Data`\<\{ `_tag`: ``"None"``  }\>, ``"_tag"``\> |
-| `ObjectExpression` | `Constructor`\<`Data`\<\{ `_tag`: ``"ObjectExpression"`` ; `node`: `ObjectExpression` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
-| `RegExpLiteral` | `Constructor`\<`Data`\<\{ `_tag`: ``"RegExpLiteral"`` ; `node`: `Literal` ; `usage`: `Option`\<`Node`\>  }\>, ``"_tag"``\> |
 
 ___
 
@@ -238,44 +206,6 @@ ___
 • `Const` **RE\_HOOK\_NAME**: `RegExp`
 
 ## Functions
-
-### constructionDetector
-
-▸ **constructionDetector**\<`T`\>(`context`): (`node`: `TSESTree.Node`) => [`ERConstruction`](README.md#erconstruction)
-
-Get a function that detects the construction of a given node.
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | extends `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `context` | `T` | The rule context |
-
-#### Returns
-
-`fn`
-
-A function that detects the construction of a given node
-
-▸ (`node`): [`ERConstruction`](README.md#erconstruction)
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `TSESTree.Node` |
-
-##### Returns
-
-[`ERConstruction`](README.md#erconstruction)
-
-___
 
 ### getComponentInitPath
 
@@ -1084,24 +1014,6 @@ ___
 
 ___
 
-### isUnstableAssignmentPattern
-
-▸ **isUnstableAssignmentPattern**(`node`): node is AssignmentPattern & Object
-
-Check if the given node is an unstable assignment pattern (will change between assignments)
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `node` | `AssignmentPattern` | The AST node to check |
-
-#### Returns
-
-node is AssignmentPattern & Object
-
-___
-
 ### isUseCallbackCall
 
 ▸ **isUseCallbackCall**(`node`, `context`, `pragma`): `boolean`
@@ -1459,7 +1371,7 @@ ___
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined` |
-| `hint` | `bigint` | `DEFAULT_COMPONENT_COLLECTOR_HINT` |
+| `hint` | `bigint` | `DEFAULT_COMPONENT_HINT` |
 | `pragma` | `string` | `undefined` |
 
 #### Returns

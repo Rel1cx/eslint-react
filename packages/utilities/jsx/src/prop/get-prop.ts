@@ -1,12 +1,7 @@
-import {
-  ESLintCommunityESLintUtils,
-  findVariableByNameUpToGlobal,
-  getVariableInit,
-  is,
-  NodeType,
-} from "@eslint-react/ast";
+import { ESLintCommunityESLintUtils, is, NodeType } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
+import { findVariableByNameUpToGlobal, getVariableInit } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 // Workaround for @typescript-eslint/utils's TS2742 error.
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

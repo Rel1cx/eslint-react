@@ -1,5 +1,6 @@
-import { findVariableByNameUpToGlobal, getVariableInitExpression, isJSX, NodeType } from "@eslint-react/ast";
+import { isJSX, NodeType } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
+import { findVariableByNameUpToGlobal, getVariableInitExpression } from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { type TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";

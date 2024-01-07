@@ -1,14 +1,14 @@
-import { JSXValueCheckHint } from "@eslint-react/jsx";
+import { JSXValueHint } from "@eslint-react/jsx";
 
-export type ERComponentCollectorHint = bigint;
+export type ERComponentHint = bigint;
 
 /* eslint-disable perfectionist/sort-objects */
 /**
  * hints for component collector
  */
-export const ERComponentCollectorHint = {
-  ...JSXValueCheckHint,
-  // 1n << 0n - 1n << 63n are reserved for JSXValueCheckHint
+export const ERComponentHint = {
+  ...JSXValueHint,
+  // 1n << 0n - 1n << 63n are reserved for JSXValueHint
   // Skip function component created by React.memo
   SkipMemo: 1n << 64n,
   // Skip function component created by React.forwardRef
@@ -24,8 +24,8 @@ export const ERComponentCollectorHint = {
 } as const;
 /* eslint-enable perfectionist/sort-objects */
 
-export const DEFAULT_COMPONENT_COLLECTOR_HINT = 0n
-  | ERComponentCollectorHint.SkipUndefinedLiteral
-  | ERComponentCollectorHint.SkipBooleanLiteral
-  | ERComponentCollectorHint.SkipStringLiteral
-  | ERComponentCollectorHint.SkipNumberLiteral;
+export const DEFAULT_COMPONENT_HINT = 0n
+  | ERComponentHint.SkipUndefinedLiteral
+  | ERComponentHint.SkipBooleanLiteral
+  | ERComponentHint.SkipStringLiteral
+  | ERComponentHint.SkipNumberLiteral;

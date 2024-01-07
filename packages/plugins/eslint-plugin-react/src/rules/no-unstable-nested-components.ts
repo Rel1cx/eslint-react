@@ -8,7 +8,7 @@ import {
   type TSESTreeFunction,
 } from "@eslint-react/ast";
 import {
-  ERComponentCollectorHint,
+  ERComponentHint,
   isInsideRenderMethod,
   unsafeIsDeclaredInRenderProp,
   unsafeIsDirectValueOfRenderProperty,
@@ -46,14 +46,14 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const hint = ERComponentCollectorHint.SkipMapCallback
-      | ERComponentCollectorHint.SkipNullLiteral
-      | ERComponentCollectorHint.SkipUndefinedLiteral
-      | ERComponentCollectorHint.SkipBooleanLiteral
-      | ERComponentCollectorHint.SkipStringLiteral
-      | ERComponentCollectorHint.SkipNumberLiteral
-      | ERComponentCollectorHint.StrictLogical
-      | ERComponentCollectorHint.StrictConditional;
+    const hint = ERComponentHint.SkipMapCallback
+      | ERComponentHint.SkipNullLiteral
+      | ERComponentHint.SkipUndefinedLiteral
+      | ERComponentHint.SkipBooleanLiteral
+      | ERComponentHint.SkipStringLiteral
+      | ERComponentHint.SkipNumberLiteral
+      | ERComponentHint.StrictLogical
+      | ERComponentHint.StrictConditional;
 
     const collector = useComponentCollector(context, hint);
     const collectorLegacy = useComponentCollectorLegacy(context);

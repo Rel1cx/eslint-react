@@ -425,6 +425,9 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../../types
+      '@eslint-react/var':
+        specifier: workspace:*
+        version: link:../../utilities/var
       '@typescript-eslint/parser':
         specifier: '>=6.18.0'
         version: 6.18.0(eslint@8.56.0)(typescript@5.3.3)
@@ -518,6 +521,9 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../../types
+      '@eslint-react/var':
+        specifier: workspace:*
+        version: link:../../utilities/var
       '@typescript-eslint/parser':
         specifier: '>=6.18.0'
         version: 6.18.0(eslint@8.56.0)(typescript@5.3.3)
@@ -563,6 +569,9 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../../types
+      '@eslint-react/var':
+        specifier: workspace:*
+        version: link:../../utilities/var
       '@typescript-eslint/parser':
         specifier: '>=6.18.0'
         version: 6.18.0(eslint@8.56.0)(typescript@5.3.3)
@@ -627,9 +636,6 @@ importers:
       '@eslint-community/eslint-utils':
         specifier: 4.4.0
         version: 4.4.0(eslint@8.56.0)
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../../shared
       '@eslint-react/tools':
         specifier: workspace:*
         version: link:../../tools
@@ -666,6 +672,9 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../../types
+      '@eslint-react/var':
+        specifier: workspace:*
+        version: link:../var
       '@typescript-eslint/scope-manager':
         specifier: 6.18.0
         version: 6.18.0
@@ -678,6 +687,33 @@ importers:
       micro-memoize:
         specifier: 4.1.2
         version: 4.1.2
+
+  packages/utilities/var:
+    dependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../ast
+      '@eslint-react/tools':
+        specifier: workspace:*
+        version: link:../../tools
+      '@eslint-react/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@typescript-eslint/scope-manager':
+        specifier: 6.18.0
+        version: 6.18.0
+      '@typescript-eslint/types':
+        specifier: 6.18.0
+        version: 6.18.0
+      '@typescript-eslint/utils':
+        specifier: 6.18.0
+        version: 6.18.0(eslint@8.56.0)(typescript@5.3.3)
+      rambda:
+        specifier: 8.6.0
+        version: 8.6.0
+      string-ts:
+        specifier: 2.0.0
+        version: 2.0.0
 
   website:
     dependencies:

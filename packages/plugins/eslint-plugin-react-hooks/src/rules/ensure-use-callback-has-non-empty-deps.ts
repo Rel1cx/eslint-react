@@ -1,8 +1,9 @@
-import { findVariableByNameUpToGlobal, getVariableInit, is, NodeType } from "@eslint-react/ast";
+import { is, NodeType } from "@eslint-react/ast";
 import { isReactHookCall, isReactHookCallWithNameLoose, isUseCallbackCall } from "@eslint-react/core";
 import { getPragmaFromContext } from "@eslint-react/jsx";
 import { ESLintSettingsSchema, parseSchema } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
+import { findVariableByNameUpToGlobal, getVariableInit } from "@eslint-react/var";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
