@@ -4,11 +4,19 @@
 
 - Add rule `react/no-unused-class-component-members`.
 
+### 🪄 Improvements
+
+- Update `@typescript-eslint`'s packages to `6.18.0`.
+
 ## v0.10.5-beta.0 (Sun Jan 7 2024)
 
 ### ✨ New
 
 - Add rule `react/no-unused-class-component-members`.
+
+### 🪄 Improvements
+
+- Update `@typescript-eslint`'s packages to `6.18.0`.
 
 ## v0.10.4 (Sat Jan 6 2024)
 
