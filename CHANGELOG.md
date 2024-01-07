@@ -1,3 +1,9 @@
+## v0.10.5 (Mon Jan 8 2024)
+
+### ✨ New
+
+- Add rule `react/no-unused-class-component-members`.
+
 ## v0.10.5-beta.0 (Sun Jan 7 2024)
 
 ### ✨ New
