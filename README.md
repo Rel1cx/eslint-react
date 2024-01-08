@@ -2,11 +2,10 @@
 
 <h1 align="center" alt="title">ESLint React</h1>
 
-A full TypeScript rewrite of eslint-plugin-react, with well-designed rule behaviors and sensible defaults for modern React apps.
+More than 50 ESLint rules to catch common mistakes and improve your React code. Rewritten from the scratch (mostly).
 
 ## Highlights
 
-- Full TypeScript rewrite.
 - Well designed rule behaviors and sensible defaults.
 - Maximum flexibility through minimum configuration options.
 - No auto-fix, Formatting independent, treat your codebase like it's read-only.
