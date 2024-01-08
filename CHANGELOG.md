@@ -1,3 +1,9 @@
+## v0.10.6-beta.0 (Mon Jan 8 2024)
+
+### 🐞 Fixes
+
+- Fix an issue where `react/no-constructed-context-value` and `react/no-unstable-default-props` would report false negatives when using LogicalExpression and ConditionalExpression.
+
 ## v0.10.5 (Mon Jan 8 2024)
 
 ### ✨ New

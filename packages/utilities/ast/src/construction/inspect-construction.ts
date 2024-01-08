@@ -81,7 +81,7 @@ export function inspectConstruction<T extends RuleContext>(
       .when(is(NodeType.LogicalExpression), (node) => {
         if (!("left" in node && "right" in node)) return None;
         const left = detect(node.left);
-        if (left._tag === "None") return None;
+        if (left._tag !== "None") return left;
 
         return detect(node.right);
       })
@@ -90,7 +90,7 @@ export function inspectConstruction<T extends RuleContext>(
           return None;
         }
         const consequent = detect(node.consequent);
-        if (consequent._tag === "None") return None;
+        if (consequent._tag !== "None") return None;
 
         return detect(node.alternate);
       })
