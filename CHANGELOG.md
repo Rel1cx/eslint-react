@@ -1,4 +1,4 @@
-## v0.10.6-beta.0 (Draft)
+## v0.10.6-beta.0 (Mon Jan 8 2024)
 
 ### 🐞 Fixes
 
