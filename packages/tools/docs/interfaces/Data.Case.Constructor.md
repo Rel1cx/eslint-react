@@ -25,7 +25,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `args` | `Equals`\<`Omit`\<`A`, typeof [`symbol`](../modules/Equal.md#symbol) \| typeof `symbol` \| `Tag`\>, {}\> extends ``true`` ? `void` : \{ readonly [P in string \| number \| symbol as P extends typeof symbol \| typeof symbol \| Tag ? never : P]: A[P] } |
+| `args` | `Equals`\<`Omit`\<`A`, `Tag` \| keyof Equal\>, {}\> extends ``true`` ? `void` : \{ readonly [P in string \| number \| symbol as P extends Tag \| (keyof Equal) ? never : P]: A[P] } |
 
 #### Returns
 

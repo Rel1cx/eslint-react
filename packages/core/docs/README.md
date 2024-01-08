@@ -531,7 +531,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `node` | `Identifier` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` |
+| `node` | `Identifier` \| `MemberExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
@@ -581,7 +581,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `node` | `Identifier` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` |
+| `node` | `Identifier` \| `MemberExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
@@ -615,7 +615,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `node` | `Identifier` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` |
+| `node` | `Identifier` \| `MemberExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
@@ -649,7 +649,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `node` | `Identifier` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` |
+| `node` | `Identifier` \| `MemberExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
@@ -683,7 +683,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `node` | `Identifier` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` |
+| `node` | `Identifier` \| `MemberExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns
@@ -801,7 +801,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `node` | `Identifier` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` |
+| `node` | `Identifier` \| `MemberExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
 
 #### Returns

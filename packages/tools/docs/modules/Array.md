@@ -3290,7 +3290,7 @@ Check if a predicate holds true for every `ReadonlyArray` element.
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
+| `refinement` | (`a`: `A`, `i`: `number`) => a is B |
 
 #### Returns
 
@@ -3326,7 +3326,7 @@ Check if a predicate holds true for every `ReadonlyArray` element.
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -3364,7 +3364,7 @@ Check if a predicate holds true for every `ReadonlyArray` element.
 | Name | Type |
 | :------ | :------ |
 | `self` | readonly `A`[] |
-| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
+| `refinement` | (`a`: `A`, `i`: `number`) => a is B |
 
 #### Returns
 
@@ -3389,7 +3389,7 @@ Check if a predicate holds true for every `ReadonlyArray` element.
 | Name | Type |
 | :------ | :------ |
 | `self` | readonly `A`[] |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -3615,7 +3615,7 @@ Return the first index for which a predicate holds.
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -3652,7 +3652,7 @@ Return the first index for which a predicate holds.
 | Name | Type |
 | :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -3872,7 +3872,7 @@ Return the last index for which a predicate holds.
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -3909,7 +3909,7 @@ Return the last index for which a predicate holds.
 | Name | Type |
 | :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -3966,7 +3966,7 @@ Check if a predicate holds true for some `ReadonlyArray` element.
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -4003,7 +4003,7 @@ Check if a predicate holds true for some `ReadonlyArray` element.
 | Name | Type |
 | :------ | :------ |
 | `self` | readonly `A`[] |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -4281,7 +4281,7 @@ Transforms all elements of the `readonlyArray` for as long as the specified func
 
 | Name | Type |
 | :------ | :------ |
-| `f` | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
+| `f` | (`a`: `A`, `i`: `number`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -4319,7 +4319,7 @@ Transforms all elements of the `readonlyArray` for as long as the specified func
 | Name | Type |
 | :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `f` | (`a`: `A`) => [`Option`](O.md#option)\<`B`\> |
+| `f` | (`a`: `A`, `i`: `number`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -4747,7 +4747,7 @@ Statefully maps over the chunk, producing new elements of type `B`.
 | Name | Type |
 | :------ | :------ |
 | `s` | `S` |
-| `f` | (`s`: `S`, `a`: `A`) => readonly [`S`, `B`] |
+| `f` | (`s`: `S`, `a`: `A`, `i`: `number`) => readonly [`S`, `B`] |
 
 #### Returns
 
@@ -4787,7 +4787,7 @@ Statefully maps over the chunk, producing new elements of type `B`.
 | :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
 | `s` | `S` |
-| `f` | (`s`: `S`, `a`: `A`) => readonly [`S`, `B`] |
+| `f` | (`s`: `S`, `a`: `A`, `i`: `number`) => readonly [`S`, `B`] |
 
 #### Returns
 
@@ -5222,7 +5222,7 @@ Remove the longest initial subarray for which all element satisfy the specified 
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -5259,7 +5259,7 @@ Remove the longest initial subarray for which all element satisfy the specified 
 | Name | Type |
 | :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -5737,7 +5737,7 @@ Calculate the longest initial subarray for which all element satisfy the specifi
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
+| `refinement` | (`a`: `A`, `i`: `number`) => a is B |
 
 #### Returns
 
@@ -5774,7 +5774,7 @@ Calculate the longest initial subarray for which all element satisfy the specifi
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -5812,7 +5812,7 @@ Calculate the longest initial subarray for which all element satisfy the specifi
 | Name | Type |
 | :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
+| `refinement` | (`a`: `A`, `i`: `number`) => a is B |
 
 #### Returns
 
@@ -5837,7 +5837,7 @@ Calculate the longest initial subarray for which all element satisfy the specifi
 | Name | Type |
 | :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -7178,7 +7178,7 @@ Split an `Iterable` into two parts:
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
+| `refinement` | (`a`: `A`, `i`: `number`) => a is B |
 
 #### Returns
 
@@ -7218,7 +7218,7 @@ Split an `Iterable` into two parts:
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -7259,7 +7259,7 @@ Split an `Iterable` into two parts:
 | Name | Type |
 | :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
+| `refinement` | (`a`: `A`, `i`: `number`) => a is B |
 
 #### Returns
 
@@ -7287,7 +7287,7 @@ Split an `Iterable` into two parts:
 | Name | Type |
 | :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -7516,7 +7516,7 @@ Returns a tuple containing two arrays: the first one is before the match, and th
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -7554,7 +7554,7 @@ Returns a tuple containing two arrays: the first one is before the match, and th
 | Name | Type |
 | :------ | :------ |
 | `self` | `Iterable`\<`A`\> |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
 
 #### Returns
 

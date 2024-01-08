@@ -24,12 +24,12 @@
 
 ### Either
 
-• `Optional` **Either**: () => `A`[typeof `typeSymbol`] extends [`Left`](E.Left.md)\<`E0`, `A0`\> \| [`Right`](E.Right.md)\<`E0`, `A0`\> \| `_` ? [`Either`](../modules/E.md#either)\<`E0`, `A0`\> : `never`
+• `Optional` **Either**: () => `A`[typeof `typeSymbol`] extends [`Either`](../modules/E.md#either)\<`E0`, `A0`\> \| `_` ? [`Either`](../modules/E.md#either)\<`E0`, `A0`\> : `never`
 
 #### Type declaration
 
-▸ (): `A`[typeof `typeSymbol`] extends [`Left`](E.Left.md)\<`E0`, `A0`\> \| [`Right`](E.Right.md)\<`E0`, `A0`\> \| `_` ? [`Either`](../modules/E.md#either)\<`E0`, `A0`\> : `never`
+▸ (): `A`[typeof `typeSymbol`] extends [`Either`](../modules/E.md#either)\<`E0`, `A0`\> \| `_` ? [`Either`](../modules/E.md#either)\<`E0`, `A0`\> : `never`
 
 ##### Returns
 
-`A`[typeof `typeSymbol`] extends [`Left`](E.Left.md)\<`E0`, `A0`\> \| [`Right`](E.Right.md)\<`E0`, `A0`\> \| `_` ? [`Either`](../modules/E.md#either)\<`E0`, `A0`\> : `never`
+`A`[typeof `typeSymbol`] extends [`Either`](../modules/E.md#either)\<`E0`, `A0`\> \| `_` ? [`Either`](../modules/E.md#either)\<`E0`, `A0`\> : `never`
