@@ -52,6 +52,7 @@
   "react-no-unstable-default-props": "react/no-unstable-default-props",
   "react-no-unstable-nested-components": "react/no-unstable-nested-components",
   "react-no-unused-class-component-members": "react/no-unused-class-component-members",
+  "react-no-unused-state": "react/no-unused-state",
   "react-prefer-destructuring-assignment": "react/prefer-destructuring-assignment",
   "react-hooks-ensure-custom-hooks-using-other-hooks": "react-hooks/ensure-custom-hooks-using-other-hooks",
   "react-hooks-ensure-use-callback-has-non-empty-deps": "react-hooks/ensure-use-callback-has-non-empty-deps",
