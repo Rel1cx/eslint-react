@@ -363,6 +363,10 @@ ruleTester.run(RULE_NAME, rule, {
           state = {}
           getDerivedStateFromProps() {}
           render() {
+            function f() {
+              console.log(this.state);
+            }
+
             return <div>Example</div>;
           }
         }

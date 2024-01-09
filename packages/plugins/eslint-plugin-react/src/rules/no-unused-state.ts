@@ -1,4 +1,4 @@
-import { getClassIdentifier, NodeType, type TSESTreeClass } from "@eslint-react/ast";
+import { getClassIdentifier, isOneOf, NodeType, traverseUp, type TSESTreeClass } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
 import { _, MutList, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -41,7 +41,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "",
+      description: "Prevents unused state of class component.",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
@@ -102,6 +102,29 @@ export default createRule<[], MessageID>({
         const currentMethod = MutList.tail(methodStack);
         if (!currentMethod || currentMethod.static) return;
         if (!currentClass.body.body.includes(currentMethod)) return;
+        if (
+          O.exists(
+            traverseUp(
+              node,
+              n =>
+                isOneOf([
+                  NodeType.FunctionDeclaration,
+                  NodeType.FunctionExpression,
+                ])(n) || n === currentMethod,
+            ),
+            n => {
+              if (n.type === NodeType.FunctionDeclaration) return true;
+              if (n.type === NodeType.FunctionExpression) {
+                return O.exists(
+                  traverseUp(n, isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])),
+                  m => m !== currentMethod,
+                );
+              }
+
+              return false;
+            },
+          )
+        ) return;
         const [def] = stateDefs.get(currentClass) ?? [O.none(), false];
         stateDefs.set(currentClass, [def, true]);
       },
