@@ -54,6 +54,7 @@
 - [`react/no-unstable-default-props`](react-no-unstable-default-props)
 - [`react/no-unstable-nested-components`](react-no-unstable-nested-components)
 - [`react/no-unused-class-component-members`](react-no-unused-class-component-members)
+- [`react/no-unused-state`](react-no-unused-state)
 - [`react/prefer-destructuring-assignment`](react-prefer-destructuring-assignment)
 
 ## React Hooks
