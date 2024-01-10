@@ -12,7 +12,7 @@ overrides:
   '@typescript-eslint/utils': 6.18.1
   '@typescript-eslint/eslint-plugin': 6.18.1
   eslint: '>=8.56.0'
-  effect: 2.0.2
+  effect: 2.0.3
   next: 14.0.4
   react: 18.2.0
   react-dom: 18.2.0
@@ -79,11 +79,11 @@ importers:
         specifier: 1.1.3
         version: 1.1.3(vitest@1.1.3)
       bun:
-        specifier: 1.0.21
-        version: 1.0.21
+        specifier: 1.0.22
+        version: 1.0.22
       bun-types:
-        specifier: 1.0.21
-        version: 1.0.21
+        specifier: 1.0.22
+        version: 1.0.22
       cspell:
         specifier: 8.3.2
         version: 8.3.2
@@ -94,8 +94,8 @@ importers:
         specifier: 0.45.0
         version: 0.45.0
       effect:
-        specifier: 2.0.2
-        version: 2.0.2
+        specifier: 2.0.3
+        version: 2.0.3
       eslint:
         specifier: '>=8.56.0'
         version: 8.56.0
@@ -130,8 +130,8 @@ importers:
         specifier: 0.33.0
         version: 0.33.0
       pathe:
-        specifier: 1.1.1
-        version: 1.1.1
+        specifier: 1.1.2
+        version: 1.1.2
       publint:
         specifier: 0.2.7
         version: 0.2.7
@@ -616,8 +616,8 @@ importers:
   packages/tools:
     dependencies:
       effect:
-        specifier: 2.0.2
-        version: 2.0.2
+        specifier: 2.0.3
+        version: 2.0.3
 
   packages/types:
     dependencies:
@@ -770,8 +770,8 @@ importers:
         specifier: 10.4.16
         version: 10.4.16(postcss@8.4.33)
       effect:
-        specifier: 2.0.2
-        version: 2.0.2
+        specifier: 2.0.3
+        version: 2.0.3
       eslint:
         specifier: '>=8.56.0'
         version: 8.56.0
@@ -2552,48 +2552,48 @@ packages:
       - supports-color
     dev: true
 
-  /@oven/bun-darwin-aarch64@1.0.21:
-    resolution: {integrity: sha512-OdYWsGdKHkZHomO+NgASW+WfUeGBWiaiOFPBP+q/bZVuik6LmGsk0KbnTZB02wxe3lvDxJHdxaYzQe+x5WbW6g==}
+  /@oven/bun-darwin-aarch64@1.0.22:
+    resolution: {integrity: sha512-BPeX5D3nkmjmNpThjxo/T5bAycjrTX32rAILdIgPtI3V2YGdYloeaqWxdOZ7bcf+aXAfjweYTA3zIKq1V5t8uQ==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-darwin-x64-baseline@1.0.21:
-    resolution: {integrity: sha512-NYuDJ523Ax27xwH+GJpxfD1rXhdCkO4PL5U9wxyi/Ky5YnQWfNgnr4dyLaWs58bq6pjwaB0PhqW+HsKztX5csg==}
+  /@oven/bun-darwin-x64-baseline@1.0.22:
+    resolution: {integrity: sha512-hA7B4uTwTR1gtNyO/UTOaNabeIpCa3VsQc3p8zFcctIIwzWvxauEXZFCPOf84ZW7iyX4W9s0GUHMqldST5dmew==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-darwin-x64@1.0.21:
-    resolution: {integrity: sha512-PAiLNFMMFX9bBNnVfbM1msYlhU48r7ef9QpNbyf/hauJKFOhL48JTLFpRkq775E63BxAMO1lIKH8J1/8Nuzj3A==}
+  /@oven/bun-darwin-x64@1.0.22:
+    resolution: {integrity: sha512-NheA/RWtI8hFdGJTGJyBGNePUF/3M68h8iMRewuZmgSEBZCsw3O1fHYDYWnz/eipi7IzDB9KkyfHyv29qpEp8A==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-aarch64@1.0.21:
-    resolution: {integrity: sha512-m9AfJSg+I2na6MUoT5+gjCjARK7tQNDDVNIKbUuEE++6Y1j8MB8SgIYFurS8BLsQ//dxf1KfC1jkdcW+q62NRg==}
+  /@oven/bun-linux-aarch64@1.0.22:
+    resolution: {integrity: sha512-wAevxpBG4tKoxthVyjuWWF4bGDiYqScTcocKI3jox07Aan40RJ5Xu3RlF1vM7YnPgctKTNNGxQ9d6c4JcifwRg==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-x64-baseline@1.0.21:
-    resolution: {integrity: sha512-F9R8qoxOij7PLi05tWJX6j/i5mJHiHe/cIEawHJy/S+YqU3mtVo0vqJa9bErVJz14CKQStTgIuREDFH+39qdXA==}
+  /@oven/bun-linux-x64-baseline@1.0.22:
+    resolution: {integrity: sha512-AgaZv3XUk4mEHUVAusLdTUGlVi6h3coCEvUR/gspoQg77MLggpTtxrTrhMcI5OXhgGsKPtVKHa6n+oMhUpoF4A==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-x64@1.0.21:
-    resolution: {integrity: sha512-OBRi+goiCYlhFLOjw/FBREG7ku20rV7DFACAsx6QWepV4QXM6mXBzwXwjUSneI2VLILUNO5ohyqFG6RmS8hG5w==}
+  /@oven/bun-linux-x64@1.0.22:
+    resolution: {integrity: sha512-RzriXZap7iChJMMeYkAKEgO5rdpEjzzXz8K3aXgxqKhfKB88BXFvcMVGeQhQ3siLJIfg4sGgXUqLOFb47jSVHw==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
@@ -3575,14 +3575,14 @@ packages:
     dependencies:
       '@vitest/utils': 1.1.3
       p-limit: 5.0.0
-      pathe: 1.1.1
+      pathe: 1.1.2
     dev: true
 
   /@vitest/snapshot@1.1.3:
     resolution: {integrity: sha512-U0r8pRXsLAdxSVAyGNcqOU2H3Z4Y2dAAGGelL50O0QRMdi1WWeYHdrH/QWpN1e8juWfVKsb8B+pyJwTC+4Gy9w==}
     dependencies:
       magic-string: 0.30.5
-      pathe: 1.1.1
+      pathe: 1.1.2
       pretty-format: 29.7.0
     dev: true
 
@@ -3601,7 +3601,7 @@ packages:
       fast-glob: 3.3.2
       fflate: 0.8.1
       flatted: 3.2.9
-      pathe: 1.1.1
+      pathe: 1.1.2
       picocolors: 1.0.0
       sirv: 2.0.4
       vitest: 1.1.3(@types/node@20.10.8)(@vitest/ui@1.1.3)
@@ -4086,27 +4086,27 @@ packages:
       semver: 7.5.4
     dev: true
 
-  /bun-types@1.0.21:
-    resolution: {integrity: sha512-Ugagjf+XZUXDvxDRa3EnhLeMzm2g8ZYFleBF55Ac3GZSzPqdMLAdK9kvZB6M1H4nAFvrEHdV2PHqkzIoNs+3wQ==}
+  /bun-types@1.0.22:
+    resolution: {integrity: sha512-JxmXAx6cXb37+rMsn30WRXlz9lbPFR9rQE78hNSoy5wJ8m/nUktkmHpo7xZb/YKDds23ifxWLjDtyni9MeXLgw==}
     dependencies:
       '@types/node': 20.10.8
       '@types/ws': 8.5.10
       undici-types: 5.28.2
     dev: true
 
-  /bun@1.0.21:
-    resolution: {integrity: sha512-KqiXg0N6+SWgyh4QpCKIYlsli6wB7P/jX7tSUpE8jOdp5dPztQpId/Hx6wJ3ZAXGOr0gd56eMQf7TY9EnAyuzQ==}
+  /bun@1.0.22:
+    resolution: {integrity: sha512-ONJv4SGRREx4sxWEN0iQOIHOD75C0r0m/EpLb8VyEJtTpJgNnNgT/dGxk0C/HP0wg+/M+LlerxngCDy8ACofpQ==}
     cpu: [arm64, x64]
     os: [darwin, linux]
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      '@oven/bun-darwin-aarch64': 1.0.21
-      '@oven/bun-darwin-x64': 1.0.21
-      '@oven/bun-darwin-x64-baseline': 1.0.21
-      '@oven/bun-linux-aarch64': 1.0.21
-      '@oven/bun-linux-x64': 1.0.21
-      '@oven/bun-linux-x64-baseline': 1.0.21
+      '@oven/bun-darwin-aarch64': 1.0.22
+      '@oven/bun-darwin-x64': 1.0.22
+      '@oven/bun-darwin-x64-baseline': 1.0.22
+      '@oven/bun-linux-aarch64': 1.0.22
+      '@oven/bun-linux-x64': 1.0.22
+      '@oven/bun-linux-x64-baseline': 1.0.22
     dev: true
 
   /busboy@1.6.0:
@@ -5289,8 +5289,8 @@ packages:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
 
-  /effect@2.0.2:
-    resolution: {integrity: sha512-YrB7AiBsvgWbA2paV0LB47Ux4SfK46v9hWwUFceN6zDgxpEzVyWfRX3tkFEGNV4t8OvPqlfyew+dmf7YzkbDYQ==}
+  /effect@2.0.3:
+    resolution: {integrity: sha512-I/XvcbHypegNFWCr/arbfIR6pA+8JpSqv9wS4xOrgXypQMRj8H3wRorTcUiPmcQ0e6Ko67CdI2XZpjx7z0Ev/A==}
 
   /electron-to-chromium@1.4.623:
     resolution: {integrity: sha512-lKoz10iCYlP1WtRYdh5MvocQPWVRoI7ysp6qf18bmeBgR8abE6+I2CsfyNKztRDZvhdWc+krKT6wS7Neg8sw3A==}
@@ -9086,7 +9086,7 @@ packages:
     resolution: {integrity: sha512-i/Ykufi2t1EZ6NaPLdfnZk2AX8cs0d+mTzVKuPfqPKPatxLApaBoxJQ9x1/uckXtrS/U5oisPMDkNs0yQTaBRg==}
     dependencies:
       acorn: 8.11.3
-      pathe: 1.1.1
+      pathe: 1.1.2
       pkg-types: 1.0.3
       ufo: 1.3.2
     dev: true
@@ -9762,8 +9762,8 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
 
-  /pathe@1.1.1:
-    resolution: {integrity: sha512-d+RQGp0MAYTIaDBIMmOfMwz3E+LOZnxx1HZd5R18mmCZY0QBlK0LDZfPc8FW8Ed2DlvsuE6PRjroDY+wg4+j/Q==}
+  /pathe@1.1.2:
+    resolution: {integrity: sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ==}
     dev: true
 
   /pathval@1.1.1:
@@ -9811,7 +9811,7 @@ packages:
     dependencies:
       jsonc-parser: 3.2.0
       mlly: 1.4.2
-      pathe: 1.1.1
+      pathe: 1.1.2
     dev: true
 
   /please-upgrade-node@3.2.0:
@@ -12004,7 +12004,7 @@ packages:
       cac: 6.7.14
       debug: 4.3.4
       mlly: 1.4.2
-      pathe: 1.1.1
+      pathe: 1.1.2
       picocolors: 1.0.0
       source-map: 0.6.1
       source-map-support: 0.5.21
@@ -12027,7 +12027,7 @@ packages:
     dependencies:
       cac: 6.7.14
       debug: 4.3.4
-      pathe: 1.1.1
+      pathe: 1.1.2
       picocolors: 1.0.0
       vite: 5.0.11(@types/node@20.10.8)
     transitivePeerDependencies:
@@ -12153,7 +12153,7 @@ packages:
       execa: 8.0.1
       local-pkg: 0.5.0
       magic-string: 0.30.5
-      pathe: 1.1.1
+      pathe: 1.1.2
       picocolors: 1.0.0
       std-env: 3.7.0
       strip-literal: 1.3.0
