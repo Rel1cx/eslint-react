@@ -1,3 +1,9 @@
+## v0.10.7 (Thu Jan 11 2024)
+
+### ✨ New
+
+- Add rule `react/no-unused-state`.
+
 ## v0.10.6 (Tue Jan 9 2024)
 
 ### 🐞 Fixes
