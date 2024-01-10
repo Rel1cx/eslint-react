@@ -13,9 +13,27 @@ Warns unused class component state.
 ### Failing
 
 ```tsx
+class MyComponent extends React.Component {
+  state = {
+    foo: 1,
+  };
+
+  render() {
+    return <div />;
+  }
+}
 ```
 
 ### Passing
 
 ```tsx
+class MyComponent extends React.Component {
+  state = {
+    foo: 1,
+  };
+
+  render() {
+    return <div>{this.state.foo}</div>;
+  }
+}
 ```

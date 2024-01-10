@@ -41,6 +41,7 @@ import noUnsafeTargetBlank from "./rules/no-unsafe-target-blank";
 import noUnstableDefaultProps from "./rules/no-unstable-default-props";
 import noUnstableNestedComponents from "./rules/no-unstable-nested-components";
 import noUnusedClassComponentMembers from "./rules/no-unused-class-component-members";
+import noUnusedState from "./rules/no-unused-state";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
 
 export const meta = {
@@ -87,5 +88,6 @@ export const rules = {
   "no-unstable-default-props": noUnstableDefaultProps,
   "no-unstable-nested-components": noUnstableNestedComponents,
   "no-unused-class-component-members": noUnusedClassComponentMembers,
+  "no-unused-state": noUnusedState,
   "prefer-destructuring-assignment": preferDestructuringAssignment,
 } as const;

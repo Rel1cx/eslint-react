@@ -1,6 +1,6 @@
 import { getClassIdentifier, isOneOf, NodeType, traverseUp, type TSESTreeClass } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
-import { _, MutList, O } from "@eslint-react/tools";
+import { _, F, MutList, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
@@ -102,29 +102,29 @@ export default createRule<[], MessageID>({
         const currentMethod = MutList.tail(methodStack);
         if (!currentMethod || currentMethod.static) return;
         if (!currentClass.body.body.includes(currentMethod)) return;
-        if (
-          O.exists(
-            traverseUp(
-              node,
-              n =>
-                isOneOf([
-                  NodeType.FunctionDeclaration,
-                  NodeType.FunctionExpression,
-                ])(n) || n === currentMethod,
-            ),
-            n => {
-              if (n.type === NodeType.FunctionDeclaration) return true;
-              if (n.type === NodeType.FunctionExpression) {
-                return O.exists(
-                  traverseUp(n, isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])),
-                  m => m !== currentMethod,
-                );
-              }
+        const wrappedByNonArrowFunction = F.pipe(
+          node,
+          traverseUp(
+            n =>
+              isOneOf([
+                NodeType.FunctionDeclaration,
+                NodeType.FunctionExpression,
+              ])(n) || n === currentMethod,
+          ),
+          O.exists(n => {
+            if (n.type === NodeType.FunctionDeclaration) return true;
+            if (n.type === NodeType.FunctionExpression) {
+              return F.pipe(
+                n,
+                traverseUp(isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])),
+                O.exists(m => m !== currentMethod),
+              );
+            }
 
-              return false;
-            },
-          )
-        ) return;
+            return false;
+          }),
+        );
+        if (wrappedByNonArrowFunction) return;
         const [def] = stateDefs.get(currentClass) ?? [O.none(), false];
         stateDefs.set(currentClass, [def, true]);
       },
