@@ -1,3 +1,9 @@
+## v0.10.8 (Thu Jan 11 2024)
+
+### 🐞 Fixes
+
+- Fix version format in v0.10.7's package.json.
+
 ## v0.10.7 (Thu Jan 11 2024)
 
 ### ✨ New
