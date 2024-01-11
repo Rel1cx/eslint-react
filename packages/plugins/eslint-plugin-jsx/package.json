@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin-jsx",
-  "version": "v0.10.7",
+  "version": "0.10.7",
   "description": "ESLint React's ESLint plugin for JSX related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
