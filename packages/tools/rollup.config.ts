@@ -7,7 +7,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 const require = createRequire(import.meta.url);
 const packageJson = require("./package.json");
 const { dependencies = {}, peerDependencies = {} } = packageJson;
-const external = [...Object.keys(dependencies), ...Object.keys(peerDependencies)];
+const external = Object.keys({ ...dependencies, ...peerDependencies });
 
 export default defineConfig([{
   external,
