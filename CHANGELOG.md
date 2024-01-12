@@ -1,3 +1,9 @@
+## v0.10.9 (Fri Jan 12 2024)
+
+### 🐞 Fixes
+
+- Fix bundle size is larger than expected.
+
 ## v0.10.8 (Thu Jan 11 2024)
 
 ### 🐞 Fixes

@@ -54,13 +54,12 @@
     "@typescript-eslint/type-utils": "6.18.1",
     "@typescript-eslint/types": "6.18.1",
     "@typescript-eslint/utils": "6.18.1",
-    "ts-api-utils": "1.0.3",
-    "typescript": ">=5.3.3"
+    "string-ts": "2.0.0",
+    "ts-api-utils": ">=1.0.3"
   },
   "peerDependencies": {
     "@typescript-eslint/parser": ">=6.18.1",
     "eslint": ">=8.56.0",
-    "string-ts": "2.0.0",
     "typescript": ">=5.3.3"
   },
   "engines": {

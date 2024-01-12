@@ -6,7 +6,8 @@ import { swc } from "rollup-plugin-swc3";
 import { visualizer } from "rollup-plugin-visualizer";
 const require = createRequire(import.meta.url);
 const packageJson = require("./package.json");
-const external = Object.keys(packageJson.dependencies);
+const { dependencies = {}, peerDependencies = {} } = packageJson;
+const external = [...Object.keys(dependencies), ...Object.keys(peerDependencies)];
 
 export default defineConfig([{
   external,

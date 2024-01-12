@@ -53,8 +53,7 @@
     "@typescript-eslint/type-utils": "6.18.1",
     "@typescript-eslint/types": "6.18.1",
     "@typescript-eslint/utils": "6.18.1",
-    "string-ts": "2.0.0",
-    "typescript": ">=5.3.3"
+    "string-ts": "2.0.0"
   },
   "peerDependencies": {
     "@typescript-eslint/parser": ">=6.18.1",

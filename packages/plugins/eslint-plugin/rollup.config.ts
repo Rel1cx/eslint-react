@@ -8,7 +8,8 @@ import { dts } from "rollup-plugin-dts";
 import { swc } from "rollup-plugin-swc3";
 const require = createRequire(import.meta.url);
 const packageJson = require("./package.json");
-const external = Object.keys(packageJson.dependencies);
+const { dependencies = {}, peerDependencies = {} } = packageJson;
+const external = [...Object.keys(dependencies), ...Object.keys(peerDependencies)];
 
 const plugins = [
   nodeResolve({

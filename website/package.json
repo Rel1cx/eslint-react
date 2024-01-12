@@ -32,7 +32,7 @@
     "eslint": ">=8.56.0",
     "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "9.1.0",
-    "eslint-config-with-tsconfig": "2.9.280",
+    "eslint-config-with-tsconfig": "2.9.290",
     "eslint-define-config": "2.1.0",
     "eslint-plugin-mdx": "3.1.4",
     "postcss": "8.4.33",
