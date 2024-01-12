@@ -11,12 +11,49 @@ export const RULE_NAME = "no-unused-state";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
+function isKeyLiteralLike(
+  node: TSESTree.MemberExpression | TSESTree.MethodDefinition | TSESTree.Property | TSESTree.PropertyDefinition,
+  property: TSESTree.Node,
+): boolean {
+  return property.type === NodeType.Literal
+    // eslint-disable-next-line @typescript-eslint/no-extra-parens
+    || (property.type === NodeType.TemplateLiteral && property.expressions.length === 0)
+    // eslint-disable-next-line @typescript-eslint/no-extra-parens
+    || (!node.computed && property.type === NodeType.Identifier);
+}
+
 function isThisExpression(node: TSESTree.Expression): boolean {
   if (node.type === NodeType.TSAsExpression) {
     return isThisExpression(node.expression);
   }
 
   return node.type === NodeType.ThisExpression;
+}
+
+function isWrappedByNonArrowFunction(
+  node: TSESTree.Node,
+  ctx: {
+    currentMethod: TSESTree.MethodDefinition | TSESTree.PropertyDefinition;
+  },
+) {
+  const { currentMethod } = ctx;
+
+  return F.pipe(
+    node,
+    traverseUp(n => isOneOf([NodeType.FunctionDeclaration, NodeType.FunctionExpression])(n) || n === currentMethod),
+    O.exists(n => {
+      if (n.type === NodeType.FunctionDeclaration) return true;
+      if (n.type === NodeType.FunctionExpression) {
+        return F.pipe(
+          n,
+          traverseUp(isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])),
+          O.exists(m => m !== currentMethod),
+        );
+      }
+
+      return false;
+    }),
+  );
 }
 
 function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Option<string> {
@@ -34,6 +71,16 @@ function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Opti
   }
 
   return O.none();
+}
+
+function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
+  const { left } = node;
+
+  return (
+    left.type === NodeType.MemberExpression
+    && isThisExpression(left.object)
+    && O.exists(getName(left.property), name => name === "state")
+  );
 }
 
 export default createRule<[], MessageID>({
@@ -54,6 +101,7 @@ export default createRule<[], MessageID>({
   create(context) {
     const classStack = MutList.make<TSESTreeClass>();
     const methodStack = MutList.make<TSESTree.MethodDefinition | TSESTree.PropertyDefinition>();
+    const constructorStack = MutList.make<TSESTree.MethodDefinition>();
     const stateDefs = new WeakMap<TSESTreeClass, [O.Option<TSESTree.Node>, boolean]>();
     function classEnter(node: TSESTreeClass) {
       MutList.append(classStack, node);
@@ -84,6 +132,12 @@ export default createRule<[], MessageID>({
     function methodExit() {
       MutList.pop(methodStack);
     }
+    function constructorEnter(node: TSESTree.MethodDefinition) {
+      MutList.append(constructorStack, node);
+    }
+    function constructorExit() {
+      MutList.pop(constructorStack);
+    }
 
     return {
       ClassDeclaration: classEnter,
@@ -94,37 +148,50 @@ export default createRule<[], MessageID>({
       PropertyDefinition: methodEnter,
       "MethodDefinition:exit": methodExit,
       "PropertyDefinition:exit": methodExit,
+      "MethodDefinition[key.name='constructor']": constructorEnter,
+      "MethodDefinition[key.name='constructor']:exit": constructorExit,
+      AssignmentExpression(node) {
+        if (!isAssignmentToThisState(node)) return;
+        const currentClass = MutList.tail(classStack);
+        if (!currentClass || !isClassComponent(currentClass, context)) return;
+        const currentConstructor = MutList.tail(constructorStack);
+        if (!currentConstructor || !currentClass.body.body.includes(currentConstructor)) return;
+        if (isWrappedByNonArrowFunction(node, { currentMethod: currentConstructor })) return;
+        const [_, isUsed] = stateDefs.get(currentClass) ?? [O.none(), false];
+        stateDefs.set(currentClass, [O.some(node.left), isUsed]);
+      },
       MemberExpression(node) {
         if (!isThisExpression(node.object)) return;
+        // detect `this.state`
         if (!O.exists(getName(node.property), name => name === "state")) return;
         const currentClass = MutList.tail(classStack);
         if (!currentClass || !isClassComponent(currentClass, context)) return;
         const currentMethod = MutList.tail(methodStack);
         if (!currentMethod || currentMethod.static) return;
+        if (currentMethod === MutList.tail(constructorStack)) return;
         if (!currentClass.body.body.includes(currentMethod)) return;
-        const wrappedByNonArrowFunction = F.pipe(
-          node,
-          traverseUp(
-            n =>
-              isOneOf([
-                NodeType.FunctionDeclaration,
-                NodeType.FunctionExpression,
-              ])(n) || n === currentMethod,
-          ),
-          O.exists(n => {
-            if (n.type === NodeType.FunctionDeclaration) return true;
-            if (n.type === NodeType.FunctionExpression) {
-              return F.pipe(
-                n,
-                traverseUp(isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])),
-                O.exists(m => m !== currentMethod),
-              );
-            }
+        if (isWrappedByNonArrowFunction(node, { currentMethod })) return;
+        const [def] = stateDefs.get(currentClass) ?? [O.none(), false];
+        stateDefs.set(currentClass, [def, true]);
+      },
+      VariableDeclarator(node) {
+        const currentClass = MutList.tail(classStack);
+        if (!currentClass || !isClassComponent(currentClass, context)) return;
+        const currentMethod = MutList.tail(methodStack);
+        if (!currentMethod || currentMethod.static) return;
+        if (currentMethod === MutList.tail(constructorStack)) return;
+        if (!currentClass.body.body.includes(currentMethod)) return;
+        if (isWrappedByNonArrowFunction(node, { currentMethod })) return;
+        // detect `{ foo, state: baz } = this`
+        if (!(node.init && isThisExpression(node.init) && node.id.type === NodeType.ObjectPattern)) return;
+        const hasState = node.id.properties.some(prop => {
+          if (prop.type === NodeType.Property && isKeyLiteralLike(prop, prop.key)) {
+            return O.exists(getName(prop.key), name => name === "state");
+          }
 
-            return false;
-          }),
-        );
-        if (wrappedByNonArrowFunction) return;
+          return false;
+        });
+        if (!hasState) return;
         const [def] = stateDefs.get(currentClass) ?? [O.none(), false];
         stateDefs.set(currentClass, [def, true]);
       },
