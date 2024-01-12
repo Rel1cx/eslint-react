@@ -62,10 +62,10 @@
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "@typescript-eslint/parser": ">=6.18.1",
-    "@typescript-eslint/scope-manager": "6.18.1",
-    "@typescript-eslint/type-utils": "6.18.1",
-    "@typescript-eslint/types": "6.18.1",
-    "@typescript-eslint/utils": "6.18.1"
+    "@typescript-eslint/scope-manager": ">=6.18.1",
+    "@typescript-eslint/type-utils": ">=6.18.1",
+    "@typescript-eslint/types": ">=6.18.1",
+    "@typescript-eslint/utils": ">=6.18.1"
   },
   "engines": {
     "bun": ">=1.0.15",

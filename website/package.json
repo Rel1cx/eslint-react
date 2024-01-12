@@ -23,7 +23,7 @@
     "@types/node": "20.11.0",
     "@types/react": "18.2.47",
     "@types/react-dom": "18.2.18",
-    "@typescript-eslint/eslint-plugin": "6.18.1",
+    "@typescript-eslint/eslint-plugin": ">=6.18.1",
     "@typescript-eslint/parser": ">=6.18.1",
     "@vanilla-extract/css": "1.14.0",
     "@vanilla-extract/next-plugin": "2.3.2",
