@@ -273,6 +273,28 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     dedent`
+      class ClassComputedTemplatePropertyTest extends React.Component {
+        constructor() {
+          this.state = {}
+        }
+        render() {
+          return <div foo={this.state.foo} />;
+        }
+      }
+    `,
+    dedent`
+      class ClassComputedTemplatePropertyTest extends React.Component {
+        constructor() {
+          function F() {
+            this.state = {}
+          }
+        }
+        render() {
+          return null;
+        }
+      }
+    `,
+    dedent`
       class ClassLiteralComputedMemberTest extends React.Component {
         ['foo']() {}
         render() {
@@ -358,7 +380,25 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   invalid: [
     {
-      code: `
+      code: dedent`
+        class ClassComputedTemplatePropertyTest extends React.Component {
+          constructor() {
+            this.state = {}
+          }
+          render() {
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_UNUSED_STATE",
+          data: { className: "ClassComputedTemplatePropertyTest" },
+        },
+      ],
+    },
+    {
+      code: dedent`
         class Foo extends React.Component {
           state = {}
           getDerivedStateFromProps() {}
@@ -379,7 +419,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
+      code: dedent`
         class Foo extends React.Component {
           state = {}
           handleClick() {}
@@ -396,7 +436,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
+      code: dedent`
         class Foo extends React.Component {
           state = {}
           handleScroll() {}
@@ -414,7 +454,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
+      code: dedent`
         class Foo extends React.Component {
           state = {}
           handleClick = () => {}
@@ -431,7 +471,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
+      code: dedent`
         class Foo extends React.Component {
           state = {}
           action = async () => {}
@@ -448,7 +488,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
+      code: dedent`
         class Foo extends React.Component {
           state = {};
           async action() {
@@ -467,7 +507,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
+      code: dedent`
         class Foo extends React.Component {
           state = {};
           * action() {
@@ -486,7 +526,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
+      code: dedent`
         class Foo extends React.Component {
           state = {};
           async * action() {
@@ -505,7 +545,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
+      code: dedent`
         class Foo extends React.Component {
           state = {}
           getInitialState() {}
@@ -522,7 +562,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
+      code: dedent`
         class Foo extends React.Component {
           state = {}
           action = function() {
@@ -541,153 +581,51 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
-         class ClassAssignPropertyInMethodTest extends React.Component {
-           state = {}
-           foo = 3;
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_STATE",
-          data: { className: "ClassAssignPropertyInMethodTest" },
-        },
-      ],
-    },
-    {
-      code: `
-         class ClassAssignPropertyInMethodTest extends React.Component {
-           state = {}
-           constructor() {
-             this.foo = 3;
-           }
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_STATE",
-          data: { className: "ClassAssignPropertyInMethodTest" },
-        },
-      ],
-    },
-    {
-      code: `
-         class Foo extends React.Component {
-           state = {}
-           foo;
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_STATE",
-          data: { className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-         class Foo extends React.Component {
-           state = {}
-           foo = a;
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_STATE",
-          data: { className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-         class Foo extends React.Component {
-           state = {}
-           ['foo'];
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_STATE",
-          data: { className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-         class Foo extends React.Component {
-           state = {}
-           ['foo'] = a;
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_STATE",
-          data: { className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-         class Foo extends React.Component {
-           foo = a;
-           state = {}
-           render() {
-             return <SomeComponent foo={this[foo]} />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_STATE",
-          data: { className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-         class Foo extends React.Component {
-           private foo;
-           state = {}
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_STATE",
-          data: { className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-         class Foo extends React.Component {
+      code: dedent`
+        class ClassAssignPropertyInMethodTest extends React.Component {
           state = {}
-          private foo() {}
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
+          foo = 3;
+          render() {
+            return <SomeComponent />;
+          }
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_UNUSED_STATE",
+          data: { className: "ClassAssignPropertyInMethodTest" },
+        },
+      ],
+    },
+    {
+      code: dedent`
+        class ClassAssignPropertyInMethodTest extends React.Component {
+          state = {}
+          constructor() {
+            this.foo = 3;
+          }
+          render() {
+            return <SomeComponent />;
+          }
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_UNUSED_STATE",
+          data: { className: "ClassAssignPropertyInMethodTest" },
+        },
+      ],
+    },
+    {
+      code: dedent`
+        class Foo extends React.Component {
+          state = {}
+          foo;
+          render() {
+            return <SomeComponent />;
+          }
+        }
+      `,
       errors: [
         {
           messageId: "NO_UNUSED_STATE",
@@ -696,15 +634,117 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
-         class Foo extends React.Component {
-           state = {}
-           private foo = 3;
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
+      code: dedent`
+        class Foo extends React.Component {
+          state = {}
+          foo = a;
+          render() {
+            return <SomeComponent />;
+          }
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_UNUSED_STATE",
+          data: { className: "Foo" },
+        },
+      ],
+    },
+    {
+      code: dedent`
+        class Foo extends React.Component {
+          state = {}
+          ['foo'];
+          render() {
+            return <SomeComponent />;
+          }
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_UNUSED_STATE",
+          data: { className: "Foo" },
+        },
+      ],
+    },
+    {
+      code: dedent`
+        class Foo extends React.Component {
+          state = {}
+          ['foo'] = a;
+          render() {
+            return <SomeComponent />;
+          }
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_UNUSED_STATE",
+          data: { className: "Foo" },
+        },
+      ],
+    },
+    {
+      code: dedent`
+        class Foo extends React.Component {
+          foo = a;
+          state = {}
+          render() {
+            return <SomeComponent foo={this[foo]} />;
+          }
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_UNUSED_STATE",
+          data: { className: "Foo" },
+        },
+      ],
+    },
+    {
+      code: dedent`
+        class Foo extends React.Component {
+          private foo;
+          state = {}
+          render() {
+            return <SomeComponent />;
+          }
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_UNUSED_STATE",
+          data: { className: "Foo" },
+        },
+      ],
+    },
+    {
+      code: dedent`
+        class Foo extends React.Component {
+         state = {}
+         private foo() {}
+          render() {
+            return <SomeComponent />;
+          }
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_UNUSED_STATE",
+          data: { className: "Foo" },
+        },
+      ],
+    },
+    {
+      code: dedent`
+        class Foo extends React.Component {
+          state = {}
+          private foo = 3;
+          render() {
+            return <SomeComponent />;
+          }
+        }
+      `,
       errors: [
         {
           messageId: "NO_UNUSED_STATE",

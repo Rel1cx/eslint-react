@@ -11,14 +11,38 @@ export const RULE_NAME = "no-direct-mutation-state";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
+function isThisExpression(node: TSESTree.Expression): boolean {
+  if (node.type === NodeType.TSAsExpression) {
+    return isThisExpression(node.expression);
+  }
+
+  return node.type === NodeType.ThisExpression;
+}
+
+function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Option<string> {
+  if (node.type === NodeType.TSAsExpression) {
+    return getName(node.expression);
+  }
+  if (node.type === NodeType.Identifier || node.type === NodeType.PrivateIdentifier) {
+    return O.some(node.name);
+  }
+  if (node.type === NodeType.Literal) {
+    return O.some(String(node.value));
+  }
+  if (node.type === NodeType.TemplateLiteral && node.expressions.length === 0) {
+    return O.fromNullable(node.quasis[0]?.value.raw);
+  }
+
+  return O.none();
+}
+
 function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   const { left } = node;
 
   return (
     left.type === NodeType.MemberExpression
-    && left.object.type === NodeType.ThisExpression
-    && left.property.type === NodeType.Identifier
-    && left.property.name === "state"
+    && isThisExpression(left.object)
+    && O.exists(getName(left.property), name => name === "state")
   );
 }
 
