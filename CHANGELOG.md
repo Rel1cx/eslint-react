@@ -1,3 +1,11 @@
+## v0.10.10 (Sun Jan 14 2024)
+
+### 🪄 Improvements
+
+- Improve rule `react/no-unused-state` to support checking for more cases.
+- Improve rule `react/no-direct-mutation-state` to support checking for more cases.
+- Improve rule `react/no-unused-class-component-members` to support checking for more cases.
+
 ## v0.10.10-beta.0 (Sun Jan 14 2024)
 
 ### 🪄 Improvements
