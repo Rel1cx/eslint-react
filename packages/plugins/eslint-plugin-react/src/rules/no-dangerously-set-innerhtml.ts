@@ -1,7 +1,7 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import { findPropInAttributes, findPropInProperties, isCreateElementCall } from "@eslint-react/jsx";
 import { F, O } from "@eslint-react/tools";
-import { findVariableByNameUpToGlobal, getVariableInit } from "@eslint-react/var";
+import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
             const initialScope = context.sourceCode.getScope?.(n) ?? context.getScope();
 
             return F.pipe(
-              findVariableByNameUpToGlobal(n.name, initialScope),
+              findVariable(n.name, initialScope),
               O.flatMap(getVariableInit(0)),
               O.flatMap((n) => "properties" in n ? O.fromNullable(n.properties) : O.none()),
             );

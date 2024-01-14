@@ -3,7 +3,7 @@ import { isReactHookCall, isReactHookCallWithNameLoose, isUseCallbackCall } from
 import { getPragmaFromContext } from "@eslint-react/jsx";
 import { ESLintSettingsSchema, parseSchema } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
-import { findVariableByNameUpToGlobal, getVariableInit } from "@eslint-react/var";
+import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { type ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -54,7 +54,7 @@ export default createRule<[], MessageID>({
             .with({ type: NodeType.ArrayExpression }, O.some)
             .with({ type: NodeType.Identifier }, n => {
               return F.pipe(
-                findVariableByNameUpToGlobal(n.name, initialScope),
+                findVariable(n.name, initialScope),
                 O.flatMap(getVariableInit(0)),
                 O.filter(is(NodeType.ArrayExpression)),
               );

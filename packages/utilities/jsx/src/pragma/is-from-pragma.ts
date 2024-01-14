@@ -1,7 +1,7 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
-import { findVariableByName, getVariablesUpToGlobal } from "@eslint-react/var";
+import { findVariable } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { isMatching, match } from "ts-pattern";
@@ -14,8 +14,7 @@ export function isInitializedFromPragma(
   initialScope: Scope,
   pragma = getPragmaFromContext(context),
 ) {
-  const variables = getVariablesUpToGlobal(initialScope);
-  const maybeVariable = findVariableByName(variableName)(variables);
+  const maybeVariable = findVariable(variableName, initialScope);
   const maybeLatestDef = O.flatMapNullable(maybeVariable, (variable) => variable.defs.at(-1));
   if (O.isNone(maybeLatestDef)) return false;
   const latestDef = maybeLatestDef.value;

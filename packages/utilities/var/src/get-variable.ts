@@ -7,7 +7,7 @@ import { type Scope, ScopeType } from "@typescript-eslint/scope-manager";
  * Get all variables from the given scope up to the global scope
  * @param initialScope The scope to start from
  */
-export function getVariablesUpToGlobal(initialScope: Scope) {
+export function getVariables(initialScope: Scope): Variable[] {
   const scopeRef = MutRef.make(initialScope);
   const variablesRef = MutRef.make(MutRef.get(scopeRef).variables);
 

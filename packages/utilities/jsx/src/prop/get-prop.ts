@@ -1,7 +1,7 @@
 import { ESLintCommunityESLintUtils, is, NodeType } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
-import { findVariableByNameUpToGlobal, getVariableInit } from "@eslint-react/var";
+import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 // Workaround for @typescript-eslint/utils's TS2742 error.
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -84,7 +84,7 @@ export function findPropInProperties(
               .when(is(NodeType.Identifier), (argument) => {
                 const { name } = argument;
                 const maybeInit = O.flatMap(
-                  findVariableByNameUpToGlobal(name, initialScope),
+                  findVariable(name, initialScope),
                   getVariableInit(0),
                 );
                 if (O.isNone(maybeInit)) return false;
@@ -143,7 +143,7 @@ export function findPropInAttributes(
               .with({ type: NodeType.Identifier }, (argument) => {
                 const { name } = argument;
                 const maybeInit = O.flatMap(
-                  findVariableByNameUpToGlobal(name, initialScope),
+                  findVariable(name, initialScope),
                   getVariableInit(0),
                 );
                 if (O.isNone(maybeInit)) return false;

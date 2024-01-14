@@ -1,7 +1,7 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import { findPropInProperties, hasChildren, hasProp, isCreateElementCall, isLineBreak } from "@eslint-react/jsx";
 import { _, F, O } from "@eslint-react/tools";
-import { findVariableByNameUpToGlobal, getVariableInit } from "@eslint-react/var";
+import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
@@ -50,7 +50,7 @@ export default createRule<[], MessageID>({
             const initialScope = context.sourceCode.getScope?.(n) ?? context.getScope();
 
             return F.pipe(
-              findVariableByNameUpToGlobal(n.name, initialScope),
+              findVariable(n.name, initialScope),
               O.flatMap(getVariableInit(0)),
               O.flatMap((n) => "properties" in n ? O.fromNullable(n.properties) : O.none()),
             );

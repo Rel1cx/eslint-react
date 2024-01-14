@@ -1,6 +1,6 @@
 import { isJSX, NodeType } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
-import { findVariableByNameUpToGlobal, getVariableInitExpression } from "@eslint-react/var";
+import { findVariable, getVariableInitExpression } from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { type TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
@@ -233,7 +233,7 @@ export default createRule<[], MessageID>({
           const initialScope = context.sourceCode.getScope?.(n) ?? context.getScope();
 
           return F.pipe(
-            findVariableByNameUpToGlobal(n.name, initialScope),
+            findVariable(n.name, initialScope),
             O.flatMap(getVariableInitExpression(0)),
             O.flatMap(checkExpression),
           );

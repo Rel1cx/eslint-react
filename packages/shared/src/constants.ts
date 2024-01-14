@@ -28,7 +28,7 @@ export const RE_CONSTANT_CASE = /^[A-Z][\d_A-Z]*$/u;
 
 // @see https://github.com/facebook/react/blob/6db7f4209e6f32ebde298a0b7451710dd6aa3e19/packages/react-dom-bindings/src/shared/sanitizeURL.js#L22
 // dprint-ignore
-// eslint-disable-next-line no-control-regex
+// eslint-disable-next-line no-control-regex, redos-detector/no-unsafe-regex
 export const RE_JAVASCRIPT_PROTOCOL = /^[\u0000-\u001F ]*j[\t\n\r]*a[\t\n\r]*v[\t\n\r]*a[\t\n\r]*s[\t\n\r]*c[\t\n\r]*r[\t\n\r]*i[\t\n\r]*p[\t\n\r]*t[\t\n\r]*:/iu;
 
 /**

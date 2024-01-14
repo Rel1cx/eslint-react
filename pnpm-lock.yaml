@@ -100,8 +100,8 @@ importers:
         specifier: '>=8.56.0'
         version: 8.56.0
       eslint-config-with-tsconfig:
-        specifier: 2.9.290
-        version: 2.9.290(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3)
+        specifier: 2.10.0
+        version: 2.10.0(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3)
       eslint-plugin-eslint-plugin:
         specifier: 5.2.1
         version: 5.2.1(eslint@8.56.0)
@@ -782,8 +782,8 @@ importers:
         specifier: 9.1.0
         version: 9.1.0(eslint@8.56.0)
       eslint-config-with-tsconfig:
-        specifier: 2.9.290
-        version: 2.9.290(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3)
+        specifier: 2.10.0
+        version: 2.10.0(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3)
       eslint-define-config:
         specifier: 2.1.0
         version: 2.1.0
@@ -5445,8 +5445,8 @@ packages:
       eslint: 8.56.0
     dev: true
 
-  /eslint-config-rel1cx@0.12.290(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3):
-    resolution: {integrity: sha512-5ol7zTPLTz9KcSYbt1vYpA0KyUjxuZF4hlhqrsMpxTeHqVcqV+YyNJwbWHWEcfsjtPyGk9Ec8pJGso9sN8sTAQ==}
+  /eslint-config-rel1cx@0.13.0(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3):
+    resolution: {integrity: sha512-OU8zptCPUUinMtP+3kqEEDkyyT8Kf+xk0bVCUGjgvytlSJySoQ7tlHI4KqM/08zgC67bndlHC2ISVaYizzezng==}
     engines: {bun: '>=1.0.7', node: '>=18.15.0'}
     peerDependencies:
       eslint: '>=8.56.0'
@@ -5466,6 +5466,7 @@ packages:
       eslint-plugin-promise: 6.1.1(eslint@8.56.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.56.0)
       eslint-plugin-react-refresh: 0.4.5(eslint@8.56.0)
+      eslint-plugin-redos-detector: 2.4.0(eslint@8.56.0)
       eslint-plugin-regexp: 2.2.0(eslint@8.56.0)
       eslint-plugin-rxjs: 5.0.3(eslint@8.56.0)(typescript@5.3.3)
       eslint-plugin-security: 2.1.0
@@ -5484,8 +5485,8 @@ packages:
       - tailwindcss
     dev: true
 
-  /eslint-config-with-tsconfig@2.9.290(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3):
-    resolution: {integrity: sha512-qCrdBul23oMTc+JAcDM0drBjhzBMyHzWDrD6wGKEb2Wr1oxSRG8Oll9xaX+oH777yAC1tz0E7RZJMscBfq6AyA==}
+  /eslint-config-with-tsconfig@2.10.0(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3):
+    resolution: {integrity: sha512-JngxszvVTQjMoyUPcPq5pqe+LCPbhDhbHB24vzuuxbFjg256O0sWcu9kTwVs7yUOgZb9ztBmi7rcSnOK/vmZYQ==}
     engines: {bun: '>=1.0.13', node: '>=18.15.0'}
     peerDependencies:
       eslint: '>=8.56.0'
@@ -5496,7 +5497,7 @@ packages:
       '@typescript-eslint/eslint-plugin': 6.18.1(@typescript-eslint/parser@6.18.1)(eslint@8.56.0)(typescript@5.3.3)
       '@typescript-eslint/parser': 6.18.1(eslint@8.56.0)(typescript@5.3.3)
       eslint: 8.56.0
-      eslint-config-rel1cx: 0.12.290(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3)
+      eslint-config-rel1cx: 0.13.0(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3)
       eslint-define-config: 2.1.0
       eslint-plugin-expect-type: 0.3.0(@typescript-eslint/parser@6.18.1)(eslint@8.56.0)(typescript@5.3.3)
       eslint-plugin-import-access: 2.1.2(eslint@8.56.0)(typescript@5.3.3)
@@ -5849,6 +5850,14 @@ packages:
       resolve: 2.0.0-next.5
       semver: 6.3.1
       string.prototype.matchall: /@nolyfill/string.prototype.matchall@1.0.24
+    dev: true
+
+  /eslint-plugin-redos-detector@2.4.0(eslint@8.56.0):
+    resolution: {integrity: sha512-+TN3QaOkR8/TCGaUQPsYHQKEMqNt8MKTaFxyUkLZLh2y1ku5wELtnFfe98nXGPeUc/+8I8jdGInx+0WLPS3c4A==}
+    peerDependencies:
+      eslint: '>=8.56.0'
+    dependencies:
+      eslint: 8.56.0
     dev: true
 
   /eslint-plugin-regexp@2.2.0(eslint@8.56.0):

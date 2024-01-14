@@ -3,7 +3,7 @@ import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { getFunctionComponentIdentifier } from "./component-identifier";
+import { getFunctionComponentIdentifier } from "./component-id";
 
 export const RE_COMPONENT_NAME = /^[A-Z]/u;
 

@@ -20,7 +20,7 @@ import { isReactHookCall } from "../hook";
 import type { ERFunctionComponent } from "./component";
 import { DEFAULT_COMPONENT_HINT, ERComponentHint } from "./component-collector-hint";
 import { ERFunctionComponentFlag } from "./component-flag";
-import { getFunctionComponentIdentifier } from "./component-identifier";
+import { getFunctionComponentIdentifier } from "./component-id";
 import { getComponentInitPath, hasCallInInitPath } from "./component-init-path";
 import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
 import { isFunctionOfRenderMethod } from "./component-render-method";

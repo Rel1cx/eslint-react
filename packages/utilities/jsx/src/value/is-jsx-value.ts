@@ -1,7 +1,7 @@
 import { isJSXTagNameExpression, NodeType } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
-import { findVariableByNameUpToGlobal, getVariableInit } from "@eslint-react/var";
+import { findVariable, getVariableInit } from "@eslint-react/var";
 import { type TSESTree } from "@typescript-eslint/utils";
 import { match, P } from "ts-pattern";
 
@@ -113,7 +113,7 @@ export function isJSXValue(
       if (name === "undefined") return !(hint & JSXValueHint.SkipUndefinedLiteral);
       if (isJSXTagNameExpression(node)) return true;
       const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
-      const maybeVariable = findVariableByNameUpToGlobal(name, initialScope);
+      const maybeVariable = findVariable(name, initialScope);
 
       return F.pipe(
         maybeVariable,
