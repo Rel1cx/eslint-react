@@ -9,6 +9,7 @@ More than 50 ESLint rules to catch common mistakes and improve your React code. 
 - Well designed rule behaviors and sensible defaults.
 - Maximum flexibility through minimum configuration options.
 - No auto-fix, Formatting independent, treat your codebase like it's read-only.
+- No redundant polyfills, all rules runs at native runtime performance.
 
 ## Public packages
 
