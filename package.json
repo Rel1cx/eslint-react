@@ -67,7 +67,7 @@
     "@types/node": "20.11.0",
     "@typescript-eslint/eslint-plugin": ">=6.18.1",
     "@typescript-eslint/parser": ">=6.18.1",
-    "@typescript-eslint/rule-tester": ">=6.18.1",
+    "@typescript-eslint/rule-tester": ">=6.19.0",
     "@vitest/ui": "1.2.0",
     "bun": "1.0.22",
     "bun-types": "1.0.22",
