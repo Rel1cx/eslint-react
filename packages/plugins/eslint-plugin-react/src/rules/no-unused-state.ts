@@ -4,6 +4,7 @@ import { _, F, MutList, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
+import { isMatching, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -83,6 +84,16 @@ function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   );
 }
 
+const isGetDerivedStateFromProps = isMatching({
+  static: true,
+  key: {
+    name: "getDerivedStateFromProps",
+  },
+  value: {
+    params: P.array(),
+  },
+});
+
 export default createRule<[], MessageID>({
   name: RULE_NAME,
   meta: {
@@ -124,7 +135,14 @@ export default createRule<[], MessageID>({
       MutList.append(methodStack, node);
       const currentClass = MutList.tail(classStack);
       if (!currentClass || !isClassComponent(currentClass, context)) return;
-      if (node.static) return;
+      if (node.static) {
+        if (isGetDerivedStateFromProps(node) && node.value.params.length > 1) {
+          const [def] = stateDefs.get(currentClass) ?? [O.none()];
+          stateDefs.set(currentClass, [def, true]);
+        }
+
+        return;
+      }
       if (O.exists(getName(node.key), name => name === "state")) {
         stateDefs.set(currentClass, [O.some(node.key), false]);
       }

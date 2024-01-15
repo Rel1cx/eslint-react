@@ -1,3 +1,9 @@
+## v0.10.11-beta.0 (Mon Jan 15 2024)
+
+### 🪄 Improvements
+
+- Improve rule `react/no-unused-state` to respect the usage of `getDerivedStateFromProps`.
+
 ## v0.10.10 (Sun Jan 14 2024)
 
 ### 🪄 Improvements
