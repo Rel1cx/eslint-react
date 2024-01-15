@@ -99,7 +99,7 @@ ___
 
 ### WEBSITE\_URL
 
-• `Const` **WEBSITE\_URL**: ``"https://eslint-react.rel1cx.io"``
+• `Const` **WEBSITE\_URL**: ``"https://eslint-react.xyz"``
 
 ## Functions
 

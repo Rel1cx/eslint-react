@@ -1,4 +1,4 @@
-<p align="center"><img src="https://eslint-react.rel1cx.io/logo.svg" alt="logo" width="150" /></p>
+<p align="center"><img src="https://eslint-react.xyz/logo.svg" alt="logo" width="150" /></p>
 
 <h1 align="center" alt="title">ESLint React</h1>
 
@@ -72,7 +72,7 @@ module.exports = {
 };
 ```
 
-[Full Installation Guide ↗](https://eslint-react.rel1cx.io/docs/installation)
+[Full Installation Guide ↗](https://eslint-react.xyz/docs/installation)
 
 ## Presets
 
@@ -110,11 +110,11 @@ module.exports = {
 - **off**\
   Disable all rules in this plugin except for debug rules.
 
-[Full Presets List↗](https://eslint-react.rel1cx.io/docs/presets)
+[Full Presets List↗](https://eslint-react.xyz/docs/presets)
 
 ## Rules
 
-[Rules Overview ↗](https://eslint-react.rel1cx.io/rules/overview)
+[Rules Overview ↗](https://eslint-react.xyz/rules/overview)
 
 ## Philosophy
 
@@ -127,7 +127,7 @@ module.exports = {
 1. **No Auto-fix**. Auto-fix is a great feature, but it's not always safe and reliable. We prefer to not to do auto-fix at all than to implement it in a way that can cause more problems than it solves.
 2. **Formatting independent**. Rules should check for correctness, not style. We recommend using style focused tools for formatting (e.g. [dprint](https://dprint.dev/)).
 3. **Sensible defaults**. Rules should be easy to setup and use with minimal configuration and sensible defaults.
-4. **Rules over options [[1]](https://eslint-react.rel1cx.io/docs/rules-over-options)**. Each rule should have a single purpose. Make multiple rules work together to achieve more complex behaviors instead of adding options to a single rule.
+4. **Rules over options [[1]](https://eslint-react.xyz/docs/rules-over-options)**. Each rule should have a single purpose. Make multiple rules work together to achieve more complex behaviors instead of adding options to a single rule.
 
 ## Contributing
 

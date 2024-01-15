@@ -8,7 +8,7 @@ export const NPM_SCOPE = "@eslint-react";
 
 export const GITHUB_URL = "https://github.com/rel1cx/eslint-react/blob/main";
 
-export const WEBSITE_URL = "https://eslint-react.rel1cx.io";
+export const WEBSITE_URL = "https://eslint-react.xyz";
 
 /**
  * -----------------------------------------------------------------------------

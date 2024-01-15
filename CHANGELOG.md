@@ -118,13 +118,13 @@
 
 ### ✨ New
 
-- Add [`reactHooks.alias`](https://eslint-react.rel1cx.io/docs/configuration#reacthooksalias) setting support.
+- Add [`reactHooks.alias`](https://eslint-react.xyz/docs/configuration#reacthooksalias) setting support.
 
 ## v0.10.2-beta.0 (Sat Dec 30 2023)
 
 ### ✨ New
 
-- Add [`reactHooks.alias`](https://eslint-react.rel1cx.io/docs/configuration#reacthooksalias) setting support.
+- Add [`reactHooks.alias`](https://eslint-react.xyz/docs/configuration#reacthooksalias) setting support.
 
 ## v0.10.1 (Wed Dec 27 2023)
 
