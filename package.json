@@ -69,7 +69,7 @@
     "@typescript-eslint/parser": ">=6.19.0",
     "@typescript-eslint/rule-tester": ">=6.19.0",
     "@vitest/ui": "1.2.0",
-    "bun": "1.0.22",
+    "bun": "1.0.23",
     "bun-types": "1.0.22",
     "cspell": "8.3.2",
     "dedent": "1.5.1",
