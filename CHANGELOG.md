@@ -1,3 +1,9 @@
+## v0.10.11-beta.1 (Tue Jan 16 2024)
+
+### 🪄 Improvements
+
+- Update `@typescript-eslint`'s packages to `6.19.0`.
+
 ## v0.10.11-beta.0 (Mon Jan 15 2024)
 
 ### 🪄 Improvements
