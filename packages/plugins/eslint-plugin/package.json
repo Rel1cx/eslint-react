@@ -61,11 +61,11 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/parser": ">=6.18.1",
-    "@typescript-eslint/scope-manager": ">=6.18.1",
-    "@typescript-eslint/type-utils": ">=6.18.1",
-    "@typescript-eslint/types": ">=6.18.1",
-    "@typescript-eslint/utils": ">=6.18.1"
+    "@typescript-eslint/parser": ">=6.19.0",
+    "@typescript-eslint/scope-manager": ">=6.19.0",
+    "@typescript-eslint/type-utils": ">=6.19.0",
+    "@typescript-eslint/types": ">=6.19.0",
+    "@typescript-eslint/utils": ">=6.19.0"
   },
   "engines": {
     "bun": ">=1.0.15",

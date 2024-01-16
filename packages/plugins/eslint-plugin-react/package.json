@@ -49,15 +49,15 @@
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/parser": ">=6.18.1",
-    "@typescript-eslint/scope-manager": ">=6.18.1",
-    "@typescript-eslint/type-utils": ">=6.18.1",
-    "@typescript-eslint/types": ">=6.18.1",
-    "@typescript-eslint/utils": ">=6.18.1",
+    "@typescript-eslint/parser": ">=6.19.0",
+    "@typescript-eslint/scope-manager": ">=6.19.0",
+    "@typescript-eslint/type-utils": ">=6.19.0",
+    "@typescript-eslint/types": ">=6.19.0",
+    "@typescript-eslint/utils": ">=6.19.0",
     "string-ts": "2.0.0"
   },
   "peerDependencies": {
-    "@typescript-eslint/parser": ">=6.18.1",
+    "@typescript-eslint/parser": ">=6.19.0",
     "eslint": ">=8.56.0",
     "typescript": ">=5.3.3"
   },
