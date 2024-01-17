@@ -58,7 +58,6 @@ module.exports = defineConfig({
         "jsdoc/require-param-description": "off",
         "jsdoc/require-returns": "off",
         "max-depth": ["warn", 3],
-        "max-len": "off",
         "newline-before-return": "warn",
         "no-console": ["warn", { allow: ["warn", "error"] }],
         "no-restricted-syntax": [
@@ -227,6 +226,7 @@ module.exports = defineConfig({
       rules: {
         "@typescript-eslint/consistent-type-definitions": "off",
         "filenames-simple/naming-convention": "off",
+        "init-declarations": "off",
       },
     },
   ],

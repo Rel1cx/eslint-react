@@ -1,6 +1,5 @@
 import { NodeType } from "@eslint-react/ast";
-import { getParentClassComponent } from "@eslint-react/core";
-import { _, O } from "@eslint-react/tools";
+import { _ } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
@@ -47,15 +46,6 @@ export default createRule<[], MessageID>({
             node,
           });
         }
-      },
-      MemberExpression(node) {
-        const parentClassComponent = getParentClassComponent(node, context);
-        if (O.isNone(parentClassComponent)) return;
-
-        // Check if the member expression is `this.refs`
-        return node.object.type === NodeType.ThisExpression
-          && "name" in node.property
-          && node.property.name === "refs";
       },
     };
   },
