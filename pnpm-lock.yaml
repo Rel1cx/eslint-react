@@ -788,8 +788,8 @@ importers:
         specifier: 2.1.0
         version: 2.1.0
       eslint-plugin-mdx:
-        specifier: 3.1.4
-        version: 3.1.4(eslint@8.56.0)
+        specifier: 3.1.5
+        version: 3.1.5(eslint@8.56.0)
       postcss:
         specifier: 8.4.33
         version: 8.4.33
@@ -5765,8 +5765,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-mdx@3.1.4(eslint@8.56.0):
-    resolution: {integrity: sha512-KTeauZahLAhA5J+NcqnpuZzhv9lmI2paKbesmPj6Q6rgeSg8jorfIhhcLSoUiSIobl7MSYgjULR2FDb8KE6PKg==}
+  /eslint-plugin-mdx@3.1.5(eslint@8.56.0):
+    resolution: {integrity: sha512-lUE7tP7IrIRHU3gTtASDe5u4YM2SvQveYVJfuo82yn3MLh/B/v05FNySURCK4aIxIYF1QYo3IRemQG/lyQzpAg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       eslint: '>=8.56.0'

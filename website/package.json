@@ -34,7 +34,7 @@
     "eslint-config-prettier": "9.1.0",
     "eslint-config-with-tsconfig": "2.14.0",
     "eslint-define-config": "2.1.0",
-    "eslint-plugin-mdx": "3.1.4",
+    "eslint-plugin-mdx": "3.1.5",
     "postcss": "8.4.33",
     "rehype-raw": "7.0.0",
     "remark-code-import": "1.2.0",
