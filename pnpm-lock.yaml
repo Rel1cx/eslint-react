@@ -652,8 +652,8 @@ importers:
         specifier: '>=6.19.0'
         version: 6.19.0(eslint@8.56.0)(typescript@5.3.3)
       rambda:
-        specifier: 8.6.0
-        version: 8.6.0
+        specifier: 9.0.1
+        version: 9.0.1
       string-ts:
         specifier: 2.0.0
         version: 2.0.0
@@ -709,8 +709,8 @@ importers:
         specifier: '>=6.19.0'
         version: 6.19.0(eslint@8.56.0)(typescript@5.3.3)
       rambda:
-        specifier: 8.6.0
-        version: 8.6.0
+        specifier: 9.0.1
+        version: 9.0.1
       string-ts:
         specifier: 2.0.0
         version: 2.0.0
@@ -10027,6 +10027,11 @@ packages:
 
   /rambda@8.6.0:
     resolution: {integrity: sha512-Ax+/bAcV2h4wINXx6wm0792G5uXZAl78rzhei+FqmHezg45vbeTUyDAmDNbSdjNOL6LGN8AUEvzaYD7oO5eYrw==}
+    dev: true
+
+  /rambda@9.0.1:
+    resolution: {integrity: sha512-Su5spknJIBhYUDHNyfEYknOmZTHxbT+kOGRuzLtxF+gjI7YBm7lX0DE/7qnQ6zszve62AJFuLC+7gXD/VSiwRQ==}
+    dev: false
 
   /randombytes@2.1.0:
     resolution: {integrity: sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==}
