@@ -146,6 +146,8 @@ const recommendedPreset = {
 
   // Not enabled because it triggers prematurely before the code is fully written.
   // "react-hooks/ensure-custom-hooks-using-other-hooks": "warn",
+
+  // Not enabled, because in some scenarios, such as in react-three-fiber, the false positives can happen too often.
   // "react-hooks/ensure-use-callback-has-non-empty-deps": "warn",
   // "react-hooks/ensure-use-memo-has-non-empty-deps": "warn",
   // "react-hooks/prefer-use-state-lazy-initialization": "warn",

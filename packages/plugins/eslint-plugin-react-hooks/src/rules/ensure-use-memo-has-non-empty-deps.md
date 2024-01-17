@@ -2,7 +2,7 @@
 
 ## Rule category
 
-Correctness.
+Pedantic.
 
 ## What it does
 

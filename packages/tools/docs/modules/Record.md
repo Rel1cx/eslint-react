@@ -34,6 +34,8 @@
 - [isSubrecordBy](Record.md#issubrecordby)
 - [keys](Record.md#keys)
 - [map](Record.md#map)
+- [mapEntries](Record.md#mapentries)
+- [mapKeys](Record.md#mapkeys)
 - [modifyOption](Record.md#modifyoption)
 - [partition](Record.md#partition)
 - [partitionMap](Record.md#partitionmap)
@@ -2680,6 +2682,168 @@ assert.deepStrictEqual(map({ a: 3, b: 5 }, f), { a: "-3", b: "-5" })
 const g = (n: number, key: string) => `${key.toUpperCase()}-${n}`
 
 assert.deepStrictEqual(map({ a: 3, b: 5 }, g), { a: "A-3", b: "B-5" })
+```
+
+**`Since`**
+
+2.0.0
+
+___
+
+### mapEntries
+
+▸ **mapEntries**\<`A`\>(`f`): (`self`: [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\>) => `Record`\<`string`, `A`\>
+
+Maps entries of a `ReadonlyRecord` using the provided function, allowing modification of both keys and corresponding values.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `A` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: `A`, `key`: `string`) => [`string`, `A`] |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): `Record`\<`string`, `A`\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
+
+##### Returns
+
+`Record`\<`string`, `A`\>
+
+**`Example`**
+
+```ts
+import { mapEntries } from "effect/ReadonlyRecord"
+
+assert.deepStrictEqual(mapEntries({ a: 3, b: 5 }, (a, key) => [key.toUpperCase(), a + 1]), { A: 4, B: 6 })
+```
+
+**`Since`**
+
+2.0.0
+
+▸ **mapEntries**\<`A`\>(`self`, `f`): `Record`\<`string`, `A`\>
+
+Maps entries of a `ReadonlyRecord` using the provided function, allowing modification of both keys and corresponding values.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `A` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
+| `f` | (`a`: `A`, `key`: `string`) => [`string`, `A`] |
+
+#### Returns
+
+`Record`\<`string`, `A`\>
+
+**`Example`**
+
+```ts
+import { mapEntries } from "effect/ReadonlyRecord"
+
+assert.deepStrictEqual(mapEntries({ a: 3, b: 5 }, (a, key) => [key.toUpperCase(), a + 1]), { A: 4, B: 6 })
+```
+
+**`Since`**
+
+2.0.0
+
+___
+
+### mapKeys
+
+▸ **mapKeys**\<`A`\>(`f`): (`self`: [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\>) => `Record`\<`string`, `A`\>
+
+Maps the keys of a `ReadonlyRecord` while preserving the corresponding values.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `A` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `f` | (`key`: `string`, `a`: `A`) => `string` |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): `Record`\<`string`, `A`\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
+
+##### Returns
+
+`Record`\<`string`, `A`\>
+
+**`Example`**
+
+```ts
+import { mapKeys } from "effect/ReadonlyRecord"
+
+assert.deepStrictEqual(mapKeys({ a: 3, b: 5 }, (key) => key.toUpperCase()), { A: 3, B: 5 })
+```
+
+**`Since`**
+
+2.0.0
+
+▸ **mapKeys**\<`A`\>(`self`, `f`): `Record`\<`string`, `A`\>
+
+Maps the keys of a `ReadonlyRecord` while preserving the corresponding values.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `A` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `self` | [`ReadonlyRecord`](../interfaces/Record.ReadonlyRecord.md)\<`A`\> |
+| `f` | (`key`: `string`, `a`: `A`) => `string` |
+
+#### Returns
+
+`Record`\<`string`, `A`\>
+
+**`Example`**
+
+```ts
+import { mapKeys } from "effect/ReadonlyRecord"
+
+assert.deepStrictEqual(mapKeys({ a: 3, b: 5 }, (key) => key.toUpperCase()), { A: 3, B: 5 })
 ```
 
 **`Since`**
