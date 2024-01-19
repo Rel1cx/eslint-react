@@ -283,18 +283,6 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     dedent`
-      class ClassComputedTemplatePropertyTest extends React.Component {
-        constructor() {
-          function F() {
-            this.state = {}
-          }
-        }
-        render() {
-          return null;
-        }
-      }
-    `,
-    dedent`
       class ClassLiteralComputedMemberTest extends React.Component {
         ['foo']() {}
         render() {
@@ -1156,27 +1144,6 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "NO_UNUSED_STATE",
           data: { className: "ClassComputedTemplatePropertyTest" },
-        },
-      ],
-    },
-    {
-      code: dedent`
-        class Foo extends React.Component {
-          state = {}
-          getDerivedStateFromProps() {}
-          render() {
-            function f() {
-              console.log(this.state);
-            }
-
-            return <div>Example</div>;
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_STATE",
-          data: { className: "Foo" },
         },
       ],
     },

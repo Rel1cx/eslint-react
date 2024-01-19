@@ -38,6 +38,7 @@ const rulePreset = {
   "naming-convention/use-state": "warn",
 
   "react/ensure-forward-ref-using-ref": "warn",
+  "react/no-access-state-in-setstate": "error",
   "react/no-children-count": "warn",
   "react/no-children-for-each": "warn",
   "react/no-children-in-void-dom-elements": "warn",
@@ -104,6 +105,7 @@ const recommendedPreset = {
   // "naming-convention/use-state": "warn",
 
   "react/ensure-forward-ref-using-ref": "warn",
+  "react/no-access-state-in-setstate": "error",
   "react/no-children-count": "warn",
   "react/no-children-for-each": "warn",
   "react/no-children-in-void-dom-elements": "warn",
