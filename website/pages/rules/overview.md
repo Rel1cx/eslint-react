@@ -17,6 +17,7 @@
 ## React
 
 - [`react/ensure-forward-ref-using-ref`](react-ensure-forward-ref-using-ref)
+- [`react/no-access-state-in-setstate`](react-no-access-state-in-setstate)
 - [`react/no-children-count`](react-no-children-count)
 - [`react/no-children-for-each`](react-no-children-for-each)
 - [`react/no-children-in-void-dom-elements`](react-no-children-in-void-dom-elements)

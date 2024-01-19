@@ -33,6 +33,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `ensure-forward-ref-using-ref` | `RuleModule`\<``"ENSURE_FORWARD_REF_USING_REF"``, [], `RuleListener`\> |
+| `no-access-state-in-setstate` | `RuleModule`\<``"NO_ACCESS_STATE_IN_SETSTATE"``, [], `RuleListener`\> |
 | `no-children-count` | `RuleModule`\<``"NO_CHILDREN_COUNT"``, [], `RuleListener`\> |
 | `no-children-for-each` | `RuleModule`\<``"NO_CHILDREN_FOR_EACH"``, [], `RuleListener`\> |
 | `no-children-in-void-dom-elements` | `RuleModule`\<``"NO_CHILDREN_IN_VOID_DOM_ELEMENTS"``, [], `RuleListener`\> |

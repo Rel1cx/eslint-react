@@ -1,6 +1,6 @@
-import { getClassIdentifier, isOneOf, NodeType, traverseUp, type TSESTreeClass } from "@eslint-react/ast";
+import { getClassIdentifier, NodeType, type TSESTreeClass } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
-import { F, MutList, O } from "@eslint-react/tools";
+import { MutList, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
@@ -70,32 +70,6 @@ function isThisExpression(node: TSESTree.Expression): boolean {
   }
 
   return node.type === NodeType.ThisExpression;
-}
-
-function isWrappedByNonArrowFunction(
-  node: TSESTree.Node,
-  ctx: {
-    currentMethod: TSESTree.MethodDefinition | TSESTree.PropertyDefinition;
-  },
-) {
-  const { currentMethod } = ctx;
-
-  return F.pipe(
-    node,
-    traverseUp(n => isOneOf([NodeType.FunctionDeclaration, NodeType.FunctionExpression])(n) || n === currentMethod),
-    O.exists(n => {
-      if (n.type === NodeType.FunctionDeclaration) return true;
-      if (n.type === NodeType.FunctionExpression) {
-        return F.pipe(
-          n,
-          traverseUp(isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])),
-          O.exists(m => m !== currentMethod),
-        );
-      }
-
-      return false;
-    }),
-  );
 }
 
 export default createRule<[], MessageID>({
@@ -173,7 +147,6 @@ export default createRule<[], MessageID>({
         if (!currentClass || !currentMethod) return;
         if (!isClassComponent(currentClass, context) || currentMethod.static) return;
         if (!isThisExpression(node.object) || !isKeyLiteralLike(node, node.property)) return;
-        if (isWrappedByNonArrowFunction(node, { currentMethod })) return;
         if (node.parent.type === NodeType.AssignmentExpression && node.parent.left === node) {
           // detect `this.property = xxx`
           propertyDefs.get(currentClass)?.add(node.property);
@@ -188,7 +161,6 @@ export default createRule<[], MessageID>({
         const currentMethod = MutList.tail(methodStack);
         if (!currentClass || !currentMethod) return;
         if (!isClassComponent(currentClass, context) || currentMethod.static) return;
-        if (isWrappedByNonArrowFunction(node, { currentMethod })) return;
         // detect `{ foo, bar: baz } = this`
         if (node.init && isThisExpression(node.init) && node.id.type === NodeType.ObjectPattern) {
           for (const prop of node.id.properties) {
