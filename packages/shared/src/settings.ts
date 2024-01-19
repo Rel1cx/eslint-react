@@ -16,6 +16,7 @@ export const ESLintReactSettingsSchema = object({
   })),
   reactHooks: optional(object({
     alias: optional(object({
+      use: optional(string()),
       useCallback: optional(array(string())),
       useContext: optional(array(string())),
       useDebugValue: optional(array(string())),
@@ -26,6 +27,7 @@ export const ESLintReactSettingsSchema = object({
       useInsertionEffect: optional(array(string())),
       useLayoutEffect: optional(array(string())),
       useMemo: optional(array(string())),
+      useOptimistic: optional(array(string())),
       useReducer: optional(array(string())),
       useRef: optional(array(string())),
       useState: optional(array(string())),
