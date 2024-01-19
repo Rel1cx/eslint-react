@@ -2,7 +2,7 @@
 
 ## Rule category
 
-Stylistic.
+Style.
 
 ## What it does
 
