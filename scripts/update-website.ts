@@ -34,4 +34,4 @@ const metaContent = {
   ),
 };
 await Bun.write(metaFile, JSON.stringify(metaContent, null, 2));
-await Promise.all([...files].map(([src, dest]) => copyFile(src, dest)));
+await Promise.all(files.map(([src, dest]) => copyFile(src, dest)));
