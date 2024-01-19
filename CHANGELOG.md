@@ -1,3 +1,9 @@
+## v0.10.11-beta.2 (Fri Jan 19 2024)
+
+### ✨ New
+
+- Add rule `react/no-access-state-in-setstate`.
+
 ## v0.10.11-beta.1 (Tue Jan 16 2024)
 
 ### 🪄 Improvements
