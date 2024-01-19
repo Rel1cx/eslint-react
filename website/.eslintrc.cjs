@@ -23,6 +23,7 @@ module.exports = defineConfig({
       files: ["*.ts", "*.tsx"],
       rules: {
         "@eslint-react/naming-convention/filename": ["warn", "kebab-case"],
+        "prefer-arrow-callback": "off",
       },
     },
     {

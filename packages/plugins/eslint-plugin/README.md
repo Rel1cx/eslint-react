@@ -106,7 +106,7 @@ module.exports = {
 - **off**\
   Disable all rules in this plugin except for debug rules.
 
-[Full Presets List↗](https://eslint-react.xyz/docs/presets)
+[Full Presets List↗](https://eslint-react.xyz/presets/overview)
 
 ## Rules
 
