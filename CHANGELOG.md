@@ -1,3 +1,14 @@
+## v0.10.11 (Sat Jan 20 2024)
+
+### ✨ New
+
+- Add rule `react/no-access-state-in-setstate`.
+
+### 🪄 Improvements
+
+- Improve rule `react/no-unused-state` to respect the usage of `getDerivedStateFromProps`.
+- Update `@typescript-eslint`'s packages to `6.19.0`.
+
 ## v0.10.11-beta.2 (Fri Jan 19 2024)
 
 ### ✨ New
