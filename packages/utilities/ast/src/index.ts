@@ -8,3 +8,4 @@ export * from "./literal";
 export * from "./misc";
 export * from "./node";
 export * from "./return";
+export * from "./this";

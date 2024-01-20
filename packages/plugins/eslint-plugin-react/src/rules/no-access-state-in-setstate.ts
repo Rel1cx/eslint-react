@@ -1,4 +1,4 @@
-import { NodeType } from "@eslint-react/ast";
+import { isThisExpression, NodeType } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
 import { MutList, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -20,14 +20,6 @@ function isKeyLiteralLike(
     || (property.type === NodeType.TemplateLiteral && property.expressions.length === 0)
     // eslint-disable-next-line @typescript-eslint/no-extra-parens
     || (!node.computed && property.type === NodeType.Identifier);
-}
-
-function isThisExpression(node: TSESTree.Expression): boolean {
-  if (node.type === NodeType.TSAsExpression) {
-    return isThisExpression(node.expression);
-  }
-
-  return node.type === NodeType.ThisExpression;
 }
 
 function isThisSetState(node: TSESTree.CallExpression) {

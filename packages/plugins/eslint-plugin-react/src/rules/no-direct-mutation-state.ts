@@ -1,4 +1,4 @@
-import { isOneOf, NodeType, traverseUpGuard } from "@eslint-react/ast";
+import { isOneOf, isThisExpression, NodeType, traverseUpGuard } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -10,14 +10,6 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-direct-mutation-state";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
-
-function isThisExpression(node: TSESTree.Expression): boolean {
-  if (node.type === NodeType.TSAsExpression) {
-    return isThisExpression(node.expression);
-  }
-
-  return node.type === NodeType.ThisExpression;
-}
 
 function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Option<string> {
   if (node.type === NodeType.TSAsExpression) {

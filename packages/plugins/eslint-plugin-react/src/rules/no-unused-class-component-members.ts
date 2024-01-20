@@ -1,4 +1,4 @@
-import { getClassIdentifier, NodeType, type TSESTreeClass } from "@eslint-react/ast";
+import { getClassIdentifier, isThisExpression, NodeType, type TSESTreeClass } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
 import { MutList, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -62,14 +62,6 @@ function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Opti
   }
 
   return O.none();
-}
-
-function isThisExpression(node: TSESTree.Expression): boolean {
-  if (node.type === NodeType.TSAsExpression) {
-    return isThisExpression(node.expression);
-  }
-
-  return node.type === NodeType.ThisExpression;
 }
 
 export default createRule<[], MessageID>({
