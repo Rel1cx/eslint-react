@@ -79,7 +79,7 @@ export default createRule<[], MessageID>({
     const classStack = MutList.make<TSESTreeClass>();
     const methodStack = MutList.make<TSESTree.MethodDefinition | TSESTree.PropertyDefinition>();
     const constructorStack = MutList.make<TSESTree.MethodDefinition>();
-    const stateDefs = new WeakMap<TSESTreeClass, [O.Option<TSESTree.Node>, boolean]>();
+    const stateDefs = new WeakMap<TSESTreeClass, [node: O.Option<TSESTree.Node>, isUsed: boolean]>();
     function classEnter(node: TSESTreeClass) {
       MutList.append(classStack, node);
     }

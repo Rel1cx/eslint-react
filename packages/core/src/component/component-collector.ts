@@ -92,7 +92,11 @@ export function useComponentCollector(
   pragma = getPragmaFromContext(context),
 ) {
   const components = new Map<string, ERFunctionComponent>();
-  const functionStack = MutList.make<[TSESTreeFunction, boolean, TSESTree.CallExpression[]]>();
+  const functionStack = MutList.make<[
+    node: TSESTreeFunction,
+    isComponent: boolean,
+    hookCalls: TSESTree.CallExpression[],
+  ]>();
   const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
   const onFunctionEnter = (node: TSESTreeFunction) => MutList.append(functionStack, [node, false, []]);
   const onFunctionExit = () => MutList.pop(functionStack);

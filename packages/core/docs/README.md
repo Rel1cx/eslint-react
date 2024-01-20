@@ -1380,14 +1380,14 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `ctx` | \{ `getCurrentFunction`: () => `Option`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> ; `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)\> ; `getCurrentFunctionStack`: () => [`TSESTreeFunction`, `boolean`, `CallExpression`[]][]  } |
-| `ctx.getCurrentFunction` | () => `Option`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> |
+| `ctx` | \{ `getCurrentFunction`: () => `Option`\<[node: TSESTreeFunction, isComponent: boolean, hookCalls: CallExpression[]]\> ; `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)\> ; `getCurrentFunctionStack`: () => [node: TSESTreeFunction, isComponent: boolean, hookCalls: CallExpression[]][]  } |
+| `ctx.getCurrentFunction` | () => `Option`\<[node: TSESTreeFunction, isComponent: boolean, hookCalls: CallExpression[]]\> |
 | `ctx.getAllComponents` | [object Object] |
 | `ctx.getCurrentComponents` | [object Object] |
 | `ctx.getCurrentFunctionStack` | [object Object] |
-| `listeners` | \{ `:function`: (`node`: `TSESTreeFunction`) => `MutableList`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> = onFunctionEnter; `:function:exit`: () => `undefined` \| [`TSESTreeFunction`, `boolean`, `CallExpression`[]] = onFunctionExit; `ArrowFunctionExpression[body.type!='BlockStatement']`: () => `void` ; `AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']`: (`node`: `Node`) => `void` ; `CallExpression:exit`: (`node`: `CallExpression`) => `void` ; `ReturnStatement`: (`node`: `ReturnStatement`) => `void`  } |
-| `listeners.:function` | (`node`: `TSESTreeFunction`) => `MutableList`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> |
-| `listeners.:function:exit` | () => `undefined` \| [`TSESTreeFunction`, `boolean`, `CallExpression`[]] |
+| `listeners` | \{ `:function`: (`node`: `TSESTreeFunction`) => `MutableList`\<[node: TSESTreeFunction, isComponent: boolean, hookCalls: CallExpression[]]\> = onFunctionEnter; `:function:exit`: () => `undefined` \| [node: TSESTreeFunction, isComponent: boolean, hookCalls: CallExpression[]] = onFunctionExit; `ArrowFunctionExpression[body.type!='BlockStatement']`: () => `void` ; `AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']`: (`node`: `Node`) => `void` ; `CallExpression:exit`: (`node`: `CallExpression`) => `void` ; `ReturnStatement`: (`node`: `ReturnStatement`) => `void`  } |
+| `listeners.:function` | (`node`: `TSESTreeFunction`) => `MutableList`\<[node: TSESTreeFunction, isComponent: boolean, hookCalls: CallExpression[]]\> |
+| `listeners.:function:exit` | () => `undefined` \| [node: TSESTreeFunction, isComponent: boolean, hookCalls: CallExpression[]] |
 | `listeners.ArrowFunctionExpression[body.type!='BlockStatement']` | [object Object] |
 | `listeners.AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']` | [object Object] |
 | `listeners.CallExpression:exit` | [object Object] |
