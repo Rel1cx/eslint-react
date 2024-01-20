@@ -182,11 +182,6 @@ const flatConfigPlugins = {
 function createLegacyConfig<T extends RulePreset>(rules: T, plugins = legacyConfigPlugins) {
   return {
     parser: "@typescript-eslint/parser",
-    parserOptions: {
-      ecmaVersion: "2021",
-      project: true,
-      sourceType: "module",
-    },
     plugins,
     rules: padKeysLeft(rules, "@eslint-react/"),
   } as const;
@@ -196,10 +191,6 @@ function createFlatConfig<T extends RulePreset>(rules: T, plugins = flatConfigPl
   return {
     languageOptions: {
       parser: tsParser,
-      parserOptions: {
-        project: true,
-      },
-      sourceType: "module",
     },
     plugins,
     rules: padKeysLeft(rules, "@eslint-react/"),

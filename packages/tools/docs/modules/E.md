@@ -570,7 +570,7 @@ If the predicate fails, set the left value with the result of the provided funct
 
 | Name | Type |
 | :------ | :------ |
-| `filter` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
+| `filter` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`A`, `B`\> |
 | `orLeftWith` | (`a`: `X`) => `E2` |
 
 #### Returns
@@ -641,7 +641,7 @@ If the predicate fails, set the left value with the result of the provided funct
 
 | Name | Type |
 | :------ | :------ |
-| `filter` | [`Predicate`](../interfaces/.Predicate.md)\<`X`\> |
+| `filter` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`X`\> |
 | `orLeftWith` | (`a`: `Y`) => `E2` |
 
 #### Returns
@@ -714,7 +714,7 @@ If the predicate fails, set the left value with the result of the provided funct
 | Name | Type |
 | :------ | :------ |
 | `self` | [`Either`](E.md#either)\<`E`, `A`\> |
-| `filter` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
+| `filter` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`A`, `B`\> |
 | `orLeftWith` | (`a`: `X`) => `E2` |
 
 #### Returns
@@ -769,7 +769,7 @@ If the predicate fails, set the left value with the result of the provided funct
 | Name | Type |
 | :------ | :------ |
 | `self` | [`Either`](E.md#either)\<`E`, `A`\> |
-| `filter` | [`Predicate`](../interfaces/.Predicate.md)\<`X`\> |
+| `filter` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`X`\> |
 | `orLeftWith` | (`a`: `Y`) => `E2` |
 
 #### Returns

@@ -1,8 +1,8 @@
-[@eslint-react/tools](../README.md) / [\_](../modules/.md) / Refinement
+[@eslint-react/tools](../README.md) / [Prd](../modules/Prd.md) / Refinement
 
 # Interface: Refinement\<A, B\>
 
-[\_](../modules/.md).Refinement
+[Prd](../modules/Prd.md).Refinement
 
 **`Since`**
 

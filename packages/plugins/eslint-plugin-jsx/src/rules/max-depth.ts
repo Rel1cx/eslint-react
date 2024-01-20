@@ -1,7 +1,7 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/b4b7497eaf49360449883d5fe80e7590e69ae143/lib/rules/jsx-max-depth.js
 // with some modifications, credits to the original authors.
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
-import { _, F, O } from "@eslint-react/tools";
+import { F, O, Prd } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -106,7 +106,7 @@ export default createRule<Options, MessageID>({
   defaultOptions,
   create(context) {
     const options = context.options[0] ?? defaultOptions[0];
-    const maxDepth = _.isNumber(options) ? options : options.max ?? defaultOptions[0].max;
+    const maxDepth = Prd.isNumber(options) ? options : options.max ?? defaultOptions[0].max;
 
     return {
       "JSXElement, JSXFragment": F.flow(getChecker(maxDepth), O.map(context.report)),

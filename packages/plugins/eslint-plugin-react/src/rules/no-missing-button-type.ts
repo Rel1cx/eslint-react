@@ -1,6 +1,6 @@
 import { NodeType } from "@eslint-react/ast";
 import { findPropInAttributes, findPropInProperties, getPropValue, isCreateElementCall } from "@eslint-react/jsx";
-import { _, F, O } from "@eslint-react/tools";
+import { F, O, Prd } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 import { isMatching, P } from "ts-pattern";
@@ -85,7 +85,7 @@ export default createRule<[], MessageID>({
         const hasValidType = F.pipe(
           getPropValue(typeAttribute, context),
           O.flatMapNullable(v => v?.value),
-          O.filter(_.isString),
+          O.filter(Prd.isString),
           O.exists((value) => validTypes.some((type) => type === value)),
         );
         if (hasValidType) return;

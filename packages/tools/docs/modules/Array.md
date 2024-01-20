@@ -6351,7 +6351,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
+| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -6385,7 +6385,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> |
+| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`A`\> |
 
 #### Returns
 

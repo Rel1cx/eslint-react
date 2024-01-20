@@ -108,7 +108,7 @@ Check if a value in an `Option` type meets a certain predicate.
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
+| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -158,7 +158,7 @@ Check if a value in an `Option` type meets a certain predicate.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> | The condition to check. |
+| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`A`\> | The condition to check. |
 
 #### Returns
 
@@ -209,7 +209,7 @@ Check if a value in an `Option` type meets a certain predicate.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to check. |
-| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> | - |
+| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`A`, `B`\> | - |
 
 #### Returns
 
@@ -247,7 +247,7 @@ Check if a value in an `Option` type meets a certain predicate.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> | The `Option` to check. |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> | The condition to check. |
+| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`A`\> | The condition to check. |
 
 #### Returns
 
@@ -1650,7 +1650,7 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
+| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -1709,7 +1709,7 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> | A predicate function to apply to the `Option` value. |
+| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`A`\> | A predicate function to apply to the `Option` value. |
 
 #### Returns
 
@@ -1769,7 +1769,7 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 | Name | Type |
 | :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> |
-| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
+| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -1816,7 +1816,7 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `self` | [`Option`](O.md#option)\<`A`\> | - |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> | A predicate function to apply to the `Option` value. |
+| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`A`\> | A predicate function to apply to the `Option` value. |
 
 #### Returns
 
@@ -2481,7 +2481,7 @@ if the predicate returns `false`.
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | [`Refinement`](../interfaces/.Refinement.md)\<`A`, `B`\> |
+| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`A`, `B`\> |
 
 #### Returns
 
@@ -2530,7 +2530,7 @@ if the predicate returns `false`.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/.Predicate.md)\<`A`\> | A `Predicate` function that takes in a value of type `A` and returns a boolean. |
+| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`A`\> | A `Predicate` function that takes in a value of type `A` and returns a boolean. |
 
 #### Returns
 

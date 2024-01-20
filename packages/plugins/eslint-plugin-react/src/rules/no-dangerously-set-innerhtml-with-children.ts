@@ -1,6 +1,6 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import { findPropInProperties, hasChildren, hasProp, isCreateElementCall, isLineBreak } from "@eslint-react/jsx";
-import { _, F, O } from "@eslint-react/tools";
+import { F, O, Prd } from "@eslint-react/tools";
 import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -17,7 +17,7 @@ function firstChildIsText(node: TSESTree.JSXElement) {
   const [firstChild] = node.children;
 
   return node.children.length > 0
-    && !_.isNullable(firstChild)
+    && !Prd.isNullable(firstChild)
     && !isLineBreak(firstChild);
 }
 

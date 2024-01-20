@@ -1,5 +1,5 @@
 import { is, NodeType, traverseUp } from "@eslint-react/ast";
-import { _, F, O } from "@eslint-react/tools";
+import { F, O, Prd } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -45,7 +45,7 @@ export function hasChildren(
   node: TSESTree.JSXElement | TSESTree.JSXFragment,
   predicate?: (node: TSESTree.JSXChild) => boolean,
 ) {
-  if (_.isFunction(predicate)) return node.children.some(predicate);
+  if (Prd.isFunction(predicate)) return node.children.some(predicate);
 
   return node.children.length > 0;
 }

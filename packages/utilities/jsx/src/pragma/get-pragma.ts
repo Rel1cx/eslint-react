@@ -1,5 +1,5 @@
 import { ESLintSettingsSchema, parseSchema } from "@eslint-react/shared";
-import { _, F, O } from "@eslint-react/tools";
+import { F, O, Prd } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import memo from "micro-memoize";
 
@@ -10,7 +10,7 @@ const RE_JS_IDENTIFIER_REGEX = /^[$A-Z_a-z][\w$]*$/u;
 export function getFragmentFromContext<T extends RuleContext>(context: T) {
   const settings = parseSchema(ESLintSettingsSchema, context.settings);
   const fragment = settings.eslintReact?.jsx?.fragment;
-  if (_.isString(fragment) && RE_JS_IDENTIFIER_REGEX.test(fragment)) return fragment;
+  if (Prd.isString(fragment) && RE_JS_IDENTIFIER_REGEX.test(fragment)) return fragment;
 
   return "Fragment";
 }

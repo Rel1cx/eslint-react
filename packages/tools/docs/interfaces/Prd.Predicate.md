@@ -1,8 +1,8 @@
-[@eslint-react/tools](../README.md) / [\_](../modules/.md) / Predicate
+[@eslint-react/tools](../README.md) / [Prd](../modules/Prd.md) / Predicate
 
 # Interface: Predicate\<A\>
 
-[\_](../modules/.md).Predicate
+[Prd](../modules/Prd.md).Predicate
 
 **`Since`**
 

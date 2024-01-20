@@ -6,7 +6,7 @@ import {
   RE_PASCAL_CASE,
   RE_SNAKE_CASE,
 } from "@eslint-react/shared";
-import { _ } from "@eslint-react/tools";
+import { Prd } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import path from "pathe";
@@ -94,9 +94,9 @@ export default createRule<Options, MessageID>({
   create(context) {
     const configs = parseSchema(ESLintSettingsSchema, context.settings).eslintReact;
     const options = context.options[0] ?? defaultOptions[0];
-    const rule = _.isString(options) ? options : options.rule ?? "PascalCase";
-    const excepts = _.isString(options) ? [] : options.excepts ?? [];
-    const extensions = _.isObject(options) && "extensions" in options
+    const rule = Prd.isString(options) ? options : options.rule ?? "PascalCase";
+    const excepts = Prd.isString(options) ? [] : options.excepts ?? [];
+    const extensions = Prd.isObject(options) && "extensions" in options
       ? options.extensions
       : configs?.jsx?.extensions ?? defaultOptions[0].extensions;
 

@@ -2,7 +2,7 @@ import { NodeType } from "@eslint-react/ast";
 import { isReactHookCallWithNameLoose, isUseStateCall, useComponentCollector } from "@eslint-react/core";
 import { getPragmaFromContext } from "@eslint-react/jsx";
 import { ESLintSettingsSchema, parseSchema } from "@eslint-react/shared";
-import { _, F, O } from "@eslint-react/tools";
+import { F, O, Prd } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { capitalize, type ConstantCase } from "string-ts";
@@ -67,7 +67,7 @@ export default createRule<[], MessageID>({
                   const [state, setState] = n.elements;
                   if (state?.type === NodeType.ObjectPattern && setState?.type === NodeType.Identifier) {
                     return F.pipe(
-                      O.liftPredicate(_.not(isSetterNameLoose))(setState.name),
+                      O.liftPredicate(Prd.not(isSetterNameLoose))(setState.name),
                       O.flatMap(F.constant(descriptor)),
                     );
                   }

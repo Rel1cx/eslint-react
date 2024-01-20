@@ -7,7 +7,7 @@ export * as MutList from "effect/MutableList";
 export * as MutRef from "effect/MutableRef";
 export * as O from "effect/Option";
 export * as Ord from "effect/Order";
-export * as _ from "effect/Predicate";
+export * as Prd from "effect/Predicate";
 export * as Array from "effect/ReadonlyArray";
 export * as Record from "effect/ReadonlyRecord";
 export * as Ref from "effect/Ref";

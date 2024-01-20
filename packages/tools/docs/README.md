@@ -17,6 +17,6 @@
 - [MutRef](modules/MutRef.md)
 - [O](modules/O.md)
 - [Ord](modules/Ord.md)
+- [Prd](modules/Prd.md)
 - [Record](modules/Record.md)
 - [Ref](modules/Ref.md)
-- [\_](modules/.md)
