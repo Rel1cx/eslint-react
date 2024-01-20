@@ -1,8 +1,20 @@
-[@eslint-react/tools](../README.md) / [E](../modules/E.md) / Left
+[@eslint-react/tools](../README.md) / [Effect](../modules/Effect.md) / Effect
 
-# Interface: Left\<E, A\>
+# Interface: Effect\<R, E, A\>
 
-[E](../modules/E.md).Left
+[Effect](../modules/Effect.md).Effect
+
+The `Effect` interface defines a value that lazily describes a workflow or job.
+The workflow requires some context `R`, and may fail with an error of type `E`,
+or succeed with a value of type `A`.
+
+`Effect` values model resourceful interaction with the outside world, including
+synchronous, asynchronous, concurrent, and parallel interaction. They use a
+fiber-based concurrency model, with built-in support for scheduling, fine-grained
+interruption, structured concurrency, and high scalability.
+
+To run an `Effect` value, you need a `Runtime`, which is a type that is capable
+of executing `Effect` values.
 
 **`Since`**
 
@@ -12,75 +24,77 @@
 
 | Name |
 | :------ |
+| `R` |
 | `E` |
 | `A` |
 
 ## Hierarchy
 
-- [`Case`](Data.Case-1.md)
+- [`Variance`](Effect.Effect.Variance.md)\<`R`, `E`, `A`\>
+
+- [`Equal`](Equal.Equal.md)
 
 - `Pipeable`
 
-- `Inspectable`
+- `Sink`\<`R`, `E`, `unknown`, `never`, `A`\>
 
-- [`Effect`](Effect.Effect-1.md)\<`never`, `E`, `A`\>
+- `Stream`\<`R`, `E`, `A`\>
 
-  ↳ **`Left`**
+- `Channel`\<`R`, `unknown`, `unknown`, `unknown`, `E`, `never`, `A`\>
+
+  ↳ **`Effect`**
+
+  ↳↳ [`Tag`](Context.Tag.md)
+
+  ↳↳ [`Blocked`](Effect.Blocked.md)
+
+  ↳↳ [`Left`](E.Left.md)
+
+  ↳↳ [`Right`](E.Right.md)
+
+  ↳↳ [`None`](O.None.md)
+
+  ↳↳ [`Some`](O.Some.md)
 
 ## Table of contents
 
 ### Properties
 
-- [[ChannelTypeId]](E.Left.md#[channeltypeid])
-- [[EffectTypeId]](E.Left.md#[effecttypeid])
-- [[SinkTypeId]](E.Left.md#[sinktypeid])
-- [[StreamTypeId]](E.Left.md#[streamtypeid])
-- [[TypeId]](E.Left.md#[typeid])
-- [[ignoreSymbol]](E.Left.md#[ignoresymbol])
-- [[typeSymbol]](E.Left.md#[typesymbol])
-- [[unifySymbol]](E.Left.md#[unifysymbol])
-- [\_op](E.Left.md#_op)
-- [\_tag](E.Left.md#_tag)
-- [left](E.Left.md#left)
+- [[ChannelTypeId]](Effect.Effect-1.md#[channeltypeid])
+- [[EffectTypeId]](Effect.Effect-1.md#[effecttypeid])
+- [[SinkTypeId]](Effect.Effect-1.md#[sinktypeid])
+- [[StreamTypeId]](Effect.Effect-1.md#[streamtypeid])
+- [[ignoreSymbol]](Effect.Effect-1.md#[ignoresymbol])
+- [[typeSymbol]](Effect.Effect-1.md#[typesymbol])
+- [[unifySymbol]](Effect.Effect-1.md#[unifysymbol])
 
 ### Methods
 
-- [[NodeInspectSymbol]](E.Left.md#[nodeinspectsymbol])
-- [[symbol]](E.Left.md#[symbol])
-- [[symbol]](E.Left.md#[symbol]-1)
-- [pipe](E.Left.md#pipe)
-- [toJSON](E.Left.md#tojson)
-- [toString](E.Left.md#tostring)
+- [[symbol]](Effect.Effect-1.md#[symbol])
+- [[symbol]](Effect.Effect-1.md#[symbol]-1)
+- [pipe](Effect.Effect-1.md#pipe)
 
 ## Properties
 
 ### [ChannelTypeId]
 
-• `Readonly` **[ChannelTypeId]**: `VarianceStruct`\<`never`, `unknown`, `unknown`, `unknown`, `E`, `never`, `A`\>
-
-#### Inherited from
-
-[Effect](Effect.Effect-1.md).[[ChannelTypeId]](Effect.Effect-1.md#[channeltypeid])
+• `Readonly` **[ChannelTypeId]**: `VarianceStruct`\<`R`, `unknown`, `unknown`, `unknown`, `E`, `never`, `A`\>
 
 ___
 
 ### [EffectTypeId]
 
-• `Readonly` **[EffectTypeId]**: [`VarianceStruct`](Effect.Effect.VarianceStruct.md)\<`never`, `E`, `A`\>
+• `Readonly` **[EffectTypeId]**: [`VarianceStruct`](Effect.Effect.VarianceStruct.md)\<`R`, `E`, `A`\>
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[[EffectTypeId]](Effect.Effect-1.md#[effecttypeid])
+[Variance](Effect.Effect.Variance.md).[[EffectTypeId]](Effect.Effect.Variance.md#[effecttypeid])
 
 ___
 
 ### [SinkTypeId]
 
-• `Readonly` **[SinkTypeId]**: `VarianceStruct`\<`never`, `E`, `unknown`, `never`, `A`\>
-
-#### Inherited from
-
-[Effect](Effect.Effect-1.md).[[SinkTypeId]](Effect.Effect-1.md#[sinktypeid])
+• `Readonly` **[SinkTypeId]**: `VarianceStruct`\<`R`, `E`, `unknown`, `never`, `A`\>
 
 ___
 
@@ -94,88 +108,27 @@ ___
 | :------ | :------ |
 | `_A` | `Covariant`\<`A`\> |
 | `_E` | `Covariant`\<`E`\> |
-| `_R` | `Covariant`\<`never`\> |
-
-#### Inherited from
-
-[Effect](Effect.Effect-1.md).[[StreamTypeId]](Effect.Effect-1.md#[streamtypeid])
-
-___
-
-### [TypeId]
-
-• `Readonly` **[TypeId]**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `_A` | `Covariant`\<`A`\> |
-| `_E` | `Covariant`\<`E`\> |
+| `_R` | `Covariant`\<`R`\> |
 
 ___
 
 ### [ignoreSymbol]
 
-• `Optional` **[ignoreSymbol]**: [`EitherUnifyIgnore`](E.EitherUnifyIgnore.md)
-
-#### Inherited from
-
-[Effect](Effect.Effect-1.md).[[ignoreSymbol]](Effect.Effect-1.md#[ignoresymbol])
+• `Optional` `Readonly` **[ignoreSymbol]**: [`EffectUnifyIgnore`](Effect.EffectUnifyIgnore.md)
 
 ___
 
 ### [typeSymbol]
 
-• `Optional` **[typeSymbol]**: `unknown`
-
-#### Inherited from
-
-[Effect](Effect.Effect-1.md).[[typeSymbol]](Effect.Effect-1.md#[typesymbol])
+• `Optional` `Readonly` **[typeSymbol]**: `unknown`
 
 ___
 
 ### [unifySymbol]
 
-• `Optional` **[unifySymbol]**: [`EitherUnify`](E.EitherUnify.md)\<[`Left`](E.Left.md)\<`E`, `A`\>\>
-
-#### Inherited from
-
-[Effect](Effect.Effect-1.md).[[unifySymbol]](Effect.Effect-1.md#[unifysymbol])
-
-___
-
-### \_op
-
-• `Readonly` **\_op**: ``"Left"``
-
-___
-
-### \_tag
-
-• `Readonly` **\_tag**: ``"Left"``
-
-___
-
-### left
-
-• `Readonly` **left**: `E`
+• `Optional` `Readonly` **[unifySymbol]**: [`EffectUnify`](Effect.EffectUnify.md)\<[`Effect`](Effect.Effect-1.md)\<`R`, `E`, `A`\>\>
 
 ## Methods
-
-### [NodeInspectSymbol]
-
-▸ **[NodeInspectSymbol]**(): `unknown`
-
-#### Returns
-
-`unknown`
-
-#### Inherited from
-
-Inspectable.[NodeInspectSymbol]
-
-___
 
 ### [symbol]
 
@@ -193,7 +146,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[[symbol]](Effect.Effect-1.md#[symbol]-1)
+[Equal](Equal.Equal.md).[[symbol]](Equal.Equal.md#[symbol]-1)
 
 ___
 
@@ -207,7 +160,7 @@ ___
 
 #### Inherited from
 
-Data.Case.[symbol]
+Equal.Equal.[symbol]
 
 ___
 
@@ -235,7 +188,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`\>(`this`, `ab`, `bc`): `C`
 
@@ -261,7 +214,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`\>(`this`, `ab`, `bc`, `cd`): `D`
 
@@ -289,7 +242,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`\>(`this`, `ab`, `bc`, `cd`, `de`): `E`
 
@@ -319,7 +272,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`): `F`
 
@@ -351,7 +304,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`): `G`
 
@@ -385,7 +338,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): `H`
 
@@ -421,7 +374,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): `I`
 
@@ -459,7 +412,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): `J`
 
@@ -499,7 +452,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`): `K`
 
@@ -541,7 +494,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`): `L`
 
@@ -585,7 +538,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`): `M`
 
@@ -631,7 +584,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`): `N`
 
@@ -679,7 +632,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`): `O`
 
@@ -729,7 +682,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`): `P`
 
@@ -781,7 +734,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`): `Q`
 
@@ -835,7 +788,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`): `R`
 
@@ -891,7 +844,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`): `S`
 
@@ -949,7 +902,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`): `T`
 
@@ -1009,7 +962,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`, `U`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`, `tu`): `U`
 
@@ -1071,7 +1024,7 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
+Pipeable.pipe
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`, `U`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`, `tu`): `U`
 
@@ -1133,32 +1086,4 @@ ___
 
 #### Inherited from
 
-[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
-
-___
-
-### toJSON
-
-▸ **toJSON**(): `unknown`
-
-#### Returns
-
-`unknown`
-
-#### Inherited from
-
-Inspectable.toJSON
-
-___
-
-### toString
-
-▸ **toString**(): `string`
-
-#### Returns
-
-`string`
-
-#### Inherited from
-
-Inspectable.toString
+Pipeable.pipe

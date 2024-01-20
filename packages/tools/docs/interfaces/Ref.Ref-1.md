@@ -53,7 +53,7 @@
 
 ### modify
 
-▸ **modify**\<`B`\>(`f`): `Effect`\<`never`, `never`, `B`\>
+▸ **modify**\<`B`\>(`f`): [`Effect`](Effect.Effect-1.md)\<`never`, `never`, `B`\>
 
 #### Type parameters
 
@@ -69,7 +69,7 @@
 
 #### Returns
 
-`Effect`\<`never`, `never`, `B`\>
+[`Effect`](Effect.Effect-1.md)\<`never`, `never`, `B`\>
 
 ___
 

@@ -1,8 +1,8 @@
-[@eslint-react/tools](../README.md) / [E](../modules/E.md) / Left
+[@eslint-react/tools](../README.md) / [Effect](../modules/Effect.md) / Blocked
 
-# Interface: Left\<E, A\>
+# Interface: Blocked\<E, A\>
 
-[E](../modules/E.md).Left
+[Effect](../modules/Effect.md).Blocked
 
 **`Since`**
 
@@ -17,40 +17,30 @@
 
 ## Hierarchy
 
-- [`Case`](Data.Case-1.md)
-
-- `Pipeable`
-
-- `Inspectable`
-
 - [`Effect`](Effect.Effect-1.md)\<`never`, `E`, `A`\>
 
-  ↳ **`Left`**
+  ↳ **`Blocked`**
 
 ## Table of contents
 
 ### Properties
 
-- [[ChannelTypeId]](E.Left.md#[channeltypeid])
-- [[EffectTypeId]](E.Left.md#[effecttypeid])
-- [[SinkTypeId]](E.Left.md#[sinktypeid])
-- [[StreamTypeId]](E.Left.md#[streamtypeid])
-- [[TypeId]](E.Left.md#[typeid])
-- [[ignoreSymbol]](E.Left.md#[ignoresymbol])
-- [[typeSymbol]](E.Left.md#[typesymbol])
-- [[unifySymbol]](E.Left.md#[unifysymbol])
-- [\_op](E.Left.md#_op)
-- [\_tag](E.Left.md#_tag)
-- [left](E.Left.md#left)
+- [[ChannelTypeId]](Effect.Blocked.md#[channeltypeid])
+- [[EffectTypeId]](Effect.Blocked.md#[effecttypeid])
+- [[SinkTypeId]](Effect.Blocked.md#[sinktypeid])
+- [[StreamTypeId]](Effect.Blocked.md#[streamtypeid])
+- [[ignoreSymbol]](Effect.Blocked.md#[ignoresymbol])
+- [[typeSymbol]](Effect.Blocked.md#[typesymbol])
+- [[unifySymbol]](Effect.Blocked.md#[unifysymbol])
+- [\_op](Effect.Blocked.md#_op)
+- [i0](Effect.Blocked.md#i0)
+- [i1](Effect.Blocked.md#i1)
 
 ### Methods
 
-- [[NodeInspectSymbol]](E.Left.md#[nodeinspectsymbol])
-- [[symbol]](E.Left.md#[symbol])
-- [[symbol]](E.Left.md#[symbol]-1)
-- [pipe](E.Left.md#pipe)
-- [toJSON](E.Left.md#tojson)
-- [toString](E.Left.md#tostring)
+- [[symbol]](Effect.Blocked.md#[symbol])
+- [[symbol]](Effect.Blocked.md#[symbol]-1)
+- [pipe](Effect.Blocked.md#pipe)
 
 ## Properties
 
@@ -102,22 +92,9 @@ ___
 
 ___
 
-### [TypeId]
-
-• `Readonly` **[TypeId]**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `_A` | `Covariant`\<`A`\> |
-| `_E` | `Covariant`\<`E`\> |
-
-___
-
 ### [ignoreSymbol]
 
-• `Optional` **[ignoreSymbol]**: [`EitherUnifyIgnore`](E.EitherUnifyIgnore.md)
+• `Optional` `Readonly` **[ignoreSymbol]**: [`EffectUnifyIgnore`](Effect.EffectUnifyIgnore.md)
 
 #### Inherited from
 
@@ -127,7 +104,7 @@ ___
 
 ### [typeSymbol]
 
-• `Optional` **[typeSymbol]**: `unknown`
+• `Optional` `Readonly` **[typeSymbol]**: `unknown`
 
 #### Inherited from
 
@@ -137,7 +114,7 @@ ___
 
 ### [unifySymbol]
 
-• `Optional` **[unifySymbol]**: [`EitherUnify`](E.EitherUnify.md)\<[`Left`](E.Left.md)\<`E`, `A`\>\>
+• `Optional` `Readonly` **[unifySymbol]**: [`EffectUnify`](Effect.EffectUnify.md)\<[`Blocked`](Effect.Blocked.md)\<`E`, `A`\>\>
 
 #### Inherited from
 
@@ -147,35 +124,21 @@ ___
 
 ### \_op
 
-• `Readonly` **\_op**: ``"Left"``
+• `Readonly` **\_op**: ``"Blocked"``
 
 ___
 
-### \_tag
+### i0
 
-• `Readonly` **\_tag**: ``"Left"``
+• `Readonly` **i0**: `RequestBlock`
 
 ___
 
-### left
+### i1
 
-• `Readonly` **left**: `E`
+• `Readonly` **i1**: [`Effect`](Effect.Effect-1.md)\<`never`, `E`, `A`\>
 
 ## Methods
-
-### [NodeInspectSymbol]
-
-▸ **[NodeInspectSymbol]**(): `unknown`
-
-#### Returns
-
-`unknown`
-
-#### Inherited from
-
-Inspectable.[NodeInspectSymbol]
-
-___
 
 ### [symbol]
 
@@ -207,7 +170,7 @@ ___
 
 #### Inherited from
 
-Data.Case.[symbol]
+Effect.[symbol]
 
 ___
 
@@ -1134,31 +1097,3 @@ ___
 #### Inherited from
 
 [Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
-
-___
-
-### toJSON
-
-▸ **toJSON**(): `unknown`
-
-#### Returns
-
-`unknown`
-
-#### Inherited from
-
-Inspectable.toJSON
-
-___
-
-### toString
-
-▸ **toString**(): `string`
-
-#### Returns
-
-`string`
-
-#### Inherited from
-
-Inspectable.toString

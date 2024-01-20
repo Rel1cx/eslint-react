@@ -41,7 +41,7 @@
 
 ### make
 
-▸ **make**\<`A`\>(`value`): `Effect`\<`never`, `never`, [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>\>
+▸ **make**\<`A`\>(`value`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>\>
 
 #### Type parameters
 
@@ -57,7 +57,7 @@
 
 #### Returns
 
-`Effect`\<`never`, `never`, [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>\>
 
 **`Since`**
 
@@ -67,7 +67,7 @@
 
 ### get
 
-▸ **get**\<`A`\>(`self`): `Effect`\<`never`, `never`, `A`\>
+▸ **get**\<`A`\>(`self`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 #### Type parameters
 
@@ -83,7 +83,7 @@
 
 #### Returns
 
-`Effect`\<`never`, `never`, `A`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 **`Since`**
 
@@ -139,7 +139,7 @@ ___
 
 ### getAndSet
 
-▸ **getAndSet**\<`A`\>(`value`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => `Effect`\<`never`, `never`, `A`\>
+▸ **getAndSet**\<`A`\>(`value`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 #### Type parameters
 
@@ -157,7 +157,7 @@ ___
 
 `fn`
 
-▸ (`self`): `Effect`\<`never`, `never`, `A`\>
+▸ (`self`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 ##### Parameters
 
@@ -167,13 +167,13 @@ ___
 
 ##### Returns
 
-`Effect`\<`never`, `never`, `A`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **getAndSet**\<`A`\>(`self`, `value`): `Effect`\<`never`, `never`, `A`\>
+▸ **getAndSet**\<`A`\>(`self`, `value`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 #### Type parameters
 
@@ -190,7 +190,7 @@ ___
 
 #### Returns
 
-`Effect`\<`never`, `never`, `A`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 **`Since`**
 
@@ -200,7 +200,7 @@ ___
 
 ### getAndUpdate
 
-▸ **getAndUpdate**\<`A`\>(`f`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => `Effect`\<`never`, `never`, `A`\>
+▸ **getAndUpdate**\<`A`\>(`f`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 #### Type parameters
 
@@ -218,7 +218,7 @@ ___
 
 `fn`
 
-▸ (`self`): `Effect`\<`never`, `never`, `A`\>
+▸ (`self`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 ##### Parameters
 
@@ -228,13 +228,13 @@ ___
 
 ##### Returns
 
-`Effect`\<`never`, `never`, `A`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **getAndUpdate**\<`A`\>(`self`, `f`): `Effect`\<`never`, `never`, `A`\>
+▸ **getAndUpdate**\<`A`\>(`self`, `f`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 #### Type parameters
 
@@ -251,7 +251,7 @@ ___
 
 #### Returns
 
-`Effect`\<`never`, `never`, `A`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 **`Since`**
 
@@ -261,7 +261,7 @@ ___
 
 ### getAndUpdateSome
 
-▸ **getAndUpdateSome**\<`A`\>(`pf`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => `Effect`\<`never`, `never`, `A`\>
+▸ **getAndUpdateSome**\<`A`\>(`pf`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 #### Type parameters
 
@@ -279,7 +279,7 @@ ___
 
 `fn`
 
-▸ (`self`): `Effect`\<`never`, `never`, `A`\>
+▸ (`self`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 ##### Parameters
 
@@ -289,13 +289,13 @@ ___
 
 ##### Returns
 
-`Effect`\<`never`, `never`, `A`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **getAndUpdateSome**\<`A`\>(`self`, `pf`): `Effect`\<`never`, `never`, `A`\>
+▸ **getAndUpdateSome**\<`A`\>(`self`, `pf`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 #### Type parameters
 
@@ -312,7 +312,7 @@ ___
 
 #### Returns
 
-`Effect`\<`never`, `never`, `A`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 **`Since`**
 
@@ -322,7 +322,7 @@ ___
 
 ### modify
 
-▸ **modify**\<`A`, `B`\>(`f`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => `Effect`\<`never`, `never`, `B`\>
+▸ **modify**\<`A`, `B`\>(`f`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `B`\>
 
 #### Type parameters
 
@@ -341,7 +341,7 @@ ___
 
 `fn`
 
-▸ (`self`): `Effect`\<`never`, `never`, `B`\>
+▸ (`self`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `B`\>
 
 ##### Parameters
 
@@ -351,13 +351,13 @@ ___
 
 ##### Returns
 
-`Effect`\<`never`, `never`, `B`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **modify**\<`A`, `B`\>(`self`, `f`): `Effect`\<`never`, `never`, `B`\>
+▸ **modify**\<`A`, `B`\>(`self`, `f`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `B`\>
 
 #### Type parameters
 
@@ -375,7 +375,7 @@ ___
 
 #### Returns
 
-`Effect`\<`never`, `never`, `B`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `B`\>
 
 **`Since`**
 
@@ -385,7 +385,7 @@ ___
 
 ### modifySome
 
-▸ **modifySome**\<`B`, `A`\>(`fallback`, `pf`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => `Effect`\<`never`, `never`, `B`\>
+▸ **modifySome**\<`B`, `A`\>(`fallback`, `pf`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `B`\>
 
 #### Type parameters
 
@@ -405,7 +405,7 @@ ___
 
 `fn`
 
-▸ (`self`): `Effect`\<`never`, `never`, `B`\>
+▸ (`self`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `B`\>
 
 ##### Parameters
 
@@ -415,13 +415,13 @@ ___
 
 ##### Returns
 
-`Effect`\<`never`, `never`, `B`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `B`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **modifySome**\<`A`, `B`\>(`self`, `fallback`, `pf`): `Effect`\<`never`, `never`, `B`\>
+▸ **modifySome**\<`A`, `B`\>(`self`, `fallback`, `pf`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `B`\>
 
 #### Type parameters
 
@@ -440,7 +440,7 @@ ___
 
 #### Returns
 
-`Effect`\<`never`, `never`, `B`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `B`\>
 
 **`Since`**
 
@@ -450,7 +450,7 @@ ___
 
 ### set
 
-▸ **set**\<`A`\>(`value`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => `Effect`\<`never`, `never`, `void`\>
+▸ **set**\<`A`\>(`value`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `void`\>
 
 #### Type parameters
 
@@ -468,7 +468,7 @@ ___
 
 `fn`
 
-▸ (`self`): `Effect`\<`never`, `never`, `void`\>
+▸ (`self`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `void`\>
 
 ##### Parameters
 
@@ -478,13 +478,13 @@ ___
 
 ##### Returns
 
-`Effect`\<`never`, `never`, `void`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `void`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **set**\<`A`\>(`self`, `value`): `Effect`\<`never`, `never`, `void`\>
+▸ **set**\<`A`\>(`self`, `value`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `void`\>
 
 #### Type parameters
 
@@ -501,7 +501,7 @@ ___
 
 #### Returns
 
-`Effect`\<`never`, `never`, `void`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `void`\>
 
 **`Since`**
 
@@ -511,7 +511,7 @@ ___
 
 ### setAndGet
 
-▸ **setAndGet**\<`A`\>(`value`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => `Effect`\<`never`, `never`, `A`\>
+▸ **setAndGet**\<`A`\>(`value`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 #### Type parameters
 
@@ -529,7 +529,7 @@ ___
 
 `fn`
 
-▸ (`self`): `Effect`\<`never`, `never`, `A`\>
+▸ (`self`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 ##### Parameters
 
@@ -539,13 +539,13 @@ ___
 
 ##### Returns
 
-`Effect`\<`never`, `never`, `A`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **setAndGet**\<`A`\>(`self`, `value`): `Effect`\<`never`, `never`, `A`\>
+▸ **setAndGet**\<`A`\>(`self`, `value`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 #### Type parameters
 
@@ -562,7 +562,7 @@ ___
 
 #### Returns
 
-`Effect`\<`never`, `never`, `A`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 **`Since`**
 
@@ -572,7 +572,7 @@ ___
 
 ### update
 
-▸ **update**\<`A`\>(`f`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => `Effect`\<`never`, `never`, `void`\>
+▸ **update**\<`A`\>(`f`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `void`\>
 
 #### Type parameters
 
@@ -590,7 +590,7 @@ ___
 
 `fn`
 
-▸ (`self`): `Effect`\<`never`, `never`, `void`\>
+▸ (`self`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `void`\>
 
 ##### Parameters
 
@@ -600,13 +600,13 @@ ___
 
 ##### Returns
 
-`Effect`\<`never`, `never`, `void`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `void`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **update**\<`A`\>(`self`, `f`): `Effect`\<`never`, `never`, `void`\>
+▸ **update**\<`A`\>(`self`, `f`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `void`\>
 
 #### Type parameters
 
@@ -623,7 +623,7 @@ ___
 
 #### Returns
 
-`Effect`\<`never`, `never`, `void`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `void`\>
 
 **`Since`**
 
@@ -633,7 +633,7 @@ ___
 
 ### updateAndGet
 
-▸ **updateAndGet**\<`A`\>(`f`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => `Effect`\<`never`, `never`, `A`\>
+▸ **updateAndGet**\<`A`\>(`f`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 #### Type parameters
 
@@ -651,7 +651,7 @@ ___
 
 `fn`
 
-▸ (`self`): `Effect`\<`never`, `never`, `A`\>
+▸ (`self`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 ##### Parameters
 
@@ -661,13 +661,13 @@ ___
 
 ##### Returns
 
-`Effect`\<`never`, `never`, `A`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **updateAndGet**\<`A`\>(`self`, `f`): `Effect`\<`never`, `never`, `A`\>
+▸ **updateAndGet**\<`A`\>(`self`, `f`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 #### Type parameters
 
@@ -684,7 +684,7 @@ ___
 
 #### Returns
 
-`Effect`\<`never`, `never`, `A`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 **`Since`**
 
@@ -694,7 +694,7 @@ ___
 
 ### updateSome
 
-▸ **updateSome**\<`A`\>(`f`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => `Effect`\<`never`, `never`, `void`\>
+▸ **updateSome**\<`A`\>(`f`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `void`\>
 
 #### Type parameters
 
@@ -712,7 +712,7 @@ ___
 
 `fn`
 
-▸ (`self`): `Effect`\<`never`, `never`, `void`\>
+▸ (`self`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `void`\>
 
 ##### Parameters
 
@@ -722,13 +722,13 @@ ___
 
 ##### Returns
 
-`Effect`\<`never`, `never`, `void`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `void`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **updateSome**\<`A`\>(`self`, `f`): `Effect`\<`never`, `never`, `void`\>
+▸ **updateSome**\<`A`\>(`self`, `f`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `void`\>
 
 #### Type parameters
 
@@ -745,7 +745,7 @@ ___
 
 #### Returns
 
-`Effect`\<`never`, `never`, `void`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `void`\>
 
 **`Since`**
 
@@ -755,7 +755,7 @@ ___
 
 ### updateSomeAndGet
 
-▸ **updateSomeAndGet**\<`A`\>(`pf`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => `Effect`\<`never`, `never`, `A`\>
+▸ **updateSomeAndGet**\<`A`\>(`pf`): (`self`: [`Ref`](../interfaces/Ref.Ref-1.md)\<`A`\>) => [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 #### Type parameters
 
@@ -773,7 +773,7 @@ ___
 
 `fn`
 
-▸ (`self`): `Effect`\<`never`, `never`, `A`\>
+▸ (`self`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 ##### Parameters
 
@@ -783,13 +783,13 @@ ___
 
 ##### Returns
 
-`Effect`\<`never`, `never`, `A`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 **`Since`**
 
 2.0.0
 
-▸ **updateSomeAndGet**\<`A`\>(`self`, `pf`): `Effect`\<`never`, `never`, `A`\>
+▸ **updateSomeAndGet**\<`A`\>(`self`, `pf`): [`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 #### Type parameters
 
@@ -806,7 +806,7 @@ ___
 
 #### Returns
 
-`Effect`\<`never`, `never`, `A`\>
+[`Effect`](../interfaces/Effect.Effect-1.md)\<`never`, `never`, `A`\>
 
 **`Since`**
 

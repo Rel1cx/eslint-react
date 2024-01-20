@@ -22,7 +22,7 @@
 
 - `Inspectable`
 
-- `Effect`\<`never`, `Cause.NoSuchElementException`, `A`\>
+- [`Effect`](Effect.Effect-1.md)\<`never`, `Cause.NoSuchElementException`, `A`\>
 
   ↳ **`None`**
 
@@ -56,17 +56,29 @@
 
 • `Readonly` **[ChannelTypeId]**: `VarianceStruct`\<`never`, `unknown`, `unknown`, `unknown`, `NoSuchElementException`, `never`, `A`\>
 
+#### Inherited from
+
+[Effect](Effect.Effect-1.md).[[ChannelTypeId]](Effect.Effect-1.md#[channeltypeid])
+
 ___
 
 ### [EffectTypeId]
 
-• `Readonly` **[EffectTypeId]**: `VarianceStruct`\<`never`, `NoSuchElementException`, `A`\>
+• `Readonly` **[EffectTypeId]**: [`VarianceStruct`](Effect.Effect.VarianceStruct.md)\<`never`, `NoSuchElementException`, `A`\>
+
+#### Inherited from
+
+[Effect](Effect.Effect-1.md).[[EffectTypeId]](Effect.Effect-1.md#[effecttypeid])
 
 ___
 
 ### [SinkTypeId]
 
 • `Readonly` **[SinkTypeId]**: `VarianceStruct`\<`never`, `NoSuchElementException`, `unknown`, `never`, `A`\>
+
+#### Inherited from
+
+[Effect](Effect.Effect-1.md).[[SinkTypeId]](Effect.Effect-1.md#[sinktypeid])
 
 ___
 
@@ -81,6 +93,10 @@ ___
 | `_A` | `Covariant`\<`A`\> |
 | `_E` | `Covariant`\<`NoSuchElementException`\> |
 | `_R` | `Covariant`\<`never`\> |
+
+#### Inherited from
+
+[Effect](Effect.Effect-1.md).[[StreamTypeId]](Effect.Effect-1.md#[streamtypeid])
 
 ___
 
@@ -100,17 +116,29 @@ ___
 
 • `Optional` **[ignoreSymbol]**: [`OptionUnifyIgnore`](O.OptionUnifyIgnore.md)
 
+#### Inherited from
+
+[Effect](Effect.Effect-1.md).[[ignoreSymbol]](Effect.Effect-1.md#[ignoresymbol])
+
 ___
 
 ### [typeSymbol]
 
 • `Optional` **[typeSymbol]**: `unknown`
 
+#### Inherited from
+
+[Effect](Effect.Effect-1.md).[[typeSymbol]](Effect.Effect-1.md#[typesymbol])
+
 ___
 
 ### [unifySymbol]
 
 • `Optional` **[unifySymbol]**: [`OptionUnify`](O.OptionUnify.md)\<[`None`](O.None.md)\<`A`\>\>
+
+#### Inherited from
+
+[Effect](Effect.Effect-1.md).[[unifySymbol]](Effect.Effect-1.md#[unifysymbol])
 
 ___
 
@@ -156,7 +184,7 @@ ___
 
 #### Inherited from
 
-[Case](Data.Case-1.md).[[symbol]](Data.Case-1.md#[symbol]-1)
+[Effect](Effect.Effect-1.md).[[symbol]](Effect.Effect-1.md#[symbol]-1)
 
 ___
 
@@ -198,7 +226,7 @@ ___
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`\>(`this`, `ab`, `bc`): `C`
 
@@ -224,7 +252,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`\>(`this`, `ab`, `bc`, `cd`): `D`
 
@@ -252,7 +280,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`\>(`this`, `ab`, `bc`, `cd`, `de`): `E`
 
@@ -282,7 +310,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`): `F`
 
@@ -314,7 +342,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`): `G`
 
@@ -348,7 +376,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): `H`
 
@@ -384,7 +412,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): `I`
 
@@ -422,7 +450,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): `J`
 
@@ -462,7 +490,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`): `K`
 
@@ -504,7 +532,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`): `L`
 
@@ -548,7 +576,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`): `M`
 
@@ -594,7 +622,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`): `N`
 
@@ -642,7 +670,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`): `O`
 
@@ -692,7 +720,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`): `P`
 
@@ -744,7 +772,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`): `Q`
 
@@ -798,7 +826,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`): `R`
 
@@ -854,7 +882,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`): `S`
 
@@ -912,7 +940,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`): `T`
 
@@ -972,7 +1000,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`, `U`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`, `tu`): `U`
 
@@ -1034,7 +1062,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ▸ **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`, `U`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`, `tu`): `U`
 
@@ -1096,7 +1124,7 @@ Pipeable.pipe
 
 #### Inherited from
 
-Pipeable.pipe
+[Effect](Effect.Effect-1.md).[pipe](Effect.Effect-1.md#pipe)
 
 ___
 

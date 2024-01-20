@@ -14,7 +14,11 @@
 
   ↳ **`Equal`**
 
+  ↳↳ [`Context`](Context.Context.md)
+
   ↳↳ [`Case`](Data.Case-1.md)
+
+  ↳↳ [`Effect`](Effect.Effect-1.md)
 
   ↳↳ [`Nil`](List.Nil.md)
 

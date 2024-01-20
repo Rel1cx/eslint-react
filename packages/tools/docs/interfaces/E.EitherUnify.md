@@ -14,6 +14,12 @@
 | :------ | :------ |
 | `A` | extends `Object` |
 
+## Hierarchy
+
+- **`EitherUnify`**
+
+  ↳ [`EffectUnify`](Effect.EffectUnify.md)
+
 ## Table of contents
 
 ### Properties

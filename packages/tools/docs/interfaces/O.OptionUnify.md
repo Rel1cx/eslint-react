@@ -14,6 +14,12 @@
 | :------ | :------ |
 | `A` | extends `Object` |
 
+## Hierarchy
+
+- **`OptionUnify`**
+
+  ↳ [`EffectUnify`](Effect.EffectUnify.md)
+
 ## Table of contents
 
 ### Properties

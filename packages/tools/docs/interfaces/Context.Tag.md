@@ -1,8 +1,8 @@
-[@eslint-react/tools](../README.md) / [E](../modules/E.md) / Left
+[@eslint-react/tools](../README.md) / [Context](../modules/Context.md) / Tag
 
-# Interface: Left\<E, A\>
+# Interface: Tag\<Identifier, Service\>
 
-[E](../modules/E.md).Left
+[Context](../modules/Context.md).Tag
 
 **`Since`**
 
@@ -12,51 +12,52 @@
 
 | Name |
 | :------ |
-| `E` |
-| `A` |
+| `Identifier` |
+| `Service` |
 
 ## Hierarchy
-
-- [`Case`](Data.Case-1.md)
 
 - `Pipeable`
 
 - `Inspectable`
 
-- [`Effect`](Effect.Effect-1.md)\<`never`, `E`, `A`\>
+- [`Effect`](Effect.Effect-1.md)\<`Identifier`, `never`, `Service`\>
 
-  ↳ **`Left`**
+  ↳ **`Tag`**
 
 ## Table of contents
 
 ### Properties
 
-- [[ChannelTypeId]](E.Left.md#[channeltypeid])
-- [[EffectTypeId]](E.Left.md#[effecttypeid])
-- [[SinkTypeId]](E.Left.md#[sinktypeid])
-- [[StreamTypeId]](E.Left.md#[streamtypeid])
-- [[TypeId]](E.Left.md#[typeid])
-- [[ignoreSymbol]](E.Left.md#[ignoresymbol])
-- [[typeSymbol]](E.Left.md#[typesymbol])
-- [[unifySymbol]](E.Left.md#[unifysymbol])
-- [\_op](E.Left.md#_op)
-- [\_tag](E.Left.md#_tag)
-- [left](E.Left.md#left)
+- [[ChannelTypeId]](Context.Tag.md#[channeltypeid])
+- [[EffectTypeId]](Context.Tag.md#[effecttypeid])
+- [[SinkTypeId]](Context.Tag.md#[sinktypeid])
+- [[StreamTypeId]](Context.Tag.md#[streamtypeid])
+- [[TagTypeId]](Context.Tag.md#[tagtypeid])
+- [[ignoreSymbol]](Context.Tag.md#[ignoresymbol])
+- [[typeSymbol]](Context.Tag.md#[typesymbol])
+- [[unifySymbol]](Context.Tag.md#[unifysymbol])
+- [\_op](Context.Tag.md#_op)
+- [\_tag](Context.Tag.md#_tag)
+- [identifier](Context.Tag.md#identifier)
+- [stack](Context.Tag.md#stack)
 
 ### Methods
 
-- [[NodeInspectSymbol]](E.Left.md#[nodeinspectsymbol])
-- [[symbol]](E.Left.md#[symbol])
-- [[symbol]](E.Left.md#[symbol]-1)
-- [pipe](E.Left.md#pipe)
-- [toJSON](E.Left.md#tojson)
-- [toString](E.Left.md#tostring)
+- [[NodeInspectSymbol]](Context.Tag.md#[nodeinspectsymbol])
+- [[symbol]](Context.Tag.md#[symbol])
+- [[symbol]](Context.Tag.md#[symbol]-1)
+- [context](Context.Tag.md#context)
+- [of](Context.Tag.md#of)
+- [pipe](Context.Tag.md#pipe)
+- [toJSON](Context.Tag.md#tojson)
+- [toString](Context.Tag.md#tostring)
 
 ## Properties
 
 ### [ChannelTypeId]
 
-• `Readonly` **[ChannelTypeId]**: `VarianceStruct`\<`never`, `unknown`, `unknown`, `unknown`, `E`, `never`, `A`\>
+• `Readonly` **[ChannelTypeId]**: `VarianceStruct`\<`Identifier`, `unknown`, `unknown`, `unknown`, `never`, `never`, `Service`\>
 
 #### Inherited from
 
@@ -66,7 +67,7 @@ ___
 
 ### [EffectTypeId]
 
-• `Readonly` **[EffectTypeId]**: [`VarianceStruct`](Effect.Effect.VarianceStruct.md)\<`never`, `E`, `A`\>
+• `Readonly` **[EffectTypeId]**: [`VarianceStruct`](Effect.Effect.VarianceStruct.md)\<`Identifier`, `never`, `Service`\>
 
 #### Inherited from
 
@@ -76,7 +77,7 @@ ___
 
 ### [SinkTypeId]
 
-• `Readonly` **[SinkTypeId]**: `VarianceStruct`\<`never`, `E`, `unknown`, `never`, `A`\>
+• `Readonly` **[SinkTypeId]**: `VarianceStruct`\<`Identifier`, `never`, `unknown`, `never`, `Service`\>
 
 #### Inherited from
 
@@ -92,9 +93,9 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `_A` | `Covariant`\<`A`\> |
-| `_E` | `Covariant`\<`E`\> |
-| `_R` | `Covariant`\<`never`\> |
+| `_A` | `Covariant`\<`Service`\> |
+| `_E` | `Covariant`\<`never`\> |
+| `_R` | `Covariant`\<`Identifier`\> |
 
 #### Inherited from
 
@@ -102,22 +103,22 @@ ___
 
 ___
 
-### [TypeId]
+### [TagTypeId]
 
-• `Readonly` **[TypeId]**: `Object`
+• `Readonly` **[TagTypeId]**: `Object`
 
 #### Type declaration
 
 | Name | Type |
 | :------ | :------ |
-| `_A` | `Covariant`\<`A`\> |
-| `_E` | `Covariant`\<`E`\> |
+| `_Identifier` | `Invariant`\<`Identifier`\> |
+| `_Service` | `Invariant`\<`Service`\> |
 
 ___
 
 ### [ignoreSymbol]
 
-• `Optional` **[ignoreSymbol]**: [`EitherUnifyIgnore`](E.EitherUnifyIgnore.md)
+• `Optional` **[ignoreSymbol]**: [`TagUnifyIgnore`](Context.TagUnifyIgnore.md)
 
 #### Inherited from
 
@@ -137,7 +138,7 @@ ___
 
 ### [unifySymbol]
 
-• `Optional` **[unifySymbol]**: [`EitherUnify`](E.EitherUnify.md)\<[`Left`](E.Left.md)\<`E`, `A`\>\>
+• `Optional` **[unifySymbol]**: [`TagUnify`](Context.TagUnify.md)\<[`Tag`](Context.Tag.md)\<`Identifier`, `Service`\>\>
 
 #### Inherited from
 
@@ -147,19 +148,25 @@ ___
 
 ### \_op
 
-• `Readonly` **\_op**: ``"Left"``
+• `Readonly` **\_op**: ``"Tag"``
 
 ___
 
 ### \_tag
 
-• `Readonly` **\_tag**: ``"Left"``
+• `Readonly` **\_tag**: ``"Tag"``
 
 ___
 
-### left
+### identifier
 
-• `Readonly` **left**: `E`
+• `Optional` `Readonly` **identifier**: `unknown`
+
+___
+
+### stack
+
+• `Optional` `Readonly` **stack**: `string`
 
 ## Methods
 
@@ -205,9 +212,37 @@ ___
 
 `number`
 
-#### Inherited from
+___
 
-Data.Case.[symbol]
+### context
+
+▸ **context**(`self`): [`Context`](Context.Context.md)\<`Identifier`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `self` | `Service` |
+
+#### Returns
+
+[`Context`](Context.Context.md)\<`Identifier`\>
+
+___
+
+### of
+
+▸ **of**(`self`): `Service`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `self` | `Service` |
+
+#### Returns
+
+`Service`
 
 ___
 

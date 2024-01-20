@@ -1,7 +1,10 @@
+export * as Context from "effect/Context";
 export * as Data from "effect/Data";
+export * as Effect from "effect/Effect";
 export * as E from "effect/Either";
 export * as Equal from "effect/Equal";
 export * as F from "effect/Function";
+export * as Layer from "effect/Layer";
 export * as List from "effect/List";
 export * as MutList from "effect/MutableList";
 export * as MutRef from "effect/MutableRef";
