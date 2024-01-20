@@ -1,3 +1,9 @@
+## v0.10.12-beta.0 (Sun Jan 21 2024)
+
+### 🪄 Improvements
+
+- Remove unnecessary `parserOptions` fields from presets.
+
 ## v0.10.11 (Sat Jan 20 2024)
 
 ### ✨ New
