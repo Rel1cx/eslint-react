@@ -2,8 +2,8 @@
 
 <h1 align="center" alt="title">ESLint React</h1>
 
-[![Size](https://img.shields.io/bundlephobia/minzip/@eslint-react/eslint-plugin?label=gzip&style=flat&colorA=000000&colorB=000000)](https://bundlephobia.com/package/@eslint-react/eslint-plugin)
 [![Version](https://img.shields.io/npm/v/@eslint-react/eslint-plugin?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
+[![Size](https://img.shields.io/bundlephobia/minzip/@eslint-react/eslint-plugin?label=gzip&style=flat&colorA=000000&colorB=000000)](https://bundlephobia.com/package/@eslint-react/eslint-plugin)
 [![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
 
 More than 50 ESLint rules to catch common mistakes and improve your React code. Rewritten from the scratch (mostly).
@@ -13,7 +13,6 @@ More than 50 ESLint rules to catch common mistakes and improve your React code. 
 - Well designed rule behaviors and sensible defaults.
 - Maximum flexibility through minimum configuration options.
 - No auto-fix, Formatting independent, treat your codebase like it's read-only.
-- No redundant polyfills, all rules runs at native runtime performance.
 
 ## Supported React versions
 
