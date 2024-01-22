@@ -1,5 +1,5 @@
+import { Prd } from "@eslint-react/tools";
 import { type TSESTree } from "@typescript-eslint/types";
-import { isNil } from "rambda";
 
 import { NodeType } from "../node";
 
@@ -15,7 +15,7 @@ export function getNestedReturnStatements(node: TSESTree.Node): TSESTree.ReturnS
     returnStatements.push(node);
   }
 
-  if ("body" in node && !isNil(node.body)) {
+  if ("body" in node && !Prd.isNullable(node.body)) {
     Array.isArray(node.body)
       ? node.body.forEach((x) => {
         returnStatements.push(...getNestedReturnStatements(x));
