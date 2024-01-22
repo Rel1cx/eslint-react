@@ -135,7 +135,6 @@ export default createRule<[], MessageID>({
           for (const descriptor of checkBlockStatement(fn.body)) {
             context.report(descriptor);
           }
-
           return;
         }
         O.map(checkExpression(fn.body), context.report);

@@ -93,17 +93,13 @@ export default createRule<[], MessageID>({
         MutRef.set(isWithinChildrenToArrayRef, false);
       },
       "ArrayExpression, JSXElement > JSXElement"(node: TSESTree.ArrayExpression | TSESTree.JSXElement) {
-        if (MutRef.get(isWithinChildrenToArrayRef)) {
-          return;
-        }
-
+        if (MutRef.get(isWithinChildrenToArrayRef)) return;
         const elements = match(node)
           .with({ type: NodeType.ArrayExpression }, ({ elements }) => elements)
           .with({ type: NodeType.JSXElement }, ({ parent }) => "children" in parent ? parent.children : [])
           .otherwise(() => [])
           .filter(is(NodeType.JSXElement))
           .filter((element) => !seen.has(element));
-
         const keys = elements.reduce<[
           TSESTree.JSXElement,
           TSESTree.JSXAttribute,
@@ -117,31 +113,17 @@ export default createRule<[], MessageID>({
                   name: "key",
                 },
               }));
-
-            if (
-              !attr
-              || !("value" in attr)
-              || attr.value === null
-            ) {
-              return acc;
-            }
-
+            if (!attr || !("value" in attr) || attr.value === null) return acc;
             const { value } = attr;
-            if (acc.length === 0) {
-              return [[element, attr, value]];
-            }
-
+            if (acc.length === 0) return [[element, attr, value]];
             if (acc.some(([_, _1, v]) => isNodeEqual(v, value))) {
               return [...acc, [element, attr, value]];
             }
-
             return acc;
           },
           [],
         );
-        if (keys.length < 2) {
-          return;
-        }
+        if (keys.length < 2) return;
         for (const [element, attr, value] of keys) {
           seen.add(element);
           context.report({
@@ -179,7 +161,6 @@ export default createRule<[], MessageID>({
           for (const descriptor of checkBlockStatement(fn.body)) {
             context.report(descriptor);
           }
-
           return;
         }
         O.map(checkExpression(fn.body), context.report);

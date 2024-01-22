@@ -6,16 +6,12 @@ import { version } from "./version";
 const GLOB_PACKAGE_JSON = "packages/**/package.json";
 
 async function makeTask(file: BunFile) {
-  if (!file.name) {
-    return;
-  }
-
+  if (!file.name) return;
   const packageJson = await file.json<PackageJson>();
   const packageJsonUpdated = {
     ...packageJson,
     version,
   };
-
   await Bun.write(file, JSON.stringify(packageJsonUpdated, null, 2));
 }
 

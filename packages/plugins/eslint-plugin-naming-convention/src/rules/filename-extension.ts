@@ -102,7 +102,6 @@ export default createRule<Options, MessageID>({
             messageId: "FILE_NAME_EXTENSION_INVALID",
             node,
           });
-
           return;
         }
 

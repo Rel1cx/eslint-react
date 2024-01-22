@@ -56,7 +56,6 @@ export default createRule<[], MessageID>({
             messageId: "NO_MISSING_IFRAME_SANDBOX",
             node: props ?? node,
           });
-
           return;
         }
         const maybeSandboxProperty = findPropInProperties(props.properties, context, initialScope)("sandbox");
@@ -65,7 +64,6 @@ export default createRule<[], MessageID>({
             messageId: "NO_MISSING_IFRAME_SANDBOX",
             node: props,
           });
-
           return;
         }
         const sandboxProperty = maybeSandboxProperty.value;
@@ -93,7 +91,6 @@ export default createRule<[], MessageID>({
             messageId: "NO_MISSING_IFRAME_SANDBOX",
             node: node.openingElement,
           });
-
           return;
         }
         const sandboxAttribute = maybeSandboxAttribute.value;

@@ -108,9 +108,7 @@ export default createRule<Options, MessageID>({
           || name.includes(".")
           // Ignore JSX namespace names
           || name.includes(":");
-        if (shouldIgnore || validate(name.replace(/^_/u, ""))) {
-          return;
-        }
+        if (shouldIgnore || validate(name.replace(/^_/u, ""))) return;
         context.report({
           data: {
             case: rule,

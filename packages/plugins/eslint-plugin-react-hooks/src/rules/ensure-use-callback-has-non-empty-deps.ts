@@ -45,10 +45,8 @@ export default createRule<[], MessageID>({
             messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
             node,
           });
-
           return;
         }
-
         const maybeDescriptor = F.pipe(
           match(deps)
             .with({ type: NodeType.ArrayExpression }, O.some)

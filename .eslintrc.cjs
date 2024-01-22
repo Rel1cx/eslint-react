@@ -58,7 +58,6 @@ module.exports = defineConfig({
         "jsdoc/require-param-description": "off",
         "jsdoc/require-returns": "off",
         "max-depth": ["warn", 3],
-        "newline-before-return": "warn",
         "no-console": ["warn", { allow: ["warn", "error"] }],
         "no-restricted-syntax": [
           "error",

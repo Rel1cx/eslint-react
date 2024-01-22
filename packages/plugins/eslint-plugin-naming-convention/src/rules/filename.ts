@@ -135,7 +135,6 @@ export default createRule<Options, MessageID>({
         const [basename = "", ...rest] = path.basename(context.filename ?? context.getFilename()).split(".");
         if (basename.length === 0) {
           context.report({ messageId: "FILENAME_EMPTY", node });
-
           return;
         }
         if (validate(basename)) return;

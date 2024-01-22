@@ -15,7 +15,6 @@ const [
     const title = `${namespace}/${basename}`;
     const filename = `${namespace}-${basename}`;
     const dest = path.join("website", "pages", "rules", `${filename}.md`);
-
     return [[...files, [doc, dest]], [...rules, [filename, title]]] as const;
   },
   [[], []],

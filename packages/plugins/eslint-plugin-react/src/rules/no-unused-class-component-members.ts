@@ -142,7 +142,6 @@ export default createRule<[], MessageID>({
         if (node.parent.type === NodeType.AssignmentExpression && node.parent.left === node) {
           // detect `this.property = xxx`
           propertyDefs.get(currentClass)?.add(node.property);
-
           return;
         }
         // detect `this.property()`, `x = this.property`, etc.

@@ -106,7 +106,6 @@ export default createRule<[], MessageID>({
           const [def] = stateDefs.get(currentClass) ?? [O.none()];
           stateDefs.set(currentClass, [def, true]);
         }
-
         return;
       }
       if (O.exists(getName(node.key), name => name === "state")) {
@@ -169,7 +168,6 @@ export default createRule<[], MessageID>({
           if (prop.type === NodeType.Property && isKeyLiteralLike(prop, prop.key)) {
             return O.exists(getName(prop.key), name => name === "state");
           }
-
           return false;
         });
         if (!hasState) return;

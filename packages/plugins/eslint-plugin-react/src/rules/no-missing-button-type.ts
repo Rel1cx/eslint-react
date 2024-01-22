@@ -40,7 +40,6 @@ export default createRule<[], MessageID>({
             messageId: "NO_MISSING_BUTTON_TYPE",
             node: props ?? node,
           });
-
           return;
         }
         const maybeTypeProperty = findPropInProperties(props.properties, context, initialScope)("type");
@@ -49,7 +48,6 @@ export default createRule<[], MessageID>({
             messageId: "NO_MISSING_BUTTON_TYPE",
             node: props,
           });
-
           return;
         }
         const typeProperty = maybeTypeProperty.value;
@@ -78,7 +76,6 @@ export default createRule<[], MessageID>({
             messageId: "NO_MISSING_BUTTON_TYPE",
             node: node.openingElement,
           });
-
           return;
         }
         const typeAttribute = maybeTypeAttribute.value;
