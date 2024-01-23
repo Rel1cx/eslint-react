@@ -166,8 +166,8 @@ importers:
         specifier: 1.11.3
         version: 1.11.3
       type-fest:
-        specifier: 4.9.0
-        version: 4.9.0
+        specifier: 4.10.0
+        version: 4.10.0
       typedoc:
         specifier: 0.25.7
         version: 0.25.7(typescript@5.3.3)
@@ -610,8 +610,8 @@ importers:
         version: 0.26.0
     devDependencies:
       type-fest:
-        specifier: 4.9.0
-        version: 4.9.0
+        specifier: 4.10.0
+        version: 4.10.0
 
   packages/tools:
     dependencies:
@@ -11521,8 +11521,8 @@ packages:
     engines: {node: '>=14.16'}
     dev: true
 
-  /type-fest@4.9.0:
-    resolution: {integrity: sha512-KS/6lh/ynPGiHD/LnAobrEFq3Ad4pBzOlJ1wAnJx9N4EYoqFhMfLIBjUT2UEx4wg5ZE+cC1ob6DCSpppVo+rtg==}
+  /type-fest@4.10.0:
+    resolution: {integrity: sha512-NPaKJsb4wyJ16qc8zBQrWswLKv/YirgBFykvUQ1Iajt2wd+twC8E4hFXdlIXqiMl6kWA0zY8tUJ9ELVAdu5h7w==}
     engines: {node: '>=16'}
     dev: true
 
