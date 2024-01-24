@@ -1,10 +1,10 @@
-[@eslint-react/core](../README.md) / ERAnalyzerNode
+[@eslint-react/core](../README.md) / ERSemanticNode
 
-# Interface: ERAnalyzerNode
+# Interface: ERSemanticNode
 
 ## Hierarchy
 
-- **`ERAnalyzerNode`**
+- **`ERSemanticNode`**
 
   ↳ [`ERFunctionComponent`](ERFunctionComponent.md)
 
@@ -16,13 +16,13 @@
 
 ### Properties
 
-- [\_](ERAnalyzerNode.md#_)
-- [flag](ERAnalyzerNode.md#flag)
-- [hint](ERAnalyzerNode.md#hint)
-- [id](ERAnalyzerNode.md#id)
-- [kind](ERAnalyzerNode.md#kind)
-- [name](ERAnalyzerNode.md#name)
-- [node](ERAnalyzerNode.md#node)
+- [\_](ERSemanticNode.md#_)
+- [flag](ERSemanticNode.md#flag)
+- [hint](ERSemanticNode.md#hint)
+- [id](ERSemanticNode.md#id)
+- [kind](ERSemanticNode.md#kind)
+- [name](ERSemanticNode.md#name)
+- [node](ERSemanticNode.md#node)
 
 ## Properties
 

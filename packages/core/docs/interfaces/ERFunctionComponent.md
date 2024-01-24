@@ -4,7 +4,7 @@
 
 ## Hierarchy
 
-- [`ERAnalyzerNode`](ERAnalyzerNode.md)
+- [`ERSemanticNode`](ERSemanticNode.md)
 
   ↳ **`ERFunctionComponent`**
 
@@ -31,7 +31,7 @@
 
 #### Inherited from
 
-[ERAnalyzerNode](ERAnalyzerNode.md).[_](ERAnalyzerNode.md#_)
+[ERSemanticNode](ERSemanticNode.md).[_](ERSemanticNode.md#_)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 #### Overrides
 
-[ERAnalyzerNode](ERAnalyzerNode.md).[flag](ERAnalyzerNode.md#flag)
+[ERSemanticNode](ERSemanticNode.md).[flag](ERSemanticNode.md#flag)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 #### Overrides
 
-[ERAnalyzerNode](ERAnalyzerNode.md).[hint](ERAnalyzerNode.md#hint)
+[ERSemanticNode](ERSemanticNode.md).[hint](ERSemanticNode.md#hint)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Overrides
 
-[ERAnalyzerNode](ERAnalyzerNode.md).[id](ERAnalyzerNode.md#id)
+[ERSemanticNode](ERSemanticNode.md).[id](ERSemanticNode.md#id)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Overrides
 
-[ERAnalyzerNode](ERAnalyzerNode.md).[kind](ERAnalyzerNode.md#kind)
+[ERSemanticNode](ERSemanticNode.md).[kind](ERSemanticNode.md#kind)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Inherited from
 
-[ERAnalyzerNode](ERAnalyzerNode.md).[name](ERAnalyzerNode.md#name)
+[ERSemanticNode](ERSemanticNode.md).[name](ERSemanticNode.md#name)
 
 ___
 
@@ -109,4 +109,4 @@ ___
 
 #### Overrides
 
-[ERAnalyzerNode](ERAnalyzerNode.md).[node](ERAnalyzerNode.md#node)
+[ERSemanticNode](ERSemanticNode.md).[node](ERSemanticNode.md#node)

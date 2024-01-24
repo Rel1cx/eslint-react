@@ -1,7 +1,7 @@
 import type { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
-export interface ERAnalyzerNode {
+export interface ERSemanticNode {
   _: string;
   flag: bigint;
   hint: bigint;

@@ -6,10 +6,10 @@
 
 ### Interfaces
 
-- [ERAnalyzerNode](interfaces/ERAnalyzerNode.md)
 - [ERClassComponent](interfaces/ERClassComponent.md)
 - [ERFunctionComponent](interfaces/ERFunctionComponent.md)
 - [ERHook](interfaces/ERHook.md)
+- [ERSemanticNode](interfaces/ERSemanticNode.md)
 
 ### Type Aliases
 

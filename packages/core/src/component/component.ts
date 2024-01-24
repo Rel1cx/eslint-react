@@ -2,13 +2,13 @@ import type { TSESTreeClass, TSESTreeFunction } from "@eslint-react/ast";
 import type { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import type { ERAnalyzerNode } from "../internal";
+import type { ERSemanticNode } from "../internal";
 import type { ERComponentHint } from "./component-collector-hint";
 import type { ERClassComponentFlag, ERFunctionComponentFlag } from "./component-flag";
 import type { ERComponentInitPath } from "./component-init-path";
 
 /* eslint-disable perfectionist/sort-interfaces */
-export interface ERFunctionComponent extends ERAnalyzerNode {
+export interface ERFunctionComponent extends ERSemanticNode {
   id: O.Option<TSESTree.Identifier | TSESTree.Identifier[]>;
   kind: "function";
   node: TSESTreeFunction;
@@ -19,7 +19,7 @@ export interface ERFunctionComponent extends ERAnalyzerNode {
   displayName: O.Option<TSESTree.Expression>;
 }
 
-export interface ERClassComponent extends ERAnalyzerNode {
+export interface ERClassComponent extends ERSemanticNode {
   id: O.Option<TSESTree.Identifier>;
   kind: "class";
   node: TSESTreeClass;
