@@ -108,7 +108,7 @@ Check if a value in an `Option` type meets a certain predicate.
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`A`, `B`\> |
+| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`NoInfer`\<`A`\>, `B`\> |
 
 #### Returns
 
@@ -143,22 +143,21 @@ assert.deepStrictEqual(pipe(none(), exists(isEven)), false)
 
 2.0.0
 
-▸ **exists**\<`B`, `A`\>(`predicate`): (`self`: [`Option`](O.md#option)\<`B`\>) => `boolean`
+▸ **exists**\<`A`\>(`predicate`): (`self`: [`Option`](O.md#option)\<`A`\>) => `boolean`
 
 Check if a value in an `Option` type meets a certain predicate.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `B` | `B` |
-| `A` | `B` |
+| Name |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`A`\> | The condition to check. |
+| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`NoInfer`\<`A`\>\> | The condition to check. |
 
 #### Returns
 
@@ -170,7 +169,7 @@ Check if a value in an `Option` type meets a certain predicate.
 
 | Name | Type |
 | :------ | :------ |
-| `self` | [`Option`](O.md#option)\<`B`\> |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
@@ -1650,7 +1649,7 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`A`, `B`\> |
+| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`NoInfer`\<`A`\>, `B`\> |
 
 #### Returns
 
@@ -1692,7 +1691,7 @@ assert.deepStrictEqual(O.filter(O.some(2), isNumber), O.some(2))
 
 2.0.0
 
-▸ **filter**\<`B`, `A`\>(`predicate`): (`self`: [`Option`](O.md#option)\<`B`\>) => [`Option`](O.md#option)\<`B`\>
+▸ **filter**\<`A`\>(`predicate`): (`self`: [`Option`](O.md#option)\<`A`\>) => [`Option`](O.md#option)\<`A`\>
 
 Filters an `Option` using a predicate. If the predicate is not satisfied or the `Option` is `None` returns `None`.
 
@@ -1700,32 +1699,31 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `B` | `B` |
-| `A` | `B` |
+| Name |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`A`\> | A predicate function to apply to the `Option` value. |
+| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`NoInfer`\<`A`\>\> | A predicate function to apply to the `Option` value. |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)\<`B`\>
+▸ (`self`): [`Option`](O.md#option)\<`A`\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `self` | [`Option`](O.md#option)\<`B`\> |
+| `self` | [`Option`](O.md#option)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)\<`B`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Example`**
 

@@ -178,7 +178,7 @@ Filters a list using the specified predicate.
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`A`, `B`\> |
+| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`NoInfer`\<`A`\>, `B`\> |
 
 #### Returns
 
@@ -200,38 +200,37 @@ Filters a list using the specified predicate.
 
 2.0.0
 
-▸ **filter**\<`B`, `A`\>(`predicate`): (`self`: [`List`](List.md#list)\<`B`\>) => [`List`](List.md#list)\<`B`\>
+▸ **filter**\<`A`\>(`predicate`): (`self`: [`List`](List.md#list)\<`A`\>) => [`List`](List.md#list)\<`A`\>
 
 Filters a list using the specified predicate.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `B` | `B` |
-| `A` | `B` |
+| Name |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`A`\> |
+| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`NoInfer`\<`A`\>\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`List`](List.md#list)\<`B`\>
+▸ (`self`): [`List`](List.md#list)\<`A`\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `self` | [`List`](List.md#list)\<`B`\> |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-[`List`](List.md#list)\<`B`\>
+[`List`](List.md#list)\<`A`\>
 
 **`Since`**
 
@@ -430,7 +429,7 @@ ___
 
 ### partition
 
-▸ **partition**\<`C`, `B`, `A`\>(`refinement`): (`self`: [`List`](List.md#list)\<`C`\>) => [excluded: List\<Exclude\<C, B\>\>, satisfying: List\<B\>]
+▸ **partition**\<`A`, `B`\>(`refinement`): (`self`: [`List`](List.md#list)\<`A`\>) => [excluded: List\<Exclude\<A, B\>\>, satisfying: List\<B\>]
 
 Partition a list into two lists, where the first list contains all elements
 that did not satisfy the specified predicate, and the second list contains
@@ -438,39 +437,38 @@ all elements that did satisfy the specified predicate.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `C` | `C` |
-| `B` | `B` |
-| `A` | `C` |
+| Name |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`A`, `B`\> |
+| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`NoInfer`\<`A`\>, `B`\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [excluded: List\<Exclude\<C, B\>\>, satisfying: List\<B\>]
+▸ (`self`): [excluded: List\<Exclude\<A, B\>\>, satisfying: List\<B\>]
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `self` | [`List`](List.md#list)\<`C`\> |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-[excluded: List\<Exclude\<C, B\>\>, satisfying: List\<B\>]
+[excluded: List\<Exclude\<A, B\>\>, satisfying: List\<B\>]
 
 **`Since`**
 
 2.0.0
 
-▸ **partition**\<`B`, `A`\>(`predicate`): (`self`: [`List`](List.md#list)\<`B`\>) => [excluded: List\<B\>, satisfying: List\<B\>]
+▸ **partition**\<`A`\>(`predicate`): (`self`: [`List`](List.md#list)\<`A`\>) => [excluded: List\<A\>, satisfying: List\<A\>]
 
 Partition a list into two lists, where the first list contains all elements
 that did not satisfy the specified predicate, and the second list contains
@@ -478,32 +476,31 @@ all elements that did satisfy the specified predicate.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `B` | `B` |
-| `A` | `B` |
+| Name |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`A`\> |
+| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`NoInfer`\<`A`\>\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [excluded: List\<B\>, satisfying: List\<B\>]
+▸ (`self`): [excluded: List\<A\>, satisfying: List\<A\>]
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `self` | [`List`](List.md#list)\<`B`\> |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-[excluded: List\<B\>, satisfying: List\<B\>]
+[excluded: List\<A\>, satisfying: List\<A\>]
 
 **`Since`**
 
@@ -1555,7 +1552,7 @@ Check if a predicate holds true for every `List` element.
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`A`, `B`\> |
+| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`NoInfer`\<`A`\>, `B`\> |
 
 #### Returns
 
@@ -1684,7 +1681,7 @@ predicate, or `None` if no such element exists.
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`A`, `B`\> |
+| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`NoInfer`\<`A`\>, `B`\> |
 
 #### Returns
 
@@ -1706,39 +1703,38 @@ predicate, or `None` if no such element exists.
 
 2.0.0
 
-▸ **findFirst**\<`B`, `A`\>(`predicate`): (`self`: [`List`](List.md#list)\<`B`\>) => [`Option`](O.md#option)\<`B`\>
+▸ **findFirst**\<`A`\>(`predicate`): (`self`: [`List`](List.md#list)\<`A`\>) => [`Option`](O.md#option)\<`A`\>
 
 Returns the first element that satisfies the specified
 predicate, or `None` if no such element exists.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `B` | `B` |
-| `A` | `B` |
+| Name |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`A`\> |
+| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`NoInfer`\<`A`\>\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)\<`B`\>
+▸ (`self`): [`Option`](O.md#option)\<`A`\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `self` | [`List`](List.md#list)\<`B`\> |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)\<`B`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Since`**
 
@@ -1829,38 +1825,37 @@ ___
 
 ### some
 
-▸ **some**\<`B`, `A`\>(`predicate`): (`self`: [`List`](List.md#list)\<`B`\>) => self is Cons\<B\>
+▸ **some**\<`A`\>(`predicate`): (`self`: [`List`](List.md#list)\<`A`\>) => self is Cons\<A\>
 
 Check if a predicate holds true for some `List` element.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `B` | `B` |
-| `A` | `B` |
+| Name |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`A`\> |
+| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`NoInfer`\<`A`\>\> |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): self is Cons\<B\>
+▸ (`self`): self is Cons\<A\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `self` | [`List`](List.md#list)\<`B`\> |
+| `self` | [`List`](List.md#list)\<`A`\> |
 
 ##### Returns
 
-self is Cons\<B\>
+self is Cons\<A\>
 
 **`Since`**
 

@@ -3290,7 +3290,7 @@ Check if a predicate holds true for every `ReadonlyArray` element.
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | (`a`: `A`, `i`: `number`) => a is B |
+| `refinement` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => a is B |
 
 #### Returns
 
@@ -3326,7 +3326,7 @@ Check if a predicate holds true for every `ReadonlyArray` element.
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
+| `predicate` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -3419,7 +3419,7 @@ predicate, or `None` if no such element exists.
 
 | Name | Type |
 | :------ | :------ |
-| `f` | (`a`: `A`, `i`: `number`) => [`Option`](O.md#option)\<`B`\> |
+| `f` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -3457,7 +3457,7 @@ predicate, or `None` if no such element exists.
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | (`a`: `A`, `i`: `number`) => a is B |
+| `refinement` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => a is B |
 
 #### Returns
 
@@ -3479,39 +3479,38 @@ predicate, or `None` if no such element exists.
 
 2.0.0
 
-▸ **findFirst**\<`B`, `A`\>(`predicate`): (`self`: `Iterable`\<`B`\>) => [`Option`](O.md#option)\<`B`\>
+▸ **findFirst**\<`A`\>(`predicate`): (`self`: `Iterable`\<`A`\>) => [`Option`](O.md#option)\<`A`\>
 
 Returns the first element that satisfies the specified
 predicate, or `None` if no such element exists.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `B` | `B` |
-| `A` | `B` |
+| Name |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
+| `predicate` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => `boolean` |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)\<`B`\>
+▸ (`self`): [`Option`](O.md#option)\<`A`\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `self` | `Iterable`\<`B`\> |
+| `self` | `Iterable`\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)\<`B`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Since`**
 
@@ -3615,7 +3614,7 @@ Return the first index for which a predicate holds.
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
+| `predicate` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -3681,7 +3680,7 @@ Find the last element for which a predicate holds.
 
 | Name | Type |
 | :------ | :------ |
-| `f` | (`a`: `A`, `i`: `number`) => [`Option`](O.md#option)\<`B`\> |
+| `f` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => [`Option`](O.md#option)\<`B`\> |
 
 #### Returns
 
@@ -3718,7 +3717,7 @@ Find the last element for which a predicate holds.
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | (`a`: `A`, `i`: `number`) => a is B |
+| `refinement` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => a is B |
 
 #### Returns
 
@@ -3740,38 +3739,37 @@ Find the last element for which a predicate holds.
 
 2.0.0
 
-▸ **findLast**\<`B`, `A`\>(`predicate`): (`self`: `Iterable`\<`B`\>) => [`Option`](O.md#option)\<`B`\>
+▸ **findLast**\<`A`\>(`predicate`): (`self`: `Iterable`\<`A`\>) => [`Option`](O.md#option)\<`A`\>
 
 Find the last element for which a predicate holds.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `B` | `B` |
-| `A` | `B` |
+| Name |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
+| `predicate` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => `boolean` |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [`Option`](O.md#option)\<`B`\>
+▸ (`self`): [`Option`](O.md#option)\<`A`\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `self` | `Iterable`\<`B`\> |
+| `self` | `Iterable`\<`A`\> |
 
 ##### Returns
 
-[`Option`](O.md#option)\<`B`\>
+[`Option`](O.md#option)\<`A`\>
 
 **`Since`**
 
@@ -3872,7 +3870,7 @@ Return the last index for which a predicate holds.
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
+| `predicate` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -3951,38 +3949,37 @@ ___
 
 ### some
 
-▸ **some**\<`B`, `A`\>(`predicate`): (`self`: readonly `B`[]) => self is readonly [B, B]
+▸ **some**\<`A`\>(`predicate`): (`self`: readonly `A`[]) => self is readonly [A, A]
 
 Check if a predicate holds true for some `ReadonlyArray` element.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `B` | `B` |
-| `A` | `B` |
+| Name |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
+| `predicate` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => `boolean` |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): self is readonly [B, B]
+▸ (`self`): self is readonly [A, A]
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `self` | readonly `B`[] |
+| `self` | readonly `A`[] |
 
 ##### Returns
 
-self is readonly [B, B]
+self is readonly [A, A]
 
 **`Since`**
 
@@ -4017,7 +4014,43 @@ ___
 
 ### sortWith
 
-▸ **sortWith**\<`A`, `B`\>(`f`, `order`): (`self`: readonly `A`[]) => `A`[]
+▸ **sortWith**\<`S`, `B`\>(`f`, `order`): (`self`: `S`) => [`With`](Array.ReadonlyArray.md#with)\<`S`, [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>\>
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `S` | extends readonly [`any`, `any`] \| `Iterable`\<`any`\> |
+| `B` | `B` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `f` | (`a`: [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>) => `B` |
+| `order` | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
+
+#### Returns
+
+`fn`
+
+▸ (`self`): [`With`](Array.ReadonlyArray.md#with)\<`S`, [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `self` | `S` |
+
+##### Returns
+
+[`With`](Array.ReadonlyArray.md#with)\<`S`, [`Infer`](Array.ReadonlyArray.md#infer)\<`S`\>\>
+
+**`Since`**
+
+2.0.0
+
+▸ **sortWith**\<`A`, `B`\>(`self`, `f`, `O`): [`A`, ...A[]]
 
 #### Type parameters
 
@@ -4030,24 +4063,13 @@ ___
 
 | Name | Type |
 | :------ | :------ |
+| `self` | readonly [`A`, `A`] |
 | `f` | (`a`: `A`) => `B` |
-| `order` | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
+| `O` | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
 
 #### Returns
 
-`fn`
-
-▸ (`self`): `A`[]
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `self` | readonly `A`[] |
-
-##### Returns
-
-`A`[]
+[`A`, ...A[]]
 
 **`Since`**
 
@@ -4066,7 +4088,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `self` | readonly `A`[] |
+| `self` | `Iterable`\<`A`\> |
 | `f` | (`a`: `A`) => `B` |
 | `order` | [`Order`](../interfaces/Ord.Order.md)\<`B`\> |
 
@@ -4095,7 +4117,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | (`a`: `A`, `i`: `number`) => a is B |
+| `refinement` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => a is B |
 
 #### Returns
 
@@ -4117,20 +4139,19 @@ ___
 
 2.0.0
 
-▸ **filter**\<`A`, `B`\>(`predicate`): (`self`: `Iterable`\<`A`\>) => `A`[]
+▸ **filter**\<`A`\>(`predicate`): (`self`: `Iterable`\<`A`\>) => `A`[]
 
 #### Type parameters
 
 | Name |
 | :------ |
 | `A` |
-| `B` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | (`b`: `B`, `i`: `number`) => `boolean` |
+| `predicate` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => `boolean` |
 
 #### Returns
 
@@ -4455,76 +4476,74 @@ ___
 
 ### partition
 
-▸ **partition**\<`C`, `B`, `A`\>(`refinement`): (`self`: `Iterable`\<`C`\>) => [excluded: Exclude\<C, B\>[], satisfying: B[]]
+▸ **partition**\<`A`, `B`\>(`refinement`): (`self`: `Iterable`\<`A`\>) => [excluded: Exclude\<A, B\>[], satisfying: B[]]
 
 Separate elements based on a predicate that also exposes the index of the element.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `C` | `C` |
-| `B` | `B` |
-| `A` | `C` |
+| Name |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | (`a`: `A`, `i`: `number`) => a is B |
+| `refinement` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => a is B |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [excluded: Exclude\<C, B\>[], satisfying: B[]]
+▸ (`self`): [excluded: Exclude\<A, B\>[], satisfying: B[]]
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `self` | `Iterable`\<`C`\> |
+| `self` | `Iterable`\<`A`\> |
 
 ##### Returns
 
-[excluded: Exclude\<C, B\>[], satisfying: B[]]
+[excluded: Exclude\<A, B\>[], satisfying: B[]]
 
 **`Since`**
 
 2.0.0
 
-▸ **partition**\<`B`, `A`\>(`predicate`): (`self`: `Iterable`\<`B`\>) => [excluded: B[], satisfying: B[]]
+▸ **partition**\<`A`\>(`predicate`): (`self`: `Iterable`\<`A`\>) => [excluded: A[], satisfying: A[]]
 
 Separate elements based on a predicate that also exposes the index of the element.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `B` | `B` |
-| `A` | `B` |
+| Name |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
+| `predicate` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => `boolean` |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [excluded: B[], satisfying: B[]]
+▸ (`self`): [excluded: A[], satisfying: A[]]
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `self` | `Iterable`\<`B`\> |
+| `self` | `Iterable`\<`A`\> |
 
 ##### Returns
 
-[excluded: B[], satisfying: B[]]
+[excluded: A[], satisfying: A[]]
 
 **`Since`**
 
@@ -5207,38 +5226,37 @@ ___
 
 ### dropWhile
 
-▸ **dropWhile**\<`B`, `A`\>(`predicate`): (`self`: `Iterable`\<`B`\>) => `B`[]
+▸ **dropWhile**\<`A`\>(`predicate`): (`self`: `Iterable`\<`A`\>) => `A`[]
 
 Remove the longest initial subarray for which all element satisfy the specified predicate, creating a new `Array`.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `B` | `B` |
-| `A` | `B` |
+| Name |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
+| `predicate` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => `boolean` |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): `B`[]
+▸ (`self`): `A`[]
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `self` | `Iterable`\<`B`\> |
+| `self` | `Iterable`\<`A`\> |
 
 ##### Returns
 
-`B`[]
+`A`[]
 
 **`Since`**
 
@@ -5737,7 +5755,7 @@ Calculate the longest initial subarray for which all element satisfy the specifi
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | (`a`: `A`, `i`: `number`) => a is B |
+| `refinement` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => a is B |
 
 #### Returns
 
@@ -5759,38 +5777,37 @@ Calculate the longest initial subarray for which all element satisfy the specifi
 
 2.0.0
 
-▸ **takeWhile**\<`B`, `A`\>(`predicate`): (`self`: `Iterable`\<`B`\>) => `B`[]
+▸ **takeWhile**\<`A`\>(`predicate`): (`self`: `Iterable`\<`A`\>) => `A`[]
 
 Calculate the longest initial subarray for which all element satisfy the specified predicate, creating a new `Array`.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `B` | `B` |
-| `A` | `B` |
+| Name |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
+| `predicate` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => `boolean` |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): `B`[]
+▸ (`self`): `A`[]
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `self` | `Iterable`\<`B`\> |
+| `self` | `Iterable`\<`A`\> |
 
 ##### Returns
 
-`B`[]
+`A`[]
 
 **`Since`**
 
@@ -7159,7 +7176,7 @@ ___
 
 ### span
 
-▸ **span**\<`C`, `B`, `A`\>(`refinement`): (`self`: `Iterable`\<`C`\>) => [init: B[], rest: Exclude\<C, B\>[]]
+▸ **span**\<`A`, `B`\>(`refinement`): (`self`: `Iterable`\<`A`\>) => [init: B[], rest: Exclude\<A, B\>[]]
 
 Split an `Iterable` into two parts:
 
@@ -7168,39 +7185,38 @@ Split an `Iterable` into two parts:
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `C` | `C` |
-| `B` | `B` |
-| `A` | `C` |
+| Name |
+| :------ |
+| `A` |
+| `B` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `refinement` | (`a`: `A`, `i`: `number`) => a is B |
+| `refinement` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => a is B |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [init: B[], rest: Exclude\<C, B\>[]]
+▸ (`self`): [init: B[], rest: Exclude\<A, B\>[]]
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `self` | `Iterable`\<`C`\> |
+| `self` | `Iterable`\<`A`\> |
 
 ##### Returns
 
-[init: B[], rest: Exclude\<C, B\>[]]
+[init: B[], rest: Exclude\<A, B\>[]]
 
 **`Since`**
 
 2.0.0
 
-▸ **span**\<`B`, `A`\>(`predicate`): (`self`: `Iterable`\<`B`\>) => [init: B[], rest: B[]]
+▸ **span**\<`A`\>(`predicate`): (`self`: `Iterable`\<`A`\>) => [init: A[], rest: A[]]
 
 Split an `Iterable` into two parts:
 
@@ -7209,32 +7225,31 @@ Split an `Iterable` into two parts:
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `B` | `B` |
-| `A` | `B` |
+| Name |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
+| `predicate` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => `boolean` |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [init: B[], rest: B[]]
+▸ (`self`): [init: A[], rest: A[]]
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `self` | `Iterable`\<`B`\> |
+| `self` | `Iterable`\<`A`\> |
 
 ##### Returns
 
-[init: B[], rest: B[]]
+[init: A[], rest: A[]]
 
 **`Since`**
 
@@ -7500,39 +7515,38 @@ ___
 
 ### splitWhere
 
-▸ **splitWhere**\<`B`, `A`\>(`predicate`): (`self`: `Iterable`\<`B`\>) => [beforeMatch: B[], fromMatch: B[]]
+▸ **splitWhere**\<`A`\>(`predicate`): (`self`: `Iterable`\<`A`\>) => [beforeMatch: A[], fromMatch: A[]]
 
 Splits this iterable on the first element that matches this predicate.
 Returns a tuple containing two arrays: the first one is before the match, and the second one is from the match onward.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `B` | `B` |
-| `A` | `B` |
+| Name |
+| :------ |
+| `A` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | (`a`: `A`, `i`: `number`) => `boolean` |
+| `predicate` | (`a`: `NoInfer`\<`A`\>, `i`: `number`) => `boolean` |
 
 #### Returns
 
 `fn`
 
-▸ (`self`): [beforeMatch: B[], fromMatch: B[]]
+▸ (`self`): [beforeMatch: A[], fromMatch: A[]]
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `self` | `Iterable`\<`B`\> |
+| `self` | `Iterable`\<`A`\> |
 
 ##### Returns
 
-[beforeMatch: B[], fromMatch: B[]]
+[beforeMatch: A[], fromMatch: A[]]
 
 **`Since`**
 

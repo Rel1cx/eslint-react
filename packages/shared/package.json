@@ -47,6 +47,6 @@
     "valibot": "0.26.0"
   },
   "devDependencies": {
-    "type-fest": "4.10.0"
+    "type-fest": "4.10.1"
   }
 }

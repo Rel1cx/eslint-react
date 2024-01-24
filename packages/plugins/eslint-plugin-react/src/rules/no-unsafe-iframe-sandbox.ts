@@ -50,7 +50,9 @@ export default createRule<[], MessageID>({
               value: P.string,
             },
           })),
-          O.flatMapNullable(v => v.value.value),
+          O.flatMapNullable(v => "value" in v ? v.value : null),
+          O.flatMapNullable(v => "value" in v ? v.value : null),
+          O.filter(Prd.isString),
           O.map(v => v.split(" ")),
           O.exists(values =>
             unsafeCombinations.some(combinations => combinations.every(unsafeValue => values.includes(unsafeValue)))

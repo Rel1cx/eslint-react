@@ -552,7 +552,7 @@ Returns `self` if it is a `Right` or `that` otherwise.
 
 ### filterOrLeft
 
-▸ **filterOrLeft**\<`A`, `B`, `X`, `E2`\>(`filter`, `orLeftWith`): \<E\>(`self`: [`Either`](E.md#either)\<`E`, `A`\>) => [`Either`](E.md#either)\<`E2` \| `E`, `B`\>
+▸ **filterOrLeft**\<`A`, `B`, `E2`\>(`refinement`, `orLeftWith`): \<E\>(`self`: [`Either`](E.md#either)\<`E`, `A`\>) => [`Either`](E.md#either)\<`E2` \| `E`, `B`\>
 
 Filter the right value with the provided function.
 If the predicate fails, set the left value with the result of the provided function.
@@ -563,15 +563,14 @@ If the predicate fails, set the left value with the result of the provided funct
 | :------ |
 | `A` |
 | `B` |
-| `X` |
 | `E2` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `filter` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`A`, `B`\> |
-| `orLeftWith` | (`a`: `X`) => `E2` |
+| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`NoInfer`\<`A`\>, `B`\> |
+| `orLeftWith` | (`a`: `NoInfer`\<`A`\>) => `E2` |
 
 #### Returns
 
@@ -623,7 +622,7 @@ assert.deepStrictEqual(
 
 2.0.0
 
-▸ **filterOrLeft**\<`A`, `X`, `Y`, `E2`\>(`filter`, `orLeftWith`): \<E\>(`self`: [`Either`](E.md#either)\<`E`, `A`\>) => [`Either`](E.md#either)\<`E2` \| `E`, `A`\>
+▸ **filterOrLeft**\<`A`, `E2`\>(`predicate`, `orLeftWith`): \<E\>(`self`: [`Either`](E.md#either)\<`E`, `A`\>) => [`Either`](E.md#either)\<`E2` \| `E`, `A`\>
 
 Filter the right value with the provided function.
 If the predicate fails, set the left value with the result of the provided function.
@@ -633,16 +632,14 @@ If the predicate fails, set the left value with the result of the provided funct
 | Name |
 | :------ |
 | `A` |
-| `X` |
-| `Y` |
 | `E2` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `filter` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`X`\> |
-| `orLeftWith` | (`a`: `Y`) => `E2` |
+| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`NoInfer`\<`A`\>\> |
+| `orLeftWith` | (`a`: `NoInfer`\<`A`\>) => `E2` |
 
 #### Returns
 
@@ -694,7 +691,7 @@ assert.deepStrictEqual(
 
 2.0.0
 
-▸ **filterOrLeft**\<`E`, `A`, `B`, `X`, `E2`\>(`self`, `filter`, `orLeftWith`): [`Either`](E.md#either)\<`E` \| `E2`, `B`\>
+▸ **filterOrLeft**\<`E`, `A`, `B`, `E2`\>(`self`, `refinement`, `orLeftWith`): [`Either`](E.md#either)\<`E` \| `E2`, `B`\>
 
 Filter the right value with the provided function.
 If the predicate fails, set the left value with the result of the provided function.
@@ -706,7 +703,6 @@ If the predicate fails, set the left value with the result of the provided funct
 | `E` |
 | `A` |
 | `B` |
-| `X` |
 | `E2` |
 
 #### Parameters
@@ -714,8 +710,8 @@ If the predicate fails, set the left value with the result of the provided funct
 | Name | Type |
 | :------ | :------ |
 | `self` | [`Either`](E.md#either)\<`E`, `A`\> |
-| `filter` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`A`, `B`\> |
-| `orLeftWith` | (`a`: `X`) => `E2` |
+| `refinement` | [`Refinement`](../interfaces/Prd.Refinement.md)\<`A`, `B`\> |
+| `orLeftWith` | (`a`: `A`) => `E2` |
 
 #### Returns
 
@@ -749,7 +745,7 @@ assert.deepStrictEqual(
 
 2.0.0
 
-▸ **filterOrLeft**\<`E`, `A`, `X`, `Y`, `E2`\>(`self`, `filter`, `orLeftWith`): [`Either`](E.md#either)\<`E` \| `E2`, `A`\>
+▸ **filterOrLeft**\<`E`, `A`, `E2`\>(`self`, `predicate`, `orLeftWith`): [`Either`](E.md#either)\<`E` \| `E2`, `A`\>
 
 Filter the right value with the provided function.
 If the predicate fails, set the left value with the result of the provided function.
@@ -760,8 +756,6 @@ If the predicate fails, set the left value with the result of the provided funct
 | :------ |
 | `E` |
 | `A` |
-| `X` |
-| `Y` |
 | `E2` |
 
 #### Parameters
@@ -769,8 +763,8 @@ If the predicate fails, set the left value with the result of the provided funct
 | Name | Type |
 | :------ | :------ |
 | `self` | [`Either`](E.md#either)\<`E`, `A`\> |
-| `filter` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`X`\> |
-| `orLeftWith` | (`a`: `Y`) => `E2` |
+| `predicate` | [`Predicate`](../interfaces/Prd.Predicate.md)\<`A`\> |
+| `orLeftWith` | (`a`: `A`) => `E2` |
 
 #### Returns
 
