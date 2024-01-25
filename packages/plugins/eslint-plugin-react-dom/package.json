@@ -1,7 +1,7 @@
 {
-  "name": "@eslint-react/core",
+  "name": "@eslint-react/eslint-plugin-react-dom",
   "version": "1.0.0-beta.0",
-  "description": "ESLint React's ESLint utility module for static analysis of React core APIs and Patterns.",
+  "description": "ESLint React's ESLint plugin for React DOM related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
     "url": "https://github.com/rel1cx/eslint-react/issues"
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Rel1cx/eslint-react",
-    "directory": "packages/core"
+    "directory": "packages/plugins/eslint-plugin-react-dom"
   },
   "license": "MIT",
   "author": "Eva1ent<let@ik.me>",
@@ -31,7 +31,7 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
-    "dist",
+    "./dist",
     "./package.json"
   ],
   "scripts": {
@@ -43,14 +43,29 @@
   },
   "dependencies": {
     "@eslint-react/ast": "workspace:*",
+    "@eslint-react/core": "workspace:*",
     "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
+    "@eslint-react/var": "workspace:*",
+    "@typescript-eslint/parser": ">=6.19.1",
     "@typescript-eslint/scope-manager": ">=6.19.1",
     "@typescript-eslint/type-utils": ">=6.19.1",
     "@typescript-eslint/types": ">=6.19.1",
     "@typescript-eslint/utils": ">=6.19.1",
-    "short-unique-id": "5.0.3"
+    "string-ts": "2.0.0"
+  },
+  "peerDependencies": {
+    "@typescript-eslint/parser": ">=6.19.1",
+    "eslint": ">=8.56.0",
+    "typescript": ">=5.3.3"
+  },
+  "engines": {
+    "bun": ">=1.0.15",
+    "node": ">=18.18.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
