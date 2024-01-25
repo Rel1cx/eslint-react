@@ -42,6 +42,6 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "effect": "2.2.1"
+    "effect": "2.2.2"
   }
 }

@@ -28,7 +28,7 @@
     "@vanilla-extract/css": "1.14.0",
     "@vanilla-extract/next-plugin": "2.3.3",
     "autoprefixer": "10.4.17",
-    "effect": "2.2.1",
+    "effect": "2.2.2",
     "eslint": ">=8.56.0",
     "eslint-config-next": "14.1.0",
     "eslint-config-prettier": "9.1.0",
