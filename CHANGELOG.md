@@ -1,3 +1,12 @@
+## v1.0.0-beta.1 (Fri Jan 26 2024)
+
+### ✨ New
+
+- Add preset `jsx` and `jsx-legacy`.
+- Add preset `dom` and `dom-legacy`.
+- Add preset `core` and `core-legacy`.
+- Add preset `hooks` and `hooks-legacy`.
+
 ## v1.0.0-beta.0 (Fri Jan 26 2024)
 
 ### 💥 Breaking Changes

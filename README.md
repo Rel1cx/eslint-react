@@ -12,8 +12,6 @@ It's a platform for creating ESLint rules for not just for ReactDOM but also oth
 
 ## Why?
 
-The purpose of `eslint-react` is to provide a platform for creating ESLint rules for not just for ReactDOM but also other libraries and frameworks that use React as a runtime.
-
 ### What are the differences between `@eslint-react/eslint-plugin` and `eslint-plugin-react`?
 
 The main difference is when using `@eslint-react/eslint-plugin` you can customize the behavior of the rules depending on the what render target you are using. While `eslint-plugin-react` will always assume you are using React DOM even if you are working with a project that only uses React Three Fiber.
