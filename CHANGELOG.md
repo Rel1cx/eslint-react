@@ -1,3 +1,18 @@
+## v1.0.0-beta.0 (Fri Jan 26 2024)
+
+### 💥 Breaking Changes
+
+#### All DOM related rules are moved to `react-dom` namespace
+
+- Rename rule `react/no-dangerously-set-innerhtml` to `react-dom/no-dangerously-set-innerhtml`.
+- Rename rule `react/no-dangerously-set-innerhtml-with-children` to `react-dom/no-dangerously-set-innerhtml-with-children`.
+- Rename rule `react/no-find-dom-node` to `react-dom/no-find-dom-node`.
+- Rename rule `react/no-missing-button-type` to `react-dom/no-missing-button-type`.
+- Rename rule `react/no-missing-iframe-sandbox` to `react-dom/no-missing-iframe-sandbox`.
+- Rename rule `react/no-script-url` to `react-dom/no-script-url`.
+- Rename rule `react/no-unsafe-iframe-sandbox` to `react-dom/no-unsafe-iframe-sandbox`.
+- Rename rule `react/no-unsafe-target-blank` to `react-dom/no-unsafe-target-blank`.
+
 ## v0.10.12 (Sun Jan 21 2024)
 
 ### 🪄 Improvements
