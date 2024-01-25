@@ -1,4 +1,4 @@
-# react/no-unsafe-target-blank
+# react-dom/no-unsafe-target-blank
 
 ## Rule category
 

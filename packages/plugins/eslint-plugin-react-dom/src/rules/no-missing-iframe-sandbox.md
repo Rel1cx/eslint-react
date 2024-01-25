@@ -1,4 +1,4 @@
-# react/no-missing-iframe-sandbox
+# react-dom/no-missing-iframe-sandbox
 
 ## Rule category
 

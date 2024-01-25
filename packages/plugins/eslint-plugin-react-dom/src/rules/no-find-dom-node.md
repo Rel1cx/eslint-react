@@ -1,4 +1,4 @@
-# react/no-find-dom-node
+# react-dom/no-find-dom-node
 
 ## Rule category
 

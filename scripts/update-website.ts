@@ -4,7 +4,7 @@ import path from "path";
 import { copyFile } from "./lib/fs";
 
 const docs = new Bun.Glob("packages/plugins/eslint-plugin-*/src/rules/*.md").scanSync();
-const order = ["jsx", "react", "react-hooks", "naming-convention", "debug"] as const;
+const order = ["jsx", "react", "react-dom", "react-hooks", "naming-convention", "debug"] as const;
 const [
   files,
   rules,

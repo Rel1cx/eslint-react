@@ -1,4 +1,4 @@
-# react/no-unsafe-iframe-sandbox
+# react-dom/no-unsafe-iframe-sandbox
 
 ## Rule category
 

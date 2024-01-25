@@ -1,4 +1,4 @@
-# react/no-dangerously-set-innerhtml
+# react-dom/no-dangerously-set-innerhtml
 
 ## Rule category
 
