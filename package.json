@@ -83,7 +83,7 @@
     "eslint-plugin-total-functions": "7.1.0",
     "eslint-plugin-vitest": "0.3.20",
     "fast-equals": "5.0.1",
-    "husky": "8.0.3",
+    "husky": "9.0.5",
     "markdownlint": "0.33.0",
     "pathe": "1.1.2",
     "publint": "0.2.7",
