@@ -9,6 +9,9 @@
   "configuration": {
     "title": "Configuration"
   },
+  "faq": {
+    "title": "FAQ"
+  },
   "-Other": {
     "title": "Other",
     "type": "separator"
