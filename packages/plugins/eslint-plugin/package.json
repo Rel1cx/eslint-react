@@ -1,7 +1,7 @@
 {
   "name": "@eslint-react/eslint-plugin",
   "version": "0.10.12",
-  "description": "More than 50 ESLint rules to catch common mistakes and improve your React code. Rewritten from the scratch (mostly).",
+  "description": "The main ESLint plugin of ESLint React. Contains all the rules and presets of ESLint React.",
   "keywords": [
     "eslint",
     "eslint-plugin",

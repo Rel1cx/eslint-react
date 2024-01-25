@@ -6,7 +6,9 @@
 [![Size](https://img.shields.io/bundlephobia/minzip/@eslint-react/eslint-plugin?label=gzip&style=flat&colorA=000000&colorB=000000)](https://bundlephobia.com/package/@eslint-react/eslint-plugin)
 [![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
 
-More than 50 ESLint rules to catch common mistakes and improve your React code. Rewritten from the scratch (mostly).
+## What is this?
+
+It's a platform for creating ESLint rules for not just for ReactDOM but also other libraries and frameworks that use React as a runtime.
 
 ## Highlights
 

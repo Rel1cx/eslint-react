@@ -6,7 +6,7 @@ import { PUBLIC_URL } from "#/constants";
 export default function Document() {
   const metaTitle = "eslint-react";
   // dprint-ignore
-  const metaDescription = "ESLint React - More than 50 ESLint rules to catch common mistakes and improve your React code. Rewritten from the scratch (mostly).";
+  const metaDescription = "ESLint React - A platform for creating ESLint rules for not just for ReactDOM but also other libraries and frameworks that use React as a runtime.";
 
   return (
     <Html lang="en">

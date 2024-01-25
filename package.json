@@ -1,7 +1,7 @@
 {
   "name": "@eslint-react/monorepo",
   "version": "0.10.12",
-  "description": "ESLint React's monorepo. More than 50 ESLint rules to catch common mistakes and improve your React code. Rewritten from the scratch (mostly).",
+  "description": "ESLint React's monorepo. A platform for creating ESLint rules for not just for ReactDOM but also other libraries and frameworks that use React as a runtime.",
   "keywords": [
     "eslint",
     "eslint-plugin",
