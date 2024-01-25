@@ -32,17 +32,11 @@
 - [`react/no-component-will-update`](react-no-component-will-update)
 - [`react/no-constructed-context-value`](react-no-constructed-context-value)
 - [`react/no-create-ref`](react-no-create-ref)
-- [`react/no-dangerously-set-innerhtml`](react-no-dangerously-set-innerhtml)
-- [`react/no-dangerously-set-innerhtml-with-children`](react-no-dangerously-set-innerhtml-with-children)
 - [`react/no-direct-mutation-state`](react-no-direct-mutation-state)
-- [`react/no-find-dom-node`](react-no-find-dom-node)
-- [`react/no-missing-button-type`](react-no-missing-button-type)
 - [`react/no-missing-component-display-name`](react-no-missing-component-display-name)
-- [`react/no-missing-iframe-sandbox`](react-no-missing-iframe-sandbox)
 - [`react/no-namespace`](react-no-namespace)
 - [`react/no-redundant-should-component-update`](react-no-redundant-should-component-update)
 - [`react/no-render-return-value`](react-no-render-return-value)
-- [`react/no-script-url`](react-no-script-url)
 - [`react/no-set-state-in-component-did-mount`](react-no-set-state-in-component-did-mount)
 - [`react/no-set-state-in-component-did-update`](react-no-set-state-in-component-did-update)
 - [`react/no-set-state-in-component-will-update`](react-no-set-state-in-component-will-update)
@@ -50,13 +44,22 @@
 - [`react/no-unsafe-component-will-mount`](react-no-unsafe-component-will-mount)
 - [`react/no-unsafe-component-will-receive-props`](react-no-unsafe-component-will-receive-props)
 - [`react/no-unsafe-component-will-update`](react-no-unsafe-component-will-update)
-- [`react/no-unsafe-iframe-sandbox`](react-no-unsafe-iframe-sandbox)
-- [`react/no-unsafe-target-blank`](react-no-unsafe-target-blank)
 - [`react/no-unstable-default-props`](react-no-unstable-default-props)
 - [`react/no-unstable-nested-components`](react-no-unstable-nested-components)
 - [`react/no-unused-class-component-members`](react-no-unused-class-component-members)
 - [`react/no-unused-state`](react-no-unused-state)
 - [`react/prefer-destructuring-assignment`](react-prefer-destructuring-assignment)
+
+## React DOM
+
+- [`react/no-dangerously-set-innerhtml`](react-no-dangerously-set-innerhtml)
+- [`react/no-dangerously-set-innerhtml-with-children`](react-no-dangerously-set-innerhtml-with-children)
+- [`react/no-find-dom-node`](react-no-find-dom-node)
+- [`react/no-missing-button-type`](react-no-missing-button-type)
+- [`react/no-missing-iframe-sandbox`](react-no-missing-iframe-sandbox)
+- [`react/no-script-url`](react-no-script-url)
+- [`react/no-unsafe-iframe-sandbox`](react-no-unsafe-iframe-sandbox)
+- [`react/no-unsafe-target-blank`](react-no-unsafe-target-blank)
 
 ## React Hooks
 
