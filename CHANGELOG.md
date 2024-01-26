@@ -1,3 +1,31 @@
+## v1.0.0 (Sat Jan 27 2024)
+
+### 💥 Breaking Changes
+
+#### All DOM related rules are moved to `react-dom` namespace
+
+- Rename rule `react/no-dangerously-set-innerhtml` to `react-dom/no-dangerously-set-innerhtml`.
+- Rename rule `react/no-dangerously-set-innerhtml-with-children` to `react-dom/no-dangerously-set-innerhtml-with-children`.
+- Rename rule `react/no-find-dom-node` to `react-dom/no-find-dom-node`.
+- Rename rule `react/no-missing-button-type` to `react-dom/no-missing-button-type`.
+- Rename rule `react/no-missing-iframe-sandbox` to `react-dom/no-missing-iframe-sandbox`.
+- Rename rule `react/no-script-url` to `react-dom/no-script-url`.
+- Rename rule `react/no-unsafe-iframe-sandbox` to `react-dom/no-unsafe-iframe-sandbox`.
+- Rename rule `react/no-unsafe-target-blank` to `react-dom/no-unsafe-target-blank`.
+
+### ✨ New
+
+- Make `dom` an alias of `react-dom` preset.
+- Make `hooks` an alias of `react-hooks` preset.
+- Add preset `jsx` and `jsx-legacy`.
+- Add preset `react-dom` and `dom-legacy`.
+- Add preset `core` and `core-legacy`.
+- Add preset `react-hooks` and `hooks-legacy`.
+
+### 🐞 Fixes
+
+- Fix the lint message for rule `react/no-dangerously-set-innerhtml`.
+
 ## v1.0.0-beta.3 (Fri Jan 26 2024)
 
 ### 🐞 Fixes
