@@ -128,6 +128,7 @@
       "react-dom": "18.2.0",
       "typescript": ">=5.3.3",
       "esbuild": "0.19.10",
+      "lodash.set": "4.3.2",
       "array-includes": "npm:@nolyfill/array-includes@latest",
       "array.prototype.findlastindex": "npm:@nolyfill/array.prototype.findlastindex@latest",
       "array.prototype.flat": "npm:@nolyfill/array.prototype.flat@latest",
