@@ -1,3 +1,12 @@
+## v1.0.1 (Sat Jan 27 2024)
+
+### 🪄 Improvements
+
+- Improve `jsx` and `jsx-legacy` presets.
+- Improve `core` and `core-legacy` presets.
+- Improve `recommended` and `recommended-legacy` presets.
+- Improve `recommended-type-checked` and `recommended-type-checked-legacy` presets.
+
 ## v1.0.0 (Sat Jan 27 2024)
 
 ### 💥 Breaking Changes
