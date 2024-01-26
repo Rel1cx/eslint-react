@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_DANGEROUSLY_SET_INNERHTML: "Only set one of `children` or `dangerouslySetInnerHTML`.",
+      NO_DANGEROUSLY_SET_INNERHTML: "Using `dangerouslySetInnerHTML` may have security implications.",
     },
   },
   defaultOptions: [],
