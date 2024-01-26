@@ -52,14 +52,14 @@
 
 ## React DOM
 
-- [`react/no-dangerously-set-innerhtml`](react-no-dangerously-set-innerhtml)
-- [`react/no-dangerously-set-innerhtml-with-children`](react-no-dangerously-set-innerhtml-with-children)
-- [`react/no-find-dom-node`](react-no-find-dom-node)
-- [`react/no-missing-button-type`](react-no-missing-button-type)
-- [`react/no-missing-iframe-sandbox`](react-no-missing-iframe-sandbox)
-- [`react/no-script-url`](react-no-script-url)
-- [`react/no-unsafe-iframe-sandbox`](react-no-unsafe-iframe-sandbox)
-- [`react/no-unsafe-target-blank`](react-no-unsafe-target-blank)
+- [`react-dom/no-dangerously-set-innerhtml`](react-dom-no-dangerously-set-innerhtml)
+- [`react-dom/no-dangerously-set-innerhtml-with-children`](react-dom-no-dangerously-set-innerhtml-with-children)
+- [`react-dom/no-find-dom-node`](react-dom-no-find-dom-node)
+- [`react-dom/no-missing-button-type`](react-dom-no-missing-button-type)
+- [`react-dom/no-missing-iframe-sandbox`](react-dom-no-missing-iframe-sandbox)
+- [`react-dom/no-script-url`](react-dom-no-script-url)
+- [`react-dom/no-unsafe-iframe-sandbox`](react-dom-no-unsafe-iframe-sandbox)
+- [`react-dom/no-unsafe-target-blank`](react-dom-no-unsafe-target-blank)
 
 ## React Hooks
 
