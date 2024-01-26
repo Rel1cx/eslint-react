@@ -1,3 +1,9 @@
+## v1.0.0-beta.3 (Fri Jan 26 2024)
+
+### 🐞 Fixes
+
+- Fix the name prefix for react-dom rules.
+
 ## v1.0.0-beta.2 (Fri Jan 26 2024)
 
 ### ✨ New

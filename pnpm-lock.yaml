@@ -534,9 +534,6 @@ importers:
       '@typescript-eslint/scope-manager':
         specifier: '>=6.19.1'
         version: 6.19.1
-      '@typescript-eslint/type-utils':
-        specifier: '>=6.19.1'
-        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
       '@typescript-eslint/types':
         specifier: '>=6.19.1'
         version: 6.19.1
@@ -582,9 +579,6 @@ importers:
       '@typescript-eslint/scope-manager':
         specifier: '>=6.19.1'
         version: 6.19.1
-      '@typescript-eslint/type-utils':
-        specifier: '>=6.19.1'
-        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
       '@typescript-eslint/types':
         specifier: '>=6.19.1'
         version: 6.19.1
