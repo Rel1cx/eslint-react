@@ -24,7 +24,7 @@
 
 ### 🐞 Fixes
 
-- Fix the lint message for rule `react/no-dangerously-set-innerhtml`.
+- Fix the lint message for rule `react-dom/no-dangerously-set-innerhtml`.
 
 ## v1.0.0-beta.3 (Fri Jan 26 2024)
 
