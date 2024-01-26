@@ -1,3 +1,10 @@
+## v1.0.0-beta.2 (Fri Jan 26 2024)
+
+### ✨ New
+
+- Make `dom` an alias of `react-dom` preset.
+- Make `hooks` an alias of `react-hooks` preset.
+
 ## v1.0.0-beta.1 (Fri Jan 26 2024)
 
 ### ✨ New

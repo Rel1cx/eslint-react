@@ -10,16 +10,6 @@
 
 It's a platform for creating ESLint rules for not just for ReactDOM but also other libraries and frameworks that use React as a runtime.
 
-## Why?
-
-### What are the differences between `@eslint-react/eslint-plugin` and `eslint-plugin-react`?
-
-The main difference is when using `@eslint-react/eslint-plugin` you can customize the behavior of the rules depending on the what render target you are using. While `eslint-plugin-react` will always assume you are using React DOM even if you are working with a project that only uses React Three Fiber.
-
-### Is `@eslint-react/eslint-plugin` a replacement for `eslint-plugin-react`?
-
-No, `@eslint-react/eslint-plugin` is not meant to be a drop-in replacement for `eslint-plugin-react`. But you can still using it as a replacement if you want to. Just keep in mind that some rules may behave differently, the rules provided by `@eslint-react/eslint-plugin` are designed to be more strict than `eslint-plugin-react`.
-
 ## Highlights
 
 - Well designed rule behaviors and sensible defaults.
@@ -100,6 +90,14 @@ module.exports = {
   Enforce recommended rules designed to catch common mistakes and prevent potential bugs.
 - **recommended-type-checked-legacy** (`plugin:@eslint-react/recommended-type-checked-legacy`)\
   Same as recommended-legacy but with additional rules that require type information.
+- **jsx-legacy** (`plugin:@eslint-react/jsx-legacy`)\
+  Enable rules that are specific to JSX independently.
+- **core-legacy** (`plugin:@eslint-react/core-legacy`)\
+  Enable rules that are specific to React independently.
+- **dom-legacy** (`plugin:@eslint-react/dom-legacy`)\
+  Enable rules that are specific to React DOM independently.
+- **hooks-legacy** (`plugin:@eslint-react/hooks-legacy`)\
+  Enable rules that are specific to React Hooks independently.
 - **debug-legacy** (`plugin:@eslint-react/debug-legacy`)\
   Enable a series of rules that are useful for debugging purposes only.\
   (Not recommended unless you know what you are doing)
@@ -117,6 +115,14 @@ module.exports = {
   Enforce recommended rules designed to catch common mistakes and prevent potential bugs.
 - **recommended-type-checked**\
   Same as recommended but with additional rules that require type information.
+- **jsx**\
+  Enable rules that are specific to JSX independently.
+- **core**\
+  Enable rules that are specific to React independently.
+- **dom**\
+  Enable rules that are specific to React DOM independently.
+- **hooks**\
+  Enable rules that are specific to React Hooks independently.
 - **debug**\
   Enable a series of rules that are useful for debugging purposes only.\
   (Not recommended unless you know what you are doing)

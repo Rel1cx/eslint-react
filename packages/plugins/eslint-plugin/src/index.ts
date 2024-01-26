@@ -137,7 +137,7 @@ const corePreset = {
   "react/prefer-destructuring-assignment": "warn",
 } as const satisfies RulePreset;
 
-const domPreset = {
+const reactDomPreset = {
   "react-dom/no-dangerously-set-innerhtml": "warn",
   "react-dom/no-dangerously-set-innerhtml-with-children": "error",
   "react-dom/no-find-dom-node": "error",
@@ -148,7 +148,7 @@ const domPreset = {
   "react-dom/no-unsafe-target-blank": "warn",
 } as const satisfies RulePreset;
 
-const hooksPreset = {
+const reactHooksPreset = {
   "react-hooks/ensure-custom-hooks-using-other-hooks": "warn",
   "react-hooks/ensure-use-callback-has-non-empty-deps": "warn",
   "react-hooks/ensure-use-memo-has-non-empty-deps": "warn",
@@ -281,14 +281,18 @@ export default {
     "core-legacy": createLegacyConfig(corePreset),
     debug: createFlatConfig(debugPreset),
     "debug-legacy": createLegacyConfig(debugPreset),
-    dom: createFlatConfig(domPreset),
-    "dom-legacy": createLegacyConfig(domPreset),
-    hooks: createFlatConfig(hooksPreset),
-    "hooks-legacy": createLegacyConfig(hooksPreset),
+    dom: createFlatConfig(reactDomPreset),
+    "dom-legacy": createLegacyConfig(reactDomPreset),
+    hooks: createFlatConfig(reactHooksPreset),
+    "hooks-legacy": createLegacyConfig(reactHooksPreset),
     jsx: createFlatConfig(jsxPreset),
     "jsx-legacy": createLegacyConfig(jsxPreset),
     off: createFlatConfig(offPreset),
     "off-legacy": createLegacyConfig(offPreset),
+    "react-dom": createFlatConfig(reactDomPreset),
+    "react-dom-legacy": createLegacyConfig(reactDomPreset),
+    "react-hooks": createFlatConfig(reactHooksPreset),
+    "react-hooks-legacy": createLegacyConfig(reactHooksPreset),
     recommended: createFlatConfig(recommendedPreset),
     "recommended-legacy": createLegacyConfig(recommendedPreset),
     "recommended-type-checked": createFlatConfig(recommendedTypeCheckedPreset),
