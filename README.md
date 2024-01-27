@@ -19,6 +19,10 @@ It's a platform for creating ESLint rules for not just for ReactDOM but also oth
 ## Public packages
 
 - [`@eslint-react/eslint-plugin`](https://npm.im/@eslint-react/eslint-plugin) - The main ESLint plugin package including all rules and config presets in this repository.
+- `eslint-plugin-react-core` (will be available in 2.0) - An ESLint plugin for React core rules (Zero DOM Specific, Render Target Agnostic, Formatting Independent).
+- `eslint-plugin-react-dom` (will be available in 2.0) - An ESLint plugin for React DOM rules (Only DOM Specific).
+- `eslint-plugin-react-hooks-extra` (will be available in 2.0) - An ESLint plugin for extra React Hooks rules.
+- `eslint-plugin-react-naming-convention` (will be available in 2.0) - An ESLint plugin for React naming convention rules.
 
 ## Supported React versions
 
@@ -128,6 +132,10 @@ module.exports = {
 ## Rules
 
 [Rules Overview ↗](https://eslint-react.xyz/rules/overview)
+
+## Roadmap
+
+[Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20)
 
 ## Philosophy
 

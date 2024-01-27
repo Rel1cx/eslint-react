@@ -4,14 +4,14 @@
 
 ### Plugins (with ecological niche explanation)
 
-- `eslint-plugin-react-lite` (Zero DOM Specific, Render Target Agnostic, Formatting Independent)
+- `eslint-plugin-react-core` (Zero DOM Specific, Render Target Agnostic, Formatting Independent)
 - `eslint-plugin-react-dom` (Only DOM Specific)
 - `eslint-plugin-react-hooks` (The official one from React)
 - `eslint-plugin-react-hooks-extra` (Extra rules for `eslint-plugin-react-hooks`)
 - `eslint-plugin-react-naming-convention` (Optional, Only Naming Convention rules, can be replaced with other plug-ins depending on the project)
 - ... (Free to combine with other plugins from the community)
 
-### Rules in `eslint-plugin-react-lite`
+### Rules in `eslint-plugin-react-core`
 
 | Rules                                      | Description                                                                                            |
 | :----------------------------------------- | :----------------------------------------------------------------------------------------------------- |
