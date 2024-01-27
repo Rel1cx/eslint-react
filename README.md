@@ -90,14 +90,10 @@ module.exports = {
   Enable recommended rules for typical React DOM projects.
 - **recommended-type-checked-legacy** (`plugin:@eslint-react/recommended-type-checked-legacy`)\
   Same as recommended-legacy but with additional rules that require type information.
-- **jsx-legacy** (`plugin:@eslint-react/jsx-legacy`)\
-  Enable JSX rules.
 - **core-legacy** (`plugin:@eslint-react/core-legacy`)\
   Enable the most essential rules.
 - **dom-legacy** (`plugin:@eslint-react/dom-legacy`)\
   Enable rules that are specific to React DOM.
-- **hooks-legacy** (`plugin:@eslint-react/hooks-legacy`)\
-  Enable React Hooks rules independently.
 - **debug-legacy** (`plugin:@eslint-react/debug-legacy`)\
   Enable a series of rules that are useful for debugging purposes only.\
   (Not recommended unless you know what you are doing)
@@ -115,14 +111,10 @@ module.exports = {
   Enable recommended rules for typical React DOM projects.
 - **recommended-type-checked**\
   Same as recommended but with additional rules that require type information.
-- **jsx**\
-  Enable JSX rules.
 - **core**\
   Enable the most essential rules.
 - **dom**\
   Enable rules that are specific to React DOM.
-- **hooks**\
-  Enable React Hooks rules independently.
 - **debug**\
   Enable a series of rules that are useful for debugging purposes only.\
   (Not recommended unless you know what you are doing)

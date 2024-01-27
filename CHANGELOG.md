@@ -5,6 +5,10 @@
 - Fix rule `react-dom/no-namespace` not renamed in v1.0.0.
 - Fix rule `react-dom/no-children-in-void-dom-elements` not renamed in v1.0.0.
 
+### 🪄 Improvements
+
+- Improve rules overview page on website.
+
 ## v1.0.1 (Sat Jan 27 2024)
 
 ### 🪄 Improvements
