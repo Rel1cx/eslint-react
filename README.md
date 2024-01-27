@@ -10,6 +10,11 @@
 
 It's a platform for creating ESLint rules for not just for ReactDOM but also other libraries and frameworks that use React as a runtime.
 
+## Roadmap
+
+- [Milestone 1.5 ↗](https://eslint-react.xyz/roadmap#milestone-15)
+- [Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20)
+
 ## Highlights
 
 - Well designed rule behaviors and sensible defaults.
@@ -132,10 +137,6 @@ module.exports = {
 ## Rules
 
 [Rules Overview ↗](https://eslint-react.xyz/rules/overview)
-
-## Roadmap
-
-[Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20)
 
 ## Philosophy
 
