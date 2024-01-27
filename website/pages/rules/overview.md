@@ -65,4 +65,3 @@
 | [`debug/class-component`](debug-class-component)                                                               | Reports all class components. Useful for debugging.                                                     | 🐞  |      |     |
 | [`debug/function-component`](debug-function-component)                                                         | Reports all function components. Useful for debugging.                                                  | 🐞  |      |     |
 | [`debug/react-hooks`](debug-react-hooks)                                                                       | Reports all React Hooks. Useful for debugging.                                                          | 🐞  |      |     |
-| [`debug/strict-mode`](debug-strict-mode)                                                                       | Reports all components wrapped with `React.StrictMode`.                                                 | 🐞  |      |     |
