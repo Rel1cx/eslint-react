@@ -7,7 +7,6 @@ import ensureForwardRefUsingRef from "./rules/ensure-forward-ref-using-ref";
 import noAccessStateInSetstate from "./rules/no-access-state-in-setstate";
 import noChildrenCount from "./rules/no-children-count";
 import noChildrenForEach from "./rules/no-children-for-each";
-import noChildrenInVoidDomElements from "./rules/no-children-in-void-dom-elements";
 import noChildrenMap from "./rules/no-children-map";
 import noChildrenOnly from "./rules/no-children-only";
 import noChildrenProp from "./rules/no-children-prop";
@@ -21,7 +20,6 @@ import noConstructedContextValue from "./rules/no-constructed-context-value";
 import noCreateRef from "./rules/no-create-ref";
 import noDirectMutationState from "./rules/no-direct-mutation-state";
 import noMissingComponentDisplayName from "./rules/no-missing-component-display-name";
-import noNamespace from "./rules/no-namespace";
 import noRedundantShouldComponentUpdate from "./rules/no-redundant-should-component-update";
 import noRenderReturnValue from "./rules/no-render-return-value";
 import noSetStateInComponentDidMount from "./rules/no-set-state-in-component-did-mount";
@@ -47,7 +45,6 @@ export const rules = {
   "no-access-state-in-setstate": noAccessStateInSetstate,
   "no-children-count": noChildrenCount,
   "no-children-for-each": noChildrenForEach,
-  "no-children-in-void-dom-elements": noChildrenInVoidDomElements,
   "no-children-map": noChildrenMap,
   "no-children-only": noChildrenOnly,
   "no-children-prop": noChildrenProp,
@@ -61,7 +58,6 @@ export const rules = {
   "no-create-ref": noCreateRef,
   "no-direct-mutation-state": noDirectMutationState,
   "no-missing-component-display-name": noMissingComponentDisplayName,
-  "no-namespace": noNamespace,
   "no-redundant-should-component-update": noRedundantShouldComponentUpdate,
   "no-render-return-value": noRenderReturnValue,
   "no-set-state-in-component-did-mount": noSetStateInComponentDidMount,

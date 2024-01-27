@@ -36,7 +36,6 @@ ___
 | `no-access-state-in-setstate` | `RuleModule`\<``"NO_ACCESS_STATE_IN_SETSTATE"``, [], `RuleListener`\> |
 | `no-children-count` | `RuleModule`\<``"NO_CHILDREN_COUNT"``, [], `RuleListener`\> |
 | `no-children-for-each` | `RuleModule`\<``"NO_CHILDREN_FOR_EACH"``, [], `RuleListener`\> |
-| `no-children-in-void-dom-elements` | `RuleModule`\<``"NO_CHILDREN_IN_VOID_DOM_ELEMENTS"``, [], `RuleListener`\> |
 | `no-children-map` | `RuleModule`\<``"NO_CHILDREN_MAP"``, [], `RuleListener`\> |
 | `no-children-only` | `RuleModule`\<``"NO_CHILDREN_ONLY"``, [], `RuleListener`\> |
 | `no-children-prop` | `RuleModule`\<``"NO_CHILDREN_PROP"``, [], `RuleListener`\> |
@@ -50,7 +49,6 @@ ___
 | `no-create-ref` | `RuleModule`\<``"NO_CREATE_REF"``, [], `RuleListener`\> |
 | `no-direct-mutation-state` | `RuleModule`\<``"NO_DIRECT_MUTATION_STATE"``, [], `RuleListener`\> |
 | `no-missing-component-display-name` | `RuleModule`\<``"NO_MISSING_COMPONENT_DISPLAY_NAME"``, [], `RuleListener`\> |
-| `no-namespace` | `RuleModule`\<``"NO_NAMESPACE"``, [], `RuleListener`\> |
 | `no-redundant-should-component-update` | `RuleModule`\<``"NO_REDUNDANT_SHOULD_COMPONENT_UPDATE"``, [], `RuleListener`\> |
 | `no-render-return-value` | `RuleModule`\<``"NO_RENDER_RETURN_VALUE"``, [], `RuleListener`\> |
 | `no-set-state-in-component-did-mount` | `RuleModule`\<``"NO_SET_STATE_IN_COMPONENT_DID_MOUNT"``, [], `RuleListener`\> |

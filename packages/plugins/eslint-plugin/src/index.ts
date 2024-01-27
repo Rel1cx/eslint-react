@@ -17,10 +17,6 @@ import { padKeysLeft } from "./utils";
 const { entries, fromEntries } = Helper;
 
 const rulePreset = {
-  "debug/class-component": "warn",
-  "debug/function-component": "warn",
-  "debug/react-hooks": "warn",
-
   "jsx/max-depth": "warn",
   "jsx/no-array-index-key": "warn",
   "jsx/no-comment-textnodes": "warn",
@@ -33,16 +29,10 @@ const rulePreset = {
   "jsx/prefer-shorthand-boolean": "warn",
   "jsx/prefer-shorthand-fragment": "warn",
 
-  "naming-convention/component-name": "warn",
-  "naming-convention/filename": "warn",
-  "naming-convention/filename-extension": "warn",
-  "naming-convention/use-state": "warn",
-
   "react/ensure-forward-ref-using-ref": "warn",
   "react/no-access-state-in-setstate": "error",
   "react/no-children-count": "warn",
   "react/no-children-for-each": "warn",
-  "react/no-children-in-void-dom-elements": "warn",
   "react/no-children-map": "warn",
   "react/no-children-only": "warn",
   "react/no-children-prop": "warn",
@@ -56,7 +46,6 @@ const rulePreset = {
   "react/no-create-ref": "error",
   "react/no-direct-mutation-state": "error",
   "react/no-missing-component-display-name": "warn",
-  "react/no-namespace": "error",
   "react/no-redundant-should-component-update": "error",
   "react/no-render-return-value": "error",
   "react/no-set-state-in-component-did-mount": "warn",
@@ -72,11 +61,13 @@ const rulePreset = {
   "react/no-unused-state": "warn",
   "react/prefer-destructuring-assignment": "warn",
 
+  "react-dom/no-children-in-void-dom-elements": "warn",
   "react-dom/no-dangerously-set-innerhtml": "warn",
   "react-dom/no-dangerously-set-innerhtml-with-children": "error",
   "react-dom/no-find-dom-node": "error",
   "react-dom/no-missing-button-type": "warn",
   "react-dom/no-missing-iframe-sandbox": "warn",
+  "react-dom/no-namespace": "error",
   "react-dom/no-script-url": "warn",
   "react-dom/no-unsafe-iframe-sandbox": "warn",
   "react-dom/no-unsafe-target-blank": "warn",
@@ -85,6 +76,17 @@ const rulePreset = {
   "react-hooks/ensure-use-callback-has-non-empty-deps": "warn",
   "react-hooks/ensure-use-memo-has-non-empty-deps": "warn",
   "react-hooks/prefer-use-state-lazy-initialization": "warn",
+
+  // eslint-disable-next-line perfectionist/sort-objects
+  "naming-convention/component-name": "warn",
+  "naming-convention/filename": "warn",
+  "naming-convention/filename-extension": "warn",
+  "naming-convention/use-state": "warn",
+
+  // eslint-disable-next-line perfectionist/sort-objects
+  "debug/class-component": "warn",
+  "debug/function-component": "warn",
+  "debug/react-hooks": "warn",
 } as const satisfies RulePreset;
 
 const jsxPreset = {
@@ -117,7 +119,6 @@ const corePreset = {
   "react/no-class-component": "warn",
   "react/no-clone-element": "warn",
   "react/no-constructed-context-value": "error",
-  "react/no-namespace": "error",
   "react/no-string-refs": "error",
   "react/no-unstable-default-props": "error",
   "react/no-unstable-nested-components": "warn",
@@ -127,11 +128,13 @@ const corePreset = {
 } as const satisfies RulePreset;
 
 const reactDomPreset = {
+  "react-dom/no-children-in-void-dom-elements": "warn",
   "react-dom/no-dangerously-set-innerhtml": "warn",
   "react-dom/no-dangerously-set-innerhtml-with-children": "error",
   "react-dom/no-find-dom-node": "error",
   "react-dom/no-missing-button-type": "warn",
   "react-dom/no-missing-iframe-sandbox": "warn",
+  "react-dom/no-namespace": "error",
   "react-dom/no-script-url": "warn",
   "react-dom/no-unsafe-iframe-sandbox": "warn",
   "react-dom/no-unsafe-target-blank": "warn",
@@ -149,7 +152,6 @@ const recommendedPreset = {
   "react/no-access-state-in-setstate": "error",
   "react/no-children-count": "warn",
   "react/no-children-for-each": "warn",
-  "react/no-children-in-void-dom-elements": "warn",
   "react/no-children-map": "warn",
   "react/no-children-only": "warn",
   "react/no-children-prop": "warn",

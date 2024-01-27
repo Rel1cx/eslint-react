@@ -6,7 +6,7 @@ Correctness.
 
 ## What it does
 
-Warns if you have `shouldComponentUpdate` defined when defining a class component that extends `React.PureComponent`.
+Prevents usage of `shouldComponentUpdate` when extending `React.PureComponent`.
 
 ## Why is this bad?
 

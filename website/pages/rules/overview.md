@@ -1,82 +1,67 @@
 # Rules Overview
 
-## JSX
-
-- [`jsx/max-depth`](jsx-max-depth)
-- [`jsx/no-array-index-key`](jsx-no-array-index-key)
-- [`jsx/no-comment-textnodes`](jsx-no-comment-textnodes)
-- [`jsx/no-complicated-conditional-rendering`](jsx-no-complicated-conditional-rendering)
-- [`jsx/no-duplicate-key`](jsx-no-duplicate-key)
-- [`jsx/no-leaked-conditional-rendering`](jsx-no-leaked-conditional-rendering)
-- [`jsx/no-missing-key`](jsx-no-missing-key)
-- [`jsx/no-spreading-key`](jsx-no-spreading-key)
-- [`jsx/no-useless-fragment`](jsx-no-useless-fragment)
-- [`jsx/prefer-shorthand-boolean`](jsx-prefer-shorthand-boolean)
-- [`jsx/prefer-shorthand-fragment`](jsx-prefer-shorthand-fragment)
-
-## React
-
-- [`react/ensure-forward-ref-using-ref`](react-ensure-forward-ref-using-ref)
-- [`react/no-access-state-in-setstate`](react-no-access-state-in-setstate)
-- [`react/no-children-count`](react-no-children-count)
-- [`react/no-children-for-each`](react-no-children-for-each)
-- [`react/no-children-in-void-dom-elements`](react-no-children-in-void-dom-elements)
-- [`react/no-children-map`](react-no-children-map)
-- [`react/no-children-only`](react-no-children-only)
-- [`react/no-children-prop`](react-no-children-prop)
-- [`react/no-children-to-array`](react-no-children-to-array)
-- [`react/no-class-component`](react-no-class-component)
-- [`react/no-clone-element`](react-no-clone-element)
-- [`react/no-component-will-mount`](react-no-component-will-mount)
-- [`react/no-component-will-receive-props`](react-no-component-will-receive-props)
-- [`react/no-component-will-update`](react-no-component-will-update)
-- [`react/no-constructed-context-value`](react-no-constructed-context-value)
-- [`react/no-create-ref`](react-no-create-ref)
-- [`react/no-direct-mutation-state`](react-no-direct-mutation-state)
-- [`react/no-missing-component-display-name`](react-no-missing-component-display-name)
-- [`react/no-namespace`](react-no-namespace)
-- [`react/no-redundant-should-component-update`](react-no-redundant-should-component-update)
-- [`react/no-render-return-value`](react-no-render-return-value)
-- [`react/no-set-state-in-component-did-mount`](react-no-set-state-in-component-did-mount)
-- [`react/no-set-state-in-component-did-update`](react-no-set-state-in-component-did-update)
-- [`react/no-set-state-in-component-will-update`](react-no-set-state-in-component-will-update)
-- [`react/no-string-refs`](react-no-string-refs)
-- [`react/no-unsafe-component-will-mount`](react-no-unsafe-component-will-mount)
-- [`react/no-unsafe-component-will-receive-props`](react-no-unsafe-component-will-receive-props)
-- [`react/no-unsafe-component-will-update`](react-no-unsafe-component-will-update)
-- [`react/no-unstable-default-props`](react-no-unstable-default-props)
-- [`react/no-unstable-nested-components`](react-no-unstable-nested-components)
-- [`react/no-unused-class-component-members`](react-no-unused-class-component-members)
-- [`react/no-unused-state`](react-no-unused-state)
-- [`react/prefer-destructuring-assignment`](react-prefer-destructuring-assignment)
-
-## React DOM
-
-- [`react-dom/no-dangerously-set-innerhtml`](react-dom-no-dangerously-set-innerhtml)
-- [`react-dom/no-dangerously-set-innerhtml-with-children`](react-dom-no-dangerously-set-innerhtml-with-children)
-- [`react-dom/no-find-dom-node`](react-dom-no-find-dom-node)
-- [`react-dom/no-missing-button-type`](react-dom-no-missing-button-type)
-- [`react-dom/no-missing-iframe-sandbox`](react-dom-no-missing-iframe-sandbox)
-- [`react-dom/no-script-url`](react-dom-no-script-url)
-- [`react-dom/no-unsafe-iframe-sandbox`](react-dom-no-unsafe-iframe-sandbox)
-- [`react-dom/no-unsafe-target-blank`](react-dom-no-unsafe-target-blank)
-
-## React Hooks
-
-- [`react-hooks/ensure-custom-hooks-using-other-hooks`](react-hooks-ensure-custom-hooks-using-other-hooks)
-- [`react-hooks/ensure-use-callback-has-non-empty-deps`](react-hooks-ensure-use-callback-has-non-empty-deps)
-- [`react-hooks/ensure-use-memo-has-non-empty-deps`](react-hooks-ensure-use-memo-has-non-empty-deps)
-- [`react-hooks/prefer-use-state-lazy-initialization`](react-hooks-prefer-use-state-lazy-initialization)
-
-## Naming Convention
-
-- [`naming-convention/component-name`](naming-convention-component-name)
-- [`naming-convention/filename`](naming-convention-filename)
-- [`naming-convention/filename-extension`](naming-convention-filename-extension)
-- [`naming-convention/use-state`](naming-convention-use-state)
-
-## Debug
-
-- [`debug/class-component`](debug-class-component)
-- [`debug/function-component`](debug-function-component)
-- [`debug/react-hooks`](debug-react-hooks)
+| Rules                                                                                                          | Category    | Description                                                                                             | Core | Dom | Recommended |
+| -------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------- | ---- | --- | ----------- |
+| [`jsx/max-depth`](jsx-max-depth)                                                                               | Style       | Enforces a maximum depth that JSX can be nested.                                                        |      |     |             |
+| [`jsx/no-array-index-key`](jsx-no-array-index-key)                                                             | Suspicious  | Warns when an array `index` is used as a `key` prop.                                                    | ✅   |     | ✅          |
+| [`jsx/no-comment-textnodes`](jsx-no-comment-textnodes)                                                         | Style       | Prevents comments from being inserted as text nodes.                                                    |      |     |             |
+| [`jsx/no-complicated-conditional-rendering`](jsx-no-complicated-conditional-rendering)                         | Style       | Prevents complicated conditional rendering in JSX.                                                      |      |     |             |
+| [`jsx/no-duplicate-key`](jsx-no-duplicate-key)                                                                 | Correctness | Prevents duplicate `key` props on elements in the same array or a list of `children`.                   | ✅   |     | ✅          |
+| [`jsx/no-leaked-conditional-rendering`](jsx-no-leaked-conditional-rendering)                                   | Suspicious  | Prevents problematic leaked values from being rendered.                                                 |      |     |             |
+| [`jsx/no-missing-key`](jsx-no-missing-key)                                                                     | Correctness | Prevents missing `key` prop on items in list rendering.                                                 | ✅   |     | ✅          |
+| [`jsx/no-spreading-key`](jsx-no-spreading-key)                                                                 | Suspicious  | Prevents spreading `key` prop from objects.                                                             | ✅   |     | ✅          |
+| [`jsx/no-useless-fragment`](jsx-no-useless-fragment)                                                           | Correctness | Prevents the use of useless `fragment` components or `<>` syntax.                                       |      |     | ✅          |
+| [`jsx/prefer-shorthand-boolean`](jsx-prefer-shorthand-boolean)                                                 | Style       | Enforces the use of shorthand syntax for boolean attributes.                                            |      |     | ✅          |
+| [`jsx/prefer-shorthand-fragment`](jsx-prefer-shorthand-fragment)                                               | Style       | Enforces the use of shorthand syntax for fragments.                                                     |      |     | ✅          |
+| [`react/ensure-forward-ref-using-ref`](react-ensure-forward-ref-using-ref)                                     | Correctness | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                         | ✅   |     | ✅          |
+| [`react/no-access-state-in-setstate`](react-no-access-state-in-setstate)                                       | Suspicious  | Prevents accessing `this.state` inside `setState` calls.                                                |      |     | ✅          |
+| [`react/no-children-count`](react-no-children-count)                                                           | Restriction | Prevents usage of `Children.count`.                                                                     |      |     | ✅          |
+| [`react/no-children-for-each`](react-no-children-for-each)                                                     | Restriction | Prevents usage of `Children.forEach`.                                                                   |      |     | ✅          |
+| [`react/no-children-map`](react-no-children-map)                                                               | Restriction | Prevents usage of `Children.map`.                                                                       |      |     | ✅          |
+| [`react/no-children-only`](react-no-children-only)                                                             | Restriction | Prevents usage of `Children.only`.                                                                      |      |     | ✅          |
+| [`react/no-children-prop`](react-no-children-prop)                                                             | Restriction | Prevents usage of `children` as a prop.                                                                 |      |     |             |
+| [`react/no-children-to-array`](react-no-children-to-array)                                                     | Restriction | Prevents usage of `Children.toArray`.                                                                   |      |     | ✅          |
+| [`react/no-class-component`](react-no-class-component)                                                         | Restriction | Prevents usage of class component.                                                                      | ✅   |     | ✅          |
+| [`react/no-clone-element`](react-no-clone-element)                                                             | Restriction | Prevents usage of `cloneElement`.                                                                       |      |     | ✅          |
+| [`react/no-component-will-mount`](react-no-component-will-mount)                                               | Restriction | Prevents usage of `componentWillMount`.                                                                 |      |     | ✅          |
+| [`react/no-component-will-receive-props`](react-no-component-will-receive-props)                               | Restriction | Prevents usage of `componentWillReceiveProps`.                                                          |      |     | ✅          |
+| [`react/no-component-will-update`](react-no-component-will-update)                                             | Restriction | Prevents usage of `componentWillUpdate`.                                                                |      |     | ✅          |
+| [`react/no-constructed-context-value`](react-no-constructed-context-value)                                     | Suspicious  | Prevents non-stable values (i.e. object identities) from being used as a value for `Context.Provider`.  | ✅   |     | ✅          |
+| [`react/no-create-ref`](react-no-create-ref)                                                                   | Restriction | Prevents usage of `createRef`.                                                                          |      |     | ✅          |
+| [`react/no-direct-mutation-state`](react-no-direct-mutation-state)                                             | Suspicious  | Prevents direct mutation of `this.state`.                                                               |      |     | ✅          |
+| [`react/no-missing-component-display-name`](react-no-missing-component-display-name)                           | Debug       | Enforces that all components have a `displayName` which can be used in devtools.                        |      |     |             |
+| [`react/no-redundant-should-component-update`](react-no-redundant-should-component-update)                     | Correctness | Prevents usage of `shouldComponentUpdate` when extending `React.PureComponent`.                         |      |     | ✅          |
+| [`react/no-render-return-value`](react-no-render-return-value)                                                 | Suspicious  | Prevents usage of the return value of `ReactDOM.render`.                                                |      |     | ✅          |
+| [`react/no-set-state-in-component-did-mount`](react-no-set-state-in-component-did-mount)                       | Suspicious  | Disallows calling `this.setState` in `componentDidMount` outside of functions, such as callbacks.       |      |     | ✅          |
+| [`react/no-set-state-in-component-did-update`](react-no-set-state-in-component-did-update)                     | Suspicious  | Disallows calling `this.setState` in `componentDidUpdate` outside of functions, such as callbacks.      |      |     | ✅          |
+| [`react/no-set-state-in-component-will-update`](react-no-set-state-in-component-will-update)                   | Suspicious  | Disallows calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.     |      |     | ✅          |
+| [`react/no-string-refs`](react-no-string-refs)                                                                 | Restriction | Disallows using deprecated string `refs`.                                                               | ✅   |     | ✅          |
+| [`react/no-unsafe-component-will-mount`](react-no-unsafe-component-will-mount)                                 | Suspicious  | Warns usage of `UNSAFE_componentWillMount` in class components.                                         |      |     | ✅          |
+| [`react/no-unsafe-component-will-receive-props`](react-no-unsafe-component-will-receive-props)                 | Suspicious  | Warns usage of `UNSAFE_componentWillReceiveProps` in class components.                                  |      |     | ✅          |
+| [`react/no-unsafe-component-will-update`](react-no-unsafe-component-will-update)                               | Suspicious  | Warns usage of `UNSAFE_componentWillUpdate` in class components.                                        |      |     | ✅          |
+| [`react/no-unstable-default-props`](react-no-unstable-default-props)                                           | Perf        | Prevents usage of referential-type values as default props in object destructuring.                     | ✅   |     | ✅          |
+| [`react/no-unstable-nested-components`](react-no-unstable-nested-components)                                   | Correctness | Prevents nesting component definitions inside other components.                                         | ✅   |     | ✅          |
+| [`react/no-unused-class-component-members`](react-no-unused-class-component-members)                           | Correctness | Warns unused class component methods and properties.                                                    |      |     | ✅          |
+| [`react/no-unused-state`](react-no-unused-state)                                                               | Correctness | Warns unused class component state.                                                                     |      |     | ✅          |
+| [`react/prefer-destructuring-assignment`](react-prefer-destructuring-assignment)                               | Style       | Enforces the use of destructuring assignment over property assignment.                                  | ✅   |     | ✅          |
+| [`react-dom/no-children-in-void-dom-elements`](react-no-children-in-void-dom-elements)                         | Correctness | Prevents the use of `children` in void `DOM elements`.                                                  |      | ✅  | ✅          |
+| [`react-dom/no-dangerously-set-innerhtml`](react-dom-no-dangerously-set-innerhtml)                             | Security    | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                                 |      | ✅  | ✅          |
+| [`react-dom/no-dangerously-set-innerhtml-with-children`](react-dom-no-dangerously-set-innerhtml-with-children) | Correctness | Prevents `DOM element` using `dangerouslySetInnerHTML` and `children` at the same time.                 |      | ✅  | ✅          |
+| [`react-dom/no-find-dom-node`](react-dom-no-find-dom-node)                                                     | Restriction | Prevents usage of `findDOMNode`.                                                                        |      | ✅  | ✅          |
+| [`react-dom/no-missing-button-type`](react-dom-no-missing-button-type)                                         | Suspicious  | Enforces explicit `button` type `attribute` for `<button>` elements.                                    |      | ✅  | ✅          |
+| [`react-dom/no-missing-iframe-sandbox`](react-dom-no-missing-iframe-sandbox)                                   | Security    | Enforces explicit `sandbox` attribute for `iframe` elements.                                            |      | ✅  | ✅          |
+| [`react-dom/no-namespace`](react-no-namespace)                                                                 | Correctness | Enforces the absence of a `namespace` in React elements.                                                |      | ✅  | ✅          |
+| [`react-dom/no-script-url`](react-dom-no-script-url)                                                           | Suspicious  | Prevents usage of `javascript:` URLs as the value of component props.                                   |      | ✅  | ✅          |
+| [`react-dom/no-unsafe-iframe-sandbox`](react-dom-no-unsafe-iframe-sandbox)                                     | Security    | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.                   |      | ✅  | ✅          |
+| [`react-dom/no-unsafe-target-blank`](react-dom-no-unsafe-target-blank)                                         | Security    | Prevents the use of `target="_blank"` without `rel="noreferrer noopener"`.                              |      | ✅  | ✅          |
+| [`react-hooks/ensure-custom-hooks-using-other-hooks`](react-hooks-ensure-custom-hooks-using-other-hooks)       | Correctness | Warns when custom Hooks that don't use other Hooks.                                                     |      |     |             |
+| [`react-hooks/ensure-use-callback-has-non-empty-deps`](react-hooks-ensure-use-callback-has-non-empty-deps)     | Pedantic    | Warns when `useCallback` is called with empty dependencies array.                                       |      |     |             |
+| [`react-hooks/ensure-use-memo-has-non-empty-deps`](react-hooks-ensure-use-memo-has-non-empty-deps)             | Pedantic    | Warns when `useMemo` is called with empty dependencies array.                                           |      |     |             |
+| [`react-hooks/prefer-use-state-lazy-initialization`](react-hooks-prefer-use-state-lazy-initialization)         | Perf        | Warns function calls made inside `useState` calls.                                                      |      |     |             |
+| [`naming-convention/component-name`](naming-convention-component-name)                                         | Style       | Enforces naming conventions for components.                                                             |      |     |             |
+| [`naming-convention/filename`](naming-convention-filename)                                                     | Style       | Enforces naming convention for JSX files.                                                               |      |     |             |
+| [`naming-convention/filename-extension`](naming-convention-filename-extension)                                 | Style       | Enforces consistent use of the JSX file extension.                                                      |      |     |             |
+| [`naming-convention/use-state`](naming-convention-use-state)                                                   | Style       | Enforces destructuring and symmetric naming of `useState` hook value and setter variables.              |      |     |             |
+| [`debug/class-component`](debug-class-component)                                                               | Debug       | Reports all class components. Useful for debugging.                                                     |      |     |             |
+| [`debug/function-component`](debug-function-component)                                                         | Debug       | Reports all function components. Useful for debugging.                                                  |      |     |             |
+| [`debug/react-hooks`](debug-react-hooks)                                                                       | Debug       | Reports all React Hooks. Useful for debugging.                                                          |      |     |             |

@@ -6,7 +6,7 @@ Restriction.
 
 ## What it does
 
-disallows usage of the return value of `ReactDOM.render`
+Prevents usage of the return value of `ReactDOM.render`.
 
 ## Why is this bad?
 

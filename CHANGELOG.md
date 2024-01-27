@@ -1,3 +1,10 @@
+## v1.0.2 (Sun Jan 28 2024)
+
+### 🐞 Fixes
+
+- Fix rule `react-dom/no-namespace` not renamed in v1.0.0.
+- Fix rule `react-dom/no-children-in-void-dom-elements` not renamed in v1.0.0.
+
 ## v1.0.1 (Sat Jan 27 2024)
 
 ### 🪄 Improvements
@@ -13,11 +20,13 @@
 
 #### All DOM related rules are moved to `react-dom` namespace
 
-- Rename rule `react/no-dangerously-set-innerhtml` to `react-dom/no-dangerously-set-innerhtml`.
+- Rename rule `react/no-children-in-void-dom-elements` to `react-dom/no-children-in-void-dom-elements`.
 - Rename rule `react/no-dangerously-set-innerhtml-with-children` to `react-dom/no-dangerously-set-innerhtml-with-children`.
+- Rename rule `react/no-dangerously-set-innerhtml` to `react-dom/no-dangerously-set-innerhtml`.
 - Rename rule `react/no-find-dom-node` to `react-dom/no-find-dom-node`.
 - Rename rule `react/no-missing-button-type` to `react-dom/no-missing-button-type`.
 - Rename rule `react/no-missing-iframe-sandbox` to `react-dom/no-missing-iframe-sandbox`.
+- Rename rule `react/no-namespace` to `react-dom/no-namespace`.
 - Rename rule `react/no-script-url` to `react-dom/no-script-url`.
 - Rename rule `react/no-unsafe-iframe-sandbox` to `react-dom/no-unsafe-iframe-sandbox`.
 - Rename rule `react/no-unsafe-target-blank` to `react-dom/no-unsafe-target-blank`.

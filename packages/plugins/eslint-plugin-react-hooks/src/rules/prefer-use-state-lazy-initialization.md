@@ -6,7 +6,7 @@ Perf.
 
 ## What it does
 
-Warns about function calls made inside `useState` calls.
+Warns function calls made inside `useState` calls.
 
 ## Why is this bad?
 

@@ -2,11 +2,11 @@
 
 ## Rule category
 
-Pedantic.
+Correctness.
 
 ## What it does
 
-Helps find custom Hooks that don't use other Hooks.
+Warns when custom Hooks that don't use other Hooks.
 
 ## Why is this good?
 
