@@ -19,8 +19,8 @@ It's a platform for creating ESLint rules for not just for ReactDOM but also oth
 ## Public packages
 
 - [`@eslint-react/eslint-plugin`](https://npm.im/@eslint-react/eslint-plugin) - The main ESLint plugin package including all rules and config presets in this repository.
-- `eslint-plugin-react-core` (will be available in 2.0) - An ESLint plugin for React core rules (Zero DOM Specific, Render Target Agnostic, Formatting Independent).
-- `eslint-plugin-react-dom` (will be available in 2.0) - An ESLint plugin for React DOM rules (Only DOM Specific).
+- `eslint-plugin-react-core` (will be available in 2.0) - An ESLint plugin for React core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
+- `eslint-plugin-react-dom` (will be available in 2.0) - An ESLint plugin for ReactDOM rules (DOM Specific rules for ReactDOM).
 - `eslint-plugin-react-hooks-extra` (will be available in 2.0) - An ESLint plugin for extra React Hooks rules.
 - `eslint-plugin-react-naming-convention` (will be available in 2.0) - An ESLint plugin for React naming convention rules.
 
@@ -91,13 +91,13 @@ module.exports = {
 > These presets are for ESLint `LegacyConfig` (`.eslintrc.*`) only
 
 - **recommended-legacy** (`plugin:@eslint-react/recommended-legacy`)\
-  Enable recommended rules for typical React DOM projects.
+  Enable recommended rules for typical ReactDOM projects.
 - **recommended-type-checked-legacy** (`plugin:@eslint-react/recommended-type-checked-legacy`)\
   Same as recommended-legacy but with additional rules that require type information.
 - **core-legacy** (`plugin:@eslint-react/core-legacy`)\
   Enable the most essential rules.
 - **dom-legacy** (`plugin:@eslint-react/dom-legacy`)\
-  Enable rules that are specific to React DOM.
+  Enable rules that are specific to ReactDOM.
 - **debug-legacy** (`plugin:@eslint-react/debug-legacy`)\
   Enable a series of rules that are useful for debugging purposes only.\
   (Not recommended unless you know what you are doing)
@@ -112,13 +112,13 @@ module.exports = {
 > These presets are for ESLint `FlatConfig` (`eslint.config.js`) only
 
 - **recommended**\
-  Enable recommended rules for typical React DOM projects.
+  Enable recommended rules for typical ReactDOM projects.
 - **recommended-type-checked**\
   Same as recommended but with additional rules that require type information.
 - **core**\
   Enable the most essential rules.
 - **dom**\
-  Enable rules that are specific to React DOM.
+  Enable rules that are specific to ReactDOM.
 - **debug**\
   Enable a series of rules that are useful for debugging purposes only.\
   (Not recommended unless you know what you are doing)
