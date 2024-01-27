@@ -7,6 +7,10 @@
     },
     "display": "hidden"
   },
+  "roadmap": {
+    "title": "Roadmap",
+    "type": "page"
+  },
   "docs": {
     "title": "Documentation",
     "type": "page"

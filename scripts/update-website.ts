@@ -21,7 +21,12 @@ const [
 );
 const metaFile = path.join("website", "pages", "rules", "_meta.json");
 const metaContent = {
-  overview: "Overview",
+  overview: {
+    title: "Overview",
+    theme: {
+      layout: "full",
+    },
+  },
   // eslint-disable-next-line perfectionist/sort-objects
   "---": {
     type: "separator",

@@ -43,6 +43,16 @@
 }
 
 table.nx-block {
-  font-family: var(--font-family-mono);
+  // font-family: var(--font-family-mono);
   font-size: 14px;
+
+  tbody {
+    tr {
+      td {
+        code {
+          white-space: nowrap;
+        }
+      }
+    }
+  }
 }

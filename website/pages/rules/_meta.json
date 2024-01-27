@@ -1,5 +1,10 @@
 {
-  "overview": "Overview",
+  "overview": {
+    "title": "Overview",
+    "theme": {
+      "layout": "full"
+    }
+  },
   "---": {
     "type": "separator"
   },
