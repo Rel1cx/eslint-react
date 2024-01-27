@@ -8,6 +8,7 @@
 ### 🪄 Improvements
 
 - Improve rules overview page on website.
+- Remove `jsx` and `hooks` presets from documentation.
 
 ## v1.0.1 (Sat Jan 27 2024)
 
