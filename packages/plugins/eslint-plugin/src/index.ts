@@ -14,7 +14,7 @@ import { padKeysLeft } from "./utils";
 
 const { entries, fromEntries } = Helper;
 
-const rulePreset = {
+const allPreset = {
   "ensure-forward-ref-using-ref": "warn",
   "no-access-state-in-setstate": "error",
   "no-array-index-key": "warn",
@@ -154,13 +154,14 @@ const domPreset = {
   "dom/no-unsafe-target-blank": "warn",
 } as const satisfies RulePreset;
 
-const rulePresetEntries = entries(rulePreset);
-const allPreset = fromEntries(rulePresetEntries.filter(([key]) => !key.startsWith("debug/")));
-const offPreset = fromEntries(
-  rulePresetEntries
-    .filter(([key]) => !key.startsWith("debug/"))
-    .map(([key]) => [key, "off"]),
-);
+const debugPreset = {
+  "debug/class-component": "warn",
+  "debug/function-component": "warn",
+  "debug/react-hooks": "warn",
+} as const satisfies RulePreset;
+
+const allPresetEntries = entries(allPreset);
+const offPreset = fromEntries(allPresetEntries.map(([key]) => [key, "off"]));
 
 const legacyConfigPlugins = ["@eslint-react"] as const;
 
@@ -197,6 +198,8 @@ export default {
   configs: {
     all: createFlatConfig(allPreset),
     "all-legacy": createLegacyConfig(allPreset),
+    debug: createFlatConfig(debugPreset),
+    "debug-legacy": createLegacyConfig(debugPreset),
     dom: createFlatConfig(domPreset),
     "dom-legacy": createLegacyConfig(domPreset),
     off: createFlatConfig(offPreset),
