@@ -32,7 +32,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `forward-ref-using-ref` | `RuleModule`\<``"FORWARD_REF_USING_REF"``, [], `RuleListener`\> |
+| `ensure-forward-ref-using-ref` | `RuleModule`\<``"ENSURE_FORWARD_REF_USING_REF"``, [], `RuleListener`\> |
 | `no-access-state-in-setstate` | `RuleModule`\<``"NO_ACCESS_STATE_IN_SETSTATE"``, [], `RuleListener`\> |
 | `no-array-index-key` | `RuleModule`\<``"NO_ARRAY_INDEX_KEY"``, [], `RuleListener`\> |
 | `no-children-count` | `RuleModule`\<``"NO_CHILDREN_COUNT"``, [], `RuleListener`\> |

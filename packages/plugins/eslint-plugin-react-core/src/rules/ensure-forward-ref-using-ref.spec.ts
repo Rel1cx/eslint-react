@@ -1,7 +1,7 @@
 import dedent from "dedent";
 
 import { allValid, defaultParserOptions, RuleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./forward-ref-using-ref";
+import rule, { RULE_NAME } from "./ensure-forward-ref-using-ref";
 
 const ruleTester = new RuleTester({
   parser: "@typescript-eslint/parser",
@@ -69,14 +69,14 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "FORWARD_REF_USING_REF" }],
+      errors: [{ messageId: "ENSURE_FORWARD_REF_USING_REF" }],
     },
     {
       code: dedent`
         import { forwardRef } from 'react'
         forwardRef((props) => null);
       `,
-      errors: [{ messageId: "FORWARD_REF_USING_REF" }],
+      errors: [{ messageId: "ENSURE_FORWARD_REF_USING_REF" }],
     },
     {
       code: dedent`
@@ -85,7 +85,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "FORWARD_REF_USING_REF" }],
+      errors: [{ messageId: "ENSURE_FORWARD_REF_USING_REF" }],
     },
     {
       code: dedent`
@@ -94,7 +94,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "FORWARD_REF_USING_REF" }],
+      errors: [{ messageId: "ENSURE_FORWARD_REF_USING_REF" }],
     },
     {
       code: dedent`
@@ -103,14 +103,14 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "FORWARD_REF_USING_REF" }],
+      errors: [{ messageId: "ENSURE_FORWARD_REF_USING_REF" }],
     },
     {
       code: dedent`
         import * as React from 'react'
         React.forwardRef((props) => null);
       `,
-      errors: [{ messageId: "FORWARD_REF_USING_REF" }],
+      errors: [{ messageId: "ENSURE_FORWARD_REF_USING_REF" }],
     },
     {
       code: dedent`
@@ -119,7 +119,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "FORWARD_REF_USING_REF" }],
+      errors: [{ messageId: "ENSURE_FORWARD_REF_USING_REF" }],
     },
     {
       code: dedent`
@@ -128,7 +128,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "FORWARD_REF_USING_REF" }],
+      errors: [{ messageId: "ENSURE_FORWARD_REF_USING_REF" }],
     },
   ],
 });

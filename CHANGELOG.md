@@ -2,7 +2,15 @@
 
 ### 💥 Breaking Changes
 
-Refer to [Milestone 1.5.0](https://github.com/Rel1cx/eslint-react/issues/333).
+- Remove rule `max-depth`.
+- Rename rule `no-spreading-key` to `no-implicit-key`.
+- Rename rule `no-constructed-context-value` to `no-unstable-context-value`.
+- Rename rule `no-unstable-nested-components` to `no-nested-components`.
+- Switch to new name prefix of rules in `@eslint-react/eslint-plugin`.
+  - Replace `jsx/` with `` in rule names.
+  - Replace `react/` with `` in rule names.
+  - Replace `react-dom/` with `dom/` in rule names.
+  - Replace `react-hooks/` with `hooks-extra/` in rule names.
 
 ## v1.0.2 (Sat Jan 27 2024)
 

@@ -3,7 +3,7 @@
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { name, version } from "../package.json";
-import forwardRefUsingRef from "./rules/forward-ref-using-ref";
+import forwardRefUsingRef from "./rules/ensure-forward-ref-using-ref";
 import noAccessStateInSetstate from "./rules/no-access-state-in-setstate";
 import noArrayIndexKey from "./rules/no-array-index-key";
 import noChildrenCount from "./rules/no-children-count";
@@ -51,7 +51,7 @@ export const meta = {
 } as const;
 
 export const rules = {
-  "forward-ref-using-ref": forwardRefUsingRef,
+  "ensure-forward-ref-using-ref": forwardRefUsingRef,
   "no-access-state-in-setstate": noAccessStateInSetstate,
   "no-array-index-key": noArrayIndexKey,
   "no-children-count": noChildrenCount,

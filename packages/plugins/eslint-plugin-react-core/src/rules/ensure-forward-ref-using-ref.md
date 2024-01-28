@@ -1,4 +1,4 @@
-# forward-ref-using-ref
+# ensure-forward-ref-using-ref
 
 ## Rule category
 

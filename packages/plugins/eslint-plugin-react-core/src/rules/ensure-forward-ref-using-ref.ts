@@ -6,7 +6,7 @@ import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "forward-ref-using-ref";
+export const RULE_NAME = "ensure-forward-ref-using-ref";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      FORWARD_REF_USING_REF: "`forwardRef` is used with this component but no `ref` parameter is set",
+      ENSURE_FORWARD_REF_USING_REF: "`forwardRef` is used with this component but no `ref` parameter is set",
     },
   },
   defaultOptions: [],
@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
         const [props, ref] = component.params;
         if (!ref) {
           context.report({
-            messageId: "FORWARD_REF_USING_REF",
+            messageId: "ENSURE_FORWARD_REF_USING_REF",
             node: component,
           });
         }

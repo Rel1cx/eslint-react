@@ -11,7 +11,7 @@
   "debug-class-component": "debug/class-component",
   "debug-function-component": "debug/function-component",
   "debug-react-hooks": "debug/react-hooks",
-  "forward-ref-using-ref": "forward-ref-using-ref",
+  "ensure-forward-ref-using-ref": "ensure-forward-ref-using-ref",
   "no-access-state-in-setstate": "no-access-state-in-setstate",
   "no-array-index-key": "no-array-index-key",
   "no-children-count": "no-children-count",

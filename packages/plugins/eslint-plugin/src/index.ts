@@ -15,7 +15,7 @@ import { padKeysLeft } from "./utils";
 const { entries, fromEntries } = Helper;
 
 const rulePreset = {
-  "forward-ref-using-ref": "warn",
+  "ensure-forward-ref-using-ref": "warn",
   "no-access-state-in-setstate": "error",
   "no-array-index-key": "warn",
   "no-children-count": "warn",
@@ -81,7 +81,7 @@ const rulePreset = {
 } as const satisfies RulePreset;
 
 const recommendedPreset = {
-  "forward-ref-using-ref": "warn",
+  "ensure-forward-ref-using-ref": "warn",
   "no-access-state-in-setstate": "error",
   "no-array-index-key": "warn",
   "no-children-count": "warn",
