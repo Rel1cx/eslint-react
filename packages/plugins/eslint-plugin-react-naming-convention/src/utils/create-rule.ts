@@ -3,4 +3,4 @@ import { createRuleForPlugin } from "@eslint-react/shared";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ESLintUtils } from "@typescript-eslint/utils";
 
-export const createRule = createRuleForPlugin("react-naming-convention");
+export const createRule = createRuleForPlugin("naming-convention");
