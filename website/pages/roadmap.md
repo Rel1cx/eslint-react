@@ -77,7 +77,7 @@
 - `eslint-plugin-react-dom` (DOM Specific rules for ReactDOM).
 - `eslint-plugin-react-hooks` (The official one from React)
 - `eslint-plugin-react-hooks-extra` (Extra rules for `eslint-plugin-react-hooks`)
-- `eslint-plugin-react-naming-convention` (Optional, Only Naming Convention rules, can be replaced with other plug-ins depending on the project)
+- `eslint-plugin-react-naming-convention` (Optional, only naming convention rules, can be replaced with other plugins depending on the project)
 - ... (Free to combine with other plugins from the community)
 
 ### Rules in `eslint-plugin-react-core`
