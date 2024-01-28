@@ -5,37 +5,28 @@ import { array, object, optional, type Output, string } from "valibot";
  * @internal
  */
 export const ESLintReactSettingsSchema = object({
-  jsx: optional(object({
-    extensions: optional(array(string())),
-    fragment: optional(string()),
-    pragma: optional(string()),
+  additionalHooks: optional(object({
+    use: optional(string()),
+    useCallback: optional(array(string())),
+    useContext: optional(array(string())),
+    useDebugValue: optional(array(string())),
+    useDeferredValue: optional(array(string())),
+    useEffect: optional(array(string())),
+    useId: optional(array(string())),
+    useImperativeHandle: optional(array(string())),
+    useInsertionEffect: optional(array(string())),
+    useLayoutEffect: optional(array(string())),
+    useMemo: optional(array(string())),
+    useOptimistic: optional(array(string())),
+    useReducer: optional(array(string())),
+    useRef: optional(array(string())),
+    useState: optional(array(string())),
+    useSyncExternalStore: optional(array(string())),
+    useTransition: optional(array(string())),
   })),
-  namingConvention: optional(object({})),
-  react: optional(object({
-    version: optional(string()),
-  })),
-  reactHooks: optional(object({
-    alias: optional(object({
-      use: optional(string()),
-      useCallback: optional(array(string())),
-      useContext: optional(array(string())),
-      useDebugValue: optional(array(string())),
-      useDeferredValue: optional(array(string())),
-      useEffect: optional(array(string())),
-      useId: optional(array(string())),
-      useImperativeHandle: optional(array(string())),
-      useInsertionEffect: optional(array(string())),
-      useLayoutEffect: optional(array(string())),
-      useMemo: optional(array(string())),
-      useOptimistic: optional(array(string())),
-      useReducer: optional(array(string())),
-      useRef: optional(array(string())),
-      useState: optional(array(string())),
-      useSyncExternalStore: optional(array(string())),
-      useTransition: optional(array(string())),
-    })),
-    debug: optional(object({})),
-  })),
+  jsxPragma: optional(string()),
+  jsxPragmaFrag: optional(string()),
+  version: optional(string()),
 });
 
 export type ESLintReactSettings = ReadonlyDeep<Output<typeof ESLintReactSettingsSchema>>;
@@ -44,7 +35,7 @@ export type ESLintReactSettings = ReadonlyDeep<Output<typeof ESLintReactSettings
  * @internal
  */
 export const ESLintSettingsSchema = object({
-  eslintReact: optional(ESLintReactSettingsSchema),
+  reactOptions: optional(ESLintReactSettingsSchema),
 });
 
 // The `settings` object in eslint config for all plugins.
@@ -52,7 +43,7 @@ export const ESLintSettingsSchema = object({
 export type ESLintSettings = ReadonlyDeep<{
   [key: string]: unknown;
   // eslint-disable-next-line no-restricted-syntax
-  eslintReact?: ESLintReactSettings;
+  reactOptions?: ESLintReactSettings;
 }>;
 
 export { parse as parseSchema, safeParse as safeParseSchema } from "valibot";

@@ -29,7 +29,7 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const alias = parseSchema(ESLintSettingsSchema, context.settings).eslintReact?.reactHooks?.alias?.useCallback ?? [];
+    const alias = parseSchema(ESLintSettingsSchema, context.settings).reactOptions?.additionalHooks?.useCallback ?? [];
     const pragma = getPragmaFromContext(context);
 
     return {

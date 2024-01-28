@@ -6,33 +6,27 @@ This plugin provides the following configurations:
 
 ## Settings
 
-### `jsx.pragma`
+### `jsxPragma`
 
 (type: `string`, default: `"React"`)
 
 The identifier that's used for JSX Element creation.\
 This should not be a member expression (i.e. use "React" instead of "React.createElement").
 
-### `jsx.fragment`
+### `jsxPragmaFrag`
 
 (type: `string`, default: `"Fragment"`)
 
 The identifier that's used for JSX fragment elements.\
 This should not be a member expression (i.e. use "Fragment" instead of "React.Fragment").
 
-### `jsx.extensions`
-
-(type: `string[]`, default: `[".jsx", ".tsx"]`)
-
-An Array of file extensions to be considered as JSX files.
-
-### `react.version`
+### `version`
 
 (type: `string`, default: `"detect"`)
 
 React version to use, `"detect"` means auto detect React version from the project's dependencies.
 
-### `reactHooks.alias`
+### `additionalHooks`
 
 (type: `Record<string, string[]>`)
 
@@ -51,22 +45,15 @@ For example, `useState` can also be referred to as `useLocalStorageState`, and `
 module.exports = {
   // ...
   settings: {
-    eslintReact: {
-      jsx: {
-        pragma: "React",
-        fragment: "Fragment",
-        extensions: [".jsx", ".tsx"]
+    reactOptions: {
+      jsxPragma: "React",
+      jsxPragmaFrag: "Fragment",
+      additionalHooks: {
+        useState: ["useLocalStorageState"],
+        useLayoutEffect: ["useIsomorphicLayoutEffect"],
+        // ...
       },
-      react: {
-        version: "detect"
-      },
-      reactHooks: {
-        alias: {
-          useState: ["useLocalStorageState"],
-          useLayoutEffect: ["useIsomorphicLayoutEffect"],
-          // ...
-        }
-      }
+      version: "detect",
     }
   }
   // ...
@@ -85,24 +72,17 @@ export default [
     files: ["src/**/*.{ts,tsx}"],
     ...eslintReact.configs.recommended,
     settings: {
-      eslintReact: {
-        jsx: {
-          pragma: "React",
-          fragment: "Fragment",
-          extensions: [".jsx", ".tsx"]
+      reactOptions: {
+        jsxPragma: "React",
+        jsxPragmaFrag: "Fragment",
+        additionalHooks: {
+          useState: ["useLocalStorageState"],
+          useLayoutEffect: ["useIsomorphicLayoutEffect"],
+          // ...
         },
-        react: {
-          version: "detect"
-        },
-        reactHooks: {
-          alias: {
-            useState: ["useLocalStorageState"],
-            useLayoutEffect: ["useIsomorphicLayoutEffect"],
-            // ...
-          }
-        }
+        version: "detect",
       }
-    },
+    }
   },
   // ...
 ];

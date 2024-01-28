@@ -37,7 +37,8 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const alias = parseSchema(ESLintSettingsSchema, context.settings).eslintReact?.reactHooks?.alias?.useState ?? [];
+    const alias = parseSchema(ESLintSettingsSchema, context.settings).reactOptions?.additionalHooks?.useState
+      ?? [];
     const { ctx, listeners } = useComponentCollector(context);
 
     return {

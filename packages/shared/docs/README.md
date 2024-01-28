@@ -37,7 +37,7 @@ ___
 
 ### ESLintSettings
 
-Ƭ **ESLintSettings**: `ReadonlyDeep`\<\{ `[key: string]`: `unknown`; `eslintReact?`: [`ESLintReactSettings`](README.md#eslintreactsettings)  }\>
+Ƭ **ESLintSettings**: `ReadonlyDeep`\<\{ `[key: string]`: `unknown`; `reactOptions?`: [`ESLintReactSettings`](README.md#eslintreactsettings)  }\>
 
 ## Variables
 

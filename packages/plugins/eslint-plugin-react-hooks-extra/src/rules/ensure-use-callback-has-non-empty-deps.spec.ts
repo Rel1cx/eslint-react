@@ -214,11 +214,9 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        eslintReact: {
-          reactHooks: {
-            alias: {
-              useCallback: ["useCustomCallback"],
-            },
+        reactOptions: {
+          additionalHooks: {
+            useCallback: ["useCustomCallback"],
           },
         },
       },

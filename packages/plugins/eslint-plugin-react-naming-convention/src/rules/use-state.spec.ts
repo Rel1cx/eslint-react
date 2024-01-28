@@ -112,11 +112,9 @@ ruleTester.run(RULE_NAME, rule, {
         },
       }],
       settings: {
-        eslintReact: {
-          reactHooks: {
-            alias: {
-              useState: ["useLocalStorageState"],
-            },
+        reactOptions: {
+          additionalHooks: {
+            useState: ["useLocalStorageState"],
           },
         },
       },

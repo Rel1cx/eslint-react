@@ -1,11 +1,4 @@
-import {
-  ESLintSettingsSchema,
-  parseSchema,
-  RE_CAMEL_CASE,
-  RE_KEBAB_CASE,
-  RE_PASCAL_CASE,
-  RE_SNAKE_CASE,
-} from "@eslint-react/shared";
+import { RE_CAMEL_CASE, RE_KEBAB_CASE, RE_PASCAL_CASE, RE_SNAKE_CASE } from "@eslint-react/shared";
 import { Prd } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -92,13 +85,12 @@ export default createRule<Options, MessageID>({
   },
   defaultOptions,
   create(context) {
-    const configs = parseSchema(ESLintSettingsSchema, context.settings).eslintReact;
     const options = context.options[0] ?? defaultOptions[0];
     const rule = Prd.isString(options) ? options : options.rule ?? "PascalCase";
     const excepts = Prd.isString(options) ? [] : options.excepts ?? [];
     const extensions = Prd.isObject(options) && "extensions" in options
       ? options.extensions
-      : configs?.jsx?.extensions ?? defaultOptions[0].extensions;
+      : defaultOptions[0].extensions;
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const filename = context.filename ?? context.getFilename();

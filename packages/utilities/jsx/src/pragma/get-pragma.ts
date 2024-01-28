@@ -9,7 +9,7 @@ const RE_JS_IDENTIFIER_REGEX = /^[$A-Z_a-z][\w$]*$/u;
 
 export function getFragmentFromContext<T extends RuleContext>(context: T) {
   const settings = parseSchema(ESLintSettingsSchema, context.settings);
-  const fragment = settings.eslintReact?.jsx?.fragment;
+  const fragment = settings.reactOptions?.jsxPragmaFrag;
   if (Prd.isString(fragment) && RE_JS_IDENTIFIER_REGEX.test(fragment)) return fragment;
 
   return "Fragment";
@@ -18,7 +18,7 @@ export function getFragmentFromContext<T extends RuleContext>(context: T) {
 export const getPragmaFromContext: <T extends RuleContext>(context: T) => string = memo(
   (context) => {
     const settings = parseSchema(ESLintSettingsSchema, context.settings);
-    const pragma = settings.eslintReact?.jsx?.pragma;
+    const pragma = settings.reactOptions?.jsxPragma;
 
     const { sourceCode } = context;
     const pragmaNode = sourceCode

@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
   create(context) {
-    const alias = parseSchema(ESLintSettingsSchema, context.settings).eslintReact?.reactHooks?.alias?.useMemo ?? [];
+    const alias = parseSchema(ESLintSettingsSchema, context.settings).reactOptions?.additionalHooks?.useMemo ?? [];
     const pragma = getPragmaFromContext(context);
 
     return {

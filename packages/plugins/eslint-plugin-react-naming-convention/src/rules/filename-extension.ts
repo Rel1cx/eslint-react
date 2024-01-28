@@ -1,4 +1,3 @@
-import { ESLintSettingsSchema, parseSchema } from "@eslint-react/shared";
 import { MutRef, Prd } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -75,12 +74,11 @@ export default createRule<Options, MessageID>({
   },
   defaultOptions,
   create(context) {
-    const configs = parseSchema(ESLintSettingsSchema, context.settings).eslintReact;
     const options = context.options[0] ?? defaultOptions[0];
     const allow = Prd.isObject(options) ? options.allow : options;
     const extensions = Prd.isObject(options) && "extensions" in options
       ? options.extensions
-      : configs?.jsx?.extensions ?? defaultOptions[0].extensions;
+      : defaultOptions[0].extensions;
 
     const filename = context.getFilename();
     const hasJSXNodeRef = MutRef.make<boolean>(false);

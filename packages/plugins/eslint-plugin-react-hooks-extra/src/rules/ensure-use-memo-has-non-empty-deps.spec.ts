@@ -178,11 +178,9 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        eslintReact: {
-          reactHooks: {
-            alias: {
-              useMemo: ["useCustomMemo"],
-            },
+        reactOptions: {
+          additionalHooks: {
+            useMemo: ["useCustomMemo"],
           },
         },
       },
