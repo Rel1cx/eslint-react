@@ -37,7 +37,7 @@
     "format:check": "dprint check",
     "format:package-json": "bun run --bun ./scripts/format-package-json.ts",
     "format:write": "dprint fmt",
-    "inspect:deps": "skott -e .ts -s -t",
+    "inspect:deps": "skott -e .ts --trackBuiltinDependencies",
     "inspect:eslint-config": "eslint --print-config ./taze.config.ts > eslint-config.json",
     "lint": "pnpm run lint:spell && pnpm run lint:deps && pnpm run lint:type && pnpm run lint:ts && pnpm run lint:publish && pnpm run lint:examples && pnpm run lint:website",
     "lint:deps": "skott -m file-tree -e .ts -s",

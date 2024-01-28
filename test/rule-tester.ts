@@ -1,6 +1,5 @@
-import path from "node:path";
-
 import { RuleTester, type RuleTesterConfig } from "@typescript-eslint/rule-tester";
+import path from "pathe";
 import * as vitest from "vitest";
 
 RuleTester.afterAll = vitest.afterAll;

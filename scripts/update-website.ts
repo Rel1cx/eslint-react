@@ -1,5 +1,5 @@
 import * as ReadonlyRecord from "effect/ReadonlyRecord";
-import path from "path";
+import path from "pathe";
 
 import { copyFile } from "./lib/fs";
 
