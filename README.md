@@ -78,7 +78,7 @@ module.exports = {
   parserOptions: {
     project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
   },
-  extends: ["plugin:@eslint-react/core-legacy", "plugin:@eslint-react/dom-legacy"],
+  extends: ["plugin:@eslint-react/recommended-legacy"],
   plugins: ["@eslint-react"],
   rules: {
     // ...
@@ -97,13 +97,10 @@ module.exports = {
 > [!IMPORTANT]\
 > These presets are for ESLint `LegacyConfig` (`.eslintrc.*`) only
 
-- **core-legacy** (`plugin:@eslint-react/core-legacy`)\
-  Enable the most essential rules.
-- **dom-legacy** (`plugin:@eslint-react/dom-legacy`)\
-  Enable rules that are specific to ReactDOM.
-- **debug-legacy** (`plugin:@eslint-react/debug-legacy`)\
-  Enable a series of rules that are useful for debugging purposes only.\
-  (Not recommended unless you know what you are doing)
+- **recommended-legacy** (`plugin:@eslint-react/recommended-legacy`)\
+  Enable rules that are recommended by ESLint React.
+  -- **recommended-type-checked-legacy** (`plugin:@eslint-react/recommended-type-checked-legacy`)\
+  Enable rules that are recommended by ESLint React with additional rules that require type information.
 - **all-legacy** (`plugin:@eslint-react/all-legacy`)\
   Enable all rules in this plugin except for debug rules.
 - **off-legacy** (`plugin:@eslint-react/off-legacy`)\
@@ -114,13 +111,10 @@ module.exports = {
 > [!IMPORTANT]\
 > These presets are for ESLint `FlatConfig` (`eslint.config.js`) only
 
-- **core**\
-  Enable the most essential rules.
-- **dom**\
-  Enable rules that are specific to ReactDOM.
-- **debug**\
-  Enable a series of rules that are useful for debugging purposes only.\
-  (Not recommended unless you know what you are doing)
+- **recommended**\
+  Enable rules that are recommended by ESLint React.
+- **recommended-type-checked**\
+  Enable rules that are recommended by ESLint React with additional rules that require type information.
 - **all**\
   Enable all rules in this plugin except for debug rules.
 - **off**\

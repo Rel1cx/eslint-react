@@ -6,7 +6,6 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
     "plugin:@eslint-react/recommended-legacy",
-    "plugin:@eslint-react/dom-legacy",
   ],
   plugins: ["@typescript-eslint", "react-hooks"],
   ignorePatterns: ["dist"],

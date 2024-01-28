@@ -122,6 +122,23 @@ const recommendedPreset = {
   "prefer-destructuring-assignment": "warn",
   "prefer-shorthand-boolean": "warn",
   "prefer-shorthand-fragment": "warn",
+
+  // eslint-disable-next-line perfectionist/sort-objects
+  "dom/no-children-in-void-dom-elements": "warn",
+  "dom/no-dangerously-set-innerhtml": "warn",
+  "dom/no-dangerously-set-innerhtml-with-children": "error",
+  "dom/no-find-dom-node": "error",
+  "dom/no-missing-button-type": "warn",
+  "dom/no-missing-iframe-sandbox": "warn",
+  "dom/no-namespace": "error",
+  "dom/no-script-url": "warn",
+  "dom/no-unsafe-iframe-sandbox": "warn",
+  "dom/no-unsafe-target-blank": "warn",
+} as const satisfies RulePreset;
+
+const recommendedTypeCheckedPreset = {
+  ...recommendedPreset,
+  "no-leaked-conditional-rendering": "warn",
 } as const satisfies RulePreset;
 
 const domPreset = {
@@ -186,6 +203,8 @@ export default {
     "off-legacy": createLegacyConfig(offPreset),
     recommended: createFlatConfig(recommendedPreset),
     "recommended-legacy": createLegacyConfig(recommendedPreset),
+    "recommended-type-checked": createFlatConfig(recommendedTypeCheckedPreset),
+    "recommended-type-checked-legacy": createLegacyConfig(recommendedTypeCheckedPreset),
   },
   rules: {
     ...reactCore.rules,

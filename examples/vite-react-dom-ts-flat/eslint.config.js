@@ -38,7 +38,6 @@ export default [
   {
     files: ["src/**/*.{ts,tsx}"],
     ...eslintReact.configs.recommended,
-    ...eslintReact.configs.dom,
   },
   // Configurations rules
   {

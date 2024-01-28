@@ -134,7 +134,7 @@ module.exports = {
   parserOptions: {
     project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
   },
-  extends: ["plugin:@eslint-react/core-legacy", "plugin:@eslint-react/dom-legacy"],
+  extends: ["plugin:@eslint-react/recmmended-legacy"],
   plugins: ["@eslint-react"],
   rules: {
     // ...
@@ -182,11 +182,7 @@ export default [
   },
   {
     files: ["*.ts", "*.tsx"],
-    ...eslintReact.configs.core,
-  },
-  {
-    files: ["*.ts", "*.tsx"],
-    ...eslintReact.configs.dom,
+    ...eslintReact.configs.recommended,
   },
   {
     files: ["*.ts", "*.tsx"],
