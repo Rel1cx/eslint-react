@@ -95,10 +95,6 @@ module.exports = {
 > [!IMPORTANT]\
 > These presets are for ESLint `LegacyConfig` (`.eslintrc.*`) only
 
-- **recommended-legacy** (`plugin:@eslint-react/recommended-legacy`)\
-  Enable recommended rules for typical ReactDOM projects.
-- **recommended-type-checked-legacy** (`plugin:@eslint-react/recommended-type-checked-legacy`)\
-  Same as recommended-legacy but with additional rules that require type information.
 - **core-legacy** (`plugin:@eslint-react/core-legacy`)\
   Enable the most essential rules.
 - **dom-legacy** (`plugin:@eslint-react/dom-legacy`)\
@@ -116,10 +112,6 @@ module.exports = {
 > [!IMPORTANT]\
 > These presets are for ESLint `FlatConfig` (`eslint.config.js`) only
 
-- **recommended**\
-  Enable recommended rules for typical ReactDOM projects.
-- **recommended-type-checked**\
-  Same as recommended but with additional rules that require type information.
 - **core**\
   Enable the most essential rules.
 - **dom**\
