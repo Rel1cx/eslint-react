@@ -322,95 +322,44 @@ importers:
 
   packages/plugins/eslint-plugin:
     dependencies:
-      '@eslint-react/eslint-plugin-debug':
+      '@eslint-react/shared':
         specifier: workspace:*
-        version: link:../eslint-plugin-debug
-      '@eslint-react/eslint-plugin-jsx':
+        version: link:../../shared
+      '@eslint-react/tools':
         specifier: workspace:*
-        version: link:../eslint-plugin-jsx
-      '@eslint-react/eslint-plugin-naming-convention':
+        version: link:../../tools
+      '@eslint-react/types':
         specifier: workspace:*
-        version: link:../eslint-plugin-naming-convention
-      '@eslint-react/eslint-plugin-react':
+        version: link:../../types
+      '@typescript-eslint/parser':
+        specifier: '>=6.19.1'
+        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
+      '@typescript-eslint/scope-manager':
+        specifier: '>=6.19.1'
+        version: 6.19.1
+      '@typescript-eslint/type-utils':
+        specifier: '>=6.19.1'
+        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
+      '@typescript-eslint/types':
+        specifier: '>=6.19.1'
+        version: 6.19.1
+      '@typescript-eslint/utils':
+        specifier: '>=6.19.1'
+        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
+      eslint-plugin-react-core:
         specifier: workspace:*
-        version: link:../eslint-plugin-react
-      '@eslint-react/eslint-plugin-react-dom':
+        version: link:../eslint-plugin-react-core
+      eslint-plugin-react-dom:
         specifier: workspace:*
         version: link:../eslint-plugin-react-dom
-      '@eslint-react/eslint-plugin-react-hooks':
+      eslint-plugin-react-hooks-extra:
         specifier: workspace:*
-        version: link:../eslint-plugin-react-hooks
-      '@eslint-react/shared':
+        version: link:../eslint-plugin-react-hooks-extra
+      eslint-plugin-react-naming-convention:
         specifier: workspace:*
-        version: link:../../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../../tools
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../../types
-      '@typescript-eslint/parser':
-        specifier: '>=6.19.1'
-        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
-      '@typescript-eslint/scope-manager':
-        specifier: '>=6.19.1'
-        version: 6.19.1
-      '@typescript-eslint/type-utils':
-        specifier: '>=6.19.1'
-        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
-      '@typescript-eslint/types':
-        specifier: '>=6.19.1'
-        version: 6.19.1
-      '@typescript-eslint/utils':
-        specifier: '>=6.19.1'
-        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
+        version: link:../eslint-plugin-react-naming-convention
 
-  packages/plugins/eslint-plugin-debug:
-    dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../../utilities/ast
-      '@eslint-react/core':
-        specifier: workspace:*
-        version: link:../../core
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../../utilities/jsx
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../../tools
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../../types
-      '@typescript-eslint/parser':
-        specifier: '>=6.19.1'
-        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
-      '@typescript-eslint/scope-manager':
-        specifier: '>=6.19.1'
-        version: 6.19.1
-      '@typescript-eslint/type-utils':
-        specifier: '>=6.19.1'
-        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
-      '@typescript-eslint/types':
-        specifier: '>=6.19.1'
-        version: 6.19.1
-      '@typescript-eslint/utils':
-        specifier: '>=6.19.1'
-        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
-      eslint:
-        specifier: '>=8.56.0'
-        version: 8.56.0
-      string-ts:
-        specifier: 2.0.0
-        version: 2.0.0
-      typescript:
-        specifier: '>=5.3.3'
-        version: 5.3.3
-
-  packages/plugins/eslint-plugin-jsx:
+  packages/plugins/eslint-plugin-react-core:
     dependencies:
       '@eslint-react/ast':
         specifier: workspace:*
@@ -461,96 +410,6 @@ importers:
         specifier: '>=5.3.3'
         version: 5.3.3
 
-  packages/plugins/eslint-plugin-naming-convention:
-    dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../../utilities/ast
-      '@eslint-react/core':
-        specifier: workspace:*
-        version: link:../../core
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../../utilities/jsx
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../../tools
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../../types
-      '@typescript-eslint/parser':
-        specifier: '>=6.19.1'
-        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
-      '@typescript-eslint/scope-manager':
-        specifier: '>=6.19.1'
-        version: 6.19.1
-      '@typescript-eslint/type-utils':
-        specifier: '>=6.19.1'
-        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
-      '@typescript-eslint/types':
-        specifier: '>=6.19.1'
-        version: 6.19.1
-      '@typescript-eslint/utils':
-        specifier: '>=6.19.1'
-        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
-      eslint:
-        specifier: '>=8.56.0'
-        version: 8.56.0
-      string-ts:
-        specifier: 2.0.0
-        version: 2.0.0
-      typescript:
-        specifier: '>=5.3.3'
-        version: 5.3.3
-
-  packages/plugins/eslint-plugin-react:
-    dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../../utilities/ast
-      '@eslint-react/core':
-        specifier: workspace:*
-        version: link:../../core
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../../utilities/jsx
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../../tools
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../../types
-      '@eslint-react/var':
-        specifier: workspace:*
-        version: link:../../utilities/var
-      '@typescript-eslint/parser':
-        specifier: '>=6.19.1'
-        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
-      '@typescript-eslint/scope-manager':
-        specifier: '>=6.19.1'
-        version: 6.19.1
-      '@typescript-eslint/types':
-        specifier: '>=6.19.1'
-        version: 6.19.1
-      '@typescript-eslint/utils':
-        specifier: '>=6.19.1'
-        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
-      eslint:
-        specifier: '>=8.56.0'
-        version: 8.56.0
-      string-ts:
-        specifier: 2.0.0
-        version: 2.0.0
-      typescript:
-        specifier: '>=5.3.3'
-        version: 5.3.3
-
   packages/plugins/eslint-plugin-react-dom:
     dependencies:
       '@eslint-react/ast':
@@ -596,7 +455,7 @@ importers:
         specifier: '>=5.3.3'
         version: 5.3.3
 
-  packages/plugins/eslint-plugin-react-hooks:
+  packages/plugins/eslint-plugin-react-hooks-extra:
     dependencies:
       '@eslint-react/ast':
         specifier: workspace:*
@@ -619,6 +478,51 @@ importers:
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
+      '@typescript-eslint/parser':
+        specifier: '>=6.19.1'
+        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
+      '@typescript-eslint/scope-manager':
+        specifier: '>=6.19.1'
+        version: 6.19.1
+      '@typescript-eslint/type-utils':
+        specifier: '>=6.19.1'
+        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
+      '@typescript-eslint/types':
+        specifier: '>=6.19.1'
+        version: 6.19.1
+      '@typescript-eslint/utils':
+        specifier: '>=6.19.1'
+        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
+      eslint:
+        specifier: '>=8.56.0'
+        version: 8.56.0
+      string-ts:
+        specifier: 2.0.0
+        version: 2.0.0
+      typescript:
+        specifier: '>=5.3.3'
+        version: 5.3.3
+
+  packages/plugins/eslint-plugin-react-naming-convention:
+    dependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../../utilities/ast
+      '@eslint-react/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../../utilities/jsx
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      '@eslint-react/tools':
+        specifier: workspace:*
+        version: link:../../tools
+      '@eslint-react/types':
+        specifier: workspace:*
+        version: link:../../types
       '@typescript-eslint/parser':
         specifier: '>=6.19.1'
         version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
@@ -4043,7 +3947,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.22.3
-      caniuse-lite: 1.0.30001580
+      caniuse-lite: 1.0.30001581
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -4135,7 +4039,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001580
+      caniuse-lite: 1.0.30001581
       electron-to-chromium: 1.4.648
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.3)
@@ -4260,8 +4164,8 @@ packages:
     engines: {node: '>=16'}
     dev: true
 
-  /caniuse-lite@1.0.30001580:
-    resolution: {integrity: sha512-mtj5ur2FFPZcCEpXFy8ADXbDACuNFXg6mxVDqp7tqooX6l3zwm+d8EPoeOSIFRDvHs8qu7/SLFOGniULkcH2iA==}
+  /caniuse-lite@1.0.30001581:
+    resolution: {integrity: sha512-whlTkwhqV2tUmP3oYhtNfaWGYHDdS3JYFQBKXxcUR9qqPWsRhFHhoISO2Xnl/g0xyKzht9mI1LZpiNWfMzHixQ==}
 
   /caseless@0.12.0:
     resolution: {integrity: sha512-4tYFyifaFfGacoiObjJegolkwSU4xQNGbVgUiNYVUxbQ2x2lUsFvY4hVgVzGiIe6WLOPqycWXA40l+PWsxthUw==}
@@ -9310,7 +9214,7 @@ packages:
       '@next/env': 14.1.0
       '@swc/helpers': 0.5.2
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001580
+      caniuse-lite: 1.0.30001581
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.2.0

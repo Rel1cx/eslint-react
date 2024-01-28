@@ -11,5 +11,10 @@
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true
   },
-  "include": ["*.config.ts", "*.config.js", "*.d.ts"]
+  "include": [
+    ".eslintrc.cjs",
+    "*.config.ts",
+    "*.config.js",
+    "*.d.ts"
+  ]
 }

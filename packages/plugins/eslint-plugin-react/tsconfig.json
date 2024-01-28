@@ -1,6 +1,0 @@
-{
-  "extends": "eslint-config-with-tsconfig/tsconfig.base.json",
-  "include": [
-    "src"
-  ]
-}

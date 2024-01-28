@@ -46,7 +46,7 @@ jobs:
           elif git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+-beta\.[0-9]\+$";
           then
             pnpm --filter "./packages/**" publish --provenance --access public --tag beta
-          elif git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+";
+          elif git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+-next\.[0-9]\+$";
           then
             pnpm --filter "./packages/**" publish --provenance --access public --tag next
           else
