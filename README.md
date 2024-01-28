@@ -24,10 +24,10 @@ It's a platform for creating ESLint rules for not just for ReactDOM but also oth
 ## Public packages
 
 - [`@eslint-react/eslint-plugin`](https://npm.im/@eslint-react/eslint-plugin) - The main ESLint plugin package including all rules and config presets in this repository.
-- `eslint-plugin-react-core` (will be available in 2.0) - An ESLint plugin of React core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
-- `eslint-plugin-react-dom` (will be available in 2.0) - An ESLint plugin of ReactDOM rules.
-- `eslint-plugin-react-hooks-extra` (will be available in 2.0) - An ESLint plugin of extra React Hooks rules.
-- `eslint-plugin-react-naming-convention` (will be available in 2.0) - An ESLint plugin of React naming convention rules.
+- `eslint-plugin-react-core` - ESLint plugin of React core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
+- `eslint-plugin-react-dom` - ESLint plugin of ReactDOM rules.
+- `eslint-plugin-react-hooks-extra` - ESLint plugin of extra React Hooks rules.
+- `eslint-plugin-react-naming-convention` - ESLint plugin of React naming convention rules.
 
 ## Supported React versions
 
@@ -99,7 +99,7 @@ module.exports = {
 
 - **recommended-legacy** (`plugin:@eslint-react/recommended-legacy`)\
   Enable rules that are recommended by ESLint React.
-  -- **recommended-type-checked-legacy** (`plugin:@eslint-react/recommended-type-checked-legacy`)\
+- **recommended-type-checked-legacy** (`plugin:@eslint-react/recommended-type-checked-legacy`)\
   Enable rules that are recommended by ESLint React with additional rules that require type information.
 - **all-legacy** (`plugin:@eslint-react/all-legacy`)\
   Enable all rules in this plugin except for debug rules.
