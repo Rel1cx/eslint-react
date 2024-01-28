@@ -410,6 +410,51 @@ importers:
         specifier: '>=5.3.3'
         version: 5.3.3
 
+  packages/plugins/eslint-plugin-react-debug:
+    dependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../../utilities/ast
+      '@eslint-react/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../../utilities/jsx
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      '@eslint-react/tools':
+        specifier: workspace:*
+        version: link:../../tools
+      '@eslint-react/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@typescript-eslint/parser':
+        specifier: '>=6.19.1'
+        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
+      '@typescript-eslint/scope-manager':
+        specifier: '>=6.19.1'
+        version: 6.19.1
+      '@typescript-eslint/type-utils':
+        specifier: '>=6.19.1'
+        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
+      '@typescript-eslint/types':
+        specifier: '>=6.19.1'
+        version: 6.19.1
+      '@typescript-eslint/utils':
+        specifier: '>=6.19.1'
+        version: 6.19.1(eslint@8.56.0)(typescript@5.3.3)
+      eslint:
+        specifier: '>=8.56.0'
+        version: 8.56.0
+      string-ts:
+        specifier: 2.0.0
+        version: 2.0.0
+      typescript:
+        specifier: '>=5.3.3'
+        version: 5.3.3
+
   packages/plugins/eslint-plugin-react-dom:
     dependencies:
       '@eslint-react/ast':

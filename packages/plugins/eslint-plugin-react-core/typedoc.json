@@ -2,7 +2,7 @@
   "extends": [
     "../../../typedoc.base.json"
   ],
-  "name": "@eslint-react/eslint-plugin-react",
+  "name": "eslint-plugin-react-core",
   "entryPoints": [
     "src/index.ts"
   ],

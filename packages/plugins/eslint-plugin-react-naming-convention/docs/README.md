@@ -1,6 +1,6 @@
-@eslint-react/eslint-plugin-naming-convention
+eslint-plugin-react-naming-convention
 
-# @eslint-react/eslint-plugin-naming-convention
+# eslint-plugin-react-naming-convention
 
 ## Table of contents
 

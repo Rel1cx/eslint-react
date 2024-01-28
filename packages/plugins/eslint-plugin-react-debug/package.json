@@ -1,7 +1,7 @@
 {
-  "name": "@eslint-react/tools",
+  "name": "eslint-plugin-react-debug",
   "version": "1.5.0-next.1",
-  "description": "ESLint React's std library and primitives.",
+  "description": "ESLint React's ESLint plugin for debugging related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
     "url": "https://github.com/rel1cx/eslint-react/issues"
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Rel1cx/eslint-react",
-    "directory": "packages/tools"
+    "directory": "packages/plugins/eslint-plugin-react-debug"
   },
   "license": "MIT",
   "author": "Eva1ent<let@ik.me>",
@@ -29,9 +29,9 @@
   },
   "main": "dist/index.js",
   "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "types": "./dist/index.d.ts",
   "files": [
-    "dist",
+    "./dist",
     "./package.json"
   ],
   "scripts": {
@@ -42,6 +42,29 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "effect": "2.2.2"
+    "@eslint-react/ast": "workspace:*",
+    "@eslint-react/core": "workspace:*",
+    "@eslint-react/jsx": "workspace:*",
+    "@eslint-react/shared": "workspace:*",
+    "@eslint-react/tools": "workspace:*",
+    "@eslint-react/types": "workspace:*",
+    "@typescript-eslint/parser": ">=6.19.1",
+    "@typescript-eslint/scope-manager": ">=6.19.1",
+    "@typescript-eslint/type-utils": ">=6.19.1",
+    "@typescript-eslint/types": ">=6.19.1",
+    "@typescript-eslint/utils": ">=6.19.1",
+    "string-ts": "2.0.0"
+  },
+  "peerDependencies": {
+    "@typescript-eslint/parser": ">=6.19.1",
+    "eslint": ">=8.56.0",
+    "typescript": ">=5.3.3"
+  },
+  "engines": {
+    "bun": ">=1.0.15",
+    "node": ">=18.18.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

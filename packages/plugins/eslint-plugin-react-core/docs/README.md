@@ -1,6 +1,6 @@
-@eslint-react/eslint-plugin-react
+eslint-plugin-react-core
 
-# @eslint-react/eslint-plugin-react
+# eslint-plugin-react-core
 
 ## Table of contents
 

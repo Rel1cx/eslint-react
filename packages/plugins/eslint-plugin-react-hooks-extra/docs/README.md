@@ -1,6 +1,6 @@
-@eslint-react/eslint-plugin-react-hooks
+eslint-plugin-react-hooks-extra
 
-# @eslint-react/eslint-plugin-react-hooks
+# eslint-plugin-react-hooks-extra
 
 ## Table of contents
 

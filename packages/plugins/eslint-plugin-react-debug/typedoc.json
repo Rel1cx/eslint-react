@@ -2,7 +2,7 @@
   "extends": [
     "../../../typedoc.base.json"
   ],
-  "name": "eslint-plugin-react-hooks-extra",
+  "name": "eslint-plugin-react-debug",
   "entryPoints": [
     "src/index.ts"
   ],

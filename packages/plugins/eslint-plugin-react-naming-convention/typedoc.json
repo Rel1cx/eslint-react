@@ -2,7 +2,7 @@
   "extends": [
     "../../../typedoc.base.json"
   ],
-  "name": "@eslint-react/eslint-plugin-naming-convention",
+  "name": "eslint-plugin-react-naming-convention",
   "entryPoints": [
     "src/index.ts"
   ],
