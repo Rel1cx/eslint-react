@@ -1,3 +1,9 @@
+## v1.5.0 (Draft)
+
+### 💥 Breaking Changes
+
+Refer to [Milestone 1.5.0](https://github.com/Rel1cx/eslint-react/issues/333).
+
 ## v1.0.2 (Sat Jan 27 2024)
 
 ### 🐞 Fixes
