@@ -4,7 +4,7 @@ import path from "path";
 import { copyFile } from "./lib/fs";
 
 const docs = new Bun.Glob("packages/plugins/eslint-plugin-*/src/rules/*.md").scanSync();
-const order = ["jsx", "react", "react-dom", "react-hooks", "naming-convention", "debug"] as const;
+const order = ["react-dom", "react-hooks-extra", "react-naming-convention"] as const;
 const [
   files,
   rules,
@@ -12,8 +12,9 @@ const [
   ([files, rules], doc) => {
     const namespace = /^packages\/plugins\/eslint-plugin-([^/]+)/u.exec(doc)?.[1] ?? "";
     const basename = path.parse(path.basename(doc)).name;
-    const title = `${namespace}/${basename}`;
-    const filename = `${namespace}-${basename}`;
+    const isCoreRule = namespace === "react-core";
+    const title = isCoreRule ? basename : `${namespace}/${basename}`;
+    const filename = isCoreRule ? basename : `${namespace}-${basename}`;
     const dest = path.join("website", "pages", "rules", `${filename}.md`);
     return [[...files, [doc, dest]], [...rules, [filename, title]]] as const;
   },
