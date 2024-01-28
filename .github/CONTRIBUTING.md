@@ -63,12 +63,10 @@ ESLint React does not accept contributions of a purely utilitarian nature.
 - `@eslint-react/var`: TSESTree AST utility module for static analysis of variables.
 - `@eslint-react/jsx`: TSESTree AST utility module for static analysis of JSX.
 - `@eslint-react/core`: ESLint utility module for static analysis of React core APIs and Patterns.
-- `@eslint-react/eslint-plugin-jsx`: ESLint plugin for JSX related rules.
-- `@eslint-react/eslint-plugin-react`: ESLint plugin for React related rules.
-- `@eslint-react/eslint-plugin-react-dom`: ESLint plugin for ReactDOM related rules.
-- `@eslint-react/eslint-plugin-react-hooks`: ESLint plugin for React Hooks related rules.
-- `@eslint-react/eslint-plugin-debug`: ESLint plugin for debugging related rules.
-- `@eslint-react/eslint-plugin-naming-convention`: ESLint plugin for naming convention related rules.
+- `eslint-plugin-react-core`: The standalone ESLint plugin of React core rules.
+- `eslint-plugin-react-dom`: The standalone ESLint plugin of ReactDOM rules.
+- `eslint-plugin-react-hooks-extra`: The standalone ESLint plugin of extra React Hooks rules.
+- `eslint-plugin-react-naming-convention`: The standalone ESLint plugin of React naming convention rules.
 - `@eslint-react/eslint-plugin`: The main ESLint plugin of ESLint React. Contains all the rules from the above plugins.
 
 ### Developing Documentation
