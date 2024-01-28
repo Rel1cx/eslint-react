@@ -11,6 +11,12 @@
   - Replace `react/` with `` in rule names.
   - Replace `react-dom/` with `dom/` in rule names.
   - Replace `react-hooks/` with `hooks-extra/` in rule names.
+- Switch to new settings schema.
+  - Put settings under `reactOptions` instead of `eslintReact`.
+  - Replace `jsx.pragma` with `jsxPragma`.
+  - Replace `jsx.fragment` with `jsxPragmaFrag`.
+  - Replace `react.version` with `version`.
+  - Remove `jsx.extensions`.
 
 ## v1.0.2 (Sat Jan 27 2024)
 
