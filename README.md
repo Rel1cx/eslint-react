@@ -70,8 +70,6 @@ module.exports = {
 > Rules that require type information are not enabled by default.
 >
 > To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
->
-> Then replace `plugin:@eslint-react/recommended-legacy` with `plugin:@eslint-react/recommended-type-checked-legacy`.
 
 ```js
 module.exports = {
@@ -80,8 +78,12 @@ module.exports = {
   parserOptions: {
     project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
   },
-  extends: ["plugin:@eslint-react/recommended-type-checked-legacy"],
+  extends: ["plugin:@eslint-react/core-legacy", "plugin:@eslint-react/dom-legacy"],
   plugins: ["@eslint-react"],
+  rules: {
+    // ...
+    "no-leaked-conditional-rendering": "error", // <-- Requires type information
+  },
   // ...
 };
 ```

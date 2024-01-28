@@ -123,28 +123,24 @@ Rules that require type information are not enabled by default.
 
 To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
 
-Then replace `plugin:@eslint-react/recommended-legacy` with `plugin:@eslint-react/recommended-type-checked-legacy`.
+Then, you can enable the rules that require type information.
 
 </Info>
 
 ```js filename=".eslintrc.js"
 module.exports = {
-  root: true,
-  env: { browser: true, es2021: true },
+  // ...
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    ecmaVersion: "2021",
-    sourceType: "module",
     project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
   },
-  extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:@eslint-react/recommended-legacy",
-  ],
-  plugins: ["@typescript-eslint", "react-hooks"],
-  ignorePatterns: ["dist", ".eslintrc.js"],
+  extends: ["plugin:@eslint-react/core-legacy", "plugin:@eslint-react/dom-legacy"],
+  plugins: ["@eslint-react"],
+  rules: {
+    // ...
+    "no-leaked-conditional-rendering": "error", // <-- Requires type information
+  },
+  // ...
 };
 ```
 
@@ -157,28 +153,24 @@ Rules that require type information are not enabled by default.
 
 To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
 
-Then replace `...eslintReact.configs.recommended` with `...eslintReact.configs["recommended-type-checked"]`.
+Then, you can enable the rules that require type information.
 
 </Info>
 
 ```js filename="eslint.config.js"
 import ts from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
-import reactHooks from "eslint-plugin-react-hooks";
 import eslintReact from "@eslint-react/eslint-plugin";
 
 export default [
-  // TypeScript rules
   {
     files: ["*.ts", "*.tsx"],
     ignores: ["eslint.config.js"],
     languageOptions: {
       parser: tsParser,
-      sourceType: "module",
       parserOptions: {
         project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
       },
-      sourceType: "module",
     },
     plugins: {
       "@typescript-eslint": ts,
@@ -188,21 +180,20 @@ export default [
       ...ts.configs["recommended"].rules,
     },
   },
-  // React Hooks rules
   {
-    files: ["src/**/*.{ts,tsx}"],
-    plugins: {
-      "react-hooks": reactHooks,
-    },
+    files: ["*.ts", "*.tsx"],
+    ...eslintReact.configs.core,
+  },
+  {
+    files: ["*.ts", "*.tsx"],
+    ...eslintReact.configs.dom,
+  },
+  {
+    files: ["*.ts", "*.tsx"],
     rules: {
-      ...reactHooks.configs.recommended.rules,
+      "no-leaked-conditional-rendering": "error", // <-- Requires type information
     },
-  },
-  // ESLint React rules
-  {
-    files: ["src/**/*.{ts,tsx}"],
-    ...eslintReact.configs["recommended-type-checked"],
-  },
+  }
 ];
 ```
 
