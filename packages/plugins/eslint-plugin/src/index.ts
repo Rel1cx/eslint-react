@@ -1,4 +1,4 @@
-import { Helper } from "@eslint-react/tools";
+import { entries, fromEntries } from "@eslint-react/tools";
 import type { RulePreset } from "@eslint-react/types";
 import tsParser from "@typescript-eslint/parser";
 // Workaround for @typescript-eslint/utils's TS2742 error.
@@ -11,8 +11,6 @@ import * as reactNamingConvention from "eslint-plugin-react-naming-convention";
 
 import { name, version } from "../package.json";
 import { padKeysLeft } from "./utils";
-
-const { entries, fromEntries } = Helper;
 
 const allPreset = {
   "ensure-forward-ref-using-ref": "warn",
