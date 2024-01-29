@@ -22,11 +22,16 @@ A series of essential ESLint plugins for libraries and frameworks that use React
 
 ## Public packages
 
+### All-in-one packages
+
 - [`@eslint-react/eslint-plugin`](https://npm.im/@eslint-react/eslint-plugin) - The main ESLint plugin package including all rules and config presets in this repository.
-- `eslint-plugin-react-core` - ESLint plugin of React core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
-- `eslint-plugin-react-dom` - ESLint plugin of ReactDOM rules.
-- `eslint-plugin-react-hooks-extra` - ESLint plugin of extra React Hooks rules.
-- `eslint-plugin-react-naming-convention` - ESLint plugin of React naming convention rules.
+
+### Individual packages (will be available in 2.0)
+
+- `eslint-plugin-react-core` - Core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
+- `eslint-plugin-react-dom` - DOM specific rules for ReactDOM.
+- `eslint-plugin-react-hooks-extra` - Extra React Hooks rules.
+- `eslint-plugin-react-naming-convention` - Naming convention rules.
 
 ## Supported React versions
 
