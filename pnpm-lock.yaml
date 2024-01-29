@@ -782,8 +782,8 @@ importers:
         specifier: 1.14.0
         version: 1.14.0
       '@vanilla-extract/next-plugin':
-        specifier: 2.3.3
-        version: 2.3.3(@types/node@20.11.10)(next@14.1.0)(sass@1.70.0)(webpack@5.90.0)
+        specifier: 2.3.5
+        version: 2.3.5(@types/node@20.11.10)(next@14.1.0)(sass@1.70.0)(webpack@5.90.0)
       autoprefixer:
         specifier: 10.4.17
         version: 10.4.17(postcss@8.4.33)
@@ -3690,8 +3690,8 @@ packages:
       - terser
     dev: true
 
-  /@vanilla-extract/next-plugin@2.3.3(@types/node@20.11.10)(next@14.1.0)(sass@1.70.0)(webpack@5.90.0):
-    resolution: {integrity: sha512-Akpfk7NSGwNmcjSVafSob55mMVd3acJwRTHpZTwxEQ8d1JRe1Wd5TqbzvFRNRyf8yzelWgA9eDNptQ+QCDKG0g==}
+  /@vanilla-extract/next-plugin@2.3.5(@types/node@20.11.10)(next@14.1.0)(sass@1.70.0)(webpack@5.90.0):
+    resolution: {integrity: sha512-oDVvzaLjiYbKttK0O5Mrv2ANKWF4SRQtV2ngOvPyCG1RQVjjeuAA9NW+PFMxiP8lRDCt6PkLcW2E2k592Kfpzg==}
     peerDependencies:
       next: 14.1.0
     dependencies:
