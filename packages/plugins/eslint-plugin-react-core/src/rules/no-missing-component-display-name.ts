@@ -1,7 +1,7 @@
 import { getFunctionIdentifier } from "@eslint-react/ast";
 import { ERFunctionComponentFlag, useComponentCollector } from "@eslint-react/core";
-import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import { Option as O } from "effect";
 import { type ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";

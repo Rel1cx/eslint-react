@@ -1,7 +1,7 @@
-import { O, Prd } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
+import { Option as O, Predicate as Prd } from "effect";
 import { match } from "ts-pattern";
 
 import { is, isOneOf, NodeType } from "../node";

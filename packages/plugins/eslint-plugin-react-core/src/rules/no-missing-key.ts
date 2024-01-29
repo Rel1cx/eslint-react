@@ -1,9 +1,9 @@
 import { getNestedReturnStatements, is, isOneOf, NodeType } from "@eslint-react/ast";
 import { getFragmentFromContext, getPragmaFromContext, hasProp } from "@eslint-react/jsx";
-import { MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
+import { MutableRef as MutRef, Option as O } from "effect";
 import { isMatching, match } from "ts-pattern";
 
 import { createRule, getChildrenToArraySelector } from "../utils";

@@ -2,8 +2,8 @@ import type { Construction } from "@eslint-react/ast";
 import { inspectConstruction } from "@eslint-react/ast";
 import { NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
-import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import { Option as O } from "effect";
 
 import { createRule } from "../utils";
 

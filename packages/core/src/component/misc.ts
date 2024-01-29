@@ -1,8 +1,8 @@
 import { isClass, type TSESTreeClass } from "@eslint-react/ast";
-import { F, MutRef, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type Scope, ScopeType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
+import { Function as F, MutableRef as MutRef, Option as O } from "effect";
 
 import { isClassComponent } from "./component-collector-legacy";
 

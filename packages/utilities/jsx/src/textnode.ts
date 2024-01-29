@@ -1,6 +1,6 @@
 import { isMultiLine, isOneOf, NodeType } from "@eslint-react/ast";
-import { Prd } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
+import { Predicate as Prd } from "effect";
 
 /**
  * Check if a node is a Literal or JSXText

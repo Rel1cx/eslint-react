@@ -1,9 +1,9 @@
 import { getNestedReturnStatements, is, isNodeEqual, isOneOf, NodeType } from "@eslint-react/ast";
 import { findPropInAttributes, getPragmaFromContext } from "@eslint-react/jsx";
-import { F, MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
+import { Function as F, MutableRef as MutRef, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 import { isMatching, match } from "ts-pattern";
 

@@ -2,9 +2,9 @@ import { NodeType } from "@eslint-react/ast";
 import { isReactHookCallWithNameLoose, isUseStateCall, useComponentCollector } from "@eslint-react/core";
 import { getPragmaFromContext } from "@eslint-react/jsx";
 import { ESLintSettingsSchema, parseSchema } from "@eslint-react/shared";
-import { F, O, Prd } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
+import { Function as F, Option as O, Predicate as Prd } from "effect";
 import { capitalize, type ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
 

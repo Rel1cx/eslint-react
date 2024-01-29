@@ -1,9 +1,9 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
-import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
+import { Option as O } from "effect";
 import { isMatching, match } from "ts-pattern";
 
 import { getPragmaFromContext } from "./get-pragma";

@@ -1,8 +1,8 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import { findPropInAttributes, findPropInProperties, isCreateElementCall } from "@eslint-react/jsx";
-import { F, O } from "@eslint-react/tools";
 import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import { Function as F, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
 

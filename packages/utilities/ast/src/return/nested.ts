@@ -1,5 +1,5 @@
-import { Prd } from "@eslint-react/tools";
 import { type TSESTree } from "@typescript-eslint/types";
+import { Predicate as Prd } from "effect";
 
 import { NodeType } from "../node";
 

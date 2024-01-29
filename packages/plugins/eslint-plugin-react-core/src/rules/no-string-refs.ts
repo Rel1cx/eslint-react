@@ -1,7 +1,7 @@
 import { NodeType } from "@eslint-react/ast";
-import { Prd } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import { Predicate as Prd } from "effect";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";

@@ -1,6 +1,6 @@
-import { F, O } from "@eslint-react/tools";
 import type { Variable } from "@typescript-eslint/scope-manager";
 import { type Scope } from "@typescript-eslint/scope-manager";
+import { Function as F, Option as O } from "effect";
 
 import { getVariables } from "./get-variable";
 

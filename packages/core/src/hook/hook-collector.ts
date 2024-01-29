@@ -1,6 +1,6 @@
 import { getFunctionIdentifier, type TSESTreeFunction } from "@eslint-react/ast";
-import { MutList, O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import { MutableList as MutList, Option as O } from "effect";
 import ShortUniqueId from "short-unique-id";
 
 import type { ERHook } from "./hook";

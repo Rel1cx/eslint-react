@@ -1,6 +1,6 @@
 import { ESLintSettingsSchema, parseSchema } from "@eslint-react/shared";
-import { F, O, Prd } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
+import { Function as F, Option as O, Predicate as Prd } from "effect";
 import memo from "micro-memoize";
 
 const RE_JSX_ANNOTATION_REGEX = /@jsx\s+(\S+)/u;

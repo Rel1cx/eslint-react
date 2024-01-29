@@ -1,7 +1,7 @@
 import { NodeType } from "@eslint-react/ast";
 import { findPropInAttributes, getPropValue } from "@eslint-react/jsx";
-import { F, O, Prd } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import { Function as F, Option as O, Predicate as Prd } from "effect";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";

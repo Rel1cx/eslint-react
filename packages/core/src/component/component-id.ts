@@ -1,7 +1,7 @@
 import { getFunctionIdentifier, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
-import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
+import { Option as O } from "effect";
 
 import { isReactHookCallWithNameLoose } from "../hook";
 import { isForwardRefCall, isMemoCall } from "../react-api";

@@ -1,8 +1,8 @@
 import { getClassIdentifier, NodeType, type TSESTreeClass } from "@eslint-react/ast";
 import { getPragmaFromContext } from "@eslint-react/jsx";
-import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import { Option as O } from "effect";
 import ShortUniqueId from "short-unique-id";
 import { match, P } from "ts-pattern";
 

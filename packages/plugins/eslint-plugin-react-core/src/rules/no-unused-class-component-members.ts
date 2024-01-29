@@ -1,8 +1,8 @@
 import { getClassIdentifier, isThisExpression, NodeType, type TSESTreeClass } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
-import { MutList, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import { MutableList as MutList, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";

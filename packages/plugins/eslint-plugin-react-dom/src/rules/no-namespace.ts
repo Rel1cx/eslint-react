@@ -1,7 +1,7 @@
 import { elementType, isCreateElementCall } from "@eslint-react/jsx";
-import { Prd } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import { Predicate as Prd } from "effect";
 
 import { createRule } from "../utils";
 

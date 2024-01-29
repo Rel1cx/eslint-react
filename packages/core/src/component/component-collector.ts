@@ -9,10 +9,10 @@ import {
   type TSESTreeFunction,
 } from "@eslint-react/ast";
 import { getPragmaFromContext, isChildrenOfCreateElement, isJSXValue } from "@eslint-react/jsx";
-import { F, MutList, MutRef, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import { Function as F, MutableList as MutList, MutableRef as MutRef, Option as O } from "effect";
 import ShortUniqueId from "short-unique-id";
 import { isMatching, match } from "ts-pattern";
 

@@ -1,5 +1,5 @@
-import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
+import { Option as O } from "effect";
 
 import { NodeType, type TSESTreeClass } from "../node";
 

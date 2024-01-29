@@ -1,7 +1,7 @@
 /* eslint-disable perfectionist/sort-union-types */
 import { NodeType, type TSESTreeFunction } from "@eslint-react/ast";
-import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
+import { Function as F, Option as O } from "effect";
 
 export type ERComponentInitPath =
   /**

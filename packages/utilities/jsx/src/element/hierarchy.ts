@@ -1,7 +1,7 @@
 import { is, NodeType, traverseUp } from "@eslint-react/ast";
-import { F, O, Prd } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
+import { Function as F, Option as O, Predicate as Prd } from "effect";
 
 import { isCreateElementCall } from "./api";
 

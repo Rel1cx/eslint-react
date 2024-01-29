@@ -1,6 +1,6 @@
 import { NodeType } from "@eslint-react/ast";
-import { F } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import { Function as F } from "effect";
 import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
 

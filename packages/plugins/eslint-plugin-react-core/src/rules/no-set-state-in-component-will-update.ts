@@ -1,8 +1,8 @@
 import { isOneOf, NodeType, traverseUp } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
-import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import { Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";

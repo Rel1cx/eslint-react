@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/tools",
-  "version": "1.5.1-next.0",
+  "version": "1.5.1-next.1",
   "description": "ESLint React's std library and primitives.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -40,8 +40,5 @@
     "lint:publish": "publint",
     "lint:type": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
-  },
-  "dependencies": {
-    "effect": "2.2.2"
   }
 }

@@ -1,6 +1,6 @@
-import { MutRef, Prd } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
+import { MutableRef as MutRef, Predicate as Prd } from "effect";
 
 import { createRule } from "../utils";
 

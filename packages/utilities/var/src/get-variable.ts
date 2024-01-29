@@ -1,7 +1,7 @@
-import { MutRef } from "@eslint-react/tools";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Definition, Variable } from "@typescript-eslint/scope-manager";
 import { type Scope, ScopeType } from "@typescript-eslint/scope-manager";
+import { MutableRef as MutRef } from "effect";
 
 /**
  * Get all variables from the given scope up to the global scope

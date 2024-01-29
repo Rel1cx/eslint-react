@@ -1,8 +1,12 @@
-## v1.5.1-next.0 (Mon Jan 29 2024)
+## v1.5.1 (Draft)
 
 ### ✨ New
 
 - Add `off-dom` and `off-dom-legacy` presets to disable all DOM related rules.
+
+### 🪄 Improvements
+
+- Reduce dependencies size.
 
 ## v1.5.0 (Mon Jan 29 2024)
 
