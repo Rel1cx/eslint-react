@@ -31,8 +31,8 @@ React version to use, `"detect"` means auto detect React version from the projec
 (type: `Record<string, string[]>`)
 
 A Record of aliases for React's built-in Hooks. ESLint React will recognize these aliases as equivalent to the built-in Hooks in all its rules.\
-For example, `useState` can also be referred to as `useLocalStorageState`, and `useLayoutEffect` can also be referred to as `useIsomorphicLayoutEffect`\
-(e.g. `{ useState: ["useLocalStorageState"], useLayoutEffect: ["useIsomorphicLayoutEffect"] }`).
+This is intended to cover edge cases. We suggest to use this option very sparingly, if at all.\
+(e.g. `{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }`).
 
 ## Examples
 
@@ -49,7 +49,6 @@ module.exports = {
       jsxPragma: "React",
       jsxPragmaFrag: "Fragment",
       additionalHooks: {
-        useState: ["useLocalStorageState"],
         useLayoutEffect: ["useIsomorphicLayoutEffect"],
         // ...
       },
