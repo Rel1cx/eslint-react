@@ -1,4 +1,4 @@
-## v1.5.0 (Draft)
+## v1.5.0 (Mon Jan 29 2024)
 
 ### 💥 Breaking Changes
 
