@@ -2,7 +2,7 @@
 
 ## Rule category
 
-Style.
+Complexity.
 
 ## What it does
 

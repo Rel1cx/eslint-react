@@ -2,7 +2,7 @@
 
 ## Rule category
 
-Style.
+Convention.
 
 ## What it does
 

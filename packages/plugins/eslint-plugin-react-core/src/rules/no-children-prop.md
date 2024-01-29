@@ -2,7 +2,7 @@
 
 ## Rule category
 
-Suspicious.
+Restriction.
 
 ## What it does
 

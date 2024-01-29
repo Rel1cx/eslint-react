@@ -32,7 +32,7 @@
 | [`no-class-component`](no-class-component)                                         | Prevents usage of class component.                                                                     |  ⛔  |      |      |
 | [`no-clone-element`](no-clone-element)                                             | Prevents usage of `cloneElement`.                                                                      |  ⛔  |      |      |
 | [`no-comment-textnodes`](no-comment-textnodes)                                     | Prevents comments from being inserted as text nodes.                                                   |  👀  |      |      |
-| [`no-complicated-conditional-rendering`](no-complicated-conditional-rendering)     | Prevents complicated conditional rendering in JSX.                                                     |  🎨  |      |      |
+| [`no-complicated-conditional-rendering`](no-complicated-conditional-rendering)     | Prevents complicated conditional rendering in JSX.                                                     |  🤯  |      |      |
 | [`no-component-will-mount`](no-component-will-mount)                               | Prevents usage of `componentWillMount`.                                                                |  ⛔  |      |      |
 | [`no-component-will-receive-props`](no-component-will-receive-props)               | Prevents usage of `componentWillReceiveProps`.                                                         |  ⛔  |      |      |
 | [`no-component-will-update`](no-component-will-update)                             | Prevents usage of `componentWillUpdate`.                                                               |  ⛔  |      |      |

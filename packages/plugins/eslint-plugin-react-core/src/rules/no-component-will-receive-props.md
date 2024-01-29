@@ -2,7 +2,7 @@
 
 ## Rule category
 
-Correctness.
+Restriction.
 
 ## What it does
 

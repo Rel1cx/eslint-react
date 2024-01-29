@@ -2,7 +2,7 @@
 
 ## Rule category
 
-Suspicious.
+Correctness.
 
 ## What it does
 

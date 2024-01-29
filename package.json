@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.5.2-beta.0",
+  "version": "1.5.2-beta.1",
   "description": "Essential React lints for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "eslint",
@@ -73,7 +73,7 @@
     "cspell": "8.3.2",
     "dedent": "1.5.1",
     "dprint": "0.45.0",
-    "effect": "2.2.2",
+    "effect": "2.2.3",
     "eslint": ">=8.56.0",
     "eslint-config-with-tsconfig": "2.14.2",
     "eslint-plugin-eslint-plugin": "5.2.1",
@@ -102,7 +102,7 @@
     "typedoc-plugin-markdown": "3.17.1",
     "typedoc-plugin-mermaid": "1.10.0",
     "typedoc-plugin-rename-defaults": "0.7.0",
-    "typescript": ">=5.3.3",
+    "typescript": ">=5.4.0-beta",
     "vitest": "1.2.2"
   },
   "packageManager": "pnpm@8.13.1",
@@ -122,7 +122,7 @@
       "@typescript-eslint/utils": ">=6.20.0",
       "@typescript-eslint/eslint-plugin": ">=6.20.0",
       "eslint": ">=8.56.0",
-      "effect": "2.2.2",
+      "effect": "2.2.3",
       "next": "14.1.0",
       "react": "18.2.0",
       "react-dom": "18.2.0",
