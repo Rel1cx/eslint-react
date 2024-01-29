@@ -162,6 +162,7 @@ const debugPreset = {
 
 const allPresetEntries = entries(allPreset);
 const offPreset = fromEntries(allPresetEntries.map(([key]) => [key, "off"]));
+const offDomPreset = fromEntries(entries(domPreset).map(([key]) => [key, "off"]));
 
 const legacyConfigPlugins = ["@eslint-react"] as const;
 
@@ -197,16 +198,19 @@ export default {
   },
   configs: {
     all: createFlatConfig(allPreset),
-    "all-legacy": createLegacyConfig(allPreset),
     debug: createFlatConfig(debugPreset),
-    "debug-legacy": createLegacyConfig(debugPreset),
     dom: createFlatConfig(domPreset),
-    "dom-legacy": createLegacyConfig(domPreset),
     off: createFlatConfig(offPreset),
-    "off-legacy": createLegacyConfig(offPreset),
+    "off-dom": createFlatConfig(offDomPreset),
     recommended: createFlatConfig(recommendedPreset),
-    "recommended-legacy": createLegacyConfig(recommendedPreset),
     "recommended-type-checked": createFlatConfig(recommendedTypeCheckedPreset),
+    // eslint-disable-next-line perfectionist/sort-objects
+    "all-legacy": createLegacyConfig(allPreset),
+    "debug-legacy": createLegacyConfig(debugPreset),
+    "dom-legacy": createLegacyConfig(domPreset),
+    "off-dom-legacy": createLegacyConfig(offDomPreset),
+    "off-legacy": createLegacyConfig(offPreset),
+    "recommended-legacy": createLegacyConfig(recommendedPreset),
     "recommended-type-checked-legacy": createLegacyConfig(recommendedTypeCheckedPreset),
   },
   rules: {

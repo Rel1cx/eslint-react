@@ -6,9 +6,7 @@
 [![Size](https://img.shields.io/bundlephobia/minzip/@eslint-react/eslint-plugin?label=gzip&style=flat&colorA=000000&colorB=000000)](https://bundlephobia.com/package/@eslint-react/eslint-plugin)
 [![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
 
-## What is this?
-
-It's a platform for creating ESLint rules for not just for ReactDOM but also other libraries and frameworks that use React as a runtime.
+A series of essential ESLint plugins for libraries and frameworks that use React as a UI runtime.
 
 ## Roadmap
 
@@ -17,6 +15,7 @@ It's a platform for creating ESLint rules for not just for ReactDOM but also oth
 
 ## Highlights
 
+- Not bound to the ReactDOM, works well with most libraries and frameworks that use React as a UI runtime.
 - Well designed rule behaviors and sensible defaults.
 - Maximum flexibility through minimum configuration options.
 - No auto-fix, Formatting independent, treat your codebase like it's read-only.
@@ -126,19 +125,6 @@ module.exports = {
 
 [Rules Overview ↗](https://eslint-react.xyz/rules/overview)
 
-## Philosophy
-
-- **Do what a linter should do**
-- **Focus on code rather than style**
-- **Rules are better than options**
-
-## Rule introduction or modification principles
-
-1. **No Auto-fix**. Auto-fix is a great feature, but it's not always safe and reliable. We prefer to not to do auto-fix at all than to implement it in a way that can cause more problems than it solves.
-2. **Formatting independent**. Rules should check for correctness, not style. We recommend using style focused tools for formatting (e.g. [dprint](https://dprint.dev/)).
-3. **Sensible defaults**. Rules should be easy to setup and use with minimal configuration and sensible defaults.
-4. **Rules over options [[1]](https://eslint-react.xyz/docs/rules-over-options)**. Each rule should have a single purpose. Make multiple rules work together to achieve more complex behaviors instead of adding options to a single rule.
-
 ## Contributing
 
 Before you start working on something, it's best to check if there is an existing issue first. It's also a good idea to reach the maintainer and confirm if it makes sense or if someone else is already working on it.
@@ -153,11 +139,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Inspiration
 
-- [eslint-plugin-perfectionist](https://github.com/azat-io/eslint-plugin-perfectionist)
 - [eslint-plugin-solid](https://github.com/solidjs-community/eslint-plugin-solid)
 - [eslint-plugin-functional](https://github.com/eslint-functional/eslint-plugin-functional)
+- [eslint-plugin-perfectionist](https://github.com/azat-io/eslint-plugin-perfectionist)
 - [eslint-plugin-filenames-simple](https://github.com/epaew/eslint-plugin-filenames-simple)
-- [@tanstack/eslint-plugin-query](https://github.com/TanStack/query/tree/main/packages/eslint-plugin-query)
 - [rome/tools](https://github.com/rome/tools)
 - [rust-clippy](https://github.com/rust-lang/rust-clippy)
 

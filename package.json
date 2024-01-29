@@ -1,7 +1,7 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.5.0",
-  "description": "A platform for creating ESLint rules for not just for ReactDOM but also other libraries and frameworks that use React as a runtime.",
+  "version": "1.5.1-next.0",
+  "description": "Essential React Lints for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "eslint",
     "eslint-plugin",

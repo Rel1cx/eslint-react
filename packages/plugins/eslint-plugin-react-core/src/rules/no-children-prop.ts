@@ -10,34 +10,6 @@ export const RULE_NAME = "no-children-prop";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
-// No need to check because TypeScript does it for us
-// function isAttribute(
-//   prop: TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute,
-// ) {
-//   return (
-//     "value" in prop
-//     && prop.value
-//     && "expression" in prop.value
-//     && isFunction(prop.value.expression)
-//   );
-// }
-
-// No need to check because TypeScript does it for us
-// function isProperty(
-//   prop:
-//     | TSESTree.PropertyComputedName
-//     | TSESTree.PropertyNonComputedName
-//     | TSESTree.RestElement
-//     | TSESTree.SpreadElement,
-// ) {
-//   return (
-//     "value" in prop
-//     && prop.value
-//     && "type" in prop.value
-//     && isFunction(prop.value)
-//   );
-// }
-
 export default createRule<[], MessageID>({
   name: RULE_NAME,
   meta: {

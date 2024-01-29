@@ -1,3 +1,9 @@
+## v1.5.1-next.0 (Mon Jan 29 2024)
+
+### ✨ New
+
+- Add `off-dom` and `off-dom-legacy` presets to disable all DOM related rules.
+
 ## v1.5.0 (Mon Jan 29 2024)
 
 ### 💥 Breaking Changes
