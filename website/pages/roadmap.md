@@ -180,7 +180,7 @@
 - `eslint-plugin-react-core` (DOM Irrelevant, Render Target Agnostic, Formatting Independent)
 - `eslint-plugin-react-dom` (DOM Specific rules for ReactDOM).
 - `eslint-plugin-react-dom-a11y` (Accessibility rules for ReactDOM).
-- `eslint-plugin-react-web-api` (Web API rules for ReactDOM).
+- `eslint-plugin-react-web-api` (Web API rules for React).
 - `eslint-plugin-react-hooks` (The official one from React)
 - `eslint-plugin-react-hooks-extra` (Extra rules for `eslint-plugin-react-hooks`)
 - `eslint-plugin-react-naming-convention` (Optional, only naming convention rules, can be replaced with other plugins depending on the project)
