@@ -9,6 +9,7 @@
 - [Cond](README.md#cond)
 - [CreateRule](README.md#createrule)
 - [RuleCategory](README.md#rulecategory)
+- [RuleCategoryEmoji](README.md#rulecategoryemoji)
 - [RuleContext](README.md#rulecontext)
 - [RuleNamespace](README.md#rulenamespace)
 - [RuleOptions](README.md#ruleoptions)
@@ -43,7 +44,13 @@ ___
 
 ### RuleCategory
 
-Ƭ **RuleCategory**: ``"complexity"`` \| ``"correctness"`` \| ``"debug"`` \| ``"deprecated"`` \| ``"nursery"`` \| ``"pedantic"`` \| ``"perf"`` \| ``"restriction"`` \| ``"security"`` \| ``"style"`` \| ``"suspicious"`` \| ``"verbose"``
+Ƭ **RuleCategory**: ``"complexity"`` \| ``"convention"`` \| ``"correctness"`` \| ``"debug"`` \| ``"deprecated"`` \| ``"pedantic"`` \| ``"perf"`` \| ``"restriction"`` \| ``"security"`` \| ``"style"`` \| ``"suspicious"``
+
+___
+
+### RuleCategoryEmoji
+
+Ƭ **RuleCategoryEmoji**: ``"⛔"`` \| ``"✔️"`` \| ``"❌"`` \| ``"🎨"`` \| ``"🐞"`` \| ``"👀"`` \| ``"📖"`` \| ``"🔒"`` \| ``"🚀"`` \| ``"🤔"`` \| ``"🤯"``
 
 ___
 
