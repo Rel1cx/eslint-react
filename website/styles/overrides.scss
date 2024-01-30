@@ -36,15 +36,21 @@
 }
 
 table.nx-block {
-  // font-family: var(--font-family-mono);
-  font-size: 15px;
 
+  // font-family: var(--font-family-mono);
+  // font-size: 15px;
   tbody {
-    tr {
-      td {
-        code {
-          white-space: nowrap;
-        }
+    tr td code {
+      white-space: nowrap;
+    }
+  }
+}
+
+html.light {
+  table.nx-block {
+    tbody {
+      tr td code {
+        filter: brightness(0.75);
       }
     }
   }

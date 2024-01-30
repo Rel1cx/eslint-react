@@ -10,11 +10,11 @@ import { PUBLIC_URL } from "#/constants";
 export default {
   docsRepositoryBase: "https://github.com/rel1cx/eslint-react/tree/main/website",
   primaryHue: {
-    light: 225,
+    light: 200,
     dark: 200,
   },
   primarySaturation: {
-    light: 30,
+    light: 0,
     dark: 100,
   },
   sidebar: {

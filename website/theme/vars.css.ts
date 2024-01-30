@@ -42,11 +42,11 @@ export const vars = createGlobalTheme(":root", {
   },
   colors: {
     background: "#f1f2f2",
-    blue: "#00B8FF",
+    blue: "#0099E6",
     danger: "#FFE5E5",
     info: "#E8F4FD",
     overlay: "rgba(0, 0, 0, 0.15)",
-    primary: "#4B32C3",
+    primary: "#0099E6",
     secondary: "#F2F2F2",
     text: "#23272F",
     warn: "#FEF5E7",
