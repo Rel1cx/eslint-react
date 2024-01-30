@@ -1,8 +1,9 @@
-## v1.5.2-beta.1 (Thu Jan 30 2024)
+## v1.5.2-beta.1 (Wed Jan 31 2024)
 
 ### 🪄 Improvements
 
 - Update `effect` to `2.2.3`.
+- Remove needless deps from `peerDependencies`.
 
 ## v1.5.2-beta.0 (Thu Jan 30 2024)
 
