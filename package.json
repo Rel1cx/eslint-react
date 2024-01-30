@@ -81,7 +81,7 @@
     "eslint-plugin-functional": "6.0.0",
     "eslint-plugin-jsdoc": "48.0.4",
     "eslint-plugin-total-functions": "7.1.0",
-    "eslint-plugin-vitest": "0.3.20",
+    "eslint-plugin-vitest": "0.3.21",
     "fast-equals": "5.0.1",
     "husky": "9.0.7",
     "markdownlint": "0.33.0",
@@ -100,7 +100,6 @@
     "type-fest": "4.10.1",
     "typedoc": "0.25.7",
     "typedoc-plugin-markdown": "3.17.1",
-    "typedoc-plugin-mermaid": "1.10.0",
     "typedoc-plugin-rename-defaults": "0.7.0",
     "typescript": ">=5.4.0-beta",
     "vitest": "1.2.2"

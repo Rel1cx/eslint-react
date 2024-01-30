@@ -15,7 +15,6 @@
   ],
   "plugin": [
     "typedoc-plugin-markdown",
-    "typedoc-plugin-mermaid",
     "typedoc-plugin-rename-defaults"
   ],
   "theme": "default",
