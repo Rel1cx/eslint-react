@@ -68,30 +68,6 @@ module.exports = {
 };
 ```
 
-### Linting with type information
-
-> [!NOTE]\
-> Rules that require type information are not enabled by default.
->
-> To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
-
-```js
-module.exports = {
-  // ...
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
-  },
-  extends: ["plugin:@eslint-react/recommended-legacy"],
-  plugins: ["@eslint-react"],
-  rules: {
-    // ...
-    "no-leaked-conditional-rendering": "error", // <-- Requires type information
-  },
-  // ...
-};
-```
-
 [Full Installation Guide ↗](https://eslint-react.xyz/docs/installation)
 
 ## Presets

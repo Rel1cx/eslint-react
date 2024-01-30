@@ -61,7 +61,7 @@
   "peerDependencies": {
     "@typescript-eslint/parser": ">=6.20.0",
     "eslint": ">=8.56.0",
-    "typescript": ">=5.4.0-beta"
+    "typescript": ">=5.3.3"
   },
   "engines": {
     "bun": ">=1.0.15",
