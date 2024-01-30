@@ -6,7 +6,7 @@
 
 #### Core Rules
 
-| Rules                                                                              | Description                                                                                            |
+| Rule                                                                               | Description                                                                                            |
 | :--------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
 | [`ensure-forward-ref-using-ref`](ensure-forward-ref-using-ref)                     | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                        |
 | [`no-access-state-in-setstate`](no-access-state-in-setstate)                       | Prevents accessing `this.state` inside `setState` calls.                                               |
@@ -52,7 +52,7 @@
 
 #### DOM Rules
 
-| Rules                                                                                              | Description                                                                             |
+| Rule                                                                                               | Description                                                                             |
 | :------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------- |
 | [`dom/no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements)                     | Prevents the use of `children` in void `DOM elements`.                                  |
 | [`dom/no-dangerously-set-innerhtml`](dom-no-dangerously-set-innerhtml)                             | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 |
@@ -67,7 +67,7 @@
 
 #### Hooks Extra Rules
 
-| Rules                                                                                                      | Description                                                       |
+| Rule                                                                                                       | Description                                                       |
 | :--------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------- |
 | [`hooks-extra/ensure-custom-hooks-using-other-hooks`](hooks-extra-ensure-custom-hooks-using-other-hooks)   | Warns when custom Hooks that don't use other Hooks.               |
 | [`hooks-extra/ensure-use-callback-has-non-empty-deps`](hooks-extra-ensure-use-callback-has-non-empty-deps) | Warns when `useCallback` is called with empty dependencies array. |
@@ -76,7 +76,7 @@
 
 #### Naming Convention Rules
 
-| Rules                                                                          | Description                                                                                |
+| Rule                                                                           | Description                                                                                |
 | :----------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- |
 | [`naming-convention/component-name`](naming-convention-component-name)         | Enforces naming conventions for components.                                                |
 | [`naming-convention/filename`](naming-convention-filename)                     | Enforces naming convention for JSX files.                                                  |
@@ -96,7 +96,7 @@
 
 ### Rules in `eslint-plugin-react-core`
 
-| Rules                                    | Description                                                                                            |
+| Rule                                     | Description                                                                                            |
 | :--------------------------------------- | :----------------------------------------------------------------------------------------------------- |
 | `ensure-forward-ref-using-ref`           | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                        |
 | `no-access-state-in-setstate`            | Prevents accessing `this.state` inside `setState` calls.                                               |
@@ -142,7 +142,7 @@
 
 ### Rules in `eslint-plugin-react-dom`
 
-| Rules                                        | Description                                                                             |
+| Rule                                         | Description                                                                             |
 | :------------------------------------------- | :-------------------------------------------------------------------------------------- |
 | `no-children-in-void-dom-elements`           | Prevents the use of `children` in void `DOM elements`.                                  |
 | `no-dangerously-set-innerhtml`               | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 |
@@ -157,7 +157,7 @@
 
 ### Rules in `eslint-plugin-react-hooks-extra`
 
-| Rules                                    | Description                                                       |
+| Rule                                     | Description                                                       |
 | :--------------------------------------- | :---------------------------------------------------------------- |
 | `ensure-custom-hooks-using-other-hooks`  | Warns when custom Hooks that don't use other Hooks.               |
 | `ensure-use-callback-has-non-empty-deps` | Warns when `useCallback` is called with empty dependencies array. |
@@ -166,7 +166,7 @@
 
 ### Rules in `eslint-plugin-react-naming-convention`
 
-| Rules                | Description                                                                                |
+| Rule                 | Description                                                                                |
 | :------------------- | :----------------------------------------------------------------------------------------- |
 | `component-name`     | Enforces naming conventions for components.                                                |
 | `filename`           | Enforces naming convention for JSX files.                                                  |
@@ -188,7 +188,7 @@
 
 ### Rules in `eslint-plugin-react-dom-a11y` (port [open-wc's a11y rules](https://open-wc.org/docs/linting/eslint-plugin-lit-a11y/overview/#supported-rules))
 
-| Rules                                | Description                                                                                                                                                                                |
+| Rule                                 | Description                                                                                                                                                                                |
 | :----------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `alt-text`                           | Enforce that all elements that require alternative text have meaningful information to relay back to the end user.                                                                         |
 | `anchor-has-content`                 | Enforce that anchors have content and that the content is accessible to screen readers.                                                                                                    |

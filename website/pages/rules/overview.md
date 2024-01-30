@@ -18,7 +18,7 @@
 
 ## Core Rules
 
-| Rules                                                                              | Description                                                                                            |  💼  |  💭  |  ❌  |
+| Rule                                                                              | Description                                                                                            |  💼  |  💭  |  ❌  |
 | :--------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- | :--: | :--: | :--: |
 | [`ensure-forward-ref-using-ref`](ensure-forward-ref-using-ref)                     | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                        |  ✔️  |      |      |
 | [`no-access-state-in-setstate`](no-access-state-in-setstate)                       | Prevents accessing `this.state` inside `setState` calls.                                               |  ✔️  |      |      |
@@ -64,7 +64,7 @@
 
 ## DOM Rules
 
-| Rules                                                                                              | Description                                                                             |  💼  |  💭  |  ❌  |
+| Rule                                                                                              | Description                                                                             |  💼  |  💭  |  ❌  |
 | :------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------- | :--: | :--: | :--: |
 | [`dom/no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements)                     | Prevents the use of `children` in void `DOM elements`.                                  |  ✔️  |      |      |
 | [`dom/no-dangerously-set-innerhtml`](dom-no-dangerously-set-innerhtml)                             | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 |  🔒  |      |      |
@@ -79,7 +79,7 @@
 
 ## Hooks Extra Rules
 
-| Rules                                                                                                      | Description                                                       |  💼  |  💭  |  ❌  |
+| Rule                                                                                                      | Description                                                       |  💼  |  💭  |  ❌  |
 | :--------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------- | :--: | :--: | :--: |
 | [`hooks-extra/ensure-custom-hooks-using-other-hooks`](hooks-extra-ensure-custom-hooks-using-other-hooks)   | Warns when custom Hooks that don't use other Hooks.               |  ✔️  |      |      |
 | [`hooks-extra/ensure-use-callback-has-non-empty-deps`](hooks-extra-ensure-use-callback-has-non-empty-deps) | Warns when `useCallback` is called with empty dependencies array. |  🧐  |      |      |
@@ -88,7 +88,7 @@
 
 ## Naming Convention Rules
 
-| Rules                                                                          | Description                                                                                |  💼  |  💭  |  ❌  |
+| Rule                                                                          | Description                                                                                |  💼  |  💭  |  ❌  |
 | :----------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- | :--: | :--: | :--: |
 | [`naming-convention/component-name`](naming-convention-component-name)         | Enforces naming conventions for components.                                                |  📖  |      |      |
 | [`naming-convention/filename`](naming-convention-filename)                     | Enforces naming convention for JSX files.                                                  |  📖  |      |      |
