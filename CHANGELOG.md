@@ -1,3 +1,11 @@
+## v1.5.2 (Wed Jan 31 2024)
+
+### 🪄 Improvements
+
+- Remove needless deps from `peerDependencies`.
+- Update `@typescript-eslint`'s packages to `6.20.0`.
+- Update `effect` to `2.2.3`.
+
 ## v1.5.2-beta.2 (Wed Jan 31 2024)
 
 ### 🪄 Improvements

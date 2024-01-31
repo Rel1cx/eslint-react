@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.5.2-beta.2",
+  "version": "1.5.2",
   "description": "Essential React lints for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "eslint",
