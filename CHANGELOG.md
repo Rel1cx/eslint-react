@@ -1,4 +1,4 @@
-## v1.5.2-beta.1 (Wed Jan 31 2024)
+## v1.5.2-beta.2 (Wed Jan 31 2024)
 
 ### 🪄 Improvements
 
