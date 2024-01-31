@@ -13,10 +13,10 @@ const [
     const namespace = /^packages\/plugins\/eslint-plugin-react-([^/]+)/u.exec(doc)?.[1] ?? "";
     const basename = path.parse(path.basename(doc)).name;
     const isCoreRule = namespace === "core";
+    const name = isCoreRule ? basename : `${namespace}-${basename}`;
     const title = isCoreRule ? basename : `${namespace}/${basename}`;
-    const filename = isCoreRule ? basename : `${namespace}-${basename}`;
-    const dest = path.join("website", "pages", "rules", `${filename}.md`);
-    return [[...files, [doc, dest]], [...rules, [filename, title]]] as const;
+    const dest = path.join("website", "pages", "rules", `${name}.md`);
+    return [[...files, [doc, dest]], [...rules, [name, title]]] as const;
   },
   [[], []],
 );
