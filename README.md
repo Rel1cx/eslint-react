@@ -12,10 +12,10 @@ A series of essential ESLint plugins for libraries and frameworks that use React
 
 - [Milestone 1.5 ↗](https://eslint-react.xyz/roadmap#milestone-15)
 - [Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20)
+- [Milestone 2.5 ↗](https://eslint-react.xyz/roadmap#milestone-25-draft)
 
 ## Highlights
 
-- Not bound to the ReactDOM, works well with most libraries and frameworks that use React as a UI runtime.
 - Well designed rule behaviors and sensible defaults.
 - Maximum flexibility through minimum configuration options.
 - No auto-fix, Formatting independent, treat your codebase like it's read-only.
