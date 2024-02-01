@@ -23,14 +23,14 @@ const Button = React.memo(() => <div />);
 
 ```tsx {2}
 // Warning: Missing displayName
-const Button = React.forwardRef(() => <div />); // Error: Missing displayName
+const Button = React.forwardRef(() => <div />);
 ```
 
 (Not supported yet)
 
 ```tsx {2}
 // Warning: Missing displayName
-export default () => <div />; // Error: Missing displayName
+export default () => <div />;
 ```
 
 ### Passing

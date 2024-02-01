@@ -20,7 +20,7 @@ React uses keys to identify elements in an array. If two elements have the same 
 const TodoList = ({ todos }) => (
   <ul>
     {/* Error: Do not use duplicate key, The key prop should be unique for each item in the list. */}
-    {todos.map((todo) => <Todo {...todo} key="key" />)} // Error: Do not use duplicate key
+    {todos.map((todo) => <Todo {...todo} key="key" />)}
   </ul>
 );
 ```
