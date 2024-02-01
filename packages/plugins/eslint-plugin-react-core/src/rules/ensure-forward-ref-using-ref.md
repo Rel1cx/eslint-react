@@ -18,8 +18,9 @@ Omitting the `ref` argument is usually a bug, and components not using `ref` don
 
 ### Failing
 
-```tsx {1}
-const MyComponent = React.forwardRef((props) => { // Warning: Missing ref parameter
+```tsx {2}
+// Warning: Missing ref parameter
+const MyComponent = React.forwardRef((props) => {
   return <div />;
 });
 ```
