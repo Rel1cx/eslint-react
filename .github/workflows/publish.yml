@@ -8,6 +8,7 @@ on:
     paths-ignore:
       - '**/*.gitignore'
       - .editorconfig
+      - adrs/**
       - docs/**
       - examples/**
       - website/**

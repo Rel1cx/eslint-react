@@ -27,6 +27,7 @@
   ],
   "useGitignore": true,
   "words": [
+    "adrs",
     "bimap",
     "birecord",
     "clippy",
@@ -64,6 +65,7 @@
     "rizzzse",
     "setstate",
     "shiki",
+    "signoff",
     "sonarjs",
     "Sukka",
     "susisu",
