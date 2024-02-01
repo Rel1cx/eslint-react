@@ -11,7 +11,7 @@ const withVanillaExtract = createVanillaExtractPlugin();
 const withNextra = nextra({
   theme: "nextra-theme-docs",
   themeConfig: "./theme.config.tsx",
-  defaultShowCopyCode: true,
+  defaultShowCopyCode: false,
   newNextLinkBehavior: true,
   mdxOptions: {
     // rehypePlugins: [[rehypeRaw, { passThrough: nodeTypes }]],

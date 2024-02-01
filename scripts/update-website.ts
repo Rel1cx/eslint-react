@@ -15,7 +15,7 @@ const [
     const isCoreRule = namespace === "core";
     const name = isCoreRule ? basename : `${namespace}-${basename}`;
     const title = isCoreRule ? basename : `${namespace}/${basename}`;
-    const dest = path.join("website", "pages", "rules", `${name}.md`);
+    const dest = path.join("website", "pages", "rules", `${name}.mdx`);
     return [[...files, [doc, dest]], [...rules, [name, title]]] as const;
   },
   [[], []],
