@@ -6,7 +6,7 @@
 [![Size](https://img.shields.io/bundlephobia/minzip/@eslint-react/eslint-plugin?label=gzip&style=flat&colorA=000000&colorB=000000)](https://bundlephobia.com/package/@eslint-react/eslint-plugin)
 [![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
 
-A series of essential ESLint plugins for libraries and frameworks that use React as a UI runtime.
+A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.
 
 ## Roadmap
 
@@ -16,9 +16,9 @@ A series of essential ESLint plugins for libraries and frameworks that use React
 
 ## Features
 
-- **Universal** rules for libraries and frameworks that use React as a UI runtime.
-- **Well designed** rule behaviors and sensible defaults.
-- **Maximum flexibility** through minimum configuration options.
+- **Universal** plugins for libraries and frameworks that use React.
+- **Composable** rules that enable you to make presets for various kinds of projects.
+- **Extensible** cores that allow you use it to create your own rules (coming soon).
 
 ## Public packages
 
