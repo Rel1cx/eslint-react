@@ -73,7 +73,7 @@
 | [`dom/no-missing-button-type`](dom-no-missing-button-type)                                         | Enforces explicit `button` type `attribute` for `<button>` elements.                    |  ✔️  |      |      |
 | [`dom/no-missing-iframe-sandbox`](dom-no-missing-iframe-sandbox)                                   | Enforces explicit `sandbox` attribute for `iframe` elements.                            |  🔒  |      |      |
 | [`dom/no-namespace`](dom-no-namespace)                                                             | Enforces the absence of a `namespace` in React elements.                                |  ✔️  |      |      |
-| [`dom/no-script-url`](dom-no-script-url)                                                           | Prevents usage of `javascript:` URLs as the value of component props.                   |  👀  |      |      |
+| [`dom/no-script-url`](dom-no-script-url)                                                           | Prevents usage of `javascript:` URLs as the value of component props.                   |  🔒  |      |      |
 | [`dom/no-unsafe-iframe-sandbox`](dom-no-unsafe-iframe-sandbox)                                     | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   |  🔒  |      |      |
 | [`dom/no-unsafe-target-blank`](dom-no-unsafe-target-blank)                                         | Prevents the use of `target="_blank"` without `rel="noreferrer noopener"`.              |  🔒  |      |      |
 
