@@ -36,9 +36,6 @@
 }
 
 table.nx-block {
-
-  // font-family: var(--font-family-mono);
-  // font-size: 15px;
   tbody {
     tr td code {
       white-space: nowrap;
@@ -47,11 +44,9 @@ table.nx-block {
 }
 
 html.light {
-  table.nx-block {
-    tbody {
-      tr td code {
-        filter: brightness(0.75);
-      }
+  article {
+    a {
+      filter: brightness(0.75);
     }
   }
 }
