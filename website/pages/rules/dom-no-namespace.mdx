@@ -1,4 +1,4 @@
-# react-dom/no-namespace
+# no-namespace
 
 ## Rule category
 

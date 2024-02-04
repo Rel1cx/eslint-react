@@ -43,6 +43,22 @@ const nextConfig = {
     unoptimized: true,
   },
   output: "standalone",
+  rewrites() {
+    return [
+      {
+        source: "/rules/jsx-:name",
+        destination: "/rules/:name",
+      },
+      {
+        source: "/rules/react-:name",
+        destination: "/rules/:name",
+      },
+      {
+        source: "/rules/react-hooks-:name",
+        destination: "/rules/hooks-extra-:name",
+      },
+    ];
+  },
 };
 
 export default withVanillaExtract(withNextra(nextConfig));

@@ -1,4 +1,4 @@
-# react-dom/no-script-url
+# no-script-url
 
 ## Rule category
 

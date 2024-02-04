@@ -1,4 +1,4 @@
-# react-dom/no-children-in-void-dom-elements
+# no-children-in-void-dom-elements
 
 ## Rule category
 

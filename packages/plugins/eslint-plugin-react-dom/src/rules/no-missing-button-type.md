@@ -1,4 +1,4 @@
-# react-dom/no-missing-button-type
+# no-missing-button-type
 
 ## Rule category
 
