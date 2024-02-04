@@ -6,6 +6,8 @@ import nextra from "nextra";
 import codeImport from "remark-code-import";
 import remarkGFM from "remark-gfm";
 
+import { rewrites } from "#/migrations/1.0-1.5/rewrites";
+
 const withVanillaExtract = createVanillaExtractPlugin();
 
 const withNextra = nextra({
@@ -44,20 +46,7 @@ const nextConfig = {
   },
   output: "standalone",
   rewrites() {
-    return [
-      {
-        source: "/rules/jsx-:name",
-        destination: "/rules/:name",
-      },
-      {
-        source: "/rules/react-:name",
-        destination: "/rules/:name",
-      },
-      {
-        source: "/rules/react-hooks-:name",
-        destination: "/rules/hooks-extra-:name",
-      },
-    ];
+    return rewrites;
   },
 };
 
