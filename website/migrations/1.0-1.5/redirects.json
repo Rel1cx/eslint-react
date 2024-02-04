@@ -1,0 +1,32 @@
+[
+  {
+    "source": "/rules/jsx-:name",
+    "destination": "/rules/:name",
+    "permanent": true
+  },
+  {
+    "source": "/rules/react-:name",
+    "destination": "/rules/:name",
+    "permanent": true
+  },
+  {
+    "source": "/rules/react-hooks-:name",
+    "destination": "/rules/hooks-extra-:name",
+    "permanent": true
+  },
+  {
+    "source": "/rules/no-spreading-key",
+    "destination": "/rules/no-implicit-key",
+    "permanent": true
+  },
+  {
+    "source": "/rules/no-constructed-context-value",
+    "destination": "/rules/no-unstable-context-value",
+    "permanent": true
+  },
+  {
+    "source": "/rules/no-unstable-nested-components",
+    "destination": "/rules/no-nested-components",
+    "permanent": true
+  }
+]

@@ -6,7 +6,7 @@ import nextra from "nextra";
 import codeImport from "remark-code-import";
 import remarkGFM from "remark-gfm";
 
-import { rewrites } from "#/migrations/1.0-1.5/rewrites";
+import redirects from "./migrations/1.0-1.5/redirects.json" assert { type: "json" };
 
 const withVanillaExtract = createVanillaExtractPlugin();
 
@@ -45,8 +45,8 @@ const nextConfig = {
     unoptimized: true,
   },
   output: "standalone",
-  rewrites() {
-    return rewrites;
+  redirects() {
+    return redirects;
   },
 };
 
