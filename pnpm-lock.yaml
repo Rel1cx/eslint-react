@@ -3462,7 +3462,7 @@ packages:
     dependencies:
       '@eslint-community/regexpp': 4.10.0
       '@typescript-eslint/parser': 6.20.0(eslint@8.56.0)(typescript@5.3.3)
-      '@typescript-eslint/scope-manager': 6.20.0
+      '@typescript-eslint/scope-manager': 6.21.0
       '@typescript-eslint/type-utils': 6.20.0(eslint@8.56.0)(typescript@5.3.3)
       '@typescript-eslint/utils': 6.20.0(eslint@8.56.0)(typescript@5.3.3)
       '@typescript-eslint/visitor-keys': 6.20.0
@@ -3501,7 +3501,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/scope-manager': 6.20.0
+      '@typescript-eslint/scope-manager': 6.21.0
       '@typescript-eslint/types': 6.20.0
       '@typescript-eslint/typescript-estree': 6.20.0(typescript@5.3.3)
       '@typescript-eslint/visitor-keys': 6.20.0
@@ -3536,6 +3536,13 @@ packages:
     dependencies:
       '@typescript-eslint/types': 6.20.0
       '@typescript-eslint/visitor-keys': 6.20.0
+
+  /@typescript-eslint/scope-manager@6.21.0:
+    resolution: {integrity: sha512-OwLUIWZJry80O99zvqXVEioyniJMa+d2GrqpUTqi5/v5D5rOrppJVBPa0yKCblcigC0/aYAzxxqQ1B+DS2RYsg==}
+    engines: {node: ^16.0.0 || >=18.0.0}
+    dependencies:
+      '@typescript-eslint/types': 6.20.0
+      '@typescript-eslint/visitor-keys': 6.21.0
 
   /@typescript-eslint/type-utils@6.20.0(eslint@8.56.0)(typescript@5.3.3):
     resolution: {integrity: sha512-qnSobiJQb1F5JjN0YDRPHruQTrX7ICsmltXhkV536mp4idGAYrIyr47zF/JmkJtEcAVnIz4gUYJ7gOZa6SmN4g==}
@@ -3601,6 +3608,13 @@ packages:
 
   /@typescript-eslint/visitor-keys@6.20.0:
     resolution: {integrity: sha512-E8Cp98kRe4gKHjJD4NExXKz/zOJ1A2hhZc+IMVD6i7w4yjIvh6VyuRI0gRtxAsXtoC35uGMaQ9rjI2zJaXDEAw==}
+    engines: {node: ^16.0.0 || >=18.0.0}
+    dependencies:
+      '@typescript-eslint/types': 6.20.0
+      eslint-visitor-keys: 3.4.3
+
+  /@typescript-eslint/visitor-keys@6.21.0:
+    resolution: {integrity: sha512-JJtkDduxLi9bivAB+cYOVMtbkqdPOhZ+ZI5LC47MIRrDV4Yn2o+ZnW10Nkmr28xRpSpdJ6Sm42Hjf2+REYXm0A==}
     engines: {node: ^16.0.0 || >=18.0.0}
     dependencies:
       '@typescript-eslint/types': 6.20.0
