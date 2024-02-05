@@ -83,8 +83,8 @@ importers:
         specifier: 1.0.26
         version: 1.0.26
       bun-types:
-        specifier: 1.0.25
-        version: 1.0.25
+        specifier: 1.0.26
+        version: 1.0.26
       cspell:
         specifier: 8.3.2
         version: 8.3.2
@@ -4270,12 +4270,11 @@ packages:
       semver: 7.5.4
     dev: true
 
-  /bun-types@1.0.25:
-    resolution: {integrity: sha512-9lxeUR/OJsvlZH4GOWteiAdx7ikrSxCUX7Rr0JJux+DrR3LejouVLxIZnTeQ3UPAZovvSgKivWeHPJ2wlo7/Kg==}
+  /bun-types@1.0.26:
+    resolution: {integrity: sha512-VcSj+SCaWIcMb0uSGIAtr8P92zq9q+unavcQmx27fk6HulCthXHBVrdGuXxAZbFtv7bHVjizRzR2mk9r/U8Nkg==}
     dependencies:
       '@types/node': 20.11.16
       '@types/ws': 8.5.10
-      undici-types: 5.28.3
     dev: true
 
   /bun@1.0.26:
@@ -11800,10 +11799,6 @@ packages:
 
   /undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
-    dev: true
-
-  /undici-types@5.28.3:
-    resolution: {integrity: sha512-VJD0un4i6M1/lFOJPhacHdq6FadtlkdhKBed2W6yBqmrAr/W58oqENaOIX031stDVFwz9AemOLkIj/2AXAMLCg==}
     dev: true
 
   /unified-engine@11.2.0:
