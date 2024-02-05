@@ -1,6 +1,6 @@
 # Roadmap
 
-## Milestone 1.5
+## Milestone 1.5 (Completed)
 
 ### `@eslint-react/eslint-plugin`
 
