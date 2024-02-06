@@ -103,7 +103,7 @@ export default createRule<[], MessageID>({
         const keys = elements.reduce<[
           TSESTree.JSXElement,
           TSESTree.JSXAttribute,
-          TSESTree.JSXExpression | TSESTree.Literal,
+          TSESTree.JSXElement | TSESTree.JSXExpression | TSESTree.Literal,
         ][]>(
           (acc, element) => {
             const attr = element.openingElement.attributes
