@@ -140,9 +140,9 @@ ___
 
 ### parseSchema
 
-▸ **parseSchema**\<`TSchema`\>(`schema`, `input`, `info?`): `Output`\<`TSchema`\>
+▸ **parseSchema**\<`TSchema`\>(`schema`, `input`, `config?`): `Output`\<`TSchema`\>
 
-Parses unknown input based on a schema.
+Parses an unknown input based on a schema.
 
 #### Type parameters
 
@@ -156,7 +156,7 @@ Parses unknown input based on a schema.
 | :------ | :------ | :------ |
 | `schema` | `TSchema` | The schema to be used. |
 | `input` | `unknown` | The input to be parsed. |
-| `info?` | `Pick`\<`Partial`\<`Pick`\<`Issue`, ``"origin"`` \| ``"abortEarly"`` \| ``"abortPipeEarly"`` \| ``"skipPipe"``\>\>, ``"abortEarly"`` \| ``"abortPipeEarly"`` \| ``"skipPipe"``\> | The optional parse info. |
+| `config?` | `SchemaConfig` | The parse configuration. |
 
 #### Returns
 
@@ -168,9 +168,9 @@ ___
 
 ### safeParseSchema
 
-▸ **safeParseSchema**\<`TSchema`\>(`schema`, `input`, `info?`): `SafeParseResult`\<`TSchema`\>
+▸ **safeParseSchema**\<`TSchema`\>(`schema`, `input`, `config?`): `SafeParseResult`\<`TSchema`\>
 
-Parses unknown input based on a schema.
+Parses an unknown input based on a schema.
 
 #### Type parameters
 
@@ -184,7 +184,7 @@ Parses unknown input based on a schema.
 | :------ | :------ | :------ |
 | `schema` | `TSchema` | The schema to be used. |
 | `input` | `unknown` | The input to be parsed. |
-| `info?` | `Pick`\<`Partial`\<`Pick`\<`Issue`, ``"origin"`` \| ``"abortEarly"`` \| ``"abortPipeEarly"`` \| ``"skipPipe"``\>\>, ``"abortEarly"`` \| ``"abortPipeEarly"`` \| ``"skipPipe"``\> | The optional parse info. |
+| `config?` | `SchemaConfig` | The parse configuration. |
 
 #### Returns
 
