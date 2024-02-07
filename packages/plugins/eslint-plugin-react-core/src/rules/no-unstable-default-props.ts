@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
     schema: [],
     messages: {
       NO_UNSTABLE_DEFAULT_PROPS:
-        "found a/an {{forbiddenType}} as default prop. This could lead to potential infinite render loop in React. Use a variable instead of {{forbiddenType}}.",
+        "found a/an '{{forbiddenType}}' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of '{{forbiddenType}}'.",
     },
   },
   defaultOptions: [],

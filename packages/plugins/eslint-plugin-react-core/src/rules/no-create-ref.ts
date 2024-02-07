@@ -16,13 +16,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow `createRef` in function components",
+      description: "disallow 'createRef' in function components",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_CREATE_REF: "Do not use `createRef.` Use the `useRef` hook instead.",
+      NO_CREATE_REF: "Do not use 'createRef.' Use the 'useRef' hook instead.",
     },
   },
   defaultOptions: [],

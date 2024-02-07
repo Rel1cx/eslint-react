@@ -15,14 +15,14 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow `findDOMNode`",
+      description: "disallow 'findDOMNode'",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
       NO_FIND_DOM_NODE:
-        "The `findDOMNode` API will be removed in a future major version of React. Use the the alternatives instead.",
+        "The 'findDOMNode' API will be removed in a future major version of React. Use the the alternatives instead.",
     },
   },
   defaultOptions: [],

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/quotes */
 import { NodeType } from "@eslint-react/ast";
 import { findPropInAttributes, getPropValue } from "@eslint-react/jsx";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -23,14 +24,14 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: 'disallow `target="_blank"` on an external link without `rel="noreferrer noopener"`',
+      description: `disallow 'target="_blank"' on an external link without 'rel="noreferrer noopener"'`,
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
       NO_UNSAFE_TARGET_BLANK:
-        'Using `target="_blank"` on an external link without `rel="noreferrer noopener"` is a security risk.',
+        `Using 'target="_blank"' on an external link without 'rel="noreferrer noopener"' is a security risk.`,
     },
   },
   defaultOptions: [],

@@ -21,13 +21,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow usage of `componentWillUpdate`",
+      description: "disallow usage of 'componentWillUpdate'",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_COMPONENT_WILL_UPDATE: "Do not use `componentWillUpdate`.",
+      NO_COMPONENT_WILL_UPDATE: "Do not use 'componentWillUpdate'. It has been deprecated.",
     },
   },
   defaultOptions: [],

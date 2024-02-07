@@ -71,7 +71,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_UNUSED_STATE: 'Unused state of class component "{{className}}".',
+      NO_UNUSED_STATE: "Unused state of class component '{{className}}'.",
     },
   },
   defaultOptions: [],

@@ -20,13 +20,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow `javascript:` URLs as JSX event handler prop's value",
+      description: "disallow 'javascript:' URLs as JSX event handler prop's value",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_SCRIPT_URL: "Don't use `javascript:` URLs as JSX event handler prop's value.",
+      NO_SCRIPT_URL: "Using 'javascript:' URLs as event handler prop's value is not allowed.",
     },
   },
   defaultOptions: [],

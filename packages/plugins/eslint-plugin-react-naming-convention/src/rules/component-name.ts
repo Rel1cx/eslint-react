@@ -64,7 +64,7 @@ export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce component naming convention to `PascalCase` or `CONSTANT_CASE`",
+      description: "enforce component naming convention to 'PascalCase' or 'CONSTANT_CASE'",
       recommended: "recommended",
       requiresTypeChecking: false,
     },

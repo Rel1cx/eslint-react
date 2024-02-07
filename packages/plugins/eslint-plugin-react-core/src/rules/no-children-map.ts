@@ -14,13 +14,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow `Children.map`",
+      description: "disallow 'Children.map'",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_CHILDREN_MAP: "Using `Children` is uncommon and can lead to fragile code. Use alternatives instead.",
+      NO_CHILDREN_MAP: "Using 'Children' APIs is uncommon and can lead to fragile code. Use alternatives instead.",
     },
   },
   defaultOptions: [],

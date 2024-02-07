@@ -16,13 +16,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow spreading `key` from objects.",
+      description: "disallow spreading 'key' from objects.",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_IMPLICIT_KEY: "Do not spread `key` from objects.",
+      NO_IMPLICIT_KEY: "Do not spread 'key' from objects.",
     },
   },
   defaultOptions: [],

@@ -17,13 +17,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow when a DOM element is using `dangerouslySetInnerHTML`",
+      description: "disallow when a DOM component is using 'dangerouslySetInnerHTML'",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_DANGEROUSLY_SET_INNERHTML: "Using `dangerouslySetInnerHTML` may have security implications.",
+      NO_DANGEROUSLY_SET_INNERHTML: "Using 'dangerouslySetInnerHTML' may have security implications.",
     },
   },
   defaultOptions: [],

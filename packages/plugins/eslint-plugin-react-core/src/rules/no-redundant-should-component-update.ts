@@ -22,14 +22,14 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow usage of `shouldComponentUpdate` in class component extends `React.PureComponent`",
+      description: "disallow usage of 'shouldComponentUpdate' in class component extends 'React.PureComponent'",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
       NO_REDUNDANT_SHOULD_COMPONENT_UPDATE:
-        "{{componentName}} does not need `shouldComponentUpdate` when extending `React.PureComponent`.",
+        "'{{componentName}}' does not need 'shouldComponentUpdate' when extending 'React.PureComponent'.",
     },
   },
   defaultOptions: [],

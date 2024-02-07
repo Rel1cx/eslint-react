@@ -53,13 +53,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow direct mutation of `state`",
+      description: "disallow direct mutation of state",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_DIRECT_MUTATION_STATE: "Do not mutate `state` directly. Use `setState` instead.",
+      NO_DIRECT_MUTATION_STATE: "Do not mutate state directly. Use 'setState' instead.",
     },
   },
   defaultOptions: [],

@@ -19,12 +19,12 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce `useCallback` has non-empty dependencies array",
+      description: "enforce 'useCallback' has non-empty dependencies array",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS: "`useCallback` should have a non-empty dependencies array",
+      ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS: "useCallback should have a non-empty dependencies array",
     },
   },
   defaultOptions: [],

@@ -22,13 +22,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow function calls in `useState` that aren't wrapped in an initializer function",
+      description: "disallow function calls in 'useState' that aren't wrapped in an initializer function",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
       PREFER_USE_STATE_LAZY_INITIALIZATION:
-        "To prevent re-computation, consider using lazy initial state for useState calls that involve function calls. Ex: `useState(() => getValue())`",
+        "To prevent re-computation, consider using lazy initial state for useState calls that involve function calls. Ex: 'useState(() => getValue())'",
     },
   },
   defaultOptions: [],

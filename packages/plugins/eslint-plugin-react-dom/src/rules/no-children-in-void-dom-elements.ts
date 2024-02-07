@@ -34,13 +34,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow passing `children` to void DOM elements",
+      description: "disallow passing 'children' to void DOM elements",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_CHILDREN_IN_VOID_DOM_ELEMENTS: "Void DOM elements <{{element}} /> cannot have children.",
+      NO_CHILDREN_IN_VOID_DOM_ELEMENTS: "Void DOM elements '<{{element}} />' cannot have children.",
     },
   },
   defaultOptions: [],

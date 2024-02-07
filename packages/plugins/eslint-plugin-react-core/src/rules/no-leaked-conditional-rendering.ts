@@ -185,7 +185,7 @@ export default createRule<[], MessageID>({
     schema: [],
     messages: {
       NEEDS_TYPE_CHECKING_SERVICE:
-        "Type checking is required for this rule. Please add a `project` to your parser options. See https://typescript-eslint.io/docs/linting/type-linting",
+        "Type checking is required for this rule. Please add a 'project' to your parser options. See https://typescript-eslint.io/docs/linting/type-linting",
       NO_LEAKED_CONDITIONAL_RENDERING:
         "Potential leaked value that might cause unintentionally rendered values or rendering crashes",
     },

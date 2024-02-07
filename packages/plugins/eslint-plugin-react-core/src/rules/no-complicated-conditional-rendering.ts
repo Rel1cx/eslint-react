@@ -21,7 +21,8 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_COMPLICATED_CONDITIONAL_RENDERING: "Avoid complicated conditional rendering.",
+      NO_COMPLICATED_CONDITIONAL_RENDERING:
+        "Avoid complicated conditional rendering. Extract the logic into separate elements or components.",
     },
   },
   defaultOptions: [],

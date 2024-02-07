@@ -26,13 +26,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce destructuring and symmetric naming of `useState` hook value and setter variables",
+      description: "enforce destructuring and symmetric naming of 'useState' hook value and setter variables",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      USE_STATE: "`useState` call is not destructured into value + setter pair.",
+      USE_STATE: "'useState' call is not destructured into value + setter pair.",
     },
   },
   defaultOptions: [],

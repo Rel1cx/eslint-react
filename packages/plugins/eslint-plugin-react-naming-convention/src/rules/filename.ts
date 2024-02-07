@@ -77,9 +77,9 @@ export default createRule<Options, MessageID>({
     },
     schema,
     messages: {
-      FILENAME_CASE_MISMATCH: "File name `{{name}}` does not match `{{rule}}`",
+      FILENAME_CASE_MISMATCH: "File name '{{name}}' does not match {{rule}}",
       FILENAME_CASE_MISMATCH_SUGGESTION:
-        "File name `{{name}}` does not match `{{rule}}`. Should rename to `{{suggestion}}`.",
+        "File name '{{name}}' does not match {{rule}}. Should rename to '{{suggestion}}'.",
       FILENAME_EMPTY: "File name is empty",
     },
   },

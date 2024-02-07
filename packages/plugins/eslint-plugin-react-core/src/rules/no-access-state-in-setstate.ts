@@ -55,13 +55,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow accessing `this.state` within `setState`",
+      description: "disallow accessing 'this.state' within 'setState'",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_ACCESS_STATE_IN_SETSTATE: "Do not access `this.state` within `setState`",
+      NO_ACCESS_STATE_IN_SETSTATE: "Do not access 'this.state' within 'setState'",
     },
   },
   defaultOptions: [],

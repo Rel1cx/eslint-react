@@ -18,12 +18,12 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce `useMemo` has non-empty dependencies array",
+      description: "enforce 'useMemo' has non-empty dependencies array",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS: "`useMemo` should have a non-empty dependencies array",
+      ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS: "useMemo should have a non-empty dependencies array",
     },
   },
   defaultOptions: [],

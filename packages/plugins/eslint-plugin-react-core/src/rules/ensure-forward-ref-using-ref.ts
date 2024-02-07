@@ -15,13 +15,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "require all `forwardRef` components include a `ref` parameter",
+      description: "require all 'forwardRef' components include a 'ref' parameter",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      ENSURE_FORWARD_REF_USING_REF: "`forwardRef` is used with this component but no `ref` parameter is set",
+      ENSURE_FORWARD_REF_USING_REF: "'forwardRef' is used with this component but no 'ref' parameter is set",
     },
   },
   defaultOptions: [],

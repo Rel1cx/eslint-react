@@ -18,13 +18,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce that `button` elements have an explicit `type` attribute",
+      description: "enforce that button component have an explicit 'type' attribute",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_MISSING_BUTTON_TYPE: "Missing explicit type attribute for button",
+      NO_MISSING_BUTTON_TYPE: "Missing 'type' attribute on button component.",
     },
   },
   defaultOptions: [],

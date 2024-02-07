@@ -21,13 +21,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow unsafe `iframe` `sandbox` attribute combinations",
+      description: "disallow unsafe iframe 'sandbox' attribute combinations",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_UNSAFE_IFRAME_SANDBOX: "Unsafe iframe sandbox attribute combination",
+      NO_UNSAFE_IFRAME_SANDBOX: "Unsafe 'sandbox' attribute value on 'iframe' component.",
     },
   },
   defaultOptions: [],

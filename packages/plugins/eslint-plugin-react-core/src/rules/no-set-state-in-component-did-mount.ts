@@ -33,13 +33,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow `setState` in `componentDidMount`",
+      description: "disallow 'setState' in 'componentDidMount'",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_SET_STATE_IN_COMPONENT_DID_MOUNT: "Do not use `setState` in `componentDidMount`.",
+      NO_SET_STATE_IN_COMPONENT_DID_MOUNT: "Do not use 'setState' in 'componentDidMount'.",
     },
   },
   defaultOptions: [],

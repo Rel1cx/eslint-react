@@ -14,13 +14,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow `Children.forEach`",
+      description: "disallow 'Children.forEach'",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_CHILDREN_FOR_EACH: "Using `Children` is uncommon and can lead to fragile code. Use alternatives instead.",
+      NO_CHILDREN_FOR_EACH: "Using 'Children' APIs is uncommon and can lead to fragile code. Use alternatives instead.",
     },
   },
   defaultOptions: [],

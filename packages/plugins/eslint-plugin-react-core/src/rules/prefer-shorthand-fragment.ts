@@ -13,13 +13,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce using fragment syntax instead of `Fragment` component",
+      description: "enforce using fragment syntax instead of Fragment component",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      PREFER_SHORTHAND_FRAGMENT: "Use fragment syntax instead of `{{reactPragma}}.{{fragmentPragma}}`.",
+      PREFER_SHORTHAND_FRAGMENT: "Use fragment syntax instead of '{{reactPragma}}.{{fragmentPragma}}'.",
     },
   },
   defaultOptions: [],

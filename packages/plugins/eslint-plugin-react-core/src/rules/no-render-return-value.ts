@@ -21,13 +21,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow usage of the return value of `ReactDOM.render`",
+      description: "disallow usage of the return value of 'ReactDOM.render'",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_RENDER_RETURN_VALUE: "Do not depend on the return value from {{objectName}}.render",
+      NO_RENDER_RETURN_VALUE: "Do not depend on the return value from '{{objectName}}.render'",
     },
   },
   defaultOptions: [],

@@ -19,15 +19,15 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "require `key` prop when rendering list",
+      description: "require 'key' prop when rendering list",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_MISSING_KEY: "Missing `key` prop for element when rendering list",
+      NO_MISSING_KEY: "Missing 'key' prop for element when rendering list",
       NO_MISSING_KEY_WITH_FRAGMENT:
-        "Missing `key` prop for element when rendering list. Use `{{reactPragma}}.{{fragmentPragma}}` component instead of `<>` because it does not support key prop",
+        "Use '{{reactPragma}}.{{fragmentPragma}}' component instead of '<>' because it does not support key prop",
     },
   },
   defaultOptions: [],

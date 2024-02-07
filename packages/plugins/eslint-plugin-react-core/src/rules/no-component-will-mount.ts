@@ -21,13 +21,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow usage of `componentWillMount`",
+      description: "disallow usage of 'componentWillMount'",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_COMPONENT_WILL_MOUNT: "Do not use `componentWillMount`.",
+      NO_COMPONENT_WILL_MOUNT: "Do not use 'componentWillMount'. It has been deprecated.",
     },
   },
   defaultOptions: [],

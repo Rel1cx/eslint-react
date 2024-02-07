@@ -14,11 +14,11 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow `class component`",
+      description: "disallow class component",
     },
     schema: [],
     messages: {
-      NO_CLASS_COMPONENT: "[class component] name: {{name}}",
+      NO_CLASS_COMPONENT: "Do not use class components. Use function components instead.",
     },
   },
   defaultOptions: [],

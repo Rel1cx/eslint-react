@@ -2,6 +2,7 @@
 
 ### 🪄 Improvements
 
+- Improve diagnostic messages.
 - Remove needless deps from `peerDependencies`.
 - Update `@typescript-eslint`'s packages to `6.21.0`.
 
