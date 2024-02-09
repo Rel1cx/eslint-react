@@ -15,7 +15,7 @@
   "devDependencies": {
     "@eslint-react/eslint-plugin": "workspace:*",
     "@tsconfig/node20": "20.1.2",
-    "@tsconfig/strictest": "2.0.2",
+    "@tsconfig/strictest": "2.0.3",
     "@types/react": "18.2.55",
     "@types/react-dom": "18.2.19",
     "@typescript-eslint/eslint-plugin": ">=6.21.0",

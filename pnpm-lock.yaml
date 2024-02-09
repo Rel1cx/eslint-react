@@ -62,8 +62,8 @@ importers:
         specifier: 20.1.2
         version: 20.1.2
       '@tsconfig/strictest':
-        specifier: 2.0.2
-        version: 2.0.2
+        specifier: 2.0.3
+        version: 2.0.3
       '@types/node':
         specifier: 20.11.17
         version: 20.11.17
@@ -201,8 +201,8 @@ importers:
         specifier: 20.1.2
         version: 20.1.2
       '@tsconfig/strictest':
-        specifier: 2.0.2
-        version: 2.0.2
+        specifier: 2.0.3
+        version: 2.0.3
       '@types/react':
         specifier: 18.2.55
         version: 18.2.55
@@ -250,8 +250,8 @@ importers:
         specifier: 20.1.2
         version: 20.1.2
       '@tsconfig/strictest':
-        specifier: 2.0.2
-        version: 2.0.2
+        specifier: 2.0.3
+        version: 2.0.3
       '@types/react':
         specifier: 18.2.55
         version: 18.2.55
@@ -3225,6 +3225,10 @@ packages:
 
   /@tsconfig/strictest@2.0.2:
     resolution: {integrity: sha512-jt4jIsWKvUvuY6adJnQJlb/UR7DdjC8CjHI/OaSQruj2yX9/K6+KOvDt/vD6udqos/FUk5Op66CvYT7TBLYO5Q==}
+    dev: true
+
+  /@tsconfig/strictest@2.0.3:
+    resolution: {integrity: sha512-MroLvRhMbqtXI5WBSwoomro6OQS4xnCoudUrMb20JO0vLKUs0bAaCEcvM/immEBSJjFAK1l6jW1oAO8q3Ancrg==}
     dev: true
 
   /@tufjs/canonical-json@2.0.0:
