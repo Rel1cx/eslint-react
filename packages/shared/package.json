@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/shared",
-  "version": "1.5.3",
+  "version": "1.5.4-next.0",
   "description": "ESLint React's Shared constants and functions.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -35,7 +35,7 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "rollup -c rollup.config.ts --configPlugin swc3 && cp dist/index.d.ts dist/index.d.mts",
+    "build": "tsup",
     "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:type": "tsc --noEmit",
