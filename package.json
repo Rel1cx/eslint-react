@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.5.4-next.2",
+  "version": "1.5.4-next.3",
   "private": true,
   "description": "A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -60,9 +60,9 @@
     "@tsconfig/node20": "20.1.2",
     "@tsconfig/strictest": "2.0.3",
     "@types/node": "20.11.17",
-    "@typescript-eslint/eslint-plugin": ">=7.0.0",
-    "@typescript-eslint/parser": ">=7.0.0",
-    "@typescript-eslint/rule-tester": ">=7.0.0",
+    "@typescript-eslint/eslint-plugin": ">=7.0.1",
+    "@typescript-eslint/parser": ">=7.0.1",
+    "@typescript-eslint/rule-tester": ">=7.0.1",
     "@vitest/ui": "1.2.2",
     "bun": "1.0.26",
     "bun-types": "1.0.26",
@@ -104,19 +104,6 @@
   },
   "pnpm": {
     "overrides": {
-      "@typescript-eslint/parser": ">=7.0.0",
-      "@typescript-eslint/scope-manager": ">=7.0.0",
-      "@typescript-eslint/type-utils": ">=7.0.0",
-      "@typescript-eslint/types": ">=7.0.0",
-      "@typescript-eslint/utils": ">=7.0.0",
-      "@typescript-eslint/eslint-plugin": ">=7.0.0",
-      "eslint": ">=8.56.0",
-      "effect": "2.3.3",
-      "next": "14.1.0",
-      "react": "18.2.0",
-      "react-dom": "18.2.0",
-      "esbuild": "0.19.10",
-      "lodash.set": "4.3.2",
       "array-includes": "npm:@nolyfill/array-includes@latest",
       "array.prototype.findlastindex": "npm:@nolyfill/array.prototype.findlastindex@latest",
       "array.prototype.flat": "npm:@nolyfill/array.prototype.flat@latest",
@@ -133,7 +120,20 @@
       "object.hasown": "npm:@nolyfill/object.hasown@latest",
       "object.values": "npm:@nolyfill/object.values@latest",
       "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@latest",
-      "typedarray": "npm:@nolyfill/typedarray@latest"
+      "typedarray": "npm:@nolyfill/typedarray@latest",
+      "@typescript-eslint/eslint-plugin": ">=7.0.1",
+      "@typescript-eslint/parser": ">=7.0.1",
+      "@typescript-eslint/scope-manager": ">=7.0.1",
+      "@typescript-eslint/type-utils": ">=7.0.1",
+      "@typescript-eslint/types": ">=7.0.1",
+      "@typescript-eslint/utils": ">=7.0.1",
+      "effect": "2.3.3",
+      "esbuild": "0.19.10",
+      "eslint": ">=8.56.0",
+      "lodash.set": "4.3.2",
+      "next": "14.1.0",
+      "react": "18.2.0",
+      "react-dom": "18.2.0"
     }
   }
 }
