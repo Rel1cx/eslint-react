@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       CallExpression(node) {
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        const initialScope = context.sourceCode.getScope(node);
         if (!isCreateElementCall(node, context)) return;
         const [name, props] = node.arguments;
         if (!isMatching({ type: NodeType.Literal, value: "button" }, name)) return;
@@ -69,7 +69,7 @@ export default createRule<[], MessageID>({
         const { name } = node.openingElement;
         if (name.type !== NodeType.JSXIdentifier || name.name !== "button") return;
         const { attributes } = node.openingElement;
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        const initialScope = context.sourceCode.getScope(node);
         const maybeTypeAttribute = findPropInAttributes(attributes, context, initialScope)("type");
         if (O.isNone(maybeTypeAttribute)) {
           context.report({

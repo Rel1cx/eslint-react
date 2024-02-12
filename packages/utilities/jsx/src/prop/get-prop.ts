@@ -40,7 +40,7 @@ export function getPropValue(
   attribute: TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute,
   context: RuleContext,
 ) {
-  const initialScope = context.sourceCode.getScope?.(attribute) ?? context.getScope();
+  const initialScope = context.sourceCode.getScope(attribute);
   if (attribute.type === NodeType.JSXAttribute && "value" in attribute) {
     const { value } = attribute;
     if (value === null) return O.none();

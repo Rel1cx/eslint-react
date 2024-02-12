@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXElement(node) {
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        const initialScope = context.sourceCode.getScope(node);
         O.map(getProp(node.openingElement.attributes, "children", context, initialScope), prop => {
           context.report({
             messageId: "NO_CHILDREN_PROP",
@@ -38,7 +38,7 @@ export default createRule<[], MessageID>({
       },
       CallExpression(node) {
         if (node.arguments.length === 0) return;
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        const initialScope = context.sourceCode.getScope(node);
         if (!isCreateElementCall(node, context)) return;
         const [_, props] = node.arguments;
         if (!props || props.type !== NodeType.ObjectExpression) return;

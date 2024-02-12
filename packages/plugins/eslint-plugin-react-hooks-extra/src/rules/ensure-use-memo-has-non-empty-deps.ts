@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
 
     return {
       CallExpression(node) {
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        const initialScope = context.sourceCode.getScope(node);
         if (!isReactHookCall(node)) return;
         if (!isUseMemoCall(node, context, pragma) && !alias.some(F.flip(isReactHookCallWithNameLoose)(node))) return;
         const [_, deps] = node.arguments;

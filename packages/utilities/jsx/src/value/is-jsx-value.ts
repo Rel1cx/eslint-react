@@ -112,7 +112,7 @@ export function isJSXValue(
       const { name } = node;
       if (name === "undefined") return !(hint & JSXValueHint.SkipUndefinedLiteral);
       if (isJSXTagNameExpression(node)) return true;
-      const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+      const initialScope = context.sourceCode.getScope(node);
       const maybeVariable = findVariable(name, initialScope);
 
       return F.pipe(

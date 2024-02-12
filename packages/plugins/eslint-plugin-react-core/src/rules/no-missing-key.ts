@@ -37,7 +37,7 @@ export default createRule<[], MessageID>({
     const childrenToArraySelector = getChildrenToArraySelector(reactPragma);
     const isWithinChildrenToArrayRef = MutRef.make(false);
     function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
-      const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+      const initialScope = context.sourceCode.getScope(node);
 
       if (node.type === NodeType.JSXElement && !hasProp(node.openingElement.attributes, "key", context, initialScope)) {
         return O.some({
@@ -99,7 +99,7 @@ export default createRule<[], MessageID>({
         if (MutRef.get(isWithinChildrenToArrayRef)) return;
         const elements = node.elements.filter(is(NodeType.JSXElement));
         if (elements.length === 0) return;
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        const initialScope = context.sourceCode.getScope(node);
         for (const element of elements) {
           if (!hasProp(element.openingElement.attributes, "key", context, initialScope)) {
             context.report({

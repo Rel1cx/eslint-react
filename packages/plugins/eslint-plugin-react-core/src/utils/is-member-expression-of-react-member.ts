@@ -10,7 +10,7 @@ export function isMemberExpressionOfPragmaMember(
   return (node: TSESTree.MemberExpression, context: RuleContext, pragma = getPragmaFromContext(context)) => {
     if (node.property.type !== NodeType.Identifier || node.property.name !== memberName) return false;
     if (node.object.type === NodeType.Identifier && node.object.name === pragmaMemberName) {
-      const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+      const initialScope = context.sourceCode.getScope(node);
 
       return isInitializedFromPragma(node.object.name, context, initialScope, pragma);
     }

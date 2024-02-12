@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const { attributes } = node.openingElement;
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        const initialScope = context.sourceCode.getScope(node);
         const hasTargetBlank = F.pipe(
           findPropInAttributes(attributes, context, initialScope)("target"),
           O.flatMap(attr => getPropValue(attr, context)),

@@ -34,7 +34,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       CallExpression(node) {
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        const initialScope = context.sourceCode.getScope(node);
         if (!isCreateElementCall(node, context)) return;
         const [name, props] = node.arguments;
         if (!isMatching({ type: NodeType.Literal, value: "iframe" }, name)) return;
@@ -68,7 +68,7 @@ export default createRule<[], MessageID>({
         const { name } = node.openingElement;
         if (name.type !== NodeType.JSXIdentifier || name.name !== "iframe") return;
         const { attributes } = node.openingElement;
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        const initialScope = context.sourceCode.getScope(node);
         const maybeSandboxAttribute = findPropInAttributes(attributes, context, initialScope)("sandbox");
         if (O.isNone(maybeSandboxAttribute)) return;
         const isSafeSandboxValue = !F.pipe(

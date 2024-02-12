@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
   create(context) {
     function check(node: TSESTree.JSXOpeningElement): O.Option<ReportDescriptor<MessageID>> {
-      const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+      const initialScope = context.sourceCode.getScope(node);
 
       return F.pipe(
         findPropInAttributes(node.attributes, context, initialScope)("key"),

@@ -72,7 +72,7 @@ export default createRule<[], MessageID>({
         const parentClass = maybeParentClass.value;
         if (!isClassComponent(parentClass, context)) return;
         const maybeParentConstructor = traverseUpGuard(node, isConstructorFunction);
-        if (O.exists(maybeParentConstructor, n => context.sourceCode.getScope?.(node).block === n)) return;
+        if (O.exists(maybeParentConstructor, n => context.sourceCode.getScope(node).block === n)) return;
         context.report({
           node,
           messageId: "NO_DIRECT_MUTATION_STATE",

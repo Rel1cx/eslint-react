@@ -31,7 +31,7 @@ export function isReactHookCall(node: TSESTree.CallExpression) {
 
 export function isReactHookCallWithName(name: string) {
   return (node: TSESTree.CallExpression, context: RuleContext, pragma: string) => {
-    const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+    const initialScope = context.sourceCode.getScope(node);
 
     return match(node.callee)
       .with({ type: NodeType.Identifier, name }, n => isInitializedFromPragma(n.name, context, initialScope, pragma))

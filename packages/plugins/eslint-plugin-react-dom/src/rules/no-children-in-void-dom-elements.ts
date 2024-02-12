@@ -53,7 +53,7 @@ export default createRule<[], MessageID>({
         ) {
           return;
         }
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        const initialScope = context.sourceCode.getScope(node);
         if (!isCreateElementCall(node, context)) return;
         const args = node.arguments;
         // React.createElement() with only one argument is valid (definitely no children)
@@ -104,7 +104,7 @@ export default createRule<[], MessageID>({
             });
           }
           const { attributes } = node.openingElement;
-          const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+          const initialScope = context.sourceCode.getScope(node);
           const findAttr = findPropInAttributes(attributes, context, initialScope);
           const hasChildrenOrDangerAttr = O.isSome(findAttr("children"))
             || O.isSome(findAttr("dangerouslySetInnerHTML"));

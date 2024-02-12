@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       CallExpression(node) {
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        const initialScope = context.sourceCode.getScope(node);
         if (node.arguments.length < 2 || !isCreateElementCall(node, context)) return;
         const props = node.arguments[1];
         if (!props) return;
@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
             return "properties" in n ? O.some(n.properties) : O.none();
           })
           .when(is(NodeType.Identifier), (n) => {
-            const initialScope = context.sourceCode.getScope?.(n) ?? context.getScope();
+            const initialScope = context.sourceCode.getScope(n);
 
             return F.pipe(
               findVariable(n.name, initialScope),
@@ -60,7 +60,7 @@ export default createRule<[], MessageID>({
         }
       },
       JSXElement(node) {
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        const initialScope = context.sourceCode.getScope(node);
         const maybeDanger = findPropInAttributes(node.openingElement.attributes, context, initialScope)(
           "dangerouslySetInnerHTML",
         );

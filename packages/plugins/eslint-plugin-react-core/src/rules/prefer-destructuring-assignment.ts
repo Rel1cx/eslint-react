@@ -41,7 +41,7 @@ export default createRule<[], MessageID>({
       ...listeners,
       MemberExpression(node) {
         if (isMemberExpressionWithObjectName(node)) {
-          const scope = context.sourceCode.getScope?.(node) ?? context.getScope();
+          const scope = context.sourceCode.getScope(node);
 
           memberExpressionWithNames.push([scope, node]);
         }

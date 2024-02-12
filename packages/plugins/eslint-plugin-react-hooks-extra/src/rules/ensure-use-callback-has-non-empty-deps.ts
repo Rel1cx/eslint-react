@@ -34,7 +34,7 @@ export default createRule<[], MessageID>({
 
     return {
       CallExpression(node) {
-        const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+        const initialScope = context.sourceCode.getScope(node);
         if (!isReactHookCall(node)) return;
         if (!isUseCallbackCall(node, context, pragma) && !alias.some(F.flip(isReactHookCallWithNameLoose)(node))) {
           return;

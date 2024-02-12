@@ -55,7 +55,7 @@ export default createRule<[], MessageID>({
         if (O.isNone(maybeParentMethod)) return;
         const parentMethod = maybeParentMethod.value;
         if (parentMethod.parent !== parentClass.body) return;
-        if (context.sourceCode.getScope?.(node).upper !== context.sourceCode.getScope?.(parentMethod)) return;
+        if (context.sourceCode.getScope(node).upper !== context.sourceCode.getScope(parentMethod)) return;
         context.report({
           node,
           messageId: "NO_SET_STATE_IN_COMPONENT_DID_UPDATE",

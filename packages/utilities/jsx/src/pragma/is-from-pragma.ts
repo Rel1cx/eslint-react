@@ -79,7 +79,7 @@ export function isFromPragma(name: string) {
     node: TSESTree.Identifier | TSESTree.MemberExpression,
     context: RuleContext,
   ) => {
-    const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+    const initialScope = context.sourceCode.getScope(node);
     if (node.type === NodeType.MemberExpression) return isPropertyOfPragma(name, context)(node);
     if (node.name === name) return isInitializedFromPragma(name, context, initialScope);
 
@@ -102,7 +102,7 @@ export function isFromPragmaMember(
     context: RuleContext,
     pragma = getPragmaFromContext(context),
   ) => {
-    const initialScope = context.sourceCode.getScope?.(node) ?? context.getScope();
+    const initialScope = context.sourceCode.getScope(node);
     if (node.property.type !== NodeType.Identifier || node.property.name !== name) return false;
     if (node.object.type === NodeType.Identifier && node.object.name === pragmaMemberName) {
       return isInitializedFromPragma(node.object.name, context, initialScope, pragma);

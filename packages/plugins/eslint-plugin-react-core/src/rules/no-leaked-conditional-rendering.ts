@@ -230,7 +230,7 @@ export default createRule<[], MessageID>({
           return O.orElse(checkExpression(consequent), () => checkExpression(alternate));
         })
         .with({ type: NodeType.Identifier }, (n) => {
-          const initialScope = context.sourceCode.getScope?.(n) ?? context.getScope();
+          const initialScope = context.sourceCode.getScope(n);
 
           return F.pipe(
             findVariable(n.name, initialScope),

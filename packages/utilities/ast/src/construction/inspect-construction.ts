@@ -27,9 +27,9 @@ export function inspectConstruction<T extends RuleContext>(
    * @param node The AST node to detect the construction of
    * @returns The construction of the node
    */
-  // eslint-disable-next-line sonarjs/cognitive-complexity
+
   const detect = (node: TSESTree.Node): Construction => {
-    const scope = context.sourceCode.getScope?.(node) ?? context.getScope();
+    const scope = context.sourceCode.getScope(node);
 
     return match(node)
       .when(is(NodeType.ArrayExpression), (node) => Construction.Array({ node, usage: O.none() }))
