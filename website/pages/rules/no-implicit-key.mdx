@@ -20,11 +20,17 @@ This rule aims to prevent spreading key from objects.
 
 ### Failing
 
-```tsx {5}
-function List({ items }) {
+```tsx twoslash
+import React from 'react';
+
+interface ExampleProps {
+  items: { id: string; name: string }[];
+}
+
+function Example({ items }: ExampleProps) {
   return (
     <ul>
-      {/* Warning: Do not spread key from object, specify it directly */}
+// @warn: Do not spread key from object, specify it directly
       {items.map((item) => <li {...{ key: item.id }}>{item.name}</li>)}
     </ul>
   );
@@ -33,10 +39,17 @@ function List({ items }) {
 
 ### Passing
 
-```tsx
-function List({ items }) {
+```tsx twoslash
+import React from 'react';
+
+interface ExampleProps {
+  items: { id: string; name: string }[];
+}
+
+function Example({ items }: ExampleProps) {
   return (
     <ul>
+// @annotate: Specify key explicitly instead of spreading it from object
       {items.map((item) => <li key={item.id}>{item.name}</li>)}
     </ul>
   );

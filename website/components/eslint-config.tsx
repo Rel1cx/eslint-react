@@ -1,4 +1,4 @@
-import { Tabs } from "nextra-theme-docs";
+import { Tabs } from "nextra/components";
 import React from "react";
 
 export interface ESLintConfigProps {
@@ -20,4 +20,4 @@ export function ESLintConfig({
   );
 }
 
-export { Tab as Config } from "nextra-theme-docs";
+export const Config = Tabs.Tab;

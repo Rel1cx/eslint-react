@@ -1,13 +1,6 @@
-{
-  "overview": {
-    "title": "Overview",
-    "theme": {
-      "layout": "full"
-    }
-  },
-  "---": {
-    "type": "separator"
-  },
+export default {
+  "overview": {"title":"Overview","theme":{"layout":"full"}},
+  "---": {"type":"separator"},
   "ensure-forward-ref-using-ref": "ensure-forward-ref-using-ref",
   "no-access-state-in-setstate": "no-access-state-in-setstate",
   "no-array-index-key": "no-array-index-key",
@@ -69,5 +62,5 @@
   "naming-convention-use-state": "naming-convention/use-state",
   "debug-class-component": "debug/class-component",
   "debug-function-component": "debug/function-component",
-  "debug-react-hooks": "debug/react-hooks"
+  "debug-react-hooks": "debug/react-hooks",
 }

@@ -18,17 +18,26 @@ Omitting the `ref` argument is usually a bug, and components not using `ref` don
 
 ### Failing
 
-```tsx {2}
-// Warning: Missing ref parameter
-const MyComponent = React.forwardRef((props) => {
+```tsx twoslash
+import React from "react";
+
+interface ExampleProps {}
+
+// @warn: Missing 'ref' parameter
+const Example = React.forwardRef<HTMLDivElement, ExampleProps>((props) => {
   return <div />;
 });
 ```
 
 ### Passing
 
-```tsx
-const MyComponent = React.forwardRef((props, ref) => {
+```tsx twoslash
+import React from "react";
+
+interface ExampleProps {}
+
+// @annotate: The 'ref' parameter is being used
+const Example = React.forwardRef<HTMLDivElement, ExampleProps>((props, ref) => {
   return <div ref={ref} />;
 });
 ```

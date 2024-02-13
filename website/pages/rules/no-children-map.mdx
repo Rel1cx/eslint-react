@@ -16,13 +16,17 @@ Using `Children` is uncommon and can lead to fragile code. [See common alternati
 
 ### Failing
 
-```tsx {7-11}
-import { Children } from "react";
+```tsx twoslash
+import React, { Children } from "react";
 
-function RowList({ children }) {
+interface ExampleProps {
+  children: React.ReactNode;
+}
+
+function Example({ children }: ExampleProps) {
   return (
     <div className="RowList">
-      {/* Error: Do not use Children.map */}
+// @warn: Do not use 'Children.map'
       {Children.map(children, child => (
         <div className="Row">
           {child}

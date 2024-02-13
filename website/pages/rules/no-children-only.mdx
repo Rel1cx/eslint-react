@@ -16,9 +16,15 @@ Using `Children` is uncommon and can lead to fragile code. [See common alternati
 
 ### Failing
 
-```tsx {3}
-function MyComponent({ children }) {
-  // Error: Do not use Children.only
+```tsx twoslash
+import React, { Children } from "react";
+
+interface ExampleProps {
+  children: React.ReactNode;
+}
+
+function Example({ children }: ExampleProps) {
+// @warn: Do not use 'Children.only'
   const element = Children.only(children);
   // ...
 }

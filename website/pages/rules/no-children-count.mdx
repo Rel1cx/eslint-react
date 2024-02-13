@@ -16,13 +16,17 @@ Using `Children` is uncommon and can lead to fragile code. [See common alternati
 
 ### Failing
 
-```tsx {7}
-import { Children } from "react";
+```tsx twoslash
+import React, { Children } from "react";
 
-function RowList({ children }) {
+interface ExampleProps {
+  children: React.ReactNode;
+}
+
+function Example({ children }: ExampleProps) {
   return (
     <>
-      {/* Error: Do not use Children.count */}
+// @warn: Do not use 'Children.count'
       <h1>Total rows: {Children.count(children)}</h1>
       ...
     </>

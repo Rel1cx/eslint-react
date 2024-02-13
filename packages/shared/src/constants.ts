@@ -33,7 +33,7 @@ export const RE_JAVASCRIPT_PROTOCOL = /^[\u0000-\u001F ]*j[\t\n\r]*a[\t\n\r]*v[\
 
 /**
  * -----------------------------------------------------------------------------
- * JSX, React, and ReactDOM constants
+ * JSX, React, and React DOM constants
  * -----------------------------------------------------------------------------
  */
 

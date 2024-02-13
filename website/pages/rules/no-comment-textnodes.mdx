@@ -16,35 +16,31 @@ This could be a mistake during code editing or it could be a misunderstanding of
 
 ### Failing
 
-```tsx {3,9}
-function MyComponent() {
-  // Warning: Do not use comment strings in JSX textnodes
+```tsx twoslash
+import * as React from 'react';
+
+interface ExampleProps {}
+
+function Example({}: ExampleProps) {
+// @warn: Do not use comment strings in JSX textnodes
   return <div>// empty div</div>;
 }
 
-function MyComponent() {
-  return (
-    <div>
-      {/* Warning: Do not use comment strings in JSX textnodes */}
-      /* empty div */
-    </div>
-  );
+function Example2({}: ExampleProps) {
+// @warn: Do not use comment strings in JSX textnodes
+  return <div>/* empty div */</div>;
 }
 ```
 
 ### Passing
 
-```tsx
-function Component() {
-    return <div>{/* empty div */}</div>;
-}
+```tsx twoslash
+import * as React from 'react';
 
-function Component() {
-    return <div /* empty div */></div>;
-}
+interface ExampleProps {}
 
-function Component() {
-    return <div className={'foo' /* temp class */}</div>;
+function Example({}: ExampleProps) {
+  return <div>{/* empty div */}</div>;
 }
 ```
 
@@ -53,7 +49,11 @@ function Component() {
 It's possible you may want to legitimately output comment start characters (`//` or `/*`) in a JSX text node. In which case, you can do the following:
 
 ```tsx
-function Component() {
+import * as React from 'react';
+
+interface ExampleProps {}
+
+function Example({}: ExampleProps) {
   return <div>{"/* This will be output as a text node */"}</div>;
 }
 ```

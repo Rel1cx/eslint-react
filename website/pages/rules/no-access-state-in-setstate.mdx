@@ -16,14 +16,22 @@ Usage of `this.state` inside `setState` calls might result in errors when two st
 
 ### Failing
 
-```tsx {8}
-class MyComponent extends React.Component {
+```tsx twoslash
+import React from "react";
+
+interface ExampleProps {}
+
+interface ExampleState {
+  foo: number;
+}
+
+class Example extends React.Component<ExampleProps, ExampleState> {
   state = {
     foo: 1,
   };
 
   render() {
-    // Error: Do not access `this.state` inside `setState`
+// @error: Do not access `this.state` inside `setState`
     return <div onClick={() => this.setState({ foo: this.state.foo + 1 })} />;
   }
 }
@@ -31,14 +39,23 @@ class MyComponent extends React.Component {
 
 ### Passing
 
-```tsx
-class MyComponent extends React.Component {
+```tsx twoslash
+import React from "react";
+
+interface ExampleProps {}
+
+interface ExampleState {
+  foo: number;
+}
+
+class Example extends React.Component<ExampleProps, ExampleState> {
   state = {
     foo: 1,
   };
 
   render() {
-    return <div onClick={() => this.setState({ foo: this.state.foo + 1 })} />;
+// @annotate: Use a function to read the current state
+    return <div onClick={() => this.setState(state => ({ foo: state.foo + 1 }))} />;
   }
 }
 ```
