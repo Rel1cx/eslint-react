@@ -1,4 +1,4 @@
-import { Tab, Tabs } from "nextra-theme-docs";
+import { Tabs } from "nextra/components"
 
 import { Info } from "#/components/callout";
 import { Config, ESLintConfig } from "#/components/eslint-config";
@@ -7,37 +7,37 @@ import { Config, ESLintConfig } from "#/components/eslint-config";
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
 
-<Tab>
+<Tabs.Tab>
 
 ```bash filename="Terminal"
 npm install --save-dev @eslint-react/eslint-plugin
 ```
 
-</Tab>
+</Tabs.Tab>
 
-<Tab>
+<Tabs.Tab>
 
 ```bash filename="Terminal"
 pnpm add --save-dev @eslint-react/eslint-plugin
 ```
 
-</Tab>
+</Tabs.Tab>
 
-<Tab>
+<Tabs.Tab>
 
 ```bash filename="Terminal"
 yarn add --dev @eslint-react/eslint-plugin
 ```
 
-</Tab>
+</Tabs.Tab>
 
-<Tab>
+<Tabs.Tab>
 
 ```bash filename="Terminal"
 bun add --dev @eslint-react/eslint-plugin
 ```
 
-</Tab>
+</Tabs.Tab>
 
 </Tabs>
 
@@ -47,19 +47,14 @@ bun add --dev @eslint-react/eslint-plugin
 
 <Config>
 
-```js filename=".eslintrc.js"
+```js filename=".eslintrc.js" {3,6}
 module.exports = {
-  root: true,
-  env: { browser: true, es2021: true },
+  // ...
   parser: "@typescript-eslint/parser",
   extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react-hooks/recommended",
+    // ...
     "plugin:@eslint-react/recommended-legacy",
   ],
-  plugins: ["@typescript-eslint", "react-hooks"],
-  ignorePatterns: ["dist", ".eslintrc.js"],
 };
 ```
 
@@ -67,44 +62,24 @@ module.exports = {
 
 <Config>
 
-```js filename="eslint.config.js"
-import ts from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
-import reactHooks from "eslint-plugin-react-hooks";
+```js filename="eslint.config.js" {10,16}
+import tseParser from "@typescript-eslint/parser";
 import eslintReact from "@eslint-react/eslint-plugin";
 
 export default [
-  // TypeScript rules
+  // ...
   {
     files: ["*.ts", "*.tsx"],
-    ignores: ["eslint.config.js"],
     languageOptions: {
-      parser: tsParser,
-      sourceType: "module",
+      // ...
+      parser: tseParser,
     },
-    plugins: {
-      "@typescript-eslint": ts,
-    },
-    rules: {
-      ...ts.configs["eslint-recommended"].rules,
-      ...ts.configs["recommended"].rules,
-    },
+    // ...
   },
-  // React Hooks rules
-  {
-    files: ["src/**/*.{ts,tsx}"],
-    plugins: {
-      "react-hooks": reactHooks,
-    },
-    rules: {
-      ...reactHooks.configs.recommended.rules,
-    },
-  },
-  // ESLint React rules
   {
     files: ["src/**/*.{ts,tsx}"],
     ...eslintReact.configs.recommended,
-  },
+  }
 ];
 ```
 
@@ -127,7 +102,7 @@ Then, you can enable the rules that require type information.
 
 </Info>
 
-```js filename=".eslintrc.js"
+```js filename=".eslintrc.js" {4,10}
 module.exports = {
   // ...
   parser: "@typescript-eslint/parser",
@@ -135,7 +110,6 @@ module.exports = {
     project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
   },
   extends: ["plugin:@eslint-react/recmmended-legacy"],
-  plugins: ["@eslint-react"],
   rules: {
     // ...
     "@eslint-react/no-leaked-conditional-rendering": "error", // <-- Requires type information
@@ -157,31 +131,25 @@ Then, you can enable the rules that require type information.
 
 </Info>
 
-```js filename="eslint.config.js"
-import ts from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
+```js filename="eslint.config.js" {12,24}
+import tseParser from "@typescript-eslint/parser";
 import eslintReact from "@eslint-react/eslint-plugin";
 
 export default [
+  // ...
   {
     files: ["*.ts", "*.tsx"],
-    ignores: ["eslint.config.js"],
     languageOptions: {
-      parser: tsParser,
+      // ...
+      parser: tseParser,
       parserOptions: {
         project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
       },
     },
-    plugins: {
-      "@typescript-eslint": ts,
-    },
-    rules: {
-      ...ts.configs["eslint-recommended"].rules,
-      ...ts.configs["recommended"].rules,
-    },
+    // ...
   },
   {
-    files: ["*.ts", "*.tsx"],
+    files: ["src/**/*.{ts,tsx}"],
     ...eslintReact.configs.recommended,
   },
   {

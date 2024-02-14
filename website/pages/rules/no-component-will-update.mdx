@@ -18,11 +18,11 @@ Run the [rename-unsafe-lifecycles codemod](https://github.com/reactjs/react-code
 
 ### Failing
 
-```tsx {5-6}
+```tsx twoslash
 import React from "react";
 
-class MyComponent extends React.Component {
-  // Error: Do not use componentWillUpdate
+class ExampleComponent extends React.Component {
+// @error: Do not use 'componentWillUpdate'
   componentWillUpdate() {
     // ...
   }
@@ -31,11 +31,12 @@ class MyComponent extends React.Component {
 
 ### Passing
 
-```tsx
+```tsx twoslash
 import React from "react";
 
-class MyComponent extends React.Component {
-  UNSAFE_componentWillUpdate() {
+class ExampleComponent extends React.Component {
+// @annotate: Use 'UNSAFE_componentWillUpdate' instead
+  componentDidUpdate() {
     // ...
   }
 }

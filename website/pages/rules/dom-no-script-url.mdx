@@ -16,16 +16,21 @@ Using `javascript:` URLs is harmful to code maintainability, readability, and ap
 
 ### Failing
 
-```tsx {1,2,3}
-<a href="javascript:"></a>
-<a href="javascript:void(0)"></a>
-<a href="j\n\n\na\rv\tascript:"></a>
+```tsx twoslash
+import React from "react";
+
+function Example() {
+// @warn: Do not use 'javascript:' URLs
+  return <a href="javascript:alert('Hello, world!')">Click me</a>;
+}
 ```
 
 ### Passing
 
-```tsx
-<Foo href="javascript:"></Foo>
-<a href={"javascript:"}></a>
-<a href="https://example.com"></a>
+```tsx twoslash
+import React from "react";
+
+function Example() {
+  return <a href="/some-page">Click me</a>;
+}
 ```

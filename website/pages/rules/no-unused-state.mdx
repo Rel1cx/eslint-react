@@ -12,29 +12,33 @@ Warns unused class component state.
 
 ### Failing
 
-```tsx {3-5}
-class MyComponent extends React.Component {
-  // Warning: Unused state
+```tsx twoslash
+import React from "react";
+
+class Example extends React.Component {
+// @warn: Unused state
   state = {
     foo: 1,
   };
 
   render() {
-    return <div />;
+    return null;
   }
 }
 ```
 
 ### Passing
 
-```tsx
-class MyComponent extends React.Component {
+```tsx twoslash
+import React from "react";
+
+class Example extends React.Component {
   state = {
     foo: 1,
   };
 
   render() {
-    return <div>{this.state.foo}</div>;
+    return this.state.foo;
   }
 }
 ```

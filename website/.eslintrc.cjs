@@ -33,6 +33,12 @@ module.exports = defineConfig({
       },
     },
     {
+      files: ["_meta.ts"],
+      rules: {
+        "import/no-anonymous-default-export": "off",
+      },
+    },
+    {
       extends: ["plugin:mdx/recommended"],
       files: ["*.mdx"],
     },

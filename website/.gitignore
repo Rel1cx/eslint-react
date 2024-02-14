@@ -38,6 +38,3 @@ next-env.d.ts
 
 # direnv
 .direnv/
-
-/pages/rules/*.md
-!/pages/rules/overview.md

@@ -18,20 +18,22 @@ This rule checks all React iframe elements and verifies that there is sandbox at
 
 ### Failing
 
-```tsx {4}
+```tsx twoslash
 import React from "react";
 
-const MyComponent = () => {
+function Example() {
+// @warn: Missing 'sandbox' attribute on 'iframe'
   return <iframe src="https://example.com" />;
-};
+}
 ```
 
 ```tsx {4}
 import React from "react";
 
-const MyComponent = () => {
+function Example() {
+// @warn: Missing 'sandbox' attribute on 'iframe'
   return React.createElement("iframe", { src: "https://example.com" });
-};
+}
 ```
 
 ### Passing
@@ -39,20 +41,20 @@ const MyComponent = () => {
 ```tsx
 import React from "react";
 
-const MyComponent = () => {
+function Example() {
   return <iframe src="https://example.com" sandbox="allow-popups" />;
-};
+}
 ```
 
 ```tsx
 import React from "react";
 
-const MyComponent = () => {
+function Example() {
   return React.createElement("iframe", {
     src: "https://example.com",
     sandbox: "allow-popups",
   });
-};
+}
 ```
 
 ## Further Reading

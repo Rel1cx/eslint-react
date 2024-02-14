@@ -16,26 +16,34 @@ When defining a React component, if you specify its component name in a way that
 
 ### Failing
 
-```tsx {2}
-// Warning: Missing displayName
+```tsx twoslash
+import React from "react";
+
+// @warn: Missing displayName for component
 const Button = React.memo(() => <div />);
 ```
 
-```tsx {2}
-// Warning: Missing displayName
+```tsx twoslash
+import React from "react";
+
+// @warn: Missing displayName for component
 const Button = React.forwardRef(() => <div />);
 ```
 
 (Not supported yet)
 
-```tsx {2}
-// Warning: Missing displayName
+```tsx twoslash
+import React from "react";
+
+// @warn: Missing displayName for component
 export default () => <div />;
 ```
 
 ### Passing
 
-```tsx
+```tsx twoslash
+import React from "react";
+
 const Button = React.memo(function Button() {
   return <div />;
 });

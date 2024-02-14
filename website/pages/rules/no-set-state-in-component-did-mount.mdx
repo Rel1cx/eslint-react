@@ -10,39 +10,25 @@ Disallows calling `this.setState` in `componentDidMount` outside of functions, s
 
 ## Why is this bad?
 
-Updating the state after a component mount will trigger a second render() call and can lead to property/layout thrashing.
+Updating the state after a component mount will trigger a second `render()` call and can lead to property/layout thrashing.
 
 ## Examples
 
 ### Failing
 
-```tsx {6}
+```tsx twoslash
 import React from "react";
 
-class MyComponent extends React.Component {
-  componentDidMount() {
-    // Error: Do not use setState in componentDidMount
-    this.setState({ name: "John" });
-  }
+interface ExampleProps {}
 
-  render() {
-    return <div>Hello {this.state.name}</div>;
-  }
+interface ExampleState {
+  name: string;
 }
-```
 
-### Passing
-
-```tsx
-import React from "react";
-
-class MyComponent extends React.Component {
+class Example extends React.Component<ExampleProps, ExampleState> {
   componentDidMount() {
-    this.onMount(function callback(newName) {
-      this.setState({
-        name: newName,
-      });
-    });
+// @warn: Do not use 'setState' in 'componentDidMount'
+    this.setState({ name: "John" });
   }
 
   render() {

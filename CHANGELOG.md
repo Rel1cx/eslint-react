@@ -1,3 +1,15 @@
+## v1.5.4 (Draft)
+
+### 🐞 Fixes
+
+- Fix rule `react-dom/no-render-return-value` not renamed in v1.0.0.
+
+### 🪄 Improvements
+
+- Improve code samples in rule docs.
+- Update `effect` to `2.3.5`.
+- Update `@typescript-eslint`'s packages to `7.0.1`.
+
 ## v1.5.3 (Sat Feb 10 2024)
 
 ### 🪄 Improvements
@@ -91,6 +103,7 @@
 - Rename rule `react/no-missing-button-type` to `react-dom/no-missing-button-type`.
 - Rename rule `react/no-missing-iframe-sandbox` to `react-dom/no-missing-iframe-sandbox`.
 - Rename rule `react/no-namespace` to `react-dom/no-namespace`.
+- Rename rule `react/no-render-return-value` to `react-dom/no-render-return-value`.
 - Rename rule `react/no-script-url` to `react-dom/no-script-url`.
 - Rename rule `react/no-unsafe-iframe-sandbox` to `react-dom/no-unsafe-iframe-sandbox`.
 - Rename rule `react/no-unsafe-target-blank` to `react-dom/no-unsafe-target-blank`.

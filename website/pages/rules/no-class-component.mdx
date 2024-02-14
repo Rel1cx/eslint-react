@@ -20,9 +20,15 @@ This rule aims to prevent usage of class components in React.
 
 ### Failing
 
-```tsx {2-5}
-// Error: Do not use class components
-class Greeting extends Component {
+```tsx twoslash
+import React from "react";
+
+interface ExampleProps {
+  name: string;
+}
+// @warn: Do not use class components
+
+class Example extends React.Component<ExampleProps> {
   render() {
     return <h1>Hello, {this.props.name}!</h1>;
   }
@@ -31,9 +37,16 @@ class Greeting extends Component {
 
 ### Passing
 
-```tsx
-function Greeting(props) {
-  return <h1>Hello, {props.name}!</h1>;
+```tsx twoslash
+import React from "react";
+
+interface ExampleProps {
+  name: string;
+}
+// @annotate: Use function components instead
+
+function Example({ name }: ExampleProps) {
+  return <h1>Hello, {name}!</h1>;
 }
 ```
 

@@ -28,7 +28,6 @@ import noMissingComponentDisplayName from "./rules/no-missing-component-display-
 import noMissingKey from "./rules/no-missing-key";
 import noNestedComponents from "./rules/no-nested-components";
 import noRedundantShouldComponentUpdate from "./rules/no-redundant-should-component-update";
-import noRenderReturnValue from "./rules/no-render-return-value";
 import noSetStateInComponentDidMount from "./rules/no-set-state-in-component-did-mount";
 import noSetStateInComponentDidUpdate from "./rules/no-set-state-in-component-did-update";
 import noSetStateInComponentWillUpdate from "./rules/no-set-state-in-component-will-update";
@@ -76,7 +75,6 @@ export const rules = {
   "no-missing-key": noMissingKey,
   "no-nested-components": noNestedComponents,
   "no-redundant-should-component-update": noRedundantShouldComponentUpdate,
-  "no-render-return-value": noRenderReturnValue,
   "no-set-state-in-component-did-mount": noSetStateInComponentDidMount,
   "no-set-state-in-component-did-update": noSetStateInComponentDidUpdate,
   "no-set-state-in-component-will-update": noSetStateInComponentWillUpdate,

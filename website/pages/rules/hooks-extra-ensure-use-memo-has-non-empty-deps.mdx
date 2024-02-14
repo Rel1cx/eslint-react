@@ -16,27 +16,36 @@ React Hooks `useMemo` has empty dependencies array like what's in the examples, 
 
 ### Failing
 
-```tsx {2-5}
-const MyComponent = () => {
-  const style = useCallback((theme: MantineTheme) => ({
-    input: {
-      fontFamily: theme.fontFamilyMonospace,
-    },
-  }), []);
+```tsx
+import React, { useMemo } from "react";
+import { Button, MantineTheme } from "@mantine/core";
+
+function Example() {
+  const style = useMemo(
+    (theme: MantineTheme) => ({
+      input: {
+        fontFamily: theme.fontFamilyMonospace,
+      },
+    }),
+    []
+  );
   return <Button sx={style} />;
-};
+}
 ```
 
 ### Passing
 
 ```tsx
+import React from "react";
+import { Button, MantineTheme } from "@mantine/core";
+
 const style = (theme: MantineTheme) => ({
   input: {
     fontFamily: theme.fontFamilyMonospace,
   },
 });
 
-const MyComponent = () => {
+function Example() {
   return <Button sx={style} />;
-};
+}
 ```

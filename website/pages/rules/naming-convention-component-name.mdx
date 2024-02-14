@@ -14,18 +14,23 @@ This rule enforces naming conventions for components. Can be used to enforce Pas
 
 ### Failing
 
-```tsx {1}
-export const My_Component = () => {
-  return <div />;
-};
+```tsx twoslash
+import React from "react";
+
+// @warn: Expected component name to be in 'PascalCase'
+function Example_Component() {
+  return null;
+}
 ```
 
 ### Passing
 
-```tsx
-export const MyComponent = () => {
-  return <div />;
-};
+```tsx twoslash
+import React from "react";
+
+function ExampleComponent() {
+  return null;
+}
 ```
 
 ## Rule Options
@@ -43,6 +48,9 @@ export const MyComponent = () => {
 
 ```json
 {
-  "@eslint-react/naming-convention/component-name": ["warn", { "rule": "PascalCase", "excepts": ["MyComponent"] }]
+  "@eslint-react/naming-convention/component-name": [
+    "warn",
+    { "rule": "PascalCase", "excepts": ["MyComponent"] }
+  ]
 }
 ```

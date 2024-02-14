@@ -18,62 +18,62 @@ The only place that's acceptable to assign `this.state` is in a class component'
 
 ### Failing
 
-```tsx {10}
+```tsx twoslash
 import React from "react";
 
-class MyComponent extends React.Component {
+interface ExampleProps {}
+
+interface ExampleState {
+  foo: string;
+}
+
+class Example extends React.Component<ExampleProps, ExampleState> {
   state = {
     foo: "bar",
   };
 
-  componentDidMount() {
-    // Error: Do not mutate state directly
-    this.state.foo = "baz";
-  }
-
   render() {
-    return <div>{this.state.foo}</div>;
+    return (
+      <div
+        onClick={() => {
+// @error: Do not mutate state directly
+          this.state.foo = "baz";
+        }}
+      >
+        {this.state.foo}
+      </div>
+    );
   }
 }
 ```
 
 ### Passing
 
-```tsx
+```tsx twoslash
 import React from "react";
 
-class MyComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      foo: "bar",
-    };
-  }
+interface ExampleProps {}
 
-  componentDidMount() {
-    this.setState({ foo: "baz" });
-  }
-
-  render() {
-    return <div>{this.state.foo}</div>;
-  }
+interface ExampleState {
+  foo: string;
 }
-```
 
-```tsx
-import React from "react";
-
-class MyComponent extends React.Component {
+class Example extends React.Component<ExampleProps, ExampleState> {
   state = {
     foo: "bar",
   };
 
-  componentDidMount() {
-    this.setState({ foo: "baz" });
-  }
-
   render() {
-    return <div>{this.state.foo}</div>;
+    return (
+      <div
+        onClick={() => {
+// @annotate: Update state using 'setState' instead
+          this.setState({ foo: "baz" });
+        }}
+      >
+        {this.state.foo}
+      </div>
+    );
   }
 }
 ```

@@ -14,13 +14,21 @@ This rule enforces the use of shorthand syntax for boolean attributes.
 
 ### Failing
 
-```tsx {2}
-// Error: Use shorthand boolean syntax
-<MyComponent hidden={true} disabled={false} />;
+```tsx twoslash
+import React from "react";
+
+function Example() {
+// @warn: Use shorthand boolean syntax instead
+  return <button disabled={true} />;
+}
 ```
 
 ### Passing
 
-```tsx
-<MyComponent hidden disabled />;
+```tsx twoslash
+import React from "react";
+
+function Example() {
+  return <button disabled />;
+}
 ```

@@ -16,9 +16,11 @@ Custom Hooks may call other Hooks (that’s their whole purpose). If a custom Ho
 
 ### Failing
 
-```tsx {1-11}
-const useClassnames = (obj) => {
-  // Invalid, because useClassnames doesn't use any other React Hooks.
+```tsx twoslash
+import React from 'react';
+
+// @warn: Custom Hooks should use other Hooks.
+function useClassnames(obj: Record<string, boolean>) {
   var k, cls = "";
   for (k in obj) {
     if (obj[k]) {
@@ -32,11 +34,15 @@ const useClassnames = (obj) => {
 
 ### Passing
 
-```tsx
-const useData = (key) => {
-  // Valid, because useData is using other React Hooks.
-  return useSWR(key);
-};
+```tsx twoslash
+import React from 'react';
+
+// @annotate: Custom Hook that uses other Hooks.
+function useCounter() {
+  const [count, setCount] = React.useState(0);
+  const increment = () => setCount(c => c + 1);
+  return { count, increment };
+}
 ```
 
 ## Further Reading

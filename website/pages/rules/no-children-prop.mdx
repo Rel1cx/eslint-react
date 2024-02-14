@@ -18,27 +18,38 @@ When using JSX, the `children` should be nested between the opening and closing 
 
 ### Failing
 
-```tsx {1,2,3}
-<div children='Children' />
+```tsx twoslash
+import React from "react";
 
-<MyComponent children={<AnotherComponent />} />
-<MyComponent children={['Child 1', 'Child 2']} />
+interface ExampleProps {
+  children: React.ReactNode;
+}
 
-React.createElement("div", { children: 'Children' })
+function Example({ children }: ExampleProps) {
+  return (
+    <div
+// @warn: Do not pass 'children' as a prop
+      children={children}
+    />
+  );
+}
 ```
 
 ### Passing
 
-```tsx
-<div>Children</div>
+```tsx twoslash
+import React from "react";
 
-<MyComponent>Children</MyComponent>
+interface ExampleProps {
+  children: React.ReactNode;
+}
 
-<MyComponent>
-  <span>Child 1</span>
-  <span>Child 2</span>
-</MyComponent>
-
-React.createElement("div", {}, 'Children')
-React.createElement("div", 'Child 1', 'Child 2')
+function Example({ children }: ExampleProps) {
+  return (
+    <div>
+// @annotate: Pass 'children' as actual children
+      {children}
+    </div>
+  );
+}
 ```

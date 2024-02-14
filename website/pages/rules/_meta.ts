@@ -1,13 +1,6 @@
-{
-  "overview": {
-    "title": "Overview",
-    "theme": {
-      "layout": "full"
-    }
-  },
-  "---": {
-    "type": "separator"
-  },
+export default {
+  "overview": {"title":"Overview","theme":{"layout":"full"}},
+  "---": {"type":"separator"},
   "ensure-forward-ref-using-ref": "ensure-forward-ref-using-ref",
   "no-access-state-in-setstate": "no-access-state-in-setstate",
   "no-array-index-key": "no-array-index-key",
@@ -33,7 +26,6 @@
   "no-missing-key": "no-missing-key",
   "no-nested-components": "no-nested-components",
   "no-redundant-should-component-update": "no-redundant-should-component-update",
-  "no-render-return-value": "no-render-return-value",
   "no-set-state-in-component-did-mount": "no-set-state-in-component-did-mount",
   "no-set-state-in-component-did-update": "no-set-state-in-component-did-update",
   "no-set-state-in-component-will-update": "no-set-state-in-component-will-update",
@@ -56,6 +48,7 @@
   "dom-no-missing-button-type": "dom/no-missing-button-type",
   "dom-no-missing-iframe-sandbox": "dom/no-missing-iframe-sandbox",
   "dom-no-namespace": "dom/no-namespace",
+  "dom-no-render-return-value": "dom/no-render-return-value",
   "dom-no-script-url": "dom/no-script-url",
   "dom-no-unsafe-iframe-sandbox": "dom/no-unsafe-iframe-sandbox",
   "dom-no-unsafe-target-blank": "dom/no-unsafe-target-blank",
@@ -69,5 +62,5 @@
   "naming-convention-use-state": "naming-convention/use-state",
   "debug-class-component": "debug/class-component",
   "debug-function-component": "debug/function-component",
-  "debug-react-hooks": "debug/react-hooks"
+  "debug-react-hooks": "debug/react-hooks",
 }

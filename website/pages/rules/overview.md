@@ -45,7 +45,6 @@
 | [`no-missing-key`](no-missing-key)                                                 | Prevents missing `key` prop on items in list rendering.                                                |  ✔️  |      |      |
 | [`no-nested-components`](no-nested-components)                                     | Prevents nesting component definitions inside other components.                                        |  ✔️  |      |      |
 | [`no-redundant-should-component-update`](no-redundant-should-component-update)     | Prevents usage of `shouldComponentUpdate` when extending `React.PureComponent`.                        |  ✔️  |      |      |
-| [`no-render-return-value`](no-render-return-value)                                 | Prevents usage of the return value of `ReactDOM.render`.                                               |  ⛔  |      |      |
 | [`no-set-state-in-component-did-mount`](no-set-state-in-component-did-mount)       | Disallows calling `this.setState` in `componentDidMount` outside of functions, such as callbacks.      |  👀  |      |      |
 | [`no-set-state-in-component-did-update`](no-set-state-in-component-did-update)     | Disallows calling `this.setState` in `componentDidUpdate` outside of functions, such as callbacks.     |  👀  |      |      |
 | [`no-set-state-in-component-will-update`](no-set-state-in-component-will-update)   | Disallows calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.    |  👀  |      |      |
@@ -73,6 +72,7 @@
 | [`dom/no-missing-button-type`](dom-no-missing-button-type)                                         | Enforces explicit `button` type `attribute` for `<button>` elements.                    |  ✔️  |      |      |
 | [`dom/no-missing-iframe-sandbox`](dom-no-missing-iframe-sandbox)                                   | Enforces explicit `sandbox` attribute for `iframe` elements.                            |  🔒  |      |      |
 | [`dom/no-namespace`](dom-no-namespace)                                                             | Enforces the absence of a `namespace` in React elements.                                |  ✔️  |      |      |
+| [`dom/no-render-return-value`](no-render-return-value)                                             | Prevents usage of the return value of `ReactDOM.render`.                                |  ⛔  |      |      |
 | [`dom/no-script-url`](dom-no-script-url)                                                           | Prevents usage of `javascript:` URLs as the value of component props.                   |  🔒  |      |      |
 | [`dom/no-unsafe-iframe-sandbox`](dom-no-unsafe-iframe-sandbox)                                     | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   |  🔒  |      |      |
 | [`dom/no-unsafe-target-blank`](dom-no-unsafe-target-blank)                                         | Prevents the use of `target="_blank"` without `rel="noreferrer noopener"`.              |  🔒  |      |      |

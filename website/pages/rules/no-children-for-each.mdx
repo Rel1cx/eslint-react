@@ -16,12 +16,16 @@ Using `Children` is uncommon and can lead to fragile code. [See common alternati
 
 ### Failing
 
-```tsx {5-8}
-import { Children } from "react";
+```tsx twoslash
+import React, { Children } from "react";
 
-function SeparatorList({ children }) {
+interface ExampleProps {
+  children: React.ReactNode;
+}
+
+function Example({ children }: ExampleProps) {
   const result = [];
-  // Error: Do not use Children.forEach
+// @warn: Do not use 'Children.forEach'
   Children.forEach(children, (child, index) => {
     result.push(child);
     result.push(<hr key={index} />);

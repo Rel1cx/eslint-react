@@ -16,23 +16,28 @@ React uses keys to identify elements in an array. If two elements have the same 
 
 ### Failing
 
-```tsx {4}
-const TodoList = ({ todos }) => (
-  <ul>
-    {/* Error: Do not use duplicate key, The key prop should be unique for each item in the list. */}
-    {todos.map((todo) => <Todo {...todo} key="key" />)}
-  </ul>
-);
+```tsx
+import React from 'react';
+
+function Example () {
+  return [
+    <li key="1">Item 1</li>
+    <li key="1">Item 2</li>
+  ]
+};
 ```
 
 ### Passing
 
 ```tsx
-const TodoList = ({ todos }) => (
-  <ul>
-    {todos.map((todo) => <Todo {...todo} key={todo.id} />)}
-  </ul>
-);
+import React from 'react';
+
+function Example () {
+  return [
+    <li key="1">Item 1</li>
+    <li key="2">Item 2</li>
+  ]
+};
 ```
 
 ## Further Reading

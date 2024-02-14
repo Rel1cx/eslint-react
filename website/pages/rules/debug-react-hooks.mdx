@@ -14,12 +14,12 @@ Reports all React Hooks. Useful for debugging.
 
 ## Examples
 
-```tsx
+```tsx twoslash
 import React from "react";
 
 function useToggle() {
   const [value, setValue] = useState(false);
 
-  return [value, () => setValue(x => !x)];
+  return [value, () => setValue((x) => !x)];
 }
 ```

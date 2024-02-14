@@ -16,11 +16,13 @@ Nesting component definitions inside other components is a common mistake that c
 
 ### Failing
 
-```tsx {3-5}
-export default function Gallery() {
-  // 🔴 Never define a component inside another component!
+```tsx twoslash
+import React from "react";
+
+function Gallery() {
+// @error: Never define a component inside another component!
   function Profile() {
-    // ...
+    /* ... */
   }
   // ...
 }
@@ -28,14 +30,14 @@ export default function Gallery() {
 
 ### Passing
 
-```tsx
-export default function Gallery() {
+```tsx twoslash
+function Gallery() {
   // ...
 }
 
-// 🟢 Declare components at the top level
+// @annotate: Declare components at the top level
 function Profile() {
-  // ...
+  /* ... */
 }
 ```
 

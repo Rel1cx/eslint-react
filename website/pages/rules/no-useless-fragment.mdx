@@ -18,28 +18,27 @@ And, it adds unnecessary visual noise to the code.
 
 ### Failing
 
-```tsx {1,3,6,9}
-<Fragment>foo</Fragment>
+```tsx twoslash
+import React, { Fragment } from "react";
 
-<React.Fragment>foo</React.Fragment>
-
-<section>
-  <>
-    <div />
-    <div />
-  </>
-</section>
+function Example() {
+// @warn: Useless fragment
+  return <Fragment>foo</Fragment>;
+}
 ```
 
 ### Passing
 
-```tsx
-<SomeComponent>
-  <>
-    <div />
-    <div />
-  </>
-</SomeComponent>
+```tsx twoslash
+import React, { Fragment } from "react";
 
-<Fragment key={item.id}>{item.value}</Fragment>
+function Example() {
+  return (
+    <Fragment>
+      <div>foo</div>
+      <div>bar</div>
+      <div>baz</div>
+    </Fragment>
+  );
+}
 ```

@@ -16,35 +16,28 @@ This could be a mistake during code editing or it could be a misunderstanding of
 
 ### Failing
 
-```tsx {3,9}
-function MyComponent() {
-  // Warning: Do not use comment strings in JSX textnodes
+```tsx twoslash
+import React from "react";
+
+function Example() {
+  // @warn: Do not use comment strings in JSX textnodes
   return <div>// empty div</div>;
 }
 
-function MyComponent() {
-  return (
-    <div>
-      {/* Warning: Do not use comment strings in JSX textnodes */}
-      /* empty div */
-    </div>
-  );
+function Example2() {
+  // @warn: Do not use comment strings in JSX textnodes
+  return <div>/* empty div */</div>;
 }
 ```
 
 ### Passing
 
-```tsx
-function Component() {
-    return <div>{/* empty div */}</div>;
-}
+```tsx twoslash
+import React from "react";
 
-function Component() {
-    return <div /* empty div */></div>;
-}
-
-function Component() {
-    return <div className={'foo' /* temp class */}</div>;
+function Example() {
+// @annotate: Use JSX comment syntax to comment out text nodes
+  return <div>{/* empty div */}</div>;
 }
 ```
 
@@ -52,8 +45,11 @@ function Component() {
 
 It's possible you may want to legitimately output comment start characters (`//` or `/*`) in a JSX text node. In which case, you can do the following:
 
-```tsx
-function Component() {
+```tsx twoslash
+import React from "react";
+
+function Example() {
+// @annotate: This is a legitimate use of comment strings in JSX textnodes
   return <div>{"/* This will be output as a text node */"}</div>;
 }
 ```

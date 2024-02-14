@@ -12,9 +12,11 @@ Warns unused class component methods and properties.
 
 ### Failing
 
-```tsx {3}
-class MyComponent extends React.Component {
-  // Warning: Unused method
+```tsx twoslash
+import React from "react";
+
+class Example extends React.Component {
+// @warn: Unused class component member
   handleClick() {}
   render() {
     return null;
@@ -24,9 +26,11 @@ class MyComponent extends React.Component {
 
 ### Passing
 
-```tsx
-class MyComponent extends React.Component {
-  static getDerivedStateFromError(error) {
+```tsx twoslash
+import React from "react";
+
+class Example extends React.Component {
+  static getDerivedStateFromError(error: React.ErrorInfo) {
     return { hasError: true };
   }
   action() {}

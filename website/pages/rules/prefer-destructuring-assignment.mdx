@@ -14,46 +14,70 @@ This rule aims to enforce the use of destructuring assignment over property assi
 
 ### Failing
 
-```tsx {3}
-function MyComponent(props) {
-  // Warning: Use destructuring assignment
+```tsx twoslash
+import React from "react";
+
+interface ExampleProps {
+  items: string[];
+}
+
+function Example(props: ExampleProps) {
+// @warn: Use destructuring assignment
   const items = props.items;
 
   return <div>{items}</div>;
 }
 ```
 
-```tsx {3}
-function MyComponent(props) {
-  // Warning: Use destructuring assignment
+```tsx twoslash
+import React from "react";
+
+interface ExampleProps {
+  items: string[];
+}
+
+function Example(props: ExampleProps) {
+// @warn: Use destructuring assignment
   return <div>{props.items}</div>;
 }
 ```
 
 ### Passing
 
-```tsx
-function MyComponent(props) {
+```tsx twoslash
+import React from "react";
+
+interface ExampleProps {
+  items: string[];
+}
+
+function Example(props: ExampleProps) {
   const { items } = props;
 
   return <div>{items}</div>;
 }
 ```
 
-```tsx
-function MyComponent({ items }) {
+```tsx twoslash
+import React from "react";
+
+interface ExampleProps {
+  items: string[];
+}
+
+function Example({ items }: ExampleProps) {
   return <div>{items}</div>;
 }
 ```
 
-```tsx
-function MyComponent({ items }: { items: string[] }) {
-  return <div>{items}</div>;
-}
-```
+```tsx twoslash
+import React from "react";
 
-```tsx
-function MyComponent({ items, ...rest }) {
+interface ExampleProps {
+  items: string[];
+}
+
+function Example({ items, ...rest }: ExampleProps) {
   return <div {...rest}>{items}</div>;
 }
 ```

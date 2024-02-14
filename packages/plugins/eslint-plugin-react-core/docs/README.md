@@ -57,7 +57,6 @@ ___
 | `no-missing-key` | `RuleModule`\<`MessageID`, [], `RuleListener`\> |
 | `no-nested-components` | `RuleModule`\<`MessageID`, [], `RuleListener`\> |
 | `no-redundant-should-component-update` | `RuleModule`\<``"NO_REDUNDANT_SHOULD_COMPONENT_UPDATE"``, [], `RuleListener`\> |
-| `no-render-return-value` | `RuleModule`\<``"NO_RENDER_RETURN_VALUE"``, [], `RuleListener`\> |
 | `no-set-state-in-component-did-mount` | `RuleModule`\<``"NO_SET_STATE_IN_COMPONENT_DID_MOUNT"``, [], `RuleListener`\> |
 | `no-set-state-in-component-did-update` | `RuleModule`\<``"NO_SET_STATE_IN_COMPONENT_DID_UPDATE"``, [], `RuleListener`\> |
 | `no-set-state-in-component-will-update` | `RuleModule`\<``"NO_SET_STATE_IN_COMPONENT_WILL_UPDATE"``, [], `RuleListener`\> |

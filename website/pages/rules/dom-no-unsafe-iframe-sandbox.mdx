@@ -18,44 +18,51 @@ This rule reports cases where attribute contains `allow-scripts` and `allow-same
 
 ### Failing
 
-```tsx {4}
+```tsx twoslash
 import React from "react";
 
-const MyComponent = () => {
-  return <iframe src="https://example.com" sandbox="allow-scripts allow-same-origin" />;
-};
+function Example() {
+  return (
+    <iframe
+      src="https://example.com"
+// @warn: Unsafe sandbox attribute
+      sandbox="allow-scripts allow-same-origin"
+    />
+  );
+}
 ```
 
-```tsx
+```tsx twoslash
 import React from "react";
 
-const MyComponent = () => {
+function Example() {
   return React.createElement("iframe", {
     src: "https://example.com",
+// @warn: Unsafe sandbox attribute
     sandbox: "allow-scripts allow-same-origin",
   });
-};
+}
 ```
 
 ### Passing
 
-```tsx
+```tsx twoslash
 import React from "react";
 
-const MyComponent = () => {
+function Example() {
   return <iframe src="https://example.com" sandbox="allow-popups" />;
-};
+}
 ```
 
-```tsx
+```tsx twoslash
 import React from "react";
 
-const MyComponent = () => {
+function Example() {
   return React.createElement("iframe", {
     src: "https://example.com",
     sandbox: "allow-popups",
   });
-};
+}
 ```
 
 ## Further Reading

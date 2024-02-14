@@ -16,11 +16,15 @@ Using `Children` is uncommon and can lead to fragile code. [See common alternati
 
 ### Failing
 
-```tsx {5}
-import { Children } from "react";
+```tsx twoslash
+import React, { Children } from "react";
 
-export default function ReversedList({ children }) {
-  // Error: Do not use Children.toArray
+interface ExampleProps {
+  children: React.ReactNode;
+}
+
+function Example({ children }: ExampleProps) {
+// @warn: Do not use 'Children.toArray'
   const result = Children.toArray(children);
   result.reverse();
   // ...
