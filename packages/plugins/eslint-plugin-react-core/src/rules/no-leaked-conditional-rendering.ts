@@ -200,6 +200,8 @@ export default createRule<[], MessageID>({
         loc: { column: 1, line: 1 },
         messageId: "NEEDS_TYPE_CHECKING_SERVICE",
       });
+
+      return {};
     }
 
     function checkExpression(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
@@ -222,9 +224,6 @@ export default createRule<[], MessageID>({
             messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
             node: left,
           });
-        })
-        .with({ type: NodeType.LogicalExpression, operator: "||" }, ({ left, right }) => {
-          return O.orElse(checkExpression(left), () => checkExpression(right));
         })
         .with({ type: NodeType.ConditionalExpression }, ({ alternate, consequent }) => {
           return O.orElse(checkExpression(consequent), () => checkExpression(alternate));

@@ -78,6 +78,7 @@ interface ExampleProps {
 }
 
 function Example({ count, title }: ExampleProps) {
+// @warn: Potential leaked value that might cause unintentionally rendered values or rendering crashes
   return <div>{count && title}</div>;
 }
 ```
@@ -90,6 +91,7 @@ interface ExampleProps {
 }
 
 function Example({ count }: ExampleProps) {
+// @warn: Potential leaked value that might cause unintentionally rendered values or rendering crashes
   return <div>{count && <span>There are {count} results</span>}</div>;
 }
 ```
@@ -102,6 +104,7 @@ interface ExampleProps {
 }
 
 function Example({ items }: ExampleProps) {
+// @warn: Potential leaked value that might cause unintentionally rendered values or rendering crashes
   return <div>{items.length && <List items={items} />}</div>;
 }
 
@@ -116,6 +119,7 @@ interface ExampleProps {
 }
 
 function Example({ items }: ExampleProps) {
+// @warn: Potential leaked value that might cause unintentionally rendered values or rendering crashes
   return <div>{items[0] && <List items={items} />}</div>;
 }
 
@@ -131,6 +135,7 @@ interface ExampleProps {
 }
 
 function Example({ numberA, numberB }: ExampleProps) {
+// @warn: Potential leaked value that might cause unintentionally rendered values or rendering crashes
   return <div>{(numberA || numberB) && <Results>{numberA + numberB}</Results>}</div>;
 }
 
