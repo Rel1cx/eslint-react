@@ -16,7 +16,10 @@ Prevents usage of the return value of `ReactDOM.render`.
 
 ### Failing
 
-```tsx {2}
+```tsx twoslash
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 // Error: Do not use the return value of ReactDOM.render
 const inst = ReactDOM.render(<App />, document.body);
 doSomethingWithInst(inst);

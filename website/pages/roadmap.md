@@ -33,7 +33,6 @@
 | `no-missing-key`                         | Prevents missing `key` prop on items in list rendering.                                                |
 | `no-nested-components`                   | Prevents nesting component definitions inside other components.                                        |
 | `no-redundant-should-component-update`   | Prevents usage of `shouldComponentUpdate` when extending `React.PureComponent`.                        |
-| `no-render-return-value`                 | Prevents usage of the return value of `ReactDOM.render`.                                               |
 | `no-set-state-in-component-did-mount`    | Disallows calling `this.setState` in `componentDidMount` outside of functions, such as callbacks.      |
 | `no-set-state-in-component-did-update`   | Disallows calling `this.setState` in `componentDidUpdate` outside of functions, such as callbacks.     |
 | `no-set-state-in-component-will-update`  | Disallows calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.    |
@@ -61,6 +60,7 @@
 | `dom/no-missing-button-type`                     | Enforces explicit `button` type `attribute` for `<button>` elements.                    |
 | `dom/no-missing-iframe-sandbox`                  | Enforces explicit `sandbox` attribute for `iframe` elements.                            |
 | `dom/no-namespace`                               | Enforces the absence of a `namespace` in React elements.                                |
+| `dom/no-render-return-value`                     | Prevents usage of the return value of `ReactDOM.render`.                                |
 | `dom/no-script-url`                              | Prevents usage of `javascript:` URLs as the value of component props.                   |
 | `dom/no-unsafe-iframe-sandbox`                   | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   |
 | `dom/no-unsafe-target-blank`                     | Prevents the use of `target="_blank"` without `rel="noreferrer noopener"`.              |
@@ -123,7 +123,6 @@
 | `no-missing-key`                         | Prevents missing `key` prop on items in list rendering.                                                |
 | `no-nested-components`                   | Prevents nesting component definitions inside other components.                                        |
 | `no-redundant-should-component-update`   | Prevents usage of `shouldComponentUpdate` when extending `React.PureComponent`.                        |
-| `no-render-return-value`                 | Prevents usage of the return value of `ReactDOM.render`.                                               |
 | `no-set-state-in-component-did-mount`    | Disallows calling `this.setState` in `componentDidMount` outside of functions, such as callbacks.      |
 | `no-set-state-in-component-did-update`   | Disallows calling `this.setState` in `componentDidUpdate` outside of functions, such as callbacks.     |
 | `no-set-state-in-component-will-update`  | Disallows calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.    |
@@ -151,6 +150,7 @@
 | `no-missing-button-type`                     | Enforces explicit `button` type `attribute` for `<button>` elements.                    |
 | `no-missing-iframe-sandbox`                  | Enforces explicit `sandbox` attribute for `iframe` elements.                            |
 | `no-namespace`                               | Enforces the absence of a `namespace` in React elements.                                |
+| `no-render-return-value`                     | Prevents usage of the return value of `ReactDOM.render`.                                |
 | `no-script-url`                              | Prevents usage of `javascript:` URLs as the value of component props.                   |
 | `no-unsafe-iframe-sandbox`                   | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   |
 | `no-unsafe-target-blank`                     | Prevents the use of `target="_blank"` without `rel="noreferrer noopener"`.              |

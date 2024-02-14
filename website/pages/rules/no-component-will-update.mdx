@@ -21,9 +21,7 @@ Run the [rename-unsafe-lifecycles codemod](https://github.com/reactjs/react-code
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {}
-
-class ExampleComponent extends React.Component<ExampleProps> {
+class ExampleComponent extends React.Component {
 // @error: Do not use 'componentWillUpdate'
   componentWillUpdate() {
     // ...
@@ -36,9 +34,7 @@ class ExampleComponent extends React.Component<ExampleProps> {
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {}
-
-class ExampleComponent extends React.Component<ExampleProps> {
+class ExampleComponent extends React.Component {
 // @annotate: Use 'UNSAFE_componentWillUpdate' instead
   componentDidUpdate() {
     // ...

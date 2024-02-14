@@ -43,9 +43,7 @@ function Example() {
 ```tsx twoslash
 import React, { createRef } from 'react';
 
-interface ExampleProps {}
-
-class Example extends React.Component<ExampleProps> {
+class Example extends React.Component {
   inputRef = createRef();
   // ...
 }

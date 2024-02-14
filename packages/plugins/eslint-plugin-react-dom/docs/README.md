@@ -39,6 +39,7 @@ ___
 | `no-missing-button-type` | `RuleModule`\<``"NO_MISSING_BUTTON_TYPE"``, [], `RuleListener`\> |
 | `no-missing-iframe-sandbox` | `RuleModule`\<``"NO_MISSING_IFRAME_SANDBOX"``, [], `RuleListener`\> |
 | `no-namespace` | `RuleModule`\<``"NO_NAMESPACE"``, [], `RuleListener`\> |
+| `no-render-return-value` | `RuleModule`\<``"NO_RENDER_RETURN_VALUE"``, [], `RuleListener`\> |
 | `no-script-url` | `RuleModule`\<``"NO_SCRIPT_URL"``, [], `RuleListener`\> |
 | `no-unsafe-iframe-sandbox` | `RuleModule`\<``"NO_UNSAFE_IFRAME_SANDBOX"``, [], `RuleListener`\> |
 | `no-unsafe-target-blank` | `RuleModule`\<``"NO_UNSAFE_TARGET_BLANK"``, [], `RuleListener`\> |

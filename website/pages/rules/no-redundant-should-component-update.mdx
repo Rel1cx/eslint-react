@@ -16,61 +16,35 @@ While having `shouldComponentUpdate` will still work, it becomes pointless to ex
 
 ### Failing
 
-```tsx {2-4}
-class Foo extends React.PureComponent {
+```tsx twoslash
+import React from 'react';
+
+class Example extends React.PureComponent {
+// @error: 'Example' does not need 'shouldComponentUpdate' when extending 'React.PureComponent'.
   shouldComponentUpdate() {
     // do check
+    return true;
   }
 
   render() {
     return <div>Radical!</div>;
   }
-}
-```
-
-```tsx {4-5}
-function Bar() {
-  return class Baz extends React.PureComponent {
-    // Error: Do not use shouldComponentUpdate when extending React.PureComponent
-    shouldComponentUpdate() {
-      // do check
-    }
-
-    render() {
-      return <div>Groovy!</div>;
-    }
-  };
 }
 ```
 
 ### Passing
 
-```tsx
-class Foo extends React.Component {
+```tsx twoslash
+import React from 'react';
+
+class Example extends React.Component {
   shouldComponentUpdate() {
     // do check
+    return true;
   }
 
   render() {
     return <div>Radical!</div>;
-  }
-}
-
-function Bar() {
-  return class Baz extends React.Component {
-    shouldComponentUpdate() {
-      // do check
-    }
-
-    render() {
-      return <div>Groovy!</div>;
-    }
-  };
-}
-
-class Qux extends React.PureComponent {
-  render() {
-    return <div>Tubular!</div>;
   }
 }
 ```
