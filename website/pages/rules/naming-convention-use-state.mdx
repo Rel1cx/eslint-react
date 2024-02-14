@@ -12,10 +12,11 @@ Enforces destructuring and symmetric naming of `useState` hook value and setter 
 
 ### Failing
 
-```tsx {4}
+```tsx twoslash
 import React, { useState } from "react";
 
-const Counter = () => {
+function Example() {
+// @warn: 'useState' call is not destructured into value + setter pair
   const useStateResult = useState(0);
 
   return <div>{useStateResult[0]}</div>;
@@ -24,21 +25,21 @@ const Counter = () => {
 
 ### Passing
 
-```tsx
-import React from "react";
+```tsx twoslash
+import React, { useState } from "react";
 
-const Counter = () => {
-  const [count, setCount] = React.useState(0);
+function Example() {
+  const [count, setCount] = useState(0);
 
   return <div>{count}</div>;
 };
 ```
 
-```tsx
-import React from "react";
+```tsx twoslash
+import React, { useState } from "react";
 
-const Comp = () => {
-  const [{ foo, bar, baz }, setFooBarBaz] = React.useState({ foo: "bbb", bar: "aaa", baz: "qqq" });
+function Example() {
+  const [{ foo, bar, baz }, setFooBarBaz] = useState({ foo: "bbb", bar: "aaa", baz: "qqq" });
 
   return <div>{foo}</div>;
 };

@@ -17,8 +17,8 @@ Prevents usage of the return value of `ReactDOM.render`.
 ### Failing
 
 ```tsx twoslash
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 // @error: Do not use the return value of 'ReactDOM.render'
 const instance = ReactDOM.render(<div id="app" />, document.body);
@@ -27,8 +27,8 @@ const instance = ReactDOM.render(<div id="app" />, document.body);
 ### Passing
 
 ```tsx twoslash
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 function doSomethingWithInst(inst: HTMLDivElement | null) {
   // ...

@@ -19,9 +19,10 @@ Read more about using [dangerouslySetInnerHTML](https://react.dev/reference/reac
 ### Failing
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 function Example() {
-  return <div dangerouslySetInnerHTML={{ __html: 'Hello, world!' }} />;
+// @warn: Do not use 'dangerouslySetInnerHTML'
+  return <div dangerouslySetInnerHTML={{ __html: "Hello, world!" }} />;
 }
 ```

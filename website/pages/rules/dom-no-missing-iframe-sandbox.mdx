@@ -22,16 +22,18 @@ This rule checks all React iframe elements and verifies that there is sandbox at
 import React from "react";
 
 function Example() {
+// @warn: Missing 'sandbox' attribute on 'iframe'
   return <iframe src="https://example.com" />;
-};
+}
 ```
 
 ```tsx {4}
 import React from "react";
 
 function Example() {
+// @warn: Missing 'sandbox' attribute on 'iframe'
   return React.createElement("iframe", { src: "https://example.com" });
-};
+}
 ```
 
 ### Passing
@@ -41,7 +43,7 @@ import React from "react";
 
 function Example() {
   return <iframe src="https://example.com" sandbox="allow-popups" />;
-};
+}
 ```
 
 ```tsx
@@ -52,7 +54,7 @@ function Example() {
     src: "https://example.com",
     sandbox: "allow-popups",
   });
-};
+}
 ```
 
 ## Further Reading

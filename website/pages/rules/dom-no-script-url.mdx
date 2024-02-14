@@ -17,19 +17,20 @@ Using `javascript:` URLs is harmful to code maintainability, readability, and ap
 ### Failing
 
 ```tsx twoslash
-import React from 'react'
+import React from "react";
 
 function Example() {
-  return <a href="javascript:alert('Hello, world!')">Click me</a>
+// @warn: Do not use 'javascript:' URLs
+  return <a href="javascript:alert('Hello, world!')">Click me</a>;
 }
 ```
 
 ### Passing
 
 ```tsx twoslash
-import React from 'react'
+import React from "react";
 
 function Example() {
-  return <a href="/some-page">Click me</a>
+  return <a href="/some-page">Click me</a>;
 }
 ```
