@@ -24,7 +24,7 @@ interface ExampleProps {
 }
 
 function Example({ children }: ExampleProps) {
-// @warn: Do not use 'Children.only'
+// @warn:                 👆 Do not use 'Children.only'
   const element = Children.only(children);
   // ...
 }

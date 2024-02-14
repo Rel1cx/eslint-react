@@ -12,7 +12,7 @@ Enforces naming convention for JSX files. Can be used to enforce PascalCase, cam
 
 ### Failing
 
-```bash {3}
+```bash filename="Terminal" {3}
 npx eslint --rule '@eslint-react/naming-convention/filename: ["warn", { "rule": "PascalCase" }]' .
 
 src/components/Component.tsx
@@ -32,7 +32,7 @@ src/components/example_component.tsx
 
 ### Passing
 
-```bash
+```bash filename="Terminal"
 npx eslint --rule '@eslint-react/naming-convention/filename: ["warn", { "rule": "PascalCase" }]' .
 
 src/components/Component.tsx
@@ -40,7 +40,7 @@ src/components/Component.tsx
 ✨  Done in 0.61s.
 ```
 
-```bash
+```bash filename="Terminal"
 npx eslint --rule '@eslint-react/naming-convention/filename: ["warn", { "rule": "kebab-case" }]' .
 
 src/components/example-component.tsx

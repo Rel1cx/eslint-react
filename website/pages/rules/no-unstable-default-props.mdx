@@ -27,7 +27,7 @@ interface ExampleProps {
   items: string[];
 }
 
-// @error: Do not use referential types as default props
+// @error:                          👆 Do not use referential types as default props
 function Example({ items = [] }: ExampleProps) {
   return null;
 }
@@ -40,7 +40,7 @@ interface ExampleProps {
   items: Record<string, string>;
 }
 
-// @error: Do not use referential types as default props
+// @error:                          👆 Do not use referential types as default props
 function Example({ items = {} }: ExampleProps) {
   return null;
 }
@@ -53,7 +53,7 @@ interface ExampleProps {
   onClick: () => void;
 }
 
-// @error: Do not use referential types as default props
+// @error:                            👆 Do not use referential types as default props
 function Example({ onClick = () => {} }: ExampleProps) {
   return null;
 }
@@ -67,7 +67,7 @@ interface ExampleProps {
 }
 
 function Example(props: ExampleProps) {
-// @error: Do not use referential types as default props
+// @error:                 👆 Do not use referential types as default props
   const { items = [] } = props;
   return null;
 }

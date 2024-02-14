@@ -37,7 +37,6 @@ function useClassnames(obj: Record<string, boolean>) {
 ```tsx twoslash
 import React from 'react';
 
-// @annotate: Custom Hook that uses other Hooks.
 function useCounter() {
   const [count, setCount] = React.useState(0);
   const increment = () => setCount(c => c + 1);

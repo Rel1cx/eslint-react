@@ -20,7 +20,7 @@ Nesting component definitions inside other components is a common mistake that c
 import React from "react";
 
 function Gallery() {
-// @error: Never define a component inside another component!
+// @error: 👆 Never define a component inside another component!
   function Profile() {
     /* ... */
   }
@@ -34,8 +34,8 @@ function Gallery() {
 function Gallery() {
   // ...
 }
-
 // @annotate: Declare components at the top level
+
 function Profile() {
   /* ... */
 }

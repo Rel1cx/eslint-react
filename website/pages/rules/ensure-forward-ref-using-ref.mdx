@@ -21,7 +21,7 @@ Omitting the `ref` argument is usually a bug, and components not using `ref` don
 ```tsx twoslash
 import React from "react";
 
-// @warn: Missing 'ref' parameter
+// @warn:                                      👆 Missing 'ref' parameter
 const Example = React.forwardRef((props) => {
   return <button />;
 });
@@ -32,7 +32,6 @@ const Example = React.forwardRef((props) => {
 ```tsx twoslash
 import React from "react";
 
-// @annotate: The 'ref' parameter is being used
 const Example = React.forwardRef<HTMLButtonElement>((props, ref) => {
   return <button ref={ref} />;
 });

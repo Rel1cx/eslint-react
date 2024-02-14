@@ -31,7 +31,7 @@ class Example extends React.Component<ExampleProps, ExampleState> {
   };
 
   render() {
-// @error: Do not access `this.state` inside `setState`
+// @error:                                                      👆 Do not access `this.state` inside `setState`
     return <button onClick={() => this.setState({ foo: this.state.foo + 1 })} />;
   }
 }
@@ -54,7 +54,6 @@ class Example extends React.Component<ExampleProps, ExampleState> {
   };
 
   render() {
-// @annotate: Use a function to read the current state
     return <button onClick={() => this.setState(state => ({ foo: state.foo + 1 }))} />;
   }
 }

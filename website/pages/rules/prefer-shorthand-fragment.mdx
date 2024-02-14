@@ -17,15 +17,15 @@ Enforces the usage of `<></>` over `<React.Fragment></React.Fragment>`.
 ### Failing
 
 ```tsx twoslash
-import React from "react";
+import React, { Fragment } from "react";
 
 function Example() {
   return (
-// @warn: Use shorthand fragment syntax instead
-    <React.Fragment>
+// @warn:   👆 Use shorthand fragment syntax instead
+    <Fragment>
       <button />
       <button />
-    </React.Fragment>
+    </Fragment>
   );
 }
 ```

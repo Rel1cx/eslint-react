@@ -49,23 +49,31 @@ const Button = React.memo(function Button() {
 });
 ```
 
-```tsx
+```tsx twoslash
+import React from "react";
+
 const Button = React.memo(() => <div />);
 Button.displayName = "Button";
 ```
 
-```tsx
+```tsx twoslash
+import React from "react";
+
 const Button = React.forwardRef(function Button() {
   return <div />;
 });
 ```
 
-```tsx
+```tsx twoslash
+import React from "react";
+
 const Button = React.forwardRef(() => <div />);
 Button.displayName = "Button";
 ```
 
-```tsx
+```tsx twoslash
+import React from "react";
+
 export default function Button() {
   return <div />;
 }

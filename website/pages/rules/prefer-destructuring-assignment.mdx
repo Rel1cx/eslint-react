@@ -22,7 +22,7 @@ interface ExampleProps {
 }
 
 function Example(props: ExampleProps) {
-// @warn: Use destructuring assignment
+// @warn:               👆 Use destructuring assignment
   const items = props.items;
 
   return <div>{items}</div>;
@@ -37,7 +37,7 @@ interface ExampleProps {
 }
 
 function Example(props: ExampleProps) {
-// @warn: Use destructuring assignment
+// @warn:              👆 Use destructuring assignment
   return <div>{props.items}</div>;
 }
 ```

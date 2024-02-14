@@ -20,7 +20,8 @@ React Hooks `useCallback` has empty dependencies array like what's in the exampl
 import React, { useCallback } from "react";
 
 function Example() {
-// @warn: useCallback has empty dependencies array
+// @warn: 👇 useCallback has empty dependencies array
+
   const onClick = useCallback(() => {
     console.log("clicked");
   }, []);

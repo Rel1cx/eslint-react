@@ -26,7 +26,7 @@ interface ExampleProps {
 }
 
 class Example extends React.Component<ExampleProps> {
-// @error: Do not use 'componentWillMount'
+// @error: 👆 Do not use 'componentWillMount'
   componentWillMount() {
     // ...
   }
@@ -43,7 +43,7 @@ interface ExampleProps {
 }
 
 class Example extends React.Component<ExampleProps> {
-// @annotate: Use 'UNSAFE_componentWillMount' instead
+// @annotate: 👆 Use 'UNSAFE_componentWillMount' instead
   UNSAFE_componentWillMount() {
     // ...
   }

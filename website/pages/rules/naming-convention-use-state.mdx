@@ -16,7 +16,7 @@ Enforces destructuring and symmetric naming of `useState` hook value and setter 
 import React, { useState } from "react";
 
 function Example() {
-// @warn: 'useState' call is not destructured into value + setter pair
+// @warn:       👆 'useState' call is not destructured into value + setter pair
   const useStateResult = useState(0);
 
   return <div>{useStateResult[0]}</div>;

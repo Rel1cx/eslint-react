@@ -24,7 +24,7 @@ import React from "react";
 function Example() {
   return (
     <>
-// @warn: Possible unexpected value will be rendered (React Dom: renders undesired '0', React Native: crashes 💥)
+// @warn:      👆 Possible unexpected value will be rendered (React Dom: renders undesired '0', React Native: crashes 💥)
       {0 && <view />}
     </>
   );
@@ -37,7 +37,7 @@ import React from "react";
 function Example() {
   return (
     <>
-// @warn: Possible unexpected value will be rendered (React Dom: renders undesired 'NaN', React Native: crashes 💥)
+// @warn:      👆 Possible unexpected value will be rendered (React Dom: renders undesired 'NaN', React Native: crashes 💥)
       {NaN && <div />}
     </>
   );
@@ -50,7 +50,7 @@ import React from "react";
 function Example() {
   return (
     <>
-// @warn: Possible unexpected value will be rendered (React Dom: renders nothing, React Native, with React below 18: crashes 💥)
+// @warn:      👆 Possible unexpected value will be rendered (React Dom: renders nothing, React Native, with React below 18: crashes 💥)
       {"" && <div />}
     </>
   );
@@ -73,7 +73,7 @@ interface ExampleProps {
 }
 
 function Example({ count, title }: ExampleProps) {
-// @warn: Potential leaked value that might cause unintentionally rendered values or rendering crashes
+// @warn:              👆 Potential leaked value that might cause unintentionally rendered values or rendering crashes
   return <div>{count && title}</div>;
 }
 ```
@@ -86,7 +86,7 @@ interface ExampleProps {
 }
 
 function Example({ count }: ExampleProps) {
-// @warn: Potential leaked value that might cause unintentionally rendered values or rendering crashes
+// @warn:              👆 Potential leaked value that might cause unintentionally rendered values or rendering crashes
   return <div>{count && <span>There are {count} results</span>}</div>;
 }
 ```
@@ -99,7 +99,7 @@ interface ExampleProps {
 }
 
 function Example({ items }: ExampleProps) {
-// @warn: Potential leaked value that might cause unintentionally rendered values or rendering crashes
+// @warn:              👆 Potential leaked value that might cause unintentionally rendered values or rendering crashes
   return <div>{items.length && <List items={items} />}</div>;
 }
 
@@ -114,7 +114,7 @@ interface ExampleProps {
 }
 
 function Example({ items }: ExampleProps) {
-// @warn: Potential leaked value that might cause unintentionally rendered values or rendering crashes
+// @warn:              👆 Potential leaked value that might cause unintentionally rendered values or rendering crashes
   return <div>{items[0] && <List items={items} />}</div>;
 }
 
@@ -131,7 +131,7 @@ interface ExampleProps {
 
 function Example({ numberA, numberB }: ExampleProps) {
   return (
-// @warn: Potential leaked value that might cause unintentionally rendered values or rendering crashes
+// @warn:         👆 Potential leaked value that might cause unintentionally rendered values or rendering crashes
     <div>{(numberA || numberB) && <Results>{numberA + numberB}</Results>}</div>
   );
 }

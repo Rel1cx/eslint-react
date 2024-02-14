@@ -22,7 +22,7 @@ Run the [rename-unsafe-lifecycles codemod](https://github.com/reactjs/react-code
 import React from "react";
 
 class Example extends React.Component {
-// @error: Do not use 'componentWillReceiveProps'
+// @error: 👆 Do not use 'componentWillReceiveProps'
   componentWillReceiveProps() {
     // ...
   }
@@ -35,7 +35,7 @@ class Example extends React.Component {
 import React from "react";
 
 class Example extends React.Component {
-// @annotate: Use 'UNSAFE_componentWillReceiveProps' instead
+// @annotate: 👆 Use 'UNSAFE_componentWillReceiveProps' instead
   UNSAFE_componentWillReceiveProps() {
     // ...
   }

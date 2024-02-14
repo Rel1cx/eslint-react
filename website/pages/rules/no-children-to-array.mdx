@@ -24,7 +24,7 @@ interface ExampleProps {
 }
 
 function Example({ children }: ExampleProps) {
-// @warn: Do not use 'Children.toArray'
+// @warn:                👆 Do not use 'Children.toArray'
   const result = Children.toArray(children);
   result.reverse();
   // ...

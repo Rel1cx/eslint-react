@@ -23,7 +23,7 @@ const ExampleContext = React.createContext({});
 
 function ExampleProvider() {
   return (
-// @error: Do not use unstable values as context values
+// @error:                                   👆 Do not use unstable values as context values
     <ExampleContext.Provider value={{ foo: "bar" }}>
       <ExampleConsumer />
     </ExampleContext.Provider>

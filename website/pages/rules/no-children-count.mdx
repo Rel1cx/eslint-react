@@ -26,7 +26,7 @@ interface ExampleProps {
 function Example({ children }: ExampleProps) {
   return (
     <>
-// @warn: Do not use 'Children.count'
+// @warn:                      👆 Do not use 'Children.count'
       <h1>Total rows: {Children.count(children)}</h1>
       ...
     </>

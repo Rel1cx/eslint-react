@@ -21,13 +21,13 @@ interface ExampleProps {
 }
 
 function Example({ hideShapes, debugSvg }: ExampleProps) {
-// @warn: Do not use complicated conditional rendering
   return (
     <div>
       {hideShapes
         ? null
         : debugSvg
         ? "<ShapesWithSVGs />"
+// @warn:       👆 Do not use complicated conditional rendering
         : "<ShapesToDisplay />"}
     </div>
   );

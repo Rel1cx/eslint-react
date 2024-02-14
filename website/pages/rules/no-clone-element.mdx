@@ -20,8 +20,8 @@ Using cloneElement is uncommon and can lead to fragile code. This also makes it 
 import { cloneElement } from "react";
 
 // ...
-// Warn: Do not use 'cloneElement'
 const clonedElement = cloneElement(
+  // Warn:            👆 Do not use 'cloneElement'
   <Row title="Cabbage">Hello</Row>,
   { isHighlighted: true },
   "Goodbye"

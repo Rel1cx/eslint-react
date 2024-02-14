@@ -22,7 +22,7 @@ Run the [rename-unsafe-lifecycles codemod](https://github.com/reactjs/react-code
 import React from "react";
 
 class ExampleComponent extends React.Component {
-// @error: Do not use 'componentWillUpdate'
+// @error: 👆 Do not use 'componentWillUpdate'
   componentWillUpdate() {
     // ...
   }
@@ -35,7 +35,7 @@ class ExampleComponent extends React.Component {
 import React from "react";
 
 class ExampleComponent extends React.Component {
-// @annotate: Use 'UNSAFE_componentWillUpdate' instead
+// @annotate: 👆 Use 'UNSAFE_componentWillUpdate' instead
   componentDidUpdate() {
     // ...
   }

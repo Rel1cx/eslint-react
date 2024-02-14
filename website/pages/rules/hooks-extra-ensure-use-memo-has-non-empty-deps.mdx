@@ -21,6 +21,7 @@ import React, { useMemo } from "react";
 import { Button, MantineTheme } from "@mantine/core";
 
 function Example() {
+// 👇 useCallback has empty dependencies array
   const style = useMemo(
     (theme: MantineTheme) => ({
       input: {

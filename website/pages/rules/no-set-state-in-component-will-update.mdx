@@ -27,7 +27,7 @@ interface ExampleState {
 
 class Example extends React.Component<ExampleProps, ExampleState> {
   componentWillUpdate() {
-// @warn: Do not use setState in 'componentWillUpdate'
+// @warn:   👆 Do not use setState in 'componentWillUpdate'
     this.setState({ name: "John" });
   }
 

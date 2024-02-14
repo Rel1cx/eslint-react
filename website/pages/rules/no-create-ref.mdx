@@ -20,7 +20,7 @@ Prevents usage of `createRef()` in function components.
 import React, { createRef } from "react";
 
 function Example() {
-// @error: Do not use 'createRef'
+// @error:                   👆 Do not use 'createRef'
   const ref = React.createRef<HTMLDivElement>();
 
   return <div ref={ref} />;
@@ -33,7 +33,7 @@ function Example() {
 import React, { useRef } from "react";
 
 function Example() {
-// @annotate: Use 'useRef' instead
+// @annotate:             👆 Use 'useRef' instead
   const ref = useRef<HTMLDivElement>(null);
 
   return <div ref={ref} />;

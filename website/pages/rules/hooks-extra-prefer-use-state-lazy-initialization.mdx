@@ -22,7 +22,7 @@ To combat this issue React allows useState calls to use an [initializer function
 import React, { useState } from "react";
 
 function Example() {
-// @warn: Don't call a function directly inside the 'useState' call
+// @warn:                                    👆 Don't call a function directly inside the 'useState' call
   const [value, setValue] = useState(generateTodos());
 
   return null;
@@ -37,7 +37,7 @@ declare function generateTodos(): string[];
 import React, { useState } from "react";
 
 function Example() {
-// @annotate: Use an initializer function to avoid recreating the initial state
+// @annotate:                                    👆 Use an initializer function to avoid recreating the initial state
   const [value, setValue] = useState(() => generateTodos());
 
   return null;
