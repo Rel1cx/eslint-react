@@ -16,11 +16,11 @@ Using unsafe lifecycle methods like `UNSAFE_componentWillReceiveProps` makes you
 
 ### Failing
 
-```tsx {5-7}
+```tsx twoslash
 import React from "react";
 
-class MyComponent extends React.Component {
-  // Error: Do not use UNSAFE_componentWillReceiveProps
+class Example extends React.Component {
+// @warn: Do not use 'UNSAFE_componentWillReceiveProps'
   UNSAFE_componentWillReceiveProps() {
     // ...
   }

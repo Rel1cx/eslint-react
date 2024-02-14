@@ -20,17 +20,21 @@ Prevents usage of the return value of `ReactDOM.render`.
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// Error: Do not use the return value of ReactDOM.render
-const inst = ReactDOM.render(<App />, document.body);
-doSomethingWithInst(inst);
+// @error: Do not use the return value of 'ReactDOM.render'
+const instance = ReactDOM.render(<div id="app" />, document.body);
 ```
 
 ### Passing
 
-```tsx
-ReactDOM.render(<App ref={doSomethingWithInst} />, document.body);
+```tsx twoslash
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-ReactDOM.render(<App />, document.body, doSomethingWithInst);
+function doSomethingWithInst(inst: HTMLDivElement | null) {
+  // ...
+}
+
+ReactDOM.render(<div id="app" ref={doSomethingWithInst} />, document.body);
 ```
 
 ## Further Reading

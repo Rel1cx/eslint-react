@@ -16,33 +16,41 @@ React will re-render all consumers of a context whenever the context value chang
 
 ### Failing
 
-```tsx {6}
+```tsx twoslash
+import React from "react";
+
 const ExampleContext = React.createContext({});
 
-const ExampleProvider = () => {
+function ExampleProvider() {
   return (
-    {/* Error: Do not use unstable values as context values */}
+// @error: Do not use unstable values as context values
     <ExampleContext.Provider value={{ foo: "bar" }}>
       <ExampleConsumer />
     </ExampleContext.Provider>
   );
 };
+
+declare const ExampleConsumer: React.ComponentType;
 ```
 
 ### Passing
 
-```tsx
+```tsx twoslash
+import React, { useMemo } from "react";
+
 const ExampleContext = React.createContext({});
 
-const ExampleProvider = () => {
-  const value = useMemo(() => ({ foo: "bar" }), []);
+const value = { foo: "bar" };
 
+function ExampleProvider() {
   return (
     <ExampleContext.Provider value={value}>
       <ExampleConsumer />
     </ExampleContext.Provider>
   );
 };
+
+declare const ExampleConsumer: React.ComponentType;
 ```
 
 ## Legitimate Uses

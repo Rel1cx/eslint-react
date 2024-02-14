@@ -16,11 +16,11 @@ Using unsafe lifecycle methods like `UNSAFE_componentWillMount` makes your compo
 
 ### Failing
 
-```tsx {5-7}
+```tsx twoslash
 import React from "react";
 
-class MyComponent extends React.Component {
-  // Error: Do not use UNSAFE_componentWillMount
+class Example extends React.Component {
+// @warn: Do not use 'UNSAFE_componentWillMount'
   UNSAFE_componentWillMount() {
     // ...
   }
