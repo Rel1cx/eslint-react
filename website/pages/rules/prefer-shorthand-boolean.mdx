@@ -15,23 +15,20 @@ This rule enforces the use of shorthand syntax for boolean attributes.
 ### Failing
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 function Example() {
-  return (
-    <button disabled={true} />
-  );
+// @warn: Use shorthand boolean syntax instead
+  return <button disabled={true} />;
 }
 ```
 
 ### Passing
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 function Example() {
-  return (
-    <button disabled />
-  );
+  return <button disabled />;
 }
 ```

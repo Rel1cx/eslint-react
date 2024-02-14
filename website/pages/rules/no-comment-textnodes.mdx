@@ -17,15 +17,15 @@ This could be a mistake during code editing or it could be a misunderstanding of
 ### Failing
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 function Example() {
-// @warn: Do not use comment strings in JSX textnodes
+  // @warn: Do not use comment strings in JSX textnodes
   return <div>// empty div</div>;
 }
 
 function Example2() {
-// @warn: Do not use comment strings in JSX textnodes
+  // @warn: Do not use comment strings in JSX textnodes
   return <div>/* empty div */</div>;
 }
 ```
@@ -33,7 +33,7 @@ function Example2() {
 ### Passing
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 function Example() {
 // @annotate: Use JSX comment syntax to comment out text nodes
@@ -46,7 +46,7 @@ function Example() {
 It's possible you may want to legitimately output comment start characters (`//` or `/*`) in a JSX text node. In which case, you can do the following:
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 function Example() {
 // @annotate: This is a legitimate use of comment strings in JSX textnodes

@@ -13,7 +13,7 @@ Prevents complicated conditional rendering in JSX.
 ### Failing
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 interface ExampleProps {
   hideShapes: boolean;
@@ -22,14 +22,22 @@ interface ExampleProps {
 
 function Example({ hideShapes, debugSvg }: ExampleProps) {
 // @warn: Do not use complicated conditional rendering
-  return <div>{hideShapes ? null : debugSvg ? "<ShapesWithSVGs />" : "<ShapesToDisplay />"}</div>;
+  return (
+    <div>
+      {hideShapes
+        ? null
+        : debugSvg
+        ? "<ShapesWithSVGs />"
+        : "<ShapesToDisplay />"}
+    </div>
+  );
 }
 ```
 
 ### Passing
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 interface ExampleProps {
   hideShapes: boolean;

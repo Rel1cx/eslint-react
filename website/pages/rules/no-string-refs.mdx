@@ -17,7 +17,7 @@ String refs are deprecated in React. Use callback refs instead.
 ### Failing
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 function Example() {
 // @error: Do not use string refs
@@ -28,7 +28,7 @@ function Example() {
 ### Passing
 
 ```tsx twoslash
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 
 function Example() {
 // @annotate: Use 'useRef' refs instead

@@ -13,7 +13,7 @@ Warns unused class component methods and properties.
 ### Failing
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 class Example extends React.Component {
 // @warn: Unused class component member
@@ -27,7 +27,7 @@ class Example extends React.Component {
 ### Passing
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 class Example extends React.Component {
   static getDerivedStateFromError(error: React.ErrorInfo) {

@@ -21,7 +21,7 @@ This rule aims to prevent spreading key from objects.
 ### Failing
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 interface ExampleProps {
   items: { id: string; name: string }[];
@@ -30,8 +30,10 @@ interface ExampleProps {
 function Example({ items }: ExampleProps) {
   return (
     <ul>
+      {items.map((item) => (
 // @warn: Do not spread key from object, specify it directly
-      {items.map((item) => <li {...{ key: item.id }}>{item.name}</li>)}
+        <li {...{ key: item.id }}>{item.name}</li>
+      ))}
     </ul>
   );
 }
@@ -40,7 +42,7 @@ function Example({ items }: ExampleProps) {
 ### Passing
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 interface ExampleProps {
   items: { id: string; name: string }[];
@@ -49,8 +51,10 @@ interface ExampleProps {
 function Example({ items }: ExampleProps) {
   return (
     <ul>
+      {items.map((item) => (
 // @annotate: Specify key explicitly instead of spreading it from object
-      {items.map((item) => <li key={item.id}>{item.name}</li>)}
+        <li key={item.id}>{item.name}</li>
+      ))}
     </ul>
   );
 }

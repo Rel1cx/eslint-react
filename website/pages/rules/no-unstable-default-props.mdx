@@ -142,7 +142,7 @@ interface ExampleProps {
   bool: boolean;
 }
 
-// primitives are all compared by value, so are safe to be inlined
+// @log: Primitives are all compared by value, so are safe to be inlined
 function Example({ num = 3, str = "foo", bool = true }: ExampleProps) {
   return null;
 }

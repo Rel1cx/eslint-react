@@ -17,7 +17,7 @@ Prevents usage of `createRef()` in function components.
 ### Failing
 
 ```tsx twoslash
-import React, { createRef } from 'react';
+import React, { createRef } from "react";
 
 function Example() {
 // @error: Do not use 'createRef'
@@ -30,7 +30,7 @@ function Example() {
 ### Passing
 
 ```tsx twoslash
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 
 function Example() {
 // @annotate: Use 'useRef' instead
@@ -41,7 +41,7 @@ function Example() {
 ```
 
 ```tsx twoslash
-import React, { createRef } from 'react';
+import React, { createRef } from "react";
 
 class Example extends React.Component {
   inputRef = createRef();

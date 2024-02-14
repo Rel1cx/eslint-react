@@ -17,7 +17,7 @@ While having `shouldComponentUpdate` will still work, it becomes pointless to ex
 ### Failing
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 class Example extends React.PureComponent {
 // @error: 'Example' does not need 'shouldComponentUpdate' when extending 'React.PureComponent'.
@@ -35,7 +35,7 @@ class Example extends React.PureComponent {
 ### Passing
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 class Example extends React.Component {
   shouldComponentUpdate() {

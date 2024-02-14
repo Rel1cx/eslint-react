@@ -17,11 +17,13 @@ Nesting component definitions inside other components is a common mistake that c
 ### Failing
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 function Gallery() {
 // @error: Never define a component inside another component!
-  function Profile() { /* ... */ }
+  function Profile() {
+    /* ... */
+  }
   // ...
 }
 ```
@@ -34,7 +36,9 @@ function Gallery() {
 }
 
 // @annotate: Declare components at the top level
-function Profile() { /* ... */ }
+function Profile() {
+  /* ... */
+}
 ```
 
 When a child component needs some data from a parent, [pass it by props](https://react.dev/learn/passing-props-to-a-component) instead of nesting definitions.

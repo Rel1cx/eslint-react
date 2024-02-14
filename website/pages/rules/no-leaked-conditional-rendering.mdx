@@ -130,8 +130,10 @@ interface ExampleProps {
 }
 
 function Example({ numberA, numberB }: ExampleProps) {
+  return (
 // @warn: Potential leaked value that might cause unintentionally rendered values or rendering crashes
-  return <div>{(numberA || numberB) && <Results>{numberA + numberB}</Results>}</div>;
+    <div>{(numberA || numberB) && <Results>{numberA + numberB}</Results>}</div>
+  );
 }
 
 declare const Results: React.ComponentType<React.PropsWithChildren>;

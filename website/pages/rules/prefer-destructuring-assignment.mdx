@@ -15,7 +15,7 @@ This rule aims to enforce the use of destructuring assignment over property assi
 ### Failing
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 interface ExampleProps {
   items: string[];
@@ -30,7 +30,7 @@ function Example(props: ExampleProps) {
 ```
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 interface ExampleProps {
   items: string[];
@@ -45,7 +45,7 @@ function Example(props: ExampleProps) {
 ### Passing
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 interface ExampleProps {
   items: string[];
@@ -59,7 +59,7 @@ function Example(props: ExampleProps) {
 ```
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 interface ExampleProps {
   items: string[];
@@ -71,7 +71,7 @@ function Example({ items }: ExampleProps) {
 ```
 
 ```tsx twoslash
-import React from 'react';
+import React from "react";
 
 interface ExampleProps {
   items: string[];

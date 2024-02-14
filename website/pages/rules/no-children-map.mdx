@@ -27,10 +27,8 @@ function Example({ children }: ExampleProps) {
   return (
     <div className="RowList">
 // @warn: Do not use 'Children.map'
-      {Children.map(children, child => (
-        <div className="Row">
-          {child}
-        </div>
+      {Children.map(children, (child) => (
+        <div className="Row">{child}</div>
       ))}
     </div>
   );
