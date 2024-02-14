@@ -21,8 +21,7 @@ In React, you might end up rendering unexpected values like 0 or NaN. In React N
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {}
-function Example({}: ExampleProps) {
+function Example() {
   return (
     <>
 // @warn: Possible unexpected value will be rendered (React Dom: renders undesired '0', React Native: crashes 💥)
@@ -35,9 +34,7 @@ function Example({}: ExampleProps) {
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {}
-
-function Example({}: ExampleProps) {
+function Example() {
   return (
     <>
 // @warn: Possible unexpected value will be rendered (React Dom: renders undesired 'NaN', React Native: crashes 💥)
@@ -50,9 +47,7 @@ function Example({}: ExampleProps) {
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {}
-
-function Example({}: ExampleProps) {
+function Example() {
   return (
     <>
 // @warn: Possible unexpected value will be rendered (React Dom: renders nothing, React Native, with React below 18: crashes 💥)
@@ -165,8 +160,7 @@ interface ExampleProps {
 
 const defaultTitle = "Default Title";
 
-// An OR condition it's considered valid since it's assumed as a way
-// to render some fallback if the first value is falsy, not to render something conditionally.
+// @log: An OR condition it's considered valid since it's assumed as a way to render some fallback if the first value is falsy, not to render something conditionally
 function Example({ customTitle }: ExampleProps) {
   return <div>{customTitle || defaultTitle}</div>;
 }

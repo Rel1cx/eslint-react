@@ -16,23 +16,43 @@ React needs keys to identify items in the list. If you don’t specify a key, Re
 
 ### Failing
 
-```tsx {4}
-const TodoList = ({ todos }) => (
-  <ul>
-    {/* Error: Missing key, Each child in a list should have a unique "key" prop. */}
-    {todos.map((todo) => <Todo {...todo} />)}
-  </ul>
-);
+```tsx twoslash
+import React from 'react';
+
+interface ExampleProps {
+  items: { id: number; name: string }[];
+}
+
+function Example({ items }: ExampleProps) {
+  return (
+    <ul>
+// @error: Missing key, Each child in a list should have a unique 'key' prop
+      {items.map((todo) => <Todo {...todo} />)}
+    </ul>
+  );
+}
+
+declare const Todo: React.ComponentType<{ id: number; name: string }>;
 ```
 
 ### Passing
 
-```tsx
-const TodoList = ({ todos }) => (
-  <ul>
-    {todos.map((todo) => <Todo {...todo} key={todo.id} />)}
-  </ul>
-);
+```tsx twoslash
+import React from 'react';
+
+interface ExampleProps {
+  items: { id: number; name: string }[];
+}
+
+function Example({ items }: ExampleProps) {
+  return (
+    <ul>
+      {items.map((todo) => <Todo key={todo.id} {...todo} />)}
+    </ul>
+  );
+}
+
+declare const Todo: React.ComponentType<{ id: number; name: string }>;
 ```
 
 ## Further Reading

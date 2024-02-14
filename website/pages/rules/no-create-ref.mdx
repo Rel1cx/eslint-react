@@ -19,9 +19,7 @@ Prevents usage of `createRef()` in function components.
 ```tsx twoslash
 import React, { createRef } from 'react';
 
-interface ExampleProps {}
-
-function Example({}: ExampleProps) {
+function Example() {
 // @error: Do not use 'createRef'
   const ref = React.createRef<HTMLDivElement>();
 
@@ -34,9 +32,7 @@ function Example({}: ExampleProps) {
 ```tsx twoslash
 import React, { useRef } from 'react';
 
-interface ExampleProps {}
-
-function Example({}: ExampleProps) {
+function Example() {
 // @annotate: Use 'useRef' instead
   const ref = useRef<HTMLDivElement>(null);
 

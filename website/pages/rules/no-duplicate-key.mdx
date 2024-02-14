@@ -19,9 +19,7 @@ React uses keys to identify elements in an array. If two elements have the same 
 ```tsx
 import React from 'react';
 
-interface ExampleProps {}
-
-function Example ({}: ExampleProps) {
+function Example () {
   return [
     <li key="1">Item 1</li>
     <li key="1">Item 2</li>
@@ -34,9 +32,7 @@ function Example ({}: ExampleProps) {
 ```tsx
 import React from 'react';
 
-interface ExampleProps {}
-
-function Example ({}: ExampleProps) {
+function Example () {
   return [
     <li key="1">Item 1</li>
     <li key="2">Item 2</li>
