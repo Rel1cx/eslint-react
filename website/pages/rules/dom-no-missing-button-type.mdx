@@ -16,14 +16,23 @@ The `button` element's `type` attribute must be specified explicitly. The defaul
 
 ### Failing
 
-```tsx {1}
-<button>Click me</button>;
+```tsx twoslash
+import React from 'react';
+
+function Example() {
+// @error: Missing 'type' attribute on button
+  return <button>Click me</button>;
+}
 ```
 
 ### Passing
 
-```tsx
-<button type="button">Click me</button>;
+```tsx twoslash
+import React from 'react';
+
+function Example() {
+  return <button type="button">Click me</button>;
+}
 ```
 
 ## Further Reading

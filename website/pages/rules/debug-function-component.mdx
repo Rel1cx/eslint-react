@@ -14,34 +14,40 @@ Reports all function components. Useful for debugging.
 
 ## Examples
 
-```tsx
-function Component() {
-  return <div />;
+```tsx twoslash
+import React from "react";
+
+function Example() {
+  return <button />;
 }
-```
-
-```tsx
-function Component() {
-  return React.createElement("div");
-}
-```
-
-```tsx
-const Component = () => <div />;
-```
-
-```tsx
-const Component = () => React.createElement("div");
 ```
 
 ```tsx
 import React from "react";
 
-const Component = React.memo(() => <div />);
+function Example() {
+  return React.createElement("button");
+}
 ```
 
 ```tsx
 import React from "react";
 
-const Component = React.forwardRef(() => <div />);
+const Example = () => <button />;
+```
+
+```tsx
+const Example = () => React.createElement("button");
+```
+
+```tsx
+import React from "react";
+
+const Example = React.memo(() => <button />);
+```
+
+```tsx
+import React from "react";
+
+const Example = React.forwardRef(() => <button />);
 ```

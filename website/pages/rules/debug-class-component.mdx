@@ -14,34 +14,22 @@ Reports all class components. Useful for debugging.
 
 ## Examples
 
-```tsx
-class Component extends React.Component {
+```tsx twoslash
+import React from 'react';
+
+class Example extends React.Component {
   render() {
-    return <div />;
+    return <button />;
   }
 }
 ```
 
-```tsx
-class Component extends React.PureComponent {
+```tsx twoslash
+import React from 'react';
+
+class Example extends React.PureComponent {
   render() {
-    return <div />;
+    return <button />;
   }
 }
-```
-
-```tsx
-class Component extends React.PureComponent<Props> {
-  render() {
-    return <div />;
-  }
-}
-```
-
-```tsx
-const Component = class extends React.Component {
-  render() {
-    return <div />;
-  }
-};
 ```

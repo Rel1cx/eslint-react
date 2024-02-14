@@ -16,14 +16,25 @@ Namespaces, such as with `svg:circle` are not supported in React.
 
 ### Failing
 
-```tsx {1,2}
-<ns:TestComponent />;
-<Ns:TestComponent />;
+```tsx
+import React from 'react';
+
+function Example() {
+  return (
+    {/* Error: Unexpected namespace element */}
+    <svg:circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+  );
+}
 ```
 
 ### Passing
 
-```tsx
-<TestComponent />;
-<testComponent />;
+```tsx twoslash
+import React from 'react';
+
+function Example() {
+  return (
+    <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+  );
+}
 ```

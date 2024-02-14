@@ -16,19 +16,30 @@ Enforces the usage of `<></>` over `<React.Fragment></React.Fragment>`.
 
 ### Failing
 
-```tsx {2,5}
-// Warning: Use shorthand fragment syntax
-<React.Fragment>
-  <div />
-  <div />
-</React.Fragment>;
+```tsx twoslash
+import React from 'react';
+
+function Example() {
+  return (
+    <React.Fragment>
+      <button />
+      <button />
+    </React.Fragment>
+  );
+}
 ```
 
 ### Passing
 
-```tsx
-<>
-  <div />
-  <div />
-</>;
+```tsx twoslash
+import React from 'react';
+
+function Example() {
+  return (
+    <>
+      <button />
+      <button />
+    </>
+  );
+}
 ```

@@ -16,34 +16,35 @@ This API will be removed in a future major version of React. [See the alternativ
 
 ### Failing
 
-```tsx {6}
-import { Component } from "react";
+```tsx twoslash
+import React, { Component } from "react";
 import { findDOMNode } from "react-dom";
 
 class AutoSelectingInput extends Component {
   componentDidMount() {
+// @error: Do not use 'findDOMNode'
     const input = findDOMNode(this);
-    input.select();
+    if (input instanceof HTMLInputElement) {
+      input.select();
+    }
   }
   render() {
     return <input defaultValue="Hello" />;
   }
 }
-
-export default AutoSelectingInput;
 ```
 
 ### Passing
 
-```tsx
-import { createRef, Component } from "react";
+```tsx twoslash
+import React, { Component } from "react";
 
 class AutoSelectingInput extends Component {
-  inputRef = createRef(null);
+  inputRef = React.createRef<HTMLInputElement>();
 
   componentDidMount() {
     const input = this.inputRef.current;
-    input.select();
+    input?.select();
   }
 
   render() {

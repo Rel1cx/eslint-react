@@ -14,86 +14,136 @@ When using object destructuring syntax you can set the default value for a given
 
 This harms performance as it means that React will have to re-evaluate hooks and re-render memoized components more often than necessary.
 
-To fix the violations, the easiest way is to use a referencing variable in module scope instead of using the literal values, e.g:
-
-```tsx
-const emptyArray = [];
-
-function MyComponent({ items = emptyArray }) {
-  return <div>{items}</div>;
-}
-```
+To fix the violations, the easiest way is to use a referencing variable in module scope instead of using the literal values.
 
 ## Examples
 
 ### Failing
 
-```tsx {2}
-// Error: Do not use referential types as default props
-function MyComponent({ items = [] }) {
-  return <div>{items}</div>;
+```tsx twoslash
+import React from "react";
+
+interface ExampleProps {
+  items: string[];
+}
+
+// @error: Do not use referential types as default props
+function Example({ items = [] }: ExampleProps) {
+  return null;
 }
 ```
 
-```tsx {2}
-// Error: Do not use referential types as default props
-function MyComponent({ items = {} }) {
-  return <div>{items}</div>;
+```tsx twoslash
+import React from "react";
+
+interface ExampleProps {
+  items: Record<string, string>;
+}
+
+// @error: Do not use referential types as default props
+function Example({ items = {} }: ExampleProps) {
+  return null;
 }
 ```
 
-```tsx {2}
-// Error: Do not use referential types as default props
-function MyComponent({ items = () => {} }) {
-  return <div>{items}</div>;
+```tsx twoslash
+import React from "react";
+
+interface ExampleProps {
+  onClick: () => void;
+}
+
+// @error: Do not use referential types as default props
+function Example({ onClick = () => {} }: ExampleProps) {
+  return null;
 }
 ```
 
-```tsx {2}
-// Error: Do not use referential types as default props
-function MyComponent(props) {
+```tsx twoslash
+import React from "react";
+
+interface ExampleProps {
+  items: string[];
+}
+
+function Example(props: ExampleProps) {
+// @error: Do not use referential types as default props
   const { items = [] } = props;
-
-  return <div>{items}</div>;
+  return null;
 }
 ```
 
 ### Passing
 
-```tsx
-const emptyArray = [];
+```tsx twoslash
+import React from "react";
 
-function MyComponent({ items = emptyArray }) {
-  return <div>{items}</div>;
+const emptyArray: string[] = [];
+
+interface ExampleProps {
+  items: string[];
+}
+
+function Example({ items = emptyArray }: ExampleProps) {
+  return null;
 }
 ```
 
-```tsx
+```tsx twoslash
+import React from "react";
+
 const emptyObject = {};
-function MyComponent({ items = emptyObject }) {
-  return <div>{items}</div>;
+
+interface ExampleProps {
+  items: Record<string, string>;
+}
+
+function Example({ items = emptyObject }: ExampleProps) {
+  return null;
 }
 ```
 
-```tsx
-const noopFunc = () => {};
-function MyComponent({ items = noopFunc }) {
-  return <div>{items}</div>;
+```tsx twoslash
+import React from "react";
+
+const noop = () => {};
+
+interface ExampleProps {
+  onClick: () => void;
+}
+
+function Example({ onClick = noop }: ExampleProps) {
+  return null;
 }
 ```
 
-```tsx
-const emptyArray = [];
-function MyComponent(props) {
+```tsx twoslash
+import React from "react";
+
+const emptyArray: string[] = [];
+
+interface ExampleProps {
+  items: string[];
+}
+
+function Example(props: ExampleProps) {
   const { items = emptyArray } = props;
 
-  return <div>{items}</div>;
+  return null;
 }
 ```
 
-```tsx
+```tsx twoslash
+import React from "react";
+
+interface ExampleProps {
+  num: number;
+  str: string;
+  bool: boolean;
+}
+
 // primitives are all compared by value, so are safe to be inlined
-function MyComponent({ num = 3, str = "foo", bool = true }) {
-  return <div>{items}</div>;
+function Example({ num = 3, str = "foo", bool = true }: ExampleProps) {
+  return null;
 }
 ```

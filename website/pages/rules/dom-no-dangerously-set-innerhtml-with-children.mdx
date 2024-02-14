@@ -16,12 +16,25 @@ When using `dangerouslySetInnerHTML`, the content of the DOM element is set from
 
 ### Failing
 
-```tsx {1}
-<div dangerouslySetInnerHTML={{ __html: "Hello World" }}>Hello World</div>;
+```tsx twoslash
+import React from "react";
+
+function Example() {
+  return (
+// @error: Do not use `dangerouslySetInnerHTML` and `children` at the same time
+    <div dangerouslySetInnerHTML={{ __html: "Hello World" }}>
+      <p>Goodbye World</p>
+    </div>
+  );
+}
 ```
 
 ### Passing
 
-```tsx
-<div dangerouslySetInnerHTML={{ __html: "Hello World" }} />;
+```tsx twoslash
+import React from "react";
+
+function Example() {
+  return <div dangerouslySetInnerHTML={{ __html: "Hello World" }} />;
+}
 ```

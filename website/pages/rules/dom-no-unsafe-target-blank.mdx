@@ -12,12 +12,29 @@ Prevents the use of `target="_blank"` without `rel="noreferrer noopener"`.
 
 ### Failing
 
-```tsx {1}
-<a href="https://example.com" target="_blank">Example</a>;
+```tsx twoslash
+import React from "react";
+
+function Example() {
+  return (
+// @warn: Unsafe 'target="_blank"' without 'rel="noreferrer noopener"'
+    <a href="https://example.com" target="_blank">
+      Example
+    </a>
+  );
+}
 ```
 
 ### Passing
 
-```tsx
-<a href="https://example.com" target="_blank" rel="noreferrer noopener">Example</a>;
+```tsx twoslash
+import React from "react";
+
+function Example() {
+  return (
+    <a href="https://example.com" target="_blank" rel="noreferrer noopener">
+      Example
+    </a>
+  );
+}
 ```

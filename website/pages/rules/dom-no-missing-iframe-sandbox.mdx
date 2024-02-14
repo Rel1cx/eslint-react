@@ -18,10 +18,10 @@ This rule checks all React iframe elements and verifies that there is sandbox at
 
 ### Failing
 
-```tsx {4}
+```tsx twoslash
 import React from "react";
 
-const MyComponent = () => {
+function Example() {
   return <iframe src="https://example.com" />;
 };
 ```
@@ -29,7 +29,7 @@ const MyComponent = () => {
 ```tsx {4}
 import React from "react";
 
-const MyComponent = () => {
+function Example() {
   return React.createElement("iframe", { src: "https://example.com" });
 };
 ```
@@ -39,7 +39,7 @@ const MyComponent = () => {
 ```tsx
 import React from "react";
 
-const MyComponent = () => {
+function Example() {
   return <iframe src="https://example.com" sandbox="allow-popups" />;
 };
 ```
@@ -47,7 +47,7 @@ const MyComponent = () => {
 ```tsx
 import React from "react";
 
-const MyComponent = () => {
+function Example() {
   return React.createElement("iframe", {
     src: "https://example.com",
     sandbox: "allow-popups",

@@ -22,8 +22,8 @@ Omitting the `ref` argument is usually a bug, and components not using `ref` don
 import React from "react";
 
 // @warn: Missing 'ref' parameter
-const Example = React.forwardRef<HTMLDivElement>((props) => {
-  return <div />;
+const Example = React.forwardRef((props) => {
+  return <button />;
 });
 ```
 
@@ -33,8 +33,8 @@ const Example = React.forwardRef<HTMLDivElement>((props) => {
 import React from "react";
 
 // @annotate: The 'ref' parameter is being used
-const Example = React.forwardRef<HTMLDivElement>((props, ref) => {
-  return <div ref={ref} />;
+const Example = React.forwardRef<HTMLButtonElement>((props, ref) => {
+  return <button ref={ref} />;
 });
 ```
 
