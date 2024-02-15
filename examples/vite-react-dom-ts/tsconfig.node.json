@@ -5,10 +5,9 @@
   ],
   "compilerOptions": {
     "noEmit": true,
-    "composite": true,
     "skipLibCheck": true,
     "module": "ESNext",
-    "moduleResolution": "bundler",
+    "moduleDetection": "force",
     "allowSyntheticDefaultImports": true
   },
   "include": [

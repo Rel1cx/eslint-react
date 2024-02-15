@@ -21,7 +21,6 @@ module.exports = {
       files: ["*.config.ts", ".eslintrc.cjs"],
       env: { browser: false, node: true, es2021: true },
       parserOptions: {
-        // This is important if you want to lint your config files under project root as well
         project: "./tsconfig.node.json",
       },
     },

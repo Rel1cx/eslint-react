@@ -16,6 +16,7 @@
     "module": "ESNext",
     "skipLibCheck": true,
     /* Bundler mode */
+    "moduleDetection": "force",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,

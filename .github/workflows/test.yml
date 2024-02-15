@@ -38,6 +38,6 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-pnpm-store-release-
             - name: Install front-end dependencies and build front-end assets
-              run: pnpm install --frozen-lockfile
+              run: pnpm install
             - name: Test
               run: pnpm run test
