@@ -63,7 +63,10 @@ module.exports = {
 
 <Config>
 
-```js filename="eslint.config.js"
+```ts twoslash filename="eslint.config.js"
+// ...
+import eslintReact from "@eslint-react/eslint-plugin";
+
 // ...
 export default [
   // ...
@@ -75,7 +78,6 @@ export default [
         jsxPragma: "React",
         jsxPragmaFrag: "Fragment",
         additionalHooks: {
-          useState: ["useLocalStorageState"],
           useLayoutEffect: ["useIsomorphicLayoutEffect"],
           // ...
         },
