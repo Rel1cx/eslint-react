@@ -15,12 +15,12 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "ress": "5.0.2",
-    "ts-pattern": "5.0.6"
+    "ts-pattern": "5.0.8"
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "workspace:*",
     "@mdx-js/mdx": "3.0.1",
-    "@types/node": "20.11.17",
+    "@types/node": "20.11.19",
     "@types/react": "18.2.55",
     "@types/react-dom": "18.2.19",
     "@typescript-eslint/eslint-plugin": ">=7.0.1",
