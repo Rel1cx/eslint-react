@@ -1,4 +1,4 @@
-import { Tabs } from "nextra/components"
+import { Tabs } from "nextra/components";
 
 import { Info } from "#/components/callout";
 import { Config, ESLintConfig } from "#/components/eslint-config";
@@ -62,25 +62,21 @@ module.exports = {
 
 <Config>
 
-```js filename="eslint.config.js" {10,16}
-import tseParser from "@typescript-eslint/parser";
+```js filename="eslint.config.js" {5,10-13}
+// @ts-check
+
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
 import eslintReact from "@eslint-react/eslint-plugin";
 
-export default [
-  // ...
-  {
-    files: ["*.ts", "*.tsx"],
-    languageOptions: {
-      // ...
-      parser: tseParser,
-    },
-    // ...
-  },
+export default tseslint.config(
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
   {
     files: ["src/**/*.{ts,tsx}"],
     ...eslintReact.configs.recommended,
-  }
-];
+  },
+);
 ```
 
 </Config>
@@ -131,34 +127,35 @@ Then, you can enable the rules that require type information.
 
 </Info>
 
-```js filename="eslint.config.js" {12,24}
-import tseParser from "@typescript-eslint/parser";
+```js filename="eslint.config.js" {13,25}
+// @ts-check
+
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
 import eslintReact from "@eslint-react/eslint-plugin";
 
-export default [
-  // ...
+export default tseslint.config(
+  eslint.configs.recommended,
+  ...tseslint.configs.recommendedTypeChecked,
   {
-    files: ["*.ts", "*.tsx"],
     languageOptions: {
-      // ...
-      parser: tseParser,
       parserOptions: {
         project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
+        tsconfigRootDir: import.meta.dirname,
       },
     },
-    // ...
   },
   {
     files: ["src/**/*.{ts,tsx}"],
     ...eslintReact.configs.recommended,
   },
   {
-    files: ["*.ts", "*.tsx"],
+    files: ["src/**/*.{ts,tsx}"],
     rules: {
       "@eslint-react/no-leaked-conditional-rendering": "error", // <-- Requires type information
     },
-  }
-];
+  },
+);
 ```
 
 </Config>

@@ -1,27 +1,19 @@
-import ts from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
+// @ts-check
+
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
 import reactHooks from "eslint-plugin-react-hooks";
 import eslintReact from "@eslint-react/eslint-plugin";
 
-export default [
-  // TypeScript rules
+export default tseslint.config(
+  eslint.configs.recommended,
+  ...tseslint.configs.recommendedTypeChecked,
   {
-    files: ["*.ts", "*.tsx"],
-    ignores: ["**/*.d.ts"],
     languageOptions: {
-      parser: tsParser,
-      sourceType: "module",
       parserOptions: {
-        project: "./tsconfig.json",
+        project: true,
+        tsconfigRootDir: import.meta.dirname,
       },
-      sourceType: "module",
-    },
-    plugins: {
-      "@typescript-eslint": ts,
-    },
-    rules: {
-      ...ts.configs["eslint-recommended"].rules,
-      ...ts.configs["recommended"].rules,
     },
   },
   // React hooks rules
@@ -30,9 +22,7 @@ export default [
     plugins: {
       "react-hooks": reactHooks,
     },
-    rules: {
-      ...reactHooks.configs.recommended.rules,
-    },
+    rules: reactHooks.configs.recommended.rules,
   },
   // ESLint React rules
   {
@@ -41,14 +31,16 @@ export default [
   },
   // Configurations rules
   {
-    files: ["*.config.{js,ts}"],
+    files: ["*.config.{js,ts}", "*.d.ts"],
     languageOptions: {
-      parser: tsParser,
-      sourceType: "module",
       parserOptions: {
         // This is important if you want to lint your config files under project root as well
         project: "./tsconfig.node.json",
       },
     },
   },
-];
+  {
+    files: ["*.js"],
+    ...tseslint.configs.disableTypeChecked,
+  },
+);
