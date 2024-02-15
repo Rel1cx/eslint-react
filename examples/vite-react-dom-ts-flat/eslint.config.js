@@ -1,11 +1,13 @@
 // @ts-check
 
+import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 import reactHooks from "eslint-plugin-react-hooks";
 import eslintReact from "@eslint-react/eslint-plugin";
 import gitignore from "eslint-config-flat-gitignore";
 
 export default tseslint.config(
+  eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   {
     languageOptions: {
