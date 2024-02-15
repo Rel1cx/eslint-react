@@ -78,6 +78,7 @@
     "treeshake",
     "TSES",
     "TSESAST",
+    "tseslint",
     "tsup",
     "twoslash",
     "typeclass",
