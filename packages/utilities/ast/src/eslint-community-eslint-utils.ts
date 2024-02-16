@@ -6,6 +6,7 @@ import * as eslintUtils from "@eslint-community/eslint-utils";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace ESLintCommunityESLintUtils {
   /**
    * Get the proper location of a given function node to report.

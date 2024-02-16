@@ -92,8 +92,8 @@ importers:
         specifier: 0.1.3
         version: 0.1.3
       eslint-config-with-tsconfig:
-        specifier: 2.14.5
-        version: 2.14.5(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3)
+        specifier: 2.15.2
+        version: 2.15.2(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3)
       eslint-plugin-eslint-plugin:
         specifier: 5.3.0
         version: 5.3.0(eslint@8.56.0)
@@ -778,8 +778,8 @@ importers:
         specifier: 9.1.0
         version: 9.1.0(eslint@8.56.0)
       eslint-config-with-tsconfig:
-        specifier: 2.14.5
-        version: 2.14.5(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3)
+        specifier: 2.15.2
+        version: 2.15.2(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3)
       eslint-define-config:
         specifier: 2.1.0
         version: 2.1.0
@@ -2974,10 +2974,6 @@ packages:
 
   /@tsconfig/node20@20.1.2:
     resolution: {integrity: sha512-madaWq2k+LYMEhmcp0fs+OGaLFk0OenpHa4gmI4VEmCKX4PJntQ6fnnGADVFrVkBj0wIdAlQnK/MrlYTHsa1gQ==}
-    dev: true
-
-  /@tsconfig/strictest@2.0.2:
-    resolution: {integrity: sha512-jt4jIsWKvUvuY6adJnQJlb/UR7DdjC8CjHI/OaSQruj2yX9/K6+KOvDt/vD6udqos/FUk5Op66CvYT7TBLYO5Q==}
     dev: true
 
   /@tsconfig/strictest@2.0.3:
@@ -5390,8 +5386,8 @@ packages:
       eslint: 8.56.0
     dev: true
 
-  /eslint-config-rel1cx@0.14.5(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3):
-    resolution: {integrity: sha512-yQngfQbP3VCSxZVHz8l0nkcWOCKGDpwXbA7DiHLwxYQH9dEkvqVCS5oiFgU34baRB8UWqhUx89Q+6yh1pDA3Tg==}
+  /eslint-config-rel1cx@0.15.2(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3):
+    resolution: {integrity: sha512-ujRjOmU1G5sAGVrmhMPVjH7Xhere/BUG09TgAtB1lX3f/ApjGt5S2NOxzpcAVEzGynqS8mUKk3xmjRf4i1/7KA==}
     engines: {bun: '>=1.0.7', node: '>=18.15.0'}
     peerDependencies:
       eslint: '>=8.56.0'
@@ -5421,9 +5417,9 @@ packages:
       eslint-plugin-unicorn: 51.0.1(eslint@8.56.0)
       get-tsconfig: 4.7.2
       lodash.merge: 4.6.2
-      rambda: 9.0.1
+      rambda: 9.1.0
       tiny-invariant: 1.3.1
-      ts-pattern: 5.0.6
+      ts-pattern: 5.0.8
       typescript: 5.3.3
     transitivePeerDependencies:
       - supports-color
@@ -5431,19 +5427,19 @@ packages:
       - typescript-eslint
     dev: true
 
-  /eslint-config-with-tsconfig@2.14.5(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3):
-    resolution: {integrity: sha512-dUip6DroaydiasC0pe01pnCgn9/xJb1oBPhck2NWYhSwOoi3th8E1xA66tzMlYXNp9OQZvrf5WK4oOeEfaAYNA==}
+  /eslint-config-with-tsconfig@2.15.2(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3):
+    resolution: {integrity: sha512-Dc1VczKuD2kFo2jOUzQzkZWtGfvykhULP/3ol2cBnvVb43qeGj22qhXdowGpVJkiFLB0M2kYWLoObNpzLIW4NA==}
     engines: {bun: '>=1.0.13', node: '>=18.15.0'}
     peerDependencies:
       eslint: '>=8.56.0'
       typescript: '>=5.3.3'
     dependencies:
       '@tsconfig/node20': 20.1.2
-      '@tsconfig/strictest': 2.0.2
+      '@tsconfig/strictest': 2.0.3
       '@typescript-eslint/eslint-plugin': 7.0.1(@typescript-eslint/parser@7.0.1)(eslint@8.56.0)(typescript@5.3.3)
       '@typescript-eslint/parser': 7.0.1(eslint@8.56.0)(typescript@5.3.3)
       eslint: 8.56.0
-      eslint-config-rel1cx: 0.14.5(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3)
+      eslint-config-rel1cx: 0.15.2(eslint@8.56.0)(tailwindcss@3.4.1)(typescript@5.3.3)
       eslint-define-config: 2.1.0
       eslint-plugin-expect-type: 0.3.0(@typescript-eslint/parser@7.0.1)(eslint@8.56.0)(typescript@5.3.3)
       eslint-plugin-import-access: 2.1.2(eslint@8.56.0)(typescript@5.3.3)
@@ -9540,8 +9536,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /rambda@9.0.1:
-    resolution: {integrity: sha512-Su5spknJIBhYUDHNyfEYknOmZTHxbT+kOGRuzLtxF+gjI7YBm7lX0DE/7qnQ6zszve62AJFuLC+7gXD/VSiwRQ==}
+  /rambda@9.1.0:
+    resolution: {integrity: sha512-fCRAq8Of+bAuqjAA0MSb/umbNgiYwy9N5camM2T++Qu/mRImLT3a31hf0REvnqaWCrgrdC3ewf/ucAILsYeBgQ==}
     dev: true
 
   /randombytes@2.1.0:
@@ -10834,10 +10830,6 @@ packages:
 
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
-    dev: true
-
-  /ts-pattern@5.0.6:
-    resolution: {integrity: sha512-Y+jOjihlFriWzcBjncPCf2/am+Hgz7LtsWs77pWg5vQQKLQj07oNrJryo/wK2G0ndNaoVn2ownFMeoeAuReu3Q==}
     dev: true
 
   /ts-pattern@5.0.8:
