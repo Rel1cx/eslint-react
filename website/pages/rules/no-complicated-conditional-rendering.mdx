@@ -45,7 +45,7 @@ interface ExampleProps {
 }
 
 function Example({ hideShapes, debugSvg }: ExampleProps) {
-  // @annotate: Early return if nothing to render
+// @annotate: Early return if nothing to render
   if (hideShapes) {
     return null;
   }

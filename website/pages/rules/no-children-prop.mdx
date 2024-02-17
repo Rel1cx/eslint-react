@@ -42,11 +42,6 @@ interface ExampleProps {
 }
 
 function Example({ children }: ExampleProps) {
-  return (
-    <div>
-      // @annotate: Pass 'children' as actual children
-      {children}
-    </div>
-  );
+  return <div>{children}</div>;
 }
 ```
