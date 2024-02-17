@@ -214,7 +214,7 @@ importers:
         version: 5.3.3
       vite:
         specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)(sass@1.70.0)
+        version: 5.1.3(@types/node@20.11.19)(sass@1.71.0)
 
   examples/vite-react-dom-ts-flat:
     dependencies:
@@ -263,7 +263,7 @@ importers:
         version: 7.0.1(eslint@8.56.0)(typescript@5.3.3)
       vite:
         specifier: 5.1.3
-        version: 5.1.3(@types/node@20.11.19)(sass@1.70.0)
+        version: 5.1.3(@types/node@20.11.19)(sass@1.71.0)
 
   packages/core:
     dependencies:
@@ -715,7 +715,7 @@ importers:
     dependencies:
       next:
         specifier: 14.1.0
-        version: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.70.0)
+        version: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.71.0)
       nextra:
         specifier: 3.0.0-alpha.17
         version: 3.0.0-alpha.17(@types/react@18.2.55)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
@@ -761,7 +761,7 @@ importers:
         version: 1.14.1
       '@vanilla-extract/next-plugin':
         specifier: 2.3.6
-        version: 2.3.6(@types/node@20.11.19)(next@14.1.0)(sass@1.70.0)(webpack@5.90.1)
+        version: 2.3.6(@types/node@20.11.19)(next@14.1.0)(sass@1.71.0)(webpack@5.90.1)
       autoprefixer:
         specifier: 10.4.17
         version: 10.4.17(postcss@8.4.35)
@@ -802,8 +802,8 @@ importers:
         specifier: 4.0.0
         version: 4.0.0
       sass:
-        specifier: 1.70.0
-        version: 1.70.0
+        specifier: 1.71.0
+        version: 1.71.0
       typescript:
         specifier: '>=5.3.3'
         version: 5.3.3
@@ -3412,7 +3412,7 @@ packages:
       outdent: 0.8.0
     dev: true
 
-  /@vanilla-extract/integration@7.1.0(@types/node@20.11.19)(sass@1.70.0):
+  /@vanilla-extract/integration@7.1.0(@types/node@20.11.19)(sass@1.71.0):
     resolution: {integrity: sha512-kCFn2IfnCHf4PCP538zBs5g6JJvqybJ4lU+ww2CeV/B2roze8drF7jVu2hDQUTtfiXgNe0Q3WpUfXdX27KFLsw==}
     dependencies:
       '@babel/core': 7.23.9
@@ -3426,8 +3426,8 @@ packages:
       lodash: 4.17.21
       mlly: 1.5.0
       outdent: 0.8.0
-      vite: 5.1.3(@types/node@20.11.19)(sass@1.70.0)
-      vite-node: 1.2.2(@types/node@20.11.19)(sass@1.70.0)
+      vite: 5.1.3(@types/node@20.11.19)(sass@1.71.0)
+      vite-node: 1.2.2(@types/node@20.11.19)(sass@1.71.0)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -3439,13 +3439,13 @@ packages:
       - terser
     dev: true
 
-  /@vanilla-extract/next-plugin@2.3.6(@types/node@20.11.19)(next@14.1.0)(sass@1.70.0)(webpack@5.90.1):
+  /@vanilla-extract/next-plugin@2.3.6(@types/node@20.11.19)(next@14.1.0)(sass@1.71.0)(webpack@5.90.1):
     resolution: {integrity: sha512-EzVJU5mUgMnERW4qVxIlivzjioFbgY+Q/hrrZxEsZBRpbcV35vf7oksCJc5seG2nzWTBRGJGoodJaXSm74pz3g==}
     peerDependencies:
       next: 14.1.0
     dependencies:
-      '@vanilla-extract/webpack-plugin': 2.3.6(@types/node@20.11.19)(sass@1.70.0)(webpack@5.90.1)
-      next: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.70.0)
+      '@vanilla-extract/webpack-plugin': 2.3.6(@types/node@20.11.19)(sass@1.71.0)(webpack@5.90.1)
+      next: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.71.0)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -3462,12 +3462,12 @@ packages:
     resolution: {integrity: sha512-17kVyLq3ePTKOkveHxXuIJZtGYs+cSoev7BlP+Lf4916qfDhk/HBjvlYDe8egrea7LNPHKwSZJK/bzZC+Q6AwQ==}
     dev: true
 
-  /@vanilla-extract/webpack-plugin@2.3.6(@types/node@20.11.19)(sass@1.70.0)(webpack@5.90.1):
+  /@vanilla-extract/webpack-plugin@2.3.6(@types/node@20.11.19)(sass@1.71.0)(webpack@5.90.1):
     resolution: {integrity: sha512-GnWdVzBFDfCzNRyBoYzuwPTEWFOKFtq3Td9gla6ng+dCeJFRGW+6jT5hXvqJojw8Rk2fWzc6XA2FHPrVa7W9wA==}
     peerDependencies:
       webpack: ^4.30.0 || ^5.20.2
     dependencies:
-      '@vanilla-extract/integration': 7.1.0(@types/node@20.11.19)(sass@1.70.0)
+      '@vanilla-extract/integration': 7.1.0(@types/node@20.11.19)(sass@1.71.0)
       chalk: 4.1.2
       debug: 4.3.4
       loader-utils: 2.0.4
@@ -3494,7 +3494,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.23.3(@babel/core@7.23.9)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.0
-      vite: 5.1.3(@types/node@20.11.19)(sass@1.70.0)
+      vite: 5.1.3(@types/node@20.11.19)(sass@1.71.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3902,6 +3902,7 @@ packages:
   /autoprefixer@10.4.17(postcss@8.4.35):
     resolution: {integrity: sha512-/cpVNRLSfhOtcGflT13P2794gVSgmPgTR+erw5ifnMLZb0UnSlkK4tquLmkd3BhA+nLo5tX8Cu0upUsGKvKbmg==}
     engines: {node: ^10 || ^12 || >=14}
+    hasBin: true
     peerDependencies:
       postcss: ^8.1.0
     dependencies:
@@ -5380,6 +5381,7 @@ packages:
 
   /eslint-config-prettier@9.1.0(eslint@8.56.0):
     resolution: {integrity: sha512-NSWl5BFQWEPi1j4TjVNItzYV7dZXZ+wP6I6ZhrBGpChQhZRUaElihE9uRRkcbRnNb76UMKDF3r+WTmNcGPKsqw==}
+    hasBin: true
     peerDependencies:
       eslint: '>=8.56.0'
     dependencies:
@@ -8695,14 +8697,15 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0
     dependencies:
-      next: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.70.0)
+      next: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.71.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /next@14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.70.0):
+  /next@14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.71.0):
     resolution: {integrity: sha512-wlzrsbfeSU48YQBjZhDzOwhWhGsy+uQycR8bHAOt1LY1bn3zZEcDyHQOEoN3aWzQ8LHCAJ1nqrWCc9XF2+O45Q==}
     engines: {node: '>=18.17.0'}
+    hasBin: true
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
       react: 18.2.0
@@ -8722,7 +8725,7 @@ packages:
       postcss: 8.4.31
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      sass: 1.70.0
+      sass: 1.71.0
       styled-jsx: 5.1.1(@babel/core@7.23.9)(react@18.2.0)
     optionalDependencies:
       '@next/swc-darwin-arm64': 14.1.0
@@ -8753,7 +8756,7 @@ packages:
       flexsearch: 0.7.43
       focus-visible: 5.2.0
       intersection-observer: 0.12.2
-      next: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.70.0)
+      next: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.71.0)
       next-themes: 0.2.1(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)
       nextra: 3.0.0-alpha.17(@types/react@18.2.55)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
       react: 18.2.0
@@ -8785,7 +8788,7 @@ packages:
       gray-matter: 4.0.3
       hast-util-to-estree: 3.1.0
       katex: 0.16.9
-      next: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.70.0)
+      next: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.71.0)
       p-limit: 4.0.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -10027,9 +10030,10 @@ packages:
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  /sass@1.70.0:
-    resolution: {integrity: sha512-uUxNQ3zAHeAx5nRFskBnrWzDUJrrvpCPD5FNAoRvTi0WwremlheES3tg+56PaVtCs5QDRX5CBLxxKMDJMEa1WQ==}
+  /sass@1.71.0:
+    resolution: {integrity: sha512-HKKIKf49Vkxlrav3F/w6qRuPcmImGVbIXJ2I3Kg0VMA+3Bav+8yE9G5XmP5lMj6nl4OlqbPftGAscNaNu28b8w==}
     engines: {node: '>=14.0.0'}
+    hasBin: true
     dependencies:
       chokidar: 3.6.0
       immutable: 4.3.5
@@ -10858,6 +10862,7 @@ packages:
   /tsup@8.0.2(postcss@8.4.35)(typescript@5.3.3):
     resolution: {integrity: sha512-NY8xtQXdH7hDUAZwcQdY/Vzlw9johQsaqf7iwZ6g1DOUlFYQ5/AtVAjTvihhEyeRlGo4dLRVHtrRaL35M1daqQ==}
     engines: {node: '>=18'}
+    hasBin: true
     peerDependencies:
       '@microsoft/api-extractor': ^7.36.0
       '@swc/core': ^1
@@ -10896,6 +10901,7 @@ packages:
 
   /tsutils-etc@1.4.2(tsutils@3.21.0)(typescript@5.3.3):
     resolution: {integrity: sha512-2Dn5SxTDOu6YWDNKcx1xu2YUy6PUeKrWZB/x2cQ8vY2+iz3JRembKn/iZ0JLT1ZudGNwQQvtFX9AwvRHbXuPUg==}
+    hasBin: true
     peerDependencies:
       tsutils: ^3.0.0
       typescript: '>=4.0.0'
@@ -11082,6 +11088,7 @@ packages:
   /typedoc@0.25.8(typescript@5.3.3):
     resolution: {integrity: sha512-mh8oLW66nwmeB9uTa0Bdcjfis+48bAjSH3uqdzSuSawfduROQLlXw//WSNZLYDdhmMVB7YcYZicq6e8T0d271A==}
     engines: {node: '>= 16'}
+    hasBin: true
     peerDependencies:
       typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x
     dependencies:
@@ -11353,6 +11360,7 @@ packages:
 
   /update-browserslist-db@1.0.13(browserslist@4.23.0):
     resolution: {integrity: sha512-xebP81SNcPuNpPP3uzeW1NYXxI3rxyJzF3pD6sH4jE7o/IX+WtSpwnVU+qIsDPyk0d3hmFQ7mjqc6AtV604hbg==}
+    hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
     dependencies:
@@ -11483,7 +11491,7 @@ packages:
       unist-util-stringify-position: 4.0.0
       vfile-message: 4.0.2
 
-  /vite-node@1.2.2(@types/node@20.11.19)(sass@1.70.0):
+  /vite-node@1.2.2(@types/node@20.11.19)(sass@1.71.0):
     resolution: {integrity: sha512-1as4rDTgVWJO3n1uHmUYqq7nsFgINQ9u+mRcXpjeOMJUmviqNKjcZB7UfRZrlM7MjYXMKpuWp5oGkjaFLnjawg==}
     engines: {node: ^18.0.0 || >=20.0.0}
     dependencies:
@@ -11491,7 +11499,7 @@ packages:
       debug: 4.3.4
       pathe: 1.1.2
       picocolors: 1.0.0
-      vite: 5.1.3(@types/node@20.11.19)(sass@1.70.0)
+      vite: 5.1.3(@types/node@20.11.19)(sass@1.71.0)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -11511,7 +11519,7 @@ packages:
       debug: 4.3.4
       pathe: 1.1.2
       picocolors: 1.0.0
-      vite: 5.1.3(@types/node@20.11.19)(sass@1.70.0)
+      vite: 5.1.3(@types/node@20.11.19)(sass@1.71.0)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -11523,9 +11531,10 @@ packages:
       - terser
     dev: true
 
-  /vite@5.1.3(@types/node@20.11.19)(sass@1.70.0):
+  /vite@5.1.3(@types/node@20.11.19)(sass@1.71.0):
     resolution: {integrity: sha512-UfmUD36DKkqhi/F75RrxvPpry+9+tTkrXfMNZD+SboZqBCMsxKtO52XeGzzuh7ioz+Eo/SYDBbdb0Z7vgcDJew==}
     engines: {node: ^18.0.0 || >=20.0.0}
+    hasBin: true
     peerDependencies:
       '@types/node': ^18.0.0 || >=20.0.0
       less: '*'
@@ -11554,7 +11563,7 @@ packages:
       esbuild: 0.19.10
       postcss: 8.4.35
       rollup: 4.11.0
-      sass: 1.70.0
+      sass: 1.71.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
@@ -11562,6 +11571,7 @@ packages:
   /vitest@1.3.0(@types/node@20.11.19)(@vitest/ui@1.3.0):
     resolution: {integrity: sha512-V9qb276J1jjSx9xb75T2VoYXdO1UKi+qfflY7V7w93jzX7oA/+RtYE6TcifxksxsZvygSSMwu2Uw6di7yqDMwg==}
     engines: {node: ^18.0.0 || >=20.0.0}
+    hasBin: true
     peerDependencies:
       '@edge-runtime/vm': '*'
       '@types/node': ^18.0.0 || >=20.0.0
@@ -11602,7 +11612,7 @@ packages:
       strip-literal: 2.0.0
       tinybench: 2.6.0
       tinypool: 0.8.2
-      vite: 5.1.3(@types/node@20.11.19)(sass@1.70.0)
+      vite: 5.1.3(@types/node@20.11.19)(sass@1.71.0)
       vite-node: 1.3.0(@types/node@20.11.19)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
