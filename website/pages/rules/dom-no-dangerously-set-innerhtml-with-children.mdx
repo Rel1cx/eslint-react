@@ -22,7 +22,9 @@ import React from "react";
 function Example() {
   return (
     <div dangerouslySetInnerHTML={{ __html: "Hello World" }}>
-// @error:     👆 Do not use `dangerouslySetInnerHTML` and `children` at the same time
+{/*      └──────────┬──────────┘                                                             */}
+{/*             ┌───┴─ Do not use 'dangerouslySetInnerHTML' and 'children' at the same time. */}
+{/*   ┌─────────┴────────┐                                                                   */}
       <p>Goodbye World</p>
     </div>
   );

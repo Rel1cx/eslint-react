@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_CHILDREN_ONLY: "Using 'Children' APIs is uncommon and can lead to fragile code. Use alternatives instead.",
+      NO_CHILDREN_ONLY: "Using 'Children.only' is uncommon and can lead to fragile code. Use alternatives instead.",
     },
   },
   defaultOptions: [],

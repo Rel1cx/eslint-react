@@ -1,3 +1,13 @@
+## v1.5.5 (Draft)
+
+### 🐞 Fixes
+
+- Fix rule `no-component-will-receive-props` not working as expected.
+
+### 🪄 Improvements
+
+- Improve error messages and code samples in rule docs.
+
 ## v1.5.4 (Fri Feb 16 2024)
 
 ### 🐞 Fixes

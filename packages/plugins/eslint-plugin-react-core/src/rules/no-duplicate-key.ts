@@ -24,7 +24,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_DUPLICATE_KEY: "Duplicate key value `{{value}}` found.",
+      NO_DUPLICATE_KEY: "Duplicate key '{{value}}' found.",
     },
   },
   defaultOptions: [],

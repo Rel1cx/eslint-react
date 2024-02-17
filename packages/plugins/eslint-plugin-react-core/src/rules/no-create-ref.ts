@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_CREATE_REF: "Do not use 'createRef.' Use the 'useRef' hook instead.",
+      NO_CREATE_REF: "'createRef' is not allowed in function components. Use 'useRef' instead.",
     },
   },
   defaultOptions: [],

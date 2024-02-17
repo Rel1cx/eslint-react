@@ -39,7 +39,8 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_SET_STATE_IN_COMPONENT_DID_MOUNT: "Do not use 'setState' in 'componentDidMount'.",
+      NO_SET_STATE_IN_COMPONENT_DID_MOUNT:
+        "Do not call `this.setState` in `componentDidMount` outside of functions, such as callbacks.",
     },
   },
   defaultOptions: [],

@@ -20,8 +20,9 @@ Prevents usage of the return value of `ReactDOM.render`.
 import React from "react";
 import ReactDOM from "react-dom";
 
-// @error: Do not use the return value of 'ReactDOM.render'
 const instance = ReactDOM.render(<div id="app" />, document.body);
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Do not depend on the return value from '{{objectName}}.render'.
 ```
 
 ### Passing

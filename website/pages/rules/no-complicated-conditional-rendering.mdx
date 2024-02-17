@@ -27,8 +27,8 @@ function Example({ hideShapes, debugSvg }: ExampleProps) {
         ? null
         : debugSvg
         ? "<ShapesWithSVGs />"
-// @warn:       👆 Do not use complicated conditional rendering
         : "<ShapesToDisplay />"}
+      {/* Avoid complicated conditional rendering. Extract the logic into separate elements or components. */}
     </div>
   );
 }
@@ -45,7 +45,7 @@ interface ExampleProps {
 }
 
 function Example({ hideShapes, debugSvg }: ExampleProps) {
-// @annotate: Early return if nothing to render
+  // @annotate: Early return if nothing to render
   if (hideShapes) {
     return null;
   }

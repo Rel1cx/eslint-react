@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
     schema: [],
     messages: {
       NO_FIND_DOM_NODE:
-        "The 'findDOMNode' API will be removed in a future major version of React. Use the the alternatives instead.",
+        "The 'findDOMNode' will be removed in a future version of React. Use the the alternatives instead.",
     },
   },
   defaultOptions: [],

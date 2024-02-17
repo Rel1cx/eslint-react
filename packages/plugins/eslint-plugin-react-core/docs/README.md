@@ -46,7 +46,7 @@ ___
 | `no-comment-textnodes` | `RuleModule`\<``"NO_COMMENT_TEXTNODES"``, [], `RuleListener`\> |
 | `no-complicated-conditional-rendering` | `RuleModule`\<``"NO_COMPLICATED_CONDITIONAL_RENDERING"``, [], `RuleListener`\> |
 | `no-component-will-mount` | `RuleModule`\<``"NO_COMPONENT_WILL_MOUNT"``, [], `RuleListener`\> |
-| `no-component-will-receive-props` | `RuleModule`\<``"NO_COMPONENT_WILL_UPDATE"``, [], `RuleListener`\> |
+| `no-component-will-receive-props` | `RuleModule`\<``"NO_COMPONENT_WILL_RECEIVE_PROPS"``, [], `RuleListener`\> |
 | `no-component-will-update` | `RuleModule`\<``"NO_COMPONENT_WILL_UPDATE"``, [], `RuleListener`\> |
 | `no-create-ref` | `RuleModule`\<``"NO_CREATE_REF"``, [], `RuleListener`\> |
 | `no-direct-mutation-state` | `RuleModule`\<``"NO_DIRECT_MUTATION_STATE"``, [], `RuleListener`\> |

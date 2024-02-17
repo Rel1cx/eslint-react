@@ -27,7 +27,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_COMPONENT_WILL_UPDATE: "Do not use 'componentWillUpdate'. It has been deprecated.",
+      NO_COMPONENT_WILL_UPDATE: "'componentWillUpdate' is deprecated. Use 'UNSAFE_componentWillUpdate' instead.",
     },
   },
   defaultOptions: [],

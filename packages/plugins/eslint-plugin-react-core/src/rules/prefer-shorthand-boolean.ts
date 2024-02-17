@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      PREFER_SHORTHAND_BOOLEAN: "Omit boolean value for prop '{{propName}}'.",
+      PREFER_SHORTHAND_BOOLEAN: "Prefer shorthand boolean attributes.",
     },
   },
   defaultOptions: [],

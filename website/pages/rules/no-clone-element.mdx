@@ -21,7 +21,7 @@ import { cloneElement } from "react";
 
 // ...
 const clonedElement = cloneElement(
-  // Warn:            👆 Do not use 'cloneElement'
+  // Using 'cloneElement' is uncommon and can lead to fragile code. Use alternatives instead.
   <Row title="Cabbage">Hello</Row>,
   { isHighlighted: true },
   "Goodbye"

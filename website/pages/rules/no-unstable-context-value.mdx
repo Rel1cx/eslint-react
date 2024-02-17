@@ -23,12 +23,14 @@ const ExampleContext = React.createContext({});
 
 function ExampleProvider() {
   return (
-// @error:                                   👆 Do not use unstable values as context values
     <ExampleContext.Provider value={{ foo: "bar" }}>
+      {/*                           ~~~~~~~~~~~~~~ */}
+      {/*                           The 'Object expression' passed as the value prop to the context provider should not be constructed. */}
+      {/*                           It will change on every render. */}
       <ExampleConsumer />
     </ExampleContext.Provider>
   );
-};
+}
 
 declare const ExampleConsumer: React.ComponentType;
 ```
@@ -48,7 +50,7 @@ function ExampleProvider() {
       <ExampleConsumer />
     </ExampleContext.Provider>
   );
-};
+}
 
 declare const ExampleConsumer: React.ComponentType;
 ```

@@ -27,7 +27,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_RENDER_RETURN_VALUE: "Do not depend on the return value from '{{objectName}}.render'",
+      NO_RENDER_RETURN_VALUE: "Do not depend on the return value from '{{objectName}}.render'.",
     },
   },
   defaultOptions: [],

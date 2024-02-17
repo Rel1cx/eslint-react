@@ -61,7 +61,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_ACCESS_STATE_IN_SETSTATE: "Do not access 'this.state' within 'setState'",
+      NO_ACCESS_STATE_IN_SETSTATE: "Do not access 'this.state' within 'setState', use 'setState' callback instead.",
     },
   },
   defaultOptions: [],

@@ -26,8 +26,8 @@ interface ExampleProps {
 function Example({ children }: ExampleProps) {
   return (
     <div className="RowList">
-// @warn:      👆 Do not use 'Children.map'
       {Children.map(children, (child) => (
+        // Using 'Children.map' is uncommon and can lead to fragile code. Use alternatives instead.
         <div className="Row">{child}</div>
       ))}
     </div>

@@ -20,8 +20,9 @@ String refs are deprecated in React. Use callback refs instead.
 import React from "react";
 
 function Example() {
-// @error:                 👆 Do not use string refs
   return <div ref="ref" />;
+  //              ^^^^^
+  //              String refs are deprecated. Use callback refs instead.
 }
 ```
 
@@ -31,7 +32,6 @@ function Example() {
 import React, { useRef } from "react";
 
 function Example() {
-// @annotate: Use 'useRef' refs instead
   const ref = useRef<HTMLDivElement>(null);
   return <div ref={ref} />;
 }

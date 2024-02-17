@@ -6,14 +6,14 @@ import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "no-component-will-update";
+export const RULE_NAME = "no-component-will-receive-props";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 function isComponentWillUpdate(node: TSESTree.ClassElement) {
   return isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])(node)
     && node.key.type === NodeType.Identifier
-    && node.key.name === "componentWillUpdate";
+    && node.key.name === "componentWillReceiveProps";
 }
 
 export default createRule<[], MessageID>({
@@ -21,13 +21,14 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow usage of 'componentWillUpdate'",
+      description: "disallow usage of 'componentWillReceiveProps'",
       recommended: "recommended",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
-      NO_COMPONENT_WILL_UPDATE: "Do not use 'componentWillUpdate'. It has been deprecated.",
+      NO_COMPONENT_WILL_RECEIVE_PROPS:
+        "'componentWillReceiveProps' is deprecated, use 'UNSAFE_componentWillReceiveProps' instead.",
     },
   },
   defaultOptions: [],
@@ -45,7 +46,7 @@ export default createRule<[], MessageID>({
           for (const member of body) {
             if (isComponentWillUpdate(member)) {
               context.report({
-                messageId: "NO_COMPONENT_WILL_UPDATE",
+                messageId: "NO_COMPONENT_WILL_RECEIVE_PROPS",
                 node: member,
               });
             }

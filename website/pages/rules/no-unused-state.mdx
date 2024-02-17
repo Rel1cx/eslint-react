@@ -16,10 +16,10 @@ Warns unused class component state.
 import React from "react";
 
 class Example extends React.Component {
-// @warn: 👆 Unused state
   state = {
     foo: 1,
   };
+  // Unused class component state.
 
   render() {
     return null;

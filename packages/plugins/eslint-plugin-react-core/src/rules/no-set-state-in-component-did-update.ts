@@ -39,7 +39,8 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_SET_STATE_IN_COMPONENT_DID_UPDATE: "Do not use 'setState' in 'componentDidUpdate'.",
+      NO_SET_STATE_IN_COMPONENT_DID_UPDATE:
+        "Do not call `this.setState` in `componentDidUpdate` outside of functions, such as callbacks.",
     },
   },
   defaultOptions: [],

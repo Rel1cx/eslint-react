@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_IMPLICIT_KEY: "Do not spread 'key' from objects.",
+      NO_IMPLICIT_KEY: "Prefer specifying key explicitly instead of spreading it from object.",
     },
   },
   defaultOptions: [],

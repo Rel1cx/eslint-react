@@ -27,8 +27,9 @@ interface ExampleState {
 
 class Example extends React.Component<ExampleProps, ExampleState> {
   componentDidMount() {
-// @warn:   👆 Do not use 'setState' in 'componentDidMount'
     this.setState({ name: "John" });
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Do not call `this.setState` in `componentDidMount` outside of functions, such as callbacks.
   }
 
   render() {

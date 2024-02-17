@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_NAMESPACE: "React component {{name}} must not be in a namespace, as React does not support them",
+      NO_NAMESPACE: "React component '{{name}}' must not be in a namespace, as React does not support them.",
     },
   },
   defaultOptions: [],

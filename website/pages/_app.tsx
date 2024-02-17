@@ -1,7 +1,7 @@
 // eslint-disable-next-line @eslint-react/naming-convention/filename
 import "#/styles/base.scss";
 import "#/styles/overrides.scss";
-import "#/styles/fonts/monaspace/fonts.css";
+import "#/styles/fonts/iosevka/fonts.css";
 
 import type { AppProps } from "next/app";
 

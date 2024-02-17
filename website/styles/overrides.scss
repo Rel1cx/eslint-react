@@ -1,9 +1,10 @@
-.nextra-code-block {
-  font-size: 18px;
+.nextra-code {
 
-  div:nth-child(1) {
-    font-family: var(--font-family-ui);
-    font-size: 14px;
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--font-family-mono);
   }
 }
 

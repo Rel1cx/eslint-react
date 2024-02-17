@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.5.4",
+  "version": "1.5.5-next.0",
   "private": true,
   "description": "A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -62,7 +62,7 @@
     "@typescript-eslint/eslint-plugin": ">=7.0.1",
     "@typescript-eslint/parser": ">=7.0.1",
     "@typescript-eslint/rule-tester": ">=7.0.1",
-    "@vitest/ui": "1.2.2",
+    "@vitest/ui": "1.3.0",
     "bun": "1.0.26",
     "bun-types": "1.0.26",
     "code-block-writer": "12.0.0",
@@ -96,7 +96,7 @@
     "typedoc-plugin-markdown": "3.17.1",
     "typedoc-plugin-rename-defaults": "0.7.0",
     "typescript": ">=5.3.3",
-    "vitest": "1.2.2"
+    "vitest": "1.3.0"
   },
   "packageManager": "pnpm@8.15.2",
   "engines": {

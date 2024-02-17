@@ -20,7 +20,8 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_CHILDREN_TO_ARRAY: "Using 'Children' APIs is uncommon and can lead to fragile code. Use alternatives instead.",
+      NO_CHILDREN_TO_ARRAY:
+        "Using 'Children.toArray' is uncommon and can lead to fragile code. Use alternatives instead.",
     },
   },
   defaultOptions: [],

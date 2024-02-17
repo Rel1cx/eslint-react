@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_SCRIPT_URL: "Using 'javascript:' URLs as event handler prop's value is not allowed.",
+      NO_SCRIPT_URL: "Using a `javascript:` URL is a security risk and should be avoided.",
     },
   },
   defaultOptions: [],

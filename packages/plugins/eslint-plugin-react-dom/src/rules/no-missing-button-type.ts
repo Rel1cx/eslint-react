@@ -24,7 +24,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_MISSING_BUTTON_TYPE: "Missing 'type' attribute on button component.",
+      NO_MISSING_BUTTON_TYPE: "Missing 'type' attribute on 'button' component.",
     },
   },
   defaultOptions: [],

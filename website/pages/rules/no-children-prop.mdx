@@ -26,12 +26,9 @@ interface ExampleProps {
 }
 
 function Example({ children }: ExampleProps) {
-  return (
-    <div
-// @warn:     👆 Do not pass 'children' as a prop
-      children={children}
-    />
-  );
+  return <div children={children} />;
+  //          ~~~~~~~~~~~~~~~~~~~
+  //          Children should always be actual children, not passed in as a prop.
 }
 ```
 
@@ -47,7 +44,7 @@ interface ExampleProps {
 function Example({ children }: ExampleProps) {
   return (
     <div>
-// @annotate: Pass 'children' as actual children
+      // @annotate: Pass 'children' as actual children
       {children}
     </div>
   );

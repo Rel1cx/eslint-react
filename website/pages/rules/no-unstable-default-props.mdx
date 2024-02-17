@@ -27,8 +27,9 @@ interface ExampleProps {
   items: string[];
 }
 
-// @error:                          👆 Do not use referential types as default props
 function Example({ items = [] }: ExampleProps) {
+  //                       ^^
+  //                       found a/an 'Array literal' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'Array literal'.
   return null;
 }
 ```
@@ -40,8 +41,9 @@ interface ExampleProps {
   items: Record<string, string>;
 }
 
-// @error:                          👆 Do not use referential types as default props
 function Example({ items = {} }: ExampleProps) {
+  //                       ^^
+  //                       found a/an 'Object literal' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'Object literal'.
   return null;
 }
 ```
@@ -53,8 +55,9 @@ interface ExampleProps {
   onClick: () => void;
 }
 
-// @error:                            👆 Do not use referential types as default props
 function Example({ onClick = () => {} }: ExampleProps) {
+  //                         ^^^^^^^^
+  //                         found a/an 'arrow function expression' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'arrow function expression'.
   return null;
 }
 ```
@@ -67,8 +70,9 @@ interface ExampleProps {
 }
 
 function Example(props: ExampleProps) {
-// @error:                 👆 Do not use referential types as default props
   const { items = [] } = props;
+  //              ^^
+  //              found a/an 'Array literal' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'Array literal'.
   return null;
 }
 ```

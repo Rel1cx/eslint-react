@@ -19,7 +19,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      PREFER_SHORTHAND_FRAGMENT: "Use fragment syntax instead of '{{reactPragma}}.{{fragmentPragma}}'.",
+      PREFER_SHORTHAND_FRAGMENT: "Prefer shorthand fragment syntax instead of '{{reactPragma}}.{{fragmentPragma}}'.",
     },
   },
   defaultOptions: [],

@@ -6,11 +6,11 @@ Security.
 
 ## What it does
 
-Prevents usage of `javascript:` URLs as the value of component props.
+Prevents usage of `javascript:` URLs as the value of certain attributes.
 
 ## Why is this bad?
 
-Using `javascript:` URLs is harmful to code maintainability, readability, and application security.
+`javascript:` URLs are a form of [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) attack. They allow an attacker to execute arbitrary JavaScript in the context of your website, which can be used to steal user data, deface your website, or perform other malicious actions.
 
 ## Examples
 
@@ -20,8 +20,9 @@ Using `javascript:` URLs is harmful to code maintainability, readability, and ap
 import React from "react";
 
 function Example() {
-// @warn:                👆 Do not use 'javascript:' URLs
   return <a href="javascript:alert('Hello, world!')">Click me</a>;
+  //             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  //             Using a `javascript:` URL is a security risk and should be avoided.
 }
 ```
 

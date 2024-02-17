@@ -29,7 +29,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      PREFER_DESTRUCTURING_ASSIGNMENT: "Use destructuring assignment.",
+      PREFER_DESTRUCTURING_ASSIGNMENT: "Prefer destructuring assignment.",
     },
   },
   defaultOptions: [],

@@ -89,7 +89,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_ARRAY_INDEX_KEY: "Do not use Array index as key",
+      NO_ARRAY_INDEX_KEY: "Do not use Array index as key.",
     },
   },
   defaultOptions: [],

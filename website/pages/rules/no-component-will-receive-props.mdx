@@ -22,10 +22,9 @@ Run the [rename-unsafe-lifecycles codemod](https://github.com/reactjs/react-code
 import React from "react";
 
 class Example extends React.Component {
-// @error: 👆 Do not use 'componentWillReceiveProps'
-  componentWillReceiveProps() {
-    // ...
-  }
+  componentWillReceiveProps() {}
+  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  // 'componentWillReceiveProps' is deprecated, use 'UNSAFE_componentWillReceiveProps' instead.
 }
 ```
 
@@ -35,10 +34,7 @@ class Example extends React.Component {
 import React from "react";
 
 class Example extends React.Component {
-// @annotate: 👆 Use 'UNSAFE_componentWillReceiveProps' instead
-  UNSAFE_componentWillReceiveProps() {
-    // ...
-  }
+  UNSAFE_componentWillReceiveProps() {}
 }
 ```
 

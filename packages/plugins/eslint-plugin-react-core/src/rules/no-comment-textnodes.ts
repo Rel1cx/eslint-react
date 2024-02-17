@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
     schema: [],
     messages: {
       NO_COMMENT_TEXTNODES:
-        "Possible misused comment in text node. Comments inside children section of tag should be placed inside braces",
+        "Possible misused comment in text node. Comments inside children section of tag should be placed inside braces.",
     },
   },
   defaultOptions: [],

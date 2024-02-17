@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      ENSURE_FORWARD_REF_USING_REF: "'forwardRef' is used with this component but no 'ref' parameter is set",
+      ENSURE_FORWARD_REF_USING_REF: "'forwardRef' is used with this component but no 'ref' parameter is set.",
     },
   },
   defaultOptions: [],

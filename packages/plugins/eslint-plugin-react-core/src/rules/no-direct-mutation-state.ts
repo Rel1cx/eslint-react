@@ -59,7 +59,7 @@ export default createRule<[], MessageID>({
     },
     schema: [],
     messages: {
-      NO_DIRECT_MUTATION_STATE: "Do not mutate state directly. Use 'setState' instead.",
+      NO_DIRECT_MUTATION_STATE: "Do not mutate state directly. Use 'setState()' instead.",
     },
   },
   defaultOptions: [],

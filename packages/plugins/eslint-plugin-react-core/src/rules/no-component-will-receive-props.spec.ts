@@ -1,7 +1,7 @@
 import dedent from "dedent";
 
 import { allValid, defaultParserOptions, RuleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./no-component-will-update";
+import rule, { RULE_NAME } from "./no-component-will-receive-props";
 
 const ruleTester = new RuleTester({
   parser: "@typescript-eslint/parser",
@@ -13,7 +13,7 @@ ruleTester.run(RULE_NAME, rule, {
     ...allValid,
     dedent`
       class Foo extends Bar {
-        componentWillUpdate() {}
+        componentWillReceiveProps() {}
       }
     `,
     dedent`
@@ -21,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
 
       class Foo extends React.Component {
 
-        UNSAFE_componentWillUpdate() {}
+        UNSAFE_componentWillReceiveProps() {}
 
         render() {
           return <div />;
@@ -33,7 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
 
       class Foo extends React.PureComponent {
 
-        UNSAFE_componentWillUpdate() {}
+        UNSAFE_componentWillReceiveProps() {}
 
         render() {
           return <div />;
@@ -48,7 +48,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         class Foo extends React.Component {
 
-          componentWillUpdate() {}
+          componentWillReceiveProps() {}
 
           render() {
             return <div />;
@@ -57,7 +57,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPONENT_WILL_UPDATE",
+          messageId: "NO_COMPONENT_WILL_RECEIVE_PROPS",
         },
       ],
     },
@@ -67,7 +67,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         class Foo extends React.PureComponent {
 
-          componentWillUpdate() {}
+          componentWillReceiveProps() {}
 
           render() {
             return <div />;
@@ -76,7 +76,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPONENT_WILL_UPDATE",
+          messageId: "NO_COMPONENT_WILL_RECEIVE_PROPS",
         },
       ],
     },
@@ -86,7 +86,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         class Foo extends Component {
 
-          componentWillUpdate() {}
+          componentWillReceiveProps() {}
 
           render() {
             return <div />;
@@ -95,7 +95,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPONENT_WILL_UPDATE",
+          messageId: "NO_COMPONENT_WILL_RECEIVE_PROPS",
         },
       ],
     },
@@ -105,7 +105,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         class Foo extends PureComponent {
 
-          componentWillUpdate() {}
+          componentWillReceiveProps() {}
 
           render() {
             return <div />;
@@ -114,7 +114,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPONENT_WILL_UPDATE",
+          messageId: "NO_COMPONENT_WILL_RECEIVE_PROPS",
         },
       ],
     },
