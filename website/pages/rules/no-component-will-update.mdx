@@ -22,9 +22,9 @@ Run the [rename-unsafe-lifecycles codemod](https://github.com/reactjs/react-code
 import React from "react";
 
 class ExampleComponent extends React.Component {
-  componentWillUpdate() {}
-  // ^^^^^^^^^^^^^^^^^^^^^
-  // 'componentWillUpdate' is deprecated. Use 'UNSAFE_componentWillUpdate' instead.
+  componentWillUpdate() {
+    // ...
+  }
 }
 ```
 
@@ -34,7 +34,9 @@ class ExampleComponent extends React.Component {
 import React from "react";
 
 class ExampleComponent extends React.Component {
-  UNSAFE_componentWillUpdate() {}
+  UNSAFE_componentWillUpdate() {
+    // ...
+  }
 }
 ```
 

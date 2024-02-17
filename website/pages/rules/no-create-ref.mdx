@@ -22,7 +22,7 @@ import React, { createRef } from "react";
 function Example() {
   const ref = React.createRef<HTMLDivElement>();
   //          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  //          'createRef' is not allowed in function components. Use 'useRef' instead.
+  //          - 'createRef' is not allowed in function components. Use 'useRef' instead.
 
   return <div ref={ref} />;
 }

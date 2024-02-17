@@ -6,6 +6,17 @@
   pre {
     font-family: var(--font-family-mono);
   }
+
+  .twoslash-highlighted {
+    background: none;
+    border: none;
+    text-decoration: underline wavy #f6c99b;
+    text-decoration-skip-ink: none;
+
+    .twoslash-hover {
+      border: none;
+    }
+  }
 }
 
 .nextra-nav-container {

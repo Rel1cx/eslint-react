@@ -37,8 +37,8 @@ class Example extends React.Component<ExampleProps, ExampleState> {
       <div
         onClick={() => {
           this.state.foo = "baz";
-          // ^^^^^^^^^^^^^^^^^^^
-          // Do not mutate state directly. Use 'setState()' instead.
+          //   ^^^^^^^^^^^^^^^^^
+          //   - Do not mutate state directly. Use 'setState()' instead.
         }}
       >
         {this.state.foo}

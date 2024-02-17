@@ -25,7 +25,6 @@ interface ExampleProps {
 
 function Example({ children }: ExampleProps) {
   const result = Children.toArray(children);
-  // Using 'Children.toArray' is uncommon and can lead to fragile code. Use alternatives instead.
   result.reverse();
   // ...
 }

@@ -19,14 +19,11 @@ Using cloneElement is uncommon and can lead to fragile code. This also makes it 
 ```tsx
 import { cloneElement } from "react";
 
-// ...
 const clonedElement = cloneElement(
-  // Using 'cloneElement' is uncommon and can lead to fragile code. Use alternatives instead.
   <Row title="Cabbage">Hello</Row>,
   { isHighlighted: true },
   "Goodbye"
 );
-// ...
 
 console.log(clonedElement); // <Row title="Cabbage" isHighlighted={true}>Goodbye</Row>
 ```

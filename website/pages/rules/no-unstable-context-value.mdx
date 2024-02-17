@@ -24,9 +24,6 @@ const ExampleContext = React.createContext({});
 function ExampleProvider() {
   return (
     <ExampleContext.Provider value={{ foo: "bar" }}>
-      {/*                           ~~~~~~~~~~~~~~ */}
-      {/*                           The 'Object expression' passed as the value prop to the context provider should not be constructed. */}
-      {/*                           It will change on every render. */}
       <ExampleConsumer />
     </ExampleContext.Provider>
   );

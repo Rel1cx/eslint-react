@@ -28,8 +28,8 @@ interface ExampleState {
 class Example extends React.Component<ExampleProps, ExampleState> {
   componentWillUpdate() {
     this.setState({ name: "John" });
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Do not call `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.
+    //   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //   - Do not call `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.
   }
 
   render() {

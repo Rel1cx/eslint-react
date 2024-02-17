@@ -23,8 +23,8 @@ import React from "react";
 
 function Example() {
   return <iframe src="https://example.com" />;
-  //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  //     Missing 'sandbox' attribute on iframe component.
+  //     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  //     - Missing 'sandbox' attribute on iframe component.
 }
 ```
 
@@ -33,8 +33,8 @@ import React from "react";
 
 function Example() {
   return React.createElement("iframe", { src: "https://example.com" });
-  //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  //     Missing 'sandbox' attribute on iframe component.
+  //     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  //     - Missing 'sandbox' attribute on iframe component.
 }
 ```
 

@@ -26,7 +26,6 @@ interface ExampleProps {
 function Example({ children }: ExampleProps) {
   const result = [];
   Children.forEach(children, (child, index) => {
-    // Using 'Children.forEach' is uncommon and can lead to fragile code. Use alternatives instead.
     result.push(child);
     result.push(<hr key={index} />);
   });

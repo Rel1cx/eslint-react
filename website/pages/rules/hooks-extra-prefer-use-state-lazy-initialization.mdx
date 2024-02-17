@@ -23,8 +23,8 @@ import React, { useState } from "react";
 
 function Example() {
   const [value, setValue] = useState(generateTodos());
-  //                                 ~~~~~~~~~~~~~~~
-  //                                 Don't call a function directly inside the 'useState' call.
+  //                                 ^^^^^^^^^^^^^^^
+  //                                 - Don't call a function directly inside the 'useState' call.
 
   return null;
 }

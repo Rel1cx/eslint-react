@@ -21,14 +21,14 @@ import React from "react";
 
 function Example() {
   return <div>// empty div</div>;
-  //          ~~~~~~~~~~~~
-  // Possible misused comment in text node. Comments inside children section of tag should be placed inside braces.
+  //          ^^^^^^^^^^^^
+  //          - Possible misused comment in text node. Comments inside children section of tag should be placed inside braces.
 }
 
 function Example2() {
   return <div>/* empty div */</div>;
-  //          ~~~~~~~~~~~~~~~
-  // Possible misused comment in text node. Comments inside children section of tag should be placed inside braces.
+  //          ^^^^^^^^^^^^^^^
+  //          - Possible misused comment in text node. Comments inside children section of tag should be placed inside braces.
 }
 ```
 

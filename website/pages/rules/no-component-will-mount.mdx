@@ -26,9 +26,9 @@ interface ExampleProps {
 }
 
 class Example extends React.Component<ExampleProps> {
-  componentWillMount() {}
-  // ^^^^^^^^^^^^^^^^^^^^
-  // 'componentWillMount' is deprecated, use 'UNSAFE_componentWillMount' instead.
+  componentWillMount() {
+    // ...
+  }
 }
 ```
 
@@ -42,7 +42,9 @@ interface ExampleProps {
 }
 
 class Example extends React.Component<ExampleProps> {
-  UNSAFE_componentWillMount() {}
+  UNSAFE_componentWillMount() {
+    // ...
+  }
 }
 ```
 
