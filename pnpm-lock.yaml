@@ -186,8 +186,8 @@ importers:
         specifier: 2.0.3
         version: 2.0.3
       '@types/react':
-        specifier: 18.2.55
-        version: 18.2.55
+        specifier: 18.2.57
+        version: 18.2.57
       '@types/react-dom':
         specifier: 18.2.19
         version: 18.2.19
@@ -238,8 +238,8 @@ importers:
         specifier: 2.0.3
         version: 2.0.3
       '@types/react':
-        specifier: 18.2.55
-        version: 18.2.55
+        specifier: 18.2.57
+        version: 18.2.57
       '@types/react-dom':
         specifier: 18.2.19
         version: 18.2.19
@@ -718,7 +718,7 @@ importers:
         version: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.70.0)
       nextra:
         specifier: 3.0.0-alpha.17
-        version: 3.0.0-alpha.17(@types/react@18.2.55)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
+        version: 3.0.0-alpha.17(@types/react@18.2.57)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
       nextra-theme-docs:
         specifier: 3.0.0-alpha.17
         version: 3.0.0-alpha.17(next@14.1.0)(nextra@3.0.0-alpha.17)(react-dom@18.2.0)(react@18.2.0)
@@ -745,8 +745,8 @@ importers:
         specifier: 20.11.19
         version: 20.11.19
       '@types/react':
-        specifier: 18.2.55
-        version: 18.2.55
+        specifier: 18.2.57
+        version: 18.2.57
       '@types/react-dom':
         specifier: 18.2.19
         version: 18.2.19
@@ -2090,14 +2090,14 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@mdx-js/react@3.0.1(@types/react@18.2.55)(react@18.2.0):
+  /@mdx-js/react@3.0.1(@types/react@18.2.57)(react@18.2.0):
     resolution: {integrity: sha512-9ZrPIU4MGf6et1m1ov3zKf+q9+deetI51zprKB1D/z3NOb+rUxxtEl3mCjW5wTGh6VhRdwPueh1oRzi6ezkA8A==}
     peerDependencies:
       '@types/react': '>=16'
       react: 18.2.0
     dependencies:
       '@types/mdx': 2.0.11
-      '@types/react': 18.2.55
+      '@types/react': 18.2.57
       react: 18.2.0
     dev: false
 
@@ -3148,11 +3148,11 @@ packages:
   /@types/react-dom@18.2.19:
     resolution: {integrity: sha512-aZvQL6uUbIJpjZk4U8JZGbau9KDeAwMfmhyWorxgBkqDIEf6ROjRozcmPIicqsUwPUjbkDfHKgGee1Lq65APcA==}
     dependencies:
-      '@types/react': 18.2.55
+      '@types/react': 18.2.57
     dev: true
 
-  /@types/react@18.2.55:
-    resolution: {integrity: sha512-Y2Tz5P4yz23brwm2d7jNon39qoAtMMmalOQv6+fEFt1mT+FcM3D841wDpoUvFXhaYenuROCy3FZYqdTjM7qVyA==}
+  /@types/react@18.2.57:
+    resolution: {integrity: sha512-ZvQsktJgSYrQiMirAN60y4O/LRevIV8hUzSOSNB6gfR3/o3wCBFQx3sPwIYtuDMeiVgsSS3UzCV26tEzgnfvQw==}
     dependencies:
       '@types/prop-types': 15.7.11
       '@types/scheduler': 0.16.8
@@ -8758,14 +8758,14 @@ packages:
       intersection-observer: 0.12.2
       next: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.70.0)
       next-themes: 0.2.1(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)
-      nextra: 3.0.0-alpha.17(@types/react@18.2.55)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
+      nextra: 3.0.0-alpha.17(@types/react@18.2.57)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       scroll-into-view-if-needed: 3.1.0
       zod: 3.22.4
     dev: false
 
-  /nextra@3.0.0-alpha.17(@types/react@18.2.55)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3):
+  /nextra@3.0.0-alpha.17(@types/react@18.2.57)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3):
     resolution: {integrity: sha512-kVAbUv44CZPBF/X+mAY/xzlhzsd4hk2mUy/yWkWi+kIY71IiWFICp97svTECmf8MidphbnNgJgbmM4iCltUE0w==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -8775,7 +8775,7 @@ packages:
     dependencies:
       '@headlessui/react': 1.7.18(react-dom@18.2.0)(react@18.2.0)
       '@mdx-js/mdx': 3.0.1
-      '@mdx-js/react': 3.0.1(@types/react@18.2.55)(react@18.2.0)
+      '@mdx-js/react': 3.0.1(@types/react@18.2.57)(react@18.2.0)
       '@napi-rs/simple-git': 0.1.16
       '@theguild/remark-mermaid': 0.0.5(react@18.2.0)
       '@theguild/remark-npm2yarn': 0.3.0
