@@ -720,8 +720,8 @@ importers:
         specifier: 3.0.0-alpha.17
         version: 3.0.0-alpha.17(@types/react@18.2.55)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
       nextra-theme-docs:
-        specifier: 3.0.0-alpha.17
-        version: 3.0.0-alpha.17(next@14.1.0)(nextra@3.0.0-alpha.17)(react-dom@18.2.0)(react@18.2.0)
+        specifier: 3.0.0-alpha.19
+        version: 3.0.0-alpha.19(next@14.1.0)(nextra@3.0.0-alpha.17)(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -8741,11 +8741,11 @@ packages:
       - '@babel/core'
       - babel-plugin-macros
 
-  /nextra-theme-docs@3.0.0-alpha.17(next@14.1.0)(nextra@3.0.0-alpha.17)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-HMmRVetGSGnCSzHECGnYGB/JYO+X+Op2jh4Picv9mBxfiKCxM93h8JTvdMwa6pGSi6EorS4cFIw7tIyzBFoBNQ==}
+  /nextra-theme-docs@3.0.0-alpha.19(next@14.1.0)(nextra@3.0.0-alpha.17)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-qNXnNBCLkGEJDyD1peADIJN8UGdD5I2X+w4GfIGfLpGVZj2rzMvF5zsmUXqcdGWKaal/MD3MCpQR/EmqS3auvA==}
     peerDependencies:
       next: 14.1.0
-      nextra: 3.0.0-alpha.17
+      nextra: 3.0.0-alpha.19
       react: 18.2.0
       react-dom: 18.2.0
     dependencies:
