@@ -259,8 +259,8 @@ importers:
         specifier: '>=5.3.3'
         version: 5.3.3
       typescript-eslint:
-        specifier: '>=7.0.1'
-        version: 7.0.1(eslint@8.56.0)(typescript@5.3.3)
+        specifier: '>=7.0.2'
+        version: 7.0.2(eslint@8.56.0)(typescript@5.3.3)
       vite:
         specifier: 5.1.3
         version: 5.1.3(@types/node@20.11.19)(sass@1.70.0)
@@ -11172,8 +11172,8 @@ packages:
       typescript: 5.3.3
     dev: true
 
-  /typescript-eslint@7.0.1(eslint@8.56.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-aIquOfwHkGHrMSH57HxLT+1Qzp99YtGxEHXMRD+BXOc8fkuFBbA5BXsMYnoVXFuXOWBdXg8U2rN9Xe4p7LrPSQ==}
+  /typescript-eslint@7.0.2(eslint@8.56.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-Nsb+Dfi897ErE3CtVJYBECBQWPGEpCXLqLCQarBhFtyJsHnhA7O39GmtAmN3dmZ6bIp8tP5T+AOUrEdE07SBVg==}
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
       eslint: '>=8.56.0'
