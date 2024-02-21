@@ -717,11 +717,11 @@ importers:
         specifier: 14.1.0
         version: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.70.0)
       nextra:
-        specifier: 3.0.0-alpha.17
-        version: 3.0.0-alpha.17(@types/react@18.2.55)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
+        specifier: 3.0.0-alpha.19
+        version: 3.0.0-alpha.19(@types/react@18.2.55)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
       nextra-theme-docs:
         specifier: 3.0.0-alpha.19
-        version: 3.0.0-alpha.19(next@14.1.0)(nextra@3.0.0-alpha.17)(react-dom@18.2.0)(react@18.2.0)
+        version: 3.0.0-alpha.19(next@14.1.0)(nextra@3.0.0-alpha.19)(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -2860,6 +2860,20 @@ packages:
     resolution: {integrity: sha512-RbhOOTCNoCrbfkRyoXODZp75MlpiHMgbE5MEBZAnnnLyQNgrigEj4p0lzsMDyc1zVsJDLrivB58tgg3emX0eEA==}
     dev: true
 
+  /@shikijs/core@1.1.6:
+    resolution: {integrity: sha512-kt9hhvrWTm0EPtRDIsoAZnSsFlIDBVBBI5CQewpA/NZCPin+MOKRXg+JiWc4y+8fZ/v0HzfDhu/UC+OTZGMt7A==}
+    dev: false
+
+  /@shikijs/twoslash@1.1.6(typescript@5.3.3):
+    resolution: {integrity: sha512-0HJK7Il7HevTpRvpPlnJ0ow8UyoQxhvxQ0/lhfw1C0xW/7eLtSAtZfSKdel5Nch6HgbbtfucEzuUFmRIRXUFUg==}
+    dependencies:
+      '@shikijs/core': 1.1.6
+      twoslash: 0.2.4(typescript@5.3.3)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+    dev: false
+
   /@sigstore/bundle@2.1.1:
     resolution: {integrity: sha512-v3/iS+1nufZdKQ5iAlQKcCsoh0jffQyABvYIxKsZQFWc4ubuGjwZklFHpDgV6O6T7vvV78SW5NHI91HFKEcxKg==}
     engines: {node: ^16.14.0 || >=18.0.0}
@@ -3745,6 +3759,7 @@ packages:
   /acorn@8.11.3:
     resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
     engines: {node: '>=0.4.0'}
+    hasBin: true
 
   /agent-base@7.1.0:
     resolution: {integrity: sha512-o/zjMZRhJxny7OyEF+Op8X+efiELC7k7yOjMzgfzVqOzXqkBkWI79YoTdOtsuWd5BWhAGAuOY/Xa6xpiaWXiNg==}
@@ -3898,6 +3913,7 @@ packages:
 
   /astring@1.8.6:
     resolution: {integrity: sha512-ISvCdHdlTDlH5IpxQJIex7BWBywFWgjJSVdwst+/iQCoEYnyOaQ95+X1JGshuBjGp6nxKUy1jMgE3zPqN7fQdg==}
+    hasBin: true
 
   /autoprefixer@10.4.17(postcss@8.4.35):
     resolution: {integrity: sha512-/cpVNRLSfhOtcGflT13P2794gVSgmPgTR+erw5ifnMLZb0UnSlkK4tquLmkd3BhA+nLo5tX8Cu0upUsGKvKbmg==}
@@ -4767,6 +4783,7 @@ packages:
   /d3-dsv@3.0.1:
     resolution: {integrity: sha512-UG6OvdI5afDIFP9w4G0mNq50dSOsXHJaRE8arAS5o9ApWnIElp8GZw1Dun8vP8OyHOZ/QJUKUJwxiiCCnUwm+Q==}
     engines: {node: '>=12'}
+    hasBin: true
     dependencies:
       commander: 7.2.0
       iconv-lite: 0.6.3
@@ -6065,6 +6082,7 @@ packages:
   /esprima@4.0.1:
     resolution: {integrity: sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==}
     engines: {node: '>=4'}
+    hasBin: true
 
   /esquery@1.5.0:
     resolution: {integrity: sha512-YQLXUplAwJgCydQ78IMJywZCceoqk1oH01OERdSAJc/7U2AylwjhSCLDEtqwg811idIS/9fIU5GjG73IgjKMVg==}
@@ -7246,6 +7264,7 @@ packages:
 
   /js-yaml@3.14.1:
     resolution: {integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==}
+    hasBin: true
     dependencies:
       argparse: 1.0.10
       esprima: 4.0.1
@@ -7340,6 +7359,7 @@ packages:
 
   /katex@0.16.9:
     resolution: {integrity: sha512-fsSYjWS0EEOwvy81j3vRA8TEAhQhKiqO+FQaKWp0m39qwOzHVBgAUBIXWj1pB+O2W3fIpNa6Y9KSKCVbfPhyAQ==}
+    hasBin: true
     dependencies:
       commander: 8.3.0
     dev: false
@@ -8741,7 +8761,7 @@ packages:
       - '@babel/core'
       - babel-plugin-macros
 
-  /nextra-theme-docs@3.0.0-alpha.19(next@14.1.0)(nextra@3.0.0-alpha.17)(react-dom@18.2.0)(react@18.2.0):
+  /nextra-theme-docs@3.0.0-alpha.19(next@14.1.0)(nextra@3.0.0-alpha.19)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-qNXnNBCLkGEJDyD1peADIJN8UGdD5I2X+w4GfIGfLpGVZj2rzMvF5zsmUXqcdGWKaal/MD3MCpQR/EmqS3auvA==}
     peerDependencies:
       next: 14.1.0
@@ -8758,15 +8778,15 @@ packages:
       intersection-observer: 0.12.2
       next: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.70.0)
       next-themes: 0.2.1(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)
-      nextra: 3.0.0-alpha.17(@types/react@18.2.55)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
+      nextra: 3.0.0-alpha.19(@types/react@18.2.55)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       scroll-into-view-if-needed: 3.1.0
       zod: 3.22.4
     dev: false
 
-  /nextra@3.0.0-alpha.17(@types/react@18.2.55)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-kVAbUv44CZPBF/X+mAY/xzlhzsd4hk2mUy/yWkWi+kIY71IiWFICp97svTECmf8MidphbnNgJgbmM4iCltUE0w==}
+  /nextra@3.0.0-alpha.19(@types/react@18.2.55)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-rPGz9BsoGb0j7NKD0zrF6Cjd09vPEKuPh1stHWHbazvqbYppZarA/o7T9mMk1ytkQtD3cNj3GQdWQMSHKHDD0Q==}
     engines: {node: '>=18'}
     peerDependencies:
       next: 14.1.0
@@ -8777,6 +8797,7 @@ packages:
       '@mdx-js/mdx': 3.0.1
       '@mdx-js/react': 3.0.1(@types/react@18.2.55)(react@18.2.0)
       '@napi-rs/simple-git': 0.1.16
+      '@shikijs/twoslash': 1.1.6(typescript@5.3.3)
       '@theguild/remark-mermaid': 0.0.5(react@18.2.0)
       '@theguild/remark-npm2yarn': 0.3.0
       better-react-mathjax: 2.0.3(react@18.2.0)
@@ -8793,15 +8814,14 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       rehype-katex: 7.0.0
-      rehype-pretty-code: 0.12.6(shikiji@0.10.2)
+      rehype-pretty-code: 0.13.0(shiki@1.1.6)
       rehype-raw: 7.0.0
       remark-frontmatter: 5.0.0
       remark-gfm: 4.0.0
       remark-math: 6.0.0
       remark-reading-time: 2.0.1
       remark-smartypants: 2.1.0
-      shikiji: 0.10.2
-      shikiji-twoslash: 0.10.2(typescript@5.3.3)
+      shiki: 1.1.6
       slash: 5.1.0
       title: 3.5.3
       unist-util-remove: 4.0.0
@@ -9710,17 +9730,17 @@ packages:
       unified: 11.0.4
     dev: false
 
-  /rehype-pretty-code@0.12.6(shikiji@0.10.2):
-    resolution: {integrity: sha512-AW18s4eXwnb4PGwL0Y8BoUzBJr23epWNXndCKaZ52S4kl/4tsgM+406oCp5NdtPZsB0ItpaY+hCMv3kw58DLrA==}
+  /rehype-pretty-code@0.13.0(shiki@1.1.6):
+    resolution: {integrity: sha512-+22dz1StXlF7dlMyOySNaVxgcGhMI4BCxq0JxJJPWYGiKsI6cu5jyuIKGHXHvH18D8sv1rdKtvsY9UEfN3++SQ==}
     engines: {node: '>=18'}
     peerDependencies:
-      shikiji: ^0.7.0 || ^0.8.0 || ^0.9.0 || ^0.10.0
+      shiki: ^1.0.0
     dependencies:
       '@types/hast': 3.0.4
       hast-util-to-string: 3.0.0
       parse-numeric-range: 1.3.0
       rehype-parse: 9.0.0
-      shikiji: 0.10.2
+      shiki: 1.1.6
       unified: 11.0.4
       unist-util-visit: 5.0.0
     dev: false
@@ -10134,24 +10154,10 @@ packages:
       vscode-textmate: 8.0.0
     dev: true
 
-  /shikiji-core@0.10.2:
-    resolution: {integrity: sha512-9Of8HMlF96usXJHmCL3Gd0Fcf0EcyJUF9m8EoAKKd98mHXi0La2AZl1h6PegSFGtiYcBDK/fLuKbDa1l16r1fA==}
-    dev: false
-
-  /shikiji-twoslash@0.10.2(typescript@5.3.3):
-    resolution: {integrity: sha512-BeIo3TsuWMh07dn0RjPvmAxJh6zeZu0kbPW1m6R0kvKOgh/jSa9+Mu75evHfPabNJumtMELT5osnzlv66x87wg==}
+  /shiki@1.1.6:
+    resolution: {integrity: sha512-j4pcpvaQWHb42cHeV+W6P+X/VcK7Y2ctvEham6zB8wsuRQroT6cEMIkiUmBU2Nqg2qnHZDH6ZyRdVldcy0l6xw==}
     dependencies:
-      shikiji-core: 0.10.2
-      twoslash: 0.1.2(typescript@5.3.3)
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-    dev: false
-
-  /shikiji@0.10.2:
-    resolution: {integrity: sha512-wtZg3T0vtYV2PnqusWQs3mDaJBdCPWxFDrBM/SE5LfrX92gjUvfEMlc+vJnoKY6Z/S44OWaCRzNIsdBRWcTAiw==}
-    dependencies:
-      shikiji-core: 0.10.2
+      '@shikijs/core': 1.1.6
     dev: false
 
   /short-unique-id@5.0.3:
@@ -10367,6 +10373,7 @@ packages:
 
   /speech-rule-engine@4.0.7:
     resolution: {integrity: sha512-sJrL3/wHzNwJRLBdf6CjJWIlxC04iYKkyXvYSVsWVOiC2DSkHmxsqOhEeMsBA9XK+CHuNcsdkbFDnoUfAsmp9g==}
+    hasBin: true
     dependencies:
       commander: 9.2.0
       wicked-good-xpath: 1.3.0
@@ -10750,6 +10757,7 @@ packages:
 
   /title@3.5.3:
     resolution: {integrity: sha512-20JyowYglSEeCvZv3EZ0nZ046vLarO37prvV0mbtQV7C8DJPGgN967r8SJkqd3XK3K3lD3/Iyfp3avjfil8Q2Q==}
+    hasBin: true
     dependencies:
       arg: 1.0.0
       chalk: 2.3.0
@@ -11007,12 +11015,17 @@ packages:
       turbo-windows-arm64: 1.12.4
     dev: true
 
-  /twoslash@0.1.2(typescript@5.3.3):
-    resolution: {integrity: sha512-q0jnapnD3b0umNGCJCRlo6Em1oSFl2OBPwsXqhLzijtEzuORrGVrJffG7E1k1KPHFlwBSRX2q6yYA61etn5hSg==}
+  /twoslash-protocol@0.2.4:
+    resolution: {integrity: sha512-AEGTJj4mFGfvQc/M6qi0+s82Zq+mxLcjWZU+EUHGG8LQElyHDs+uDR+/3+m1l+WP7WL+QmWrVzFXgFX+hBg+bg==}
+    dev: false
+
+  /twoslash@0.2.4(typescript@5.3.3):
+    resolution: {integrity: sha512-hc3y11BjLHP4kV37TR6lUKksxpZp0LQi9kCy95ka6qobye/gV49PqXZIuWlRaRVGNvp4AJBMg8aiwkp0M8x/nQ==}
     peerDependencies:
       typescript: '*'
     dependencies:
       '@typescript/vfs': 1.5.0
+      twoslash-protocol: 0.2.4
       typescript: 5.3.3
     transitivePeerDependencies:
       - supports-color
@@ -11381,11 +11394,13 @@ packages:
 
   /uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
+    hasBin: true
     dev: false
 
   /uvu@0.5.6:
     resolution: {integrity: sha512-+g8ENReyr8YsOc6fv/NVJs2vFdHBnBNdfE49rshrTzDWOlUx4Gq7KOS2GD8eqhy2j+Ejq29+SbKH8yjkAqXqoA==}
     engines: {node: '>=8'}
+    hasBin: true
     dependencies:
       dequal: 2.0.3
       diff: 5.2.0
@@ -11739,6 +11754,7 @@ packages:
 
   /which@1.3.1:
     resolution: {integrity: sha512-HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==}
+    hasBin: true
     dependencies:
       isexe: 2.0.0
 
@@ -11751,6 +11767,7 @@ packages:
   /which@4.0.0:
     resolution: {integrity: sha512-GlaYyEb07DPxYCKhKzplCWBJtvxZcZMrL+4UkrTSJHHPyZU4mYYTv3qaOe77H7EODLSSopAUFAc6W8U4yqvscg==}
     engines: {node: ^16.13.0 || >=18.0.0}
+    hasBin: true
     dependencies:
       isexe: 3.1.1
     dev: true
