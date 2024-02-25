@@ -76,7 +76,7 @@
     "eslint-plugin-eslint-plugin": "5.3.0",
     "eslint-plugin-filenames-simple": "0.9.0",
     "eslint-plugin-functional": "6.0.0",
-    "eslint-plugin-jsdoc": "48.1.0",
+    "eslint-plugin-jsdoc": "48.2.0",
     "eslint-plugin-total-functions": "7.1.0",
     "eslint-plugin-vitest": "0.3.22",
     "fast-equals": "5.0.1",
