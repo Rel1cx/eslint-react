@@ -64,7 +64,7 @@
     "@typescript-eslint/rule-tester": ">=7.0.2",
     "@vitest/ui": "1.3.0",
     "bun": "1.0.27",
-    "bun-types": "1.0.27",
+    "bun-types": "1.0.29",
     "code-block-writer": "12.0.0",
     "cspell": "8.4.1",
     "dedent": "1.5.1",
