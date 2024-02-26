@@ -58,7 +58,7 @@
     "@typescript-eslint/parser": ">=7.0.2",
     "@typescript-eslint/scope-manager": ">=7.0.2",
     "@typescript-eslint/type-utils": ">=7.0.2",
-    "@typescript-eslint/types": ">=7.0.2",
+    "@typescript-eslint/types": ">=7.1.0",
     "@typescript-eslint/utils": ">=7.0.2",
     "eslint-plugin-react-core": "1.5.5",
     "eslint-plugin-react-dom": "1.5.5",

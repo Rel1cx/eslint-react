@@ -52,7 +52,7 @@
     "@typescript-eslint/parser": ">=7.0.2",
     "@typescript-eslint/scope-manager": ">=7.0.2",
     "@typescript-eslint/type-utils": ">=7.0.2",
-    "@typescript-eslint/types": ">=7.0.2",
+    "@typescript-eslint/types": ">=7.1.0",
     "@typescript-eslint/utils": ">=7.0.2",
     "string-ts": "2.0.0",
     "ts-api-utils": ">=1.2.1"
