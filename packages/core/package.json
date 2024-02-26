@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/core",
-  "version": "1.5.5",
+  "version": "1.5.6-next.0",
   "description": "ESLint React's ESLint utility module for static analysis of React core APIs and Patterns.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -54,6 +54,6 @@
     "short-unique-id": "5.0.3"
   },
   "devDependencies": {
-    "effect": "2.3.6"
+    "effect": "2.4.0"
   }
 }
