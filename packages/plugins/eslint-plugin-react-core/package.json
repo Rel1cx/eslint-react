@@ -50,7 +50,7 @@
     "@eslint-react/types": "1.5.5",
     "@eslint-react/var": "1.5.5",
     "@typescript-eslint/parser": ">=7.0.2",
-    "@typescript-eslint/scope-manager": ">=7.0.2",
+    "@typescript-eslint/scope-manager": ">=7.1.0",
     "@typescript-eslint/type-utils": ">=7.0.2",
     "@typescript-eslint/types": ">=7.0.2",
     "@typescript-eslint/utils": ">=7.0.2",
