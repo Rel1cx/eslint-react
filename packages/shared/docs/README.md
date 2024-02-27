@@ -105,7 +105,7 @@ ___
 
 ### createRuleForPlugin
 
-▸ **createRuleForPlugin**(`pluginName`): \<TOptions, TMessageIds\>(`__namedParameters`: `Readonly`\<`RuleWithMetaAndName`\<`TOptions`, `TMessageIds`\>\>) => `RuleModule`\<`TMessageIds`, `TOptions`, `RuleListener`\>
+▸ **createRuleForPlugin**(`pluginName`): \<Options, MessageIds\>(`__namedParameters`: `Readonly`\<`RuleWithMetaAndName`\<`Options`, `MessageIds`\>\>) => `RuleModule`\<`MessageIds`, `Options`, `RuleListener`\>
 
 #### Parameters
 
@@ -117,24 +117,24 @@ ___
 
 `fn`
 
-▸ \<`TOptions`, `TMessageIds`\>(`«destructured»`): `RuleModule`\<`TMessageIds`, `TOptions`, `RuleListener`\>
+▸ \<`Options`, `MessageIds`\>(`«destructured»`): `RuleModule`\<`MessageIds`, `Options`, `RuleListener`\>
 
 ##### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `TOptions` | extends readonly `unknown`[] |
-| `TMessageIds` | extends `string` |
+| `Options` | extends readonly `unknown`[] |
+| `MessageIds` | extends `string` |
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | `Readonly`\<`RuleWithMetaAndName`\<`TOptions`, `TMessageIds`\>\> |
+| `«destructured»` | `Readonly`\<`RuleWithMetaAndName`\<`Options`, `MessageIds`\>\> |
 
 ##### Returns
 
-`RuleModule`\<`TMessageIds`, `TOptions`, `RuleListener`\>
+`RuleModule`\<`MessageIds`, `Options`, `RuleListener`\>
 
 ___
 

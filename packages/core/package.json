@@ -42,15 +42,15 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@eslint-react/ast": "1.5.5",
-    "@eslint-react/jsx": "1.5.5",
-    "@eslint-react/shared": "1.5.5",
-    "@eslint-react/tools": "1.5.5",
-    "@eslint-react/types": "1.5.5",
-    "@typescript-eslint/scope-manager": ">=7.0.2",
-    "@typescript-eslint/type-utils": ">=7.0.2",
-    "@typescript-eslint/types": ">=7.0.2",
-    "@typescript-eslint/utils": ">=7.0.2",
+    "@eslint-react/ast": "1.5.6-next.0",
+    "@eslint-react/jsx": "1.5.6-next.0",
+    "@eslint-react/shared": "1.5.6-next.0",
+    "@eslint-react/tools": "1.5.6-next.0",
+    "@eslint-react/types": "1.5.6-next.0",
+    "@typescript-eslint/scope-manager": ">=7.1.0",
+    "@typescript-eslint/type-utils": ">=7.1.0",
+    "@typescript-eslint/types": ">=7.1.0",
+    "@typescript-eslint/utils": ">=7.1.0",
     "short-unique-id": "5.0.3"
   },
   "devDependencies": {
