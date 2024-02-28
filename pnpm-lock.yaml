@@ -604,8 +604,8 @@ importers:
         specifier: 4.10.3
         version: 4.10.3
       valibot:
-        specifier: 0.28.1
-        version: 0.28.1
+        specifier: 0.29.0
+        version: 0.29.0
 
   packages/tools: {}
 
@@ -11683,8 +11683,8 @@ packages:
       kleur: 4.1.5
       sade: 1.8.1
 
-  /valibot@0.28.1:
-    resolution: {integrity: sha512-zQnjwNJuXk6362Leu0+4eFa/SMwRom3/hEvH6s1EGf3oXIPbo2WFKDra9ymnbVh3clLRvd8hw4sKF5ruI2Lyvw==}
+  /valibot@0.29.0:
+    resolution: {integrity: sha512-JhZn08lwZPhAamOCfBwBkv/btQt4KeQhekULPH8crH053zUCLSOGEF2zKExu3bFf245tsj6J1dY0ysd/jUiMIQ==}
     dev: true
 
   /validate-npm-package-license@3.0.4:
