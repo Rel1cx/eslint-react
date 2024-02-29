@@ -45,12 +45,12 @@
       font-family: var(--font-family-ui);
     }
   }
-}
 
-table.nx-block {
-  tbody {
-    tr td code {
-      white-space: nowrap;
+  table {
+    tbody {
+      tr td code {
+        white-space: nowrap;
+      }
     }
   }
 }
