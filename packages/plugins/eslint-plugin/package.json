@@ -52,18 +52,18 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@eslint-react/shared": "1.5.6-next.1",
-    "@eslint-react/tools": "1.5.6-next.1",
-    "@eslint-react/types": "1.5.6-next.1",
+    "@eslint-react/shared": "1.5.6-beta.1",
+    "@eslint-react/tools": "1.5.6-beta.1",
+    "@eslint-react/types": "1.5.6-beta.1",
     "@typescript-eslint/parser": ">=7.1.0",
     "@typescript-eslint/scope-manager": ">=7.1.0",
     "@typescript-eslint/type-utils": ">=7.1.0",
     "@typescript-eslint/types": ">=7.1.0",
     "@typescript-eslint/utils": ">=7.1.0",
-    "eslint-plugin-react-core": "1.5.6-next.1",
-    "eslint-plugin-react-dom": "1.5.6-next.1",
-    "eslint-plugin-react-hooks-extra": "1.5.6-next.1",
-    "eslint-plugin-react-naming-convention": "1.5.6-next.1"
+    "eslint-plugin-react-core": "1.5.6-beta.1",
+    "eslint-plugin-react-dom": "1.5.6-beta.1",
+    "eslint-plugin-react-hooks-extra": "1.5.6-beta.1",
+    "eslint-plugin-react-naming-convention": "1.5.6-beta.1"
   },
   "engines": {
     "bun": ">=1.0.15",
