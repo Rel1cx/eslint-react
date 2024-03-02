@@ -65,7 +65,7 @@
     "@vitest/ui": "1.3.1",
     "bun": "1.0.29",
     "bun-types": "1.0.29",
-    "code-block-writer": "12.0.0",
+    "code-block-writer": "13.0.1",
     "cspell": "8.4.1",
     "dedent": "1.5.1",
     "dprint": "0.45.0",

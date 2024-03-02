@@ -71,8 +71,8 @@ importers:
         specifier: 1.0.29
         version: 1.0.29
       code-block-writer:
-        specifier: 12.0.0
-        version: 12.0.0
+        specifier: 13.0.1
+        version: 13.0.1
       cspell:
         specifier: 8.4.1
         version: 8.4.1
@@ -4362,8 +4362,8 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
-  /code-block-writer@12.0.0:
-    resolution: {integrity: sha512-q4dMFMlXtKR3XNBHyMHt/3pwYNA69EDk00lloMOaaUMKPUXBw6lpXtbu3MMVG6/uOihGnRDOlkyqsONEUj60+w==}
+  /code-block-writer@13.0.1:
+    resolution: {integrity: sha512-c5or4P6erEA69TxaxTNcHUNcIn+oyxSRTOWV+pSYF+z4epXqNvwvJ70XPGjPNgue83oAFAPBRQYwpAJ/Hpe/Sg==}
     dev: true
 
   /collapse-white-space@2.1.0:
