@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.5.6-beta.1",
+  "version": "1.5.6-next.2",
   "private": true,
   "description": "A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -65,8 +65,8 @@
     "@vitest/ui": "1.3.1",
     "bun": "1.0.29",
     "bun-types": "1.0.29",
-    "code-block-writer": "12.0.0",
-    "cspell": "8.4.1",
+    "code-block-writer": "13.0.1",
+    "cspell": "8.5.0",
     "dedent": "1.5.1",
     "dprint": "0.45.0",
     "effect": "2.4.1",
@@ -132,7 +132,7 @@
       "esbuild": "0.19.10",
       "eslint": ">=8.57.0",
       "lodash.set": "4.3.2",
-      "next": "14.1.0",
+      "next": "14.1.1",
       "react": "18.2.0",
       "react-dom": "18.2.0"
     }

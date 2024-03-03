@@ -28,6 +28,7 @@
   "useGitignore": true,
   "words": [
     "adrs",
+    "Aile",
     "bimap",
     "birecord",
     "clippy",
