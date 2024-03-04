@@ -59,7 +59,7 @@
     "@typescript-eslint/scope-manager": ">=7.1.0",
     "@typescript-eslint/type-utils": ">=7.1.0",
     "@typescript-eslint/types": ">=7.1.0",
-    "@typescript-eslint/utils": ">=7.1.0",
+    "@typescript-eslint/utils": ">=7.1.1",
     "eslint-plugin-react-core": "1.5.6-beta.1",
     "eslint-plugin-react-dom": "1.5.6-beta.1",
     "eslint-plugin-react-hooks-extra": "1.5.6-beta.1",
