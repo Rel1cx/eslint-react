@@ -21,7 +21,7 @@
     "@mdx-js/mdx": "3.0.1",
     "@types/node": "20.11.24",
     "@types/react": "18.2.61",
-    "@types/react-dom": "18.2.19",
+    "@types/react-dom": "18.2.20",
     "@typescript-eslint/eslint-plugin": ">=7.1.1",
     "@typescript-eslint/parser": ">=7.1.1",
     "@vanilla-extract/css": "1.14.1",
