@@ -2,7 +2,7 @@
 
 ### 🪄 Improvements
 
-- Update `@typescript-eslint`'s packages to `7.1.0`.
+- Update `@typescript-eslint`'s packages to `7.1.1`.
 
 ## v1.5.5 (Sun Feb 18 2024)
 
