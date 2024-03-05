@@ -29,7 +29,7 @@
     "autoprefixer": "10.4.18",
     "effect": "2.4.1",
     "eslint": ">=8.57.0",
-    "eslint-config-next": "14.1.1",
+    "eslint-config-next": "14.1.2",
     "eslint-config-prettier": "9.1.0",
     "eslint-config-with-tsconfig": "2.15.5",
     "eslint-define-config": "2.1.0",
