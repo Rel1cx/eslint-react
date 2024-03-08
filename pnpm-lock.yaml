@@ -94,8 +94,8 @@ importers:
         specifier: 0.1.3
         version: 0.1.3
       eslint-config-with-tsconfig:
-        specifier: 2.15.5
-        version: 2.15.5(eslint@8.57.0)(tailwindcss@3.4.1)(typescript@5.4.2)
+        specifier: 2.15.7
+        version: 2.15.7(eslint@8.57.0)(tailwindcss@3.4.1)(typescript@5.4.2)
       eslint-plugin-eslint-plugin:
         specifier: 5.4.0
         version: 5.4.0(eslint@8.57.0)
@@ -112,8 +112,8 @@ importers:
         specifier: 7.1.0
         version: 7.1.0(eslint@8.57.0)(typescript@5.4.2)
       eslint-plugin-vitest:
-        specifier: 0.3.22
-        version: 0.3.22(@typescript-eslint/eslint-plugin@7.1.1)(eslint@8.57.0)(typescript@5.4.2)(vitest@1.3.1)
+        specifier: 0.3.24
+        version: 0.3.24(@typescript-eslint/eslint-plugin@7.1.1)(eslint@8.57.0)(typescript@5.4.2)(vitest@1.3.1)
       fast-equals:
         specifier: 5.0.1
         version: 5.0.1
@@ -151,8 +151,8 @@ importers:
         specifier: 1.12.5
         version: 1.12.5
       type-fest:
-        specifier: 4.11.1
-        version: 4.11.1
+        specifier: 4.12.0
+        version: 4.12.0
       typedoc:
         specifier: 0.25.11
         version: 0.25.11(typescript@5.4.2)
@@ -603,8 +603,8 @@ importers:
         version: 5.1.0
     devDependencies:
       type-fest:
-        specifier: 4.11.1
-        version: 4.11.1
+        specifier: 4.12.0
+        version: 4.12.0
       valibot:
         specifier: 0.30.0
         version: 0.30.0
@@ -777,8 +777,8 @@ importers:
         specifier: 9.1.0
         version: 9.1.0(eslint@8.57.0)
       eslint-config-with-tsconfig:
-        specifier: 2.15.5
-        version: 2.15.5(eslint@8.57.0)(tailwindcss@3.4.1)(typescript@5.4.2)
+        specifier: 2.15.7
+        version: 2.15.7(eslint@8.57.0)(tailwindcss@3.4.1)(typescript@5.4.2)
       eslint-define-config:
         specifier: 2.1.0
         version: 2.1.0
@@ -2751,8 +2751,8 @@ packages:
     resolution: {integrity: sha512-oZLYFEAzUKyi3SKnXvj32ZCEGH6RDnao7COuCVhDydMS9NrCSVXhM79VaKyP5+Zc33m0QXEd2DN3UkU7OsHcfw==}
     dev: true
 
-  /@polka/url@1.0.0-next.24:
-    resolution: {integrity: sha512-2LuNTFBIO0m7kKIQvvPHN6UE63VjpmL9rnEEaOOaiSPbZK+zUOYIzBAWcED+3XYzhYsd/0mD57VdxAEqqV52CQ==}
+  /@polka/url@1.0.0-next.25:
+    resolution: {integrity: sha512-j7P6Rgr3mmtdkeDGTe0E/aYyWEWVtc5yFXtHCRHs28/jptDEWfaVOc5T7cblqy1XKPPfCxJc/8DwQ5YgLOZOVQ==}
     dev: true
 
   /@popperjs/core@2.11.8:
@@ -4028,7 +4028,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     dependencies:
       caniuse-lite: 1.0.30001596
-      electron-to-chromium: 1.4.695
+      electron-to-chromium: 1.4.698
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.23.0)
 
@@ -5255,8 +5255,8 @@ packages:
     resolution: {integrity: sha512-YsoMB/EGCohGKFyTPYqaFe2B7UCU2MM303dkoowF8DNOdks/4q/00cyhTbBUmM/0FMDoUPmUi/AJ0Aj3E7vO1A==}
     dev: true
 
-  /electron-to-chromium@1.4.695:
-    resolution: {integrity: sha512-eMijZmeqPtm774pCZIOrfUHMs/7ls++W1sLhxwqgu8KQ8E2WmMtzwyqOMt0XXUJ3HTIPfuwlfwF+I5cwnfItBA==}
+  /electron-to-chromium@1.4.698:
+    resolution: {integrity: sha512-f9iZD1t3CLy1AS6vzM5EKGa6p9pRcOeEFXRFbaG2Ta+Oe7MkfRQ3fsvPYidzHe1h4i0JvIvpcY55C+B6BZNGtQ==}
 
   /elkjs@0.9.2:
     resolution: {integrity: sha512-2Y/RaA1pdgSHpY0YG4TYuYCD2wh97CRvu22eLG3Kz0pgQ/6KbIFTxsTnDc4MH/6hFlg2L/9qXrDMG0nMjP63iw==}
@@ -5412,8 +5412,8 @@ packages:
       eslint: 8.57.0
     dev: true
 
-  /eslint-config-rel1cx@0.15.5(eslint@8.57.0)(tailwindcss@3.4.1)(typescript@5.4.2):
-    resolution: {integrity: sha512-8GHe+O+Wb+07oc29kcsy3YSZabWzJTLyteaHEEz0YHbOmA2FfaoxThJ9VQJlvffLArvojqyfN1XF7vlVmIbDOg==}
+  /eslint-config-rel1cx@0.15.7(eslint@8.57.0)(tailwindcss@3.4.1)(typescript@5.4.2):
+    resolution: {integrity: sha512-WJq+sfSjFwoOzDkJI4uEHliAJ11M7lkllUkS6/xRQEkMARJInY48hg2hYSxTDam8cMkvbQD3JtpuhqO639s7+Q==}
     engines: {bun: '>=1.0.7', node: '>=18.15.0'}
     peerDependencies:
       eslint: '>=8.57.0'
@@ -5441,7 +5441,7 @@ packages:
       eslint-plugin-sonarjs: 0.24.0(eslint@8.57.0)
       eslint-plugin-tailwindcss: 3.14.3(tailwindcss@3.4.1)
       eslint-plugin-unicorn: 51.0.1(eslint@8.57.0)
-      get-tsconfig: 4.7.2
+      get-tsconfig: 4.7.3
       lodash.merge: 4.6.2
       rambda: 9.1.0
       tiny-invariant: 1.3.3
@@ -5453,8 +5453,8 @@ packages:
       - typescript-eslint
     dev: true
 
-  /eslint-config-with-tsconfig@2.15.5(eslint@8.57.0)(tailwindcss@3.4.1)(typescript@5.4.2):
-    resolution: {integrity: sha512-ktu+GujpXHAZw7gQRyVS7qVKoqS/FSBehrCh8l1OMV5J7jo+1q9Cxj4nK/BzcW5YOUMa6QIVljYVlwbqoHxD8w==}
+  /eslint-config-with-tsconfig@2.15.7(eslint@8.57.0)(tailwindcss@3.4.1)(typescript@5.4.2):
+    resolution: {integrity: sha512-Ub/7CzY1YR7SjrbrRmxIjZu9Y6U4qBA7v/UBMGDgmm7fFGMitYoLJMy5WLDr3VGFw2NU4MyzGTsVxRwTwpxR/A==}
     engines: {bun: '>=1.0.13', node: '>=18.15.0'}
     peerDependencies:
       eslint: '>=8.57.0'
@@ -5465,7 +5465,7 @@ packages:
       '@typescript-eslint/eslint-plugin': 7.1.1(@typescript-eslint/parser@7.1.1)(eslint@8.57.0)(typescript@5.4.2)
       '@typescript-eslint/parser': 7.1.1(eslint@8.57.0)(typescript@5.4.2)
       eslint: 8.57.0
-      eslint-config-rel1cx: 0.15.5(eslint@8.57.0)(tailwindcss@3.4.1)(typescript@5.4.2)
+      eslint-config-rel1cx: 0.15.7(eslint@8.57.0)(tailwindcss@3.4.1)(typescript@5.4.2)
       eslint-define-config: 2.1.0
       eslint-plugin-expect-type: 0.3.0(@typescript-eslint/parser@7.1.1)(eslint@8.57.0)(typescript@5.4.2)
       eslint-plugin-import-access: 2.1.2(eslint@8.57.0)(typescript@5.4.2)
@@ -5960,8 +5960,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-vitest@0.3.22(@typescript-eslint/eslint-plugin@7.1.1)(eslint@8.57.0)(typescript@5.4.2)(vitest@1.3.1):
-    resolution: {integrity: sha512-atkFGQ7aVgcuSeSMDqnyevIyUpfBPMnosksgEPrKE7Y8xQlqG/5z2IQ6UDau05zXaaFv7Iz8uzqvIuKshjZ0Zw==}
+  /eslint-plugin-vitest@0.3.24(@typescript-eslint/eslint-plugin@7.1.1)(eslint@8.57.0)(typescript@5.4.2)(vitest@1.3.1):
+    resolution: {integrity: sha512-MjxQCfOzLVJwi5EBHZYtv6zKHVUMRDh269D3KHCxHW0skoJhNDgE5MKvuxQ0Rh6B1aa6KuGUcvffRCdtN4Bg7A==}
     engines: {node: ^18.0.0 || >= 20.0.0}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': '*'
@@ -6507,12 +6507,6 @@ packages:
   /get-stream@8.0.1:
     resolution: {integrity: sha512-VaUJspBffn/LMCJVoMvSAdmscJyS1auj5Zulnn5UoYcY531UWmdwhRWkcGKnGU93m5HSXP9LP2usOryrBtQowA==}
     engines: {node: '>=16'}
-    dev: true
-
-  /get-tsconfig@4.7.2:
-    resolution: {integrity: sha512-wuMsz4leaj5hbGgg4IvDU0bqJagpftG5l5cXIAvo8uZrqn0NJqwtfupTN00VnkQJPcIRrxYrm1Ue24btpCha2A==}
-    dependencies:
-      resolve-pkg-maps: 1.0.0
     dev: true
 
   /get-tsconfig@4.7.3:
@@ -10112,7 +10106,6 @@ packages:
 
   /semver@5.7.2:
     resolution: {integrity: sha512-cBznnQ9KjJqU67B52RMC65CMarK2600WFnbkcaiwWq3xy/5haFJlshgnpjovMVJ+Hff49d8GEn0b87C5pDQ10g==}
-    hasBin: true
     dev: true
 
   /semver@6.3.1:
@@ -10203,7 +10196,7 @@ packages:
     resolution: {integrity: sha512-94Bdh3cC2PKrbgSOUqTiGPWVZeSiXfKOVZNJniWoqrWrRkB1CJzBU3NEbiTsPcYy1lDsANA/THzS+9WBiy5nfQ==}
     engines: {node: '>= 10'}
     dependencies:
-      '@polka/url': 1.0.0-next.24
+      '@polka/url': 1.0.0-next.25
       mrmime: 2.0.0
       totalist: 3.0.1
     dev: true
@@ -11075,8 +11068,8 @@ packages:
     engines: {node: '>=14.16'}
     dev: true
 
-  /type-fest@4.11.1:
-    resolution: {integrity: sha512-MFMf6VkEVZAETidGGSYW2B1MjXbGX+sWIywn2QPEaJ3j08V+MwVRHMXtf2noB8ENJaD0LIun9wh5Z6OPNf1QzQ==}
+  /type-fest@4.12.0:
+    resolution: {integrity: sha512-5Y2/pp2wtJk8o08G0CMkuFPCO354FGwk/vbidxrdhRGZfd0tFnb4Qb8anp9XxXriwBgVPjdWbKpGl4J9lJY2jQ==}
     engines: {node: '>=16'}
     dev: true
 
