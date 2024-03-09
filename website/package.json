@@ -25,7 +25,7 @@
     "@typescript-eslint/eslint-plugin": "7.1.1",
     "@typescript-eslint/parser": "7.1.1",
     "@vanilla-extract/css": "1.14.1",
-    "@vanilla-extract/next-plugin": "2.3.6",
+    "@vanilla-extract/next-plugin": "2.3.7",
     "autoprefixer": "10.4.18",
     "effect": "2.4.1",
     "eslint": "8.57.0",
