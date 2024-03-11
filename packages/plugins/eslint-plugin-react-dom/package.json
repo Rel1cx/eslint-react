@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-dom",
-  "version": "1.5.6-beta.7",
+  "version": "1.5.6-next.8",
   "description": "ESLint React's ESLint plugin for React DOM related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -49,10 +49,10 @@
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/parser": "7.1.1",
-    "@typescript-eslint/scope-manager": "7.1.1",
-    "@typescript-eslint/types": "7.1.1",
-    "@typescript-eslint/utils": "7.1.1",
+    "@typescript-eslint/parser": "7.2.0",
+    "@typescript-eslint/scope-manager": "7.2.0",
+    "@typescript-eslint/types": "7.2.0",
+    "@typescript-eslint/utils": "7.2.0",
     "string-ts": "2.0.0"
   },
   "devDependencies": {
