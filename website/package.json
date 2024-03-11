@@ -23,7 +23,7 @@
     "@types/react": "18.2.64",
     "@types/react-dom": "18.2.21",
     "@typescript-eslint/eslint-plugin": "7.1.1",
-    "@typescript-eslint/parser": "7.1.1",
+    "@typescript-eslint/parser": "7.2.0",
     "@vanilla-extract/css": "1.14.1",
     "@vanilla-extract/next-plugin": "2.3.7",
     "autoprefixer": "10.4.18",
