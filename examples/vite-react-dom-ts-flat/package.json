@@ -25,6 +25,6 @@
     "eslint-plugin-react-refresh": "0.4.5",
     "typescript": "5.4.2",
     "typescript-eslint": "7.1.1",
-    "vite": "5.1.5"
+    "vite": "5.1.6"
   }
 }
