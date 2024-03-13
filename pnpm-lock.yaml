@@ -214,7 +214,7 @@ importers:
         version: 5.4.2
       vite:
         specifier: 5.1.6
-        version: 5.1.6(@types/node@20.11.27)(sass@1.71.1)
+        version: 5.1.6(@types/node@20.11.27)(sass@1.72.0)
 
   examples/vite-react-dom-ts-flat:
     dependencies:
@@ -263,7 +263,7 @@ importers:
         version: 7.2.0(eslint@8.57.0)(typescript@5.4.2)
       vite:
         specifier: 5.1.6
-        version: 5.1.6(@types/node@20.11.27)(sass@1.71.1)
+        version: 5.1.6(@types/node@20.11.27)(sass@1.72.0)
 
   packages/core:
     dependencies:
@@ -715,7 +715,7 @@ importers:
     dependencies:
       next:
         specifier: 14.1.1
-        version: 14.1.1(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.71.1)
+        version: 14.1.1(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.72.0)
       nextra:
         specifier: 3.0.0-alpha.20
         version: 3.0.0-alpha.20(@types/react@18.2.65)(next@14.1.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.2)
@@ -758,7 +758,7 @@ importers:
         version: 1.14.1
       '@vanilla-extract/next-plugin':
         specifier: 2.3.7
-        version: 2.3.7(@types/node@20.11.27)(next@14.1.1)(sass@1.71.1)(webpack@5.90.3)
+        version: 2.3.7(@types/node@20.11.27)(next@14.1.1)(sass@1.72.0)(webpack@5.90.3)
       autoprefixer:
         specifier: 10.4.18
         version: 10.4.18(postcss@8.4.35)
@@ -799,8 +799,8 @@ importers:
         specifier: 4.0.0
         version: 4.0.0
       sass:
-        specifier: 1.71.1
-        version: 1.71.1
+        specifier: 1.72.0
+        version: 1.72.0
       typescript:
         specifier: 5.4.2
         version: 5.4.2
@@ -2939,7 +2939,7 @@ packages:
     resolution: {integrity: sha512-N91aAZSQQbv57Jgu6LIq25PuC97Dp7K8B9JXWdua278wkSBPfPcWwFoZ3l1hDZjRtFRaDTHnzHjqp1iI4uNHzw==}
     peerDependencies:
       '@typescript-eslint/parser': '>=7.1.1'
-      typescript: '>=5.3.3'
+      typescript: '*'
       typescript-eslint: ^7.0.0
     peerDependenciesMeta:
       '@typescript-eslint/parser':
@@ -3427,7 +3427,7 @@ packages:
       outdent: 0.8.0
     dev: true
 
-  /@vanilla-extract/integration@7.1.1(@types/node@20.11.27)(sass@1.71.1):
+  /@vanilla-extract/integration@7.1.1(@types/node@20.11.27)(sass@1.72.0):
     resolution: {integrity: sha512-2JjDKL2HDTazis4oTkUFsQFUyw61k8oym9r0NOLSJC0JB0W25W1ryVZvDx74d3deIyB5AWbCselyzl3gja30kQ==}
     dependencies:
       '@babel/core': 7.24.0
@@ -3441,8 +3441,8 @@ packages:
       lodash: 4.17.21
       mlly: 1.6.1
       outdent: 0.8.0
-      vite: 5.1.6(@types/node@20.11.27)(sass@1.71.1)
-      vite-node: 1.3.1(@types/node@20.11.27)(sass@1.71.1)
+      vite: 5.1.6(@types/node@20.11.27)(sass@1.72.0)
+      vite-node: 1.3.1(@types/node@20.11.27)(sass@1.72.0)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -3454,13 +3454,13 @@ packages:
       - terser
     dev: true
 
-  /@vanilla-extract/next-plugin@2.3.7(@types/node@20.11.27)(next@14.1.1)(sass@1.71.1)(webpack@5.90.3):
+  /@vanilla-extract/next-plugin@2.3.7(@types/node@20.11.27)(next@14.1.1)(sass@1.72.0)(webpack@5.90.3):
     resolution: {integrity: sha512-/11nYE5a3waT0lwRps+2thvyQlBKi4wK+SF8za/QWwO5GTD3O/bZ3nl96MC00SXZHALHwbV1trdtqVLCq9Xqpw==}
     peerDependencies:
       next: 14.1.1
     dependencies:
-      '@vanilla-extract/webpack-plugin': 2.3.7(@types/node@20.11.27)(sass@1.71.1)(webpack@5.90.3)
-      next: 14.1.1(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.71.1)
+      '@vanilla-extract/webpack-plugin': 2.3.7(@types/node@20.11.27)(sass@1.72.0)(webpack@5.90.3)
+      next: 14.1.1(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.72.0)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -3477,12 +3477,12 @@ packages:
     resolution: {integrity: sha512-17kVyLq3ePTKOkveHxXuIJZtGYs+cSoev7BlP+Lf4916qfDhk/HBjvlYDe8egrea7LNPHKwSZJK/bzZC+Q6AwQ==}
     dev: true
 
-  /@vanilla-extract/webpack-plugin@2.3.7(@types/node@20.11.27)(sass@1.71.1)(webpack@5.90.3):
+  /@vanilla-extract/webpack-plugin@2.3.7(@types/node@20.11.27)(sass@1.72.0)(webpack@5.90.3):
     resolution: {integrity: sha512-xKhl7BUGqjj1eRzgASBcfKSvzIWGN1ndNT9ycUcfDz1AXZr6rok99LSj+Z2LqAnCGZGAiLsYzdQ5AYBABXV+vA==}
     peerDependencies:
       webpack: ^4.30.0 || ^5.20.2
     dependencies:
-      '@vanilla-extract/integration': 7.1.1(@types/node@20.11.27)(sass@1.71.1)
+      '@vanilla-extract/integration': 7.1.1(@types/node@20.11.27)(sass@1.72.0)
       chalk: 4.1.2
       debug: 4.3.4
       loader-utils: 2.0.4
@@ -3509,7 +3509,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.23.3(@babel/core@7.24.0)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.0
-      vite: 5.1.6(@types/node@20.11.27)(sass@1.71.1)
+      vite: 5.1.6(@types/node@20.11.27)(sass@1.72.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -8776,12 +8776,12 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0
     dependencies:
-      next: 14.1.1(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.71.1)
+      next: 14.1.1(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.72.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /next@14.1.1(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.71.1):
+  /next@14.1.1(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.72.0):
     resolution: {integrity: sha512-McrGJqlGSHeaz2yTRPkEucxQKe5Zq7uPwyeHNmJaZNY4wx9E9QdxmTp310agFRoMuIYgQrCrT3petg13fSVOww==}
     engines: {node: '>=18.17.0'}
     hasBin: true
@@ -8804,7 +8804,7 @@ packages:
       postcss: 8.4.31
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      sass: 1.71.1
+      sass: 1.72.0
       styled-jsx: 5.1.1(@babel/core@7.24.0)(react@18.2.0)
     optionalDependencies:
       '@next/swc-darwin-arm64': 14.1.1
@@ -8835,7 +8835,7 @@ packages:
       flexsearch: 0.7.43
       focus-visible: 5.2.0
       intersection-observer: 0.12.2
-      next: 14.1.1(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.71.1)
+      next: 14.1.1(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.72.0)
       next-themes: 0.2.1(next@14.1.1)(react-dom@18.2.0)(react@18.2.0)
       nextra: 3.0.0-alpha.20(@types/react@18.2.65)(next@14.1.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.2)
       react: 18.2.0
@@ -8868,7 +8868,7 @@ packages:
       gray-matter: 4.0.3
       hast-util-to-estree: 3.1.0
       katex: 0.16.9
-      next: 14.1.1(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.71.1)
+      next: 14.1.1(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.72.0)
       p-limit: 4.0.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -10111,8 +10111,8 @@ packages:
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  /sass@1.71.1:
-    resolution: {integrity: sha512-wovtnV2PxzteLlfNzbgm1tFXPLoZILYAMJtvoXXkD7/+1uP41eKkIt1ypWq5/q2uT94qHjXehEYfmjKOvjL9sg==}
+  /sass@1.72.0:
+    resolution: {integrity: sha512-Gpczt3WA56Ly0Mn8Sl21Vj94s1axi9hDIzDFn9Ph9x3C3p4nNyvsqJoQyVXKou6cBlfFWEgRW4rT8Tb4i3XnVA==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
@@ -11595,7 +11595,7 @@ packages:
       unist-util-stringify-position: 4.0.0
       vfile-message: 4.0.2
 
-  /vite-node@1.3.1(@types/node@20.11.27)(sass@1.71.1):
+  /vite-node@1.3.1(@types/node@20.11.27)(sass@1.72.0):
     resolution: {integrity: sha512-azbRrqRxlWTJEVbzInZCTchx0X69M/XPTCz4H+TLvlTcR/xH/3hkRqhOakT41fMJCMzXTu4UvegkZiEoJAWvng==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -11604,7 +11604,7 @@ packages:
       debug: 4.3.4
       pathe: 1.1.2
       picocolors: 1.0.0
-      vite: 5.1.6(@types/node@20.11.27)(sass@1.71.1)
+      vite: 5.1.6(@types/node@20.11.27)(sass@1.72.0)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -11616,7 +11616,7 @@ packages:
       - terser
     dev: true
 
-  /vite@5.1.6(@types/node@20.11.27)(sass@1.71.1):
+  /vite@5.1.6(@types/node@20.11.27)(sass@1.72.0):
     resolution: {integrity: sha512-yYIAZs9nVfRJ/AiOLCA91zzhjsHUgMjB+EigzFb6W2XTLO8JixBCKCjvhKZaye+NKYHCrkv3Oh50dH9EdLU2RA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -11648,7 +11648,7 @@ packages:
       esbuild: 0.19.12
       postcss: 8.4.35
       rollup: 4.13.0
-      sass: 1.71.1
+      sass: 1.72.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
@@ -11697,8 +11697,8 @@ packages:
       strip-literal: 2.0.0
       tinybench: 2.6.0
       tinypool: 0.8.2
-      vite: 5.1.6(@types/node@20.11.27)(sass@1.71.1)
-      vite-node: 1.3.1(@types/node@20.11.27)(sass@1.71.1)
+      vite: 5.1.6(@types/node@20.11.27)(sass@1.72.0)
+      vite-node: 1.3.1(@types/node@20.11.27)(sass@1.72.0)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
