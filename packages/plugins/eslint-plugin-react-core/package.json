@@ -58,7 +58,7 @@
     "ts-api-utils": "1.3.0"
   },
   "devDependencies": {
-    "effect": "2.4.4"
+    "effect": "2.4.5"
   },
   "peerDependencies": {
     "eslint": ">=8.57.0",

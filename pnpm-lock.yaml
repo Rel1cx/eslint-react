@@ -83,8 +83,8 @@ importers:
         specifier: 0.45.0
         version: 0.45.0
       effect:
-        specifier: 2.4.4
-        version: 2.4.4
+        specifier: 2.4.5
+        version: 2.4.5
       eslint:
         specifier: '>=8.57.0'
         version: 8.57.0
@@ -299,8 +299,8 @@ importers:
         version: 5.0.3
     devDependencies:
       effect:
-        specifier: 2.4.4
-        version: 2.4.4
+        specifier: 2.4.5
+        version: 2.4.5
 
   packages/plugins/eslint-plugin:
     dependencies:
@@ -393,8 +393,8 @@ importers:
         version: 5.4.2
     devDependencies:
       effect:
-        specifier: 2.4.4
-        version: 2.4.4
+        specifier: 2.4.5
+        version: 2.4.5
 
   packages/plugins/eslint-plugin-react-debug:
     dependencies:
@@ -487,8 +487,8 @@ importers:
         version: 5.4.2
     devDependencies:
       effect:
-        specifier: 2.4.4
-        version: 2.4.4
+        specifier: 2.4.5
+        version: 2.4.5
 
   packages/plugins/eslint-plugin-react-hooks-extra:
     dependencies:
@@ -539,8 +539,8 @@ importers:
         version: 5.4.2
     devDependencies:
       effect:
-        specifier: 2.4.4
-        version: 2.4.4
+        specifier: 2.4.5
+        version: 2.4.5
 
   packages/plugins/eslint-plugin-react-naming-convention:
     dependencies:
@@ -588,8 +588,8 @@ importers:
         version: 5.4.2
     devDependencies:
       effect:
-        specifier: 2.4.4
-        version: 2.4.4
+        specifier: 2.4.5
+        version: 2.4.5
 
   packages/shared:
     dependencies:
@@ -646,8 +646,8 @@ importers:
         version: 2.0.0
     devDependencies:
       effect:
-        specifier: 2.4.4
-        version: 2.4.4
+        specifier: 2.4.5
+        version: 2.4.5
 
   packages/utilities/jsx:
     dependencies:
@@ -680,8 +680,8 @@ importers:
         version: 4.1.2
     devDependencies:
       effect:
-        specifier: 2.4.4
-        version: 2.4.4
+        specifier: 2.4.5
+        version: 2.4.5
 
   packages/utilities/var:
     dependencies:
@@ -708,8 +708,8 @@ importers:
         version: 2.0.0
     devDependencies:
       effect:
-        specifier: 2.4.4
-        version: 2.4.4
+        specifier: 2.4.5
+        version: 2.4.5
 
   website:
     dependencies:
@@ -763,8 +763,8 @@ importers:
         specifier: 10.4.18
         version: 10.4.18(postcss@8.4.35)
       effect:
-        specifier: 2.4.4
-        version: 2.4.4
+        specifier: 2.4.5
+        version: 2.4.5
       eslint:
         specifier: '>=8.57.0'
         version: 8.57.0
@@ -2939,7 +2939,7 @@ packages:
     resolution: {integrity: sha512-N91aAZSQQbv57Jgu6LIq25PuC97Dp7K8B9JXWdua278wkSBPfPcWwFoZ3l1hDZjRtFRaDTHnzHjqp1iI4uNHzw==}
     peerDependencies:
       '@typescript-eslint/parser': '>=7.1.1'
-      typescript: '>=5.3.3'
+      typescript: '*'
       typescript-eslint: ^7.0.0
     peerDependenciesMeta:
       '@typescript-eslint/parser':
@@ -5263,8 +5263,8 @@ packages:
     resolution: {integrity: sha512-HAtFVAbAGYDzfGbrSrX1gzMzXym15zk1+ps72X8W1wdZY0vxq+u23w8u9DhAZjiJPHT4W9ZYL7QWQqpP4t+dSg==}
     dev: true
 
-  /effect@2.4.4:
-    resolution: {integrity: sha512-4FeWS2/9sVr5yclVNNTlj8Q1tdertKeeQEClryzC/X1urHex/Ij7b1pScJVClUx3ZrwnvtYWVOqMPYJZ0y977A==}
+  /effect@2.4.5:
+    resolution: {integrity: sha512-eQiKdI8GIxojn1Tia6uSMfFKCU18j7XcOeI0kiafpikCr3T91RrYmcazYRFKFGGWLM2JF0k96n7Cq3Iy4bWQ6A==}
     dev: true
 
   /electron-to-chromium@1.4.703:
