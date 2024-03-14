@@ -16,7 +16,7 @@
     "@eslint-react/eslint-plugin": "workspace:*",
     "@tsconfig/node20": "20.1.2",
     "@tsconfig/strictest": "2.0.3",
-    "@types/react": "18.2.65",
+    "@types/react": "18.2.66",
     "@types/react-dom": "18.2.22",
     "@typescript-eslint/eslint-plugin": "7.2.0",
     "@typescript-eslint/parser": "7.2.0",

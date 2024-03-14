@@ -105,6 +105,7 @@
   },
   "pnpm": {
     "overrides": {
+      "typescript": "5.4.2",
       "array-includes": "npm:@nolyfill/array-includes@latest",
       "array.prototype.findlast": "npm:@nolyfill/array.prototype.findlast@latest",
       "array.prototype.findlastindex": "npm:@nolyfill/array.prototype.findlastindex@latest",
