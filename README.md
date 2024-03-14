@@ -24,7 +24,7 @@ A series of composable ESLint rules for libraries and frameworks that use React 
 
 ### All-in-one packages
 
-- [`@eslint-react/eslint-plugin`](https://npm.im/@eslint-react/eslint-plugin) - The main ESLint plugin package including all rules and config presets in this repository.
+- [`@eslint-react/eslint-plugin`](https://www.npmjs.com/package/@eslint-react/eslint-plugin) - The main ESLint plugin package including all rules and config presets in this repository.
 
 ### Individual packages (will be available in 2.0)
 
