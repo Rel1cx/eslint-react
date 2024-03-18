@@ -1,4 +1,3 @@
-/* eslint-disable @susisu/safe-typescript/no-type-assertion */
 import { isOneOf, NodeType } from "@eslint-react/ast";
 import { getPragmaFromContext, isCloneElementCall, isCreateElementCall } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/types";

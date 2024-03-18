@@ -1,4 +1,3 @@
-/* eslint-disable @susisu/safe-typescript/no-type-assertion */
 import { transformKeys } from "./transform-keys";
 
 export type PadKeysLeft<T, U extends string = ""> = T extends [] ? T

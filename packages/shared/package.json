@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/shared",
-  "version": "1.5.7-beta.0",
+  "version": "1.5.7-next.1",
   "description": "ESLint React's Shared constants and functions.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -42,7 +42,7 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "7.2.0",
+    "@typescript-eslint/utils": "7.3.0",
     "deepmerge-ts": "5.1.0"
   },
   "devDependencies": {

@@ -97,7 +97,6 @@ export type FromEntries<T> = T extends [infer Key, unknown][]
 
 // fromEntries<T>(obj: T): FromEntriesWithReadOnly<T>
 
-/* eslint-disable @susisu/safe-typescript/no-type-assertion */
 /**
  * type-safe version of Object.fromEntries
  * @param entries The entries to create the object from.
@@ -135,4 +134,3 @@ export const keys = <T extends LooseRecord<unknown>>(value: T) => Object.keys(va
  * @since 0.4.0
  */
 export const values = <T extends LooseRecord<unknown>>(value: T) => Object.values(value) as T[keyof T][];
-/* eslint-enable @susisu/safe-typescript/no-type-assertion */

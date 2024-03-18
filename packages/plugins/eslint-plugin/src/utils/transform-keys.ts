@@ -1,4 +1,3 @@
-/* eslint-disable @susisu/safe-typescript/no-type-assertion */
 /* eslint-disable security/detect-object-injection */
 /* eslint-disable functional/immutable-data */
 /* eslint-disable guard-for-in */

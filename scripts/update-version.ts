@@ -7,7 +7,6 @@ const GLOB_PACKAGE_JSON = "packages/**/package.json";
 
 async function makeTask(file: BunFile) {
   if (!file.name) return;
-  // eslint-disable-next-line @susisu/safe-typescript/no-type-assertion
   const packageJson = await file.json() as PackageJson;
   const packageJsonUpdated = {
     ...packageJson,
