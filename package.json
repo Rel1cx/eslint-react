@@ -58,7 +58,7 @@
     "@changesets/cli": "2.27.1",
     "@tsconfig/node20": "20.1.2",
     "@tsconfig/strictest": "2.0.3",
-    "@types/node": "20.11.28",
+    "@types/node": "20.11.29",
     "@typescript-eslint/eslint-plugin": "7.3.0",
     "@typescript-eslint/parser": "7.3.0",
     "@typescript-eslint/rule-tester": "^7.3.0",
