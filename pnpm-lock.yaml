@@ -55,11 +55,11 @@ importers:
         specifier: 1.4.0
         version: 1.4.0(vitest@1.4.0)
       bun:
-        specifier: 1.0.31
-        version: 1.0.31
+        specifier: 1.0.32
+        version: 1.0.32
       bun-types:
-        specifier: 1.0.31
-        version: 1.0.31
+        specifier: 1.0.32
+        version: 1.0.32
       code-block-writer:
         specifier: 13.0.1
         version: 13.0.1
@@ -134,7 +134,7 @@ importers:
         version: 5.0.8
       tsup:
         specifier: 8.0.2
-        version: 8.0.2(postcss@8.4.35)(typescript@5.4.2)
+        version: 8.0.2(postcss@8.4.36)(typescript@5.4.2)
       turbo:
         specifier: 1.12.5
         version: 1.12.5
@@ -751,7 +751,7 @@ importers:
         version: 2.3.7(@types/node@20.11.28)(next@14.1.3)(sass@1.72.0)(webpack@5.90.3)
       autoprefixer:
         specifier: 10.4.18
-        version: 10.4.18(postcss@8.4.35)
+        version: 10.4.18(postcss@8.4.36)
       effect:
         specifier: 2.4.7
         version: 2.4.7
@@ -774,8 +774,8 @@ importers:
         specifier: 3.1.5
         version: 3.1.5(eslint@8.57.0)
       postcss:
-        specifier: 8.4.35
-        version: 8.4.35
+        specifier: 8.4.36
+        version: 8.4.36
       rehype-raw:
         specifier: 7.0.0
         version: 7.0.0
@@ -2548,48 +2548,48 @@ packages:
       - supports-color
     dev: true
 
-  /@oven/bun-darwin-aarch64@1.0.31:
-    resolution: {integrity: sha512-7+H5rTfo9ylni2VoVJwazvfGHhjIV3IDrRJrfPJSCDbJneDxyMq6DLj+6jYsx3r8bEaf4wSyJ2BtWUAq3v3ILg==}
+  /@oven/bun-darwin-aarch64@1.0.32:
+    resolution: {integrity: sha512-JXdryeVCHdxj2qv3vbMB2FE9BmaltnQDfS7cbU3lJlFAxa+kDrgu8uhKBPDW6fKKJn770T22TI1OqEXeFSAPwg==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-darwin-x64-baseline@1.0.31:
-    resolution: {integrity: sha512-FF3nRhJOMO6OvYVqQebK+0GSRzAaVe1ShaVTHR1nBTifbiEVeZazmYHYW5Y7doa1tjHy1q/vQDfYErvahcc1ag==}
+  /@oven/bun-darwin-x64-baseline@1.0.32:
+    resolution: {integrity: sha512-IeXlaXNLY6vrU7f9fI1yt0c0lFXJy7EZLPyPqiuQUe2QN+6Ta/m4H9qo8kj7Z7XthBuFkZjSkCZZMs+vixFskQ==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-darwin-x64@1.0.31:
-    resolution: {integrity: sha512-0MZf9fzHULG/mn1JgplZN4o04Ugwfc0QRq6Svp9Sl8u/NsW31mda20+u8zH+K89kk4QmNQSbTPOPKzAggAFw4A==}
+  /@oven/bun-darwin-x64@1.0.32:
+    resolution: {integrity: sha512-+SKUgY4OwoWunWGDVpb6023mEwDySb+yuUrmCSVB1AhgeqVhLGTJ38WkXLqGQNbdM19NngeHAwaLxrVqKpMOfw==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-aarch64@1.0.31:
-    resolution: {integrity: sha512-TOlaarspLapvsfftFU1b77H75n2PSvDvrenJB7HSBhRg+QaADvB6ICwHTuci/5l6NWLKNGc+05Z8EbVYt39O0w==}
+  /@oven/bun-linux-aarch64@1.0.32:
+    resolution: {integrity: sha512-uJRKWZp+CB4gW3ve5i73Bo28ONWWgIvYkA/OZ22xnkNh1pruQamqyRisMGboyRKfSKj266K7tHCVIU0DG+swZA==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-x64-baseline@1.0.31:
-    resolution: {integrity: sha512-rX9rSqOF2/81+Lh8gyipW/Ap7vO47PEAUi0ILQAEIo62X2a9JAO9r/MwEnOivaUACMtOVGsjLivLzqxYYqYzgQ==}
+  /@oven/bun-linux-x64-baseline@1.0.32:
+    resolution: {integrity: sha512-tUXIaoL8R1+gu2rg1XE49fLi5jDPTzicgz5YkQunhCu6PdZFadY1MlXeyazqRCQCJ2qxUd7QWiWkXL9/34dCiw==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-x64@1.0.31:
-    resolution: {integrity: sha512-d5mf7SxlJEYQuEyicCXl++HaTToYtZ4JhKKy+2sij7FTC4BHvOYKuGsD1xDi3xKezM7BAsEX13akvCzjNO970g==}
+  /@oven/bun-linux-x64@1.0.32:
+    resolution: {integrity: sha512-8c8S51vMzrcuEEgzLgLW8Tm06Pyz6xZ02rO17BGl/pEnsfDtmNvGJlAZFtGYla4/3GLYypOZpvI1fnfCgKx/rA==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
@@ -3776,7 +3776,7 @@ packages:
       '@vue/shared': 3.4.21
       entities: 4.5.0
       estree-walker: 2.0.2
-      source-map-js: 1.0.2
+      source-map-js: 1.1.0
     dev: true
 
   /@vue/compiler-dom@3.4.21:
@@ -3796,8 +3796,8 @@ packages:
       '@vue/shared': 3.4.21
       estree-walker: 2.0.2
       magic-string: 0.30.8
-      postcss: 8.4.35
-      source-map-js: 1.0.2
+      postcss: 8.4.36
+      source-map-js: 1.1.0
     dev: true
 
   /@vue/compiler-ssr@3.4.21:
@@ -4117,7 +4117,7 @@ packages:
     resolution: {integrity: sha512-ISvCdHdlTDlH5IpxQJIex7BWBywFWgjJSVdwst+/iQCoEYnyOaQ95+X1JGshuBjGp6nxKUy1jMgE3zPqN7fQdg==}
     hasBin: true
 
-  /autoprefixer@10.4.18(postcss@8.4.35):
+  /autoprefixer@10.4.18(postcss@8.4.36):
     resolution: {integrity: sha512-1DKbDfsr6KUElM6wg+0zRNkB/Q7WcKYAaK+pzXn+Xqmszm/5Xa9coeNdtP88Vi+dPzZnMjhge8GIV49ZQkDa+g==}
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
@@ -4125,11 +4125,11 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.23.0
-      caniuse-lite: 1.0.30001598
+      caniuse-lite: 1.0.30001599
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.0
-      postcss: 8.4.35
+      postcss: 8.4.36
       postcss-value-parser: 4.2.0
     dev: true
 
@@ -4226,7 +4226,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001598
+      caniuse-lite: 1.0.30001599
       electron-to-chromium: 1.4.708
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.23.0)
@@ -4253,26 +4253,26 @@ packages:
       semver: 7.6.0
     dev: true
 
-  /bun-types@1.0.31:
-    resolution: {integrity: sha512-Y7lROXMHMWe/6O0wDrFbyV4IRIQYhVnV2HrhKQzMAIpO+ffv+UBphoUUHYC2D8HhoYJkrBXKJJt/Es6NWKNLpg==}
+  /bun-types@1.0.32:
+    resolution: {integrity: sha512-SuQzGxru12SdMI/a9Ox6yE10ATgwH0EsGxt8i1cXXGwDQDNCdAbZauzFalh/GgJZ54g/tz39FFoM6zXbP9uH2w==}
     dependencies:
       '@types/node': 20.11.28
       '@types/ws': 8.5.10
     dev: true
 
-  /bun@1.0.31:
-    resolution: {integrity: sha512-wydv78kbPVobS6vZJgr77/J20m5sZXEmg+Vs5yLs4UXso3Tu/wPzdJBW2TC9A5gqFWuBN2v/4OAPm2L6hL7ndg==}
+  /bun@1.0.32:
+    resolution: {integrity: sha512-G86mYPCkfzyNmPXasJ1sCyOwKM4hyZYP+s/70RQEAE+8kq5Rn4SLLRkhojdzBUOriQsgJ87JyHAv5UDHq5OVCQ==}
     cpu: [arm64, x64]
     os: [darwin, linux]
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      '@oven/bun-darwin-aarch64': 1.0.31
-      '@oven/bun-darwin-x64': 1.0.31
-      '@oven/bun-darwin-x64-baseline': 1.0.31
-      '@oven/bun-linux-aarch64': 1.0.31
-      '@oven/bun-linux-x64': 1.0.31
-      '@oven/bun-linux-x64-baseline': 1.0.31
+      '@oven/bun-darwin-aarch64': 1.0.32
+      '@oven/bun-darwin-x64': 1.0.32
+      '@oven/bun-darwin-x64-baseline': 1.0.32
+      '@oven/bun-linux-aarch64': 1.0.32
+      '@oven/bun-linux-x64': 1.0.32
+      '@oven/bun-linux-x64-baseline': 1.0.32
     dev: true
 
   /bundle-require@4.0.2(esbuild@0.19.12):
@@ -4360,8 +4360,8 @@ packages:
     engines: {node: '>=16'}
     dev: true
 
-  /caniuse-lite@1.0.30001598:
-    resolution: {integrity: sha512-j8mQRDziG94uoBfeFuqsJUNECW37DXpnvhcMJMdlH2u3MRkq1sAI0LJcXP1i/Py0KbSIC4UDj8YHPrTn5YsL+Q==}
+  /caniuse-lite@1.0.30001599:
+    resolution: {integrity: sha512-LRAQHZ4yT1+f9LemSMeqdMpMxZcc4RMWdj4tiFe3G8tNkWK+E58g+/tzotb5cU6TbcVJLr4fySiAW7XmxQvZQA==}
 
   /caseless@0.12.0:
     resolution: {integrity: sha512-4tYFyifaFfGacoiObjJegolkwSU4xQNGbVgUiNYVUxbQ2x2lUsFvY4hVgVzGiIe6WLOPqycWXA40l+PWsxthUw==}
@@ -6155,7 +6155,7 @@ packages:
       tailwindcss: ^3.4.0
     dependencies:
       fast-glob: 3.3.2
-      postcss: 8.4.35
+      postcss: 8.4.36
       tailwindcss: 3.4.1
     dev: true
 
@@ -9021,7 +9021,7 @@ packages:
       '@next/env': 14.1.3
       '@swc/helpers': 0.5.2
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001598
+      caniuse-lite: 1.0.30001599
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.2.0
@@ -9672,29 +9672,29 @@ packages:
       trouter: 2.0.1
     dev: true
 
-  /postcss-import@15.1.0(postcss@8.4.35):
+  /postcss-import@15.1.0(postcss@8.4.36):
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       postcss: ^8.0.0
     dependencies:
-      postcss: 8.4.35
+      postcss: 8.4.36
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.8
     dev: true
 
-  /postcss-js@4.0.1(postcss@8.4.35):
+  /postcss-js@4.0.1(postcss@8.4.36):
     resolution: {integrity: sha512-dDLF8pEO191hJMtlHFPRa8xsizHaM82MLfNkUHdUtVEV3tgTp5oj+8qbEqYM57SLfc74KSbw//4SeJma2LRVIw==}
     engines: {node: ^12 || ^14 || >= 16}
     peerDependencies:
       postcss: ^8.4.21
     dependencies:
       camelcase-css: 2.0.1
-      postcss: 8.4.35
+      postcss: 8.4.36
     dev: true
 
-  /postcss-load-config@4.0.2(postcss@8.4.35):
+  /postcss-load-config@4.0.2(postcss@8.4.36):
     resolution: {integrity: sha512-bSVhyJGL00wMVoPUzAVAnbEoWyqRxkjv64tUl427SKnPrENtq6hJwUojroMz2VB+Q1edmi4IfrAPpami5VVgMQ==}
     engines: {node: '>= 14'}
     peerDependencies:
@@ -9707,17 +9707,17 @@ packages:
         optional: true
     dependencies:
       lilconfig: 3.1.1
-      postcss: 8.4.35
+      postcss: 8.4.36
       yaml: 2.4.1
     dev: true
 
-  /postcss-nested@6.0.1(postcss@8.4.35):
+  /postcss-nested@6.0.1(postcss@8.4.36):
     resolution: {integrity: sha512-mEp4xPMi5bSWiMbsgoPfcP74lsWLHkQbZc3sY+jWYd65CUwXrUaTp0fmNpa01ZcETKlIgUdFN/MpS2xZtqL9dQ==}
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.2.14
     dependencies:
-      postcss: 8.4.35
+      postcss: 8.4.36
       postcss-selector-parser: 6.0.16
     dev: true
 
@@ -9739,15 +9739,15 @@ packages:
     dependencies:
       nanoid: 3.3.7
       picocolors: 1.0.0
-      source-map-js: 1.0.2
+      source-map-js: 1.1.0
 
-  /postcss@8.4.35:
-    resolution: {integrity: sha512-u5U8qYpBCpN13BsiEB0CbR1Hhh4Gc0zLFuedrHJKMctHCHAGrMdG0PRM/KErzAL3CU6/eckEtmHNB3x6e3c0vA==}
+  /postcss@8.4.36:
+    resolution: {integrity: sha512-/n7eumA6ZjFHAsbX30yhHup/IMkOmlmvtEi7P+6RMYf+bGJSUHc3geH4a0NSZxAz/RJfiS9tooCTs9LAVYUZKw==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.3.7
       picocolors: 1.0.0
-      source-map-js: 1.0.2
+      source-map-js: 1.1.0
     dev: true
 
   /preferred-pm@3.1.3:
@@ -10340,7 +10340,7 @@ packages:
     dependencies:
       chokidar: 3.6.0
       immutable: 4.3.5
-      source-map-js: 1.0.2
+      source-map-js: 1.1.0
 
   /scheduler@0.23.0:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
@@ -10592,8 +10592,8 @@ packages:
       sort-object-keys: 1.1.3
     dev: true
 
-  /source-map-js@1.0.2:
-    resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
+  /source-map-js@1.1.0:
+    resolution: {integrity: sha512-9vC2SfsJzlej6MAaMPLu8HiBSHGdRAJ9hVFYN1ibZoNkeanmDmLUcIrj6G9DGL7XMJ54AKg/G75akXl1/izTOw==}
     engines: {node: '>=0.10.0'}
 
   /source-map-support@0.5.21:
@@ -10919,11 +10919,11 @@ packages:
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.0.0
-      postcss: 8.4.35
-      postcss-import: 15.1.0(postcss@8.4.35)
-      postcss-js: 4.0.1(postcss@8.4.35)
-      postcss-load-config: 4.0.2(postcss@8.4.35)
-      postcss-nested: 6.0.1(postcss@8.4.35)
+      postcss: 8.4.36
+      postcss-import: 15.1.0(postcss@8.4.36)
+      postcss-js: 4.0.1(postcss@8.4.36)
+      postcss-load-config: 4.0.2(postcss@8.4.36)
+      postcss-nested: 6.0.1(postcss@8.4.36)
       postcss-selector-parser: 6.0.16
       resolve: 1.22.8
       sucrase: 3.35.0
@@ -11159,7 +11159,7 @@ packages:
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
-  /tsup@8.0.2(postcss@8.4.35)(typescript@5.4.2):
+  /tsup@8.0.2(postcss@8.4.36)(typescript@5.4.2):
     resolution: {integrity: sha512-NY8xtQXdH7hDUAZwcQdY/Vzlw9johQsaqf7iwZ6g1DOUlFYQ5/AtVAjTvihhEyeRlGo4dLRVHtrRaL35M1daqQ==}
     engines: {node: '>=18'}
     hasBin: true
@@ -11186,8 +11186,8 @@ packages:
       execa: 5.1.1
       globby: 11.1.0
       joycon: 3.1.1
-      postcss: 8.4.35
-      postcss-load-config: 4.0.2(postcss@8.4.35)
+      postcss: 8.4.36
+      postcss-load-config: 4.0.2(postcss@8.4.36)
       resolve-from: 5.0.0
       rollup: 4.13.0
       source-map: 0.8.0-beta.0
@@ -11853,7 +11853,7 @@ packages:
     dependencies:
       '@types/node': 20.11.28
       esbuild: 0.19.12
-      postcss: 8.4.35
+      postcss: 8.4.36
       rollup: 4.13.0
       sass: 1.72.0
     optionalDependencies:
