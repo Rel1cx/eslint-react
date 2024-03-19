@@ -47,7 +47,7 @@
     "@eslint-react/types": "workspace:*",
     "@eslint-react/var": "workspace:*",
     "@typescript-eslint/scope-manager": "7.3.0",
-    "@typescript-eslint/types": "7.3.0",
+    "@typescript-eslint/types": "7.3.1",
     "@typescript-eslint/utils": "7.3.0",
     "micro-memoize": "4.1.2"
   },
