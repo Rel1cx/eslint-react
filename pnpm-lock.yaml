@@ -273,8 +273,8 @@ importers:
         specifier: workspace:*
         version: link:../types
       '@typescript-eslint/scope-manager':
-        specifier: 7.3.0
-        version: 7.3.0
+        specifier: 7.3.1
+        version: 7.3.1
       '@typescript-eslint/type-utils':
         specifier: 7.3.0
         version: 7.3.0(eslint@8.57.0)(typescript@5.4.2)
@@ -307,8 +307,8 @@ importers:
         specifier: 7.3.0
         version: 7.3.0(eslint@8.57.0)(typescript@5.4.2)
       '@typescript-eslint/scope-manager':
-        specifier: 7.3.0
-        version: 7.3.0
+        specifier: 7.3.1
+        version: 7.3.1
       '@typescript-eslint/type-utils':
         specifier: 7.3.0
         version: 7.3.0(eslint@8.57.0)(typescript@5.4.2)
@@ -358,8 +358,8 @@ importers:
         specifier: 7.3.0
         version: 7.3.0(eslint@8.57.0)(typescript@5.4.2)
       '@typescript-eslint/scope-manager':
-        specifier: 7.3.0
-        version: 7.3.0
+        specifier: 7.3.1
+        version: 7.3.1
       '@typescript-eslint/type-utils':
         specifier: 7.3.0
         version: 7.3.0(eslint@8.57.0)(typescript@5.4.2)
@@ -410,8 +410,8 @@ importers:
         specifier: 7.3.0
         version: 7.3.0(eslint@8.57.0)(typescript@5.4.2)
       '@typescript-eslint/scope-manager':
-        specifier: 7.3.0
-        version: 7.3.0
+        specifier: 7.3.1
+        version: 7.3.1
       '@typescript-eslint/type-utils':
         specifier: 7.3.0
         version: 7.3.0(eslint@8.57.0)(typescript@5.4.2)
@@ -458,8 +458,8 @@ importers:
         specifier: 7.3.0
         version: 7.3.0(eslint@8.57.0)(typescript@5.4.2)
       '@typescript-eslint/scope-manager':
-        specifier: 7.3.0
-        version: 7.3.0
+        specifier: 7.3.1
+        version: 7.3.1
       '@typescript-eslint/types':
         specifier: 7.3.0
         version: 7.3.0
@@ -507,8 +507,8 @@ importers:
         specifier: 7.3.0
         version: 7.3.0(eslint@8.57.0)(typescript@5.4.2)
       '@typescript-eslint/scope-manager':
-        specifier: 7.3.0
-        version: 7.3.0
+        specifier: 7.3.1
+        version: 7.3.1
       '@typescript-eslint/type-utils':
         specifier: 7.3.0
         version: 7.3.0(eslint@8.57.0)(typescript@5.4.2)
@@ -556,8 +556,8 @@ importers:
         specifier: 7.3.0
         version: 7.3.0(eslint@8.57.0)(typescript@5.4.2)
       '@typescript-eslint/scope-manager':
-        specifier: 7.3.0
-        version: 7.3.0
+        specifier: 7.3.1
+        version: 7.3.1
       '@typescript-eslint/type-utils':
         specifier: 7.3.0
         version: 7.3.0(eslint@8.57.0)(typescript@5.4.2)
@@ -623,8 +623,8 @@ importers:
         specifier: workspace:*
         version: link:../../types
       '@typescript-eslint/scope-manager':
-        specifier: 7.3.0
-        version: 7.3.0
+        specifier: 7.3.1
+        version: 7.3.1
       '@typescript-eslint/types':
         specifier: 7.3.0
         version: 7.3.0
@@ -657,8 +657,8 @@ importers:
         specifier: workspace:*
         version: link:../var
       '@typescript-eslint/scope-manager':
-        specifier: 7.3.0
-        version: 7.3.0
+        specifier: 7.3.1
+        version: 7.3.1
       '@typescript-eslint/types':
         specifier: 7.3.0
         version: 7.3.0
@@ -685,8 +685,8 @@ importers:
         specifier: workspace:*
         version: link:../../types
       '@typescript-eslint/scope-manager':
-        specifier: 7.3.0
-        version: 7.3.0
+        specifier: 7.3.1
+        version: 7.3.1
       '@typescript-eslint/types':
         specifier: 7.3.0
         version: 7.3.0
@@ -3413,6 +3413,14 @@ packages:
       '@typescript-eslint/types': 7.3.0
       '@typescript-eslint/visitor-keys': 7.3.0
 
+  /@typescript-eslint/scope-manager@7.3.1:
+    resolution: {integrity: sha512-fVS6fPxldsKY2nFvyT7IP78UO1/I2huG+AYu5AMjCT9wtl6JFiDnsv4uad4jQ0GTFzcUV5HShVeN96/17bTBag==}
+    engines: {node: ^18.18.0 || >=20.0.0}
+    dependencies:
+      '@typescript-eslint/types': 7.3.1
+      '@typescript-eslint/visitor-keys': 7.3.1
+    dev: false
+
   /@typescript-eslint/type-utils@5.62.0(eslint@8.57.0)(typescript@5.4.2):
     resolution: {integrity: sha512-xsSQreu+VnfbqQpW5vnCJdq1Z3Q0U31qiWmRhr98ONQmcp/yhiPJFPq8MXiJVLiksmOKSjIldZzkebzHuCGzew==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -3510,6 +3518,11 @@ packages:
   /@typescript-eslint/types@7.3.0:
     resolution: {integrity: sha512-oYCBkD0xVxzmZZmYiIWVewyy/q/ugq7PPm4pHhE1IgcT062i96G0Ww3gd8BvUYpk2yvg95q00Hj2CHRLjAuZBA==}
     engines: {node: ^18.18.0 || >=20.0.0}
+
+  /@typescript-eslint/types@7.3.1:
+    resolution: {integrity: sha512-2tUf3uWggBDl4S4183nivWQ2HqceOZh1U4hhu4p1tPiIJoRRXrab7Y+Y0p+dozYwZVvLPRI6r5wKe9kToF9FIw==}
+    engines: {node: ^18.18.0 || >=20.0.0}
+    dev: false
 
   /@typescript-eslint/typescript-estree@5.62.0(typescript@5.4.2):
     resolution: {integrity: sha512-CmcQ6uY7b9y694lKdRB8FEel7JbU/40iSAPomu++SjLMntB+2Leay2LO6i8VnJk58MtE9/nQSFIH6jpyRWyYzA==}
@@ -3703,6 +3716,14 @@ packages:
     dependencies:
       '@typescript-eslint/types': 7.3.0
       eslint-visitor-keys: 3.4.3
+
+  /@typescript-eslint/visitor-keys@7.3.1:
+    resolution: {integrity: sha512-9RMXwQF8knsZvfv9tdi+4D/j7dMG28X/wMJ8Jj6eOHyHWwDW4ngQJcqEczSsqIKKjFiLFr40Mnr7a5ulDD3vmw==}
+    engines: {node: ^18.18.0 || >=20.0.0}
+    dependencies:
+      '@typescript-eslint/types': 7.3.1
+      eslint-visitor-keys: 3.4.3
+    dev: false
 
   /@typescript/vfs@1.5.0:
     resolution: {integrity: sha512-AJS307bPgbsZZ9ggCT3wwpg3VbTKMFNHfaY/uF0ahSkYYrPF2dSSKDNIDIQAHm9qJqbLvCsSJH7yN4Vs/CsMMg==}
