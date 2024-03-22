@@ -52,6 +52,6 @@
     "micro-memoize": "4.1.2"
   },
   "devDependencies": {
-    "effect": "2.4.8"
+    "effect": "2.4.11"
   }
 }
