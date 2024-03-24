@@ -11,8 +11,8 @@ module.exports = defineConfig({
   },
   extends: [
     "with-tsconfig",
-    "next",
-    "next/core-web-vitals",
+    // "next",
+    // "next/core-web-vitals",
   ],
   overrides: [
     {
@@ -44,7 +44,6 @@ module.exports = defineConfig({
     },
     {
       extends: [
-        "with-tsconfig",
         "plugin:perfectionist/recommended-natural",
       ],
       files: [".eslintrc.cjs"],

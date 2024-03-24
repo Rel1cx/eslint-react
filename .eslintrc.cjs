@@ -208,7 +208,6 @@ module.exports = defineConfig({
     },
     {
       extends: [
-        "with-tsconfig",
         "plugin:perfectionist/recommended-natural",
       ],
       files: [".eslintrc.cjs"],
