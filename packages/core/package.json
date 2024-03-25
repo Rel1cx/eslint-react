@@ -50,7 +50,7 @@
     "@typescript-eslint/scope-manager": "7.3.1",
     "@typescript-eslint/type-utils": "7.3.1",
     "@typescript-eslint/types": "7.3.1",
-    "@typescript-eslint/utils": "7.3.1",
+    "@typescript-eslint/utils": "7.4.0",
     "short-unique-id": "5.0.3"
   },
   "devDependencies": {

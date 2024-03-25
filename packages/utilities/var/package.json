@@ -46,7 +46,7 @@
     "@eslint-react/types": "workspace:*",
     "@typescript-eslint/scope-manager": "7.3.1",
     "@typescript-eslint/types": "7.3.1",
-    "@typescript-eslint/utils": "7.3.1",
+    "@typescript-eslint/utils": "7.4.0",
     "string-ts": "2.1.0"
   },
   "devDependencies": {
