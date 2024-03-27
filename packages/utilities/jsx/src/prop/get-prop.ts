@@ -2,9 +2,7 @@ import { ESLintCommunityESLintUtils, is, NodeType } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
-// Workaround for @typescript-eslint/utils's TS2742 error.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import { Function as F, Option as O } from "effect";
 import { match } from "ts-pattern";
 const { getStaticValue } = ESLintCommunityESLintUtils;

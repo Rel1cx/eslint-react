@@ -1,9 +1,6 @@
 import { entries, fromEntries } from "@eslint-react/tools";
 import type { RulePreset } from "@eslint-react/types";
 import tsParser from "@typescript-eslint/parser";
-// Workaround for @typescript-eslint/utils's TS2742 error.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { ESLintUtils } from "@typescript-eslint/utils";
 import * as reactCore from "eslint-plugin-react-core";
 import * as reactDom from "eslint-plugin-react-dom";
 import * as reactHooksExtra from "eslint-plugin-react-hooks-extra";

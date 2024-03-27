@@ -1,7 +1,3 @@
-// Workaround for @typescript-eslint/utils's TS2742 error.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { ESLintUtils } from "@typescript-eslint/utils";
-
 import { name, version } from "../package.json";
 import ensureCustomHooksUsingOtherHooks from "./rules/ensure-custom-hooks-using-other-hooks";
 import ensureUseCallbackHasNonEmptyDeps from "./rules/ensure-use-callback-has-non-empty-deps";

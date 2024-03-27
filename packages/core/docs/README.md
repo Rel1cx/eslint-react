@@ -344,7 +344,7 @@ ___
 
 ### isChildrenCountCall
 
-▸ **isChildrenCountCall**(`node`, `context`, `pragma?`): `boolean`
+▸ **isChildrenCountCall**(`node`, `context`): `boolean`
 
 #### Parameters
 
@@ -352,7 +352,6 @@ ___
 | :------ | :------ |
 | `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string` |
 
 #### Returns
 
@@ -380,7 +379,7 @@ ___
 
 ### isChildrenForEachCall
 
-▸ **isChildrenForEachCall**(`node`, `context`, `pragma?`): `boolean`
+▸ **isChildrenForEachCall**(`node`, `context`): `boolean`
 
 #### Parameters
 
@@ -388,7 +387,6 @@ ___
 | :------ | :------ |
 | `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string` |
 
 #### Returns
 
@@ -416,7 +414,7 @@ ___
 
 ### isChildrenMapCall
 
-▸ **isChildrenMapCall**(`node`, `context`, `pragma?`): `boolean`
+▸ **isChildrenMapCall**(`node`, `context`): `boolean`
 
 #### Parameters
 
@@ -424,7 +422,6 @@ ___
 | :------ | :------ |
 | `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string` |
 
 #### Returns
 
@@ -452,7 +449,7 @@ ___
 
 ### isChildrenOnlyCall
 
-▸ **isChildrenOnlyCall**(`node`, `context`, `pragma?`): `boolean`
+▸ **isChildrenOnlyCall**(`node`, `context`): `boolean`
 
 #### Parameters
 
@@ -460,7 +457,6 @@ ___
 | :------ | :------ |
 | `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string` |
 
 #### Returns
 
@@ -488,7 +484,7 @@ ___
 
 ### isChildrenToArrayCall
 
-▸ **isChildrenToArrayCall**(`node`, `context`, `pragma?`): `boolean`
+▸ **isChildrenToArrayCall**(`node`, `context`): `boolean`
 
 #### Parameters
 
@@ -496,7 +492,6 @@ ___
 | :------ | :------ |
 | `node` | `CallExpression` |
 | `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string` |
 
 #### Returns
 
