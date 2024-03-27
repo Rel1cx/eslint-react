@@ -56,8 +56,8 @@
   },
   "devDependencies": {
     "@changesets/cli": "2.27.1",
-    "@tsconfig/node20": "20.1.3",
-    "@tsconfig/strictest": "2.0.4",
+    "@tsconfig/node20": "20.1.4",
+    "@tsconfig/strictest": "2.0.5",
     "@types/node": "20.11.30",
     "@typescript-eslint/eslint-plugin": "7.4.0",
     "@typescript-eslint/parser": "7.4.0",
@@ -69,10 +69,10 @@
     "cspell": "8.6.1",
     "dedent": "1.5.1",
     "dprint": "0.45.0",
-    "effect": "2.4.14",
+    "effect": "2.4.15",
     "eslint": "8.57.0",
     "eslint-config-flat-gitignore": "0.1.3",
-    "eslint-config-with-tsconfig": "2.16.1",
+    "eslint-config-with-tsconfig": "2.16.2",
     "eslint-plugin-eslint-plugin": "5.4.1",
     "eslint-plugin-filenames-simple": "0.9.0",
     "eslint-plugin-functional": "6.3.0",
@@ -85,7 +85,7 @@
     "pathe": "1.1.2",
     "publint": "0.2.7",
     "skott": "0.33.2",
-    "sort-package-json": "2.8.0",
+    "sort-package-json": "2.9.0",
     "taze": "0.13.3",
     "tiny-invariant": "1.3.3",
     "ts-pattern": "5.0.8",
@@ -105,7 +105,6 @@
   },
   "pnpm": {
     "overrides": {
-      "typescript": "5.4.3",
       "array-includes": "npm:@nolyfill/array-includes@latest",
       "array.prototype.findlast": "npm:@nolyfill/array.prototype.findlast@latest",
       "array.prototype.findlastindex": "npm:@nolyfill/array.prototype.findlastindex@latest",
@@ -124,7 +123,8 @@
       "object.hasown": "npm:@nolyfill/object.hasown@latest",
       "object.values": "npm:@nolyfill/object.values@latest",
       "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@latest",
-      "typedarray": "npm:@nolyfill/typedarray@latest"
+      "typedarray": "npm:@nolyfill/typedarray@latest",
+      "typescript": "5.4.3"
     }
   }
 }

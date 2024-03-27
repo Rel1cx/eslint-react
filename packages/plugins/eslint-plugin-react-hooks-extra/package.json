@@ -57,7 +57,7 @@
     "string-ts": "2.1.0"
   },
   "devDependencies": {
-    "effect": "2.4.14"
+    "effect": "2.4.15"
   },
   "peerDependencies": {
     "eslint": ">=8.57.0",
