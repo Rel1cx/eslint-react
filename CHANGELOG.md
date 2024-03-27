@@ -1,4 +1,4 @@
-## v1.5.7 (Draft)
+## v1.5.7 (Thu 28 Mar 2024)
 
 ### 🪄 Improvements
 

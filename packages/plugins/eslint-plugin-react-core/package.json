@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-core",
-  "version": "1.5.7-beta.5",
+  "version": "1.5.7",
   "description": "ESLint React's ESLint plugin for React related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
