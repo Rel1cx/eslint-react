@@ -58,8 +58,8 @@ importers:
         specifier: 1.0.35
         version: 1.0.35
       bun-types:
-        specifier: 1.0.35
-        version: 1.0.35
+        specifier: 1.0.36
+        version: 1.0.36
       code-block-writer:
         specifier: 13.0.1
         version: 13.0.1
@@ -4477,8 +4477,8 @@ packages:
       semver: 7.6.0
     dev: true
 
-  /bun-types@1.0.35:
-    resolution: {integrity: sha512-JlFllUCVMZbDyGfbv9dBWXd2tRdZSzyP1EWDKcTTVRViYNYX8AEsfpMN/vu6Hk8CBhKrhbbBkKZcNjJev8QQHQ==}
+  /bun-types@1.0.36:
+    resolution: {integrity: sha512-gaIb1SyhB0JZfIEg73/kSFhqolUqJXC68peguhXGwqr27HuvI8nkD0LTIHp/1DY4cNadfXHYgYrZIWX7oEoXlg==}
     dependencies:
       '@types/node': 20.11.30
       '@types/ws': 8.5.10
