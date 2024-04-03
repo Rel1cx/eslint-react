@@ -91,7 +91,7 @@
     "ts-pattern": "5.1.0",
     "tsup": "8.0.2",
     "turbo": "1.13.2",
-    "type-fest": "4.14.0",
+    "type-fest": "4.15.0",
     "typedoc": "0.25.12",
     "typedoc-plugin-markdown": "3.17.1",
     "typedoc-plugin-rename-defaults": "0.7.0",
