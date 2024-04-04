@@ -55,8 +55,8 @@ importers:
         specifier: 1.4.0
         version: 1.4.0(vitest@1.4.0)
       bun:
-        specifier: 1.1.0
-        version: 1.1.0
+        specifier: 1.1.1
+        version: 1.1.1
       bun-types:
         specifier: 1.1.0
         version: 1.1.0
@@ -2810,64 +2810,64 @@ packages:
       - supports-color
     dev: true
 
-  /@oven/bun-darwin-aarch64@1.1.0:
-    resolution: {integrity: sha512-8hDDBdQVHfFJ1KHXeHIB78SFs7rYG1Ff4n8SDv006ENc3uEIqynFVbHCKbqa5aE7zLkdBizoBzL50W76zAPmCQ==}
+  /@oven/bun-darwin-aarch64@1.1.1:
+    resolution: {integrity: sha512-RDs5ZMSkcurj4YqPtkcKGYUA46/LDcw7tQ0a4hBI/mtjpYySYmIIYkSeeotl9IJMNcG+ZsHpRc4b7ROFRYhxEw==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-darwin-x64-baseline@1.1.0:
-    resolution: {integrity: sha512-61rkVhpzU3PfoXRLrIpgKzLys4Qk9bvCI5DVM5cZgVxGq62jR+FwldCVcCoyfMdblGg07x3aUY9BXMwtSxvN0A==}
+  /@oven/bun-darwin-x64-baseline@1.1.1:
+    resolution: {integrity: sha512-sJKZqgT9JSbxTPLULHdcYiKy+F4x2gq114FxDwEqn3YVZnBqSO0X9GCqWOa1CNqUaxGvJnNgn+HDkIQlnXVLiA==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-darwin-x64@1.1.0:
-    resolution: {integrity: sha512-KNEtlnEok6LB9ZNMe2aSxRVO8ps22hn4qTTjJc/s0josPNlIk4PvV2xusbUEGQS4XSNGcEH/Gh7VYE/W3u1gjg==}
+  /@oven/bun-darwin-x64@1.1.1:
+    resolution: {integrity: sha512-RiRbhu9htOML4+81AfHIvjgdVU3jsn+EiyvwuUv5j91vgGrZLkNXebGZXt2eGDDutGzHqvQJqW6sxQ+UNJQi7w==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-aarch64@1.1.0:
-    resolution: {integrity: sha512-UZhZU2mkC+OnbDB/Lq8MTJWiwhDMrnZvcW99cc+fymU5w/bOvpSuFOhpC/IeI1Dp8WGlkjDGyottSr++juWXOw==}
+  /@oven/bun-linux-aarch64@1.1.1:
+    resolution: {integrity: sha512-9twn92P90pAwyvC6PzcWv/3a2B2/01TzdCwslWNaI0LdQ3b+sJR4IvdXG1yQI3N2Ne/ticM7eww2eWma4I0LRQ==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-x64-baseline@1.1.0:
-    resolution: {integrity: sha512-eAxK+x5dEzoVGR0f4FiiLYgtzHu8xB8uWB+Uc9h/6C46vODlOPsBT2Pwv6y5uPAX+dyKGHeMQsP+r2OFBkbkTA==}
+  /@oven/bun-linux-x64-baseline@1.1.1:
+    resolution: {integrity: sha512-2nXg32DLs0xaZH5GafJ16UqrDr4XGRXTeyZW3PNhplaFY0m3fRDXCqDsXmTvsQoGO/FEtMrEmJSWXbLa7u0B4A==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-linux-x64@1.1.0:
-    resolution: {integrity: sha512-o2D9LGXyJqHTQ5tTF4GSctL20ZFw0EGwrhhCLPM4cGzHrhji3EP9euz28aREM+iYUqAWC6BOGz77up5yeMbBQw==}
+  /@oven/bun-linux-x64@1.1.1:
+    resolution: {integrity: sha512-2JPkRTCSXe5w9JvMucx7fgN77yQK+XZ+fY7WlEsZnAR4PjEGImZA12nGNbnxEHM3TmOEivy2PP00nAXeu9LViA==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-windows-x64-baseline@1.1.0:
-    resolution: {integrity: sha512-PqQToENBnHkzdcUnkCYI86397oNvs8Z7PZT8iyQEMSr/oYTMNCSArgrpFSEG6seN5HBPkSyhbj0fuU3U5oOhtQ==}
+  /@oven/bun-windows-x64-baseline@1.1.1:
+    resolution: {integrity: sha512-3q/THmrP1yA8/YTJoS29Et5a+AxP2jGX96cYHlOZEjoTj/FBNFSuuPVvvFEpjrRkQ8Oz9iNE/C6ltna8WKSUxQ==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@oven/bun-windows-x64@1.1.0:
-    resolution: {integrity: sha512-SStu+4Zq0S/nfwaSz9QcBnk9CYjlSckzkzChoFt+vdIXfiaCT+uq0I57OXifRb67uOVtXl6N3PqmCivJPTh/kw==}
+  /@oven/bun-windows-x64@1.1.1:
+    resolution: {integrity: sha512-oolhIph8Kah6K/7kPUjcqgc2N5lS6RD4yruwrG2QYhxcYWTh7m36Ngp709l8+trhLLaUyTnvr4MvuiKPl1cRjQ==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
@@ -4408,6 +4408,7 @@ packages:
   /autoprefixer@10.4.19(postcss@8.4.38):
     resolution: {integrity: sha512-BaENR2+zBZ8xXhM4pUaKUxlVdxZ0EZhjvbopwnXmxRUfqDmwSpC2lAi/QXvx7NRdPCo1WKEcEF6mV64si1z4Ew==}
     engines: {node: ^10 || ^12 || >=14}
+    hasBin: true
     peerDependencies:
       postcss: ^8.1.0
     dependencies:
@@ -4546,19 +4547,21 @@ packages:
       '@types/ws': 8.5.10
     dev: true
 
-  /bun@1.1.0:
-    resolution: {integrity: sha512-vEfq5NXOWriLzVtA/gMC69MR/W48KE0G7SarZUbu7H89KH9u7FFozTvn8noyLKqpI1sRa2qu/laE21K+htFxCQ==}
+  /bun@1.1.1:
+    resolution: {integrity: sha512-gV90TkJgHvI50X9BoKQ3zVpPEY6YP0vqOww2uZmsOyckZSRlcFYWhXZwFj6PV8KCFINYs8VZ65m59U2RuFYfWw==}
+    cpu: [arm64, x64]
     os: [darwin, linux, win32]
+    hasBin: true
     requiresBuild: true
     optionalDependencies:
-      '@oven/bun-darwin-aarch64': 1.1.0
-      '@oven/bun-darwin-x64': 1.1.0
-      '@oven/bun-darwin-x64-baseline': 1.1.0
-      '@oven/bun-linux-aarch64': 1.1.0
-      '@oven/bun-linux-x64': 1.1.0
-      '@oven/bun-linux-x64-baseline': 1.1.0
-      '@oven/bun-windows-x64': 1.1.0
-      '@oven/bun-windows-x64-baseline': 1.1.0
+      '@oven/bun-darwin-aarch64': 1.1.1
+      '@oven/bun-darwin-x64': 1.1.1
+      '@oven/bun-darwin-x64-baseline': 1.1.1
+      '@oven/bun-linux-aarch64': 1.1.1
+      '@oven/bun-linux-x64': 1.1.1
+      '@oven/bun-linux-x64-baseline': 1.1.1
+      '@oven/bun-windows-x64': 1.1.1
+      '@oven/bun-windows-x64-baseline': 1.1.1
     dev: true
 
   /bundle-require@4.0.2(esbuild@0.19.12):
@@ -5927,6 +5930,7 @@ packages:
 
   /eslint-config-prettier@9.1.0(eslint@8.57.0):
     resolution: {integrity: sha512-NSWl5BFQWEPi1j4TjVNItzYV7dZXZ+wP6I6ZhrBGpChQhZRUaElihE9uRRkcbRnNb76UMKDF3r+WTmNcGPKsqw==}
+    hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
     dependencies:
@@ -9309,6 +9313,7 @@ packages:
   /next@14.1.4(@babel/core@7.24.3)(react-dom@18.2.0)(react@18.2.0)(sass@1.72.0):
     resolution: {integrity: sha512-1WTaXeSrUwlz/XcnhGTY7+8eiaFvdet5z9u3V2jb+Ek1vFo0VhHKSAIJvDWfQpttWjnyw14kBeq28TPq7bTeEQ==}
     engines: {node: '>=18.17.0'}
+    hasBin: true
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
       react: ^18.2.0
@@ -11442,6 +11447,7 @@ packages:
   /tsup@8.0.2(postcss@8.4.38)(typescript@5.4.3):
     resolution: {integrity: sha512-NY8xtQXdH7hDUAZwcQdY/Vzlw9johQsaqf7iwZ6g1DOUlFYQ5/AtVAjTvihhEyeRlGo4dLRVHtrRaL35M1daqQ==}
     engines: {node: '>=18'}
+    hasBin: true
     peerDependencies:
       '@microsoft/api-extractor': ^7.36.0
       '@swc/core': ^1
@@ -11480,6 +11486,7 @@ packages:
 
   /tsutils-etc@1.4.2(tsutils@3.21.0)(typescript@5.4.3):
     resolution: {integrity: sha512-2Dn5SxTDOu6YWDNKcx1xu2YUy6PUeKrWZB/x2cQ8vY2+iz3JRembKn/iZ0JLT1ZudGNwQQvtFX9AwvRHbXuPUg==}
+    hasBin: true
     peerDependencies:
       tsutils: ^3.0.0
       typescript: 5.4.3
@@ -11681,6 +11688,7 @@ packages:
   /typedoc@0.25.12(typescript@5.4.3):
     resolution: {integrity: sha512-F+qhkK2VoTweDXd1c42GS/By2DvI2uDF4/EpG424dTexSHdtCH52C6IcAvMA6jR3DzAWZjHpUOW+E02kyPNUNw==}
     engines: {node: '>= 16'}
+    hasBin: true
     peerDependencies:
       typescript: 5.4.3
     dependencies:
@@ -11953,6 +11961,7 @@ packages:
 
   /update-browserslist-db@1.0.13(browserslist@4.23.0):
     resolution: {integrity: sha512-xebP81SNcPuNpPP3uzeW1NYXxI3rxyJzF3pD6sH4jE7o/IX+WtSpwnVU+qIsDPyk0d3hmFQ7mjqc6AtV604hbg==}
+    hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
     dependencies:
@@ -12106,6 +12115,7 @@ packages:
   /vite@5.2.8(@types/node@20.12.4)(sass@1.72.0):
     resolution: {integrity: sha512-OyZR+c1CE8yeHw5V5t59aXsUPPVTHMDjEZz8MgguLL/Q7NblxhZUlTu9xSPqlsUO/y+X7dlU05jdhvyycD55DA==}
     engines: {node: ^18.0.0 || >=20.0.0}
+    hasBin: true
     peerDependencies:
       '@types/node': ^18.0.0 || >=20.0.0
       less: '*'
@@ -12142,6 +12152,7 @@ packages:
   /vitest@1.4.0(@types/node@20.12.4)(@vitest/ui@1.4.0):
     resolution: {integrity: sha512-gujzn0g7fmwf83/WzrDTnncZt2UiXP41mHuFYFrdwaLRVQ6JYQEiME2IfEjU3vcFL3VKa75XhI3lFgn+hfVsQw==}
     engines: {node: ^18.0.0 || >=20.0.0}
+    hasBin: true
     peerDependencies:
       '@edge-runtime/vm': '*'
       '@types/node': ^18.0.0 || >=20.0.0
