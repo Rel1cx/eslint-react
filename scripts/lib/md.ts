@@ -6,7 +6,7 @@ export const MarkdownPrinter = {
   code: (content: string) => `\`${content}\``,
   link: (text: string, url: string) => `[${text}](${url})`,
   list: (...items: string[]) => items.map((item) => `- ${item}`).join("\n"),
-  // eslint-disable-next-line prefer-template, no-useless-concat
+
   fence: (language: string, content: string) => "```" + language + "\n" + content + "\n" + "```\n\n",
   paragraph: (...content: string[]) => `\n${content.join("")}\n\n`,
   strikethrough: (content: string) => `~~${content}~~`,

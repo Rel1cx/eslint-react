@@ -9,6 +9,85 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
+  invalid: [
+    {
+      code: dedent`
+        const App = () => {
+            return [
+                    <div key="1">1</div>,
+                    <div key="1">2</div>,
+                    <div key="1">3</div>,
+                 ]
+        };
+      `,
+      errors: [
+        {
+          data: {
+            value: '"1"',
+          },
+          messageId: "NO_DUPLICATE_KEY",
+        },
+        {
+          data: {
+            value: '"1"',
+          },
+          messageId: "NO_DUPLICATE_KEY",
+        },
+        {
+          data: {
+            value: '"1"',
+          },
+          messageId: "NO_DUPLICATE_KEY",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        const App = () => {
+            return  (<div>
+                        <div key="1">1</div>
+                        <div key="1">2</div>
+                        <div key="1">3</div>
+                    </div>)
+        };
+      `,
+      errors: [
+        {
+          data: {
+            value: '"1"',
+          },
+          messageId: "NO_DUPLICATE_KEY",
+        },
+        {
+          data: {
+            value: '"1"',
+          },
+          messageId: "NO_DUPLICATE_KEY",
+        },
+        {
+          data: {
+            value: '"1"',
+          },
+          messageId: "NO_DUPLICATE_KEY",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        const App = () => {
+            return [1, 2, 3].map((item) => <div key="1">{item}</div>)
+        };
+      `,
+      errors: [
+        {
+          data: {
+            value: '"1"',
+          },
+          messageId: "NO_DUPLICATE_KEY",
+        },
+      ],
+    },
+  ],
   valid: [
     ...allValid,
     dedent`
@@ -30,84 +109,5 @@ ruleTester.run(RULE_NAME, rule, {
           return [1, 2, 3].map((item) => <div key={Math.random()}>{item}</div>)
       };
     `,
-  ],
-  invalid: [
-    {
-      code: dedent`
-        const App = () => {
-            return [
-                    <div key="1">1</div>,
-                    <div key="1">2</div>,
-                    <div key="1">3</div>,
-                 ]
-        };
-      `,
-      errors: [
-        {
-          messageId: "NO_DUPLICATE_KEY",
-          data: {
-            value: '"1"',
-          },
-        },
-        {
-          messageId: "NO_DUPLICATE_KEY",
-          data: {
-            value: '"1"',
-          },
-        },
-        {
-          messageId: "NO_DUPLICATE_KEY",
-          data: {
-            value: '"1"',
-          },
-        },
-      ],
-    },
-    {
-      code: dedent`
-        const App = () => {
-            return  (<div>
-                        <div key="1">1</div>
-                        <div key="1">2</div>
-                        <div key="1">3</div>
-                    </div>)
-        };
-      `,
-      errors: [
-        {
-          messageId: "NO_DUPLICATE_KEY",
-          data: {
-            value: '"1"',
-          },
-        },
-        {
-          messageId: "NO_DUPLICATE_KEY",
-          data: {
-            value: '"1"',
-          },
-        },
-        {
-          messageId: "NO_DUPLICATE_KEY",
-          data: {
-            value: '"1"',
-          },
-        },
-      ],
-    },
-    {
-      code: dedent`
-        const App = () => {
-            return [1, 2, 3].map((item) => <div key="1">{item}</div>)
-        };
-      `,
-      errors: [
-        {
-          messageId: "NO_DUPLICATE_KEY",
-          data: {
-            value: '"1"',
-          },
-        },
-      ],
-    },
   ],
 });

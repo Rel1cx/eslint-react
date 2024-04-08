@@ -12,7 +12,6 @@ export const RULE_NAME = "no-create-ref";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -20,12 +19,12 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_CREATE_REF: "'createRef' is not allowed in function components. Use 'useRef' instead.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollector(context);
     const possibleCreateRefCalls = new Map<TSESTreeFunction, TSESTree.CallExpression[]>();
@@ -47,12 +46,13 @@ export default createRule<[], MessageID>({
           if (!createRefCalls) continue;
           for (const createRefCall of createRefCalls) {
             context.report({
-              node: createRefCall,
               messageId: "NO_CREATE_REF",
+              node: createRefCall,
             });
           }
         }
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

@@ -12,6 +12,192 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
+  invalid: [
+    {
+      code: dedent`
+        const App = () => {
+          return (
+              <>
+              {0 && <Foo />}
+              {NaN && <Foo />}
+              </>
+              )
+          }
+      `,
+      errors: [
+        {
+          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+        },
+        {
+          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        const someCondition = JSON.parse("") as any;
+        const SomeComponent = () => <div />;
+
+        const App = () => {
+          return (
+            <>
+              {someCondition && (
+                <SomeComponent
+                  prop1={val1}
+                  prop2={val2}
+                />
+              )}
+            </>
+          )
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        const someCondition = JSON.parse("") as unknown;
+        const SomeComponent = () => <div />;
+
+        const App = () => {
+          return (
+            <>
+              {someCondition && (
+                <SomeComponent
+                  prop1={val1}
+                  prop2={val2}
+                />
+              )}
+            </>
+          )
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        const someCondition = 0
+        const SomeComponent = () => <div />;
+
+        const App = () => {
+          return (
+            <>
+              {someCondition && (
+                <SomeComponent
+                  prop1={val1}
+                  prop2={val2}
+                />
+              )}
+            </>
+          )
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        const someCondition = 1
+        const SomeComponent = () => <div />;
+
+        const App = () => {
+          return (
+            <>
+              {someCondition && (
+                <SomeComponent
+                  prop1={val1}
+                  prop2={val2}
+                />
+              )}
+            </>
+          )
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        const someCondition = 0;
+        const SomeComponent = () => <div />;
+
+        const App = () => {
+          return (
+            <>
+              {!!someCondition
+                ? (
+                <SomeComponent
+                  prop1={val1}
+                  prop2={val2}
+                />)
+                : someCondition && <div />
+              }
+            </>
+          )
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        const App = ({
+          someCondition,
+        }: {
+          someCondition: number | undefined;
+        }) => {
+          return (
+            <>
+              {someCondition && <Foo />}
+            </>
+          )
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        const SomeComponent = () => <div />;
+
+        const App = ({
+          someCondition,
+        }:{
+          someCondition?: number | undefined;
+        }) => {
+          return (
+            <>
+              {someCondition && <SomeComponent />}
+            </>
+          )
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
+  ],
   valid: [
     ...allValid,
     dedent`
@@ -401,191 +587,5 @@ ruleTester.run(RULE_NAME, rule, {
         return <>{!!someFunction && someFunction<number>(1)}</>;
       }
     `,
-  ],
-  invalid: [
-    {
-      code: dedent`
-        const App = () => {
-          return (
-              <>
-              {0 && <Foo />}
-              {NaN && <Foo />}
-              </>
-              )
-          }
-      `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        const someCondition = JSON.parse("") as any;
-        const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {someCondition && (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />
-              )}
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        const someCondition = JSON.parse("") as unknown;
-        const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {someCondition && (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />
-              )}
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        const someCondition = 0
-        const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {someCondition && (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />
-              )}
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        const someCondition = 1
-        const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {someCondition && (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />
-              )}
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        const someCondition = 0;
-        const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {!!someCondition
-                ? (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />)
-                : someCondition && <div />
-              }
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        const App = ({
-          someCondition,
-        }: {
-          someCondition: number | undefined;
-        }) => {
-          return (
-            <>
-              {someCondition && <Foo />}
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        const SomeComponent = () => <div />;
-
-        const App = ({
-          someCondition,
-        }:{
-          someCondition?: number | undefined;
-        }) => {
-          return (
-            <>
-              {someCondition && <SomeComponent />}
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
   ],
 });

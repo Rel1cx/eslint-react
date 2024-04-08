@@ -29,7 +29,6 @@ export type MessageID =
   | "NESTED_COMPONENT_IN_PROPS";
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -37,13 +36,13 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NESTED_COMPONENT: "Do not nest components inside other components. Move it to the top level.",
       NESTED_COMPONENT_IN_PROPS: "Do not nest components inside props. Move it to the top level or pass it as a prop.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const hint = ERComponentHint.SkipMapCallback
       | ERComponentHint.SkipNullLiteral
@@ -69,7 +68,7 @@ export default createRule<[], MessageID>({
         const isClassComponent = (node: TSESTree.Node): node is TSESTreeClass => {
           return isClass(node) && classComponents.some(component => component.node === node);
         };
-        for (const { node: component, name: componentName } of functionComponents) {
+        for (const { name: componentName, node: component } of functionComponents) {
           // Do not mark objects containing render methods
           if (unsafeIsDirectValueOfRenderProperty(component)) continue;
           // Do not mark anonymous function components to reduce false positives
@@ -80,11 +79,11 @@ export default createRule<[], MessageID>({
           if (isInsideJSXPropValue) {
             if (!unsafeIsDeclaredInRenderProp(component)) {
               context.report({
-                messageId: "NESTED_COMPONENT_IN_PROPS",
-                node: component,
                 data: {
                   name,
                 },
+                messageId: "NESTED_COMPONENT_IN_PROPS",
+                node: component,
               });
             }
 
@@ -92,11 +91,11 @@ export default createRule<[], MessageID>({
           }
           if (isInsideCreateElementProps(component, context)) {
             context.report({
-              messageId: "NESTED_COMPONENT_IN_PROPS",
-              node: component,
               data: {
                 name,
               },
+              messageId: "NESTED_COMPONENT_IN_PROPS",
+              node: component,
             });
 
             continue;
@@ -104,11 +103,11 @@ export default createRule<[], MessageID>({
           const maybeParentComponent = traverseUpGuard(component, isFunctionComponent);
           if (O.isSome(maybeParentComponent) && !unsafeIsDirectValueOfRenderProperty(maybeParentComponent.value)) {
             context.report({
-              messageId: isInsideProperty ? "NESTED_COMPONENT_IN_PROPS" : "NESTED_COMPONENT",
-              node: component,
               data: {
                 name,
               },
+              messageId: isInsideProperty ? "NESTED_COMPONENT_IN_PROPS" : "NESTED_COMPONENT",
+              node: component,
             });
 
             continue;
@@ -116,25 +115,26 @@ export default createRule<[], MessageID>({
           const isInsideClassComponentRenderMethod = isInsideRenderMethod(component, context);
           if (isInsideClassComponentRenderMethod) {
             context.report({
-              messageId: "NESTED_COMPONENT",
-              node: component,
               data: {
                 name,
               },
+              messageId: "NESTED_COMPONENT",
+              node: component,
             });
           }
         }
-        for (const { node: component, name } of classComponents) {
+        for (const { name, node: component } of classComponents) {
           if (O.isNone(traverseUp(component, node => isClassComponent(node) || isFunctionComponent(node)))) continue;
           context.report({
-            messageId: "NESTED_COMPONENT",
-            node: component,
             data: {
               name: O.getOrElse(() => "unknown")(name),
             },
+            messageId: "NESTED_COMPONENT",
+            node: component,
           });
         }
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

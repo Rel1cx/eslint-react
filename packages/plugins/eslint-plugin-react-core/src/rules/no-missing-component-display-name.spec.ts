@@ -9,6 +9,54 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
+  invalid: [
+    {
+      code: "const App = React.memo(() => <div>foo</div>)",
+      errors: [{
+        messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
+      }],
+    },
+    {
+      code: dedent`
+        const App = React.memo(function () {
+            return <div>foo</div>
+        })
+      `,
+      errors: [{
+        messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
+      }],
+    },
+    {
+      code: "const App = React.forwardRef(() => <div>foo</div>)",
+      errors: [{
+        messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
+      }],
+    },
+    {
+      code: "const MemoComponent = React.memo(() => <div></div>)",
+      errors: [{
+        messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
+      }],
+    },
+    {
+      code: "const ForwardRefComponent = React.forwardRef(() => <div></div>)",
+      errors: [{
+        messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
+      }],
+    },
+    {
+      code: "const MemoForwardRefComponent = React.memo(forwardRef(() => <div></div>))",
+      errors: [{
+        messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
+      }],
+    },
+    {
+      code: "const MemoForwardRefComponent = React.memo(React.forwardRef(() => <div></div>))",
+      errors: [{
+        messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
+      }],
+    },
+  ],
   valid: [
     ...allFunctions,
     "const App = () => <div>foo</div>",
@@ -119,53 +167,5 @@ ruleTester.run(RULE_NAME, rule, {
 
       FancyButton.displayName = 'FancyButton';
     `,
-  ],
-  invalid: [
-    {
-      code: "const App = React.memo(() => <div>foo</div>)",
-      errors: [{
-        messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
-      }],
-    },
-    {
-      code: dedent`
-        const App = React.memo(function () {
-            return <div>foo</div>
-        })
-      `,
-      errors: [{
-        messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
-      }],
-    },
-    {
-      code: "const App = React.forwardRef(() => <div>foo</div>)",
-      errors: [{
-        messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
-      }],
-    },
-    {
-      code: "const MemoComponent = React.memo(() => <div></div>)",
-      errors: [{
-        messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
-      }],
-    },
-    {
-      code: "const ForwardRefComponent = React.forwardRef(() => <div></div>)",
-      errors: [{
-        messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
-      }],
-    },
-    {
-      code: "const MemoForwardRefComponent = React.memo(forwardRef(() => <div></div>))",
-      errors: [{
-        messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
-      }],
-    },
-    {
-      code: "const MemoForwardRefComponent = React.memo(React.forwardRef(() => <div></div>))",
-      errors: [{
-        messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
-      }],
-    },
   ],
 });

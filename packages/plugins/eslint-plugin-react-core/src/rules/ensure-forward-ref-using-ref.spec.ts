@@ -8,59 +8,6 @@ const ruleTester = new RuleTester({
   parserOptions: defaultParserOptions,
 });
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    dedent`
-      import { forwardRef } from 'react'
-      forwardRef((props, ref) => {
-        return null;
-      });
-    `,
-    dedent`
-      import { forwardRef } from 'react'
-      forwardRef((props, ref) => null);
-    `,
-    dedent`
-      import { forwardRef } from 'react'
-      forwardRef(function (props, ref) {
-        return null;
-      });
-    `,
-    dedent`
-      import { forwardRef } from 'react'
-      forwardRef(function Component(props, ref) {
-        return null;
-      });
-    `,
-    dedent`
-      import * as React from 'react'
-      React.forwardRef((props, ref) => {
-        return null;
-      });
-    `,
-    dedent`
-      import * as React from 'react'
-      React.forwardRef((props, ref) => null);
-    `,
-    dedent`
-      import * as React from 'react'
-      React.forwardRef(function (props, ref) {
-        return null;
-      });
-    `,
-    dedent`
-      import * as React from 'react'
-      React.forwardRef(function Component(props, ref) {
-        return null;
-      });
-    `,
-    dedent`
-      import * as React from 'react'
-      function Component(props) {
-        return null;
-      };
-    `,
-  ],
   invalid: [
     {
       code: dedent`
@@ -130,5 +77,58 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "ENSURE_FORWARD_REF_USING_REF" }],
     },
+  ],
+  valid: [
+    ...allValid,
+    dedent`
+      import { forwardRef } from 'react'
+      forwardRef((props, ref) => {
+        return null;
+      });
+    `,
+    dedent`
+      import { forwardRef } from 'react'
+      forwardRef((props, ref) => null);
+    `,
+    dedent`
+      import { forwardRef } from 'react'
+      forwardRef(function (props, ref) {
+        return null;
+      });
+    `,
+    dedent`
+      import { forwardRef } from 'react'
+      forwardRef(function Component(props, ref) {
+        return null;
+      });
+    `,
+    dedent`
+      import * as React from 'react'
+      React.forwardRef((props, ref) => {
+        return null;
+      });
+    `,
+    dedent`
+      import * as React from 'react'
+      React.forwardRef((props, ref) => null);
+    `,
+    dedent`
+      import * as React from 'react'
+      React.forwardRef(function (props, ref) {
+        return null;
+      });
+    `,
+    dedent`
+      import * as React from 'react'
+      React.forwardRef(function Component(props, ref) {
+        return null;
+      });
+    `,
+    dedent`
+      import * as React from 'react'
+      function Component(props) {
+        return null;
+      };
+    `,
   ],
 });

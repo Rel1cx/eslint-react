@@ -9,20 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    dedent`
-      class Foo extends React.Component {
-        componentDidUpdate() {
-          class Bar extends Baz {
-            componentDidUpdate() {
-              this.setState({ foo: "bar" });
-            }
-          }
-        }
-      }
-    `,
-  ],
   invalid: [
     {
       code: dedent`
@@ -48,5 +34,19 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "NO_SET_STATE_IN_COMPONENT_DID_UPDATE" },
       ],
     },
+  ],
+  valid: [
+    ...allValid,
+    dedent`
+      class Foo extends React.Component {
+        componentDidUpdate() {
+          class Bar extends Baz {
+            componentDidUpdate() {
+              this.setState({ foo: "bar" });
+            }
+          }
+        }
+      }
+    `,
   ],
 });

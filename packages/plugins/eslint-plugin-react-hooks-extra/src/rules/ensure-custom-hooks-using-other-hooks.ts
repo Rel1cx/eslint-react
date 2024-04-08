@@ -9,19 +9,18 @@ export const RULE_NAME = "ensure-custom-hooks-using-other-hooks";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
       description: "enforce custom hooks using other hooks",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS: "Custom hooks {{name}} should use other hooks",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useHookCollector();
 
@@ -42,4 +41,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

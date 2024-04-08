@@ -11,7 +11,6 @@ export const RULE_NAME = "no-children-prop";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -19,23 +18,14 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_CHILDREN_PROP: "Children should always be actual children, not passed in as a prop.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     return {
-      JSXElement(node) {
-        const initialScope = context.sourceCode.getScope(node);
-        O.map(getProp(node.openingElement.attributes, "children", context, initialScope), prop => {
-          context.report({
-            messageId: "NO_CHILDREN_PROP",
-            node: prop,
-          });
-        });
-      },
       CallExpression(node) {
         if (node.arguments.length === 0) return;
         const initialScope = context.sourceCode.getScope(node);
@@ -49,6 +39,16 @@ export default createRule<[], MessageID>({
           });
         });
       },
+      JSXElement(node) {
+        const initialScope = context.sourceCode.getScope(node);
+        O.map(getProp(node.openingElement.attributes, "children", context, initialScope), prop => {
+          context.report({
+            messageId: "NO_CHILDREN_PROP",
+            node: prop,
+          });
+        });
+      },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

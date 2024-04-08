@@ -9,16 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    "ReactDOM.render(<div />, document.body);",
-    dedent`
-      let node;
-      ReactDOM.render(<div ref={ref => node = ref}/>, document.body);
-    `,
-    "var foo = render(<div />, root)",
-    "var foo = ReactDom.renderder(<div />, root)",
-  ],
   invalid: [
     {
       code: "var Hello = ReactDOM.render(<div />, document.body);",
@@ -76,5 +66,15 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+  ],
+  valid: [
+    ...allValid,
+    "ReactDOM.render(<div />, document.body);",
+    dedent`
+      let node;
+      ReactDOM.render(<div ref={ref => node = ref}/>, document.body);
+    `,
+    "var foo = render(<div />, root)",
+    "var foo = ReactDom.renderder(<div />, root)",
   ],
 });

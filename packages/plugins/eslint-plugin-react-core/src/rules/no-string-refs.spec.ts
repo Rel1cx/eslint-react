@@ -9,19 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    dedent`
-      function App() {
-          return <div ref={ref} />
-      }
-    `,
-    dedent`
-      function App() {
-          return <div ref={() => {}} />;
-      }
-    `,
-  ],
   invalid: [
     {
       code: dedent`
@@ -45,5 +32,18 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "NO_STRING_REFS" }],
     },
+  ],
+  valid: [
+    ...allValid,
+    dedent`
+      function App() {
+          return <div ref={ref} />
+      }
+    `,
+    dedent`
+      function App() {
+          return <div ref={() => {}} />;
+      }
+    `,
   ],
 });

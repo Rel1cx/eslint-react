@@ -29,7 +29,6 @@ function isComponentDidUpdate(node: TSESTree.Node) {
 }
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -37,13 +36,13 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_SET_STATE_IN_COMPONENT_DID_UPDATE:
         "Do not call `this.setState` in `componentDidUpdate` outside of functions, such as callbacks.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     return {
       CallExpression(node) {
@@ -58,10 +57,11 @@ export default createRule<[], MessageID>({
         if (parentMethod.parent !== parentClass.body) return;
         if (context.sourceCode.getScope(node).upper !== context.sourceCode.getScope(parentMethod)) return;
         context.report({
-          node,
           messageId: "NO_SET_STATE_IN_COMPONENT_DID_UPDATE",
+          node,
         });
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

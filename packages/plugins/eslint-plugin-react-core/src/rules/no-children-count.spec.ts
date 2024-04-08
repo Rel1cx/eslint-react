@@ -9,52 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    dedent`
-      // import { Children } from 'react';
-
-      const Children = {
-        count: () => 1,
-      }
-
-      function RowList({ children }) {
-        return (
-          <>
-            <h1>Total rows: {Children.count(children)}</h1>
-            ...
-          </>
-        );
-      }
-    `,
-    dedent`
-      import { Children } from 'react';
-
-      function SeparatorList({ children }) {
-        const result = [];
-        Children.forEach(children, (child, index) => {
-          result.push(child);
-          result.push(<hr key={index} />);
-        });
-        // ...
-      }
-    `,
-    dedent`
-      import { Children } from 'react';
-
-      function RowList({ children }) {
-        return (
-          <div className="RowList">
-            {Children.map(children, child =>
-              <div className="Row">
-                {child}
-              </div>
-            )}
-          </div>
-        );
-      }
-    `,
-  ],
   invalid: [
     {
       code: dedent`
@@ -124,5 +78,51 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "NO_CHILDREN_COUNT",
       }],
     },
+  ],
+  valid: [
+    ...allValid,
+    dedent`
+      // import { Children } from 'react';
+
+      const Children = {
+        count: () => 1,
+      }
+
+      function RowList({ children }) {
+        return (
+          <>
+            <h1>Total rows: {Children.count(children)}</h1>
+            ...
+          </>
+        );
+      }
+    `,
+    dedent`
+      import { Children } from 'react';
+
+      function SeparatorList({ children }) {
+        const result = [];
+        Children.forEach(children, (child, index) => {
+          result.push(child);
+          result.push(<hr key={index} />);
+        });
+        // ...
+      }
+    `,
+    dedent`
+      import { Children } from 'react';
+
+      function RowList({ children }) {
+        return (
+          <div className="RowList">
+            {Children.map(children, child =>
+              <div className="Row">
+                {child}
+              </div>
+            )}
+          </div>
+        );
+      }
+    `,
   ],
 });

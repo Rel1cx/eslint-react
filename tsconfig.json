@@ -1,13 +1,19 @@
 {
-  "extends": "eslint-config-with-tsconfig/tsconfig.base.json",
+  "extends": [
+    "@tsconfig/strictest/tsconfig.json",
+    "@tsconfig/node20/tsconfig.json"
+  ],
   "compilerOptions": {
+    "module": "ESNext",
+    "moduleDetection": "force",
+    "moduleResolution": "bundler",
+    "noEmit": true,
     "types": [
       "bun-types"
     ]
   },
   "include": [
     "*.config.ts",
-    ".eslintrc.cjs",
     "scripts/**/*.ts",
     "test",
     "packages/**/*.config.ts",

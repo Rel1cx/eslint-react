@@ -8,51 +8,6 @@ const ruleTester = new RuleTester({
   parserOptions: defaultParserOptions,
 });
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    dedent`
-      import { createRef } from 'react';
-
-      const ref = createRef();
-    `,
-    dedent`
-      import { createRef } from 'react';
-
-      function notComponent() {
-        const ref = createRef();
-      }
-    `,
-    dedent`
-      import { createRef } from 'react';
-
-      function NotComponent() {
-        const ref = createRef();
-      }
-    `,
-    dedent`
-      import { createRef } from 'react';
-
-      function NotComponent() {
-        return () => createRef();
-      }
-    `,
-    dedent`
-      import { createRef } from 'react';
-
-      function Component() {
-        const ref = useRef();
-
-        return <div ref={ref} />;
-      }
-    `,
-    dedent`
-      import { createRef, Component } from 'react';
-
-      class Input extends Component {
-        inputRef = createRef();
-      }
-    `,
-  ],
   invalid: [
     {
       code: dedent`
@@ -168,5 +123,50 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "NO_CREATE_REF",
       }],
     },
+  ],
+  valid: [
+    ...allValid,
+    dedent`
+      import { createRef } from 'react';
+
+      const ref = createRef();
+    `,
+    dedent`
+      import { createRef } from 'react';
+
+      function notComponent() {
+        const ref = createRef();
+      }
+    `,
+    dedent`
+      import { createRef } from 'react';
+
+      function NotComponent() {
+        const ref = createRef();
+      }
+    `,
+    dedent`
+      import { createRef } from 'react';
+
+      function NotComponent() {
+        return () => createRef();
+      }
+    `,
+    dedent`
+      import { createRef } from 'react';
+
+      function Component() {
+        const ref = useRef();
+
+        return <div ref={ref} />;
+      }
+    `,
+    dedent`
+      import { createRef, Component } from 'react';
+
+      class Input extends Component {
+        inputRef = createRef();
+      }
+    `,
   ],
 });

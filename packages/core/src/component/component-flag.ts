@@ -21,3 +21,4 @@ export const ERFunctionComponentFlag = {
   // Reserved for future use
   // Async: 1n << 4n,
 };
+/* eslint-enable perfectionist/sort-objects */

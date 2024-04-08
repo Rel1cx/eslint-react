@@ -9,28 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    dedent`
-      const App = () => {
-          return [<div key="1">1</div>]
-      };
-    `,
-    dedent`
-      const App = () => {
-          return [
-                  <div key="1">1</div>,
-                  <div key="2">2</div>,
-                  <div key="3">3</div>,
-               ]
-      };
-    `,
-    dedent`
-      const App = () => {
-          return [1, 2, 3].map((item) => <div key={Math.random()}>{item}</div>)
-      };
-    `,
-  ],
   invalid: [
     {
       code: dedent`
@@ -144,5 +122,27 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "NO_IMPLICIT_KEY" },
       ],
     },
+  ],
+  valid: [
+    ...allValid,
+    dedent`
+      const App = () => {
+          return [<div key="1">1</div>]
+      };
+    `,
+    dedent`
+      const App = () => {
+          return [
+                  <div key="1">1</div>,
+                  <div key="2">2</div>,
+                  <div key="3">3</div>,
+               ]
+      };
+    `,
+    dedent`
+      const App = () => {
+          return [1, 2, 3].map((item) => <div key={Math.random()}>{item}</div>)
+      };
+    `,
   ],
 });

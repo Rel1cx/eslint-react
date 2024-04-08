@@ -9,6 +9,343 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
+  invalid: [
+    {
+      code: `
+        class Foo extends React.Component {
+          getDerivedStateFromProps() {}
+          render() {
+            return <div>Example</div>;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "getDerivedStateFromProps" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+        class Foo extends React.Component {
+          handleClick() {}
+          render() {
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "handleClick" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+        class Foo extends React.Component {
+          handleScroll() {}
+          handleClick() {}
+          render() {
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "handleScroll" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+        {
+          data: { className: "Foo", methodName: "handleClick" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+        class Foo extends React.Component {
+          handleClick = () => {}
+          render() {
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "handleClick" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+        class Foo extends React.Component {
+          action = async () => {}
+          render() {
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "action" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+        class Foo extends React.Component {
+          async action() {
+            console.log('error');
+          }
+          render() {
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "action" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+        class Foo extends React.Component {
+          * action() {
+            console.log('error');
+          }
+          render() {
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "action" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+        class Foo extends React.Component {
+          async * action() {
+            console.log('error');
+          }
+          render() {
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "action" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+        class Foo extends React.Component {
+          getInitialState() {}
+          render() {
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "getInitialState" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+        class Foo extends React.Component {
+          action = function() {
+            console.log('error');
+          }
+          render() {
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "action" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+         class ClassAssignPropertyInMethodTest extends React.Component {
+           foo = 3;
+           render() {
+             return <SomeComponent />;
+           }
+         }
+       `,
+      errors: [
+        {
+          data: { className: "ClassAssignPropertyInMethodTest", methodName: "foo" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+         class ClassAssignPropertyInMethodTest extends React.Component {
+           constructor() {
+             this.foo = 3;
+           }
+           render() {
+             return <SomeComponent />;
+           }
+         }
+       `,
+      errors: [
+        {
+          data: { className: "ClassAssignPropertyInMethodTest", methodName: "foo" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+         class Foo extends React.Component {
+           foo;
+           render() {
+             return <SomeComponent />;
+           }
+         }
+       `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "foo" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+         class Foo extends React.Component {
+           foo = a;
+           render() {
+             return <SomeComponent />;
+           }
+         }
+       `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "foo" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+         class Foo extends React.Component {
+           ['foo'];
+           render() {
+             return <SomeComponent />;
+           }
+         }
+       `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "foo" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+         class Foo extends React.Component {
+           ['foo'] = a;
+           render() {
+             return <SomeComponent />;
+           }
+         }
+       `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "foo" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+         class Foo extends React.Component {
+           foo = a;
+           render() {
+             return <SomeComponent foo={this[foo]} />;
+           }
+         }
+       `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "foo" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+         class Foo extends React.Component {
+           private foo;
+           render() {
+             return <SomeComponent />;
+           }
+         }
+       `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "foo" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+         class Foo extends React.Component {
+           private foo() {}
+           render() {
+             return <SomeComponent />;
+           }
+         }
+       `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "foo" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+    {
+      code: `
+         class Foo extends React.Component {
+           private foo = 3;
+           render() {
+             return <SomeComponent />;
+           }
+         }
+       `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "foo" },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+        },
+      ],
+    },
+  ],
   valid: [
     ...allValid,
     dedent`
@@ -355,342 +692,5 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-  ],
-  invalid: [
-    {
-      code: `
-        class Foo extends React.Component {
-          getDerivedStateFromProps() {}
-          render() {
-            return <div>Example</div>;
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "getDerivedStateFromProps", className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-        class Foo extends React.Component {
-          handleClick() {}
-          render() {
-            return null;
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "handleClick", className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-        class Foo extends React.Component {
-          handleScroll() {}
-          handleClick() {}
-          render() {
-            return null;
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "handleScroll", className: "Foo" },
-        },
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "handleClick", className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-        class Foo extends React.Component {
-          handleClick = () => {}
-          render() {
-            return null;
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "handleClick", className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-        class Foo extends React.Component {
-          action = async () => {}
-          render() {
-            return null;
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "action", className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-        class Foo extends React.Component {
-          async action() {
-            console.log('error');
-          }
-          render() {
-            return null;
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "action", className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-        class Foo extends React.Component {
-          * action() {
-            console.log('error');
-          }
-          render() {
-            return null;
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "action", className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-        class Foo extends React.Component {
-          async * action() {
-            console.log('error');
-          }
-          render() {
-            return null;
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "action", className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-        class Foo extends React.Component {
-          getInitialState() {}
-          render() {
-            return null;
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "getInitialState", className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-        class Foo extends React.Component {
-          action = function() {
-            console.log('error');
-          }
-          render() {
-            return null;
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "action", className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-         class ClassAssignPropertyInMethodTest extends React.Component {
-           foo = 3;
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "foo", className: "ClassAssignPropertyInMethodTest" },
-        },
-      ],
-    },
-    {
-      code: `
-         class ClassAssignPropertyInMethodTest extends React.Component {
-           constructor() {
-             this.foo = 3;
-           }
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "foo", className: "ClassAssignPropertyInMethodTest" },
-        },
-      ],
-    },
-    {
-      code: `
-         class Foo extends React.Component {
-           foo;
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "foo", className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-         class Foo extends React.Component {
-           foo = a;
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "foo", className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-         class Foo extends React.Component {
-           ['foo'];
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "foo", className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-         class Foo extends React.Component {
-           ['foo'] = a;
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "foo", className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-         class Foo extends React.Component {
-           foo = a;
-           render() {
-             return <SomeComponent foo={this[foo]} />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "foo", className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-         class Foo extends React.Component {
-           private foo;
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "foo", className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-         class Foo extends React.Component {
-           private foo() {}
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "foo", className: "Foo" },
-        },
-      ],
-    },
-    {
-      code: `
-         class Foo extends React.Component {
-           private foo = 3;
-           render() {
-             return <SomeComponent />;
-           }
-         }
-       `,
-      errors: [
-        {
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
-          data: { methodName: "foo", className: "Foo" },
-        },
-      ],
-    },
   ],
 });

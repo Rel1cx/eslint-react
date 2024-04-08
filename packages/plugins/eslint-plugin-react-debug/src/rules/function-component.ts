@@ -10,20 +10,19 @@ export const RULE_NAME = "function-component";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
       description: "report all function components, including anonymous ones",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       FUNCTION_COMPONENT:
         "[function component] name: {{name}}, memo: {{memo}}, forwardRef: {{forwardRef}}, hookCalls: {{hookCalls}}",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollector(context);
 
@@ -32,13 +31,13 @@ export default createRule<[], MessageID>({
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
 
-        for (const { name, flag, node, hookCalls } of components.values()) {
+        for (const { name, flag, hookCalls, node } of components.values()) {
           context.report({
             data: {
               name: O.getOrElse(name, F.constant("anonymous")),
               forwardRef: Boolean(flag & ERFunctionComponentFlag.ForwardRef),
-              memo: Boolean(flag & ERFunctionComponentFlag.Memo),
               hookCalls: hookCalls.length,
+              memo: Boolean(flag & ERFunctionComponentFlag.Memo),
             },
             messageId: "FUNCTION_COMPONENT",
             node,
@@ -47,4 +46,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

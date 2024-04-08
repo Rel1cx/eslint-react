@@ -60,7 +60,6 @@ const schema = [
 ] satisfies [JSONSchema4];
 
 export default createRule<Options, MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -68,19 +67,18 @@ export default createRule<Options, MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema,
     messages: {
       COMPONENT_NAME: "Component name must be in {{case}}.",
     },
+    schema,
   },
-  defaultOptions,
+  name: RULE_NAME,
   create(context) {
     const options = context.options[0] ?? defaultOptions[0];
     const excepts = Prd.isString(options) ? [] : options.excepts ?? [];
     const rule = Prd.isString(options) ? options : options.rule ?? "PascalCase";
 
     function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
-      // eslint-disable-next-line security/detect-non-literal-regexp
       if (ignores.map((pattern) => new RegExp(`^${pattern}$`, "u")).some((pattern) => pattern.test(name))) {
         return true;
       }
@@ -151,4 +149,5 @@ export default createRule<Options, MessageID>({
       },
     };
   },
+  defaultOptions,
 }) satisfies ESLintUtils.RuleModule<MessageID, Options>;

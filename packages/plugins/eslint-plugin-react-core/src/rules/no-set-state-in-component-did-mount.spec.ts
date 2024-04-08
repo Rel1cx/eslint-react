@@ -9,20 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    dedent`
-      class Foo extends React.Component {
-        componentDidMount() {
-          class Bar extends Baz {
-            componentDidMount() {
-              this.setState({ foo: "bar" });
-            }
-          }
-        }
-      }
-    `,
-  ],
   invalid: [
     {
       code: dedent`
@@ -48,5 +34,19 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "NO_SET_STATE_IN_COMPONENT_DID_MOUNT" },
       ],
     },
+  ],
+  valid: [
+    ...allValid,
+    dedent`
+      class Foo extends React.Component {
+        componentDidMount() {
+          class Bar extends Baz {
+            componentDidMount() {
+              this.setState({ foo: "bar" });
+            }
+          }
+        }
+      }
+    `,
   ],
 });

@@ -38,9 +38,7 @@ function isKeyLiteralLike(
   property: TSESTree.Node,
 ): boolean {
   return property.type === NodeType.Literal
-    // eslint-disable-next-line @typescript-eslint/no-extra-parens
     || (property.type === NodeType.TemplateLiteral && property.expressions.length === 0)
-    // eslint-disable-next-line @typescript-eslint/no-extra-parens
     || (!node.computed && property.type === NodeType.Identifier);
 }
 
@@ -65,7 +63,6 @@ function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Opti
 }
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -73,12 +70,12 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_UNUSED_CLASS_COMPONENT_MEMBERS: "Unused method or property '{{methodName}}'' of class '{{className}}'.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const classStack = MutList.make<TSESTreeClass>();
     const methodStack = MutList.make<TSESTree.MethodDefinition | TSESTree.PropertyDefinition>();
@@ -102,12 +99,12 @@ export default createRule<[], MessageID>({
         if (O.isNone(name)) continue;
         if (!!usages?.has(name.value) || LIFECYCLE_METHODS.has(name.value)) continue;
         context.report({
-          node: def,
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
           data: {
-            methodName: name.value,
             className: O.getOrElse(className, () => "Component"),
+            methodName: name.value,
           },
+          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+          node: def,
         });
       }
     }
@@ -126,13 +123,9 @@ export default createRule<[], MessageID>({
 
     return {
       ClassDeclaration: classEnter,
-      ClassExpression: classEnter,
       "ClassDeclaration:exit": classExit,
+      ClassExpression: classEnter,
       "ClassExpression:exit": classExit,
-      MethodDefinition: methodEnter,
-      PropertyDefinition: methodEnter,
-      "MethodDefinition:exit": methodExit,
-      "PropertyDefinition:exit": methodExit,
       MemberExpression(node) {
         const currentClass = MutList.tail(classStack);
         const currentMethod = MutList.tail(methodStack);
@@ -147,6 +140,10 @@ export default createRule<[], MessageID>({
         // detect `this.property()`, `x = this.property`, etc.
         O.map(getName(node.property), name => propertyUsages.get(currentClass)?.add(name));
       },
+      MethodDefinition: methodEnter,
+      "MethodDefinition:exit": methodExit,
+      PropertyDefinition: methodEnter,
+      "PropertyDefinition:exit": methodExit,
       VariableDeclarator(node) {
         const currentClass = MutList.tail(classStack);
         const currentMethod = MutList.tail(methodStack);
@@ -163,4 +160,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

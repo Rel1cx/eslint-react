@@ -13,7 +13,6 @@ export const RULE_NAME = "no-dangerously-set-innerhtml";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -21,12 +20,12 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_DANGEROUSLY_SET_INNERHTML: "Using 'dangerouslySetInnerHTML' may have security implications.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     return {
       CallExpression(node) {
@@ -73,4 +72,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

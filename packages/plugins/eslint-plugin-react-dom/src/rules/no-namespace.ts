@@ -10,18 +10,17 @@ export const RULE_NAME = "no-namespace";
 export type MessageID = "NO_NAMESPACE";
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
       description: "enforce that namespaces are not used in React elements",
     },
-    schema: [],
     messages: {
       NO_NAMESPACE: "React component '{{name}}' must not be in a namespace, as React does not support them.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     return {
       CallExpression(node) {
@@ -54,4 +53,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

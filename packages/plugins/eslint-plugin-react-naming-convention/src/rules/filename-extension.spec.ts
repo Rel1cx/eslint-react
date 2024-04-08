@@ -11,65 +11,65 @@ const withJSXFragment = "const App = () => <></>";
 const withoutJSX = "";
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    {
-      filename: "react.tsx",
-      code: withJSXElement,
-    },
-    {
-      filename: "react.tsx",
-      code: withJSXFragment,
-    },
-    {
-      filename: "file.ts",
-      code: withoutJSX,
-    },
-    {
-      filename: "react.tsx",
-      code: withoutJSX,
-      options: ["always"],
-    },
-    {
-      filename: "react.tsx",
-      code: withoutJSX,
-      options: [{ allow: "always" }],
-    },
-  ],
   invalid: [
     {
-      filename: "react.tsx",
       code: withoutJSX,
+      errors: [
+        {
+          messageId: "FILE_NAME_EXTENSION_UNEXPECTED",
+        },
+      ],
+      filename: "react.tsx",
       options: ["as-needed"],
-      errors: [
-        {
-          messageId: "FILE_NAME_EXTENSION_UNEXPECTED",
-        },
-      ],
     },
     {
-      filename: "react.tsx",
       code: withoutJSX,
-      options: [{ allow: "as-needed" }],
       errors: [
         {
           messageId: "FILE_NAME_EXTENSION_UNEXPECTED",
         },
       ],
+      filename: "react.tsx",
+      options: [{ allow: "as-needed" }],
     },
     {
-      filename: "react.tsx",
       code: withJSXElement,
+      errors: [
+        {
+          messageId: "FILE_NAME_EXTENSION_INVALID",
+        },
+      ],
+      filename: "react.tsx",
       options: [
         {
           allow: "as-needed",
           extensions: [".mts"],
         },
       ],
-      errors: [
-        {
-          messageId: "FILE_NAME_EXTENSION_INVALID",
-        },
-      ],
+    },
+  ],
+  valid: [
+    {
+      code: withJSXElement,
+      filename: "react.tsx",
+    },
+    {
+      code: withJSXFragment,
+      filename: "react.tsx",
+    },
+    {
+      code: withoutJSX,
+      filename: "file.ts",
+    },
+    {
+      code: withoutJSX,
+      filename: "react.tsx",
+      options: ["always"],
+    },
+    {
+      code: withoutJSX,
+      filename: "react.tsx",
+      options: [{ allow: "always" }],
     },
   ],
 });

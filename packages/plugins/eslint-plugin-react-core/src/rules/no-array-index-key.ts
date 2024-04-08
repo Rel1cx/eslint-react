@@ -79,7 +79,6 @@ function getIdentifiersFromBinaryExpression(side: TSESTree.Node): TSESTree.Ident
 }
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -87,12 +86,12 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_ARRAY_INDEX_KEY: "Do not use Array index as key.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const indexParamNames: string[] = [];
 
@@ -191,4 +190,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

@@ -9,6 +9,186 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
+  invalid: [
+    {
+      code: 'import { useState } from "react"; useState(1 || getValue())',
+      errors: [
+        {
+          type: NodeType.LogicalExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: 'import { useState } from "react"; useState(2 < getValue())',
+      errors: [
+        {
+          type: NodeType.BinaryExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: 'import { useState } from "react"; useState(getValue())',
+      errors: [
+        {
+          type: NodeType.CallExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: 'import { useState } from "react"; useState(getValue(1, 2, 3))',
+      errors: [
+        {
+          type: NodeType.CallExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: 'import { useState } from "react"; useState(a ? b : c())',
+      errors: [
+        {
+          type: NodeType.ConditionalExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: 'import { useState } from "react"; useState(a() ? b : c)',
+      errors: [
+        {
+          type: NodeType.ConditionalExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: 'import { useState } from "react"; useState(a ? (b ? b1() : b2) : c)',
+      errors: [
+        {
+          type: NodeType.ConditionalExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: 'import { useState } from "react"; useState(a() && b)',
+      errors: [
+        {
+          type: NodeType.LogicalExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: 'import { useState } from "react"; useState(a && b())',
+      errors: [
+        {
+          type: NodeType.LogicalExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: 'import { useState } from "react"; useState(a() && b())',
+      errors: [
+        {
+          type: NodeType.LogicalExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: 'import { useState } from "react"; useState(+b())',
+      errors: [
+        {
+          type: NodeType.UnaryExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: 'import { useState } from "react"; useState(-b())',
+      errors: [
+        {
+          type: NodeType.UnaryExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: 'import { useState } from "react"; useState(~b())',
+      errors: [
+        {
+          type: NodeType.UnaryExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: 'import { useState } from "react"; useState(!b())',
+      errors: [
+        {
+          type: NodeType.UnaryExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: 'import { useState } from "react"; useState(b() + 1)',
+      errors: [
+        {
+          type: NodeType.BinaryExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: 'import { useState } from "react"; useState(b() - 1)',
+      errors: [
+        {
+          type: NodeType.BinaryExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: 'import { useState } from "react"; useState([b()])',
+      errors: [
+        {
+          type: NodeType.ArrayExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: 'import { useState } from "react"; useState({ a: b() })',
+      errors: [
+        {
+          type: NodeType.ObjectExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+    },
+    {
+      code: "useLocalStorageState(1 || getValue())",
+      errors: [
+        {
+          type: NodeType.LogicalExpression,
+          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+        },
+      ],
+      settings: {
+        reactOptions: {
+          additionalHooks: {
+            useState: ["useLocalStorageState"],
+          },
+        },
+      },
+    },
+  ],
   valid: [
     ...allValid,
     "useState()",
@@ -81,186 +261,6 @@ ruleTester.run(RULE_NAME, rule, {
     'const { useState } = require("react"); useState(1 === 2 ? 3 : 4)',
     {
       code: "useLocalStorageState()",
-      settings: {
-        reactOptions: {
-          additionalHooks: {
-            useState: ["useLocalStorageState"],
-          },
-        },
-      },
-    },
-  ],
-  invalid: [
-    {
-      code: 'import { useState } from "react"; useState(1 || getValue())',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.LogicalExpression,
-        },
-      ],
-    },
-    {
-      code: 'import { useState } from "react"; useState(2 < getValue())',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.BinaryExpression,
-        },
-      ],
-    },
-    {
-      code: 'import { useState } from "react"; useState(getValue())',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.CallExpression,
-        },
-      ],
-    },
-    {
-      code: 'import { useState } from "react"; useState(getValue(1, 2, 3))',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.CallExpression,
-        },
-      ],
-    },
-    {
-      code: 'import { useState } from "react"; useState(a ? b : c())',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.ConditionalExpression,
-        },
-      ],
-    },
-    {
-      code: 'import { useState } from "react"; useState(a() ? b : c)',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.ConditionalExpression,
-        },
-      ],
-    },
-    {
-      code: 'import { useState } from "react"; useState(a ? (b ? b1() : b2) : c)',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.ConditionalExpression,
-        },
-      ],
-    },
-    {
-      code: 'import { useState } from "react"; useState(a() && b)',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.LogicalExpression,
-        },
-      ],
-    },
-    {
-      code: 'import { useState } from "react"; useState(a && b())',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.LogicalExpression,
-        },
-      ],
-    },
-    {
-      code: 'import { useState } from "react"; useState(a() && b())',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.LogicalExpression,
-        },
-      ],
-    },
-    {
-      code: 'import { useState } from "react"; useState(+b())',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.UnaryExpression,
-        },
-      ],
-    },
-    {
-      code: 'import { useState } from "react"; useState(-b())',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.UnaryExpression,
-        },
-      ],
-    },
-    {
-      code: 'import { useState } from "react"; useState(~b())',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.UnaryExpression,
-        },
-      ],
-    },
-    {
-      code: 'import { useState } from "react"; useState(!b())',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.UnaryExpression,
-        },
-      ],
-    },
-    {
-      code: 'import { useState } from "react"; useState(b() + 1)',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.BinaryExpression,
-        },
-      ],
-    },
-    {
-      code: 'import { useState } from "react"; useState(b() - 1)',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.BinaryExpression,
-        },
-      ],
-    },
-    {
-      code: 'import { useState } from "react"; useState([b()])',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.ArrayExpression,
-        },
-      ],
-    },
-    {
-      code: 'import { useState } from "react"; useState({ a: b() })',
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.ObjectExpression,
-        },
-      ],
-    },
-    {
-      code: "useLocalStorageState(1 || getValue())",
-      errors: [
-        {
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
-          type: NodeType.LogicalExpression,
-        },
-      ],
       settings: {
         reactOptions: {
           additionalHooks: {

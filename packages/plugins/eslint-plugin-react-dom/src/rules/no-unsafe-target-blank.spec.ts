@@ -6,19 +6,6 @@ const ruleTester = new RuleTester({
   parserOptions: defaultParserOptions,
 });
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    "<span></span>",
-    "<a></a>",
-    '<a href="https://react.dev" target="_self"></a>',
-    '<a href="https://react.dev" target="_parent"></a>',
-    '<Link href="https://react.dev" target="_self"></Link>',
-    '<Link href="https://react.dev" target="_parent"></Link>',
-    '<a href="https://react.dev" target="_blank" rel="noopener noreferrer"></a>',
-    '<a href="https://react.dev" target="_blank" rel="noreferrer noopener"></a>',
-    '<Link href="https://react.dev" target="_blank" rel="noopener noreferrer"></Link>',
-    '<Link href="https://react.dev" target="_blank" rel={"noopener noreferrer"}></Link>',
-  ],
   invalid: [
     {
       code: '<a href="https://react.dev" target="_blank"></a>',
@@ -52,5 +39,18 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<Link href="https://react.dev" target="_blank" rel={"noreferrer"}></Link>',
       errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
     },
+  ],
+  valid: [
+    ...allValid,
+    "<span></span>",
+    "<a></a>",
+    '<a href="https://react.dev" target="_self"></a>',
+    '<a href="https://react.dev" target="_parent"></a>',
+    '<Link href="https://react.dev" target="_self"></Link>',
+    '<Link href="https://react.dev" target="_parent"></Link>',
+    '<a href="https://react.dev" target="_blank" rel="noopener noreferrer"></a>',
+    '<a href="https://react.dev" target="_blank" rel="noreferrer noopener"></a>',
+    '<Link href="https://react.dev" target="_blank" rel="noopener noreferrer"></Link>',
+    '<Link href="https://react.dev" target="_blank" rel={"noopener noreferrer"}></Link>',
   ],
 });

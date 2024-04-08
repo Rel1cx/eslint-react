@@ -86,6 +86,8 @@
     "uncast",
     "unoptimized",
     "valibot",
-    "weakref"
+    "weakref",
+    "nocheck",
+    "IIFEs"
   ]
 }

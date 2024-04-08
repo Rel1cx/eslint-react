@@ -8,54 +8,6 @@ const ruleTester = new RuleTester({
   parserOptions: defaultParserOptions,
 });
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    dedent`
-      import { useState } from "react";
-
-      const Comp = () => {
-        const [state, setState] = useState(false);
-
-        return <Button />;
-      };
-    `,
-    dedent`
-      const useData = (key) => {
-          return useSWR(key);
-      }
-    `,
-    dedent`
-      function useData(key) {
-          return useSWR(key);
-      }
-    `,
-    dedent`
-      function useData(key) {
-          const data = useSWR(key);
-          return data;
-      }
-    `,
-    dedent`
-      const useData = (key) => useSWR(key);
-    `,
-    dedent`
-      const onClick = () => {
-        console.log("clicked");
-      };
-
-      const Comp = () => {
-        return <Button onClick={onClick} />;
-      };
-    `,
-    dedent`
-      import { useMemo } from "react";
-
-      function App({ items }) {
-        const memoizedValue = useMemo(() => [...items].sort(), [items]);
-        return <div>{count}</div>;
-      }
-    `,
-  ],
   invalid: [
     {
       code: dedent`
@@ -185,5 +137,53 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+  ],
+  valid: [
+    ...allValid,
+    dedent`
+      import { useState } from "react";
+
+      const Comp = () => {
+        const [state, setState] = useState(false);
+
+        return <Button />;
+      };
+    `,
+    dedent`
+      const useData = (key) => {
+          return useSWR(key);
+      }
+    `,
+    dedent`
+      function useData(key) {
+          return useSWR(key);
+      }
+    `,
+    dedent`
+      function useData(key) {
+          const data = useSWR(key);
+          return data;
+      }
+    `,
+    dedent`
+      const useData = (key) => useSWR(key);
+    `,
+    dedent`
+      const onClick = () => {
+        console.log("clicked");
+      };
+
+      const Comp = () => {
+        return <Button onClick={onClick} />;
+      };
+    `,
+    dedent`
+      import { useMemo } from "react";
+
+      function App({ items }) {
+        const memoizedValue = useMemo(() => [...items].sort(), [items]);
+        return <div>{count}</div>;
+      }
+    `,
   ],
 });

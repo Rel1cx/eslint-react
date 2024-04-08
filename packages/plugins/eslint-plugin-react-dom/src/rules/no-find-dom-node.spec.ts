@@ -9,9 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-  ],
   invalid: [
     {
       code: dedent`
@@ -90,5 +87,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "NO_FIND_DOM_NODE" }],
     },
+  ],
+  valid: [
+    ...allValid,
   ],
 });

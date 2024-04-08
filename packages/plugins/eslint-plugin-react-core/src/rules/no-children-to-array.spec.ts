@@ -9,49 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    dedent`
-      // import { Children } from 'react';
-
-      const Children = {
-        toArray: () => [],
-      }
-
-      export default function ReversedList({ children }) {
-        const result = Children.toArray(children);
-        result.reverse();
-        // ...
-      }
-    `,
-    dedent`
-      import { Children } from 'react';
-
-      function SeparatorList({ children }) {
-        const result = [];
-        Children.forEach(children, (child, index) => {
-          result.push(child);
-          result.push(<hr key={index} />);
-        });
-        // ...
-      }
-    `,
-    dedent`
-      import { Children } from 'react';
-
-      function RowList({ children }) {
-        return (
-          <div className="RowList">
-            {Children.map(children, child =>
-              <div className="Row">
-                {child}
-              </div>
-            )}
-          </div>
-        );
-      }
-    `,
-  ],
   invalid: [
     {
       code: dedent`
@@ -109,5 +66,48 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "NO_CHILDREN_TO_ARRAY",
       }],
     },
+  ],
+  valid: [
+    ...allValid,
+    dedent`
+      // import { Children } from 'react';
+
+      const Children = {
+        toArray: () => [],
+      }
+
+      export default function ReversedList({ children }) {
+        const result = Children.toArray(children);
+        result.reverse();
+        // ...
+      }
+    `,
+    dedent`
+      import { Children } from 'react';
+
+      function SeparatorList({ children }) {
+        const result = [];
+        Children.forEach(children, (child, index) => {
+          result.push(child);
+          result.push(<hr key={index} />);
+        });
+        // ...
+      }
+    `,
+    dedent`
+      import { Children } from 'react';
+
+      function RowList({ children }) {
+        return (
+          <div className="RowList">
+            {Children.map(children, child =>
+              <div className="Row">
+                {child}
+              </div>
+            )}
+          </div>
+        );
+      }
+    `,
   ],
 });

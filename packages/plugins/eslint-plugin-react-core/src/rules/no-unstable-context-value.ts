@@ -15,7 +15,6 @@ export type MessageID =
   | "NO_UNSTABLE_CONTEXT_VALUE_WITH_IDENTIFIER";
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -23,7 +22,6 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_UNSTABLE_CONTEXT_VALUE:
         "The '{{type}}' passed as the value prop to the context provider should not be constructed. It will change on every render.",
@@ -32,8 +30,9 @@ export default createRule<[], MessageID>({
       NO_UNSTABLE_CONTEXT_VALUE_WITH_IDENTIFIER:
         "The '{{type}}' passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useMemo hook.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollector(context);
     const possibleValueConstructions = new Map<TSESTreeFunction, Construction[]>();
@@ -77,15 +76,16 @@ export default createRule<[], MessageID>({
               ? "NO_UNSTABLE_CONTEXT_VALUE_WITH_FUNCTION"
               : "NO_UNSTABLE_CONTEXT_VALUE_WITH_IDENTIFIER";
             context.report({
-              node: constructionNode,
-              messageId,
               data: {
                 type: readableNodeType(constructionNode),
               },
+              messageId,
+              node: constructionNode,
             });
           }
         }
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

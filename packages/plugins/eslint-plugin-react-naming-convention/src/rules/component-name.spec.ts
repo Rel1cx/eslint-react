@@ -8,6 +8,39 @@ const ruleTester = new RuleTester({
   parserOptions: defaultParserOptions,
 });
 ruleTester.run(RULE_NAME, rule, {
+  invalid: [
+    {
+      code: "<Test_component />",
+      errors: [{ messageId: "COMPONENT_NAME" }],
+    },
+    {
+      code: "<TestComponent />",
+      errors: [{ messageId: "COMPONENT_NAME" }],
+      options: [{ rule: "CONSTANT_CASE" }],
+    },
+    {
+      code: "<TestComponent />",
+      errors: [{ messageId: "COMPONENT_NAME" }],
+      options: ["CONSTANT_CASE"],
+    },
+    {
+      code: dedent`
+        function APP_HOME() {
+            return <div>foo</div>
+        }
+      `,
+      errors: [{ messageId: "COMPONENT_NAME" }],
+    },
+    {
+      code: dedent`
+        function AppHome() {
+            return <div>foo</div>
+        }
+      `,
+      errors: [{ messageId: "COMPONENT_NAME" }],
+      options: [{ rule: "CONSTANT_CASE" }],
+    },
+  ],
   valid: [
     ...allFunctions,
     "<testcomponent />",
@@ -88,44 +121,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       options: [{
-        rule: "CONSTANT_CASE",
         excepts: [
           "AppHome",
         ],
+        rule: "CONSTANT_CASE",
       }],
-    },
-  ],
-  invalid: [
-    {
-      code: "<Test_component />",
-      errors: [{ messageId: "COMPONENT_NAME" }],
-    },
-    {
-      code: "<TestComponent />",
-      options: [{ rule: "CONSTANT_CASE" }],
-      errors: [{ messageId: "COMPONENT_NAME" }],
-    },
-    {
-      code: "<TestComponent />",
-      options: ["CONSTANT_CASE"],
-      errors: [{ messageId: "COMPONENT_NAME" }],
-    },
-    {
-      code: dedent`
-        function APP_HOME() {
-            return <div>foo</div>
-        }
-      `,
-      errors: [{ messageId: "COMPONENT_NAME" }],
-    },
-    {
-      code: dedent`
-        function AppHome() {
-            return <div>foo</div>
-        }
-      `,
-      options: [{ rule: "CONSTANT_CASE" }],
-      errors: [{ messageId: "COMPONENT_NAME" }],
     },
   ],
 });

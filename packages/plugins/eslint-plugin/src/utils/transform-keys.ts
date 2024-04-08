@@ -1,7 +1,3 @@
-/* eslint-disable security/detect-object-injection */
-/* eslint-disable functional/immutable-data */
-/* eslint-disable guard-for-in */
-/* eslint-disable functional/no-loop-statements */
 // Copied from https://github.com/gustavoguichard/string-ts/blob/9dd444f03fdfa225f1643e6f1f8c18f9480224bb/src/utils/object-keys/transform-keys.ts#L12
 import { Predicate as Prd } from "effect";
 

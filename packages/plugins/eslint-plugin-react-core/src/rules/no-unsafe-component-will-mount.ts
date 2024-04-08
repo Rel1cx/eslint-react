@@ -17,7 +17,6 @@ function isUnsafeComponentWillMount(node: TSESTree.ClassElement) {
 }
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -25,12 +24,12 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_UNSAFE_COMPONENT_WILL_MOUNT: "Do not use 'UNSAFE_componentWillMount'.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollectorLegacy(context);
 
@@ -54,4 +53,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

@@ -22,7 +22,6 @@ function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
 }
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -30,12 +29,12 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_STRING_REFS: "String refs are deprecated. Use callback refs instead.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     return {
       JSXAttribute(node) {
@@ -49,4 +48,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

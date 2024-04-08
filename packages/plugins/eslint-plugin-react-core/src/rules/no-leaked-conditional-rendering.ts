@@ -14,9 +14,7 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "no-leaked-conditional-rendering";
 
-export type MessageID =
-  | "NEEDS_TYPE_CHECKING_SERVICE"
-  | ConstantCase<typeof RULE_NAME>;
+export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 /** The types we care about */
 type VariantType =
@@ -174,7 +172,6 @@ function inspectVariantTypes(types: ts.Type[]) {
 }
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -182,27 +179,15 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: true,
     },
-    schema: [],
     messages: {
-      NEEDS_TYPE_CHECKING_SERVICE:
-        "Type checking is required for this rule. Please add a 'project' to your parser options. See https://typescript-eslint.io/docs/linting/type-linting",
       NO_LEAKED_CONDITIONAL_RENDERING:
         "Potential leaked value that might cause unintentionally rendered values or rendering crashes",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const services = ESLintUtils.getParserServices(context);
-
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/strict-boolean-expressions
-    if (!services.program) {
-      context.report({
-        loc: { column: 1, line: 1 },
-        messageId: "NEEDS_TYPE_CHECKING_SERVICE",
-      });
-
-      return {};
-    }
 
     function checkExpression(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
       return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
@@ -249,4 +234,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

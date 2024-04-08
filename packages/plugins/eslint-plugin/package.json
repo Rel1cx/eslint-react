@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "1.5.8-next.4",
+  "version": "1.5.8-next.5",
   "description": "The main ESLint plugin of ESLint React. Contains all the rules and presets of ESLint React.",
   "keywords": [
     "eslint",
@@ -67,7 +67,7 @@
   },
   "peerDependencies": {
     "@typescript-eslint/parser": ">=7.5.0",
-    "eslint": ">=8.57.0",
+    "eslint": ">=9.0.0",
     "typescript": ">=5.3.3"
   },
   "engines": {

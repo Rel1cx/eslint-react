@@ -20,7 +20,6 @@ type ObjectDestructuringDeclarator = TSESTree.VariableDeclarator & {
 };
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -28,13 +27,13 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_UNSTABLE_DEFAULT_PROPS:
         "found a/an '{{forbiddenType}}' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of '{{forbiddenType}}'.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollector(context);
     const possibleDestructuringDeclarators = new WeakMap<
@@ -44,16 +43,6 @@ export default createRule<[], MessageID>({
 
     return {
       ...listeners,
-      "VariableDeclarator[id.type='ObjectPattern'][init.type='Identifier']"(node: ObjectDestructuringDeclarator) {
-        O.map(
-          ctx.getCurrentFunction(),
-          ([currentFn]) =>
-            possibleDestructuringDeclarators.set(currentFn, [
-              ...possibleDestructuringDeclarators.get(currentFn) ?? [],
-              node,
-            ]),
-        );
-      },
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
         for (const { node: component } of components.values()) {
@@ -87,6 +76,17 @@ export default createRule<[], MessageID>({
           }
         }
       },
+      "VariableDeclarator[id.type='ObjectPattern'][init.type='Identifier']"(node: ObjectDestructuringDeclarator) {
+        O.map(
+          ctx.getCurrentFunction(),
+          ([currentFn]) =>
+            possibleDestructuringDeclarators.set(currentFn, [
+              ...possibleDestructuringDeclarators.get(currentFn) ?? [],
+              node,
+            ]),
+        );
+      },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

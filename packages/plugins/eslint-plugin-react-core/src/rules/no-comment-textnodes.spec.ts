@@ -9,13 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    "<App foo='test'>{/* valid */}</App>",
-    "<strong>&nbsp;https://www.example.com/attachment/download/1</strong>",
-    "<App /* valid */ placeholder={'foo'}/>",
-    "</* valid */></>",
-  ],
   invalid: [
     {
       code: "<div>// invalid</div>",
@@ -61,5 +54,12 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<span>/*</span>",
       errors: [{ messageId: "NO_COMMENT_TEXTNODES" }],
     },
+  ],
+  valid: [
+    ...allValid,
+    "<App foo='test'>{/* valid */}</App>",
+    "<strong>&nbsp;https://www.example.com/attachment/download/1</strong>",
+    "<App /* valid */ placeholder={'foo'}/>",
+    "</* valid */></>",
   ],
 });

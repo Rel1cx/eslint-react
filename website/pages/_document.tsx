@@ -1,4 +1,3 @@
-// eslint-disable-next-line @eslint-react/naming-convention/filename
 import { Head, Html, Main, NextScript } from "next/document";
 
 import { PUBLIC_URL } from "#/constants";

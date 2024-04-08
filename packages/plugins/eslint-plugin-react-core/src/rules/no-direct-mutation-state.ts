@@ -49,7 +49,6 @@ function isConstructorFunction(
 }
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -57,12 +56,12 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_DIRECT_MUTATION_STATE: "Do not mutate state directly. Use 'setState()' instead.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     return {
       AssignmentExpression(node) {
@@ -74,10 +73,11 @@ export default createRule<[], MessageID>({
         const maybeParentConstructor = traverseUpGuard(node, isConstructorFunction);
         if (O.exists(maybeParentConstructor, n => context.sourceCode.getScope(node).block === n)) return;
         context.report({
-          node,
           messageId: "NO_DIRECT_MUTATION_STATE",
+          node,
         });
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

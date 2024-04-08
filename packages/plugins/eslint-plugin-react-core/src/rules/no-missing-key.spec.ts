@@ -9,6 +9,207 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
+  invalid: [
+    {
+      code: "[<App />];",
+      errors: [{ messageId: "NO_MISSING_KEY" }],
+    },
+    {
+      code: "[<App {...key} />];",
+      errors: [{ messageId: "NO_MISSING_KEY" }],
+    },
+    {
+      code: "[<App key={0}/>, <App />];",
+      errors: [{ messageId: "NO_MISSING_KEY" }],
+    },
+    {
+      code: "[1, 2 ,3].map(function(x) { return <App /> });",
+      errors: [{ messageId: "NO_MISSING_KEY" }],
+    },
+    {
+      code: "[1, 2 ,3].map(x => <App />);",
+      errors: [{ messageId: "NO_MISSING_KEY" }],
+    },
+    {
+      code: "[1, 2 ,3].map(x => x && <App x={x} />);",
+      errors: [{ messageId: "NO_MISSING_KEY" }],
+    },
+    {
+      code: '[1, 2 ,3].map(x => x ? <App x={x} key="1" /> : <OtherApp x={x} />);',
+      errors: [{ messageId: "NO_MISSING_KEY" }],
+    },
+    {
+      code: '[1, 2 ,3].map(x => x ? <App x={x} /> : <OtherApp x={x} key="2" />);',
+      errors: [{ messageId: "NO_MISSING_KEY" }],
+    },
+    {
+      code: "[1, 2 ,3].map(x => { return <App /> });",
+      errors: [{ messageId: "NO_MISSING_KEY" }],
+    },
+    {
+      code: "Array.from([1, 2 ,3], function(x) { return <App /> });",
+      errors: [{ messageId: "NO_MISSING_KEY" }],
+    },
+    {
+      code: "Array.from([1, 2 ,3], (x => { return <App /> }));",
+      errors: [{ messageId: "NO_MISSING_KEY" }],
+    },
+    {
+      code: "Array.from([1, 2 ,3], (x => <App />));",
+      errors: [{ messageId: "NO_MISSING_KEY" }],
+    },
+    {
+      code: "[1, 2, 3]?.map(x => <BabelEslintApp />)",
+      errors: [{ messageId: "NO_MISSING_KEY" }],
+    },
+    {
+      code: "[1, 2, 3]?.map(x => <TypescriptEslintApp />)",
+      errors: [{ messageId: "NO_MISSING_KEY" }],
+    },
+    {
+      code: "[1, 2, 3].map(x => <>{x}</>);",
+      errors: [
+        {
+          data: {
+            fragmentPragma: "Fragment",
+            reactPragma: "React",
+          },
+          messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
+        },
+      ],
+    },
+    {
+      code: "[<></>];",
+      errors: [
+        {
+          data: {
+            fragmentPragma: "Fragment",
+            reactPragma: "React",
+          },
+          messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        const Test = () => {
+          const list = [1, 2, 3, 4, 5];
+
+          return (
+            <div>
+              {list.map(item => {
+                if (item < 2) {
+                  return <div>{item}</div>;
+                }
+
+                return <div />;
+              })}
+            </div>
+          );
+        };
+      `,
+      errors: [
+        { messageId: "NO_MISSING_KEY" },
+        { messageId: "NO_MISSING_KEY" },
+      ],
+    },
+    {
+      code: dedent`
+        const TestO = () => {
+          const list = [1, 2, 3, 4, 5];
+
+          return (
+            <div>
+              {list.map(item => {
+                if (item < 2) {
+                  return <div>{item}</div>;
+                } else if (item < 5) {
+                  return <div></div>
+                }  else {
+                  return <div></div>
+                }
+
+                return <div />;
+              })}
+            </div>
+          );
+        };
+      `,
+      errors: [
+        { messageId: "NO_MISSING_KEY" },
+        { messageId: "NO_MISSING_KEY" },
+        { messageId: "NO_MISSING_KEY" },
+        { messageId: "NO_MISSING_KEY" },
+      ],
+    },
+    {
+      code: dedent`
+        const TestCase = () => {
+          const list = [1, 2, 3, 4, 5];
+
+          return (
+            <div>
+              {list.map(item => {
+                if (item < 2) return <div>{item}</div>;
+                else if (item < 5) return <div />;
+                else return <div />;
+              })}
+            </div>
+          );
+        };
+      `,
+      errors: [
+        { messageId: "NO_MISSING_KEY" },
+        { messageId: "NO_MISSING_KEY" },
+        { messageId: "NO_MISSING_KEY" },
+      ],
+    },
+    {
+      code: dedent`
+        function Explain() {
+          return (
+            <div>
+              {arr.map((id) => {
+                return <>{id}</>;
+              })}
+              {arr.map((id) => {
+                return <React.Fragment>{id}</React.Fragment>;
+              })}
+            </div>
+          );
+        }
+
+        function Repro() {
+          return (
+            <div>
+              {arr.map((id) => {
+                return <>{id}</>;
+              })}
+            </div>
+          );
+        }
+      `,
+      errors: [
+        {
+          data: {
+            fragmentPragma: "Fragment",
+            reactPragma: "React",
+          },
+          messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
+        },
+        {
+          messageId: "NO_MISSING_KEY",
+        },
+        {
+          data: {
+            fragmentPragma: "Fragment",
+            reactPragma: "React",
+          },
+          messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
+        },
+      ],
+    },
+  ],
   valid: [
     ...allValid,
     "fn()",
@@ -143,206 +344,5 @@ ruleTester.run(RULE_NAME, rule, {
       // toArray([1, 2 ,3].map(x => <App />));
       // toArray(Array.from([1, 2 ,3], x => <App />));
     `,
-  ],
-  invalid: [
-    {
-      code: "[<App />];",
-      errors: [{ messageId: "NO_MISSING_KEY" }],
-    },
-    {
-      code: "[<App {...key} />];",
-      errors: [{ messageId: "NO_MISSING_KEY" }],
-    },
-    {
-      code: "[<App key={0}/>, <App />];",
-      errors: [{ messageId: "NO_MISSING_KEY" }],
-    },
-    {
-      code: "[1, 2 ,3].map(function(x) { return <App /> });",
-      errors: [{ messageId: "NO_MISSING_KEY" }],
-    },
-    {
-      code: "[1, 2 ,3].map(x => <App />);",
-      errors: [{ messageId: "NO_MISSING_KEY" }],
-    },
-    {
-      code: "[1, 2 ,3].map(x => x && <App x={x} />);",
-      errors: [{ messageId: "NO_MISSING_KEY" }],
-    },
-    {
-      code: '[1, 2 ,3].map(x => x ? <App x={x} key="1" /> : <OtherApp x={x} />);',
-      errors: [{ messageId: "NO_MISSING_KEY" }],
-    },
-    {
-      code: '[1, 2 ,3].map(x => x ? <App x={x} /> : <OtherApp x={x} key="2" />);',
-      errors: [{ messageId: "NO_MISSING_KEY" }],
-    },
-    {
-      code: "[1, 2 ,3].map(x => { return <App /> });",
-      errors: [{ messageId: "NO_MISSING_KEY" }],
-    },
-    {
-      code: "Array.from([1, 2 ,3], function(x) { return <App /> });",
-      errors: [{ messageId: "NO_MISSING_KEY" }],
-    },
-    {
-      code: "Array.from([1, 2 ,3], (x => { return <App /> }));",
-      errors: [{ messageId: "NO_MISSING_KEY" }],
-    },
-    {
-      code: "Array.from([1, 2 ,3], (x => <App />));",
-      errors: [{ messageId: "NO_MISSING_KEY" }],
-    },
-    {
-      code: "[1, 2, 3]?.map(x => <BabelEslintApp />)",
-      errors: [{ messageId: "NO_MISSING_KEY" }],
-    },
-    {
-      code: "[1, 2, 3]?.map(x => <TypescriptEslintApp />)",
-      errors: [{ messageId: "NO_MISSING_KEY" }],
-    },
-    {
-      code: "[1, 2, 3].map(x => <>{x}</>);",
-      errors: [
-        {
-          messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
-          data: {
-            reactPragma: "React",
-            fragmentPragma: "Fragment",
-          },
-        },
-      ],
-    },
-    {
-      code: "[<></>];",
-      errors: [
-        {
-          messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
-          data: {
-            reactPragma: "React",
-            fragmentPragma: "Fragment",
-          },
-        },
-      ],
-    },
-    {
-      code: dedent`
-        const Test = () => {
-          const list = [1, 2, 3, 4, 5];
-
-          return (
-            <div>
-              {list.map(item => {
-                if (item < 2) {
-                  return <div>{item}</div>;
-                }
-
-                return <div />;
-              })}
-            </div>
-          );
-        };
-      `,
-      errors: [
-        { messageId: "NO_MISSING_KEY" },
-        { messageId: "NO_MISSING_KEY" },
-      ],
-    },
-    {
-      code: dedent`
-        const TestO = () => {
-          const list = [1, 2, 3, 4, 5];
-
-          return (
-            <div>
-              {list.map(item => {
-                if (item < 2) {
-                  return <div>{item}</div>;
-                } else if (item < 5) {
-                  return <div></div>
-                }  else {
-                  return <div></div>
-                }
-
-                return <div />;
-              })}
-            </div>
-          );
-        };
-      `,
-      errors: [
-        { messageId: "NO_MISSING_KEY" },
-        { messageId: "NO_MISSING_KEY" },
-        { messageId: "NO_MISSING_KEY" },
-        { messageId: "NO_MISSING_KEY" },
-      ],
-    },
-    {
-      code: dedent`
-        const TestCase = () => {
-          const list = [1, 2, 3, 4, 5];
-
-          return (
-            <div>
-              {list.map(item => {
-                if (item < 2) return <div>{item}</div>;
-                else if (item < 5) return <div />;
-                else return <div />;
-              })}
-            </div>
-          );
-        };
-      `,
-      errors: [
-        { messageId: "NO_MISSING_KEY" },
-        { messageId: "NO_MISSING_KEY" },
-        { messageId: "NO_MISSING_KEY" },
-      ],
-    },
-    {
-      code: dedent`
-        function Explain() {
-          return (
-            <div>
-              {arr.map((id) => {
-                return <>{id}</>;
-              })}
-              {arr.map((id) => {
-                return <React.Fragment>{id}</React.Fragment>;
-              })}
-            </div>
-          );
-        }
-
-        function Repro() {
-          return (
-            <div>
-              {arr.map((id) => {
-                return <>{id}</>;
-              })}
-            </div>
-          );
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
-          data: {
-            reactPragma: "React",
-            fragmentPragma: "Fragment",
-          },
-        },
-        {
-          messageId: "NO_MISSING_KEY",
-        },
-        {
-          messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
-          data: {
-            reactPragma: "React",
-            fragmentPragma: "Fragment",
-          },
-        },
-      ],
-    },
   ],
 });

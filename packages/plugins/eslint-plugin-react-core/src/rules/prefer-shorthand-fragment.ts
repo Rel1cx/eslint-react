@@ -9,7 +9,6 @@ export const RULE_NAME = "prefer-shorthand-fragment";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -17,12 +16,12 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       PREFER_SHORTHAND_FRAGMENT: "Prefer shorthand fragment syntax instead of '{{reactPragma}}.{{fragmentPragma}}'.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const reactPragma = getPragmaFromContext(context);
     const fragmentPragma = getFragmentFromContext(context);
@@ -44,4 +43,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

@@ -9,45 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    dedent`
-        function App() {
-          const foo = useMemo(() => ({}), [])
-          return <Context.Provider value={foo}></Context.Provider>
-      }
-    `,
-    dedent`
-        function App() {
-          const foo = useMemo(() => [], [])
-          return <Context.Provider value={foo}></Context.Provider>
-      }
-    `,
-    dedent`
-        const foo = {}
-        function App() {
-          return <Context.Provider value={foo}></Context.Provider>;
-      }
-    `,
-    dedent`
-        const foo = []
-        function App() {
-          return <Context.Provider value={foo}></Context.Provider>;
-      }
-    `,
-    dedent`
-        const foo = new Object()
-        function App() {
-          return <Context.Provider value={foo}></Context.Provider>;
-      }
-    `,
-    dedent`
-      const foo = () => {}
-              function App() {
-                  return <Context.Provider value={foo}></Context.Provider>;
-              }
-    `,
-  ],
   invalid: [
     {
       code: dedent`
@@ -112,5 +73,44 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+  ],
+  valid: [
+    ...allValid,
+    dedent`
+        function App() {
+          const foo = useMemo(() => ({}), [])
+          return <Context.Provider value={foo}></Context.Provider>
+      }
+    `,
+    dedent`
+        function App() {
+          const foo = useMemo(() => [], [])
+          return <Context.Provider value={foo}></Context.Provider>
+      }
+    `,
+    dedent`
+        const foo = {}
+        function App() {
+          return <Context.Provider value={foo}></Context.Provider>;
+      }
+    `,
+    dedent`
+        const foo = []
+        function App() {
+          return <Context.Provider value={foo}></Context.Provider>;
+      }
+    `,
+    dedent`
+        const foo = new Object()
+        function App() {
+          return <Context.Provider value={foo}></Context.Provider>;
+      }
+    `,
+    dedent`
+      const foo = () => {}
+              function App() {
+                  return <Context.Provider value={foo}></Context.Provider>;
+              }
+    `,
   ],
 });

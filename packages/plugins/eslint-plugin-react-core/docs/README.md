@@ -52,7 +52,7 @@ ___
 | `no-direct-mutation-state` | `RuleModule`\<``"NO_DIRECT_MUTATION_STATE"``, [], `RuleListener`\> |
 | `no-duplicate-key` | `RuleModule`\<``"NO_DUPLICATE_KEY"``, [], `RuleListener`\> |
 | `no-implicit-key` | `RuleModule`\<``"NO_IMPLICIT_KEY"``, [], `RuleListener`\> |
-| `no-leaked-conditional-rendering` | `RuleModule`\<`MessageID`, [], `RuleListener`\> |
+| `no-leaked-conditional-rendering` | `RuleModule`\<``"NO_LEAKED_CONDITIONAL_RENDERING"``, [], `RuleListener`\> |
 | `no-missing-component-display-name` | `RuleModule`\<``"NO_MISSING_COMPONENT_DISPLAY_NAME"``, [], `RuleListener`\> |
 | `no-missing-key` | `RuleModule`\<`MessageID`, [], `RuleListener`\> |
 | `no-nested-components` | `RuleModule`\<`MessageID`, [], `RuleListener`\> |

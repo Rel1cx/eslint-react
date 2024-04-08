@@ -4,16 +4,23 @@
     "@tsconfig/node20/tsconfig.json"
   ],
   "compilerOptions": {
-    "noEmit": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "composite": true,
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleDetection": "force",
+    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    ".eslintrc.cjs",
     "*.config.ts",
     "*.config.js",
     "*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src"
   ]
 }

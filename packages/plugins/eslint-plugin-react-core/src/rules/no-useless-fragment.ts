@@ -65,7 +65,6 @@ function isFragmentWithSingleExpression(node: TSESTree.JSXElement | TSESTree.JSX
 }
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -73,13 +72,13 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_USELESS_FRAGMENT: "Fragments containing a single element are usually unnecessary.",
       NO_USELESS_FRAGMENT_IN_BUILT_IN: "Passing a fragment to a built-in component is unnecessary.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const reactPragma = getPragmaFromContext(context);
     const fragmentPragma = getFragmentFromContext(context);
@@ -131,4 +130,5 @@ export default createRule<[], MessageID>({
       JSXFragment: checkNode,
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

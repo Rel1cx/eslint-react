@@ -16,9 +16,7 @@ function isKeyLiteralLike(
   property: TSESTree.Node,
 ): boolean {
   return property.type === NodeType.Literal
-    // eslint-disable-next-line @typescript-eslint/no-extra-parens
     || (property.type === NodeType.TemplateLiteral && property.expressions.length === 0)
-    // eslint-disable-next-line @typescript-eslint/no-extra-parens
     || (!node.computed && property.type === NodeType.Identifier);
 }
 
@@ -51,7 +49,6 @@ function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Opti
 }
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -59,12 +56,12 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_ACCESS_STATE_IN_SETSTATE: "Do not access 'this.state' within 'setState', use 'setState' callback instead.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const classStack = MutList.make<[
       node: TSESTree.ClassDeclaration | TSESTree.ClassExpression,
@@ -80,30 +77,6 @@ export default createRule<[], MessageID>({
     ]>();
 
     return {
-      ClassDeclaration(node) {
-        MutList.append(classStack, [node, isClassComponent(node, context)]);
-      },
-      ClassExpression(node) {
-        MutList.append(classStack, [node, isClassComponent(node, context)]);
-      },
-      "ClassDeclaration:exit"() {
-        MutList.pop(classStack);
-      },
-      "ClassExpression:exit"() {
-        MutList.pop(classStack);
-      },
-      MethodDefinition(node) {
-        MutList.append(methodStack, [node, node.static]);
-      },
-      PropertyDefinition(node) {
-        MutList.append(methodStack, [node, node.static]);
-      },
-      "MethodDefinition:exit"() {
-        MutList.pop(methodStack);
-      },
-      "PropertyDefinition:exit"() {
-        MutList.pop(methodStack);
-      },
       CallExpression(node) {
         if (!isThisSetState(node)) return;
         MutList.append(setStateStack, [node, false]);
@@ -111,6 +84,18 @@ export default createRule<[], MessageID>({
       "CallExpression:exit"(node) {
         if (!isThisSetState(node)) return;
         MutList.pop(setStateStack);
+      },
+      ClassDeclaration(node) {
+        MutList.append(classStack, [node, isClassComponent(node, context)]);
+      },
+      "ClassDeclaration:exit"() {
+        MutList.pop(classStack);
+      },
+      ClassExpression(node) {
+        MutList.append(classStack, [node, isClassComponent(node, context)]);
+      },
+      "ClassExpression:exit"() {
+        MutList.pop(classStack);
       },
       MemberExpression(node) {
         if (!isThisExpression(node.object)) return;
@@ -122,9 +107,21 @@ export default createRule<[], MessageID>({
         if (!setState || hasThisState) return;
         if (!O.exists(getName(node.property), name => name === "state")) return;
         context.report({
-          node,
           messageId: "NO_ACCESS_STATE_IN_SETSTATE",
+          node,
         });
+      },
+      MethodDefinition(node) {
+        MutList.append(methodStack, [node, node.static]);
+      },
+      "MethodDefinition:exit"() {
+        MutList.pop(methodStack);
+      },
+      PropertyDefinition(node) {
+        MutList.append(methodStack, [node, node.static]);
+      },
+      "PropertyDefinition:exit"() {
+        MutList.pop(methodStack);
       },
       VariableDeclarator(node) {
         const [currentClass, isComponent] = MutList.tail(classStack) ?? [];
@@ -144,10 +141,11 @@ export default createRule<[], MessageID>({
         });
         if (!hasState) return;
         context.report({
-          node,
           messageId: "NO_ACCESS_STATE_IN_SETSTATE",
+          node,
         });
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

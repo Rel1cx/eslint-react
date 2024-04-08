@@ -11,19 +11,18 @@ export const RULE_NAME = "no-missing-component-display-name";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
       description: "require 'displayName' for memo and forwardRef components",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_MISSING_COMPONENT_DISPLAY_NAME: "Missing 'displayName' for component.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollector(context);
 
@@ -47,4 +46,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

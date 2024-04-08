@@ -9,29 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    dedent`
-      class Component extends React.Component {
-        state = {
-          foo: 1,
-        };
-        render() {
-          return <div />;
-        }
-      }
-    `,
-    dedent`
-      class Component extends React.Component {
-        state = {
-          foo: 1,
-        };
-        render() {
-          return <div onClick={() => this.setState({ foo: 2 })} />;
-        }
-      }
-    `,
-  ],
   invalid: [
     {
       code: dedent`
@@ -118,5 +95,28 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+  ],
+  valid: [
+    ...allValid,
+    dedent`
+      class Component extends React.Component {
+        state = {
+          foo: 1,
+        };
+        render() {
+          return <div />;
+        }
+      }
+    `,
+    dedent`
+      class Component extends React.Component {
+        state = {
+          foo: 1,
+        };
+        render() {
+          return <div onClick={() => this.setState({ foo: 2 })} />;
+        }
+      }
+    `,
   ],
 });

@@ -1,4 +1,3 @@
-// eslint-disable-next-line @eslint-react/naming-convention/filename
 import "#/styles/base.scss";
 import "#/styles/overrides.scss";
 import "#/styles/fonts/iosevka/fonts.css";

@@ -1,5 +1,31 @@
 {
-  "extends": "eslint-config-with-tsconfig/tsconfig.base.json",
+  "extends": [
+    "@tsconfig/strictest/tsconfig.json",
+    "@tsconfig/node20/tsconfig.json"
+  ],
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "moduleDetection": "force",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": true,
+    "allowJs": false,
+    "checkJs": false,
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "exactOptionalPropertyTypes": true,
+    "composite": false,
+    "stripInternal": false
+  },
+  "exclude": [
+    "node_modules",
+    "**/dist",
+    "test/fixtures"
+  ],
   "include": [
     "src"
   ]

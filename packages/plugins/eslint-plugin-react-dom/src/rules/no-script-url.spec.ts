@@ -9,15 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    '<a href="https://react.dev"></a>',
-    '<a href="mailto:foo@bar.com"></a>',
-    '<a href="#"></a>',
-    '<a href=""></a>',
-    '<a name="foo"></a>',
-    "<a href />",
-  ],
   invalid: [
     {
       code: '<a href={"javascript:"}></a>',
@@ -55,5 +46,14 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "NO_SCRIPT_URL" },
       ],
     },
+  ],
+  valid: [
+    ...allValid,
+    '<a href="https://react.dev"></a>',
+    '<a href="mailto:foo@bar.com"></a>',
+    '<a href="#"></a>',
+    '<a href=""></a>',
+    '<a name="foo"></a>',
+    "<a href />",
   ],
 });

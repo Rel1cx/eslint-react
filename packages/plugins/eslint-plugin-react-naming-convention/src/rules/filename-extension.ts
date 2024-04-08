@@ -59,20 +59,19 @@ const schema = [
 ] satisfies [JSONSchema4];
 
 export default createRule<Options, MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
       description: "enforce naming convention for JSX file extensions",
       requiresTypeChecking: false,
     },
-    schema,
     messages: {
       FILE_NAME_EXTENSION_INVALID: "JSX file extension is required",
       FILE_NAME_EXTENSION_UNEXPECTED: "use JSX file extension as needed",
     },
+    schema,
   },
-  defaultOptions,
+  name: RULE_NAME,
   create(context) {
     const options = context.options[0] ?? defaultOptions[0];
     const allow = Prd.isObject(options) ? options.allow : options;
@@ -116,4 +115,5 @@ export default createRule<Options, MessageID>({
       },
     };
   },
+  defaultOptions,
 }) satisfies ESLintUtils.RuleModule<MessageID, Options>;

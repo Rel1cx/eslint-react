@@ -1,4 +1,3 @@
-// eslint-disable-next-line filenames-simple/typescript-module-declaration
 declare module "@eslint-community/eslint-utils" {
   export const findVariable: unknown;
   export const getFunctionHeadLocation: unknown;

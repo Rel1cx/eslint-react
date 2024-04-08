@@ -11,20 +11,19 @@ export const RULE_NAME = "no-comment-textnodes";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
       description: "disallow comments from being inserted as text nodes",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_COMMENT_TEXTNODES:
         "Possible misused comment in text node. Comments inside children section of tag should be placed inside braces.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     function checkText(node: TSESTree.JSXText | TSESTree.Literal) {
       if (isOneOf([N.JSXAttribute, N.JSXExpressionContainer])(node.parent)) return false;
@@ -48,4 +47,5 @@ export default createRule<[], MessageID>({
       Literal: check,
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

@@ -22,7 +22,6 @@ function firstChildIsText(node: TSESTree.JSXElement) {
 }
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -30,12 +29,12 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN: "Only set one of 'children' or 'dangerouslySetInnerHTML'.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     return {
       CallExpression(node) {
@@ -84,4 +83,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

@@ -5,8 +5,6 @@ import nextra from "nextra";
 import codeImport from "remark-code-import";
 import remarkGFM from "remark-gfm";
 
-import redirects from "./migrations/1.0-1.5/redirects.json" assert { type: "json" };
-
 const withVanillaExtract = createVanillaExtractPlugin();
 
 const withNextra = nextra({
@@ -29,9 +27,6 @@ const nextConfig = {
     unoptimized: true,
   },
   output: "standalone",
-  redirects() {
-    return redirects;
-  },
 };
 
 export default withVanillaExtract(withNextra(nextConfig));

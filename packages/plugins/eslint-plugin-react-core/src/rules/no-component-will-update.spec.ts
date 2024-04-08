@@ -9,38 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    dedent`
-      class Foo extends Bar {
-        componentWillUpdate() {}
-      }
-    `,
-    dedent`
-      import React from "react";
-
-      class Foo extends React.Component {
-
-        UNSAFE_componentWillUpdate() {}
-
-        render() {
-          return <div />;
-        }
-      }
-    `,
-    dedent`
-      import React from "react";
-
-      class Foo extends React.PureComponent {
-
-        UNSAFE_componentWillUpdate() {}
-
-        render() {
-          return <div />;
-        }
-      }
-    `,
-  ],
   invalid: [
     {
       code: dedent`
@@ -118,5 +86,37 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+  ],
+  valid: [
+    ...allValid,
+    dedent`
+      class Foo extends Bar {
+        componentWillUpdate() {}
+      }
+    `,
+    dedent`
+      import React from "react";
+
+      class Foo extends React.Component {
+
+        UNSAFE_componentWillUpdate() {}
+
+        render() {
+          return <div />;
+        }
+      }
+    `,
+    dedent`
+      import React from "react";
+
+      class Foo extends React.PureComponent {
+
+        UNSAFE_componentWillUpdate() {}
+
+        render() {
+          return <div />;
+        }
+      }
+    `,
   ],
 });

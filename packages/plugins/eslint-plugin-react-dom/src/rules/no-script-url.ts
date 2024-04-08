@@ -16,7 +16,6 @@ export type MessageID = ConstantCase<typeof RULE_NAME>;
  * Thank you for your work!
  */
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -24,12 +23,12 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_SCRIPT_URL: "Using a `javascript:` URL is a security risk and should be avoided.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     return {
       JSXAttribute(node) {
@@ -49,4 +48,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

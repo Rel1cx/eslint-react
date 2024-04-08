@@ -8,19 +8,18 @@ export const RULE_NAME = "react-hooks";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
       description: "report all React Hooks",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       REACT_HOOKS: "[react hooks] name: {{name}}, hookCalls: {{hookCalls}}",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useHookCollector();
 
@@ -42,4 +41,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

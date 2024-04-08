@@ -18,20 +18,19 @@ const ALLOW_LIST = Object.freeze(["Boolean", "String", "Number"]);
 
 // rule takes inspiration from https://github.com/facebook/react/issues/26520
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
       description: "disallow function calls in 'useState' that aren't wrapped in an initializer function",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       PREFER_USE_STATE_LAZY_INITIALIZATION:
         "To prevent re-computation, consider using lazy initial state for useState calls that involve function calls. Ex: 'useState(() => getValue())'",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const alias = parseSchema(ESLintSettingsSchema, context.settings).reactOptions?.additionalHooks?.useState ?? [];
     const pragma = getPragmaFromContext(context);
@@ -49,10 +48,11 @@ export default createRule<[], MessageID>({
         });
         if (!hasFunctionCall) return;
         context.report({
-          node: useStateInput,
           messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          node: useStateInput,
         });
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

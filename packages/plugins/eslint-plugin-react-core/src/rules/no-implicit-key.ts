@@ -12,7 +12,6 @@ export const RULE_NAME = "no-implicit-key";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -20,12 +19,12 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_IMPLICIT_KEY: "Prefer specifying key explicitly instead of spreading it from object.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     function check(node: TSESTree.JSXOpeningElement): O.Option<ReportDescriptor<MessageID>> {
       const initialScope = context.sourceCode.getScope(node);
@@ -44,4 +43,5 @@ export default createRule<[], MessageID>({
       JSXOpeningElement: F.flow(check, O.map(context.report)),
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

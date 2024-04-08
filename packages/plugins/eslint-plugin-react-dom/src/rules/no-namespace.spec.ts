@@ -7,6 +7,153 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
+  invalid: [
+    {
+      code: "<ns:testcomponent />",
+      errors: [{
+        data: {
+          name: "ns:testcomponent",
+        },
+        messageId: "NO_NAMESPACE",
+      }],
+    },
+    {
+      code: 'React.createElement("ns:testcomponent")',
+      errors: [{
+        data: {
+          name: "ns:testcomponent",
+        },
+        messageId: "NO_NAMESPACE",
+      }],
+    },
+    {
+      code: "<ns:testComponent />",
+      errors: [{
+        data: {
+          name: "ns:testComponent",
+        },
+        messageId: "NO_NAMESPACE",
+      }],
+    },
+    {
+      code: 'React.createElement("ns:testComponent")',
+      errors: [{
+        data: {
+          name: "ns:testComponent",
+        },
+        messageId: "NO_NAMESPACE",
+      }],
+    },
+    {
+      code: "<ns:test_component />",
+      errors: [{
+        data: {
+          name: "ns:test_component",
+        },
+        messageId: "NO_NAMESPACE",
+      }],
+    },
+    {
+      code: 'React.createElement("ns:test_component")',
+      errors: [{
+        data: {
+          name: "ns:test_component",
+        },
+        messageId: "NO_NAMESPACE",
+      }],
+    },
+    {
+      code: "<ns:TestComponent />",
+      errors: [{
+        data: {
+          name: "ns:TestComponent",
+        },
+        messageId: "NO_NAMESPACE",
+      }],
+    },
+    {
+      code: 'React.createElement("ns:TestComponent")',
+      errors: [{
+        data: {
+          name: "ns:TestComponent",
+        },
+        messageId: "NO_NAMESPACE",
+      }],
+    },
+    {
+      code: "<Ns:testcomponent />",
+      errors: [{
+        data: {
+          name: "Ns:testcomponent",
+        },
+        messageId: "NO_NAMESPACE",
+      }],
+    },
+    {
+      code: 'React.createElement("Ns:testcomponent")',
+      errors: [{
+        data: {
+          name: "Ns:testcomponent",
+        },
+        messageId: "NO_NAMESPACE",
+      }],
+    },
+    {
+      code: "<Ns:testComponent />",
+      errors: [{
+        data: {
+          name: "Ns:testComponent",
+        },
+        messageId: "NO_NAMESPACE",
+      }],
+    },
+    {
+      code: 'React.createElement("Ns:testComponent")',
+      errors: [{
+        data: {
+          name: "Ns:testComponent",
+        },
+        messageId: "NO_NAMESPACE",
+      }],
+    },
+    {
+      code: "<Ns:test_component />",
+      errors: [{
+        data: {
+          name: "Ns:test_component",
+        },
+        messageId: "NO_NAMESPACE",
+      }],
+    },
+    {
+      code: 'React.createElement("Ns:test_component")',
+      errors: [{
+        data: {
+          name: "Ns:test_component",
+        },
+        messageId: "NO_NAMESPACE",
+      }],
+    },
+    {
+      code: "<Ns:TestComponent />",
+      errors: [{
+        data: {
+          name: "Ns:TestComponent",
+        },
+        messageId: "NO_NAMESPACE",
+      }],
+    },
+    {
+      code: 'React.createElement("Ns:TestComponent")',
+      errors: [{
+        data: {
+          name: "Ns:TestComponent",
+        },
+        messageId: "NO_NAMESPACE",
+      }],
+    },
+  ],
+
   valid: [
     ...allValid,
     "<testcomponent />",
@@ -36,152 +183,5 @@ ruleTester.run(RULE_NAME, rule, {
     "React.createElement(null)",
     "React.createElement(true)",
     "React.createElement({})",
-  ],
-
-  invalid: [
-    {
-      code: "<ns:testcomponent />",
-      errors: [{
-        messageId: "NO_NAMESPACE",
-        data: {
-          name: "ns:testcomponent",
-        },
-      }],
-    },
-    {
-      code: 'React.createElement("ns:testcomponent")',
-      errors: [{
-        messageId: "NO_NAMESPACE",
-        data: {
-          name: "ns:testcomponent",
-        },
-      }],
-    },
-    {
-      code: "<ns:testComponent />",
-      errors: [{
-        messageId: "NO_NAMESPACE",
-        data: {
-          name: "ns:testComponent",
-        },
-      }],
-    },
-    {
-      code: 'React.createElement("ns:testComponent")',
-      errors: [{
-        messageId: "NO_NAMESPACE",
-        data: {
-          name: "ns:testComponent",
-        },
-      }],
-    },
-    {
-      code: "<ns:test_component />",
-      errors: [{
-        messageId: "NO_NAMESPACE",
-        data: {
-          name: "ns:test_component",
-        },
-      }],
-    },
-    {
-      code: 'React.createElement("ns:test_component")',
-      errors: [{
-        messageId: "NO_NAMESPACE",
-        data: {
-          name: "ns:test_component",
-        },
-      }],
-    },
-    {
-      code: "<ns:TestComponent />",
-      errors: [{
-        messageId: "NO_NAMESPACE",
-        data: {
-          name: "ns:TestComponent",
-        },
-      }],
-    },
-    {
-      code: 'React.createElement("ns:TestComponent")',
-      errors: [{
-        messageId: "NO_NAMESPACE",
-        data: {
-          name: "ns:TestComponent",
-        },
-      }],
-    },
-    {
-      code: "<Ns:testcomponent />",
-      errors: [{
-        messageId: "NO_NAMESPACE",
-        data: {
-          name: "Ns:testcomponent",
-        },
-      }],
-    },
-    {
-      code: 'React.createElement("Ns:testcomponent")',
-      errors: [{
-        messageId: "NO_NAMESPACE",
-        data: {
-          name: "Ns:testcomponent",
-        },
-      }],
-    },
-    {
-      code: "<Ns:testComponent />",
-      errors: [{
-        messageId: "NO_NAMESPACE",
-        data: {
-          name: "Ns:testComponent",
-        },
-      }],
-    },
-    {
-      code: 'React.createElement("Ns:testComponent")',
-      errors: [{
-        messageId: "NO_NAMESPACE",
-        data: {
-          name: "Ns:testComponent",
-        },
-      }],
-    },
-    {
-      code: "<Ns:test_component />",
-      errors: [{
-        messageId: "NO_NAMESPACE",
-        data: {
-          name: "Ns:test_component",
-        },
-      }],
-    },
-    {
-      code: 'React.createElement("Ns:test_component")',
-      errors: [{
-        messageId: "NO_NAMESPACE",
-        data: {
-          name: "Ns:test_component",
-        },
-      }],
-    },
-    {
-      code: "<Ns:TestComponent />",
-      errors: [{
-        messageId: "NO_NAMESPACE",
-        data: {
-          name: "Ns:TestComponent",
-        },
-      }],
-    },
-    {
-      code: 'React.createElement("Ns:TestComponent")',
-      errors: [{
-        messageId: "NO_NAMESPACE",
-        data: {
-          name: "Ns:TestComponent",
-        },
-      }],
-    },
   ],
 });

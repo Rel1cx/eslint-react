@@ -22,7 +22,6 @@ function isSetterNameLoose(name: string) {
 }
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -30,12 +29,12 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       USE_STATE: "'useState' call is not destructured into value + setter pair.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const alias = parseSchema(ESLintSettingsSchema, context.settings).reactOptions?.additionalHooks?.useState
       ?? [];
@@ -87,4 +86,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

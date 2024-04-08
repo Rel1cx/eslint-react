@@ -9,6 +9,87 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
+  invalid: [
+    {
+      code: dedent`
+        import { useState } from "react";
+
+        function Component() {
+          const [state, sseettState] = useState(0);
+
+          return <div />;
+        }
+      `,
+      errors: [{
+        data: {
+          setterName: "setState",
+          stateName: "state",
+        },
+        messageId: "USE_STATE",
+      }],
+    },
+    {
+      code: dedent`
+        import { useState } from "react";
+
+        function Component() {
+          const [state, setstate] = useState(0);
+
+          return <div />;
+        }
+      `,
+      errors: [{
+        data: {
+          setterName: "setState",
+          stateName: "state",
+        },
+        messageId: "USE_STATE",
+      }],
+    },
+    {
+      code: dedent`
+        import { useState } from "react";
+
+        function Component() {
+          const [{foo, bar, baz}, foobarbaz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"})
+
+          return <div />;
+        }
+      `,
+      errors: [{
+        data: {
+          setterName: "setState",
+          stateName: "state",
+        },
+        messageId: "USE_STATE",
+      }],
+    },
+    {
+      code: dedent`
+        import { useState } from "react";
+
+        function Component() {
+          const [state, setstate] = useLocalStorageState(0);
+
+          return <div />;
+        }
+      `,
+      errors: [{
+        data: {
+          setterName: "setState",
+          stateName: "state",
+        },
+        messageId: "USE_STATE",
+      }],
+      settings: {
+        reactOptions: {
+          additionalHooks: {
+            useState: ["useLocalStorageState"],
+          },
+        },
+      },
+    },
+  ],
   valid: [
     ...allFunctions,
     dedent`
@@ -38,86 +119,5 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-  ],
-  invalid: [
-    {
-      code: dedent`
-        import { useState } from "react";
-
-        function Component() {
-          const [state, sseettState] = useState(0);
-
-          return <div />;
-        }
-      `,
-      errors: [{
-        messageId: "USE_STATE",
-        data: {
-          setterName: "setState",
-          stateName: "state",
-        },
-      }],
-    },
-    {
-      code: dedent`
-        import { useState } from "react";
-
-        function Component() {
-          const [state, setstate] = useState(0);
-
-          return <div />;
-        }
-      `,
-      errors: [{
-        messageId: "USE_STATE",
-        data: {
-          setterName: "setState",
-          stateName: "state",
-        },
-      }],
-    },
-    {
-      code: dedent`
-        import { useState } from "react";
-
-        function Component() {
-          const [{foo, bar, baz}, foobarbaz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"})
-
-          return <div />;
-        }
-      `,
-      errors: [{
-        messageId: "USE_STATE",
-        data: {
-          setterName: "setState",
-          stateName: "state",
-        },
-      }],
-    },
-    {
-      code: dedent`
-        import { useState } from "react";
-
-        function Component() {
-          const [state, setstate] = useLocalStorageState(0);
-
-          return <div />;
-        }
-      `,
-      errors: [{
-        messageId: "USE_STATE",
-        data: {
-          setterName: "setState",
-          stateName: "state",
-        },
-      }],
-      settings: {
-        reactOptions: {
-          additionalHooks: {
-            useState: ["useLocalStorageState"],
-          },
-        },
-      },
-    },
   ],
 });

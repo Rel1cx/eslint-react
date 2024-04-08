@@ -18,7 +18,6 @@ function isShouldComponentUpdate(node: TSESTree.ClassElement) {
 }
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -26,13 +25,13 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_REDUNDANT_SHOULD_COMPONENT_UPDATE:
         "'{{componentName}}' does not need 'shouldComponentUpdate' when extending 'React.PureComponent'.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollectorLegacy(context);
 
@@ -47,11 +46,11 @@ export default createRule<[], MessageID>({
           for (const member of body) {
             if (isShouldComponentUpdate(member)) {
               context.report({
-                messageId: "NO_REDUNDANT_SHOULD_COMPONENT_UPDATE",
-                node: member,
                 data: {
                   componentName: O.getOrElse(() => "PureComponent")(name),
                 },
+                messageId: "NO_REDUNDANT_SHOULD_COMPONENT_UPDATE",
+                node: member,
               });
             }
           }
@@ -59,4 +58,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

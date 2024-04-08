@@ -9,38 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    dedent`
-      class Foo extends Bar {
-        componentWillReceiveProps() {}
-      }
-    `,
-    dedent`
-      import React from "react";
-
-      class Foo extends React.Component {
-
-        componentWillReceiveProps() {}
-
-        render() {
-          return <div />;
-        }
-      }
-    `,
-    dedent`
-      import React from "react";
-
-      class Foo extends React.PureComponent {
-
-        componentWillReceiveProps() {}
-
-        render() {
-          return <div />;
-        }
-      }
-    `,
-  ],
   invalid: [
     {
       code: dedent`
@@ -118,5 +86,37 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+  ],
+  valid: [
+    ...allValid,
+    dedent`
+      class Foo extends Bar {
+        componentWillReceiveProps() {}
+      }
+    `,
+    dedent`
+      import React from "react";
+
+      class Foo extends React.Component {
+
+        componentWillReceiveProps() {}
+
+        render() {
+          return <div />;
+        }
+      }
+    `,
+    dedent`
+      import React from "react";
+
+      class Foo extends React.PureComponent {
+
+        componentWillReceiveProps() {}
+
+        render() {
+          return <div />;
+        }
+      }
+    `,
   ],
 });

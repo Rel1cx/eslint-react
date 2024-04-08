@@ -15,19 +15,18 @@ export const RULE_NAME = "ensure-use-callback-has-non-empty-deps";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
       description: "enforce 'useCallback' has non-empty dependencies array",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS: "useCallback should have a non-empty dependencies array",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const alias = parseSchema(ESLintSettingsSchema, context.settings).reactOptions?.additionalHooks?.useCallback ?? [];
     const pragma = getPragmaFromContext(context);
@@ -60,8 +59,8 @@ export default createRule<[], MessageID>({
             .otherwise(O.none),
           O.filter(x => x.elements.length === 0),
           O.map(() => ({
-            node,
             messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+            node,
           } as const)),
         );
 
@@ -69,4 +68,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

@@ -9,6 +9,104 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
+  invalid: [
+    {
+      code: dedent`
+        const App = (props) => {
+            const { h, i } = hi
+            return <div id={props.id} className={props.className} />
+          }
+      `,
+      errors: [
+        {
+          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+        },
+        {
+          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        function App(props) {
+            return <div id={props.id} className={props.className} />
+        }
+      `,
+      errors: [
+        {
+          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+        },
+        {
+          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        import { forwardRef } from "react";
+
+        interface Props {
+            day: string;
+        }
+
+        // Code to expect error
+        export const App = forwardRef<HTMLDivElement, Props>(
+            function App(props, ref) {
+              return <div ref={ref}>{props.day}</div>;
+            }
+        );
+      `,
+      errors: [
+        {
+          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        import { memo } from "react";
+
+        interface Props {
+            day: string;
+        }
+
+        // Code to expect error
+        export const App = memo(
+            function App(props) {
+                return <div ref={ref}>{props.day}</div>;
+            }
+        );
+      `,
+      errors: [
+        {
+          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        import { memo, forwardRef } from "react";
+
+        interface Props {
+            day: string;
+        }
+
+        // Code to expect error
+        export const App = memo(
+            forwardRef<HTMLDivElement, Props>(
+                function App(props, ref) {
+                    return <div ref={ref}>{props.day}</div>;
+                }
+            )
+        );
+      `,
+      errors: [
+        {
+          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+        },
+      ],
+    },
+  ],
   valid: [
     ...allValid,
     dedent`
@@ -199,103 +297,5 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{foo.test}</div>
       }
     `,
-  ],
-  invalid: [
-    {
-      code: dedent`
-        const App = (props) => {
-            const { h, i } = hi
-            return <div id={props.id} className={props.className} />
-          }
-      `,
-      errors: [
-        {
-          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
-        },
-        {
-          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        function App(props) {
-            return <div id={props.id} className={props.className} />
-        }
-      `,
-      errors: [
-        {
-          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
-        },
-        {
-          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        import { forwardRef } from "react";
-
-        interface Props {
-            day: string;
-        }
-
-        // Code to expect error
-        export const App = forwardRef<HTMLDivElement, Props>(
-            function App(props, ref) {
-              return <div ref={ref}>{props.day}</div>;
-            }
-        );
-      `,
-      errors: [
-        {
-          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        import { memo } from "react";
-
-        interface Props {
-            day: string;
-        }
-
-        // Code to expect error
-        export const App = memo(
-            function App(props) {
-                return <div ref={ref}>{props.day}</div>;
-            }
-        );
-      `,
-      errors: [
-        {
-          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        import { memo, forwardRef } from "react";
-
-        interface Props {
-            day: string;
-        }
-
-        // Code to expect error
-        export const App = memo(
-            forwardRef<HTMLDivElement, Props>(
-                function App(props, ref) {
-                    return <div ref={ref}>{props.day}</div>;
-                }
-            )
-        );
-      `,
-      errors: [
-        {
-          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
-        },
-      ],
-    },
   ],
 });

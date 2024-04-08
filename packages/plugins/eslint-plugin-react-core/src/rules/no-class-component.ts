@@ -10,18 +10,17 @@ export const RULE_NAME = "no-class-component";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
       description: "disallow class component",
     },
-    schema: [],
     messages: {
       NO_CLASS_COMPONENT: "Do not use class components. Use function components instead.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollectorLegacy(context);
 
@@ -42,4 +41,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

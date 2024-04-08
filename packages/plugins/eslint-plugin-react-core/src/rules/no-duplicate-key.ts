@@ -14,7 +14,6 @@ export const RULE_NAME = "no-duplicate-key";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -22,12 +21,12 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_DUPLICATE_KEY: "Duplicate key '{{value}}' found.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const reactPragma = getPragmaFromContext(context);
     const childrenToArraySelector = getChildrenToArraySelector(reactPragma);
@@ -86,9 +85,6 @@ export default createRule<[], MessageID>({
     const seen = new WeakSet<TSESTree.JSXElement>();
 
     return {
-      [childrenToArraySelector]() {
-        MutRef.set(isWithinChildrenToArrayRef, true);
-      },
       [`${childrenToArraySelector}:exit`]() {
         MutRef.set(isWithinChildrenToArrayRef, false);
       },
@@ -165,6 +161,10 @@ export default createRule<[], MessageID>({
         }
         O.map(checkExpression(fn.body), context.report);
       },
+      [childrenToArraySelector]() {
+        MutRef.set(isWithinChildrenToArrayRef, true);
+      },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

@@ -12,20 +12,19 @@ export const RULE_NAME = "no-complicated-conditional-rendering";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
       description: "disallow complicated conditional rendering",
       requiresTypeChecking: true,
     },
-    schema: [],
     messages: {
       NO_COMPLICATED_CONDITIONAL_RENDERING:
         "Avoid complicated conditional rendering. Extract the logic into separate elements or components.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const isConditionalOrLogicalExp = isOneOf([NodeType.ConditionalExpression, NodeType.LogicalExpression]);
 
@@ -59,4 +58,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

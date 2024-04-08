@@ -9,9 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-  ],
   invalid: [
     {
       code: dedent`
@@ -104,5 +101,8 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "NO_CLONE_ELEMENT",
       }],
     },
+  ],
+  valid: [
+    ...allValid,
   ],
 });

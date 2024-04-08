@@ -9,10 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    "<div {...props} />",
-  ],
   invalid: [
     {
       code: '<div dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</div>',
@@ -88,5 +84,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML" }],
     },
+  ],
+  valid: [
+    ...allValid,
+    "<div {...props} />",
   ],
 });

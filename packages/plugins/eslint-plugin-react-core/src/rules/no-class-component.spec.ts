@@ -9,6 +9,271 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
+  invalid: [
+    {
+      code: dedent`
+        function ParentComponent() {
+          class UnstableNestedClassComponent extends React.Component {
+            render() {
+              return <div />;
+            }
+          };
+
+          return (
+            <div>
+              <UnstableNestedClassComponent />
+            </div>
+          );
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "UnstableNestedClassComponent",
+          },
+          messageId: "NO_CLASS_COMPONENT",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          class UnstableNestedClassComponent extends React.Component {
+            render() {
+              return React.createElement("div", null);
+            }
+          }
+
+          return React.createElement(
+            "div",
+            null,
+            React.createElement(UnstableNestedClassComponent, null)
+          );
+        }
+      `,
+      errors: [{
+        data: {
+          name: "UnstableNestedClassComponent",
+        },
+        messageId: "NO_CLASS_COMPONENT",
+      }],
+    },
+    {
+      code: dedent`
+        class ParentComponent extends React.Component {
+          render() {
+            class UnstableNestedClassComponent extends React.Component {
+              render() {
+                return <div />;
+              }
+            };
+
+            return (
+              <div>
+                <UnstableNestedClassComponent />
+              </div>
+            );
+          }
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "ParentComponent",
+          },
+          messageId: "NO_CLASS_COMPONENT",
+        },
+        {
+          data: {
+            name: "UnstableNestedClassComponent",
+          },
+          messageId: "NO_CLASS_COMPONENT",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        class ParentComponent extends React.Component {
+          render() {
+            class UnstableNestedClassComponent extends React.Component {
+              render() {
+                return React.createElement("div", null);
+              }
+            }
+
+            return React.createElement(
+              "div",
+              null,
+              React.createElement(UnstableNestedClassComponent, null)
+            );
+          }
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "ParentComponent",
+          },
+          messageId: "NO_CLASS_COMPONENT",
+        },
+        {
+          data: {
+            name: "UnstableNestedClassComponent",
+          },
+          messageId: "NO_CLASS_COMPONENT",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        class ParentComponent extends React.Component {
+          render() {
+            function UnstableNestedFunctionComponent() {
+              return <div />;
+            }
+
+            return (
+              <div>
+                <UnstableNestedFunctionComponent />
+              </div>
+            );
+          }
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "ParentComponent",
+          },
+          messageId: "NO_CLASS_COMPONENT",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        class ParentComponent extends React.Component {
+          render() {
+            function UnstableNestedClassComponent() {
+              return React.createElement("div", null);
+            }
+
+            return React.createElement(
+              "div",
+              null,
+              React.createElement(UnstableNestedClassComponent, null)
+            );
+          }
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "ParentComponent",
+          },
+          messageId: "NO_CLASS_COMPONENT",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        class ParentComponent extends React.Component {
+          render() {
+            const UnstableNestedVariableComponent = () => {
+              return <div />;
+            }
+
+            return (
+              <div>
+                <UnstableNestedVariableComponent />
+              </div>
+            );
+          }
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "ParentComponent",
+          },
+          messageId: "NO_CLASS_COMPONENT",
+        },
+      ],
+    },
+    {
+      code: `
+            class ParentComponent extends React.Component {
+              render() {
+                const UnstableNestedClassComponent = () => {
+                  return React.createElement("div", null);
+                }
+
+                return React.createElement(
+                  "div",
+                  null,
+                  React.createElement(UnstableNestedClassComponent, null)
+                );
+              }
+            }
+          `,
+      errors: [
+        {
+          data: {
+            name: "ParentComponent",
+          },
+          messageId: "NO_CLASS_COMPONENT",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        class ParentComponent extends React.Component {
+          render() {
+            const List = () => {
+              return <ul>item</ul>;
+            };
+
+            return <List {...this.props} />;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "ParentComponent",
+          },
+          messageId: "NO_CLASS_COMPONENT",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        class ParentComponent extends React.Component {
+          render() {
+            const List = (props) => {
+              const items = props.items
+                .map((item) => (
+                  <li key={item.key}>
+                    <span>{item.name}</span>
+                  </li>
+                ));
+
+              return <ul>{items}</ul>;
+            };
+
+            return <List {...this.props} />;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "ParentComponent",
+          },
+          messageId: "NO_CLASS_COMPONENT",
+        },
+      ],
+    },
+  ],
   valid: [
     ...allValid,
     dedent`
@@ -814,270 +1079,5 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-  ],
-  invalid: [
-    {
-      code: dedent`
-        function ParentComponent() {
-          class UnstableNestedClassComponent extends React.Component {
-            render() {
-              return <div />;
-            }
-          };
-
-          return (
-            <div>
-              <UnstableNestedClassComponent />
-            </div>
-          );
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_CLASS_COMPONENT",
-          data: {
-            name: "UnstableNestedClassComponent",
-          },
-        },
-      ],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          class UnstableNestedClassComponent extends React.Component {
-            render() {
-              return React.createElement("div", null);
-            }
-          }
-
-          return React.createElement(
-            "div",
-            null,
-            React.createElement(UnstableNestedClassComponent, null)
-          );
-        }
-      `,
-      errors: [{
-        messageId: "NO_CLASS_COMPONENT",
-        data: {
-          name: "UnstableNestedClassComponent",
-        },
-      }],
-    },
-    {
-      code: dedent`
-        class ParentComponent extends React.Component {
-          render() {
-            class UnstableNestedClassComponent extends React.Component {
-              render() {
-                return <div />;
-              }
-            };
-
-            return (
-              <div>
-                <UnstableNestedClassComponent />
-              </div>
-            );
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_CLASS_COMPONENT",
-          data: {
-            name: "ParentComponent",
-          },
-        },
-        {
-          messageId: "NO_CLASS_COMPONENT",
-          data: {
-            name: "UnstableNestedClassComponent",
-          },
-        },
-      ],
-    },
-    {
-      code: dedent`
-        class ParentComponent extends React.Component {
-          render() {
-            class UnstableNestedClassComponent extends React.Component {
-              render() {
-                return React.createElement("div", null);
-              }
-            }
-
-            return React.createElement(
-              "div",
-              null,
-              React.createElement(UnstableNestedClassComponent, null)
-            );
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_CLASS_COMPONENT",
-          data: {
-            name: "ParentComponent",
-          },
-        },
-        {
-          messageId: "NO_CLASS_COMPONENT",
-          data: {
-            name: "UnstableNestedClassComponent",
-          },
-        },
-      ],
-    },
-    {
-      code: dedent`
-        class ParentComponent extends React.Component {
-          render() {
-            function UnstableNestedFunctionComponent() {
-              return <div />;
-            }
-
-            return (
-              <div>
-                <UnstableNestedFunctionComponent />
-              </div>
-            );
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_CLASS_COMPONENT",
-          data: {
-            name: "ParentComponent",
-          },
-        },
-      ],
-    },
-    {
-      code: dedent`
-        class ParentComponent extends React.Component {
-          render() {
-            function UnstableNestedClassComponent() {
-              return React.createElement("div", null);
-            }
-
-            return React.createElement(
-              "div",
-              null,
-              React.createElement(UnstableNestedClassComponent, null)
-            );
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_CLASS_COMPONENT",
-          data: {
-            name: "ParentComponent",
-          },
-        },
-      ],
-    },
-    {
-      code: dedent`
-        class ParentComponent extends React.Component {
-          render() {
-            const UnstableNestedVariableComponent = () => {
-              return <div />;
-            }
-
-            return (
-              <div>
-                <UnstableNestedVariableComponent />
-              </div>
-            );
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_CLASS_COMPONENT",
-          data: {
-            name: "ParentComponent",
-          },
-        },
-      ],
-    },
-    {
-      code: `
-            class ParentComponent extends React.Component {
-              render() {
-                const UnstableNestedClassComponent = () => {
-                  return React.createElement("div", null);
-                }
-
-                return React.createElement(
-                  "div",
-                  null,
-                  React.createElement(UnstableNestedClassComponent, null)
-                );
-              }
-            }
-          `,
-      errors: [
-        {
-          messageId: "NO_CLASS_COMPONENT",
-          data: {
-            name: "ParentComponent",
-          },
-        },
-      ],
-    },
-    {
-      code: dedent`
-        class ParentComponent extends React.Component {
-          render() {
-            const List = () => {
-              return <ul>item</ul>;
-            };
-
-            return <List {...this.props} />;
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_CLASS_COMPONENT",
-          data: {
-            name: "ParentComponent",
-          },
-        },
-      ],
-    },
-    {
-      code: dedent`
-        class ParentComponent extends React.Component {
-          render() {
-            const List = (props) => {
-              const items = props.items
-                .map((item) => (
-                  <li key={item.key}>
-                    <span>{item.name}</span>
-                  </li>
-                ));
-
-              return <ul>{items}</ul>;
-            };
-
-            return <List {...this.props} />;
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_CLASS_COMPONENT",
-          data: {
-            name: "ParentComponent",
-          },
-        },
-      ],
-    },
   ],
 });

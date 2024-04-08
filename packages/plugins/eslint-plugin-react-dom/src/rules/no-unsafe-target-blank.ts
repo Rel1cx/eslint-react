@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/quotes */
 import { NodeType } from "@eslint-react/ast";
 import { findPropInAttributes, getPropValue } from "@eslint-react/jsx";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -20,7 +19,6 @@ function isSafeRel(value: string) {
 }
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -28,13 +26,13 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_UNSAFE_TARGET_BLANK:
         `Using 'target="_blank"' on an external link without 'rel="noreferrer noopener"' is a security risk.`,
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     return {
       JSXElement(node) {
@@ -66,10 +64,11 @@ export default createRule<[], MessageID>({
         );
         if (!hasUnsafeRel) return;
         context.report({
-          node,
           messageId: "NO_UNSAFE_TARGET_BLANK",
+          node,
         });
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

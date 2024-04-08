@@ -9,32 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    "<a />;",
-    "<span />;",
-    '<button type="button">Click me</button>;',
-    'const Button = () => <button type="button">Click me</button>;',
-    dedent`
-      function App() {
-          return <button type="button">Click me</button>;
-      }
-    `,
-    dedent`
-      import React from "react";
-
-      function App() {
-          return React.createElement("button", { type: "button" }, "Click me");
-      }
-    `,
-    dedent`
-      import { createElement } from "react";
-
-      function App() {
-          return createElement("button", { type: "button" }, "Click me");
-      }
-    `,
-  ],
   invalid: [
     {
       code: "<button>Click me</button>;",
@@ -105,5 +79,31 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+  ],
+  valid: [
+    ...allValid,
+    "<a />;",
+    "<span />;",
+    '<button type="button">Click me</button>;',
+    'const Button = () => <button type="button">Click me</button>;',
+    dedent`
+      function App() {
+          return <button type="button">Click me</button>;
+      }
+    `,
+    dedent`
+      import React from "react";
+
+      function App() {
+          return React.createElement("button", { type: "button" }, "Click me");
+      }
+    `,
+    dedent`
+      import { createElement } from "react";
+
+      function App() {
+          return createElement("button", { type: "button" }, "Click me");
+      }
+    `,
   ],
 });

@@ -10,7 +10,6 @@ export const RULE_NAME = "no-children-for-each";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -18,13 +17,13 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_CHILDREN_FOR_EACH:
         "Using 'Children.forEach' is uncommon and can lead to fragile code. Use alternatives instead.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const pragma = getPragmaFromContext(context);
 
@@ -39,4 +38,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

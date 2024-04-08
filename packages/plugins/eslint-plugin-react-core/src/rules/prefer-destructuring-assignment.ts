@@ -20,19 +20,18 @@ function isMemberExpressionWithObjectName(node: TSESTree.MemberExpression): node
 }
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
       description: "enforce using destructuring assignment in component props and context",
       recommended: "recommended",
     },
-    schema: [],
     messages: {
       PREFER_DESTRUCTURING_ASSIGNMENT: "Prefer destructuring assignment.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollector(context);
     const memberExpressionWithNames: [Scope, MemberExpressionWithObjectName][] = [];
@@ -90,4 +89,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

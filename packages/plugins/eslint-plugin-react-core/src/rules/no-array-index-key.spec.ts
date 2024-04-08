@@ -9,9 +9,6 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-  ],
   invalid: [
     {
       code: "foo.map((bar, i) => <Foo key={i} />)",
@@ -26,7 +23,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
     },
     {
-      // eslint-disable-next-line no-template-curly-in-string
       code: "foo.map((bar, i) => <Foo key={`foo-${i}`} />)",
       errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
     },
@@ -113,7 +109,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
     },
     {
-      // eslint-disable-next-line no-template-curly-in-string
       code: "foo.map((bar, i) => React.createElement('Foo', { key: `foo-${i}` }))",
       errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
     },
@@ -249,5 +244,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
     },
+  ],
+  valid: [
+    ...allValid,
   ],
 });

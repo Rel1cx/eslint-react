@@ -9,6 +9,144 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
+  invalid: [
+    {
+      code: dedent`
+        function Component({ hideShapes, debugSvg }) {
+          return <div>{hideShapes ? null : debugSvg ? <ShapesWithSVGs /> : <ShapesToDisplay />}</div>;
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        type AppProps = {
+          items: string[];
+          count: number;
+        }
+
+        const App = ({ items, count }: AppProps) => {
+            return <div>{direction ? (direction === "down" ? "▼" : "▲") : ""}</div>
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        const someCondition = 0;
+        const SomeComponent = () => <div />;
+
+        const App = () => {
+          return (
+            <>
+              {!!someCondition
+                ? (
+                <SomeComponent
+                  prop1={val1}
+                  prop2={val2}
+                />)
+                : someCondition ? null : <div />
+              }
+            </>
+          )
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        const someCondition = 0;
+        const SomeComponent = () => <div />;
+
+        const App = () => {
+          return (
+            <>
+              {!!someCondition
+                ? (
+                <SomeComponent
+                  prop1={val1}
+                  prop2={val2}
+                />)
+                : someCondition && <div />
+              }
+            </>
+          )
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        const someCondition = 0;
+        const SomeComponent = () => <div />;
+
+        const App = () => {
+          return (
+            <>
+              {!!someCondition
+                ? (
+                <SomeComponent
+                  prop1={val1}
+                  prop2={val2}
+                />)
+                : someCondition ? someCondition : <div />
+              }
+            </>
+          )
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        const someCondition = 0;
+        const SomeComponent = () => <div />;
+
+        const App = () => {
+          return (
+            <>
+              {!!someCondition
+                ? (
+                <SomeComponent
+                  prop1={val1}
+                  prop2={val2}
+                />)
+                : someCondition ? "aaa"
+                : someCondition && someCondition
+                ? <div />
+                : null
+              }
+            </>
+          )
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
+  ],
   valid: [
     ...allValid,
     dedent`
@@ -348,143 +486,5 @@ ruleTester.run(RULE_NAME, rule, {
             )
         }
     `,
-  ],
-  invalid: [
-    {
-      code: dedent`
-        function Component({ hideShapes, debugSvg }) {
-          return <div>{hideShapes ? null : debugSvg ? <ShapesWithSVGs /> : <ShapesToDisplay />}</div>;
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        type AppProps = {
-          items: string[];
-          count: number;
-        }
-
-        const App = ({ items, count }: AppProps) => {
-            return <div>{direction ? (direction === "down" ? "▼" : "▲") : ""}</div>
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        const someCondition = 0;
-        const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {!!someCondition
-                ? (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />)
-                : someCondition ? null : <div />
-              }
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        const someCondition = 0;
-        const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {!!someCondition
-                ? (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />)
-                : someCondition && <div />
-              }
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        const someCondition = 0;
-        const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {!!someCondition
-                ? (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />)
-                : someCondition ? someCondition : <div />
-              }
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: dedent`
-        const someCondition = 0;
-        const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {!!someCondition
-                ? (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />)
-                : someCondition ? "aaa"
-                : someCondition && someCondition
-                ? <div />
-                : null
-              }
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
   ],
 });

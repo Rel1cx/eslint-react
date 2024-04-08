@@ -6,13 +6,6 @@ const ruleTester = new RuleTester({
   parserOptions: defaultParserOptions,
 });
 ruleTester.run(RULE_NAME, rule, {
-  valid: [
-    ...allValid,
-    "<App foo />",
-    "<App foo bar />",
-    "<App foo bar={false} />",
-    "<App foo bar={false} baz />",
-  ],
   invalid: [
     {
       code: "<App foo={true} />",
@@ -22,5 +15,12 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<App foo={true} bar />",
       errors: [{ messageId: "PREFER_SHORTHAND_BOOLEAN" }],
     },
+  ],
+  valid: [
+    ...allValid,
+    "<App foo />",
+    "<App foo bar />",
+    "<App foo bar={false} />",
+    "<App foo bar={false} baz />",
   ],
 });

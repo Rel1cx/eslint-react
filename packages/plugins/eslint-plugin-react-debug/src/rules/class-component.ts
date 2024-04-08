@@ -9,19 +9,18 @@ export const RULE_NAME = "class-component";
 export type MessageID = "CLASS_COMPONENT";
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
       description: "report all class components, including anonymous ones",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       CLASS_COMPONENT: "[class component] name: {{name}}",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollectorLegacy(context);
 
@@ -42,4 +41,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

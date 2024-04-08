@@ -31,8 +31,8 @@ type Options = readonly [
 
 const defaultOptions = [
   {
-    extensions: [".jsx", ".tsx"],
     excepts: ["index"],
+    extensions: [".jsx", ".tsx"],
     rule: "PascalCase",
   },
 ] as const satisfies Options;
@@ -48,14 +48,14 @@ const schema = [
         type: "object",
         additionalProperties: false,
         properties: {
+          excepts: {
+            type: "array",
+            items: { type: "string", format: "regex" },
+          },
           extensions: {
             type: "array",
             items: { type: "string" },
             uniqueItems: true,
-          },
-          excepts: {
-            type: "array",
-            items: { type: "string", format: "regex" },
           },
           rule: {
             type: "string",
@@ -68,22 +68,21 @@ const schema = [
 ] satisfies [JSONSchema4];
 
 export default createRule<Options, MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
       description: "enforce naming convention for JSX filenames",
       requiresTypeChecking: false,
     },
-    schema,
     messages: {
       FILENAME_CASE_MISMATCH: "File name '{{name}}' does not match {{rule}}",
       FILENAME_CASE_MISMATCH_SUGGESTION:
         "File name '{{name}}' does not match {{rule}}. Should rename to '{{suggestion}}'.",
       FILENAME_EMPTY: "File name is empty",
     },
+    schema,
   },
-  defaultOptions,
+  name: RULE_NAME,
   create(context) {
     const options = context.options[0] ?? defaultOptions[0];
     const rule = Prd.isString(options) ? options : options.rule ?? "PascalCase";
@@ -92,14 +91,12 @@ export default createRule<Options, MessageID>({
       ? options.extensions
       : defaultOptions[0].extensions;
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    const filename = context.filename ?? context.getFilename();
+    const filename = context.filename;
     const fileNameExt = filename
       .slice(filename.lastIndexOf("."));
     if (!extensions.includes(fileNameExt)) return {};
 
     function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
-      // eslint-disable-next-line security/detect-non-literal-regexp
       if (ignores.map((pattern) => new RegExp(`^${pattern}$`, "u")).some((pattern) => pattern.test(name))) {
         return true;
       }
@@ -123,8 +120,7 @@ export default createRule<Options, MessageID>({
 
     return {
       Program(node) {
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        const [basename = "", ...rest] = path.basename(context.filename ?? context.getFilename()).split(".");
+        const [basename = "", ...rest] = path.basename(context.filename).split(".");
         if (basename.length === 0) {
           context.report({ messageId: "FILENAME_EMPTY", node });
           return;
@@ -142,4 +138,5 @@ export default createRule<Options, MessageID>({
       },
     };
   },
+  defaultOptions,
 }) satisfies ESLintUtils.RuleModule<MessageID, Options>;

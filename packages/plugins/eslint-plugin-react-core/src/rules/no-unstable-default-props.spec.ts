@@ -12,78 +12,161 @@ const MESSAGE_ID = "NO_UNSTABLE_DEFAULT_PROPS";
 
 const expectedViolations = [
   {
-    messageId: MESSAGE_ID,
     data: {
-      propName: "a",
       forbiddenType: "object expression",
+      propName: "a",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
-      propName: "b",
       forbiddenType: "array expression",
+      propName: "b",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
-      propName: "c",
       forbiddenType: "RegExp literal",
+      propName: "c",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
-      propName: "d",
       forbiddenType: "arrow function expression",
+      propName: "d",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
-      propName: "e",
       forbiddenType: "function expression",
+      propName: "e",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
-      propName: "f",
       forbiddenType: "class expression",
+      propName: "f",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
-      propName: "g",
       forbiddenType: "new expression",
+      propName: "g",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
-      propName: "h",
       forbiddenType: "JSX element",
+      propName: "h",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
+      forbiddenType: "call expression",
       propName: "i",
-      forbiddenType: "call expression",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
-      propName: "j",
       forbiddenType: "call expression",
+      propName: "j",
     },
+    messageId: MESSAGE_ID,
   },
 ] as const;
 
 ruleTester.run(RULE_NAME, rule, {
+  invalid: [
+    {
+      code: dedent`
+        function App({ foo = [], ...rest }) {
+            return null
+        }
+      `,
+      errors: [{
+        data: {
+          forbiddenType: "array expression",
+          propName: "foo",
+        },
+        messageId: MESSAGE_ID,
+      }],
+    },
+    {
+      code: dedent`
+        function App({ foo = {}, ...rest }) {
+            return null
+        }
+      `,
+      errors: [{
+        data: {
+          forbiddenType: "object expression",
+          propName: "foo",
+        },
+        messageId: MESSAGE_ID,
+      }],
+    },
+    {
+      code: dedent`
+        function App(props) {
+            const { foo = [] } = props
+            return null
+        }
+      `,
+      errors: [{
+        data: {
+          forbiddenType: "array expression",
+          propName: "foo",
+        },
+        messageId: MESSAGE_ID,
+      }],
+    },
+    {
+      code: dedent`
+        function App({
+            a = {},
+            b = ['one', 'two'],
+            c = /regex/i,
+            d = () => {},
+            e = function() {},
+            f = class {},
+            g = new Thing(),
+            h = <Thing />,
+            i = Symbol('foo'),
+            j = unknownFunction()
+        }) {
+            return null
+        }
+      `,
+      errors: expectedViolations,
+    },
+    {
+      code: dedent`
+        const App = ({
+            a = {},
+            b = ['one', 'two'],
+            c = /regex/i,
+            d = () => {},
+            e = function() {},
+            f = class {},
+            g = new Thing(),
+            h = <Thing />,
+            i = Symbol('foo'),
+            j = unknownFunction()
+        }) => {
+            return null
+        }
+      `,
+      errors: expectedViolations,
+    },
+  ],
   valid: [
     ...allValid,
     dedent`
@@ -137,88 +220,5 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     dedent`export default function NonComponent({ foo = {} }) {}`,
-  ],
-  invalid: [
-    {
-      code: dedent`
-        function App({ foo = [], ...rest }) {
-            return null
-        }
-      `,
-      errors: [{
-        messageId: MESSAGE_ID,
-        data: {
-          propName: "foo",
-          forbiddenType: "array expression",
-        },
-      }],
-    },
-    {
-      code: dedent`
-        function App({ foo = {}, ...rest }) {
-            return null
-        }
-      `,
-      errors: [{
-        messageId: MESSAGE_ID,
-        data: {
-          propName: "foo",
-          forbiddenType: "object expression",
-        },
-      }],
-    },
-    {
-      code: dedent`
-        function App(props) {
-            const { foo = [] } = props
-            return null
-        }
-      `,
-      errors: [{
-        messageId: MESSAGE_ID,
-        data: {
-          propName: "foo",
-          forbiddenType: "array expression",
-        },
-      }],
-    },
-    {
-      code: dedent`
-        function App({
-            a = {},
-            b = ['one', 'two'],
-            c = /regex/i,
-            d = () => {},
-            e = function() {},
-            f = class {},
-            g = new Thing(),
-            h = <Thing />,
-            i = Symbol('foo'),
-            j = unknownFunction()
-        }) {
-            return null
-        }
-      `,
-      errors: expectedViolations,
-    },
-    {
-      code: dedent`
-        const App = ({
-            a = {},
-            b = ['one', 'two'],
-            c = /regex/i,
-            d = () => {},
-            e = function() {},
-            f = class {},
-            g = new Thing(),
-            h = <Thing />,
-            i = Symbol('foo'),
-            j = unknownFunction()
-        }) => {
-            return null
-        }
-      `,
-      errors: expectedViolations,
-    },
   ],
 });

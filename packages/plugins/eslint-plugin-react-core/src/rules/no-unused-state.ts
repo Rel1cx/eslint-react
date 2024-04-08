@@ -17,9 +17,7 @@ function isKeyLiteralLike(
   property: TSESTree.Node,
 ): boolean {
   return property.type === NodeType.Literal
-    // eslint-disable-next-line @typescript-eslint/no-extra-parens
     || (property.type === NodeType.TemplateLiteral && property.expressions.length === 0)
-    // eslint-disable-next-line @typescript-eslint/no-extra-parens
     || (!node.computed && property.type === NodeType.Identifier);
 }
 
@@ -51,17 +49,16 @@ function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
 }
 
 const isGetDerivedStateFromProps = isMatching({
-  static: true,
   key: {
     name: "getDerivedStateFromProps",
   },
+  static: true,
   value: {
     params: P.array(),
   },
 });
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -69,12 +66,12 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_UNUSED_STATE: "Unused class component state.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const classStack = MutList.make<TSESTreeClass>();
     const methodStack = MutList.make<TSESTree.MethodDefinition | TSESTree.PropertyDefinition>();
@@ -90,11 +87,11 @@ export default createRule<[], MessageID>({
       const [def, isUsed] = stateDefs.get(currentClass) ?? [O.none(), false];
       if (O.isNone(def) || isUsed) return;
       context.report({
-        node: def.value,
-        messageId: "NO_UNUSED_STATE",
         data: {
           className: O.getOrElse(className, () => "Component"),
         },
+        messageId: "NO_UNUSED_STATE",
+        node: def.value,
       });
     }
     function methodEnter(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
@@ -123,16 +120,6 @@ export default createRule<[], MessageID>({
     }
 
     return {
-      ClassDeclaration: classEnter,
-      ClassExpression: classEnter,
-      "ClassDeclaration:exit": classExit,
-      "ClassExpression:exit": classExit,
-      MethodDefinition: methodEnter,
-      PropertyDefinition: methodEnter,
-      "MethodDefinition:exit": methodExit,
-      "PropertyDefinition:exit": methodExit,
-      "MethodDefinition[key.name='constructor']": constructorEnter,
-      "MethodDefinition[key.name='constructor']:exit": constructorExit,
       AssignmentExpression(node) {
         if (!isAssignmentToThisState(node)) return;
         const currentClass = MutList.tail(classStack);
@@ -142,6 +129,10 @@ export default createRule<[], MessageID>({
         const [_, isUsed] = stateDefs.get(currentClass) ?? [O.none(), false];
         stateDefs.set(currentClass, [O.some(node.left), isUsed]);
       },
+      ClassDeclaration: classEnter,
+      "ClassDeclaration:exit": classExit,
+      ClassExpression: classEnter,
+      "ClassExpression:exit": classExit,
       MemberExpression(node) {
         if (!isThisExpression(node.object)) return;
         // detect `this.state`
@@ -155,6 +146,12 @@ export default createRule<[], MessageID>({
         const [def] = stateDefs.get(currentClass) ?? [O.none(), false];
         stateDefs.set(currentClass, [def, true]);
       },
+      MethodDefinition: methodEnter,
+      "MethodDefinition:exit": methodExit,
+      "MethodDefinition[key.name='constructor']": constructorEnter,
+      "MethodDefinition[key.name='constructor']:exit": constructorExit,
+      PropertyDefinition: methodEnter,
+      "PropertyDefinition:exit": methodExit,
       VariableDeclarator(node) {
         const currentClass = MutList.tail(classStack);
         if (!currentClass || !isClassComponent(currentClass, context)) return;
@@ -176,4 +173,5 @@ export default createRule<[], MessageID>({
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

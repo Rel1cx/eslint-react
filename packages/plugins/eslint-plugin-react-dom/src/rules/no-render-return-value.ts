@@ -17,7 +17,6 @@ const banParentTypes = [
 ] as const;
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -25,12 +24,12 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_RENDER_RETURN_VALUE: "Do not depend on the return value from '{{objectName}}.render'.",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     return {
       CallExpression(node) {
@@ -48,13 +47,14 @@ export default createRule<[], MessageID>({
           return;
         }
         context.report({
-          messageId: "NO_RENDER_RETURN_VALUE",
-          node,
           data: {
             objectName,
           },
+          messageId: "NO_RENDER_RETURN_VALUE",
+          node,
         });
       },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;

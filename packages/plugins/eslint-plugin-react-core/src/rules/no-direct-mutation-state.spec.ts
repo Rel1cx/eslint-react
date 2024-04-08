@@ -9,6 +9,25 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
+  invalid: [
+    {
+      code: dedent`
+        class Hello extends React.Component {
+          constructor(props) {
+            super(props)
+
+            // Assign at instance creation time, not on a callback
+            doSomethingAsync(() => {
+              this.state = 'bad';
+            });
+          }
+        }
+      `,
+      errors: [{
+        messageId: "NO_DIRECT_MUTATION_STATE",
+      }],
+    },
+  ],
   valid: [
     ...allValid,
     dedent`
@@ -50,24 +69,5 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-  ],
-  invalid: [
-    {
-      code: dedent`
-        class Hello extends React.Component {
-          constructor(props) {
-            super(props)
-
-            // Assign at instance creation time, not on a callback
-            doSomethingAsync(() => {
-              this.state = 'bad';
-            });
-          }
-        }
-      `,
-      errors: [{
-        messageId: "NO_DIRECT_MUTATION_STATE",
-      }],
-    },
   ],
 });

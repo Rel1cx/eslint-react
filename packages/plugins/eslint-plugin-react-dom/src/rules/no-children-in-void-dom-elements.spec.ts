@@ -9,6 +9,107 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
+  invalid: [
+    {
+      code: "<br>Foo</br>;",
+      errors: [
+        {
+          data: { element: "br" },
+          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+        },
+      ],
+    },
+    {
+      code: '<br children="Foo" />;',
+      errors: [
+        {
+          data: { element: "br" },
+          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+        },
+      ],
+    },
+    {
+      code: '<img {...props} children="Foo" />;',
+      errors: [
+        {
+          data: { element: "img" },
+          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+        },
+      ],
+    },
+    {
+      code: '<br dangerouslySetInnerHTML={{ __html: "Foo" }} />;',
+      errors: [
+        {
+          data: { element: "br" },
+          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+        },
+      ],
+    },
+    {
+      code: 'React.createElement("br", {}, "Foo");',
+      errors: [
+        {
+          data: { element: "br" },
+          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+        },
+      ],
+    },
+    {
+      code: 'React.createElement("br", { children: "Foo" });',
+      errors: [
+        {
+          data: { element: "br" },
+          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+        },
+      ],
+    },
+    {
+      code: 'React.createElement("br", { dangerouslySetInnerHTML: { __html: "Foo" } });',
+      errors: [
+        {
+          data: { element: "br" },
+          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        import React, {createElement} from "react";
+        createElement("img", {}, "Foo");
+      `,
+      errors: [
+        {
+          data: { element: "img" },
+          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        import React, {createElement} from "react";
+        createElement("img", { children: "Foo" });
+      `,
+      errors: [
+        {
+          data: { element: "img" },
+          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        import React, {createElement} from "react";
+        createElement("img", { dangerouslySetInnerHTML: { __html: "Foo" } });
+      `,
+      errors: [
+        {
+          data: { element: "img" },
+          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+        },
+      ],
+    },
+  ],
   valid: [
     ...allValid,
     "<div>Foo</div>;",
@@ -56,106 +157,5 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-  ],
-  invalid: [
-    {
-      code: "<br>Foo</br>;",
-      errors: [
-        {
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
-          data: { element: "br" },
-        },
-      ],
-    },
-    {
-      code: '<br children="Foo" />;',
-      errors: [
-        {
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
-          data: { element: "br" },
-        },
-      ],
-    },
-    {
-      code: '<img {...props} children="Foo" />;',
-      errors: [
-        {
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
-          data: { element: "img" },
-        },
-      ],
-    },
-    {
-      code: '<br dangerouslySetInnerHTML={{ __html: "Foo" }} />;',
-      errors: [
-        {
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
-          data: { element: "br" },
-        },
-      ],
-    },
-    {
-      code: 'React.createElement("br", {}, "Foo");',
-      errors: [
-        {
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
-          data: { element: "br" },
-        },
-      ],
-    },
-    {
-      code: 'React.createElement("br", { children: "Foo" });',
-      errors: [
-        {
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
-          data: { element: "br" },
-        },
-      ],
-    },
-    {
-      code: 'React.createElement("br", { dangerouslySetInnerHTML: { __html: "Foo" } });',
-      errors: [
-        {
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
-          data: { element: "br" },
-        },
-      ],
-    },
-    {
-      code: dedent`
-        import React, {createElement} from "react";
-        createElement("img", {}, "Foo");
-      `,
-      errors: [
-        {
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
-          data: { element: "img" },
-        },
-      ],
-    },
-    {
-      code: dedent`
-        import React, {createElement} from "react";
-        createElement("img", { children: "Foo" });
-      `,
-      errors: [
-        {
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
-          data: { element: "img" },
-        },
-      ],
-    },
-    {
-      code: dedent`
-        import React, {createElement} from "react";
-        createElement("img", { dangerouslySetInnerHTML: { __html: "Foo" } });
-      `,
-      errors: [
-        {
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
-          data: { element: "img" },
-        },
-      ],
-    },
   ],
 });

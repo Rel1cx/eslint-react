@@ -9,6 +9,576 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
+  invalid: [
+    {
+      code: dedent`
+        function ParentComponent() {
+          function UnstableNestedFunctionComponent() {
+            return <div />;
+          }
+
+          return (
+            <div>
+              <UnstableNestedFunctionComponent />
+            </div>
+          );
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          function UnstableNestedFunctionComponent() {
+            return React.createElement("div", null);
+          }
+
+          return React.createElement(
+            "div",
+            null,
+            React.createElement(UnstableNestedFunctionComponent, null)
+          );
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          const UnstableNestedVariableComponent = () => {
+            return <div />;
+          }
+
+          return (
+            <div>
+              <UnstableNestedVariableComponent />
+            </div>
+          );
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          const UnstableNestedVariableComponent = () => {
+            return React.createElement("div", null);
+          }
+
+          return React.createElement(
+            "div",
+            null,
+            React.createElement(UnstableNestedVariableComponent, null)
+          );
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        const ParentComponent = () => {
+          function UnstableNestedFunctionComponent() {
+            return <div />;
+          }
+
+          return (
+            <div>
+              <UnstableNestedFunctionComponent />
+            </div>
+          );
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        const ParentComponent = () => {
+          function UnstableNestedFunctionComponent() {
+            return React.createElement("div", null);
+          }
+
+          return React.createElement(
+            "div",
+            null,
+            React.createElement(UnstableNestedFunctionComponent, null)
+          );
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        export default () => {
+          function UnstableNestedFunctionComponent() {
+            return <div />;
+          }
+
+          return (
+            <div>
+              <UnstableNestedFunctionComponent />
+            </div>
+          );
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        export default () => {
+          function UnstableNestedFunctionComponent() {
+            return React.createElement("div", null);
+          }
+
+          return React.createElement(
+            "div",
+            null,
+            React.createElement(UnstableNestedFunctionComponent, null)
+          );
+        };
+      `,
+      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        const ParentComponent = () => {
+          const UnstableNestedVariableComponent = () => {
+            return <div />;
+          }
+
+          return (
+            <div>
+              <UnstableNestedVariableComponent />
+            </div>
+          );
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        const ParentComponent = () => {
+          const UnstableNestedVariableComponent = () => {
+            return React.createElement("div", null);
+          }
+
+          return React.createElement(
+            "div",
+            null,
+            React.createElement(UnstableNestedVariableComponent, null)
+          );
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          class UnstableNestedClassComponent extends React.Component {
+            render() {
+              return <div />;
+            }
+          };
+
+          return (
+            <div>
+              <UnstableNestedClassComponent />
+            </div>
+          );
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          class UnstableNestedClassComponent extends React.Component {
+            render() {
+              return React.createElement("div", null);
+            }
+          }
+
+          return React.createElement(
+            "div",
+            null,
+            React.createElement(UnstableNestedClassComponent, null)
+          );
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        class ParentComponent extends React.Component {
+          render() {
+            class UnstableNestedClassComponent extends React.Component {
+              render() {
+                return <div />;
+              }
+            };
+
+            return (
+              <div>
+                <UnstableNestedClassComponent />
+              </div>
+            );
+          }
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        class ParentComponent extends React.Component {
+          render() {
+            class UnstableNestedClassComponent extends React.Component {
+              render() {
+                return React.createElement("div", null);
+              }
+            }
+
+            return React.createElement(
+              "div",
+              null,
+              React.createElement(UnstableNestedClassComponent, null)
+            );
+          }
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        class ParentComponent extends React.Component {
+          render() {
+            function UnstableNestedFunctionComponent() {
+              return <div />;
+            }
+
+            return (
+              <div>
+                <UnstableNestedFunctionComponent />
+              </div>
+            );
+          }
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        class ParentComponent extends React.Component {
+          render() {
+            function UnstableNestedClassComponent() {
+              return React.createElement("div", null);
+            }
+
+            return React.createElement(
+              "div",
+              null,
+              React.createElement(UnstableNestedClassComponent, null)
+            );
+          }
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        class ParentComponent extends React.Component {
+          render() {
+            const UnstableNestedVariableComponent = () => {
+              return <div />;
+            }
+
+            return (
+              <div>
+                <UnstableNestedVariableComponent />
+              </div>
+            );
+          }
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: `
+            class ParentComponent extends React.Component {
+              render() {
+                const UnstableNestedClassComponent = () => {
+                  return React.createElement("div", null);
+                }
+
+                return React.createElement(
+                  "div",
+                  null,
+                  React.createElement(UnstableNestedClassComponent, null)
+                );
+              }
+            }
+          `,
+      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          function getComponent() {
+            function NestedUnstableFunctionComponent() {
+              return <div />;
+            };
+
+            return <NestedUnstableFunctionComponent />;
+          }
+
+          return (
+            <div>
+              {getComponent()}
+            </div>
+          );
+        }
+      `,
+      errors: [{ data: { name: "NestedUnstableFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          function getComponent() {
+            function NestedUnstableFunctionComponent() {
+              return React.createElement("div", null);
+            }
+
+            return React.createElement(NestedUnstableFunctionComponent, null);
+          }
+
+          return React.createElement("div", null, getComponent());
+        }
+      `,
+      errors: [{ data: { name: "NestedUnstableFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ComponentWithProps(props) {
+          return React.createElement("div", null);
+        }
+
+        function ParentComponent() {
+          return React.createElement(ComponentWithProps, {
+            footer: function SomeFooter() {
+              return React.createElement("div", null);
+            }
+          });
+        }
+      `,
+      errors: [{ data: { name: "SomeFooter" }, messageId: "NESTED_COMPONENT_IN_PROPS" }],
+    },
+    {
+      code: dedent`
+        function RenderPropComponent(props) {
+          return props.render({});
+        }
+
+        function ParentComponent() {
+          return React.createElement(
+            RenderPropComponent,
+            null,
+            () => {
+              function UnstableNestedComponent() {
+                return React.createElement("div", null);
+              }
+
+              return React.createElement(
+                "div",
+                null,
+                React.createElement(UnstableNestedComponent, null)
+              );
+            }
+          );
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          return (
+            <ComponentForProps someMap={{ Header: () => <div /> }} />
+          );
+        }
+      `,
+      errors: [{ data: { name: "Header" }, messageId: "NESTED_COMPONENT_IN_PROPS" }],
+    },
+    {
+      code: dedent`
+        class ParentComponent extends React.Component {
+          render() {
+            const List = () => {
+              return <ul>item</ul>;
+            };
+
+            return <List {...this.props} />;
+          }
+        }
+      `,
+      errors: [{ data: { name: "List" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        class ParentComponent extends React.Component {
+          render() {
+            const List = (props) => {
+              const items = props.items
+                .map((item) => (
+                  <li key={item.key}>
+                    <span>{item.name}</span>
+                  </li>
+                ));
+
+              return <ul>{items}</ul>;
+            };
+
+            return <List {...this.props} />;
+          }
+        }
+      `,
+      errors: [{ data: { name: "List" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          const UnstableNestedComponent = React.memo(() => {
+            return <div />;
+          });
+
+          return (
+            <div>
+              <UnstableNestedComponent />
+            </div>
+          );
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          const UnstableNestedComponent = React.memo(
+            () => React.createElement("div", null),
+          );
+
+          return React.createElement(
+            "div",
+            null,
+            React.createElement(UnstableNestedComponent, null)
+          );
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          const UnstableNestedComponent = React.memo(
+            function () {
+              return <div />;
+            }
+          );
+
+          return (
+            <div>
+              <UnstableNestedComponent />
+            </div>
+          );
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          const UnstableNestedComponent = React.memo(
+            function () {
+              return React.createElement("div", null);
+            }
+          );
+
+          return React.createElement(
+            "div",
+            null,
+            React.createElement(UnstableNestedComponent, null)
+          );
+        }
+      `,
+      errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          const MemoizedNestedComponent = React.useCallback(() => <div />, []);
+
+          return (
+            <div>
+              <MemoizedNestedComponent />
+            </div>
+          );
+        }
+      `,
+      errors: [{ data: { name: "MemoizedNestedComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          const MemoizedNestedComponent = React.useCallback(
+            () => React.createElement("div", null),
+            []
+          );
+
+          return React.createElement(
+            "div",
+            null,
+            React.createElement(MemoizedNestedComponent, null)
+          );
+        }
+      `,
+      errors: [{ data: { name: "MemoizedNestedComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          const MemoizedNestedFunctionComponent = React.useCallback(
+            function () {
+              return <div />;
+            },
+            []
+          );
+
+          return (
+            <div>
+              <MemoizedNestedFunctionComponent />
+            </div>
+          );
+        }
+      `,
+      errors: [{ data: { name: "MemoizedNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+    {
+      code: dedent`
+        function ParentComponent() {
+          const MemoizedNestedFunctionComponent = React.useCallback(
+            function () {
+              return React.createElement("div", null);
+            },
+            []
+          );
+
+          return React.createElement(
+            "div",
+            null,
+            React.createElement(MemoizedNestedFunctionComponent, null)
+          );
+        }
+      `,
+      errors: [{ data: { name: "MemoizedNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+    },
+  ],
   valid: [
     ...allValid,
     dedent`
@@ -383,575 +953,5 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-  ],
-  invalid: [
-    {
-      code: dedent`
-        function ParentComponent() {
-          function UnstableNestedFunctionComponent() {
-            return <div />;
-          }
-
-          return (
-            <div>
-              <UnstableNestedFunctionComponent />
-            </div>
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } }],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          function UnstableNestedFunctionComponent() {
-            return React.createElement("div", null);
-          }
-
-          return React.createElement(
-            "div",
-            null,
-            React.createElement(UnstableNestedFunctionComponent, null)
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } }],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          const UnstableNestedVariableComponent = () => {
-            return <div />;
-          }
-
-          return (
-            <div>
-              <UnstableNestedVariableComponent />
-            </div>
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedVariableComponent" } }],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          const UnstableNestedVariableComponent = () => {
-            return React.createElement("div", null);
-          }
-
-          return React.createElement(
-            "div",
-            null,
-            React.createElement(UnstableNestedVariableComponent, null)
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedVariableComponent" } }],
-    },
-    {
-      code: dedent`
-        const ParentComponent = () => {
-          function UnstableNestedFunctionComponent() {
-            return <div />;
-          }
-
-          return (
-            <div>
-              <UnstableNestedFunctionComponent />
-            </div>
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } }],
-    },
-    {
-      code: dedent`
-        const ParentComponent = () => {
-          function UnstableNestedFunctionComponent() {
-            return React.createElement("div", null);
-          }
-
-          return React.createElement(
-            "div",
-            null,
-            React.createElement(UnstableNestedFunctionComponent, null)
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } }],
-    },
-    {
-      code: dedent`
-        export default () => {
-          function UnstableNestedFunctionComponent() {
-            return <div />;
-          }
-
-          return (
-            <div>
-              <UnstableNestedFunctionComponent />
-            </div>
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } }],
-    },
-    {
-      code: dedent`
-        export default () => {
-          function UnstableNestedFunctionComponent() {
-            return React.createElement("div", null);
-          }
-
-          return React.createElement(
-            "div",
-            null,
-            React.createElement(UnstableNestedFunctionComponent, null)
-          );
-        };
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } }],
-    },
-    {
-      code: dedent`
-        const ParentComponent = () => {
-          const UnstableNestedVariableComponent = () => {
-            return <div />;
-          }
-
-          return (
-            <div>
-              <UnstableNestedVariableComponent />
-            </div>
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedVariableComponent" } }],
-    },
-    {
-      code: dedent`
-        const ParentComponent = () => {
-          const UnstableNestedVariableComponent = () => {
-            return React.createElement("div", null);
-          }
-
-          return React.createElement(
-            "div",
-            null,
-            React.createElement(UnstableNestedVariableComponent, null)
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedVariableComponent" } }],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          class UnstableNestedClassComponent extends React.Component {
-            render() {
-              return <div />;
-            }
-          };
-
-          return (
-            <div>
-              <UnstableNestedClassComponent />
-            </div>
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedClassComponent" } }],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          class UnstableNestedClassComponent extends React.Component {
-            render() {
-              return React.createElement("div", null);
-            }
-          }
-
-          return React.createElement(
-            "div",
-            null,
-            React.createElement(UnstableNestedClassComponent, null)
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedClassComponent" } }],
-    },
-    {
-      code: dedent`
-        class ParentComponent extends React.Component {
-          render() {
-            class UnstableNestedClassComponent extends React.Component {
-              render() {
-                return <div />;
-              }
-            };
-
-            return (
-              <div>
-                <UnstableNestedClassComponent />
-              </div>
-            );
-          }
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedClassComponent" } }],
-    },
-    {
-      code: dedent`
-        class ParentComponent extends React.Component {
-          render() {
-            class UnstableNestedClassComponent extends React.Component {
-              render() {
-                return React.createElement("div", null);
-              }
-            }
-
-            return React.createElement(
-              "div",
-              null,
-              React.createElement(UnstableNestedClassComponent, null)
-            );
-          }
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedClassComponent" } }],
-    },
-    {
-      code: dedent`
-        class ParentComponent extends React.Component {
-          render() {
-            function UnstableNestedFunctionComponent() {
-              return <div />;
-            }
-
-            return (
-              <div>
-                <UnstableNestedFunctionComponent />
-              </div>
-            );
-          }
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedFunctionComponent" } }],
-    },
-    {
-      code: dedent`
-        class ParentComponent extends React.Component {
-          render() {
-            function UnstableNestedClassComponent() {
-              return React.createElement("div", null);
-            }
-
-            return React.createElement(
-              "div",
-              null,
-              React.createElement(UnstableNestedClassComponent, null)
-            );
-          }
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedClassComponent" } }],
-    },
-    {
-      code: dedent`
-        class ParentComponent extends React.Component {
-          render() {
-            const UnstableNestedVariableComponent = () => {
-              return <div />;
-            }
-
-            return (
-              <div>
-                <UnstableNestedVariableComponent />
-              </div>
-            );
-          }
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedVariableComponent" } }],
-    },
-    {
-      code: `
-            class ParentComponent extends React.Component {
-              render() {
-                const UnstableNestedClassComponent = () => {
-                  return React.createElement("div", null);
-                }
-
-                return React.createElement(
-                  "div",
-                  null,
-                  React.createElement(UnstableNestedClassComponent, null)
-                );
-              }
-            }
-          `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedClassComponent" } }],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          function getComponent() {
-            function NestedUnstableFunctionComponent() {
-              return <div />;
-            };
-
-            return <NestedUnstableFunctionComponent />;
-          }
-
-          return (
-            <div>
-              {getComponent()}
-            </div>
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "NestedUnstableFunctionComponent" } }],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          function getComponent() {
-            function NestedUnstableFunctionComponent() {
-              return React.createElement("div", null);
-            }
-
-            return React.createElement(NestedUnstableFunctionComponent, null);
-          }
-
-          return React.createElement("div", null, getComponent());
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "NestedUnstableFunctionComponent" } }],
-    },
-    {
-      code: dedent`
-        function ComponentWithProps(props) {
-          return React.createElement("div", null);
-        }
-
-        function ParentComponent() {
-          return React.createElement(ComponentWithProps, {
-            footer: function SomeFooter() {
-              return React.createElement("div", null);
-            }
-          });
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT_IN_PROPS", data: { name: "SomeFooter" } }],
-    },
-    {
-      code: dedent`
-        function RenderPropComponent(props) {
-          return props.render({});
-        }
-
-        function ParentComponent() {
-          return React.createElement(
-            RenderPropComponent,
-            null,
-            () => {
-              function UnstableNestedComponent() {
-                return React.createElement("div", null);
-              }
-
-              return React.createElement(
-                "div",
-                null,
-                React.createElement(UnstableNestedComponent, null)
-              );
-            }
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedComponent" } }],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          return (
-            <ComponentForProps someMap={{ Header: () => <div /> }} />
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT_IN_PROPS", data: { name: "Header" } }],
-    },
-    {
-      code: dedent`
-        class ParentComponent extends React.Component {
-          render() {
-            const List = () => {
-              return <ul>item</ul>;
-            };
-
-            return <List {...this.props} />;
-          }
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "List" } }],
-    },
-    {
-      code: dedent`
-        class ParentComponent extends React.Component {
-          render() {
-            const List = (props) => {
-              const items = props.items
-                .map((item) => (
-                  <li key={item.key}>
-                    <span>{item.name}</span>
-                  </li>
-                ));
-
-              return <ul>{items}</ul>;
-            };
-
-            return <List {...this.props} />;
-          }
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "List" } }],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          const UnstableNestedComponent = React.memo(() => {
-            return <div />;
-          });
-
-          return (
-            <div>
-              <UnstableNestedComponent />
-            </div>
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedComponent" } }],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          const UnstableNestedComponent = React.memo(
-            () => React.createElement("div", null),
-          );
-
-          return React.createElement(
-            "div",
-            null,
-            React.createElement(UnstableNestedComponent, null)
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedComponent" } }],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          const UnstableNestedComponent = React.memo(
-            function () {
-              return <div />;
-            }
-          );
-
-          return (
-            <div>
-              <UnstableNestedComponent />
-            </div>
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedComponent" } }],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          const UnstableNestedComponent = React.memo(
-            function () {
-              return React.createElement("div", null);
-            }
-          );
-
-          return React.createElement(
-            "div",
-            null,
-            React.createElement(UnstableNestedComponent, null)
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "UnstableNestedComponent" } }],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          const MemoizedNestedComponent = React.useCallback(() => <div />, []);
-
-          return (
-            <div>
-              <MemoizedNestedComponent />
-            </div>
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "MemoizedNestedComponent" } }],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          const MemoizedNestedComponent = React.useCallback(
-            () => React.createElement("div", null),
-            []
-          );
-
-          return React.createElement(
-            "div",
-            null,
-            React.createElement(MemoizedNestedComponent, null)
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "MemoizedNestedComponent" } }],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          const MemoizedNestedFunctionComponent = React.useCallback(
-            function () {
-              return <div />;
-            },
-            []
-          );
-
-          return (
-            <div>
-              <MemoizedNestedFunctionComponent />
-            </div>
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "MemoizedNestedFunctionComponent" } }],
-    },
-    {
-      code: dedent`
-        function ParentComponent() {
-          const MemoizedNestedFunctionComponent = React.useCallback(
-            function () {
-              return React.createElement("div", null);
-            },
-            []
-          );
-
-          return React.createElement(
-            "div",
-            null,
-            React.createElement(MemoizedNestedFunctionComponent, null)
-          );
-        }
-      `,
-      errors: [{ messageId: "NESTED_COMPONENT", data: { name: "MemoizedNestedFunctionComponent" } }],
-    },
   ],
 });

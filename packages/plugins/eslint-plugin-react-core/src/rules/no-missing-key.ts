@@ -15,7 +15,6 @@ export type MessageID =
   | "NO_MISSING_KEY_WITH_FRAGMENT";
 
 export default createRule<[], MessageID>({
-  name: RULE_NAME,
   meta: {
     type: "problem",
     docs: {
@@ -23,14 +22,14 @@ export default createRule<[], MessageID>({
       recommended: "recommended",
       requiresTypeChecking: false,
     },
-    schema: [],
     messages: {
       NO_MISSING_KEY: "Missing 'key' prop for element when rendering list",
       NO_MISSING_KEY_WITH_FRAGMENT:
         "Use '{{reactPragma}}.{{fragmentPragma}}' component instead of '<>' because it does not support key prop",
     },
+    schema: [],
   },
-  defaultOptions: [],
+  name: RULE_NAME,
   create(context) {
     const reactPragma = getPragmaFromContext(context);
     const fragmentPragma = getFragmentFromContext(context);
@@ -89,9 +88,6 @@ export default createRule<[], MessageID>({
     }
 
     return {
-      [childrenToArraySelector]() {
-        MutRef.set(isWithinChildrenToArrayRef, true);
-      },
       [`${childrenToArraySelector}:exit`]() {
         MutRef.set(isWithinChildrenToArrayRef, false);
       },
@@ -152,6 +148,10 @@ export default createRule<[], MessageID>({
           });
         }
       },
+      [childrenToArraySelector]() {
+        MutRef.set(isWithinChildrenToArrayRef, true);
+      },
     };
   },
+  defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;
