@@ -57,7 +57,7 @@
     "@eslint-react/types": "workspace:*",
     "@typescript-eslint/parser": "7.5.0",
     "@typescript-eslint/scope-manager": "7.5.0",
-    "@typescript-eslint/type-utils": "7.5.0",
+    "@typescript-eslint/type-utils": "7.6.0",
     "@typescript-eslint/types": "7.5.0",
     "@typescript-eslint/utils": "7.5.0",
     "eslint-plugin-react-core": "workspace:*",
