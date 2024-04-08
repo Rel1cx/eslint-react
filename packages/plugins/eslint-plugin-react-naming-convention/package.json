@@ -52,7 +52,7 @@
     "@typescript-eslint/scope-manager": "7.5.0",
     "@typescript-eslint/type-utils": "7.5.0",
     "@typescript-eslint/types": "7.5.0",
-    "@typescript-eslint/utils": "7.5.0",
+    "@typescript-eslint/utils": "7.6.0",
     "string-ts": "2.1.0"
   },
   "devDependencies": {
