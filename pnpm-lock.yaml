@@ -106,8 +106,8 @@ importers:
         specifier: 7.1.0
         version: 7.1.0(eslint@9.0.0)(typescript@5.4.3)
       eslint-plugin-vitest:
-        specifier: 0.4.2-beta.3
-        version: 0.4.2-beta.3(@typescript-eslint/eslint-plugin@7.5.0)(eslint@9.0.0)(typescript@5.4.3)(vitest@1.4.0)
+        specifier: 0.4.2-beta.5
+        version: 0.4.2-beta.5(@typescript-eslint/eslint-plugin@7.5.0)(eslint@9.0.0)(typescript@5.4.3)(vitest@1.4.0)
       fast-equals:
         specifier: 5.0.1
         version: 5.0.1
@@ -4117,6 +4117,7 @@ packages:
   /autoprefixer@10.4.19(postcss@8.4.38):
     resolution: {integrity: sha512-BaENR2+zBZ8xXhM4pUaKUxlVdxZ0EZhjvbopwnXmxRUfqDmwSpC2lAi/QXvx7NRdPCo1WKEcEF6mV64si1z4Ew==}
     engines: {node: ^10 || ^12 || >=14}
+    hasBin: true
     peerDependencies:
       postcss: ^8.1.0
     dependencies:
@@ -5717,8 +5718,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-vitest@0.4.2-beta.3(@typescript-eslint/eslint-plugin@7.5.0)(eslint@9.0.0)(typescript@5.4.3)(vitest@1.4.0):
-    resolution: {integrity: sha512-3SrcEvVKEA0k8HkOpWkdU6zMlbt2fPG14LATAYvdvF9v5cuQ2Q2wWi7VcTcpV5QXMQYIyKmfBd2+lYu+OmEr2w==}
+  /eslint-plugin-vitest@0.4.2-beta.5(@typescript-eslint/eslint-plugin@7.5.0)(eslint@9.0.0)(typescript@5.4.3)(vitest@1.4.0):
+    resolution: {integrity: sha512-+KgsqDasq94KUNc0qHw9J5sPmuPdRqwkSSXfSbboYPFasWwdoxixR0ArQt4CTjER2j9tRik4Kd6Ldf4aMFb0JA==}
     engines: {node: ^18.0.0 || >= 20.0.0}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': '*'
@@ -8487,6 +8488,7 @@ packages:
   /next@14.1.4(@babel/core@7.24.4)(react-dom@18.2.0)(react@18.2.0)(sass@1.74.1):
     resolution: {integrity: sha512-1WTaXeSrUwlz/XcnhGTY7+8eiaFvdet5z9u3V2jb+Ek1vFo0VhHKSAIJvDWfQpttWjnyw14kBeq28TPq7bTeEQ==}
     engines: {node: '>=18.17.0'}
+    hasBin: true
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
       react: ^18.2.0
@@ -10439,6 +10441,7 @@ packages:
   /tsup@8.0.2(typescript@5.4.3):
     resolution: {integrity: sha512-NY8xtQXdH7hDUAZwcQdY/Vzlw9johQsaqf7iwZ6g1DOUlFYQ5/AtVAjTvihhEyeRlGo4dLRVHtrRaL35M1daqQ==}
     engines: {node: '>=18'}
+    hasBin: true
     peerDependencies:
       '@microsoft/api-extractor': ^7.36.0
       '@swc/core': ^1
@@ -10666,6 +10669,7 @@ packages:
   /typedoc@0.25.13(typescript@5.4.3):
     resolution: {integrity: sha512-pQqiwiJ+Z4pigfOnnysObszLiU3mVLWAExSPf+Mu06G/qsc3wzbuM56SZQvONhHLncLUhYzOVkjFFpFfL5AzhQ==}
     engines: {node: '>= 16'}
+    hasBin: true
     peerDependencies:
       typescript: 5.4.3
     dependencies:
@@ -10933,6 +10937,7 @@ packages:
 
   /update-browserslist-db@1.0.13(browserslist@4.23.0):
     resolution: {integrity: sha512-xebP81SNcPuNpPP3uzeW1NYXxI3rxyJzF3pD6sH4jE7o/IX+WtSpwnVU+qIsDPyk0d3hmFQ7mjqc6AtV604hbg==}
+    hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
     dependencies:
@@ -11086,6 +11091,7 @@ packages:
   /vite@5.2.8(@types/node@20.12.5)(sass@1.74.1):
     resolution: {integrity: sha512-OyZR+c1CE8yeHw5V5t59aXsUPPVTHMDjEZz8MgguLL/Q7NblxhZUlTu9xSPqlsUO/y+X7dlU05jdhvyycD55DA==}
     engines: {node: ^18.0.0 || >=20.0.0}
+    hasBin: true
     peerDependencies:
       '@types/node': ^18.0.0 || >=20.0.0
       less: '*'
@@ -11122,6 +11128,7 @@ packages:
   /vitest@1.4.0(@types/node@20.12.5)(@vitest/ui@1.4.0):
     resolution: {integrity: sha512-gujzn0g7fmwf83/WzrDTnncZt2UiXP41mHuFYFrdwaLRVQ6JYQEiME2IfEjU3vcFL3VKa75XhI3lFgn+hfVsQw==}
     engines: {node: ^18.0.0 || >=20.0.0}
+    hasBin: true
     peerDependencies:
       '@edge-runtime/vm': '*'
       '@types/node': ^18.0.0 || >=20.0.0

@@ -80,7 +80,7 @@
     "eslint-plugin-perfectionist": "2.8.0",
     "eslint-plugin-simple-import-sort": "12.0.0",
     "eslint-plugin-total-functions": "7.1.0",
-    "eslint-plugin-vitest": "0.4.2-beta.3",
+    "eslint-plugin-vitest": "0.4.2-beta.5",
     "fast-equals": "5.0.1",
     "husky": "9.0.11",
     "markdownlint": "0.34.0",
