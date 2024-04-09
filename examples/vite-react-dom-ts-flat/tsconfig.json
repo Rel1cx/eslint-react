@@ -27,6 +27,7 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "noPropertyAccessFromIndexSignature": false,
     "noFallthroughCasesInSwitch": true
   },
   "include": [
