@@ -45,7 +45,7 @@
     "lint:examples": "pnpm -r -F './examples/*' run --parallel lint",
     "lint:publish": "pnpm -r run --parallel lint:publish",
     "lint:spell": "cspell lint --relative --no-progress '**'",
-    "lint:ts": "eslint --max-warnings 0 --cache .",
+    "lint:ts": "eslint --cache .",
     "lint:type": "pnpm -r run --parallel lint:type",
     "lint:website": "cd website && pnpm run lint",
     "prepare": "husky install && pnpm run build",

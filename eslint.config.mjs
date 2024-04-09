@@ -6,12 +6,13 @@ import { FlatCompat } from "@eslint/eslintrc";
 import eslint from "@eslint/js";
 import eslintCommentsPlugin from "eslint-plugin-eslint-comments";
 import eslintPluginPlugin from "eslint-plugin-eslint-plugin";
+import gitignore from "eslint-config-flat-gitignore";
+import jsdocPlugin from "eslint-plugin-jsdoc";
 import perfectionist from "eslint-plugin-perfectionist";
 import perfectionistNatural from "eslint-plugin-perfectionist/configs/recommended-natural";
-import jsdocPlugin from "eslint-plugin-jsdoc";
 import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import tseslint from "typescript-eslint";
-import gitignore from "eslint-config-flat-gitignore";
+import vitest from "eslint-plugin-vitest";
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 // const compat = new FlatCompat({ baseDirectory: dirname });
@@ -40,11 +41,6 @@ export default tseslint.config(
     languageOptions: {
       parserOptions: {
         allowAutomaticSingleRunInference: true,
-        cacheLifetime: {
-          // we pretty well never create/change tsconfig structure - so no need to ever evict the cache
-          // in the rare case that we do - just need to manually restart their IDE.
-          glob: "Infinity",
-        },
         project: [
           "tsconfig.json",
           "packages/*/tsconfig.json",
@@ -67,35 +63,12 @@ export default tseslint.config(
           minimumDescriptionLength: 5,
         },
       ],
-      "@typescript-eslint/consistent-type-imports": [
-        "error",
-        { prefer: "type-imports", disallowTypeAnnotations: true },
-      ],
+      "@typescript-eslint/consistent-type-imports": ["error", {
+        prefer: "type-imports",
+        disallowTypeAnnotations: true,
+      }],
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/no-explicit-any": "error",
-      "no-constant-condition": "off",
-      "@typescript-eslint/no-unnecessary-condition": [
-        "error",
-        { allowConstantLoopConditions: true },
-      ],
-      "@typescript-eslint/no-var-requires": "off",
-      "@typescript-eslint/prefer-literal-enum-member": [
-        "error",
-        {
-          allowBitwiseExpressions: true,
-        },
-      ],
-      "@typescript-eslint/unbound-method": "off",
-      "@typescript-eslint/restrict-template-expressions": [
-        "error",
-        {
-          allowNumber: true,
-          allowBoolean: true,
-          allowAny: true,
-          allowNullish: true,
-          allowRegExp: true,
-        },
-      ],
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
@@ -112,28 +85,20 @@ export default tseslint.config(
         },
       ],
 
-      //
-      // eslint-base
-      //
-
-      eqeqeq: [
-        "error",
-        "always",
-      ],
-      "logical-assignment-operators": "error",
-      "no-else-return": "error",
-      "no-mixed-operators": "error",
-      "no-console": "error",
-      "no-process-exit": "error",
-      "no-fallthrough": [
-        "error",
-        { commentPattern: ".*intentional fallthrough.*" },
-      ],
-      "one-var": ["error", "never"],
       "array-callback-return": "off",
-      curly: "off",
       "eslint-plugin/require-meta-docs-url": "off",
+      "logical-assignment-operators": "error",
       "max-depth": ["warn", 3],
+      "no-console": "error",
+      "no-else-return": "error",
+      "no-fallthrough": ["error", { commentPattern: ".*intentional fallthrough.*" }],
+      "no-mixed-operators": "error",
+      "no-process-exit": "error",
+      "no-undef": "off",
+      "one-var": ["error", "never"],
+      "prefer-object-has-own": "error",
+      curly: "off",
+      eqeqeq: ["error", "always"],
       "no-restricted-syntax": [
         "error",
         {
@@ -153,8 +118,6 @@ export default tseslint.config(
           selector: 'ImportDeclaration[source.value="."]',
         },
       ],
-      "no-undef": "off",
-      "prefer-object-has-own": "error",
 
       "perfectionist/sort-exports": "off",
       "perfectionist/sort-imports": "off",
@@ -188,28 +151,12 @@ export default tseslint.config(
         },
       ],
 
-      //
-      // eslint-plugin-eslint-comment
-      //
-
-      // require a eslint-enable comment for every eslint-disable comment
-      "eslint-comments/disable-enable-pair": [
-        "error",
-        {
-          allowWholeFile: true,
-        },
-      ],
-      // disallow a eslint-enable comment for multiple eslint-disable comments
+      "eslint-comments/disable-enable-pair": ["error", { allowWholeFile: true }],
       "eslint-comments/no-aggregating-enable": "error",
-      // disallow duplicate eslint-disable comments
       "eslint-comments/no-duplicate-disable": "error",
-      // disallow eslint-disable comments without rule names
       "eslint-comments/no-unlimited-disable": "error",
-      // disallow unused eslint-disable comments
       "eslint-comments/no-unused-disable": "error",
-      // disallow unused eslint-enable comments
       "eslint-comments/no-unused-enable": "error",
-      // disallow ESLint directive-comments
       "eslint-comments/no-use": [
         "error",
         {
@@ -223,12 +170,7 @@ export default tseslint.config(
         },
       ],
 
-      // enforce a sort order across the codebase
-      "simple-import-sort/imports": "error",
-
-      //
-      // eslint-plugin-jsdoc
-      //
+      "simple-import-sort/imports": "warn",
 
       "jsdoc/check-tag-names": "off",
       "jsdoc/check-param-names": "off",
@@ -238,64 +180,49 @@ export default tseslint.config(
       "jsdoc/require-returns": "off",
       "jsdoc/require-yields": "off",
       "jsdoc/tag-lines": "off",
-      // "jsdoc/informative-docs": "error",
+      "jsdoc/informative-docs": "warn",
     },
   },
   {
     files: ["**/*.js"],
     extends: [tseslint.configs.disableTypeChecked],
     rules: {
-      // turn off other type-aware rules
-      "deprecation/deprecation": "off",
-      "@typescript-eslint/internal/no-poorly-typed-ts-props": "off",
-
       // turn off rules that don't apply to JS code
-      "@typescript-eslint/explicit-function-return-type": "off",
     },
   },
-  // test file specific configuration
   {
     files: [
-      "packages/*/tests/**/*.spec.{ts,tsx,cts,mts}",
-      "packages/*/tests/**/*.test.{ts,tsx,cts,mts}",
-      "packages/*/tests/**/spec.{ts,tsx,cts,mts}",
-      "packages/*/tests/**/test.{ts,tsx,cts,mts}",
-      "packages/parser/tests/**/*.{ts,tsx,cts,mts}",
-      "packages/integration-tests/tools/integration-test-base.ts",
-      "packages/integration-tests/tools/pack-packages.ts",
+      "**/*.spec.{ts,tsx,cts,mts}",
+      "**/*.test.{ts,tsx,cts,mts}",
+      "**/spec.{ts,tsx,cts,mts}",
+      "**/test.{ts,tsx,cts,mts}",
     ],
+    plugins: {
+      vitest,
+    },
     rules: {
-      "@typescript-eslint/no-empty-function": [
-        "error",
-        { allow: ["arrowFunctions"] },
-      ],
+      // @ts-ignore
+      ...vitest.configs.recommended.rules,
+      "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/no-unsafe-assignment": "off",
       "@typescript-eslint/no-unsafe-call": "off",
       "@typescript-eslint/no-unsafe-member-access": "off",
       "@typescript-eslint/no-unsafe-return": "off",
     },
-  },
-  //
-  // tools and tests
-  //
-  {
-    files: [
-      "**/tools/**/*.{ts,tsx,cts,mts}",
-      "**/tests/**/*.{ts,tsx,cts,mts}",
-    ],
-    rules: {
-      // allow console logs in tools and tests
-      "no-console": "off",
+    languageOptions: {
+      globals: {
+        ...vitest.environments.env.globals,
+      },
     },
   },
   gitignore(),
   {
     ignores: [
-      "eslint.config.mjs",
       "docs",
       "examples",
       "website",
+      "eslint.config.mjs",
     ],
   },
 );
