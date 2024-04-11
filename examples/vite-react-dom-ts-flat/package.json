@@ -17,7 +17,7 @@
     "@eslint/js": "9.0.0",
     "@tsconfig/node20": "20.1.4",
     "@tsconfig/strictest": "2.0.5",
-    "@types/react": "18.2.75",
+    "@types/react": "18.2.76",
     "@types/react-dom": "18.2.24",
     "@vitejs/plugin-react": "4.2.1",
     "eslint": "9.0.0",
