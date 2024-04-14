@@ -1,12 +1,7 @@
 import dedent from "dedent";
 
-import { allValid, defaultParserOptions, RuleTester } from "../../../../../test";
+import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unused-state";
-
-const ruleTester = new RuleTester({
-  parser: "@typescript-eslint/parser",
-  parserOptions: defaultParserOptions,
-});
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
@@ -1432,9 +1427,6 @@ ruleTester.run(RULE_NAME, rule, {
           render() { return <div />; }
         }
       `,
-      parserOptions: {
-        sourceType: "module",
-      },
     },
     {
       code: dedent`
@@ -1465,9 +1457,6 @@ ruleTester.run(RULE_NAME, rule, {
 
         export default TestNoUnusedState;
       `,
-      parserOptions: {
-        sourceType: "module",
-      },
     },
     dedent`
       class Component extends React.Component {

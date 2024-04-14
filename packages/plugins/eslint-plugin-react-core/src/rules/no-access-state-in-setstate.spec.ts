@@ -1,12 +1,7 @@
 import dedent from "dedent";
 
-import { allValid, defaultParserOptions, RuleTester } from "../../../../../test";
+import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-access-state-in-setstate";
-
-const ruleTester = new RuleTester({
-  parser: "@typescript-eslint/parser",
-  parserOptions: defaultParserOptions,
-});
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [

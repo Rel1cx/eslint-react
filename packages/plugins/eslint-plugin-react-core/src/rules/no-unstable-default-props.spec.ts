@@ -1,12 +1,7 @@
 import dedent from "dedent";
 
-import { allValid, defaultParserOptions, RuleTester } from "../../../../../test";
+import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unstable-default-props";
-
-const ruleTester = new RuleTester({
-  parser: "@typescript-eslint/parser",
-  parserOptions: defaultParserOptions,
-});
 
 const MESSAGE_ID = "NO_UNSTABLE_DEFAULT_PROPS";
 

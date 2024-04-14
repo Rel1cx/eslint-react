@@ -1,10 +1,5 @@
-import { defaultParserOptions, RuleTester } from "../../../../../test";
+import { ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./filename-extension";
-
-const ruleTester = new RuleTester({
-  parser: "@typescript-eslint/parser",
-  parserOptions: defaultParserOptions,
-});
 
 const withJSXElement = "const App = () => <div><div /></div>";
 const withJSXFragment = "const App = () => <></>";

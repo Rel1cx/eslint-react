@@ -1,12 +1,7 @@
 import dedent from "dedent";
 
-import { allFunctions, defaultParserOptions, RuleTester } from "../../../../../test";
+import { allFunctions, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./use-state";
-
-const ruleTester = new RuleTester({
-  parser: "@typescript-eslint/parser",
-  parserOptions: defaultParserOptions,
-});
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [

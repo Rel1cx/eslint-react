@@ -1,10 +1,5 @@
-import { defaultParserOptions, RuleTester } from "../../../../../test";
+import { ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./filename";
-
-const ruleTester = new RuleTester({
-  parser: "@typescript-eslint/parser",
-  parserOptions: defaultParserOptions,
-});
 
 const code = "export {}";
 

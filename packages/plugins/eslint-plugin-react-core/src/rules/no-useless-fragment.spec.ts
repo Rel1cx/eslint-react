@@ -1,13 +1,8 @@
 import { NodeType } from "@eslint-react/ast";
 import dedent from "dedent";
 
-import { allValid, defaultParserOptions, RuleTester } from "../../../../../test";
+import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-useless-fragment";
-
-const ruleTester = new RuleTester({
-  parser: "@typescript-eslint/parser",
-  parserOptions: defaultParserOptions,
-});
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
