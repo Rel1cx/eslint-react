@@ -14,10 +14,10 @@ export const RULE_NAME = "no-unstable-default-props";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
-type ObjectDestructuringDeclarator = TSESTree.VariableDeclarator & {
+type ObjectDestructuringDeclarator = {
   id: TSESTree.ObjectPattern;
   init: TSESTree.Identifier;
-};
+} & TSESTree.VariableDeclarator;
 
 export default createRule<[], MessageID>({
   meta: {

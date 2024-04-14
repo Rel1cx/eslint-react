@@ -13,7 +13,7 @@ export const RULE_NAME = "prefer-destructuring-assignment";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
-type MemberExpressionWithObjectName = TSESTree.MemberExpression & { object: TSESTree.Identifier };
+type MemberExpressionWithObjectName = { object: TSESTree.Identifier } & TSESTree.MemberExpression;
 
 function isMemberExpressionWithObjectName(node: TSESTree.MemberExpression): node is MemberExpressionWithObjectName {
   return node.object.type === NodeType.Identifier && "name" in node.object;

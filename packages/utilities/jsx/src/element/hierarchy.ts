@@ -56,8 +56,8 @@ export function hasChildren(
  * @returns `true` if the node is a child of a `JSXElement`
  */
 export function isChildOfJSXElement(node: TSESTree.Node): node is
-  & TSESTree.JSXElement
   & { parent: TSESTree.JSXElement }
+  & TSESTree.JSXElement
 {
   return node.parent?.type === NodeType.JSXElement
     && node.parent.children.some((child) => child === node);
