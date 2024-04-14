@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
       requiresTypeChecking: false,
     },
     messages: {
-      NO_STRING_REFS: "String refs are deprecated. Use callback refs instead.",
+      NO_STRING_REFS: "The string refs are deprecated, use callback refs instead.",
     },
     schema: [],
   },

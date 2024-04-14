@@ -1,3 +1,9 @@
+## v1.5.9 (Draft)
+
+### 🪄 Improvements
+
+- Optimize error messages.
+
 ## v1.5.8 (Thu 11 Apr 2024)
 
 ### 🪄 Improvements
