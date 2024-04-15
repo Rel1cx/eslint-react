@@ -50,7 +50,7 @@
     "@eslint-react/types": "workspace:*",
     "@eslint-react/var": "workspace:*",
     "@typescript-eslint/parser": "7.6.0",
-    "@typescript-eslint/scope-manager": "7.6.0",
+    "@typescript-eslint/scope-manager": "7.7.0",
     "@typescript-eslint/types": "7.6.0",
     "@typescript-eslint/utils": "7.6.0",
     "string-ts": "2.1.0"
