@@ -234,8 +234,8 @@ importers:
         specifier: 7.6.0
         version: 7.6.0(eslint@9.0.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: 7.6.0
-        version: 7.6.0
+        specifier: 7.7.0
+        version: 7.7.0
       '@typescript-eslint/utils':
         specifier: 7.6.0
         version: 7.6.0(eslint@9.0.0)(typescript@5.4.5)
@@ -268,8 +268,8 @@ importers:
         specifier: 7.6.0
         version: 7.6.0(eslint@9.0.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: 7.6.0
-        version: 7.6.0
+        specifier: 7.7.0
+        version: 7.7.0
       '@typescript-eslint/utils':
         specifier: 7.6.0
         version: 7.6.0(eslint@9.0.0)(typescript@5.4.5)
@@ -325,8 +325,8 @@ importers:
         specifier: 7.6.0
         version: 7.6.0(eslint@9.0.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: 7.6.0
-        version: 7.6.0
+        specifier: 7.7.0
+        version: 7.7.0
       '@typescript-eslint/utils':
         specifier: 7.6.0
         version: 7.6.0(eslint@9.0.0)(typescript@5.4.5)
@@ -377,8 +377,8 @@ importers:
         specifier: 7.6.0
         version: 7.6.0(eslint@9.0.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: 7.6.0
-        version: 7.6.0
+        specifier: 7.7.0
+        version: 7.7.0
       '@typescript-eslint/utils':
         specifier: 7.6.0
         version: 7.6.0(eslint@9.0.0)(typescript@5.4.5)
@@ -422,8 +422,8 @@ importers:
         specifier: 7.6.0
         version: 7.6.0
       '@typescript-eslint/types':
-        specifier: 7.6.0
-        version: 7.6.0
+        specifier: 7.7.0
+        version: 7.7.0
       '@typescript-eslint/utils':
         specifier: 7.6.0
         version: 7.6.0(eslint@9.0.0)(typescript@5.4.5)
@@ -474,8 +474,8 @@ importers:
         specifier: 7.6.0
         version: 7.6.0(eslint@9.0.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: 7.6.0
-        version: 7.6.0
+        specifier: 7.7.0
+        version: 7.7.0
       '@typescript-eslint/utils':
         specifier: 7.6.0
         version: 7.6.0(eslint@9.0.0)(typescript@5.4.5)
@@ -523,8 +523,8 @@ importers:
         specifier: 7.6.0
         version: 7.6.0(eslint@9.0.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: 7.6.0
-        version: 7.6.0
+        specifier: 7.7.0
+        version: 7.7.0
       '@typescript-eslint/utils':
         specifier: 7.6.0
         version: 7.6.0(eslint@9.0.0)(typescript@5.4.5)
@@ -566,8 +566,8 @@ importers:
         specifier: workspace:*
         version: link:../tools
       '@typescript-eslint/types':
-        specifier: 7.6.0
-        version: 7.6.0
+        specifier: 7.7.0
+        version: 7.7.0
       '@typescript-eslint/utils':
         specifier: 7.6.0
         version: 7.6.0(eslint@9.0.0)(typescript@5.4.5)
@@ -587,8 +587,8 @@ importers:
         specifier: 7.6.0
         version: 7.6.0
       '@typescript-eslint/types':
-        specifier: 7.6.0
-        version: 7.6.0
+        specifier: 7.7.0
+        version: 7.7.0
       '@typescript-eslint/utils':
         specifier: 7.6.0
         version: 7.6.0(eslint@9.0.0)(typescript@5.4.5)
@@ -621,8 +621,8 @@ importers:
         specifier: 7.6.0
         version: 7.6.0
       '@typescript-eslint/types':
-        specifier: 7.6.0
-        version: 7.6.0
+        specifier: 7.7.0
+        version: 7.7.0
       '@typescript-eslint/utils':
         specifier: 7.6.0
         version: 7.6.0(eslint@9.0.0)(typescript@5.4.5)
@@ -649,8 +649,8 @@ importers:
         specifier: 7.6.0
         version: 7.6.0
       '@typescript-eslint/types':
-        specifier: 7.6.0
-        version: 7.6.0
+        specifier: 7.7.0
+        version: 7.7.0
       '@typescript-eslint/utils':
         specifier: 7.6.0
         version: 7.6.0(eslint@9.0.0)(typescript@5.4.5)
@@ -3152,6 +3152,11 @@ packages:
   /@typescript-eslint/types@7.6.0:
     resolution: {integrity: sha512-h02rYQn8J+MureCvHVVzhl69/GAfQGPQZmOMjG1KfCl7o3HtMSlPaPUAPu6lLctXI5ySRGIYk94clD/AUMCUgQ==}
     engines: {node: ^18.18.0 || >=20.0.0}
+
+  /@typescript-eslint/types@7.7.0:
+    resolution: {integrity: sha512-G01YPZ1Bd2hn+KPpIbrAhEWOn5lQBrjxkzHkWvP6NucMXFtfXoevK82hzQdpfuQYuhkvFDeQYbzXCjR1z9Z03w==}
+    engines: {node: ^18.18.0 || >=20.0.0}
+    dev: false
 
   /@typescript-eslint/typescript-estree@6.21.0(typescript@5.4.5):
     resolution: {integrity: sha512-6npJTkZcO+y2/kr+z0hc4HwNfrrP4kNYh57ek7yCNlrBjWQ1Y0OS7jiZTkgumrvkX5HkEKXFZkkdFNkaW2wmUQ==}
