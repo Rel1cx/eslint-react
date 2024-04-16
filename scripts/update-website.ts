@@ -1,6 +1,6 @@
 // /* eslint-disable @susisu/safe-typescript/no-unsafe-object-enum-method */
 // import CodeBlockWriter from "code-block-writer";
-// import * as ReadonlyRecord from "effect/ReadonlyRecord";
+// import * as Record from "effect/Record";
 // import path from "pathe";
 
 // import { copyFile } from "./lib/fs";
@@ -34,7 +34,7 @@
 //   "---": {
 //     type: "separator",
 //   },
-//   ...ReadonlyRecord.fromEntries(
+//   ...Record.fromEntries(
 //     rules
 //       .sort(([a], [b]) => a.localeCompare(b, "en", { numeric: true }))
 //       .sort(([a], [b]) => order.findLastIndex((x) => a.startsWith(x)) - order.findLastIndex((x) => b.startsWith(x))),
