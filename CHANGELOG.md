@@ -3,6 +3,8 @@
 ### 🪄 Improvements
 
 - Optimize error messages.
+- Improve descriptions of rule `no-implicit-key`.
+- Update `@typescript-eslint`'s packages to `7.7.0`.
 
 ## v1.5.8 (Thu 11 Apr 2024)
 
