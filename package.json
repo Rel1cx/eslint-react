@@ -34,7 +34,7 @@
     "build:all": "pnpm run build && pnpm run build:docs && pnpm run build:website",
     "build:docs": "turbo build:docs --filter='./packages/**'",
     "build:force": "turbo build --force --filter='./packages/**'",
-    "build:website": "cd website && pnpm run build",
+    "build:website": "pnpm -F './website' run build",
     "format:check": "dprint check",
     "format:package-json": "bun run --bun ./scripts/format-package-json.ts",
     "format:write": "dprint fmt",
@@ -99,7 +99,7 @@
     "typescript": "5.4.5",
     "vitest": "1.5.0"
   },
-  "packageManager": "pnpm@9.0.1",
+  "packageManager": "pnpm@9.0.2",
   "engines": {
     "bun": ">=1.0.15",
     "node": ">=18.18.0"
