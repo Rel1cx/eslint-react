@@ -50,6 +50,6 @@
     "string-ts": "2.1.0"
   },
   "devDependencies": {
-    "effect": "3.0.0"
+    "effect": "3.0.2"
   }
 }
