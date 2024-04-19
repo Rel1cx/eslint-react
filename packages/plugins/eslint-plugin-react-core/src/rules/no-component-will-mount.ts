@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
       requiresTypeChecking: false,
     },
     messages: {
-      NO_COMPONENT_WILL_MOUNT: "'componentWillMount' is deprecated, use 'UNSAFE_componentWillMount' instead.",
+      NO_COMPONENT_WILL_MOUNT: "[Deprecated] Use 'UNSAFE_componentWillMount' instead.",
     },
     schema: [],
   },

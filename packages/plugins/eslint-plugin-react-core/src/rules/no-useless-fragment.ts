@@ -73,8 +73,8 @@ export default createRule<[], MessageID>({
       requiresTypeChecking: false,
     },
     messages: {
-      NO_USELESS_FRAGMENT: "Fragments containing a single element are usually unnecessary.",
-      NO_USELESS_FRAGMENT_IN_BUILT_IN: "Passing a fragment to a built-in component is unnecessary.",
+      NO_USELESS_FRAGMENT: "A fragment containing a single element is usually unnecessary.",
+      NO_USELESS_FRAGMENT_IN_BUILT_IN: "Passing a fragment to a host component is unnecessary.",
     },
     schema: [],
   },

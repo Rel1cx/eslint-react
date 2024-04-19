@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
       requiresTypeChecking: false,
     },
     messages: {
-      NO_MISSING_BUTTON_TYPE: "Missing 'type' attribute on 'button' component.",
+      NO_MISSING_BUTTON_TYPE: "Add missing 'type' attribute on 'button' component.",
     },
     schema: [],
   },

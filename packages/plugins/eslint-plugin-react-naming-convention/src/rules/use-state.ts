@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
       requiresTypeChecking: false,
     },
     messages: {
-      USE_STATE: "'useState' call is not destructured into value + setter pair.",
+      USE_STATE: "An useState call is not destructured into value + setter pair.",
     },
     schema: [],
   },

@@ -30,7 +30,8 @@ export default createRule<[], MessageID>({
       requiresTypeChecking: false,
     },
     messages: {
-      NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN: "Only set one of 'children' or 'dangerouslySetInnerHTML'.",
+      NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN:
+        "A DOM component cannot use both 'children' and 'dangerouslySetInnerHTML'.",
     },
     schema: [],
   },

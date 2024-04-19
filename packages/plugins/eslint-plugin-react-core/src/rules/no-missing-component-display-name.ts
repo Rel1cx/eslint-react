@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
       requiresTypeChecking: false,
     },
     messages: {
-      NO_MISSING_COMPONENT_DISPLAY_NAME: "Missing 'displayName' for component.",
+      NO_MISSING_COMPONENT_DISPLAY_NAME: "Add missing 'displayName' for component.",
     },
     schema: [],
   },

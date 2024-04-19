@@ -68,7 +68,7 @@ export default createRule<Options, MessageID>({
       requiresTypeChecking: false,
     },
     messages: {
-      COMPONENT_NAME: "Component name must be in {{case}}.",
+      COMPONENT_NAME: "A component name must be in {{case}}.",
     },
     schema,
   },

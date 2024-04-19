@@ -74,8 +74,8 @@ importers:
         specifier: 0.45.1
         version: 0.45.1
       effect:
-        specifier: 3.0.2
-        version: 3.0.2
+        specifier: 3.0.3
+        version: 3.0.3
       eslint:
         specifier: 9.0.0
         version: 9.0.0
@@ -105,7 +105,7 @@ importers:
         version: 12.1.0(eslint@9.0.0)
       eslint-plugin-vitest:
         specifier: 0.5.3
-        version: 0.5.3(@typescript-eslint/eslint-plugin@7.7.0(@typescript-eslint/parser@7.7.0(eslint@9.0.0)(typescript@5.4.5))(eslint@9.0.0)(typescript@5.4.5))(eslint@9.0.0)(typescript@5.4.5)(vitest@1.5.0(@types/node@20.12.7)(@vitest/ui@1.5.0)(sass@1.75.0))
+        version: 0.5.3(@typescript-eslint/eslint-plugin@7.7.0(@typescript-eslint/parser@7.7.0(eslint@9.0.0)(typescript@5.4.5))(eslint@9.0.0)(typescript@5.4.5))(eslint@9.0.0)(typescript@5.4.5)(vitest@1.5.0(@types/node@20.12.7)(@vitest/ui@1.5.0)(sass@1.75.0)(terser@5.30.3))
       fast-equals:
         specifier: 5.0.1
         version: 5.0.1
@@ -159,7 +159,7 @@ importers:
         version: 5.4.5
       vitest:
         specifier: 1.5.0
-        version: 1.5.0(@types/node@20.12.7)(@vitest/ui@1.5.0)(sass@1.75.0)
+        version: 1.5.0(@types/node@20.12.7)(@vitest/ui@1.5.0)(sass@1.75.0)(terser@5.30.3)
 
   examples/vite-react-dom-ts-flat:
     dependencies:
@@ -244,8 +244,8 @@ importers:
         version: 5.0.3
     devDependencies:
       effect:
-        specifier: 3.0.2
-        version: 3.0.2
+        specifier: 3.0.3
+        version: 3.0.3
 
   packages/plugins/eslint-plugin:
     dependencies:
@@ -344,8 +344,8 @@ importers:
         version: 5.4.5
     devDependencies:
       effect:
-        specifier: 3.0.2
-        version: 3.0.2
+        specifier: 3.0.3
+        version: 3.0.3
 
   packages/plugins/eslint-plugin-react-debug:
     dependencies:
@@ -438,8 +438,8 @@ importers:
         version: 5.4.5
     devDependencies:
       effect:
-        specifier: 3.0.2
-        version: 3.0.2
+        specifier: 3.0.3
+        version: 3.0.3
 
   packages/plugins/eslint-plugin-react-hooks-extra:
     dependencies:
@@ -490,8 +490,8 @@ importers:
         version: 5.4.5
     devDependencies:
       effect:
-        specifier: 3.0.2
-        version: 3.0.2
+        specifier: 3.0.3
+        version: 3.0.3
 
   packages/plugins/eslint-plugin-react-naming-convention:
     dependencies:
@@ -539,8 +539,8 @@ importers:
         version: 5.4.5
     devDependencies:
       effect:
-        specifier: 3.0.2
-        version: 3.0.2
+        specifier: 3.0.3
+        version: 3.0.3
 
   packages/shared:
     dependencies:
@@ -597,8 +597,8 @@ importers:
         version: 2.1.0
     devDependencies:
       effect:
-        specifier: 3.0.2
-        version: 3.0.2
+        specifier: 3.0.3
+        version: 3.0.3
 
   packages/utilities/jsx:
     dependencies:
@@ -631,8 +631,8 @@ importers:
         version: 4.1.2
     devDependencies:
       effect:
-        specifier: 3.0.2
-        version: 3.0.2
+        specifier: 3.0.3
+        version: 3.0.3
 
   packages/utilities/var:
     dependencies:
@@ -659,8 +659,8 @@ importers:
         version: 2.1.0
     devDependencies:
       effect:
-        specifier: 3.0.2
-        version: 3.0.2
+        specifier: 3.0.3
+        version: 3.0.3
 
   website:
     dependencies:
@@ -726,8 +726,8 @@ importers:
         specifier: 10.4.19
         version: 10.4.19(postcss@8.4.38)
       effect:
-        specifier: 3.0.2
-        version: 3.0.2
+        specifier: 3.0.3
+        version: 3.0.3
       eslint:
         specifier: 9.0.0
         version: 9.0.0
@@ -1993,8 +1993,8 @@ packages:
   '@types/eslint-scope@3.7.7':
     resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==}
 
-  '@types/eslint@8.56.9':
-    resolution: {integrity: sha512-W4W3KcqzjJ0sHg2vAq9vfml6OhsJ53TcUjUqfzzZf/EChUtwspszj/S0pzMxnfRcO55/iGq47dscXw71Fxc4Zg==}
+  '@types/eslint@8.56.10':
+    resolution: {integrity: sha512-Shavhk87gCtY2fhXDctcfS3e6FdxWkCx1iUZ9eEUbh7rTqlZT0/IzOkCOVt0fCjcFuZ9FPYfuezTBImfHCDBGQ==}
 
   '@types/estree-jsx@1.0.5':
     resolution: {integrity: sha512-52CcUVNFyfb1A2ALocQw/Dd1BQFNmSdkuC3BkZ6iqhdMfQz7JWOFRuJFloOzjk+6WijU56m9oKXFAXc7o3Towg==}
@@ -3104,11 +3104,11 @@ packages:
   effect@2.4.0:
     resolution: {integrity: sha512-HAtFVAbAGYDzfGbrSrX1gzMzXym15zk1+ps72X8W1wdZY0vxq+u23w8u9DhAZjiJPHT4W9ZYL7QWQqpP4t+dSg==}
 
-  effect@3.0.2:
-    resolution: {integrity: sha512-X5/kHcs/hN7D/U/+dzSbqZPeVq1lebt4yBE9vVNcxJKN1NbmZ3eOdI/prXoASt866b+uVObd5jW4DzoYFXfDAQ==}
+  effect@3.0.3:
+    resolution: {integrity: sha512-mgG+FoWrM4sny8OxDFWCpq+6LwGf9cK/JztVhxZQeZM9ZMXY+lKbdMEQmemNYce0QVAz2+YqUKwhKzOidwbZzg==}
 
-  electron-to-chromium@1.4.741:
-    resolution: {integrity: sha512-AyTBZqDoS7/mvQK22gOQpjxbeV8iPeUBTvYlEh/1S9dKAHgQdxuF49g9rLbj0cRKtqH8PzLJzqT3nAdl+qoZTA==}
+  electron-to-chromium@1.4.744:
+    resolution: {integrity: sha512-nAGcF0yeKKfrP13LMFr5U1eghfFSvFLg302VUFzWlcjPOnUYd52yU5x6PBYrujhNbc4jYmZFrGZFK+xasaEzVA==}
 
   elkjs@0.9.3:
     resolution: {integrity: sha512-f/ZeWvW/BCXbhGEf1Ujp29EASo/lk1FDnETgNKwJrsVvGZhUWCZyg3xLJjAsxfOmt8KjswHmI5EwCQcPMpOYhQ==}
@@ -6036,8 +6036,8 @@ packages:
     peerDependencies:
       zod: ^3.18.0
 
-  zod@3.22.4:
-    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+  zod@3.22.5:
+    resolution: {integrity: sha512-HqnGsCdVZ2xc0qWPLdO25WnseXThh0kEYKIdV5F/hTHO75hNZFp8thxSeHhiPrHZKrFTo1SOgkAj9po5bexZlw==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -7172,10 +7172,10 @@ snapshots:
 
   '@types/eslint-scope@3.7.7':
     dependencies:
-      '@types/eslint': 8.56.9
+      '@types/eslint': 8.56.10
       '@types/estree': 1.0.5
 
-  '@types/eslint@8.56.9':
+  '@types/eslint@8.56.10':
     dependencies:
       '@types/estree': 1.0.5
       '@types/json-schema': 7.0.15
@@ -7544,7 +7544,7 @@ snapshots:
       pathe: 1.1.2
       picocolors: 1.0.0
       sirv: 2.0.4
-      vitest: 1.5.0(@types/node@20.12.7)(@vitest/ui@1.5.0)(sass@1.75.0)
+      vitest: 1.5.0(@types/node@20.12.7)(@vitest/ui@1.5.0)(sass@1.75.0)(terser@5.30.3)
 
   '@vitest/utils@1.5.0':
     dependencies:
@@ -7805,7 +7805,7 @@ snapshots:
   browserslist@4.23.0:
     dependencies:
       caniuse-lite: 1.0.30001611
-      electron-to-chromium: 1.4.741
+      electron-to-chromium: 1.4.744
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.23.0)
 
@@ -8498,9 +8498,9 @@ snapshots:
 
   effect@2.4.0: {}
 
-  effect@3.0.2: {}
+  effect@3.0.3: {}
 
-  electron-to-chromium@1.4.741: {}
+  electron-to-chromium@1.4.744: {}
 
   elkjs@0.9.3: {}
 
@@ -8704,13 +8704,13 @@ snapshots:
     dependencies:
       eslint: 9.0.0
 
-  eslint-plugin-vitest@0.5.3(@typescript-eslint/eslint-plugin@7.7.0(@typescript-eslint/parser@7.7.0(eslint@9.0.0)(typescript@5.4.5))(eslint@9.0.0)(typescript@5.4.5))(eslint@9.0.0)(typescript@5.4.5)(vitest@1.5.0(@types/node@20.12.7)(@vitest/ui@1.5.0)(sass@1.75.0)):
+  eslint-plugin-vitest@0.5.3(@typescript-eslint/eslint-plugin@7.7.0(@typescript-eslint/parser@7.7.0(eslint@9.0.0)(typescript@5.4.5))(eslint@9.0.0)(typescript@5.4.5))(eslint@9.0.0)(typescript@5.4.5)(vitest@1.5.0(@types/node@20.12.7)(@vitest/ui@1.5.0)(sass@1.75.0)(terser@5.30.3)):
     dependencies:
       '@typescript-eslint/utils': 7.7.0(eslint@9.0.0)(typescript@5.4.5)
       eslint: 9.0.0
     optionalDependencies:
       '@typescript-eslint/eslint-plugin': 7.7.0(@typescript-eslint/parser@7.7.0(eslint@9.0.0)(typescript@5.4.5))(eslint@9.0.0)(typescript@5.4.5)
-      vitest: 1.5.0(@types/node@20.12.7)(@vitest/ui@1.5.0)(sass@1.75.0)
+      vitest: 1.5.0(@types/node@20.12.7)(@vitest/ui@1.5.0)(sass@1.75.0)(terser@5.30.3)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -10487,7 +10487,7 @@ snapshots:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       scroll-into-view-if-needed: 3.1.0
-      zod: 3.22.4
+      zod: 3.22.5
 
   nextra@3.0.0-alpha.23(@types/react@18.2.79)(next@14.2.2(@babel/core@7.24.4)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.75.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@5.4.5):
     dependencies:
@@ -10525,8 +10525,8 @@ snapshots:
       unist-util-remove: 4.0.0
       unist-util-visit: 5.0.0
       yaml: 2.4.1
-      zod: 3.22.4
-      zod-validation-error: 1.5.0(zod@3.22.4)
+      zod: 3.22.5
+      zod-validation-error: 1.5.0(zod@3.22.5)
     transitivePeerDependencies:
       - '@types/react'
       - supports-color
@@ -11952,7 +11952,7 @@ snapshots:
       sass: 1.75.0
       terser: 5.30.3
 
-  vitest@1.5.0(@types/node@20.12.7)(@vitest/ui@1.5.0)(sass@1.75.0):
+  vitest@1.5.0(@types/node@20.12.7)(@vitest/ui@1.5.0)(sass@1.75.0)(terser@5.30.3):
     dependencies:
       '@vitest/expect': 1.5.0
       '@vitest/runner': 1.5.0
@@ -12166,10 +12166,10 @@ snapshots:
 
   yocto-queue@1.0.0: {}
 
-  zod-validation-error@1.5.0(zod@3.22.4):
+  zod-validation-error@1.5.0(zod@3.22.5):
     dependencies:
-      zod: 3.22.4
+      zod: 3.22.5
 
-  zod@3.22.4: {}
+  zod@3.22.5: {}
 
   zwitch@2.0.4: {}

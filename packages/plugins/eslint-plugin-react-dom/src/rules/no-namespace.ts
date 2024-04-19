@@ -16,7 +16,7 @@ export default createRule<[], MessageID>({
       description: "enforce that namespaces are not used in React elements",
     },
     messages: {
-      NO_NAMESPACE: "React component '{{name}}' must not be in a namespace, as React does not support them.",
+      NO_NAMESPACE: "A React component '{{name}}' must not be in a namespace, as React does not support them.",
     },
     schema: [],
   },
