@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.5.9-next.3",
+  "version": "1.5.9-beta.3",
   "private": true,
   "description": "A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -99,7 +99,7 @@
     "typescript": "5.4.5",
     "vitest": "1.5.0"
   },
-  "packageManager": "pnpm@9.0.2",
+  "packageManager": "pnpm@9.0.4",
   "engines": {
     "bun": ">=1.0.15",
     "node": ">=18.18.0"
