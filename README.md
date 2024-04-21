@@ -56,45 +56,37 @@ npm install --save-dev @eslint-react/eslint-plugin
 
 ### Setup
 
-Add `@eslint-react` to the plugins section of your `.eslintrc.js` configuration file.
+Add the plugin to your `eslint.config.js`:
 
 ```js
-module.exports = {
-  // ...
-  parser: "@typescript-eslint/parser",
-  extends: ["plugin:@eslint-react/recommended-legacy"],
-  plugins: ["@eslint-react"],
-  // ...
-};
+// @ts-check
+
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
+import eslintReact from "@eslint-react/eslint-plugin";
+
+export default tseslint.config(
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    ...eslintReact.configs.recommended,
+  },
+);
 ```
 
 [Full Installation Guide ↗](https://eslint-react.xyz/docs/installation)
 
 ## Presets
 
-### LegacyConfig presets
-
-> [!IMPORTANT]\
-> These presets are for ESLint `LegacyConfig` (`.eslintrc.*`) only
-
-- **recommended-legacy** (`plugin:@eslint-react/recommended-legacy`)\
-  Enable rules that are recommended by ESLint React.
-- **recommended-type-checked-legacy** (`plugin:@eslint-react/recommended-type-checked-legacy`)\
-  Enable rules that are recommended by ESLint React with additional rules that require type information.
-- **all-legacy** (`plugin:@eslint-react/all-legacy`)\
-  Enable all rules in this plugin except for debug rules.
-- **off-legacy** (`plugin:@eslint-react/off-legacy`)\
-  Disable all rules in this plugin except for debug rules.
-
-### FlatConfig presets
-
-> [!IMPORTANT]\
-> These presets are for ESLint `FlatConfig` (`eslint.config.js`) only
-
 - **recommended**\
   Enable rules that are recommended by ESLint React.
 - **recommended-type-checked**\
   Enable rules that are recommended by ESLint React with additional rules that require type information.
+- **dom**\
+  Enable rules that are specific to React DOM.
+- **off-dom**\
+  Disable rules that are specific to React DOM.
 - **all**\
   Enable all rules in this plugin except for debug rules.
 - **off**\
