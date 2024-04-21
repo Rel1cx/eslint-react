@@ -25,8 +25,7 @@ export default createRule<[], MessageID>({
       requiresTypeChecking: false,
     },
     messages: {
-      NO_COMPONENT_WILL_RECEIVE_PROPS:
-        "'componentWillReceiveProps' is deprecated, use 'UNSAFE_componentWillReceiveProps' instead.",
+      NO_COMPONENT_WILL_RECEIVE_PROPS: "[Deprecated] Use 'UNSAFE_componentWillReceiveProps' instead.",
     },
     schema: [],
   },

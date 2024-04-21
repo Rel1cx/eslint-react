@@ -1,8 +1,9 @@
-## v1.5.9 (Draft)
+## v1.5.9 (Fri 19 Apr 2024)
 
 ### 🪄 Improvements
 
-- Optimize error messages.
+- Optimize error messages of rules.
+- Update `@typescript-eslint`'s packages to `7.7.0`.
 
 ## v1.5.8 (Thu 11 Apr 2024)
 

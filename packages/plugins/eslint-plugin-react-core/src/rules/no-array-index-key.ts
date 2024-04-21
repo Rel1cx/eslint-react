@@ -3,7 +3,7 @@ import { getPragmaFromContext, isCloneElementCall, isCreateElementCall } from "@
 import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { Option as O, ReadonlyRecord } from "effect";
+import { Option as O, Record } from "effect";
 import type { ConstantCase } from "string-ts";
 import { isMatching } from "ts-pattern";
 
@@ -52,12 +52,12 @@ function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContex
   if (callee.type !== NodeType.MemberExpression) return O.none();
   if (callee.property.type !== NodeType.Identifier) return O.none();
   const { name } = callee.property;
-  if (!ReadonlyRecord.has(iteratorFunctionIndexParamPosition, name as never)) return O.none();
+  if (!Record.has(iteratorFunctionIndexParamPosition, name as never)) return O.none();
   const callbackArg = node.arguments[isUsingReactChildren(node, context) ? 1 : 0];
   if (!callbackArg) return O.none();
   if (!isOneOf([NodeType.ArrowFunctionExpression, NodeType.FunctionExpression])(callbackArg)) return O.none();
   const { params } = callbackArg;
-  const maybeIndexParamPosition = ReadonlyRecord.get(iteratorFunctionIndexParamPosition, name as never);
+  const maybeIndexParamPosition = Record.get(iteratorFunctionIndexParamPosition, name as never);
   if (O.isNone(maybeIndexParamPosition)) return O.none();
   const indexParamPosition = maybeIndexParamPosition.value;
   if (params.length < indexParamPosition + 1) return O.none();

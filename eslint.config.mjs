@@ -84,7 +84,6 @@ export default tseslint.config(
           ignorePrimitives: true,
         },
       ],
-
       "array-callback-return": "off",
       "eslint-plugin/require-meta-docs-url": "off",
       "logical-assignment-operators": "error",
@@ -118,7 +117,6 @@ export default tseslint.config(
           selector: 'ImportDeclaration[source.value="."]',
         },
       ],
-
       "perfectionist/sort-exports": "off",
       "perfectionist/sort-imports": "off",
       "perfectionist/sort-named-exports": "off",
@@ -150,7 +148,6 @@ export default tseslint.config(
           type: "natural",
         },
       ],
-
       "eslint-comments/disable-enable-pair": ["error", { allowWholeFile: true }],
       "eslint-comments/no-aggregating-enable": "error",
       "eslint-comments/no-duplicate-disable": "error",
@@ -169,9 +166,7 @@ export default tseslint.config(
           ],
         },
       ],
-
       "simple-import-sort/imports": "warn",
-
       "jsdoc/check-tag-names": "off",
       "jsdoc/check-param-names": "off",
       "jsdoc/require-jsdoc": "off",

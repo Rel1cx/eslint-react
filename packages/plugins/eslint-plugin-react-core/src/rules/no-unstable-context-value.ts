@@ -24,11 +24,11 @@ export default createRule<[], MessageID>({
     },
     messages: {
       NO_UNSTABLE_CONTEXT_VALUE:
-        "The '{{type}}' passed as the value prop to the context provider should not be constructed. It will change on every render.",
+        "A/an '{{type}}' passed as the value prop to the context provider should not be constructed. It will change on every render.",
       NO_UNSTABLE_CONTEXT_VALUE_WITH_FUNCTION:
-        "The '{{type}}' passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useCallback hook.",
+        "A/an '{{type}}' passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useCallback hook.",
       NO_UNSTABLE_CONTEXT_VALUE_WITH_IDENTIFIER:
-        "The '{{type}}' passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useMemo hook.",
+        "A/an '{{type}}' passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useMemo hook.",
     },
     schema: [],
   },

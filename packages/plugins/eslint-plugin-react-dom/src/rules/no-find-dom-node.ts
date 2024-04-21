@@ -19,8 +19,7 @@ export default createRule<[], MessageID>({
       requiresTypeChecking: false,
     },
     messages: {
-      NO_FIND_DOM_NODE:
-        "The 'findDOMNode' will be removed in a future version of React. Use the the alternatives instead.",
+      NO_FIND_DOM_NODE: "[Deprecated] Use alternatives instead.",
     },
     schema: [],
   },

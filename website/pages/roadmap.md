@@ -27,7 +27,7 @@
 | `no-create-ref`                          | Prevents usage of `createRef`.                                                                         |
 | `no-direct-mutation-state`               | Prevents direct mutation of `this.state`.                                                              |
 | `no-duplicate-key`                       | Prevents duplicate `key` props on elements in the same array or a list of `children`.                  |
-| `no-implicit-key`                        | Prevents spreading `key` prop from objects.                                                            |
+| `no-implicit-key`                        | Prevents `key` prop from not being explicitly specified (e.g. spreading `key` prop from objects).      |
 | `no-leaked-conditional-rendering`        | Prevents problematic leaked values from being rendered.                                                |
 | `no-missing-component-display-name`      | Enforces that all components have a `displayName` which can be used in devtools.                       |
 | `no-missing-key`                         | Prevents missing `key` prop on items in list rendering.                                                |
@@ -117,7 +117,7 @@
 | `no-create-ref`                          | Prevents usage of `createRef`.                                                                         |
 | `no-direct-mutation-state`               | Prevents direct mutation of `this.state`.                                                              |
 | `no-duplicate-key`                       | Prevents duplicate `key` props on elements in the same array or a list of `children`.                  |
-| `no-implicit-key`                        | Prevents spreading `key` prop from objects.                                                            |
+| `no-implicit-key`                        | Prevents `key` prop from not being explicitly specified (e.g. spreading `key` prop from objects).      |
 | `no-leaked-conditional-rendering`        | Prevents problematic leaked values from being rendered.                                                |
 | `no-missing-component-display-name`      | Enforces that all components have a `displayName` which can be used in devtools.                       |
 | `no-missing-key`                         | Prevents missing `key` prop on items in list rendering.                                                |

@@ -38,7 +38,7 @@ export default createRule<[], MessageID>({
       requiresTypeChecking: false,
     },
     messages: {
-      NO_CHILDREN_IN_VOID_DOM_ELEMENTS: "Void DOM elements '<{{element}} />' cannot have children.",
+      NO_CHILDREN_IN_VOID_DOM_ELEMENTS: "A void DOM element '<{{element}} />' cannot have children.",
     },
     schema: [],
   },

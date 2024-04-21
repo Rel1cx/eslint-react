@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-debug",
-  "version": "1.5.9-beta.0",
+  "version": "1.5.10-beta.0",
   "description": "ESLint React's ESLint plugin for debugging related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -48,11 +48,11 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/parser": "7.6.0",
-    "@typescript-eslint/scope-manager": "7.6.0",
-    "@typescript-eslint/type-utils": "7.6.0",
-    "@typescript-eslint/types": "7.6.0",
-    "@typescript-eslint/utils": "7.6.0",
+    "@typescript-eslint/parser": "7.7.0",
+    "@typescript-eslint/scope-manager": "7.7.0",
+    "@typescript-eslint/type-utils": "7.7.0",
+    "@typescript-eslint/types": "7.7.0",
+    "@typescript-eslint/utils": "7.7.0",
     "string-ts": "2.1.0"
   },
   "peerDependencies": {

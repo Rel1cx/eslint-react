@@ -19,7 +19,7 @@ export default createRule<[], MessageID>({
       requiresTypeChecking: false,
     },
     messages: {
-      NO_CHILDREN_PROP: "Children should always be actual children, not passed in as a prop.",
+      NO_CHILDREN_PROP: "Do not pass children as props.",
     },
     schema: [],
   },

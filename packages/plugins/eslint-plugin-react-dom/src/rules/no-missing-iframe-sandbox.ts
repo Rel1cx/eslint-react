@@ -38,7 +38,7 @@ export default createRule<[], MessageID>({
       requiresTypeChecking: false,
     },
     messages: {
-      NO_MISSING_IFRAME_SANDBOX: "Missing 'sandbox' attribute on 'iframe' component.",
+      NO_MISSING_IFRAME_SANDBOX: "Add missing 'sandbox' attribute on 'iframe' component.",
     },
     schema: [],
   },

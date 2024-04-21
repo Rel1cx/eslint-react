@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
       requiresTypeChecking: false,
     },
     messages: {
-      NO_DUPLICATE_KEY: "Duplicate key '{{value}}' found.",
+      NO_DUPLICATE_KEY: "A key must be unique. '{{value}}' is duplicated.",
     },
     schema: [],
   },
