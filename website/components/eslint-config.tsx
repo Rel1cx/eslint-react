@@ -6,6 +6,8 @@ export interface ESLintConfigProps {
   children: React.ReactNode;
 }
 
+const ConfigItems = ["Using LegacyConfig", "Using FlatConfig"];
+
 export function ESLintConfig({
   defaultIndex = 0,
   children,
@@ -13,7 +15,7 @@ export function ESLintConfig({
   return (
     <Tabs
       defaultIndex={defaultIndex}
-      items={["Using LegacyConfig", "Using FlatConfig"]}
+      items={ConfigItems}
     >
       {children}
     </Tabs>
