@@ -42,11 +42,11 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "7.7.0",
+    "@typescript-eslint/utils": "^7.7.1",
     "deepmerge-ts": "5.1.0"
   },
   "devDependencies": {
-    "type-fest": "4.15.0",
+    "type-fest": "4.16.0",
     "valibot": "0.30.0"
   }
 }

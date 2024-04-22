@@ -47,10 +47,10 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "7.7.0",
-    "@typescript-eslint/type-utils": "7.7.0",
-    "@typescript-eslint/types": "7.7.0",
-    "@typescript-eslint/utils": "7.7.0",
+    "@typescript-eslint/scope-manager": "^7.7.1",
+    "@typescript-eslint/type-utils": "^7.7.1",
+    "@typescript-eslint/types": "^7.7.1",
+    "@typescript-eslint/utils": "^7.7.1",
     "short-unique-id": "5.0.3"
   },
   "devDependencies": {
