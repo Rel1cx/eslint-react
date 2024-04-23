@@ -32,7 +32,7 @@
     "@vitejs/plugin-react": "4.2.1",
     "autoprefixer": "10.4.19",
     "effect": "3.0.3",
-    "eslint": "9.1.0",
+    "eslint": "9.1.1",
     "eslint-plugin-mdx": "3.1.5",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-react-refresh": "0.4.6",
