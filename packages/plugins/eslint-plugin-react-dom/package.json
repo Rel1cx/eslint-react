@@ -56,7 +56,7 @@
     "string-ts": "2.1.0"
   },
   "devDependencies": {
-    "effect": "3.0.3"
+    "effect": "3.0.4"
   },
   "peerDependencies": {
     "@typescript-eslint/parser": "^7.5.0",
