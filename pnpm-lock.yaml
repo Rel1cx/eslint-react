@@ -334,8 +334,8 @@ importers:
         specifier: 9.1.0
         version: 9.1.0
       string-ts:
-        specifier: 2.1.0
-        version: 2.1.0
+        specifier: 2.1.1
+        version: 2.1.1
       ts-api-utils:
         specifier: 1.3.0
         version: 1.3.0(typescript@5.4.5)
@@ -386,8 +386,8 @@ importers:
         specifier: 9.1.0
         version: 9.1.0
       string-ts:
-        specifier: 2.1.0
-        version: 2.1.0
+        specifier: 2.1.1
+        version: 2.1.1
       typescript:
         specifier: 5.4.5
         version: 5.4.5
@@ -431,8 +431,8 @@ importers:
         specifier: 9.1.0
         version: 9.1.0
       string-ts:
-        specifier: 2.1.0
-        version: 2.1.0
+        specifier: 2.1.1
+        version: 2.1.1
       typescript:
         specifier: 5.4.5
         version: 5.4.5
@@ -483,8 +483,8 @@ importers:
         specifier: 9.1.0
         version: 9.1.0
       string-ts:
-        specifier: 2.1.0
-        version: 2.1.0
+        specifier: 2.1.1
+        version: 2.1.1
       typescript:
         specifier: 5.4.5
         version: 5.4.5
@@ -532,8 +532,8 @@ importers:
         specifier: 9.1.0
         version: 9.1.0
       string-ts:
-        specifier: 2.1.0
-        version: 2.1.0
+        specifier: 2.1.1
+        version: 2.1.1
       typescript:
         specifier: 5.4.5
         version: 5.4.5
@@ -593,8 +593,8 @@ importers:
         specifier: ^7.7.1
         version: 7.7.1(eslint@9.1.0)(typescript@5.4.5)
       string-ts:
-        specifier: 2.1.0
-        version: 2.1.0
+        specifier: 2.1.1
+        version: 2.1.1
     devDependencies:
       effect:
         specifier: 3.0.5
@@ -655,8 +655,8 @@ importers:
         specifier: ^7.7.1
         version: 7.7.1(eslint@9.1.0)(typescript@5.4.5)
       string-ts:
-        specifier: 2.1.0
-        version: 2.1.0
+        specifier: 2.1.1
+        version: 2.1.1
     devDependencies:
       effect:
         specifier: 3.0.5
@@ -5259,8 +5259,8 @@ packages:
     resolution: {integrity: sha512-aqD2Q0144Z+/RqG52NeHEkZauTAUWJO8c6yTftGJKO3Tja5tUgIfmIl6kExvhtxSDP7fXB6DvzkfMpCd/F3G+Q==}
     engines: {node: '>=0.6.19'}
 
-  string-ts@2.1.0:
-    resolution: {integrity: sha512-YpGEBxS3Qw1De+RO3Gdrsx2gwYU9b7WmPtKhRLTTKc3oKzbOxqGDYLRGkNeIXLL4BGVZMXY49hPpzP3RAwUFAA==}
+  string-ts@2.1.1:
+    resolution: {integrity: sha512-BtSlY8ttfj+veJuirU5uOP7pxqIuGQHzPSNZS7Kj3orT8250GBijUYp0K5ZV+s5OREMsC1TLaSVB75kyeBYZyw==}
 
   string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
@@ -11280,7 +11280,7 @@ snapshots:
 
   string-argv@0.3.2: {}
 
-  string-ts@2.1.0: {}
+  string-ts@2.1.1: {}
 
   string-width@4.2.3:
     dependencies:

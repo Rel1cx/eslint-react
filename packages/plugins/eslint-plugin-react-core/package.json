@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-core",
-  "version": "1.5.10-beta.1",
+  "version": "1.5.10-next.2",
   "description": "ESLint React's ESLint plugin for React related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -54,7 +54,7 @@
     "@typescript-eslint/type-utils": "^7.7.1",
     "@typescript-eslint/types": "^7.7.1",
     "@typescript-eslint/utils": "^7.7.1",
-    "string-ts": "2.1.0",
+    "string-ts": "2.1.1",
     "ts-api-utils": "1.3.0"
   },
   "devDependencies": {
