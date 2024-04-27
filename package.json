@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.5.10-beta.3",
+  "version": "1.5.10-next.4",
   "private": true,
   "description": "A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -70,7 +70,7 @@
     "cspell": "8.7.0",
     "dedent": "1.5.3",
     "dprint": "0.45.1",
-    "effect": "3.0.6",
+    "effect": "3.0.7",
     "eslint": "9.1.1",
     "eslint-config-flat-gitignore": "0.1.5",
     "eslint-plugin-eslint-comments": "3.2.0",
