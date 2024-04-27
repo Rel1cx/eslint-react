@@ -4,6 +4,7 @@
 
 - Update `react` to `18.3.1`.
 - Update `@typescript-eslint`'s packages to `7.7.1`.
+- Use a wider range of peerDependencies.
 
 ## v1.5.9 (Fri 19 Apr 2024)
 
