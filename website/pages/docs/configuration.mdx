@@ -40,29 +40,6 @@ This is intended to cover edge cases. We suggest to use this option very sparing
 
 <Config>
 
-```js filename=".eslintrc.js"
-// ...
-module.exports = {
-  // ...
-  settings: {
-    reactOptions: {
-      jsxPragma: "React",
-      jsxPragmaFrag: "Fragment",
-      additionalHooks: {
-        useLayoutEffect: ["useIsomorphicLayoutEffect"],
-        // ...
-      },
-      version: "detect",
-    }
-  }
-  // ...
-}
-```
-
-</Config>
-
-<Config>
-
 ```ts twoslash filename="eslint.config.js"
 // ...
 import eslintReact from "@eslint-react/eslint-plugin";
@@ -82,11 +59,34 @@ export default [
           // ...
         },
         version: "detect",
-      }
-    }
+      },
+    },
   },
   // ...
 ];
+```
+
+</Config>
+
+<Config>
+
+```js filename=".eslintrc.js"
+// ...
+module.exports = {
+  // ...
+  settings: {
+    reactOptions: {
+      jsxPragma: "React",
+      jsxPragmaFrag: "Fragment",
+      additionalHooks: {
+        useLayoutEffect: ["useIsomorphicLayoutEffect"],
+        // ...
+      },
+      version: "detect",
+    },
+  },
+  // ...
+};
 ```
 
 </Config>

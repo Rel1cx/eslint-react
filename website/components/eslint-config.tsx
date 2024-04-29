@@ -6,7 +6,7 @@ export interface ESLintConfigProps {
   children: React.ReactNode;
 }
 
-const ConfigItems = ["Using LegacyConfig", "Using FlatConfig"];
+const ConfigItems = ["FlatConfig", "LegacyConfig"];
 
 export function ESLintConfig({
   defaultIndex = 0,

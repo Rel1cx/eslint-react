@@ -27,7 +27,7 @@
     "@types/react-dom": "18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.7.1",
     "@typescript-eslint/parser": "^7.7.1",
-    "@vanilla-extract/css": "1.14.2",
+    "@vanilla-extract/css": "1.15.0",
     "@vanilla-extract/next-plugin": "2.4.0",
     "@vitejs/plugin-react": "4.2.1",
     "autoprefixer": "10.4.19",

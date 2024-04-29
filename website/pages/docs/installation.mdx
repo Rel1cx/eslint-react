@@ -47,21 +47,6 @@ bun add --dev @eslint-react/eslint-plugin
 
 <Config>
 
-```js filename=".eslintrc.js" {3,6}
-module.exports = {
-  // ...
-  parser: "@typescript-eslint/parser",
-  extends: [
-    // ...
-    "plugin:@eslint-react/recommended-legacy",
-  ],
-};
-```
-
-</Config>
-
-<Config>
-
 ```js filename="eslint.config.js" {5,10-13}
 // @ts-check
 
@@ -75,8 +60,23 @@ export default tseslint.config(
   {
     files: ["src/**/*.{ts,tsx}"],
     ...eslintReact.configs.recommended,
-  },
+  }
 );
+```
+
+</Config>
+
+<Config>
+
+```js filename=".eslintrc.js" {3,6}
+module.exports = {
+  // ...
+  parser: "@typescript-eslint/parser",
+  extends: [
+    // ...
+    "plugin:@eslint-react/recommended-legacy",
+  ],
+};
 ```
 
 </Config>
@@ -86,35 +86,6 @@ export default tseslint.config(
 ## Linting with type information
 
 <ESLintConfig>
-
-<Config>
-
-<Info>
-Rules that require type information are not enabled by default.
-
-To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
-
-Then, you can enable the rules that require type information.
-
-</Info>
-
-```js filename=".eslintrc.js" {5,10}
-module.exports = {
-  // ...
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
-  },
-  extends: ["plugin:@eslint-react/recmmended-legacy"],
-  rules: {
-    // ...
-    "@eslint-react/no-leaked-conditional-rendering": "error", // <-- Requires type information
-  },
-  // ...
-};
-```
-
-</Config>
 
 <Config>
 
@@ -154,8 +125,37 @@ export default tseslint.config(
     rules: {
       "@eslint-react/no-leaked-conditional-rendering": "error", // <-- Requires type information
     },
-  },
+  }
 );
+```
+
+</Config>
+
+<Config>
+
+<Info>
+Rules that require type information are not enabled by default.
+
+To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
+
+Then, you can enable the rules that require type information.
+
+</Info>
+
+```js filename=".eslintrc.js" {5,10}
+module.exports = {
+  // ...
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
+  },
+  extends: ["plugin:@eslint-react/recmmended-legacy"],
+  rules: {
+    // ...
+    "@eslint-react/no-leaked-conditional-rendering": "error", // <-- Requires type information
+  },
+  // ...
+};
 ```
 
 </Config>
