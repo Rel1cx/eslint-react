@@ -49,10 +49,10 @@
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/parser": "^7.7.1",
-    "@typescript-eslint/scope-manager": "^7.7.1",
-    "@typescript-eslint/types": "^7.7.1",
-    "@typescript-eslint/utils": "^7.7.1",
+    "@typescript-eslint/parser": "^7.8.0",
+    "@typescript-eslint/scope-manager": "^7.8.0",
+    "@typescript-eslint/types": "^7.8.0",
+    "@typescript-eslint/utils": "^7.8.0",
     "string-ts": "2.1.1"
   },
   "devDependencies": {
