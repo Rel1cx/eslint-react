@@ -1,13 +1,13 @@
 // @ts-check
 
-import eslint from "@eslint/js";
+import js from "@eslint/js";
 import tseslint from "typescript-eslint";
+import react from "@eslint-react/eslint-plugin";
 import reactHooks from "eslint-plugin-react-hooks";
-import eslintReact from "@eslint-react/eslint-plugin";
 import gitignore from "eslint-config-flat-gitignore";
 
 export default tseslint.config(
-  eslint.configs.recommended,
+  js.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   {
     languageOptions: {
@@ -20,6 +20,11 @@ export default tseslint.config(
       "no-undef": "off",
     },
   },
+  // ESLint React rules
+  {
+    files: ["**/*.{ts,tsx}"],
+    ...react.configs.recommended,
+  },
   // React hooks rules
   {
     files: ["**/*.{ts,tsx}"],
@@ -27,11 +32,6 @@ export default tseslint.config(
       "react-hooks": reactHooks,
     },
     rules: reactHooks.configs.recommended.rules,
-  },
-  // ESLint React rules
-  {
-    files: ["**/*.{ts,tsx}"],
-    ...eslintReact.configs.recommended,
   },
   // Configurations rules
   {

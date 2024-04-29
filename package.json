@@ -71,6 +71,7 @@
     "dedent": "1.5.3",
     "dprint": "0.45.1",
     "effect": "3.0.7",
+    "esbuild": "^0.20.2",
     "eslint": "9.1.1",
     "eslint-config-flat-gitignore": "0.1.5",
     "eslint-plugin-eslint-comments": "3.2.0",

@@ -47,21 +47,20 @@ bun add --dev @eslint-react/eslint-plugin
 
 <Config>
 
-```js filename="eslint.config.js" {5,10-13}
+```js filename="eslint.config.js" {4,9-12}
 // @ts-check
 
-import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
-import eslintReact from "@eslint-react/eslint-plugin";
+import js from "@eslint/js";
+import react from "@eslint-react/eslint-plugin";
+import * as tsParser from "@typescript-eslint/parser";
 
-export default tseslint.config(
-  eslint.configs.recommended,
-  ...tseslint.configs.recommended,
+export default [
+  js.configs.recommended,
   {
-    files: ["src/**/*.{ts,tsx}"],
-    ...eslintReact.configs.recommended,
-  }
-);
+    files: ["**/*.{ts,tsx}"],
+    ...react.configs.recommended,
+  },
+];
 ```
 
 </Config>
@@ -98,35 +97,33 @@ Then, you can enable the rules that require type information.
 
 </Info>
 
-```js filename="eslint.config.js" {13,25}
+```js filename="eslint.config.js" {15,23}
 // @ts-check
 
-import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
-import eslintReact from "@eslint-react/eslint-plugin";
+import js from "@eslint/js";
+import react from "@eslint-react/eslint-plugin";
+import * as parser from "@typescript-eslint/parser";
 
-export default tseslint.config(
-  eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
+export default [
+  js.configs.recommended,
   {
+    files: ["**/*.{ts,tsx}"],
+    ...react.configs.recommended,
     languageOptions: {
       parserOptions: {
+        parser: tsParser,
         project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
         tsconfigRootDir: import.meta.dirname,
       },
     },
   },
   {
-    files: ["src/**/*.{ts,tsx}"],
-    ...eslintReact.configs.recommended,
-  },
-  {
-    files: ["src/**/*.{ts,tsx}"],
+    files: ["**/*.{ts,tsx}"],
     rules: {
       "@eslint-react/no-leaked-conditional-rendering": "error", // <-- Requires type information
     },
-  }
-);
+  },
+];
 ```
 
 </Config>

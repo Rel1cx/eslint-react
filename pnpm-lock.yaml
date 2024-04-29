@@ -76,6 +76,9 @@ importers:
       effect:
         specifier: 3.0.7
         version: 3.0.7
+      esbuild:
+        specifier: ^0.20.2
+        version: 0.20.2
       eslint:
         specifier: 9.1.0
         version: 9.1.0
@@ -718,7 +721,7 @@ importers:
         version: 1.15.0
       '@vanilla-extract/next-plugin':
         specifier: 2.4.0
-        version: 2.4.0(@types/node@20.12.7)(next@14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.75.0))(sass@1.75.0)(terser@5.30.4)(webpack@5.91.0(esbuild@0.19.12))
+        version: 2.4.0(@types/node@20.12.7)(next@14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.75.0))(sass@1.75.0)(terser@5.30.4)(webpack@5.91.0(esbuild@0.20.2))
       '@vitejs/plugin-react':
         specifier: 4.2.1
         version: 4.2.1(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))
@@ -7422,9 +7425,9 @@ snapshots:
       - supports-color
       - terser
 
-  '@vanilla-extract/next-plugin@2.4.0(@types/node@20.12.7)(next@14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.75.0))(sass@1.75.0)(terser@5.30.4)(webpack@5.91.0(esbuild@0.19.12))':
+  '@vanilla-extract/next-plugin@2.4.0(@types/node@20.12.7)(next@14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.75.0))(sass@1.75.0)(terser@5.30.4)(webpack@5.91.0(esbuild@0.20.2))':
     dependencies:
-      '@vanilla-extract/webpack-plugin': 2.3.7(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4)(webpack@5.91.0(esbuild@0.19.12))
+      '@vanilla-extract/webpack-plugin': 2.3.7(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4)(webpack@5.91.0(esbuild@0.20.2))
       next: 14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.75.0)
     transitivePeerDependencies:
       - '@types/node'
@@ -7439,13 +7442,13 @@ snapshots:
 
   '@vanilla-extract/private@1.0.4': {}
 
-  '@vanilla-extract/webpack-plugin@2.3.7(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4)(webpack@5.91.0(esbuild@0.19.12))':
+  '@vanilla-extract/webpack-plugin@2.3.7(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4)(webpack@5.91.0(esbuild@0.20.2))':
     dependencies:
       '@vanilla-extract/integration': 7.1.2(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4)
       chalk: 4.1.2
       debug: 4.3.4
       loader-utils: 2.0.4
-      webpack: 5.91.0(esbuild@0.19.12)
+      webpack: 5.91.0(esbuild@0.20.2)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -11408,16 +11411,16 @@ snapshots:
 
   term-size@2.2.1: {}
 
-  terser-webpack-plugin@5.3.10(esbuild@0.19.12)(webpack@5.91.0(esbuild@0.19.12)):
+  terser-webpack-plugin@5.3.10(esbuild@0.20.2)(webpack@5.91.0(esbuild@0.20.2)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.2
       terser: 5.30.4
-      webpack: 5.91.0(esbuild@0.19.12)
+      webpack: 5.91.0(esbuild@0.20.2)
     optionalDependencies:
-      esbuild: 0.19.12
+      esbuild: 0.20.2
 
   terser@5.30.4:
     dependencies:
@@ -11971,7 +11974,7 @@ snapshots:
 
   webpack-sources@3.2.3: {}
 
-  webpack@5.91.0(esbuild@0.19.12):
+  webpack@5.91.0(esbuild@0.20.2):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.5
@@ -11994,7 +11997,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.10(esbuild@0.19.12)(webpack@5.91.0(esbuild@0.19.12))
+      terser-webpack-plugin: 5.3.10(esbuild@0.20.2)(webpack@5.91.0(esbuild@0.20.2))
       watchpack: 2.4.1
       webpack-sources: 3.2.3
     transitivePeerDependencies:

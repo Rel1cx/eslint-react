@@ -42,14 +42,14 @@ This is intended to cover edge cases. We suggest to use this option very sparing
 
 ```ts twoslash filename="eslint.config.js"
 // ...
-import eslintReact from "@eslint-react/eslint-plugin";
+import react from "@eslint-react/eslint-plugin";
 
 // ...
 export default [
   // ...
   {
-    files: ["src/**/*.{ts,tsx}"],
-    ...eslintReact.configs.recommended,
+    files: ["**/*.{ts,tsx}"],
+    ...react.configs.recommended,
     settings: {
       reactOptions: {
         jsxPragma: "React",
