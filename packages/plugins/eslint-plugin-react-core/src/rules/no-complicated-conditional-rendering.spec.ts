@@ -531,5 +531,10 @@ ruleTester.run(RULE_NAME, rule, {
             )
         }
     `,
+    dedent`
+      const App = () => {
+        return <div title={0 && 1 && 2 || 3 && 4 && 5}>Hello</div>
+        }
+    `,
   ],
 });
