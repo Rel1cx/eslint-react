@@ -1,7 +1,8 @@
+import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
+
 import { createRule } from "../utils";
-import { NodeType, is, isOneOf } from "@eslint-react/ast";
 export const RULE_NAME = "no-complicated-conditional-rendering";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
@@ -26,13 +27,13 @@ export default createRule<[], MessageID>({
       if (!is(NodeType.JSXExpressionContainer)(jsxExpContainer)) return;
       if (!isOneOf([NodeType.JSXElement, NodeType.JSXFragment])(jsxExpContainer.parent)) return;
       if (!jsxExpContainer.parent.children.includes(jsxExpContainer)) return;
-      context.report({ node: jsxExpContainer, messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING" });
+      context.report({ messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING", node: jsxExpContainer });
     }
 
     return {
       "JSXExpressionContainer > ConditionalExpression > ConditionalExpression": check,
-      "JSXExpressionContainer > LogicalExpression > ConditionalExpression": check,
       "JSXExpressionContainer > ConditionalExpression > LogicalExpression": check,
+      "JSXExpressionContainer > LogicalExpression > ConditionalExpression": check,
       "JSXExpressionContainer > LogicalExpression[operator='&&'] > LogicalExpression[operator='||']": check,
       "JSXExpressionContainer > LogicalExpression[operator='||'] > LogicalExpression[operator='&&']": check,
     };

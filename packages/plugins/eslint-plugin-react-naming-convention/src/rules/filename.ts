@@ -20,8 +20,8 @@ type Case = "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [
   | {
-    extensions?: readonly string[];
     excepts?: readonly string[];
+    extensions?: readonly string[];
     rule?: Case;
   }
   | Case

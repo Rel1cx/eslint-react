@@ -16,6 +16,10 @@ export type Construction = Data.TaggedEnum<{
     node: TSESTree.Node;
     usage: O.Option<TSESTree.Node>;
   };
+  CallExpression: {
+    node: TSESTree.CallExpression;
+    usage: O.Option<TSESTree.Node>;
+  };
   ClassExpression: {
     node: TSESTree.ClassExpression;
     usage: O.Option<TSESTree.Node>;
@@ -34,10 +38,6 @@ export type Construction = Data.TaggedEnum<{
   };
   JSXFragment: {
     node: TSESTree.JSXFragment;
-    usage: O.Option<TSESTree.Node>;
-  };
-  CallExpression: {
-    node: TSESTree.CallExpression;
     usage: O.Option<TSESTree.Node>;
   };
   NewExpression: {

@@ -10,8 +10,8 @@ import { NodeType } from "./node-type";
  * @returns The first node that matches the predicate or `null` if no node matches
  */
 export const traverseUp: {
-  (predicate: (node: TSESTree.Node) => boolean): (node: TSESTree.Node) => O.Option<TSESTree.Node>;
   (node: TSESTree.Node, predicate: (node: TSESTree.Node) => boolean): O.Option<TSESTree.Node>;
+  (predicate: (node: TSESTree.Node) => boolean): (node: TSESTree.Node) => O.Option<TSESTree.Node>;
 } = F.dual(2, (node: TSESTree.Node, predicate: (node: TSESTree.Node) => boolean): O.Option<TSESTree.Node> => {
   const { parent } = node;
   if (!parent || parent.type === NodeType.Program) return O.none();
@@ -29,8 +29,8 @@ export const traverseUp: {
  * @returns The first node that matches the predicate or `null` if no node matches
  */
 export const traverseUpGuard: {
-  <T extends TSESTree.Node>(predicate: (node: TSESTree.Node) => node is T): (node: TSESTree.Node) => O.Option<T>;
   <T extends TSESTree.Node>(node: TSESTree.Node, predicate: (node: TSESTree.Node) => node is T): O.Option<T>;
+  <T extends TSESTree.Node>(predicate: (node: TSESTree.Node) => node is T): (node: TSESTree.Node) => O.Option<T>;
 } = F.dual(2, <T extends TSESTree.Node>(
   node: TSESTree.Node,
   predicate: (node: TSESTree.Node) => node is T,

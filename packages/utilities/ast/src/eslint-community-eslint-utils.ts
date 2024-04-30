@@ -104,6 +104,11 @@ export namespace ESLintCommunityESLintUtils {
   ) => boolean;
 
   export const isParenthesized = eslintUtils.isParenthesized as {
+    (
+      times: number,
+      node: TSESTree.Node,
+      sourceCode: TSESLint.SourceCode,
+    ): boolean;
     /**
      * Check whether a given node is parenthesized or not.
      * This function detects it correctly even if it's parenthesized by specific syntax.
@@ -113,10 +118,5 @@ export namespace ESLintCommunityESLintUtils {
      * For example, `isParenthesized(2, node, sourceCode)` returns true for `((foo))`, but not for `(foo)`.
      */
     (node: TSESTree.Node, sourceCode: TSESLint.SourceCode): boolean;
-    (
-      times: number,
-      node: TSESTree.Node,
-      sourceCode: TSESLint.SourceCode,
-    ): boolean;
   };
 }

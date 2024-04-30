@@ -83,7 +83,6 @@ export default tseslint.config(
         },
       ],
       "array-callback-return": "off",
-      "eslint-plugin/require-meta-docs-url": "off",
       "logical-assignment-operators": "error",
       "max-depth": ["warn", 3],
       "no-console": "error",
@@ -121,7 +120,24 @@ export default tseslint.config(
       "perfectionist/sort-imports": "off",
       "perfectionist/sort-named-exports": "off",
       "perfectionist/sort-named-imports": "off",
-      "perfectionist/sort-object-types": "off",
+      "perfectionist/sort-object-types": [
+        "warn",
+        {
+          order: "asc",
+          type: "natural",
+          groups: ["id", "type", "meta", "unknown"],
+          "custom-groups": {
+            id: ["_", "id", "key"],
+            type: ["type", "kind"],
+            meta: [
+              "name",
+              "meta",
+              "title",
+              "description",
+            ],
+          },
+        },
+      ],
       "perfectionist/sort-objects": [
         "warn",
         {
@@ -148,6 +164,7 @@ export default tseslint.config(
           type: "natural",
         },
       ],
+      "eslint-plugin/require-meta-docs-url": "off",
       "eslint-comments/disable-enable-pair": ["error", { allowWholeFile: true }],
       "eslint-comments/no-aggregating-enable": "error",
       "eslint-comments/no-duplicate-disable": "error",
