@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
       if (!is(NodeType.JSXExpressionContainer)(jsxExpContainer)) return;
       if (!isOneOf([NodeType.JSXElement, NodeType.JSXFragment])(jsxExpContainer.parent)) return;
       if (!jsxExpContainer.parent.children.includes(jsxExpContainer)) return;
-      context.report({ node, messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING" });
+      context.report({ node: jsxExpContainer, messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING" });
     }
 
     return {
