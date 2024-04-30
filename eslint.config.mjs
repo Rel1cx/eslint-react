@@ -2,7 +2,6 @@
 
 import url from "node:url";
 
-import { FlatCompat } from "@eslint/eslintrc";
 import eslint from "@eslint/js";
 import eslintCommentsPlugin from "eslint-plugin-eslint-comments";
 import eslintPluginPlugin from "eslint-plugin-eslint-plugin";
@@ -15,7 +14,6 @@ import tseslint from "typescript-eslint";
 import vitest from "eslint-plugin-vitest";
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
-// const compat = new FlatCompat({ baseDirectory: dirname });
 
 export default tseslint.config(
   // register all of the plugins up-front
