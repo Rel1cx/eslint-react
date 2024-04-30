@@ -141,6 +141,26 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: dedent`
+      const App = () => {
+        return (
+            <>
+            {0 && 1 || <Foo />}
+            {NaN || 0 && <Foo />}
+            </>
+            )
+        }
+    `,
+      errors: [
+        {
+          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+        },
+        {
+          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
   ],
   valid: [
     ...allValid,
@@ -204,7 +224,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
 
         const App = ({ items }: AppProps) => {
-          return <div>{!!itesm.length && <List items={items}/>}</div>
+          return <div>{!!items.length && <List items={items}/>}</div>
       }
     `,
     dedent`
@@ -477,6 +497,16 @@ ruleTester.run(RULE_NAME, rule, {
             <>
             {0 && <Foo />}
             {NaN && <Foo />}
+            </>
+            )
+        }
+    `,
+    dedent`
+      const App = () => {
+        return (
+            <>
+            {0 && 1 && <Foo />}
+            {NaN && 0 && <Foo />}
             </>
             )
         }

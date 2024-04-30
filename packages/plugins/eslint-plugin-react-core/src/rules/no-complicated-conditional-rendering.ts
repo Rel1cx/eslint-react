@@ -1,10 +1,5 @@
-import { isOneOf, NodeType } from "@eslint-react/ast";
-import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Function as F } from "effect";
 import type { ConstantCase } from "string-ts";
-import { match } from "ts-pattern";
-
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-complicated-conditional-rendering";
@@ -26,35 +21,21 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const isConditionalOrLogicalExp = isOneOf([NodeType.ConditionalExpression, NodeType.LogicalExpression]);
-
-    function isComplicatedExpression(node: TSESTree.Expression): boolean {
-      return match(node)
-        .with({ type: NodeType.LogicalExpression }, ({ left, right }) => {
-          return isConditionalOrLogicalExp(left) || isConditionalOrLogicalExp(right);
-        })
-        .with({ type: NodeType.ConditionalExpression }, ({ alternate, consequent }) => {
-          return isConditionalOrLogicalExp(alternate) || isConditionalOrLogicalExp(consequent);
-        })
-        .otherwise(F.constFalse);
-    }
-
     return {
-      "JSXExpressionContainer > ConditionalExpression"(node: TSESTree.ConditionalExpression) {
-        if (isComplicatedExpression(node)) {
-          context.report({
-            messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
-            node,
-          });
-        }
+      "JSXExpressionContainer > ConditionalExpression > ConditionalExpression"(node) {
+        context.report({ messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING", node });
       },
-      "JSXExpressionContainer > LogicalExpression"(node: TSESTree.LogicalExpression) {
-        if (isComplicatedExpression(node)) {
-          context.report({
-            messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
-            node,
-          });
-        }
+      "JSXExpressionContainer > LogicalExpression > ConditionalExpression"(node) {
+        context.report({ messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING", node });
+      },
+      "JSXExpressionContainer > ConditionalExpression > LogicalExpression"(node) {
+        context.report({ messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING", node });
+      },
+      "JSXExpressionContainer > LogicalExpression[operator='&&'] > LogicalExpression[operator='||']"(node) {
+        context.report({ messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING", node });
+      },
+      "JSXExpressionContainer > LogicalExpression[operator='||'] > LogicalExpression[operator='&&']"(node) {
+        context.report({ messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING", node });
       },
     };
   },

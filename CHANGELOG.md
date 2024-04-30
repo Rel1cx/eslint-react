@@ -1,3 +1,10 @@
+## v1.5.11 (Draft)
+
+### 🪄 Improvements
+
+- Refactor rule `no-complicated-conditional-rendering`'s detection logic, make it more accurate.
+- Update `@typescript-eslint`'s packages to `7.8.0`.
+
 ## v1.5.10 (Sun 28 Apr 2024)
 
 ### 🪄 Improvements
