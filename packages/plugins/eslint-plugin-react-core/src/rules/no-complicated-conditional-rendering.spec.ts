@@ -161,6 +161,26 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: dedent`
+      const App = () => {
+        return (
+            <>
+            {0 && 1 && 2 || <Foo />}
+            {NaN || 1 || 0 && <Foo />}
+            </>
+            )
+        }
+    `,
+      errors: [
+        {
+          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+        },
+        {
+          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
   ],
   valid: [
     ...allValid,
