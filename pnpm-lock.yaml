@@ -74,8 +74,8 @@ importers:
         specifier: 0.45.1
         version: 0.45.1
       effect:
-        specifier: 3.1.1
-        version: 3.1.1
+        specifier: 3.1.2
+        version: 3.1.2
       esbuild:
         specifier: ^0.20.2
         version: 0.20.2
@@ -244,8 +244,8 @@ importers:
         version: 5.2.0
     devDependencies:
       effect:
-        specifier: 3.1.1
-        version: 3.1.1
+        specifier: 3.1.2
+        version: 3.1.2
 
   packages/plugins/eslint-plugin:
     dependencies:
@@ -344,8 +344,8 @@ importers:
         version: 5.4.5
     devDependencies:
       effect:
-        specifier: 3.1.1
-        version: 3.1.1
+        specifier: 3.1.2
+        version: 3.1.2
 
   packages/plugins/eslint-plugin-react-debug:
     dependencies:
@@ -438,8 +438,8 @@ importers:
         version: 5.4.5
     devDependencies:
       effect:
-        specifier: 3.1.1
-        version: 3.1.1
+        specifier: 3.1.2
+        version: 3.1.2
 
   packages/plugins/eslint-plugin-react-hooks-extra:
     dependencies:
@@ -490,8 +490,8 @@ importers:
         version: 5.4.5
     devDependencies:
       effect:
-        specifier: 3.1.1
-        version: 3.1.1
+        specifier: 3.1.2
+        version: 3.1.2
 
   packages/plugins/eslint-plugin-react-naming-convention:
     dependencies:
@@ -539,8 +539,8 @@ importers:
         version: 5.4.5
     devDependencies:
       effect:
-        specifier: 3.1.1
-        version: 3.1.1
+        specifier: 3.1.2
+        version: 3.1.2
 
   packages/shared:
     dependencies:
@@ -597,8 +597,8 @@ importers:
         version: 2.1.1
     devDependencies:
       effect:
-        specifier: 3.1.1
-        version: 3.1.1
+        specifier: 3.1.2
+        version: 3.1.2
 
   packages/utilities/jsx:
     dependencies:
@@ -631,8 +631,8 @@ importers:
         version: 4.1.2
     devDependencies:
       effect:
-        specifier: 3.1.1
-        version: 3.1.1
+        specifier: 3.1.2
+        version: 3.1.2
 
   packages/utilities/var:
     dependencies:
@@ -659,8 +659,8 @@ importers:
         version: 2.1.1
     devDependencies:
       effect:
-        specifier: 3.1.1
-        version: 3.1.1
+        specifier: 3.1.2
+        version: 3.1.2
 
   website:
     dependencies:
@@ -726,8 +726,8 @@ importers:
         specifier: 10.4.19
         version: 10.4.19(postcss@8.4.38)
       effect:
-        specifier: 3.1.1
-        version: 3.1.1
+        specifier: 3.1.2
+        version: 3.1.2
       eslint:
         specifier: 9.1.0
         version: 9.1.0
@@ -3084,8 +3084,8 @@ packages:
   effect@2.4.0:
     resolution: {integrity: sha512-HAtFVAbAGYDzfGbrSrX1gzMzXym15zk1+ps72X8W1wdZY0vxq+u23w8u9DhAZjiJPHT4W9ZYL7QWQqpP4t+dSg==}
 
-  effect@3.1.1:
-    resolution: {integrity: sha512-9qcLfQTeg+4lzVPIE23ix00EPdegqd1Gt8L3YxO+89HwJvk6x431wVCz/hWe37jJqmvuaqchteyZ1Z0kPbGN5Q==}
+  effect@3.1.2:
+    resolution: {integrity: sha512-XakSWck6w6ROqKyEys0tKE9K6Gx2p8W/09u2ZTEZZrneO5Z3QEdPhXzWTyC73kD5zUvfJinZLVIas8I1xoHaTg==}
 
   electron-to-chromium@1.4.754:
     resolution: {integrity: sha512-7Kr5jUdns5rL/M9wFFmMZAgFDuL2YOnanFH4OI4iFzUqyh3XOL7nAGbSlSMZdzKMIyyTpNSbqZsWG9odwLeKvA==}
@@ -6011,8 +6011,8 @@ packages:
     peerDependencies:
       zod: ^3.18.0
 
-  zod@3.23.5:
-    resolution: {integrity: sha512-fkwiq0VIQTksNNA131rDOsVJcns0pfVUjHzLrNBiF/O/Xxb5lQyEXkhZWcJ7npWsYlvs+h0jFWXXy4X46Em1JA==}
+  zod@3.23.6:
+    resolution: {integrity: sha512-RTHJlZhsRbuA8Hmp/iNL7jnfc4nZishjsanDAfEY1QpDQZCahUp3xDzl+zfweE9BklxMUcgBgS1b7Lvie/ZVwA==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -8445,7 +8445,7 @@ snapshots:
 
   effect@2.4.0: {}
 
-  effect@3.1.1: {}
+  effect@3.1.2: {}
 
   electron-to-chromium@1.4.754: {}
 
@@ -10429,7 +10429,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       scroll-into-view-if-needed: 3.1.0
-      zod: 3.23.5
+      zod: 3.23.6
 
   nextra@3.0.0-alpha.23(@types/react@18.3.1)(next@14.2.3(@babel/core@7.24.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.76.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5):
     dependencies:
@@ -10467,8 +10467,8 @@ snapshots:
       unist-util-remove: 4.0.0
       unist-util-visit: 5.0.0
       yaml: 2.4.2
-      zod: 3.23.5
-      zod-validation-error: 1.5.0(zod@3.23.5)
+      zod: 3.23.6
+      zod-validation-error: 1.5.0(zod@3.23.6)
     transitivePeerDependencies:
       - '@types/react'
       - supports-color
@@ -12108,10 +12108,10 @@ snapshots:
 
   yocto-queue@1.0.0: {}
 
-  zod-validation-error@1.5.0(zod@3.23.5):
+  zod-validation-error@1.5.0(zod@3.23.6):
     dependencies:
-      zod: 3.23.5
+      zod: 3.23.6
 
-  zod@3.23.5: {}
+  zod@3.23.6: {}
 
   zwitch@2.0.4: {}
