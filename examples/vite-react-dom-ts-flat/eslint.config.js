@@ -4,11 +4,13 @@ import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 import react from "@eslint-react/eslint-plugin";
 import reactHooks from "eslint-plugin-react-hooks";
-import gitignore from "eslint-config-flat-gitignore";
 
-export default tseslint.config(
+export default [
+  // JavaScript rules
   js.configs.recommended,
+  // TypeScript rules
   ...tseslint.configs.recommendedTypeChecked,
+  // TypeScript languageOptions
   {
     languageOptions: {
       parserOptions: {
@@ -17,20 +19,7 @@ export default tseslint.config(
       },
     },
   },
-  // ESLint React rules
-  {
-    files: ["src/**/*.{ts,tsx}"],
-    ...react.configs.recommended,
-  },
-  // React hooks rules
-  {
-    files: ["src/**/*.{ts,tsx}"],
-    plugins: {
-      "react-hooks": reactHooks,
-    },
-    rules: reactHooks.configs.recommended.rules,
-  },
-  // Configurations rules
+  // TypeScript languageOptions for config files
   {
     files: ["*.config.{js,ts}", "*.d.ts"],
     languageOptions: {
@@ -39,10 +28,22 @@ export default tseslint.config(
       },
     },
   },
+  // React rules
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    ...react.configs.recommended,
+  },
+  // React Hooks rules
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    plugins: {
+      "react-hooks": reactHooks,
+    },
+    rules: reactHooks.configs.recommended.rules,
+  },
+  // Disable type checking for JavaScript files
   {
     files: ["*.js"],
     ...tseslint.configs.disableTypeChecked,
   },
-  // Ignore files
-  gitignore(),
-);
+];

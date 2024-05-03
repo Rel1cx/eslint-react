@@ -97,7 +97,7 @@ Then, you can enable the rules that require type information.
 
 </Info>
 
-```js filename="eslint.config.js" {15,23}
+```js filename="eslint.config.js" {13,23}
 // @ts-check
 
 import js from "@eslint/js";
@@ -107,8 +107,6 @@ import * as parser from "@typescript-eslint/parser";
 export default [
   js.configs.recommended,
   {
-    files: ["**/*.{ts,tsx}"],
-    ...react.configs.recommended,
     languageOptions: {
       parserOptions: {
         parser: tsParser,
@@ -116,6 +114,10 @@ export default [
         tsconfigRootDir: import.meta.dirname,
       },
     },
+  }
+  {
+    files: ["**/*.{ts,tsx}"],
+    ...react.configs.recommended,
   },
   {
     files: ["**/*.{ts,tsx}"],
