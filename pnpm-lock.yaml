@@ -105,7 +105,7 @@ importers:
         version: 12.1.0(eslint@9.1.0)
       eslint-plugin-vitest:
         specifier: 0.5.4
-        version: 0.5.4(@typescript-eslint/eslint-plugin@7.8.0(@typescript-eslint/parser@7.8.0(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5)(vitest@1.5.3(@types/node@20.12.8)(@vitest/ui@1.5.3)(sass@1.76.0))
+        version: 0.5.4(@typescript-eslint/eslint-plugin@7.8.0(@typescript-eslint/parser@7.8.0(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5)(vitest@1.5.3(@types/node@20.12.8)(@vitest/ui@1.5.3)(sass@1.76.0)(terser@5.31.0))
       fast-equals:
         specifier: 5.0.1
         version: 5.0.1
@@ -159,7 +159,7 @@ importers:
         version: 5.4.5
       vitest:
         specifier: 1.5.3
-        version: 1.5.3(@types/node@20.12.8)(@vitest/ui@1.5.3)(sass@1.76.0)
+        version: 1.5.3(@types/node@20.12.8)(@vitest/ui@1.5.3)(sass@1.76.0)(terser@5.31.0)
 
   examples/vite-react-dom-ts-flat:
     dependencies:
@@ -174,8 +174,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/plugins/eslint-plugin
       '@eslint/js':
-        specifier: 9.1.1
-        version: 9.1.1
+        specifier: 9.2.0
+        version: 9.2.0
       '@tsconfig/node20':
         specifier: 20.1.4
         version: 20.1.4
@@ -687,8 +687,8 @@ importers:
         specifier: workspace:*
         version: link:../packages/plugins/eslint-plugin
       '@eslint/js':
-        specifier: 9.1.1
-        version: 9.1.1
+        specifier: 9.2.0
+        version: 9.2.0
       '@mdx-js/mdx':
         specifier: 3.0.1
         version: 3.0.1
@@ -1475,6 +1475,10 @@ packages:
 
   '@eslint/js@9.1.1':
     resolution: {integrity: sha512-5WoDz3Y19Bg2BnErkZTp0en+c/i9PvgFS7MBe1+m60HjFr0hrphlAGp4yzI7pxpt4xShln4ZyYp4neJm8hmOkQ==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@eslint/js@9.2.0':
+    resolution: {integrity: sha512-ESiIudvhoYni+MdsI8oD7skpprZ89qKocwRM2KEvhhBJ9nl5MRh7BXU5GTod7Mdygq+AUl+QzId6iWJKR/wABA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@headlessui/react@1.7.19':
@@ -6683,6 +6687,8 @@ snapshots:
 
   '@eslint/js@9.1.1': {}
 
+  '@eslint/js@9.2.0': {}
+
   '@headlessui/react@1.7.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@tanstack/react-virtual': 3.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -7471,7 +7477,7 @@ snapshots:
       pathe: 1.1.2
       picocolors: 1.0.0
       sirv: 2.0.4
-      vitest: 1.5.3(@types/node@20.12.8)(@vitest/ui@1.5.3)(sass@1.76.0)
+      vitest: 1.5.3(@types/node@20.12.8)(@vitest/ui@1.5.3)(sass@1.76.0)(terser@5.31.0)
 
   '@vitest/utils@1.5.3':
     dependencies:
@@ -8628,13 +8634,13 @@ snapshots:
     dependencies:
       eslint: 9.1.0
 
-  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@7.8.0(@typescript-eslint/parser@7.8.0(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5)(vitest@1.5.3(@types/node@20.12.8)(@vitest/ui@1.5.3)(sass@1.76.0)):
+  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@7.8.0(@typescript-eslint/parser@7.8.0(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5)(vitest@1.5.3(@types/node@20.12.8)(@vitest/ui@1.5.3)(sass@1.76.0)(terser@5.31.0)):
     dependencies:
       '@typescript-eslint/utils': 7.8.0(eslint@9.1.0)(typescript@5.4.5)
       eslint: 9.1.0
     optionalDependencies:
       '@typescript-eslint/eslint-plugin': 7.8.0(@typescript-eslint/parser@7.8.0(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5)
-      vitest: 1.5.3(@types/node@20.12.8)(@vitest/ui@1.5.3)(sass@1.76.0)
+      vitest: 1.5.3(@types/node@20.12.8)(@vitest/ui@1.5.3)(sass@1.76.0)(terser@5.31.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -11831,7 +11837,7 @@ snapshots:
       unist-util-stringify-position: 4.0.0
       vfile-message: 4.0.2
 
-  vite-node@1.5.3(@types/node@20.12.8)(sass@1.76.0):
+  vite-node@1.5.3(@types/node@20.12.8)(sass@1.76.0)(terser@5.31.0):
     dependencies:
       cac: 6.7.14
       debug: 4.3.4
@@ -11876,7 +11882,7 @@ snapshots:
       sass: 1.76.0
       terser: 5.31.0
 
-  vitest@1.5.3(@types/node@20.12.8)(@vitest/ui@1.5.3)(sass@1.76.0):
+  vitest@1.5.3(@types/node@20.12.8)(@vitest/ui@1.5.3)(sass@1.76.0)(terser@5.31.0):
     dependencies:
       '@vitest/expect': 1.5.3
       '@vitest/runner': 1.5.3
@@ -11896,7 +11902,7 @@ snapshots:
       tinybench: 2.8.0
       tinypool: 0.8.4
       vite: 5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.31.0)
-      vite-node: 1.5.3(@types/node@20.12.8)(sass@1.76.0)
+      vite-node: 1.5.3(@types/node@20.12.8)(sass@1.76.0)(terser@5.31.0)
       why-is-node-running: 2.2.2
     optionalDependencies:
       '@types/node': 20.12.8
