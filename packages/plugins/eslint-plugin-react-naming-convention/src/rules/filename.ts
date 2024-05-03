@@ -31,7 +31,7 @@ type Options = readonly [
 
 const defaultOptions = [
   {
-    excepts: ["index"],
+    excepts: ["^index$"],
     extensions: [".jsx", ".tsx"],
     rule: "PascalCase",
   },
@@ -97,7 +97,7 @@ export default createRule<Options, MessageID>({
     if (!extensions.includes(fileNameExt)) return {};
 
     function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
-      if (ignores.map((pattern) => new RegExp(`^${pattern}$`, "u")).some((pattern) => pattern.test(name))) {
+      if (ignores.map((pattern) => new RegExp(pattern, "u")).some((pattern) => pattern.test(name))) {
         return true;
       }
 
