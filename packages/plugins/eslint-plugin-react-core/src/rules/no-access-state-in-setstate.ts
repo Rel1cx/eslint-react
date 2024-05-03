@@ -75,7 +75,6 @@ export default createRule<[], MessageID>({
       node: TSESTree.CallExpression,
       hasThisState: boolean,
     ]>();
-
     return {
       CallExpression(node) {
         if (!isThisSetState(node)) return;
@@ -106,10 +105,7 @@ export default createRule<[], MessageID>({
         const [setState, hasThisState] = MutList.tail(setStateStack) ?? [];
         if (!setState || hasThisState) return;
         if (!O.exists(getName(node.property), name => name === "state")) return;
-        context.report({
-          messageId: "NO_ACCESS_STATE_IN_SETSTATE",
-          node,
-        });
+        context.report({ messageId: "NO_ACCESS_STATE_IN_SETSTATE", node });
       },
       MethodDefinition(node) {
         MutList.append(methodStack, [node, node.static]);
@@ -136,14 +132,10 @@ export default createRule<[], MessageID>({
           if (prop.type === NodeType.Property && isKeyLiteralLike(prop, prop.key)) {
             return O.exists(getName(prop.key), name => name === "state");
           }
-
           return false;
         });
         if (!hasState) return;
-        context.report({
-          messageId: "NO_ACCESS_STATE_IN_SETSTATE",
-          node,
-        });
+        context.report({ messageId: "NO_ACCESS_STATE_IN_SETSTATE", node });
       },
     };
   },

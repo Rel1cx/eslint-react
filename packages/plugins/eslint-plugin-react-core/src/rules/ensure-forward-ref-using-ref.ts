@@ -30,8 +30,7 @@ export default createRule<[], MessageID>({
         if (!isForwardRefCall(node, context)) return;
         const [component] = node.arguments;
         if (!component || !isFunction(component)) return;
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const [props, ref] = component.params;
+        const [_, ref] = component.params;
         if (!ref) {
           context.report({
             messageId: "ENSURE_FORWARD_REF_USING_REF",

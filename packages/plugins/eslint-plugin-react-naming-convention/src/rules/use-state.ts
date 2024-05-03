@@ -45,7 +45,6 @@ export default createRule<[], MessageID>({
       "Program:exit"(node) {
         const pragma = getPragmaFromContext(context);
         const components = ctx.getAllComponents(node);
-
         for (const { hookCalls } of components.values()) {
           if (hookCalls.length === 0) continue;
           for (const hookCall of hookCalls) {
@@ -75,7 +74,6 @@ export default createRule<[], MessageID>({
                   const [stateName, setStateName] = [state.name, setState.name];
                   const expectedSetterName = `set${capitalize(stateName)}`;
                   if (setStateName === expectedSetterName) return O.none();
-
                   return descriptor;
                 })
                 .otherwise(O.none),
