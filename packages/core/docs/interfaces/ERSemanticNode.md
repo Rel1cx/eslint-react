@@ -1,67 +1,55 @@
+[**@eslint-react/core**](../README.md) • **Docs**
+
+***
+
 [@eslint-react/core](../README.md) / ERSemanticNode
 
 # Interface: ERSemanticNode
 
-## Hierarchy
+## Extended by
 
-- **`ERSemanticNode`**
-
-  ↳ [`ERFunctionComponent`](ERFunctionComponent.md)
-
-  ↳ [`ERClassComponent`](ERClassComponent.md)
-
-  ↳ [`ERHook`](ERHook.md)
-
-## Table of contents
-
-### Properties
-
-- [\_](ERSemanticNode.md#_)
-- [flag](ERSemanticNode.md#flag)
-- [hint](ERSemanticNode.md#hint)
-- [id](ERSemanticNode.md#id)
-- [kind](ERSemanticNode.md#kind)
-- [name](ERSemanticNode.md#name)
-- [node](ERSemanticNode.md#node)
+- [`ERFunctionComponent`](ERFunctionComponent.md)
+- [`ERClassComponent`](ERClassComponent.md)
+- [`ERHook`](ERHook.md)
 
 ## Properties
 
 ### \_
 
-• **\_**: `string`
+> **\_**: `string`
 
-___
+***
 
 ### flag
 
-• **flag**: `bigint`
+> **flag**: `bigint`
 
-___
+***
 
 ### hint
 
-• **hint**: `bigint`
+> **hint**: `bigint`
 
-___
+***
 
 ### id
 
-• **id**: `Option`\<`Identifier` \| `Identifier`[]\>
+> **id**: `Option`\<`Identifier` \| `Identifier`[]\>
 
-___
+***
 
 ### kind
 
-• **kind**: `string`
+> **kind**: `string`
 
-___
+***
 
 ### name
 
-• **name**: `Option`\<`string`\>
+> **name**: `Option`\<`string`\>
 
-___
+***
 
 ### node
 
-• **node**: `Node`
+> **node**: `Node`

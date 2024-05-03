@@ -1,107 +1,17 @@
-@eslint-react/types
+**@eslint-react/types** • **Docs**
+
+***
 
 # @eslint-react/types
 
-## Table of contents
-
-### Type Aliases
-
-- [Cond](README.md#cond)
-- [CreateRule](README.md#createrule)
-- [RuleCategory](README.md#rulecategory)
-- [RuleCategoryEmoji](README.md#rulecategoryemoji)
-- [RuleContext](README.md#rulecontext)
-- [RuleNamespace](README.md#rulenamespace)
-- [RuleOptions](README.md#ruleoptions)
-- [RulePreset](README.md#rulepreset)
-- [Severity](README.md#severity)
-
 ## Type Aliases
 
-### Cond
-
-Ƭ **Cond**: ``"always"`` \| ``"never"``
-
-Rule application condition.
-
-**`Since`**
-
-0.0.1
-
-___
-
-### CreateRule
-
-Ƭ **CreateRule**: `Parameters`\<`ReturnType`\<typeof `ESLintUtils.RuleCreator`\>\>[``0``][``"create"``]
-
-Rule creator function.
-
-**`Since`**
-
-0.0.1
-
-___
-
-### RuleCategory
-
-Ƭ **RuleCategory**: ``"complexity"`` \| ``"convention"`` \| ``"correctness"`` \| ``"debug"`` \| ``"deprecated"`` \| ``"pedantic"`` \| ``"perf"`` \| ``"restriction"`` \| ``"security"`` \| ``"style"`` \| ``"suspicious"``
-
-___
-
-### RuleCategoryEmoji
-
-Ƭ **RuleCategoryEmoji**: ``"⛔"`` \| ``"✔️"`` \| ``"❌"`` \| ``"🎨"`` \| ``"🐞"`` \| ``"👀"`` \| ``"📖"`` \| ``"🔒"`` \| ``"🚀"`` \| ``"🤔"`` \| ``"🤯"``
-
-___
-
-### RuleContext
-
-Ƭ **RuleContext**: `Parameters`\<[`CreateRule`](README.md#createrule)\>[``0``]
-
-Rule context.
-
-**`Since`**
-
-0.0.1
-
-___
-
-### RuleNamespace
-
-Ƭ **RuleNamespace**: ``"debug"`` \| ``"experimental"`` \| ``"jsx"`` \| ``"naming-convention"`` \| ``"react"`` \| ``"react-hooks"``
-
-___
-
-### RuleOptions
-
-Ƭ **RuleOptions**: `Parameters`\<[`CreateRule`](README.md#createrule)\>[``1``]
-
-Rule options.
-
-**`Since`**
-
-0.0.1
-
-___
-
-### RulePreset
-
-Ƭ **RulePreset**: `Record`\<`string`, `RuleDeclaration`\>
-
-Rule config preset.
-
-**`Since`**
-
-0.0.1
-
-___
-
-### Severity
-
-Ƭ **Severity**: ``"error"`` \| ``"off"`` \| ``"warn"``
-
-Rule severity.
-
-**`Since`**
-
-0.0.1
+- [Cond](type-aliases/Cond.md)
+- [CreateRule](type-aliases/CreateRule.md)
+- [RuleCategory](type-aliases/RuleCategory.md)
+- [RuleCategoryEmoji](type-aliases/RuleCategoryEmoji.md)
+- [RuleContext](type-aliases/RuleContext.md)
+- [RuleNamespace](type-aliases/RuleNamespace.md)
+- [RuleOptions](type-aliases/RuleOptions.md)
+- [RulePreset](type-aliases/RulePreset.md)
+- [Severity](type-aliases/Severity.md)

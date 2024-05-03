@@ -1,112 +1,99 @@
+[**@eslint-react/core**](../README.md) • **Docs**
+
+***
+
 [@eslint-react/core](../README.md) / ERFunctionComponent
 
 # Interface: ERFunctionComponent
 
-## Hierarchy
+## Extends
 
 - [`ERSemanticNode`](ERSemanticNode.md)
-
-  ↳ **`ERFunctionComponent`**
-
-## Table of contents
-
-### Properties
-
-- [\_](ERFunctionComponent.md#_)
-- [displayName](ERFunctionComponent.md#displayname)
-- [flag](ERFunctionComponent.md#flag)
-- [hint](ERFunctionComponent.md#hint)
-- [hookCalls](ERFunctionComponent.md#hookcalls)
-- [id](ERFunctionComponent.md#id)
-- [initPath](ERFunctionComponent.md#initpath)
-- [kind](ERFunctionComponent.md#kind)
-- [name](ERFunctionComponent.md#name)
-- [node](ERFunctionComponent.md#node)
 
 ## Properties
 
 ### \_
 
-• **\_**: `string`
+> **\_**: `string`
 
 #### Inherited from
 
-[ERSemanticNode](ERSemanticNode.md).[_](ERSemanticNode.md#_)
+[`ERSemanticNode`](ERSemanticNode.md).[`_`](ERSemanticNode.md#_)
 
-___
+***
 
 ### displayName
 
-• **displayName**: `Option`\<`Expression`\>
+> **displayName**: `Option`\<`Expression`\>
 
-___
+***
 
 ### flag
 
-• **flag**: `bigint`
+> **flag**: `bigint`
 
 #### Overrides
 
-[ERSemanticNode](ERSemanticNode.md).[flag](ERSemanticNode.md#flag)
+[`ERSemanticNode`](ERSemanticNode.md).[`flag`](ERSemanticNode.md#flag)
 
-___
+***
 
 ### hint
 
-• **hint**: `bigint`
+> **hint**: `bigint`
 
 #### Overrides
 
-[ERSemanticNode](ERSemanticNode.md).[hint](ERSemanticNode.md#hint)
+[`ERSemanticNode`](ERSemanticNode.md).[`hint`](ERSemanticNode.md#hint)
 
-___
+***
 
 ### hookCalls
 
-• **hookCalls**: `CallExpression`[]
+> **hookCalls**: `CallExpression`[]
 
-___
+***
 
 ### id
 
-• **id**: `Option`\<`Identifier` \| `Identifier`[]\>
+> **id**: `Option`\<`Identifier` \| `Identifier`[]\>
 
 #### Overrides
 
-[ERSemanticNode](ERSemanticNode.md).[id](ERSemanticNode.md#id)
+[`ERSemanticNode`](ERSemanticNode.md).[`id`](ERSemanticNode.md#id)
 
-___
+***
 
 ### initPath
 
-• **initPath**: `Option`\<[`ERComponentInitPath`](../README.md#ercomponentinitpath)\>
+> **initPath**: `Option`\<[`ERComponentInitPath`](../type-aliases/ERComponentInitPath.md)\>
 
-___
+***
 
 ### kind
 
-• **kind**: ``"function"``
+> **kind**: `"function"`
 
 #### Overrides
 
-[ERSemanticNode](ERSemanticNode.md).[kind](ERSemanticNode.md#kind)
+[`ERSemanticNode`](ERSemanticNode.md).[`kind`](ERSemanticNode.md#kind)
 
-___
+***
 
 ### name
 
-• **name**: `Option`\<`string`\>
+> **name**: `Option`\<`string`\>
 
 #### Inherited from
 
-[ERSemanticNode](ERSemanticNode.md).[name](ERSemanticNode.md#name)
+[`ERSemanticNode`](ERSemanticNode.md).[`name`](ERSemanticNode.md#name)
 
-___
+***
 
 ### node
 
-• **node**: `TSESTreeFunction`
+> **node**: `TSESTreeFunction`
 
 #### Overrides
 
-[ERSemanticNode](ERSemanticNode.md).[node](ERSemanticNode.md#node)
+[`ERSemanticNode`](ERSemanticNode.md).[`node`](ERSemanticNode.md#node)
