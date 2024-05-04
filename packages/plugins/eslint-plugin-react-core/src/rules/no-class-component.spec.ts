@@ -1074,5 +1074,18 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
+    dedent`
+      class ErrorBoundary extends React.Component {
+        componentDidCatch(error, info) {}
+        render() {
+          return this.props.children;
+        }
+      }
+      `,
+    dedent`
+      class ErrorBoundary extends React.Component {
+        componentDidCatch = (error, info) => {};
+      }
+      `,
   ],
 });

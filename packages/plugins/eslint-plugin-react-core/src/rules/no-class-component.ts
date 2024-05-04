@@ -4,10 +4,20 @@ import { Function as F, Option as O } from "effect";
 import { type ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
+import { NodeType } from "@eslint-react/ast";
+import { P, isMatching } from "ts-pattern";
 
 export const RULE_NAME = "no-class-component";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
+
+const isComponentDidCatch = isMatching({
+  key: {
+    type: NodeType.Identifier,
+    name: "componentDidCatch",
+  },
+  type: P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),
+});
 
 export default createRule<[], MessageID>({
   meta: {
@@ -30,6 +40,7 @@ export default createRule<[], MessageID>({
         const components = ctx.getAllComponents(node);
 
         for (const { name, node: component } of components.values()) {
+          if (component.body.body.some(isComponentDidCatch)) continue;
           context.report({
             data: {
               name: O.getOrElse(F.constant("anonymous"))(name),
