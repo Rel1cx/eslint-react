@@ -1,5 +1,9 @@
 ## v1.5.11 (Draft)
 
+### ✨ New
+
+- Rule `no-class-component` rule now allows class components with a `componentDidCatch` method.
+
 ### 🪄 Improvements
 
 - Refactor rule `no-complicated-conditional-rendering`'s detection logic, make it more accurate.
