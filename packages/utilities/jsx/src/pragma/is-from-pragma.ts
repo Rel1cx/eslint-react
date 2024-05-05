@@ -21,7 +21,8 @@ export function isInitializedFromPragma(
   const latestDef = maybeLatestDef.value;
   const { node, parent } = latestDef;
   const settings = parseSchema(ESLintSettingsSchema, context.settings);
-  const importPragma = settings.reactOptions?.importPragma;
+  const importSource = settings.reactOptions?.importSource;
+  const prefix = importSource ? importSource + "/" : "";
   if (node.type === NodeType.VariableDeclarator && node.init) {
     const { init } = node;
     // check for: `variable = pragma.variable`
@@ -49,12 +50,11 @@ export function isInitializedFromPragma(
     const requireExpression = maybeRequireExpression.value;
     const [firstArg] = requireExpression.arguments;
     if (firstArg?.type !== NodeType.Literal) return false;
-
-    return firstArg.value === (importPragma ?? pragma.toLowerCase());
+    return firstArg.value === prefix + pragma.toLowerCase();
   }
 
   // latest definition is an import declaration: import { variable } from 'react'
-  return isMatching({ type: "ImportDeclaration", source: { value: importPragma ?? pragma.toLowerCase() } }, parent);
+  return isMatching({ type: "ImportDeclaration", source: { value: prefix + pragma.toLowerCase() } }, parent);
 }
 
 export function isPropertyOfPragma(name: string, context: RuleContext, pragma = getPragmaFromContext(context)) {
