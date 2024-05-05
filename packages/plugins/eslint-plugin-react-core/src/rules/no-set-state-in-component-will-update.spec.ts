@@ -34,14 +34,14 @@ ruleTester.run(RULE_NAME, rule, {
     ...allValid,
     dedent`
       class Foo extends React.Component {
-        componentWillUpdate() {
-          class Bar extends Baz {
-            componentWillUpdate() {
-              this.setState({ foo: "bar" });
+      componentWillUpdate() {
+                class Bar extends Baz {
+                  componentWillUpdate() {
+                    this.setState({ foo: "bar" });
+                  }
+                }
+              }
             }
-          }
-        }
-      }
     `,
   ],
 });

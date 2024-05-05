@@ -3,7 +3,6 @@ import type { Option as O } from "effect";
 import { Data } from "effect";
 
 export type Construction = Data.TaggedEnum<{
-  None: {};
   Array: {
     node: TSESTree.ArrayExpression;
     usage: O.Option<TSESTree.Node>;
@@ -44,6 +43,7 @@ export type Construction = Data.TaggedEnum<{
     node: TSESTree.NewExpression;
     usage: O.Option<TSESTree.Node>;
   };
+  None: {};
   ObjectExpression: {
     node: TSESTree.ObjectExpression;
     usage: O.Option<TSESTree.Node>;

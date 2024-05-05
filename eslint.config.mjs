@@ -10,6 +10,7 @@ import jsdocPlugin from "eslint-plugin-jsdoc";
 import perfectionist from "eslint-plugin-perfectionist";
 import perfectionistNatural from "eslint-plugin-perfectionist/configs/recommended-natural";
 import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
+import unicornPlugin from "eslint-plugin-unicorn";
 import tseslint from "typescript-eslint";
 import vitest from "eslint-plugin-vitest";
 
@@ -26,6 +27,7 @@ export default tseslint.config(
       ["jsdoc"]: jsdocPlugin,
       ["simple-import-sort"]: simpleImportSortPlugin,
       ["perfectionist"]: perfectionist,
+      ["unicorn"]: unicornPlugin,
     },
   },
   // extends ...
@@ -116,6 +118,7 @@ export default tseslint.config(
       ],
       "simple-import-sort/imports": "warn",
       "simple-import-sort/exports": "warn",
+      "unicorn/template-indent": "warn",
       "perfectionist/sort-exports": "off",
       "perfectionist/sort-imports": "off",
       "perfectionist/sort-named-exports": "off",

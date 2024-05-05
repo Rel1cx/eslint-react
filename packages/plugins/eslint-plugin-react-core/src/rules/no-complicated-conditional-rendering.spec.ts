@@ -143,15 +143,15 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: dedent`
-      const App = () => {
-        return (
-            <>
-            {0 && 1 || <Foo />}
-            {NaN || 0 && <Foo />}
-            </>
-            )
-        }
-    `,
+        const App = () => {
+          return (
+              <>
+              {0 && 1 || <Foo />}
+              {NaN || 0 && <Foo />}
+              </>
+              )
+          }
+      `,
       errors: [
         {
           messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
@@ -163,15 +163,15 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: dedent`
-      const App = () => {
-        return (
-            <>
-            {0 && 1 && 2 || <Foo />}
-            {NaN || 1 || 0 && <Foo />}
-            </>
-            )
-        }
-    `,
+        const App = () => {
+          return (
+              <>
+              {0 && 1 && 2 || <Foo />}
+              {NaN || 1 || 0 && <Foo />}
+              </>
+              )
+          }
+      `,
       errors: [
         {
           messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
