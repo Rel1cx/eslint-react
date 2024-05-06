@@ -1,5 +1,4 @@
 import { NodeType, traverseUp, type TSESTreeFunction } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { Option as O } from "effect";
 import { isMatching, P } from "ts-pattern";
@@ -20,10 +19,10 @@ const isRenderMethodLike = isMatching({
   },
 });
 
-export function isFunctionOfRenderMethod(node: TSESTreeFunction, context: RuleContext) {
+export function isFunctionOfRenderMethod(node: TSESTreeFunction) {
   if (!isRenderMethodLike(node.parent)) return false;
 
-  return isClassComponent(node.parent.parent.parent, context);
+  return isClassComponent(node.parent.parent.parent);
 }
 
 /**
@@ -43,9 +42,9 @@ export function isFunctionOfRenderMethod(node: TSESTreeFunction, context: RuleCo
  * @returns `true` if node is inside class component's render block, `false` if not
  * @deprecated It will be removed in the future
  */
-export function isInsideRenderMethod(node: TSESTree.Node, context: RuleContext) {
+export function isInsideRenderMethod(node: TSESTree.Node) {
   const predicate = (node: TSESTree.Node): node is TSESTree.MethodDefinition => {
-    return isRenderMethodLike(node) && isClassComponent(node.parent.parent, context);
+    return isRenderMethodLike(node) && isClassComponent(node.parent.parent);
   };
 
   return O.isSome(traverseUp(node, predicate));

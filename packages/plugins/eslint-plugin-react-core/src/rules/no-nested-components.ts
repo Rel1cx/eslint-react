@@ -9,13 +9,14 @@ import {
 } from "@eslint-react/ast";
 import {
   ERComponentHint,
+  isInsideCreateElementProps,
   isInsideRenderMethod,
   unsafeIsDeclaredInRenderProp,
   unsafeIsDirectValueOfRenderProperty,
   useComponentCollector,
   useComponentCollectorLegacy,
 } from "@eslint-react/core";
-import { isInsideCreateElementProps, isInsidePropValue } from "@eslint-react/jsx";
+import { isInsidePropValue } from "@eslint-react/jsx";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { Option as O } from "effect";
@@ -54,7 +55,7 @@ export default createRule<[], MessageID>({
       | ERComponentHint.StrictConditional;
 
     const collector = useComponentCollector(context, hint);
-    const collectorLegacy = useComponentCollectorLegacy(context);
+    const collectorLegacy = useComponentCollectorLegacy();
 
     return {
       ...collector.listeners,
@@ -112,7 +113,7 @@ export default createRule<[], MessageID>({
 
             continue;
           }
-          const isInsideClassComponentRenderMethod = isInsideRenderMethod(component, context);
+          const isInsideClassComponentRenderMethod = isInsideRenderMethod(component);
           if (isInsideClassComponentRenderMethod) {
             context.report({
               data: {

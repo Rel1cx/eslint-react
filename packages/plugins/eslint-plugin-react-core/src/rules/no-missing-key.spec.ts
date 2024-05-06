@@ -65,10 +65,6 @@ ruleTester.run(RULE_NAME, rule, {
       code: "[1, 2, 3].map(x => <>{x}</>);",
       errors: [
         {
-          data: {
-            fragmentPragma: "Fragment",
-            reactPragma: "React",
-          },
           messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
         },
       ],
@@ -77,10 +73,6 @@ ruleTester.run(RULE_NAME, rule, {
       code: "[<></>];",
       errors: [
         {
-          data: {
-            fragmentPragma: "Fragment",
-            reactPragma: "React",
-          },
           messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
         },
       ],
@@ -186,20 +178,12 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: {
-            fragmentPragma: "Fragment",
-            reactPragma: "React",
-          },
           messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
         },
         {
           messageId: "NO_MISSING_KEY",
         },
         {
-          data: {
-            fragmentPragma: "Fragment",
-            reactPragma: "React",
-          },
           messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
         },
       ],

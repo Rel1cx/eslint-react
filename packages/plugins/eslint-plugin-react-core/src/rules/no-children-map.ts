@@ -1,5 +1,4 @@
 import { isChildrenMap } from "@eslint-react/core";
-import { getPragmaFromContext } from "@eslint-react/jsx";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 
@@ -24,11 +23,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const pragma = getPragmaFromContext(context);
-
     return {
       MemberExpression(node) {
-        if (isChildrenMap(node, context, pragma)) {
+        if (isChildrenMap(node, context)) {
           context.report({
             messageId: "NO_CHILDREN_MAP",
             node: node.property,

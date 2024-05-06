@@ -85,13 +85,13 @@ export default createRule<[], MessageID>({
         MutList.pop(setStateStack);
       },
       ClassDeclaration(node) {
-        MutList.append(classStack, [node, isClassComponent(node, context)]);
+        MutList.append(classStack, [node, isClassComponent(node)]);
       },
       "ClassDeclaration:exit"() {
         MutList.pop(classStack);
       },
       ClassExpression(node) {
-        MutList.append(classStack, [node, isClassComponent(node, context)]);
+        MutList.append(classStack, [node, isClassComponent(node)]);
       },
       "ClassExpression:exit"() {
         MutList.pop(classStack);

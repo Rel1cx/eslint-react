@@ -1,4 +1,5 @@
-import { elementType, isCreateElementCall } from "@eslint-react/jsx";
+import { isCreateElementCall } from "@eslint-react/core";
+import { elementType } from "@eslint-react/jsx";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { Predicate as Prd } from "effect";

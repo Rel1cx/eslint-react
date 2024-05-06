@@ -1,6 +1,4 @@
 import { getClassIdentifier, NodeType, type TSESTreeClass } from "@eslint-react/ast";
-import { getPragmaFromContext } from "@eslint-react/jsx";
-import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { Option as O } from "effect";
 import ShortUniqueId from "short-unique-id";
@@ -16,21 +14,15 @@ const uid = new ShortUniqueId({ length: 10 });
  * @param node The AST node to check
  * @param context The rule context
  */
-export function isClassComponent(node: TSESTree.Node, context: RuleContext): node is TSESTreeClass {
+export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass {
   if (!("superClass" in node && node.superClass)) return false;
-  const pragma = getPragmaFromContext(context);
   const { superClass } = node;
-
   return match(superClass)
     .with({ type: NodeType.Identifier, name: P.string }, ({ name }) => /^(Pure)?Component$/u.test(name))
-    .with(
-      {
-        type: NodeType.MemberExpression,
-        object: { name: pragma },
-        property: { name: P.string },
-      },
-      ({ property }) => /^(Pure)?Component$/u.test(property.name),
-    )
+    .with({
+      type: NodeType.MemberExpression,
+      property: { name: P.string },
+    }, ({ property }) => /^(Pure)?Component$/u.test(property.name))
     .otherwise(() => false);
 }
 
@@ -39,21 +31,20 @@ export function isClassComponent(node: TSESTree.Node, context: RuleContext): nod
  * @param node The AST node to check
  * @param context The rule context
  */
-export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
-  const pragma = getPragmaFromContext(context);
-
-  const { sourceCode } = context;
-
+export function isPureComponent(node: TSESTree.Node) {
   if ("superClass" in node && node.superClass) {
-    const text = sourceCode.getText(node.superClass);
-
-    return new RegExp(`^(${pragma}\\.)?PureComponent$`, "u").test(text);
+    return match(node.superClass)
+      .with({ type: NodeType.Identifier, name: P.string }, ({ name }) => /^PureComponent$/u.test(name))
+      .with({
+        type: NodeType.MemberExpression,
+        property: { name: P.string },
+      }, ({ property }) => /^PureComponent$/u.test(property.name))
+      .otherwise(() => false);
   }
-
   return false;
 }
 
-export function useComponentCollectorLegacy(context: RuleContext) {
+export function useComponentCollectorLegacy() {
   const components = new Map<string, ERClassComponent>();
 
   const ctx = {
@@ -66,10 +57,10 @@ export function useComponentCollectorLegacy(context: RuleContext) {
   } as const;
 
   const collect = (node: TSESTreeClass) => {
-    if (!isClassComponent(node, context)) return;
+    if (!isClassComponent(node)) return;
     const id = getClassIdentifier(node);
     const key = uid.rnd();
-    const flag = isPureComponent(node, context)
+    const flag = isPureComponent(node)
       ? ERClassComponentFlag.PureComponent
       : ERClassComponentFlag.None;
     components.set(

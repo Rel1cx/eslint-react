@@ -41,17 +41,22 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: dedent`
-        import React from 'react';
+        import Roact from 'roact';
 
         function RowList({ children }) {
           return (
             <>
-              <h1>Total rows: {React.Children.count(children)}</h1>
+              <h1>Total rows: {Roact.Children.count(children)}</h1>
               ...
             </>
           );
         }
       `,
+      settings: {
+        reactOptions: {
+          importSource: "roact",
+        },
+      },
       errors: [{
         messageId: "NO_CHILDREN_COUNT",
       }],

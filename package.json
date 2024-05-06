@@ -51,7 +51,6 @@
     "lint:website": "pnpm -F \"./website\" run lint",
     "prepare": "husky install && pnpm run build",
     "test": "vitest --run --logHeapUsage",
-    "test:ui": "vitest --ui",
     "update:deps": "taze",
     "update:version": "bun run --bun ./scripts/update-version.ts && pnpm run format:package-json"
   },

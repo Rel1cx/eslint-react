@@ -24,6 +24,7 @@ export const ESLintReactSettingsSchema = object({
     useSyncExternalStore: optional(array(string())),
     useTransition: optional(array(string())),
   })),
+  importSource: optional(string()),
   jsxPragma: optional(string()),
   jsxPragmaFrag: optional(string()),
   version: optional(string()),
@@ -45,5 +46,3 @@ export type ESLintSettings = ReadonlyDeep<{
   // eslint-disable-next-line no-restricted-syntax
   reactOptions?: ESLintReactSettings;
 }>;
-
-export { parse as parseSchema, safeParse as safeParseSchema } from "valibot";

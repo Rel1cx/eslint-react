@@ -1,4 +1,4 @@
-import { getFragmentFromContext, getPragmaFromContext, isFragmentElement } from "@eslint-react/jsx";
+import { isFragmentElement } from "@eslint-react/core";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 
@@ -17,25 +17,18 @@ export default createRule<[], MessageID>({
       requiresTypeChecking: false,
     },
     messages: {
-      PREFER_SHORTHAND_FRAGMENT: "Prefer shorthand fragment syntax instead of '{{reactPragma}}.{{fragmentPragma}}'.",
+      PREFER_SHORTHAND_FRAGMENT: "Prefer shorthand fragment syntax instead of fragment component.",
     },
     schema: [],
   },
   name: RULE_NAME,
   create(context) {
-    const reactPragma = getPragmaFromContext(context);
-    const fragmentPragma = getFragmentFromContext(context);
-
     return {
       JSXElement(node) {
-        if (isFragmentElement(node, reactPragma, fragmentPragma)) {
+        if (isFragmentElement(node, context)) {
           const hasAttributes = node.openingElement.attributes.length > 0;
           if (hasAttributes) return;
           context.report({
-            data: {
-              fragmentPragma,
-              reactPragma,
-            },
             messageId: "PREFER_SHORTHAND_FRAGMENT",
             node,
           });

@@ -82,7 +82,7 @@ export default createRule<[], MessageID>({
     }
     function classExit() {
       const currentClass = MutList.pop(classStack);
-      if (!currentClass || !isClassComponent(currentClass, context)) return;
+      if (!currentClass || !isClassComponent(currentClass)) return;
       const className = O.map(getClassIdentifier(currentClass), id => id.name);
       const [def, isUsed] = stateDefs.get(currentClass) ?? [O.none(), false];
       if (O.isNone(def) || isUsed) return;
@@ -97,7 +97,7 @@ export default createRule<[], MessageID>({
     function methodEnter(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
       MutList.append(methodStack, node);
       const currentClass = MutList.tail(classStack);
-      if (!currentClass || !isClassComponent(currentClass, context)) return;
+      if (!currentClass || !isClassComponent(currentClass)) return;
       if (node.static) {
         if (isGetDerivedStateFromProps(node) && node.value.params.length > 1) {
           const [def] = stateDefs.get(currentClass) ?? [O.none()];
@@ -123,7 +123,7 @@ export default createRule<[], MessageID>({
       AssignmentExpression(node) {
         if (!isAssignmentToThisState(node)) return;
         const currentClass = MutList.tail(classStack);
-        if (!currentClass || !isClassComponent(currentClass, context)) return;
+        if (!currentClass || !isClassComponent(currentClass)) return;
         const currentConstructor = MutList.tail(constructorStack);
         if (!currentConstructor || !currentClass.body.body.includes(currentConstructor)) return;
         const [_, isUsed] = stateDefs.get(currentClass) ?? [O.none(), false];
@@ -138,7 +138,7 @@ export default createRule<[], MessageID>({
         // detect `this.state`
         if (!O.exists(getName(node.property), name => name === "state")) return;
         const currentClass = MutList.tail(classStack);
-        if (!currentClass || !isClassComponent(currentClass, context)) return;
+        if (!currentClass || !isClassComponent(currentClass)) return;
         const currentMethod = MutList.tail(methodStack);
         if (!currentMethod || currentMethod.static) return;
         if (currentMethod === MutList.tail(constructorStack)) return;
@@ -154,7 +154,7 @@ export default createRule<[], MessageID>({
       "PropertyDefinition:exit": methodExit,
       VariableDeclarator(node) {
         const currentClass = MutList.tail(classStack);
-        if (!currentClass || !isClassComponent(currentClass, context)) return;
+        if (!currentClass || !isClassComponent(currentClass)) return;
         const currentMethod = MutList.tail(methodStack);
         if (!currentMethod || currentMethod.static) return;
         if (currentMethod === MutList.tail(constructorStack)) return;

@@ -1,4 +1,5 @@
 export * from "./component";
+export * from "./element";
 export * from "./hook";
 export * from "./internal";
 export * from "./react-api";

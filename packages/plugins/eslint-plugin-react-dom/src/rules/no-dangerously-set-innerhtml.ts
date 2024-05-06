@@ -1,5 +1,6 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
-import { findPropInAttributes, findPropInProperties, isCreateElementCall } from "@eslint-react/jsx";
+import { isCreateElementCall } from "@eslint-react/core";
+import { findPropInAttributes, findPropInProperties } from "@eslint-react/jsx";
 import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { Function as F, Option as O } from "effect";

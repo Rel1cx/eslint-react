@@ -7,10 +7,6 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<React.Fragment><div /></React.Fragment>",
       errors: [
         {
-          data: {
-            fragmentPragma: "Fragment",
-            reactPragma: "React",
-          },
           messageId: "PREFER_SHORTHAND_FRAGMENT",
         },
       ],
@@ -19,10 +15,6 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<Fragment><div /></Fragment>",
       errors: [
         {
-          data: {
-            fragmentPragma: "Fragment",
-            reactPragma: "React",
-          },
           messageId: "PREFER_SHORTHAND_FRAGMENT",
         },
       ],

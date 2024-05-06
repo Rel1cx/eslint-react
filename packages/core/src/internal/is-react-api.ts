@@ -1,17 +1,17 @@
-import { isCallFromPragma, isCallFromPragmaMember, isFromPragma, isFromPragmaMember } from "@eslint-react/jsx";
+import { isCallFromReact, isCallFromReactMember, isFromReact, isFromReactMember } from "./is-from-react";
 
-export function isReactAPIWithName(name: string): ReturnType<typeof isFromPragma>;
-export function isReactAPIWithName(name: string, member: string): ReturnType<typeof isFromPragmaMember>;
+export function isReactAPIWithName(name: string): ReturnType<typeof isFromReact>;
+export function isReactAPIWithName(name: string, member: string): ReturnType<typeof isFromReactMember>;
 export function isReactAPIWithName(name: string, member?: string) {
   return member
-    ? isFromPragmaMember(name, member)
-    : isFromPragma(name);
+    ? isFromReactMember(name, member)
+    : isFromReact(name);
 }
 
-export function isReactAPICallWithName(name: string): ReturnType<typeof isCallFromPragma>;
-export function isReactAPICallWithName(name: string, member: string): ReturnType<typeof isCallFromPragmaMember>;
+export function isReactAPICallWithName(name: string): ReturnType<typeof isCallFromReact>;
+export function isReactAPICallWithName(name: string, member: string): ReturnType<typeof isCallFromReactMember>;
 export function isReactAPICallWithName(name: string, member?: string) {
   return member
-    ? isCallFromPragmaMember(name, member)
-    : isCallFromPragma(name);
+    ? isCallFromReactMember(name, member)
+    : isCallFromReact(name);
 }

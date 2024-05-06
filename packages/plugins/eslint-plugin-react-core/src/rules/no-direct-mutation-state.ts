@@ -69,7 +69,7 @@ export default createRule<[], MessageID>({
         const maybeParentClass = traverseUpGuard(node, isOneOf([NodeType.ClassDeclaration, NodeType.ClassExpression]));
         if (O.isNone(maybeParentClass)) return;
         const parentClass = maybeParentClass.value;
-        if (!isClassComponent(parentClass, context)) return;
+        if (!isClassComponent(parentClass)) return;
         const maybeParentConstructor = traverseUpGuard(node, isConstructorFunction);
         if (O.exists(maybeParentConstructor, n => context.sourceCode.getScope(node).block === n)) return;
         context.report({

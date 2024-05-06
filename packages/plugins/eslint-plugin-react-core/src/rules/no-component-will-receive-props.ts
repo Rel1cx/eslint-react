@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const { ctx, listeners } = useComponentCollectorLegacy(context);
+    const { ctx, listeners } = useComponentCollectorLegacy();
 
     return {
       ...listeners,

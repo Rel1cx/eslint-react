@@ -90,7 +90,7 @@ export default createRule<Options, MessageID>({
     }
 
     const collector = useComponentCollector(context);
-    const collectorLegacy = useComponentCollectorLegacy(context);
+    const collectorLegacy = useComponentCollectorLegacy();
 
     return {
       ...collector.listeners,

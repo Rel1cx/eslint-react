@@ -83,13 +83,13 @@ export default createRule<[], MessageID>({
     const propertyUsages = new WeakMap<TSESTreeClass, Set<string>>();
     function classEnter(node: TSESTreeClass) {
       MutList.append(classStack, node);
-      if (!isClassComponent(node, context)) return;
+      if (!isClassComponent(node)) return;
       propertyDefs.set(node, new Set());
       propertyUsages.set(node, new Set());
     }
     function classExit() {
       const currentClass = MutList.pop(classStack);
-      if (!currentClass || !isClassComponent(currentClass, context)) return;
+      if (!currentClass || !isClassComponent(currentClass)) return;
       const className = O.map(getClassIdentifier(currentClass), id => id.name);
       const defs = propertyDefs.get(currentClass);
       const usages = propertyUsages.get(currentClass);
@@ -111,7 +111,7 @@ export default createRule<[], MessageID>({
     function methodEnter(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
       MutList.append(methodStack, node);
       const currentClass = MutList.tail(classStack);
-      if (!currentClass || !isClassComponent(currentClass, context)) return;
+      if (!currentClass || !isClassComponent(currentClass)) return;
       if (node.static) return;
       if (isKeyLiteralLike(node, node.key)) {
         propertyDefs.get(currentClass)?.add(node.key);
@@ -130,7 +130,7 @@ export default createRule<[], MessageID>({
         const currentClass = MutList.tail(classStack);
         const currentMethod = MutList.tail(methodStack);
         if (!currentClass || !currentMethod) return;
-        if (!isClassComponent(currentClass, context) || currentMethod.static) return;
+        if (!isClassComponent(currentClass) || currentMethod.static) return;
         if (!isThisExpression(node.object) || !isKeyLiteralLike(node, node.property)) return;
         if (node.parent.type === NodeType.AssignmentExpression && node.parent.left === node) {
           // detect `this.property = xxx`
@@ -148,7 +148,7 @@ export default createRule<[], MessageID>({
         const currentClass = MutList.tail(classStack);
         const currentMethod = MutList.tail(methodStack);
         if (!currentClass || !currentMethod) return;
-        if (!isClassComponent(currentClass, context) || currentMethod.static) return;
+        if (!isClassComponent(currentClass) || currentMethod.static) return;
         // detect `{ foo, bar: baz } = this`
         if (node.init && isThisExpression(node.init) && node.id.type === NodeType.ObjectPattern) {
           for (const prop of node.id.properties) {

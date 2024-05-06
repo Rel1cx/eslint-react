@@ -3,7 +3,7 @@ import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { Function as F, Option as O, Predicate as Prd } from "effect";
 
-import { isCreateElementCall } from "./api";
+import { isCreateElementCall } from "../react-api";
 
 /**
  * Determines whether inside createElement's props.

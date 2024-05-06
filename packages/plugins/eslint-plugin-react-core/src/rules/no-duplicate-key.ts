@@ -1,5 +1,5 @@
 import { getNestedReturnStatements, is, isNodeEqual, isOneOf, NodeType } from "@eslint-react/ast";
-import { findPropInAttributes, getPragmaFromContext } from "@eslint-react/jsx";
+import { findPropInAttributes } from "@eslint-react/jsx";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -28,8 +28,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const reactPragma = getPragmaFromContext(context);
-    const childrenToArraySelector = getChildrenToArraySelector(reactPragma);
+    const childrenToArraySelector = getChildrenToArraySelector();
     const isWithinChildrenToArrayRef = MutRef.make(false);
 
     function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {

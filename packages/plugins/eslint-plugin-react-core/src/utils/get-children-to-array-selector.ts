@@ -1,8 +1,7 @@
-export function getChildrenToArraySelector(reactPragma: string): string {
+export function getChildrenToArraySelector(): string {
   return [
     ":matches(",
     "CallExpression",
-    `[callee.object.object.name=${reactPragma}]`,
     "[callee.object.property.name=Children]",
     "[callee.property.name=toArray]",
     ",",

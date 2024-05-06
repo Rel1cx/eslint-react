@@ -1,12 +1,12 @@
 import { is, NodeType } from "@eslint-react/ast";
 import { isReactHookCall, isReactHookCallWithNameLoose, isUseCallbackCall } from "@eslint-react/core";
-import { getPragmaFromContext } from "@eslint-react/jsx";
-import { ESLintSettingsSchema, parseSchema } from "@eslint-react/shared";
+import { ESLintSettingsSchema } from "@eslint-react/shared";
 import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { Function as F, Option as O } from "effect";
 import { type ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
+import { parse } from "valibot";
 
 import { createRule } from "../utils";
 
@@ -28,14 +28,13 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const alias = parseSchema(ESLintSettingsSchema, context.settings).reactOptions?.additionalHooks?.useCallback ?? [];
-    const pragma = getPragmaFromContext(context);
+    const alias = parse(ESLintSettingsSchema, context.settings).reactOptions?.additionalHooks?.useCallback ?? [];
 
     return {
       CallExpression(node) {
         const initialScope = context.sourceCode.getScope(node);
         if (!isReactHookCall(node)) return;
-        if (!isUseCallbackCall(node, context, pragma) && !alias.some(F.flip(isReactHookCallWithNameLoose)(node))) {
+        if (!isUseCallbackCall(node, context) && !alias.some(F.flip(isReactHookCallWithNameLoose)(node))) {
           return;
         }
         const [_, deps] = node.arguments;
