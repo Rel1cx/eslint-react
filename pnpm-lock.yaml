@@ -108,7 +108,7 @@ importers:
         version: 52.0.0(eslint@9.1.0)
       eslint-plugin-vitest:
         specifier: 0.5.4
-        version: 0.5.4(@typescript-eslint/eslint-plugin@7.8.0(@typescript-eslint/parser@7.8.0(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.8)(@vitest/ui@1.6.0)(sass@1.76.0))
+        version: 0.5.4(@typescript-eslint/eslint-plugin@7.8.0(@typescript-eslint/parser@7.8.0(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.8)(@vitest/ui@1.6.0)(sass@1.76.0)(terser@5.31.0))
       fast-equals:
         specifier: 5.0.1
         version: 5.0.1
@@ -146,8 +146,8 @@ importers:
         specifier: 1.13.3
         version: 1.13.3
       type-fest:
-        specifier: 4.18.1
-        version: 4.18.1
+        specifier: 4.18.2
+        version: 4.18.2
       typedoc:
         specifier: 0.25.13
         version: 0.25.13(typescript@5.4.5)
@@ -162,7 +162,7 @@ importers:
         version: 5.4.5
       vitest:
         specifier: 1.6.0
-        version: 1.6.0(@types/node@20.12.8)(@vitest/ui@1.6.0)(sass@1.76.0)
+        version: 1.6.0(@types/node@20.12.8)(@vitest/ui@1.6.0)(sass@1.76.0)(terser@5.31.0)
 
   examples/vite-react-dom-ts-flat:
     dependencies:
@@ -573,8 +573,8 @@ importers:
         version: 5.1.0
     devDependencies:
       type-fest:
-        specifier: 4.18.1
-        version: 4.18.1
+        specifier: 4.18.2
+        version: 4.18.2
       valibot:
         specifier: 0.30.0
         version: 0.30.0
@@ -5650,8 +5650,8 @@ packages:
     resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
     engines: {node: '>=14.16'}
 
-  type-fest@4.18.1:
-    resolution: {integrity: sha512-qXhgeNsX15bM63h5aapNFcQid9jRF/l3ojDoDFmekDQEUufZ9U4ErVt6SjDxnHp48Ltrw616R8yNc3giJ3KvVQ==}
+  type-fest@4.18.2:
+    resolution: {integrity: sha512-+suCYpfJLAe4OXS6+PPXjW3urOS4IoP9waSiLuXfLgqZODKw/aWwASvzqE886wA0kQgGy0mIWyhd87VpqIy6Xg==}
     engines: {node: '>=16'}
 
   typedarray-to-buffer@3.1.5:
@@ -7556,7 +7556,7 @@ snapshots:
       pathe: 1.1.2
       picocolors: 1.0.0
       sirv: 2.0.4
-      vitest: 1.6.0(@types/node@20.12.8)(@vitest/ui@1.6.0)(sass@1.76.0)
+      vitest: 1.6.0(@types/node@20.12.8)(@vitest/ui@1.6.0)(sass@1.76.0)(terser@5.31.0)
 
   '@vitest/utils@1.6.0':
     dependencies:
@@ -8743,13 +8743,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@7.8.0(@typescript-eslint/parser@7.8.0(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.8)(@vitest/ui@1.6.0)(sass@1.76.0)):
+  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@7.8.0(@typescript-eslint/parser@7.8.0(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.8)(@vitest/ui@1.6.0)(sass@1.76.0)(terser@5.31.0)):
     dependencies:
       '@typescript-eslint/utils': 7.8.0(eslint@9.1.0)(typescript@5.4.5)
       eslint: 9.1.0
     optionalDependencies:
       '@typescript-eslint/eslint-plugin': 7.8.0(@typescript-eslint/parser@7.8.0(eslint@9.1.0)(typescript@5.4.5))(eslint@9.1.0)(typescript@5.4.5)
-      vitest: 1.6.0(@types/node@20.12.8)(@vitest/ui@1.6.0)(sass@1.76.0)
+      vitest: 1.6.0(@types/node@20.12.8)(@vitest/ui@1.6.0)(sass@1.76.0)(terser@5.31.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -11679,7 +11679,7 @@ snapshots:
 
   type-fest@3.13.1: {}
 
-  type-fest@4.18.1: {}
+  type-fest@4.18.2: {}
 
   typedarray-to-buffer@3.1.5:
     dependencies:
@@ -11992,7 +11992,7 @@ snapshots:
       sass: 1.76.0
       terser: 5.31.0
 
-  vitest@1.6.0(@types/node@20.12.8)(@vitest/ui@1.6.0)(sass@1.76.0):
+  vitest@1.6.0(@types/node@20.12.8)(@vitest/ui@1.6.0)(sass@1.76.0)(terser@5.31.0):
     dependencies:
       '@vitest/expect': 1.6.0
       '@vitest/runner': 1.6.0
