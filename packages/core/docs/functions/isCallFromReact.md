@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / isReactHookCallWithName
+[@eslint-react/core](../README.md) / isCallFromReact
 
-# Function: isReactHookCallWithName()
+# Function: isCallFromReact()
 
-> **isReactHookCallWithName**(`name`): (`node`, `context`) => `boolean`
+> **isCallFromReact**(`name`): (`node`, `context`) => `boolean`
 
 ## Parameters
 

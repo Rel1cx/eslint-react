@@ -6,15 +6,13 @@
 
 # Function: isUseStateCall()
 
-> **isUseStateCall**(`node`, `context`, `pragma`): `boolean`
+> **isUseStateCall**(`node`, `context`): `boolean`
 
 ## Parameters
 
 • **node**: `CallExpression`
 
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
-
-• **pragma**: `string`
 
 ## Returns
 

@@ -6,15 +6,13 @@
 
 # Function: isUseReducerCall()
 
-> **isUseReducerCall**(`node`, `context`, `pragma`): `boolean`
+> **isUseReducerCall**(`node`, `context`): `boolean`
 
 ## Parameters
 
 • **node**: `CallExpression`
 
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
-
-• **pragma**: `string`
 
 ## Returns
 

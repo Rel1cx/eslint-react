@@ -6,15 +6,13 @@
 
 # Function: isUseCallbackCall()
 
-> **isUseCallbackCall**(`node`, `context`, `pragma`): `boolean`
+> **isUseCallbackCall**(`node`, `context`): `boolean`
 
 ## Parameters
 
 • **node**: `CallExpression`
 
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
-
-• **pragma**: `string`
 
 ## Returns
 

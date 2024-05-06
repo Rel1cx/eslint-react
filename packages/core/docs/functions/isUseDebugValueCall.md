@@ -6,15 +6,13 @@
 
 # Function: isUseDebugValueCall()
 
-> **isUseDebugValueCall**(`node`, `context`, `pragma`): `boolean`
+> **isUseDebugValueCall**(`node`, `context`): `boolean`
 
 ## Parameters
 
 • **node**: `CallExpression`
 
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
-
-• **pragma**: `string`
 
 ## Returns
 

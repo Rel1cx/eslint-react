@@ -8,7 +8,7 @@
 
 ## isReactAPICallWithName(name)
 
-> **isReactAPICallWithName**(`name`): `ReturnType`\<*typeof* `isCallFromPragma`\>
+> **isReactAPICallWithName**(`name`): `ReturnType`\<*typeof* [`isCallFromReact`](isCallFromReact.md)\>
 
 ### Parameters
 
@@ -16,11 +16,11 @@
 
 ### Returns
 
-`ReturnType`\<*typeof* `isCallFromPragma`\>
+`ReturnType`\<*typeof* [`isCallFromReact`](isCallFromReact.md)\>
 
 ## isReactAPICallWithName(name, member)
 
-> **isReactAPICallWithName**(`name`, `member`): `ReturnType`\<*typeof* `isCallFromPragmaMember`\>
+> **isReactAPICallWithName**(`name`, `member`): `ReturnType`\<*typeof* [`isCallFromReactMember`](isCallFromReactMember.md)\>
 
 ### Parameters
 
@@ -30,4 +30,4 @@
 
 ### Returns
 
-`ReturnType`\<*typeof* `isCallFromPragmaMember`\>
+`ReturnType`\<*typeof* [`isCallFromReactMember`](isCallFromReactMember.md)\>

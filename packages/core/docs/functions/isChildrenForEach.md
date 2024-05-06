@@ -6,15 +6,13 @@
 
 # Function: isChildrenForEach()
 
-> **isChildrenForEach**(`node`, `context`, `pragma`?): `boolean`
+> **isChildrenForEach**(`node`, `context`): `boolean`
 
 ## Parameters
 
 • **node**: `MemberExpression`
 
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
-
-• **pragma?**: `string`
 
 ## Returns
 
