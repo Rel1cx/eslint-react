@@ -23,6 +23,6 @@ export function getParentClassComponent(node: TSESTree.Node, context: RuleContex
     MutRef.get(scopeRef),
     O.flatMapNullable(s => s.block),
     O.filter(isClass),
-    O.filter(node => isClassComponent(node, context)),
+    O.filter(node => isClassComponent(node)),
   );
 }

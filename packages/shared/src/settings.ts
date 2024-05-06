@@ -46,5 +46,3 @@ export type ESLintSettings = ReadonlyDeep<{
   // eslint-disable-next-line no-restricted-syntax
   reactOptions?: ESLintReactSettings;
 }>;
-
-export { parse as parseSchema, safeParse as safeParseSchema } from "valibot";

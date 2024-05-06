@@ -1,4 +1,4 @@
-import { isCloneElementCall } from "@eslint-react/jsx";
+import { isCloneElementCall } from "@eslint-react/core";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 

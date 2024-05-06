@@ -1,35 +1,36 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
-import { ESLintSettingsSchema, parseSchema } from "@eslint-react/shared";
+import { ESLintSettingsSchema } from "@eslint-react/shared";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { Option as O } from "effect";
 import { isMatching, match } from "ts-pattern";
+import { parse } from "valibot";
 
-import { getPragmaFromContext } from "./get-pragma";
-
-export function isInitializedFromPragma(
+export function isInitializedFromReact(
   variableName: string,
   context: RuleContext,
   initialScope: Scope,
-  pragma = getPragmaFromContext(context),
-) {
+): boolean {
+  if (variableName === "React") return true;
   const maybeVariable = findVariable(variableName, initialScope);
-  const maybeLatestDef = O.flatMapNullable(maybeVariable, (variable) => variable.defs.at(-1));
+  const maybeLatestDef = O.flatMapNullable(maybeVariable, (v) => v.defs.at(-1));
   if (O.isNone(maybeLatestDef)) return false;
   const latestDef = maybeLatestDef.value;
   const { node, parent } = latestDef;
-  const settings = parseSchema(ESLintSettingsSchema, context.settings);
-  const importSource = settings.reactOptions?.importSource;
-  const prefix = importSource ? importSource + "/" : "";
+  const settings = parse(ESLintSettingsSchema, context.settings);
+  const importSource = settings.reactOptions?.importSource ?? "react";
   if (node.type === NodeType.VariableDeclarator && node.init) {
     const { init } = node;
-    // check for: `variable = pragma.variable`
-    if (isMatching({ type: "MemberExpression", object: { type: "Identifier", name: pragma } }, init)) return true;
-    // check for: `{ variable } = pragma`
-    if (isMatching({ type: "Identifier", name: pragma }, init)) return true;
-    // check if from a require call: `require("react")`
+    // check for: `variable = React.variable`
+    if (init.type === NodeType.MemberExpression && init.object.type === NodeType.Identifier) {
+      return isInitializedFromReact(init.object.name, context, initialScope);
+    }
+    // check for: `{ variable } = React`
+    if (init.type === NodeType.Identifier) {
+      return isInitializedFromReact(init.name, context, initialScope);
+    }
     const maybeRequireExpression = match(init)
       .with({
         type: NodeType.CallExpression,
@@ -50,26 +51,10 @@ export function isInitializedFromPragma(
     const requireExpression = maybeRequireExpression.value;
     const [firstArg] = requireExpression.arguments;
     if (firstArg?.type !== NodeType.Literal) return false;
-    return firstArg.value === prefix + pragma.toLowerCase();
+    return firstArg.value === importSource;
   }
-
   // latest definition is an import declaration: import { variable } from 'react'
-  return isMatching({ type: "ImportDeclaration", source: { value: prefix + pragma.toLowerCase() } }, parent);
-}
-
-export function isPropertyOfPragma(name: string, context: RuleContext, pragma = getPragmaFromContext(context)) {
-  const isMatch: (node: TSESTree.Node) => boolean = isMatching({
-    type: NodeType.MemberExpression,
-    object: {
-      type: NodeType.Identifier,
-      name: pragma,
-    },
-    property: {
-      name,
-    },
-  });
-
-  return isMatch;
+  return isMatching({ type: "ImportDeclaration", source: { value: importSource } }, parent);
 }
 
 /**
@@ -77,67 +62,70 @@ export function isPropertyOfPragma(name: string, context: RuleContext, pragma = 
  * @param name The name of the function or method to check
  * @returns A predicate that checks if the given node is a call expression to the given function or method
  */
-export function isFromPragma(name: string) {
+export function isFromReact(name: string) {
   return (
     node: TSESTree.Identifier | TSESTree.MemberExpression,
     context: RuleContext,
   ) => {
     const initialScope = context.sourceCode.getScope(node);
-    if (node.type === NodeType.MemberExpression) return isPropertyOfPragma(name, context)(node);
-    if (node.name === name) return isInitializedFromPragma(name, context, initialScope);
-
+    if (node.type === NodeType.MemberExpression) {
+      return node.object.type === NodeType.Identifier
+        && node.property.type === NodeType.Identifier
+        && node.property.name === name
+        && isInitializedFromReact(node.object.name, context, initialScope);
+    }
+    if (node.name === name) return isInitializedFromReact(name, context, initialScope);
     return false;
   };
 }
 
 /**
  * @internal
- * @param pragmaMemberName
+ * @param memberName
  * @param name
  * @returns A function that checks if a given node is a member expression of a Pragma member.
  */
-export function isFromPragmaMember(
-  pragmaMemberName: string,
+export function isFromReactMember(
+  memberName: string,
   name: string,
-): (node: TSESTree.MemberExpression, context: RuleContext, pragma?: string) => boolean {
+): (node: TSESTree.MemberExpression, context: RuleContext) => boolean {
   return (
     node: TSESTree.MemberExpression,
     context: RuleContext,
-    pragma = getPragmaFromContext(context),
   ) => {
     const initialScope = context.sourceCode.getScope(node);
     if (node.property.type !== NodeType.Identifier || node.property.name !== name) return false;
-    if (node.object.type === NodeType.Identifier && node.object.name === pragmaMemberName) {
-      return isInitializedFromPragma(node.object.name, context, initialScope, pragma);
+    if (node.object.type === NodeType.Identifier && node.object.name === memberName) {
+      return isInitializedFromReact(node.object.name, context, initialScope);
     }
     if (
       node.object.type === NodeType.MemberExpression
       && node.object.object.type === NodeType.Identifier
-      && node.object.object.name === pragma
+      && isInitializedFromReact(node.object.object.name, context, initialScope)
       && node.object.property.type === NodeType.Identifier
     ) {
-      return node.object.property.name === pragmaMemberName;
+      return node.object.property.name === memberName;
     }
 
     return false;
   };
 }
 
-export function isCallFromPragma(name: string) {
+export function isCallFromReact(name: string) {
   return (node: TSESTree.CallExpression, context: RuleContext) => {
     if (!isOneOf([NodeType.Identifier, NodeType.MemberExpression])(node.callee)) return false;
 
-    return isFromPragma(name)(node.callee, context);
+    return isFromReact(name)(node.callee, context);
   };
 }
 
-export function isCallFromPragmaMember(
+export function isCallFromReactMember(
   pragmaMemberName: string,
   name: string,
 ) {
   return (node: TSESTree.CallExpression, context: RuleContext) => {
     if (!is(NodeType.MemberExpression)(node.callee)) return false;
 
-    return isFromPragmaMember(pragmaMemberName, name)(node.callee, context);
+    return isFromReactMember(pragmaMemberName, name)(node.callee, context);
   };
 }

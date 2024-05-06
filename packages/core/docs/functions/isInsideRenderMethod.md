@@ -6,7 +6,7 @@
 
 # Function: ~~isInsideRenderMethod()~~
 
-> **isInsideRenderMethod**(`node`, `context`): `boolean`
+> **isInsideRenderMethod**(`node`): `boolean`
 
 Check whether given node is declared inside class component's render block
 ```jsx
@@ -25,8 +25,6 @@ class Component extends React.Component {
 • **node**: `Node`
 
 The AST node being checked
-
-• **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
 
 ## Returns
 

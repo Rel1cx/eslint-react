@@ -8,7 +8,7 @@ import {
   traverseUp,
   type TSESTreeFunction,
 } from "@eslint-react/ast";
-import { getPragmaFromContext, isChildrenOfCreateElement, isJSXValue } from "@eslint-react/jsx";
+import { isJSXValue } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/types";
 import { type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -16,6 +16,7 @@ import { Function as F, MutableList as MutList, MutableRef as MutRef, Option as 
 import ShortUniqueId from "short-unique-id";
 import { isMatching, match } from "ts-pattern";
 
+import { isChildrenOfCreateElement } from "../element";
 import { isReactHookCall } from "../hook";
 import type { ERFunctionComponent } from "./component";
 import { DEFAULT_COMPONENT_HINT, ERComponentHint } from "./component-collector-hint";
@@ -37,7 +38,7 @@ const isMapCall = isMatching({
 });
 
 function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: bigint) {
-  if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node, context)) {
+  if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node)) {
     return false;
   }
 
@@ -72,14 +73,14 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
   );
 }
 
-function getComponentFlag(initPath: ERFunctionComponent["initPath"], pragma: string) {
+function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {
   const flagRef = MutRef.make(ERFunctionComponentFlag.None);
 
-  if (hasCallInInitPath("memo")(initPath) || hasCallInInitPath(`${pragma}.memo`)(initPath)) {
+  if (hasCallInInitPath("memo")(initPath)) {
     MutRef.update(flagRef, f => f | ERFunctionComponentFlag.Memo);
   }
 
-  if (hasCallInInitPath("forwardRef")(initPath) || hasCallInInitPath(`${pragma}.forwardRef`)(initPath)) {
+  if (hasCallInInitPath("forwardRef")(initPath)) {
     MutRef.update(flagRef, f => f | ERFunctionComponentFlag.ForwardRef);
   }
 
@@ -89,7 +90,6 @@ function getComponentFlag(initPath: ERFunctionComponent["initPath"], pragma: str
 export function useComponentCollector(
   context: RuleContext,
   hint: bigint = DEFAULT_COMPONENT_HINT,
-  pragma = getPragmaFromContext(context),
 ) {
   const components = new Map<string, ERFunctionComponent>();
   const functionStack = MutList.make<[
@@ -141,7 +141,7 @@ export function useComponentCollector(
         kind: "function",
         name,
         displayName: O.none(),
-        flag: getComponentFlag(initPath, pragma),
+        flag: getComponentFlag(initPath),
         hint,
         hookCalls,
         initPath,
@@ -170,7 +170,7 @@ export function useComponentCollector(
         kind: "function",
         name,
         displayName: O.none(),
-        flag: getComponentFlag(initPath, pragma),
+        flag: getComponentFlag(initPath),
         hint,
         hookCalls,
         initPath,

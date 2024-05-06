@@ -6,13 +6,11 @@
 
 # Function: isFunctionOfRenderMethod()
 
-> **isFunctionOfRenderMethod**(`node`, `context`): `boolean`
+> **isFunctionOfRenderMethod**(`node`): `boolean`
 
 ## Parameters
 
 • **node**: `TSESTreeFunction`
-
-• **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
 
 ## Returns
 

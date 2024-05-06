@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.5.11-beta.9",
+  "version": "1.5.11-next.10",
   "private": true,
   "description": "A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -51,7 +51,6 @@
     "lint:website": "pnpm -F \"./website\" run lint",
     "prepare": "husky install && pnpm run build",
     "test": "vitest --run --logHeapUsage",
-    "test:ui": "vitest --ui",
     "update:deps": "taze",
     "update:version": "bun run --bun ./scripts/update-version.ts && pnpm run format:package-json"
   },
@@ -59,7 +58,7 @@
     "@changesets/cli": "2.27.1",
     "@tsconfig/node20": "20.1.4",
     "@tsconfig/strictest": "2.0.5",
-    "@types/node": "20.12.8",
+    "@types/node": "20.12.9",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
     "@typescript-eslint/rule-tester": "^7.8.0",
@@ -94,7 +93,7 @@
     "ts-pattern": "5.1.1",
     "tsup": "8.0.2",
     "turbo": "1.13.3",
-    "type-fest": "4.18.1",
+    "type-fest": "4.18.2",
     "typedoc": "0.25.13",
     "typedoc-plugin-markdown": "4.0.0",
     "typedoc-plugin-rename-defaults": "0.7.0",
@@ -116,7 +115,7 @@
       "array.prototype.toreversed": "npm:@nolyfill/array.prototype.toreversed@latest",
       "array.prototype.tosorted": "npm:@nolyfill/array.prototype.tosorted@latest",
       "es-iterator-helpers": "npm:@nolyfill/es-iterator-helpers@latest",
-      "eslint": "9.1.0",
+      "eslint": "9.2.0",
       "function-bind": "npm:@nolyfill/function-bind@latest",
       "has": "npm:@nolyfill/has@latest",
       "hasown": "npm:@nolyfill/hasown@latest",

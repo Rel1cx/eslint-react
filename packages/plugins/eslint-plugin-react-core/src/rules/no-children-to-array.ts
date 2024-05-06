@@ -1,5 +1,4 @@
 import { isChildrenToArray } from "@eslint-react/core";
-import { getPragmaFromContext } from "@eslint-react/jsx";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 
@@ -25,11 +24,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const pragma = getPragmaFromContext(context);
-
     return {
       MemberExpression(node) {
-        if (isChildrenToArray(node, context, pragma)) {
+        if (isChildrenToArray(node, context)) {
           context.report({
             messageId: "NO_CHILDREN_TO_ARRAY",
             node: node.property,

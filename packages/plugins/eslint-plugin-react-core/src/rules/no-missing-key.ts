@@ -1,5 +1,5 @@
 import { getNestedReturnStatements, is, isOneOf, NodeType } from "@eslint-react/ast";
-import { getFragmentFromContext, getPragmaFromContext, hasProp } from "@eslint-react/jsx";
+import { hasProp } from "@eslint-react/jsx";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -24,16 +24,13 @@ export default createRule<[], MessageID>({
     },
     messages: {
       NO_MISSING_KEY: "Missing 'key' prop for element when rendering list",
-      NO_MISSING_KEY_WITH_FRAGMENT:
-        "Use '{{reactPragma}}.{{fragmentPragma}}' component instead of '<>' because it does not support key prop",
+      NO_MISSING_KEY_WITH_FRAGMENT: "Use fragment component instead of '<>' because it does not support key prop",
     },
     schema: [],
   },
   name: RULE_NAME,
   create(context) {
-    const reactPragma = getPragmaFromContext(context);
-    const fragmentPragma = getFragmentFromContext(context);
-    const childrenToArraySelector = getChildrenToArraySelector(reactPragma);
+    const childrenToArraySelector = getChildrenToArraySelector();
     const isWithinChildrenToArrayRef = MutRef.make(false);
     function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
       const initialScope = context.sourceCode.getScope(node);
@@ -46,10 +43,6 @@ export default createRule<[], MessageID>({
       }
       if (node.type === NodeType.JSXFragment) {
         return O.some({
-          data: {
-            fragmentPragma,
-            reactPragma,
-          },
           messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
           node,
         });
@@ -139,10 +132,6 @@ export default createRule<[], MessageID>({
         if (MutRef.get(isWithinChildrenToArrayRef)) return;
         if (node.parent.type === NodeType.ArrayExpression) {
           context.report({
-            data: {
-              fragmentPragma,
-              reactPragma,
-            },
             messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
             node,
           });

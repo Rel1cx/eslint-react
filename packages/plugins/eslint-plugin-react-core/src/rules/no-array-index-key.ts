@@ -1,11 +1,11 @@
 import { isOneOf, NodeType } from "@eslint-react/ast";
-import { getPragmaFromContext, isCloneElementCall, isCreateElementCall } from "@eslint-react/jsx";
+import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { Option as O, Record } from "effect";
 import type { ConstantCase } from "string-ts";
-import { isMatching } from "ts-pattern";
+import { isMatching, match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -40,11 +40,14 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
     return false;
   }
   if (!isReactChildrenMethod(callee.property.name)) return false;
-  const obj = callee.object;
-  if ("name" in obj && obj.name === "Children") return true;
-  const pragma = getPragmaFromContext(context);
-
-  return isMatching({ object: { name: pragma } }, obj);
+  const initialScope = context.sourceCode.getScope(node);
+  return match(callee.object)
+    .with({ type: NodeType.Identifier, name: "Children" }, () => true)
+    .with(
+      { type: NodeType.MemberExpression, object: { type: NodeType.Identifier, name: P.string } },
+      ({ object }) => isInitializedFromReact(object.name, context, initialScope),
+    )
+    .otherwise(() => false);
 }
 
 function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContext) {

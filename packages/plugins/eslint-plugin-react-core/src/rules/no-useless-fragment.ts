@@ -1,13 +1,6 @@
 import { NodeType } from "@eslint-react/ast";
-import {
-  getFragmentFromContext,
-  getPragmaFromContext,
-  hasProp,
-  isFragmentElement,
-  isJSXElementOfBuiltinComponent,
-  isLiteral,
-  isPaddingSpaces,
-} from "@eslint-react/jsx";
+import { isFragmentElement } from "@eslint-react/core";
+import { hasProp, isJSXElementOfBuiltinComponent, isLiteral, isPaddingSpaces } from "@eslint-react/jsx";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
@@ -80,9 +73,6 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const reactPragma = getPragmaFromContext(context);
-    const fragmentPragma = getFragmentFromContext(context);
-
     function checkNode(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
       const initialScope = context.sourceCode.getScope(node);
 
@@ -123,7 +113,7 @@ export default createRule<[], MessageID>({
 
     return {
       JSXElement(node) {
-        if (isFragmentElement(node, reactPragma, fragmentPragma)) {
+        if (isFragmentElement(node, context)) {
           checkNode(node);
         }
       },

@@ -1,10 +1,10 @@
 import { getFunctionIdentifier, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
-import { isInitializedFromPragma } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { Function as F, Option as O } from "effect";
-import { match } from "ts-pattern";
+import { match, P } from "ts-pattern";
 
+import { isInitializedFromReact } from "../internal/is-from-react";
 import { isReactHookName } from "./hook-name";
 
 export function isReactHook(node: TSESTreeFunction) {
@@ -30,12 +30,14 @@ export function isReactHookCall(node: TSESTree.CallExpression) {
 }
 
 export function isReactHookCallWithName(name: string) {
-  return (node: TSESTree.CallExpression, context: RuleContext, pragma: string) => {
+  return (node: TSESTree.CallExpression, context: RuleContext) => {
     const initialScope = context.sourceCode.getScope(node);
 
     return match(node.callee)
-      .with({ type: NodeType.Identifier, name }, n => isInitializedFromPragma(n.name, context, initialScope, pragma))
-      .with({ type: NodeType.MemberExpression, object: { name: pragma }, property: { name } }, F.constTrue)
+      .with({ type: NodeType.Identifier, name }, n => isInitializedFromReact(n.name, context, initialScope))
+      .with({ type: NodeType.MemberExpression, object: { name: P.string }, property: { name } }, n => {
+        return isInitializedFromReact(n.object.name, context, initialScope);
+      })
       .otherwise(F.constFalse);
   };
 }

@@ -50,7 +50,7 @@ export default createRule<[], MessageID>({
         const maybeParentClass = traverseUp(node, isOneOf([NodeType.ClassDeclaration, NodeType.ClassExpression]));
         if (O.isNone(maybeParentClass)) return;
         const parentClass = maybeParentClass.value;
-        if (!isClassComponent(parentClass, context)) return;
+        if (!isClassComponent(parentClass)) return;
         const maybeParentMethod = traverseUp(node, isComponentDidMount);
         if (O.isNone(maybeParentMethod)) return;
         const parentMethod = maybeParentMethod.value;

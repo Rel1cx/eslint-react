@@ -1,5 +1,4 @@
 import { isChildrenOnly } from "@eslint-react/core";
-import { getPragmaFromContext } from "@eslint-react/jsx";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 
@@ -24,11 +23,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const pragma = getPragmaFromContext(context);
-
     return {
       MemberExpression(node) {
-        if (isChildrenOnly(node, context, pragma)) {
+        if (isChildrenOnly(node, context)) {
           context.report({
             messageId: "NO_CHILDREN_ONLY",
             node: node.property,

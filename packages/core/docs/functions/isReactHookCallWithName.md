@@ -6,7 +6,7 @@
 
 # Function: isReactHookCallWithName()
 
-> **isReactHookCallWithName**(`name`): (`node`, `context`, `pragma`) => `boolean`
+> **isReactHookCallWithName**(`name`): (`node`, `context`) => `boolean`
 
 ## Parameters
 
@@ -21,8 +21,6 @@
 • **node**: `CallExpression`
 
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
-
-• **pragma**: `string`
 
 ### Returns
 

@@ -2,6 +2,7 @@
 import { NodeType, type TSESTreeFunction } from "@eslint-react/ast";
 import type { TSESTree } from "@typescript-eslint/types";
 import { Function as F, Option as O } from "effect";
+import { isMatching } from "ts-pattern";
 
 export type ERComponentInitPath =
   /**
@@ -195,22 +196,27 @@ export function hasCallInInitPath(callName: string) {
       O.filter(p => p.length > 0),
       O.exists(nodes => {
         return nodes.some(
-          callName.includes(".")
-            ? n => {
-              const [objectName, propertyName] = callName.split(".");
+          // callName.includes(".")
+          //   ? n => {
+          //     const [objectName, propertyName] = callName.split(".");
 
-              return "callee" in n
-                && n.callee.type === NodeType.MemberExpression
-                && n.callee.object.type === NodeType.Identifier
-                && n.callee.object.name === objectName
-                && n.callee.property.type === NodeType.Identifier
-                && n.callee.property.name === propertyName;
-            }
-            : n => {
-              return "callee" in n
-                && n.callee.type === NodeType.Identifier
-                && n.callee.name === callName;
-            },
+          //     return "callee" in n
+          //       && n.callee.type === NodeType.MemberExpression
+          //       && n.callee.object.type === NodeType.Identifier
+          //       && n.callee.object.name === objectName
+          //       && n.callee.property.type === NodeType.Identifier
+          //       && n.callee.property.name === propertyName;
+          //   }
+          //   : n => {
+          //     return "callee" in n
+          //       && n.callee.type === NodeType.Identifier
+          //       && n.callee.name === callName;
+          //   },
+          n => {
+            if (n.type !== NodeType.CallExpression) return false;
+            if (n.callee.type === NodeType.Identifier) return n.callee.name === callName;
+            return isMatching({ callee: { property: { name: callName } } }, n);
+          },
         );
       }),
     );

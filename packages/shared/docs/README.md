@@ -24,5 +24,3 @@
 ## Functions
 
 - [createRuleForPlugin](functions/createRuleForPlugin.md)
-- [parseSchema](functions/parseSchema.md)
-- [safeParseSchema](functions/safeParseSchema.md)

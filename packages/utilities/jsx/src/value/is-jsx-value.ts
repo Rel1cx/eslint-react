@@ -5,8 +5,6 @@ import { type TSESTree } from "@typescript-eslint/utils";
 import { Function as F, Option as O } from "effect";
 import { match, P } from "ts-pattern";
 
-import { isCreateElementCall } from "../element";
-
 // type ReactNode =
 //   | ReactElement
 //   | string
@@ -105,8 +103,10 @@ export function isJSXValue(
     })
     .with({ type: NodeType.CallExpression }, (node) => {
       if (hint & JSXValueHint.SkipCreateElement) return false;
-
-      return isCreateElementCall(node, context);
+      return match(node.callee)
+        .with({ type: NodeType.Identifier, name: "createElement" }, F.constTrue)
+        .with({ type: NodeType.MemberExpression, property: { name: "createElement" } }, F.constTrue)
+        .otherwise(F.constFalse);
     })
     .with({ type: NodeType.Identifier }, (node) => {
       const { name } = node;

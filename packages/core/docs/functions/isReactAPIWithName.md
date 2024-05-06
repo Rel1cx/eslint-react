@@ -8,7 +8,7 @@
 
 ## isReactAPIWithName(name)
 
-> **isReactAPIWithName**(`name`): `ReturnType`\<*typeof* `isFromPragma`\>
+> **isReactAPIWithName**(`name`): `ReturnType`\<*typeof* [`isFromReact`](isFromReact.md)\>
 
 ### Parameters
 
@@ -16,11 +16,11 @@
 
 ### Returns
 
-`ReturnType`\<*typeof* `isFromPragma`\>
+`ReturnType`\<*typeof* [`isFromReact`](isFromReact.md)\>
 
 ## isReactAPIWithName(name, member)
 
-> **isReactAPIWithName**(`name`, `member`): `ReturnType`\<*typeof* `isFromPragmaMember`\>
+> **isReactAPIWithName**(`name`, `member`): `ReturnType`\<*typeof* `isFromReactMember`\>
 
 ### Parameters
 
@@ -30,4 +30,4 @@
 
 ### Returns
 
-`ReturnType`\<*typeof* `isFromPragmaMember`\>
+`ReturnType`\<*typeof* `isFromReactMember`\>

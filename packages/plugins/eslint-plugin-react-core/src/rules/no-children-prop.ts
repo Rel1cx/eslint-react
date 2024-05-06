@@ -1,5 +1,6 @@
 import { NodeType } from "@eslint-react/ast";
-import { findPropInProperties, getProp, isCreateElementCall } from "@eslint-react/jsx";
+import { isCreateElementCall } from "@eslint-react/core";
+import { findPropInProperties, getProp } from "@eslint-react/jsx";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { Option as O } from "effect";
 import type { ConstantCase } from "string-ts";

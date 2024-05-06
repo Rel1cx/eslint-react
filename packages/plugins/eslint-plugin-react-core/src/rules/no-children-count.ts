@@ -1,5 +1,4 @@
 import { isChildrenCount } from "@eslint-react/core";
-import { getPragmaFromContext } from "@eslint-react/jsx";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 
@@ -24,11 +23,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const pragma = getPragmaFromContext(context);
-
     return {
       MemberExpression(node) {
-        if (isChildrenCount(node, context, pragma)) {
+        if (isChildrenCount(node, context)) {
           context.report({
             messageId: "NO_CHILDREN_COUNT",
             node: node.property,
