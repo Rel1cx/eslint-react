@@ -6,7 +6,7 @@
 
 # Function: isClassComponent()
 
-> **isClassComponent**(`node`, `context`): `node is TSESTreeClass`
+> **isClassComponent**(`node`): `node is TSESTreeClass`
 
 Check if a node is a React class component
 
@@ -15,10 +15,6 @@ Check if a node is a React class component
 • **node**: `Node`
 
 The AST node to check
-
-• **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
-
-The rule context
 
 ## Returns
 

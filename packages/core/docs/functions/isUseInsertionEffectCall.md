@@ -6,15 +6,13 @@
 
 # Function: isUseInsertionEffectCall()
 
-> **isUseInsertionEffectCall**(`node`, `context`, `pragma`): `boolean`
+> **isUseInsertionEffectCall**(`node`, `context`): `boolean`
 
 ## Parameters
 
 • **node**: `CallExpression`
 
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
-
-• **pragma**: `string`
 
 ## Returns
 

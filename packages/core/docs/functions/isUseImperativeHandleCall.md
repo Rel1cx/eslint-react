@@ -6,15 +6,13 @@
 
 # Function: isUseImperativeHandleCall()
 
-> **isUseImperativeHandleCall**(`node`, `context`, `pragma`): `boolean`
+> **isUseImperativeHandleCall**(`node`, `context`): `boolean`
 
 ## Parameters
 
 • **node**: `CallExpression`
 
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
-
-• **pragma**: `string`
 
 ## Returns
 

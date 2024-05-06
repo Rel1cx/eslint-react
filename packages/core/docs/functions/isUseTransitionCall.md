@@ -6,15 +6,13 @@
 
 # Function: isUseTransitionCall()
 
-> **isUseTransitionCall**(`node`, `context`, `pragma`): `boolean`
+> **isUseTransitionCall**(`node`, `context`): `boolean`
 
 ## Parameters
 
 • **node**: `CallExpression`
 
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
-
-• **pragma**: `string`
 
 ## Returns
 

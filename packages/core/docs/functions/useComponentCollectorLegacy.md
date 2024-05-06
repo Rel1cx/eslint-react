@@ -6,11 +6,7 @@
 
 # Function: useComponentCollectorLegacy()
 
-> **useComponentCollectorLegacy**(`context`): `object`
-
-## Parameters
-
-• **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+> **useComponentCollectorLegacy**(): `object`
 
 ## Returns
 

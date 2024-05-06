@@ -6,15 +6,13 @@
 
 # Function: isUseLayoutEffectCall()
 
-> **isUseLayoutEffectCall**(`node`, `context`, `pragma`): `boolean`
+> **isUseLayoutEffectCall**(`node`, `context`): `boolean`
 
 ## Parameters
 
 • **node**: `CallExpression`
 
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
-
-• **pragma**: `string`
 
 ## Returns
 

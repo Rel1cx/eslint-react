@@ -6,15 +6,13 @@
 
 # Function: useComponentCollector()
 
-> **useComponentCollector**(`context`, `hint`, `pragma`): `object`
+> **useComponentCollector**(`context`, `hint`): `object`
 
 ## Parameters
 
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
 
 • **hint**: `bigint`= `DEFAULT_COMPONENT_HINT`
-
-• **pragma**: `string`= `undefined`
 
 ## Returns
 

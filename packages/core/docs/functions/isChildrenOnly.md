@@ -6,15 +6,13 @@
 
 # Function: isChildrenOnly()
 
-> **isChildrenOnly**(`node`, `context`, `pragma`?): `boolean`
+> **isChildrenOnly**(`node`, `context`): `boolean`
 
 ## Parameters
 
 • **node**: `MemberExpression`
 
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
-
-• **pragma?**: `string`
 
 ## Returns
 
