@@ -6,6 +6,13 @@ This plugin provides the following configurations:
 
 ## Settings
 
+### `importPragma`
+
+(type: `string, default: `"react"`)
+
+The identifier that's used for React import detection.
+This allows to specify a custom import location for React when not using the official distribution (e.g. `@pika/react`, etc).
+
 ### `jsxPragma`
 
 (type: `string`, default: `"React"`)
@@ -52,6 +59,7 @@ export default [
     ...react.configs.recommended,
     settings: {
       reactOptions: {
+        importPragma: "react",
         jsxPragma: "React",
         jsxPragmaFrag: "Fragment",
         additionalHooks: {
@@ -76,6 +84,7 @@ module.exports = {
   // ...
   settings: {
     reactOptions: {
+      importPragma: "react",
       jsxPragma: "React",
       jsxPragmaFrag: "Fragment",
       additionalHooks: {

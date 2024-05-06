@@ -1,4 +1,5 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
+import { ESLintSettingsSchema, parseSchema } from "@eslint-react/shared";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
@@ -19,6 +20,9 @@ export function isInitializedFromPragma(
   if (O.isNone(maybeLatestDef)) return false;
   const latestDef = maybeLatestDef.value;
   const { node, parent } = latestDef;
+  const settings = parseSchema(ESLintSettingsSchema, context.settings);
+  const importSource = settings.reactOptions?.importSource;
+  const prefix = importSource ? importSource + "/" : "";
   if (node.type === NodeType.VariableDeclarator && node.init) {
     const { init } = node;
     // check for: `variable = pragma.variable`
@@ -46,12 +50,11 @@ export function isInitializedFromPragma(
     const requireExpression = maybeRequireExpression.value;
     const [firstArg] = requireExpression.arguments;
     if (firstArg?.type !== NodeType.Literal) return false;
-
-    return firstArg.value === pragma.toLowerCase();
+    return firstArg.value === prefix + pragma.toLowerCase();
   }
 
   // latest definition is an import declaration: import { variable } from 'react'
-  return isMatching({ type: "ImportDeclaration", source: { value: pragma.toLowerCase() } }, parent);
+  return isMatching({ type: "ImportDeclaration", source: { value: prefix + pragma.toLowerCase() } }, parent);
 }
 
 export function isPropertyOfPragma(name: string, context: RuleContext, pragma = getPragmaFromContext(context)) {

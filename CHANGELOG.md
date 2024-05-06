@@ -3,6 +3,7 @@
 ### ✨ New
 
 - Rule `no-class-component` rule now allows class components with a `componentDidCatch` method.
+- Settings `reactOptions` now supports `importPragma` to specify the import name for React.
 
 ### 🪄 Improvements
 

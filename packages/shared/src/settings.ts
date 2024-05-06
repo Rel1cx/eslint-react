@@ -24,6 +24,7 @@ export const ESLintReactSettingsSchema = object({
     useSyncExternalStore: optional(array(string())),
     useTransition: optional(array(string())),
   })),
+  importSource: optional(string()),
   jsxPragma: optional(string()),
   jsxPragmaFrag: optional(string()),
   version: optional(string()),
