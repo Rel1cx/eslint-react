@@ -1,12 +1,13 @@
-## v1.5.11 (Sun 5 May 2024)
+## v1.5.11 (Draft)
 
 ### ✨ New
 
-- Rule `no-class-component` rule now allows class components with a `componentDidCatch` method.
-- Settings `reactOptions` now supports `importSource` to specify the import source for React.
+- Rule `no-class-component` rule now allows class components with a `componentDidCatch` method (Thanks to [@christopher-buss](https://github.com/christopher-buss)).
+- Settings `reactOptions` now supports `importSource` to specify the import source for React (Thanks to [@christopher-buss](https://github.com/christopher-buss)).
 
 ### 🪄 Improvements
 
+- Refactor React pragma and import name retrieval utils to support custom import source.
 - Refactor rule `no-complicated-conditional-rendering`'s detection logic, make it more accurate.
 - Update `@typescript-eslint`'s packages to `7.8.0`.
 
