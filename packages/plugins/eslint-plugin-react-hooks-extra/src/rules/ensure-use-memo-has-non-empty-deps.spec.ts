@@ -112,6 +112,132 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: dedent`
+        import React from "roact";
+
+        function App({ items }) {
+          const memoizedValue = React.useMemo(() => [0, 1, 2].sort(), []);
+
+          return <div>{count}</div>;
+        }
+      `,
+      settings: {
+        reactOptions: {
+          importSource: "roact",
+        },
+      },
+      errors: [
+        {
+          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        import Roact from "roact";
+
+        function App({ items }) {
+          const memoizedValue = Roact.useMemo(() => [0, 1, 2].sort(), []);
+
+          return <div>{count}</div>;
+        }
+      `,
+      settings: {
+        reactOptions: {
+          importSource: "roact",
+        },
+      },
+      errors: [
+        {
+          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        import { useMemo } from "roact";
+
+        function App({ items }) {
+          const memoizedValue = useMemo(() => [0, 1, 2].sort(), []);
+
+          return <div>{count}</div>;
+        }
+      `,
+      settings: {
+        reactOptions: {
+          importSource: "roact",
+        },
+      },
+      errors: [
+        {
+          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        import React from "@pika/react";
+
+        function App({ items }) {
+          const memoizedValue = React.useMemo(() => [0, 1, 2].sort(), []);
+
+          return <div>{count}</div>;
+        }
+      `,
+      settings: {
+        reactOptions: {
+          importSource: "@pika/react",
+        },
+      },
+      errors: [
+        {
+          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        import Pika from "@pika/react";
+
+        function App({ items }) {
+          const memoizedValue = Pika.useMemo(() => [0, 1, 2].sort(), []);
+
+          return <div>{count}</div>;
+        }
+      `,
+      settings: {
+        reactOptions: {
+          importSource: "@pika/react",
+        },
+      },
+      errors: [
+        {
+          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        import { useMemo } from "@pika/react";
+
+        function App({ items }) {
+          const memoizedValue = useMemo(() => [0, 1, 2].sort(), []);
+
+          return <div>{count}</div>;
+        }
+      `,
+      settings: {
+        reactOptions: {
+          importSource: "@pika/react",
+        },
+      },
+      errors: [
+        {
+          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+    },
+    {
+      code: dedent`
         import React from "react";
 
         function App({ items }) {
