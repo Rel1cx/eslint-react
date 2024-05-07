@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { isMatching, P } from "ts-pattern";
 
-import { NodeType } from "../node";
+import { NodeType } from "../../ast-node";
 
 /**
  * Checks if the given node is a function expression or arrow function expression of a object method.

@@ -1,6 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { NodeType } from "../node";
+import { NodeType } from "../../ast-node";
 
 export function getNestedCallExpressions(node: TSESTree.Node): TSESTree.CallExpression[] {
   const callExpressions: TSESTree.CallExpression[] = [];

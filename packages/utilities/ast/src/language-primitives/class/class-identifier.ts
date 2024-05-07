@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { Option as O } from "effect";
 
-import { NodeType, type TSESTreeClass } from "../node";
+import { NodeType, type TSESTreeClass } from "../../ast-node";
 
 /**
  * Gets class identifier from ClassDeclaration or ClassExpression

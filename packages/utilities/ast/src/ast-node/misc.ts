@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { delimiterCase, replace, toLowerCase } from "string-ts";
 import { match, P } from "ts-pattern";
 
-import { isJSX, NodeType } from "./node";
+import { isJSX, NodeType } from "./node-type";
 
 export function getLiteralValueType(input: bigint | boolean | null | number | string | symbol) {
   return match(input)
