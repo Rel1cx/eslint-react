@@ -6,7 +6,7 @@
 
 # Function: entries()
 
-> **entries**\<`T`\>(`value`): \{ [K in string \| number \| symbol]-?: [K, T[K]] \}\[keyof `T`\][]
+> **entries**\<`T`\>(`value`): \{ \[K in string \| number \| symbol\]-?: \[K, T\[K\]\] \}\[keyof `T`\][]
 
 type-safe version of Object.entries
 
@@ -22,7 +22,7 @@ The value to get the entries from.
 
 ## Returns
 
-\{ [K in string \| number \| symbol]-?: [K, T[K]] \}\[keyof `T`\][]
+\{ \[K in string \| number \| symbol\]-?: \[K, T\[K\]\] \}\[keyof `T`\][]
 
 The entries of the value.
 

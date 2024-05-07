@@ -76,13 +76,13 @@
 
 `undefined` \| [`TSESTreeFunction`, `boolean`, `CallExpression`[]]
 
-### listeners.ArrowFunctionExpression[body.type!='BlockStatement']()
+### listeners.ArrowFunctionExpression\[body.type!='BlockStatement'\]()
 
 #### Returns
 
 `void`
 
-### listeners.AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']()
+### listeners.AssignmentExpression\[operator='='\]\[left.type='MemberExpression'\]\[left.property.name='displayName'\]()
 
 #### Parameters
 
