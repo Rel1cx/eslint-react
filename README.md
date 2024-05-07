@@ -33,6 +33,10 @@ A series of composable ESLint rules for libraries and frameworks that use React 
 - `eslint-plugin-react-hooks-extra` - Extra React Hooks rules.
 - `eslint-plugin-react-naming-convention` - Naming convention rules.
 
+## Supported ESLint versions
+
+- 8.57.0 or later
+
 ## Supported React versions
 
 - 18.2.0 or later
