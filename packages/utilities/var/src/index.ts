@@ -1,3 +1,2 @@
-export * from "./find-variable";
-export * from "./get-variable";
+export * from "./variable-find";
 export * from "./variable-init";
