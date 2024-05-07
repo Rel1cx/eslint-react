@@ -52,14 +52,14 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
+      errors: [{
+        messageId: "NO_CHILDREN_COUNT",
+      }],
       settings: {
         reactOptions: {
           importSource: "roact",
         },
       },
-      errors: [{
-        messageId: "NO_CHILDREN_COUNT",
-      }],
     },
     {
       code: dedent`
