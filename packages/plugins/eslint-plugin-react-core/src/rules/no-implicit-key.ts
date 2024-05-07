@@ -14,6 +14,7 @@ export type MessageID = ConstantCase<typeof RULE_NAME>;
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
+    deprecated: true,
     docs: {
       description: "disallow spreading 'key' from objects.",
       recommended: "recommended",
