@@ -148,16 +148,16 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{count}</div>;
         }
       `,
-      settings: {
-        reactOptions: {
-          importSource: "roact",
-        },
-      },
       errors: [
         {
           messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
         },
       ],
+      settings: {
+        reactOptions: {
+          importSource: "roact",
+        },
+      },
     },
     {
       code: dedent`
@@ -169,16 +169,16 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{count}</div>;
         }
       `,
-      settings: {
-        reactOptions: {
-          importSource: "roact",
-        },
-      },
       errors: [
         {
           messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
         },
       ],
+      settings: {
+        reactOptions: {
+          importSource: "roact",
+        },
+      },
     },
     {
       code: dedent`
@@ -190,16 +190,16 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{count}</div>;
         }
       `,
-      settings: {
-        reactOptions: {
-          importSource: "roact",
-        },
-      },
       errors: [
         {
           messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
         },
       ],
+      settings: {
+        reactOptions: {
+          importSource: "roact",
+        },
+      },
     },
     {
       code: dedent`
@@ -211,16 +211,16 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{count}</div>;
         }
       `,
-      settings: {
-        reactOptions: {
-          importSource: "@pika/react",
-        },
-      },
       errors: [
         {
           messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
         },
       ],
+      settings: {
+        reactOptions: {
+          importSource: "@pika/react",
+        },
+      },
     },
     {
       code: dedent`
@@ -232,16 +232,16 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{count}</div>;
         }
       `,
-      settings: {
-        reactOptions: {
-          importSource: "@pika/react",
-        },
-      },
       errors: [
         {
           messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
         },
       ],
+      settings: {
+        reactOptions: {
+          importSource: "@pika/react",
+        },
+      },
     },
     {
       code: dedent`
@@ -253,16 +253,16 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{count}</div>;
         }
       `,
-      settings: {
-        reactOptions: {
-          importSource: "@pika/react",
-        },
-      },
       errors: [
         {
           messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
         },
       ],
+      settings: {
+        reactOptions: {
+          importSource: "@pika/react",
+        },
+      },
     },
     {
       code: dedent`
