@@ -22,14 +22,17 @@ const allPreset = {
   "no-class-component": "warn",
   "no-clone-element": "warn",
   "no-comment-textnodes": "warn",
-  "no-complicated-conditional-rendering": "warn",
+  // This rule has been deprecated
+  // "no-complicated-conditional-rendering": "warn",
   "no-component-will-mount": "error",
   "no-component-will-receive-props": "error",
   "no-component-will-update": "error",
   "no-create-ref": "error",
   "no-direct-mutation-state": "error",
   "no-duplicate-key": "error",
-  "no-implicit-key": "error",
+  // This rule has been deprecated
+  // "no-implicit-key": "error",
+  // This rule requires type information
   // "no-leaked-conditional-rendering": "warn",
   "no-missing-component-display-name": "warn",
   "no-missing-key": "error",
@@ -95,7 +98,7 @@ const recommendedPreset = {
   "no-create-ref": "error",
   "no-direct-mutation-state": "error",
   "no-duplicate-key": "error",
-  "no-implicit-key": "error",
+  // "no-implicit-key": "error",
   // "no-leaked-conditional-rendering": "warn",
   // "no-missing-component-display-name": "warn",
   "no-missing-key": "error",
