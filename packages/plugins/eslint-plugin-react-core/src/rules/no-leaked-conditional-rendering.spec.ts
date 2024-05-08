@@ -1,9 +1,9 @@
 import dedent from "dedent";
 
-import { allValid, ruleTester } from "../../../../../test";
+import { allValid, ruleTesterWithTypes } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-leaked-conditional-rendering";
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTesterWithTypes.run(RULE_NAME, rule, {
   invalid: [
     {
       code: dedent`
