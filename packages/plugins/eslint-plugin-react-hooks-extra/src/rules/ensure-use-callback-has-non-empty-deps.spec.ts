@@ -266,6 +266,132 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: dedent`
+        const React = require("roact");
+
+        function App({ items }) {
+          const memoizedValue = React.useCallback(() => [0, 1, 2].sort(), []);
+
+          return <div>{count}</div>;
+        }
+      `,
+      errors: [
+        {
+          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+      settings: {
+        reactOptions: {
+          importSource: "roact",
+        },
+      },
+    },
+    {
+      code: dedent`
+        const Roact = require("roact");
+
+        function App({ items }) {
+          const memoizedValue = Roact.useCallback(() => [0, 1, 2].sort(), []);
+
+          return <div>{count}</div>;
+        }
+      `,
+      errors: [
+        {
+          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+      settings: {
+        reactOptions: {
+          importSource: "roact",
+        },
+      },
+    },
+    {
+      code: dedent`
+        const { useCallback } = require("roact");
+
+        function App({ items }) {
+          const memoizedValue = useCallback(() => [0, 1, 2].sort(), []);
+
+          return <div>{count}</div>;
+        }
+      `,
+      errors: [
+        {
+          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+      settings: {
+        reactOptions: {
+          importSource: "roact",
+        },
+      },
+    },
+    {
+      code: dedent`
+        const React = require("@pika/react");
+
+        function App({ items }) {
+          const memoizedValue = React.useCallback(() => [0, 1, 2].sort(), []);
+
+          return <div>{count}</div>;
+        }
+      `,
+      errors: [
+        {
+          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+      settings: {
+        reactOptions: {
+          importSource: "@pika/react",
+        },
+      },
+    },
+    {
+      code: dedent`
+        const Pika = require("@pika/react");
+
+        function App({ items }) {
+          const memoizedValue = Pika.useCallback(() => [0, 1, 2].sort(), []);
+
+          return <div>{count}</div>;
+        }
+      `,
+      errors: [
+        {
+          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+      settings: {
+        reactOptions: {
+          importSource: "@pika/react",
+        },
+      },
+    },
+    {
+      code: dedent`
+        const { useCallback } = require("@pika/react");
+
+        function App({ items }) {
+          const memoizedValue = useCallback(() => [0, 1, 2].sort(), []);
+
+          return <div>{count}</div>;
+        }
+      `,
+      errors: [
+        {
+          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+      settings: {
+        reactOptions: {
+          importSource: "@pika/react",
+        },
+      },
+    },
+    {
+      code: dedent`
         import React from "react";
 
         const Comp = () => {

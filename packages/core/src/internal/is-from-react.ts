@@ -4,7 +4,7 @@ import type { RuleContext } from "@eslint-react/types";
 import { findVariable } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import { Option as O } from "effect";
+import { Option as O, Predicate as Pred } from "effect";
 import { isMatching, match } from "ts-pattern";
 import { parse } from "valibot";
 
@@ -13,7 +13,7 @@ export function isInitializedFromReact(
   context: RuleContext,
   initialScope: Scope,
 ): boolean {
-  if (variableName === "React") return true;
+  if (variableName.toLowerCase() === "react") return true;
   const maybeVariable = findVariable(variableName, initialScope);
   const maybeLatestDef = O.flatMapNullable(maybeVariable, (v) => v.defs.at(-1));
   if (O.isNone(maybeLatestDef)) return false;
@@ -50,8 +50,8 @@ export function isInitializedFromReact(
     if (O.isNone(maybeRequireExpression)) return false;
     const requireExpression = maybeRequireExpression.value;
     const [firstArg] = requireExpression.arguments;
-    if (firstArg?.type !== NodeType.Literal) return false;
-    return firstArg.value === importSource;
+    if (firstArg?.type !== NodeType.Literal || !Pred.isString(firstArg.value)) return false;
+    return firstArg.value === importSource || firstArg.value.startsWith(`${importSource}/`);
   }
   // latest definition is an import declaration: import { variable } from 'react'
   return isMatching({ type: "ImportDeclaration", source: { value: importSource } }, parent);
