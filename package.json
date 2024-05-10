@@ -80,7 +80,7 @@
     "eslint-plugin-jsdoc": "48.2.4",
     "eslint-plugin-perfectionist": "2.10.0",
     "eslint-plugin-simple-import-sort": "12.1.0",
-    "eslint-plugin-unicorn": "52.0.0",
+    "eslint-plugin-unicorn": "53.0.0",
     "eslint-plugin-vitest": "0.5.4",
     "fast-equals": "5.0.1",
     "husky": "9.0.11",
