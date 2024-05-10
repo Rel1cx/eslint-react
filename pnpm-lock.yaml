@@ -201,8 +201,8 @@ importers:
         specifier: 4.6.2
         version: 4.6.2(eslint@9.2.0)
       eslint-plugin-react-refresh:
-        specifier: 0.4.6
-        version: 0.4.6(eslint@9.2.0)
+        specifier: 0.4.7
+        version: 0.4.7(eslint@9.2.0)
       typescript:
         specifier: 5.4.5
         version: 5.4.5
@@ -765,8 +765,8 @@ importers:
         specifier: 4.6.2
         version: 4.6.2(eslint@9.2.0)
       eslint-plugin-react-refresh:
-        specifier: 0.4.6
-        version: 0.4.6(eslint@9.2.0)
+        specifier: 0.4.7
+        version: 0.4.7(eslint@9.2.0)
       postcss:
         specifier: 8.4.38
         version: 8.4.38
@@ -2211,9 +2211,6 @@ packages:
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
 
-  '@types/node@20.12.10':
-    resolution: {integrity: sha512-Eem5pH9pmWBHoGAT8Dr5fdc5rYA+4NAovdM4EktRPVAAiJhmWWfQrA0cFhAbOsQdSfIHjAud6YdkbL69+zSKjw==}
-
   '@types/node@20.12.11':
     resolution: {integrity: sha512-vDg9PZ/zi+Nqp6boSOT7plNuthRugEKixDv5sFTIpkE89MmNtEArAShI4mxuX2+UrLEe9pxC1vm2cjm9YlWbJw==}
 
@@ -3404,8 +3401,8 @@ packages:
     peerDependencies:
       eslint: 9.2.0
 
-  eslint-plugin-react-refresh@0.4.6:
-    resolution: {integrity: sha512-NjGXdm7zgcKRkKMua34qVO9doI7VOxZ6ancSvBELJSSoX97jyndXcSoa8XBh69JoB31dNz3EEzlMcizZl7LaMA==}
+  eslint-plugin-react-refresh@0.4.7:
+    resolution: {integrity: sha512-yrj+KInFmwuQS2UQcg1SF83ha1tuHC1jMQbRNyuWtlEzzKRDgAl7L4Yp4NlDUZTZNlWvHEzOtJhMi40R7JxcSw==}
     peerDependencies:
       eslint: 9.2.0
 
@@ -7476,10 +7473,6 @@ snapshots:
 
   '@types/node@12.20.55': {}
 
-  '@types/node@20.12.10':
-    dependencies:
-      undici-types: 5.26.5
-
   '@types/node@20.12.11':
     dependencies:
       undici-types: 5.26.5
@@ -8948,7 +8941,7 @@ snapshots:
     dependencies:
       eslint: 9.2.0
 
-  eslint-plugin-react-refresh@0.4.6(eslint@9.2.0):
+  eslint-plugin-react-refresh@0.4.7(eslint@9.2.0):
     dependencies:
       eslint: 9.2.0
 
@@ -9721,7 +9714,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 20.12.10
+      '@types/node': 20.12.11
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
