@@ -52,6 +52,7 @@
     "prepare": "husky install && pnpm run build",
     "test": "vitest --run --logHeapUsage",
     "update:deps": "taze",
+    "update:readme": "bun run --bun ./scripts/update-readme.ts",
     "update:version": "bun run --bun ./scripts/update-version.ts && pnpm run format:package-json"
   },
   "devDependencies": {

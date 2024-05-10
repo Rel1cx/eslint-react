@@ -1,6 +1,7 @@
 import type { BunFile } from "bun";
-import { isString } from "effect/Predicate";
+import { Function as F, Predicate as Pred } from "effect";
 
-export function copyFile(src: BunFile | string, dest: string) {
-  return Bun.write(dest, isString(src) ? Bun.file(src) : src);
-}
+export const copyFile: {
+  (src: string | BunFile): (dest: string) => Promise<void>;
+  (src: string | BunFile, dest: string): BunFile;
+} = F.dual(2, (src: BunFile | string, dest: string) => Bun.write(dest, Pred.isString(src) ? Bun.file(src) : src));
