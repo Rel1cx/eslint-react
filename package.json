@@ -33,7 +33,7 @@
   "scripts": {
     "build": "pnpm run update:version && turbo build --filter=\"./packages/**\"",
     "build:all": "pnpm run build && pnpm run build:docs && pnpm run build:website",
-    "build:docs": "turbo build:docs --filter=\"./packages/**\"",
+    "build:docs": "turbo build:docs --filter=\"./packages/**\" && pnpm run update:readme",
     "build:force": "turbo build --force --filter=\"./packages/**\"",
     "build:website": "pnpm -F \"./website\" run build",
     "format:check": "dprint check",
