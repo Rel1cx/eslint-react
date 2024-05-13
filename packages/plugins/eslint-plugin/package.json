@@ -55,7 +55,7 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/parser": "^7.8.0",
+    "@typescript-eslint/parser": "^7.9.0",
     "@typescript-eslint/scope-manager": "^7.8.0",
     "@typescript-eslint/type-utils": "^7.8.0",
     "@typescript-eslint/types": "^7.8.0",
