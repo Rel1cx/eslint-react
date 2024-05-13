@@ -59,7 +59,7 @@
     "@typescript-eslint/scope-manager": "^7.8.0",
     "@typescript-eslint/type-utils": "^7.8.0",
     "@typescript-eslint/types": "^7.8.0",
-    "@typescript-eslint/utils": "^7.8.0",
+    "@typescript-eslint/utils": "^7.9.0",
     "eslint-plugin-react-core": "workspace:*",
     "eslint-plugin-react-dom": "workspace:*",
     "eslint-plugin-react-hooks-extra": "workspace:*",
