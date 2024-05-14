@@ -2,19 +2,15 @@
 
 ## What is the purpose of `eslint-react`?
 
-The purpose of `eslint-react` is to provide a platform for creating ESLint rules for not just for React DOM but also other libraries and frameworks that use React as a runtime.
+The purpose of `eslint-react` is to provide ESLint rules for not just for React DOM but also other libraries and frameworks that use React as a runtime.
 
-## What is the purpose of `@eslint-react/eslint-plugin`?
+## What are the differences between `@eslint-react/eslint-plugin` and `eslint-plugin-react`?
 
-The purpose of `@eslint-react/eslint-plugin` is to have a single package to put all the rules provided by `eslint-react`.
+The main difference is when using `@eslint-react/eslint-plugin` you can customize the behavior of the rules depending on the what render target you are using. While `eslint-plugin-react` will always assume you are using React DOM even if you are working with a project that only uses React Three Fiber (You can learn more through encounters like [1] in [2]).
 
-## Is this a replacement for `eslint-plugin-react`?
+## Is `@eslint-react/eslint-plugin` a replacement for `eslint-plugin-react`?
 
-No, `eslint-react` or `@eslint-react/eslint-plugin` is not meant to be a drop-in replacement for `eslint-plugin-react`. But you can still using it as a replacement if you want to.
+No, `@eslint-react/eslint-plugin` is not meant to be a drop-in replacement for `eslint-plugin-react`. But you can still using it as a replacement if you want to. Keep in mind that certain rules may behave differently, and the rules provided by `eslint-react` are more adhere to [react.dev](https://react.dev/).
 
-## What are the differences between `@eslint-react/eslint-plugin` and `eslint-plugin-react` offering for the same rule
-
-1. Rules from `@eslint-react/eslint-plugin` not bind to any specific render target (e.g. React DOM, React Three Fiber, React Native, etc.)\
-   While rules from `@eslint-react/eslint-plugin` will always assume you are using React DOM, even if you are working with a project that only uses React Three Fiber.
-2. Rules provided by `@eslint-react/eslint-plugin` are more adhere to [react.dev](https://react.dev).
-3. Rules provided by `eslint-react` are more sensible, predictable and accurate than the rules provided by `eslint-plugin-react`.
+[1]: https://github.com/pmndrs/react-three-fiber/discussions/2487
+[2]: https://github.com/jsx-eslint/eslint-plugin-react/issues/3423#issuecomment-1930936266
