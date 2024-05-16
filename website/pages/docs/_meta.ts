@@ -9,9 +9,6 @@ export default {
   configuration: {
     title: "Configuration",
   },
-  faq: {
-    title: "FAQ",
-  },
   "-Other": {
     title: "Other",
     type: "separator",
@@ -21,5 +18,8 @@ export default {
   },
   glossary: {
     title: "Glossary",
+  },
+  faq: {
+    title: "FAQ",
   },
 } as const;

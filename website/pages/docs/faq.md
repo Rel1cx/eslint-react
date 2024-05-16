@@ -1,4 +1,4 @@
-# Fequently Asked Questions
+# Frequently Asked Questions
 
 ## What is the purpose of `eslint-react`?
 
