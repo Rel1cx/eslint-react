@@ -1,3 +1,14 @@
+## v1.5.12 (Draft)
+
+### 🐞 Fixes
+
+- Fix ESLint peer dependency range in `package.json`.
+
+### 🪄 Improvements
+
+- Update `@typescript-eslint`'s packages to `7.9.0`.
+- Minor improvements.
+
 ## v1.5.11 (Wed 08 May 2024)
 
 ### ✨ New
