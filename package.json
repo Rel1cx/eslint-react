@@ -86,7 +86,7 @@
     "husky": "9.0.11",
     "markdownlint": "0.34.0",
     "pathe": "1.1.2",
-    "publint": "0.2.7",
+    "publint": "0.2.8",
     "skott": "0.33.2",
     "sort-package-json": "2.10.0",
     "taze": "0.13.8",
