@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@eslint-react/tools": "workspace:*",
-    "@typescript-eslint/types": "^7.9.0",
+    "@typescript-eslint/types": "^7.10.0",
     "@typescript-eslint/utils": "^7.9.0"
   }
 }
