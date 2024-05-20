@@ -6,4 +6,4 @@
 
 # Type alias: ESLintReactSettings
 
-> **ESLintReactSettings**: `ReadonlyDeep`\<`Output`\<*typeof* `ESLintReactSettingsSchema`\>\>
+> **ESLintReactSettings**: `ReadonlyDeep`\<`InferOutput`\<*typeof* `ESLintReactSettingsSchema`\>\>

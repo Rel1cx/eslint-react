@@ -1,5 +1,5 @@
 import type { ReadonlyDeep } from "type-fest";
-import { array, object, optional, type Output, string } from "valibot";
+import { array, object, optional, type InferOutput, string } from "valibot";
 
 /**
  * @internal
@@ -30,7 +30,7 @@ export const ESLintReactSettingsSchema = object({
   version: optional(string()),
 });
 
-export type ESLintReactSettings = ReadonlyDeep<Output<typeof ESLintReactSettingsSchema>>;
+export type ESLintReactSettings = ReadonlyDeep<InferOutput<typeof ESLintReactSettingsSchema>>;
 
 /**
  * @internal
