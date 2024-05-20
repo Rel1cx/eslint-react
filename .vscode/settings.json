@@ -74,7 +74,8 @@
   "files.exclude": {
     "**/.turbo": true,
     ".npmignore": true,
-    ".eslintcache": true
+    ".eslintcache": true,
+    "eslint.config.js": true
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.tsdk": "node_modules/typescript/lib"

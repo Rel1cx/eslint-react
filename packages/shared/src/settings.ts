@@ -1,5 +1,5 @@
 import type { ReadonlyDeep } from "type-fest";
-import { array, object, optional, type InferOutput, string } from "valibot";
+import { array, type InferOutput, object, optional, string } from "valibot";
 
 /**
  * @internal

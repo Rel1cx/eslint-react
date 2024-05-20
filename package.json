@@ -66,6 +66,7 @@
     "@vitest/ui": "1.6.0",
     "bun": "1.1.8",
     "bun-types": "1.1.8",
+    "bundle-require": "^4.1.0",
     "code-block-writer": "13.0.1",
     "cspell": "8.8.1",
     "dedent": "1.5.3",
@@ -101,7 +102,7 @@
     "typescript": "5.4.5",
     "vitest": "1.6.0"
   },
-  "packageManager": "pnpm@9.1.0",
+  "packageManager": "pnpm@9.1.2",
   "engines": {
     "bun": ">=1.0.15",
     "node": ">=18.18.0"
