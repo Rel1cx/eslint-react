@@ -49,7 +49,7 @@
     "@eslint-react/types": "workspace:*",
     "@eslint-react/var": "workspace:*",
     "@typescript-eslint/scope-manager": "^7.9.0",
-    "@typescript-eslint/type-utils": "^7.9.0",
+    "@typescript-eslint/type-utils": "^7.10.0",
     "@typescript-eslint/types": "^7.9.0",
     "@typescript-eslint/utils": "^7.9.0",
     "short-unique-id": "5.2.0",
