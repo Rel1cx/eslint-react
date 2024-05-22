@@ -19,7 +19,7 @@
     "@tsconfig/strictest": "2.0.5",
     "@types/react": "18.3.2",
     "@types/react-dom": "18.3.0",
-    "@vitejs/plugin-react": "4.2.1",
+    "@vitejs/plugin-react": "4.3.0",
     "eslint": "9.3.0",
     "eslint-plugin-react-hooks": "4.6.2",
     "eslint-plugin-react-refresh": "0.4.7",
