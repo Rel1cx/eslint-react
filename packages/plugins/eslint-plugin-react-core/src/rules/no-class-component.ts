@@ -16,6 +16,16 @@ const isComponentDidCatch = isMatching({
     type: NodeType.Identifier,
     name: "componentDidCatch",
   },
+  static: false,
+  type: P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),
+});
+
+const isGetDerivedStateFromError = isMatching({
+  key: {
+    type: NodeType.Identifier,
+    name: "getDerivedStateFromError",
+  },
+  static: true,
   type: P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),
 });
 
@@ -40,7 +50,7 @@ export default createRule<[], MessageID>({
         const components = ctx.getAllComponents(node);
 
         for (const { name, node: component } of components.values()) {
-          if (component.body.body.some(isComponentDidCatch)) continue;
+          if (component.body.body.some(m => isComponentDidCatch(m) || isGetDerivedStateFromError(m))) continue;
           context.report({
             data: {
               name: O.getOrElse(F.constant("anonymous"))(name),

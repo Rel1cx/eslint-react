@@ -268,6 +268,36 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: dedent`
+      class ErrorBoundary extends React.Component {
+        static componentDidCatch(error, info) {}
+      }
+    `,
+      errors: [
+        {
+          data: {
+            name: "ErrorBoundary",
+          },
+          messageId: "NO_CLASS_COMPONENT",
+        },
+      ],
+    },
+    {
+      code: dedent`
+      class ErrorBoundary extends React.Component {
+        getDerivedStateFromError(error) {}
+      }
+    `,
+      errors: [
+        {
+          data: {
+            name: "ErrorBoundary",
+          },
+          messageId: "NO_CLASS_COMPONENT",
+        },
+      ],
+    },
   ],
   valid: [
     ...allValid,
@@ -1084,7 +1114,18 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     dedent`
       class ErrorBoundary extends React.Component {
-        componentDidCatch = (error, info) => {};
+        static getDerivedStateFromError(error) {}
+        render() {
+          return this.props.children;
+        }
+      }
+    `,
+    dedent`
+      class ErrorBoundary extends React.Component {
+        static getDerivedStateFromError = () => {};
+        render() {
+          return this.props.children;
+        }
       }
     `,
   ],
