@@ -1,3 +1,9 @@
+## v1.5.13 (Draft)
+
+### 🐞 Fixes
+
+- Fix components that use `getDerivedStateFromError` should not be warned by rule `no-class-component`.
+
 ## v1.5.12 (Fri 17 May 2024)
 
 ### 🐞 Fixes
