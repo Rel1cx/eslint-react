@@ -68,7 +68,7 @@
     "bun-types": "1.1.9",
     "bundle-require": "^4.1.0",
     "code-block-writer": "13.0.1",
-    "cspell": "8.8.2",
+    "cspell": "8.8.3",
     "dedent": "1.5.3",
     "dprint": "0.45.1",
     "effect": "3.2.3",
