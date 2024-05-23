@@ -98,8 +98,8 @@ importers:
         specifier: 6.5.1
         version: 6.5.1(eslint@9.2.0)(typescript@5.4.5)
       eslint-plugin-jsdoc:
-        specifier: 48.2.5
-        version: 48.2.5(eslint@9.2.0)
+        specifier: 48.2.6
+        version: 48.2.6(eslint@9.2.0)
       eslint-plugin-perfectionist:
         specifier: 2.10.0
         version: 2.10.0(eslint@9.2.0)(typescript@5.4.5)
@@ -111,7 +111,7 @@ importers:
         version: 53.0.0(eslint@9.2.0)
       eslint-plugin-vitest:
         specifier: 0.5.4
-        version: 0.5.4(@typescript-eslint/eslint-plugin@7.10.0(@typescript-eslint/parser@7.10.0(eslint@9.2.0)(typescript@5.4.5))(eslint@9.2.0)(typescript@5.4.5))(eslint@9.2.0)(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2))
+        version: 0.5.4(@typescript-eslint/eslint-plugin@7.10.0(@typescript-eslint/parser@7.10.0(eslint@9.2.0)(typescript@5.4.5))(eslint@9.2.0)(typescript@5.4.5))(eslint@9.2.0)(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0))
       fast-equals:
         specifier: 5.0.1
         version: 5.0.1
@@ -165,7 +165,7 @@ importers:
         version: 5.4.5
       vitest:
         specifier: 1.6.0
-        version: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)
+        version: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0)
 
   examples/vite-react-dom-ts-flat:
     dependencies:
@@ -3358,8 +3358,8 @@ packages:
       typescript:
         optional: true
 
-  eslint-plugin-jsdoc@48.2.5:
-    resolution: {integrity: sha512-ZeTfKV474W1N9niWfawpwsXGu+ZoMXu4417eBROX31d7ZuOk8zyG66SO77DpJ2+A9Wa2scw/jRqBPnnQo7VbcQ==}
+  eslint-plugin-jsdoc@48.2.6:
+    resolution: {integrity: sha512-GNk9jtpYmoEVeD/U6yYYmd6T8vSOoPs7CL8ZeX85iD8P3qifDdLQGze6+cw9boobDthmYnnxvIoHrhuSffj09g==}
     engines: {node: '>=18'}
     peerDependencies:
       eslint: 9.2.0
@@ -3898,6 +3898,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -7714,7 +7715,7 @@ snapshots:
       pathe: 1.1.2
       picocolors: 1.0.1
       sirv: 2.0.4
-      vitest: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)
+      vitest: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0)
 
   '@vitest/utils@1.6.0':
     dependencies:
@@ -8841,7 +8842,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-jsdoc@48.2.5(eslint@9.2.0):
+  eslint-plugin-jsdoc@48.2.6(eslint@9.2.0):
     dependencies:
       '@es-joy/jsdoccomment': 0.43.0
       are-docs-informative: 0.0.2
@@ -8850,7 +8851,6 @@ snapshots:
       escape-string-regexp: 4.0.0
       eslint: 9.2.0
       esquery: 1.5.0
-      is-builtin-module: 3.2.1
       semver: 7.6.2
       spdx-expression-parse: 4.0.0
     transitivePeerDependencies:
@@ -8921,13 +8921,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@7.10.0(@typescript-eslint/parser@7.10.0(eslint@9.2.0)(typescript@5.4.5))(eslint@9.2.0)(typescript@5.4.5))(eslint@9.2.0)(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)):
+  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@7.10.0(@typescript-eslint/parser@7.10.0(eslint@9.2.0)(typescript@5.4.5))(eslint@9.2.0)(typescript@5.4.5))(eslint@9.2.0)(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0)):
     dependencies:
       '@typescript-eslint/utils': 7.10.0(eslint@9.2.0)(typescript@5.4.5)
       eslint: 9.2.0
     optionalDependencies:
       '@typescript-eslint/eslint-plugin': 7.10.0(@typescript-eslint/parser@7.10.0(eslint@9.2.0)(typescript@5.4.5))(eslint@9.2.0)(typescript@5.4.5)
-      vitest: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)
+      vitest: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -12144,7 +12144,7 @@ snapshots:
       sass: 1.77.2
       terser: 5.31.0
 
-  vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2):
+  vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0):
     dependencies:
       '@vitest/expect': 1.6.0
       '@vitest/runner': 1.6.0
