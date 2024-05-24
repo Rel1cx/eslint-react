@@ -14,7 +14,7 @@
     "nextra-theme-docs": "3.0.0-alpha.23",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "ts-pattern": "5.1.1"
+    "ts-pattern": "5.1.2"
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "workspace:*",
@@ -23,7 +23,7 @@
     "@tsconfig/node20": "20.1.4",
     "@tsconfig/strictest": "2.0.5",
     "@types/node": "20.12.12",
-    "@types/react": "18.3.2",
+    "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.10.0",
     "@typescript-eslint/parser": "^7.10.0",
@@ -31,7 +31,7 @@
     "@vanilla-extract/next-plugin": "2.4.1",
     "@vitejs/plugin-react": "4.3.0",
     "autoprefixer": "10.4.19",
-    "effect": "3.2.3",
+    "effect": "3.2.5",
     "eslint": "9.3.0",
     "eslint-plugin-mdx": "3.1.5",
     "eslint-plugin-react-hooks": "4.6.2",
