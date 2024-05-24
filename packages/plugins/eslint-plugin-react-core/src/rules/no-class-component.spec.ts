@@ -270,10 +270,10 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: dedent`
-      class ErrorBoundary extends React.Component {
-        static componentDidCatch(error, info) {}
-      }
-    `,
+        class ErrorBoundary extends React.Component {
+          static componentDidCatch(error, info) {}
+        }
+      `,
       errors: [
         {
           data: {
@@ -285,10 +285,10 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: dedent`
-      class ErrorBoundary extends React.Component {
-        getDerivedStateFromError(error) {}
-      }
-    `,
+        class ErrorBoundary extends React.Component {
+          getDerivedStateFromError(error) {}
+        }
+      `,
       errors: [
         {
           data: {

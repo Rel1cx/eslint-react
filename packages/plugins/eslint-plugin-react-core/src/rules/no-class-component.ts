@@ -16,8 +16,8 @@ const isComponentDidCatch = isMatching({
     type: NodeType.Identifier,
     name: "componentDidCatch",
   },
-  static: false,
   type: P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),
+  static: false,
 });
 
 const isGetDerivedStateFromError = isMatching({
@@ -25,8 +25,8 @@ const isGetDerivedStateFromError = isMatching({
     type: NodeType.Identifier,
     name: "getDerivedStateFromError",
   },
-  static: true,
   type: P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),
+  static: true,
 });
 
 export default createRule<[], MessageID>({
