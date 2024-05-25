@@ -117,7 +117,7 @@ importers:
         version: 53.0.0(eslint@9.3.0)
       eslint-plugin-vitest:
         specifier: 0.5.4
-        version: 0.5.4(@typescript-eslint/eslint-plugin@7.10.0(@typescript-eslint/parser@7.10.0(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2))
+        version: 0.5.4(@typescript-eslint/eslint-plugin@7.10.0(@typescript-eslint/parser@7.10.0(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0))
       fast-equals:
         specifier: 5.0.1
         version: 5.0.1
@@ -171,7 +171,7 @@ importers:
         version: 5.4.5
       vitest:
         specifier: 1.6.0
-        version: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)
+        version: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0)
 
   examples/vite-react-dom-ts-flat:
     dependencies:
@@ -261,8 +261,8 @@ importers:
         specifier: 5.1.2
         version: 5.1.2
       valibot:
-        specifier: 0.31.0-rc.1
-        version: 0.31.0-rc.1
+        specifier: 0.31.0-rc.5
+        version: 0.31.0-rc.5
     devDependencies:
       effect:
         specifier: 3.2.5
@@ -374,8 +374,8 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
       valibot:
-        specifier: 0.31.0-rc.1
-        version: 0.31.0-rc.1
+        specifier: 0.31.0-rc.5
+        version: 0.31.0-rc.5
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -432,8 +432,8 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
       valibot:
-        specifier: 0.31.0-rc.1
-        version: 0.31.0-rc.1
+        specifier: 0.31.0-rc.5
+        version: 0.31.0-rc.5
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -487,8 +487,8 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
       valibot:
-        specifier: 0.31.0-rc.1
-        version: 0.31.0-rc.1
+        specifier: 0.31.0-rc.5
+        version: 0.31.0-rc.5
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -548,8 +548,8 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
       valibot:
-        specifier: 0.31.0-rc.1
-        version: 0.31.0-rc.1
+        specifier: 0.31.0-rc.5
+        version: 0.31.0-rc.5
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -606,8 +606,8 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
       valibot:
-        specifier: 0.31.0-rc.1
-        version: 0.31.0-rc.1
+        specifier: 0.31.0-rc.5
+        version: 0.31.0-rc.5
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -635,8 +635,8 @@ importers:
         specifier: 4.18.2
         version: 4.18.2
       valibot:
-        specifier: 0.31.0-rc.1
-        version: 0.31.0-rc.1
+        specifier: 0.31.0-rc.5
+        version: 0.31.0-rc.5
 
   packages/tools:
     devDependencies:
@@ -758,8 +758,8 @@ importers:
         specifier: 2.1.1
         version: 2.1.1
       valibot:
-        specifier: 0.31.0-rc.1
-        version: 0.31.0-rc.1
+        specifier: 0.31.0-rc.5
+        version: 0.31.0-rc.5
     devDependencies:
       effect:
         specifier: 3.2.5
@@ -6020,8 +6020,8 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
-  valibot@0.31.0-rc.1:
-    resolution: {integrity: sha512-aoWT63r9d/QbioSkJb1ANJwacEXa5PvlKcFcBm6vvveTe8eR/2tFiUm9NNhiBWwX7VbggCrO/r+T01zxjE41HQ==}
+  valibot@0.31.0-rc.5:
+    resolution: {integrity: sha512-yv1koEWTUIajUkMW9QVUoZFF2b8cAS6EOZpZTIme6QXXH8K+Tl+b/1yen/VIyqVOf8WAZaYdqAzzU2ccF5CJfQ==}
 
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
@@ -7818,7 +7818,7 @@ snapshots:
       pathe: 1.1.2
       picocolors: 1.0.1
       sirv: 2.0.4
-      vitest: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)
+      vitest: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0)
 
   '@vitest/utils@1.6.0':
     dependencies:
@@ -9055,13 +9055,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@7.10.0(@typescript-eslint/parser@7.10.0(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)):
+  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@7.10.0(@typescript-eslint/parser@7.10.0(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0)):
     dependencies:
       '@typescript-eslint/utils': 7.10.0(eslint@9.3.0)(typescript@5.4.5)
       eslint: 9.3.0
     optionalDependencies:
       '@typescript-eslint/eslint-plugin': 7.10.0(@typescript-eslint/parser@7.10.0(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5)
-      vitest: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)
+      vitest: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -12188,7 +12188,7 @@ snapshots:
       kleur: 4.1.5
       sade: 1.8.1
 
-  valibot@0.31.0-rc.1: {}
+  valibot@0.31.0-rc.5: {}
 
   validate-npm-package-license@3.0.4:
     dependencies:
@@ -12286,7 +12286,7 @@ snapshots:
       sass: 1.77.2
       terser: 5.31.0
 
-  vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2):
+  vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0):
     dependencies:
       '@vitest/expect': 1.6.0
       '@vitest/runner': 1.6.0
