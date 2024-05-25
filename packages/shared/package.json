@@ -46,6 +46,7 @@
     "deepmerge-ts": "7.0.1"
   },
   "devDependencies": {
+    "tsup": "8.0.2",
     "type-fest": "4.18.2",
     "valibot": "0.31.0-rc.1"
   }

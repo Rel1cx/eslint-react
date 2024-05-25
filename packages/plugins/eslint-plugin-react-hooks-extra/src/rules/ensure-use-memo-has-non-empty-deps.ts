@@ -4,11 +4,12 @@ import { ESLintSettingsSchema } from "@eslint-react/shared";
 import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { Function as F, Option as O } from "effect";
-import { type ConstantCase } from "string-ts";
+import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
 import { parse } from "valibot";
 
 import { createRule } from "../utils";
+
 export const RULE_NAME = "ensure-use-memo-has-non-empty-deps";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;

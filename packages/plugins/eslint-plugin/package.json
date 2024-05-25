@@ -65,6 +65,10 @@
     "eslint-plugin-react-hooks-extra": "workspace:*",
     "eslint-plugin-react-naming-convention": "workspace:*"
   },
+  "devDependencies": {
+    "effect": "3.2.5",
+    "tsup": "8.0.2"
+  },
   "peerDependencies": {
     "@typescript-eslint/parser": "^7.5.0",
     "eslint": "^8.57.0 || ^9.0.0",

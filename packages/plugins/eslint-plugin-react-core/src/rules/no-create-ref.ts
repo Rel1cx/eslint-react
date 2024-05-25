@@ -1,4 +1,4 @@
-import { type TSESTreeFunction } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import { isCreateRefCall, useComponentCollector } from "@eslint-react/core";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";

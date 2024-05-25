@@ -1,9 +1,8 @@
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-
-export const NodeType = AST_NODE_TYPES;
-
 import type { TSESTree } from "@typescript-eslint/utils";
 import { ASTUtils } from "@typescript-eslint/utils";
+
+export const NodeType = AST_NODE_TYPES;
 
 export type TSESTreeFunction =
   | TSESTree.ArrowFunctionExpression

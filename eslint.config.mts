@@ -7,6 +7,7 @@ import gitignore from "eslint-config-flat-gitignore";
 import eslintCommentsPlugin from "eslint-plugin-eslint-comments";
 // @ts-expect-error - this is a valid import
 import eslintPluginPlugin from "eslint-plugin-eslint-plugin";
+import importPlugin from "eslint-plugin-import-x";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 // @ts-expect-error - this is a valid import
 import perfectionist from "eslint-plugin-perfectionist";
@@ -28,6 +29,7 @@ const config = [
       ["@typescript-eslint"]: tseslint.plugin,
       ["eslint-comments"]: eslintCommentsPlugin,
       ["eslint-plugin"]: eslintPluginPlugin,
+      ["import"]: importPlugin,
       ["jsdoc"]: jsdocPlugin,
       ["perfectionist"]: perfectionist,
       ["simple-import-sort"]: simpleImportSortPlugin,
@@ -42,6 +44,7 @@ const config = [
   // base config
   {
     languageOptions: {
+      parser: tseslint.parser,
       parserOptions: {
         allowAutomaticSingleRunInference: true,
         project: [
@@ -109,6 +112,19 @@ const config = [
         },
       ],
       "eslint-plugin/require-meta-docs-url": "off",
+      "import/consistent-type-specifier-style": "warn",
+      "import/export": "error",
+      "import/first": "warn",
+      "import/named": "error",
+      "import/newline-after-import": "warn",
+      "import/no-absolute-path": "error",
+      "import/no-cycle": "error",
+      "import/no-duplicates": "warn",
+      "import/no-dynamic-require": "error",
+      "import/no-empty-named-blocks": "error",
+      "import/no-mutable-exports": "error",
+      "import/no-self-import": "error",
+      "import/no-unused-modules": "error",
       "jsdoc/check-param-names": "off",
       "jsdoc/check-tag-names": "off",
       "jsdoc/informative-docs": "warn",
@@ -199,6 +215,14 @@ const config = [
       "simple-import-sort/imports": "warn",
       "unicorn/template-indent": "warn",
     },
+    settings: {
+      "import/parsers": {
+        "@typescript-eslint/parser": [".ts", ".tsx"],
+      },
+      "import/resolver": {
+        typescript: {},
+      },
+    },
   },
   {
     extends: [tseslint.configs.disableTypeChecked],
@@ -219,6 +243,7 @@ const config = [
       globals: {
         ...vitest.environments.env.globals,
       },
+      parser: tseslint.parser,
     },
     plugins: {
       vitest,
@@ -236,9 +261,11 @@ const config = [
   {
     extends: [tseslint.configs.disableTypeChecked],
     files: [
+      "scripts/**/*.{ts,cts,mts}",
       "*.config.{ts,tsx,cts,mts}",
     ],
     languageOptions: {
+      parser: tseslint.parser,
       parserOptions: {
         project: [
           "tsconfig.json",

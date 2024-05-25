@@ -1,6 +1,6 @@
 import { isOneOf, NodeType } from "@eslint-react/ast";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { type ConstantCase } from "string-ts";
+import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 

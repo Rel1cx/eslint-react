@@ -1,12 +1,5 @@
-import {
-  isClass,
-  isFunction,
-  NodeType,
-  traverseUp,
-  traverseUpGuard,
-  type TSESTreeClass,
-  type TSESTreeFunction,
-} from "@eslint-react/ast";
+import type { TSESTreeClass, TSESTreeFunction } from "@eslint-react/ast";
+import { isClass, isFunction, NodeType, traverseUp, traverseUpGuard } from "@eslint-react/ast";
 import {
   ERComponentHint,
   isInsideCreateElementProps,

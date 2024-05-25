@@ -59,7 +59,9 @@
     "valibot": "0.31.0-rc.1"
   },
   "devDependencies": {
-    "effect": "3.2.5"
+    "dedent": "1.5.3",
+    "effect": "3.2.5",
+    "tsup": "8.0.2"
   },
   "peerDependencies": {
     "@typescript-eslint/parser": "^7.5.0",

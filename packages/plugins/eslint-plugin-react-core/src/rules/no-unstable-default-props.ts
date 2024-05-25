@@ -1,8 +1,7 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { ConstructionHint, inspectConstruction } from "@eslint-react/ast";
-import { NodeType, readableNodeType } from "@eslint-react/ast";
+import { ConstructionHint, inspectConstruction, NodeType, readableNodeType } from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
-import { type TSESTree } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { Option as O } from "effect";
 import type { ConstantCase } from "string-ts";

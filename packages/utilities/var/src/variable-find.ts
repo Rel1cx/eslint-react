@@ -1,7 +1,6 @@
-import type { Variable } from "@typescript-eslint/scope-manager";
-import { type Scope, ScopeType } from "@typescript-eslint/scope-manager";
-import { Function as F, Option as O } from "effect";
-import { MutableRef as MutRef } from "effect";
+import type { Scope, Variable } from "@typescript-eslint/scope-manager";
+import { ScopeType } from "@typescript-eslint/scope-manager";
+import { Function as F, MutableRef as MutRef, Option as O } from "effect";
 
 /**
  * Get all variables from the given scope up to the global scope

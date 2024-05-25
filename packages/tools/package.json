@@ -40,5 +40,8 @@
     "lint:publish": "publint",
     "lint:type": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
+  },
+  "devDependencies": {
+    "tsup": "8.0.2"
   }
 }

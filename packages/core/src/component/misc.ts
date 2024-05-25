@@ -1,6 +1,8 @@
-import { isClass, type TSESTreeClass } from "@eslint-react/ast";
+import type { TSESTreeClass } from "@eslint-react/ast";
+import { isClass } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/types";
-import { type Scope, ScopeType } from "@typescript-eslint/scope-manager";
+import type { Scope } from "@typescript-eslint/scope-manager";
+import { ScopeType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { Function as F, MutableRef as MutRef, Option as O } from "effect";
 

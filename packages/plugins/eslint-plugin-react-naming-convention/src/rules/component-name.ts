@@ -2,10 +2,10 @@ import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
 import { elementType } from "@eslint-react/jsx";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
-import { type ESLintUtils } from "@typescript-eslint/utils";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { Option as O, Predicate as Prd } from "effect";
-import { type ConstantCase } from "string-ts";
+import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
 
 import { createRule } from "../utils";

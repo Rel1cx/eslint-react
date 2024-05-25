@@ -1,3 +1,4 @@
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import {
   is,
   isFunctionOfClassMethod,
@@ -6,11 +7,10 @@ import {
   isOneOf,
   NodeType,
   traverseUp,
-  type TSESTreeFunction,
 } from "@eslint-react/ast";
 import { isJSXValue } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/types";
-import { type TSESTree } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { Function as F, MutableList as MutList, MutableRef as MutRef, Option as O } from "effect";
 import ShortUniqueId from "short-unique-id";

@@ -4,7 +4,8 @@ import { ESLintSettingsSchema } from "@eslint-react/shared";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { Function as F, Option as O, Predicate as Prd } from "effect";
-import { capitalize, type ConstantCase } from "string-ts";
+import type { ConstantCase } from "string-ts";
+import { capitalize } from "string-ts";
 import { match } from "ts-pattern";
 import { parse } from "valibot";
 

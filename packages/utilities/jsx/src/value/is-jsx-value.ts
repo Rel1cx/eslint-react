@@ -1,7 +1,7 @@
 import { isJSXTagNameExpression, NodeType } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable, getVariableInit } from "@eslint-react/var";
-import { type TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import { Function as F, Option as O } from "effect";
 import { match, P } from "ts-pattern";
 

@@ -1,7 +1,6 @@
 import { isOneOf, NodeType } from "@eslint-react/ast";
 import { ERClassComponentFlag, useComponentCollectorLegacy } from "@eslint-react/core";
-import type { TSESTree } from "@typescript-eslint/utils";
-import type { ESLintUtils } from "@typescript-eslint/utils";
+import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 

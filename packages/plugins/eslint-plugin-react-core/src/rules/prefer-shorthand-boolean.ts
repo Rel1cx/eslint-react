@@ -1,7 +1,7 @@
 import { NodeType } from "@eslint-react/ast";
 import { getPropName } from "@eslint-react/jsx";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { type ConstantCase } from "string-ts";
+import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 

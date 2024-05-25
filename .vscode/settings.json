@@ -51,16 +51,6 @@
     }
   ],
   "mdx.server.enable": true,
-  "eslint.experimental.useFlatConfig": true,
-  "eslint.options": {
-    "extensions": [
-      ".js",
-      ".jsx",
-      ".mdx",
-      ".ts",
-      ".tsx"
-    ]
-  },
   "eslint.validate": [
     "mdx",
     "javascript",

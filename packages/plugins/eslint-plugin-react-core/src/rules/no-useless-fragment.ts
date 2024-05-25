@@ -1,8 +1,7 @@
 import { NodeType } from "@eslint-react/ast";
 import { isFragmentElement } from "@eslint-react/core";
 import { hasProp, isJSXElementOfBuiltinComponent, isLiteral, isPaddingSpaces } from "@eslint-react/jsx";
-import type { TSESTree } from "@typescript-eslint/utils";
-import type { ESLintUtils } from "@typescript-eslint/utils";
+import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils";
 

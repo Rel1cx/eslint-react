@@ -51,6 +51,7 @@
     "valibot": "0.31.0-rc.1"
   },
   "devDependencies": {
-    "effect": "3.2.5"
+    "effect": "3.2.5",
+    "tsup": "8.0.2"
   }
 }

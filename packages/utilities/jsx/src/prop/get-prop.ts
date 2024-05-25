@@ -5,6 +5,7 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { Function as F, Option as O } from "effect";
 import { match } from "ts-pattern";
+
 const { getStaticValue } = ESLintCommunityESLintUtils;
 
 /**
@@ -60,7 +61,7 @@ export function getPropValue(
  * @returns A function that searches for a property in the given properties
  */
 export function findPropInProperties(
-  properties: (TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement)[] | TSESTree.ObjectLiteralElement[],
+  properties: (TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement)[],
   context: RuleContext,
   initialScope: Scope,
   seenProps: string[] = [],

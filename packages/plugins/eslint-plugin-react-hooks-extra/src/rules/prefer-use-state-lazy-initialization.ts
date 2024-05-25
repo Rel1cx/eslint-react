@@ -4,7 +4,7 @@ import { isReactHookCall, isReactHookCallWithNameLoose, isUseStateCall } from "@
 import { ESLintSettingsSchema } from "@eslint-react/shared";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { Function as F } from "effect";
-import { type ConstantCase } from "string-ts";
+import type { ConstantCase } from "string-ts";
 import { parse } from "valibot";
 
 import { createRule } from "../utils";

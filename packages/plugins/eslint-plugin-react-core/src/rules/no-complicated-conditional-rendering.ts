@@ -3,6 +3,7 @@ import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
+
 export const RULE_NAME = "no-complicated-conditional-rendering";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;

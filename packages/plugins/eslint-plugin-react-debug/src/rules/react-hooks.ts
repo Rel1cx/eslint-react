@@ -3,6 +3,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
+
 export const RULE_NAME = "react-hooks";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;

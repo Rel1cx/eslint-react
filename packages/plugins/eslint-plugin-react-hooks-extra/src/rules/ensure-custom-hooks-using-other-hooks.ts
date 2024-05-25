@@ -1,6 +1,6 @@
 import { useHookCollector } from "@eslint-react/core";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { type ConstantCase } from "string-ts";
+import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 

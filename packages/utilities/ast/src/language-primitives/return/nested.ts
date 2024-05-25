@@ -1,4 +1,4 @@
-import { type TSESTree } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/types";
 import { Predicate as Prd } from "effect";
 
 import { NodeType } from "../../ast-node";

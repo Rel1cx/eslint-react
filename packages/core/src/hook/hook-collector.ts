@@ -1,4 +1,5 @@
-import { getFunctionIdentifier, type TSESTreeFunction } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
+import { getFunctionIdentifier } from "@eslint-react/ast";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { MutableList as MutList, Option as O } from "effect";
 import ShortUniqueId from "short-unique-id";
