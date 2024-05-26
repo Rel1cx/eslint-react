@@ -77,8 +77,8 @@ importers:
         specifier: 1.5.3
         version: 1.5.3
       dprint:
-        specifier: 0.45.1
-        version: 0.45.1
+        specifier: 0.46.1
+        version: 0.46.1
       effect:
         specifier: 3.2.5
         version: 3.2.5
@@ -101,8 +101,8 @@ importers:
         specifier: 6.5.1
         version: 6.5.1(eslint@9.3.0)(typescript@5.4.5)
       eslint-plugin-import-x:
-        specifier: ^0.5.0
-        version: 0.5.0(eslint@9.3.0)(typescript@5.4.5)
+        specifier: 0.5.1
+        version: 0.5.1(eslint@9.3.0)(typescript@5.4.5)
       eslint-plugin-jsdoc:
         specifier: 48.2.6
         version: 48.2.6(eslint@9.3.0)
@@ -1131,8 +1131,8 @@ packages:
   '@cspell/dict-en-gb@1.1.33':
     resolution: {integrity: sha512-tKSSUf9BJEV+GJQAYGw5e+ouhEe2ZXE620S7BLKe3ZmpnjlNG9JqlnaBhkIMxKnNFkLY2BP/EARzw31AZnOv4g==}
 
-  '@cspell/dict-en_us@4.3.20':
-    resolution: {integrity: sha512-xxjV+iA+eoDtFPUhN7G42kvGBBCR4nxCv31Uo9mr/EjwsBqKcskTewcWRD7o4Vy66hppkXOayH2jWw8orD4/9g==}
+  '@cspell/dict-en_us@4.3.21':
+    resolution: {integrity: sha512-Bzoo2aS4Pej/MGIFlATpp0wMt9IzVHrhDjdV7FgkAIXbjrOn67ojbTxCgWs8AuCNVfK8lBYGEvs5+ElH1msF8w==}
 
   '@cspell/dict-filetypes@3.0.4':
     resolution: {integrity: sha512-IBi8eIVdykoGgIv5wQhOURi5lmCNJq0we6DvqKoPQJHthXbgsuO1qrHSiUVydMiQl/XvcnUWTMeAlVUlUClnVg==}
@@ -1221,8 +1221,8 @@ packages:
   '@cspell/dict-scala@5.0.2':
     resolution: {integrity: sha512-v97ClgidZt99JUm7OjhQugDHmhx4U8fcgunHvD/BsXWjXNj4cTr0m0YjofyZoL44WpICsNuFV9F/sv9OM5HUEw==}
 
-  '@cspell/dict-software-terms@3.3.24':
-    resolution: {integrity: sha512-RsLn/vp162c5kEr60dk3eEDyavJ9Kk+8mydLjbLKwuS3scN8h4zKxnN+whHvm5bSu4UanH+fVyf8MhHutN2q0Q==}
+  '@cspell/dict-software-terms@3.3.25':
+    resolution: {integrity: sha512-IrNpxU9q4R42ZO9qXm1lqKXqIJwS83eRvo2eDXVau9qEw26+wJqDAOJsdhmrBJ+Dj9Y6r+k70pu02qJTYRwBPg==}
 
   '@cspell/dict-sql@2.1.3':
     resolution: {integrity: sha512-SEyTNKJrjqD6PAzZ9WpdSu6P7wgdNtGV2RV8Kpuw1x6bV+YsSptuClYG+JSdRExBTE6LwIe1bTklejUp3ZP8TQ==}
@@ -1250,38 +1250,38 @@ packages:
     resolution: {integrity: sha512-y/pL7Zex8iHQ54qDYvg9oCiCgfZ9DAUTOI/VtPFVC+42JqLx6YufYxJS2uAsFlfAXIPiRV8qnnG6BHImD1Ix6g==}
     engines: {node: '>=18'}
 
-  '@dprint/darwin-arm64@0.45.1':
-    resolution: {integrity: sha512-pH0/uKLJ5SJPoHhOwLWFMhCmL0BY3FzWQbull8OGMK/FRkIPgOl2adZSovtUZpUMGWyDOzIWH1fW9X2DuMhnEg==}
+  '@dprint/darwin-arm64@0.46.1':
+    resolution: {integrity: sha512-dycE/uE++NGKYhKwSOrm1EculcD48GM12A1BF0f3Q2OW1ZNUqvlui/99lrohjPulJaIYX/QZQJ4hzTnaa6EDUA==}
     cpu: [arm64]
     os: [darwin]
 
-  '@dprint/darwin-x64@0.45.1':
-    resolution: {integrity: sha512-YUj421LmBLDlxpIER3pORKfQmpmXD50n5mClHjpZrnl17WTiHtQ+jHvDJdJoxH2eS66W0mQyxLoGo5SfFfiM7A==}
+  '@dprint/darwin-x64@0.46.1':
+    resolution: {integrity: sha512-q4Q8TQj51OU+SXhHCzP6jxUtwyCR6Vsmla7yyJVZKryA5l2WUqsSPimkq7Tt4K6ciDficTNxi5aaN/DMXBND2w==}
     cpu: [x64]
     os: [darwin]
 
-  '@dprint/linux-arm64-glibc@0.45.1':
-    resolution: {integrity: sha512-lJ7s/pOQWRJ0mstjZQnVyX2/3QRXZ9cpFHJDZ7e81Y8QSn/iqxTrnK0DPgxUrDG8hYKQmWQdQLU4sP5DKBz0Jg==}
+  '@dprint/linux-arm64-glibc@0.46.1':
+    resolution: {integrity: sha512-kT6UHU8nN516nfk42IpxvQ9yRHg+lVcWyaGU6Pk/Wn0t/9UDqS2SWXfNNYFvq3A+IVsOAEY6ZvD40D1uXey0Pg==}
     cpu: [arm64]
     os: [linux]
 
-  '@dprint/linux-arm64-musl@0.45.1':
-    resolution: {integrity: sha512-un2awe1L1sAJLsCPSEUrE0/cgupdzbYFoyBOutyU1zHR9KQn47AtIDw+chvuinU4xleHDuEGyXGuJ6NE+Ky6vw==}
+  '@dprint/linux-arm64-musl@0.46.1':
+    resolution: {integrity: sha512-Qo71XzmL7GWEKPKKTFDf27WUO8mO+eXEvKY4gRiFuV2lOPw0VCfadc4iqlTCPj8Wp9qIKK7z/NgQXkVjPMbx5Q==}
     cpu: [arm64]
     os: [linux]
 
-  '@dprint/linux-x64-glibc@0.45.1':
-    resolution: {integrity: sha512-5Civht90S/g8zlyYB7n4oH78p+sLbNqeFCFuImJRK7uRxZwCRya7lji6RwlB6DQ7qngVqovTHj9RLOYfZzfVlg==}
+  '@dprint/linux-x64-glibc@0.46.1':
+    resolution: {integrity: sha512-ZDgJaCTY8Cb9F2FUlBgpN++stVamGKvy7MfdkKvvahAdkCQvba7kJg91aLGHNhDilDTo1IPgLcXLEP4xPhXMyA==}
     cpu: [x64]
     os: [linux]
 
-  '@dprint/linux-x64-musl@0.45.1':
-    resolution: {integrity: sha512-p2/gjnHDd8GRCvtey5HZO4o/He6pSmY/zpcCuIXprFW9P0vNlEj3DFhz4FPpOKXM+csrsVWWs2E0T/xr5QZtVg==}
+  '@dprint/linux-x64-musl@0.46.1':
+    resolution: {integrity: sha512-6I+ubsGL89k9Vezo6AwWoLDHMoyGdBiHvVvfopF3GwDW1y4jRFXqSeVt3IGoeNa2PXZBEzhGzgiNl1YFFjao/A==}
     cpu: [x64]
     os: [linux]
 
-  '@dprint/win32-x64@0.45.1':
-    resolution: {integrity: sha512-2l78XM7KsW46P2Yv6uPB3fE+y92EsBlrCxi+RVQ0pbznPFdMdkLyGgaCuh683zdld14jHlaADpIQ7YchGAEMAg==}
+  '@dprint/win32-x64@0.46.1':
+    resolution: {integrity: sha512-ugdhmL3Lo9n6Si/7eBtj1Rgo3Hbmf+9G0JxsWvuZBRA7Y+Xa9vtxbU4XqpUfG8rict5wR3b0i2X0iexVUgMYxA==}
     cpu: [x64]
     os: [win32]
 
@@ -3329,8 +3329,8 @@ packages:
   dompurify@3.1.4:
     resolution: {integrity: sha512-2gnshi6OshmuKil8rMZuQCGiUF3cUxHY3NGDzUAdUx/NPEe5DVnO8BDoAQouvgwnx0R/+a6jUn36Z0FSdq8vww==}
 
-  dprint@0.45.1:
-    resolution: {integrity: sha512-OYefcDgxd6jSdig/Cfkw1vdvyiOIRruCPnqGBbXpc95buDt9kvwL+Lic1OHc+SaQSsQub0BUZMd5+TNgy8Sh3A==}
+  dprint@0.46.1:
+    resolution: {integrity: sha512-OdILoUitGxbykCYcTijUOtY7bD4kNoSSzm4kHd5sYNh6f64P8Zfcr+e/Dh4oEn89wHIl10TTrrUs7ny5MELKkQ==}
     hasBin: true
 
   eastasianwidth@0.2.0:
@@ -3448,8 +3448,8 @@ packages:
       typescript:
         optional: true
 
-  eslint-plugin-import-x@0.5.0:
-    resolution: {integrity: sha512-C7R8Z4IzxmsoOPMtSzwuOBW5FH6iRlxHR6iTks+MzVlrk3r3TUxokkWTx3ypdj9nGOEP+CG/5e6ebZzHbxgbbQ==}
+  eslint-plugin-import-x@0.5.1:
+    resolution: {integrity: sha512-2JK8bbFOLes+gG6tgdnM8safCxMAj4u2wjX8X1BRFPfnY7Ct2hFYESoIcVwABX/DDcdpQFLGtKmzbNEWJZD9iQ==}
     engines: {node: '>=16'}
     peerDependencies:
       eslint: 9.3.0
@@ -3824,6 +3824,7 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -6607,7 +6608,7 @@ snapshots:
       '@cspell/dict-elixir': 4.0.3
       '@cspell/dict-en-common-misspellings': 2.0.1
       '@cspell/dict-en-gb': 1.1.33
-      '@cspell/dict-en_us': 4.3.20
+      '@cspell/dict-en_us': 4.3.21
       '@cspell/dict-filetypes': 3.0.4
       '@cspell/dict-fonts': 4.0.0
       '@cspell/dict-fsharp': 1.0.1
@@ -6637,7 +6638,7 @@ snapshots:
       '@cspell/dict-ruby': 5.0.2
       '@cspell/dict-rust': 4.0.3
       '@cspell/dict-scala': 5.0.2
-      '@cspell/dict-software-terms': 3.3.24
+      '@cspell/dict-software-terms': 3.3.25
       '@cspell/dict-sql': 2.1.3
       '@cspell/dict-svelte': 1.0.2
       '@cspell/dict-swift': 2.0.1
@@ -6691,7 +6692,7 @@ snapshots:
 
   '@cspell/dict-en-gb@1.1.33': {}
 
-  '@cspell/dict-en_us@4.3.20': {}
+  '@cspell/dict-en_us@4.3.21': {}
 
   '@cspell/dict-filetypes@3.0.4': {}
 
@@ -6753,7 +6754,7 @@ snapshots:
 
   '@cspell/dict-scala@5.0.2': {}
 
-  '@cspell/dict-software-terms@3.3.24': {}
+  '@cspell/dict-software-terms@3.3.25': {}
 
   '@cspell/dict-sql@2.1.3': {}
 
@@ -6773,25 +6774,25 @@ snapshots:
 
   '@cspell/strong-weak-map@8.8.3': {}
 
-  '@dprint/darwin-arm64@0.45.1':
+  '@dprint/darwin-arm64@0.46.1':
     optional: true
 
-  '@dprint/darwin-x64@0.45.1':
+  '@dprint/darwin-x64@0.46.1':
     optional: true
 
-  '@dprint/linux-arm64-glibc@0.45.1':
+  '@dprint/linux-arm64-glibc@0.46.1':
     optional: true
 
-  '@dprint/linux-arm64-musl@0.45.1':
+  '@dprint/linux-arm64-musl@0.46.1':
     optional: true
 
-  '@dprint/linux-x64-glibc@0.45.1':
+  '@dprint/linux-x64-glibc@0.46.1':
     optional: true
 
-  '@dprint/linux-x64-musl@0.45.1':
+  '@dprint/linux-x64-musl@0.46.1':
     optional: true
 
-  '@dprint/win32-x64@0.45.1':
+  '@dprint/win32-x64@0.46.1':
     optional: true
 
   '@emotion/hash@0.9.1': {}
@@ -8768,15 +8769,15 @@ snapshots:
 
   dompurify@3.1.4: {}
 
-  dprint@0.45.1:
+  dprint@0.46.1:
     optionalDependencies:
-      '@dprint/darwin-arm64': 0.45.1
-      '@dprint/darwin-x64': 0.45.1
-      '@dprint/linux-arm64-glibc': 0.45.1
-      '@dprint/linux-arm64-musl': 0.45.1
-      '@dprint/linux-x64-glibc': 0.45.1
-      '@dprint/linux-x64-musl': 0.45.1
-      '@dprint/win32-x64': 0.45.1
+      '@dprint/darwin-arm64': 0.46.1
+      '@dprint/darwin-x64': 0.46.1
+      '@dprint/linux-arm64-glibc': 0.46.1
+      '@dprint/linux-arm64-musl': 0.46.1
+      '@dprint/linux-x64-glibc': 0.46.1
+      '@dprint/linux-x64-musl': 0.46.1
+      '@dprint/win32-x64': 0.46.1
 
   eastasianwidth@0.2.0: {}
 
@@ -8961,7 +8962,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import-x@0.5.0(eslint@9.3.0)(typescript@5.4.5):
+  eslint-plugin-import-x@0.5.1(eslint@9.3.0)(typescript@5.4.5):
     dependencies:
       '@typescript-eslint/utils': 7.10.0(eslint@9.3.0)(typescript@5.4.5)
       debug: 4.3.4
@@ -8972,6 +8973,7 @@ snapshots:
       is-glob: 4.0.3
       minimatch: 9.0.4
       semver: 7.6.2
+      tslib: 2.6.2
     transitivePeerDependencies:
       - supports-color
       - typescript

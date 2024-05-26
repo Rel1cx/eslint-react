@@ -21,7 +21,7 @@ import tseslint from "typescript-eslint";
 
 type FlatConfig = Parameters<typeof tseslint.config>[number];
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
-const config = [
+const config: FlatConfig[] = [
   // register all of the plugins up-front
   {
     // note - intentionally uses computed syntax to make it easy to sort the keys
@@ -283,6 +283,6 @@ const config = [
       "website",
     ],
   },
-] satisfies FlatConfig[];
+];
 
 export default tseslint.config(...config);
