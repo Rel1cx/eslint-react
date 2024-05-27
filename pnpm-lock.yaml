@@ -117,7 +117,7 @@ importers:
         version: 53.0.0(eslint@9.3.0)
       eslint-plugin-vitest:
         specifier: 0.5.4
-        version: 0.5.4(@typescript-eslint/eslint-plugin@7.10.0(@typescript-eslint/parser@7.10.0(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2))
+        version: 0.5.4(@typescript-eslint/eslint-plugin@7.10.0(@typescript-eslint/parser@7.10.0(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0))
       fast-equals:
         specifier: 5.0.1
         version: 5.0.1
@@ -171,7 +171,7 @@ importers:
         version: 5.4.5
       vitest:
         specifier: 1.6.0
-        version: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)
+        version: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0)
 
   examples/vite-react-dom-ts-flat:
     dependencies:
@@ -249,8 +249,8 @@ importers:
         specifier: ^7.10.0
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: ^7.10.0
-        version: 7.10.0
+        specifier: ^7.11.0
+        version: 7.11.0
       '@typescript-eslint/utils':
         specifier: ^7.10.0
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
@@ -292,8 +292,8 @@ importers:
         specifier: ^7.10.0
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: ^7.10.0
-        version: 7.10.0
+        specifier: ^7.11.0
+        version: 7.11.0
       '@typescript-eslint/utils':
         specifier: ^7.10.0
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
@@ -356,8 +356,8 @@ importers:
         specifier: ^7.10.0
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: ^7.10.0
-        version: 7.10.0
+        specifier: ^7.11.0
+        version: 7.11.0
       '@typescript-eslint/utils':
         specifier: ^7.10.0
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
@@ -417,8 +417,8 @@ importers:
         specifier: ^7.10.0
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: ^7.10.0
-        version: 7.10.0
+        specifier: ^7.11.0
+        version: 7.11.0
       '@typescript-eslint/utils':
         specifier: ^7.10.0
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
@@ -472,8 +472,8 @@ importers:
         specifier: ^7.10.0
         version: 7.10.0
       '@typescript-eslint/types':
-        specifier: ^7.10.0
-        version: 7.10.0
+        specifier: ^7.11.0
+        version: 7.11.0
       '@typescript-eslint/utils':
         specifier: ^7.10.0
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
@@ -533,8 +533,8 @@ importers:
         specifier: ^7.10.0
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: ^7.10.0
-        version: 7.10.0
+        specifier: ^7.11.0
+        version: 7.11.0
       '@typescript-eslint/utils':
         specifier: ^7.10.0
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
@@ -591,8 +591,8 @@ importers:
         specifier: ^7.10.0
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: ^7.10.0
-        version: 7.10.0
+        specifier: ^7.11.0
+        version: 7.11.0
       '@typescript-eslint/utils':
         specifier: ^7.10.0
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
@@ -650,8 +650,8 @@ importers:
         specifier: workspace:*
         version: link:../tools
       '@typescript-eslint/types':
-        specifier: ^7.10.0
-        version: 7.10.0
+        specifier: ^7.11.0
+        version: 7.11.0
       '@typescript-eslint/utils':
         specifier: ^7.10.0
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
@@ -675,8 +675,8 @@ importers:
         specifier: ^7.10.0
         version: 7.10.0
       '@typescript-eslint/types':
-        specifier: ^7.10.0
-        version: 7.10.0
+        specifier: ^7.11.0
+        version: 7.11.0
       '@typescript-eslint/utils':
         specifier: ^7.10.0
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
@@ -715,8 +715,8 @@ importers:
         specifier: ^7.10.0
         version: 7.10.0
       '@typescript-eslint/types':
-        specifier: ^7.10.0
-        version: 7.10.0
+        specifier: ^7.11.0
+        version: 7.11.0
       '@typescript-eslint/utils':
         specifier: ^7.10.0
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
@@ -749,8 +749,8 @@ importers:
         specifier: ^7.10.0
         version: 7.10.0
       '@typescript-eslint/types':
-        specifier: ^7.10.0
-        version: 7.10.0
+        specifier: ^7.11.0
+        version: 7.11.0
       '@typescript-eslint/utils':
         specifier: ^7.10.0
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
@@ -2366,6 +2366,10 @@ packages:
 
   '@typescript-eslint/types@7.10.0':
     resolution: {integrity: sha512-7fNj+Ya35aNyhuqrA1E/VayQX9Elwr8NKZ4WueClR3KwJ7Xx9jcCdOrLW04h51de/+gNbyFMs+IDxh5xIwfbNg==}
+    engines: {node: ^18.18.0 || >=20.0.0}
+
+  '@typescript-eslint/types@7.11.0':
+    resolution: {integrity: sha512-MPEsDRZTyCiXkD4vd3zywDCifi7tatc4K37KqTprCvaXptP7Xlpdw0NR2hRJTetG5TxbWDB79Ys4kLmHliEo/w==}
     engines: {node: ^18.18.0 || >=20.0.0}
 
   '@typescript-eslint/types@7.2.0':
@@ -6801,7 +6805,7 @@ snapshots:
     dependencies:
       '@types/eslint': 8.56.10
       '@types/estree': 1.0.5
-      '@typescript-eslint/types': 7.10.0
+      '@typescript-eslint/types': 7.11.0
       comment-parser: 1.4.1
       esquery: 1.5.0
       jsdoc-type-pratt-parser: 4.0.0
@@ -7633,6 +7637,8 @@ snapshots:
 
   '@typescript-eslint/types@7.10.0': {}
 
+  '@typescript-eslint/types@7.11.0': {}
+
   '@typescript-eslint/types@7.2.0': {}
 
   '@typescript-eslint/typescript-estree@7.10.0(typescript@5.4.5)':
@@ -7819,7 +7825,7 @@ snapshots:
       pathe: 1.1.2
       picocolors: 1.0.1
       sirv: 2.0.4
-      vitest: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)
+      vitest: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0)
 
   '@vitest/utils@1.6.0':
     dependencies:
@@ -9057,13 +9063,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@7.10.0(@typescript-eslint/parser@7.10.0(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)):
+  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@7.10.0(@typescript-eslint/parser@7.10.0(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0)):
     dependencies:
       '@typescript-eslint/utils': 7.10.0(eslint@9.3.0)(typescript@5.4.5)
       eslint: 9.3.0
     optionalDependencies:
       '@typescript-eslint/eslint-plugin': 7.10.0(@typescript-eslint/parser@7.10.0(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5)
-      vitest: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)
+      vitest: 1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -12288,7 +12294,7 @@ snapshots:
       sass: 1.77.2
       terser: 5.31.0
 
-  vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2):
+  vitest@1.6.0(@types/node@20.12.12)(@vitest/ui@1.6.0)(sass@1.77.2)(terser@5.31.0):
     dependencies:
       '@vitest/expect': 1.6.0
       '@vitest/runner': 1.6.0
