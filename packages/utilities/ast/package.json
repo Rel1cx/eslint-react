@@ -44,7 +44,7 @@
     "@eslint-community/eslint-utils": "4.4.0",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "^7.10.0",
+    "@typescript-eslint/scope-manager": "^7.11.0",
     "@typescript-eslint/types": "^7.10.0",
     "@typescript-eslint/utils": "^7.10.0",
     "string-ts": "2.1.1",
