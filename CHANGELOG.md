@@ -1,8 +1,12 @@
-## v1.5.13 (Draft)
+## v1.5.13 (Tue 28 May 2024)
 
 ### 🐞 Fixes
 
 - Fix components that use `getDerivedStateFromError` should not be warned by rule `no-class-component`.
+
+### 🪄 Improvements
+
+- Update `@typescript-eslint`'s packages to `7.11.0`.
 
 ## v1.5.12 (Fri 17 May 2024)
 
