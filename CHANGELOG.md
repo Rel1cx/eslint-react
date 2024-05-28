@@ -1,3 +1,9 @@
+## v1.5.14 (Draft)
+
+### 🐞 Fixes
+
+- Fix rule `react-dom/no-missing-button-type` false positive when using `type` attribute in a JSX expression.
+
 ## v1.5.13 (Tue 28 May 2024)
 
 ### 🐞 Fixes

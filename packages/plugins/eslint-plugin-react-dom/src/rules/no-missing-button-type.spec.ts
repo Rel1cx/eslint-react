@@ -14,39 +14,6 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: "<button type={undefined}>Click me</button>;",
-      errors: [
-        {
-          messageId: "NO_MISSING_BUTTON_TYPE",
-        },
-      ],
-    },
-    {
-      code: "<button type={null}>Click me</button>;",
-      errors: [
-        {
-          messageId: "NO_MISSING_BUTTON_TYPE",
-        },
-      ],
-    },
-    // has type attribute but not explicitly set to button element
-    {
-      code: dedent`
-        const props = {
-          type: "button",
-        };
-
-        function App() {
-            return <button {...props}>Click me</button>;
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_MISSING_BUTTON_TYPE",
-        },
-      ],
-    },
-    {
       code: dedent`
         import React from "react";
 
@@ -87,6 +54,11 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     dedent`
+      function App() {
+          return <button type={ true ? "button" : "submit" }>Click me</button>;
+      }
+    `,
+    dedent`
       import React from "react";
 
       function App() {
@@ -98,6 +70,22 @@ ruleTester.run(RULE_NAME, rule, {
 
       function App() {
           return createElement("button", { type: "button" }, "Click me");
+      }
+    `,
+    dedent`
+      import { createElement } from "react";
+
+      function App() {
+          return createElement("button", { type: true ? "button" : "submit" }, "Click me");
+      }
+    `,
+    dedent`
+      const props = {
+        type: "button",
+      };
+
+      function App() {
+          return <button {...props}>Click me</button>;
       }
     `,
   ],
