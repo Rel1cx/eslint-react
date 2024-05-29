@@ -261,8 +261,8 @@ importers:
         specifier: 5.1.2
         version: 5.1.2
       valibot:
-        specifier: 0.31.0-rc.5
-        version: 0.31.0-rc.5
+        specifier: 0.31.0-rc.6
+        version: 0.31.0-rc.6
     devDependencies:
       effect:
         specifier: 3.2.5
@@ -374,8 +374,8 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
       valibot:
-        specifier: 0.31.0-rc.5
-        version: 0.31.0-rc.5
+        specifier: 0.31.0-rc.6
+        version: 0.31.0-rc.6
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -432,8 +432,8 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
       valibot:
-        specifier: 0.31.0-rc.5
-        version: 0.31.0-rc.5
+        specifier: 0.31.0-rc.6
+        version: 0.31.0-rc.6
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -487,8 +487,8 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
       valibot:
-        specifier: 0.31.0-rc.5
-        version: 0.31.0-rc.5
+        specifier: 0.31.0-rc.6
+        version: 0.31.0-rc.6
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -548,8 +548,8 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
       valibot:
-        specifier: 0.31.0-rc.5
-        version: 0.31.0-rc.5
+        specifier: 0.31.0-rc.6
+        version: 0.31.0-rc.6
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -606,8 +606,8 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
       valibot:
-        specifier: 0.31.0-rc.5
-        version: 0.31.0-rc.5
+        specifier: 0.31.0-rc.6
+        version: 0.31.0-rc.6
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -635,8 +635,8 @@ importers:
         specifier: 4.18.3
         version: 4.18.3
       valibot:
-        specifier: 0.31.0-rc.5
-        version: 0.31.0-rc.5
+        specifier: 0.31.0-rc.6
+        version: 0.31.0-rc.6
 
   packages/tools:
     devDependencies:
@@ -758,8 +758,8 @@ importers:
         specifier: 2.1.1
         version: 2.1.1
       valibot:
-        specifier: 0.31.0-rc.5
-        version: 0.31.0-rc.5
+        specifier: 0.31.0-rc.6
+        version: 0.31.0-rc.6
     devDependencies:
       effect:
         specifier: 3.2.5
@@ -2761,8 +2761,8 @@ packages:
     resolution: {integrity: sha512-8WB3Jcas3swSvjIeA2yvCJ+Miyz5l1ZmB6HFb9R1317dt9LCQoswg/BGrmAmkWVEszSrrg4RwmO46qIm2OEnSA==}
     engines: {node: '>=16'}
 
-  caniuse-lite@1.0.30001624:
-    resolution: {integrity: sha512-0dWnQG87UevOCPYaOR49CBcLBwoZLpws+k6W37nLjWUhumP1Isusj0p2u+3KhjNloRWK9OKMgjBBzPujQHw4nA==}
+  caniuse-lite@1.0.30001625:
+    resolution: {integrity: sha512-4KE9N2gcRH+HQhpeiRZXd+1niLB/XNLAhSy4z7fI8EzcbcPoAqjNInxVHTiTwWfTIV4w096XG8OtCOCQQKPv3w==}
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
@@ -6024,8 +6024,8 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
-  valibot@0.31.0-rc.5:
-    resolution: {integrity: sha512-yv1koEWTUIajUkMW9QVUoZFF2b8cAS6EOZpZTIme6QXXH8K+Tl+b/1yen/VIyqVOf8WAZaYdqAzzU2ccF5CJfQ==}
+  valibot@0.31.0-rc.6:
+    resolution: {integrity: sha512-NW4mnZsSyLCj2TweTPBuo7jzhZywh3C2M0T5UU53po2jhg/0k7B63pQTt3hkcdZl2JkSZEYHliKzO/2OsLFqlQ==}
 
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
@@ -8040,7 +8040,7 @@ snapshots:
   autoprefixer@10.4.19(postcss@8.4.38):
     dependencies:
       browserslist: 4.23.0
-      caniuse-lite: 1.0.30001624
+      caniuse-lite: 1.0.30001625
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.1
@@ -8091,7 +8091,7 @@ snapshots:
 
   browserslist@4.23.0:
     dependencies:
-      caniuse-lite: 1.0.30001624
+      caniuse-lite: 1.0.30001625
       electron-to-chromium: 1.4.783
       node-releases: 2.0.14
       update-browserslist-db: 1.0.16(browserslist@4.23.0)
@@ -8157,7 +8157,7 @@ snapshots:
 
   camelcase@8.0.0: {}
 
-  caniuse-lite@1.0.30001624: {}
+  caniuse-lite@1.0.30001625: {}
 
   ccount@2.0.1: {}
 
@@ -10807,7 +10807,7 @@ snapshots:
       '@next/env': 14.2.3
       '@swc/helpers': 0.5.5
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001624
+      caniuse-lite: 1.0.30001625
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.3.1
@@ -12202,7 +12202,7 @@ snapshots:
       kleur: 4.1.5
       sade: 1.8.1
 
-  valibot@0.31.0-rc.5: {}
+  valibot@0.31.0-rc.6: {}
 
   validate-npm-package-license@3.0.4:
     dependencies:
