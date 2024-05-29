@@ -10,6 +10,8 @@ import { name, version } from "../package.json";
 import { padKeysLeft } from "./utils";
 
 const allPreset = {
+  "avoid-shorthand-boolean": "warn",
+  "avoid-shorthand-fragment": "warn",
   "ensure-forward-ref-using-ref": "warn",
   "no-access-state-in-setstate": "error",
   "no-array-index-key": "warn",
@@ -79,6 +81,8 @@ const allPreset = {
 } as const satisfies RulePreset;
 
 const recommendedPreset = {
+  // "avoid-shorthand-boolean": "warn",
+  // "avoid-shorthand-fragment": "warn",
   "ensure-forward-ref-using-ref": "warn",
   "no-access-state-in-setstate": "error",
   "no-array-index-key": "warn",
