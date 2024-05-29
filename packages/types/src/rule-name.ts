@@ -6,7 +6,7 @@
 
 type Ban = "ban";
 
-type PositiveModifier = "ensure" | "prefer" | "strict";
+type PositiveModifier = "avoid" | "ensure" | "prefer" | "strict";
 
 type NegativeModifier = "no";
 

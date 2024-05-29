@@ -1,4 +1,6 @@
 import { name, version } from "../package.json";
+import avoidShorthandBoolean from "./rules/avoid-shorthand-boolean";
+import avoidShorthandFragment from "./rules/avoid-shorthand-fragment";
 import forwardRefUsingRef from "./rules/ensure-forward-ref-using-ref";
 import noAccessStateInSetstate from "./rules/no-access-state-in-setstate";
 import noArrayIndexKey from "./rules/no-array-index-key";
@@ -46,6 +48,8 @@ export const meta = {
 } as const;
 
 export const rules = {
+  "avoid-shorthand-boolean": avoidShorthandBoolean,
+  "avoid-shorthand-fragment": avoidShorthandFragment,
   "ensure-forward-ref-using-ref": forwardRefUsingRef,
   "no-access-state-in-setstate": noAccessStateInSetstate,
   "no-array-index-key": noArrayIndexKey,

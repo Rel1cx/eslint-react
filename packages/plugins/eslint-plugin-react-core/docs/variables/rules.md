@@ -10,6 +10,14 @@
 
 ## Type declaration
 
+### avoid-shorthand-boolean
+
+> `readonly` **avoid-shorthand-boolean**: `RuleModule`\<`"AVOID_SHORTHAND_BOOLEAN"`, [], `RuleListener`\> = `avoidShorthandBoolean`
+
+### avoid-shorthand-fragment
+
+> `readonly` **avoid-shorthand-fragment**: `RuleModule`\<`"AVOID_SHORTHAND_FRAGMENT"`, [], `RuleListener`\> = `avoidShorthandFragment`
+
 ### ensure-forward-ref-using-ref
 
 > `readonly` **ensure-forward-ref-using-ref**: `RuleModule`\<`"ENSURE_FORWARD_REF_USING_REF"`, [], `RuleListener`\> = `forwardRefUsingRef`

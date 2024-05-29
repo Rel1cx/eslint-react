@@ -13,21 +13,6 @@ Enforces the usage of fragment shorthand syntax.
 ### Failing
 
 ```tsx twoslash
-import React, { Fragment } from "react";
-
-function Example() {
-  return (
-    <Fragment>
-      <button />
-      <button />
-    </Fragment>
-  );
-}
-```
-
-### Passing
-
-```tsx twoslash
 import React from "react";
 
 function Example() {
@@ -36,6 +21,21 @@ function Example() {
       <button />
       <button />
     </>
+  );
+}
+```
+
+### Passing
+
+```tsx twoslash
+import React, { Fragment } from "react";
+
+function Example() {
+  return (
+    <Fragment>
+      <button />
+      <button />
+    </Fragment>
   );
 }
 ```

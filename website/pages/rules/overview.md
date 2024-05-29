@@ -20,6 +20,8 @@
 
 | Rule                                                                               | Description                                                                                          | 💼  | 💭  | ❌  |
 | :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------- | :-: | :-: | :-: |
+| [`avoid-shorthand-boolean`](avoid-shorthand-boolean)                               | Enforces the use of shorthand syntax for boolean attributes.                                         | 🎨  |     |     |
+| [`avoid-shorthand-fragment`](avoid-shorthand-fragment)                             | Enforces the use of shorthand syntax for fragments.                                                  | 🎨  |     |     |
 | [`ensure-forward-ref-using-ref`](ensure-forward-ref-using-ref)                     | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                      |  ✔️  |     |     |
 | [`no-access-state-in-setstate`](no-access-state-in-setstate)                       | Prevents accessing `this.state` inside `setState` calls.                                             |  ✔️  |     |     |
 | [`no-array-index-key`](no-array-index-key)                                         | Warns when an array `index` is used as a `key` prop.                                                 | 👀  |     |     |

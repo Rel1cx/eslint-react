@@ -89,8 +89,6 @@ export default [
   Enable rules that are specific to React DOM.
 - **off-dom**\
   Disable rules that are specific to React DOM.
-- **all**\
-  Enable all rules in this plugin except for debug rules.
 - **off**\
   Disable all rules in this plugin except for debug rules.
 

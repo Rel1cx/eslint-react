@@ -5,11 +5,17 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: "<App foo={true} />",
-      errors: [{ messageId: "PREFER_SHORTHAND_BOOLEAN" }],
+      errors: [{
+        data: { propName: "foo" },
+        messageId: "PREFER_SHORTHAND_BOOLEAN",
+      }],
     },
     {
       code: "<App foo={true} bar />",
-      errors: [{ messageId: "PREFER_SHORTHAND_BOOLEAN" }],
+      errors: [{
+        data: { propName: "foo" },
+        messageId: "PREFER_SHORTHAND_BOOLEAN",
+      }],
     },
   ],
   valid: [

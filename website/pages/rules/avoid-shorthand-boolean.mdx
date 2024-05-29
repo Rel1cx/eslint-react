@@ -1,4 +1,4 @@
-# prefer-shorthand-boolean
+# avoid-shorthand-boolean
 
 ## Rule category
 
@@ -18,9 +18,9 @@ This rule enforces the use of shorthand syntax for boolean attributes.
 import React from "react";
 
 function Example() {
-  return <button disabled={true} />;
-  //             ^^^^^^^^^^^^^^^
-  //             - Prefer using shorthand syntax for 'disabled' attribute.
+  return <button disabled />;
+  //             ^^^^^^^^
+  //             - Avoid using shorthand syntax for 'disabled' attribute.
 }
 ```
 
@@ -30,6 +30,6 @@ function Example() {
 import React from "react";
 
 function Example() {
-  return <button disabled />;
+  return <button disabled={true} />;
 }
 ```
