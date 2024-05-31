@@ -55,7 +55,7 @@
     "@typescript-eslint/types": "^7.11.0",
     "@typescript-eslint/utils": "^7.11.0",
     "string-ts": "2.1.1",
-    "valibot": "0.31.0-rc.6"
+    "valibot": "0.31.0-rc.7"
   },
   "devDependencies": {
     "dedent": "1.5.3",
