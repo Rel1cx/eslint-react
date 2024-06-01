@@ -66,7 +66,7 @@
     "eslint-plugin-react-naming-convention": "workspace:*"
   },
   "devDependencies": {
-    "effect": "3.2.5",
+    "effect": "3.2.7",
     "tsup": "8.0.2"
   },
   "peerDependencies": {
