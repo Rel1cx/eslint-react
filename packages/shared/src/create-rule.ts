@@ -7,4 +7,12 @@ const getDocsUrl = (pluginName: string) => (ruleName: string) => {
   return `${WEBSITE_URL}/rules/${pluginName}-${ruleName}`;
 };
 
-export const createRuleForPlugin = (pluginName: string) => ESLintUtils.RuleCreator(getDocsUrl(pluginName));
+/* eslint-disable no-restricted-syntax */
+export interface ESLintPluginDocs {
+  recommended?: "recommended";
+  requiresTypeChecking?: boolean;
+}
+/* eslint-enable no-restricted-syntax */
+
+export const createRuleForPlugin = (pluginName: string) =>
+  ESLintUtils.RuleCreator<ESLintPluginDocs>(getDocsUrl(pluginName));

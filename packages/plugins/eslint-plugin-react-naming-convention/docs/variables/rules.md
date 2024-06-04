@@ -12,16 +12,16 @@
 
 ### component-name
 
-> `readonly` **component-name**: `RuleModule`\<`"COMPONENT_NAME"`, `Options`, `RuleListener`\> = `componentName`
+> `readonly` **component-name**: `RuleModule`\<`"COMPONENT_NAME"`, `Options`, `ESLintPluginDocs`, `RuleListener`\> = `componentName`
 
 ### filename
 
-> **filename**: `RuleModule`\<`MessageID`, `Options`, `RuleListener`\>
+> **filename**: `RuleModule`\<`MessageID`, `Options`, `ESLintPluginDocs`, `RuleListener`\>
 
 ### filename-extension
 
-> `readonly` **filename-extension**: `RuleModule`\<`MessageID`, `Options`, `RuleListener`\> = `filenameExtension`
+> `readonly` **filename-extension**: `RuleModule`\<`MessageID`, `Options`, `ESLintPluginDocs`, `RuleListener`\> = `filenameExtension`
 
 ### use-state
 
-> `readonly` **use-state**: `RuleModule`\<`"USE_STATE"`, [], `RuleListener`\> = `useState`
+> `readonly` **use-state**: `RuleModule`\<`"USE_STATE"`, [], `ESLintPluginDocs`, `RuleListener`\> = `useState`

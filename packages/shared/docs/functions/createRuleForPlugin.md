@@ -6,7 +6,7 @@
 
 # Function: createRuleForPlugin()
 
-> **createRuleForPlugin**(`pluginName`): \<`Options`, `MessageIds`\>(`__namedParameters`) => `RuleModule`\<`MessageIds`, `Options`, `RuleListener`\>
+> **createRuleForPlugin**(`pluginName`): \<`Options`, `MessageIds`\>(`__namedParameters`) => `RuleModule`\<`MessageIds`, `Options`, [`ESLintPluginDocs`](../interfaces/ESLintPluginDocs.md), `RuleListener`\>
 
 ## Parameters
 
@@ -24,8 +24,8 @@
 
 ### Parameters
 
-• **\_\_namedParameters**: `Readonly`\<`RuleWithMetaAndName`\<`Options`, `MessageIds`\>\>
+• **\_\_namedParameters**: `Readonly`\<`RuleWithMetaAndName`\<`Options`, `MessageIds`, [`ESLintPluginDocs`](../interfaces/ESLintPluginDocs.md)\>\>
 
 ### Returns
 
-`RuleModule`\<`MessageIds`, `Options`, `RuleListener`\>
+`RuleModule`\<`MessageIds`, `Options`, [`ESLintPluginDocs`](../interfaces/ESLintPluginDocs.md), `RuleListener`\>

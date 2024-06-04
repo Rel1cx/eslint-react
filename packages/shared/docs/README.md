@@ -4,6 +4,10 @@
 
 # @eslint-react/shared
 
+## Interfaces
+
+- [ESLintPluginDocs](interfaces/ESLintPluginDocs.md)
+
 ## Type Aliases
 
 - [ESLintReactSettings](type-aliases/ESLintReactSettings.md)

@@ -42,7 +42,7 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^7.11.0",
+    "@typescript-eslint/utils": "8.0.0-alpha.26",
     "deepmerge-ts": "7.0.2"
   },
   "devDependencies": {
