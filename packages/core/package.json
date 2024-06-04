@@ -54,7 +54,7 @@
     "@typescript-eslint/utils": "^7.12.0",
     "short-unique-id": "5.2.0",
     "ts-pattern": "5.1.2",
-    "valibot": "0.31.0-rc.11"
+    "valibot": "0.31.0-rc.12"
   },
   "devDependencies": {
     "effect": "3.2.8",

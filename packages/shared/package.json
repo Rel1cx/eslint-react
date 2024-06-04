@@ -48,6 +48,6 @@
   "devDependencies": {
     "tsup": "8.1.0",
     "type-fest": "4.19.0",
-    "valibot": "0.31.0-rc.11"
+    "valibot": "0.31.0-rc.12"
   }
 }
