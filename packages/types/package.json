@@ -43,8 +43,8 @@
   },
   "dependencies": {
     "@eslint-react/tools": "workspace:*",
-    "@typescript-eslint/types": "^7.11.0",
-    "@typescript-eslint/utils": "^7.11.0"
+    "@typescript-eslint/types": "^7.12.0",
+    "@typescript-eslint/utils": "^7.12.0"
   },
   "devDependencies": {
     "tsup": "8.1.0"
