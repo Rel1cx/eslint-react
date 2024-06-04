@@ -16,23 +16,11 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
     },
     {
-      code: '<a href="https://react.dev" target="_blank" rel="noreferrer"></a>',
-      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
-    },
-    {
       code: '<Link href="https://react.dev" target="_blank"></Link>',
       errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
     },
     {
       code: '<Link href="https://react.dev" target="_blank" rel="noopener"></Link>',
-      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
-    },
-    {
-      code: '<Link href="https://react.dev" target="_blank" rel="noreferrer"></Link>',
-      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
-    },
-    {
-      code: '<Link href="https://react.dev" target="_blank" rel={"noreferrer"}></Link>',
       errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
     },
   ],
@@ -48,5 +36,6 @@ ruleTester.run(RULE_NAME, rule, {
     '<a href="https://react.dev" target="_blank" rel="noreferrer noopener"></a>',
     '<Link href="https://react.dev" target="_blank" rel="noopener noreferrer"></Link>',
     '<Link href="https://react.dev" target="_blank" rel={"noopener noreferrer"}></Link>',
+    '<Link href="https://react.dev" target="_blank" rel="noreferrer"></Link>',
   ],
 });

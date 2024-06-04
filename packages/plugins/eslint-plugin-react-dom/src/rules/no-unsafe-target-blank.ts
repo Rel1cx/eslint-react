@@ -15,7 +15,7 @@ function isExternalLinkLike(value: string) {
 }
 
 function isSafeRel(value: string) {
-  return /\bnoreferrer\b/u.test(value) && /\bnoopener\b/u.test(value);
+  return /\bnoreferrer\b/u.test(value);
 }
 
 export default createRule<[], MessageID>({
@@ -46,7 +46,6 @@ export default createRule<[], MessageID>({
         if (!hasTargetBlank) return;
         const hasExternalLinkLike = attributes.some(attr => {
           if (attr.type !== NodeType.JSXAttribute) return false;
-
           return F.pipe(
             getPropValue(attr, context),
             O.flatMapNullable(v => v?.value),
