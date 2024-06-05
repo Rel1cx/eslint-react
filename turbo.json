@@ -8,7 +8,7 @@
     ".eslintrc.cjs",
     "dprint.json"
   ],
-  "pipeline": {
+  "tasks": {
     "build": {
       "cache": true,
       "dependsOn": [
