@@ -1,6 +1,5 @@
 import { entries, fromEntries } from "@eslint-react/tools";
 import type { RulePreset } from "@eslint-react/types";
-import tsParser from "@typescript-eslint/parser";
 import * as reactCore from "eslint-plugin-react-core";
 import * as reactDom from "eslint-plugin-react-dom";
 import * as reactHooksExtra from "eslint-plugin-react-hooks-extra";
@@ -177,7 +176,6 @@ const flatConfigPlugins = {
 
 function createLegacyConfig<T extends RulePreset>(rules: T, plugins = legacyConfigPlugins) {
   return {
-    parser: "@typescript-eslint/parser",
     plugins,
     rules: padKeysLeft(rules, "@eslint-react/"),
   } as const;
@@ -185,9 +183,6 @@ function createLegacyConfig<T extends RulePreset>(rules: T, plugins = legacyConf
 
 function createFlatConfig<T extends RulePreset>(rules: T, plugins = flatConfigPlugins) {
   return {
-    languageOptions: {
-      parser: tsParser,
-    },
     plugins,
     rules: padKeysLeft(rules, "@eslint-react/"),
   } as const;
