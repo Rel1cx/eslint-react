@@ -17,7 +17,9 @@ export const RULE_NAME = "no-leaked-conditional-rendering";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 /** The types we care about */
+/* eslint-disable perfectionist/sort-union-types */
 type VariantType =
+  | "unknown"
   | "any"
   | "boolean"
   | "enum"
@@ -26,20 +28,21 @@ type VariantType =
   | "number"
   | "object"
   | "string"
-  // eslint-disable-next-line perfectionist/sort-union-types
   | "falsy boolean"
   | "falsy number"
   | "falsy string"
   | "truthy boolean"
   | "truthy number"
   | "truthy string";
+/* eslint-enable perfectionist/sort-union-types */
 
 // Allowed left node type variants
 const allowedVariants = [
   "nullish",
   "boolean",
   "string",
-
+  "object",
+  "any",
   "falsy string",
   "truthy boolean",
   "truthy string",
@@ -52,6 +55,11 @@ const allowedVariants = [
  */
 function inspectVariantTypes(types: ts.Type[]) {
   const variantTypes = new Set<VariantType>();
+
+  if (types.some(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.Unknown))) {
+    variantTypes.add("unknown");
+    return variantTypes;
+  }
 
   if (
     types.some(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.Null | ts.TypeFlags.Undefined | ts.TypeFlags.VoidLike))
@@ -193,10 +201,7 @@ export default createRule<[], MessageID>({
       return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
         .when(isJSX, O.none)
         .with({ type: NodeType.LogicalExpression, operator: "&&" }, ({ left, right }) => {
-          const isLeftUnaryNot = isMatching({
-            type: NodeType.UnaryExpression,
-            operator: "!",
-          }, left);
+          const isLeftUnaryNot = isMatching({ type: NodeType.UnaryExpression, operator: "!" }, left);
           if (isLeftUnaryNot) return checkExpression(right);
           const leftType = getConstrainedTypeAtLocation(services, left);
           const leftTypeVariants = inspectVariantTypes(tsutils.unionTypeParts(leftType));

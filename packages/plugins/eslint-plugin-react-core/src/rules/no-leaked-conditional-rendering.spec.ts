@@ -27,30 +27,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: dedent`
-        const someCondition = JSON.parse("") as any;
-        const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {someCondition && (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />
-              )}
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: dedent`
         const someCondition = JSON.parse("") as unknown;
         const SomeComponent = () => <div />;
 
@@ -242,7 +218,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
 
         const App = ({ items }: AppProps) => {
-          return <div>{!!itesm.length && <List items={items}/>}</div>
+          return <div>{!!items.length && <List items={items}/>}</div>
       }
     `,
     dedent`
@@ -577,6 +553,38 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
 
       function App<T>({ someFunction }: AppProps<T>) {
         return <>{!!someFunction && someFunction<number>(1)}</>;
+      }
+    `,
+    dedent`
+      const someCondition = JSON.parse("") as any;
+      const SomeComponent = () => <div />;
+
+      const App = () => {
+        return (
+          <>
+            {someCondition && (
+              <SomeComponent
+                prop1={val1}
+                prop2={val2}
+              />
+            )}
+          </>
+        )
+      }
+    `,
+    dedent`
+      function App() {
+        const a = {} as {};
+        const b = {} as {} | null;
+        const b = {} as {} | undefined;
+
+        return (
+          <>
+            <>{a && <div />}</>
+            <>{b && <div />}</>
+            <>{c && <div />}</>
+          </>
+        );
       }
     `,
   ],

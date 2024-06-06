@@ -4,6 +4,7 @@
 
 - Remove `languageOptions.parser` from presets.
 - Remove `@typescript-eslint/parser` from peer dependencies.
+- Rule `no-leaked-conditional-rendering`: object should be considered as valid left-hand type.
 
 ## v1.5.14 (Thu 30 May 2024)
 
