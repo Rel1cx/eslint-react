@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "1.5.15-beta.3",
+  "version": "1.5.15-next.4",
   "description": "The main ESLint plugin of ESLint React. Contains all the rules and presets of ESLint React.",
   "keywords": [
     "eslint",
@@ -65,7 +65,7 @@
     "eslint-plugin-react-naming-convention": "workspace:*"
   },
   "devDependencies": {
-    "effect": "3.2.9",
+    "effect": "3.3.0",
     "tsup": "8.1.0"
   },
   "peerDependencies": {

@@ -1,3 +1,10 @@
+## v1.5.15 (Draft)
+
+### 🐞 Fixes
+
+- Remove `languageOptions.parser` from presets.
+- Remove `@typescript-eslint/parser` from peer dependencies.
+
 ## v1.5.14 (Thu 30 May 2024)
 
 ### ✨ New
@@ -34,8 +41,8 @@
 
 ### ✨ New
 
-- Rule `no-class-component` rule now allows class components with a `componentDidCatch` method (Thanks to [@christopher-buss](https://github.com/christopher-buss)).
-- Settings `reactOptions` now supports `importSource` to specify the import source for React (Thanks to [@christopher-buss](https://github.com/christopher-buss)).
+- Rule `no-class-component` rule now allows class components with a `componentDidCatch` method.
+- Settings `reactOptions` now supports `importSource` to specify the import source for React.
 
 ### 🗑️ Deprecations
 

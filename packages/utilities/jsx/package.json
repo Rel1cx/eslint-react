@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/jsx",
-  "version": "1.5.15-beta.3",
+  "version": "1.5.15-next.4",
   "description": "ESLint React's TSESTree AST utility module for static analysis of JSX.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -53,7 +53,7 @@
     "ts-pattern": "5.1.2"
   },
   "devDependencies": {
-    "effect": "3.2.9",
+    "effect": "3.3.0",
     "tsup": "8.1.0"
   }
 }
