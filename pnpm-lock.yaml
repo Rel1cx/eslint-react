@@ -261,8 +261,8 @@ importers:
         specifier: 5.1.2
         version: 5.1.2
       valibot:
-        specifier: 0.31.0-rc.12
-        version: 0.31.0-rc.12
+        specifier: 0.31.0
+        version: 0.31.0
     devDependencies:
       effect:
         specifier: 3.3.0
@@ -368,8 +368,8 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
       valibot:
-        specifier: 0.31.0-rc.12
-        version: 0.31.0-rc.12
+        specifier: 0.31.0
+        version: 0.31.0
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -423,8 +423,8 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
       valibot:
-        specifier: 0.31.0-rc.12
-        version: 0.31.0-rc.12
+        specifier: 0.31.0
+        version: 0.31.0
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -475,8 +475,8 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
       valibot:
-        specifier: 0.31.0-rc.12
-        version: 0.31.0-rc.12
+        specifier: 0.31.0
+        version: 0.31.0
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -533,8 +533,8 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
       valibot:
-        specifier: 0.31.0-rc.12
-        version: 0.31.0-rc.12
+        specifier: 0.31.0
+        version: 0.31.0
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -588,8 +588,8 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
       valibot:
-        specifier: 0.31.0-rc.12
-        version: 0.31.0-rc.12
+        specifier: 0.31.0
+        version: 0.31.0
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -617,8 +617,8 @@ importers:
         specifier: 4.19.0
         version: 4.19.0
       valibot:
-        specifier: 0.31.0-rc.12
-        version: 0.31.0-rc.12
+        specifier: 0.31.0
+        version: 0.31.0
 
   packages/tools:
     devDependencies:
@@ -740,8 +740,8 @@ importers:
         specifier: 2.1.1
         version: 2.1.1
       valibot:
-        specifier: 0.31.0-rc.12
-        version: 0.31.0-rc.12
+        specifier: 0.31.0
+        version: 0.31.0
     devDependencies:
       effect:
         specifier: 3.3.0
@@ -2696,6 +2696,7 @@ packages:
 
   bun@1.1.12:
     resolution: {integrity: sha512-NZzeZuZk7VwCs8VAXnXUHCPOlTS/IyHCscChtT1M1FLSwhBcVMsGVStYlXaaoqsinBKgp0CGJdhnJw2gR3NkDw==}
+    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -3815,6 +3816,7 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -3988,6 +3990,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -6010,8 +6013,8 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
-  valibot@0.31.0-rc.12:
-    resolution: {integrity: sha512-vAI18A65Og1BwuVqC3Zvr0+yNxOANLHDVo3r5VOTsVItfBl6KcykmY7fioSU5CVSlrj2JgViHjcsfAofO2h0rw==}
+  valibot@0.31.0:
+    resolution: {integrity: sha512-bleS8aVFpRGTUgbMoXzsRJhpxJGiZ3MG1nuNSORuDvio+sI1EyT1+lQHg+77Pfnlxz+25Uj5HiwdaklcDcYdiQ==}
 
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
@@ -12203,7 +12206,7 @@ snapshots:
       kleur: 4.1.5
       sade: 1.8.1
 
-  valibot@0.31.0-rc.12: {}
+  valibot@0.31.0: {}
 
   validate-npm-package-license@3.0.4:
     dependencies:
