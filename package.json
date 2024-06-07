@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.5.15-beta.6",
+  "version": "1.5.15",
   "private": true,
   "description": "A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -119,7 +119,7 @@
       "array.prototype.toreversed": "npm:@nolyfill/array.prototype.toreversed@latest",
       "array.prototype.tosorted": "npm:@nolyfill/array.prototype.tosorted@latest",
       "es-iterator-helpers": "npm:@nolyfill/es-iterator-helpers@latest",
-      "eslint": "9.4.0",
+      "eslint": "latest",
       "function-bind": "npm:@nolyfill/function-bind@latest",
       "has": "npm:@nolyfill/has@latest",
       "hasown": "npm:@nolyfill/hasown@latest",
@@ -131,7 +131,7 @@
       "object.values": "npm:@nolyfill/object.values@latest",
       "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@latest",
       "typedarray": "npm:@nolyfill/typedarray@latest",
-      "typescript": "5.4.5"
+      "typescript": "latest"
     }
   }
 }
