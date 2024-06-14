@@ -1,3 +1,9 @@
+## v1.5.16 (Draft)
+
+### 🐞 Fixes
+
+- Fix debug rules not exporting correctly in `@eslint-react/eslint-plugin`.
+
 ## v1.5.15 (Sat 08 Jun 2024)
 
 ### 🐞 Fixes
