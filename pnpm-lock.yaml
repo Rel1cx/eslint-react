@@ -35,8 +35,8 @@ importers:
         specifier: 2.27.5
         version: 2.27.5
       '@eslint/js':
-        specifier: 9.4.0
-        version: 9.4.0
+        specifier: 9.5.0
+        version: 9.5.0
       '@tsconfig/node20':
         specifier: 20.1.4
         version: 20.1.4
@@ -186,8 +186,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/plugins/eslint-plugin
       '@eslint/js':
-        specifier: 9.4.0
-        version: 9.4.0
+        specifier: 9.5.0
+        version: 9.5.0
       '@tsconfig/node20':
         specifier: 20.1.4
         version: 20.1.4
@@ -775,8 +775,8 @@ importers:
         specifier: workspace:*
         version: link:../packages/plugins/eslint-plugin
       '@eslint/js':
-        specifier: 9.4.0
-        version: 9.4.0
+        specifier: 9.5.0
+        version: 9.5.0
       '@mdx-js/mdx':
         specifier: 3.0.1
         version: 3.0.1
@@ -1570,6 +1570,10 @@ packages:
 
   '@eslint/js@9.4.0':
     resolution: {integrity: sha512-fdI7VJjP3Rvc70lC4xkFXHB0fiPeojiL1PxVG6t1ZvXQrarj893PweuBTujxDUFk0Fxj4R7PIIAZ/aiiyZPZcg==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@eslint/js@9.5.0':
+    resolution: {integrity: sha512-A7+AOT2ICkodvtsWnxZP4Xxk3NbZ3VMHd8oihydLRGrJgqqdEz1qSeEgXYyT/Cu8h1TWWsQRejIx48mtjZ5y1w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/object-schema@2.1.4':
@@ -2558,6 +2562,7 @@ packages:
 
   bun@1.1.13:
     resolution: {integrity: sha512-yrujTLEspzQJfh7hd2xkYM5skQsjBwVm/wq0cyYBkR5x4FRveOUqeAqtFOPH4aHvsDgwVN+dO0uIrlvE7dDsDQ==}
+    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -3672,6 +3677,7 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -3845,6 +3851,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -6839,6 +6846,8 @@ snapshots:
       - supports-color
 
   '@eslint/js@9.4.0': {}
+
+  '@eslint/js@9.5.0': {}
 
   '@eslint/object-schema@2.1.4': {}
 
