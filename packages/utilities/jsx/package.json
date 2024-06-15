@@ -53,7 +53,7 @@
     "ts-pattern": "5.2.0"
   },
   "devDependencies": {
-    "effect": "3.3.1",
+    "effect": "3.3.2",
     "tsup": "8.1.0"
   }
 }
