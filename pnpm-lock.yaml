@@ -249,8 +249,8 @@ importers:
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.5.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: ^7.13.0
-        version: 7.13.0
+        specifier: ^7.13.1
+        version: 7.13.1
       '@typescript-eslint/utils':
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.5.0)(typescript@5.4.5)
@@ -289,8 +289,8 @@ importers:
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.5.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: ^7.13.0
-        version: 7.13.0
+        specifier: ^7.13.1
+        version: 7.13.1
       '@typescript-eslint/utils':
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.5.0)(typescript@5.4.5)
@@ -350,8 +350,8 @@ importers:
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.5.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: ^7.13.0
-        version: 7.13.0
+        specifier: ^7.13.1
+        version: 7.13.1
       '@typescript-eslint/utils':
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.5.0)(typescript@5.4.5)
@@ -408,8 +408,8 @@ importers:
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.5.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: ^7.13.0
-        version: 7.13.0
+        specifier: ^7.13.1
+        version: 7.13.1
       '@typescript-eslint/utils':
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.5.0)(typescript@5.4.5)
@@ -460,8 +460,8 @@ importers:
         specifier: ^7.13.0
         version: 7.13.0
       '@typescript-eslint/types':
-        specifier: ^7.13.0
-        version: 7.13.0
+        specifier: ^7.13.1
+        version: 7.13.1
       '@typescript-eslint/utils':
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.5.0)(typescript@5.4.5)
@@ -518,8 +518,8 @@ importers:
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.5.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: ^7.13.0
-        version: 7.13.0
+        specifier: ^7.13.1
+        version: 7.13.1
       '@typescript-eslint/utils':
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.5.0)(typescript@5.4.5)
@@ -573,8 +573,8 @@ importers:
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.5.0)(typescript@5.4.5)
       '@typescript-eslint/types':
-        specifier: ^7.13.0
-        version: 7.13.0
+        specifier: ^7.13.1
+        version: 7.13.1
       '@typescript-eslint/utils':
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.5.0)(typescript@5.4.5)
@@ -632,8 +632,8 @@ importers:
         specifier: workspace:*
         version: link:../tools
       '@typescript-eslint/types':
-        specifier: ^7.13.0
-        version: 7.13.0
+        specifier: ^7.13.1
+        version: 7.13.1
       '@typescript-eslint/utils':
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.5.0)(typescript@5.4.5)
@@ -657,8 +657,8 @@ importers:
         specifier: ^7.13.0
         version: 7.13.0
       '@typescript-eslint/types':
-        specifier: ^7.13.0
-        version: 7.13.0
+        specifier: ^7.13.1
+        version: 7.13.1
       '@typescript-eslint/utils':
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.5.0)(typescript@5.4.5)
@@ -697,8 +697,8 @@ importers:
         specifier: ^7.13.0
         version: 7.13.0
       '@typescript-eslint/types':
-        specifier: ^7.13.0
-        version: 7.13.0
+        specifier: ^7.13.1
+        version: 7.13.1
       '@typescript-eslint/utils':
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.5.0)(typescript@5.4.5)
@@ -731,8 +731,8 @@ importers:
         specifier: ^7.13.0
         version: 7.13.0
       '@typescript-eslint/types':
-        specifier: ^7.13.0
-        version: 7.13.0
+        specifier: ^7.13.1
+        version: 7.13.1
       '@typescript-eslint/utils':
         specifier: ^7.13.0
         version: 7.13.0(eslint@9.5.0)(typescript@5.4.5)
@@ -2216,6 +2216,10 @@ packages:
     resolution: {integrity: sha512-QWuwm9wcGMAuTsxP+qz6LBBd3Uq8I5Nv8xb0mk54jmNoCyDspnMvVsOxI6IsMmway5d1S9Su2+sCKv1st2l6eA==}
     engines: {node: ^18.18.0 || >=20.0.0}
 
+  '@typescript-eslint/types@7.13.1':
+    resolution: {integrity: sha512-7K7HMcSQIAND6RBL4kDl24sG/xKM13cA85dc7JnmQXw2cBDngg7c19B++JzvJHRG3zG36n9j1i451GBzRuHchw==}
+    engines: {node: ^18.18.0 || >=20.0.0}
+
   '@typescript-eslint/types@7.2.0':
     resolution: {integrity: sha512-XFtUHPI/abFhm4cbCDc5Ykc8npOKBSJePY3a3s+lwumt7XWJuzP5cZcfZ610MIPHjQjNsOLlYK8ASPaNG8UiyA==}
     engines: {node: ^16.0.0 || >=18.0.0}
@@ -2558,6 +2562,7 @@ packages:
 
   bun@1.1.13:
     resolution: {integrity: sha512-yrujTLEspzQJfh7hd2xkYM5skQsjBwVm/wq0cyYBkR5x4FRveOUqeAqtFOPH4aHvsDgwVN+dO0uIrlvE7dDsDQ==}
+    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -3672,6 +3677,7 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -3845,6 +3851,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -6666,7 +6673,7 @@ snapshots:
     dependencies:
       '@types/eslint': 8.56.10
       '@types/estree': 1.0.5
-      '@typescript-eslint/types': 7.13.0
+      '@typescript-eslint/types': 7.13.1
       comment-parser: 1.4.1
       esquery: 1.5.0
       jsdoc-type-pratt-parser: 4.0.0
@@ -7433,6 +7440,8 @@ snapshots:
       - supports-color
 
   '@typescript-eslint/types@7.13.0': {}
+
+  '@typescript-eslint/types@7.13.1': {}
 
   '@typescript-eslint/types@7.2.0': {}
 
