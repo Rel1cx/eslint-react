@@ -4,6 +4,12 @@
 
 - Fix debug rules not exporting correctly in `@eslint-react/eslint-plugin`.
 
+### 🪄 Improvements
+
+- Remove rule `prefer-shorthand-boolean` from recommended presets.
+- Remove rule `prefer-shorthand-fragment` from recommended presets.
+- Remove rule `prefer-destructuring-assignment` from recommended presets.
+
 ## v1.5.15 (Sat 08 Jun 2024)
 
 ### 🐞 Fixes
@@ -16,12 +22,12 @@
 
 ### ✨ New
 
-- Add rule `react/avoid-shorthand-boolean`.
-- Add rule `react/avoid-shorthand-fragment`.
+- Add rule `avoid-shorthand-boolean`.
+- Add rule `avoid-shorthand-fragment`.
 
 ### 🐞 Fixes
 
-- Fix rule `react-dom/no-missing-button-type` false positive when using `type` attribute in a JSX expression.
+- Fix rule `dom/no-missing-button-type` false positive when using `type` attribute in a JSX expression.
 
 ## v1.5.13 (Tue 28 May 2024)
 
@@ -108,7 +114,7 @@
 
 ### 🐞 Fixes
 
-- Fix rule `react-dom/no-render-return-value` not renamed in v1.0.0.
+- Fix rule `dom/no-render-return-value` not renamed in v1.0.0.
 
 ### 🪄 Improvements
 

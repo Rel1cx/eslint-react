@@ -120,10 +120,9 @@ const recommendedPreset = {
   "no-unused-class-component-members": "warn",
   "no-unused-state": "warn",
   "no-useless-fragment": "warn",
-  "prefer-destructuring-assignment": "warn",
-  "prefer-shorthand-boolean": "warn",
-  "prefer-shorthand-fragment": "warn",
-
+  // "prefer-destructuring-assignment": "warn",
+  // "prefer-shorthand-boolean": "warn",
+  // "prefer-shorthand-fragment": "warn",
   // eslint-disable-next-line perfectionist/sort-objects
   "dom/no-children-in-void-dom-elements": "warn",
   "dom/no-dangerously-set-innerhtml": "warn",
