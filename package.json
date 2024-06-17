@@ -90,14 +90,14 @@
     "markdownlint": "0.34.0",
     "pathe": "1.1.2",
     "publint": "0.2.8",
-    "skott": "0.34.0",
+    "skott": "0.35.0",
     "sort-package-json": "2.10.0",
     "taze": "0.13.8",
     "tiny-invariant": "1.3.3",
     "ts-pattern": "5.2.0",
     "tsup": "8.1.0",
     "turbo": "2.0.4",
-    "type-fest": "4.20.0",
+    "type-fest": "4.20.1",
     "typedoc": "0.25.13",
     "typedoc-plugin-markdown": "4.0.3",
     "typedoc-plugin-rename-defaults": "0.7.0",
@@ -131,7 +131,7 @@
       "object.values": "npm:@nolyfill/object.values@latest",
       "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@latest",
       "typedarray": "npm:@nolyfill/typedarray@latest",
-      "typescript": "latest"
+      "typescript": "^5.4.5"
     }
   }
 }
