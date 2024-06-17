@@ -80,8 +80,8 @@ importers:
         specifier: 0.46.2
         version: 0.46.2
       effect:
-        specifier: 3.3.2
-        version: 3.3.2
+        specifier: 3.3.3
+        version: 3.3.3
       esbuild:
         specifier: 0.21.5
         version: 0.21.5
@@ -265,8 +265,8 @@ importers:
         version: 0.32.0
     devDependencies:
       effect:
-        specifier: 3.3.2
-        version: 3.3.2
+        specifier: 3.3.3
+        version: 3.3.3
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.38)(typescript@5.4.5)
@@ -314,8 +314,8 @@ importers:
         version: 5.4.5
     devDependencies:
       effect:
-        specifier: 3.3.2
-        version: 3.3.2
+        specifier: 3.3.3
+        version: 3.3.3
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.38)(typescript@5.4.5)
@@ -375,8 +375,8 @@ importers:
         specifier: 1.5.3
         version: 1.5.3
       effect:
-        specifier: 3.3.2
-        version: 3.3.2
+        specifier: 3.3.3
+        version: 3.3.3
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.38)(typescript@5.4.5)
@@ -482,8 +482,8 @@ importers:
         specifier: 1.5.3
         version: 1.5.3
       effect:
-        specifier: 3.3.2
-        version: 3.3.2
+        specifier: 3.3.3
+        version: 3.3.3
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.38)(typescript@5.4.5)
@@ -540,8 +540,8 @@ importers:
         specifier: 1.5.3
         version: 1.5.3
       effect:
-        specifier: 3.3.2
-        version: 3.3.2
+        specifier: 3.3.3
+        version: 3.3.3
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.38)(typescript@5.4.5)
@@ -595,8 +595,8 @@ importers:
         specifier: 1.5.3
         version: 1.5.3
       effect:
-        specifier: 3.3.2
-        version: 3.3.2
+        specifier: 3.3.3
+        version: 3.3.3
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.38)(typescript@5.4.5)
@@ -670,8 +670,8 @@ importers:
         version: 5.2.0
     devDependencies:
       effect:
-        specifier: 3.3.2
-        version: 3.3.2
+        specifier: 3.3.3
+        version: 3.3.3
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.38)(typescript@5.4.5)
@@ -710,8 +710,8 @@ importers:
         version: 5.2.0
     devDependencies:
       effect:
-        specifier: 3.3.2
-        version: 3.3.2
+        specifier: 3.3.3
+        version: 3.3.3
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.38)(typescript@5.4.5)
@@ -744,8 +744,8 @@ importers:
         version: 0.32.0
     devDependencies:
       effect:
-        specifier: 3.3.2
-        version: 3.3.2
+        specifier: 3.3.3
+        version: 3.3.3
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.38)(typescript@5.4.5)
@@ -811,8 +811,8 @@ importers:
         specifier: 10.4.19
         version: 10.4.19(postcss@8.4.38)
       effect:
-        specifier: 3.3.2
-        version: 3.3.2
+        specifier: 3.3.3
+        version: 3.3.3
       eslint:
         specifier: ^9.5.0
         version: 9.5.0
@@ -3191,6 +3191,9 @@ packages:
 
   effect@3.3.2:
     resolution: {integrity: sha512-695XQBtp+UUYG50oREG9ujnRoeQU7xhwHDhT6ZAexm3Q+umdml1kjxcPoYRrS65crmaLlhVpjZHePJNzWOODnA==}
+
+  effect@3.3.3:
+    resolution: {integrity: sha512-Rm2FwqdGVu0O/NzIPwk95r1rLj84ImWhDHJFyM+T414WBN8yb0GieDt9BZ/tgvJ/tFoPE7hc/IS+X9AjxV6CNQ==}
 
   electron-to-chromium@1.4.803:
     resolution: {integrity: sha512-61H9mLzGOCLLVsnLiRzCbc63uldP0AniRYPV3hbGVtONA1pI7qSGILdbofR7A8TMbOypDocEAjH/e+9k1QIe3g==}
@@ -8582,6 +8585,8 @@ snapshots:
   eastasianwidth@0.2.0: {}
 
   effect@3.3.2: {}
+
+  effect@3.3.3: {}
 
   electron-to-chromium@1.4.803: {}
 

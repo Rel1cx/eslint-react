@@ -6,26 +6,25 @@ on:
   pull_request:
     types: [opened, edited, reopened, synchronize]
     branches:
-      - '**'
+      - "**"
   merge_group:
 env:
-    NODE_OPTIONS: --max_old_space_size=10240
+  NODE_OPTIONS: --max_old_space_size=10240
 jobs:
-    check:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-            - name: Setup node
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 21
-            - uses: pnpm/action-setup@v2
-              name: Install pnpm
-              id: pnpm-install
-              with:
-                  version: 9
-                  run_install: false
-            - name: Install front-end dependencies and build front-end assets
-              run: pnpm install
-            - name: Check
-              run: pnpm run lint
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 9
+          run_install: false
+      - name: Install front-end dependencies and build front-end assets
+        run: pnpm install
+      - name: Check
+        run: pnpm run lint

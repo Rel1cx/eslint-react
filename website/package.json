@@ -30,7 +30,7 @@
     "@vanilla-extract/next-plugin": "2.4.2",
     "@vitejs/plugin-react": "4.3.1",
     "autoprefixer": "10.4.19",
-    "effect": "3.3.2",
+    "effect": "3.3.3",
     "eslint": "^9.5.0",
     "eslint-plugin-mdx": "3.1.5",
     "eslint-plugin-react-hooks": "4.6.2",

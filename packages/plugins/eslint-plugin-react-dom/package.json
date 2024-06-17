@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "dedent": "1.5.3",
-    "effect": "3.3.2",
+    "effect": "3.3.3",
     "tsup": "8.1.0"
   },
   "peerDependencies": {

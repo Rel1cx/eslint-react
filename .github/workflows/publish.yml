@@ -4,9 +4,9 @@ on:
     branches:
       - main
     tags-ignore:
-      - '**'
+      - "**"
     paths-ignore:
-      - '**/*.gitignore'
+      - "**/*.gitignore"
       - .editorconfig
       - adrs/**
       - docs/**
@@ -23,16 +23,17 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 21
+          node-version: 22
           check-latest: true
-          cache: 'pnpm'
-          registry-url: 'https://registry.npmjs.org'
-      - name: Install the latest npm
-        run: npm install -g npm
+          registry-url: "https://registry.npmjs.org"
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 9
+          run_install: false
       - name: Install dependencies
         run: pnpm install
       - name: Run build
