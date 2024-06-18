@@ -9,12 +9,13 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "14.2.4",
+    "effect": "^3.3.4",
+    "next": "^14.2.4",
     "nextra": "3.0.0-alpha.24",
     "nextra-theme-docs": "3.0.0-alpha.24",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "ts-pattern": "5.2.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "ts-pattern": "^5.2.0"
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "workspace:*",
@@ -30,7 +31,6 @@
     "@vanilla-extract/next-plugin": "2.4.2",
     "@vitejs/plugin-react": "4.3.1",
     "autoprefixer": "10.4.19",
-    "effect": "3.3.4",
     "eslint": "^9.5.0",
     "eslint-plugin-mdx": "3.1.5",
     "eslint-plugin-react-hooks": "4.6.2",

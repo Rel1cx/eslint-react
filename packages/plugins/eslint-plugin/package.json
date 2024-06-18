@@ -59,13 +59,13 @@
     "@typescript-eslint/type-utils": "^7.13.1",
     "@typescript-eslint/types": "^7.13.1",
     "@typescript-eslint/utils": "^7.13.1",
+    "effect": "^3.3.4",
     "eslint-plugin-react-core": "workspace:*",
     "eslint-plugin-react-dom": "workspace:*",
     "eslint-plugin-react-hooks-extra": "workspace:*",
     "eslint-plugin-react-naming-convention": "workspace:*"
   },
   "devDependencies": {
-    "effect": "3.3.4",
     "tsup": "8.1.0"
   },
   "peerDependencies": {
