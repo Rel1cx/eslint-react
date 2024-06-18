@@ -18,7 +18,7 @@ import { isMatching, P } from "ts-pattern";
  * @param context The rule context
  * @returns `true` if node is a render function, `false` if not
  */
-export function unsafeIsRenderFunction(node: TSESTreeFunction, context: RuleContext) {
+export function isRenderFunctionLoose(node: TSESTreeFunction, context: RuleContext) {
   const { body, parent } = node;
 
   const maybeId = getFunctionIdentifier(node);
@@ -56,7 +56,7 @@ export function unsafeIsRenderFunction(node: TSESTreeFunction, context: RuleCont
  * @param context The rule context
  * @returns `true` if node is a render prop, `false` if not
  */
-export function unsafeIsRenderProp(node: TSESTree.JSXAttribute, context: RuleContext) {
+export function isRenderPropLoose(node: TSESTree.JSXAttribute, context: RuleContext) {
   return isMatching({
     type: NodeType.JSXAttribute,
     name: {
@@ -67,5 +67,5 @@ export function unsafeIsRenderProp(node: TSESTree.JSXAttribute, context: RuleCon
       type: NodeType.JSXExpressionContainer,
       expression: P.when(isFunction),
     },
-  }, node) && unsafeIsRenderFunction(node.value.expression, context);
+  }, node) && isRenderFunctionLoose(node.value.expression, context);
 }

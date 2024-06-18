@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / unsafeIsRenderFunction
+[@eslint-react/core](../README.md) / isRenderFunctionLoose
 
-# Function: unsafeIsRenderFunction()
+# Function: isRenderFunctionLoose()
 
-> **unsafeIsRenderFunction**(`node`, `context`): `boolean`
+> **isRenderFunctionLoose**(`node`, `context`): `boolean`
 
 Unsafe check whether given node is a render function
 ```jsx

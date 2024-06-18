@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / unsafeIsDeclaredInRenderProp
+[@eslint-react/core](../README.md) / isDeclaredInRenderPropLoose
 
-# Function: unsafeIsDeclaredInRenderProp()
+# Function: isDeclaredInRenderPropLoose()
 
-> **unsafeIsDeclaredInRenderProp**(`node`): `boolean`
+> **isDeclaredInRenderPropLoose**(`node`): `boolean`
 
 Unsafe check whether given node is declared inside a render prop
 ```jsx

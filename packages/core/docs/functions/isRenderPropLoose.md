@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / unsafeIsRenderProp
+[@eslint-react/core](../README.md) / isRenderPropLoose
 
-# Function: unsafeIsRenderProp()
+# Function: isRenderPropLoose()
 
-> **unsafeIsRenderProp**(`node`, `context`): `boolean`
+> **isRenderPropLoose**(`node`, `context`): `boolean`
 
 Unsafe check whether given JSXAttribute is a render prop
 ```jsx

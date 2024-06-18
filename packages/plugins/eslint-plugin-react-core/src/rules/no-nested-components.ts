@@ -2,10 +2,10 @@ import type { TSESTreeClass, TSESTreeFunction } from "@eslint-react/ast";
 import { isClass, isFunction, NodeType, traverseUp, traverseUpGuard } from "@eslint-react/ast";
 import {
   ERComponentHint,
+  isDeclaredInRenderPropLoose,
+  isDirectValueOfRenderPropertyLoose,
   isInsideCreateElementProps,
   isInsideRenderMethod,
-  unsafeIsDeclaredInRenderProp,
-  unsafeIsDirectValueOfRenderProperty,
   useComponentCollector,
   useComponentCollectorLegacy,
 } from "@eslint-react/core";
@@ -64,14 +64,14 @@ export default createRule<[], MessageID>({
         };
         for (const { name: componentName, node: component } of functionComponents) {
           // Do not mark objects containing render methods
-          if (unsafeIsDirectValueOfRenderProperty(component)) continue;
+          if (isDirectValueOfRenderPropertyLoose(component)) continue;
           // Do not mark anonymous function components to reduce false positives
           if (O.isNone(componentName)) continue;
           const name = componentName.value;
           const isInsideProperty = component.parent.type === NodeType.Property;
           const isInsideJSXPropValue = isInsidePropValue(component);
           if (isInsideJSXPropValue) {
-            if (!unsafeIsDeclaredInRenderProp(component)) {
+            if (!isDeclaredInRenderPropLoose(component)) {
               context.report({
                 data: {
                   name,
@@ -95,7 +95,7 @@ export default createRule<[], MessageID>({
             continue;
           }
           const maybeParentComponent = traverseUpGuard(component, isFunctionComponent);
-          if (O.isSome(maybeParentComponent) && !unsafeIsDirectValueOfRenderProperty(maybeParentComponent.value)) {
+          if (O.isSome(maybeParentComponent) && !isDirectValueOfRenderPropertyLoose(maybeParentComponent.value)) {
             context.report({
               data: {
                 name,

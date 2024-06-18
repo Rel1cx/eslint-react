@@ -15,7 +15,7 @@ import { isMatching, P } from "ts-pattern";
  * @param node The AST node to check
  * @returns `true` if component is declared inside a render property, `false` if not
  */
-export function unsafeIsDirectValueOfRenderProperty(node: TSESTree.Node) {
+export function isDirectValueOfRenderPropertyLoose(node: TSESTree.Node) {
   const matching = isMatching({
     key: {
       type: NodeType.Identifier,
@@ -38,8 +38,8 @@ export function unsafeIsDirectValueOfRenderProperty(node: TSESTree.Node) {
  * @param node The AST node to check
  * @returns `true` if component is declared inside a render prop, `false` if not
  */
-export function unsafeIsDeclaredInRenderProp(node: TSESTree.Node) {
-  if (unsafeIsDirectValueOfRenderProperty(node)) {
+export function isDeclaredInRenderPropLoose(node: TSESTree.Node) {
+  if (isDirectValueOfRenderPropertyLoose(node)) {
     return true;
   }
 
