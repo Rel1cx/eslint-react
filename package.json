@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.5.16",
+  "version": "1.5.17-next.0",
   "private": true,
   "description": "A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -60,10 +60,10 @@
     "@eslint/js": "9.5.0",
     "@tsconfig/node20": "20.1.4",
     "@tsconfig/strictest": "2.0.5",
-    "@types/node": "20.14.2",
-    "@typescript-eslint/eslint-plugin": "^7.13.0",
-    "@typescript-eslint/parser": "^7.13.0",
-    "@typescript-eslint/rule-tester": "^7.13.0",
+    "@types/node": "20.14.4",
+    "@typescript-eslint/eslint-plugin": "^7.13.1",
+    "@typescript-eslint/parser": "^7.13.1",
+    "@typescript-eslint/rule-tester": "^7.13.1",
     "@vitest/ui": "1.6.0",
     "bun": "1.1.13",
     "bun-types": "1.1.13",
@@ -71,8 +71,8 @@
     "code-block-writer": "13.0.1",
     "cspell": "8.8.4",
     "dedent": "1.5.3",
-    "dprint": "0.46.2",
-    "effect": "3.3.3",
+    "dprint": "0.46.3",
+    "effect": "3.3.4",
     "esbuild": "0.21.5",
     "eslint": "^9.5.0",
     "eslint-config-flat-gitignore": "0.1.5",
@@ -104,7 +104,7 @@
     "typescript": "^5.4.5",
     "vitest": "1.6.0"
   },
-  "packageManager": "pnpm@9.3.0",
+  "packageManager": "pnpm@9.4.0",
   "engines": {
     "bun": ">=1.0.15",
     "node": ">=18.18.0"
