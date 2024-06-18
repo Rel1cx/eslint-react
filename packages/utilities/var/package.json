@@ -49,7 +49,7 @@
     "@typescript-eslint/utils": "^7.13.1",
     "effect": "^3.3.4",
     "string-ts": "^2.1.1",
-    "valibot": "^0.32.0"
+    "valibot": "^0.33.0"
   },
   "devDependencies": {
     "tsup": "8.1.0"
