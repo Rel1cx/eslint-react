@@ -44,7 +44,7 @@
   "dependencies": {
     "@typescript-eslint/utils": "^7.13.1",
     "deepmerge-ts": "^7.0.3",
-    "valibot": "^0.33.1"
+    "valibot": "^0.33.2"
   },
   "devDependencies": {
     "tsup": "8.1.0",

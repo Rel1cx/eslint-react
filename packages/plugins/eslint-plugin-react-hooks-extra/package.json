@@ -53,9 +53,9 @@
     "@typescript-eslint/type-utils": "^7.13.1",
     "@typescript-eslint/types": "^7.13.1",
     "@typescript-eslint/utils": "^7.13.1",
-    "effect": "^3.3.4",
+    "effect": "^3.3.5",
     "string-ts": "^2.1.1",
-    "valibot": "^0.33.1"
+    "valibot": "^0.33.2"
   },
   "devDependencies": {
     "dedent": "1.5.3",

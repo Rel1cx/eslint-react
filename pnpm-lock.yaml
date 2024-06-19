@@ -59,11 +59,11 @@ importers:
         specifier: 1.6.0
         version: 1.6.0(vitest@1.6.0)
       bun:
-        specifier: 1.1.13
-        version: 1.1.13
+        specifier: 1.1.14
+        version: 1.1.14
       bun-types:
-        specifier: 1.1.13
-        version: 1.1.13
+        specifier: 1.1.14
+        version: 1.1.14
       bundle-require:
         specifier: ^5.0.0
         version: 5.0.0(esbuild@0.21.5)
@@ -80,8 +80,8 @@ importers:
         specifier: 0.46.3
         version: 0.46.3
       effect:
-        specifier: 3.3.4
-        version: 3.3.4
+        specifier: 3.3.5
+        version: 3.3.5
       esbuild:
         specifier: 0.21.5
         version: 0.21.5
@@ -98,8 +98,8 @@ importers:
         specifier: 6.1.0
         version: 6.1.0(eslint@9.5.0)
       eslint-plugin-functional:
-        specifier: 6.5.1
-        version: 6.5.1(eslint@9.5.0)(typescript@5.4.5)
+        specifier: 6.6.0
+        version: 6.6.0(eslint@9.5.0)(typescript@5.4.5)
       eslint-plugin-import-x:
         specifier: 0.5.1
         version: 0.5.1(eslint@9.5.0)(typescript@5.4.5)
@@ -255,8 +255,8 @@ importers:
         specifier: ^7.13.1
         version: 7.13.1(eslint@9.5.0)(typescript@5.4.5)
       effect:
-        specifier: ^3.3.4
-        version: 3.3.4
+        specifier: ^3.3.5
+        version: 3.3.5
       short-unique-id:
         specifier: ^5.2.0
         version: 5.2.0
@@ -264,8 +264,8 @@ importers:
         specifier: ^5.2.0
         version: 5.2.0
       valibot:
-        specifier: ^0.33.1
-        version: 0.33.1
+        specifier: ^0.33.2
+        version: 0.33.2
     devDependencies:
       tsup:
         specifier: 8.1.0
@@ -295,8 +295,8 @@ importers:
         specifier: ^7.13.1
         version: 7.13.1(eslint@9.5.0)(typescript@5.4.5)
       effect:
-        specifier: ^3.3.4
-        version: 3.3.4
+        specifier: ^3.3.5
+        version: 3.3.5
       eslint:
         specifier: ^9.5.0
         version: 9.5.0
@@ -362,8 +362,8 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
       valibot:
-        specifier: ^0.33.1
-        version: 0.33.1
+        specifier: ^0.33.2
+        version: 0.33.2
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -405,8 +405,8 @@ importers:
         specifier: ^7.13.1
         version: 7.13.1(eslint@9.5.0)(typescript@5.4.5)
       effect:
-        specifier: ^3.3.4
-        version: 3.3.4
+        specifier: ^3.3.5
+        version: 3.3.5
       eslint:
         specifier: ^9.5.0
         version: 9.5.0
@@ -417,8 +417,8 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
       valibot:
-        specifier: ^0.33.1
-        version: 0.33.1
+        specifier: ^0.33.2
+        version: 0.33.2
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -463,8 +463,8 @@ importers:
         specifier: ^7.13.1
         version: 7.13.1(eslint@9.5.0)(typescript@5.4.5)
       effect:
-        specifier: ^3.3.4
-        version: 3.3.4
+        specifier: ^3.3.5
+        version: 3.3.5
       eslint:
         specifier: ^9.5.0
         version: 9.5.0
@@ -475,8 +475,8 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
       valibot:
-        specifier: ^0.33.1
-        version: 0.33.1
+        specifier: ^0.33.2
+        version: 0.33.2
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -518,8 +518,8 @@ importers:
         specifier: ^7.13.1
         version: 7.13.1(eslint@9.5.0)(typescript@5.4.5)
       effect:
-        specifier: ^3.3.4
-        version: 3.3.4
+        specifier: ^3.3.5
+        version: 3.3.5
       eslint:
         specifier: ^9.5.0
         version: 9.5.0
@@ -530,8 +530,8 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
       valibot:
-        specifier: ^0.33.1
-        version: 0.33.1
+        specifier: ^0.33.2
+        version: 0.33.2
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -576,8 +576,8 @@ importers:
         specifier: ^7.13.1
         version: 7.13.1(eslint@9.5.0)(typescript@5.4.5)
       effect:
-        specifier: ^3.3.4
-        version: 3.3.4
+        specifier: ^3.3.5
+        version: 3.3.5
       eslint:
         specifier: ^9.5.0
         version: 9.5.0
@@ -591,8 +591,8 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
       valibot:
-        specifier: ^0.33.1
-        version: 0.33.1
+        specifier: ^0.33.2
+        version: 0.33.2
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -610,8 +610,8 @@ importers:
         specifier: ^7.0.3
         version: 7.0.3
       valibot:
-        specifier: ^0.33.1
-        version: 0.33.1
+        specifier: ^0.33.2
+        version: 0.33.2
     devDependencies:
       tsup:
         specifier: 8.1.0
@@ -663,8 +663,8 @@ importers:
         specifier: ^7.13.1
         version: 7.13.1(eslint@9.5.0)(typescript@5.4.5)
       effect:
-        specifier: ^3.3.4
-        version: 3.3.4
+        specifier: ^3.3.5
+        version: 3.3.5
       string-ts:
         specifier: ^2.1.1
         version: 2.1.1
@@ -703,8 +703,8 @@ importers:
         specifier: ^7.13.1
         version: 7.13.1(eslint@9.5.0)(typescript@5.4.5)
       effect:
-        specifier: ^3.3.4
-        version: 3.3.4
+        specifier: ^3.3.5
+        version: 3.3.5
       micro-memoize:
         specifier: ^4.1.2
         version: 4.1.2
@@ -737,14 +737,14 @@ importers:
         specifier: ^7.13.1
         version: 7.13.1(eslint@9.5.0)(typescript@5.4.5)
       effect:
-        specifier: ^3.3.4
-        version: 3.3.4
+        specifier: ^3.3.5
+        version: 3.3.5
       string-ts:
         specifier: ^2.1.1
         version: 2.1.1
       valibot:
-        specifier: ^0.33.1
-        version: 0.33.1
+        specifier: ^0.33.2
+        version: 0.33.2
     devDependencies:
       tsup:
         specifier: 8.1.0
@@ -753,8 +753,8 @@ importers:
   website:
     dependencies:
       effect:
-        specifier: ^3.3.4
-        version: 3.3.4
+        specifier: ^3.3.5
+        version: 3.3.5
       next:
         specifier: ^14.2.4
         version: 14.2.4(@babel/core@7.24.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.6)
@@ -1809,43 +1809,43 @@ packages:
     resolution: {integrity: sha512-pwK+BfEBZJbKdNYpHHRTNBwBoqrN/iIMO0AiGvYsp3Hoaq0WbgGSWQR6SCldZovoDpY3yje5lkFUe6gsDgJ2vg==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  '@oven/bun-darwin-aarch64@1.1.13':
-    resolution: {integrity: sha512-XjnL/B3i7s3xR7f7rYtXU5fyVb27g1Hd5fsmkyi1sNmB/34Lt/KRMmhp4C7brjxFtbI3NSkrvF+b3PkprQzPCA==}
+  '@oven/bun-darwin-aarch64@1.1.14':
+    resolution: {integrity: sha512-zdgLlQ9+SUOgJzTMQyb0lnX2MRtFgVApXPR9c0lSVUqPbfcGogVDRuNFWdYK96wjUkrCJIvYeu5rbMGcnJD1Qg==}
     cpu: [arm64]
     os: [darwin]
 
-  '@oven/bun-darwin-x64-baseline@1.1.13':
-    resolution: {integrity: sha512-RvVAeFMIayd8HKJqkWnZdI9BQJbH87jAXhNVMLlHpGqP4JVvkPLCKJT5jr9/4FGeWtQmMMZufH6PzTxpHCc9HQ==}
+  '@oven/bun-darwin-x64-baseline@1.1.14':
+    resolution: {integrity: sha512-k1vKXmOQ9+Rdj6dkgPIo0MWKmEf9+CmjyD2GZkRM6dxufiytNSuE5yT8FQMtb2Yg1I8OFH/+kUiNxn2eIKurRw==}
     cpu: [x64]
     os: [darwin]
 
-  '@oven/bun-darwin-x64@1.1.13':
-    resolution: {integrity: sha512-N9t2JHLIEs/n+d7R6ybU/3d7o7xGeKd1U3vip9RMLaEAaJM6mfByAHmhwaQesr3Z6ljcs1zkQJNaFMJA/cJqnA==}
+  '@oven/bun-darwin-x64@1.1.14':
+    resolution: {integrity: sha512-CEoFw0udQRann0Vj3Et1/nW6MV3EY/kZ+lNkSCCmFEvq1HDLB+Wbicgnt9GbEElw6XXXKm4FdxMYnOJzfeanYQ==}
     cpu: [x64]
     os: [darwin]
 
-  '@oven/bun-linux-aarch64@1.1.13':
-    resolution: {integrity: sha512-5F9EKOjQauRXr+D3VjeMebKyq93xhdgrBOfpPnAn/C+NLFs1Wa2ZjwGAKjW2akmqht6milHft3sbsnCIR+MWIQ==}
+  '@oven/bun-linux-aarch64@1.1.14':
+    resolution: {integrity: sha512-uHI7jk47C6wwG/y90W35NttyDrKLWum1pa5PfpuMi8+LpxnRGi0doGXN73RwdJy+qnYp2OjJTo60X++GMn9GmA==}
     cpu: [arm64]
     os: [linux]
 
-  '@oven/bun-linux-x64-baseline@1.1.13':
-    resolution: {integrity: sha512-0zhCVLsFcIyfqqsum7XUejuF3QhRkhI1DxgHQrLs16EKS4gt4X4A49jgTIHOvyedHcKb3FZOLsyjpOejB8kIpg==}
+  '@oven/bun-linux-x64-baseline@1.1.14':
+    resolution: {integrity: sha512-7otawHLy8ec0iN0wr7sznkOpMhofZCfJeA4vWp+5D/yhXg8ZxVaK7xJ1aWBlBLHAMX8tWTkrUjB6X2iQFtvZvQ==}
     cpu: [x64]
     os: [linux]
 
-  '@oven/bun-linux-x64@1.1.13':
-    resolution: {integrity: sha512-3mq50HhwJbAwu0Dw6OCB5PS6uD1bpFGb8XrEgxnOB3ZydCBOVRRjoY1Jb8HjYHVKzFJZoPrUqulToA8od3IzeQ==}
+  '@oven/bun-linux-x64@1.1.14':
+    resolution: {integrity: sha512-t2b6pDSlV2Uke6ON5eSx1hk/o+f4s8Nr+E1djx9fNqrvz58UF4zmilQoEKDhciuRUKvhMkroddiORpxIMiKIjA==}
     cpu: [x64]
     os: [linux]
 
-  '@oven/bun-windows-x64-baseline@1.1.13':
-    resolution: {integrity: sha512-7CVWrc/6LSRrdkxwBjAt4ehqQrLxC9k8+LI7VZKAYt1yNHM3JaOhcPyt3AJB10cmzc5HA/q/uSi6xcNUnlCWiA==}
+  '@oven/bun-windows-x64-baseline@1.1.14':
+    resolution: {integrity: sha512-oK7y0q5sICni6771q+xvJ40dqzg0l+x2IdkN8V2I5QMzQCqFIVPhwPmOX5+2JsMp9ILQtYeioyL60kCDgIguDw==}
     cpu: [x64]
     os: [win32]
 
-  '@oven/bun-windows-x64@1.1.13':
-    resolution: {integrity: sha512-PwFKQVFzhpUMAF86PwIEctfFT8ZQe1Gueqn1dKk07lwJOBve+Ou2NUEoQsq0eac0Cbw2C20fScjyVzDBwIMIPQ==}
+  '@oven/bun-windows-x64@1.1.14':
+    resolution: {integrity: sha512-hZ+Z0zgO6FM63U99wkF0YvTLm/Tcfa4ue5U9JOGc8K05DLBS4gHp6f0bngzd3EvIEz+mfc+zcYPR954dYHT9AA==}
     cpu: [x64]
     os: [win32]
 
@@ -2557,11 +2557,11 @@ packages:
     resolution: {integrity: sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==}
     engines: {node: '>=6'}
 
-  bun-types@1.1.13:
-    resolution: {integrity: sha512-G/TqF0SsMQGLr4g7K3B2BK8BrPEA1EqCNwxZbyRdj5M4t54zvwyaqvRJOW34kuPqc2IvNNalRU3swc8B4oc4FA==}
+  bun-types@1.1.14:
+    resolution: {integrity: sha512-esfxOvECTkjEuUEHBOoOo590Qggf4b9cz5h29AOB2SKt3yZwG3LbAX4iIYwWZX7GnO7vaY5hIdcQygwN0xGdNw==}
 
-  bun@1.1.13:
-    resolution: {integrity: sha512-yrujTLEspzQJfh7hd2xkYM5skQsjBwVm/wq0cyYBkR5x4FRveOUqeAqtFOPH4aHvsDgwVN+dO0uIrlvE7dDsDQ==}
+  bun@1.1.14:
+    resolution: {integrity: sha512-LqbB6Xr8bU6D9K18UOrzmLLPYOS9CQ3SGW+JvTUli/eYW4y70yzdCr6JZiw3pk0V8ZqHn9Kmg3c8/7rF2XIM8g==}
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -3196,11 +3196,11 @@ packages:
   effect@3.3.2:
     resolution: {integrity: sha512-695XQBtp+UUYG50oREG9ujnRoeQU7xhwHDhT6ZAexm3Q+umdml1kjxcPoYRrS65crmaLlhVpjZHePJNzWOODnA==}
 
-  effect@3.3.4:
-    resolution: {integrity: sha512-BNQBZqe28ZlIwqKiHmEnXHx0Mql700KUk8QmXVHPwat2RhtWt28HyR86DRvc/93R6jM8AFwRRSYS/zfHI0KYIQ==}
+  effect@3.3.5:
+    resolution: {integrity: sha512-ehDpb+3zRTYsCqDWY32rT4oxtG0BJ797+HSog+FPjiWKjNxnPgpslUIQha8CoxqFZln2ZeBRv00tzGIhUAQKsw==}
 
-  electron-to-chromium@1.4.805:
-    resolution: {integrity: sha512-8W4UJwX/w9T0QSzINJckTKG6CYpAUTqsaWcWIsdud3I1FYJcMgW9QqT1/4CBff/pP/TihWh13OmiyY8neto6vw==}
+  electron-to-chromium@1.4.806:
+    resolution: {integrity: sha512-nkoEX2QIB8kwCOtvtgwhXWy2IHVcOLQZu9Qo36uaGB835mdX/h8uLRlosL6QIhLVUnAiicXRW00PwaPZC74Nrg==}
 
   elkjs@0.9.3:
     resolution: {integrity: sha512-f/ZeWvW/BCXbhGEf1Ujp29EASo/lk1FDnETgNKwJrsVvGZhUWCZyg3xLJjAsxfOmt8KjswHmI5EwCQcPMpOYhQ==}
@@ -3290,8 +3290,8 @@ packages:
     peerDependencies:
       eslint: ^9.5.0
 
-  eslint-plugin-functional@6.5.1:
-    resolution: {integrity: sha512-8FbXylC/kptJ1drux4fyopVWmDkNTHGj/p7DKFt6G8hVXUhkC1eHCcNb5bnUOrpYEycIXXi0MrE3Nt0oEOkrQA==}
+  eslint-plugin-functional@6.6.0:
+    resolution: {integrity: sha512-RhNEVL+YrN6gJcpIkootKc1knUzZyljhuiuDpv/dGRERdXEGsnKCkq+oBnM8qFtZFIkSKMoMj4/M1bPGlSl5JQ==}
     engines: {node: '>=16.10.0'}
     peerDependencies:
       eslint: ^9.5.0
@@ -3668,8 +3668,8 @@ packages:
   glob-to-regexp@0.4.1:
     resolution: {integrity: sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==}
 
-  glob@10.4.1:
-    resolution: {integrity: sha512-2jelhlq3E4ho74ZyVLN03oKdAZVUa6UDZzFLVH1H7dnoax+y9qyaq8zBkfDIggjniU19z0wU18y16jMB2eyVIw==}
+  glob@10.4.2:
+    resolution: {integrity: sha512-GwMlUF6PkPo3Gk21UxkCohOv0PLcIXVtKyLlpEI28R/cO/4eNOdmLk3CMW1wROV/WR/EsZOWAfBbBOqYvs88/w==}
     engines: {node: '>=16 || 14 >=14.18'}
     hasBin: true
 
@@ -3951,8 +3951,8 @@ packages:
   is-hexadecimal@2.0.1:
     resolution: {integrity: sha512-DgZQp241c8oO6cA1SbTEWiXeoxV42vlcJxgH+B3hi1AiqqKruZR3ZGF8In3fj4+/y/7rHvlOZLZtgJ/4ttYGZg==}
 
-  is-immutable-type@3.1.0:
-    resolution: {integrity: sha512-EIAsgCk/4tEohdqKa5iGf1+IwoRYV/81Fe1awSspgobMxOmmxTZslvkH/PAtSKtR2NDFXGVkZZNqiLQA37GKBQ==}
+  is-immutable-type@4.0.0:
+    resolution: {integrity: sha512-gyFBCXv+NikTs8/PGZhgjbMmFZQ5jvHGZIsVu6+/9Bk4K7imlWBIDN7hTr9fNioGzFg71I4YM3z8f0aKXarTAw==}
     peerDependencies:
       eslint: ^9.5.0
       typescript: ^5.4.5
@@ -4824,6 +4824,9 @@ packages:
   p-try@2.2.0:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}
     engines: {node: '>=6'}
+
+  package-json-from-dist@1.0.0:
+    resolution: {integrity: sha512-dATvCeZN/8wQsGywez1mzHtTlP22H8OEfPrVMLNr4/eGa+ijtLn/6M5f0dY8UKNrC2O9UCU6SSoG3qRKnt7STw==}
 
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -5786,8 +5789,8 @@ packages:
   unified@10.1.2:
     resolution: {integrity: sha512-pUSWAi/RAnVy1Pif2kAoeWNBa3JVrx0MId2LASj8G+7AiHWoKZNTomq6LG326T68U7/e263X6fTdcXIy7XnF7Q==}
 
-  unified@11.0.4:
-    resolution: {integrity: sha512-apMPnyLjAX+ty4OrNap7yumyVAMlKx5IWU2wlzzUdYJO9A8f1p9m/gywF/GM2ZDFcjQPrx59Mc90KwmxsoklxQ==}
+  unified@11.0.5:
+    resolution: {integrity: sha512-xKvGhPWw3k84Qjh8bI3ZeJjqnyadK+GEFtazSfZv/rKeTkTjOJho6mFqh2SM96iIcZokxiOpg78GazTSg8+KHA==}
 
   unist-util-find-after@5.0.0:
     resolution: {integrity: sha512-amQa0Ep2m6hE2g72AugUItjbuM8X8cGQnFoHk0pGfrFeT9GZhzN5SW8nRsiGKK7Aif4CrACPENkA6P/Lw6fHGQ==}
@@ -5871,8 +5874,8 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
-  valibot@0.33.1:
-    resolution: {integrity: sha512-rmAlZGIcuvTir4HGFxBKn4vH003w+wr9qUiScMAG46np7TAedj7foYAR7Im4v9W/gW0CyW2Qmaygrmhd96yreQ==}
+  valibot@0.33.2:
+    resolution: {integrity: sha512-ZpFWuI+bs5+PP66q4zVFn4e4t/s5jmMw5iPBZmGUoi8iQqXyU9YY/BLCAyk62Z/bNS8qdUNBEyx52952qdqW3w==}
 
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
@@ -6937,7 +6940,7 @@ snapshots:
       remark-parse: 11.0.0
       remark-rehype: 11.1.0
       source-map: 0.7.4
-      unified: 11.0.4
+      unified: 11.0.5
       unist-util-position-from-estree: 2.0.0
       unist-util-stringify-position: 4.0.0
       unist-util-visit: 5.0.0
@@ -7063,34 +7066,34 @@ snapshots:
   '@npmcli/map-workspaces@3.0.6':
     dependencies:
       '@npmcli/name-from-folder': 2.0.0
-      glob: 10.4.1
+      glob: 10.4.2
       minimatch: 9.0.4
       read-package-json-fast: 3.0.2
 
   '@npmcli/name-from-folder@2.0.0': {}
 
-  '@oven/bun-darwin-aarch64@1.1.13':
+  '@oven/bun-darwin-aarch64@1.1.14':
     optional: true
 
-  '@oven/bun-darwin-x64-baseline@1.1.13':
+  '@oven/bun-darwin-x64-baseline@1.1.14':
     optional: true
 
-  '@oven/bun-darwin-x64@1.1.13':
+  '@oven/bun-darwin-x64@1.1.14':
     optional: true
 
-  '@oven/bun-linux-aarch64@1.1.13':
+  '@oven/bun-linux-aarch64@1.1.14':
     optional: true
 
-  '@oven/bun-linux-x64-baseline@1.1.13':
+  '@oven/bun-linux-x64-baseline@1.1.14':
     optional: true
 
-  '@oven/bun-linux-x64@1.1.13':
+  '@oven/bun-linux-x64@1.1.14':
     optional: true
 
-  '@oven/bun-windows-x64-baseline@1.1.13':
+  '@oven/bun-windows-x64-baseline@1.1.14':
     optional: true
 
-  '@oven/bun-windows-x64@1.1.13':
+  '@oven/bun-windows-x64@1.1.14':
     optional: true
 
   '@parcel/watcher-android-arm64@2.4.1':
@@ -7889,7 +7892,7 @@ snapshots:
   browserslist@4.23.1:
     dependencies:
       caniuse-lite: 1.0.30001636
-      electron-to-chromium: 1.4.805
+      electron-to-chromium: 1.4.806
       node-releases: 2.0.14
       update-browserslist-db: 1.0.16(browserslist@4.23.1)
 
@@ -7902,21 +7905,21 @@ snapshots:
 
   builtin-modules@3.3.0: {}
 
-  bun-types@1.1.13:
+  bun-types@1.1.14:
     dependencies:
       '@types/node': 20.12.14
       '@types/ws': 8.5.10
 
-  bun@1.1.13:
+  bun@1.1.14:
     optionalDependencies:
-      '@oven/bun-darwin-aarch64': 1.1.13
-      '@oven/bun-darwin-x64': 1.1.13
-      '@oven/bun-darwin-x64-baseline': 1.1.13
-      '@oven/bun-linux-aarch64': 1.1.13
-      '@oven/bun-linux-x64': 1.1.13
-      '@oven/bun-linux-x64-baseline': 1.1.13
-      '@oven/bun-windows-x64': 1.1.13
-      '@oven/bun-windows-x64-baseline': 1.1.13
+      '@oven/bun-darwin-aarch64': 1.1.14
+      '@oven/bun-darwin-x64': 1.1.14
+      '@oven/bun-darwin-x64-baseline': 1.1.14
+      '@oven/bun-linux-aarch64': 1.1.14
+      '@oven/bun-linux-x64': 1.1.14
+      '@oven/bun-linux-x64-baseline': 1.1.14
+      '@oven/bun-windows-x64': 1.1.14
+      '@oven/bun-windows-x64-baseline': 1.1.14
 
   bundle-require@4.2.1(esbuild@0.21.5):
     dependencies:
@@ -8594,9 +8597,9 @@ snapshots:
 
   effect@3.3.2: {}
 
-  effect@3.3.4: {}
+  effect@3.3.5: {}
 
-  electron-to-chromium@1.4.805: {}
+  electron-to-chromium@1.4.806: {}
 
   elkjs@0.9.3: {}
 
@@ -8713,7 +8716,7 @@ snapshots:
       remark-stringify: 11.0.0
       synckit: 0.9.0
       tslib: 2.6.3
-      unified: 11.0.4
+      unified: 11.0.5
       unified-engine: 11.2.1
       unist-util-visit: 5.0.0
       uvu: 0.5.6
@@ -8733,13 +8736,13 @@ snapshots:
       eslint-utils: 3.0.0(eslint@9.5.0)
       estraverse: 5.3.0
 
-  eslint-plugin-functional@6.5.1(eslint@9.5.0)(typescript@5.4.5):
+  eslint-plugin-functional@6.6.0(eslint@9.5.0)(typescript@5.4.5):
     dependencies:
       '@typescript-eslint/utils': 7.13.1(eslint@9.5.0)(typescript@5.4.5)
       deepmerge-ts: 5.1.0
       escape-string-regexp: 4.0.0
       eslint: 9.5.0
-      is-immutable-type: 3.1.0(eslint@9.5.0)(typescript@5.4.5)
+      is-immutable-type: 4.0.0(eslint@9.5.0)(typescript@5.4.5)
       semver: 7.6.2
       ts-api-utils: 1.3.0(typescript@5.4.5)
     optionalDependencies:
@@ -8793,7 +8796,7 @@ snapshots:
       remark-parse: 11.0.0
       remark-stringify: 11.0.0
       tslib: 2.6.3
-      unified: 11.0.4
+      unified: 11.0.5
       vfile: 6.0.1
     transitivePeerDependencies:
       - supports-color
@@ -9184,12 +9187,13 @@ snapshots:
 
   glob-to-regexp@0.4.1: {}
 
-  glob@10.4.1:
+  glob@10.4.2:
     dependencies:
       foreground-child: 3.2.1
       jackspeak: 3.4.0
       minimatch: 9.0.4
       minipass: 7.1.2
+      package-json-from-dist: 1.0.0
       path-scurry: 1.11.1
 
   glob@8.1.0:
@@ -9521,7 +9525,7 @@ snapshots:
 
   is-hexadecimal@2.0.1: {}
 
-  is-immutable-type@3.1.0(eslint@9.5.0)(typescript@5.4.5):
+  is-immutable-type@4.0.0(eslint@9.5.0)(typescript@5.4.5):
     dependencies:
       '@typescript-eslint/type-utils': 7.13.1(eslint@9.5.0)(typescript@5.4.5)
       eslint: 9.5.0
@@ -10794,6 +10798,8 @@ snapshots:
 
   p-try@2.2.0: {}
 
+  package-json-from-dist@1.0.0: {}
+
   parent-module@1.0.1:
     dependencies:
       callsites: 3.1.0
@@ -11056,7 +11062,7 @@ snapshots:
     dependencies:
       '@types/hast': 3.0.4
       hast-util-from-html: 2.0.1
-      unified: 11.0.4
+      unified: 11.0.5
 
   rehype-pretty-code@0.13.0(shiki@1.7.0):
     dependencies:
@@ -11065,7 +11071,7 @@ snapshots:
       parse-numeric-range: 1.3.0
       rehype-parse: 9.0.0
       shiki: 1.7.0
-      unified: 11.0.4
+      unified: 11.0.5
       unist-util-visit: 5.0.0
 
   rehype-raw@7.0.0:
@@ -11085,7 +11091,7 @@ snapshots:
       '@types/mdast': 4.0.4
       mdast-util-frontmatter: 2.0.1
       micromark-extension-frontmatter: 2.0.0
-      unified: 11.0.4
+      unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
 
@@ -11096,7 +11102,7 @@ snapshots:
       micromark-extension-gfm: 3.0.0
       remark-parse: 11.0.0
       remark-stringify: 11.0.0
-      unified: 11.0.4
+      unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
 
@@ -11105,7 +11111,7 @@ snapshots:
       '@types/mdast': 4.0.4
       mdast-util-math: 3.0.0
       micromark-extension-math: 3.0.0
-      unified: 11.0.4
+      unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
 
@@ -11121,7 +11127,7 @@ snapshots:
       '@types/mdast': 4.0.4
       mdast-util-from-markdown: 2.0.1
       micromark-util-types: 2.0.0
-      unified: 11.0.4
+      unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
 
@@ -11137,7 +11143,7 @@ snapshots:
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.4
       mdast-util-to-hast: 13.2.0
-      unified: 11.0.4
+      unified: 11.0.5
       vfile: 6.0.1
 
   remark-smartypants@2.1.0:
@@ -11150,7 +11156,7 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
       mdast-util-to-markdown: 2.1.0
-      unified: 11.0.4
+      unified: 11.0.5
 
   repeat-string@1.6.1: {}
 
@@ -11537,7 +11543,7 @@ snapshots:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.5
       commander: 4.1.1
-      glob: 10.4.1
+      glob: 10.4.2
       lines-and-columns: 1.2.4
       mz: 2.7.0
       pirates: 4.0.6
@@ -11826,7 +11832,7 @@ snapshots:
       concat-stream: 2.0.0
       debug: 4.3.5
       extend: 3.0.2
-      glob: 10.4.1
+      glob: 10.4.2
       ignore: 5.3.1
       is-empty: 1.2.0
       is-plain-obj: 4.1.0
@@ -11852,7 +11858,7 @@ snapshots:
       trough: 2.2.0
       vfile: 5.3.7
 
-  unified@11.0.4:
+  unified@11.0.5:
     dependencies:
       '@types/unist': 3.0.2
       bail: 2.0.2
@@ -11975,7 +11981,7 @@ snapshots:
       kleur: 4.1.5
       sade: 1.8.1
 
-  valibot@0.33.1: {}
+  valibot@0.33.2: {}
 
   validate-npm-package-license@3.0.4:
     dependencies:
