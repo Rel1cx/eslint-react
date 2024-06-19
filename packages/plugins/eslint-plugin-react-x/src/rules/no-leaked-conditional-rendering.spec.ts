@@ -587,5 +587,34 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         );
       }
     `,
+    dedent`
+      declare function getData(): { id: number; name: string }[] | undefined;
+      function List({ items }: { items: string[] }) {
+        return <div>{items.map(item => <div key={item}>{item}</div>)}</div>;
+      }
+      type Item = { id: number; name: string };
+      function App() {
+        let data: Item[] | undefined = getData();
+
+        return (
+          <div>
+            {data && <List items={data} />}
+          </div>
+        );
+      }
+    `,
+    dedent`
+      export const MyComponent = ({ isVisible1 }: { isVisible1: boolean }) => {
+        const isVisible2 = true;
+        const isVisible3 = 1 > 2;
+        return (
+          <>
+            {isVisible1 && <div />}
+            {isVisible2 && <div />}
+            {isVisible3 && <div />}
+          </>
+        );
+      };
+    `,
   ],
 });
