@@ -1,8 +1,8 @@
-[**eslint-plugin-react-core**](../README.md) • **Docs**
+[**eslint-plugin-react-x**](../README.md) • **Docs**
 
 ***
 
-[eslint-plugin-react-core](../README.md) / meta
+[eslint-plugin-react-x](../README.md) / meta
 
 # Variable: meta
 

@@ -1,10 +1,10 @@
 import { entries, fromEntries } from "@eslint-react/tools";
 import type { RulePreset } from "@eslint-react/types";
-import * as reactCore from "eslint-plugin-react-core";
 import * as reactDebug from "eslint-plugin-react-debug";
 import * as reactDom from "eslint-plugin-react-dom";
 import * as reactHooksExtra from "eslint-plugin-react-hooks-extra";
 import * as reactNamingConvention from "eslint-plugin-react-naming-convention";
+import * as react from "eslint-plugin-react-x";
 
 import { name, version } from "../package.json";
 import { padKeysLeft } from "./utils";
@@ -168,7 +168,7 @@ const offDomPreset = fromEntries(entries(domPreset).map(([key]) => [key, "off"])
 const legacyConfigPlugins = ["@eslint-react"] as const;
 
 const flatConfigPlugins = {
-  "@eslint-react": reactCore,
+  "@eslint-react": react,
   "@eslint-react/debug": reactDebug,
   "@eslint-react/dom": reactDom,
   "@eslint-react/hooks-extra": reactHooksExtra,
@@ -212,7 +212,7 @@ export default {
     "recommended-type-checked-legacy": createLegacyConfig(recommendedTypeCheckedPreset),
   },
   rules: {
-    ...reactCore.rules,
+    ...react.rules,
     ...padKeysLeft(reactDom.rules, "dom/"),
     ...padKeysLeft(reactHooksExtra.rules, "hooks-extra/"),
     ...padKeysLeft(reactNamingConvention.rules, "naming-convention/"),

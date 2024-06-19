@@ -28,7 +28,7 @@ A series of composable ESLint rules for libraries and frameworks that use React 
 
 ### Individual packages (will be available in 2.0)
 
-- `eslint-plugin-react-core` - Core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
+- `eslint-plugin-react-x` - Core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
 - `eslint-plugin-react-dom` - DOM specific rules for React DOM.
 - `eslint-plugin-react-hooks-extra` - Extra React Hooks rules.
 - `eslint-plugin-react-naming-convention` - Naming convention rules.

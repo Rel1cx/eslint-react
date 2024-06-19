@@ -1,8 +1,8 @@
-**eslint-plugin-react-core** • **Docs**
+**eslint-plugin-react-x** • **Docs**
 
 ***
 
-# eslint-plugin-react-core
+# eslint-plugin-react-x
 
 ## Variables
 
