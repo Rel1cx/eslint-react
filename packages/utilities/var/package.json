@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/var",
-  "version": "1.5.17-next.3",
+  "version": "1.5.17-next.4",
   "description": "TSESTree AST utility module for static analysis of variables",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -48,8 +48,8 @@
     "@typescript-eslint/types": "^7.13.1",
     "@typescript-eslint/utils": "^7.13.1",
     "effect": "^3.3.5",
-    "string-ts": "^2.1.1",
-    "valibot": "^0.33.2"
+    "string-ts": "^2.2.0",
+    "valibot": "^0.33.3"
   },
   "devDependencies": {
     "tsup": "8.1.0"
