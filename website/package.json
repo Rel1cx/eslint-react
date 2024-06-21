@@ -41,7 +41,7 @@
     "remark-frontmatter": "5.0.0",
     "remark-gfm": "4.0.0",
     "sass": "1.77.6",
-    "typescript": "^5.4.5",
+    "typescript": "^5.5.2",
     "typescript-eslint": "^7.13.1",
     "vite": "5.3.1"
   }
