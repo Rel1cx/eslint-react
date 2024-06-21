@@ -10,9 +10,9 @@ A series of composable ESLint rules for libraries and frameworks that use React 
 
 ## Roadmap
 
-- [Milestone 1.5 ↗](https://eslint-react.xyz/roadmap#milestone-15)
-- [Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20)
-- [Milestone 2.5 ↗](https://eslint-react.xyz/roadmap#milestone-25-draft)
+- [Milestone 1.5 ↗](https://eslint-react.xyz/roadmap#milestone-15-completed)
+- [Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20-active)
+- [Milestone 3.0 ↗](https://eslint-react.xyz/roadmap#milestone-30-draft)
 
 ## Features
 
@@ -122,4 +122,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Prior art
 
 - [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react)
-- [eslint-plugin-react-hooks](https://github.com/facebook/react/tree/main/packages/eslint-plugin-react-hooks)

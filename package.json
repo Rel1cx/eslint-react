@@ -60,7 +60,7 @@
     "@eslint/js": "9.5.0",
     "@tsconfig/node20": "20.1.4",
     "@tsconfig/strictest": "2.0.5",
-    "@types/node": "20.14.6",
+    "@types/node": "20.14.7",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "@typescript-eslint/parser": "^7.13.1",
     "@typescript-eslint/rule-tester": "^7.13.1",
@@ -72,7 +72,7 @@
     "cspell": "8.9.1",
     "dedent": "1.5.3",
     "dprint": "0.46.3",
-    "effect": "3.3.5",
+    "effect": "3.4.0",
     "esbuild": "0.21.5",
     "eslint": "^9.5.0",
     "eslint-config-flat-gitignore": "0.1.5",
@@ -131,7 +131,7 @@
       "object.values": "npm:@nolyfill/object.values@latest",
       "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@latest",
       "typedarray": "npm:@nolyfill/typedarray@latest",
-      "typescript": "^5.4.5"
+      "typescript": "^5.5.2"
     }
   }
 }

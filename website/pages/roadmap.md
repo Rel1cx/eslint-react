@@ -83,7 +83,7 @@
 | `naming-convention/filename-extension` | Enforces consistent use of the JSX file extension.                                         |
 | `naming-convention/use-state`          | Enforces destructuring and symmetric naming of `useState` hook value and setter variables. |
 
-## Milestone 2.0
+## Milestone 2.0 (Active)
 
 ### Plugins (with ecological niche explanation)
 
@@ -173,7 +173,7 @@
 | `filename-extension` | Enforces consistent use of the JSX file extension.                                         |
 | `use-state`          | Enforces destructuring and symmetric naming of `useState` hook value and setter variables. |
 
-## Milestone 2.5 (Draft)
+## Milestone 3.0 (Draft)
 
 ### Plugins (with ecological niche explanation)
 

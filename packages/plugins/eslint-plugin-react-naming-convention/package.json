@@ -52,7 +52,7 @@
     "@typescript-eslint/type-utils": "^7.13.1",
     "@typescript-eslint/types": "^7.13.1",
     "@typescript-eslint/utils": "^7.13.1",
-    "effect": "^3.3.5",
+    "effect": "^3.4.0",
     "string-ts": "^2.2.0",
     "valibot": "^0.33.3"
   },
