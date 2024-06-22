@@ -98,6 +98,10 @@ export default [
 
 [Rules Overview ↗](https://eslint-react.xyz/rules/overview)
 
+## FAQ
+
+[Frequently Asked Questions ↗](https://eslint-react.xyz/docs/faq)
+
 ## Contributing
 
 Before you start working on something, it's best to check if there is an existing issue first. It's also a good idea to reach the maintainer and confirm if it makes sense or if someone else is already working on it.

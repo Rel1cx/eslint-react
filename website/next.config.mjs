@@ -27,6 +27,11 @@ const nextConfig = {
     unoptimized: true,
   },
   output: "standalone",
+  redirects: {
+    source: "/faq",
+    destination: "/docs/faq",
+    permanent: true,
+  },
 };
 
 export default withVanillaExtract(withNextra(nextConfig));
