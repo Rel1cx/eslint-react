@@ -1,3 +1,9 @@
+## v1.5.17 (Draft)
+
+### 🪄 Improvements
+
+- Remove rule `no-children-prop` from recommended presets.
+
 ## v1.5.16 (Mon 17 Jun 2024)
 
 ### 🐞 Fixes

@@ -90,7 +90,7 @@ const recommendedPreset = {
   "no-children-for-each": "warn",
   "no-children-map": "warn",
   "no-children-only": "warn",
-  "no-children-prop": "warn",
+  // "no-children-prop": "warn",
   "no-children-to-array": "warn",
   // "no-class-component": "warn",
   "no-clone-element": "warn",
