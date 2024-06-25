@@ -132,7 +132,7 @@
       "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@latest",
       "typedarray": "npm:@nolyfill/typedarray@latest",
       "typedoc": "0.25.13",
-      "typedoc-plugin-markdown": "4.0.3",
+      "typedoc-plugin-markdown": "4.1.0",
       "typescript": "^5.5.2"
     }
   }
