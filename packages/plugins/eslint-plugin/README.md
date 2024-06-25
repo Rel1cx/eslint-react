@@ -10,7 +10,6 @@ A series of composable ESLint rules for libraries and frameworks that use React 
 
 ## Roadmap
 
-- [Milestone 1.5 ↗](https://eslint-react.xyz/roadmap#milestone-15-completed)
 - [Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20-active)
 - [Milestone 3.0 ↗](https://eslint-react.xyz/roadmap#milestone-30-draft)
 
