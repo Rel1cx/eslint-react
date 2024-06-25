@@ -53,7 +53,7 @@
     "@typescript-eslint/types": "^7.14.1",
     "@typescript-eslint/utils": "^7.14.1",
     "string-ts": "^2.2.0",
-    "valibot": "^0.34.0"
+    "valibot": "^0.35.0"
   },
   "devDependencies": {
     "dedent": "1.5.3",

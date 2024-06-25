@@ -266,8 +266,8 @@ importers:
         specifier: ^5.2.0
         version: 5.2.0
       valibot:
-        specifier: ^0.34.0
-        version: 0.34.0
+        specifier: ^0.35.0
+        version: 0.35.0
     devDependencies:
       tsup:
         specifier: 8.1.0
@@ -364,8 +364,8 @@ importers:
         specifier: ^5.5.2
         version: 5.5.2
       valibot:
-        specifier: ^0.34.0
-        version: 0.34.0
+        specifier: ^0.35.0
+        version: 0.35.0
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -419,8 +419,8 @@ importers:
         specifier: ^5.5.2
         version: 5.5.2
       valibot:
-        specifier: ^0.34.0
-        version: 0.34.0
+        specifier: ^0.35.0
+        version: 0.35.0
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -477,8 +477,8 @@ importers:
         specifier: ^5.5.2
         version: 5.5.2
       valibot:
-        specifier: ^0.34.0
-        version: 0.34.0
+        specifier: ^0.35.0
+        version: 0.35.0
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -532,8 +532,8 @@ importers:
         specifier: ^5.5.2
         version: 5.5.2
       valibot:
-        specifier: ^0.34.0
-        version: 0.34.0
+        specifier: ^0.35.0
+        version: 0.35.0
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -593,8 +593,8 @@ importers:
         specifier: ^5.5.2
         version: 5.5.2
       valibot:
-        specifier: ^0.34.0
-        version: 0.34.0
+        specifier: ^0.35.0
+        version: 0.35.0
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -612,8 +612,8 @@ importers:
         specifier: ^7.0.3
         version: 7.0.3
       valibot:
-        specifier: ^0.34.0
-        version: 0.34.0
+        specifier: ^0.35.0
+        version: 0.35.0
     devDependencies:
       tsup:
         specifier: 8.1.0
@@ -745,8 +745,8 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0
       valibot:
-        specifier: ^0.34.0
-        version: 0.34.0
+        specifier: ^0.35.0
+        version: 0.35.0
     devDependencies:
       tsup:
         specifier: 8.1.0
@@ -2544,6 +2544,7 @@ packages:
 
   bun@1.1.17:
     resolution: {integrity: sha512-x2vUqI75XQ11Qxb3FzQCd/AkbA8A3AiJ35xfw49JeNgu0MTi0RCuW+1zOyFf5iJM0xU07LKf2H69n4ASuEqhtQ==}
+    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -3616,6 +3617,7 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -3782,6 +3784,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -5742,8 +5745,8 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
-  valibot@0.34.0:
-    resolution: {integrity: sha512-TELvxO0hEB1/6XjTS5Jfi4dS0oyawA5flxs4/sK/tSUXnlLMiKTMYE6Atuu0a7kvtP3eqPv3yZ80msfM+qMDHA==}
+  valibot@0.35.0:
+    resolution: {integrity: sha512-+i2aCRkReTrd5KBN/dW2BrPOvFnU5LXTV2xjZnjnqUIO8YUx6P2+MgRrkwF2FhkexgyKq/NIZdPdknhHf5A/Ww==}
 
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
@@ -11691,7 +11694,7 @@ snapshots:
       kleur: 4.1.5
       sade: 1.8.1
 
-  valibot@0.34.0: {}
+  valibot@0.35.0: {}
 
   validate-npm-package-license@3.0.4:
     dependencies:
