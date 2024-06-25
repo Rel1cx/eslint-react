@@ -8,7 +8,7 @@
 
 > **asConst**\<`T`\>(`a`): `T`
 
-## Type parameters
+## Type Parameters
 
 • **T**
 
@@ -21,7 +21,3 @@ The value to infer.
 ## Returns
 
 `T`
-
-## Since
-
-0.0.1

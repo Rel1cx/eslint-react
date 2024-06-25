@@ -4,7 +4,7 @@
 
 [@eslint-react/tools](../README.md) / Narrow
 
-# Type alias: Narrow\<TType\>
+# Type Alias: Narrow\<TType\>
 
 > **Narrow**\<`TType`\>: `{ [K in keyof TType]: Narrow<TType[K]> }` \| `TType` *extends* [] ? [] : `never` \| `TType` *extends* `Function` ? `TType` : `never` \| `TType` *extends* `bigint` \| `boolean` \| `number` \| `string` ? `TType` : `never`
 
@@ -28,6 +28,6 @@ type Result = Narrow<['foo', 'bar', 1]>
 
 https://twitter.com/hd_nvim/status/1578567206190780417
 
-## Type parameters
+## Type Parameters
 
 • **TType**

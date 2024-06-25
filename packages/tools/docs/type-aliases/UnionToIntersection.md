@@ -4,7 +4,7 @@
 
 [@eslint-react/tools](../README.md) / UnionToIntersection
 
-# Type alias: UnionToIntersection\<U\>
+# Type Alias: UnionToIntersection\<U\>
 
 > **UnionToIntersection**\<`U`\>: `U` *extends* `unknown` ? (`k`) => `void` : `never` *extends* (`k`) => `void` ? `I` : `never`
 
@@ -23,6 +23,6 @@ type Result = IntersectionFromTuple<['foo', 'bar', 1]>
 // Result = 'foo' & 'bar' & 1
 ```
 
-## Type parameters
+## Type Parameters
 
 • **U**

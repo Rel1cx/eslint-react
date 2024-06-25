@@ -4,7 +4,7 @@
 
 [@eslint-react/tools](../README.md) / ArrayElement
 
-# Type alias: ArrayElement\<A\>
+# Type Alias: ArrayElement\<A\>
 
 > **ArrayElement**\<`A`\>: `A` *extends* readonly infer T[] ? `T` : `never`
 
@@ -22,6 +22,6 @@ type of the array elements.
 
 The array to get the element type from.
 
-## Type parameters
+## Type Parameters
 
 • **A**

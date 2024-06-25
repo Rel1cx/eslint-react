@@ -8,9 +8,7 @@
 
 > **keys**\<`T`\>(`value`): keyof `T`[]
 
-type-safe version of Object.keys
-
-## Type parameters
+## Type Parameters
 
 • **T** *extends* [`LooseRecord`](../type-aliases/LooseRecord.md)\<`unknown`\>
 
@@ -25,7 +23,3 @@ The value to get the keys from.
 keyof `T`[]
 
 The keys of the value.
-
-## Since
-
-0.4.0

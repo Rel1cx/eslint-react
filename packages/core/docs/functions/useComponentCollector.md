@@ -12,7 +12,7 @@
 
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
 
-• **hint**: `bigint`= `DEFAULT_COMPONENT_HINT`
+• **hint**: `bigint` = `DEFAULT_COMPONENT_HINT`
 
 ## Returns
 

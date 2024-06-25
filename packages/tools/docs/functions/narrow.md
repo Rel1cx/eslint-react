@@ -8,10 +8,7 @@
 
 > **narrow**\<`TType`\>(`a`): [`Narrow`](../type-aliases/Narrow.md)\<`TType`\>
 
-Infers embedded primitive type of any type
-Same as `as const` but without setting the object as readonly and without needing the user to use it.
-
-## Type parameters
+## Type Parameters
 
 • **TType**
 
@@ -26,13 +23,3 @@ Value to infer
 [`Narrow`](../type-aliases/Narrow.md)\<`TType`\>
 
 Value with embedded type inferred
-
-## Since
-
-0.0.1
-
-## Example
-
-```ts
-const result = narrow(['foo', 'bar', 1])
-```

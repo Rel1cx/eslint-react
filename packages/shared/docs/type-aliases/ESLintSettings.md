@@ -4,7 +4,7 @@
 
 [@eslint-react/shared](../README.md) / ESLintSettings
 
-# Type alias: ESLintSettings
+# Type Alias: ESLintSettings
 
 > **ESLintSettings**: `ReadonlyDeep`\<`object`\>
 

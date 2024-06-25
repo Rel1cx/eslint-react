@@ -4,7 +4,7 @@
 
 [@eslint-react/types](../README.md) / RuleOptions
 
-# Type alias: RuleOptions
+# Type Alias: RuleOptions
 
 > **RuleOptions**: `Parameters`\<[`CreateRule`](CreateRule.md)\>\[`1`\]
 

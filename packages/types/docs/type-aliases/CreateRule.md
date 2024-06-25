@@ -4,7 +4,7 @@
 
 [@eslint-react/types](../README.md) / CreateRule
 
-# Type alias: CreateRule
+# Type Alias: CreateRule
 
 > **CreateRule**: `Parameters`\<`ReturnType`\<*typeof* `ESLintUtils.RuleCreator`\>\>\[`0`\]\[`"create"`\]
 

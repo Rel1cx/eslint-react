@@ -4,7 +4,7 @@
 
 [@eslint-react/tools](../README.md) / UnionFromTuple
 
-# Type alias: UnionFromTuple\<T\>
+# Type Alias: UnionFromTuple\<T\>
 
 > **UnionFromTuple**\<`T`\>: `T` *extends* infer U[] ? `U` : `never`
 
@@ -19,7 +19,7 @@ type Result = UnionFromTuple<['foo', 'bar', 1]>
 // Result = 'foo' | 'bar' | 1
 ```
 
-## Type parameters
+## Type Parameters
 
 • **T**
 

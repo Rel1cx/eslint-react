@@ -4,7 +4,7 @@
 
 [@eslint-react/types](../README.md) / Cond
 
-# Type alias: Cond
+# Type Alias: Cond
 
 > **Cond**: `"always"` \| `"never"`
 

@@ -4,7 +4,7 @@
 
 [@eslint-react/tools](../README.md) / Pretty
 
-# Type alias: Pretty\<T\>
+# Type Alias: Pretty\<T\>
 
 > **Pretty**\<`T`\>: `{ [P in keyof T]: T[P] }` & `object`
 
@@ -12,6 +12,6 @@
 
 0.0.1
 
-## Type parameters
+## Type Parameters
 
 • **T**

@@ -16,7 +16,7 @@
 
 `Function`
 
-### Type parameters
+### Type Parameters
 
 • **Options** *extends* readonly `unknown`[]
 

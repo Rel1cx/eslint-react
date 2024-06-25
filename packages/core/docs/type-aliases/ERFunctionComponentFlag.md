@@ -4,6 +4,6 @@
 
 [@eslint-react/core](../README.md) / ERFunctionComponentFlag
 
-# Type alias: ERFunctionComponentFlag
+# Type Alias: ERFunctionComponentFlag
 
 > **ERFunctionComponentFlag**: `bigint`

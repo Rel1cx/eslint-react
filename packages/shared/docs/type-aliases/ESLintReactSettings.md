@@ -4,6 +4,6 @@
 
 [@eslint-react/shared](../README.md) / ESLintReactSettings
 
-# Type alias: ESLintReactSettings
+# Type Alias: ESLintReactSettings
 
 > **ESLintReactSettings**: `ReadonlyDeep`\<`InferOutput`\<*typeof* `ESLintReactSettingsSchema`\>\>
