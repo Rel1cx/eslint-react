@@ -1,8 +1,9 @@
-## v1.5.17 (Draft)
+## v1.5.17 (Wed 26 Jun 2024)
 
 ### 🪄 Improvements
 
 - Remove rule `no-children-prop` from recommended presets.
+- Improve documentation for rule `no-useless-fragment`.
 
 ## v1.5.16 (Mon 17 Jun 2024)
 
