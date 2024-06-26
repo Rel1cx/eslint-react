@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-dom",
-  "version": "1.5.17",
+  "version": "1.5.18-next.0",
   "description": "ESLint React's ESLint plugin for React DOM related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -52,7 +52,7 @@
     "@typescript-eslint/scope-manager": "^7.14.1",
     "@typescript-eslint/types": "^7.14.1",
     "@typescript-eslint/utils": "^7.14.1",
-    "effect": "^3.4.2",
+    "effect": "^3.4.3",
     "string-ts": "^2.2.0",
     "valibot": "^0.35.0"
   },

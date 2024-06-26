@@ -1,3 +1,13 @@
+## v1.5.18 (Draft)
+
+### 🐞 Fixes
+
+- Fix rule `no-useless-fragment` not respecting `jsxPragma` settings.
+
+### 🪄 Improvements
+
+- Update documentation for rule `no-useless-fragment` to reflect the actual behavior of the rule.
+
 ## v1.5.17 (Wed 26 Jun 2024)
 
 ### 🪄 Improvements
