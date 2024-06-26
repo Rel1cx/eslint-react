@@ -18,6 +18,7 @@
     ]
   },
   "include": [
+    "*.d.ts",
     "*.config.ts",
     "*.config.mts",
     "scripts/**/*.ts",

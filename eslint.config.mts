@@ -1,20 +1,14 @@
 import url from "node:url";
 
-// @ts-expect-error - this is a valid import
 import eslint from "@eslint/js";
 import gitignore from "eslint-config-flat-gitignore";
-// @ts-expect-error - this is a valid import
 import eslintCommentsPlugin from "eslint-plugin-eslint-comments";
-// @ts-expect-error - this is a valid import
 import eslintPluginPlugin from "eslint-plugin-eslint-plugin";
 import importPlugin from "eslint-plugin-import-x";
 import jsdocPlugin from "eslint-plugin-jsdoc";
-// @ts-expect-error - this is a valid import
 import perfectionist from "eslint-plugin-perfectionist";
-// @ts-expect-error - this is a valid import
 import perfectionistNatural from "eslint-plugin-perfectionist/configs/recommended-natural";
 import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
-// @ts-expect-error - this is a valid import
 import unicornPlugin from "eslint-plugin-unicorn";
 import vitest from "eslint-plugin-vitest";
 import tseslint from "typescript-eslint";
@@ -281,6 +275,7 @@ const config: FlatConfig[] = [
       "docs",
       "examples",
       "website",
+      "eslint.config.d.ts",
     ],
   },
 ];
