@@ -55,7 +55,7 @@
     "effect": "^3.4.2",
     "short-unique-id": "^5.2.0",
     "ts-pattern": "^5.2.0",
-    "valibot": "^0.34.0"
+    "valibot": "^0.35.0"
   },
   "devDependencies": {
     "tsup": "8.1.0"
