@@ -13,16 +13,17 @@ import { isInitializedFromReact } from "../internal";
  * @param fragment
  */
 export function isFragmentElement(node: TSESTree.JSXElement, context: RuleContext) {
+  const pragma = parse(ESLintSettingsSchema, context.settings).reactOptions?.jsxPragma ?? "React";
   const fragment = parse(ESLintSettingsSchema, context.settings).reactOptions?.jsxPragmaFrag ?? "Fragment";
   const { name } = node.openingElement;
-
   // <Fragment>
   if (name.type === NodeType.JSXIdentifier && name.name === fragment) return true;
-
   // <Pragma.Fragment>
-  const initialScope = context.sourceCode.getScope(node);
   return name.type === NodeType.JSXMemberExpression
     && name.object.type === NodeType.JSXIdentifier
-    && isInitializedFromReact(name.object.name, context, initialScope)
+    && (
+      name.object.name === pragma
+      || isInitializedFromReact(name.object.name, context, context.sourceCode.getScope(node))
+    )
     && name.property.name === fragment;
 }

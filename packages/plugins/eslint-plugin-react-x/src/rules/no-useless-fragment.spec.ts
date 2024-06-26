@@ -11,6 +11,13 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT" }],
     },
     {
+      code: "<p><>foo</></p>",
+      errors: [
+        { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT" },
+        { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN" },
+      ],
+    },
+    {
       code: "<p>moo<>foo</></p>",
       errors: [
         { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT" },
@@ -128,17 +135,23 @@ ruleTester.run(RULE_NAME, rule, {
     "<Fooo content={<>eeee ee eeeeeee eeeeeeee</>} />",
     "<>{foos.map(foo => foo)}</>",
     "<>{moo}</>",
-    "<>{}</>",
-    "<>{meow}</>",
-    dedent`
-      <SomeReact.SomeFragment>
-        {foo}
-      </SomeReact.SomeFragment>
-    `,
     dedent`
       <>
         {moo}
       </>
     `,
+    {
+      code: dedent`
+        <React.SomeFragment>
+          {<Foo />}
+        </React.SomeFragment>
+      `,
+      settings: {
+        reactOptions: {
+          jsxPragma: "SomeReact",
+          jsxPragmaFrag: "SomeFragment",
+        },
+      },
+    },
   ],
 });
