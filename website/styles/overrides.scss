@@ -22,6 +22,10 @@
   h5,
   h6 {
     font-family: var(--font-family-ui);
+
+    >code.nextra-code {
+      white-space: nowrap;
+    }
   }
 
   h1,

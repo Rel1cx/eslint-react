@@ -27,10 +27,12 @@ const nextConfig = {
     unoptimized: true,
   },
   output: "standalone",
-  redirects: {
-    source: "/faq",
-    destination: "/docs/faq",
-    permanent: true,
+  redirects() {
+    return [{
+      source: "/faq",
+      destination: "/docs/faq",
+      permanent: true,
+    }];
   },
 };
 
