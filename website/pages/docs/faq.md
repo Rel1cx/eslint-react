@@ -16,11 +16,14 @@ The main difference is when using `eslint-plugin-react-x` you can customize the 
 
 ## Is `eslint-plugin-react-x` a replacement for `eslint-plugin-react`?
 
-No, `eslint-plugin-react-x` is not meant to be a drop-in replacement for `eslint-plugin-react`. But you can still using it as a replacement if you want to. Keep in mind that certain rules may behave differently, and the rules provided by `eslint-react` are more adhere to [react.dev](https://react.dev/).
+No, `eslint-plugin-react-x` is not meant to be a drop-in replacement for `eslint-plugin-react`. But you can still using it as a replacement if you want to. Keep in mind that certain rules may behave differently, and the rules provided by `eslint-react` are more adhere to [react.dev](https://react.dev/). This is because `eslint-plugin-react-x` recognizes `reactjs/react.dev` but not `eslint-plugin-react` as the source of truth.
 
-## What are the standards for `eslint-plugin-react-x`?
+## Does the plugins provided by `eslint-react` support vanilla JavaScript?
 
-`eslint-plugin-react-x` recognizes only `reactjs/react.dev` and `microsoft/TypeScript` but not `jsx-eslint/eslint-plugin-react` as standards for the behavior of the React and JSX related rules it provides.
+They are TypeScript-first ESLint plugins. Which means that they are focused on TypeScript codebases.\
+If your codebase is not written in TypeScript, you should worry about that first, before worrying about linting.
+
+For this reason, vanilla JavaScript is not supported as of right now.
 
 [1]: https://github.com/pmndrs/react-three-fiber/discussions/2487
 [2]: https://github.com/jsx-eslint/eslint-plugin-react/issues/3423#issuecomment-1930936266
