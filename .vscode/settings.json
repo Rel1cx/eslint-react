@@ -11,9 +11,6 @@
       "strings": true
     }
   },
-  "[markdown]": {
-    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
-  },
   "[typescript]": {
     "editor.defaultFormatter": "dprint.dprint"
   },
@@ -51,13 +48,6 @@
     }
   ],
   "mdx.server.enable": true,
-  "eslint.validate": [
-    "mdx",
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
   "search.exclude": {
     "pnpm-lock.yaml": true
   },
