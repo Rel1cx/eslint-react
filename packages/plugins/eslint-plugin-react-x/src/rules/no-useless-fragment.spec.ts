@@ -13,15 +13,15 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: "<p><>foo</></p>",
       errors: [
-        { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT" },
         { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN" },
+        { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT" },
       ],
     },
     {
       code: "<p>moo<>foo</></p>",
       errors: [
-        { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT" },
         { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN" },
+        { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT" },
       ],
     },
     {
@@ -59,8 +59,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: "<div><>foo</></div>",
       errors: [
-        { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT" },
         { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN" },
+        { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT" },
       ],
     },
     {
@@ -110,8 +110,8 @@ ruleTester.run(RULE_NAME, rule, {
         );
       `,
       errors: [
-        { type: NodeType.JSXElement, line: 3, messageId: "NO_USELESS_FRAGMENT" },
         { type: NodeType.JSXElement, line: 3, messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN" },
+        { type: NodeType.JSXElement, line: 3, messageId: "NO_USELESS_FRAGMENT" },
       ],
     },
     // Ensure allowExpressions still catches expected violations
@@ -137,6 +137,24 @@ ruleTester.run(RULE_NAME, rule, {
     "<>{moo}</>",
     dedent`
       <>
+        {moo}
+      </>
+    `,
+    dedent`
+      <>{children}</>
+    `,
+    dedent`
+      <>{props.children}</>
+    `,
+    dedent`
+      <>
+        {children}
+        {moo}
+      </>
+    `,
+    dedent`
+      <>
+        {props.children}
         {moo}
       </>
     `,
