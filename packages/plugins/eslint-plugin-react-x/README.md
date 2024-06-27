@@ -1,22 +1,46 @@
-# Rules Overview
+# eslint-plugin-react-x
 
-## Emoji Legend
+Core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
 
-- 💼 - Rule Category
-- 💭 - Requires Type Information
-- ⛔ - Restriction
-- ✔️ - Correctness
-- ❌ - Deprecated
-- 🎨 - Style
-- 🐞 - Debug
-- 👀 - Suspicious
-- 📖 - Convention
-- 🔒 - Security
-- 🚀 - Performance
-- 🤔 - Pedantic
-- 🤯 - Complexity
+> [!TIP]
+> This plugin is already included in `@eslint-react/eslint-plugin`. You don't need to install it separately if you are using `@eslint-react/eslint-plugin`.
 
-## Core Rules
+## Install
+
+```sh
+# npm
+npm install --save-dev eslint-plugin-react-x
+```
+
+## Setup
+
+Add the plugin to your `eslint.config.js`:
+
+```js
+// @ts-check
+
+import js from "@eslint/js";
+import reactX from "eslint-plugin-react-x";
+
+export default [
+  js.configs.recommended,
+  {
+    files: ["**/*.{ts,tsx}"],
+    ...reactX.configs.recommended,
+  },
+];
+```
+
+## Presets
+
+- **recommended**\
+  Enable rules that are recommended by ESLint React.
+- **recommended-type-checked**\
+  Enable rules that are recommended by ESLint React with additional rules that require type information.
+- **off**\
+  Disable all rules in this plugin.
+
+## Rules
 
 | Rule                                                                               | Description                                                                                          | 💼  | 💭  | ❌  |
 | :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------- | :-: | :-: | :-: |
@@ -62,45 +86,3 @@
 | [`prefer-destructuring-assignment`](prefer-destructuring-assignment)               | Enforces the use of destructuring assignment over property assignment.                               | 🎨  |     |     |
 | [`prefer-shorthand-boolean`](prefer-shorthand-boolean)                             | Enforces the use of shorthand syntax for boolean attributes.                                         | 🎨  |     |     |
 | [`prefer-shorthand-fragment`](prefer-shorthand-fragment)                           | Enforces the use of shorthand syntax for fragments.                                                  | 🎨  |     |     |
-
-## DOM Rules
-
-| Rule                                                                                               | Description                                                                             | 💼  | 💭  | ❌  |
-| :------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------- | :-: | :-: | :-: |
-| [`dom/no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements)                     | Prevents the use of `children` in void `DOM elements`.                                  |  ✔️  |     |     |
-| [`dom/no-dangerously-set-innerhtml`](dom-no-dangerously-set-innerhtml)                             | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 | 🔒  |     |     |
-| [`dom/no-dangerously-set-innerhtml-with-children`](dom-no-dangerously-set-innerhtml-with-children) | Prevents `DOM element` using `dangerouslySetInnerHTML` and `children` at the same time. |  ✔️  |     |     |
-| [`dom/no-find-dom-node`](dom-no-find-dom-node)                                                     | Prevents usage of `findDOMNode`.                                                        | ⛔  |     |     |
-| [`dom/no-missing-button-type`](dom-no-missing-button-type)                                         | Enforces explicit `button` type `attribute` for `<button>` elements.                    |  ✔️  |     |     |
-| [`dom/no-missing-iframe-sandbox`](dom-no-missing-iframe-sandbox)                                   | Enforces explicit `sandbox` attribute for `iframe` elements.                            | 🔒  |     |     |
-| [`dom/no-namespace`](dom-no-namespace)                                                             | Enforces the absence of a `namespace` in React elements.                                |  ✔️  |     |     |
-| [`dom/no-render-return-value`](no-render-return-value)                                             | Prevents usage of the return value of `ReactDOM.render`.                                | ⛔  |     |     |
-| [`dom/no-script-url`](dom-no-script-url)                                                           | Prevents usage of `javascript:` URLs as the value of certain attributes.                | 🔒  |     |     |
-| [`dom/no-unsafe-iframe-sandbox`](dom-no-unsafe-iframe-sandbox)                                     | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   | 🔒  |     |     |
-| [`dom/no-unsafe-target-blank`](dom-no-unsafe-target-blank)                                         | Prevents the use of `target="_blank"` without `rel="noreferrer noopener"`.              | 🔒  |     |     |
-
-## Hooks Extra Rules
-
-| Rule                                                                                                       | Description                                                       | 💼  | 💭  | ❌  |
-| :--------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------- | :-: | :-: | :-: |
-| [`hooks-extra/ensure-custom-hooks-using-other-hooks`](hooks-extra-ensure-custom-hooks-using-other-hooks)   | Warns when custom Hooks that don't use other Hooks.               |  ✔️  |     |     |
-| [`hooks-extra/ensure-use-callback-has-non-empty-deps`](hooks-extra-ensure-use-callback-has-non-empty-deps) | Warns when `useCallback` is called with empty dependencies array. | 🧐  |     |     |
-| [`hooks-extra/ensure-use-memo-has-non-empty-deps`](hooks-extra-ensure-use-memo-has-non-empty-deps)         | Warns when `useMemo` is called with empty dependencies array.     | 🧐  |     |     |
-| [`hooks-extra/prefer-use-state-lazy-initialization`](hooks-extra-prefer-use-state-lazy-initialization)     | Warns function calls made inside `useState` calls.                | 🚀  |     |     |
-
-## Naming Convention Rules
-
-| Rule                                                                           | Description                                                                                | 💼  | 💭  | ❌  |
-| :----------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- | :-: | :-: | :-: |
-| [`naming-convention/component-name`](naming-convention-component-name)         | Enforces naming conventions for components.                                                | 📖  |     |     |
-| [`naming-convention/filename`](naming-convention-filename)                     | Enforces naming convention for JSX files.                                                  | 📖  |     |     |
-| [`naming-convention/filename-extension`](naming-convention-filename-extension) | Enforces consistent use of the JSX file extension.                                         | 📖  |     |     |
-| [`naming-convention/use-state`](naming-convention-use-state)                   | Enforces destructuring and symmetric naming of `useState` hook value and setter variables. | 📖  |     |     |
-
-## Debug Rules
-
-| Rule                                                   | Description                    | 💼  | 💭  | ❌  |
-| :----------------------------------------------------- | :----------------------------- | :-: | :-: | :-: |
-| [`debug/class-component`](debug-class-component)       | Print all class components.    | 🐞  |     |     |
-| [`debug/function-component`](debug-function-component) | Print all function components. | 🐞  |     |     |
-| [`debug/react-hooks`](debug-react-hooks)               | Print all react hooks.         | 🐞  |     |     |
