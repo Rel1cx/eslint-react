@@ -1,6 +1,6 @@
 import type { ReadonlyDeep } from "type-fest";
 import type { InferOutput } from "valibot";
-import { array, object, optional, string } from "valibot";
+import { array, boolean, object, optional, string } from "valibot";
 
 /**
  * @internal
@@ -28,6 +28,7 @@ export const ESLintReactSettingsSchema = object({
   importSource: optional(string()),
   jsxPragma: optional(string()),
   jsxPragmaFrag: optional(string()),
+  strict: optional(boolean()),
   version: optional(string()),
 });
 
