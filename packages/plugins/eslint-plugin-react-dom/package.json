@@ -52,7 +52,7 @@
     "@typescript-eslint/scope-manager": "^7.14.1",
     "@typescript-eslint/types": "^7.14.1",
     "@typescript-eslint/utils": "^7.14.1",
-    "effect": "^3.4.4",
+    "effect": "^3.4.5",
     "string-ts": "^2.2.0",
     "valibot": "^0.35.0"
   },
