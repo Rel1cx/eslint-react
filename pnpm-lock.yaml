@@ -25,7 +25,7 @@ overrides:
   object.values: npm:@nolyfill/object.values@latest
   string.prototype.matchall: npm:@nolyfill/string.prototype.matchall@latest
   typedarray: npm:@nolyfill/typedarray@latest
-  typedoc: 0.26.2
+  typedoc: 0.26.3
   typedoc-plugin-markdown: 4.1.0
   typescript: ^5.5.2
 
@@ -160,14 +160,14 @@ importers:
         specifier: 4.20.1
         version: 4.20.1
       typedoc:
-        specifier: 0.26.2
-        version: 0.26.2(typescript@5.5.2)
+        specifier: 0.26.3
+        version: 0.26.3(typescript@5.5.2)
       typedoc-plugin-markdown:
         specifier: 4.1.0
-        version: 4.1.0(typedoc@0.26.2(typescript@5.5.2))
+        version: 4.1.0(typedoc@0.26.3(typescript@5.5.2))
       typedoc-plugin-rename-defaults:
         specifier: 0.7.1
-        version: 0.7.1(typedoc@0.26.2(typescript@5.5.2))
+        version: 0.7.1(typedoc@0.26.3(typescript@5.5.2))
       typescript:
         specifier: ^5.5.2
         version: 5.5.2
@@ -5611,15 +5611,15 @@ packages:
     resolution: {integrity: sha512-sUiEJVaa6+MOFShRy14j1OP/VXC5OLyHNecJ2nKeGuBy2M3YiMatSLoIiddFAqVptSuILJTZiJzCBIY6yzAVyg==}
     engines: {node: '>= 18'}
     peerDependencies:
-      typedoc: 0.26.2
+      typedoc: 0.26.3
 
   typedoc-plugin-rename-defaults@0.7.1:
     resolution: {integrity: sha512-hgg4mAy5IumgUmPOnVVGmGywjTGtUCmRJ2jRbseqtXdlUuYKj652ODL9joUWFt5uvNu4Dr/pNILc/qsKGHJw+w==}
     peerDependencies:
-      typedoc: 0.26.2
+      typedoc: 0.26.3
 
-  typedoc@0.26.2:
-    resolution: {integrity: sha512-q/t+M+PZqhN9gPWLBZ3CCvP+KT8O1tyYkSzEYbcQ6mo89avdIrMlBEl3vfo5BgSzwC6Lbmq0W64E8RkY+eVsLA==}
+  typedoc@0.26.3:
+    resolution: {integrity: sha512-6d2Sw9disvvpdk4K7VNjKr5/3hzijtfQVHRthhDqJgnhMHy1wQz4yPMJVKXElvnZhFr0nkzo+GzjXDTRV5yLpg==}
     engines: {node: '>= 18'}
     hasBin: true
     peerDependencies:
@@ -11519,16 +11519,16 @@ snapshots:
 
   type-fest@4.20.1: {}
 
-  typedoc-plugin-markdown@4.1.0(typedoc@0.26.2(typescript@5.5.2)):
+  typedoc-plugin-markdown@4.1.0(typedoc@0.26.3(typescript@5.5.2)):
     dependencies:
-      typedoc: 0.26.2(typescript@5.5.2)
+      typedoc: 0.26.3(typescript@5.5.2)
 
-  typedoc-plugin-rename-defaults@0.7.1(typedoc@0.26.2(typescript@5.5.2)):
+  typedoc-plugin-rename-defaults@0.7.1(typedoc@0.26.3(typescript@5.5.2)):
     dependencies:
       camelcase: 8.0.0
-      typedoc: 0.26.2(typescript@5.5.2)
+      typedoc: 0.26.3(typescript@5.5.2)
 
-  typedoc@0.26.2(typescript@5.5.2):
+  typedoc@0.26.3(typescript@5.5.2):
     dependencies:
       lunr: 2.3.9
       markdown-it: 14.1.0

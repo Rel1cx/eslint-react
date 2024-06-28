@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.5.18-beta.5",
+  "version": "1.5.18",
   "private": true,
   "description": "A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -131,7 +131,7 @@
       "object.values": "npm:@nolyfill/object.values@latest",
       "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@latest",
       "typedarray": "npm:@nolyfill/typedarray@latest",
-      "typedoc": "0.26.2",
+      "typedoc": "0.26.3",
       "typedoc-plugin-markdown": "4.1.0",
       "typescript": "^5.5.2"
     }
