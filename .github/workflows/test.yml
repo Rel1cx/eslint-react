@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup node
+      - name: Setup node@22
         uses: actions/setup-node@v3
         with:
           node-version: 22
@@ -26,5 +26,17 @@ jobs:
           run_install: false
       - name: Install front-end dependencies and build front-end assets
         run: pnpm install
-      - name: Test
+      - name: Test on node@22
+        run: pnpm run test
+      - name: Setup node@20
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Test on node@20
+        run: pnpm run test
+      - name: Setup node@18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Test on node@18
         run: pnpm run test
