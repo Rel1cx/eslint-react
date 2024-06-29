@@ -1,4 +1,10 @@
-## v1.5.18 (Draft)
+## v1.5.19 (Draft)
+
+### 🪄 Improvements
+
+- Reduce the number of dependencies by inlining tree-shaking optimized code.
+
+## v1.5.18 (28 Fri Jun 2024)
 
 ### 🐞 Fixes
 

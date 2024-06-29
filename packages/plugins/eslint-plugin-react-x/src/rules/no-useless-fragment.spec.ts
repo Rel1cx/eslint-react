@@ -158,6 +158,7 @@ ruleTester.run(RULE_NAME, rule, {
         {moo}
       </>
     `,
+    dedent`<>{cloneElement(children, { ref: childrenRef })}</>`,
     {
       code: dedent`
         <React.SomeFragment>
