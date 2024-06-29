@@ -1,8 +1,9 @@
 import { isThisExpression, NodeType } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import { MutableList as MutList, Option as O } from "effect";
+import { Function as F, MutableList as MutList, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
+import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -13,10 +14,12 @@ export type MessageID = ConstantCase<typeof RULE_NAME>;
 function isKeyLiteralLike(
   node: TSESTree.MemberExpression | TSESTree.MethodDefinition | TSESTree.Property | TSESTree.PropertyDefinition,
   property: TSESTree.Node,
-): boolean {
-  return property.type === NodeType.Literal
-    || (property.type === NodeType.TemplateLiteral && property.expressions.length === 0)
-    || (!node.computed && property.type === NodeType.Identifier);
+) {
+  return match(property)
+    .with({ type: NodeType.Literal }, F.constTrue)
+    .with({ type: NodeType.TemplateLiteral, expressions: [] }, F.constTrue)
+    .with({ type: NodeType.Identifier }, () => !node.computed)
+    .otherwise(F.constFalse);
 }
 
 function isThisSetState(node: TSESTree.CallExpression) {
