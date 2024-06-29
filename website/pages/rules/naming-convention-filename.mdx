@@ -55,24 +55,56 @@ src/components/example-component.tsx
   2. `camelCase`: camelCase
   3. `kebab-case`: kebab-case
   4. `snake_case`: snake_case
-- `excepts`: List of file names that should be ignored by this rule.
-- `extensions`: List of file extensions that should be checked by this rule. By default, it checks `.jsx`, `.tsx` files.
+- `excepts`: List of RegExp strings that should be ignored by this rule. The default value is `["^index$"]` which ignores files named `index`.
+- `extensions`: List of file extensions that should be checked by this rule. The default value is `[".jsx", ".tsx"]` which checks only `.jsx` and `.tsx` files.
 
-```json
-{
-  "@eslint-react/naming-convention/filename": ["warn", "kebab-case"]
-}
+## Rule Options Examples
+
+```js filename="eslint.config.js"
+// ...
+export default [
+  // ...
+  {
+    files: ["**/*.tsx"],
+    rules: {
+      "@eslint-react/naming-convention/filename": ["warn", "PascalCase"]
+  }
+];
 ```
 
-```json
-{
-  "@eslint-react/naming-convention/filename": [
-    "warn",
-    {
-      "rule": "PascalCase",
-      "excepts": ["index"],
-      "extensions": [".jsx", ".tsx"]
-    }
-  ]
-}
+```js filename="eslint.config.js"
+// ...
+export default [
+  // ...
+  {
+    files: ["**/*.tsx"],
+    rules: {
+      "@eslint-react/naming-convention/filename": ["warn", { "rule": "kebab-case", "excepts": ["^index$"] }]
+  }
+];
+```
+
+```js filename="eslint.config.js"
+// ...
+export default [
+  // ...
+  {
+    files: ["src/**/*.tsx"],
+    rules: {
+      "@eslint-react/naming-convention/filename": ["warn", "PascalCase"],
+    },
+  },
+  {
+    files: ["src/**/use*.tsx"],
+    rules: {
+      "@eslint-react/naming-convention/filename": ["warn", "kebab-case"],
+    },
+  },
+  {
+    files: ["fixtures/**/*.tsx"],
+    rules: {
+      "@eslint-react/naming-convention/filename": "off",
+    },
+  },
+];
 ```
