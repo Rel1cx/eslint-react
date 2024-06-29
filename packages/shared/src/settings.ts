@@ -1,6 +1,6 @@
 import type { ReadonlyDeep } from "type-fest";
 import type { InferOutput } from "valibot";
-import { array, boolean, object, optional, string } from "valibot";
+import { array, boolean, object, optional, parse, string } from "valibot";
 
 /**
  * @internal
@@ -38,13 +38,16 @@ export type ESLintReactSettings = ReadonlyDeep<InferOutput<typeof ESLintReactSet
  * @internal
  */
 export const ESLintSettingsSchema = object({
+  "react-x": optional(ESLintReactSettingsSchema),
+  /**
+   * @deprecated
+   */
   reactOptions: optional(ESLintReactSettingsSchema),
 });
 
-// The `settings` object in eslint config for all plugins.
-// We only care about the `eslintReact` field at the moment.
-export type ESLintSettings = ReadonlyDeep<{
-  [key: string]: unknown;
-  // eslint-disable-next-line no-restricted-syntax
-  reactOptions?: ESLintReactSettings;
-}>;
+export type ESLintSettings = ReadonlyDeep<InferOutput<typeof ESLintSettingsSchema>>;
+
+export function getESLintReactSettings(data: unknown): ESLintReactSettings {
+  const settings = parse(ESLintSettingsSchema, data);
+  return settings["react-x"] ?? settings.reactOptions ?? {};
+}

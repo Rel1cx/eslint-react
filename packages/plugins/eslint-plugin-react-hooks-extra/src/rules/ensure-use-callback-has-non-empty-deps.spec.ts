@@ -154,7 +154,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
@@ -175,7 +175,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
@@ -196,7 +196,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
@@ -217,7 +217,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
@@ -238,7 +238,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
@@ -259,7 +259,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
@@ -280,7 +280,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
@@ -301,7 +301,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
@@ -322,7 +322,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
@@ -343,7 +343,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
@@ -364,7 +364,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
@@ -385,7 +385,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
@@ -409,7 +409,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           additionalHooks: {
             useCallback: ["useCustomCallback"],
           },

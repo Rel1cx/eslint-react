@@ -6,10 +6,4 @@
 
 # Type Alias: ESLintSettings
 
-> **ESLintSettings**: `ReadonlyDeep`\<`object`\>
-
-## Type declaration
-
-### reactOptions?
-
-> `optional` **reactOptions**: [`ESLintReactSettings`](ESLintReactSettings.md)
+> **ESLintSettings**: `ReadonlyDeep`\<`InferOutput`\<*typeof* `ESLintSettingsSchema`\>\>

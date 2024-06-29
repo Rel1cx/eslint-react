@@ -1,5 +1,9 @@
 ## v1.5.19 (Draft)
 
+### 💥 Breaking Changes
+
+- Deprecate `reactOptions` in favor of `react-x` in [ESLint Shared Settings](https://eslint.org/docs/latest/use/configure/configuration-files#configuring-shared-settings).
+
 ### 🪄 Improvements
 
 - Reduce the number of dependencies by inlining tree-shaking optimized code.

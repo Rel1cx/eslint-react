@@ -56,7 +56,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "NO_CHILDREN_COUNT",
       }],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
