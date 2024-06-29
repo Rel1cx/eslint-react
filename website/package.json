@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "workspace:*",
-    "@eslint/js": "9.5.0",
+    "@eslint/js": "9.6.0",
     "@mdx-js/mdx": "3.0.1",
     "@tsconfig/node20": "20.1.4",
     "@tsconfig/strictest": "2.0.5",
@@ -31,7 +31,7 @@
     "@vanilla-extract/next-plugin": "2.4.3",
     "@vitejs/plugin-react": "4.3.1",
     "autoprefixer": "10.4.19",
-    "eslint": "^9.5.0",
+    "eslint": "^9.6.0",
     "eslint-plugin-mdx": "3.1.5",
     "eslint-plugin-react-hooks": "4.6.2",
     "eslint-plugin-react-refresh": "0.4.7",
