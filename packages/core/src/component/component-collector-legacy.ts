@@ -13,7 +13,6 @@ const uid = new ShortUniqueId({ length: 10 });
 /**
  * Check if a node is a React class component
  * @param node The AST node to check
- * @param context The rule context
  */
 export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass {
   if (!("superClass" in node && node.superClass)) return false;
@@ -30,7 +29,6 @@ export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass {
 /**
  * Check if a node is a React PureComponent
  * @param node The AST node to check
- * @param context The rule context
  */
 export function isPureComponent(node: TSESTree.Node) {
   if ("superClass" in node && node.superClass) {
