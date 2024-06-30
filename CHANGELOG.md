@@ -1,3 +1,13 @@
+## v1.5.20 (Draft)
+
+### 🐞 Fixes
+
+- Fix rule `prefer-destructuring-assignment` false positive when the function looks like a component.
+
+### 🪄 Improvements
+
+- Improve the core component collector to better distinguish between normal functions and components.
+
 ## v1.5.19 (30 Sun Jun 2024)
 
 ### 🪄 Improvements

@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
         if (!isCreateRefCall(node, context)) return;
         O.map(
           ctx.getCurrentFunction(),
-          ([currentFn]) =>
+          ([_, currentFn]) =>
             possibleCreateRefCalls.set(currentFn, [...possibleCreateRefCalls.get(currentFn) ?? [], node]),
         );
       },

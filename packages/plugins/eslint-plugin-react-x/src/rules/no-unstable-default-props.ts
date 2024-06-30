@@ -78,7 +78,7 @@ export default createRule<[], MessageID>({
       "VariableDeclarator[id.type='ObjectPattern'][init.type='Identifier']"(node: ObjectDestructuringDeclarator) {
         O.map(
           ctx.getCurrentFunction(),
-          ([currentFn]) =>
+          ([_, currentFn]) =>
             possibleDestructuringDeclarators.set(currentFn, [
               ...possibleDestructuringDeclarators.get(currentFn) ?? [],
               node,

@@ -24,11 +24,11 @@
 
 ### ctx.getCurrentFunction()
 
-> **getCurrentFunction**: () => `Option`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\>
+> **getCurrentFunction**: () => `Option`\<[`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]]\>
 
 #### Returns
 
-`Option`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\>
+`Option`\<[`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]]\>
 
 ### ctx.getAllComponents()
 
@@ -50,7 +50,7 @@
 
 #### Returns
 
-[`TSESTreeFunction`, `boolean`, `CallExpression`[]][]
+[`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]][]
 
 ### listeners
 
@@ -58,7 +58,7 @@
 
 ### listeners.:function()
 
-> `readonly` **:function**: (`node`) => `MutableList`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> = `onFunctionEnter`
+> `readonly` **:function**: (`node`) => `MutableList`\<[`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]]\> = `onFunctionEnter`
 
 #### Parameters
 
@@ -66,15 +66,15 @@
 
 #### Returns
 
-`MutableList`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\>
+`MutableList`\<[`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]]\>
 
 ### listeners.:function:exit()
 
-> `readonly` **:function:exit**: () => `undefined` \| [`TSESTreeFunction`, `boolean`, `CallExpression`[]] = `onFunctionExit`
+> `readonly` **:function:exit**: () => `undefined` \| [`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]] = `onFunctionExit`
 
 #### Returns
 
-`undefined` \| [`TSESTreeFunction`, `boolean`, `CallExpression`[]]
+`undefined` \| [`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]]
 
 ### listeners.ArrowFunctionExpression\[body.type!='BlockStatement'\]()
 
