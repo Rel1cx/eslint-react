@@ -51,7 +51,6 @@
   "devDependencies": {
     "effect": "3.4.5",
     "string-ts": "2.2.0",
-    "tsup": "8.1.0",
-    "valibot": "0.35.0"
+    "tsup": "8.1.0"
   }
 }

@@ -269,9 +269,6 @@ importers:
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.39)(typescript@5.5.2)
-      valibot:
-        specifier: 0.35.0
-        version: 0.35.0
 
   packages/plugins/eslint-plugin:
     dependencies:
@@ -363,9 +360,6 @@ importers:
       typescript:
         specifier: ^5.5.2
         version: 5.5.2
-      valibot:
-        specifier: ^0.35.0
-        version: 0.35.0
     devDependencies:
       dedent:
         specifier: 1.5.3
@@ -425,9 +419,6 @@ importers:
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.39)(typescript@5.5.2)
-      valibot:
-        specifier: 0.35.0
-        version: 0.35.0
 
   packages/plugins/eslint-plugin-react-hooks-extra:
     dependencies:
@@ -483,9 +474,6 @@ importers:
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.39)(typescript@5.5.2)
-      valibot:
-        specifier: 0.35.0
-        version: 0.35.0
 
   packages/plugins/eslint-plugin-react-naming-convention:
     dependencies:
@@ -538,9 +526,6 @@ importers:
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.39)(typescript@5.5.2)
-      valibot:
-        specifier: 0.35.0
-        version: 0.35.0
 
   packages/plugins/eslint-plugin-react-x:
     dependencies:
@@ -599,18 +584,12 @@ importers:
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.39)(typescript@5.5.2)
-      valibot:
-        specifier: 0.35.0
-        version: 0.35.0
 
   packages/shared:
     dependencies:
       '@typescript-eslint/utils':
         specifier: ^7.14.1
         version: 7.14.1(eslint@9.6.0)(typescript@5.5.2)
-      deepmerge-ts:
-        specifier: ^7.0.3
-        version: 7.0.3
       valibot:
         specifier: ^0.35.0
         version: 0.35.0
@@ -708,9 +687,6 @@ importers:
       effect:
         specifier: 3.4.5
         version: 3.4.5
-      micro-memoize:
-        specifier: 4.1.2
-        version: 4.1.2
       ts-pattern:
         specifier: 5.2.0
         version: 5.2.0
@@ -748,9 +724,6 @@ importers:
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.39)(typescript@5.5.2)
-      valibot:
-        specifier: 0.35.0
-        version: 0.35.0
 
   website:
     dependencies:
@@ -3060,10 +3033,6 @@ packages:
     resolution: {integrity: sha512-eS8dRJOckyo9maw9Tu5O5RUi/4inFLrnoLkBe3cPfDMx3WZioXtmOew4TXQaxq7Rhl4xjDtR7c6x8nNTxOvbFw==}
     engines: {node: '>=16.0.0'}
 
-  deepmerge-ts@7.0.3:
-    resolution: {integrity: sha512-dxFbFO2RSIhPNBPL/j8Nvdt6/vrkW9+uGf1NLah/QxBGAVbK9fj2fGTO+HwdHpPAyFAsyT9iEn/1SI9SUvespw==}
-    engines: {node: '>=16.0.0'}
-
   deepmerge@4.3.1:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
     engines: {node: '>=0.10.0'}
@@ -4271,9 +4240,6 @@ packages:
 
   mhchemparser@4.2.1:
     resolution: {integrity: sha512-kYmyrCirqJf3zZ9t/0wGgRZ4/ZJw//VwaRVGA75C4nhE60vtnIzhl9J9ndkX/h6hxSN7pjg/cE0VxbnNM+bnDQ==}
-
-  micro-memoize@4.1.2:
-    resolution: {integrity: sha512-+HzcV2H+rbSJzApgkj0NdTakkC+bnyeiUxgT6/m7mjcz1CmM22KYFKp+EVj1sWe4UYcnriJr5uqHQD/gMHLD+g==}
 
   micromark-core-commonmark@1.1.0:
     resolution: {integrity: sha512-BgHO1aRbolh2hcrzL2d1La37V0Aoz73ymF8rAcKnohLy93titmv62E0gP8Hrx9PKcKrqCZ1BbLGbP3bEhoXYlw==}
@@ -8310,8 +8276,6 @@ snapshots:
 
   deepmerge-ts@5.1.0: {}
 
-  deepmerge-ts@7.0.3: {}
-
   deepmerge@4.3.1: {}
 
   defaults@1.0.4:
@@ -9842,8 +9806,6 @@ snapshots:
       - supports-color
 
   mhchemparser@4.2.1: {}
-
-  micro-memoize@4.1.2: {}
 
   micromark-core-commonmark@1.1.0:
     dependencies:

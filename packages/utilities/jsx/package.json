@@ -52,7 +52,6 @@
   },
   "devDependencies": {
     "effect": "3.4.5",
-    "micro-memoize": "4.1.2",
     "ts-pattern": "5.2.0",
     "tsup": "8.1.0"
   }
