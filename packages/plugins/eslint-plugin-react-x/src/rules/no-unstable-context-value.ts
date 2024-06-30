@@ -56,7 +56,7 @@ export default createRule<[], MessageID>({
         if (construction._tag === "None") return;
         O.map(
           ctx.getCurrentFunction(),
-          ([currentFn]) =>
+          ([_, currentFn]) =>
             possibleValueConstructions.set(currentFn, [
               ...possibleValueConstructions.get(currentFn) ?? [],
               construction,

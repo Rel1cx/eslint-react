@@ -292,5 +292,56 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{foo.test}</div>
       }
     `,
+    dedent`
+      export const DeleteRangeUndoMutationFactory = (
+          accessor: IAccessor,
+          params: IDeleteRangeMutationParams
+      ): Nullable<IInsertRangeMutationParams> => {
+          const univerInstanceService = accessor.get(IUniverInstanceService);
+          const target = getSheetMutationTarget(univerInstanceService, params);
+          if (!target) return null;
+
+          const { worksheet } = target;
+          const cellMatrix = worksheet.getCellMatrix();
+          const undoData = new ObjectMatrix<ICellData>();
+          const lastEndRow = worksheet.getConfig().rowCount;
+          const lastEndColumn = worksheet.getConfig().columnCount;
+
+          const { startRow, endRow, startColumn, endColumn } = params.range;
+          if (params.shiftDimension === Dimension.ROWS) {
+              // build new data
+              for (let r = startRow; r <= lastEndRow; r++) {
+                  for (let c = startColumn; c <= endColumn; c++) {
+                      // store old value
+                      if (r <= endRow) {
+                          const cell: Nullable<ICellData> = cellMatrix.getValue(r, c);
+                          undoData.setValue(r, c, cell as ICellData);
+                      }
+                  }
+              }
+          } else if (params.shiftDimension === Dimension.COLUMNS) {
+              // build new data
+              for (let r = startRow; r <= endRow; r++) {
+                  for (let c = startColumn; c <= lastEndColumn; c++) {
+                      // store old value
+                      if (c <= endColumn) {
+                          const cell: Nullable<ICellData> = cellMatrix.getValue(r, c);
+                          undoData.setValue(r, c, cell as ICellData);
+                      } else {
+                          for (let i = 0; i <= endColumn; i++) {
+                              const cell: Nullable<ICellData> = cellMatrix.getValue(r, c);
+                              undoData.setValue(r, c + i, cell as ICellData);
+                          }
+                      }
+                  }
+              }
+          }
+
+          return {
+              ...Tools.deepClone(params),
+              cellValue: undoData.getData(),
+          };
+      };
+    `,
   ],
 });
