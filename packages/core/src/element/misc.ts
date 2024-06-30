@@ -1,8 +1,7 @@
 import { NodeType } from "@eslint-react/ast";
-import { ESLintSettingsSchema } from "@eslint-react/shared";
+import { getESLintReactSettings } from "@eslint-react/shared";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
-import { parse } from "valibot";
 
 import { isInitializedFromReact } from "../internal";
 
@@ -13,17 +12,16 @@ import { isInitializedFromReact } from "../internal";
  * @param fragment
  */
 export function isFragmentElement(node: TSESTree.JSXElement, context: RuleContext) {
-  const pragma = parse(ESLintSettingsSchema, context.settings).reactOptions?.jsxPragma ?? "React";
-  const fragment = parse(ESLintSettingsSchema, context.settings).reactOptions?.jsxPragmaFrag ?? "Fragment";
+  const { jsxPragma = "React", jsxPragmaFrag = "Fragment" } = getESLintReactSettings(context.settings);
   const { name } = node.openingElement;
   // <Fragment>
-  if (name.type === NodeType.JSXIdentifier && name.name === fragment) return true;
+  if (name.type === NodeType.JSXIdentifier && name.name === jsxPragmaFrag) return true;
   // <Pragma.Fragment>
   return name.type === NodeType.JSXMemberExpression
     && name.object.type === NodeType.JSXIdentifier
     && (
-      name.object.name === pragma
+      name.object.name === jsxPragma
       || isInitializedFromReact(name.object.name, context, context.sourceCode.getScope(node))
     )
-    && name.property.name === fragment;
+    && name.property.name === jsxPragmaFrag;
 }

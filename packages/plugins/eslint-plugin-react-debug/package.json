@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-debug",
-  "version": "1.5.19-beta.0",
+  "version": "1.5.20-next.0",
   "description": "ESLint React's ESLint plugin for debugging related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -52,8 +52,7 @@
     "@typescript-eslint/type-utils": "^7.14.1",
     "@typescript-eslint/types": "^7.14.1",
     "@typescript-eslint/utils": "^7.14.1",
-    "string-ts": "^2.2.0",
-    "valibot": "^0.35.0"
+    "string-ts": "^2.2.0"
   },
   "devDependencies": {
     "dedent": "1.5.3",

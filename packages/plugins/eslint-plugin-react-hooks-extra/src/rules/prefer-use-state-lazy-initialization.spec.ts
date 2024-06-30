@@ -176,7 +176,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           additionalHooks: {
             useState: ["useLocalStorageState"],
           },
@@ -257,7 +257,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: "useLocalStorageState()",
       settings: {
-        reactOptions: {
+        "react-x": {
           additionalHooks: {
             useState: ["useLocalStorageState"],
           },

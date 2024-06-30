@@ -77,7 +77,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "USE_STATE",
       }],
       settings: {
-        reactOptions: {
+        "react-x": {
           additionalHooks: {
             useState: ["useLocalStorageState"],
           },

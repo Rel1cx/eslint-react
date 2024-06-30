@@ -1,12 +1,11 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
-import { ESLintSettingsSchema } from "@eslint-react/shared";
+import { getESLintReactSettings } from "@eslint-react/shared";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { Option as O, Predicate as Pred } from "effect";
 import { isMatching, match } from "ts-pattern";
-import { parse } from "valibot";
 
 export function isInitializedFromReact(
   variableName: string,
@@ -19,8 +18,8 @@ export function isInitializedFromReact(
   if (O.isNone(maybeLatestDef)) return false;
   const latestDef = maybeLatestDef.value;
   const { node, parent } = latestDef;
-  const settings = parse(ESLintSettingsSchema, context.settings);
-  const importSource = settings.reactOptions?.importSource ?? "react";
+  const settings = getESLintReactSettings(context.settings);
+  const importSource = settings.importSource ?? "react";
   if (node.type === NodeType.VariableDeclarator && node.init) {
     const { init } = node;
     // check for: `variable = React.variable`

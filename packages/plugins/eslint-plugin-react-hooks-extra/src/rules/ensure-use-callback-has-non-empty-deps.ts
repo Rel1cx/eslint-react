@@ -1,12 +1,11 @@
 import { is, NodeType } from "@eslint-react/ast";
 import { isReactHookCall, isReactHookCallWithNameLoose, isUseCallbackCall } from "@eslint-react/core";
-import { ESLintSettingsSchema } from "@eslint-react/shared";
+import { getESLintReactSettings } from "@eslint-react/shared";
 import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { Function as F, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
-import { parse } from "valibot";
 
 import { createRule } from "../utils";
 
@@ -28,7 +27,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const alias = parse(ESLintSettingsSchema, context.settings).reactOptions?.additionalHooks?.useCallback ?? [];
+    const alias = getESLintReactSettings(context.settings).additionalHooks?.useCallback ?? [];
 
     return {
       CallExpression(node) {

@@ -39,7 +39,6 @@ export function isFunctionOfRenderMethod(node: TSESTreeFunction) {
  * }
  * ```
  * @param node The AST node being checked
- * @param context
  * @returns `true` if node is inside class component's render block, `false` if not
  * @deprecated It will be removed in the future
  */

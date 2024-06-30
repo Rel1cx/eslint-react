@@ -24,3 +24,4 @@
 ## Functions
 
 - [createRuleForPlugin](functions/createRuleForPlugin.md)
+- [getESLintReactSettings](functions/getESLintReactSettings.md)

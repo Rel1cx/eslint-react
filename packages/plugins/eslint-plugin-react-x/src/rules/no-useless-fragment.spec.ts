@@ -166,7 +166,7 @@ ruleTester.run(RULE_NAME, rule, {
         </React.SomeFragment>
       `,
       settings: {
-        reactOptions: {
+        "react-x": {
           jsxPragma: "SomeReact",
           jsxPragmaFrag: "SomeFragment",
         },

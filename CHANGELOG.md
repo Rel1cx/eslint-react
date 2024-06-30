@@ -1,8 +1,9 @@
-## v1.5.19 (Draft)
+## v1.5.19 (30 Sun Jun 2024)
 
 ### 🪄 Improvements
 
-- Reduce the number of dependencies by inlining tree-shaking optimized code.
+- Reduce the number of dependencies by inlining tree-shaking optimized code while bundling.
+- Deprecate `reactOptions` in favor of `react-x` in [ESLint Shared Settings](https://eslint.org/docs/latest/use/configure/configuration-files#configuring-shared-settings).
 
 ## v1.5.18 (28 Fri Jun 2024)
 
