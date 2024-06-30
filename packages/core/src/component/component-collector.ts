@@ -105,7 +105,7 @@ export function useComponentCollector(
     const [key, fn, isComponent] = MutList.tail(functionStack) ?? [];
     if (!key || !fn || !isComponent) return MutList.pop(functionStack);
     const returns = getNestedReturnStatements(fn.body);
-    if (returns.some(r => !isJSXValue(r.argument, context, hint))) {
+    if (returns.reverse().some(r => !isJSXValue(r.argument, context, hint))) {
       components.delete(key);
     }
     return MutList.pop(functionStack);
