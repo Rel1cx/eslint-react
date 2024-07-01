@@ -6,7 +6,7 @@
 [![Size](https://img.shields.io/bundlephobia/minzip/@eslint-react/eslint-plugin?label=gzip&style=flat&colorA=000000&colorB=000000)](https://bundlephobia.com/package/@eslint-react/eslint-plugin)
 [![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
 
-A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.
+A series of composable ESLint rules rewritten from scratch for libraries and frameworks that use React as a UI runtime.
 
 ## Roadmap
 
