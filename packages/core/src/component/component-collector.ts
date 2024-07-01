@@ -100,6 +100,7 @@ export function useComponentCollector(
       .reverse()
       .some(r => {
         return context.sourceCode.getScope(r).block === fn
+          && r.argument !== null
           && !isJSXValue(r.argument, context, hint);
       });
     if (shouldDrop) components.delete(key);

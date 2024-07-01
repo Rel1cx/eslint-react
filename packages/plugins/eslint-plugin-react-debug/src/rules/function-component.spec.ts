@@ -114,6 +114,25 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
+      code: dedent`
+        import { memo } from "react";
+
+        const MemoComponent = memo(function Component() {
+          if (1 > 0) return;
+          return <div></div>;
+        })
+      `,
+      errors: [{
+        data: {
+          name: "Component",
+          forwardRef: false,
+          hookCalls: 0,
+          memo: true,
+        },
+        messageId: "FUNCTION_COMPONENT",
+      }],
+    },
+    {
       code: "const ForwardRefComponent = React.forwardRef(() => <div></div>)",
       errors: [{
         data: {
