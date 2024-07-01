@@ -32,6 +32,10 @@ hints for component collector
 
 > `readonly` **SkipCreateElement**: `bigint`
 
+### SkipEmptyArray
+
+> `readonly` **SkipEmptyArray**: `bigint`
+
 ### SkipForwardRef
 
 > `readonly` **SkipForwardRef**: `bigint`

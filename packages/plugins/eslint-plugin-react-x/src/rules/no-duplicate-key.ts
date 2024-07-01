@@ -1,4 +1,4 @@
-import { getNestedReturnStatements, is, isNodeEqual, isOneOf, NodeType } from "@eslint-react/ast";
+import { getNestedReturnStatements, is, isMapCallLoose, isNodeEqual, isOneOf, NodeType } from "@eslint-react/ast";
 import { findPropInAttributes } from "@eslint-react/jsx";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -131,14 +131,7 @@ export default createRule<[], MessageID>({
         }
       },
       CallExpression(node) {
-        const isMapCall = isMatching({
-          callee: {
-            type: NodeType.MemberExpression,
-            property: {
-              name: "map",
-            },
-          },
-        }, node);
+        const isMapCall = isMapCallLoose(node);
         const isArrayFromCall = isMatching({
           type: NodeType.CallExpression,
           callee: {

@@ -27,9 +27,10 @@ export const JSXValueHint = {
   SkipStringLiteral: 1n << 3n,
   SkipNumberLiteral: 1n << 4n,
   SkipCreateElement: 1n << 5n,
-  StrictArray: 1n << 6n,
-  StrictLogical: 1n << 7n,
-  StrictConditional: 1n << 8n,
+  SkipEmptyArray: 1n << 6n,
+  StrictArray: 1n << 7n,
+  StrictLogical: 1n << 8n,
+  StrictConditional: 1n << 9n,
 } as const;
 /* eslint-enable perfectionist/sort-objects */
 
@@ -50,7 +51,6 @@ export function isJSXValue(
   hint: bigint = DEFAULT_JSX_VALUE_HINT,
 ): boolean {
   if (!node) return false;
-
   return match<typeof node, boolean>(node)
     .with({ type: NodeType.JSXElement }, F.constTrue)
     .with({ type: NodeType.JSXFragment }, F.constTrue)
@@ -67,38 +67,35 @@ export function isJSXValue(
     .with({ type: NodeType.TemplateLiteral }, () => !(hint & JSXValueHint.SkipStringLiteral))
     .with({ type: NodeType.ArrayExpression }, (node) => {
       if (hint & JSXValueHint.StrictArray) return node.elements.every((n) => isJSXValue(n, context, hint));
-
       return node.elements.some((n) => isJSXValue(n, context, hint));
     })
     .with({ type: NodeType.ConditionalExpression }, (node) => {
       function leftHasJSX(node: TSESTree.ConditionalExpression) {
         if (Array.isArray(node.consequent)) {
+          if (node.consequent.length === 0) return !(hint & JSXValueHint.SkipEmptyArray);
           if (hint & JSXValueHint.StrictArray) {
             return node.consequent.every((n: TSESTree.Expression) => isJSXValue(n, context, hint));
           }
-
           return node.consequent.some((n: TSESTree.Expression) => isJSXValue(n, context, hint));
         }
-
         return isJSXValue(node.consequent, context, hint);
       }
-
       function rightHasJSX(node: TSESTree.ConditionalExpression) {
         return isJSXValue(node.alternate, context, hint);
       }
-
       if (hint & JSXValueHint.StrictConditional) {
         return leftHasJSX(node) && rightHasJSX(node);
       }
-
       return leftHasJSX(node) || rightHasJSX(node);
     })
     .with({ type: NodeType.LogicalExpression }, (node) => {
+      if (hint & JSXValueHint.StrictLogical) {
+        return isJSXValue(node.left, context, hint) && isJSXValue(node.right, context, hint);
+      }
       return isJSXValue(node.left, context, hint) || isJSXValue(node.right, context, hint);
     })
     .with({ type: NodeType.SequenceExpression }, (node) => {
       const exp = node.expressions.at(-1);
-
       return isJSXValue(exp, context, hint);
     })
     .with({ type: NodeType.CallExpression }, (node) => {
@@ -114,7 +111,6 @@ export function isJSXValue(
       if (isJSXTagNameExpression(node)) return true;
       const initialScope = context.sourceCode.getScope(node);
       const maybeVariable = findVariable(name, initialScope);
-
       return F.pipe(
         maybeVariable,
         O.flatMap(getVariableInit(0)),

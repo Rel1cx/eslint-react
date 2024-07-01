@@ -1317,6 +1317,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allFunctions,
+    dedent`const results = data.flatMap((x) => x?.name || []) || []`,
     dedent`const results = allSettled.map((x) => (x.status === 'fulfilled' ? <div /> : null))`,
     dedent`const results = allSettled.map((x) => (x.status === 'fulfilled' ? format(x.value) : null))`,
     dedent`const results = allSettled.mapLike((x) => (x.status === 'fulfilled' ? format(x.value) : null))`,

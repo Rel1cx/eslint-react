@@ -30,6 +30,7 @@ export const DEFAULT_COMPONENT_HINT = 0n
   | ERComponentHint.SkipNumberLiteral
   | ERComponentHint.SkipStringLiteral
   | ERComponentHint.SkipUndefinedLiteral
+  | ERComponentHint.SkipEmptyArray
   | ERComponentHint.StrictArray
   | ERComponentHint.StrictConditional
   | ERComponentHint.StrictLogical;

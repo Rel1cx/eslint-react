@@ -6,9 +6,10 @@
 
 ### 🪄 Improvements
 
-- Switch to a more appropriate value for `DEFAULT_COMPONENT_HINT`.
+- Improve `utilities/jsx/is-jsx-value` to better distinguish between normal values and JSX values.
 - Improve `core/component-collector` to better distinguish between normal functions and components.
 - Prevent potential function component detection related false positives.
+- Switch to a more appropriate value for `DEFAULT_COMPONENT_HINT`.
 
 ## v1.5.19 (30 Sun Jun 2024)
 
