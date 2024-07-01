@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/var",
-  "version": "1.5.20-beta.3",
+  "version": "1.5.20-next.4",
   "description": "TSESTree AST utility module for static analysis of variables",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -44,9 +44,9 @@
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "^7.14.1",
-    "@typescript-eslint/types": "^7.14.1",
-    "@typescript-eslint/utils": "^7.14.1"
+    "@typescript-eslint/scope-manager": "^7.15.0",
+    "@typescript-eslint/types": "^7.15.0",
+    "@typescript-eslint/utils": "^7.15.0"
   },
   "devDependencies": {
     "effect": "3.4.6",
