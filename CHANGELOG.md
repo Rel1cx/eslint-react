@@ -3,6 +3,7 @@
 ### 🐞 Fixes
 
 - Fix rule `prefer-destructuring-assignment` false positive when the function looks like a component.
+- Reduce function component detection related false positives in rules.
 
 ### 🪄 Improvements
 
