@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/tools",
-  "version": "1.5.20-beta.4",
+  "version": "1.5.20-next.5",
   "description": "ESLint React's std library and primitives.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {

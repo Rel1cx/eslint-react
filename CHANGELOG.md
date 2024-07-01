@@ -3,12 +3,12 @@
 ### 🐞 Fixes
 
 - Fix rule `prefer-destructuring-assignment` false positive when the function looks like a component.
-- Prevent potential function component detection related false positives.
 
 ### 🪄 Improvements
 
 - Switch to a more appropriate value for `DEFAULT_COMPONENT_HINT`.
 - Improve `core/component-collector` to better distinguish between normal functions and components.
+- Prevent potential function component detection related false positives.
 
 ## v1.5.19 (30 Sun Jun 2024)
 
