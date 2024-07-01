@@ -21,3 +21,7 @@ The value to infer.
 ## Returns
 
 `T`
+
+## Since
+
+0.0.1
