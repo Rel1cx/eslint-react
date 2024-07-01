@@ -15,12 +15,4 @@ export default {
     title: "Documentation",
     type: "page",
   },
-  rules: {
-    title: "Rules",
-    type: "page",
-  },
-  presets: {
-    title: "Presets",
-    type: "page",
-  },
 } as const;

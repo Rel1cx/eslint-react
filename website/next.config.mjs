@@ -28,11 +28,23 @@ const nextConfig = {
   },
   output: "standalone",
   redirects() {
-    return [{
-      source: "/faq",
-      destination: "/docs/faq",
-      permanent: true,
-    }];
+    return [
+      {
+        source: "/faq",
+        destination: "/docs/faq",
+        permanent: true,
+      },
+      {
+        source: "/presets/:wildcard",
+        destination: "/docs/presets/:wildcard",
+        permanent: true,
+      },
+      {
+        source: "/rules/:wildcard",
+        destination: "/docs/rules/:wildcard",
+        permanent: true,
+      },
+    ];
   },
 };
 
