@@ -104,10 +104,13 @@ export function useComponentCollector(
   const onFunctionExit = () => {
     const [key, fn, isComponent] = MutList.tail(functionStack) ?? [];
     if (!key || !fn || !isComponent) return MutList.pop(functionStack);
-    const returns = getNestedReturnStatements(fn.body);
-    if (returns.reverse().some(r => !isJSXValue(r.argument, context, hint))) {
-      components.delete(key);
-    }
+    const shouldDrop = getNestedReturnStatements(fn.body)
+      .reverse()
+      .some(r => {
+        return context.sourceCode.getScope(r).block === fn
+          && !isJSXValue(r.argument, context, hint);
+      });
+    if (shouldDrop) components.delete(key);
     return MutList.pop(functionStack);
   };
 
