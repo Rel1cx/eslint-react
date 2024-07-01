@@ -118,7 +118,7 @@
       "array.prototype.flatmap": "npm:@nolyfill/array.prototype.flatmap@latest",
       "array.prototype.toreversed": "npm:@nolyfill/array.prototype.toreversed@latest",
       "array.prototype.tosorted": "npm:@nolyfill/array.prototype.tosorted@latest",
-      "dprint": "0.46.3",
+      "dprint": "0.47.0",
       "es-iterator-helpers": "npm:@nolyfill/es-iterator-helpers@latest",
       "eslint": "^9.6.0",
       "function-bind": "npm:@nolyfill/function-bind@latest",
