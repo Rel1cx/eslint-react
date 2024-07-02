@@ -1,21 +1,22 @@
 import type { TSESTree } from "@typescript-eslint/types";
-import { Predicate as Prd } from "effect";
 
-import { NodeType } from "../../ast-node";
+import { NodeType } from "./types";
 
 /**
  * Gets nested return statements in a node
  * @param node The AST node
  * @returns The nested return statements
  */
-export function getNestedReturnStatements(node: TSESTree.Node): TSESTree.ReturnStatement[] {
-  const returnStatements: TSESTree.ReturnStatement[] = [];
+export function getNestedReturnStatements(
+  node: TSESTree.Node,
+): Array<TSESTree.ReturnStatement> {
+  const returnStatements: Array<TSESTree.ReturnStatement> = [];
 
   if (node.type === NodeType.ReturnStatement) {
     returnStatements.push(node);
   }
 
-  if ("body" in node && !Prd.isNullable(node.body)) {
+  if ("body" in node && node.body !== undefined && node.body !== null) {
     Array.isArray(node.body)
       ? node.body.forEach((x) => {
         returnStatements.push(...getNestedReturnStatements(x));

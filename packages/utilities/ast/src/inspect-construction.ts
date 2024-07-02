@@ -4,9 +4,10 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { Option as O, Predicate as Prd } from "effect";
 import { match } from "ts-pattern";
 
-import { is, isOneOf, NodeType } from "../../ast-node";
 import { Construction } from "./construction";
 import { ConstructionHint } from "./construction-hint";
+import { is, isOneOf } from "./is";
+import { NodeType } from "./types";
 
 const None = Construction.None();
 

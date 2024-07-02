@@ -1,6 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { NodeType } from "../../ast-node";
+import { NodeType } from "./types";
 
 export function isThisExpression(node: TSESTree.Expression) {
   if (node.type === NodeType.TSAsExpression) {

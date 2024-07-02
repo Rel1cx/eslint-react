@@ -1,6 +1,6 @@
 import { isMatching, P } from "ts-pattern";
 
-import { NodeType } from "./ast-node";
+import { NodeType } from "./types";
 
 export const isMapCallLoose = isMatching({
   callee: {

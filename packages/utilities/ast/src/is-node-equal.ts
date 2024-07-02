@@ -1,6 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { NodeType } from "./node-type";
+import { NodeType } from "./types";
 
 /**
  * Determines whether node equals to another node

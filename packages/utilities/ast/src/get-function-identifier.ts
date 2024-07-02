@@ -10,8 +10,9 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { Option as O } from "effect";
 
-import type { TSESTreeFunction } from "../../ast-node";
-import { isOneOf, NodeType } from "../../ast-node";
+import { isOneOf } from "./is";
+import type { TSESTreeFunction } from "./types";
+import { NodeType } from "./types";
 
 export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree.Identifier> {
   // function MaybeComponent() {}

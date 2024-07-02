@@ -1,6 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { NodeType } from "../../ast-node";
+import { NodeType } from "./types";
 
 /**
  * Gets nested identifiers in a node

@@ -1,19 +1,9 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { delimiterCase, replace, toLowerCase } from "string-ts";
-import { match, P } from "ts-pattern";
 
-import { isJSX, NodeType } from "./node-type";
-
-export function getLiteralValueType(input: bigint | boolean | null | number | string | symbol) {
-  return match(input)
-    .with(null, () => "Null" as const)
-    .with(P.boolean, () => "Boolean" as const)
-    .with(P.number, () => "Number" as const)
-    .with(P.string, () => "String" as const)
-    .with(P.bigint, () => "BigInt" as const)
-    .with(P.symbol, () => "Symbol" as const)
-    .exhaustive();
-}
+import { getLiteralValueType } from "./get-literal-value-type";
+import { isJSX } from "./is";
+import { NodeType } from "./types";
 
 /**
  * Returns human readable node type for given AST node
