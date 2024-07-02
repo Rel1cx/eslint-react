@@ -5,28 +5,29 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  array-includes: npm:@nolyfill/array-includes@latest
-  array.prototype.findlast: npm:@nolyfill/array.prototype.findlast@latest
-  array.prototype.findlastindex: npm:@nolyfill/array.prototype.findlastindex@latest
-  array.prototype.flat: npm:@nolyfill/array.prototype.flat@latest
-  array.prototype.flatmap: npm:@nolyfill/array.prototype.flatmap@latest
-  array.prototype.toreversed: npm:@nolyfill/array.prototype.toreversed@latest
-  array.prototype.tosorted: npm:@nolyfill/array.prototype.tosorted@latest
+  array-includes: npm:@nolyfill/array-includes@^1
+  array.prototype.findlast: npm:@nolyfill/array.prototype.findlast@^1
+  array.prototype.findlastindex: npm:@nolyfill/array.prototype.findlastindex@^1
+  array.prototype.flat: npm:@nolyfill/array.prototype.flat@^1
+  array.prototype.flatmap: npm:@nolyfill/array.prototype.flatmap@^1
+  array.prototype.toreversed: npm:@nolyfill/array.prototype.toreversed@^1
+  array.prototype.tosorted: npm:@nolyfill/array.prototype.tosorted@^1
   dprint: 0.46.3
-  es-iterator-helpers: npm:@nolyfill/es-iterator-helpers@latest
+  es-iterator-helpers: npm:@nolyfill/es-iterator-helpers@^1
   esbuild: 0.23.0
   eslint: ^9.6.0
-  function-bind: npm:@nolyfill/function-bind@latest
-  has: npm:@nolyfill/has@latest
-  hasown: npm:@nolyfill/hasown@latest
-  object.assign: npm:@nolyfill/object.assign@latest
-  object.entries: npm:@nolyfill/object.entries@latest
-  object.fromentries: npm:@nolyfill/object.fromentries@latest
-  object.groupby: npm:@nolyfill/object.groupby@latest
-  object.hasown: npm:@nolyfill/object.hasown@latest
-  object.values: npm:@nolyfill/object.values@latest
-  string.prototype.matchall: npm:@nolyfill/string.prototype.matchall@latest
-  typedarray: npm:@nolyfill/typedarray@latest
+  function-bind: npm:@nolyfill/function-bind@^1
+  has: npm:@nolyfill/has@^1
+  hasown: npm:@nolyfill/hasown@^1
+  is-core-module: npm:@nolyfill/is-core-module@^1
+  object.assign: npm:@nolyfill/object.assign@^1
+  object.entries: npm:@nolyfill/object.entries@^1
+  object.fromentries: npm:@nolyfill/object.fromentries@^1
+  object.groupby: npm:@nolyfill/object.groupby@^1
+  object.hasown: npm:@nolyfill/object.hasown@^1
+  object.values: npm:@nolyfill/object.values@^1
+  string.prototype.matchall: npm:@nolyfill/string.prototype.matchall@^1
+  typedarray: npm:@nolyfill/typedarray@^1
   typedoc: 0.26.3
   typedoc-plugin-markdown: 4.1.1
   typescript: ^5.5.3
@@ -1624,8 +1625,8 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@nolyfill/hasown@1.0.29':
-    resolution: {integrity: sha512-9h/nxZqmCy26r9VXGUz+Q77vq3eINXOYgE4st3dj6DoE7tulfJueCLw5d4hfDy3S8mKg4cFXaP+KxYQ+txvMzw==}
+  '@nolyfill/is-core-module@1.0.32':
+    resolution: {integrity: sha512-xmhh+wwmaCtNjY7slRZ/U+/NGjPii1dfKyYCv8iHofIbMkXFLyZTpdsIoiGbtf/JQRfQuwlohZ6B/sb2CrQbFw==}
     engines: {node: '>=12.4.0'}
 
   '@nolyfill/typedarray@1.0.29':
@@ -2477,7 +2478,6 @@ packages:
 
   bun@1.1.17:
     resolution: {integrity: sha512-x2vUqI75XQ11Qxb3FzQCd/AkbA8A3AiJ35xfw49JeNgu0MTi0RCuW+1zOyFf5iJM0xU07LKf2H69n4ASuEqhtQ==}
-    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -3540,7 +3540,6 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
-    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -3710,7 +3709,6 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
-    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -3773,10 +3771,6 @@ packages:
   is-builtin-module@3.2.1:
     resolution: {integrity: sha512-BSLE3HnV2syZ0FK0iMA/yUGplUeMmNz4AW5fnTunbCIqZi4vG3WjJT9FHMy5D69xmAYBHXQhJdALdpwVxV501A==}
     engines: {node: '>=6'}
-
-  is-core-module@2.14.0:
-    resolution: {integrity: sha512-a5dFJih5ZLYlRtDc0dZWP7RiKr6xIKzmn/oAYCDvdLThadVgyJwlaoQPmRtMSpz+rk0OGAgIu+TcM9HUF0fk1A==}
-    engines: {node: '>= 0.4'}
 
   is-decimal@1.0.4:
     resolution: {integrity: sha512-RGdriMmQQvZ2aqaQq3awNA6dCGtKpiDFcOzrTWrDAT2MiWrKQVPmxLGHl7Y2nNu6led0kEyoX0enY0qXYsv9zw==}
@@ -6747,7 +6741,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@nolyfill/hasown@1.0.29': {}
+  '@nolyfill/is-core-module@1.0.32': {}
 
   '@nolyfill/typedarray@1.0.29': {}
 
@@ -8313,7 +8307,7 @@ snapshots:
       deps-regex: 0.2.0
       findup-sync: 5.0.0
       ignore: 5.3.1
-      is-core-module: 2.14.0
+      is-core-module: '@nolyfill/is-core-module@1.0.32'
       js-yaml: 3.14.1
       json5: 2.2.3
       lodash: 4.17.21
@@ -8459,7 +8453,7 @@ snapshots:
   eslint-import-resolver-node@0.3.9:
     dependencies:
       debug: 3.2.7
-      is-core-module: 2.14.0
+      is-core-module: '@nolyfill/is-core-module@1.0.32'
       resolve: 1.22.8
     transitivePeerDependencies:
       - supports-color
@@ -9261,10 +9255,6 @@ snapshots:
   is-builtin-module@3.2.1:
     dependencies:
       builtin-modules: 3.3.0
-
-  is-core-module@2.14.0:
-    dependencies:
-      hasown: '@nolyfill/hasown@1.0.29'
 
   is-decimal@1.0.4: {}
 
@@ -10903,7 +10893,7 @@ snapshots:
 
   resolve@1.22.8:
     dependencies:
-      is-core-module: 2.14.0
+      is-core-module: '@nolyfill/is-core-module@1.0.32'
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
 
