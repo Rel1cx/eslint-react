@@ -20,8 +20,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow usage of 'UNSAFE_componentWillUpdate'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_UNSAFE_COMPONENT_WILL_UPDATE: "Do not use 'UNSAFE_componentWillUpdate'.",

@@ -184,8 +184,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow problematic leaked values from being rendered",
-      recommended: "recommended",
-      requiresTypeChecking: true,
     },
     messages: {
       NO_LEAKED_CONDITIONAL_RENDERING:

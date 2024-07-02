@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { NodeType } from "./types";
@@ -5,7 +6,7 @@ import { NodeType } from "./types";
 /**
  * Gets nested return statements in a node
  * @param node The AST node
- * @returns The nested return statements
+ * @returns The nested return statements in the node
  */
 export function getNestedReturnStatements(
   node: TSESTree.Node,

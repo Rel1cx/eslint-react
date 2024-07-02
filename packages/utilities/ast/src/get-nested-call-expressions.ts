@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { NodeType } from "./types";

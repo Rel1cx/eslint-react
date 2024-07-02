@@ -20,8 +20,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow usage of 'UNSAFE_componentWillMount'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_UNSAFE_COMPONENT_WILL_MOUNT: "Do not use 'UNSAFE_componentWillMount'.",

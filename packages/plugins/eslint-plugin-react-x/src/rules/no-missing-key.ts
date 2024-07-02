@@ -19,8 +19,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "require 'key' prop when rendering list",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_MISSING_KEY: "Missing 'key' prop for element when rendering list",

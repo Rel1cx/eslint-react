@@ -44,9 +44,9 @@
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "^7.15.0",
-    "@typescript-eslint/types": "^7.15.0",
-    "@typescript-eslint/utils": "^7.15.0"
+    "@typescript-eslint/scope-manager": "8.0.0-alpha.40",
+    "@typescript-eslint/types": "8.0.0-alpha.40",
+    "@typescript-eslint/utils": "8.0.0-alpha.40"
   },
   "devDependencies": {
     "effect": "3.4.6",

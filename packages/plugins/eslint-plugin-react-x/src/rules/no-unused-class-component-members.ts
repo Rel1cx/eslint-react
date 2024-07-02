@@ -70,8 +70,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow unused class component members",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_UNUSED_CLASS_COMPONENT_MEMBERS: "Unused method or property '{{methodName}}'' of class '{{className}}'.",

@@ -13,8 +13,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow 'Children.count'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_CHILDREN_COUNT: "Using 'Children.count' is uncommon and can lead to fragile code. Use alternatives instead.",

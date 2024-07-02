@@ -13,7 +13,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "report all React Hooks",
-      requiresTypeChecking: false,
     },
     messages: {
       REACT_HOOKS: "[react hooks] name: {{name}}, hookCalls: {{hookCalls}}",

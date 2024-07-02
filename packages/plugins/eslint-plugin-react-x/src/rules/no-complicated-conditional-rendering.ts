@@ -14,7 +14,6 @@ export default createRule<[], MessageID>({
     deprecated: true,
     docs: {
       description: "disallow complicated conditional rendering",
-      requiresTypeChecking: true,
     },
     messages: {
       NO_COMPLICATED_CONDITIONAL_RENDERING:

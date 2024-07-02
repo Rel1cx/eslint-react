@@ -18,8 +18,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow when a DOM component is using 'dangerouslySetInnerHTML'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_DANGEROUSLY_SET_INNERHTML: "Using 'dangerouslySetInnerHTML' may have security implications.",

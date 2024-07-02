@@ -32,8 +32,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow 'setState' in 'componentWillUpdate'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_SET_STATE_IN_COMPONENT_WILL_UPDATE:

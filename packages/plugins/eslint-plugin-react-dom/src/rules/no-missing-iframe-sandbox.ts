@@ -35,8 +35,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce that 'iframe' component have an explicit 'sandbox' attribute",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_MISSING_IFRAME_SANDBOX: "Add missing 'sandbox' attribute on 'iframe' component.",

@@ -38,10 +38,8 @@
     "incremental": true
   },
   "include": [
-    "next-env.d.ts",
-    ".eslintrc.cjs",
+    "*.d.ts",
     "*.config.js",
-    "*.config.cjs",
     "*.config.mjs",
     "**/*.ts",
     "**/*.tsx"

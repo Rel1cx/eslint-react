@@ -272,6 +272,7 @@ const config: FlatConfig[] = [
       "docs",
       "examples",
       "website",
+      "eslint.config.js",
       "eslint.config.d.ts",
     ],
   },

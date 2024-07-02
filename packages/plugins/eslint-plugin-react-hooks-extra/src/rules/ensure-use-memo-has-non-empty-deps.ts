@@ -18,7 +18,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce 'useMemo' has non-empty dependencies array",
-      requiresTypeChecking: false,
     },
     messages: {
       ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS: "An useMemo should have a non-empty dependencies array",

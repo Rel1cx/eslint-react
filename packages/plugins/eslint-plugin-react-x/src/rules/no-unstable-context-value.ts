@@ -18,8 +18,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow passing constructed values to context providers",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_UNSTABLE_CONTEXT_VALUE:

@@ -16,8 +16,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow passing of 'children' as props",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_CHILDREN_PROP: "Do not pass children as props.",

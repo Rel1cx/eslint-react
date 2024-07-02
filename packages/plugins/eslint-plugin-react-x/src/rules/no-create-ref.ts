@@ -16,8 +16,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow 'createRef' in function components",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_CREATE_REF: "A 'createRef' is not allowed in function components. Use 'useRef' instead.",
