@@ -1,5 +1,9 @@
 ## v1.5.21 (Draft)
 
+### 🐞 Fixes
+
+- Fix rule `no-leaked-conditional-rendering` false negative when placing components inside JSX props.
+
 ### 🪄 Improvements
 
 - Update `@typescript-eslint`'s packages to v8.

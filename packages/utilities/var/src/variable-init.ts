@@ -26,7 +26,7 @@ function isInitExpression(
   node:
     | TSESTree.Expression
     | TSESTree.LetOrConstOrVarDeclaration,
-): node is TSESTree.Expression {
+) {
   return node.type !== NodeType.VariableDeclaration;
 }
 

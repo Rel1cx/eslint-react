@@ -2,7 +2,7 @@ import { NodeType } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { hasProp } from "../prop";
+import { hasProp } from "./has-prop";
 
 export function isKeyedElement(node: TSESTree.Node, context: RuleContext) {
   if (node.type !== NodeType.JSXElement) return false;

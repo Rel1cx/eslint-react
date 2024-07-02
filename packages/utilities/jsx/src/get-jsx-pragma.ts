@@ -5,7 +5,7 @@ const RE_JSX_ANNOTATION_REGEX = /@jsx\s+(\S+)/u;
 // Does not check for reserved keywords or unicode characters
 const RE_JS_IDENTIFIER_REGEX = /^[$A-Z_a-z][\w$]*$/u;
 
-export function getJSXPragmaFromContext(context: RuleContext): O.Option<string> {
+export function getJSXPragma(context: RuleContext): O.Option<string> {
   const { sourceCode } = context;
   return F.pipe(
     A.findFirst(sourceCode.getAllComments(), (node) => RE_JSX_ANNOTATION_REGEX.test(node.value)),

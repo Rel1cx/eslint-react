@@ -42,7 +42,6 @@
   },
   "dependencies": {
     "@eslint-react/ast": "workspace:*",
-    "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "@eslint-react/var": "workspace:*",
