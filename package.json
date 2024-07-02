@@ -120,6 +120,7 @@
       "array.prototype.tosorted": "npm:@nolyfill/array.prototype.tosorted@latest",
       "dprint": "0.46.3",
       "es-iterator-helpers": "npm:@nolyfill/es-iterator-helpers@latest",
+      "esbuild": "0.22.0",
       "eslint": "^9.6.0",
       "function-bind": "npm:@nolyfill/function-bind@latest",
       "has": "npm:@nolyfill/has@latest",
