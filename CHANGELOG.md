@@ -3,6 +3,7 @@
 ### 🪄 Improvements
 
 - Update `@typescript-eslint`'s packages to v8.
+- Improve rule `no-leaked-conditional-rendering` compatibility with different versions of `typescript-eslint`.
 
 ## v1.5.20 (Tue 02 Jul 2024)
 
