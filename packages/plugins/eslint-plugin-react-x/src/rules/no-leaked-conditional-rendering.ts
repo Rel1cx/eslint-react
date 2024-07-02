@@ -3,6 +3,7 @@ import { findVariable, getVariableInitExpression } from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { Function as F, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
@@ -121,7 +122,7 @@ function inspectVariantTypes(types: ts.Type[]) {
   if (numbers.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(numbers)
       .when(
-        types => types.every(type => type.isNumberLiteral() && type.value !== 0),
+        types => types.every(type => type.isNumberLiteral() && type.value > 0),
         F.constant("truthy number"),
       )
       .when(
@@ -201,17 +202,16 @@ export default createRule<[], MessageID>({
         .with({ type: NodeType.LogicalExpression, operator: "&&" }, ({ left, right }) => {
           const isLeftUnaryNot = isMatching({ type: NodeType.UnaryExpression, operator: "!" }, left);
           if (isLeftUnaryNot) return checkExpression(right);
+          const initialScope = context.sourceCode.getScope(left);
+          const isLeftNan = getStaticValue(left, initialScope)?.value === "NaN";
+          if (isLeftNan) return O.some({ messageId: "NO_LEAKED_CONDITIONAL_RENDERING", node: left });
           const leftType = getConstrainedTypeAtLocation(services, left);
           const leftTypeVariants = inspectVariantTypes(tsutils.unionTypeParts(leftType));
           const isLeftValid = Array
             .from(leftTypeVariants.values())
             .every(type => allowedVariants.some(allowed => allowed === type));
           if (isLeftValid) return checkExpression(right);
-
-          return O.some({
-            messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-            node: left,
-          });
+          return O.some({ messageId: "NO_LEAKED_CONDITIONAL_RENDERING", node: left });
         })
         .with({ type: NodeType.ConditionalExpression }, ({ alternate, consequent }) => {
           return O.orElse(checkExpression(consequent), () => checkExpression(alternate));
