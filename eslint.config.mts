@@ -48,7 +48,7 @@ const config: FlatConfig[] = [
           "packages/*/*/tsconfig.json",
         ],
         tsconfigRootDir: dirname,
-        warnOnUnsupportedTypeScriptVersion: false,
+        warnOnUnsupportedTypeScriptVersion: true,
       },
     },
     rules: {
