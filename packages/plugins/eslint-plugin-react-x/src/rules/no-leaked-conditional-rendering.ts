@@ -188,7 +188,7 @@ export default createRule<[], MessageID>({
     },
     messages: {
       NO_LEAKED_CONDITIONAL_RENDERING:
-        "Potential leaked value that might cause unintentionally rendered values or rendering crashes",
+        "Potential leaked value {{value}} that might cause unintentionally rendered values or rendering crashes",
     },
     schema: [],
   },
@@ -200,18 +200,29 @@ export default createRule<[], MessageID>({
       return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
         .when(isJSX, O.none)
         .with({ type: NodeType.LogicalExpression, operator: "&&" }, ({ left, right }) => {
+          const initialScope = context.sourceCode.getScope(left);
+          const isLeftNan = isMatching({ type: NodeType.Identifier, name: "NaN" }, left)
+            || getStaticValue(left, initialScope)?.value === "NaN";
+          if (isLeftNan) {
+            return O.some({
+              data: { value: context.sourceCode.getText(left) },
+              messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+              node: left,
+            });
+          }
           const isLeftUnaryNot = isMatching({ type: NodeType.UnaryExpression, operator: "!" }, left);
           if (isLeftUnaryNot) return checkExpression(right);
-          const initialScope = context.sourceCode.getScope(left);
-          const isLeftNan = getStaticValue(left, initialScope)?.value === "NaN";
-          if (isLeftNan) return O.some({ messageId: "NO_LEAKED_CONDITIONAL_RENDERING", node: left });
           const leftType = getConstrainedTypeAtLocation(services, left);
           const leftTypeVariants = inspectVariantTypes(tsutils.unionTypeParts(leftType));
           const isLeftValid = Array
             .from(leftTypeVariants.values())
             .every(type => allowedVariants.some(allowed => allowed === type));
           if (isLeftValid) return checkExpression(right);
-          return O.some({ messageId: "NO_LEAKED_CONDITIONAL_RENDERING", node: left });
+          return O.some({
+            data: { value: context.sourceCode.getText(left) },
+            messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+            node: left,
+          });
         })
         .with({ type: NodeType.ConditionalExpression }, ({ alternate, consequent }) => {
           return O.orElse(checkExpression(consequent), () => checkExpression(alternate));

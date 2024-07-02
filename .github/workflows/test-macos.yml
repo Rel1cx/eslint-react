@@ -1,4 +1,4 @@
-name: Test
+name: Test on macOS
 on:
   push:
     branches:
@@ -12,7 +12,7 @@ env:
   NODE_OPTIONS: --max_old_space_size=102400
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - name: Setup node@22
