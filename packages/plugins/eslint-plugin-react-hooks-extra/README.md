@@ -26,17 +26,17 @@ export default [
   js.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
-    ...reactHooksExtra.configs.recommended,
+    plugins: [
+      "react-hooks-extra": reactHooksExtra,
+      rules: {
+        // react-hooks-extra recommended rules
+        "react-hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
+        "react-hooks-extra/prefer-use-state-lazy-initialization": "warn",
+      }
+    ],
   },
 ];
 ```
-
-## Presets
-
-- **recommended**\
-  Enable rules that are recommended by ESLint React.
-- **off**\
-  Disable all rules in this plugin.
 
 ## Rules
 

@@ -26,17 +26,17 @@ export default [
   js.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
-    ...reactNamingConvention.configs.recommended,
+    plugins: [
+      "react-naming-convention": reactNamingConvention,
+      rules: {
+        // react-naming-convention recommended rules
+        "naming-convention/filename-extension": ["warn", "as-needed"],
+        "naming-convention/use-state": "warn",
+      }
+    ],
   },
 ];
 ```
-
-## Presets
-
-- **recommended**\
-  Enable rules that are recommended by ESLint React.
-- **off**\
-  Disable all rules in this plugin.
 
 ## Rules
 

@@ -23,17 +23,17 @@ export default [
   js.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
-    ...reactDebug.configs.all,
+    plugins: [
+      "react-debug": reactDebug,
+      rules: {
+        "react-debug/class-component": "warn",
+        "react-debug/function-component": "warn",
+        "react-debug/react-hooks": "warn",
+      }
+    ],
   },
 ];
 ```
-
-## Presets
-
-- **all**\
-  Enable all rules in this plugin.
-- **off**\
-  Disable all rules in this plugin.
 
 ## Rules
 

@@ -20,25 +20,52 @@ Add the plugin to your `eslint.config.js`:
 // @ts-check
 
 import js from "@eslint/js";
-import reactX from "eslint-plugin-react-x";
+import reactx from "eslint-plugin-react-x";
 
 export default [
   js.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
-    ...reactX.configs.recommended,
+    plugins: [
+      "react-x": reactx,
+      rules: {
+        // react-x recommended rules
+        "react-x/ensure-forward-ref-using-ref": "warn",
+        "react-x/no-access-state-in-setstate": "error",
+        "react-x/no-array-index-key": "warn",
+        "react-x/no-children-count": "warn",
+        "react-x/no-children-for-each": "warn",
+        "react-x/no-children-map": "warn",
+        "react-x/no-children-only": "warn",
+        "react-x/no-children-to-array": "warn",
+        "react-x/no-clone-element": "warn",
+        "react-x/no-comment-textnodes": "warn",
+        "react-x/no-component-will-mount": "error",
+        "react-x/no-component-will-receive-props": "error",
+        "react-x/no-component-will-update": "error",
+        "react-x/no-create-ref": "error",
+        "react-x/no-direct-mutation-state": "error",
+        "react-x/no-duplicate-key": "error",
+        "react-x/no-missing-key": "error",
+        "react-x/no-nested-components": "warn",
+        "react-x/no-redundant-should-component-update": "error",
+        "react-x/no-set-state-in-component-did-mount": "warn",
+        "react-x/no-set-state-in-component-did-update": "warn",
+        "react-x/no-set-state-in-component-will-update": "warn",
+        "react-x/no-string-refs": "error",
+        "react-x/no-unsafe-component-will-mount": "warn",
+        "react-x/no-unsafe-component-will-receive-props": "warn",
+        "react-x/no-unsafe-component-will-update": "warn",
+        "react-x/no-unstable-context-value": "error",
+        "react-x/no-unstable-default-props": "error",
+        "react-x/no-unused-class-component-members": "warn",
+        "react-x/no-unused-state": "warn",
+        "react-x/no-useless-fragment": "warn",
+      }
+    ],
   },
 ];
 ```
-
-## Presets
-
-- **recommended**\
-  Enable rules that are recommended by ESLint React.
-- **recommended-type-checked**\
-  Enable rules that are recommended by ESLint React with additional rules that require type information.
-- **off**\
-  Disable all rules in this plugin.
 
 ## Rules
 

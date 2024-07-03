@@ -21,11 +21,11 @@ A series of composable ESLint rules rewritten from scratch for libraries and fra
 
 ## Public packages
 
-### All-in-one packages
+### All-in-one plugins
 
 - [`@eslint-react/eslint-plugin`](https://www.npmjs.com/package/@eslint-react/eslint-plugin) - The main ESLint plugin package including all rules and config presets in this repository.
 
-### Individual packages (will be available in 2.0)
+### Individual plugins (will be available in 2.0)
 
 - [`eslint-plugin-react-x`](https://www.npmjs.com/package/eslint-plugin-react-x) - Core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
 - [`eslint-plugin-react-dom`](https://www.npmjs.com/package/eslint-plugin-react-dom) - DOM specific rules for React DOM.
