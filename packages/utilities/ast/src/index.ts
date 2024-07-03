@@ -12,6 +12,7 @@ export * from "./is";
 export * from "./is-function-of-class-method";
 export * from "./is-function-of-class-property";
 export * from "./is-function-of-object-method";
+export * from "./is-key-literal";
 export * from "./is-map-call";
 export * from "./is-multi-line";
 export * from "./is-node-equal";
