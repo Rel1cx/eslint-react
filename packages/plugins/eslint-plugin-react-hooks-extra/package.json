@@ -36,7 +36,6 @@
   ],
   "scripts": {
     "build": "tsup",
-    "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:type": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
