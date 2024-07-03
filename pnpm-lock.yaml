@@ -299,6 +299,9 @@ importers:
       eslint:
         specifier: ^9.6.0
         version: 9.6.0
+      eslint-plugin-react-debug:
+        specifier: workspace:*
+        version: link:../eslint-plugin-react-debug
       eslint-plugin-react-dom:
         specifier: workspace:*
         version: link:../eslint-plugin-react-dom
