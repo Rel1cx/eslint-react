@@ -2,11 +2,14 @@
 
 Debugging rules.
 
+> [!TIP]
+> This plugin is already included in `@eslint-react/eslint-plugin`. You don't need to install it separately if you are using `@eslint-react/eslint-plugin`.
+
 ## Install
 
 ```sh
 # npm
-npm install --save-dev eslint-plugin-react-debug
+npm install --save-dev eslint-plugin-react-dom
 ```
 
 ## Setup
