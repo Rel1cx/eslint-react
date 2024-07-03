@@ -15,15 +15,12 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Enable Csorepack
+        run: corepack enable
       - name: Setup node@20
         uses: actions/setup-node@v3
         with:
           node-version: 20
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        with:
-          version: 9
-          run_install: false
       - name: Install front-end dependencies and build front-end assets
         run: pnpm install
       - name: Test on node@20
