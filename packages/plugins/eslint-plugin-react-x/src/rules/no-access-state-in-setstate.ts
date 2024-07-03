@@ -1,26 +1,14 @@
-import { isThisExpression, NodeType } from "@eslint-react/ast";
+import { isKeyLiteralLike, isThisExpression, NodeType } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import { Function as F, MutableList as MutList, Option as O } from "effect";
+import { MutableList as MutList, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
-import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-access-state-in-setstate";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
-
-function isKeyLiteralLike(
-  node: TSESTree.MemberExpression | TSESTree.MethodDefinition | TSESTree.Property | TSESTree.PropertyDefinition,
-  property: TSESTree.Node,
-) {
-  return match(property)
-    .with({ type: NodeType.Literal }, F.constTrue)
-    .with({ type: NodeType.TemplateLiteral, expressions: [] }, F.constTrue)
-    .with({ type: NodeType.Identifier }, () => !node.computed)
-    .otherwise(F.constFalse);
-}
 
 function isThisSetState(node: TSESTree.CallExpression) {
   const { callee } = node;

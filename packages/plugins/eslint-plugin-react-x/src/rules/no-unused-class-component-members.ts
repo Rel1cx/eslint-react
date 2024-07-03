@@ -1,10 +1,9 @@
 import type { TSESTreeClass } from "@eslint-react/ast";
-import { getClassIdentifier, isThisExpression, NodeType } from "@eslint-react/ast";
+import { getClassIdentifier, isKeyLiteralLike, isThisExpression, NodeType } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import { Function as F, MutableList as MutList, Option as O } from "effect";
+import { MutableList as MutList, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
-import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -33,17 +32,6 @@ const LIFECYCLE_METHODS = new Set([
   "state",
   "render",
 ]);
-
-function isKeyLiteralLike(
-  node: TSESTree.MemberExpression | TSESTree.MethodDefinition | TSESTree.Property | TSESTree.PropertyDefinition,
-  property: TSESTree.Node,
-) {
-  return match(property)
-    .with({ type: NodeType.Literal }, F.constTrue)
-    .with({ type: NodeType.TemplateLiteral, expressions: [] }, F.constTrue)
-    .with({ type: NodeType.Identifier }, () => !node.computed)
-    .otherwise(F.constFalse);
-}
 
 // Return the name of an identifier or the string value of a literal. Useful
 // anywhere that a literal may be used as a key (e.g., member expressions,
