@@ -3,7 +3,7 @@
 ### 🐞 Fixes
 
 - Add missing dependencies to `@eslint-react/eslint-plugin`.
-- Fix rule `no-leaked-conditional-rendering` false negative when placing components inside JSX props.
+- Fix rule `no-nested-components` false negative when placing components inside JSX props.
 
 ### 🪄 Improvements
 
