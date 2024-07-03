@@ -27,6 +27,26 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: dedent`
+        const App = () => {
+          return (
+              <>
+              {(0) && <Foo />}
+              {(NaN) && <Foo />}
+              </>
+              )
+          }
+      `,
+      errors: [
+        {
+          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+        },
+        {
+          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+        },
+      ],
+    },
+    {
+      code: dedent`
         const someCondition = JSON.parse("") as unknown;
         const SomeComponent = () => <div />;
 

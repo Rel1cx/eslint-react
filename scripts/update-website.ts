@@ -21,7 +21,7 @@ const [
   },
   [[], []],
 );
-const metaFile = path.join("website", "pages", "rules", "_meta.ts");
+const metaFile = path.join("website", "pages", "docs", "rules", "_meta.ts");
 const metaContent = {
   overview: {
     title: "Overview",

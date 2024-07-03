@@ -1,0 +1,42 @@
+name: Test on macOS
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+    branches:
+      - "**"
+  merge_group:
+env:
+  NODE_OPTIONS: --max_old_space_size=102400
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup node@22
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 9
+          run_install: false
+      - name: Install front-end dependencies and build front-end assets
+        run: pnpm install
+      - name: Test on node@22
+        run: pnpm run test
+      - name: Setup node@20
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Test on node@20
+        run: pnpm run test
+      - name: Setup node@18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Test on node@18
+        run: pnpm run test

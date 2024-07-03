@@ -17,8 +17,6 @@ export default createRule<[], MessageID>({
     deprecated: true,
     docs: {
       description: "disallow spreading 'key' from objects.",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_IMPLICIT_KEY: "Prefer specifying key explicitly instead of spreading it from object.",

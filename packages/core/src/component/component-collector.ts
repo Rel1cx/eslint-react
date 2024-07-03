@@ -1,9 +1,11 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import {
+  getNestedReturnStatements,
   is,
   isFunctionOfClassMethod,
   isFunctionOfClassProperty,
   isFunctionOfObjectMethod,
+  isMapCallLoose,
   isOneOf,
   NodeType,
   traverseUp,
@@ -14,7 +16,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { Function as F, MutableList as MutList, MutableRef as MutRef, Option as O } from "effect";
 import ShortUniqueId from "short-unique-id";
-import { isMatching, match } from "ts-pattern";
+import { match } from "ts-pattern";
 
 import { isChildrenOfCreateElement } from "../element";
 import { isReactHookCall } from "../hook";
@@ -28,21 +30,12 @@ import { isFunctionOfRenderMethod } from "./component-render-method";
 
 const uid = new ShortUniqueId({ length: 10 });
 
-const isMapCall = isMatching({
-  callee: {
-    type: NodeType.MemberExpression,
-    property: {
-      name: "map",
-    },
-  },
-});
-
 function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: bigint) {
   if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node)) {
     return false;
   }
 
-  if (hint & ERComponentHint.SkipMapCallback && isMapCall(node.parent)) {
+  if (hint & ERComponentHint.SkipMapCallback && isMapCallLoose(node.parent)) {
     return false;
   }
 
@@ -93,13 +86,26 @@ export function useComponentCollector(
 ) {
   const components = new Map<string, ERFunctionComponent>();
   const functionStack = MutList.make<[
+    key: string,
     node: TSESTreeFunction,
     isComponent: boolean,
     hookCalls: TSESTree.CallExpression[],
   ]>();
   const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
-  const onFunctionEnter = (node: TSESTreeFunction) => MutList.append(functionStack, [node, false, []]);
-  const onFunctionExit = () => MutList.pop(functionStack);
+  const onFunctionEnter = (node: TSESTreeFunction) => MutList.append(functionStack, [uid.rnd(), node, false, []]);
+  const onFunctionExit = () => {
+    const [key, fn, isComponent] = MutList.tail(functionStack) ?? [];
+    if (!key || !fn || !isComponent) return MutList.pop(functionStack);
+    const shouldDrop = getNestedReturnStatements(fn.body)
+      .reverse()
+      .some(r => {
+        return context.sourceCode.getScope(r).block === fn
+          && r.argument !== null
+          && !isJSXValue(r.argument, context, hint);
+      });
+    if (shouldDrop) components.delete(key);
+    return MutList.pop(functionStack);
+  };
 
   const ctx = {
     getAllComponents(_: TSESTree.Program): typeof components {
@@ -120,7 +126,7 @@ export function useComponentCollector(
     ReturnStatement(node: TSESTree.ReturnStatement) {
       const maybeCurrentFn = getCurrentFunction();
       if (O.isNone(maybeCurrentFn)) return;
-      const [currentFn, isKnown, hookCalls] = maybeCurrentFn.value;
+      const [key, currentFn, isKnown, hookCalls] = maybeCurrentFn.value;
       if (isKnown) return;
       const isComponent = hasNoneOrValidComponentName(currentFn, context)
         && isJSXValue(node.argument, context, hint)
@@ -128,12 +134,11 @@ export function useComponentCollector(
       if (!isComponent) return;
 
       MutList.pop(functionStack);
-      MutList.append(functionStack, [currentFn, true, []]);
+      MutList.append(functionStack, [key, currentFn, true, []]);
 
       const initPath = getComponentInitPath(currentFn);
       const id = getFunctionComponentIdentifier(currentFn, context);
       const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
-      const key = uid.rnd();
 
       components.set(key, {
         _: key,
@@ -152,7 +157,7 @@ export function useComponentCollector(
     "ArrowFunctionExpression[body.type!='BlockStatement']"() {
       const maybeCurrentFn = getCurrentFunction();
       if (O.isNone(maybeCurrentFn)) return;
-      const [currentFn, _, hookCalls] = maybeCurrentFn.value;
+      const [_key, currentFn, _isComponent, hookCalls] = maybeCurrentFn.value;
       const { body } = currentFn;
       const isComponent = F.constTrue()
         && hasNoneOrValidComponentName(currentFn, context)
@@ -181,10 +186,10 @@ export function useComponentCollector(
       if (!isReactHookCall(node)) return;
       const maybeCurrentFn = getCurrentFunction();
       if (O.isNone(maybeCurrentFn)) return;
-      const [currentFn, IsComponent, hookCalls] = maybeCurrentFn.value;
+      const [key, currentFn, isComponent, hookCalls] = maybeCurrentFn.value;
 
       MutList.pop(functionStack);
-      MutList.append(functionStack, [currentFn, IsComponent, [...hookCalls, node]]);
+      MutList.append(functionStack, [key, currentFn, isComponent, [...hookCalls, node]]);
     },
     // eslint-disable-next-line perfectionist/sort-objects
     "AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']"(

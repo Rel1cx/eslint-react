@@ -55,8 +55,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow accessing 'this.state' within 'setState'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_ACCESS_STATE_IN_SETSTATE: "Do not access 'this.state' within 'setState'. Use 'setState' callback instead.",

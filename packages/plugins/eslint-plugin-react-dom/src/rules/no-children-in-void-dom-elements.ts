@@ -35,8 +35,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow passing 'children' to void DOM elements",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_CHILDREN_IN_VOID_DOM_ELEMENTS: "A void DOM element '<{{element}} />' cannot have children.",

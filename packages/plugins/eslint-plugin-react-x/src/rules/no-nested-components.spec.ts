@@ -573,6 +573,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ data: { name: "MemoizedNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
     },
+    {
+      code: dedent`
+        function ParentComponent() {
+          return (
+            <SomeComponent components={{ Header: () => <div /> }} />
+          )
+        }
+      `,
+      errors: [{ data: { name: "Header" }, messageId: "NESTED_COMPONENT_IN_PROPS" }],
+    },
   ],
   valid: [
     ...allValid,
@@ -829,13 +839,6 @@ ruleTester.run(RULE_NAME, rule, {
         });
 
         return <div />;
-      }
-    `,
-    dedent`
-      function ParentComponent() {
-        return (
-          <SomeComponent renderers={{ Header: () => <div /> }} />
-        )
       }
     `,
     dedent`

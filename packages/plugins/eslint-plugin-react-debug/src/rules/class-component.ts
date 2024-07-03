@@ -13,7 +13,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "report all class components, including anonymous ones",
-      requiresTypeChecking: false,
     },
     messages: {
       CLASS_COMPONENT: "[class component] name: {{name}}",

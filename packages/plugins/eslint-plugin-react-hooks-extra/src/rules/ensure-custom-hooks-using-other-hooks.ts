@@ -13,7 +13,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce custom hooks using other hooks",
-      requiresTypeChecking: false,
     },
     messages: {
       ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS: "A custom hook '{{name}}' should use other hooks",

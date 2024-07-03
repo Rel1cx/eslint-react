@@ -12,7 +12,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce using fragment component instead of shorthand fragment syntax",
-      requiresTypeChecking: false,
     },
     messages: {
       AVOID_SHORTHAND_FRAGMENT: "Avoid shorthand fragment syntax, use fragment component instead.",

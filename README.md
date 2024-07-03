@@ -6,7 +6,7 @@
 [![Size](https://img.shields.io/bundlephobia/minzip/@eslint-react/eslint-plugin?label=gzip&style=flat&colorA=000000&colorB=000000)](https://bundlephobia.com/package/@eslint-react/eslint-plugin)
 [![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
 
-A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.
+A series of composable ESLint rules rewritten from scratch for libraries and frameworks that use React as a UI runtime.
 
 ## Roadmap
 
@@ -27,10 +27,10 @@ A series of composable ESLint rules for libraries and frameworks that use React 
 
 ### Individual packages (will be available in 2.0)
 
-- `eslint-plugin-react-x` - Core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
-- `eslint-plugin-react-dom` - DOM specific rules for React DOM.
-- `eslint-plugin-react-hooks-extra` - Extra React Hooks rules.
-- `eslint-plugin-react-naming-convention` - Naming convention rules.
+- [`eslint-plugin-react-x`](https://www.npmjs.com/package/eslint-plugin-react-x) - Core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
+- [`eslint-plugin-react-dom`](https://www.npmjs.com/package/eslint-plugin-react-dom) - DOM specific rules for React DOM.
+- [`eslint-plugin-react-hooks-extra`](https://www.npmjs.com/package/eslint-plugin-react-hooks-extra) - Extra React Hooks rules.
+- [`eslint-plugin-react-naming-convention`](https://www.npmjs.com/package/eslint-plugin-react-naming-convention) - Naming convention rules.
 
 ## Supported ESLint versions
 

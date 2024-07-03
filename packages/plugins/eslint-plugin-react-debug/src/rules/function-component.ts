@@ -14,7 +14,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "report all function components, including anonymous ones",
-      requiresTypeChecking: false,
     },
     messages: {
       FUNCTION_COMPONENT:

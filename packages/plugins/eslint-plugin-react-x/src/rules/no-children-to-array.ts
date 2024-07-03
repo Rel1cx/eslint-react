@@ -13,8 +13,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow 'Children.toArray'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_CHILDREN_TO_ARRAY:

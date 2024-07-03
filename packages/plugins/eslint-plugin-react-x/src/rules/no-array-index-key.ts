@@ -86,8 +86,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow using Array index as key",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_ARRAY_INDEX_KEY: "Do not use Array index as key.",

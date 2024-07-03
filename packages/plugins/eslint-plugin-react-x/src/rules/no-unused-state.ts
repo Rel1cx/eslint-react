@@ -65,8 +65,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Prevents unused state of class component.",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_UNUSED_STATE: "Unused class component state.",

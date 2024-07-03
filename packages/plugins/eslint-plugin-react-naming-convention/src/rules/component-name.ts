@@ -64,8 +64,6 @@ export default createRule<Options, MessageID>({
     type: "problem",
     docs: {
       description: "enforce component naming convention to 'PascalCase' or 'CONSTANT_CASE'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       COMPONENT_NAME: "A component name must be in {{case}}.",

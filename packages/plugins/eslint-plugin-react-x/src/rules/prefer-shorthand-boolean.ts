@@ -14,8 +14,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce boolean attributes notation in JSX",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       PREFER_SHORTHAND_BOOLEAN: "Prefer using shorthand boolean attribute '{{propName}}'",

@@ -37,8 +37,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow unnecessary fragments",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_USELESS_FRAGMENT: "A fragment contains less than two children is unnecessary.",

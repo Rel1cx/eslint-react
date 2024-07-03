@@ -17,8 +17,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce that button component have an explicit 'type' attribute",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_MISSING_BUTTON_TYPE: "Add missing 'type' attribute on 'button' component.",

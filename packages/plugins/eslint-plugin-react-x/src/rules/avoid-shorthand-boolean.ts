@@ -13,7 +13,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce boolean attributes notation in JSX",
-      requiresTypeChecking: false,
     },
     messages: {
       AVOID_SHORTHAND_BOOLEAN: "Avoid using shorthand boolean attribute '{{propName}}'",

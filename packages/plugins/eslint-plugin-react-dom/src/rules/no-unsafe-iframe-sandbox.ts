@@ -22,8 +22,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow unsafe iframe 'sandbox' attribute combinations",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_UNSAFE_IFRAME_SANDBOX: "Unsafe 'sandbox' attribute value on 'iframe' component.",

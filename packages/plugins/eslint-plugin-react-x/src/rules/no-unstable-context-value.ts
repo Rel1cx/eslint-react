@@ -18,8 +18,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow passing constructed values to context providers",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_UNSTABLE_CONTEXT_VALUE:
@@ -56,7 +54,7 @@ export default createRule<[], MessageID>({
         if (construction._tag === "None") return;
         O.map(
           ctx.getCurrentFunction(),
-          ([currentFn]) =>
+          ([_, currentFn]) =>
             possibleValueConstructions.set(currentFn, [
               ...possibleValueConstructions.get(currentFn) ?? [],
               construction,

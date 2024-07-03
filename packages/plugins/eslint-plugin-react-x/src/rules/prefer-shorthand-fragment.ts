@@ -13,8 +13,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce using fragment syntax instead of Fragment component",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       PREFER_SHORTHAND_FRAGMENT: "Prefer shorthand fragment syntax instead of fragment component.",

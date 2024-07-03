@@ -25,7 +25,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce using destructuring assignment in component props and context",
-      recommended: "recommended",
     },
     messages: {
       PREFER_DESTRUCTURING_ASSIGNMENT: "Prefer destructuring assignment.",

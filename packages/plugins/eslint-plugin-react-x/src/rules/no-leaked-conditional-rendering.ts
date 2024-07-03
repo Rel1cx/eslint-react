@@ -3,6 +3,7 @@ import { findVariable, getVariableInitExpression } from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { Function as F, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
@@ -121,7 +122,7 @@ function inspectVariantTypes(types: ts.Type[]) {
   if (numbers.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(numbers)
       .when(
-        types => types.every(type => type.isNumberLiteral() && type.value !== 0),
+        types => types.every(type => type.isNumberLiteral() && type.value > 0),
         F.constant("truthy number"),
       )
       .when(
@@ -184,12 +185,10 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow problematic leaked values from being rendered",
-      recommended: "recommended",
-      requiresTypeChecking: true,
     },
     messages: {
       NO_LEAKED_CONDITIONAL_RENDERING:
-        "Potential leaked value that might cause unintentionally rendered values or rendering crashes",
+        "Potential leaked value {{value}} that might cause unintentionally rendered values or rendering crashes",
     },
     schema: [],
   },
@@ -201,6 +200,16 @@ export default createRule<[], MessageID>({
       return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
         .when(isJSX, O.none)
         .with({ type: NodeType.LogicalExpression, operator: "&&" }, ({ left, right }) => {
+          const initialScope = context.sourceCode.getScope(left);
+          const isLeftNan = isMatching({ type: NodeType.Identifier, name: "NaN" }, left)
+            || getStaticValue(left, initialScope)?.value === "NaN";
+          if (isLeftNan) {
+            return O.some({
+              data: { value: context.sourceCode.getText(left) },
+              messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+              node: left,
+            });
+          }
           const isLeftUnaryNot = isMatching({ type: NodeType.UnaryExpression, operator: "!" }, left);
           if (isLeftUnaryNot) return checkExpression(right);
           const leftType = getConstrainedTypeAtLocation(services, left);
@@ -209,8 +218,8 @@ export default createRule<[], MessageID>({
             .from(leftTypeVariants.values())
             .every(type => allowedVariants.some(allowed => allowed === type));
           if (isLeftValid) return checkExpression(right);
-
           return O.some({
+            data: { value: context.sourceCode.getText(left) },
             messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
             node: left,
           });

@@ -9,7 +9,7 @@ import {
   useComponentCollector,
   useComponentCollectorLegacy,
 } from "@eslint-react/core";
-import { isInsidePropValue } from "@eslint-react/jsx";
+import { traverseUpProp } from "@eslint-react/jsx";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { Option as O } from "effect";
@@ -27,8 +27,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow usage of unstable nested components",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NESTED_COMPONENT: "Do not nest components inside other components. Move it to the top level.",
@@ -69,7 +67,8 @@ export default createRule<[], MessageID>({
           if (O.isNone(componentName)) continue;
           const name = componentName.value;
           const isInsideProperty = component.parent.type === NodeType.Property;
-          const isInsideJSXPropValue = isInsidePropValue(component);
+          const isInsideJSXPropValue = component.parent.type === NodeType.JSXAttribute
+            || O.isSome(traverseUpProp(node, n => n.value?.type === NodeType.JSXExpressionContainer));
           if (isInsideJSXPropValue) {
             if (!isDeclaredInRenderPropLoose(component)) {
               context.report({

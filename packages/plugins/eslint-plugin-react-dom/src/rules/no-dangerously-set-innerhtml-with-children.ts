@@ -1,5 +1,5 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
-import { hasChildren, isCreateElementCall } from "@eslint-react/core";
+import { isCreateElementCall } from "@eslint-react/core";
 import { findPropInProperties, hasProp, isLineBreak } from "@eslint-react/jsx";
 import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -16,7 +16,6 @@ export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 function firstChildIsText(node: TSESTree.JSXElement) {
   const [firstChild] = node.children;
-
   return node.children.length > 0
     && !Prd.isNullable(firstChild)
     && !isLineBreak(firstChild);
@@ -27,8 +26,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow when a DOM component is using both 'children' and 'dangerouslySetInnerHTML'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN:
@@ -73,7 +70,7 @@ export default createRule<[], MessageID>({
       },
       JSXElement(node) {
         const initialScope = context.sourceCode.getScope(node);
-        const hasChildrenWithIn = () => hasChildren(node) && firstChildIsText(node);
+        const hasChildrenWithIn = () => node.children.length > 0 && firstChildIsText(node);
         const hasChildrenProp = () => hasProp(node.openingElement.attributes, "children", context, initialScope);
         // dprint-ignore
         const hasDanger = () => hasProp(node.openingElement.attributes, "dangerouslySetInnerHTML", context, initialScope);

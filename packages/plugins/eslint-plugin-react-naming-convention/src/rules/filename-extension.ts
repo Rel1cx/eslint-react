@@ -63,7 +63,6 @@ export default createRule<Options, MessageID>({
     type: "problem",
     docs: {
       description: "enforce naming convention for JSX file extensions",
-      requiresTypeChecking: false,
     },
     messages: {
       FILE_NAME_EXTENSION_INVALID: "The JSX file extension is required",

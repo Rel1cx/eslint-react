@@ -1,3 +1,27 @@
+## v1.5.21 (Draft)
+
+### 🐞 Fixes
+
+- Fix rule `no-leaked-conditional-rendering` false negative when placing components inside JSX props.
+
+### 🪄 Improvements
+
+- Update `@typescript-eslint`'s packages to v8.
+- Improve rule `no-leaked-conditional-rendering` compatibility with different versions of `typescript-eslint`.
+
+## v1.5.20 (Tue 02 Jul 2024)
+
+### 🐞 Fixes
+
+- Fix rule `prefer-destructuring-assignment` false positive when the function looks like a component.
+
+### 🪄 Improvements
+
+- Improve `utilities/jsx/is-jsx-value` to better distinguish between normal values and JSX values.
+- Improve `core/component-collector` to better distinguish between normal functions and components.
+- Prevent potential function component detection related false positives.
+- Switch to a more appropriate value for `DEFAULT_COMPONENT_HINT`.
+
 ## v1.5.19 (30 Sun Jun 2024)
 
 ### 🪄 Improvements

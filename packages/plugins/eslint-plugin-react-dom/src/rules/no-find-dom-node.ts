@@ -15,8 +15,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow 'findDOMNode'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_FIND_DOM_NODE: "[Deprecated] Use alternatives instead.",

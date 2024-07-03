@@ -9,6 +9,15 @@ export default {
   configuration: {
     title: "Configuration",
   },
+  "---": {
+    type: "separator",
+  },
+  presets: {
+    title: "Presets",
+  },
+  rules: {
+    title: "Rules",
+  },
   "-Other": {
     title: "Other",
     type: "separator",

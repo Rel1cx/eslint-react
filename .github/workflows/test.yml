@@ -9,7 +9,7 @@ on:
       - "**"
   merge_group:
 env:
-  NODE_OPTIONS: --max_old_space_size=10240
+  NODE_OPTIONS: --max_old_space_size=102400
 jobs:
   test:
     runs-on: ubuntu-latest

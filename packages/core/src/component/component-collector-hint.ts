@@ -25,7 +25,12 @@ export const ERComponentHint = {
 /* eslint-enable perfectionist/sort-objects */
 
 export const DEFAULT_COMPONENT_HINT = 0n
-  | ERComponentHint.SkipUndefinedLiteral
   | ERComponentHint.SkipBooleanLiteral
+  | ERComponentHint.SkipMapCallback
+  | ERComponentHint.SkipNumberLiteral
   | ERComponentHint.SkipStringLiteral
-  | ERComponentHint.SkipNumberLiteral;
+  | ERComponentHint.SkipUndefinedLiteral
+  | ERComponentHint.SkipEmptyArray
+  | ERComponentHint.StrictArray
+  | ERComponentHint.StrictConditional
+  | ERComponentHint.StrictLogical;

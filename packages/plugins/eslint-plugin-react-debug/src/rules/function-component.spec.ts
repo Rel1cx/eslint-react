@@ -114,6 +114,25 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
+      code: dedent`
+        import { memo } from "react";
+
+        const MemoComponent = memo(function Component() {
+          if (1 > 0) return;
+          return <div></div>;
+        })
+      `,
+      errors: [{
+        data: {
+          name: "Component",
+          forwardRef: false,
+          hookCalls: 0,
+          memo: true,
+        },
+        messageId: "FUNCTION_COMPONENT",
+      }],
+    },
+    {
       code: "const ForwardRefComponent = React.forwardRef(() => <div></div>)",
       errors: [{
         data: {
@@ -1088,15 +1107,6 @@ ruleTester.run(RULE_NAME, rule, {
           },
           messageId: "FUNCTION_COMPONENT",
         },
-        {
-          data: {
-            name: "anonymous",
-            forwardRef: false,
-            hookCalls: 0,
-            memo: false,
-          },
-          messageId: "FUNCTION_COMPONENT",
-        },
       ],
     },
     {
@@ -1326,5 +1336,9 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allFunctions,
+    dedent`const results = data.flatMap((x) => x?.name || []) || []`,
+    dedent`const results = allSettled.map((x) => (x.status === 'fulfilled' ? <div /> : null))`,
+    dedent`const results = allSettled.map((x) => (x.status === 'fulfilled' ? format(x.value) : null))`,
+    dedent`const results = allSettled.mapLike((x) => (x.status === 'fulfilled' ? format(x.value) : null))`,
   ],
 });

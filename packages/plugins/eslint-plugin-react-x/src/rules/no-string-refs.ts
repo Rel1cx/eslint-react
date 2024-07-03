@@ -26,8 +26,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow using deprecated string refs",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_STRING_REFS: "[Deprecated] Use callback refs instead.",

@@ -23,8 +23,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow usage of unstable value as default param in function component",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_UNSTABLE_DEFAULT_PROPS:
@@ -78,7 +76,7 @@ export default createRule<[], MessageID>({
       "VariableDeclarator[id.type='ObjectPattern'][init.type='Identifier']"(node: ObjectDestructuringDeclarator) {
         O.map(
           ctx.getCurrentFunction(),
-          ([currentFn]) =>
+          ([_, currentFn]) =>
             possibleDestructuringDeclarators.set(currentFn, [
               ...possibleDestructuringDeclarators.get(currentFn) ?? [],
               node,

@@ -15,7 +15,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "require 'displayName' for memo and forwardRef components",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_MISSING_COMPONENT_DISPLAY_NAME: "Add missing 'displayName' for component.",

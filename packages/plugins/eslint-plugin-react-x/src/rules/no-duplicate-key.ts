@@ -1,4 +1,4 @@
-import { getNestedReturnStatements, is, isNodeEqual, isOneOf, NodeType } from "@eslint-react/ast";
+import { getNestedReturnStatements, is, isMapCallLoose, isNodeEqual, isOneOf, NodeType } from "@eslint-react/ast";
 import { findPropInAttributes } from "@eslint-react/jsx";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -18,8 +18,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow duplicate keys in 'key' prop when rendering list",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_DUPLICATE_KEY: "A key must be unique. '{{value}}' is duplicated.",
@@ -131,14 +129,7 @@ export default createRule<[], MessageID>({
         }
       },
       CallExpression(node) {
-        const isMapCall = isMatching({
-          callee: {
-            type: NodeType.MemberExpression,
-            property: {
-              name: "map",
-            },
-          },
-        }, node);
+        const isMapCall = isMapCallLoose(node);
         const isArrayFromCall = isMatching({
           type: NodeType.CallExpression,
           callee: {

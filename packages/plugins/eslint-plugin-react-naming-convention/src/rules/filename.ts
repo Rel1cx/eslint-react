@@ -72,7 +72,6 @@ export default createRule<Options, MessageID>({
     type: "problem",
     docs: {
       description: "enforce naming convention for JSX filenames",
-      requiresTypeChecking: false,
     },
     messages: {
       FILENAME_CASE_MISMATCH: "A file with name '{{name}}' does not match {{rule}}",

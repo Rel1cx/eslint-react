@@ -23,8 +23,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: `disallow 'target="_blank"' on an external link without 'rel="noreferrer noopener"'.`,
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_UNSAFE_TARGET_BLANK:

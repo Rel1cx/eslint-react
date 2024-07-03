@@ -15,8 +15,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "require all 'forwardRef' components include a 'ref' parameter",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       ENSURE_FORWARD_REF_USING_REF: "A 'forwardRef' is used with this component but no 'ref' parameter is set.",

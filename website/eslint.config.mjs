@@ -31,15 +31,6 @@ export default tseslint.config(
     },
     rules: reactHooks.configs.recommended.rules,
   },
-  // Configurations rules
-  {
-    files: ["*.config.{js,ts}", "*.d.ts"],
-    languageOptions: {
-      parserOptions: {
-        project: "./tsconfig.node.json",
-      },
-    },
-  },
   {
     files: ["*.js"],
     ...tseslint.configs.disableTypeChecked,
@@ -47,6 +38,6 @@ export default tseslint.config(
   // Ignore files
   gitignore(),
   {
-    ignores: ["eslint.config.mjs"],
+    ignores: ["*.config.mjs"],
   },
 );
