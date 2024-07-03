@@ -1,22 +1,73 @@
-# Rules Overview
+# eslint-plugin-react-x
 
-## Emoji Legend
+Core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
 
-- 💼 - Rule Category
-- 💭 - Requires Type Information
-- ⛔ - Restriction
-- ✔️ - Correctness
-- ❌ - Deprecated
-- 🎨 - Style
-- 🐞 - Debug
-- 👀 - Suspicious
-- 📖 - Convention
-- 🔒 - Security
-- 🚀 - Performance
-- 🤔 - Pedantic
-- 🤯 - Complexity
+> [!TIP]
+> This plugin is already included in `@eslint-react/eslint-plugin`. You don't need to install it separately if you are using `@eslint-react/eslint-plugin`.
 
-## Core Rules
+## Install
+
+```sh
+# npm
+npm install --save-dev eslint-plugin-react-x
+```
+
+## Setup
+
+Add the plugin to your `eslint.config.js`:
+
+```js
+// @ts-check
+
+import js from "@eslint/js";
+import reactx from "eslint-plugin-react-x";
+
+export default [
+  js.configs.recommended,
+  {
+    files: ["**/*.{ts,tsx}"],
+    plugins: [
+      "react-x": reactx,
+      rules: {
+        // react-x recommended rules
+        "react-x/ensure-forward-ref-using-ref": "warn",
+        "react-x/no-access-state-in-setstate": "error",
+        "react-x/no-array-index-key": "warn",
+        "react-x/no-children-count": "warn",
+        "react-x/no-children-for-each": "warn",
+        "react-x/no-children-map": "warn",
+        "react-x/no-children-only": "warn",
+        "react-x/no-children-to-array": "warn",
+        "react-x/no-clone-element": "warn",
+        "react-x/no-comment-textnodes": "warn",
+        "react-x/no-component-will-mount": "error",
+        "react-x/no-component-will-receive-props": "error",
+        "react-x/no-component-will-update": "error",
+        "react-x/no-create-ref": "error",
+        "react-x/no-direct-mutation-state": "error",
+        "react-x/no-duplicate-key": "error",
+        "react-x/no-missing-key": "error",
+        "react-x/no-nested-components": "warn",
+        "react-x/no-redundant-should-component-update": "error",
+        "react-x/no-set-state-in-component-did-mount": "warn",
+        "react-x/no-set-state-in-component-did-update": "warn",
+        "react-x/no-set-state-in-component-will-update": "warn",
+        "react-x/no-string-refs": "error",
+        "react-x/no-unsafe-component-will-mount": "warn",
+        "react-x/no-unsafe-component-will-receive-props": "warn",
+        "react-x/no-unsafe-component-will-update": "warn",
+        "react-x/no-unstable-context-value": "error",
+        "react-x/no-unstable-default-props": "error",
+        "react-x/no-unused-class-component-members": "warn",
+        "react-x/no-unused-state": "warn",
+        "react-x/no-useless-fragment": "warn",
+      }
+    ],
+  },
+];
+```
+
+## Rules
 
 | Rule                                                                               | Description                                                                                          | 💼  | 💭  | ❌  |
 | :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------- | :-: | :-: | :-: |
@@ -34,12 +85,14 @@
 | [`no-class-component`](no-class-component)                                         | Prevents usage of class component.                                                                   | ⛔  |     |     |
 | [`no-clone-element`](no-clone-element)                                             | Prevents usage of `cloneElement`.                                                                    | ⛔  |     |     |
 | [`no-comment-textnodes`](no-comment-textnodes)                                     | Prevents comments from being inserted as text nodes.                                                 | 👀  |     |     |
+| [`no-complicated-conditional-rendering`](no-complicated-conditional-rendering)     | Prevents complicated conditional rendering in JSX.                                                   | 🤯  |     | ❌  |
 | [`no-component-will-mount`](no-component-will-mount)                               | Prevents usage of `componentWillMount`.                                                              | ⛔  |     |     |
 | [`no-component-will-receive-props`](no-component-will-receive-props)               | Prevents usage of `componentWillReceiveProps`.                                                       | ⛔  |     |     |
 | [`no-component-will-update`](no-component-will-update)                             | Prevents usage of `componentWillUpdate`.                                                             | ⛔  |     |     |
 | [`no-create-ref`](no-create-ref)                                                   | Prevents usage of `createRef`.                                                                       | ⛔  |     |     |
 | [`no-direct-mutation-state`](no-direct-mutation-state)                             | Prevents direct mutation of `this.state`.                                                            |  ✔️  |     |     |
 | [`no-duplicate-key`](no-duplicate-key)                                             | Prevents duplicate `key` props on elements in the same array or a list of `children`.                |  ✔️  |     |     |
+| [`no-implicit-key`](no-implicit-key)                                               | Prevents `key` prop from not being explicitly specified (e.g. spreading `key` prop from objects).    | 👀  |     | ❌  |
 | [`no-leaked-conditional-rendering`](no-leaked-conditional-rendering)               | Prevents problematic leaked values from being rendered.                                              | 👀  | 💭  |     |
 | [`no-missing-component-display-name`](no-missing-component-display-name)           | Enforces that all components have a `displayName` which can be used in devtools.                     | 🐞  |     |     |
 | [`no-missing-key`](no-missing-key)                                                 | Prevents missing `key` prop on items in list rendering.                                              |  ✔️  |     |     |
@@ -60,45 +113,3 @@
 | [`prefer-destructuring-assignment`](prefer-destructuring-assignment)               | Enforces the use of destructuring assignment over property assignment.                               | 🎨  |     |     |
 | [`prefer-shorthand-boolean`](prefer-shorthand-boolean)                             | Enforces the use of shorthand syntax for boolean attributes.                                         | 🎨  |     |     |
 | [`prefer-shorthand-fragment`](prefer-shorthand-fragment)                           | Enforces the use of shorthand syntax for fragments.                                                  | 🎨  |     |     |
-
-## DOM Rules
-
-| Rule                                                                                               | Description                                                                             | 💼  | 💭  | ❌  |
-| :------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------- | :-: | :-: | :-: |
-| [`dom/no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements)                     | Prevents the use of `children` in void `DOM elements`.                                  |  ✔️  |     |     |
-| [`dom/no-dangerously-set-innerhtml`](dom-no-dangerously-set-innerhtml)                             | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 | 🔒  |     |     |
-| [`dom/no-dangerously-set-innerhtml-with-children`](dom-no-dangerously-set-innerhtml-with-children) | Prevents `DOM element` using `dangerouslySetInnerHTML` and `children` at the same time. |  ✔️  |     |     |
-| [`dom/no-find-dom-node`](dom-no-find-dom-node)                                                     | Prevents usage of `findDOMNode`.                                                        | ⛔  |     |     |
-| [`dom/no-missing-button-type`](dom-no-missing-button-type)                                         | Enforces explicit `button` type `attribute` for `<button>` elements.                    |  ✔️  |     |     |
-| [`dom/no-missing-iframe-sandbox`](dom-no-missing-iframe-sandbox)                                   | Enforces explicit `sandbox` attribute for `iframe` elements.                            | 🔒  |     |     |
-| [`dom/no-namespace`](dom-no-namespace)                                                             | Enforces the absence of a `namespace` in React elements.                                |  ✔️  |     |     |
-| [`dom/no-render-return-value`](no-render-return-value)                                             | Prevents usage of the return value of `ReactDOM.render`.                                | ⛔  |     |     |
-| [`dom/no-script-url`](dom-no-script-url)                                                           | Prevents usage of `javascript:` URLs as the value of certain attributes.                | 🔒  |     |     |
-| [`dom/no-unsafe-iframe-sandbox`](dom-no-unsafe-iframe-sandbox)                                     | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   | 🔒  |     |     |
-| [`dom/no-unsafe-target-blank`](dom-no-unsafe-target-blank)                                         | Prevents the use of `target="_blank"` without `rel="noreferrer noopener"`.              | 🔒  |     |     |
-
-## Hooks Extra Rules
-
-| Rule                                                                                                       | Description                                                       | 💼  | 💭  | ❌  |
-| :--------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------- | :-: | :-: | :-: |
-| [`hooks-extra/ensure-custom-hooks-using-other-hooks`](hooks-extra-ensure-custom-hooks-using-other-hooks)   | Warns when custom Hooks that don't use other Hooks.               |  ✔️  |     |     |
-| [`hooks-extra/ensure-use-callback-has-non-empty-deps`](hooks-extra-ensure-use-callback-has-non-empty-deps) | Warns when `useCallback` is called with empty dependencies array. | 🧐  |     |     |
-| [`hooks-extra/ensure-use-memo-has-non-empty-deps`](hooks-extra-ensure-use-memo-has-non-empty-deps)         | Warns when `useMemo` is called with empty dependencies array.     | 🧐  |     |     |
-| [`hooks-extra/prefer-use-state-lazy-initialization`](hooks-extra-prefer-use-state-lazy-initialization)     | Warns function calls made inside `useState` calls.                | 🚀  |     |     |
-
-## Naming Convention Rules
-
-| Rule                                                                           | Description                                                                                | 💼  | 💭  | ❌  |
-| :----------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- | :-: | :-: | :-: |
-| [`naming-convention/component-name`](naming-convention-component-name)         | Enforces naming conventions for components.                                                | 📖  |     |     |
-| [`naming-convention/filename`](naming-convention-filename)                     | Enforces naming convention for JSX files.                                                  | 📖  |     |     |
-| [`naming-convention/filename-extension`](naming-convention-filename-extension) | Enforces consistent use of the JSX file extension.                                         | 📖  |     |     |
-| [`naming-convention/use-state`](naming-convention-use-state)                   | Enforces destructuring and symmetric naming of `useState` hook value and setter variables. | 📖  |     |     |
-
-## Debug Rules
-
-| Rule                                                   | Description                    | 💼  | 💭  | ❌  |
-| :----------------------------------------------------- | :----------------------------- | :-: | :-: | :-: |
-| [`debug/class-component`](debug-class-component)       | Print all class components.    | 🐞  |     |     |
-| [`debug/function-component`](debug-function-component) | Print all function components. | 🐞  |     |     |
-| [`debug/react-hooks`](debug-react-hooks)               | Print all react hooks.         | 🐞  |     |     |
