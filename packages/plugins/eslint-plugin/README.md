@@ -27,10 +27,10 @@ A series of composable ESLint rules rewritten from scratch for libraries and fra
 
 ### Mono plugins (will be available in 2.0)
 
-- [`eslint-plugin-react-x`](packages/plugins/eslint-plugin-react-x) - Core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
-- [`eslint-plugin-react-dom`](packages/plugins/eslint-plugin-react-dom) - DOM specific rules for React DOM.
-- [`eslint-plugin-react-hooks-extra`](packages/plugins/eslint-plugin-react-hooks-extra) - Extra React Hooks rules.
-- [`eslint-plugin-react-naming-convention`](packages/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
+- [`eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) - Core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
+- [`eslint-plugin-react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) - DOM specific rules for React DOM.
+- [`eslint-plugin-react-hooks-extra`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra) - Extra React Hooks rules.
+- [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
 
 ## Supported ESLint versions
 
