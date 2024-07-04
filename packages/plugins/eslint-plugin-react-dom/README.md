@@ -49,16 +49,16 @@ export default [
 
 ## Rules
 
-| Rule                                       | Description                                                                             | 💼  | 💭  | ❌  |
-| :----------------------------------------- | :-------------------------------------------------------------------------------------- | :-: | :-: | :-: |
-| no-children-in-void-dom-elements           | Prevents the use of `children` in void `DOM elements`.                                  |  ✔️  |     |     |
-| no-dangerously-set-innerhtml               | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 | 🔒  |     |     |
-| no-dangerously-set-innerhtml-with-children | Prevents `DOM element` using `dangerouslySetInnerHTML` and `children` at the same time. |  ✔️  |     |     |
-| no-find-dom-node                           | Prevents usage of `findDOMNode`.                                                        | ⛔  |     |     |
-| no-missing-button-type                     | Enforces explicit `button` type `attribute` for `<button>` elements.                    |  ✔️  |     |     |
-| no-missing-iframe-sandbox                  | Enforces explicit `sandbox` attribute for `iframe` elements.                            | 🔒  |     |     |
-| no-namespace                               | Enforces the absence of a `namespace` in React elements.                                |  ✔️  |     |     |
-| no-render-return-value                     | Prevents usage of the return value of `ReactDOM.render`.                                | ⛔  |     |     |
-| no-script-url                              | Prevents usage of `javascript:` URLs as the value of certain attributes.                | 🔒  |     |     |
-| no-unsafe-iframe-sandbox                   | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   | 🔒  |     |     |
-| no-unsafe-target-blank                     | Prevents the use of `target="_blank"` without `rel="noreferrer noopener"`.              | 🔒  |     |     |
+| Rule                                         | Description                                                                             | 💼  | 💭  | ❌  |
+| :------------------------------------------- | :-------------------------------------------------------------------------------------- | :-: | :-: | :-: |
+| `no-children-in-void-dom-elements`           | Prevents the use of `children` in void `DOM elements`.                                  |  ✔️  |     |     |
+| `no-dangerously-set-innerhtml`               | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 | 🔒  |     |     |
+| `no-dangerously-set-innerhtml-with-children` | Prevents `DOM element` using `dangerouslySetInnerHTML` and `children` at the same time. |  ✔️  |     |     |
+| `no-find-dom-node`                           | Prevents usage of `findDOMNode`.                                                        | ⛔  |     |     |
+| `no-missing-button-type`                     | Enforces explicit `button` type `attribute` for `<button>` elements.                    |  ✔️  |     |     |
+| `no-missing-iframe-sandbox`                  | Enforces explicit `sandbox` attribute for `iframe` elements.                            | 🔒  |     |     |
+| `no-namespace`                               | Enforces the absence of a `namespace` in React elements.                                |  ✔️  |     |     |
+| `no-render-return-value`                     | Prevents usage of the return value of `ReactDOM.render`.                                | ⛔  |     |     |
+| `no-script-url`                              | Prevents usage of `javascript:` URLs as the value of certain attributes.                | 🔒  |     |     |
+| `no-unsafe-iframe-sandbox`                   | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   | 🔒  |     |     |
+| `no-unsafe-target-blank`                     | Prevents the use of `target="_blank"` without `rel="noreferrer noopener"`.              | 🔒  |     |     |
