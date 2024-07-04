@@ -1,3 +1,13 @@
+## v1.5.22 (Draft)
+
+### ✨ New
+
+- Add rule `prefer-read-only-props`.
+
+### 🪄 Improvements
+
+- Downgrade `@typescript-eslint`'s packages to v7, due to stability issues with v8.
+
 ## v1.5.21 (Wed 3 Jul 2024)
 
 ### 🐞 Fixes

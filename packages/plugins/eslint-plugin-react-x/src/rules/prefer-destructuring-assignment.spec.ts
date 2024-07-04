@@ -67,7 +67,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         // Code to expect error
         export const App = memo(
-            function App(props) {
+            function App(props: Props) {
                 return <div ref={ref}>{props.day}</div>;
             }
         );

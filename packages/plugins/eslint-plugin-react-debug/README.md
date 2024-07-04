@@ -40,8 +40,8 @@ export default [
 
 ## Rules
 
-| Rule                                                   | Description                    | 💼  | 💭  | ❌  |
-| :----------------------------------------------------- | :----------------------------- | :-: | :-: | :-: |
-| [`debug/class-component`](debug-class-component)       | Print all class components.    | 🐞  |     |     |
-| [`debug/function-component`](debug-function-component) | Print all function components. | 🐞  |     |     |
-| [`debug/react-hooks`](debug-react-hooks)               | Print all react hooks.         | 🐞  |     |     |
+| Rule               | Description                    | 💼  | 💭  | ❌  |
+| :----------------- | :----------------------------- | :-: | :-: | :-: |
+| class-component    | Print all class components.    | 🐞  |     |     |
+| function-component | Print all function components. | 🐞  |     |     |
+| react-hooks        | Print all react hooks.         | 🐞  |     |     |

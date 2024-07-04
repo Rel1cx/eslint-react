@@ -40,9 +40,9 @@ export default [
 
 ## Rules
 
-| Rule                                                                                                       | Description                                                       | 💼  | 💭  | ❌  |
-| :--------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------- | :-: | :-: | :-: |
-| [`hooks-extra/ensure-custom-hooks-using-other-hooks`](hooks-extra-ensure-custom-hooks-using-other-hooks)   | Warns when custom Hooks that don't use other Hooks.               |  ✔️  |     |     |
-| [`hooks-extra/ensure-use-callback-has-non-empty-deps`](hooks-extra-ensure-use-callback-has-non-empty-deps) | Warns when `useCallback` is called with empty dependencies array. | 🧐  |     |     |
-| [`hooks-extra/ensure-use-memo-has-non-empty-deps`](hooks-extra-ensure-use-memo-has-non-empty-deps)         | Warns when `useMemo` is called with empty dependencies array.     | 🧐  |     |     |
-| [`hooks-extra/prefer-use-state-lazy-initialization`](hooks-extra-prefer-use-state-lazy-initialization)     | Warns function calls made inside `useState` calls.                | 🚀  |     |     |
+| Rule                                   | Description                                                       | 💼  | 💭  | ❌  |
+| :------------------------------------- | :---------------------------------------------------------------- | :-: | :-: | :-: |
+| ensure-custom-hooks-using-other-hooks  | Warns when custom Hooks that don't use other Hooks.               |  ✔️  |     |     |
+| ensure-use-callback-has-non-empty-deps | Warns when `useCallback` is called with empty dependencies array. | 🧐  |     |     |
+| ensure-use-memo-has-non-empty-deps     | Warns when `useMemo` is called with empty dependencies array.     | 🧐  |     |     |
+| prefer-use-state-lazy-initialization   | Warns function calls made inside `useState` calls.                | 🚀  |     |     |
