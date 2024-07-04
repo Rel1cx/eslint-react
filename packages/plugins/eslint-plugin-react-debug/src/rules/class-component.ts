@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
       description: "report all class components, including anonymous ones",
     },
     messages: {
-      CLASS_COMPONENT: "[class component] name: {{name}}",
+      CLASS_COMPONENT: "[class component] name: {{name}}.",
     },
     schema: [],
   },

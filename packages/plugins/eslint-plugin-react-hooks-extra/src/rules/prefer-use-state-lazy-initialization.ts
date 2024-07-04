@@ -24,7 +24,7 @@ export default createRule<[], MessageID>({
     },
     messages: {
       PREFER_USE_STATE_LAZY_INITIALIZATION:
-        "To prevent re-computation, consider using lazy initial state for useState calls that involve function calls. Ex: 'useState(() => getValue())'",
+        "To prevent re-computation, consider using lazy initial state for useState calls that involve function calls. Ex: 'useState(() => getValue())'.",
     },
     schema: [],
   },

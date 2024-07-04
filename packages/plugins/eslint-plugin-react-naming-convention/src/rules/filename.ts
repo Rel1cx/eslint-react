@@ -74,10 +74,10 @@ export default createRule<Options, MessageID>({
       description: "enforce naming convention for JSX filenames",
     },
     messages: {
-      FILENAME_CASE_MISMATCH: "A file with name '{{name}}' does not match {{rule}}",
+      FILENAME_CASE_MISMATCH: "A file with name '{{name}}' does not match {{rule}}.",
       FILENAME_CASE_MISMATCH_SUGGESTION:
         "A file with name '{{name}}' does not match {{rule}}. Should rename to '{{suggestion}}'.",
-      FILENAME_EMPTY: "A file must have non-empty name",
+      FILENAME_EMPTY: "A file must have non-empty name.",
     },
     schema,
   },

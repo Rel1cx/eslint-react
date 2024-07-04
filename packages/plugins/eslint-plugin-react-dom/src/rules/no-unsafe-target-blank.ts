@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: `disallow 'target="_blank"' on an external link without 'rel="noreferrer noopener"'.`,
+      description: `disallow 'target="_blank"' on an external link without 'rel="noreferrer noopener"'`,
     },
     messages: {
       NO_UNSAFE_TARGET_BLANK:

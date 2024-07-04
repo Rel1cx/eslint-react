@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
       description: "enforce boolean attributes notation in JSX",
     },
     messages: {
-      AVOID_SHORTHAND_BOOLEAN: "Avoid using shorthand boolean attribute '{{propName}}'",
+      AVOID_SHORTHAND_BOOLEAN: "Avoid using shorthand boolean attribute '{{propName}}'.",
     },
     schema: [],
   },

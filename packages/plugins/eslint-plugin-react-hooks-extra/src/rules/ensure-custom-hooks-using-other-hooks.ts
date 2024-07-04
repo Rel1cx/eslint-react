@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
       description: "enforce custom hooks using other hooks",
     },
     messages: {
-      ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS: "A custom hook '{{name}}' should use other hooks",
+      ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS: "A custom hook '{{name}}' should use other hooks.",
     },
     schema: [],
   },

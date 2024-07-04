@@ -17,10 +17,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "",
+      description: "enforce that component props are read-only",
     },
     messages: {
-      PREFER_READ_ONLY_PROPS: "Prefer read-only props",
+      PREFER_READ_ONLY_PROPS: "Component props should be read-only.",
     },
     schema: [],
   },

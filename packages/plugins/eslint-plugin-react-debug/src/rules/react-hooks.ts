@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
       description: "report all React Hooks",
     },
     messages: {
-      REACT_HOOKS: "[react hooks] name: {{name}}, hookCalls: {{hookCalls}}",
+      REACT_HOOKS: "[react hooks] name: {{name}}, hookCalls: {{hookCalls}}.",
     },
     schema: [],
   },

@@ -188,7 +188,7 @@ export default createRule<[], MessageID>({
     },
     messages: {
       NO_LEAKED_CONDITIONAL_RENDERING:
-        "Potential leaked value {{value}} that might cause unintentionally rendered values or rendering crashes",
+        "Potential leaked value {{value}} that might cause unintentionally rendered values or rendering crashes.",
     },
     schema: [],
   },
