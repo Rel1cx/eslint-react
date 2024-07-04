@@ -43,6 +43,14 @@ function Example(props: Props) {
 ```tsx twoslash
 import React from "react";
 
+function Example(props: { readonly name: string }) {
+  return <div>{props.name}</div>;
+}
+```
+
+```tsx twoslash
+import React from "react";
+
 interface Props {
   readonly name: string;
 }

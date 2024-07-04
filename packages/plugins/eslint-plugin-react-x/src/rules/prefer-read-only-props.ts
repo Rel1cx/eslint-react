@@ -1,3 +1,4 @@
+import { NodeType } from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
@@ -45,6 +46,22 @@ export default createRule<[], MessageID>({
         for (const [_, component] of components) {
           const props = component.node.params.at(0);
           if (!props) continue;
+          if (props.type === NodeType.ObjectPattern) {
+            const { properties } = props;
+            const propsTypes = properties
+              .filter((prop) => !!prop.value)
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              .map((prop) => getConstrainedTypeAtLocation(services, prop.value!))
+              .map((type) => tsutils.unionTypeParts(type))
+              .flat();
+            if (propsTypes.some((type) => !isReadonlyType(type))) {
+              context.report({
+                messageId: "PREFER_READ_ONLY_PROPS",
+                node: props,
+              });
+              return;
+            }
+          }
           const propsType = getConstrainedTypeAtLocation(services, props);
           const propsTypes = tsutils.unionTypeParts(propsType);
           if (propsTypes.some((type) => !isReadonlyType(type))) {

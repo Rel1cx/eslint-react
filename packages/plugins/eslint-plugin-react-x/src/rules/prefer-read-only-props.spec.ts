@@ -43,9 +43,46 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: dedent`
+        const App = function ({ id, className }: { id: string; className: string }) {
+            return <div id={id} className={className} />
+        }
+      `,
+      errors: [
+        {
+          messageId: "PREFER_READ_ONLY_PROPS",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        const App = function ({ id, className }: { readonly id: string; className: string }) {
+            return <div id={id} className={className} />
+        }
+      `,
+      errors: [
+        {
+          messageId: "PREFER_READ_ONLY_PROPS",
+        },
+      ],
+    },
+    {
+      code: dedent`
         import { FC } from "react";
         const App: FC<{ id: string; className: string }> = (props) => {
             return <div id={props.id} className={props.className} />
+        }
+      `,
+      errors: [
+        {
+          messageId: "PREFER_READ_ONLY_PROPS",
+        },
+      ],
+    },
+    {
+      code: dedent`
+        import { FC } from "react";
+        const App: FC<{ id: string; className: string }> = ({ id, className }) => {
+            return <div id={id} className={className} />
         }
       `,
       errors: [
@@ -100,6 +137,23 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
 
       export const App: React.FC<ReadonlyDeep<{ id: string; className: string }>> = (props) => {
         return <div className={props.className} id={props.id} />
+      }
+    `,
+    dedent`
+      const App = function ({ id, className }: { readonly id: string; readonly className: string }) {
+          return <div id={id} className={className} />
+      }
+    `,
+    dedent`
+      import { FC } from "react";
+      const App: FC<{ readonly id: string; readonly className: string }> = (props) => {
+          return <div id={props.id} className={props.className} />
+      }
+    `,
+    dedent`
+      import { FC } from "react";
+      const App: FC<{ readonly id: string; readonly className: string }> = ({ id, className }) => {
+          return <div id={id} className={className} />
       }
     `,
   ],
