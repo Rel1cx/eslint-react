@@ -42,7 +42,7 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "8.0.0-alpha.40",
+    "@typescript-eslint/utils": "7.15.0",
     "valibot": "^0.35.0"
   },
   "devDependencies": {

@@ -1,0 +1,57 @@
+# prefer-readonly-props
+
+💭 This rule requires type information.
+
+## Rule category
+
+Correctness
+
+## What it does
+
+This rule enforces that function components props are readonly.
+
+## Why is this good?
+
+Props are read-only snapshots in time: every render receives a new version of props. You can't change props. This rule enforces that you don't accidentally mutate props.
+
+## Examples
+
+### Failing
+
+```tsx twoslash
+import React from "react";
+
+function Example(props: { name: string }) {
+  return <div>{props.name}</div>;
+}
+```
+
+```tsx twoslash
+import React from "react";
+
+interface Props {
+  name: string;
+}
+
+function Example(props: Props) {
+  return <div>{props.name}</div>;
+}
+```
+
+### Passing
+
+```tsx twoslash
+import React from "react";
+
+interface Props {
+  readonly name: string;
+}
+
+function Example(props: Props) {
+  return <div>{props.name}</div>;
+}
+```
+
+## Further Reading
+
+- [react.dev: passing-props-to-a-component#recap](https://react.dev/learn/passing-props-to-a-component#recap)

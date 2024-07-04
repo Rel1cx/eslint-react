@@ -57,6 +57,7 @@
 | [`no-unused-class-component-members`](no-unused-class-component-members)           | Warns unused class component methods and properties.                                                 |  ✔️  |     |     |
 | [`no-unused-state`](no-unused-state)                                               | Warns unused class component state.                                                                  |  ✔️  |     |     |
 | [`no-useless-fragment`](no-useless-fragment)                                       | Prevents the use of useless `fragment` components or `<>` syntax.                                    |  ✔️  |     |     |
+| [`prefer-read-only-props`](prefer-read-only-props)                                 | Enforces that function components props are readonly.                                                |  ✔️  | 💭  |     |
 | [`prefer-destructuring-assignment`](prefer-destructuring-assignment)               | Enforces the use of destructuring assignment over property assignment.                               | 🎨  |     |     |
 | [`prefer-shorthand-boolean`](prefer-shorthand-boolean)                             | Enforces the use of shorthand syntax for boolean attributes.                                         | 🎨  |     |     |
 | [`prefer-shorthand-fragment`](prefer-shorthand-fragment)                           | Enforces the use of shorthand syntax for fragments.                                                  | 🎨  |     |     |

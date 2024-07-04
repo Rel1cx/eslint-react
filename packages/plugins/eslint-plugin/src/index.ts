@@ -53,6 +53,8 @@ const allPreset = {
   "no-unused-state": "warn",
   "no-useless-fragment": "warn",
   "prefer-destructuring-assignment": "warn",
+  // This rule requires type information
+  // "prefer-read-only-props": "warn",
   "prefer-shorthand-boolean": "warn",
   "prefer-shorthand-fragment": "warn",
 
@@ -120,6 +122,7 @@ const recommendedPreset = {
   "no-unused-class-component-members": "warn",
   "no-unused-state": "warn",
   "no-useless-fragment": "warn",
+  // "prefer-read-only-props": "warn",
   // "prefer-destructuring-assignment": "warn",
   // "prefer-shorthand-boolean": "warn",
   // "prefer-shorthand-fragment": "warn",
@@ -140,6 +143,7 @@ const recommendedPreset = {
 const recommendedTypeCheckedPreset = {
   ...recommendedPreset,
   "no-leaked-conditional-rendering": "warn",
+  "prefer-read-only-props": "warn",
 } as const satisfies RulePreset;
 
 const domPreset = {
