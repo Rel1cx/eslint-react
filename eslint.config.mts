@@ -35,7 +35,7 @@ const config: FlatConfig[] = [
   ...tseslint.configs.strictTypeChecked,
   perfectionistNatural,
   jsdocPlugin.configs["flat/recommended-typescript-error"],
-  eslintPluginPlugin.configs["flat/recommended"],
+  eslintPluginPlugin.configs["flat/all-type-checked"],
   // base config
   {
     languageOptions: {
@@ -204,6 +204,7 @@ const config: FlatConfig[] = [
         },
       ],
       // Part: eslint-plugin rules
+      "eslint-plugin/no-property-in-node": "off",
       "eslint-plugin/require-meta-docs-url": "off",
     },
     settings: {
