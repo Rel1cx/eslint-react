@@ -42,3 +42,5 @@ stats.html
 *.config-*.mjs
 /eslint-config.json
 *.bundled_*.mjs
+
+eslint-results.sarif
