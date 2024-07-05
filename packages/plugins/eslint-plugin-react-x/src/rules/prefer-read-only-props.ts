@@ -4,7 +4,7 @@ import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { getTypeImmutability, isImmutable, isReadonlyDeep, isReadonlyShallow, isUnknown } from "is-immutable-type";
 import type { ConstantCase } from "string-ts";
-import * as tsutils from "ts-api-utils";
+import { unionTypeParts } from "ts-api-utils";
 import type ts from "typescript";
 
 import { createRule } from "../utils";
@@ -51,7 +51,7 @@ export default createRule<[], MessageID>({
             const values = properties.filter((prop) => !!prop.value);
             const valuesTypes = values
               .map((v) => getConstrainedTypeAtLocation(services, v))
-              .map((t) => tsutils.unionTypeParts(t))
+              .map((t) => unionTypeParts(t))
               .flat();
             if (valuesTypes.some((t) => !isReadonlyType(t))) {
               context.report({
@@ -62,7 +62,7 @@ export default createRule<[], MessageID>({
             }
           }
           const propsType = getConstrainedTypeAtLocation(services, props);
-          const propsTypes = tsutils.unionTypeParts(propsType);
+          const propsTypes = unionTypeParts(propsType);
           if (propsTypes.some((t) => !isReadonlyType(t))) {
             context.report({
               messageId: "PREFER_READ_ONLY_PROPS",

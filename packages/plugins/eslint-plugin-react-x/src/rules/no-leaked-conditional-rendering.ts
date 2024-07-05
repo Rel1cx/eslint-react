@@ -7,7 +7,7 @@ import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { Function as F, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
-import * as tsutils from "ts-api-utils";
+import { isFalseLiteralType, isTrueLiteralType, isTypeFlagSet, unionTypeParts } from "ts-api-utils";
 import { isMatching, match } from "ts-pattern";
 import ts from "typescript";
 
@@ -57,18 +57,18 @@ const allowedVariants = [
 function inspectVariantTypes(types: ts.Type[]) {
   const variantTypes = new Set<VariantType>();
 
-  if (types.some(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.Unknown))) {
+  if (types.some(type => isTypeFlagSet(type, ts.TypeFlags.Unknown))) {
     variantTypes.add("unknown");
     return variantTypes;
   }
 
   if (
-    types.some(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.Null | ts.TypeFlags.Undefined | ts.TypeFlags.VoidLike))
+    types.some(type => isTypeFlagSet(type, ts.TypeFlags.Null | ts.TypeFlags.Undefined | ts.TypeFlags.VoidLike))
   ) {
     variantTypes.add("nullish");
   }
 
-  const booleans = types.filter(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.BooleanLike));
+  const booleans = types.filter(type => isTypeFlagSet(type, ts.TypeFlags.BooleanLike));
 
   // If incoming type is either "true" or "false", there will be one type
   // object with intrinsicName set accordingly
@@ -79,8 +79,8 @@ function inspectVariantTypes(types: ts.Type[]) {
       const [first] = booleans;
       F.pipe(
         match<typeof first, O.Option<VariantType>>(first)
-          .when(tsutils.isTrueLiteralType, () => O.some("truthy boolean"))
-          .when(tsutils.isFalseLiteralType, () => O.some("falsy boolean"))
+          .when(isTrueLiteralType, () => O.some("truthy boolean"))
+          .when(isFalseLiteralType, () => O.some("falsy boolean"))
           .otherwise(O.none),
         O.map(v => variantTypes.add(v)),
       );
@@ -95,7 +95,7 @@ function inspectVariantTypes(types: ts.Type[]) {
     }
   }
 
-  const strings = types.filter(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.StringLike));
+  const strings = types.filter(type => isTypeFlagSet(type, ts.TypeFlags.StringLike));
 
   if (strings.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(strings)
@@ -112,12 +112,7 @@ function inspectVariantTypes(types: ts.Type[]) {
     variantTypes.add(evaluated);
   }
 
-  const numbers = types.filter(type =>
-    tsutils.isTypeFlagSet(
-      type,
-      ts.TypeFlags.NumberLike | ts.TypeFlags.BigIntLike,
-    )
-  );
+  const numbers = types.filter(type => isTypeFlagSet(type, ts.TypeFlags.NumberLike | ts.TypeFlags.BigIntLike));
 
   if (numbers.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(numbers)
@@ -134,14 +129,14 @@ function inspectVariantTypes(types: ts.Type[]) {
     variantTypes.add(evaluated);
   }
 
-  if (types.some(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.EnumLike))) {
+  if (types.some(type => isTypeFlagSet(type, ts.TypeFlags.EnumLike))) {
     variantTypes.add("enum");
   }
 
   if (
     types.some(
       type =>
-        !tsutils.isTypeFlagSet(
+        !isTypeFlagSet(
           type,
           ts.TypeFlags.Null
             | ts.TypeFlags.Undefined
@@ -162,7 +157,7 @@ function inspectVariantTypes(types: ts.Type[]) {
 
   if (
     types.some(type =>
-      tsutils.isTypeFlagSet(
+      isTypeFlagSet(
         type,
         ts.TypeFlags.TypeParameter
           | ts.TypeFlags.Any
@@ -173,7 +168,7 @@ function inspectVariantTypes(types: ts.Type[]) {
     variantTypes.add("any");
   }
 
-  if (types.some(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.Never))) {
+  if (types.some(type => isTypeFlagSet(type, ts.TypeFlags.Never))) {
     variantTypes.add("never");
   }
 
@@ -195,7 +190,6 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const services = ESLintUtils.getParserServices(context);
-
     function checkExpression(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
       return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
         .when(isJSX, O.none)
@@ -213,7 +207,7 @@ export default createRule<[], MessageID>({
           const isLeftUnaryNot = isMatching({ type: NodeType.UnaryExpression, operator: "!" }, left);
           if (isLeftUnaryNot) return checkExpression(right);
           const leftType = getConstrainedTypeAtLocation(services, left);
-          const leftTypeVariants = inspectVariantTypes(tsutils.unionTypeParts(leftType));
+          const leftTypeVariants = inspectVariantTypes(unionTypeParts(leftType));
           const isLeftValid = Array
             .from(leftTypeVariants.values())
             .every(type => allowedVariants.some(allowed => allowed === type));
@@ -229,7 +223,6 @@ export default createRule<[], MessageID>({
         })
         .with({ type: NodeType.Identifier }, (n) => {
           const initialScope = context.sourceCode.getScope(n);
-
           return F.pipe(
             findVariable(n.name, initialScope),
             O.flatMap(getVariableInitExpression(0)),
@@ -238,7 +231,6 @@ export default createRule<[], MessageID>({
         })
         .otherwise(O.none);
     }
-
     return {
       "JSXExpressionContainer > ConditionalExpression"(node: TSESTree.ConditionalExpression) {
         O.map(checkExpression(node), context.report);
