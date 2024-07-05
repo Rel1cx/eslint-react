@@ -1,7 +1,6 @@
 {
   "recommendations": [
     "dprint.dprint",
-    "dbaeumer.vscode-eslint",
-    "MS-SarifVSCode.sarif-viewer"
+    "dbaeumer.vscode-eslint"
   ]
 }
