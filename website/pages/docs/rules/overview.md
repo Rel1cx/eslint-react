@@ -34,12 +34,14 @@
 | [`no-class-component`](no-class-component)                                         | Prevents usage of class component.                                                                   | ⛔  |     |     |
 | [`no-clone-element`](no-clone-element)                                             | Prevents usage of `cloneElement`.                                                                    | ⛔  |     |     |
 | [`no-comment-textnodes`](no-comment-textnodes)                                     | Prevents comments from being inserted as text nodes.                                                 | 👀  |     |     |
+| [`no-complicated-conditional-rendering`](no-complicated-conditional-rendering)     | Prevents complicated conditional rendering in JSX.                                                   | 🤯  |     | ❌  |
 | [`no-component-will-mount`](no-component-will-mount)                               | Prevents usage of `componentWillMount`.                                                              | ⛔  |     |     |
 | [`no-component-will-receive-props`](no-component-will-receive-props)               | Prevents usage of `componentWillReceiveProps`.                                                       | ⛔  |     |     |
 | [`no-component-will-update`](no-component-will-update)                             | Prevents usage of `componentWillUpdate`.                                                             | ⛔  |     |     |
 | [`no-create-ref`](no-create-ref)                                                   | Prevents usage of `createRef`.                                                                       | ⛔  |     |     |
 | [`no-direct-mutation-state`](no-direct-mutation-state)                             | Prevents direct mutation of `this.state`.                                                            |  ✔️  |     |     |
 | [`no-duplicate-key`](no-duplicate-key)                                             | Prevents duplicate `key` props on elements in the same array or a list of `children`.                |  ✔️  |     |     |
+| [`no-implicit-key`](no-implicit-key)                                               | Prevents `key` prop from not being explicitly specified (e.g. spreading `key` prop from objects).    | 👀  |     | ❌  |
 | [`no-leaked-conditional-rendering`](no-leaked-conditional-rendering)               | Prevents problematic leaked values from being rendered.                                              | 👀  | 💭  |     |
 | [`no-missing-component-display-name`](no-missing-component-display-name)           | Enforces that all components have a `displayName` which can be used in devtools.                     | 🐞  |     |     |
 | [`no-missing-key`](no-missing-key)                                                 | Prevents missing `key` prop on items in list rendering.                                              |  ✔️  |     |     |
@@ -57,8 +59,8 @@
 | [`no-unused-class-component-members`](no-unused-class-component-members)           | Warns unused class component methods and properties.                                                 |  ✔️  |     |     |
 | [`no-unused-state`](no-unused-state)                                               | Warns unused class component state.                                                                  |  ✔️  |     |     |
 | [`no-useless-fragment`](no-useless-fragment)                                       | Prevents the use of useless `fragment` components or `<>` syntax.                                    |  ✔️  |     |     |
-| [`prefer-read-only-props`](prefer-read-only-props)                                 | Enforces that function components props are readonly.                                                |  ✔️  | 💭  |     |
 | [`prefer-destructuring-assignment`](prefer-destructuring-assignment)               | Enforces the use of destructuring assignment over property assignment.                               | 🎨  |     |     |
+| [`prefer-read-only-props`](prefer-read-only-props)                                 | Enforces that function components props are readonly.                                                |  ✔️  | 💭  |     |
 | [`prefer-shorthand-boolean`](prefer-shorthand-boolean)                             | Enforces the use of shorthand syntax for boolean attributes.                                         | 🎨  |     |     |
 | [`prefer-shorthand-fragment`](prefer-shorthand-fragment)                           | Enforces the use of shorthand syntax for fragments.                                                  | 🎨  |     |     |
 
