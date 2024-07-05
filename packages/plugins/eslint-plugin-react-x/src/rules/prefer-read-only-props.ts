@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
       "Program:exit"(node) {
         function isReadonlyType(type: ts.Type) {
           try {
-            // TODO: getImmutability may throw when checking complex generic types
+            // TODO: getImmutability may throw when checking certain types
             const im = getTypeImmutability(services.program, type);
             return isUnknown(im) || isImmutable(im) || isReadonlyShallow(im) || isReadonlyDeep(im);
           } catch {
@@ -48,13 +48,12 @@ export default createRule<[], MessageID>({
           if (!props) continue;
           if (props.type === NodeType.ObjectPattern) {
             const { properties } = props;
-            const propsTypes = properties
-              .filter((prop) => !!prop.value)
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              .map((prop) => getConstrainedTypeAtLocation(services, prop.value!))
-              .map((type) => tsutils.unionTypeParts(type))
+            const values = properties.filter((prop) => !!prop.value);
+            const valuesTypes = values
+              .map((v) => getConstrainedTypeAtLocation(services, v))
+              .map((t) => tsutils.unionTypeParts(t))
               .flat();
-            if (propsTypes.some((type) => !isReadonlyType(type))) {
+            if (valuesTypes.some((t) => !isReadonlyType(t))) {
               context.report({
                 messageId: "PREFER_READ_ONLY_PROPS",
                 node: props,
@@ -64,7 +63,7 @@ export default createRule<[], MessageID>({
           }
           const propsType = getConstrainedTypeAtLocation(services, props);
           const propsTypes = tsutils.unionTypeParts(propsType);
-          if (propsTypes.some((type) => !isReadonlyType(type))) {
+          if (propsTypes.some((t) => !isReadonlyType(t))) {
             context.report({
               messageId: "PREFER_READ_ONLY_PROPS",
               node: props,
