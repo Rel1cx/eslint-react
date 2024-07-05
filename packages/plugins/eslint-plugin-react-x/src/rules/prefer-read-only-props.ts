@@ -1,6 +1,7 @@
 import { NodeType } from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
+import type { ParserServices } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { getTypeImmutability, isImmutable, isReadonlyDeep, isReadonlyShallow, isUnknown } from "is-immutable-type";
 import type { ConstantCase } from "string-ts";
@@ -12,6 +13,19 @@ import { createRule } from "../utils";
 export const RULE_NAME = "prefer-read-only-props";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
+
+function isReadonlyType(type: ts.Type, services: ParserServices): boolean {
+  if (!services.program) throw new Error("This rule requires type checking to be enabled");
+  try {
+    const im = getTypeImmutability(services.program, type);
+    return isUnknown(im) || isImmutable(im) || isReadonlyShallow(im) || isReadonlyDeep(im);
+  } catch {
+    // TODO: getImmutability may throw when checking certain types
+    // eslint-disable-next-line no-console
+    console.warn("Failed to check immutability of type");
+    return true;
+  }
+}
 
 export default createRule<[], MessageID>({
   meta: {
@@ -31,20 +45,9 @@ export default createRule<[], MessageID>({
     return {
       ...listeners,
       "Program:exit"(node) {
-        function isReadonlyType(type: ts.Type) {
-          try {
-            // TODO: getImmutability may throw when checking certain types
-            const im = getTypeImmutability(services.program, type);
-            return isUnknown(im) || isImmutable(im) || isReadonlyShallow(im) || isReadonlyDeep(im);
-          } catch {
-            // eslint-disable-next-line no-console
-            console.warn("Failed to check immutability of type");
-            return true;
-          }
-        }
         const components = ctx.getAllComponents(node);
         for (const [_, component] of components) {
-          const props = component.node.params.at(0);
+          const [props] = component.node.params;
           if (!props) continue;
           if (props.type === NodeType.ObjectPattern) {
             const { properties } = props;
@@ -53,7 +56,7 @@ export default createRule<[], MessageID>({
               .map((v) => getConstrainedTypeAtLocation(services, v))
               .map((t) => unionTypeParts(t))
               .flat();
-            if (valuesTypes.some((t) => !isReadonlyType(t))) {
+            if (valuesTypes.some((t) => !isReadonlyType(t, services))) {
               context.report({
                 messageId: "PREFER_READ_ONLY_PROPS",
                 node: props,
@@ -63,7 +66,7 @@ export default createRule<[], MessageID>({
           }
           const propsType = getConstrainedTypeAtLocation(services, props);
           const propsTypes = unionTypeParts(propsType);
-          if (propsTypes.some((t) => !isReadonlyType(t))) {
+          if (propsTypes.some((t) => !isReadonlyType(t, services))) {
             context.report({
               messageId: "PREFER_READ_ONLY_PROPS",
               node: props,
