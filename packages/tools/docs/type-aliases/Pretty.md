@@ -8,10 +8,10 @@
 
 > **Pretty**\<`T`\>: `{ [P in keyof T]: T[P] }` & `object`
 
-## Since
-
-0.0.1
-
 ## Type Parameters
 
 • **T**
+
+## Since
+
+0.0.1

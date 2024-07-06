@@ -10,6 +10,10 @@
 
 Infers embedded primitive type of any type
 
+## Type Parameters
+
+• **TType**
+
 ## Since
 
 0.0.1
@@ -27,7 +31,3 @@ type Result = Narrow<['foo', 'bar', 1]>
 ## See
 
 https://twitter.com/hd_nvim/status/1578567206190780417
-
-## Type Parameters
-
-• **TType**

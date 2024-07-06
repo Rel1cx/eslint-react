@@ -10,12 +10,12 @@
 
 A record with loose keys.
 
-## Since
-
-0.4.0
-
 ## Type Parameters
 
 • **T**
 
 The type of the values.
+
+## Since
+
+0.4.0

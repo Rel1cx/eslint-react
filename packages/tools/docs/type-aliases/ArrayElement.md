@@ -10,6 +10,10 @@
 
 Returns the element type of an array.
 
+## Type Parameters
+
+• **A**
+
 ## Since
 
 0.4.0
@@ -21,7 +25,3 @@ type of the array elements.
 ## Param
 
 The array to get the element type from.
-
-## Type Parameters
-
-• **A**

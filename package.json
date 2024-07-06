@@ -126,7 +126,6 @@
       "esbuild": "0.23.0",
       "eslint": "^9.6.0",
       "function-bind": "npm:@nolyfill/function-bind@^1",
-      "glob": "10.4.3",
       "has": "npm:@nolyfill/has@^1",
       "hasown": "npm:@nolyfill/hasown@^1",
       "is-core-module": "npm:@nolyfill/is-core-module@^1",

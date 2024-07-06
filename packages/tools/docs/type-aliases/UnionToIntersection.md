@@ -8,6 +8,10 @@
 
 > **UnionToIntersection**\<`U`\>: `U` *extends* `unknown` ? (`k`) => `void` : `never` *extends* (`k`) => `void` ? `I` : `never`
 
+## Type Parameters
+
+• **U**
+
 ## Since
 
 0.0.1
@@ -22,7 +26,3 @@ The type to get the intersection from
 type Result = IntersectionFromTuple<['foo', 'bar', 1]>
 // Result = 'foo' & 'bar' & 1
 ```
-
-## Type Parameters
-
-• **U**
