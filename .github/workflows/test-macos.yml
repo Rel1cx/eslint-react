@@ -15,21 +15,33 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Enable Csorepack
+      - name: Enable Corepack
         run: corepack enable
-      - name: Setup node@20
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-      - name: Install front-end dependencies and build front-end assets
-        run: pnpm install
-      - name: Test on node@20
-        run: pnpm run test
       - name: Setup node@22
         uses: actions/setup-node@v3
         with:
           node-version: 22
+      - name: Install front-end dependencies and build front-end assets
+        run: pnpm install
       - name: Test on node@22
+        run: pnpm run test
+      - name: Setup node@21
+        uses: actions/setup-node@v3
+        with:
+          node-version: 21
+      - name: Test on node@21
+        run: pnpm run test
+      - name: Setup node@20
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Test on node@20
+        run: pnpm run test
+      - name: Setup node@19
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19
+      - name: Test on node@19
         run: pnpm run test
       - name: Setup node@18
         uses: actions/setup-node@v3
