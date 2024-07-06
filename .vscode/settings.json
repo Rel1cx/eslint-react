@@ -1,6 +1,6 @@
 {
   "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.defaultFormatter": "dprint.dprint",
     "editor.quickSuggestions": {
       "strings": true
     }

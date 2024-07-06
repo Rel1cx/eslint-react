@@ -44,6 +44,7 @@
     "hatchpath",
     "Hoistable",
     "hrefs",
+    "IIFEs",
     "innerhtml",
     "knip",
     "lifecycles",
@@ -53,7 +54,9 @@
     "metas",
     "Monaspace",
     "Nextra",
+    "nocheck",
     "Noto",
+    "opengraph",
     "pathe",
     "pattycake",
     "preact",
@@ -86,8 +89,6 @@
     "uncast",
     "unoptimized",
     "valibot",
-    "weakref",
-    "nocheck",
-    "IIFEs"
+    "weakref"
   ]
 }

@@ -39,7 +39,7 @@
     "format:check": "dprint check",
     "format:package-json": "bun run --bun ./scripts/format-package-json.ts",
     "format:write": "dprint fmt",
-    "inspect:deps": "skott -e .ts --trackBuiltinDependencies",
+    "inspect:deps": "skott -e .ts",
     "inspect:eslint-config": "eslint --print-config ./packages > eslint-config.json",
     "lint": "pnpm run lint:spell && pnpm run lint:deps && pnpm run lint:type && pnpm run lint:ts && pnpm run lint:publish && pnpm run lint:examples && pnpm run lint:website",
     "lint:deps": "skott -m file-tree -e .ts -s",
@@ -89,6 +89,7 @@
     "eslint-plugin-vitest": "0.5.4",
     "fast-equals": "5.0.1",
     "husky": "9.0.11",
+    "knip": "^5.24.1",
     "markdownlint": "0.34.0",
     "pathe": "1.1.2",
     "publint": "0.2.8",
@@ -107,7 +108,7 @@
     "typescript": "^5.5.3",
     "vitest": "1.6.0"
   },
-  "packageManager": "pnpm@9.5.0-beta.3",
+  "packageManager": "pnpm@9.4.0",
   "engines": {
     "bun": ">=1.0.15",
     "node": ">=18.18.0"
