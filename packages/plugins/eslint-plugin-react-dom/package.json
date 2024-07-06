@@ -48,9 +48,9 @@
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "7.15.0",
-    "@typescript-eslint/types": "7.15.0",
-    "@typescript-eslint/utils": "7.15.0"
+    "@typescript-eslint/scope-manager": "rc-v8",
+    "@typescript-eslint/types": "rc-v8",
+    "@typescript-eslint/utils": "rc-v8"
   },
   "devDependencies": {
     "dedent": "1.5.3",
