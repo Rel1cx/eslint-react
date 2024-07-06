@@ -1,8 +1,12 @@
-## v1.5.23 (Draft)
+## v1.5.23 (Sun 7 Jul 2024)
 
 ### 🐞 Fixes
 
 - Fix rule `prefer-read-only-props` false negative when using `ObjectPattern` in function arguments.
+
+### 🪄 Improvements
+
+- Improve website and documentation.
 
 ## v1.5.22 (Fri 5 Jul 2024)
 
