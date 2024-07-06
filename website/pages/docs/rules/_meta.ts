@@ -22,14 +22,22 @@ export default {
   "no-class-component": "no-class-component",
   "no-clone-element": "no-clone-element",
   "no-comment-textnodes": "no-comment-textnodes",
-  "no-complicated-conditional-rendering": "no-complicated-conditional-rendering",
+  "no-complicated-conditional-rendering": {
+    title: "no-complicated-conditional-rendering",
+    // This rule has been deprecated
+    display: "hidden",
+  },
   "no-component-will-mount": "no-component-will-mount",
   "no-component-will-receive-props": "no-component-will-receive-props",
   "no-component-will-update": "no-component-will-update",
   "no-create-ref": "no-create-ref",
   "no-direct-mutation-state": "no-direct-mutation-state",
   "no-duplicate-key": "no-duplicate-key",
-  "no-implicit-key": "no-implicit-key",
+  "no-implicit-key": {
+    title: "no-implicit-key",
+    // This rule has been deprecated
+    display: "hidden",
+  },
   "no-leaked-conditional-rendering": "no-leaked-conditional-rendering",
   "no-missing-component-display-name": "no-missing-component-display-name",
   "no-missing-key": "no-missing-key",
