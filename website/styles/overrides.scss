@@ -10,6 +10,14 @@
   ul li {
     font-weight: 600;
   }
+
+  ul.nextra-menu-desktop {
+    li {
+      div {
+        font-family: IosevkaCurly, var(--font-family-mono);
+      }
+    }
+  }
 }
 
 .nextra-content {

@@ -23,6 +23,6 @@ export default {
   presets: {
     title: "Presets",
     type: "page",
-    href: "/docs/presets/overview",
+    href: "/docs/presets",
   },
 } as const;

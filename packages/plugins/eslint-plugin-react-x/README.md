@@ -85,14 +85,12 @@ export default [
 | `no-class-component`                     | Prevents usage of class component.                                                                   | ⛔  |     |     |
 | `no-clone-element`                       | Prevents usage of `cloneElement`.                                                                    | ⛔  |     |     |
 | `no-comment-textnodes`                   | Prevents comments from being inserted as text nodes.                                                 | 👀  |     |     |
-| `no-complicated-conditional-rendering`   | Prevents complicated conditional rendering in JSX.                                                   | 🤯  |     | ❌  |
 | `no-component-will-mount`                | Prevents usage of `componentWillMount`.                                                              | ⛔  |     |     |
 | `no-component-will-receive-props`        | Prevents usage of `componentWillReceiveProps`.                                                       | ⛔  |     |     |
 | `no-component-will-update`               | Prevents usage of `componentWillUpdate`.                                                             | ⛔  |     |     |
 | `no-create-ref`                          | Prevents usage of `createRef`.                                                                       | ⛔  |     |     |
 | `no-direct-mutation-state`               | Prevents direct mutation of `this.state`.                                                            |  ✔️  |     |     |
 | `no-duplicate-key`                       | Prevents duplicate `key` props on elements in the same array or a list of `children`.                |  ✔️  |     |     |
-| `no-implicit-key`                        | Prevents `key` prop from not being explicitly specified (e.g. spreading `key` prop from objects).    | 👀  |     | ❌  |
 | `no-leaked-conditional-rendering`        | Prevents problematic leaked values from being rendered.                                              | 👀  | 💭  |     |
 | `no-missing-component-display-name`      | Enforces that all components have a `displayName` which can be used in devtools.                     | 🐞  |     |     |
 | `no-missing-key`                         | Prevents missing `key` prop on items in list rendering.                                              |  ✔️  |     |     |

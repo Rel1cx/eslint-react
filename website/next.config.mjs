@@ -30,6 +30,16 @@ const nextConfig = {
   redirects() {
     return [
       {
+        source: "/docs",
+        destination: "/docs/installation",
+        permanent: true,
+      },
+      {
+        source: "/docs/rules",
+        destination: "/docs/rules/overview",
+        permanent: true,
+      },
+      {
         source: "/faq",
         destination: "/docs/faq",
         permanent: true,
