@@ -4,55 +4,58 @@
 
 ### Plugins (with ecological niche explanation)
 
-- `eslint-plugin-react-x` (DOM Irrelevant, Render Target Agnostic, Formatting Independent)
+- `eslint-plugin-react-x` (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
 - `eslint-plugin-react-dom` (DOM Specific rules for React DOM).
-- `eslint-plugin-react-hooks` (The official one from React)
-- `eslint-plugin-react-hooks-extra` (Extra rules for `eslint-plugin-react-hooks`)
-- `eslint-plugin-react-naming-convention` (Optional, only naming convention rules, can be replaced with other plugins depending on the project)
-- ... (Free to combine with other plugins from the community)
+- `eslint-plugin-react-hooks` (The official one from React).
+- `eslint-plugin-react-hooks-extra` (Extra rules for `eslint-plugin-react-hooks`).
+- `eslint-plugin-react-naming-convention` (Optional, only naming convention rules, can be replaced with other plugins depending on the project).
+- ... (Free to combine with other plugins from the community).
 
 ### Rules in `eslint-plugin-react-x`
 
-| Rule                                     | Description                                                                                          |
-| :--------------------------------------- | :--------------------------------------------------------------------------------------------------- |
-| `ensure-forward-ref-using-ref`           | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                      |
-| `no-access-state-in-setstate`            | Prevents accessing `this.state` inside `setState` calls.                                             |
-| `no-array-index-key`                     | Warns when an array `index` is used as a `key` prop.                                                 |
-| `no-children-count`                      | Prevents usage of `Children.count`.                                                                  |
-| `no-children-for-each`                   | Prevents usage of `Children.forEach`.                                                                |
-| `no-children-map`                        | Prevents usage of `Children.map`.                                                                    |
-| `no-children-only`                       | Prevents usage of `Children.only`.                                                                   |
-| `no-children-prop`                       | Prevents usage of `children` as a prop.                                                              |
-| `no-children-to-array`                   | Prevents usage of `Children.toArray`.                                                                |
-| `no-class-component`                     | Prevents usage of class component.                                                                   |
-| `no-clone-element`                       | Prevents usage of `cloneElement`.                                                                    |
-| `no-comment-textnodes`                   | Prevents comments from being inserted as text nodes.                                                 |
-| `no-component-will-mount`                | Prevents usage of `componentWillMount`.                                                              |
-| `no-component-will-receive-props`        | Prevents usage of `componentWillReceiveProps`.                                                       |
-| `no-component-will-update`               | Prevents usage of `componentWillUpdate`.                                                             |
-| `no-create-ref`                          | Prevents usage of `createRef`.                                                                       |
-| `no-direct-mutation-state`               | Prevents direct mutation of `this.state`.                                                            |
-| `no-duplicate-key`                       | Prevents duplicate `key` props on elements in the same array or a list of `children`.                |
-| `no-leaked-conditional-rendering`        | Prevents problematic leaked values from being rendered.                                              |
-| `no-missing-component-display-name`      | Enforces that all components have a `displayName` which can be used in devtools.                     |
-| `no-missing-key`                         | Prevents missing `key` prop on items in list rendering.                                              |
-| `no-nested-components`                   | Prevents nesting component definitions inside other components.                                      |
-| `no-redundant-should-component-update`   | Prevents usage of `shouldComponentUpdate` when extending `React.PureComponent`.                      |
-| `no-set-state-in-component-did-mount`    | Disallows calling `this.setState` in `componentDidMount` outside of functions, such as callbacks.    |
-| `no-set-state-in-component-did-update`   | Disallows calling `this.setState` in `componentDidUpdate` outside of functions, such as callbacks.   |
-| `no-set-state-in-component-will-update`  | Disallows calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.  |
-| `no-string-refs`                         | Disallows using deprecated string `refs`.                                                            |
-| `no-unsafe-component-will-mount`         | Warns usage of `UNSAFE_componentWillMount` in class components.                                      |
-| `no-unsafe-component-will-receive-props` | Warns usage of `UNSAFE_componentWillReceiveProps` in class components.                               |
-| `no-unsafe-component-will-update`        | Warns usage of `UNSAFE_componentWillUpdate` in class components.                                     |
-| `no-unstable-context-value`              | Prevents non-stable values (i.e. object literals) from being used as a value for `Context.Provider`. |
-| `no-unstable-default-props`              | Prevents usage of referential-type values as default props in object destructuring.                  |
-| `no-unused-class-component-members`      | Warns unused class component methods and properties.                                                 |
-| `no-unused-state`                        | Warns unused class component state.                                                                  |
-| `no-useless-fragment`                    | Prevents the use of useless `fragment` components or `<>` syntax.                                    |
-| `prefer-destructuring-assignment`        | Enforces the use of destructuring assignment over property assignment.                               |
-| `prefer-shorthand-boolean`               | Enforces the use of shorthand syntax for boolean attributes.                                         |
-| `prefer-shorthand-fragment`              | Enforces the use of shorthand syntax for fragments.                                                  |
+| Rule                                   | Description                                                                                          |
+| :------------------------------------- | :--------------------------------------------------------------------------------------------------- |
+| avoid-shorthand-boolean                | Enforces the use of shorthand syntax for boolean attributes.                                         |
+| avoid-shorthand-fragment               | Enforces the use of shorthand syntax for fragments.                                                  |
+| ensure-forward-ref-using-ref           | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                      |
+| no-access-state-in-setstate            | Prevents accessing `this.state` inside `setState` calls.                                             |
+| no-array-index-key                     | Warns when an array `index` is used as a `key` prop.                                                 |
+| no-children-count                      | Prevents usage of `Children.count`.                                                                  |
+| no-children-for-each                   | Prevents usage of `Children.forEach`.                                                                |
+| no-children-map                        | Prevents usage of `Children.map`.                                                                    |
+| no-children-only                       | Prevents usage of `Children.only`.                                                                   |
+| no-children-prop                       | Prevents usage of `children` as a prop.                                                              |
+| no-children-to-array                   | Prevents usage of `Children.toArray`.                                                                |
+| no-class-component                     | Prevents usage of class component.                                                                   |
+| no-clone-element                       | Prevents usage of `cloneElement`.                                                                    |
+| no-comment-textnodes                   | Prevents comments from being inserted as text nodes.                                                 |
+| no-component-will-mount                | Prevents usage of `componentWillMount`.                                                              |
+| no-component-will-receive-props        | Prevents usage of `componentWillReceiveProps`.                                                       |
+| no-component-will-update               | Prevents usage of `componentWillUpdate`.                                                             |
+| no-create-ref                          | Prevents usage of `createRef`.                                                                       |
+| no-direct-mutation-state               | Prevents direct mutation of `this.state`.                                                            |
+| no-duplicate-key                       | Prevents duplicate `key` props on elements in the same array or a list of `children`.                |
+| no-leaked-conditional-rendering        | Prevents problematic leaked values from being rendered.                                              |
+| no-missing-component-display-name      | Enforces that all components have a `displayName` which can be used in devtools.                     |
+| no-missing-key                         | Prevents missing `key` prop on items in list rendering.                                              |
+| no-nested-components                   | Prevents nesting component definitions inside other components.                                      |
+| no-redundant-should-component-update   | Prevents usage of `shouldComponentUpdate` when extending `React.PureComponent`.                      |
+| no-set-state-in-component-did-mount    | Disallows calling `this.setState` in `componentDidMount` outside of functions, such as callbacks.    |
+| no-set-state-in-component-did-update   | Disallows calling `this.setState` in `componentDidUpdate` outside of functions, such as callbacks.   |
+| no-set-state-in-component-will-update  | Disallows calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.  |
+| no-string-refs                         | Disallows using deprecated string `refs`.                                                            |
+| no-unsafe-component-will-mount         | Warns usage of `UNSAFE_componentWillMount` in class components.                                      |
+| no-unsafe-component-will-receive-props | Warns usage of `UNSAFE_componentWillReceiveProps` in class components.                               |
+| no-unsafe-component-will-update        | Warns usage of `UNSAFE_componentWillUpdate` in class components.                                     |
+| no-unstable-context-value              | Prevents non-stable values (i.e. object literals) from being used as a value for `Context.Provider`. |
+| no-unstable-default-props              | Prevents usage of referential-type values as default props in object destructuring.                  |
+| no-unused-class-component-members      | Warns unused class component methods and properties.                                                 |
+| no-unused-state                        | Warns unused class component state.                                                                  |
+| no-useless-fragment                    | Prevents the use of useless `fragment` components or `<>` syntax.                                    |
+| prefer-destructuring-assignment        | Enforces the use of destructuring assignment over property assignment.                               |
+| prefer-read-only-props                 | Enforces that function components props are readonly.                                                |
+| prefer-shorthand-boolean               | Enforces the use of shorthand syntax for boolean attributes.                                         |
+| prefer-shorthand-fragment              | Enforces the use of shorthand syntax for fragments.                                                  |
 
 ### Rules in `eslint-plugin-react-dom`
 
@@ -72,12 +75,10 @@
 
 ### Rules in `eslint-plugin-react-hooks-extra`
 
-| Rule                                     | Description                                                       |
-| :--------------------------------------- | :---------------------------------------------------------------- |
-| `ensure-custom-hooks-using-other-hooks`  | Warns when custom Hooks that don't use other Hooks.               |
-| `ensure-use-callback-has-non-empty-deps` | Warns when `useCallback` is called with empty dependencies array. |
-| `ensure-use-memo-has-non-empty-deps`     | Warns when `useMemo` is called with empty dependencies array.     |
-| `prefer-use-state-lazy-initialization`   | Warns function calls made inside `useState` calls.                |
+| Rule                                    | Description                                         |
+| :-------------------------------------- | :-------------------------------------------------- |
+| `ensure-custom-hooks-using-other-hooks` | Warns when custom Hooks that don't use other Hooks. |
+| `prefer-use-state-lazy-initialization`  | Warns function calls made inside `useState` calls.  |
 
 ### Rules in `eslint-plugin-react-naming-convention`
 
@@ -92,14 +93,13 @@
 
 ### Plugins (with ecological niche explanation)
 
-- `eslint-plugin-react-x` (DOM Irrelevant, Render Target Agnostic, Formatting Independent)
+- `eslint-plugin-react-x` (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
 - `eslint-plugin-react-dom` (DOM Specific rules for React DOM).
 - `eslint-plugin-react-dom-a11y` (Accessibility rules for React DOM).
-- `eslint-plugin-react-web-api` (Web API rules for React).
-- `eslint-plugin-react-hooks` (The official one from React)
-- `eslint-plugin-react-hooks-extra` (Extra rules for `eslint-plugin-react-hooks`)
-- `eslint-plugin-react-naming-convention` (Optional, only naming convention rules, can be replaced with other plugins depending on the project)
-- ... (Free to combine with other plugins from the community)
+- `eslint-plugin-react-hooks` (The official one from React).
+- `eslint-plugin-react-hooks-extra` (Extra rules for `eslint-plugin-react-hooks`).
+- `eslint-plugin-react-naming-convention` (Optional, only naming convention rules, can be replaced with other plugins depending on the project).
+- ... (Free to combine with other plugins from the community).
 
 ### Rules in `eslint-plugin-react-dom-a11y` (port [open-wc's a11y rules](https://open-wc.org/docs/linting/eslint-plugin-lit-a11y/overview/#supported-rules))
 
