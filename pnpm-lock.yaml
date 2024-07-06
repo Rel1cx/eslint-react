@@ -17,6 +17,7 @@ overrides:
   esbuild: 0.23.0
   eslint: ^9.6.0
   function-bind: npm:@nolyfill/function-bind@^1
+  glob: 10.4.3
   has: npm:@nolyfill/has@^1
   hasown: npm:@nolyfill/hasown@^1
   is-core-module: npm:@nolyfill/is-core-module@^1
@@ -30,7 +31,7 @@ overrides:
   ts-api-utils: ^1.3.0
   typedarray: npm:@nolyfill/typedarray@^1
   typedoc: 0.26.3
-  typedoc-plugin-markdown: 4.1.1
+  typedoc-plugin-markdown: 4.1.2
   typescript: ^5.5.3
 
 importers:
@@ -110,8 +111,8 @@ importers:
         specifier: 6.2.0
         version: 6.2.0(eslint@9.6.0)
       eslint-plugin-functional:
-        specifier: 6.6.0
-        version: 6.6.0(eslint@9.6.0)(typescript@5.5.3)
+        specifier: 6.6.1
+        version: 6.6.1(eslint@9.6.0)(typescript@5.5.3)
       eslint-plugin-import-x:
         specifier: 0.5.3
         version: 0.5.3(eslint@9.6.0)(typescript@5.5.3)
@@ -176,8 +177,8 @@ importers:
         specifier: 0.26.3
         version: 0.26.3(typescript@5.5.3)
       typedoc-plugin-markdown:
-        specifier: 4.1.1
-        version: 4.1.1(typedoc@0.26.3(typescript@5.5.3))
+        specifier: 4.1.2
+        version: 4.1.2(typedoc@0.26.3(typescript@5.5.3))
       typedoc-plugin-rename-defaults:
         specifier: 0.7.1
         version: 0.7.1(typedoc@0.26.3(typescript@5.5.3))
@@ -2978,8 +2979,8 @@ packages:
   effect@3.4.7:
     resolution: {integrity: sha512-WnxvyX4fksdotDHBXcCfZpxFlY77wMaWP/GIRnr7aJZj9U+k+4QRWd1Ee/OU/jlswyC+MlO5YXilGfcz6WN8Lg==}
 
-  electron-to-chromium@1.4.817:
-    resolution: {integrity: sha512-3znu+lZMIbTe8ZOs360OMJvVroVF2NpNI8T5jfLnDetVvj0uNmIucZzQVYMSJfsu9f47Ssox1Gt46PR+R+1JUg==}
+  electron-to-chromium@1.4.818:
+    resolution: {integrity: sha512-eGvIk2V0dGImV9gWLq8fDfTTsCAeMDwZqEPMr+jMInxZdnp9Us8UpovYpRCf9NQ7VOFgrN2doNSgvISbsbNpxA==}
 
   elkjs@0.9.3:
     resolution: {integrity: sha512-f/ZeWvW/BCXbhGEf1Ujp29EASo/lk1FDnETgNKwJrsVvGZhUWCZyg3xLJjAsxfOmt8KjswHmI5EwCQcPMpOYhQ==}
@@ -3064,8 +3065,8 @@ packages:
     peerDependencies:
       eslint: ^9.6.0
 
-  eslint-plugin-functional@6.6.0:
-    resolution: {integrity: sha512-RhNEVL+YrN6gJcpIkootKc1knUzZyljhuiuDpv/dGRERdXEGsnKCkq+oBnM8qFtZFIkSKMoMj4/M1bPGlSl5JQ==}
+  eslint-plugin-functional@6.6.1:
+    resolution: {integrity: sha512-BXA0XtP2ygMh+3wx5zvX5cBcd54sq6l5ceOS9Yift3J7bp8oSAk7UVV7+i9wKuhtNoo11qiDEjjPuO/qxMQ98g==}
     engines: {node: '>=16.10.0'}
     peerDependencies:
       eslint: ^9.6.0
@@ -3373,9 +3374,6 @@ packages:
   fs-tree-structure@0.0.5:
     resolution: {integrity: sha512-827ACYnAMC1DQRvhLUzZH0fCPhBJLo9P7WfxxwP4cibIzlrSzbD+Fh9W4FxFtSU+p9GlX0BoQUWLJ2LFJuoKuQ==}
 
-  fs.realpath@1.0.0:
-    resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
-
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -3432,15 +3430,10 @@ packages:
   glob-to-regexp@0.4.1:
     resolution: {integrity: sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==}
 
-  glob@10.4.2:
-    resolution: {integrity: sha512-GwMlUF6PkPo3Gk21UxkCohOv0PLcIXVtKyLlpEI28R/cO/4eNOdmLk3CMW1wROV/WR/EsZOWAfBbBOqYvs88/w==}
-    engines: {node: '>=16 || 14 >=14.18'}
+  glob@10.4.3:
+    resolution: {integrity: sha512-Q38SGlYRpVtDBPSWEylRyctn7uDeTp4NQERTLiCT1FqA9JXPYWqAVmQU6qh4r/zMM5ehxTcbaO8EjhWnvEhmyg==}
+    engines: {node: '>=18'}
     hasBin: true
-
-  glob@8.1.0:
-    resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
-    engines: {node: '>=12'}
-    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -3605,10 +3598,6 @@ packages:
     resolution: {integrity: sha512-EdDDZu4A2OyIK7Lr/2zG+w5jmbuk1DVBnEwREQvBzspBJkCEbRa8GxU1lghYcaGJCnRWibjDXlq779X1/y5xwg==}
     engines: {node: '>=8'}
 
-  inflight@1.0.6:
-    resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
-    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
-
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
 
@@ -3772,9 +3761,9 @@ packages:
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
-  jackspeak@3.4.0:
-    resolution: {integrity: sha512-JVYhQnN59LVPFCEcVa2C3CrEKYacvjRfqIQl+h8oi91aLYQVWRYbxjPcv1bUiUy/kLmQaANrYfNMCO3kuEDHfw==}
-    engines: {node: '>=14'}
+  jackspeak@3.4.1:
+    resolution: {integrity: sha512-U23pQPDnmYybVkYjObcuYMk43VRlMLLqLI+RdZy8s8WV8WsxO9SnqSroKaluuvcNOdCAlauKszDwd+umbot5Mg==}
+    engines: {node: '>=18'}
 
   javascript-stringify@2.1.0:
     resolution: {integrity: sha512-JVAfqNPTvNq3sB/VHQJAFxN/sPgKnsKrCwyRt15zwNCdrMMJDdcEOdubuy+DuJYYdm0ox1J4uzEuYKkN+9yhVg==}
@@ -3952,9 +3941,9 @@ packages:
   loupe@2.3.7:
     resolution: {integrity: sha512-zSMINGVYkdpYSOBmLi0D1Uo7JU9nVdQKrHxC8eYlV+9YKK9WePqAlL7lSlorG/U2Fw1w0hTBmaa/jrQ3UbPHtA==}
 
-  lru-cache@10.3.0:
-    resolution: {integrity: sha512-CQl19J/g+Hbjbv4Y3mFNNXFEL/5t/KCg8POCuUqd4rMKjGG+j1ybER83hxV58zL+dFI1PTkt3GNFSHRt+d8qEQ==}
-    engines: {node: 14 || >=16.14}
+  lru-cache@10.3.1:
+    resolution: {integrity: sha512-9/8QXrtbGeMB6LxwQd4x1tIMnsmUxMvIH/qWGsccz6bt9Uln3S+sgAaqfQNhbGA8ufzs2fHuP/yqapGgP9Hh2g==}
+    engines: {node: '>=18'}
 
   lru-cache@4.1.5:
     resolution: {integrity: sha512-sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g==}
@@ -4463,9 +4452,6 @@ packages:
   on-headers@1.0.2:
     resolution: {integrity: sha512-pZAE+FJLoyITytdqK0U5s+FIpjN0JP3OzFi/u8Rx+EV5/W+JTWGXG8xFzevE7AjBfDqHv/8vL8qQsIhHnqRkrA==}
     engines: {node: '>= 0.8'}
-
-  once@1.4.0:
-    resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
 
   onetime@5.1.2:
     resolution: {integrity: sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==}
@@ -5295,8 +5281,8 @@ packages:
     peerDependencies:
       typescript: ^5.5.3
 
-  ts-declaration-location@1.0.1:
-    resolution: {integrity: sha512-bCWJovNLBiS34rMD1o6AX+INI5n6ujtB9bPp/1a/opc9ExycJKpB/XcgIsVs66RH7SxAbsYcJBkrLrnLcDF0TA==}
+  ts-declaration-location@1.0.2:
+    resolution: {integrity: sha512-F7+4QiD/WguzLqviTNu+4tgR5SJtW4orC9RDCYzkwbeyHNq7hfGpq4Y8odaf0w9Z6orH+y98jgUdVaUFOPNRhg==}
     peerDependencies:
       typescript: ^5.5.3
 
@@ -5398,8 +5384,8 @@ packages:
     resolution: {integrity: sha512-ADn2w7hVPcK6w1I0uWnM//y1rLXZhzB9mr0a3OirzclKF1Wp6VzevUmzz/NRAWunOT6E8HrnpGY7xOfc6K57fA==}
     engines: {node: '>=16'}
 
-  typedoc-plugin-markdown@4.1.1:
-    resolution: {integrity: sha512-ZQv8FXn1TBZAvhWMgOL8hE472rwv1dzSr/KIIUGPmdNXybeS6jmK7d1OwKhorLuGbPDQGl6U97BwfkFTcydAkw==}
+  typedoc-plugin-markdown@4.1.2:
+    resolution: {integrity: sha512-jZt8jmQLbmg9jmFQyfJrjLf6ljRwJ5fKMeqmFr0oPXmeX5ZRYYtCe6y/058vDESE/R+TwEvNua6SuG43UBbszw==}
     engines: {node: '>= 18'}
     peerDependencies:
       typedoc: 0.26.3
@@ -5710,9 +5696,6 @@ packages:
   wrap-ansi@8.1.0:
     resolution: {integrity: sha512-si7QWI6zUMq56bESFvagtmzMdGOtoxfR+Sez11Mobfc7tm+VkUckk9bW2UeffTGVUbOksxmSw0AA2gs8g71NCQ==}
     engines: {node: '>=12'}
-
-  wrappy@1.0.2:
-    resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
   xdg-basedir@5.1.0:
     resolution: {integrity: sha512-GCPAHLvrIH13+c0SuacwvRYj2SxJXQ4kaVTT5xgL3kPrz56XxkF21IGhjSE1+W0aw7gpBWRGXLCPnPby6lSpmQ==}
@@ -6614,7 +6597,7 @@ snapshots:
   '@npmcli/map-workspaces@3.0.6':
     dependencies:
       '@npmcli/name-from-folder': 2.0.0
-      glob: 10.4.2
+      glob: 10.4.3
       minimatch: 9.0.5
       read-package-json-fast: 3.0.2
 
@@ -7430,7 +7413,7 @@ snapshots:
   browserslist@4.23.1:
     dependencies:
       caniuse-lite: 1.0.30001640
-      electron-to-chromium: 1.4.817
+      electron-to-chromium: 1.4.818
       node-releases: 2.0.14
       update-browserslist-db: 1.1.0(browserslist@4.23.1)
 
@@ -8090,7 +8073,7 @@ snapshots:
 
   effect@3.4.7: {}
 
-  electron-to-chromium@1.4.817: {}
+  electron-to-chromium@1.4.818: {}
 
   elkjs@0.9.3: {}
 
@@ -8202,7 +8185,7 @@ snapshots:
       eslint: 9.6.0
       estraverse: 5.3.0
 
-  eslint-plugin-functional@6.6.0(eslint@9.6.0)(typescript@5.5.3):
+  eslint-plugin-functional@6.6.1(eslint@9.6.0)(typescript@5.5.3):
     dependencies:
       '@typescript-eslint/utils': 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       deepmerge-ts: 5.1.0
@@ -8609,8 +8592,6 @@ snapshots:
     dependencies:
       lodash-es: 4.17.21
 
-  fs.realpath@1.0.0: {}
-
   fsevents@2.3.3:
     optional: true
 
@@ -8648,22 +8629,14 @@ snapshots:
 
   glob-to-regexp@0.4.1: {}
 
-  glob@10.4.2:
+  glob@10.4.3:
     dependencies:
       foreground-child: 3.2.1
-      jackspeak: 3.4.0
+      jackspeak: 3.4.1
       minimatch: 9.0.5
       minipass: 7.1.2
       package-json-from-dist: 1.0.0
       path-scurry: 1.11.1
-
-  glob@8.1.0:
-    dependencies:
-      fs.realpath: 1.0.0
-      inflight: 1.0.6
-      inherits: 2.0.4
-      minimatch: 5.1.6
-      once: 1.4.0
 
   global-directory@4.0.1:
     dependencies:
@@ -8903,11 +8876,6 @@ snapshots:
 
   indent-string@4.0.0: {}
 
-  inflight@1.0.6:
-    dependencies:
-      once: 1.4.0
-      wrappy: 1.0.2
-
   inherits@2.0.4: {}
 
   ini@1.3.8: {}
@@ -8983,7 +8951,7 @@ snapshots:
       '@typescript-eslint/type-utils': 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       eslint: 9.6.0
       ts-api-utils: 1.3.0(typescript@5.5.3)
-      ts-declaration-location: 1.0.1(typescript@5.5.3)
+      ts-declaration-location: 1.0.2(typescript@5.5.3)
       typescript: 5.5.3
     transitivePeerDependencies:
       - supports-color
@@ -9026,7 +8994,7 @@ snapshots:
 
   isexe@2.0.0: {}
 
-  jackspeak@3.4.0:
+  jackspeak@3.4.1:
     dependencies:
       '@isaacs/cliui': 8.0.2
     optionalDependencies:
@@ -9178,7 +9146,7 @@ snapshots:
     dependencies:
       get-func-name: 2.0.2
 
-  lru-cache@10.3.0: {}
+  lru-cache@10.3.1: {}
 
   lru-cache@4.1.5:
     dependencies:
@@ -10111,7 +10079,7 @@ snapshots:
 
   npm-packlist@5.1.3:
     dependencies:
-      glob: 8.1.0
+      glob: 10.4.3
       ignore-walk: 5.0.1
       npm-bundled: 2.0.1
       npm-normalize-package-bin: 2.0.0
@@ -10133,10 +10101,6 @@ snapshots:
   object-assign@4.1.1: {}
 
   on-headers@1.0.2: {}
-
-  once@1.4.0:
-    dependencies:
-      wrappy: 1.0.2
 
   onetime@5.1.2:
     dependencies:
@@ -10289,7 +10253,7 @@ snapshots:
 
   path-scurry@1.11.1:
     dependencies:
-      lru-cache: 10.3.0
+      lru-cache: 10.3.1
       minipass: 7.1.2
 
   path-type@4.0.0: {}
@@ -10923,7 +10887,7 @@ snapshots:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.5
       commander: 4.1.1
-      glob: 10.4.2
+      glob: 10.4.3
       lines-and-columns: 1.2.4
       mz: 2.7.0
       pirates: 4.0.6
@@ -11042,7 +11006,7 @@ snapshots:
     dependencies:
       typescript: 5.5.3
 
-  ts-declaration-location@1.0.1(typescript@5.5.3):
+  ts-declaration-location@1.0.2(typescript@5.5.3):
     dependencies:
       minimatch: 9.0.5
       typescript: 5.5.3
@@ -11129,7 +11093,7 @@ snapshots:
 
   type-fest@4.21.0: {}
 
-  typedoc-plugin-markdown@4.1.1(typedoc@0.26.3(typescript@5.5.3)):
+  typedoc-plugin-markdown@4.1.2(typedoc@0.26.3(typescript@5.5.3)):
     dependencies:
       typedoc: 0.26.3(typescript@5.5.3)
 
@@ -11180,7 +11144,7 @@ snapshots:
       concat-stream: 2.0.0
       debug: 4.3.5
       extend: 3.0.2
-      glob: 10.4.2
+      glob: 10.4.3
       ignore: 5.3.1
       is-empty: 1.2.0
       is-plain-obj: 4.1.0
@@ -11554,8 +11518,6 @@ snapshots:
       ansi-styles: 6.2.1
       string-width: 5.1.2
       strip-ansi: 7.1.0
-
-  wrappy@1.0.2: {}
 
   xdg-basedir@5.1.0: {}
 
