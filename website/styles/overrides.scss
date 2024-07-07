@@ -14,7 +14,7 @@
   ul.nextra-menu-desktop {
     li {
       div {
-        font-family: IosevkaCurly, var(--font-family-mono);
+        font-family: var(--font-family-mono);
       }
     }
   }
@@ -59,7 +59,7 @@
   table {
     tbody {
       tr td code {
-        font-family: "IosevkaCurly", var(--font-family-mono);
+        font-family: var(--font-family-mono);
         white-space: nowrap;
       }
     }

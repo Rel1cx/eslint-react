@@ -1,20 +1,17 @@
 @font-face {
   font-family: 'IosevkaEtoile';
-  src: url("./IosevkaEtoile-Regular.woff2") format("woff2"),
+  src: url("./IosevkaEtoile-Regular.woff2") format("woff2");
+  font-display: block;
 }
 
 @font-face {
   font-family: 'IosevkaAile';
-  src: url("./IosevkaAile-Regular.woff2") format("woff2"),
+  src: url("./IosevkaAile-Regular.woff2") format("woff2");
+  font-display: block;
 }
 
 @font-face {
   font-family: 'IosevkaCurly';
-  src: url("./IosevkaCurly-Regular.woff2") format("woff2"),
-}
-
-
-@font-face {
-  font-family: 'IosevkaCurly Extended';
-  src: url("./IosevkaCurly-Extended.woff2") format("woff2"),
+  src: url("./IosevkaCurly-Regular.woff2") format("woff2");
+  font-display: block;
 }
