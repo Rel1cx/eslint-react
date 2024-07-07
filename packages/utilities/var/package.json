@@ -12,7 +12,7 @@
     "directory": "packages/utilities/var"
   },
   "license": "MIT",
-  "author": "Eva1ent<let@ik.me>",
+  "author": "Eva1ent<rel1cx@proton.me>",
   "sideEffects": false,
   "exports": {
     ".": {
@@ -44,9 +44,9 @@
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "7.15.0",
-    "@typescript-eslint/types": "7.15.0",
-    "@typescript-eslint/utils": "7.15.0"
+    "@typescript-eslint/scope-manager": "catalog:tseslint7",
+    "@typescript-eslint/types": "catalog:tseslint7",
+    "@typescript-eslint/utils": "catalog:tseslint7"
   },
   "devDependencies": {
     "effect": "3.4.7",

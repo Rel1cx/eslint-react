@@ -12,7 +12,7 @@
     "directory": "packages/plugins/eslint-plugin-react-naming-convention"
   },
   "license": "MIT",
-  "author": "Eva1ent<let@ik.me>",
+  "author": "Eva1ent<rel1cx@proton.me>",
   "sideEffects": false,
   "exports": {
     ".": {
@@ -47,10 +47,10 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "7.15.0",
-    "@typescript-eslint/type-utils": "7.15.0",
-    "@typescript-eslint/types": "7.15.0",
-    "@typescript-eslint/utils": "7.15.0"
+    "@typescript-eslint/scope-manager": "catalog:tseslint7",
+    "@typescript-eslint/type-utils": "catalog:tseslint7",
+    "@typescript-eslint/types": "catalog:tseslint7",
+    "@typescript-eslint/utils": "catalog:tseslint7"
   },
   "devDependencies": {
     "dedent": "1.5.3",

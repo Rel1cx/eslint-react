@@ -23,13 +23,7 @@
     "url": "https://github.com/Rel1cx/eslint-react"
   },
   "license": "MIT",
-  "author": "Eva1ent<let@ik.me>",
-  "workspaces": [
-    "packages/*",
-    "packages/*/*",
-    "examples/*",
-    "website"
-  ],
+  "author": "Eva1ent<rel1cx@proton.me>",
   "scripts": {
     "build": "pnpm run update:version && turbo build --filter=\"./packages/**\"",
     "build:all": "pnpm run build && pnpm run build:docs && pnpm run build:website",
@@ -63,9 +57,9 @@
     "@types/node": "20.14.10",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
-    "@typescript-eslint/eslint-plugin": "7.15.0",
-    "@typescript-eslint/parser": "7.15.0",
-    "@typescript-eslint/rule-tester": "7.15.0",
+    "@typescript-eslint/eslint-plugin": "catalog:tseslint7",
+    "@typescript-eslint/parser": "catalog:tseslint7",
+    "@typescript-eslint/rule-tester": "catalog:tseslint7",
     "@vitest/ui": "1.6.0",
     "bun": "1.1.18",
     "bun-types": "1.1.18",
@@ -108,7 +102,7 @@
     "typescript": "^5.5.3",
     "vitest": "1.6.0"
   },
-  "packageManager": "pnpm@9.4.0",
+  "packageManager": "pnpm@9.5.0",
   "engines": {
     "bun": ">=1.0.15",
     "node": ">=18.18.0"
@@ -122,7 +116,6 @@
       "array.prototype.flatmap": "npm:@nolyfill/array.prototype.flatmap@^1",
       "array.prototype.toreversed": "npm:@nolyfill/array.prototype.toreversed@^1",
       "array.prototype.tosorted": "npm:@nolyfill/array.prototype.tosorted@^1",
-      "dprint": "0.46.3",
       "es-iterator-helpers": "npm:@nolyfill/es-iterator-helpers@^1",
       "esbuild": "0.23.0",
       "eslint": "^9.6.0",

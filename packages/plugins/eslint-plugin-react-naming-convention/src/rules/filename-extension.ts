@@ -17,8 +17,6 @@ type Options = readonly [
   | {
     allow?: Allow;
     extensions?: readonly string[];
-    // Reserved for future use
-    // excepts?: readonly string[];
   }
   | Allow
   | undefined,

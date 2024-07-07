@@ -17,6 +17,16 @@ type FlatConfig = Parameters<typeof tseslint.config>[number];
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 const config: FlatConfig[] = [
   // register all of the plugins up-front
+  gitignore(),
+  {
+    ignores: [
+      "docs",
+      "examples",
+      "website",
+      "eslint.config.js",
+      "eslint.config.d.ts",
+    ],
+  },
   {
     // note - intentionally uses computed syntax to make it easy to sort the keys
     plugins: {
@@ -266,16 +276,6 @@ const config: FlatConfig[] = [
         warnOnUnsupportedTypeScriptVersion: false,
       },
     },
-  },
-  gitignore(),
-  {
-    ignores: [
-      "docs",
-      "examples",
-      "website",
-      "eslint.config.js",
-      "eslint.config.d.ts",
-    ],
   },
 ];
 

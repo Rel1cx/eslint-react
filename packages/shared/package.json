@@ -12,7 +12,7 @@
     "directory": "packages/shared"
   },
   "license": "MIT",
-  "author": "Eva1ent<let@ik.me>",
+  "author": "Eva1ent<rel1cx@proton.me>",
   "sideEffects": false,
   "exports": {
     ".": {
@@ -42,7 +42,7 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "7.15.0",
+    "@typescript-eslint/utils": "catalog:tseslint7",
     "valibot": "^0.36.0"
   },
   "devDependencies": {

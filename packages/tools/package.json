@@ -12,7 +12,7 @@
     "directory": "packages/tools"
   },
   "license": "MIT",
-  "author": "Eva1ent<let@ik.me>",
+  "author": "Eva1ent<rel1cx@proton.me>",
   "sideEffects": false,
   "exports": {
     ".": {

@@ -55,8 +55,6 @@ src/components/example-component.tsx
   2. `camelCase`: camelCase
   3. `kebab-case`: kebab-case
   4. `snake_case`: snake_case
-- `excepts`: List of RegExp strings that should be ignored by this rule. The default value is `["^index$"]` which ignores files named `index`.
-- `extensions`: List of file extensions that should be checked by this rule. The default value is `[".jsx", ".tsx"]` which checks only `.jsx` and `.tsx` files.
 
 ## Rule Options Examples
 
@@ -79,7 +77,7 @@ export default [
   {
     files: ["**/*.tsx"],
     rules: {
-      "@eslint-react/naming-convention/filename": ["warn", { "rule": "kebab-case", "excepts": ["^index$"] }]
+      "@eslint-react/naming-convention/filename": ["warn", { "rule": "kebab-case" }]
   }
 ];
 ```

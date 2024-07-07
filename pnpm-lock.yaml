@@ -4,6 +4,33 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  tseslint7:
+    '@typescript-eslint/eslint-plugin':
+      specifier: 7.15.0
+      version: 7.15.0
+    '@typescript-eslint/parser':
+      specifier: 7.15.0
+      version: 7.15.0
+    '@typescript-eslint/rule-tester':
+      specifier: 7.15.0
+      version: 7.15.0
+    '@typescript-eslint/scope-manager':
+      specifier: 7.15.0
+      version: 7.15.0
+    '@typescript-eslint/type-utils':
+      specifier: 7.15.0
+      version: 7.15.0
+    '@typescript-eslint/types':
+      specifier: 7.15.0
+      version: 7.15.0
+    '@typescript-eslint/utils':
+      specifier: 7.15.0
+      version: 7.15.0
+    typescript-eslint:
+      specifier: 7.15.0
+      version: 7.15.0
+
 overrides:
   array-includes: npm:@nolyfill/array-includes@^1
   array.prototype.findlast: npm:@nolyfill/array.prototype.findlast@^1
@@ -12,7 +39,6 @@ overrides:
   array.prototype.flatmap: npm:@nolyfill/array.prototype.flatmap@^1
   array.prototype.toreversed: npm:@nolyfill/array.prototype.toreversed@^1
   array.prototype.tosorted: npm:@nolyfill/array.prototype.tosorted@^1
-  dprint: 0.46.3
   es-iterator-helpers: npm:@nolyfill/es-iterator-helpers@^1
   esbuild: 0.23.0
   eslint: ^9.6.0
@@ -59,13 +85,13 @@ importers:
         specifier: 18.3.0
         version: 18.3.0
       '@typescript-eslint/eslint-plugin':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(@typescript-eslint/parser@7.15.0(eslint@9.6.0)(typescript@5.5.3))(eslint@9.6.0)(typescript@5.5.3)
       '@typescript-eslint/parser':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       '@typescript-eslint/rule-tester':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(@eslint/eslintrc@3.1.0)(eslint@9.6.0)(typescript@5.5.3)
       '@vitest/ui':
         specifier: 1.6.0
@@ -89,8 +115,8 @@ importers:
         specifier: 1.5.3
         version: 1.5.3
       dprint:
-        specifier: 0.46.3
-        version: 0.46.3
+        specifier: 0.47.0
+        version: 0.47.0
       effect:
         specifier: 3.4.7
         version: 3.4.7
@@ -234,7 +260,7 @@ importers:
         specifier: ^5.5.3
         version: 5.5.3
       typescript-eslint:
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       vite:
         specifier: 5.3.3
@@ -261,16 +287,16 @@ importers:
         specifier: workspace:*
         version: link:../utilities/var
       '@typescript-eslint/scope-manager':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/type-utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       '@typescript-eslint/types':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
     devDependencies:
       effect:
@@ -298,16 +324,16 @@ importers:
         specifier: workspace:*
         version: link:../../types
       '@typescript-eslint/scope-manager':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/type-utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       '@typescript-eslint/types':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       eslint:
         specifier: ^9.6.0
@@ -359,16 +385,16 @@ importers:
         specifier: workspace:*
         version: link:../../types
       '@typescript-eslint/scope-manager':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/type-utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       '@typescript-eslint/types':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       eslint:
         specifier: ^9.6.0
@@ -411,13 +437,13 @@ importers:
         specifier: workspace:*
         version: link:../../utilities/var
       '@typescript-eslint/scope-manager':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/types':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       eslint:
         specifier: ^9.6.0
@@ -463,16 +489,16 @@ importers:
         specifier: workspace:*
         version: link:../../utilities/var
       '@typescript-eslint/scope-manager':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/type-utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       '@typescript-eslint/types':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       eslint:
         specifier: ^9.6.0
@@ -515,16 +541,16 @@ importers:
         specifier: workspace:*
         version: link:../../types
       '@typescript-eslint/scope-manager':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/type-utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       '@typescript-eslint/types':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       eslint:
         specifier: ^9.6.0
@@ -570,16 +596,16 @@ importers:
         specifier: workspace:*
         version: link:../../utilities/var
       '@typescript-eslint/scope-manager':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/type-utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       '@typescript-eslint/types':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       eslint:
         specifier: ^9.6.0
@@ -610,7 +636,7 @@ importers:
   packages/shared:
     dependencies:
       '@typescript-eslint/utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       valibot:
         specifier: ^0.36.0
@@ -635,10 +661,10 @@ importers:
         specifier: workspace:*
         version: link:../tools
       '@typescript-eslint/types':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
     devDependencies:
       tsup:
@@ -657,13 +683,13 @@ importers:
         specifier: workspace:*
         version: link:../../types
       '@typescript-eslint/scope-manager':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/types':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
     devDependencies:
       effect:
@@ -694,13 +720,13 @@ importers:
         specifier: workspace:*
         version: link:../var
       '@typescript-eslint/scope-manager':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/types':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
     devDependencies:
       effect:
@@ -725,13 +751,13 @@ importers:
         specifier: workspace:*
         version: link:../../types
       '@typescript-eslint/scope-manager':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/types':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0
       '@typescript-eslint/utils':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
     devDependencies:
       effect:
@@ -787,7 +813,7 @@ importers:
         specifier: 18.3.0
         version: 18.3.0
       '@typescript-eslint/eslint-plugin':
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(@typescript-eslint/parser@7.15.0(eslint@9.6.0)(typescript@5.5.3))(eslint@9.6.0)(typescript@5.5.3)
       '@vanilla-extract/css':
         specifier: 1.15.3
@@ -841,7 +867,7 @@ importers:
         specifier: ^5.5.3
         version: 5.5.3
       typescript-eslint:
-        specifier: 7.15.0
+        specifier: catalog:tseslint7
         version: 7.15.0(eslint@9.6.0)(typescript@5.5.3)
       vite:
         specifier: 5.3.3
@@ -1223,38 +1249,38 @@ packages:
     resolution: {integrity: sha512-4+Bxm43py50W872FjUvKoT9+EQoK9pqOblxu7GRfFx7CjEgYJB03Cb4rHiKYzLuJakUk6IyAlgPD2vNZO37Vzg==}
     engines: {node: '>=18.0'}
 
-  '@dprint/darwin-arm64@0.46.3':
-    resolution: {integrity: sha512-1ycDpGvclGHF3UG5V6peymPDg6ouNTqM6BjhVELQ6zwr+X98AMhq/1slgO8hwHtPcaS5qhTAS+PkzOmBJRegow==}
+  '@dprint/darwin-arm64@0.47.0':
+    resolution: {integrity: sha512-UoQA2kBSSooLx+DPUeml8xr75D7wwpNmH1xmDeX9c0JzFA5j7ZtykT/gNqGSRk9TRHH12nV3/e8VSamUbnbRfA==}
     cpu: [arm64]
     os: [darwin]
 
-  '@dprint/darwin-x64@0.46.3':
-    resolution: {integrity: sha512-v5IpLmrY836Q5hJAxZuX097ZNQvoZgO6JKO4bK4l6XDhhHAw2XTIUr41+FM5r36ENxyASMk0NpHjhcHtih3o0g==}
+  '@dprint/darwin-x64@0.47.0':
+    resolution: {integrity: sha512-gL2qYooB1mSatS0CQ6/UrplyUewnWD3cg1U7S+CZAVpgSkJgOX3haWinoD66kaBdWAPJo4NjeMnlIS7WVXmbXg==}
     cpu: [x64]
     os: [darwin]
 
-  '@dprint/linux-arm64-glibc@0.46.3':
-    resolution: {integrity: sha512-9P13g1vgV8RfQH2qBGa8YAfaOeWA42RIhj7lmWRpkDFtwau96reMKwnBBn8bHUnc5e6bSsbPUOMb/X1KMUKz/g==}
+  '@dprint/linux-arm64-glibc@0.47.0':
+    resolution: {integrity: sha512-VrY41zk75f07tfD9bIiYpRom7j4jc/5a8ifWhebnA7jwitTIInkPBUAwJwygGQA/bY7uKYuoykEnipjOzXE48A==}
     cpu: [arm64]
     os: [linux]
 
-  '@dprint/linux-arm64-musl@0.46.3':
-    resolution: {integrity: sha512-AAcdcMSZ6DEIoY9E0xQHjkZP+THP7EWsQge4TWzglSIjzn31YltglHAGYFcLB4CTJYpF0NsFDNFktzgkO+s0og==}
+  '@dprint/linux-arm64-musl@0.47.0':
+    resolution: {integrity: sha512-UlrOe1cD/bZmoGVdxo7wpIn6DI70SdPeeQe5LFex8csKERM1H0GmrwDTpHlvN2OzZ4W8d6j7dVQEw5K3defxSg==}
     cpu: [arm64]
     os: [linux]
 
-  '@dprint/linux-x64-glibc@0.46.3':
-    resolution: {integrity: sha512-c5cQ3G1rC64nBZ8Pd2LGWwzkEk4D7Ax9NrBbwYmNPvs6mFbGlJPC1+RD95x2WwIrIlMIciLG+Kxmt25PzBphmg==}
+  '@dprint/linux-x64-glibc@0.47.0':
+    resolution: {integrity: sha512-06j1qJtipRIds7I9f+gYAK5hNEjX3BoIT08axb9eo1VTUOUQjnJ4NwOBsT8rw8mqtTuePtWIWzZMsELom8UXZA==}
     cpu: [x64]
     os: [linux]
 
-  '@dprint/linux-x64-musl@0.46.3':
-    resolution: {integrity: sha512-ONtk2QtLcV0TqWOCOqzUFQixgk3JC+vnJLB5L6tQwT7BX5LzeircfE/1f4dg459iqejNC9MBXZkHnXqabvWSow==}
+  '@dprint/linux-x64-musl@0.47.0':
+    resolution: {integrity: sha512-yjT5Tua7E0aIaUvuyslfYf2h2NB6lipRFOMKySX5MHSjKHjJKdXiIddaTx9EHg6NHzyrYYH6/jD2ZqllgKjY/g==}
     cpu: [x64]
     os: [linux]
 
-  '@dprint/win32-x64@0.46.3':
-    resolution: {integrity: sha512-xvj4DSEilf0gGdT7CqnwNEgfWNuWqT6eIBxHDEUbmcn1vZ7IwirtqRq/nm3lmYtQaJ4EbtMQZvACHZwxC7G96w==}
+  '@dprint/win32-x64@0.47.0':
+    resolution: {integrity: sha512-gfqV74GdQF7DWH5ClpottRS5qrEb14KncMR/bkL5ek40JqZZAeRFfYpWnuppE2rm5j9iQ+vs3Yx/YsW2u13q6Q==}
     cpu: [x64]
     os: [win32]
 
@@ -3010,8 +3036,8 @@ packages:
   dompurify@3.1.6:
     resolution: {integrity: sha512-cTOAhc36AalkjtBpfG6O8JimdTMWNXjiePT2xQH/ppBGi/4uIpmj8eKyIkMJErXWARyINV/sB38yf8JCLF5pbQ==}
 
-  dprint@0.46.3:
-    resolution: {integrity: sha512-ACEd7B7sO/uvPvV/nsHbtkIeMqeD2a8XGO1DokROtKDUmI5WbuflGZOwyjFCYwy4rkX6FXoYBzGdEQ6um7BjCA==}
+  dprint@0.47.0:
+    resolution: {integrity: sha512-rcfbkLkxVusprh4DNvv8fzpnwZmAk3ttHzu6gOeZyeq8AtH86Py4sPcJ1XZKs/iD29QOUAbObR2VQm49NFAAxw==}
     hasBin: true
 
   eastasianwidth@0.2.0:
@@ -6436,25 +6462,25 @@ snapshots:
 
   '@cspell/url@8.10.4': {}
 
-  '@dprint/darwin-arm64@0.46.3':
+  '@dprint/darwin-arm64@0.47.0':
     optional: true
 
-  '@dprint/darwin-x64@0.46.3':
+  '@dprint/darwin-x64@0.47.0':
     optional: true
 
-  '@dprint/linux-arm64-glibc@0.46.3':
+  '@dprint/linux-arm64-glibc@0.47.0':
     optional: true
 
-  '@dprint/linux-arm64-musl@0.46.3':
+  '@dprint/linux-arm64-musl@0.47.0':
     optional: true
 
-  '@dprint/linux-x64-glibc@0.46.3':
+  '@dprint/linux-x64-glibc@0.47.0':
     optional: true
 
-  '@dprint/linux-x64-musl@0.46.3':
+  '@dprint/linux-x64-musl@0.47.0':
     optional: true
 
-  '@dprint/win32-x64@0.46.3':
+  '@dprint/win32-x64@0.47.0':
     optional: true
 
   '@emotion/hash@0.9.1': {}
@@ -8292,15 +8318,15 @@ snapshots:
 
   dompurify@3.1.6: {}
 
-  dprint@0.46.3:
+  dprint@0.47.0:
     optionalDependencies:
-      '@dprint/darwin-arm64': 0.46.3
-      '@dprint/darwin-x64': 0.46.3
-      '@dprint/linux-arm64-glibc': 0.46.3
-      '@dprint/linux-arm64-musl': 0.46.3
-      '@dprint/linux-x64-glibc': 0.46.3
-      '@dprint/linux-x64-musl': 0.46.3
-      '@dprint/win32-x64': 0.46.3
+      '@dprint/darwin-arm64': 0.47.0
+      '@dprint/darwin-x64': 0.47.0
+      '@dprint/linux-arm64-glibc': 0.47.0
+      '@dprint/linux-arm64-musl': 0.47.0
+      '@dprint/linux-x64-glibc': 0.47.0
+      '@dprint/linux-x64-musl': 0.47.0
+      '@dprint/win32-x64': 0.47.0
 
   eastasianwidth@0.2.0: {}
 

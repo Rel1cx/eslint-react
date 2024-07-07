@@ -12,7 +12,7 @@
     "directory": "packages/types"
   },
   "license": "MIT",
-  "author": "Eva1ent<let@ik.me>",
+  "author": "Eva1ent<rel1cx@proton.me>",
   "sideEffects": false,
   "exports": {
     ".": {
@@ -43,8 +43,8 @@
   },
   "dependencies": {
     "@eslint-react/tools": "workspace:*",
-    "@typescript-eslint/types": "7.15.0",
-    "@typescript-eslint/utils": "7.15.0"
+    "@typescript-eslint/types": "catalog:tseslint7",
+    "@typescript-eslint/utils": "catalog:tseslint7"
   },
   "devDependencies": {
     "tsup": "8.1.0"

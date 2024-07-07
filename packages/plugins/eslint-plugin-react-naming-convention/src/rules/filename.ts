@@ -20,7 +20,13 @@ type Case = "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [
   | {
+    /**
+     * @deprecated Use ESLint's [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores) feature instead.
+     */
     excepts?: readonly string[];
+    /**
+     * @deprecated Use ESLint's [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores) feature instead.
+     */
     extensions?: readonly string[];
     rule?: Case;
   }
