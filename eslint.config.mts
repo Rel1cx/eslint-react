@@ -39,12 +39,6 @@ const config: FlatConfig[] = [
       ["simple-import-sort"]: simpleImportSortPlugin,
       ["unicorn"]: unicornPlugin,
     },
-    settings: {
-      "import-x/parsers": {
-        "@typescript-eslint/parser": [".ts", ".tsx", ".cts", ".mts"],
-      },
-      "import-x/resolver": "oxc",
-    },
   },
   // extends ...
   eslint.configs.recommended,
@@ -113,6 +107,8 @@ const config: FlatConfig[] = [
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/no-confusing-void-expression": "off",
       "@typescript-eslint/no-explicit-any": "error",
+      "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
+      "@typescript-eslint/no-unnecessary-type-parameters": "warn",
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
@@ -238,12 +234,10 @@ const config: FlatConfig[] = [
       "eslint-plugin/require-meta-docs-url": "off",
     },
     settings: {
-      "import/parsers": {
-        "@typescript-eslint/parser": [".ts", ".tsx"],
+      "import-x/parsers": {
+        "@typescript-eslint/parser": [".ts", ".tsx", ".cts", ".mts"],
       },
-      "import/resolver": {
-        typescript: {},
-      },
+      "import-x/resolver": "oxc",
     },
   },
   {
