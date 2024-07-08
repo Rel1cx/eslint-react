@@ -4,14 +4,14 @@ import rule, { RULE_NAME } from "./avoid-shorthand-boolean";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: "<App foo />",
+      code: /* tsx */ `<App foo />`,
       errors: [{
         data: { propName: "foo" },
         messageId: "AVOID_SHORTHAND_BOOLEAN",
       }],
     },
     {
-      code: "<App foo bar />",
+      code: /* tsx */ `<App foo bar />`,
       errors: [
         {
           data: { propName: "foo" },
@@ -26,9 +26,9 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    "<App foo={true} />",
-    "<App foo={true} bar={true} />",
-    "<App foo={false} bar={false} />",
-    "<App foo={false} bar={false} baz={false} />",
+    /* tsx */ `<App foo={true} />`,
+    /* tsx */ `<App foo={true} bar={true} />`,
+    /* tsx */ `<App foo={false} bar={false} />`,
+    /* tsx */ `<App foo={false} bar={false} baz={false} />`,
   ],
 });

@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTesterWithTypes } from "../../../../../test";
 import rule, { RULE_NAME } from "./prefer-read-only-props";
 
 ruleTesterWithTypes.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         const App = (props: { id: string; className: string }) => {
             return <div id={props.id} className={props.className} />
         }
@@ -18,7 +16,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function App(props: { id: string; className: string }) {
             return <div id={props.id} className={props.className} />
         }
@@ -30,7 +28,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const App = function (props: { id: string; className: string }) {
             return <div id={props.id} className={props.className} />
         }
@@ -42,7 +40,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const App = function ({ id, className }: { id: string; className: string }) {
             return <div id={id} className={className} />
         }
@@ -54,7 +52,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const App = function ({ id, className }: { readonly id: string; className: string }) {
             return <div id={id} className={className} />
         }
@@ -66,7 +64,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { FC } from "react";
         const App: FC<{ id: string; className: string }> = (props) => {
             return <div id={props.id} className={props.className} />
@@ -79,7 +77,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { FC } from "react";
         const App: FC<{ id: string; className: string }> = ({ id, className }) => {
             return <div id={id} className={className} />
@@ -92,7 +90,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "react";
 
         export const App: React.FC<{ id: string; className: string }> = (props) => {
@@ -106,7 +104,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "react";
 
         export const App: React.FC<{ id: string; className: string } | { readonly id: string; readonly className: string }> = (props) => {
@@ -120,7 +118,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { FC } from "react";
 
         const defaultProps = { id: "default-id", className: "default-class" };
@@ -139,7 +137,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    dedent`
+    /* tsx */ `
       import React from "react";
 
       type DeepReadonly<T> = Readonly<{[K in keyof T]: T[K] extends (number | string | symbol) ? Readonly<T[K]> : T[K] extends Array<infer A> ? Readonly<Array<DeepReadonly<A>>> : DeepReadonly<T[K]>;}>;
@@ -148,7 +146,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div className={props.className} id={props.id} />
       }
     `,
-    dedent`
+    /* tsx */ `
       import React from "react";
       import { ReadonlyDeep } from "type-fest";
 
@@ -156,24 +154,24 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div className={props.className} id={props.id} />
       }
     `,
-    dedent`
+    /* tsx */ `
       const App = function ({ id, className }: { readonly id: string; readonly className: string }) {
           return <div id={id} className={className} />
       }
     `,
-    dedent`
+    /* tsx */ `
       import { FC } from "react";
       const App: FC<{ readonly id: string; readonly className: string }> = (props) => {
           return <div id={props.id} className={props.className} />
       }
     `,
-    dedent`
+    /* tsx */ `
       import { FC } from "react";
       const App: FC<{ readonly id: string; readonly className: string }> = ({ id, className }) => {
           return <div id={id} className={className} />
       }
     `,
-    dedent`
+    /* tsx */ `
       import { FC } from "react";
 
       const defaultProps = { id: "default-id", className: "default-class" } as const;
@@ -183,7 +181,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div id={id} className={className} />
       }
     `,
-    dedent`
+    /* tsx */ `
       import { FC } from "react";
 
       const defaultProps = { id: "default-id", className: "default-class" } as const;
@@ -192,7 +190,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div id={id} className={className} />
       }
     `,
-    dedent`
+    /* tsx */ `
       import { FC } from "react";
 
       const defaultProps = { id: "default-id", className: "default-class" } as const;
@@ -200,7 +198,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div id={id} className={className} />
       }
     `,
-    dedent`
+    /* tsx */ `
       const defaultProps = { id: "default-id", className: "default-class" } as const;
       const App = ({ id, className }: typeof defaultProps) => {
           return <div id={id} className={className} />

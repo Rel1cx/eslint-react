@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-clone-element";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         import { cloneElement } from "react";
 
         // ...
@@ -24,7 +22,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { cloneElement } from "react";
 
         function Component() {
@@ -40,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React, { cloneElement } from 'react';
 
         const element = <div />;
@@ -51,7 +49,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const { cloneElement } = require("react");
 
         const element = <div />;
@@ -62,7 +60,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const cloneElement = require("react").cloneElement;
 
         const element = <div />;
@@ -73,7 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const React = require("react");
         const { cloneElement } = React;
 
@@ -85,7 +83,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const React = require("react");
         const cloneElement = React.cloneElement
 

@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-missing-button-type";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: "<button>Click me</button>;",
+      code: /* tsx */ `<button>Click me</button>;`,
       errors: [
         {
           messageId: "NO_MISSING_BUTTON_TYPE",
@@ -14,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "react";
 
         function App() {
@@ -28,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { createElement } from "react";
 
         function App() {
@@ -48,38 +46,38 @@ ruleTester.run(RULE_NAME, rule, {
     "<span />;",
     '<button type="button">Click me</button>;',
     'const Button = () => <button type="button">Click me</button>;',
-    dedent`
+    /* tsx */ `
       function App() {
           return <button type="button">Click me</button>;
       }
     `,
-    dedent`
+    /* tsx */ `
       function App() {
           return <button type={ true ? "button" : "submit" }>Click me</button>;
       }
     `,
-    dedent`
+    /* tsx */ `
       import React from "react";
 
       function App() {
           return React.createElement("button", { type: "button" }, "Click me");
       }
     `,
-    dedent`
+    /* tsx */ `
       import { createElement } from "react";
 
       function App() {
           return createElement("button", { type: "button" }, "Click me");
       }
     `,
-    dedent`
+    /* tsx */ `
       import { createElement } from "react";
 
       function App() {
           return createElement("button", { type: true ? "button" : "submit" }, "Click me");
       }
     `,
-    dedent`
+    /* tsx */ `
       const props = {
         type: "button",
       };

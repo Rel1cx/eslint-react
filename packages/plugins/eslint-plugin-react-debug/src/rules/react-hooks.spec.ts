@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allFunctions, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./react-hooks";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         function useToggle() {
             const [value, setValue] = useState(false);
             return [value, () => setValue(x => !x)];
@@ -23,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         // 🔴 Avoid: A Hook that doesn't use Hooks
         function useSorted(items) {
           return items.slice().sort();
@@ -40,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function useToggle() {
             const [value, setValue] = useState(false);
             return [value, () => setValue(x => !x)];
@@ -69,7 +67,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const useClassnames = (obj) => {
             // Invalid, because useClassnames doesn't use any other React Hooks.
             var k, cls='';
@@ -93,7 +91,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function useClassnames(obj) {
             // Invalid, because useClassnames doesn't use any other React Hooks.
             var k, cls='';
@@ -117,7 +115,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         export function useNestedHook() {
             const [state, setState] = useState("state");
             const useInnerHook = () => {
@@ -145,7 +143,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         export function useNestedHook() {
             const useInnerHook = () => {
                 const [state, setState] = useState("state");
@@ -173,7 +171,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         export function useNestedHook() {
             const fn = () => {
                 const [state, setState] = useState("state");

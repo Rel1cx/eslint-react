@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-create-ref";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         import { createRef } from 'react';
 
         function Component() {
@@ -20,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { createRef } from 'react';
 
         const Component = () => {
@@ -34,7 +32,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { createRef } from 'react';
 
         function Component() {
@@ -48,7 +46,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React, { createRef } from 'react';
 
         function Component() {
@@ -62,7 +60,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const { createRef } = require("react");
 
         function Component() {
@@ -76,7 +74,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const createRef = require("react").createRef;
 
         function Component() {
@@ -90,7 +88,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const React = require("react");
         const { createRef } = React;
 
@@ -105,7 +103,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const React = require("react");
         const createRef = React.createRef;
 
@@ -122,33 +120,33 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    dedent`
+    /* tsx */ `
       import { createRef } from 'react';
 
       const ref = createRef();
     `,
-    dedent`
+    /* tsx */ `
       import { createRef } from 'react';
 
       function notComponent() {
         const ref = createRef();
       }
     `,
-    dedent`
+    /* tsx */ `
       import { createRef } from 'react';
 
       function NotComponent() {
         const ref = createRef();
       }
     `,
-    dedent`
+    /* tsx */ `
       import { createRef } from 'react';
 
       function NotComponent() {
         return () => createRef();
       }
     `,
-    dedent`
+    /* tsx */ `
       import { createRef } from 'react';
 
       function Component() {
@@ -157,7 +155,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div ref={ref} />;
       }
     `,
-    dedent`
+    /* tsx */ `
       import { createRef, Component } from 'react';
 
       class Input extends Component {

@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-missing-iframe-sandbox";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: "<iframe />;",
+      code: /* tsx */ `<iframe />;`,
       errors: [
         {
           messageId: "NO_MISSING_IFRAME_SANDBOX",
@@ -14,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: "<iframe sandbox />;",
+      code: /* tsx */ `<iframe sandbox />;`,
       errors: [
         {
           messageId: "NO_MISSING_IFRAME_SANDBOX",
@@ -22,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: '<iframe sandbox="" />;',
+      code: /* tsx */ `<iframe sandbox="" />;`,
       errors: [
         {
           messageId: "NO_MISSING_IFRAME_SANDBOX",
@@ -31,7 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     // has sandbox attribute but not explicitly set to iframe element
     {
-      code: dedent`
+      code: /* tsx */ `
         const props = {
           sandbox: "allow-downloads",
         };
@@ -47,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "react";
 
         function App() {
@@ -61,7 +59,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { createElement } from "react";
 
         function App() {
@@ -84,19 +82,19 @@ ruleTester.run(RULE_NAME, rule, {
     '<iframe sandbox="allow-downloads allow-scripts" />;',
     '<iframe sandbox="allow-downloads allow-scripts allow-forms" />;',
     'const IFrame = () => <iframe sandbox="allow-downloads" />;',
-    dedent`
+    /* tsx */ `
       function App() {
           return <iframe sandbox="allow-downloads" />;
       }
     `,
-    dedent`
+    /* tsx */ `
       import React from "react";
 
       function App() {
           return React.createElement("iframe", { sandbox: "allow-downloads" });
       }
     `,
-    dedent`
+    /* tsx */ `
       import { createElement } from "react";
 
       function App() {

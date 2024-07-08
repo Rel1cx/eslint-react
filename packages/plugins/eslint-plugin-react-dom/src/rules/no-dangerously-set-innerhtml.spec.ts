@@ -1,20 +1,18 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-dangerously-set-innerhtml";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: '<div dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</div>',
+      code: /* tsx */ `<div dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</div>`,
       errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML" }],
     },
     {
-      code: '<div dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />',
+      code: /* tsx */ `<div dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />`,
       errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const props = {
             dangerouslySetInnerHTML: { __html: "HTML" }
         }
@@ -23,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const props = {
             children: "Children",
             dangerouslySetInnerHTML: { __html: "HTML" }
@@ -61,17 +59,21 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML" }],
     },
     {
-      code: `const props = { dangerouslySetInnerHTML: { __html: "HTML" } }
-            React.createElement("div", props, "Children")`,
+      code: /* tsx */ `
+        const props = { dangerouslySetInnerHTML: { __html: "HTML" } }
+        React.createElement("div", props, "Children")
+      `,
       errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML" }],
     },
     {
-      code: `const props = { children: "Children", dangerouslySetInnerHTML: { __html: "HTML" } }
-            React.createElement("div", props)`,
+      code: /* tsx */ `
+        const props = { children: "Children", dangerouslySetInnerHTML: { __html: "HTML" } }
+        React.createElement("div", props)
+      `,
       errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const moreProps = { children: "Children" }
         const otherProps = { ...moreProps }
         const props = { ...otherProps, dangerouslySetInnerHTML: { __html: "HTML" } }

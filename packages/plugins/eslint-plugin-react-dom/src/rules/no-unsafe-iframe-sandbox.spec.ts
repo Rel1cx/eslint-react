@@ -1,5 +1,3 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unsafe-iframe-sandbox";
 
@@ -14,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "react";
 
         function App() {
@@ -28,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { createElement } from "react";
 
         function App() {
@@ -51,19 +49,19 @@ ruleTester.run(RULE_NAME, rule, {
     '<iframe sandbox="allow-downloads allow-scripts" />;',
     '<iframe sandbox="allow-downloads allow-scripts allow-forms" />;',
     'const IFrame = () => <iframe sandbox="allow-downloads" />;',
-    dedent`
+    /* tsx */ `
       function App() {
           return <iframe sandbox="allow-downloads" />;
       }
     `,
-    dedent`
+    /* tsx */ `
       import React from "react";
 
       function App() {
           return React.createElement("iframe", { sandbox: "allow-downloads" });
       }
     `,
-    dedent`
+    /* tsx */ `
       import { createElement } from "react";
 
       function App() {

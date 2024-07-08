@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-children-in-void-dom-elements";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: "<br>Foo</br>;",
+      code: /* tsx */ `<br>Foo</br>;`,
       errors: [
         {
           data: { element: "br" },
@@ -15,7 +13,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: '<br children="Foo" />;',
+      code: /* tsx */ `<br children="Foo" />;`,
       errors: [
         {
           data: { element: "br" },
@@ -24,7 +22,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: '<img {...props} children="Foo" />;',
+      code: /* tsx */ `<img {...props} children="Foo" />;`,
       errors: [
         {
           data: { element: "img" },
@@ -33,7 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: '<br dangerouslySetInnerHTML={{ __html: "Foo" }} />;',
+      code: /* tsx */ `<br dangerouslySetInnerHTML={{ __html: "Foo" }} />;`,
       errors: [
         {
           data: { element: "br" },
@@ -42,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: 'React.createElement("br", {}, "Foo");',
+      code: /* tsx */ `React.createElement("br", {}, "Foo");`,
       errors: [
         {
           data: { element: "br" },
@@ -51,7 +49,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: 'React.createElement("br", { children: "Foo" });',
+      code: /* tsx */ `React.createElement("br", { children: "Foo" });`,
       errors: [
         {
           data: { element: "br" },
@@ -60,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: 'React.createElement("br", { dangerouslySetInnerHTML: { __html: "Foo" } });',
+      code: /* tsx */ `React.createElement("br", { dangerouslySetInnerHTML: { __html: "Foo" } });`,
       errors: [
         {
           data: { element: "br" },
@@ -69,7 +67,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React, {createElement} from "react";
         createElement("img", {}, "Foo");
       `,
@@ -81,7 +79,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React, {createElement} from "react";
         createElement("img", { children: "Foo" });
       `,
@@ -93,7 +91,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React, {createElement} from "react";
         createElement("img", { dangerouslySetInnerHTML: { __html: "Foo" } });
       `,
@@ -109,39 +107,27 @@ ruleTester.run(RULE_NAME, rule, {
     ...allValid,
     "<div>Foo</div>;",
     '<div children="Foo" />;',
-
     '<div dangerouslySetInnerHTML={{ __html: "Foo" }} />;',
-
     'React.createElement("div", {}, "Foo");',
-
     'React.createElement("div", { children: "Foo" });',
-
     'React.createElement("div", { dangerouslySetInnerHTML: { __html: "Foo" } });',
-
     'document.createElement("img");',
-
     'React.createElement("img");',
-
     "React.createElement();",
-
     "document.createElement();",
-
-    dedent`
+    /* tsx */ `
       const props = {};
       React.createElement("img", props);
     `,
-
-    dedent`
+    /* tsx */ `
       import React, {createElement} from "react";
       createElement("div");
     `,
-
-    dedent`
+    /* tsx */ `
       import React, {createElement} from "react";
       createElement("img");
     `,
-
-    dedent`
+    /* tsx */ `
       import React, {createElement, PureComponent} from "react";
       class Button extends PureComponent {
         handleClick(ev) {

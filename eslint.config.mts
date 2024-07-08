@@ -197,7 +197,23 @@ const config: FlatConfig[] = [
         },
       ],
       // Part: unicorn rules
-      "unicorn/template-indent": "warn",
+      "unicorn/template-indent": [
+        "warn",
+        {
+          comments: [
+            "outdent",
+            "dedent",
+            "html",
+            "tsx",
+          ],
+          tags: [
+            "outdent",
+            "dedent",
+            "html",
+            "tsx",
+          ],
+        },
+      ],
       // Part: eslint-comments rules
       "eslint-comments/disable-enable-pair": ["error", { allowWholeFile: true }],
       "eslint-comments/no-aggregating-enable": "error",

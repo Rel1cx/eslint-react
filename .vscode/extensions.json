@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "dprint.dprint",
-    "dbaeumer.vscode-eslint"
+    "dbaeumer.vscode-eslint",
+    "bierner.comment-tagged-templates"
   ]
 }

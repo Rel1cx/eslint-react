@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTesterWithTypes } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-leaked-conditional-rendering";
 
 ruleTesterWithTypes.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         const App = () => {
           return (
               <>
@@ -26,7 +24,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const App = () => {
           return (
               <>
@@ -46,7 +44,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const someCondition = JSON.parse("") as unknown;
         const SomeComponent = () => <div />;
 
@@ -70,7 +68,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const someCondition = 0
         const SomeComponent = () => <div />;
 
@@ -94,7 +92,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const someCondition = 1
         const SomeComponent = () => <div />;
 
@@ -118,7 +116,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const someCondition = 0;
         const SomeComponent = () => <div />;
 
@@ -144,7 +142,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const App = ({
           someCondition,
         }: {
@@ -164,7 +162,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const SomeComponent = () => <div />;
 
         const App = ({
@@ -188,7 +186,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    dedent`
+    /* tsx */ `
         const foo = Math.random() > 0.5;
         const bar = "bar";
 
@@ -196,7 +194,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{foo || bar}</div>
       }
     `,
-    dedent`
+    /* tsx */ `
         type AppProps = {
           foo: string;
         }
@@ -205,7 +203,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{foo}</div>
       }
     `,
-    dedent`
+    /* tsx */ `
         type AppProps = {
           items: string[];
         }
@@ -214,7 +212,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>There are {items.length} elements</div>
       }
     `,
-    dedent`
+    /* tsx */ `
         type AppProps = {
           items: string[];
           count: number;
@@ -224,7 +222,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{!count && 'No results found'}</div>
       }
     `,
-    dedent`
+    /* tsx */ `
         type ListProps = {
           items: string[];
         }
@@ -241,7 +239,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{!!items.length && <List items={items}/>}</div>
       }
     `,
-    dedent`
+    /* tsx */ `
         type ListProps = {
           items: string[];
         }
@@ -258,7 +256,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{Boolean(items.length) && <List items={items}/>}</div>
       }
     `,
-    dedent`
+    /* tsx */ `
         type ListProps = {
           items: string[];
         }
@@ -275,7 +273,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{items.length > 0 && <List items={items}/>}</div>
       }
     `,
-    dedent`
+    /* tsx */ `
         type ListProps = {
           items: string[];
         }
@@ -292,7 +290,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{items.length ? <List items={items}/> : null}</div>
       }
     `,
-    dedent`
+    /* tsx */ `
         type ListProps = {
           items: string[];
         }
@@ -310,7 +308,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{count ? <List items={items}/> : null}</div>
       }
     `,
-    dedent`
+    /* tsx */ `
         type ListProps = {
           items: string[];
         }
@@ -328,7 +326,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{!!count && <List items={items}/>}</div>
       }
     `,
-    dedent`
+    /* tsx */ `
       type AppProps = {
         items: string[];
         count: number;
@@ -338,7 +336,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{direction ? (direction === "down" ? "▼" : "▲") : ""}</div>
       }
     `,
-    dedent`
+    /* tsx */ `
       const App = () => {
         return (
             <>
@@ -349,7 +347,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             )
         }
     `,
-    dedent`
+    /* tsx */ `
       const foo = Math.random() > 0.5;
       const bar = 0;
       function App() {
@@ -379,7 +377,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         )
       }
       `,
-    dedent`
+    /* tsx */ `
       const someCondition = JSON.parse("") as any;
       const SomeComponent = () => <div />;
 
@@ -396,7 +394,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         )
       }
     `,
-    dedent`
+    /* tsx */ `
       const someCondition = JSON.parse("") as unknown;
       const SomeComponent = () => <div />;
 
@@ -413,7 +411,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         )
       }
     `,
-    dedent`
+    /* tsx */ `
       const someCondition = 0
       const SomeComponent = () => <div />;
 
@@ -430,7 +428,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         )
       }
     `,
-    dedent`
+    /* tsx */ `
       const someCondition = 1
       const SomeComponent = () => <div />;
 
@@ -447,7 +445,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         )
       }
     `,
-    dedent`
+    /* tsx */ `
       const someCondition = 0;
       const SomeComponent = () => <div />;
 
@@ -466,7 +464,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         )
       }
     `,
-    dedent`
+    /* tsx */ `
       const SomeComponent = () => <div />;
       const App = ({
         someCondition,
@@ -483,7 +481,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         )
       }
     `,
-    dedent`
+    /* tsx */ `
       const someCondition = 0;
       const SomeComponent = () => <div />;
 
@@ -505,7 +503,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         )
       }
     `,
-    dedent`
+    /* tsx */ `
       const someCondition = true
       const SomeComponent = () => <div />;
 
@@ -524,7 +522,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         )
       }
     `,
-    dedent`
+    /* tsx */ `
       const someCondition = 0;
       const SomeComponent = () => <div />;
 
@@ -543,7 +541,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         )
       }
     `,
-    dedent`
+    /* tsx */ `
       const SomeComponent = () => <div />;
       const someFunction = (input: unknown): 10 => 10
 
@@ -551,7 +549,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <>{someCondition ? someFunction(someCondition) : <SomeComponent />}</>;
       };
     `,
-    dedent`
+    /* tsx */ `
       const SomeComponent = () => <div />;
 
       const App = ({
@@ -566,7 +564,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         )
       }
     `,
-    dedent`
+    /* tsx */ `
       type AppProps<T> = {
         someFunction: (data: T) => React.ReactNode;
       };
@@ -575,7 +573,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <>{!!someFunction && someFunction<number>(1)}</>;
       }
     `,
-    dedent`
+    /* tsx */ `
       const someCondition = JSON.parse("") as any;
       const SomeComponent = () => <div />;
 
@@ -592,7 +590,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         )
       }
     `,
-    dedent`
+    /* tsx */ `
       function App() {
         const a = {} as {};
         const b = {} as {} | null;
@@ -607,7 +605,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       declare function getData(): { id: number; name: string }[] | undefined;
       function List({ items }: { items: string[] }) {
         return <div>{items.map(item => <div key={item}>{item}</div>)}</div>;
@@ -623,7 +621,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       export const MyComponent = ({ isVisible1 }: { isVisible1: boolean }) => {
         const isVisible2 = true;
         const isVisible3 = 1 > 2;

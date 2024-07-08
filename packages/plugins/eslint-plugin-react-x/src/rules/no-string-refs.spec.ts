@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-string-refs";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         function App() {
             return <div ref="ref" />
         }
@@ -14,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "NO_STRING_REFS" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class Input extends React.Component {
           focus = () => {
             this.refs.input.focus();
@@ -30,12 +28,12 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    dedent`
+    /* tsx */ `
       function App() {
           return <div ref={ref} />
       }
     `,
-    dedent`
+    /* tsx */ `
       function App() {
           return <div ref={() => {}} />;
       }

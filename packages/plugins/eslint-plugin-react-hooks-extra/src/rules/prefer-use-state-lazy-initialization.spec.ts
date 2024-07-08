@@ -168,7 +168,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: "useLocalStorageState(1 || getValue())",
+      code: /* tsx */ `useLocalStorageState(1 || getValue())`,
       errors: [
         {
           type: NodeType.LogicalExpression,

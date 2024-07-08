@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./prefer-destructuring-assignment";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         const App = (props) => {
             const { h, i } = hi
             return <div id={props.id} className={props.className} />
@@ -22,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function App(props) {
             return <div id={props.id} className={props.className} />
         }
@@ -37,7 +35,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { forwardRef } from "react";
 
         interface Props {
@@ -58,7 +56,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { memo } from "react";
 
         interface Props {
@@ -79,7 +77,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { memo, forwardRef } from "react";
 
         interface Props {
@@ -104,7 +102,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    dedent`
+    /* tsx */ `
         export function hof(namespace) {
           const initialState = {
               bounds: null,
@@ -118,7 +116,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
       }
     `,
-    dedent`
+    /* tsx */ `
       export function hof(namespace) {
           const initialState = {
               bounds: null,
@@ -136,12 +134,12 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     "const App = ({ id, className }) => (<div id={id} className={className} />)",
-    dedent`
+    /* tsx */ `
       const App = ({ id, className }) => {
           return <div id={id} className={className} />
       }
     `,
-    dedent`
+    /* tsx */ `
       const App = ({ id, className }) => {
           return <div id={id} className={className} /> }
     `,
@@ -149,25 +147,25 @@ ruleTester.run(RULE_NAME, rule, {
     "const Component = (props) => (<div id={id} props={props} />)",
     "const App = (props, { color }) => (<div id={id} props={props} color={color} />)",
     "const Component = (props, { color }) => (<div id={id} props={props} color={color} />)",
-    dedent`
+    /* tsx */ `
       const div = styled.div\`
       & .button {
           border-radius: \${props => props.borderRadius}px;
       }
       \`
     `,
-    dedent`
+    /* tsx */ `
       export default (context: $Context) => ({
           foo: context.bar
       })
     `,
-    dedent`
+    /* tsx */ `
       function App({ context }) {
           const d = context.describe()
           return <div>{d}</div>
       }
     `,
-    dedent`
+    /* tsx */ `
       const obj = {
           foo(arg) {
               const a = arg.func()
@@ -175,7 +173,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
       }
     `,
-    dedent`
+    /* tsx */ `
       const columns = [
           {
               render: (val) => {
@@ -191,7 +189,7 @@ ruleTester.run(RULE_NAME, rule, {
               }
           ]
     `,
-    dedent`
+    /* tsx */ `
       const columns = [
           {
               render: val => <span>{val}</span>
@@ -210,7 +208,7 @@ ruleTester.run(RULE_NAME, rule, {
               }
           ]
     `,
-    dedent`
+    /* tsx */ `
       export default (fileName) => {
           const match = fileName.match(/some expression/)
           if (match) {
@@ -219,14 +217,14 @@ ruleTester.run(RULE_NAME, rule, {
           return null
       }
     `,
-    dedent`
+    /* tsx */ `
       import { useContext } from 'react'
       const App = (props) => {
           const {foo} = useContext(aContext)
           return <div>{foo}</div>
       }
     `,
-    dedent`
+    /* tsx */ `
       import { useContext } from 'react'
       import dedent from 'dedent'
       const App = (props) => {
@@ -234,14 +232,14 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{foo.test}</div>
       }
     `,
-    dedent`
+    /* tsx */ `
       import { useContext } from 'react'
       const App = (props) => {
           const foo = useContext(aContext)
           return <div>{foo?.test}</div>
       }
     `,
-    dedent`
+    /* tsx */ `
       import { forwardRef } from "react";
 
       interface Props {
@@ -255,7 +253,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
       );
     `,
-    dedent`
+    /* tsx */ `
       import { memo } from "react";
 
       interface Props {
@@ -269,7 +267,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
       );
     `,
-    dedent`
+    /* tsx */ `
       import { memo, forwardRef } from "react";
 
       interface Props {
@@ -285,14 +283,14 @@ ruleTester.run(RULE_NAME, rule, {
           )
       );
     `,
-    dedent`
+    /* tsx */ `
       import { useContext } from 'react'
       const App = (props) => {
           const foo = useContext(aContext)
           return <div>{foo.test}</div>
       }
     `,
-    dedent`
+    /* tsx */ `
       export const DeleteRangeUndoMutationFactory = (
           accessor: IAccessor,
           params: IDeleteRangeMutationParams

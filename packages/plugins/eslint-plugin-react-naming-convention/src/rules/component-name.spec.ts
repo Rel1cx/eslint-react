@@ -1,26 +1,24 @@
-import dedent from "dedent";
-
 import { allFunctions, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./component-name";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: "<Test_component />",
+      code: /* tsx */ `<Test_component />`,
       errors: [{ messageId: "COMPONENT_NAME" }],
     },
     {
-      code: "<TestComponent />",
+      code: /* tsx */ `<TestComponent />`,
       errors: [{ messageId: "COMPONENT_NAME" }],
       options: [{ rule: "CONSTANT_CASE" }],
     },
     {
-      code: "<TestComponent />",
+      code: /* tsx */ `<TestComponent />`,
       errors: [{ messageId: "COMPONENT_NAME" }],
       options: ["CONSTANT_CASE"],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function APP_HOME() {
             return <div>foo</div>
         }
@@ -28,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "COMPONENT_NAME" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function AppHome() {
             return <div>foo</div>
         }
@@ -61,41 +59,41 @@ ruleTester.run(RULE_NAME, rule, {
     "<motion.div />",
     "<FULLUPPERCASE />",
     {
-      code: "<_TestComponent />",
+      code: /* tsx */ `<_TestComponent />`,
       options: ["PascalCase"],
     },
     {
-      code: "<_TEST_COMPONENT />",
+      code: /* tsx */ `<_TEST_COMPONENT />`,
       options: ["CONSTANT_CASE"],
     },
     {
-      code: "<_TestComponent />",
+      code: /* tsx */ `<_TestComponent />`,
       options: [{ rule: "PascalCase" }],
     },
     {
-      code: "<_TEST_COMPONENT />",
+      code: /* tsx */ `<_TEST_COMPONENT />`,
       options: [{ rule: "CONSTANT_CASE" }],
     },
-    dedent`
+    /* tsx */ `
       function AppHome() {
           return <div>foo</div>
       }
     `,
     {
-      code: dedent`
+      code: /* tsx */ `
         function APP_HOME() {
             return <div>foo</div>
         }
       `,
       options: [{ rule: "CONSTANT_CASE" }],
     },
-    dedent`
+    /* tsx */ `
       const AppHome = () => {
           return <div>foo</div>
       }
     `,
     {
-      code: dedent`
+      code: /* tsx */ `
         const APP_HOME = () => {
             return <div>foo</div>
         }
@@ -103,7 +101,7 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ rule: "CONSTANT_CASE" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const AppHome = function () {
             return <div>foo</div>
         }
@@ -111,7 +109,7 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ rule: "PascalCase" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const AppHome = function () {
             return <div>foo</div>
         }

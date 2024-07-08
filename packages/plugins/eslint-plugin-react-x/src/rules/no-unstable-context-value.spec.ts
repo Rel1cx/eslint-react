@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unstable-context-value";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
           function App() {
             const foo = {}
             return <Context.Provider value={foo}></Context.Provider>;
@@ -15,7 +13,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "NO_UNSTABLE_CONTEXT_VALUE_WITH_IDENTIFIER" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
           function App() {
             const foo = []
             return <Context.Provider value={foo}></Context.Provider>
@@ -28,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function App() {
             const foo = new Object();
             return <Context.Provider value={foo}></Context.Provider>
@@ -41,7 +39,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
           function App() {
             const foo = () => {}
             return <Context.Provider value={foo}></Context.Provider>
@@ -54,7 +52,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function App() {
             const foo = {
                 bar: () => {}
@@ -71,37 +69,37 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    dedent`
+    /* tsx */ `
         function App() {
           const foo = useMemo(() => ({}), [])
           return <Context.Provider value={foo}></Context.Provider>
       }
     `,
-    dedent`
+    /* tsx */ `
         function App() {
           const foo = useMemo(() => [], [])
           return <Context.Provider value={foo}></Context.Provider>
       }
     `,
-    dedent`
+    /* tsx */ `
         const foo = {}
         function App() {
           return <Context.Provider value={foo}></Context.Provider>;
       }
     `,
-    dedent`
+    /* tsx */ `
         const foo = []
         function App() {
           return <Context.Provider value={foo}></Context.Provider>;
       }
     `,
-    dedent`
+    /* tsx */ `
         const foo = new Object()
         function App() {
           return <Context.Provider value={foo}></Context.Provider>;
       }
     `,
-    dedent`
+    /* tsx */ `
       const foo = () => {}
               function App() {
                   return <Context.Provider value={foo}></Context.Provider>;

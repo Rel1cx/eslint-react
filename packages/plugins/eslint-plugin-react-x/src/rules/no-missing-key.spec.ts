@@ -1,32 +1,30 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-missing-key";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: "[<App />];",
+      code: /* tsx */ `[<App />];`,
       errors: [{ messageId: "NO_MISSING_KEY" }],
     },
     {
-      code: "[<App {...key} />];",
+      code: /* tsx */ `[<App {...key} />];`,
       errors: [{ messageId: "NO_MISSING_KEY" }],
     },
     {
-      code: "[<App key={0}/>, <App />];",
+      code: /* tsx */ `[<App key={0}/>, <App />];`,
       errors: [{ messageId: "NO_MISSING_KEY" }],
     },
     {
-      code: "[1, 2 ,3].map(function(x) { return <App /> });",
+      code: /* tsx */ `[1, 2 ,3].map(function(x) { return <App /> });`,
       errors: [{ messageId: "NO_MISSING_KEY" }],
     },
     {
-      code: "[1, 2 ,3].map(x => <App />);",
+      code: /* tsx */ `[1, 2 ,3].map(x => <App />);`,
       errors: [{ messageId: "NO_MISSING_KEY" }],
     },
     {
-      code: "[1, 2 ,3].map(x => x && <App x={x} />);",
+      code: /* tsx */ `[1, 2 ,3].map(x => x && <App x={x} />);`,
       errors: [{ messageId: "NO_MISSING_KEY" }],
     },
     {
@@ -38,31 +36,31 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "NO_MISSING_KEY" }],
     },
     {
-      code: "[1, 2 ,3].map(x => { return <App /> });",
+      code: /* tsx */ `[1, 2 ,3].map(x => { return <App /> });`,
       errors: [{ messageId: "NO_MISSING_KEY" }],
     },
     {
-      code: "Array.from([1, 2 ,3], function(x) { return <App /> });",
+      code: /* tsx */ `Array.from([1, 2 ,3], function(x) { return <App /> });`,
       errors: [{ messageId: "NO_MISSING_KEY" }],
     },
     {
-      code: "Array.from([1, 2 ,3], (x => { return <App /> }));",
+      code: /* tsx */ `Array.from([1, 2 ,3], (x => { return <App /> }));`,
       errors: [{ messageId: "NO_MISSING_KEY" }],
     },
     {
-      code: "Array.from([1, 2 ,3], (x => <App />));",
+      code: /* tsx */ `Array.from([1, 2 ,3], (x => <App />));`,
       errors: [{ messageId: "NO_MISSING_KEY" }],
     },
     {
-      code: "[1, 2, 3]?.map(x => <BabelEslintApp />)",
+      code: /* tsx */ `[1, 2, 3]?.map(x => <BabelEslintApp />)`,
       errors: [{ messageId: "NO_MISSING_KEY" }],
     },
     {
-      code: "[1, 2, 3]?.map(x => <TypescriptEslintApp />)",
+      code: /* tsx */ `[1, 2, 3]?.map(x => <TypescriptEslintApp />)`,
       errors: [{ messageId: "NO_MISSING_KEY" }],
     },
     {
-      code: "[1, 2, 3].map(x => <>{x}</>);",
+      code: /* tsx */ `[1, 2, 3].map(x => <>{x}</>);`,
       errors: [
         {
           messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
@@ -70,7 +68,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: "[<></>];",
+      code: /* tsx */ `[<></>];`,
       errors: [
         {
           messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
@@ -78,7 +76,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const Test = () => {
           const list = [1, 2, 3, 4, 5];
 
@@ -101,7 +99,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const TestO = () => {
           const list = [1, 2, 3, 4, 5];
 
@@ -130,7 +128,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const TestCase = () => {
           const list = [1, 2, 3, 4, 5];
 
@@ -152,7 +150,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function Explain() {
           return (
             <div>
@@ -214,13 +212,13 @@ ruleTester.run(RULE_NAME, rule, {
     "<App {...{}} />;",
     '<App key="keyBeforeSpread" {...{}} />;',
     '<div key="keyBeforeSpread" {...{}} />;',
-    dedent`
+    /* tsx */ `
       const spans = [
         <span key="notunique"/>,
         <span key="notunique"/>,
       ];
     `,
-    dedent`
+    /* tsx */ `
       function Component(props) {
         return hasPayment ? (
           <div className="stuff">
@@ -232,7 +230,7 @@ ruleTester.run(RULE_NAME, rule, {
         ) : null;
       }
     `,
-    dedent`
+    /* tsx */ `
       import React, { FC, useRef, useState } from 'react';
 
       import './ResourceVideo.sass';
@@ -256,14 +254,14 @@ ruleTester.run(RULE_NAME, rule, {
 
       export default ResourceVideo;
     `,
-    dedent`
+    /* tsx */ `
       // testrule.jsx
       const trackLink = () => {};
       const getAnalyticsUiElement = () => {};
 
       const onTextButtonClick = (e, item) => trackLink([, getAnalyticsUiElement(item), item.name], e);
     `,
-    dedent`
+    /* tsx */ `
       function Component({ allRatings }) {
         return (
           <RatingDetailsStyles>
@@ -284,14 +282,14 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       const baz = foo?.bar?.()?.[1] ?? 'qux';
 
       qux()?.map()
 
       const directiveRanges = comments?.map(tryParseTSDirective)
     `,
-    dedent`
+    /* tsx */ `
       import { observable } from "mobx";
 
       export interface ClusterFrameInfo {
@@ -302,11 +300,11 @@ ruleTester.run(RULE_NAME, rule, {
       export const clusterFrameMap = observable.map<string, ClusterFrameInfo>();
     `,
     "React.Children.toArray([1, 2 ,3].map(x => <App />));",
-    dedent`
+    /* tsx */ `
       import { Children } from "react";
       Children.toArray([1, 2 ,3].map(x => <App />));
     `,
-    dedent`
+    /* tsx */ `
       import React from 'react';
       import { Children as ReactChildren } from 'react';
       import dedent from 'dedent';

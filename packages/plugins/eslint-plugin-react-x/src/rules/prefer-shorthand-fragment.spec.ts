@@ -4,7 +4,7 @@ import rule, { RULE_NAME } from "./prefer-shorthand-fragment";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: "<React.Fragment><div /></React.Fragment>",
+      code: /* tsx */ `<React.Fragment><div /></React.Fragment>`,
       errors: [
         {
           messageId: "PREFER_SHORTHAND_FRAGMENT",
@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: "<Fragment><div /></Fragment>",
+      code: /* tsx */ `<Fragment><div /></Fragment>`,
       errors: [
         {
           messageId: "PREFER_SHORTHAND_FRAGMENT",

@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./ensure-use-memo-has-non-empty-deps";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useMemo } from "react";
 
         const Comp = () => {
@@ -25,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useMemo } from "react";
 
         const deps = [];
@@ -45,7 +43,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useMemo } from "react";
 
         const Comp = () => {
@@ -65,7 +63,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useMemo } from "react";
 
         function App({ items }) {
@@ -80,7 +78,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const { useMemo } = require("react");
 
         function App({ items }) {
@@ -95,7 +93,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "react";
 
         function App({ items }) {
@@ -111,7 +109,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "roact";
 
         function App({ items }) {
@@ -132,7 +130,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import Roact from "roact";
 
         function App({ items }) {
@@ -153,7 +151,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useMemo } from "roact";
 
         function App({ items }) {
@@ -174,7 +172,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "@pika/react";
 
         function App({ items }) {
@@ -195,7 +193,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import Pika from "@pika/react";
 
         function App({ items }) {
@@ -216,7 +214,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useMemo } from "@pika/react";
 
         function App({ items }) {
@@ -237,7 +235,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const React = require("roact");
 
         function App({ items }) {
@@ -258,7 +256,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const Roact = require("roact");
 
         function App({ items }) {
@@ -279,7 +277,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const { useMemo } = require("roact");
 
         function App({ items }) {
@@ -300,7 +298,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const React = require("@pika/react");
 
         function App({ items }) {
@@ -321,7 +319,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const Pika = require("@pika/react");
 
         function App({ items }) {
@@ -342,7 +340,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const { useMemo } = require("@pika/react");
 
         function App({ items }) {
@@ -363,7 +361,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "react";
 
         function App({ items }) {
@@ -388,7 +386,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    dedent`
+    /* tsx */ `
       import { useState } from "react";
 
       const Comp = () => {
@@ -397,26 +395,26 @@ ruleTester.run(RULE_NAME, rule, {
         return <Button />;
       };
     `,
-    dedent`
+    /* tsx */ `
       const useData = (key) => {
           return useSWR(key);
       }
     `,
-    dedent`
+    /* tsx */ `
       function useData(key) {
           return useSWR(key);
       }
     `,
-    dedent`
+    /* tsx */ `
       function useData(key) {
           const data = useSWR(key);
           return data;
       }
     `,
-    dedent`
+    /* tsx */ `
       const useData = (key) => useSWR(key);
     `,
-    dedent`
+    /* tsx */ `
       const onClick = () => {
         console.log("clicked");
       };
@@ -425,7 +423,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <Button onClick={onClick} />;
       };
     `,
-    dedent`
+    /* tsx */ `
       import { useMemo } from "react";
 
       function App({ items }) {

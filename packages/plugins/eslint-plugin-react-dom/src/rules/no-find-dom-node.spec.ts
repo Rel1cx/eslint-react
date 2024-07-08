@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-find-dom-node";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         import ReactDOM from "react-dom";
 
         export const Component = () => {
@@ -18,7 +16,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { findDOMNode } from "react-dom";
 
         export const Component = () => {
@@ -31,7 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
 
     {
-      code: `
+      code: /* tsx */ `
         var Hello = createReactClass({
           componentDidMount: function() {
             React.findDOMNode(this).scrollIntoView();
@@ -44,7 +42,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "NO_FIND_DOM_NODE" }],
     },
     {
-      code: `
+      code: /* tsx */ `
         var Hello = createReactClass({
           componentDidMount: function() {
             ReactDOM.findDOMNode(this).scrollIntoView();
@@ -57,7 +55,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "NO_FIND_DOM_NODE" }],
     },
     {
-      code: `
+      code: /* tsx */ `
         class Hello extends Component {
           componentDidMount() {
             findDOMNode(this).scrollIntoView();
@@ -70,7 +68,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "NO_FIND_DOM_NODE" }],
     },
     {
-      code: `
+      code: /* tsx */ `
         class Hello extends Component {
           componentDidMount() {
             this.node = findDOMNode(this);

@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-children-map";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         import { Children } from 'react';
 
         function RowList({ children }) {
@@ -26,7 +24,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const { Children } = require('react');
 
         function RowList({ children }) {
@@ -46,7 +44,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from 'react';
 
         function RowList({ children }) {
@@ -66,7 +64,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import * as React from 'react';
 
         function RowList({ children }) {
@@ -88,7 +86,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    dedent`
+    /* tsx */ `
       // import { Children } from 'react';
 
       const Children = {
@@ -107,7 +105,7 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       import { Children } from 'react';
 
       function SeparatorList({ children }) {

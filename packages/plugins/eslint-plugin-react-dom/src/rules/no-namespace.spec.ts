@@ -4,7 +4,7 @@ import rule, { RULE_NAME } from "./no-namespace";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: "<ns:testcomponent />",
+      code: /* tsx */ `<ns:testcomponent />`,
       errors: [{
         data: {
           name: "ns:testcomponent",
@@ -22,7 +22,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: "<ns:testComponent />",
+      code: /* tsx */ `<ns:testComponent />`,
       errors: [{
         data: {
           name: "ns:testComponent",
@@ -40,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: "<ns:test_component />",
+      code: /* tsx */ `<ns:test_component />`,
       errors: [{
         data: {
           name: "ns:test_component",
@@ -58,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: "<ns:TestComponent />",
+      code: /* tsx */ `<ns:TestComponent />`,
       errors: [{
         data: {
           name: "ns:TestComponent",
@@ -76,7 +76,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: "<Ns:testcomponent />",
+      code: /* tsx */ `<Ns:testcomponent />`,
       errors: [{
         data: {
           name: "Ns:testcomponent",
@@ -94,7 +94,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: "<Ns:testComponent />",
+      code: /* tsx */ `<Ns:testComponent />`,
       errors: [{
         data: {
           name: "Ns:testComponent",
@@ -112,7 +112,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: "<Ns:test_component />",
+      code: /* tsx */ `<Ns:test_component />`,
       errors: [{
         data: {
           name: "Ns:test_component",
@@ -130,7 +130,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: "<Ns:TestComponent />",
+      code: /* tsx */ `<Ns:TestComponent />`,
       errors: [{
         data: {
           name: "Ns:TestComponent",
