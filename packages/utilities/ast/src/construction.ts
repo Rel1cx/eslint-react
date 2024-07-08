@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
 import type { TSESTree } from "@typescript-eslint/types";
 import type { Option as O } from "effect";
 import { Data } from "effect";
