@@ -111,9 +111,6 @@ importers:
       cspell:
         specifier: 8.10.4
         version: 8.10.4
-      dedent:
-        specifier: 1.5.3
-        version: 1.5.3
       dprint:
         specifier: 0.47.1
         version: 0.47.1
@@ -409,9 +406,6 @@ importers:
         specifier: ^5.5.3
         version: 5.5.3
     devDependencies:
-      dedent:
-        specifier: 1.5.3
-        version: 1.5.3
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.39)(typescript@5.5.3)
@@ -455,9 +449,6 @@ importers:
         specifier: ^5.5.3
         version: 5.5.3
     devDependencies:
-      dedent:
-        specifier: 1.5.3
-        version: 1.5.3
       effect:
         specifier: 3.4.7
         version: 3.4.7
@@ -510,9 +501,6 @@ importers:
         specifier: ^5.5.3
         version: 5.5.3
     devDependencies:
-      dedent:
-        specifier: 1.5.3
-        version: 1.5.3
       effect:
         specifier: 3.4.7
         version: 3.4.7
@@ -562,9 +550,6 @@ importers:
         specifier: ^5.5.3
         version: 5.5.3
     devDependencies:
-      dedent:
-        specifier: 1.5.3
-        version: 1.5.3
       effect:
         specifier: 3.4.7
         version: 3.4.7
@@ -620,9 +605,6 @@ importers:
         specifier: ^5.5.3
         version: 5.5.3
     devDependencies:
-      dedent:
-        specifier: 1.5.3
-        version: 1.5.3
       effect:
         specifier: 3.4.7
         version: 3.4.7
@@ -3591,7 +3573,6 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
-    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -3764,7 +3745,6 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
-    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}

@@ -307,7 +307,6 @@ ruleTester.run(RULE_NAME, rule, {
     /* tsx */ `
       import React from 'react';
       import { Children as ReactChildren } from 'react';
-      import dedent from 'dedent';
 
       const { Children } = React;
       const { toArray } = Children;
