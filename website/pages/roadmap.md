@@ -65,7 +65,7 @@
 | `no-dangerously-set-innerhtml`               | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 |
 | `no-dangerously-set-innerhtml-with-children` | Prevents `DOM element` using `dangerouslySetInnerHTML` and `children` at the same time. |
 | `no-find-dom-node`                           | Prevents usage of `findDOMNode`.                                                        |
-| `no-missing-button-type`                     | Enforces explicit `button` type `attribute` for `<button>` elements.                    |
+| `no-missing-button-type`                     | Enforces explicit `type` attribute for `<button>` elements.                             |
 | `no-missing-iframe-sandbox`                  | Enforces explicit `sandbox` attribute for `iframe` elements.                            |
 | `no-namespace`                               | Enforces the absence of a `namespace` in React elements.                                |
 | `no-render-return-value`                     | Prevents usage of the return value of `ReactDOM.render`.                                |
