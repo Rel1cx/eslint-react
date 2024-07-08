@@ -119,6 +119,23 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: dedent`
+        import { FC } from "react";
+
+        const defaultProps = { id: "default-id", className: "default-class" };
+        type Props = typeof defaultProps;
+
+        function App({ id, className }: Props) {
+            return <div id={id} className={className} />
+        }
+      `,
+      errors: [
+        {
+          messageId: "PREFER_READ_ONLY_PROPS",
+        },
+      ],
+    },
   ],
   valid: [
     ...allValid,
@@ -153,6 +170,39 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     dedent`
       import { FC } from "react";
       const App: FC<{ readonly id: string; readonly className: string }> = ({ id, className }) => {
+          return <div id={id} className={className} />
+      }
+    `,
+    dedent`
+      import { FC } from "react";
+
+      const defaultProps = { id: "default-id", className: "default-class" } as const;
+      type Props = typeof defaultProps;
+
+      function App({ id, className }: Props) {
+          return <div id={id} className={className} />
+      }
+    `,
+    dedent`
+      import { FC } from "react";
+
+      const defaultProps = { id: "default-id", className: "default-class" } as const;
+      type Props = typeof defaultProps;
+      const App: FC<Props> = ({ id, className }) => {
+          return <div id={id} className={className} />
+      }
+    `,
+    dedent`
+      import { FC } from "react";
+
+      const defaultProps = { id: "default-id", className: "default-class" } as const;
+      const App: FC<typeof defaultProps> = ({ id, className }) => {
+          return <div id={id} className={className} />
+      }
+    `,
+    dedent`
+      const defaultProps = { id: "default-id", className: "default-class" } as const;
+      const App = ({ id, className }: typeof defaultProps) => {
           return <div id={id} className={className} />
       }
     `,
