@@ -115,8 +115,8 @@ importers:
         specifier: 1.5.3
         version: 1.5.3
       dprint:
-        specifier: 0.47.0
-        version: 0.47.0
+        specifier: 0.47.1
+        version: 0.47.1
       effect:
         specifier: 3.4.7
         version: 3.4.7
@@ -127,8 +127,8 @@ importers:
         specifier: ^9.6.0
         version: 9.6.0
       eslint-config-flat-gitignore:
-        specifier: 0.1.5
-        version: 0.1.5
+        specifier: 0.1.6
+        version: 0.1.6
       eslint-plugin-eslint-comments:
         specifier: 3.2.0
         version: 3.2.0(eslint@9.6.0)
@@ -1249,38 +1249,38 @@ packages:
     resolution: {integrity: sha512-4+Bxm43py50W872FjUvKoT9+EQoK9pqOblxu7GRfFx7CjEgYJB03Cb4rHiKYzLuJakUk6IyAlgPD2vNZO37Vzg==}
     engines: {node: '>=18.0'}
 
-  '@dprint/darwin-arm64@0.47.0':
-    resolution: {integrity: sha512-UoQA2kBSSooLx+DPUeml8xr75D7wwpNmH1xmDeX9c0JzFA5j7ZtykT/gNqGSRk9TRHH12nV3/e8VSamUbnbRfA==}
+  '@dprint/darwin-arm64@0.47.1':
+    resolution: {integrity: sha512-Ur2atF1NVhNfzRxDVwLMaCWfU0eQ9JSm9ewdFvPWK5BZ/G5ywum9Cph6XTwyZhG9UB0nxNtf6DP/37aezCBa7g==}
     cpu: [arm64]
     os: [darwin]
 
-  '@dprint/darwin-x64@0.47.0':
-    resolution: {integrity: sha512-gL2qYooB1mSatS0CQ6/UrplyUewnWD3cg1U7S+CZAVpgSkJgOX3haWinoD66kaBdWAPJo4NjeMnlIS7WVXmbXg==}
+  '@dprint/darwin-x64@0.47.1':
+    resolution: {integrity: sha512-yP7UuG32uR7We3E3StuuemL5nnegbB8IXaY9o23ADiq4sE3Aa58kM/MUERCuCsZ5lZiXMnGs4FxbeWI6xKnOYQ==}
     cpu: [x64]
     os: [darwin]
 
-  '@dprint/linux-arm64-glibc@0.47.0':
-    resolution: {integrity: sha512-VrY41zk75f07tfD9bIiYpRom7j4jc/5a8ifWhebnA7jwitTIInkPBUAwJwygGQA/bY7uKYuoykEnipjOzXE48A==}
+  '@dprint/linux-arm64-glibc@0.47.1':
+    resolution: {integrity: sha512-hD3sbFhSKqadUWcDanvJu0w/kxs7lbOk/VXNTkt+9VVCzT5ewDtqEy/CgUdm6YuLeZjoY3ApP8TBY1fxbAnaOQ==}
     cpu: [arm64]
     os: [linux]
 
-  '@dprint/linux-arm64-musl@0.47.0':
-    resolution: {integrity: sha512-UlrOe1cD/bZmoGVdxo7wpIn6DI70SdPeeQe5LFex8csKERM1H0GmrwDTpHlvN2OzZ4W8d6j7dVQEw5K3defxSg==}
+  '@dprint/linux-arm64-musl@0.47.1':
+    resolution: {integrity: sha512-tXOsfvIkZQl2+2WHE26yx8DIjmCbzNRnXBT3qplGvm8/cH5zUUfApoDIbK6JH1H0T0Hf0uYfw6LoguXW1Fy6Nw==}
     cpu: [arm64]
     os: [linux]
 
-  '@dprint/linux-x64-glibc@0.47.0':
-    resolution: {integrity: sha512-06j1qJtipRIds7I9f+gYAK5hNEjX3BoIT08axb9eo1VTUOUQjnJ4NwOBsT8rw8mqtTuePtWIWzZMsELom8UXZA==}
+  '@dprint/linux-x64-glibc@0.47.1':
+    resolution: {integrity: sha512-rI/q0narrWDL/XeoLkxNase0c/ITOQEU31WklidP6MvwYtGFooy9ZBIQqGYLh+eDjPEKDIPmkEUpLsaL1RkuCw==}
     cpu: [x64]
     os: [linux]
 
-  '@dprint/linux-x64-musl@0.47.0':
-    resolution: {integrity: sha512-yjT5Tua7E0aIaUvuyslfYf2h2NB6lipRFOMKySX5MHSjKHjJKdXiIddaTx9EHg6NHzyrYYH6/jD2ZqllgKjY/g==}
+  '@dprint/linux-x64-musl@0.47.1':
+    resolution: {integrity: sha512-P/PMHo37/SSLWbQeq6KQKuklsPNVwmrNf1c+wzqbydJ9ET0zqKl/w99JhfrRTyyl6mimNN/40AROGNBUVTFCQQ==}
     cpu: [x64]
     os: [linux]
 
-  '@dprint/win32-x64@0.47.0':
-    resolution: {integrity: sha512-gfqV74GdQF7DWH5ClpottRS5qrEb14KncMR/bkL5ek40JqZZAeRFfYpWnuppE2rm5j9iQ+vs3Yx/YsW2u13q6Q==}
+  '@dprint/win32-x64@0.47.1':
+    resolution: {integrity: sha512-LFnhMbHjB200K6SOq1hyYTe1ukz13AjI9LudSQ44j5pdL410rVwhkIwTah7iG221d2cJo3jhK3AFiHqSnqKTrw==}
     cpu: [x64]
     os: [win32]
 
@@ -3036,8 +3036,8 @@ packages:
   dompurify@3.1.6:
     resolution: {integrity: sha512-cTOAhc36AalkjtBpfG6O8JimdTMWNXjiePT2xQH/ppBGi/4uIpmj8eKyIkMJErXWARyINV/sB38yf8JCLF5pbQ==}
 
-  dprint@0.47.0:
-    resolution: {integrity: sha512-rcfbkLkxVusprh4DNvv8fzpnwZmAk3ttHzu6gOeZyeq8AtH86Py4sPcJ1XZKs/iD29QOUAbObR2VQm49NFAAxw==}
+  dprint@0.47.1:
+    resolution: {integrity: sha512-gZUxs5LmrwCsYoQ5h+QdGB36qrDc2cLAF4q3UgYOFvWnuYyF5rH/xvdpgLgAcltRspDc4bQy0wP650FaFbaVGg==}
     hasBin: true
 
   eastasianwidth@0.2.0:
@@ -3114,8 +3114,8 @@ packages:
     resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
     engines: {node: '>=12'}
 
-  eslint-config-flat-gitignore@0.1.5:
-    resolution: {integrity: sha512-hEZLwuZjDBGDERA49c2q7vxc8sCGv8EdBp6PQYzGOMcHIgrfG9YOM6s/4jx24zhD+wnK9AI8mgN5RxSss5nClQ==}
+  eslint-config-flat-gitignore@0.1.6:
+    resolution: {integrity: sha512-9MDrX6SNdwb+QtYR4Ox88f5HUPeDog1TgkqFXMJAXpLHZqVpTA5sT/DAGKUj8+TBrQXXemM325dROAofRtTa+w==}
 
   eslint-import-resolver-node@0.3.9:
     resolution: {integrity: sha512-WFj2isz22JahUv+B788TlO3N6zL3nNJGU8CcZbPZvVEkBPaJdCV4vy5wyghty5ROFbCRnm132v8BScu5/1BQ8g==}
@@ -6462,25 +6462,25 @@ snapshots:
 
   '@cspell/url@8.10.4': {}
 
-  '@dprint/darwin-arm64@0.47.0':
+  '@dprint/darwin-arm64@0.47.1':
     optional: true
 
-  '@dprint/darwin-x64@0.47.0':
+  '@dprint/darwin-x64@0.47.1':
     optional: true
 
-  '@dprint/linux-arm64-glibc@0.47.0':
+  '@dprint/linux-arm64-glibc@0.47.1':
     optional: true
 
-  '@dprint/linux-arm64-musl@0.47.0':
+  '@dprint/linux-arm64-musl@0.47.1':
     optional: true
 
-  '@dprint/linux-x64-glibc@0.47.0':
+  '@dprint/linux-x64-glibc@0.47.1':
     optional: true
 
-  '@dprint/linux-x64-musl@0.47.0':
+  '@dprint/linux-x64-musl@0.47.1':
     optional: true
 
-  '@dprint/win32-x64@0.47.0':
+  '@dprint/win32-x64@0.47.1':
     optional: true
 
   '@emotion/hash@0.9.1': {}
@@ -8318,15 +8318,15 @@ snapshots:
 
   dompurify@3.1.6: {}
 
-  dprint@0.47.0:
+  dprint@0.47.1:
     optionalDependencies:
-      '@dprint/darwin-arm64': 0.47.0
-      '@dprint/darwin-x64': 0.47.0
-      '@dprint/linux-arm64-glibc': 0.47.0
-      '@dprint/linux-arm64-musl': 0.47.0
-      '@dprint/linux-x64-glibc': 0.47.0
-      '@dprint/linux-x64-musl': 0.47.0
-      '@dprint/win32-x64': 0.47.0
+      '@dprint/darwin-arm64': 0.47.1
+      '@dprint/darwin-x64': 0.47.1
+      '@dprint/linux-arm64-glibc': 0.47.1
+      '@dprint/linux-arm64-musl': 0.47.1
+      '@dprint/linux-x64-glibc': 0.47.1
+      '@dprint/linux-x64-musl': 0.47.1
+      '@dprint/win32-x64': 0.47.1
 
   eastasianwidth@0.2.0: {}
 
@@ -8407,7 +8407,7 @@ snapshots:
 
   escape-string-regexp@5.0.0: {}
 
-  eslint-config-flat-gitignore@0.1.5:
+  eslint-config-flat-gitignore@0.1.6:
     dependencies:
       find-up: 7.0.0
       parse-gitignore: 2.0.0
