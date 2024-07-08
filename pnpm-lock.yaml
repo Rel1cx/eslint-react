@@ -115,8 +115,8 @@ importers:
         specifier: 0.47.1
         version: 0.47.1
       effect:
-        specifier: 3.4.7
-        version: 3.4.7
+        specifier: 3.4.8
+        version: 3.4.8
       esbuild:
         specifier: 0.23.0
         version: 0.23.0
@@ -155,7 +155,7 @@ importers:
         version: 54.0.0(eslint@9.6.0)
       eslint-plugin-vitest:
         specifier: 0.5.4
-        version: 0.5.4(@typescript-eslint/eslint-plugin@7.16.0(@typescript-eslint/parser@7.16.0(eslint@9.6.0)(typescript@5.5.3))(eslint@9.6.0)(typescript@5.5.3))(eslint@9.6.0)(typescript@5.5.3)(vitest@1.6.0(@types/node@20.14.10)(@vitest/ui@1.6.0)(sass@1.77.6))
+        version: 0.5.4(@typescript-eslint/eslint-plugin@7.16.0(@typescript-eslint/parser@7.16.0(eslint@9.6.0)(typescript@5.5.3))(eslint@9.6.0)(typescript@5.5.3))(eslint@9.6.0)(typescript@5.5.3)(vitest@1.6.0(@types/node@20.14.10)(@vitest/ui@1.6.0)(sass@1.77.6)(terser@5.31.1))
       fast-equals:
         specifier: 5.0.1
         version: 5.0.1
@@ -215,7 +215,7 @@ importers:
         version: 5.5.3
       vitest:
         specifier: 1.6.0
-        version: 1.6.0(@types/node@20.14.10)(@vitest/ui@1.6.0)(sass@1.77.6)
+        version: 1.6.0(@types/node@20.14.10)(@vitest/ui@1.6.0)(sass@1.77.6)(terser@5.31.1)
 
   examples/vite-react-dom-ts-flat:
     dependencies:
@@ -300,8 +300,8 @@ importers:
         version: 7.16.0(eslint@9.6.0)(typescript@5.5.3)
     devDependencies:
       effect:
-        specifier: 3.4.7
-        version: 3.4.7
+        specifier: 3.4.8
+        version: 3.4.8
       short-unique-id:
         specifier: 5.2.0
         version: 5.2.0
@@ -358,8 +358,8 @@ importers:
         version: 5.5.3
     devDependencies:
       effect:
-        specifier: 3.4.7
-        version: 3.4.7
+        specifier: 3.4.8
+        version: 3.4.8
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.39)(typescript@5.5.3)
@@ -450,8 +450,8 @@ importers:
         version: 5.5.3
     devDependencies:
       effect:
-        specifier: 3.4.7
-        version: 3.4.7
+        specifier: 3.4.8
+        version: 3.4.8
       string-ts:
         specifier: 2.2.0
         version: 2.2.0
@@ -502,8 +502,8 @@ importers:
         version: 5.5.3
     devDependencies:
       effect:
-        specifier: 3.4.7
-        version: 3.4.7
+        specifier: 3.4.8
+        version: 3.4.8
       string-ts:
         specifier: 2.2.0
         version: 2.2.0
@@ -551,8 +551,8 @@ importers:
         version: 5.5.3
     devDependencies:
       effect:
-        specifier: 3.4.7
-        version: 3.4.7
+        specifier: 3.4.8
+        version: 3.4.8
       string-ts:
         specifier: 2.2.0
         version: 2.2.0
@@ -606,8 +606,8 @@ importers:
         version: 5.5.3
     devDependencies:
       effect:
-        specifier: 3.4.7
-        version: 3.4.7
+        specifier: 3.4.8
+        version: 3.4.8
       string-ts:
         specifier: 2.2.0
         version: 2.2.0
@@ -678,8 +678,8 @@ importers:
         version: 7.16.0(eslint@9.6.0)(typescript@5.5.3)
     devDependencies:
       effect:
-        specifier: 3.4.7
-        version: 3.4.7
+        specifier: 3.4.8
+        version: 3.4.8
       string-ts:
         specifier: 2.2.0
         version: 2.2.0
@@ -715,8 +715,8 @@ importers:
         version: 7.16.0(eslint@9.6.0)(typescript@5.5.3)
     devDependencies:
       effect:
-        specifier: 3.4.7
-        version: 3.4.7
+        specifier: 3.4.8
+        version: 3.4.8
       ts-pattern:
         specifier: 5.2.0
         version: 5.2.0
@@ -746,8 +746,8 @@ importers:
         version: 7.16.0(eslint@9.6.0)(typescript@5.5.3)
     devDependencies:
       effect:
-        specifier: 3.4.7
-        version: 3.4.7
+        specifier: 3.4.8
+        version: 3.4.8
       string-ts:
         specifier: 2.2.0
         version: 2.2.0
@@ -813,8 +813,8 @@ importers:
         specifier: 10.4.19
         version: 10.4.19(postcss@8.4.39)
       effect:
-        specifier: 3.4.7
-        version: 3.4.7
+        specifier: 3.4.8
+        version: 3.4.8
       eslint:
         specifier: ^9.6.0
         version: 9.6.0
@@ -3070,8 +3070,8 @@ packages:
   effect@3.3.2:
     resolution: {integrity: sha512-695XQBtp+UUYG50oREG9ujnRoeQU7xhwHDhT6ZAexm3Q+umdml1kjxcPoYRrS65crmaLlhVpjZHePJNzWOODnA==}
 
-  effect@3.4.7:
-    resolution: {integrity: sha512-WnxvyX4fksdotDHBXcCfZpxFlY77wMaWP/GIRnr7aJZj9U+k+4QRWd1Ee/OU/jlswyC+MlO5YXilGfcz6WN8Lg==}
+  effect@3.4.8:
+    resolution: {integrity: sha512-qOQNrSSN3ITuAtARtN2Ldq6E5f42splY9VV18LqpKOXMwQCCEWkXdns4by3D2CJnDXQD2KCE0iGcRR2KowiQIA==}
 
   electron-to-chromium@1.4.818:
     resolution: {integrity: sha512-eGvIk2V0dGImV9gWLq8fDfTTsCAeMDwZqEPMr+jMInxZdnp9Us8UpovYpRCf9NQ7VOFgrN2doNSgvISbsbNpxA==}
@@ -7398,7 +7398,7 @@ snapshots:
       pathe: 1.1.2
       picocolors: 1.0.1
       sirv: 2.0.4
-      vitest: 1.6.0(@types/node@20.14.10)(@vitest/ui@1.6.0)(sass@1.77.6)
+      vitest: 1.6.0(@types/node@20.14.10)(@vitest/ui@1.6.0)(sass@1.77.6)(terser@5.31.1)
 
   '@vitest/utils@1.6.0':
     dependencies:
@@ -8324,7 +8324,7 @@ snapshots:
 
   effect@3.3.2: {}
 
-  effect@3.4.7: {}
+  effect@3.4.8: {}
 
   electron-to-chromium@1.4.818: {}
 
@@ -8555,13 +8555,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@7.16.0(@typescript-eslint/parser@7.16.0(eslint@9.6.0)(typescript@5.5.3))(eslint@9.6.0)(typescript@5.5.3))(eslint@9.6.0)(typescript@5.5.3)(vitest@1.6.0(@types/node@20.14.10)(@vitest/ui@1.6.0)(sass@1.77.6)):
+  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@7.16.0(@typescript-eslint/parser@7.16.0(eslint@9.6.0)(typescript@5.5.3))(eslint@9.6.0)(typescript@5.5.3))(eslint@9.6.0)(typescript@5.5.3)(vitest@1.6.0(@types/node@20.14.10)(@vitest/ui@1.6.0)(sass@1.77.6)(terser@5.31.1)):
     dependencies:
       '@typescript-eslint/utils': 7.16.0(eslint@9.6.0)(typescript@5.5.3)
       eslint: 9.6.0
     optionalDependencies:
       '@typescript-eslint/eslint-plugin': 7.16.0(@typescript-eslint/parser@7.16.0(eslint@9.6.0)(typescript@5.5.3))(eslint@9.6.0)(typescript@5.5.3)
-      vitest: 1.6.0(@types/node@20.14.10)(@vitest/ui@1.6.0)(sass@1.77.6)
+      vitest: 1.6.0(@types/node@20.14.10)(@vitest/ui@1.6.0)(sass@1.77.6)(terser@5.31.1)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -11732,7 +11732,7 @@ snapshots:
       sass: 1.77.6
       terser: 5.31.1
 
-  vitest@1.6.0(@types/node@20.14.10)(@vitest/ui@1.6.0)(sass@1.77.6):
+  vitest@1.6.0(@types/node@20.14.10)(@vitest/ui@1.6.0)(sass@1.77.6)(terser@5.31.1):
     dependencies:
       '@vitest/expect': 1.6.0
       '@vitest/runner': 1.6.0
