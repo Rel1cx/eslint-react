@@ -16,7 +16,6 @@ import tseslint from "typescript-eslint";
 type FlatConfig = Parameters<typeof tseslint.config>[number];
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 const config: FlatConfig[] = [
-  // register all of the plugins up-front
   gitignore(),
   {
     ignores: [
@@ -28,6 +27,7 @@ const config: FlatConfig[] = [
     ],
   },
   {
+    // register all of the plugins up-front
     // note - intentionally uses computed syntax to make it easy to sort the keys
     plugins: {
       ["@typescript-eslint"]: tseslint.plugin,
@@ -38,6 +38,12 @@ const config: FlatConfig[] = [
       ["perfectionist"]: perfectionist,
       ["simple-import-sort"]: simpleImportSortPlugin,
       ["unicorn"]: unicornPlugin,
+    },
+    settings: {
+      "import-x/parsers": {
+        "@typescript-eslint/parser": [".ts", ".tsx", ".cts", ".mts"],
+      },
+      "import-x/resolver": "oxc",
     },
   },
   // extends ...
@@ -130,15 +136,13 @@ const config: FlatConfig[] = [
       "import-x/consistent-type-specifier-style": "warn",
       "import-x/export": "error",
       "import-x/first": "warn",
-      "import-x/named": "off",
       "import-x/newline-after-import": "warn",
       "import-x/no-absolute-path": "error",
-      "import-x/no-cycle": "off",
       "import-x/no-duplicates": "error",
       "import-x/no-dynamic-require": "error",
       "import-x/no-empty-named-blocks": "error",
       "import-x/no-mutable-exports": "error",
-      "import-x/no-self-import": "off",
+      "import-x/no-self-import": "error",
       "import-x/no-unused-modules": "error",
       // Part: simple-import-sort rules
       "simple-import-sort/exports": "warn",
