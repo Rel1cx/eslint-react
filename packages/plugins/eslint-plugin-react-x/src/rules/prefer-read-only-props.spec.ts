@@ -107,7 +107,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       code: /* tsx */ `
         import React from "react";
 
-        export const App: React.FC<{ id: string; className: string } | { readonly id: string; readonly className: string }> = (props) => {
+        export const App: React.FC<{ readonly id: string; readonly className: string } | { id: string; className: string }> = (props) => {
           return <div className={props.className} id={props.id} />
         }
       `,
@@ -126,6 +126,50 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
 
         function App({ id, className }: Props) {
             return <div id={id} className={className} />
+        }
+      `,
+      errors: [
+        {
+          messageId: "PREFER_READ_ONLY_PROPS",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        interface HSV {
+          h: number;
+          s: number;
+          v: number;
+        }
+        interface ValuePickerProps {
+          Disabled: boolean;
+          readonly Hsv: HSV
+          readonly onChange: () => void;
+        }
+        export function ValuePicker({ Disabled, Hsv, onChange }: ValuePickerProps) {
+          return <div />
+        }
+      `,
+      errors: [
+        {
+          messageId: "PREFER_READ_ONLY_PROPS",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        interface HSV {
+          h: number;
+          s: number;
+          v: number;
+        }
+        interface ValuePickerProps {
+          readonly Disabled: boolean;
+          Hsv: HSV
+          onChange: () => void;
+        }
+        export function ValuePicker({ Disabled, Hsv, onChange }: ValuePickerProps) {
+          return <div />
         }
       `,
       errors: [
@@ -202,6 +246,37 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const defaultProps = { id: "default-id", className: "default-class" } as const;
       const App = ({ id, className }: typeof defaultProps) => {
           return <div id={id} className={className} />
+      }
+    `,
+    /* tsx */ `
+      interface HSV {
+        h: number;
+        s: number;
+        v: number;
+      }
+      interface ValuePickerProps {
+        readonly Disabled: boolean;
+        readonly Hsv: HSV
+        readonly onChange: () => void;
+      }
+      export function ValuePicker({ Disabled, Hsv, onChange }: ValuePickerProps) {
+        return <div />
+      }
+    `,
+    /* tsx */ `
+      interface HSV {
+        h: number;
+        s: number;
+        v: number;
+      }
+      interface ValuePickerProps {
+        readonly Disabled: boolean;
+        readonly Hsv: HSV
+        // TODO: Support checking if function is readonly
+        onChange: () => void;
+      }
+      export function ValuePicker({ Disabled, Hsv, onChange }: ValuePickerProps) {
+        return <div />
       }
     `,
   ],
