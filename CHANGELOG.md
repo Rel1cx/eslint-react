@@ -1,3 +1,9 @@
+## v1.5.24 (Draft)
+
+### 🐞 Fixes
+
+- Fix rule `prefer-read-only-props` false positive when using destructuring in function arguments.
+
 ## v1.5.23 (Sun 7 Jul 2024)
 
 ### 🐞 Fixes
