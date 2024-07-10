@@ -2,7 +2,11 @@
 
 ### 🐞 Fixes
 
-- Fix rule `prefer-read-only-props` false positive when using destructuring in function arguments.
+- Fix rule `prefer-read-only-props` false positive when using `ObjectPattern` in function arguments.
+
+### 🪄 Improvements
+
+- Change `typescript` version in `peerDependencies` to `"^4.9.5 || ^5.3.3"`
 
 ## v1.5.23 (Sun 7 Jul 2024)
 

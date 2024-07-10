@@ -287,7 +287,7 @@ const config: FlatConfig[] = [
           "tsconfig.json",
         ],
         tsconfigRootDir: dirname,
-        warnOnUnsupportedTypeScriptVersion: false,
+        warnOnUnsupportedTypeScriptVersion: true,
       },
     },
   },
