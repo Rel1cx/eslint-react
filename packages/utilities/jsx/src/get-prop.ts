@@ -56,7 +56,7 @@ export function getPropValue(
 /**
  * @param properties The properties to search in
  * @param context The rule context
- * @param initialScope
+ * @param initialScope The initial scope to start from
  * @param seenProps The properties that have already been seen
  * @returns A function that searches for a property in the given properties
  */
@@ -119,7 +119,7 @@ export function findPropInProperties(
 /**
  * @param attributes The attributes to search in
  * @param context The rule context
- * @param initialScope
+ * @param initialScope The initial scope to start from
  * @returns A function that searches for a property in the given attributes
  */
 export function findPropInAttributes(

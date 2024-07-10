@@ -7,9 +7,9 @@ import { isInitializedFromReact } from "../internal";
 
 /**
  * Check if a node is `<Fragment></Fragment>` or `<Pragma.Fragment></Pragma.Fragment>`
- * @param node
- * @param pragma
- * @param fragment
+ * @param node The JSX element node to check
+ * @param context The rule context
+ * @returns `true` if the node is a fragment element, `false` otherwise
  */
 export function isFragmentElement(node: TSESTree.JSXElement, context: RuleContext) {
   const { jsxPragma = "React", jsxPragmaFrag = "Fragment" } = getESLintReactSettings(context.settings);

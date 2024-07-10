@@ -19,3 +19,5 @@ The AST node to check
 ## Returns
 
 `boolean`
+
+`true` if the node is a pure component, `false` otherwise

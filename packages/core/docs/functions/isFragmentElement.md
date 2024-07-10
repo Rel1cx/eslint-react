@@ -14,8 +14,14 @@ Check if a node is `<Fragment></Fragment>` or `<Pragma.Fragment></Pragma.Fragmen
 
 • **node**: `JSXElement`
 
+The JSX element node to check
+
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+
+The rule context
 
 ## Returns
 
 `boolean`
+
+`true` if the node is a fragment element, `false` otherwise

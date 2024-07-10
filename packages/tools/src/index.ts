@@ -32,6 +32,7 @@ export const narrow = <TType>(a: Narrow<TType>) => a;
 /**
  * @param a The value to infer.
  * @since 0.0.1
+ * @returns The value with the type inferred.
  */
 export const asConst = <const T>(a: T) => a;
 

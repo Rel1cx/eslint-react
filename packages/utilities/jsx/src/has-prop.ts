@@ -10,7 +10,7 @@ import { findPropInAttributes } from "./get-prop";
  * @param attributes The attributes to search in
  * @param propName The prop name to search for
  * @param context The rule context
- * @param initialScope
+ * @param initialScope The initial scope to start from
  * @returns `true` if the given prop name is present in the given properties
  */
 export function hasProp(
@@ -27,7 +27,7 @@ export function hasProp(
  * @param attributes The attributes to search in
  * @param propNames The prop names to search for
  * @param context The rule context
- * @param initialScope
+ * @param initialScope The initial scope to start from
  * @returns `true` if any of the given prop names are present in the given attributes
  */
 export function hasAnyProp(
@@ -44,7 +44,7 @@ export function hasAnyProp(
  * @param attributes The attributes to search in
  * @param propNames The prop names to search for
  * @param context The rule context
- * @param initialScope
+ * @param initialScope The initial scope to start from
  * @returns `true` if all of the given prop names are present in the given attributes
  */
 export function hasEveryProp(

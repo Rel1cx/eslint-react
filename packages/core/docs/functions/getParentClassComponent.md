@@ -24,6 +24,8 @@ The rule context
 
 `O.Option`\<`TSESTreeClass`\>
 
+The parent class component if found
+
 ## Deprecated
 
 It will be removed in the future

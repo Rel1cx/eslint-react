@@ -12,6 +12,7 @@ import { isClassComponent } from "./component-collector-legacy";
  * Get the parent class component of a node up to global scope
  * @param node The AST node to start searching from
  * @param context The rule context
+ * @returns The parent class component if found
  * @deprecated It will be removed in the future
  */
 export function getParentClassComponent(node: TSESTree.Node, context: RuleContext): O.Option<TSESTreeClass> {

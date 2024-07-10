@@ -5,6 +5,7 @@ import { Function as F, MutableRef as MutRef, Option as O } from "effect";
 /**
  * Get all variables from the given scope up to the global scope
  * @param initialScope The scope to start from
+ * @returns All variables from the given scope up to the global scope
  */
 export function getVariables(initialScope: Scope): Variable[] {
   const scopeRef = MutRef.make(initialScope);

@@ -18,9 +18,9 @@ const None = Construction.None();
  * @param hint The hint to use when detecting the construction
  * @returns A function that detects the construction of a given node
  */
-export function inspectConstruction<T extends RuleContext>(
+export function inspectConstruction(
   node: TSESTree.Node,
-  context: T,
+  context: RuleContext,
   hint = ConstructionHint.None,
 ): Construction {
   /**

@@ -80,8 +80,8 @@ export function isFromReact(name: string) {
 
 /**
  * @internal
- * @param memberName
- * @param name
+ * @param memberName The name of the member object
+ * @param name The name of the member property
  * @returns A function that checks if a given node is a member expression of a Pragma member.
  */
 export function isFromReactMember(

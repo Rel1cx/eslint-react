@@ -52,7 +52,8 @@ const allowedVariants = [
 /**
  * Ported from https://github.com/typescript-eslint/typescript-eslint/blob/eb736bbfc22554694400e6a4f97051d845d32e0b/packages/eslint-plugin/src/rules/strict-boolean-expressions.ts#L826
  * Check union variants for the types we care about
- * @param types
+ * @param types The types to inspect
+ * @returns The variant types found
  */
 function inspectVariantTypes(types: ts.Type[]) {
   const variantTypes = new Set<VariantType>();
