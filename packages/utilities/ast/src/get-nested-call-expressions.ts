@@ -9,80 +9,80 @@ export function getNestedCallExpressions(node: TSESTree.Node): readonly TSESTree
     MutRef.update(callExpressions, Chunk.append(node));
   }
   if ("arguments" in node) {
-    node.arguments.forEach((x) => {
-      MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(x))));
-    });
+    const chunk = Chunk.unsafeFromArray(node.arguments.map(getNestedCallExpressions).flat(1));
+    MutRef.update(callExpressions, Chunk.appendAll(chunk));
   }
   if (
     "expression" in node
     && node.expression !== true
     && node.expression !== false
   ) {
-    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.expression))));
+    const chunk = Chunk.unsafeFromArray(getNestedCallExpressions(node.expression));
+    MutRef.update(callExpressions, Chunk.appendAll(chunk));
   }
   if ("left" in node) {
-    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.left))));
+    const chunk = Chunk.unsafeFromArray(getNestedCallExpressions(node.left));
+    MutRef.update(callExpressions, Chunk.appendAll(chunk));
   }
   if ("right" in node) {
-    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.right))));
+    const chunk = Chunk.unsafeFromArray(getNestedCallExpressions(node.right));
+    MutRef.update(callExpressions, Chunk.appendAll(chunk));
   }
   if ("test" in node && node.test !== null) {
-    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.test))));
+    const chunk = Chunk.unsafeFromArray(getNestedCallExpressions(node.test));
+    MutRef.update(callExpressions, Chunk.appendAll(chunk));
   }
   if ("consequent" in node) {
-    Array.isArray(node.consequent)
-      ? node.consequent.forEach((x) => {
-        MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(x))));
-      })
-      : MutRef.update(
-        callExpressions,
-        Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.consequent))),
-      );
+    const chunk = Chunk.unsafeFromArray(
+      Array.isArray(node.consequent)
+        ? node.consequent.map(getNestedCallExpressions).flat(1)
+        : getNestedCallExpressions(node.consequent),
+    );
+    MutRef.update(callExpressions, Chunk.appendAll(chunk));
   }
   if ("alternate" in node && node.alternate !== null) {
-    Array.isArray(node.alternate)
-      ? node.alternate.forEach((x: TSESTree.Node) => {
-        MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(x))));
-      })
-      : MutRef.update(
-        callExpressions,
-        Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.alternate))),
-      );
+    const chunk = Chunk.unsafeFromArray(
+      Array.isArray(node.alternate)
+        ? node.alternate.map(getNestedCallExpressions).flat(1)
+        : getNestedCallExpressions(node.alternate),
+    );
+    MutRef.update(callExpressions, Chunk.appendAll(chunk));
   }
   if ("elements" in node) {
-    node.elements.forEach((x) => {
-      if (x !== null) {
-        MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(x))));
-      }
-    });
+    const chunk = Chunk.unsafeFromArray(node.elements.filter((x) => x !== null).map(getNestedCallExpressions).flat(1));
+    MutRef.update(callExpressions, Chunk.appendAll(chunk));
   }
   if ("properties" in node) {
-    node.properties.forEach((x) => {
-      MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(x))));
-    });
+    const chunk = Chunk.unsafeFromArray(node.properties.map(getNestedCallExpressions).flat(1));
+    MutRef.update(callExpressions, Chunk.appendAll(chunk));
   }
   if ("expressions" in node) {
-    node.expressions.forEach((x) => {
-      MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(x))));
-    });
+    const chunk = Chunk.unsafeFromArray(node.expressions.map(getNestedCallExpressions).flat(1));
+    MutRef.update(callExpressions, Chunk.appendAll(chunk));
   }
   if (node.type === NodeType.Property) {
-    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.value))));
+    const chunk = Chunk.unsafeFromArray(getNestedCallExpressions(node.value));
+    MutRef.update(callExpressions, Chunk.appendAll(chunk));
   }
   if (node.type === NodeType.SpreadElement) {
-    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.argument))));
+    const chunk = Chunk.unsafeFromArray(getNestedCallExpressions(node.argument));
+    MutRef.update(callExpressions, Chunk.appendAll(chunk));
   }
   if (node.type === NodeType.MemberExpression) {
-    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.object))));
+    const chunk = Chunk.unsafeFromArray(getNestedCallExpressions(node.object));
+    MutRef.update(callExpressions, Chunk.appendAll(chunk));
   }
   if (node.type === NodeType.UnaryExpression) {
-    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.argument))));
+    const chunk = Chunk.unsafeFromArray(getNestedCallExpressions(node.argument));
+    MutRef.update(callExpressions, Chunk.appendAll(chunk));
   }
   if (node.type === NodeType.ChainExpression) {
-    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.expression))));
+    const chunk = Chunk.unsafeFromArray(getNestedCallExpressions(node.expression));
+    MutRef.update(callExpressions, Chunk.appendAll(chunk));
   }
   if (node.type === NodeType.TSNonNullExpression) {
-    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.expression))));
+    const chunk = Chunk.unsafeFromArray(getNestedCallExpressions(node.expression));
+    MutRef.update(callExpressions, Chunk.appendAll(chunk));
   }
   return Chunk.toReadonlyArray(MutRef.get(callExpressions));
 }

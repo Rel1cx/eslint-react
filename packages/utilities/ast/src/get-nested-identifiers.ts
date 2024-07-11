@@ -14,44 +14,44 @@ export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Ide
     MutRef.update(identifiers, Chunk.append(node));
   }
   if ("arguments" in node) {
-    node.arguments.forEach((x) => {
-      MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(x))));
-    });
+    const chunk = Chunk.unsafeFromArray(node.arguments.map(getNestedIdentifiers).flat(1));
+    MutRef.update(identifiers, Chunk.appendAll(chunk));
   }
   if ("elements" in node) {
-    node.elements.forEach((x) => {
-      if (x !== null) {
-        MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(x))));
-      }
-    });
+    const chunk = Chunk.unsafeFromArray(node.elements.filter((x) => x !== null).map(getNestedIdentifiers).flat(1));
+    MutRef.update(identifiers, Chunk.appendAll(chunk));
   }
   if ("properties" in node) {
-    node.properties.forEach((x) => {
-      MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(x))));
-    });
+    const chunk = Chunk.unsafeFromArray(node.properties.map(getNestedIdentifiers).flat(1));
+    MutRef.update(identifiers, Chunk.appendAll(chunk));
   }
   if ("expressions" in node) {
-    node.expressions.forEach((x) => {
-      MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(x))));
-    });
+    const chunk = Chunk.unsafeFromArray(node.expressions.map(getNestedIdentifiers).flat(1));
+    MutRef.update(identifiers, Chunk.appendAll(chunk));
   }
   if (node.type === NodeType.Property) {
-    MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(node.value))));
+    const chunk = Chunk.unsafeFromArray(getNestedIdentifiers(node.value));
+    MutRef.update(identifiers, Chunk.appendAll(chunk));
   }
   if (node.type === NodeType.SpreadElement) {
-    MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(node.argument))));
+    const chunk = Chunk.unsafeFromArray(getNestedIdentifiers(node.argument));
+    MutRef.update(identifiers, Chunk.appendAll(chunk));
   }
   if (node.type === NodeType.MemberExpression) {
-    MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(node.object))));
+    const chunk = Chunk.unsafeFromArray(getNestedIdentifiers(node.object));
+    MutRef.update(identifiers, Chunk.appendAll(chunk));
   }
   if (node.type === NodeType.UnaryExpression) {
-    MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(node.argument))));
+    const chunk = Chunk.unsafeFromArray(getNestedIdentifiers(node.argument));
+    MutRef.update(identifiers, Chunk.appendAll(chunk));
   }
   if (node.type === NodeType.ChainExpression) {
-    MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(node.expression))));
+    const chunk = Chunk.unsafeFromArray(getNestedIdentifiers(node.expression));
+    MutRef.update(identifiers, Chunk.appendAll(chunk));
   }
   if (node.type === NodeType.TSNonNullExpression) {
-    MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(node.expression))));
+    const chunk = Chunk.unsafeFromArray(getNestedIdentifiers(node.expression));
+    MutRef.update(identifiers, Chunk.appendAll(chunk));
   }
   return Chunk.toReadonlyArray(MutRef.get(identifiers));
 }

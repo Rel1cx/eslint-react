@@ -16,36 +16,32 @@ export function getNestedReturnStatements(
     MutRef.update(returnStatements, Chunk.append(node));
   }
   if ("body" in node && node.body !== undefined && node.body !== null) {
-    Array.isArray(node.body)
-      ? node.body.forEach((x) => {
-        MutRef.update(returnStatements, Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(x))));
-      })
-      : MutRef.update(returnStatements, Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(node.body))));
+    const chunk = Chunk.unsafeFromArray(
+      Array.isArray(node.body)
+        ? node.body.map(getNestedReturnStatements).flat(1)
+        : getNestedReturnStatements(node.body),
+    );
+    MutRef.update(returnStatements, Chunk.appendAll(chunk));
   }
   if ("consequent" in node) {
-    Array.isArray(node.consequent)
-      ? node.consequent.forEach((x) => {
-        MutRef.update(returnStatements, Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(x))));
-      })
-      : MutRef.update(
-        returnStatements,
-        Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(node.consequent))),
-      );
+    const chunk = Chunk.unsafeFromArray(
+      Array.isArray(node.consequent)
+        ? node.consequent.map(getNestedReturnStatements).flat(1)
+        : getNestedReturnStatements(node.consequent),
+    );
+    MutRef.update(returnStatements, Chunk.appendAll(chunk));
   }
   if ("alternate" in node && node.alternate !== null) {
-    Array.isArray(node.alternate)
-      ? node.alternate.forEach((x: TSESTree.Node) => {
-        MutRef.update(returnStatements, Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(x))));
-      })
-      : MutRef.update(
-        returnStatements,
-        Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(node.alternate))),
-      );
+    const chunk = Chunk.unsafeFromArray(
+      Array.isArray(node.alternate)
+        ? node.alternate.map(getNestedReturnStatements).flat(1)
+        : getNestedReturnStatements(node.alternate),
+    );
+    MutRef.update(returnStatements, Chunk.appendAll(chunk));
   }
   if ("cases" in node) {
-    node.cases.forEach((x) => {
-      MutRef.update(returnStatements, Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(x))));
-    });
+    const chunk = Chunk.unsafeFromArray(node.cases.map(getNestedReturnStatements).flat(1));
+    MutRef.update(returnStatements, Chunk.appendAll(chunk));
   }
   if ("block" in node) {
     MutRef.update(returnStatements, Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(node.block))));
