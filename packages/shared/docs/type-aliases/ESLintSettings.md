@@ -6,4 +6,4 @@
 
 # Type Alias: ESLintSettings
 
-> **ESLintSettings**: `ReadonlyDeep`\<`InferOutput`\<*typeof* `ESLintSettingsSchema`\>\>
+> **ESLintSettings**: `S.Schema.Type`\<*typeof* [`ESLintSettings`](../variables/ESLintSettings.md)\>

@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/shared",
-  "version": "1.5.25-next.4",
+  "version": "1.5.25-next.5",
   "description": "ESLint React's Shared constants and functions.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -42,8 +42,8 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "catalog:tseslint7",
-    "valibot": "^0.36.0"
+    "@effect/schema": "0.68.21",
+    "@typescript-eslint/utils": "catalog:tseslint7"
   },
   "devDependencies": {
     "effect": "3.5.1",
