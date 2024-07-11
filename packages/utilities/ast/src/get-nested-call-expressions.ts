@@ -4,7 +4,6 @@ import { Chunk, MutableRef as MutRef } from "effect";
 import { NodeType } from "./types";
 
 export function getNestedCallExpressions(node: TSESTree.Node): readonly TSESTree.CallExpression[] {
-  // const callExpressions: TSESTree.CallExpression[] = [];
   const callExpressions = MutRef.make(Chunk.empty<TSESTree.CallExpression>());
   if (node.type === NodeType.CallExpression) {
     MutRef.update(callExpressions, Chunk.append(node));
