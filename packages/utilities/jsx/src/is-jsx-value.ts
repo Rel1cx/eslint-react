@@ -34,7 +34,8 @@ export const JSXValueHint = {
 } as const;
 /* eslint-enable perfectionist/sort-objects */
 
-export const DEFAULT_JSX_VALUE_HINT = JSXValueHint.SkipUndefinedLiteral
+export const DEFAULT_JSX_VALUE_HINT = 0n
+  | JSXValueHint.SkipUndefinedLiteral
   | JSXValueHint.SkipBooleanLiteral;
 
 /**
@@ -44,7 +45,6 @@ export const DEFAULT_JSX_VALUE_HINT = JSXValueHint.SkipUndefinedLiteral
  * @param hint The `JSXValueHint` to use
  * @returns boolean
  */
-
 export function isJSXValue(
   node: TSESTree.Node | null | undefined,
   context: RuleContext,

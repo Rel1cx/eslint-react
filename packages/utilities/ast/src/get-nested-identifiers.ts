@@ -1,4 +1,5 @@
 import type { TSESTree } from "@typescript-eslint/types";
+import { Chunk, MutableRef as MutRef } from "effect";
 
 import { NodeType } from "./types";
 
@@ -7,62 +8,50 @@ import { NodeType } from "./types";
  * @param node The AST node
  * @returns The nested identifiers
  */
-export function getNestedIdentifiers(node: TSESTree.Node): TSESTree.Identifier[] {
-  const identifiers: TSESTree.Identifier[] = [];
-
+export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Identifier[] {
+  const identifiers = MutRef.make(Chunk.empty<TSESTree.Identifier>());
   if (node.type === NodeType.Identifier) {
-    identifiers.push(node);
+    MutRef.update(identifiers, Chunk.append(node));
   }
-
   if ("arguments" in node) {
     node.arguments.forEach((x) => {
-      identifiers.push(...getNestedIdentifiers(x));
+      MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(x))));
     });
   }
-
   if ("elements" in node) {
     node.elements.forEach((x) => {
       if (x !== null) {
-        identifiers.push(...getNestedIdentifiers(x));
+        MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(x))));
       }
     });
   }
-
   if ("properties" in node) {
     node.properties.forEach((x) => {
-      identifiers.push(...getNestedIdentifiers(x));
+      MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(x))));
     });
   }
-
   if ("expressions" in node) {
     node.expressions.forEach((x) => {
-      identifiers.push(...getNestedIdentifiers(x));
+      MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(x))));
     });
   }
-
   if (node.type === NodeType.Property) {
-    identifiers.push(...getNestedIdentifiers(node.value));
+    MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(node.value))));
   }
-
   if (node.type === NodeType.SpreadElement) {
-    identifiers.push(...getNestedIdentifiers(node.argument));
+    MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(node.argument))));
   }
-
   if (node.type === NodeType.MemberExpression) {
-    identifiers.push(...getNestedIdentifiers(node.object));
+    MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(node.object))));
   }
-
   if (node.type === NodeType.UnaryExpression) {
-    identifiers.push(...getNestedIdentifiers(node.argument));
+    MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(node.argument))));
   }
-
   if (node.type === NodeType.ChainExpression) {
-    identifiers.push(...getNestedIdentifiers(node.expression));
+    MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(node.expression))));
   }
-
   if (node.type === NodeType.TSNonNullExpression) {
-    identifiers.push(...getNestedIdentifiers(node.expression));
+    MutRef.update(identifiers, Chunk.appendAll(Chunk.unsafeFromArray(getNestedIdentifiers(node.expression))));
   }
-
-  return identifiers;
+  return Chunk.toReadonlyArray(MutRef.get(identifiers));
 }

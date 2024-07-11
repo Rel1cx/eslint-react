@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollector(context);
-    const possibleCreateRefCalls = new Map<TSESTreeFunction, TSESTree.CallExpression[]>();
+    const possibleCreateRefCalls = new WeakMap<TSESTreeFunction, TSESTree.CallExpression[]>();
 
     return {
       ...listeners,

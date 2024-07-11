@@ -97,6 +97,7 @@ export function useComponentCollector(
     const [key, fn, isComponent] = MutList.tail(functionStack) ?? [];
     if (!key || !fn || !isComponent) return MutList.pop(functionStack);
     const shouldDrop = getNestedReturnStatements(fn.body)
+      .slice()
       .reverse()
       .some(r => {
         return context.sourceCode.getScope(r).block === fn

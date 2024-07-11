@@ -1,101 +1,89 @@
 import type { TSESTree } from "@typescript-eslint/types";
+import { Chunk, MutableRef as MutRef } from "effect";
 
 import { NodeType } from "./types";
 
-export function getNestedCallExpressions(node: TSESTree.Node): TSESTree.CallExpression[] {
-  const callExpressions: TSESTree.CallExpression[] = [];
-
+export function getNestedCallExpressions(node: TSESTree.Node): readonly TSESTree.CallExpression[] {
+  // const callExpressions: TSESTree.CallExpression[] = [];
+  const callExpressions = MutRef.make(Chunk.empty<TSESTree.CallExpression>());
   if (node.type === NodeType.CallExpression) {
-    callExpressions.push(node);
+    MutRef.update(callExpressions, Chunk.append(node));
   }
-
   if ("arguments" in node) {
     node.arguments.forEach((x) => {
-      callExpressions.push(...getNestedCallExpressions(x));
+      MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(x))));
     });
   }
-
   if (
     "expression" in node
     && node.expression !== true
     && node.expression !== false
   ) {
-    callExpressions.push(...getNestedCallExpressions(node.expression));
+    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.expression))));
   }
-
   if ("left" in node) {
-    callExpressions.push(...getNestedCallExpressions(node.left));
+    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.left))));
   }
-
   if ("right" in node) {
-    callExpressions.push(...getNestedCallExpressions(node.right));
+    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.right))));
   }
-
   if ("test" in node && node.test !== null) {
-    callExpressions.push(...getNestedCallExpressions(node.test));
+    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.test))));
   }
-
   if ("consequent" in node) {
     Array.isArray(node.consequent)
       ? node.consequent.forEach((x) => {
-        callExpressions.push(...getNestedCallExpressions(x));
+        MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(x))));
       })
-      : callExpressions.push(...getNestedCallExpressions(node.consequent));
+      : MutRef.update(
+        callExpressions,
+        Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.consequent))),
+      );
   }
-
   if ("alternate" in node && node.alternate !== null) {
     Array.isArray(node.alternate)
       ? node.alternate.forEach((x: TSESTree.Node) => {
-        callExpressions.push(...getNestedCallExpressions(x));
+        MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(x))));
       })
-      : callExpressions.push(
-        ...getNestedCallExpressions(node.alternate),
+      : MutRef.update(
+        callExpressions,
+        Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.alternate))),
       );
   }
-
   if ("elements" in node) {
     node.elements.forEach((x) => {
       if (x !== null) {
-        callExpressions.push(...getNestedCallExpressions(x));
+        MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(x))));
       }
     });
   }
-
   if ("properties" in node) {
     node.properties.forEach((x) => {
-      callExpressions.push(...getNestedCallExpressions(x));
+      MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(x))));
     });
   }
-
   if ("expressions" in node) {
     node.expressions.forEach((x) => {
-      callExpressions.push(...getNestedCallExpressions(x));
+      MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(x))));
     });
   }
-
   if (node.type === NodeType.Property) {
-    callExpressions.push(...getNestedCallExpressions(node.value));
+    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.value))));
   }
-
   if (node.type === NodeType.SpreadElement) {
-    callExpressions.push(...getNestedCallExpressions(node.argument));
+    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.argument))));
   }
-
   if (node.type === NodeType.MemberExpression) {
-    callExpressions.push(...getNestedCallExpressions(node.object));
+    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.object))));
   }
-
   if (node.type === NodeType.UnaryExpression) {
-    callExpressions.push(...getNestedCallExpressions(node.argument));
+    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.argument))));
   }
-
   if (node.type === NodeType.ChainExpression) {
-    callExpressions.push(...getNestedCallExpressions(node.expression));
+    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.expression))));
   }
-
   if (node.type === NodeType.TSNonNullExpression) {
-    callExpressions.push(...getNestedCallExpressions(node.expression));
+    MutRef.update(callExpressions, Chunk.appendAll(Chunk.unsafeFromArray(getNestedCallExpressions(node.expression))));
   }
-
-  return callExpressions;
+  return Chunk.toReadonlyArray(MutRef.get(callExpressions));
 }

@@ -1,4 +1,5 @@
 import type { TSESTree } from "@typescript-eslint/types";
+import { Chunk, MutableRef as MutRef } from "effect";
 
 import { NodeType } from "./types";
 
@@ -9,76 +10,61 @@ import { NodeType } from "./types";
  */
 export function getNestedReturnStatements(
   node: TSESTree.Node,
-): Array<TSESTree.ReturnStatement> {
-  const returnStatements: Array<TSESTree.ReturnStatement> = [];
-
+): readonly TSESTree.ReturnStatement[] {
+  const returnStatements = MutRef.make(Chunk.empty<TSESTree.ReturnStatement>());
   if (node.type === NodeType.ReturnStatement) {
-    returnStatements.push(node);
+    MutRef.update(returnStatements, Chunk.append(node));
   }
-
   if ("body" in node && node.body !== undefined && node.body !== null) {
     Array.isArray(node.body)
       ? node.body.forEach((x) => {
-        returnStatements.push(...getNestedReturnStatements(x));
+        MutRef.update(returnStatements, Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(x))));
       })
-      : returnStatements.push(
-        ...getNestedReturnStatements(node.body),
-      );
+      : MutRef.update(returnStatements, Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(node.body))));
   }
-
   if ("consequent" in node) {
     Array.isArray(node.consequent)
       ? node.consequent.forEach((x) => {
-        returnStatements.push(...getNestedReturnStatements(x));
+        MutRef.update(returnStatements, Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(x))));
       })
-      : returnStatements.push(
-        ...getNestedReturnStatements(node.consequent),
+      : MutRef.update(
+        returnStatements,
+        Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(node.consequent))),
       );
   }
-
   if ("alternate" in node && node.alternate !== null) {
     Array.isArray(node.alternate)
       ? node.alternate.forEach((x: TSESTree.Node) => {
-        returnStatements.push(...getNestedReturnStatements(x));
+        MutRef.update(returnStatements, Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(x))));
       })
-      : returnStatements.push(
-        ...getNestedReturnStatements(node.alternate),
+      : MutRef.update(
+        returnStatements,
+        Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(node.alternate))),
       );
   }
-
   if ("cases" in node) {
     node.cases.forEach((x) => {
-      returnStatements.push(...getNestedReturnStatements(x));
+      MutRef.update(returnStatements, Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(x))));
     });
   }
-
   if ("block" in node) {
-    returnStatements.push(...getNestedReturnStatements(node.block));
+    MutRef.update(returnStatements, Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(node.block))));
   }
-
   if ("handler" in node && node.handler !== null) {
-    returnStatements.push(...getNestedReturnStatements(node.handler));
+    MutRef.update(returnStatements, Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(node.handler))));
   }
-
   if ("finalizer" in node && node.finalizer !== null) {
-    returnStatements.push(
-      ...getNestedReturnStatements(node.finalizer),
-    );
+    MutRef.update(returnStatements, Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(node.finalizer))));
   }
-
   if (
     "expression" in node
     && node.expression !== true
     && node.expression !== false
   ) {
-    returnStatements.push(
-      ...getNestedReturnStatements(node.expression),
-    );
+    MutRef.update(returnStatements, Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(node.expression))));
   }
-
   if ("test" in node && node.test !== null) {
-    returnStatements.push(...getNestedReturnStatements(node.test));
+    MutRef.update(returnStatements, Chunk.appendAll(Chunk.unsafeFromArray(getNestedReturnStatements(node.test))));
   }
-
-  return returnStatements;
+  return Chunk.toReadonlyArray(MutRef.get(returnStatements));
 }
