@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "next": "^14.2.5",
-    "nextra": "3.0.0-alpha.24",
-    "nextra-theme-docs": "3.0.0-alpha.24",
+    "nextra": "3.0.0-alpha.25",
+    "nextra-theme-docs": "3.0.0-alpha.25",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -29,7 +29,7 @@
     "@vanilla-extract/next-plugin": "2.4.3",
     "@vitejs/plugin-react": "4.3.1",
     "autoprefixer": "10.4.19",
-    "effect": "3.5.0",
+    "effect": "3.5.1",
     "eslint": "^9.6.0",
     "eslint-plugin-mdx": "3.1.5",
     "eslint-plugin-react-hooks": "4.6.2",

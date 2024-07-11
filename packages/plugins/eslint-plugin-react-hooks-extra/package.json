@@ -54,7 +54,7 @@
     "@typescript-eslint/utils": "catalog:tseslint7"
   },
   "devDependencies": {
-    "effect": "3.5.0",
+    "effect": "3.5.1",
     "string-ts": "2.2.0",
     "tsup": "8.1.0"
   },

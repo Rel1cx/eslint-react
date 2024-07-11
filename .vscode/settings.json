@@ -53,12 +53,13 @@
   },
   "files.exclude": {
     "**/.turbo": true,
+    ".husky": true,
     ".npmignore": true,
     ".eslintcache": true,
     "eslint.config.js": true,
+    "eslint.config.d.ts": true,
     "*.bundled_*.mjs": true
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "sarif-viewer.connectToGithubCodeScanning": "off"
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
