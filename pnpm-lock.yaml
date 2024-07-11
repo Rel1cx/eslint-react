@@ -137,8 +137,8 @@ importers:
         specifier: 6.6.1
         version: 6.6.1(eslint@9.6.0)(typescript@5.5.3)
       eslint-plugin-import-x:
-        specifier: 0.5.3
-        version: 0.5.3(eslint@9.6.0)(typescript@5.5.3)
+        specifier: 3.0.0
+        version: 3.0.0(eslint@9.6.0)(typescript@5.5.3)
       eslint-plugin-jsdoc:
         specifier: 48.7.0
         version: 48.7.0(eslint@9.6.0)
@@ -3191,8 +3191,8 @@ packages:
       typescript:
         optional: true
 
-  eslint-plugin-import-x@0.5.3:
-    resolution: {integrity: sha512-hJ/wkMcsLQXAZL3+txXIDpbW5cqwdm1rLTqV4VRY03aIbzE3zWE7rPZKW6Gzf7xyl1u3V1iYC6tOG77d9NF4GQ==}
+  eslint-plugin-import-x@3.0.0:
+    resolution: {integrity: sha512-zk3QklFELk7mrSlhP9C27NpKx86G5YtIEvDV1dIJRS3VOIm5tCHQCln2JkwbO5lpYOvyYSoro35PCAAVG9lY8w==}
     engines: {node: '>=16'}
     peerDependencies:
       eslint: ^9.6.0
@@ -8528,7 +8528,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import-x@0.5.3(eslint@9.6.0)(typescript@5.5.3):
+  eslint-plugin-import-x@3.0.0(eslint@9.6.0)(typescript@5.5.3):
     dependencies:
       '@typescript-eslint/utils': 7.16.0(eslint@9.6.0)(typescript@5.5.3)
       debug: 4.3.5
