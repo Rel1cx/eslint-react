@@ -88,6 +88,7 @@
     "typeclass",
     "uncast",
     "unoptimized",
+    "valibot",
     "weakref"
   ]
 }

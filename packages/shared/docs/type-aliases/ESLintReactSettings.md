@@ -6,4 +6,4 @@
 
 # Type Alias: ESLintReactSettings
 
-> **ESLintReactSettings**: `S.Schema.Type`\<*typeof* [`ESLintReactSettings`](../variables/ESLintReactSettings.md)\>
+> **ESLintReactSettings**: `ReadonlyDeep`\<`InferOutput`\<*typeof* `ESLintReactSettingsSchema`\>\>

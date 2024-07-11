@@ -1,9 +1,9 @@
-import { decodeUnknownSync } from "@effect/schema/Schema";
+import { parse } from "valibot";
 
 import type { ESLintReactSettings } from "./schemas";
-import { ESLintSettings } from "./schemas";
+import { ESLintSettingsSchema } from "./schemas";
 
 export function getESLintReactSettings(data: unknown): ESLintReactSettings {
-  const settings = decodeUnknownSync(ESLintSettings)(data);
+  const settings = parse(ESLintSettingsSchema, data);
   return settings["react-x"] ?? settings.reactOptions ?? {};
 }

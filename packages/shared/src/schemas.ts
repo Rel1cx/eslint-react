@@ -1,39 +1,48 @@
-import * as S from "@effect/schema/Schema";
+import type { ReadonlyDeep } from "type-fest";
+import type { InferOutput } from "valibot";
+import { array, boolean, object, optional, string } from "valibot";
 
-export const ESLintReactSettings = S.Struct({
-  additionalHooks: S.optional(
-    S.Struct({
-      use: S.optional(S.String),
-      useCallback: S.optional(S.Array(S.String)),
-      useContext: S.optional(S.Array(S.String)),
-      useDebugValue: S.optional(S.Array(S.String)),
-      useDeferredValue: S.optional(S.Array(S.String)),
-      useEffect: S.optional(S.Array(S.String)),
-      useId: S.optional(S.Array(S.String)),
-      useImperativeHandle: S.optional(S.Array(S.String)),
-      useInsertionEffect: S.optional(S.Array(S.String)),
-      useLayoutEffect: S.optional(S.Array(S.String)),
-      useMemo: S.optional(S.Array(S.String)),
-      useOptimistic: S.optional(S.Array(S.String)),
-      useReducer: S.optional(S.Array(S.String)),
-      useRef: S.optional(S.Array(S.String)),
-      useState: S.optional(S.Array(S.String)),
-      useSyncExternalStore: S.optional(S.Array(S.String)),
-      useTransition: S.optional(S.Array(S.String)),
-    }),
-  ),
-  importSource: S.optional(S.String),
-  jsxPragma: S.optional(S.String),
-  jsxPragmaFrag: S.optional(S.String),
-  strict: S.optional(S.Boolean),
-  version: S.optional(S.String),
+/**
+ * @internal
+ */
+export const ESLintReactSettingsSchema = object({
+  additionalHooks: optional(object({
+    use: optional(string()),
+    useCallback: optional(array(string())),
+    useContext: optional(array(string())),
+    useDebugValue: optional(array(string())),
+    useDeferredValue: optional(array(string())),
+    useEffect: optional(array(string())),
+    useId: optional(array(string())),
+    useImperativeHandle: optional(array(string())),
+    useInsertionEffect: optional(array(string())),
+    useLayoutEffect: optional(array(string())),
+    useMemo: optional(array(string())),
+    useOptimistic: optional(array(string())),
+    useReducer: optional(array(string())),
+    useRef: optional(array(string())),
+    useState: optional(array(string())),
+    useSyncExternalStore: optional(array(string())),
+    useTransition: optional(array(string())),
+  })),
+  importSource: optional(string()),
+  jsxPragma: optional(string()),
+  jsxPragmaFrag: optional(string()),
+  strict: optional(boolean()),
+  version: optional(string()),
 });
 
-export type ESLintReactSettings = S.Schema.Type<typeof ESLintReactSettings>;
+export type ESLintReactSettings = ReadonlyDeep<InferOutput<typeof ESLintReactSettingsSchema>>;
 
-export const ESLintSettings = S.Struct({
-  "react-x": S.optional(ESLintReactSettings),
-  reactOptions: S.optional(ESLintReactSettings),
+/**
+ * @internal
+ */
+export const ESLintSettingsSchema = object({
+  "react-x": optional(ESLintReactSettingsSchema),
+  /**
+   * @deprecated
+   */
+  reactOptions: optional(ESLintReactSettingsSchema),
 });
 
-export type ESLintSettings = S.Schema.Type<typeof ESLintSettings>;
+export type ESLintSettings = ReadonlyDeep<InferOutput<typeof ESLintSettingsSchema>>;
