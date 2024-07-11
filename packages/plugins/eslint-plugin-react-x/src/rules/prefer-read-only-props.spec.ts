@@ -178,6 +178,80 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         },
       ],
     },
+    { // memo with generic
+      code: /* tsx */ `
+        import React, { memo } from "react";
+
+        const App = memo(({ id, className }: { id: string; className: string }) => {
+            return <div id={id} className={className} />
+        });
+      `,
+      errors: [
+        {
+          messageId: "PREFER_READ_ONLY_PROPS",
+        },
+      ],
+    },
+    { // memo with generic and default props
+      code: /* tsx */ `
+        import React, { memo } from "react";
+
+        const defaultProps = { id: "default-id", className: "default-class" };
+        type Props = typeof defaultProps;
+        const App = memo(({ id, className }: Props) => {
+            return <div id={id} className={className} />
+        });
+      `,
+      errors: [
+        {
+          messageId: "PREFER_READ_ONLY_PROPS",
+        },
+      ],
+    },
+    { // forwardRef with generic
+      code: /* tsx */ `
+        import React, { forwardRef } from "react";
+
+        const App = forwardRef<HTMLDivElement, { id: string; className: string }>(({ id, className }, ref) => {
+            return <div id={id} className={className} ref={ref} />
+        });
+      `,
+      errors: [
+        {
+          messageId: "PREFER_READ_ONLY_PROPS",
+        },
+      ],
+    },
+    { // forwardRef with generic and default props
+      code: /* tsx */ `
+        import React, { forwardRef } from "react";
+
+        const defaultProps = { id: "default-id", className: "default-class" };
+        type Props = typeof defaultProps;
+        const App = forwardRef<HTMLDivElement, Props>(({ id, className }, ref) => {
+            return <div id={id} className={className} ref={ref} />
+        });
+      `,
+      errors: [
+        {
+          messageId: "PREFER_READ_ONLY_PROPS",
+        },
+      ],
+    },
+    { // memo and forwardRef with generic
+      code: /* tsx */ `
+        import React, { memo, forwardRef } from "react";
+
+        const App = memo(forwardRef<HTMLDivElement, { id: string; className: string }>(({ id, className }, ref) => {
+            return <div id={id} className={className} ref={ref} />
+        }));
+      `,
+      errors: [
+        {
+          messageId: "PREFER_READ_ONLY_PROPS",
+        },
+      ],
+    },
   ],
   valid: [
     ...allValid,
@@ -278,6 +352,53 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       export function ValuePicker({ Disabled, Hsv, onChange }: ValuePickerProps) {
         return <div />
       }
+    `,
+    // memo with generic
+    /* tsx */ `
+      import React, { memo } from "react";
+
+      type Props = { readonly id: string; readonly className: string };
+      const App = memo<Props>(({ id, className }) => {
+          return <div id={id} className={className} />
+      });
+    `,
+    // memo with generic and default props
+    /* tsx */ `
+      import React, { memo } from "react";
+
+      const defaultProps = { id: "default-id", className: "default-class" } as const;
+      type Props = typeof defaultProps;
+      const App = memo<Props>(({ id, className }) => {
+          return <div id={id} className={className} />
+      });
+    `,
+    // forwardRef with generic
+    /* tsx */ `
+      import React, { forwardRef } from "react";
+
+      type Props = { readonly id: string; readonly className: string };
+      const App = forwardRef<HTMLDivElement, Props>(({ id, className }, ref) => {
+          return <div id={id} className={className} ref={ref} />
+      });
+    `,
+    // forwardRef with generic and default props
+    /* tsx */ `
+      import React, { forwardRef } from "react";
+
+      const defaultProps = { id: "default-id", className: "default-class" } as const;
+      type Props = typeof defaultProps;
+      const App = forwardRef<HTMLDivElement, Props>(({ id, className }, ref) => {
+          return <div id={id} className={className} ref={ref} />
+      });
+    `,
+    // memo and forwardRef with generic
+    /* tsx */ `
+      import React, { memo, forwardRef } from "react";
+
+      type Props = { readonly id: string; readonly className: string };
+      const App = memo(forwardRef<HTMLDivElement, Props>(({ id, className }, ref) => {
+          return <div id={id} className={className} ref={ref} />
+      }));
     `,
   ],
 });
