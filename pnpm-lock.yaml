@@ -134,8 +134,8 @@ importers:
         specifier: 6.2.0
         version: 6.2.0(eslint@9.6.0)
       eslint-plugin-functional:
-        specifier: 6.6.1
-        version: 6.6.1(eslint@9.6.0)(typescript@5.5.3)
+        specifier: 6.6.3
+        version: 6.6.3(eslint@9.6.0)(typescript@5.5.3)
       eslint-plugin-import-x:
         specifier: 0.5.3
         version: 0.5.3(eslint@9.6.0)(typescript@5.5.3)
@@ -2492,6 +2492,7 @@ packages:
 
   bun@1.1.18:
     resolution: {integrity: sha512-bv1wLYtmkn6GCqYFsVO9xZzPvNaDlA3xHbtePGHMtXMqq8N/vo+L6b19LB4+I5RKXFAsSmgzonyh2oMExaaWcQ==}
+    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -3180,8 +3181,8 @@ packages:
     peerDependencies:
       eslint: ^9.6.0
 
-  eslint-plugin-functional@6.6.1:
-    resolution: {integrity: sha512-BXA0XtP2ygMh+3wx5zvX5cBcd54sq6l5ceOS9Yift3J7bp8oSAk7UVV7+i9wKuhtNoo11qiDEjjPuO/qxMQ98g==}
+  eslint-plugin-functional@6.6.3:
+    resolution: {integrity: sha512-sVbbvNvwX3HVkXAykKyoNLv57r4DPF7f1sy+/8j4YtzLYVQPGljMUWv3T6Kd4lwnnjmcKuj0EkIbS+knL6P5jw==}
     engines: {node: '>=16.10.0'}
     peerDependencies:
       eslint: ^9.6.0
@@ -3555,6 +3556,7 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -3725,6 +3727,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -8511,7 +8514,7 @@ snapshots:
       eslint: 9.6.0
       estraverse: 5.3.0
 
-  eslint-plugin-functional@6.6.1(eslint@9.6.0)(typescript@5.5.3):
+  eslint-plugin-functional@6.6.3(eslint@9.6.0)(typescript@5.5.3):
     dependencies:
       '@typescript-eslint/utils': 7.16.0(eslint@9.6.0)(typescript@5.5.3)
       deepmerge-ts: 5.1.0
