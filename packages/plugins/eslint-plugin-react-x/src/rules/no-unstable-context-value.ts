@@ -62,7 +62,7 @@ export default createRule<[], MessageID>({
         );
       },
       "Program:exit"(node) {
-        const components = Array.from(ctx.getAllComponents(node).values());
+        const components = ctx.getAllComponents(node).values();
         for (const { node: component } of components) {
           const constructions = possibleValueConstructions.get(component);
           if (!constructions) continue;

@@ -38,7 +38,7 @@ export default createRule<[], MessageID>({
         );
       },
       "Program:exit"(node) {
-        const components = Array.from(ctx.getAllComponents(node).values());
+        const components = ctx.getAllComponents(node).values();
         for (const { node: component } of components) {
           const createRefCalls = possibleCreateRefCalls.get(component);
           if (!createRefCalls) continue;
