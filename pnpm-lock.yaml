@@ -304,8 +304,8 @@ importers:
         version: 7.16.0(eslint@9.6.0)(typescript@5.5.3)
     devDependencies:
       effect:
-        specifier: 3.4.8
-        version: 3.4.8
+        specifier: 3.5.0
+        version: 3.5.0
       short-unique-id:
         specifier: 5.2.0
         version: 5.2.0
@@ -362,8 +362,8 @@ importers:
         version: 5.5.3
     devDependencies:
       effect:
-        specifier: 3.4.8
-        version: 3.4.8
+        specifier: 3.5.0
+        version: 3.5.0
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.39)(typescript@5.5.3)
@@ -410,6 +410,9 @@ importers:
         specifier: ^5.5.3
         version: 5.5.3
     devDependencies:
+      effect:
+        specifier: 3.5.0
+        version: 3.5.0
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.39)(typescript@5.5.3)
@@ -454,8 +457,8 @@ importers:
         version: 5.5.3
     devDependencies:
       effect:
-        specifier: 3.4.8
-        version: 3.4.8
+        specifier: 3.5.0
+        version: 3.5.0
       string-ts:
         specifier: 2.2.0
         version: 2.2.0
@@ -506,8 +509,8 @@ importers:
         version: 5.5.3
     devDependencies:
       effect:
-        specifier: 3.4.8
-        version: 3.4.8
+        specifier: 3.5.0
+        version: 3.5.0
       string-ts:
         specifier: 2.2.0
         version: 2.2.0
@@ -555,8 +558,8 @@ importers:
         version: 5.5.3
     devDependencies:
       effect:
-        specifier: 3.4.8
-        version: 3.4.8
+        specifier: 3.5.0
+        version: 3.5.0
       string-ts:
         specifier: 2.2.0
         version: 2.2.0
@@ -610,8 +613,8 @@ importers:
         version: 5.5.3
     devDependencies:
       effect:
-        specifier: 3.4.8
-        version: 3.4.8
+        specifier: 3.5.0
+        version: 3.5.0
       string-ts:
         specifier: 2.2.0
         version: 2.2.0
@@ -631,6 +634,9 @@ importers:
         specifier: ^0.36.0
         version: 0.36.0
     devDependencies:
+      effect:
+        specifier: 3.5.0
+        version: 3.5.0
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.39)(typescript@5.5.3)
@@ -640,6 +646,9 @@ importers:
 
   packages/tools:
     devDependencies:
+      effect:
+        specifier: 3.5.0
+        version: 3.5.0
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.39)(typescript@5.5.3)
@@ -656,6 +665,9 @@ importers:
         specifier: catalog:tseslint7
         version: 7.16.0(eslint@9.6.0)(typescript@5.5.3)
     devDependencies:
+      effect:
+        specifier: 3.5.0
+        version: 3.5.0
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.39)(typescript@5.5.3)
@@ -682,8 +694,8 @@ importers:
         version: 7.16.0(eslint@9.6.0)(typescript@5.5.3)
     devDependencies:
       effect:
-        specifier: 3.4.8
-        version: 3.4.8
+        specifier: 3.5.0
+        version: 3.5.0
       string-ts:
         specifier: 2.2.0
         version: 2.2.0
@@ -719,8 +731,8 @@ importers:
         version: 7.16.0(eslint@9.6.0)(typescript@5.5.3)
     devDependencies:
       effect:
-        specifier: 3.4.8
-        version: 3.4.8
+        specifier: 3.5.0
+        version: 3.5.0
       ts-pattern:
         specifier: 5.2.0
         version: 5.2.0
@@ -750,8 +762,8 @@ importers:
         version: 7.16.0(eslint@9.6.0)(typescript@5.5.3)
     devDependencies:
       effect:
-        specifier: 3.4.8
-        version: 3.4.8
+        specifier: 3.5.0
+        version: 3.5.0
       string-ts:
         specifier: 2.2.0
         version: 2.2.0
@@ -817,8 +829,8 @@ importers:
         specifier: 10.4.19
         version: 10.4.19(postcss@8.4.39)
       effect:
-        specifier: 3.4.8
-        version: 3.4.8
+        specifier: 3.5.0
+        version: 3.5.0
       eslint:
         specifier: ^9.6.0
         version: 9.6.0
@@ -2483,7 +2495,6 @@ packages:
 
   bun@1.1.18:
     resolution: {integrity: sha512-bv1wLYtmkn6GCqYFsVO9xZzPvNaDlA3xHbtePGHMtXMqq8N/vo+L6b19LB4+I5RKXFAsSmgzonyh2oMExaaWcQ==}
-    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -3075,6 +3086,9 @@ packages:
   effect@3.4.8:
     resolution: {integrity: sha512-qOQNrSSN3ITuAtARtN2Ldq6E5f42splY9VV18LqpKOXMwQCCEWkXdns4by3D2CJnDXQD2KCE0iGcRR2KowiQIA==}
 
+  effect@3.5.0:
+    resolution: {integrity: sha512-q4JBEXYnFgbGsuxY03yUdkdMI7N2d2sMS93ulZle+a0M2Mt/rJv9xFDotkaxJILzYK2v6Uu5qJBOBJ0RD1OGCg==}
+
   electron-to-chromium@1.4.823:
     resolution: {integrity: sha512-4h+oPeAiGQOHFyUJOqpoEcPj/xxlicxBzOErVeYVMMmAiXUXsGpsFd0QXBMaUUbnD8hhSfLf9uw+MlsoIA7j5w==}
 
@@ -3544,7 +3558,6 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
-    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -3715,7 +3728,6 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
-    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -8384,6 +8396,8 @@ snapshots:
   effect@3.3.2: {}
 
   effect@3.4.8: {}
+
+  effect@3.5.0: {}
 
   electron-to-chromium@1.4.823: {}
 

@@ -46,6 +46,7 @@
     "valibot": "^0.36.0"
   },
   "devDependencies": {
+    "effect": "3.5.0",
     "tsup": "8.1.0",
     "type-fest": "4.21.0"
   }
