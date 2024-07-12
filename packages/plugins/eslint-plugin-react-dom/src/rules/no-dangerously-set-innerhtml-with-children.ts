@@ -1,10 +1,11 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import { isCreateElementCall } from "@eslint-react/core";
 import { findPropInProperties, hasProp, isLineBreak } from "@eslint-react/jsx";
+// import { Function as F, Option as O, Predicate as Pred } from "effect";
+import { F, O, Pred } from "@eslint-react/tools";
 import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Function as F, Option as O, Predicate as Prd } from "effect";
 import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
 
@@ -17,7 +18,7 @@ export type MessageID = ConstantCase<typeof RULE_NAME>;
 function firstChildIsText(node: TSESTree.JSXElement) {
   const [firstChild] = node.children;
   return node.children.length > 0
-    && !Prd.isNullable(firstChild)
+    && !Pred.isNullable(firstChild)
     && !isLineBreak(firstChild);
 }
 

@@ -1,3 +1,9 @@
+## v1.5.25 (Draft)
+
+### 🪄 Improvements
+
+- Optimize bundle size.
+
 ## v1.5.24 (Thu 11 Jul 2024)
 
 ### 🐞 Fixes

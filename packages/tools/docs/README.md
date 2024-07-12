@@ -4,6 +4,18 @@
 
 # @eslint-react/tools
 
+## Namespaces
+
+- [Chunk](namespaces/Chunk/README.md)
+- [Data](namespaces/Data/README.md)
+- [E](namespaces/E/README.md)
+- [F](namespaces/F/README.md)
+- [MutList](namespaces/MutList/README.md)
+- [MutRef](namespaces/MutRef/README.md)
+- [O](namespaces/O/README.md)
+- [Pred](namespaces/Pred/README.md)
+- [Record](namespaces/Record/README.md)
+
 ## Type Aliases
 
 - [ArrayElement](type-aliases/ArrayElement.md)

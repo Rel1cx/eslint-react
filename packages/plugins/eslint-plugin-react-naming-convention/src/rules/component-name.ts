@@ -2,9 +2,10 @@ import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
 import { elementType } from "@eslint-react/jsx";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
+// import { Option as O, Predicate as Prd } from "effect";
+import { O, Pred } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-import { Option as O, Predicate as Prd } from "effect";
 import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
 
@@ -73,8 +74,8 @@ export default createRule<Options, MessageID>({
   name: RULE_NAME,
   create(context) {
     const options = context.options[0] ?? defaultOptions[0];
-    const excepts = Prd.isString(options) ? [] : options.excepts ?? [];
-    const rule = Prd.isString(options) ? options : options.rule ?? "PascalCase";
+    const excepts = Pred.isString(options) ? [] : options.excepts ?? [];
+    const rule = Pred.isString(options) ? options : options.rule ?? "PascalCase";
 
     function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
       if (ignores.map((pattern) => new RegExp(pattern, "u")).some((pattern) => pattern.test(name))) {

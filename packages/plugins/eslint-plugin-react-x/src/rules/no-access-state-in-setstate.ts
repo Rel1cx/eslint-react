@@ -1,7 +1,8 @@
 import { isKeyLiteralLike, isThisExpression, NodeType } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
+// import { MutableList as MutList, Option as O } from "effect";
+import { MutList, O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import { MutableList as MutList, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";

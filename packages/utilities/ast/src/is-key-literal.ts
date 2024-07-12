@@ -1,5 +1,6 @@
+// import { Function as F } from "effect";
+import { F } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-import { Function as F } from "effect";
 import { match } from "ts-pattern";
 
 import { NodeType } from "./types";

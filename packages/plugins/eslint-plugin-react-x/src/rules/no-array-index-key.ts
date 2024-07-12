@@ -1,9 +1,10 @@
 import { isOneOf, NodeType } from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
+// import { Option as O, Record } from "effect";
+import { O, Record } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { Option as O, Record } from "effect";
 import type { ConstantCase } from "string-ts";
 import { isMatching, match, P } from "ts-pattern";
 

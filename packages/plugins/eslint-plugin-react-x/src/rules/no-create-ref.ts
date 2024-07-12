@@ -2,7 +2,7 @@ import type { TSESTreeFunction } from "@eslint-react/ast";
 import { isCreateRefCall, useComponentCollector } from "@eslint-react/core";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Option as O } from "effect";
+import { O } from "@eslint-react/tools";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";

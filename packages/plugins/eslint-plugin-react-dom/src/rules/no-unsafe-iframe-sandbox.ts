@@ -1,8 +1,9 @@
 import { NodeType } from "@eslint-react/ast";
 import { isCreateElementCall } from "@eslint-react/core";
 import { findPropInAttributes, findPropInProperties, getPropValue } from "@eslint-react/jsx";
+// import { Function as F, Option as O, Predicate as Prd } from "effect";
+import { F, O, Pred } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Function as F, Option as O, Predicate as Prd } from "effect";
 import type { ConstantCase } from "string-ts";
 import { isMatching, P } from "ts-pattern";
 
@@ -50,7 +51,7 @@ export default createRule<[], MessageID>({
           })),
           O.flatMapNullable(v => "value" in v ? v.value : null),
           O.flatMapNullable(v => "value" in v ? v.value : null),
-          O.filter(Prd.isString),
+          O.filter(Pred.isString),
           O.map(v => v.split(" ")),
           O.exists(values =>
             unsafeCombinations.some(combinations => combinations.every(unsafeValue => values.includes(unsafeValue)))
@@ -72,7 +73,7 @@ export default createRule<[], MessageID>({
         const isSafeSandboxValue = !F.pipe(
           getPropValue(maybeSandboxAttribute.value, context),
           O.flatMapNullable(v => v?.value),
-          O.filter(Prd.isString),
+          O.filter(Pred.isString),
           O.map((value) => value.split(" ")),
           O.exists(values =>
             unsafeCombinations.some(combinations => combinations.every(unsafeValue => values.includes(unsafeValue)))

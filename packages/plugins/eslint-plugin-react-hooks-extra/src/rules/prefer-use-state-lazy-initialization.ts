@@ -2,8 +2,9 @@
 import { getNestedCallExpressions } from "@eslint-react/ast";
 import { isReactHookCall, isReactHookCallWithNameLoose, isUseStateCall } from "@eslint-react/core";
 import { getESLintReactSettings } from "@eslint-react/shared";
+// import { Function as F } from "effect";
+import { F } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Function as F } from "effect";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";

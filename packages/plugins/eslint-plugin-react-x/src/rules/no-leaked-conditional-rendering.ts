@@ -1,11 +1,12 @@
 import { isJSX, NodeType } from "@eslint-react/ast";
+// import { Function as F, Option as O } from "effect";
+import { F, O } from "@eslint-react/tools";
 import { findVariable, getVariableInitExpression } from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { Function as F, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 import { isFalseLiteralType, isTrueLiteralType, isTypeFlagSet, unionTypeParts } from "ts-api-utils";
 import { isMatching, match } from "ts-pattern";

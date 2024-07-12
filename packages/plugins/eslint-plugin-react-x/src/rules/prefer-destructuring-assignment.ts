@@ -1,10 +1,11 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import { getFunctionIdentifier, isFunction, NodeType } from "@eslint-react/ast";
 import { isComponentName, useComponentCollector } from "@eslint-react/core";
+// import { MutableRef as MutRef, Option as O } from "effect";
+import { MutRef, O } from "@eslint-react/tools";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { MutableRef as MutRef, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 import { isMatching } from "ts-pattern";
 

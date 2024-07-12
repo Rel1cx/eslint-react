@@ -3,7 +3,7 @@ import { ConstructionHint, inspectConstruction, NodeType, readableNodeType } fro
 import { useComponentCollector } from "@eslint-react/core";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Option as O } from "effect";
+import { O } from "@eslint-react/tools";
 import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
 

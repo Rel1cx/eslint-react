@@ -1,9 +1,10 @@
 import { ESLintCommunityESLintUtils, is, NodeType } from "@eslint-react/ast";
+// import { Function as F, Option as O } from "effect";
+import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { Function as F, Option as O } from "effect";
 import { match } from "ts-pattern";
 
 const { getStaticValue } = ESLintCommunityESLintUtils;

@@ -1,8 +1,9 @@
+// import { Predicate as Pred } from "effect";
+import { Pred } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-import { Predicate as Prd } from "effect";
 
 import { NodeType } from "./types";
 
 export function isStringLiteral(node: TSESTree.Node): node is TSESTree.StringLiteral {
-  return node.type === NodeType.Literal && Prd.isString(node.value);
+  return node.type === NodeType.Literal && Pred.isString(node.value);
 }

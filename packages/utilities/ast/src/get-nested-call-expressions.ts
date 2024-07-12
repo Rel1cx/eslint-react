@@ -1,5 +1,6 @@
+// import { Chunk, MutableRef as MutRef } from "effect";
+import { Chunk, MutRef } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-import { Chunk, MutableRef as MutRef } from "effect";
 
 import { NodeType } from "./types";
 

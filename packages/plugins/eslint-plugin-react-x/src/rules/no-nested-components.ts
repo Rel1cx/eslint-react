@@ -12,7 +12,7 @@ import {
 import { traverseUpProp } from "@eslint-react/jsx";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Option as O } from "effect";
+import { O } from "@eslint-react/tools";
 
 import { createRule } from "../utils";
 

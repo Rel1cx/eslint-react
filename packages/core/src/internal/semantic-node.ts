@@ -1,5 +1,6 @@
+// import type { Option as O } from "effect";
+import type { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-import type { Option as O } from "effect";
 
 export interface ERSemanticNode {
   _: string;

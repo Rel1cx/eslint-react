@@ -1,7 +1,8 @@
 import { RE_CAMEL_CASE, RE_KEBAB_CASE, RE_PASCAL_CASE, RE_SNAKE_CASE } from "@eslint-react/shared";
+// import { Predicate as Prd } from "effect";
+import { Pred } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-import { Predicate as Prd } from "effect";
 import path from "pathe";
 import { camelCase, kebabCase, pascalCase, snakeCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -90,9 +91,9 @@ export default createRule<Options, MessageID>({
   name: RULE_NAME,
   create(context) {
     const options = context.options[0] ?? defaultOptions[0];
-    const rule = Prd.isString(options) ? options : options.rule ?? "PascalCase";
-    const excepts = Prd.isString(options) ? [] : options.excepts ?? [];
-    const extensions = Prd.isObject(options) && "extensions" in options
+    const rule = Pred.isString(options) ? options : options.rule ?? "PascalCase";
+    const excepts = Pred.isString(options) ? [] : options.excepts ?? [];
+    const extensions = Pred.isObject(options) && "extensions" in options
       ? options.extensions
       : defaultOptions[0].extensions;
 

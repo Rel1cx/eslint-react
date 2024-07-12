@@ -1,6 +1,7 @@
+// import { MutableRef as MutRef, Predicate as Prd } from "effect";
+import { MutRef, Pred } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-import { MutableRef as MutRef, Predicate as Prd } from "effect";
 
 import { createRule } from "../utils";
 
@@ -71,8 +72,8 @@ export default createRule<Options, MessageID>({
   name: RULE_NAME,
   create(context) {
     const options = context.options[0] ?? defaultOptions[0];
-    const allow = Prd.isObject(options) ? options.allow : options;
-    const extensions = Prd.isObject(options) && "extensions" in options
+    const allow = Pred.isObject(options) ? options.allow : options;
+    const extensions = Pred.isObject(options) && "extensions" in options
       ? options.extensions
       : defaultOptions[0].extensions;
 

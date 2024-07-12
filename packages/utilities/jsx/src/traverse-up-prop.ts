@@ -1,7 +1,9 @@
 import { NodeType, traverseUpGuard } from "@eslint-react/ast";
+// import type { Option as O } from "effect";
+// import { Function as F } from "effect";
+import type { O } from "@eslint-react/tools";
+import { F } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-import type { Option as O } from "effect";
-import { Function as F } from "effect";
 
 /**
  * Traverses up prop node

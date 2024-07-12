@@ -3,7 +3,7 @@ import { getFunctionIdentifier, isFunction, NodeType } from "@eslint-react/ast";
 import { isJSXValue, JSXValueHint } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
-import { Option as O } from "effect";
+import { O } from "@eslint-react/tools";
 import { isMatching, P } from "ts-pattern";
 
 /**
