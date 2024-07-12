@@ -1,6 +1,6 @@
 import { getNestedReturnStatements, is, isMapCallLoose, isNodeEqual, isOneOf, NodeType } from "@eslint-react/ast";
 import { findPropInAttributes } from "@eslint-react/jsx";
-// import { Function as F, MutableRef as MutRef, Option as O } from "effect";
+
 import { F, MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";

@@ -1,4 +1,3 @@
-// import type { Option as O } from "effect";
 import type { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 

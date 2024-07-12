@@ -1,5 +1,5 @@
 import { ERFunctionComponentFlag, useComponentCollector } from "@eslint-react/core";
-// import { Function as F, Option as O } from "effect";
+
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";

@@ -1,5 +1,3 @@
-// import { nodeTypes } from "@mdx-js/mdx"
-// import rehypeRaw from "rehype-raw"
 import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
 import nextra from "nextra";
 import codeImport from "remark-code-import";

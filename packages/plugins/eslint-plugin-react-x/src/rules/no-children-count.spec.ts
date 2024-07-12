@@ -80,7 +80,7 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     ...allValid,
     /* tsx */ `
-      // import { Children } from 'react';
+
 
       const Children = {
         count: () => 1,

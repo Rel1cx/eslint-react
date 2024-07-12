@@ -1,5 +1,5 @@
 import { isJSX, NodeType } from "@eslint-react/ast";
-// import { Function as F, Option as O } from "effect";
+
 import { F, O } from "@eslint-react/tools";
 import { findVariable, getVariableInitExpression } from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";

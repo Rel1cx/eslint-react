@@ -1,6 +1,6 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import { getESLintReactSettings } from "@eslint-react/shared";
-// import { Option as O, Predicate as Pred } from "effect";
+
 import { O, Pred } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable } from "@eslint-react/var";

@@ -1,4 +1,3 @@
-// import { MutableRef as MutRef, Predicate as Prd } from "effect";
 import { MutRef, Pred } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";

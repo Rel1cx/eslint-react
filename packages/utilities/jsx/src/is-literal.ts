@@ -1,5 +1,5 @@
 import { isMultiLine, isOneOf, NodeType } from "@eslint-react/ast";
-// import { Predicate as Pred } from "effect";
+
 import { Pred } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 

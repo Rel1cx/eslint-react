@@ -1,4 +1,3 @@
-// import { Option as O, Predicate as Pred } from "effect";
 import { O, Pred } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { DefinitionType } from "@typescript-eslint/scope-manager";

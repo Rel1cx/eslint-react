@@ -1,6 +1,6 @@
 import type { TSESTreeClass } from "@eslint-react/ast";
 import { getClassIdentifier, NodeType } from "@eslint-react/ast";
-// import { O } from "@eslint-react/tools";
+
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import ShortUniqueId from "short-unique-id";

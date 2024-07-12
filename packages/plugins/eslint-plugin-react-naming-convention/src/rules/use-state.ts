@@ -1,7 +1,7 @@
 import { NodeType } from "@eslint-react/ast";
 import { isReactHookCallWithNameLoose, isUseStateCall, useComponentCollector } from "@eslint-react/core";
 import { getESLintReactSettings } from "@eslint-react/shared";
-// import { Function as F, Option as O, Predicate as Prd } from "effect";
+
 import { F, O, Pred } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";

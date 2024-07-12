@@ -1,5 +1,5 @@
 import { is, NodeType, traverseUpGuard } from "@eslint-react/ast";
-// import { Function as F, Option as O } from "effect";
+
 import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import { isMatching, P } from "ts-pattern";
