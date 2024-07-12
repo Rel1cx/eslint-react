@@ -1,5 +1,4 @@
 import { NodeType } from "@eslint-react/ast";
-
 import { F, O } from "@eslint-react/tools";
 import type { Variable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";

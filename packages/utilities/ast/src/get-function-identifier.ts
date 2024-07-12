@@ -7,8 +7,8 @@
  * same AST nodes with some exceptions to better fit our use case.
  */
 
-import type { TSESTree } from "@typescript-eslint/types";
 import { O } from "@eslint-react/tools";
+import type { TSESTree } from "@typescript-eslint/types";
 
 import { isOneOf } from "./is";
 import type { TSESTreeFunction } from "./types";

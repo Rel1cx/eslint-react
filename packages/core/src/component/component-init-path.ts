@@ -1,7 +1,6 @@
 /* eslint-disable perfectionist/sort-union-types */
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import { NodeType } from "@eslint-react/ast";
-
 import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import { isMatching } from "ts-pattern";

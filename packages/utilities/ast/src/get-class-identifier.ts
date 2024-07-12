@@ -1,5 +1,5 @@
-import type { TSESTree } from "@typescript-eslint/types";
 import { O } from "@eslint-react/tools";
+import type { TSESTree } from "@typescript-eslint/types";
 
 import type { TSESTreeClass } from "./types";
 import { NodeType } from "./types";

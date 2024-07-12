@@ -1,7 +1,6 @@
 import { NodeType } from "@eslint-react/ast";
 import { getPropValue } from "@eslint-react/jsx";
 import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/shared";
-
 import { F, O, Pred } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";

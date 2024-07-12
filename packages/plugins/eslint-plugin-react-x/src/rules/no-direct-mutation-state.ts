@@ -1,7 +1,7 @@
 import { isOneOf, isThisExpression, NodeType, traverseUpGuard } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
-import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { O } from "@eslint-react/tools";
+import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";

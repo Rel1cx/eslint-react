@@ -11,7 +11,6 @@ import {
   traverseUp,
 } from "@eslint-react/ast";
 import { isJSXValue } from "@eslint-react/jsx";
-
 import { F, MutList, MutRef, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";

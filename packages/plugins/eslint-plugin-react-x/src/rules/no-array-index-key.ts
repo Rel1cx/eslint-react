@@ -1,6 +1,5 @@
 import { isOneOf, NodeType } from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
-
 import { O, Record } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";

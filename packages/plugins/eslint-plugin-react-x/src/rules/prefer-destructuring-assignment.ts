@@ -1,7 +1,6 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import { getFunctionIdentifier, isFunction, NodeType } from "@eslint-react/ast";
 import { isComponentName, useComponentCollector } from "@eslint-react/core";
-
 import { MutRef, O } from "@eslint-react/tools";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";

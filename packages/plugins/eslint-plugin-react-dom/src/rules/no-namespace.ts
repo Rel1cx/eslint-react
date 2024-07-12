@@ -1,6 +1,5 @@
 import { isCreateElementCall } from "@eslint-react/core";
 import { elementType } from "@eslint-react/jsx";
-
 import { Pred } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";

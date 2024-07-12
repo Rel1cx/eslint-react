@@ -1,6 +1,5 @@
 import type { TSESTreeClass } from "@eslint-react/ast";
 import { isClass } from "@eslint-react/ast";
-
 import { F, MutRef, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";

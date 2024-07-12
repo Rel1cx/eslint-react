@@ -1,7 +1,6 @@
 import { is, NodeType } from "@eslint-react/ast";
 import { isReactHookCall, isReactHookCallWithNameLoose, isUseMemoCall } from "@eslint-react/core";
 import { getESLintReactSettings } from "@eslint-react/shared";
-
 import { F, O } from "@eslint-react/tools";
 import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { ESLintUtils } from "@typescript-eslint/utils";

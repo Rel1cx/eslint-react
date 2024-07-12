@@ -1,5 +1,4 @@
 import { isJSXTagNameExpression, NodeType } from "@eslint-react/ast";
-
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable, getVariableInit } from "@eslint-react/var";

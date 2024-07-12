@@ -1,7 +1,6 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import { isCreateElementCall } from "@eslint-react/core";
 import { findPropInProperties, hasProp, isLineBreak } from "@eslint-react/jsx";
-
 import { F, O, Pred } from "@eslint-react/tools";
 import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";

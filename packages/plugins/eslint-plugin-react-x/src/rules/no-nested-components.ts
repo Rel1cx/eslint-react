@@ -10,9 +10,9 @@ import {
   useComponentCollectorLegacy,
 } from "@eslint-react/core";
 import { traverseUpProp } from "@eslint-react/jsx";
+import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { O } from "@eslint-react/tools";
 
 import { createRule } from "../utils";
 

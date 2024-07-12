@@ -1,6 +1,5 @@
 import { is, NodeType } from "@eslint-react/ast";
 import { findPropInAttributes } from "@eslint-react/jsx";
-
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
