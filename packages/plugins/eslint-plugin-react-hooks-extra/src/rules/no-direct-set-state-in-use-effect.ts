@@ -19,10 +19,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow direct calls to the 'set' function of 'useState' in 'useEffect'.",
+      description: "disallow direct calls to the 'set' function of 'useState' in 'useEffect'",
     },
     messages: {
-      NO_DIRECT_SET_STATE_IN_USE_EFFECT: "Do not call the set function of 'useState' directly in 'useEffect'.",
+      NO_DIRECT_SET_STATE_IN_USE_EFFECT: "Do not call the 'set' function of 'useState' directly in 'useEffect'.",
     },
     schema: [],
   },
@@ -36,15 +36,16 @@ export default createRule<[], MessageID>({
     function isUseStateCallWithAlias(node: TSESTree.CallExpression, context: RuleContext) {
       return (isUseStateCall(node, context) || useStateAlias.some(F.flip(isReactHookCallWithNameLoose)(node)));
     }
+    function isEffectFunction(node: TSESTree.Node) {
+      return node.parent?.type === NodeType.CallExpression
+        && isUseEffectCallWithAlias(node.parent, context);
+    }
+    // TODO: support detecting effect cleanup functions as well or add a separate rule for that called `no-direct-set-state-in-use-effect-cleanup`
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    function isCleanUpFunction(node: TSESTree.Node) {}
     return {
       CallExpression(node) {
-        const effectFunction = traverseUp(
-          node,
-          (n) =>
-            n.parent?.type === NodeType.CallExpression
-            && isUseEffectCallWithAlias(n.parent, context),
-        );
-        // TODO: support detecting effect cleanup functions as well or add a separate rule for that called `no-direct-set-state-in-use-effect-cleanup`
+        const effectFunction = traverseUp(node, isEffectFunction);
         if (O.isNone(effectFunction)) return;
         const scope = context.sourceCode.getScope(node);
         if (scope.block !== effectFunction.value) return;
