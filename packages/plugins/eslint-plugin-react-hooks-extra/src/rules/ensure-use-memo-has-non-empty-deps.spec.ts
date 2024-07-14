@@ -8,7 +8,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useMemo } from "react";
 
         const Comp = () => {
-          const style = useMemo((theme: MantineTheme) => ({
+          const style = useMemo((theme) => ({
             input: {
               fontFamily: theme.fontFamilyMonospace
             }
@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         const deps = [];
         const Comp = () => {
-          const style = useMemo((theme: MantineTheme) => ({
+          const style = useMemo((theme) => ({
             input: {
               fontFamily: theme.fontFamilyMonospace
             }
@@ -48,7 +48,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         const Comp = () => {
           const deps = [];
-          const style = useMemo((theme: MantineTheme) => ({
+          const style = useMemo((theme) => ({
             input: {
               fontFamily: theme.fontFamilyMonospace
             }
@@ -432,17 +432,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
-      import { useState, useCallback } from "react";
-
-      function MyComponent() {
-        const [showSnapshot, setShowSnapshot] = useState(false);
-        const handleSnapshot = useMemo(() => () => setShowSnapshot(true), []);
-
-        return null;
-      }
-    `,
-    /* tsx */ `
-      import { useCallback } from "react";
+      import { useMemo } from "react";
 
       const Comp = () => {
       const [width, setWidth] = useState<undefined | number>(undefined)
@@ -456,6 +446,23 @@ ruleTester.run(RULE_NAME, rule, {
                       setWrapperName: setTitle,
                   }
               }, [])
+      };
+    `,
+    /* tsx */ `
+      import { useMemo } from "react";
+      const deps = []
+      const Comp = () => {
+      const [width, setWidth] = useState<undefined | number>(undefined)
+              const [open, setOpen] = useState<boolean>(false)
+              const [title, setTitle] = useState<string | undefined>(undefined)
+              const cb = () => {
+                  return {
+                      setWidth,
+                      setWrap: setOpen,
+                      setWrapperName: setTitle,
+                  }
+              }
+              const refItem = useMemo(cb, deps)
       };
     `,
   ],

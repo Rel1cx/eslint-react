@@ -493,5 +493,22 @@ ruleTester.run(RULE_NAME, rule, {
               }, [])
       };
     `,
+    /* tsx */ `
+      import { useCallback } from "react";
+      const deps = []
+      const Comp = () => {
+      const [width, setWidth] = useState<undefined | number>(undefined)
+              const [open, setOpen] = useState<boolean>(false)
+              const [title, setTitle] = useState<string | undefined>(undefined)
+              const cb = () => {
+                  return {
+                      setWidth,
+                      setWrap: setOpen,
+                      setWrapperName: setTitle,
+                  }
+              }
+              const refItem = useCallback(cb, deps)
+      };
+    `,
   ],
 });
