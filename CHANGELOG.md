@@ -3,6 +3,13 @@
 ### ✨ New
 
 - Add rule `hooks-extra/no-direct-set-state-in-use-effect`.
+- Add rule `hooks-extra/no-direct-set-state-in-use-layout-effect`.
+
+### 🪄 Improvements
+
+- Add rule `hooks-extra/no-direct-set-state-in-use-effect` to recommended presets.
+- Add rule `hooks-extra/no-direct-set-state-in-use-layout-effect` to recommended presets.
+- Add rule `hooks-extra/prefer-use-state-lazy-initialization` to recommended presets.
 
 ## v1.5.25 (Sat 13 Jul 2024)
 

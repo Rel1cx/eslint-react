@@ -74,6 +74,8 @@ const allPreset = {
   "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
   "hooks-extra/ensure-use-callback-has-non-empty-deps": "warn",
   "hooks-extra/ensure-use-memo-has-non-empty-deps": "warn",
+  "hooks-extra/no-direct-set-state-in-use-effect": "warn",
+  "hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
   "hooks-extra/prefer-use-state-lazy-initialization": "warn",
 
   "naming-convention/component-name": "warn",
@@ -83,6 +85,7 @@ const allPreset = {
 } as const satisfies RulePreset;
 
 const recommendedPreset = {
+  // Part: react rules
   // "avoid-shorthand-boolean": "warn",
   // "avoid-shorthand-fragment": "warn",
   "ensure-forward-ref-using-ref": "warn",
@@ -126,7 +129,7 @@ const recommendedPreset = {
   // "prefer-destructuring-assignment": "warn",
   // "prefer-shorthand-boolean": "warn",
   // "prefer-shorthand-fragment": "warn",
-  // eslint-disable-next-line perfectionist/sort-objects
+  // Part: react-dom rules
   "dom/no-children-in-void-dom-elements": "warn",
   "dom/no-dangerously-set-innerhtml": "warn",
   "dom/no-dangerously-set-innerhtml-with-children": "error",
@@ -138,6 +141,13 @@ const recommendedPreset = {
   "dom/no-script-url": "warn",
   "dom/no-unsafe-iframe-sandbox": "warn",
   "dom/no-unsafe-target-blank": "warn",
+  // Part: react-hooks-extra rules
+  // "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
+  // "hooks-extra/ensure-use-callback-has-non-empty-deps": "warn",
+  // "hooks-extra/ensure-use-memo-has-non-empty-deps": "warn",
+  "hooks-extra/no-direct-set-state-in-use-effect": "warn",
+  "hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
+  "hooks-extra/prefer-use-state-lazy-initialization": "warn",
 } as const satisfies RulePreset;
 
 const recommendedTypeCheckedPreset = {

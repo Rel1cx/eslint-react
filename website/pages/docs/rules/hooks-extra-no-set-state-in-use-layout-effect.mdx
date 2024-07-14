@@ -1,0 +1,58 @@
+# no-direct-set-state-in-use-effect
+
+## Rule category
+
+Correctness.
+
+## What it does
+
+Disallow direct calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useLayoutEffect`.
+
+## Why is this bad?
+
+Calling `setState` directly in `useLayoutEffect` is a common bad practice. It can lead to infinite update loops and other side effects.
+
+## Examples
+
+### Failing
+
+```tsx twoslash
+import React, { useLayoutEffect, useState } from "react";
+
+function Example() {
+  const [value, setValue] = useState(0);
+
+  useLayoutEffect(() => {
+    setValue(value + 1);
+    // ^^^^^^^^^^^^^^^^^
+    // - Do not call the 'set' function of 'useState' directly in 'useLayoutEffect'.
+  }, []);
+
+  return null;
+}
+```
+
+### Passing
+
+```tsx twoslash
+import React, { useLayoutEffect, useState } from "react";
+
+function Example() {
+  const [value, setValue] = useState(0);
+
+  useLayoutEffect(() => {
+    const onLoad = () => {
+      setValue(value + 1);
+    };
+    // ...
+  }, []);
+
+  return null;
+}
+```
+
+### Further Reading
+
+- [React: useState](https://react.dev/reference/react/useState#setstate)
+- [React: useLayoutEffect](https://react.dev/reference/react/useLayoutEffect)
+- [React: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)

@@ -1,5 +1,5 @@
 import { is, NodeType, traverseUp } from "@eslint-react/ast";
-import { isReactHookCallWithNameLoose, isUseEffectCall, isUseStateCall } from "@eslint-react/core";
+import { isReactHookCallWithNameLoose, isUseLayoutEffectCall, isUseStateCall } from "@eslint-react/core";
 import { getESLintReactSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
@@ -11,7 +11,7 @@ import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "no-direct-set-state-in-use-effect";
+export const RULE_NAME = "no-direct-set-state-in-use-layout-effect";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
@@ -19,28 +19,30 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow direct calls to the 'set' function of 'useState' in 'useEffect'",
+      description: "disallow direct calls to the 'set' function of 'useState' in 'useLayoutEffect'",
     },
     messages: {
-      NO_DIRECT_SET_STATE_IN_USE_EFFECT: "Do not call the 'set' function of 'useState' directly in 'useEffect'.",
+      NO_DIRECT_SET_STATE_IN_USE_LAYOUT_EFFECT:
+        "Do not call the 'set' function of 'useState' directly in 'useLayoutEffect'.",
     },
     schema: [],
   },
   name: RULE_NAME,
   create(context) {
     const settings = getESLintReactSettings(context.settings);
-    const { useEffect: useEffectAlias = [], useState: useStateAlias = [] } = settings.additionalHooks ?? {};
-    function isUseEffectCallWithAlias(node: TSESTree.CallExpression, context: RuleContext) {
-      return isUseEffectCall(node, context) || useEffectAlias.some(F.flip(isReactHookCallWithNameLoose)(node));
+    const { useLayoutEffect: useLayoutEffectAlias = [], useState: useStateAlias = [] } = settings.additionalHooks ?? {};
+    function isUseLayoutEffectCallWithAlias(node: TSESTree.CallExpression, context: RuleContext) {
+      return isUseLayoutEffectCall(node, context)
+        || useLayoutEffectAlias.some(F.flip(isReactHookCallWithNameLoose)(node));
     }
     function isUseStateCallWithAlias(node: TSESTree.CallExpression, context: RuleContext) {
       return isUseStateCall(node, context) || useStateAlias.some(F.flip(isReactHookCallWithNameLoose)(node));
     }
     function isEffectFunction(node: TSESTree.Node) {
       return node.parent?.type === NodeType.CallExpression
-        && isUseEffectCallWithAlias(node.parent, context);
+        && isUseLayoutEffectCallWithAlias(node.parent, context);
     }
-    // TODO: support detecting effect cleanup functions as well or add a separate rule for that called `no-direct-set-state-in-use-effect-cleanup`
+    // TODO: support detecting effect cleanup functions as well or add a separate rule for that called `no-direct-set-state-in-use-layout-effect-cleanup`
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function isCleanUpFunction(node: TSESTree.Node) {}
     return {
@@ -98,7 +100,7 @@ export default createRule<[], MessageID>({
             data: {
               setState: name,
             },
-            messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT",
+            messageId: "NO_DIRECT_SET_STATE_IN_USE_LAYOUT_EFFECT",
             node,
           } as const)),
           O.map(context.report),
