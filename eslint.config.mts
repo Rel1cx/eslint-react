@@ -249,6 +249,7 @@ const config: FlatConfig[] = [
     },
   },
   {
+    extends: [tseslint.configs.disableTypeChecked],
     files: [
       "**/*.spec.{ts,tsx,cts,mts}",
       "**/*.test.{ts,tsx,cts,mts}",
@@ -267,11 +268,6 @@ const config: FlatConfig[] = [
     rules: {
       ...vitest.configs.recommended.rules,
       "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
-      "@typescript-eslint/no-non-null-assertion": "off",
-      "@typescript-eslint/no-unsafe-assignment": "off",
-      "@typescript-eslint/no-unsafe-call": "off",
-      "@typescript-eslint/no-unsafe-member-access": "off",
-      "@typescript-eslint/no-unsafe-return": "off",
     },
   },
   {
