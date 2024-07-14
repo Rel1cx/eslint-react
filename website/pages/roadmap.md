@@ -75,12 +75,12 @@
 
 ### Rules in `eslint-plugin-react-hooks-extra`
 
-| Rule                                    | Description                                                                 |
-| :-------------------------------------- | :-------------------------------------------------------------------------- |
-| `ensure-custom-hooks-using-other-hooks` | Warns when custom Hooks that don't use other Hooks.                         |
-| `no-set-state-in-use-effect`            | Disallow direct calls to `set` function of `useState` in `useEffect`.       |
-| `no-set-state-in-use-layout-effect`     | Disallow direct calls to `set` function of `useState` in `useLayoutEffect`. |
-| `prefer-use-state-lazy-initialization`  | Warns function calls made inside `useState` calls.                          |
+| Rule                                       | Description                                                                 |
+| :----------------------------------------- | :-------------------------------------------------------------------------- |
+| `ensure-custom-hooks-using-other-hooks`    | Warns when custom Hooks that don't use other Hooks.                         |
+| `no-direct-set-state-in-use-effect`        | Disallow direct calls to `set` function of `useState` in `useEffect`.       |
+| `no-direct-set-state-in-use-layout-effect` | Disallow direct calls to `set` function of `useState` in `useLayoutEffect`. |
+| `prefer-use-state-lazy-initialization`     | Warns function calls made inside `useState` calls.                          |
 
 ### Rules in `eslint-plugin-react-naming-convention`
 

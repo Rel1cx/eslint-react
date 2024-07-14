@@ -11,7 +11,7 @@ import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "no-set-state-in-use-effect";
+export const RULE_NAME = "no-direct-set-state-in-use-effect";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
       description: "disallow direct calls to the 'set' function of 'useState' in 'useEffect'.",
     },
     messages: {
-      NO_SET_STATE_IN_USE_EFFECT: "Do not call the set function of 'useState' directly in 'useEffect'.",
+      NO_DIRECT_SET_STATE_IN_USE_EFFECT: "Do not call the set function of 'useState' directly in 'useEffect'.",
     },
     schema: [],
   },
@@ -44,7 +44,7 @@ export default createRule<[], MessageID>({
             n.parent?.type === NodeType.CallExpression
             && isUseEffectCallWithAlias(n.parent, context),
         );
-        // TODO: support detecting effect cleanup functions as well or add a separate rule for that called `no-set-state-in-use-effect-cleanup`
+        // TODO: support detecting effect cleanup functions as well or add a separate rule for that called `no-direct-set-state-in-use-effect-cleanup`
         if (O.isNone(effectFunction)) return;
         const scope = context.sourceCode.getScope(node);
         if (scope.block !== effectFunction.value) return;
@@ -97,7 +97,7 @@ export default createRule<[], MessageID>({
             data: {
               setState: name,
             },
-            messageId: "NO_SET_STATE_IN_USE_EFFECT",
+            messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT",
             node,
           } as const)),
           O.map(context.report),

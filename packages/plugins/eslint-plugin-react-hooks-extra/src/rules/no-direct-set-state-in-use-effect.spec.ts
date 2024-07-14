@@ -1,5 +1,5 @@
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./no-set-state-in-use-effect";
+import rule, { RULE_NAME } from "./no-direct-set-state-in-use-effect";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
@@ -15,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
       ],
     },
     {
@@ -30,7 +30,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
       ],
     },
     {
@@ -45,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
       ],
     },
     {
@@ -61,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
       ],
     },
     {
@@ -77,7 +77,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
       ],
     },
     {
@@ -93,7 +93,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
       ],
       settings: {
         "react-x": {
@@ -116,7 +116,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
       ],
       settings: {
         "react-x": {
@@ -137,7 +137,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
       ],
       settings: {
         "react-x": {
