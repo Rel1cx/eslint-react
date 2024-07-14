@@ -1,3 +1,9 @@
+## v1.5.26 (Draft)
+
+### ✨ New
+
+- Add rule `hooks-extra/no-direct-set-state-in-use-effect`.
+
 ## v1.5.25 (Sat 13 Jul 2024)
 
 ### 🪄 Improvements
