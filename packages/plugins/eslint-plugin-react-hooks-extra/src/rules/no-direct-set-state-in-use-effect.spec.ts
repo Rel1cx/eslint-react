@@ -148,6 +148,28 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    {
+      code: /* tsx */ `
+        const index = 1;
+        function Component() {
+          const data = useCustomState(0);
+          useCustomEffect(() => {
+            data.at(index)();
+          }, []);
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+      settings: {
+        "react-x": {
+          additionalHooks: {
+            useEffect: ["useCustomEffect"],
+            useState: ["useCustomState"],
+          },
+        },
+      },
+    },
   ],
   valid: [
     ...allValid,
@@ -190,6 +212,17 @@ ruleTester.run(RULE_NAME, rule, {
         const onLoad = () => {
           setData();
         };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      import { useEffect, useState } from "react";
+
+      const index = 0;
+      function Component() {
+        const data = useState(() => 0);
+        useEffect(() => {
+          data.at(index)();
         }, []);
       }
     `,
