@@ -65,7 +65,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useCallback } from "react";
 
         const Comp = () => {
-          const style = useCallback((theme: MantineTheme) => ({
+          const style = useCallback((theme) => ({
             input: {
               fontFamily: theme.fontFamilyMonospace
             }
@@ -84,7 +84,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useCallback } from "react";
 
         const Comp = () => {
-          const style = useCallback((theme: MantineTheme) => ({
+          const style = useCallback((theme) => ({
             input: {
               fontFamily: theme.fontFamilyMonospace
             }
@@ -103,7 +103,7 @@ ruleTester.run(RULE_NAME, rule, {
         const { useCallback } = require("react");
 
         const Comp = () => {
-          const style = useCallback((theme: MantineTheme) => ({
+          const style = useCallback((theme) => ({
             input: {
               fontFamily: theme.fontFamilyMonospace
             }
@@ -122,7 +122,7 @@ ruleTester.run(RULE_NAME, rule, {
         import React from "react";
 
         const Comp = () => {
-          const style = React.useCallback((theme: MantineTheme) => ({
+          const style = React.useCallback((theme) => ({
             input: {
               fontFamily: theme.fontFamilyMonospace
             }
@@ -393,7 +393,7 @@ ruleTester.run(RULE_NAME, rule, {
         import React from "react";
 
         const Comp = () => {
-          const style = useCustomCallback((theme: MantineTheme) => ({
+          const style = useCustomCallback((theme) => ({
             input: {
               fontFamily: theme.fontFamilyMonospace
             }
@@ -465,6 +465,33 @@ ruleTester.run(RULE_NAME, rule, {
         }), [theme.fontFamilyMonospace]);
         return <Button sx={style} />
       }
+    `,
+    /* tsx */ `
+      import { useState, useCallback } from "react";
+
+      function MyComponent() {
+        const [showSnapshot, setShowSnapshot] = useState(false);
+        const handleSnapshot = useCallback(() => setShowSnapshot(true), []);
+
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useCallback } from "react";
+
+      const Comp = () => {
+      const [width, setWidth] = useState<undefined | number>(undefined)
+              const [open, setOpen] = useState<boolean>(false)
+              const [title, setTitle] = useState<string | undefined>(undefined)
+
+              const refItem = useCallback(() => {
+                  return {
+                      setWidth,
+                      setWrap: setOpen,
+                      setWrapperName: setTitle,
+                  }
+              }, [])
+      };
     `,
   ],
 });

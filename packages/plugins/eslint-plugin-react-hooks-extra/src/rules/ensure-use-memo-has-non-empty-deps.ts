@@ -1,4 +1,5 @@
-import { is, NodeType } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
+import { is, isFunction, NodeType } from "@eslint-react/ast";
 import { isReactHookCall, isReactHookCallWithNameLoose, isUseMemoCall } from "@eslint-react/core";
 import { getESLintReactSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
@@ -20,7 +21,7 @@ export default createRule<[], MessageID>({
       description: "enforce 'useMemo' has non-empty dependencies array",
     },
     messages: {
-      ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS: "An useMemo should have a non-empty dependencies array.",
+      ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS: "An 'useMemo' should have a non-empty dependencies array.",
     },
     schema: [],
   },
@@ -30,10 +31,15 @@ export default createRule<[], MessageID>({
 
     return {
       CallExpression(node) {
-        const initialScope = context.sourceCode.getScope(node);
         if (!isReactHookCall(node)) return;
-        if (!isUseMemoCall(node, context) && !alias.some(F.flip(isReactHookCallWithNameLoose)(node))) return;
-        const [_, deps] = node.arguments;
+        const initialScope = context.sourceCode.getScope(node);
+        if (!isUseMemoCall(node, context) && !alias.some(F.flip(isReactHookCallWithNameLoose)(node))) {
+          return;
+        }
+        const scope = context.sourceCode.getScope(node);
+        const component = scope.block;
+        if (!isFunction(component)) return;
+        const [cb, deps] = node.arguments;
         if (!deps) {
           context.report({
             messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
@@ -41,8 +47,7 @@ export default createRule<[], MessageID>({
           });
           return;
         }
-
-        const maybeDescriptor = F.pipe(
+        const hasEmptyDeps = F.pipe(
           match(deps)
             .with({ type: NodeType.ArrayExpression }, O.some)
             .with({ type: NodeType.Identifier }, n => {
@@ -53,14 +58,36 @@ export default createRule<[], MessageID>({
               );
             })
             .otherwise(O.none),
-          O.filter(x => x.elements.length === 0),
-          O.map(() => ({
+          O.exists(x => x.elements.length === 0),
+        );
+        if (!hasEmptyDeps) return;
+        if (!cb) {
+          context.report({
             messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
             node,
-          } as const)),
+          });
+          return;
+        }
+        const isReferencedToComponentScope = F.pipe(
+          match(cb)
+            .with({ type: NodeType.ArrowFunctionExpression }, O.some)
+            .with({ type: NodeType.FunctionExpression }, O.some)
+            .with({ type: NodeType.Identifier }, n => {
+              return F.pipe(
+                findVariable(n.name, initialScope),
+                O.flatMap(getVariableInit(0)),
+                O.filter(isFunction),
+              ) as O.Option<TSESTreeFunction>;
+            })
+            .otherwise(O.none),
+          O.map(n => context.sourceCode.getScope(n).references),
+          O.exists(refs => refs.some(x => x.resolved?.scope.block === component)),
         );
-
-        O.map(maybeDescriptor, context.report);
+        if (isReferencedToComponentScope) return;
+        context.report({
+          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          node,
+        });
       },
     };
   },

@@ -431,5 +431,32 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{count}</div>;
       }
     `,
+    /* tsx */ `
+      import { useState, useCallback } from "react";
+
+      function MyComponent() {
+        const [showSnapshot, setShowSnapshot] = useState(false);
+        const handleSnapshot = useMemo(() => () => setShowSnapshot(true), []);
+
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useCallback } from "react";
+
+      const Comp = () => {
+      const [width, setWidth] = useState<undefined | number>(undefined)
+              const [open, setOpen] = useState<boolean>(false)
+              const [title, setTitle] = useState<string | undefined>(undefined)
+
+              const refItem = useMemo(() => {
+                  return {
+                      setWidth,
+                      setWrap: setOpen,
+                      setWrapperName: setTitle,
+                  }
+              }, [])
+      };
+    `,
   ],
 });

@@ -29,6 +29,14 @@ export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Ide
     const chunk = Chunk.unsafeFromArray(node.expressions.map(getNestedIdentifiers).flat(1));
     MutRef.update(identifiers, Chunk.appendAll(chunk));
   }
+  if ("left" in node) {
+    const chunk = Chunk.unsafeFromArray(getNestedIdentifiers(node.left));
+    MutRef.update(identifiers, Chunk.appendAll(chunk));
+  }
+  if ("right" in node) {
+    const chunk = Chunk.unsafeFromArray(getNestedIdentifiers(node.right));
+    MutRef.update(identifiers, Chunk.appendAll(chunk));
+  }
   if (node.type === NodeType.Property) {
     const chunk = Chunk.unsafeFromArray(getNestedIdentifiers(node.value));
     MutRef.update(identifiers, Chunk.appendAll(chunk));
