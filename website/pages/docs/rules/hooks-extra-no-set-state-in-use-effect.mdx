@@ -1,0 +1,58 @@
+# no-set-state-in-use-effect
+
+## Rule category
+
+Correctness.
+
+## What it does
+
+Disallow direct calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useEffect`.
+
+## Why is this bad?
+
+Calling `setState` directly in `useEffect` is a common bad practice. It can lead to infinite update loops and other side effects.
+
+## Examples
+
+### Failing
+
+```tsx twoslash
+import React, { useEffect, useState } from "react";
+
+function Example() {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    setValue(value + 1);
+    // ^^^^^^^^^^^^^^^^^
+    // - Do not call the 'set' function of 'useState' directly in 'useEffect'.
+  }, []);
+
+  return null;
+}
+```
+
+### Passing
+
+```tsx twoslash
+import React, { useEffect, useState } from "react";
+
+function Example() {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    const onLoad = () => {
+      setValue(value + 1);
+    };
+    // ...
+  }, []);
+
+  return null;
+}
+```
+
+### Further Reading
+
+- [React: useState](https://react.dev/reference/react/useState#setstate)
+- [React: useEffect](https://react.dev/reference/react/useEffect)
+- [React: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
