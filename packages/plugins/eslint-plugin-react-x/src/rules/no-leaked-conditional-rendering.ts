@@ -149,7 +149,7 @@ function inspectVariantTypes(types: ts.Type[]) {
       .otherwise(F.constant("bigint"));
     variantTypes.add(evaluated);
   }
-  const numbers = types.filter(type => isTypeFlagSet(type, ts.TypeFlags.NumberLike));
+  const numbers = types.filter(tsHelper.isNumberType);
   if (numbers.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(numbers)
       .when(types => types.every(tsHelper.isTruthyNumberType), F.constant("truthy number"))
