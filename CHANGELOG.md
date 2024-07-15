@@ -5,6 +5,11 @@
 - Add rule `hooks-extra/no-direct-set-state-in-use-effect`.
 - Add rule `hooks-extra/no-direct-set-state-in-use-layout-effect`.
 
+### 🐞 Fixes
+
+- Fix false positives in rule `hooks-extra/ensure-use-memo-has-non-empty-deps` when referencing component block scope.
+- Fix false positives in rule `hooks-extra/ensure-use-callback-has-non-empty-deps` when referencing component block scope.
+
 ### 🪄 Improvements
 
 - Add rule `hooks-extra/no-direct-set-state-in-use-effect` to recommended presets.
