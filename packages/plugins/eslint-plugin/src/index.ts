@@ -153,7 +153,6 @@ const recommendedPreset = {
 const recommendedTypeCheckedPreset = {
   ...recommendedPreset,
   "no-leaked-conditional-rendering": "warn",
-  "prefer-read-only-props": "warn",
 } as const satisfies RulePreset;
 
 const domPreset = {

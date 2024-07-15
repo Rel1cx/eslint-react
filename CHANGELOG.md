@@ -6,6 +6,7 @@
 
 ### 🐞 Fixes
 
+- Fix rule `prefer-read-only-props` that was accidentally added to the recommended type-checked presets.
 - Fix false negatives in rule `hooks-extra/no-direct-set-state-in-use-effect` when call `set` function inside a non-function scope.
 - Fix false negatives in rule `hooks-extra/no-direct-set-state-in-use-layout-effect` when call `set` function inside a non-function scope.
 
