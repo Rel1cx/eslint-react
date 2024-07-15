@@ -47,6 +47,7 @@ const allowedVariants = [
   "falsy string",
   "truthy boolean",
   "truthy string",
+  "truthy number",
 ] as const satisfies readonly VariantType[];
 
 /**
@@ -118,7 +119,7 @@ function inspectVariantTypes(types: ts.Type[]) {
   if (numbers.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(numbers)
       .when(
-        types => types.every(type => type.isNumberLiteral() && type.value > 0),
+        types => types.every(type => type.isNumberLiteral() && type.value !== 0),
         F.constant("truthy number"),
       )
       .when(

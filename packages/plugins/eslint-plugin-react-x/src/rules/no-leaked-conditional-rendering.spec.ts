@@ -5,141 +5,55 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `
-        const App = () => {
-          return (
-              <>
-              {0 && <Foo />}
-              {NaN && <Foo />}
-              </>
-              )
-          }
+        const a = <>{0 && <Foo />}</>;
+        const b = <>{NaN && <Foo />}</>;
       `,
       errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
+        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
+        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
       ],
     },
     {
       code: /* tsx */ `
-        const App = () => {
-          return (
-              <>
-              {(0) && <Foo />}
-              {(NaN) && <Foo />}
-              </>
-              )
-          }
+        const a = <>{(0) && <Foo />}</>;
+        const b = <>{(NaN) && <Foo />}</>;
       `,
       errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
+        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
+        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
       ],
     },
     {
       code: /* tsx */ `
         const someCondition = JSON.parse("") as unknown;
         const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {someCondition && (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />
-              )}
-            </>
-          )
-        }
+        const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
       `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: /* tsx */ `
-        const someCondition = 0
-        const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {someCondition && (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />
-              )}
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
-    },
-    {
-      code: /* tsx */ `
-        const someCondition = 1
-        const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {someCondition && (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />
-              )}
-            </>
-          )
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
+      errors: [{ messageId: "NO_LEAKED_CONDITIONAL_RENDERING" }],
     },
     {
       code: /* tsx */ `
         const someCondition = 0;
         const SomeComponent = () => <div />;
-
-        const App = () => {
-          return (
-            <>
-              {!!someCondition
-                ? (
-                <SomeComponent
-                  prop1={val1}
-                  prop2={val2}
-                />)
-                : someCondition && <div />
-              }
-            </>
-          )
-        }
+        const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
       `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
+      errors: [{ messageId: "NO_LEAKED_CONDITIONAL_RENDERING" }],
+    },
+    {
+      code: /* tsx */ `
+        const someCondition = -0;
+        const SomeComponent = () => <div />;
+        const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
+      `,
+      errors: [{ messageId: "NO_LEAKED_CONDITIONAL_RENDERING" }],
+    },
+    {
+      code: /* tsx */ `
+        const someCondition = 0;
+        const SomeComponent = () => <div />;
+        const a = <>{!!someCondition ? <SomeComponent prop1={val1} prop2={val2} /> : someCondition && <div />}</>;
+      `,
+      errors: [{ messageId: "NO_LEAKED_CONDITIONAL_RENDERING" }],
     },
     {
       code: /* tsx */ `
@@ -155,11 +69,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           )
         }
       `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
+      errors: [{ messageId: "NO_LEAKED_CONDITIONAL_RENDERING" }],
     },
     {
       code: /* tsx */ `
@@ -177,37 +87,50 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           )
         }
       `,
-      errors: [
-        {
-          messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
-        },
-      ],
+      errors: [{ messageId: "NO_LEAKED_CONDITIONAL_RENDERING" }],
     },
   ],
   valid: [
     ...allValid,
     /* tsx */ `
-        const foo = Math.random() > 0.5;
-        const bar = "bar";
-
-        const App = () => {
-          return <div>{foo || bar}</div>
-      }
+      const a = <>{!(0) && <Foo />}</>;
+      const b = <>{!(NaN) && <Foo />}</>;
     `,
     /* tsx */ `
-        type AppProps = {
-          foo: string;
-        }
-
-        const App = ({ foo }: AppProps) => {
-          return <div>{foo}</div>
-      }
+      const a = <>{!!(0) && <Foo />}</>;
+      const b = <>{!!(NaN) && <Foo />}</>;
+    `,
+    /* tsx */ `
+      const a = <>{!!!(0) && <Foo />}</>;
+      const b = <>{!!!(NaN) && <Foo />}</>;
+    `,
+    /* tsx */ `
+      let x: number | undefined;
+      const a = <>{!x && <Foo />}</>;
+    `,
+    /* tsx */ `
+      let x: number | undefined;
+      const y = 2;
+      const a = <>{!x ? !x && <Foo /> : y && <Bar />}</>;
+    `,
+    /* tsx */ `
+      const foo = Math.random() > 0.5;
+      const bar = "bar";
+      const a = <div>{0 || bar}</div>
+    `,
+    /* tsx */ `
+      const foo = Math.random() > 0.5;
+      const bar = "bar";
+      const a = <div>{foo || bar}</div>
+    `,
+    /* tsx */ `
+      type AppProps = { foo: string; }
+      const App = ({ foo }: AppProps) => <div>{foo}</div>
     `,
     /* tsx */ `
         type AppProps = {
           items: string[];
         }
-
         const App = ({ items }: AppProps) => {
           return <div>There are {items.length} elements</div>
       }
@@ -217,7 +140,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           items: string[];
           count: number;
         }
-
         const App = ({ items, count }: AppProps) => {
           return <div>{!count && 'No results found'}</div>
       }
@@ -226,15 +148,12 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         type ListProps = {
           items: string[];
         }
-
         const List = ({ items }: ListProps) => {
           return <div>{items.map(item => <div key={item}>{item}</div>)}</div>
         }
-
         type AppProps = {
           items: string[];
         }
-
         const App = ({ items }: AppProps) => {
           return <div>{!!items.length && <List items={items}/>}</div>
       }
@@ -243,15 +162,12 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         type ListProps = {
           items: string[];
         }
-
         const List = ({ items }: ListProps) => {
           return <div>{items.map(item => <div key={item}>{item}</div>)}</div>
         }
-
         type AppProps = {
           items: string[];
         }
-
         const App = ({ items }: AppProps) => {
           return <div>{Boolean(items.length) && <List items={items}/>}</div>
       }
@@ -260,15 +176,12 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         type ListProps = {
           items: string[];
         }
-
         const List = ({ items }: ListProps) => {
           return <div>{items.map(item => <div key={item}>{item}</div>)}</div>
         }
-
         type AppProps = {
           items: string[];
         }
-
         const App = ({ items }: AppProps) => {
           return <div>{items.length > 0 && <List items={items}/>}</div>
       }
@@ -277,15 +190,12 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         type ListProps = {
           items: string[];
         }
-
         const List = ({ items }: ListProps) => {
           return <div>{items.map(item => <div key={item}>{item}</div>)}</div>
         }
-
         type AppProps = {
           items: string[];
         }
-
         const App = ({ items }: AppProps) => {
           return <div>{items.length ? <List items={items}/> : null}</div>
       }
@@ -294,16 +204,13 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         type ListProps = {
           items: string[];
         }
-
         const List = ({ items }: ListProps) => {
           return <div>{items.map(item => <div key={item}>{item}</div>)}</div>
         }
-
         type AppProps = {
           items: string[];
           count: number;
         }
-
         const App = ({ items, count }: AppProps) => {
           return <div>{count ? <List items={items}/> : null}</div>
       }
@@ -312,16 +219,13 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         type ListProps = {
           items: string[];
         }
-
         const List = ({ items }: ListProps) => {
           return <div>{items.map(item => <div key={item}>{item}</div>)}</div>
         }
-
         type AppProps = {
           items: string[];
           count: number;
         }
-
         const App = ({ items, count }: AppProps) => {
           return <div>{!!count && <List items={items}/>}</div>
       }
@@ -331,21 +235,16 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         items: string[];
         count: number;
       }
-
       const App = ({ items, count }: AppProps) => {
           return <div>{direction ? (direction === "down" ? "▼" : "▲") : ""}</div>
       }
     `,
     /* tsx */ `
-      const App = () => {
-        return (
-            <>
-            {0 ? <Foo /> : null}
-            {'' && <Foo />}
-            {NaN ? <Foo /> : null}
-            </>
-            )
-        }
+      const a = <>
+                {0 ? <Foo /> : null}
+                {'' && <Foo />}
+                {NaN ? <Foo /> : null}
+                </>
     `,
     /* tsx */ `
       const foo = Math.random() > 0.5;
@@ -360,109 +259,35 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         );
       }
     `,
-    `
+    /* tsx */ `
       const someCondition = JSON.parse("true") as boolean;
       const SomeComponent = () => <div />;
-
-      const App = () => {
-        return (
-          <>
-            {!!someCondition && (
-              <SomeComponent
-                prop1={val1}
-                prop2={val2}
-              />
-            )}
-          </>
-        )
-      }
-      `,
+      const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
+    `,
     /* tsx */ `
       const someCondition = JSON.parse("") as any;
       const SomeComponent = () => <div />;
-
-      const App = () => {
-        return (
-          <>
-            {!!someCondition && (
-              <SomeComponent
-                prop1={val1}
-                prop2={val2}
-              />
-            )}
-          </>
-        )
-      }
+      const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
     `,
     /* tsx */ `
       const someCondition = JSON.parse("") as unknown;
       const SomeComponent = () => <div />;
-
-      const App = () => {
-        return (
-          <>
-            {!!someCondition && (
-              <SomeComponent
-                prop1={val1}
-                prop2={val2}
-              />
-            )}
-          </>
-        )
-      }
+      const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
     `,
     /* tsx */ `
       const someCondition = 0
       const SomeComponent = () => <div />;
-
-      const App = () => {
-        return (
-          <>
-            {!!someCondition && (
-              <SomeComponent
-                prop1={val1}
-                prop2={val2}
-              />
-            )}
-          </>
-        )
-      }
+      const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
     `,
     /* tsx */ `
       const someCondition = 1
       const SomeComponent = () => <div />;
-
-      const App = () => {
-        return (
-          <>
-            {!!someCondition && (
-              <SomeComponent
-                prop1={val1}
-                prop2={val2}
-              />
-            )}
-          </>
-        )
-      }
+      const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
     `,
     /* tsx */ `
       const someCondition = 0;
       const SomeComponent = () => <div />;
-
-      const App = () => {
-        return (
-          <>
-            {!!someCondition
-              ? (
-              <SomeComponent
-                prop1={val1}
-                prop2={val2}
-              />)
-              : someCondition ? null : <div />
-            }
-          </>
-        )
-      }
+      const a = <>{!!someCondition ? (<SomeComponent prop1={val1} prop2={val2} />) : someCondition ? null : <div />}</>
     `,
     /* tsx */ `
       const SomeComponent = () => <div />;
@@ -484,7 +309,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     /* tsx */ `
       const someCondition = 0;
       const SomeComponent = () => <div />;
-
       const App = () => {
         return (
           <>
@@ -506,7 +330,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     /* tsx */ `
       const someCondition = true
       const SomeComponent = () => <div />;
-
       const App = () => {
         return (
           <>
@@ -525,7 +348,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     /* tsx */ `
       const someCondition = 0;
       const SomeComponent = () => <div />;
-
       const App = () => {
         return (
           <>
@@ -535,7 +357,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
                 prop1={val1}
                 prop2={val2}
               />)
-              : someCondition ? someCondition : <div />
+              : someCondition
+              ? someCondition
+              : <div />
             }
           </>
         )
@@ -544,31 +368,24 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     /* tsx */ `
       const SomeComponent = () => <div />;
       const someFunction = (input: unknown): 10 => 10
-
       const App = ({ someCondition }: { someCondition?: number | undefined }) => {
         return <>{someCondition ? someFunction(someCondition) : <SomeComponent />}</>;
       };
     `,
     /* tsx */ `
       const SomeComponent = () => <div />;
-
       const App = ({
         someCondition,
       }:{
         someCondition?: boolean | undefined;
       }) => {
-        return (
-          <>
-            {someCondition && <SomeComponent />}
-          </>
-        )
+        return <>{someCondition && <SomeComponent />}</>;
       }
     `,
     /* tsx */ `
       type AppProps<T> = {
         someFunction: (data: T) => React.ReactNode;
       };
-
       function App<T>({ someFunction }: AppProps<T>) {
         return <>{!!someFunction && someFunction<number>(1)}</>;
       }
@@ -576,7 +393,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     /* tsx */ `
       const someCondition = JSON.parse("") as any;
       const SomeComponent = () => <div />;
-
       const App = () => {
         return (
           <>
@@ -595,7 +411,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const a = {} as {};
         const b = {} as {} | null;
         const b = {} as {} | undefined;
-
         return (
           <>
             <>{a && <div />}</>
@@ -613,7 +428,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       type Item = { id: number; name: string };
       function App() {
         let data: Item[] | undefined = getData();
-
         return (
           <div>
             {data && <List items={data} />}
