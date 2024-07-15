@@ -103,8 +103,8 @@
   },
   "packageManager": "pnpm@9.5.0",
   "engines": {
-    "bun": ">=1.0.15",
-    "node": ">=18.18.0"
+    "bun": ">=1.1.10",
+    "node": ">=22.4.0"
   },
   "pnpm": {
     "overrides": {
