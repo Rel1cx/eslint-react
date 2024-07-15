@@ -1,9 +1,5 @@
 ## v1.5.27 (Draft)
 
-### ✨ New
-
-- Rule `no-leaked-conditional-rendering` now supports BigInt literals on the left side of the logical expression
-
 ### 🐞 Fixes
 
 - Fix rule `prefer-read-only-props` that was accidentally added to the recommended type-checked presets.
@@ -12,6 +8,7 @@
 
 ### 🪄 Improvements
 
+- Rule `no-leaked-conditional-rendering` now supports BigInt literals on the left side of the logical expression
 - Rule `no-leaked-conditional-rendering` now allows a truthy number literal to be used on the left side of the logical expression.
 
 ## v1.5.26 (Mon 15 Jul 2024)
