@@ -170,6 +170,25 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    {
+      code: /* tsx */ `
+        import { useLayoutEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useLayoutEffect(() => {
+            if (data === 0) {
+              setData(1);
+            }
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "NO_DIRECT_SET_STATE_IN_USE_LAYOUT_EFFECT",
+        },
+      ],
+    },
   ],
   valid: [
     ...allValid,

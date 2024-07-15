@@ -1,4 +1,4 @@
-import { is, NodeType, traverseUp } from "@eslint-react/ast";
+import { is, isFunction, NodeType, traverseUp } from "@eslint-react/ast";
 import { isReactHookCallWithNameLoose, isUseEffectCall, isUseStateCall } from "@eslint-react/core";
 import { getESLintReactSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
@@ -46,9 +46,11 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         const effectFunction = traverseUp(node, isEffectFunction);
-        if (O.isNone(effectFunction)) return;
-        const scope = context.sourceCode.getScope(node);
-        if (scope.block !== effectFunction.value) return;
+        const parentFunction = traverseUp(node, isFunction);
+        if (O.isNone(effectFunction) || O.isNone(parentFunction)) return;
+        if (parentFunction.value !== effectFunction.value) return;
+        const callScope = context.sourceCode.getScope(node);
+        // if (scope.block !== effectFunction.value) return;
         const name = match(node.callee)
           // const [data, setData] = useState();
           // setData();
@@ -90,7 +92,7 @@ export default createRule<[], MessageID>({
           .otherwise(O.none);
         F.pipe(
           name,
-          O.flatMap(findVariable(scope)),
+          O.flatMap(findVariable(callScope)),
           O.flatMap(getVariableInit(0)),
           O.filter(is(NodeType.CallExpression)),
           O.filter(name => isUseStateCallWithAlias(name, context)),
