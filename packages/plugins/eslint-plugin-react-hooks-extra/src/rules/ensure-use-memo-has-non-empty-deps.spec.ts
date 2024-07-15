@@ -465,5 +465,17 @@ ruleTester.run(RULE_NAME, rule, {
               const refItem = useMemo(cb, deps)
       };
     `,
+    /* tsx */ `
+      import { useState, useMemo } from "react";
+
+      function MyComponent() {
+        const [showSnapshot, setShowSnapshot] = useState(false);
+        const handleSnapshot = useMemo(() => {
+          return () => setShowSnapshot(true)
+        }, []);
+
+        return null;
+      }
+    `,
   ],
 });
