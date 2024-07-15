@@ -1,3 +1,10 @@
+## v1.5.27 (Draft)
+
+### 🐞 Fixes
+
+- Fix false negatives in rule `hooks-extra/no-direct-set-state-in-use-effect` when call `set` function inside a non-function scope.
+- Fix false negatives in rule `hooks-extra/no-direct-set-state-in-use-layout-effect` when call `set` function inside a non-function scope.
+
 ## v1.5.26 (Mon 15 Jul 2024)
 
 ### ✨ New
