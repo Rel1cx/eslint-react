@@ -32,7 +32,7 @@ export default [
   // React rules
   {
     files: ["src/**/*.{ts,tsx}"],
-    ...react.configs.recommended,
+    ...react.configs["recommended-type-checked"],
   },
   // React Hooks rules
   {

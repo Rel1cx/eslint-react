@@ -8,7 +8,7 @@ import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { ConstantCase } from "string-ts";
 import { isFalseLiteralType, isTrueLiteralType, isTypeFlagSet, unionTypeParts } from "ts-api-utils";
-import { isMatching, match } from "ts-pattern";
+import { isMatching, match, P } from "ts-pattern";
 import ts from "typescript";
 
 import { createRule } from "../utils";
@@ -20,8 +20,8 @@ export type MessageID = ConstantCase<typeof RULE_NAME>;
 /** The types we care about */
 /* eslint-disable perfectionist/sort-union-types */
 type VariantType =
-  | "unknown"
   | "any"
+  | "bigint"
   | "boolean"
   | "enum"
   | "never"
@@ -29,9 +29,12 @@ type VariantType =
   | "number"
   | "object"
   | "string"
+  | "unknown"
+  | "falsy bigint"
   | "falsy boolean"
   | "falsy number"
   | "falsy string"
+  | "truthy bigint"
   | "truthy boolean"
   | "truthy number"
   | "truthy string";
@@ -39,39 +42,73 @@ type VariantType =
 
 // Allowed left node type variants
 const allowedVariants = [
-  "nullish",
-  "boolean",
-  "string",
-  "object",
   "any",
+  "boolean",
+  "nullish",
+  "object",
+  "string",
   "falsy string",
+  "truthy bigint",
   "truthy boolean",
-  "truthy string",
   "truthy number",
-] as const satisfies readonly VariantType[];
+  "truthy string",
+] as const satisfies VariantType[];
+
+const tsHelper = {
+  isAnyType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.TypeParameter | ts.TypeFlags.Any),
+  isBigIntType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.BigIntLike),
+  isBooleanType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.BooleanLike),
+  isEnumType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.EnumLike),
+  isFalsyBigIntType: (type: ts.Type) => type.isLiteral() && isMatching({ value: { base10Value: "0" } }, type),
+  isFalsyNumberType: (type: ts.Type) => type.isNumberLiteral() && type.value === 0,
+  isFalsyStringType: (type: ts.Type) => type.isStringLiteral() && type.value === "",
+  isNeverType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.Never),
+  isNullishType: (type: ts.Type) =>
+    isTypeFlagSet(
+      type,
+      ts.TypeFlags.Null
+        | ts.TypeFlags.Undefined
+        | ts.TypeFlags.VoidLike,
+    ),
+  isNumberType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.NumberLike),
+  isObjectType: (type: ts.Type) =>
+    !isTypeFlagSet(
+      type,
+      ts.TypeFlags.Null
+        | ts.TypeFlags.Undefined
+        | ts.TypeFlags.VoidLike
+        | ts.TypeFlags.BooleanLike
+        | ts.TypeFlags.StringLike
+        | ts.TypeFlags.NumberLike
+        | ts.TypeFlags.BigIntLike
+        | ts.TypeFlags.TypeParameter
+        | ts.TypeFlags.Any
+        | ts.TypeFlags.Unknown
+        | ts.TypeFlags.Never,
+    ),
+  isStringType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.StringLike),
+  isTruthyBigIntType: (type: ts.Type) => type.isLiteral() && isMatching({ value: { base10Value: P.not("0") } }, type),
+  isTruthyNumberType: (type: ts.Type) => type.isNumberLiteral() && type.value !== 0,
+  isTruthyStringType: (type: ts.Type) => type.isStringLiteral() && type.value !== "",
+  isUnknownType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.Unknown),
+} as const;
 
 /**
- * Ported from https://github.com/typescript-eslint/typescript-eslint/blob/eb736bbfc22554694400e6a4f97051d845d32e0b/packages/eslint-plugin/src/rules/strict-boolean-expressions.ts#L826
+ * Ported from https://github.com/typescript-eslint/typescript-eslint/blob/eb736bbfc22554694400e6a4f97051d845d32e0b/packages/eslint-plugin/src/rules/strict-boolean-expressions.ts#L826 with some enhancements
  * Check union variants for the types we care about
  * @param types The types to inspect
  * @returns The variant types found
  */
 function inspectVariantTypes(types: ts.Type[]) {
   const variantTypes = new Set<VariantType>();
-
-  if (types.some(type => isTypeFlagSet(type, ts.TypeFlags.Unknown))) {
+  if (types.some(tsHelper.isUnknownType)) {
     variantTypes.add("unknown");
     return variantTypes;
   }
-
-  if (
-    types.some(type => isTypeFlagSet(type, ts.TypeFlags.Null | ts.TypeFlags.Undefined | ts.TypeFlags.VoidLike))
-  ) {
+  if (types.some(tsHelper.isNullishType)) {
     variantTypes.add("nullish");
   }
-
-  const booleans = types.filter(type => isTypeFlagSet(type, ts.TypeFlags.BooleanLike));
-
+  const booleans = types.filter(tsHelper.isBooleanType);
   // If incoming type is either "true" or "false", there will be one type
   // object with intrinsicName set accordingly
   // If incoming type is boolean, there will be two type objects with
@@ -96,84 +133,42 @@ function inspectVariantTypes(types: ts.Type[]) {
       break;
     }
   }
-
-  const strings = types.filter(type => isTypeFlagSet(type, ts.TypeFlags.StringLike));
-
+  const strings = types.filter(tsHelper.isStringType);
   if (strings.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(strings)
-      .when(
-        types => types.every(type => type.isStringLiteral() && type.value !== ""),
-        F.constant("truthy string"),
-      )
-      .when(
-        types => types.every(type => type.isStringLiteral() && type.value === ""),
-        F.constant("falsy string"),
-      )
+      .when(types => types.every(tsHelper.isTruthyStringType), F.constant("truthy string"))
+      .when(types => types.every(tsHelper.isFalsyStringType), F.constant("falsy string"))
       .otherwise(F.constant("string"));
-
     variantTypes.add(evaluated);
   }
-
-  const numbers = types.filter(type => isTypeFlagSet(type, ts.TypeFlags.NumberLike | ts.TypeFlags.BigIntLike));
-
+  const bigints = types.filter(tsHelper.isBigIntType);
+  if (bigints.length > 0) {
+    const evaluated = match<ts.Type[], VariantType>(bigints)
+      .when(types => types.every(tsHelper.isTruthyBigIntType), F.constant("truthy bigint"))
+      .when(types => types.every(tsHelper.isFalsyBigIntType), F.constant("falsy bigint"))
+      .otherwise(F.constant("bigint"));
+    variantTypes.add(evaluated);
+  }
+  const numbers = types.filter(type => isTypeFlagSet(type, ts.TypeFlags.NumberLike));
   if (numbers.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(numbers)
-      .when(
-        types => types.every(type => type.isNumberLiteral() && type.value !== 0),
-        F.constant("truthy number"),
-      )
-      .when(
-        types => types.every(type => type.isNumberLiteral() && type.value === 0),
-        F.constant("falsy number"),
-      )
+      .when(types => types.every(tsHelper.isTruthyNumberType), F.constant("truthy number"))
+      .when(types => types.every(tsHelper.isFalsyNumberType), F.constant("falsy number"))
       .otherwise(F.constant("number"));
-
     variantTypes.add(evaluated);
   }
-
-  if (types.some(type => isTypeFlagSet(type, ts.TypeFlags.EnumLike))) {
+  if (types.some(tsHelper.isEnumType)) {
     variantTypes.add("enum");
   }
-
-  if (
-    types.some(
-      type =>
-        !isTypeFlagSet(
-          type,
-          ts.TypeFlags.Null
-            | ts.TypeFlags.Undefined
-            | ts.TypeFlags.VoidLike
-            | ts.TypeFlags.BooleanLike
-            | ts.TypeFlags.StringLike
-            | ts.TypeFlags.NumberLike
-            | ts.TypeFlags.BigIntLike
-            | ts.TypeFlags.TypeParameter
-            | ts.TypeFlags.Any
-            | ts.TypeFlags.Unknown
-            | ts.TypeFlags.Never,
-        ),
-    )
-  ) {
+  if (types.some(tsHelper.isObjectType)) {
     variantTypes.add("object");
   }
-
-  if (
-    types.some(type =>
-      isTypeFlagSet(
-        type,
-        ts.TypeFlags.TypeParameter
-          | ts.TypeFlags.Any
-          | ts.TypeFlags.Unknown,
-      )
-    )
-  ) {
+  if (types.some(tsHelper.isAnyType)) {
     variantTypes.add("any");
   }
-
-  if (types.some(type => isTypeFlagSet(type, ts.TypeFlags.Never))) {
+  if (types.some(tsHelper.isNeverType)) {
     variantTypes.add("never");
   }
-
   return variantTypes;
 }
 

@@ -1,5 +1,9 @@
 ## v1.5.27 (Draft)
 
+### ✨ New
+
+- Rule `no-leaked-conditional-rendering` now supports BigInt literals on the left side of the logical expression
+
 ### 🐞 Fixes
 
 - Fix false negatives in rule `hooks-extra/no-direct-set-state-in-use-effect` when call `set` function inside a non-function scope.

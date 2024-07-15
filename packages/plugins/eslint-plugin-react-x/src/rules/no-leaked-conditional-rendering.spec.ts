@@ -25,6 +25,38 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        const x = -1
+        const y = -0
+        const z = 0
+        const w = 1
+        const a = <>{x && <Foo />}</>;
+        const b = <>{y && <Foo />}</>;
+        const c = <>{z && <Foo />}</>;
+        const d = <>{w && <Foo />}</>;
+      `,
+      errors: [
+        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
+        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        const x = -1n
+        const y = -0n
+        const z = 0n
+        const w = 1n
+        const a = <>{x && <Foo />}</>;
+        const b = <>{y && <Foo />}</>;
+        const c = <>{z && <Foo />}</>;
+        const d = <>{w && <Foo />}</>;
+      `,
+      errors: [
+        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
+        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
+      ],
+    },
+    {
+      code: /* tsx */ `
         const someCondition = JSON.parse("") as unknown;
         const SomeComponent = () => <div />;
         const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
@@ -112,6 +144,26 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       let x: number | undefined;
       const y = 2;
       const a = <>{!x ? !x && <Foo /> : y && <Bar />}</>;
+    `,
+    /* tsx */ `
+      const x = -1
+      const y = -0
+      const z = 0
+      const w = 1
+      const a = <>{x && <Foo />}</>;
+      const b = <>{!y && <Foo />}</>;
+      const c = <>{!z && <Foo />}</>;
+      const d = <>{w && <Foo />}</>;
+    `,
+    /* tsx */ `
+      const x = -1n
+      const y = -0n
+      const z = 0n
+      const w = 1n
+      const a = <>{x && <Foo />}</>;
+      const b = <>{!y && <Foo />}</>;
+      const c = <>{!z && <Foo />}</>;
+      const d = <>{w && <Foo />}</>;
     `,
     /* tsx */ `
       const foo = Math.random() > 0.5;
