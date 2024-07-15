@@ -70,7 +70,12 @@ export default createRule<[], MessageID>({
         }
         const isReferencedToComponentScope = F.pipe(
           match(cb)
-            .with({ type: NodeType.ArrowFunctionExpression }, O.some)
+            .with({ type: NodeType.ArrowFunctionExpression }, n => {
+              if (n.body.type === NodeType.ArrowFunctionExpression) {
+                return O.some(n.body);
+              }
+              return O.some(n);
+            })
             .with({ type: NodeType.FunctionExpression }, O.some)
             .with({ type: NodeType.Identifier }, n => {
               return F.pipe(

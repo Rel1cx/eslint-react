@@ -383,6 +383,38 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    {
+      code: /* tsx */ `
+        import { useState, useMemo } from "react";
+
+        function MyComponent() {
+          const handleSnapshot = useMemo(() => () => console.log(true), []);
+
+          return null;
+        }
+      `,
+      errors: [
+        {
+          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useState, useMemo } from "react";
+
+        function MyComponent() {
+          const handleSnapshot = useMemo(() => () => () => console.log(true), []);
+
+          return null;
+        }
+      `,
+      errors: [
+        {
+          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+    },
   ],
   valid: [
     ...allValid,
@@ -473,6 +505,36 @@ ruleTester.run(RULE_NAME, rule, {
         const handleSnapshot = useMemo(() => {
           return () => setShowSnapshot(true)
         }, []);
+
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useState, useMemo } from "react";
+
+      function MyComponent() {
+        const [showSnapshot, setShowSnapshot] = useState(false);
+        const handleSnapshot = useMemo(() => () => setShowSnapshot(true), []);
+
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useState, useMemo } from "react";
+
+      function MyComponent() {
+        const [showSnapshot, setShowSnapshot] = useState(false);
+        const handleSnapshot = useMemo(() => () => () => setShowSnapshot(true), []);
+
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useState, useMemo } from "react";
+
+      function MyComponent() {
+        const a = 1;
+        const handleSnapshot = useMemo(() => () => () => console.log(a), []);
 
         return null;
       }
