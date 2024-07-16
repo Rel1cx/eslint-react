@@ -264,162 +264,6 @@ importers:
         specifier: 5.3.3
         version: 5.3.3(@types/node@20.14.10)(sass@1.77.8)(terser@5.31.2)
 
-  packages-sizes/core:
-    devDependencies:
-      '@eslint-react/core':
-        specifier: workspace:*
-        version: link:../../packages/core
-      '@tsconfig/node22':
-        specifier: 22.0.0
-        version: 22.0.0
-      '@tsconfig/strictest':
-        specifier: 2.0.5
-        version: 2.0.5
-
-  packages-sizes/plugins/eslint-plugin:
-    devDependencies:
-      '@eslint-react/eslint-plugin':
-        specifier: workspace:*
-        version: link:../../../packages/plugins/eslint-plugin
-      '@tsconfig/node22':
-        specifier: 22.0.0
-        version: 22.0.0
-      '@tsconfig/strictest':
-        specifier: 2.0.5
-        version: 2.0.5
-
-  packages-sizes/plugins/eslint-plugin-react-debug:
-    devDependencies:
-      '@tsconfig/node22':
-        specifier: 22.0.0
-        version: 22.0.0
-      '@tsconfig/strictest':
-        specifier: 2.0.5
-        version: 2.0.5
-      eslint-plugin-react-debug:
-        specifier: workspace:*
-        version: link:../../../packages/plugins/eslint-plugin-react-debug
-
-  packages-sizes/plugins/eslint-plugin-react-dom:
-    devDependencies:
-      '@tsconfig/node22':
-        specifier: 22.0.0
-        version: 22.0.0
-      '@tsconfig/strictest':
-        specifier: 2.0.5
-        version: 2.0.5
-      eslint-plugin-react-dom:
-        specifier: workspace:*
-        version: link:../../../packages/plugins/eslint-plugin-react-dom
-
-  packages-sizes/plugins/eslint-plugin-react-hooks-extra:
-    devDependencies:
-      '@tsconfig/node22':
-        specifier: 22.0.0
-        version: 22.0.0
-      '@tsconfig/strictest':
-        specifier: 2.0.5
-        version: 2.0.5
-      eslint-plugin-react-hooks-extra:
-        specifier: workspace:*
-        version: link:../../../packages/plugins/eslint-plugin-react-hooks-extra
-
-  packages-sizes/plugins/eslint-plugin-react-naming-convention:
-    devDependencies:
-      '@tsconfig/node22':
-        specifier: 22.0.0
-        version: 22.0.0
-      '@tsconfig/strictest':
-        specifier: 2.0.5
-        version: 2.0.5
-      eslint-plugin-react-hooks-extra:
-        specifier: workspace:*
-        version: link:../../../packages/plugins/eslint-plugin-react-hooks-extra
-
-  packages-sizes/plugins/eslint-plugin-react-x:
-    devDependencies:
-      '@tsconfig/node22':
-        specifier: 22.0.0
-        version: 22.0.0
-      '@tsconfig/strictest':
-        specifier: 2.0.5
-        version: 2.0.5
-      eslint-plugin-react-x:
-        specifier: workspace:*
-        version: link:../../../packages/plugins/eslint-plugin-react-x
-
-  packages-sizes/shared:
-    devDependencies:
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
-      '@tsconfig/node22':
-        specifier: 22.0.0
-        version: 22.0.0
-      '@tsconfig/strictest':
-        specifier: 2.0.5
-        version: 2.0.5
-
-  packages-sizes/tools:
-    devDependencies:
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../../packages/tools
-      '@tsconfig/node22':
-        specifier: 22.0.0
-        version: 22.0.0
-      '@tsconfig/strictest':
-        specifier: 2.0.5
-        version: 2.0.5
-
-  packages-sizes/types:
-    devDependencies:
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../../packages/types
-      '@tsconfig/node22':
-        specifier: 22.0.0
-        version: 22.0.0
-      '@tsconfig/strictest':
-        specifier: 2.0.5
-        version: 2.0.5
-
-  packages-sizes/utilities/ast:
-    devDependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../../../packages/utilities/ast
-      '@tsconfig/node22':
-        specifier: 22.0.0
-        version: 22.0.0
-      '@tsconfig/strictest':
-        specifier: 2.0.5
-        version: 2.0.5
-
-  packages-sizes/utilities/jsx:
-    devDependencies:
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../../../packages/utilities/jsx
-      '@tsconfig/node22':
-        specifier: 22.0.0
-        version: 22.0.0
-      '@tsconfig/strictest':
-        specifier: 2.0.5
-        version: 2.0.5
-
-  packages-sizes/utilities/var:
-    devDependencies:
-      '@eslint-react/var':
-        specifier: workspace:*
-        version: link:../../../packages/utilities/var
-      '@tsconfig/node22':
-        specifier: 22.0.0
-        version: 22.0.0
-      '@tsconfig/strictest':
-        specifier: 2.0.5
-        version: 2.0.5
-
   packages/core:
     dependencies:
       '@eslint-react/ast':
@@ -884,6 +728,162 @@ importers:
       tsup:
         specifier: 8.1.0
         version: 8.1.0(postcss@8.4.39)(typescript@5.5.3)
+
+  test/bundles/core:
+    devDependencies:
+      '@eslint-react/core':
+        specifier: workspace:*
+        version: link:../../../packages/core
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+
+  test/bundles/plugins/eslint-plugin:
+    devDependencies:
+      '@eslint-react/eslint-plugin':
+        specifier: workspace:*
+        version: link:../../../../packages/plugins/eslint-plugin
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+
+  test/bundles/plugins/eslint-plugin-react-debug:
+    devDependencies:
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+      eslint-plugin-react-debug:
+        specifier: workspace:*
+        version: link:../../../../packages/plugins/eslint-plugin-react-debug
+
+  test/bundles/plugins/eslint-plugin-react-dom:
+    devDependencies:
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+      eslint-plugin-react-dom:
+        specifier: workspace:*
+        version: link:../../../../packages/plugins/eslint-plugin-react-dom
+
+  test/bundles/plugins/eslint-plugin-react-hooks-extra:
+    devDependencies:
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+      eslint-plugin-react-hooks-extra:
+        specifier: workspace:*
+        version: link:../../../../packages/plugins/eslint-plugin-react-hooks-extra
+
+  test/bundles/plugins/eslint-plugin-react-naming-convention:
+    devDependencies:
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+      eslint-plugin-react-hooks-extra:
+        specifier: workspace:*
+        version: link:../../../../packages/plugins/eslint-plugin-react-hooks-extra
+
+  test/bundles/plugins/eslint-plugin-react-x:
+    devDependencies:
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+      eslint-plugin-react-x:
+        specifier: workspace:*
+        version: link:../../../../packages/plugins/eslint-plugin-react-x
+
+  test/bundles/shared:
+    devDependencies:
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../../../packages/shared
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+
+  test/bundles/tools:
+    devDependencies:
+      '@eslint-react/tools':
+        specifier: workspace:*
+        version: link:../../../packages/tools
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+
+  test/bundles/types:
+    devDependencies:
+      '@eslint-react/types':
+        specifier: workspace:*
+        version: link:../../../packages/types
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+
+  test/bundles/utilities/ast:
+    devDependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../../../../packages/utilities/ast
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+
+  test/bundles/utilities/jsx:
+    devDependencies:
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../../../../packages/utilities/jsx
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+
+  test/bundles/utilities/var:
+    devDependencies:
+      '@eslint-react/var':
+        specifier: workspace:*
+        version: link:../../../../packages/utilities/var
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
 
   website:
     dependencies:

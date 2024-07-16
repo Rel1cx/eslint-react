@@ -58,8 +58,7 @@
     ".eslintcache": true,
     "eslint.config.js": true,
     "eslint.config.d.ts": true,
-    "*.bundled_*.mjs": true,
-    "packages-sizes": true
+    "*.bundled_*.mjs": true
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.tsdk": "node_modules/typescript/lib"

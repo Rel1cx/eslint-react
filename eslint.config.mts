@@ -24,7 +24,7 @@ const config: FlatConfig[] = [
       "website",
       "eslint.config.js",
       "eslint.config.d.ts",
-      "packages-sizes",
+      "test",
     ],
   },
   {

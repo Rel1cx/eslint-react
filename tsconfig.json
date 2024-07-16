@@ -22,7 +22,6 @@
     "*.config.ts",
     "*.config.mts",
     "scripts/**/*.ts",
-    "test",
     "packages/**/*.config.ts",
     "packages/**/scripts/**/*.ts"
   ]

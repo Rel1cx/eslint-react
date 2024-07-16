@@ -1,5 +1,5 @@
 {
-  "name": "packages-sizes-ast",
+  "name": "test-bundle-eslint-plugin-react-hooks-extra",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -11,15 +11,14 @@
   ],
   "scripts": {
     "build": "tsup",
-    "size": "du -a -h --apparent-size dist *.tgz",
-    "check": "pnpm run build && pnpm pack && pnpm size",
+    "pack": "pnpm pack",
     "clean": "rm -r -f dist *.tgz"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@eslint-react/ast": "workspace:*",
+    "eslint-plugin-react-hooks-extra": "workspace:*",
     "@tsconfig/node22": "22.0.0",
     "@tsconfig/strictest": "2.0.5"
   }
