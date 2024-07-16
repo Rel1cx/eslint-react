@@ -10,6 +10,7 @@
 
 - Rule `no-leaked-conditional-rendering` now supports BigInt literals on the left side of the logical expression
 - Rule `no-leaked-conditional-rendering` now allows a truthy number literal to be used on the left side of the logical expression.
+- Optimize bundle size.
 
 ## v1.5.26 (Mon 15 Jul 2024)
 
