@@ -7,13 +7,13 @@ const files = new Bun.Glob("packages-sizes/**/dist/**/*");
 const gzips = new Bun.Glob("packages-sizes/**/*.tgz");
 const selfsStat = [...selfs.scanSync()]
   .toSorted((a, b) => a.localeCompare(b))
-  .reduce((a, f) => a + `${f} ${formatBytes(fs.statSync(f).size)}\n`, "");
+  .reduce((a, f) => `${a}\n${f} ${formatBytes(fs.statSync(f).size)}`, "");
 const filesStat = [...files.scanSync()]
   .toSorted((a, b) => a.localeCompare(b))
-  .reduce((a, f) => a + `${f} ${formatBytes(fs.statSync(f).size)}\n`, "");
+  .reduce((a, f) => a + `${a}\n${f} ${formatBytes(fs.statSync(f).size)}\n`, "");
 const gzipsStat = [...gzips.scanSync()]
   .toSorted((a, b) => a.localeCompare(b))
-  .reduce((a, f) => a + `${f} ${formatBytes(fs.statSync(f).size)}\n`, "");
+  .reduce((a, f) => a + `${a}\n${f} ${formatBytes(fs.statSync(f).size)}\n`, "");
 fs.writeFileSync("packages-sizes.log", "Self Sizes:\n");
 fs.appendFileSync("packages-sizes.log", selfsStat);
 fs.appendFileSync("packages-sizes.log", "\nBundled Sizes:\n");
