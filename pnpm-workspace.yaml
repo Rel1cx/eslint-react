@@ -5,14 +5,14 @@ packages:
   - "website"
 catalogs:
   "tseslint7":
-    "@typescript-eslint/eslint-plugin": "^7.16.0"
-    "@typescript-eslint/parser": "^7.16.0"
-    "@typescript-eslint/rule-tester": "^7.16.0"
-    "@typescript-eslint/scope-manager": "^7.16.0"
-    "@typescript-eslint/type-utils": "^7.16.0"
-    "@typescript-eslint/types": "^7.16.0"
-    "@typescript-eslint/utils": "^7.16.0"
-    "typescript-eslint": "^7.16.0"
+    "@typescript-eslint/eslint-plugin": "^7.16.1"
+    "@typescript-eslint/parser": "^7.16.1"
+    "@typescript-eslint/rule-tester": "^7.16.1"
+    "@typescript-eslint/scope-manager": "^7.16.1"
+    "@typescript-eslint/type-utils": "^7.16.1"
+    "@typescript-eslint/types": "^7.16.1"
+    "@typescript-eslint/utils": "^7.16.1"
+    "typescript-eslint": "^7.16.1"
   "tseslint8":
     "@typescript-eslint/eslint-plugin": "rc-v8"
     "@typescript-eslint/parser": "rc-v8"
