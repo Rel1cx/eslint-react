@@ -128,8 +128,8 @@ importers:
         specifier: 0.1.7
         version: 0.1.7
       eslint-import-resolver-oxc:
-        specifier: ^0.1.6
-        version: 0.1.6(eslint@9.7.0)
+        specifier: ^0.2.0
+        version: 0.2.0(eslint@9.7.0)
       eslint-plugin-eslint-comments:
         specifier: 3.2.0
         version: 3.2.0(eslint@9.7.0)
@@ -1859,53 +1859,58 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@oxc-resolver/binding-darwin-arm64@1.10.0':
-    resolution: {integrity: sha512-sJpH25yjQQf+59g4WAhrZYSiLiev2kFmHIvANeX8/ZAUEvtmRKmw/sCfK1cS6F6iRWNlSSjKbmahaY0ubS95ug==}
+  '@oxc-resolver/binding-darwin-arm64@1.10.2':
+    resolution: {integrity: sha512-aOCZYXqmFL+2sXlaVkYbAOtICGGeTFtmdul8OimQfOXHJods6YHJ2nR6+rEeBcJzaXyXPP18ne1IsEc4AYL1IA==}
     cpu: [arm64]
     os: [darwin]
 
-  '@oxc-resolver/binding-darwin-x64@1.10.0':
-    resolution: {integrity: sha512-ETtWuoq5nmg1810bMeKCQ5vKq85Sy+arx7LDVEUFvkz4g0+6WP1SVYr4st7jBh8k6AhXAw1d7H5zRTL6Sfep/w==}
+  '@oxc-resolver/binding-darwin-x64@1.10.2':
+    resolution: {integrity: sha512-6WD7lHGkoduFZfUgnC2suKOlqttQRKxWsiVXiiGPu3mfXvQAhMd/gekuH1t8vOhFlPJduaww15n5UB0bSjCK+w==}
     cpu: [x64]
     os: [darwin]
 
-  '@oxc-resolver/binding-linux-arm-gnueabihf@1.10.0':
-    resolution: {integrity: sha512-0h8Tn0c2aUagCO0nNU0YwSqBbNBKrc4/0uSwM/gAKrzmjEbup2dZEDkvAoBzEFgGc8DFdvKv/uxydgJvpyAGZQ==}
+  '@oxc-resolver/binding-freebsd-x64@1.10.2':
+    resolution: {integrity: sha512-nEqHWx/Ot5p7Mafj8qH6vFlLSvHjECxAcZwhnAMqRuQu1NgXC/QM3emkdhVGy7QJgsxZbHpPaF6TERNf5/NL9Q==}
+    cpu: [x64]
+    os: [freebsd]
+
+  '@oxc-resolver/binding-linux-arm-gnueabihf@1.10.2':
+    resolution: {integrity: sha512-+AlZI0fPnpfArh8aC5k2295lmQrxa2p8gBLxC3buvCkz0ZpbVLxyyAXz3J2jGwJnmc5MUPLEqPYw6ZlAGH4XHA==}
     cpu: [arm]
     os: [linux]
 
-  '@oxc-resolver/binding-linux-arm64-gnu@1.10.0':
-    resolution: {integrity: sha512-RtJAj35/v4mm4MIEwlz8nomcgEpktdgOoIRdVaneSDjfTSQdagC34Bx9TRGLKt5u3xgP4xYx0rFTSBCmJUJoSQ==}
+  '@oxc-resolver/binding-linux-arm64-gnu@1.10.2':
+    resolution: {integrity: sha512-8fZ8NszFaUZaoA8eUwkF2lHjgUs76aFiewWgG/cjcZmwKp+ErZQLW8eOvIWZ4SohHQ+ScvhVsSaU2PU38c88gw==}
     cpu: [arm64]
     os: [linux]
 
-  '@oxc-resolver/binding-linux-arm64-musl@1.10.0':
-    resolution: {integrity: sha512-d9PBWbK3SCrj/018LoCyQ34LEEKZXyVwA/UCtRzCvZmgRxlRDmrim/xgl2IyXEqu3/9eeGnGnip1ceATGnAacA==}
+  '@oxc-resolver/binding-linux-arm64-musl@1.10.2':
+    resolution: {integrity: sha512-oPrLICrw96Ym9n04FWXWGkbkpF6qJtZ57JSnqI3oQ24xHTt4iWyjHKHQO46NbJAK9sFb3Qce4BzV8faDI5Rifg==}
     cpu: [arm64]
     os: [linux]
 
-  '@oxc-resolver/binding-linux-x64-gnu@1.10.0':
-    resolution: {integrity: sha512-dv2YPpCk2SQNQI/NiPSr207bdsIBD/1Gn7zpz/r9o6cl0RucHRk4KsMRamkJvWR+jIw0CwGTsgQZZTImcObLCQ==}
+  '@oxc-resolver/binding-linux-x64-gnu@1.10.2':
+    resolution: {integrity: sha512-eli74jTAUiIfqi8IPFqiPxQS69Alcr6w/IFRyf3XxrkxeFGgcgxJkRIxWNTKJ6T3EXxjuma+49LdZn6l9rEj7A==}
     cpu: [x64]
     os: [linux]
 
-  '@oxc-resolver/binding-linux-x64-musl@1.10.0':
-    resolution: {integrity: sha512-RdIxtyhPfxd8uUX2IkotnLHAkdrvVvEhv0ZNB31K6CtwVekZKWxSETzodN8+2LLNgp+4CClMHxhc59IapGUPKA==}
+  '@oxc-resolver/binding-linux-x64-musl@1.10.2':
+    resolution: {integrity: sha512-HH9zmjNSQo3rkbqJH5nIjGrtjC+QPrUy0KGGMR/oRCSLuD0cNFJ/Uly1XAugwSm4oEw0+rv6PmeclXmVTKsxhw==}
     cpu: [x64]
     os: [linux]
 
-  '@oxc-resolver/binding-wasm32-wasi@1.10.0':
-    resolution: {integrity: sha512-drqVsc2dj7rUdZ/UBzDxfyuPL8ZBjKYKiuW7RBrYKSOYKA4qNDIqB2qDUTv940WDF4WhrHFpHEjT6Y1Sp+Fvxw==}
+  '@oxc-resolver/binding-wasm32-wasi@1.10.2':
+    resolution: {integrity: sha512-3ItX23q33sfVBtMMdMhVDSe0NX5zBHxHfmFiXhSJuwNaVIwGpLFU7WU2nmq9oNdnmTOvjL8vlhOqiGvumBLlRA==}
     engines: {node: '>=14.0.0'}
     cpu: [wasm32]
 
-  '@oxc-resolver/binding-win32-arm64-msvc@1.10.0':
-    resolution: {integrity: sha512-RbDplFsBJkj4huit8d7XG2wKQ7IMdQhLAUBeK02JzsDDrpNsgD1fa3YOy2oGO3GPUWEJXyhq1okFyyVIHrUf3g==}
+  '@oxc-resolver/binding-win32-arm64-msvc@1.10.2':
+    resolution: {integrity: sha512-aVoj2V+jmQ1N+lVy9AhaLmzssJM0lcKt8D0UL83aNLZJ5lSN7hgBuUXTVmL+VF268f167khjo38z+fbELDVm8Q==}
     cpu: [arm64]
     os: [win32]
 
-  '@oxc-resolver/binding-win32-x64-msvc@1.10.0':
-    resolution: {integrity: sha512-0atlXXYIzdzvXBlPwdFde3PppPyapb+KofI9jjM88na9ytsC7Unn9hlV7egr2JSaGKCiEBDK8zOxoG1ueEauVA==}
+  '@oxc-resolver/binding-win32-x64-msvc@1.10.2':
+    resolution: {integrity: sha512-l8BDQWyP0Piw8hlmYPUqTRKLsq+ceG9h+9p6ZrjNzwW9AmJX7T7T2hgoVVHqS6f4WNA/CFkb3RyZP9QTzNkyyA==}
     cpu: [x64]
     os: [win32]
 
@@ -2647,7 +2652,6 @@ packages:
 
   bun@1.1.20:
     resolution: {integrity: sha512-aqLmvaz0/vLUiCrOXtAsf7pCSOS/qXieYDsq8COa3+fIgMK05CjZt9m9r7DC+tjKy7hH8uKSNTapQOr/kX8gIA==}
-    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -3310,8 +3314,8 @@ packages:
   eslint-import-resolver-node@0.3.9:
     resolution: {integrity: sha512-WFj2isz22JahUv+B788TlO3N6zL3nNJGU8CcZbPZvVEkBPaJdCV4vy5wyghty5ROFbCRnm132v8BScu5/1BQ8g==}
 
-  eslint-import-resolver-oxc@0.1.6:
-    resolution: {integrity: sha512-63EJ7xBpBqTEPSZvSyDzSnT9k3Wqsa8u7BTOKRaDIa98V4RFqfX7jCkDIKNbluJT0ubogD3l5Oun74DCdsIixg==}
+  eslint-import-resolver-oxc@0.2.0:
+    resolution: {integrity: sha512-vEGrc4Mj8KyiGZlH2I40MkTx+j5RmyOAQokN83xLe3Wfecg4sChBavYPpf4sTdG9ytlSGDS9+S1BAdyZiS4vEA==}
     peerDependencies:
       eslint: ^9.7.0
 
@@ -4788,8 +4792,8 @@ packages:
   outdent@0.5.0:
     resolution: {integrity: sha512-/jHxFIzoMXdqPzTaCpFzAAWhpkSjZPF4Vsn6jAfNpmbH/ymsmd7Qc6VE9BGn0L6YMj6uwpQLxCECpus4ukKS9Q==}
 
-  oxc-resolver@1.10.0:
-    resolution: {integrity: sha512-FkObNl6JVrbqvvRqXCQhYZvrJHqEJNAjWDuPxHx9CblwoYzL5zcM74Ba30ek3YUopaUSNit3ceaILqShAx+hgw==}
+  oxc-resolver@1.10.2:
+    resolution: {integrity: sha512-NIbwVqoU8Bhl7PVtItHCg+VFFokIDwBgIgFUwFG2Y8ePhxftFh5xG+KLar5PLWXlCP4WunPIuXD3jr3v6/MfRw==}
 
   p-filter@2.1.0:
     resolution: {integrity: sha512-ZBxxZ5sL2HghephhpGAQdoskxplTwr7ICaehZwLIlfL6acuVgZPm8yBNuRAFBGEqtD/hmUeq9eqLg2ys9Xr/yw==}
@@ -7043,36 +7047,39 @@ snapshots:
   '@oven/bun-windows-x64@1.1.20':
     optional: true
 
-  '@oxc-resolver/binding-darwin-arm64@1.10.0':
+  '@oxc-resolver/binding-darwin-arm64@1.10.2':
     optional: true
 
-  '@oxc-resolver/binding-darwin-x64@1.10.0':
+  '@oxc-resolver/binding-darwin-x64@1.10.2':
     optional: true
 
-  '@oxc-resolver/binding-linux-arm-gnueabihf@1.10.0':
+  '@oxc-resolver/binding-freebsd-x64@1.10.2':
     optional: true
 
-  '@oxc-resolver/binding-linux-arm64-gnu@1.10.0':
+  '@oxc-resolver/binding-linux-arm-gnueabihf@1.10.2':
     optional: true
 
-  '@oxc-resolver/binding-linux-arm64-musl@1.10.0':
+  '@oxc-resolver/binding-linux-arm64-gnu@1.10.2':
     optional: true
 
-  '@oxc-resolver/binding-linux-x64-gnu@1.10.0':
+  '@oxc-resolver/binding-linux-arm64-musl@1.10.2':
     optional: true
 
-  '@oxc-resolver/binding-linux-x64-musl@1.10.0':
+  '@oxc-resolver/binding-linux-x64-gnu@1.10.2':
     optional: true
 
-  '@oxc-resolver/binding-wasm32-wasi@1.10.0':
+  '@oxc-resolver/binding-linux-x64-musl@1.10.2':
+    optional: true
+
+  '@oxc-resolver/binding-wasm32-wasi@1.10.2':
     dependencies:
       '@napi-rs/wasm-runtime': 0.2.4
     optional: true
 
-  '@oxc-resolver/binding-win32-arm64-msvc@1.10.0':
+  '@oxc-resolver/binding-win32-arm64-msvc@1.10.2':
     optional: true
 
-  '@oxc-resolver/binding-win32-x64-msvc@1.10.0':
+  '@oxc-resolver/binding-win32-x64-msvc@1.10.2':
     optional: true
 
   '@pantajoe/bytes@1.0.2': {}
@@ -8660,10 +8667,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-oxc@0.1.6(eslint@9.7.0):
+  eslint-import-resolver-oxc@0.2.0(eslint@9.7.0):
     dependencies:
       eslint: 9.7.0
-      oxc-resolver: 1.10.0
+      oxc-resolver: 1.10.2
 
   eslint-mdx@3.1.5(eslint@9.7.0):
     dependencies:
@@ -10719,18 +10726,19 @@ snapshots:
 
   outdent@0.5.0: {}
 
-  oxc-resolver@1.10.0:
+  oxc-resolver@1.10.2:
     optionalDependencies:
-      '@oxc-resolver/binding-darwin-arm64': 1.10.0
-      '@oxc-resolver/binding-darwin-x64': 1.10.0
-      '@oxc-resolver/binding-linux-arm-gnueabihf': 1.10.0
-      '@oxc-resolver/binding-linux-arm64-gnu': 1.10.0
-      '@oxc-resolver/binding-linux-arm64-musl': 1.10.0
-      '@oxc-resolver/binding-linux-x64-gnu': 1.10.0
-      '@oxc-resolver/binding-linux-x64-musl': 1.10.0
-      '@oxc-resolver/binding-wasm32-wasi': 1.10.0
-      '@oxc-resolver/binding-win32-arm64-msvc': 1.10.0
-      '@oxc-resolver/binding-win32-x64-msvc': 1.10.0
+      '@oxc-resolver/binding-darwin-arm64': 1.10.2
+      '@oxc-resolver/binding-darwin-x64': 1.10.2
+      '@oxc-resolver/binding-freebsd-x64': 1.10.2
+      '@oxc-resolver/binding-linux-arm-gnueabihf': 1.10.2
+      '@oxc-resolver/binding-linux-arm64-gnu': 1.10.2
+      '@oxc-resolver/binding-linux-arm64-musl': 1.10.2
+      '@oxc-resolver/binding-linux-x64-gnu': 1.10.2
+      '@oxc-resolver/binding-linux-x64-musl': 1.10.2
+      '@oxc-resolver/binding-wasm32-wasi': 1.10.2
+      '@oxc-resolver/binding-win32-arm64-msvc': 1.10.2
+      '@oxc-resolver/binding-win32-x64-msvc': 1.10.2
 
   p-filter@2.1.0:
     dependencies:

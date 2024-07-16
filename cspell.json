@@ -89,6 +89,7 @@
     "uncast",
     "unoptimized",
     "valibot",
-    "weakref"
+    "weakref",
+    "pantajoe"
   ]
 }
