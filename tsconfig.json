@@ -24,5 +24,8 @@
     "scripts/**/*.ts",
     "packages/**/*.config.ts",
     "packages/**/scripts/**/*.ts"
+  ],
+  "exclude": [
+    "test"
   ]
 }
