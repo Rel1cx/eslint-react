@@ -56,6 +56,8 @@ const config: FlatConfig[] = [
           "tsconfig.json",
           "packages/*/tsconfig.json",
           "packages/*/*/tsconfig.json",
+          "packages-sizes/*/tsconfig.json",
+          "packages-sizes/*/*/tsconfig.json",
         ],
         tsconfigRootDir: dirname,
         warnOnUnsupportedTypeScriptVersion: true,

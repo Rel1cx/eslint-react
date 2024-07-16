@@ -67,6 +67,9 @@ importers:
       '@eslint/js':
         specifier: 9.7.0
         version: 9.7.0
+      '@pantajoe/bytes':
+        specifier: ^1.0.2
+        version: 1.0.2
       '@tsconfig/node22':
         specifier: 22.0.0
         version: 22.0.0
@@ -260,6 +263,162 @@ importers:
       vite:
         specifier: 5.3.3
         version: 5.3.3(@types/node@20.14.10)(sass@1.77.8)(terser@5.31.2)
+
+  packages-sizes/core:
+    devDependencies:
+      '@eslint-react/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+
+  packages-sizes/plugins/eslint-plugin:
+    devDependencies:
+      '@eslint-react/eslint-plugin':
+        specifier: workspace:*
+        version: link:../../../packages/plugins/eslint-plugin
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+
+  packages-sizes/plugins/eslint-plugin-react-debug:
+    devDependencies:
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+      eslint-plugin-react-debug:
+        specifier: workspace:*
+        version: link:../../../packages/plugins/eslint-plugin-react-debug
+
+  packages-sizes/plugins/eslint-plugin-react-dom:
+    devDependencies:
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+      eslint-plugin-react-dom:
+        specifier: workspace:*
+        version: link:../../../packages/plugins/eslint-plugin-react-dom
+
+  packages-sizes/plugins/eslint-plugin-react-hooks-extra:
+    devDependencies:
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+      eslint-plugin-react-hooks-extra:
+        specifier: workspace:*
+        version: link:../../../packages/plugins/eslint-plugin-react-hooks-extra
+
+  packages-sizes/plugins/eslint-plugin-react-naming-convention:
+    devDependencies:
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+      eslint-plugin-react-hooks-extra:
+        specifier: workspace:*
+        version: link:../../../packages/plugins/eslint-plugin-react-hooks-extra
+
+  packages-sizes/plugins/eslint-plugin-react-x:
+    devDependencies:
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+      eslint-plugin-react-x:
+        specifier: workspace:*
+        version: link:../../../packages/plugins/eslint-plugin-react-x
+
+  packages-sizes/shared:
+    devDependencies:
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+
+  packages-sizes/tools:
+    devDependencies:
+      '@eslint-react/tools':
+        specifier: workspace:*
+        version: link:../../packages/tools
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+
+  packages-sizes/types:
+    devDependencies:
+      '@eslint-react/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+
+  packages-sizes/utilities/ast:
+    devDependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../../../packages/utilities/ast
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+
+  packages-sizes/utilities/jsx:
+    devDependencies:
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../../../packages/utilities/jsx
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
+
+  packages-sizes/utilities/var:
+    devDependencies:
+      '@eslint-react/var':
+        specifier: workspace:*
+        version: link:../../../packages/utilities/var
+      '@tsconfig/node22':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
 
   packages/core:
     dependencies:
@@ -1750,6 +1909,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@pantajoe/bytes@1.0.2':
+    resolution: {integrity: sha512-7jEEQNJmRZo2Q7t6ocoPHeknCoGe0sLirSHexQBFBTUCf3zGZoi8ZM0oOJZyC5esci8L0TTvBCntLh+nbjLzhA==}
+
   '@parcel/watcher-android-arm64@2.4.1':
     resolution: {integrity: sha512-LOi/WTbbh3aTn2RYddrO8pnapixAziFl6SMxHM69r3tvdSm94JtCenaKgk1GRg5FJ5wpMCpHeW+7yqPlvZv7kg==}
     engines: {node: '>= 10.0.0'}
@@ -2485,6 +2647,7 @@ packages:
 
   bun@1.1.20:
     resolution: {integrity: sha512-aqLmvaz0/vLUiCrOXtAsf7pCSOS/qXieYDsq8COa3+fIgMK05CjZt9m9r7DC+tjKy7hH8uKSNTapQOr/kX8gIA==}
+    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -3545,6 +3708,7 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -3715,6 +3879,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -6909,6 +7074,8 @@ snapshots:
 
   '@oxc-resolver/binding-win32-x64-msvc@1.10.0':
     optional: true
+
+  '@pantajoe/bytes@1.0.2': {}
 
   '@parcel/watcher-android-arm64@2.4.1':
     optional: true

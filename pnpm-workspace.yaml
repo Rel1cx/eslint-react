@@ -1,6 +1,8 @@
 packages:
   - "packages/*"
   - "packages/*/*"
+  - "packages-sizes/*"
+  - "packages-sizes/*/*"
   - "examples/*"
   - "website"
 catalogs:

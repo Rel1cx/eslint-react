@@ -1,0 +1,26 @@
+{
+  "name": "packages-sizes-ast",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "./package.json"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "size": "du -a -h --apparent-size dist *.tgz",
+    "check": "pnpm run build && pnpm pack && pnpm size",
+    "clean": "rm -r -f dist *.tgz"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint-react/ast": "workspace:*",
+    "@tsconfig/node22": "22.0.0",
+    "@tsconfig/strictest": "2.0.5"
+  }
+}
