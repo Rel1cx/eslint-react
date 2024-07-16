@@ -43,6 +43,6 @@
     "ts-pattern": "^5.2.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "catalog:tseslint7",
-    "vite": "5.3.3"
+    "vite": "5.3.4"
   }
 }
