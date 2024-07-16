@@ -1,4 +1,5 @@
 import fs from "node:fs";
+
 import { formatBytes } from "@pantajoe/bytes";
 
 const selfs = new Bun.Glob("packages/**/dist/**/*");

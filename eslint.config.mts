@@ -24,6 +24,7 @@ const config: FlatConfig[] = [
       "website",
       "eslint.config.js",
       "eslint.config.d.ts",
+      "packages-sizes",
     ],
   },
   {
@@ -56,8 +57,6 @@ const config: FlatConfig[] = [
           "tsconfig.json",
           "packages/*/tsconfig.json",
           "packages/*/*/tsconfig.json",
-          "packages-sizes/*/tsconfig.json",
-          "packages-sizes/*/*/tsconfig.json",
         ],
         tsconfigRootDir: dirname,
         warnOnUnsupportedTypeScriptVersion: true,
