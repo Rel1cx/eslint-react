@@ -35,7 +35,7 @@
     "format:write": "dprint fmt",
     "inspect:deps": "skott -e .ts",
     "inspect:eslint-config": "eslint --print-config ./packages > eslint-config.json",
-    "inspect:packages-sizes": "pnpm -F \"./packages-sizes/**\" run check",
+    "inspect:packages-sizes": "bun run --bun ./scripts/inspect-packages-sizes.ts",
     "lint": "pnpm run lint:spell && pnpm run lint:deps && pnpm run lint:type && pnpm run lint:ts && pnpm run lint:publish && pnpm run lint:examples && pnpm run lint:website",
     "lint:deps": "skott -m file-tree -e .ts -s",
     "lint:examples": "pnpm -r -F \"./examples/*\" run --parallel lint",
