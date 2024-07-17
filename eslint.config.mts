@@ -11,7 +11,9 @@ import perfectionistNatural from "eslint-plugin-perfectionist/configs/recommende
 import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import unicornPlugin from "eslint-plugin-unicorn";
 import vitest from "eslint-plugin-vitest";
+import eslintPluginYml from "eslint-plugin-yml";
 import tseslint from "typescript-eslint";
+import YamlParser from "yaml-eslint-parser";
 
 type FlatConfig = Parameters<typeof tseslint.config>[number];
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
@@ -49,6 +51,7 @@ const config: FlatConfig[] = [
   eslintPluginPlugin.configs["flat/all-type-checked"],
   // base config
   {
+    files: ["**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts}"],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -288,6 +291,46 @@ const config: FlatConfig[] = [
         tsconfigRootDir: dirname,
         warnOnUnsupportedTypeScriptVersion: true,
       },
+    },
+  },
+  {
+    extends: [
+      tseslint.configs.disableTypeChecked,
+    ],
+    files: ["*.yaml", "**/*.yaml", "*.yml", "**/*.yml"],
+    ignores: [
+      "pnpm-lock.yaml",
+    ],
+    languageOptions: {
+      parser: YamlParser,
+    },
+    plugins: {
+      yml: eslintPluginYml,
+    },
+    rules: {
+      // Part: ESLint core rules known to cause problems with YAML
+      "no-irregular-whitespace": "off",
+      "no-unused-vars": "off",
+      "spaced-comment": "off",
+      // Part: eslint-plugin-yml rules
+      "yml/block-mapping": "error",
+      "yml/block-mapping-question-indicator-newline": "error",
+      "yml/block-sequence": "error",
+      "yml/block-sequence-hyphen-indicator-newline": "error",
+      "yml/flow-mapping-curly-newline": "error",
+      "yml/flow-mapping-curly-spacing": "error",
+      "yml/flow-sequence-bracket-newline": "error",
+      "yml/flow-sequence-bracket-spacing": "error",
+      "yml/indent": "error",
+      "yml/key-spacing": "error",
+      "yml/no-empty-document": "error",
+      "yml/no-empty-key": "error",
+      "yml/no-empty-mapping-value": "error",
+      "yml/no-empty-sequence-entry": "error",
+      "yml/no-irregular-whitespace": "error",
+      "yml/no-tab-indent": "error",
+      "yml/quotes": "error",
+      "yml/spaced-comment": "error",
     },
   },
 ];
