@@ -67,11 +67,8 @@ importers:
       '@eslint/js':
         specifier: 9.7.0
         version: 9.7.0
-      '@pantajoe/bytes':
-        specifier: ^1.0.2
-        version: 1.0.2
       '@swc/core':
-        specifier: ^1.6.13
+        specifier: 1.6.13
         version: 1.6.13(@swc/helpers@0.5.5)
       '@tsconfig/node22':
         specifier: 22.0.0
@@ -193,6 +190,9 @@ importers:
       sort-package-json:
         specifier: 2.10.0
         version: 2.10.0
+      superbytes:
+        specifier: 2.0.1
+        version: 2.0.1
       ts-pattern:
         specifier: 5.2.0
         version: 5.2.0
@@ -1920,9 +1920,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@pantajoe/bytes@1.0.2':
-    resolution: {integrity: sha512-7jEEQNJmRZo2Q7t6ocoPHeknCoGe0sLirSHexQBFBTUCf3zGZoi8ZM0oOJZyC5esci8L0TTvBCntLh+nbjLzhA==}
-
   '@parcel/watcher-android-arm64@2.4.1':
     resolution: {integrity: sha512-LOi/WTbbh3aTn2RYddrO8pnapixAziFl6SMxHM69r3tvdSm94JtCenaKgk1GRg5FJ5wpMCpHeW+7yqPlvZv7kg==}
     engines: {node: '>= 10.0.0'}
@@ -2730,7 +2727,6 @@ packages:
 
   bun@1.1.20:
     resolution: {integrity: sha512-aqLmvaz0/vLUiCrOXtAsf7pCSOS/qXieYDsq8COa3+fIgMK05CjZt9m9r7DC+tjKy7hH8uKSNTapQOr/kX8gIA==}
-    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -3797,7 +3793,6 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
-    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -3968,7 +3963,6 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
-    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -5575,6 +5569,9 @@ packages:
   summary@2.1.0:
     resolution: {integrity: sha512-nMIjMrd5Z2nuB2RZCKJfFMjgS3fygbeyGk9PxPPaJR1RIcyN9yn4A63Isovzm3ZtQuEkLBVgMdPup8UeLH7aQw==}
 
+  superbytes@2.0.1:
+    resolution: {integrity: sha512-QjGNlCo58LYC9T0HdJNVRRHdX3/+Y+sq+tTvzDtsAjI6CUvEI5XST5/ZfZ3v2jf0GFmwF8VQBXevm0VnSLppbQ==}
+
   supports-color@4.5.0:
     resolution: {integrity: sha512-ycQR/UbvI9xIlEdQT1TQqwoXtEldExbCEAJgRo5YXlmSKjv6ThHnP9/vwGa1gr19Gfw+LkFd7KqYMhzrRC5JYw==}
     engines: {node: '>=4'}
@@ -7160,8 +7157,6 @@ snapshots:
 
   '@oxc-resolver/binding-win32-x64-msvc@1.10.2':
     optional: true
-
-  '@pantajoe/bytes@1.0.2': {}
 
   '@parcel/watcher-android-arm64@2.4.1':
     optional: true
@@ -11639,6 +11634,8 @@ snapshots:
       ts-interface-checker: 0.1.13
 
   summary@2.1.0: {}
+
+  superbytes@2.0.1: {}
 
   supports-color@4.5.0:
     dependencies:

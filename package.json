@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.5.28-beta.0",
+  "version": "1.5.28-next.1",
   "private": true,
   "description": "A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -53,8 +53,7 @@
   "devDependencies": {
     "@changesets/cli": "2.27.7",
     "@eslint/js": "9.7.0",
-    "@pantajoe/bytes": "^1.0.2",
-    "@swc/core": "^1.6.13",
+    "@swc/core": "1.6.13",
     "@tsconfig/node22": "22.0.0",
     "@tsconfig/strictest": "2.0.5",
     "@types/node": "20.14.11",
@@ -95,6 +94,7 @@
     "react-dom": "^18.3.1",
     "skott": "0.35.2",
     "sort-package-json": "2.10.0",
+    "superbytes": "2.0.1",
     "ts-pattern": "5.2.0",
     "tsup": "8.1.1",
     "turbo": "2.0.7",
