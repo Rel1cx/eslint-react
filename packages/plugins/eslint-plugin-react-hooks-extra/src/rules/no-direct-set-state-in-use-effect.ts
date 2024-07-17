@@ -8,7 +8,7 @@ import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ConstantCase } from "string-ts";
-import { match } from "ts-pattern";
+import { isMatching, match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -48,11 +48,12 @@ export default createRule<[], MessageID>({
     const indirectFunctions = new Map<TSESTreeFunction, Chunk.Chunk<TSESTree.CallExpression>>();
     return {
       CallExpression(node) {
-        const effectFunction = traverseUp(node, isEffectFunction);
-        const parentFunction = traverseUpGuard(node, isFunction);
-        if (O.isNone(effectFunction) || O.isNone(parentFunction)) return;
+        const maybeEffectFn = traverseUp(node, isEffectFunction);
+        const maybeParentFn = traverseUpGuard(node, isFunction);
+        if (O.isNone(maybeEffectFn) || O.isNone(maybeParentFn)) return;
+        const effectFn = maybeEffectFn.value;
+        const parentFn = maybeParentFn.value;
         const callScope = context.sourceCode.getScope(node);
-        // if (scope.block !== effectFunction.value) return;
         const name = match(node.callee)
           // const [data, setData] = useState();
           // setData();
@@ -71,21 +72,15 @@ export default createRule<[], MessageID>({
           .with({ type: NodeType.CallExpression }, (n) => {
             if (!is(NodeType.MemberExpression)(n.callee)) return O.none();
             if (!("name" in n.callee.object)) return O.none();
-            const isAt = match(n.callee)
-              .with(
-                {
-                  type: NodeType.MemberExpression,
-                  property: {
-                    type: NodeType.Identifier,
-                    name: "at",
-                  },
-                },
-                F.constTrue,
-              )
-              .otherwise(F.constFalse);
-            if (!isAt) return O.none();
+            const isAt = isMatching({
+              type: NodeType.MemberExpression,
+              property: {
+                type: NodeType.Identifier,
+                name: "at",
+              },
+            }, n.callee);
             const [index] = n.arguments;
-            if (!index) return O.none();
+            if (!isAt || !index) return O.none();
             const initialScope = context.sourceCode.getScope(n);
             const value = getStaticValue(index, initialScope);
             if (value?.value === 1) return O.fromNullable(n.callee.object.name);
@@ -100,16 +95,11 @@ export default createRule<[], MessageID>({
           O.filter(is(NodeType.CallExpression)),
           O.exists(name => isUseStateCallWithAlias(name, context)),
         );
-        const isInEffectScope = parentFunction.value === effectFunction.value;
-        const isInsideIIFE = parentFunction.value.type !== NodeType.FunctionDeclaration && isIIFE(parentFunction.value);
-        const isIIFEInEffectScope = isInsideIIFE && O.exists(
-          traverseUpGuard(parentFunction.value, isFunction),
-          n => n === effectFunction.value,
-        );
-        const shouldReport = (isInEffectScope || isIIFEInEffectScope) && isUseStatCall;
-        const shouldRecordSetCall = !isInsideIIFE && !isInEffectScope && isUseStatCall;
-        const shouldRecordIndirectCall = !isInsideIIFE && isInEffectScope && !isUseStatCall;
-        if (shouldReport) {
+        const isInEffectScope = parentFn === effectFn;
+        const isInIIFEScope = parentFn.type !== NodeType.FunctionDeclaration && isIIFE(parentFn);
+        const willExecute = isInEffectScope
+          || (isInIIFEScope && O.exists(traverseUpGuard(parentFn, isFunction), n => n === effectFn));
+        if (willExecute && isUseStatCall) {
           context.report({
             data: {
               name: name.value,
@@ -118,11 +108,13 @@ export default createRule<[], MessageID>({
             node,
           });
         }
-        if (shouldRecordSetCall) {
-          const chunk = indirectFunctions.get(parentFunction.value) ?? Chunk.empty();
-          indirectFunctions.set(parentFunction.value, Chunk.append(chunk, node));
+        const shouldMarkSetCall = !isInEffectScope && isUseStatCall;
+        const shouldMarkIndirectCall = isInEffectScope && !isUseStatCall;
+        if (shouldMarkSetCall) {
+          const chunk = indirectFunctions.get(parentFn) ?? Chunk.empty();
+          indirectFunctions.set(parentFn, Chunk.append(chunk, node));
         }
-        if (shouldRecordIndirectCall) {
+        if (shouldMarkIndirectCall) {
           MutRef.update(indirectCalls, Chunk.append(node));
         }
       },
@@ -130,11 +122,15 @@ export default createRule<[], MessageID>({
         for (const call of Chunk.toReadonlyArray(MutRef.get(indirectCalls))) {
           if (!("name" in call.callee)) continue;
           const { name } = call.callee;
-          const init = O.flatMap(findVariable(name, context.sourceCode.getScope(call)), getVariableInit(0));
-          if (O.isNone(init) || !isFunction(init.value)) continue;
-          const setFunctions = indirectFunctions.get(init.value);
-          if (!setFunctions) continue;
-          for (const setFunction of Chunk.toReadonlyArray(setFunctions)) {
+          const setFunctions = F.pipe(
+            findVariable(name, context.sourceCode.getScope(call)),
+            O.flatMap(getVariableInit(0)),
+            O.filter(isFunction),
+            O.flatMapNullable((init) => indirectFunctions.get(init as TSESTreeFunction)),
+            O.map(Chunk.toReadonlyArray),
+            O.getOrElse(() => []),
+          );
+          for (const setFunction of setFunctions) {
             context.report({
               data: {
                 name,
