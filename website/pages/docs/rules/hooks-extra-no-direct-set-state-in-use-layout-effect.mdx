@@ -1,4 +1,4 @@
-# no-direct-set-state-in-use-effect
+# no-direct-set-state-in-use-layout-effect
 
 ## Rule category
 
@@ -17,37 +17,148 @@ Calling `setState` directly in `useLayoutEffect` is a common bad practice. It ca
 ### Failing
 
 ```tsx twoslash
-import React, { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from 'react';
 
-function Example() {
-  const [value, setValue] = useState(0);
+function Form() {
+  const [firstName, setFirstName] = useState('Taylor');
+  const [lastName, setLastName] = useState('Swift');
 
+  // 🔴 Avoid: redundant state and unnecessary Effect
+  const [fullName, setFullName] = useState('');
   useLayoutEffect(() => {
-    setValue(value + 1);
-    // ^^^^^^^^^^^^^^^^^
-    // - Do not call the 'set' function of 'useState' directly in 'useLayoutEffect'.
-  }, []);
-
-  return null;
+    setFullName(firstName + ' ' + lastName);
+  }, [firstName, lastName]);
+  // ...
 }
 ```
 
 ### Passing
 
 ```tsx twoslash
-import React, { useLayoutEffect, useState } from "react";
+import { useState } from 'react';
 
-function Example() {
-  const [value, setValue] = useState(0);
+function Form() {
+  const [firstName, setFirstName] = useState('Taylor');
+  const [lastName, setLastName] = useState('Swift');
+  // ✅ Good: calculated during rendering
+  const fullName = firstName + ' ' + lastName;
+  // ...
+}
+```
 
+### Failing
+
+```tsx twoslash
+import { useLayoutEffect, useState } from 'react';
+
+function TodoList({ todos, filter }) {
+  const [newTodo, setNewTodo] = useState('');
+
+  // 🔴 Avoid: redundant state and unnecessary Effect
+  const [visibleTodos, setVisibleTodos] = useState([]);
   useLayoutEffect(() => {
-    const onLoad = () => {
-      setValue(value + 1);
-    };
-    // ...
-  }, []);
+    setVisibleTodos(getFilteredTodos(todos, filter));
+  }, [todos, filter]);
 
-  return null;
+  // ...
+}
+```
+
+### Passing
+
+```tsx twoslash
+import { useMemo, useState } from 'react';
+
+function TodoList({ todos, filter }) {
+  const [newTodo, setNewTodo] = useState('');
+  // ✅ Does not re-run getFilteredTodos() unless todos or filter change
+  const visibleTodos = useMemo(() => getFilteredTodos(todos, filter), [todos, filter]);
+  // ...
+}
+```
+
+### Failing
+
+```tsx twoslash
+import { useLayoutEffect, useState } from 'react';
+
+export default function ProfilePage({ userId }) {
+  const [comment, setComment] = useState('');
+
+  // 🔴 Avoid: Resetting state on prop change in an Effect
+  useLayoutEffect(() => {
+    setComment('');
+  }, [userId]);
+  // ...
+}
+```
+
+### Passing
+
+```tsx twoslash
+import { useState } from 'react';
+
+export default function ProfilePage({ userId }) {
+  return (
+    <Profile
+      userId={userId}
+      key={userId}
+    />
+  );
+}
+
+function Profile({ userId }) {
+  // ✅ This and any other state below will reset on key change automatically
+  const [comment, setComment] = useState('');
+  // ...
+}
+```
+
+### Failing
+
+```tsx twoslash
+import { useLayoutEffect, useState } from 'react';
+
+function List({ items }) {
+  const [isReverse, setIsReverse] = useState(false);
+  const [selection, setSelection] = useState(null);
+
+  // 🔴 Avoid: Adjusting state on prop change in an Effect
+  useLayoutEffect(() => {
+    setSelection(null);
+  }, [items]);
+  // ...
+}
+```
+
+### Passing
+
+```tsx twoslash
+import { useState } from 'react';
+
+function List({ items }) {
+  const [isReverse, setIsReverse] = useState(false);
+  const [selection, setSelection] = useState(null);
+
+  // Better: Adjust the state while rendering
+  const [prevItems, setPrevItems] = useState(items);
+  if (items !== prevItems) {
+    setPrevItems(items);
+    setSelection(null);
+  }
+  // ...
+}
+```
+
+```tsx twoslash
+import { useState } from 'react';
+
+function List({ items }) {
+  const [isReverse, setIsReverse] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  // ✅ Best: Calculate everything during rendering
+  const selection = items.find(item => item.id === selectedId) ?? null;
+  // ...
 }
 ```
 
