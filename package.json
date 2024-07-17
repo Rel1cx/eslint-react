@@ -69,7 +69,7 @@
     "code-block-writer": "13.0.1",
     "cspell": "8.11.0",
     "dprint": "0.47.2",
-    "effect": "3.5.4",
+    "effect": "3.5.5",
     "esbuild": "0.23.0",
     "eslint": "^9.7.0",
     "eslint-config-flat-gitignore": "0.1.8",
