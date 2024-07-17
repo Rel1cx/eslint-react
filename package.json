@@ -85,7 +85,7 @@
     "eslint-plugin-vitest": "0.5.4",
     "eslint-plugin-yml": "^1.14.0",
     "fast-equals": "5.0.1",
-    "husky": "9.0.11",
+    "husky": "9.1.0",
     "knip": "^5.26.0",
     "markdownlint": "0.34.0",
     "pathe": "1.1.2",
