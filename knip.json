@@ -4,15 +4,15 @@
       "entry": "scripts/*.ts",
       "project": "scripts/**/*.ts"
     },
-    "packages/*": {
+    "packages/*/": {
       "entry": "index.ts",
       "project": "**/*.{ts,tsx}"
     },
-    "packages/*/*": {
+    "packages/*/*/": {
       "entry": "index.ts",
       "project": "**/*.{ts,tsx}"
     },
-    "examples/*": {
+    "examples/*/": {
       "entry": "{index,main}.{ts,tsx}",
       "project": "**/*.{ts,tsx}"
     },

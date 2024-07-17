@@ -1,8 +1,8 @@
 packages:
-  - "packages/*"
-  - "packages/*/*"
-  - "test/bundles/*"
-  - "test/bundles/*/*"
+  - "packages/*/"
+  - "packages/*/*/"
+  - "test/bundles/*/"
+  - "test/bundles/*/*/"
   - "examples/*"
   - "website"
 catalogs:
