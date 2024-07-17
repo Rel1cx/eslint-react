@@ -1,7 +1,8 @@
-import { is, isFunction, NodeType, traverseUp } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
+import { is, isFunction, isIIFE, NodeType, traverseUp, traverseUpGuard } from "@eslint-react/ast";
 import { isReactHookCallWithNameLoose, isUseEffectCall, isUseStateCall } from "@eslint-react/core";
 import { getESLintReactSettings } from "@eslint-react/shared";
-import { F, O } from "@eslint-react/tools";
+import { Chunk, F, MutRef, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
@@ -43,12 +44,13 @@ export default createRule<[], MessageID>({
     // TODO: support detecting effect cleanup functions as well or add a separate rule for that called `no-direct-set-state-in-use-effect-cleanup`
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function isCleanUpFunction(node: TSESTree.Node) {}
+    const indirectCalls = MutRef.make(Chunk.empty<TSESTree.CallExpression>());
+    const indirectFunctions = new Map<TSESTreeFunction, Chunk.Chunk<TSESTree.CallExpression>>();
     return {
       CallExpression(node) {
         const effectFunction = traverseUp(node, isEffectFunction);
-        const parentFunction = traverseUp(node, isFunction);
+        const parentFunction = traverseUpGuard(node, isFunction);
         if (O.isNone(effectFunction) || O.isNone(parentFunction)) return;
-        if (parentFunction.value !== effectFunction.value) return;
         const callScope = context.sourceCode.getScope(node);
         // if (scope.block !== effectFunction.value) return;
         const name = match(node.callee)
@@ -90,21 +92,58 @@ export default createRule<[], MessageID>({
             return O.none();
           })
           .otherwise(O.none);
-        F.pipe(
+        if (O.isNone(name)) return;
+        const isUseStatCall = F.pipe(
           name,
           O.flatMap(findVariable(callScope)),
           O.flatMap(getVariableInit(0)),
           O.filter(is(NodeType.CallExpression)),
-          O.filter(name => isUseStateCallWithAlias(name, context)),
-          O.map(name => ({
+          O.exists(name => isUseStateCallWithAlias(name, context)),
+        );
+        const isInEffectScope = parentFunction.value === effectFunction.value;
+        const isInsideIIFE = parentFunction.value.type !== NodeType.FunctionDeclaration && isIIFE(parentFunction.value);
+        const isIIFEInEffectScope = isInsideIIFE && O.exists(
+          traverseUpGuard(parentFunction.value, isFunction),
+          n => n === effectFunction.value,
+        );
+        const shouldReport = (isInEffectScope || isIIFEInEffectScope) && isUseStatCall;
+        const shouldRecordSetCall = !isInsideIIFE && !isInEffectScope && isUseStatCall;
+        const shouldRecordIndirectCall = !isInsideIIFE && isInEffectScope && !isUseStatCall;
+        if (shouldReport) {
+          context.report({
             data: {
-              setState: name,
+              name: name.value,
             },
             messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT",
             node,
-          } as const)),
-          O.map(context.report),
-        );
+          });
+        }
+        if (shouldRecordSetCall) {
+          const chunk = indirectFunctions.get(parentFunction.value) ?? Chunk.empty();
+          indirectFunctions.set(parentFunction.value, Chunk.append(chunk, node));
+        }
+        if (shouldRecordIndirectCall) {
+          MutRef.update(indirectCalls, Chunk.append(node));
+        }
+      },
+      "Program:exit"() {
+        for (const call of Chunk.toReadonlyArray(MutRef.get(indirectCalls))) {
+          if (!("name" in call.callee)) continue;
+          const { name } = call.callee;
+          const init = O.flatMap(findVariable(name, context.sourceCode.getScope(call)), getVariableInit(0));
+          if (O.isNone(init) || !isFunction(init.value)) continue;
+          const setFunctions = indirectFunctions.get(init.value);
+          if (!setFunctions) continue;
+          for (const setFunction of Chunk.toReadonlyArray(setFunctions)) {
+            context.report({
+              data: {
+                name,
+              },
+              messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT",
+              node: setFunction,
+            });
+          }
+        }
       },
     };
   },

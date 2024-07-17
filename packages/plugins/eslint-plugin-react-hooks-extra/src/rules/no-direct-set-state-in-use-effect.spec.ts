@@ -12,6 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
           useEffect(() => {
             setData(1);
           }, []);
+          return null;
         }
       `,
       errors: [
@@ -27,6 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
           useEffect(() => {
             data[1]();
           }, []);
+          return null;
         }
       `,
       errors: [
@@ -42,6 +44,7 @@ ruleTester.run(RULE_NAME, rule, {
           useEffect(() => {
             data.at(1)();
           }, []);
+          return null;
         }
       `,
       errors: [
@@ -58,6 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
           useEffect(() => {
             data.at(index)();
           }, []);
+          return null;
         }
       `,
       errors: [
@@ -74,6 +78,7 @@ ruleTester.run(RULE_NAME, rule, {
           useEffect(() => {
             data[index]();
           }, []);
+          return null;
         }
       `,
       errors: [
@@ -90,6 +95,7 @@ ruleTester.run(RULE_NAME, rule, {
           useEffect(() => {
             data[index]();
           }, []);
+          return null;
         }
       `,
       errors: [
@@ -113,6 +119,7 @@ ruleTester.run(RULE_NAME, rule, {
           useCustomEffect(() => {
             data[index]();
           }, []);
+          return null;
         }
       `,
       errors: [
@@ -134,6 +141,7 @@ ruleTester.run(RULE_NAME, rule, {
           useCustomEffect(() => {
             data[index]();
           }, []);
+          return null;
         }
       `,
       errors: [
@@ -156,6 +164,7 @@ ruleTester.run(RULE_NAME, rule, {
           useCustomEffect(() => {
             data.at(index)();
           }, []);
+          return null;
         }
       `,
       errors: [
@@ -181,6 +190,166 @@ ruleTester.run(RULE_NAME, rule, {
               setData(1);
             }
           }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data, setData] = useState();
+          useEffect(() => {
+          const onLoad = () => {
+            setData();
+          };
+          onLoad();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data, setData] = useState();
+          useEffect(() => {
+              (async () => { setData() })();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data, setData] = useState();
+          useEffect(() => {
+            !(function onLoad() {
+              setData()
+            })();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data, setData] = useState();
+          useEffect(() => {
+            const setAll = () => {
+              setData();
+            }
+            setAll()
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data, setData] = useState();
+          useEffect(() => {
+            const cleanup = () => {
+              setData();
+            }
+            return cleanup;
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data, setData] = useState();
+          useEffect(setData, []);
+          return null;
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data, setData] = useState();
+          useEffect(() => setData, []);
+          return null;
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data, setData] = useState();
+          useEffect(() => setData(), []);
+          return null;
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          useEffect(useState()[1], []);
+          return null;
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          useEffect(useState().at(1), []);
+          return null;
         }
       `,
       errors: [
@@ -198,6 +367,7 @@ ruleTester.run(RULE_NAME, rule, {
         useEffect(() => {
           const handler = () => setData(1);
         }, []);
+        return null;
       }
     `,
     /* tsx */ `
@@ -208,16 +378,7 @@ ruleTester.run(RULE_NAME, rule, {
         useEffect(() => {
           fetch().then(() => setData());
         }, []);
-      }
-    `,
-    /* tsx */ `
-      import { useEffect, useState } from "react";
-
-      const Component = () => {
-        const [data, setData] = useState();
-        useEffect(() => {
-            (async () => { setData() })();
-        }, []);
+        return null;
       }
     `,
     /* tsx */ `
@@ -230,6 +391,7 @@ ruleTester.run(RULE_NAME, rule, {
           setData();
         };
         }, []);
+        return null;
       }
     `,
     /* tsx */ `
@@ -241,6 +403,7 @@ ruleTester.run(RULE_NAME, rule, {
         useEffect(() => {
           data.at(index)();
         }, []);
+        return null;
       }
     `,
   ],
