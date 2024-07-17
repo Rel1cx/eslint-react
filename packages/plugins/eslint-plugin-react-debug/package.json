@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-debug",
-  "version": "1.5.27",
+  "version": "1.5.28-next.0",
   "description": "ESLint React's ESLint plugin for debugging related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -54,7 +54,7 @@
     "string-ts": "^2.2.0"
   },
   "devDependencies": {
-    "tsup": "8.1.0"
+    "tsup": "8.1.1"
   },
   "peerDependencies": {
     "eslint": "^8.57.0 || ^9.0.0",
