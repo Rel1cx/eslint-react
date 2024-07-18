@@ -163,12 +163,12 @@ importers:
       fast-equals:
         specifier: 5.0.1
         version: 5.0.1
-      husky:
-        specifier: 9.1.0
-        version: 9.1.0
       knip:
         specifier: ^5.26.0
         version: 5.26.0(@types/node@20.14.11)(typescript@5.5.3)
+      lefthook:
+        specifier: ^1.7.2
+        version: 1.7.2
       markdownlint:
         specifier: 0.34.0
         version: 0.34.0
@@ -3793,7 +3793,6 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
-    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -3916,11 +3915,6 @@ packages:
     resolution: {integrity: sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==}
     engines: {node: '>=16.17.0'}
 
-  husky@9.1.0:
-    resolution: {integrity: sha512-8XCjbomYTGdNF2h50dio3T3zghmZ9f/ZNzr99YwSkvDdhEjJGs5qzy8tbFx+SG8yCx2wn9nMVfZxVrr/yT8gNQ==}
-    engines: {node: '>=18'}
-    hasBin: true
-
   iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
     engines: {node: '>=0.10.0'}
@@ -3964,7 +3958,6 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
-    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -4232,6 +4225,58 @@ packages:
 
   layout-base@1.0.2:
     resolution: {integrity: sha512-8h2oVEZNktL4BH2JCOI90iD1yXwL6iNW7KcCKT2QZgQJR2vbqDsldCTPRU9NifTCqHZci57XvQQ15YTu+sTYPg==}
+
+  lefthook-darwin-arm64@1.7.2:
+    resolution: {integrity: sha512-E3Ouk04/yeD8IBLGJkyzL0NMYIrjADQvaDbf4yNSq6HWGnUC0R2KpYxrZno2yahZnvQ0vYTDta7Egw6cqcYGlQ==}
+    cpu: [arm64]
+    os: [darwin]
+    hasBin: true
+
+  lefthook-darwin-x64@1.7.2:
+    resolution: {integrity: sha512-Am6ZNmjItQSqKbK8/spFIj5GDWNHJ47PM0vpT1PnBHrgWanjz0iLw6adwpMu8u7+CkZlHjp08lbvjBPGHIu3dg==}
+    cpu: [x64]
+    os: [darwin]
+    hasBin: true
+
+  lefthook-freebsd-arm64@1.7.2:
+    resolution: {integrity: sha512-o1LBgHhwnUOLs9iVbi1GhvXMQlzYSKnyFcc061iADxHMJk1xWMD6RUyyohmLbfEU0gTWxkRfkdAFvbvwNqQiww==}
+    cpu: [arm64]
+    os: [freebsd]
+    hasBin: true
+
+  lefthook-freebsd-x64@1.7.2:
+    resolution: {integrity: sha512-vxB3FeeFYDfk4vAahaZdGJ7gbViGOkOyL5JRBDWlFjUfZJLGwVauf6GhtysdO1dgxs9K3ECdEtXgW+uOB872rQ==}
+    cpu: [x64]
+    os: [freebsd]
+    hasBin: true
+
+  lefthook-linux-arm64@1.7.2:
+    resolution: {integrity: sha512-4dbVj5Jjy12flAyOcVWvWQ6gJoQ6X7HJ3qfsrM8/GIfLQBlkw+YRcLuWHUI3H9qsQFpkpYZsLcmUXoVM77z5mw==}
+    cpu: [arm64]
+    os: [linux]
+    hasBin: true
+
+  lefthook-linux-x64@1.7.2:
+    resolution: {integrity: sha512-lT0IRp1pGtbua8IWVeIVCSAxKex9fOyAexHaEmBZytfqr/94lpjzWWEQdLFQAlpZthuyCkuaJp5kLgMj6/IySQ==}
+    cpu: [x64]
+    os: [linux]
+    hasBin: true
+
+  lefthook-windows-arm64@1.7.2:
+    resolution: {integrity: sha512-DxWLmcNI3NICd4rFqTPgXf+G/97ztl+ONvYuNE/ELAxVp338xAUFvzZCQvDZDzeTLrT1C4hZZ4zDvEhnOOECXg==}
+    cpu: [arm64]
+    os: [win32]
+    hasBin: true
+
+  lefthook-windows-x64@1.7.2:
+    resolution: {integrity: sha512-fL4F8/XXoYUJJ6GSYCwFL+bRufzbkeMSGYZKUDr6ZKOI4KafIEcgFNwlnQF03gY6vkUrYKksXQofOVlOfv3vPA==}
+    cpu: [x64]
+    os: [win32]
+    hasBin: true
+
+  lefthook@1.7.2:
+    resolution: {integrity: sha512-QCCq6KyVAVYBuxWf338TjMAjjGesyNRtfxJhjYV+kpUkd5ST2yr8ZUJrcEKe+0cUfziPOQ9Hz+1JZniXJx+JqA==}
+    hasBin: true
 
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
@@ -9511,8 +9556,6 @@ snapshots:
 
   human-signals@5.0.0: {}
 
-  husky@9.1.0: {}
-
   iconv-lite@0.4.24:
     dependencies:
       safer-buffer: 2.1.2
@@ -9760,6 +9803,41 @@ snapshots:
       zod-validation-error: 3.3.0(zod@3.23.8)
 
   layout-base@1.0.2: {}
+
+  lefthook-darwin-arm64@1.7.2:
+    optional: true
+
+  lefthook-darwin-x64@1.7.2:
+    optional: true
+
+  lefthook-freebsd-arm64@1.7.2:
+    optional: true
+
+  lefthook-freebsd-x64@1.7.2:
+    optional: true
+
+  lefthook-linux-arm64@1.7.2:
+    optional: true
+
+  lefthook-linux-x64@1.7.2:
+    optional: true
+
+  lefthook-windows-arm64@1.7.2:
+    optional: true
+
+  lefthook-windows-x64@1.7.2:
+    optional: true
+
+  lefthook@1.7.2:
+    optionalDependencies:
+      lefthook-darwin-arm64: 1.7.2
+      lefthook-darwin-x64: 1.7.2
+      lefthook-freebsd-arm64: 1.7.2
+      lefthook-freebsd-x64: 1.7.2
+      lefthook-linux-arm64: 1.7.2
+      lefthook-linux-x64: 1.7.2
+      lefthook-windows-arm64: 1.7.2
+      lefthook-windows-x64: 1.7.2
 
   levn@0.4.1:
     dependencies:

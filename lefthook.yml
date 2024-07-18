@@ -1,0 +1,13 @@
+pre-commit:
+  parallel: false
+  commands:
+    build:
+      run: pnpm run build
+    build:docs:
+      run: pnpm run build:docs
+    format:write:
+      run: pnpm run format:write
+    lint:
+      run: pnpm run lint
+    add:
+      run: git add .

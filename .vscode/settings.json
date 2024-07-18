@@ -61,7 +61,6 @@
   },
   "files.exclude": {
     "**/.turbo": true,
-    ".husky": true,
     ".npmignore": true,
     ".eslintcache": true,
     "eslint.config.js": true,
