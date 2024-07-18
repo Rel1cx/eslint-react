@@ -8,6 +8,7 @@ import { array, boolean, object, optional, string } from "valibot";
 export const ESLintReactSettingsSchema = object({
   additionalHooks: optional(object({
     use: optional(string()),
+    useActionState: optional(string()),
     useCallback: optional(array(string())),
     useContext: optional(array(string())),
     useDebugValue: optional(array(string())),
