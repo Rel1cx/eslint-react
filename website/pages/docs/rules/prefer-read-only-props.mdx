@@ -18,7 +18,7 @@ Props are read-only snapshots in time: every render receives a new version of pr
 
 ### Failing
 
-```tsx
+```tsx twoslash
 import React from "react";
 
 function Example(props: { name: string }) {
@@ -26,7 +26,7 @@ function Example(props: { name: string }) {
 }
 ```
 
-```tsx
+```tsx twoslash
 import React from "react";
 
 interface Props {
@@ -40,7 +40,7 @@ function Example(props: Props) {
 
 ### Passing
 
-```tsx
+```tsx twoslash
 import React from "react";
 
 function Example(props: { readonly name: string }) {
@@ -48,7 +48,7 @@ function Example(props: { readonly name: string }) {
 }
 ```
 
-```tsx
+```tsx twoslash
 import React from "react";
 
 interface Props {
