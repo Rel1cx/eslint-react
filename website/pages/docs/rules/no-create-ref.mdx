@@ -16,7 +16,7 @@ Prevents usage of `createRef()` in function components.
 
 ### Failing
 
-```tsx twoslash
+```tsx
 import React, { createRef } from "react";
 
 function Example() {
@@ -30,7 +30,7 @@ function Example() {
 
 ### Passing
 
-```tsx twoslash
+```tsx
 import React, { useRef } from "react";
 
 function Example() {
@@ -40,7 +40,7 @@ function Example() {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React, { createRef } from "react";
 
 class Example extends React.Component {

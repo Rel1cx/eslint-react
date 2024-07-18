@@ -16,7 +16,7 @@ Calling `setState` directly in `useEffect` is a common bad practice. It can lead
 
 ### Failing
 
-```tsx twoslash
+```tsx
 import { useEffect, useState } from 'react';
 
 function Form() {
@@ -34,7 +34,7 @@ function Form() {
 
 ### Passing
 
-```tsx twoslash
+```tsx
 import { useState } from 'react';
 
 function Form() {
@@ -48,7 +48,7 @@ function Form() {
 
 ### Failing
 
-```tsx twoslash
+```tsx
 import { useEffect, useState } from 'react';
 
 function TodoList({ todos, filter }) {
@@ -66,7 +66,7 @@ function TodoList({ todos, filter }) {
 
 ### Passing
 
-```tsx twoslash
+```tsx
 import { useMemo, useState } from 'react';
 
 function TodoList({ todos, filter }) {
@@ -79,7 +79,7 @@ function TodoList({ todos, filter }) {
 
 ### Failing
 
-```tsx twoslash
+```tsx
 import { useEffect, useState } from 'react';
 
 export default function ProfilePage({ userId }) {
@@ -95,7 +95,7 @@ export default function ProfilePage({ userId }) {
 
 ### Passing
 
-```tsx twoslash
+```tsx
 import { useState } from 'react';
 
 export default function ProfilePage({ userId }) {
@@ -116,7 +116,7 @@ function Profile({ userId }) {
 
 ### Failing
 
-```tsx twoslash
+```tsx
 import { useEffect, useState } from 'react';
 
 function List({ items }) {
@@ -133,7 +133,7 @@ function List({ items }) {
 
 ### Passing
 
-```tsx twoslash
+```tsx
 import { useState } from 'react';
 
 function List({ items }) {
@@ -150,7 +150,7 @@ function List({ items }) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import { useState } from 'react';
 
 function List({ items }) {

@@ -16,7 +16,7 @@ When defining a React component, if you specify its component name in a way that
 
 ### Failing
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 const Button = React.memo(() => <div />);
@@ -24,7 +24,7 @@ const Button = React.memo(() => <div />);
 //                        - Missing 'displayName' for component.
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 const Button = React.forwardRef(() => <div />);
@@ -34,7 +34,7 @@ const Button = React.forwardRef(() => <div />);
 
 (Not supported yet)
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 export default () => <div />;
@@ -44,7 +44,7 @@ export default () => <div />;
 
 ### Passing
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 const Button = React.memo(function Button() {
@@ -52,14 +52,14 @@ const Button = React.memo(function Button() {
 });
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 const Button = React.memo(() => <div />);
 Button.displayName = "Button";
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 const Button = React.forwardRef(function Button() {
@@ -67,14 +67,14 @@ const Button = React.forwardRef(function Button() {
 });
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 const Button = React.forwardRef(() => <div />);
 Button.displayName = "Button";
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 export default function Button() {
