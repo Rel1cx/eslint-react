@@ -20,7 +20,7 @@ To fix the violations, the easiest way is to use a referencing variable in modul
 
 ### Failing
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {
@@ -34,7 +34,7 @@ function Example({ items = [] }: ExampleProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {
@@ -48,7 +48,7 @@ function Example({ items = {} }: ExampleProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {
@@ -62,7 +62,7 @@ function Example({ onClick = () => {} }: ExampleProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {
@@ -79,7 +79,7 @@ function Example(props: ExampleProps) {
 
 ### Passing
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 const emptyArray: string[] = [];
@@ -93,7 +93,7 @@ function Example({ items = emptyArray }: ExampleProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 const emptyObject = {};
@@ -107,7 +107,7 @@ function Example({ items = emptyObject }: ExampleProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 const noop = () => {};
@@ -121,7 +121,7 @@ function Example({ onClick = noop }: ExampleProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 const emptyArray: string[] = [];
@@ -137,7 +137,7 @@ function Example(props: ExampleProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {

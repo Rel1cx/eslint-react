@@ -18,7 +18,7 @@ Using the && operator to render some element conditionally in JSX can cause unex
 
 In React, you might end up rendering unexpected values like 0 or NaN. In React Native, your render method will even crash if you render these values:
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 function Example() {
@@ -28,7 +28,7 @@ function Example() {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 function Example() {
@@ -38,7 +38,7 @@ function Example() {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 function Example() {
@@ -55,7 +55,7 @@ This can be avoided by:
 
 ### Failing
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {
@@ -70,7 +70,7 @@ function Example({ count, title }: ExampleProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {
@@ -84,7 +84,7 @@ function Example({ count }: ExampleProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {
@@ -100,7 +100,7 @@ function Example({ items }: ExampleProps) {
 declare const List: React.ComponentType<{ items: string[] }>;
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {
@@ -116,7 +116,7 @@ function Example({ items }: ExampleProps) {
 declare const List: React.ComponentType<{ items: string[] }>;
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {
@@ -137,7 +137,7 @@ declare const Results: React.ComponentType<React.PropsWithChildren>;
 
 ### Passing
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {
@@ -149,7 +149,7 @@ function Example({ items }: ExampleProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {
@@ -164,7 +164,7 @@ function Example({ customTitle }: ExampleProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {
@@ -176,7 +176,7 @@ function Example({ items }: ExampleProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {
@@ -189,7 +189,7 @@ function Example({ items, count }: ExampleProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {
@@ -203,7 +203,7 @@ function Example({ items }: ExampleProps) {
 declare const List: React.ComponentType<{ items: string[] }>;
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {
@@ -217,7 +217,7 @@ function Example({ items }: ExampleProps) {
 declare const List: React.ComponentType<{ items: string[] }>;
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {
@@ -231,7 +231,7 @@ function Example({ items }: ExampleProps) {
 declare const List: React.ComponentType<{ items: string[] }>;
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {
@@ -245,7 +245,7 @@ function Example({ items }: ExampleProps) {
 declare const List: React.ComponentType<{ items: string[] }>;
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface ExampleProps {

@@ -10,7 +10,7 @@ Reports all function components. Useful for debugging. This rule should only be 
 
 ## Examples
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 function Example() {
@@ -18,7 +18,7 @@ function Example() {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 function Example() {
@@ -26,25 +26,25 @@ function Example() {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 const Example = () => <button />;
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 const Example = () => React.createElement("button");
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 const Example = React.memo(() => <button />);
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 const Example = React.forwardRef(() => <button />);

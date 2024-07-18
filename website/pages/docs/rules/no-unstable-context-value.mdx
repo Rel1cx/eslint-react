@@ -16,7 +16,7 @@ React will re-render all consumers of a context whenever the context value chang
 
 ### Failing
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 const ExampleContext = React.createContext({});
@@ -34,7 +34,7 @@ declare const ExampleConsumer: React.ComponentType;
 
 ### Passing
 
-```tsx twoslash
+```tsx
 import React, { useMemo } from "react";
 
 const ExampleContext = React.createContext({});

@@ -18,7 +18,7 @@ Omitting the `ref` argument is usually a bug, and components not using `ref` don
 
 ### Failing
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 const Example = React.forwardRef((props) => {
@@ -30,7 +30,7 @@ const Example = React.forwardRef((props) => {
 
 ### Passing
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 const Example = React.forwardRef<HTMLButtonElement>((props, ref) => {
