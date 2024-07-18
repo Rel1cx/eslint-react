@@ -86,7 +86,7 @@
     "eslint-plugin-yml": "^1.14.0",
     "fast-equals": "5.0.1",
     "knip": "^5.26.0",
-    "lefthook": "^1.7.2",
+    "lefthook": "^1.7.3",
     "markdownlint": "0.34.0",
     "pathe": "1.1.2",
     "publint": "0.2.9",

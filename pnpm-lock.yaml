@@ -167,8 +167,8 @@ importers:
         specifier: ^5.26.0
         version: 5.26.0(@types/node@20.14.11)(typescript@5.5.3)
       lefthook:
-        specifier: ^1.7.2
-        version: 1.7.2
+        specifier: ^1.7.3
+        version: 1.7.3
       markdownlint:
         specifier: 0.34.0
         version: 0.34.0
@@ -2727,6 +2727,7 @@ packages:
 
   bun@1.1.20:
     resolution: {integrity: sha512-aqLmvaz0/vLUiCrOXtAsf7pCSOS/qXieYDsq8COa3+fIgMK05CjZt9m9r7DC+tjKy7hH8uKSNTapQOr/kX8gIA==}
+    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -3793,6 +3794,7 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -3958,6 +3960,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -4226,56 +4229,56 @@ packages:
   layout-base@1.0.2:
     resolution: {integrity: sha512-8h2oVEZNktL4BH2JCOI90iD1yXwL6iNW7KcCKT2QZgQJR2vbqDsldCTPRU9NifTCqHZci57XvQQ15YTu+sTYPg==}
 
-  lefthook-darwin-arm64@1.7.2:
-    resolution: {integrity: sha512-E3Ouk04/yeD8IBLGJkyzL0NMYIrjADQvaDbf4yNSq6HWGnUC0R2KpYxrZno2yahZnvQ0vYTDta7Egw6cqcYGlQ==}
+  lefthook-darwin-arm64@1.7.3:
+    resolution: {integrity: sha512-xhXVqWca69DPmE+rtVdwvLx/EypJ74oA5omMydn9h8IF2zYHPdalsB8R2jg5fPthPlWM6HNIpG3j7FoAGUJ2uA==}
     cpu: [arm64]
     os: [darwin]
     hasBin: true
 
-  lefthook-darwin-x64@1.7.2:
-    resolution: {integrity: sha512-Am6ZNmjItQSqKbK8/spFIj5GDWNHJ47PM0vpT1PnBHrgWanjz0iLw6adwpMu8u7+CkZlHjp08lbvjBPGHIu3dg==}
+  lefthook-darwin-x64@1.7.3:
+    resolution: {integrity: sha512-Sch+vy/dEcMhkJiYBn5MnBq2wCxMHVO/rpwIST6XtR6gxaJ1QRpGc63ZkcamyOaR3o0RncIYlZSRQ2zqOO96KQ==}
     cpu: [x64]
     os: [darwin]
     hasBin: true
 
-  lefthook-freebsd-arm64@1.7.2:
-    resolution: {integrity: sha512-o1LBgHhwnUOLs9iVbi1GhvXMQlzYSKnyFcc061iADxHMJk1xWMD6RUyyohmLbfEU0gTWxkRfkdAFvbvwNqQiww==}
+  lefthook-freebsd-arm64@1.7.3:
+    resolution: {integrity: sha512-z7/uJyozWIQcwYVNK2hTjid1F3l/9EaLfNMtSZPWaA8gvmzt7SEVIKqseBrZS71yml9SfxIjhxpfBEn0LC/rmw==}
     cpu: [arm64]
     os: [freebsd]
     hasBin: true
 
-  lefthook-freebsd-x64@1.7.2:
-    resolution: {integrity: sha512-vxB3FeeFYDfk4vAahaZdGJ7gbViGOkOyL5JRBDWlFjUfZJLGwVauf6GhtysdO1dgxs9K3ECdEtXgW+uOB872rQ==}
+  lefthook-freebsd-x64@1.7.3:
+    resolution: {integrity: sha512-FdNGC7fU4RrznU1frxOmAUVD+8sXn2JRi5P+7fjh1brnxcW7ZyLWELtO89NJcxnJgnjoVl+i1qn6nIp7lxYyTQ==}
     cpu: [x64]
     os: [freebsd]
     hasBin: true
 
-  lefthook-linux-arm64@1.7.2:
-    resolution: {integrity: sha512-4dbVj5Jjy12flAyOcVWvWQ6gJoQ6X7HJ3qfsrM8/GIfLQBlkw+YRcLuWHUI3H9qsQFpkpYZsLcmUXoVM77z5mw==}
+  lefthook-linux-arm64@1.7.3:
+    resolution: {integrity: sha512-MfBKlkoy+579BPF8xyGwAN9hsMGtHp3xhMSKd3ub8yF5CRJzkrG6RMePh3h3XynB0knmJAhPbjMLrzrfIUJTWA==}
     cpu: [arm64]
     os: [linux]
     hasBin: true
 
-  lefthook-linux-x64@1.7.2:
-    resolution: {integrity: sha512-lT0IRp1pGtbua8IWVeIVCSAxKex9fOyAexHaEmBZytfqr/94lpjzWWEQdLFQAlpZthuyCkuaJp5kLgMj6/IySQ==}
+  lefthook-linux-x64@1.7.3:
+    resolution: {integrity: sha512-uC3H8CcL8IMpbby6zk8CyO2gjSnOFL7SvpKgcVkF8RBtLEEMKQenQ/BuVLE1MHYrGydTN7wxhYSNu3vJ0BA3VA==}
     cpu: [x64]
     os: [linux]
     hasBin: true
 
-  lefthook-windows-arm64@1.7.2:
-    resolution: {integrity: sha512-DxWLmcNI3NICd4rFqTPgXf+G/97ztl+ONvYuNE/ELAxVp338xAUFvzZCQvDZDzeTLrT1C4hZZ4zDvEhnOOECXg==}
+  lefthook-windows-arm64@1.7.3:
+    resolution: {integrity: sha512-omVIe94nq2zNVWh74n11q2hugh1Eb+C/VkstZ7xpXmE9D3gKHdjbrHd+qoMwdF2RKv/TvT1dp/GHpIjuMRVQnw==}
     cpu: [arm64]
     os: [win32]
     hasBin: true
 
-  lefthook-windows-x64@1.7.2:
-    resolution: {integrity: sha512-fL4F8/XXoYUJJ6GSYCwFL+bRufzbkeMSGYZKUDr6ZKOI4KafIEcgFNwlnQF03gY6vkUrYKksXQofOVlOfv3vPA==}
+  lefthook-windows-x64@1.7.3:
+    resolution: {integrity: sha512-J1Y/AgnM9oNa7c8HBhkmPQl/ozL4T54tbuOPCRkMIOtZwD9Qvoir5INJnhrHlhhghM0kp0SM3bNr/DTroPEuig==}
     cpu: [x64]
     os: [win32]
     hasBin: true
 
-  lefthook@1.7.2:
-    resolution: {integrity: sha512-QCCq6KyVAVYBuxWf338TjMAjjGesyNRtfxJhjYV+kpUkd5ST2yr8ZUJrcEKe+0cUfziPOQ9Hz+1JZniXJx+JqA==}
+  lefthook@1.7.3:
+    resolution: {integrity: sha512-GHHk2UT9UpLM66QhgdwmUXI0PHe12ti/XtTZkpuQpKIpo+Eo4YNtm9qkcPXTr8mGKkQ3aOu6GvgfS46lGJVpYg==}
     hasBin: true
 
   levn@0.4.1:
@@ -9804,40 +9807,40 @@ snapshots:
 
   layout-base@1.0.2: {}
 
-  lefthook-darwin-arm64@1.7.2:
+  lefthook-darwin-arm64@1.7.3:
     optional: true
 
-  lefthook-darwin-x64@1.7.2:
+  lefthook-darwin-x64@1.7.3:
     optional: true
 
-  lefthook-freebsd-arm64@1.7.2:
+  lefthook-freebsd-arm64@1.7.3:
     optional: true
 
-  lefthook-freebsd-x64@1.7.2:
+  lefthook-freebsd-x64@1.7.3:
     optional: true
 
-  lefthook-linux-arm64@1.7.2:
+  lefthook-linux-arm64@1.7.3:
     optional: true
 
-  lefthook-linux-x64@1.7.2:
+  lefthook-linux-x64@1.7.3:
     optional: true
 
-  lefthook-windows-arm64@1.7.2:
+  lefthook-windows-arm64@1.7.3:
     optional: true
 
-  lefthook-windows-x64@1.7.2:
+  lefthook-windows-x64@1.7.3:
     optional: true
 
-  lefthook@1.7.2:
+  lefthook@1.7.3:
     optionalDependencies:
-      lefthook-darwin-arm64: 1.7.2
-      lefthook-darwin-x64: 1.7.2
-      lefthook-freebsd-arm64: 1.7.2
-      lefthook-freebsd-x64: 1.7.2
-      lefthook-linux-arm64: 1.7.2
-      lefthook-linux-x64: 1.7.2
-      lefthook-windows-arm64: 1.7.2
-      lefthook-windows-x64: 1.7.2
+      lefthook-darwin-arm64: 1.7.3
+      lefthook-darwin-x64: 1.7.3
+      lefthook-freebsd-arm64: 1.7.3
+      lefthook-freebsd-x64: 1.7.3
+      lefthook-linux-arm64: 1.7.3
+      lefthook-linux-x64: 1.7.3
+      lefthook-windows-arm64: 1.7.3
+      lefthook-windows-x64: 1.7.3
 
   levn@0.4.1:
     dependencies:
