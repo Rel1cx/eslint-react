@@ -276,6 +276,24 @@ ruleTester.run(RULE_NAME, rule, {
         const Component = () => {
           const [data, setData] = useState();
           useEffect(() => {
+            return () => {
+              setData();
+            }
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data, setData] = useState();
+          useEffect(() => {
             const cleanup = () => {
               setData();
             }

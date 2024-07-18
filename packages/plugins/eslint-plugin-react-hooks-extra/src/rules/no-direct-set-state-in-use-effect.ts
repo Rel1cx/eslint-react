@@ -45,11 +45,13 @@ export default createRule<[], MessageID>({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function isCleanUpFunction(node: TSESTree.Node) {}
     const indirectCalls = MutRef.make(Chunk.empty<TSESTree.CallExpression>());
+    // const returnedFunctions = MutRef.make(Chunk.empty<TSESTreeFunction>());
     const indirectFunctions = new Map<TSESTreeFunction, Chunk.Chunk<TSESTree.CallExpression>>();
     return {
       CallExpression(node) {
         const maybeEffectFn = traverseUp(node, isEffectFunction);
         const maybeParentFn = traverseUpGuard(node, isFunction);
+        // const maybeNearestReturn = traverseUp(node, is(NodeType.ReturnStatement));
         if (O.isNone(maybeEffectFn) || O.isNone(maybeParentFn)) return;
         const effectFn = maybeEffectFn.value;
         const parentFn = maybeParentFn.value;
@@ -97,9 +99,15 @@ export default createRule<[], MessageID>({
         );
         const isInEffectScope = parentFn === effectFn;
         const isInIIFEScope = parentFn.type !== NodeType.FunctionDeclaration && isIIFE(parentFn);
-        const willExecute = isInEffectScope
+        const willExecuteByEffectFn = isInEffectScope
           || (isInIIFEScope && O.exists(traverseUpGuard(parentFn, isFunction), n => n === effectFn));
-        if (willExecute && isUseStatCall) {
+        const willReturnByEffectFn = F.pipe(
+          parentFn,
+          traverseUpGuard(is(NodeType.ReturnStatement)),
+          O.flatMap(traverseUp(isFunction)),
+          O.exists(n => n === effectFn),
+        );
+        if ((willExecuteByEffectFn || willReturnByEffectFn) && isUseStatCall) {
           context.report({
             data: {
               name: name.value,
