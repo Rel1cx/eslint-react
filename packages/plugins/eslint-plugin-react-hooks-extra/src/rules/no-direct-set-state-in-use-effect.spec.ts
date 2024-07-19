@@ -1,5 +1,5 @@
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./no-direct-set-state-in-use-effect";
+import rule, { RULE_NAME } from "./no-direct-set-state-in-use-effect-new";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [

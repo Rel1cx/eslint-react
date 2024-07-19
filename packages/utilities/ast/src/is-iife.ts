@@ -1,7 +1,7 @@
-import type { TSESTree } from "@typescript-eslint/types";
-
+import type { TSESTreeFunction } from "./types";
 import { NodeType } from "./types";
 
-export function isIIFE(node: TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression) {
+export function isIIFE(node: TSESTreeFunction) {
+  if (node.type === NodeType.FunctionDeclaration) return false;
   return node.parent.type === NodeType.CallExpression && node.parent.callee === node;
 }
