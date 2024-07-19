@@ -119,16 +119,13 @@ export default createRule<[], MessageID>({
         .otherwise(() => "other");
     }
     const useEffectCallRef = MutRef.make<TSESTree.CallExpression | null>(null);
-    const callStack = MutList.make<TSESTree.CallExpression>();
     const functionStack = MutList.make<[node: TSESTreeFunction, kind: FunctionKind]>();
     const effectFunctionRef = MutRef.make<TSESTreeFunction | null>(null);
     const cleanUpFunctionRef = MutRef.make<TSESTreeFunction | null>(null);
     const indirectFunctionCalls: TSESTree.CallExpression[] = [];
     const indirectSetStateCalls = new Map<TSESTreeFunction, TSESTree.CallExpression[]>();
-    const onUseEffectCallEnter = (node: TSESTree.CallExpression) => void MutRef.set(useEffectCallRef, node);
-    const onEffectFunctionEnter = (_: TSESTreeFunction) => {};
-    const onEffectFunctionExit = (_: TSESTreeFunction) => {};
-    const onUseEffectCallExit = () => void MutRef.set(useEffectCallRef, null);
+    // const onEffectFunctionEnter = (_: TSESTreeFunction) => {};
+    // const onEffectFunctionExit = (_: TSESTreeFunction) => {};
     /* eslint-disable perfectionist/sort-objects */
     return {
       Identifier(node) {
@@ -144,7 +141,6 @@ export default createRule<[], MessageID>({
         }
       },
       CallExpression(node) {
-        MutList.append(callStack, node);
         const effectFn = MutRef.get(effectFunctionRef);
         const [parentFn, parentFnKind] = MutList.tail(functionStack) ?? [];
         if (parentFn?.async) return;
@@ -162,45 +158,36 @@ export default createRule<[], MessageID>({
             });
           })
           .with("useEffect", () => {
-            onUseEffectCallEnter(node);
-            // console.log("use effect call", node);
-          })
-          .with("useState", () => {
-            // console.log("use state call", node);
-          })
-          .with("then", () => {
+            MutRef.set(useEffectCallRef, node);
           })
           .with("other", () => {
             indirectFunctionCalls.push(node);
           })
-          .exhaustive();
+          .otherwise(F.constVoid);
       },
       ":function"(node: TSESTreeFunction) {
         const functionKind = getFunctionKind(node);
         MutList.append(functionStack, [node, functionKind]);
         match(functionKind)
-          // .with("immediate", () => {})
           .with("effect", () => {
             MutRef.set(effectFunctionRef, node);
-            onEffectFunctionEnter(node);
+            // onEffectFunctionEnter(node);
           })
           .with("cleanup", () => {
             MutRef.set(cleanUpFunctionRef, node);
           })
-          .otherwise(() => {});
+          .otherwise(F.constVoid);
       },
       ":function:exit"(node: TSESTreeFunction) {
         const effectFn = MutRef.get(effectFunctionRef);
         if (effectFn === node) {
-          onEffectFunctionExit(node);
+          // onEffectFunctionExit(node);
           MutRef.set(effectFunctionRef, null);
         }
         MutList.pop(functionStack);
       },
       "CallExpression:exit"(node) {
-        MutList.pop(callStack);
         if (MutRef.get(useEffectCallRef) === node) {
-          onUseEffectCallExit();
           MutRef.set(useEffectCallRef, null);
         }
       },
