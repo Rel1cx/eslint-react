@@ -12,6 +12,13 @@ Disallow direct calls to the [`set` function](https://react.dev/reference/react/
 
 Calling `setState` directly in `useEffect` is a common bad practice. It can lead to infinite update loops and other side effects.
 
+## Known limitations
+
+- The `set` call to `useState` in the `cleanup` function of `useEffect` will not be checked.
+- The current implementation does not support determining whether a `set` function called in an `async` function is actually at least one `await` after.
+
+The limitation may be lifted in the future.
+
 ## Examples
 
 ### Failing
@@ -167,3 +174,5 @@ function List({ items }) {
 - [React: useState](https://react.dev/reference/react/useState#setstate)
 - [React: useEffect](https://react.dev/reference/react/useEffect)
 - [React: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
+import { effect } from "effect/Layer"
+

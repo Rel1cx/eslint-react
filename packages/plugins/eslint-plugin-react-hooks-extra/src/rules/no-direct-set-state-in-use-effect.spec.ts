@@ -245,7 +245,7 @@ ruleTester.run(RULE_NAME, rule, {
         const Component = () => {
           const [data, setData] = useState();
           useEffect(() => {
-              (async () => { setData() })();
+              (() => { setData() })();
           }, []);
           return null;
         }
@@ -419,6 +419,21 @@ ruleTester.run(RULE_NAME, rule, {
         const data = useState(() => 0);
         useEffect(() => {
           data.at(index)();
+        }, []);
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useEffect, useState } from "react";
+
+      const index = 0;
+      function Component() {
+        const [data, setData] = useState(() => 0);
+        useEffect(() => {
+          void async function () {
+            const ret = await fetch("https://example.com");
+            setData(ret);
+          }()
         }, []);
         return null;
       }

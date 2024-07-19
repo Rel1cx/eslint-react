@@ -145,11 +145,12 @@ export default createRule<[], MessageID>({
       },
       CallExpression(node) {
         MutList.append(callStack, node);
+        const effectFn = MutRef.get(effectFunctionRef);
+        const [parentFn, parentFnKind] = MutList.tail(functionStack) ?? [];
+        if (parentFn?.async) return;
         const callKind = getCallKind(node);
         match(callKind)
           .with("setState", () => {
-            const effectFn = MutRef.get(effectFunctionRef);
-            const [parentFn, parentFnKind] = MutList.tail(functionStack) ?? [];
             if (!parentFn) return;
             if (parentFn !== effectFn && parentFnKind !== "immediate") {
               indirectSetStateCalls.set(parentFn, [...indirectSetStateCalls.get(parentFn) ?? [], node]);
