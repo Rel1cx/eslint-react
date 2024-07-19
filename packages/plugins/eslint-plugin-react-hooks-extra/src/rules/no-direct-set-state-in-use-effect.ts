@@ -2,7 +2,7 @@ import type { TSESTreeFunction } from "@eslint-react/ast";
 import { is, isFunction, isIIFE, NodeType, traverseUp } from "@eslint-react/ast";
 import { isReactHookCallWithNameLoose, isUseEffectCall, isUseStateCall } from "@eslint-react/core";
 import { getESLintReactSettings } from "@eslint-react/shared";
-import { F, MutList, MutRef, O } from "@eslint-react/tools";
+import { Chunk, F, MutList, MutRef, O } from "@eslint-react/tools";
 import { findVariable, getVariableInit } from "@eslint-react/var";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
@@ -122,49 +122,11 @@ export default createRule<[], MessageID>({
     const functionStack = MutList.make<[node: TSESTreeFunction, kind: FunctionKind]>();
     const effectFunctionRef = MutRef.make<TSESTreeFunction | null>(null);
     const cleanUpFunctionRef = MutRef.make<TSESTreeFunction | null>(null);
-    const indirectFunctionCalls: TSESTree.CallExpression[] = [];
-    const indirectSetStateCalls = new Map<TSESTreeFunction, TSESTree.CallExpression[]>();
+    const indirectFunctionCalls = MutRef.make(Chunk.empty<TSESTree.CallExpression>());
+    const indirectSetStateCalls = new Map<TSESTreeFunction, Chunk.Chunk<TSESTree.CallExpression>>();
     // const onEffectFunctionEnter = (_: TSESTreeFunction) => {};
     // const onEffectFunctionExit = (_: TSESTreeFunction) => {};
-    /* eslint-disable perfectionist/sort-objects */
     return {
-      Identifier(node) {
-        const isInUseEffectCall = MutRef.get(useEffectCallRef) !== null;
-        const parentFn = MutList.tail(functionStack)?.[0];
-        const useEffectCall = MutRef.get(useEffectCallRef);
-        const isEffectFunction = useEffectCall && O.isSome(traverseUp(useEffectCall, n => n === parentFn));
-        if (isFromUseStateCall(node) && isInUseEffectCall && isEffectFunction) {
-          context.report({
-            node,
-            messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT",
-          });
-        }
-      },
-      CallExpression(node) {
-        const effectFn = MutRef.get(effectFunctionRef);
-        const [parentFn, parentFnKind] = MutList.tail(functionStack) ?? [];
-        if (parentFn?.async) return;
-        const callKind = getCallKind(node);
-        match(callKind)
-          .with("setState", () => {
-            if (!parentFn) return;
-            if (parentFn !== effectFn && parentFnKind !== "immediate") {
-              indirectSetStateCalls.set(parentFn, [...indirectSetStateCalls.get(parentFn) ?? [], node]);
-              return;
-            }
-            context.report({
-              node,
-              messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT",
-            });
-          })
-          .with("useEffect", () => {
-            MutRef.set(useEffectCallRef, node);
-          })
-          .with("other", () => {
-            indirectFunctionCalls.push(node);
-          })
-          .otherwise(F.constVoid);
-      },
       ":function"(node: TSESTreeFunction) {
         const functionKind = getFunctionKind(node);
         MutList.append(functionStack, [node, functionKind]);
@@ -186,13 +148,51 @@ export default createRule<[], MessageID>({
         }
         MutList.pop(functionStack);
       },
+      CallExpression(node) {
+        const effectFn = MutRef.get(effectFunctionRef);
+        const [parentFn, parentFnKind] = MutList.tail(functionStack) ?? [];
+        if (parentFn?.async) return;
+        const callKind = getCallKind(node);
+        match(callKind)
+          .with("setState", () => {
+            if (!parentFn) return;
+            if (parentFn !== effectFn && parentFnKind !== "immediate") {
+              const calls = indirectSetStateCalls.get(parentFn) ?? Chunk.empty<TSESTree.CallExpression>();
+              indirectSetStateCalls.set(parentFn, Chunk.append(calls, node));
+              return;
+            }
+            context.report({
+              messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT",
+              node,
+            });
+          })
+          .with("useEffect", () => {
+            MutRef.set(useEffectCallRef, node);
+          })
+          .with("other", () => {
+            MutRef.update(indirectFunctionCalls, Chunk.append(node));
+          })
+          .otherwise(F.constVoid);
+      },
       "CallExpression:exit"(node) {
         if (MutRef.get(useEffectCallRef) === node) {
           MutRef.set(useEffectCallRef, null);
         }
       },
+      Identifier(node) {
+        const isInUseEffectCall = MutRef.get(useEffectCallRef) !== null;
+        const parentFn = MutList.tail(functionStack)?.[0];
+        const useEffectCall = MutRef.get(useEffectCallRef);
+        const isEffectFunction = useEffectCall && O.isSome(traverseUp(useEffectCall, n => n === parentFn));
+        if (isFromUseStateCall(node) && isInUseEffectCall && isEffectFunction) {
+          context.report({
+            messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT",
+            node,
+          });
+        }
+      },
       "Program:exit"() {
-        for (const call of indirectFunctionCalls) {
+        for (const call of Chunk.toReadonlyArray(MutRef.get(indirectFunctionCalls))) {
           if (!("name" in call.callee)) continue;
           const { name } = call.callee;
           const setStateCalls = F.pipe(
@@ -200,6 +200,7 @@ export default createRule<[], MessageID>({
             O.flatMap(getVariableInit(0)),
             O.filter(isFunction),
             O.flatMapNullable((init) => indirectSetStateCalls.get(init as TSESTreeFunction)),
+            O.map(Chunk.toReadonlyArray),
             O.getOrElse(() => []),
           );
           for (const setStateCall of setStateCalls) {
@@ -214,7 +215,6 @@ export default createRule<[], MessageID>({
         }
       },
     };
-    /* eslint-enable perfectionist/sort-objects */
   },
   defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;
