@@ -165,17 +165,11 @@ export default createRule<[], MessageID>({
           })
           .with("useLayoutEffect", () => {
             onUseLayoutEffectCallEnter(node);
-            // console.log("use effect call", node);
-          })
-          .with("useState", () => {
-            // console.log("use state call", node);
-          })
-          .with("then", () => {
           })
           .with("other", () => {
             indirectFunctionCalls.push(node);
           })
-          .exhaustive();
+          .otherwise(F.constVoid);
       },
       ":function"(node: TSESTreeFunction) {
         const functionKind = getFunctionKind(node);
@@ -189,7 +183,7 @@ export default createRule<[], MessageID>({
           .with("cleanup", () => {
             MutRef.set(cleanUpFunctionRef, node);
           })
-          .otherwise(() => {});
+          .otherwise(F.constVoid);
       },
       ":function:exit"(node: TSESTreeFunction) {
         const effectFn = MutRef.get(effectFunctionRef);
