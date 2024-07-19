@@ -1,5 +1,5 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { is, isFunction, isIIFE, NodeType, traverseUp } from "@eslint-react/ast";
+import { is, isFunction, isIIFE, NodeType } from "@eslint-react/ast";
 import { isReactHookCallWithNameLoose, isUseLayoutEffectCall, isUseStateCall } from "@eslint-react/core";
 import { getESLintReactSettings } from "@eslint-react/shared";
 import { Chunk, F, MutList, MutRef, O } from "@eslint-react/tools";
@@ -179,18 +179,6 @@ export default createRule<[], MessageID>({
       "CallExpression:exit"(node) {
         if (MutRef.get(useLayoutEffectCallRef) === node) {
           MutRef.set(useLayoutEffectCallRef, null);
-        }
-      },
-      Identifier(node) {
-        const isInUseLayoutEffectCall = MutRef.get(useLayoutEffectCallRef) !== null;
-        const parentFn = MutList.tail(functionStack)?.[0];
-        const useLayoutEffectCall = MutRef.get(useLayoutEffectCallRef);
-        const isEffectFunction = useLayoutEffectCall && O.isSome(traverseUp(useLayoutEffectCall, n => n === parentFn));
-        if (isFromUseStateCall(node) && isInUseLayoutEffectCall && isEffectFunction) {
-          context.report({
-            messageId: "NO_DIRECT_SET_STATE_IN_USE_LAYOUT_EFFECT",
-            node,
-          });
         }
       },
       "Program:exit"() {

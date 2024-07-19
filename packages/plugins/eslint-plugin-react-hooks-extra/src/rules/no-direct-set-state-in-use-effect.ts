@@ -1,5 +1,5 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { is, isFunction, isIIFE, NodeType, traverseUp } from "@eslint-react/ast";
+import { is, isFunction, isIIFE, NodeType } from "@eslint-react/ast";
 import { isReactHookCallWithNameLoose, isUseEffectCall, isUseStateCall } from "@eslint-react/core";
 import { getESLintReactSettings } from "@eslint-react/shared";
 import { Chunk, F, MutList, MutRef, O } from "@eslint-react/tools";
@@ -177,18 +177,6 @@ export default createRule<[], MessageID>({
       "CallExpression:exit"(node) {
         if (MutRef.get(useEffectCallRef) === node) {
           MutRef.set(useEffectCallRef, null);
-        }
-      },
-      Identifier(node) {
-        const isInUseEffectCall = MutRef.get(useEffectCallRef) !== null;
-        const parentFn = MutList.tail(functionStack)?.[0];
-        const useEffectCall = MutRef.get(useEffectCallRef);
-        const isEffectFunction = useEffectCall && O.isSome(traverseUp(useEffectCall, n => n === parentFn));
-        if (isFromUseStateCall(node) && isInUseEffectCall && isEffectFunction) {
-          context.report({
-            messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT",
-            node,
-          });
         }
       },
       "Program:exit"() {

@@ -330,20 +330,6 @@ ruleTester.run(RULE_NAME, rule, {
     //     { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
     //   ],
     // },
-    {
-      code: /* tsx */ `
-        import { useEffect, useState } from "react";
-
-        const Component = () => {
-          const [data, setData] = useState();
-          useEffect(setData, []);
-          return null;
-        }
-      `,
-      errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
-      ],
-    },
     // TODO: Add cleanup function check
     // {
     //   code: /* tsx */ `
