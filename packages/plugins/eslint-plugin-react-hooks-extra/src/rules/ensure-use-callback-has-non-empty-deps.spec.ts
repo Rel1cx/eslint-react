@@ -1,7 +1,7 @@
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./ensure-use-callback-has-non-empty-deps";
 
-// TODO: add more tests
+// TODO: Add more tests
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
