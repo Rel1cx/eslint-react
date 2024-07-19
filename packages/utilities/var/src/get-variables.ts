@@ -1,7 +1,6 @@
-import { F, MutRef, O } from "@eslint-react/tools";
+import { MutRef } from "@eslint-react/tools";
 import type { Scope, Variable } from "@typescript-eslint/scope-manager";
 import { ScopeType } from "@typescript-eslint/scope-manager";
-import { findVariable as TSEFindVariable } from "@typescript-eslint/utils/ast-utils";
 
 /**
  * Get all variables from the given scope up to the global scope
@@ -17,10 +16,3 @@ export function getVariables(initialScope: Scope): Variable[] {
   }
   return MutRef.get(variablesRef).reverse();
 }
-
-export const findVariable: {
-  (initialScope: Scope): (name: string) => O.Option<Variable>;
-  (name: string, initialScope: Scope): O.Option<Variable>;
-} = F.dual(2, (name: string, initialScope: Scope) => {
-  return O.fromNullable(TSEFindVariable(initialScope, name));
-});
