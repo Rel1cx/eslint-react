@@ -359,6 +359,28 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
       ],
     },
+    {
+      code: /* tsx */ `
+        import { useEffect, useState } from 'react'
+        export function useSearchedKeyword() {
+            const [keyword, setKeyword] = useState('')
+            useEffect(() => {
+                const onLocationChange = () => {
+                    setKeyword("")
+                }
+                onLocationChange()
+                window.addEventListener('locationchange', onLocationChange)
+                return () => {
+                    window.removeEventListener('locationchange', onLocationChange)
+                }
+            }, [])
+            return keyword
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
   ],
   valid: [
     ...allValid,

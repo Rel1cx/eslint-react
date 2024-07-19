@@ -141,11 +141,7 @@ export default createRule<[], MessageID>({
           .otherwise(F.constVoid);
       },
       ":function:exit"(node: TSESTreeFunction) {
-        const effectFn = MutRef.get(effectFunctionRef);
-        if (effectFn === node) {
-          // onEffectFunctionExit(node);
-          MutRef.set(effectFunctionRef, null);
-        }
+        MutRef.update(effectFunctionRef, (current) => (current === node ? null : current));
         MutList.pop(functionStack);
       },
       CallExpression(node) {
