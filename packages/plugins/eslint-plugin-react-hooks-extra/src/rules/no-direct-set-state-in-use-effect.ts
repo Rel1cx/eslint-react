@@ -170,6 +170,8 @@ export default createRule<[], MessageID>({
             MutRef.set(useEffectCallRef, node);
           })
           .with("other", () => {
+            const isInEffectFunction = effectFn === parentFn;
+            if (!isInEffectFunction) return;
             MutRef.update(indirectFunctionCalls, Chunk.append(node));
           })
           .otherwise(F.constVoid);

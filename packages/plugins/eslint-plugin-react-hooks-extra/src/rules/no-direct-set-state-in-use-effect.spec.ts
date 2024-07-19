@@ -424,5 +424,50 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
+    /* tsx */ `
+      import { useEffect, useState } from "react";
+
+      const Component = () => {
+        const [data1, setData1] = useState();
+        const [data2, setData2] = useState();
+        const setAll = () => {
+          setData1();
+          setData2();
+        }
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useEffect, useState } from "react";
+
+      const Component = () => {
+        const [data1, setData1] = useState();
+        const [data2, setData2] = useState();
+        const setAll = () => {
+          setData1();
+          setData2();
+        }
+        const handler = () => {
+          setAll();
+        }
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useEffect, useState } from "react";
+
+      const Component = () => {
+        const [data1, setData1] = useState();
+        const [data2, setData2] = useState();
+        function handler() {
+          setAll();
+        }
+        function setAll() {
+          setData1();
+          setData2();
+        }
+        return null;
+      }
+    `,
   ],
 });

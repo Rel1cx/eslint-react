@@ -172,6 +172,8 @@ export default createRule<[], MessageID>({
             MutRef.set(useLayoutEffectCallRef, node);
           })
           .with("other", () => {
+            const isInEffectFunction = effectFn === parentFn;
+            if (!isInEffectFunction) return;
             MutRef.update(indirectFunctionCalls, Chunk.append(node));
           })
           .otherwise(F.constVoid);
