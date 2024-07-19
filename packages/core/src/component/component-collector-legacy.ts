@@ -71,11 +71,11 @@ export function useComponentCollectorLegacy() {
         id,
         kind: "class",
         name: O.flatMapNullable(id, n => n.name),
-        // TODO: get displayName of class component
+        // TODO: Get displayName of class component
         displayName: O.none(),
         flag,
         hint: 0n,
-        // TODO: get methods of class component
+        // TODO: Get methods of class component
         methods: [],
         node,
       },

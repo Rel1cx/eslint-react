@@ -1,12 +1,12 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable no-restricted-syntax */
-
-// Ported from https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/utils/src/ast-utils/eslint-utils/astUtilities.ts
-
 import * as eslintUtils from "@eslint-community/eslint-utils";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
+/**
+ * @deprecated Use `@typescript-eslint/utils/ast-utils` instead.
+ */
 export namespace ESLintCommunityESLintUtils {
   /**
    * Get the proper location of a given function node to report.

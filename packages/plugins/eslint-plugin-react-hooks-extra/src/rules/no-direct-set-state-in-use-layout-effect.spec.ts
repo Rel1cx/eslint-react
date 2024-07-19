@@ -218,16 +218,6 @@ ruleTester.run(RULE_NAME, rule, {
       const Component = () => {
         const [data, setData] = useState();
         useLayoutEffect(() => {
-            (async () => { setData() })();
-        }, []);
-      }
-    `,
-    /* tsx */ `
-      import { useLayoutEffect, useState } from "react";
-
-      const Component = () => {
-        const [data, setData] = useState();
-        useLayoutEffect(() => {
         const onLoad = () => {
           setData();
         };

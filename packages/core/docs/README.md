@@ -18,7 +18,9 @@
 - [ERComponentHint](type-aliases/ERComponentHint.md)
 - [ERComponentInitPath](type-aliases/ERComponentInitPath.md)
 - [ERComponentKind](type-aliases/ERComponentKind.md)
+- [EREffectKind](type-aliases/EREffectKind.md)
 - [ERFunctionComponentFlag](type-aliases/ERFunctionComponentFlag.md)
+- [ERHookKind](type-aliases/ERHookKind.md)
 
 ## Variables
 

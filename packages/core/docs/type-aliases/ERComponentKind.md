@@ -6,4 +6,4 @@
 
 # Type Alias: ERComponentKind
 
-> **ERComponentKind**: `"class"` \| `"function"`
+> **ERComponentKind**: `"classComponent"` \| `"functionComponent"`
