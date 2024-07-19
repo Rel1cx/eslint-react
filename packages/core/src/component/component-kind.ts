@@ -1,1 +1,1 @@
-export type ERComponentKind = "class" | "function";
+export type ERComponentKind = "classComponent" | "functionComponent";
