@@ -47,6 +47,6 @@
     "@typescript-eslint/utils": "catalog:tseslint7"
   },
   "devDependencies": {
-    "tsup": "8.1.2"
+    "tsup": "8.2.0"
   }
 }
