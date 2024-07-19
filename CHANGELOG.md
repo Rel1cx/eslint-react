@@ -1,3 +1,10 @@
+## v1.5.28 (Draft)
+
+### 🐞 Fixes
+
+- Fix false positives and negatives in rule `hooks-extra/no-direct-set-state-in-use-effect`.
+- Fix false positives and negatives in rule `hooks-extra/no-direct-set-state-in-use-layout-effect`.
+
 ## v1.5.27 (Tue 16 Jul 2024)
 
 ### 🐞 Fixes
