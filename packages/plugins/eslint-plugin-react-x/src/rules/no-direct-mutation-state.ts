@@ -43,8 +43,7 @@ function isConstructorFunction(
   return isOneOf([NodeType.FunctionDeclaration, NodeType.FunctionExpression])(node)
     && isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])(node.parent)
     && node.parent.key.type === NodeType.Identifier
-    && node.parent.key.name === "constructor"
-    && node.parent.parent.type === NodeType.ClassBody;
+    && node.parent.key.name === "constructor";
 }
 
 export default createRule<[], MessageID>({

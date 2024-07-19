@@ -45,9 +45,9 @@
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "catalog:tseslint7",
-    "@typescript-eslint/types": "catalog:tseslint7",
-    "@typescript-eslint/utils": "catalog:tseslint7"
+    "@typescript-eslint/scope-manager": "catalog:tseslint8",
+    "@typescript-eslint/types": "catalog:tseslint8",
+    "@typescript-eslint/utils": "catalog:tseslint8"
   },
   "devDependencies": {
     "ts-pattern": "5.2.0",

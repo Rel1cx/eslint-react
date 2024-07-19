@@ -47,10 +47,10 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "catalog:tseslint7",
-    "@typescript-eslint/type-utils": "catalog:tseslint7",
-    "@typescript-eslint/types": "catalog:tseslint7",
-    "@typescript-eslint/utils": "catalog:tseslint7",
+    "@typescript-eslint/scope-manager": "catalog:tseslint8",
+    "@typescript-eslint/type-utils": "catalog:tseslint8",
+    "@typescript-eslint/types": "catalog:tseslint8",
+    "@typescript-eslint/utils": "catalog:tseslint8",
     "string-ts": "^2.2.0"
   },
   "devDependencies": {

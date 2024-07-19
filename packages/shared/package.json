@@ -42,7 +42,7 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "catalog:tseslint7"
+    "@typescript-eslint/utils": "catalog:tseslint8"
   },
   "devDependencies": {
     "tsup": "8.1.2",
