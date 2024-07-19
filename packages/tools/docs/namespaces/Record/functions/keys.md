@@ -6,13 +6,13 @@
 
 # Function: keys()
 
-> **keys**\<`K`, `A`\>(`self`): `K`[]
+> **keys**\<`K`, `A`\>(`self`): `K` & `string`[]
 
 Retrieve the keys of a given record as an array.
 
 ## Type Parameters
 
-• **K** *extends* `string`
+• **K** *extends* `string` \| `symbol`
 
 • **A**
 
@@ -24,7 +24,7 @@ The object for which you want to get the keys.
 
 ## Returns
 
-`K`[]
+`K` & `string`[]
 
 ## Since
 
