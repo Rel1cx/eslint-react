@@ -32,7 +32,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - name: Install dependencies
         run: pnpm install
-      - name: Run build
+      - name: Build front-end assets
         run: pnpm run build
       - name: Run lint
         run: pnpm run lint

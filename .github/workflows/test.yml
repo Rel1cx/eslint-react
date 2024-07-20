@@ -20,8 +20,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 22
-      - name: Install front-end dependencies and build front-end assets
+      - name: Install front-end dependencies
         run: pnpm install
+      - name: Build front-end assets
+        run: pnpm run build
       - name: Test on node@22
         run: pnpm run test
       - name: Setup node@21
