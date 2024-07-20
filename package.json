@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.5.28-beta.1",
+  "version": "1.5.28-beta.7",
   "private": true,
   "description": "A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -78,7 +78,7 @@
     "eslint-plugin-eslint-plugin": "6.2.0",
     "eslint-plugin-functional": "6.6.3",
     "eslint-plugin-import-x": "3.0.1",
-    "eslint-plugin-jsdoc": "48.7.0",
+    "eslint-plugin-jsdoc": "48.8.1",
     "eslint-plugin-perfectionist": "2.11.0",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "eslint-plugin-unicorn": "54.0.0",
@@ -97,7 +97,7 @@
     "superbytes": "2.0.1",
     "ts-pattern": "5.2.0",
     "tsup": "8.2.0",
-    "turbo": "2.0.7",
+    "turbo": "2.0.9",
     "type-fest": "4.22.1",
     "typedoc": "0.26.4",
     "typedoc-plugin-markdown": "4.2.1",

@@ -186,7 +186,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const services = ESLintUtils.getParserServices(context);
+    const services = ESLintUtils.getParserServices(context, false);
     function checkExpression(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
       return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
         .when(isJSX, O.none)

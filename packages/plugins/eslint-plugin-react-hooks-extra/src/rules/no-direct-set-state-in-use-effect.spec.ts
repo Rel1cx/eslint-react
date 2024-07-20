@@ -330,20 +330,6 @@ ruleTester.run(RULE_NAME, rule, {
     //     { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
     //   ],
     // },
-    {
-      code: /* tsx */ `
-        import { useEffect, useState } from "react";
-
-        const Component = () => {
-          const [data, setData] = useState();
-          useEffect(setData, []);
-          return null;
-        }
-      `,
-      errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
-      ],
-    },
     // TODO: Add cleanup function check
     // {
     //   code: /* tsx */ `
@@ -367,6 +353,28 @@ ruleTester.run(RULE_NAME, rule, {
           const [data, setData] = useState();
           useEffect(() => setData(), []);
           return null;
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect, useState } from 'react'
+        export function useSearchedKeyword() {
+            const [keyword, setKeyword] = useState('')
+            useEffect(() => {
+                const onLocationChange = () => {
+                    setKeyword("")
+                }
+                onLocationChange()
+                window.addEventListener('locationchange', onLocationChange)
+                return () => {
+                    window.removeEventListener('locationchange', onLocationChange)
+                }
+            }, [])
+            return keyword
         }
       `,
       errors: [
@@ -435,6 +443,51 @@ ruleTester.run(RULE_NAME, rule, {
             setData(ret);
           }()
         }, []);
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useEffect, useState } from "react";
+
+      const Component = () => {
+        const [data1, setData1] = useState();
+        const [data2, setData2] = useState();
+        const setAll = () => {
+          setData1();
+          setData2();
+        }
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useEffect, useState } from "react";
+
+      const Component = () => {
+        const [data1, setData1] = useState();
+        const [data2, setData2] = useState();
+        const setAll = () => {
+          setData1();
+          setData2();
+        }
+        const handler = () => {
+          setAll();
+        }
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useEffect, useState } from "react";
+
+      const Component = () => {
+        const [data1, setData1] = useState();
+        const [data2, setData2] = useState();
+        function handler() {
+          setAll();
+        }
+        function setAll() {
+          setData1();
+          setData2();
+        }
         return null;
       }
     `,

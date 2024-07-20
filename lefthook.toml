@@ -1,0 +1,28 @@
+output = [
+  "meta",
+  "summary",
+  "empty_summary",
+  "success",
+  "failure",
+  "execution",
+  "execution_out",
+  "execution_info",
+]
+
+[pre-commit]
+parallel = false
+
+[pre-commit.commands.build]
+run = "pnpm run build"
+
+[pre-commit.commands."build:docs"]
+run = "pnpm run build:docs"
+
+[pre-commit.commands."format:write"]
+run = "pnpm run format:write"
+
+[pre-commit.commands.lint]
+run = "pnpm run lint"
+
+[pre-commit.commands.add]
+run = "git add ."
