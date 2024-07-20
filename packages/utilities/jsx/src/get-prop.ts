@@ -1,7 +1,7 @@
 import { is, NodeType } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
-import { findVariable, getVariableInit } from "@eslint-react/var";
+import { findVariable, getVariableNode } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
@@ -83,11 +83,11 @@ export function findPropInProperties(
                 const { name } = argument;
                 const maybeInit = O.flatMap(
                   findVariable(name, initialScope),
-                  getVariableInit(0),
+                  getVariableNode(0),
                 );
                 if (O.isNone(maybeInit)) return false;
                 const init = maybeInit.value;
-                if (init.type !== NodeType.ObjectExpression) return false;
+                if (!is(NodeType.ObjectExpression)(init)) return false;
                 if (seenProps.includes(name)) return false;
 
                 return O.isSome(
@@ -142,7 +142,7 @@ export function findPropInAttributes(
                 const { name } = argument;
                 const maybeInit = O.flatMap(
                   findVariable(name, initialScope),
-                  getVariableInit(0),
+                  getVariableNode(0),
                 );
                 if (O.isNone(maybeInit)) return false;
                 const init = maybeInit.value;

@@ -1,7 +1,7 @@
 import { isJSXTagNameExpression, NodeType } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
-import { findVariable, getVariableInit } from "@eslint-react/var";
+import { findVariable, getVariableNode } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { match, P } from "ts-pattern";
 
@@ -113,7 +113,7 @@ export function isJSXValue(
       const maybeVariable = findVariable(name, initialScope);
       return F.pipe(
         maybeVariable,
-        O.flatMap(getVariableInit(0)),
+        O.flatMap(getVariableNode(0)),
         O.exists(n => isJSXValue(n, context, hint)),
       );
     })

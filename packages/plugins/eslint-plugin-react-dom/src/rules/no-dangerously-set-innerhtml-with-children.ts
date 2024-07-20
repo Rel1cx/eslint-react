@@ -2,7 +2,7 @@ import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import { isCreateElementCall } from "@eslint-react/core";
 import { findPropInProperties, hasProp, isLineBreak } from "@eslint-react/jsx";
 import { F, O, Pred } from "@eslint-react/tools";
-import { findVariable, getVariableInit } from "@eslint-react/var";
+import { findVariable, getVariableNode } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
@@ -49,7 +49,7 @@ export default createRule<[], MessageID>({
 
             return F.pipe(
               findVariable(n.name, initialScope),
-              O.flatMap(getVariableInit(0)),
+              O.flatMap(getVariableNode(0)),
               O.flatMap((n) => "properties" in n ? O.fromNullable(n.properties) : O.none()),
             );
           })

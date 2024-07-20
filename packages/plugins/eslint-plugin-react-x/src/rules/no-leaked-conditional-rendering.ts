@@ -1,6 +1,7 @@
 import { isJSX, NodeType } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
-import { findVariable, getVariableInitExpression } from "@eslint-react/var";
+import { findVariable } from "@eslint-react/var";
+import type { Variable } from "@typescript-eslint/scope-manager";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
@@ -170,6 +171,29 @@ function inspectVariantTypes(types: ts.Type[]) {
     variantTypes.add("never");
   }
   return variantTypes;
+}
+
+function isInitExpression(
+  node:
+    | TSESTree.Expression
+    | TSESTree.LetOrConstOrVarDeclaration,
+) {
+  return node.type !== NodeType.VariableDeclaration;
+}
+
+function getVariableInitExpression(at: number) {
+  return (variable: Variable): O.Option<TSESTree.Expression> => {
+    return F.pipe(
+      O.some(variable),
+      O.flatMapNullable(v => v.defs.at(at)),
+      O.flatMap(d =>
+        "init" in d.node
+          ? O.fromNullable(d.node.init)
+          : O.none()
+      ),
+      O.filter(isInitExpression),
+    );
+  };
 }
 
 export default createRule<[], MessageID>({

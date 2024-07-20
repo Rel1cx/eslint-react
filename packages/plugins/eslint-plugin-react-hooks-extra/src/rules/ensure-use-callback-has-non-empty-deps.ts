@@ -3,7 +3,7 @@ import { is, isFunction, NodeType } from "@eslint-react/ast";
 import { isReactHookCall, isReactHookCallWithNameLoose, isUseCallbackCall } from "@eslint-react/core";
 import { getESLintReactSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
-import { findVariable, getVariableInit } from "@eslint-react/var";
+import { findVariable, getVariableNode } from "@eslint-react/var";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -53,7 +53,7 @@ export default createRule<[], MessageID>({
             .with({ type: NodeType.Identifier }, n => {
               return F.pipe(
                 findVariable(n.name, initialScope),
-                O.flatMap(getVariableInit(0)),
+                O.flatMap(getVariableNode(0)),
                 O.filter(is(NodeType.ArrayExpression)),
               );
             })
@@ -80,7 +80,7 @@ export default createRule<[], MessageID>({
             .with({ type: NodeType.Identifier }, n => {
               return F.pipe(
                 findVariable(n.name, initialScope),
-                O.flatMap(getVariableInit(0)),
+                O.flatMap(getVariableNode(0)),
                 O.filter(isFunction),
               ) as O.Option<TSESTreeFunction>;
             })
