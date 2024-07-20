@@ -18,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "tsup": "8.2.0",
     "@eslint-react/eslint-plugin": "workspace:*",
     "@tsconfig/node22": "22.0.0",
     "@tsconfig/strictest": "2.0.5"

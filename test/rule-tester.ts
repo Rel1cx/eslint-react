@@ -26,6 +26,7 @@ export const defaultLanguageOptionsWithTypes = {
   parserOptions: {
     ecmaFeatures: { jsx: true },
     project: "./tsconfig.json",
+    projectService: true,
     EXPERIMENTAL_useProjectService: true,
     tsconfigRootDir: getFixturesRootDir(),
   },
