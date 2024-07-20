@@ -6,6 +6,10 @@
 - Fix false positives and negatives in rule `hooks-extra/no-direct-set-state-in-use-layout-effect`.
 - Fix rule `prefer-read-only-props` reports only the first component in a file.
 
+### 🪄 Improvements
+
+- Improve website and documentation.
+
 ## v1.5.27 (Tue 16 Jul 2024)
 
 ### 🐞 Fixes

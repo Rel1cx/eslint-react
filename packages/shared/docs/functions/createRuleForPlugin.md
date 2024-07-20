@@ -6,7 +6,7 @@
 
 # Function: createRuleForPlugin()
 
-> **createRuleForPlugin**(`pluginName`): \<`Options`, `MessageIds`\>(`__namedParameters`) => `RuleModule`\<`MessageIds`, `Options`, `unknown`, `RuleListener`\>
+> **createRuleForPlugin**(`pluginName`): \<`Options`, `MessageIds`\>(`__namedParameters`) => `RuleModule`\<`MessageIds`, `Options`, `RuleListener`\>
 
 ## Parameters
 
@@ -24,8 +24,8 @@
 
 ### Parameters
 
-• **\_\_namedParameters**: `Readonly`\<`RuleWithMetaAndName`\<`Options`, `MessageIds`, `unknown`\>\>
+• **\_\_namedParameters**: `Readonly`\<`RuleWithMetaAndName`\<`Options`, `MessageIds`\>\>
 
 ### Returns
 
-`RuleModule`\<`MessageIds`, `Options`, `unknown`, `RuleListener`\>
+`RuleModule`\<`MessageIds`, `Options`, `RuleListener`\>

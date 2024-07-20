@@ -6,13 +6,15 @@
 
 # Function: isChildrenForEachCall()
 
-> **isChildrenForEachCall**(`node`, `context`): `boolean`
+> **isChildrenForEachCall**(`node`, `context`, `pragma`?): `boolean`
 
 ## Parameters
 
 • **node**: `CallExpression`
 
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+
+• **pragma?**: `string`
 
 ## Returns
 
