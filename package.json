@@ -59,9 +59,9 @@
     "@types/node": "20.14.11",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
-    "@typescript-eslint/eslint-plugin": "catalog:tseslint8",
-    "@typescript-eslint/parser": "catalog:tseslint8",
-    "@typescript-eslint/rule-tester": "catalog:tseslint8",
+    "@typescript-eslint/eslint-plugin": "8.0.0-alpha.47",
+    "@typescript-eslint/parser": "8.0.0-alpha.47",
+    "@typescript-eslint/rule-tester": "8.0.0-alpha.47",
     "@vitest/ui": "2.0.3",
     "bun": "1.1.20",
     "bun-types": "1.1.20",
@@ -112,6 +112,13 @@
   },
   "pnpm": {
     "overrides": {
+      "@typescript-eslint/eslint-plugin": "8.0.0-alpha.47",
+      "@typescript-eslint/parser": "8.0.0-alpha.47",
+      "@typescript-eslint/rule-tester": "8.0.0-alpha.47",
+      "@typescript-eslint/scope-manager": "8.0.0-alpha.47",
+      "@typescript-eslint/type-utils": "8.0.0-alpha.47",
+      "@typescript-eslint/types": "8.0.0-alpha.47",
+      "@typescript-eslint/utils": "8.0.0-alpha.47",
       "array-includes": "npm:@nolyfill/array-includes@^1",
       "array.prototype.findlast": "npm:@nolyfill/array.prototype.findlast@^1",
       "array.prototype.findlastindex": "npm:@nolyfill/array.prototype.findlastindex@^1",
@@ -135,7 +142,8 @@
       "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@^1",
       "ts-api-utils": "^1.3.0",
       "typedarray": "npm:@nolyfill/typedarray@^1",
-      "typescript": "^5.5.3"
+      "typescript": "^5.5.3",
+      "typescript-eslint": "8.0.0-alpha.47"
     },
     "overridesMeta": {
       "esbuild": "Ensure that the esbuild has single version across the monorepo.",

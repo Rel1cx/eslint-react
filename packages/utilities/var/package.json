@@ -44,9 +44,9 @@
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "catalog:tseslint8",
-    "@typescript-eslint/types": "catalog:tseslint8",
-    "@typescript-eslint/utils": "catalog:tseslint8"
+    "@typescript-eslint/scope-manager": "8.0.0-alpha.47",
+    "@typescript-eslint/types": "8.0.0-alpha.47",
+    "@typescript-eslint/utils": "8.0.0-alpha.47"
   },
   "devDependencies": {
     "string-ts": "2.2.0",
