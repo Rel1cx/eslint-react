@@ -17,7 +17,7 @@ function isReadonlyType(type: ts.Type, services: ParserServicesWithTypeInformati
     const im = getTypeImmutability(services.program, type);
     return isUnknown(im) || isImmutable(im) || isReadonlyShallow(im) || isReadonlyDeep(im);
   } catch {
-    return isTypeReadonly(services.program, type);
+    return true;
   }
 }
 
@@ -44,7 +44,7 @@ export default createRule<[], MessageID>({
           const [props] = component.node.params;
           if (!props) continue;
           const propsType = getConstrainedTypeAtLocation(services, props);
-          if (isReadonlyType(propsType, services)) return;
+          if (isTypeReadonly(services.program, propsType) || isReadonlyType(propsType, services)) continue;
           context.report({ messageId: "PREFER_READ_ONLY_PROPS", node: props });
         }
       },
