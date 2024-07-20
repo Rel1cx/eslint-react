@@ -191,6 +191,8 @@ export default createRule<[], MessageID>({
       return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
         .when(isJSX, O.none)
         .with({ type: NodeType.LogicalExpression, operator: "&&" }, ({ left, right }) => {
+          const isLeftUnaryNot = isMatching({ type: NodeType.UnaryExpression, operator: "!" }, left);
+          if (isLeftUnaryNot) return checkExpression(right);
           const initialScope = context.sourceCode.getScope(left);
           const isLeftNan = isMatching({ type: NodeType.Identifier, name: "NaN" }, left)
             || getStaticValue(left, initialScope)?.value === "NaN";
@@ -201,8 +203,6 @@ export default createRule<[], MessageID>({
               node: left,
             });
           }
-          const isLeftUnaryNot = isMatching({ type: NodeType.UnaryExpression, operator: "!" }, left);
-          if (isLeftUnaryNot) return checkExpression(right);
           const leftType = getConstrainedTypeAtLocation(services, left);
           const leftTypeVariants = inspectVariantTypes(unionTypeParts(leftType));
           const isLeftValid = Array
