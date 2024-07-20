@@ -25,12 +25,17 @@ export const defaultLanguageOptionsWithTypes = {
   parser: tsEsLintParser,
   parserOptions: {
     ecmaFeatures: { jsx: true },
-    project: true,
+    project: "./tsconfig.json",
+    EXPERIMENTAL_useProjectService: true,
     tsconfigRootDir: getFixturesRootDir(),
   },
   sourceType: "module",
 } as const;
 
-export const ruleTester = new RuleTester({ languageOptions: defaultLanguageOptions } as never);
+export const ruleTester = new RuleTester({
+  languageOptions: defaultLanguageOptions,
+} as never);
 
-export const ruleTesterWithTypes = new RuleTester({ languageOptions: defaultLanguageOptionsWithTypes } as never);
+export const ruleTesterWithTypes = new RuleTester({
+  languageOptions: defaultLanguageOptionsWithTypes,
+} as never);
