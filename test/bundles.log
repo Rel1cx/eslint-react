@@ -27,16 +27,16 @@ test/bundles/utilities/var/dist/index.js 1.56 MiB
 test/bundles/utilities/var/dist/index.mjs 1.56 MiB
 
 Gzipped Bundled Size:
-test/bundles/core/test-bundle-core-1.0.0.tgz 889.70 KiB
-test/bundles/plugins/eslint-plugin-react-debug/test-bundle-eslint-plugin-react-debug-1.0.0.tgz 887.96 KiB
-test/bundles/plugins/eslint-plugin-react-dom/test-bundle-eslint-plugin-react-dom-1.0.0.tgz 889.47 KiB
-test/bundles/plugins/eslint-plugin-react-hooks-extra/test-bundle-eslint-plugin-react-hooks-extra-1.0.0.tgz 887.95 KiB
-test/bundles/plugins/eslint-plugin-react-naming-convention/test-bundle-eslint-plugin-react-naming-convention-1.0.0.tgz 894.71 KiB
+test/bundles/core/test-bundle-core-1.0.0.tgz 889.72 KiB
+test/bundles/plugins/eslint-plugin-react-debug/test-bundle-eslint-plugin-react-debug-1.0.0.tgz 887.97 KiB
+test/bundles/plugins/eslint-plugin-react-dom/test-bundle-eslint-plugin-react-dom-1.0.0.tgz 889.48 KiB
+test/bundles/plugins/eslint-plugin-react-hooks-extra/test-bundle-eslint-plugin-react-hooks-extra-1.0.0.tgz 887.90 KiB
+test/bundles/plugins/eslint-plugin-react-naming-convention/test-bundle-eslint-plugin-react-naming-convention-1.0.0.tgz 894.72 KiB
 test/bundles/plugins/eslint-plugin-react-x/test-bundle-eslint-plugin-react-x-1.0.0.tgz 3.03 MiB
 test/bundles/plugins/eslint-plugin/test-bundle-eslint-plugin-1.0.0.tgz 3.06 MiB
-test/bundles/shared/test-bundle-shared-1.0.0.tgz 824.15 KiB
-test/bundles/tools/test-bundle-tools-1.0.0.tgz 34.10 KiB
-test/bundles/types/test-bundle-types-1.0.0.tgz 1.11 KiB
-test/bundles/utilities/ast/test-bundle-ast-1.0.0.tgz 873.29 KiB
-test/bundles/utilities/jsx/test-bundle-jsx-1.0.0.tgz 873.99 KiB
-test/bundles/utilities/var/test-bundle-var-1.0.0.tgz 865.22 KiB
+test/bundles/shared/test-bundle-shared-1.0.0.tgz 824.18 KiB
+test/bundles/tools/test-bundle-tools-1.0.0.tgz 34.13 KiB
+test/bundles/types/test-bundle-types-1.0.0.tgz 1.12 KiB
+test/bundles/utilities/ast/test-bundle-ast-1.0.0.tgz 873.31 KiB
+test/bundles/utilities/jsx/test-bundle-jsx-1.0.0.tgz 874.02 KiB
+test/bundles/utilities/var/test-bundle-var-1.0.0.tgz 867.91 KiB
