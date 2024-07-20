@@ -1,6 +1,6 @@
 import { useComponentCollector } from "@eslint-react/core";
 import { isTypeReadonly } from "@typescript-eslint/type-utils";
-import type { ParserServices } from "@typescript-eslint/utils";
+import type { ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { getTypeImmutability, isImmutable, isReadonlyDeep, isReadonlyShallow, isUnknown } from "is-immutable-type";
 import type { ConstantCase } from "string-ts";
@@ -12,8 +12,7 @@ export const RULE_NAME = "prefer-read-only-props";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
-function isReadonlyType(type: ts.Type, services: ParserServices): boolean {
-  if (!services.program) throw new Error("This rule requires type checking to be enabled");
+function isReadonlyType(type: ts.Type, services: ParserServicesWithTypeInformation): boolean {
   try {
     const im = getTypeImmutability(services.program, type);
     return isUnknown(im) || isImmutable(im) || isReadonlyShallow(im) || isReadonlyDeep(im);
@@ -35,7 +34,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const services = ESLintUtils.getParserServices(context);
+    const services = ESLintUtils.getParserServices(context, false);
     const { ctx, listeners } = useComponentCollector(context);
     return {
       ...listeners,
