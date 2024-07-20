@@ -1,5 +1,5 @@
 import { useComponentCollector } from "@eslint-react/core";
-import { isTypeReadonly } from "@typescript-eslint/type-utils";
+import { getConstrainedTypeAtLocation, isTypeReadonly } from "@typescript-eslint/type-utils";
 import type { ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { getTypeImmutability, isImmutable, isReadonlyDeep, isReadonlyShallow, isUnknown } from "is-immutable-type";
@@ -43,7 +43,7 @@ export default createRule<[], MessageID>({
         for (const [_, component] of components) {
           const [props] = component.node.params;
           if (!props) continue;
-          const propsType = services.getTypeAtLocation(props);
+          const propsType = getConstrainedTypeAtLocation(services, props);
           if (isReadonlyType(propsType, services)) return;
           context.report({ messageId: "PREFER_READ_ONLY_PROPS", node: props });
         }
