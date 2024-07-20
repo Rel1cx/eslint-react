@@ -10,6 +10,10 @@
       "DOM",
       "DOM.Iterable"
     ],
+    "types": [
+      "@types/react",
+      "@types/react-dom"
+    ],
     "module": "ESNext",
     "skipLibCheck": true,
     /* Bundler mode */

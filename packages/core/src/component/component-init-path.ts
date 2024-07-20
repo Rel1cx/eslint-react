@@ -163,6 +163,7 @@ export function getComponentInitPath(node: TSESTreeFunction): O.Option<ERCompone
 
   if (
     parent.type === NodeType.MethodDefinition
+    && parent.parent.type === NodeType.ClassBody
     && parent.parent.parent.type === NodeType.ClassDeclaration
   ) {
     return O.some([
@@ -175,6 +176,7 @@ export function getComponentInitPath(node: TSESTreeFunction): O.Option<ERCompone
 
   if (
     parent.type === NodeType.PropertyDefinition
+    && parent.parent.type === NodeType.ClassBody
     && parent.parent.parent.type === NodeType.ClassDeclaration
   ) {
     return O.some([

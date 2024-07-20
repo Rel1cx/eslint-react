@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
 import type { O } from "@eslint-react/tools";
 import { Data } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
