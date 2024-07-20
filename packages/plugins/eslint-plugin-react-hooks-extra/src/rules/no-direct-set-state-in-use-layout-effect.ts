@@ -90,6 +90,9 @@ export default createRule<[], MessageID>({
           }, n.callee);
           const [index] = n.arguments;
           if (!isAt || !index) return O.none();
+          // const data = useState();
+          // const index = 1;
+          // data[index]();
           const initialScope = context.sourceCode.getScope(n);
           const value = getStaticValue(index, initialScope);
           if (value?.value === 1) return O.fromNullable(n.callee.object);
@@ -125,7 +128,7 @@ export default createRule<[], MessageID>({
     const effectFunctionRef = MutRef.make<TSESTreeFunction | null>(null);
     const cleanUpFunctionRef = MutRef.make<TSESTreeFunction | null>(null);
     const indirectFunctionCalls = MutRef.make(Chunk.empty<TSESTree.CallExpression>());
-    const indirectSetStateCalls = new Map<TSESTreeFunction, Chunk.Chunk<TSESTree.CallExpression>>();
+    const indirectSetStateCalls = new WeakMap<TSESTreeFunction, Chunk.Chunk<TSESTree.CallExpression>>();
     // const onEffectFunctionEnter = (_: TSESTreeFunction) => {};
     // const onEffectFunctionExit = (_: TSESTreeFunction) => {};
     return {
