@@ -6,7 +6,6 @@
 
 ## Namespaces
 
-- [Chunk](namespaces/Chunk/README.md)
 - [Data](namespaces/Data/README.md)
 - [E](namespaces/E/README.md)
 - [F](namespaces/F/README.md)

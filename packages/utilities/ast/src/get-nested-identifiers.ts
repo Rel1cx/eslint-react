@@ -1,4 +1,3 @@
-import { Chunk, MutRef } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { NodeType } from "./types";
@@ -9,57 +8,57 @@ import { NodeType } from "./types";
  * @returns The nested identifiers
  */
 export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Identifier[] {
-  const identifiers = MutRef.make(Chunk.empty<TSESTree.Identifier>());
+  const identifiers: TSESTree.Identifier[] = [];
   if (node.type === NodeType.Identifier) {
-    MutRef.update(identifiers, Chunk.append(node));
+    identifiers.push(node);
   }
   if ("arguments" in node) {
-    const chunk = Chunk.unsafeFromArray(node.arguments.map(getNestedIdentifiers).flat(1));
-    MutRef.update(identifiers, Chunk.appendAll(chunk));
+    const chunk = node.arguments.map(getNestedIdentifiers).flat(1);
+    identifiers.push(...chunk);
   }
   if ("elements" in node) {
-    const chunk = Chunk.unsafeFromArray(node.elements.filter((x) => x !== null).map(getNestedIdentifiers).flat(1));
-    MutRef.update(identifiers, Chunk.appendAll(chunk));
+    const chunk = node.elements.filter((x) => x !== null).map(getNestedIdentifiers).flat(1);
+    identifiers.push(...chunk);
   }
   if ("properties" in node) {
-    const chunk = Chunk.unsafeFromArray(node.properties.map(getNestedIdentifiers).flat(1));
-    MutRef.update(identifiers, Chunk.appendAll(chunk));
+    const chunk = node.properties.map(getNestedIdentifiers).flat(1);
+    identifiers.push(...chunk);
   }
   if ("expressions" in node) {
-    const chunk = Chunk.unsafeFromArray(node.expressions.map(getNestedIdentifiers).flat(1));
-    MutRef.update(identifiers, Chunk.appendAll(chunk));
+    const chunk = node.expressions.map(getNestedIdentifiers).flat(1);
+    identifiers.push(...chunk);
   }
   if ("left" in node) {
-    const chunk = Chunk.unsafeFromArray(getNestedIdentifiers(node.left));
-    MutRef.update(identifiers, Chunk.appendAll(chunk));
+    const chunk = getNestedIdentifiers(node.left);
+    identifiers.push(...chunk);
   }
   if ("right" in node) {
-    const chunk = Chunk.unsafeFromArray(getNestedIdentifiers(node.right));
-    MutRef.update(identifiers, Chunk.appendAll(chunk));
+    const chunk = getNestedIdentifiers(node.right);
+    identifiers.push(...chunk);
   }
   if (node.type === NodeType.Property) {
-    const chunk = Chunk.unsafeFromArray(getNestedIdentifiers(node.value));
-    MutRef.update(identifiers, Chunk.appendAll(chunk));
+    const chunk = getNestedIdentifiers(node.value);
+    identifiers.push(...chunk);
   }
   if (node.type === NodeType.SpreadElement) {
-    const chunk = Chunk.unsafeFromArray(getNestedIdentifiers(node.argument));
-    MutRef.update(identifiers, Chunk.appendAll(chunk));
+    const chunk = getNestedIdentifiers(node.argument);
+    identifiers.push(...chunk);
   }
   if (node.type === NodeType.MemberExpression) {
-    const chunk = Chunk.unsafeFromArray(getNestedIdentifiers(node.object));
-    MutRef.update(identifiers, Chunk.appendAll(chunk));
+    const chunk = getNestedIdentifiers(node.object);
+    identifiers.push(...chunk);
   }
   if (node.type === NodeType.UnaryExpression) {
-    const chunk = Chunk.unsafeFromArray(getNestedIdentifiers(node.argument));
-    MutRef.update(identifiers, Chunk.appendAll(chunk));
+    const chunk = getNestedIdentifiers(node.argument);
+    identifiers.push(...chunk);
   }
   if (node.type === NodeType.ChainExpression) {
-    const chunk = Chunk.unsafeFromArray(getNestedIdentifiers(node.expression));
-    MutRef.update(identifiers, Chunk.appendAll(chunk));
+    const chunk = getNestedIdentifiers(node.expression);
+    identifiers.push(...chunk);
   }
   if (node.type === NodeType.TSNonNullExpression) {
-    const chunk = Chunk.unsafeFromArray(getNestedIdentifiers(node.expression));
-    MutRef.update(identifiers, Chunk.appendAll(chunk));
+    const chunk = getNestedIdentifiers(node.expression);
+    identifiers.push(...chunk);
   }
-  return Chunk.toReadonlyArray(MutRef.get(identifiers));
+  return identifiers;
 }

@@ -2,7 +2,7 @@ import type { TSESTreeFunction } from "@eslint-react/ast";
 import { getNestedIdentifiers, is, isFunction, isIIFE, NodeType } from "@eslint-react/ast";
 import { isReactHookCallWithNameLoose, isUseLayoutEffectCall, isUseStateCall } from "@eslint-react/core";
 import { parseESLintSettings } from "@eslint-react/shared";
-import { Chunk, F, MutList, MutRef, O } from "@eslint-react/tools";
+import { F, MutList, MutRef, O } from "@eslint-react/tools";
 import { findVariable, getVariableNode } from "@eslint-react/var";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
@@ -126,9 +126,9 @@ export default createRule<[], MessageID>({
     }
     const functionStack = MutList.make<[node: TSESTreeFunction, kind: FunctionKind]>();
     const effectFunctionRef = MutRef.make<TSESTreeFunction | null>(null);
-    const effectFunctionIdentifiers = MutRef.make(Chunk.empty<TSESTree.Identifier>());
-    const indirectFunctionCalls = MutRef.make(Chunk.empty<TSESTree.CallExpression>());
-    const indirectSetStateCalls = new WeakMap<TSESTreeFunction, Chunk.Chunk<TSESTree.CallExpression>>();
+    const effectFunctionIdentifiers: TSESTree.Identifier[] = [];
+    const indirectFunctionCalls: TSESTree.CallExpression[] = [];
+    const indirectSetStateCalls = new WeakMap<TSESTreeFunction, TSESTree.CallExpression[]>();
     const onEffectFunctionEnter = (node: TSESTreeFunction) => {
       MutRef.set(effectFunctionRef, node);
     };
@@ -158,8 +158,8 @@ export default createRule<[], MessageID>({
           .with("setState", () => {
             if (!parentFn) return;
             if (parentFn !== effectFn && parentFnKind !== "immediate") {
-              const calls = indirectSetStateCalls.get(parentFn) ?? Chunk.empty<TSESTree.CallExpression>();
-              indirectSetStateCalls.set(parentFn, Chunk.append(calls, node));
+              const calls = indirectSetStateCalls.get(parentFn) ?? [];
+              indirectSetStateCalls.set(parentFn, [...calls, node]);
               return;
             }
             context.report({
@@ -170,12 +170,12 @@ export default createRule<[], MessageID>({
           .with("useLayoutEffect", () => {
             if (node.arguments.every(isFunction)) return;
             const identifiers = getNestedIdentifiers(node);
-            MutRef.update(effectFunctionIdentifiers, Chunk.appendAll(Chunk.unsafeFromArray(identifiers)));
+            effectFunctionIdentifiers.push(...identifiers);
           })
           .with("other", () => {
             const isInEffectFunction = effectFn === parentFn;
             if (!isInEffectFunction) return;
-            MutRef.update(indirectFunctionCalls, Chunk.append(node));
+            indirectFunctionCalls.push(node);
           })
           .otherwise(F.constVoid);
       },
@@ -185,12 +185,11 @@ export default createRule<[], MessageID>({
             findVariable(id, initialScope),
             O.flatMap(getVariableNode(0)),
             O.filter(isFunction),
-            O.flatMapNullable((fn) => indirectSetStateCalls.get(fn as TSESTreeFunction)),
-            O.map(Chunk.toReadonlyArray),
+            O.flatMapNullable((fn) => indirectSetStateCalls.get(fn)),
             O.getOrElse(() => []),
           );
         };
-        for (const { callee } of Chunk.toReadonlyArray(MutRef.get(indirectFunctionCalls))) {
+        for (const { callee } of indirectFunctionCalls) {
           if (!("name" in callee)) continue;
           const { name } = callee;
           const setStateCalls = getSetStateCalls(name, context.sourceCode.getScope(callee));
@@ -202,7 +201,7 @@ export default createRule<[], MessageID>({
             });
           }
         }
-        for (const id of Chunk.toReadonlyArray(MutRef.get(effectFunctionIdentifiers))) {
+        for (const id of effectFunctionIdentifiers) {
           const setStateCalls = getSetStateCalls(id.name, context.sourceCode.getScope(id));
           for (const setStateCall of setStateCalls) {
             context.report({
