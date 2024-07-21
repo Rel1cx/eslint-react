@@ -84,10 +84,6 @@ module.exports = {
 
 ## Linting with type information
 
-<ESLintConfig>
-
-<Config>
-
 <Info>
 Rules that require type information are not enabled by default.
 
@@ -96,6 +92,10 @@ To enable them, you need to set the `project` option in `parserOptions` to the p
 Then, you can enable the rules that require type information.
 
 </Info>
+
+<ESLintConfig>
+
+<Config>
 
 ```js filename="eslint.config.js" {13,23}
 // @ts-check
@@ -131,15 +131,6 @@ export default [
 </Config>
 
 <Config>
-
-<Info>
-Rules that require type information are not enabled by default.
-
-To enable them, you need to set the `project` option in `parserOptions` to the path of your `tsconfig.json` file.
-
-Then, you can enable the rules that require type information.
-
-</Info>
 
 ```js filename=".eslintrc.js" {5,10}
 module.exports = {
