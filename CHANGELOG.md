@@ -4,7 +4,7 @@
 
 - Add rule `no-prop-types`.
 - Add rule `no-default-props`.
-- Add `settings["react-x"].additionalComponents` settings (currently only the  `no-unsafe-target-blank` rule uses it, but more rules will use it in the future).
+- Add `settings["react-x"].additionalComponents` settings (currently only the `no-unsafe-target-blank` rule uses it, but more rules will use it in the future).
 
 ## v1.5.28 (Sat 20 Jul 2024)
 
