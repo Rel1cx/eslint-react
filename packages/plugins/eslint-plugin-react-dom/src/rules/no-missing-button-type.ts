@@ -12,6 +12,7 @@ export const RULE_NAME = "no-missing-button-type";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
+// TODO: Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",

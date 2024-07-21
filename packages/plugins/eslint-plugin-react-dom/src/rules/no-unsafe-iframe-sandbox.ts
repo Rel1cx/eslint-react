@@ -17,6 +17,7 @@ const unsafeCombinations = [
   // ...
 ] as const;
 
+// TODO: Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components that add the 'sandbox' attribute internally.
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",

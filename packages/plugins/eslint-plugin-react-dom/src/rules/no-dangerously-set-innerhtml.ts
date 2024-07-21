@@ -13,6 +13,7 @@ export const RULE_NAME = "no-dangerously-set-innerhtml";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
+// TODO: Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components that use different properties to receive HTML and set them internally.
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",

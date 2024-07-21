@@ -1,4 +1,4 @@
-import { NodeType } from "@eslint-react/ast";
+import { isOneOf, NodeType } from "@eslint-react/ast";
 import { isCreateElementCall } from "@eslint-react/core";
 import { findPropInAttributes, findPropInProperties } from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
@@ -30,6 +30,7 @@ const voidElements = new Set([
   "wbr",
 ]);
 
+// TODO: Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components that use the void element internally
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -45,12 +46,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       CallExpression(node) {
-        if (
-          node.callee.type !== NodeType.MemberExpression
-          && node.callee.type !== NodeType.Identifier
-        ) {
-          return;
-        }
+        if (!isOneOf([NodeType.MemberExpression, NodeType.Identifier])(node.callee)) return;
         const initialScope = context.sourceCode.getScope(node);
         if (!isCreateElementCall(node, context)) return;
         const args = node.arguments;
@@ -103,9 +99,8 @@ export default createRule<[], MessageID>({
           }
           const { attributes } = node.openingElement;
           const initialScope = context.sourceCode.getScope(node);
-          const findAttr = findPropInAttributes(attributes, context, initialScope);
-          const hasChildrenOrDangerAttr = O.isSome(findAttr("children"))
-            || O.isSome(findAttr("dangerouslySetInnerHTML"));
+          const hasAttr = (name: string) => O.isSome(findPropInAttributes(attributes, context, initialScope)(name));
+          const hasChildrenOrDangerAttr = hasAttr("children") || hasAttr("dangerouslySetInnerHTML");
           if (hasChildrenOrDangerAttr) {
             // e.g. <br children="Foo" />
             context.report({

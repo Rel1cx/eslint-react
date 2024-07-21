@@ -18,6 +18,7 @@ function isSafeRel(value: string) {
   return /\bnoreferrer\b/u.test(value);
 }
 
+// TODO: Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components that add the "rel" attribute internally.
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
