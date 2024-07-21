@@ -1,7 +1,7 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import { getNestedIdentifiers, is, isFunction, isIIFE, NodeType } from "@eslint-react/ast";
 import { isReactHookCallWithNameLoose, isUseEffectCall, isUseStateCall } from "@eslint-react/core";
-import { getESLintReactSettings } from "@eslint-react/shared";
+import { parseESLintSettings } from "@eslint-react/shared";
 import { Chunk, F, MutList, MutRef, O } from "@eslint-react/tools";
 import { findVariable, getVariableNode } from "@eslint-react/var";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
@@ -32,8 +32,8 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const settings = getESLintReactSettings(context.settings);
-    const { useEffect: useEffectAlias = [], useState: useStateAlias = [] } = settings.additionalHooks ?? {};
+    const settings = parseESLintSettings(context.settings)["react-x"];
+    const { useEffect: useEffectAlias = [], useState: useStateAlias = [] } = settings?.additionalHooks ?? {};
     function isUseEffectCallWithAlias(node: TSESTree.CallExpression) {
       return isUseEffectCall(node, context) || useEffectAlias.some(F.flip(isReactHookCallWithNameLoose)(node));
     }

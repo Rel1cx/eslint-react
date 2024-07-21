@@ -1,6 +1,6 @@
 import { NodeType } from "@eslint-react/ast";
 import { isReactHookCallWithNameLoose, isUseStateCall, useComponentCollector } from "@eslint-react/core";
-import { getESLintReactSettings } from "@eslint-react/shared";
+import { parseESLintSettings } from "@eslint-react/shared";
 import { F, O, Pred } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -34,7 +34,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const alias = getESLintReactSettings(context.settings).additionalHooks?.useState ?? [];
+    const alias = parseESLintSettings(context.settings)["react-x"]?.additionalHooks?.useState ?? [];
     const { ctx, listeners } = useComponentCollector(context);
 
     return {

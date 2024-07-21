@@ -1,14 +1,61 @@
 import type { ReadonlyDeep } from "type-fest";
 import type { InferOutput } from "valibot";
-import { array, boolean, object, optional, string } from "valibot";
+import { array, boolean, object, optional, record, string, union } from "valibot";
+
+/**
+ * @internal
+ * @description
+ * This allows the rule to know some key information before checking for user-defined hooks.
+ * For example, the position of the `deps` argument for the user-defined `useCustomEffect` hook that represents the built-in `useEffect` hook.
+ */
+export const CustomHookSchema = object({
+  // TODO: Define the schema for custom hooks
+});
+
+/**
+ * @internal
+ * @description
+ * This will provide some key information to the rule before checking for user-defined components.
+ * For example:
+ * Which attribute is used as the `href` prop for the user-defined `Link` component that represents the built-in `a` element.
+ * Which attributes are used as `children` props for a user-defined `Button` component to receive children of that component.
+ */
+export const CustomComponentSchema = object({
+  /**
+   * Pre-defined attributes that are used in the user-defined component.
+   * @example
+   * `Link` component has a `to` attribute that represents the `href` attribute in the built-in `a` element with a default value of `"/"`.
+   */
+  additionalAttributes: optional(array(object({
+    /**
+     * The name of the attribute in the user-defined component.
+     * @example
+     * "to"
+     */
+    name: string(),
+    /**
+     * The name of the attribute in the built-in component.
+     * @example
+     * "href"
+     */
+    as: string(),
+    /**
+     * The default value of the attribute in the user-defined component.
+     * @example
+     * `"/"`
+     */
+    defaultValue: optional(string()),
+  }))),
+});
 
 /**
  * @internal
  */
-export const ESLintReactSettingsSchema = object({
+export const ESLintReactXSettingsSchema = object({
+  additionalComponents: optional(record(string(), union([string(), CustomComponentSchema]))),
   additionalHooks: optional(object({
-    use: optional(string()),
-    useActionState: optional(string()),
+    use: optional(array(string())),
+    useActionState: optional(array(string())),
     useCallback: optional(array(string())),
     useContext: optional(array(string())),
     useDebugValue: optional(array(string())),
@@ -33,17 +80,17 @@ export const ESLintReactSettingsSchema = object({
   version: optional(string()),
 });
 
-export type ESLintReactSettings = ReadonlyDeep<InferOutput<typeof ESLintReactSettingsSchema>>;
-
 /**
  * @internal
  */
 export const ESLintSettingsSchema = object({
-  "react-x": optional(ESLintReactSettingsSchema),
+  "react-x": optional(ESLintReactXSettingsSchema),
   /**
    * @deprecated
    */
-  reactOptions: optional(ESLintReactSettingsSchema),
+  reactOptions: optional(ESLintReactXSettingsSchema),
 });
+
+export type ESLintReactXSettings = ReadonlyDeep<InferOutput<typeof ESLintReactXSettingsSchema>>;
 
 export type ESLintSettings = ReadonlyDeep<InferOutput<typeof ESLintSettingsSchema>>;

@@ -1,7 +1,7 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import { is, isFunction, NodeType } from "@eslint-react/ast";
 import { isReactHookCall, isReactHookCallWithNameLoose, isUseCallbackCall } from "@eslint-react/core";
-import { getESLintReactSettings } from "@eslint-react/shared";
+import { parseESLintSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import { findVariable, getVariableNode } from "@eslint-react/var";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -27,7 +27,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const alias = getESLintReactSettings(context.settings).additionalHooks?.useCallback ?? [];
+    const alias = parseESLintSettings(context.settings)["react-x"]?.additionalHooks?.useCallback ?? [];
 
     return {
       CallExpression(node) {

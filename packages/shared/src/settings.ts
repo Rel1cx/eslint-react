@@ -1,9 +1,8 @@
 import { parse } from "valibot";
 
-import type { ESLintReactSettings } from "./schemas";
+import type { ESLintSettings } from "./schemas";
 import { ESLintSettingsSchema } from "./schemas";
 
-export function getESLintReactSettings(data: unknown): ESLintReactSettings {
-  const settings = parse(ESLintSettingsSchema, data);
-  return settings["react-x"] ?? settings.reactOptions ?? {};
+export function parseESLintSettings(data: unknown): ESLintSettings {
+  return parse(ESLintSettingsSchema, data);
 }

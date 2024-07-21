@@ -6,7 +6,7 @@
 
 ## Type Aliases
 
-- [ESLintReactSettings](type-aliases/ESLintReactSettings.md)
+- [ESLintReactXSettings](type-aliases/ESLintReactXSettings.md)
 - [ESLintSettings](type-aliases/ESLintSettings.md)
 
 ## Variables
@@ -24,4 +24,4 @@
 ## Functions
 
 - [createRuleForPlugin](functions/createRuleForPlugin.md)
-- [getESLintReactSettings](functions/getESLintReactSettings.md)
+- [parseESLintSettings](functions/parseESLintSettings.md)
