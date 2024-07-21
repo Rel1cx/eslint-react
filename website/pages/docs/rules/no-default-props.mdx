@@ -1,0 +1,43 @@
+# no-default-props
+
+## Rule category
+
+Restriction.
+
+## What it does
+
+Disallows using `defaultProps` property in favor of ES6 default parameters or another solution.
+
+## Why is this bad?
+
+The `defaultProps` will be removed from functional components in React 19 in place of ES6 default parameters. If you’re using `defaultProps`, it is recommend to migrate to ES6 default parameters.
+
+## Examples
+
+### Failing
+
+```tsx
+import React from 'react';
+
+function ExampleComponent(props) {
+  return <div>{props.name}</div>;
+}
+
+ExampleComponent.defaultProps = {
+  name: 'John Doe',
+};
+```
+
+### Passing
+
+```tsx
+import React from 'react';
+
+interface ExampleComponentProps {
+  name: string;
+}
+
+function ExampleComponent({ name = 'John Doe' }: ExampleComponentProps) {
+  return <div>{name}</div>;
+}
+```

@@ -1,3 +1,10 @@
+## v1.5.29 (Draft)
+
+### ✨ New
+
+- Add rule `no-prop-types`.
+- Add rule `no-default-props`.
+
 ## v1.5.28 (Sat 20 Jul 2024)
 
 ### 🐞 Fixes

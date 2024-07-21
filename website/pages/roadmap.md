@@ -33,12 +33,14 @@
 | `no-component-will-receive-props`        | Prevents usage of `componentWillReceiveProps`.                                                       |
 | `no-component-will-update`               | Prevents usage of `componentWillUpdate`.                                                             |
 | `no-create-ref`                          | Prevents usage of `createRef`.                                                                       |
+| `no-default-props`                       | Prevents usage of `defaultProps` in favor of default parameters.                                     |
 | `no-direct-mutation-state`               | Prevents direct mutation of `this.state`.                                                            |
 | `no-duplicate-key`                       | Prevents duplicate `key` props on elements in the same array or a list of `children`.                |
 | `no-leaked-conditional-rendering`        | Prevents problematic leaked values from being rendered.                                              |
 | `no-missing-component-display-name`      | Enforces that all components have a `displayName` which can be used in devtools.                     |
 | `no-missing-key`                         | Prevents missing `key` prop on items in list rendering.                                              |
 | `no-nested-components`                   | Prevents nesting component definitions inside other components.                                      |
+| `no-prop-types`                          | Disallows using `propTypes` property in favor of TypeScript or another type-checking solution.       |
 | `no-redundant-should-component-update`   | Prevents usage of `shouldComponentUpdate` when extending `React.PureComponent`.                      |
 | `no-set-state-in-component-did-mount`    | Disallows calling `this.setState` in `componentDidMount` outside of functions, such as callbacks.    |
 | `no-set-state-in-component-did-update`   | Disallows calling `this.setState` in `componentDidUpdate` outside of functions, such as callbacks.   |

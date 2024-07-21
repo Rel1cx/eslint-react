@@ -15,6 +15,9 @@ export function getVariableNode(at: number) {
   return (
     variable: Variable,
   ): O.Option<
+    | TSESTree.ClassDeclaration
+    | TSESTree.ClassDeclarationWithName
+    | TSESTree.ClassDeclarationWithOptionalName
     | TSESTree.Expression
     | TSESTree.FunctionDeclaration
     | TSESTree.FunctionDeclarationWithName
@@ -28,6 +31,9 @@ export function getVariableNode(at: number) {
           return def.node.init;
         }
         if (def.type === DefinitionType.FunctionName && def.node.type === NodeType.FunctionDeclaration) {
+          return def.node;
+        }
+        if (def.type === DefinitionType.ClassName && def.node.type === NodeType.ClassDeclaration) {
           return def.node;
         }
         return null;

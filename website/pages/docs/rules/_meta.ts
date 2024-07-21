@@ -31,6 +31,7 @@ export default {
   "no-component-will-receive-props": "no-component-will-receive-props",
   "no-component-will-update": "no-component-will-update",
   "no-create-ref": "no-create-ref",
+  "no-default-props": "no-default-props",
   "no-direct-mutation-state": "no-direct-mutation-state",
   "no-duplicate-key": "no-duplicate-key",
   "no-implicit-key": {
@@ -42,6 +43,7 @@ export default {
   "no-missing-component-display-name": "no-missing-component-display-name",
   "no-missing-key": "no-missing-key",
   "no-nested-components": "no-nested-components",
+  "no-prop-types": "no-prop-types",
   "no-redundant-should-component-update": "no-redundant-should-component-update",
   "no-set-state-in-component-did-mount": "no-set-state-in-component-did-mount",
   "no-set-state-in-component-did-update": "no-set-state-in-component-did-update",
