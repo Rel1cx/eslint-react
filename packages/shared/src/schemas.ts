@@ -13,6 +13,9 @@ export const CustomHookSchema = object({
   // TODO: Define the schema for custom hooks
 });
 
+/**
+ * @internal
+ */
 export const CustomAttributeSchema = object({
   /**
    * The name of the attribute in the user-defined component.
