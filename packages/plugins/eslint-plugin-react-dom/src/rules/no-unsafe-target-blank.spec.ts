@@ -65,12 +65,12 @@ ruleTester.run(RULE_NAME, rule, {
     '<Link href="https://react.dev" target="_blank" rel={"noopener noreferrer"}></Link>',
     '<Link href="https://react.dev" target="_blank" rel="noreferrer"></Link>',
     {
-      code: '<Link href="https://react.dev" target="_blank"></Link>',
+      code: '<LinkButton href="https://react.dev" target="_blank"></LinkButton>',
       settings: {
         "react-x": {
           additionalComponents: [
             {
-              name: "Link",
+              name: "LinkButton",
               as: "a",
               attributes: [{
                 name: "rel",
@@ -84,12 +84,12 @@ ruleTester.run(RULE_NAME, rule, {
     },
     // TODO: implement this
     // {
-    //   code: '<Link to="https://react.dev" target="_blank"></Link>',
+    //   code: '<LinkButton to="https://react.dev" target="_blank"></LinkButton>',
     //   settings: {
     //     "react-x": {
     //       additionalComponents: [
     //         {
-    //           name: "Link",
+    //           name: "LinkButton",
     //           as: "a",
     //           attributes: [
     //             {
