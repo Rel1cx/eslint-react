@@ -11,6 +11,7 @@
 
 ## Variables
 
+- [CustomAttributeSchema](variables/CustomAttributeSchema.md)
 - [GITHUB\_URL](variables/GITHUB_URL.md)
 - [NPM\_SCOPE](variables/NPM_SCOPE.md)
 - [RE\_CAMEL\_CASE](variables/RE_CAMEL_CASE.md)

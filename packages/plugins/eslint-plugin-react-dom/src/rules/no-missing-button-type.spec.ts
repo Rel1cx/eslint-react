@@ -86,5 +86,30 @@ ruleTester.run(RULE_NAME, rule, {
           return <button {...props}>Click me</button>;
       }
     `,
+    // TODO: implement this
+    // {
+    //   code: /* tsx */ `
+    //     function App() {
+    //         return <Button>Click me</Button>;
+    //     }
+    //   `,
+    //   settings: {
+    //     "react-x": {
+    //       additionalComponents: [
+    //         {
+    //           name: "Button",
+    //           as: "button",
+    //           attributes: [
+    //             {
+    //               name: "type",
+    //               as: "type",
+    //               defaultValue: "button",
+    //             },
+    //           ],
+    //         },
+    //       ],
+    //     },
+    //   },
+    // },
   ],
 });
