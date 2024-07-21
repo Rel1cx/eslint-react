@@ -21,6 +21,7 @@ function firstChildIsText(node: TSESTree.JSXElement) {
     && !isLineBreak(firstChild);
 }
 
+// TODO: Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components that use different properties to receive HTML and set them internally.
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",

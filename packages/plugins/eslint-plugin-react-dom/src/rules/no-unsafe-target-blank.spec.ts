@@ -23,6 +23,33 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<Link href="https://react.dev" target="_blank" rel="noopener"></Link>',
       errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
     },
+    // TODO: implement this
+    // {
+    //   code: '<a href="https://react.dev" target="_blank"></a><Link to="https://react.dev" target="_blank"></Link>',
+    //   errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }], // should be 1 error
+    //   settings: {
+    //     "react-x": {
+    //       additionalComponents: [
+    //         {
+    //           name: "Link",
+    //           as: "a",
+    //           attributes: [
+    //             {
+    //               name: "to",
+    //               as: "href",
+    //               defaultValue: "",
+    //             },
+    //             {
+    //               name: "rel",
+    //               as: "rel",
+    //               defaultValue: "noreferrer",
+    //             },
+    //           ],
+    //         },
+    //       ],
+    //     },
+    //   },
+    // },
   ],
   valid: [
     ...allValid,
@@ -37,5 +64,49 @@ ruleTester.run(RULE_NAME, rule, {
     '<Link href="https://react.dev" target="_blank" rel="noopener noreferrer"></Link>',
     '<Link href="https://react.dev" target="_blank" rel={"noopener noreferrer"}></Link>',
     '<Link href="https://react.dev" target="_blank" rel="noreferrer"></Link>',
+    {
+      code: '<LinkButton href="https://react.dev" target="_blank"></LinkButton>',
+      settings: {
+        "react-x": {
+          additionalComponents: [
+            {
+              name: "LinkButton",
+              as: "a",
+              attributes: [{
+                name: "rel",
+                as: "rel",
+                defaultValue: "noreferrer",
+              }],
+            },
+          ],
+        },
+      },
+    },
+    // TODO: implement this
+    // {
+    //   code: '<LinkButton to="https://react.dev" target="_blank"></LinkButton>',
+    //   settings: {
+    //     "react-x": {
+    //       additionalComponents: [
+    //         {
+    //           name: "LinkButton",
+    //           as: "a",
+    //           attributes: [
+    //             {
+    //               name: "to",
+    //               as: "href",
+    //               defaultValue: "",
+    //             },
+    //             {
+    //               name: "rel",
+    //               as: "rel",
+    //               defaultValue: "noreferrer",
+    //             },
+    //           ],
+    //         },
+    //       ],
+    //     },
+    //   },
+    // },
   ],
 });
