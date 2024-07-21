@@ -6,6 +6,12 @@
 - Add rule `no-default-props`.
 - Add `settings["react-x"].additionalComponents` settings (currently only the `no-unsafe-target-blank` rule uses it, but more rules will use it in the future).
 
+### 🪄 Improvements
+
+- Add rule `no-prop-types` to recommended presets.
+- Add rule `no-default-props` to recommended presets.
+- Remove rule `no-useless-fragment` from recommended presets.
+
 ## v1.5.28 (Sat 20 Jul 2024)
 
 ### 🐞 Fixes

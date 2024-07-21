@@ -62,7 +62,6 @@ export default [
         "react-x/no-unstable-default-props": "error",
         "react-x/no-unused-class-component-members": "warn",
         "react-x/no-unused-state": "warn",
-        "react-x/no-useless-fragment": "warn",
       }
     ],
   },

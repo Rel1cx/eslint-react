@@ -128,7 +128,7 @@ const recommendedPreset = {
   "no-unstable-default-props": "error",
   "no-unused-class-component-members": "warn",
   "no-unused-state": "warn",
-  "no-useless-fragment": "warn",
+  // "no-useless-fragment": "warn",
   // "prefer-read-only-props": "warn",
   // "prefer-destructuring-assignment": "warn",
   // "prefer-shorthand-boolean": "warn",
