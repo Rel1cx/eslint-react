@@ -123,32 +123,6 @@ ruleTester.run(RULE_NAME, rule, {
     /* tsx */ `
       import { createRef } from 'react';
 
-      const ref = createRef();
-    `,
-    /* tsx */ `
-      import { createRef } from 'react';
-
-      function notComponent() {
-        const ref = createRef();
-      }
-    `,
-    /* tsx */ `
-      import { createRef } from 'react';
-
-      function NotComponent() {
-        const ref = createRef();
-      }
-    `,
-    /* tsx */ `
-      import { createRef } from 'react';
-
-      function NotComponent() {
-        return () => createRef();
-      }
-    `,
-    /* tsx */ `
-      import { createRef } from 'react';
-
       function Component() {
         const ref = useRef();
 
