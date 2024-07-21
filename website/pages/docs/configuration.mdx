@@ -42,7 +42,14 @@ A Record of aliases for React's built-in Hooks. ESLint React will recognize thes
 This is intended to cover edge cases. We suggest to use this option very sparingly, if at all.\
 (e.g. `{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }`).
 
+### `additionalComponents` (experimental)
+
+A Array of aliases for built-in components. ESLint React will recognize these aliases as equivalent to the built-in components in all its rules.\
+This is an experimental feature that can be unstable and lacks comprehensive documentation.\
+
 ## Examples
+
+### Basic Configuration
 
 <ESLintConfig>
 
@@ -71,6 +78,76 @@ export default [
       },
     },
   },
+];
+```
+
+</Config>
+
+<Config>
+
+```js filename=".eslintrc.js"
+// ...
+module.exports = {
+  // ...
+  settings: {
+    "react-x": {
+      importSource: "react",
+      jsxPragma: "createElement",
+      jsxPragmaFrag: "Fragment",
+      additionalHooks: {
+        useLayoutEffect: ["useIsomorphicLayoutEffect"],
+        // ...
+      },
+      version: "detect",
+    },
+  },
+};
+```
+
+</Config>
+
+</ESLintConfig>
+
+### Advanced Configuration
+
+<ESLintConfig>
+
+<Config>
+
+```ts twoslash filename="eslint.config.js"
+// ...
+import react from "@eslint-react/eslint-plugin";
+
+// ...
+export default [
+  // ...
+  {
+    files: ["**/*.{ts,tsx}"],
+    ...react.configs.recommended,
+    settings: {
+      "react-x": {
+        importSource: "react",
+        jsxPragma: "createElement",
+        jsxPragmaFrag: "Fragment",
+        additionalHooks: {
+          useLayoutEffect: ["useIsomorphicLayoutEffect"],
+          // ...
+        },
+        additionalComponents: [
+          {
+            name: "Link",
+            as: "a",
+            attributes: [
+              { name: "to", as: "href" },
+              { name: "rel", as: "rel", defaultValue: "noopener noreferrer" },
+            ],
+          },
+          // ...
+        ],
+        version: "detect",
+      },
+    },
+  },
   // ...
 ];
 ```
@@ -92,6 +169,17 @@ module.exports = {
         useLayoutEffect: ["useIsomorphicLayoutEffect"],
         // ...
       },
+      additionalComponents: [
+        {
+          name: "Link",
+          as: "a",
+          attributes: [
+            { name: "to", as: "href" },
+            { name: "rel", as: "rel", defaultValue: "noopener noreferrer" },
+          ],
+        },
+        // ...
+      ],
       version: "detect",
     },
   },
