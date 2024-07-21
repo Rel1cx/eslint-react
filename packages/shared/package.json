@@ -45,7 +45,7 @@
     "@typescript-eslint/utils": "^7.16.1"
   },
   "devDependencies": {
-    "tsup": "8.2.0",
+    "tsup": "8.2.1",
     "type-fest": "4.22.1",
     "valibot": "0.36.0"
   }
