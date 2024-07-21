@@ -17,7 +17,7 @@ export type RuleCategoryEmoji =
   | "❌" // deprecated
   | "🎨" // style
   | "🐞" // debug
-  | "👀" // suspicious
+  | "🧐" // suspicious
   | "📖" // convention
   | "🔒" // security
   | "🚀" // perf

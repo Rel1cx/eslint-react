@@ -77,7 +77,7 @@ export default [
 | `avoid-shorthand-fragment`               | Enforces the use of shorthand syntax for fragments.                                                  |   🎨   |       |       |
 | `ensure-forward-ref-using-ref`           | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                      |   ✔️   |       |       |
 | `no-access-state-in-setstate`            | Prevents accessing `this.state` inside `setState` calls.                                             |   ✔️   |       |       |
-| `no-array-index-key`                     | Warns when an array `index` is used as a `key` prop.                                                 |   👀   |       |       |
+| `no-array-index-key`                     | Warns when an array `index` is used as a `key` prop.                                                 |   🧐   |       |       |
 | `no-children-count`                      | Prevents usage of `Children.count`.                                                                  |   ⛔   |       |       |
 | `no-children-for-each`                   | Prevents usage of `Children.forEach`.                                                                |   ⛔   |       |       |
 | `no-children-map`                        | Prevents usage of `Children.map`.                                                                    |   ⛔   |       |       |
@@ -86,7 +86,7 @@ export default [
 | `no-children-to-array`                   | Prevents usage of `Children.toArray`.                                                                |   ⛔   |       |       |
 | `no-class-component`                     | Prevents usage of class component.                                                                   |   ⛔   |       |       |
 | `no-clone-element`                       | Prevents usage of `cloneElement`.                                                                    |   ⛔   |       |       |
-| `no-comment-textnodes`                   | Prevents comments from being inserted as text nodes.                                                 |   👀   |       |       |
+| `no-comment-textnodes`                   | Prevents comments from being inserted as text nodes.                                                 |   🧐   |       |       |
 | `no-component-will-mount`                | Prevents usage of `componentWillMount`.                                                              |   ⛔   |       |       |
 | `no-component-will-receive-props`        | Prevents usage of `componentWillReceiveProps`.                                                       |   ⛔   |       |       |
 | `no-component-will-update`               | Prevents usage of `componentWillUpdate`.                                                             |   ⛔   |       |       |
@@ -94,19 +94,19 @@ export default [
 | `no-default-props`                       | Prevents usage of `defaultProps`.                                                                    |   ⛔   |       |       |
 | `no-direct-mutation-state`               | Prevents direct mutation of `this.state`.                                                            |   ✔️   |       |       |
 | `no-duplicate-key`                       | Prevents duplicate `key` props on elements in the same array or a list of `children`.                |   ✔️   |       |       |
-| `no-leaked-conditional-rendering`        | Prevents problematic leaked values from being rendered.                                              |   👀   |   💭   |       |
+| `no-leaked-conditional-rendering`        | Prevents problematic leaked values from being rendered.                                              |   🧐   |   💭   |       |
 | `no-missing-component-display-name`      | Enforces that all components have a `displayName` which can be used in devtools.                     |   🐞   |       |       |
 | `no-missing-key`                         | Prevents missing `key` prop on items in list rendering.                                              |   ✔️   |       |       |
 | `no-nested-components`                   | Prevents nesting component definitions inside other components.                                      |   ✔️   |       |       |
 | `no-prop-types`                          | Prevents usage of `propTypes`.                                                                       |   ⛔   |       |       |
 | `no-redundant-should-component-update`   | Prevents usage of `shouldComponentUpdate` when extending `React.PureComponent`.                      |   ✔️   |       |       |
-| `no-set-state-in-component-did-mount`    | Disallows calling `this.setState` in `componentDidMount` outside of functions, such as callbacks.    |   👀   |       |       |
-| `no-set-state-in-component-did-update`   | Disallows calling `this.setState` in `componentDidUpdate` outside of functions, such as callbacks.   |   👀   |       |       |
-| `no-set-state-in-component-will-update`  | Disallows calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.  |   👀   |       |       |
+| `no-set-state-in-component-did-mount`    | Disallows calling `this.setState` in `componentDidMount` outside of functions, such as callbacks.    |   🧐   |       |       |
+| `no-set-state-in-component-did-update`   | Disallows calling `this.setState` in `componentDidUpdate` outside of functions, such as callbacks.   |   🧐   |       |       |
+| `no-set-state-in-component-will-update`  | Disallows calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.  |   🧐   |       |       |
 | `no-string-refs`                         | Disallows using deprecated string `refs`.                                                            |   ⛔   |       |       |
-| `no-unsafe-component-will-mount`         | Warns usage of `UNSAFE_componentWillMount` in class components.                                      |   👀   |       |       |
-| `no-unsafe-component-will-receive-props` | Warns usage of `UNSAFE_componentWillReceiveProps` in class components.                               |   👀   |       |       |
-| `no-unsafe-component-will-update`        | Warns usage of `UNSAFE_componentWillUpdate` in class components.                                     |   👀   |       |       |
+| `no-unsafe-component-will-mount`         | Warns usage of `UNSAFE_componentWillMount` in class components.                                      |   🧐   |       |       |
+| `no-unsafe-component-will-receive-props` | Warns usage of `UNSAFE_componentWillReceiveProps` in class components.                               |   🧐   |       |       |
+| `no-unsafe-component-will-update`        | Warns usage of `UNSAFE_componentWillUpdate` in class components.                                     |   🧐   |       |       |
 | `no-unstable-context-value`              | Prevents non-stable values (i.e. object literals) from being used as a value for `Context.Provider`. |   🚀   |       |       |
 | `no-unstable-default-props`              | Prevents usage of referential-type values as default props in object destructuring.                  |   🚀   |       |       |
 | `no-unused-class-component-members`      | Warns unused class component methods and properties.                                                 |   ✔️   |       |       |
