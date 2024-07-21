@@ -11,6 +11,7 @@
 - Add rule `no-prop-types` to recommended presets.
 - Add rule `no-default-props` to recommended presets.
 - Remove rule `no-useless-fragment` from recommended presets.
+- Optimize performance of rule `no-create-ref`.
 
 ## v1.5.28 (Sat 20 Jul 2024)
 
