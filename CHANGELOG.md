@@ -4,7 +4,7 @@
 
 - Add rule `no-prop-types`.
 - Add rule `no-default-props`.
-- Add `settings["react-x"].additionalComponents` to add support for user-defined components that add the `rel` attribute internally for rule `no-unsafe-target-blank`.
+- Add `settings["react-x"].additionalComponents` settings (currently only the  `no-unsafe-target-blank` rule uses it, but more rules will use it in the future).
 
 ## v1.5.28 (Sat 20 Jul 2024)
 
