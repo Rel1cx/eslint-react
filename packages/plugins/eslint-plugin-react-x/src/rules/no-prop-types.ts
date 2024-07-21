@@ -18,8 +18,7 @@ export default createRule<[], MessageID>({
       description: "disallow the use of 'propTypes' property in components",
     },
     messages: {
-      NO_PROP_TYPES:
-        "[Deprecated] Use TypeScript or another type-checking solution instead.",
+      NO_PROP_TYPES: "[Deprecated] Use TypeScript or another type-checking solution instead.",
     },
     schema: [],
   },
