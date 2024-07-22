@@ -1,3 +1,9 @@
+## v1.5.30 (Mon 22 Jul 2024)
+
+### 🐞 Fixes
+
+- Revert change `@typescript-eslint`' packages in `peerDependencies` to `"^7.16.1 || ^rc-v8"` as this format is not supported by all package managers.
+
 ## v1.5.29 (Mon 22 Jul 2024)
 
 ### ✨ New
