@@ -151,8 +151,8 @@ importers:
         specifier: ^5.26.0
         version: 5.26.0(@types/node@20.14.11)(typescript@5.5.3)
       lefthook:
-        specifier: ^1.7.4
-        version: 1.7.4
+        specifier: ^1.7.5
+        version: 1.7.5
       markdownlint:
         specifier: 0.34.0
         version: 0.34.0
@@ -190,14 +190,14 @@ importers:
         specifier: 4.22.1
         version: 4.22.1
       typedoc:
-        specifier: 0.26.4
-        version: 0.26.4(typescript@5.5.3)
+        specifier: 0.26.5
+        version: 0.26.5(typescript@5.5.3)
       typedoc-plugin-markdown:
         specifier: 4.2.1
-        version: 4.2.1(typedoc@0.26.4(typescript@5.5.3))
+        version: 4.2.1(typedoc@0.26.5(typescript@5.5.3))
       typedoc-plugin-rename-defaults:
         specifier: 0.7.1
-        version: 0.7.1(typedoc@0.26.4(typescript@5.5.3))
+        version: 0.7.1(typedoc@0.26.5(typescript@5.5.3))
       typescript:
         specifier: ^5.5.3
         version: 5.5.3
@@ -242,8 +242,8 @@ importers:
         specifier: 4.6.2
         version: 4.6.2(eslint@9.7.0)
       eslint-plugin-react-refresh:
-        specifier: 0.4.8
-        version: 0.4.8(eslint@9.7.0)
+        specifier: 0.4.9
+        version: 0.4.9(eslint@9.7.0)
       typescript:
         specifier: ^5.5.3
         version: 5.5.3
@@ -1014,8 +1014,8 @@ importers:
         specifier: 4.6.2
         version: 4.6.2(eslint@9.7.0)
       eslint-plugin-react-refresh:
-        specifier: 0.4.8
-        version: 0.4.8(eslint@9.7.0)
+        specifier: 0.4.9
+        version: 0.4.9(eslint@9.7.0)
       postcss:
         specifier: 8.4.39
         version: 8.4.39
@@ -3537,8 +3537,8 @@ packages:
     peerDependencies:
       eslint: ^9.7.0
 
-  eslint-plugin-react-refresh@0.4.8:
-    resolution: {integrity: sha512-MIKAclwaDFIiYtVBLzDdm16E+Ty4GwhB6wZlCAG1R3Ur+F9Qbo6PRxpA5DK7XtDgm+WlCoAY2WxAwqhmIDHg6Q==}
+  eslint-plugin-react-refresh@0.4.9:
+    resolution: {integrity: sha512-QK49YrBAo5CLNLseZ7sZgvgTy21E6NEw22eZqc4teZfH8pxV3yXc9XXOYfUI6JNpw7mfHNkAeWtBxrTyykB6HA==}
     peerDependencies:
       eslint: ^9.7.0
 
@@ -4297,48 +4297,48 @@ packages:
   layout-base@1.0.2:
     resolution: {integrity: sha512-8h2oVEZNktL4BH2JCOI90iD1yXwL6iNW7KcCKT2QZgQJR2vbqDsldCTPRU9NifTCqHZci57XvQQ15YTu+sTYPg==}
 
-  lefthook-darwin-arm64@1.7.4:
-    resolution: {integrity: sha512-6XpenaP0W7ZYA3lhHey/C1U+KmYz6eCq2cGswQsrTX+xdtHdWW3NbbOKngxATRTF8+CtF6m9UB2afP7qqkCghQ==}
+  lefthook-darwin-arm64@1.7.5:
+    resolution: {integrity: sha512-RGLMPmcTBisxT3q0VEsFkEIUyzDa47Yd7M8RJbSeAg1mFyc8LNANV7WK2GHoc9+5OTqu2OAl5tJBkfijBIFJTA==}
     cpu: [arm64]
     os: [darwin]
 
-  lefthook-darwin-x64@1.7.4:
-    resolution: {integrity: sha512-lpQXbPMHiaWE7+9fV+spjuMKiZ3J/+oI6hY1/l48MO3LmSpIv6DNy0VHho1fZVQnHdBU4bDh5c1G0r1f5T0irg==}
+  lefthook-darwin-x64@1.7.5:
+    resolution: {integrity: sha512-btSMGOx3/+dOezHU60OOgpBavSkw9Ixy4QPiYyBaE1cor/OxKS/xeeM+WaDzk9+gIKF/NGsv7om1mR4HexmuBA==}
     cpu: [x64]
     os: [darwin]
 
-  lefthook-freebsd-arm64@1.7.4:
-    resolution: {integrity: sha512-wv+JZgkD1/wi4X5aKKNodvxNcFcYmvL7uyzKkbtd/LgX5ssh9r5pO9J/71ULGtEuTXH4kqORRtez7u/ygqMEew==}
+  lefthook-freebsd-arm64@1.7.5:
+    resolution: {integrity: sha512-A0AonnDnllfOYXqXDhBWRSZRqayQd2rvKSW1w6ABfYfbQTLokdVO7Og8RYjuE72h38yaCf0SR7UA5PlO+IxS3g==}
     cpu: [arm64]
     os: [freebsd]
 
-  lefthook-freebsd-x64@1.7.4:
-    resolution: {integrity: sha512-xoYR0Ay8pbyY9W9mI+iI9VDkkCVYSXhMf9XyOChSlu2XmjKiqi23hjCXvSOpvHQ7jphGvAVpE3Byijr6Xjuihw==}
+  lefthook-freebsd-x64@1.7.5:
+    resolution: {integrity: sha512-oUWuTE1Q40dHetRZS9e8kPDb9tr0WnXpDPzml9h5n12UmaOFqdBawyw7YIto/dCLgnX/9pFsIumAJnvG8/yvDg==}
     cpu: [x64]
     os: [freebsd]
 
-  lefthook-linux-arm64@1.7.4:
-    resolution: {integrity: sha512-WvXWzSM/e08n2f5lcC8j+pUMS0RzZftJK4zuBQ36TstSYXfBjWiw+FMnKCVZk6Q8Zc0icyF8sTmKQAyKCgX+UA==}
+  lefthook-linux-arm64@1.7.5:
+    resolution: {integrity: sha512-EBNepIJnm07BTWtZd1f8xUetaFivDyf2eXUAedVUAxpW4db4RXnqE76/kHYhKxr+6f8fRdqXA/qqbKhSre+yWg==}
     cpu: [arm64]
     os: [linux]
 
-  lefthook-linux-x64@1.7.4:
-    resolution: {integrity: sha512-eR5NxGzqPJm3wDTm4HStwGxOZ8Omb0ooodyuQdEOxtYidLrd4U18N14huwCEFd3BAOrjIWYV8plH+ReTZE56eg==}
+  lefthook-linux-x64@1.7.5:
+    resolution: {integrity: sha512-a1hBVmzJgqYp8CmvCanjGt2rVLnFH3KBAA4V+CiA/IZwwHxVPqMZVjHzcIu1cYE+82PUFaxcKo46xFA/L0VzpA==}
     cpu: [x64]
     os: [linux]
 
-  lefthook-windows-arm64@1.7.4:
-    resolution: {integrity: sha512-C+MdHH+0ylermetMHwfHsYYNI5HI6QEOx7N4Iw4Ea6c3Yuj3eG3LsAzrhsup7KLSSBmDgIHOCJUx/Mfh2z+ATw==}
+  lefthook-windows-arm64@1.7.5:
+    resolution: {integrity: sha512-Haxf+R/NTag6ou7jpuEmht/X9pkpCiBt7GNFNqmCOQZiXdtv4hphzrt+deQPRdvIUCxY1ymHzxN07wdiF0ivhw==}
     cpu: [arm64]
     os: [win32]
 
-  lefthook-windows-x64@1.7.4:
-    resolution: {integrity: sha512-BDQhiRzmMYPFQFtVtkRfUfeZuSlemG1oJfGKYXlCGFskvK9Jm1nGFnG0Ig63FAQaFdW33DFoLdr9ZKFTUQeSwQ==}
+  lefthook-windows-x64@1.7.5:
+    resolution: {integrity: sha512-Jg1QD0We3uXZBhD66tgeo3WL/hZ3ATGMGrLiBIWAB2lU+/D29YVvVVouv2xOoqLOBE/B/NWNShH9ldx71UvljQ==}
     cpu: [x64]
     os: [win32]
 
-  lefthook@1.7.4:
-    resolution: {integrity: sha512-lVv3nKH9l3KMDS3bySROvWJSw1+AsBHUO7xaA0rg1IEBZrj3+ePmM+a8elX+GU3Go1OzsZEYjo5AOOeLoZ7FQg==}
+  lefthook@1.7.5:
+    resolution: {integrity: sha512-pQ4fZaflyUS0Wn+ZH9Nk43n4ShErqh48K04+GXU8IKCu4jU3kUTZkQeYeAtaMzTR5bMHR3epEGxdnLt1z2edNQ==}
     hasBin: true
 
   levn@0.4.1:
@@ -5930,8 +5930,8 @@ packages:
     peerDependencies:
       typedoc: '>=0.22.x <0.27.x'
 
-  typedoc@0.26.4:
-    resolution: {integrity: sha512-FlW6HpvULDKgc3rK04V+nbFyXogPV88hurarDPOjuuB5HAwuAlrCMQ5NeH7Zt68a/ikOKu6Z/0hFXAeC9xPccQ==}
+  typedoc@0.26.5:
+    resolution: {integrity: sha512-Vn9YKdjKtDZqSk+by7beZ+xzkkr8T8CYoiasqyt4TTRFy5+UHzL/mF/o4wGBjRF+rlWQHDb0t6xCpA3JNL5phg==}
     engines: {node: '>= 18'}
     hasBin: true
     peerDependencies:
@@ -9055,7 +9055,7 @@ snapshots:
     dependencies:
       eslint: 9.7.0
 
-  eslint-plugin-react-refresh@0.4.8(eslint@9.7.0):
+  eslint-plugin-react-refresh@0.4.9(eslint@9.7.0):
     dependencies:
       eslint: 9.7.0
 
@@ -9900,40 +9900,40 @@ snapshots:
 
   layout-base@1.0.2: {}
 
-  lefthook-darwin-arm64@1.7.4:
+  lefthook-darwin-arm64@1.7.5:
     optional: true
 
-  lefthook-darwin-x64@1.7.4:
+  lefthook-darwin-x64@1.7.5:
     optional: true
 
-  lefthook-freebsd-arm64@1.7.4:
+  lefthook-freebsd-arm64@1.7.5:
     optional: true
 
-  lefthook-freebsd-x64@1.7.4:
+  lefthook-freebsd-x64@1.7.5:
     optional: true
 
-  lefthook-linux-arm64@1.7.4:
+  lefthook-linux-arm64@1.7.5:
     optional: true
 
-  lefthook-linux-x64@1.7.4:
+  lefthook-linux-x64@1.7.5:
     optional: true
 
-  lefthook-windows-arm64@1.7.4:
+  lefthook-windows-arm64@1.7.5:
     optional: true
 
-  lefthook-windows-x64@1.7.4:
+  lefthook-windows-x64@1.7.5:
     optional: true
 
-  lefthook@1.7.4:
+  lefthook@1.7.5:
     optionalDependencies:
-      lefthook-darwin-arm64: 1.7.4
-      lefthook-darwin-x64: 1.7.4
-      lefthook-freebsd-arm64: 1.7.4
-      lefthook-freebsd-x64: 1.7.4
-      lefthook-linux-arm64: 1.7.4
-      lefthook-linux-x64: 1.7.4
-      lefthook-windows-arm64: 1.7.4
-      lefthook-windows-x64: 1.7.4
+      lefthook-darwin-arm64: 1.7.5
+      lefthook-darwin-x64: 1.7.5
+      lefthook-freebsd-arm64: 1.7.5
+      lefthook-freebsd-x64: 1.7.5
+      lefthook-linux-arm64: 1.7.5
+      lefthook-linux-x64: 1.7.5
+      lefthook-windows-arm64: 1.7.5
+      lefthook-windows-x64: 1.7.5
 
   levn@0.4.1:
     dependencies:
@@ -12020,16 +12020,16 @@ snapshots:
 
   type-fest@4.22.1: {}
 
-  typedoc-plugin-markdown@4.2.1(typedoc@0.26.4(typescript@5.5.3)):
+  typedoc-plugin-markdown@4.2.1(typedoc@0.26.5(typescript@5.5.3)):
     dependencies:
-      typedoc: 0.26.4(typescript@5.5.3)
+      typedoc: 0.26.5(typescript@5.5.3)
 
-  typedoc-plugin-rename-defaults@0.7.1(typedoc@0.26.4(typescript@5.5.3)):
+  typedoc-plugin-rename-defaults@0.7.1(typedoc@0.26.5(typescript@5.5.3)):
     dependencies:
       camelcase: 8.0.0
-      typedoc: 0.26.4(typescript@5.5.3)
+      typedoc: 0.26.5(typescript@5.5.3)
 
-  typedoc@0.26.4(typescript@5.5.3):
+  typedoc@0.26.5(typescript@5.5.3):
     dependencies:
       lunr: 2.3.9
       markdown-it: 14.1.0
