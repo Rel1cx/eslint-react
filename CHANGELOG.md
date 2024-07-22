@@ -1,10 +1,10 @@
-## v1.5.29 (Draft)
+## v1.5.29 (Mon 22 Jul 2024)
 
 ### ✨ New
 
 - Add rule `no-prop-types`.
 - Add rule `no-default-props`.
-- Add `settings["react-x"].additionalComponents` settings (currently only the `no-unsafe-target-blank` rule uses it, but more rules will use it in the future).
+- Add experimental `settings["react-x"].additionalComponents` settings (currently only the `no-unsafe-target-blank` rule uses it, but more rules will use it in the future).
 
 ### 🪄 Improvements
 
@@ -12,6 +12,7 @@
 - Add rule `no-default-props` to recommended presets.
 - Remove rule `no-useless-fragment` from recommended presets.
 - Optimize performance of rule `no-create-ref`.
+- Change `@typescript-eslint`' packages in `peerDependencies` to `"^7.16.1 || ^rc-v8"`.
 
 ## v1.5.28 (Sat 20 Jul 2024)
 
