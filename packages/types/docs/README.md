@@ -6,7 +6,6 @@
 
 ## Type Aliases
 
-- [Cond](type-aliases/Cond.md)
 - [CreateRule](type-aliases/CreateRule.md)
 - [RuleCategory](type-aliases/RuleCategory.md)
 - [RuleCategoryEmoji](type-aliases/RuleCategoryEmoji.md)

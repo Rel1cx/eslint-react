@@ -1,1 +1,1 @@
-export type RuleNamespace = "debug" | "experimental" | "jsx" | "naming-convention" | "react" | "react-hooks";
+export type RuleNamespace = "debug" | "hooks-extra" | "naming-convention" | "x";

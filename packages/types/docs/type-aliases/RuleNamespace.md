@@ -6,4 +6,4 @@
 
 # Type Alias: RuleNamespace
 
-> **RuleNamespace**: `"debug"` \| `"experimental"` \| `"jsx"` \| `"naming-convention"` \| `"react"` \| `"react-hooks"`
+> **RuleNamespace**: `"debug"` \| `"hooks-extra"` \| `"naming-convention"` \| `"x"`
