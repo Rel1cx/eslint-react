@@ -47,6 +47,6 @@
     "@typescript-eslint/utils": "^7.16.1 || ^rc-v8"
   },
   "devDependencies": {
-    "tsup": "8.2.1"
+    "tsup": "8.2.2"
   }
 }
