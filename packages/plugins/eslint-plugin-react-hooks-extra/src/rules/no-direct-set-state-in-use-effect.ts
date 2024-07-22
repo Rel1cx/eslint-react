@@ -124,7 +124,7 @@ export default createRule<[], MessageID>({
         .otherwise(() => "other");
     }
     const functionStack = MutList.make<[node: TSESTreeFunction, kind: FunctionKind]>();
-    const effectFunctionRef = MutRef.make<TSESTreeFunction | null>(null);
+    const effectFunctionRef = MutRef.make<null | TSESTreeFunction>(null);
     const effectFunctionIdentifiers: TSESTree.Identifier[] = [];
     const indirectFunctionCalls: TSESTree.CallExpression[] = [];
     const indirectSetStateCalls = new WeakMap<TSESTreeFunction, TSESTree.CallExpression[]>();
@@ -179,7 +179,7 @@ export default createRule<[], MessageID>({
           .otherwise(F.constVoid);
       },
       "Program:exit"() {
-        const getSetStateCalls = (id: TSESTree.Identifier | string, initialScope: Scope.Scope) => {
+        const getSetStateCalls = (id: string | TSESTree.Identifier, initialScope: Scope.Scope) => {
           return F.pipe(
             findVariable(id, initialScope),
             O.flatMap(getVariableNode(0)),

@@ -1,3 +1,4 @@
+/* eslint-disable perfectionist/sort-object-types */
 declare module "@eslint-community/eslint-utils" {
   export const findVariable: unknown;
   export const getFunctionHeadLocation: unknown;

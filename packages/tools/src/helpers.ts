@@ -16,6 +16,7 @@ export type Narrow<TType> =
   | { [K in keyof TType]: Narrow<TType[K]> }
   | (TType extends [] ? [] : never)
   | (TType extends Function ? TType : never)
+  // eslint-disable-next-line perfectionist/sort-union-types
   | (TType extends bigint | boolean | number | string ? TType : never);
 
 /**

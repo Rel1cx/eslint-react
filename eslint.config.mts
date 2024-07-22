@@ -79,16 +79,16 @@ const config: FlatConfig[] = [
       "no-restricted-syntax": [
         "error",
         {
-          message: "no let",
-          selector: "VariableDeclaration[kind=let]",
-        },
-        {
           message: "no else",
           selector: "IfStatement[alternate]",
         },
         {
           message: "no optional",
           selector: "TSPropertySignature[optional=true]",
+        },
+        {
+          message: "no undefined",
+          selector: "Identifier[name='undefined']",
         },
       ],
       "no-undef": "off",
