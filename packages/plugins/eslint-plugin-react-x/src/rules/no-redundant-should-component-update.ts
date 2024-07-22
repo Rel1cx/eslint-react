@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow usage of 'shouldComponentUpdate' in class component extends 'React.PureComponent'",
+      description: "disallow using 'shouldComponentUpdate' in class component extends 'React.PureComponent'",
     },
     messages: {
       NO_REDUNDANT_SHOULD_COMPONENT_UPDATE:

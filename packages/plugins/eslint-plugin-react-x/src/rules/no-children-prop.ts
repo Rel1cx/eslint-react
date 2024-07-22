@@ -15,10 +15,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow passing of 'children' as props",
+      description: "disallow passing 'children' as props",
     },
     messages: {
-      NO_CHILDREN_PROP: "Do not pass children as props.",
+      NO_CHILDREN_PROP: "Do not pass 'children' as props.",
     },
     schema: [],
   },

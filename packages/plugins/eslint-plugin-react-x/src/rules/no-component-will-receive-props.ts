@@ -19,7 +19,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow usage of 'componentWillReceiveProps'",
+      description: "disallow using 'componentWillReceiveProps'",
     },
     messages: {
       NO_COMPONENT_WILL_RECEIVE_PROPS: "[Deprecated] Use 'UNSAFE_componentWillReceiveProps' instead.",

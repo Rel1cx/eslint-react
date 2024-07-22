@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow the use of 'defaultProps' property in components",
+      description: "disallow using 'defaultProps' property in components",
     },
     messages: {
       NO_DEFAULT_PROPS: "[Deprecated] Use ES6 default parameters instead.",

@@ -14,7 +14,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "require all 'forwardRef' components include a 'ref' parameter",
+      description: "require a 'ref' parameter to be set when using 'forwardRef'",
     },
     messages: {
       ENSURE_FORWARD_REF_USING_REF: "A 'forwardRef' is used with this component but no 'ref' parameter is set.",

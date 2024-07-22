@@ -19,7 +19,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow usage of 'UNSAFE_componentWillUpdate'",
+      description: "disallow using 'UNSAFE_componentWillUpdate'",
     },
     messages: {
       NO_UNSAFE_COMPONENT_WILL_UPDATE: "Do not use 'UNSAFE_componentWillUpdate'.",

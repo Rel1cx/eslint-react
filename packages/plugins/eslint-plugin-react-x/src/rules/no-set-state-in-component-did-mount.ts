@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow 'setState' in 'componentDidMount'",
+      description: "disallow using 'setState' in 'componentDidMount'",
     },
     messages: {
       NO_SET_STATE_IN_COMPONENT_DID_MOUNT:

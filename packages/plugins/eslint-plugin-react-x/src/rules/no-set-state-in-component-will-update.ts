@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow 'setState' in 'componentWillUpdate'",
+      description: "disallow using 'setState' in 'componentWillUpdate'",
     },
     messages: {
       NO_SET_STATE_IN_COMPONENT_WILL_UPDATE:

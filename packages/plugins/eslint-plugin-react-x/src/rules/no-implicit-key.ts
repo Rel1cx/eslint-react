@@ -16,10 +16,10 @@ export default createRule<[], MessageID>({
     type: "problem",
     deprecated: true,
     docs: {
-      description: "disallow spreading 'key' from objects.",
+      description: "disallow implicit 'key' props in JSX",
     },
     messages: {
-      NO_IMPLICIT_KEY: "Prefer specifying key explicitly instead of spreading it from object.",
+      NO_IMPLICIT_KEY: "Do not use implicit 'key' props.",
     },
     schema: [],
   },

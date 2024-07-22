@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow usage of unstable value as default param in function component",
+      description: "disallow using unstable value as default param in function component",
     },
     messages: {
       NO_UNSTABLE_DEFAULT_PROPS:

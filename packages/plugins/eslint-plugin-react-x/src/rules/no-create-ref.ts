@@ -14,7 +14,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow 'createRef' in function components",
+      description: "disallow using 'createRef' in function components",
     },
     messages: {
       NO_CREATE_REF: "[Deprecated] Use 'useRef' instead.",

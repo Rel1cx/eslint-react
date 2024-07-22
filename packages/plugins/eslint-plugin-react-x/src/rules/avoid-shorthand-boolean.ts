@@ -12,10 +12,11 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce boolean attributes notation in JSX",
+      description: "avoid using shorthand boolean attribute",
     },
     messages: {
-      AVOID_SHORTHAND_BOOLEAN: "Avoid using shorthand boolean attribute '{{propName}}'.",
+      AVOID_SHORTHAND_BOOLEAN:
+        "Avoid using shorthand boolean attribute '{{propName}}'. Use '{{propName}}={true}' instead.",
     },
     schema: [],
   },

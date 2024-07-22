@@ -12,7 +12,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow 'Children.toArray'",
+      description: "disallow using 'Children.toArray'",
     },
     messages: {
       NO_CHILDREN_TO_ARRAY:

@@ -85,10 +85,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow using Array index as key",
+      description: "disallow using Array index as 'key'",
     },
     messages: {
-      NO_ARRAY_INDEX_KEY: "Do not use Array index as key.",
+      NO_ARRAY_INDEX_KEY: "Do not use Array index as 'key'.",
     },
     schema: [],
   },

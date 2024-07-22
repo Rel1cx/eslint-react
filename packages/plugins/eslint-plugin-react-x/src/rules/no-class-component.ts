@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow class component",
+      description: "disallow using class components",
     },
     messages: {
       NO_CLASS_COMPONENT: "Do not use class components. Use function components instead.",

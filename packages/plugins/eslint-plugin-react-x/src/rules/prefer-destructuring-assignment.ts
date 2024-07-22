@@ -27,7 +27,7 @@ export default createRule<[], MessageID>({
       description: "enforce using destructuring assignment in component props and context",
     },
     messages: {
-      PREFER_DESTRUCTURING_ASSIGNMENT: "Prefer destructuring assignment.",
+      PREFER_DESTRUCTURING_ASSIGNMENT: "Use destructuring assignment for {{name}}.",
     },
     schema: [],
   },
@@ -75,12 +75,18 @@ export default createRule<[], MessageID>({
           const isMatch = isMatching({ name: memberExpression.object.name });
           if (isMatch(props)) {
             context.report({
+              data: {
+                name: "props",
+              },
               messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
               node: memberExpression,
             });
           }
           if (isMatch(ctx)) {
             context.report({
+              data: {
+                name: "context",
+              },
               messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
               node: memberExpression,
             });

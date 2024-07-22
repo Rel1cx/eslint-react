@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow usage of unstable nested components",
+      description: "disallow using unstable nested components",
     },
     messages: {
       NESTED_COMPONENT: "Do not nest components inside other components. Move it to the top level.",
