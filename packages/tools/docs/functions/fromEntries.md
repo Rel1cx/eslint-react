@@ -8,6 +8,8 @@
 
 > **fromEntries**\<`T`\>(`entries`): [`FromEntries`](../type-aliases/FromEntries.md)\<`T`\>
 
+type-safe version of Object.fromEntries
+
 ## Type Parameters
 
 • **T** *extends* [`PropertyKey`, `unknown`][]
@@ -22,4 +24,6 @@ The entries to create the object from.
 
 [`FromEntries`](../type-aliases/FromEntries.md)\<`T`\>
 
-The object created from the entries.
+## Since
+
+0.4.0

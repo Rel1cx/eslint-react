@@ -7,7 +7,6 @@ import eslintPluginPlugin from "eslint-plugin-eslint-plugin";
 import importPlugin from "eslint-plugin-import-x";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 import perfectionist from "eslint-plugin-perfectionist";
-import perfectionistNatural from "eslint-plugin-perfectionist/configs/recommended-natural";
 import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import unicornPlugin from "eslint-plugin-unicorn";
 import vitest from "eslint-plugin-vitest";
@@ -38,7 +37,6 @@ const config: FlatConfig[] = [
       ["eslint-plugin"]: eslintPluginPlugin,
       ["import-x"]: importPlugin,
       ["jsdoc"]: jsdocPlugin,
-      ["perfectionist"]: perfectionist,
       ["simple-import-sort"]: simpleImportSortPlugin,
       ["unicorn"]: unicornPlugin,
     },
@@ -47,7 +45,7 @@ const config: FlatConfig[] = [
   eslint.configs.recommended,
   ...tseslint.configs.strict,
   // ...tseslint.configs.strictTypeChecked,
-  perfectionistNatural,
+  perfectionist.configs["recommended-natural"],
   jsdocPlugin.configs["flat/recommended-typescript-error"],
   eslintPluginPlugin.configs["flat/all-type-checked"],
   // base config
@@ -158,7 +156,7 @@ const config: FlatConfig[] = [
         "warn",
         {
           type: "natural",
-          "custom-groups": {
+          customGroups: {
             id: ["_", "id", "key"],
             type: ["type", "kind"],
             meta: [
@@ -177,7 +175,7 @@ const config: FlatConfig[] = [
         "warn",
         {
           type: "natural",
-          "custom-groups": {
+          customGroups: {
             id: ["_", "id", "key"],
             type: ["type", "kind"],
             meta: [
@@ -190,7 +188,7 @@ const config: FlatConfig[] = [
           },
           groups: ["id", "type", "meta", "alias", "unknown"],
           order: "asc",
-          "partition-by-comment": "Part:**",
+          partitionByComment: "Part:**",
         },
       ],
       "perfectionist/sort-union-types": [

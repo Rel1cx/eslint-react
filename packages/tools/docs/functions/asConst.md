@@ -22,4 +22,6 @@ The value to infer.
 
 `T`
 
-The value with the type inferred.
+## Since
+
+0.0.1
