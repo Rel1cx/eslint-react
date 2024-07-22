@@ -24,7 +24,7 @@
     "@types/node": "20.14.11",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
-    "@typescript-eslint/eslint-plugin": "^7.16.1 || ^rc-v8",
+    "@typescript-eslint/eslint-plugin": "^7.16.1",
     "@vanilla-extract/css": "1.15.3",
     "@vanilla-extract/next-plugin": "2.4.3",
     "@vitejs/plugin-react": "4.3.1",
@@ -42,7 +42,7 @@
     "sass": "1.77.8",
     "ts-pattern": "^5.2.0",
     "typescript": "^5.5.3",
-    "typescript-eslint": "^7.16.1 || ^rc-v8",
+    "typescript-eslint": "^7.16.1",
     "vite": "5.3.4"
   }
 }
