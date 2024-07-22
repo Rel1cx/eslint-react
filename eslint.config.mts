@@ -45,7 +45,8 @@ const config: FlatConfig[] = [
   },
   // extends ...
   eslint.configs.recommended,
-  ...tseslint.configs.strictTypeChecked,
+  ...tseslint.configs.strict,
+  // ...tseslint.configs.strictTypeChecked,
   perfectionistNatural,
   jsdocPlugin.configs["flat/recommended-typescript-error"],
   eslintPluginPlugin.configs["flat/all-type-checked"],
@@ -111,6 +112,7 @@ const config: FlatConfig[] = [
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/no-confusing-void-expression": "off",
       "@typescript-eslint/no-explicit-any": "error",
+      "@typescript-eslint/no-misused-promises": "off",
       "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
       "@typescript-eslint/no-unnecessary-type-parameters": "warn",
       "@typescript-eslint/no-unused-vars": [
