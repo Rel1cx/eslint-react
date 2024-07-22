@@ -5,6 +5,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         import * as React from "react";
 
         const App = (props: { id: string; className: string }) => {
@@ -19,6 +22,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         import * as React from "react";
 
         function App(props: { id: string; className: string }) {
@@ -33,6 +39,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         import * as React from "react";
 
         const App = function (props: { id: string; className: string }) {
@@ -47,6 +56,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         import * as React from "react";
 
         const App = function ({ id, className }: { id: string; className: string }) {
@@ -61,6 +73,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         import * as React from "react";
 
         const App = function ({ id, className }: { readonly id: string; className: string }) {
@@ -75,6 +90,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         import * as React from "react";
 
         const App: React.FC<{ id: string; className: string }> = (props) => {
@@ -89,6 +107,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         import * as React from "react";
 
         const App: React.FC<{ id: string; className: string }> = ({ id, className }) => {
@@ -103,6 +124,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         import * as React from "react";
 
         export const App: React.FC<{ id: string; className: string }> = (props) => {
@@ -117,6 +141,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         import * as React from "react";
 
         export const App: React.FC<{ readonly id: string; readonly className: string } | { id: string; className: string }> = (props) => {
@@ -131,6 +158,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         import * as React from "react";
 
         const defaultProps = { id: "default-id", className: "default-class" };
@@ -148,6 +178,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         import * as React from "react";
 
         interface HSV {
@@ -172,6 +205,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         import * as React from "react";
 
         interface HSV {
@@ -196,6 +232,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     { // memo with generic
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         import * as React from "react";
 
         const App = React.memo(({ id, className }: { id: string; className: string }) => {
@@ -210,6 +249,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     { // memo with generic and default props
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         import * as React from "react";
 
         const defaultProps = { id: "default-id", className: "default-class" };
@@ -226,6 +268,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     { // forwardRef with generic
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         import * as React from "react";
 
         const App = React.forwardRef<HTMLDivElement, { id: string; className: string }>(({ id, className }, ref) => {
@@ -240,6 +285,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     { // forwardRef with generic and default props
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         import * as React from "react";
 
         const defaultProps = { id: "default-id", className: "default-class" };
@@ -256,6 +304,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     { // memo and forwardRef with generic
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         import * as React from "react";
 
         const App = React.memo(React.forwardRef<HTMLDivElement, { id: string; className: string }>(({ id, className }, ref) => {
@@ -272,6 +323,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
   valid: [
     ...allValid,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       import * as React from "react";
 
       type DeepReadonly<T> = Readonly<{[K in keyof T]: T[K] extends (number | string | symbol) ? Readonly<T[K]> : T[K] extends Array<infer A> ? Readonly<Array<DeepReadonly<A>>> : DeepReadonly<T[K]>;}>;
@@ -281,6 +335,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       import * as React from "react";
       import { ReadonlyDeep } from "type-fest";
 
@@ -289,6 +346,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       import * as React from "react";
 
       const App = function ({ id, className }: { readonly id: string; readonly className: string }) {
@@ -296,6 +356,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       import * as React from "react";
 
       const App: React.FC<{ readonly id: string; readonly className: string }> = (props) => {
@@ -303,6 +366,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       import * as React from "react";
 
       const App: React.FC<{ readonly id: string; readonly className: string }> = ({ id, className }) => {
@@ -310,6 +376,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       import * as React from "react";
 
       const defaultProps = { id: "default-id", className: "default-class" } as const;
@@ -320,6 +389,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       import * as React from "react";
 
       const defaultProps = { id: "default-id", className: "default-class" } as const;
@@ -329,6 +401,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       import * as React from "react";
 
       const defaultProps = { id: "default-id", className: "default-class" } as const;
@@ -337,6 +412,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       import * as React from "react";
 
       const defaultProps = { id: "default-id", className: "default-class" } as const;
@@ -345,6 +423,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       import * as React from "react";
 
       interface HSV {
@@ -362,6 +443,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       import * as React from "react";
 
       interface HSV {
@@ -381,6 +465,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     `,
     // memo with generic
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       import * as React from "react";
 
       type Props = { readonly id: string; readonly className: string };
@@ -390,6 +477,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     `,
     // memo with generic and default props
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       import * as React from "react";
 
       const defaultProps = { id: "default-id", className: "default-class" } as const;
@@ -400,6 +490,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     `,
     // forwardRef with generic
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       import * as React from "react";
 
       type Props = { readonly id: string; readonly className: string };
@@ -409,6 +502,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     `,
     // forwardRef with generic and default props
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       import * as React from "react";
 
       const defaultProps = { id: "default-id", className: "default-class" } as const;
@@ -419,6 +515,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     `,
     // memo and forwardRef with generic
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       import * as React from "react";
 
       type Props = { readonly id: string; readonly className: string };

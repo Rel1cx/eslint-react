@@ -54,6 +54,8 @@
     "string-ts": "^2.2.0"
   },
   "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "tsup": "8.2.1"
   },
   "peerDependencies": {

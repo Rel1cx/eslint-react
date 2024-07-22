@@ -5,6 +5,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         const a = <>{0 && <Foo />}</>;
         const b = <>{NaN && <Foo />}</>;
       `,
@@ -15,6 +18,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         const a = <>{(0) && <Foo />}</>;
         const b = <>{(NaN) && <Foo />}</>;
       `,
@@ -25,6 +31,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         const x = -1
         const y = -0
         const z = 0
@@ -41,6 +50,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         const x = -1n
         const y = -0n
         const z = 0n
@@ -57,6 +69,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         const someCondition = JSON.parse("") as unknown;
         const SomeComponent = () => <div />;
         const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
@@ -65,6 +80,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         const someCondition = 0;
         const SomeComponent = () => <div />;
         const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
@@ -73,6 +91,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         const someCondition = -0;
         const SomeComponent = () => <div />;
         const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
@@ -81,6 +102,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         const someCondition = 0;
         const SomeComponent = () => <div />;
         const a = <>{!!someCondition ? <SomeComponent prop1={val1} prop2={val2} /> : someCondition && <div />}</>;
@@ -89,6 +113,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         const App = ({
           someCondition,
         }: {
@@ -105,6 +132,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         const SomeComponent = () => <div />;
 
         const App = ({
@@ -125,27 +155,45 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
   valid: [
     ...allValid,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
       const a = <>{!(0) && <Foo />}</>;
       const b = <>{!(NaN) && <Foo />}</>;
     `,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
       const a = <>{!!(0) && <Foo />}</>;
       const b = <>{!!(NaN) && <Foo />}</>;
     `,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
       const a = <>{!!!(0) && <Foo />}</>;
       const b = <>{!!!(NaN) && <Foo />}</>;
     `,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
       let x: number | undefined;
       const a = <>{!x && <Foo />}</>;
     `,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
       let x: number | undefined;
       const y = 2;
       const a = <>{!x ? !x && <Foo /> : y && <Bar />}</>;
     `,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
       const x = -1
       const y = -0
       const z = 0
@@ -156,6 +204,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const d = <>{w && <Foo />}</>;
     `,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
       const x = -1n
       const y = -0n
       const z = 0n
@@ -166,20 +217,32 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const d = <>{w && <Foo />}</>;
     `,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
       const foo = Math.random() > 0.5;
       const bar = "bar";
       const a = <div>{0 || bar}</div>
     `,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
       const foo = Math.random() > 0.5;
       const bar = "bar";
       const a = <div>{foo || bar}</div>
     `,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
       type AppProps = { foo: string; }
       const App = ({ foo }: AppProps) => <div>{foo}</div>
     `,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         type AppProps = {
           items: string[];
         }
@@ -188,6 +251,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         type AppProps = {
           items: string[];
           count: number;
@@ -197,6 +263,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         type ListProps = {
           items: string[];
         }
@@ -211,6 +280,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         type ListProps = {
           items: string[];
         }
@@ -225,6 +297,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         type ListProps = {
           items: string[];
         }
@@ -239,6 +314,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         type ListProps = {
           items: string[];
         }
@@ -253,6 +331,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         type ListProps = {
           items: string[];
         }
@@ -268,6 +349,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         type ListProps = {
           items: string[];
         }
@@ -283,6 +367,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       type AppProps = {
         items: string[];
         count: number;
@@ -292,6 +379,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       const a = <>
                 {0 ? <Foo /> : null}
                 {'' && <Foo />}
@@ -299,6 +389,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
                 </>
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       const foo = Math.random() > 0.5;
       const bar = 0;
       function App() {
@@ -312,36 +405,57 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       const someCondition = JSON.parse("true") as boolean;
       const SomeComponent = () => <div />;
       const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       const someCondition = JSON.parse("") as any;
       const SomeComponent = () => <div />;
       const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       const someCondition = JSON.parse("") as unknown;
       const SomeComponent = () => <div />;
       const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       const someCondition = 0
       const SomeComponent = () => <div />;
       const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       const someCondition = 1
       const SomeComponent = () => <div />;
       const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       const someCondition = 0;
       const SomeComponent = () => <div />;
       const a = <>{!!someCondition ? (<SomeComponent prop1={val1} prop2={val2} />) : someCondition ? null : <div />}</>
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       const SomeComponent = () => <div />;
       const App = ({
         someCondition,
@@ -359,6 +473,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       const someCondition = 0;
       const SomeComponent = () => <div />;
       const App = () => {
@@ -380,6 +497,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       const someCondition = true
       const SomeComponent = () => <div />;
       const App = () => {
@@ -398,6 +518,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       const someCondition = 0;
       const SomeComponent = () => <div />;
       const App = () => {
@@ -418,6 +541,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       const SomeComponent = () => <div />;
       const someFunction = (input: unknown): 10 => 10
       const App = ({ someCondition }: { someCondition?: number | undefined }) => {
@@ -425,6 +551,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       };
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       const SomeComponent = () => <div />;
       const App = ({
         someCondition,
@@ -435,6 +564,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       type AppProps<T> = {
         someFunction: (data: T) => React.ReactNode;
       };
@@ -443,6 +575,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       const someCondition = JSON.parse("") as any;
       const SomeComponent = () => <div />;
       const App = () => {
@@ -459,6 +594,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       function App() {
         const a = {} as {};
         const b = {} as {} | null;
@@ -473,6 +611,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       declare function getData(): { id: number; name: string }[] | undefined;
       function List({ items }: { items: string[] }) {
         return <div>{items.map(item => <div key={item}>{item}</div>)}</div>;
@@ -488,6 +629,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       export const MyComponent = ({ isVisible1 }: { isVisible1: boolean }) => {
         const isVisible2 = true;
         const isVisible3 = 1 > 2;

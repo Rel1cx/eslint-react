@@ -10,10 +10,6 @@
       "DOM",
       "DOM.Iterable"
     ],
-    "types": [
-      "@types/react",
-      "@types/react-dom"
-    ],
     "module": "ESNext",
     "skipLibCheck": true,
     /* Bundler mode */
@@ -31,7 +27,6 @@
     "noUnusedParameters": true,
     "noPropertyAccessFromIndexSignature": false,
     "noFallthroughCasesInSwitch": true,
-    "traceResolution": true,
   },
   "include": [
     "**/*.ts",
