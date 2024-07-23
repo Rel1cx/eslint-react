@@ -4,23 +4,25 @@ import { parseESLintSettings } from "@eslint-react/shared";
 import { F, O, Pred } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
+import { groupBy } from "es-toolkit";
 import type { ConstantCase } from "string-ts";
 
-import { createRule } from "../utils";
+import { createRule, getPropFromPreDefined } from "../utils";
 
 export const RULE_NAME = "no-unsafe-target-blank";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 function isExternalLinkLike(value: string) {
-  return /^(?:\w+:|\/\/)/u.test(value);
+  return value.startsWith("https://")
+    || /^(?:\w+:|\/\/)/u.test(value);
 }
 
 function isSafeRel(value: string) {
-  return /\bnoreferrer\b/u.test(value);
+  return value === "noreferrer"
+    || /\bnoreferrer\b/u.test(value);
 }
 
-// TODO(WIP): Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components that add the "rel" attribute internally
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -36,15 +38,30 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const additionalComponents = parseESLintSettings(context.settings)["react-x"]?.additionalComponents ?? [];
+    const additionalComponentsByName = groupBy(additionalComponents, c => c.name);
     function checkJSXElement(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
+      const elementName = elementType(node.openingElement);
       const { attributes } = node.openingElement;
       const initialScope = context.sourceCode.getScope(node);
-      const hasTargetBlank = F.pipe(
-        findPropInAttributes(attributes, context, initialScope)("target"),
-        O.flatMap(attr => getPropValue(attr, context)),
-        O.exists(v => v?.value === "_blank"),
+      const additionalAttributes = F.pipe(
+        O.fromNullable(additionalComponentsByName[elementName]?.filter(c => c.as === "a")),
+        O.flatMapNullable(c => c.at(-1)),
+        O.flatMapNullable(c => c.attributes),
       );
-      if (!hasTargetBlank) return O.none();
+      const [
+        targetPropName,
+        targetPropDefaultValue,
+      ] = getPropFromPreDefined("target", O.getOrElse(() => [])(additionalAttributes));
+      const targetProp = findPropInAttributes(attributes, context, initialScope)(targetPropName);
+      const targetPropValue = O.isNone(targetProp)
+        ? O.fromNullable(targetPropDefaultValue)
+        : F.pipe(
+          targetProp,
+          O.flatMap(attr => getPropValue(attr, context)),
+          O.flatMapNullable(v => v?.value),
+          O.filter(Pred.isString),
+        );
+      if (!O.exists(targetPropValue, t => t === "_blank")) return O.none();
       const hasExternalLinkLike = attributes.some(attr => {
         if (attr.type !== NodeType.JSXAttribute) return false;
         return F.pipe(
@@ -55,22 +72,20 @@ export default createRule<[], MessageID>({
         );
       });
       if (!hasExternalLinkLike) return O.none();
-      const relProp = findPropInAttributes(attributes, context, initialScope)("rel");
-      const relPropValue = F.pipe(
-        relProp,
-        O.flatMap(attr => getPropValue(attr, context)),
-        O.flatMapNullable(v => v?.value),
-        O.filter(Pred.isString),
-      );
-      if (O.isSome(relProp) && O.exists(relPropValue, isSafeRel)) return O.none();
-      const elementName = elementType(node.openingElement);
-      const defaultRelValue = F.pipe(
-        O.fromNullable(additionalComponents.find(c => c.name === elementName)),
-        O.flatMapNullable(c => c.attributes),
-        O.flatMapNullable(attrs => attrs.findLast(a => a.name === "rel")),
-        O.flatMapNullable(a => a.defaultValue),
-      );
-      if (O.exists(defaultRelValue, isSafeRel)) return O.none();
+      const [
+        relPropName,
+        relPropDefaultValue,
+      ] = getPropFromPreDefined("rel", O.getOrElse(() => [])(additionalAttributes));
+      const relProp = findPropInAttributes(attributes, context, initialScope)(relPropName);
+      const relPropValue = O.isNone(relProp)
+        ? O.fromNullable(relPropDefaultValue)
+        : F.pipe(
+          relProp,
+          O.flatMap(attr => getPropValue(attr, context)),
+          O.flatMapNullable(v => v?.value),
+          O.filter(Pred.isString),
+        );
+      if (O.exists(relPropValue, isSafeRel)) return O.none();
       return O.some(
         {
           messageId: "NO_UNSAFE_TARGET_BLANK",

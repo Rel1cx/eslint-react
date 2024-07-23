@@ -1,5 +1,4 @@
 /* eslint-disable perfectionist/sort-objects */
-import type { ReadonlyDeep } from "type-fest";
 import type { InferOutput } from "valibot";
 import { array, boolean, object, optional, string } from "valibot";
 
@@ -109,6 +108,12 @@ export const ESLintSettingsSchema = object({
   reactOptions: optional(ESLintReactXSettingsSchema),
 });
 
-export type ESLintReactXSettings = ReadonlyDeep<InferOutput<typeof ESLintReactXSettingsSchema>>;
+export type CustomHook = InferOutput<typeof CustomHookSchema>;
 
-export type ESLintSettings = ReadonlyDeep<InferOutput<typeof ESLintSettingsSchema>>;
+export type CustomAttribute = InferOutput<typeof CustomAttributeSchema>;
+
+export type CustomComponent = InferOutput<typeof CustomComponentSchema>;
+
+export type ESLintReactXSettings = InferOutput<typeof ESLintReactXSettingsSchema>;
+
+export type ESLintSettings = InferOutput<typeof ESLintSettingsSchema>;

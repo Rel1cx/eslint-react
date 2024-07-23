@@ -6,6 +6,9 @@
 
 ## Type Aliases
 
+- [CustomAttribute](type-aliases/CustomAttribute.md)
+- [CustomComponent](type-aliases/CustomComponent.md)
+- [CustomHook](type-aliases/CustomHook.md)
 - [ESLintReactXSettings](type-aliases/ESLintReactXSettings.md)
 - [ESLintSettings](type-aliases/ESLintSettings.md)
 

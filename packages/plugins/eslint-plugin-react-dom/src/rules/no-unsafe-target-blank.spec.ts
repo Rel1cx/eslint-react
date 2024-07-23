@@ -50,6 +50,98 @@ ruleTester.run(RULE_NAME, rule, {
     //     },
     //   },
     // },
+    {
+      code: /* tsx */ `
+        const a = <Link href="https://react.dev" target="_blank"></Link>;
+        const b = <LinkButton href="https://react.dev" target="_blank" relation="noopener"></LinkButton>;
+      `,
+      errors: [
+        { messageId: "NO_UNSAFE_TARGET_BLANK" },
+        { messageId: "NO_UNSAFE_TARGET_BLANK" },
+      ],
+      settings: {
+        "react-x": {
+          additionalComponents: [
+            {
+              name: "Link",
+              as: "a",
+              attributes: [{
+                name: "rel",
+                as: "rel",
+                defaultValue: "noopener",
+              }],
+            },
+            {
+              name: "LinkButton",
+              as: "a",
+              attributes: [
+                {
+                  name: "relation",
+                  as: "rel",
+                  defaultValue: "noreferrer",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        const a = <Link href="https://react.dev" target="_blank"></Link>;
+        const b = <LinkButton href="https://react.dev" target="_blank" relation="noopener"></LinkButton>;
+      `,
+      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
+      settings: {
+        "react-x": {
+          additionalComponents: [
+            {
+              name: "Link",
+              as: "a",
+              attributes: [{
+                name: "rel",
+                as: "rel",
+                defaultValue: "noreferrer",
+              }],
+            },
+            {
+              name: "LinkButton",
+              as: "a",
+              attributes: [
+                {
+                  name: "relation",
+                  as: "rel",
+                  defaultValue: "noreferrer",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        const a = <Link href="https://react.dev"></Link>;
+      `,
+      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
+      settings: {
+        "react-x": {
+          additionalComponents: [
+            {
+              name: "Link",
+              as: "a",
+              attributes: [
+                {
+                  name: "target",
+                  as: "target",
+                  defaultValue: "_blank",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
   ],
   valid: [
     ...allValid,
@@ -82,31 +174,123 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    // TODO: implement this
-    // {
-    //   code: '<LinkButton to="https://react.dev" target="_blank"></LinkButton>',
-    //   settings: {
-    //     "react-x": {
-    //       additionalComponents: [
-    //         {
-    //           name: "LinkButton",
-    //           as: "a",
-    //           attributes: [
-    //             {
-    //               name: "to",
-    //               as: "href",
-    //               defaultValue: "",
-    //             },
-    //             {
-    //               name: "rel",
-    //               as: "rel",
-    //               defaultValue: "noreferrer",
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //     },
-    //   },
-    // },
+    {
+      code: '<LinkButton to="https://react.dev" target="_blank"></LinkButton>',
+      settings: {
+        "react-x": {
+          additionalComponents: [
+            {
+              name: "LinkButton",
+              as: "a",
+              attributes: [{
+                name: "rel",
+                as: "rel",
+                defaultValue: "noreferrer",
+              }],
+            },
+            {
+              name: "LinkButton",
+              as: "a",
+              attributes: [
+                {
+                  name: "to",
+                  as: "href",
+                  defaultValue: "",
+                },
+                {
+                  name: "rel",
+                  as: "rel",
+                  defaultValue: "noreferrer",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+    {
+      code: '<LinkButton to="https://react.dev" target="_blank"></LinkButton>',
+      settings: {
+        "react-x": {
+          additionalComponents: [
+            {
+              name: "LinkButton",
+              as: "a",
+              attributes: [
+                {
+                  name: "to",
+                  as: "href",
+                  defaultValue: "noreferrer",
+                },
+                {
+                  name: "rel",
+                  as: "rel",
+                  defaultValue: "noreferrer",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        const a = <Link href="https://react.dev" target="_blank"></Link>;
+        const b = <LinkButton href="https://react.dev" target="_blank"></LinkButton>;
+      `,
+      settings: {
+        "react-x": {
+          additionalComponents: [
+            {
+              name: "Link",
+              as: "a",
+              attributes: [{
+                name: "rel",
+                as: "rel",
+                defaultValue: "noreferrer",
+              }],
+            },
+            {
+              name: "LinkButton",
+              as: "a",
+              attributes: [
+                {
+                  name: "relation",
+                  as: "rel",
+                  defaultValue: "noreferrer",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        const a = <Link href="https://react.dev"></Link>;
+      `,
+      settings: {
+        "react-x": {
+          additionalComponents: [
+            {
+              name: "Link",
+              as: "a",
+              attributes: [
+                {
+                  name: "target",
+                  as: "target",
+                  defaultValue: "_blank",
+                },
+                {
+                  name: "rel",
+                  as: "rel",
+                  defaultValue: "noreferrer",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
   ],
 });

@@ -6,4 +6,4 @@
 
 # Type Alias: ESLintReactXSettings
 
-> **ESLintReactXSettings**: `ReadonlyDeep`\<`InferOutput`\<*typeof* `ESLintReactXSettingsSchema`\>\>
+> **ESLintReactXSettings**: `InferOutput`\<*typeof* `ESLintReactXSettingsSchema`\>
