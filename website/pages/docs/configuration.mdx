@@ -37,9 +37,9 @@ If `importSource` is specified, an equivalent version of React should be provide
 
 ### `additionalHooks`
 
-(type: `Record<string, string[]>`)
+(type: `[key: string]: string[]`, default: `{}`)
 
-A record of aliases for React built-in hooks. ESLint React will recognize these aliases as equivalent to the built-in hooks in all its rules.\
+A object of aliases for React built-in hooks. ESLint React will recognize these aliases as equivalent to the built-in hooks in all its rules.\
 This is intended to cover edge cases. We suggest to use this option very sparingly, if at all.\
 (e.g. `{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }`).
 
