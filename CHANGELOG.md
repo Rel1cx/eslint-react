@@ -1,3 +1,9 @@
+## v1.5.31 (Draft)
+
+### 🪄 Improvements
+
+- Add default settings for `react-x` settings to presets.
+
 ## v1.5.30 (Mon 22 Jul 2024)
 
 ### 🐞 Fixes

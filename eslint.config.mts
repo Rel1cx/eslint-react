@@ -123,7 +123,7 @@ const config: FlatConfig[] = [
           varsIgnorePattern: "^_",
         },
       ],
-      "@typescript-eslint/prefer-nullish-coalescing": "warn",
+      "@typescript-eslint/prefer-nullish-coalescing": "off",
       // Part: jsdoc rules
       "jsdoc/check-param-names": "warn",
       "jsdoc/check-tag-names": "warn",
