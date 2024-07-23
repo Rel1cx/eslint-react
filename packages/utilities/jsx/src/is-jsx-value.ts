@@ -46,7 +46,7 @@ export const DEFAULT_JSX_VALUE_HINT = 0n
  * @returns boolean
  */
 export function isJSXValue(
-  node: null | TSESTree.Node | undefined,
+  node: TSESTree.Node | null | undefined,
   context: RuleContext,
   hint: bigint = DEFAULT_JSX_VALUE_HINT,
 ): boolean {

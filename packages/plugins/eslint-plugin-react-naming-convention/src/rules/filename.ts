@@ -15,7 +15,7 @@ export type MessageID =
   | "FILENAME_CASE_MISMATCH_SUGGESTION"
   | "FILENAME_EMPTY";
 
-type Case = "camelCase" | "kebab-case" | "PascalCase" | "snake_case";
+type Case = "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
 
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [

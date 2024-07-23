@@ -6,6 +6,7 @@ import eslintCommentsPlugin from "eslint-plugin-eslint-comments";
 import eslintPluginPlugin from "eslint-plugin-eslint-plugin";
 import importPlugin from "eslint-plugin-import-x";
 import jsdocPlugin from "eslint-plugin-jsdoc";
+import eslintPluginMath from "eslint-plugin-math";
 import perfectionist from "eslint-plugin-perfectionist";
 import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import unicornPlugin from "eslint-plugin-unicorn";
@@ -43,6 +44,7 @@ const config: FlatConfig[] = [
   },
   // extends ...
   eslint.configs.recommended,
+  eslintPluginMath.configs.recommended,
   ...tseslint.configs.strict,
   // ...tseslint.configs.strictTypeChecked,
   perfectionist.configs["recommended-natural"],
@@ -168,6 +170,7 @@ const config: FlatConfig[] = [
             alias: ["alias", "as"],
           },
           groups: ["id", "type", "meta", "alias", "unknown"],
+          ignoreCase: false,
           order: "asc",
         },
       ],
@@ -187,6 +190,7 @@ const config: FlatConfig[] = [
             alias: ["alias", "as"],
           },
           groups: ["id", "type", "meta", "alias", "unknown"],
+          ignoreCase: false,
           order: "asc",
           partitionByComment: "Part:**",
         },
@@ -195,6 +199,7 @@ const config: FlatConfig[] = [
         "warn",
         {
           type: "natural",
+          ignoreCase: false,
           order: "asc",
         },
       ],

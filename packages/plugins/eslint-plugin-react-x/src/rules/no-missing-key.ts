@@ -119,9 +119,6 @@ export default createRule<[], MessageID>({
         }
         O.map(checkExpression(fn.body), context.report);
       },
-      [childrenToArraySelector]() {
-        MutRef.set(isWithinChildrenToArrayRef, true);
-      },
       JSXFragment(node) {
         if (MutRef.get(isWithinChildrenToArrayRef)) return;
         if (node.parent.type === NodeType.ArrayExpression) {
@@ -130,6 +127,9 @@ export default createRule<[], MessageID>({
             node,
           });
         }
+      },
+      [childrenToArraySelector]() {
+        MutRef.set(isWithinChildrenToArrayRef, true);
       },
     };
   },
