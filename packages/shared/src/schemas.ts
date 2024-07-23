@@ -68,7 +68,7 @@ export const CustomComponentSchema = object({
 /**
  * @internal
  */
-export const ESLintReactXSettingsSchema = object({
+export const ESLintReactSettingsSchema = object({
   importSource: optional(string()),
   jsxPragma: optional(string()),
   jsxPragmaFrag: optional(string()),
@@ -101,11 +101,11 @@ export const ESLintReactXSettingsSchema = object({
  * @internal
  */
 export const ESLintSettingsSchema = object({
-  "react-x": optional(ESLintReactXSettingsSchema),
+  "react-x": optional(ESLintReactSettingsSchema),
   /**
    * @deprecated
    */
-  reactOptions: optional(ESLintReactXSettingsSchema),
+  reactOptions: optional(ESLintReactSettingsSchema),
 });
 
 export type CustomHook = InferOutput<typeof CustomHookSchema>;
@@ -114,6 +114,6 @@ export type CustomAttribute = InferOutput<typeof CustomAttributeSchema>;
 
 export type CustomComponent = InferOutput<typeof CustomComponentSchema>;
 
-export type ESLintReactXSettings = InferOutput<typeof ESLintReactXSettingsSchema>;
+export type ESLintReactSettings = InferOutput<typeof ESLintReactSettingsSchema>;
 
 export type ESLintSettings = InferOutput<typeof ESLintSettingsSchema>;

@@ -1,3 +1,4 @@
+import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 import { entries, fromEntries } from "@eslint-react/tools";
 import type { RulePreset } from "@eslint-react/types";
 import * as reactDebug from "eslint-plugin-react-debug";
@@ -192,10 +193,15 @@ const flatConfigPlugins = {
   "@eslint-react/naming-convention": reactNamingConvention,
 } as const;
 
+const settings = {
+  "react-x": DEFAULT_ESLINT_REACT_SETTINGS,
+} as const;
+
 function createLegacyConfig<T extends RulePreset>(rules: T, plugins = legacyConfigPlugins) {
   return {
     plugins,
     rules: padKeysLeft(rules, "@eslint-react/"),
+    settings,
   } as const;
 }
 
@@ -203,6 +209,7 @@ function createFlatConfig<T extends RulePreset>(rules: T, plugins = flatConfigPl
   return {
     plugins,
     rules: padKeysLeft(rules, "@eslint-react/"),
+    settings,
   } as const;
 }
 

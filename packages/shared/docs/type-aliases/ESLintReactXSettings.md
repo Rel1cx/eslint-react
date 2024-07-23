@@ -2,8 +2,8 @@
 
 ***
 
-[@eslint-react/shared](../README.md) / ESLintReactXSettings
+[@eslint-react/shared](../README.md) / ESLintReactSettings
 
-# Type Alias: ESLintReactXSettings
+# Type Alias: ESLintReactSettings
 
-> **ESLintReactXSettings**: `InferOutput`\<*typeof* `ESLintReactXSettingsSchema`\>
+> **ESLintReactSettings**: `InferOutput`\<*typeof* `ESLintReactSettingsSchema`\>
