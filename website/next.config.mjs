@@ -2,6 +2,7 @@ import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
 import nextra from "nextra";
 import codeImport from "remark-code-import";
 import remarkGFM from "remark-gfm";
+import bundleAnalyzer from '@next/bundle-analyzer'
 
 const withVanillaExtract = createVanillaExtractPlugin();
 
@@ -56,4 +57,8 @@ const nextConfig = {
   },
 };
 
-export default withVanillaExtract(withNextra(nextConfig));
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+})
+
+export default withBundleAnalyzer(withVanillaExtract(withNextra(nextConfig)));
