@@ -55,7 +55,7 @@ const allowedVariants = [
   "truthy string",
 ] as const satisfies VariantType[];
 
-const tsHelper = {
+const tsHelpers = {
   isAnyType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.TypeParameter | ts.TypeFlags.Any),
   isBigIntType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.BigIntLike),
   isBooleanType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.BooleanLike),
@@ -102,14 +102,14 @@ const tsHelper = {
  */
 function inspectVariantTypes(types: ts.Type[]) {
   const variantTypes = new Set<VariantType>();
-  if (types.some(tsHelper.isUnknownType)) {
+  if (types.some(tsHelpers.isUnknownType)) {
     variantTypes.add("unknown");
     return variantTypes;
   }
-  if (types.some(tsHelper.isNullishType)) {
+  if (types.some(tsHelpers.isNullishType)) {
     variantTypes.add("nullish");
   }
-  const booleans = types.filter(tsHelper.isBooleanType);
+  const booleans = types.filter(tsHelpers.isBooleanType);
   // If incoming type is either "true" or "false", there will be one type
   // object with intrinsicName set accordingly
   // If incoming type is boolean, there will be two type objects with
@@ -134,40 +134,40 @@ function inspectVariantTypes(types: ts.Type[]) {
       break;
     }
   }
-  const strings = types.filter(tsHelper.isStringType);
+  const strings = types.filter(tsHelpers.isStringType);
   if (strings.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(strings)
-      .when(types => types.every(tsHelper.isTruthyStringType), F.constant("truthy string"))
-      .when(types => types.every(tsHelper.isFalsyStringType), F.constant("falsy string"))
+      .when(types => types.every(tsHelpers.isTruthyStringType), F.constant("truthy string"))
+      .when(types => types.every(tsHelpers.isFalsyStringType), F.constant("falsy string"))
       .otherwise(F.constant("string"));
     variantTypes.add(evaluated);
   }
-  const bigints = types.filter(tsHelper.isBigIntType);
+  const bigints = types.filter(tsHelpers.isBigIntType);
   if (bigints.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(bigints)
-      .when(types => types.every(tsHelper.isTruthyBigIntType), F.constant("truthy bigint"))
-      .when(types => types.every(tsHelper.isFalsyBigIntType), F.constant("falsy bigint"))
+      .when(types => types.every(tsHelpers.isTruthyBigIntType), F.constant("truthy bigint"))
+      .when(types => types.every(tsHelpers.isFalsyBigIntType), F.constant("falsy bigint"))
       .otherwise(F.constant("bigint"));
     variantTypes.add(evaluated);
   }
-  const numbers = types.filter(tsHelper.isNumberType);
+  const numbers = types.filter(tsHelpers.isNumberType);
   if (numbers.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(numbers)
-      .when(types => types.every(tsHelper.isTruthyNumberType), F.constant("truthy number"))
-      .when(types => types.every(tsHelper.isFalsyNumberType), F.constant("falsy number"))
+      .when(types => types.every(tsHelpers.isTruthyNumberType), F.constant("truthy number"))
+      .when(types => types.every(tsHelpers.isFalsyNumberType), F.constant("falsy number"))
       .otherwise(F.constant("number"));
     variantTypes.add(evaluated);
   }
-  if (types.some(tsHelper.isEnumType)) {
+  if (types.some(tsHelpers.isEnumType)) {
     variantTypes.add("enum");
   }
-  if (types.some(tsHelper.isObjectType)) {
+  if (types.some(tsHelpers.isObjectType)) {
     variantTypes.add("object");
   }
-  if (types.some(tsHelper.isAnyType)) {
+  if (types.some(tsHelpers.isAnyType)) {
     variantTypes.add("any");
   }
-  if (types.some(tsHelper.isNeverType)) {
+  if (types.some(tsHelpers.isNeverType)) {
     variantTypes.add("never");
   }
   return variantTypes;

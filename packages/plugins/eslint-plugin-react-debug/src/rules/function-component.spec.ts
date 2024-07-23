@@ -1366,6 +1366,99 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         },
       ],
     },
+    // TODO: Add support for Atomico
+    // {
+    //   code: /* tsx */ `
+    //     import { c, useState } from "atomico";
+
+    //     function component(){
+    //         const [ count, setCount ] = useState(0);
+    //         return <host>{ count }</host>;
+    //     }
+
+    //     export const Counter = c(counter);
+    //   `,
+    //   errors: [
+    //     {
+    //       data: {
+    //         name: "component",
+    //         forwardRef: false,
+    //         hookCalls: 1,
+    //         memo: false,
+    //       },
+    //       messageId: "FUNCTION_COMPONENT",
+    //     },
+    //   ],
+    //   settings: {
+    //     "react-x": {
+    //       importSource: "atomico",
+    //     },
+    //   },
+    // },
+    // TODO: Add support for Atomico
+    // {
+    //   code: /* tsx */ `
+    //     import { Props, c } from "atomico"; // 2.5kB
+
+    //     function component({ name }:Props<typeof component.props>) {
+    //       return <host shadowDom>Hello, {name}</host>;
+    //     }
+
+    //     component.props = {
+    //       name: String,
+    //     };
+
+    //     export const Component = c(component);
+    //   `,
+    //   errors: [
+    //     {
+    //       data: {
+    //         name: "component",
+    //         forwardRef: false,
+    //         hookCalls: 0,
+    //         memo: false,
+    //       },
+    //       messageId: "FUNCTION_COMPONENT",
+    //     },
+    //   ],
+    //   settings: {
+    //     "react-x": {
+    //       importSource: "atomico",
+    //     },
+    //   },
+    // },
+    // TODO: Add support for Atomico
+    // {
+    //   code: /* tsx */ `
+    //     import { Props, c } from "atomico"; // 2.5kB
+
+    //     function component({ name }:Props<typeof component.props>) {
+    //       return <host shadowDom>Hello, {name}</host>;
+    //     }
+
+    //     component.props = {
+    //       name: String,
+    //     };
+
+    //     customElements.define("my-component", c(component));
+    //   `,
+    //   errors: [
+    //     {
+    //       data: {
+    //         name: "component",
+    //         forwardRef: false,
+    //         hookCalls: 0,
+    //         memo: false,
+    //       },
+    //       messageId: "FUNCTION_COMPONENT",
+    //     },
+    //   ],
+    //   settings: {
+    //     "react-x": {
+    //       importSource: "atomico",
+    //     },
+    //   },
+    // },
   ],
   valid: [
     ...allFunctions,
