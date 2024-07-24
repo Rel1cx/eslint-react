@@ -17,7 +17,7 @@ A series of composable ESLint rules rewritten from scratch for libraries and fra
 
 - **Universal** rules for libraries and frameworks that use React as a UI runtime.
 - **Well designed** rule behaviors and sensible defaults.
-- **Maximum flexibility** through minimum configuration options.
+- **Maximum flexibility** through minimum rule options.
 
 ## Public packages
 
