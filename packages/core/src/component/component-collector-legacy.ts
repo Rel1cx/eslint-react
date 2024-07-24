@@ -83,8 +83,8 @@ export function useComponentCollectorLegacy() {
   };
 
   const listeners = {
-    ClassDeclaration: collect,
-    ClassExpression: collect,
+    "ClassDeclaration[type]": collect,
+    "ClassExpression[type]": collect,
   } as const satisfies ESLintUtils.RuleListener;
 
   return {

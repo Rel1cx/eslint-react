@@ -96,7 +96,7 @@
     "skott": "0.35.2",
     "sort-package-json": "2.10.0",
     "superbytes": "2.0.1",
-    "ts-pattern": "5.2.0",
+    "ts-pattern": "^5.2.0",
     "tsup": "8.2.2",
     "turbo": "2.0.9",
     "type-fest": "4.23.0",

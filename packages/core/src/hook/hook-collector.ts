@@ -57,9 +57,9 @@ export function useHookCollector(): {
   } as const;
 
   const listeners = {
-    ":function": onFunctionEnter,
-    ":function:exit": onFunctionExit,
-    CallExpression(node) {
+    ":function[type]": onFunctionEnter,
+    ":function[type]:exit": onFunctionExit,
+    "CallExpression[type]"(node) {
       const currentFn = getCurrentFunction();
       if (!currentFn) return;
       // Detect the number of other hooks called inside the current hook

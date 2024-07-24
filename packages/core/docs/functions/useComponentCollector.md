@@ -56,9 +56,9 @@
 
 > **listeners**: `object`
 
-### listeners.:function()
+### listeners.:function\[type\]()
 
-> `readonly` **:function**: (`node`) => `MutableList`\<[`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]]\> = `onFunctionEnter`
+> `readonly` **:function\[type\]**: (`node`) => `MutableList`\<[`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]]\> = `onFunctionEnter`
 
 #### Parameters
 
@@ -68,21 +68,21 @@
 
 `MutableList`\<[`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]]\>
 
-### listeners.:function:exit()
+### listeners.:function\[type\]:exit()
 
-> `readonly` **:function:exit**: () => `undefined` \| [`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]] = `onFunctionExit`
+> `readonly` **:function\[type\]:exit**: () => `undefined` \| [`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]] = `onFunctionExit`
 
 #### Returns
 
 `undefined` \| [`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]]
 
-### listeners.ArrowFunctionExpression\[body.type!='BlockStatement'\]()
+### listeners.ArrowFunctionExpression\[type\]\[body.type!='BlockStatement'\]()
 
 #### Returns
 
 `void`
 
-### listeners.AssignmentExpression\[operator='='\]\[left.type='MemberExpression'\]\[left.property.name='displayName'\]()
+### listeners.AssignmentExpression\[type\]\[operator='='\]\[left.type='MemberExpression'\]\[left.property.name='displayName'\]()
 
 #### Parameters
 
@@ -92,7 +92,7 @@
 
 `void`
 
-### listeners.CallExpression:exit()
+### listeners.CallExpression\[type\]:exit()
 
 #### Parameters
 
@@ -102,7 +102,7 @@
 
 `void`
 
-### listeners.ReturnStatement()
+### listeners.ReturnStatement\[type\]()
 
 #### Parameters
 

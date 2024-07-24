@@ -122,40 +122,9 @@ export function useComponentCollector(
   } as const;
 
   const listeners = {
-    ":function": onFunctionEnter,
-    ":function:exit": onFunctionExit,
-    ReturnStatement(node: TSESTree.ReturnStatement) {
-      const maybeCurrentFn = getCurrentFunction();
-      if (O.isNone(maybeCurrentFn)) return;
-      const [key, currentFn, isKnown, hookCalls] = maybeCurrentFn.value;
-      if (isKnown) return;
-      const isComponent = hasNoneOrValidComponentName(currentFn, context)
-        && isJSXValue(node.argument, context, hint)
-        && hasValidHierarchy(currentFn, context, hint);
-      if (!isComponent) return;
-
-      MutList.pop(functionStack);
-      MutList.append(functionStack, [key, currentFn, true, []]);
-
-      const initPath = getComponentInitPath(currentFn);
-      const id = getFunctionComponentIdentifier(currentFn, context);
-      const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
-
-      components.set(key, {
-        _: key,
-        id,
-        kind: "function",
-        name,
-        displayName: O.none(),
-        flag: getComponentFlag(initPath),
-        hint,
-        hookCalls,
-        initPath,
-        node: currentFn,
-      });
-    },
-    // eslint-disable-next-line perfectionist/sort-objects
-    "ArrowFunctionExpression[body.type!='BlockStatement']"() {
+    ":function[type]": onFunctionEnter,
+    ":function[type]:exit": onFunctionExit,
+    "ArrowFunctionExpression[type][body.type!='BlockStatement']"() {
       const maybeCurrentFn = getCurrentFunction();
       if (O.isNone(maybeCurrentFn)) return;
       const [_key, currentFn, _isComponent, hookCalls] = maybeCurrentFn.value;
@@ -183,17 +152,7 @@ export function useComponentCollector(
         node: currentFn,
       });
     },
-    "CallExpression:exit"(node: TSESTree.CallExpression) {
-      if (!isReactHookCall(node)) return;
-      const maybeCurrentFn = getCurrentFunction();
-      if (O.isNone(maybeCurrentFn)) return;
-      const [key, currentFn, isComponent, hookCalls] = maybeCurrentFn.value;
-
-      MutList.pop(functionStack);
-      MutList.append(functionStack, [key, currentFn, isComponent, [...hookCalls, node]]);
-    },
-    // eslint-disable-next-line perfectionist/sort-objects
-    "AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']"(
+    "AssignmentExpression[type][operator='='][left.type='MemberExpression'][left.property.name='displayName']"(
       node: TSESTree.Node,
     ) {
       if (node.type !== NodeType.AssignmentExpression) return;
@@ -211,6 +170,45 @@ export function useComponentCollector(
       components.set(component._, {
         ...component,
         displayName: O.some(right),
+      });
+    },
+    "CallExpression[type]:exit"(node: TSESTree.CallExpression) {
+      if (!isReactHookCall(node)) return;
+      const maybeCurrentFn = getCurrentFunction();
+      if (O.isNone(maybeCurrentFn)) return;
+      const [key, currentFn, isComponent, hookCalls] = maybeCurrentFn.value;
+
+      MutList.pop(functionStack);
+      MutList.append(functionStack, [key, currentFn, isComponent, [...hookCalls, node]]);
+    },
+    "ReturnStatement[type]"(node: TSESTree.ReturnStatement) {
+      const maybeCurrentFn = getCurrentFunction();
+      if (O.isNone(maybeCurrentFn)) return;
+      const [key, currentFn, isKnown, hookCalls] = maybeCurrentFn.value;
+      if (isKnown) return;
+      const isComponent = hasNoneOrValidComponentName(currentFn, context)
+        && isJSXValue(node.argument, context, hint)
+        && hasValidHierarchy(currentFn, context, hint);
+      if (!isComponent) return;
+
+      MutList.pop(functionStack);
+      MutList.append(functionStack, [key, currentFn, true, []]);
+
+      const initPath = getComponentInitPath(currentFn);
+      const id = getFunctionComponentIdentifier(currentFn, context);
+      const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
+
+      components.set(key, {
+        _: key,
+        id,
+        kind: "function",
+        name,
+        displayName: O.none(),
+        flag: getComponentFlag(initPath),
+        hint,
+        hookCalls,
+        initPath,
+        node: currentFn,
       });
     },
   } as const satisfies ESLintUtils.RuleListener;
