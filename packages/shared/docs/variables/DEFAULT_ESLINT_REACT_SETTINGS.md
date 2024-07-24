@@ -12,7 +12,7 @@
 
 ### additionalComponents?
 
-> `optional` **additionalComponents**: `object`[]
+> `optional` **additionalComponents**: (`object` \| `object`)[]
 
 ### additionalHooks?
 
