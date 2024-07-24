@@ -9,6 +9,9 @@ export default {
   configuration: {
     title: "Configuration",
   },
+  "advanced-configuration": {
+    title: "Advanced Configuration",
+  },
   "---": {
     type: "separator",
   },

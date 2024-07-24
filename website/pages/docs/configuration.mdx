@@ -52,8 +52,6 @@ This is intended to cover edge cases. We suggest to use this option very sparing
 
 ## Examples
 
-### Basic Configuration
-
 <ESLintConfig>
 
 <Config>
@@ -126,111 +124,6 @@ module.exports = {
       version: "detect",
     },
   },
-};
-```
-
-</Config>
-
-</ESLintConfig>
-
-### Advanced Configuration (WIP)
-
-<ESLintConfig>
-
-<Config>
-
-```ts twoslash filename="eslint.config.js"
-// ...
-import react from "@eslint-react/eslint-plugin";
-
-// ...
-export default [
-  // ...
-  {
-    files: ["**/*.{ts,tsx}"],
-    ...react.configs.recommended,
-    settings: {
-      "react-x": {
-        importSource: "react",
-        jsxPragma: "createElement",
-        jsxPragmaFrag: "Fragment",
-        additionalHooks: {
-          useLayoutEffect: ["useIsomorphicLayoutEffect"],
-          // ...
-        },
-        additionalComponents: [
-          {
-            name: "Button",
-            selector: ":has(JSXAttribute[name.name='component'][value.value='a'])",
-            as: "a",
-            attributes: [
-              { name: "href", as: "href" },
-              { name: "rel", as: "rel", defaultValue: "noopener noreferrer" },
-            ],
-          },
-          {
-            name: "TextInput",
-            selector: ":has(JSXAttribute[name.name='mode'][value.value='uncontrolled'])",
-            as: "input",
-            attributes: [
-              { name: "text", as: "value", controlled: false },
-              { name: "defaultText", as: "defaultValue" },
-              { name: "onTextChange", as: "onChange" },
-            ],
-          },
-          // ...
-        ],
-        version: "detect",
-      },
-    },
-  },
-  // ...
-];
-```
-
-</Config>
-
-<Config>
-
-```js filename=".eslintrc.js"
-// ...
-module.exports = {
-  // ...
-  settings: {
-    "react-x": {
-      importSource: "react",
-      jsxPragma: "createElement",
-      jsxPragmaFrag: "Fragment",
-      additionalHooks: {
-        useLayoutEffect: ["useIsomorphicLayoutEffect"],
-        // ...
-      },
-      additionalComponents: [
-        {
-          name: "Button",
-          selector: ":has(JSXAttribute[name.name='component'][value.value='a'])",
-          as: "a",
-          attributes: [
-            { name: "href", as: "href" },
-            { name: "rel", as: "rel", defaultValue: "noopener noreferrer" },
-          ],
-        },
-        {
-          name: "TextInput",
-          selector: ":has(JSXAttribute[name.name='mode'][value.value='uncontrolled'])",
-          as: "input",
-          attributes: [
-            { name: "text", as: "value", controlled: false },
-            { name: "defaultText", as: "defaultValue" },
-            { name: "onTextChange", as: "onChange" },
-          ],
-        },
-        // ...
-      ],
-      version: "detect",
-    },
-  },
-  // ...
 };
 ```
 
