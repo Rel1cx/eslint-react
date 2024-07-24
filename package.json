@@ -101,7 +101,7 @@
     "turbo": "2.0.9",
     "type-fest": "4.23.0",
     "typedoc": "0.26.5",
-    "typedoc-plugin-markdown": "4.2.2",
+    "typedoc-plugin-markdown": "4.2.3",
     "typedoc-plugin-rename-defaults": "0.7.1",
     "typescript": "^5.5.4",
     "vitest": "2.0.4"
