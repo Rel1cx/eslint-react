@@ -24,6 +24,8 @@ The value to get the values from.
 
 `T`\[keyof `T`\][]
 
+The values of the value.
+
 ## Since
 
 0.4.0

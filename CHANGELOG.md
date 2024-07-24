@@ -1,14 +1,17 @@
-## v1.5.31 (Draft)
+## v1.6.0 (Draft)
 
-### 🪄 Improvements
+### ✨ New
 
+- Add `controlled` setting to `settings["react-x"].additionalComponents`' `attributes` object to set it is controlled or not.
 - Add default settings for `react-x` settings to presets.
+- Undeprecate rule `no-implicit-key` and improve its usefulness.
+- Undeprecate rule `no-complicated-conditional-rendering` and rename it to `no-complex-conditional-rendering` (the previous rule will still be available until the next major update to avoid breaking changes).
 
 ## v1.5.30 (Mon 22 Jul 2024)
 
 ### 🐞 Fixes
 
-- Revert ~~change `@typescript-eslint`' packages in `dependencies` to `"^7.16.1 || ^rc-v8"`~~ as this format is not supported by all package managers.
+- Revert ~~change `@typescript-eslint`'s packages in `dependencies` to `"^7.16.1 || ^rc-v8"`~~ as this format is not supported by all package managers.
 
 ## v1.5.29 (Mon 22 Jul 2024)
 

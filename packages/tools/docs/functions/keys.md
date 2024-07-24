@@ -24,6 +24,8 @@ The value to get the keys from.
 
 keyof `T`[]
 
+The keys of the value.
+
 ## Since
 
 0.4.0

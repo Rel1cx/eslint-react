@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-dom",
-  "version": "1.5.31-beta.4",
+  "version": "1.6.0-next.0",
   "description": "ESLint React's ESLint plugin for React DOM related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -57,7 +57,7 @@
     "@types/react-dom": "^18.3.0",
     "es-toolkit": "1.13.1",
     "string-ts": "^2.2.0",
-    "tsup": "8.2.2"
+    "tsup": "8.2.3"
   },
   "peerDependencies": {
     "eslint": "^8.57.0 || ^9.0.0",

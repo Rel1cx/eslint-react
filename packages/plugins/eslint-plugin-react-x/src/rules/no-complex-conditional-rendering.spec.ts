@@ -1,5 +1,5 @@
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./no-complicated-conditional-rendering";
+import rule, { RULE_NAME } from "./no-complex-conditional-rendering";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
@@ -11,7 +11,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
         },
       ],
     },
@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
         },
       ],
     },
@@ -54,7 +54,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
         },
       ],
     },
@@ -80,7 +80,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
         },
       ],
     },
@@ -106,7 +106,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
         },
       ],
     },
@@ -135,7 +135,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
         },
       ],
     },
@@ -152,10 +152,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
         },
         {
-          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
         },
       ],
     },
@@ -172,10 +172,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
         },
         {
-          messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING",
+          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
         },
       ],
     },

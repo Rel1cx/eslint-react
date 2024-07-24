@@ -86,7 +86,7 @@ export default [
 | `no-class-component`                     | Prevents using class component.                                                                      | ⛔  |     |     |
 | `no-clone-element`                       | Prevents using `cloneElement`.                                                                       | ⛔  |     |     |
 | `no-comment-textnodes`                   | Prevents comments from being inserted as text nodes.                                                 | 🧐  |     |     |
-| `no-complicated-conditional-rendering`   | Prevents complicated conditional rendering in JSX.                                                   | 🤯  |     | ❌  |
+| `no-complex-conditional-rendering`       | Prevents complex conditional rendering in JSX.                                                       | 🤯  |     |     |
 | `no-component-will-mount`                | Prevents using `componentWillMount`.                                                                 | ⛔  |     |     |
 | `no-component-will-receive-props`        | Prevents using `componentWillReceiveProps`.                                                          | ⛔  |     |     |
 | `no-component-will-update`               | Prevents using `componentWillUpdate`.                                                                | ⛔  |     |     |
@@ -94,7 +94,7 @@ export default [
 | `no-default-props`                       | Prevents using `defaultProps` property in favor of ES6 default parameters.                           |  ✔️  |     |     |
 | `no-direct-mutation-state`               | Prevents direct mutation of `this.state`.                                                            |  ✔️  |     |     |
 | `no-duplicate-key`                       | Prevents duplicate `key` props on elements in the same array or a list of `children`.                |  ✔️  |     |     |
-| `no-implicit-key`                        | Prevents `key` prop from not being explicitly specified (e.g. spreading `key` prop from objects).    | 🧐  |     | ❌  |
+| `no-implicit-key`                        | Prevents `key` prop from not being explicitly specified (e.g. spreading `key` prop from objects).    | 🧐  |     |     |
 | `no-leaked-conditional-rendering`        | Prevents problematic leaked values from being rendered.                                              | 🧐  | 💭  |     |
 | `no-missing-component-display-name`      | Enforces that all components have a `displayName` which can be used in devtools.                     | 🐞  |     |     |
 | `no-missing-key`                         | Prevents missing `key` prop on items in list rendering.                                              |  ✔️  |     |     |

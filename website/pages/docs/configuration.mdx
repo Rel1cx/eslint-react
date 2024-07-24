@@ -77,6 +77,17 @@ export default [
           useLayoutEffect: ["useIsomorphicLayoutEffect"],
           // ...
         },
+        additionalComponents: [
+          {
+            name: "Link",
+            as: "a",
+            attributes: [
+              { name: "to", as: "href" },
+              { name: "rel", as: "rel", defaultValue: "noopener noreferrer" },
+            ],
+          },
+          // ...
+        ],
         version: "detect",
       },
     },
@@ -101,6 +112,17 @@ module.exports = {
         useLayoutEffect: ["useIsomorphicLayoutEffect"],
         // ...
       },
+      additionalComponents: [
+        {
+          name: "Link",
+          as: "a",
+          attributes: [
+            { name: "to", as: "href" },
+            { name: "rel", as: "rel", defaultValue: "noopener noreferrer" },
+          ],
+        },
+        // ...
+      ],
       version: "detect",
     },
   },
@@ -111,7 +133,7 @@ module.exports = {
 
 </ESLintConfig>
 
-### Advanced Configuration
+### Advanced Configuration (WIP)
 
 <ESLintConfig>
 
@@ -138,11 +160,22 @@ export default [
         },
         additionalComponents: [
           {
-            name: "Link",
+            name: "Button",
+            selector: ":has(JSXAttribute[name.name='component'][value.value='a'])",
             as: "a",
             attributes: [
-              { name: "to", as: "href" },
+              { name: "href", as: "href" },
               { name: "rel", as: "rel", defaultValue: "noopener noreferrer" },
+            ],
+          },
+          {
+            name: "TextInput",
+            selector: ":has(JSXAttribute[name.name='mode'][value.value='uncontrolled'])",
+            as: "input",
+            attributes: [
+              { name: "text", as: "value", controlled: false },
+              { name: "defaultText", as: "defaultValue" },
+              { name: "onTextChange", as: "onChange" },
             ],
           },
           // ...
@@ -174,11 +207,22 @@ module.exports = {
       },
       additionalComponents: [
         {
-          name: "Link",
+          name: "Button",
+          selector: ":has(JSXAttribute[name.name='component'][value.value='a'])",
           as: "a",
           attributes: [
-            { name: "to", as: "href" },
+            { name: "href", as: "href" },
             { name: "rel", as: "rel", defaultValue: "noopener noreferrer" },
+          ],
+        },
+        {
+          name: "TextInput",
+          selector: ":has(JSXAttribute[name.name='mode'][value.value='uncontrolled'])",
+          as: "input",
+          attributes: [
+            { name: "text", as: "value", controlled: false },
+            { name: "defaultText", as: "defaultValue" },
+            { name: "onTextChange", as: "onChange" },
           ],
         },
         // ...
