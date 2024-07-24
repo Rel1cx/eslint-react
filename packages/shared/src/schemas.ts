@@ -29,6 +29,12 @@ export const CustomAttributeSchema = object({
    */
   as: optional(string()),
   /**
+   * Whether the attribute is controlled or not in the user-defined component.
+   * @example
+   * `true`
+   */
+  controlled: optional(boolean()),
+  /**
    * The default value of the attribute in the user-defined component.
    * @example
    * `"/"`
