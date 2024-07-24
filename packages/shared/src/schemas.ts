@@ -103,6 +103,7 @@ export const ESLintReactSettingsSchema = object({
 export const ESLintSettingsSchema = object({
   "react-x": optional(ESLintReactSettingsSchema),
   /**
+   * @internal
    * @deprecated
    */
   reactOptions: optional(ESLintReactSettingsSchema),
