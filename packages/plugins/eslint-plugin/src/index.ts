@@ -25,8 +25,7 @@ const allPreset = {
   "no-class-component": "warn",
   "no-clone-element": "warn",
   "no-comment-textnodes": "warn",
-  // This rule has been deprecated
-  // "no-complicated-conditional-rendering": "warn",
+  "no-complex-conditional-rendering": "warn",
   "no-component-will-mount": "error",
   "no-component-will-receive-props": "error",
   "no-component-will-update": "error",
@@ -103,7 +102,7 @@ const recommendedPreset = {
   // "no-class-component": "warn",
   "no-clone-element": "warn",
   "no-comment-textnodes": "warn",
-  // "no-complicated-conditional-rendering": "warn",
+  // "no-complex-conditional-rendering": "warn",
   "no-component-will-mount": "error",
   "no-component-will-receive-props": "error",
   "no-component-will-update": "error",
@@ -150,8 +149,8 @@ const recommendedPreset = {
   // "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
   // "hooks-extra/ensure-use-callback-has-non-empty-deps": "warn",
   // "hooks-extra/ensure-use-memo-has-non-empty-deps": "warn",
-  "hooks-extra/no-direct-set-state-in-use-effect": "warn",
-  "hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
+  // "hooks-extra/no-direct-set-state-in-use-effect": "warn",
+  // "hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
   "hooks-extra/prefer-use-state-lazy-initialization": "warn",
 } as const satisfies RulePreset;
 

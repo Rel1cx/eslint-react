@@ -24,6 +24,8 @@ The entries to create the object from.
 
 [`FromEntries`](../type-aliases/FromEntries.md)\<`T`\>
 
+The object created from the entries.
+
 ## Since
 
 0.4.0

@@ -25,6 +25,8 @@ Value to infer
 
 [`Narrow`](../type-aliases/Narrow.md)\<`TType`\>
 
+Value with embedded type inferred
+
 ## Since
 
 0.0.1

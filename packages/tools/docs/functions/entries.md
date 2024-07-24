@@ -24,6 +24,8 @@ The value to get the entries from.
 
 \{ \[K in string \| number \| symbol\]-?: \[K, T\[K\]\] \}\[keyof `T`\][]
 
+The entries of the value.
+
 ## Since
 
 0.4.0

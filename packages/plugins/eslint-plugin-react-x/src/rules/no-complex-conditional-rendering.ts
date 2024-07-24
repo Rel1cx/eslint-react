@@ -4,7 +4,7 @@ import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "no-complicated-conditional-rendering";
+export const RULE_NAME = "no-complex-conditional-rendering";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
@@ -13,11 +13,11 @@ export default createRule<[], MessageID>({
     type: "problem",
     deprecated: true,
     docs: {
-      description: "disallow complicated conditional rendering",
+      description: "disallow complex conditional rendering",
     },
     messages: {
-      NO_COMPLICATED_CONDITIONAL_RENDERING:
-        "Avoid complicated conditional rendering. Extract the logic into separate elements or components.",
+      NO_COMPLEX_CONDITIONAL_RENDERING:
+        "Avoid complex conditional rendering. Extract the logic into separate elements or components.",
     },
     schema: [],
   },
@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
       if (!is(NodeType.JSXExpressionContainer)(jsxExpContainer)) return;
       if (!isOneOf([NodeType.JSXElement, NodeType.JSXFragment])(jsxExpContainer.parent)) return;
       if (!jsxExpContainer.parent.children.includes(jsxExpContainer)) return;
-      context.report({ messageId: "NO_COMPLICATED_CONDITIONAL_RENDERING", node: jsxExpContainer });
+      context.report({ messageId: "NO_COMPLEX_CONDITIONAL_RENDERING", node: jsxExpContainer });
     }
 
     return {

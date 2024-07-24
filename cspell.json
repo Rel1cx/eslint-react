@@ -58,6 +58,7 @@
     "nocheck",
     "noto",
     "opengraph",
+    "pantajoe",
     "pathe",
     "pattycake",
     "preact",
@@ -73,8 +74,8 @@
     "shiki",
     "signoff",
     "sonarjs",
-    "susisu",
     "superbytes",
+    "susisu",
     "tanstack",
     "tascript",
     "taze",
@@ -89,9 +90,9 @@
     "twoslash",
     "typeclass",
     "uncast",
+    "undeprecate",
     "unoptimized",
     "valibot",
-    "weakref",
-    "pantajoe"
+    "weakref"
   ]
 }

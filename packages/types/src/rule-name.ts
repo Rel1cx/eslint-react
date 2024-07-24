@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// Rule name primitive definitions, used to guide rule naming.
-// The plural nouns are used only when there is a clear indication of multiple things.
-// Most of the terms are taken from the React glossary on https://react.dev.
-// This file is also used to help GitHub copilot suggest rule names.
 
 type PositiveModifier = "avoid" | "ensure" | "prefer" | "strict";
 
 type NegativeModifier = "no";
 
 type NegativeDescriptive =
+  | "complex"
   | "confusing"
   | "constructed"
   | "duplicate"

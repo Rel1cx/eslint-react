@@ -29,7 +29,7 @@
 | `no-class-component`                     | Prevents using class component.                                                                      |
 | `no-clone-element`                       | Prevents using `cloneElement`.                                                                       |
 | `no-comment-textnodes`                   | Prevents comments from being inserted as text nodes.                                                 |
-| `no-complicated-conditional-rendering`   | Prevents complicated conditional rendering in JSX.                                                   |
+| `no-complex-conditional-rendering`       | Prevents complex conditional rendering in JSX.                                                       |
 | `no-component-will-mount`                | Prevents using `componentWillMount`.                                                                 |
 | `no-component-will-receive-props`        | Prevents using `componentWillReceiveProps`.                                                          |
 | `no-component-will-update`               | Prevents using `componentWillUpdate`.                                                                |

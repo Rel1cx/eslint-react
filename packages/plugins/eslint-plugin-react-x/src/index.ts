@@ -13,7 +13,7 @@ import noChildrenToArray from "./rules/no-children-to-array";
 import noClassComponent from "./rules/no-class-component";
 import noCloneElement from "./rules/no-clone-element";
 import noCommentTextnodes from "./rules/no-comment-textnodes";
-import noComplicatedConditionalRendering from "./rules/no-complicated-conditional-rendering";
+import noComplexConditionalRendering from "./rules/no-complex-conditional-rendering";
 import noComponentWillMount from "./rules/no-component-will-mount";
 import noComponentWillReceiveProps from "./rules/no-component-will-receive-props";
 import noComponentWillUpdate from "./rules/no-component-will-update";
@@ -65,7 +65,9 @@ export const rules = {
   "no-class-component": noClassComponent,
   "no-clone-element": noCloneElement,
   "no-comment-textnodes": noCommentTextnodes,
-  "no-complicated-conditional-rendering": noComplicatedConditionalRendering,
+  "no-complex-conditional-rendering": noComplexConditionalRendering,
+  // TODO: Remove this alias in the next major version
+  "no-complicated-conditional-rendering": noComplexConditionalRendering,
   "no-component-will-mount": noComponentWillMount,
   "no-component-will-receive-props": noComponentWillReceiveProps,
   "no-component-will-update": noComponentWillUpdate,
