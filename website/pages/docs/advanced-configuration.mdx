@@ -78,6 +78,12 @@ module.exports = {
       },
       additionalComponents: [
         {
+          name: "*",
+          attributes: [
+            { name: "html", as: "dangerouslySetInnerHTML" },
+          ],
+        },
+        {
           name: "Button",
           selector: ":has(JSXAttribute[name.name='component'][value.value='a'])",
           as: "a",
