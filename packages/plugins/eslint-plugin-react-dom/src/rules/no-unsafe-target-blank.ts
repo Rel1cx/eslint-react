@@ -4,7 +4,7 @@ import { parseESLintSettings } from "@eslint-react/shared";
 import { F, O, Pred } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { groupBy } from "es-toolkit";
+import pm from "picomatch";
 import type { ConstantCase } from "string-ts";
 
 import { createRule, getPropFromPreDefined } from "../utils";
@@ -37,21 +37,20 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const additionalComponents = parseESLintSettings(context.settings)["react-x"]?.additionalComponents ?? [];
-    const additionalComponentsByName = groupBy(additionalComponents, c => c.name);
+    const settings = parseESLintSettings(context.settings)["react-x"];
+    const additionalComponents = settings?.additionalComponents?.filter(c => c.as === "a") ?? [];
     function checkJSXElement(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
       const elementName = elementType(node.openingElement);
       const { attributes } = node.openingElement;
       const initialScope = context.sourceCode.getScope(node);
-      const additionalAttributes = F.pipe(
-        O.fromNullable(additionalComponentsByName[elementName]?.filter(c => c.as === "a")),
-        O.flatMapNullable(c => c.at(-1)),
-        O.flatMapNullable(c => c.attributes),
-      );
+      const additionalAttributes = additionalComponents
+        .findLast(c => pm.isMatch(elementName, c.name))
+        ?.attributes
+        ?? [];
       const [
         targetPropName,
         targetPropDefaultValue,
-      ] = getPropFromPreDefined("target", O.getOrElse(() => [])(additionalAttributes));
+      ] = getPropFromPreDefined("target", additionalAttributes);
       const targetProp = findPropInAttributes(attributes, context, initialScope)(targetPropName);
       const targetPropValue = O.isNone(targetProp)
         ? O.fromNullable(targetPropDefaultValue)
@@ -75,7 +74,7 @@ export default createRule<[], MessageID>({
       const [
         relPropName,
         relPropDefaultValue,
-      ] = getPropFromPreDefined("rel", O.getOrElse(() => [])(additionalAttributes));
+      ] = getPropFromPreDefined("rel", additionalAttributes);
       const relProp = findPropInAttributes(attributes, context, initialScope)(relPropName);
       const relPropValue = O.isNone(relProp)
         ? O.fromNullable(relPropDefaultValue)

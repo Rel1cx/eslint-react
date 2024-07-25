@@ -428,10 +428,16 @@ importers:
       eslint:
         specifier: ^9.7.0
         version: 9.7.0
+      picomatch:
+        specifier: ^4.0.2
+        version: 4.0.2
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
     devDependencies:
+      '@types/picomatch':
+        specifier: ^3.0.0
+        version: 3.0.0
       '@types/react':
         specifier: 18.3.3
         version: 18.3.3
@@ -2370,6 +2376,9 @@ packages:
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
+
+  '@types/picomatch@3.0.0':
+    resolution: {integrity: sha512-iX/Qwk9vU17N/5Q7QrV46wzciloTdCqTRt6z8A7uFFADM2+Sy5oQh9ldZhAiTXH+l0sM/EkXatEhJIs8FUyOBQ==}
 
   '@types/prop-types@15.7.12':
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
@@ -7634,6 +7643,8 @@ snapshots:
   '@types/normalize-package-data@2.4.4': {}
 
   '@types/parse-json@4.0.2': {}
+
+  '@types/picomatch@3.0.0': {}
 
   '@types/prop-types@15.7.12': {}
 
