@@ -82,6 +82,8 @@
 | Rule                                       | Description                                                                 |
 | :----------------------------------------- | :-------------------------------------------------------------------------- |
 | `ensure-custom-hooks-using-other-hooks`    | Warns when custom Hooks that don't use other Hooks.                         |
+| `ensure-use-memo-has-non-empty-deps`       | Warns when `useMemo` is used without a non-empty dependencies array.        |
+| `ensure-use-callback-has-non-empty-deps`   | Warns when `useCallback` is used without a non-empty dependencies array.    |
 | `no-direct-set-state-in-use-effect`        | Disallow direct calls to `set` function of `useState` in `useEffect`.       |
 | `no-direct-set-state-in-use-layout-effect` | Disallow direct calls to `set` function of `useState` in `useLayoutEffect`. |
 | `prefer-use-state-lazy-initialization`     | Warns function calls made inside `useState` calls.                          |
@@ -94,6 +96,10 @@
 | `filename`           | Enforces naming convention for JSX files.                                                  |
 | `filename-extension` | Enforces consistent use of the JSX file extension.                                         |
 | `use-state`          | Enforces destructuring and symmetric naming of `useState` hook value and setter variables. |
+
+### Advanced Configuration features
+
+- Additional components (`settings["react-x"].additionalComponents`) transitions from experimental to stable.
 
 ## Milestone 3.0 (Draft)
 

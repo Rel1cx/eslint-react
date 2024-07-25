@@ -2,7 +2,8 @@
 
 ### ✨ New
 
-- Add `controlled` setting to `settings["react-x"].additionalComponents`' `attributes` object to set it is controlled or not.
+- Add `controlled` setting to `settings["react-x"].additionalComponents`' `attributes` object to set whether it is controlled or not.
+- Add glob support to `settings["react-x"].additionalComponents`' `name` setting.
 - Add default settings for `react-x` settings to presets.
 - Undeprecate rule `no-implicit-key` and improve its usefulness.
 - Undeprecate rule `no-complicated-conditional-rendering` and rename it to `no-complex-conditional-rendering` (the previous rule will still be available until the next major update to avoid breaking changes).
