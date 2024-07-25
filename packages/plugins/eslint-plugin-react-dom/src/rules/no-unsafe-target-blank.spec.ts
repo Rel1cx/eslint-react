@@ -23,33 +23,33 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<Link href="https://react.dev" target="_blank" rel="noopener"></Link>',
       errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
     },
-    // TODO: implement this
-    // {
-    //   code: '<a href="https://react.dev" target="_blank"></a><Link to="https://react.dev" target="_blank"></Link>',
-    //   errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }], // should be 1 error
-    //   settings: {
-    //     "react-x": {
-    //       additionalComponents: [
-    //         {
-    //           name: "Link",
-    //           as: "a",
-    //           attributes: [
-    //             {
-    //               name: "to",
-    //               as: "href",
-    //               defaultValue: "",
-    //             },
-    //             {
-    //               name: "rel",
-    //               as: "rel",
-    //               defaultValue: "noreferrer",
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //     },
-    //   },
-    // },
+    {
+      code: /* tsx */ `
+        const a = <a href="https://react.dev" target="_blank"></a>;
+        const b = <Link to="https://react.dev" target="_blank"></Link>;
+      `,
+      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }], // should be 1 error
+      settings: {
+        "react-x": {
+          additionalComponents: [
+            {
+              name: "Link",
+              as: "a",
+              attributes: [
+                {
+                  name: "to",
+                  as: "href",
+                },
+                {
+                  name: "rel",
+                  defaultValue: "noreferrer",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
     {
       code: /* tsx */ `
         const a = <Link href="https://react.dev" target="_blank"></Link>;
@@ -67,7 +67,6 @@ ruleTester.run(RULE_NAME, rule, {
               as: "a",
               attributes: [{
                 name: "rel",
-                as: "rel",
                 defaultValue: "noopener",
               }],
             },
@@ -100,7 +99,6 @@ ruleTester.run(RULE_NAME, rule, {
               as: "a",
               attributes: [{
                 name: "rel",
-                as: "rel",
                 defaultValue: "noreferrer",
               }],
             },
@@ -133,7 +131,6 @@ ruleTester.run(RULE_NAME, rule, {
               attributes: [
                 {
                   name: "target",
-                  as: "target",
                   defaultValue: "_blank",
                 },
               ],
@@ -149,6 +146,7 @@ ruleTester.run(RULE_NAME, rule, {
     "<a></a>",
     '<a href="https://react.dev" target="_self"></a>',
     '<a href="https://react.dev" target="_parent"></a>',
+    '<a title="https://react.dev" target="_blank"></a>',
     '<Link href="https://react.dev" target="_self"></Link>',
     '<Link href="https://react.dev" target="_parent"></Link>',
     '<a href="https://react.dev" target="_blank" rel="noopener noreferrer"></a>',
@@ -166,7 +164,6 @@ ruleTester.run(RULE_NAME, rule, {
               as: "a",
               attributes: [{
                 name: "rel",
-                as: "rel",
                 defaultValue: "noreferrer",
               }],
             },
@@ -184,7 +181,6 @@ ruleTester.run(RULE_NAME, rule, {
               as: "a",
               attributes: [{
                 name: "rel",
-                as: "rel",
                 defaultValue: "noreferrer",
               }],
             },
@@ -199,7 +195,6 @@ ruleTester.run(RULE_NAME, rule, {
                 },
                 {
                   name: "rel",
-                  as: "rel",
                   defaultValue: "noreferrer",
                 },
               ],
@@ -224,7 +219,6 @@ ruleTester.run(RULE_NAME, rule, {
                 },
                 {
                   name: "rel",
-                  as: "rel",
                   defaultValue: "noreferrer",
                 },
               ],
@@ -246,7 +240,6 @@ ruleTester.run(RULE_NAME, rule, {
               as: "a",
               attributes: [{
                 name: "rel",
-                as: "rel",
                 defaultValue: "noreferrer",
               }],
             },
@@ -278,12 +271,10 @@ ruleTester.run(RULE_NAME, rule, {
               attributes: [
                 {
                   name: "target",
-                  as: "target",
                   defaultValue: "_blank",
                 },
                 {
                   name: "rel",
-                  as: "rel",
                   defaultValue: "noreferrer",
                 },
               ],

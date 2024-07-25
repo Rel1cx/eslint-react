@@ -1,4 +1,3 @@
-import { NodeType } from "@eslint-react/ast";
 import { elementName, findPropInAttributes, getPropValue } from "@eslint-react/jsx";
 import { decodeSettings, expandSettings } from "@eslint-react/shared";
 import { F, O, Pred } from "@eslint-react/tools";
@@ -7,7 +6,7 @@ import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import pm from "picomatch";
 import type { ConstantCase } from "string-ts";
 
-import { createRule, getPropFromPreDefined } from "../utils";
+import { createRule, getPropFromUserDefined } from "../utils";
 
 export const RULE_NAME = "no-unsafe-target-blank";
 
@@ -54,7 +53,7 @@ export default createRule<[], MessageID>({
       const [
         targetPropName,
         targetPropDefaultValue,
-      ] = getPropFromPreDefined("target", additionalAttributes);
+      ] = getPropFromUserDefined("target", additionalAttributes);
       const targetProp = findPropInAttributes(attributes, context, initialScope)(targetPropName);
       const targetPropValue = O.isNone(targetProp)
         ? O.fromNullable(targetPropDefaultValue)
@@ -65,20 +64,24 @@ export default createRule<[], MessageID>({
           O.filter(Pred.isString),
         );
       if (!O.exists(targetPropValue, t => t === "_blank")) return O.none();
-      const hasExternalLinkLike = attributes.some(attr => {
-        if (attr.type !== NodeType.JSXAttribute) return false;
-        return F.pipe(
-          getPropValue(attr, context),
+      const [
+        hrefPropName,
+        hrefPropDefaultValue,
+      ] = getPropFromUserDefined("href", additionalAttributes);
+      const hrefProp = findPropInAttributes(attributes, context, initialScope)(hrefPropName);
+      const hrefPropValue = O.isNone(hrefProp)
+        ? O.fromNullable(hrefPropDefaultValue)
+        : F.pipe(
+          hrefProp,
+          O.flatMap(attr => getPropValue(attr, context)),
           O.flatMapNullable(v => v?.value),
           O.filter(Pred.isString),
-          O.exists(isExternalLinkLike),
         );
-      });
-      if (!hasExternalLinkLike) return O.none();
+      if (!O.exists(hrefPropValue, isExternalLinkLike)) return O.none();
       const [
         relPropName,
         relPropDefaultValue,
-      ] = getPropFromPreDefined("rel", additionalAttributes);
+      ] = getPropFromUserDefined("rel", additionalAttributes);
       const relProp = findPropInAttributes(attributes, context, initialScope)(relPropName);
       const relPropValue = O.isNone(relProp)
         ? O.fromNullable(relPropDefaultValue)
