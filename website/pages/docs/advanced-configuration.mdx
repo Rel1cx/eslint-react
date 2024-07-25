@@ -32,21 +32,38 @@ export default [
         },
         additionalComponents: [
           {
+            // Match all component with `html` attribute and alias it to `dangerouslySetInnerHTML`
+            name: "*",
+            attributes: [
+              { name: "html", as: "dangerouslySetInnerHTML" },
+            ],
+          },
+          {
+            // Match all components with `component="button"` attribute and alias it to `button` component with `type="button"` attribute
+            name: "*",
+            selector: ":has(JSXAttribute[name.name='component'][value.value='button'])",
+            as: "button",
+            attributes: [
+              { name: "type", defaultValue: "button" },
+            ],
+          },
+          {
+            // Match Button component with `component="a"` attribute and alias it to `a` component with `rel="noopener noreferrer"` attribute
             name: "Button",
             selector: ":has(JSXAttribute[name.name='component'][value.value='a'])",
             as: "a",
             attributes: [
-              { name: "href", as: "href" },
-              { name: "rel", as: "rel", defaultValue: "noopener noreferrer" },
+              { name: "rel", defaultValue: "noopener noreferrer" },
             ],
           },
           {
+            // Match TextInput component with `mode="uncontrolled"` attribute and alias it to an uncontrolled input component with `content` and `onContentUpdate` pair
             name: "TextInput",
             selector: ":has(JSXAttribute[name.name='mode'][value.value='uncontrolled'])",
             as: "input",
             attributes: [
-              { name: "text", as: "value", controlled: false },
-              { name: "onTextChange", as: "onChange" },
+              { name: "content", as: "value", controlled: false },
+              { name: "onContentUpdate", as: "onChange" },
             ],
           },
           // ...
@@ -78,27 +95,38 @@ module.exports = {
       },
       additionalComponents: [
         {
+          // Match all component with `html` attribute and alias it to `dangerouslySetInnerHTML`
           name: "*",
           attributes: [
             { name: "html", as: "dangerouslySetInnerHTML" },
           ],
         },
         {
+          // Match Button component with `component="a"` attribute and alias it to `a` component with `rel="noopener noreferrer"` attribute
+          name: "*",
+          selector: ":has(JSXAttribute[name.name='component'][value.value='button'])",
+          as: "button",
+          attributes: [
+            { name: "type", defaultValue: "button" },
+          ],
+        },
+        {
+          // Match Button component with `component="a"` attribute and alias it to `a` component with `rel="noopener noreferrer"` attribute
           name: "Button",
           selector: ":has(JSXAttribute[name.name='component'][value.value='a'])",
           as: "a",
           attributes: [
-            { name: "href", as: "href" },
-            { name: "rel", as: "rel", defaultValue: "noopener noreferrer" },
+            { name: "rel", defaultValue: "noopener noreferrer" },
           ],
         },
         {
+          // Match TextInput component with `mode="uncontrolled"` attribute and alias it to an uncontrolled input component with `content` and `onContentUpdate` pair
           name: "TextInput",
           selector: ":has(JSXAttribute[name.name='mode'][value.value='uncontrolled'])",
           as: "input",
           attributes: [
-            { name: "text", as: "value", controlled: false },
-            { name: "onTextChange", as: "onChange" },
+            { name: "content", as: "value", controlled: false },
+            { name: "onContentUpdate", as: "onChange" },
           ],
         },
         // ...
