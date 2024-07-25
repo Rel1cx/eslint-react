@@ -1,4 +1,5 @@
 import memoize from "micro-memoize";
+import picomatch from "picomatch";
 import { parse } from "valibot";
 
 import type { ESLintReactSettings } from "./schemas";
@@ -9,7 +10,6 @@ export function decodeSettings(data: unknown): ESLintReactSettings {
 }
 
 export const expandSettings = memoize((settings: ESLintReactSettings): ESLintReactSettings => {
-  if (Object.keys(settings).length === 0) return {};
   return {
     ...settings,
     additionalComponents: settings.additionalComponents?.map((component) => ({
@@ -18,6 +18,7 @@ export const expandSettings = memoize((settings: ESLintReactSettings): ESLintRea
         ...attr,
         as: attr.as ?? attr.name,
       })) ?? [],
+      re: picomatch.parse(component.name).output,
     })) ?? [],
   };
 }, { isDeepEqual: false });

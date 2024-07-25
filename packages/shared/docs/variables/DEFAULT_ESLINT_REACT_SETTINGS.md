@@ -10,9 +10,9 @@
 
 ## Type declaration
 
-### additionalComponents?
+### additionalComponents
 
-> `optional` **additionalComponents**: (`object` \| `object`)[]
+> **additionalComponents**: `object`[]
 
 ### additionalHooks?
 

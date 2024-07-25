@@ -12,7 +12,7 @@
 
 • **settings**
 
-• **settings.additionalComponents?**: (`object` \| `object`)[] = `...`
+• **settings.additionalComponents**: `object`[] = `...`
 
 • **settings.additionalHooks?** = `...`
 
@@ -66,9 +66,9 @@
 
 `object`
 
-### additionalComponents?
+### additionalComponents
 
-> `optional` **additionalComponents**: (`object` \| `object`)[]
+> **additionalComponents**: `object`[]
 
 ### additionalHooks?
 

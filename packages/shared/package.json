@@ -42,9 +42,11 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^7.17.0"
+    "@typescript-eslint/utils": "^7.17.0",
+    "picomatch": "^4.0.2"
   },
   "devDependencies": {
+    "@types/picomatch": "^3.0.0",
     "micro-memoize": "4.1.2",
     "tsup": "8.2.3",
     "type-fest": "4.23.0",

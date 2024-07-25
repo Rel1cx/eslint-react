@@ -1,6 +1,6 @@
 /* eslint-disable perfectionist/sort-objects */
 import type { InferOutput } from "valibot";
-import { array, boolean, object, optional, string, union } from "valibot";
+import { array, boolean, object, optional, string } from "valibot";
 
 /**
  * @internal
@@ -50,54 +50,36 @@ export const CustomAttributeSchema = object({
  * Which attribute is used as the `href` prop for the user-defined `Link` component that represents the built-in `a` element.
  * Which attributes are used as `children` props for a user-defined `Button` component to receive children of that component.
  */
-export const CustomComponentSchema = union([
-  object({
-    /**
-     * The name of the user-defined component.
-     * @example
-     * "Link"
-     */
-    name: string(),
-    /**
-     * The name of the built-in component that the user-defined component represents.
-     * @example
-     * "a"
-     */
-    as: optional(string()),
-    /**
-     * Pre-defined attributes that are used in the user-defined component.
-     * @example
-     * `Link` component has a `to` attribute that represents the `href` attribute in the built-in `a` element with a default value of `"/"`.
-     */
-    attributes: optional(array(CustomAttributeSchema)),
-  }),
-  object({
-    /**
-     * The name of the user-defined component.
-     * @example
-     * "Link"
-     */
-    name: string(),
-    /**
-     * The ESQuery selector to select the component precisely.
-     * @example
-     * `:has(JSXAttribute[name.name='component'][value.value='a'])`
-     */
-    selector: string(),
-    /**
-     * The name of the built-in component that the user-defined component represents.
-     * @example
-     * "a"
-     */
-    as: string(),
-    /**
-     * Pre-defined attributes that are used in the user-defined component.
-     * @example
-     * `Link` component has a `to` attribute that represents the `href` attribute in the built-in `a` element with a default value of `"/"`.
-     */
-    attributes: optional(array(CustomAttributeSchema)),
-  }),
-]);
+export const CustomComponentSchema = object({
+  /**
+   * @internal
+   */
+  re: optional(string()),
+  /**
+   * The name of the user-defined component.
+   * @example
+   * "Link"
+   */
+  name: optional(string(), "*"),
+  /**
+   * The ESQuery selector to select the component precisely.
+   * @example
+   * `JSXElement:has(JSXAttribute[name.name='component'][value.value='a'])`
+   */
+  selector: optional(string()),
+  /**
+   * The name of the built-in component that the user-defined component represents.
+   * @example
+   * "a"
+   */
+  as: optional(string()),
+  /**
+   * Pre-defined attributes that are used in the user-defined component.
+   * @example
+   * `Link` component has a `to` attribute that represents the `href` attribute in the built-in `a` element with a default value of `"/"`.
+   */
+  attributes: optional(array(CustomAttributeSchema), []),
+});
 
 /**
  * @internal
@@ -108,7 +90,7 @@ export const ESLintReactSettingsSchema = object({
   jsxPragmaFrag: optional(string()),
   strict: optional(boolean()),
   version: optional(string()),
-  additionalComponents: optional(array(CustomComponentSchema)),
+  additionalComponents: optional(array(CustomComponentSchema), []),
   additionalHooks: optional(object({
     use: optional(array(string())),
     useActionState: optional(array(string())),

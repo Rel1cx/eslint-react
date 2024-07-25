@@ -88,10 +88,6 @@ const config: FlatConfig[] = [
           message: "no optional",
           selector: "TSPropertySignature[optional=true]",
         },
-        {
-          message: "no undefined",
-          selector: "Identifier[name='undefined']",
-        },
       ],
       "no-undef": "off",
       "one-var": ["error", "never"],

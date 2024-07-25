@@ -283,5 +283,26 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    {
+      code: /* tsx */ `
+        const a = <Button component="a" href="https://react.dev"></Button>;
+      `,
+      settings: {
+        "react-x": {
+          additionalComponents: [
+            {
+              as: "a",
+              attributes: [
+                {
+                  name: "target",
+                  defaultValue: "_blank",
+                },
+              ],
+              selector: "JSXElement:has(JSXAttribute[name.name='component'][value.value='a'])",
+            },
+          ],
+        },
+      },
+    },
   ],
 });

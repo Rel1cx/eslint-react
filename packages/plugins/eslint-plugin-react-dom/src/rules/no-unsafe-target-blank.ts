@@ -3,7 +3,6 @@ import { decodeSettings, expandSettings } from "@eslint-react/shared";
 import { F, O, Pred } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import pm from "picomatch";
 import type { ConstantCase } from "string-ts";
 
 import { createRule, getPropFromUserDefined } from "../utils";
@@ -43,11 +42,7 @@ export default createRule<[], MessageID>({
       const { attributes } = node.openingElement;
       const initialScope = context.sourceCode.getScope(node);
       const additionalAttributes = additionalComponents
-        .findLast(c =>
-          c.name?.includes("*")
-            ? pm.isMatch(name, c.name)
-            : name === c.name
-        )
+        .findLast(c => !("selector" in c) && (c.re ? new RegExp(c.re).test(name) : c.name === name))
         ?.attributes
         ?? [];
       const [

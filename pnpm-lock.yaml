@@ -627,7 +627,13 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^7.17.0
         version: 7.17.0(eslint@9.7.0)(typescript@5.5.4)
+      picomatch:
+        specifier: ^4.0.2
+        version: 4.0.2
     devDependencies:
+      '@types/picomatch':
+        specifier: ^3.0.0
+        version: 3.0.0
       micro-memoize:
         specifier: 4.1.2
         version: 4.1.2
