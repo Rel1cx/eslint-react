@@ -11,6 +11,7 @@ export default {
   },
   "advanced-configuration": {
     title: "Advanced Configuration",
+    display: "hidden",
   },
   "---": {
     type: "separator",

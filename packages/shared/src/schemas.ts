@@ -60,7 +60,7 @@ export const CustomComponentSchema = object({
    * @example
    * "Link"
    */
-  name: optional(string(), "*"),
+  name: string(),
   /**
    * The ESQuery selector to select the component precisely.
    * @example
