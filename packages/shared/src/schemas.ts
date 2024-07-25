@@ -73,11 +73,17 @@ export const CustomComponentSchema = union([
   }),
   object({
     /**
+     * The name of the user-defined component.
+     * @example
+     * "Link"
+     */
+    name: string(),
+    /**
      * The ESQuery selector to select the component precisely.
      * @example
      * `:has(JSXAttribute[name.name='component'][value.value='a'])`
      */
-    selector: optional(string()),
+    selector: string(),
     /**
      * The name of the built-in component that the user-defined component represents.
      * @example

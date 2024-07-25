@@ -38,7 +38,7 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const additionalComponents = parseESLintSettings(context.settings)["react-x"]?.additionalComponents ?? [];
-    const additionalComponentsByName = groupBy(additionalComponents, c => "name" in c ? c.name : "");
+    const additionalComponentsByName = groupBy(additionalComponents, c => c.name);
     function checkJSXElement(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
       const elementName = elementType(node.openingElement);
       const { attributes } = node.openingElement;
