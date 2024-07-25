@@ -1,10 +1,10 @@
 Bundled Size:
 test/bundles/core/dist/index.js 1.59 MiB
 test/bundles/core/dist/index.mjs 1.59 MiB
-test/bundles/plugins/eslint-plugin-react-debug/dist/index.js 1.58 MiB
-test/bundles/plugins/eslint-plugin-react-debug/dist/index.mjs 1.58 MiB
-test/bundles/plugins/eslint-plugin-react-dom/dist/index.js 1.61 MiB
-test/bundles/plugins/eslint-plugin-react-dom/dist/index.mjs 1.61 MiB
+test/bundles/plugins/eslint-plugin-react-debug/dist/index.js 1.59 MiB
+test/bundles/plugins/eslint-plugin-react-debug/dist/index.mjs 1.59 MiB
+test/bundles/plugins/eslint-plugin-react-dom/dist/index.js 1.62 MiB
+test/bundles/plugins/eslint-plugin-react-dom/dist/index.mjs 1.62 MiB
 test/bundles/plugins/eslint-plugin-react-hooks-extra/dist/index.js 1.59 MiB
 test/bundles/plugins/eslint-plugin-react-hooks-extra/dist/index.mjs 1.59 MiB
 test/bundles/plugins/eslint-plugin-react-naming-convention/dist/index.js 1.60 MiB
@@ -13,8 +13,8 @@ test/bundles/plugins/eslint-plugin-react-x/dist/index.js 5.38 MiB
 test/bundles/plugins/eslint-plugin-react-x/dist/index.mjs 5.38 MiB
 test/bundles/plugins/eslint-plugin/dist/index.js 5.46 MiB
 test/bundles/plugins/eslint-plugin/dist/index.mjs 5.46 MiB
-test/bundles/shared/dist/index.js 1.49 MiB
-test/bundles/shared/dist/index.mjs 1.49 MiB
+test/bundles/shared/dist/index.js 1.50 MiB
+test/bundles/shared/dist/index.mjs 1.50 MiB
 test/bundles/tools/dist/index.js 44.59 KiB
 test/bundles/tools/dist/index.mjs 44.58 KiB
 test/bundles/types/dist/index.js 43 B
@@ -27,14 +27,14 @@ test/bundles/utilities/var/dist/index.js 1.56 MiB
 test/bundles/utilities/var/dist/index.mjs 1.56 MiB
 
 Gzipped Bundled Size:
-test/bundles/core/test-bundle-core-1.0.0.tgz 882.20 KiB
-test/bundles/plugins/eslint-plugin-react-debug/test-bundle-eslint-plugin-react-debug-1.0.0.tgz 880.25 KiB
-test/bundles/plugins/eslint-plugin-react-dom/test-bundle-eslint-plugin-react-dom-1.0.0.tgz 897.41 KiB
-test/bundles/plugins/eslint-plugin-react-hooks-extra/test-bundle-eslint-plugin-react-hooks-extra-1.0.0.tgz 880.89 KiB
-test/bundles/plugins/eslint-plugin-react-naming-convention/test-bundle-eslint-plugin-react-naming-convention-1.0.0.tgz 887.36 KiB
+test/bundles/core/test-bundle-core-1.0.0.tgz 884.99 KiB
+test/bundles/plugins/eslint-plugin-react-debug/test-bundle-eslint-plugin-react-debug-1.0.0.tgz 883.17 KiB
+test/bundles/plugins/eslint-plugin-react-dom/test-bundle-eslint-plugin-react-dom-1.0.0.tgz 899.96 KiB
+test/bundles/plugins/eslint-plugin-react-hooks-extra/test-bundle-eslint-plugin-react-hooks-extra-1.0.0.tgz 883.63 KiB
+test/bundles/plugins/eslint-plugin-react-naming-convention/test-bundle-eslint-plugin-react-naming-convention-1.0.0.tgz 890.53 KiB
 test/bundles/plugins/eslint-plugin-react-x/test-bundle-eslint-plugin-react-x-1.0.0.tgz 3.03 MiB
 test/bundles/plugins/eslint-plugin/test-bundle-eslint-plugin-1.0.0.tgz 3.07 MiB
-test/bundles/shared/test-bundle-shared-1.0.0.tgz 824.91 KiB
+test/bundles/shared/test-bundle-shared-1.0.0.tgz 827.51 KiB
 test/bundles/tools/test-bundle-tools-1.0.0.tgz 29.92 KiB
 test/bundles/types/test-bundle-types-1.0.0.tgz 1.12 KiB
 test/bundles/utilities/ast/test-bundle-ast-1.0.0.tgz 868.76 KiB
