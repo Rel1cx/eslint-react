@@ -17,7 +17,7 @@ function resolveMemberExpressions(object: TSESTree.JSXTagNameExpression, propert
  * @param node The visited JSXOpeningElement node object.
  * @returns The element's tag name.
  */
-export function elementType(node: TSESTree.JSXOpeningElement | TSESTree.JSXOpeningFragment): string {
+export function elementName(node: TSESTree.JSXOpeningElement | TSESTree.JSXOpeningFragment): string {
   if (node.type === AST_NODE_TYPES.JSXOpeningFragment) {
     return "<>";
   }

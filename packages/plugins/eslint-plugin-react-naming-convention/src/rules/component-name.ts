@@ -1,6 +1,6 @@
 import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
-import { elementType } from "@eslint-react/jsx";
+import { elementName } from "@eslint-react/jsx";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
 import { O, Pred } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -94,7 +94,7 @@ export default createRule<Options, MessageID>({
       ...collector.listeners,
       ...collectorLegacy.listeners,
       JSXOpeningElement(node) {
-        const name = elementType(node);
+        const name = elementName(node);
         const shouldIgnore =
           // Ignore built-in element names
           /^[a-z]/u.test(name)

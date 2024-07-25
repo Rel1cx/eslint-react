@@ -1,5 +1,5 @@
 import { NodeType } from "@eslint-react/ast";
-import { elementType, findPropInAttributes, getPropValue } from "@eslint-react/jsx";
+import { elementName, findPropInAttributes, getPropValue } from "@eslint-react/jsx";
 import { decodeSettings, expandSettings } from "@eslint-react/shared";
 import { F, O, Pred } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
@@ -40,14 +40,14 @@ export default createRule<[], MessageID>({
     const settings = expandSettings(decodeSettings(context.settings));
     const additionalComponents = settings?.additionalComponents?.filter(c => c.as === "a") ?? [];
     function checkJSXElement(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
-      const elementName = elementType(node.openingElement);
+      const name = elementName(node.openingElement);
       const { attributes } = node.openingElement;
       const initialScope = context.sourceCode.getScope(node);
       const additionalAttributes = additionalComponents
         .findLast(c =>
           c.name?.includes("*")
-            ? pm.isMatch(elementName, c.name)
-            : elementName === c.name
+            ? pm.isMatch(name, c.name)
+            : name === c.name
         )
         ?.attributes
         ?? [];

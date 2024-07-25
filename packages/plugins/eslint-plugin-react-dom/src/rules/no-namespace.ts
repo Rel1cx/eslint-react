@@ -1,5 +1,5 @@
 import { isCreateElementCall } from "@eslint-react/core";
-import { elementType } from "@eslint-react/jsx";
+import { elementName } from "@eslint-react/jsx";
 import { Pred } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
         }
       },
       JSXOpeningElement(node) {
-        const name = elementType(node);
+        const name = elementName(node);
         if (!Pred.isString(name) || !name.includes(":")) return;
         context.report({
           data: {
