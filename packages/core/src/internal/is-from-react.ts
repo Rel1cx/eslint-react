@@ -1,5 +1,5 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
-import { parseESLintSettings } from "@eslint-react/shared";
+import { decodeSettings } from "@eslint-react/shared";
 import { O, Pred } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable } from "@eslint-react/var";
@@ -18,7 +18,7 @@ export function isInitializedFromReact(
   if (O.isNone(maybeLatestDef)) return false;
   const latestDef = maybeLatestDef.value;
   const { node, parent } = latestDef;
-  const settings = parseESLintSettings(context.settings)["react-x"] ?? {};
+  const settings = decodeSettings(context.settings);
   const importSource = settings.importSource ?? "react";
   if (node.type === NodeType.VariableDeclarator && node.init) {
     const { init } = node;

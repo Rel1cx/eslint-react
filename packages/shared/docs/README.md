@@ -28,4 +28,5 @@
 ## Functions
 
 - [createRuleForPlugin](functions/createRuleForPlugin.md)
-- [parseESLintSettings](functions/parseESLintSettings.md)
+- [decodeSettings](functions/decodeSettings.md)
+- [expandSettings](functions/expandSettings.md)

@@ -628,6 +628,9 @@ importers:
         specifier: ^7.17.0
         version: 7.17.0(eslint@9.7.0)(typescript@5.5.4)
     devDependencies:
+      micro-memoize:
+        specifier: 4.1.2
+        version: 4.1.2
       tsup:
         specifier: 8.2.3
         version: 8.2.3(@swc/core@1.7.1(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.40)(typescript@5.5.4)(yaml@2.5.0)
@@ -4577,6 +4580,9 @@ packages:
 
   mhchemparser@4.2.1:
     resolution: {integrity: sha512-kYmyrCirqJf3zZ9t/0wGgRZ4/ZJw//VwaRVGA75C4nhE60vtnIzhl9J9ndkX/h6hxSN7pjg/cE0VxbnNM+bnDQ==}
+
+  micro-memoize@4.1.2:
+    resolution: {integrity: sha512-+HzcV2H+rbSJzApgkj0NdTakkC+bnyeiUxgT6/m7mjcz1CmM22KYFKp+EVj1sWe4UYcnriJr5uqHQD/gMHLD+g==}
 
   micromark-core-commonmark@1.1.0:
     resolution: {integrity: sha512-BgHO1aRbolh2hcrzL2d1La37V0Aoz73ymF8rAcKnohLy93titmv62E0gP8Hrx9PKcKrqCZ1BbLGbP3bEhoXYlw==}
@@ -10337,6 +10343,8 @@ snapshots:
       - supports-color
 
   mhchemparser@4.2.1: {}
+
+  micro-memoize@4.1.2: {}
 
   micromark-core-commonmark@1.1.0:
     dependencies:

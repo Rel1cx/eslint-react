@@ -1,5 +1,5 @@
 import { NodeType } from "@eslint-react/ast";
-import { parseESLintSettings } from "@eslint-react/shared";
+import { decodeSettings } from "@eslint-react/shared";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -12,7 +12,7 @@ import { isInitializedFromReact } from "../internal";
  * @returns `true` if the node is a fragment element, `false` otherwise
  */
 export function isFragmentElement(node: TSESTree.JSXElement, context: RuleContext) {
-  const { jsxPragma = "React", jsxPragmaFrag = "Fragment" } = parseESLintSettings(context.settings)["react-x"] ?? {};
+  const { jsxPragma = "React", jsxPragmaFrag = "Fragment" } = decodeSettings(context.settings);
   const { name } = node.openingElement;
   // <Fragment>
   if (name.type === NodeType.JSXIdentifier && name.name === jsxPragmaFrag) return true;

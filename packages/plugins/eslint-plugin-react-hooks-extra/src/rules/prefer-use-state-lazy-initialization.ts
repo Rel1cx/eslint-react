@@ -1,7 +1,7 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3579/commits/ebb739a0fe99a2ee77055870bfda9f67a2691374
 import { getNestedCallExpressions } from "@eslint-react/ast";
 import { isReactHookCall, isReactHookCallWithNameLoose, isUseStateCall } from "@eslint-react/core";
-import { parseESLintSettings } from "@eslint-react/shared";
+import { decodeSettings } from "@eslint-react/shared";
 import { F } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const alias = parseESLintSettings(context.settings)["react-x"]?.additionalHooks?.useState ?? [];
+    const alias = decodeSettings(context.settings)?.additionalHooks?.useState ?? [];
     return {
       CallExpression(node) {
         if (!isReactHookCall(node)) return;

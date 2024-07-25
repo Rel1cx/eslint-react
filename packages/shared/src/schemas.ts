@@ -134,14 +134,17 @@ export const ESLintReactSettingsSchema = object({
 /**
  * @internal
  */
-export const ESLintSettingsSchema = object({
-  "react-x": optional(ESLintReactSettingsSchema),
-  /**
-   * @internal
-   * @deprecated
-   */
-  reactOptions: optional(ESLintReactSettingsSchema),
-});
+export const ESLintSettingsSchema = optional(
+  object({
+    "react-x": optional(ESLintReactSettingsSchema, {}),
+    /**
+     * @internal
+     * @deprecated
+     */
+    reactOptions: optional(ESLintReactSettingsSchema, {}),
+  }),
+  {},
+);
 
 export type CustomHook = InferOutput<typeof CustomHookSchema>;
 
