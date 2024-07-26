@@ -83,8 +83,8 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0(esbuild@0.23.0)
       code-block-writer:
-        specifier: 13.0.1
-        version: 13.0.1
+        specifier: 13.0.2
+        version: 13.0.2
       cspell:
         specifier: 8.12.1
         version: 8.12.1
@@ -92,8 +92,8 @@ importers:
         specifier: 0.47.2
         version: 0.47.2
       effect:
-        specifier: 3.5.7
-        version: 3.5.7
+        specifier: 3.5.8
+        version: 3.5.8
       esbuild:
         specifier: 0.23.0
         version: 0.23.0
@@ -146,8 +146,8 @@ importers:
         specifier: ^5.27.0
         version: 5.27.0(@types/node@20.14.12)(typescript@5.5.4)
       lefthook:
-        specifier: ^1.7.7
-        version: 1.7.7
+        specifier: ^1.7.9
+        version: 1.7.9
       markdownlint:
         specifier: 0.34.0
         version: 0.34.0
@@ -274,13 +274,13 @@ importers:
         version: 7.17.0
       '@typescript-eslint/type-utils':
         specifier: ^7.17.0
-        version: 7.17.0(eslint@9.7.0)(typescript@5.5.4)
+        version: 7.17.0(eslint@9.7.0)(typescript@5.6.0-dev.20240726)
       '@typescript-eslint/types':
         specifier: ^7.17.0
         version: 7.17.0
       '@typescript-eslint/utils':
         specifier: ^7.17.0
-        version: 7.17.0(eslint@9.7.0)(typescript@5.5.4)
+        version: 7.17.0(eslint@9.7.0)(typescript@5.6.0-dev.20240726)
       short-unique-id:
         specifier: ^5.2.0
         version: 5.2.0
@@ -290,7 +290,7 @@ importers:
     devDependencies:
       tsup:
         specifier: 8.2.3
-        version: 8.2.3(@swc/core@1.7.2(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.40)(typescript@5.5.4)(yaml@2.5.0)
+        version: 8.2.3(@swc/core@1.7.2(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.40)(typescript@5.6.0-dev.20240726)(yaml@2.5.0)
 
   packages/plugins/eslint-plugin:
     dependencies:
@@ -644,8 +644,8 @@ importers:
   packages/tools:
     devDependencies:
       effect:
-        specifier: 3.5.7
-        version: 3.5.7
+        specifier: 3.5.8
+        version: 3.5.8
       tsup:
         specifier: 8.2.3
         version: 8.2.3(@swc/core@1.7.2(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.40)(typescript@5.5.4)(yaml@2.5.0)
@@ -1015,8 +1015,8 @@ importers:
         specifier: 10.4.19
         version: 10.4.19(postcss@8.4.40)
       effect:
-        specifier: 3.5.7
-        version: 3.5.7
+        specifier: 3.5.8
+        version: 3.5.8
       eslint:
         specifier: ^9.7.0
         version: 9.7.0
@@ -2789,7 +2789,6 @@ packages:
 
   bun@1.1.20:
     resolution: {integrity: sha512-aqLmvaz0/vLUiCrOXtAsf7pCSOS/qXieYDsq8COa3+fIgMK05CjZt9m9r7DC+tjKy7hH8uKSNTapQOr/kX8gIA==}
-    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -2938,8 +2937,8 @@ packages:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
     engines: {node: '>=6'}
 
-  code-block-writer@13.0.1:
-    resolution: {integrity: sha512-c5or4P6erEA69TxaxTNcHUNcIn+oyxSRTOWV+pSYF+z4epXqNvwvJ70XPGjPNgue83oAFAPBRQYwpAJ/Hpe/Sg==}
+  code-block-writer@13.0.2:
+    resolution: {integrity: sha512-XfXzAGiStXSmCIwrkdfvc7FS5Dtj8yelCtyOf2p2skCAfvLd6zu0rGzuS9NSCO3bq1JKpFZ7tbKdKlcd5occQA==}
 
   collapse-white-space@2.1.0:
     resolution: {integrity: sha512-loKTxY1zCOuG4j9f6EPnuyyYkf58RnhhWTvRoZEokgB+WbdXehfjFviyOVYkqzEWz1Q5kRiZdBYS5SwxbQYwzw==}
@@ -3382,8 +3381,8 @@ packages:
   effect@3.3.2:
     resolution: {integrity: sha512-695XQBtp+UUYG50oREG9ujnRoeQU7xhwHDhT6ZAexm3Q+umdml1kjxcPoYRrS65crmaLlhVpjZHePJNzWOODnA==}
 
-  effect@3.5.7:
-    resolution: {integrity: sha512-PzEncc0R3ZZhqNTR+fXrSX+anF/4Ai6ftKie1ZrUUWY7WPE7d4KjB6wjpeWoGMOC7xWFPGSkBBUudyJN1mx3+g==}
+  effect@3.5.8:
+    resolution: {integrity: sha512-gGrRH3BgsUrfOXx4vbD4puRS+/IyK7JiERhuKnjVYurTVDj3J+lPI7raJB9/AAKr59SGEiV7+Sy59/Q/Vfo5mQ==}
 
   electron-to-chromium@1.5.0:
     resolution: {integrity: sha512-Vb3xHHYnLseK8vlMJQKJYXJ++t4u1/qJ3vykuVrVjvdiOEhYyT1AuP4x03G8EnPmYvYOhe9T+dADTmthjRQMkA==}
@@ -3880,7 +3879,6 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
-    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -4057,7 +4055,6 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
-    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -4330,48 +4327,48 @@ packages:
   layout-base@1.0.2:
     resolution: {integrity: sha512-8h2oVEZNktL4BH2JCOI90iD1yXwL6iNW7KcCKT2QZgQJR2vbqDsldCTPRU9NifTCqHZci57XvQQ15YTu+sTYPg==}
 
-  lefthook-darwin-arm64@1.7.7:
-    resolution: {integrity: sha512-EtINYW/1jJDMSlBbCwiZhHRMwybJkuawg9/dtHMll9gE63yBTOQSoqLzjOJWioHKK9DrgAfe2Mh5+PSt0cLVRA==}
+  lefthook-darwin-arm64@1.7.9:
+    resolution: {integrity: sha512-WF1ELaKKpU3qkoHAklg7/mI4fkd4hiGRV1DngLU+vz0BoD89nRlp60tJsSPq+/O35raXy41wLE3cGVmgbTHeOw==}
     cpu: [arm64]
     os: [darwin]
 
-  lefthook-darwin-x64@1.7.7:
-    resolution: {integrity: sha512-77fHVtvLeInztn88fZOsiNMlP5Ql6eG8D233k1G1zndRxwCnVVlB6GVLC/0SRmdE9cR7U66CSphN6EClZrvyHQ==}
+  lefthook-darwin-x64@1.7.9:
+    resolution: {integrity: sha512-yNKmuSmbRXHuL9NCjuKO9wAsDxlP8ELXV6aFEFbuf12Rk5nJjp+e5VuKRkYlYA9uqLnIsZR79c2+/i+PgtmyNg==}
     cpu: [x64]
     os: [darwin]
 
-  lefthook-freebsd-arm64@1.7.7:
-    resolution: {integrity: sha512-y2+T2ONfr9DYxyx1JGItBf1ARGx0RJcAOn9pEfSN1LrEOAvcVlQKDE8+evdmt8uhMo5TVi+gFe1tdtsIbsiQTA==}
+  lefthook-freebsd-arm64@1.7.9:
+    resolution: {integrity: sha512-+ZF7jIG2hRJbd36TbPkpHyxjR0e6cvo66WsUYBJy6DJPK3EJpkdsGiMrvMSbSYLfgzfhR6nOXBr5vOpL2lfBFw==}
     cpu: [arm64]
     os: [freebsd]
 
-  lefthook-freebsd-x64@1.7.7:
-    resolution: {integrity: sha512-6zbprxvq7bBG7ihSA1R/GCC5iN+q9tbjQXKiOI+d63F/Oo5ld/kF5fIZv50K39ujx1Ykdmg5llEIBeDEHuybZQ==}
+  lefthook-freebsd-x64@1.7.9:
+    resolution: {integrity: sha512-LhSLdkf0HRhfuVsJP24oizfB94noCyyNLUOd35ZVd4KpAbFU/71OBBKqosig4QO4kyyRDWNK20tTbzCb1XKQxA==}
     cpu: [x64]
     os: [freebsd]
 
-  lefthook-linux-arm64@1.7.7:
-    resolution: {integrity: sha512-bUpDortnX1ACCd38uv2+I9vdsyP9Oe9FXZ4E/xX8nl+hnkgC80/nv1KxRI7MlaDdb1z4VgEO/0pT2OU1nM1C/A==}
+  lefthook-linux-arm64@1.7.9:
+    resolution: {integrity: sha512-Bt7DAFU2/2ws3/i95tKOffRM0yau2jsa4ksCskq8igmEBQ6iTvsK8ZUowtXaAavXYKh0EZb3uQ63iFz+NKypmQ==}
     cpu: [arm64]
     os: [linux]
 
-  lefthook-linux-x64@1.7.7:
-    resolution: {integrity: sha512-8dEuO0AzQkWFKSRvd2rzb/LtmgtEoQHhzgTANeq/2EyWgcfVb62b/qib75oZ0m9W4uvRvqTiLdaGELoS8ohWGA==}
+  lefthook-linux-x64@1.7.9:
+    resolution: {integrity: sha512-xe4X4KBf48Nzypdg1EX2s2xqytbguIZC7eYXZPer1YUggVDbRMrdVBK7J0OAEqA4RbvE82pDjrKSopnlYlMYhw==}
     cpu: [x64]
     os: [linux]
 
-  lefthook-windows-arm64@1.7.7:
-    resolution: {integrity: sha512-ZO45ynUnMPm+I8xGgmSc5BqtfByRJSRrhjXQ2lwNE9V+Zl3oMjCMPrs+3KLmrnKxi/k2bq/VHY86XvIhRo7o+g==}
+  lefthook-windows-arm64@1.7.9:
+    resolution: {integrity: sha512-PQdBx8Pj7IEda1ipRULw0V4tzMe38VcbxVSUICxvHsG0levkfGA0GgjuftEryx4qDhVRE7VUzKuC9Qn1SSMuFw==}
     cpu: [arm64]
     os: [win32]
 
-  lefthook-windows-x64@1.7.7:
-    resolution: {integrity: sha512-z4/MxR+GMYZwgCxvLPGU4ebuXNUFdJrtrsAxMVbCw0LU/n7VCP+nfdaxcGO6ELqd4OOfpJCpBhzkvupFefmhhw==}
+  lefthook-windows-x64@1.7.9:
+    resolution: {integrity: sha512-lUMYgP9SUYrfoBGCfWNj7k9n8Nhwi83rAP0eLUvaHZFW7J/wCM4Pv9K85OkRMb7ToFRJIQ0zdD6Vdb6AZpeMVA==}
     cpu: [x64]
     os: [win32]
 
-  lefthook@1.7.7:
-    resolution: {integrity: sha512-b1giMxEuEb4MBcSkrEpQSFs5W9+vPlahAltxhWCqqarNzz8oisD4bMA/UGYAn/lvUhhC6oFo98zetQNpvjXp5Q==}
+  lefthook@1.7.9:
+    resolution: {integrity: sha512-/C8By2tUk/fHgLd1iH1elSPsYO75/hdNhyJvvQzLNtZ2IH7x3mC5a1pf1Zijpj+QD2vhRyz5W5sr9DShKvEagA==}
     hasBin: true
 
   levn@0.4.1:
@@ -5993,6 +5990,11 @@ packages:
 
   typescript@5.5.4:
     resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  typescript@5.6.0-dev.20240726:
+    resolution: {integrity: sha512-/KHI7WR6NxpuU91TJcSU18tTIIzpDzu5SWQBCt2yS09dGF6Hoys85rdggtSXlHybfTZ5ZT9B2sU7DwNaoW04Pw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -7740,6 +7742,18 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@typescript-eslint/type-utils@7.17.0(eslint@9.7.0)(typescript@5.6.0-dev.20240726)':
+    dependencies:
+      '@typescript-eslint/typescript-estree': 7.17.0(typescript@5.6.0-dev.20240726)
+      '@typescript-eslint/utils': 7.17.0(eslint@9.7.0)(typescript@5.6.0-dev.20240726)
+      debug: 4.3.5
+      eslint: 9.7.0
+      ts-api-utils: 1.3.0(typescript@5.6.0-dev.20240726)
+    optionalDependencies:
+      typescript: 5.6.0-dev.20240726
+    transitivePeerDependencies:
+      - supports-color
+
   '@typescript-eslint/types@7.13.1': {}
 
   '@typescript-eslint/types@7.17.0': {}
@@ -7774,12 +7788,38 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@typescript-eslint/typescript-estree@7.17.0(typescript@5.6.0-dev.20240726)':
+    dependencies:
+      '@typescript-eslint/types': 7.17.0
+      '@typescript-eslint/visitor-keys': 7.17.0
+      debug: 4.3.5
+      globby: 11.1.0
+      is-glob: 4.0.3
+      minimatch: 9.0.5
+      semver: 7.6.3
+      ts-api-utils: 1.3.0(typescript@5.6.0-dev.20240726)
+    optionalDependencies:
+      typescript: 5.6.0-dev.20240726
+    transitivePeerDependencies:
+      - supports-color
+
   '@typescript-eslint/utils@7.17.0(eslint@9.7.0)(typescript@5.5.4)':
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@9.7.0)
       '@typescript-eslint/scope-manager': 7.17.0
       '@typescript-eslint/types': 7.17.0
       '@typescript-eslint/typescript-estree': 7.17.0(typescript@5.5.4)
+      eslint: 9.7.0
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+
+  '@typescript-eslint/utils@7.17.0(eslint@9.7.0)(typescript@5.6.0-dev.20240726)':
+    dependencies:
+      '@eslint-community/eslint-utils': 4.4.0(eslint@9.7.0)
+      '@typescript-eslint/scope-manager': 7.17.0
+      '@typescript-eslint/types': 7.17.0
+      '@typescript-eslint/typescript-estree': 7.17.0(typescript@5.6.0-dev.20240726)
       eslint: 9.7.0
     transitivePeerDependencies:
       - supports-color
@@ -8345,7 +8385,7 @@ snapshots:
 
   clsx@2.1.1: {}
 
-  code-block-writer@13.0.1: {}
+  code-block-writer@13.0.2: {}
 
   collapse-white-space@2.1.0: {}
 
@@ -8850,7 +8890,7 @@ snapshots:
 
   effect@3.3.2: {}
 
-  effect@3.5.7: {}
+  effect@3.5.8: {}
 
   electron-to-chromium@1.5.0: {}
 
@@ -9926,40 +9966,40 @@ snapshots:
 
   layout-base@1.0.2: {}
 
-  lefthook-darwin-arm64@1.7.7:
+  lefthook-darwin-arm64@1.7.9:
     optional: true
 
-  lefthook-darwin-x64@1.7.7:
+  lefthook-darwin-x64@1.7.9:
     optional: true
 
-  lefthook-freebsd-arm64@1.7.7:
+  lefthook-freebsd-arm64@1.7.9:
     optional: true
 
-  lefthook-freebsd-x64@1.7.7:
+  lefthook-freebsd-x64@1.7.9:
     optional: true
 
-  lefthook-linux-arm64@1.7.7:
+  lefthook-linux-arm64@1.7.9:
     optional: true
 
-  lefthook-linux-x64@1.7.7:
+  lefthook-linux-x64@1.7.9:
     optional: true
 
-  lefthook-windows-arm64@1.7.7:
+  lefthook-windows-arm64@1.7.9:
     optional: true
 
-  lefthook-windows-x64@1.7.7:
+  lefthook-windows-x64@1.7.9:
     optional: true
 
-  lefthook@1.7.7:
+  lefthook@1.7.9:
     optionalDependencies:
-      lefthook-darwin-arm64: 1.7.7
-      lefthook-darwin-x64: 1.7.7
-      lefthook-freebsd-arm64: 1.7.7
-      lefthook-freebsd-x64: 1.7.7
-      lefthook-linux-arm64: 1.7.7
-      lefthook-linux-x64: 1.7.7
-      lefthook-windows-arm64: 1.7.7
-      lefthook-windows-x64: 1.7.7
+      lefthook-darwin-arm64: 1.7.9
+      lefthook-darwin-x64: 1.7.9
+      lefthook-freebsd-arm64: 1.7.9
+      lefthook-freebsd-x64: 1.7.9
+      lefthook-linux-arm64: 1.7.9
+      lefthook-linux-x64: 1.7.9
+      lefthook-windows-arm64: 1.7.9
+      lefthook-windows-x64: 1.7.9
 
   levn@0.4.1:
     dependencies:
@@ -11965,6 +12005,10 @@ snapshots:
     dependencies:
       typescript: 5.5.4
 
+  ts-api-utils@1.3.0(typescript@5.6.0-dev.20240726):
+    dependencies:
+      typescript: 5.6.0-dev.20240726
+
   ts-declaration-location@1.0.3(typescript@5.5.4):
     dependencies:
       minimatch: 9.0.5
@@ -12000,6 +12044,34 @@ snapshots:
       '@swc/core': 1.7.2(@swc/helpers@0.5.5)
       postcss: 8.4.40
       typescript: 5.5.4
+    transitivePeerDependencies:
+      - jiti
+      - supports-color
+      - tsx
+      - yaml
+
+  tsup@8.2.3(@swc/core@1.7.2(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.40)(typescript@5.6.0-dev.20240726)(yaml@2.5.0):
+    dependencies:
+      bundle-require: 5.0.0(esbuild@0.23.0)
+      cac: 6.7.14
+      chokidar: 3.6.0
+      consola: 3.2.3
+      debug: 4.3.5
+      esbuild: 0.23.0
+      execa: 5.1.1
+      globby: 11.1.0
+      joycon: 3.1.1
+      picocolors: 1.0.1
+      postcss-load-config: 6.0.1(jiti@1.21.6)(postcss@8.4.40)(yaml@2.5.0)
+      resolve-from: 5.0.0
+      rollup: 4.19.0
+      source-map: 0.8.0-beta.0
+      sucrase: 3.35.0
+      tree-kill: 1.2.2
+    optionalDependencies:
+      '@swc/core': 1.7.2(@swc/helpers@0.5.5)
+      postcss: 8.4.40
+      typescript: 5.6.0-dev.20240726
     transitivePeerDependencies:
       - jiti
       - supports-color
@@ -12085,6 +12157,8 @@ snapshots:
       - supports-color
 
   typescript@5.5.4: {}
+
+  typescript@5.6.0-dev.20240726: {}
 
   uc.micro@2.1.0: {}
 
