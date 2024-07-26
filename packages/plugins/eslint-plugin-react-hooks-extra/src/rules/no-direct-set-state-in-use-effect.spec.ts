@@ -417,6 +417,18 @@ ruleTester.run(RULE_NAME, rule, {
       import { useEffect, useState } from "react";
 
       function Component() {
+        const [fn] = useState(() => () => "Function");
+        // ...
+        useEffect(() => {
+          fn();
+        }, []);
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useEffect, useState } from "react";
+
+      function Component() {
         const [data, setData] = useState(0);
         useEffect(() => {
           const handler = () => setData(1);

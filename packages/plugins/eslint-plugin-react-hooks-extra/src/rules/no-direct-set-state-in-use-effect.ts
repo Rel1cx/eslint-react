@@ -47,23 +47,19 @@ export default createRule<[], MessageID>({
         && isUseEffectCallWithAlias(node.parent);
     }
     function isCleanUpFunction(_: TSESTree.Node) {}
-    function isFromUseStateCall(id: TSESTree.Identifier | TSESTree.MemberExpression) {
-      return F.pipe(
-        match(id)
-          .with({ type: NodeType.Identifier }, (n) => O.some(n.name))
-          .with({
-            type: NodeType.MemberExpression,
-            object: { type: NodeType.Identifier },
-          }, (n) => O.some(n.object.name))
-          .otherwise(O.none),
-        O.flatMap(findVariable(context.sourceCode.getScope(id))),
+    function isFromUseStateCall(topLevelId: TSESTree.Identifier) {
+      const useStateCall = F.pipe(
+        findVariable(topLevelId, context.sourceCode.getScope(topLevelId)),
         O.flatMap(getVariableNode(0)),
         O.filter(is(NodeType.CallExpression)),
-        O.exists(isUseStateCallWithAlias),
+        O.filter(isUseStateCallWithAlias),
       );
+      if (O.isNone(useStateCall)) return false;
+      const { parent } = useStateCall.value;
+      return !isMatching({ id: { elements: [{ name: topLevelId.name }] } }, parent);
     }
     function isSetStateCall(node: TSESTree.CallExpression) {
-      const id = match(node.callee)
+      const topLevelId = match(node.callee)
         // const [data, setData] = useState();
         // setData();
         .with({ type: NodeType.Identifier }, O.some)
@@ -99,7 +95,7 @@ export default createRule<[], MessageID>({
           return O.none();
         })
         .otherwise(O.none);
-      return O.exists(id, isFromUseStateCall);
+      return O.exists(topLevelId, isFromUseStateCall);
     }
     function isThenCall(node: TSESTree.CallExpression) {
       if (node.callee.type !== NodeType.MemberExpression) return false;
