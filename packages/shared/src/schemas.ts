@@ -52,10 +52,6 @@ export const CustomAttributeSchema = object({
  */
 export const CustomComponentSchema = object({
   /**
-   * @internal
-   */
-  re: optional(string()),
-  /**
    * The name of the user-defined component.
    * @example
    * "Link"

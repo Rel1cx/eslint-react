@@ -1,15 +1,27 @@
 import memoize from "micro-memoize";
-import picomatch from "picomatch";
+import pm from "picomatch";
 import { parse } from "valibot";
 
-import type { ESLintReactSettings } from "./schemas";
+import type { CustomComponent, ESLintReactSettings } from "./schemas";
 import { ESLintSettingsSchema } from "./schemas";
+
+export interface CustomComponentExpanded extends CustomComponent {
+  attributes: {
+    name: string;
+    as: string;
+  }[];
+  re: RegExp;
+}
+
+export interface ESLintReactSettingsExpanded extends ESLintReactSettings {
+  additionalComponents: CustomComponentExpanded[];
+}
 
 export function decodeSettings(data: unknown): ESLintReactSettings {
   return parse(ESLintSettingsSchema, data)["react-x"] ?? {};
 }
 
-export const expandSettings = memoize((settings: ESLintReactSettings): ESLintReactSettings => {
+export const expandSettings = memoize((settings: ESLintReactSettings): ESLintReactSettingsExpanded => {
   return {
     ...settings,
     additionalComponents: settings.additionalComponents?.map((component) => ({
@@ -18,7 +30,7 @@ export const expandSettings = memoize((settings: ESLintReactSettings): ESLintRea
         ...attr,
         as: attr.as ?? attr.name,
       })) ?? [],
-      re: picomatch.parse(component.name).output,
+      re: pm.toRegex(pm.parse(component.name).output),
     })) ?? [],
   };
 }, { isDeepEqual: false });

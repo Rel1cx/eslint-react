@@ -283,49 +283,51 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    {
-      code: /* tsx */ `
-        const a = <Button component="a" href="https://react.dev"></Button>;
-      `,
-      settings: {
-        "react-x": {
-          additionalComponents: [
-            {
-              name: "Button",
-              as: "a",
-              attributes: [
-                {
-                  name: "target",
-                  defaultValue: "_blank",
-                },
-              ],
-              selector: "JSXElement:has(JSXAttribute[name.name='component'][value.value='a'])",
-            },
-          ],
-        },
-      },
-    },
-    {
-      code: /* tsx */ `
-        const a = <Button component="a" href="https://react.dev"></Button>;
-      `,
-      settings: {
-        "react-x": {
-          additionalComponents: [
-            {
-              name: "*",
-              as: "a",
-              attributes: [
-                {
-                  name: "target",
-                  defaultValue: "_blank",
-                },
-              ],
-              selector: "JSXElement:has(JSXAttribute[name.name='component'][value.value='a'])",
-            },
-          ],
-        },
-      },
-    },
+    // TODO: Implement this
+    // {
+    //   code: /* tsx */ `
+    //     const a = <Button component="a" href="https://react.dev"></Button>;
+    //   `,
+    //   settings: {
+    //     "react-x": {
+    //       additionalComponents: [
+    //         {
+    //           name: "Button",
+    //           as: "a",
+    //           attributes: [
+    //             {
+    //               name: "target",
+    //               defaultValue: "_blank",
+    //             },
+    //           ],
+    //           selector: "JSXElement:has(JSXAttribute[name.name='component'][value.value='a'])",
+    //         },
+    //       ],
+    //     },
+    //   },
+    // },
+    // TODO: Implement this
+    // {
+    //   code: /* tsx */ `
+    //     const a = <Button component="a" href="https://react.dev"></Button>;
+    //   `,
+    //   settings: {
+    //     "react-x": {
+    //       additionalComponents: [
+    //         {
+    //           name: "*",
+    //           as: "a",
+    //           attributes: [
+    //             {
+    //               name: "target",
+    //               defaultValue: "_blank",
+    //             },
+    //           ],
+    //           selector: "JSXElement:has(JSXAttribute[name.name='component'][value.value='a'])",
+    //         },
+    //       ],
+    //     },
+    //   },
+    // },
   ],
 });

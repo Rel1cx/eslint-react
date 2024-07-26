@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
       const { attributes } = node.openingElement;
       const initialScope = context.sourceCode.getScope(node);
       const additionalAttributes = additionalComponents
-        .findLast(c => !("selector" in c) && (c.re ? new RegExp(c.re).test(name) : c.name === name))
+        .findLast(c => c.re.test(name))
         ?.attributes
         ?? [];
       const [

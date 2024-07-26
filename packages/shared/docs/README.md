@@ -4,6 +4,11 @@
 
 # @eslint-react/shared
 
+## Interfaces
+
+- [CustomComponentExpanded](interfaces/CustomComponentExpanded.md)
+- [ESLintReactSettingsExpanded](interfaces/ESLintReactSettingsExpanded.md)
+
 ## Type Aliases
 
 - [CustomAttribute](type-aliases/CustomAttribute.md)
