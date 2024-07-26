@@ -438,9 +438,6 @@ importers:
       '@types/react-dom':
         specifier: 18.3.0
         version: 18.3.0
-      es-toolkit:
-        specifier: 1.13.1
-        version: 1.13.1
       string-ts:
         specifier: ^2.2.0
         version: 2.2.0
@@ -620,7 +617,7 @@ importers:
     dependencies:
       '@typescript-eslint/utils':
         specifier: ^7.17.0
-        version: 7.17.0(eslint@9.7.0)(typescript@5.5.4)
+        version: 7.17.0(eslint@9.7.0)(typescript@5.6.0-dev.20240726)
       picomatch:
         specifier: ^4.0.2
         version: 4.0.2
@@ -633,7 +630,7 @@ importers:
         version: 4.1.2
       tsup:
         specifier: 8.2.3
-        version: 8.2.3(@swc/core@1.7.2(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.40)(typescript@5.5.4)(yaml@2.5.0)
+        version: 8.2.3(@swc/core@1.7.2(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.40)(typescript@5.6.0-dev.20240726)(yaml@2.5.0)
       type-fest:
         specifier: 4.23.0
         version: 4.23.0
@@ -660,11 +657,11 @@ importers:
         version: 7.17.0
       '@typescript-eslint/utils':
         specifier: ^7.17.0
-        version: 7.17.0(eslint@9.7.0)(typescript@5.5.4)
+        version: 7.17.0(eslint@9.7.0)(typescript@5.6.0-dev.20240726)
     devDependencies:
       tsup:
         specifier: 8.2.3
-        version: 8.2.3(@swc/core@1.7.2(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.40)(typescript@5.5.4)(yaml@2.5.0)
+        version: 8.2.3(@swc/core@1.7.2(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.40)(typescript@5.6.0-dev.20240726)(yaml@2.5.0)
 
   packages/utilities/ast:
     dependencies:
@@ -685,7 +682,7 @@ importers:
         version: 7.17.0
       '@typescript-eslint/utils':
         specifier: ^7.17.0
-        version: 7.17.0(eslint@9.7.0)(typescript@5.5.4)
+        version: 7.17.0(eslint@9.7.0)(typescript@5.6.0-dev.20240726)
       string-ts:
         specifier: ^2.2.0
         version: 2.2.0
@@ -695,7 +692,7 @@ importers:
     devDependencies:
       tsup:
         specifier: 8.2.3
-        version: 8.2.3(@swc/core@1.7.2(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.40)(typescript@5.5.4)(yaml@2.5.0)
+        version: 8.2.3(@swc/core@1.7.2(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.40)(typescript@5.6.0-dev.20240726)(yaml@2.5.0)
 
   packages/utilities/jsx:
     dependencies:
@@ -719,14 +716,14 @@ importers:
         version: 7.17.0
       '@typescript-eslint/utils':
         specifier: ^7.17.0
-        version: 7.17.0(eslint@9.7.0)(typescript@5.5.4)
+        version: 7.17.0(eslint@9.7.0)(typescript@5.6.0-dev.20240726)
       ts-pattern:
         specifier: ^5.2.0
         version: 5.2.0
     devDependencies:
       tsup:
         specifier: 8.2.3
-        version: 8.2.3(@swc/core@1.7.2(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.40)(typescript@5.5.4)(yaml@2.5.0)
+        version: 8.2.3(@swc/core@1.7.2(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.40)(typescript@5.6.0-dev.20240726)(yaml@2.5.0)
 
   packages/utilities/var:
     dependencies:
@@ -747,14 +744,14 @@ importers:
         version: 7.17.0
       '@typescript-eslint/utils':
         specifier: ^7.17.0
-        version: 7.17.0(eslint@9.7.0)(typescript@5.5.4)
+        version: 7.17.0(eslint@9.7.0)(typescript@5.6.0-dev.20240726)
     devDependencies:
       string-ts:
         specifier: ^2.2.0
         version: 2.2.0
       tsup:
         specifier: 8.2.3
-        version: 8.2.3(@swc/core@1.7.2(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.40)(typescript@5.5.4)(yaml@2.5.0)
+        version: 8.2.3(@swc/core@1.7.2(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.40)(typescript@5.6.0-dev.20240726)(yaml@2.5.0)
 
   test/bundles/core:
     devDependencies:
@@ -3427,9 +3424,6 @@ packages:
 
   es-module-lexer@1.5.4:
     resolution: {integrity: sha512-MVNK56NiMrOwitFB7cqDwq0CQutbw+0BvLshJSse0MUNU+y1FC3bUS/AQg7oUng+/wKrrki7JfmwtVHkVfPLlw==}
-
-  es-toolkit@1.13.1:
-    resolution: {integrity: sha512-tGsgoI8DfU0yrZI7w97aYVMZJU5sjpXC+HK8aYf3pmLQRNHMleiJN5ud21dA/IHKkTDFY5jcDMQcLs0A21LtAg==}
 
   esbuild@0.23.0:
     resolution: {integrity: sha512-1lvV17H2bMYda/WaFb2jLPeHU3zml2k4/yagNMG8Q/YtfMjCwEUZa2eXXMgZTVSL5q1n4H7sQ0X6CdJDqqeCFA==}
@@ -8925,8 +8919,6 @@ snapshots:
       is-arrayish: 0.2.1
 
   es-module-lexer@1.5.4: {}
-
-  es-toolkit@1.13.1: {}
 
   esbuild@0.23.0:
     optionalDependencies:

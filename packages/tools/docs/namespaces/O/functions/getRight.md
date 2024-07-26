@@ -10,8 +10,6 @@
 
 Converts a `Either` to an `Option` discarding the error.
 
-Alias of fromEither.
-
 ## Type Parameters
 
 • **R**
