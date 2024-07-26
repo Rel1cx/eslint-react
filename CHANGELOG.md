@@ -8,6 +8,10 @@
 - Undeprecate rule `no-implicit-key` and improve its usefulness.
 - Undeprecate rule `no-complicated-conditional-rendering` and rename it to `no-complex-conditional-rendering` (the previous rule will still be available until the next major update to avoid breaking changes).
 
+### 🐞 Fixes
+
+- `no-direct-set-state-in-use-(layout?)-effect` should warn only for the `set` function.
+
 ## v1.5.30 (Mon 22 Jul 2024)
 
 ### 🐞 Fixes
