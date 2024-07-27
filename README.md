@@ -84,7 +84,7 @@ export default [
 
 #### Legacy Config
 
-Add the plugin to your `.eslintrc*`:
+Add the plugin to your `.eslintrc.json`:
 
 ```json
 {
