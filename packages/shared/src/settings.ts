@@ -30,7 +30,7 @@ export const expandSettings = memoize((settings: ESLintReactSettings): ESLintRea
         ...attr,
         as: attr.as ?? attr.name,
       })) ?? [],
-      re: pm.toRegex(pm.parse(component.name).output),
+      re: pm.makeRe(component.name, { fastpaths: true }),
     })) ?? [],
   };
 }, { isDeepEqual: false });

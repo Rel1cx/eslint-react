@@ -38,6 +38,7 @@
     "deepmerge",
     "dprint",
     "er",
+    "fastpaths",
     "flexsearch",
     "frontmatter",
     "greenlighted",

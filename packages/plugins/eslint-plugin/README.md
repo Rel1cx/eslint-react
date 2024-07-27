@@ -59,6 +59,8 @@ npm install --save-dev @eslint-react/eslint-plugin
 
 ### Setup
 
+#### Flat Config
+
 Add the plugin to your `eslint.config.js`:
 
 ```js
@@ -66,14 +68,38 @@ Add the plugin to your `eslint.config.js`:
 
 import js from "@eslint/js";
 import react from "@eslint-react/eslint-plugin";
+import * as tsParser from "@typescript-eslint/parser";
 
 export default [
   js.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
     ...react.configs.recommended,
+    languageOptions: {
+      parser: tsParser,
+    },
   },
 ];
+```
+
+#### Legacy Config
+
+Add the plugin to your `.eslintrc.json`:
+
+```json
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@eslint-react/eslint-plugin"],
+  "extends": ["eslint:recommended"],
+  "overrides": [
+    {
+      "files": ["**/*.{ts,tsx}"],
+      "extends": [
+        "plugin:@eslint-react/recommended-legacy"
+      ]
+    }
+  ]
+}
 ```
 
 [Full Installation Guide ↗](https://eslint-react.xyz/docs/installation)
