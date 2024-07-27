@@ -7,7 +7,8 @@ import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { ConstantCase } from "string-ts";
 import { isMatching, match } from "ts-pattern";
 
-import { createRule, getChildrenToArraySelector } from "../utils";
+import { createRule } from "../utils";
+import { isChildrenToArrayCall } from "@eslint-react/core";
 
 export const RULE_NAME = "no-duplicate-key";
 
@@ -26,7 +27,6 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const childrenToArraySelector = getChildrenToArraySelector();
     const isWithinChildrenToArrayRef = MutRef.make(false);
 
     function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
@@ -82,9 +82,6 @@ export default createRule<[], MessageID>({
     const seen = new WeakSet<TSESTree.JSXElement>();
 
     return {
-      [`${childrenToArraySelector}:exit`]() {
-        MutRef.set(isWithinChildrenToArrayRef, false);
-      },
       "ArrayExpression, JSXElement > JSXElement"(node: TSESTree.ArrayExpression | TSESTree.JSXElement) {
         if (MutRef.get(isWithinChildrenToArrayRef)) return;
         const elements = match(node)
@@ -129,6 +126,7 @@ export default createRule<[], MessageID>({
         }
       },
       CallExpression(node) {
+        if (isChildrenToArrayCall(node, context)) MutRef.set(isWithinChildrenToArrayRef, true);
         const isMapCall = isMapCallLoose(node);
         const isArrayFromCall = isMatching({
           type: NodeType.CallExpression,
@@ -151,8 +149,8 @@ export default createRule<[], MessageID>({
         }
         O.map(checkExpression(fn.body), context.report);
       },
-      [childrenToArraySelector]() {
-        MutRef.set(isWithinChildrenToArrayRef, true);
+      "CallExpression:exit"(node) {
+        if (isChildrenToArrayCall(node, context)) MutRef.set(isWithinChildrenToArrayRef, false);
       },
     };
   },

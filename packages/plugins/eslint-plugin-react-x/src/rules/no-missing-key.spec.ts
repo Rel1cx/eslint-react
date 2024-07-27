@@ -306,19 +306,12 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     /* tsx */ `
       import React from 'react';
-      import { Children as ReactChildren } from 'react';
-
       const { Children } = React;
-      const { toArray } = Children;
 
       React.Children.toArray([1, 2 ,3].map(x => <App />));
       React.Children.toArray(Array.from([1, 2 ,3], x => <App />));
       Children.toArray([1, 2 ,3].map(x => <App />));
       Children.toArray(Array.from([1, 2 ,3], x => <App />));
-      // ReactChildren.toArray([1, 2 ,3].map(x => <App />));
-      // ReactChildren.toArray(Array.from([1, 2 ,3], x => <App />));
-      // toArray([1, 2 ,3].map(x => <App />));
-      // toArray(Array.from([1, 2 ,3], x => <App />));
     `,
   ],
 });

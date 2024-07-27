@@ -7,6 +7,12 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 
 export default [
+  {
+    ignores: [
+      "node_modules",
+      "dist",
+    ],
+  },
   // JavaScript rules
   js.configs.recommended,
   // TypeScript rules
