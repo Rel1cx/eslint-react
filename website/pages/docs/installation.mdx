@@ -47,7 +47,7 @@ bun add --dev @eslint-react/eslint-plugin
 
 <Config>
 
-```js filename="eslint.config.js" {4,9-12}
+```js filename="eslint.config.js"
 // @ts-check
 
 import js from "@eslint/js";
@@ -59,6 +59,9 @@ export default [
   {
     files: ["**/*.{ts,tsx}"],
     ...react.configs.recommended,
+    languageOptions: {
+      parser: tsParser,
+    },
   },
 ];
 ```
@@ -67,15 +70,20 @@ export default [
 
 <Config>
 
-```js filename=".eslintrc.js" {3,6}
+```js filename=".eslintrc.js"
 module.exports = {
-  // ...
   parser: "@typescript-eslint/parser",
-  extends: [
-    // ...
-    "plugin:@eslint-react/recommended-legacy",
-  ],
-};
+  plugins: ["@eslint-react/eslint-plugin"],
+  extends: ["eslint:recommended"],
+  overrides: [
+    {
+      files: ["**/*.{ts,tsx}"],
+      extends: [
+        "plugin:@eslint-react/recommended-legacy"
+      ]
+    }
+  ]
+}
 ```
 
 </Config>
@@ -97,7 +105,7 @@ Then, you can enable the rules that require type information.
 
 <Config>
 
-```js filename="eslint.config.js" {13,23}
+```js filename="eslint.config.js"
 // @ts-check
 
 import js from "@eslint/js";
@@ -117,7 +125,7 @@ export default [
   }
   {
     files: ["**/*.{ts,tsx}"],
-    ...react.configs.recommended,
+    ...react.configs["recommended-type-checked"], // <-- Requires type information
   },
   {
     files: ["**/*.{ts,tsx}"],
@@ -132,18 +140,24 @@ export default [
 
 <Config>
 
-```js filename=".eslintrc.js" {5,10}
+```js filename=".eslintrc.js"
 module.exports = {
   // ...
   parser: "@typescript-eslint/parser",
   parserOptions: {
     project: "./tsconfig.json", // <-- Point to your project's "tsconfig.json" or create a new one.
   },
-  extends: ["plugin:@eslint-react/recommended-legacy"],
-  rules: {
-    // ...
-    "@eslint-react/no-leaked-conditional-rendering": "error", // <-- Requires type information
-  },
+  overrides: [
+    {
+      files: ["**/*.{ts,tsx}"],
+      extends: [
+        "plugin:@eslint-react/recommended-type-checked-legacy" // <-- Requires type information
+      ],
+      rules: {
+        "@eslint-react/no-leaked-conditional-rendering": "error", // <-- Requires type information
+      }
+    }
+  ]
   // ...
 };
 ```
