@@ -56,7 +56,8 @@ export default createRule<[], MessageID>({
       );
       if (O.isNone(useStateCall)) return false;
       const { parent } = useStateCall.value;
-      return !isMatching({ id: { elements: [{ name: topLevelId.name }] } }, parent);
+      if (!isMatching({ id: { type: NodeType.ArrayPattern }, type: NodeType.VariableDeclarator }, parent)) return true;
+      return parent.id.elements.findIndex(e => e?.type === NodeType.Identifier && e.name === topLevelId.name) === 1;
     }
     function isSetStateCall(node: TSESTree.CallExpression) {
       const topLevelId = match(node.callee)
