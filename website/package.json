@@ -10,15 +10,15 @@
   },
   "dependencies": {
     "next": "^14.2.5",
-    "nextra": "3.0.0-alpha.28",
-    "nextra-theme-docs": "3.0.0-alpha.28",
+    "nextra": "3.0.0-alpha.29",
+    "nextra-theme-docs": "3.0.0-alpha.29",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "ts-pattern": "^5.2.0"
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "workspace:*",
-    "@eslint/js": "9.7.0",
+    "@eslint/js": "9.8.0",
     "@mdx-js/mdx": "3.0.1",
     "@next/bundle-analyzer": "14.2.5",
     "@tsconfig/node22": "22.0.0",
@@ -32,7 +32,7 @@
     "@vitejs/plugin-react": "4.3.1",
     "autoprefixer": "10.4.19",
     "effect": "3.5.8",
-    "eslint": "^9.7.0",
+    "eslint": "^9.8.0",
     "eslint-plugin-mdx": "3.1.5",
     "eslint-plugin-react-hooks": "4.6.2",
     "eslint-plugin-react-refresh": "0.4.9",
