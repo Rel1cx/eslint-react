@@ -41,7 +41,6 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@eslint-community/eslint-utils": "4.4.0",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "@typescript-eslint/scope-manager": "^7.17.0",

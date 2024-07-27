@@ -665,9 +665,6 @@ importers:
 
   packages/utilities/ast:
     dependencies:
-      '@eslint-community/eslint-utils':
-        specifier: 4.4.0
-        version: 4.4.0(eslint@9.8.0)
       '@eslint-react/tools':
         specifier: workspace:*
         version: link:../../tools

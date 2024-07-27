@@ -1,6 +1,5 @@
 export * from "./construction";
 export * from "./construction-hint";
-export * from "./eslint-community-eslint-utils";
 export * from "./get-class-identifier";
 export * from "./get-function-identifier";
 export * from "./get-literal-value-type";
