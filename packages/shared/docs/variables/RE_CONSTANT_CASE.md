@@ -7,3 +7,5 @@
 # Variable: RE\_CONSTANT\_CASE
 
 > `const` **RE\_CONSTANT\_CASE**: `RegExp`
+
+Regular expression for matching a CONSTANT_CASE string.

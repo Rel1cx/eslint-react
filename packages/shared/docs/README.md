@@ -8,10 +8,8 @@
 
 - [CustomAttribute](interfaces/CustomAttribute.md)
 - [CustomComponent](interfaces/CustomComponent.md)
-- [CustomComponentExpanded](interfaces/CustomComponentExpanded.md)
 - [CustomHook](interfaces/CustomHook.md)
 - [ESLintReactSettings](interfaces/ESLintReactSettings.md)
-- [ESLintReactSettingsExpanded](interfaces/ESLintReactSettingsExpanded.md)
 - [ESLintSettings](interfaces/ESLintSettings.md)
 
 ## Variables
@@ -30,5 +28,3 @@
 ## Functions
 
 - [createRuleForPlugin](functions/createRuleForPlugin.md)
-- [decodeSettings](functions/decodeSettings.md)
-- [expandSettings](functions/expandSettings.md)

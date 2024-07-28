@@ -4,10 +4,19 @@
  * -----------------------------------------------------------------------------
  */
 
+/**
+ * The NPM scope for this project.
+ */
 export const NPM_SCOPE = "@eslint-react";
 
-export const GITHUB_URL = "https://github.com/rel1cx/eslint-react/blob/main";
+/**
+ * The GitHub repository for this project.
+ */
+export const GITHUB_URL = "https://github.com/rel1cx/eslint-react";
 
+/**
+ * The URL to the project's website.
+ */
 export const WEBSITE_URL = "https://eslint-react.xyz";
 
 /**
@@ -16,14 +25,29 @@ export const WEBSITE_URL = "https://eslint-react.xyz";
  * -----------------------------------------------------------------------------
  */
 
+/**
+ * Regular expression for matching a PascalCase string.
+ */
 export const RE_PASCAL_CASE = /^[A-Z][\dA-Za-z]*$/u;
 
+/**
+ * Regular expression for matching a camelCase string.
+ */
 export const RE_CAMEL_CASE = /^[a-z][\dA-Za-z]*$/u;
 
+/**
+ * Regular expression for matching a kebab-case string.
+ */
 export const RE_KEBAB_CASE = /^[a-z][\d\-a-z]*$/u;
 
+/**
+ * Regular expression for matching a snake_case string.
+ */
 export const RE_SNAKE_CASE = /^[a-z][\d_a-z]*$/u;
 
+/**
+ * Regular expression for matching a CONSTANT_CASE string.
+ */
 export const RE_CONSTANT_CASE = /^[A-Z][\d_A-Z]*$/u;
 
 // @see https://github.com/facebook/react/blob/6db7f4209e6f32ebde298a0b7451710dd6aa3e19/packages/react-dom-bindings/src/shared/sanitizeURL.js#L22

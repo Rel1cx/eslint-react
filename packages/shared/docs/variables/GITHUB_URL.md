@@ -6,4 +6,6 @@
 
 # Variable: GITHUB\_URL
 
-> `const` **GITHUB\_URL**: `"https://github.com/rel1cx/eslint-react/blob/main"` = `"https://github.com/rel1cx/eslint-react/blob/main"`
+> `const` **GITHUB\_URL**: `"https://github.com/rel1cx/eslint-react"` = `"https://github.com/rel1cx/eslint-react"`
+
+The GitHub repository for this project.

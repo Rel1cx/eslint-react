@@ -10,10 +10,6 @@
 
 - `InferOutput`\<*typeof* `CustomComponentSchema`\>
 
-## Extended by
-
-- [`CustomComponentExpanded`](CustomComponentExpanded.md)
-
 ## Properties
 
 ### as?

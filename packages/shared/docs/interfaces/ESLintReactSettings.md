@@ -10,10 +10,6 @@
 
 - `InferOutput`\<*typeof* `ESLintReactSettingsSchema`\>
 
-## Extended by
-
-- [`ESLintReactSettingsExpanded`](ESLintReactSettingsExpanded.md)
-
 ## Properties
 
 ### additionalComponents

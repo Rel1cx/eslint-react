@@ -7,3 +7,5 @@
 # Variable: RE\_CAMEL\_CASE
 
 > `const` **RE\_CAMEL\_CASE**: `RegExp`
+
+Regular expression for matching a camelCase string.
