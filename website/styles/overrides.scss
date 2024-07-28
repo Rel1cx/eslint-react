@@ -15,6 +15,10 @@
     li {
       div {
         font-family: var(--font-family-mono);
+
+        a {
+          -webkit-user-drag: none;
+        }
       }
     }
   }
