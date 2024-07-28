@@ -2,23 +2,27 @@
 
 ***
 
-[@eslint-react/shared](../README.md) / ESLintReactSettingsExpanded
+[@eslint-react/shared](../README.md) / ESLintReactSettings
 
-# Interface: ESLintReactSettingsExpanded
+# Interface: ESLintReactSettings
 
 ## Extends
 
-- [`ESLintReactSettings`](ESLintReactSettings.md)
+- `InferOutput`\<*typeof* `ESLintReactSettingsSchema`\>
+
+## Extended by
+
+- [`ESLintReactSettingsExpanded`](ESLintReactSettingsExpanded.md)
 
 ## Properties
 
 ### additionalComponents
 
-> **additionalComponents**: [`CustomComponentExpanded`](CustomComponentExpanded.md)[]
+> **additionalComponents**: `object`[]
 
-#### Overrides
+#### Inherited from
 
-[`ESLintReactSettings`](ESLintReactSettings.md).[`additionalComponents`](ESLintReactSettings.md#additionalcomponents)
+`InferOutput.additionalComponents`
 
 ***
 
@@ -100,7 +104,7 @@
 
 #### Inherited from
 
-[`ESLintReactSettings`](ESLintReactSettings.md).[`additionalHooks`](ESLintReactSettings.md#additionalhooks)
+`InferOutput.additionalHooks`
 
 ***
 
@@ -110,7 +114,7 @@
 
 #### Inherited from
 
-[`ESLintReactSettings`](ESLintReactSettings.md).[`importSource`](ESLintReactSettings.md#importsource)
+`InferOutput.importSource`
 
 ***
 
@@ -120,7 +124,7 @@
 
 #### Inherited from
 
-[`ESLintReactSettings`](ESLintReactSettings.md).[`jsxPragma`](ESLintReactSettings.md#jsxpragma)
+`InferOutput.jsxPragma`
 
 ***
 
@@ -130,7 +134,7 @@
 
 #### Inherited from
 
-[`ESLintReactSettings`](ESLintReactSettings.md).[`jsxPragmaFrag`](ESLintReactSettings.md#jsxpragmafrag)
+`InferOutput.jsxPragmaFrag`
 
 ***
 
@@ -140,7 +144,7 @@
 
 #### Inherited from
 
-[`ESLintReactSettings`](ESLintReactSettings.md).[`strict`](ESLintReactSettings.md#strict)
+`InferOutput.strict`
 
 ***
 
@@ -150,4 +154,4 @@
 
 #### Inherited from
 
-[`ESLintReactSettings`](ESLintReactSettings.md).[`version`](ESLintReactSettings.md#version)
+`InferOutput.version`

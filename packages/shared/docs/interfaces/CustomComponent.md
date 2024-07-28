@@ -2,13 +2,17 @@
 
 ***
 
-[@eslint-react/shared](../README.md) / CustomComponentExpanded
+[@eslint-react/shared](../README.md) / CustomComponent
 
-# Interface: CustomComponentExpanded
+# Interface: CustomComponent
 
 ## Extends
 
-- [`CustomComponent`](CustomComponent.md)
+- `InferOutput`\<*typeof* `CustomComponentSchema`\>
+
+## Extended by
+
+- [`CustomComponentExpanded`](CustomComponentExpanded.md)
 
 ## Properties
 
@@ -26,7 +30,7 @@ The name of the built-in component that the user-defined component represents.
 
 #### Inherited from
 
-[`CustomComponent`](CustomComponent.md).[`as`](CustomComponent.md#as)
+`InferOutput.as`
 
 ***
 
@@ -42,9 +46,9 @@ Pre-defined attributes that are used in the user-defined component.
 `Link` component has a `to` attribute that represents the `href` attribute in the built-in `a` element with a default value of `"/"`.
 ```
 
-#### Overrides
+#### Inherited from
 
-[`CustomComponent`](CustomComponent.md).[`attributes`](CustomComponent.md#attributes)
+`InferOutput.attributes`
 
 ***
 
@@ -62,13 +66,7 @@ The name of the user-defined component.
 
 #### Inherited from
 
-[`CustomComponent`](CustomComponent.md).[`name`](CustomComponent.md#name)
-
-***
-
-### re
-
-> **re**: `RegExp`
+`InferOutput.name`
 
 ***
 
@@ -86,4 +84,4 @@ The ESQuery selector to select the component precisely.
 
 #### Inherited from
 
-[`CustomComponent`](CustomComponent.md).[`selector`](CustomComponent.md#selector)
+`InferOutput.selector`

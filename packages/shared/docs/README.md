@@ -6,16 +6,13 @@
 
 ## Interfaces
 
+- [CustomAttribute](interfaces/CustomAttribute.md)
+- [CustomComponent](interfaces/CustomComponent.md)
 - [CustomComponentExpanded](interfaces/CustomComponentExpanded.md)
+- [CustomHook](interfaces/CustomHook.md)
+- [ESLintReactSettings](interfaces/ESLintReactSettings.md)
 - [ESLintReactSettingsExpanded](interfaces/ESLintReactSettingsExpanded.md)
-
-## Type Aliases
-
-- [CustomAttribute](type-aliases/CustomAttribute.md)
-- [CustomComponent](type-aliases/CustomComponent.md)
-- [CustomHook](type-aliases/CustomHook.md)
-- [ESLintReactSettings](type-aliases/ESLintReactSettings.md)
-- [ESLintSettings](type-aliases/ESLintSettings.md)
+- [ESLintSettings](interfaces/ESLintSettings.md)
 
 ## Variables
 

@@ -6,7 +6,7 @@
 
 # Function: decodeSettings()
 
-> **decodeSettings**(`data`): [`ESLintReactSettings`](../type-aliases/ESLintReactSettings.md)
+> **decodeSettings**(`data`): [`ESLintReactSettings`](../interfaces/ESLintReactSettings.md)
 
 ## Parameters
 
@@ -14,4 +14,4 @@
 
 ## Returns
 
-[`ESLintReactSettings`](../type-aliases/ESLintReactSettings.md)
+[`ESLintReactSettings`](../interfaces/ESLintReactSettings.md)

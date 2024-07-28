@@ -4,6 +4,8 @@
 
 [@eslint-react/shared](../README.md) / CustomHook
 
-# Type Alias: CustomHook
+# Interface: CustomHook
 
-> **CustomHook**: `InferOutput`\<*typeof* `CustomHookSchema`\>
+## Extends
+
+- `InferOutput`\<*typeof* `CustomHookSchema`\>
