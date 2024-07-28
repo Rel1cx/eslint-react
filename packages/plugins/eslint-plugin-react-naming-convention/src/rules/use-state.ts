@@ -46,7 +46,7 @@ export default createRule<[], MessageID>({
           for (const hookCall of hookCalls) {
             if (
               !isUseStateCall(hookCall, context)
-              && !alias.some(F.flip(isReactHookCallWithNameLoose)(hookCall))
+              && !alias.some(isReactHookCallWithNameLoose(hookCall))
             ) {
               continue;
             }

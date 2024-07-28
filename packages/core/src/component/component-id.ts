@@ -12,7 +12,7 @@ function isComponentWrapperCall(node: TSESTree.Node, context: RuleContext) {
 
   return isMemoCall(node, context)
     || isForwardRefCall(node, context)
-    || isReactHookCallWithNameLoose("useCallback")(node);
+    || isReactHookCallWithNameLoose(node)("useCallback");
 }
 
 export function getFunctionComponentIdentifier(

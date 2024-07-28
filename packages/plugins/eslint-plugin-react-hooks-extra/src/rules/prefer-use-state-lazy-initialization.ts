@@ -2,7 +2,6 @@
 import { getNestedCallExpressions } from "@eslint-react/ast";
 import { isReactHookCall, isReactHookCallWithNameLoose, isUseStateCall } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
-import { F } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
 
@@ -34,7 +33,7 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         if (!isReactHookCall(node)) return;
-        if (!isUseStateCall(node, context) && !alias.some(F.flip(isReactHookCallWithNameLoose)(node))) return;
+        if (!isUseStateCall(node, context) && !alias.some(isReactHookCallWithNameLoose(node))) return;
         const [useStateInput] = node.arguments;
         if (!useStateInput) return;
         const nestedCallExpressions = getNestedCallExpressions(useStateInput);

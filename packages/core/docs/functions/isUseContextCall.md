@@ -6,13 +6,11 @@
 
 # Function: isUseContextCall()
 
-> **isUseContextCall**(`node`, `context`): `boolean`
+> **isUseContextCall**(...`a`): `boolean`
 
 ## Parameters
 
-• **node**: `CallExpression`
-
-• **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+• ...**a**: [`CallExpression`, `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>]
 
 ## Returns
 

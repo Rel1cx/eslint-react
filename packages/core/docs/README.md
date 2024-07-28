@@ -81,6 +81,7 @@
 - [isReactHook](functions/isReactHook.md)
 - [isReactHookCall](functions/isReactHookCall.md)
 - [isReactHookCallWithName](functions/isReactHookCallWithName.md)
+- [isReactHookCallWithNameAlias](functions/isReactHookCallWithNameAlias.md)
 - [isReactHookCallWithNameLoose](functions/isReactHookCallWithNameLoose.md)
 - [isReactHookName](functions/isReactHookName.md)
 - [isRenderFunctionLoose](functions/isRenderFunctionLoose.md)

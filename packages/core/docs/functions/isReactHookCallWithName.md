@@ -6,11 +6,13 @@
 
 # Function: isReactHookCallWithName()
 
-> **isReactHookCallWithName**(`name`): (`node`, `context`) => `boolean`
+> **isReactHookCallWithName**(`node`, `context`): (`name`) => `boolean`
 
 ## Parameters
 
-• **name**: `string`
+• **node**: `CallExpression`
+
+• **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
 
 ## Returns
 
@@ -18,9 +20,7 @@
 
 ### Parameters
 
-• **node**: `CallExpression`
-
-• **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+• **name**: `string`
 
 ### Returns
 

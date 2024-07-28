@@ -319,6 +319,41 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+        namespace ItemsListElementSkeleton {
+          export interface Props {
+           withArtists?: boolean
+           withPlayedAt?: boolean
+           position?: number
+           positionSize?: ItemPosition.Props['size']
+           positionClassName?: string
+           withPlaysOrPlayTime?: boolean
+          }
+        }
+
+        function ItemsListElementSkeleton({
+          position,
+          positionSize,
+          positionClassName,
+          withArtists,
+          withPlayedAt,
+          withPlaysOrPlayTime,
+        }: ItemsListElementSkeleton.Props) {
+          // ...
+          return null;
+        }
+
+        export { ItemsListElementSkeleton }
+      `,
+      errors: [
+        {
+          messageId: "PREFER_READ_ONLY_PROPS",
+        },
+      ],
+    },
   ],
   valid: [
     ...allValid,
@@ -524,6 +559,34 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const App = React.memo(React.forwardRef<HTMLDivElement, Props>(({ id, className }, ref) => {
           return <div id={id} className={className} ref={ref} />
       }));
+    `,
+    /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+      namespace ItemsListElementSkeleton {
+        export interface Props {
+         readonly withArtists?: boolean
+         readonly withPlayedAt?: boolean
+         readonly position?: number
+         readonly positionSize?: ItemPosition.Props['size']
+         readonly positionClassName?: string
+         readonly withPlaysOrPlayTime?: boolean
+        }
+      }
+
+      function ItemsListElementSkeleton({
+        position,
+        positionSize,
+        positionClassName,
+        withArtists,
+        withPlayedAt,
+        withPlaysOrPlayTime,
+      }: ItemsListElementSkeleton.Props) {
+        // ...
+        return null;
+      }
+
+      export { ItemsListElementSkeleton }
     `,
   ],
 });

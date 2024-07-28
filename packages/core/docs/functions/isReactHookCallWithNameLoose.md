@@ -6,11 +6,11 @@
 
 # Function: isReactHookCallWithNameLoose()
 
-> **isReactHookCallWithNameLoose**(`name`): (`node`) => `boolean`
+> **isReactHookCallWithNameLoose**(`node`): (`name`) => `boolean`
 
 ## Parameters
 
-• **name**: `string`
+• **node**: `CallExpression`
 
 ## Returns
 
@@ -18,7 +18,7 @@
 
 ### Parameters
 
-• **node**: `CallExpression`
+• **name**: `string`
 
 ### Returns
 

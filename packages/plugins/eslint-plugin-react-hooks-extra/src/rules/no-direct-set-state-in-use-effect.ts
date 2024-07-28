@@ -1,23 +1,59 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { getNestedIdentifiers, is, isFunction, isIIFE, NodeType } from "@eslint-react/ast";
-import { isReactHookCallWithNameLoose, isUseEffectCall, isUseStateCall } from "@eslint-react/core";
+import { getNestedIdentifiers, isFunction, isIIFE, NodeType } from "@eslint-react/ast";
+import { isReactHookCallWithNameAlias } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
 import { F, MutList, MutRef, O } from "@eslint-react/tools";
+import type { RuleContext } from "@eslint-react/types";
 import { findVariable, getVariableNode } from "@eslint-react/var";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 import type { ConstantCase } from "string-ts";
-import { isMatching, match } from "ts-pattern";
+import { match } from "ts-pattern";
 
-import { createRule } from "../utils";
+import { createRule, isSetStateCall, isThenCall } from "../utils";
 
 export const RULE_NAME = "no-direct-set-state-in-use-effect";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+type MessageID = ConstantCase<typeof RULE_NAME>;
+
+function isEffectFunction(
+  context: RuleContext,
+  useSomeEffectAlias: string[],
+) {
+  return (node: TSESTree.Node) =>
+    node.parent?.type === NodeType.CallExpression
+    && node.parent.callee !== node
+    && isReactHookCallWithNameAlias("useEffect", context, useSomeEffectAlias)(node.parent);
+}
 
 type CallKind = "other" | "setState" | "then" | "useEffect" | "useState";
 type FunctionKind = "cleanup" | "deferred" | "effect" | "immediate" | "other";
+
+function getCallKind(
+  node: TSESTree.CallExpression,
+  context: RuleContext,
+  useStateAlias: string[],
+  useEffectAlias: string[],
+) {
+  return match<TSESTree.CallExpression, CallKind>(node)
+    .when(isThenCall, () => "then")
+    .when(isSetStateCall(context, useStateAlias), () => "setState")
+    .when(isReactHookCallWithNameAlias("useState", context, useStateAlias), () => "useState")
+    .when(isReactHookCallWithNameAlias("useEffect", context, useEffectAlias), () => "useEffect")
+    .otherwise(() => "other");
+}
+
+function getFunctionKind(
+  node: TSESTreeFunction,
+  context: RuleContext,
+  useEffectAlias: string[],
+) {
+  return match<TSESTreeFunction, FunctionKind>(node)
+    .when(isEffectFunction(context, useEffectAlias), () => "effect")
+    // .when(isCleanUpFunction, () => "cleanup")
+    .when(isIIFE, () => "immediate")
+    .otherwise(() => "other");
+}
 
 export default createRule<[], MessageID>({
   meta: {
@@ -34,92 +70,6 @@ export default createRule<[], MessageID>({
   create(context) {
     const settings = decodeSettings(context.settings);
     const { useEffect: useEffectAlias = [], useState: useStateAlias = [] } = settings.additionalHooks ?? {};
-    function isUseEffectCallWithAlias(node: TSESTree.CallExpression) {
-      return isUseEffectCall(node, context)
-        || useEffectAlias.some(F.flip(isReactHookCallWithNameLoose)(node));
-    }
-    function isUseStateCallWithAlias(node: TSESTree.CallExpression) {
-      return isUseStateCall(node, context) || useStateAlias.some(F.flip(isReactHookCallWithNameLoose)(node));
-    }
-    function isEffectFunction(node: TSESTree.Node) {
-      return node.parent?.type === NodeType.CallExpression
-        && node.parent.callee !== node
-        && isUseEffectCallWithAlias(node.parent);
-    }
-    function isCleanUpFunction(_: TSESTree.Node) {}
-    function isFromUseStateCall(topLevelId: TSESTree.Identifier) {
-      const useStateCall = F.pipe(
-        findVariable(topLevelId, context.sourceCode.getScope(topLevelId)),
-        O.flatMap(getVariableNode(0)),
-        O.filter(is(NodeType.CallExpression)),
-        O.filter(isUseStateCallWithAlias),
-      );
-      if (O.isNone(useStateCall)) return false;
-      const { parent } = useStateCall.value;
-      if (!isMatching({ id: { type: NodeType.ArrayPattern }, type: NodeType.VariableDeclarator }, parent)) return true;
-      return parent.id.elements.findIndex(e => e?.type === NodeType.Identifier && e.name === topLevelId.name) === 1;
-    }
-    function isSetStateCall(node: TSESTree.CallExpression) {
-      const topLevelId = match(node.callee)
-        // const [data, setData] = useState();
-        // setData();
-        .with({ type: NodeType.Identifier }, O.some)
-        // const data = useState();
-        // data[1]();
-        .with({ type: NodeType.MemberExpression }, (n) => {
-          if (!("name" in n.object)) return O.none();
-          const initialScope = context.sourceCode.getScope(n);
-          const property = getStaticValue(n.property, initialScope);
-          if (property?.value === 1) return O.fromNullable(n.object);
-          return O.none();
-        })
-        // const data = useState();
-        // data.at(1)();
-        .with({ type: NodeType.CallExpression }, (n) => {
-          if (!is(NodeType.MemberExpression)(n.callee)) return O.none();
-          if (!("name" in n.callee.object)) return O.none();
-          const isAt = isMatching({
-            type: NodeType.MemberExpression,
-            property: {
-              type: NodeType.Identifier,
-              name: "at",
-            },
-          }, n.callee);
-          const [index] = n.arguments;
-          if (!isAt || !index) return O.none();
-          const initialScope = context.sourceCode.getScope(n);
-          // const data = useState();
-          // const index = 1;
-          // data[index]();
-          const value = getStaticValue(index, initialScope);
-          if (value?.value === 1) return O.fromNullable(n.callee.object);
-          return O.none();
-        })
-        .otherwise(O.none);
-      return O.exists(topLevelId, isFromUseStateCall);
-    }
-    function isThenCall(node: TSESTree.CallExpression) {
-      if (node.callee.type !== NodeType.MemberExpression) return false;
-      return isMatching({
-        type: NodeType.Identifier,
-        name: "then",
-      }, node.callee.property);
-    }
-    function getCallKind(node: TSESTree.CallExpression) {
-      return match<TSESTree.CallExpression, CallKind>(node)
-        .when(isThenCall, () => "then")
-        .when(isSetStateCall, () => "setState")
-        .when(isUseStateCallWithAlias, () => "useState")
-        .when(isUseEffectCallWithAlias, () => "useEffect")
-        .otherwise(() => "other");
-    }
-    function getFunctionKind(node: TSESTreeFunction) {
-      return match<TSESTreeFunction, FunctionKind>(node)
-        .when(isEffectFunction, () => "effect")
-        .when(isCleanUpFunction, () => "cleanup")
-        .when(isIIFE, () => "immediate")
-        .otherwise(() => "other");
-    }
     const functionStack = MutList.make<[node: TSESTreeFunction, kind: FunctionKind]>();
     const effectFunctionRef = MutRef.make<TSESTreeFunction | null>(null);
     const effectFunctionIdentifiers: TSESTree.Identifier[] = [];
@@ -133,7 +83,7 @@ export default createRule<[], MessageID>({
     };
     return {
       ":function"(node: TSESTreeFunction) {
-        const functionKind = getFunctionKind(node);
+        const functionKind = getFunctionKind(node, context, useEffectAlias);
         MutList.append(functionStack, [node, functionKind]);
         match(functionKind)
           .with("effect", () => {
@@ -149,7 +99,7 @@ export default createRule<[], MessageID>({
         const effectFn = MutRef.get(effectFunctionRef);
         const [parentFn, parentFnKind] = MutList.tail(functionStack) ?? [];
         if (parentFn?.async) return;
-        const callKind = getCallKind(node);
+        const callKind = getCallKind(node, context, useStateAlias, useEffectAlias);
         match(callKind)
           .with("setState", () => {
             if (!parentFn) return;

@@ -1,4 +1,5 @@
 import { getNestedReturnStatements, is, isMapCallLoose, isNodeEqual, isOneOf, NodeType } from "@eslint-react/ast";
+import { isChildrenToArrayCall } from "@eslint-react/core";
 import { findPropInAttributes } from "@eslint-react/jsx";
 import { F, MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -8,7 +9,6 @@ import type { ConstantCase } from "string-ts";
 import { isMatching, match } from "ts-pattern";
 
 import { createRule } from "../utils";
-import { isChildrenToArrayCall } from "@eslint-react/core";
 
 export const RULE_NAME = "no-duplicate-key";
 

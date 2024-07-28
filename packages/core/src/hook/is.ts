@@ -30,8 +30,8 @@ export function isReactHookCall(node: TSESTree.CallExpression) {
   return false;
 }
 
-export function isReactHookCallWithName(name: string) {
-  return (node: TSESTree.CallExpression, context: RuleContext) => {
+export function isReactHookCallWithName(node: TSESTree.CallExpression, context: RuleContext) {
+  return (name: string) => {
     const initialScope = context.sourceCode.getScope(node);
 
     return match(node.callee)
@@ -43,8 +43,8 @@ export function isReactHookCallWithName(name: string) {
   };
 }
 
-export function isReactHookCallWithNameLoose(name: string) {
-  return (node: TSESTree.CallExpression) => {
+export function isReactHookCallWithNameLoose(node: TSESTree.CallExpression) {
+  return (name: string) => {
     return match(node.callee)
       .with({ type: NodeType.Identifier, name }, F.constTrue)
       .with({ type: NodeType.MemberExpression, property: { name } }, F.constTrue)
@@ -52,18 +52,31 @@ export function isReactHookCallWithNameLoose(name: string) {
   };
 }
 
-export const isUseCallbackCall = isReactHookCallWithName("useCallback");
-export const isUseContextCall = isReactHookCallWithName("useContext");
-export const isUseDebugValueCall = isReactHookCallWithName("useDebugValue");
-export const isUseDeferredValueCall = isReactHookCallWithName("useDeferredValue");
-export const isUseEffectCall = isReactHookCallWithName("useEffect");
-export const isUseIdCall = isReactHookCallWithName("useId");
-export const isUseImperativeHandleCall = isReactHookCallWithName("useImperativeHandle");
-export const isUseInsertionEffectCall = isReactHookCallWithName("useInsertionEffect");
-export const isUseLayoutEffectCall = isReactHookCallWithName("useLayoutEffect");
-export const isUseMemoCall = isReactHookCallWithName("useMemo");
-export const isUseReducerCall = isReactHookCallWithName("useReducer");
-export const isUseRefCall = isReactHookCallWithName("useRef");
-export const isUseStateCall = isReactHookCallWithName("useState");
-export const isUseSyncExternalStoreCall = isReactHookCallWithName("useSyncExternalStore");
-export const isUseTransitionCall = isReactHookCallWithName("useTransition");
+export function isReactHookCallWithNameAlias(name: string, context: RuleContext, alias: string[]) {
+  return (node: TSESTree.CallExpression) => {
+    const initialScope = context.sourceCode.getScope(node);
+
+    return match(node.callee)
+      .with({ type: NodeType.Identifier, name }, n => isInitializedFromReact(n.name, context, initialScope))
+      .with({ type: NodeType.MemberExpression, object: { name: P.string }, property: { name } }, n => {
+        return isInitializedFromReact(n.object.name, context, initialScope);
+      })
+      .otherwise(() => alias.some(isReactHookCallWithNameLoose(node)));
+  };
+}
+
+export const isUseCallbackCall = F.flip(isReactHookCallWithName)("useCallback");
+export const isUseContextCall = F.flip(isReactHookCallWithName)("useContext");
+export const isUseDebugValueCall = F.flip(isReactHookCallWithName)("useDebugValue");
+export const isUseDeferredValueCall = F.flip(isReactHookCallWithName)("useDeferredValue");
+export const isUseEffectCall = F.flip(isReactHookCallWithName)("useEffect");
+export const isUseIdCall = F.flip(isReactHookCallWithName)("useId");
+export const isUseImperativeHandleCall = F.flip(isReactHookCallWithName)("useImperativeHandle");
+export const isUseInsertionEffectCall = F.flip(isReactHookCallWithName)("useInsertionEffect");
+export const isUseLayoutEffectCall = F.flip(isReactHookCallWithName)("useLayoutEffect");
+export const isUseMemoCall = F.flip(isReactHookCallWithName)("useMemo");
+export const isUseReducerCall = F.flip(isReactHookCallWithName)("useReducer");
+export const isUseRefCall = F.flip(isReactHookCallWithName)("useRef");
+export const isUseStateCall = F.flip(isReactHookCallWithName)("useState");
+export const isUseSyncExternalStoreCall = F.flip(isReactHookCallWithName)("useSyncExternalStore");
+export const isUseTransitionCall = F.flip(isReactHookCallWithName)("useTransition");
