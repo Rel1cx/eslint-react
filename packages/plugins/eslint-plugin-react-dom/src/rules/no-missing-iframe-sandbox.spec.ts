@@ -45,25 +45,53 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
-        import React from "react";
-
-        function App() {
-            return React.createElement("iframe");
-        }
-      `,
+      code: /* tsx */ `<PolyComponent as="iframe"/>;`,
       errors: [
         {
           messageId: "NO_MISSING_IFRAME_SANDBOX",
         },
       ],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
     },
     {
+      code: /* tsx */ `<PolyComponent as="iframe" sandbox />;`,
+      errors: [
+        {
+          messageId: "NO_MISSING_IFRAME_SANDBOX",
+        },
+      ],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
+    },
+    {
+      code: /* tsx */ `<PolyComponent as="iframe" sandbox="" />;`,
+      errors: [
+        {
+          messageId: "NO_MISSING_IFRAME_SANDBOX",
+        },
+      ],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
+    },
+    // has sandbox attribute but not explicitly set to iframe element
+    {
       code: /* tsx */ `
-        import { createElement } from "react";
+        const props = {
+          sandbox: "allow-downloads",
+        };
 
         function App() {
-            return createElement("iframe");
+            return <PolyComponent as="iframe" {...props} />;
         }
       `,
       errors: [
@@ -71,6 +99,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "NO_MISSING_IFRAME_SANDBOX",
         },
       ],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
     },
   ],
   valid: [
@@ -85,20 +118,6 @@ ruleTester.run(RULE_NAME, rule, {
     /* tsx */ `
       function App() {
           return <iframe sandbox="allow-downloads" />;
-      }
-    `,
-    /* tsx */ `
-      import React from "react";
-
-      function App() {
-          return React.createElement("iframe", { sandbox: "allow-downloads" });
-      }
-    `,
-    /* tsx */ `
-      import { createElement } from "react";
-
-      function App() {
-          return createElement("iframe", { sandbox: "allow-downloads" });
       }
     `,
   ],

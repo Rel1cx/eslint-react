@@ -1,4 +1,5 @@
 export * from "./get-element-name";
+export * from "./get-element-type";
 export * from "./get-jsx-pragma";
 export * from "./get-prop";
 export * from "./has-prop";

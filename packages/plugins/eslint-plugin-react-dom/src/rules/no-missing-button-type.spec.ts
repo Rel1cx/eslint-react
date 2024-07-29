@@ -12,32 +12,17 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
-        import React from "react";
-
-        function App() {
-            return React.createElement("button", {}, "Click me");
-        }
-      `,
+      code: /* tsx */ `<PolyComponent as="button">Click me</PolyComponent>;`,
       errors: [
         {
           messageId: "NO_MISSING_BUTTON_TYPE",
         },
       ],
-    },
-    {
-      code: /* tsx */ `
-        import { createElement } from "react";
-
-        function App() {
-            return createElement("button", {}, "Click me");
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_MISSING_BUTTON_TYPE",
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
         },
-      ],
+      },
     },
   ],
   valid: [
@@ -54,27 +39,6 @@ ruleTester.run(RULE_NAME, rule, {
     /* tsx */ `
       function App() {
           return <button type={ true ? "button" : "submit" }>Click me</button>;
-      }
-    `,
-    /* tsx */ `
-      import React from "react";
-
-      function App() {
-          return React.createElement("button", { type: "button" }, "Click me");
-      }
-    `,
-    /* tsx */ `
-      import { createElement } from "react";
-
-      function App() {
-          return createElement("button", { type: "button" }, "Click me");
-      }
-    `,
-    /* tsx */ `
-      import { createElement } from "react";
-
-      function App() {
-          return createElement("button", { type: true ? "button" : "submit" }, "Click me");
       }
     `,
     /* tsx */ `

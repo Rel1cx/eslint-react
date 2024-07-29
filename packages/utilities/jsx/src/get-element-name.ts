@@ -1,9 +1,9 @@
 import { NodeType } from "@eslint-react/ast";
 import type { TSESTree } from "@typescript-eslint/types";
 
-function resolveMemberExpressions(object: TSESTree.JSXTagNameExpression, property: TSESTree.JSXIdentifier): string {
+function resolveJSXMemberExpressions(object: TSESTree.JSXTagNameExpression, property: TSESTree.JSXIdentifier): string {
   if (object.type === NodeType.JSXMemberExpression) {
-    return `${resolveMemberExpressions(object.object, object.property)}.${property.name}`;
+    return `${resolveJSXMemberExpressions(object.object, object.property)}.${property.name}`;
   }
   if (object.type === NodeType.JSXNamespacedName) {
     return `${object.namespace.name}:${object.name.name}.${property.name}`;
@@ -16,14 +16,18 @@ function resolveMemberExpressions(object: TSESTree.JSXTagNameExpression, propert
  * @param node The visited JSXOpeningElement node object.
  * @returns The element's tag name.
  */
-export function getElementName(node: TSESTree.JSXOpeningElement | TSESTree.JSXOpeningFragment): string {
+export function getElementName(
+  node:
+    | TSESTree.JSXOpeningElement
+    | TSESTree.JSXOpeningFragment,
+) {
   if (node.type === NodeType.JSXOpeningFragment) {
     return "<>";
   }
   const { name } = node;
   if (name.type === NodeType.JSXMemberExpression) {
     const { object, property } = name;
-    return resolveMemberExpressions(object, property);
+    return resolveJSXMemberExpressions(object, property);
   }
   if (name.type === NodeType.JSXNamespacedName) {
     return `${name.namespace.name}:${name.name.name}`;

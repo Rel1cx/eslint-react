@@ -35,6 +35,20 @@ This should not be a member expression (i.e. use `"Fragment"` instead of `"React
 React version to use, `"detect"` means auto detect React version from the project's dependencies.\
 If `importSource` is specified, an equivalent version of React should be provided here.
 
+### `polymorphicPropName`
+
+(type: `string`)
+
+You can optionally use the `polymorphicPropName` setting to define the prop your code uses to create polymorphic components. This setting will be used determine the element type in rules that require semantic context.
+
+For example, if you set the `polymorphicPropName` setting to `as` then this element:
+
+`<Box as="h3">Configurations </Box>`
+
+will be evaluated as an `h3`. If no `polymorphicPropName` is set, then the component will be evaluated as `Box`.
+
+<Warning>Polymorphic components can make code harder to maintain; please use this feature with caution.</Warning>
+
 ### `additionalHooks`
 
 (type: `[key: string]: string[]`)

@@ -1,4 +1,4 @@
-import { findPropInAttributes, getElementName, getPropValue } from "@eslint-react/jsx";
+import { findPropInAttributes, getElementName, getElementType, getPropValue } from "@eslint-react/jsx";
 import { decodeSettings, expandSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
@@ -37,9 +37,12 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const settings = expandSettings(decodeSettings(context.settings));
+    const polymorphicPropName = settings.polymorphicPropName;
     const additionalComponents = settings?.additionalComponents?.filter(c => c.as === "a") ?? [];
     function checkJSXElement(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
       const name = getElementName(node.openingElement);
+      const elementType = getElementType(context, polymorphicPropName)(node.openingElement);
+      if (name !== "a" && elementType !== "a" && additionalComponents.length === 0) return O.none();
       const { attributes } = node.openingElement;
       const initialScope = context.sourceCode.getScope(node);
       const additionalAttributes = additionalComponents

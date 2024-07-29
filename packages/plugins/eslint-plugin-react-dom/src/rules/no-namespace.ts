@@ -1,6 +1,4 @@
-import { isCreateElementCall } from "@eslint-react/core";
 import { getElementName } from "@eslint-react/jsx";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import * as R from "remeda";
 
@@ -24,23 +22,6 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     return {
-      CallExpression(node) {
-        if (
-          isCreateElementCall(node, context)
-          && node.arguments.length > 0
-          && node.arguments[0]?.type === AST_NODE_TYPES.Literal
-        ) {
-          const name = node.arguments[0].value;
-          if (!R.isString(name) || !name.includes(":")) return;
-          context.report({
-            data: {
-              name,
-            },
-            messageId: "NO_NAMESPACE",
-            node,
-          });
-        }
-      },
       JSXOpeningElement(node) {
         const name = getElementName(node);
         if (!R.isString(name) || !name.includes(":")) return;
