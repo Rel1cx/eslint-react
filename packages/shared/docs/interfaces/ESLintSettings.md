@@ -108,6 +108,10 @@
 
 > `optional` **jsxPragmaFrag**: `string`
 
+#### polymorphicPropName?
+
+> `optional` **polymorphicPropName**: `string`
+
 #### strict?
 
 > `optional` **strict**: `boolean`
