@@ -18,10 +18,30 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: '<Link href="https://react.dev" target="_blank"></Link>',
       errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
+      settings: {
+        "react-x": {
+          additionalComponents: [
+            {
+              name: "Link",
+              as: "a",
+            },
+          ],
+        },
+      },
     },
     {
       code: '<Link href="https://react.dev" target="_blank" rel="noopener"></Link>',
       errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
+      settings: {
+        "react-x": {
+          additionalComponents: [
+            {
+              name: "Link",
+              as: "a",
+            },
+          ],
+        },
+      },
     },
     {
       code: /* tsx */ `

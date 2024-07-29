@@ -1,11 +1,9 @@
-import { NodeType } from "@eslint-react/ast";
-import { isCreateElementCall } from "@eslint-react/core";
-import { findPropInAttributes, findPropInProperties, getPropValue } from "@eslint-react/jsx";
+import { findPropInAttributes, getElementType, getPropValue } from "@eslint-react/jsx";
+import { decodeSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
-import { isMatching, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -45,44 +43,11 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    const polymorphicPropName = decodeSettings(context.settings).polymorphicPropName;
     return {
-      CallExpression(node) {
-        const initialScope = context.sourceCode.getScope(node);
-        if (!isCreateElementCall(node, context)) return;
-        const [name, props] = node.arguments;
-        if (!isMatching({ type: NodeType.Literal, value: "iframe" }, name)) return;
-        if (!props || props.type !== NodeType.ObjectExpression) {
-          context.report({
-            messageId: "NO_MISSING_IFRAME_SANDBOX",
-            node: props ?? node,
-          });
-          return;
-        }
-        const maybeSandboxProperty = findPropInProperties(props.properties, context, initialScope)("sandbox");
-        if (O.isNone(maybeSandboxProperty)) {
-          context.report({
-            messageId: "NO_MISSING_IFRAME_SANDBOX",
-            node: props,
-          });
-          return;
-        }
-        const sandboxProperty = maybeSandboxProperty.value;
-        const hasValidSandbox = isMatching({
-          type: NodeType.Property,
-          value: {
-            type: NodeType.Literal,
-            value: P.union(...validTypes),
-          },
-        }, sandboxProperty);
-        if (hasValidSandbox) return;
-        context.report({
-          messageId: "NO_MISSING_IFRAME_SANDBOX",
-          node: sandboxProperty,
-        });
-      },
       JSXElement(node) {
-        const { name } = node.openingElement;
-        if (name.type !== NodeType.JSXIdentifier || name.name !== "iframe") return;
+        const elementType = getElementType(context, polymorphicPropName)(node.openingElement);
+        if (elementType !== "iframe") return;
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
         const maybeSandboxAttribute = findPropInAttributes(attributes, context, initialScope)("sandbox");

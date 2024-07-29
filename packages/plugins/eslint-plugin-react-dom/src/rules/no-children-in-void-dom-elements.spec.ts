@@ -40,67 +40,60 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `React.createElement("br", {}, "Foo");`,
+      code: /* tsx */ `<PolyComponent as="br">Foo</PolyComponent>;`,
       errors: [
         {
           data: { element: "br" },
           messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
         },
       ],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
     },
     {
-      code: /* tsx */ `React.createElement("br", { children: "Foo" });`,
+      code: /* tsx */ `<PolyComponent as="br" children="Foo" />;`,
       errors: [
         {
           data: { element: "br" },
           messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
         },
       ],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
     },
     {
-      code: /* tsx */ `React.createElement("br", { dangerouslySetInnerHTML: { __html: "Foo" } });`,
+      code: /* tsx */ `<PolyComponent as="img" {...props} children="Foo" />;`,
+      errors: [
+        {
+          data: { element: "img" },
+          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+        },
+      ],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
+    },
+    {
+      code: /* tsx */ `<PolyComponent as="br" dangerouslySetInnerHTML={{ __html: "Foo" }} />;`,
       errors: [
         {
           data: { element: "br" },
           messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
         },
       ],
-    },
-    {
-      code: /* tsx */ `
-        import React, {createElement} from "react";
-        createElement("img", {}, "Foo");
-      `,
-      errors: [
-        {
-          data: { element: "img" },
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
         },
-      ],
-    },
-    {
-      code: /* tsx */ `
-        import React, {createElement} from "react";
-        createElement("img", { children: "Foo" });
-      `,
-      errors: [
-        {
-          data: { element: "img" },
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
-        },
-      ],
-    },
-    {
-      code: /* tsx */ `
-        import React, {createElement} from "react";
-        createElement("img", { dangerouslySetInnerHTML: { __html: "Foo" } });
-      `,
-      errors: [
-        {
-          data: { element: "img" },
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
-        },
-      ],
+      },
     },
   ],
   valid: [
@@ -108,35 +101,5 @@ ruleTester.run(RULE_NAME, rule, {
     "<div>Foo</div>;",
     '<div children="Foo" />;',
     '<div dangerouslySetInnerHTML={{ __html: "Foo" }} />;',
-    'React.createElement("div", {}, "Foo");',
-    'React.createElement("div", { children: "Foo" });',
-    'React.createElement("div", { dangerouslySetInnerHTML: { __html: "Foo" } });',
-    'document.createElement("img");',
-    'React.createElement("img");',
-    "React.createElement();",
-    "document.createElement();",
-    /* tsx */ `
-      const props = {};
-      React.createElement("img", props);
-    `,
-    /* tsx */ `
-      import React, {createElement} from "react";
-      createElement("div");
-    `,
-    /* tsx */ `
-      import React, {createElement} from "react";
-      createElement("img");
-    `,
-    /* tsx */ `
-      import React, {createElement, PureComponent} from "react";
-      class Button extends PureComponent {
-        handleClick(ev) {
-          ev.preventDefault();
-        }
-        render() {
-          return <div onClick={this.handleClick}>Hello</div>;
-        }
-      }
-    `,
   ],
 });

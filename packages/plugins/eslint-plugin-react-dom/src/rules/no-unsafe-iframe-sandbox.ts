@@ -1,11 +1,9 @@
 import { NodeType } from "@eslint-react/ast";
-import { isCreateElementCall } from "@eslint-react/core";
-import { findPropInAttributes, findPropInProperties, getPropValue } from "@eslint-react/jsx";
+import { findPropInAttributes, getPropValue } from "@eslint-react/jsx";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
-import { isMatching, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -33,37 +31,6 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     return {
-      CallExpression(node) {
-        const initialScope = context.sourceCode.getScope(node);
-        if (!isCreateElementCall(node, context)) return;
-        const [name, props] = node.arguments;
-        if (!isMatching({ type: NodeType.Literal, value: "iframe" }, name)) return;
-        if (!props || props.type !== NodeType.ObjectExpression) return;
-        const maybeSandboxProperty = findPropInProperties(props.properties, context, initialScope)("sandbox");
-        if (O.isNone(maybeSandboxProperty)) return;
-        const isSafeSandboxValue = !F.pipe(
-          maybeSandboxProperty,
-          O.filter(isMatching({
-            type: NodeType.Property,
-            value: {
-              type: NodeType.Literal,
-              value: P.string,
-            },
-          })),
-          O.flatMapNullable(v => "value" in v ? v.value : null),
-          O.flatMapNullable(v => "value" in v ? v.value : null),
-          O.filter(R.isString),
-          O.map(v => v.split(" ")),
-          O.exists(values =>
-            unsafeCombinations.some(combinations => combinations.every(unsafeValue => values.includes(unsafeValue)))
-          ),
-        );
-        if (isSafeSandboxValue) return;
-        context.report({
-          messageId: "NO_UNSAFE_IFRAME_SANDBOX",
-          node: maybeSandboxProperty.value,
-        });
-      },
       JSXElement(node) {
         const { name } = node.openingElement;
         if (name.type !== NodeType.JSXIdentifier || name.name !== "iframe") return;

@@ -37,47 +37,6 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<App dangerouslySetInnerHTML={{ __html: "HTML" }}> </App>`,
       errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN" }],
     },
-    {
-      code: /* tsx */ `React.createElement("div", { dangerouslySetInnerHTML: { __html: "HTML" } }, "Children")`,
-      errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN" }],
-    },
-    {
-      code:
-        /* tsx */ `React.createElement("div", { dangerouslySetInnerHTML: { __html: "HTML" }, children: "Children" })`,
-      errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN" }],
-    },
-    {
-      code: /* tsx */ `React.createElement("App", { dangerouslySetInnerHTML: { __html: "HTML" } }, "Children")`,
-      errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN" }],
-    },
-    {
-      code:
-        /* tsx */ `React.createElement("App", { dangerouslySetInnerHTML: { __html: "HTML" }, children: "Children" })`,
-      errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN" }],
-    },
-    {
-      code: /* tsx */ `
-        const props = { dangerouslySetInnerHTML: { __html: "HTML" } }
-        React.createElement("div", props, "Children")
-      `,
-      errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN" }],
-    },
-    {
-      code: /* tsx */ `
-        const props = { children: "Children", dangerouslySetInnerHTML: { __html: "HTML" } }
-        React.createElement("div", props)
-      `,
-      errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN" }],
-    },
-    {
-      code: /* tsx */ `
-        const moreProps = { children: "Children" }
-        const otherProps = { ...moreProps }
-        const props = { ...otherProps, dangerouslySetInnerHTML: { __html: "HTML" } }
-        React.createElement("div", props)
-      `,
-      errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN" }],
-    },
   ],
   valid: [
     ...allValid,
@@ -102,23 +61,6 @@ ruleTester.run(RULE_NAME, rule, {
     "<App>Children</App>",
     '<App dangerouslySetInnerHTML={{ __html: "HTML" }} />',
     '<App dangerouslySetInnerHTML={{ __html: "HTML" }}>\n</App>',
-    /* tsx */ `
-      React.createElement("div", {
-          dangerouslySetInnerHTML: { __html: "HTML" }
-      })
-    `,
-    'React.createElement("div", {}, "Children")',
-    /* tsx */ `
-      React.createElement("App", {
-          dangerouslySetInnerHTML: { __html: "HTML" }
-      })
-    `,
-    'React.createElement("App", {}, "Children")',
     "<App {...undefined}>Children</App>",
-    'React.createElement("App", undefined, "Children")',
-    /* tsx */ `
-      const props = { ...props, scratch: {mode: 'edit'} }
-      const component = shallow(<TaskEditableTitle {...props} />)
-    `,
   ],
 });
