@@ -93,6 +93,7 @@
     "publint": "0.2.9",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "remeda": "^2.6.0",
     "skott": "0.35.2",
     "sort-package-json": "2.10.0",
     "superbytes": "2.0.1",

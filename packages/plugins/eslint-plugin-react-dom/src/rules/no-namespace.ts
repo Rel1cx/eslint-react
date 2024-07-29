@@ -1,8 +1,8 @@
 import { isCreateElementCall } from "@eslint-react/core";
-import { elementName } from "@eslint-react/jsx";
-import { Pred } from "@eslint-react/tools";
+import { getElementName } from "@eslint-react/jsx";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import * as R from "remeda";
 
 import { createRule } from "../utils";
 
@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
           && node.arguments[0]?.type === AST_NODE_TYPES.Literal
         ) {
           const name = node.arguments[0].value;
-          if (!Pred.isString(name) || !name.includes(":")) return;
+          if (!R.isString(name) || !name.includes(":")) return;
           context.report({
             data: {
               name,
@@ -42,8 +42,8 @@ export default createRule<[], MessageID>({
         }
       },
       JSXOpeningElement(node) {
-        const name = elementName(node);
-        if (!Pred.isString(name) || !name.includes(":")) return;
+        const name = getElementName(node);
+        if (!R.isString(name) || !name.includes(":")) return;
         context.report({
           data: {
             name,

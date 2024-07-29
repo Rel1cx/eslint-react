@@ -12,6 +12,7 @@
     "strictFunctionTypes": true,
     "strictBindCallApply": true,
     "strictPropertyInitialization": true,
+    "exactOptionalPropertyTypes": true,
     "noEmit": true,
     "types": [
       "@types/bun"

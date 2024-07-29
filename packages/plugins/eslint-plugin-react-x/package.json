@@ -52,7 +52,8 @@
     "@typescript-eslint/type-utils": "^7.17.0",
     "@typescript-eslint/types": "^7.17.0",
     "@typescript-eslint/utils": "^7.17.0",
-    "is-immutable-type": "4.0.0"
+    "is-immutable-type": "4.0.0",
+    "remeda": "^2.6.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

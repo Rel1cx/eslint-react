@@ -1,7 +1,8 @@
 import { isKeyLiteralLike, isThisExpression, NodeType } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
-import { MutList, O } from "@eslint-react/tools";
+import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -51,68 +52,68 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const classStack = MutList.make<[
+    const classStack: [
       node: TSESTree.ClassDeclaration | TSESTree.ClassExpression,
       isComponent: boolean,
-    ]>();
-    const methodStack = MutList.make<[
+    ][] = [];
+    const methodStack: [
       node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition,
       isStatic: boolean,
-    ]>();
-    const setStateStack = MutList.make<[
+    ][] = [];
+    const setStateStack: [
       node: TSESTree.CallExpression,
       hasThisState: boolean,
-    ]>();
+    ][] = [];
     return {
       CallExpression(node) {
         if (!isThisSetState(node)) return;
-        MutList.append(setStateStack, [node, false]);
+        setStateStack.push([node, false]);
       },
       "CallExpression:exit"(node) {
         if (!isThisSetState(node)) return;
-        MutList.pop(setStateStack);
+        setStateStack.pop();
       },
       ClassDeclaration(node) {
-        MutList.append(classStack, [node, isClassComponent(node)]);
+        classStack.push([node, isClassComponent(node)]);
       },
       "ClassDeclaration:exit"() {
-        MutList.pop(classStack);
+        classStack.pop();
       },
       ClassExpression(node) {
-        MutList.append(classStack, [node, isClassComponent(node)]);
+        classStack.push([node, isClassComponent(node)]);
       },
       "ClassExpression:exit"() {
-        MutList.pop(classStack);
+        classStack.pop();
       },
       MemberExpression(node) {
         if (!isThisExpression(node.object)) return;
-        const [currentClass, isComponent] = MutList.tail(classStack) ?? [];
+        const [currentClass, isComponent] = R.last(classStack) ?? [];
         if (!currentClass || !isComponent) return;
-        const [currentMethod, isStatic] = MutList.tail(methodStack) ?? [];
+        const [currentMethod, isStatic] = R.last(methodStack) ?? [];
         if (!currentMethod || isStatic) return;
-        const [setState, hasThisState] = MutList.tail(setStateStack) ?? [];
+        const [setState, hasThisState] = R.last(setStateStack) ?? [];
         if (!setState || hasThisState) return;
         if (!O.exists(getName(node.property), name => name === "state")) return;
         context.report({ messageId: "NO_ACCESS_STATE_IN_SETSTATE", node });
       },
       MethodDefinition(node) {
-        MutList.append(methodStack, [node, node.static]);
+        methodStack.push([node, node.static]);
       },
       "MethodDefinition:exit"() {
-        MutList.pop(methodStack);
+        methodStack.pop();
       },
       PropertyDefinition(node) {
-        MutList.append(methodStack, [node, node.static]);
+        methodStack.push([node, node.static]);
       },
       "PropertyDefinition:exit"() {
-        MutList.pop(methodStack);
+        methodStack.pop();
       },
       VariableDeclarator(node) {
-        const [currentClass, isComponent] = MutList.tail(classStack) ?? [];
+        const [currentClass, isComponent] = R.last(classStack) ?? [];
         if (!currentClass || !isComponent) return;
-        const [currentMethod, isStatic] = MutList.tail(methodStack) ?? [];
+        const [currentMethod, isStatic] = R.last(methodStack) ?? [];
         if (!currentMethod || isStatic) return;
-        const [setState, hasThisState] = MutList.tail(setStateStack) ?? [];
+        const [setState, hasThisState] = R.last(setStateStack) ?? [];
         if (!setState || hasThisState) return;
         // detect `{ foo, state: baz } = this`
         if (!(node.init && isThisExpression(node.init) && node.id.type === NodeType.ObjectPattern)) return;

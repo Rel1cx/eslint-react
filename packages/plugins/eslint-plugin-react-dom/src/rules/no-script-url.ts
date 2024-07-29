@@ -1,8 +1,9 @@
 import { NodeType } from "@eslint-react/ast";
 import { getPropValue } from "@eslint-react/jsx";
 import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/shared";
-import { F, O, Pred } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -34,7 +35,7 @@ export default createRule<[], MessageID>({
         const isJavaScript = F.pipe(
           getPropValue(node, context),
           O.flatMapNullable(v => v?.value),
-          O.filter(Pred.isString),
+          O.filter(R.isString),
           O.exists(v => RE_JAVASCRIPT_PROTOCOL.test(v)),
         );
         if (isJavaScript) {

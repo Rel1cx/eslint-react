@@ -85,32 +85,31 @@ export default createRule<[], MessageID>({
       },
       JSXElement(node) {
         const openingElementNameExpression = node.openingElement.name;
-        if ("name" in openingElementNameExpression) {
-          const elementName = openingElementNameExpression.name;
-          if (typeof elementName !== "string" || !voidElements.has(elementName)) return;
-          if (node.children.length > 0) {
-            context.report({
-              data: {
-                element: elementName,
-              },
-              messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
-              node,
-            });
-          }
-          const { attributes } = node.openingElement;
-          const initialScope = context.sourceCode.getScope(node);
-          const hasAttr = (name: string) => O.isSome(findPropInAttributes(attributes, context, initialScope)(name));
-          const hasChildrenOrDangerAttr = hasAttr("children") || hasAttr("dangerouslySetInnerHTML");
-          if (hasChildrenOrDangerAttr) {
-            // e.g. <br children="Foo" />
-            context.report({
-              data: {
-                element: elementName,
-              },
-              messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
-              node,
-            });
-          }
+        if (!("name" in openingElementNameExpression)) return;
+        const elementName = openingElementNameExpression.name;
+        if (typeof elementName !== "string" || !voidElements.has(elementName)) return;
+        if (node.children.length > 0) {
+          context.report({
+            data: {
+              element: elementName,
+            },
+            messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+            node,
+          });
+        }
+        const { attributes } = node.openingElement;
+        const initialScope = context.sourceCode.getScope(node);
+        const hasAttr = (name: string) => O.isSome(findPropInAttributes(attributes, context, initialScope)(name));
+        const hasChildrenOrDangerAttr = hasAttr("children") || hasAttr("dangerouslySetInnerHTML");
+        if (hasChildrenOrDangerAttr) {
+          // e.g. <br children="Foo" />
+          context.report({
+            data: {
+              element: elementName,
+            },
+            messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+            node,
+          });
         }
       },
     };

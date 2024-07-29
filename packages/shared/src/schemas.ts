@@ -1,4 +1,3 @@
-/* eslint-disable perfectionist/sort-objects */
 import type { InferOutput } from "valibot";
 import { array, boolean, object, optional, string } from "valibot";
 
@@ -42,6 +41,7 @@ export const CustomAttributeSchema = object({
   defaultValue: optional(string()),
 });
 
+/* eslint-disable perfectionist/sort-objects */
 /**
  * @internal
  * @description
@@ -76,7 +76,9 @@ export const CustomComponentSchema = object({
    */
   attributes: optional(array(CustomAttributeSchema), []),
 });
+/* eslint-enable perfectionist/sort-objects */
 
+/* eslint-disable perfectionist/sort-objects */
 /**
  * @internal
  */
@@ -86,7 +88,7 @@ export const ESLintReactSettingsSchema = object({
   jsxPragmaFrag: optional(string()),
   strict: optional(boolean()),
   version: optional(string()),
-  additionalComponents: optional(array(CustomComponentSchema), []),
+  additionalComponents: optional(array(CustomComponentSchema)),
   additionalHooks: optional(object({
     use: optional(array(string())),
     useActionState: optional(array(string())),
@@ -108,18 +110,19 @@ export const ESLintReactSettingsSchema = object({
     useTransition: optional(array(string())),
   })),
 });
+/* eslint-enable perfectionist/sort-objects */
 
 /**
  * @internal
  */
 export const ESLintSettingsSchema = optional(
   object({
-    "react-x": optional(ESLintReactSettingsSchema, {}),
+    "react-x": optional(ESLintReactSettingsSchema),
     /**
      * @internal
      * @deprecated
      */
-    reactOptions: optional(ESLintReactSettingsSchema, {}),
+    reactOptions: optional(ESLintReactSettingsSchema),
   }),
   {},
 );

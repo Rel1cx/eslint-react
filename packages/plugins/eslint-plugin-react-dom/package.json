@@ -50,7 +50,8 @@
     "@eslint-react/var": "workspace:*",
     "@typescript-eslint/scope-manager": "^7.17.0",
     "@typescript-eslint/types": "^7.17.0",
-    "@typescript-eslint/utils": "^7.17.0"
+    "@typescript-eslint/utils": "^7.17.0",
+    "remeda": "^2.6.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
