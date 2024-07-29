@@ -6,7 +6,7 @@
 
 ### 🪄 Improvements
 
-- Dropd the current incomplete lint support for `React.createElement` to improve performance and subsequent code maintainability.
+- Dropped the current incomplete lint support for `React.createElement` to improve performance and subsequent code maintainability.
 
 ## v1.6.0 (Sat 27 Jul 2024)
 
