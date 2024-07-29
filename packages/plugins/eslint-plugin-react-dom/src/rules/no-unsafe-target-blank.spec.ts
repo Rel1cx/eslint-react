@@ -16,6 +16,24 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
     },
     {
+      code: '<PolyComponent as="a" href="https://react.dev" target="_blank"></PolyComponent>',
+      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
+    },
+    {
+      code: '<PolyComponent component="a" href="https://react.dev" target="_blank"></PolyComponent>',
+      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "component",
+        },
+      },
+    },
+    {
       code: '<Link href="https://react.dev" target="_blank"></Link>',
       errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
       settings: {
@@ -174,6 +192,45 @@ ruleTester.run(RULE_NAME, rule, {
     '<Link href="https://react.dev" target="_blank" rel="noopener noreferrer"></Link>',
     '<Link href="https://react.dev" target="_blank" rel={"noopener noreferrer"}></Link>',
     '<Link href="https://react.dev" target="_blank" rel="noreferrer"></Link>',
+    '<Box href="https://react.dev" target="_blank"></Box>',
+    {
+      code: '<Box href="https://react.dev" target="_blank"></Box>',
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
+    },
+    {
+      code: '<Box href="https://react.dev" target="_blank"></Box>',
+      settings: {
+        "react-x": {
+          additionalComponents: [
+            {
+              name: "LinkButton",
+              as: "a",
+            },
+          ],
+          polymorphicPropName: "as",
+        },
+      },
+    },
+    {
+      code: '<PolyComponent as="a" href="https://react.dev" target="_blank" rel="noreferrer"></PolyComponent>',
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
+    },
+    {
+      code: '<PolyComponent component="a" href="https://react.dev" target="_blank" rel="noreferrer"></PolyComponent>',
+      settings: {
+        "react-x": {
+          polymorphicPropName: "component",
+        },
+      },
+    },
     {
       code: '<LinkButton href="https://react.dev" target="_blank"></LinkButton>',
       settings: {

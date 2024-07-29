@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
     function checkJSXElement(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
       const name = getElementName(node.openingElement);
       const elementType = getElementType(context, polymorphicPropName)(node.openingElement);
-      if (name !== "a" && elementType !== "a" && additionalComponents.length === 0) return O.none();
+      if (elementType !== "a" && !additionalComponents.some(c => c.re.test(name))) return O.none();
       const { attributes } = node.openingElement;
       const initialScope = context.sourceCode.getScope(node);
       const additionalAttributes = additionalComponents
