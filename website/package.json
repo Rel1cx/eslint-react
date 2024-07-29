@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "next": "^14.2.5",
-    "nextra": "3.0.0-alpha.29",
-    "nextra-theme-docs": "3.0.0-alpha.29",
+    "nextra": "3.0.0-alpha.30",
+    "nextra-theme-docs": "3.0.0-alpha.30",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "ts-pattern": "^5.2.0"
@@ -26,7 +26,7 @@
     "@types/node": "22.0.0",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
-    "@typescript-eslint/eslint-plugin": "^7.17.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@vanilla-extract/css": "1.15.3",
     "@vanilla-extract/next-plugin": "2.4.3",
     "@vitejs/plugin-react": "4.3.1",
@@ -43,7 +43,7 @@
     "remark-gfm": "4.0.0",
     "sass": "1.77.8",
     "typescript": "^5.5.4",
-    "typescript-eslint": "^7.17.0",
+    "typescript-eslint": "^7.18.0",
     "vite": "5.3.5"
   }
 }
