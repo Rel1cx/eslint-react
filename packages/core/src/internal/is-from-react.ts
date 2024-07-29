@@ -1,10 +1,11 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import { decodeSettings } from "@eslint-react/shared";
-import { O, Pred } from "@eslint-react/tools";
+import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
+import * as R from "remeda";
 import { isMatching, match } from "ts-pattern";
 
 export function isInitializedFromReact(
@@ -18,8 +19,7 @@ export function isInitializedFromReact(
   if (O.isNone(maybeLatestDef)) return false;
   const latestDef = maybeLatestDef.value;
   const { node, parent } = latestDef;
-  const settings = decodeSettings(context.settings);
-  const importSource = settings.importSource ?? "react";
+  const { importSource = "react" } = decodeSettings(context.settings);
   if (node.type === NodeType.VariableDeclarator && node.init) {
     const { init } = node;
     // check for: `variable = React.variable`
@@ -49,7 +49,7 @@ export function isInitializedFromReact(
     if (O.isNone(maybeRequireExpression)) return false;
     const requireExpression = maybeRequireExpression.value;
     const [firstArg] = requireExpression.arguments;
-    if (firstArg?.type !== NodeType.Literal || !Pred.isString(firstArg.value)) return false;
+    if (firstArg?.type !== NodeType.Literal || !R.isString(firstArg.value)) return false;
     return firstArg.value === importSource || firstArg.value.startsWith(`${importSource}/`);
   }
   // latest definition is an import declaration: import { variable } from 'react'

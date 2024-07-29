@@ -2,11 +2,12 @@ import type { TSESTreeFunction } from "@eslint-react/ast";
 import { getNestedIdentifiers, isFunction, isIIFE, NodeType } from "@eslint-react/ast";
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
-import { F, MutList, MutRef, O } from "@eslint-react/tools";
+import { F, MutRef, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable, getVariableNode } from "@eslint-react/var";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
+import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
 
@@ -70,7 +71,7 @@ export default createRule<[], MessageID>({
   create(context) {
     const settings = decodeSettings(context.settings);
     const { useEffect: useEffectAlias = [], useState: useStateAlias = [] } = settings.additionalHooks ?? {};
-    const functionStack = MutList.make<[node: TSESTreeFunction, kind: FunctionKind]>();
+    const functionStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
     const effectFunctionRef = MutRef.make<TSESTreeFunction | null>(null);
     const effectFunctionIdentifiers: TSESTree.Identifier[] = [];
     const indirectFunctionCalls: TSESTree.CallExpression[] = [];
@@ -84,7 +85,7 @@ export default createRule<[], MessageID>({
     return {
       ":function"(node: TSESTreeFunction) {
         const functionKind = getFunctionKind(node, context, useEffectAlias);
-        MutList.append(functionStack, [node, functionKind]);
+        functionStack.push([node, functionKind]);
         match(functionKind)
           .with("effect", () => {
             onEffectFunctionEnter(node);
@@ -93,11 +94,11 @@ export default createRule<[], MessageID>({
       },
       ":function:exit"(node: TSESTreeFunction) {
         onEffectFunctionExit(node);
-        MutList.pop(functionStack);
+        functionStack.pop();
       },
       CallExpression(node) {
         const effectFn = MutRef.get(effectFunctionRef);
-        const [parentFn, parentFnKind] = MutList.tail(functionStack) ?? [];
+        const [parentFn, parentFnKind] = R.last(functionStack) ?? [];
         if (parentFn?.async) return;
         const callKind = getCallKind(node, context, useStateAlias, useEffectAlias);
         match(callKind)

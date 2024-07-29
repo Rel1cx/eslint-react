@@ -1,7 +1,7 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import { getFunctionIdentifier, isFunction, NodeType } from "@eslint-react/ast";
 import { isComponentName, useComponentCollector } from "@eslint-react/core";
-import { MutRef, O } from "@eslint-react/tools";
+import { O } from "@eslint-react/tools";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -57,19 +57,19 @@ export default createRule<[], MessageID>({
             && components.some((component) => component.node === block);
         }
 
-        for (const [scope, memberExpression] of memberExpressionWithNames) {
-          const scopeRef = MutRef.make(scope);
-          const isComponentRef = MutRef.make(isFunctionComponent(scope.block));
+        for (const [initialScope, memberExpression] of memberExpressionWithNames) {
+          let scope = initialScope;
+          let isComponent = isFunctionComponent(scope.block);
           while (
-            !MutRef.get(isComponentRef)
-            && MutRef.get(scopeRef).upper
-            && MutRef.get(scopeRef).upper !== MutRef.get(scopeRef)
+            !isComponent
+            && scope.upper
+            && scope.upper !== scope
           ) {
-            MutRef.set(scopeRef, MutRef.get(scopeRef).upper);
-            MutRef.set(isComponentRef, isFunctionComponent(MutRef.get(scopeRef).block));
+            scope = scope.upper;
+            isComponent = isFunctionComponent(scope.block);
           }
-          if (!MutRef.get(isComponentRef)) continue;
-          const component = MutRef.get(scopeRef).block;
+          if (!isComponent) continue;
+          const component = scope.block;
           if (!("params" in component)) continue;
           const [props, ctx] = component.params;
           const isMatch = isMatching({ name: memberExpression.object.name });

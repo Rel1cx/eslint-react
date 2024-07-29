@@ -48,6 +48,7 @@
     "@typescript-eslint/scope-manager": "^7.17.0",
     "@typescript-eslint/types": "^7.17.0",
     "@typescript-eslint/utils": "^7.17.0",
+    "remeda": "^2.6.0",
     "ts-pattern": "^5.2.0"
   },
   "devDependencies": {

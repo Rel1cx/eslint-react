@@ -163,6 +163,9 @@ importers:
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
+      remeda:
+        specifier: ^2.6.0
+        version: 2.6.0
       skott:
         specifier: 0.35.2
         version: 0.35.2
@@ -281,6 +284,9 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^7.17.0
         version: 7.17.0(eslint@9.8.0)(typescript@5.5.4)
+      remeda:
+        specifier: ^2.6.0
+        version: 2.6.0
       short-unique-id:
         specifier: ^5.2.0
         version: 5.2.0
@@ -333,6 +339,9 @@ importers:
       eslint-plugin-react-x:
         specifier: workspace:*
         version: link:../eslint-plugin-react-x
+      remeda:
+        specifier: ^2.6.0
+        version: 2.6.0
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
@@ -376,6 +385,9 @@ importers:
       eslint:
         specifier: ^9.8.0
         version: 9.8.0
+      remeda:
+        specifier: ^2.6.0
+        version: 2.6.0
       string-ts:
         specifier: ^2.2.0
         version: 2.2.0
@@ -428,6 +440,9 @@ importers:
       eslint:
         specifier: ^9.8.0
         version: 9.8.0
+      remeda:
+        specifier: ^2.6.0
+        version: 2.6.0
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
@@ -483,6 +498,9 @@ importers:
       eslint:
         specifier: ^9.8.0
         version: 9.8.0
+      remeda:
+        specifier: ^2.6.0
+        version: 2.6.0
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
@@ -535,6 +553,9 @@ importers:
       eslint:
         specifier: ^9.8.0
         version: 9.8.0
+      remeda:
+        specifier: ^2.6.0
+        version: 2.6.0
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
@@ -593,6 +614,9 @@ importers:
       is-immutable-type:
         specifier: 4.0.0
         version: 4.0.0(eslint@9.8.0)(typescript@5.5.4)
+      remeda:
+        specifier: ^2.6.0
+        version: 2.6.0
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
@@ -658,6 +682,9 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^7.17.0
         version: 7.17.0(eslint@9.8.0)(typescript@5.5.4)
+      remeda:
+        specifier: ^2.6.0
+        version: 2.6.0
     devDependencies:
       tsup:
         specifier: 8.2.3
@@ -680,6 +707,9 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^7.17.0
         version: 7.17.0(eslint@9.8.0)(typescript@5.5.4)
+      remeda:
+        specifier: ^2.6.0
+        version: 2.6.0
       string-ts:
         specifier: ^2.2.0
         version: 2.2.0
@@ -714,6 +744,9 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^7.17.0
         version: 7.17.0(eslint@9.8.0)(typescript@5.5.4)
+      remeda:
+        specifier: ^2.6.0
+        version: 2.6.0
       ts-pattern:
         specifier: ^5.2.0
         version: 5.2.0
@@ -742,6 +775,9 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^7.17.0
         version: 7.17.0(eslint@9.8.0)(typescript@5.5.4)
+      remeda:
+        specifier: ^2.6.0
+        version: 2.6.0
     devDependencies:
       string-ts:
         specifier: ^2.2.0
@@ -881,6 +917,9 @@ importers:
       '@tsconfig/strictest':
         specifier: 2.0.5
         version: 2.0.5
+      remeda:
+        specifier: ^2.6.0
+        version: 2.6.0
       tsup:
         specifier: 8.2.3
         version: 8.2.3(@swc/core@1.7.3(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.40)(typescript@5.5.4)(yaml@2.5.0)
@@ -5362,6 +5401,9 @@ packages:
 
   remark-stringify@11.0.0:
     resolution: {integrity: sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==}
+
+  remeda@2.6.0:
+    resolution: {integrity: sha512-uwq9c2s91Mry5YQiPGWtW9vF2DgTIVLzCIZZYz6Rcv8hsgWFQjavOaP24m9ZNF2mur+eq0x2EqRQlPBaLZuYrA==}
 
   repeat-string@1.6.1:
     resolution: {integrity: sha512-PV0dzCYDNfRi1jCDbJzpW7jNNDRuCOG/jI5ctQcGKt/clZD+YcPS3yIlWuTJMmESC8aevCFmWJy5wjAFgNqN6w==}
@@ -11462,6 +11504,10 @@ snapshots:
       '@types/mdast': 4.0.4
       mdast-util-to-markdown: 2.1.0
       unified: 11.0.5
+
+  remeda@2.6.0:
+    dependencies:
+      type-fest: 4.23.0
 
   repeat-string@1.6.1: {}
 

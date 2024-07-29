@@ -63,7 +63,8 @@
     "eslint-plugin-react-dom": "workspace:*",
     "eslint-plugin-react-hooks-extra": "workspace:*",
     "eslint-plugin-react-naming-convention": "workspace:*",
-    "eslint-plugin-react-x": "workspace:*"
+    "eslint-plugin-react-x": "workspace:*",
+    "remeda": "^2.6.0"
   },
   "devDependencies": {
     "tsup": "8.2.3"

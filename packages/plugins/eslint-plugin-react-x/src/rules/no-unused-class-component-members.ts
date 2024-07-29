@@ -1,8 +1,9 @@
 import type { TSESTreeClass } from "@eslint-react/ast";
 import { getClassIdentifier, isKeyLiteralLike, isThisExpression, NodeType } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
-import { MutList, O } from "@eslint-react/tools";
+import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -66,18 +67,18 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const classStack = MutList.make<TSESTreeClass>();
-    const methodStack = MutList.make<TSESTree.MethodDefinition | TSESTree.PropertyDefinition>();
+    const classStack: TSESTreeClass[] = [];
+    const methodStack: (TSESTree.MethodDefinition | TSESTree.PropertyDefinition)[] = [];
     const propertyDefs = new WeakMap<TSESTreeClass, Set<Property>>();
     const propertyUsages = new WeakMap<TSESTreeClass, Set<string>>();
     function classEnter(node: TSESTreeClass) {
-      MutList.append(classStack, node);
+      classStack.push(node);
       if (!isClassComponent(node)) return;
       propertyDefs.set(node, new Set());
       propertyUsages.set(node, new Set());
     }
     function classExit() {
-      const currentClass = MutList.pop(classStack);
+      const currentClass = classStack.pop();
       if (!currentClass || !isClassComponent(currentClass)) return;
       const className = O.map(getClassIdentifier(currentClass), id => id.name);
       const defs = propertyDefs.get(currentClass);
@@ -98,8 +99,8 @@ export default createRule<[], MessageID>({
       }
     }
     function methodEnter(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
-      MutList.append(methodStack, node);
-      const currentClass = MutList.tail(classStack);
+      methodStack.push(node);
+      const currentClass = R.last(classStack);
       if (!currentClass || !isClassComponent(currentClass)) return;
       if (node.static) return;
       if (isKeyLiteralLike(node, node.key)) {
@@ -107,7 +108,7 @@ export default createRule<[], MessageID>({
       }
     }
     function methodExit() {
-      MutList.pop(methodStack);
+      methodStack.pop();
     }
 
     return {
@@ -116,8 +117,8 @@ export default createRule<[], MessageID>({
       ClassExpression: classEnter,
       "ClassExpression:exit": classExit,
       MemberExpression(node) {
-        const currentClass = MutList.tail(classStack);
-        const currentMethod = MutList.tail(methodStack);
+        const currentClass = R.last(classStack);
+        const currentMethod = R.last(methodStack);
         if (!currentClass || !currentMethod) return;
         if (!isClassComponent(currentClass) || currentMethod.static) return;
         if (!isThisExpression(node.object) || !isKeyLiteralLike(node, node.property)) return;
@@ -134,8 +135,8 @@ export default createRule<[], MessageID>({
       PropertyDefinition: methodEnter,
       "PropertyDefinition:exit": methodExit,
       VariableDeclarator(node) {
-        const currentClass = MutList.tail(classStack);
-        const currentMethod = MutList.tail(methodStack);
+        const currentClass = R.last(classStack);
+        const currentMethod = R.last(methodStack);
         if (!currentClass || !currentMethod) return;
         if (!isClassComponent(currentClass) || currentMethod.static) return;
         // detect `{ foo, bar: baz } = this`

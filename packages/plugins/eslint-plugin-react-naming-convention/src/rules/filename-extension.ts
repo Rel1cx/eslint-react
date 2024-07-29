@@ -1,6 +1,7 @@
-import { MutRef, Pred } from "@eslint-react/tools";
+import { MutRef } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
+import * as R from "remeda";
 
 import { createRule } from "../utils";
 
@@ -71,12 +72,12 @@ export default createRule<Options, MessageID>({
   name: RULE_NAME,
   create(context) {
     const options = context.options[0] ?? defaultOptions[0];
-    const allow = Pred.isObject(options) ? options.allow : options;
-    const extensions = Pred.isObject(options) && "extensions" in options
+    const allow = R.isObjectType(options) ? options.allow : options;
+    const extensions = R.isObjectType(options) && "extensions" in options
       ? options.extensions
       : defaultOptions[0].extensions;
 
-    const filename = context.getFilename();
+    const filename = context.filename;
     const hasJSXNodeRef = MutRef.make<boolean>(false);
 
     return {

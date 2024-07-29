@@ -1,6 +1,6 @@
 import CodeBlockWriter from "code-block-writer";
-import * as Record from "effect/Record";
 import path from "pathe";
+import * as R from "remeda";
 
 import { copyFile } from "./lib/fs";
 
@@ -33,7 +33,7 @@ const metaContent = {
   "---": {
     type: "separator",
   },
-  ...Record.fromEntries(
+  ...R.fromEntries(
     rules
       .sort(([a], [b]) => a.localeCompare(b, "en", { numeric: true }))
       .sort(([a], [b]) => order.findLastIndex((x) => a.startsWith(x)) - order.findLastIndex((x) => b.startsWith(x))),

@@ -134,6 +134,16 @@
 
 ***
 
+### polymorphicPropName?
+
+> `optional` **polymorphicPropName**: `string`
+
+#### Inherited from
+
+`InferOutput.polymorphicPropName`
+
+***
+
 ### strict?
 
 > `optional` **strict**: `boolean`

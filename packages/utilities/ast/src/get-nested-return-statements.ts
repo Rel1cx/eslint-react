@@ -1,5 +1,5 @@
-import { Pred } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
+import * as R from "remeda";
 
 import { NodeType } from "./types";
 
@@ -13,7 +13,7 @@ export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTre
   if (node.type === NodeType.ReturnStatement) {
     returnStatements.push(node);
   }
-  if ("body" in node && !Pred.isNullable(node.body)) {
+  if ("body" in node && !R.isNullish(node.body)) {
     const chunk = Array.isArray(node.body)
       ? node.body.map(getNestedReturnStatements).flat(1)
       : getNestedReturnStatements(node.body);

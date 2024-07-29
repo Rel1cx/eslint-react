@@ -1,4 +1,4 @@
-export * from "./element-name";
+export * from "./get-element-name";
 export * from "./get-jsx-pragma";
 export * from "./get-prop";
 export * from "./has-prop";

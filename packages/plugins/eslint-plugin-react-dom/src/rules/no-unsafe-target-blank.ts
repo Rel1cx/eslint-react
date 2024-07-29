@@ -1,8 +1,9 @@
-import { elementName, findPropInAttributes, getPropValue } from "@eslint-react/jsx";
+import { findPropInAttributes, getElementName, getPropValue } from "@eslint-react/jsx";
 import { decodeSettings, expandSettings } from "@eslint-react/shared";
-import { F, O, Pred } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
+import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
 
 import { createRule, getPropFromUserDefined } from "../utils";
@@ -38,7 +39,7 @@ export default createRule<[], MessageID>({
     const settings = expandSettings(decodeSettings(context.settings));
     const additionalComponents = settings?.additionalComponents?.filter(c => c.as === "a") ?? [];
     function checkJSXElement(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
-      const name = elementName(node.openingElement);
+      const name = getElementName(node.openingElement);
       const { attributes } = node.openingElement;
       const initialScope = context.sourceCode.getScope(node);
       const additionalAttributes = additionalComponents
@@ -56,7 +57,7 @@ export default createRule<[], MessageID>({
           targetProp,
           O.flatMap(attr => getPropValue(attr, context)),
           O.flatMapNullable(v => v?.value),
-          O.filter(Pred.isString),
+          O.filter(R.isString),
         );
       if (!O.exists(targetPropValue, t => t === "_blank")) return O.none();
       const [
@@ -70,7 +71,7 @@ export default createRule<[], MessageID>({
           hrefProp,
           O.flatMap(attr => getPropValue(attr, context)),
           O.flatMapNullable(v => v?.value),
-          O.filter(Pred.isString),
+          O.filter(R.isString),
         );
       if (!O.exists(hrefPropValue, isExternalLinkLike)) return O.none();
       const [
@@ -84,7 +85,7 @@ export default createRule<[], MessageID>({
           relProp,
           O.flatMap(attr => getPropValue(attr, context)),
           O.flatMapNullable(v => v?.value),
-          O.filter(Pred.isString),
+          O.filter(R.isString),
         );
       if (O.exists(relPropValue, isSafeRel)) return O.none();
       return O.some(

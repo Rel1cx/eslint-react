@@ -37,11 +37,24 @@ export const narrow = <TType>(a: Narrow<TType>) => a;
 export const asConst = <const T>(a: T) => a;
 
 /**
+ * This is an enhanced version of the typeof operator to check the type of more complex values.
+ * In this case we just mind about arrays and objects. We can add more on demand.
+ * @param t the value to be checked
+ * @returns the type of the value
+ */
+export function typeOf(t: unknown) {
+  return Object.prototype.toString
+    .call(t)
+    .replace(/^\[object (.+)\]$/, "$1")
+    .toLowerCase() as "array" | "object" | ({} & string);
+}
+
+/**
  * @since 0.0.1
  * @template T The type to get the union from
  * @example
  * type Result = UnionFromTuple<['foo', 'bar', 1]>
- * // Result = 'foo' | 'bar' | 1
+ * Result = 'foo' | 'bar' | 1
  */
 export type UnionFromTuple<T> = T extends (infer U)[] ? U : never;
 
@@ -50,7 +63,7 @@ export type UnionFromTuple<T> = T extends (infer U)[] ? U : never;
  * @template T The type to get the intersection from
  * @example
  * type Result = IntersectionFromTuple<['foo', 'bar', 1]>
- * // Result = 'foo' & 'bar' & 1
+ * Result = 'foo' & 'bar' & 1
  */
 export type UnionToIntersection<U> = (
   U extends unknown ? (k: U) => void : never
@@ -90,47 +103,3 @@ export type ArrayElement<A> = A extends readonly (infer T)[] ? T : never;
  * @since 0.4.0
  */
 export type LooseRecord<T> = Record<PropertyKey, T>;
-
-export type FromEntries<T> = T extends [infer Key, unknown][]
-  ? { [K in Cast<Key, string>]: Extract<ArrayElement<T>, [K, unknown]>[1] }
-  : { [key in string]: unknown };
-
-// fromEntries<T>(obj: T): FromEntriesWithReadOnly<T>
-
-/**
- * type-safe version of Object.fromEntries
- * @param entries The entries to create the object from.
- * @returns The object created from the entries.
- * @since 0.4.0
- */
-export const fromEntries = <T extends [PropertyKey, unknown][]>(entries: T) => {
-  return Object.fromEntries(entries) as FromEntries<T>;
-};
-
-/**
- * type-safe version of Object.entries
- * @param value The value to get the entries from.
- * @returns The entries of the value.
- * @since 0.4.0
- */
-export const entries = <T extends LooseRecord<unknown>>(value: T) => {
-  return Object.entries(value) as {
-    [K in keyof T]-?: [K, T[K]];
-  }[keyof T][];
-};
-
-/**
- * type-safe version of Object.keys
- * @param value The value to get the keys from.
- * @returns The keys of the value.
- * @since 0.4.0
- */
-export const keys = <T extends LooseRecord<unknown>>(value: T) => Object.keys(value) as (keyof T)[];
-
-/**
- * type-safe version of Object.values
- * @param value The value to get the values from.
- * @returns The values of the value.
- * @since 0.4.0
- */
-export const values = <T extends LooseRecord<unknown>>(value: T) => Object.values(value) as T[keyof T][];

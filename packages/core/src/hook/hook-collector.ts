@@ -1,7 +1,8 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import { getFunctionIdentifier } from "@eslint-react/ast";
-import { MutList, O } from "@eslint-react/tools";
+import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import * as R from "remeda";
 import ShortUniqueId from "short-unique-id";
 
 import type { ERHook } from "./hook";
@@ -19,11 +20,10 @@ export function useHookCollector(): {
   listeners: ESLintUtils.RuleListener;
 } {
   const hooks = new Map<string, ERHook>();
-  const functionStack = MutList.make<TSESTreeFunction>();
-  const getCurrentFunction = () => MutList.tail(functionStack);
+  const functionStack: TSESTreeFunction[] = [];
   const onFunctionEnter = (node: TSESTreeFunction) => {
-    MutList.append(functionStack, node);
-    const currentFn = getCurrentFunction();
+    functionStack.push(node);
+    const currentFn = R.last(functionStack);
     if (!currentFn) return;
     const id = getFunctionIdentifier(currentFn);
     const name = O.flatMapNullable(id, (id) => id.name);
@@ -42,7 +42,7 @@ export function useHookCollector(): {
     }
   };
   const onFunctionExit = () => {
-    MutList.pop(functionStack);
+    functionStack.pop();
   };
   const ctx = {
     getAllHooks(_: TSESTree.Program): typeof hooks {
@@ -56,7 +56,7 @@ export function useHookCollector(): {
     ":function[type]": onFunctionEnter,
     ":function[type]:exit": onFunctionExit,
     "CallExpression[type]"(node) {
-      const currentFn = getCurrentFunction();
+      const currentFn = R.last(functionStack);
       if (!currentFn) return;
       // Detect the number of other hooks called inside the current hook
       // Hooks that are not call other hooks are redundant
