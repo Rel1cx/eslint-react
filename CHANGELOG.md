@@ -1,3 +1,13 @@
+## v1.7.0 (Draft)
+
+### ✨ New
+
+- Add `settings["react-x"].polymorphicPropName` setting to specify the name of the prop that is used to determine the component type.
+
+### 🪄 Improvements
+
+- Dropd the current incomplete lint support for `React.createElement` to improve performance and subsequent code maintainability.
+
 ## v1.6.0 (Sat 27 Jul 2024)
 
 ### ✨ New
