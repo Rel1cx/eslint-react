@@ -17,10 +17,12 @@ export function isFragmentElement(node: TSESTree.JSXElement, context: RuleContex
   // <Fragment>
   if (name.type === NodeType.JSXIdentifier && name.name === jsxPragmaFrag) return true;
   // <Pragma.Fragment>
-  return name.type === NodeType.JSXMemberExpression
+  return true
+    && name.type === NodeType.JSXMemberExpression
     && name.object.type === NodeType.JSXIdentifier
     && (
-      name.object.name === jsxPragma
+      false
+      || name.object.name === jsxPragma
       || isInitializedFromReact(name.object.name, context, context.sourceCode.getScope(node))
     )
     && name.property.name === jsxPragmaFrag;

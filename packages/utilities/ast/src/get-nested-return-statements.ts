@@ -44,11 +44,7 @@ export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTre
   if ("finalizer" in node && node.finalizer !== null) {
     returnStatements.push(...getNestedReturnStatements(node.finalizer));
   }
-  if (
-    "expression" in node
-    && node.expression !== true
-    && node.expression !== false
-  ) {
+  if ("expression" in node && node.expression !== true && node.expression !== false) {
     returnStatements.push(...getNestedReturnStatements(node.expression));
   }
   if ("test" in node && node.test !== null) {

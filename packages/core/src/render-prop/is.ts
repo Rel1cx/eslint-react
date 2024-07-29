@@ -4,7 +4,6 @@ import { isJSXValue, JSXValueHint } from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
-import { isMatching, P } from "ts-pattern";
 
 /**
  * Unsafe check whether given node is a render function
@@ -20,22 +19,14 @@ import { isMatching, P } from "ts-pattern";
  */
 export function isRenderFunctionLoose(node: TSESTreeFunction, context: RuleContext) {
   const { body, parent } = node;
-
   const maybeId = getFunctionIdentifier(node);
-
   if (O.isSome(maybeId) && !maybeId.value.name.startsWith("render")) {
-    return isMatching({
-      type: NodeType.JSXExpressionContainer,
-      parent: {
-        type: NodeType.JSXAttribute,
-        name: {
-          type: NodeType.JSXIdentifier,
-          name: P.string.startsWith("render"),
-        },
-      },
-    }, parent);
+    return true
+      && parent.type === NodeType.JSXExpressionContainer
+      && parent.parent.type === NodeType.JSXAttribute
+      && parent.parent.name.type === NodeType.JSXIdentifier
+      && parent.parent.name.name.startsWith("render");
   }
-
   return isJSXValue(
     body,
     context,
@@ -57,15 +48,10 @@ export function isRenderFunctionLoose(node: TSESTreeFunction, context: RuleConte
  * @returns `true` if node is a render prop, `false` if not
  */
 export function isRenderPropLoose(node: TSESTree.JSXAttribute, context: RuleContext) {
-  return isMatching({
-    type: NodeType.JSXAttribute,
-    name: {
-      type: NodeType.JSXIdentifier,
-      name: P.string.startsWith("render"),
-    },
-    value: {
-      type: NodeType.JSXExpressionContainer,
-      expression: P.when(isFunction),
-    },
-  }, node) && isRenderFunctionLoose(node.value.expression, context);
+  if (node.name.type !== NodeType.JSXIdentifier) return false;
+  return true
+    && node.name.name.startsWith("render")
+    && node.value?.type === NodeType.JSXExpressionContainer
+    && isFunction(node.value.expression)
+    && isRenderFunctionLoose(node.value.expression, context);
 }

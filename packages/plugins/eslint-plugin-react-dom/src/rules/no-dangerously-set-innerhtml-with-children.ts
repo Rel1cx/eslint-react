@@ -16,7 +16,8 @@ export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 function firstChildIsText(node: TSESTree.JSXElement) {
   const [firstChild] = node.children;
-  return node.children.length > 0
+  return true
+    && node.children.length > 0
     && !Pred.isNullable(firstChild)
     && !isLineBreak(firstChild);
 }
@@ -47,7 +48,6 @@ export default createRule<[], MessageID>({
           })
           .when(is(NodeType.Identifier), (n) => {
             const initialScope = context.sourceCode.getScope(n);
-
             return F.pipe(
               findVariable(n.name, initialScope),
               O.flatMap(getVariableNode(0)),

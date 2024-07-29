@@ -26,7 +26,6 @@ export function hasNoneOrValidComponentName(node: TSESTreeFunction, context: Rul
         const name = Array.isArray(id)
           ? id.at(-1)?.name
           : id.name;
-
         return !!name && isComponentName(name);
       },
     },

@@ -26,14 +26,12 @@ export function isReactHookCall(node: TSESTree.CallExpression) {
   if (node.callee.type === NodeType.MemberExpression) {
     return node.callee.property.type === NodeType.Identifier && isReactHookName(node.callee.property.name);
   }
-
   return false;
 }
 
 export function isReactHookCallWithName(node: TSESTree.CallExpression, context: RuleContext) {
   return (name: string) => {
     const initialScope = context.sourceCode.getScope(node);
-
     return match(node.callee)
       .with({ type: NodeType.Identifier, name }, n => isInitializedFromReact(n.name, context, initialScope))
       .with({ type: NodeType.MemberExpression, object: { name: P.string }, property: { name } }, n => {
@@ -55,7 +53,6 @@ export function isReactHookCallWithNameLoose(node: TSESTree.CallExpression) {
 export function isReactHookCallWithNameAlias(name: string, context: RuleContext, alias: string[]) {
   return (node: TSESTree.CallExpression) => {
     const initialScope = context.sourceCode.getScope(node);
-
     return match(node.callee)
       .with({ type: NodeType.Identifier, name }, n => isInitializedFromReact(n.name, context, initialScope))
       .with({ type: NodeType.MemberExpression, object: { name: P.string }, property: { name } }, n => {

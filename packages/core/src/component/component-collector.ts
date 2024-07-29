@@ -34,23 +34,18 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
   if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node)) {
     return false;
   }
-
   if (hint & ERComponentHint.SkipMapCallback && isMapCallLoose(node.parent)) {
     return false;
   }
-
   if (hint & ERComponentHint.SkipObjectMethod && isFunctionOfObjectMethod(node.parent)) {
     return false;
   }
-
   if (hint & ERComponentHint.SkipClassMethod && isFunctionOfClassMethod(node.parent)) {
     return false;
   }
-
   if (hint & ERComponentHint.SkipClassProperty && isFunctionOfClassProperty(node.parent)) {
     return false;
   }
-
   return !F.pipe(
     traverseUp(
       node,
@@ -68,15 +63,12 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
 
 function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {
   const flagRef = MutRef.make(ERFunctionComponentFlag.None);
-
   if (hasCallInInitPath("memo")(initPath)) {
     MutRef.update(flagRef, f => f | ERFunctionComponentFlag.Memo);
   }
-
   if (hasCallInInitPath("forwardRef")(initPath)) {
     MutRef.update(flagRef, f => f | ERFunctionComponentFlag.ForwardRef);
   }
-
   return MutRef.get(flagRef);
 }
 
@@ -129,7 +121,7 @@ export function useComponentCollector(
       if (O.isNone(maybeCurrentFn)) return;
       const [_key, currentFn, _isComponent, hookCalls] = maybeCurrentFn.value;
       const { body } = currentFn;
-      const isComponent = F.constTrue()
+      const isComponent = true
         && hasNoneOrValidComponentName(currentFn, context)
         && isJSXValue(body, context, hint)
         && hasValidHierarchy(currentFn, context, hint);
@@ -138,7 +130,6 @@ export function useComponentCollector(
       const id = getFunctionComponentIdentifier(currentFn, context);
       const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
       const key = uid.rnd();
-
       components.set(key, {
         _: key,
         id,
@@ -166,7 +157,6 @@ export function useComponentCollector(
         .from(components.values())
         .findLast(({ name }) => O.exists(name, n => n === maybeComponentName.value));
       if (!component) return;
-
       components.set(component._, {
         ...component,
         displayName: O.some(right),
@@ -186,18 +176,16 @@ export function useComponentCollector(
       if (O.isNone(maybeCurrentFn)) return;
       const [key, currentFn, isKnown, hookCalls] = maybeCurrentFn.value;
       if (isKnown) return;
-      const isComponent = hasNoneOrValidComponentName(currentFn, context)
+      const isComponent = true
+        && hasNoneOrValidComponentName(currentFn, context)
         && isJSXValue(node.argument, context, hint)
         && hasValidHierarchy(currentFn, context, hint);
       if (!isComponent) return;
-
       MutList.pop(functionStack);
       MutList.append(functionStack, [key, currentFn, true, []]);
-
       const initPath = getComponentInitPath(currentFn);
       const id = getFunctionComponentIdentifier(currentFn, context);
       const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
-
       components.set(key, {
         _: key,
         id,
@@ -212,7 +200,6 @@ export function useComponentCollector(
       });
     },
   } as const satisfies ESLintUtils.RuleListener;
-
   return {
     ctx,
     listeners,

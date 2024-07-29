@@ -24,7 +24,10 @@ export function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
  * @returns boolean
  */
 export function isLineBreak(node: TSESTree.Node) {
-  return isLiteral(node) && isWhiteSpace(node) && isMultiLine(node);
+  return true
+    && isLiteral(node)
+    && isWhiteSpace(node)
+    && isMultiLine(node);
 }
 
 /**
@@ -33,7 +36,8 @@ export function isLineBreak(node: TSESTree.Node) {
  * @returns boolean
  */
 export function isPaddingSpaces(node: TSESTree.Node) {
-  return isLiteral(node)
+  return true
+    && isLiteral(node)
     && isWhiteSpace(node)
     && node.raw.includes("\n");
 }

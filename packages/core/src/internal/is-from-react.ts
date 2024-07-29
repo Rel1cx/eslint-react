@@ -68,7 +68,8 @@ export function isFromReact(name: string) {
   ) => {
     const initialScope = context.sourceCode.getScope(node);
     if (node.type === NodeType.MemberExpression) {
-      return node.object.type === NodeType.Identifier
+      return true
+        && node.object.type === NodeType.Identifier
         && node.property.type === NodeType.Identifier
         && node.property.name === name
         && isInitializedFromReact(node.object.name, context, initialScope);
@@ -98,14 +99,14 @@ export function isFromReactMember(
       return isInitializedFromReact(node.object.name, context, initialScope);
     }
     if (
-      node.object.type === NodeType.MemberExpression
+      true
+      && node.object.type === NodeType.MemberExpression
       && node.object.object.type === NodeType.Identifier
       && isInitializedFromReact(node.object.object.name, context, initialScope)
       && node.object.property.type === NodeType.Identifier
     ) {
       return node.object.property.name === memberName;
     }
-
     return false;
   };
 }
@@ -113,7 +114,6 @@ export function isFromReactMember(
 export function isCallFromReact(name: string) {
   return (node: TSESTree.CallExpression, context: RuleContext) => {
     if (!isOneOf([NodeType.Identifier, NodeType.MemberExpression])(node.callee)) return false;
-
     return isFromReact(name)(node.callee, context);
   };
 }
@@ -124,7 +124,6 @@ export function isCallFromReactMember(
 ) {
   return (node: TSESTree.CallExpression, context: RuleContext) => {
     if (!is(NodeType.MemberExpression)(node.callee)) return false;
-
     return isFromReactMember(pragmaMemberName, name)(node.callee, context);
   };
 }

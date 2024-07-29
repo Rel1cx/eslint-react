@@ -29,7 +29,6 @@ export function useHookCollector(): {
     const name = O.flatMapNullable(id, (id) => id.name);
     if (O.isSome(id) && O.isSome(name) && isReactHookName(name.value)) {
       const key = uid.rnd();
-
       hooks.set(key, {
         _: key,
         id,
@@ -42,11 +41,9 @@ export function useHookCollector(): {
       });
     }
   };
-
   const onFunctionExit = () => {
     MutList.pop(functionStack);
   };
-
   const ctx = {
     getAllHooks(_: TSESTree.Program): typeof hooks {
       return hooks;
@@ -55,7 +52,6 @@ export function useHookCollector(): {
       return new Map(hooks);
     },
   } as const;
-
   const listeners = {
     ":function[type]": onFunctionEnter,
     ":function[type]:exit": onFunctionExit,
@@ -72,7 +68,6 @@ export function useHookCollector(): {
           .from(hooks.values())
           .find((hook) => hook.node === currentFn);
         if (!hook) return;
-
         hooks.set(hook._, {
           ...hook,
           hookCalls: [
@@ -83,7 +78,6 @@ export function useHookCollector(): {
       }
     },
   } as const satisfies ESLintUtils.RuleListener;
-
   return {
     ctx,
     listeners,

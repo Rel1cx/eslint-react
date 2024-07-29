@@ -1,8 +1,6 @@
 import { NodeType } from "@eslint-react/ast";
-import { F } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
-import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -26,18 +24,18 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         const { callee } = node;
-        const isFindDOMNode = match(callee)
-          .with({ type: NodeType.Identifier }, ({ name }) => name === "findDOMNode")
-          .with(
-            { type: NodeType.MemberExpression },
-            ({ property }) => "name" in property && property.name === "findDOMNode",
-          )
-          .otherwise(F.constFalse);
-        if (!isFindDOMNode) return;
-        context.report({
-          messageId: "NO_FIND_DOM_NODE",
-          node,
-        });
+        switch (callee.type) {
+          case NodeType.Identifier:
+            if (callee.name === "findDOMNode") {
+              context.report({ messageId: "NO_FIND_DOM_NODE", node });
+            }
+            return;
+          case NodeType.MemberExpression:
+            if (callee.property.type === NodeType.Identifier && callee.property.name === "findDOMNode") {
+              context.report({ messageId: "NO_FIND_DOM_NODE", node });
+            }
+            return;
+        }
       },
     };
   },

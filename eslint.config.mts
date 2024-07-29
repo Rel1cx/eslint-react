@@ -74,6 +74,7 @@ const config: FlatConfig[] = [
       "logical-assignment-operators": "error",
       "max-depth": ["warn", 3],
       "no-console": "error",
+      "no-constant-binary-expression": "off", // esbuild will remove these at build time
       "no-else-return": "error",
       "no-fallthrough": ["error", { commentPattern: ".*intentional fallthrough.*" }],
       "no-mixed-operators": "error",
