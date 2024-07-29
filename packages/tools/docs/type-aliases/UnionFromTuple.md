@@ -22,5 +22,5 @@ The type to get the union from
 
 ```ts
 type Result = UnionFromTuple<['foo', 'bar', 1]>
-// Result = 'foo' | 'bar' | 1
+Result = 'foo' | 'bar' | 1
 ```

@@ -24,5 +24,5 @@ The type to get the intersection from
 
 ```ts
 type Result = IntersectionFromTuple<['foo', 'bar', 1]>
-// Result = 'foo' & 'bar' & 1
+Result = 'foo' & 'bar' & 1
 ```

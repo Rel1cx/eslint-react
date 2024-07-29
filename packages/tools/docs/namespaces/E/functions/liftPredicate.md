@@ -57,7 +57,7 @@ or `Left` of the result of the provided function if the predicate returns false
 
 ### Parameters
 
-• **refinement**: [`Refinement`](../../Pred/interfaces/Refinement.md)\<`NoInfer`\<`A`\>, `B`\>
+• **refinement**: `Refinement`\<`NoInfer`\<`A`\>, `B`\>
 
 • **orLeftWith**
 
@@ -119,7 +119,7 @@ or `Left` of the result of the provided function if the predicate returns false
 
 ### Parameters
 
-• **predicate**: [`Predicate`](../../Pred/interfaces/Predicate.md)\<`NoInfer`\<`A`\>\>
+• **predicate**: `Predicate`\<`NoInfer`\<`A`\>\>
 
 • **orLeftWith**
 
@@ -185,7 +185,7 @@ or `Left` of the result of the provided function if the predicate returns false
 
 • **self**: `A`
 
-• **refinement**: [`Refinement`](../../Pred/interfaces/Refinement.md)\<`A`, `B`\>
+• **refinement**: `Refinement`\<`A`, `B`\>
 
 • **orLeftWith**
 
@@ -241,7 +241,7 @@ or `Left` of the result of the provided function if the predicate returns false
 
 • **self**: `A`
 
-• **predicate**: [`Predicate`](../../Pred/interfaces/Predicate.md)\<`NoInfer`\<`A`\>\>
+• **predicate**: `Predicate`\<`NoInfer`\<`A`\>\>
 
 • **orLeftWith**
 

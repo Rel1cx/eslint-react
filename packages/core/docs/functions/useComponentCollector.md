@@ -58,7 +58,7 @@
 
 ### listeners.:function\[type\]()
 
-> `readonly` **:function\[type\]**: (`node`) => `MutableList`\<[`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]]\> = `onFunctionEnter`
+> `readonly` **:function\[type\]**: (`node`) => `number` = `onFunctionEnter`
 
 #### Parameters
 
@@ -66,7 +66,7 @@
 
 #### Returns
 
-`MutableList`\<[`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]]\>
+`number`
 
 ### listeners.:function\[type\]:exit()
 

@@ -46,7 +46,7 @@ Check if a value in an `Option` type meets a certain predicate.
 
 ### Parameters
 
-• **refinement**: [`Refinement`](../../Pred/interfaces/Refinement.md)\<`NoInfer`\<`A`\>, `B`\>
+• **refinement**: `Refinement`\<`NoInfer`\<`A`\>, `B`\>
 
 ### Returns
 
@@ -96,7 +96,7 @@ Check if a value in an `Option` type meets a certain predicate.
 
 ### Parameters
 
-• **predicate**: [`Predicate`](../../Pred/interfaces/Predicate.md)\<`NoInfer`\<`A`\>\>
+• **predicate**: `Predicate`\<`NoInfer`\<`A`\>\>
 
 ### Returns
 
@@ -150,7 +150,7 @@ Check if a value in an `Option` type meets a certain predicate.
 
 • **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
 
-• **refinement**: [`Refinement`](../../Pred/interfaces/Refinement.md)\<`A`, `B`\>
+• **refinement**: `Refinement`\<`A`, `B`\>
 
 ### Returns
 
@@ -194,7 +194,7 @@ Check if a value in an `Option` type meets a certain predicate.
 
 • **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
 
-• **predicate**: [`Predicate`](../../Pred/interfaces/Predicate.md)\<`A`\>
+• **predicate**: `Predicate`\<`A`\>
 
 ### Returns
 

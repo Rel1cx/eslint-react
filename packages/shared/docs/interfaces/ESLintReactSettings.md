@@ -12,9 +12,9 @@
 
 ## Properties
 
-### additionalComponents
+### additionalComponents?
 
-> **additionalComponents**: `object`[]
+> `optional` **additionalComponents**: `object`[]
 
 #### Inherited from
 
@@ -131,16 +131,6 @@
 #### Inherited from
 
 `InferOutput.jsxPragmaFrag`
-
-***
-
-### polymorphicPropName?
-
-> `optional` **polymorphicPropName**: `string`
-
-#### Inherited from
-
-`InferOutput.polymorphicPropName`
 
 ***
 

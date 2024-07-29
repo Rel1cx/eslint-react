@@ -12,13 +12,13 @@
 
 ## Properties
 
-### react-x
+### react-x?
 
-> **react-x**: `object`
+> `optional` **react-x**: `object`
 
-#### additionalComponents
+#### additionalComponents?
 
-> **additionalComponents**: `object`[]
+> `optional` **additionalComponents**: `object`[]
 
 #### additionalHooks?
 
@@ -107,10 +107,6 @@
 #### jsxPragmaFrag?
 
 > `optional` **jsxPragmaFrag**: `string`
-
-#### polymorphicPropName?
-
-> `optional` **polymorphicPropName**: `string`
 
 #### strict?
 

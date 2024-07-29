@@ -53,7 +53,7 @@ If the predicate fails, set the left value with the result of the provided funct
 
 ### Parameters
 
-• **refinement**: [`Refinement`](../../Pred/interfaces/Refinement.md)\<`NoInfer`\<`R`\>, `B`\>
+• **refinement**: `Refinement`\<`NoInfer`\<`R`\>, `B`\>
 
 • **orLeftWith**
 
@@ -115,7 +115,7 @@ If the predicate fails, set the left value with the result of the provided funct
 
 ### Parameters
 
-• **predicate**: [`Predicate`](../../Pred/interfaces/Predicate.md)\<`NoInfer`\<`R`\>\>
+• **predicate**: `Predicate`\<`NoInfer`\<`R`\>\>
 
 • **orLeftWith**
 
@@ -183,7 +183,7 @@ If the predicate fails, set the left value with the result of the provided funct
 
 • **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
-• **refinement**: [`Refinement`](../../Pred/interfaces/Refinement.md)\<`R`, `B`\>
+• **refinement**: `Refinement`\<`R`, `B`\>
 
 • **orLeftWith**
 
@@ -237,7 +237,7 @@ If the predicate fails, set the left value with the result of the provided funct
 
 • **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
-• **predicate**: [`Predicate`](../../Pred/interfaces/Predicate.md)\<`R`\>
+• **predicate**: `Predicate`\<`R`\>
 
 • **orLeftWith**
 
