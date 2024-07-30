@@ -25,7 +25,7 @@ test/bundles/plugins/eslint-plugin-react-x/dist/index.js 5.38 MiB
 test/bundles/plugins/eslint-plugin-react-x/dist/index.mjs 5.38 MiB
 test/bundles/plugins/eslint-plugin/dist/index.d.mts 93 B
 test/bundles/plugins/eslint-plugin/dist/index.d.ts 93 B
-test/bundles/plugins/eslint-plugin/dist/index.js 5.43 MiB
+test/bundles/plugins/eslint-plugin/dist/index.js 5.44 MiB
 test/bundles/plugins/eslint-plugin/dist/index.mjs 5.43 MiB
 test/bundles/shared/dist/index.d.mts 74 B
 test/bundles/shared/dist/index.d.ts 74 B
@@ -53,16 +53,16 @@ test/bundles/utilities/var/dist/index.js 1.53 MiB
 test/bundles/utilities/var/dist/index.mjs 1.53 MiB
 
 Gzipped Bundled Size:
-test/bundles/core/test-bundle-core-1.0.0.tgz 886.90 KiB
-test/bundles/plugins/eslint-plugin-react-debug/test-bundle-eslint-plugin-react-debug-1.0.0.tgz 885.30 KiB
-test/bundles/plugins/eslint-plugin-react-dom/test-bundle-eslint-plugin-react-dom-1.0.0.tgz 881.18 KiB
-test/bundles/plugins/eslint-plugin-react-hooks-extra/test-bundle-eslint-plugin-react-hooks-extra-1.0.0.tgz 885.59 KiB
-test/bundles/plugins/eslint-plugin-react-naming-convention/test-bundle-eslint-plugin-react-naming-convention-1.0.0.tgz 892.38 KiB
+test/bundles/core/test-bundle-core-1.0.0.tgz 886.89 KiB
+test/bundles/plugins/eslint-plugin-react-debug/test-bundle-eslint-plugin-react-debug-1.0.0.tgz 885.29 KiB
+test/bundles/plugins/eslint-plugin-react-dom/test-bundle-eslint-plugin-react-dom-1.0.0.tgz 881.30 KiB
+test/bundles/plugins/eslint-plugin-react-hooks-extra/test-bundle-eslint-plugin-react-hooks-extra-1.0.0.tgz 885.58 KiB
+test/bundles/plugins/eslint-plugin-react-naming-convention/test-bundle-eslint-plugin-react-naming-convention-1.0.0.tgz 892.37 KiB
 test/bundles/plugins/eslint-plugin-react-x/test-bundle-eslint-plugin-react-x-1.0.0.tgz 3.03 MiB
 test/bundles/plugins/eslint-plugin/test-bundle-eslint-plugin-1.0.0.tgz 3.06 MiB
-test/bundles/shared/test-bundle-shared-1.0.0.tgz 843.02 KiB
+test/bundles/shared/test-bundle-shared-1.0.0.tgz 842.97 KiB
 test/bundles/tools/test-bundle-tools-1.0.0.tgz 25.88 KiB
-test/bundles/types/test-bundle-types-1.0.0.tgz 1.20 KiB
-test/bundles/utilities/ast/test-bundle-ast-1.0.0.tgz 855.80 KiB
+test/bundles/types/test-bundle-types-1.0.0.tgz 1.19 KiB
+test/bundles/utilities/ast/test-bundle-ast-1.0.0.tgz 855.79 KiB
 test/bundles/utilities/jsx/test-bundle-jsx-1.0.0.tgz 855.32 KiB
-test/bundles/utilities/var/test-bundle-var-1.0.0.tgz 851.72 KiB
+test/bundles/utilities/var/test-bundle-var-1.0.0.tgz 851.71 KiB
