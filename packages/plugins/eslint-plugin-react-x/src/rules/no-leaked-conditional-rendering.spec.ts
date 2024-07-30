@@ -369,6 +369,22 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     /* tsx */ `
       /// <reference types="react" />
       /// <reference types="react-dom" />
+      
+      const alwaysTruthy = true;
+      const alwaysFalsy = false;
+
+      const App = () => {
+          return (
+            <div>
+              {alwaysTruthy && <div />}
+              {alwaysFalsy && <div />}
+            </div>
+          )
+      }
+    `,
+    /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
 
       type AppProps = {
         items: string[];

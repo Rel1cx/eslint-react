@@ -49,6 +49,7 @@ const allowedVariants = [
   "object",
   "string",
   "falsy string",
+  "falsy boolean",
   "truthy bigint",
   "truthy boolean",
   "truthy number",
