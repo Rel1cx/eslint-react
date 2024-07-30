@@ -12,7 +12,7 @@ This is the initial motivation for creating `eslint-react`.
 The purpose of `eslint-react` is to provide ESLint plugins for not just for React DOM but also other libraries and frameworks that use React as a UI runtime. Currently, it provides:
 
 - `@eslint-react/eslint-plugin` - The main ESLint plugin package including all rules and config presets in this repository.
-- `eslint-plugin-react-x` - Core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent, Compatible with x-platform).
+- `eslint-plugin-react-x` - Core rules (regardless of render target, compatible with x-platform).
 - `eslint-plugin-react-dom` - DOM specific rules for React DOM.
 - `eslint-plugin-react-debug` - Debugging rules.
 - `eslint-plugin-react-hooks-extra` - Extra React Hooks rules.

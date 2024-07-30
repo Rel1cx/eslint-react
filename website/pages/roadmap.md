@@ -4,12 +4,11 @@
 
 ### Plugins (with ecological niche explanation)
 
-- `eslint-plugin-react-x` (DOM Irrelevant, Render Target Agnostic, Formatting Independent, Compatible with x-platform).
-- `eslint-plugin-react-dom` (DOM Specific rules for React DOM).
-- `eslint-plugin-react-hooks` (The official one from React).
-- `eslint-plugin-react-hooks-extra` (Extra rules for `eslint-plugin-react-hooks`).
-- `eslint-plugin-react-naming-convention` (Optional, only naming convention rules, can be replaced with other plugins depending on the project).
-- ... (Free to combine with other plugins from the community).
+- `eslint-plugin-react-x` - Core rules (regardless of render target, compatible with x-platform).
+- `eslint-plugin-react-dom` - DOM Specific rules for React DOM.
+- `eslint-plugin-react-hooks` - The official one from React.
+- `eslint-plugin-react-hooks-extra` - Extra rules for `eslint-plugin-react-hooks`.
+- `eslint-plugin-react-naming-convention` - Optional naming convention rules (can be replaced with other plugins depending on the project).
 
 ### Rules in `eslint-plugin-react-x`
 
@@ -105,12 +104,12 @@
 
 ### Plugins (with ecological niche explanation)
 
-- `eslint-plugin-react-x` (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
-- `eslint-plugin-react-dom` (DOM Specific rules for React DOM).
-- `eslint-plugin-react-dom-a11y` (Accessibility rules for React DOM).
-- `eslint-plugin-react-hooks` (The official one from React).
-- `eslint-plugin-react-hooks-extra` (Extra rules for `eslint-plugin-react-hooks`).
-- `eslint-plugin-react-naming-convention` (Optional, only naming convention rules, can be replaced with other plugins depending on the project).
+- `eslint-plugin-react-x` - Core rules (regardless of render target, compatible with x-platform).
+- `eslint-plugin-react-dom` - DOM Specific rules for React DOM.
+- `eslint-plugin-react-dom-a11y` - Accessibility rules for React DOM.
+- `eslint-plugin-react-hooks` - The official one from React.
+- `eslint-plugin-react-hooks-extra` - Extra rules for `eslint-plugin-react-hooks`.
+- `eslint-plugin-react-naming-convention` - Optional naming convention rules (can be replaced with other plugins depending on the project).
 - ... (Free to combine with other plugins from the community).
 
 ### Rules in `eslint-plugin-react-dom-a11y` (port [open-wc's a11y rules](https://open-wc.org/docs/linting/eslint-plugin-lit-a11y/overview/#supported-rules))
