@@ -1,3 +1,10 @@
+## v1.7.1 (Draft)
+
+### 🐞 Fixes
+
+- Fixed the spread attributes support for dom related rules.
+- Fixed the issue where the overridden value was retrieved when there were duplicate attributes on a JSX element.
+
 ## v1.7.0 (Tue 30 Jul 2024)
 
 ### ✨ New
