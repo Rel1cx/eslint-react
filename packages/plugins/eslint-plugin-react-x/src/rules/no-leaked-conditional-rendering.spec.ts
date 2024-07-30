@@ -309,6 +309,19 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     dedent`
+      const alwaysTruthy = true;
+      const alwaysFalsy = false;
+
+      const App = () => {
+          return (
+            <div>
+              {alwaysTruthy && <div />}
+              {alwaysFalsy && <div />}
+            </div>
+          )
+      }
+    `,
+    dedent`
       type AppProps = {
         items: string[];
         count: number;

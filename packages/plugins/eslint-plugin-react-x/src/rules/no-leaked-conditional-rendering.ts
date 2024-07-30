@@ -43,9 +43,10 @@ const allowedVariants = [
   "string",
   "object",
   "any",
-  "falsy string",
   "truthy boolean",
+  "falsy boolean",
   "truthy string",
+  "falsy string",
 ] as const satisfies readonly VariantType[];
 
 /**
