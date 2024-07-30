@@ -6,7 +6,7 @@
 
 # Function: bindTo()
 
-The "do simulation" in allows you to write code in a more declarative style, similar to the "do notation" in other programming languages. It provides a way to define variables and perform operations on them using functions like `bind` and `let`.
+The "do simulation" in Effect allows you to write code in a more declarative style, similar to the "do notation" in other programming languages. It provides a way to define variables and perform operations on them using functions like `bind` and `let`.
 
 Here's how the do simulation works:
 
@@ -45,7 +45,7 @@ assert.deepStrictEqual(result, Option.some({ x: 2, y: 3, sum: 5 }))
 
 > **bindTo**\<`N`\>(`name`): \<`A`\>(`self`) => [`Option`](../type-aliases/Option.md)\<`{ [K in string]: A }`\>
 
-The "do simulation" in allows you to write code in a more declarative style, similar to the "do notation" in other programming languages. It provides a way to define variables and perform operations on them using functions like `bind` and `let`.
+The "do simulation" in Effect allows you to write code in a more declarative style, similar to the "do notation" in other programming languages. It provides a way to define variables and perform operations on them using functions like `bind` and `let`.
 
 Here's how the do simulation works:
 
@@ -108,7 +108,7 @@ assert.deepStrictEqual(result, Option.some({ x: 2, y: 3, sum: 5 }))
 
 > **bindTo**\<`A`, `N`\>(`self`, `name`): [`Option`](../type-aliases/Option.md)\<`{ [K in string]: A }`\>
 
-The "do simulation" in allows you to write code in a more declarative style, similar to the "do notation" in other programming languages. It provides a way to define variables and perform operations on them using functions like `bind` and `let`.
+The "do simulation" in Effect allows you to write code in a more declarative style, similar to the "do notation" in other programming languages. It provides a way to define variables and perform operations on them using functions like `bind` and `let`.
 
 Here's how the do simulation works:
 

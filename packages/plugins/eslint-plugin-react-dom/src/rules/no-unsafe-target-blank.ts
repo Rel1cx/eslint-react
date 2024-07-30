@@ -5,6 +5,7 @@ import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
+import { match, P } from "ts-pattern";
 
 import { createRule, getPropFromUserDefined } from "../utils";
 
@@ -22,6 +23,7 @@ function isSafeRel(value: string) {
     || /\bnoreferrer\b/u.test(value);
 }
 
+// TODO: Extract the shared utilities to the utils module
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -59,7 +61,12 @@ export default createRule<[], MessageID>({
         : F.pipe(
           targetProp,
           O.flatMap(attr => getPropValue(attr, context)),
-          O.flatMapNullable(v => v?.value),
+          O.flatMapNullable(v =>
+            match(v?.value)
+              .with(P.string, F.identity)
+              .with(P.shape({ [targetPropName]: P.string }), (v) => v[targetPropName])
+              .otherwise(F.constNull)
+          ),
           O.filter(R.isString),
         );
       if (!O.exists(targetPropValue, t => t === "_blank")) return O.none();
@@ -73,7 +80,12 @@ export default createRule<[], MessageID>({
         : F.pipe(
           hrefProp,
           O.flatMap(attr => getPropValue(attr, context)),
-          O.flatMapNullable(v => v?.value),
+          O.flatMapNullable(v =>
+            match(v?.value)
+              .with(P.string, F.identity)
+              .with(P.shape({ [hrefPropName]: P.string }), (v) => v[hrefPropName])
+              .otherwise(F.constNull)
+          ),
           O.filter(R.isString),
         );
       if (!O.exists(hrefPropValue, isExternalLinkLike)) return O.none();
@@ -87,7 +99,12 @@ export default createRule<[], MessageID>({
         : F.pipe(
           relProp,
           O.flatMap(attr => getPropValue(attr, context)),
-          O.flatMapNullable(v => v?.value),
+          O.flatMapNullable(v =>
+            match(v?.value)
+              .with(P.string, F.identity)
+              .with(P.shape({ [relPropName]: P.string }), (v) => v[relPropName])
+              .otherwise(F.constNull)
+          ),
           O.filter(R.isString),
         );
       if (O.exists(relPropValue, isSafeRel)) return O.none();

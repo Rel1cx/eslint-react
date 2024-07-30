@@ -16,6 +16,13 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
     },
     {
+      code: /* tsx */ `
+        const props = { href: "https://react.dev", target: "_blank" };
+        const a = <a {...props}></a>;
+      `,
+      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
+    },
+    {
       code: '<PolyComponent as="a" href="https://react.dev" target="_blank"></PolyComponent>',
       errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
       settings: {
@@ -193,6 +200,21 @@ ruleTester.run(RULE_NAME, rule, {
     '<Link href="https://react.dev" target="_blank" rel={"noopener noreferrer"}></Link>',
     '<Link href="https://react.dev" target="_blank" rel="noreferrer"></Link>',
     '<Box href="https://react.dev" target="_blank"></Box>',
+    /* tsx */ `
+      const props = { href: "https://react.dev", target: "_blank", rel: "noreferrer" };
+      const a = <a {...props}></a>;
+    `,
+    /* tsx */ `
+      const props = { href: "https://react.dev", rel: "noreferrer" };
+      const a = <a target="_blank" {...props}></a>;
+    `,
+    // TODO: Support to calculate the final values according to the order between the literal and spread attributes
+    // /* tsx */ `
+    //   const props1 = { href: "https://react.dev", target: "_blank" };
+    //   const a1 = <a {...props1} target="_self"></a>;
+    //   const props2 = { href: "https://react.dev", target: "_self" };
+    //   const a2 = <a target="_blank" {...props2}></a>;
+    // `,
     {
       code: '<Box href="https://react.dev" target="_blank"></Box>',
       settings: {

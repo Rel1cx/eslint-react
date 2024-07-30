@@ -1,9 +1,10 @@
-import { NodeType } from "@eslint-react/ast";
-import { findPropInAttributes, getPropValue } from "@eslint-react/jsx";
+import { findPropInAttributes, getElementType, getPropValue } from "@eslint-react/jsx";
+import { decodeSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
+import { match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -30,17 +31,23 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    const polymorphicPropName = decodeSettings(context.settings).polymorphicPropName;
     return {
       JSXElement(node) {
-        const { name } = node.openingElement;
-        if (name.type !== NodeType.JSXIdentifier || name.name !== "iframe") return;
+        const elementType = getElementType(context, polymorphicPropName)(node.openingElement);
+        if (elementType !== "iframe") return;
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
         const maybeSandboxAttribute = findPropInAttributes(attributes, context, initialScope)("sandbox");
         if (O.isNone(maybeSandboxAttribute)) return;
         const isSafeSandboxValue = !F.pipe(
           getPropValue(maybeSandboxAttribute.value, context),
-          O.flatMapNullable(v => v?.value),
+          O.flatMapNullable(v =>
+            match(v?.value)
+              .with(P.string, F.identity)
+              .with(P.shape({ sandbox: P.string }), ({ sandbox }) => sandbox)
+              .otherwise(F.constNull)
+          ),
           O.filter(R.isString),
           O.map((value) => value.split(" ")),
           O.exists(values =>

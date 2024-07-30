@@ -92,8 +92,8 @@ importers:
         specifier: 0.47.2
         version: 0.47.2
       effect:
-        specifier: 3.5.8
-        version: 3.5.8
+        specifier: 3.5.9
+        version: 3.5.9
       esbuild:
         specifier: 0.23.0
         version: 0.23.0
@@ -665,8 +665,8 @@ importers:
   packages/tools:
     devDependencies:
       effect:
-        specifier: 3.5.8
-        version: 3.5.8
+        specifier: 3.5.9
+        version: 3.5.9
       tsup:
         specifier: 8.2.3
         version: 8.2.3(@swc/core@1.7.3(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.40)(typescript@5.5.4)(yaml@2.5.0)
@@ -1048,8 +1048,8 @@ importers:
         specifier: 10.4.19
         version: 10.4.19(postcss@8.4.40)
       effect:
-        specifier: 3.5.8
-        version: 3.5.8
+        specifier: 3.5.9
+        version: 3.5.9
       eslint:
         specifier: ^9.8.0
         version: 9.8.0
@@ -3398,8 +3398,8 @@ packages:
   effect@3.3.2:
     resolution: {integrity: sha512-695XQBtp+UUYG50oREG9ujnRoeQU7xhwHDhT6ZAexm3Q+umdml1kjxcPoYRrS65crmaLlhVpjZHePJNzWOODnA==}
 
-  effect@3.5.8:
-    resolution: {integrity: sha512-gGrRH3BgsUrfOXx4vbD4puRS+/IyK7JiERhuKnjVYurTVDj3J+lPI7raJB9/AAKr59SGEiV7+Sy59/Q/Vfo5mQ==}
+  effect@3.5.9:
+    resolution: {integrity: sha512-XY4lIuYXM1oPRmI2+ixkJXFGc9/cygyNttRYBgrGA7dnJILaDgHs8zZ+mnrX2I1ZYeqsVWvKxukxzjayZ96z/w==}
 
   electron-to-chromium@1.5.2:
     resolution: {integrity: sha512-kc4r3U3V3WLaaZqThjYz/Y6z8tJe+7K0bbjUVo3i+LWIypVdMx5nXCkwRe6SWbY6ILqLdc1rKcKmr3HoH7wjSQ==}
@@ -8843,7 +8843,7 @@ snapshots:
 
   effect@3.3.2: {}
 
-  effect@3.5.8: {}
+  effect@3.5.9: {}
 
   electron-to-chromium@1.5.2: {}
 

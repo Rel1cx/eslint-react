@@ -6,7 +6,7 @@
 
 # Function: bind()
 
-The "do simulation" in allows you to write code in a more declarative style, similar to the "do notation" in other programming languages. It provides a way to define variables and perform operations on them using functions like `bind` and `let`.
+The "do simulation" in Effect allows you to write code in a more declarative style, similar to the "do notation" in other programming languages. It provides a way to define variables and perform operations on them using functions like `bind` and `let`.
 
 Here's how the do simulation works:
 
@@ -43,7 +43,7 @@ assert.deepStrictEqual(result, Either.right({ x: 2, y: 3, sum: 5 }))
 
 > **bind**\<`N`, `A`, `B`, `L2`\>(`name`, `f`): \<`L1`\>(`self`) => [`Either`](../type-aliases/Either.md)\<\{ \[K in string \| number \| symbol\]: K extends keyof A ? A\[K\<K\>\] : B \}, `L2` \| `L1`\>
 
-The "do simulation" in allows you to write code in a more declarative style, similar to the "do notation" in other programming languages. It provides a way to define variables and perform operations on them using functions like `bind` and `let`.
+The "do simulation" in Effect allows you to write code in a more declarative style, similar to the "do notation" in other programming languages. It provides a way to define variables and perform operations on them using functions like `bind` and `let`.
 
 Here's how the do simulation works:
 
@@ -112,7 +112,7 @@ assert.deepStrictEqual(result, Either.right({ x: 2, y: 3, sum: 5 }))
 
 > **bind**\<`A`, `L1`, `N`, `B`, `L2`\>(`self`, `name`, `f`): [`Either`](../type-aliases/Either.md)\<\{ \[K in string \| number \| symbol\]: K extends keyof A ? A\[K\<K\>\] : B \}, `L1` \| `L2`\>
 
-The "do simulation" in allows you to write code in a more declarative style, similar to the "do notation" in other programming languages. It provides a way to define variables and perform operations on them using functions like `bind` and `let`.
+The "do simulation" in Effect allows you to write code in a more declarative style, similar to the "do notation" in other programming languages. It provides a way to define variables and perform operations on them using functions like `bind` and `let`.
 
 Here's how the do simulation works:
 
