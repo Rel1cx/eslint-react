@@ -5,18 +5,20 @@
 The existing `eslint-plugin-react` is a plugin for `react-dom` but named `react` [[1]], it only supports React DOM [[2]] and does not being expected to be used with x-platform.
 Unfortunately, the maintainers of `eslint-plugin-react` refuse to change that [[3]].
 
-This is the initial motivation for creating `eslint-react`.
+Just as in [Beyond the DOM](https://legacy.reactjs.org/docs/design-principles.html#beyond-the-dom) we believe that the community will benefit from a renderer-agnostic and x-platform-supported plugin. This is also the initial motivation for creating `eslint-react`.
 
-## What is the purpose of `eslint-react`?
+## What is included in `eslint-react`?
 
-The purpose of `eslint-react` is to provide ESLint plugins for not just for React DOM but also other libraries and frameworks that use React as a UI runtime. Currently, it provides:
+Currently, it includes the following plugins:
 
 - `@eslint-react/eslint-plugin` - The main ESLint plugin package including all rules and config presets in this repository.
-- `eslint-plugin-react-x` - Core rules (regardless of render target, compatible with x-platform).
+- `eslint-plugin-react-x` - Core rules (renderer-agnostic, compatible with x-platform).
 - `eslint-plugin-react-dom` - DOM specific rules for React DOM.
 - `eslint-plugin-react-debug` - Debugging rules.
 - `eslint-plugin-react-hooks-extra` - Extra React Hooks rules.
 - `eslint-plugin-react-naming-convention` - Naming convention rules.
+
+You can view our long-term plans on the [roadmap](/roadmap#plugins-with-ecological-niche-explanation), which includes an explanation of niche explanation for each plugin.
 
 ## Is there anything to note about migrating from `eslint-plugin-react` to `eslint-plugin-react-x`?
 

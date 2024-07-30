@@ -1,4 +1,5 @@
-import { DEFAULT_ESLINT_REACT_SETTINGS, type ESLintReactSettings } from "@eslint-react/shared";
+import type { ESLintReactSettings } from "@eslint-react/shared";
+import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 import type { RulePreset } from "@eslint-react/types";
 import * as reactDebug from "eslint-plugin-react-debug";
 import * as reactDom from "eslint-plugin-react-dom";

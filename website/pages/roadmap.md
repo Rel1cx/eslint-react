@@ -4,7 +4,7 @@
 
 ### Plugins (with ecological niche explanation)
 
-- `eslint-plugin-react-x` - Core rules (regardless of render target, compatible with x-platform).
+- `eslint-plugin-react-x` - Core rules (renderer-agnostic, compatible with x-platform).
 - `eslint-plugin-react-dom` - DOM Specific rules for React DOM.
 - `eslint-plugin-react-hooks` - The official one from React.
 - `eslint-plugin-react-hooks-extra` - Extra rules for `eslint-plugin-react-hooks`.
@@ -104,7 +104,7 @@
 
 ### Plugins (with ecological niche explanation)
 
-- `eslint-plugin-react-x` - Core rules (regardless of render target, compatible with x-platform).
+- `eslint-plugin-react-x` - Core rules (renderer-agnostic, compatible with x-platform).
 - `eslint-plugin-react-dom` - DOM Specific rules for React DOM.
 - `eslint-plugin-react-dom-a11y` - Accessibility rules for React DOM.
 - `eslint-plugin-react-hooks` - The official one from React.
