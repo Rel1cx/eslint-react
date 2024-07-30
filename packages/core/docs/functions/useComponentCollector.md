@@ -12,7 +12,7 @@
 
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
 
-• **hint**: `bigint`= `DEFAULT_COMPONENT_HINT`
+• **hint**: `bigint` = `DEFAULT_COMPONENT_HINT`
 
 ## Returns
 
@@ -24,11 +24,11 @@
 
 ### ctx.getCurrentFunction()
 
-> **getCurrentFunction**: () => `Option`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\>
+> **getCurrentFunction**: () => `Option`\<[`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]]\>
 
 #### Returns
 
-`Option`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\>
+`Option`\<[`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]]\>
 
 ### ctx.getAllComponents()
 
@@ -50,15 +50,15 @@
 
 #### Returns
 
-[`TSESTreeFunction`, `boolean`, `CallExpression`[]][]
+[`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]][]
 
 ### listeners
 
 > **listeners**: `object`
 
-### listeners.:function()
+### listeners.:function\[type\]()
 
-> `readonly` **:function**: (`node`) => `MutableList`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\> = `onFunctionEnter`
+> `readonly` **:function\[type\]**: (`node`) => `number` = `onFunctionEnter`
 
 #### Parameters
 
@@ -66,23 +66,23 @@
 
 #### Returns
 
-`MutableList`\<[`TSESTreeFunction`, `boolean`, `CallExpression`[]]\>
+`number`
 
-### listeners.:function:exit()
+### listeners.:function\[type\]:exit()
 
-> `readonly` **:function:exit**: () => `undefined` \| [`TSESTreeFunction`, `boolean`, `CallExpression`[]] = `onFunctionExit`
+> `readonly` **:function\[type\]:exit**: () => `undefined` \| [`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]] = `onFunctionExit`
 
 #### Returns
 
-`undefined` \| [`TSESTreeFunction`, `boolean`, `CallExpression`[]]
+`undefined` \| [`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]]
 
-### listeners.ArrowFunctionExpression\[body.type!='BlockStatement'\]()
+### listeners.ArrowFunctionExpression\[type\]\[body.type!='BlockStatement'\]()
 
 #### Returns
 
 `void`
 
-### listeners.AssignmentExpression\[operator='='\]\[left.type='MemberExpression'\]\[left.property.name='displayName'\]()
+### listeners.AssignmentExpression\[type\]\[operator='='\]\[left.type='MemberExpression'\]\[left.property.name='displayName'\]()
 
 #### Parameters
 
@@ -92,7 +92,7 @@
 
 `void`
 
-### listeners.CallExpression:exit()
+### listeners.CallExpression\[type\]:exit()
 
 #### Parameters
 
@@ -102,7 +102,7 @@
 
 `void`
 
-### listeners.ReturnStatement()
+### listeners.ReturnStatement\[type\]()
 
 #### Parameters
 

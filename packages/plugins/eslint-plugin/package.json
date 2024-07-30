@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "1.5.17-next.3",
+  "version": "1.7.0",
   "description": "The main ESLint plugin of ESLint React. Contains all the rules and presets of ESLint React.",
   "keywords": [
     "eslint",
@@ -23,7 +23,7 @@
     "directory": "packages/plugins/eslint-plugin"
   },
   "license": "MIT",
-  "author": "Eva1ent<let@ik.me>",
+  "author": "Eva1ent<rel1cx@proton.me>",
   "sideEffects": false,
   "exports": {
     ".": {
@@ -55,22 +55,23 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "^7.13.1",
-    "@typescript-eslint/type-utils": "^7.13.1",
-    "@typescript-eslint/types": "^7.13.1",
-    "@typescript-eslint/utils": "^7.13.1",
-    "effect": "^3.3.5",
+    "@typescript-eslint/scope-manager": "^7.18.0",
+    "@typescript-eslint/type-utils": "^7.18.0",
+    "@typescript-eslint/types": "^7.18.0",
+    "@typescript-eslint/utils": "^7.18.0",
+    "eslint-plugin-react-debug": "workspace:*",
     "eslint-plugin-react-dom": "workspace:*",
     "eslint-plugin-react-hooks-extra": "workspace:*",
     "eslint-plugin-react-naming-convention": "workspace:*",
-    "eslint-plugin-react-x": "workspace:*"
+    "eslint-plugin-react-x": "workspace:*",
+    "remeda": "^2.6.0"
   },
   "devDependencies": {
-    "tsup": "8.1.0"
+    "tsup": "8.2.3"
   },
   "peerDependencies": {
     "eslint": "^8.57.0 || ^9.0.0",
-    "typescript": "^5.3.3"
+    "typescript": "^4.9.5 || ^5.3.3"
   },
   "peerDependenciesMeta": {
     "eslint": {

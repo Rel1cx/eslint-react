@@ -1,0 +1,48 @@
+# no-nested-components
+
+## Rule category
+
+Correctness.
+
+## What it does
+
+Prevents nesting component definitions inside other components.
+
+## Why is this bad?
+
+Nesting component definitions inside other components is a common mistake that can be extremely slow and cause issues and bugs, and the state of components defined during rendering will not be preserved by React. Instead, define every component at the top level.
+
+## Examples
+
+### Failing
+
+```tsx
+import React from "react";
+
+function Gallery() {
+// @error: Never define a component inside another component!
+  function Profile() {
+    /* ... */
+  }
+  // ...
+}
+```
+
+### Passing
+
+```tsx
+function Gallery() {
+  // ...
+}
+// @annotate: Declare components at the top level
+
+function Profile() {
+  /* ... */
+}
+```
+
+When a child component needs some data from a parent, [pass it by props](https://react.dev/learn/passing-props-to-a-component) instead of nesting definitions.
+
+## Further Reading
+
+- [React: Nesting and organizing components](https://react.dev/learn/your-first-component#nesting-and-organizing-components)

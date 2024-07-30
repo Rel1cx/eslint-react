@@ -1,0 +1,43 @@
+# no-unused-class-component-members
+
+## Rule category
+
+Correctness.
+
+## What it does
+
+Warns unused class component methods and properties.
+
+## Examples
+
+### Failing
+
+```tsx
+import React from "react";
+
+class Example extends React.Component {
+  handleClick() {} // Unused
+  render() {
+    return null;
+  }
+}
+```
+
+### Passing
+
+```tsx
+import React from "react";
+
+class Example extends React.Component {
+  static getDerivedStateFromError(error: React.ErrorInfo) {
+    return { hasError: true };
+  }
+  action() {}
+  componentDidMount() {
+    this.action();
+  }
+  render() {
+    return null;
+  }
+}
+```

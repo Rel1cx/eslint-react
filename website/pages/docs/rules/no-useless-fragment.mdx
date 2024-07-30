@@ -1,0 +1,79 @@
+# no-useless-fragment
+
+## Rule category
+
+Correctness.
+
+## What it does
+
+Prevents the use of useless `fragment` components or `<>` syntax.
+
+## Why is this bad?
+
+A fragment is redundant if it contains only one child, or if it is the child of a html element, and is not a [keyed fragment](https://react.dev/reference/react/Fragment#caveats).
+
+## Examples
+
+### Failing
+
+```tsx
+<><Foo /></>
+
+<p><>foo</></p>
+
+<></>
+
+<section>
+  <>
+    <div />
+    <div />
+  </>
+</section>
+```
+
+### Passing
+
+```tsx
+{foo}
+
+<Foo />
+
+<>
+  <Foo />
+  <Bar />
+</>
+
+<>foo {bar}</>
+
+<> {foo}</>
+
+<>{children}</>
+
+<>{props.children}</>
+
+const cat = <>meow</>
+
+<SomeComponent>
+  <>
+    <div />
+    <div />
+  </>
+</SomeComponent>
+
+<Fragment key={item.id}>{item.value}</Fragment>
+```
+
+## Note
+
+[This rule always allows single expressions in a fragment](https://github.com/Rel1cx/eslint-react/pull/188). This is useful in
+places like Typescript where `string` does not satisfy the expected return type
+of `JSX.Element`. A common workaround is to wrap the variable holding a string
+in a fragment and expression.
+
+### Examples of correct code for single expressions in fragments:
+
+```tsx
+<>{foo}</>
+
+<Fragment>{foo}</Fragment>
+```

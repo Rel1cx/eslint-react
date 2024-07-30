@@ -19,9 +19,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow usage of 'componentWillUpdate'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
+      description: "disallow using 'componentWillReceiveProps'",
     },
     messages: {
       NO_COMPONENT_WILL_UPDATE: "[Deprecated] Use 'UNSAFE_componentWillUpdate' instead.",

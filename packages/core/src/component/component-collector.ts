@@ -1,20 +1,23 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import {
+  getNestedReturnStatements,
   is,
   isFunctionOfClassMethod,
   isFunctionOfClassProperty,
   isFunctionOfObjectMethod,
+  isMapCallLoose,
   isOneOf,
   NodeType,
   traverseUp,
 } from "@eslint-react/ast";
 import { isJSXValue } from "@eslint-react/jsx";
+import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Function as F, MutableList as MutList, MutableRef as MutRef, Option as O } from "effect";
+import * as R from "remeda";
 import ShortUniqueId from "short-unique-id";
-import { isMatching, match } from "ts-pattern";
+import { match } from "ts-pattern";
 
 import { isChildrenOfCreateElement } from "../element";
 import { isReactHookCall } from "../hook";
@@ -28,36 +31,22 @@ import { isFunctionOfRenderMethod } from "./component-render-method";
 
 const uid = new ShortUniqueId({ length: 10 });
 
-const isMapCall = isMatching({
-  callee: {
-    type: NodeType.MemberExpression,
-    property: {
-      name: "map",
-    },
-  },
-});
-
 function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: bigint) {
   if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node)) {
     return false;
   }
-
-  if (hint & ERComponentHint.SkipMapCallback && isMapCall(node.parent)) {
+  if (hint & ERComponentHint.SkipMapCallback && isMapCallLoose(node.parent)) {
     return false;
   }
-
   if (hint & ERComponentHint.SkipObjectMethod && isFunctionOfObjectMethod(node.parent)) {
     return false;
   }
-
   if (hint & ERComponentHint.SkipClassMethod && isFunctionOfClassMethod(node.parent)) {
     return false;
   }
-
   if (hint & ERComponentHint.SkipClassProperty && isFunctionOfClassProperty(node.parent)) {
     return false;
   }
-
   return !F.pipe(
     traverseUp(
       node,
@@ -74,17 +63,14 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
 }
 
 function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {
-  const flagRef = MutRef.make(ERFunctionComponentFlag.None);
-
+  let flagRef = ERFunctionComponentFlag.None;
   if (hasCallInInitPath("memo")(initPath)) {
-    MutRef.update(flagRef, f => f | ERFunctionComponentFlag.Memo);
+    flagRef |= ERFunctionComponentFlag.Memo;
   }
-
   if (hasCallInInitPath("forwardRef")(initPath)) {
-    MutRef.update(flagRef, f => f | ERFunctionComponentFlag.ForwardRef);
+    flagRef |= ERFunctionComponentFlag.ForwardRef;
   }
-
-  return MutRef.get(flagRef);
+  return flagRef;
 }
 
 export function useComponentCollector(
@@ -92,14 +78,28 @@ export function useComponentCollector(
   hint: bigint = DEFAULT_COMPONENT_HINT,
 ) {
   const components = new Map<string, ERFunctionComponent>();
-  const functionStack = MutList.make<[
+  const functionStack: [
+    key: string,
     node: TSESTreeFunction,
     isComponent: boolean,
     hookCalls: TSESTree.CallExpression[],
-  ]>();
-  const getCurrentFunction = () => O.fromNullable(MutList.tail(functionStack));
-  const onFunctionEnter = (node: TSESTreeFunction) => MutList.append(functionStack, [node, false, []]);
-  const onFunctionExit = () => MutList.pop(functionStack);
+  ][] = [];
+  const getCurrentFunction = () => O.fromNullable(R.last(functionStack));
+  const onFunctionEnter = (node: TSESTreeFunction) => functionStack.push([uid.rnd(), node, false, []]);
+  const onFunctionExit = () => {
+    const [key, fn, isComponent] = R.last(functionStack) ?? [];
+    if (!key || !fn || !isComponent) return functionStack.pop();
+    const shouldDrop = getNestedReturnStatements(fn.body)
+      .slice()
+      .reverse()
+      .some(r => {
+        return context.sourceCode.getScope(r).block === fn
+          && r.argument !== null
+          && !isJSXValue(r.argument, context, hint);
+      });
+    if (shouldDrop) components.delete(key);
+    return functionStack.pop();
+  };
 
   const ctx = {
     getAllComponents(_: TSESTree.Program): typeof components {
@@ -115,46 +115,14 @@ export function useComponentCollector(
   } as const;
 
   const listeners = {
-    ":function": onFunctionEnter,
-    ":function:exit": onFunctionExit,
-    ReturnStatement(node: TSESTree.ReturnStatement) {
+    ":function[type]": onFunctionEnter,
+    ":function[type]:exit": onFunctionExit,
+    "ArrowFunctionExpression[type][body.type!='BlockStatement']"() {
       const maybeCurrentFn = getCurrentFunction();
       if (O.isNone(maybeCurrentFn)) return;
-      const [currentFn, isKnown, hookCalls] = maybeCurrentFn.value;
-      if (isKnown) return;
-      const isComponent = hasNoneOrValidComponentName(currentFn, context)
-        && isJSXValue(node.argument, context, hint)
-        && hasValidHierarchy(currentFn, context, hint);
-      if (!isComponent) return;
-
-      MutList.pop(functionStack);
-      MutList.append(functionStack, [currentFn, true, []]);
-
-      const initPath = getComponentInitPath(currentFn);
-      const id = getFunctionComponentIdentifier(currentFn, context);
-      const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
-      const key = uid.rnd();
-
-      components.set(key, {
-        _: key,
-        id,
-        kind: "function",
-        name,
-        displayName: O.none(),
-        flag: getComponentFlag(initPath),
-        hint,
-        hookCalls,
-        initPath,
-        node: currentFn,
-      });
-    },
-    // eslint-disable-next-line perfectionist/sort-objects
-    "ArrowFunctionExpression[body.type!='BlockStatement']"() {
-      const maybeCurrentFn = getCurrentFunction();
-      if (O.isNone(maybeCurrentFn)) return;
-      const [currentFn, _, hookCalls] = maybeCurrentFn.value;
+      const [_key, currentFn, _isComponent, hookCalls] = maybeCurrentFn.value;
       const { body } = currentFn;
-      const isComponent = F.constTrue()
+      const isComponent = true
         && hasNoneOrValidComponentName(currentFn, context)
         && isJSXValue(body, context, hint)
         && hasValidHierarchy(currentFn, context, hint);
@@ -163,7 +131,6 @@ export function useComponentCollector(
       const id = getFunctionComponentIdentifier(currentFn, context);
       const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
       const key = uid.rnd();
-
       components.set(key, {
         _: key,
         id,
@@ -177,17 +144,7 @@ export function useComponentCollector(
         node: currentFn,
       });
     },
-    "CallExpression:exit"(node: TSESTree.CallExpression) {
-      if (!isReactHookCall(node)) return;
-      const maybeCurrentFn = getCurrentFunction();
-      if (O.isNone(maybeCurrentFn)) return;
-      const [currentFn, IsComponent, hookCalls] = maybeCurrentFn.value;
-
-      MutList.pop(functionStack);
-      MutList.append(functionStack, [currentFn, IsComponent, [...hookCalls, node]]);
-    },
-    // eslint-disable-next-line perfectionist/sort-objects
-    "AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']"(
+    "AssignmentExpression[type][operator='='][left.type='MemberExpression'][left.property.name='displayName']"(
       node: TSESTree.Node,
     ) {
       if (node.type !== NodeType.AssignmentExpression) return;
@@ -201,14 +158,48 @@ export function useComponentCollector(
         .from(components.values())
         .findLast(({ name }) => O.exists(name, n => n === maybeComponentName.value));
       if (!component) return;
-
       components.set(component._, {
         ...component,
         displayName: O.some(right),
       });
     },
+    "CallExpression[type]:exit"(node: TSESTree.CallExpression) {
+      if (!isReactHookCall(node)) return;
+      const maybeCurrentFn = getCurrentFunction();
+      if (O.isNone(maybeCurrentFn)) return;
+      const [key, currentFn, isComponent, hookCalls] = maybeCurrentFn.value;
+      functionStack.pop();
+      functionStack.push([key, currentFn, isComponent, [...hookCalls, node]]);
+    },
+    "ReturnStatement[type]"(node: TSESTree.ReturnStatement) {
+      const maybeCurrentFn = getCurrentFunction();
+      if (O.isNone(maybeCurrentFn)) return;
+      const [key, currentFn, isKnown, hookCalls] = maybeCurrentFn.value;
+      if (isKnown) return;
+      const isComponent = true
+        && hasNoneOrValidComponentName(currentFn, context)
+        && isJSXValue(node.argument, context, hint)
+        && hasValidHierarchy(currentFn, context, hint);
+      if (!isComponent) return;
+      functionStack.pop();
+      functionStack.push([key, currentFn, true, []]);
+      const initPath = getComponentInitPath(currentFn);
+      const id = getFunctionComponentIdentifier(currentFn, context);
+      const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
+      components.set(key, {
+        _: key,
+        id,
+        kind: "function",
+        name,
+        displayName: O.none(),
+        flag: getComponentFlag(initPath),
+        hint,
+        hookCalls,
+        initPath,
+        node: currentFn,
+      });
+    },
   } as const satisfies ESLintUtils.RuleListener;
-
   return {
     ctx,
     listeners,

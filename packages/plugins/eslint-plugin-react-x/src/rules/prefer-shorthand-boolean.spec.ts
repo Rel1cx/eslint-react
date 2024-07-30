@@ -4,14 +4,14 @@ import rule, { RULE_NAME } from "./prefer-shorthand-boolean";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: "<App foo={true} />",
+      code: /* tsx */ `<App foo={true} />`,
       errors: [{
         data: { propName: "foo" },
         messageId: "PREFER_SHORTHAND_BOOLEAN",
       }],
     },
     {
-      code: "<App foo={true} bar />",
+      code: /* tsx */ `<App foo={true} bar />`,
       errors: [{
         data: { propName: "foo" },
         messageId: "PREFER_SHORTHAND_BOOLEAN",

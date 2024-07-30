@@ -1,7 +1,7 @@
 import type { TSESTreeClass } from "@eslint-react/ast";
 import { getClassIdentifier, NodeType } from "@eslint-react/ast";
+import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import { Option as O } from "effect";
 import ShortUniqueId from "short-unique-id";
 import { match, P } from "ts-pattern";
 
@@ -13,7 +13,7 @@ const uid = new ShortUniqueId({ length: 10 });
 /**
  * Check if a node is a React class component
  * @param node The AST node to check
- * @param context The rule context
+ * @returns `true` if the node is a class component, `false` otherwise
  */
 export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass {
   if (!("superClass" in node && node.superClass)) return false;
@@ -30,7 +30,7 @@ export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass {
 /**
  * Check if a node is a React PureComponent
  * @param node The AST node to check
- * @param context The rule context
+ * @returns `true` if the node is a pure component, `false` otherwise
  */
 export function isPureComponent(node: TSESTree.Node) {
   if ("superClass" in node && node.superClass) {
@@ -71,11 +71,11 @@ export function useComponentCollectorLegacy() {
         id,
         kind: "class",
         name: O.flatMapNullable(id, n => n.name),
-        // TODO: get displayName of class component
+        // TODO: Get displayName of class component
         displayName: O.none(),
         flag,
         hint: 0n,
-        // TODO: get methods of class component
+        // TODO: Get methods of class component
         methods: [],
         node,
       },
@@ -83,8 +83,8 @@ export function useComponentCollectorLegacy() {
   };
 
   const listeners = {
-    ClassDeclaration: collect,
-    ClassExpression: collect,
+    "ClassDeclaration[type]": collect,
+    "ClassExpression[type]": collect,
   } as const satisfies ESLintUtils.RuleListener;
 
   return {

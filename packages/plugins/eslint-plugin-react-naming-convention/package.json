@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-naming-convention",
-  "version": "1.5.17-next.3",
+  "version": "1.7.0",
   "description": "ESLint React's ESLint plugin for naming convention related rules.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -12,7 +12,7 @@
     "directory": "packages/plugins/eslint-plugin-react-naming-convention"
   },
   "license": "MIT",
-  "author": "Eva1ent<let@ik.me>",
+  "author": "Eva1ent<rel1cx@proton.me>",
   "sideEffects": false,
   "exports": {
     ".": {
@@ -36,7 +36,6 @@
   ],
   "scripts": {
     "build": "tsup",
-    "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:type": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
@@ -48,21 +47,21 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "^7.13.1",
-    "@typescript-eslint/type-utils": "^7.13.1",
-    "@typescript-eslint/types": "^7.13.1",
-    "@typescript-eslint/utils": "^7.13.1",
-    "effect": "^3.3.5",
-    "string-ts": "^2.1.1",
-    "valibot": "^0.33.2"
+    "@typescript-eslint/scope-manager": "^7.18.0",
+    "@typescript-eslint/type-utils": "^7.18.0",
+    "@typescript-eslint/types": "^7.18.0",
+    "@typescript-eslint/utils": "^7.18.0",
+    "remeda": "^2.6.0"
   },
   "devDependencies": {
-    "dedent": "1.5.3",
-    "tsup": "8.1.0"
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "string-ts": "^2.2.0",
+    "tsup": "8.2.3"
   },
   "peerDependencies": {
     "eslint": "^8.57.0 || ^9.0.0",
-    "typescript": "^5.3.3"
+    "typescript": "^4.9.5 || ^5.3.3"
   },
   "peerDependenciesMeta": {
     "eslint": {

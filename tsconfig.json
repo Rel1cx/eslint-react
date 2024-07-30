@@ -1,7 +1,7 @@
 {
   "extends": [
     "@tsconfig/strictest/tsconfig.json",
-    "@tsconfig/node20/tsconfig.json"
+    "@tsconfig/node22/tsconfig.json"
   ],
   "compilerOptions": {
     "module": "ESNext",
@@ -12,17 +12,21 @@
     "strictFunctionTypes": true,
     "strictBindCallApply": true,
     "strictPropertyInitialization": true,
+    "exactOptionalPropertyTypes": true,
     "noEmit": true,
     "types": [
-      "bun-types"
+      "@types/bun"
     ]
   },
   "include": [
+    "*.d.ts",
     "*.config.ts",
     "*.config.mts",
     "scripts/**/*.ts",
-    "test",
     "packages/**/*.config.ts",
     "packages/**/scripts/**/*.ts"
+  ],
+  "exclude": [
+    "test"
   ]
 }

@@ -4,6 +4,6 @@
 
 [@eslint-react/core](../README.md) / ERComponentKind
 
-# Type alias: ERComponentKind
+# Type Alias: ERComponentKind
 
-> **ERComponentKind**: `"class"` \| `"function"`
+> **ERComponentKind**: `"classComponent"` \| `"functionComponent"`

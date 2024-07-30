@@ -4,6 +4,6 @@
 
 [@eslint-react/types](../README.md) / RuleCategoryEmoji
 
-# Type alias: RuleCategoryEmoji
+# Type Alias: RuleCategoryEmoji
 
-> **RuleCategoryEmoji**: `"⛔"` \| `"✔️"` \| `"❌"` \| `"🎨"` \| `"🐞"` \| `"👀"` \| `"📖"` \| `"🔒"` \| `"🚀"` \| `"🤔"` \| `"🤯"`
+> **RuleCategoryEmoji**: `"⛔"` \| `"✔️"` \| `"❌"` \| `"🎨"` \| `"🐞"` \| `"📖"` \| `"🔒"` \| `"🚀"` \| `"🤔"` \| `"🤯"` \| `"🧐"`

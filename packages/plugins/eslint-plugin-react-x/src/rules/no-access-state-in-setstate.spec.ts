@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-access-state-in-setstate";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         class Component extends React.Component {
           state = {
             foo: 1,
@@ -23,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class Component extends React.Component {
           state = {
             foo: 1,
@@ -40,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class Component extends React.Component {
           state = {
             foo: 1,
@@ -57,7 +55,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class Component extends React.Component {
           state = {
             foo: 1,
@@ -74,7 +72,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class Component extends React.Component {
           state = {
             foo: 1,
@@ -93,7 +91,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    dedent`
+    /* tsx */ `
       class Component extends React.Component {
         state = {
           foo: 1,
@@ -103,7 +101,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    dedent`
+    /* tsx */ `
       class Component extends React.Component {
         state = {
           foo: 1,

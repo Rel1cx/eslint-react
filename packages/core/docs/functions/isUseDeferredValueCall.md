@@ -6,13 +6,11 @@
 
 # Function: isUseDeferredValueCall()
 
-> **isUseDeferredValueCall**(`node`, `context`): `boolean`
+> **isUseDeferredValueCall**(...`a`): `boolean`
 
 ## Parameters
 
-• **node**: `CallExpression`
-
-• **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+• ...**a**: [`CallExpression`, `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>]
 
 ## Returns
 

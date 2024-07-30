@@ -19,9 +19,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow usage of 'UNSAFE_componentWillMount'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
+      description: "disallow using 'UNSAFE_componentWillMount'",
     },
     messages: {
       NO_UNSAFE_COMPONENT_WILL_MOUNT: "Do not use 'UNSAFE_componentWillMount'.",

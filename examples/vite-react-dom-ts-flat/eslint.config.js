@@ -4,8 +4,15 @@ import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 import react from "@eslint-react/eslint-plugin";
 import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
 
 export default [
+  {
+    ignores: [
+      "node_modules",
+      "dist",
+    ],
+  },
   // JavaScript rules
   js.configs.recommended,
   // TypeScript rules
@@ -31,7 +38,7 @@ export default [
   // React rules
   {
     files: ["src/**/*.{ts,tsx}"],
-    ...react.configs.recommended,
+    ...react.configs["recommended-type-checked"],
   },
   // React Hooks rules
   {
@@ -40,6 +47,15 @@ export default [
       "react-hooks": reactHooks,
     },
     rules: reactHooks.configs.recommended.rules,
+  },
+  {
+    files: ["src/**/*.tsx"],
+    plugins: {
+      "react-refresh": reactRefresh,
+    },
+    rules: {
+      "react-refresh/only-export-components": "warn",
+    },
   },
   // Disable type checking for JavaScript files
   {

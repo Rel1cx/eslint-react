@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-missing-button-type";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: "<button>Click me</button>;",
+      code: /* tsx */ `<button>Click me</button>;`,
       errors: [
         {
           messageId: "NO_MISSING_BUTTON_TYPE",
@@ -14,32 +12,17 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
-        import React from "react";
-
-        function App() {
-            return React.createElement("button", {}, "Click me");
-        }
-      `,
+      code: /* tsx */ `<PolyComponent as="button">Click me</PolyComponent>;`,
       errors: [
         {
           messageId: "NO_MISSING_BUTTON_TYPE",
         },
       ],
-    },
-    {
-      code: dedent`
-        import { createElement } from "react";
-
-        function App() {
-            return createElement("button", {}, "Click me");
-        }
-      `,
-      errors: [
-        {
-          messageId: "NO_MISSING_BUTTON_TYPE",
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
         },
-      ],
+      },
     },
   ],
   valid: [
@@ -48,38 +31,17 @@ ruleTester.run(RULE_NAME, rule, {
     "<span />;",
     '<button type="button">Click me</button>;',
     'const Button = () => <button type="button">Click me</button>;',
-    dedent`
+    /* tsx */ `
       function App() {
           return <button type="button">Click me</button>;
       }
     `,
-    dedent`
+    /* tsx */ `
       function App() {
           return <button type={ true ? "button" : "submit" }>Click me</button>;
       }
     `,
-    dedent`
-      import React from "react";
-
-      function App() {
-          return React.createElement("button", { type: "button" }, "Click me");
-      }
-    `,
-    dedent`
-      import { createElement } from "react";
-
-      function App() {
-          return createElement("button", { type: "button" }, "Click me");
-      }
-    `,
-    dedent`
-      import { createElement } from "react";
-
-      function App() {
-          return createElement("button", { type: true ? "button" : "submit" }, "Click me");
-      }
-    `,
-    dedent`
+    /* tsx */ `
       const props = {
         type: "button",
       };
@@ -88,5 +50,30 @@ ruleTester.run(RULE_NAME, rule, {
           return <button {...props}>Click me</button>;
       }
     `,
+    // TODO: implement this
+    // {
+    //   code: /* tsx */ `
+    //     function App() {
+    //         return <Button>Click me</Button>;
+    //     }
+    //   `,
+    //   settings: {
+    //     "react-x": {
+    //       additionalComponents: [
+    //         {
+    //           name: "Button",
+    //           as: "button",
+    //           attributes: [
+    //             {
+    //               name: "type",
+    //               as: "type",
+    //               defaultValue: "button",
+    //             },
+    //           ],
+    //         },
+    //       ],
+    //     },
+    //   },
+    // },
   ],
 });

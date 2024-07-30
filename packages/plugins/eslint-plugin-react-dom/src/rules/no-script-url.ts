@@ -1,8 +1,9 @@
 import { NodeType } from "@eslint-react/ast";
 import { getPropValue } from "@eslint-react/jsx";
 import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/shared";
+import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Function as F, Option as O, Predicate as Prd } from "effect";
+import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -20,8 +21,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow 'javascript:' URLs as JSX event handler prop's value",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_SCRIPT_URL: "Using a `javascript:` URL is a security risk and should be avoided.",
@@ -36,7 +35,7 @@ export default createRule<[], MessageID>({
         const isJavaScript = F.pipe(
           getPropValue(node, context),
           O.flatMapNullable(v => v?.value),
-          O.filter(Prd.isString),
+          O.filter(R.isString),
           O.exists(v => RE_JAVASCRIPT_PROTOCOL.test(v)),
         );
         if (isJavaScript) {

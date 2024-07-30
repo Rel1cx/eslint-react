@@ -1,8 +1,9 @@
 import { Config, ESLintConfig } from "#/components/eslint-config";
+import { Info, Warning } from "#/components/callout";
 
 # Configuration
 
-This plugin provides the following configurations:
+ESLint React provides the following configurations:
 
 ## Settings
 
@@ -34,13 +35,36 @@ This should not be a member expression (i.e. use `"Fragment"` instead of `"React
 React version to use, `"detect"` means auto detect React version from the project's dependencies.\
 If `importSource` is specified, an equivalent version of React should be provided here.
 
+### `polymorphicPropName`
+
+(type: `string`)
+
+You can optionally use the `polymorphicPropName` setting to define the prop your code uses to create polymorphic components. This setting will be used determine the element type in rules that require semantic context.
+
+For example, if you set the `polymorphicPropName` setting to `as` then this element:
+
+`<Box as="h3">Configurations </Box>`
+
+will be evaluated as an `h3`. If no `polymorphicPropName` is set, then the component will be evaluated as `Box`.
+
+<Warning>Polymorphic components can make code harder to maintain; please use this feature with caution.</Warning>
+
 ### `additionalHooks`
 
-(type: `Record<string, string[]>`)
+(type: `[key: string]: string[]`)
 
-A Record of aliases for React's built-in Hooks. ESLint React will recognize these aliases as equivalent to the built-in Hooks in all its rules.\
+A object of aliases for React built-in hooks. ESLint React will recognize these aliases as equivalent to the built-in hooks in all its rules.\
 This is intended to cover edge cases. We suggest to use this option very sparingly, if at all.\
 (e.g. `{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }`).
+
+### `additionalComponents` (experimental)
+
+(type: `{ name: string; as: string; attributes: { name: string; as?: string; defaultValue?: string }[] }[]`)
+
+<Warning>This is an experimental feature that can be unstable and lacks comprehensive documentation.</Warning>
+
+An array of user-defined components, used to inform the ESLint React plugins how to treat these components during checks.\
+This is intended to cover edge cases. We suggest to use this option very sparingly, if at all.
 
 ## Examples
 
@@ -59,7 +83,7 @@ export default [
     files: ["**/*.{ts,tsx}"],
     ...react.configs.recommended,
     settings: {
-      reactOptions: {
+      "react-x": {
         importSource: "react",
         jsxPragma: "createElement",
         jsxPragmaFrag: "Fragment",
@@ -67,11 +91,21 @@ export default [
           useLayoutEffect: ["useIsomorphicLayoutEffect"],
           // ...
         },
+        additionalComponents: [
+          {
+            name: "Link",
+            as: "a",
+            attributes: [
+              { name: "to", as: "href" },
+              { name: "rel", defaultValue: "noopener noreferrer" },
+            ],
+          },
+          // ...
+        ],
         version: "detect",
       },
     },
   },
-  // ...
 ];
 ```
 
@@ -84,7 +118,7 @@ export default [
 module.exports = {
   // ...
   settings: {
-    reactOptions: {
+    "react-x": {
       importSource: "react",
       jsxPragma: "createElement",
       jsxPragmaFrag: "Fragment",
@@ -92,10 +126,20 @@ module.exports = {
         useLayoutEffect: ["useIsomorphicLayoutEffect"],
         // ...
       },
+      additionalComponents: [
+        {
+          name: "Link",
+          as: "a",
+          attributes: [
+            { name: "to", as: "href" },
+            { name: "rel", defaultValue: "noopener noreferrer" },
+          ],
+        },
+        // ...
+      ],
       version: "detect",
     },
   },
-  // ...
 };
 ```
 

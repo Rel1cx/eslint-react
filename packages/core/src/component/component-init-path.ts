@@ -1,9 +1,8 @@
 /* eslint-disable perfectionist/sort-union-types */
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import { NodeType } from "@eslint-react/ast";
+import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-import { Function as F, Option as O } from "effect";
-import { isMatching } from "ts-pattern";
 
 export type ERComponentInitPath =
   /**
@@ -108,7 +107,8 @@ export function getComponentInitPath(node: TSESTreeFunction): O.Option<ERCompone
   const { parent } = node;
   if (node.type === NodeType.FunctionDeclaration) return O.some([node]);
   if (
-    parent.type === NodeType.VariableDeclarator
+    true
+    && parent.type === NodeType.VariableDeclarator
     && parent.parent.type === NodeType.VariableDeclaration
   ) {
     return O.some([
@@ -117,9 +117,9 @@ export function getComponentInitPath(node: TSESTreeFunction): O.Option<ERCompone
       node,
     ]);
   }
-
   if (
-    parent.type === NodeType.CallExpression
+    true
+    && parent.type === NodeType.CallExpression
     && parent.parent.type === NodeType.VariableDeclarator
     && parent.parent.parent.type === NodeType.VariableDeclaration
   ) {
@@ -130,9 +130,9 @@ export function getComponentInitPath(node: TSESTreeFunction): O.Option<ERCompone
       node,
     ]);
   }
-
   if (
-    parent.type === NodeType.CallExpression
+    true
+    && parent.type === NodeType.CallExpression
     && parent.parent.type === NodeType.CallExpression
     && parent.parent.parent.type === NodeType.VariableDeclarator
     && parent.parent.parent.parent.type === NodeType.VariableDeclaration
@@ -145,9 +145,9 @@ export function getComponentInitPath(node: TSESTreeFunction): O.Option<ERCompone
       node,
     ]);
   }
-
   if (
-    parent.type === NodeType.Property
+    true
+    && parent.type === NodeType.Property
     && parent.parent.type === NodeType.ObjectExpression
     && parent.parent.parent.type === NodeType.VariableDeclarator
     && parent.parent.parent.parent.type === NodeType.VariableDeclaration
@@ -160,9 +160,9 @@ export function getComponentInitPath(node: TSESTreeFunction): O.Option<ERCompone
       node,
     ]);
   }
-
   if (
-    parent.type === NodeType.MethodDefinition
+    true
+    && parent.type === NodeType.MethodDefinition
     && parent.parent.type === NodeType.ClassBody
     && parent.parent.parent.type === NodeType.ClassDeclaration
   ) {
@@ -173,9 +173,9 @@ export function getComponentInitPath(node: TSESTreeFunction): O.Option<ERCompone
       node,
     ]);
   }
-
   if (
-    parent.type === NodeType.PropertyDefinition
+    true
+    && parent.type === NodeType.PropertyDefinition
     && parent.parent.type === NodeType.ClassBody
     && parent.parent.parent.type === NodeType.ClassDeclaration
   ) {
@@ -186,7 +186,6 @@ export function getComponentInitPath(node: TSESTreeFunction): O.Option<ERCompone
       node,
     ]);
   }
-
   return O.none();
 }
 
@@ -216,7 +215,10 @@ export function hasCallInInitPath(callName: string) {
           n => {
             if (n.type !== NodeType.CallExpression) return false;
             if (n.callee.type === NodeType.Identifier) return n.callee.name === callName;
-            return isMatching({ callee: { property: { name: callName } } }, n);
+            return true
+              && "property" in n.callee
+              && "name" in n.callee.property
+              && n.callee.property.name === callName;
           },
         );
       }),

@@ -11,7 +11,7 @@
 Infers embedded primitive type of any type
 Same as `as const` but without setting the object as readonly and without needing the user to use it.
 
-## Type parameters
+## Type Parameters
 
 • **TType**
 

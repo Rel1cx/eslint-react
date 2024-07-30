@@ -6,13 +6,15 @@
 
 # Function: isChildrenCount()
 
-> **isChildrenCount**(`node`, `context`): `boolean`
+> **isChildrenCount**(`node`, `context`, `pragma`?): `boolean`
 
 ## Parameters
 
 • **node**: `MemberExpression`
 
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+
+• **pragma?**: `string`
 
 ## Returns
 

@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-children-in-void-dom-elements";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: "<br>Foo</br>;",
+      code: /* tsx */ `<br>Foo</br>;`,
       errors: [
         {
           data: { element: "br" },
@@ -15,7 +13,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: '<br children="Foo" />;',
+      code: /* tsx */ `<br children="Foo" />;`,
       errors: [
         {
           data: { element: "br" },
@@ -24,7 +22,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: '<img {...props} children="Foo" />;',
+      code: /* tsx */ `<img {...props} children="Foo" />;`,
       errors: [
         {
           data: { element: "img" },
@@ -33,7 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: '<br dangerouslySetInnerHTML={{ __html: "Foo" }} />;',
+      code: /* tsx */ `<br dangerouslySetInnerHTML={{ __html: "Foo" }} />;`,
       errors: [
         {
           data: { element: "br" },
@@ -42,115 +40,66 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: 'React.createElement("br", {}, "Foo");',
+      code: /* tsx */ `<PolyComponent as="br">Foo</PolyComponent>;`,
       errors: [
         {
           data: { element: "br" },
           messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
         },
       ],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
     },
     {
-      code: 'React.createElement("br", { children: "Foo" });',
+      code: /* tsx */ `<PolyComponent as="br" children="Foo" />;`,
       errors: [
         {
           data: { element: "br" },
           messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
         },
       ],
-    },
-    {
-      code: 'React.createElement("br", { dangerouslySetInnerHTML: { __html: "Foo" } });',
-      errors: [
-        {
-          data: { element: "br" },
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
         },
-      ],
+      },
     },
     {
-      code: dedent`
-        import React, {createElement} from "react";
-        createElement("img", {}, "Foo");
-      `,
+      code: /* tsx */ `<PolyComponent as="img" {...props} children="Foo" />;`,
       errors: [
         {
           data: { element: "img" },
           messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
         },
       ],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
     },
     {
-      code: dedent`
-        import React, {createElement} from "react";
-        createElement("img", { children: "Foo" });
-      `,
+      code: /* tsx */ `<PolyComponent as="br" dangerouslySetInnerHTML={{ __html: "Foo" }} />;`,
       errors: [
         {
-          data: { element: "img" },
+          data: { element: "br" },
           messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
         },
       ],
-    },
-    {
-      code: dedent`
-        import React, {createElement} from "react";
-        createElement("img", { dangerouslySetInnerHTML: { __html: "Foo" } });
-      `,
-      errors: [
-        {
-          data: { element: "img" },
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
         },
-      ],
+      },
     },
   ],
   valid: [
     ...allValid,
     "<div>Foo</div>;",
     '<div children="Foo" />;',
-
     '<div dangerouslySetInnerHTML={{ __html: "Foo" }} />;',
-
-    'React.createElement("div", {}, "Foo");',
-
-    'React.createElement("div", { children: "Foo" });',
-
-    'React.createElement("div", { dangerouslySetInnerHTML: { __html: "Foo" } });',
-
-    'document.createElement("img");',
-
-    'React.createElement("img");',
-
-    "React.createElement();",
-
-    "document.createElement();",
-
-    dedent`
-      const props = {};
-      React.createElement("img", props);
-    `,
-
-    dedent`
-      import React, {createElement} from "react";
-      createElement("div");
-    `,
-
-    dedent`
-      import React, {createElement} from "react";
-      createElement("img");
-    `,
-
-    dedent`
-      import React, {createElement, PureComponent} from "react";
-      class Button extends PureComponent {
-        handleClick(ev) {
-          ev.preventDefault();
-        }
-        render() {
-          return <div onClick={this.handleClick}>Hello</div>;
-        }
-      }
-    `,
   ],
 });

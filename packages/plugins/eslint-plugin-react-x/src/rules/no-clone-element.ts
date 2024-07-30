@@ -12,9 +12,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow 'cloneElement'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
+      description: "disallow using 'cloneElement'",
     },
     messages: {
       NO_CLONE_ELEMENT: "Using 'cloneElement' is uncommon and can lead to fragile code. Use alternatives instead.",

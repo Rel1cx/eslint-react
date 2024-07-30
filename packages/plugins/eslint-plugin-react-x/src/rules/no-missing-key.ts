@@ -1,12 +1,13 @@
-import { getNestedReturnStatements, is, isOneOf, NodeType } from "@eslint-react/ast";
+import { getNestedReturnStatements, is, isMapCallLoose, isOneOf, NodeType } from "@eslint-react/ast";
+import { isChildrenToArrayCall } from "@eslint-react/core";
 import { hasProp } from "@eslint-react/jsx";
+import { MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { MutableRef as MutRef, Option as O } from "effect";
 import { isMatching, match } from "ts-pattern";
 
-import { createRule, getChildrenToArraySelector } from "../utils";
+import { createRule } from "../utils";
 
 export const RULE_NAME = "no-missing-key";
 
@@ -19,18 +20,15 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "require 'key' prop when rendering list",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
-      NO_MISSING_KEY: "Missing 'key' prop for element when rendering list",
-      NO_MISSING_KEY_WITH_FRAGMENT: "Use fragment component instead of '<>' because it does not support key prop",
+      NO_MISSING_KEY: "Missing 'key' prop for element when rendering list.",
+      NO_MISSING_KEY_WITH_FRAGMENT: "Use fragment component instead of '<>' because it does not support key prop.",
     },
     schema: [],
   },
   name: RULE_NAME,
   create(context) {
-    const childrenToArraySelector = getChildrenToArraySelector();
     const isWithinChildrenToArrayRef = MutRef.make(false);
     function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
       const initialScope = context.sourceCode.getScope(node);
@@ -81,9 +79,6 @@ export default createRule<[], MessageID>({
     }
 
     return {
-      [`${childrenToArraySelector}:exit`]() {
-        MutRef.set(isWithinChildrenToArrayRef, false);
-      },
       ArrayExpression(node) {
         if (MutRef.get(isWithinChildrenToArrayRef)) return;
         const elements = node.elements.filter(is(NodeType.JSXElement));
@@ -99,14 +94,8 @@ export default createRule<[], MessageID>({
         }
       },
       CallExpression(node) {
-        const isMapCall = isMatching({
-          callee: {
-            type: NodeType.MemberExpression,
-            property: {
-              name: "map",
-            },
-          },
-        }, node);
+        if (isChildrenToArrayCall(node, context)) MutRef.set(isWithinChildrenToArrayRef, true);
+        const isMapCall = isMapCallLoose(node);
         const isArrayFromCall = isMatching({
           type: NodeType.CallExpression,
           callee: {
@@ -128,6 +117,9 @@ export default createRule<[], MessageID>({
         }
         O.map(checkExpression(fn.body), context.report);
       },
+      "CallExpression:exit"(node) {
+        if (isChildrenToArrayCall(node, context)) MutRef.set(isWithinChildrenToArrayRef, false);
+      },
       JSXFragment(node) {
         if (MutRef.get(isWithinChildrenToArrayRef)) return;
         if (node.parent.type === NodeType.ArrayExpression) {
@@ -136,9 +128,6 @@ export default createRule<[], MessageID>({
             node,
           });
         }
-      },
-      [childrenToArraySelector]() {
-        MutRef.set(isWithinChildrenToArrayRef, true);
       },
     };
   },

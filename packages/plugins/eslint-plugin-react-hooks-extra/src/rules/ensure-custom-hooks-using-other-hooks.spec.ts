@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./ensure-custom-hooks-using-other-hooks";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         const useClassnames = (obj) => {
             // Invalid, because useClassnames doesn't use any other React Hooks.
             var k, cls='';
@@ -29,7 +27,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function useClassnames(obj) {
             // Invalid, because useClassnames doesn't use any other React Hooks.
             var k, cls='';
@@ -52,7 +50,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         export function useNestedHook() {
             const [state, setState] = useState("state");
             function useInnerHook () {
@@ -72,7 +70,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         export function useNestedHook() {
             const useInnerHook = () => {
                 const [state, setState] = useState("state");
@@ -92,7 +90,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         export function useNestedHook() {
             const useInnerHook = () => {
                 return "inner hook";
@@ -117,7 +115,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         export function useNestedHook() {
             const fn = () => {
                 const [state, setState] = useState("state");
@@ -139,7 +137,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    dedent`
+    /* tsx */ `
       import { useState } from "react";
 
       const Comp = () => {
@@ -148,23 +146,23 @@ ruleTester.run(RULE_NAME, rule, {
         return <Button />;
       };
     `,
-    dedent`
+    /* tsx */ `
       const useData = (key) => {
           return useSWR(key);
       }
     `,
-    dedent`
+    /* tsx */ `
       function useData(key) {
           return useSWR(key);
       }
     `,
-    dedent`
+    /* tsx */ `
       function useData(key) {
           const data = useSWR(key);
           return data;
       }
     `,
-    dedent`
+    /* tsx */ `
       const useData = (key) => useSWR(key);
     `,
   ],

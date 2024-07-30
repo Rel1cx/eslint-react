@@ -1,7 +1,8 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import { getFunctionIdentifier } from "@eslint-react/ast";
+import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import { MutableList as MutList, Option as O } from "effect";
+import * as R from "remeda";
 import ShortUniqueId from "short-unique-id";
 
 import type { ERHook } from "./hook";
@@ -19,17 +20,15 @@ export function useHookCollector(): {
   listeners: ESLintUtils.RuleListener;
 } {
   const hooks = new Map<string, ERHook>();
-  const functionStack = MutList.make<TSESTreeFunction>();
-  const getCurrentFunction = () => MutList.tail(functionStack);
+  const functionStack: TSESTreeFunction[] = [];
   const onFunctionEnter = (node: TSESTreeFunction) => {
-    MutList.append(functionStack, node);
-    const currentFn = getCurrentFunction();
+    functionStack.push(node);
+    const currentFn = R.last(functionStack);
     if (!currentFn) return;
     const id = getFunctionIdentifier(currentFn);
     const name = O.flatMapNullable(id, (id) => id.name);
     if (O.isSome(id) && O.isSome(name) && isReactHookName(name.value)) {
       const key = uid.rnd();
-
       hooks.set(key, {
         _: key,
         id,
@@ -42,11 +41,9 @@ export function useHookCollector(): {
       });
     }
   };
-
   const onFunctionExit = () => {
-    MutList.pop(functionStack);
+    functionStack.pop();
   };
-
   const ctx = {
     getAllHooks(_: TSESTree.Program): typeof hooks {
       return hooks;
@@ -55,12 +52,11 @@ export function useHookCollector(): {
       return new Map(hooks);
     },
   } as const;
-
   const listeners = {
-    ":function": onFunctionEnter,
-    ":function:exit": onFunctionExit,
-    CallExpression(node) {
-      const currentFn = getCurrentFunction();
+    ":function[type]": onFunctionEnter,
+    ":function[type]:exit": onFunctionExit,
+    "CallExpression[type]"(node) {
+      const currentFn = R.last(functionStack);
       if (!currentFn) return;
       // Detect the number of other hooks called inside the current hook
       // Hooks that are not call other hooks are redundant
@@ -72,7 +68,6 @@ export function useHookCollector(): {
           .from(hooks.values())
           .find((hook) => hook.node === currentFn);
         if (!hook) return;
-
         hooks.set(hook._, {
           ...hook,
           hookCalls: [
@@ -83,7 +78,6 @@ export function useHookCollector(): {
       }
     },
   } as const satisfies ESLintUtils.RuleListener;
-
   return {
     ctx,
     listeners,

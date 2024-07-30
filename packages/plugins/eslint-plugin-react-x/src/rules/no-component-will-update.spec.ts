@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-component-will-update";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "react";
 
         class Foo extends React.Component {
@@ -25,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "react";
 
         class Foo extends React.PureComponent {
@@ -44,7 +42,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { Component } from "react";
 
         class Foo extends Component {
@@ -63,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { PureComponent } from "react";
 
         class Foo extends PureComponent {
@@ -84,12 +82,12 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    dedent`
+    /* tsx */ `
       class Foo extends Bar {
         componentWillUpdate() {}
       }
     `,
-    dedent`
+    /* tsx */ `
       import React from "react";
 
       class Foo extends React.Component {
@@ -101,7 +99,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    dedent`
+    /* tsx */ `
       import React from "react";
 
       class Foo extends React.PureComponent {

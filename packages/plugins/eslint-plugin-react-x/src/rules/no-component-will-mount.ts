@@ -19,9 +19,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow usage of 'componentWillMount'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
+      description: "disallow using 'componentWillMount'",
     },
     messages: {
       NO_COMPONENT_WILL_MOUNT: "[Deprecated] Use 'UNSAFE_componentWillMount' instead.",

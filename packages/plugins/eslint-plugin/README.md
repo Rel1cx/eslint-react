@@ -6,32 +6,31 @@
 [![Size](https://img.shields.io/bundlephobia/minzip/@eslint-react/eslint-plugin?label=gzip&style=flat&colorA=000000&colorB=000000)](https://bundlephobia.com/package/@eslint-react/eslint-plugin)
 [![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
 
-A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.
+A series of composable ESLint rules rewritten from scratch for libraries and frameworks that use React as a UI runtime.
 
 ## Roadmap
 
-- [Milestone 1.5 ↗](https://eslint-react.xyz/roadmap#milestone-15)
-- [Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20)
-- [Milestone 2.5 ↗](https://eslint-react.xyz/roadmap#milestone-25-draft)
+- [Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20-active)
+- [Milestone 3.0 ↗](https://eslint-react.xyz/roadmap#milestone-30-draft)
 
 ## Features
 
 - **Universal** rules for libraries and frameworks that use React as a UI runtime.
 - **Well designed** rule behaviors and sensible defaults.
-- **Maximum flexibility** through minimum configuration options.
+- **Maximum flexibility** through minimum rule options.
 
 ## Public packages
 
-### All-in-one packages
+### All-in-one plugins
 
 - [`@eslint-react/eslint-plugin`](https://www.npmjs.com/package/@eslint-react/eslint-plugin) - The main ESLint plugin package including all rules and config presets in this repository.
 
-### Individual packages (will be available in 2.0)
+### Mono plugins (will be available in 2.0)
 
-- `eslint-plugin-react-x` - Core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
-- `eslint-plugin-react-dom` - DOM specific rules for React DOM.
-- `eslint-plugin-react-hooks-extra` - Extra React Hooks rules.
-- `eslint-plugin-react-naming-convention` - Naming convention rules.
+- [`eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) - Core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
+- [`eslint-plugin-react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) - DOM specific rules for React DOM.
+- [`eslint-plugin-react-hooks-extra`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra) - Extra React Hooks rules.
+- [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
 
 ## Supported ESLint versions
 
@@ -60,6 +59,8 @@ npm install --save-dev @eslint-react/eslint-plugin
 
 ### Setup
 
+#### Flat Config
+
 Add the plugin to your `eslint.config.js`:
 
 ```js
@@ -67,14 +68,38 @@ Add the plugin to your `eslint.config.js`:
 
 import js from "@eslint/js";
 import react from "@eslint-react/eslint-plugin";
+import * as tsParser from "@typescript-eslint/parser";
 
 export default [
   js.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
     ...react.configs.recommended,
+    languageOptions: {
+      parser: tsParser,
+    },
   },
 ];
+```
+
+#### Legacy Config
+
+Add the plugin to your `.eslintrc.json`:
+
+```json
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@eslint-react/eslint-plugin"],
+  "extends": ["eslint:recommended"],
+  "overrides": [
+    {
+      "files": ["**/*.{ts,tsx}"],
+      "extends": [
+        "plugin:@eslint-react/recommended-legacy"
+      ]
+    }
+  ]
+}
 ```
 
 [Full Installation Guide ↗](https://eslint-react.xyz/docs/installation)
@@ -97,6 +122,10 @@ export default [
 ## Rules
 
 [Rules Overview ↗](https://eslint-react.xyz/rules/overview)
+
+## FAQ
+
+[Frequently Asked Questions ↗](https://eslint-react.xyz/docs/faq)
 
 ## Contributing
 
@@ -122,4 +151,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Prior art
 
 - [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react)
-- [eslint-plugin-react-hooks](https://github.com/facebook/react/tree/main/packages/eslint-plugin-react-hooks)

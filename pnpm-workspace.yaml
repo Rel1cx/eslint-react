@@ -1,4 +1,7 @@
 packages:
-  - "packages/**"
+  - "packages/*/"
+  - "packages/*/*/"
+  - "test/bundles/*/"
+  - "test/bundles/*/*/"
   - "examples/*"
   - "website"

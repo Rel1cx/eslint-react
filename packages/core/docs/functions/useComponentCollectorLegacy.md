@@ -36,9 +36,9 @@
 
 > **listeners**: `object`
 
-### listeners.ClassDeclaration()
+### listeners.ClassDeclaration\[type\]()
 
-> `readonly` **ClassDeclaration**: (`node`) => `void` = `collect`
+> `readonly` **ClassDeclaration\[type\]**: (`node`) => `void` = `collect`
 
 #### Parameters
 
@@ -48,9 +48,9 @@
 
 `void`
 
-### listeners.ClassExpression()
+### listeners.ClassExpression\[type\]()
 
-> `readonly` **ClassExpression**: (`node`) => `void` = `collect`
+> `readonly` **ClassExpression\[type\]**: (`node`) => `void` = `collect`
 
 #### Parameters
 

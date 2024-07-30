@@ -1,0 +1,54 @@
+# no-create-ref
+
+## Rule category
+
+Restriction.
+
+## What it does
+
+Prevents usage of `createRef()` in function components.
+
+## Why is this bad?
+
+`createRef()` is a legacy API that is not recommended for use in new code. Instead, prefer using `useRef()` with function components.
+
+## Examples
+
+### Failing
+
+```tsx
+import React, { createRef } from "react";
+
+function Example() {
+  const ref = React.createRef<HTMLDivElement>();
+  //          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  //          - [Deprecated] Use 'useRef' instead.
+
+  return <div ref={ref} />;
+}
+```
+
+### Passing
+
+```tsx
+import React, { useRef } from "react";
+
+function Example() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  return <div ref={ref} />;
+}
+```
+
+```tsx
+import React, { createRef } from "react";
+
+class Example extends React.Component {
+  inputRef = createRef();
+  // ...
+}
+```
+
+## Further Reading
+
+- [React: Legacy React APIs createRef](https://react.dev/reference/react/createRef)

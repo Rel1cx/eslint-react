@@ -21,8 +21,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow usage of the return value of 'ReactDOM.render'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_RENDER_RETURN_VALUE: "Do not depend on the return value from '{{objectName}}.render'.",

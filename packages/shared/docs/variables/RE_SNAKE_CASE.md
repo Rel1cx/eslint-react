@@ -7,3 +7,5 @@
 # Variable: RE\_SNAKE\_CASE
 
 > `const` **RE\_SNAKE\_CASE**: `RegExp`
+
+Regular expression for matching a snake_case string.

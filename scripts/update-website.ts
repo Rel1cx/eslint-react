@@ -1,6 +1,6 @@
 import CodeBlockWriter from "code-block-writer";
-import * as Record from "effect/Record";
 import path from "pathe";
+import * as R from "remeda";
 
 import { copyFile } from "./lib/fs";
 
@@ -13,7 +13,7 @@ const [
   ([files, rules], doc) => {
     const namespace = /^packages\/plugins\/eslint-plugin-react-([^/]+)/u.exec(doc)?.[1] ?? "";
     const basename = path.parse(path.basename(doc)).name;
-    const isCoreRule = namespace === "core";
+    const isCoreRule = namespace === "x";
     const name = isCoreRule ? basename : `${namespace}-${basename}`;
     const title = isCoreRule ? basename : `${namespace}/${basename}`;
     const dest = path.join("website", "pages", "rules", `${name}.mdx`);
@@ -21,7 +21,7 @@ const [
   },
   [[], []],
 );
-const metaFile = path.join("website", "pages", "rules", "_meta.ts");
+const metaFile = path.join("website", "pages", "docs", "rules", "_meta.ts");
 const metaContent = {
   overview: {
     title: "Overview",
@@ -33,7 +33,7 @@ const metaContent = {
   "---": {
     type: "separator",
   },
-  ...Record.fromEntries(
+  ...R.fromEntries(
     rules
       .sort(([a], [b]) => a.localeCompare(b, "en", { numeric: true }))
       .sort(([a], [b]) => order.findLastIndex((x) => a.startsWith(x)) - order.findLastIndex((x) => b.startsWith(x))),

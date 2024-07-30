@@ -1,6 +1,6 @@
 import { ERFunctionComponentFlag, useComponentCollector } from "@eslint-react/core";
+import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Function as F, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -14,7 +14,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "report all function components, including anonymous ones",
-      requiresTypeChecking: false,
     },
     messages: {
       FUNCTION_COMPONENT:
@@ -25,12 +24,10 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollector(context);
-
     return {
       ...listeners,
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
-
         for (const { name, flag, hookCalls, node } of components.values()) {
           context.report({
             data: {

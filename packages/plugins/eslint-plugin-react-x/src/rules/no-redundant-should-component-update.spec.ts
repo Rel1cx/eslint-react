@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-redundant-should-component-update";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: `
+      code: /* tsx */ `
         class Foo extends React.PureComponent {
           shouldComponentUpdate() {
             return true;
@@ -21,7 +19,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
+      code: /* tsx */ `
         class Foo extends PureComponent {
           shouldComponentUpdate() {
             return true;
@@ -36,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
+      code: /* tsx */ `
         class Foo extends React.PureComponent {
           shouldComponentUpdate = () => {
             return true;
@@ -51,7 +49,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
+      code: /* tsx */ `
         function Foo() {
           return class Bar extends React.PureComponent {
             shouldComponentUpdate() {
@@ -68,7 +66,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
+      code: /* tsx */ `
         function Foo() {
           return class Bar extends PureComponent {
             shouldComponentUpdate() {
@@ -85,7 +83,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
+      code: /* tsx */ `
         var Foo = class extends PureComponent {
           shouldComponentUpdate() {
             return true;
@@ -102,21 +100,21 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    dedent`
+    /* tsx */ `
       class Foo extends React.Component {
         shouldComponentUpdate() {
           return true;
         }
       }
     `,
-    dedent`
+    /* tsx */ `
       class Foo extends React.Component {
         shouldComponentUpdate = () => {
           return true;
         }
       }
     `,
-    dedent`
+    /* tsx */ `
       function Foo() {
         return class Bar extends React.Component {
           shouldComponentUpdate() {

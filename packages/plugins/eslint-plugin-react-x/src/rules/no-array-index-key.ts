@@ -1,9 +1,10 @@
 import { isOneOf, NodeType } from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
+import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { Option as O, Record } from "effect";
+import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
 import { isMatching, match, P } from "ts-pattern";
 
@@ -19,20 +20,20 @@ function isReactChildrenMethod(name: string): name is typeof reactChildrenMethod
   return reactChildrenMethod.some((method) => method === name);
 }
 
-const iteratorFunctionIndexParamPosition = {
-  every: 1,
-  filter: 1,
-  find: 1,
-  findIndex: 1,
-  findLast: 1,
-  findLastIndex: 1,
-  flatMap: 1,
-  forEach: 1,
-  map: 1,
-  reduce: 2,
-  reduceRight: 2,
-  some: 1,
-} as const;
+const iteratorFunctionIndexParamPosition = new Map<string, number>([
+  ["every", 1],
+  ["filter", 1],
+  ["find", 1],
+  ["findIndex", 1],
+  ["findLast", 1],
+  ["findLastIndex", 1],
+  ["flatMap", 1],
+  ["forEach", 1],
+  ["map", 1],
+  ["reduce", 2],
+  ["reduceRight", 2],
+  ["some", 1],
+]);
 
 function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContext) {
   const { callee } = node;
@@ -55,14 +56,13 @@ function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContex
   if (callee.type !== NodeType.MemberExpression) return O.none();
   if (callee.property.type !== NodeType.Identifier) return O.none();
   const { name } = callee.property;
-  if (!Record.has(iteratorFunctionIndexParamPosition, name as never)) return O.none();
+  if (!iteratorFunctionIndexParamPosition.has(name)) return O.none();
   const callbackArg = node.arguments[isUsingReactChildren(node, context) ? 1 : 0];
   if (!callbackArg) return O.none();
   if (!isOneOf([NodeType.ArrowFunctionExpression, NodeType.FunctionExpression])(callbackArg)) return O.none();
   const { params } = callbackArg;
-  const maybeIndexParamPosition = Record.get(iteratorFunctionIndexParamPosition, name as never);
-  if (O.isNone(maybeIndexParamPosition)) return O.none();
-  const indexParamPosition = maybeIndexParamPosition.value;
+  const indexParamPosition = iteratorFunctionIndexParamPosition.get(name);
+  if (R.isNullish(indexParamPosition)) return O.none();
   if (params.length < indexParamPosition + 1) return O.none();
   const param = params.at(indexParamPosition);
 
@@ -85,12 +85,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow using Array index as key",
-      recommended: "recommended",
-      requiresTypeChecking: false,
+      description: "disallow using Array index as 'key'",
     },
     messages: {
-      NO_ARRAY_INDEX_KEY: "Do not use Array index as key.",
+      NO_ARRAY_INDEX_KEY: "Do not use Array index as 'key'.",
     },
     schema: [],
   },

@@ -1,12 +1,12 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
-import { ESLintSettingsSchema } from "@eslint-react/shared";
+import { decodeSettings } from "@eslint-react/shared";
+import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import { Option as O, Predicate as Pred } from "effect";
+import * as R from "remeda";
 import { isMatching, match } from "ts-pattern";
-import { parse } from "valibot";
 
 export function isInitializedFromReact(
   variableName: string,
@@ -19,8 +19,7 @@ export function isInitializedFromReact(
   if (O.isNone(maybeLatestDef)) return false;
   const latestDef = maybeLatestDef.value;
   const { node, parent } = latestDef;
-  const settings = parse(ESLintSettingsSchema, context.settings);
-  const importSource = settings.reactOptions?.importSource ?? "react";
+  const { importSource = "react" } = decodeSettings(context.settings);
   if (node.type === NodeType.VariableDeclarator && node.init) {
     const { init } = node;
     // check for: `variable = React.variable`
@@ -50,7 +49,7 @@ export function isInitializedFromReact(
     if (O.isNone(maybeRequireExpression)) return false;
     const requireExpression = maybeRequireExpression.value;
     const [firstArg] = requireExpression.arguments;
-    if (firstArg?.type !== NodeType.Literal || !Pred.isString(firstArg.value)) return false;
+    if (firstArg?.type !== NodeType.Literal || !R.isString(firstArg.value)) return false;
     return firstArg.value === importSource || firstArg.value.startsWith(`${importSource}/`);
   }
   // latest definition is an import declaration: import { variable } from 'react'
@@ -69,7 +68,8 @@ export function isFromReact(name: string) {
   ) => {
     const initialScope = context.sourceCode.getScope(node);
     if (node.type === NodeType.MemberExpression) {
-      return node.object.type === NodeType.Identifier
+      return true
+        && node.object.type === NodeType.Identifier
         && node.property.type === NodeType.Identifier
         && node.property.name === name
         && isInitializedFromReact(node.object.name, context, initialScope);
@@ -81,8 +81,8 @@ export function isFromReact(name: string) {
 
 /**
  * @internal
- * @param memberName
- * @param name
+ * @param memberName The name of the member object
+ * @param name The name of the member property
  * @returns A function that checks if a given node is a member expression of a Pragma member.
  */
 export function isFromReactMember(
@@ -99,14 +99,14 @@ export function isFromReactMember(
       return isInitializedFromReact(node.object.name, context, initialScope);
     }
     if (
-      node.object.type === NodeType.MemberExpression
+      true
+      && node.object.type === NodeType.MemberExpression
       && node.object.object.type === NodeType.Identifier
       && isInitializedFromReact(node.object.object.name, context, initialScope)
       && node.object.property.type === NodeType.Identifier
     ) {
       return node.object.property.name === memberName;
     }
-
     return false;
   };
 }
@@ -114,7 +114,6 @@ export function isFromReactMember(
 export function isCallFromReact(name: string) {
   return (node: TSESTree.CallExpression, context: RuleContext) => {
     if (!isOneOf([NodeType.Identifier, NodeType.MemberExpression])(node.callee)) return false;
-
     return isFromReact(name)(node.callee, context);
   };
 }
@@ -125,7 +124,6 @@ export function isCallFromReactMember(
 ) {
   return (node: TSESTree.CallExpression, context: RuleContext) => {
     if (!is(NodeType.MemberExpression)(node.callee)) return false;
-
     return isFromReactMember(pragmaMemberName, name)(node.callee, context);
   };
 }

@@ -19,3 +19,5 @@ The AST node to check
 ## Returns
 
 `node is TSESTreeClass`
+
+`true` if the node is a class component, `false` otherwise

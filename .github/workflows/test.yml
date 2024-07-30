@@ -7,24 +7,46 @@ on:
     types: [opened, edited, reopened, synchronize]
     branches:
       - "**"
-  merge_group:
 env:
-  NODE_OPTIONS: --max_old_space_size=10240
+  NODE_OPTIONS: --max_old_space_size=102400
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup node
-        uses: actions/setup-node@v3
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Setup node@22
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        with:
-          version: 9
-          run_install: false
-      - name: Install front-end dependencies and build front-end assets
+      - name: Install front-end dependencies
         run: pnpm install
-      - name: Test
+      - name: Build front-end assets
+        run: pnpm run build
+      - name: Test on node@22
+        run: pnpm run test
+      - name: Setup node@21
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+      - name: Test on node@21
+        run: pnpm run test
+      - name: Setup node@20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Test on node@20
+        run: pnpm run test
+      - name: Setup node@19
+        uses: actions/setup-node@v4
+        with:
+          node-version: 19
+      - name: Test on node@19
+        run: pnpm run test
+      - name: Setup node@18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Test on node@18
         run: pnpm run test

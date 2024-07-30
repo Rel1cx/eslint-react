@@ -1,7 +1,7 @@
 import { isOneOf, NodeType, traverseUp } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
+import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import { Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -31,9 +31,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow 'setState' in 'componentWillUpdate'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
+      description: "disallow using 'setState' in 'componentWillUpdate'",
     },
     messages: {
       NO_SET_STATE_IN_COMPONENT_WILL_UPDATE:

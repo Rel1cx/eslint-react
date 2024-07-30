@@ -1,0 +1,41 @@
+# avoid-shorthand-fragment
+
+## Rule category
+
+Style.
+
+## What it does
+
+Enforces the use of explicit `<Fragment>` or `<React.Fragment>` components instead of the shorthand `<>` or `</>` syntax.
+
+## Examples
+
+### Failing
+
+```tsx
+import React from "react";
+
+function Example() {
+  return (
+    <>
+      <button />
+      <button />
+    </>
+  );
+}
+```
+
+### Passing
+
+```tsx
+import React, { Fragment } from "react";
+
+function Example() {
+  return (
+    <Fragment>
+      <button />
+      <button />
+    </Fragment>
+  );
+}
+```

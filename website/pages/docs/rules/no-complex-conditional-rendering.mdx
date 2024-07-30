@@ -1,0 +1,54 @@
+# no-complex-conditional-rendering
+
+## Rule category
+
+Complexity.
+
+## What it does
+
+Warns when conditional rendering is too complex.
+
+## Examples
+
+### Failing
+
+```tsx
+import React from "react";
+
+interface ExampleProps {
+  hideShapes: boolean;
+  debugSvg: boolean;
+}
+
+function Example({ hideShapes, debugSvg }: ExampleProps) {
+  return (
+    <div>
+      {hideShapes
+        ? null
+        : debugSvg
+        ? "<ShapesWithSVGs />"
+        : "<ShapesToDisplay />"}
+    </div>
+  );
+}
+```
+
+### Passing
+
+```tsx
+import React from "react";
+
+interface ExampleProps {
+  hideShapes: boolean;
+  debugSvg: boolean;
+}
+
+function Example({ hideShapes, debugSvg }: ExampleProps) {
+// @annotate: Early return if nothing to render
+  if (hideShapes) {
+    return null;
+  }
+
+  return debugSvg ? "<ShapesWithSVGs />" : "<ShapesToDisplay />";
+}
+```

@@ -4,16 +4,16 @@
 
 [@eslint-react/tools](../README.md) / Cast
 
-# Type alias: Cast\<X, Y\>
+# Type Alias: Cast\<X, Y\>
 
 > **Cast**\<`X`, `Y`\>: `X` *extends* `Y` ? `X` : `Y`
 
-## Since
-
-0.4.0
-
-## Type parameters
+## Type Parameters
 
 • **X**
 
 • **Y**
+
+## Since
+
+0.4.0

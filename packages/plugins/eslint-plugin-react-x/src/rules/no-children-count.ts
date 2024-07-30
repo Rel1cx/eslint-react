@@ -12,9 +12,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow 'Children.count'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
+      description: "disallow using 'Children.count'",
     },
     messages: {
       NO_CHILDREN_COUNT: "Using 'Children.count' is uncommon and can lead to fragile code. Use alternatives instead.",

@@ -15,7 +15,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow comments from being inserted as text nodes",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_COMMENT_TEXTNODES:

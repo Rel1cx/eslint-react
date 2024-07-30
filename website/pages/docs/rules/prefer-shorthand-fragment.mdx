@@ -1,0 +1,41 @@
+# prefer-shorthand-fragment
+
+## Rule category
+
+Style.
+
+## What it does
+
+Enforces the use of shorthand syntax for fragments.
+
+## Examples
+
+### Failing
+
+```tsx
+import React, { Fragment } from "react";
+
+function Example() {
+  return (
+    <Fragment>
+      <button />
+      <button />
+    </Fragment>
+  );
+}
+```
+
+### Passing
+
+```tsx
+import React from "react";
+
+function Example() {
+  return (
+    <>
+      <button />
+      <button />
+    </>
+  );
+}
+```

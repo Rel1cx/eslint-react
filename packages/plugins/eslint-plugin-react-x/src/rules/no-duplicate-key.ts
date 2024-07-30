@@ -1,13 +1,14 @@
-import { getNestedReturnStatements, is, isNodeEqual, isOneOf, NodeType } from "@eslint-react/ast";
+import { getNestedReturnStatements, is, isMapCallLoose, isNodeEqual, isOneOf, NodeType } from "@eslint-react/ast";
+import { isChildrenToArrayCall } from "@eslint-react/core";
 import { findPropInAttributes } from "@eslint-react/jsx";
+import { F, MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { Function as F, MutableRef as MutRef, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 import { isMatching, match } from "ts-pattern";
 
-import { createRule, getChildrenToArraySelector } from "../utils";
+import { createRule } from "../utils";
 
 export const RULE_NAME = "no-duplicate-key";
 
@@ -18,8 +19,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow duplicate keys in 'key' prop when rendering list",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_DUPLICATE_KEY: "A key must be unique. '{{value}}' is duplicated.",
@@ -28,7 +27,6 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const childrenToArraySelector = getChildrenToArraySelector();
     const isWithinChildrenToArrayRef = MutRef.make(false);
 
     function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
@@ -84,9 +82,6 @@ export default createRule<[], MessageID>({
     const seen = new WeakSet<TSESTree.JSXElement>();
 
     return {
-      [`${childrenToArraySelector}:exit`]() {
-        MutRef.set(isWithinChildrenToArrayRef, false);
-      },
       "ArrayExpression, JSXElement > JSXElement"(node: TSESTree.ArrayExpression | TSESTree.JSXElement) {
         if (MutRef.get(isWithinChildrenToArrayRef)) return;
         const elements = match(node)
@@ -131,14 +126,8 @@ export default createRule<[], MessageID>({
         }
       },
       CallExpression(node) {
-        const isMapCall = isMatching({
-          callee: {
-            type: NodeType.MemberExpression,
-            property: {
-              name: "map",
-            },
-          },
-        }, node);
+        if (isChildrenToArrayCall(node, context)) MutRef.set(isWithinChildrenToArrayRef, true);
+        const isMapCall = isMapCallLoose(node);
         const isArrayFromCall = isMatching({
           type: NodeType.CallExpression,
           callee: {
@@ -160,8 +149,8 @@ export default createRule<[], MessageID>({
         }
         O.map(checkExpression(fn.body), context.report);
       },
-      [childrenToArraySelector]() {
-        MutRef.set(isWithinChildrenToArrayRef, true);
+      "CallExpression:exit"(node) {
+        if (isChildrenToArrayCall(node, context)) MutRef.set(isWithinChildrenToArrayRef, false);
       },
     };
   },

@@ -4,7 +4,7 @@ import rule, { RULE_NAME } from "./no-children-prop";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: "<div children />;", // not a valid use case but make sure we don't crash
+      code: /* tsx */ `<div children />;`, // not a valid use case but make sure we don't crash
       errors: [{ messageId: "NO_CHILDREN_PROP" }],
     },
     {
@@ -12,11 +12,11 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "NO_CHILDREN_PROP" }],
     },
     {
-      code: "<div children={<div />} />;",
+      code: /* tsx */ `<div children={<div />} />;`,
       errors: [{ messageId: "NO_CHILDREN_PROP" }],
     },
     {
-      code: "<div children={[<div />, <div />]} />;",
+      code: /* tsx */ `<div children={[<div />, <div />]} />;`,
       errors: [{ messageId: "NO_CHILDREN_PROP" }],
     },
     {

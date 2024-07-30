@@ -4,7 +4,7 @@
 
 [@eslint-react/types](../README.md) / Severity
 
-# Type alias: Severity
+# Type Alias: Severity
 
 > **Severity**: `"error"` \| `"off"` \| `"warn"`
 

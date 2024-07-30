@@ -1,0 +1,38 @@
+# no-children-count
+
+## Rule category
+
+Restriction.
+
+## What it does
+
+Prevents the use of `Children.count` from the `react` package.
+
+## Why is this bad?
+
+Using `Children` is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
+
+## Examples
+
+### Failing
+
+```tsx
+import React, { Children } from "react";
+
+interface ExampleProps {
+  children: React.ReactNode;
+}
+
+function Example({ children }: ExampleProps) {
+  return (
+    <>
+      <h1>Total rows: {Children.count(children)}</h1>
+      ...
+    </>
+  );
+}
+```
+
+## Further reading
+
+- [React: Legacy React APIs Children](https://react.dev/reference/react/Children)

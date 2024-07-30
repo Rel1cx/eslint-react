@@ -1,9 +1,9 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import { ConstructionHint, inspectConstruction, NodeType, readableNodeType } from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
+import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
 
@@ -22,9 +22,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow usage of unstable value as default param in function component",
-      recommended: "recommended",
-      requiresTypeChecking: false,
+      description: "disallow using unstable value as default param in function component",
     },
     messages: {
       NO_UNSTABLE_DEFAULT_PROPS:
@@ -78,7 +76,7 @@ export default createRule<[], MessageID>({
       "VariableDeclarator[id.type='ObjectPattern'][init.type='Identifier']"(node: ObjectDestructuringDeclarator) {
         O.map(
           ctx.getCurrentFunction(),
-          ([currentFn]) =>
+          ([_, currentFn]) =>
             possibleDestructuringDeclarators.set(currentFn, [
               ...possibleDestructuringDeclarators.get(currentFn) ?? [],
               node,

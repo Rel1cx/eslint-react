@@ -13,11 +13,12 @@ import noChildrenToArray from "./rules/no-children-to-array";
 import noClassComponent from "./rules/no-class-component";
 import noCloneElement from "./rules/no-clone-element";
 import noCommentTextnodes from "./rules/no-comment-textnodes";
-import noComplicatedConditionalRendering from "./rules/no-complicated-conditional-rendering";
+import noComplexConditionalRendering from "./rules/no-complex-conditional-rendering";
 import noComponentWillMount from "./rules/no-component-will-mount";
 import noComponentWillReceiveProps from "./rules/no-component-will-receive-props";
 import noComponentWillUpdate from "./rules/no-component-will-update";
 import noCreateRef from "./rules/no-create-ref";
+import noDefaultProps from "./rules/no-default-props";
 import noDirectMutationState from "./rules/no-direct-mutation-state";
 import noDuplicateKey from "./rules/no-duplicate-key";
 import noImplicitKey from "./rules/no-implicit-key";
@@ -25,6 +26,7 @@ import noLeakedConditionalRendering from "./rules/no-leaked-conditional-renderin
 import noMissingComponentDisplayName from "./rules/no-missing-component-display-name";
 import noMissingKey from "./rules/no-missing-key";
 import noNestedComponents from "./rules/no-nested-components";
+import noPropTypes from "./rules/no-prop-types";
 import noRedundantShouldComponentUpdate from "./rules/no-redundant-should-component-update";
 import noSetStateInComponentDidMount from "./rules/no-set-state-in-component-did-mount";
 import noSetStateInComponentDidUpdate from "./rules/no-set-state-in-component-did-update";
@@ -39,6 +41,7 @@ import noUnusedClassComponentMembers from "./rules/no-unused-class-component-mem
 import noUnusedState from "./rules/no-unused-state";
 import noUselessFragment from "./rules/no-useless-fragment";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
+import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferShorthandBoolean from "./rules/prefer-shorthand-boolean";
 import preferShorthandFragment from "./rules/prefer-shorthand-fragment";
 
@@ -62,11 +65,14 @@ export const rules = {
   "no-class-component": noClassComponent,
   "no-clone-element": noCloneElement,
   "no-comment-textnodes": noCommentTextnodes,
-  "no-complicated-conditional-rendering": noComplicatedConditionalRendering,
+  "no-complex-conditional-rendering": noComplexConditionalRendering,
+  // TODO: Remove this alias in the next major version
+  "no-complicated-conditional-rendering": noComplexConditionalRendering,
   "no-component-will-mount": noComponentWillMount,
   "no-component-will-receive-props": noComponentWillReceiveProps,
   "no-component-will-update": noComponentWillUpdate,
   "no-create-ref": noCreateRef,
+  "no-default-props": noDefaultProps,
   "no-direct-mutation-state": noDirectMutationState,
   "no-duplicate-key": noDuplicateKey,
   "no-implicit-key": noImplicitKey,
@@ -74,6 +80,7 @@ export const rules = {
   "no-missing-component-display-name": noMissingComponentDisplayName,
   "no-missing-key": noMissingKey,
   "no-nested-components": noNestedComponents,
+  "no-prop-types": noPropTypes,
   "no-redundant-should-component-update": noRedundantShouldComponentUpdate,
   "no-set-state-in-component-did-mount": noSetStateInComponentDidMount,
   "no-set-state-in-component-did-update": noSetStateInComponentDidUpdate,
@@ -88,6 +95,7 @@ export const rules = {
   "no-unused-state": noUnusedState,
   "no-useless-fragment": noUselessFragment,
   "prefer-destructuring-assignment": preferDestructuringAssignment,
+  "prefer-read-only-props": preferReadOnlyProps,
   "prefer-shorthand-boolean": preferShorthandBoolean,
   "prefer-shorthand-fragment": preferShorthandFragment,
 } as const;

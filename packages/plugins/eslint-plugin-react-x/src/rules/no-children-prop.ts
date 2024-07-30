@@ -1,8 +1,8 @@
 import { NodeType } from "@eslint-react/ast";
 import { isCreateElementCall } from "@eslint-react/core";
 import { findPropInProperties, getProp } from "@eslint-react/jsx";
+import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -15,12 +15,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow passing of 'children' as props",
-      recommended: "recommended",
-      requiresTypeChecking: false,
+      description: "disallow passing 'children' as props",
     },
     messages: {
-      NO_CHILDREN_PROP: "Do not pass children as props.",
+      NO_CHILDREN_PROP: "Do not pass 'children' as props.",
     },
     schema: [],
   },

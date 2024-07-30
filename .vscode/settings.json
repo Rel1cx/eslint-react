@@ -1,6 +1,6 @@
 {
   "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.defaultFormatter": "dprint.dprint",
     "editor.quickSuggestions": {
       "strings": true
     }
@@ -10,9 +10,6 @@
     "editor.quickSuggestions": {
       "strings": true
     }
-  },
-  "[markdown]": {
-    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
   },
   "[typescript]": {
     "editor.defaultFormatter": "dprint.dprint"
@@ -29,6 +26,14 @@
     },
     "editor.tabSize": 2
   },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+    "github-actions-workflow" // for GitHub Actions workflow files
+  ],
   "editor.codeActionsOnSave": {
     "eslint.autoFix": "never",
     "source.fixAll": "never",
@@ -51,13 +56,6 @@
     }
   ],
   "mdx.server.enable": true,
-  "eslint.validate": [
-    "mdx",
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
   "search.exclude": {
     "pnpm-lock.yaml": true
   },
@@ -66,6 +64,7 @@
     ".npmignore": true,
     ".eslintcache": true,
     "eslint.config.js": true,
+    "eslint.config.d.ts": true,
     "*.bundled_*.mjs": true
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",

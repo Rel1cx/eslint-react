@@ -1,0 +1,43 @@
+# ensure-forward-ref-using-ref
+
+## Rule category
+
+Correctness.
+
+## What it does
+
+Requires that components wrapped with `forwardRef` must have a `ref` parameter.
+
+This rule checks all React components using `forwardRef` and verifies that there is a second parameter.
+
+## Why is this bad?
+
+Omitting the `ref` argument is usually a bug, and components not using `ref` don't need to be wrapped by `forwardRef`.
+
+## Examples
+
+### Failing
+
+```tsx
+import React from "react";
+
+const Example = React.forwardRef((props) => {
+  //                             ^^^^^^^
+  //                             - 'forwardRef' is used with this component but no 'ref' parameter is set.
+  return <button />;
+});
+```
+
+### Passing
+
+```tsx
+import React from "react";
+
+const Example = React.forwardRef<HTMLButtonElement>((props, ref) => {
+  return <button ref={ref} />;
+});
+```
+
+## Further Reading
+
+- [React: forwardRef](https://react.dev/reference/react/forwardRef)

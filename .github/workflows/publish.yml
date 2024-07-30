@@ -23,20 +23,16 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v3
+      - name: Enable Corepack
+        run: corepack enable
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-          check-latest: true
           registry-url: "https://registry.npmjs.org"
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        with:
-          version: 9
-          run_install: false
       - name: Install dependencies
         run: pnpm install
-      - name: Run build
+      - name: Build front-end assets
         run: pnpm run build
       - name: Run lint
         run: pnpm run lint

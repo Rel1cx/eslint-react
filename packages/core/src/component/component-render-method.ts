@@ -1,7 +1,7 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import { NodeType, traverseUp } from "@eslint-react/ast";
+import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { Option as O } from "effect";
 import { isMatching, P } from "ts-pattern";
 
 import { isClassComponent } from "./component-collector-legacy";
@@ -39,7 +39,6 @@ export function isFunctionOfRenderMethod(node: TSESTreeFunction) {
  * }
  * ```
  * @param node The AST node being checked
- * @param context
  * @returns `true` if node is inside class component's render block, `false` if not
  * @deprecated It will be removed in the future
  */

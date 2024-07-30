@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/shared",
-  "version": "1.5.17-next.3",
+  "version": "1.7.0",
   "description": "ESLint React's Shared constants and functions.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -12,7 +12,7 @@
     "directory": "packages/shared"
   },
   "license": "MIT",
-  "author": "Eva1ent<let@ik.me>",
+  "author": "Eva1ent<rel1cx@proton.me>",
   "sideEffects": false,
   "exports": {
     ".": {
@@ -42,12 +42,14 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^7.13.1",
-    "deepmerge-ts": "^7.0.3",
-    "valibot": "^0.33.2"
+    "@typescript-eslint/utils": "^7.18.0",
+    "picomatch": "^4.0.2"
   },
   "devDependencies": {
-    "tsup": "8.1.0",
-    "type-fest": "4.20.1"
+    "@types/picomatch": "^3.0.0",
+    "micro-memoize": "4.1.2",
+    "tsup": "8.2.3",
+    "type-fest": "4.23.0",
+    "valibot": "0.36.0"
   }
 }

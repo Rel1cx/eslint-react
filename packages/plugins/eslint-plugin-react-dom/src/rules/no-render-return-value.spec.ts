@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-render-return-value";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: "var Hello = ReactDOM.render(<div />, document.body);",
+      code: /* tsx */ `var Hello = ReactDOM.render(<div />, document.body);`,
       errors: [
         {
           messageId: "NO_RENDER_RETURN_VALUE",
@@ -14,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
+      code: /* tsx */ `
         var o = {
           inst: ReactDOM.render(<div />, document.body)
         };
@@ -26,7 +24,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
+      code: /* tsx */ `
         function render () {
           return ReactDOM.render(<div />, document.body)
         }
@@ -38,7 +36,9 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: "var render = (a, b) => ReactDOM.render(a, b)",
+      code: /* tsx */ `
+        var render = (a, b) => ReactDOM.render(a, b)
+      `,
       errors: [
         {
           messageId: "NO_RENDER_RETURN_VALUE",
@@ -46,7 +46,9 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: "this.o = ReactDOM.render(<div />, document.body);",
+      code: /* tsx */ `
+        this.o = ReactDOM.render(<div />, document.body);
+      `,
       errors: [
         {
           messageId: "NO_RENDER_RETURN_VALUE",
@@ -54,7 +56,9 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: "var v; v = ReactDOM.render(<div />, document.body);",
+      code: /* tsx */ `
+        var v; v = ReactDOM.render(<div />, document.body);
+      `,
       errors: [
         {
           messageId: "NO_RENDER_RETURN_VALUE",
@@ -65,7 +69,7 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     ...allValid,
     "ReactDOM.render(<div />, document.body);",
-    dedent`
+    /* tsx */ `
       let node;
       ReactDOM.render(<div ref={ref => node = ref}/>, document.body);
     `,

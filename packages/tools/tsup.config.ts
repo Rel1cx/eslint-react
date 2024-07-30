@@ -7,7 +7,7 @@ export default defineConfig(() => ({
   format: ["cjs", "esm"],
   minify: false,
   outDir: "dist",
-  platform: "node",
+  platform: "neutral",
   shims: false,
   sourcemap: false,
   splitting: false,

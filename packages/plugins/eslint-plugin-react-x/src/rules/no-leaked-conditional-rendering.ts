@@ -1,13 +1,15 @@
 import { isJSX, NodeType } from "@eslint-react/ast";
-import { findVariable, getVariableInitExpression } from "@eslint-react/var";
+import { F, O } from "@eslint-react/tools";
+import { findVariable } from "@eslint-react/var";
+import type { Variable } from "@typescript-eslint/scope-manager";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { Function as F, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
-import * as tsutils from "ts-api-utils";
-import { isMatching, match } from "ts-pattern";
+import { isFalseLiteralType, isTrueLiteralType, isTypeFlagSet, unionTypeParts } from "ts-api-utils";
+import { isMatching, match, P } from "ts-pattern";
 import ts from "typescript";
 
 import { createRule } from "../utils";
@@ -19,8 +21,8 @@ export type MessageID = ConstantCase<typeof RULE_NAME>;
 /** The types we care about */
 /* eslint-disable perfectionist/sort-union-types */
 type VariantType =
-  | "unknown"
   | "any"
+  | "bigint"
   | "boolean"
   | "enum"
   | "never"
@@ -28,9 +30,12 @@ type VariantType =
   | "number"
   | "object"
   | "string"
+  | "unknown"
+  | "falsy bigint"
   | "falsy boolean"
   | "falsy number"
   | "falsy string"
+  | "truthy bigint"
   | "truthy boolean"
   | "truthy number"
   | "truthy string";
@@ -38,38 +43,74 @@ type VariantType =
 
 // Allowed left node type variants
 const allowedVariants = [
-  "nullish",
-  "boolean",
-  "string",
-  "object",
   "any",
-  "truthy boolean",
-  "falsy boolean",
-  "truthy string",
+  "boolean",
+  "nullish",
+  "object",
+  "string",
   "falsy string",
-] as const satisfies readonly VariantType[];
+  "falsy boolean",
+  "truthy bigint",
+  "truthy boolean",
+  "truthy number",
+  "truthy string",
+] as const satisfies VariantType[];
+
+const tsHelpers = {
+  isAnyType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.TypeParameter | ts.TypeFlags.Any),
+  isBigIntType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.BigIntLike),
+  isBooleanType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.BooleanLike),
+  isEnumType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.EnumLike),
+  isFalsyBigIntType: (type: ts.Type) => type.isLiteral() && isMatching({ value: { base10Value: "0" } }, type),
+  isFalsyNumberType: (type: ts.Type) => type.isNumberLiteral() && type.value === 0,
+  isFalsyStringType: (type: ts.Type) => type.isStringLiteral() && type.value === "",
+  isNeverType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.Never),
+  isNullishType: (type: ts.Type) =>
+    isTypeFlagSet(
+      type,
+      ts.TypeFlags.Null
+        | ts.TypeFlags.Undefined
+        | ts.TypeFlags.VoidLike,
+    ),
+  isNumberType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.NumberLike),
+  isObjectType: (type: ts.Type) =>
+    !isTypeFlagSet(
+      type,
+      ts.TypeFlags.Null
+        | ts.TypeFlags.Undefined
+        | ts.TypeFlags.VoidLike
+        | ts.TypeFlags.BooleanLike
+        | ts.TypeFlags.StringLike
+        | ts.TypeFlags.NumberLike
+        | ts.TypeFlags.BigIntLike
+        | ts.TypeFlags.TypeParameter
+        | ts.TypeFlags.Any
+        | ts.TypeFlags.Unknown
+        | ts.TypeFlags.Never,
+    ),
+  isStringType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.StringLike),
+  isTruthyBigIntType: (type: ts.Type) => type.isLiteral() && isMatching({ value: { base10Value: P.not("0") } }, type),
+  isTruthyNumberType: (type: ts.Type) => type.isNumberLiteral() && type.value !== 0,
+  isTruthyStringType: (type: ts.Type) => type.isStringLiteral() && type.value !== "",
+  isUnknownType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.Unknown),
+} as const;
 
 /**
- * Ported from https://github.com/typescript-eslint/typescript-eslint/blob/eb736bbfc22554694400e6a4f97051d845d32e0b/packages/eslint-plugin/src/rules/strict-boolean-expressions.ts#L826
+ * Ported from https://github.com/typescript-eslint/typescript-eslint/blob/eb736bbfc22554694400e6a4f97051d845d32e0b/packages/eslint-plugin/src/rules/strict-boolean-expressions.ts#L826 with some enhancements
  * Check union variants for the types we care about
- * @param types
+ * @param types The types to inspect
+ * @returns The variant types found
  */
 function inspectVariantTypes(types: ts.Type[]) {
   const variantTypes = new Set<VariantType>();
-
-  if (types.some(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.Unknown))) {
+  if (types.some(tsHelpers.isUnknownType)) {
     variantTypes.add("unknown");
     return variantTypes;
   }
-
-  if (
-    types.some(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.Null | ts.TypeFlags.Undefined | ts.TypeFlags.VoidLike))
-  ) {
+  if (types.some(tsHelpers.isNullishType)) {
     variantTypes.add("nullish");
   }
-
-  const booleans = types.filter(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.BooleanLike));
-
+  const booleans = types.filter(tsHelpers.isBooleanType);
   // If incoming type is either "true" or "false", there will be one type
   // object with intrinsicName set accordingly
   // If incoming type is boolean, there will be two type objects with
@@ -79,8 +120,8 @@ function inspectVariantTypes(types: ts.Type[]) {
       const [first] = booleans;
       F.pipe(
         match<typeof first, O.Option<VariantType>>(first)
-          .when(tsutils.isTrueLiteralType, () => O.some("truthy boolean"))
-          .when(tsutils.isFalseLiteralType, () => O.some("falsy boolean"))
+          .when(isTrueLiteralType, () => O.some("truthy boolean"))
+          .when(isFalseLiteralType, () => O.some("falsy boolean"))
           .otherwise(O.none),
         O.map(v => variantTypes.add(v)),
       );
@@ -94,90 +135,66 @@ function inspectVariantTypes(types: ts.Type[]) {
       break;
     }
   }
-
-  const strings = types.filter(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.StringLike));
-
+  const strings = types.filter(tsHelpers.isStringType);
   if (strings.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(strings)
-      .when(
-        types => types.every(type => type.isStringLiteral() && type.value !== ""),
-        F.constant("truthy string"),
-      )
-      .when(
-        types => types.every(type => type.isStringLiteral() && type.value === ""),
-        F.constant("falsy string"),
-      )
+      .when(types => types.every(tsHelpers.isTruthyStringType), F.constant("truthy string"))
+      .when(types => types.every(tsHelpers.isFalsyStringType), F.constant("falsy string"))
       .otherwise(F.constant("string"));
-
     variantTypes.add(evaluated);
   }
-
-  const numbers = types.filter(type =>
-    tsutils.isTypeFlagSet(
-      type,
-      ts.TypeFlags.NumberLike | ts.TypeFlags.BigIntLike,
-    )
-  );
-
+  const bigints = types.filter(tsHelpers.isBigIntType);
+  if (bigints.length > 0) {
+    const evaluated = match<ts.Type[], VariantType>(bigints)
+      .when(types => types.every(tsHelpers.isTruthyBigIntType), F.constant("truthy bigint"))
+      .when(types => types.every(tsHelpers.isFalsyBigIntType), F.constant("falsy bigint"))
+      .otherwise(F.constant("bigint"));
+    variantTypes.add(evaluated);
+  }
+  const numbers = types.filter(tsHelpers.isNumberType);
   if (numbers.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(numbers)
-      .when(
-        types => types.every(type => type.isNumberLiteral() && type.value !== 0),
-        F.constant("truthy number"),
-      )
-      .when(
-        types => types.every(type => type.isNumberLiteral() && type.value === 0),
-        F.constant("falsy number"),
-      )
+      .when(types => types.every(tsHelpers.isTruthyNumberType), F.constant("truthy number"))
+      .when(types => types.every(tsHelpers.isFalsyNumberType), F.constant("falsy number"))
       .otherwise(F.constant("number"));
-
     variantTypes.add(evaluated);
   }
-
-  if (types.some(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.EnumLike))) {
+  if (types.some(tsHelpers.isEnumType)) {
     variantTypes.add("enum");
   }
-
-  if (
-    types.some(
-      type =>
-        !tsutils.isTypeFlagSet(
-          type,
-          ts.TypeFlags.Null
-            | ts.TypeFlags.Undefined
-            | ts.TypeFlags.VoidLike
-            | ts.TypeFlags.BooleanLike
-            | ts.TypeFlags.StringLike
-            | ts.TypeFlags.NumberLike
-            | ts.TypeFlags.BigIntLike
-            | ts.TypeFlags.TypeParameter
-            | ts.TypeFlags.Any
-            | ts.TypeFlags.Unknown
-            | ts.TypeFlags.Never,
-        ),
-    )
-  ) {
+  if (types.some(tsHelpers.isObjectType)) {
     variantTypes.add("object");
   }
-
-  if (
-    types.some(type =>
-      tsutils.isTypeFlagSet(
-        type,
-        ts.TypeFlags.TypeParameter
-          | ts.TypeFlags.Any
-          | ts.TypeFlags.Unknown,
-      )
-    )
-  ) {
+  if (types.some(tsHelpers.isAnyType)) {
     variantTypes.add("any");
   }
-
-  if (types.some(type => tsutils.isTypeFlagSet(type, ts.TypeFlags.Never))) {
+  if (types.some(tsHelpers.isNeverType)) {
     variantTypes.add("never");
   }
-
   return variantTypes;
+}
+
+function isInitExpression(
+  node:
+    | TSESTree.Expression
+    | TSESTree.LetOrConstOrVarDeclaration,
+) {
+  return node.type !== NodeType.VariableDeclaration;
+}
+
+function getVariableInitExpression(at: number) {
+  return (variable: Variable): O.Option<TSESTree.Expression> => {
+    return F.pipe(
+      O.some(variable),
+      O.flatMapNullable(v => v.defs.at(at)),
+      O.flatMap(d =>
+        "init" in d.node
+          ? O.fromNullable(d.node.init)
+          : O.none()
+      ),
+      O.filter(isInitExpression),
+    );
+  };
 }
 
 export default createRule<[], MessageID>({
@@ -185,33 +202,40 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow problematic leaked values from being rendered",
-      recommended: "recommended",
-      requiresTypeChecking: true,
     },
     messages: {
       NO_LEAKED_CONDITIONAL_RENDERING:
-        "Potential leaked value that might cause unintentionally rendered values or rendering crashes",
+        "Potential leaked value {{value}} that might cause unintentionally rendered values or rendering crashes.",
     },
     schema: [],
   },
   name: RULE_NAME,
   create(context) {
-    const services = ESLintUtils.getParserServices(context);
-
+    const services = ESLintUtils.getParserServices(context, false);
     function checkExpression(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
       return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
         .when(isJSX, O.none)
         .with({ type: NodeType.LogicalExpression, operator: "&&" }, ({ left, right }) => {
           const isLeftUnaryNot = isMatching({ type: NodeType.UnaryExpression, operator: "!" }, left);
           if (isLeftUnaryNot) return checkExpression(right);
+          const initialScope = context.sourceCode.getScope(left);
+          const isLeftNan = isMatching({ type: NodeType.Identifier, name: "NaN" }, left)
+            || getStaticValue(left, initialScope)?.value === "NaN";
+          if (isLeftNan) {
+            return O.some({
+              data: { value: context.sourceCode.getText(left) },
+              messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+              node: left,
+            });
+          }
           const leftType = getConstrainedTypeAtLocation(services, left);
-          const leftTypeVariants = inspectVariantTypes(tsutils.unionTypeParts(leftType));
+          const leftTypeVariants = inspectVariantTypes(unionTypeParts(leftType));
           const isLeftValid = Array
             .from(leftTypeVariants.values())
             .every(type => allowedVariants.some(allowed => allowed === type));
           if (isLeftValid) return checkExpression(right);
-
           return O.some({
+            data: { value: context.sourceCode.getText(left) },
             messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
             node: left,
           });
@@ -221,7 +245,6 @@ export default createRule<[], MessageID>({
         })
         .with({ type: NodeType.Identifier }, (n) => {
           const initialScope = context.sourceCode.getScope(n);
-
           return F.pipe(
             findVariable(n.name, initialScope),
             O.flatMap(getVariableInitExpression(0)),
@@ -230,7 +253,6 @@ export default createRule<[], MessageID>({
         })
         .otherwise(O.none);
     }
-
     return {
       "JSXExpressionContainer > ConditionalExpression"(node: TSESTree.ConditionalExpression) {
         O.map(checkExpression(node), context.report);

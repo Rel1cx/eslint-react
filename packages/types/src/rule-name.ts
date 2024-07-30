@@ -1,21 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// Rule name primitive definitions, used to guide rule naming.
-// The plural nouns are used only when there is a clear indication of multiple things.
-// Most of the terms are taken from the React glossary on https://react.dev.
-// This file is also used to help GitHub copilot suggest rule names.
-
-type Ban = "ban";
 
 type PositiveModifier = "avoid" | "ensure" | "prefer" | "strict";
 
 type NegativeModifier = "no";
 
-type NeutralModifier = "max" | "min";
-
-type Modifier = NegativeModifier | NeutralModifier | PositiveModifier;
-
 type NegativeDescriptive =
-  | "complicated"
+  | "complex"
   | "confusing"
   | "constructed"
   | "duplicate"
@@ -25,18 +15,15 @@ type NegativeDescriptive =
   | "implicit"
   | "invalid"
   | "leaked"
-  | "legacy"
   | "missing"
   | "misused"
   | "mixing"
   | "nested"
   | "redundant"
-  | "suppressing"
   | "suspicious"
   | "unknown"
   | "unreachable"
   | "unsafe"
-  | "unsorted"
   | "unstable"
   | "unused"
   | "useless";
@@ -48,8 +35,6 @@ type NeutralDescriptive =
   | "calling"
   | "inside"
   | "outside";
-
-type Descriptive = NegativeDescriptive | NeutralDescriptive | PositiveDescriptive;
 
 // Comment out unused terms to reduce the type checking overhead
 type Term =
@@ -144,9 +129,6 @@ type Term =
 type Additional = string;
 
 type RuleName =
-  | `${Ban}-${Term}`
-  | `${NeutralModifier}-${Term}`
-  // eslint-disable-next-line perfectionist/sort-union-types
   | `${NegativeModifier}-${NegativeDescriptive}-${Term}`
   | `${NegativeModifier}-${NeutralDescriptive}-${Term}`
   | `${PositiveModifier}-${NeutralDescriptive}-${Term}`

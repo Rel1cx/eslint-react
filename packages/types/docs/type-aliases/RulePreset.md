@@ -4,7 +4,7 @@
 
 [@eslint-react/types](../README.md) / RulePreset
 
-# Type alias: RulePreset
+# Type Alias: RulePreset
 
 > **RulePreset**: `Record`\<`string`, `RuleDeclaration`\>
 

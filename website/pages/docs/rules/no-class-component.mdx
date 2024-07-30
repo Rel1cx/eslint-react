@@ -1,0 +1,55 @@
+# no-class-component
+
+## Rule category
+
+Restriction.
+
+## What it does
+
+Prevents the use of class components.
+
+## Why is this bad?
+
+Component is the base class for the React components defined as JavaScript classes. Class components are still supported by React, but we don’t recommend using them in new code.
+
+It is recommended to define components as functions instead of classes. [See how to migrate](https://react.dev/reference/react/Component#alternatives).
+
+## Examples
+
+This rule aims to prevent usage of class components in React.
+
+### Failing
+
+```tsx
+import React from "react";
+
+interface ExampleProps {
+  name: string;
+}
+// @warn: Do not use class components
+
+class Example extends React.Component<ExampleProps> {
+  render() {
+    return <h1>Hello, {this.props.name}!</h1>;
+  }
+}
+```
+
+### Passing
+
+```tsx
+import React from "react";
+
+interface ExampleProps {
+  name: string;
+}
+// @annotate: Use function components instead
+
+function Example({ name }: ExampleProps) {
+  return <h1>Hello, {name}!</h1>;
+}
+```
+
+## Further Reading
+
+- [React: Legacy React APIs Component](https://react.dev/reference/react/Component)

@@ -1,0 +1,27 @@
+{
+  "name": "test-bundle-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "./package.json"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "pack": "pnpm pack",
+    "clean": "rm -r -f dist *.tgz"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tsup": "8.2.3",
+    "@eslint-react/tools": "workspace:*",
+    "remeda": "^2.6.0",
+    "@tsconfig/node22": "22.0.0",
+    "@tsconfig/strictest": "2.0.5"
+  }
+}

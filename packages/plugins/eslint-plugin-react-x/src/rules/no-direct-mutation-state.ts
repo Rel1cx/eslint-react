@@ -1,7 +1,7 @@
 import { isOneOf, isThisExpression, NodeType, traverseUpGuard } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
+import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import { Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -43,8 +43,7 @@ function isConstructorFunction(
   return isOneOf([NodeType.FunctionDeclaration, NodeType.FunctionExpression])(node)
     && isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])(node.parent)
     && node.parent.key.type === NodeType.Identifier
-    && node.parent.key.name === "constructor"
-    && node.parent.parent.type === NodeType.ClassBody;
+    && node.parent.key.name === "constructor";
 }
 
 export default createRule<[], MessageID>({
@@ -52,8 +51,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow direct mutation of state",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_DIRECT_MUTATION_STATE: "Do not mutate state directly. Use 'setState()' instead.",

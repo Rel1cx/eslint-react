@@ -1,3 +1,182 @@
+## v1.7.0 (Tue 30 Jul 2024)
+
+### ✨ New
+
+- Add `settings["react-x"].polymorphicPropName` setting to specify the name of the prop that is used to determine the component type.
+
+### 🪄 Improvements
+
+- Dropped the current incomplete lint support for `React.createElement` to improve performance and subsequent code maintainability.
+
+## v1.6.0 (Sat 27 Jul 2024)
+
+### ✨ New
+
+- Add `controlled` setting to `settings["react-x"].additionalComponents`' `attributes` object to set whether it is controlled or not.
+- Add glob support to `settings["react-x"].additionalComponents`' `name` setting.
+- Add default settings for `react-x` settings to presets.
+- Undeprecate rule `no-implicit-key` and improve its usefulness.
+- Undeprecate rule `no-complicated-conditional-rendering` and rename it to `no-complex-conditional-rendering` (the previous rule will still be available until the next major update to avoid breaking changes).
+
+### 🐞 Fixes
+
+- `no-direct-set-state-in-use-(layout?)-effect` should warn only for the `set` function.
+
+### 🪄 Improvements
+
+- Remove `no-direct-set-state-in-use-(layout?)-effect` from recommended presets.
+
+## v1.5.30 (Mon 22 Jul 2024)
+
+### 🐞 Fixes
+
+- Revert ~~change `@typescript-eslint`'s packages in `dependencies` to `"^7.16.1 || ^rc-v8"`~~ as this format is not supported by all package managers.
+
+## v1.5.29 (Mon 22 Jul 2024)
+
+### ✨ New
+
+- Add rule `no-prop-types`.
+- Add rule `no-default-props`.
+- Add experimental `settings["react-x"].additionalComponents` settings (currently only the `no-unsafe-target-blank` rule uses it, but more rules will use it in the future).
+
+### 🪄 Improvements
+
+- Add rule `no-prop-types` to recommended presets.
+- Add rule `no-default-props` to recommended presets.
+- Remove rule `no-useless-fragment` from recommended presets.
+- Optimize performance of rule `no-create-ref`.
+- Change `@typescript-eslint`' packages in `dependencies` to `"^7.16.1 || ^rc-v8"`.
+
+## v1.5.28 (Sat 20 Jul 2024)
+
+### 🐞 Fixes
+
+- Fix false positives and negatives in rule `hooks-extra/no-direct-set-state-in-use-effect`.
+- Fix false positives and negatives in rule `hooks-extra/no-direct-set-state-in-use-layout-effect`.
+- Fix rule `prefer-read-only-props` reports only the first component in a file.
+
+### 🪄 Improvements
+
+- Improve website and documentation.
+
+## v1.5.27 (Tue 16 Jul 2024)
+
+### 🐞 Fixes
+
+- Fix rule `prefer-read-only-props` that was accidentally added to the recommended type-checked presets.
+- Fix false negatives in rule `hooks-extra/no-direct-set-state-in-use-effect` when call `set` function inside a non-function scope.
+- Fix false negatives in rule `hooks-extra/no-direct-set-state-in-use-layout-effect` when call `set` function inside a non-function scope.
+
+### 🪄 Improvements
+
+- Rule `no-leaked-conditional-rendering` now supports BigInt literals on the left side of the logical expression
+- Rule `no-leaked-conditional-rendering` now allows a truthy number literal to be used on the left side of the logical expression.
+- Optimize bundle size.
+
+## v1.5.26 (Mon 15 Jul 2024)
+
+### ✨ New
+
+- Add rule `hooks-extra/no-direct-set-state-in-use-effect`.
+- Add rule `hooks-extra/no-direct-set-state-in-use-layout-effect`.
+
+### 🐞 Fixes
+
+- Fix false positives in rule `hooks-extra/ensure-use-memo-has-non-empty-deps` when referencing component block scope.
+- Fix false positives in rule `hooks-extra/ensure-use-callback-has-non-empty-deps` when referencing component block scope.
+
+### 🪄 Improvements
+
+- Add rule `hooks-extra/no-direct-set-state-in-use-effect` to recommended presets.
+- Add rule `hooks-extra/no-direct-set-state-in-use-layout-effect` to recommended presets.
+- Add rule `hooks-extra/prefer-use-state-lazy-initialization` to recommended presets.
+
+## v1.5.25 (Sat 13 Jul 2024)
+
+### 🪄 Improvements
+
+- Optimize bundle size.
+
+## v1.5.24 (Thu 11 Jul 2024)
+
+### 🐞 Fixes
+
+- Fix rule `prefer-read-only-props` false positive when using `ObjectPattern` in function arguments.
+
+### 🪄 Improvements
+
+- Change `typescript` version in `peerDependencies` to `"^4.9.5 || ^5.3.3"`
+
+## v1.5.23 (Sun 7 Jul 2024)
+
+### 🐞 Fixes
+
+- Fix rule `prefer-read-only-props` false negative when using `ObjectPattern` in function arguments.
+
+### 🪄 Improvements
+
+- Improve website and documentation.
+
+## v1.5.22 (Fri 5 Jul 2024)
+
+### ✨ New
+
+- Add rule `prefer-read-only-props`.
+
+### 🪄 Improvements
+
+- Downgrade `@typescript-eslint`'s packages to v7, due to stability issues with v8.
+
+## v1.5.21 (Wed 3 Jul 2024)
+
+### 🐞 Fixes
+
+- Add missing dependencies to `@eslint-react/eslint-plugin`.
+- Fix rule `no-nested-components` false negative when placing components inside JSX props.
+
+### 🪄 Improvements
+
+- Update `@typescript-eslint`'s packages to v8.
+- Improve rule `no-leaked-conditional-rendering` compatibility with different versions of `typescript-eslint`.
+
+## v1.5.20 (Tue 02 Jul 2024)
+
+### 🐞 Fixes
+
+- Fix rule `prefer-destructuring-assignment` false positive when the function looks like a component.
+
+### 🪄 Improvements
+
+- Improve `utilities/jsx/is-jsx-value` to better distinguish between normal values and JSX values.
+- Improve `core/component-collector` to better distinguish between normal functions and components.
+- Prevent potential function component detection related false positives.
+- Switch to a more appropriate value for `DEFAULT_COMPONENT_HINT`.
+
+## v1.5.19 (30 Sun Jun 2024)
+
+### 🪄 Improvements
+
+- Reduce the number of dependencies by inlining tree-shaking optimized code while bundling.
+- Deprecate `reactOptions` in favor of `react-x` in [ESLint Shared Settings](https://eslint.org/docs/latest/use/configure/configuration-files#configuring-shared-settings).
+
+## v1.5.18 (28 Fri Jun 2024)
+
+### 🐞 Fixes
+
+- Fix rule `no-useless-fragment` not respecting `jsxPragma` settings.
+
+### 🪄 Improvements
+
+- Update documentation for rule `no-useless-fragment` to reflect the actual behavior of the rule.
+
+## v1.5.17 (Wed 26 Jun 2024)
+
+### 🪄 Improvements
+
+- Remove rule `no-children-prop` from recommended presets.
+- Improve documentation for rule `no-useless-fragment`.
+
 ## v1.5.16 (Mon 17 Jun 2024)
 
 ### 🐞 Fixes

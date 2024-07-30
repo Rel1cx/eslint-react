@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-children-count";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         import { Children } from 'react';
 
         function RowList({ children }) {
@@ -23,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const { Children } = require('react');
 
         function RowList({ children }) {
@@ -40,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import Roact from 'roact';
 
         function RowList({ children }) {
@@ -56,13 +54,13 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "NO_CHILDREN_COUNT",
       }],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import * as React from 'react';
 
         function RowList({ children }) {
@@ -81,8 +79,8 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    dedent`
-      // import { Children } from 'react';
+    /* tsx */ `
+
 
       const Children = {
         count: () => 1,
@@ -97,7 +95,7 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       import { Children } from 'react';
 
       function SeparatorList({ children }) {
@@ -109,7 +107,7 @@ ruleTester.run(RULE_NAME, rule, {
         // ...
       }
     `,
-    dedent`
+    /* tsx */ `
       import { Children } from 'react';
 
       function RowList({ children }) {

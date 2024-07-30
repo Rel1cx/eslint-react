@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unsafe-iframe-sandbox";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: '<iframe sandbox="allow-scripts allow-same-origin" />;',
+      code: /* tsx */ `<iframe sandbox="allow-scripts allow-same-origin" />;`,
       errors: [
         {
           messageId: "NO_UNSAFE_IFRAME_SANDBOX",
@@ -14,25 +12,27 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
-        import React from "react";
-
-        function App() {
-            return React.createElement("iframe", { sandbox: "allow-scripts allow-same-origin" });
-        }
-      `,
+      code: /* tsx */ `<PolyComponent as="iframe" sandbox="allow-scripts allow-same-origin" />;`,
       errors: [
         {
           messageId: "NO_UNSAFE_IFRAME_SANDBOX",
         },
       ],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
     },
+    // TODO: Evaluate the necessity of supporting props lookup for spread props
     {
-      code: dedent`
-        import { createElement } from "react";
+      code: /* tsx */ `
+        const props = {
+          sandbox: "allow-scripts allow-same-origin",
+        };
 
         function App() {
-            return createElement("iframe", { sandbox: "allow-scripts allow-same-origin" });
+            return <iframe {...props} />;
         }
       `,
       errors: [
@@ -51,23 +51,9 @@ ruleTester.run(RULE_NAME, rule, {
     '<iframe sandbox="allow-downloads allow-scripts" />;',
     '<iframe sandbox="allow-downloads allow-scripts allow-forms" />;',
     'const IFrame = () => <iframe sandbox="allow-downloads" />;',
-    dedent`
+    /* tsx */ `
       function App() {
           return <iframe sandbox="allow-downloads" />;
-      }
-    `,
-    dedent`
-      import React from "react";
-
-      function App() {
-          return React.createElement("iframe", { sandbox: "allow-downloads" });
-      }
-    `,
-    dedent`
-      import { createElement } from "react";
-
-      function App() {
-          return createElement("iframe", { sandbox: "allow-downloads" });
       }
     `,
   ],

@@ -7,3 +7,5 @@
 # Variable: WEBSITE\_URL
 
 > `const` **WEBSITE\_URL**: `"https://eslint-react.xyz"` = `"https://eslint-react.xyz"`
+
+The URL to the project's website.

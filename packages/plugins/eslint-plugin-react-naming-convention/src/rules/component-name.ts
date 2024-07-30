@@ -1,10 +1,11 @@
 import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
-import { elementType } from "@eslint-react/jsx";
+import { getElementName } from "@eslint-react/jsx";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
+import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-import { Option as O, Predicate as Prd } from "effect";
+import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
 
@@ -64,8 +65,6 @@ export default createRule<Options, MessageID>({
     type: "problem",
     docs: {
       description: "enforce component naming convention to 'PascalCase' or 'CONSTANT_CASE'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       COMPONENT_NAME: "A component name must be in {{case}}.",
@@ -75,8 +74,8 @@ export default createRule<Options, MessageID>({
   name: RULE_NAME,
   create(context) {
     const options = context.options[0] ?? defaultOptions[0];
-    const excepts = Prd.isString(options) ? [] : options.excepts ?? [];
-    const rule = Prd.isString(options) ? options : options.rule ?? "PascalCase";
+    const excepts = R.isString(options) ? [] : options.excepts ?? [];
+    const rule = R.isString(options) ? options : options.rule ?? "PascalCase";
 
     function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
       if (ignores.map((pattern) => new RegExp(pattern, "u")).some((pattern) => pattern.test(name))) {
@@ -96,7 +95,7 @@ export default createRule<Options, MessageID>({
       ...collector.listeners,
       ...collectorLegacy.listeners,
       JSXOpeningElement(node) {
-        const name = elementType(node);
+        const name = getElementName(node);
         const shouldIgnore =
           // Ignore built-in element names
           /^[a-z]/u.test(name)

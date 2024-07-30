@@ -1,8 +1,6 @@
-import { isCreateElementCall } from "@eslint-react/core";
-import { elementType } from "@eslint-react/jsx";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { getElementName } from "@eslint-react/jsx";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Predicate as Prd } from "effect";
+import * as R from "remeda";
 
 import { createRule } from "../utils";
 
@@ -24,26 +22,9 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     return {
-      CallExpression(node) {
-        if (
-          isCreateElementCall(node, context)
-          && node.arguments.length > 0
-          && node.arguments[0]?.type === AST_NODE_TYPES.Literal
-        ) {
-          const name = node.arguments[0].value;
-          if (!Prd.isString(name) || !name.includes(":")) return;
-          context.report({
-            data: {
-              name,
-            },
-            messageId: "NO_NAMESPACE",
-            node,
-          });
-        }
-      },
       JSXOpeningElement(node) {
-        const name = elementType(node);
-        if (!Prd.isString(name) || !name.includes(":")) return;
+        const name = getElementName(node);
+        if (!R.isString(name) || !name.includes(":")) return;
         context.report({
           data: {
             name,

@@ -1,13 +1,11 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./ensure-use-callback-has-non-empty-deps";
 
-// TODO: add more tests
+// TODO: Add more tests
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useCallback } from "react";
 
         const Comp = () => {
@@ -25,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useCallback } from "react";
 
         const deps = [];
@@ -44,7 +42,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useCallback } from "react";
 
         const Comp = () => {
@@ -63,11 +61,11 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useCallback } from "react";
 
         const Comp = () => {
-          const style = useCallback((theme: MantineTheme) => ({
+          const style = useCallback((theme) => ({
             input: {
               fontFamily: theme.fontFamilyMonospace
             }
@@ -82,11 +80,11 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useCallback } from "react";
 
         const Comp = () => {
-          const style = useCallback((theme: MantineTheme) => ({
+          const style = useCallback((theme) => ({
             input: {
               fontFamily: theme.fontFamilyMonospace
             }
@@ -101,11 +99,11 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const { useCallback } = require("react");
 
         const Comp = () => {
-          const style = useCallback((theme: MantineTheme) => ({
+          const style = useCallback((theme) => ({
             input: {
               fontFamily: theme.fontFamilyMonospace
             }
@@ -120,11 +118,11 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "react";
 
         const Comp = () => {
-          const style = React.useCallback((theme: MantineTheme) => ({
+          const style = React.useCallback((theme) => ({
             input: {
               fontFamily: theme.fontFamilyMonospace
             }
@@ -139,7 +137,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "roact";
 
         function App({ items }) {
@@ -154,13 +152,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import Roact from "roact";
 
         function App({ items }) {
@@ -175,13 +173,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useCallback } from "roact";
 
         function App({ items }) {
@@ -196,13 +194,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "@pika/react";
 
         function App({ items }) {
@@ -217,13 +215,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import Pika from "@pika/react";
 
         function App({ items }) {
@@ -238,13 +236,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useCallback } from "@pika/react";
 
         function App({ items }) {
@@ -259,13 +257,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const React = require("roact");
 
         function App({ items }) {
@@ -280,13 +278,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const Roact = require("roact");
 
         function App({ items }) {
@@ -301,13 +299,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const { useCallback } = require("roact");
 
         function App({ items }) {
@@ -322,13 +320,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const React = require("@pika/react");
 
         function App({ items }) {
@@ -343,13 +341,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const Pika = require("@pika/react");
 
         function App({ items }) {
@@ -364,13 +362,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const { useCallback } = require("@pika/react");
 
         function App({ items }) {
@@ -385,17 +383,17 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "react";
 
         const Comp = () => {
-          const style = useCustomCallback((theme: MantineTheme) => ({
+          const style = useCustomCallback((theme) => ({
             input: {
               fontFamily: theme.fontFamilyMonospace
             }
@@ -409,7 +407,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           additionalHooks: {
             useCallback: ["useCustomCallback"],
           },
@@ -419,7 +417,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    dedent`
+    /* tsx */ `
       import { useState } from "react";
 
       const Comp = () => {
@@ -428,26 +426,26 @@ ruleTester.run(RULE_NAME, rule, {
         return <Button />;
       };
     `,
-    dedent`
+    /* tsx */ `
       const useData = (key) => {
           return useSWR(key);
       }
     `,
-    dedent`
+    /* tsx */ `
       function useData(key) {
           return useSWR(key);
       }
     `,
-    dedent`
+    /* tsx */ `
       function useData(key) {
           const data = useSWR(key);
           return data;
       }
     `,
-    dedent`
+    /* tsx */ `
       const useData = (key) => useSWR(key);
     `,
-    dedent`
+    /* tsx */ `
       const onClick = () => {
         console.log("clicked");
       };
@@ -456,7 +454,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <Button onClick={onClick} />;
       };
     `,
-    dedent`
+    /* tsx */ `
       import { useCallback } from "react";
 
       const Comp = ({ theme }) => {
@@ -467,6 +465,50 @@ ruleTester.run(RULE_NAME, rule, {
         }), [theme.fontFamilyMonospace]);
         return <Button sx={style} />
       }
+    `,
+    /* tsx */ `
+      import { useState, useCallback } from "react";
+
+      function MyComponent() {
+        const [showSnapshot, setShowSnapshot] = useState(false);
+        const handleSnapshot = useCallback(() => setShowSnapshot(true), []);
+
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useCallback } from "react";
+
+      const Comp = () => {
+      const [width, setWidth] = useState<undefined | number>(undefined)
+              const [open, setOpen] = useState<boolean>(false)
+              const [title, setTitle] = useState<string | undefined>(undefined)
+
+              const refItem = useCallback(() => {
+                  return {
+                      setWidth,
+                      setWrap: setOpen,
+                      setWrapperName: setTitle,
+                  }
+              }, [])
+      };
+    `,
+    /* tsx */ `
+      import { useCallback } from "react";
+      const deps = []
+      const Comp = () => {
+      const [width, setWidth] = useState<undefined | number>(undefined)
+              const [open, setOpen] = useState<boolean>(false)
+              const [title, setTitle] = useState<string | undefined>(undefined)
+              const cb = () => {
+                  return {
+                      setWidth,
+                      setWrap: setOpen,
+                      setWrapperName: setTitle,
+                  }
+              }
+              const refItem = useCallback(cb, deps)
+      };
     `,
   ],
 });

@@ -4,7 +4,7 @@
 
 [@eslint-react/types](../README.md) / RuleContext
 
-# Type alias: RuleContext
+# Type Alias: RuleContext
 
 > **RuleContext**: `Parameters`\<[`CreateRule`](CreateRule.md)\>\[`0`\]
 

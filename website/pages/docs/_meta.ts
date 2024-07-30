@@ -9,6 +9,19 @@ export default {
   configuration: {
     title: "Configuration",
   },
+  "advanced-configuration": {
+    title: "Advanced Configuration",
+    display: "hidden",
+  },
+  "---": {
+    type: "separator",
+  },
+  presets: {
+    title: "Presets",
+  },
+  rules: {
+    title: "Rules",
+  },
   "-Other": {
     title: "Other",
     type: "separator",

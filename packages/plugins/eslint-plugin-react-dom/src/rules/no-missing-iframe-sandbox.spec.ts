@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-missing-iframe-sandbox";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: "<iframe />;",
+      code: /* tsx */ `<iframe />;`,
       errors: [
         {
           messageId: "NO_MISSING_IFRAME_SANDBOX",
@@ -14,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: "<iframe sandbox />;",
+      code: /* tsx */ `<iframe sandbox />;`,
       errors: [
         {
           messageId: "NO_MISSING_IFRAME_SANDBOX",
@@ -22,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: '<iframe sandbox="" />;',
+      code: /* tsx */ `<iframe sandbox="" />;`,
       errors: [
         {
           messageId: "NO_MISSING_IFRAME_SANDBOX",
@@ -31,7 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     // has sandbox attribute but not explicitly set to iframe element
     {
-      code: dedent`
+      code: /* tsx */ `
         const props = {
           sandbox: "allow-downloads",
         };
@@ -47,25 +45,53 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
-        import React from "react";
-
-        function App() {
-            return React.createElement("iframe");
-        }
-      `,
+      code: /* tsx */ `<PolyComponent as="iframe"/>;`,
       errors: [
         {
           messageId: "NO_MISSING_IFRAME_SANDBOX",
         },
       ],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
     },
     {
-      code: dedent`
-        import { createElement } from "react";
+      code: /* tsx */ `<PolyComponent as="iframe" sandbox />;`,
+      errors: [
+        {
+          messageId: "NO_MISSING_IFRAME_SANDBOX",
+        },
+      ],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
+    },
+    {
+      code: /* tsx */ `<PolyComponent as="iframe" sandbox="" />;`,
+      errors: [
+        {
+          messageId: "NO_MISSING_IFRAME_SANDBOX",
+        },
+      ],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
+    },
+    // has sandbox attribute but not explicitly set to iframe element
+    {
+      code: /* tsx */ `
+        const props = {
+          sandbox: "allow-downloads",
+        };
 
         function App() {
-            return createElement("iframe");
+            return <PolyComponent as="iframe" {...props} />;
         }
       `,
       errors: [
@@ -73,6 +99,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "NO_MISSING_IFRAME_SANDBOX",
         },
       ],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
     },
   ],
   valid: [
@@ -84,23 +115,9 @@ ruleTester.run(RULE_NAME, rule, {
     '<iframe sandbox="allow-downloads allow-scripts" />;',
     '<iframe sandbox="allow-downloads allow-scripts allow-forms" />;',
     'const IFrame = () => <iframe sandbox="allow-downloads" />;',
-    dedent`
+    /* tsx */ `
       function App() {
           return <iframe sandbox="allow-downloads" />;
-      }
-    `,
-    dedent`
-      import React from "react";
-
-      function App() {
-          return React.createElement("iframe", { sandbox: "allow-downloads" });
-      }
-    `,
-    dedent`
-      import { createElement } from "react";
-
-      function App() {
-          return createElement("iframe", { sandbox: "allow-downloads" });
       }
     `,
   ],

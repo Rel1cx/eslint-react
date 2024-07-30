@@ -1,18 +1,16 @@
-import dedent from "dedent";
-
 import { allFunctions, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-missing-component-display-name";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: "const App = React.memo(() => <div>foo</div>)",
+      code: /* tsx */ `const App = React.memo(() => <div>foo</div>)`,
       errors: [{
         messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const App = React.memo(function () {
             return <div>foo</div>
         })
@@ -22,31 +20,31 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: "const App = React.forwardRef(() => <div>foo</div>)",
+      code: /* tsx */ `const App = React.forwardRef(() => <div>foo</div>)`,
       errors: [{
         messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
       }],
     },
     {
-      code: "const MemoComponent = React.memo(() => <div></div>)",
+      code: /* tsx */ `const MemoComponent = React.memo(() => <div></div>)`,
       errors: [{
         messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
       }],
     },
     {
-      code: "const ForwardRefComponent = React.forwardRef(() => <div></div>)",
+      code: /* tsx */ `const ForwardRefComponent = React.forwardRef(() => <div></div>)`,
       errors: [{
         messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
       }],
     },
     {
-      code: "const MemoForwardRefComponent = React.memo(forwardRef(() => <div></div>))",
+      code: /* tsx */ `const MemoForwardRefComponent = React.memo(forwardRef(() => <div></div>))`,
       errors: [{
         messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
       }],
     },
     {
-      code: "const MemoForwardRefComponent = React.memo(React.forwardRef(() => <div></div>))",
+      code: /* tsx */ `const MemoForwardRefComponent = React.memo(React.forwardRef(() => <div></div>))`,
       errors: [{
         messageId: "NO_MISSING_COMPONENT_DISPLAY_NAME",
       }],
@@ -55,45 +53,45 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     ...allFunctions,
     "const App = () => <div>foo</div>",
-    dedent`
+    /* tsx */ `
       function App() {
           return <div>foo</div>
       }
     `,
-    dedent`
+    /* tsx */ `
       function App() {
           return <div>foo</div>
       }
 
       App.displayName = "TestDisplayName";
     `,
-    dedent`
+    /* tsx */ `
       import { memo } from 'react'
 
       const App = memo(function App() {
           return <div>foo</div>
       })
     `,
-    dedent`
+    /* tsx */ `
       const App = forwardRef(function App() {
           return <div>foo</div>
       })
     `,
-    dedent`
+    /* tsx */ `
       const App = React.memo(function () {
           return <div>foo</div>
       })
 
       App.displayName = "TestDisplayName";
     `,
-    dedent`
+    /* tsx */ `
       const App = React.memo(function () {
           return <div>foo</div>
       })
 
       App.displayName = \`\${"TestDisplayName"}\`;
     `,
-    dedent`
+    /* tsx */ `
       const App = React.memo(function () {
           return <div>foo</div>
       })
@@ -102,25 +100,25 @@ ruleTester.run(RULE_NAME, rule, {
 
       App.displayName = displayName;
     `,
-    dedent`
+    /* tsx */ `
       const someThing = {
         displayName: "someThing",
       }
       const Component = React.forwardRef(() => <div/>)
       Component.displayName = someThing.displayName
     `,
-    dedent`
+    /* tsx */ `
       function getDisplayName() { return "someThing" }
       const Component = React.forwardRef(() => <div/>)
       Component.displayName = getDisplayName()
     `,
-    dedent`
+    /* tsx */ `
       function getDisplayName() { return "someThing" }
       const Component = React.forwardRef(() => <div/>)
       Component.displayName = (true, 1 + 1, getDisplayName)()
     `,
     // https://github.com/Rel1cx/eslint-react/issues/177
-    dedent`
+    /* tsx */ `
       import { forwardRef, ReactNode } from 'react';
 
       interface Props {
@@ -141,7 +139,7 @@ ruleTester.run(RULE_NAME, rule, {
 
       FancyButton.displayName = 'FancyButton';
     `,
-    dedent`
+    /* tsx */ `
       import { forwardRef, ReactNode } from 'react';
 
       interface Props {

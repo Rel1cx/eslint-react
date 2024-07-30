@@ -4,14 +4,14 @@
 
 [@eslint-react/tools](../README.md) / Remap
 
-# Type alias: Remap\<T\>
+# Type Alias: Remap\<T\>
 
 > **Remap**\<`T`\>: `{ [P in keyof T]: T[P] }`
+
+## Type Parameters
+
+• **T**
 
 ## Since
 
 0.0.1
-
-## Type parameters
-
-• **T**

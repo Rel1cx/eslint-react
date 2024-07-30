@@ -6,13 +6,15 @@
 
 # Function: isChildrenMapCall()
 
-> **isChildrenMapCall**(`node`, `context`): `boolean`
+> **isChildrenMapCall**(`node`, `context`, `pragma`?): `boolean`
 
 ## Parameters
 
 • **node**: `CallExpression`
 
 • **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+
+• **pragma?**: `string`
 
 ## Returns
 

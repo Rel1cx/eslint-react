@@ -1,0 +1,47 @@
+# no-children-prop
+
+## Rule category
+
+Restriction.
+
+## What it does
+
+Disallows passing 'children' as a prop.
+
+## Why is this bad?
+
+Most of the time, `children` should be actual `children`, not passed in as a `prop`.
+
+When using JSX, the `children` should be nested between the opening and closing tags. When not using JSX, the `children` should be passed as additional arguments to `React.createElement`.
+
+## Examples
+
+### Failing
+
+```tsx
+import React from "react";
+
+interface ExampleProps {
+  children: React.ReactNode;
+}
+
+function Example({ children }: ExampleProps) {
+  return <div children={children} />;
+  //          ^^^^^^^^^^^^^^^^^^^
+  //          - Children should always be actual children, not passed in as a prop.
+}
+```
+
+### Passing
+
+```tsx
+import React from "react";
+
+interface ExampleProps {
+  children: React.ReactNode;
+}
+
+function Example({ children }: ExampleProps) {
+  return <div>{children}</div>;
+}
+```

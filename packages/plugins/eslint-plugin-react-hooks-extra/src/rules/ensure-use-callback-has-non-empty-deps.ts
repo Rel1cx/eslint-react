@@ -1,12 +1,12 @@
-import { is, NodeType } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
+import { is, isFunction, NodeType } from "@eslint-react/ast";
 import { isReactHookCall, isReactHookCallWithNameLoose, isUseCallbackCall } from "@eslint-react/core";
-import { ESLintSettingsSchema } from "@eslint-react/shared";
-import { findVariable, getVariableInit } from "@eslint-react/var";
+import { decodeSettings } from "@eslint-react/shared";
+import { F, O } from "@eslint-react/tools";
+import { findVariable, getVariableNode } from "@eslint-react/var";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Function as F, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
-import { parse } from "valibot";
 
 import { createRule } from "../utils";
 
@@ -19,25 +19,27 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce 'useCallback' has non-empty dependencies array",
-      requiresTypeChecking: false,
     },
     messages: {
-      ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS: "An useCallback should have a non-empty dependencies array",
+      ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS: "An 'useCallback' should have a non-empty dependencies array.",
     },
     schema: [],
   },
   name: RULE_NAME,
   create(context) {
-    const alias = parse(ESLintSettingsSchema, context.settings).reactOptions?.additionalHooks?.useCallback ?? [];
+    const alias = decodeSettings(context.settings)?.additionalHooks?.useCallback ?? [];
 
     return {
       CallExpression(node) {
-        const initialScope = context.sourceCode.getScope(node);
         if (!isReactHookCall(node)) return;
-        if (!isUseCallbackCall(node, context) && !alias.some(F.flip(isReactHookCallWithNameLoose)(node))) {
+        const initialScope = context.sourceCode.getScope(node);
+        if (!isUseCallbackCall(node, context) && !alias.some(isReactHookCallWithNameLoose(node))) {
           return;
         }
-        const [_, deps] = node.arguments;
+        const scope = context.sourceCode.getScope(node);
+        const component = scope.block;
+        if (!isFunction(component)) return;
+        const [cb, deps] = node.arguments;
         if (!deps) {
           context.report({
             messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
@@ -45,25 +47,53 @@ export default createRule<[], MessageID>({
           });
           return;
         }
-        const maybeDescriptor = F.pipe(
+        const hasEmptyDeps = F.pipe(
           match(deps)
             .with({ type: NodeType.ArrayExpression }, O.some)
             .with({ type: NodeType.Identifier }, n => {
               return F.pipe(
                 findVariable(n.name, initialScope),
-                O.flatMap(getVariableInit(0)),
+                O.flatMap(getVariableNode(0)),
                 O.filter(is(NodeType.ArrayExpression)),
               );
             })
             .otherwise(O.none),
-          O.filter(x => x.elements.length === 0),
-          O.map(() => ({
+          O.exists(x => x.elements.length === 0),
+        );
+        if (!hasEmptyDeps) return;
+        if (!cb) {
+          context.report({
             messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
             node,
-          } as const)),
+          });
+          return;
+        }
+        const isReferencedToComponentScope = F.pipe(
+          match(cb)
+            .with({ type: NodeType.ArrowFunctionExpression }, n => {
+              if (n.body.type === NodeType.ArrowFunctionExpression) {
+                return O.some(n.body);
+              }
+              return O.some(n);
+            })
+            .with({ type: NodeType.FunctionExpression }, O.some)
+            .with({ type: NodeType.Identifier }, n => {
+              return F.pipe(
+                findVariable(n.name, initialScope),
+                O.flatMap(getVariableNode(0)),
+                O.filter(isFunction),
+              ) as O.Option<TSESTreeFunction>;
+            })
+            .otherwise(O.none),
+          O.map(n => context.sourceCode.getScope(n)),
+          O.map(s => [...s.childScopes, s].flatMap(x => x.references)),
+          O.exists(refs => refs.some(x => x.resolved?.scope.block === component)),
         );
-
-        O.map(maybeDescriptor, context.report);
+        if (isReferencedToComponentScope) return;
+        context.report({
+          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          node,
+        });
       },
     };
   },

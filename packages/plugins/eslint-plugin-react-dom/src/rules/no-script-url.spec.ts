@@ -1,5 +1,3 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-script-url";
 
@@ -30,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "NO_SCRIPT_URL" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         <div>
           <Foo href="javascript:"></Foo>
           <Bar link="javascript:"></Bar>

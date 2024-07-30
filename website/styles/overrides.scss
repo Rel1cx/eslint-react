@@ -10,6 +10,18 @@
   ul li {
     font-weight: 600;
   }
+
+  ul.nextra-menu-desktop {
+    li {
+      div {
+        font-family: var(--font-family-mono);
+
+        a {
+          -webkit-user-drag: none;
+        }
+      }
+    }
+  }
 }
 
 .nextra-content {
@@ -22,6 +34,10 @@
   h5,
   h6 {
     font-family: var(--font-family-ui);
+
+    >code.nextra-code {
+      white-space: nowrap;
+    }
   }
 
   h1,
@@ -47,7 +63,7 @@
   table {
     tbody {
       tr td code {
-        font-family: "IosevkaCurly", var(--font-family-mono);
+        font-family: var(--font-family-mono);
         white-space: nowrap;
       }
     }

@@ -1,0 +1,57 @@
+# component-name
+
+## Rule category
+
+Convention.
+
+## What it does
+
+Enforces naming conventions for components.
+
+## Examples
+
+This rule enforces naming conventions for components. Can be used to enforce PascalCase and CONSTANT_CASE. By default, it enforces PascalCase.
+
+### Failing
+
+```tsx
+import React from "react";
+
+function Example_Component() {
+  //     ^^^^^^^^^^^^^^^^^
+  //     - Expected component name to be in 'PascalCase'.
+  return null;
+}
+```
+
+### Passing
+
+```tsx
+import React from "react";
+
+function ExampleComponent() {
+  return null;
+}
+```
+
+## Rule Options
+
+- `rule`: The rule to apply to the file name. Can be one of the following:
+  1. `PascalCase`: PascalCase
+  2. `CONSTANT_CASE`: CONSTANT_CASE
+- `excepts`: List of component names that should be ignored by this rule.
+
+```json
+{
+  "@eslint-react/naming-convention/component-name": ["warn", "PascalCase"]
+}
+```
+
+```json
+{
+  "@eslint-react/naming-convention/component-name": [
+    "warn",
+    { "rule": "PascalCase", "excepts": ["MyComponent"] }
+  ]
+}
+```

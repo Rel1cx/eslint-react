@@ -1,7 +1,9 @@
-import { NodeType } from "@eslint-react/ast";
+import { isOneOf, NodeType } from "@eslint-react/ast";
 import { isFragmentElement } from "@eslint-react/core";
-import { hasProp, isJSXElementOfBuiltinComponent, isLiteral, isPaddingSpaces } from "@eslint-react/jsx";
+import { isBuiltInElement, isKeyedElement, isLiteral, isPaddingSpaces } from "@eslint-react/jsx";
+import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import { isMatching, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -11,49 +13,23 @@ export type MessageID =
   | "NO_USELESS_FRAGMENT"
   | "NO_USELESS_FRAGMENT_IN_BUILT_IN";
 
-const allowExpressions = true;
-
-/**
- * Check if a JSXElement or JSXFragment has only one literal child and is not a child
- * @param node The AST node to check
- * @returns `true` if the node has only one literal child and is not a child
- * @example Somehow fragment like this is useful: <Foo content={<>ee eeee eeee ...</>} />
- */
-function isFragmentWithOnlyTextAndIsNotChild(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
-  return node.children.length === 1
-    && isLiteral(node.children[0])
-    && !(node.parent.type === NodeType.JSXElement || node.parent.type === NodeType.JSXFragment);
-}
-
-function containsCallExpression(node: TSESTree.Node) {
-  return node.type === NodeType.JSXExpressionContainer
-    && node.expression.type === NodeType.CallExpression;
-}
-
-/**
- * Check if a JSXElement or JSXFragment has less than two non-padding children and the first child is not a call expression
- * @param node The AST node to check
- * @returns boolean
- */
-function isFragmentHasLessThanTwoChildren(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
-  const nonPaddingChildren = node.children.filter(
-    (child) => !isPaddingSpaces(child),
-  );
-
-  if (nonPaddingChildren.length === 1 && nonPaddingChildren[0]) {
-    return !containsCallExpression(nonPaddingChildren[0]);
-  }
-
-  return nonPaddingChildren.length === 0;
-}
-
-function isFragmentWithSingleExpression(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
-  const children = node.children.filter((child) => !isPaddingSpaces(child));
-
-  return (
-    children.length === 1
-    && children[0]?.type === NodeType.JSXExpressionContainer
-  );
+function check(
+  node: TSESTree.JSXElement | TSESTree.JSXFragment,
+  context: RuleContext,
+) {
+  if (isKeyedElement(node, context)) return;
+  if (isBuiltInElement(node.parent)) context.report({ messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN", node });
+  if (node.children.length === 0) return context.report({ messageId: "NO_USELESS_FRAGMENT", node });
+  const isChildren = isOneOf([NodeType.JSXElement, NodeType.JSXFragment])(node.parent);
+  const firstChildren = node.children[0];
+  // <Foo content={<>ee eeee eeee ...</>} />
+  if (node.children.length === 1 && isLiteral(firstChildren) && !isChildren) return;
+  const nonPaddingChildren = node.children.filter((child) => !isPaddingSpaces(child));
+  if (nonPaddingChildren.length > 1) return;
+  if (nonPaddingChildren.length === 0) return context.report({ messageId: "NO_USELESS_FRAGMENT", node });
+  const first = nonPaddingChildren[0];
+  if (isMatching({ type: NodeType.JSXExpressionContainer, expression: P.not(NodeType.CallExpression) }, first)) return;
+  context.report({ messageId: "NO_USELESS_FRAGMENT", node });
 }
 
 export default createRule<[], MessageID>({
@@ -61,62 +37,23 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow unnecessary fragments",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
-      NO_USELESS_FRAGMENT: "A fragment containing a single element is usually unnecessary.",
-      NO_USELESS_FRAGMENT_IN_BUILT_IN: "Passing a fragment to a host component is unnecessary.",
+      NO_USELESS_FRAGMENT: "A fragment contains less than two children is unnecessary.",
+      NO_USELESS_FRAGMENT_IN_BUILT_IN: "A fragment placed inside a built-in component is unnecessary.",
     },
     schema: [],
   },
   name: RULE_NAME,
   create(context) {
-    function checkNode(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
-      const initialScope = context.sourceCode.getScope(node);
-
-      if (
-        node.type === NodeType.JSXElement
-        && hasProp(
-          node.openingElement.attributes,
-          "key",
-          context,
-          initialScope,
-        )
-      ) {
-        return;
-      }
-
-      if (
-        isFragmentHasLessThanTwoChildren(node)
-        && !isFragmentWithOnlyTextAndIsNotChild(node)
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        && !(allowExpressions && isFragmentWithSingleExpression(node))
-      ) {
-        context.report({
-          messageId: "NO_USELESS_FRAGMENT",
-          node,
-        });
-      }
-
-      if (
-        node.parent.type === NodeType.JSXElement
-        && isJSXElementOfBuiltinComponent(node.parent)
-      ) {
-        context.report({
-          messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN",
-          node,
-        });
-      }
-    }
-
     return {
       JSXElement(node) {
-        if (isFragmentElement(node, context)) {
-          checkNode(node);
-        }
+        if (!isFragmentElement(node, context)) return;
+        check(node, context);
       },
-      JSXFragment: checkNode,
+      JSXFragment(node) {
+        check(node, context);
+      },
     };
   },
   defaultOptions: [],

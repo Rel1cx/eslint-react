@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-duplicate-key";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         const App = () => {
             return [
                     <div key="1">1</div>,
@@ -37,7 +35,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const App = () => {
             return  (<div>
                         <div key="1">1</div>
@@ -68,7 +66,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const App = () => {
             return [1, 2, 3].map((item) => <div key="1">{item}</div>)
         };
@@ -85,12 +83,12 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    dedent`
+    /* tsx */ `
       const App = () => {
           return [<div key="1">1</div>]
       };
     `,
-    dedent`
+    /* tsx */ `
       const App = () => {
           return [
                   <div key="1">1</div>,
@@ -99,7 +97,7 @@ ruleTester.run(RULE_NAME, rule, {
                ]
       };
     `,
-    dedent`
+    /* tsx */ `
       const App = () => {
           return [1, 2, 3].map((item) => <div key={Math.random()}>{item}</div>)
       };

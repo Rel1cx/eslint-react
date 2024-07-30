@@ -12,9 +12,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow 'Children.forEach'",
-      recommended: "recommended",
-      requiresTypeChecking: false,
+      description: "disallow using 'Children.forEach'",
     },
     messages: {
       NO_CHILDREN_FOR_EACH:

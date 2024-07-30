@@ -1,8 +1,9 @@
 import type { TSESTreeClass } from "@eslint-react/ast";
-import { getClassIdentifier, isThisExpression, NodeType } from "@eslint-react/ast";
+import { getClassIdentifier, isKeyLiteralLike, isThisExpression, NodeType } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
+import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import { MutableList as MutList, Option as O } from "effect";
+import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
 import { isMatching, P } from "ts-pattern";
 
@@ -11,15 +12,6 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-unused-state";
 
 export type MessageID = ConstantCase<typeof RULE_NAME>;
-
-function isKeyLiteralLike(
-  node: TSESTree.MemberExpression | TSESTree.MethodDefinition | TSESTree.Property | TSESTree.PropertyDefinition,
-  property: TSESTree.Node,
-): boolean {
-  return property.type === NodeType.Literal
-    || (property.type === NodeType.TemplateLiteral && property.expressions.length === 0)
-    || (!node.computed && property.type === NodeType.Identifier);
-}
 
 function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Option<string> {
   if (node.type === NodeType.TSAsExpression) {
@@ -62,9 +54,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Prevents unused state of class component.",
-      recommended: "recommended",
-      requiresTypeChecking: false,
+      description: "disallow unused state of class component",
     },
     messages: {
       NO_UNUSED_STATE: "Unused class component state.",
@@ -73,15 +63,15 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const classStack = MutList.make<TSESTreeClass>();
-    const methodStack = MutList.make<TSESTree.MethodDefinition | TSESTree.PropertyDefinition>();
-    const constructorStack = MutList.make<TSESTree.MethodDefinition>();
+    const classStack: TSESTreeClass[] = [];
+    const methodStack: (TSESTree.MethodDefinition | TSESTree.PropertyDefinition)[] = [];
+    const constructorStack: TSESTree.MethodDefinition[] = [];
     const stateDefs = new WeakMap<TSESTreeClass, [node: O.Option<TSESTree.Node>, isUsed: boolean]>();
     function classEnter(node: TSESTreeClass) {
-      MutList.append(classStack, node);
+      classStack.push(node);
     }
     function classExit() {
-      const currentClass = MutList.pop(classStack);
+      const currentClass = classStack.pop();
       if (!currentClass || !isClassComponent(currentClass)) return;
       const className = O.map(getClassIdentifier(currentClass), id => id.name);
       const [def, isUsed] = stateDefs.get(currentClass) ?? [O.none(), false];
@@ -95,8 +85,8 @@ export default createRule<[], MessageID>({
       });
     }
     function methodEnter(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
-      MutList.append(methodStack, node);
-      const currentClass = MutList.tail(classStack);
+      methodStack.push(node);
+      const currentClass = R.last(classStack);
       if (!currentClass || !isClassComponent(currentClass)) return;
       if (node.static) {
         if (isGetDerivedStateFromProps(node) && node.value.params.length > 1) {
@@ -110,21 +100,21 @@ export default createRule<[], MessageID>({
       }
     }
     function methodExit() {
-      MutList.pop(methodStack);
+      methodStack.pop();
     }
     function constructorEnter(node: TSESTree.MethodDefinition) {
-      MutList.append(constructorStack, node);
+      constructorStack.push(node);
     }
     function constructorExit() {
-      MutList.pop(constructorStack);
+      constructorStack.pop();
     }
 
     return {
       AssignmentExpression(node) {
         if (!isAssignmentToThisState(node)) return;
-        const currentClass = MutList.tail(classStack);
+        const currentClass = R.last(classStack);
         if (!currentClass || !isClassComponent(currentClass)) return;
-        const currentConstructor = MutList.tail(constructorStack);
+        const currentConstructor = R.last(constructorStack);
         if (!currentConstructor || !currentClass.body.body.includes(currentConstructor)) return;
         const [_, isUsed] = stateDefs.get(currentClass) ?? [O.none(), false];
         stateDefs.set(currentClass, [O.some(node.left), isUsed]);
@@ -137,11 +127,11 @@ export default createRule<[], MessageID>({
         if (!isThisExpression(node.object)) return;
         // detect `this.state`
         if (!O.exists(getName(node.property), name => name === "state")) return;
-        const currentClass = MutList.tail(classStack);
+        const currentClass = R.last(classStack);
         if (!currentClass || !isClassComponent(currentClass)) return;
-        const currentMethod = MutList.tail(methodStack);
+        const currentMethod = R.last(methodStack);
         if (!currentMethod || currentMethod.static) return;
-        if (currentMethod === MutList.tail(constructorStack)) return;
+        if (currentMethod === R.last(constructorStack)) return;
         if (!currentClass.body.body.includes(currentMethod)) return;
         const [def] = stateDefs.get(currentClass) ?? [O.none(), false];
         stateDefs.set(currentClass, [def, true]);
@@ -153,11 +143,11 @@ export default createRule<[], MessageID>({
       PropertyDefinition: methodEnter,
       "PropertyDefinition:exit": methodExit,
       VariableDeclarator(node) {
-        const currentClass = MutList.tail(classStack);
+        const currentClass = R.last(classStack);
         if (!currentClass || !isClassComponent(currentClass)) return;
-        const currentMethod = MutList.tail(methodStack);
+        const currentMethod = R.last(methodStack);
         if (!currentMethod || currentMethod.static) return;
-        if (currentMethod === MutList.tail(constructorStack)) return;
+        if (currentMethod === R.last(constructorStack)) return;
         if (!currentClass.body.body.includes(currentMethod)) return;
         // detect `{ foo, state: baz } = this`
         if (!(node.init && isThisExpression(node.init) && node.id.type === NodeType.ObjectPattern)) return;

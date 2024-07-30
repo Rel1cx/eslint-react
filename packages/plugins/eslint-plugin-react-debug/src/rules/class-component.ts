@@ -1,6 +1,6 @@
 import { useComponentCollectorLegacy } from "@eslint-react/core";
+import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Function as F, Option as O } from "effect";
 
 import { createRule } from "../utils";
 
@@ -13,10 +13,9 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "report all class components, including anonymous ones",
-      requiresTypeChecking: false,
     },
     messages: {
-      CLASS_COMPONENT: "[class component] name: {{name}}",
+      CLASS_COMPONENT: "[class component] name: {{name}}.",
     },
     schema: [],
   },

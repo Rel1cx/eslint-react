@@ -1,13 +1,13 @@
 import { NodeType } from "@eslint-react/ast";
 import { isReactHookCallWithNameLoose, isUseStateCall, useComponentCollector } from "@eslint-react/core";
-import { ESLintSettingsSchema } from "@eslint-react/shared";
+import { decodeSettings } from "@eslint-react/shared";
+import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { Function as F, Option as O, Predicate as Prd } from "effect";
+import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
 import { capitalize } from "string-ts";
 import { match } from "ts-pattern";
-import { parse } from "valibot";
 
 import { createRule } from "../utils";
 
@@ -27,8 +27,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce destructuring and symmetric naming of 'useState' hook value and setter variables",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       USE_STATE: "An useState call is not destructured into value + setter pair.",
@@ -37,8 +35,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const alias = parse(ESLintSettingsSchema, context.settings).reactOptions?.additionalHooks?.useState
-      ?? [];
+    const alias = decodeSettings(context.settings)?.additionalHooks?.useState ?? [];
     const { ctx, listeners } = useComponentCollector(context);
 
     return {
@@ -50,7 +47,7 @@ export default createRule<[], MessageID>({
           for (const hookCall of hookCalls) {
             if (
               !isUseStateCall(hookCall, context)
-              && !alias.some(F.flip(isReactHookCallWithNameLoose)(hookCall))
+              && !alias.some(isReactHookCallWithNameLoose(hookCall))
             ) {
               continue;
             }
@@ -66,7 +63,7 @@ export default createRule<[], MessageID>({
                   const [state, setState] = n.elements;
                   if (state?.type === NodeType.ObjectPattern && setState?.type === NodeType.Identifier) {
                     return F.pipe(
-                      O.liftPredicate(Prd.not(isSetterNameLoose))(setState.name),
+                      O.liftPredicate(R.isNot(isSetterNameLoose))(setState.name),
                       O.flatMap(F.constant(descriptor)),
                     );
                   }

@@ -18,7 +18,9 @@
 - [ERComponentHint](type-aliases/ERComponentHint.md)
 - [ERComponentInitPath](type-aliases/ERComponentInitPath.md)
 - [ERComponentKind](type-aliases/ERComponentKind.md)
+- [EREffectKind](type-aliases/EREffectKind.md)
 - [ERFunctionComponentFlag](type-aliases/ERFunctionComponentFlag.md)
+- [ERHookKind](type-aliases/ERHookKind.md)
 
 ## Variables
 
@@ -36,11 +38,9 @@
 - [getFunctionComponentIdentifier](functions/getFunctionComponentIdentifier.md)
 - [getParentClassComponent](functions/getParentClassComponent.md)
 - [hasCallInInitPath](functions/hasCallInInitPath.md)
-- [hasChildren](functions/hasChildren.md)
 - [hasNoneOrValidComponentName](functions/hasNoneOrValidComponentName.md)
 - [isCallFromReact](functions/isCallFromReact.md)
 - [isCallFromReactMember](functions/isCallFromReactMember.md)
-- [isChildOfJSXElement](functions/isChildOfJSXElement.md)
 - [isChildrenCount](functions/isChildrenCount.md)
 - [isChildrenCountCall](functions/isChildrenCountCall.md)
 - [isChildrenForEach](functions/isChildrenForEach.md)
@@ -81,6 +81,7 @@
 - [isReactHook](functions/isReactHook.md)
 - [isReactHookCall](functions/isReactHookCall.md)
 - [isReactHookCallWithName](functions/isReactHookCallWithName.md)
+- [isReactHookCallWithNameAlias](functions/isReactHookCallWithNameAlias.md)
 - [isReactHookCallWithNameLoose](functions/isReactHookCallWithNameLoose.md)
 - [isReactHookName](functions/isReactHookName.md)
 - [isRenderFunctionLoose](functions/isRenderFunctionLoose.md)

@@ -4,6 +4,6 @@
 
 [@eslint-react/core](../README.md) / ERComponentHint
 
-# Type alias: ERComponentHint
+# Type Alias: ERComponentHint
 
 > **ERComponentHint**: `bigint`

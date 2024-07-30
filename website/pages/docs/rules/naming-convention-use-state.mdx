@@ -1,0 +1,51 @@
+# use-state
+
+## Rule category
+
+Convention.
+
+## What it does
+
+Enforces destructuring and symmetric naming of `useState` hook value and setter variables
+
+## Examples
+
+### Failing
+
+```tsx
+import React, { useState } from "react";
+
+function Example() {
+  const useStateResult = useState(0);
+  //    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  //    - 'useState' call is not destructured into value + setter pair.
+
+  return <div>{useStateResult[0]}</div>;
+}
+```
+
+### Passing
+
+```tsx
+import React, { useState } from "react";
+
+function Example() {
+  const [count, setCount] = useState(0);
+
+  return <div>{count}</div>;
+}
+```
+
+```tsx
+import React, { useState } from "react";
+
+function Example() {
+  const [{ foo, bar, baz }, setFooBarBaz] = useState({
+    foo: "bbb",
+    bar: "aaa",
+    baz: "qqq",
+  });
+
+  return <div>{foo}</div>;
+}
+```

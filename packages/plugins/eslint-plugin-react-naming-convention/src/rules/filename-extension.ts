@@ -1,6 +1,7 @@
+import { MutRef } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-import { MutableRef as MutRef, Predicate as Prd } from "effect";
+import * as R from "remeda";
 
 import { createRule } from "../utils";
 
@@ -17,8 +18,6 @@ type Options = readonly [
   | {
     allow?: Allow;
     extensions?: readonly string[];
-    // Reserved for future use
-    // excepts?: readonly string[];
   }
   | Allow
   | undefined,
@@ -63,23 +62,22 @@ export default createRule<Options, MessageID>({
     type: "problem",
     docs: {
       description: "enforce naming convention for JSX file extensions",
-      requiresTypeChecking: false,
     },
     messages: {
-      FILE_NAME_EXTENSION_INVALID: "The JSX file extension is required",
-      FILE_NAME_EXTENSION_UNEXPECTED: "Use JSX file extension as needed",
+      FILE_NAME_EXTENSION_INVALID: "The JSX file extension is required.",
+      FILE_NAME_EXTENSION_UNEXPECTED: "Use JSX file extension as needed.",
     },
     schema,
   },
   name: RULE_NAME,
   create(context) {
     const options = context.options[0] ?? defaultOptions[0];
-    const allow = Prd.isObject(options) ? options.allow : options;
-    const extensions = Prd.isObject(options) && "extensions" in options
+    const allow = R.isObjectType(options) ? options.allow : options;
+    const extensions = R.isObjectType(options) && "extensions" in options
       ? options.extensions
       : defaultOptions[0].extensions;
 
-    const filename = context.getFilename();
+    const filename = context.filename;
     const hasJSXNodeRef = MutRef.make<boolean>(false);
 
     return {

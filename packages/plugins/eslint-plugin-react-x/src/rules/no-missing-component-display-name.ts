@@ -1,7 +1,7 @@
 import { getFunctionIdentifier } from "@eslint-react/ast";
 import { ERFunctionComponentFlag, useComponentCollector } from "@eslint-react/core";
+import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -14,8 +14,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "require 'displayName' for memo and forwardRef components",
-      requiresTypeChecking: false,
+      description: "require 'displayName' for 'memo' and 'forwardRef' components",
     },
     messages: {
       NO_MISSING_COMPONENT_DISPLAY_NAME: "Add missing 'displayName' for component.",

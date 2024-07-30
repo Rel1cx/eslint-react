@@ -4,7 +4,7 @@ import rule, { RULE_NAME } from "./avoid-shorthand-fragment";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: "<><div /></>",
+      code: /* tsx */ `<><div /></>`,
       errors: [
         {
           messageId: "AVOID_SHORTHAND_FRAGMENT",
@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: "<><div /><div /></>",
+      code: /* tsx */ `<><div /><div /></>`,
       errors: [
         {
           messageId: "AVOID_SHORTHAND_FRAGMENT",
@@ -20,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: "<>text</>",
+      code: /* tsx */ `<>text</>`,
       errors: [
         {
           messageId: "AVOID_SHORTHAND_FRAGMENT",

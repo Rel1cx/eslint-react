@@ -1,49 +1,80 @@
-import type { ReadonlyDeep } from "type-fest";
-import type { InferOutput } from "valibot";
-import { array, object, optional, string } from "valibot";
+import memoize from "micro-memoize";
+import pm from "picomatch";
+import { parse } from "valibot";
+
+import type { CustomComponent, ESLintReactSettings } from "./schemas";
+import { ESLintSettingsSchema } from "./schemas";
 
 /**
+ * This is an expanded version of `CustomComponent` with all shorthand properties expanded.
  * @internal
  */
-export const ESLintReactSettingsSchema = object({
-  additionalHooks: optional(object({
-    use: optional(string()),
-    useCallback: optional(array(string())),
-    useContext: optional(array(string())),
-    useDebugValue: optional(array(string())),
-    useDeferredValue: optional(array(string())),
-    useEffect: optional(array(string())),
-    useId: optional(array(string())),
-    useImperativeHandle: optional(array(string())),
-    useInsertionEffect: optional(array(string())),
-    useLayoutEffect: optional(array(string())),
-    useMemo: optional(array(string())),
-    useOptimistic: optional(array(string())),
-    useReducer: optional(array(string())),
-    useRef: optional(array(string())),
-    useState: optional(array(string())),
-    useSyncExternalStore: optional(array(string())),
-    useTransition: optional(array(string())),
-  })),
-  importSource: optional(string()),
-  jsxPragma: optional(string()),
-  jsxPragmaFrag: optional(string()),
-  version: optional(string()),
-});
-
-export type ESLintReactSettings = ReadonlyDeep<InferOutput<typeof ESLintReactSettingsSchema>>;
+export interface CustomComponentExpanded extends CustomComponent {
+  attributes: {
+    name: string;
+    as: string;
+  }[];
+  re: RegExp;
+}
 
 /**
+ * This is an expanded version of `ESLintReactSettings` with all shorthand properties expanded.
  * @internal
  */
-export const ESLintSettingsSchema = object({
-  reactOptions: optional(ESLintReactSettingsSchema),
-});
+export interface ESLintReactSettingsExpanded extends ESLintReactSettings {
+  additionalComponents: CustomComponentExpanded[];
+}
 
-// The `settings` object in eslint config for all plugins.
-// We only care about the `eslintReact` field at the moment.
-export type ESLintSettings = ReadonlyDeep<{
-  [key: string]: unknown;
-  // eslint-disable-next-line no-restricted-syntax
-  reactOptions?: ESLintReactSettings;
-}>;
+/**
+ * Decodes settings from a data object from `context.settings`.
+ * @param data The data object.
+ * @returns settings The settings.
+ * @internal
+ */
+export function decodeSettings(data: unknown): ESLintReactSettings {
+  return parse(ESLintSettingsSchema, data)["react-x"] ?? {};
+}
+
+/**
+ * Expands the settings by converting all shorthand properties to their full form.
+ * @param settings The settings.
+ * @returns The expanded settings.
+ * @internal
+ */
+export const expandSettings = memoize((settings: ESLintReactSettings): ESLintReactSettingsExpanded => {
+  return {
+    ...settings,
+    additionalComponents: settings.additionalComponents?.map((component) => ({
+      ...component,
+      attributes: component.attributes?.map((attr) => ({
+        ...attr,
+        as: attr.as ?? attr.name,
+      })) ?? [],
+      re: pm.makeRe(component.name, { fastpaths: true }),
+    })) ?? [],
+  };
+}, { isDeepEqual: false });
+
+/**
+ * The default ESLint settings for "react-x".
+ */
+export const DEFAULT_ESLINT_REACT_SETTINGS = {
+  additionalComponents: [
+    {
+      name: "Link",
+      as: "a",
+      attributes: [
+        {
+          name: "to",
+          as: "href",
+        },
+      ],
+    },
+  ],
+  additionalHooks: {
+    useLayoutEffect: [
+      "useIsomorphicLayoutEffect",
+    ],
+  },
+  version: "detect",
+} as const as ESLintReactSettings;

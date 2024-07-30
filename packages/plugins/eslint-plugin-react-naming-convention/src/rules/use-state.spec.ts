@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allFunctions, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./use-state";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useState } from "react";
 
         function Component() {
@@ -24,7 +22,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useState } from "react";
 
         function Component() {
@@ -42,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useState } from "react";
 
         function Component() {
@@ -60,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useState } from "react";
 
         function Component() {
@@ -77,7 +75,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "USE_STATE",
       }],
       settings: {
-        reactOptions: {
+        "react-x": {
           additionalHooks: {
             useState: ["useLocalStorageState"],
           },
@@ -87,7 +85,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allFunctions,
-    dedent`
+    /* tsx */ `
       import { useState } from "react";
 
       function Component() {
@@ -96,7 +94,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    dedent`
+    /* tsx */ `
       import { useState } from "react";
 
       function Component() {
@@ -105,7 +103,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    dedent`
+    /* tsx */ `
       import { useState } from "react";
 
       function Component() {

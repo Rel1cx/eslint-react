@@ -4,13 +4,17 @@
 
 # @eslint-react/shared
 
-## Type Aliases
+## Interfaces
 
-- [ESLintReactSettings](type-aliases/ESLintReactSettings.md)
-- [ESLintSettings](type-aliases/ESLintSettings.md)
+- [CustomAttribute](interfaces/CustomAttribute.md)
+- [CustomComponent](interfaces/CustomComponent.md)
+- [CustomHook](interfaces/CustomHook.md)
+- [ESLintReactSettings](interfaces/ESLintReactSettings.md)
+- [ESLintSettings](interfaces/ESLintSettings.md)
 
 ## Variables
 
+- [DEFAULT\_ESLINT\_REACT\_SETTINGS](variables/DEFAULT_ESLINT_REACT_SETTINGS.md)
 - [GITHUB\_URL](variables/GITHUB_URL.md)
 - [NPM\_SCOPE](variables/NPM_SCOPE.md)
 - [RE\_CAMEL\_CASE](variables/RE_CAMEL_CASE.md)

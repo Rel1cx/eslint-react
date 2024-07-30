@@ -4,9 +4,15 @@
 
 [@eslint-react/tools](../README.md) / UnionFromTuple
 
-# Type alias: UnionFromTuple\<T\>
+# Type Alias: UnionFromTuple\<T\>
 
 > **UnionFromTuple**\<`T`\>: `T` *extends* infer U[] ? `U` : `never`
+
+## Type Parameters
+
+• **T**
+
+The type to get the union from
 
 ## Since
 
@@ -16,11 +22,5 @@
 
 ```ts
 type Result = UnionFromTuple<['foo', 'bar', 1]>
-// Result = 'foo' | 'bar' | 1
+Result = 'foo' | 'bar' | 1
 ```
-
-## Type parameters
-
-• **T**
-
-The type to get the union from

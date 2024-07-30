@@ -18,9 +18,11 @@ export default {
   rules: {
     title: "Rules",
     type: "page",
+    href: "/docs/rules/overview",
   },
   presets: {
     title: "Presets",
     type: "page",
+    href: "/docs/presets",
   },
 } as const;

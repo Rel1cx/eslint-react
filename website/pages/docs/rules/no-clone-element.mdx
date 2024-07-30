@@ -1,0 +1,33 @@
+# no-clone-element
+
+## Rule category
+
+Restriction.
+
+## What it does
+
+Disallows the use of `cloneElement`.
+
+## Why is this bad?
+
+Using cloneElement is uncommon and can lead to fragile code. This also makes it harder to trace the data flow. Try the [alternatives](https://react.dev/reference/react/cloneElement#alternatives) instead.
+
+## Examples
+
+### Failing
+
+```tsx
+import { cloneElement } from "react";
+
+const clonedElement = cloneElement(
+  <Row title="Cabbage">Hello</Row>,
+  { isHighlighted: true },
+  "Goodbye"
+);
+
+console.log(clonedElement); // <Row title="Cabbage" isHighlighted={true}>Goodbye</Row>
+```
+
+## Further Reading
+
+- [React: Legacy React APIs cloneElement](https://react.dev/reference/react/createRef)

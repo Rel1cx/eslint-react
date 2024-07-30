@@ -1,9 +1,8 @@
-// import { nodeTypes } from "@mdx-js/mdx"
-// import rehypeRaw from "rehype-raw"
 import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
 import nextra from "nextra";
 import codeImport from "remark-code-import";
 import remarkGFM from "remark-gfm";
+import bundleAnalyzer from "@next/bundle-analyzer";
 
 const withVanillaExtract = createVanillaExtractPlugin();
 
@@ -27,6 +26,39 @@ const nextConfig = {
     unoptimized: true,
   },
   output: "standalone",
+  redirects() {
+    return [
+      {
+        source: "/docs",
+        destination: "/docs/installation",
+        permanent: true,
+      },
+      {
+        source: "/docs/rules",
+        destination: "/docs/rules/overview",
+        permanent: true,
+      },
+      {
+        source: "/faq",
+        destination: "/docs/faq",
+        permanent: true,
+      },
+      {
+        source: "/presets/:wildcard",
+        destination: "/docs/presets/:wildcard",
+        permanent: true,
+      },
+      {
+        source: "/rules/:wildcard",
+        destination: "/docs/rules/:wildcard",
+        permanent: true,
+      },
+    ];
+  },
 };
 
-export default withVanillaExtract(withNextra(nextConfig));
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
+export default withBundleAnalyzer(withVanillaExtract(withNextra(nextConfig)));

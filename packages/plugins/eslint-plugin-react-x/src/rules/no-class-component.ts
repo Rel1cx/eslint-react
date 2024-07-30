@@ -1,7 +1,7 @@
 import { NodeType } from "@eslint-react/ast";
 import { useComponentCollectorLegacy } from "@eslint-react/core";
+import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Function as F, Option as O } from "effect";
 import type { ConstantCase } from "string-ts";
 import { isMatching, P } from "ts-pattern";
 
@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow class component",
+      description: "disallow using class components",
     },
     messages: {
       NO_CLASS_COMPONENT: "Do not use class components. Use function components instead.",

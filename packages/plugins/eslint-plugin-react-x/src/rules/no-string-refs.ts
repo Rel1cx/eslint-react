@@ -1,7 +1,7 @@
 import { NodeType } from "@eslint-react/ast";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Predicate as Prd } from "effect";
+import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -11,12 +11,12 @@ export const RULE_NAME = "no-string-refs";
 export type MessageID = ConstantCase<typeof RULE_NAME>;
 
 function containsStringLiteral({ value }: TSESTree.JSXAttribute) {
-  return value?.type === NodeType.Literal && Prd.isString(value.value);
+  return value?.type === NodeType.Literal && R.isString(value.value);
 }
 
 function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
   if (value?.type !== NodeType.JSXExpressionContainer) return false;
-  if (value.expression.type === NodeType.Literal) return Prd.isString(value.expression.value);
+  if (value.expression.type === NodeType.Literal) return R.isString(value.expression.value);
 
   return value.expression.type === NodeType.TemplateLiteral;
 }
@@ -26,8 +26,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow using deprecated string refs",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_STRING_REFS: "[Deprecated] Use callback refs instead.",

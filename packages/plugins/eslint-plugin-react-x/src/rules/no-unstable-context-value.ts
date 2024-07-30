@@ -1,8 +1,8 @@
 import type { Construction, TSESTreeFunction } from "@eslint-react/ast";
 import { inspectConstruction, NodeType, readableNodeType } from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
+import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { Option as O } from "effect";
 
 import { createRule } from "../utils";
 
@@ -18,8 +18,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow passing constructed values to context providers",
-      recommended: "recommended",
-      requiresTypeChecking: false,
     },
     messages: {
       NO_UNSTABLE_CONTEXT_VALUE:
@@ -56,7 +54,7 @@ export default createRule<[], MessageID>({
         if (construction._tag === "None") return;
         O.map(
           ctx.getCurrentFunction(),
-          ([currentFn]) =>
+          ([_, currentFn]) =>
             possibleValueConstructions.set(currentFn, [
               ...possibleValueConstructions.get(currentFn) ?? [],
               construction,
@@ -64,7 +62,7 @@ export default createRule<[], MessageID>({
         );
       },
       "Program:exit"(node) {
-        const components = Array.from(ctx.getAllComponents(node).values());
+        const components = ctx.getAllComponents(node).values();
         for (const { node: component } of components) {
           const constructions = possibleValueConstructions.get(component);
           if (!constructions) continue;

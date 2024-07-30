@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/core",
-  "version": "1.5.17-next.3",
+  "version": "1.7.0",
   "description": "ESLint React's ESLint utility module for static analysis of React core APIs and Patterns.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -12,7 +12,7 @@
     "directory": "packages/core"
   },
   "license": "MIT",
-  "author": "Eva1ent<let@ik.me>",
+  "author": "Eva1ent<rel1cx@proton.me>",
   "sideEffects": false,
   "exports": {
     ".": {
@@ -48,16 +48,15 @@
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^7.13.1",
-    "@typescript-eslint/type-utils": "^7.13.1",
-    "@typescript-eslint/types": "^7.13.1",
-    "@typescript-eslint/utils": "^7.13.1",
-    "effect": "^3.3.5",
+    "@typescript-eslint/scope-manager": "^7.18.0",
+    "@typescript-eslint/type-utils": "^7.18.0",
+    "@typescript-eslint/types": "^7.18.0",
+    "@typescript-eslint/utils": "^7.18.0",
+    "remeda": "^2.6.0",
     "short-unique-id": "^5.2.0",
-    "ts-pattern": "^5.2.0",
-    "valibot": "^0.33.2"
+    "ts-pattern": "^5.2.0"
   },
   "devDependencies": {
-    "tsup": "8.1.0"
+    "tsup": "8.2.3"
   }
 }

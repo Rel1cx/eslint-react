@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-nested-components";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           function UnstableNestedFunctionComponent() {
             return <div />;
@@ -22,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           function UnstableNestedFunctionComponent() {
             return React.createElement("div", null);
@@ -38,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           const UnstableNestedVariableComponent = () => {
             return <div />;
@@ -54,7 +52,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           const UnstableNestedVariableComponent = () => {
             return React.createElement("div", null);
@@ -70,7 +68,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const ParentComponent = () => {
           function UnstableNestedFunctionComponent() {
             return <div />;
@@ -86,7 +84,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const ParentComponent = () => {
           function UnstableNestedFunctionComponent() {
             return React.createElement("div", null);
@@ -102,7 +100,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         export default () => {
           function UnstableNestedFunctionComponent() {
             return <div />;
@@ -118,7 +116,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         export default () => {
           function UnstableNestedFunctionComponent() {
             return React.createElement("div", null);
@@ -134,7 +132,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const ParentComponent = () => {
           const UnstableNestedVariableComponent = () => {
             return <div />;
@@ -150,7 +148,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const ParentComponent = () => {
           const UnstableNestedVariableComponent = () => {
             return React.createElement("div", null);
@@ -166,7 +164,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           class UnstableNestedClassComponent extends React.Component {
             render() {
@@ -184,7 +182,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           class UnstableNestedClassComponent extends React.Component {
             render() {
@@ -202,7 +200,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class ParentComponent extends React.Component {
           render() {
             class UnstableNestedClassComponent extends React.Component {
@@ -222,7 +220,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class ParentComponent extends React.Component {
           render() {
             class UnstableNestedClassComponent extends React.Component {
@@ -242,7 +240,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class ParentComponent extends React.Component {
           render() {
             function UnstableNestedFunctionComponent() {
@@ -260,7 +258,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class ParentComponent extends React.Component {
           render() {
             function UnstableNestedClassComponent() {
@@ -278,7 +276,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class ParentComponent extends React.Component {
           render() {
             const UnstableNestedVariableComponent = () => {
@@ -296,25 +294,25 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: `
-            class ParentComponent extends React.Component {
-              render() {
-                const UnstableNestedClassComponent = () => {
-                  return React.createElement("div", null);
-                }
-
-                return React.createElement(
-                  "div",
-                  null,
-                  React.createElement(UnstableNestedClassComponent, null)
-                );
-              }
+      code: /* tsx */ `
+        class ParentComponent extends React.Component {
+          render() {
+            const UnstableNestedClassComponent = () => {
+              return React.createElement("div", null);
             }
-          `,
+
+            return React.createElement(
+              "div",
+              null,
+              React.createElement(UnstableNestedClassComponent, null)
+            );
+          }
+        }
+      `,
       errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           function getComponent() {
             function NestedUnstableFunctionComponent() {
@@ -334,7 +332,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "NestedUnstableFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           function getComponent() {
             function NestedUnstableFunctionComponent() {
@@ -350,7 +348,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "NestedUnstableFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ComponentWithProps(props) {
           return React.createElement("div", null);
         }
@@ -366,7 +364,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "SomeFooter" }, messageId: "NESTED_COMPONENT_IN_PROPS" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function RenderPropComponent(props) {
           return props.render({});
         }
@@ -392,7 +390,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           return (
             <ComponentForProps someMap={{ Header: () => <div /> }} />
@@ -402,7 +400,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "Header" }, messageId: "NESTED_COMPONENT_IN_PROPS" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class ParentComponent extends React.Component {
           render() {
             const List = () => {
@@ -416,7 +414,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "List" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class ParentComponent extends React.Component {
           render() {
             const List = (props) => {
@@ -437,7 +435,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "List" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           const UnstableNestedComponent = React.memo(() => {
             return <div />;
@@ -453,7 +451,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           const UnstableNestedComponent = React.memo(
             () => React.createElement("div", null),
@@ -469,7 +467,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           const UnstableNestedComponent = React.memo(
             function () {
@@ -487,7 +485,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           const UnstableNestedComponent = React.memo(
             function () {
@@ -505,7 +503,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           const MemoizedNestedComponent = React.useCallback(() => <div />, []);
 
@@ -519,7 +517,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "MemoizedNestedComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           const MemoizedNestedComponent = React.useCallback(
             () => React.createElement("div", null),
@@ -536,7 +534,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "MemoizedNestedComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           const MemoizedNestedFunctionComponent = React.useCallback(
             function () {
@@ -555,7 +553,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ data: { name: "MemoizedNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           const MemoizedNestedFunctionComponent = React.useCallback(
             function () {
@@ -573,10 +571,20 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ data: { name: "MemoizedNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
     },
+    {
+      code: /* tsx */ `
+        function ParentComponent() {
+          return (
+            <SomeComponent components={{ Header: () => <div /> }} />
+          )
+        }
+      `,
+      errors: [{ data: { name: "Header" }, messageId: "NESTED_COMPONENT_IN_PROPS" }],
+    },
   ],
   valid: [
     ...allValid,
-    dedent`
+    /* tsx */ `
       function ParentComponent() {
         return (
           <div>
@@ -585,7 +593,7 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent() {
         return React.createElement(
           "div",
@@ -594,7 +602,7 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent() {
         return (
           <SomeComponent
@@ -604,7 +612,7 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent() {
         return React.createElement(SomeComponent, {
           footer: React.createElement(OutsideDefinedComponent, null),
@@ -612,7 +620,7 @@ ruleTester.run(RULE_NAME, rule, {
         });
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent(props) {
         // Should not interfere handler declarations
         function onClick(event) {
@@ -646,7 +654,7 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent() {
         function getComponent() {
           return <div />;
@@ -659,7 +667,7 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent() {
         function getComponent() {
           return React.createElement("div", null);
@@ -668,7 +676,7 @@ ruleTester.run(RULE_NAME, rule, {
         return React.createElement("div", null, getComponent());
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent() {
         return (
           <ComplexRenderPropComponent
@@ -686,7 +694,7 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent() {
         return React.createElement(
             RenderPropComponent,
@@ -695,7 +703,7 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent(props) {
         return (
           <ul>
@@ -708,7 +716,7 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent(props) {
         return (
           <List items={props.items.map(item => {
@@ -722,7 +730,7 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent(props) {
         return React.createElement(
           "ul",
@@ -737,7 +745,7 @@ ruleTester.run(RULE_NAME, rule, {
         )
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent(props) {
         return (
           <ul>
@@ -752,7 +760,7 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent(props) {
         return React.createElement(
           "ul",
@@ -767,19 +775,19 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       function createTestComponent(props) {
         return (
           <div />
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       function createTestComponent(props) {
         return React.createElement("div", null);
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent() {
         return (
           <SomeComponent>
@@ -794,7 +802,7 @@ ruleTester.run(RULE_NAME, rule, {
         )
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent() {
         const thingElement = thing.match({
           renderLoading: () => <div />,
@@ -808,21 +816,21 @@ ruleTester.run(RULE_NAME, rule, {
         )
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent() {
         return (
           <ComponentForProps renderFooter={() => <div />} />
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent() {
         return React.createElement(ComponentForProps, {
           renderFooter: () => React.createElement("div", null)
         });
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent() {
         useEffect(() => {
           return () => null;
@@ -831,14 +839,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    dedent`
-      function ParentComponent() {
-        return (
-          <SomeComponent renderers={{ Header: () => <div /> }} />
-        )
-      }
-    `,
-    dedent`
+    /* tsx */ `
       function ParentComponent() {
         return (
           <SomeComponent renderMenu={() => (
@@ -851,7 +852,7 @@ ruleTester.run(RULE_NAME, rule, {
         )
       }
     `,
-    dedent`
+    /* tsx */ `
       const ParentComponent = () => (
         <SomeComponent
           components={[
@@ -864,7 +865,7 @@ ruleTester.run(RULE_NAME, rule, {
         />
       );
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent() {
         const rows = [
           {
@@ -876,12 +877,12 @@ ruleTester.run(RULE_NAME, rule, {
         return <Table rows={rows} />;
       }
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent() {
         return <SomeComponent renderers={{ notComponent: () => null }} />;
       }
     `,
-    dedent`
+    /* tsx */ `
       const ParentComponent = createReactClass({
         displayName: "ParentComponent",
         statics: {
@@ -894,13 +895,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       });
     `,
-    dedent`
+    /* tsx */ `
       function ParentComponent() {
         const _renderHeader = () => <div />;
         return <div>{_renderHeader()}</div>;
       }
     `,
-    dedent`
+    /* tsx */ `
       const testCases = {
         basic: {
           render() {
@@ -910,7 +911,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    dedent`
+    /* tsx */ `
       function ComponentWithProps(props) {
         return <div />;
       }
@@ -926,7 +927,7 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    dedent`
+    /* tsx */ `
       function ComponentWithProps(props) {
         return <div />;
       }
@@ -937,7 +938,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
       }
     `,
-    dedent`
+    /* tsx */ `
       function ComponentForProps(props) {
         return <div />;
       }

@@ -4,6 +4,6 @@
 
 [@eslint-react/types](../README.md) / RuleCategory
 
-# Type alias: RuleCategory
+# Type Alias: RuleCategory
 
 > **RuleCategory**: `"complexity"` \| `"convention"` \| `"correctness"` \| `"debug"` \| `"deprecated"` \| `"pedantic"` \| `"perf"` \| `"restriction"` \| `"security"` \| `"style"` \| `"suspicious"`

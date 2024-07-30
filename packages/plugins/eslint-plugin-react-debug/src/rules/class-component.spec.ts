@@ -1,12 +1,10 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./class-component";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         class ParentComponent extends React.Component {
           render() {
             return <div />;
@@ -16,7 +14,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "CLASS_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const ClassComponent = class extends React.Component {
             render() {
                 return <div />;
@@ -26,7 +24,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "CLASS_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         function ParentComponent() {
           class UnstableNestedClassComponent extends React.Component {
             render() {
@@ -44,7 +42,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "CLASS_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class ParentComponent extends React.Component {
           render() {
             class UnstableNestedClassComponent extends React.Component {
@@ -67,7 +65,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class ParentComponent extends React.Component {
           render() {
             class UnstableNestedClassComponent extends React.Component {
@@ -90,7 +88,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class ParentComponent extends React.Component {
           render() {
             function UnstableNestedFunctionComponent() {
@@ -108,7 +106,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "CLASS_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class ParentComponent extends React.Component {
           render() {
             function UnstableNestedClassComponent() {
@@ -126,7 +124,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "CLASS_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class ParentComponent extends React.Component {
           render() {
             const UnstableNestedVariableComponent = () => {
@@ -144,25 +142,25 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "CLASS_COMPONENT" }],
     },
     {
-      code: `
-            class ParentComponent extends React.Component {
-              render() {
-                const UnstableNestedClassComponent = () => {
-                  return React.createElement("div", null);
-                }
-
-                return React.createElement(
-                  "div",
-                  null,
-                  React.createElement(UnstableNestedClassComponent, null)
-                );
-              }
+      code: /* tsx */ `
+        class ParentComponent extends React.Component {
+          render() {
+            const UnstableNestedClassComponent = () => {
+              return React.createElement("div", null);
             }
-          `,
+
+            return React.createElement(
+              "div",
+              null,
+              React.createElement(UnstableNestedClassComponent, null)
+            );
+          }
+        }
+      `,
       errors: [{ messageId: "CLASS_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class ParentComponent extends React.Component {
           render() {
             const List = () => {
@@ -176,7 +174,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "CLASS_COMPONENT" }],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         class ParentComponent extends React.Component {
           render() {
             const List = (props) => {

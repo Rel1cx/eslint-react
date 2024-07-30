@@ -1,8 +1,8 @@
 import { RE_CAMEL_CASE, RE_KEBAB_CASE, RE_PASCAL_CASE, RE_SNAKE_CASE } from "@eslint-react/shared";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-import { Predicate as Prd } from "effect";
 import path from "pathe";
+import * as R from "remeda";
 import { camelCase, kebabCase, pascalCase, snakeCase } from "string-ts";
 import { match } from "ts-pattern";
 
@@ -20,7 +20,13 @@ type Case = "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [
   | {
+    /**
+     * @deprecated Use ESLint's [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores) feature instead.
+     */
     excepts?: readonly string[];
+    /**
+     * @deprecated Use ESLint's [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores) feature instead.
+     */
     extensions?: readonly string[];
     rule?: Case;
   }
@@ -72,22 +78,21 @@ export default createRule<Options, MessageID>({
     type: "problem",
     docs: {
       description: "enforce naming convention for JSX filenames",
-      requiresTypeChecking: false,
     },
     messages: {
-      FILENAME_CASE_MISMATCH: "A file with name '{{name}}' does not match {{rule}}",
+      FILENAME_CASE_MISMATCH: "A file with name '{{name}}' does not match {{rule}}.",
       FILENAME_CASE_MISMATCH_SUGGESTION:
         "A file with name '{{name}}' does not match {{rule}}. Should rename to '{{suggestion}}'.",
-      FILENAME_EMPTY: "A file must have non-empty name",
+      FILENAME_EMPTY: "A file must have non-empty name.",
     },
     schema,
   },
   name: RULE_NAME,
   create(context) {
     const options = context.options[0] ?? defaultOptions[0];
-    const rule = Prd.isString(options) ? options : options.rule ?? "PascalCase";
-    const excepts = Prd.isString(options) ? [] : options.excepts ?? [];
-    const extensions = Prd.isObject(options) && "extensions" in options
+    const rule = R.isString(options) ? options : options.rule ?? "PascalCase";
+    const excepts = R.isString(options) ? [] : options.excepts ?? [];
+    const extensions = R.isObjectType(options) && "extensions" in options
       ? options.extensions
       : defaultOptions[0].extensions;
 

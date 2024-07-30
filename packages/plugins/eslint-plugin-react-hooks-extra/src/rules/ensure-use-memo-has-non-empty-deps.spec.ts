@@ -1,16 +1,14 @@
-import dedent from "dedent";
-
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./ensure-use-memo-has-non-empty-deps";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useMemo } from "react";
 
         const Comp = () => {
-          const style = useMemo((theme: MantineTheme) => ({
+          const style = useMemo((theme) => ({
             input: {
               fontFamily: theme.fontFamilyMonospace
             }
@@ -25,12 +23,12 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useMemo } from "react";
 
         const deps = [];
         const Comp = () => {
-          const style = useMemo((theme: MantineTheme) => ({
+          const style = useMemo((theme) => ({
             input: {
               fontFamily: theme.fontFamilyMonospace
             }
@@ -45,12 +43,12 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useMemo } from "react";
 
         const Comp = () => {
           const deps = [];
-          const style = useMemo((theme: MantineTheme) => ({
+          const style = useMemo((theme) => ({
             input: {
               fontFamily: theme.fontFamilyMonospace
             }
@@ -65,7 +63,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useMemo } from "react";
 
         function App({ items }) {
@@ -80,7 +78,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const { useMemo } = require("react");
 
         function App({ items }) {
@@ -95,7 +93,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "react";
 
         function App({ items }) {
@@ -111,7 +109,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "roact";
 
         function App({ items }) {
@@ -126,13 +124,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import Roact from "roact";
 
         function App({ items }) {
@@ -147,13 +145,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useMemo } from "roact";
 
         function App({ items }) {
@@ -168,13 +166,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "@pika/react";
 
         function App({ items }) {
@@ -189,13 +187,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import Pika from "@pika/react";
 
         function App({ items }) {
@@ -210,13 +208,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import { useMemo } from "@pika/react";
 
         function App({ items }) {
@@ -231,13 +229,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const React = require("roact");
 
         function App({ items }) {
@@ -252,13 +250,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const Roact = require("roact");
 
         function App({ items }) {
@@ -273,13 +271,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const { useMemo } = require("roact");
 
         function App({ items }) {
@@ -294,13 +292,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "roact",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const React = require("@pika/react");
 
         function App({ items }) {
@@ -315,13 +313,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const Pika = require("@pika/react");
 
         function App({ items }) {
@@ -336,13 +334,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         const { useMemo } = require("@pika/react");
 
         function App({ items }) {
@@ -357,13 +355,13 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           importSource: "@pika/react",
         },
       },
     },
     {
-      code: dedent`
+      code: /* tsx */ `
         import React from "react";
 
         function App({ items }) {
@@ -378,17 +376,49 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       settings: {
-        reactOptions: {
+        "react-x": {
           additionalHooks: {
             useMemo: ["useCustomMemo"],
           },
         },
       },
     },
+    {
+      code: /* tsx */ `
+        import { useState, useMemo } from "react";
+
+        function MyComponent() {
+          const handleSnapshot = useMemo(() => () => console.log(true), []);
+
+          return null;
+        }
+      `,
+      errors: [
+        {
+          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useState, useMemo } from "react";
+
+        function MyComponent() {
+          const handleSnapshot = useMemo(() => () => () => console.log(true), []);
+
+          return null;
+        }
+      `,
+      errors: [
+        {
+          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+        },
+      ],
+    },
   ],
   valid: [
     ...allValid,
-    dedent`
+    /* tsx */ `
       import { useState } from "react";
 
       const Comp = () => {
@@ -397,26 +427,26 @@ ruleTester.run(RULE_NAME, rule, {
         return <Button />;
       };
     `,
-    dedent`
+    /* tsx */ `
       const useData = (key) => {
           return useSWR(key);
       }
     `,
-    dedent`
+    /* tsx */ `
       function useData(key) {
           return useSWR(key);
       }
     `,
-    dedent`
+    /* tsx */ `
       function useData(key) {
           const data = useSWR(key);
           return data;
       }
     `,
-    dedent`
+    /* tsx */ `
       const useData = (key) => useSWR(key);
     `,
-    dedent`
+    /* tsx */ `
       const onClick = () => {
         console.log("clicked");
       };
@@ -425,12 +455,88 @@ ruleTester.run(RULE_NAME, rule, {
         return <Button onClick={onClick} />;
       };
     `,
-    dedent`
+    /* tsx */ `
       import { useMemo } from "react";
 
       function App({ items }) {
         const memoizedValue = useMemo(() => [...items].sort(), [items]);
         return <div>{count}</div>;
+      }
+    `,
+    /* tsx */ `
+      import { useMemo } from "react";
+
+      const Comp = () => {
+      const [width, setWidth] = useState<undefined | number>(undefined)
+              const [open, setOpen] = useState<boolean>(false)
+              const [title, setTitle] = useState<string | undefined>(undefined)
+
+              const refItem = useMemo(() => {
+                  return {
+                      setWidth,
+                      setWrap: setOpen,
+                      setWrapperName: setTitle,
+                  }
+              }, [])
+      };
+    `,
+    /* tsx */ `
+      import { useMemo } from "react";
+      const deps = []
+      const Comp = () => {
+      const [width, setWidth] = useState<undefined | number>(undefined)
+              const [open, setOpen] = useState<boolean>(false)
+              const [title, setTitle] = useState<string | undefined>(undefined)
+              const cb = () => {
+                  return {
+                      setWidth,
+                      setWrap: setOpen,
+                      setWrapperName: setTitle,
+                  }
+              }
+              const refItem = useMemo(cb, deps)
+      };
+    `,
+    /* tsx */ `
+      import { useState, useMemo } from "react";
+
+      function MyComponent() {
+        const [showSnapshot, setShowSnapshot] = useState(false);
+        const handleSnapshot = useMemo(() => {
+          return () => setShowSnapshot(true)
+        }, []);
+
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useState, useMemo } from "react";
+
+      function MyComponent() {
+        const [showSnapshot, setShowSnapshot] = useState(false);
+        const handleSnapshot = useMemo(() => () => setShowSnapshot(true), []);
+
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useState, useMemo } from "react";
+
+      function MyComponent() {
+        const [showSnapshot, setShowSnapshot] = useState(false);
+        const handleSnapshot = useMemo(() => () => () => setShowSnapshot(true), []);
+
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useState, useMemo } from "react";
+
+      function MyComponent() {
+        const a = 1;
+        const handleSnapshot = useMemo(() => () => () => console.log(a), []);
+
+        return null;
       }
     `,
   ],
