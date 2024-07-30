@@ -1,4 +1,4 @@
-## v1.7.1 (Draft)
+## v1.7.1 (Wed 31 Jul 2024)
 
 ### 🐞 Fixes
 
@@ -9,6 +9,7 @@
 
 - Rule `no-leaked-conditional-rendering` now allows a falsy boolean literal to be used on the left side of the logical expression.
 - Tweaked the default settings shipped with various presets.
+- Overall performance improvements.
 
 ## v1.7.0 (Tue 30 Jul 2024)
 

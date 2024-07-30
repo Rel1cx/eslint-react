@@ -2,7 +2,7 @@
 
 ## Why create `eslint-react`?
 
-The existing `eslint-plugin-react` is a plugin for `react-dom` but named `react` [[1]], it only supports React DOM [[2]] and does not being expected to be used with x-platform.\
+The existing `eslint-plugin-react` is a plugin for `react-dom` but named `react` [[1]], it only supports React DOM [[2]] and does not being expected to be used with x-platform.
 Unfortunately, the maintainers of `eslint-plugin-react` refuse to change that [[3]].
 
 This is the initial motivation for creating `eslint-react`.
