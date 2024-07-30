@@ -72,7 +72,7 @@ export function findPropInProperties(
    */
   return (propName: string): O.Option<(typeof properties)[number]> => {
     return O.fromNullable(
-      properties.find((prop) => {
+      properties.findLast((prop) => {
         return match(prop)
           .when(is(NodeType.Property), (prop) => {
             return "name" in prop.key && prop.key.name === propName;
@@ -133,7 +133,7 @@ export function findPropInAttributes(
    */
   return (propName: string) => {
     return O.fromNullable(
-      attributes.find((attr) => {
+      attributes.findLast((attr) => {
         return match(attr)
           .when(is(NodeType.JSXAttribute), (attr) => getPropName(attr) === propName)
           .when(is(NodeType.JSXSpreadAttribute), (attr) => {

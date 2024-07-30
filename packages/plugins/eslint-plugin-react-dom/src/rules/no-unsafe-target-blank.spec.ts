@@ -208,13 +208,12 @@ ruleTester.run(RULE_NAME, rule, {
       const props = { href: "https://react.dev", rel: "noreferrer" };
       const a = <a target="_blank" {...props}></a>;
     `,
-    // TODO: Support to calculate the final values according to the order between the literal and spread attributes
-    // /* tsx */ `
-    //   const props1 = { href: "https://react.dev", target: "_blank" };
-    //   const a1 = <a {...props1} target="_self"></a>;
-    //   const props2 = { href: "https://react.dev", target: "_self" };
-    //   const a2 = <a target="_blank" {...props2}></a>;
-    // `,
+    /* tsx */ `
+      const props1 = { href: "https://react.dev", target: "_blank" } as const;
+      const a1 = <a {...props1} target="_self"></a>;
+      const props2 = { href: "https://react.dev", target: "_self" } as const;
+      const a2 = <a target="_blank" {...props2}></a>;
+    `,
     {
       code: '<Box href="https://react.dev" target="_blank"></Box>',
       settings: {
