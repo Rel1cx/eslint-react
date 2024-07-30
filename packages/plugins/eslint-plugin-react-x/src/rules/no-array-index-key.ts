@@ -6,7 +6,7 @@ import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
-import { isMatching, match, P } from "ts-pattern";
+import { isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -42,13 +42,11 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
   }
   if (!isReactChildrenMethod(callee.property.name)) return false;
   const initialScope = context.sourceCode.getScope(node);
-  return match(callee.object)
-    .with({ type: NodeType.Identifier, name: "Children" }, () => true)
-    .with(
-      { type: NodeType.MemberExpression, object: { type: NodeType.Identifier, name: P.string } },
-      ({ object }) => isInitializedFromReact(object.name, context, initialScope),
-    )
-    .otherwise(() => false);
+  if (callee.object.type === NodeType.Identifier && callee.object.name === "Children") return true;
+  if (callee.object.type === NodeType.MemberExpression && "name" in callee.object.object) {
+    return isInitializedFromReact(callee.object.object.name, context, initialScope);
+  }
+  return false;
 }
 
 function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContext) {

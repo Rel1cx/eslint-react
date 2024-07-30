@@ -1,4 +1,4 @@
-import { F, O } from "@eslint-react/tools";
+import { O } from "@eslint-react/tools";
 import type { Definition, Variable } from "@typescript-eslint/scope-manager";
 
 /**
@@ -8,9 +8,6 @@ import type { Definition, Variable } from "@typescript-eslint/scope-manager";
  */
 export function getVariableDef(at: number) {
   return (variable: Variable): O.Option<Definition> => {
-    return F.pipe(
-      O.some(variable),
-      O.flatMapNullable(v => v.defs.at(at)),
-    );
+    return O.fromNullable(variable.defs[at]);
   };
 }

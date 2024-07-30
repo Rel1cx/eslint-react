@@ -4,7 +4,6 @@ import { decodeSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
 import { capitalize } from "string-ts";
 import { match } from "ts-pattern";
@@ -62,10 +61,9 @@ export default createRule<[], MessageID>({
                 .with({ type: NodeType.ArrayPattern }, n => {
                   const [state, setState] = n.elements;
                   if (state?.type === NodeType.ObjectPattern && setState?.type === NodeType.Identifier) {
-                    return F.pipe(
-                      O.liftPredicate(R.isNot(isSetterNameLoose))(setState.name),
-                      O.flatMap(F.constant(descriptor)),
-                    );
+                    return isSetterNameLoose(setState.name)
+                      ? O.none()
+                      : descriptor;
                   }
                   if (state?.type !== NodeType.Identifier || setState?.type !== NodeType.Identifier) return O.none();
                   const [stateName, setStateName] = [state.name, setState.name];

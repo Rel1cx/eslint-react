@@ -11,7 +11,7 @@ import {
   traverseUp,
 } from "@eslint-react/ast";
 import { isJSXValue } from "@eslint-react/jsx";
-import { F, O } from "@eslint-react/tools";
+import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -47,7 +47,7 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
   if (hint & ERComponentHint.SkipClassProperty && isFunctionOfClassProperty(node.parent)) {
     return false;
   }
-  return !F.pipe(
+  return !O.exists(
     traverseUp(
       node,
       isOneOf([
@@ -58,7 +58,7 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
         NodeType.ClassBody,
       ]),
     ),
-    O.exists(is(NodeType.JSXExpressionContainer)),
+    is(NodeType.JSXExpressionContainer),
   );
 }
 

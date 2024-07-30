@@ -196,6 +196,7 @@ export function hasCallInInitPath(callName: string) {
       O.filter(p => p.length > 0),
       O.exists(nodes => {
         return nodes.some(
+          // TODO: Re-evaluate dot notation callName
           // callName.includes(".")
           //   ? n => {
           //     const [objectName, propertyName] = callName.split(".");

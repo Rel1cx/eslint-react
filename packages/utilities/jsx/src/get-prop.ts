@@ -1,11 +1,10 @@
 import { is, NodeType } from "@eslint-react/ast";
-import { F, O } from "@eslint-react/tools";
+import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable, getVariableNode } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
-import { match } from "ts-pattern";
 
 /**
  * Get the name of a JSX attribute with namespace
@@ -13,10 +12,12 @@ import { match } from "ts-pattern";
  * @returns string
  */
 export function getPropName(node: TSESTree.JSXAttribute) {
-  return match(node.name)
-    .when(is(NodeType.JSXIdentifier), (n) => n.name)
-    .when(is(NodeType.JSXNamespacedName), (n) => `${n.namespace.name}:${n.name.name}`)
-    .exhaustive();
+  switch (node.name.type) {
+    case NodeType.JSXIdentifier:
+      return node.name.name;
+    case NodeType.JSXNamespacedName:
+      return `${node.name.namespace.name}:${node.name.name.name}`;
+  }
 }
 
 export function getProp(
@@ -73,14 +74,13 @@ export function findPropInProperties(
   return (propName: string): O.Option<(typeof properties)[number]> => {
     return O.fromNullable(
       properties.findLast((prop) => {
-        return match(prop)
-          .when(is(NodeType.Property), (prop) => {
-            return "name" in prop.key && prop.key.name === propName;
-          })
-          .when(is(NodeType.SpreadElement), (prop) => {
-            return match(prop.argument)
-              .when(is(NodeType.Identifier), (argument) => {
-                const { name } = argument;
+        switch (true) {
+          case prop.type === NodeType.Property && "name" in prop.key && prop.key.name === propName:
+            return true;
+          case prop.type === NodeType.SpreadElement:
+            switch (true) {
+              case prop.argument.type === NodeType.Identifier: {
+                const { name } = prop.argument;
                 const maybeInit = O.flatMap(
                   findVariable(name, initialScope),
                   getVariableNode(0),
@@ -89,27 +89,24 @@ export function findPropInProperties(
                 const init = maybeInit.value;
                 if (!is(NodeType.ObjectExpression)(init)) return false;
                 if (seenProps.includes(name)) return false;
-
                 return O.isSome(
                   findPropInProperties(init.properties, context, initialScope, [...seenProps, name])(propName),
                 );
-              })
-              .when(is(NodeType.ObjectExpression), (argument) => {
-                return O.isSome(findPropInProperties(argument.properties, context, initialScope, seenProps)(propName));
-              })
-              .when(is(NodeType.MemberExpression), () => {
-                // Not implemented
-              })
-              .when(is(NodeType.CallExpression), () => {
-                // Not implemented
-              })
-              .otherwise(F.constFalse);
-          })
-          .when(is(NodeType.RestElement), () => {
-            // Not implemented
+              }
+              case prop.argument.type === NodeType.ObjectExpression: {
+                return O.isSome(
+                  findPropInProperties(prop.argument.properties, context, initialScope, seenProps)(propName),
+                );
+              }
+              default: {
+                return false;
+              }
+            }
+          case prop.type === NodeType.RestElement:
             return false;
-          })
-          .otherwise(F.constFalse);
+          default:
+            return false;
+        }
       }),
     );
   };
@@ -134,36 +131,36 @@ export function findPropInAttributes(
   return (propName: string) => {
     return O.fromNullable(
       attributes.findLast((attr) => {
-        return match(attr)
-          .when(is(NodeType.JSXAttribute), (attr) => getPropName(attr) === propName)
-          .when(is(NodeType.JSXSpreadAttribute), (attr) => {
-            return match<typeof attr.argument, boolean>(attr.argument)
-              .with({ type: NodeType.Identifier }, (argument) => {
-                const { name } = argument;
+        switch (attr.type) {
+          case NodeType.JSXAttribute:
+            return getPropName(attr) === propName;
+          case NodeType.JSXSpreadAttribute:
+            switch (attr.argument.type) {
+              case NodeType.Identifier: {
+                const { name } = attr.argument;
                 const maybeInit = O.flatMap(
                   findVariable(name, initialScope),
                   getVariableNode(0),
                 );
                 if (O.isNone(maybeInit)) return false;
                 const init = maybeInit.value;
-                if (!("properties" in init)) return false;
-
+                if (!is(NodeType.ObjectExpression)(init)) return false;
                 return O.isSome(findPropInProperties(init.properties, context, initialScope)(propName));
-              })
-              .when(is(NodeType.ObjectExpression), (argument) => {
-                return O.isSome(findPropInProperties(argument.properties, context, initialScope)(propName));
-              })
-              .when(is(NodeType.MemberExpression), () => {
+              }
+              case NodeType.ObjectExpression:
+                return O.isSome(findPropInProperties(attr.argument.properties, context, initialScope)(propName));
+              case NodeType.MemberExpression:
                 // Not implemented
                 return false;
-              })
-              .when(is(NodeType.CallExpression), () => {
+              case NodeType.CallExpression:
                 // Not implemented
                 return false;
-              })
-              .otherwise(F.constFalse);
-          })
-          .otherwise(F.constFalse);
+              default:
+                return false;
+            }
+          default:
+            return false;
+        }
       }),
     );
   };

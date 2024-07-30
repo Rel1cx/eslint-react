@@ -19,7 +19,10 @@ export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass {
   if (!("superClass" in node && node.superClass)) return false;
   const { superClass } = node;
   return match(superClass)
-    .with({ type: NodeType.Identifier, name: P.string }, ({ name }) => /^(Pure)?Component$/u.test(name))
+    .with({
+      type: NodeType.Identifier,
+      name: P.string,
+    }, ({ name }) => /^(Pure)?Component$/u.test(name))
     .with({
       type: NodeType.MemberExpression,
       property: { name: P.string },
@@ -35,7 +38,10 @@ export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass {
 export function isPureComponent(node: TSESTree.Node) {
   if ("superClass" in node && node.superClass) {
     return match(node.superClass)
-      .with({ type: NodeType.Identifier, name: P.string }, ({ name }) => /^PureComponent$/u.test(name))
+      .with({
+        type: NodeType.Identifier,
+        name: P.string,
+      }, ({ name }) => /^PureComponent$/u.test(name))
       .with({
         type: NodeType.MemberExpression,
         property: { name: P.string },

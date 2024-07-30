@@ -55,12 +55,10 @@ export default createRule<[], MessageID>({
         .with({ type: NodeType.JSXFragment }, checkIteratorElement)
         .with({ type: NodeType.ConditionalExpression }, (n) => {
           if (!("consequent" in n)) return O.none();
-
           return O.orElse(checkIteratorElement(n.consequent), () => checkIteratorElement(n.alternate));
         })
         .with({ type: NodeType.LogicalExpression }, (n) => {
           if (!("left" in n)) return O.none();
-
           return O.orElse(checkIteratorElement(n.left), () => checkIteratorElement(n.right));
         })
         .otherwise(O.none);

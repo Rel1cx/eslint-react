@@ -27,29 +27,20 @@ export function getVariableNode(at: number) {
       O.some(variable),
       O.flatMap(getVariableDef(at)),
       O.flatMapNullable(def => {
-        if (
-          true
-          && "init" in def.node
-          && def.node.init
-          && !("declarations" in def.node.init)
-        ) {
-          return def.node.init;
+        switch (true) {
+          case "init" in def.node
+            && def.node.init
+            && !("declarations" in def.node.init):
+            return def.node.init;
+          case def.type === DefinitionType.FunctionName
+            && def.node.type === NodeType.FunctionDeclaration:
+            return def.node;
+          case def.type === DefinitionType.ClassName
+            && def.node.type === NodeType.ClassDeclaration:
+            return def.node;
+          default:
+            return null;
         }
-        if (
-          true
-          && def.type === DefinitionType.FunctionName
-          && def.node.type === NodeType.FunctionDeclaration
-        ) {
-          return def.node;
-        }
-        if (
-          true
-          && def.type === DefinitionType.ClassName
-          && def.node.type === NodeType.ClassDeclaration
-        ) {
-          return def.node;
-        }
-        return null;
       }),
     );
   };

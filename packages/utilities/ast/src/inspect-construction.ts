@@ -32,7 +32,6 @@ export function inspectConstruction(
 
   const detect = (node: TSESTree.Node): Construction => {
     const scope = context.sourceCode.getScope(node);
-
     return match(node)
       .when(is(NodeType.ArrayExpression), (node) => Construction.Array({ node, usage: O.none() }))
       .when(is(NodeType.ObjectExpression), (node) => Construction.ObjectExpression({ node, usage: O.none() }))
@@ -43,7 +42,6 @@ export function inspectConstruction(
         if (hint & ConstructionHint.StrictCallExpression) {
           return Construction.CallExpression({ node, usage: O.none() });
         }
-
         return None;
       })
       .when(is(NodeType.NewExpression), (node) => Construction.NewExpression({ node, usage: O.none() }))
