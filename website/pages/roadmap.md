@@ -4,7 +4,7 @@
 
 ### Plugins (with ecological niche explanation)
 
-- `eslint-plugin-react-x` (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
+- `eslint-plugin-react-x` (DOM Irrelevant, Render Target Agnostic, Formatting Independent, Compatible with x-platform).
 - `eslint-plugin-react-dom` (DOM Specific rules for React DOM).
 - `eslint-plugin-react-hooks` (The official one from React).
 - `eslint-plugin-react-hooks-extra` (Extra rules for `eslint-plugin-react-hooks`).

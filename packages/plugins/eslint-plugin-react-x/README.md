@@ -1,6 +1,6 @@
 # eslint-plugin-react-x
 
-Core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
+Core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent, Compatible with x-platform).
 
 > [!NOTE]
 > This plugin is already included in `@eslint-react/eslint-plugin`. You don't need to install it separately if you are using `@eslint-react/eslint-plugin`.
