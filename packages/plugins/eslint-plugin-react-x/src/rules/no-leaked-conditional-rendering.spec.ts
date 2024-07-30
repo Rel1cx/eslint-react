@@ -369,7 +369,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     /* tsx */ `
       /// <reference types="react" />
       /// <reference types="react-dom" />
-      
+
       const alwaysTruthy = true;
       const alwaysFalsy = false;
 

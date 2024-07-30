@@ -5,6 +5,10 @@
 - Fixed the spread attributes support for dom related rules.
 - Fixed the issue where the overridden value was retrieved when there were duplicate attributes on a JSX element.
 
+### 🪄 Improvements
+
+- Rule `no-leaked-conditional-rendering` now allows a falsy boolean literal to be used on the left side of the logical expression.
+
 ## v1.7.0 (Tue 30 Jul 2024)
 
 ### ✨ New
