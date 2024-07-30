@@ -499,7 +499,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     dedent`
-      const someCondition = true
+      const someCondition = true;
       const SomeComponent = () => <div />;
 
       const App = () => {
