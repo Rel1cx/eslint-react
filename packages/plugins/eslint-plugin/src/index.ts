@@ -1,4 +1,4 @@
-import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
+import { DEFAULT_ESLINT_REACT_SETTINGS, type ESLintReactSettings } from "@eslint-react/shared";
 import type { RulePreset } from "@eslint-react/types";
 import * as reactDebug from "eslint-plugin-react-debug";
 import * as reactDom from "eslint-plugin-react-dom";
@@ -172,6 +172,22 @@ const domPreset = {
   "dom/no-unsafe-target-blank": "warn",
 } as const satisfies RulePreset;
 
+const domPresetSettings = {
+  ...DEFAULT_ESLINT_REACT_SETTINGS,
+  additionalComponents: [
+    {
+      name: "Link",
+      as: "a",
+      attributes: [
+        {
+          name: "to",
+          as: "href",
+        },
+      ],
+    },
+  ],
+} satisfies ESLintReactSettings;
+
 const debugPreset = {
   "debug/class-component": "warn",
   "debug/function-component": "warn",
@@ -192,23 +208,29 @@ const flatConfigPlugins = {
   "@eslint-react/naming-convention": reactNamingConvention,
 } as const;
 
-const settings = {
-  "react-x": DEFAULT_ESLINT_REACT_SETTINGS,
-} as const;
-
-function createLegacyConfig<T extends RulePreset>(rules: T, plugins = legacyConfigPlugins) {
+function createLegacyConfig<T extends RulePreset>(
+  rules: T,
+  settings = DEFAULT_ESLINT_REACT_SETTINGS,
+) {
   return {
-    plugins,
+    plugins: legacyConfigPlugins,
     rules: padKeysLeft(rules, "@eslint-react/"),
-    settings,
+    settings: {
+      "react-x": settings,
+    },
   } as const;
 }
 
-function createFlatConfig<T extends RulePreset>(rules: T, plugins = flatConfigPlugins) {
+function createFlatConfig<T extends RulePreset>(
+  rules: T,
+  settings = DEFAULT_ESLINT_REACT_SETTINGS,
+) {
   return {
-    plugins,
+    plugins: flatConfigPlugins,
     rules: padKeysLeft(rules, "@eslint-react/"),
-    settings,
+    settings: {
+      "react-x": settings,
+    },
   } as const;
 }
 
@@ -220,7 +242,7 @@ export default {
   configs: {
     all: createFlatConfig(allPreset),
     debug: createFlatConfig(debugPreset),
-    dom: createFlatConfig(domPreset),
+    dom: createFlatConfig(domPreset, domPresetSettings),
     off: createFlatConfig(offPreset),
     "off-dom": createFlatConfig(offDomPreset),
     recommended: createFlatConfig(recommendedPreset),

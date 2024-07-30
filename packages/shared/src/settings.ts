@@ -59,22 +59,11 @@ export const expandSettings = memoize((settings: ESLintReactSettings): ESLintRea
  * The default ESLint settings for "react-x".
  */
 export const DEFAULT_ESLINT_REACT_SETTINGS = {
-  additionalComponents: [
-    {
-      name: "Link",
-      as: "a",
-      attributes: [
-        {
-          name: "to",
-          as: "href",
-        },
-      ],
-    },
-  ],
   additionalHooks: {
     useLayoutEffect: [
       "useIsomorphicLayoutEffect",
     ],
   },
+  polymorphicPropName: "as",
   version: "detect",
 } as const as ESLintReactSettings;

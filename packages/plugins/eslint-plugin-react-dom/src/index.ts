@@ -29,3 +29,18 @@ export const rules = {
   "no-unsafe-iframe-sandbox": noUnsafeIframeSandbox,
   "no-unsafe-target-blank": noUnsafeTargetBlank,
 } as const;
+
+export const DEFAULT_ESLINT_REACT_SETTINGS = {
+  additionalComponents: [
+    {
+      name: "Link",
+      as: "a",
+      attributes: [
+        {
+          name: "to",
+          as: "href",
+        },
+      ],
+    },
+  ],
+} as const;
