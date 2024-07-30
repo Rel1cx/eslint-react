@@ -106,6 +106,8 @@ Add the plugin to your `.eslintrc.json`:
 
 ## Presets
 
+#### Flat Config
+
 - **recommended**\
   Enable rules that are recommended by ESLint React.
 - **recommended-type-checked**\
@@ -117,11 +119,24 @@ Add the plugin to your `.eslintrc.json`:
 - **off**\
   Disable all rules in this plugin except for debug rules.
 
-[Full Presets List↗](https://eslint-react.xyz/presets/overview)
+#### Legacy Config
+
+- **recommended-legacy**\
+  Enable rules that are recommended by ESLint React.
+- **recommended-type-checked-legacy**\
+  Enable rules that are recommended by ESLint React with additional rules that require type information.
+- **dom-legacy**\
+  Enable rules that are specific to React DOM.
+- **off-dom-legacy**\
+  Disable rules that are specific to React DOM.
+- **off-legacy**\
+  Disable all rules in this plugin except for debug rules.
+
+[Full Presets List↗](https://eslint-react.xyz/docs/presets)
 
 ## Rules
 
-[Rules Overview ↗](https://eslint-react.xyz/rules/overview)
+[Rules Overview ↗](https://eslint-react.xyz/docs/rules/overview)
 
 ## FAQ
 
