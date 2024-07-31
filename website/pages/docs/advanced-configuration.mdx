@@ -54,6 +54,15 @@ export default [
             ],
           },
           {
+            // Match RadixUIButton component without an `asChild` attribute and alias it to `button` component with `type="button"` attribute
+            name: "RadixUIButton",
+            selector: ":not(:has(JSXAttribute[name.name='asChild']))",
+            as: "button",
+            attributes: [
+              { name: "type", defaultValue: "button" },
+            ],
+          },
+          {
             // Match TextInput component with `mode="uncontrolled"` attribute and alias it to an uncontrolled input component with `content` and `onContentUpdate` pair
             name: "TextInput",
             selector: ":has(JSXAttribute[name.name='mode'][value.value='uncontrolled'])",
@@ -110,6 +119,15 @@ module.exports = {
           as: "a",
           attributes: [
             { name: "rel", defaultValue: "noopener noreferrer" },
+          ],
+        },
+        {
+          // Match RadixUIButton component without an `asChild` attribute and alias it to `button` component with `type="button"` attribute
+          name: "RadixUIButton",
+          selector: ":not(:has(JSXAttribute[name.name='asChild']))",
+          as: "button",
+          attributes: [
+            { name: "type", defaultValue: "button" },
           ],
         },
         {
