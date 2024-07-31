@@ -2,8 +2,11 @@
 
 ## Why create `eslint-react`?
 
-The existing `eslint-plugin-react` is a plugin for `react-dom` but named `react` [[1]], it only supports React DOM [[2]] and does not being expected to be used with x-platform.
-Unfortunately, the maintainers of `eslint-plugin-react` refuse to change that [[3]].
+The existing `eslint-plugin-react` is a plugin for `react-dom` but named react[¹], it only supports React DOM[²] and does not being expected to be used with x-platform.
+
+Although you can use it with other renderers, it will always assume that you are using the React DOM, even if you are working with a codebase that uses a different renderer. This can sometimes cause confusion and problems[³].
+
+Unfortunately, the maintainers of `eslint-plugin-react` refuse to change that[⁴].
 
 Just as in [Beyond the DOM](https://legacy.reactjs.org/docs/design-principles.html#beyond-the-dom) we believe that the community will benefit from a renderer-agnostic and x-platform-supported plugin. This is also the initial motivation for creating `eslint-react`.
 
@@ -26,9 +29,7 @@ Please be aware that some rules may behave differently when transitioning to `es
 
 To smoothly transition, we suggest reviewing the rules in `eslint-plugin-react-x` and running a comprehensive linting check on your codebase to identify and address any discrepancies introduced by the migration.
 
-[1]: https://github.com/jsx-eslint/eslint-plugin-react/issues/3423#issuecomment-1930936266
-[2]: https://github.com/jsx-eslint/eslint-plugin-react/issues/3423#issuecomment-1314565853
-[3]: https://github.com/jsx-eslint/eslint-plugin-react/issues/3423#issuecomment-1314644323
-
-<!-- [4]: https://github.com/pmndrs/react-three-fiber/discussions/2487 -->
-<!-- [5]: https://github.com/pmndrs/gltf-react-three/issues/38#issuecomment-2057794974 -->
+[¹]: https://github.com/jsx-eslint/eslint-plugin-react/issues/3423#issuecomment-1930936266
+[²]: https://github.com/jsx-eslint/eslint-plugin-react/issues/3423#issuecomment-1314565853
+[³]: https://github.com/pmndrs/gltf-react-three/issues/38#issuecomment-2057794974
+[⁴]: https://github.com/jsx-eslint/eslint-plugin-react/issues/3423#issuecomment-1314644323
