@@ -39,6 +39,8 @@ If `importSource` is specified, an equivalent version of React should be provide
 
 (type: `string`)
 
+<Warning>Polymorphic components can make code harder to maintain; please use this feature with caution.</Warning>
+
 You can optionally use the `polymorphicPropName` setting to define the prop your code uses to create polymorphic components. This setting will be used determine the element type in rules that require semantic context.
 
 For example, if you set the `polymorphicPropName` setting to `as` then this element:
@@ -47,14 +49,14 @@ For example, if you set the `polymorphicPropName` setting to `as` then this elem
 
 will be evaluated as an `h3`. If no `polymorphicPropName` is set, then the component will be evaluated as `Box`.
 
-<Warning>Polymorphic components can make code harder to maintain; please use this feature with caution.</Warning>
-
 ### `additionalHooks`
 
 (type: `[key: string]: string[]`)
 
+<Warning>This is intended to cover edge cases. We suggest to use this option very sparingly, if at all.</Warning>
+
 A object of aliases for React built-in hooks. ESLint React will recognize these aliases as equivalent to the built-in hooks in all its rules.\
-This is intended to cover edge cases. We suggest to use this option very sparingly, if at all.\
+
 (e.g. `{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }`).
 
 ### `additionalComponents` (experimental)
@@ -63,8 +65,7 @@ This is intended to cover edge cases. We suggest to use this option very sparing
 
 <Warning>This is an experimental feature that can be unstable and lacks comprehensive documentation.</Warning>
 
-An array of user-defined components, used to inform the ESLint React plugins how to treat these components during checks.\
-This is intended to cover edge cases. We suggest to use this option very sparingly, if at all.
+An array of user-defined components, used to inform the ESLint React plugins how to treat these components during checks.
 
 ## Examples
 
@@ -92,6 +93,8 @@ export default [
           // ...
         },
         additionalComponents: [
+          { name: "Canvas", as: "canvas" },
+          { name: "MyCustomMesh", as: "mesh" },
           {
             name: "Link",
             as: "a",
@@ -127,6 +130,8 @@ module.exports = {
         // ...
       },
       additionalComponents: [
+        { name: "Canvas", as: "canvas" },
+        { name: "MyCustomMesh", as: "mesh" },
         {
           name: "Link",
           as: "a",
