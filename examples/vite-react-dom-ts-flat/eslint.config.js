@@ -21,7 +21,7 @@ export default [
   {
     languageOptions: {
       parserOptions: {
-        project: "./tsconfig.json",
+        projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
     },
@@ -31,7 +31,7 @@ export default [
     files: ["*.config.{js,ts}", "*.d.ts"],
     languageOptions: {
       parserOptions: {
-        project: "./tsconfig.node.json",
+        projectService: true,
       },
     },
   },
