@@ -16,7 +16,31 @@ import tseslint from "typescript-eslint";
 import YamlParser from "yaml-eslint-parser";
 
 type FlatConfig = Parameters<typeof tseslint.config>[number];
+
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
+
+const sortOptions = {
+  type: "natural",
+  ignoreCase: false,
+  order: "asc",
+} as const;
+
+const sortOptionsWithGroups = {
+  ...sortOptions,
+  customGroups: {
+    id: ["_", "id", "key"],
+    type: ["type", "kind"],
+    meta: [
+      "name",
+      "meta",
+      "title",
+      "description",
+    ],
+    alias: ["alias", "as"],
+  },
+  groups: ["id", "type", "meta", "alias", "unknown"],
+} as const;
+
 const config: FlatConfig[] = [
   gitignore(),
   {
@@ -68,7 +92,6 @@ const config: FlatConfig[] = [
     },
     rules: {
       // Part: eslint rules
-      "array-callback-return": "off",
       curly: "off",
       eqeqeq: ["error", "always"],
       "logical-assignment-operators": "error",
@@ -113,7 +136,7 @@ const config: FlatConfig[] = [
       "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
       "@typescript-eslint/no-unnecessary-type-parameters": "warn",
       "@typescript-eslint/no-unused-vars": [
-        "error",
+        "warn",
         {
           argsIgnorePattern: "^_",
           caughtErrors: "all",
@@ -151,44 +174,11 @@ const config: FlatConfig[] = [
       "perfectionist/sort-imports": "off",
       "perfectionist/sort-named-exports": "off",
       "perfectionist/sort-named-imports": "off",
-      "perfectionist/sort-object-types": [
-        "warn",
-        {
-          type: "natural",
-          customGroups: {
-            id: ["_", "id", "key"],
-            type: ["type", "kind"],
-            meta: [
-              "name",
-              "meta",
-              "title",
-              "description",
-            ],
-            alias: ["alias", "as"],
-          },
-          groups: ["id", "type", "meta", "alias", "unknown"],
-          ignoreCase: false,
-          order: "asc",
-        },
-      ],
+      "perfectionist/sort-object-types": ["warn", sortOptionsWithGroups],
       "perfectionist/sort-objects": [
         "warn",
         {
-          type: "natural",
-          customGroups: {
-            id: ["_", "id", "key"],
-            type: ["type", "kind"],
-            meta: [
-              "name",
-              "meta",
-              "title",
-              "description",
-            ],
-            alias: ["alias", "as"],
-          },
-          groups: ["id", "type", "meta", "alias", "unknown"],
-          ignoreCase: false,
-          order: "asc",
+          ...sortOptionsWithGroups,
           partitionByComment: "Part:**",
         },
       ],

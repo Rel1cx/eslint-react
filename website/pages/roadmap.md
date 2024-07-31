@@ -1,6 +1,6 @@
 # Roadmap
 
-## Milestone 2.0 (Active)
+## Milestone 2.0
 
 ### Plugins (with ecological niche explanation)
 

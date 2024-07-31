@@ -13,6 +13,4 @@ export default defineConfig(() => ({
   splitting: false,
   target: "node18",
   treeshake: true,
-  // tsup excludes dependencies and peerDependencies by default, no need to add anything here
-  // external: [],
 }));
