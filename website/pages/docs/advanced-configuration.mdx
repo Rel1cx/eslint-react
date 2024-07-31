@@ -12,10 +12,8 @@ import { Warning } from "#/components/callout";
 <Config>
 
 ```ts twoslash filename="eslint.config.js"
-// ...
 import react from "@eslint-react/eslint-plugin";
 
-// ...
 export default [
   // ...
   {
@@ -28,7 +26,6 @@ export default [
         jsxPragmaFrag: "Fragment",
         additionalHooks: {
           useLayoutEffect: ["useIsomorphicLayoutEffect"],
-          // ...
         },
         additionalComponents: [
           {
@@ -66,13 +63,11 @@ export default [
               { name: "onContentUpdate", as: "onChange" },
             ],
           },
-          // ...
         ],
         version: "detect",
       },
     },
   },
-  // ...
 ];
 ```
 
@@ -81,7 +76,6 @@ export default [
 <Config>
 
 ```js filename=".eslintrc.js"
-// ...
 module.exports = {
   // ...
   settings: {
@@ -91,7 +85,6 @@ module.exports = {
       jsxPragmaFrag: "Fragment",
       additionalHooks: {
         useLayoutEffect: ["useIsomorphicLayoutEffect"],
-        // ...
       },
       additionalComponents: [
         {
@@ -129,12 +122,10 @@ module.exports = {
             { name: "onContentUpdate", as: "onChange" },
           ],
         },
-        // ...
       ],
       version: "detect",
     },
   },
-  // ...
 };
 ```
 

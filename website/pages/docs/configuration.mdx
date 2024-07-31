@@ -55,7 +55,7 @@ will be evaluated as an `h3`. If no `polymorphicPropName` is set, then the compo
 
 <Warning>This is intended to cover edge cases. We suggest to use this option very sparingly, if at all.</Warning>
 
-A object of aliases for React built-in hooks. ESLint React will recognize these aliases as equivalent to the built-in hooks in all its rules.\
+A object of aliases for React built-in hooks. ESLint React will recognize these aliases as equivalent to the built-in hooks in all its rules.
 
 (e.g. `{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }`).
 
@@ -74,10 +74,8 @@ An array of user-defined components, used to inform the ESLint React plugins how
 <Config>
 
 ```ts twoslash filename="eslint.config.js"
-// ...
 import react from "@eslint-react/eslint-plugin";
 
-// ...
 export default [
   // ...
   {
@@ -90,7 +88,6 @@ export default [
         jsxPragmaFrag: "Fragment",
         additionalHooks: {
           useLayoutEffect: ["useIsomorphicLayoutEffect"],
-          // ...
         },
         additionalComponents: [
           { name: "Canvas", as: "canvas" },
@@ -103,7 +100,6 @@ export default [
               { name: "rel", defaultValue: "noopener noreferrer" },
             ],
           },
-          // ...
         ],
         version: "detect",
       },
@@ -117,7 +113,6 @@ export default [
 <Config>
 
 ```js filename=".eslintrc.js"
-// ...
 module.exports = {
   // ...
   settings: {
@@ -127,7 +122,6 @@ module.exports = {
       jsxPragmaFrag: "Fragment",
       additionalHooks: {
         useLayoutEffect: ["useIsomorphicLayoutEffect"],
-        // ...
       },
       additionalComponents: [
         { name: "Canvas", as: "canvas" },
@@ -140,7 +134,6 @@ module.exports = {
             { name: "rel", defaultValue: "noopener noreferrer" },
           ],
         },
-        // ...
       ],
       version: "detect",
     },
