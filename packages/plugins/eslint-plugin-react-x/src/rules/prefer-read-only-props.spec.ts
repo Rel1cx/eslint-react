@@ -1,11 +1,7 @@
-import { isCI } from "std-env";
-
 import { allValid, ruleTesterWithTypes } from "../../../../../test";
 import rule, { RULE_NAME } from "./prefer-read-only-props";
 
-// FIXME: This can not be tested on GitHub Actions due to types from `@types/react` and `@types/react-dom` failing to resolve when running tests on CI environments.
-// eslint-disable-next-line @typescript-eslint/no-unused-expressions
-!isCI && ruleTesterWithTypes.run(RULE_NAME, rule, {
+ruleTesterWithTypes.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `

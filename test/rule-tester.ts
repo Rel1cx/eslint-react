@@ -1,11 +1,13 @@
-import tsEsLintParser from "@typescript-eslint/parser";
-import { RuleTester } from "@typescript-eslint/utils/ts-eslint";
+import { RuleTester, type RuleTesterConfig } from "@typescript-eslint/rule-tester";
 import path from "pathe";
 import * as vitest from "vitest";
 
 RuleTester.it = vitest.it;
 RuleTester.itOnly = vitest.it.only;
+RuleTester.itSkip = vitest.it.skip;
 RuleTester.describe = vitest.describe;
+RuleTester.describeSkip = vitest.describe.skip;
+RuleTester.afterAll = vitest.afterAll;
 
 export function getFixturesRootDir(): string {
   return path.join(__dirname, "fixtures");
@@ -13,28 +15,25 @@ export function getFixturesRootDir(): string {
 
 export const defaultLanguageOptions = {
   ecmaVersion: "latest",
-  parser: tsEsLintParser,
   parserOptions: {
     ecmaFeatures: { jsx: true },
   },
-  sourceType: "module",
-} as const;
+} as const satisfies RuleTesterConfig["languageOptions"];
 
 export const defaultLanguageOptionsWithTypes = {
   ecmaVersion: "latest",
-  parser: tsEsLintParser,
   parserOptions: {
     ecmaFeatures: { jsx: true },
-    project: "./tsconfig.json",
+    project: "tsconfig.json",
+    // projectService: true,
     tsconfigRootDir: getFixturesRootDir(),
   },
-  sourceType: "module",
-} as const;
+} as const satisfies RuleTesterConfig["languageOptions"];
 
 export const ruleTester = new RuleTester({
   languageOptions: defaultLanguageOptions,
-} as never);
+});
 
 export const ruleTesterWithTypes = new RuleTester({
   languageOptions: defaultLanguageOptionsWithTypes,
-} as never);
+});
