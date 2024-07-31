@@ -6,7 +6,7 @@
 
 # Function: createRuleForPlugin()
 
-> **createRuleForPlugin**(`pluginName`): \<`Options`, `MessageIds`\>(`__namedParameters`) => `RuleModule`\<`MessageIds`, `Options`, `RuleListener`\>
+> **createRuleForPlugin**(`pluginName`): \<`Options`, `MessageIds`\>(`__namedParameters`) => `RuleModule`\<`MessageIds`, `Options`, `unknown`, `RuleListener`\>
 
 Get the ESLint rule creator for a plugin.
 
@@ -30,8 +30,8 @@ The ESLint rule creator.
 
 ### Parameters
 
-• **\_\_namedParameters**: `Readonly`\<`RuleWithMetaAndName`\<`Options`, `MessageIds`\>\>
+• **\_\_namedParameters**: `Readonly`\<`RuleWithMetaAndName`\<`Options`, `MessageIds`, `unknown`\>\>
 
 ### Returns
 
-`RuleModule`\<`MessageIds`, `Options`, `RuleListener`\>
+`RuleModule`\<`MessageIds`, `Options`, `unknown`, `RuleListener`\>

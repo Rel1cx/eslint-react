@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.7.1",
+  "version": "1.8.0-next.0",
   "private": true,
   "description": "A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -45,7 +45,7 @@
     "lint:type": "pnpm -r run --parallel lint:type",
     "lint:website": "pnpm -F \"./website\" run lint",
     "prepare": "lefthook install && pnpm run build",
-    "test": "vitest --run --logHeapUsage",
+    "test": "vitest --run --logHeapUsage --passWithNoTests",
     "update:deps": "pnpm up --latest -r && pnpm install --fix-lockfile && pnpm prune",
     "update:readme": "bun run --bun ./scripts/update-readme.ts",
     "update:version": "bun run --bun ./scripts/update-version.ts && pnpm run format:package-json"
@@ -53,16 +53,16 @@
   "devDependencies": {
     "@changesets/cli": "2.27.7",
     "@eslint/js": "9.8.0",
-    "@swc/core": "1.7.3",
+    "@swc/core": "1.7.4",
     "@tsconfig/node22": "22.0.0",
     "@tsconfig/strictest": "2.0.5",
     "@types/bun": "1.1.6",
-    "@types/node": "22.0.0",
+    "@types/node": "22.0.1",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.18.0",
-    "@typescript-eslint/rule-tester": "^7.18.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@typescript-eslint/rule-tester": "^8.0.0",
     "@vitest/ui": "2.0.5",
     "bun": "1.1.21",
     "bundle-require": "^5.0.0",
@@ -114,7 +114,7 @@
   },
   "pnpm": {
     "overrides": {
-      "@types/node": "22.0.0",
+      "@types/node": "22.0.1",
       "@types/react": "18.3.3",
       "@types/react-dom": "18.3.0",
       "array-includes": "npm:@nolyfill/array-includes@^1",

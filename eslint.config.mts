@@ -131,6 +131,7 @@ const config: FlatConfig[] = [
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/no-confusing-void-expression": "off",
+      "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-misused-promises": "off",
       "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",

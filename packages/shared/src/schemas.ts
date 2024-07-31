@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 import type { InferOutput } from "valibot";
 import { array, boolean, object, optional, string } from "valibot";
 
