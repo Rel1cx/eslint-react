@@ -136,19 +136,19 @@ Add the plugin to your `.eslintrc.json`:
 
 ## Who is using?
 
-- [`antfu/​eslint-config`](https://github.com/antfu/eslint-config) - Anthony's ESLint config preset
-- [`christopher-buss/roblox-ts-eslint-config`](https://github.com/christopher-buss/roblox-ts-eslint-config) - iSentinel's ESLint config preset for Roblox-TS
-- [`DimensionDev/Maskbook`](https://github.com/DimensionDev/Maskbook) - The portal to the new, open Internet. ([I:b])
-- [`dream-num/univer`](https://github.com/dream-num/univer) - Univer is an open-source alternative to Google Sheets, Slides, and Docs
-- [`hairyf/overlastic`](https://github.com/hairyf/overlastic) - A universal overlays utils, support react, vue, vanilla, svelte
-- [`react-navigation/​react-navigation`](https://github.com/react-navigation/react-navigation) - Routing and navigation for your React Native apps
-- [`RSSNext/​follow`](https://github.com/RSSNext/follow) - 🧡 Next generation information browser
-- [`SukkaW/eslint-config-sukka`](https://github.com/SukkaW/eslint-config-sukka) - ESLint configuration of Sukka
-- [`SukkaW/foxact`](https://github.com/SukkaW/foxact) - React Hooks/Utils done right. For Browser, SSR, and React Server Components
-- [`TanStack/​form`](https://github.com/TanStack/form) - 🤖 Powerful and type-safe form state management for the web. TS/JS, React Form, Solid Form, Lit Form and Vue Form
-- [`TanStack/​query`](https://github.com/TanStack/query) - 🤖 Powerful asynchronous state management, server-state utilities and data fetching for the web. TS/JS, React Query, Solid Query, Svelte Query and Vue Query
+- [`antfu/​eslint-config`](https://github.com/antfu/eslint-config) - Anthony's ESLint config preset.
+- [`christopher-buss/roblox-ts-eslint-config`](https://github.com/christopher-buss/roblox-ts-eslint-config) - iSentinel's ESLint config preset for Roblox-TS.
+- [`DimensionDev/Maskbook`](https://github.com/DimensionDev/Maskbook) - The portal to the new, open Internet. ([I:b]).
+- [`dream-num/univer`](https://github.com/dream-num/univer) - Univer is an open-source alternative to Google Sheets, Slides, and Docs.
+- [`hairyf/overlastic`](https://github.com/hairyf/overlastic) - A universal overlays utils, support react, vue, vanilla, svelte.
+- [`react-navigation/​react-navigation`](https://github.com/react-navigation/react-navigation) - Routing and navigation for your React Native apps.
+- [`RSSNext/​follow`](https://github.com/RSSNext/follow) - 🧡 Next generation information browser.
+- [`SukkaW/eslint-config-sukka`](https://github.com/SukkaW/eslint-config-sukka) - ESLint configuration of Sukka.
+- [`SukkaW/foxact`](https://github.com/SukkaW/foxact) - React Hooks/Utils done right. For Browser, SSR, and React Server Components.
+- [`TanStack/​form`](https://github.com/TanStack/form) - 🤖 Powerful and type-safe form state management for the web. TS/JS, React Form, Solid Form, Lit Form and Vue Form.
+- [`TanStack/​query`](https://github.com/TanStack/query) - 🤖 Powerful asynchronous state management, server-state utilities and data fetching for the web. TS/JS, React Query, Solid Query, Svelte Query and Vue Query.
 - [`TanStack/​router`](https://github.com/TanStack/router) - 🤖 Fully typesafe Router for React (and friends) w/ built-in caching, 1st class search-param APIs, client-side cache integration and isomorphic rendering.
-- [`TanStack/​store`](https://github.com/TanStack/store) - 🤖 Framework agnostic, type-safe store w/ reactive framework adapters
+- [`TanStack/​store`](https://github.com/TanStack/store) - 🤖 Framework agnostic, type-safe store w/ reactive framework adapters.
 
 Find more projects using ESLint React on [GitHub](https://github.com/Rel1cx/eslint-react/network/dependents).
 
