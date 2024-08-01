@@ -8,6 +8,7 @@
 ### 🪄 Improvements
 
 - Upgrade `@typescript-eslint`'s packages to `8.0.0`.
+- Improve website and documentation.
 
 ## v1.7.1 (Wed 31 Jul 2024)
 
