@@ -4,13 +4,13 @@
 
 # @eslint-react/shared
 
-## Interfaces
+## Type Aliases
 
-- [CustomAttribute](interfaces/CustomAttribute.md)
-- [CustomComponent](interfaces/CustomComponent.md)
-- [CustomHook](interfaces/CustomHook.md)
-- [ESLintReactSettings](interfaces/ESLintReactSettings.md)
-- [ESLintSettings](interfaces/ESLintSettings.md)
+- [CustomAttribute](type-aliases/CustomAttribute.md)
+- [CustomComponent](type-aliases/CustomComponent.md)
+- [CustomHook](type-aliases/CustomHook.md)
+- [ESLintReactSettings](type-aliases/ESLintReactSettings.md)
+- [ESLintSettings](type-aliases/ESLintSettings.md)
 
 ## Variables
 
