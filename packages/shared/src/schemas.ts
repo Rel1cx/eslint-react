@@ -128,12 +128,12 @@ export const ESLintSettingsSchema = optional(
   {},
 );
 
-export interface CustomHook extends InferOutput<typeof CustomHookSchema> {}
+export type CustomHook = InferOutput<typeof CustomHookSchema>;
 
-export interface CustomAttribute extends InferOutput<typeof CustomAttributeSchema> {}
+export type CustomAttribute = InferOutput<typeof CustomAttributeSchema>;
 
-export interface CustomComponent extends InferOutput<typeof CustomComponentSchema> {}
+export type CustomComponent = InferOutput<typeof CustomComponentSchema>;
 
-export interface ESLintReactSettings extends InferOutput<typeof ESLintReactSettingsSchema> {}
+export type ESLintReactSettings = InferOutput<typeof ESLintReactSettingsSchema>;
 
-export interface ESLintSettings extends InferOutput<typeof ESLintSettingsSchema> {}
+export type ESLintSettings = InferOutput<typeof ESLintSettingsSchema>;

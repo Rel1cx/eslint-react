@@ -11,6 +11,8 @@ import * as R from "remeda";
 import { name, version } from "../package.json";
 import { padKeysLeft } from "./utils";
 
+export { type ESLintReactSettings };
+
 const allPreset = {
   "avoid-shorthand-boolean": "warn",
   "avoid-shorthand-fragment": "warn",
