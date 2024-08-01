@@ -15,7 +15,7 @@ import eslintPluginYml from "eslint-plugin-yml";
 import tseslint from "typescript-eslint";
 import YamlParser from "yaml-eslint-parser";
 
-type FlatConfig = Parameters<typeof tseslint.config>[number];
+type Config = Parameters<typeof tseslint.config>[number];
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -41,7 +41,7 @@ const sortOptionsWithGroups = {
   groups: ["id", "type", "meta", "alias", "unknown"],
 } as const;
 
-const config: FlatConfig[] = [
+const config: Config[] = [
   gitignore(),
   {
     ignores: [
@@ -183,14 +183,7 @@ const config: FlatConfig[] = [
           partitionByComment: "Part:**",
         },
       ],
-      "perfectionist/sort-union-types": [
-        "warn",
-        {
-          type: "natural",
-          ignoreCase: false,
-          order: "asc",
-        },
-      ],
+      "perfectionist/sort-union-types": ["warn", sortOptions],
       // Part: unicorn rules
       "unicorn/template-indent": [
         "warn",
