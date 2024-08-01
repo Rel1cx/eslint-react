@@ -238,29 +238,28 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData2" }, messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
       ],
     },
-    // FIXME: Add support for detecting `useCallback`
-    // {
-    //   code: /* tsx */ `
-    //     import { useEffect, useState, useCallback } from "react";
+    {
+      code: /* tsx */ `
+        import { useEffect, useState, useCallback } from "react";
 
-    //     const Component = () => {
-    //       const [data1, setData1] = useState();
-    //       const [data2, setData2] = useState();
-    //       const setAll = useCallback(() => {
-    //         setData1();
-    //         setData2();
-    //       })
-    //       useEffect(() => {
-    //         setAll();
-    //       }, []);
-    //       return null;
-    //     }
-    //   `,
-    //   errors: [
-    //     { data: { name: "setData1" }, messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
-    //     { data: { name: "setData2" }, messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
-    //   ],
-    // },
+        const Component = () => {
+          const [data1, setData1] = useState();
+          const [data2, setData2] = useState();
+          const setAll = useCallback(() => {
+            setData1();
+            setData2();
+          })
+          useEffect(() => {
+            setAll();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData1" }, messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { data: { name: "setData2" }, messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
     {
       code: /* tsx */ `
         import { useEffect, useState } from "react";
@@ -314,6 +313,76 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
       ],
     },
+    {
+      code: /* tsx */ `
+        import { useEffect, useState, useCallback } from "react";
+
+        const Component = () => {
+          const [data, setData] = useState();
+          const setAll = useCallback(() => setData(), []);
+          useEffect(() => {
+            setAll()
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect, useState, useMemo } from "react";
+
+        const Component = () => {
+          const [data, setData] = useState();
+          const setAll = useMemo(() => () => setData(), []);
+          useEffect(() => {
+            setAll()
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
+    // TODO: Add support for detecting non-explicit-call in `useCallback`
+    // {
+    //   code: /* tsx */ `
+    //     import { useEffect, useState, useCallback } from "react";
+
+    //     const Component = () => {
+    //       const [data, setData] = useState();
+    //       const setAll = useCallback(setData, []);
+    //       useEffect(() => {
+    //         setAll()
+    //       }, []);
+    //       return null;
+    //     }
+    //   `,
+    //   errors: [
+    //     { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+    //   ],
+    // },
+    // TODO: Add support for detecting non-explicit-call in `useMemo`
+    // {
+    //   code: /* tsx */ `
+    //     import { useEffect, useState, useMemo } from "react";
+
+    //     const Component = () => {
+    //       const [data, setData] = useState();
+    //       const setAll = useMemo(() => setData, []);
+    //       useEffect(() => {
+    //         setAll()
+    //       }, []);
+    //       return null;
+    //     }
+    //   `,
+    //   errors: [
+    //     { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+    //   ],
+    // },
     // TODO: Add cleanup function check
     // {
     //   code: /* tsx */ `

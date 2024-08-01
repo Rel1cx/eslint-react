@@ -1,5 +1,6 @@
 export * from "./construction";
 export * from "./construction-hint";
+export * from "./function-init-path";
 export * from "./get-class-identifier";
 export * from "./get-function-identifier";
 export * from "./get-literal-value-type";

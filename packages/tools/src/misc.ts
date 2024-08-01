@@ -47,7 +47,7 @@ export function typeOf(t: unknown) {
   return Object.prototype.toString
     .call(t)
     .replace(/^\[object (.+)\]$/, "$1")
-    .toLowerCase() as "array" | "object" | ({} & string);
+    .toLowerCase() as "array" | "object" | (string & {});
 }
 
 /**
