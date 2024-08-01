@@ -658,9 +658,6 @@ importers:
 
   packages/tools:
     devDependencies:
-      birecord:
-        specifier: 0.1.1
-        version: 0.1.1
       effect:
         specifier: 3.6.0
         version: 3.6.0
@@ -704,6 +701,9 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.0
         version: 8.0.0(eslint@9.8.0)(typescript@5.5.4)
+      birecord:
+        specifier: ^0.1.1
+        version: 0.1.1
       remeda:
         specifier: ^2.6.0
         version: 2.6.0
