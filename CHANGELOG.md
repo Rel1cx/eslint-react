@@ -1,5 +1,10 @@
 ## v1.8.0 (Draft)
 
+### 🐞 Fixes
+
+- Fixed `ESLintReactSettings` type not being exported correctly.
+- Fixed the `set` function calls that are wrapped in a `useMemo` or `useCallback` like hook not being detected by `hooks-extra/no-direct-set-state-in-use-effect` and `hooks-extra/no-direct-set-state-in-use-layout-effect`.
+
 ### 🪄 Improvements
 
 - Upgrade `@typescript-eslint`'s packages to `8.0.0`.
