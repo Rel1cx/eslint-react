@@ -40,7 +40,7 @@ export default [
 
 ## Rules
 
-| Rule                 | Description                    | 💼  | 💭  | ❌  |
+| Rule                 | Description                    | 💼  | 💭  | 🪧  |
 | :------------------- | :----------------------------- | :-: | :-: | :-: |
 | `class-component`    | Print all class components.    | 🐞  |     |     |
 | `function-component` | Print all function components. | 🐞  |     |     |

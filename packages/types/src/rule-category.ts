@@ -3,7 +3,6 @@ export type RuleCategory =
   | "convention" // Rules to enforce naming conventions
   | "correctness" // Rules to indicate code that is outright wrong or useless
   | "debug" // Rules to help debug code (e.g. debug-function-component)
-  | "deprecated" // Rules that already deprecated and should not be used
   | "pedantic" // Rules which are rather strict or might have false positives
   | "perf" // Rules to indicate performance issues (e.g. no-constructed-context-value)
   | "restriction" // Rules that apply additional restrictions on the code (e.g. ban-html-props, ban-svg-props)
@@ -14,7 +13,6 @@ export type RuleCategory =
 export type RuleCategoryEmoji =
   | "⛔" // restriction
   | "✔️" // correctness
-  | "❌" // deprecated
   | "🎨" // style
   | "🐞" // debug
   | "📖" // convention

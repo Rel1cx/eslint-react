@@ -49,7 +49,7 @@ export default [
 
 ## Rules
 
-| Rule                                         | Description                                                                             | 💼  | 💭  | ❌  |
+| Rule                                         | Description                                                                             | 💼  | 💭  | 🪧  |
 | :------------------------------------------- | :-------------------------------------------------------------------------------------- | :-: | :-: | :-: |
 | `no-children-in-void-dom-elements`           | Prevents the use of `children` in void `DOM elements`.                                  |  ✔️  |     |     |
 | `no-dangerously-set-innerhtml`               | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 | 🔒  |     |     |

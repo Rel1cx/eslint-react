@@ -70,7 +70,7 @@ export default [
 
 ## Rules
 
-| Rule                                     | Description                                                                                          | 💼  | 💭  | ❌  |
+| Rule                                     | Description                                                                                          | 💼  | 💭  | 🪧  |
 | :--------------------------------------- | :--------------------------------------------------------------------------------------------------- | :-: | :-: | :-: |
 | `avoid-shorthand-boolean`                | Enforces using shorthand syntax for boolean attributes.                                              | 🎨  |     |     |
 | `avoid-shorthand-fragment`               | Enforces using shorthand syntax for fragments.                                                       | 🎨  |     |     |
