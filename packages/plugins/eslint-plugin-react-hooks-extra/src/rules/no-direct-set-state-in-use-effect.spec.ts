@@ -502,6 +502,33 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
       ],
     },
+    {
+      code: /* tsx */ `
+        import { useEffect, useState } from "react";
+
+        const Component1 = () => {
+          const [data, setData] = useState();
+          const effectFunction = () => {
+            setData()
+          }
+          useEffect(effectFunction, []);
+          return null;
+        }
+
+        const Component2 = () => {
+          const [data, setData] = useState();
+          const effectFunction = () => {
+            setData()
+          }
+          useEffect(effectFunction, []);
+          return null;
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
   ],
   valid: [
     ...allValid,
@@ -621,6 +648,42 @@ ruleTester.run(RULE_NAME, rule, {
           setData1();
           setData2();
         }
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useEffect, useState } from "react";
+
+      const Component1 = () => {
+        const [data, setData] = useState();
+        const effectFunction = () => {
+          setData()
+        }
+        return null;
+      }
+
+      const Component2 = () => {
+        const [data, setData] = useState();
+        useEffect(effectFunction, []);
+        return null;
+      }
+    `,
+    /* tsx */ `
+      import { useEffect, useState } from "react";
+
+      const Component1 = () => {
+        const [data, setData] = useState();
+        const setAll = () => {
+          setData();
+        }
+        return null;
+      }
+
+      const Component2 = () => {
+        const [data, setData] = useState();
+        useEffect(() => {
+          setAll();
+        }, []);
         return null;
       }
     `,
