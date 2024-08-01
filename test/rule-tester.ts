@@ -25,7 +25,7 @@ export const defaultLanguageOptionsWithTypes = {
   parserOptions: {
     ecmaFeatures: { jsx: true },
     project: "tsconfig.json",
-    // projectService: true,
+    projectService: true,
     tsconfigRootDir: getFixturesRootDir(),
   },
 } as const satisfies RuleTesterConfig["languageOptions"];

@@ -4,7 +4,7 @@ export default defineConfig(() => ({
   clean: true,
   dts: true,
   entry: ["src/index.ts"],
-  external: ["typescript"],
+  external: ["eslint", "typescript"],
   format: ["cjs", "esm"],
   minify: false,
   outDir: "dist",
