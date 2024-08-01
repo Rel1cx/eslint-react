@@ -35,7 +35,7 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup --dts-resolve",
     "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:type": "tsc --noEmit",
