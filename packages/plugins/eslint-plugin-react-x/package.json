@@ -2,6 +2,13 @@
   "name": "eslint-plugin-react-x",
   "version": "1.8.0-beta.1",
   "description": "ESLint React's ESLint plugin for React related rules.",
+  "keywords": [
+    "eslint",
+    "eslint-plugin",
+    "react",
+    "react-x",
+    "x-platform"
+  ],
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
     "url": "https://github.com/rel1cx/eslint-react/issues"

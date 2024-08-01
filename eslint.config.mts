@@ -6,7 +6,6 @@ import eslintCommentsPlugin from "eslint-plugin-eslint-comments";
 import eslintPluginPlugin from "eslint-plugin-eslint-plugin";
 import importPlugin from "eslint-plugin-import-x";
 import jsdocPlugin from "eslint-plugin-jsdoc";
-import eslintPluginMath from "eslint-plugin-math";
 import perfectionist from "eslint-plugin-perfectionist";
 import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import unicornPlugin from "eslint-plugin-unicorn";
@@ -68,7 +67,6 @@ const config: Config[] = [
   },
   // extends ...
   eslint.configs.recommended,
-  eslintPluginMath.configs.recommended,
   ...tseslint.configs.strict,
   // ...tseslint.configs.strictTypeChecked,
   perfectionist.configs["recommended-natural"],
@@ -145,6 +143,8 @@ const config: Config[] = [
         },
       ],
       "@typescript-eslint/prefer-nullish-coalescing": "off",
+      // Part: functional rules
+      "functional/no-return-void": "off",
       // Part: jsdoc rules
       "jsdoc/check-param-names": "warn",
       "jsdoc/check-tag-names": "warn",
