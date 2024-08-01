@@ -23,7 +23,8 @@
     "pnpm-lock.yaml",
     "test/fixtures",
     "website/public/**/*",
-    "THIRD-PARTY-LICENSE"
+    "THIRD-PARTY-LICENSE",
+    "README.md"
   ],
   "useGitignore": true,
   "words": [
