@@ -12,10 +12,6 @@
 - [MutRef](namespaces/MutRef/README.md)
 - [O](namespaces/O/README.md)
 
-## Classes
-
-- [BiRecord](classes/BiRecord.md)
-
 ## Type Aliases
 
 - [ArrayElement](type-aliases/ArrayElement.md)
@@ -30,6 +26,5 @@
 ## Functions
 
 - [asConst](functions/asConst.md)
-- [birecord](functions/birecord.md)
 - [narrow](functions/narrow.md)
 - [typeOf](functions/typeOf.md)
