@@ -25,7 +25,7 @@ import type { ERFunctionComponent } from "./component";
 import { DEFAULT_COMPONENT_HINT, ERComponentHint } from "./component-collector-hint";
 import { ERFunctionComponentFlag } from "./component-flag";
 import { getFunctionComponentIdentifier } from "./component-id";
-import { getComponentInitPath, hasCallInInitPath } from "./component-init-path";
+import { getComponentInitPath, hasCallInComponentInitPath } from "./component-init-path";
 import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
 import { isFunctionOfRenderMethod } from "./component-render-method";
 
@@ -64,10 +64,10 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
 
 function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {
   let flagRef = ERFunctionComponentFlag.None;
-  if (hasCallInInitPath("memo")(initPath)) {
+  if (hasCallInComponentInitPath("memo")(initPath)) {
     flagRef |= ERFunctionComponentFlag.Memo;
   }
-  if (hasCallInInitPath("forwardRef")(initPath)) {
+  if (hasCallInComponentInitPath("forwardRef")(initPath)) {
     flagRef |= ERFunctionComponentFlag.ForwardRef;
   }
   return flagRef;
