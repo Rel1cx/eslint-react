@@ -1,5 +1,5 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { getNestedIdentifiers, isFunction, isIIFE, NodeType } from "@eslint-react/ast";
+import { getNestedIdentifiers, isFunction, isIIFE, NodeType, traverseUpGuard } from "@eslint-react/ast";
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
 import { F, MutRef, O } from "@eslint-react/tools";
@@ -11,13 +11,13 @@ import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
 
-import { createRule, isSetStateCall, isThenCall } from "../utils";
+import { createRule, isSetStateCall, isThenCall, isVariableDeclaratorFromHookCall } from "../utils";
 
 export const RULE_NAME = "no-direct-set-state-in-use-layout-effect";
 
 type MessageID = ConstantCase<typeof RULE_NAME>;
 
-function isLayoutEffectFunction(
+function isEffectFunction(
   context: RuleContext,
   useSomeEffectAlias: string[],
 ) {
@@ -33,14 +33,14 @@ type FunctionKind = "cleanup" | "deferred" | "effect" | "immediate" | "other";
 function getCallKind(
   node: TSESTree.CallExpression,
   context: RuleContext,
-  useStateAlias: string[],
-  useLayoutEffectAlias: string[],
+  alias: readonly [useState: string[], useLayoutEffect: string[]],
 ) {
+  const [useStateAlias, useLayoutEffectAlias] = alias;
   return match<TSESTree.CallExpression, CallKind>(node)
-    .when(isThenCall, () => "then")
-    .when(isSetStateCall(context, useStateAlias), () => "setState")
     .when(isReactHookCallWithNameAlias("useState", context, useStateAlias), () => "useState")
     .when(isReactHookCallWithNameAlias("useLayoutEffect", context, useLayoutEffectAlias), () => "useLayoutEffect")
+    .when(isSetStateCall(context, useStateAlias), () => "setState")
+    .when(isThenCall, () => "then")
     .otherwise(() => "other");
 }
 
@@ -50,7 +50,7 @@ function getFunctionKind(
   useLayoutEffectAlias: string[],
 ) {
   return match<TSESTreeFunction, FunctionKind>(node)
-    .when(isLayoutEffectFunction(context, useLayoutEffectAlias), () => "effect")
+    .when(isEffectFunction(context, useLayoutEffectAlias), () => "effect")
     // .when(isCleanUpFunction, () => "cleanup")
     .when(isIIFE, () => "immediate")
     .otherwise(() => "other");
@@ -77,6 +77,10 @@ export default createRule<[], MessageID>({
     const effectFunctionIdentifiers: TSESTree.Identifier[] = [];
     const indirectFunctionCalls: TSESTree.CallExpression[] = [];
     const indirectSetStateCalls = new WeakMap<TSESTreeFunction, TSESTree.CallExpression[]>();
+    const indirectSetStateCallsInHooks = new WeakMap<
+      TSESTree.VariableDeclarator["init"] & {},
+      TSESTree.CallExpression[]
+    >();
     const onEffectFunctionEnter = (node: TSESTreeFunction) => {
       MutRef.set(effectFunctionRef, node);
     };
@@ -101,11 +105,17 @@ export default createRule<[], MessageID>({
         const effectFn = MutRef.get(effectFunctionRef);
         const [parentFn, parentFnKind] = R.last(functionStack) ?? [];
         if (parentFn?.async) return;
-        const callKind = getCallKind(node, context, useStateAlias, useLayoutEffectAlias);
-        match(callKind)
+        match(getCallKind(node, context, [useStateAlias, useLayoutEffectAlias]))
           .with("setState", () => {
             if (!parentFn) return;
             if (parentFn !== effectFn && parentFnKind !== "immediate") {
+              const variableDeclaratorFromHookCall = traverseUpGuard(node, isVariableDeclaratorFromHookCall);
+              if (O.isSome(variableDeclaratorFromHookCall)) {
+                const vd = variableDeclaratorFromHookCall.value;
+                const calls = indirectSetStateCallsInHooks.get(vd.init) ?? [];
+                indirectSetStateCallsInHooks.set(vd.init, [...calls, node]);
+                return;
+              }
               const calls = indirectSetStateCalls.get(parentFn) ?? [];
               indirectSetStateCalls.set(parentFn, [...calls, node]);
               return;
@@ -115,6 +125,7 @@ export default createRule<[], MessageID>({
               node,
             });
           })
+          // .with(P.union("useMemo", "useCallback"), () => {})
           .with("useLayoutEffect", () => {
             if (node.arguments.every(isFunction)) return;
             const identifiers = getNestedIdentifiers(node);
@@ -129,13 +140,16 @@ export default createRule<[], MessageID>({
       },
       "Program:exit"() {
         const getSetStateCalls = (id: TSESTree.Identifier | string, initialScope: Scope.Scope) => {
-          return F.pipe(
-            findVariable(id, initialScope),
-            O.flatMap(getVariableNode(0)),
-            O.filter(isFunction),
-            O.flatMapNullable((fn) => indirectSetStateCalls.get(fn)),
-            O.getOrElse(() => []),
-          );
+          const node = O.flatMap(findVariable(id, initialScope), getVariableNode(0)).pipe(O.getOrNull);
+          switch (node?.type) {
+            case NodeType.FunctionDeclaration:
+            case NodeType.FunctionExpression:
+            case NodeType.ArrowFunctionExpression:
+              return indirectSetStateCalls.get(node) ?? [];
+            case NodeType.CallExpression:
+              return indirectSetStateCallsInHooks.get(node) ?? [];
+          }
+          return [];
         };
         for (const { callee } of indirectFunctionCalls) {
           if (!("name" in callee)) continue;
