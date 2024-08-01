@@ -6,7 +6,7 @@ export default defineConfig(() => ({
   entry: ["index.ts"],
   external: ["eslint", "typescript"],
   format: ["cjs", "esm"],
-  minify: true,
+  minify: false,
   outDir: "dist",
   platform: "node",
   shims: false,
