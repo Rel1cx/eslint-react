@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
     },
     messages: {
       NO_MISSING_KEY: "Missing 'key' prop for element when rendering list.",
-      NO_MISSING_KEY_WITH_FRAGMENT: "Use fragment component instead of '<>' because it does not support key prop.",
+      NO_MISSING_KEY_WITH_FRAGMENT: "Use fragment component instead of '<>' because it does not support `key`.",
     },
     schema: [],
   },

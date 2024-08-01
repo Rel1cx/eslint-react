@@ -35,11 +35,11 @@
 | `no-create-ref`                          | Prevents using `createRef`.                                                                          |
 | `no-default-props`                       | Prevents using `defaultProps` property in favor of ES6 default parameters.                           |
 | `no-direct-mutation-state`               | Prevents direct mutation of `this.state`.                                                            |
-| `no-duplicate-key`                       | Prevents duplicate `key` props on elements in the same array or a list of `children`.                |
-| `no-implicit-key`                        | Prevents `key` prop from not being explicitly specified (e.g. spreading `key` prop from objects).    |
+| `no-duplicate-key`                       | Prevents duplicate `key` on elements in the same array or a list of `children`.                      |
+| `no-implicit-key`                        | Prevents `key` from not being explicitly specified (e.g. spreading `key` from objects).              |
 | `no-leaked-conditional-rendering`        | Prevents problematic leaked values from being rendered.                                              |
 | `no-missing-component-display-name`      | Enforces that all components have a `displayName` which can be used in devtools.                     |
-| `no-missing-key`                         | Prevents missing `key` prop on items in list rendering.                                              |
+| `no-missing-key`                         | Prevents missing `key` on items in list rendering.                                                   |
 | `no-nested-components`                   | Prevents nesting component definitions inside other components.                                      |
 | `no-props-types`                         | Prevents using `propTypes` in favor of TypeScript or another type-checking solution.                 |
 | `no-redundant-should-component-update`   | Prevents using `shouldComponentUpdate` when extending `React.PureComponent`.                         |
