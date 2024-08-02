@@ -11,7 +11,7 @@ import * as R from "remeda";
 import type { ConstantCase } from "string-ts";
 import { match } from "ts-pattern";
 
-import { createRule, isSetStateCall, isThenCall, isVariableDeclaratorFromHookCall } from "../utils";
+import { createRule, isFromUseStateCall, isSetStateCall, isThenCall, isVariableDeclaratorFromHookCall } from "../utils";
 
 export const RULE_NAME = "no-direct-set-state-in-use-effect";
 
@@ -76,6 +76,8 @@ export default createRule<[], MessageID>({
     const effectFunctionIdentifiers: TSESTree.Identifier[] = [];
     const indirectFunctionCalls: TSESTree.CallExpression[] = [];
     const indirectSetStateCalls = new WeakMap<TSESTreeFunction, TSESTree.CallExpression[]>();
+    const indirectSetStateCallsAsEFs = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
+    const indirectSetStateCallsAsArgs = new WeakMap<TSESTree.CallExpression, TSESTree.Identifier[]>();
     const indirectSetStateCallsInHooks = new WeakMap<
       TSESTree.VariableDeclarator["init"] & {},
       TSESTree.CallExpression[]
@@ -108,9 +110,9 @@ export default createRule<[], MessageID>({
           .with("setState", () => {
             if (!parentFn) return;
             if (parentFn !== effectFn && parentFnKind !== "immediate") {
-              const variableDeclaratorFromHookCall = traverseUpGuard(node, isVariableDeclaratorFromHookCall);
-              if (O.isSome(variableDeclaratorFromHookCall)) {
-                const vd = variableDeclaratorFromHookCall.value;
+              const maybeVd = traverseUpGuard(node, isVariableDeclaratorFromHookCall);
+              if (O.isSome(maybeVd)) {
+                const vd = maybeVd.value;
                 const calls = indirectSetStateCallsInHooks.get(vd.init) ?? [];
                 indirectSetStateCallsInHooks.set(vd.init, [...calls, node]);
                 return;
@@ -137,8 +139,51 @@ export default createRule<[], MessageID>({
           })
           .otherwise(F.constVoid);
       },
+      Identifier(node) {
+        if (!node.parent) return;
+        if (!isFromUseStateCall(context, useStateAlias)(node)) return;
+        switch (node.parent.type) {
+          case NodeType.CallExpression: {
+            const [firstArg] = node.parent.arguments;
+            if (node !== firstArg) break;
+            // const [state, setState] = useState();
+            // const set = useCallback(setState, []);
+            // useEffect(set, []);
+            if (isReactHookCallWithNameAlias("useCallback", context, useStateAlias)(node.parent)) {
+              const maybeVd = traverseUpGuard(node.parent, isVariableDeclaratorFromHookCall);
+              if (O.isNone(maybeVd)) break;
+              const vd = maybeVd.value;
+              const calls = indirectSetStateCallsAsArgs.get(vd.init) ?? [];
+              indirectSetStateCallsAsArgs.set(vd.init, [...calls, node]);
+            }
+            // const [state, setState] = useState();
+            // useEffect(setState);
+            if (isReactHookCallWithNameAlias("useEffect", context, useEffectAlias)(node.parent)) {
+              const calls = indirectSetStateCallsAsArgs.get(node.parent) ?? [];
+              indirectSetStateCallsAsEFs.set(node.parent, [...calls, node]);
+            }
+            break;
+          }
+          case NodeType.ArrowFunctionExpression: {
+            const parent = node.parent.parent;
+            if (parent?.type !== NodeType.CallExpression) break;
+            // const [state, setState] = useState();
+            // const set = useMemo(() => setState, []);
+            // useEffect(set, []);
+            if (!isReactHookCallWithNameAlias("useMemo", context, useStateAlias)(parent)) break;
+            const maybeVd = traverseUpGuard(parent, isVariableDeclaratorFromHookCall);
+            if (O.isNone(maybeVd)) break;
+            const vd = maybeVd.value;
+            const calls = indirectSetStateCallsAsArgs.get(vd.init) ?? [];
+            indirectSetStateCallsAsArgs.set(vd.init, [...calls, node]);
+          }
+        }
+      },
       "Program:exit"() {
-        const getSetStateCalls = (id: TSESTree.Identifier | string, initialScope: Scope.Scope) => {
+        const getSetStateCalls = (
+          id: TSESTree.Identifier | string,
+          initialScope: Scope.Scope,
+        ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
           const node = O.flatMap(findVariable(id, initialScope), getVariableNode(0)).pipe(O.getOrNull);
           switch (node?.type) {
             case NodeType.FunctionDeclaration:
@@ -146,10 +191,19 @@ export default createRule<[], MessageID>({
             case NodeType.ArrowFunctionExpression:
               return indirectSetStateCalls.get(node) ?? [];
             case NodeType.CallExpression:
-              return indirectSetStateCallsInHooks.get(node) ?? [];
+              return indirectSetStateCallsInHooks.get(node) ?? indirectSetStateCallsAsArgs.get(node) ?? [];
           }
           return [];
         };
+        for (const [_, calls] of indirectSetStateCallsAsEFs) {
+          for (const call of calls) {
+            context.report({
+              data: { name: call.name },
+              messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT",
+              node: call,
+            });
+          }
+        }
         for (const { callee } of indirectFunctionCalls) {
           if (!("name" in callee)) continue;
           const { name } = callee;
