@@ -42,7 +42,6 @@ A series of composable ESLint rules rewritten from scratch for libraries and fra
 - [`ensdomains/ensdomains-landing`](https://github.com/ensdomains/ensdomains-landing) - ENS Homepage V2, the main homepage of the ENS protocol.
 - [`hairyf/overlastic`](https://github.com/hairyf/overlastic) - A universal overlays utils, support react, vue, vanilla, svelte.
 - [`johannschopplich/unlazy`](https://github.com/johannschopplich/unlazy) - 🪧 Universal lazy loading library for placeholder images leveraging native browser APIs.
-- [`noveogroup-amorgunov/nukeapp`](https://github.com/noveogroup-amorgunov/nukeapp) - An open source frontend application built using the React ⚛️ and Feature-Sliced Design 🍰.
 - [`react-navigation/​react-navigation`](https://github.com/react-navigation/react-navigation) - Routing and navigation for your React Native apps.
 - [`RSSNext/​follow`](https://github.com/RSSNext/follow) - 🧡 Next generation information browser.
 - [`SukkaW/eslint-config-sukka`](https://github.com/SukkaW/eslint-config-sukka) - ESLint configuration of Sukka.

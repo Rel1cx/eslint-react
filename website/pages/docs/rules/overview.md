@@ -46,7 +46,7 @@
 | [`no-default-props`](no-default-props)                                             | Prevents using `defaultProps` property in favor of ES6 default parameters.                           |  ✔️  |     |     |
 | [`no-direct-mutation-state`](no-direct-mutation-state)                             | Prevents direct mutation of `this.state`.                                                            |  ✔️  |     |     |
 | [`no-duplicate-key`](no-duplicate-key)                                             | Prevents duplicate `key` on elements in the same array or a list of `children`.                      |  ✔️  |     |     |
-| [`no-implicit-key`](no-implicit-key)                                               | Prevents `key` from not being explicitly specified (e.g. spreading `key` from objects).              | 🧐  |     | 📐  |
+| [`no-implicit-key`](no-implicit-key)                                               | Prevents `key` from not being explicitly specified (e.g. spreading `key` from objects).              | 🧐  |     |     |
 | [`no-leaked-conditional-rendering`](no-leaked-conditional-rendering)               | Prevents problematic leaked values from being rendered.                                              | 🧐  | 💭  |     |
 | [`no-missing-component-display-name`](no-missing-component-display-name)           | Enforces that all components have a `displayName` which can be used in devtools.                     | 🐞  |     |     |
 | [`no-missing-key`](no-missing-key)                                                 | Prevents missing `key` on items in list rendering.                                                   |  ✔️  |     |     |
@@ -78,7 +78,7 @@
 | [`dom/no-dangerously-set-innerhtml`](dom-no-dangerously-set-innerhtml)                             | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 | 🔒  |     |     |
 | [`dom/no-dangerously-set-innerhtml-with-children`](dom-no-dangerously-set-innerhtml-with-children) | Prevents `DOM element` using `dangerouslySetInnerHTML` and `children` at the same time. |  ✔️  |     |     |
 | [`dom/no-find-dom-node`](dom-no-find-dom-node)                                                     | Prevents using `findDOMNode`.                                                           | ⛔  |     |     |
-| [`dom/no-missing-button-type`](dom-no-missing-button-type)                                         | Enforces explicit `type` attribute for `<button>` elements.                             |  ✔️  |     |     |
+| [`dom/no-missing-button-type`](dom-no-missing-button-type)                                         | Enforces explicit `type` attribute for `<button>` elements.                             |  ✔️  | 📐  |     |
 | [`dom/no-missing-iframe-sandbox`](dom-no-missing-iframe-sandbox)                                   | Enforces explicit `sandbox` attribute for `iframe` elements.                            | 🔒  |     |     |
 | [`dom/no-namespace`](dom-no-namespace)                                                             | Enforces the absence of a `namespace` in React elements.                                |  ✔️  |     |     |
 | [`dom/no-render-return-value`](dom-no-render-return-value)                                         | Prevents using the return value of `ReactDOM.render`.                                   | ⛔  |     |     |
