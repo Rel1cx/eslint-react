@@ -116,8 +116,8 @@ importers:
         specifier: 3.1.0
         version: 3.1.0(eslint@9.8.0)(typescript@5.5.4)
       eslint-plugin-jsdoc:
-        specifier: 48.10.2
-        version: 48.10.2(eslint@9.8.0)
+        specifier: 48.11.0
+        version: 48.11.0(eslint@9.8.0)
       eslint-plugin-perfectionist:
         specifier: 3.0.0
         version: 3.0.0(eslint@9.8.0)(typescript@5.5.4)
@@ -2902,6 +2902,7 @@ packages:
 
   bun@1.1.21:
     resolution: {integrity: sha512-mvqYEvafGskIVTjlftbKvsXtyR6z/SQnhJsVw0xCU46pc56oX1sAGvaemWKOy/sy/gGMHcgLE0KUidDQQzqXWQ==}
+    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -3599,8 +3600,8 @@ packages:
     peerDependencies:
       eslint: ^9.8.0
 
-  eslint-plugin-jsdoc@48.10.2:
-    resolution: {integrity: sha512-xTkf/MmEeVrTbezc6kDqCJmK9RcseIKo8X4oyoDCMvV4LY8dqrQi8kmfRrv9n0gNBkCclevaOh2Lkmu6Fs8SLg==}
+  eslint-plugin-jsdoc@48.11.0:
+    resolution: {integrity: sha512-d12JHJDPNo7IFwTOAItCeJY1hcqoIxE0lHA8infQByLilQ9xkqrRa6laWCnsuCrf+8rUnvxXY1XuTbibRBNylA==}
     engines: {node: '>=18'}
     peerDependencies:
       eslint: ^9.8.0
@@ -3969,6 +3970,7 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -4149,6 +4151,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -9256,7 +9259,7 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-jsdoc@48.10.2(eslint@9.8.0):
+  eslint-plugin-jsdoc@48.11.0(eslint@9.8.0):
     dependencies:
       '@es-joy/jsdoccomment': 0.46.0
       are-docs-informative: 0.0.2
