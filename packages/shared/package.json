@@ -48,7 +48,7 @@
   "devDependencies": {
     "@types/picomatch": "^3.0.0",
     "micro-memoize": "4.1.2",
-    "tsup": "8.2.3",
+    "tsup": "8.2.4",
     "type-fest": "4.23.0",
     "valibot": "0.37.0"
   }

@@ -41,28 +41,29 @@ export function decodeSettings(data: unknown): ESLintReactSettings {
  * @returns The expanded settings.
  * @internal
  */
-export const expandSettings = memoize((settings: ESLintReactSettings): ESLintReactSettingsExpanded => {
-  return {
-    ...settings,
-    additionalComponents: settings.additionalComponents?.map((component) => ({
-      ...component,
-      attributes: component.attributes?.map((attr) => ({
-        ...attr,
-        as: attr.as ?? attr.name,
+export const expandSettings = memoize(
+  (settings: ESLintReactSettings): ESLintReactSettingsExpanded => {
+    return {
+      ...settings,
+      additionalComponents: settings.additionalComponents?.map((component) => ({
+        ...component,
+        attributes: component.attributes?.map((attr) => ({
+          ...attr,
+          as: attr.as ?? attr.name,
+        })) ?? [],
+        re: pm.makeRe(component.name, { fastpaths: true }),
       })) ?? [],
-      re: pm.makeRe(component.name, { fastpaths: true }),
-    })) ?? [],
-  };
-}, { isDeepEqual: false });
+    };
+  },
+  { isDeepEqual: false },
+);
 
 /**
  * The default ESLint settings for "react-x".
  */
 export const DEFAULT_ESLINT_REACT_SETTINGS = {
   additionalHooks: {
-    useLayoutEffect: [
-      "useIsomorphicLayoutEffect",
-    ],
+    useLayoutEffect: ["useIsomorphicLayoutEffect"],
   },
   polymorphicPropName: "as",
   version: "detect",

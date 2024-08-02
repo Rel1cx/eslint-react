@@ -43,6 +43,6 @@
   },
   "devDependencies": {
     "effect": "3.6.0",
-    "tsup": "8.2.3"
+    "tsup": "8.2.4"
   }
 }
