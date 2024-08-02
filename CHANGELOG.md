@@ -1,3 +1,9 @@
+## v1.8.1 (Draft)
+
+### 🪄 Improvements
+
+- Enhance rule `hooks-extra/no-direct-set-state-in-use-effect` and `hooks-extra/no-direct-set-state-in-use-layout-effect` to support `set` function directly passed to `useCallback` and `useMemo` without explicitly calling it.
+
 ## v1.8.0 (Fri 02 Aug 2024)
 
 ### 🐞 Fixes

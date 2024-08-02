@@ -6,4 +6,4 @@
 
 # Type Alias: RuleCategory
 
-> **RuleCategory**: `"complexity"` \| `"convention"` \| `"correctness"` \| `"debug"` \| `"deprecated"` \| `"pedantic"` \| `"perf"` \| `"restriction"` \| `"security"` \| `"style"` \| `"suspicious"`
+> **RuleCategory**: `"complexity"` \| `"convention"` \| `"correctness"` \| `"debug"` \| `"pedantic"` \| `"perf"` \| `"restriction"` \| `"security"` \| `"style"` \| `"suspicious"`
