@@ -556,6 +556,37 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
       ],
     },
+    {
+      code: /* tsx */ `
+        import { useEffect, useState } from "react";
+
+        function useCustomHook() {
+          const [data, setData] = useState();
+          const handlerWatcher = () => {
+              setData()
+          }
+          useEffect(() => {
+              const abortController = new AbortController()
+              new MutationObserverWatcher(searchAvatarMetaSelector())
+                  .addListener('onChange', handlerWatcher)
+                  .startWatch(
+                      {
+                          childList: true,
+                          subtree: true,
+                          attributes: true,
+                          attributeFilter: ['src'],
+                      },
+                      abortController.signal,
+                  )
+              handlerWatcher();
+              return () => abortController.abort()
+          }, [handlerWatcher])
+        }
+      `,
+      errors: [
+        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+      ],
+    },
   ],
   valid: [
     ...allValid,
@@ -712,6 +743,31 @@ ruleTester.run(RULE_NAME, rule, {
           setAll();
         }, []);
         return null;
+      }
+    `,
+    /* tsx */ `
+      import { useEffect, useState } from "react";
+
+      function useCustomHook() {
+        const [data, setData] = useState();
+        const handlerWatcher = () => {
+            setData()
+        }
+        useEffect(() => {
+            const abortController = new AbortController()
+            new MutationObserverWatcher(searchAvatarMetaSelector())
+                .addListener('onChange', handlerWatcher)
+                .startWatch(
+                    {
+                        childList: true,
+                        subtree: true,
+                        attributes: true,
+                        attributeFilter: ['src'],
+                    },
+                    abortController.signal,
+                )
+            return () => abortController.abort()
+        }, [handlerWatcher])
       }
     `,
   ],

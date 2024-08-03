@@ -129,7 +129,8 @@ export default createRule<[], MessageID>({
           })
           // .with(P.union("useMemo", "useCallback"), () => {})
           .with("useLayoutEffect", () => {
-            if (node.arguments.every(isFunction)) return;
+            const [firstArg] = node.arguments;
+            if (isFunction(firstArg)) return;
             const identifiers = getNestedIdentifiers(node);
             effectFunctionIdentifiers.push(...identifiers);
           })
