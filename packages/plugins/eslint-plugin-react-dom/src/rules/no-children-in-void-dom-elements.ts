@@ -1,5 +1,5 @@
 import { findPropInAttributes, getElementType } from "@eslint-react/jsx";
-import { decodeSettings } from "@eslint-react/shared";
+import { decodeSettings, expandSettings } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ConstantCase } from "string-ts";
@@ -43,11 +43,11 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const { polymorphicPropName } = decodeSettings(context.settings);
+    const { components, polymorphicPropName } = expandSettings(decodeSettings(context.settings));
     return {
       JSXElement(node) {
         const openingElementNameExpression = node.openingElement;
-        const elementType = getElementType(context, polymorphicPropName)(openingElementNameExpression);
+        const elementType = getElementType(context, components, polymorphicPropName)(openingElementNameExpression);
         if (!elementType || !voidElements.has(elementType)) return;
         if (node.children.length > 0) {
           context.report({

@@ -1,5 +1,5 @@
 import { findPropInAttributes, getElementType, getPropValue } from "@eslint-react/jsx";
-import { decodeSettings } from "@eslint-react/shared";
+import { decodeSettings, expandSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import * as R from "remeda";
@@ -43,10 +43,10 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const polymorphicPropName = decodeSettings(context.settings).polymorphicPropName;
+    const { components, polymorphicPropName } = expandSettings(decodeSettings(context.settings));
     return {
       JSXElement(node) {
-        const elementType = getElementType(context, polymorphicPropName)(node.openingElement);
+        const elementType = getElementType(context, components, polymorphicPropName)(node.openingElement);
         if (elementType !== "iframe") return;
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);

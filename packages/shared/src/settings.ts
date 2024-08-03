@@ -23,6 +23,7 @@ export interface CustomComponentExpanded extends CustomComponent {
  */
 export interface ESLintReactSettingsExpanded extends ESLintReactSettings {
   additionalComponents: CustomComponentExpanded[];
+  components: Map<string, string>;
 }
 
 /**
@@ -43,9 +44,10 @@ export function decodeSettings(data: unknown): ESLintReactSettings {
  */
 export const expandSettings = memoize(
   (settings: ESLintReactSettings): ESLintReactSettingsExpanded => {
+    const additionalComponents = settings.additionalComponents ?? [];
     return {
       ...settings,
-      additionalComponents: settings.additionalComponents?.map((component) => ({
+      additionalComponents: additionalComponents.map((component) => ({
         ...component,
         attributes: component.attributes?.map((attr) => ({
           ...attr,
@@ -53,6 +55,12 @@ export const expandSettings = memoize(
         })) ?? [],
         re: pm.makeRe(component.name, { fastpaths: true }),
       })) ?? [],
+      components: additionalComponents.reduce((acc, component) => {
+        const { name, as, attributes, selector } = component;
+        if (!name || !as || selector || attributes.length > 0) return acc;
+        if (!(/^[\w-]+$/u.test(name))) return acc;
+        return acc.set(name, as);
+      }, new Map<string, string>()),
     };
   },
   { isDeepEqual: false },
