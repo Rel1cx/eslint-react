@@ -1,3 +1,9 @@
+## v1.8.2 (Sat 03 Aug 2024)
+
+### 🐞 Fixes
+
+- Fixed legacy presets not being exported correctly in `@eslint-react/eslint-plugin`.
+
 ## v1.8.1 (Sat 03 Aug 2024)
 
 ### 🪄 Improvements
