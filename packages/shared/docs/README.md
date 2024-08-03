@@ -28,4 +28,4 @@
 
 ## Functions
 
-- [createRuleForPlugin](functions/createRuleForPlugin.md)
+- [defineSettings](functions/defineSettings.md)

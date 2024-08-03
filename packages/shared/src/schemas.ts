@@ -83,13 +83,52 @@ export const CustomComponentSchema = object({
  * @internal
  */
 export const ESLintReactSettingsSchema = object({
+  /**
+   * The source where React is imported from.
+   * @description This allows to specify a custom import location for React when not using the official distribution.
+   * @default `"react"`
+   * @example `"@pika/react"`
+   */
   importSource: optional(string()),
+  /**
+   * The identifier that’s used for JSX Element creation.
+   * @default `"createElement"`
+   */
   jsxPragma: optional(string()),
+  /**
+   * The identifier that’s used for JSX fragment elements.
+   * @description This should not be a member expression (i.e. use "Fragment" instead of "React.Fragment").
+   * @default `"Fragment"`
+   */
   jsxPragmaFrag: optional(string()),
+  /**
+   * The name of the prop that is used for polymorphic components.
+   * @description This is used to determine the type of the component.
+   * @example `"as"`
+   */
   polymorphicPropName: optional(string()),
+  /**
+   * @internal
+   */
   strict: optional(boolean()),
+  /**
+   * React version to use, "detect" means auto detect React version from the project’s dependencies.
+   * If `importSource` is specified, an equivalent version of React should be provided here.
+   * @example `"18.3.1"`
+   * @default `"detect"`
+   */
   version: optional(string()),
+  /**
+   * An array of user-defined components
+   * @description This is used to inform the ESLint React plugins how to treat these components during checks.
+   * @example `[{ name: "Link", as: "a", attributes: [{ name: "to", as: "href" }, { name: "rel", defaultValue: "noopener noreferrer" }] }]`
+   */
   additionalComponents: optional(array(CustomComponentSchema)),
+  /**
+   * A object of aliases for React built-in hooks.
+   * @description ESLint React will recognize these aliases as equivalent to the built-in hooks in all its rules.
+   * @example `{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }`
+   */
   additionalHooks: optional(object({
     use: optional(array(string())),
     useActionState: optional(array(string())),

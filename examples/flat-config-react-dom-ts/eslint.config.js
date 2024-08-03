@@ -25,6 +25,24 @@ export default [
         tsconfigRootDir: import.meta.dirname,
       },
     },
+    settings: {
+      "react-x": {
+        jsxPragma: "createElement",
+        jsxPragmaFrag: "Fragment",
+        version: "detect",
+        polymorphicPropName: "as",
+        additionalHooks: {
+          useLayoutEffect: ["useIsomorphicLayoutEffect"],
+        },
+        additionalComponents: [{
+          name: "Link",
+          as: "a",
+          attributes: [
+            { name: "to", as: "href" },
+          ],
+        }],
+      },
+    },
   },
   // TypeScript languageOptions for config files
   {

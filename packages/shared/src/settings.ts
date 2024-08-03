@@ -27,10 +27,19 @@ export interface ESLintReactSettingsExpanded extends ESLintReactSettings {
 }
 
 /**
+ * Defines the "react-x" settings in a type-safe way.
+ * @param settings The settings.
+ * @returns The ESLint settings containing the "react-x" object.
+ */
+export function defineSettings(settings: ESLintReactSettings) {
+  return parse(ESLintSettingsSchema, settings)["react-x"] ?? {};
+}
+
+/**
  * Decodes settings from a data object from `context.settings`.
+ * @internal
  * @param data The data object.
  * @returns settings The settings.
- * @internal
  */
 export function decodeSettings(data: unknown): ESLintReactSettings {
   return parse(ESLintSettingsSchema, data)["react-x"] ?? {};
