@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow duplicate keys in 'key' prop when rendering list",
+      description: "disallow duplicate keys when rendering list",
     },
     messages: {
       noDuplicateKey: "A key must be unique. '{{value}}' is duplicated.",

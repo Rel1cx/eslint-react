@@ -19,10 +19,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "require 'key' prop when rendering list",
+      description: "require 'key' when rendering list",
     },
     messages: {
-      noMissingKey: "Missing 'key' prop for element when rendering list.",
+      noMissingKey: "Missing 'key' for element when rendering list.",
       noMissingKeyWithFragment: "Use fragment component instead of '<>' because it does not support `key`.",
     },
     schema: [],
