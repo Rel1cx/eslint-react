@@ -5,14 +5,14 @@ import { F, MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 import { isMatching, match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-duplicate-key";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
       description: "disallow duplicate keys in 'key' prop when rendering list",
     },
     messages: {
-      NO_DUPLICATE_KEY: "A key must be unique. '{{value}}' is duplicated.",
+      noDuplicateKey: "A key must be unique. '{{value}}' is duplicated.",
     },
     schema: [],
   },
@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
               data: {
                 value: context.sourceCode.getText(v),
               },
-              messageId: "NO_DUPLICATE_KEY",
+              messageId: "noDuplicateKey",
               node: v,
             })
             : O.none();
@@ -120,7 +120,7 @@ export default createRule<[], MessageID>({
             data: {
               value: context.sourceCode.getText(value),
             },
-            messageId: "NO_DUPLICATE_KEY",
+            messageId: "noDuplicateKey",
             node: attr,
           });
         }

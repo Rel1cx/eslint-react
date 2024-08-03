@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
     },
@@ -37,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
     },
@@ -56,7 +56,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
     },
@@ -75,7 +75,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
     },
@@ -94,7 +94,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
     },
@@ -113,7 +113,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
     },
@@ -132,7 +132,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
     },
@@ -148,7 +148,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -169,7 +169,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -190,7 +190,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -211,7 +211,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -232,7 +232,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -253,7 +253,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -274,7 +274,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -295,7 +295,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -316,7 +316,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -337,7 +337,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -358,7 +358,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -379,7 +379,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -403,7 +403,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_CALLBACK_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseCallbackHasNonEmptyDeps",
         },
       ],
       settings: {

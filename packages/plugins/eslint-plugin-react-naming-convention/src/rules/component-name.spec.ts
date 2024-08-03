@@ -5,16 +5,16 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `<Test_component />`,
-      errors: [{ messageId: "COMPONENT_NAME" }],
+      errors: [{ messageId: "componentName" }],
     },
     {
       code: /* tsx */ `<TestComponent />`,
-      errors: [{ messageId: "COMPONENT_NAME" }],
+      errors: [{ messageId: "componentName" }],
       options: [{ rule: "CONSTANT_CASE" }],
     },
     {
       code: /* tsx */ `<TestComponent />`,
-      errors: [{ messageId: "COMPONENT_NAME" }],
+      errors: [{ messageId: "componentName" }],
       options: ["CONSTANT_CASE"],
     },
     {
@@ -23,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
             return <div>foo</div>
         }
       `,
-      errors: [{ messageId: "COMPONENT_NAME" }],
+      errors: [{ messageId: "componentName" }],
     },
     {
       code: /* tsx */ `
@@ -31,7 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
             return <div>foo</div>
         }
       `,
-      errors: [{ messageId: "COMPONENT_NAME" }],
+      errors: [{ messageId: "componentName" }],
       options: [{ rule: "CONSTANT_CASE" }],
     },
   ],

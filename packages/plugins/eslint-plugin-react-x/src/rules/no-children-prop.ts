@@ -3,13 +3,13 @@ import { isCreateElementCall } from "@eslint-react/core";
 import { findPropInProperties, getProp } from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-children-prop";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
       description: "disallow passing 'children' as props",
     },
     messages: {
-      NO_CHILDREN_PROP: "Do not pass 'children' as props.",
+      noChildrenProp: "Do not pass 'children' as props.",
     },
     schema: [],
   },
@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
         if (!props || props.type !== NodeType.ObjectExpression) return;
         O.map(findPropInProperties(props.properties, context, initialScope)("children"), prop => {
           context.report({
-            messageId: "NO_CHILDREN_PROP",
+            messageId: "noChildrenProp",
             node: prop,
           });
         });
@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
         const initialScope = context.sourceCode.getScope(node);
         O.map(getProp(node.openingElement.attributes, "children", context, initialScope), prop => {
           context.report({
-            messageId: "NO_CHILDREN_PROP",
+            messageId: "noChildrenProp",
             node: prop,
           });
         });

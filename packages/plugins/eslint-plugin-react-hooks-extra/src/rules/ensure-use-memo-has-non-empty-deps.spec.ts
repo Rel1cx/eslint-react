@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
     },
@@ -38,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
     },
@@ -58,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
     },
@@ -73,7 +73,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
     },
@@ -88,7 +88,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
     },
@@ -104,7 +104,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
     },
@@ -120,7 +120,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -141,7 +141,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -162,7 +162,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -183,7 +183,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -204,7 +204,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -225,7 +225,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -246,7 +246,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -267,7 +267,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -288,7 +288,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -309,7 +309,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -330,7 +330,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -351,7 +351,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -372,7 +372,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
       settings: {
@@ -395,7 +395,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
     },
@@ -411,7 +411,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
         },
       ],
     },

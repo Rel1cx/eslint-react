@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
           setterName: "setState",
           stateName: "state",
         },
-        messageId: "USE_STATE",
+        messageId: "useState",
       }],
     },
     {
@@ -36,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
           setterName: "setState",
           stateName: "state",
         },
-        messageId: "USE_STATE",
+        messageId: "useState",
       }],
     },
     {
@@ -54,7 +54,7 @@ ruleTester.run(RULE_NAME, rule, {
           setterName: "setState",
           stateName: "state",
         },
-        messageId: "USE_STATE",
+        messageId: "useState",
       }],
     },
     {
@@ -72,7 +72,7 @@ ruleTester.run(RULE_NAME, rule, {
           setterName: "setState",
           stateName: "state",
         },
-        messageId: "USE_STATE",
+        messageId: "useState",
       }],
       settings: {
         "react-x": {

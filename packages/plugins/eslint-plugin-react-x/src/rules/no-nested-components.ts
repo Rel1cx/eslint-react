@@ -19,8 +19,8 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-nested-components";
 
 export type MessageID =
-  | "NESTED_COMPONENT"
-  | "NESTED_COMPONENT_IN_PROPS";
+  | "nestedComponent"
+  | "nestedComponentInProps";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -29,8 +29,8 @@ export default createRule<[], MessageID>({
       description: "disallow using unstable nested components",
     },
     messages: {
-      NESTED_COMPONENT: "Do not nest components inside other components. Move it to the top level.",
-      NESTED_COMPONENT_IN_PROPS: "Do not nest components inside props. Move it to the top level or pass it as a prop.",
+      nestedComponent: "Do not nest components inside other components. Move it to the top level.",
+      nestedComponentInProps: "Do not nest components inside props. Move it to the top level or pass it as a prop.",
     },
     schema: [],
   },
@@ -75,7 +75,7 @@ export default createRule<[], MessageID>({
                 data: {
                   name,
                 },
-                messageId: "NESTED_COMPONENT_IN_PROPS",
+                messageId: "nestedComponentInProps",
                 node: component,
               });
             }
@@ -87,7 +87,7 @@ export default createRule<[], MessageID>({
               data: {
                 name,
               },
-              messageId: "NESTED_COMPONENT_IN_PROPS",
+              messageId: "nestedComponentInProps",
               node: component,
             });
 
@@ -99,7 +99,7 @@ export default createRule<[], MessageID>({
               data: {
                 name,
               },
-              messageId: isInsideProperty ? "NESTED_COMPONENT_IN_PROPS" : "NESTED_COMPONENT",
+              messageId: isInsideProperty ? "nestedComponentInProps" : "nestedComponent",
               node: component,
             });
 
@@ -111,7 +111,7 @@ export default createRule<[], MessageID>({
               data: {
                 name,
               },
-              messageId: "NESTED_COMPONENT",
+              messageId: "nestedComponent",
               node: component,
             });
           }
@@ -122,7 +122,7 @@ export default createRule<[], MessageID>({
             data: {
               name: O.getOrElse(() => "unknown")(name),
             },
-            messageId: "NESTED_COMPONENT",
+            messageId: "nestedComponent",
             node: component,
           });
         }

@@ -1,12 +1,12 @@
 import { isFragmentElement } from "@eslint-react/core";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "prefer-shorthand-fragment";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
       description: "enforce using fragment syntax instead of 'Fragment' component",
     },
     messages: {
-      PREFER_SHORTHAND_FRAGMENT: "Use fragment shorthand syntax instead of 'Fragment' component.",
+      preferShorthandFragment: "Use fragment shorthand syntax instead of 'Fragment' component.",
     },
     schema: [],
   },
@@ -27,7 +27,7 @@ export default createRule<[], MessageID>({
           const hasAttributes = node.openingElement.attributes.length > 0;
           if (hasAttributes) return;
           context.report({
-            messageId: "PREFER_SHORTHAND_FRAGMENT",
+            messageId: "preferShorthandFragment",
             node,
           });
         }

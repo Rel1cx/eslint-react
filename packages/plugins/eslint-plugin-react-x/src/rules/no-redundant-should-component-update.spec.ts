@@ -14,7 +14,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { componentName: "Foo" },
-          messageId: "NO_REDUNDANT_SHOULD_COMPONENT_UPDATE",
+          messageId: "noRedundantShouldComponentUpdate",
         },
       ],
     },
@@ -29,7 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { componentName: "Foo" },
-          messageId: "NO_REDUNDANT_SHOULD_COMPONENT_UPDATE",
+          messageId: "noRedundantShouldComponentUpdate",
         },
       ],
     },
@@ -44,7 +44,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { componentName: "Foo" },
-          messageId: "NO_REDUNDANT_SHOULD_COMPONENT_UPDATE",
+          messageId: "noRedundantShouldComponentUpdate",
         },
       ],
     },
@@ -61,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { componentName: "Bar" },
-          messageId: "NO_REDUNDANT_SHOULD_COMPONENT_UPDATE",
+          messageId: "noRedundantShouldComponentUpdate",
         },
       ],
     },
@@ -78,7 +78,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { componentName: "Bar" },
-          messageId: "NO_REDUNDANT_SHOULD_COMPONENT_UPDATE",
+          messageId: "noRedundantShouldComponentUpdate",
         },
       ],
     },
@@ -93,7 +93,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { componentName: "Foo" },
-          messageId: "NO_REDUNDANT_SHOULD_COMPONENT_UPDATE",
+          messageId: "noRedundantShouldComponentUpdate",
         },
       ],
     },

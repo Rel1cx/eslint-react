@@ -5,14 +5,14 @@ import { decodeSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import { findVariable, getVariableNode } from "@eslint-react/var";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "ensure-use-memo-has-non-empty-deps";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
       description: "enforce 'useMemo' has non-empty dependencies array",
     },
     messages: {
-      ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS: "An 'useMemo' should have a non-empty dependencies array.",
+      ensureUseMemoHasNonEmptyDeps: "An 'useMemo' should have a non-empty dependencies array.",
     },
     schema: [],
   },
@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
         const [cb, deps] = node.arguments;
         if (!deps) {
           context.report({
-            messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+            messageId: "ensureUseMemoHasNonEmptyDeps",
             node,
           });
           return;
@@ -63,7 +63,7 @@ export default createRule<[], MessageID>({
         if (!hasEmptyDeps) return;
         if (!cb) {
           context.report({
-            messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+            messageId: "ensureUseMemoHasNonEmptyDeps",
             node,
           });
           return;
@@ -91,7 +91,7 @@ export default createRule<[], MessageID>({
         );
         if (isReferencedToComponentScope) return;
         context.report({
-          messageId: "ENSURE_USE_MEMO_HAS_NON_EMPTY_DEPS",
+          messageId: "ensureUseMemoHasNonEmptyDeps",
           node,
         });
       },

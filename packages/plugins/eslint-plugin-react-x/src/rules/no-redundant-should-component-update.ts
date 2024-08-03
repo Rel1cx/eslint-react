@@ -2,13 +2,13 @@ import { isOneOf, NodeType } from "@eslint-react/ast";
 import { ERClassComponentFlag, useComponentCollectorLegacy } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-redundant-should-component-update";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function isShouldComponentUpdate(node: TSESTree.ClassElement) {
   return isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])(node)
@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
       description: "disallow using 'shouldComponentUpdate' in class component extends 'React.PureComponent'",
     },
     messages: {
-      NO_REDUNDANT_SHOULD_COMPONENT_UPDATE:
+      noRedundantShouldComponentUpdate:
         "'{{componentName}}' does not need 'shouldComponentUpdate' when extending 'React.PureComponent'.",
     },
     schema: [],
@@ -46,7 +46,7 @@ export default createRule<[], MessageID>({
                 data: {
                   componentName: O.getOrElse(() => "PureComponent")(name),
                 },
-                messageId: "NO_REDUNDANT_SHOULD_COMPONENT_UPDATE",
+                messageId: "noRedundantShouldComponentUpdate",
                 node: member,
               });
             }

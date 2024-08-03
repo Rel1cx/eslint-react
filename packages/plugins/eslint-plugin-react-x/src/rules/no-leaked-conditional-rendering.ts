@@ -7,7 +7,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 import { isFalseLiteralType, isTrueLiteralType, isTypeFlagSet, unionTypeParts } from "ts-api-utils";
 import { isMatching, match, P } from "ts-pattern";
 import ts from "typescript";
@@ -16,7 +16,7 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "no-leaked-conditional-rendering";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 /** The types we care about */
 /* eslint-disable perfectionist/sort-union-types */
@@ -204,7 +204,7 @@ export default createRule<[], MessageID>({
       description: "disallow problematic leaked values from being rendered",
     },
     messages: {
-      NO_LEAKED_CONDITIONAL_RENDERING:
+      noLeakedConditionalRendering:
         "Potential leaked value {{value}} that might cause unintentionally rendered values or rendering crashes.",
     },
     schema: [],
@@ -224,7 +224,7 @@ export default createRule<[], MessageID>({
           if (isLeftNan) {
             return O.some({
               data: { value: context.sourceCode.getText(left) },
-              messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+              messageId: "noLeakedConditionalRendering",
               node: left,
             });
           }
@@ -236,7 +236,7 @@ export default createRule<[], MessageID>({
           if (isLeftValid) return checkExpression(right);
           return O.some({
             data: { value: context.sourceCode.getText(left) },
-            messageId: "NO_LEAKED_CONDITIONAL_RENDERING",
+            messageId: "noLeakedConditionalRendering",
             node: left,
           });
         })

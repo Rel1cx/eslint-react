@@ -8,7 +8,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { element: "br" },
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+          messageId: "noChildrenInVoidDomElements",
         },
       ],
     },
@@ -17,7 +17,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { element: "br" },
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+          messageId: "noChildrenInVoidDomElements",
         },
       ],
     },
@@ -26,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { element: "img" },
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+          messageId: "noChildrenInVoidDomElements",
         },
       ],
     },
@@ -35,7 +35,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { element: "br" },
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+          messageId: "noChildrenInVoidDomElements",
         },
       ],
     },
@@ -44,7 +44,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { element: "br" },
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+          messageId: "noChildrenInVoidDomElements",
         },
       ],
       settings: {
@@ -58,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { element: "br" },
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+          messageId: "noChildrenInVoidDomElements",
         },
       ],
       settings: {
@@ -72,7 +72,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { element: "img" },
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+          messageId: "noChildrenInVoidDomElements",
         },
       ],
       settings: {
@@ -86,7 +86,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { element: "br" },
-          messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+          messageId: "noChildrenInVoidDomElements",
         },
       ],
       settings: {

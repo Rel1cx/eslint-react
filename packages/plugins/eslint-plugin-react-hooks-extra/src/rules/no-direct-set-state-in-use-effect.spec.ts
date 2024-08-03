@@ -16,7 +16,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -32,7 +32,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -48,7 +48,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -65,7 +65,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -82,7 +82,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -99,7 +99,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
       settings: {
         "react-x": {
@@ -123,7 +123,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
       settings: {
         "react-x": {
@@ -145,7 +145,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
       settings: {
         "react-x": {
@@ -168,7 +168,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
       settings: {
         "react-x": {
@@ -194,7 +194,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -213,7 +213,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -234,8 +234,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "setData1" }, messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
-        { data: { name: "setData2" }, messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { data: { name: "setData1" }, messageId: "noDirectSetStateInUseEffect" },
+        { data: { name: "setData2" }, messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -256,8 +256,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "setData1" }, messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
-        { data: { name: "setData2" }, messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { data: { name: "setData1" }, messageId: "noDirectSetStateInUseEffect" },
+        { data: { name: "setData2" }, messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -273,7 +273,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -291,7 +291,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -310,7 +310,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -327,7 +327,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -344,7 +344,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -361,7 +361,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -378,7 +378,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -393,7 +393,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     // TODO: Add cleanup function check
@@ -412,7 +412,7 @@ ruleTester.run(RULE_NAME, rule, {
     //     }
     //   `,
     //   errors: [
-    //     { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+    //     { messageId: "noDirectSetStateInUseEffect" },
     //   ],
     // },
     // TODO: Add cleanup function check
@@ -432,7 +432,7 @@ ruleTester.run(RULE_NAME, rule, {
     //     }
     //   `,
     //   errors: [
-    //     { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+    //     { messageId: "noDirectSetStateInUseEffect" },
     //   ],
     // },
     // TODO: Add cleanup function check
@@ -447,7 +447,7 @@ ruleTester.run(RULE_NAME, rule, {
     //     }
     //   `,
     //   errors: [
-    //     { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+    //     { messageId: "noDirectSetStateInUseEffect" },
     //   ],
     // },
     {
@@ -461,7 +461,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -475,7 +475,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -492,7 +492,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -509,7 +509,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -526,7 +526,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -552,8 +552,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
     {
@@ -584,7 +584,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT" },
+        { messageId: "noDirectSetStateInUseEffect" },
       ],
     },
   ],

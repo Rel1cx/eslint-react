@@ -10,7 +10,7 @@ ruleTester.run(RULE_NAME, rule, {
             return <Context.Provider value={foo}></Context.Provider>;
         }
       `,
-      errors: [{ messageId: "NO_UNSTABLE_CONTEXT_VALUE_WITH_IDENTIFIER" }],
+      errors: [{ messageId: "noUnstableContextValueWithIdentifier" }],
     },
     {
       code: /* tsx */ `
@@ -21,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_UNSTABLE_CONTEXT_VALUE_WITH_IDENTIFIER",
+          messageId: "noUnstableContextValueWithIdentifier",
         },
       ],
     },
@@ -34,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_UNSTABLE_CONTEXT_VALUE_WITH_IDENTIFIER",
+          messageId: "noUnstableContextValueWithIdentifier",
         },
       ],
     },
@@ -47,7 +47,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_UNSTABLE_CONTEXT_VALUE_WITH_FUNCTION",
+          messageId: "noUnstableContextValueWithFunction",
         },
       ],
     },
@@ -62,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_UNSTABLE_CONTEXT_VALUE_WITH_IDENTIFIER",
+          messageId: "noUnstableContextValueWithIdentifier",
         },
       ],
     },

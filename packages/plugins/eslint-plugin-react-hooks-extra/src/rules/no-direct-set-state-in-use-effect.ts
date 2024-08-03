@@ -3,58 +3,26 @@ import { getNestedIdentifiers, isFunction, isIIFE, NodeType, traverseUpGuard } f
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
 import { F, MutRef, O } from "@eslint-react/tools";
-import type { RuleContext } from "@eslint-react/types";
 import { findVariable, getVariableNode } from "@eslint-react/var";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 import * as R from "remeda";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 
-import { createRule, isFromUseStateCall, isSetStateCall, isThenCall, isVariableDeclaratorFromHookCall } from "../utils";
+import {
+  createRule,
+  isFromUseStateCall,
+  isSetFunctionCall,
+  isThenCall,
+  isVariableDeclaratorFromHookCall,
+} from "../utils";
 
 export const RULE_NAME = "no-direct-set-state-in-use-effect";
 
-type MessageID = ConstantCase<typeof RULE_NAME>;
-
-function isEffectFunction(
-  context: RuleContext,
-  useSomeEffectAlias: string[],
-) {
-  return (node: TSESTree.Node) =>
-    node.parent?.type === NodeType.CallExpression
-    && node.parent.callee !== node
-    && isReactHookCallWithNameAlias("useEffect", context, useSomeEffectAlias)(node.parent);
-}
-
+type MessageID = CamelCase<typeof RULE_NAME>;
 type CallKind = "other" | "setState" | "then" | "useEffect" | "useState";
 type FunctionKind = "cleanup" | "deferred" | "effect" | "immediate" | "other";
-
-function getCallKind(
-  node: TSESTree.CallExpression,
-  context: RuleContext,
-  alias: readonly [useState: string[], useEffect: string[]],
-) {
-  const [useStateAlias, useEffectAlias] = alias;
-  return match<TSESTree.CallExpression, CallKind>(node)
-    .when(isReactHookCallWithNameAlias("useState", context, useStateAlias), () => "useState")
-    .when(isReactHookCallWithNameAlias("useEffect", context, useEffectAlias), () => "useEffect")
-    .when(isSetStateCall(context, useStateAlias), () => "setState")
-    .when(isThenCall, () => "then")
-    .otherwise(() => "other");
-}
-
-function getFunctionKind(
-  node: TSESTreeFunction,
-  context: RuleContext,
-  useEffectAlias: string[],
-) {
-  return match<TSESTreeFunction, FunctionKind>(node)
-    .when(isEffectFunction(context, useEffectAlias), () => "effect")
-    // .when(isCleanUpFunction, () => "cleanup")
-    .when(isIIFE, () => "immediate")
-    .otherwise(() => "other");
-}
 
 export default createRule<[], MessageID>({
   meta: {
@@ -63,14 +31,20 @@ export default createRule<[], MessageID>({
       description: "disallow direct calls to the 'set' function of 'useState' in 'useEffect'",
     },
     messages: {
-      NO_DIRECT_SET_STATE_IN_USE_EFFECT: "Do not call the 'set' function of 'useState' directly in 'useEffect'.",
+      noDirectSetStateInUseEffect: "Do not call the 'set' function of 'useState' directly in 'useEffect'.",
     },
     schema: [],
   },
   name: RULE_NAME,
   create(context) {
     const settings = decodeSettings(context.settings);
-    const { useEffect: useEffectAlias = [], useState: useStateAlias = [] } = settings.additionalHooks ?? {};
+    const additionalHooks = settings.additionalHooks ?? {};
+    const isUseEffectCall = isReactHookCallWithNameAlias("useEffect", context, additionalHooks.useEffect ?? []);
+    const isUseStateCall = isReactHookCallWithNameAlias("useState", context, additionalHooks.useState ?? []);
+    const isUseMemoCall = isReactHookCallWithNameAlias("useMemo", context, additionalHooks.useMemo ?? []);
+    const isUseCallbackCall = isReactHookCallWithNameAlias("useCallback", context, additionalHooks.useCallback ?? []);
+    const isSetStateCall = isSetFunctionCall(context, settings);
+    const isIdFromUseStateCall = isFromUseStateCall(context, settings);
     const functionStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
     const effectFunctionRef = MutRef.make<TSESTreeFunction | null>(null);
     const effectFunctionIdentifiers: TSESTree.Identifier[] = [];
@@ -88,9 +62,28 @@ export default createRule<[], MessageID>({
     const onEffectFunctionExit = (node: TSESTreeFunction) => {
       MutRef.update(effectFunctionRef, (current) => (current === node ? null : current));
     };
+    function isEffectFunction(node: TSESTree.Node) {
+      return node.parent?.type === NodeType.CallExpression
+        && node.parent.callee !== node
+        && isUseEffectCall(node.parent);
+    }
+    function getCallKind(node: TSESTree.CallExpression) {
+      return match<TSESTree.CallExpression, CallKind>(node)
+        .when(isUseStateCall, () => "useState")
+        .when(isUseEffectCall, () => "useEffect")
+        .when(isSetStateCall, () => "setState")
+        .when(isThenCall, () => "then")
+        .otherwise(() => "other");
+    }
+    function getFunctionKind(node: TSESTreeFunction) {
+      return match<TSESTreeFunction, FunctionKind>(node)
+        .when(isEffectFunction, () => "effect")
+        .when(isIIFE, () => "immediate")
+        .otherwise(() => "other");
+    }
     return {
       ":function"(node: TSESTreeFunction) {
-        const functionKind = getFunctionKind(node, context, useEffectAlias);
+        const functionKind = getFunctionKind(node);
         functionStack.push([node, functionKind]);
         match(functionKind)
           .with("effect", () => {
@@ -106,7 +99,7 @@ export default createRule<[], MessageID>({
         const effectFn = MutRef.get(effectFunctionRef);
         const [parentFn, parentFnKind] = R.last(functionStack) ?? [];
         if (parentFn?.async) return;
-        match(getCallKind(node, context, [useStateAlias, useEffectAlias]))
+        match(getCallKind(node))
           .with("setState", () => {
             if (!parentFn) return;
             if (parentFn !== effectFn && parentFnKind !== "immediate") {
@@ -122,7 +115,7 @@ export default createRule<[], MessageID>({
               return;
             }
             context.report({
-              messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT",
+              messageId: "noDirectSetStateInUseEffect",
               node,
             });
           })
@@ -143,7 +136,7 @@ export default createRule<[], MessageID>({
       Identifier(node) {
         if (!node.parent) return;
         if (node.parent.type === NodeType.CallExpression && node.parent.callee === node) return;
-        if (!isFromUseStateCall(context, useStateAlias)(node)) return;
+        if (!isIdFromUseStateCall(node)) return;
         switch (node.parent.type) {
           case NodeType.CallExpression: {
             const [firstArg] = node.parent.arguments;
@@ -151,7 +144,7 @@ export default createRule<[], MessageID>({
             // const [state, setState] = useState();
             // const set = useCallback(setState, []);
             // useEffect(set, []);
-            if (isReactHookCallWithNameAlias("useCallback", context, useStateAlias)(node.parent)) {
+            if (isUseCallbackCall(node.parent)) {
               const maybeVd = traverseUpGuard(node.parent, isVariableDeclaratorFromHookCall);
               if (O.isNone(maybeVd)) break;
               const vd = maybeVd.value;
@@ -160,7 +153,7 @@ export default createRule<[], MessageID>({
             }
             // const [state, setState] = useState();
             // useEffect(setState);
-            if (isReactHookCallWithNameAlias("useEffect", context, useEffectAlias)(node.parent)) {
+            if (isUseEffectCall(node.parent)) {
               const calls = indirectSetStateCallsAsArgs.get(node.parent) ?? [];
               indirectSetStateCallsAsEFs.set(node.parent, [...calls, node]);
             }
@@ -172,7 +165,7 @@ export default createRule<[], MessageID>({
             // const [state, setState] = useState();
             // const set = useMemo(() => setState, []);
             // useEffect(set, []);
-            if (!isReactHookCallWithNameAlias("useMemo", context, useStateAlias)(parent)) break;
+            if (!isUseMemoCall(parent)) break;
             const maybeVd = traverseUpGuard(parent, isVariableDeclaratorFromHookCall);
             if (O.isNone(maybeVd)) break;
             const vd = maybeVd.value;
@@ -201,7 +194,7 @@ export default createRule<[], MessageID>({
           for (const call of calls) {
             context.report({
               data: { name: call.name },
-              messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT",
+              messageId: "noDirectSetStateInUseEffect",
               node: call,
             });
           }
@@ -213,7 +206,7 @@ export default createRule<[], MessageID>({
           for (const setStateCall of setStateCalls) {
             context.report({
               data: { name },
-              messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT",
+              messageId: "noDirectSetStateInUseEffect",
               node: setStateCall,
             });
           }
@@ -223,7 +216,7 @@ export default createRule<[], MessageID>({
           for (const setStateCall of setStateCalls) {
             context.report({
               data: { name: id.name },
-              messageId: "NO_DIRECT_SET_STATE_IN_USE_EFFECT",
+              messageId: "noDirectSetStateInUseEffect",
               node: setStateCall,
             });
           }

@@ -8,10 +8,11 @@
     "moduleDetection": "force",
     "moduleResolution": "bundler",
     "strict": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
     "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
     "strictPropertyInitialization": true,
+    "strictBuiltinIteratorReturn": false,
     "exactOptionalPropertyTypes": true,
     "noEmit": true,
     "types": [

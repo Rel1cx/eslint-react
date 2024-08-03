@@ -17,7 +17,7 @@ if the `Iterable` is not empty, otherwise returns `None`.
 
 ## Parameters
 
-• **collection**: `Iterable`\<`A`\>
+• **collection**: `Iterable`\<`A`, `any`, `any`\>
 
 The `Iterable` to be converted to an `Option`.
 

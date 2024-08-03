@@ -20,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_MAP",
+        messageId: "noChildrenMap",
       }],
     },
     {
@@ -40,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_MAP",
+        messageId: "noChildrenMap",
       }],
     },
     {
@@ -60,7 +60,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_MAP",
+        messageId: "noChildrenMap",
       }],
     },
     {
@@ -80,7 +80,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_MAP",
+        messageId: "noChildrenMap",
       }],
     },
   ],

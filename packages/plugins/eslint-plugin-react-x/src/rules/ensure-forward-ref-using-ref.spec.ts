@@ -10,14 +10,14 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "ENSURE_FORWARD_REF_USING_REF" }],
+      errors: [{ messageId: "ensureForwardRefUsingRef" }],
     },
     {
       code: /* tsx */ `
         import { forwardRef } from 'react'
         forwardRef((props) => null);
       `,
-      errors: [{ messageId: "ENSURE_FORWARD_REF_USING_REF" }],
+      errors: [{ messageId: "ensureForwardRefUsingRef" }],
     },
     {
       code: /* tsx */ `
@@ -26,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "ENSURE_FORWARD_REF_USING_REF" }],
+      errors: [{ messageId: "ensureForwardRefUsingRef" }],
     },
     {
       code: /* tsx */ `
@@ -35,7 +35,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "ENSURE_FORWARD_REF_USING_REF" }],
+      errors: [{ messageId: "ensureForwardRefUsingRef" }],
     },
     {
       code: /* tsx */ `
@@ -44,14 +44,14 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "ENSURE_FORWARD_REF_USING_REF" }],
+      errors: [{ messageId: "ensureForwardRefUsingRef" }],
     },
     {
       code: /* tsx */ `
         import * as React from 'react'
         React.forwardRef((props) => null);
       `,
-      errors: [{ messageId: "ENSURE_FORWARD_REF_USING_REF" }],
+      errors: [{ messageId: "ensureForwardRefUsingRef" }],
     },
     {
       code: /* tsx */ `
@@ -60,7 +60,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "ENSURE_FORWARD_REF_USING_REF" }],
+      errors: [{ messageId: "ensureForwardRefUsingRef" }],
     },
     {
       code: /* tsx */ `
@@ -69,7 +69,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "ENSURE_FORWARD_REF_USING_REF" }],
+      errors: [{ messageId: "ensureForwardRefUsingRef" }],
     },
   ],
   valid: [

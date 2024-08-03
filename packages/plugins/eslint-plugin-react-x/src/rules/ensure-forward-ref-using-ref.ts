@@ -2,13 +2,13 @@
 import { isFunction } from "@eslint-react/ast";
 import { isForwardRefCall } from "@eslint-react/core";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "ensure-forward-ref-using-ref";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
       description: "require a 'ref' parameter to be set when using 'forwardRef'",
     },
     messages: {
-      ENSURE_FORWARD_REF_USING_REF: "A 'forwardRef' is used with this component but no 'ref' parameter is set.",
+      ensureForwardRefUsingRef: "A 'forwardRef' is used with this component but no 'ref' parameter is set.",
     },
     schema: [],
   },
@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
         const [_, ref] = component.params;
         if (!ref) {
           context.report({
-            messageId: "ENSURE_FORWARD_REF_USING_REF",
+            messageId: "ensureForwardRefUsingRef",
             node: component,
           });
         }

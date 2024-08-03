@@ -2,13 +2,13 @@ import { findPropInAttributes, getElementType } from "@eslint-react/jsx";
 import { decodeSettings, expandSettings } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-children-in-void-dom-elements";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 const voidElements = new Set([
   "area",
@@ -37,7 +37,7 @@ export default createRule<[], MessageID>({
       description: "disallow passing 'children' to void DOM elements",
     },
     messages: {
-      NO_CHILDREN_IN_VOID_DOM_ELEMENTS: "A void DOM element '<{{element}} />' cannot have children.",
+      noChildrenInVoidDomElements: "A void DOM element '<{{element}} />' cannot have children.",
     },
     schema: [],
   },
@@ -54,7 +54,7 @@ export default createRule<[], MessageID>({
             data: {
               element: elementType,
             },
-            messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+            messageId: "noChildrenInVoidDomElements",
             node,
           });
         }
@@ -68,7 +68,7 @@ export default createRule<[], MessageID>({
             data: {
               element: elementType,
             },
-            messageId: "NO_CHILDREN_IN_VOID_DOM_ELEMENTS",
+            messageId: "noChildrenInVoidDomElements",
             node,
           });
         }

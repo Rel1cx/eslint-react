@@ -1,13 +1,13 @@
 import { NodeType } from "@eslint-react/ast";
 import { getPropName } from "@eslint-react/jsx";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "prefer-shorthand-boolean";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -16,7 +16,7 @@ export default createRule<[], MessageID>({
       description: "enforce using shorthand boolean attributes",
     },
     messages: {
-      PREFER_SHORTHAND_BOOLEAN: "Use shorthand boolean attribute '{{propName}}'.",
+      preferShorthandBoolean: "Use shorthand boolean attribute '{{propName}}'.",
     },
     schema: [],
   },
@@ -34,7 +34,7 @@ export default createRule<[], MessageID>({
           data: {
             propName,
           },
-          messageId: "PREFER_SHORTHAND_BOOLEAN",
+          messageId: "preferShorthandBoolean",
           node,
         });
       },

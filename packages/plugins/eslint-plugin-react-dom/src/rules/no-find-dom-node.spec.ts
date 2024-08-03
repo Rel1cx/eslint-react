@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "NO_FIND_DOM_NODE" },
+        { messageId: "noFindDomNode" },
       ],
     },
     {
@@ -24,7 +24,7 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "NO_FIND_DOM_NODE" },
+        { messageId: "noFindDomNode" },
       ],
     },
 
@@ -39,7 +39,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         });
       `,
-      errors: [{ messageId: "NO_FIND_DOM_NODE" }],
+      errors: [{ messageId: "noFindDomNode" }],
     },
     {
       code: /* tsx */ `
@@ -52,7 +52,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         });
       `,
-      errors: [{ messageId: "NO_FIND_DOM_NODE" }],
+      errors: [{ messageId: "noFindDomNode" }],
     },
     {
       code: /* tsx */ `
@@ -65,7 +65,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         };
       `,
-      errors: [{ messageId: "NO_FIND_DOM_NODE" }],
+      errors: [{ messageId: "noFindDomNode" }],
     },
     {
       code: /* tsx */ `
@@ -78,7 +78,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         };
       `,
-      errors: [{ messageId: "NO_FIND_DOM_NODE" }],
+      errors: [{ messageId: "noFindDomNode" }],
     },
   ],
   valid: [

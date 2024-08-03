@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
         // ...
       `,
       errors: [{
-        messageId: "NO_CLONE_ELEMENT",
+        messageId: "noCloneElement",
       }],
     },
     {
@@ -34,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CLONE_ELEMENT",
+        messageId: "noCloneElement",
       }],
     },
     {
@@ -45,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
         const clonedElement = cloneElement(element);
       `,
       errors: [{
-        messageId: "NO_CLONE_ELEMENT",
+        messageId: "noCloneElement",
       }],
     },
     {
@@ -56,7 +56,7 @@ ruleTester.run(RULE_NAME, rule, {
         const clonedElement = cloneElement(element);
       `,
       errors: [{
-        messageId: "NO_CLONE_ELEMENT",
+        messageId: "noCloneElement",
       }],
     },
     {
@@ -67,7 +67,7 @@ ruleTester.run(RULE_NAME, rule, {
         const clonedElement = cloneElement(element);
       `,
       errors: [{
-        messageId: "NO_CLONE_ELEMENT",
+        messageId: "noCloneElement",
       }],
     },
     {
@@ -79,7 +79,7 @@ ruleTester.run(RULE_NAME, rule, {
         const clonedElement = cloneElement(element);
       `,
       errors: [{
-        messageId: "NO_CLONE_ELEMENT",
+        messageId: "noCloneElement",
       }],
     },
     {
@@ -91,7 +91,7 @@ ruleTester.run(RULE_NAME, rule, {
         const clonedElement = cloneElement(element);
       `,
       errors: [{
-        messageId: "NO_CLONE_ELEMENT",
+        messageId: "noCloneElement",
       }],
     },
   ],

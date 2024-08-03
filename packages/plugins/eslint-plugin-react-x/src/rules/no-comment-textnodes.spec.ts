@@ -5,15 +5,15 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `<div>// invalid</div>`,
-      errors: [{ messageId: "NO_COMMENT_TEXTNODES" }],
+      errors: [{ messageId: "noCommentTextnodes" }],
     },
     {
       code: /* tsx */ `<>// invalid</>`,
-      errors: [{ messageId: "NO_COMMENT_TEXTNODES" }],
+      errors: [{ messageId: "noCommentTextnodes" }],
     },
     {
       code: /* tsx */ `<div>/* invalid */</div>`,
-      errors: [{ messageId: "NO_COMMENT_TEXTNODES" }],
+      errors: [{ messageId: "noCommentTextnodes" }],
     },
     {
       code: /* tsx */ `
@@ -21,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
         // invalid
         </div>
       `,
-      errors: [{ messageId: "NO_COMMENT_TEXTNODES" }],
+      errors: [{ messageId: "noCommentTextnodes" }],
     },
     {
       code: /* tsx */ `
@@ -31,7 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
         foo
         </div>
       `,
-      errors: [{ messageId: "NO_COMMENT_TEXTNODES" }],
+      errors: [{ messageId: "noCommentTextnodes" }],
     },
     {
       code: /* tsx */ `
@@ -41,11 +41,11 @@ ruleTester.run(RULE_NAME, rule, {
         {'foo'}
         </div>
       `,
-      errors: [{ messageId: "NO_COMMENT_TEXTNODES" }],
+      errors: [{ messageId: "noCommentTextnodes" }],
     },
     {
       code: "<span>/*</span>",
-      errors: [{ messageId: "NO_COMMENT_TEXTNODES" }],
+      errors: [{ messageId: "noCommentTextnodes" }],
     },
   ],
   valid: [

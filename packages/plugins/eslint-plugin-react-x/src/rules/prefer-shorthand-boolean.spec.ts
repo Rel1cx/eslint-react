@@ -7,14 +7,14 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<App foo={true} />`,
       errors: [{
         data: { propName: "foo" },
-        messageId: "PREFER_SHORTHAND_BOOLEAN",
+        messageId: "preferShorthandBoolean",
       }],
     },
     {
       code: /* tsx */ `<App foo={true} bar />`,
       errors: [{
         data: { propName: "foo" },
-        messageId: "PREFER_SHORTHAND_BOOLEAN",
+        messageId: "preferShorthandBoolean",
       }],
     },
   ],

@@ -17,6 +17,7 @@ export const defaultLanguageOptions = {
   ecmaVersion: "latest",
   parserOptions: {
     ecmaFeatures: { jsx: true },
+    warnOnUnsupportedTypeScriptVersion: false,
   },
 } as const satisfies RuleTesterConfig["languageOptions"];
 
@@ -27,6 +28,7 @@ export const defaultLanguageOptionsWithTypes = {
     project: "tsconfig.json",
     projectService: true,
     tsconfigRootDir: getFixturesRootDir(),
+    warnOnUnsupportedTypeScriptVersion: false,
   },
 } as const satisfies RuleTesterConfig["languageOptions"];
 

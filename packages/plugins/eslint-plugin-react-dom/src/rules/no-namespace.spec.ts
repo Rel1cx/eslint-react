@@ -9,7 +9,7 @@ ruleTester.run(RULE_NAME, rule, {
         data: {
           name: "ns:testcomponent",
         },
-        messageId: "NO_NAMESPACE",
+        messageId: "noNamespace",
       }],
     },
     {
@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
         data: {
           name: "ns:testComponent",
         },
-        messageId: "NO_NAMESPACE",
+        messageId: "noNamespace",
       }],
     },
     {
@@ -27,7 +27,7 @@ ruleTester.run(RULE_NAME, rule, {
         data: {
           name: "ns:test_component",
         },
-        messageId: "NO_NAMESPACE",
+        messageId: "noNamespace",
       }],
     },
     {
@@ -36,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
         data: {
           name: "ns:TestComponent",
         },
-        messageId: "NO_NAMESPACE",
+        messageId: "noNamespace",
       }],
     },
     {
@@ -45,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
         data: {
           name: "Ns:testcomponent",
         },
-        messageId: "NO_NAMESPACE",
+        messageId: "noNamespace",
       }],
     },
     {
@@ -54,7 +54,7 @@ ruleTester.run(RULE_NAME, rule, {
         data: {
           name: "Ns:testComponent",
         },
-        messageId: "NO_NAMESPACE",
+        messageId: "noNamespace",
       }],
     },
     {
@@ -63,7 +63,7 @@ ruleTester.run(RULE_NAME, rule, {
         data: {
           name: "Ns:test_component",
         },
-        messageId: "NO_NAMESPACE",
+        messageId: "noNamespace",
       }],
     },
     {
@@ -72,7 +72,7 @@ ruleTester.run(RULE_NAME, rule, {
         data: {
           name: "Ns:TestComponent",
         },
-        messageId: "NO_NAMESPACE",
+        messageId: "noNamespace",
       }],
     },
   ],

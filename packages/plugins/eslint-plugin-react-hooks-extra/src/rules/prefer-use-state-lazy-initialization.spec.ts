@@ -10,7 +10,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.LogicalExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -19,7 +19,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.BinaryExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.CallExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -37,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.CallExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -46,7 +46,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.ConditionalExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -55,7 +55,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.ConditionalExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -64,7 +64,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.ConditionalExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -73,7 +73,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.LogicalExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -82,7 +82,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.LogicalExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -91,7 +91,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.LogicalExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -100,7 +100,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.UnaryExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -109,7 +109,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.UnaryExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -118,7 +118,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.UnaryExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -127,7 +127,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.UnaryExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -136,7 +136,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.BinaryExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -145,7 +145,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.BinaryExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -154,7 +154,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.ArrayExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -163,7 +163,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.ObjectExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
@@ -172,7 +172,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: NodeType.LogicalExpression,
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
         },
       ],
       settings: {

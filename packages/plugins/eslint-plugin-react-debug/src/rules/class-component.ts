@@ -1,12 +1,13 @@
 import { useComponentCollectorLegacy } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "class-component";
 
-export type MessageID = "CLASS_COMPONENT";
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -15,7 +16,7 @@ export default createRule<[], MessageID>({
       description: "report all class components, including anonymous ones",
     },
     messages: {
-      CLASS_COMPONENT: "[class component] name: {{name}}.",
+      classComponent: "[class component] name: {{name}}.",
     },
     schema: [],
   },
@@ -33,7 +34,7 @@ export default createRule<[], MessageID>({
             data: {
               name: O.getOrElse(F.constant("anonymous"))(name),
             },
-            messageId: "CLASS_COMPONENT",
+            messageId: "classComponent",
             node: component,
           });
         }

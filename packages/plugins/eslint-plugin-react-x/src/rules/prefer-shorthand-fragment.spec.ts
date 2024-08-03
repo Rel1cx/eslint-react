@@ -7,7 +7,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<React.Fragment><div /></React.Fragment>`,
       errors: [
         {
-          messageId: "PREFER_SHORTHAND_FRAGMENT",
+          messageId: "preferShorthandFragment",
         },
       ],
     },
@@ -15,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<Fragment><div /></Fragment>`,
       errors: [
         {
-          messageId: "PREFER_SHORTHAND_FRAGMENT",
+          messageId: "preferShorthandFragment",
         },
       ],
     },

@@ -1,12 +1,12 @@
 import { useHookCollector } from "@eslint-react/core";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "ensure-custom-hooks-using-other-hooks";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
       description: "enforce custom hooks using other hooks",
     },
     messages: {
-      ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS: "A custom hook '{{name}}' should use other hooks.",
+      ensureCustomHooksUsingOtherHooks: "A custom hook '{{name}}' should use other hooks.",
     },
     schema: [],
   },
@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
             data: {
               name: name.value,
             },
-            messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
+            messageId: "ensureCustomHooksUsingOtherHooks",
             node,
           });
         }

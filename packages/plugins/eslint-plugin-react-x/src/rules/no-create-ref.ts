@@ -2,13 +2,13 @@ import { traverseUp } from "@eslint-react/ast";
 import { isClassComponent, isCreateRefCall } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-create-ref";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
       description: "disallow using 'createRef' in function components",
     },
     messages: {
-      NO_CREATE_REF: "[Deprecated] Use 'useRef' instead.",
+      noCreateRef: "[Deprecated] Use 'useRef' instead.",
     },
     schema: [],
   },
@@ -27,7 +27,7 @@ export default createRule<[], MessageID>({
       CallExpression(node) {
         if (!isCreateRefCall(node, context)) return;
         if (O.isSome(traverseUp(node, isClassComponent))) return;
-        context.report({ messageId: "NO_CREATE_REF", node });
+        context.report({ messageId: "noCreateRef", node });
       },
     };
   },

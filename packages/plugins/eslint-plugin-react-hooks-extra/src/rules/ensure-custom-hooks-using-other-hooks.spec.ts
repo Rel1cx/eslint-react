@@ -22,7 +22,7 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             name: "useClassnames",
           },
-          messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
+          messageId: "ensureCustomHooksUsingOtherHooks",
         },
       ],
     },
@@ -45,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             name: "useClassnames",
           },
-          messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
+          messageId: "ensureCustomHooksUsingOtherHooks",
         },
       ],
     },
@@ -65,7 +65,7 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             name: "useInnerHook",
           },
-          messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
+          messageId: "ensureCustomHooksUsingOtherHooks",
         },
       ],
     },
@@ -85,7 +85,7 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             name: "useNestedHook",
           },
-          messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
+          messageId: "ensureCustomHooksUsingOtherHooks",
         },
       ],
     },
@@ -104,13 +104,13 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             name: "useNestedHook",
           },
-          messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
+          messageId: "ensureCustomHooksUsingOtherHooks",
         },
         {
           data: {
             name: "useInnerHook",
           },
-          messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
+          messageId: "ensureCustomHooksUsingOtherHooks",
         },
       ],
     },
@@ -130,7 +130,7 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             name: "useNestedHook",
           },
-          messageId: "ENSURE_CUSTOM_HOOKS_USING_OTHER_HOOKS",
+          messageId: "ensureCustomHooksUsingOtherHooks",
         },
       ],
     },

@@ -15,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_LAYOUT_EFFECT" },
+        { messageId: "noDirectSetStateInUseLayoutEffect" },
       ],
     },
     {
@@ -30,7 +30,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_LAYOUT_EFFECT" },
+        { messageId: "noDirectSetStateInUseLayoutEffect" },
       ],
     },
     {
@@ -45,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_LAYOUT_EFFECT" },
+        { messageId: "noDirectSetStateInUseLayoutEffect" },
       ],
     },
     {
@@ -61,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_LAYOUT_EFFECT" },
+        { messageId: "noDirectSetStateInUseLayoutEffect" },
       ],
     },
     {
@@ -77,7 +77,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_LAYOUT_EFFECT" },
+        { messageId: "noDirectSetStateInUseLayoutEffect" },
       ],
     },
     {
@@ -93,7 +93,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_LAYOUT_EFFECT" },
+        { messageId: "noDirectSetStateInUseLayoutEffect" },
       ],
       settings: {
         "react-x": {
@@ -116,7 +116,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_LAYOUT_EFFECT" },
+        { messageId: "noDirectSetStateInUseLayoutEffect" },
       ],
       settings: {
         "react-x": {
@@ -137,7 +137,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_LAYOUT_EFFECT" },
+        { messageId: "noDirectSetStateInUseLayoutEffect" },
       ],
       settings: {
         "react-x": {
@@ -159,7 +159,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_DIRECT_SET_STATE_IN_USE_LAYOUT_EFFECT" },
+        { messageId: "noDirectSetStateInUseLayoutEffect" },
       ],
       settings: {
         "react-x": {
@@ -185,7 +185,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_DIRECT_SET_STATE_IN_USE_LAYOUT_EFFECT",
+          messageId: "noDirectSetStateInUseLayoutEffect",
         },
       ],
     },

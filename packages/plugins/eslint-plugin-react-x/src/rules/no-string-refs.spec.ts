@@ -9,7 +9,7 @@ ruleTester.run(RULE_NAME, rule, {
             return <div ref="ref" />
         }
       `,
-      errors: [{ messageId: "NO_STRING_REFS" }],
+      errors: [{ messageId: "noStringRefs" }],
     },
     {
       code: /* tsx */ `
@@ -23,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "NO_STRING_REFS" }],
+      errors: [{ messageId: "noStringRefs" }],
     },
   ],
   valid: [

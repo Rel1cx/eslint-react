@@ -11,7 +11,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: withoutJSX,
       errors: [
         {
-          messageId: "FILE_NAME_EXTENSION_UNEXPECTED",
+          messageId: "filenameExtensionUnexpected",
         },
       ],
       filename: "react.tsx",
@@ -21,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: withoutJSX,
       errors: [
         {
-          messageId: "FILE_NAME_EXTENSION_UNEXPECTED",
+          messageId: "filenameExtensionUnexpected",
         },
       ],
       filename: "react.tsx",
@@ -31,7 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: withJSXElement,
       errors: [
         {
-          messageId: "FILE_NAME_EXTENSION_INVALID",
+          messageId: "filenameExtensionInvalid",
         },
       ],
       filename: "react.tsx",

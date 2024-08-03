@@ -10,7 +10,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
         App.defaultProps = {};
       `,
-      errors: [{ messageId: "NO_DEFAULT_PROPS" }],
+      errors: [{ messageId: "noDefaultProps" }],
     },
     {
       code: /* tsx */ `
@@ -21,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
         Input.defaultProps = {};
       `,
-      errors: [{ messageId: "NO_DEFAULT_PROPS" }],
+      errors: [{ messageId: "noDefaultProps" }],
     },
     {
       code: /* tsx */ `
@@ -33,7 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "NO_DEFAULT_PROPS" }],
+      errors: [{ messageId: "noDefaultProps" }],
     },
   ],
   valid: [

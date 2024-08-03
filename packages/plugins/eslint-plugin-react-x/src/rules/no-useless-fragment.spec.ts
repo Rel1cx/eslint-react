@@ -7,29 +7,29 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `<></>`,
-      errors: [{ type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT" }],
+      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragment" }],
     },
     {
       code: /* tsx */ `<p><>foo</></p>`,
       errors: [
-        { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN" },
-        { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT" },
+        { type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
+        { type: NodeType.JSXFragment, messageId: "noUselessFragment" },
       ],
     },
     {
       code: /* tsx */ `<p>moo<>foo</></p>`,
       errors: [
-        { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN" },
-        { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT" },
+        { type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
+        { type: NodeType.JSXFragment, messageId: "noUselessFragment" },
       ],
     },
     {
       code: /* tsx */ `<p><>{meow}</></p>`,
-      errors: [{ type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN" }],
+      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
     },
     {
       code: /* tsx */ `<><div/></>`,
-      errors: [{ type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT" }],
+      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragment" }],
     },
     {
       code: /* tsx */ `
@@ -37,11 +37,11 @@ ruleTester.run(RULE_NAME, rule, {
           <div/>
         </>
       `,
-      errors: [{ type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT" }],
+      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragment" }],
     },
     {
       code: /* tsx */ `<Fragment />`,
-      errors: [{ type: NodeType.JSXElement, messageId: "NO_USELESS_FRAGMENT" }],
+      errors: [{ type: NodeType.JSXElement, messageId: "noUselessFragment" }],
     },
     {
       code: /* tsx */ `
@@ -49,22 +49,22 @@ ruleTester.run(RULE_NAME, rule, {
           <Foo />
         </React.Fragment>
       `,
-      errors: [{ type: NodeType.JSXElement, messageId: "NO_USELESS_FRAGMENT" }],
+      errors: [{ type: NodeType.JSXElement, messageId: "noUselessFragment" }],
     },
     {
       code: /* tsx */ `<Eeee><>foo</></Eeee>`,
-      errors: [{ type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT" }],
+      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragment" }],
     },
     {
       code: /* tsx */ `<div><>foo</></div>`,
       errors: [
-        { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN" },
-        { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT" },
+        { type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
+        { type: NodeType.JSXFragment, messageId: "noUselessFragment" },
       ],
     },
     {
       code: '<div><>{"a"}{"b"}</></div>',
-      errors: [{ type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN" }],
+      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
     },
     {
       code: /* tsx */ `
@@ -74,11 +74,11 @@ ruleTester.run(RULE_NAME, rule, {
           <>{"a"}{"b"}</>
         </section>
       `,
-      errors: [{ type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN" }],
+      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
     },
     {
       code: '<div><Fragment>{"a"}{"b"}</Fragment></div>',
-      errors: [{ type: NodeType.JSXElement, messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN" }],
+      errors: [{ type: NodeType.JSXElement, messageId: "noUselessFragmentInBuiltIn" }],
     },
     {
       // whitepace tricky case
@@ -92,13 +92,13 @@ ruleTester.run(RULE_NAME, rule, {
         </section>
       `,
       errors: [
-        { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN" },
-        { type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN" },
+        { type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
+        { type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
       ],
     },
     {
       code: '<div>a <>{""}{""}</> a</div>',
-      errors: [{ type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN" }],
+      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
     },
     {
       code: /* tsx */ `
@@ -109,14 +109,14 @@ ruleTester.run(RULE_NAME, rule, {
         );
       `,
       errors: [
-        { type: NodeType.JSXElement, messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN" },
-        { type: NodeType.JSXElement, messageId: "NO_USELESS_FRAGMENT" },
+        { type: NodeType.JSXElement, messageId: "noUselessFragmentInBuiltIn" },
+        { type: NodeType.JSXElement, messageId: "noUselessFragment" },
       ],
     },
     // Ensure allowExpressions still catches expected violations
     {
       code: /* tsx */ `<><Foo>{moo}</Foo></>`,
-      errors: [{ type: NodeType.JSXFragment, messageId: "NO_USELESS_FRAGMENT" }],
+      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragment" }],
     },
   ],
   valid: [

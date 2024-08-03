@@ -16,7 +16,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },
@@ -33,7 +33,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },
@@ -50,7 +50,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },
@@ -67,7 +67,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },
@@ -84,7 +84,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },
@@ -101,7 +101,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },
@@ -118,7 +118,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },
@@ -135,7 +135,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },
@@ -152,7 +152,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },
@@ -172,7 +172,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },
@@ -199,7 +199,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },
@@ -226,7 +226,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },
@@ -243,7 +243,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },
@@ -262,7 +262,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },
@@ -279,7 +279,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },
@@ -298,7 +298,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },
@@ -315,7 +315,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },
@@ -350,7 +350,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_READ_ONLY_PROPS",
+          messageId: "preferReadOnlyProps",
         },
       ],
     },

@@ -5,63 +5,63 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `<div children />;`, // not a valid use case but make sure we don't crash
-      errors: [{ messageId: "NO_CHILDREN_PROP" }],
+      errors: [{ messageId: "noChildrenProp" }],
     },
     {
       code: '<div children="Children" />;',
-      errors: [{ messageId: "NO_CHILDREN_PROP" }],
+      errors: [{ messageId: "noChildrenProp" }],
     },
     {
       code: /* tsx */ `<div children={<div />} />;`,
-      errors: [{ messageId: "NO_CHILDREN_PROP" }],
+      errors: [{ messageId: "noChildrenProp" }],
     },
     {
       code: /* tsx */ `<div children={[<div />, <div />]} />;`,
-      errors: [{ messageId: "NO_CHILDREN_PROP" }],
+      errors: [{ messageId: "noChildrenProp" }],
     },
     {
       code: '<div children="Children">Children</div>;',
-      errors: [{ messageId: "NO_CHILDREN_PROP" }],
+      errors: [{ messageId: "noChildrenProp" }],
     },
     {
       code: 'React.createElement("div", {children: "Children"});',
-      errors: [{ messageId: "NO_CHILDREN_PROP" }],
+      errors: [{ messageId: "noChildrenProp" }],
     },
     {
       code: 'React.createElement("div", {children: "Children"}, "Children");',
-      errors: [{ messageId: "NO_CHILDREN_PROP" }],
+      errors: [{ messageId: "noChildrenProp" }],
     },
     {
       code: 'React.createElement("div", {children: React.createElement("div")});',
-      errors: [{ messageId: "NO_CHILDREN_PROP" }],
+      errors: [{ messageId: "noChildrenProp" }],
     },
     {
       code: 'React.createElement("div", {children: [React.createElement("div"), React.createElement("div")]});',
-      errors: [{ messageId: "NO_CHILDREN_PROP" }],
+      errors: [{ messageId: "noChildrenProp" }],
     },
     {
       code: '<MyComponent children="Children" />',
-      errors: [{ messageId: "NO_CHILDREN_PROP" }],
+      errors: [{ messageId: "noChildrenProp" }],
     },
     {
       code: 'React.createElement(MyComponent, {children: "Children"});',
-      errors: [{ messageId: "NO_CHILDREN_PROP" }],
+      errors: [{ messageId: "noChildrenProp" }],
     },
     {
       code: '<MyComponent className="class-name" children="Children" />;',
-      errors: [{ messageId: "NO_CHILDREN_PROP" }],
+      errors: [{ messageId: "noChildrenProp" }],
     },
     {
       code: 'React.createElement(MyComponent, {children: "Children", className: "class-name"});',
-      errors: [{ messageId: "NO_CHILDREN_PROP" }],
+      errors: [{ messageId: "noChildrenProp" }],
     },
     {
       code: '<MyComponent {...props} children="Children" />;',
-      errors: [{ messageId: "NO_CHILDREN_PROP" }],
+      errors: [{ messageId: "noChildrenProp" }],
     },
     {
       code: 'React.createElement(MyComponent, {...props, children: "Children"})',
-      errors: [{ messageId: "NO_CHILDREN_PROP" }],
+      errors: [{ messageId: "noChildrenProp" }],
     },
   ],
   valid: [

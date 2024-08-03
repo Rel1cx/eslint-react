@@ -9,9 +9,9 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-unstable-context-value";
 
 export type MessageID =
-  | "NO_UNSTABLE_CONTEXT_VALUE"
-  | "NO_UNSTABLE_CONTEXT_VALUE_WITH_FUNCTION"
-  | "NO_UNSTABLE_CONTEXT_VALUE_WITH_IDENTIFIER";
+  | "noUnstableContextValue"
+  | "noUnstableContextValueWithFunction"
+  | "noUnstableContextValueWithIdentifier";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -20,11 +20,11 @@ export default createRule<[], MessageID>({
       description: "disallow passing constructed values to context providers",
     },
     messages: {
-      NO_UNSTABLE_CONTEXT_VALUE:
+      noUnstableContextValue:
         "A/an '{{type}}' passed as the value prop to the context provider should not be constructed. It will change on every render.",
-      NO_UNSTABLE_CONTEXT_VALUE_WITH_FUNCTION:
+      noUnstableContextValueWithFunction:
         "A/an '{{type}}' passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useCallback hook.",
-      NO_UNSTABLE_CONTEXT_VALUE_WITH_IDENTIFIER:
+      noUnstableContextValueWithIdentifier:
         "A/an '{{type}}' passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useMemo hook.",
     },
     schema: [],
@@ -70,8 +70,8 @@ export default createRule<[], MessageID>({
             if (construction._tag === "None") continue;
             const { _tag, node: constructionNode } = construction;
             const messageId = _tag.startsWith("Function")
-              ? "NO_UNSTABLE_CONTEXT_VALUE_WITH_FUNCTION"
-              : "NO_UNSTABLE_CONTEXT_VALUE_WITH_IDENTIFIER";
+              ? "noUnstableContextValueWithFunction"
+              : "noUnstableContextValueWithIdentifier";
             context.report({
               data: {
                 type: readableNodeType(constructionNode),

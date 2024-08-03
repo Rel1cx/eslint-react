@@ -5,14 +5,14 @@ import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import * as R from "remeda";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 import { isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-array-index-key";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 const reactChildrenMethod = ["forEach", "map"] as const;
 
@@ -86,7 +86,7 @@ export default createRule<[], MessageID>({
       description: "disallow using Array index as 'key'",
     },
     messages: {
-      NO_ARRAY_INDEX_KEY: "Do not use Array index as 'key'.",
+      noArrayIndexKey: "Do not use Array index as 'key'.",
     },
     schema: [],
   },
@@ -109,7 +109,7 @@ export default createRule<[], MessageID>({
     function checkPropValue(node: TSESTree.Node): ReportDescriptor<MessageID>[] {
       // key={bar}
       if (isArrayIndex(node)) {
-        return [{ messageId: "NO_ARRAY_INDEX_KEY", node }];
+        return [{ messageId: "noArrayIndexKey", node }];
       }
       // key={`foo-${bar}`} or key={'foo' + bar}
       if (isOneOf([NodeType.TemplateLiteral, NodeType.BinaryExpression])(node)) {
@@ -118,7 +118,7 @@ export default createRule<[], MessageID>({
           : getIdentifiersFromBinaryExpression(node);
 
         return exps.reduce<ReportDescriptor<MessageID>[]>((acc, exp) => {
-          if (isArrayIndex(exp)) return [...acc, { messageId: "NO_ARRAY_INDEX_KEY", node: exp }];
+          if (isArrayIndex(exp)) return [...acc, { messageId: "noArrayIndexKey", node: exp }];
 
           return acc;
         }, []);
@@ -137,7 +137,7 @@ export default createRule<[], MessageID>({
       if (isToStringCall) {
         if (!("object" in node.callee && isArrayIndex(node.callee.object))) return [];
 
-        return [{ messageId: "NO_ARRAY_INDEX_KEY", node: node.callee.object }];
+        return [{ messageId: "noArrayIndexKey", node: node.callee.object }];
       }
       // key={String(bar)}
       const isStringCall = isMatching({
@@ -149,7 +149,7 @@ export default createRule<[], MessageID>({
       }, node);
       if (isStringCall) {
         const [arg] = node.arguments;
-        if (arg && isArrayIndex(arg)) return [{ messageId: "NO_ARRAY_INDEX_KEY", node: arg }];
+        if (arg && isArrayIndex(arg)) return [{ messageId: "noArrayIndexKey", node: arg }];
       }
 
       return [];

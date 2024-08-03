@@ -4,14 +4,14 @@ import { isClassComponent } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import * as R from "remeda";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 import { isMatching, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unused-state";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Option<string> {
   if (node.type === NodeType.TSAsExpression) {
@@ -57,7 +57,7 @@ export default createRule<[], MessageID>({
       description: "disallow unused state of class component",
     },
     messages: {
-      NO_UNUSED_STATE: "Unused class component state.",
+      noUnusedState: "Unused class component state.",
     },
     schema: [],
   },
@@ -80,7 +80,7 @@ export default createRule<[], MessageID>({
         data: {
           className: O.getOrElse(className, () => "Component"),
         },
-        messageId: "NO_UNUSED_STATE",
+        messageId: "noUnusedState",
         node: def.value,
       });
     }

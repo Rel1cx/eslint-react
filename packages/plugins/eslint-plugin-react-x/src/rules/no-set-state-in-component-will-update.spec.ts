@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_SET_STATE_IN_COMPONENT_WILL_UPDATE" },
+        { messageId: "noSetStateInComponentWillUpdate" },
       ],
     },
     {
@@ -24,7 +24,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "NO_SET_STATE_IN_COMPONENT_WILL_UPDATE" },
+        { messageId: "noSetStateInComponentWillUpdate" },
       ],
     },
   ],

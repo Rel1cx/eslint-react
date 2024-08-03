@@ -2,13 +2,13 @@ import { is, NodeType } from "@eslint-react/ast";
 import { findPropInAttributes } from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-implicit-key";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
       description: "disallow implicit 'key' props",
     },
     messages: {
-      NO_IMPLICIT_KEY: "Do not use implicit 'key' props.",
+      noImplicitKey: "Do not use implicit 'key' props.",
     },
     schema: [],
   },
@@ -29,7 +29,7 @@ export default createRule<[], MessageID>({
         const keyPropFound = findPropInAttributes(node.attributes, context, initialScope)("key");
         const keyPropOnElement = node.attributes.some(n => is(NodeType.JSXAttribute)(n) && n.name.name === "key");
         if (O.isSome(keyPropFound) && !keyPropOnElement) {
-          context.report({ messageId: "NO_IMPLICIT_KEY", node });
+          context.report({ messageId: "noImplicitKey", node });
         }
       },
     };

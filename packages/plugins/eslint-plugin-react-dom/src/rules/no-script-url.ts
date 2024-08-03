@@ -4,13 +4,13 @@ import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import * as R from "remeda";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-script-url";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 /**
  * This rule is adapted from eslint-plugin-solid's jsx-no-script-url rule under the MIT license.
@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
       description: "disallow 'javascript:' URLs as JSX event handler prop's value",
     },
     messages: {
-      NO_SCRIPT_URL: "Using a `javascript:` URL is a security risk and should be avoided.",
+      noScriptUrl: "Using a `javascript:` URL is a security risk and should be avoided.",
     },
     schema: [],
   },
@@ -40,7 +40,7 @@ export default createRule<[], MessageID>({
         );
         if (isJavaScript) {
           context.report({
-            messageId: "NO_SCRIPT_URL",
+            messageId: "noScriptUrl",
             node: node.value,
           });
         }

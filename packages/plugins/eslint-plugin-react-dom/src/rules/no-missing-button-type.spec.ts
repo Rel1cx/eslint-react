@@ -7,7 +7,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<button>Click me</button>;`,
       errors: [
         {
-          messageId: "NO_MISSING_BUTTON_TYPE",
+          messageId: "noMissingButtonType",
         },
       ],
     },
@@ -15,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<PolyComponent as="button">Click me</PolyComponent>;`,
       errors: [
         {
-          messageId: "NO_MISSING_BUTTON_TYPE",
+          messageId: "noMissingButtonType",
         },
       ],
       settings: {

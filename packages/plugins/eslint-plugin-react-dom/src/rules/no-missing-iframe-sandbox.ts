@@ -3,13 +3,13 @@ import { decodeSettings, expandSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import * as R from "remeda";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-missing-iframe-sandbox";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 const validTypes = [
   "allow-downloads",
@@ -37,7 +37,7 @@ export default createRule<[], MessageID>({
       description: "enforce that 'iframe' component have an explicit 'sandbox' attribute",
     },
     messages: {
-      NO_MISSING_IFRAME_SANDBOX: "Add missing 'sandbox' attribute on 'iframe' component.",
+      noMissingIframeSandbox: "Add missing 'sandbox' attribute on 'iframe' component.",
     },
     schema: [],
   },
@@ -53,7 +53,7 @@ export default createRule<[], MessageID>({
         const maybeSandboxAttribute = findPropInAttributes(attributes, context, initialScope)("sandbox");
         if (O.isNone(maybeSandboxAttribute)) {
           context.report({
-            messageId: "NO_MISSING_IFRAME_SANDBOX",
+            messageId: "noMissingIframeSandbox",
             node: node.openingElement,
           });
           return;
@@ -68,7 +68,7 @@ export default createRule<[], MessageID>({
         );
         if (hasValidSandbox) return;
         context.report({
-          messageId: "NO_MISSING_IFRAME_SANDBOX",
+          messageId: "noMissingIframeSandbox",
           node: sandboxAttribute,
         });
       },

@@ -59,7 +59,7 @@
     "@typescript-eslint/type-utils": "^8.0.0",
     "@typescript-eslint/types": "^8.0.0",
     "@typescript-eslint/utils": "^8.0.0",
-    "is-immutable-type": "4.0.0",
+    "is-immutable-type": "5.0.0",
     "remeda": "^2.7.0"
   },
   "devDependencies": {

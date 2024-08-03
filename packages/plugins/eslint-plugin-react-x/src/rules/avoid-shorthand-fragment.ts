@@ -1,11 +1,11 @@
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "avoid-shorthand-fragment";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -14,7 +14,7 @@ export default createRule<[], MessageID>({
       description: "avoid using shorthand fragment syntax",
     },
     messages: {
-      AVOID_SHORTHAND_FRAGMENT: "Avoid using shorthand fragment syntax. Use 'Fragment' component instead.",
+      avoidShorthandFragment: "Avoid using shorthand fragment syntax. Use 'Fragment' component instead.",
     },
     schema: [],
   },
@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
     return {
       JSXFragment(node) {
         context.report({
-          messageId: "AVOID_SHORTHAND_FRAGMENT",
+          messageId: "avoidShorthandFragment",
           node,
         });
       },

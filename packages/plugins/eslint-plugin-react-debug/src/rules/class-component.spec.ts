@@ -11,7 +11,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "CLASS_COMPONENT" }],
+      errors: [{ messageId: "classComponent" }],
     },
     {
       code: /* tsx */ `
@@ -21,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
             }
          };
       `,
-      errors: [{ messageId: "CLASS_COMPONENT" }],
+      errors: [{ messageId: "classComponent" }],
     },
     {
       code: /* tsx */ `
@@ -39,7 +39,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "CLASS_COMPONENT" }],
+      errors: [{ messageId: "classComponent" }],
     },
     {
       code: /* tsx */ `
@@ -60,8 +60,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "CLASS_COMPONENT" },
-        { messageId: "CLASS_COMPONENT" },
+        { messageId: "classComponent" },
+        { messageId: "classComponent" },
       ],
     },
     {
@@ -83,8 +83,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "CLASS_COMPONENT" },
-        { messageId: "CLASS_COMPONENT" },
+        { messageId: "classComponent" },
+        { messageId: "classComponent" },
       ],
     },
     {
@@ -103,7 +103,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "CLASS_COMPONENT" }],
+      errors: [{ messageId: "classComponent" }],
     },
     {
       code: /* tsx */ `
@@ -121,7 +121,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "CLASS_COMPONENT" }],
+      errors: [{ messageId: "classComponent" }],
     },
     {
       code: /* tsx */ `
@@ -139,7 +139,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "CLASS_COMPONENT" }],
+      errors: [{ messageId: "classComponent" }],
     },
     {
       code: /* tsx */ `
@@ -157,7 +157,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "CLASS_COMPONENT" }],
+      errors: [{ messageId: "classComponent" }],
     },
     {
       code: /* tsx */ `
@@ -171,7 +171,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "CLASS_COMPONENT" }],
+      errors: [{ messageId: "classComponent" }],
     },
     {
       code: /* tsx */ `
@@ -192,7 +192,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "CLASS_COMPONENT" }],
+      errors: [{ messageId: "classComponent" }],
     },
   ],
   valid: [

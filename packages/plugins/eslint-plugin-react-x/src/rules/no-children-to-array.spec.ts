@@ -14,7 +14,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_TO_ARRAY",
+        messageId: "noChildrenToArray",
       }],
     },
     {
@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_TO_ARRAY",
+        messageId: "noChildrenToArray",
       }],
     },
     {
@@ -42,7 +42,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_TO_ARRAY",
+        messageId: "noChildrenToArray",
       }],
     },
     {
@@ -56,7 +56,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_TO_ARRAY",
+        messageId: "noChildrenToArray",
       }],
     },
   ],

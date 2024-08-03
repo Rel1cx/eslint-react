@@ -16,7 +16,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_ACCESS_STATE_IN_SETSTATE",
+          messageId: "noAccessStateInSetstate",
         },
       ],
     },
@@ -33,7 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_ACCESS_STATE_IN_SETSTATE",
+          messageId: "noAccessStateInSetstate",
         },
       ],
     },
@@ -50,7 +50,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_ACCESS_STATE_IN_SETSTATE",
+          messageId: "noAccessStateInSetstate",
         },
       ],
     },
@@ -67,7 +67,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_ACCESS_STATE_IN_SETSTATE",
+          messageId: "noAccessStateInSetstate",
         },
       ],
     },
@@ -84,7 +84,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_ACCESS_STATE_IN_SETSTATE",
+          messageId: "noAccessStateInSetstate",
         },
       ],
     },

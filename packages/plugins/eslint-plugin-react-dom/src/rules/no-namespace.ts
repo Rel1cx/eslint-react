@@ -1,12 +1,13 @@
 import { getElementName } from "@eslint-react/jsx";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import * as R from "remeda";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-namespace";
 
-export type MessageID = "NO_NAMESPACE";
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -15,7 +16,7 @@ export default createRule<[], MessageID>({
       description: "enforce that namespaces are not used in React elements",
     },
     messages: {
-      NO_NAMESPACE: "A React component '{{name}}' must not be in a namespace, as React does not support them.",
+      noNamespace: "A React component '{{name}}' must not be in a namespace, as React does not support them.",
     },
     schema: [],
   },
@@ -29,7 +30,7 @@ export default createRule<[], MessageID>({
           data: {
             name,
           },
-          messageId: "NO_NAMESPACE",
+          messageId: "noNamespace",
           node,
         });
       },

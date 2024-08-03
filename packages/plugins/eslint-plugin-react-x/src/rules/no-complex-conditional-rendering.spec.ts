@@ -11,7 +11,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
+          messageId: "noComplexConditionalRendering",
         },
       ],
     },
@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
+          messageId: "noComplexConditionalRendering",
         },
       ],
     },
@@ -54,7 +54,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
+          messageId: "noComplexConditionalRendering",
         },
       ],
     },
@@ -80,7 +80,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
+          messageId: "noComplexConditionalRendering",
         },
       ],
     },
@@ -106,7 +106,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
+          messageId: "noComplexConditionalRendering",
         },
       ],
     },
@@ -135,7 +135,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
+          messageId: "noComplexConditionalRendering",
         },
       ],
     },
@@ -152,10 +152,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
+          messageId: "noComplexConditionalRendering",
         },
         {
-          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
+          messageId: "noComplexConditionalRendering",
         },
       ],
     },
@@ -172,10 +172,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
+          messageId: "noComplexConditionalRendering",
         },
         {
-          messageId: "NO_COMPLEX_CONDITIONAL_RENDERING",
+          messageId: "noComplexConditionalRendering",
         },
       ],
     },

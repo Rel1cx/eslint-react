@@ -10,26 +10,26 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-useless-fragment";
 
 export type MessageID =
-  | "NO_USELESS_FRAGMENT"
-  | "NO_USELESS_FRAGMENT_IN_BUILT_IN";
+  | "noUselessFragment"
+  | "noUselessFragmentInBuiltIn";
 
 function check(
   node: TSESTree.JSXElement | TSESTree.JSXFragment,
   context: RuleContext,
 ) {
   if (isKeyedElement(node, context)) return;
-  if (isBuiltInElement(node.parent)) context.report({ messageId: "NO_USELESS_FRAGMENT_IN_BUILT_IN", node });
-  if (node.children.length === 0) return context.report({ messageId: "NO_USELESS_FRAGMENT", node });
+  if (isBuiltInElement(node.parent)) context.report({ messageId: "noUselessFragmentInBuiltIn", node });
+  if (node.children.length === 0) return context.report({ messageId: "noUselessFragment", node });
   const isChildren = isOneOf([NodeType.JSXElement, NodeType.JSXFragment])(node.parent);
   const firstChildren = node.children[0];
   // <Foo content={<>ee eeee eeee ...</>} />
   if (node.children.length === 1 && isLiteral(firstChildren) && !isChildren) return;
   const nonPaddingChildren = node.children.filter((child) => !isPaddingSpaces(child));
   if (nonPaddingChildren.length > 1) return;
-  if (nonPaddingChildren.length === 0) return context.report({ messageId: "NO_USELESS_FRAGMENT", node });
+  if (nonPaddingChildren.length === 0) return context.report({ messageId: "noUselessFragment", node });
   const first = nonPaddingChildren[0];
   if (isMatching({ type: NodeType.JSXExpressionContainer, expression: P.not(NodeType.CallExpression) }, first)) return;
-  context.report({ messageId: "NO_USELESS_FRAGMENT", node });
+  context.report({ messageId: "noUselessFragment", node });
 }
 
 export default createRule<[], MessageID>({
@@ -39,8 +39,8 @@ export default createRule<[], MessageID>({
       description: "disallow unnecessary fragments",
     },
     messages: {
-      NO_USELESS_FRAGMENT: "A fragment contains less than two children is unnecessary.",
-      NO_USELESS_FRAGMENT_IN_BUILT_IN: "A fragment placed inside a built-in component is unnecessary.",
+      noUselessFragment: "A fragment contains less than two children is unnecessary.",
+      noUselessFragmentInBuiltIn: "A fragment placed inside a built-in component is unnecessary.",
     },
     schema: [],
   },

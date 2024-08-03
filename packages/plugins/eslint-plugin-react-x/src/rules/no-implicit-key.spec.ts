@@ -16,9 +16,9 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "NO_IMPLICIT_KEY" },
-        { messageId: "NO_IMPLICIT_KEY" },
-        { messageId: "NO_IMPLICIT_KEY" },
+        { messageId: "noImplicitKey" },
+        { messageId: "noImplicitKey" },
+        { messageId: "noImplicitKey" },
       ],
     },
     {
@@ -35,9 +35,9 @@ ruleTester.run(RULE_NAME, rule, {
           };
       `,
       errors: [
-        { messageId: "NO_IMPLICIT_KEY" },
-        { messageId: "NO_IMPLICIT_KEY" },
-        { messageId: "NO_IMPLICIT_KEY" },
+        { messageId: "noImplicitKey" },
+        { messageId: "noImplicitKey" },
+        { messageId: "noImplicitKey" },
       ],
     },
     {
@@ -51,9 +51,9 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "NO_IMPLICIT_KEY" },
-        { messageId: "NO_IMPLICIT_KEY" },
-        { messageId: "NO_IMPLICIT_KEY" },
+        { messageId: "noImplicitKey" },
+        { messageId: "noImplicitKey" },
+        { messageId: "noImplicitKey" },
       ],
     },
     {
@@ -67,9 +67,9 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "NO_IMPLICIT_KEY" },
-        { messageId: "NO_IMPLICIT_KEY" },
-        { messageId: "NO_IMPLICIT_KEY" },
+        { messageId: "noImplicitKey" },
+        { messageId: "noImplicitKey" },
+        { messageId: "noImplicitKey" },
       ],
     },
     {
@@ -87,9 +87,9 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "NO_IMPLICIT_KEY" },
-        { messageId: "NO_IMPLICIT_KEY" },
-        { messageId: "NO_IMPLICIT_KEY" },
+        { messageId: "noImplicitKey" },
+        { messageId: "noImplicitKey" },
+        { messageId: "noImplicitKey" },
       ],
     },
     {
@@ -109,10 +109,10 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "NO_IMPLICIT_KEY" },
-        { messageId: "NO_IMPLICIT_KEY" },
-        { messageId: "NO_IMPLICIT_KEY" },
-        { messageId: "NO_IMPLICIT_KEY" },
+        { messageId: "noImplicitKey" },
+        { messageId: "noImplicitKey" },
+        { messageId: "noImplicitKey" },
+        { messageId: "noImplicitKey" },
       ],
     },
   ],

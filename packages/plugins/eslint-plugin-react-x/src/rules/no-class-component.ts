@@ -2,14 +2,14 @@ import { NodeType } from "@eslint-react/ast";
 import { useComponentCollectorLegacy } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 import { isMatching, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-class-component";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 const isComponentDidCatch = isMatching({
   key: {
@@ -36,7 +36,7 @@ export default createRule<[], MessageID>({
       description: "disallow using class components",
     },
     messages: {
-      NO_CLASS_COMPONENT: "Do not use class components. Use function components instead.",
+      noClassComponent: "Do not use class components. Use function components instead.",
     },
     schema: [],
   },
@@ -55,7 +55,7 @@ export default createRule<[], MessageID>({
             data: {
               name: O.getOrElse(F.constant("anonymous"))(name),
             },
-            messageId: "NO_CLASS_COMPONENT",
+            messageId: "noClassComponent",
             node: component,
           });
         }

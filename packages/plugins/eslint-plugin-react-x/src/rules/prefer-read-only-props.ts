@@ -3,14 +3,14 @@ import { getConstrainedTypeAtLocation, isTypeReadonly } from "@typescript-eslint
 import type { ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { getTypeImmutability, isImmutable, isReadonlyDeep, isReadonlyShallow, isUnknown } from "is-immutable-type";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 import type ts from "typescript";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "prefer-read-only-props";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function isReadonlyType(type: ts.Type, services: ParserServicesWithTypeInformation): boolean {
   try {
@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
       description: "enforce read-only props in components",
     },
     messages: {
-      PREFER_READ_ONLY_PROPS: "A function component's props should be read-only.",
+      preferReadOnlyProps: "A function component's props should be read-only.",
     },
     schema: [],
   },
@@ -45,7 +45,7 @@ export default createRule<[], MessageID>({
           if (!props) continue;
           const propsType = getConstrainedTypeAtLocation(services, props);
           if (isTypeReadonly(services.program, propsType) || isReadonlyType(propsType, services)) continue;
-          context.report({ messageId: "PREFER_READ_ONLY_PROPS", node: props });
+          context.report({ messageId: "preferReadOnlyProps", node: props });
         }
       },
     };

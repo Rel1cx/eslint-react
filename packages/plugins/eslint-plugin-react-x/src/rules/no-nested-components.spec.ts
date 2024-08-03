@@ -17,7 +17,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -33,7 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -49,7 +49,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -65,7 +65,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -81,7 +81,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -97,7 +97,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -113,7 +113,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -129,7 +129,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         };
       `,
-      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -145,7 +145,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -161,7 +161,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -179,7 +179,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -197,7 +197,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -217,7 +217,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -237,7 +237,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -255,7 +255,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedFunctionComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -273,7 +273,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -291,7 +291,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedVariableComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -309,7 +309,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedClassComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -329,7 +329,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "NestedUnstableFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "NestedUnstableFunctionComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -345,7 +345,7 @@ ruleTester.run(RULE_NAME, rule, {
           return React.createElement("div", null, getComponent());
         }
       `,
-      errors: [{ data: { name: "NestedUnstableFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "NestedUnstableFunctionComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -361,7 +361,7 @@ ruleTester.run(RULE_NAME, rule, {
           });
         }
       `,
-      errors: [{ data: { name: "SomeFooter" }, messageId: "NESTED_COMPONENT_IN_PROPS" }],
+      errors: [{ data: { name: "SomeFooter" }, messageId: "nestedComponentInProps" }],
     },
     {
       code: /* tsx */ `
@@ -387,7 +387,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -397,7 +397,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "Header" }, messageId: "NESTED_COMPONENT_IN_PROPS" }],
+      errors: [{ data: { name: "Header" }, messageId: "nestedComponentInProps" }],
     },
     {
       code: /* tsx */ `
@@ -411,7 +411,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ data: { name: "List" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "List" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -432,7 +432,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ data: { name: "List" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "List" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -448,7 +448,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -464,7 +464,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -482,7 +482,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -500,7 +500,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "UnstableNestedComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -514,7 +514,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "MemoizedNestedComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "MemoizedNestedComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -531,7 +531,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "MemoizedNestedComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "MemoizedNestedComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -550,7 +550,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "MemoizedNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "MemoizedNestedFunctionComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -569,7 +569,7 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ data: { name: "MemoizedNestedFunctionComponent" }, messageId: "NESTED_COMPONENT" }],
+      errors: [{ data: { name: "MemoizedNestedFunctionComponent" }, messageId: "nestedComponent" }],
     },
     {
       code: /* tsx */ `
@@ -579,7 +579,7 @@ ruleTester.run(RULE_NAME, rule, {
           )
         }
       `,
-      errors: [{ data: { name: "Header" }, messageId: "NESTED_COMPONENT_IN_PROPS" }],
+      errors: [{ data: { name: "Header" }, messageId: "nestedComponentInProps" }],
     },
   ],
   valid: [

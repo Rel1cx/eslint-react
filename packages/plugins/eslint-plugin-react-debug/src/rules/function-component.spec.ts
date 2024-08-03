@@ -19,7 +19,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           memo: false,
           props: ["foo"],
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -37,7 +37,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           memo: false,
           props: ["foo"],
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -51,7 +51,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           hookCalls: 0,
           memo: true,
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -69,7 +69,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           hookCalls: 0,
           memo: true,
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -89,7 +89,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           hookCalls: 1,
           memo: true,
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -103,7 +103,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           hookCalls: 0,
           memo: false,
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -119,7 +119,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           hookCalls: 0,
           memo: true,
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -138,7 +138,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           hookCalls: 0,
           memo: true,
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -152,7 +152,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           hookCalls: 0,
           memo: false,
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -168,7 +168,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           hookCalls: 0,
           memo: true,
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -182,7 +182,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           hookCalls: 0,
           memo: true,
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -200,7 +200,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           hookCalls: 1,
           memo: false,
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -214,7 +214,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           hookCalls: 0,
           memo: false,
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -239,7 +239,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -248,7 +248,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -274,7 +274,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -283,7 +283,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -309,7 +309,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -318,7 +318,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -344,7 +344,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -353,7 +353,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -379,7 +379,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -388,7 +388,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -414,7 +414,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -423,7 +423,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -449,7 +449,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -458,7 +458,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -484,7 +484,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -493,7 +493,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -519,7 +519,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -528,7 +528,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -554,7 +554,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -563,7 +563,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -590,7 +590,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           hookCalls: 0,
           memo: false,
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -616,7 +616,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           hookCalls: 0,
           memo: false,
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -642,7 +642,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           hookCalls: 0,
           memo: false,
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -668,7 +668,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           hookCalls: 0,
           memo: false,
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -694,7 +694,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           hookCalls: 0,
           memo: false,
         },
-        messageId: "FUNCTION_COMPONENT",
+        messageId: "functionComponent",
       }],
     },
     {
@@ -721,7 +721,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -751,7 +751,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -760,7 +760,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -786,7 +786,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -795,7 +795,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -824,7 +824,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -833,7 +833,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -859,7 +859,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -868,7 +868,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -877,7 +877,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -901,7 +901,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -910,7 +910,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -934,7 +934,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -943,7 +943,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -979,7 +979,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -988,7 +988,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -1012,7 +1012,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -1021,7 +1021,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -1045,7 +1045,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -1054,7 +1054,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -1074,7 +1074,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -1083,7 +1083,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -1107,7 +1107,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -1138,7 +1138,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -1166,7 +1166,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -1193,7 +1193,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -1218,7 +1218,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -1244,7 +1244,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -1253,7 +1253,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: true,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -1279,7 +1279,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -1288,7 +1288,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: true,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -1316,7 +1316,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -1325,7 +1325,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: true,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -1353,7 +1353,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: false,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
         {
           data: {
@@ -1362,7 +1362,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             hookCalls: 0,
             memo: true,
           },
-          messageId: "FUNCTION_COMPONENT",
+          messageId: "functionComponent",
         },
       ],
     },
@@ -1386,7 +1386,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     //         hookCalls: 1,
     //         memo: false,
     //       },
-    //       messageId: "FUNCTION_COMPONENT",
+    //       messageId: "functionComponent",
     //     },
     //   ],
     //   settings: {
@@ -1418,7 +1418,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     //         hookCalls: 0,
     //         memo: false,
     //       },
-    //       messageId: "FUNCTION_COMPONENT",
+    //       messageId: "functionComponent",
     //     },
     //   ],
     //   settings: {
@@ -1450,7 +1450,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     //         hookCalls: 0,
     //         memo: false,
     //       },
-    //       messageId: "FUNCTION_COMPONENT",
+    //       messageId: "functionComponent",
     //     },
     //   ],
     //   settings: {

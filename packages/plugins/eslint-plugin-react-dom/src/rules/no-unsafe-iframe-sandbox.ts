@@ -3,14 +3,14 @@ import { decodeSettings, expandSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import * as R from "remeda";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 import { match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unsafe-iframe-sandbox";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 const unsafeCombinations = [
   ["allow-scripts", "allow-same-origin"],
@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
       description: "disallow unsafe iframe 'sandbox' attribute combinations",
     },
     messages: {
-      NO_UNSAFE_IFRAME_SANDBOX: "Unsafe 'sandbox' attribute value on 'iframe' component.",
+      noUnsafeIframeSandbox: "Unsafe 'sandbox' attribute value on 'iframe' component.",
     },
     schema: [],
   },
@@ -56,7 +56,7 @@ export default createRule<[], MessageID>({
         );
         if (isSafeSandboxValue) return;
         context.report({
-          messageId: "NO_UNSAFE_IFRAME_SANDBOX",
+          messageId: "noUnsafeIframeSandbox",
           node: maybeSandboxAttribute.value,
         });
       },

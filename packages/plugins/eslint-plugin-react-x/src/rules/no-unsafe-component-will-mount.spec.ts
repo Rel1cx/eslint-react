@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_UNSAFE_COMPONENT_WILL_MOUNT",
+          messageId: "noUnsafeComponentWillMount",
         },
       ],
     },
@@ -37,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_UNSAFE_COMPONENT_WILL_MOUNT",
+          messageId: "noUnsafeComponentWillMount",
         },
       ],
     },
@@ -56,7 +56,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_UNSAFE_COMPONENT_WILL_MOUNT",
+          messageId: "noUnsafeComponentWillMount",
         },
       ],
     },
@@ -75,7 +75,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_UNSAFE_COMPONENT_WILL_MOUNT",
+          messageId: "noUnsafeComponentWillMount",
         },
       ],
     },

@@ -241,3 +241,23 @@ export const HOST_SVG_COMPONENT_TYPES = [
   "use",
   "view",
 ] as const;
+
+export const REACT_BUILD_IN_HOOKS = [
+  "useActionState",
+  "useCallback",
+  "useContext",
+  "useDebugValue",
+  "useDeferredValue",
+  "useEffect",
+  "useId",
+  "useImperativeHandle",
+  "useInsertionEffect",
+  "useLayoutEffect",
+  "useMemo",
+  "useOptimistic",
+  "useReducer",
+  "useRef",
+  "useState",
+  "useSyncExternalStore",
+  "useTransition",
+] as const;

@@ -1,12 +1,12 @@
 import { useHookCollector } from "@eslint-react/core";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "react-hooks";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
       description: "report all React Hooks",
     },
     messages: {
-      REACT_HOOKS: "[react hooks] name: {{name}}, hookCalls: {{hookCalls}}.",
+      reactHooks: "[react hooks] name: {{name}}, hookCalls: {{hookCalls}}.",
     },
     schema: [],
   },
@@ -34,7 +34,7 @@ export default createRule<[], MessageID>({
               name: name.value,
               hookCalls: hookCalls.length,
             },
-            messageId: "REACT_HOOKS",
+            messageId: "reactHooks",
             node,
           });
         }

@@ -5,26 +5,26 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: '<a href="https://react.dev" target="_blank"></a>',
-      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
+      errors: [{ messageId: "noUnsafeTargetBlank" }],
     },
     {
       code: '<a href="https://react.dev" target={"_blank"}></a>',
-      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
+      errors: [{ messageId: "noUnsafeTargetBlank" }],
     },
     {
       code: '<a href="https://react.dev" target="_blank" rel="noopener"></a>',
-      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
+      errors: [{ messageId: "noUnsafeTargetBlank" }],
     },
     {
       code: /* tsx */ `
         const props = { href: "https://react.dev", target: "_blank" };
         const a = <a {...props}></a>;
       `,
-      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
+      errors: [{ messageId: "noUnsafeTargetBlank" }],
     },
     {
       code: '<PolyComponent as="a" href="https://react.dev" target="_blank"></PolyComponent>',
-      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
+      errors: [{ messageId: "noUnsafeTargetBlank" }],
       settings: {
         "react-x": {
           polymorphicPropName: "as",
@@ -33,7 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: '<PolyComponent component="a" href="https://react.dev" target="_blank"></PolyComponent>',
-      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
+      errors: [{ messageId: "noUnsafeTargetBlank" }],
       settings: {
         "react-x": {
           polymorphicPropName: "component",
@@ -42,7 +42,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: '<Link href="https://react.dev" target="_blank"></Link>',
-      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
+      errors: [{ messageId: "noUnsafeTargetBlank" }],
       settings: {
         "react-x": {
           additionalComponents: [
@@ -56,7 +56,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: '<Link href="https://react.dev" target="_blank" rel="noopener"></Link>',
-      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
+      errors: [{ messageId: "noUnsafeTargetBlank" }],
       settings: {
         "react-x": {
           additionalComponents: [
@@ -73,7 +73,7 @@ ruleTester.run(RULE_NAME, rule, {
         const a = <a href="https://react.dev" target="_blank"></a>;
         const b = <Link to="https://react.dev" target="_blank"></Link>;
       `,
-      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }], // should be 1 error
+      errors: [{ messageId: "noUnsafeTargetBlank" }], // should be 1 error
       settings: {
         "react-x": {
           additionalComponents: [
@@ -101,8 +101,8 @@ ruleTester.run(RULE_NAME, rule, {
         const b = <LinkButton href="https://react.dev" target="_blank" relation="noopener"></LinkButton>;
       `,
       errors: [
-        { messageId: "NO_UNSAFE_TARGET_BLANK" },
-        { messageId: "NO_UNSAFE_TARGET_BLANK" },
+        { messageId: "noUnsafeTargetBlank" },
+        { messageId: "noUnsafeTargetBlank" },
       ],
       settings: {
         "react-x": {
@@ -135,7 +135,7 @@ ruleTester.run(RULE_NAME, rule, {
         const a = <Link href="https://react.dev" target="_blank"></Link>;
         const b = <LinkButton href="https://react.dev" target="_blank" relation="noopener"></LinkButton>;
       `,
-      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
+      errors: [{ messageId: "noUnsafeTargetBlank" }],
       settings: {
         "react-x": {
           additionalComponents: [
@@ -166,7 +166,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `
         const a = <Link href="https://react.dev"></Link>;
       `,
-      errors: [{ messageId: "NO_UNSAFE_TARGET_BLANK" }],
+      errors: [{ messageId: "noUnsafeTargetBlank" }],
       settings: {
         "react-x": {
           additionalComponents: [

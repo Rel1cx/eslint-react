@@ -1,12 +1,12 @@
 import { isOneOf, NodeType } from "@eslint-react/ast";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-render-return-value";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 const banParentTypes = [
   NodeType.VariableDeclarator,
@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
       description: "disallow usage of the return value of 'ReactDOM.render'",
     },
     messages: {
-      NO_RENDER_RETURN_VALUE: "Do not depend on the return value from '{{objectName}}.render'.",
+      noRenderReturnValue: "Do not depend on the return value from '{{objectName}}.render'.",
     },
     schema: [],
   },
@@ -48,7 +48,7 @@ export default createRule<[], MessageID>({
           data: {
             objectName,
           },
-          messageId: "NO_RENDER_RETURN_VALUE",
+          messageId: "noRenderReturnValue",
           node,
         });
       },

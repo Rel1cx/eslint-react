@@ -17,7 +17,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_FOR_EACH",
+        messageId: "noChildrenForEach",
       }],
     },
     {
@@ -34,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_FOR_EACH",
+        messageId: "noChildrenForEach",
       }],
     },
     {
@@ -51,7 +51,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_FOR_EACH",
+        messageId: "noChildrenForEach",
       }],
     },
     {
@@ -68,7 +68,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_FOR_EACH",
+        messageId: "noChildrenForEach",
       }],
     },
   ],

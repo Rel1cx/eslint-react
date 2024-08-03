@@ -1,12 +1,12 @@
 import { isChildrenToArray } from "@eslint-react/core";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-children-to-array";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -15,8 +15,7 @@ export default createRule<[], MessageID>({
       description: "disallow using 'Children.toArray'",
     },
     messages: {
-      NO_CHILDREN_TO_ARRAY:
-        "Using 'Children.toArray' is uncommon and can lead to fragile code. Use alternatives instead.",
+      noChildrenToArray: "Using 'Children.toArray' is uncommon and can lead to fragile code. Use alternatives instead.",
     },
     schema: [],
   },
@@ -26,7 +25,7 @@ export default createRule<[], MessageID>({
       MemberExpression(node) {
         if (isChildrenToArray(node, context)) {
           context.report({
-            messageId: "NO_CHILDREN_TO_ARRAY",
+            messageId: "noChildrenToArray",
             node: node.property,
           });
         }

@@ -3,13 +3,13 @@ import { isClassComponent } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import * as R from "remeda";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-access-state-in-setstate";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function isThisSetState(node: TSESTree.CallExpression) {
   const { callee } = node;
@@ -46,7 +46,7 @@ export default createRule<[], MessageID>({
       description: "disallow accessing 'this.state' within 'setState'",
     },
     messages: {
-      NO_ACCESS_STATE_IN_SETSTATE: "Do not access 'this.state' within 'setState'. Use the update function instead.",
+      noAccessStateInSetstate: "Do not access 'this.state' within 'setState'. Use the update function instead.",
     },
     schema: [],
   },
@@ -94,7 +94,7 @@ export default createRule<[], MessageID>({
         const [setState, hasThisState] = R.last(setStateStack) ?? [];
         if (!setState || hasThisState) return;
         if (!O.exists(getName(node.property), name => name === "state")) return;
-        context.report({ messageId: "NO_ACCESS_STATE_IN_SETSTATE", node });
+        context.report({ messageId: "noAccessStateInSetstate", node });
       },
       MethodDefinition(node) {
         methodStack.push([node, node.static]);
@@ -124,7 +124,7 @@ export default createRule<[], MessageID>({
           return false;
         });
         if (!hasState) return;
-        context.report({ messageId: "NO_ACCESS_STATE_IN_SETSTATE", node });
+        context.report({ messageId: "noAccessStateInSetstate", node });
       },
     };
   },

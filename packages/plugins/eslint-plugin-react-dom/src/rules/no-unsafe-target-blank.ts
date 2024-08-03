@@ -4,14 +4,14 @@ import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import * as R from "remeda";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 import { match, P } from "ts-pattern";
 
 import { createRule, getPropFromUserDefined } from "../utils";
 
 export const RULE_NAME = "no-unsafe-target-blank";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function isExternalLinkLike(value: string) {
   return value.startsWith("https://")
@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
       description: `disallow 'target="_blank"' on an external link without 'rel="noreferrer noopener"'`,
     },
     messages: {
-      NO_UNSAFE_TARGET_BLANK:
+      noUnsafeTargetBlank:
         `Using 'target="_blank"' on an external link without 'rel="noreferrer noopener"' is a security risk.`,
     },
     schema: [],
@@ -111,7 +111,7 @@ export default createRule<[], MessageID>({
       if (O.exists(relPropValue, isSafeRel)) return O.none();
       return O.some(
         {
-          messageId: "NO_UNSAFE_TARGET_BLANK",
+          messageId: "noUnsafeTargetBlank",
           node,
         } as const,
       );

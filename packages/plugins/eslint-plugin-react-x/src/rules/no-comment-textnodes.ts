@@ -2,13 +2,13 @@ import { isOneOf } from "@eslint-react/ast";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-comment-textnodes";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
       description: "disallow comments from being inserted as text nodes",
     },
     messages: {
-      NO_COMMENT_TEXTNODES:
+      noCommentTextnodes:
         "Possible misused comment in text node. Comments inside children section of tag should be placed inside braces.",
     },
     schema: [],
@@ -36,7 +36,7 @@ export default createRule<[], MessageID>({
       if (!checkText(node)) return;
 
       context.report({
-        messageId: "NO_COMMENT_TEXTNODES",
+        messageId: "noCommentTextnodes",
         node,
       });
     };

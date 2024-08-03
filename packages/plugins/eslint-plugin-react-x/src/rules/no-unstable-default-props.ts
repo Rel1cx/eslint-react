@@ -4,14 +4,14 @@ import { useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unstable-default-props";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 type ObjectDestructuringDeclarator = {
   id: TSESTree.ObjectPattern;
@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
       description: "disallow using unstable value as default param in function component",
     },
     messages: {
-      NO_UNSTABLE_DEFAULT_PROPS:
+      noUnstableDefaultProps:
         "A/an '{{forbiddenType}}' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of '{{forbiddenType}}'.",
     },
     schema: [],
@@ -67,7 +67,7 @@ export default createRule<[], MessageID>({
               data: {
                 forbiddenType,
               },
-              messageId: "NO_UNSTABLE_DEFAULT_PROPS",
+              messageId: "noUnstableDefaultProps",
               node: right,
             });
           }

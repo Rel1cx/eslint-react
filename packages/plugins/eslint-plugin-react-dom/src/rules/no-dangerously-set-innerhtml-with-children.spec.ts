@@ -5,37 +5,37 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `<div dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</div>`,
-      errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN" }],
+      errors: [{ messageId: "noDangerouslySetInnerhtmlWithChildren" }],
     },
     {
       code: /* tsx */ `<div dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />`,
-      errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN" }],
+      errors: [{ messageId: "noDangerouslySetInnerhtmlWithChildren" }],
     },
     {
       code: /* tsx */ `
         const props = { dangerouslySetInnerHTML: { __html: "HTML" } }
         ;<div {...props}>Children</div>
       `,
-      errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN" }],
+      errors: [{ messageId: "noDangerouslySetInnerhtmlWithChildren" }],
     },
     {
       code: /* tsx */ `
         const props = { children: "Children", dangerouslySetInnerHTML: { __html: "HTML" } }
         ;<div {...props} />
       `,
-      errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN" }],
+      errors: [{ messageId: "noDangerouslySetInnerhtmlWithChildren" }],
     },
     {
       code: /* tsx */ `<App dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</App>`,
-      errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN" }],
+      errors: [{ messageId: "noDangerouslySetInnerhtmlWithChildren" }],
     },
     {
       code: /* tsx */ `<App dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />`,
-      errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN" }],
+      errors: [{ messageId: "noDangerouslySetInnerhtmlWithChildren" }],
     },
     {
       code: /* tsx */ `<App dangerouslySetInnerHTML={{ __html: "HTML" }}> </App>`,
-      errors: [{ messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN" }],
+      errors: [{ messageId: "noDangerouslySetInnerhtmlWithChildren" }],
     },
   ],
   valid: [

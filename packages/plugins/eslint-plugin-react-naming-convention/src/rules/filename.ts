@@ -11,9 +11,9 @@ import { createRule } from "../utils";
 export const RULE_NAME = "filename";
 
 export type MessageID =
-  | "FILENAME_CASE_MISMATCH"
-  | "FILENAME_CASE_MISMATCH_SUGGESTION"
-  | "FILENAME_EMPTY";
+  | "filenameCaseMismatch"
+  | "filenameCaseMismatchSuggestion"
+  | "filenameEmpty";
 
 type Case = "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
 
@@ -80,10 +80,10 @@ export default createRule<Options, MessageID>({
       description: "enforce naming convention for JSX filenames",
     },
     messages: {
-      FILENAME_CASE_MISMATCH: "A file with name '{{name}}' does not match {{rule}}.",
-      FILENAME_CASE_MISMATCH_SUGGESTION:
+      filenameCaseMismatch: "A file with name '{{name}}' does not match {{rule}}.",
+      filenameCaseMismatchSuggestion:
         "A file with name '{{name}}' does not match {{rule}}. Should rename to '{{suggestion}}'.",
-      FILENAME_EMPTY: "A file must have non-empty name.",
+      filenameEmpty: "A file must have non-empty name.",
     },
     schema,
   },
@@ -127,7 +127,7 @@ export default createRule<Options, MessageID>({
       Program(node) {
         const [basename = "", ...rest] = path.basename(context.filename).split(".");
         if (basename.length === 0) {
-          context.report({ messageId: "FILENAME_EMPTY", node });
+          context.report({ messageId: "filenameEmpty", node });
           return;
         }
         if (validate(basename)) return;
@@ -137,7 +137,7 @@ export default createRule<Options, MessageID>({
             rule,
             suggestion: [getSuggestion(basename), ...rest].join("."),
           },
-          messageId: "FILENAME_CASE_MISMATCH_SUGGESTION",
+          messageId: "filenameCaseMismatchSuggestion",
           node,
         });
       },

@@ -12,10 +12,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+          messageId: "preferDestructuringAssignment",
         },
         {
-          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+          messageId: "preferDestructuringAssignment",
         },
       ],
     },
@@ -27,10 +27,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+          messageId: "preferDestructuringAssignment",
         },
         {
-          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+          messageId: "preferDestructuringAssignment",
         },
       ],
     },
@@ -51,7 +51,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+          messageId: "preferDestructuringAssignment",
         },
       ],
     },
@@ -72,7 +72,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+          messageId: "preferDestructuringAssignment",
         },
       ],
     },
@@ -95,7 +95,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+          messageId: "preferDestructuringAssignment",
         },
       ],
     },

@@ -5,31 +5,31 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `foo.map((bar, i) => <Foo key={i} />)`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `[{}, {}].map((bar, i) => <Foo key={i} />)`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.map((bar, anything) => <Foo key={anything} />)`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.map((bar, i) => <Foo key={\`foo-\${i}\`} />)`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.map((bar, i) => <Foo key={'foo-' + i} />)`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.map((bar, i) => <Foo key={'foo-' + i + '-bar'} />)`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.map((baz, i) => React.cloneElement(someChild, { ...someChild.props, key: i }))`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `
@@ -37,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         foo.map((baz, i) => cloneElement(someChild, { ...someChild.props, key: i }))
       `,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `
@@ -47,7 +47,7 @@ ruleTester.run(RULE_NAME, rule, {
           })
         })
       `,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `
@@ -59,83 +59,83 @@ ruleTester.run(RULE_NAME, rule, {
           })
         })
       `,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.forEach((bar, i) => { baz.push(<Foo key={i} />); })`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.filter((bar, i) => { baz.push(<Foo key={i} />); })`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.some((bar, i) => { baz.push(<Foo key={i} />); })`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.every((bar, i) => { baz.push(<Foo key={i} />); })`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.find((bar, i) => { baz.push(<Foo key={i} />); })`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.findIndex((bar, i) => { baz.push(<Foo key={i} />); })`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.reduce((a, b, i) => a.concat(<Foo key={i} />), [])`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.flatMap((a, i) => <Foo key={i} />)`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.reduceRight((a, b, i) => a.concat(<Foo key={i} />), [])`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.map((bar, i) => React.createElement('Foo', { key: i }))`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.map((bar, i) => React.createElement('Foo', { key: \`foo-\${i}\` }))`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.map((bar, i) => React.createElement('Foo', { key: 'foo-' + i }))`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.map((bar, i) => React.createElement('Foo', { key: 'foo-' + i + '-bar' }))`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.forEach((bar, i) => { baz.push(React.createElement('Foo', { key: i })); })`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.filter((bar, i) => { baz.push(React.createElement('Foo', { key: i })); })`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.some((bar, i) => { baz.push(React.createElement('Foo', { key: i })); })`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.every((bar, i) => { baz.push(React.createElement('Foo', { key: i })); })`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.find((bar, i) => { baz.push(React.createElement('Foo', { key: i })); })`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo.findIndex((bar, i) => { baz.push(React.createElement('Foo', { key: i })); })`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `
@@ -143,7 +143,7 @@ ruleTester.run(RULE_NAME, rule, {
           return React.cloneElement(child, { key: index });
         })
       `,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `
@@ -153,7 +153,7 @@ ruleTester.run(RULE_NAME, rule, {
           return cloneElement(child, { key: index });
         })
       `,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `
@@ -161,7 +161,7 @@ ruleTester.run(RULE_NAME, rule, {
           return React.cloneElement(child, { key: index });
         })
       `,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `
@@ -171,7 +171,7 @@ ruleTester.run(RULE_NAME, rule, {
           return cloneElement(child, { key: index });
         })
       `,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `
@@ -179,7 +179,7 @@ ruleTester.run(RULE_NAME, rule, {
           return React.cloneElement(child, { key: index });
         })
       `,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `
@@ -189,7 +189,7 @@ ruleTester.run(RULE_NAME, rule, {
           return cloneElement(child, { key: index });
         })
       `,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `
@@ -197,7 +197,7 @@ ruleTester.run(RULE_NAME, rule, {
           return React.cloneElement(child, { key: index });
         })
       `,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `
@@ -207,11 +207,11 @@ ruleTester.run(RULE_NAME, rule, {
           return cloneElement(child, { key: index });
         })
       `,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `foo?.map((child, i) => <Foo key={i} />)`,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `
@@ -219,7 +219,7 @@ ruleTester.run(RULE_NAME, rule, {
           <Element key={index.toString()} bar={bar} />
         ))
       `,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `
@@ -227,7 +227,7 @@ ruleTester.run(RULE_NAME, rule, {
           <Element key={String(index)} bar={bar} />
         ))
       `,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
     {
       code: /* tsx */ `
@@ -235,7 +235,7 @@ ruleTester.run(RULE_NAME, rule, {
           <Element key={index} bar={bar} />
         ))
       `,
-      errors: [{ messageId: "NO_ARRAY_INDEX_KEY" }],
+      errors: [{ messageId: "noArrayIndexKey" }],
     },
   ],
   valid: [

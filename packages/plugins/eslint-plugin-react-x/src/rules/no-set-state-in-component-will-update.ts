@@ -2,13 +2,13 @@ import { isOneOf, NodeType, traverseUp } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-set-state-in-component-will-update";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function isThisSetState(node: TSESTree.CallExpression) {
   const { callee } = node;
@@ -34,7 +34,7 @@ export default createRule<[], MessageID>({
       description: "disallow using 'setState' in 'componentWillUpdate'",
     },
     messages: {
-      NO_SET_STATE_IN_COMPONENT_WILL_UPDATE:
+      noSetStateInComponentWillUpdate:
         "Do not call `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.",
     },
     schema: [],
@@ -54,7 +54,7 @@ export default createRule<[], MessageID>({
         if (parentMethod.parent !== parentClass.body) return;
         if (context.sourceCode.getScope(node).upper !== context.sourceCode.getScope(parentMethod)) return;
         context.report({
-          messageId: "NO_SET_STATE_IN_COMPONENT_WILL_UPDATE",
+          messageId: "noSetStateInComponentWillUpdate",
           node,
         });
       },

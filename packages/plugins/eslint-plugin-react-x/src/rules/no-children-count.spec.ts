@@ -17,7 +17,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_COUNT",
+        messageId: "noChildrenCount",
       }],
     },
     {
@@ -34,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_COUNT",
+        messageId: "noChildrenCount",
       }],
     },
     {
@@ -51,7 +51,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_COUNT",
+        messageId: "noChildrenCount",
       }],
       settings: {
         "react-x": {
@@ -73,7 +73,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_COUNT",
+        messageId: "noChildrenCount",
       }],
     },
   ],

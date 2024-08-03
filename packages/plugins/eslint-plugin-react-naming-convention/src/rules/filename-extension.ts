@@ -8,8 +8,8 @@ import { createRule } from "../utils";
 export const RULE_NAME = "filename-extension";
 
 export type MessageID =
-  | "FILE_NAME_EXTENSION_INVALID"
-  | "FILE_NAME_EXTENSION_UNEXPECTED";
+  | "filenameExtensionInvalid"
+  | "filenameExtensionUnexpected";
 
 type Allow = "always" | "as-needed";
 
@@ -64,8 +64,8 @@ export default createRule<Options, MessageID>({
       description: "enforce naming convention for JSX file extensions",
     },
     messages: {
-      FILE_NAME_EXTENSION_INVALID: "The JSX file extension is required.",
-      FILE_NAME_EXTENSION_UNEXPECTED: "Use JSX file extension as needed.",
+      filenameExtensionInvalid: "The JSX file extension is required.",
+      filenameExtensionUnexpected: "Use JSX file extension as needed.",
     },
     schema,
   },
@@ -94,7 +94,7 @@ export default createRule<Options, MessageID>({
 
         if (hasJSXCode && !isJSXExt) {
           context.report({
-            messageId: "FILE_NAME_EXTENSION_INVALID",
+            messageId: "filenameExtensionInvalid",
             node,
           });
           return;
@@ -106,7 +106,7 @@ export default createRule<Options, MessageID>({
           && allow === "as-needed"
         ) {
           context.report({
-            messageId: "FILE_NAME_EXTENSION_UNEXPECTED",
+            messageId: "filenameExtensionUnexpected",
             node,
           });
         }

@@ -13,7 +13,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_ONLY",
+        messageId: "noChildrenOnly",
       }],
     },
     {
@@ -26,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_ONLY",
+        messageId: "noChildrenOnly",
       }],
     },
     {
@@ -39,7 +39,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_ONLY",
+        messageId: "noChildrenOnly",
       }],
     },
     {
@@ -52,7 +52,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "NO_CHILDREN_ONLY",
+        messageId: "noChildrenOnly",
       }],
     },
   ],

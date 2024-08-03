@@ -1,13 +1,13 @@
 import { isOneOf, NodeType } from "@eslint-react/ast";
 import { useComponentCollectorLegacy } from "@eslint-react/core";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unsafe-component-will-mount";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function isUnsafeComponentWillMount(node: TSESTree.ClassElement) {
   return isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])(node)
@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
       description: "disallow using 'UNSAFE_componentWillMount'",
     },
     messages: {
-      NO_UNSAFE_COMPONENT_WILL_MOUNT: "Do not use 'UNSAFE_componentWillMount'.",
+      noUnsafeComponentWillMount: "Do not use 'UNSAFE_componentWillMount'.",
     },
     schema: [],
   },
@@ -41,7 +41,7 @@ export default createRule<[], MessageID>({
           for (const member of body) {
             if (isUnsafeComponentWillMount(member)) {
               context.report({
-                messageId: "NO_UNSAFE_COMPONENT_WILL_MOUNT",
+                messageId: "noUnsafeComponentWillMount",
                 node: member,
               });
             }

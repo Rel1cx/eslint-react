@@ -5,27 +5,27 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: '<a href={"javascript:"}></a>',
-      errors: [{ messageId: "NO_SCRIPT_URL" }],
+      errors: [{ messageId: "noScriptUrl" }],
     },
     {
       code: '<Foo href="javascript:"></Foo>',
-      errors: [{ messageId: "NO_SCRIPT_URL" }],
+      errors: [{ messageId: "noScriptUrl" }],
     },
     {
       code: '<a href="javascript:"></a>',
-      errors: [{ messageId: "NO_SCRIPT_URL" }],
+      errors: [{ messageId: "noScriptUrl" }],
     },
     {
       code: '<a href="javascript:void(0)"></a>',
-      errors: [{ messageId: "NO_SCRIPT_URL" }],
+      errors: [{ messageId: "noScriptUrl" }],
     },
     {
       code: '<a href="j\n\n\na\rv\tascript:"></a>',
-      errors: [{ messageId: "NO_SCRIPT_URL" }],
+      errors: [{ messageId: "noScriptUrl" }],
     },
     {
       code: '<Foo to="javascript:"></Foo>',
-      errors: [{ messageId: "NO_SCRIPT_URL" }],
+      errors: [{ messageId: "noScriptUrl" }],
     },
     {
       code: /* tsx */ `
@@ -35,8 +35,8 @@ ruleTester.run(RULE_NAME, rule, {
         </div>
       `,
       errors: [
-        { messageId: "NO_SCRIPT_URL" },
-        { messageId: "NO_SCRIPT_URL" },
+        { messageId: "noScriptUrl" },
+        { messageId: "noScriptUrl" },
       ],
     },
   ],

@@ -7,7 +7,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<iframe />;`,
       errors: [
         {
-          messageId: "NO_MISSING_IFRAME_SANDBOX",
+          messageId: "noMissingIframeSandbox",
         },
       ],
     },
@@ -15,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<iframe sandbox />;`,
       errors: [
         {
-          messageId: "NO_MISSING_IFRAME_SANDBOX",
+          messageId: "noMissingIframeSandbox",
         },
       ],
     },
@@ -23,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<iframe sandbox="" />;`,
       errors: [
         {
-          messageId: "NO_MISSING_IFRAME_SANDBOX",
+          messageId: "noMissingIframeSandbox",
         },
       ],
     },
@@ -40,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_MISSING_IFRAME_SANDBOX",
+          messageId: "noMissingIframeSandbox",
         },
       ],
     },
@@ -48,7 +48,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<PolyComponent as="iframe"/>;`,
       errors: [
         {
-          messageId: "NO_MISSING_IFRAME_SANDBOX",
+          messageId: "noMissingIframeSandbox",
         },
       ],
       settings: {
@@ -61,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<PolyComponent as="iframe" sandbox />;`,
       errors: [
         {
-          messageId: "NO_MISSING_IFRAME_SANDBOX",
+          messageId: "noMissingIframeSandbox",
         },
       ],
       settings: {
@@ -74,7 +74,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<PolyComponent as="iframe" sandbox="" />;`,
       errors: [
         {
-          messageId: "NO_MISSING_IFRAME_SANDBOX",
+          messageId: "noMissingIframeSandbox",
         },
       ],
       settings: {
@@ -96,7 +96,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_MISSING_IFRAME_SANDBOX",
+          messageId: "noMissingIframeSandbox",
         },
       ],
       settings: {

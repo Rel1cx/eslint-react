@@ -12,8 +12,8 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-missing-key";
 
 export type MessageID =
-  | "NO_MISSING_KEY"
-  | "NO_MISSING_KEY_WITH_FRAGMENT";
+  | "noMissingKey"
+  | "noMissingKeyWithFragment";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -22,8 +22,8 @@ export default createRule<[], MessageID>({
       description: "require 'key' prop when rendering list",
     },
     messages: {
-      NO_MISSING_KEY: "Missing 'key' prop for element when rendering list.",
-      NO_MISSING_KEY_WITH_FRAGMENT: "Use fragment component instead of '<>' because it does not support `key`.",
+      noMissingKey: "Missing 'key' prop for element when rendering list.",
+      noMissingKeyWithFragment: "Use fragment component instead of '<>' because it does not support `key`.",
     },
     schema: [],
   },
@@ -35,13 +35,13 @@ export default createRule<[], MessageID>({
 
       if (node.type === NodeType.JSXElement && !hasProp(node.openingElement.attributes, "key", context, initialScope)) {
         return O.some({
-          messageId: "NO_MISSING_KEY",
+          messageId: "noMissingKey",
           node,
         });
       }
       if (node.type === NodeType.JSXFragment) {
         return O.some({
-          messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
+          messageId: "noMissingKeyWithFragment",
           node,
         });
       }
@@ -85,7 +85,7 @@ export default createRule<[], MessageID>({
         for (const element of elements) {
           if (!hasProp(element.openingElement.attributes, "key", context, initialScope)) {
             context.report({
-              messageId: "NO_MISSING_KEY",
+              messageId: "noMissingKey",
               node: element,
             });
           }
@@ -122,7 +122,7 @@ export default createRule<[], MessageID>({
         if (MutRef.get(isWithinChildrenToArrayRef)) return;
         if (node.parent.type === NodeType.ArrayExpression) {
           context.report({
-            messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
+            messageId: "noMissingKeyWithFragment",
             node,
           });
         }

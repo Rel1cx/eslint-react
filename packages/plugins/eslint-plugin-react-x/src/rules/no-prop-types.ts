@@ -3,13 +3,13 @@ import { isClassComponent, isComponentName } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import { findVariable, getVariableNode } from "@eslint-react/var";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-prop-types";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
       description: "disallow using 'propTypes' property in components",
     },
     messages: {
-      NO_PROP_TYPES: "[Deprecated] Use TypeScript or another type-checking solution instead.",
+      noPropTypes: "[Deprecated] Use TypeScript or another type-checking solution instead.",
     },
     schema: [],
   },
@@ -37,12 +37,12 @@ export default createRule<[], MessageID>({
           O.exists(n => isFunction(n) || isClassComponent(n)),
         );
         if (!isComponent) return;
-        context.report({ messageId: "NO_PROP_TYPES", node: property });
+        context.report({ messageId: "noPropTypes", node: property });
       },
       PropertyDefinition(node) {
         if (node.parent.type !== NodeType.ClassBody || !isClassComponent(node.parent.parent)) return;
         if (!node.static || node.key.type !== NodeType.Identifier || node.key.name !== "propTypes") return;
-        context.report({ messageId: "NO_PROP_TYPES", node });
+        context.report({ messageId: "noPropTypes", node });
       },
     };
   },

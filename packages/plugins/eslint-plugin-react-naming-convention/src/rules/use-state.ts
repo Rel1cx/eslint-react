@@ -4,7 +4,7 @@ import { decodeSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 import { capitalize } from "string-ts";
 import { match } from "ts-pattern";
 
@@ -12,7 +12,7 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "use-state";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function isSetterNameLoose(name: string) {
   const fourthChar = [...name][3];
@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
       description: "enforce destructuring and symmetric naming of 'useState' hook value and setter variables",
     },
     messages: {
-      USE_STATE: "An useState call is not destructured into value + setter pair.",
+      useState: "An useState call is not destructured into value + setter pair.",
     },
     schema: [],
   },
@@ -54,7 +54,7 @@ export default createRule<[], MessageID>({
               continue;
             }
             const { id } = hookCall.parent;
-            const descriptor = O.some({ messageId: "USE_STATE", node: id } as const);
+            const descriptor = O.some({ messageId: "useState", node: id } as const);
             F.pipe(
               match<typeof id, O.Option<ReportDescriptor<MessageID>>>(id)
                 .with({ type: NodeType.Identifier }, F.constant(descriptor))

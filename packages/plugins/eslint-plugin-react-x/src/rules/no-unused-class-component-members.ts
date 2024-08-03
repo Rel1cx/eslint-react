@@ -4,13 +4,13 @@ import { isClassComponent } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import * as R from "remeda";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unused-class-component-members";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 type Property =
   | (TSESTree.MethodDefinition | TSESTree.PropertyDefinition)["key"]
@@ -61,7 +61,7 @@ export default createRule<[], MessageID>({
       description: "disallow unused class component members",
     },
     messages: {
-      NO_UNUSED_CLASS_COMPONENT_MEMBERS: "Unused method or property '{{methodName}}'' of class '{{className}}'.",
+      noUnusedClassComponentMembers: "Unused method or property '{{methodName}}'' of class '{{className}}'.",
     },
     schema: [],
   },
@@ -93,7 +93,7 @@ export default createRule<[], MessageID>({
             className: O.getOrElse(className, () => "Component"),
             methodName: name.value,
           },
-          messageId: "NO_UNUSED_CLASS_COMPONENT_MEMBERS",
+          messageId: "noUnusedClassComponentMembers",
           node: def,
         });
       }

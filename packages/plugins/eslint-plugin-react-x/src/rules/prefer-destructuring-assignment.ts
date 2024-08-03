@@ -5,14 +5,14 @@ import { O } from "@eslint-react/tools";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 import { isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "prefer-destructuring-assignment";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 type MemberExpressionWithObjectName = { object: TSESTree.Identifier } & TSESTree.MemberExpression;
 
@@ -27,7 +27,7 @@ export default createRule<[], MessageID>({
       description: "enforce using destructuring assignment in component props and context",
     },
     messages: {
-      PREFER_DESTRUCTURING_ASSIGNMENT: "Use destructuring assignment for {{name}}.",
+      preferDestructuringAssignment: "Use destructuring assignment for {{name}}.",
     },
     schema: [],
   },
@@ -78,7 +78,7 @@ export default createRule<[], MessageID>({
               data: {
                 name: "props",
               },
-              messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+              messageId: "preferDestructuringAssignment",
               node: memberExpression,
             });
           }
@@ -87,7 +87,7 @@ export default createRule<[], MessageID>({
               data: {
                 name: "context",
               },
-              messageId: "PREFER_DESTRUCTURING_ASSIGNMENT",
+              messageId: "preferDestructuringAssignment",
               node: memberExpression,
             });
           }

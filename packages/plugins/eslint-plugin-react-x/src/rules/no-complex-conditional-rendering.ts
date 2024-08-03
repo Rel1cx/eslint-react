@@ -1,12 +1,12 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-complex-conditional-rendering";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -16,7 +16,7 @@ export default createRule<[], MessageID>({
       description: "disallow complex conditional rendering",
     },
     messages: {
-      NO_COMPLEX_CONDITIONAL_RENDERING:
+      noComplexConditionalRendering:
         "Avoid complex conditional rendering. Extract the logic into separate elements or components.",
     },
     schema: [],
@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
       if (!is(NodeType.JSXExpressionContainer)(jsxExpContainer)) return;
       if (!isOneOf([NodeType.JSXElement, NodeType.JSXFragment])(jsxExpContainer.parent)) return;
       if (!jsxExpContainer.parent.children.includes(jsxExpContainer)) return;
-      context.report({ messageId: "NO_COMPLEX_CONDITIONAL_RENDERING", node: jsxExpContainer });
+      context.report({ messageId: "noComplexConditionalRendering", node: jsxExpContainer });
     }
 
     return {

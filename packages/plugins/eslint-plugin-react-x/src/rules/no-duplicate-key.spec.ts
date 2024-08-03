@@ -18,19 +18,19 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             value: '"1"',
           },
-          messageId: "NO_DUPLICATE_KEY",
+          messageId: "noDuplicateKey",
         },
         {
           data: {
             value: '"1"',
           },
-          messageId: "NO_DUPLICATE_KEY",
+          messageId: "noDuplicateKey",
         },
         {
           data: {
             value: '"1"',
           },
-          messageId: "NO_DUPLICATE_KEY",
+          messageId: "noDuplicateKey",
         },
       ],
     },
@@ -49,19 +49,19 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             value: '"1"',
           },
-          messageId: "NO_DUPLICATE_KEY",
+          messageId: "noDuplicateKey",
         },
         {
           data: {
             value: '"1"',
           },
-          messageId: "NO_DUPLICATE_KEY",
+          messageId: "noDuplicateKey",
         },
         {
           data: {
             value: '"1"',
           },
-          messageId: "NO_DUPLICATE_KEY",
+          messageId: "noDuplicateKey",
         },
       ],
     },
@@ -76,7 +76,7 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             value: '"1"',
           },
-          messageId: "NO_DUPLICATE_KEY",
+          messageId: "noDuplicateKey",
         },
       ],
     },

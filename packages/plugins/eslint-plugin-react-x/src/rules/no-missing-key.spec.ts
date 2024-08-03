@@ -5,65 +5,65 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `[<App />];`,
-      errors: [{ messageId: "NO_MISSING_KEY" }],
+      errors: [{ messageId: "noMissingKey" }],
     },
     {
       code: /* tsx */ `[<App {...key} />];`,
-      errors: [{ messageId: "NO_MISSING_KEY" }],
+      errors: [{ messageId: "noMissingKey" }],
     },
     {
       code: /* tsx */ `[<App key={0}/>, <App />];`,
-      errors: [{ messageId: "NO_MISSING_KEY" }],
+      errors: [{ messageId: "noMissingKey" }],
     },
     {
       code: /* tsx */ `[1, 2 ,3].map(function(x) { return <App /> });`,
-      errors: [{ messageId: "NO_MISSING_KEY" }],
+      errors: [{ messageId: "noMissingKey" }],
     },
     {
       code: /* tsx */ `[1, 2 ,3].map(x => <App />);`,
-      errors: [{ messageId: "NO_MISSING_KEY" }],
+      errors: [{ messageId: "noMissingKey" }],
     },
     {
       code: /* tsx */ `[1, 2 ,3].map(x => x && <App x={x} />);`,
-      errors: [{ messageId: "NO_MISSING_KEY" }],
+      errors: [{ messageId: "noMissingKey" }],
     },
     {
       code: '[1, 2 ,3].map(x => x ? <App x={x} key="1" /> : <OtherApp x={x} />);',
-      errors: [{ messageId: "NO_MISSING_KEY" }],
+      errors: [{ messageId: "noMissingKey" }],
     },
     {
       code: '[1, 2 ,3].map(x => x ? <App x={x} /> : <OtherApp x={x} key="2" />);',
-      errors: [{ messageId: "NO_MISSING_KEY" }],
+      errors: [{ messageId: "noMissingKey" }],
     },
     {
       code: /* tsx */ `[1, 2 ,3].map(x => { return <App /> });`,
-      errors: [{ messageId: "NO_MISSING_KEY" }],
+      errors: [{ messageId: "noMissingKey" }],
     },
     {
       code: /* tsx */ `Array.from([1, 2 ,3], function(x) { return <App /> });`,
-      errors: [{ messageId: "NO_MISSING_KEY" }],
+      errors: [{ messageId: "noMissingKey" }],
     },
     {
       code: /* tsx */ `Array.from([1, 2 ,3], (x => { return <App /> }));`,
-      errors: [{ messageId: "NO_MISSING_KEY" }],
+      errors: [{ messageId: "noMissingKey" }],
     },
     {
       code: /* tsx */ `Array.from([1, 2 ,3], (x => <App />));`,
-      errors: [{ messageId: "NO_MISSING_KEY" }],
+      errors: [{ messageId: "noMissingKey" }],
     },
     {
       code: /* tsx */ `[1, 2, 3]?.map(x => <BabelEslintApp />)`,
-      errors: [{ messageId: "NO_MISSING_KEY" }],
+      errors: [{ messageId: "noMissingKey" }],
     },
     {
       code: /* tsx */ `[1, 2, 3]?.map(x => <TypescriptEslintApp />)`,
-      errors: [{ messageId: "NO_MISSING_KEY" }],
+      errors: [{ messageId: "noMissingKey" }],
     },
     {
       code: /* tsx */ `[1, 2, 3].map(x => <>{x}</>);`,
       errors: [
         {
-          messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
+          messageId: "noMissingKeyWithFragment",
         },
       ],
     },
@@ -71,7 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `[<></>];`,
       errors: [
         {
-          messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
+          messageId: "noMissingKeyWithFragment",
         },
       ],
     },
@@ -94,8 +94,8 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "NO_MISSING_KEY" },
-        { messageId: "NO_MISSING_KEY" },
+        { messageId: "noMissingKey" },
+        { messageId: "noMissingKey" },
       ],
     },
     {
@@ -121,10 +121,10 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "NO_MISSING_KEY" },
-        { messageId: "NO_MISSING_KEY" },
-        { messageId: "NO_MISSING_KEY" },
-        { messageId: "NO_MISSING_KEY" },
+        { messageId: "noMissingKey" },
+        { messageId: "noMissingKey" },
+        { messageId: "noMissingKey" },
+        { messageId: "noMissingKey" },
       ],
     },
     {
@@ -144,9 +144,9 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "NO_MISSING_KEY" },
-        { messageId: "NO_MISSING_KEY" },
-        { messageId: "NO_MISSING_KEY" },
+        { messageId: "noMissingKey" },
+        { messageId: "noMissingKey" },
+        { messageId: "noMissingKey" },
       ],
     },
     {
@@ -176,13 +176,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
+          messageId: "noMissingKeyWithFragment",
         },
         {
-          messageId: "NO_MISSING_KEY",
+          messageId: "noMissingKey",
         },
         {
-          messageId: "NO_MISSING_KEY_WITH_FRAGMENT",
+          messageId: "noMissingKeyWithFragment",
         },
       ],
     },

@@ -7,7 +7,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<><div /></>`,
       errors: [
         {
-          messageId: "AVOID_SHORTHAND_FRAGMENT",
+          messageId: "avoidShorthandFragment",
         },
       ],
     },
@@ -15,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<><div /><div /></>`,
       errors: [
         {
-          messageId: "AVOID_SHORTHAND_FRAGMENT",
+          messageId: "avoidShorthandFragment",
         },
       ],
     },
@@ -23,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<>text</>`,
       errors: [
         {
-          messageId: "AVOID_SHORTHAND_FRAGMENT",
+          messageId: "avoidShorthandFragment",
         },
       ],
     },

@@ -2,13 +2,13 @@ import { hasProp, isLineBreak } from "@eslint-react/jsx";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import * as R from "remeda";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml-with-children";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function firstChildIsText(node: TSESTree.JSXElement) {
   const [firstChild] = node.children;
@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
       description: "disallow when a DOM component is using both 'children' and 'dangerouslySetInnerHTML'",
     },
     messages: {
-      NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN:
+      noDangerouslySetInnerhtmlWithChildren:
         "A DOM component cannot use both 'children' and 'dangerouslySetInnerHTML'.",
     },
     schema: [],
@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
         const hasDanger = () => hasProp(node.openingElement.attributes, "dangerouslySetInnerHTML", context, initialScope);
         if (!(hasChildrenWithIn() || hasChildrenProp()) || !hasDanger()) return;
         context.report({
-          messageId: "NO_DANGEROUSLY_SET_INNERHTML_WITH_CHILDREN",
+          messageId: "noDangerouslySetInnerhtmlWithChildren",
           node,
         });
       },

@@ -7,7 +7,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `var Hello = ReactDOM.render(<div />, document.body);`,
       errors: [
         {
-          messageId: "NO_RENDER_RETURN_VALUE",
+          messageId: "noRenderReturnValue",
         },
       ],
     },
@@ -19,7 +19,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_RENDER_RETURN_VALUE",
+          messageId: "noRenderReturnValue",
         },
       ],
     },
@@ -31,7 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_RENDER_RETURN_VALUE",
+          messageId: "noRenderReturnValue",
         },
       ],
     },
@@ -41,7 +41,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_RENDER_RETURN_VALUE",
+          messageId: "noRenderReturnValue",
         },
       ],
     },
@@ -51,7 +51,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_RENDER_RETURN_VALUE",
+          messageId: "noRenderReturnValue",
         },
       ],
     },
@@ -61,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_RENDER_RETURN_VALUE",
+          messageId: "noRenderReturnValue",
         },
       ],
     },

@@ -57,7 +57,7 @@ Reduces an `Iterable` of `Option<A>` to a single value of type `B`, elements tha
 
 #### Parameters
 
-• **self**: `Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>\>
+• **self**: `Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>, `any`, `any`\>
 
 #### Returns
 
@@ -102,7 +102,7 @@ Reduces an `Iterable` of `Option<A>` to a single value of type `B`, elements tha
 
 ### Parameters
 
-• **self**: `Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>\>
+• **self**: `Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>, `any`, `any`\>
 
 • **b**: `B`
 

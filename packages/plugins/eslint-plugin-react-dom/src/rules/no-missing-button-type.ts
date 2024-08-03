@@ -2,13 +2,13 @@ import { findPropInAttributes, getElementType } from "@eslint-react/jsx";
 import { decodeSettings, expandSettings } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-missing-button-type";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 // TODO: Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components
 export default createRule<[], MessageID>({
@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
       description: "enforce that button component have an explicit 'type' attribute",
     },
     messages: {
-      NO_MISSING_BUTTON_TYPE: "Add missing 'type' attribute on 'button' component.",
+      noMissingButtonType: "Add missing 'type' attribute on 'button' component.",
     },
     schema: [],
   },
@@ -34,7 +34,7 @@ export default createRule<[], MessageID>({
         const maybeTypeAttribute = findPropInAttributes(attributes, context, initialScope)("type");
         if (O.isSome(maybeTypeAttribute)) return;
         context.report({
-          messageId: "NO_MISSING_BUTTON_TYPE",
+          messageId: "noMissingButtonType",
           node: node.openingElement,
         });
       },

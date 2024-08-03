@@ -1,7 +1,7 @@
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unstable-default-props";
 
-const MESSAGE_ID = "NO_UNSTABLE_DEFAULT_PROPS";
+const MESSAGE_ID = "noUnstableDefaultProps";
 
 const expectedViolations = [
   {

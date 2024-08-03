@@ -1,13 +1,13 @@
 import { isOneOf, NodeType } from "@eslint-react/ast";
 import { useComponentCollectorLegacy } from "@eslint-react/core";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-component-will-receive-props";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function isComponentWillUpdate(node: TSESTree.ClassElement) {
   return isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])(node)
@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
       description: "disallow using 'componentWillReceiveProps'",
     },
     messages: {
-      NO_COMPONENT_WILL_RECEIVE_PROPS: "[Deprecated] Use 'UNSAFE_componentWillReceiveProps' instead.",
+      noComponentWillReceiveProps: "[Deprecated] Use 'UNSAFE_componentWillReceiveProps' instead.",
     },
     schema: [],
   },
@@ -41,7 +41,7 @@ export default createRule<[], MessageID>({
           for (const member of body) {
             if (isComponentWillUpdate(member)) {
               context.report({
-                messageId: "NO_COMPONENT_WILL_RECEIVE_PROPS",
+                messageId: "noComponentWillReceiveProps",
                 node: member,
               });
             }

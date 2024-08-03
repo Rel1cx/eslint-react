@@ -3,13 +3,13 @@ import { getNestedCallExpressions } from "@eslint-react/ast";
 import { isReactHookCall, isReactHookCallWithNameLoose, isUseStateCall } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "prefer-use-state-lazy-initialization";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 // variables should be defined here
 const ALLOW_LIST = ["Boolean", "String", "Number"] as const;
@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
       description: "disallow function calls in 'useState' that aren't wrapped in an initializer function",
     },
     messages: {
-      PREFER_USE_STATE_LAZY_INITIALIZATION:
+      preferUseStateLazyInitialization:
         "To prevent re-computation, consider using lazy initial state for useState calls that involve function calls. Ex: 'useState(() => getValue())'.",
     },
     schema: [],
@@ -43,7 +43,7 @@ export default createRule<[], MessageID>({
         });
         if (!hasFunctionCall) return;
         context.report({
-          messageId: "PREFER_USE_STATE_LAZY_INITIALIZATION",
+          messageId: "preferUseStateLazyInitialization",
           node: useStateInput,
         });
       },

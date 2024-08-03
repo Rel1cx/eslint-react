@@ -6,14 +6,14 @@ import { O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import * as R from "remeda";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "component-name";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 type Case = "CONSTANT_CASE" | "PascalCase";
 
@@ -67,7 +67,7 @@ export default createRule<Options, MessageID>({
       description: "enforce component naming convention to 'PascalCase' or 'CONSTANT_CASE'",
     },
     messages: {
-      COMPONENT_NAME: "A component name must be in {{case}}.",
+      componentName: "A component name must be in {{case}}.",
     },
     schema,
   },
@@ -110,7 +110,7 @@ export default createRule<Options, MessageID>({
           data: {
             case: rule,
           },
-          messageId: "COMPONENT_NAME",
+          messageId: "componentName",
           node,
         });
       },
@@ -127,7 +127,7 @@ export default createRule<Options, MessageID>({
             data: {
               case: rule,
             },
-            messageId: "COMPONENT_NAME",
+            messageId: "componentName",
             node: id,
           });
         }
@@ -141,7 +141,7 @@ export default createRule<Options, MessageID>({
             data: {
               case: rule,
             },
-            messageId: "COMPONENT_NAME",
+            messageId: "componentName",
             node: id,
           });
         }

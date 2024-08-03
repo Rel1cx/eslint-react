@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPONENT_WILL_RECEIVE_PROPS",
+          messageId: "noComponentWillReceiveProps",
         },
       ],
     },
@@ -37,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPONENT_WILL_RECEIVE_PROPS",
+          messageId: "noComponentWillReceiveProps",
         },
       ],
     },
@@ -56,7 +56,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPONENT_WILL_RECEIVE_PROPS",
+          messageId: "noComponentWillReceiveProps",
         },
       ],
     },
@@ -75,7 +75,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPONENT_WILL_RECEIVE_PROPS",
+          messageId: "noComponentWillReceiveProps",
         },
       ],
     },

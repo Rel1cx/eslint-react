@@ -1,13 +1,13 @@
 import { ERFunctionComponentFlag, useComponentCollector } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "function-component";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -16,7 +16,7 @@ export default createRule<[], MessageID>({
       description: "report all function components, including anonymous ones",
     },
     messages: {
-      FUNCTION_COMPONENT:
+      functionComponent:
         "[function component] name: {{name}}, memo: {{memo}}, forwardRef: {{forwardRef}}, hookCalls: {{hookCalls}}",
     },
     schema: [],
@@ -36,7 +36,7 @@ export default createRule<[], MessageID>({
               hookCalls: hookCalls.length,
               memo: Boolean(flag & ERFunctionComponentFlag.Memo),
             },
-            messageId: "FUNCTION_COMPONENT",
+            messageId: "functionComponent",
             node,
           });
         }

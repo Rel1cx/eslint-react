@@ -85,7 +85,7 @@ const config: Config[] = [
           "packages/*/*/tsconfig.json",
         ],
         tsconfigRootDir: dirname,
-        warnOnUnsupportedTypeScriptVersion: true,
+        warnOnUnsupportedTypeScriptVersion: false,
       },
     },
     rules: {
@@ -278,7 +278,7 @@ const config: Config[] = [
           "tsconfig.json",
         ],
         tsconfigRootDir: dirname,
-        warnOnUnsupportedTypeScriptVersion: true,
+        warnOnUnsupportedTypeScriptVersion: false,
       },
     },
   },

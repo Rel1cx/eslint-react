@@ -2,13 +2,13 @@ import { isOneOf, isThisExpression, NodeType, traverseUpGuard } from "@eslint-re
 import { isClassComponent } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import type { ConstantCase } from "string-ts";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-direct-mutation-state";
 
-export type MessageID = ConstantCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Option<string> {
   if (node.type === NodeType.TSAsExpression) {
@@ -53,7 +53,7 @@ export default createRule<[], MessageID>({
       description: "disallow direct mutation of state",
     },
     messages: {
-      NO_DIRECT_MUTATION_STATE: "Do not mutate state directly. Use 'setState()' instead.",
+      noDirectMutationState: "Do not mutate state directly. Use 'setState()' instead.",
     },
     schema: [],
   },
@@ -69,7 +69,7 @@ export default createRule<[], MessageID>({
         const maybeParentConstructor = traverseUpGuard(node, isConstructorFunction);
         if (O.exists(maybeParentConstructor, n => context.sourceCode.getScope(node).block === n)) return;
         context.report({
-          messageId: "NO_DIRECT_MUTATION_STATE",
+          messageId: "noDirectMutationState",
           node,
         });
       },

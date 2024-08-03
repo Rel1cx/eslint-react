@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPONENT_WILL_UPDATE",
+          messageId: "noComponentWillUpdate",
         },
       ],
     },
@@ -37,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPONENT_WILL_UPDATE",
+          messageId: "noComponentWillUpdate",
         },
       ],
     },
@@ -56,7 +56,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPONENT_WILL_UPDATE",
+          messageId: "noComponentWillUpdate",
         },
       ],
     },
@@ -75,7 +75,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "NO_COMPONENT_WILL_UPDATE",
+          messageId: "noComponentWillUpdate",
         },
       ],
     },

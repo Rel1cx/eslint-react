@@ -12,8 +12,8 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const b = <>{NaN && <Foo />}</>;
       `,
       errors: [
-        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
-        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
+        { messageId: "noLeakedConditionalRendering" },
+        { messageId: "noLeakedConditionalRendering" },
       ],
     },
     {
@@ -25,8 +25,8 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const b = <>{(NaN) && <Foo />}</>;
       `,
       errors: [
-        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
-        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
+        { messageId: "noLeakedConditionalRendering" },
+        { messageId: "noLeakedConditionalRendering" },
       ],
     },
     {
@@ -44,8 +44,8 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const d = <>{w && <Foo />}</>;
       `,
       errors: [
-        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
-        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
+        { messageId: "noLeakedConditionalRendering" },
+        { messageId: "noLeakedConditionalRendering" },
       ],
     },
     {
@@ -63,8 +63,8 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const d = <>{w && <Foo />}</>;
       `,
       errors: [
-        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
-        { messageId: "NO_LEAKED_CONDITIONAL_RENDERING" },
+        { messageId: "noLeakedConditionalRendering" },
+        { messageId: "noLeakedConditionalRendering" },
       ],
     },
     {
@@ -76,7 +76,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const SomeComponent = () => <div />;
         const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
       `,
-      errors: [{ messageId: "NO_LEAKED_CONDITIONAL_RENDERING" }],
+      errors: [{ messageId: "noLeakedConditionalRendering" }],
     },
     {
       code: /* tsx */ `
@@ -87,7 +87,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const SomeComponent = () => <div />;
         const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
       `,
-      errors: [{ messageId: "NO_LEAKED_CONDITIONAL_RENDERING" }],
+      errors: [{ messageId: "noLeakedConditionalRendering" }],
     },
     {
       code: /* tsx */ `
@@ -98,7 +98,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const SomeComponent = () => <div />;
         const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
       `,
-      errors: [{ messageId: "NO_LEAKED_CONDITIONAL_RENDERING" }],
+      errors: [{ messageId: "noLeakedConditionalRendering" }],
     },
     {
       code: /* tsx */ `
@@ -109,7 +109,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const SomeComponent = () => <div />;
         const a = <>{!!someCondition ? <SomeComponent prop1={val1} prop2={val2} /> : someCondition && <div />}</>;
       `,
-      errors: [{ messageId: "NO_LEAKED_CONDITIONAL_RENDERING" }],
+      errors: [{ messageId: "noLeakedConditionalRendering" }],
     },
     {
       code: /* tsx */ `
@@ -128,7 +128,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           )
         }
       `,
-      errors: [{ messageId: "NO_LEAKED_CONDITIONAL_RENDERING" }],
+      errors: [{ messageId: "noLeakedConditionalRendering" }],
     },
     {
       code: /* tsx */ `
@@ -149,7 +149,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           )
         }
       `,
-      errors: [{ messageId: "NO_LEAKED_CONDITIONAL_RENDERING" }],
+      errors: [{ messageId: "noLeakedConditionalRendering" }],
     },
   ],
   valid: [
