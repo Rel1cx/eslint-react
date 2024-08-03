@@ -11,8 +11,6 @@ import * as R from "remeda";
 import { name, version } from "../package.json";
 import { padKeysLeft } from "./utils";
 
-export { type ESLintReactSettings };
-
 const allPreset = {
   "avoid-shorthand-boolean": "warn",
   "avoid-shorthand-fragment": "warn",
@@ -201,7 +199,9 @@ const allPresetEntries = R.entries(allPreset);
 const offPreset = R.fromEntries(allPresetEntries.map(([key]) => [key, "off"] as const));
 const offDomPreset = R.fromEntries(R.entries(domPreset).map(([key]) => [key, "off"] as const));
 
-export const plugins = {
+const legacyConfigPlugins = ["@eslint-react"] as const;
+
+const flatConfigPlugins = {
   "@eslint-react": react,
   "@eslint-react/debug": reactDebug,
   "@eslint-react/dom": reactDom,
@@ -214,7 +214,7 @@ function createLegacyConfig<T extends RulePreset>(
   settings = DEFAULT_ESLINT_REACT_SETTINGS,
 ) {
   return {
-    plugins: ["@eslint-react"],
+    plugins: legacyConfigPlugins,
     rules: padKeysLeft(rules, "@eslint-react/"),
     settings: {
       "react-x": settings,
@@ -222,12 +222,12 @@ function createLegacyConfig<T extends RulePreset>(
   } as const;
 }
 
-function createConfig<T extends RulePreset>(
+function createFlatConfig<T extends RulePreset>(
   rules: T,
   settings = DEFAULT_ESLINT_REACT_SETTINGS,
 ) {
   return {
-    plugins,
+    plugins: flatConfigPlugins,
     rules: padKeysLeft(rules, "@eslint-react/"),
     settings: {
       "react-x": settings,
@@ -241,13 +241,13 @@ export default {
     version,
   },
   configs: {
-    all: createConfig(allPreset),
-    debug: createConfig(debugPreset),
-    dom: createConfig(domPreset, domPresetSettings),
-    off: createConfig(offPreset),
-    "off-dom": createConfig(offDomPreset),
-    recommended: createConfig(recommendedPreset),
-    "recommended-type-checked": createConfig(recommendedTypeCheckedPreset),
+    all: createFlatConfig(allPreset),
+    debug: createFlatConfig(debugPreset),
+    dom: createFlatConfig(domPreset, domPresetSettings),
+    off: createFlatConfig(offPreset),
+    "off-dom": createFlatConfig(offDomPreset),
+    recommended: createFlatConfig(recommendedPreset),
+    "recommended-type-checked": createFlatConfig(recommendedTypeCheckedPreset),
     // eslint-disable-next-line perfectionist/sort-objects
     "all-legacy": createLegacyConfig(allPreset),
     "debug-legacy": createLegacyConfig(debugPreset),
