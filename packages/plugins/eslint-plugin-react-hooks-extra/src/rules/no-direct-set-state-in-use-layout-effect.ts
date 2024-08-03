@@ -143,6 +143,7 @@ export default createRule<[], MessageID>({
       },
       Identifier(node) {
         if (!node.parent) return;
+        if (node.parent.type === NodeType.CallExpression && node.parent.callee === node) return;
         if (!isFromUseStateCall(context, useStateAlias)(node)) return;
         switch (node.parent.type) {
           case NodeType.CallExpression: {
