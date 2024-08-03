@@ -89,15 +89,12 @@ export default createRule<[], MessageID>({
       ":function"(node: TSESTreeFunction) {
         const functionKind = getFunctionKind(node);
         functionStack.push([node, functionKind]);
-        match(functionKind)
-          .with("effect", () => {
-            onEffectFunctionEnter(node);
-          })
-          .otherwise(F.constVoid);
+        if (functionKind === "effect") onEffectFunctionEnter(node);
       },
       ":function:exit"(node: TSESTreeFunction) {
-        onEffectFunctionExit(node);
+        const [_, functionKind] = R.last(functionStack) ?? [];
         functionStack.pop();
+        if (functionKind === "effect") onEffectFunctionExit(node);
       },
       CallExpression(node) {
         const effectFn = MutRef.get(effectFunctionRef);
