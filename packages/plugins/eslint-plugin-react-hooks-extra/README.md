@@ -41,7 +41,7 @@ export default [
 
 ## Rules
 
-| Rule                                       | Description                                                                     | 💼  | 💭  | 🪧  |
+| Rule                                       | Description                                                                     | 💼  | 💭  |     |
 | :----------------------------------------- | :------------------------------------------------------------------------------ | :-: | :-: | :-: |
 | `ensure-custom-hooks-using-other-hooks`    | Warns when custom Hooks that don't use other Hooks.                             |  ✔️  |     |     |
 | `ensure-use-callback-has-non-empty-deps`   | Warns when `useCallback` is called with empty dependencies array.               | 🧐  |     |     |

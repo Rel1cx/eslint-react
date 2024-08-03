@@ -41,7 +41,7 @@ A series of composable ESLint rules rewritten from scratch for libraries and fra
 - [`dream-num/univer`](https://github.com/dream-num/univer) - Univer is an open-source alternative to Google Sheets, Slides, and Docs.
 - [`ensdomains/ensdomains-landing`](https://github.com/ensdomains/ensdomains-landing) - ENS Homepage V2, the main homepage of the ENS protocol.
 - [`hairyf/overlastic`](https://github.com/hairyf/overlastic) - A universal overlays utils, support react, vue, vanilla, svelte.
-- [`johannschopplich/unlazy`](https://github.com/johannschopplich/unlazy) - 🪧 Universal lazy loading library for placeholder images leveraging native browser APIs.
+- [`johannschopplich/unlazy`](https://github.com/johannschopplich/unlazy) - Universal lazy loading library for placeholder images leveraging native browser APIs.
 - [`react-navigation/​react-navigation`](https://github.com/react-navigation/react-navigation) - Routing and navigation for your React Native apps.
 - [`RSSNext/​follow`](https://github.com/RSSNext/follow) - 🧡 Next generation information browser.
 - [`SukkaW/eslint-config-sukka`](https://github.com/SukkaW/eslint-config-sukka) - ESLint configuration of Sukka.

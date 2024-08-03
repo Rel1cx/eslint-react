@@ -117,8 +117,8 @@
     },
     "overridesMeta": {
       "eslint": "override to single version",
-      "typescript": "override to single version",
-      "ts-api-utils": "override to single version"
+      "ts-api-utils": "override to single version",
+      "typescript": "override to single version"
     }
   }
 }

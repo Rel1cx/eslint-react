@@ -13,7 +13,6 @@
 - 🤯 - Complexity
 - 🧐 - Suspicious
 - 🚀 - Performance
-- 🪧 - Extra Information
 - 🆕 - New
 - 🚧 - WIP
 - 📐 - Strict
@@ -22,7 +21,7 @@
 
 ## Core Rules
 
-| Rule                                                                               | Description                                                                                          | 💼  | 💭  | 🪧  |
+| Rule                                                                               | Description                                                                                          | 💼  | 💭  |     |
 | :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------- | :-: | :-: | :-: |
 | [`avoid-shorthand-boolean`](avoid-shorthand-boolean)                               | Enforces using shorthand syntax for boolean attributes.                                              | 🎨  |     |     |
 | [`avoid-shorthand-fragment`](avoid-shorthand-fragment)                             | Enforces using shorthand syntax for fragments.                                                       | 🎨  |     |     |
@@ -72,13 +71,13 @@
 
 ## DOM Rules
 
-| Rule                                                                                               | Description                                                                             | 💼  | 💭  | 🪧  |
+| Rule                                                                                               | Description                                                                             | 💼  | 💭  |     |
 | :------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------- | :-: | :-: | :-: |
 | [`dom/no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements)                     | Prevents using `children` in void `DOM elements`.                                       |  ✔️  |     |     |
 | [`dom/no-dangerously-set-innerhtml`](dom-no-dangerously-set-innerhtml)                             | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 | 🔒  |     |     |
 | [`dom/no-dangerously-set-innerhtml-with-children`](dom-no-dangerously-set-innerhtml-with-children) | Prevents `DOM element` using `dangerouslySetInnerHTML` and `children` at the same time. |  ✔️  |     |     |
 | [`dom/no-find-dom-node`](dom-no-find-dom-node)                                                     | Prevents using `findDOMNode`.                                                           | ⛔  |     |     |
-| [`dom/no-missing-button-type`](dom-no-missing-button-type)                                         | Enforces explicit `type` attribute for `<button>` elements.                             |  ✔️  | 📐  |     |
+| [`dom/no-missing-button-type`](dom-no-missing-button-type)                                         | Enforces explicit `type` attribute for `<button>` elements.                             |  ✔️  |     | 📐  |
 | [`dom/no-missing-iframe-sandbox`](dom-no-missing-iframe-sandbox)                                   | Enforces explicit `sandbox` attribute for `iframe` elements.                            | 🔒  |     |     |
 | [`dom/no-namespace`](dom-no-namespace)                                                             | Enforces the absence of a `namespace` in React elements.                                |  ✔️  |     |     |
 | [`dom/no-render-return-value`](dom-no-render-return-value)                                         | Prevents using the return value of `ReactDOM.render`.                                   | ⛔  |     |     |
@@ -88,7 +87,7 @@
 
 ## Hooks Extra Rules
 
-| Rule                                                                                                           | Description                                                                     | 💼  | 💭  | 🪧  |
+| Rule                                                                                                           | Description                                                                     | 💼  | 💭  |     |
 | :------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ | :-: | :-: | :-: |
 | [`hooks-extra/ensure-custom-hooks-using-other-hooks`](hooks-extra-ensure-custom-hooks-using-other-hooks)       | Warns when custom Hooks that don't use other Hooks.                             |  ✔️  |     |     |
 | [`hooks-extra/ensure-use-callback-has-non-empty-deps`](hooks-extra-ensure-use-callback-has-non-empty-deps)     | Warns when `useCallback` is called with empty dependencies array.               | 🧐  |     | 📐  |
@@ -99,7 +98,7 @@
 
 ## Naming Convention Rules
 
-| Rule                                                                           | Description                                                                                | 💼  | 💭  | 🪧  |
+| Rule                                                                           | Description                                                                                | 💼  | 💭  |     |
 | :----------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- | :-: | :-: | :-: |
 | [`naming-convention/component-name`](naming-convention-component-name)         | Enforces naming conventions for components.                                                | 📖  |     |     |
 | [`naming-convention/filename`](naming-convention-filename)                     | Enforces naming convention for JSX files.                                                  | 📖  |     |     |
@@ -108,7 +107,7 @@
 
 ## Debug Rules
 
-| Rule                                                   | Description                    | 💼  | 💭  | 🪧  |
+| Rule                                                   | Description                    | 💼  | 💭  |     |
 | :----------------------------------------------------- | :----------------------------- | :-: | :-: | :-: |
 | [`debug/class-component`](debug-class-component)       | Print all class components.    | 🐞  |     |     |
 | [`debug/function-component`](debug-function-component) | Print all function components. | 🐞  |     |     |

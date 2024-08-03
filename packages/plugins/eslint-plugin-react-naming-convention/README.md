@@ -40,7 +40,7 @@ export default [
 
 ## Rules
 
-| Rule                 | Description                                                                                | 💼  | 💭  | 🪧  |
+| Rule                 | Description                                                                                | 💼  | 💭  |     |
 | :------------------- | :----------------------------------------------------------------------------------------- | :-: | :-: | :-: |
 | `component-name`     | Enforces naming conventions for components.                                                | 📖  |     |     |
 | `filename`           | Enforces naming convention for JSX files.                                                  | 📖  |     |     |
