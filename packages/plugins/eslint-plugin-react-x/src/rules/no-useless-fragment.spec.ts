@@ -127,7 +127,6 @@ ruleTester.run(RULE_NAME, rule, {
     '<>{"moo"} </>',
     "<NotFragment />",
     "<React.NotFragment />",
-    "<NotReact.Fragment />",
     "<Foo><><div /><div /></></Foo>",
     '<div p={<>{"a"}{"b"}</>} />',
     "<Fragment key={item.id}>{item.value}</Fragment>",
@@ -168,6 +167,14 @@ ruleTester.run(RULE_NAME, rule, {
         "react-x": {
           jsxPragma: "SomeReact",
           jsxPragmaFrag: "SomeFragment",
+        },
+      },
+    },
+    {
+      code: /* tsx */ `<NotReact.Fragment />`,
+      settings: {
+        "react-x": {
+          skipImportCheck: false,
         },
       },
     },

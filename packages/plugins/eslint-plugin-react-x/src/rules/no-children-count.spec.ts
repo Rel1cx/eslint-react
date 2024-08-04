@@ -79,22 +79,27 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    {
+      code: /* tsx */ `
+        const Children = {
+          count: () => 1,
+        }
 
-
-      const Children = {
-        count: () => 1,
-      }
-
-      function RowList({ children }) {
-        return (
-          <>
-            <h1>Total rows: {Children.count(children)}</h1>
-            ...
-          </>
-        );
-      }
-    `,
+        function RowList({ children }) {
+          return (
+            <>
+              <h1>Total rows: {Children.count(children)}</h1>
+              ...
+            </>
+          );
+        }
+      `,
+      settings: {
+        "react-x": {
+          skipImportCheck: false,
+        },
+      },
+    },
     /* tsx */ `
       import { Children } from 'react';
 

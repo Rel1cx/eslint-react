@@ -58,18 +58,23 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    {
+      code: /* tsx */ `
+        const Children = {
+          only: () => [],
+        }
 
-
-      const Children = {
-        only: () => [],
-      }
-
-      function Box({ children }) {
-        const element = Children.only(children);
-        // ...
-      }
-    `,
+        function Box({ children }) {
+          const element = Children.only(children);
+          // ...
+        }
+      `,
+      settings: {
+        "react-x": {
+          skipImportCheck: false,
+        },
+      },
+    },
     /* tsx */ `
       import { Children } from 'react';
 

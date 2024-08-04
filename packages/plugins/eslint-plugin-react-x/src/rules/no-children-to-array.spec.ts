@@ -63,19 +63,6 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     ...allValid,
     /* tsx */ `
-
-
-      const Children = {
-        toArray: () => [],
-      }
-
-      export default function ReversedList({ children }) {
-        const result = Children.toArray(children);
-        result.reverse();
-        // ...
-      }
-    `,
-    /* tsx */ `
       import { Children } from 'react';
 
       function SeparatorList({ children }) {
@@ -102,5 +89,23 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
+    {
+      code: /* tsx */ `
+        const Children = {
+          toArray: () => [],
+        }
+
+        export default function ReversedList({ children }) {
+          const result = Children.toArray(children);
+          result.reverse();
+          // ...
+        }
+      `,
+      settings: {
+        "react-x": {
+          skipImportCheck: false,
+        },
+      },
+    },
   ],
 });

@@ -74,22 +74,28 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
 
+    {
+      code: /* tsx */ `
+        const Children = {
+          forEach: () => undefined,
+        }
 
-      const Children = {
-        forEach: () => undefined,
-      }
-
-      function SeparatorList({ children }) {
-        const result = [];
-        Children.forEach(children, (child, index) => {
-          result.push(child);
-          result.push(<hr key={index} />);
-        });
-        // ...
-      }
-    `,
+        function SeparatorList({ children }) {
+          const result = [];
+          Children.forEach(children, (child, index) => {
+            result.push(child);
+            result.push(<hr key={index} />);
+          });
+          // ...
+        }
+      `,
+      settings: {
+        "react-x": {
+          skipImportCheck: false,
+        },
+      },
+    },
     /* tsx */ `
       import { Children } from 'react';
 

@@ -86,25 +86,30 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    {
+      code: /* tsx */ `
+        const Children = {
+          map: () => 1,
+        }
 
-
-      const Children = {
-        map: () => 1,
-      }
-
-      function RowList({ children }) {
-        return (
-          <div className="RowList">
-            {Children.map(children, child => (
-              <div className="Row">
-                {child}
-              </div>
-            ))}
-          </div>
-        );
-      }
-    `,
+        function RowList({ children }) {
+          return (
+            <div className="RowList">
+              {Children.map(children, child => (
+                <div className="Row">
+                  {child}
+                </div>
+              ))}
+            </div>
+          );
+        }
+      `,
+      settings: {
+        "react-x": {
+          skipImportCheck: false,
+        },
+      },
+    },
     /* tsx */ `
       import { Children } from 'react';
 

@@ -112,6 +112,10 @@ export const ESLintReactSettingsSchema = object({
    */
   strict: optional(boolean()),
   /**
+   * @internal
+   */
+  skipImportCheck: optional(boolean(), true),
+  /**
    * React version to use, "detect" means auto detect React version from the project’s dependencies.
    * If `importSource` is specified, an equivalent version of React should be provided here.
    * @example `"18.3.1"`

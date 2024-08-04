@@ -2,8 +2,27 @@ import memoize from "micro-memoize";
 import pm from "picomatch";
 import { parse } from "valibot";
 
-import type { CustomComponent, ESLintReactSettings } from "./schemas";
+import type { CustomComponent, ESLintReactSettings, ESLintSettings } from "./schemas";
 import { ESLintSettingsSchema } from "./schemas";
+
+/**
+ * The initial settings for "react-x".
+ */
+export const INITIAL_ESLINT_REACT_SETTINGS = {
+  skipImportCheck: true,
+} as const as ESLintReactSettings;
+
+/**
+ * The default ESLint settings for "react-x".
+ */
+export const DEFAULT_ESLINT_REACT_SETTINGS = {
+  additionalHooks: {
+    useLayoutEffect: ["useIsomorphicLayoutEffect"],
+  },
+  polymorphicPropName: "as",
+  skipImportCheck: true,
+  version: "detect",
+} as const as ESLintReactSettings;
 
 /**
  * This is an expanded version of `CustomComponent` with all shorthand properties expanded.
@@ -42,7 +61,17 @@ export function defineSettings(settings: ESLintReactSettings) {
  * @returns settings The settings.
  */
 export function decodeSettings(data: unknown): ESLintReactSettings {
-  return parse(ESLintSettingsSchema, data)["react-x"] ?? {};
+  return parse(ESLintSettingsSchema, data)["react-x"] ?? INITIAL_ESLINT_REACT_SETTINGS;
+}
+
+/**
+ * Unsafely casts settings from a data object from `context.settings`.
+ * @internal
+ * @param data The data object.
+ * @returns settings The settings.
+ */
+export function unsafeCastSettings(data: unknown): ESLintReactSettings {
+  return (data as ESLintSettings)?.["react-x"] ?? INITIAL_ESLINT_REACT_SETTINGS;
 }
 
 /**
@@ -74,14 +103,3 @@ export const expandSettings = memoize(
   },
   { isDeepEqual: false },
 );
-
-/**
- * The default ESLint settings for "react-x".
- */
-export const DEFAULT_ESLINT_REACT_SETTINGS = {
-  additionalHooks: {
-    useLayoutEffect: ["useIsomorphicLayoutEffect"],
-  },
-  polymorphicPropName: "as",
-  version: "detect",
-} as const as ESLintReactSettings;

@@ -1,5 +1,5 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
-import { decodeSettings } from "@eslint-react/shared";
+import { decodeSettings, unsafeCastSettings } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable } from "@eslint-react/var";
@@ -13,6 +13,8 @@ export function isInitializedFromReact(
   context: RuleContext,
   initialScope: Scope,
 ): boolean {
+  const settings = unsafeCastSettings(context.settings);
+  if (settings.skipImportCheck) return true;
   if (variableName.toLowerCase() === "react") return true;
   const maybeVariable = findVariable(variableName, initialScope);
   const maybeLatestDef = O.flatMapNullable(maybeVariable, (v) => v.defs.at(-1));
