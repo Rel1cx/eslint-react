@@ -19,14 +19,13 @@ type Config = Parameters<typeof tseslint.config>[number];
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
-const sortOptions = {
+const p11tOptions = {
   type: "natural",
   ignoreCase: false,
   order: "asc",
 } as const;
 
-const sortOptionsWithGroups = {
-  ...sortOptions,
+const p11tGroups = {
   customGroups: {
     id: ["_", "id", "key"],
     type: ["type", "kind"],
@@ -182,15 +181,16 @@ const config: Config[] = [
       "perfectionist/sort-intersection-types": "off",
       "perfectionist/sort-named-exports": "off",
       "perfectionist/sort-named-imports": "off",
-      "perfectionist/sort-object-types": ["warn", sortOptionsWithGroups],
+      "perfectionist/sort-object-types": ["warn", { ...p11tOptions, ...p11tGroups }],
       "perfectionist/sort-objects": [
         "warn",
         {
-          ...sortOptionsWithGroups,
+          ...p11tOptions,
+          ...p11tGroups,
           partitionByComment: "Part:**",
         },
       ],
-      "perfectionist/sort-union-types": ["warn", sortOptions],
+      "perfectionist/sort-union-types": ["warn", p11tOptions],
       // Part: unicorn rules
       "unicorn/template-indent": [
         "warn",
