@@ -9,8 +9,7 @@ import { isForwardRefCall, isMemoCall } from "../react-api";
 
 function isComponentWrapperCall(node: TSESTree.Node, context: RuleContext) {
   if (node.type !== NodeType.CallExpression) return false;
-  return false
-    || isMemoCall(node, context)
+  return isMemoCall(node, context)
     || isForwardRefCall(node, context)
     || isReactHookCallWithNameLoose(node)("useCallback");
 }
@@ -22,9 +21,9 @@ export function getFunctionComponentIdentifier(
   const functionId = getFunctionIdentifier(node);
   if (O.isSome(functionId)) return functionId;
   const { parent } = node;
+  // Get function component identifier from `const Component = memo(() => {});`
   if (
-    true // Get function component identifier from `const Component = memo(() => {});`
-    && parent.type === NodeType.CallExpression
+    parent.type === NodeType.CallExpression
     && isComponentWrapperCall(parent, context)
     && parent.parent.type === NodeType.VariableDeclarator
     && parent.parent.id.type === NodeType.Identifier
@@ -32,9 +31,9 @@ export function getFunctionComponentIdentifier(
   ) {
     return O.some(parent.parent.id);
   }
+  // Get function component identifier from `const Component = memo(forwardRef(() => {}));`
   if (
-    true // Get function component identifier from `const Component = memo(forwardRef(() => {}));`
-    && parent.type === NodeType.CallExpression
+    parent.type === NodeType.CallExpression
     && isComponentWrapperCall(parent, context)
     && parent.parent.type === NodeType.CallExpression
     && isComponentWrapperCall(parent.parent, context)

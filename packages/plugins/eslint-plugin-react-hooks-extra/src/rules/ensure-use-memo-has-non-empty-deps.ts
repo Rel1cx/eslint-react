@@ -27,7 +27,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const alias = decodeSettings(context.settings)?.additionalHooks?.useMemo ?? [];
+    const alias = decodeSettings(context.settings).additionalHooks?.useMemo ?? [];
 
     return {
       CallExpression(node) {

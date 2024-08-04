@@ -122,8 +122,7 @@ export function useComponentCollector(
       if (O.isNone(maybeCurrentFn)) return;
       const [_key, currentFn, _isComponent, hookCalls] = maybeCurrentFn.value;
       const { body } = currentFn;
-      const isComponent = true
-        && hasNoneOrValidComponentName(currentFn, context)
+      const isComponent = hasNoneOrValidComponentName(currentFn, context)
         && isJSXValue(body, context, hint)
         && hasValidHierarchy(currentFn, context, hint);
       if (!isComponent) return;
@@ -176,8 +175,7 @@ export function useComponentCollector(
       if (O.isNone(maybeCurrentFn)) return;
       const [key, currentFn, isKnown, hookCalls] = maybeCurrentFn.value;
       if (isKnown) return;
-      const isComponent = true
-        && hasNoneOrValidComponentName(currentFn, context)
+      const isComponent = hasNoneOrValidComponentName(currentFn, context)
         && isJSXValue(node.argument, context, hint)
         && hasValidHierarchy(currentFn, context, hint);
       if (!isComponent) return;

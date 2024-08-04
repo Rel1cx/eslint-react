@@ -21,8 +21,7 @@ export function isRenderFunctionLoose(node: TSESTreeFunction, context: RuleConte
   const { body, parent } = node;
   const maybeId = getFunctionIdentifier(node);
   if (O.isSome(maybeId) && !maybeId.value.name.startsWith("render")) {
-    return true
-      && parent.type === NodeType.JSXExpressionContainer
+    return  parent.type === NodeType.JSXExpressionContainer
       && parent.parent.type === NodeType.JSXAttribute
       && parent.parent.name.type === NodeType.JSXIdentifier
       && parent.parent.name.name.startsWith("render");
@@ -49,8 +48,7 @@ export function isRenderFunctionLoose(node: TSESTreeFunction, context: RuleConte
  */
 export function isRenderPropLoose(node: TSESTree.JSXAttribute, context: RuleContext) {
   if (node.name.type !== NodeType.JSXIdentifier) return false;
-  return true
-    && node.name.name.startsWith("render")
+  return node.name.name.startsWith("render")
     && node.value?.type === NodeType.JSXExpressionContainer
     && isFunction(node.value.expression)
     && isRenderFunctionLoose(node.value.expression, context);

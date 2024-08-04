@@ -6,8 +6,7 @@ export function isReactHookIdentifier(id: TSESTree.Identifier | TSESTree.MemberE
     case NodeType.Identifier:
       return id.name.startsWith("use");
     case NodeType.MemberExpression:
-      return true
-        && "name" in id.property
+      return "name" in id.property
         && id.property.name.startsWith("use");
     default:
       return false;

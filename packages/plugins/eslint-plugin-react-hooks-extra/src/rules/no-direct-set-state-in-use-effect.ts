@@ -60,7 +60,7 @@ export default createRule<[], MessageID>({
       MutRef.set(effectFunctionRef, node);
     };
     const onEffectFunctionExit = (node: TSESTreeFunction) => {
-      MutRef.update(effectFunctionRef, (current) => (current === node ? null : current));
+      MutRef.update(effectFunctionRef, (current) => current === node ? null : current);
     };
     function isEffectFunction(node: TSESTree.Node) {
       return node.parent?.type === NodeType.CallExpression
@@ -131,7 +131,6 @@ export default createRule<[], MessageID>({
           .otherwise(F.constVoid);
       },
       Identifier(node) {
-        if (!node.parent) return;
         if (node.parent.type === NodeType.CallExpression && node.parent.callee === node) return;
         if (!isIdFromUseStateCall(node)) return;
         switch (node.parent.type) {
@@ -158,7 +157,7 @@ export default createRule<[], MessageID>({
           }
           case NodeType.ArrowFunctionExpression: {
             const parent = node.parent.parent;
-            if (parent?.type !== NodeType.CallExpression) break;
+            if (parent.type !== NodeType.CallExpression) break;
             // const [state, setState] = useState();
             // const set = useMemo(() => setState, []);
             // useEffect(set, []);

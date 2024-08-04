@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable perfectionist/sort-union-types */
 import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -217,8 +218,7 @@ export function hasCallInFunctionInitPath(callName: string) {
           n => {
             if (n.type !== NodeType.CallExpression) return false;
             if (n.callee.type === NodeType.Identifier) return n.callee.name === callName;
-            return true
-              && "property" in n.callee
+            return "property" in n.callee
               && "name" in n.callee.property
               && n.callee.property.name === callName;
           },

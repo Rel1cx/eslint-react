@@ -1,6 +1,7 @@
 import url from "node:url";
 
 import eslint from "@eslint/js";
+import stylisticJs from "@stylistic/eslint-plugin-js";
 import gitignore from "eslint-config-flat-gitignore";
 import eslintCommentsPlugin from "eslint-plugin-eslint-comments";
 import eslintPluginPlugin from "eslint-plugin-eslint-plugin";
@@ -56,6 +57,7 @@ const config: Config[] = [
     // register all of the plugins up-front
     // note - intentionally uses computed syntax to make it easy to sort the keys
     plugins: {
+      ["@stylistic/js"]: stylisticJs,
       ["@typescript-eslint"]: tseslint.plugin,
       ["eslint-comments"]: eslintCommentsPlugin,
       ["eslint-plugin"]: eslintPluginPlugin,
@@ -79,11 +81,12 @@ const config: Config[] = [
       parser: tseslint.parser,
       parserOptions: {
         allowAutomaticSingleRunInference: true,
-        project: [
-          "tsconfig.json",
-          "packages/*/tsconfig.json",
-          "packages/*/*/tsconfig.json",
-        ],
+        // project: [
+        //   "tsconfig.json",
+        //   "packages/*/tsconfig.json",
+        //   "packages/*/*/tsconfig.json",
+        // ],
+        projectService: true,
         tsconfigRootDir: dirname,
         warnOnUnsupportedTypeScriptVersion: false,
       },
@@ -114,6 +117,8 @@ const config: Config[] = [
       "no-undef": "off",
       "one-var": ["error", "never"],
       "prefer-object-has-own": "error",
+      // Part: stylistic-js rules
+      "@stylistic/js/no-extra-parens": "warn",
       // Part: typescript-eslint rules
       "@typescript-eslint/ban-ts-comment": [
         "error",
@@ -132,6 +137,7 @@ const config: Config[] = [
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-misused-promises": "off",
+      "@typescript-eslint/no-unnecessary-condition": "warn",
       "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
       "@typescript-eslint/no-unnecessary-type-parameters": "warn",
       "@typescript-eslint/no-unused-vars": [
@@ -142,7 +148,7 @@ const config: Config[] = [
           varsIgnorePattern: "^_",
         },
       ],
-      "@typescript-eslint/prefer-nullish-coalescing": "off",
+      "@typescript-eslint/prefer-nullish-coalescing": "warn",
       // Part: functional rules
       "functional/no-return-void": "off",
       // Part: jsdoc rules
@@ -274,9 +280,10 @@ const config: Config[] = [
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: [
-          "tsconfig.json",
-        ],
+        // project: [
+        //   "tsconfig.json",
+        // ],
+        projectService: true,
         tsconfigRootDir: dirname,
         warnOnUnsupportedTypeScriptVersion: false,
       },

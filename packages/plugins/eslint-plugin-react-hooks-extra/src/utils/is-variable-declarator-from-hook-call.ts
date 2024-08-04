@@ -20,8 +20,7 @@ export function isVariableDeclaratorFromHookCall(node: TSESTree.Node): node is
     case NodeType.Identifier:
       return isReactHookName(node.init.callee.name);
     case NodeType.MemberExpression:
-      return true
-        && node.init.callee.property?.type === NodeType.Identifier
+      return node.init.callee.property.type === NodeType.Identifier
         && isReactHookName(node.init.callee.property.name);
     default:
       return false;

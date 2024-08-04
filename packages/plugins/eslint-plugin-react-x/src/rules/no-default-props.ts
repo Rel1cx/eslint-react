@@ -40,7 +40,7 @@ export default createRule<[], MessageID>({
         context.report({ messageId: "noDefaultProps", node: property });
       },
       PropertyDefinition(node) {
-        if (node.parent.type !== NodeType.ClassBody || !isClassComponent(node.parent.parent)) return;
+        if (!isClassComponent(node.parent.parent)) return;
         if (!node.static || node.key.type !== NodeType.Identifier || node.key.name !== "defaultProps") return;
         context.report({ messageId: "noDefaultProps", node });
       },

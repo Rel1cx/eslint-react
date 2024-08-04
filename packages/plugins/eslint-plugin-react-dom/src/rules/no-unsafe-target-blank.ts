@@ -41,7 +41,7 @@ export default createRule<[], MessageID>({
     const settings = expandSettings(decodeSettings(context.settings));
     const polymorphicPropName = settings.polymorphicPropName;
     const components = settings.components;
-    const additionalComponents = settings?.additionalComponents?.filter(c => c.as === "a") ?? [];
+    const additionalComponents = settings.additionalComponents.filter(c => c.as === "a");
     function checkJSXElement(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
       const name = getElementName(node.openingElement);
       const elementType = getElementType(context, components, polymorphicPropName)(node.openingElement);

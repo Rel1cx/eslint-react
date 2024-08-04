@@ -12,8 +12,7 @@ export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function firstChildIsText(node: TSESTree.JSXElement) {
   const [firstChild] = node.children;
-  return true
-    && node.children.length > 0
+  return node.children.length > 0
     && !R.isNullish(firstChild)
     && !isLineBreak(firstChild);
 }

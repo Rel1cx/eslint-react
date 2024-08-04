@@ -61,7 +61,10 @@ export function defineSettings(settings: ESLintReactSettings) {
  * @returns settings The settings.
  */
 export function decodeSettings(data: unknown): ESLintReactSettings {
-  return parse(ESLintSettingsSchema, data)["react-x"] ?? INITIAL_ESLINT_REACT_SETTINGS;
+  return {
+    ...INITIAL_ESLINT_REACT_SETTINGS,
+    ...parse(ESLintSettingsSchema, data)["react-x"] ?? {},
+  };
 }
 
 /**
@@ -71,7 +74,10 @@ export function decodeSettings(data: unknown): ESLintReactSettings {
  * @returns settings The settings.
  */
 export function unsafeCastSettings(data: unknown): ESLintReactSettings {
-  return (data as ESLintSettings)?.["react-x"] ?? INITIAL_ESLINT_REACT_SETTINGS;
+  return {
+    ...INITIAL_ESLINT_REACT_SETTINGS,
+    ...(data as ESLintSettings)["react-x"] ?? {},
+  };
 }
 
 /**
@@ -87,16 +93,16 @@ export const expandSettings = memoize(
       ...settings,
       additionalComponents: additionalComponents.map((component) => ({
         ...component,
-        attributes: component.attributes?.map((attr) => ({
+        attributes: component.attributes.map((attr) => ({
           ...attr,
           as: attr.as ?? attr.name,
-        })) ?? [],
+        })),
         re: pm.makeRe(component.name, { fastpaths: true }),
-      })) ?? [],
+      })),
       components: additionalComponents.reduce((acc, component) => {
         const { name, as, attributes, selector } = component;
         if (!name || !as || selector || attributes.length > 0) return acc;
-        if (!(/^[\w-]+$/u.test(name))) return acc;
+        if (!/^[\w-]+$/u.test(name)) return acc;
         return acc.set(name, as);
       }, new Map<string, string>()),
     };

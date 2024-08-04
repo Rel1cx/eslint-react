@@ -29,7 +29,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const alias = decodeSettings(context.settings)?.additionalHooks?.useState ?? [];
+    const alias = decodeSettings(context.settings).additionalHooks?.useState ?? [];
     return {
       CallExpression(node) {
         if (!isReactHookCall(node)) return;
