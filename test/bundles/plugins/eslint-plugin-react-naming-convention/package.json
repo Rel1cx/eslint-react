@@ -2,6 +2,9 @@
   "name": "test-bundle-eslint-plugin-react-naming-convention",
   "version": "1.0.0",
   "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -11,16 +14,13 @@
   ],
   "scripts": {
     "build": "tsup",
-    "pack": "pnpm pack",
-    "clean": "rm -r -f dist *.tgz"
+    "clean": "rm -r -f dist *.tgz",
+    "pack": "pnpm pack"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "tsup": "8.2.4",
-    "eslint-plugin-react-hooks-extra": "workspace:*",
     "@tsconfig/node22": "22.0.0",
-    "@tsconfig/strictest": "2.0.5"
+    "@tsconfig/strictest": "2.0.5",
+    "eslint-plugin-react-hooks-extra": "workspace:*",
+    "tsup": "8.2.4"
   }
 }

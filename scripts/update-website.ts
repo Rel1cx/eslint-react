@@ -1,10 +1,12 @@
+import { FileSystem } from "@effect/platform";
+import { NodeFileSystem, NodeRuntime } from "@effect/platform-node";
 import CodeBlockWriter from "code-block-writer";
+import { Effect } from "effect";
 import path from "pathe";
 import * as R from "remeda";
+import { globSync } from "tinyglobby";
 
-import { copyFile } from "./lib/fs";
-
-const docs = new Bun.Glob("packages/plugins/eslint-plugin-react-*/src/rules/*.md").scanSync();
+const docs = globSync(["packages/plugins/eslint-plugin-react-*/src/rules/*.md"]);
 const order = ["dom", "hooks-extra", "naming-convention", "debug"] as const;
 const [
   files,
@@ -51,6 +53,10 @@ writer.write("export default").block(() => {
   }
 });
 
-// await Bun.write(metaFile, JSON.stringify(metaContent, null, 2));
-await Bun.write(metaFile, writer.toString());
-await Promise.all(files.map(([src, dest]) => copyFile(src, dest)));
+const program = Effect.gen(function*(_) {
+  const fs = yield* _(FileSystem.FileSystem);
+  yield* _(Effect.orDie(fs.writeFileString(metaFile, writer.toString())));
+  yield* _(Effect.all(files.map(([src, dest]) => fs.copyFile(src, dest))));
+});
+
+NodeRuntime.runMain(program.pipe(Effect.provide(NodeFileSystem.layer)));
