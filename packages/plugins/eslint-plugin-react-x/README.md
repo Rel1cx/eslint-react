@@ -47,6 +47,7 @@ export default [
         "react-x/no-default-props": "error",
         "react-x/no-direct-mutation-state": "error",
         "react-x/no-duplicate-key": "error",
+        "react-x/no-implicit-key": "warn",
         "react-x/no-missing-key": "error",
         "react-x/no-nested-components": "warn",
         "react-x/no-prop-types": "error",
