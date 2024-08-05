@@ -20,14 +20,14 @@ importers:
         specifier: 2.27.7
         version: 2.27.7
       '@effect/platform':
-        specifier: ^0.61.3
-        version: 0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1)
+        specifier: ^0.61.4
+        version: 0.61.4(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1)
       '@effect/platform-bun':
         specifier: 0.41.4
-        version: 0.41.4(@effect/platform@0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)
+        version: 0.41.4(@effect/platform@0.61.4(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)
       '@effect/platform-node':
-        specifier: ^0.56.3
-        version: 0.56.3(@effect/platform@0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)
+        specifier: ^0.56.4
+        version: 0.56.4(@effect/platform@0.61.4(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)
       '@eslint/js':
         specifier: 9.8.0
         version: 9.8.0
@@ -1491,26 +1491,20 @@ packages:
       '@effect/platform': ^0.61.4
       effect: ^3.6.1
 
-  '@effect/platform-node-shared@0.11.3':
-    resolution: {integrity: sha512-gr6GkiiJQGAloIz0ufh5/cVPYO1TT69+PA2lvF7o1a0a7YzKD0lFryKxZV7Yqk5KHt9LJGtAnT/yiMYrit16cg==}
-    peerDependencies:
-      '@effect/platform': ^0.61.3
-      effect: ^3.6.1
-
   '@effect/platform-node-shared@0.11.4':
     resolution: {integrity: sha512-Wius9GYWj41MYgOZCpjZE4lUFzaJ0IZVZCw8FnAfSr/esD71Q1zDND1hdHCdBe/URvWlSZy9ZY2rDG+M5aA86Q==}
     peerDependencies:
       '@effect/platform': ^0.61.4
       effect: ^3.6.1
 
-  '@effect/platform-node@0.56.3':
-    resolution: {integrity: sha512-gCNJLy+IPLVLbFxhcuxRav6O342OJS4GzoZCguYY9rn60v/VY/oQOkom557B2OWs4EpaHLvbBzOXSlW2rRrIzQ==}
+  '@effect/platform-node@0.56.4':
+    resolution: {integrity: sha512-3/7uzuoZw2dN1EZFY3N2s07PZ1981PfOoNKz9fQPn5ylysjTHEKOUL1BABLpAwaIAVidL/4HJFxr1x9Edi0g8A==}
     peerDependencies:
-      '@effect/platform': ^0.61.3
+      '@effect/platform': ^0.61.4
       effect: ^3.6.1
 
-  '@effect/platform@0.61.3':
-    resolution: {integrity: sha512-oLfXe8wDkQzJmH2127WCVMVFeUZ2c0/Dsf1WhLLaskxCDKG1tKP5C1PK5UGAGYkVbraokdbYKtqdLeTrEgR5JA==}
+  '@effect/platform@0.61.4':
+    resolution: {integrity: sha512-PCdpJnc7Rp/Su/kFQt+S3qhNmF0gv03ANAIXqR9oKm1/fLID4UA+U5yTb31qMQuK6YE6U61mKslR6MkhsovaQQ==}
     peerDependencies:
       '@effect/schema': ^0.70.2
       effect: ^3.6.1
@@ -7124,30 +7118,23 @@ snapshots:
   '@dprint/win32-x64@0.47.2':
     optional: true
 
-  '@effect/platform-bun@0.41.4(@effect/platform@0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)':
+  '@effect/platform-bun@0.41.4(@effect/platform@0.61.4(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)':
     dependencies:
-      '@effect/platform': 0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1)
-      '@effect/platform-node-shared': 0.11.4(@effect/platform@0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)
+      '@effect/platform': 0.61.4(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1)
+      '@effect/platform-node-shared': 0.11.4(@effect/platform@0.61.4(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)
       effect: 3.6.1
 
-  '@effect/platform-node-shared@0.11.3(@effect/platform@0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)':
+  '@effect/platform-node-shared@0.11.4(@effect/platform@0.61.4(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)':
     dependencies:
-      '@effect/platform': 0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1)
+      '@effect/platform': 0.61.4(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1)
       '@parcel/watcher': 2.4.1
       effect: 3.6.1
       multipasta: 0.2.3
 
-  '@effect/platform-node-shared@0.11.4(@effect/platform@0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)':
+  '@effect/platform-node@0.56.4(@effect/platform@0.61.4(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)':
     dependencies:
-      '@effect/platform': 0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1)
-      '@parcel/watcher': 2.4.1
-      effect: 3.6.1
-      multipasta: 0.2.3
-
-  '@effect/platform-node@0.56.3(@effect/platform@0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)':
-    dependencies:
-      '@effect/platform': 0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1)
-      '@effect/platform-node-shared': 0.11.3(@effect/platform@0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)
+      '@effect/platform': 0.61.4(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1)
+      '@effect/platform-node-shared': 0.11.4(@effect/platform@0.61.4(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)
       effect: 3.6.1
       mime: 3.0.0
       undici: 6.19.5
@@ -7156,7 +7143,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform@0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1)':
+  '@effect/platform@0.61.4(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1)':
     dependencies:
       '@effect/schema': 0.70.1(effect@3.6.1)
       effect: 3.6.1
