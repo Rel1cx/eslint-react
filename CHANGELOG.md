@@ -2,7 +2,7 @@
 
 ### ✨ New
 
-- Added a `core` preset that includes the most essential rules.
+- Add `core` preset that includes the most essential rules.
 
 ## v1.8.2 (Sat 03 Aug 2024)
 

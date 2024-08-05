@@ -34,10 +34,8 @@ const allPreset = {
   "no-default-props": "error",
   "no-direct-mutation-state": "error",
   "no-duplicate-key": "error",
-  // This rule has been deprecated
   // "no-implicit-key": "error",
-  // This rule requires type information
-  // "no-leaked-conditional-rendering": "warn",
+  // "no-leaked-conditional-rendering": "warn", // This rule requires type information
   "no-missing-component-display-name": "warn",
   "no-missing-key": "error",
   "no-nested-components": "warn",
@@ -56,11 +54,9 @@ const allPreset = {
   "no-unused-state": "warn",
   "no-useless-fragment": "warn",
   "prefer-destructuring-assignment": "warn",
-  // This rule requires type information
-  // "prefer-read-only-props": "warn",
+  // "prefer-read-only-props": "warn", // This rule requires type information
   "prefer-shorthand-boolean": "warn",
   "prefer-shorthand-fragment": "warn",
-
   // eslint-disable-next-line perfectionist/sort-objects
   "dom/no-children-in-void-dom-elements": "warn",
   "dom/no-dangerously-set-innerhtml": "warn",
@@ -73,14 +69,6 @@ const allPreset = {
   "dom/no-script-url": "warn",
   "dom/no-unsafe-iframe-sandbox": "warn",
   "dom/no-unsafe-target-blank": "warn",
-
-  "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
-  "hooks-extra/ensure-use-callback-has-non-empty-deps": "warn",
-  "hooks-extra/ensure-use-memo-has-non-empty-deps": "warn",
-  "hooks-extra/no-direct-set-state-in-use-effect": "warn",
-  "hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
-  "hooks-extra/prefer-use-state-lazy-initialization": "warn",
-
   "naming-convention/component-name": "warn",
   "naming-convention/filename": "warn",
   "naming-convention/filename-extension": "warn",
@@ -135,9 +123,7 @@ const corePreset = {
   // "prefer-shorthand-fragment": "warn",
 } as const satisfies RulePreset;
 
-const recommendedPreset = {
-  ...corePreset,
-  // Part: react-dom rules
+const domPreset = {
   "dom/no-children-in-void-dom-elements": "warn",
   "dom/no-dangerously-set-innerhtml": "warn",
   "dom/no-dangerously-set-innerhtml-with-children": "error",
@@ -149,13 +135,11 @@ const recommendedPreset = {
   "dom/no-script-url": "warn",
   "dom/no-unsafe-iframe-sandbox": "warn",
   "dom/no-unsafe-target-blank": "warn",
-  // Part: react-hooks-extra rules
-  // "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
-  // "hooks-extra/ensure-use-callback-has-non-empty-deps": "warn",
-  // "hooks-extra/ensure-use-memo-has-non-empty-deps": "warn",
-  // "hooks-extra/no-direct-set-state-in-use-effect": "warn",
-  // "hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
-  "hooks-extra/prefer-use-state-lazy-initialization": "warn",
+} as const satisfies RulePreset;
+
+const recommendedPreset = {
+  ...corePreset,
+  ...domPreset,
 } as const satisfies RulePreset;
 
 const recommendedTypeCheckedPreset = {
@@ -163,17 +147,13 @@ const recommendedTypeCheckedPreset = {
   "no-leaked-conditional-rendering": "warn",
 } as const satisfies RulePreset;
 
-const domPreset = {
-  "dom/no-children-in-void-dom-elements": "warn",
-  "dom/no-dangerously-set-innerhtml": "warn",
-  "dom/no-dangerously-set-innerhtml-with-children": "error",
-  "dom/no-find-dom-node": "error",
-  "dom/no-missing-button-type": "warn",
-  "dom/no-missing-iframe-sandbox": "warn",
-  "dom/no-namespace": "error",
-  "dom/no-script-url": "warn",
-  "dom/no-unsafe-iframe-sandbox": "warn",
-  "dom/no-unsafe-target-blank": "warn",
+const hooksExtraPreset = {
+  "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
+  "hooks-extra/ensure-use-callback-has-non-empty-deps": "warn",
+  "hooks-extra/ensure-use-memo-has-non-empty-deps": "warn",
+  "hooks-extra/no-direct-set-state-in-use-effect": "warn",
+  "hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
+  "hooks-extra/prefer-use-state-lazy-initialization": "warn",
 } as const satisfies RulePreset;
 
 const corePresetSettings = {
@@ -248,23 +228,24 @@ export default {
     version,
   },
   configs: {
-    all: createFlatConfig(allPreset),
-    core: createFlatConfig(corePreset, corePresetSettings),
-    debug: createFlatConfig(debugPreset),
-    dom: createFlatConfig(domPreset, domPresetSettings),
-    off: createFlatConfig(offPreset),
-    "off-dom": createFlatConfig(offDomPreset),
-    recommended: createFlatConfig(recommendedPreset),
-    "recommended-type-checked": createFlatConfig(recommendedTypeCheckedPreset),
-    // eslint-disable-next-line perfectionist/sort-objects
-    "all-legacy": createLegacyConfig(allPreset),
-    "core-legacy": createLegacyConfig(corePreset, corePresetSettings),
-    "debug-legacy": createLegacyConfig(debugPreset),
-    "dom-legacy": createLegacyConfig(domPreset),
-    "off-dom-legacy": createLegacyConfig(offDomPreset),
-    "off-legacy": createLegacyConfig(offPreset),
-    "recommended-legacy": createLegacyConfig(recommendedPreset),
-    "recommended-type-checked-legacy": createLegacyConfig(recommendedTypeCheckedPreset),
+    ["all"]: createFlatConfig(allPreset),
+    ["all-legacy"]: createLegacyConfig(allPreset),
+    ["core"]: createFlatConfig(corePreset, corePresetSettings),
+    ["core-legacy"]: createLegacyConfig(corePreset, corePresetSettings),
+    ["debug"]: createFlatConfig(debugPreset),
+    ["debug-legacy"]: createLegacyConfig(debugPreset),
+    ["dom"]: createFlatConfig(domPreset, domPresetSettings),
+    ["dom-legacy"]: createLegacyConfig(domPreset),
+    // ["hooks-extra"]: createFlatConfig(hooksExtraPreset),
+    // ["hooks-extra-legacy"]: createLegacyConfig(hooksExtraPreset),
+    ["off"]: createFlatConfig(offPreset),
+    ["off-dom"]: createFlatConfig(offDomPreset),
+    ["off-dom-legacy"]: createLegacyConfig(offDomPreset),
+    ["off-legacy"]: createLegacyConfig(offPreset),
+    ["recommended"]: createFlatConfig(recommendedPreset),
+    ["recommended-legacy"]: createLegacyConfig(recommendedPreset),
+    ["recommended-type-checked"]: createFlatConfig(recommendedTypeCheckedPreset),
+    ["recommended-type-checked-legacy"]: createLegacyConfig(recommendedTypeCheckedPreset),
   },
   rules: {
     ...react.rules,
