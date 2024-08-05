@@ -63,7 +63,7 @@
     "@types/react-dom": "18.3.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
-    "@typescript-eslint/rule-tester": "^8.0.0",
+    "@typescript-eslint/rule-tester": "^8.0.1",
     "@vitest/ui": "2.0.5",
     "bun": "1.1.21",
     "bundle-require": "^5.0.0",
