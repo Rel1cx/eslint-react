@@ -10,19 +10,19 @@ output = [
 ]
 
 [pre-commit]
-parallel = false
+parallel = true
 
-[pre-commit.commands.build]
-run = "pnpm run build"
+# [pre-commit.commands.build]
+# run = "pnpm run build"
 
-[pre-commit.commands."build:docs"]
-run = "pnpm run build:docs"
+# [pre-commit.commands."build:docs"]
+# run = "pnpm run build:docs"
 
-[pre-commit.commands."format:write"]
-run = "pnpm run format:write"
+[pre-commit.commands."format:check"]
+run = "pnpm run format:check"
 
 [pre-commit.commands.lint]
 run = "pnpm run lint"
 
-[pre-commit.commands.add]
-run = "git add ."
+# [pre-commit.commands.add]
+# run = "git add ."

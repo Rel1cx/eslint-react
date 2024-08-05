@@ -1,5 +1,6 @@
 import { FileSystem } from "@effect/platform";
-import { NodeFileSystem, NodeRuntime } from "@effect/platform-node";
+// import { NodeFileSystem, NodeRuntime } from "@effect/platform-node";
+import { BunFileSystem, BunRuntime } from "@effect/platform-bun";
 import { Effect } from "effect";
 
 const source = "README.md";
@@ -10,4 +11,7 @@ const program = Effect.gen(function*(_) {
   yield* _(Effect.all(dest.map((dest) => fs.copyFile(source, dest))));
 });
 
-NodeRuntime.runMain(program.pipe(Effect.provide(NodeFileSystem.layer)));
+const runnable = program.pipe(Effect.provide(BunFileSystem.layer));
+
+BunRuntime.runMain(runnable);
+// NodeRuntime.runMain(runnable);

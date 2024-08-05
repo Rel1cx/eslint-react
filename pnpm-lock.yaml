@@ -22,6 +22,9 @@ importers:
       '@effect/platform':
         specifier: ^0.61.3
         version: 0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1)
+      '@effect/platform-bun':
+        specifier: 0.41.4
+        version: 0.41.4(@effect/platform@0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)
       '@effect/platform-node':
         specifier: ^0.56.3
         version: 0.56.3(@effect/platform@0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)
@@ -1482,10 +1485,22 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@effect/platform-bun@0.41.4':
+    resolution: {integrity: sha512-2c6TDWHr2kEHZVQB5ktqZzaM2QRVmue3OqvICw420K8ixFDjOTWieaTyhjSD4hQQIjMrn61ajEj0eS7ZyT2Fqg==}
+    peerDependencies:
+      '@effect/platform': ^0.61.4
+      effect: ^3.6.1
+
   '@effect/platform-node-shared@0.11.3':
     resolution: {integrity: sha512-gr6GkiiJQGAloIz0ufh5/cVPYO1TT69+PA2lvF7o1a0a7YzKD0lFryKxZV7Yqk5KHt9LJGtAnT/yiMYrit16cg==}
     peerDependencies:
       '@effect/platform': ^0.61.3
+      effect: ^3.6.1
+
+  '@effect/platform-node-shared@0.11.4':
+    resolution: {integrity: sha512-Wius9GYWj41MYgOZCpjZE4lUFzaJ0IZVZCw8FnAfSr/esD71Q1zDND1hdHCdBe/URvWlSZy9ZY2rDG+M5aA86Q==}
+    peerDependencies:
+      '@effect/platform': ^0.61.4
       effect: ^3.6.1
 
   '@effect/platform-node@0.56.3':
@@ -2999,6 +3014,7 @@ packages:
 
   bun@1.1.21:
     resolution: {integrity: sha512-mvqYEvafGskIVTjlftbKvsXtyR6z/SQnhJsVw0xCU46pc56oX1sAGvaemWKOy/sy/gGMHcgLE0KUidDQQzqXWQ==}
+    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -4086,6 +4102,7 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -4262,6 +4279,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -7109,7 +7127,20 @@ snapshots:
   '@dprint/win32-x64@0.47.2':
     optional: true
 
+  '@effect/platform-bun@0.41.4(@effect/platform@0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)':
+    dependencies:
+      '@effect/platform': 0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1)
+      '@effect/platform-node-shared': 0.11.4(@effect/platform@0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)
+      effect: 3.6.1
+
   '@effect/platform-node-shared@0.11.3(@effect/platform@0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)':
+    dependencies:
+      '@effect/platform': 0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1)
+      '@parcel/watcher': 2.4.1
+      effect: 3.6.1
+      multipasta: 0.2.3
+
+  '@effect/platform-node-shared@0.11.4(@effect/platform@0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1))(effect@3.6.1)':
     dependencies:
       '@effect/platform': 0.61.3(@effect/schema@0.70.1(effect@3.6.1))(effect@3.6.1)
       '@parcel/watcher': 2.4.1
