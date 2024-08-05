@@ -4,6 +4,7 @@ import { Effect } from "effect";
 
 import { glob } from "./lib/glob";
 import { readJsonFile, writeJsonFile } from "./lib/json";
+import { LoggerLive } from "./services/LoggerLive";
 import { version } from "./version";
 
 const GLOB_PACKAGE_JSON = ["package.json", "packages/**/package.json"];
@@ -25,7 +26,10 @@ const program = Effect.gen(function*() {
   yield* Effect.log("Done");
 });
 
-const runnable = program.pipe(Effect.provide(BunFileSystem.layer));
+const runnable = program.pipe(
+  Effect.provide(BunFileSystem.layer),
+  Effect.provide(LoggerLive),
+);
 
 BunRuntime.runMain(runnable);
 // NodeRuntime.runMain(runnable);

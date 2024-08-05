@@ -71,6 +71,7 @@
     "cspell": "8.13.1",
     "dprint": "0.47.2",
     "effect": "3.6.1",
+    "effect-log": "0.31.8",
     "esbuild": "0.23.0",
     "eslint": "^9.8.0",
     "eslint-config-flat-gitignore": "0.1.8",

@@ -3,15 +3,19 @@ import { FileSystem } from "@effect/platform";
 import { BunFileSystem, BunRuntime } from "@effect/platform-bun";
 import { Effect } from "effect";
 
-const source = "README.md";
-const dest = ["packages/plugins/eslint-plugin/README.md"] as const;
+import { LoggerLive } from "./services/LoggerLive";
 
-const program = Effect.gen(function*(_) {
-  const fs = yield* _(FileSystem.FileSystem);
-  yield* _(Effect.all(dest.map((dest) => fs.copyFile(source, dest))));
+const source = "README.md";
+
+const program = Effect.gen(function*() {
+  const fs = yield* FileSystem.FileSystem;
+  yield* Effect.orDie(fs.copyFile(source, "packages/plugins/eslint-plugin/README.md"));
 });
 
-const runnable = program.pipe(Effect.provide(BunFileSystem.layer));
+const runnable = program.pipe(
+  Effect.provide(BunFileSystem.layer),
+  Effect.provide(LoggerLive),
+);
 
 BunRuntime.runMain(runnable);
 // NodeRuntime.runMain(runnable);
