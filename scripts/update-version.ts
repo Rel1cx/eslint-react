@@ -6,7 +6,7 @@ import { glob } from "./lib/glob";
 import { readJsonFile, writeJsonFile } from "./lib/json";
 import { version } from "./version";
 
-const GLOB_PACKAGE_JSON = "packages/**/package.json";
+const GLOB_PACKAGE_JSON = ["package.json", "packages/**/package.json"];
 
 const mkTask = (path: string) =>
   Effect.gen(function*() {
