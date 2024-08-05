@@ -36,7 +36,6 @@
 - [getComponentInitPath](functions/getComponentInitPath.md)
 - [getComponentNameFromIdentifier](functions/getComponentNameFromIdentifier.md)
 - [getFunctionComponentIdentifier](functions/getFunctionComponentIdentifier.md)
-- [getParentClassComponent](functions/getParentClassComponent.md)
 - [hasCallInComponentInitPath](functions/hasCallInComponentInitPath.md)
 - [hasNoneOrValidComponentName](functions/hasNoneOrValidComponentName.md)
 - [isCallFromReact](functions/isCallFromReact.md)

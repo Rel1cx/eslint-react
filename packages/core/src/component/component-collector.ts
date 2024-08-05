@@ -26,8 +26,9 @@ import { DEFAULT_COMPONENT_HINT, ERComponentHint } from "./component-collector-h
 import { ERFunctionComponentFlag } from "./component-flag";
 import { getFunctionComponentIdentifier } from "./component-id";
 import { getComponentInitPath, hasCallInComponentInitPath } from "./component-init-path";
-import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
+import { getComponentNameFromIdentifier } from "./component-name";
 import { isFunctionOfRenderMethod } from "./component-render-method";
+import { hasNoneOrValidComponentName } from "./misc";
 
 const uid = new ShortUniqueId({ length: 10 });
 
