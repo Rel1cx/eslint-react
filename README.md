@@ -113,10 +113,14 @@ Add the plugin to your `.eslintrc.json`:
 
 ### Flat Config
 
+- **core**\
+  Enable rules that are renderer-agnostic.
 - **recommended**\
-  Enable rules that are recommended by ESLint React.
+  Enable rules that are recommended by ESLint React.\
+  _This preset includes the `core` preset._
 - **recommended-type-checked**\
-  Enable rules that are recommended by ESLint React with additional rules that require type information.
+  Enable rules that are recommended by ESLint React with additional rules that require type information.\
+  _This preset includes the `recommended` preset._
 - **dom**\
   Enable rules that are specific to React DOM.
 - **off-dom**\
@@ -126,10 +130,14 @@ Add the plugin to your `.eslintrc.json`:
 
 ### Legacy Config
 
+- **core-legacy**\
+  Enable rules that are renderer-agnostic.
 - **recommended-legacy**\
-  Enable rules that are recommended by ESLint React.
+  Enable rules that are recommended by ESLint React.\
+  _This preset includes the `core-legacy` preset._
 - **recommended-type-checked-legacy**\
-  Enable rules that are recommended by ESLint React with additional rules that require type information.
+  Enable rules that are recommended by ESLint React with additional rules that require type information.\
+  _This preset includes the `recommended-legacy` preset._
 - **dom-legacy**\
   Enable rules that are specific to React DOM.
 - **off-dom-legacy**\

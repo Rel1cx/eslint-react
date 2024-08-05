@@ -87,8 +87,7 @@ const allPreset = {
   "naming-convention/use-state": "warn",
 } as const satisfies RulePreset;
 
-const recommendedPreset = {
-  // Part: react rules
+const corePreset = {
   // "avoid-shorthand-boolean": "warn",
   // "avoid-shorthand-fragment": "warn",
   "ensure-forward-ref-using-ref": "warn",
@@ -134,6 +133,10 @@ const recommendedPreset = {
   // "prefer-destructuring-assignment": "warn",
   // "prefer-shorthand-boolean": "warn",
   // "prefer-shorthand-fragment": "warn",
+} as const satisfies RulePreset;
+
+const recommendedPreset = {
+  ...corePreset,
   // Part: react-dom rules
   "dom/no-children-in-void-dom-elements": "warn",
   "dom/no-dangerously-set-innerhtml": "warn",
@@ -173,8 +176,12 @@ const domPreset = {
   "dom/no-unsafe-target-blank": "warn",
 } as const satisfies RulePreset;
 
-const domPresetSettings = {
+const corePresetSettings = {
   ...DEFAULT_ESLINT_REACT_SETTINGS,
+} satisfies ESLintReactSettings;
+
+const domPresetSettings = {
+  ...corePresetSettings,
   additionalComponents: [
     {
       name: "Link",
@@ -242,6 +249,7 @@ export default {
   },
   configs: {
     all: createFlatConfig(allPreset),
+    core: createFlatConfig(corePreset, corePresetSettings),
     debug: createFlatConfig(debugPreset),
     dom: createFlatConfig(domPreset, domPresetSettings),
     off: createFlatConfig(offPreset),
@@ -250,6 +258,7 @@ export default {
     "recommended-type-checked": createFlatConfig(recommendedTypeCheckedPreset),
     // eslint-disable-next-line perfectionist/sort-objects
     "all-legacy": createLegacyConfig(allPreset),
+    "core-legacy": createLegacyConfig(corePreset, corePresetSettings),
     "debug-legacy": createLegacyConfig(debugPreset),
     "dom-legacy": createLegacyConfig(domPreset),
     "off-dom-legacy": createLegacyConfig(offDomPreset),
