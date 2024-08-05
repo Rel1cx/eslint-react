@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-x",
-  "version": "1.8.3-next.5",
+  "version": "1.8.3-next.6",
   "description": "ESLint React's ESLint plugin for React related rules.",
   "keywords": [
     "eslint",
