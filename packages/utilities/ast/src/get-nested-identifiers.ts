@@ -7,7 +7,7 @@ import { traverseUpGuard } from "./traverse-up-guard";
 import { NodeType } from "./types";
 
 /**
- * Gets nested identifiers in a node
+ * Gets the nested identifiers in the node that are within the same function (if has one)
  * @param node The AST node
  * @returns The nested identifiers
  */

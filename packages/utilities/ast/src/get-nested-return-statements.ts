@@ -7,7 +7,7 @@ import { traverseUpGuard } from "./traverse-up-guard";
 import { NodeType } from "./types";
 
 /**
- * Gets nested return statements in a node
+ * Gets the nested return statements in the node that are within the same function
  * @param node The AST node
  * @returns The nested return statements in the node
  */
