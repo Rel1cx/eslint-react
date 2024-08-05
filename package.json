@@ -95,6 +95,7 @@
     "remeda": "^2.7.0",
     "skott": "0.35.2",
     "sort-package-json": "2.10.0",
+    "std-env": "3.7.0",
     "superbytes": "2.0.1",
     "tinyglobby": "^0.2.1",
     "ts-pattern": "^5.2.0",

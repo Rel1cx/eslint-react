@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable perfectionist/sort-union-types */
 import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -109,8 +108,7 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
   const { parent } = node;
   if (node.type === NodeType.FunctionDeclaration) return O.some([node]);
   if (
-    true
-    && parent.type === NodeType.VariableDeclarator
+    parent.type === NodeType.VariableDeclarator
     && parent.parent.type === NodeType.VariableDeclaration
   ) {
     return O.some([
@@ -120,8 +118,7 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
     ]);
   }
   if (
-    true
-    && parent.type === NodeType.CallExpression
+    parent.type === NodeType.CallExpression
     && parent.parent.type === NodeType.VariableDeclarator
     && parent.parent.parent.type === NodeType.VariableDeclaration
   ) {
@@ -133,8 +130,7 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
     ]);
   }
   if (
-    true
-    && parent.type === NodeType.CallExpression
+    parent.type === NodeType.CallExpression
     && parent.parent.type === NodeType.CallExpression
     && parent.parent.parent.type === NodeType.VariableDeclarator
     && parent.parent.parent.parent.type === NodeType.VariableDeclaration
@@ -148,8 +144,7 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
     ]);
   }
   if (
-    true
-    && parent.type === NodeType.Property
+    parent.type === NodeType.Property
     && parent.parent.type === NodeType.ObjectExpression
     && parent.parent.parent.type === NodeType.VariableDeclarator
     && parent.parent.parent.parent.type === NodeType.VariableDeclaration
@@ -163,8 +158,7 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
     ]);
   }
   if (
-    true
-    && parent.type === NodeType.MethodDefinition
+    parent.type === NodeType.MethodDefinition
     && parent.parent.type === NodeType.ClassBody
     && parent.parent.parent.type === NodeType.ClassDeclaration
   ) {
@@ -176,8 +170,7 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
     ]);
   }
   if (
-    true
-    && parent.type === NodeType.PropertyDefinition
+    parent.type === NodeType.PropertyDefinition
     && parent.parent.type === NodeType.ClassBody
     && parent.parent.parent.type === NodeType.ClassDeclaration
   ) {

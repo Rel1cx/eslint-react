@@ -12,6 +12,7 @@ import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import unicornPlugin from "eslint-plugin-unicorn";
 import vitest from "eslint-plugin-vitest";
 import eslintPluginYml from "eslint-plugin-yml";
+import { isCI } from "std-env";
 import tseslint from "typescript-eslint";
 import YamlParser from "yaml-eslint-parser";
 
@@ -68,8 +69,9 @@ const config: Config[] = [
   },
   // extends ...
   eslint.configs.recommended,
-  ...tseslint.configs.strict,
-  // ...tseslint.configs.strictTypeChecked,
+  ...isCI
+    ? tseslint.configs.strictTypeChecked
+    : tseslint.configs.strict,
   perfectionist.configs["recommended-natural"],
   jsdocPlugin.configs["flat/recommended-typescript-error"],
   eslintPluginPlugin.configs["flat/all-type-checked"],
@@ -152,7 +154,7 @@ const config: Config[] = [
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-misused-promises": "off",
-      "@typescript-eslint/no-unnecessary-condition": "warn",
+      // "@typescript-eslint/no-unnecessary-condition": "warn",
       "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
       "@typescript-eslint/no-unnecessary-type-parameters": "warn",
       "@typescript-eslint/no-unused-vars": [
@@ -163,7 +165,7 @@ const config: Config[] = [
           varsIgnorePattern: "^_",
         },
       ],
-      "@typescript-eslint/prefer-nullish-coalescing": "warn",
+      // "@typescript-eslint/prefer-nullish-coalescing": "warn",
       // Part: functional rules
       "functional/no-return-void": "off",
       // Part: jsdoc rules

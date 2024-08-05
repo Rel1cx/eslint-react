@@ -20,9 +20,7 @@ export function isFragmentElement(node: TSESTree.JSXElement, context: RuleContex
   return name.type === NodeType.JSXMemberExpression
     && name.object.type === NodeType.JSXIdentifier
     && (
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      false
-      || name.object.name === jsxPragma
+      name.object.name === jsxPragma
       || isInitializedFromReact(name.object.name, context, context.sourceCode.getScope(node))
     )
     && name.property.name === jsxPragmaFrag;
