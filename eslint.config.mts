@@ -112,6 +112,22 @@ const config: Config[] = [
           message: "no optional",
           selector: "TSPropertySignature[optional=true]",
         },
+        {
+          message: "no promise",
+          selector: "CallExpression[callee.object.name='Promise']",
+        },
+        {
+          message: "no promise",
+          selector: "CallExpression[callee.property.name='then']",
+        },
+        {
+          message: "no async/await",
+          selector: ":function[async=true]",
+        },
+        {
+          message: "no async/await",
+          selector: "AwaitExpression",
+        },
       ],
       "no-undef": "off",
       "one-var": ["error", "never"],
