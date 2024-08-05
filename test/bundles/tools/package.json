@@ -19,9 +19,9 @@
   },
   "devDependencies": {
     "@eslint-react/tools": "workspace:*",
-    "@tsconfig/node22": "22.0.0",
-    "@tsconfig/strictest": "2.0.5",
-    "remeda": "^2.7.0",
-    "tsup": "8.2.4"
+    "@tsconfig/node22": "^22.0.0",
+    "@tsconfig/strictest": "^2.0.5",
+    "remeda": "^2.7.1",
+    "tsup": "^8.2.4"
   }
 }

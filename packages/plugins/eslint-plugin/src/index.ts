@@ -147,6 +147,7 @@ const recommendedTypeCheckedPreset = {
   "no-leaked-conditional-rendering": "warn",
 } as const satisfies RulePreset;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const hooksExtraPreset = {
   "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
   "hooks-extra/ensure-use-callback-has-non-empty-deps": "warn",

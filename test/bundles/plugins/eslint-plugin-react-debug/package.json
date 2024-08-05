@@ -18,9 +18,9 @@
     "pack": "pnpm pack"
   },
   "devDependencies": {
-    "@tsconfig/node22": "22.0.0",
-    "@tsconfig/strictest": "2.0.5",
+    "@tsconfig/node22": "^22.0.0",
+    "@tsconfig/strictest": "^2.0.5",
     "eslint-plugin-react-debug": "workspace:*",
-    "tsup": "8.2.4"
+    "tsup": "^8.2.4"
   }
 }
