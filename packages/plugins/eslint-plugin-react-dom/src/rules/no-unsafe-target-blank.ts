@@ -65,7 +65,7 @@ export default createRule<[], MessageID>({
           O.flatMapNullable(v =>
             match(v?.value)
               .with(P.string, F.identity)
-              .with(P.shape({ [targetPropName]: P.string }), (v) => v[targetPropName])
+              .with({ [targetPropName]: P.string }, (v) => v[targetPropName])
               .otherwise(F.constNull)
           ),
           O.filter(R.isString),

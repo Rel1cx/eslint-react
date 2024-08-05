@@ -45,7 +45,7 @@ export default createRule<[], MessageID>({
           O.flatMapNullable(v =>
             match(v?.value)
               .with(P.string, F.identity)
-              .with(P.shape({ sandbox: P.string }), ({ sandbox }) => sandbox)
+              .with({ sandbox: P.string }, ({ sandbox }) => sandbox)
               .otherwise(F.constNull)
           ),
           O.filter(R.isString),
