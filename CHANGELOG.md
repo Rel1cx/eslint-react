@@ -1,8 +1,12 @@
-## v1.9.0 (Draft)
+## v1.9.0 (Tue 06 Aug 2024)
 
 ### ✨ New
 
 - Add `core` preset that includes the most essential rules.
+
+### 🪄 Improvements
+
+- Upgrade `@typescript-eslint`'s packages to `8.0.1`.
 
 ## v1.8.2 (Sat 03 Aug 2024)
 

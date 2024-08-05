@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-x",
-  "version": "1.9.0-beta.3",
+  "version": "1.9.0",
   "description": "ESLint React's ESLint plugin for React related rules.",
   "keywords": [
     "eslint",

@@ -11,7 +11,6 @@ export type MessageID = CamelCase<typeof RULE_NAME>;
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
-    deprecated: true,
     docs: {
       description: "disallow complex conditional rendering",
     },
