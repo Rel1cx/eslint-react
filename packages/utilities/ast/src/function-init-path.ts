@@ -159,7 +159,6 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
   }
   if (
     parent.type === NodeType.MethodDefinition
-    && parent.parent.type === NodeType.ClassBody
     && parent.parent.parent.type === NodeType.ClassDeclaration
   ) {
     return O.some([
@@ -171,7 +170,6 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
   }
   if (
     parent.type === NodeType.PropertyDefinition
-    && parent.parent.type === NodeType.ClassBody
     && parent.parent.parent.type === NodeType.ClassDeclaration
   ) {
     return O.some([
