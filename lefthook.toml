@@ -10,7 +10,7 @@ output = [
 ]
 
 [pre-commit]
-parallel = true
+parallel = false
 
 # [pre-commit.commands.build]
 # run = "pnpm run build"
@@ -26,3 +26,9 @@ run = "pnpm run lint"
 
 # [pre-commit.commands.add]
 # run = "git add ."
+
+[post-merge]
+parallel = false
+
+[post-merge.commands."verify:lockfile"]
+run = "pnpm bun run --bun ./scripts/verify-lockfile.ts"
