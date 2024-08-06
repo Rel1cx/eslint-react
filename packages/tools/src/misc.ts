@@ -44,6 +44,7 @@ export const asConst = <const T>(a: T) => a;
  * @returns the type of the value
  */
 export function typeOf(t: unknown) {
+  // eslint-disable-next-line @susisu/safe-typescript/no-type-assertion
   return Object.prototype.toString
     .call(t)
     .replace(/^\[object (.+)\]$/, "$1")

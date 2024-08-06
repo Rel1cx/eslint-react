@@ -1,4 +1,3 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
 import { is, isFunction, NodeType } from "@eslint-react/ast";
 import { isReactHookCall, isReactHookCallWithNameLoose, isUseMemoCall } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
@@ -82,7 +81,7 @@ export default createRule<[], MessageID>({
                 findVariable(n.name, initialScope),
                 O.flatMap(getVariableNode(0)),
                 O.filter(isFunction),
-              ) as O.Option<TSESTreeFunction>;
+              );
             })
             .otherwise(O.none),
           O.map(n => context.sourceCode.getScope(n)),

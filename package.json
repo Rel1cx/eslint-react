@@ -64,6 +64,7 @@
     "@typescript-eslint/eslint-plugin": "^8.0.1",
     "@typescript-eslint/parser": "^8.0.1",
     "@typescript-eslint/rule-tester": "^8.0.1",
+    "@susisu/eslint-plugin-safe-typescript": "^0.9.0",
     "@vitest/ui": "^2.0.5",
     "bun": "^1.1.21",
     "bundle-require": "^5.0.0",

@@ -12,7 +12,7 @@ export const RULE_NAME = "prefer-use-state-lazy-initialization";
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 // variables should be defined here
-const ALLOW_LIST = ["Boolean", "String", "Number"] as const;
+const ALLOW_LIST = ["Boolean", "String", "Number"];
 
 // rule takes inspiration from https://github.com/facebook/react/issues/26520
 export default createRule<[], MessageID>({
@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
         const nestedCallExpressions = getNestedCallExpressions(useStateInput);
         const hasFunctionCall = nestedCallExpressions.some((n) => {
           return "name" in n.callee
-            && !ALLOW_LIST.includes(n.callee.name as never);
+            && !ALLOW_LIST.includes(n.callee.name);
         });
         if (!hasFunctionCall) return;
         context.report({

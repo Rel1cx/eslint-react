@@ -10,7 +10,7 @@ import { ESLintSettingsSchema } from "./schemas";
  */
 export const INITIAL_ESLINT_REACT_SETTINGS = {
   skipImportCheck: true,
-} as const as ESLintReactSettings;
+} as const satisfies ESLintReactSettings;
 
 /**
  * The default ESLint settings for "react-x".
@@ -22,7 +22,7 @@ export const DEFAULT_ESLINT_REACT_SETTINGS = {
   polymorphicPropName: "as",
   skipImportCheck: true,
   version: "detect",
-} as const as ESLintReactSettings;
+} as const satisfies ESLintReactSettings;
 
 /**
  * This is an expanded version of `CustomComponent` with all shorthand properties expanded.
@@ -76,7 +76,8 @@ export function decodeSettings(data: unknown): ESLintReactSettings {
 export function unsafeCastSettings(data: unknown): ESLintReactSettings {
   return {
     ...INITIAL_ESLINT_REACT_SETTINGS,
-    ...(data as ESLintSettings)["react-x"] ?? {},
+    // eslint-disable-next-line @susisu/safe-typescript/no-type-assertion
+    ...(data as ESLintSettings)?.["react-x"] ?? {},
   };
 }
 

@@ -2,6 +2,7 @@ import url from "node:url";
 
 import eslint from "@eslint/js";
 import stylisticJs from "@stylistic/eslint-plugin-js";
+import safeTsPlugin from "@susisu/eslint-plugin-safe-typescript";
 import gitignore from "eslint-config-flat-gitignore";
 import eslintCommentsPlugin from "eslint-plugin-eslint-comments";
 import eslintPluginPlugin from "eslint-plugin-eslint-plugin";
@@ -64,6 +65,7 @@ const config: Config[] = [
     // note - intentionally uses computed syntax to make it easy to sort the keys
     plugins: {
       ["@stylistic/js"]: stylisticJs,
+      ["@susisu/safe-typescript"]: safeTsPlugin,
       ["@typescript-eslint"]: tseslint.plugin,
       ["eslint-comments"]: eslintCommentsPlugin,
       ["eslint-plugin"]: eslintPluginPlugin,
@@ -88,11 +90,11 @@ const config: Config[] = [
       parser: tseslint.parser,
       parserOptions: {
         allowAutomaticSingleRunInference: true,
-        // project: [
-        //   "tsconfig.json",
-        //   "packages/*/tsconfig.json",
-        //   "packages/*/*/tsconfig.json",
-        // ],
+        project: [
+          "tsconfig.json",
+          "packages/*/tsconfig.json",
+          "packages/*/*/tsconfig.json",
+        ],
         projectService: true,
         tsconfigRootDir: dirname,
         warnOnUnsupportedTypeScriptVersion: false,
@@ -170,6 +172,12 @@ const config: Config[] = [
           varsIgnorePattern: "^_",
         },
       ],
+      // Part: safe-typescript rules
+      "@susisu/safe-typescript/no-object-assign": "error",
+      "@susisu/safe-typescript/no-type-assertion": "error",
+      "@susisu/safe-typescript/no-unsafe-object-enum-method": "error",
+      // "@susisu/safe-typescript/no-unsafe-object-property-check": "error",
+      // "@susisu/safe-typescript/no-unsafe-object-property-overwrite": "error",
       // "@typescript-eslint/prefer-nullish-coalescing": "warn",
       // Part: functional rules
       "functional/no-return-void": "off",
@@ -285,6 +293,13 @@ const config: Config[] = [
         ...vitest.environments.env.globals,
       },
       parser: tseslint.parser,
+      parserOptions: {
+        allowAutomaticSingleRunInference: true,
+        project: "tsconfig.json",
+        projectService: true,
+        tsconfigRootDir: dirname,
+        warnOnUnsupportedTypeScriptVersion: false,
+      },
     },
     plugins: {
       vitest,
@@ -302,7 +317,7 @@ const config: Config[] = [
       parserOptions: {
         allowAutomaticSingleRunInference: true,
         project: "tsconfig.json",
-        projectService: false,
+        projectService: true,
         tsconfigRootDir: dirname,
         warnOnUnsupportedTypeScriptVersion: false,
       },

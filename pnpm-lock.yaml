@@ -39,6 +39,9 @@ importers:
       '@stylistic/eslint-plugin-js':
         specifier: ^2.6.1
         version: 2.6.1(eslint@9.8.0)
+      '@susisu/eslint-plugin-safe-typescript':
+        specifier: ^0.9.0
+        version: 0.9.0(@typescript-eslint/parser@8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240806))(eslint@9.8.0)(typescript-eslint@8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240806))(typescript@5.6.0-dev.20240806)
       '@swc/core':
         specifier: ^1.7.6
         version: 1.7.6(@swc/helpers@0.5.5)
@@ -125,7 +128,7 @@ importers:
         version: 55.0.0(eslint@9.8.0)
       eslint-plugin-vitest:
         specifier: ^0.5.4
-        version: 0.5.4(@typescript-eslint/eslint-plugin@8.0.1(@typescript-eslint/parser@8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240806))(eslint@9.8.0)(typescript@5.6.0-dev.20240806))(eslint@9.8.0)(typescript@5.6.0-dev.20240806)(vitest@2.0.5(@types/node@22.1.0)(@vitest/ui@2.0.5)(sass@1.77.8))
+        version: 0.5.4(@typescript-eslint/eslint-plugin@8.0.1(@typescript-eslint/parser@8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240806))(eslint@9.8.0)(typescript@5.6.0-dev.20240806))(eslint@9.8.0)(typescript@5.6.0-dev.20240806)(vitest@2.0.5(@types/node@22.1.0)(@vitest/ui@2.0.5)(sass@1.77.8)(terser@5.31.3))
       eslint-plugin-yml:
         specifier: ^1.14.0
         version: 1.14.0(eslint@9.8.0)
@@ -191,7 +194,7 @@ importers:
         version: 5.6.0-dev.20240806
       vitest:
         specifier: ^2.0.5
-        version: 2.0.5(@types/node@22.1.0)(@vitest/ui@2.0.5)(sass@1.77.8)
+        version: 2.0.5(@types/node@22.1.0)(@vitest/ui@2.0.5)(sass@1.77.8)(terser@5.31.3)
 
   examples/flat-config-react-dom-ts:
     dependencies:
@@ -2378,6 +2381,18 @@ packages:
     peerDependencies:
       eslint: ^9.8.0
 
+  '@susisu/eslint-plugin-safe-typescript@0.9.0':
+    resolution: {integrity: sha512-LSq9V64zSpN/zX4IblB/5KBfXISoOX0RUMwxT8n+7BuyrtDD+/5TlVKnh0WPpwkdTkPWHAgAlqZ1M5qT8293eg==}
+    peerDependencies:
+      '@typescript-eslint/parser': ^8.0.0
+      typescript: ^5.6.0-dev.20240805
+      typescript-eslint: ^8.0.0
+    peerDependenciesMeta:
+      '@typescript-eslint/parser':
+        optional: true
+      typescript-eslint:
+        optional: true
+
   '@swc/core-darwin-arm64@1.7.6':
     resolution: {integrity: sha512-6lYHey84ZzsdtC7UuPheM4Rm0Inzxm6Sb8U6dmKc4eCx8JL0LfWG4LC5RsdsrTxnjTsbriWlnhZBffh8ijUHIQ==}
     engines: {node: '>=10'}
@@ -3013,7 +3028,6 @@ packages:
 
   bun@1.1.21:
     resolution: {integrity: sha512-mvqYEvafGskIVTjlftbKvsXtyR6z/SQnhJsVw0xCU46pc56oX1sAGvaemWKOy/sy/gGMHcgLE0KUidDQQzqXWQ==}
-    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -7818,6 +7832,18 @@ snapshots:
       eslint-visitor-keys: 4.0.0
       espree: 10.1.0
 
+  '@susisu/eslint-plugin-safe-typescript@0.9.0(@typescript-eslint/parser@8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240806))(eslint@9.8.0)(typescript-eslint@8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240806))(typescript@5.6.0-dev.20240806)':
+    dependencies:
+      '@types/eslint': 9.6.0
+      '@typescript-eslint/utils': 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240806)
+      typescript: 5.6.0-dev.20240806
+    optionalDependencies:
+      '@typescript-eslint/parser': 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240806)
+      typescript-eslint: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240806)
+    transitivePeerDependencies:
+      - eslint
+      - supports-color
+
   '@swc/core-darwin-arm64@1.7.6':
     optional: true
 
@@ -8330,7 +8356,7 @@ snapshots:
       pathe: 1.1.2
       sirv: 2.0.4
       tinyrainbow: 1.2.0
-      vitest: 2.0.5(@types/node@22.1.0)(@vitest/ui@2.0.5)(sass@1.77.8)
+      vitest: 2.0.5(@types/node@22.1.0)(@vitest/ui@2.0.5)(sass@1.77.8)(terser@5.31.3)
 
   '@vitest/utils@2.0.5':
     dependencies:
@@ -9502,13 +9528,13 @@ snapshots:
       semver: 7.6.3
       strip-indent: 3.0.0
 
-  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@8.0.1(@typescript-eslint/parser@8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240806))(eslint@9.8.0)(typescript@5.6.0-dev.20240806))(eslint@9.8.0)(typescript@5.6.0-dev.20240806)(vitest@2.0.5(@types/node@22.1.0)(@vitest/ui@2.0.5)(sass@1.77.8)):
+  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@8.0.1(@typescript-eslint/parser@8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240806))(eslint@9.8.0)(typescript@5.6.0-dev.20240806))(eslint@9.8.0)(typescript@5.6.0-dev.20240806)(vitest@2.0.5(@types/node@22.1.0)(@vitest/ui@2.0.5)(sass@1.77.8)(terser@5.31.3)):
     dependencies:
       '@typescript-eslint/utils': 7.18.0(eslint@9.8.0)(typescript@5.6.0-dev.20240806)
       eslint: 9.8.0
     optionalDependencies:
       '@typescript-eslint/eslint-plugin': 8.0.1(@typescript-eslint/parser@8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240806))(eslint@9.8.0)(typescript@5.6.0-dev.20240806)
-      vitest: 2.0.5(@types/node@22.1.0)(@vitest/ui@2.0.5)(sass@1.77.8)
+      vitest: 2.0.5(@types/node@22.1.0)(@vitest/ui@2.0.5)(sass@1.77.8)(terser@5.31.3)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -12752,7 +12778,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite-node@2.0.5(@types/node@22.1.0)(sass@1.77.8):
+  vite-node@2.0.5(@types/node@22.1.0)(sass@1.77.8)(terser@5.31.3):
     dependencies:
       cac: 6.7.14
       debug: 4.3.6
@@ -12780,7 +12806,7 @@ snapshots:
       sass: 1.77.8
       terser: 5.31.3
 
-  vitest@2.0.5(@types/node@22.1.0)(@vitest/ui@2.0.5)(sass@1.77.8):
+  vitest@2.0.5(@types/node@22.1.0)(@vitest/ui@2.0.5)(sass@1.77.8)(terser@5.31.3):
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@vitest/expect': 2.0.5
@@ -12799,7 +12825,7 @@ snapshots:
       tinypool: 1.0.0
       tinyrainbow: 1.2.0
       vite: 5.3.5(@types/node@22.1.0)(sass@1.77.8)(terser@5.31.3)
-      vite-node: 2.0.5(@types/node@22.1.0)(sass@1.77.8)
+      vite-node: 2.0.5(@types/node@22.1.0)(sass@1.77.8)(terser@5.31.3)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.1.0
