@@ -1,8 +1,9 @@
 import memoize from "micro-memoize";
 import pm from "picomatch";
+import type { PartialDeep } from "type-fest";
 import { parse } from "valibot";
 
-import type { CustomComponent, ESLintReactSettings, ESLintSettings } from "./schemas";
+import type { CustomComponent, ESLintReactSettings } from "./schemas";
 import { ESLintSettingsSchema } from "./schemas";
 
 /**
@@ -60,12 +61,12 @@ export function defineSettings(settings: ESLintReactSettings) {
  * @param data The data object.
  * @returns settings The settings.
  */
-export function decodeSettings(data: unknown): ESLintReactSettings {
+export const decodeSettings = memoize((data: unknown): ESLintReactSettings => {
   return {
     ...INITIAL_ESLINT_REACT_SETTINGS,
     ...parse(ESLintSettingsSchema, data)["react-x"] ?? {},
   };
-}
+}, { isEqual: (a, b) => a === b });
 
 /**
  * Unsafely casts settings from a data object from `context.settings`.
@@ -73,12 +74,10 @@ export function decodeSettings(data: unknown): ESLintReactSettings {
  * @param data The data object.
  * @returns settings The settings.
  */
-export function unsafeCastSettings(data: unknown): ESLintReactSettings {
-  return {
-    ...INITIAL_ESLINT_REACT_SETTINGS,
-    // eslint-disable-next-line @susisu/safe-typescript/no-type-assertion
-    ...(data as ESLintSettings)?.["react-x"] ?? {},
-  };
+export function unsafeCastSettings(data: unknown) {
+  // @ts-expect-error - skip type checking for unsafe cast
+  // eslint-disable-next-line @susisu/safe-typescript/no-type-assertion
+  return (data?.["react-x"] ?? {}) as PartialDeep<ESLintReactSettings>;
 }
 
 /**

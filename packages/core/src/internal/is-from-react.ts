@@ -1,5 +1,5 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
-import { decodeSettings, unsafeCastSettings } from "@eslint-react/shared";
+import { unsafeCastSettings } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable } from "@eslint-react/var";
@@ -15,13 +15,14 @@ export function isInitializedFromReact(
 ): boolean {
   const settings = unsafeCastSettings(context.settings);
   if (settings.skipImportCheck) return true;
+  // Optimistic assertion when identifier is named react
   if (variableName.toLowerCase() === "react") return true;
+  const { importSource = "react" } = settings;
   const maybeVariable = findVariable(variableName, initialScope);
   const maybeLatestDef = O.flatMapNullable(maybeVariable, (v) => v.defs.at(-1));
   if (O.isNone(maybeLatestDef)) return false;
   const latestDef = maybeLatestDef.value;
   const { node, parent } = latestDef;
-  const { importSource = "react" } = decodeSettings(context.settings);
   if (node.type === NodeType.VariableDeclarator && node.init) {
     const { init } = node;
     // check for: `variable = React.variable`
