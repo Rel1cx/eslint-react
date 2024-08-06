@@ -20,6 +20,12 @@ type Config = Parameters<typeof tseslint.config>[number];
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
+const GLOB_JS = ["*.{js,jsx,cjs,mjs}", "**/*.{js,jsx,cjs,mjs}"] as const;
+const GLOB_TS = ["*.{ts,tsx,cts,mts}", "**/*.{ts,tsx,cts,mts}"] as const;
+const GLOB_YAML = ["*.{yaml,yml}", "**/*.{yaml,yml}"] as const;
+const GLOB_CONFIG = ["*.config.{ts,tsx,cts,mts}", "**/*.config.{ts,tsx,cts,mts}"] as const;
+const GLOB_SCRIPT = ["scripts/**/*.{ts,cts,mts}"];
+
 const p11tOptions = {
   type: "natural",
   ignoreCase: false,
@@ -77,7 +83,7 @@ const config: Config[] = [
   eslintPluginPlugin.configs["flat/all-type-checked"],
   // base config
   {
-    files: ["**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts}"],
+    files: [...GLOB_JS, ...GLOB_TS],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -253,14 +259,14 @@ const config: Config[] = [
     },
     settings: {
       "import-x/parsers": {
-        "@typescript-eslint/parser": [".ts", ".tsx", ".cts", ".mts"],
+        "@typescript-eslint/parser": [...GLOB_JS, ...GLOB_TS],
       },
       "import-x/resolver": "oxc",
     },
   },
   {
     extends: [tseslint.configs.disableTypeChecked],
-    files: ["**/*.js"],
+    files: GLOB_JS,
     rules: {
       // turn off rules that don't apply to JS code
       "@typescript-eslint/no-var-requires": "off",
@@ -290,17 +296,13 @@ const config: Config[] = [
   },
   {
     extends: [tseslint.configs.disableTypeChecked],
-    files: [
-      "scripts/**/*.{ts,cts,mts}",
-      "*.config.{ts,tsx,cts,mts}",
-    ],
+    files: [...GLOB_CONFIG, ...GLOB_SCRIPT],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        // project: [
-        //   "tsconfig.json",
-        // ],
-        projectService: true,
+        allowAutomaticSingleRunInference: true,
+        project: "tsconfig.json",
+        projectService: false,
         tsconfigRootDir: dirname,
         warnOnUnsupportedTypeScriptVersion: false,
       },
@@ -310,7 +312,7 @@ const config: Config[] = [
     extends: [
       tseslint.configs.disableTypeChecked,
     ],
-    files: ["*.yaml", "**/*.yaml", "*.yml", "**/*.yml"],
+    files: GLOB_YAML,
     ignores: [
       "pnpm-lock.yaml",
     ],

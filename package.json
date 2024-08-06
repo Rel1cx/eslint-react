@@ -48,10 +48,10 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.7",
-    "@effect/schema": "^0.70.2",
     "@effect/platform": "^0.61.4",
     "@effect/platform-bun": "^0.41.4",
     "@effect/platform-node": "^0.56.4",
+    "@effect/schema": "^0.70.2",
     "@eslint/js": "^9.8.0",
     "@stylistic/eslint-plugin-js": "^2.6.1",
     "@swc/core": "^1.7.6",
