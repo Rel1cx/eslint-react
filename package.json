@@ -115,7 +115,7 @@
   "pnpm": {
     "overrides": {
       "eslint": "^9.8.0",
-      "eslint-plugin-perfectionist": "3.0.0",
+      "eslint-plugin-perfectionist": "3.1.2",
       "estraverse": "^5.3.0",
       "is-core-module": "npm:@nolyfill/is-core-module@^1",
       "traverse": "npm:neotraverse@^0",
