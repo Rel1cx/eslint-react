@@ -5,10 +5,10 @@ import { Effect } from "effect";
 
 import { LoggerLive } from "./services/LoggerLive";
 
-const program = Effect.gen(function*(_) {
-  const executor = yield* _(CommandExecutor.CommandExecutor);
+const program = Effect.gen(function*() {
+  const executor = yield* CommandExecutor.CommandExecutor;
   const command = Command.make("git", "diff", "HEAD@{1}", "--stat", "--", "./pnpm-lock.yaml");
-  const output = yield* _(executor.lines(command));
+  const output = yield* executor.lines(command);
   if (output.length === 0) return;
   yield* Effect.logWarning("Detected changes in pnpm-lock.yaml!");
   yield* Effect.logWarning("Please run `pnpm install` to update local dependencies.");

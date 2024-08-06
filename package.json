@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.9.0",
+  "version": "1.9.1-next.0",
   "private": true,
   "description": "A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -30,7 +30,6 @@
     "format:check": "dprint check",
     "format:package-json": "pnpm --parallel -r exec sort-package-json -q ./package.json && dprint fmt",
     "format:write": "dprint fmt",
-    "inspect:bundles": "bun run --bun ./scripts/inspect-bundles.ts",
     "inspect:deps": "skott -e .ts",
     "inspect:eslint-config": "eslint --print-config ./packages > eslint-config.json",
     "lint": "pnpm run lint:spell && pnpm run lint:deps && pnpm run lint:type && pnpm run lint:ts && pnpm run lint:publish && pnpm run lint:examples && pnpm run lint:website",
