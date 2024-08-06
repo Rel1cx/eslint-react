@@ -566,6 +566,61 @@ importers:
         specifier: ^8.2.4
         version: 8.2.4(@swc/core@1.7.6(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.41)(typescript@5.6.0-dev.20240806)(yaml@2.5.0)
 
+  packages/plugins/eslint-plugin-react-web-api:
+    dependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../../utilities/ast
+      '@eslint-react/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../../utilities/jsx
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      '@eslint-react/tools':
+        specifier: workspace:*
+        version: link:../../tools
+      '@eslint-react/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@eslint-react/var':
+        specifier: workspace:*
+        version: link:../../utilities/var
+      '@typescript-eslint/scope-manager':
+        specifier: ^8.0.1
+        version: 8.0.1
+      '@typescript-eslint/types':
+        specifier: ^8.0.1
+        version: 8.0.1
+      '@typescript-eslint/utils':
+        specifier: ^8.0.1
+        version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240806)
+      eslint:
+        specifier: ^9.8.0
+        version: 9.8.0
+      remeda:
+        specifier: ^2.9.1
+        version: 2.9.1
+      typescript:
+        specifier: ^5.6.0-dev.20240806
+        version: 5.6.0-dev.20240806
+    devDependencies:
+      '@types/react':
+        specifier: ^18.3.3
+        version: 18.3.3
+      '@types/react-dom':
+        specifier: ^18.3.0
+        version: 18.3.0
+      string-ts:
+        specifier: ^2.2.0
+        version: 2.2.0
+      tsup:
+        specifier: ^8.2.4
+        version: 8.2.4(@swc/core@1.7.6(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.41)(typescript@5.6.0-dev.20240806)(yaml@2.5.0)
+
   packages/plugins/eslint-plugin-react-x:
     dependencies:
       '@eslint-react/ast':

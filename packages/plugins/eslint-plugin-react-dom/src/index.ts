@@ -1,3 +1,5 @@
+import type { ESLintReactSettings } from "@eslint-react/shared";
+
 import { name, version } from "../package.json";
 import noChildrenInVoidDomElements from "./rules/no-children-in-void-dom-elements";
 import noDangerouslySetInnerHTML from "./rules/no-dangerously-set-innerhtml";
@@ -43,4 +45,5 @@ export const DEFAULT_ESLINT_REACT_SETTINGS = {
       ],
     },
   ],
-} as const;
+  skipImportCheck: true,
+} as const satisfies ESLintReactSettings;
