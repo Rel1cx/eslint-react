@@ -117,7 +117,7 @@ export default createRule<[], MessageID>({
       );
     }
     return {
-      JSXElement: F.flow(checkJSXElement, O.map(context.report)),
+      JSXElement: F.flow(checkJSXElement, O.map(context.report), F.constVoid),
     };
   },
   defaultOptions: [],
