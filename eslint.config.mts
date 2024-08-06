@@ -23,9 +23,33 @@ const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 const GLOB_JS = ["*.{js,jsx,cjs,mjs}", "**/*.{js,jsx,cjs,mjs}"] as const;
 const GLOB_TS = ["*.{ts,tsx,cts,mts}", "**/*.{ts,tsx,cts,mts}"] as const;
+const GLOB_TEST = [
+  "**/*.spec.{ts,tsx,cts,mts}",
+  "**/*.test.{ts,tsx,cts,mts}",
+  "**/spec.{ts,tsx,cts,mts}",
+  "**/test.{ts,tsx,cts,mts}",
+];
 const GLOB_YAML = ["*.{yaml,yml}", "**/*.{yaml,yml}"] as const;
 const GLOB_CONFIG = ["*.config.{ts,tsx,cts,mts}", "**/*.config.{ts,tsx,cts,mts}"] as const;
 const GLOB_SCRIPT = ["scripts/**/*.{ts,cts,mts}"];
+
+const templateIndentAnnotations = [
+  "outdent",
+  "dedent",
+  "html",
+  "tsx",
+  "ts",
+];
+
+const sourceTsconfigArray = [
+  "tsconfig.json",
+  "packages/*/tsconfig.json",
+  "packages/*/*/tsconfig.json",
+];
+
+const infraTsconfigArray = [
+  "tsconfig.json",
+];
 
 const p11tOptions = {
   type: "natural",
@@ -91,11 +115,7 @@ const config: Config[] = [
       parser: tseslint.parser,
       parserOptions: {
         allowAutomaticSingleRunInference: true,
-        project: [
-          "tsconfig.json",
-          "packages/*/tsconfig.json",
-          "packages/*/*/tsconfig.json",
-        ],
+        project: sourceTsconfigArray,
         projectService: true,
         tsconfigRootDir: dirname,
         warnOnUnsupportedTypeScriptVersion: false,
@@ -228,20 +248,8 @@ const config: Config[] = [
       "unicorn/template-indent": [
         "warn",
         {
-          comments: [
-            "outdent",
-            "dedent",
-            "html",
-            "tsx",
-            "ts",
-          ],
-          tags: [
-            "outdent",
-            "dedent",
-            "html",
-            "tsx",
-            "ts",
-          ],
+          comments: templateIndentAnnotations,
+          tags: templateIndentAnnotations,
         },
       ],
       // Part: eslint-comments rules
@@ -284,12 +292,7 @@ const config: Config[] = [
   },
   {
     extends: [tseslint.configs.disableTypeChecked],
-    files: [
-      "**/*.spec.{ts,tsx,cts,mts}",
-      "**/*.test.{ts,tsx,cts,mts}",
-      "**/spec.{ts,tsx,cts,mts}",
-      "**/test.{ts,tsx,cts,mts}",
-    ],
+    files: GLOB_TEST,
     languageOptions: {
       globals: {
         ...vitest.environments.env.globals,
@@ -297,7 +300,7 @@ const config: Config[] = [
       parser: tseslint.parser,
       parserOptions: {
         allowAutomaticSingleRunInference: true,
-        project: "tsconfig.json",
+        project: infraTsconfigArray,
         projectService: true,
         tsconfigRootDir: dirname,
         warnOnUnsupportedTypeScriptVersion: false,
@@ -318,7 +321,7 @@ const config: Config[] = [
       parser: tseslint.parser,
       parserOptions: {
         allowAutomaticSingleRunInference: true,
-        project: "tsconfig.json",
+        project: infraTsconfigArray,
         projectService: true,
         tsconfigRootDir: dirname,
         warnOnUnsupportedTypeScriptVersion: false,

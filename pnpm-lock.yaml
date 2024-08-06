@@ -12,7 +12,7 @@ overrides:
   traverse: npm:neotraverse@^0
   ts-api-utils: ^1.3.0
   typedarray: npm:@nolyfill/typedarray@^1
-  typescript: ^5.6.0-dev.20240805
+  typescript: ^5.6.0-dev.20240806
 
 importers:
 
@@ -154,7 +154,7 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
       remeda:
-        specifier: ^2.7.1
+        specifier: ^2.9.1
         version: 2.9.1
       skott:
         specifier: ^0.35.2
@@ -190,7 +190,7 @@ importers:
         specifier: ^0.7.1
         version: 0.7.1(typedoc@0.26.5(typescript@5.6.0-dev.20240806))
       typescript:
-        specifier: ^5.6.0-dev.20240805
+        specifier: ^5.6.0-dev.20240806
         version: 5.6.0-dev.20240806
       vitest:
         specifier: ^2.0.5
@@ -236,7 +236,7 @@ importers:
         specifier: ^0.4.9
         version: 0.4.9(eslint@9.8.0)
       typescript:
-        specifier: ^5.6.0-dev.20240805
+        specifier: ^5.6.0-dev.20240806
         version: 5.6.0-dev.20240806
       typescript-eslint:
         specifier: ^8.0.1
@@ -278,7 +278,7 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240806)
       remeda:
-        specifier: ^2.7.1
+        specifier: ^2.9.1
         version: 2.9.1
       short-unique-id:
         specifier: ^5.2.0
@@ -333,10 +333,10 @@ importers:
         specifier: workspace:*
         version: link:../eslint-plugin-react-x
       remeda:
-        specifier: ^2.7.1
+        specifier: ^2.9.1
         version: 2.9.1
       typescript:
-        specifier: ^5.6.0-dev.20240805
+        specifier: ^5.6.0-dev.20240806
         version: 5.6.0-dev.20240806
     devDependencies:
       tsup:
@@ -379,13 +379,13 @@ importers:
         specifier: ^9.8.0
         version: 9.8.0
       remeda:
-        specifier: ^2.7.1
+        specifier: ^2.9.1
         version: 2.9.1
       string-ts:
         specifier: ^2.2.0
         version: 2.2.0
       typescript:
-        specifier: ^5.6.0-dev.20240805
+        specifier: ^5.6.0-dev.20240806
         version: 5.6.0-dev.20240806
     devDependencies:
       '@types/react':
@@ -434,10 +434,10 @@ importers:
         specifier: ^9.8.0
         version: 9.8.0
       remeda:
-        specifier: ^2.7.1
+        specifier: ^2.9.1
         version: 2.9.1
       typescript:
-        specifier: ^5.6.0-dev.20240805
+        specifier: ^5.6.0-dev.20240806
         version: 5.6.0-dev.20240806
     devDependencies:
       '@types/react':
@@ -492,10 +492,10 @@ importers:
         specifier: ^9.8.0
         version: 9.8.0
       remeda:
-        specifier: ^2.7.1
+        specifier: ^2.9.1
         version: 2.9.1
       typescript:
-        specifier: ^5.6.0-dev.20240805
+        specifier: ^5.6.0-dev.20240806
         version: 5.6.0-dev.20240806
     devDependencies:
       '@types/react':
@@ -547,10 +547,10 @@ importers:
         specifier: ^9.8.0
         version: 9.8.0
       remeda:
-        specifier: ^2.7.1
+        specifier: ^2.9.1
         version: 2.9.1
       typescript:
-        specifier: ^5.6.0-dev.20240805
+        specifier: ^5.6.0-dev.20240806
         version: 5.6.0-dev.20240806
     devDependencies:
       '@types/react':
@@ -608,10 +608,10 @@ importers:
         specifier: 5.0.0
         version: 5.0.0(eslint@9.8.0)(typescript@5.6.0-dev.20240806)
       remeda:
-        specifier: ^2.7.1
+        specifier: ^2.9.1
         version: 2.9.1
       typescript:
-        specifier: ^5.6.0-dev.20240805
+        specifier: ^5.6.0-dev.20240806
         version: 5.6.0-dev.20240806
     devDependencies:
       '@types/react':
@@ -676,7 +676,7 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240806)
       remeda:
-        specifier: ^2.7.1
+        specifier: ^2.9.1
         version: 2.9.1
     devDependencies:
       tsup:
@@ -707,7 +707,7 @@ importers:
         specifier: ^0.1.1
         version: 0.1.1
       remeda:
-        specifier: ^2.7.1
+        specifier: ^2.9.1
         version: 2.9.1
       string-ts:
         specifier: ^2.2.0
@@ -744,7 +744,7 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240806)
       remeda:
-        specifier: ^2.7.1
+        specifier: ^2.9.1
         version: 2.9.1
       ts-pattern:
         specifier: ^5.2.0
@@ -775,7 +775,7 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240806)
       remeda:
-        specifier: ^2.7.1
+        specifier: ^2.9.1
         version: 2.9.1
     devDependencies:
       string-ts:
@@ -917,7 +917,7 @@ importers:
         specifier: ^2.0.5
         version: 2.0.5
       remeda:
-        specifier: ^2.7.1
+        specifier: ^2.9.1
         version: 2.9.1
       tsup:
         specifier: ^8.2.4
@@ -1080,7 +1080,7 @@ importers:
         specifier: ^1.77.8
         version: 1.77.8
       typescript:
-        specifier: ^5.6.0-dev.20240805
+        specifier: ^5.6.0-dev.20240806
         version: 5.6.0-dev.20240806
       typescript-eslint:
         specifier: ^8.0.1
@@ -2385,7 +2385,7 @@ packages:
     resolution: {integrity: sha512-LSq9V64zSpN/zX4IblB/5KBfXISoOX0RUMwxT8n+7BuyrtDD+/5TlVKnh0WPpwkdTkPWHAgAlqZ1M5qT8293eg==}
     peerDependencies:
       '@typescript-eslint/parser': ^8.0.0
-      typescript: ^5.6.0-dev.20240805
+      typescript: ^5.6.0-dev.20240806
       typescript-eslint: ^8.0.0
     peerDependenciesMeta:
       '@typescript-eslint/parser':
@@ -4113,7 +4113,6 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
-    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -4290,7 +4289,6 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
-    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -4394,7 +4392,7 @@ packages:
     resolution: {integrity: sha512-mcvHasqbRBWJznuPqqHRKiJgYAz60sZ0mvO3bN70JbkuK7ksfmgc489aKZYxMEjIbRvyOseaTjaRZLRF/xFeRA==}
     peerDependencies:
       eslint: ^9.8.0
-      typescript: ^5.6.0-dev.20240805
+      typescript: ^5.6.0-dev.20240806
 
   is-inside-container@1.0.0:
     resolution: {integrity: sha512-KIYLCCJghfHZxqjYBE7rEy0OBuTd5xCHS7tHVgvCLkx7StIoaxwNW3hCALgEUjFfeRk+MG/Qxmp/vtETEF3tRA==}
@@ -4558,7 +4556,7 @@ packages:
     hasBin: true
     peerDependencies:
       '@types/node': '>=18'
-      typescript: ^5.6.0-dev.20240805
+      typescript: ^5.6.0-dev.20240806
 
   layout-base@1.0.2:
     resolution: {integrity: sha512-8h2oVEZNktL4BH2JCOI90iD1yXwL6iNW7KcCKT2QZgQJR2vbqDsldCTPRU9NifTCqHZci57XvQQ15YTu+sTYPg==}
@@ -6110,12 +6108,12 @@ packages:
     resolution: {integrity: sha512-UQMIo7pb8WRomKR1/+MFVLTroIvDVtMX3K6OUir8ynLyzB8Jeriont2bTAtmNPa1ekAgN7YPDyf6V+ygrdU+eQ==}
     engines: {node: '>=16'}
     peerDependencies:
-      typescript: ^5.6.0-dev.20240805
+      typescript: ^5.6.0-dev.20240806
 
   ts-declaration-location@1.0.4:
     resolution: {integrity: sha512-r4JoxYhKULbZuH81Pjrp9OEG5St7XWk7zXwGkLKhmVcjiBVHTJXV5wK6dEa9JKW5QGSTW6b1lOjxAKp8R1SQhg==}
     peerDependencies:
-      typescript: ^5.6.0-dev.20240805
+      typescript: ^5.6.0-dev.20240806
 
   ts-dedent@2.2.0:
     resolution: {integrity: sha512-q5W7tVM71e2xjHZTlgfTDoPF/SmqKG5hddq9SzR49CH2hayqRKJtQ4mtRlSxKaJlR/+9rEM+mnBHf7I2/BQcpQ==}
@@ -6138,7 +6136,7 @@ packages:
       '@microsoft/api-extractor': ^7.36.0
       '@swc/core': ^1
       postcss: ^8.4.12
-      typescript: ^5.6.0-dev.20240805
+      typescript: ^5.6.0-dev.20240806
     peerDependenciesMeta:
       '@microsoft/api-extractor':
         optional: true
@@ -6189,7 +6187,7 @@ packages:
   twoslash@0.2.9:
     resolution: {integrity: sha512-oj7XY6h8E9nTZBmfRE1gpsSSUqAQo5kcIpFkXyQPp8UCsyCQsUlP2bJ2s32o02c1n5+xl4h9rcCsQ1F97Z6LZg==}
     peerDependencies:
-      typescript: ^5.6.0-dev.20240805
+      typescript: ^5.6.0-dev.20240806
 
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
@@ -6227,7 +6225,7 @@ packages:
     engines: {node: '>= 18'}
     hasBin: true
     peerDependencies:
-      typescript: ^5.6.0-dev.20240805
+      typescript: ^5.6.0-dev.20240806
 
   typescript-eslint@8.0.1:
     resolution: {integrity: sha512-V3Y+MdfhawxEjE16dWpb7/IOgeXnLwAEEkS7v8oDqNcR1oYlqWhGH/iHqHdKVdpWme1VPZ0SoywXAkCqawj2eQ==}
@@ -6350,7 +6348,7 @@ packages:
   valibot@0.37.0:
     resolution: {integrity: sha512-FQz52I8RXgFgOHym3XHYSREbNtkgSjF9prvMFH1nBsRyfL6SfCzoT1GuSDTlbsuPubM7/6Kbw0ZMQb8A+V+VsQ==}
     peerDependencies:
-      typescript: ^5.6.0-dev.20240805
+      typescript: ^5.6.0-dev.20240806
     peerDependenciesMeta:
       typescript:
         optional: true

@@ -60,7 +60,7 @@
     "@typescript-eslint/types": "^8.0.1",
     "@typescript-eslint/utils": "^8.0.1",
     "is-immutable-type": "5.0.0",
-    "remeda": "^2.7.1"
+    "remeda": "^2.9.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
