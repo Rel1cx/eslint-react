@@ -45,7 +45,7 @@
     "@eslint-react/tools": "workspace:*",
     "@typescript-eslint/types": "^8.0.1",
     "@typescript-eslint/utils": "^8.0.1",
-    "remeda": "^2.9.1"
+    "remeda": "^2.10.0"
   },
   "devDependencies": {
     "tsup": "^8.2.4"

@@ -183,7 +183,6 @@ const config: Config[] = [
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-misused-promises": "off",
-      "@typescript-eslint/no-unnecessary-condition": "warn",
       "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
       "@typescript-eslint/no-unnecessary-type-parameters": "warn",
       "@typescript-eslint/no-unused-vars": [
@@ -207,6 +206,7 @@ const config: Config[] = [
       "jsdoc/check-param-names": "warn",
       "jsdoc/check-tag-names": "warn",
       "jsdoc/informative-docs": "off",
+      "jsdoc/lines-before-block": "off",
       "jsdoc/require-jsdoc": "off",
       "jsdoc/require-param": "warn",
       "jsdoc/require-param-description": "warn",
