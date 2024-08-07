@@ -2,7 +2,6 @@ import type { TSESTreeFunction } from "@eslint-react/ast";
 import { getFunctionIdentifier } from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import * as R from "remeda";
 import ShortUniqueId from "short-unique-id";
 
 import type { ERHook } from "./hook";
@@ -23,7 +22,7 @@ export function useHookCollector(): {
   const functionStack: TSESTreeFunction[] = [];
   const onFunctionEnter = (node: TSESTreeFunction) => {
     functionStack.push(node);
-    const currentFn = R.last(functionStack);
+    const currentFn = functionStack.at(-1);
     if (!currentFn) return;
     const id = getFunctionIdentifier(currentFn);
     const name = O.flatMapNullable(id, (id) => id.name);
@@ -56,7 +55,7 @@ export function useHookCollector(): {
     ":function[type]": onFunctionEnter,
     ":function[type]:exit": onFunctionExit,
     "CallExpression[type]"(node) {
-      const currentFn = R.last(functionStack);
+      const currentFn = functionStack.at(-1);
       if (!currentFn) return;
       // Detect the number of other hooks called inside the current hook
       // Hooks that are not call other hooks are redundant

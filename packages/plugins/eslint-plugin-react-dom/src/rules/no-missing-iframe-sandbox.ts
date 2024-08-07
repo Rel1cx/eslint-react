@@ -1,8 +1,7 @@
 import { findPropInAttributes, getElementType, getPropValue } from "@eslint-react/jsx";
 import { decodeSettings, expandSettings } from "@eslint-react/shared";
-import { F, O } from "@eslint-react/tools";
+import { F, isString, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import * as R from "remeda";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -62,7 +61,7 @@ export default createRule<[], MessageID>({
         const hasValidSandbox = F.pipe(
           getPropValue(sandboxAttribute, context),
           O.flatMapNullable(v => v?.value),
-          O.filter(R.isString),
+          O.filter(isString),
           O.map((value) => value.split(" ")),
           O.exists((values) => values.every((value) => validTypes.some((validType) => validType === value))),
         );

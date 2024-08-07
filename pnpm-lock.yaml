@@ -152,9 +152,6 @@ importers:
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
-      remeda:
-        specifier: ^2.10.0
-        version: 2.10.0
       skott:
         specifier: ^0.35.2
         version: 0.35.2
@@ -276,9 +273,6 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240807)
-      remeda:
-        specifier: ^2.10.0
-        version: 2.10.0
       short-unique-id:
         specifier: ^5.2.0
         version: 5.2.0
@@ -313,6 +307,9 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240807)
+      es-toolkit:
+        specifier: ^1.13.1
+        version: 1.13.1
       eslint:
         specifier: ^9.8.0
         version: 9.8.0
@@ -331,9 +328,6 @@ importers:
       eslint-plugin-react-x:
         specifier: workspace:*
         version: link:../eslint-plugin-react-x
-      remeda:
-        specifier: ^2.10.0
-        version: 2.10.0
       typescript:
         specifier: ^5.6.0-dev.20240807
         version: 5.6.0-dev.20240807
@@ -377,9 +371,6 @@ importers:
       eslint:
         specifier: ^9.8.0
         version: 9.8.0
-      remeda:
-        specifier: ^2.10.0
-        version: 2.10.0
       string-ts:
         specifier: ^2.2.0
         version: 2.2.0
@@ -429,12 +420,12 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240807)
+      es-toolkit:
+        specifier: ^1.13.1
+        version: 1.13.1
       eslint:
         specifier: ^9.8.0
         version: 9.8.0
-      remeda:
-        specifier: ^2.10.0
-        version: 2.10.0
       typescript:
         specifier: ^5.6.0-dev.20240807
         version: 5.6.0-dev.20240807
@@ -487,12 +478,12 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240807)
+      es-toolkit:
+        specifier: ^1.13.1
+        version: 1.13.1
       eslint:
         specifier: ^9.8.0
         version: 9.8.0
-      remeda:
-        specifier: ^2.10.0
-        version: 2.10.0
       typescript:
         specifier: ^5.6.0-dev.20240807
         version: 5.6.0-dev.20240807
@@ -542,12 +533,12 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240807)
+      es-toolkit:
+        specifier: ^1.13.1
+        version: 1.13.1
       eslint:
         specifier: ^9.8.0
         version: 9.8.0
-      remeda:
-        specifier: ^2.10.0
-        version: 2.10.0
       typescript:
         specifier: ^5.6.0-dev.20240807
         version: 5.6.0-dev.20240807
@@ -600,15 +591,15 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240807)
+      es-toolkit:
+        specifier: ^1.13.1
+        version: 1.13.1
       eslint:
         specifier: ^9.8.0
         version: 9.8.0
       is-immutable-type:
         specifier: 5.0.0
         version: 5.0.0(eslint@9.8.0)(typescript@5.6.0-dev.20240807)
-      remeda:
-        specifier: ^2.10.0
-        version: 2.10.0
       typescript:
         specifier: ^5.6.0-dev.20240807
         version: 5.6.0-dev.20240807
@@ -674,9 +665,9 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240807)
-      remeda:
-        specifier: ^2.10.0
-        version: 2.10.0
+      es-toolkit:
+        specifier: ^1.13.1
+        version: 1.13.1
     devDependencies:
       tsup:
         specifier: ^8.2.4
@@ -705,9 +696,6 @@ importers:
       birecord:
         specifier: ^0.1.1
         version: 0.1.1
-      remeda:
-        specifier: ^2.10.0
-        version: 2.10.0
       string-ts:
         specifier: ^2.2.0
         version: 2.2.0
@@ -742,9 +730,6 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240807)
-      remeda:
-        specifier: ^2.10.0
-        version: 2.10.0
       ts-pattern:
         specifier: ^5.2.0
         version: 5.2.0
@@ -773,9 +758,9 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240807)
-      remeda:
-        specifier: ^2.10.0
-        version: 2.10.0
+      es-toolkit:
+        specifier: ^1.13.1
+        version: 1.13.1
     devDependencies:
       string-ts:
         specifier: ^2.2.0
@@ -915,9 +900,6 @@ importers:
       '@tsconfig/strictest':
         specifier: ^2.0.5
         version: 2.0.5
-      remeda:
-        specifier: ^2.10.0
-        version: 2.10.0
       tsup:
         specifier: ^8.2.4
         version: 8.2.4(@swc/core@1.7.6(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.41)(typescript@5.6.0-dev.20240807)(yaml@2.5.0)
@@ -3664,6 +3646,9 @@ packages:
   es-module-lexer@1.5.4:
     resolution: {integrity: sha512-MVNK56NiMrOwitFB7cqDwq0CQutbw+0BvLshJSse0MUNU+y1FC3bUS/AQg7oUng+/wKrrki7JfmwtVHkVfPLlw==}
 
+  es-toolkit@1.13.1:
+    resolution: {integrity: sha512-tGsgoI8DfU0yrZI7w97aYVMZJU5sjpXC+HK8aYf3pmLQRNHMleiJN5ud21dA/IHKkTDFY5jcDMQcLs0A21LtAg==}
+
   esbuild@0.21.5:
     resolution: {integrity: sha512-mg3OPMV4hXywwpoDxu3Qda5xCKQi+vCTZq8S9J/EpkhB2HzKXq4SNFZE3+NK93JYxc8VMSep+lOUSC/RVKaBqw==}
     engines: {node: '>=12'}
@@ -5615,9 +5600,6 @@ packages:
 
   remark-stringify@11.0.0:
     resolution: {integrity: sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==}
-
-  remeda@2.10.0:
-    resolution: {integrity: sha512-2RFz0VWckq8nb0nttzToa8BB5HgLsBHokWUKYiV5C8hnsZOTO1jcx0oXKvfS5khabhS6XkngMOLebQB+pm20IQ==}
 
   repeat-string@1.6.1:
     resolution: {integrity: sha512-PV0dzCYDNfRi1jCDbJzpW7jNNDRuCOG/jI5ctQcGKt/clZD+YcPS3yIlWuTJMmESC8aevCFmWJy5wjAFgNqN6w==}
@@ -9309,6 +9291,8 @@ snapshots:
 
   es-module-lexer@1.5.4: {}
 
+  es-toolkit@1.13.1: {}
+
   esbuild@0.21.5:
     optionalDependencies:
       '@esbuild/aix-ppc64': 0.21.5
@@ -11919,10 +11903,6 @@ snapshots:
       '@types/mdast': 4.0.4
       mdast-util-to-markdown: 2.1.0
       unified: 11.0.5
-
-  remeda@2.10.0:
-    dependencies:
-      type-fest: 4.23.0
 
   repeat-string@1.6.1: {}
 

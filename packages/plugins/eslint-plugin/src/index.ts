@@ -1,12 +1,12 @@
 import type { ESLintReactSettings } from "@eslint-react/shared";
 import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
+import { entries, fromEntries } from "@eslint-react/tools";
 import type { RulePreset } from "@eslint-react/types";
 import * as reactDebug from "eslint-plugin-react-debug";
 import * as reactDom from "eslint-plugin-react-dom";
 import * as reactHooksExtra from "eslint-plugin-react-hooks-extra";
 import * as reactNamingConvention from "eslint-plugin-react-naming-convention";
 import * as react from "eslint-plugin-react-x";
-import * as R from "remeda";
 
 import { name, version } from "../package.json";
 import { padKeysLeft } from "./utils";
@@ -183,9 +183,9 @@ const debugPreset = {
   "debug/react-hooks": "warn",
 } as const satisfies RulePreset;
 
-const allPresetEntries = R.entries(allPreset);
-const offPreset = R.fromEntries(allPresetEntries.map(([key]) => [key, "off"] as const));
-const offDomPreset = R.fromEntries(R.entries(domPreset).map(([key]) => [key, "off"] as const));
+const allPresetEntries = entries(allPreset);
+const offPreset = fromEntries(allPresetEntries.map(([key]) => [key, "off"]));
+const offDomPreset = fromEntries(entries(domPreset).map(([key]) => [key, "off"]));
 
 const legacyConfigPlugins = ["@eslint-react"] as const;
 

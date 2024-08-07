@@ -3,7 +3,6 @@ import { getClassIdentifier, isKeyLiteralLike, isThisExpression, NodeType } from
 import { isClassComponent } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import * as R from "remeda";
 import type { CamelCase } from "string-ts";
 import { isMatching, P } from "ts-pattern";
 
@@ -86,7 +85,7 @@ export default createRule<[], MessageID>({
     }
     function methodEnter(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
       methodStack.push(node);
-      const currentClass = R.last(classStack);
+      const currentClass = classStack.at(-1);
       if (!currentClass || !isClassComponent(currentClass)) return;
       if (node.static) {
         if (isGetDerivedStateFromProps(node) && node.value.params.length > 1) {
@@ -112,9 +111,9 @@ export default createRule<[], MessageID>({
     return {
       AssignmentExpression(node) {
         if (!isAssignmentToThisState(node)) return;
-        const currentClass = R.last(classStack);
+        const currentClass = classStack.at(-1);
         if (!currentClass || !isClassComponent(currentClass)) return;
-        const currentConstructor = R.last(constructorStack);
+        const currentConstructor = constructorStack.at(-1);
         if (!currentConstructor || !currentClass.body.body.includes(currentConstructor)) return;
         const [_, isUsed] = stateDefs.get(currentClass) ?? [O.none(), false];
         stateDefs.set(currentClass, [O.some(node.left), isUsed]);
@@ -127,11 +126,11 @@ export default createRule<[], MessageID>({
         if (!isThisExpression(node.object)) return;
         // detect `this.state`
         if (!O.exists(getName(node.property), name => name === "state")) return;
-        const currentClass = R.last(classStack);
+        const currentClass = classStack.at(-1);
         if (!currentClass || !isClassComponent(currentClass)) return;
-        const currentMethod = R.last(methodStack);
+        const currentMethod = methodStack.at(-1);
         if (!currentMethod || currentMethod.static) return;
-        if (currentMethod === R.last(constructorStack)) return;
+        if (currentMethod === constructorStack.at(-1)) return;
         if (!currentClass.body.body.includes(currentMethod)) return;
         const [def] = stateDefs.get(currentClass) ?? [O.none(), false];
         stateDefs.set(currentClass, [def, true]);
@@ -143,11 +142,11 @@ export default createRule<[], MessageID>({
       PropertyDefinition: methodEnter,
       "PropertyDefinition:exit": methodExit,
       VariableDeclarator(node) {
-        const currentClass = R.last(classStack);
+        const currentClass = classStack.at(-1);
         if (!currentClass || !isClassComponent(currentClass)) return;
-        const currentMethod = R.last(methodStack);
+        const currentMethod = methodStack.at(-1);
         if (!currentMethod || currentMethod.static) return;
-        if (currentMethod === R.last(constructorStack)) return;
+        if (currentMethod === constructorStack.at(-1)) return;
         if (!currentClass.body.body.includes(currentMethod)) return;
         // detect `{ foo, state: baz } = this`
         if (!(node.init && isThisExpression(node.init) && node.id.type === NodeType.ObjectPattern)) return;

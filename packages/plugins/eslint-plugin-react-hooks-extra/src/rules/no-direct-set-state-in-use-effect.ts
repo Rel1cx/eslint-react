@@ -6,7 +6,6 @@ import { F, MutRef, O } from "@eslint-react/tools";
 import { findVariable, getVariableNode } from "@eslint-react/var";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
-import * as R from "remeda";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 
@@ -88,13 +87,13 @@ export default createRule<[], MessageID>({
         if (functionKind === "effect") onEffectFunctionEnter(node);
       },
       ":function:exit"(node: TSESTreeFunction) {
-        const [_, functionKind] = R.last(functionStack) ?? [];
+        const [_, functionKind] = functionStack.at(-1) ?? [];
         functionStack.pop();
         if (functionKind === "effect") onEffectFunctionExit(node);
       },
       CallExpression(node) {
         const effectFn = MutRef.get(effectFunctionRef);
-        const [parentFn, parentFnKind] = R.last(functionStack) ?? [];
+        const [parentFn, parentFnKind] = functionStack.at(-1) ?? [];
         if (parentFn?.async) return;
         match(getCallKind(node))
           .with("setState", () => {

@@ -4,7 +4,6 @@
 // import CodeBlockWriter from "code-block-writer";
 // import { Effect } from "effect";
 // import path from "pathe";
-// import * as R from "remeda";
 // import { globSync } from "tinyglobby";
 
 // const docs = globSync(["packages/plugins/eslint-plugin-react-*/src/rules/*.md"]);
@@ -36,7 +35,7 @@
 //   "---": {
 //     type: "separator",
 //   },
-//   ...R.fromEntries(
+//   ...fromEntries(
 //     rules
 //       .sort(([a], [b]) => a.localeCompare(b, "en", { numeric: true }))
 //       .sort(([a], [b]) => order.findLastIndex((x) => a.startsWith(x)) - order.findLastIndex((x) => b.startsWith(x))),

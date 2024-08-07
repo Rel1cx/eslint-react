@@ -2,7 +2,6 @@ import { isKeyLiteralLike, isThisExpression, NodeType } from "@eslint-react/ast"
 import { isClassComponent } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import * as R from "remeda";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -87,11 +86,11 @@ export default createRule<[], MessageID>({
       },
       MemberExpression(node) {
         if (!isThisExpression(node.object)) return;
-        const [currentClass, isComponent] = R.last(classStack) ?? [];
+        const [currentClass, isComponent] = classStack.at(-1) ?? [];
         if (!currentClass || !isComponent) return;
-        const [currentMethod, isStatic] = R.last(methodStack) ?? [];
+        const [currentMethod, isStatic] = methodStack.at(-1) ?? [];
         if (!currentMethod || isStatic) return;
-        const [setState, hasThisState] = R.last(setStateStack) ?? [];
+        const [setState, hasThisState] = setStateStack.at(-1) ?? [];
         if (!setState || hasThisState) return;
         if (!O.exists(getName(node.property), name => name === "state")) return;
         context.report({ messageId: "noAccessStateInSetstate", node });
@@ -109,11 +108,11 @@ export default createRule<[], MessageID>({
         methodStack.pop();
       },
       VariableDeclarator(node) {
-        const [currentClass, isComponent] = R.last(classStack) ?? [];
+        const [currentClass, isComponent] = classStack.at(-1) ?? [];
         if (!currentClass || !isComponent) return;
-        const [currentMethod, isStatic] = R.last(methodStack) ?? [];
+        const [currentMethod, isStatic] = methodStack.at(-1) ?? [];
         if (!currentMethod || isStatic) return;
-        const [setState, hasThisState] = R.last(setStateStack) ?? [];
+        const [setState, hasThisState] = setStateStack.at(-1) ?? [];
         if (!setState || hasThisState) return;
         // detect `{ foo, state: baz } = this`
         if (!(node.init && isThisExpression(node.init) && node.id.type === NodeType.ObjectPattern)) return;

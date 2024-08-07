@@ -1,11 +1,10 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import { unsafeCastSettings } from "@eslint-react/shared";
-import { O } from "@eslint-react/tools";
+import { O, isString } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import * as R from "remeda";
 import { isMatching, match } from "ts-pattern";
 
 export function isInitializedFromReact(
@@ -52,7 +51,7 @@ export function isInitializedFromReact(
     if (O.isNone(maybeRequireExpression)) return false;
     const requireExpression = maybeRequireExpression.value;
     const [firstArg] = requireExpression.arguments;
-    if (firstArg?.type !== NodeType.Literal || !R.isString(firstArg.value)) return false;
+    if (firstArg?.type !== NodeType.Literal || !isString(firstArg.value)) return false;
     return firstArg.value === importSource || firstArg.value.startsWith(`${importSource}/`);
   }
   // latest definition is an import declaration: import { variable } from 'react'

@@ -1,10 +1,9 @@
 import { isOneOf, NodeType } from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
-import { O } from "@eslint-react/tools";
+import { isNullable, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import * as R from "remeda";
 import type { CamelCase } from "string-ts";
 import { isMatching } from "ts-pattern";
 
@@ -60,7 +59,7 @@ function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContex
   if (!isOneOf([NodeType.ArrowFunctionExpression, NodeType.FunctionExpression])(callbackArg)) return O.none();
   const { params } = callbackArg;
   const indexParamPosition = iteratorFunctionIndexParamPosition.get(name);
-  if (R.isNullish(indexParamPosition)) return O.none();
+  if (isNullable(indexParamPosition)) return O.none();
   if (params.length < indexParamPosition + 1) return O.none();
   const param = params.at(indexParamPosition);
 

@@ -1,8 +1,7 @@
-import { O } from "@eslint-react/tools";
+import { isNullable, isObject, isString, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import * as R from "remeda";
 import { match } from "ts-pattern";
 
 import { Construction } from "./construction";
@@ -86,7 +85,7 @@ export function inspectConstruction(
         return detect(node.right);
       })
       .when(is(NodeType.ConditionalExpression), (node) => {
-        if (!("consequent" in node && "alternate" in node && !R.isNullish(node.alternate))) {
+        if (!("consequent" in node && "alternate" in node && !isNullable(node.alternate))) {
           return None;
         }
         const consequent = detect(node.consequent);
@@ -95,7 +94,7 @@ export function inspectConstruction(
         return detect(node.alternate);
       })
       .when(is(NodeType.Identifier), (node) => {
-        if (!("name" in node && R.isString(node.name))) return None;
+        if (!("name" in node && isString(node.name))) return None;
         const maybeLatestDef = O.fromNullable(scope.set.get(node.name)?.defs.at(-1));
         if (O.isNone(maybeLatestDef)) return None;
         const latestDef = maybeLatestDef.value;
@@ -118,7 +117,7 @@ export function inspectConstruction(
         return None;
       })
       .when(isOneOf([NodeType.TSAsExpression, NodeType.TSTypeAssertion]), () => {
-        if (!("expression" in node) || !R.isObjectType(node.expression)) return None;
+        if (!("expression" in node) || !isObject(node.expression)) return None;
 
         return detect(node.expression);
       })

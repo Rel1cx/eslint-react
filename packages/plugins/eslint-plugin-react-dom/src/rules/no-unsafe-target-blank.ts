@@ -1,9 +1,8 @@
 import { findPropInAttributes, getElementName, getElementType, getPropValue } from "@eslint-react/jsx";
 import { decodeSettings, expandSettings } from "@eslint-react/shared";
-import { F, O } from "@eslint-react/tools";
+import { F, isString, O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import * as R from "remeda";
 import type { CamelCase } from "string-ts";
 import { match, P } from "ts-pattern";
 
@@ -68,7 +67,7 @@ export default createRule<[], MessageID>({
               .with({ [targetPropName]: P.string }, (v) => v[targetPropName])
               .otherwise(F.constNull)
           ),
-          O.filter(R.isString),
+          O.filter(isString),
         );
       if (!O.exists(targetPropValue, t => t === "_blank")) return O.none();
       const [
@@ -87,7 +86,7 @@ export default createRule<[], MessageID>({
               .with(P.shape({ [hrefPropName]: P.string }), (v) => v[hrefPropName])
               .otherwise(F.constNull)
           ),
-          O.filter(R.isString),
+          O.filter(isString),
         );
       if (!O.exists(hrefPropValue, isExternalLinkLike)) return O.none();
       const [
@@ -106,7 +105,7 @@ export default createRule<[], MessageID>({
               .with(P.shape({ [relPropName]: P.string }), (v) => v[relPropName])
               .otherwise(F.constNull)
           ),
-          O.filter(R.isString),
+          O.filter(isString),
         );
       if (O.exists(relPropValue, isSafeRel)) return O.none();
       return O.some(
