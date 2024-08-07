@@ -40,9 +40,23 @@ export default createRule<[], MessageID>({
     const removedEventListeners = new Map<TSESTree.CallExpression, Set<TSESTree.Node>>();
 
     return {
-      ["CallExpression"](node) {},
-      ["CallExpression:exit"](node) {},
+      ["CallExpression"](node) {
+      },
+      ["CallExpression:exit"](node) {
+      },
     };
   },
   defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;
+
+const _ = /* tsx */ `
+  function Example() {
+    useEffect(() => {
+      const handleResize = () => {};
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }, []);
+  }
+`;
