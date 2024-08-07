@@ -9,15 +9,19 @@ import { createRule } from "../utils";
 export const RULE_NAME = "symmetric-event-listener";
 
 export type MessageID =
-  | "symmetricEventListenerInComponentDidMount"
-  | "symmetricEventListenerInUseEffect"
-  | "symmetricEventListenerInUseLayoutEffect"
+  | "symmetricEventListenerInEffect"
+  | "symmetricEventListenerInLifecycle"
   | "symmetricEventListenerNoInlineFunction";
 
-// eslint-disable-next-line perfectionist/sort-union-types
-type FunctionKind = "effect" | "cleanup" | "mount" | "unmount" | "other";
-// eslint-disable-next-line perfectionist/sort-union-types
-type CallKind = "addEventListener" | "removeEventListener" | "other";
+/* eslint-disable perfectionist/sort-union-types */
+type EventMethodKind = "addEventListener" | "removeEventListener";
+type EffectMethodKind = "useEffect" | "useLayoutEffect";
+type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
+type EffectFunctionKind = "effect" | "cleanup";
+type LifecycleFunctionKind = "mount" | "unmount";
+type FunctionKind = EffectFunctionKind | LifecycleFunctionKind | "other";
+type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "other";
+/* eslint-enable perfectionist/sort-union-types */
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
   return match(node.callee)
@@ -44,22 +48,37 @@ export default createRule<[], MessageID>({
         "ensure that every 'addEventListener' in a React component or custom hook has a corresponding 'removeEventListener'",
     },
     messages: {
-      symmetricEventListenerInComponentDidMount:
-        "A '{{callKind}}' in 'componentDidMount' should have a corresponding '{{callKind}}' in 'componentWillUnmount'.",
-      symmetricEventListenerInUseEffect:
-        "A '{{callKind}}' in 'useEffect' should have a corresponding '{{callKind}}' in the cleanup function.",
-      symmetricEventListenerInUseLayoutEffect:
-        "A '{{callKind}}' in 'useLayoutEffect' should have a corresponding '{{callKind}}' in the cleanup function.",
-      symmetricEventListenerNoInlineFunction: "A '{{callKind}}' should not have an inline listener function.",
+      symmetricEventListenerInEffect:
+        "A '{{eventMethodKind}}' in '{{effectMethodKind}}' should have a corresponding '{{eventMethodKind}}' in the cleanup function.",
+      symmetricEventListenerInLifecycle:
+        "A '{{eventMethodKind}}' in 'lifecycleMethodKind' should have a corresponding '{{eventMethodKind}}' in 'lifecycleMethodKind'.",
+      symmetricEventListenerNoInlineFunction: "A '{{eventMethodKind}}' should not have an inline listener function.",
     },
     schema: [],
   },
   name: RULE_NAME,
   create(context) {
     const functionStack: [node: TSESTree.Node, kind: FunctionKind][] = [];
-    const addedEventListeners = new Map<TSESTree.CallExpression, Set<TSESTree.Node>>();
-    const removedEventListeners = new Map<TSESTree.CallExpression, Set<TSESTree.Node>>();
-
+    /* eslint-disable perfectionist/sort-object-types */
+    const addedEventListeners: Map<
+      TSESTree.Node,
+      {
+        object: TSESTree.Node | null;
+        type: string;
+        once: boolean;
+        capture: boolean | null;
+        signal: TSESTree.Node | null;
+      }
+    > = new Map();
+    const removedEventListeners: Map<
+      TSESTree.Node,
+      {
+        object: TSESTree.Node | null;
+        type: string;
+        capture: boolean | null;
+      }
+    > = new Map();
+    /* eslint-enable perfectionist/sort-object-types */
     return {
       ["CallExpression"](node) {
         const callKind = getCallKind(node);
@@ -69,11 +88,12 @@ export default createRule<[], MessageID>({
             const [_, listener] = node.arguments;
             if (isFunction(listener)) {
               context.report({
-                data: { callKind },
+                data: { eventMethodKind: callKind },
                 messageId: "symmetricEventListenerNoInlineFunction",
                 node,
               });
             }
+            break;
           }
         }
       },

@@ -13,7 +13,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "symmetricEventListenerInComponentDidMount",
+          messageId: "symmetricEventListenerInLifecycle",
         },
       ],
     },
@@ -27,7 +27,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "symmetricEventListenerInUseEffect",
+          messageId: "symmetricEventListenerInEffect",
         },
       ],
     },
@@ -46,7 +46,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "symmetricEventListenerInUseEffect",
+          messageId: "symmetricEventListenerInEffect",
         },
       ],
     },
@@ -63,11 +63,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { callKind: "addEventListener" },
+          data: { eventMethodKind: "addEventListener" },
           messageId: "symmetricEventListenerNoInlineFunction",
         },
         {
-          data: { callKind: "removeEventListener" },
+          data: { eventMethodKind: "removeEventListener" },
           messageId: "symmetricEventListenerNoInlineFunction",
         },
       ],
