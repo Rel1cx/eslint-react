@@ -58,7 +58,7 @@
     "@typescript-eslint/scope-manager": "^8.0.1",
     "@typescript-eslint/types": "^8.0.1",
     "@typescript-eslint/utils": "^8.0.1",
-    "remeda": "^2.9.1"
+    "remeda": "^2.10.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
