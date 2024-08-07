@@ -307,9 +307,6 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240807)
-      es-toolkit:
-        specifier: ^1.13.1
-        version: 1.13.1
       eslint:
         specifier: ^9.8.0
         version: 9.8.0
@@ -420,9 +417,6 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240807)
-      es-toolkit:
-        specifier: ^1.13.1
-        version: 1.13.1
       eslint:
         specifier: ^9.8.0
         version: 9.8.0
@@ -478,9 +472,6 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240807)
-      es-toolkit:
-        specifier: ^1.13.1
-        version: 1.13.1
       eslint:
         specifier: ^9.8.0
         version: 9.8.0
@@ -533,9 +524,6 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240807)
-      es-toolkit:
-        specifier: ^1.13.1
-        version: 1.13.1
       eslint:
         specifier: ^9.8.0
         version: 9.8.0
@@ -591,9 +579,6 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240807)
-      es-toolkit:
-        specifier: ^1.13.1
-        version: 1.13.1
       eslint:
         specifier: ^9.8.0
         version: 9.8.0
@@ -665,9 +650,6 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240807)
-      es-toolkit:
-        specifier: ^1.13.1
-        version: 1.13.1
     devDependencies:
       tsup:
         specifier: ^8.2.4
@@ -758,9 +740,6 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.6.0-dev.20240807)
-      es-toolkit:
-        specifier: ^1.13.1
-        version: 1.13.1
     devDependencies:
       string-ts:
         specifier: ^2.2.0
@@ -3645,9 +3624,6 @@ packages:
 
   es-module-lexer@1.5.4:
     resolution: {integrity: sha512-MVNK56NiMrOwitFB7cqDwq0CQutbw+0BvLshJSse0MUNU+y1FC3bUS/AQg7oUng+/wKrrki7JfmwtVHkVfPLlw==}
-
-  es-toolkit@1.13.1:
-    resolution: {integrity: sha512-tGsgoI8DfU0yrZI7w97aYVMZJU5sjpXC+HK8aYf3pmLQRNHMleiJN5ud21dA/IHKkTDFY5jcDMQcLs0A21LtAg==}
 
   esbuild@0.21.5:
     resolution: {integrity: sha512-mg3OPMV4hXywwpoDxu3Qda5xCKQi+vCTZq8S9J/EpkhB2HzKXq4SNFZE3+NK93JYxc8VMSep+lOUSC/RVKaBqw==}
@@ -9290,8 +9266,6 @@ snapshots:
       is-arrayish: 0.2.1
 
   es-module-lexer@1.5.4: {}
-
-  es-toolkit@1.13.1: {}
 
   esbuild@0.21.5:
     optionalDependencies:
