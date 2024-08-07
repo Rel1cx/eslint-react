@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { isFunction, NodeType } from "@eslint-react/ast";
+import { F } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import { match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -13,6 +16,24 @@ export type MessageID =
 
 // eslint-disable-next-line perfectionist/sort-union-types
 type FunctionKind = "effect" | "cleanup" | "mount" | "unmount" | "other";
+// eslint-disable-next-line perfectionist/sort-union-types
+type CallKind = "addEventListener" | "removeEventListener" | "other";
+
+function getCallKind(node: TSESTree.CallExpression): CallKind {
+  return match(node.callee)
+    .with({
+      type: NodeType.MemberExpression,
+      property: {
+        type: NodeType.Identifier,
+        name: P.select(P.union("addEventListener", "removeEventListener")),
+      },
+    }, F.identity)
+    .with({
+      type: NodeType.Identifier,
+      name: P.select(P.union("addEventListener", "removeEventListener")),
+    }, F.identity)
+    .otherwise(F.constant("other"));
+}
 
 // TODO: Implement the rule
 export default createRule<[], MessageID>({
@@ -24,12 +45,12 @@ export default createRule<[], MessageID>({
     },
     messages: {
       symmetricEventListenerInComponentDidMount:
-        "A 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in 'componentWillUnmount'.",
+        "A '{{callKind}}' in 'componentDidMount' should have a corresponding '{{callKind}}' in 'componentWillUnmount'.",
       symmetricEventListenerInUseEffect:
-        "A 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in the cleanup function.",
+        "A '{{callKind}}' in 'useEffect' should have a corresponding '{{callKind}}' in the cleanup function.",
       symmetricEventListenerInUseLayoutEffect:
-        "A 'addEventListener' in 'useLayoutEffect' should have a corresponding 'removeEventListener' in the cleanup function.",
-      symmetricEventListenerNoInlineFunction: "A 'addEventListener' should not have an inline listener function.",
+        "A '{{callKind}}' in 'useLayoutEffect' should have a corresponding '{{callKind}}' in the cleanup function.",
+      symmetricEventListenerNoInlineFunction: "A '{{callKind}}' should not have an inline listener function.",
     },
     schema: [],
   },
@@ -41,22 +62,23 @@ export default createRule<[], MessageID>({
 
     return {
       ["CallExpression"](node) {
+        const callKind = getCallKind(node);
+        switch (callKind) {
+          case "addEventListener":
+          case "removeEventListener": {
+            const [_, listener] = node.arguments;
+            if (isFunction(listener)) {
+              context.report({
+                data: { callKind },
+                messageId: "symmetricEventListenerNoInlineFunction",
+                node,
+              });
+            }
+          }
+        }
       },
-      ["CallExpression:exit"](node) {
-      },
+      ["CallExpression:exit"](node) {},
     };
   },
   defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;
-
-const _ = /* tsx */ `
-  function Example() {
-    useEffect(() => {
-      const handleResize = () => {};
-      window.addEventListener("resize", handleResize);
-      return () => {
-        window.removeEventListener("resize", handleResize);
-      };
-    }, []);
-  }
-`;

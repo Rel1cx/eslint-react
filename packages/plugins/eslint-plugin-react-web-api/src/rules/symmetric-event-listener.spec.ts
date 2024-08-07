@@ -63,6 +63,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
+          data: { callKind: "addEventListener" },
+          messageId: "symmetricEventListenerNoInlineFunction",
+        },
+        {
+          data: { callKind: "removeEventListener" },
           messageId: "symmetricEventListenerNoInlineFunction",
         },
       ],
