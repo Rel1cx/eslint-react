@@ -54,12 +54,12 @@ export default [
             ],
           },
           {
-            // Match RadixUIButton component without an `asChild` attribute and alias it to `button` component with `type="button"` attribute
-            name: "RadixUIButton",
-            selector: ":not(:has(JSXAttribute[name.name='asChild']))",
-            as: "button",
+            // Match MUIButton component with a `href` or `to` attribute and alias it to `a` component with `rel="noopener noreferrer"` attribute
+            name: "MUIButton",
+            selector: ":matches(:has(JSXAttribute[name.name='href']), :has(JSXAttribute[name.name='to']))",
+            as: "a",
             attributes: [
-              { name: "type", defaultValue: "button" },
+              { name: "rel", defaultValue: "noopener noreferrer" },
             ],
           },
           {
@@ -122,12 +122,12 @@ module.exports = {
           ],
         },
         {
-          // Match RadixUIButton component without an `asChild` attribute and alias it to `button` component with `type="button"` attribute
-          name: "RadixUIButton",
-          selector: ":not(:has(JSXAttribute[name.name='asChild']))",
-          as: "button",
+          // Match MUIButton component with a `href` or `to` attribute and alias it to `a` component with `rel="noopener noreferrer"` attribute
+          name: "MUIButton",
+          selector: ":matches(:has(JSXAttribute[name.name='href']), :has(JSXAttribute[name.name='to']))",
+          as: "a",
           attributes: [
-            { name: "type", defaultValue: "button" },
+            { name: "rel", defaultValue: "noopener noreferrer" },
           ],
         },
         {
