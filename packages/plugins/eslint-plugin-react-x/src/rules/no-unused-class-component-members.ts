@@ -3,7 +3,6 @@ import { getClassIdentifier, isKeyLiteralLike, isThisExpression, NodeType } from
 import { isClassComponent } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import * as R from "remeda";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -100,7 +99,7 @@ export default createRule<[], MessageID>({
     }
     function methodEnter(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
       methodStack.push(node);
-      const currentClass = R.last(classStack);
+      const currentClass = classStack.at(-1);
       if (!currentClass || !isClassComponent(currentClass)) return;
       if (node.static) return;
       if (isKeyLiteralLike(node, node.key)) {
@@ -117,8 +116,8 @@ export default createRule<[], MessageID>({
       ClassExpression: classEnter,
       "ClassExpression:exit": classExit,
       MemberExpression(node) {
-        const currentClass = R.last(classStack);
-        const currentMethod = R.last(methodStack);
+        const currentClass = classStack.at(-1);
+        const currentMethod = methodStack.at(-1);
         if (!currentClass || !currentMethod) return;
         if (!isClassComponent(currentClass) || currentMethod.static) return;
         if (!isThisExpression(node.object) || !isKeyLiteralLike(node, node.property)) return;
@@ -135,8 +134,8 @@ export default createRule<[], MessageID>({
       PropertyDefinition: methodEnter,
       "PropertyDefinition:exit": methodExit,
       VariableDeclarator(node) {
-        const currentClass = R.last(classStack);
-        const currentMethod = R.last(methodStack);
+        const currentClass = classStack.at(-1);
+        const currentMethod = methodStack.at(-1);
         if (!currentClass || !currentMethod) return;
         if (!isClassComponent(currentClass) || currentMethod.static) return;
         // detect `{ foo, bar: baz } = this`

@@ -1,7 +1,6 @@
 // import { NodeFileSystem, NodeRuntime } from "@effect/platform-node";
 import { BunFileSystem, BunRuntime } from "@effect/platform-bun";
-import { Effect, Function as F } from "effect";
-import * as R from "remeda";
+import { Effect, Function as F, Predicate } from "effect";
 import { match, P } from "ts-pattern";
 
 import { glob } from "./lib/glob";
@@ -14,7 +13,7 @@ const GLOB_PACKAGE_JSON = ["package.json", "packages/**/package.json"];
 const mkTask = (path: string) =>
   Effect.gen(function*() {
     const packageJson = yield* readJsonFile(path);
-    if (!R.isObjectType(packageJson)) {
+    if (!Predicate.isObject(packageJson)) {
       return yield* Effect.die(`Invalid package.json at ${path}`);
     }
     const newVersion = yield* version;

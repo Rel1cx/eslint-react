@@ -29,6 +29,7 @@
   "useGitignore": true,
   "words": [
     "adrs",
+    "arrs",
     "aile",
     "bimap",
     "birecord",

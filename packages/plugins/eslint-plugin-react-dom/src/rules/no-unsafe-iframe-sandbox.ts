@@ -1,8 +1,7 @@
 import { findPropInAttributes, getElementType, getPropValue } from "@eslint-react/jsx";
 import { decodeSettings, expandSettings } from "@eslint-react/shared";
-import { F, O } from "@eslint-react/tools";
+import { F, isString, O } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import * as R from "remeda";
 import type { CamelCase } from "string-ts";
 import { match, P } from "ts-pattern";
 
@@ -48,7 +47,7 @@ export default createRule<[], MessageID>({
               .with({ sandbox: P.string }, ({ sandbox }) => sandbox)
               .otherwise(F.constNull)
           ),
-          O.filter(R.isString),
+          O.filter(isString),
           O.map((value) => value.split(" ")),
           O.exists(values =>
             unsafeCombinations.some(combinations => combinations.every(unsafeValue => values.includes(unsafeValue)))

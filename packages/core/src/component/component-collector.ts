@@ -15,7 +15,6 @@ import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import * as R from "remeda";
 import ShortUniqueId from "short-unique-id";
 import { match } from "ts-pattern";
 
@@ -85,10 +84,10 @@ export function useComponentCollector(
     isComponent: boolean,
     hookCalls: TSESTree.CallExpression[],
   ][] = [];
-  const getCurrentFunction = () => O.fromNullable(R.last(functionStack));
+  const getCurrentFunction = () => O.fromNullable(functionStack.at(-1));
   const onFunctionEnter = (node: TSESTreeFunction) => functionStack.push([uid.rnd(), node, false, []]);
   const onFunctionExit = () => {
-    const [key, fn, isComponent] = R.last(functionStack) ?? [];
+    const [key, fn, isComponent] = functionStack.at(-1) ?? [];
     if (!key || !fn || !isComponent) return functionStack.pop();
     const shouldDrop = getNestedReturnStatements(fn.body)
       .slice()

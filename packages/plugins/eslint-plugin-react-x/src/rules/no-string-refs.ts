@@ -1,7 +1,7 @@
 import { NodeType } from "@eslint-react/ast";
+import { isString } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import * as R from "remeda";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -11,12 +11,12 @@ export const RULE_NAME = "no-string-refs";
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function containsStringLiteral({ value }: TSESTree.JSXAttribute) {
-  return value?.type === NodeType.Literal && R.isString(value.value);
+  return value?.type === NodeType.Literal && isString(value.value);
 }
 
 function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
   if (value?.type !== NodeType.JSXExpressionContainer) return false;
-  if (value.expression.type === NodeType.Literal) return R.isString(value.expression.value);
+  if (value.expression.type === NodeType.Literal) return isString(value.expression.value);
 
   return value.expression.type === NodeType.TemplateLiteral;
 }

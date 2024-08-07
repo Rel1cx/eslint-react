@@ -210,7 +210,7 @@ const config: Config[] = [
       "jsdoc/require-jsdoc": "off",
       "jsdoc/require-param": "warn",
       "jsdoc/require-param-description": "warn",
-      "jsdoc/require-returns": "warn",
+      "jsdoc/require-returns": "off",
       "jsdoc/require-yields": "warn",
       "jsdoc/tag-lines": "warn",
       // Part: import rules

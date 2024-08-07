@@ -1,8 +1,7 @@
-import { F } from "@eslint-react/tools";
+import { F, isString, zip } from "@eslint-react/tools";
 import { ScopeManager } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
-import * as R from "remeda";
 
 import { NodeType } from "./types";
 
@@ -23,8 +22,8 @@ export const isNodeEqual: {
   if (a.type === NodeType.TemplateElement && b.type === NodeType.TemplateElement) return a.value.raw === b.value.raw;
   if (a.type === NodeType.TemplateLiteral && b.type === NodeType.TemplateLiteral) {
     if (a.quasis.length !== b.quasis.length || a.expressions.length !== b.expressions.length) return false;
-    if (!R.zip(a.quasis, b.quasis).every(([a, b]) => isNodeEqual(a, b))) return false;
-    if (!R.zip(a.expressions, b.expressions).every(([a, b]) => isNodeEqual(a, b))) return false;
+    if (!zip(a.quasis, b.quasis).every(([a, b]) => isNodeEqual(a, b))) return false;
+    if (!zip(a.expressions, b.expressions).every(([a, b]) => isNodeEqual(a, b))) return false;
     return true;
   }
   if (a.type === NodeType.Identifier && b.type === NodeType.Identifier) return a.name === b.name;
@@ -59,7 +58,7 @@ export const isNodeValueEqual: {
   if (a.type === NodeType.TemplateLiteral && b.type === NodeType.TemplateLiteral) {
     const va = getStaticValue(a)?.value;
     const vb = getStaticValue(b)?.value;
-    if (!R.isString(va) || !R.isString(vb)) return false;
+    if (!isString(va) || !isString(vb)) return false;
     return va === vb;
   }
   if (a.type === NodeType.Identifier && b.type === NodeType.Identifier) {

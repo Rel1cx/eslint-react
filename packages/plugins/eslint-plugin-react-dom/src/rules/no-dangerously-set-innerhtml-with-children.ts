@@ -1,7 +1,7 @@
 import { hasProp, isLineBreak } from "@eslint-react/jsx";
+import { isNullable } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import * as R from "remeda";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -13,7 +13,7 @@ export type MessageID = CamelCase<typeof RULE_NAME>;
 function firstChildIsText(node: TSESTree.JSXElement) {
   const [firstChild] = node.children;
   return node.children.length > 0
-    && !R.isNullish(firstChild)
+    && !isNullable(firstChild)
     && !isLineBreak(firstChild);
 }
 

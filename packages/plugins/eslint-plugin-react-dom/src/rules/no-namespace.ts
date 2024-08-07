@@ -1,6 +1,6 @@
 import { getElementName } from "@eslint-react/jsx";
+import { isString } from "@eslint-react/tools";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import * as R from "remeda";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
     return {
       JSXOpeningElement(node) {
         const name = getElementName(node);
-        if (!R.isString(name) || !name.includes(":")) return;
+        if (!isString(name) || !name.includes(":")) return;
         context.report({
           data: {
             name,
