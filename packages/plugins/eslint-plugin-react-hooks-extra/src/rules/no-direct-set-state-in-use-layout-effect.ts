@@ -1,5 +1,5 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { getNestedIdentifiers, isFunction, isIIFE, traverseUpGuard } from "@eslint-react/ast";
+import { getNestedIdentifiers, isFunction, isFunctionOfImmediatelyInvoked, traverseUpGuard } from "@eslint-react/ast";
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
 import { F, MutRef, O } from "@eslint-react/tools";
@@ -82,7 +82,7 @@ export default createRule<[], MessageID>({
     function getFunctionKind(node: TSESTreeFunction) {
       return match<TSESTreeFunction, FunctionKind>(node)
         .when(isEffectFunction, () => "effect")
-        .when(isIIFE, () => "immediate")
+        .when(isFunctionOfImmediatelyInvoked, () => "immediate")
         .otherwise(() => "other");
     }
     return {
