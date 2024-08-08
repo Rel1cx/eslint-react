@@ -34,7 +34,7 @@ const allPreset = {
   "no-default-props": "error",
   "no-direct-mutation-state": "error",
   "no-duplicate-key": "error",
-  // "no-implicit-key": "error",
+  "no-implicit-key": "warn",
   // "no-leaked-conditional-rendering": "warn", // This rule requires type information
   "no-missing-component-display-name": "warn",
   "no-missing-key": "error",
@@ -69,6 +69,12 @@ const allPreset = {
   "dom/no-script-url": "warn",
   "dom/no-unsafe-iframe-sandbox": "warn",
   "dom/no-unsafe-target-blank": "warn",
+  "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
+  "hooks-extra/ensure-use-callback-has-non-empty-deps": "warn",
+  "hooks-extra/ensure-use-memo-has-non-empty-deps": "warn",
+  "hooks-extra/no-direct-set-state-in-use-effect": "warn",
+  "hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
+  "hooks-extra/prefer-use-state-lazy-initialization": "warn",
   "naming-convention/component-name": "warn",
   "naming-convention/filename": "warn",
   "naming-convention/filename-extension": "warn",
@@ -145,16 +151,6 @@ const recommendedPreset = {
 const recommendedTypeCheckedPreset = {
   ...recommendedPreset,
   "no-leaked-conditional-rendering": "warn",
-} as const satisfies RulePreset;
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const hooksExtraPreset = {
-  "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
-  "hooks-extra/ensure-use-callback-has-non-empty-deps": "warn",
-  "hooks-extra/ensure-use-memo-has-non-empty-deps": "warn",
-  "hooks-extra/no-direct-set-state-in-use-effect": "warn",
-  "hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
-  "hooks-extra/prefer-use-state-lazy-initialization": "warn",
 } as const satisfies RulePreset;
 
 const corePresetSettings = {
