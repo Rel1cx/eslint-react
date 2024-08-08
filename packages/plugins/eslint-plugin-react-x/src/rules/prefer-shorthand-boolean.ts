@@ -1,5 +1,5 @@
-import { NodeType } from "@eslint-react/ast";
 import { getPropName } from "@eslint-react/jsx";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
@@ -26,8 +26,8 @@ export default createRule<[], MessageID>({
       JSXAttribute(node) {
         const { value } = node;
         const propName = getPropName(node);
-        const hasValueTrue = value?.type === NodeType.JSXExpressionContainer
-          && value.expression.type === NodeType.Literal
+        const hasValueTrue = value?.type === AST_NODE_TYPES.JSXExpressionContainer
+          && value.expression.type === AST_NODE_TYPES.Literal
           && value.expression.value === true;
         if (!hasValueTrue) return;
         context.report({

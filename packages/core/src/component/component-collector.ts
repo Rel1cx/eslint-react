@@ -7,13 +7,13 @@ import {
   isFunctionOfObjectMethod,
   isMapCallLoose,
   isOneOf,
-  NodeType,
   traverseUp,
 } from "@eslint-react/ast";
 import { isJSXValue } from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import ShortUniqueId from "short-unique-id";
 import { match } from "ts-pattern";
@@ -51,14 +51,14 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
     traverseUp(
       node,
       isOneOf([
-        NodeType.JSXExpressionContainer,
-        NodeType.ArrowFunctionExpression,
-        NodeType.FunctionExpression,
-        NodeType.Property,
-        NodeType.ClassBody,
+        AST_NODE_TYPES.JSXExpressionContainer,
+        AST_NODE_TYPES.ArrowFunctionExpression,
+        AST_NODE_TYPES.FunctionExpression,
+        AST_NODE_TYPES.Property,
+        AST_NODE_TYPES.ClassBody,
       ]),
     ),
-    is(NodeType.JSXExpressionContainer),
+    is(AST_NODE_TYPES.JSXExpressionContainer),
   );
 }
 
@@ -146,11 +146,11 @@ export function useComponentCollector(
     "AssignmentExpression[type][operator='='][left.type='MemberExpression'][left.property.name='displayName']"(
       node: TSESTree.Node,
     ) {
-      if (node.type !== NodeType.AssignmentExpression) return;
+      if (node.type !== AST_NODE_TYPES.AssignmentExpression) return;
       const { left, right } = node;
-      if (left.type !== NodeType.MemberExpression) return;
+      if (left.type !== AST_NODE_TYPES.MemberExpression) return;
       const maybeComponentName = match(left.object)
-        .with({ type: NodeType.Identifier }, n => O.some(n.name))
+        .with({ type: AST_NODE_TYPES.Identifier }, n => O.some(n.name))
         .otherwise(O.none);
       if (O.isNone(maybeComponentName)) return;
       const component = Array

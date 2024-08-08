@@ -1,7 +1,7 @@
 import { isOneOf } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as N } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -27,12 +27,12 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     function hasCommentLike(node: TSESTree.JSXText | TSESTree.Literal) {
-      if (isOneOf([N.JSXAttribute, N.JSXExpressionContainer])(node.parent)) return false;
+      if (isOneOf([AST_NODE_TYPES.JSXAttribute, AST_NODE_TYPES.JSXExpressionContainer])(node.parent)) return false;
       const rawValue = context.sourceCode.getText(node);
       return /^\s*\/(\/|\*)/mu.test(rawValue);
     }
     const check = (node: TSESTree.JSXText | TSESTree.Literal): O.Option<ReportDescriptor<MessageID>> => {
-      if (!isOneOf([N.JSXElement, N.JSXFragment])(node.parent)) return O.none();
+      if (!isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(node.parent)) return O.none();
       if (!hasCommentLike(node)) return O.none();
       if (!node.parent.type.includes("JSX")) return O.none();
       return O.some(

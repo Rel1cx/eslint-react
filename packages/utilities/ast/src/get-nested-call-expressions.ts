@@ -1,10 +1,10 @@
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 
 import { isFunction } from "./is";
 import { traverseUpGuard } from "./traverse-up-guard";
-import { NodeType } from "./types";
 
 /**
  * Gets the nested call expressions in the node that are within the same function (if has one)
@@ -16,7 +16,7 @@ export function getNestedCallExpressions(node: TSESTree.Node): readonly TSESTree
   const functionNode = O.getOrNull(traverseUpGuard(node, isFunction));
   simpleTraverse(node, {
     enter(node) {
-      if (node.type !== NodeType.CallExpression) return;
+      if (node.type !== AST_NODE_TYPES.CallExpression) return;
       const parentFunction = O.getOrNull(traverseUpGuard(node, isFunction));
       if (parentFunction && parentFunction !== functionNode) return;
       callExpressions.push(node);

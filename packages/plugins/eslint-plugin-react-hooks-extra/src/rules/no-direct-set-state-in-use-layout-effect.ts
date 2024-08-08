@@ -1,9 +1,10 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { getNestedIdentifiers, isFunction, isIIFE, NodeType, traverseUpGuard } from "@eslint-react/ast";
+import { getNestedIdentifiers, isFunction, isFunctionOfImmediatelyInvoked, traverseUpGuard } from "@eslint-react/ast";
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
 import { F, MutRef, O } from "@eslint-react/tools";
 import { findVariable, getVariableNode } from "@eslint-react/var";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -66,7 +67,7 @@ export default createRule<[], MessageID>({
       MutRef.update(effectFunctionRef, (current) => current === node ? null : current);
     };
     function isEffectFunction(node: TSESTree.Node) {
-      return node.parent?.type === NodeType.CallExpression
+      return node.parent?.type === AST_NODE_TYPES.CallExpression
         && node.parent.callee !== node
         && isUseEffectCall(node.parent);
     }
@@ -81,7 +82,7 @@ export default createRule<[], MessageID>({
     function getFunctionKind(node: TSESTreeFunction) {
       return match<TSESTreeFunction, FunctionKind>(node)
         .when(isEffectFunction, () => "effect")
-        .when(isIIFE, () => "immediate")
+        .when(isFunctionOfImmediatelyInvoked, () => "immediate")
         .otherwise(() => "other");
     }
     return {
@@ -134,10 +135,10 @@ export default createRule<[], MessageID>({
           .otherwise(F.constVoid);
       },
       Identifier(node) {
-        if (node.parent.type === NodeType.CallExpression && node.parent.callee === node) return;
+        if (node.parent.type === AST_NODE_TYPES.CallExpression && node.parent.callee === node) return;
         if (!isIdFromUseStateCall(node)) return;
         switch (node.parent.type) {
-          case NodeType.CallExpression: {
+          case AST_NODE_TYPES.CallExpression: {
             const [firstArg] = node.parent.arguments;
             if (node !== firstArg) break;
             // const [state, setState] = useState();
@@ -158,9 +159,9 @@ export default createRule<[], MessageID>({
             }
             break;
           }
-          case NodeType.ArrowFunctionExpression: {
+          case AST_NODE_TYPES.ArrowFunctionExpression: {
             const parent = node.parent.parent;
-            if (parent.type !== NodeType.CallExpression) break;
+            if (parent.type !== AST_NODE_TYPES.CallExpression) break;
             // const [state, setState] = useState();
             // const set = useMemo(() => setState, []);
             // useLayoutEffect(set, []);
@@ -180,11 +181,11 @@ export default createRule<[], MessageID>({
         ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
           const node = O.flatMap(findVariable(id, initialScope), getVariableNode(0)).pipe(O.getOrNull);
           switch (node?.type) {
-            case NodeType.FunctionDeclaration:
-            case NodeType.FunctionExpression:
-            case NodeType.ArrowFunctionExpression:
+            case AST_NODE_TYPES.FunctionDeclaration:
+            case AST_NODE_TYPES.FunctionExpression:
+            case AST_NODE_TYPES.ArrowFunctionExpression:
               return indirectSetStateCalls.get(node) ?? [];
-            case NodeType.CallExpression:
+            case AST_NODE_TYPES.CallExpression:
               return indirectSetStateCallsInHooks.get(node) ?? indirectSetStateCallsAsArgs.get(node) ?? [];
           }
           return [];

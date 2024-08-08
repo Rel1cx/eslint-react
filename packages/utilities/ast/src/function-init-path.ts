@@ -1,9 +1,9 @@
 /* eslint-disable perfectionist/sort-union-types */
 import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 import type { TSESTreeFunction } from "./types";
-import { NodeType } from "./types";
 
 export type FunctionInitPath =
   /**
@@ -106,10 +106,10 @@ export type FunctionInitPath =
 
 export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionInitPath> {
   const { parent } = node;
-  if (node.type === NodeType.FunctionDeclaration) return O.some([node]);
+  if (node.type === AST_NODE_TYPES.FunctionDeclaration) return O.some([node]);
   if (
-    parent.type === NodeType.VariableDeclarator
-    && parent.parent.type === NodeType.VariableDeclaration
+    parent.type === AST_NODE_TYPES.VariableDeclarator
+    && parent.parent.type === AST_NODE_TYPES.VariableDeclaration
   ) {
     return O.some([
       parent.parent,
@@ -118,9 +118,9 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
     ]);
   }
   if (
-    parent.type === NodeType.CallExpression
-    && parent.parent.type === NodeType.VariableDeclarator
-    && parent.parent.parent.type === NodeType.VariableDeclaration
+    parent.type === AST_NODE_TYPES.CallExpression
+    && parent.parent.type === AST_NODE_TYPES.VariableDeclarator
+    && parent.parent.parent.type === AST_NODE_TYPES.VariableDeclaration
   ) {
     return O.some([
       parent.parent.parent,
@@ -130,10 +130,10 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
     ]);
   }
   if (
-    parent.type === NodeType.CallExpression
-    && parent.parent.type === NodeType.CallExpression
-    && parent.parent.parent.type === NodeType.VariableDeclarator
-    && parent.parent.parent.parent.type === NodeType.VariableDeclaration
+    parent.type === AST_NODE_TYPES.CallExpression
+    && parent.parent.type === AST_NODE_TYPES.CallExpression
+    && parent.parent.parent.type === AST_NODE_TYPES.VariableDeclarator
+    && parent.parent.parent.parent.type === AST_NODE_TYPES.VariableDeclaration
   ) {
     return O.some([
       parent.parent.parent.parent,
@@ -144,10 +144,10 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
     ]);
   }
   if (
-    parent.type === NodeType.Property
-    && parent.parent.type === NodeType.ObjectExpression
-    && parent.parent.parent.type === NodeType.VariableDeclarator
-    && parent.parent.parent.parent.type === NodeType.VariableDeclaration
+    parent.type === AST_NODE_TYPES.Property
+    && parent.parent.type === AST_NODE_TYPES.ObjectExpression
+    && parent.parent.parent.type === AST_NODE_TYPES.VariableDeclarator
+    && parent.parent.parent.parent.type === AST_NODE_TYPES.VariableDeclaration
   ) {
     return O.some([
       parent.parent.parent.parent,
@@ -158,8 +158,8 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
     ]);
   }
   if (
-    parent.type === NodeType.MethodDefinition
-    && parent.parent.parent.type === NodeType.ClassDeclaration
+    parent.type === AST_NODE_TYPES.MethodDefinition
+    && parent.parent.parent.type === AST_NODE_TYPES.ClassDeclaration
   ) {
     return O.some([
       parent.parent.parent,
@@ -169,8 +169,8 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
     ]);
   }
   if (
-    parent.type === NodeType.PropertyDefinition
-    && parent.parent.parent.type === NodeType.ClassDeclaration
+    parent.type === AST_NODE_TYPES.PropertyDefinition
+    && parent.parent.parent.type === AST_NODE_TYPES.ClassDeclaration
   ) {
     return O.some([
       parent.parent.parent,
@@ -195,20 +195,20 @@ export function hasCallInFunctionInitPath(callName: string) {
           //     const [objectName, propertyName] = callName.split(".");
 
           //     return "callee" in n
-          //       && n.callee.type === NodeType.MemberExpression
-          //       && n.callee.object.type === NodeType.Identifier
+          //       && n.callee.type === AST_NODE_TYPES.MemberExpression
+          //       && n.callee.object.type === AST_NODE_TYPES.Identifier
           //       && n.callee.object.name === objectName
-          //       && n.callee.property.type === NodeType.Identifier
+          //       && n.callee.property.type === AST_NODE_TYPES.Identifier
           //       && n.callee.property.name === propertyName;
           //   }
           //   : n => {
           //     return "callee" in n
-          //       && n.callee.type === NodeType.Identifier
+          //       && n.callee.type === AST_NODE_TYPES.Identifier
           //       && n.callee.name === callName;
           //   },
           n => {
-            if (n.type !== NodeType.CallExpression) return false;
-            if (n.callee.type === NodeType.Identifier) return n.callee.name === callName;
+            if (n.type !== AST_NODE_TYPES.CallExpression) return false;
+            if (n.callee.type === AST_NODE_TYPES.Identifier) return n.callee.name === callName;
             return "property" in n.callee
               && "name" in n.callee.property
               && n.callee.property.name === callName;

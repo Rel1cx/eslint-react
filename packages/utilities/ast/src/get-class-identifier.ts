@@ -1,8 +1,8 @@
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 import type { TSESTreeClass } from "./types";
-import { NodeType } from "./types";
 
 /**
  * Gets class identifier from ClassDeclaration or ClassExpression
@@ -11,7 +11,7 @@ import { NodeType } from "./types";
  */
 export function getClassIdentifier(node: TSESTreeClass): O.Option<TSESTree.Identifier> {
   if (node.id) return O.fromNullable(node.id);
-  if (node.parent.type === NodeType.VariableDeclarator && node.parent.id.type === NodeType.Identifier) {
+  if (node.parent.type === AST_NODE_TYPES.VariableDeclarator && node.parent.id.type === AST_NODE_TYPES.Identifier) {
     return O.fromNullable(node.parent.id);
   }
 

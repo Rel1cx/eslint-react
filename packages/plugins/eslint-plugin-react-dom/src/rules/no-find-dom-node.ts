@@ -1,4 +1,4 @@
-import { NodeType } from "@eslint-react/ast";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
@@ -25,13 +25,13 @@ export default createRule<[], MessageID>({
       CallExpression(node) {
         const { callee } = node;
         switch (callee.type) {
-          case NodeType.Identifier:
+          case AST_NODE_TYPES.Identifier:
             if (callee.name === "findDOMNode") {
               context.report({ messageId: "noFindDomNode", node });
             }
             return;
-          case NodeType.MemberExpression:
-            if (callee.property.type === NodeType.Identifier && callee.property.name === "findDOMNode") {
+          case AST_NODE_TYPES.MemberExpression:
+            if (callee.property.type === AST_NODE_TYPES.Identifier && callee.property.name === "findDOMNode") {
               context.report({ messageId: "noFindDomNode", node });
             }
             return;

@@ -1,6 +1,7 @@
-import { isOneOf, NodeType, traverseUp } from "@eslint-react/ast";
+import { isOneOf, traverseUp } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
@@ -14,16 +15,16 @@ function isThisSetState(node: TSESTree.CallExpression) {
   const { callee } = node;
 
   return (
-    callee.type === NodeType.MemberExpression
-    && callee.object.type === NodeType.ThisExpression
-    && callee.property.type === NodeType.Identifier
+    callee.type === AST_NODE_TYPES.MemberExpression
+    && callee.object.type === AST_NODE_TYPES.ThisExpression
+    && callee.property.type === AST_NODE_TYPES.Identifier
     && callee.property.name === "setState"
   );
 }
 
 function isComponentWillUpdate(node: TSESTree.Node) {
-  return isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])(node)
-    && node.key.type === NodeType.Identifier
+  return isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
+    && node.key.type === AST_NODE_TYPES.Identifier
     && node.key.name === "componentWillUpdate";
 }
 
@@ -44,7 +45,10 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         if (!isThisSetState(node)) return;
-        const maybeParentClass = traverseUp(node, isOneOf([NodeType.ClassDeclaration, NodeType.ClassExpression]));
+        const maybeParentClass = traverseUp(
+          node,
+          isOneOf([AST_NODE_TYPES.ClassDeclaration, AST_NODE_TYPES.ClassExpression]),
+        );
         if (O.isNone(maybeParentClass)) return;
         const parentClass = maybeParentClass.value;
         if (!isClassComponent(parentClass)) return;

@@ -1,9 +1,9 @@
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { delimiterCase, replace, toLowerCase } from "string-ts";
 
 import { getLiteralValueType } from "./get-literal-value-type";
 import { isJSX } from "./is";
-import { NodeType } from "./types";
 
 /**
  * Returns human readable node type for given AST node
@@ -11,7 +11,7 @@ import { NodeType } from "./types";
  * @returns Human readable node type
  */
 export function readableNodeType(node: TSESTree.Node) {
-  if (node.type === NodeType.Literal) {
+  if (node.type === AST_NODE_TYPES.Literal) {
     if ("regex" in node) return "RegExp literal";
 
     return `${getLiteralValueType(node.value)} literal` as const;

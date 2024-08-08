@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { isFunction, NodeType } from "@eslint-react/ast";
+import { isFunction } from "@eslint-react/ast";
 import { F } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -26,14 +27,14 @@ type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "othe
 function getCallKind(node: TSESTree.CallExpression): CallKind {
   return match(node.callee)
     .with({
-      type: NodeType.MemberExpression,
+      type: AST_NODE_TYPES.MemberExpression,
       property: {
-        type: NodeType.Identifier,
+        type: AST_NODE_TYPES.Identifier,
         name: P.select(P.union("addEventListener", "removeEventListener")),
       },
     }, F.identity)
     .with({
-      type: NodeType.Identifier,
+      type: AST_NODE_TYPES.Identifier,
       name: P.select(P.union("addEventListener", "removeEventListener")),
     }, F.identity)
     .otherwise(F.constant("other"));

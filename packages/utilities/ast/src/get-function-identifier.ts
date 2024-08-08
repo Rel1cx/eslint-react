@@ -9,10 +9,10 @@
 
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 import { isOneOf } from "./is";
 import type { TSESTreeFunction } from "./types";
-import { NodeType } from "./types";
 
 export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree.Identifier> {
   // function MaybeComponent() {}
@@ -20,28 +20,28 @@ export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree
   if (node.id) return O.some(node.id);
   // const MaybeComponent = () => {};
   if (
-    node.parent.type === NodeType.VariableDeclarator
+    node.parent.type === AST_NODE_TYPES.VariableDeclarator
     && node.parent.init === node
-    && node.parent.id.type === NodeType.Identifier
+    && node.parent.id.type === AST_NODE_TYPES.Identifier
   ) {
     return O.some(node.parent.id);
   }
   // MaybeComponent = () => {};
   if (
-    node.parent.type === NodeType.AssignmentExpression
+    node.parent.type === AST_NODE_TYPES.AssignmentExpression
     && node.parent.right === node
     && node.parent.operator === "="
-    && node.parent.left.type === NodeType.Identifier
+    && node.parent.left.type === AST_NODE_TYPES.Identifier
   ) {
     return O.some(node.parent.left);
   }
   // {MaybeComponent: () => {}}
   // {MaybeComponent() {}}
   if (
-    node.parent.type === NodeType.Property
+    node.parent.type === AST_NODE_TYPES.Property
     && node.parent.value === node
     && !node.parent.computed
-    && node.parent.key.type === NodeType.Identifier
+    && node.parent.key.type === AST_NODE_TYPES.Identifier
   ) {
     return O.some(node.parent.key);
   }
@@ -49,9 +49,9 @@ export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree
   // class {MaybeComponent = () => {}}
   // class {MaybeComponent() {}}
   if (
-    isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])(node.parent)
+    isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node.parent)
     && node.parent.value === node
-    && node.parent.key.type === NodeType.Identifier
+    && node.parent.key.type === AST_NODE_TYPES.Identifier
   ) {
     return O.some(node.parent.key);
   }
@@ -60,9 +60,9 @@ export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree
   // const {MaybeComponent = () => {}} = {};
   // ({MaybeComponent = () => {}} = {});
   if (
-    node.parent.type === NodeType.AssignmentPattern
+    node.parent.type === AST_NODE_TYPES.AssignmentPattern
     && node.parent.right === node
-    && node.parent.left.type === NodeType.Identifier
+    && node.parent.left.type === AST_NODE_TYPES.Identifier
   ) {
     return O.some(node.parent.left);
   }

@@ -1,7 +1,7 @@
-import { NodeType } from "@eslint-react/ast";
 import type { ESLintReactSettings } from "@eslint-react/shared";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { isMatching } from "ts-pattern";
 
@@ -13,12 +13,12 @@ export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSet
     switch (node.callee.type) {
       // const [data, setData] = useState();
       // setData();
-      case NodeType.Identifier: {
+      case AST_NODE_TYPES.Identifier: {
         return isIdFromUseStateCall(node.callee);
       }
       // const data = useState();
       // data[1]();
-      case NodeType.MemberExpression: {
+      case AST_NODE_TYPES.MemberExpression: {
         if (!("name" in node.callee.object)) return false;
         const initialScope = context.sourceCode.getScope(node);
         const property = getStaticValue(node.callee.property, initialScope);
@@ -27,14 +27,14 @@ export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSet
       }
       // const data = useState();
       // data.at(1)();
-      case NodeType.CallExpression: {
+      case AST_NODE_TYPES.CallExpression: {
         const callee = node.callee.callee;
-        if (callee.type !== NodeType.MemberExpression) return false;
+        if (callee.type !== AST_NODE_TYPES.MemberExpression) return false;
         if (!("name" in callee.object)) return false;
         const isAt = isMatching({
-          type: NodeType.MemberExpression,
+          type: AST_NODE_TYPES.MemberExpression,
           property: {
-            type: NodeType.Identifier,
+            type: AST_NODE_TYPES.Identifier,
             name: "at",
           },
         }, callee);

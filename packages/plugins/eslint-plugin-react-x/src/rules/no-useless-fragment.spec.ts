@@ -1,4 +1,4 @@
-import { NodeType } from "@eslint-react/ast";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-useless-fragment";
@@ -7,29 +7,29 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `<></>`,
-      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragment" }],
+      errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragment" }],
     },
     {
       code: /* tsx */ `<p><>foo</></p>`,
       errors: [
-        { type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
-        { type: NodeType.JSXFragment, messageId: "noUselessFragment" },
+        { type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
+        { type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragment" },
       ],
     },
     {
       code: /* tsx */ `<p>moo<>foo</></p>`,
       errors: [
-        { type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
-        { type: NodeType.JSXFragment, messageId: "noUselessFragment" },
+        { type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
+        { type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragment" },
       ],
     },
     {
       code: /* tsx */ `<p><>{meow}</></p>`,
-      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
+      errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
     },
     {
       code: /* tsx */ `<><div/></>`,
-      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragment" }],
+      errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragment" }],
     },
     {
       code: /* tsx */ `
@@ -37,11 +37,11 @@ ruleTester.run(RULE_NAME, rule, {
           <div/>
         </>
       `,
-      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragment" }],
+      errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragment" }],
     },
     {
       code: /* tsx */ `<Fragment />`,
-      errors: [{ type: NodeType.JSXElement, messageId: "noUselessFragment" }],
+      errors: [{ type: AST_NODE_TYPES.JSXElement, messageId: "noUselessFragment" }],
     },
     {
       code: /* tsx */ `
@@ -49,22 +49,22 @@ ruleTester.run(RULE_NAME, rule, {
           <Foo />
         </React.Fragment>
       `,
-      errors: [{ type: NodeType.JSXElement, messageId: "noUselessFragment" }],
+      errors: [{ type: AST_NODE_TYPES.JSXElement, messageId: "noUselessFragment" }],
     },
     {
       code: /* tsx */ `<Eeee><>foo</></Eeee>`,
-      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragment" }],
+      errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragment" }],
     },
     {
       code: /* tsx */ `<div><>foo</></div>`,
       errors: [
-        { type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
-        { type: NodeType.JSXFragment, messageId: "noUselessFragment" },
+        { type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
+        { type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragment" },
       ],
     },
     {
       code: '<div><>{"a"}{"b"}</></div>',
-      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
+      errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
     },
     {
       code: /* tsx */ `
@@ -74,11 +74,11 @@ ruleTester.run(RULE_NAME, rule, {
           <>{"a"}{"b"}</>
         </section>
       `,
-      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
+      errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
     },
     {
       code: '<div><Fragment>{"a"}{"b"}</Fragment></div>',
-      errors: [{ type: NodeType.JSXElement, messageId: "noUselessFragmentInBuiltIn" }],
+      errors: [{ type: AST_NODE_TYPES.JSXElement, messageId: "noUselessFragmentInBuiltIn" }],
     },
     {
       // whitepace tricky case
@@ -92,13 +92,13 @@ ruleTester.run(RULE_NAME, rule, {
         </section>
       `,
       errors: [
-        { type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
-        { type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
+        { type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
+        { type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
       ],
     },
     {
       code: '<div>a <>{""}{""}</> a</div>',
-      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
+      errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
     },
     {
       code: /* tsx */ `
@@ -109,14 +109,14 @@ ruleTester.run(RULE_NAME, rule, {
         );
       `,
       errors: [
-        { type: NodeType.JSXElement, messageId: "noUselessFragmentInBuiltIn" },
-        { type: NodeType.JSXElement, messageId: "noUselessFragment" },
+        { type: AST_NODE_TYPES.JSXElement, messageId: "noUselessFragmentInBuiltIn" },
+        { type: AST_NODE_TYPES.JSXElement, messageId: "noUselessFragment" },
       ],
     },
     // Ensure allowExpressions still catches expected violations
     {
       code: /* tsx */ `<><Foo>{moo}</Foo></>`,
-      errors: [{ type: NodeType.JSXFragment, messageId: "noUselessFragment" }],
+      errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragment" }],
     },
   ],
   valid: [
