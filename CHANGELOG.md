@@ -1,3 +1,9 @@
+## v1.9.1 (Draft)
+
+### 🐞 Fixes
+
+- Fixed `dom/no-missing-iframe-sandbox` false positive when the `sandbox` attribute is set to `sandbox=""`.
+
 ## v1.9.0 (Tue 06 Aug 2024)
 
 ### ✨ New

@@ -19,14 +19,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    {
-      code: /* tsx */ `<iframe sandbox="" />;`,
-      errors: [
-        {
-          messageId: "noMissingIframeSandbox",
-        },
-      ],
-    },
     // has sandbox attribute but not explicitly set to iframe element
     {
       code: /* tsx */ `
@@ -70,19 +62,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    {
-      code: /* tsx */ `<PolyComponent as="iframe" sandbox="" />;`,
-      errors: [
-        {
-          messageId: "noMissingIframeSandbox",
-        },
-      ],
-      settings: {
-        "react-x": {
-          polymorphicPropName: "as",
-        },
-      },
-    },
     // has sandbox attribute but not explicitly set to iframe element
     {
       code: /* tsx */ `
@@ -111,6 +90,7 @@ ruleTester.run(RULE_NAME, rule, {
     "<a />;",
     "<span />;",
     '<button type="button">Click me</button>;',
+    '<iframe sandbox="" />;',
     '<iframe sandbox="allow-downloads" />;',
     '<iframe sandbox="allow-downloads allow-scripts" />;',
     '<iframe sandbox="allow-downloads allow-scripts allow-forms" />;',
@@ -120,5 +100,13 @@ ruleTester.run(RULE_NAME, rule, {
           return <iframe sandbox="allow-downloads" />;
       }
     `,
+    {
+      code: /* tsx */ `<PolyComponent as="iframe" sandbox="" />;`,
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
+    },
   ],
 });

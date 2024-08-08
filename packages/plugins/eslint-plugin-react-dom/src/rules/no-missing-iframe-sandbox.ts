@@ -11,6 +11,7 @@ export const RULE_NAME = "no-missing-iframe-sandbox";
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 const validTypes = [
+  "",
   "allow-downloads",
   "allow-downloads-without-user-activation",
   "allow-forms",
