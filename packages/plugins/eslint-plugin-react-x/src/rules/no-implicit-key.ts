@@ -1,6 +1,7 @@
-import { is, NodeType } from "@eslint-react/ast";
+import { is } from "@eslint-react/ast";
 import { findPropInAttributes } from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
@@ -27,7 +28,7 @@ export default createRule<[], MessageID>({
       JSXOpeningElement(node) {
         const initialScope = context.sourceCode.getScope(node);
         const keyPropFound = findPropInAttributes(node.attributes, context, initialScope)("key");
-        const keyPropOnElement = node.attributes.some(n => is(NodeType.JSXAttribute)(n) && n.name.name === "key");
+        const keyPropOnElement = node.attributes.some(n => is(AST_NODE_TYPES.JSXAttribute)(n) && n.name.name === "key");
         if (O.isSome(keyPropFound) && !keyPropOnElement) {
           context.report({ messageId: "noImplicitKey", node });
         }

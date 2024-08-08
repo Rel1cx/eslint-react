@@ -1,8 +1,9 @@
-import { getNestedReturnStatements, is, isMapCallLoose, isNodeEqual, isOneOf, NodeType } from "@eslint-react/ast";
+import { getNestedReturnStatements, is, isMapCallLoose, isNodeEqual, isOneOf } from "@eslint-react/ast";
 import { isChildrenToArrayCall } from "@eslint-react/core";
 import { findPropInAttributes } from "@eslint-react/jsx";
 import { F, MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -30,7 +31,7 @@ export default createRule<[], MessageID>({
     const isWithinChildrenToArrayRef = MutRef.make(false);
 
     function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
-      if (node.type !== NodeType.JSXElement) return O.none();
+      if (node.type !== AST_NODE_TYPES.JSXElement) return O.none();
       const initialScope = context.sourceCode.getScope(node);
 
       return F.pipe(
@@ -52,14 +53,14 @@ export default createRule<[], MessageID>({
 
     function checkExpression(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
       return match(node)
-        .with({ type: NodeType.JSXElement }, checkIteratorElement)
-        .with({ type: NodeType.JSXFragment }, checkIteratorElement)
-        .with({ type: NodeType.ConditionalExpression }, (n) => {
+        .with({ type: AST_NODE_TYPES.JSXElement }, checkIteratorElement)
+        .with({ type: AST_NODE_TYPES.JSXFragment }, checkIteratorElement)
+        .with({ type: AST_NODE_TYPES.ConditionalExpression }, (n) => {
           if (!("consequent" in n)) return O.none();
 
           return O.orElse(checkIteratorElement(n.consequent), () => checkIteratorElement(n.alternate));
         })
-        .with({ type: NodeType.LogicalExpression }, (n) => {
+        .with({ type: AST_NODE_TYPES.LogicalExpression }, (n) => {
           if (!("left" in n)) return O.none();
 
           return O.orElse(checkIteratorElement(n.left), () => checkIteratorElement(n.right));
@@ -85,10 +86,10 @@ export default createRule<[], MessageID>({
       "ArrayExpression, JSXElement > JSXElement"(node: TSESTree.ArrayExpression | TSESTree.JSXElement) {
         if (MutRef.get(isWithinChildrenToArrayRef)) return;
         const elements = match(node)
-          .with({ type: NodeType.ArrayExpression }, ({ elements }) => elements)
-          .with({ type: NodeType.JSXElement }, ({ parent }) => "children" in parent ? parent.children : [])
+          .with({ type: AST_NODE_TYPES.ArrayExpression }, ({ elements }) => elements)
+          .with({ type: AST_NODE_TYPES.JSXElement }, ({ parent }) => "children" in parent ? parent.children : [])
           .otherwise(() => [])
-          .filter(is(NodeType.JSXElement))
+          .filter(is(AST_NODE_TYPES.JSXElement))
           .filter((element) => !seen.has(element));
         const keys = elements.reduce<[
           TSESTree.JSXElement,
@@ -98,7 +99,7 @@ export default createRule<[], MessageID>({
           (acc, element) => {
             const attr = element.openingElement.attributes
               .findLast(isMatching({
-                type: NodeType.JSXAttribute,
+                type: AST_NODE_TYPES.JSXAttribute,
                 name: {
                   name: "key",
                 },
@@ -129,9 +130,9 @@ export default createRule<[], MessageID>({
         if (isChildrenToArrayCall(node, context)) MutRef.set(isWithinChildrenToArrayRef, true);
         const isMapCall = isMapCallLoose(node);
         const isArrayFromCall = isMatching({
-          type: NodeType.CallExpression,
+          type: AST_NODE_TYPES.CallExpression,
           callee: {
-            type: NodeType.MemberExpression,
+            type: AST_NODE_TYPES.MemberExpression,
             property: {
               name: "from",
             },
@@ -140,8 +141,8 @@ export default createRule<[], MessageID>({
         if (!isMapCall && !isArrayFromCall) return;
         if (MutRef.get(isWithinChildrenToArrayRef)) return;
         const fn = node.arguments[isMapCall ? 0 : 1];
-        if (!isOneOf([NodeType.ArrowFunctionExpression, NodeType.FunctionExpression])(fn)) return;
-        if (fn.body.type === NodeType.BlockStatement) {
+        if (!isOneOf([AST_NODE_TYPES.ArrowFunctionExpression, AST_NODE_TYPES.FunctionExpression])(fn)) return;
+        if (fn.body.type === AST_NODE_TYPES.BlockStatement) {
           for (const descriptor of checkBlockStatement(fn.body)) {
             context.report(descriptor);
           }

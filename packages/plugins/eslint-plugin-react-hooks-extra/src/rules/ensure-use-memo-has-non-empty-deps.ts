@@ -1,8 +1,9 @@
-import { is, isFunction, NodeType } from "@eslint-react/ast";
+import { is, isFunction } from "@eslint-react/ast";
 import { isReactHookCall, isReactHookCallWithNameLoose, isUseMemoCall } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import { findVariable, getVariableNode } from "@eslint-react/var";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -48,12 +49,12 @@ export default createRule<[], MessageID>({
         }
         const hasEmptyDeps = F.pipe(
           match(deps)
-            .with({ type: NodeType.ArrayExpression }, O.some)
-            .with({ type: NodeType.Identifier }, n => {
+            .with({ type: AST_NODE_TYPES.ArrayExpression }, O.some)
+            .with({ type: AST_NODE_TYPES.Identifier }, n => {
               return F.pipe(
                 findVariable(n.name, initialScope),
                 O.flatMap(getVariableNode(0)),
-                O.filter(is(NodeType.ArrayExpression)),
+                O.filter(is(AST_NODE_TYPES.ArrayExpression)),
               );
             })
             .otherwise(O.none),
@@ -69,14 +70,14 @@ export default createRule<[], MessageID>({
         }
         const isReferencedToComponentScope = F.pipe(
           match(cb)
-            .with({ type: NodeType.ArrowFunctionExpression }, n => {
-              if (n.body.type === NodeType.ArrowFunctionExpression) {
+            .with({ type: AST_NODE_TYPES.ArrowFunctionExpression }, n => {
+              if (n.body.type === AST_NODE_TYPES.ArrowFunctionExpression) {
                 return O.some(n.body);
               }
               return O.some(n);
             })
-            .with({ type: NodeType.FunctionExpression }, O.some)
-            .with({ type: NodeType.Identifier }, n => {
+            .with({ type: AST_NODE_TYPES.FunctionExpression }, O.some)
+            .with({ type: AST_NODE_TYPES.Identifier }, n => {
               return F.pipe(
                 findVariable(n.name, initialScope),
                 O.flatMap(getVariableNode(0)),

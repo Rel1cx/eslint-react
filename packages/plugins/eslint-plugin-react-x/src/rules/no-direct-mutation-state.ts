@@ -1,6 +1,7 @@
-import { isOneOf, isThisExpression, NodeType, traverseUpGuard } from "@eslint-react/ast";
+import { isOneOf, isThisExpression, traverseUpGuard } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
@@ -11,16 +12,16 @@ export const RULE_NAME = "no-direct-mutation-state";
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Option<string> {
-  if (node.type === NodeType.TSAsExpression) {
+  if (node.type === AST_NODE_TYPES.TSAsExpression) {
     return getName(node.expression);
   }
-  if (node.type === NodeType.Identifier || node.type === NodeType.PrivateIdentifier) {
+  if (node.type === AST_NODE_TYPES.Identifier || node.type === AST_NODE_TYPES.PrivateIdentifier) {
     return O.some(node.name);
   }
-  if (node.type === NodeType.Literal) {
+  if (node.type === AST_NODE_TYPES.Literal) {
     return O.some(String(node.value));
   }
-  if (node.type === NodeType.TemplateLiteral && node.expressions.length === 0) {
+  if (node.type === AST_NODE_TYPES.TemplateLiteral && node.expressions.length === 0) {
     return O.fromNullable(node.quasis[0]?.value.raw);
   }
 
@@ -31,7 +32,7 @@ function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   const { left } = node;
 
   return (
-    left.type === NodeType.MemberExpression
+    left.type === AST_NODE_TYPES.MemberExpression
     && isThisExpression(left.object)
     && O.exists(getName(left.property), name => name === "state")
   );
@@ -40,9 +41,9 @@ function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
 function isConstructorFunction(
   node: TSESTree.Node,
 ): node is TSESTree.FunctionDeclaration | TSESTree.FunctionExpression {
-  return isOneOf([NodeType.FunctionDeclaration, NodeType.FunctionExpression])(node)
-    && isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])(node.parent)
-    && node.parent.key.type === NodeType.Identifier
+  return isOneOf([AST_NODE_TYPES.FunctionDeclaration, AST_NODE_TYPES.FunctionExpression])(node)
+    && isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node.parent)
+    && node.parent.key.type === AST_NODE_TYPES.Identifier
     && node.parent.key.name === "constructor";
 }
 
@@ -62,7 +63,10 @@ export default createRule<[], MessageID>({
     return {
       AssignmentExpression(node) {
         if (!isAssignmentToThisState(node)) return;
-        const maybeParentClass = traverseUpGuard(node, isOneOf([NodeType.ClassDeclaration, NodeType.ClassExpression]));
+        const maybeParentClass = traverseUpGuard(
+          node,
+          isOneOf([AST_NODE_TYPES.ClassDeclaration, AST_NODE_TYPES.ClassExpression]),
+        );
         if (O.isNone(maybeParentClass)) return;
         const parentClass = maybeParentClass.value;
         if (!isClassComponent(parentClass)) return;

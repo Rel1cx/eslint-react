@@ -1,8 +1,9 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { getFunctionIdentifier, NodeType } from "@eslint-react/ast";
+import { getFunctionIdentifier } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 import { isInitializedFromReact } from "../internal/is-from-react";
 import { isReactHookName } from "./hook-name";
@@ -21,9 +22,9 @@ export function isReactHook(node: TSESTreeFunction) {
  * @returns `true` if the node is a React Hook call, `false` otherwise.
  */
 export function isReactHookCall(node: TSESTree.CallExpression) {
-  if (node.callee.type === NodeType.Identifier) return isReactHookName(node.callee.name);
-  if (node.callee.type === NodeType.MemberExpression) {
-    return node.callee.property.type === NodeType.Identifier && isReactHookName(node.callee.property.name);
+  if (node.callee.type === AST_NODE_TYPES.Identifier) return isReactHookName(node.callee.name);
+  if (node.callee.type === AST_NODE_TYPES.MemberExpression) {
+    return node.callee.property.type === AST_NODE_TYPES.Identifier && isReactHookName(node.callee.property.name);
   }
   return false;
 }
@@ -32,11 +33,11 @@ export function isReactHookCallWithName(node: TSESTree.CallExpression, context: 
   return (name: string) => {
     const initialScope = context.sourceCode.getScope(node);
     switch (true) {
-      case node.callee.type === NodeType.Identifier
+      case node.callee.type === AST_NODE_TYPES.Identifier
         && node.callee.name === name:
         return isInitializedFromReact(name, context, initialScope);
-      case node.callee.type === NodeType.MemberExpression
-        && node.callee.property.type === NodeType.Identifier
+      case node.callee.type === AST_NODE_TYPES.MemberExpression
+        && node.callee.property.type === AST_NODE_TYPES.Identifier
         && node.callee.property.name === name
         && "name" in node.callee.object:
         return isInitializedFromReact(node.callee.object.name, context, initialScope);
@@ -49,10 +50,10 @@ export function isReactHookCallWithName(node: TSESTree.CallExpression, context: 
 export function isReactHookCallWithNameLoose(node: TSESTree.CallExpression) {
   return (name: string) => {
     switch (node.callee.type) {
-      case NodeType.Identifier:
+      case AST_NODE_TYPES.Identifier:
         return node.callee.name === name;
-      case NodeType.MemberExpression:
-        return node.callee.property.type === NodeType.Identifier && node.callee.property.name === name;
+      case AST_NODE_TYPES.MemberExpression:
+        return node.callee.property.type === AST_NODE_TYPES.Identifier && node.callee.property.name === name;
       default:
         return false;
     }
@@ -63,11 +64,11 @@ export function isReactHookCallWithNameAlias(name: string, context: RuleContext,
   return (node: TSESTree.CallExpression) => {
     const initialScope = context.sourceCode.getScope(node);
     switch (true) {
-      case node.callee.type === NodeType.Identifier
+      case node.callee.type === AST_NODE_TYPES.Identifier
         && node.callee.name === name:
         return isInitializedFromReact(name, context, initialScope);
-      case node.callee.type === NodeType.MemberExpression
-        && node.callee.property.type === NodeType.Identifier
+      case node.callee.type === AST_NODE_TYPES.MemberExpression
+        && node.callee.property.type === AST_NODE_TYPES.Identifier
         && node.callee.property.name === name
         && "name" in node.callee.object:
         return isInitializedFromReact(node.callee.object.name, context, initialScope);

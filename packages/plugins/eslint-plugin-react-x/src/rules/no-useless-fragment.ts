@@ -1,7 +1,8 @@
-import { isOneOf, NodeType } from "@eslint-react/ast";
+import { isOneOf } from "@eslint-react/ast";
 import { isFragmentElement } from "@eslint-react/core";
 import { isBuiltInElement, isKeyedElement, isLiteral, isPaddingSpaces } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { isMatching, P } from "ts-pattern";
 
@@ -20,7 +21,7 @@ function check(
   if (isKeyedElement(node, context)) return;
   if (isBuiltInElement(node.parent)) context.report({ messageId: "noUselessFragmentInBuiltIn", node });
   if (node.children.length === 0) return context.report({ messageId: "noUselessFragment", node });
-  const isChildren = isOneOf([NodeType.JSXElement, NodeType.JSXFragment])(node.parent);
+  const isChildren = isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(node.parent);
   const firstChildren = node.children[0];
   // <Foo content={<>ee eeee eeee ...</>} />
   if (node.children.length === 1 && isLiteral(firstChildren) && !isChildren) return;
@@ -28,7 +29,9 @@ function check(
   if (nonPaddingChildren.length > 1) return;
   if (nonPaddingChildren.length === 0) return context.report({ messageId: "noUselessFragment", node });
   const first = nonPaddingChildren[0];
-  if (isMatching({ type: NodeType.JSXExpressionContainer, expression: P.not(NodeType.CallExpression) }, first)) return;
+  if (
+    isMatching({ type: AST_NODE_TYPES.JSXExpressionContainer, expression: P.not(AST_NODE_TYPES.CallExpression) }, first)
+  ) return;
   context.report({ messageId: "noUselessFragment", node });
 }
 

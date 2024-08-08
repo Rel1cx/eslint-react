@@ -1,6 +1,7 @@
 import type { TSESTreeClass } from "@eslint-react/ast";
-import { getClassIdentifier, NodeType } from "@eslint-react/ast";
+import { getClassIdentifier } from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import ShortUniqueId from "short-unique-id";
 import { match, P } from "ts-pattern";
@@ -20,11 +21,11 @@ export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass {
   const { superClass } = node;
   return match(superClass)
     .with({
-      type: NodeType.Identifier,
+      type: AST_NODE_TYPES.Identifier,
       name: P.string,
     }, ({ name }) => /^(Pure)?Component$/u.test(name))
     .with({
-      type: NodeType.MemberExpression,
+      type: AST_NODE_TYPES.MemberExpression,
       property: { name: P.string },
     }, ({ property }) => /^(Pure)?Component$/u.test(property.name))
     .otherwise(() => false);
@@ -39,11 +40,11 @@ export function isPureComponent(node: TSESTree.Node) {
   if ("superClass" in node && node.superClass) {
     return match(node.superClass)
       .with({
-        type: NodeType.Identifier,
+        type: AST_NODE_TYPES.Identifier,
         name: P.string,
       }, ({ name }) => /^PureComponent$/u.test(name))
       .with({
-        type: NodeType.MemberExpression,
+        type: AST_NODE_TYPES.MemberExpression,
         property: { name: P.string },
       }, ({ property }) => /^PureComponent$/u.test(property.name))
       .otherwise(() => false);

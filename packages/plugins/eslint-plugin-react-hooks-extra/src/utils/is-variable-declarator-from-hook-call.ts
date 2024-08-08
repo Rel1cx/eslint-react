@@ -1,6 +1,6 @@
-import { NodeType } from "@eslint-react/ast";
 import { isReactHookName } from "@eslint-react/core";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 export function isVariableDeclaratorFromHookCall(node: TSESTree.Node): node is
   & {
@@ -13,14 +13,14 @@ export function isVariableDeclaratorFromHookCall(node: TSESTree.Node): node is
   }
   & TSESTree.VariableDeclarator
 {
-  if (node.type !== NodeType.VariableDeclarator) return false;
-  if (node.id.type !== NodeType.Identifier) return false;
-  if (node.init?.type !== NodeType.CallExpression) return false;
+  if (node.type !== AST_NODE_TYPES.VariableDeclarator) return false;
+  if (node.id.type !== AST_NODE_TYPES.Identifier) return false;
+  if (node.init?.type !== AST_NODE_TYPES.CallExpression) return false;
   switch (node.init.callee.type) {
-    case NodeType.Identifier:
+    case AST_NODE_TYPES.Identifier:
       return isReactHookName(node.init.callee.name);
-    case NodeType.MemberExpression:
-      return node.init.callee.property.type === NodeType.Identifier
+    case AST_NODE_TYPES.MemberExpression:
+      return node.init.callee.property.type === AST_NODE_TYPES.Identifier
         && isReactHookName(node.init.callee.property.name);
     default:
       return false;

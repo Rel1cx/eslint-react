@@ -1,7 +1,8 @@
-import { NodeType, traverseUpGuard } from "@eslint-react/ast";
+import { traverseUpGuard } from "@eslint-react/ast";
 import type { O } from "@eslint-react/tools";
 import { F } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 /**
  * Traverses up prop node
@@ -14,7 +15,7 @@ export function traverseUpProp(
   predicate: (node: TSESTree.JSXAttribute) => boolean = F.constTrue,
 ): O.Option<TSESTree.JSXAttribute> {
   const guard = (node: TSESTree.Node): node is TSESTree.JSXAttribute => {
-    return node.type === NodeType.JSXAttribute && predicate(node);
+    return node.type === AST_NODE_TYPES.JSXAttribute && predicate(node);
   };
 
   return traverseUpGuard(node, guard);

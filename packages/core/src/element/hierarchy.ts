@@ -1,7 +1,8 @@
-import { is, NodeType, traverseUp } from "@eslint-react/ast";
+import { is, traverseUp } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 import { isCreateElementCall } from "../react-api";
 
@@ -16,11 +17,11 @@ export function isInsideCreateElementProps(
   context: RuleContext,
 ) {
   return F.pipe(
-    traverseUp(node, n => is(NodeType.CallExpression)(n) && isCreateElementCall(n, context)),
-    O.filter(is(NodeType.CallExpression)),
+    traverseUp(node, n => is(AST_NODE_TYPES.CallExpression)(n) && isCreateElementCall(n, context)),
+    O.filter(is(AST_NODE_TYPES.CallExpression)),
     O.flatMapNullable(c => c.arguments.at(1)),
-    O.filter(is(NodeType.ObjectExpression)),
-    O.zipWith(traverseUp(node, is(NodeType.ObjectExpression)), (a, b) => a === b),
+    O.filter(is(AST_NODE_TYPES.ObjectExpression)),
+    O.zipWith(traverseUp(node, is(AST_NODE_TYPES.ObjectExpression)), (a, b) => a === b),
     O.getOrElse(F.constFalse),
   );
 }
@@ -31,7 +32,7 @@ export function isChildrenOfCreateElement(
 ) {
   return F.pipe(
     O.fromNullable(node.parent),
-    O.filter(is(NodeType.CallExpression)),
+    O.filter(is(AST_NODE_TYPES.CallExpression)),
     O.filter(n => isCreateElementCall(n, context)),
     O.exists(n =>
       n.arguments

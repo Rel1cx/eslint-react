@@ -1,7 +1,6 @@
 import { F } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
-
-import { NodeType } from "./types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 /**
  * Determines whether node equals to another node
@@ -15,10 +14,10 @@ export const isNodeEqual: {
   (a: TSESTree.Node, b: TSESTree.Node): boolean;
 } = F.dual(2, (a: TSESTree.Node, b: TSESTree.Node): boolean => {
   if (a.type !== b.type) return false;
-  if (a.type === NodeType.ThisExpression && b.type === NodeType.ThisExpression) return true;
-  if (a.type === NodeType.Literal && b.type === NodeType.Literal) return a.value === b.value;
-  if (a.type === NodeType.Identifier && b.type === NodeType.Identifier) return a.name === b.name;
-  if (a.type === NodeType.MemberExpression && b.type === NodeType.MemberExpression) {
+  if (a.type === AST_NODE_TYPES.ThisExpression && b.type === AST_NODE_TYPES.ThisExpression) return true;
+  if (a.type === AST_NODE_TYPES.Literal && b.type === AST_NODE_TYPES.Literal) return a.value === b.value;
+  if (a.type === AST_NODE_TYPES.Identifier && b.type === AST_NODE_TYPES.Identifier) return a.name === b.name;
+  if (a.type === AST_NODE_TYPES.MemberExpression && b.type === AST_NODE_TYPES.MemberExpression) {
     return isNodeEqual(a.property, b.property) && isNodeEqual(a.object, b.object);
   }
   return false;

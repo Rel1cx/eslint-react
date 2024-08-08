@@ -1,7 +1,8 @@
 import type { Construction, TSESTreeFunction } from "@eslint-react/ast";
-import { inspectConstruction, NodeType, readableNodeType } from "@eslint-react/ast";
+import { inspectConstruction, readableNodeType } from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils";
@@ -38,17 +39,17 @@ export default createRule<[], MessageID>({
       ...listeners,
       JSXOpeningElement(node) {
         const openingElementName = node.name;
-        if (openingElementName.type !== NodeType.JSXMemberExpression) return;
+        if (openingElementName.type !== AST_NODE_TYPES.JSXMemberExpression) return;
         if (openingElementName.property.name !== "Provider") return;
         const maybeJSXValueAttribute = O.fromNullable(
           node.attributes.find((attribute) => {
-            return attribute.type === NodeType.JSXAttribute
+            return attribute.type === AST_NODE_TYPES.JSXAttribute
               && attribute.name.name === "value";
           }),
         );
         if (O.isNone(maybeJSXValueAttribute) || !("value" in maybeJSXValueAttribute.value)) return;
         const valueNode = maybeJSXValueAttribute.value.value;
-        if (valueNode?.type !== NodeType.JSXExpressionContainer) return;
+        if (valueNode?.type !== AST_NODE_TYPES.JSXExpressionContainer) return;
         const valueExpression = valueNode.expression;
         const construction = inspectConstruction(valueExpression, context);
         if (construction._tag === "None") return;

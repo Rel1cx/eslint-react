@@ -1,4 +1,4 @@
-import { NodeType } from "@eslint-react/ast";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./prefer-use-state-lazy-initialization";
@@ -9,7 +9,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState(1 || getValue())',
       errors: [
         {
-          type: NodeType.LogicalExpression,
+          type: AST_NODE_TYPES.LogicalExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState(2 < getValue())',
       errors: [
         {
-          type: NodeType.BinaryExpression,
+          type: AST_NODE_TYPES.BinaryExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -27,7 +27,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState(getValue())',
       errors: [
         {
-          type: NodeType.CallExpression,
+          type: AST_NODE_TYPES.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -36,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState(getValue(1, 2, 3))',
       errors: [
         {
-          type: NodeType.CallExpression,
+          type: AST_NODE_TYPES.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -45,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState(a ? b : c())',
       errors: [
         {
-          type: NodeType.ConditionalExpression,
+          type: AST_NODE_TYPES.ConditionalExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -54,7 +54,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState(a() ? b : c)',
       errors: [
         {
-          type: NodeType.ConditionalExpression,
+          type: AST_NODE_TYPES.ConditionalExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -63,7 +63,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState(a ? (b ? b1() : b2) : c)',
       errors: [
         {
-          type: NodeType.ConditionalExpression,
+          type: AST_NODE_TYPES.ConditionalExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -72,7 +72,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState(a() && b)',
       errors: [
         {
-          type: NodeType.LogicalExpression,
+          type: AST_NODE_TYPES.LogicalExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -81,7 +81,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState(a && b())',
       errors: [
         {
-          type: NodeType.LogicalExpression,
+          type: AST_NODE_TYPES.LogicalExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -90,7 +90,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState(a() && b())',
       errors: [
         {
-          type: NodeType.LogicalExpression,
+          type: AST_NODE_TYPES.LogicalExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -99,7 +99,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState(+b())',
       errors: [
         {
-          type: NodeType.UnaryExpression,
+          type: AST_NODE_TYPES.UnaryExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -108,7 +108,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState(-b())',
       errors: [
         {
-          type: NodeType.UnaryExpression,
+          type: AST_NODE_TYPES.UnaryExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -117,7 +117,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState(~b())',
       errors: [
         {
-          type: NodeType.UnaryExpression,
+          type: AST_NODE_TYPES.UnaryExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -126,7 +126,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState(!b())',
       errors: [
         {
-          type: NodeType.UnaryExpression,
+          type: AST_NODE_TYPES.UnaryExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -135,7 +135,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState(b() + 1)',
       errors: [
         {
-          type: NodeType.BinaryExpression,
+          type: AST_NODE_TYPES.BinaryExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -144,7 +144,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState(b() - 1)',
       errors: [
         {
-          type: NodeType.BinaryExpression,
+          type: AST_NODE_TYPES.BinaryExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -153,7 +153,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState([b()])',
       errors: [
         {
-          type: NodeType.ArrayExpression,
+          type: AST_NODE_TYPES.ArrayExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -162,7 +162,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'import { useState } from "react"; useState({ a: b() })',
       errors: [
         {
-          type: NodeType.ObjectExpression,
+          type: AST_NODE_TYPES.ObjectExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -171,7 +171,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `useLocalStorageState(1 || getValue())`,
       errors: [
         {
-          type: NodeType.LogicalExpression,
+          type: AST_NODE_TYPES.LogicalExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],

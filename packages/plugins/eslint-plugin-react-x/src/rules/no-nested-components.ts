@@ -1,5 +1,5 @@
 import type { TSESTreeClass, TSESTreeFunction } from "@eslint-react/ast";
-import { isClass, isFunction, NodeType, traverseUp, traverseUpGuard } from "@eslint-react/ast";
+import { isClass, isFunction, traverseUp, traverseUpGuard } from "@eslint-react/ast";
 import {
   ERComponentHint,
   isDeclaredInRenderPropLoose,
@@ -12,6 +12,7 @@ import {
 import { traverseUpProp } from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils";
@@ -66,9 +67,9 @@ export default createRule<[], MessageID>({
           // Do not mark anonymous function components to reduce false positives
           if (O.isNone(componentName)) continue;
           const name = componentName.value;
-          const isInsideProperty = component.parent.type === NodeType.Property;
-          const isInsideJSXPropValue = component.parent.type === NodeType.JSXAttribute
-            || O.isSome(traverseUpProp(node, n => n.value?.type === NodeType.JSXExpressionContainer));
+          const isInsideProperty = component.parent.type === AST_NODE_TYPES.Property;
+          const isInsideJSXPropValue = component.parent.type === AST_NODE_TYPES.JSXAttribute
+            || O.isSome(traverseUpProp(node, n => n.value?.type === AST_NODE_TYPES.JSXExpressionContainer));
           if (isInsideJSXPropValue) {
             if (!isDeclaredInRenderPropLoose(component)) {
               context.report({

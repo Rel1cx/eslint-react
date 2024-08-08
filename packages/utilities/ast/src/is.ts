@@ -3,133 +3,131 @@ import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { ASTUtils } from "@typescript-eslint/utils";
 
-import { NodeType } from "./types";
-
 export const is = ASTUtils.isNodeOfType;
 
 export const isOneOf = ASTUtils.isNodeOfTypes;
 
 export const isFunction = isOneOf([
-  NodeType.ArrowFunctionExpression,
-  NodeType.FunctionDeclaration,
-  NodeType.FunctionExpression,
+  AST_NODE_TYPES.ArrowFunctionExpression,
+  AST_NODE_TYPES.FunctionDeclaration,
+  AST_NODE_TYPES.FunctionExpression,
 ]);
 
 export const isFunctionType = isOneOf([
-  NodeType.ArrowFunctionExpression,
-  NodeType.FunctionDeclaration,
-  NodeType.FunctionExpression,
-  NodeType.TSCallSignatureDeclaration,
-  NodeType.TSConstructSignatureDeclaration,
-  NodeType.TSDeclareFunction,
-  NodeType.TSEmptyBodyFunctionExpression,
-  NodeType.TSFunctionType,
-  NodeType.TSMethodSignature,
+  AST_NODE_TYPES.ArrowFunctionExpression,
+  AST_NODE_TYPES.FunctionDeclaration,
+  AST_NODE_TYPES.FunctionExpression,
+  AST_NODE_TYPES.TSCallSignatureDeclaration,
+  AST_NODE_TYPES.TSConstructSignatureDeclaration,
+  AST_NODE_TYPES.TSDeclareFunction,
+  AST_NODE_TYPES.TSEmptyBodyFunctionExpression,
+  AST_NODE_TYPES.TSFunctionType,
+  AST_NODE_TYPES.TSMethodSignature,
 ]);
 
-export const isClass = isOneOf([NodeType.ClassDeclaration, NodeType.ClassExpression]);
+export const isClass = isOneOf([AST_NODE_TYPES.ClassDeclaration, AST_NODE_TYPES.ClassExpression]);
 
 export const isLoop = isOneOf([
-  NodeType.DoWhileStatement,
-  NodeType.ForInStatement,
-  NodeType.ForOfStatement,
-  NodeType.ForStatement,
-  NodeType.WhileStatement,
+  AST_NODE_TYPES.DoWhileStatement,
+  AST_NODE_TYPES.ForInStatement,
+  AST_NODE_TYPES.ForOfStatement,
+  AST_NODE_TYPES.ForStatement,
+  AST_NODE_TYPES.WhileStatement,
 ]);
 
-export const isArrayTupleType = isOneOf([NodeType.TSArrayType, NodeType.TSTupleType]);
+export const isArrayTupleType = isOneOf([AST_NODE_TYPES.TSArrayType, AST_NODE_TYPES.TSTupleType]);
 
 export const isProperty = isOneOf([
-  NodeType.PropertyDefinition,
-  NodeType.TSIndexSignature,
-  NodeType.TSParameterProperty,
-  NodeType.TSPropertySignature,
+  AST_NODE_TYPES.PropertyDefinition,
+  AST_NODE_TYPES.TSIndexSignature,
+  AST_NODE_TYPES.TSParameterProperty,
+  AST_NODE_TYPES.TSPropertySignature,
 ]);
 
-export const isJSXElement = is(NodeType.JSXElement);
+export const isJSXElement = is(AST_NODE_TYPES.JSXElement);
 
-export const isJSXFragment = is(NodeType.JSXFragment);
+export const isJSXFragment = is(AST_NODE_TYPES.JSXFragment);
 
 export const isJSX = isOneOf([
-  NodeType.JSXAttribute,
-  NodeType.JSXSpreadChild,
-  NodeType.JSXClosingElement,
-  NodeType.JSXClosingFragment,
-  NodeType.JSXElement,
-  NodeType.JSXEmptyExpression,
-  NodeType.JSXExpressionContainer,
-  NodeType.JSXFragment,
-  NodeType.JSXIdentifier,
-  NodeType.JSXMemberExpression,
-  NodeType.JSXNamespacedName,
-  NodeType.JSXOpeningElement,
-  NodeType.JSXOpeningFragment,
-  NodeType.JSXSpreadAttribute,
-  NodeType.JSXSpreadChild,
-  NodeType.JSXText,
+  AST_NODE_TYPES.JSXAttribute,
+  AST_NODE_TYPES.JSXSpreadChild,
+  AST_NODE_TYPES.JSXClosingElement,
+  AST_NODE_TYPES.JSXClosingFragment,
+  AST_NODE_TYPES.JSXElement,
+  AST_NODE_TYPES.JSXEmptyExpression,
+  AST_NODE_TYPES.JSXExpressionContainer,
+  AST_NODE_TYPES.JSXFragment,
+  AST_NODE_TYPES.JSXIdentifier,
+  AST_NODE_TYPES.JSXMemberExpression,
+  AST_NODE_TYPES.JSXNamespacedName,
+  AST_NODE_TYPES.JSXOpeningElement,
+  AST_NODE_TYPES.JSXOpeningFragment,
+  AST_NODE_TYPES.JSXSpreadAttribute,
+  AST_NODE_TYPES.JSXSpreadChild,
+  AST_NODE_TYPES.JSXText,
 ]);
 
 export const isJSXTagNameExpression = isOneOf([
-  NodeType.JSXIdentifier,
-  NodeType.JSXMemberExpression,
-  NodeType.JSXNamespacedName,
+  AST_NODE_TYPES.JSXIdentifier,
+  AST_NODE_TYPES.JSXMemberExpression,
+  AST_NODE_TYPES.JSXNamespacedName,
 ]);
 
 export const isDestructuringPattern = isOneOf([
-  NodeType.ArrayPattern,
-  NodeType.AssignmentPattern,
-  NodeType.ObjectPattern,
-  NodeType.RestElement,
+  AST_NODE_TYPES.ArrayPattern,
+  AST_NODE_TYPES.AssignmentPattern,
+  AST_NODE_TYPES.ObjectPattern,
+  AST_NODE_TYPES.RestElement,
 ]);
 
 export const isTypeDeclaration = isOneOf([
-  NodeType.TSInterfaceDeclaration,
-  NodeType.TSTypeAliasDeclaration,
+  AST_NODE_TYPES.TSInterfaceDeclaration,
+  AST_NODE_TYPES.TSTypeAliasDeclaration,
 ]);
 
 export const isLeftHandSideExpression = isOneOf([
-  NodeType.ArrayExpression,
-  NodeType.ArrayPattern,
-  NodeType.ArrowFunctionExpression,
-  NodeType.CallExpression,
-  NodeType.ClassExpression,
-  NodeType.FunctionExpression,
-  NodeType.Identifier,
-  NodeType.JSXElement,
-  NodeType.JSXFragment,
-  NodeType.Literal,
-  NodeType.TemplateLiteral,
-  NodeType.MemberExpression,
-  NodeType.MetaProperty,
-  NodeType.ObjectExpression,
-  NodeType.ObjectPattern,
-  NodeType.SequenceExpression,
-  NodeType.Super,
-  NodeType.TaggedTemplateExpression,
-  NodeType.ThisExpression,
+  AST_NODE_TYPES.ArrayExpression,
+  AST_NODE_TYPES.ArrayPattern,
+  AST_NODE_TYPES.ArrowFunctionExpression,
+  AST_NODE_TYPES.CallExpression,
+  AST_NODE_TYPES.ClassExpression,
+  AST_NODE_TYPES.FunctionExpression,
+  AST_NODE_TYPES.Identifier,
+  AST_NODE_TYPES.JSXElement,
+  AST_NODE_TYPES.JSXFragment,
+  AST_NODE_TYPES.Literal,
+  AST_NODE_TYPES.TemplateLiteral,
+  AST_NODE_TYPES.MemberExpression,
+  AST_NODE_TYPES.MetaProperty,
+  AST_NODE_TYPES.ObjectExpression,
+  AST_NODE_TYPES.ObjectPattern,
+  AST_NODE_TYPES.SequenceExpression,
+  AST_NODE_TYPES.Super,
+  AST_NODE_TYPES.TaggedTemplateExpression,
+  AST_NODE_TYPES.ThisExpression,
 ]);
 
 export const isLeftHandSideExpressionType = isOneOf([
-  NodeType.ArrayExpression,
-  NodeType.ArrayPattern,
-  NodeType.ArrowFunctionExpression,
-  NodeType.CallExpression,
-  NodeType.ClassExpression,
-  NodeType.FunctionExpression,
-  NodeType.Identifier,
-  NodeType.JSXElement,
-  NodeType.JSXFragment,
-  NodeType.Literal,
-  NodeType.TemplateLiteral,
-  NodeType.MemberExpression,
-  NodeType.MetaProperty,
-  NodeType.ObjectExpression,
-  NodeType.ObjectPattern,
-  NodeType.SequenceExpression,
-  NodeType.Super,
-  NodeType.TaggedTemplateExpression,
-  NodeType.ThisExpression,
-  NodeType.TSAsExpression,
-  NodeType.TSNonNullExpression,
-  NodeType.TSTypeAssertion,
+  AST_NODE_TYPES.ArrayExpression,
+  AST_NODE_TYPES.ArrayPattern,
+  AST_NODE_TYPES.ArrowFunctionExpression,
+  AST_NODE_TYPES.CallExpression,
+  AST_NODE_TYPES.ClassExpression,
+  AST_NODE_TYPES.FunctionExpression,
+  AST_NODE_TYPES.Identifier,
+  AST_NODE_TYPES.JSXElement,
+  AST_NODE_TYPES.JSXFragment,
+  AST_NODE_TYPES.Literal,
+  AST_NODE_TYPES.TemplateLiteral,
+  AST_NODE_TYPES.MemberExpression,
+  AST_NODE_TYPES.MetaProperty,
+  AST_NODE_TYPES.ObjectExpression,
+  AST_NODE_TYPES.ObjectPattern,
+  AST_NODE_TYPES.SequenceExpression,
+  AST_NODE_TYPES.Super,
+  AST_NODE_TYPES.TaggedTemplateExpression,
+  AST_NODE_TYPES.ThisExpression,
+  AST_NODE_TYPES.TSAsExpression,
+  AST_NODE_TYPES.TSNonNullExpression,
+  AST_NODE_TYPES.TSTypeAssertion,
 ]);

@@ -1,8 +1,9 @@
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
+
 import type { TSESTreeFunction } from "./types";
-import { NodeType } from "./types";
 
 export function isIIFE(node: TSESTreeFunction) {
-  return node.type !== NodeType.FunctionDeclaration
-    && node.parent.type === NodeType.CallExpression
+  return node.type !== AST_NODE_TYPES.FunctionDeclaration
+    && node.parent.type === AST_NODE_TYPES.CallExpression
     && node.parent.callee === node;
 }

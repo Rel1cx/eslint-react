@@ -1,9 +1,10 @@
-import { isJSX, NodeType } from "@eslint-react/ast";
+import { isJSX } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import { findVariable } from "@eslint-react/var";
 import type { Variable } from "@typescript-eslint/scope-manager";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -179,7 +180,7 @@ function isInitExpression(
     | TSESTree.Expression
     | TSESTree.LetOrConstOrVarDeclaration,
 ) {
-  return node.type !== NodeType.VariableDeclaration;
+  return node.type !== AST_NODE_TYPES.VariableDeclaration;
 }
 
 function getVariableInitExpression(at: number) {
@@ -215,11 +216,11 @@ export default createRule<[], MessageID>({
     function check(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
       return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
         .when(isJSX, O.none)
-        .with({ type: NodeType.LogicalExpression, operator: "&&" }, ({ left, right }) => {
-          const isLeftUnaryNot = isMatching({ type: NodeType.UnaryExpression, operator: "!" }, left);
+        .with({ type: AST_NODE_TYPES.LogicalExpression, operator: "&&" }, ({ left, right }) => {
+          const isLeftUnaryNot = isMatching({ type: AST_NODE_TYPES.UnaryExpression, operator: "!" }, left);
           if (isLeftUnaryNot) return check(right);
           const initialScope = context.sourceCode.getScope(left);
-          const isLeftNan = isMatching({ type: NodeType.Identifier, name: "NaN" }, left)
+          const isLeftNan = isMatching({ type: AST_NODE_TYPES.Identifier, name: "NaN" }, left)
             || getStaticValue(left, initialScope)?.value === "NaN";
           if (isLeftNan) {
             return O.some({
@@ -240,10 +241,10 @@ export default createRule<[], MessageID>({
             node: left,
           });
         })
-        .with({ type: NodeType.ConditionalExpression }, ({ alternate, consequent }) => {
+        .with({ type: AST_NODE_TYPES.ConditionalExpression }, ({ alternate, consequent }) => {
           return O.orElse(check(consequent), () => check(alternate));
         })
-        .with({ type: NodeType.Identifier }, (n) => {
+        .with({ type: AST_NODE_TYPES.Identifier }, (n) => {
           const initialScope = context.sourceCode.getScope(n);
           return F.pipe(
             findVariable(n.name, initialScope),

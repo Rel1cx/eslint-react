@@ -1,9 +1,10 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { getFunctionIdentifier, isFunction, NodeType } from "@eslint-react/ast";
+import { getFunctionIdentifier, isFunction } from "@eslint-react/ast";
 import { isComponentName, useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 import { isMatching } from "ts-pattern";
@@ -17,7 +18,7 @@ export type MessageID = CamelCase<typeof RULE_NAME>;
 type MemberExpressionWithObjectName = { object: TSESTree.Identifier } & TSESTree.MemberExpression;
 
 function isMemberExpressionWithObjectName(node: TSESTree.MemberExpression): node is MemberExpressionWithObjectName {
-  return node.object.type === NodeType.Identifier && "name" in node.object;
+  return node.object.type === AST_NODE_TYPES.Identifier && "name" in node.object;
 }
 
 export default createRule<[], MessageID>({
