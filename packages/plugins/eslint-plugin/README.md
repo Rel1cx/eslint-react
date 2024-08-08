@@ -8,11 +8,6 @@
 
 A series of composable ESLint rules rewritten from scratch for libraries and frameworks that use React as a UI runtime.
 
-## Roadmap
-
-- [Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20)
-- [Milestone 3.0 ↗](https://eslint-react.xyz/roadmap#milestone-30-draft)
-
 ## Features
 
 - **Universal** rules for libraries and frameworks that use React as a UI runtime.
@@ -39,7 +34,7 @@ A series of composable ESLint rules rewritten from scratch for libraries and fra
 - [`christopher-buss/roblox-ts-eslint-config`](https://github.com/christopher-buss/roblox-ts-eslint-config) - iSentinel's ESLint config preset for Roblox-TS.
 - [`DimensionDev/Maskbook`](https://github.com/DimensionDev/Maskbook) - The portal to the new, open Internet. ([I:b]).
 - [`dream-num/univer`](https://github.com/dream-num/univer) - Univer is an open-source alternative to Google Sheets, Slides, and Docs.
-- [`electric-sql/pglite`](https://github/com/electric-sql/pglite) - Lightweight Postgres packaged as WASM into a TypeScript library for the browser, Node.js, Bun and Deno.
+- [`electric-sql/pglite`](https://github.com/electric-sql/pglite) - Lightweight Postgres packaged as WASM into a TypeScript library for the browser, Node.js, Bun and Deno.
 - [`ensdomains/ensdomains-landing`](https://github.com/ensdomains/ensdomains-landing) - ENS Homepage V2, the main homepage of the ENS protocol.
 - [`hairyf/overlastic`](https://github.com/hairyf/overlastic) - A universal overlays utils, support react, vue, vanilla, svelte.
 - [`johannschopplich/unlazy`](https://github.com/johannschopplich/unlazy) - Universal lazy loading library for placeholder images leveraging native browser APIs.
@@ -156,6 +151,11 @@ Add the plugin to your `.eslintrc.json`:
 
 [Frequently Asked Questions ↗](https://eslint-react.xyz/docs/faq)
 
+## Roadmap
+
+- [Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20)
+- [Milestone 3.0 ↗](https://eslint-react.xyz/roadmap#milestone-30-draft)
+
 ## Contributing
 
 Before you start working on something, it's best to check if there is an existing issue first. It's also a good idea to reach the maintainer and confirm if it makes sense or if someone else is already working on it.
@@ -163,6 +163,32 @@ Before you start working on something, it's best to check if there is an existin
 Please make sure to read the [Contributing Guide](./.github/CONTRIBUTING.md) before making a pull request.
 
 Thank you to everyone contributing to ESLint React!
+
+### Contribution Stats
+
+<!-- Copy-paste in your Readme.md file -->
+
+<a href="https://next.ossinsight.io/widgets/official/compose-last-28-days-stats?repo_id=680315614" target="_blank" style="display: block" align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://next.ossinsight.io/widgets/official/compose-last-28-days-stats/thumbnail.png?repo_id=680315614&image_size=auto&color_scheme=dark" width="655" height="auto">
+    <img alt="Performance Stats of Rel1cx/eslint-react - Last 28 days" src="https://next.ossinsight.io/widgets/official/compose-last-28-days-stats/thumbnail.png?repo_id=680315614&image_size=auto&color_scheme=light" width="655" height="auto">
+  </picture>
+</a>
+
+<!-- Made with [OSS Insight](https://ossinsight.io/) -->
+
+### Active Contributors
+
+<!-- Copy-paste in your Readme.md file -->
+
+<a href="https://next.ossinsight.io/widgets/official/compose-recent-active-contributors?limit=30&repo_id=680315614" target="_blank" style="display: block" align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://next.ossinsight.io/widgets/official/compose-recent-active-contributors/thumbnail.png?limit=30&repo_id=680315614&image_size=auto&color_scheme=dark" width="655" height="auto">
+    <img alt="Active Contributors of Rel1cx/eslint-react - Last 28 days" src="https://next.ossinsight.io/widgets/official/compose-recent-active-contributors/thumbnail.png?limit=30&repo_id=680315614&image_size=auto&color_scheme=light" width="655" height="auto">
+  </picture>
+</a>
+
+<!-- Made with [OSS Insight](https://ossinsight.io/) -->
 
 ## License
 
