@@ -8,11 +8,6 @@
 
 A series of composable ESLint rules rewritten from scratch for libraries and frameworks that use React as a UI runtime.
 
-## Roadmap
-
-- [Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20)
-- [Milestone 3.0 ↗](https://eslint-react.xyz/roadmap#milestone-30-draft)
-
 ## Features
 
 - **Universal** rules for libraries and frameworks that use React as a UI runtime.
@@ -156,6 +151,11 @@ Add the plugin to your `.eslintrc.json`:
 
 [Frequently Asked Questions ↗](https://eslint-react.xyz/docs/faq)
 
+## Roadmap
+
+- [Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20)
+- [Milestone 3.0 ↗](https://eslint-react.xyz/roadmap#milestone-30-draft)
+
 ## Contributing
 
 Before you start working on something, it's best to check if there is an existing issue first. It's also a good idea to reach the maintainer and confirm if it makes sense or if someone else is already working on it.
@@ -163,6 +163,32 @@ Before you start working on something, it's best to check if there is an existin
 Please make sure to read the [Contributing Guide](./.github/CONTRIBUTING.md) before making a pull request.
 
 Thank you to everyone contributing to ESLint React!
+
+### Contribution Stats
+
+<!-- Copy-paste in your Readme.md file -->
+
+<a href="https://next.ossinsight.io/widgets/official/compose-last-28-days-stats?repo_id=680315614" target="_blank" style="display: block" align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://next.ossinsight.io/widgets/official/compose-last-28-days-stats/thumbnail.png?repo_id=680315614&image_size=auto&color_scheme=dark" width="655" height="auto">
+    <img alt="Performance Stats of Rel1cx/eslint-react - Last 28 days" src="https://next.ossinsight.io/widgets/official/compose-last-28-days-stats/thumbnail.png?repo_id=680315614&image_size=auto&color_scheme=light" width="655" height="auto">
+  </picture>
+</a>
+
+<!-- Made with [OSS Insight](https://ossinsight.io/) -->
+
+### Active Contributors
+
+<!-- Copy-paste in your Readme.md file -->
+
+<a href="https://next.ossinsight.io/widgets/official/compose-recent-active-contributors?limit=30&repo_id=680315614" target="_blank" style="display: block" align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://next.ossinsight.io/widgets/official/compose-recent-active-contributors/thumbnail.png?limit=30&repo_id=680315614&image_size=auto&color_scheme=dark" width="655" height="auto">
+    <img alt="Active Contributors of Rel1cx/eslint-react - Last 28 days" src="https://next.ossinsight.io/widgets/official/compose-recent-active-contributors/thumbnail.png?limit=30&repo_id=680315614&image_size=auto&color_scheme=light" width="655" height="auto">
+  </picture>
+</a>
+
+<!-- Made with [OSS Insight](https://ossinsight.io/) -->
 
 ## License
 
