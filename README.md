@@ -39,6 +39,7 @@ A series of composable ESLint rules rewritten from scratch for libraries and fra
 - [`christopher-buss/roblox-ts-eslint-config`](https://github.com/christopher-buss/roblox-ts-eslint-config) - iSentinel's ESLint config preset for Roblox-TS.
 - [`DimensionDev/Maskbook`](https://github.com/DimensionDev/Maskbook) - The portal to the new, open Internet. ([I:b]).
 - [`dream-num/univer`](https://github.com/dream-num/univer) - Univer is an open-source alternative to Google Sheets, Slides, and Docs.
+- [`electric-sql/pglite`](https://github.com/electric-sql/pglite) - Lightweight Postgres packaged as WASM into a TypeScript library for the browser, Node.js, Bun and Deno.
 - [`ensdomains/ensdomains-landing`](https://github.com/ensdomains/ensdomains-landing) - ENS Homepage V2, the main homepage of the ENS protocol.
 - [`hairyf/overlastic`](https://github.com/hairyf/overlastic) - A universal overlays utils, support react, vue, vanilla, svelte.
 - [`johannschopplich/unlazy`](https://github.com/johannschopplich/unlazy) - Universal lazy loading library for placeholder images leveraging native browser APIs.
