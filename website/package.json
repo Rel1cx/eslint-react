@@ -42,7 +42,7 @@
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.0",
     "sass": "^1.77.8",
-    "typescript": "^5.6.0-dev.20240807",
+    "typescript": "^5.6.0-dev.20240808",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.0"
   }

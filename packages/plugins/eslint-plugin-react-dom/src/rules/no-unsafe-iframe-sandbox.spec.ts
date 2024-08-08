@@ -47,6 +47,7 @@ ruleTester.run(RULE_NAME, rule, {
     "<a />;",
     "<span />;",
     '<button type="button">Click me</button>;',
+    '<iframe sandbox="" />;',
     '<iframe sandbox="allow-downloads" />;',
     '<iframe sandbox="allow-downloads allow-scripts" />;',
     '<iframe sandbox="allow-downloads allow-scripts allow-forms" />;',
