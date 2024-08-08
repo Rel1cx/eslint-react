@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { isFunction } from "@eslint-react/ast";
-import { F } from "@eslint-react/tools";
+import { findPropInProperties } from "@eslint-react/jsx";
+import { F, isBoolean, O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -80,14 +82,44 @@ export default createRule<[], MessageID>({
       }
     > = new Map();
     /* eslint-enable perfectionist/sort-object-types */
+    function getOptions(node: TSESTree.CallExpressionArgument) {
+      const initialScope = context.sourceCode.getScope(node);
+      const findProp = (properties: TSESTree.ObjectExpression["properties"], propName: string) => {
+        return findPropInProperties(properties, context, initialScope)(propName);
+      };
+      const getPropValue = (prop: TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement) => {
+        if (prop.type !== AST_NODE_TYPES.Property) return O.none();
+        const { value } = prop;
+        return match(value)
+          .with({ type: AST_NODE_TYPES.Literal }, v => O.some(v.value))
+          .with({ type: AST_NODE_TYPES.Identifier }, v => O.some(getStaticValue(v, initialScope)?.value))
+          .otherwise(O.none);
+      };
+      switch (node.type) {
+        case AST_NODE_TYPES.ObjectExpression: {
+          const pOnce = findProp(node.properties, "once");
+          const pCapture = findProp(node.properties, "capture");
+          const vOnce = O.flatMap(pOnce, getPropValue).pipe(O.filter(isBoolean));
+          const vCapture = O.flatMap(pCapture, getPropValue).pipe(O.filter(isBoolean));
+          return { capture: vCapture, once: vOnce };
+        }
+        case AST_NODE_TYPES.Identifier: {
+          return {};
+        }
+        default: {
+          return {};
+        }
+      }
+    }
     return {
       ["CallExpression"](node) {
         const callKind = getCallKind(node);
         switch (callKind) {
           case "addEventListener":
           case "removeEventListener": {
-            const [_, listener] = node.arguments;
-            if (isFunction(listener)) {
+            const [_, listener, opts] = node.arguments;
+            const options = opts ? getOptions(opts) : {};
+            if (isFunction(listener) && !options) {
               context.report({
                 data: { eventMethodKind: callKind },
                 messageId: "symmetricEventListenerNoInlineFunction",

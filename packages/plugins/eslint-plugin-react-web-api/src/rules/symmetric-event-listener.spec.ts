@@ -1,7 +1,7 @@
-import { allValid, ruleTester } from "../../../../../test";
+import { allValid, ruleTesterWithTypes } from "../../../../../test";
 import rule, { RULE_NAME } from "./symmetric-event-listener";
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTesterWithTypes.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `
@@ -125,6 +125,18 @@ ruleTester.run(RULE_NAME, rule, {
           window.addEventListener("resize", rHandleResize.current);
           return () => {
             window.removeEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      const abortController = new AbortController();
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          window.addEventListener("resize", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController.signal });
+          return () => {
+            window.removeEventListener("resize", rHandleResize.current, { capture: true });
           };
         }, []);
       }
