@@ -1,9 +1,10 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { getFunctionIdentifier, isFunction, NodeType } from "@eslint-react/ast";
+import { getFunctionIdentifier, isFunction } from "@eslint-react/ast";
 import { isJSXValue, JSXValueHint } from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 /**
  * Unsafe check whether given node is a render function
@@ -21,9 +22,9 @@ export function isRenderFunctionLoose(node: TSESTreeFunction, context: RuleConte
   const { body, parent } = node;
   const maybeId = getFunctionIdentifier(node);
   if (O.isSome(maybeId) && !maybeId.value.name.startsWith("render")) {
-    return parent.type === NodeType.JSXExpressionContainer
-      && parent.parent.type === NodeType.JSXAttribute
-      && parent.parent.name.type === NodeType.JSXIdentifier
+    return parent.type === AST_NODE_TYPES.JSXExpressionContainer
+      && parent.parent.type === AST_NODE_TYPES.JSXAttribute
+      && parent.parent.name.type === AST_NODE_TYPES.JSXIdentifier
       && parent.parent.name.name.startsWith("render");
   }
   return isJSXValue(
@@ -47,9 +48,9 @@ export function isRenderFunctionLoose(node: TSESTreeFunction, context: RuleConte
  * @returns `true` if node is a render prop, `false` if not
  */
 export function isRenderPropLoose(node: TSESTree.JSXAttribute, context: RuleContext) {
-  if (node.name.type !== NodeType.JSXIdentifier) return false;
+  if (node.name.type !== AST_NODE_TYPES.JSXIdentifier) return false;
   return node.name.name.startsWith("render")
-    && node.value?.type === NodeType.JSXExpressionContainer
+    && node.value?.type === AST_NODE_TYPES.JSXExpressionContainer
     && isFunction(node.value.expression)
     && isRenderFunctionLoose(node.value.expression, context);
 }

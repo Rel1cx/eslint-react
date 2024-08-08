@@ -1,6 +1,7 @@
-import { isOneOf, NodeType } from "@eslint-react/ast";
+import { isOneOf } from "@eslint-react/ast";
 import { ERClassComponentFlag, useComponentCollectorLegacy } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
@@ -11,8 +12,8 @@ export const RULE_NAME = "no-redundant-should-component-update";
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function isShouldComponentUpdate(node: TSESTree.ClassElement) {
-  return isOneOf([NodeType.MethodDefinition, NodeType.PropertyDefinition])(node)
-    && node.key.type === NodeType.Identifier
+  return isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
+    && node.key.type === AST_NODE_TYPES.Identifier
     && node.key.name === "shouldComponentUpdate";
 }
 

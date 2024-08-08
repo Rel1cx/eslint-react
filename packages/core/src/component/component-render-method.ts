@@ -1,6 +1,7 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { NodeType, traverseUp } from "@eslint-react/ast";
+import { traverseUp } from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { isMatching, P } from "ts-pattern";
 
@@ -8,14 +9,14 @@ import { isClassComponent } from "./component-collector-legacy";
 
 const isRenderMethodLike = isMatching({
   key: {
-    type: NodeType.Identifier,
+    type: AST_NODE_TYPES.Identifier,
     name: "render",
   },
-  type: P.union(NodeType.MethodDefinition, NodeType.PropertyDefinition),
+  type: P.union(AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition),
   parent: {
-    type: NodeType.ClassBody,
+    type: AST_NODE_TYPES.ClassBody,
     parent: {
-      type: NodeType.ClassDeclaration,
+      type: AST_NODE_TYPES.ClassDeclaration,
     },
   },
 });

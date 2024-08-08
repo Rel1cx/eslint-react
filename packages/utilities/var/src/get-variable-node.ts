@@ -1,8 +1,8 @@
-import { NodeType } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { Variable } from "@typescript-eslint/scope-manager";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 import { getVariableDef } from "./get-variable-def";
 
@@ -33,10 +33,10 @@ export function getVariableNode(at: number) {
             && !("declarations" in def.node.init):
             return def.node.init;
           case def.type === DefinitionType.FunctionName
-            && def.node.type === NodeType.FunctionDeclaration:
+            && def.node.type === AST_NODE_TYPES.FunctionDeclaration:
             return def.node;
           case def.type === DefinitionType.ClassName
-            && def.node.type === NodeType.ClassDeclaration:
+            && def.node.type === AST_NODE_TYPES.ClassDeclaration:
             return def.node;
           default:
             return null;

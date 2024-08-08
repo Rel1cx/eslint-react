@@ -1,7 +1,8 @@
-import { isOneOf, NodeType } from "@eslint-react/ast";
+import { isOneOf } from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
 import { isNullable, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -41,8 +42,8 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
   }
   if (!isReactChildrenMethod(callee.property.name)) return false;
   const initialScope = context.sourceCode.getScope(node);
-  if (callee.object.type === NodeType.Identifier && callee.object.name === "Children") return true;
-  if (callee.object.type === NodeType.MemberExpression && "name" in callee.object.object) {
+  if (callee.object.type === AST_NODE_TYPES.Identifier && callee.object.name === "Children") return true;
+  if (callee.object.type === AST_NODE_TYPES.MemberExpression && "name" in callee.object.object) {
     return isInitializedFromReact(callee.object.object.name, context, initialScope);
   }
   return false;
@@ -50,13 +51,15 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
 
 function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContext) {
   const { callee } = node;
-  if (callee.type !== NodeType.MemberExpression) return O.none();
-  if (callee.property.type !== NodeType.Identifier) return O.none();
+  if (callee.type !== AST_NODE_TYPES.MemberExpression) return O.none();
+  if (callee.property.type !== AST_NODE_TYPES.Identifier) return O.none();
   const { name } = callee.property;
   if (!iteratorFunctionIndexParamPosition.has(name)) return O.none();
   const callbackArg = node.arguments[isUsingReactChildren(node, context) ? 1 : 0];
   if (!callbackArg) return O.none();
-  if (!isOneOf([NodeType.ArrowFunctionExpression, NodeType.FunctionExpression])(callbackArg)) return O.none();
+  if (!isOneOf([AST_NODE_TYPES.ArrowFunctionExpression, AST_NODE_TYPES.FunctionExpression])(callbackArg)) {
+    return O.none();
+  }
   const { params } = callbackArg;
   const indexParamPosition = iteratorFunctionIndexParamPosition.get(name);
   if (isNullable(indexParamPosition)) return O.none();
@@ -67,8 +70,8 @@ function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContex
 }
 
 function getIdentifiersFromBinaryExpression(side: TSESTree.Node): TSESTree.Identifier[] {
-  if (side.type === NodeType.Identifier) return [side];
-  if (side.type === NodeType.BinaryExpression) {
+  if (side.type === AST_NODE_TYPES.Identifier) return [side];
+  if (side.type === AST_NODE_TYPES.BinaryExpression) {
     return [
       ...getIdentifiersFromBinaryExpression(side.left),
       ...getIdentifiersFromBinaryExpression(side.right),
@@ -102,7 +105,7 @@ export default createRule<[], MessageID>({
     }
 
     function isArrayIndex(node: TSESTree.Node): node is TSESTree.Identifier {
-      return node.type === NodeType.Identifier && indexParamNames.some((name) => name === node.name);
+      return node.type === AST_NODE_TYPES.Identifier && indexParamNames.some((name) => name === node.name);
     }
 
     function checkPropValue(node: TSESTree.Node): ReportDescriptor<MessageID>[] {
@@ -111,8 +114,8 @@ export default createRule<[], MessageID>({
         return [{ messageId: "noArrayIndexKey", node }];
       }
       // key={`foo-${bar}`} or key={'foo' + bar}
-      if (isOneOf([NodeType.TemplateLiteral, NodeType.BinaryExpression])(node)) {
-        const exps = NodeType.TemplateLiteral === node.type
+      if (isOneOf([AST_NODE_TYPES.TemplateLiteral, AST_NODE_TYPES.BinaryExpression])(node)) {
+        const exps = AST_NODE_TYPES.TemplateLiteral === node.type
           ? node.expressions
           : getIdentifiersFromBinaryExpression(node);
 
@@ -123,11 +126,11 @@ export default createRule<[], MessageID>({
         }, []);
       }
       const isToStringCall = isMatching({
-        type: NodeType.CallExpression,
+        type: AST_NODE_TYPES.CallExpression,
         callee: {
-          type: NodeType.MemberExpression,
+          type: AST_NODE_TYPES.MemberExpression,
           property: {
-            type: NodeType.Identifier,
+            type: AST_NODE_TYPES.Identifier,
             name: "toString",
           },
         },
@@ -140,9 +143,9 @@ export default createRule<[], MessageID>({
       }
       // key={String(bar)}
       const isStringCall = isMatching({
-        type: NodeType.CallExpression,
+        type: AST_NODE_TYPES.CallExpression,
         callee: {
-          type: NodeType.Identifier,
+          type: AST_NODE_TYPES.Identifier,
           name: "String",
         },
       }, node);
@@ -162,7 +165,7 @@ export default createRule<[], MessageID>({
         ) {
           if (indexParamNames.length === 0) return;
           const props = node.arguments[1];
-          if (props?.type !== NodeType.ObjectExpression) return;
+          if (props?.type !== AST_NODE_TYPES.ObjectExpression) return;
           for (const prop of props.properties) {
             if (!isMatching({ key: { name: "key" } }, prop)) continue;
             if (!("value" in prop)) continue;
@@ -180,7 +183,7 @@ export default createRule<[], MessageID>({
         if (node.name.name !== "key") return;
         if (indexParamNames.length === 0) return;
         const { value } = node;
-        if (value?.type !== NodeType.JSXExpressionContainer) return;
+        if (value?.type !== AST_NODE_TYPES.JSXExpressionContainer) return;
         const descriptors = checkPropValue(value.expression);
         for (const descriptor of descriptors) {
           context.report(descriptor);

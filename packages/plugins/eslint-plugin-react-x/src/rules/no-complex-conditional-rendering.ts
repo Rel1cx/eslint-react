@@ -1,5 +1,6 @@
-import { is, isOneOf, NodeType } from "@eslint-react/ast";
+import { is, isOneOf } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -26,8 +27,8 @@ export default createRule<[], MessageID>({
   create(context) {
     function check(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
       const jsxExpContainer = node.parent?.parent;
-      if (!is(NodeType.JSXExpressionContainer)(jsxExpContainer)) return O.none();
-      if (!isOneOf([NodeType.JSXElement, NodeType.JSXFragment])(jsxExpContainer.parent)) return O.none();
+      if (!is(AST_NODE_TYPES.JSXExpressionContainer)(jsxExpContainer)) return O.none();
+      if (!isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(jsxExpContainer.parent)) return O.none();
       if (!jsxExpContainer.parent.children.includes(jsxExpContainer)) return O.none();
       return O.some({ messageId: "noComplexConditionalRendering", node: jsxExpContainer } as const);
     }

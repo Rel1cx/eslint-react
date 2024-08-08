@@ -1,7 +1,7 @@
-import { NodeType } from "@eslint-react/ast";
 import { isCreateElementCall } from "@eslint-react/core";
 import { findPropInProperties, getProp } from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
         const initialScope = context.sourceCode.getScope(node);
         if (!isCreateElementCall(node, context)) return;
         const [_, props] = node.arguments;
-        if (!props || props.type !== NodeType.ObjectExpression) return;
+        if (!props || props.type !== AST_NODE_TYPES.ObjectExpression) return;
         O.map(findPropInProperties(props.properties, context, initialScope)("children"), prop => {
           context.report({
             messageId: "noChildrenProp",

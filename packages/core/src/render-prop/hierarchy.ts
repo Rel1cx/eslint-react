@@ -1,6 +1,7 @@
-import { is, NodeType, traverseUpGuard } from "@eslint-react/ast";
+import { is, traverseUpGuard } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { isMatching, P } from "ts-pattern";
 
 /**
@@ -18,10 +19,10 @@ import { isMatching, P } from "ts-pattern";
 export function isDirectValueOfRenderPropertyLoose(node: TSESTree.Node) {
   const matching = isMatching({
     key: {
-      type: NodeType.Identifier,
+      type: AST_NODE_TYPES.Identifier,
       name: P.string.startsWith("render"),
     },
-    type: NodeType.Property,
+    type: AST_NODE_TYPES.Property,
   });
 
   return matching(node) || matching(node.parent);
@@ -44,12 +45,12 @@ export function isDeclaredInRenderPropLoose(node: TSESTree.Node) {
   }
 
   return F.pipe(
-    traverseUpGuard(node, is(NodeType.JSXExpressionContainer)),
+    traverseUpGuard(node, is(AST_NODE_TYPES.JSXExpressionContainer)),
     O.flatMapNullable(c => c.parent),
-    O.filter(is(NodeType.JSXAttribute)),
+    O.filter(is(AST_NODE_TYPES.JSXAttribute)),
     O.flatMapNullable(a => a.name),
     O.exists(isMatching({
-      type: NodeType.JSXIdentifier,
+      type: AST_NODE_TYPES.JSXIdentifier,
       name: P.string.startsWith("render"),
     })),
   );

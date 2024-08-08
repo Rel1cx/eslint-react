@@ -28,7 +28,7 @@ type NegativeDescriptive =
   | "unused"
   | "useless";
 
-type PositiveDescriptive = "explicit" | "optimal" | "optimized" | "standard" | "strict";
+type PositiveDescriptive = "explicit" | "optimal" | "optimized" | "standard" | "strict" | "symmetric";
 
 type NeutralDescriptive =
   | "access"

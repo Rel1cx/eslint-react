@@ -1,7 +1,7 @@
-import { NodeType } from "@eslint-react/ast";
 import { getPropValue } from "@eslint-react/jsx";
 import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/shared";
 import { F, isString, O } from "@eslint-react/tools";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXAttribute(node) {
-        if (node.name.type !== NodeType.JSXIdentifier || !node.value) return;
+        if (node.name.type !== AST_NODE_TYPES.JSXIdentifier || !node.value) return;
         const isJavaScript = F.pipe(
           getPropValue(node, context),
           O.flatMapNullable(v => v?.value),

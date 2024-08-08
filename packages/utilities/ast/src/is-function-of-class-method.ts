@@ -1,7 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { isMatching, P } from "ts-pattern";
-
-import { NodeType } from "./types";
 
 /**
  * Checks if the given node is a function expression or arrow function expression of a class method.
@@ -9,11 +8,11 @@ import { NodeType } from "./types";
  * @returns `true` if the node is a function expression or arrow function expression of a class method, `false` otherwise.
  */
 export const isFunctionOfClassMethod: (node: TSESTree.Node) => boolean = isMatching({
-  type: P.union([NodeType.FunctionExpression, NodeType.ArrowFunctionExpression]),
+  type: P.union([AST_NODE_TYPES.FunctionExpression, AST_NODE_TYPES.ArrowFunctionExpression]),
   parent: {
-    type: NodeType.MethodDefinition,
+    type: AST_NODE_TYPES.MethodDefinition,
     parent: {
-      type: NodeType.ClassBody,
+      type: AST_NODE_TYPES.ClassBody,
     },
   },
 });

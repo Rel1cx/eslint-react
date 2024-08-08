@@ -1,13 +1,14 @@
-import { isMultiLine, isOneOf, NodeType } from "@eslint-react/ast";
+import { isMultiLine, isOneOf } from "@eslint-react/ast";
 import { isString } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 /**
  * Check if a node is a Literal or JSXText
  * @param node The AST node to check
  * @returns boolean `true` if the node is a Literal or JSXText
  */
-export const isLiteral = isOneOf([NodeType.Literal, NodeType.JSXText]);
+export const isLiteral = isOneOf([AST_NODE_TYPES.Literal, AST_NODE_TYPES.JSXText]);
 
 /**
  * Check if a Literal or JSXText node is whitespace

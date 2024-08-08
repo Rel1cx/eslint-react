@@ -1,11 +1,11 @@
-import { NodeType } from "@eslint-react/ast";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 function resolveJSXMemberExpressions(object: TSESTree.JSXTagNameExpression, property: TSESTree.JSXIdentifier): string {
-  if (object.type === NodeType.JSXMemberExpression) {
+  if (object.type === AST_NODE_TYPES.JSXMemberExpression) {
     return `${resolveJSXMemberExpressions(object.object, object.property)}.${property.name}`;
   }
-  if (object.type === NodeType.JSXNamespacedName) {
+  if (object.type === AST_NODE_TYPES.JSXNamespacedName) {
     return `${object.namespace.name}:${object.name.name}.${property.name}`;
   }
   return `${object.name}.${property.name}`;
@@ -21,15 +21,15 @@ export function getElementName(
     | TSESTree.JSXOpeningElement
     | TSESTree.JSXOpeningFragment,
 ) {
-  if (node.type === NodeType.JSXOpeningFragment) {
+  if (node.type === AST_NODE_TYPES.JSXOpeningFragment) {
     return "<>";
   }
   const { name } = node;
-  if (name.type === NodeType.JSXMemberExpression) {
+  if (name.type === AST_NODE_TYPES.JSXMemberExpression) {
     const { object, property } = name;
     return resolveJSXMemberExpressions(object, property);
   }
-  if (name.type === NodeType.JSXNamespacedName) {
+  if (name.type === AST_NODE_TYPES.JSXNamespacedName) {
     return `${name.namespace.name}:${name.name.name}`;
   }
   return name.name;

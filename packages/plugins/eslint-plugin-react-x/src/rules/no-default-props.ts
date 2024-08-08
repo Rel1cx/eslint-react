@@ -1,7 +1,8 @@
-import { isFunction, NodeType } from "@eslint-react/ast";
+import { isFunction } from "@eslint-react/ast";
 import { isClassComponent, isComponentName } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import { findVariable, getVariableNode } from "@eslint-react/var";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
@@ -26,10 +27,10 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       AssignmentExpression(node) {
-        if (node.operator !== "=" || node.left.type !== NodeType.MemberExpression) return;
+        if (node.operator !== "=" || node.left.type !== AST_NODE_TYPES.MemberExpression) return;
         const { object, property } = node.left;
-        if (object.type !== NodeType.Identifier) return;
-        if (property.type !== NodeType.Identifier || property.name !== "defaultProps") return;
+        if (object.type !== AST_NODE_TYPES.Identifier) return;
+        if (property.type !== AST_NODE_TYPES.Identifier || property.name !== "defaultProps") return;
         if (!isComponentName(object.name)) return;
         const isComponent = F.pipe(
           findVariable(object.name, context.sourceCode.getScope(node)),
@@ -41,7 +42,7 @@ export default createRule<[], MessageID>({
       },
       PropertyDefinition(node) {
         if (!isClassComponent(node.parent.parent)) return;
-        if (!node.static || node.key.type !== NodeType.Identifier || node.key.name !== "defaultProps") return;
+        if (!node.static || node.key.type !== AST_NODE_TYPES.Identifier || node.key.name !== "defaultProps") return;
         context.report({ messageId: "noDefaultProps", node });
       },
     };

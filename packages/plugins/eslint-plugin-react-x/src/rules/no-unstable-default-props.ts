@@ -1,8 +1,9 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { ConstructionHint, inspectConstruction, NodeType, readableNodeType } from "@eslint-react/ast";
+import { ConstructionHint, inspectConstruction, readableNodeType } from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -47,8 +48,8 @@ export default createRule<[], MessageID>({
           const [props] = params;
           if (!props) continue;
           const properties = match(props)
-            .with({ type: NodeType.ObjectPattern }, ({ properties }) => properties)
-            .with({ type: NodeType.Identifier }, ({ name }) => {
+            .with({ type: AST_NODE_TYPES.ObjectPattern }, ({ properties }) => properties)
+            .with({ type: AST_NODE_TYPES.Identifier }, ({ name }) => {
               const variableDeclarators = possibleDestructuringDeclarators.get(component);
               if (!variableDeclarators) return [];
               const declarators = variableDeclarators.filter(d => d.init.name === name);
@@ -57,7 +58,7 @@ export default createRule<[], MessageID>({
             })
             .otherwise(() => []);
           for (const prop of properties) {
-            if (prop.type !== NodeType.Property || prop.value.type !== NodeType.AssignmentPattern) continue;
+            if (prop.type !== AST_NODE_TYPES.Property || prop.value.type !== AST_NODE_TYPES.AssignmentPattern) continue;
             const { value } = prop;
             const { right } = value;
             const construction = inspectConstruction(value, context, ConstructionHint.StrictCallExpression);
