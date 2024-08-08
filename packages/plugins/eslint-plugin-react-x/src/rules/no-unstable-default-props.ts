@@ -1,7 +1,8 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { ConstructionHint, inspectConstruction, readableNodeType } from "@eslint-react/ast";
+import { readableNodeType } from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
+import { ConstructionHint, inspectConstruction } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
