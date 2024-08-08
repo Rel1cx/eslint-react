@@ -1,8 +1,9 @@
-## v1.9.1 (Draft)
+## v1.9.1 (Thu 08 Aug 2024)
 
 ### 🐞 Fixes
 
 - Fixed `dom/no-missing-iframe-sandbox` false positive when the `sandbox` attribute is set to `sandbox=""`.
+- Fixed `all` and `all-legacy` presets not including `hooks-extra` rules.
 
 ## v1.9.0 (Tue 06 Aug 2024)
 
