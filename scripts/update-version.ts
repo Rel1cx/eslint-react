@@ -33,7 +33,7 @@ const mkTask = (path: string) =>
 
 const program = Effect.gen(function*() {
   const paths = yield* glob(GLOB_PACKAGE_JSON);
-  yield* Effect.all(paths.map(mkTask));
+  yield* Effect.all(paths.map(mkTask), { concurrency: 8 });
 });
 
 const runnable = program.pipe(
