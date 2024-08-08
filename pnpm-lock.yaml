@@ -135,8 +135,8 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1
       knip:
-        specifier: ^5.27.1
-        version: 5.27.1(@types/node@22.1.0)(typescript@5.6.0-dev.20240807)
+        specifier: ^5.27.2
+        version: 5.27.2(@types/node@22.1.0)(typescript@5.6.0-dev.20240807)
       lefthook:
         specifier: ^1.7.11
         version: 1.7.11
@@ -2988,6 +2988,7 @@ packages:
 
   bun@1.1.21:
     resolution: {integrity: sha512-mvqYEvafGskIVTjlftbKvsXtyR6z/SQnhJsVw0xCU46pc56oX1sAGvaemWKOy/sy/gGMHcgLE0KUidDQQzqXWQ==}
+    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -4073,6 +4074,7 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -4249,6 +4251,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -4510,8 +4513,8 @@ packages:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
 
-  knip@5.27.1:
-    resolution: {integrity: sha512-Cz1Mebby5oJNd11bEErhbu3Vnw678nrxTtwJEJjNFJ5f4OuCXGS1Uwc3Ml8B0Uh9JcolT4+5KPlw+sOsB/NBAg==}
+  knip@5.27.2:
+    resolution: {integrity: sha512-Mya1XEDq1oygibQf0uocQd02Fil8RtvNVhcFAcxypjcc6zakT7wsJtS0xvuwEitilfI0tiFC9PghmJQ3DMKuTg==}
     engines: {node: '>=18.6.0'}
     hasBin: true
     peerDependencies:
@@ -10298,7 +10301,7 @@ snapshots:
 
   kleur@4.1.5: {}
 
-  knip@5.27.1(@types/node@22.1.0)(typescript@5.6.0-dev.20240807):
+  knip@5.27.2(@types/node@22.1.0)(typescript@5.6.0-dev.20240807):
     dependencies:
       '@nodelib/fs.walk': 1.2.8
       '@snyk/github-codeowners': 1.1.0
