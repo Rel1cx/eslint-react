@@ -1,6 +1,6 @@
 import { is, isOneOf, NodeType } from "@eslint-react/ast";
 import { unsafeCastSettings } from "@eslint-react/shared";
-import { O, isString } from "@eslint-react/tools";
+import { isString, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { findVariable } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
