@@ -73,7 +73,7 @@
     "effect": "^3.6.2",
     "effect-log": "^0.31.8",
     "esbuild": "^0.23.0",
-    "eslint": "^9.8.0",
+    "eslint": "^9.9.0",
     "eslint-config-flat-gitignore": "^0.1.8",
     "eslint-import-resolver-oxc": "^0.2.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
