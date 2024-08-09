@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
         if (!isCreateElementCall(node, context)) return;
         const [_, props] = node.arguments;
         if (!props || props.type !== AST_NODE_TYPES.ObjectExpression) return;
-        O.map(findPropInProperties(props.properties, context, initialScope)("children"), prop => {
+        O.map(findPropInProperties(props.properties, initialScope)("children"), prop => {
           context.report({
             messageId: "noChildrenProp",
             node: prop,
@@ -40,7 +40,7 @@ export default createRule<[], MessageID>({
       },
       JSXElement(node) {
         const initialScope = context.sourceCode.getScope(node);
-        O.map(getProp(node.openingElement.attributes, "children", context, initialScope), prop => {
+        O.map(getProp(node.openingElement.attributes, "children", initialScope), prop => {
           context.report({
             messageId: "noChildrenProp",
             node: prop,

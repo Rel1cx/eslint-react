@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const initialScope = context.sourceCode.getScope(node);
-        const maybeDanger = findPropInAttributes(node.openingElement.attributes, context, initialScope)(
+        const maybeDanger = findPropInAttributes(node.openingElement.attributes, initialScope)(
           "dangerouslySetInnerHTML",
         );
         if (O.isSome(maybeDanger)) {

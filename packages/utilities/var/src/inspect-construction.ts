@@ -1,6 +1,6 @@
 import { is, isOneOf } from "@eslint-react/ast";
 import { isNullable, isObject, isString, O } from "@eslint-react/tools";
-import type { RuleContext } from "@eslint-react/types";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -12,13 +12,13 @@ import { ConstructionHint } from "./construction-hint";
 /**
  * Get a function that detects the construction of a given node.
  * @param node The AST node to detect the construction of
- * @param context The ESLint rule context
+ * @param initialScope The initial scope to use when detecting the construction
  * @param hint The hint to use when detecting the construction
  * @returns A function that detects the construction of a given node
  */
 export function inspectConstruction(
   node: TSESTree.Node,
-  context: RuleContext,
+  initialScope: Scope,
   hint = ConstructionHint.None,
 ): Construction {
   /**
@@ -97,8 +97,7 @@ export function inspectConstruction(
       })
       .when(is(AST_NODE_TYPES.Identifier), (node) => {
         if (!("name" in node && isString(node.name))) return Construction.None();
-        const scope = context.sourceCode.getScope(node);
-        const maybeLatestDef = O.fromNullable(scope.set.get(node.name)?.defs.at(-1));
+        const maybeLatestDef = O.fromNullable(initialScope.set.get(node.name)?.defs.at(-1));
         if (O.isNone(maybeLatestDef)) return Construction.None();
         const latestDef = maybeLatestDef.value;
         if (

@@ -27,7 +27,7 @@ export default createRule<[], MessageID>({
     return {
       JSXOpeningElement(node) {
         const initialScope = context.sourceCode.getScope(node);
-        const keyPropFound = findPropInAttributes(node.attributes, context, initialScope)("key");
+        const keyPropFound = findPropInAttributes(node.attributes, initialScope)("key");
         const keyPropOnElement = node.attributes.some(n => is(AST_NODE_TYPES.JSXAttribute)(n) && n.name.name === "key");
         if (O.isSome(keyPropFound) && !keyPropOnElement) {
           context.report({ messageId: "noImplicitKey", node });

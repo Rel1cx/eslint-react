@@ -53,7 +53,8 @@ export default createRule<[], MessageID>({
         const valueNode = maybeJSXValueAttribute.value.value;
         if (valueNode?.type !== AST_NODE_TYPES.JSXExpressionContainer) return;
         const valueExpression = valueNode.expression;
-        const construction = inspectConstruction(valueExpression, context);
+        const initialScope = context.sourceCode.getScope(valueExpression);
+        const construction = inspectConstruction(valueExpression, initialScope);
         if (construction._tag === "None") return;
         O.map(
           ctx.getCurrentFunction(),

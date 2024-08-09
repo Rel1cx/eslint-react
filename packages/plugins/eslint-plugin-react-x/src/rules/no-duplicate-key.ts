@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
       const initialScope = context.sourceCode.getScope(node);
 
       return F.pipe(
-        findPropInAttributes(node.openingElement.attributes, context, initialScope)("key"),
+        findPropInAttributes(node.openingElement.attributes, initialScope)("key"),
         O.flatMap((k) => "value" in k ? O.fromNullable(k.value) : O.none()),
         O.flatMap((v) => {
           return isNodeEqual(v, v)

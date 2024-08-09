@@ -6,15 +6,15 @@
 
 # Function: isInitializedFromReact()
 
-> **isInitializedFromReact**(`variableName`, `context`, `initialScope`): `boolean`
+> **isInitializedFromReact**(`variableName`, `initialScope`, `settings`): `boolean`
 
 ## Parameters
 
 • **variableName**: `string`
 
-• **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
-
 • **initialScope**: `Scope`
+
+• **settings**: `Partial`\<`Pick`\<`object`, `"importSource"` \| `"skipImportCheck"`\>\>
 
 ## Returns
 

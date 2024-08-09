@@ -1,5 +1,6 @@
 import { isOneOf } from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
+import { unsafeCastSettings } from "@eslint-react/shared";
 import { isNullable, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -36,6 +37,7 @@ const iteratorFunctionIndexParamPosition = new Map<string, number>([
 ]);
 
 function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContext) {
+  const settings = unsafeCastSettings(context.settings);
   const { callee } = node;
   if (!("property" in callee) || !("object" in callee) || !("name" in callee.property)) {
     return false;
@@ -44,7 +46,7 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
   const initialScope = context.sourceCode.getScope(node);
   if (callee.object.type === AST_NODE_TYPES.Identifier && callee.object.name === "Children") return true;
   if (callee.object.type === AST_NODE_TYPES.MemberExpression && "name" in callee.object.object) {
-    return isInitializedFromReact(callee.object.object.name, context, initialScope);
+    return isInitializedFromReact(callee.object.object.name, initialScope, settings);
   }
   return false;
 }

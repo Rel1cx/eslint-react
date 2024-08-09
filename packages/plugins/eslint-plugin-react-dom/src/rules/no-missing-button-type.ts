@@ -1,7 +1,7 @@
 import { findPropInAttributes, getElementType } from "@eslint-react/jsx";
 import { decodeSettings, expandSettings } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
-import type { ESLintUtils } from "@typescript-eslint/utils";
+import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -27,11 +27,12 @@ export default createRule<[], MessageID>({
     const { components, polymorphicPropName } = expandSettings(decodeSettings(context.settings));
     return {
       JSXElement(node) {
-        const elementType = getElementType(context, components, polymorphicPropName)(node.openingElement);
+        const ctx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) };
+        const elementType = getElementType(ctx, components, polymorphicPropName)(node.openingElement);
         if (elementType !== "button") return;
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
-        const maybeTypeAttribute = findPropInAttributes(attributes, context, initialScope)("type");
+        const maybeTypeAttribute = findPropInAttributes(attributes, initialScope)("type");
         if (O.isSome(maybeTypeAttribute)) return;
         context.report({
           messageId: "noMissingButtonType",

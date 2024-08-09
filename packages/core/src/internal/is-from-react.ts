@@ -1,4 +1,5 @@
 import { is, isOneOf } from "@eslint-react/ast";
+import type { ESLintReactSettings } from "@eslint-react/shared";
 import { unsafeCastSettings } from "@eslint-react/shared";
 import { isString, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
@@ -10,10 +11,9 @@ import { isMatching, match } from "ts-pattern";
 
 export function isInitializedFromReact(
   variableName: string,
-  context: RuleContext,
   initialScope: Scope,
+  settings: Partial<Pick<ESLintReactSettings, "importSource" | "skipImportCheck">>,
 ): boolean {
-  const settings = unsafeCastSettings(context.settings);
   if (settings.skipImportCheck) return true;
   // Optimistic assertion when identifier is named react
   if (variableName.toLowerCase() === "react") return true;
@@ -27,11 +27,11 @@ export function isInitializedFromReact(
     const { init } = node;
     // check for: `variable = React.variable`
     if (init.type === AST_NODE_TYPES.MemberExpression && init.object.type === AST_NODE_TYPES.Identifier) {
-      return isInitializedFromReact(init.object.name, context, initialScope);
+      return isInitializedFromReact(init.object.name, initialScope, settings);
     }
     // check for: `{ variable } = React`
     if (init.type === AST_NODE_TYPES.Identifier) {
-      return isInitializedFromReact(init.name, context, initialScope);
+      return isInitializedFromReact(init.name, initialScope, settings);
     }
     const maybeRequireExpression = match(init)
       .with({
@@ -69,14 +69,15 @@ export function isFromReact(name: string) {
     node: TSESTree.Identifier | TSESTree.MemberExpression,
     context: RuleContext,
   ) => {
+    const settings = unsafeCastSettings(context.settings);
     const initialScope = context.sourceCode.getScope(node);
     if (node.type === AST_NODE_TYPES.MemberExpression) {
       return node.object.type === AST_NODE_TYPES.Identifier
         && node.property.type === AST_NODE_TYPES.Identifier
         && node.property.name === name
-        && isInitializedFromReact(node.object.name, context, initialScope);
+        && isInitializedFromReact(node.object.name, initialScope, settings);
     }
-    if (node.name === name) return isInitializedFromReact(name, context, initialScope);
+    if (node.name === name) return isInitializedFromReact(name, initialScope, settings);
     return false;
   };
 }
@@ -95,15 +96,16 @@ export function isFromReactMember(
     node: TSESTree.MemberExpression,
     context: RuleContext,
   ) => {
+    const settings = unsafeCastSettings(context.settings);
     const initialScope = context.sourceCode.getScope(node);
     if (node.property.type !== AST_NODE_TYPES.Identifier || node.property.name !== name) return false;
     if (node.object.type === AST_NODE_TYPES.Identifier && node.object.name === memberName) {
-      return isInitializedFromReact(node.object.name, context, initialScope);
+      return isInitializedFromReact(node.object.name, initialScope, settings);
     }
     if (
       node.object.type === AST_NODE_TYPES.MemberExpression
       && node.object.object.type === AST_NODE_TYPES.Identifier
-      && isInitializedFromReact(node.object.object.name, context, initialScope)
+      && isInitializedFromReact(node.object.object.name, initialScope, settings)
       && node.object.property.type === AST_NODE_TYPES.Identifier
     ) {
       return node.object.property.name === memberName;

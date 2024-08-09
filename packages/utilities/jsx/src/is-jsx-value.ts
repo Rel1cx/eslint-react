@@ -1,7 +1,7 @@
 import { isJSXTagNameExpression } from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
-import type { RuleContext } from "@eslint-react/types";
 import { findVariable, getVariableNode } from "@eslint-react/var";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { match, P } from "ts-pattern";
@@ -42,13 +42,14 @@ export const DEFAULT_JSX_VALUE_HINT = 0n
 /**
  * Check if a node is a JSX value
  * @param node The AST node to check
- * @param context The rule context
+ * @param ctx The requirements for the check
+ * @param ctx.getScope The function to get the scope of a node
  * @param hint The `JSXValueHint` to use
  * @returns boolean
  */
 export function isJSXValue(
   node: TSESTree.Node | null | undefined,
-  context: RuleContext,
+  ctx: { getScope: (node: TSESTree.Node) => Scope },
   hint: bigint = DEFAULT_JSX_VALUE_HINT,
 ): boolean {
   if (!node) return false;
@@ -67,22 +68,22 @@ export function isJSXValue(
     })
     .with({ type: AST_NODE_TYPES.TemplateLiteral }, () => !(hint & JSXValueHint.SkipStringLiteral))
     .with({ type: AST_NODE_TYPES.ArrayExpression }, (node) => {
-      if (hint & JSXValueHint.StrictArray) return node.elements.every((n) => isJSXValue(n, context, hint));
-      return node.elements.some((n) => isJSXValue(n, context, hint));
+      if (hint & JSXValueHint.StrictArray) return node.elements.every((n) => isJSXValue(n, ctx, hint));
+      return node.elements.some((n) => isJSXValue(n, ctx, hint));
     })
     .with({ type: AST_NODE_TYPES.ConditionalExpression }, (node) => {
       function leftHasJSX(node: TSESTree.ConditionalExpression) {
         if (Array.isArray(node.consequent)) {
           if (node.consequent.length === 0) return !(hint & JSXValueHint.SkipEmptyArray);
           if (hint & JSXValueHint.StrictArray) {
-            return node.consequent.every((n: TSESTree.Expression) => isJSXValue(n, context, hint));
+            return node.consequent.every((n: TSESTree.Expression) => isJSXValue(n, ctx, hint));
           }
-          return node.consequent.some((n: TSESTree.Expression) => isJSXValue(n, context, hint));
+          return node.consequent.some((n: TSESTree.Expression) => isJSXValue(n, ctx, hint));
         }
-        return isJSXValue(node.consequent, context, hint);
+        return isJSXValue(node.consequent, ctx, hint);
       }
       function rightHasJSX(node: TSESTree.ConditionalExpression) {
-        return isJSXValue(node.alternate, context, hint);
+        return isJSXValue(node.alternate, ctx, hint);
       }
       if (hint & JSXValueHint.StrictConditional) {
         return leftHasJSX(node) && rightHasJSX(node);
@@ -91,13 +92,13 @@ export function isJSXValue(
     })
     .with({ type: AST_NODE_TYPES.LogicalExpression }, (node) => {
       if (hint & JSXValueHint.StrictLogical) {
-        return isJSXValue(node.left, context, hint) && isJSXValue(node.right, context, hint);
+        return isJSXValue(node.left, ctx, hint) && isJSXValue(node.right, ctx, hint);
       }
-      return isJSXValue(node.left, context, hint) || isJSXValue(node.right, context, hint);
+      return isJSXValue(node.left, ctx, hint) || isJSXValue(node.right, ctx, hint);
     })
     .with({ type: AST_NODE_TYPES.SequenceExpression }, (node) => {
       const exp = node.expressions.at(-1);
-      return isJSXValue(exp, context, hint);
+      return isJSXValue(exp, ctx, hint);
     })
     .with({ type: AST_NODE_TYPES.CallExpression }, (node) => {
       if (hint & JSXValueHint.SkipCreateElement) return false;
@@ -110,11 +111,11 @@ export function isJSXValue(
       const { name } = node;
       if (name === "undefined") return !(hint & JSXValueHint.SkipUndefinedLiteral);
       if (isJSXTagNameExpression(node)) return true;
-      const initialScope = context.sourceCode.getScope(node);
+      const initialScope = ctx.getScope(node);
       return F.pipe(
         findVariable(name, initialScope),
         O.flatMap(getVariableNode(0)),
-        O.exists(n => isJSXValue(n, context, hint)),
+        O.exists(n => isJSXValue(n, ctx, hint)),
       );
     })
     .otherwise(F.constFalse);

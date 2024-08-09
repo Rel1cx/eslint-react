@@ -1,6 +1,5 @@
 import { is } from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
-import type { RuleContext } from "@eslint-react/types";
 import { findVariable, getVariableNode } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -24,23 +23,21 @@ export function getPropName(node: TSESTree.JSXAttribute) {
 export function getProp(
   props: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
   propName: string,
-  context: RuleContext,
   initialScope: Scope,
 ): O.Option<TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute> {
-  return findPropInAttributes(props, context, initialScope)(propName);
+  return findPropInAttributes(props, initialScope)(propName);
 }
 
 /**
  * Gets and resolves the static value of a JSX attribute
  * @param attribute The JSX attribute to get the value of
- * @param context The rule context
+ * @param initialScope The initial scope to start from
  * @returns  The static value of the given JSX attribute
  */
 export function getPropValue(
   attribute: TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute,
-  context: RuleContext,
+  initialScope: Scope,
 ) {
-  const initialScope = context.sourceCode.getScope(attribute);
   if (attribute.type === AST_NODE_TYPES.JSXAttribute && "value" in attribute) {
     const { value } = attribute;
     if (value === null) return O.none();
@@ -58,14 +55,12 @@ export function getPropValue(
 
 /**
  * @param properties The properties to search in
- * @param context The rule context
  * @param initialScope The initial scope to start from
  * @param seenProps The properties that have already been seen
  * @returns A function that searches for a property in the given properties
  */
 export function findPropInProperties(
   properties: (TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement)[],
-  context: RuleContext,
   initialScope: Scope,
   seenProps: string[] = [],
 ) {
@@ -93,12 +88,12 @@ export function findPropInProperties(
                 if (!is(AST_NODE_TYPES.ObjectExpression)(init)) return false;
                 if (seenProps.includes(name)) return false;
                 return O.isSome(
-                  findPropInProperties(init.properties, context, initialScope, [...seenProps, name])(propName),
+                  findPropInProperties(init.properties, initialScope, [...seenProps, name])(propName),
                 );
               }
               case prop.argument.type === AST_NODE_TYPES.ObjectExpression: {
                 return O.isSome(
-                  findPropInProperties(prop.argument.properties, context, initialScope, seenProps)(propName),
+                  findPropInProperties(prop.argument.properties, initialScope, seenProps)(propName),
                 );
               }
               default: {
@@ -117,13 +112,11 @@ export function findPropInProperties(
 
 /**
  * @param attributes The attributes to search in
- * @param context The rule context
  * @param initialScope The initial scope to start from
  * @returns A function that searches for a property in the given attributes
  */
 export function findPropInAttributes(
   attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
-  context: RuleContext,
   initialScope: Scope,
 ) {
   /**
@@ -148,10 +141,10 @@ export function findPropInAttributes(
                 if (O.isNone(maybeInit)) return false;
                 const init = maybeInit.value;
                 if (!is(AST_NODE_TYPES.ObjectExpression)(init)) return false;
-                return O.isSome(findPropInProperties(init.properties, context, initialScope)(propName));
+                return O.isSome(findPropInProperties(init.properties, initialScope)(propName));
               }
               case AST_NODE_TYPES.ObjectExpression:
-                return O.isSome(findPropInProperties(attr.argument.properties, context, initialScope)(propName));
+                return O.isSome(findPropInProperties(attr.argument.properties, initialScope)(propName));
               case AST_NODE_TYPES.MemberExpression:
                 // Not implemented
                 return false;

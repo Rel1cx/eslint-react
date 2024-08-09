@@ -36,7 +36,7 @@ export default createRule<[], MessageID>({
 
       if (
         node.type === AST_NODE_TYPES.JSXElement
-        && !hasProp(node.openingElement.attributes, "key", context, initialScope)
+        && !hasProp(node.openingElement.attributes, "key", initialScope)
       ) {
         return O.some({
           messageId: "noMissingKey",
@@ -87,7 +87,7 @@ export default createRule<[], MessageID>({
         if (elements.length === 0) return;
         const initialScope = context.sourceCode.getScope(node);
         for (const element of elements) {
-          if (!hasProp(element.openingElement.attributes, "key", context, initialScope)) {
+          if (!hasProp(element.openingElement.attributes, "key", initialScope)) {
             context.report({
               messageId: "noMissingKey",
               node: element,

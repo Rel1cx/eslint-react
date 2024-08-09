@@ -77,6 +77,7 @@ export function useComponentCollector(
   context: RuleContext,
   hint: bigint = DEFAULT_COMPONENT_HINT,
 ) {
+  const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) };
   const components = new Map<string, ERFunctionComponent>();
   const functionStack: [
     key: string,
@@ -95,7 +96,7 @@ export function useComponentCollector(
       .some(r => {
         return context.sourceCode.getScope(r).block === fn
           && r.argument !== null
-          && !isJSXValue(r.argument, context, hint);
+          && !isJSXValue(r.argument, jsxCtx, hint);
       });
     if (shouldDrop) components.delete(key);
     return functionStack.pop();
@@ -123,7 +124,7 @@ export function useComponentCollector(
       const [_key, currentFn, _isComponent, hookCalls] = maybeCurrentFn.value;
       const { body } = currentFn;
       const isComponent = hasNoneOrValidComponentName(currentFn, context)
-        && isJSXValue(body, context, hint)
+        && isJSXValue(body, jsxCtx, hint)
         && hasValidHierarchy(currentFn, context, hint);
       if (!isComponent) return;
       const initPath = getComponentInitPath(currentFn);
@@ -176,7 +177,7 @@ export function useComponentCollector(
       const [key, currentFn, isKnown, hookCalls] = maybeCurrentFn.value;
       if (isKnown) return;
       const isComponent = hasNoneOrValidComponentName(currentFn, context)
-        && isJSXValue(node.argument, context, hint)
+        && isJSXValue(node.argument, jsxCtx, hint)
         && hasValidHierarchy(currentFn, context, hint);
       if (!isComponent) return;
       functionStack.pop();

@@ -37,7 +37,7 @@
     "lint:examples": "pnpm -r -F \"./examples/*\" run --parallel lint",
     "lint:publish": "pnpm -r run --parallel lint:publish",
     "lint:spell": "cspell lint --relative --no-progress \"**\"",
-    "lint:ts": "eslint --cache .",
+    "lint:ts": "eslint .",
     "lint:type": "pnpm -r run --parallel lint:type",
     "lint:website": "pnpm -F \"./website\" run lint",
     "prepare": "lefthook install && pnpm run build",

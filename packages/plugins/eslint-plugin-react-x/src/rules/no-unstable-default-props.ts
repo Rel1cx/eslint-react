@@ -62,7 +62,8 @@ export default createRule<[], MessageID>({
             if (prop.type !== AST_NODE_TYPES.Property || prop.value.type !== AST_NODE_TYPES.AssignmentPattern) continue;
             const { value } = prop;
             const { right } = value;
-            const construction = inspectConstruction(value, context, ConstructionHint.StrictCallExpression);
+            const initialScope = context.sourceCode.getScope(value);
+            const construction = inspectConstruction(value, initialScope, ConstructionHint.StrictCallExpression);
             if (construction._tag === "None") continue;
             const forbiddenType = readableNodeType(right);
             context.report({
