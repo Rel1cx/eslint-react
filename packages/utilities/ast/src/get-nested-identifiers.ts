@@ -13,7 +13,7 @@ import { traverseUpGuard } from "./traverse-up-guard";
  */
 export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Identifier[] {
   const identifiers: TSESTree.Identifier[] = [];
-  const functionNode = O.getOrNull(traverseUpGuard(node, isFunction));
+  const functionNode = isFunction(node) ? node : O.getOrNull(traverseUpGuard(node, isFunction));
   simpleTraverse(node, {
     enter(node) {
       if (node.type !== AST_NODE_TYPES.Identifier) return;

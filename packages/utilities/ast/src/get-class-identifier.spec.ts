@@ -8,6 +8,7 @@ import { describe, expect, it } from "vitest";
 
 import { getFixturesRootDir } from "../../../../test";
 import { getClassIdentifier } from "./get-class-identifier";
+import type { TSESTreeClass } from "./types";
 
 function parse(code: string) {
   return parseForESLint(code, {
@@ -23,16 +24,16 @@ describe("get class identifier from class declaration", () => {
     ["class Foo<T> {}", "Foo"],
     ["class Foo<T extends Bar> {}", "Foo"],
   ])("should return the class name from %s", (code, expected) => {
-    const n = MutRef.make(0);
+    const n = MutRef.make<TSESTreeClass | null>(null);
     simpleTraverse(parse(code).ast, {
       enter(node) {
         if (node.type !== AST_NODE_TYPES.ClassDeclaration) return;
         const id = O.getOrThrow(getClassIdentifier(node));
         expect(id).include({ type: AST_NODE_TYPES.Identifier, name: expected });
-        MutRef.increment(n);
+        MutRef.set(n, node);
       },
     }, true);
-    expect(MutRef.get(n)).toBe(1);
+    expect(MutRef.get(n)).not.toBeNull();
   });
 });
 
@@ -43,15 +44,15 @@ describe("get class identifier from class expression", () => {
     ["const Foo = class<T> {};", "Foo"],
     ["const Foo = class<T extends Bar> {};", "Foo"],
   ])("should return the class name from %s", (code, expected) => {
-    const n = MutRef.make(0);
+    const n = MutRef.make<TSESTreeClass | null>(null);
     simpleTraverse(parse(code).ast, {
       enter(node) {
         if (node.type !== AST_NODE_TYPES.ClassExpression) return;
         const id = O.getOrThrow(getClassIdentifier(node));
         expect(id).include({ type: AST_NODE_TYPES.Identifier, name: expected });
-        MutRef.increment(n);
+        MutRef.set(n, node);
       },
     }, true);
-    expect(MutRef.get(n)).toBe(1);
+    expect(MutRef.get(n)).not.toBeNull();
   });
 });

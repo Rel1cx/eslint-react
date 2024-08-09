@@ -13,7 +13,7 @@ import { traverseUpGuard } from "./traverse-up-guard";
  */
 export function getNestedCallExpressions(node: TSESTree.Node): readonly TSESTree.CallExpression[] {
   const callExpressions: TSESTree.CallExpression[] = [];
-  const functionNode = O.getOrNull(traverseUpGuard(node, isFunction));
+  const functionNode = isFunction(node) ? node : O.getOrNull(traverseUpGuard(node, isFunction));
   simpleTraverse(node, {
     enter(node) {
       if (node.type !== AST_NODE_TYPES.CallExpression) return;
