@@ -72,6 +72,14 @@ const p11tGroups = {
   groups: ["id", "type", "meta", "alias", "unknown"],
 } as const;
 
+const disableSafeTypescript = {
+  "@susisu/safe-typescript/no-object-assign": "off",
+  "@susisu/safe-typescript/no-type-assertion": "off",
+  "@susisu/safe-typescript/no-unsafe-object-enum-method": "off",
+  "@susisu/safe-typescript/no-unsafe-object-property-check": "off",
+  "@susisu/safe-typescript/no-unsafe-object-property-overwrite": "off",
+};
+
 const config: Config[] = [
   gitignore(),
   {
@@ -79,7 +87,7 @@ const config: Config[] = [
       "docs",
       "examples",
       "website",
-      "eslint.config.js",
+      "eslint.config.*",
       "eslint.config.d.ts",
       "test",
     ],
@@ -108,9 +116,9 @@ const config: Config[] = [
   perfectionist.configs["recommended-natural"],
   jsdocPlugin.configs["flat/recommended-typescript-error"],
   eslintPluginPlugin.configs["flat/all-type-checked"],
-  // base config
+  // base ts language options
   {
-    files: [...GLOB_JS, ...GLOB_TS],
+    files: GLOB_TS,
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -121,6 +129,10 @@ const config: Config[] = [
         warnOnUnsupportedTypeScriptVersion: false,
       },
     },
+  },
+  // base config
+  {
+    files: [...GLOB_JS, ...GLOB_TS],
     rules: {
       // Part: eslint rules
       curly: "off",
@@ -193,13 +205,13 @@ const config: Config[] = [
           varsIgnorePattern: "^_",
         },
       ],
+      // "@typescript-eslint/prefer-nullish-coalescing": "warn",
       // Part: safe-typescript rules
       "@susisu/safe-typescript/no-object-assign": "error",
       "@susisu/safe-typescript/no-type-assertion": "error",
       "@susisu/safe-typescript/no-unsafe-object-enum-method": "error",
       // "@susisu/safe-typescript/no-unsafe-object-property-check": "error",
       // "@susisu/safe-typescript/no-unsafe-object-property-overwrite": "error",
-      // "@typescript-eslint/prefer-nullish-coalescing": "warn",
       // Part: functional rules
       "functional/no-return-void": "off",
       // Part: jsdoc rules
@@ -277,9 +289,16 @@ const config: Config[] = [
     },
     settings: {
       "import-x/parsers": {
-        "@typescript-eslint/parser": [...GLOB_JS, ...GLOB_TS],
+        "@typescript-eslint/parser": GLOB_TS,
       },
       "import-x/resolver": "oxc",
+    },
+  },
+  {
+    extends: [tseslint.configs.disableTypeChecked],
+    files: GLOB_JS,
+    rules: {
+      ...disableSafeTypescript,
     },
   },
   {

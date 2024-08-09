@@ -28,6 +28,7 @@
     "packages/**/scripts/**/*.ts"
   ],
   "exclude": [
-    "test"
+    "test",
+    "eslint.config.mts"
   ]
 }

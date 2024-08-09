@@ -62,8 +62,6 @@
   "files.exclude": {
     "**/.turbo": true,
     ".npmignore": true,
-    ".eslintcache": true,
-    "eslint.config.js": true,
     "*.bundled_*.mjs": true
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
