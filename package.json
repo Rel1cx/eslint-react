@@ -41,7 +41,7 @@
     "lint:type": "pnpm -r run --parallel lint:type",
     "lint:website": "pnpm -F \"./website\" run lint",
     "prepare": "lefthook install && pnpm run build",
-    "test": "vitest --run --logHeapUsage --passWithNoTests",
+    "test": "vitest --run --logHeapUsage",
     "update:deps": "pnpm up --latest -r && pnpm install --fix-lockfile && pnpm prune",
     "update:readme": "bun run --bun ./scripts/update-readme.ts",
     "update:version": "bun run --bun ./scripts/update-version.ts && pnpm run format:package-json"
@@ -85,7 +85,6 @@
     "eslint-plugin-unicorn": "^55.0.0",
     "eslint-plugin-vitest": "^0.5.4",
     "eslint-plugin-yml": "^1.14.0",
-    "fast-equals": "^5.0.1",
     "knip": "^5.27.2",
     "lefthook": "^1.7.12",
     "markdownlint": "^0.34.0",
