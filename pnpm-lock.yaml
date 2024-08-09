@@ -33,8 +33,8 @@ importers:
         specifier: ^0.70.3
         version: 0.70.3(effect@3.6.2)
       '@eslint/js':
-        specifier: ^9.8.0
-        version: 9.8.0
+        specifier: ^9.9.0
+        version: 9.9.0
       '@stylistic/eslint-plugin-js':
         specifier: ^2.6.2
         version: 2.6.2(eslint@9.9.0(jiti@1.21.6))
@@ -202,8 +202,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/plugins/eslint-plugin
       '@eslint/js':
-        specifier: ^9.8.0
-        version: 9.8.0
+        specifier: ^9.9.0
+        version: 9.9.0
       '@tsconfig/node22':
         specifier: ^22.0.0
         version: 22.0.0
@@ -962,8 +962,8 @@ importers:
         specifier: workspace:*
         version: link:../packages/plugins/eslint-plugin
       '@eslint/js':
-        specifier: ^9.8.0
-        version: 9.8.0
+        specifier: ^9.9.0
+        version: 9.9.0
       '@mdx-js/mdx':
         specifier: ^3.0.1
         version: 3.0.1
