@@ -29,6 +29,9 @@ A series of composable ESLint rules rewritten from scratch for libraries and fra
 
 ## Who is using?
 
+<details>
+<summary>Click to toggle contents</summary>
+
 - [`AndreaPontrandolfo/sheriff`](https://github.com/AndreaPontrandolfo/sheriff) - A comprehensive and opinionated Typescript-first ESLint configuration.
 - [`antfu/​eslint-config`](https://github.com/antfu/eslint-config) - Anthony's ESLint config preset.
 - [`christopher-buss/roblox-ts-eslint-config`](https://github.com/christopher-buss/roblox-ts-eslint-config) - iSentinel's ESLint config preset for Roblox-TS.
@@ -51,9 +54,11 @@ A series of composable ESLint rules rewritten from scratch for libraries and fra
 - [`TanStack/​router`](https://github.com/TanStack/router) - 🤖 Fully typesafe Router for React (and friends) w/ built-in caching, 1st class search-param APIs, client-side cache integration and isomorphic rendering.
 - [`TanStack/​store`](https://github.com/TanStack/store) - 🤖 Framework agnostic, type-safe store w/ reactive framework adapters.
 
+</details>
+
 _Data collected from GitHub dependents network, if there are any mismatch or outdated information, feel free to [open issue](https://github.com/Rel1cx/eslint-react/issues/new?assignees=&labels=type%3A+documentation&projects=&template=docs_report.md&title=%5Bdocs%5D+) or pull request._
 
-Find more projects using ESLint React on [GitHub](https://github.com/Rel1cx/eslint-react/network/dependents).
+Find more on [GitHub Dependents](https://github.com/Rel1cx/eslint-react/network/dependents).
 
 ## Install
 
@@ -130,6 +135,9 @@ Add the plugin to your `.eslintrc.json`:
 
 ### Legacy Config
 
+<details>
+<summary>Click to toggle contents</summary>
+
 - **core-legacy**\
   Enable rules that are renderer-agnostic.
 - **recommended-legacy**\
@@ -144,6 +152,8 @@ Add the plugin to your `.eslintrc.json`:
   Disable rules that are specific to React DOM.
 - **off-legacy**\
   Disable all rules in this plugin except for debug rules.
+
+</details>
 
 [Full Presets List↗](https://eslint-react.xyz/docs/presets)
 
