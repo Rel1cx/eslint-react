@@ -9,6 +9,7 @@ import { describe, expect, it } from "vitest";
 import { getFixturesRootDir } from "../../../../test";
 import { getFunctionIdentifier } from "./get-function-identifier";
 import { isFunction } from "./is";
+import type { TSESTreeFunction } from "./types";
 
 function parse(code: string) {
   return parseForESLint(code, {
@@ -23,16 +24,16 @@ describe("get function identifier from function declaration", () => {
     ["function bar() {}", "bar"],
     ["function baz<T>() {}", "baz"],
   ])("should return the function name from %s", (code, expected) => {
-    const n = MutRef.make(0);
+    const n = MutRef.make<TSESTreeFunction | null>(null);
     simpleTraverse(parse(code).ast, {
       enter(node) {
         if (!isFunction(node)) return;
         const id = O.getOrThrow(getFunctionIdentifier(node));
         expect(id).include({ type: AST_NODE_TYPES.Identifier, name: expected });
-        MutRef.increment(n);
+        MutRef.set(n, node);
       },
     }, true);
-    expect(MutRef.get(n)).toBe(1);
+    expect(MutRef.get(n)).not.toBeNull();
   });
 });
 
@@ -52,15 +53,15 @@ describe("get function identifier from function expression", () => {
     ["class Clazz { Foo = function() {} }", "Foo"],
     ["class Clazz { Foo = () => {} }", "Foo"],
   ])("should return the function name from %s", (code, expected) => {
-    const n = MutRef.make(0);
+    const n = MutRef.make<TSESTreeFunction | null>(null);
     simpleTraverse(parse(code).ast, {
       enter(node) {
         if (!isFunction(node)) return;
         const id = O.getOrThrow(getFunctionIdentifier(node));
         expect(id).include({ type: AST_NODE_TYPES.Identifier, name: expected });
-        MutRef.increment(n);
+        MutRef.set(n, node);
       },
     }, true);
-    expect(MutRef.get(n)).toBe(1);
+    expect(MutRef.get(n)).not.toBeNull();
   });
 });
