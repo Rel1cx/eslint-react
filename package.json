@@ -112,6 +112,7 @@
   },
   "pnpm": {
     "overrides": {
+      "esbuild": "^0.23.0",
       "eslint": "^9.8.0",
       "estraverse": "^5.3.0",
       "is-core-module": "npm:@nolyfill/is-core-module@^1",
@@ -121,6 +122,7 @@
       "typescript": "^5.6.0-dev.20240809"
     },
     "overridesMeta": {
+      "esbuild": "override to single version",
       "eslint": "override to single version",
       "estraverse": "override to single version",
       "ts-api-utils": "override to single version",

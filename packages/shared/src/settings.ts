@@ -1,3 +1,5 @@
+import { Data, F } from "@eslint-react/tools";
+import { shallowEqual } from "fast-equals";
 import memoize from "micro-memoize";
 import pm from "picomatch";
 import type { PartialDeep } from "type-fest";
@@ -47,13 +49,11 @@ export interface ESLintReactSettingsExpanded extends ESLintReactSettings {
 }
 
 /**
- * Defines the "react-x" settings in a type-safe way.
+ * A helper function to define settings for "react-x" with type checking in JavaScript files.
  * @param settings The settings.
- * @returns The ESLint settings containing the "react-x" object.
+ * @returns The settings.
  */
-export function defineSettings(settings: ESLintReactSettings) {
-  return parse(ESLintSettingsSchema, settings)["react-x"] ?? {};
-}
+export const defineSettings: (settings: ESLintReactSettings) => ESLintReactSettings = F.identity;
 
 /**
  * Decodes settings from a data object from `context.settings`.
@@ -61,11 +61,11 @@ export function defineSettings(settings: ESLintReactSettings) {
  * @param data The data object.
  * @returns settings The settings.
  */
-export const decodeSettings = memoize((data: unknown): ESLintReactSettings => {
-  return {
+export const decodeSettings = memoize((data: unknown) => {
+  return Data.struct<ESLintReactSettings>({
     ...INITIAL_ESLINT_REACT_SETTINGS,
     ...parse(ESLintSettingsSchema, data)["react-x"] ?? {},
-  };
+  });
 }, { isEqual: (a, b) => a === b });
 
 /**
@@ -74,10 +74,9 @@ export const decodeSettings = memoize((data: unknown): ESLintReactSettings => {
  * @param data The data object.
  * @returns settings The settings.
  */
-export function unsafeCastSettings(data: unknown) {
+export function unsafeCastSettings(data: unknown): PartialDeep<ESLintReactSettings> {
   // @ts-expect-error - skip type checking for unsafe cast
-  // eslint-disable-next-line @susisu/safe-typescript/no-type-assertion
-  return (data?.["react-x"] ?? {}) as PartialDeep<ESLintReactSettings>;
+  return Data.struct<PartialDeep<ESLintReactSettings>>(data?.["react-x"] ?? {});
 }
 
 /**
@@ -89,7 +88,7 @@ export function unsafeCastSettings(data: unknown) {
 export const expandSettings = memoize(
   (settings: ESLintReactSettings): ESLintReactSettingsExpanded => {
     const additionalComponents = settings.additionalComponents ?? [];
-    return {
+    return Data.struct<ESLintReactSettingsExpanded>({
       ...settings,
       additionalComponents: additionalComponents.map((component) => ({
         ...component,
@@ -105,7 +104,7 @@ export const expandSettings = memoize(
         if (!/^[\w-]+$/u.test(name)) return acc;
         return acc.set(name, as);
       }, new Map<string, string>()),
-    };
+    });
   },
-  { isDeepEqual: false },
+  { isEqual: shallowEqual },
 );
