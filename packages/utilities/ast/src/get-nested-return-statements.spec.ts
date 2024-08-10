@@ -98,9 +98,8 @@ describe("get nested return statements from function", () => {
         if (!isFunction(node)) return;
         if (MutRef.get(n)) return;
         const returnStatements = getNestedReturnStatements(node);
-        for (const [i, statement] of returnStatements.entries()) {
-          expect(statement).include({ type: AST_NODE_TYPES.ReturnStatement });
-          expect(statement.argument).include(expected[i]?.argument);
+        for (const [index, statement] of returnStatements.entries()) {
+          expect(statement).include(expected[index]);
         }
         MutRef.set(n, node);
       },
