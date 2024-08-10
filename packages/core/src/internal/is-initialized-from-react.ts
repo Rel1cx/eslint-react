@@ -5,16 +5,23 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { isMatching, match } from "ts-pattern";
 
+/**
+ * Check if an identifier is initialized from React
+ * @param name The top-level identifier's name
+ * @param initialScope Initial scope to search for the identifier
+ * @param settings ESLint React settings
+ * @returns Whether the identifier is initialized from React
+ */
 export function isInitializedFromReact(
-  variableName: string,
+  name: string,
   initialScope: Scope,
   settings: Partial<Pick<ESLintReactSettings, "importSource" | "skipImportCheck">>,
 ): boolean {
   if (settings.skipImportCheck) return true;
   // Optimistic assertion when identifier is named react
-  if (variableName.toLowerCase() === "react") return true;
+  if (name.toLowerCase() === "react") return true;
   const { importSource = "react" } = settings;
-  const maybeVariable = findVariable(variableName, initialScope);
+  const maybeVariable = findVariable(name, initialScope);
   const maybeLatestDef = O.flatMapNullable(maybeVariable, (v) => v.defs.at(-1));
   if (O.isNone(maybeLatestDef)) return false;
   const latestDef = maybeLatestDef.value;

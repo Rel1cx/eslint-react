@@ -6,16 +6,26 @@
 
 # Function: isInitializedFromReact()
 
-> **isInitializedFromReact**(`variableName`, `initialScope`, `settings`): `boolean`
+> **isInitializedFromReact**(`name`, `initialScope`, `settings`): `boolean`
+
+Check if an identifier is initialized from React
 
 ## Parameters
 
-• **variableName**: `string`
+• **name**: `string`
+
+The top-level identifier's name
 
 • **initialScope**: `Scope`
 
+Initial scope to search for the identifier
+
 • **settings**: `Partial`\<`Pick`\<`object`, `"importSource"` \| `"skipImportCheck"`\>\>
+
+ESLint React settings
 
 ## Returns
 
 `boolean`
+
+Whether the identifier is initialized from React
