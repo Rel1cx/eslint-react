@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import url from "node:url";
 
 import eslint from "@eslint/js";
