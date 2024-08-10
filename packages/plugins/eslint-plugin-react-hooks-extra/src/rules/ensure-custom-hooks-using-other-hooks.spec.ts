@@ -19,10 +19,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
+          messageId: "ensureCustomHooksUsingOtherHooks",
           data: {
             name: "useClassnames",
           },
-          messageId: "ensureCustomHooksUsingOtherHooks",
         },
       ],
     },
@@ -42,10 +42,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
+          messageId: "ensureCustomHooksUsingOtherHooks",
           data: {
             name: "useClassnames",
           },
-          messageId: "ensureCustomHooksUsingOtherHooks",
         },
       ],
     },
@@ -62,10 +62,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
+          messageId: "ensureCustomHooksUsingOtherHooks",
           data: {
             name: "useInnerHook",
           },
-          messageId: "ensureCustomHooksUsingOtherHooks",
         },
       ],
     },
@@ -82,10 +82,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
+          messageId: "ensureCustomHooksUsingOtherHooks",
           data: {
             name: "useNestedHook",
           },
-          messageId: "ensureCustomHooksUsingOtherHooks",
         },
       ],
     },
@@ -101,16 +101,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
+          messageId: "ensureCustomHooksUsingOtherHooks",
           data: {
             name: "useNestedHook",
           },
-          messageId: "ensureCustomHooksUsingOtherHooks",
         },
         {
+          messageId: "ensureCustomHooksUsingOtherHooks",
           data: {
             name: "useInnerHook",
           },
-          messageId: "ensureCustomHooksUsingOtherHooks",
         },
       ],
     },
@@ -127,10 +127,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
+          messageId: "ensureCustomHooksUsingOtherHooks",
           data: {
             name: "useNestedHook",
           },
-          messageId: "ensureCustomHooksUsingOtherHooks",
         },
       ],
     },

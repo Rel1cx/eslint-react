@@ -136,12 +136,12 @@ export function useComponentCollector(
         id,
         kind: "function",
         name,
+        node: currentFn,
         displayName: O.none(),
         flag: getComponentFlag(initPath),
         hint,
         hookCalls,
         initPath,
-        node: currentFn,
       });
     },
     "AssignmentExpression[type][operator='='][left.type='MemberExpression'][left.property.name='displayName']"(
@@ -190,12 +190,12 @@ export function useComponentCollector(
         id,
         kind: "function",
         name,
+        node: currentFn,
         displayName: O.none(),
         flag: getComponentFlag(initPath),
         hint,
         hookCalls,
         initPath,
-        node: currentFn,
       });
     },
   } as const satisfies ESLintUtils.RuleListener;

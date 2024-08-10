@@ -234,8 +234,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "setData1" }, messageId: "noDirectSetStateInUseEffect" },
-        { data: { name: "setData2" }, messageId: "noDirectSetStateInUseEffect" },
+        { messageId: "noDirectSetStateInUseEffect", data: { name: "setData1" } },
+        { messageId: "noDirectSetStateInUseEffect", data: { name: "setData2" } },
       ],
     },
     {
@@ -256,8 +256,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "setData1" }, messageId: "noDirectSetStateInUseEffect" },
-        { data: { name: "setData2" }, messageId: "noDirectSetStateInUseEffect" },
+        { messageId: "noDirectSetStateInUseEffect", data: { name: "setData1" } },
+        { messageId: "noDirectSetStateInUseEffect", data: { name: "setData2" } },
       ],
     },
     {

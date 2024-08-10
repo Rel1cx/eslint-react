@@ -6,20 +6,20 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: /* tsx */ `<App foo />`,
       errors: [{
-        data: { propName: "foo" },
         messageId: "avoidShorthandBoolean",
+        data: { propName: "foo" },
       }],
     },
     {
       code: /* tsx */ `<App foo bar />`,
       errors: [
         {
-          data: { propName: "foo" },
           messageId: "avoidShorthandBoolean",
+          data: { propName: "foo" },
         },
         {
-          data: { propName: "bar" },
           messageId: "avoidShorthandBoolean",
+          data: { propName: "bar" },
         },
       ],
     },

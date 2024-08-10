@@ -31,11 +31,11 @@ export default createRule<[], MessageID>({
 
         for (const { name, node: component } of components.values()) {
           context.report({
+            messageId: "classComponent",
+            node: component,
             data: {
               name: O.getOrElse(F.constant("anonymous"))(name),
             },
-            messageId: "classComponent",
-            node: component,
           });
         }
       },

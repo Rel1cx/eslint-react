@@ -89,12 +89,12 @@ export default createRule<[], MessageID>({
         if (O.isNone(name)) continue;
         if (!!usages?.has(name.value) || LIFECYCLE_METHODS.has(name.value)) continue;
         context.report({
+          messageId: "noUnusedClassComponentMembers",
+          node: def,
           data: {
             className: O.getOrElse(className, () => "Component"),
             methodName: name.value,
           },
-          messageId: "noUnusedClassComponentMembers",
-          node: def,
         });
       }
     }

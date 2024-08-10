@@ -15,22 +15,22 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
+          messageId: "noDuplicateKey",
           data: {
             value: '"1"',
           },
-          messageId: "noDuplicateKey",
         },
         {
+          messageId: "noDuplicateKey",
           data: {
             value: '"1"',
           },
-          messageId: "noDuplicateKey",
         },
         {
+          messageId: "noDuplicateKey",
           data: {
             value: '"1"',
           },
-          messageId: "noDuplicateKey",
         },
       ],
     },
@@ -46,22 +46,22 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
+          messageId: "noDuplicateKey",
           data: {
             value: '"1"',
           },
-          messageId: "noDuplicateKey",
         },
         {
+          messageId: "noDuplicateKey",
           data: {
             value: '"1"',
           },
-          messageId: "noDuplicateKey",
         },
         {
+          messageId: "noDuplicateKey",
           data: {
             value: '"1"',
           },
-          messageId: "noDuplicateKey",
         },
       ],
     },
@@ -73,10 +73,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
+          messageId: "noDuplicateKey",
           data: {
             value: '"1"',
           },
-          messageId: "noDuplicateKey",
         },
       ],
     },

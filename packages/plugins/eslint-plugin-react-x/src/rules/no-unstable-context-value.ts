@@ -72,16 +72,16 @@ export default createRule<[], MessageID>({
           if (!constructions) continue;
           for (const construction of constructions) {
             if (construction._tag === "None") continue;
-            const { _tag, node: constructionNode } = construction;
+            const { node: constructionNode, _tag } = construction;
             const messageId = _tag.startsWith("Function")
               ? "noUnstableContextValueWithFunction"
               : "noUnstableContextValueWithIdentifier";
             context.report({
+              messageId,
+              node: constructionNode,
               data: {
                 type: readableNodeType(constructionNode),
               },
-              messageId,
-              node: constructionNode,
             });
           }
         }

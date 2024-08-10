@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
 
-        for (const { displayName, flag, node } of components.values()) {
+        for (const { node, displayName, flag } of components.values()) {
           const isMemoOrForwardRef = Boolean(flag & ERFunctionComponentFlag.ForwardRef)
             || Boolean(flag & ERFunctionComponentFlag.Memo);
           if (O.isSome(getFunctionIdentifier(node))) continue;

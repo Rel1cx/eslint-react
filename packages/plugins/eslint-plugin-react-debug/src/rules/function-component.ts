@@ -28,16 +28,16 @@ export default createRule<[], MessageID>({
       ...listeners,
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
-        for (const { name, flag, hookCalls, node } of components.values()) {
+        for (const { name, node, flag, hookCalls } of components.values()) {
           context.report({
+            messageId: "functionComponent",
+            node,
             data: {
               name: O.getOrElse(name, F.constant("anonymous")),
               forwardRef: Boolean(flag & ERFunctionComponentFlag.ForwardRef),
               hookCalls: hookCalls.length,
               memo: Boolean(flag & ERFunctionComponentFlag.Memo),
             },
-            messageId: "functionComponent",
-            node,
           });
         }
       },

@@ -106,11 +106,11 @@ export default createRule<Options, MessageID>({
           || name.includes(":");
         if (shouldIgnore || validate(name.replace(/^_/u, ""))) return;
         context.report({
+          messageId: "componentName",
+          node,
           data: {
             case: rule,
           },
-          messageId: "componentName",
-          node,
         });
       },
       "Program:exit"(node) {
@@ -123,11 +123,11 @@ export default createRule<Options, MessageID>({
           const { name } = id;
           if (validate(name)) continue;
           context.report({
+            messageId: "componentName",
+            node: id,
             data: {
               case: rule,
             },
-            messageId: "componentName",
-            node: id,
           });
         }
         for (const { node: component } of classComponents.values()) {
@@ -137,11 +137,11 @@ export default createRule<Options, MessageID>({
           const { name } = id;
           if (validate(name)) continue;
           context.report({
+            messageId: "componentName",
+            node: id,
             data: {
               case: rule,
             },
-            messageId: "componentName",
-            node: id,
           });
         }
       },

@@ -33,10 +33,10 @@ export function useHookCollector(): {
         id,
         kind: "function",
         name,
+        node: currentFn,
         flag: 0n,
         hint: 0n,
         hookCalls: [],
-        node: currentFn,
       });
     }
   };

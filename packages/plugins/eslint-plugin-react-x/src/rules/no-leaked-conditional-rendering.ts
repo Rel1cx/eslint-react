@@ -224,9 +224,9 @@ export default createRule<[], MessageID>({
             || getStaticValue(left, initialScope)?.value === "NaN";
           if (isLeftNan) {
             return O.some({
-              data: { value: context.sourceCode.getText(left) },
               messageId: "noLeakedConditionalRendering",
               node: left,
+              data: { value: context.sourceCode.getText(left) },
             });
           }
           const leftType = getConstrainedTypeAtLocation(services, left);
@@ -236,9 +236,9 @@ export default createRule<[], MessageID>({
             .every(type => allowedVariants.some(allowed => allowed === type));
           if (isLeftValid) return check(right);
           return O.some({
-            data: { value: context.sourceCode.getText(left) },
             messageId: "noLeakedConditionalRendering",
             node: left,
+            data: { value: context.sourceCode.getText(left) },
           });
         })
         .with({ type: AST_NODE_TYPES.ConditionalExpression }, ({ alternate, consequent }) => {

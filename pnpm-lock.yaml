@@ -354,6 +354,9 @@ importers:
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../../types
+      '@eslint-react/var':
+        specifier: workspace:*
+        version: link:../../utilities/var
       '@typescript-eslint/scope-manager':
         specifier: ^8.0.1
         version: 8.0.1
@@ -372,6 +375,9 @@ importers:
       string-ts:
         specifier: ^2.2.0
         version: 2.2.0
+      ts-pattern:
+        specifier: ^5.2.0
+        version: 5.2.0
       typescript:
         specifier: ^5.6.0-dev.20240810
         version: 5.6.0-dev.20240810

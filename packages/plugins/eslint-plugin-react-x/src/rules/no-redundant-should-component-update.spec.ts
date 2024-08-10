@@ -13,8 +13,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { componentName: "Foo" },
           messageId: "noRedundantShouldComponentUpdate",
+          data: { componentName: "Foo" },
         },
       ],
     },
@@ -28,8 +28,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { componentName: "Foo" },
           messageId: "noRedundantShouldComponentUpdate",
+          data: { componentName: "Foo" },
         },
       ],
     },
@@ -43,8 +43,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { componentName: "Foo" },
           messageId: "noRedundantShouldComponentUpdate",
+          data: { componentName: "Foo" },
         },
       ],
     },
@@ -60,8 +60,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { componentName: "Bar" },
           messageId: "noRedundantShouldComponentUpdate",
+          data: { componentName: "Bar" },
         },
       ],
     },
@@ -77,8 +77,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { componentName: "Bar" },
           messageId: "noRedundantShouldComponentUpdate",
+          data: { componentName: "Bar" },
         },
       ],
     },
@@ -92,8 +92,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { componentName: "Foo" },
           messageId: "noRedundantShouldComponentUpdate",
+          data: { componentName: "Foo" },
         },
       ],
     },

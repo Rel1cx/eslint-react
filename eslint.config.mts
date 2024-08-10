@@ -70,8 +70,9 @@ const p11tGroups = {
       "description",
     ],
     alias: ["alias", "as"],
+    rules: ["node", "messageId"],
   },
-  groups: ["id", "type", "meta", "alias", "unknown"],
+  groups: ["id", "type", "meta", "alias", "rules", "unknown"],
 } as const;
 
 const disableSafeTypescript = {

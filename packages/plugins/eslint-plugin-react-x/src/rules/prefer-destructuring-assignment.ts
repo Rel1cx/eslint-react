@@ -76,20 +76,20 @@ export default createRule<[], MessageID>({
           const isMatch = isMatching({ name: memberExpression.object.name });
           if (isMatch(props)) {
             context.report({
+              messageId: "preferDestructuringAssignment",
+              node: memberExpression,
               data: {
                 name: "props",
               },
-              messageId: "preferDestructuringAssignment",
-              node: memberExpression,
             });
           }
           if (isMatch(ctx)) {
             context.report({
+              messageId: "preferDestructuringAssignment",
+              node: memberExpression,
               data: {
                 name: "context",
               },
-              messageId: "preferDestructuringAssignment",
-              node: memberExpression,
             });
           }
         }

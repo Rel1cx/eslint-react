@@ -193,9 +193,9 @@ export default createRule<[], MessageID>({
         for (const [_, calls] of indirectSetStateCallsAsEFs) {
           for (const call of calls) {
             context.report({
-              data: { name: call.name },
               messageId: "noDirectSetStateInUseLayoutEffect",
               node: call,
+              data: { name: call.name },
             });
           }
         }
@@ -205,9 +205,9 @@ export default createRule<[], MessageID>({
           const setStateCalls = getSetStateCalls(name, context.sourceCode.getScope(callee));
           for (const setStateCall of setStateCalls) {
             context.report({
-              data: { name },
               messageId: "noDirectSetStateInUseLayoutEffect",
               node: setStateCall,
+              data: { name },
             });
           }
         }
@@ -215,9 +215,9 @@ export default createRule<[], MessageID>({
           const setStateCalls = getSetStateCalls(id.name, context.sourceCode.getScope(id));
           for (const setStateCall of setStateCalls) {
             context.report({
-              data: { name: id.name },
               messageId: "noDirectSetStateInUseLayoutEffect",
               node: setStateCall,
+              data: { name: id.name },
             });
           }
         }

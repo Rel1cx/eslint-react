@@ -27,11 +27,11 @@ export default createRule<[], MessageID>({
         const name = getElementName(node);
         if (!isString(name) || !name.includes(":")) return;
         context.report({
+          messageId: "noNamespace",
+          node,
           data: {
             name,
           },
-          messageId: "noNamespace",
-          node,
         });
       },
     };

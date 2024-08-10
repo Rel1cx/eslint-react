@@ -28,14 +28,14 @@ export default createRule<[], MessageID>({
       "Program:exit"(node) {
         const allHooks = ctx.getAllHooks(node);
 
-        for (const { name, hookCalls, node } of allHooks.values()) {
+        for (const { name, node, hookCalls } of allHooks.values()) {
           context.report({
+            messageId: "reactHooks",
+            node,
             data: {
               name: name.value,
               hookCalls: hookCalls.length,
             },
-            messageId: "reactHooks",
-            node,
           });
         }
       },

@@ -12,7 +12,7 @@ import { ESLintSettingsSchema } from "./schemas";
  * The initial settings for "react-x".
  */
 export const INITIAL_ESLINT_REACT_SETTINGS = {
-  skipImportCheck: true,
+  skipImportCheck: false,
 } as const satisfies ESLintReactSettings;
 
 /**
@@ -23,7 +23,7 @@ export const DEFAULT_ESLINT_REACT_SETTINGS = {
     useLayoutEffect: ["useIsomorphicLayoutEffect"],
   },
   polymorphicPropName: "as",
-  skipImportCheck: true,
+  skipImportCheck: false,
   version: "detect",
 } as const satisfies ESLintReactSettings;
 

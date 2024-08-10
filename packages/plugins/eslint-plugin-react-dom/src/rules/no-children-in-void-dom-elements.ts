@@ -52,11 +52,11 @@ export default createRule<[], MessageID>({
         if (!elementType || !voidElements.has(elementType)) return;
         if (node.children.length > 0) {
           context.report({
+            messageId: "noChildrenInVoidDomElements",
+            node,
             data: {
               element: elementType,
             },
-            messageId: "noChildrenInVoidDomElements",
-            node,
           });
         }
         const { attributes } = node.openingElement;
@@ -66,11 +66,11 @@ export default createRule<[], MessageID>({
         if (hasChildrenOrDangerAttr) {
           // e.g. <br children="Foo" />
           context.report({
+            messageId: "noChildrenInVoidDomElements",
+            node,
             data: {
               element: elementType,
             },
-            messageId: "noChildrenInVoidDomElements",
-            node,
           });
         }
       },

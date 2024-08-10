@@ -40,11 +40,11 @@ export default createRule<[], MessageID>({
         O.flatMap((v) => {
           return isNodeEqual(v, v)
             ? O.some({
+              messageId: "noDuplicateKey",
+              node: v,
               data: {
                 value: context.sourceCode.getText(v),
               },
-              messageId: "noDuplicateKey",
-              node: v,
             })
             : O.none();
         }),
@@ -118,11 +118,11 @@ export default createRule<[], MessageID>({
         for (const [element, attr, value] of keys) {
           seen.add(element);
           context.report({
+            messageId: "noDuplicateKey",
+            node: attr,
             data: {
               value: context.sourceCode.getText(value),
             },
-            messageId: "noDuplicateKey",
-            node: attr,
           });
         }
       },

@@ -38,17 +38,17 @@ export default createRule<[], MessageID>({
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
 
-        for (const { name, flag, node: component } of components.values()) {
+        for (const { name, node: component, flag } of components.values()) {
           if (!(flag & ERClassComponentFlag.PureComponent)) continue;
           const { body } = component.body;
           for (const member of body) {
             if (isShouldComponentUpdate(member)) {
               context.report({
+                messageId: "noRedundantShouldComponentUpdate",
+                node: member,
                 data: {
                   componentName: O.getOrElse(() => "PureComponent")(name),
                 },
-                messageId: "noRedundantShouldComponentUpdate",
-                node: member,
               });
             }
           }

@@ -27,14 +27,14 @@ export default createRule<[], MessageID>({
       ...listeners,
       "Program:exit"(node) {
         const allHooks = ctx.getAllHooks(node);
-        for (const { name, hookCalls, node } of allHooks.values()) {
+        for (const { name, node, hookCalls } of allHooks.values()) {
           if (hookCalls.length > 0) continue;
           context.report({
+            messageId: "ensureCustomHooksUsingOtherHooks",
+            node,
             data: {
               name: name.value,
             },
-            messageId: "ensureCustomHooksUsingOtherHooks",
-            node,
           });
         }
       },

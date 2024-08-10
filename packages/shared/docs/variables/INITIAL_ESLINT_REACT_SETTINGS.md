@@ -14,4 +14,4 @@ The initial settings for "react-x".
 
 ### skipImportCheck
 
-> `readonly` **skipImportCheck**: `true` = `true`
+> `readonly` **skipImportCheck**: `false` = `false`

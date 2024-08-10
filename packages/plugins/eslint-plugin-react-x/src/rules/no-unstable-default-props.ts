@@ -67,11 +67,11 @@ export default createRule<[], MessageID>({
             if (construction._tag === "None") continue;
             const forbiddenType = readableNodeType(right);
             context.report({
+              messageId: "noUnstableDefaultProps",
+              node: right,
               data: {
                 forbiddenType,
               },
-              messageId: "noUnstableDefaultProps",
-              node: right,
             });
           }
         }

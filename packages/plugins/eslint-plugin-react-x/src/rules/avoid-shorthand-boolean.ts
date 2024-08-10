@@ -28,11 +28,11 @@ export default createRule<[], MessageID>({
         const propName = getPropName(node);
         if (value === null) {
           context.report({
+            messageId: "avoidShorthandBoolean",
+            node,
             data: {
               propName,
             },
-            messageId: "avoidShorthandBoolean",
-            node,
           });
         }
       },
