@@ -236,6 +236,7 @@ const config: Config[] = [
       "import-x/no-duplicates": "error",
       "import-x/no-dynamic-require": "error",
       "import-x/no-empty-named-blocks": "error",
+      "import-x/no-extraneous-dependencies": "error",
       "import-x/no-mutable-exports": "error",
       "import-x/no-self-import": "error",
       "import-x/no-unused-modules": "error",
@@ -333,6 +334,7 @@ const config: Config[] = [
     rules: {
       ...vitest.configs.recommended.rules,
       "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
+      "import-x/no-extraneous-dependencies": "off",
     },
   },
   {

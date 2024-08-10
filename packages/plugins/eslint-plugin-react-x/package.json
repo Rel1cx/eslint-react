@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-x",
-  "version": "1.9.2-next.3",
+  "version": "1.9.2-next.4",
   "description": "ESLint React's ESLint plugin for React related rules.",
   "keywords": [
     "eslint",
@@ -59,7 +59,8 @@
     "@typescript-eslint/type-utils": "^8.0.1",
     "@typescript-eslint/types": "^8.0.1",
     "@typescript-eslint/utils": "^8.0.1",
-    "is-immutable-type": "5.0.0"
+    "is-immutable-type": "5.0.0",
+    "ts-pattern": "^5.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

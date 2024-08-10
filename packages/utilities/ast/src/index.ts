@@ -20,5 +20,4 @@ export * from "./is-this-expression";
 export * from "./readable-node-type";
 export * from "./traverse-up";
 export * from "./traverse-up-guard";
-export * from "./ts";
 export * from "./types";
