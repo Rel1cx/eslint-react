@@ -77,7 +77,7 @@ export const decodeSettings = memoize((data: unknown) => {
 export function unsafeCastSettings(data: unknown): PartialDeep<ESLintReactSettings> {
   // @ts-expect-error - skip type checking for unsafe cast
   // eslint-disable-next-line @susisu/safe-typescript/no-type-assertion
-  return Data.struct(data?.["react-x"] ?? {}) as PartialDeep<ESLintReactSettings>
+  return Data.struct(data?.["react-x"] ?? {}) as PartialDeep<ESLintReactSettings>;
 }
 
 /**
