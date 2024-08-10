@@ -102,7 +102,7 @@
     "typedoc": "^0.26.5",
     "typedoc-plugin-markdown": "^4.2.3",
     "typedoc-plugin-rename-defaults": "^0.7.1",
-    "typescript": "^5.6.0-dev.20240809",
+    "typescript": "^5.6.0-dev.20240810",
     "vitest": "^2.0.5"
   },
   "packageManager": "pnpm@9.7.0",
@@ -119,7 +119,7 @@
       "traverse": "npm:neotraverse@^0",
       "ts-api-utils": "^1.3.0",
       "typedarray": "npm:@nolyfill/typedarray@^1",
-      "typescript": "^5.6.0-dev.20240809"
+      "typescript": "^5.6.0-dev.20240810"
     },
     "overridesMeta": {
       "esbuild": "override to single version",
