@@ -41,7 +41,7 @@ export default createRule<[], MessageID>({
     const polymorphicPropName = settings.polymorphicPropName;
     const components = settings.components;
     const additionalComponents = settings.additionalComponents.filter(c => c.as === "a");
-    function checkJSXElement(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
+    function getReportDescriptor(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
       const name = getElementName(node.openingElement);
       const ctx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) };
       const elementType = getElementType(ctx, components, polymorphicPropName)(node.openingElement);
@@ -117,7 +117,7 @@ export default createRule<[], MessageID>({
       );
     }
     return {
-      JSXElement: F.flow(checkJSXElement, O.map(context.report), F.constVoid),
+      JSXElement: F.flow(getReportDescriptor, O.map(context.report), F.constVoid),
     };
   },
   defaultOptions: [],

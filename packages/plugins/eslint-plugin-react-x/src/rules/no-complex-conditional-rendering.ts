@@ -25,14 +25,14 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    function check(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
+    function getReportDescriptor(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
       const jsxExpContainer = node.parent?.parent;
       if (!is(AST_NODE_TYPES.JSXExpressionContainer)(jsxExpContainer)) return O.none();
       if (!isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(jsxExpContainer.parent)) return O.none();
       if (!jsxExpContainer.parent.children.includes(jsxExpContainer)) return O.none();
       return O.some({ messageId: "noComplexConditionalRendering", node: jsxExpContainer } as const);
     }
-    const ruleFunction = F.flow(check, O.map(context.report), F.constVoid);
+    const ruleFunction = F.flow(getReportDescriptor, O.map(context.report), F.constVoid);
     return {
       "JSXExpressionContainer > ConditionalExpression > ConditionalExpression": ruleFunction,
       "JSXExpressionContainer > ConditionalExpression > LogicalExpression": ruleFunction,

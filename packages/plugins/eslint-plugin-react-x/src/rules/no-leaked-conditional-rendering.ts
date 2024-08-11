@@ -213,12 +213,12 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const services = ESLintUtils.getParserServices(context, false);
-    function check(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
+    function getReportDescriptor(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
       return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
         .when(isJSX, O.none)
         .with({ type: AST_NODE_TYPES.LogicalExpression, operator: "&&" }, ({ left, right }) => {
           const isLeftUnaryNot = isMatching({ type: AST_NODE_TYPES.UnaryExpression, operator: "!" }, left);
-          if (isLeftUnaryNot) return check(right);
+          if (isLeftUnaryNot) return getReportDescriptor(right);
           const initialScope = context.sourceCode.getScope(left);
           const isLeftNan = isMatching({ type: AST_NODE_TYPES.Identifier, name: "NaN" }, left)
             || getStaticValue(left, initialScope)?.value === "NaN";
@@ -234,7 +234,7 @@ export default createRule<[], MessageID>({
           const isLeftValid = Array
             .from(leftTypeVariants.values())
             .every(type => allowedVariants.some(allowed => allowed === type));
-          if (isLeftValid) return check(right);
+          if (isLeftValid) return getReportDescriptor(right);
           return O.some({
             messageId: "noLeakedConditionalRendering",
             node: left,
@@ -242,19 +242,19 @@ export default createRule<[], MessageID>({
           });
         })
         .with({ type: AST_NODE_TYPES.ConditionalExpression }, ({ alternate, consequent }) => {
-          return O.orElse(check(consequent), () => check(alternate));
+          return O.orElse(getReportDescriptor(consequent), () => getReportDescriptor(alternate));
         })
         .with({ type: AST_NODE_TYPES.Identifier }, (n) => {
           const initialScope = context.sourceCode.getScope(n);
           return F.pipe(
             findVariable(n.name, initialScope),
             O.flatMap(getVariableInitExpression(0)),
-            O.flatMap(check),
+            O.flatMap(getReportDescriptor),
           );
         })
         .otherwise(O.none);
     }
-    const ruleFunction = F.flow(check, O.map(context.report), F.constVoid);
+    const ruleFunction = F.flow(getReportDescriptor, O.map(context.report), F.constVoid);
     return {
       "JSXExpressionContainer > ConditionalExpression": ruleFunction,
       "JSXExpressionContainer > LogicalExpression": ruleFunction,
