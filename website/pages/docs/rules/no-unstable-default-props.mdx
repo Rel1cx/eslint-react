@@ -29,7 +29,7 @@ interface ExampleProps {
 
 function Example({ items = [] }: ExampleProps) {
   //                       ^^
-  //                       - found a/an 'Array literal' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'Array literal'.
+  //                       - A/an 'Array literal' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'Array literal'.
   return null;
 }
 ```
@@ -43,7 +43,7 @@ interface ExampleProps {
 
 function Example({ items = {} }: ExampleProps) {
   //                       ^^
-  //                       - found a/an 'Object literal' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'Object literal'.
+  //                       - A/an 'Object literal' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'Object literal'.
   return null;
 }
 ```
@@ -57,7 +57,7 @@ interface ExampleProps {
 
 function Example({ onClick = () => {} }: ExampleProps) {
   //                         ^^^^^^^^
-  //                         - found a/an 'arrow function expression' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'arrow function expression'.
+  //                         - A/an 'arrow function expression' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'arrow function expression'.
   return null;
 }
 ```
@@ -72,7 +72,7 @@ interface ExampleProps {
 function Example(props: ExampleProps) {
   const { items = [] } = props;
   //              ^^
-  //              - found a/an 'Array literal' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'Array literal'.
+  //              - A/an 'Array literal' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'Array literal'.
   return null;
 }
 ```

@@ -28,7 +28,7 @@ function Example({ items }: ExampleProps) {
     <ul>
       {items.map((item, index) => (
         //              ^^^^^
-        //              - Do not use Array index as key.
+        //              - Do not use Array index as 'key'.
         <li key={index}>{item.name}</li>
       ))}
     </ul>

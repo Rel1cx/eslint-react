@@ -24,7 +24,7 @@ interface ExampleProps {
 function Example(props: ExampleProps) {
   const items = props.items;
   //            ^^^^^^^^^^^
-  //            - Prefer destructuring assignment.
+  //            - Use destructuring assignment for props.
 
   return <div>{items}</div>;
 }
@@ -40,7 +40,7 @@ interface ExampleProps {
 function Example(props: ExampleProps) {
   return <div>{props.items}</div>;
   //           ^^^^^^^^^^^
-  //           - Prefer destructuring assignment.
+  //           - Use destructuring assignment for props.
 }
 ```
 

@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
         const keyPropFound = findPropInAttributes(node.attributes, initialScope)("key");
         const keyPropOnElement = node.attributes.some(n => is(AST_NODE_TYPES.JSXAttribute)(n) && n.name.name === "key");
         if (O.isSome(keyPropFound) && !keyPropOnElement) {
-          context.report({ messageId: "noImplicitKey", node });
+          context.report({ messageId: "noImplicitKey", node: keyPropFound.value });
         }
       },
     };

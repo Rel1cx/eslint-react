@@ -196,7 +196,7 @@ const domPresetSettings = {
 
 // #endregion
 
-// #region Plugins
+// #region Helpers
 
 const legacyConfigPlugins = ["@eslint-react"] as const;
 
@@ -207,10 +207,6 @@ const flatConfigPlugins = {
   "@eslint-react/hooks-extra": reactHooksExtra,
   "@eslint-react/naming-convention": reactNamingConvention,
 } as const;
-
-// #endregion
-
-// #region Helpers
 
 function createLegacyConfig<T extends RulePreset>(
   rules: T,
