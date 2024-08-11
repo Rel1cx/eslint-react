@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.9.2-next.7",
+  "version": "1.10.0-next.0",
   "private": true,
   "description": "A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -80,7 +80,7 @@
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-eslint-plugin": "^6.2.0",
     "eslint-plugin-import-x": "^3.1.0",
-    "eslint-plugin-jsdoc": "^50.0.0",
+    "eslint-plugin-jsdoc": "^50.0.1",
     "eslint-plugin-perfectionist": "^3.1.3",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unicorn": "^55.0.0",
@@ -103,7 +103,7 @@
     "typedoc": "^0.26.5",
     "typedoc-plugin-markdown": "^4.2.3",
     "typedoc-plugin-rename-defaults": "^0.7.1",
-    "typescript": "^5.6.0-dev.20240810",
+    "typescript": "^5.6.0-dev.20240811",
     "vitest": "^2.0.5"
   },
   "packageManager": "pnpm@9.7.0",
@@ -120,7 +120,7 @@
       "traverse": "npm:neotraverse@^0",
       "ts-api-utils": "^1.3.0",
       "typedarray": "npm:@nolyfill/typedarray@^1",
-      "typescript": "^5.6.0-dev.20240810"
+      "typescript": "^5.6.0-dev.20240811"
     },
     "overridesMeta": {
       "esbuild": "override to single version",
