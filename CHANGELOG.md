@@ -1,3 +1,9 @@
+## v1.10.1 (Draft)
+
+### 🪄 Improvements
+
+- Improve rule `no-implicit-key` error marker position and range.
+
 ## v1.10.0 (Sun 11 Aug 2024)
 
 ### ✨ New
