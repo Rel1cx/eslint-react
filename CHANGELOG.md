@@ -1,3 +1,13 @@
+## v1.9.2 (Draft)
+
+### ✨ New
+
+- Add `disable-type-checked` and `disable-type-checked-legacy` presets to disable all type-checked rules.
+
+### 🪄 Improvements
+
+- Rename `off-dom` and `off-dom-legacy` presets to `disable-dom` and `disable-dom-legacy` (the old names will still be available until the next major update to avoid breaking changes).
+
 ## v1.9.1 (Thu 08 Aug 2024)
 
 ### 🐞 Fixes

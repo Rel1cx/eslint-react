@@ -128,8 +128,10 @@ Add the plugin to your `.eslintrc.json`:
   _This preset includes the `recommended` preset._
 - **dom**\
   Enable rules that are specific to React DOM.
-- **off-dom**\
+- **disable-dom**\
   Disable rules that are specific to React DOM.
+- **disable-type-checked**\
+  Disable rules that require type information.
 - **off**\
   Disable all rules in this plugin except for debug rules.
 
@@ -148,8 +150,10 @@ Add the plugin to your `.eslintrc.json`:
   _This preset includes the `recommended-legacy` preset._
 - **dom-legacy**\
   Enable rules that are specific to React DOM.
-- **off-dom-legacy**\
+- **disable-dom-legacy**\
   Disable rules that are specific to React DOM.
+- **disable-type-checked-legacy**\
+  Disable rules that require type information.
 - **off-legacy**\
   Disable all rules in this plugin except for debug rules.
 

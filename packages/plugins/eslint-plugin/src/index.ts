@@ -153,6 +153,11 @@ const recommendedTypeCheckedPreset = {
   "no-leaked-conditional-rendering": "warn",
 } as const satisfies RulePreset;
 
+const disableTypeCheckedPreset = {
+  "no-leaked-conditional-rendering": "off",
+  "prefer-read-only-props": "off",
+} as const satisfies RulePreset;
+
 const corePresetSettings = {
   ...DEFAULT_ESLINT_REACT_SETTINGS,
 } satisfies ESLintReactSettings;
@@ -233,16 +238,25 @@ export default {
     ["debug-legacy"]: createLegacyConfig(debugPreset),
     ["dom"]: createFlatConfig(domPreset, domPresetSettings),
     ["dom-legacy"]: createLegacyConfig(domPreset),
-    // ["hooks-extra"]: createFlatConfig(hooksExtraPreset),
-    // ["hooks-extra-legacy"]: createLegacyConfig(hooksExtraPreset),
     ["off"]: createFlatConfig(offPreset),
+    /**
+     * @deprecated Use `disable-dom` instead
+     */
     ["off-dom"]: createFlatConfig(offDomPreset),
+    /**
+     * @deprecated Use `disable-dom-legacy` instead
+     */
     ["off-dom-legacy"]: createLegacyConfig(offDomPreset),
     ["off-legacy"]: createLegacyConfig(offPreset),
     ["recommended"]: createFlatConfig(recommendedPreset),
     ["recommended-legacy"]: createLegacyConfig(recommendedPreset),
     ["recommended-type-checked"]: createFlatConfig(recommendedTypeCheckedPreset),
     ["recommended-type-checked-legacy"]: createLegacyConfig(recommendedTypeCheckedPreset),
+    // Part: disable presets
+    ["disable-dom"]: createFlatConfig(offDomPreset),
+    ["disable-dom-legacy"]: createLegacyConfig(offDomPreset),
+    ["disable-type-checked"]: createFlatConfig(disableTypeCheckedPreset),
+    ["disable-type-checked-legacy"]: createLegacyConfig(disableTypeCheckedPreset),
   },
   rules: {
     ...react.rules,
