@@ -147,7 +147,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
         { messageId: "isFromReact", data: { name: "Children", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Children", importSource: "@pika/react" } },
         { messageId: "isFromReact", data: { name: "toArr", importSource: "@pika/react" } },
         { messageId: "isFromReact", data: { name: "Children", importSource: "@pika/react" } },
         { messageId: "isFromReact", data: { name: "toArray", importSource: "@pika/react" } },
@@ -281,6 +280,125 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    {
+      code: /* tsx */ `
+        import { Children } from "react";
+        function Component() {
+          const Children = {
+            toArray: () => {},
+          }
+          const arr = Children.toArray;
+        }
+      `,
+      errors: [
+        { messageId: "isFromReact", data: { name: "Children", importSource: "react" } },
+      ],
+      settings: {
+        "react-x": {
+          importSource: "react",
+          skipImportCheck: false,
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        import { Children as ReactChildren } from "react";
+        function Component() {
+          const Children = {
+            toArray: () => {},
+          }
+          const arr = Children.toArray;
+        }
+      `,
+      errors: [
+        { messageId: "isFromReact", data: { name: "ReactChildren", importSource: "react" } },
+      ],
+      settings: {
+        "react-x": {
+          importSource: "react",
+          skipImportCheck: false,
+        },
+      },
+    },
   ],
-  valid: [],
+  valid: [
+    {
+      code: /* tsx */ `
+        import notReact from "not-react";
+        const identifier = notReact;
+      `,
+      settings: {
+        "react-x": {
+          importSource: "react",
+          skipImportCheck: false,
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        import { Component } from "not-react";
+        const identifier = Component;
+      `,
+      settings: {
+        "react-x": {
+          importSource: "react",
+          skipImportCheck: false,
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        import { Children } from "not-react";
+        const identifier = Children;
+      `,
+      settings: {
+        "react-x": {
+          importSource: "react",
+          skipImportCheck: false,
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        import { Children } from "not-react";
+        const identifier = Children.toArray;
+      `,
+      settings: {
+        "react-x": {
+          importSource: "react",
+          skipImportCheck: false,
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        const Children = {
+          toArray: () => {},
+        }
+        const identifier = Children.toArray;
+      `,
+      settings: {
+        "react-x": {
+          importSource: "react",
+          skipImportCheck: false,
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        const Children = {
+          toArray: () => {},
+        }
+        function Component() {
+          const arr = Children.toArray;
+        }
+      `,
+      settings: {
+        "react-x": {
+          importSource: "react",
+          skipImportCheck: false,
+        },
+      },
+    },
+  ],
 });

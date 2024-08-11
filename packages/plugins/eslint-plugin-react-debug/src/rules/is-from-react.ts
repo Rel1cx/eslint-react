@@ -48,6 +48,10 @@ export default createRule<[], MessageID>({
     function getReportDescriptor(
       node: TSESTree.Identifier | TSESTree.JSXIdentifier,
     ): O.Option<ReportDescriptor<MessageID>> {
+      const shouldSkipDuplicate = node.parent.type === AST_NODE_TYPES.ImportSpecifier
+        && node.parent.imported === node
+        && node.parent.imported.name === node.parent.local.name;
+      if (shouldSkipDuplicate) return O.none();
       const name = node.name;
       const initialScope = context.sourceCode.getScope(node);
       if (!isFromReact(node, initialScope)) return O.none();
