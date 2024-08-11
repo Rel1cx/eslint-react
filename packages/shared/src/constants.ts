@@ -1,8 +1,4 @@
-/**
- * -----------------------------------------------------------------------------
- * Meta
- * -----------------------------------------------------------------------------
- */
+// #region Meta
 
 /**
  * The NPM scope for this project.
@@ -19,11 +15,9 @@ export const GITHUB_URL = "https://github.com/rel1cx/eslint-react";
  */
 export const WEBSITE_URL = "https://eslint-react.xyz";
 
-/**
- * -----------------------------------------------------------------------------
- * RegExps
- * -----------------------------------------------------------------------------
- */
+// #endregion
+
+// #region RegExps
 
 /**
  * Regular expression for matching a PascalCase string.
@@ -55,11 +49,9 @@ export const RE_CONSTANT_CASE = /^[A-Z][\d_A-Z]*$/u;
 // eslint-disable-next-line no-control-regex
 export const RE_JAVASCRIPT_PROTOCOL = /^[\u0000-\u001F ]*j[\t\n\r]*a[\t\n\r]*v[\t\n\r]*a[\t\n\r]*s[\t\n\r]*c[\t\n\r]*r[\t\n\r]*i[\t\n\r]*p[\t\n\r]*t[\t\n\r]*:/iu;
 
-/**
- * -----------------------------------------------------------------------------
- * JSX, React, and React DOM constants
- * -----------------------------------------------------------------------------
- */
+// #endregion
+
+// #region Built-in Components
 
 // source: https://react.dev/reference/react-dom/components#all-html-components
 /**
@@ -242,6 +234,10 @@ export const HOST_SVG_COMPONENT_TYPES = [
   "view",
 ] as const;
 
+// #endregion
+
+// #region Build-in Hooks
+
 export const REACT_BUILD_IN_HOOKS = [
   "useActionState",
   "useCallback",
@@ -261,3 +257,5 @@ export const REACT_BUILD_IN_HOOKS = [
   "useSyncExternalStore",
   "useTransition",
 ] as const;
+
+// #endregion

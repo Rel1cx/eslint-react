@@ -11,6 +11,8 @@ import * as react from "eslint-plugin-react-x";
 import { name, version } from "../package.json";
 import { padKeysLeft } from "./utils";
 
+// #region Presets Rules
+
 const allPreset = {
   "avoid-shorthand-boolean": "warn",
   "avoid-shorthand-fragment": "warn",
@@ -158,6 +160,20 @@ const disableTypeCheckedPreset = {
   "prefer-read-only-props": "off",
 } as const satisfies RulePreset;
 
+const debugPreset = {
+  "debug/class-component": "warn",
+  "debug/function-component": "warn",
+  "debug/react-hooks": "warn",
+} as const satisfies RulePreset;
+
+const allPresetEntries = entries(allPreset);
+const offPreset = fromEntries(allPresetEntries.map(([key]) => [key, "off"]));
+const offDomPreset = fromEntries(entries(domPreset).map(([key]) => [key, "off"]));
+
+// #endregion
+
+// #region  Presets Settings
+
 const corePresetSettings = {
   ...DEFAULT_ESLINT_REACT_SETTINGS,
 } satisfies ESLintReactSettings;
@@ -178,15 +194,9 @@ const domPresetSettings = {
   ],
 } satisfies ESLintReactSettings;
 
-const debugPreset = {
-  "debug/class-component": "warn",
-  "debug/function-component": "warn",
-  "debug/react-hooks": "warn",
-} as const satisfies RulePreset;
+// #endregion
 
-const allPresetEntries = entries(allPreset);
-const offPreset = fromEntries(allPresetEntries.map(([key]) => [key, "off"]));
-const offDomPreset = fromEntries(entries(domPreset).map(([key]) => [key, "off"]));
+// #region Plugins
 
 const legacyConfigPlugins = ["@eslint-react"] as const;
 
@@ -197,6 +207,10 @@ const flatConfigPlugins = {
   "@eslint-react/hooks-extra": reactHooksExtra,
   "@eslint-react/naming-convention": reactNamingConvention,
 } as const;
+
+// #endregion
+
+// #region Helpers
 
 function createLegacyConfig<T extends RulePreset>(
   rules: T,
@@ -223,6 +237,10 @@ function createFlatConfig<T extends RulePreset>(
     },
   } as const;
 }
+
+// #endregion
+
+// #region Exports
 
 export default {
   meta: {
@@ -266,3 +284,5 @@ export default {
     ...padKeysLeft(reactDebug.rules, "debug/"),
   },
 } as const;
+
+// #endregion

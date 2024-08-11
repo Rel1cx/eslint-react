@@ -11,15 +11,17 @@ import { isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";
 
+// #region Rule Metadata
+
 export const RULE_NAME = "no-array-index-key";
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-const reactChildrenMethod = ["forEach", "map"] as const;
+// #endregion
 
-function isReactChildrenMethod(name: string): name is typeof reactChildrenMethod[number] {
-  return reactChildrenMethod.some((method) => method === name);
-}
+// #region Constants
+
+const reactChildrenMethod = ["forEach", "map"] as const;
 
 const iteratorFunctionIndexParamPosition = new Map<string, number>([
   ["every", 1],
@@ -35,6 +37,14 @@ const iteratorFunctionIndexParamPosition = new Map<string, number>([
   ["reduceRight", 2],
   ["some", 1],
 ]);
+
+// #endregion
+
+// #region Helpers
+
+function isReactChildrenMethod(name: string): name is typeof reactChildrenMethod[number] {
+  return reactChildrenMethod.some((method) => method === name);
+}
 
 function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContext) {
   const settings = unsafeCastSettings(context.settings);
@@ -82,6 +92,10 @@ function getIdentifiersFromBinaryExpression(side: TSESTree.Node): TSESTree.Ident
 
   return [];
 }
+
+// #endregion
+
+// #region Rule Definition
 
 export default createRule<[], MessageID>({
   meta: {

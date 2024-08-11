@@ -15,9 +15,15 @@ import ts from "typescript";
 
 import { createRule } from "../utils";
 
+// #region Rule Metadata
+
 export const RULE_NAME = "no-leaked-conditional-rendering";
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
+
+// #endregion
+
+// #region Types
 
 /** The types we care about */
 /* eslint-disable perfectionist/sort-union-types */
@@ -56,6 +62,10 @@ const allowedVariants = [
   "truthy number",
   "truthy string",
 ] as const satisfies VariantType[];
+
+// #endregion
+
+// #region Helpers
 
 const tsHelpers = {
   isAnyType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.TypeParameter | ts.TypeFlags.Any),
@@ -198,6 +208,10 @@ function getVariableInitExpression(at: number) {
   };
 }
 
+// #endregion
+
+// #region Rule Definition
+
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -262,3 +276,5 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;
+
+// #endregion
