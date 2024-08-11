@@ -319,10 +319,75 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         },
       ],
     },
+    // union type with readonly and non-readonly variants
     {
       code: /* tsx */ `
         /// <reference types="react" />
         /// <reference types="react-dom" />
+
+        import * as React from "react";
+
+        type ReadonlyProps = { readonly id: string; readonly className: string };
+        type WritableProps = { id: string, className: string };
+        type Props = ReadonlyProps | WritableProps;
+        const App: React.FC<Props> = (props) => {
+            return <div id={props.id} className={props.className} />
+        }
+      `,
+      errors: [
+        {
+          messageId: "preferReadOnlyProps",
+        },
+      ],
+    },
+    // union type with readonly and non-readonly variants
+    {
+      code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+        import * as React from "react";
+
+        type ReadonlyProps = { readonly id: string; readonly className: string };
+        type WritableProps = { title: string, description: string };
+        type Props = ReadonlyProps | WritableProps;
+        const App: React.FC<Props> = (props) => {
+            return <div id={props.id} className={props.className} />
+        }
+      `,
+      errors: [
+        {
+          messageId: "preferReadOnlyProps",
+        },
+      ],
+    },
+    // intersection type with readonly and non-readonly variants
+    {
+      code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+        import * as React from "react";
+
+        type ReadonlyProps = { readonly id: string; readonly className: string };
+        type WritableProps = { title: string, description: string };
+        type Props = ReadonlyProps & WritableProps;
+        const App: React.FC<Props> = (props) => {
+            return <div id={props.id} className={props.className} />
+        }
+      `,
+      errors: [
+        {
+          messageId: "preferReadOnlyProps",
+        },
+      ],
+    },
+    {
+      // types inside namespace
+      code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         namespace ItemsListElementSkeleton {
           export interface Props {
            withArtists?: boolean
@@ -559,10 +624,39 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const App = React.memo(React.forwardRef<HTMLDivElement, Props>(({ id, className }, ref) => {
           return <div id={id} className={className} ref={ref} />
       }));
-    `,
+    `, // union type with readonly and non-readonly variants
     /* tsx */ `
       /// <reference types="react" />
       /// <reference types="react-dom" />
+
+      import * as React from "react";
+
+      type ReadonlyProps1 = { readonly id: string; readonly className: string };
+      type ReadonlyProps2 = { readonly title: string; readonly description: string };
+      type Props = ReadonlyProps1 | ReadonlyProps2;
+      const App: React.FC<Props> = (props) => {
+          return <div id={props.id} className={props.className} />
+      }
+    `,
+    // intersection type with readonly and non-readonly variants
+    /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
+      import * as React from "react";
+
+      type ReadonlyProps1 = { readonly id: string; readonly className: string };
+      type ReadonlyProps2 = { readonly title: string; readonly description: string };
+      type Props = ReadonlyProps1 & ReadonlyProps2;
+      const App: React.FC<Props> = (props) => {
+          return <div id={props.id} className={props.className} />
+      }
+    `,
+    // types inside namespace
+    /* tsx */ `
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       namespace ItemsListElementSkeleton {
         export interface Props {
          readonly withArtists?: boolean
