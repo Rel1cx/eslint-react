@@ -18,6 +18,7 @@ import eslintPluginYml from "eslint-plugin-yml";
 import { isCI } from "std-env";
 import tseslint from "typescript-eslint";
 import YamlParser from "yaml-eslint-parser";
+import fileProgressPlugin from "eslint-plugin-file-progress";
 
 type Config = Parameters<typeof tseslint.config>[number];
 
@@ -108,6 +109,7 @@ const config: Config[] = [
       ["jsdoc"]: jsdocPlugin,
       ["simple-import-sort"]: simpleImportSortPlugin,
       ["unicorn"]: unicornPlugin,
+      ["file-progress"]: fileProgressPlugin,
     },
   },
   // extends ...
@@ -390,6 +392,11 @@ const config: Config[] = [
       "yml/no-tab-indent": "error",
       "yml/quotes": "error",
       "yml/spaced-comment": "error",
+    },
+  },
+  {
+    rules: {
+      "file-progress/activate": "warn",
     },
   },
 ];
