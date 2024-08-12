@@ -221,6 +221,7 @@ ruleTester.run(RULE_NAME, rule, {
     "React.useState(1 == 2 ? 3 : 4)",
     "React.useState(1 === 2 ? 3 : 4)",
     'import { useState } from "react"; useState()',
+    'import { useState } from "react"; useState(() => JSON.parse("{}"))',
     'import { useState } from "react"; useState("")',
     'import { useState } from "react"; useState(true)',
     'import { useState } from "react"; useState(false)',
@@ -256,6 +257,30 @@ ruleTester.run(RULE_NAME, rule, {
     'const { useState } = require("react"); useState(1 === 2 ? 3 : 4)',
     {
       code: "useLocalStorageState()",
+      settings: {
+        "react-x": {
+          additionalHooks: {
+            useState: ["useLocalStorageState"],
+          },
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        import { useState } from 'react';
+
+        function getValue() {
+          return 0;
+        }
+
+        function App() {
+          const [count, setCount] = useState(() => getValue());
+
+          return null;
+        }
+
+        export default App;
+      `,
       settings: {
         "react-x": {
           additionalHooks: {
