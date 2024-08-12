@@ -15,7 +15,6 @@ function App() {
         </a>
       </div>
       <div className="card">
-        <input type="text" value={0} defaultValue={0} />
         <button type="button" onClick={() => setCount((count) => count + 1n)}>
           count is {count.toString()}
         </button>
