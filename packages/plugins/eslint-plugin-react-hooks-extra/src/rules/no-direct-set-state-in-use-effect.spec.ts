@@ -484,10 +484,10 @@ ruleTester.run(RULE_NAME, rule, {
 
         const Component = () => {
           const [data, setData] = useState();
-          const effectFunction = () => {
+          const setupFunction = () => {
             setData()
           }
-          useEffect(effectFunction, []);
+          useEffect(setupFunction, []);
           return null;
         }
       `,
@@ -501,10 +501,10 @@ ruleTester.run(RULE_NAME, rule, {
 
         const Component = () => {
           const [data, setData] = useState();
-          function effectFunction() {
+          function setupFunction() {
             setData()
           }
-          useEffect(effectFunction, []);
+          useEffect(setupFunction, []);
           return null;
         }
       `,
@@ -518,8 +518,8 @@ ruleTester.run(RULE_NAME, rule, {
 
         const Component = () => {
           const [data, setData] = useState();
-          useEffect(effectFunction, []);
-          function effectFunction() {
+          useEffect(setupFunction, []);
+          function setupFunction() {
             setData()
           }
           return null;
@@ -535,19 +535,19 @@ ruleTester.run(RULE_NAME, rule, {
 
         const Component1 = () => {
           const [data, setData] = useState();
-          const effectFunction = () => {
+          const setupFunction = () => {
             setData()
           }
-          useEffect(effectFunction, []);
+          useEffect(setupFunction, []);
           return null;
         }
 
         const Component2 = () => {
           const [data, setData] = useState();
-          const effectFunction = () => {
+          const setupFunction = () => {
             setData()
           }
-          useEffect(effectFunction, []);
+          useEffect(setupFunction, []);
           return null;
         }
       `,
@@ -714,7 +714,7 @@ ruleTester.run(RULE_NAME, rule, {
 
       const Component1 = () => {
         const [data, setData] = useState();
-        const effectFunction = () => {
+        const setupFunction = () => {
           setData()
         }
         return null;
@@ -722,7 +722,7 @@ ruleTester.run(RULE_NAME, rule, {
 
       const Component2 = () => {
         const [data, setData] = useState();
-        useEffect(effectFunction, []);
+        useEffect(setupFunction, []);
         return null;
       }
     `,
