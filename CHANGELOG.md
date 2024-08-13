@@ -1,4 +1,4 @@
-## v1.10.1 (Draft)
+## v1.10.1 (Tue 13 Aug 2024)
 
 ### 🐞 Fixes
 
@@ -7,6 +7,8 @@
 ### 🪄 Improvements
 
 - Improve rule `no-implicit-key` error marker position and range.
+- Upgrade `@typescript-eslint`'s packages to `^8.1.0`.
+- Improve website and documentation.
 
 ## v1.10.0 (Sun 11 Aug 2024)
 
