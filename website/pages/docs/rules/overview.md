@@ -107,8 +107,9 @@
 
 ## Debug Rules
 
-| Rule                                                   | Description                    | 💼  | 💭  |     |
-| :----------------------------------------------------- | :----------------------------- | :-: | :-: | :-: |
-| [`debug/class-component`](debug-class-component)       | Print all class components.    | 🐞  |     |     |
-| [`debug/function-component`](debug-function-component) | Print all function components. | 🐞  |     |     |
-| [`debug/react-hooks`](debug-react-hooks)               | Print all react hooks.         | 🐞  |     |     |
+| Rule                                                   | Description                                             | 💼  | 💭  |     |
+| :----------------------------------------------------- | :------------------------------------------------------ | :-: | :-: | :-: |
+| [`debug/class-component`](debug-class-component)       | Report all class components.                            | 🐞  |     |     |
+| [`debug/function-component`](debug-function-component) | Report all function components.                         | 🐞  |     |     |
+| [`debug/react-hooks`](debug-react-hooks)               | Report all react hooks.                                 | 🐞  |     |     |
+| [`debug/is-from-react`](debug-is-from-react)           | Report all identifiers that are initialized from React. | 🐞  |     | 🚧  |
