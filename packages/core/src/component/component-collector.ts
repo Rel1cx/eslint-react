@@ -63,14 +63,14 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
 }
 
 function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {
-  let flagRef = ERFunctionComponentFlag.None;
+  let flag = ERFunctionComponentFlag.None;
   if (hasCallInComponentInitPath("memo")(initPath)) {
-    flagRef |= ERFunctionComponentFlag.Memo;
+    flag |= ERFunctionComponentFlag.Memo;
   }
   if (hasCallInComponentInitPath("forwardRef")(initPath)) {
-    flagRef |= ERFunctionComponentFlag.ForwardRef;
+    flag |= ERFunctionComponentFlag.ForwardRef;
   }
-  return flagRef;
+  return flag;
 }
 
 export function useComponentCollector(
