@@ -1,0 +1,43 @@
+# is-from-react
+
+## Rule category
+
+Debug.
+
+## What it does
+
+Reports all identifiers that are initialized from React. Useful for debugging. This rule should only be used for debugging purposes. Otherwise, leave it off.
+
+## Examples
+
+```tsx twoslash
+import { useState } from "react";
+//       ^^^^^^^^
+//       - [initialized from react] name: 'useState', importSource: 'react'.
+```
+
+```tsx twoslash
+import React from "react";
+//     ^^^^^ from "react"
+//     - [initialized from react] name: 'React', importSource: 'react'.
+
+const Children = React.Children;
+//    ^^^^^^^^   ^^^^^ ^^^^^^^^
+//    |         |     - [initialized from react] name: 'Children', importSource: 'react'.
+//    |         - [initialized from react] name: 'React', importSource: 'react'.
+//    - [initialized from react] name: 'Children', importSource: 'react'.
+
+const toArray = Children.toArray;
+//    ^^^^^^^   ^^^^^^^^ ^^^^^^^
+//    |        |         - [initialized from react] name: 'toArray', importSource: 'react'.
+//    |        - [initialized from react] name: 'Children', importSource: 'react'.
+//    - [initialized from react] name: 'Children', importSource: 'react'.
+```
+
+### When [`settings["react-x"].importSource`](https://eslint-react.xyz/docs/configuration#importsource) is set to "@pika/react"
+
+```tsx twoslash
+import { useState } from "@pika/react";
+//       ^^^^^^^^
+//       - [initialized from react] name: 'useState', importSource: '@pika/react'.
+```

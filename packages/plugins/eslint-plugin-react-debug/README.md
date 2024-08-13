@@ -40,8 +40,9 @@ export default [
 
 ## Rules
 
-| Rule                 | Description                    | 💼  | 💭  |     |
-| :------------------- | :----------------------------- | :-: | :-: | :-: |
-| `class-component`    | Print all class components.    | 🐞  |     |     |
-| `function-component` | Print all function components. | 🐞  |     |     |
-| `react-hooks`        | Print all react hooks.         | 🐞  |     |     |
+| Rule                 | Description                                             | 💼  | 💭  |     |
+| :------------------- | :------------------------------------------------------ | :-: | :-: | :-: |
+| `class-component`    | Report all class components.                            | 🐞  |     |     |
+| `function-component` | Report all function components.                         | 🐞  |     |     |
+| `react-hooks`        | Report all react hooks.                                 | 🐞  |     |     |
+| `is-from-react`      | Report all identifiers that are initialized from React. | 🐞  |     | 🚧  |
