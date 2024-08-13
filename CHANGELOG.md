@@ -1,5 +1,9 @@
 ## v1.10.1 (Draft)
 
+### 🐞 Fixes
+
+- Fixed `hooks-extra/prefer-use-state-lazy-initialization` false positive when using an initializer function.
+
 ### 🪄 Improvements
 
 - Improve rule `no-implicit-key` error marker position and range.
