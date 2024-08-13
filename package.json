@@ -52,7 +52,7 @@
     "@effect/platform-bun": "^0.41.8",
     "@effect/platform-node": "^0.56.9",
     "@effect/schema": "^0.70.4",
-    "@eslint/js": "^9.9.0",
+    "@eslint/js": "^10.0.0",
     "@stylistic/eslint-plugin-js": "^2.6.2",
     "@susisu/eslint-plugin-safe-typescript": "^0.9.0",
     "@swc/core": "^1.7.10",
@@ -104,7 +104,7 @@
     "typedoc": "^0.26.5",
     "typedoc-plugin-markdown": "^4.2.3",
     "typedoc-plugin-rename-defaults": "^0.7.1",
-    "typescript": "^5.6.0-dev.20240812",
+    "typescript": "^5.6.0-dev.20240813",
     "vitest": "^2.0.5"
   },
   "packageManager": "pnpm@9.7.0",
@@ -121,7 +121,7 @@
       "traverse": "npm:neotraverse@^0",
       "ts-api-utils": "^1.3.0",
       "typedarray": "npm:@nolyfill/typedarray@^1",
-      "typescript": "^5.6.0-dev.20240812"
+      "typescript": "^5.6.0-dev.20240813"
     },
     "overridesMeta": {
       "esbuild": "override to single version",
