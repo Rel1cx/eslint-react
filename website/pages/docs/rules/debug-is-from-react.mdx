@@ -10,13 +10,13 @@ Reports all identifiers that are initialized from React. Useful for debugging. T
 
 ## Examples
 
-```tsx twoslash
+```tsx
 import { useState } from "react";
 //       ^^^^^^^^
 //       - [initialized from react] name: 'useState', importSource: 'react'.
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 //     ^^^^^
 //     - [initialized from react] name: 'React', importSource: 'react'.
