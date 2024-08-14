@@ -1,6 +1,6 @@
-import { defineConfig } from "tsup";
+import type { Options } from "tsup";
 
-export default defineConfig(() => ({
+export default {
   clean: true,
   dts: true,
   entry: ["index.ts"],
@@ -14,4 +14,4 @@ export default defineConfig(() => ({
   splitting: false,
   target: "node18",
   treeshake: true,
-}));
+} as Options;
