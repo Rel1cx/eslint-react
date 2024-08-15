@@ -31,7 +31,7 @@
     "@vanilla-extract/next-plugin": "^2.4.3",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
-    "effect": "^3.6.3",
+    "effect": "^3.6.4",
     "eslint": "^9.9.0",
     "eslint-plugin-mdx": "^3.1.5",
     "eslint-plugin-react-hooks": "^4.6.2",
@@ -42,8 +42,8 @@
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.0",
     "sass": "^1.77.8",
-    "typescript": "^5.6.0-dev.20240814",
+    "typescript": "^5.6.0-dev.20240815",
     "typescript-eslint": "^8.1.0",
-    "vite": "^5.4.0"
+    "vite": "^5.4.1"
   }
 }
