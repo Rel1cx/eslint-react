@@ -77,7 +77,7 @@ export function useComponentCollector(
   context: RuleContext,
   hint: bigint = DEFAULT_COMPONENT_HINT,
 ) {
-  const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) };
+  const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
   const components = new Map<string, ERFunctionComponent>();
   const functionStack: [
     key: string,
@@ -199,8 +199,5 @@ export function useComponentCollector(
       });
     },
   } as const satisfies ESLintUtils.RuleListener;
-  return {
-    ctx,
-    listeners,
-  } as const;
+  return { ctx, listeners } as const;
 }

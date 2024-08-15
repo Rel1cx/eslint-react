@@ -47,8 +47,8 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const openingElementNameExpression = node.openingElement;
-        const ctx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) };
-        const elementType = getElementType(ctx, components, polymorphicPropName)(openingElementNameExpression);
+        const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
+        const elementType = getElementType(jsxCtx, components, polymorphicPropName)(openingElementNameExpression);
         if (!elementType || !voidElements.has(elementType)) return;
         if (node.children.length > 0) {
           context.report({

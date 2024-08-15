@@ -43,8 +43,8 @@ export default createRule<[], MessageID>({
     const additionalComponents = settings.additionalComponents.filter(c => c.as === "a");
     function getReportDescriptor(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
       const name = getElementName(node.openingElement);
-      const ctx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) };
-      const elementType = getElementType(ctx, components, polymorphicPropName)(node.openingElement);
+      const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) };
+      const elementType = getElementType(jsxCtx, components, polymorphicPropName)(node.openingElement);
       if (elementType !== "a" && !additionalComponents.some(c => c.re.test(name))) return O.none();
       const { attributes } = node.openingElement;
       const initialScope = context.sourceCode.getScope(node);
@@ -61,7 +61,7 @@ export default createRule<[], MessageID>({
         ? O.fromNullable(targetPropDefaultValue)
         : F.pipe(
           targetProp,
-          O.flatMap(attr => getPropValue(attr, ctx.getScope(attr))),
+          O.flatMap(attr => getPropValue(attr, jsxCtx.getScope(attr))),
           O.flatMapNullable(v =>
             match(v?.value)
               .with(P.string, F.identity)
@@ -80,7 +80,7 @@ export default createRule<[], MessageID>({
         ? O.fromNullable(hrefPropDefaultValue)
         : F.pipe(
           hrefProp,
-          O.flatMap(attr => getPropValue(attr, ctx.getScope(attr))),
+          O.flatMap(attr => getPropValue(attr, jsxCtx.getScope(attr))),
           O.flatMapNullable(v =>
             match(v?.value)
               .with(P.string, F.identity)
@@ -99,7 +99,7 @@ export default createRule<[], MessageID>({
         ? O.fromNullable(relPropDefaultValue)
         : F.pipe(
           relProp,
-          O.flatMap(attr => getPropValue(attr, ctx.getScope(attr))),
+          O.flatMap(attr => getPropValue(attr, jsxCtx.getScope(attr))),
           O.flatMapNullable(v =>
             match(v?.value)
               .with(P.string, F.identity)

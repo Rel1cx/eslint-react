@@ -94,8 +94,5 @@ export function useComponentCollectorLegacy() {
     "ClassExpression[type]": collect,
   } as const satisfies ESLintUtils.RuleListener;
 
-  return {
-    ctx,
-    listeners,
-  } as const;
+  return { ctx, listeners } as const;
 }

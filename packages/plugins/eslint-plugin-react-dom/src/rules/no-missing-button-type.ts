@@ -27,8 +27,8 @@ export default createRule<[], MessageID>({
     const { components, polymorphicPropName } = expandSettings(decodeSettings(context.settings));
     return {
       JSXElement(node) {
-        const ctx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) };
-        const elementType = getElementType(ctx, components, polymorphicPropName)(node.openingElement);
+        const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
+        const elementType = getElementType(jsxCtx, components, polymorphicPropName)(node.openingElement);
         if (elementType !== "button") return;
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
