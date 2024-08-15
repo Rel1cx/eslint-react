@@ -1,7 +1,7 @@
 import { findPropInAttributes, getElementType } from "@eslint-react/jsx";
 import { decodeSettings, expandSettings } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
-import type { ESLintUtils } from "@typescript-eslint/utils";
+import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -47,29 +47,30 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const openingElementNameExpression = node.openingElement;
-        const elementType = getElementType(context, components, polymorphicPropName)(openingElementNameExpression);
+        const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
+        const elementType = getElementType(jsxCtx, components, polymorphicPropName)(openingElementNameExpression);
         if (!elementType || !voidElements.has(elementType)) return;
         if (node.children.length > 0) {
           context.report({
+            messageId: "noChildrenInVoidDomElements",
+            node,
             data: {
               element: elementType,
             },
-            messageId: "noChildrenInVoidDomElements",
-            node,
           });
         }
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
-        const hasAttr = (name: string) => O.isSome(findPropInAttributes(attributes, context, initialScope)(name));
+        const hasAttr = (name: string) => O.isSome(findPropInAttributes(attributes, initialScope)(name));
         const hasChildrenOrDangerAttr = hasAttr("children") || hasAttr("dangerouslySetInnerHTML");
         if (hasChildrenOrDangerAttr) {
           // e.g. <br children="Foo" />
           context.report({
+            messageId: "noChildrenInVoidDomElements",
+            node,
             data: {
               element: elementType,
             },
-            messageId: "noChildrenInVoidDomElements",
-            node,
           });
         }
       },

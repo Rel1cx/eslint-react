@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import url from "node:url";
 
 import eslint from "@eslint/js";
@@ -16,6 +18,7 @@ import eslintPluginYml from "eslint-plugin-yml";
 import { isCI } from "std-env";
 import tseslint from "typescript-eslint";
 import YamlParser from "yaml-eslint-parser";
+import fileProgressPlugin from "eslint-plugin-file-progress";
 
 type Config = Parameters<typeof tseslint.config>[number];
 
@@ -68,9 +71,18 @@ const p11tGroups = {
       "description",
     ],
     alias: ["alias", "as"],
+    rules: ["node", "messageId"],
   },
-  groups: ["id", "type", "meta", "alias", "unknown"],
+  groups: ["id", "type", "meta", "alias", "rules", "unknown"],
 } as const;
+
+const disableSafeTypescript = {
+  "@susisu/safe-typescript/no-object-assign": "off",
+  "@susisu/safe-typescript/no-type-assertion": "off",
+  "@susisu/safe-typescript/no-unsafe-object-enum-method": "off",
+  "@susisu/safe-typescript/no-unsafe-object-property-check": "off",
+  "@susisu/safe-typescript/no-unsafe-object-property-overwrite": "off",
+};
 
 const config: Config[] = [
   gitignore(),
@@ -79,7 +91,7 @@ const config: Config[] = [
       "docs",
       "examples",
       "website",
-      "eslint.config.js",
+      "eslint.config.*",
       "eslint.config.d.ts",
       "test",
     ],
@@ -97,6 +109,7 @@ const config: Config[] = [
       ["jsdoc"]: jsdocPlugin,
       ["simple-import-sort"]: simpleImportSortPlugin,
       ["unicorn"]: unicornPlugin,
+      ["file-progress"]: fileProgressPlugin,
     },
   },
   // extends ...
@@ -108,9 +121,9 @@ const config: Config[] = [
   perfectionist.configs["recommended-natural"],
   jsdocPlugin.configs["flat/recommended-typescript-error"],
   eslintPluginPlugin.configs["flat/all-type-checked"],
-  // base config
+  // base ts language options
   {
-    files: [...GLOB_JS, ...GLOB_TS],
+    files: GLOB_TS,
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -121,6 +134,10 @@ const config: Config[] = [
         warnOnUnsupportedTypeScriptVersion: false,
       },
     },
+  },
+  // base config
+  {
+    files: [...GLOB_JS, ...GLOB_TS],
     rules: {
       // Part: eslint rules
       curly: "off",
@@ -193,13 +210,13 @@ const config: Config[] = [
           varsIgnorePattern: "^_",
         },
       ],
+      // "@typescript-eslint/prefer-nullish-coalescing": "warn",
       // Part: safe-typescript rules
       "@susisu/safe-typescript/no-object-assign": "error",
       "@susisu/safe-typescript/no-type-assertion": "error",
       "@susisu/safe-typescript/no-unsafe-object-enum-method": "error",
       // "@susisu/safe-typescript/no-unsafe-object-property-check": "error",
       // "@susisu/safe-typescript/no-unsafe-object-property-overwrite": "error",
-      // "@typescript-eslint/prefer-nullish-coalescing": "warn",
       // Part: functional rules
       "functional/no-return-void": "off",
       // Part: jsdoc rules
@@ -222,6 +239,7 @@ const config: Config[] = [
       "import-x/no-duplicates": "error",
       "import-x/no-dynamic-require": "error",
       "import-x/no-empty-named-blocks": "error",
+      "import-x/no-extraneous-dependencies": "error",
       "import-x/no-mutable-exports": "error",
       "import-x/no-self-import": "error",
       "import-x/no-unused-modules": "error",
@@ -277,9 +295,16 @@ const config: Config[] = [
     },
     settings: {
       "import-x/parsers": {
-        "@typescript-eslint/parser": [...GLOB_JS, ...GLOB_TS],
+        "@typescript-eslint/parser": GLOB_TS,
       },
       "import-x/resolver": "oxc",
+    },
+  },
+  {
+    extends: [tseslint.configs.disableTypeChecked],
+    files: GLOB_JS,
+    rules: {
+      ...disableSafeTypescript,
     },
   },
   {
@@ -312,6 +337,7 @@ const config: Config[] = [
     rules: {
       ...vitest.configs.recommended.rules,
       "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
+      "import-x/no-extraneous-dependencies": "off",
     },
   },
   {
@@ -366,6 +392,11 @@ const config: Config[] = [
       "yml/no-tab-indent": "error",
       "yml/quotes": "error",
       "yml/spaced-comment": "error",
+    },
+  },
+  {
+    rules: {
+      "file-progress/activate": "warn",
     },
   },
 ];

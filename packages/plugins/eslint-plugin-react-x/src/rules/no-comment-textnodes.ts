@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
       const rawValue = context.sourceCode.getText(node);
       return /^\s*\/(\/|\*)/mu.test(rawValue);
     }
-    const check = (node: TSESTree.JSXText | TSESTree.Literal): O.Option<ReportDescriptor<MessageID>> => {
+    const getReportDescriptor = (node: TSESTree.JSXText | TSESTree.Literal): O.Option<ReportDescriptor<MessageID>> => {
       if (!isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(node.parent)) return O.none();
       if (!hasCommentLike(node)) return O.none();
       if (!node.parent.type.includes("JSX")) return O.none();
@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
         } as const,
       );
     };
-    const ruleFunction = F.flow(check, O.map(context.report), F.constVoid);
+    const ruleFunction = F.flow(getReportDescriptor, O.map(context.report), F.constVoid);
     return {
       JSXText: ruleFunction,
       Literal: ruleFunction,

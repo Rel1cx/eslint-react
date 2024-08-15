@@ -6,73 +6,73 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: /* tsx */ `<ns:testcomponent />`,
       errors: [{
+        messageId: "noNamespace",
         data: {
           name: "ns:testcomponent",
         },
-        messageId: "noNamespace",
       }],
     },
     {
       code: /* tsx */ `<ns:testComponent />`,
       errors: [{
+        messageId: "noNamespace",
         data: {
           name: "ns:testComponent",
         },
-        messageId: "noNamespace",
       }],
     },
     {
       code: /* tsx */ `<ns:test_component />`,
       errors: [{
+        messageId: "noNamespace",
         data: {
           name: "ns:test_component",
         },
-        messageId: "noNamespace",
       }],
     },
     {
       code: /* tsx */ `<ns:TestComponent />`,
       errors: [{
+        messageId: "noNamespace",
         data: {
           name: "ns:TestComponent",
         },
-        messageId: "noNamespace",
       }],
     },
     {
       code: /* tsx */ `<Ns:testcomponent />`,
       errors: [{
+        messageId: "noNamespace",
         data: {
           name: "Ns:testcomponent",
         },
-        messageId: "noNamespace",
       }],
     },
     {
       code: /* tsx */ `<Ns:testComponent />`,
       errors: [{
+        messageId: "noNamespace",
         data: {
           name: "Ns:testComponent",
         },
-        messageId: "noNamespace",
       }],
     },
     {
       code: /* tsx */ `<Ns:test_component />`,
       errors: [{
+        messageId: "noNamespace",
         data: {
           name: "Ns:test_component",
         },
-        messageId: "noNamespace",
       }],
     },
     {
       code: /* tsx */ `<Ns:TestComponent />`,
       errors: [{
+        messageId: "noNamespace",
         data: {
           name: "Ns:TestComponent",
         },
-        messageId: "noNamespace",
       }],
     },
   ],

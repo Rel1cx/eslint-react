@@ -1,5 +1,8 @@
 /* eslint-disable @susisu/safe-typescript/no-type-assertion */
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
+
+// #region Type Utilities
+
 /**
  * @since 0.4.0
  */
@@ -81,6 +84,10 @@ export type Narrow<TType> =
   | (TType extends Function ? TType : never)
   | (TType extends bigint | boolean | number | string ? TType : never);
 
+// #endregion
+
+// #region Type Helpers
+
 /**
  * Infers embedded primitive type of any type
  * Same as `as const` but without setting the object as readonly and without needing the user to use it.
@@ -111,6 +118,10 @@ export function typeOf(t: unknown) {
     .replace(/^\[object (.+)\]$/, "$1")
     .toLowerCase() as "array" | "object" | (string & {});
 }
+
+// #endregion
+
+// #region Type Guards
 
 export const isTruthy = (input: unknown) => !!input;
 
@@ -161,6 +172,10 @@ export const isDate = (input: unknown): input is Date => input instanceof Date;
 
 export const isIterable = (input: unknown): input is Iterable<unknown> => hasProperty(input, Symbol.iterator);
 
+// #endregion
+
+// #region Object Helpers
+
 /**
  * type-safe version of Object.fromEntries
  * @param entries The entries to create the object from.
@@ -199,6 +214,10 @@ export const keys = <T extends LooseRecord<unknown>>(value: T) => Object.keys(va
  */
 export const values = <T extends LooseRecord<unknown>>(value: T) => Object.values(value) as T[keyof T][];
 
+// #endregion
+
+// #region Array Helpers
+
 export function zip<T>(arr1: readonly T[]): Array<[T]>;
 export function zip<T, U>(arr1: readonly T[], arr2: readonly U[]): Array<[T, U]>;
 export function zip<T, U, V>(arr1: readonly T[], arr2: readonly U[], arr3: readonly V[]): Array<[T, U, V]>;
@@ -225,3 +244,5 @@ export function zip<T>(...arrs: Array<readonly T[]>): T[][] {
 
   return result;
 }
+
+// #endregion

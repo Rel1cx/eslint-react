@@ -14,8 +14,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "getDerivedStateFromProps" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "getDerivedStateFromProps" },
         },
       ],
     },
@@ -30,8 +30,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "handleClick" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "handleClick" },
         },
       ],
     },
@@ -47,12 +47,12 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "handleScroll" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "handleScroll" },
         },
         {
-          data: { className: "Foo", methodName: "handleClick" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "handleClick" },
         },
       ],
     },
@@ -67,8 +67,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "handleClick" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "handleClick" },
         },
       ],
     },
@@ -83,8 +83,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "action" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "action" },
         },
       ],
     },
@@ -101,8 +101,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "action" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "action" },
         },
       ],
     },
@@ -119,8 +119,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "action" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "action" },
         },
       ],
     },
@@ -137,8 +137,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "action" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "action" },
         },
       ],
     },
@@ -153,8 +153,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "getInitialState" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "getInitialState" },
         },
       ],
     },
@@ -171,8 +171,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "action" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "action" },
         },
       ],
     },
@@ -187,8 +187,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "ClassAssignPropertyInMethodTest", methodName: "foo" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "ClassAssignPropertyInMethodTest", methodName: "foo" },
         },
       ],
     },
@@ -205,8 +205,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "ClassAssignPropertyInMethodTest", methodName: "foo" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "ClassAssignPropertyInMethodTest", methodName: "foo" },
         },
       ],
     },
@@ -221,8 +221,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "foo" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "foo" },
         },
       ],
     },
@@ -237,8 +237,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "foo" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "foo" },
         },
       ],
     },
@@ -253,8 +253,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "foo" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "foo" },
         },
       ],
     },
@@ -269,8 +269,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "foo" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "foo" },
         },
       ],
     },
@@ -285,8 +285,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "foo" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "foo" },
         },
       ],
     },
@@ -301,8 +301,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "foo" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "foo" },
         },
       ],
     },
@@ -317,8 +317,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "foo" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "foo" },
         },
       ],
     },
@@ -333,8 +333,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo", methodName: "foo" },
           messageId: "noUnusedClassComponentMembers",
+          data: { className: "Foo", methodName: "foo" },
         },
       ],
     },

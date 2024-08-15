@@ -20,8 +20,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Install latest npm
-        run: npm i -g npm@latest
       - name: Install front-end dependencies
         run: pnpm install
       - name: Build front-end assets

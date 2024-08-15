@@ -46,11 +46,11 @@ export default createRule<[], MessageID>({
           return;
         }
         context.report({
+          messageId: "noRenderReturnValue",
+          node,
           data: {
             objectName,
           },
-          messageId: "noRenderReturnValue",
-          node,
         });
       },
     };

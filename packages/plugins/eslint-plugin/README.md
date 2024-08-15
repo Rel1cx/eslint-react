@@ -29,6 +29,9 @@ A series of composable ESLint rules rewritten from scratch for libraries and fra
 
 ## Who is using?
 
+<details>
+<summary>Click to toggle contents</summary>
+
 - [`AndreaPontrandolfo/sheriff`](https://github.com/AndreaPontrandolfo/sheriff) - A comprehensive and opinionated Typescript-first ESLint configuration.
 - [`antfu/​eslint-config`](https://github.com/antfu/eslint-config) - Anthony's ESLint config preset.
 - [`christopher-buss/roblox-ts-eslint-config`](https://github.com/christopher-buss/roblox-ts-eslint-config) - iSentinel's ESLint config preset for Roblox-TS.
@@ -37,9 +40,13 @@ A series of composable ESLint rules rewritten from scratch for libraries and fra
 - [`electric-sql/pglite`](https://github.com/electric-sql/pglite) - Lightweight Postgres packaged as WASM into a TypeScript library for the browser, Node.js, Bun and Deno.
 - [`ensdomains/ensdomains-landing`](https://github.com/ensdomains/ensdomains-landing) - ENS Homepage V2, the main homepage of the ENS protocol.
 - [`hairyf/overlastic`](https://github.com/hairyf/overlastic) - A universal overlays utils, support react, vue, vanilla, svelte.
+- [`hipstersmoothie/react-window-splitter`](https://github.com/hipstersmoothie/react-window-splitter) - A full featured window splitter for React.
 - [`johannschopplich/unlazy`](https://github.com/johannschopplich/unlazy) - Universal lazy loading library for placeholder images leveraging native browser APIs.
+- [`npmgraph/npmgraph`](https://github.com/npmgraph/npmgraph) - A tool for exploring NPM modules and dependencies.
 - [`react-navigation/​react-navigation`](https://github.com/react-navigation/react-navigation) - Routing and navigation for your React Native apps.
+- [`RebeccaStevens/eslint-config-rebeccastevens`](https://github.com/RebeccaStevens/eslint-config-rebeccastevens) - RebeccaStevens' ESLint config preset.
 - [`RSSNext/​follow`](https://github.com/RSSNext/follow) - 🧡 Next generation information browser.
+- [`satya164/PocketGear`](https://github.com/satya164/PocketGear) - A clean and simple Pokédex app for Pokémon GO.
 - [`SukkaW/eslint-config-sukka`](https://github.com/SukkaW/eslint-config-sukka) - ESLint configuration of Sukka.
 - [`SukkaW/foxact`](https://github.com/SukkaW/foxact) - React Hooks/Utils done right. For Browser, SSR, and React Server Components.
 - [`TanStack/​form`](https://github.com/TanStack/form) - 🤖 Powerful and type-safe form state management for the web. TS/JS, React Form, Solid Form, Lit Form and Vue Form.
@@ -47,9 +54,11 @@ A series of composable ESLint rules rewritten from scratch for libraries and fra
 - [`TanStack/​router`](https://github.com/TanStack/router) - 🤖 Fully typesafe Router for React (and friends) w/ built-in caching, 1st class search-param APIs, client-side cache integration and isomorphic rendering.
 - [`TanStack/​store`](https://github.com/TanStack/store) - 🤖 Framework agnostic, type-safe store w/ reactive framework adapters.
 
+</details>
+
 _Data collected from GitHub dependents network, if there are any mismatch or outdated information, feel free to [open issue](https://github.com/Rel1cx/eslint-react/issues/new?assignees=&labels=type%3A+documentation&projects=&template=docs_report.md&title=%5Bdocs%5D+) or pull request._
 
-Find more projects using ESLint React on [GitHub](https://github.com/Rel1cx/eslint-react/network/dependents).
+Find more on [GitHub Dependents](https://github.com/Rel1cx/eslint-react/network/dependents).
 
 ## Install
 
@@ -119,12 +128,17 @@ Add the plugin to your `.eslintrc.json`:
   _This preset includes the `recommended` preset._
 - **dom**\
   Enable rules that are specific to React DOM.
-- **off-dom**\
+- **disable-dom**\
   Disable rules that are specific to React DOM.
+- **disable-type-checked**\
+  Disable rules that require type information.
 - **off**\
   Disable all rules in this plugin except for debug rules.
 
 ### Legacy Config
+
+<details>
+<summary>Click to toggle contents</summary>
 
 - **core-legacy**\
   Enable rules that are renderer-agnostic.
@@ -136,10 +150,14 @@ Add the plugin to your `.eslintrc.json`:
   _This preset includes the `recommended-legacy` preset._
 - **dom-legacy**\
   Enable rules that are specific to React DOM.
-- **off-dom-legacy**\
+- **disable-dom-legacy**\
   Disable rules that are specific to React DOM.
+- **disable-type-checked-legacy**\
+  Disable rules that require type information.
 - **off-legacy**\
   Disable all rules in this plugin except for debug rules.
+
+</details>
 
 [Full Presets List↗](https://eslint-react.xyz/docs/presets)
 
@@ -185,6 +203,19 @@ Thank you to everyone contributing to ESLint React!
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://next.ossinsight.io/widgets/official/compose-recent-active-contributors/thumbnail.png?limit=30&repo_id=680315614&image_size=auto&color_scheme=dark" width="655" height="auto">
     <img alt="Active Contributors of Rel1cx/eslint-react - Last 28 days" src="https://next.ossinsight.io/widgets/official/compose-recent-active-contributors/thumbnail.png?limit=30&repo_id=680315614&image_size=auto&color_scheme=light" width="655" height="auto">
+  </picture>
+</a>
+
+<!-- Made with [OSS Insight](https://ossinsight.io/) -->
+
+### All Contributors
+
+<!-- Copy-paste in your Readme.md file -->
+
+<a href="https://next.ossinsight.io/widgets/official/compose-contributors?repo_id=680315614&limit=50" target="_blank" style="display: block" align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://next.ossinsight.io/widgets/official/compose-contributors/thumbnail.png?repo_id=680315614&limit=50&image_size=auto&color_scheme=dark" width="655" height="auto">
+    <img alt="Contributors of Rel1cx/eslint-react" src="https://next.ossinsight.io/widgets/official/compose-contributors/thumbnail.png?repo_id=680315614&limit=50&image_size=auto&color_scheme=light" width="655" height="auto">
   </picture>
 </a>
 

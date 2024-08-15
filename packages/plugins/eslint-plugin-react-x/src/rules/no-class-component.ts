@@ -52,11 +52,11 @@ export default createRule<[], MessageID>({
         for (const { name, node: component } of components.values()) {
           if (component.body.body.some(m => isComponentDidCatch(m) || isGetDerivedStateFromError(m))) continue;
           context.report({
+            messageId: "noClassComponent",
+            node: component,
             data: {
               name: O.getOrElse(F.constant("anonymous"))(name),
             },
-            messageId: "noClassComponent",
-            node: component,
           });
         }
       },

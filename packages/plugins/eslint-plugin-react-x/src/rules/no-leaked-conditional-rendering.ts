@@ -15,9 +15,15 @@ import ts from "typescript";
 
 import { createRule } from "../utils";
 
+// #region Rule Metadata
+
 export const RULE_NAME = "no-leaked-conditional-rendering";
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
+
+// #endregion
+
+// #region Types
 
 /** The types we care about */
 /* eslint-disable perfectionist/sort-union-types */
@@ -56,6 +62,10 @@ const allowedVariants = [
   "truthy number",
   "truthy string",
 ] as const satisfies VariantType[];
+
+// #endregion
+
+// #region Helpers
 
 const tsHelpers = {
   isAnyType: (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.TypeParameter | ts.TypeFlags.Any),
@@ -198,6 +208,10 @@ function getVariableInitExpression(at: number) {
   };
 }
 
+// #endregion
+
+// #region Rule Definition
+
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -213,20 +227,20 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const services = ESLintUtils.getParserServices(context, false);
-    function check(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
+    function getReportDescriptor(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
       return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
         .when(isJSX, O.none)
         .with({ type: AST_NODE_TYPES.LogicalExpression, operator: "&&" }, ({ left, right }) => {
           const isLeftUnaryNot = isMatching({ type: AST_NODE_TYPES.UnaryExpression, operator: "!" }, left);
-          if (isLeftUnaryNot) return check(right);
+          if (isLeftUnaryNot) return getReportDescriptor(right);
           const initialScope = context.sourceCode.getScope(left);
           const isLeftNan = isMatching({ type: AST_NODE_TYPES.Identifier, name: "NaN" }, left)
             || getStaticValue(left, initialScope)?.value === "NaN";
           if (isLeftNan) {
             return O.some({
-              data: { value: context.sourceCode.getText(left) },
               messageId: "noLeakedConditionalRendering",
               node: left,
+              data: { value: context.sourceCode.getText(left) },
             });
           }
           const leftType = getConstrainedTypeAtLocation(services, left);
@@ -234,27 +248,27 @@ export default createRule<[], MessageID>({
           const isLeftValid = Array
             .from(leftTypeVariants.values())
             .every(type => allowedVariants.some(allowed => allowed === type));
-          if (isLeftValid) return check(right);
+          if (isLeftValid) return getReportDescriptor(right);
           return O.some({
-            data: { value: context.sourceCode.getText(left) },
             messageId: "noLeakedConditionalRendering",
             node: left,
+            data: { value: context.sourceCode.getText(left) },
           });
         })
         .with({ type: AST_NODE_TYPES.ConditionalExpression }, ({ alternate, consequent }) => {
-          return O.orElse(check(consequent), () => check(alternate));
+          return O.orElse(getReportDescriptor(consequent), () => getReportDescriptor(alternate));
         })
         .with({ type: AST_NODE_TYPES.Identifier }, (n) => {
           const initialScope = context.sourceCode.getScope(n);
           return F.pipe(
             findVariable(n.name, initialScope),
             O.flatMap(getVariableInitExpression(0)),
-            O.flatMap(check),
+            O.flatMap(getReportDescriptor),
           );
         })
         .otherwise(O.none);
     }
-    const ruleFunction = F.flow(check, O.map(context.report), F.constVoid);
+    const ruleFunction = F.flow(getReportDescriptor, O.map(context.report), F.constVoid);
     return {
       "JSXExpressionContainer > ConditionalExpression": ruleFunction,
       "JSXExpressionContainer > LogicalExpression": ruleFunction,
@@ -262,3 +276,5 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
 }) satisfies ESLintUtils.RuleModule<MessageID>;
+
+// #endregion

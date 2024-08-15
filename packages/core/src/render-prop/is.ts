@@ -27,9 +27,10 @@ export function isRenderFunctionLoose(node: TSESTreeFunction, context: RuleConte
       && parent.parent.name.type === AST_NODE_TYPES.JSXIdentifier
       && parent.parent.name.name.startsWith("render");
   }
+  const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
   return isJSXValue(
     body,
-    context,
+    jsxCtx,
     JSXValueHint.SkipNullLiteral
       | JSXValueHint.SkipUndefinedLiteral
       | JSXValueHint.StrictLogical

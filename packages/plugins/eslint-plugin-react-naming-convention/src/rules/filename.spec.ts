@@ -9,12 +9,12 @@ ruleTester.run(RULE_NAME, rule, {
       code,
       errors: [
         {
+          messageId: "filenameCaseMismatchSuggestion",
           data: {
             name: "PascalCase.tsx",
             rule: "kebab-case",
             suggestion: "pascal-case.tsx",
           },
-          messageId: "filenameCaseMismatchSuggestion",
         },
       ],
       filename: "PascalCase.tsx",
@@ -24,12 +24,12 @@ ruleTester.run(RULE_NAME, rule, {
       code,
       errors: [
         {
+          messageId: "filenameCaseMismatchSuggestion",
           data: {
             name: "camelCase.tsx",
             rule: "PascalCase",
             suggestion: "CamelCase.tsx",
           },
-          messageId: "filenameCaseMismatchSuggestion",
         },
       ],
       filename: "camelCase.tsx",
@@ -39,12 +39,12 @@ ruleTester.run(RULE_NAME, rule, {
       code,
       errors: [
         {
+          messageId: "filenameCaseMismatchSuggestion",
           data: {
             name: "kebab-case.tsx",
             rule: "PascalCase",
             suggestion: "KebabCase.tsx",
           },
-          messageId: "filenameCaseMismatchSuggestion",
         },
       ],
       filename: "kebab-case.tsx",
@@ -54,12 +54,12 @@ ruleTester.run(RULE_NAME, rule, {
       code,
       errors: [
         {
+          messageId: "filenameCaseMismatchSuggestion",
           data: {
             name: "snake_case.tsx",
             rule: "PascalCase",
             suggestion: "SnakeCase.tsx",
           },
-          messageId: "filenameCaseMismatchSuggestion",
         },
       ],
       filename: "snake_case.tsx",
@@ -69,12 +69,12 @@ ruleTester.run(RULE_NAME, rule, {
       code,
       errors: [
         {
+          messageId: "filenameCaseMismatchSuggestion",
           data: {
             name: "PascalCase.tsx",
             rule: "camelCase",
             suggestion: "pascalCase.tsx",
           },
-          messageId: "filenameCaseMismatchSuggestion",
         },
       ],
       filename: "PascalCase.tsx",
@@ -84,12 +84,12 @@ ruleTester.run(RULE_NAME, rule, {
       code,
       errors: [
         {
+          messageId: "filenameCaseMismatchSuggestion",
           data: {
             name: "kebab-case.tsx",
             rule: "camelCase",
             suggestion: "kebabCase.tsx",
           },
-          messageId: "filenameCaseMismatchSuggestion",
         },
       ],
       filename: "kebab-case.tsx",
@@ -99,12 +99,12 @@ ruleTester.run(RULE_NAME, rule, {
       code,
       errors: [
         {
+          messageId: "filenameCaseMismatchSuggestion",
           data: {
             name: "snake_case.tsx",
             rule: "camelCase",
             suggestion: "snakeCase.tsx",
           },
-          messageId: "filenameCaseMismatchSuggestion",
         },
       ],
       filename: "snake_case.tsx",

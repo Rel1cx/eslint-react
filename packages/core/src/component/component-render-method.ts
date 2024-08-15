@@ -41,7 +41,6 @@ export function isFunctionOfRenderMethod(node: TSESTreeFunction) {
  * ```
  * @param node The AST node being checked
  * @returns `true` if node is inside class component's render block, `false` if not
- * @deprecated It will be removed in the future
  */
 export function isInsideRenderMethod(node: TSESTree.Node) {
   const predicate = (node: TSESTree.Node): node is TSESTree.MethodDefinition => {

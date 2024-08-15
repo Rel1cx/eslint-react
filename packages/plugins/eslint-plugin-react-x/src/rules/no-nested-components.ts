@@ -73,11 +73,11 @@ export default createRule<[], MessageID>({
           if (isInsideJSXPropValue) {
             if (!isDeclaredInRenderPropLoose(component)) {
               context.report({
+                messageId: "nestedComponentInProps",
+                node: component,
                 data: {
                   name,
                 },
-                messageId: "nestedComponentInProps",
-                node: component,
               });
             }
 
@@ -85,11 +85,11 @@ export default createRule<[], MessageID>({
           }
           if (isInsideCreateElementProps(component, context)) {
             context.report({
+              messageId: "nestedComponentInProps",
+              node: component,
               data: {
                 name,
               },
-              messageId: "nestedComponentInProps",
-              node: component,
             });
 
             continue;
@@ -97,11 +97,11 @@ export default createRule<[], MessageID>({
           const maybeParentComponent = traverseUpGuard(component, isFunctionComponent);
           if (O.isSome(maybeParentComponent) && !isDirectValueOfRenderPropertyLoose(maybeParentComponent.value)) {
             context.report({
+              messageId: isInsideProperty ? "nestedComponentInProps" : "nestedComponent",
+              node: component,
               data: {
                 name,
               },
-              messageId: isInsideProperty ? "nestedComponentInProps" : "nestedComponent",
-              node: component,
             });
 
             continue;
@@ -109,22 +109,22 @@ export default createRule<[], MessageID>({
           const isInsideClassComponentRenderMethod = isInsideRenderMethod(component);
           if (isInsideClassComponentRenderMethod) {
             context.report({
+              messageId: "nestedComponent",
+              node: component,
               data: {
                 name,
               },
-              messageId: "nestedComponent",
-              node: component,
             });
           }
         }
         for (const { name, node: component } of classComponents) {
           if (O.isNone(traverseUp(component, node => isClassComponent(node) || isFunctionComponent(node)))) continue;
           context.report({
+            messageId: "nestedComponent",
+            node: component,
             data: {
               name: O.getOrElse(() => "unknown")(name),
             },
-            messageId: "nestedComponent",
-            node: component,
           });
         }
       },

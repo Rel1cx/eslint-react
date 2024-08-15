@@ -5,74 +5,74 @@ const MESSAGE_ID = "noUnstableDefaultProps";
 
 const expectedViolations = [
   {
+    messageId: MESSAGE_ID,
     data: {
       forbiddenType: "object expression",
       propName: "a",
     },
-    messageId: MESSAGE_ID,
   },
   {
+    messageId: MESSAGE_ID,
     data: {
       forbiddenType: "array expression",
       propName: "b",
     },
-    messageId: MESSAGE_ID,
   },
   {
+    messageId: MESSAGE_ID,
     data: {
       forbiddenType: "RegExp literal",
       propName: "c",
     },
-    messageId: MESSAGE_ID,
   },
   {
+    messageId: MESSAGE_ID,
     data: {
       forbiddenType: "arrow function expression",
       propName: "d",
     },
-    messageId: MESSAGE_ID,
   },
   {
+    messageId: MESSAGE_ID,
     data: {
       forbiddenType: "function expression",
       propName: "e",
     },
-    messageId: MESSAGE_ID,
   },
   {
+    messageId: MESSAGE_ID,
     data: {
       forbiddenType: "class expression",
       propName: "f",
     },
-    messageId: MESSAGE_ID,
   },
   {
+    messageId: MESSAGE_ID,
     data: {
       forbiddenType: "new expression",
       propName: "g",
     },
-    messageId: MESSAGE_ID,
   },
   {
+    messageId: MESSAGE_ID,
     data: {
       forbiddenType: "JSX element",
       propName: "h",
     },
-    messageId: MESSAGE_ID,
   },
   {
+    messageId: MESSAGE_ID,
     data: {
       forbiddenType: "call expression",
       propName: "i",
     },
-    messageId: MESSAGE_ID,
   },
   {
+    messageId: MESSAGE_ID,
     data: {
       forbiddenType: "call expression",
       propName: "j",
     },
-    messageId: MESSAGE_ID,
   },
 ] as const;
 
@@ -85,11 +85,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
+        messageId: MESSAGE_ID,
         data: {
           forbiddenType: "array expression",
           propName: "foo",
         },
-        messageId: MESSAGE_ID,
       }],
     },
     {
@@ -99,11 +99,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
+        messageId: MESSAGE_ID,
         data: {
           forbiddenType: "object expression",
           propName: "foo",
         },
-        messageId: MESSAGE_ID,
       }],
     },
     {
@@ -114,11 +114,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
+        messageId: MESSAGE_ID,
         data: {
           forbiddenType: "array expression",
           propName: "foo",
         },
-        messageId: MESSAGE_ID,
       }],
     },
     {

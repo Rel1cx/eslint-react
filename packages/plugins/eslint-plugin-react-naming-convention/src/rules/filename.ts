@@ -133,13 +133,13 @@ export default createRule<Options, MessageID>({
         }
         if (validate(basename)) return;
         context.report({
+          messageId: "filenameCaseMismatchSuggestion",
+          node,
           data: {
             name: filename,
             rule,
             suggestion: [getSuggestion(basename), ...rest].join("."),
           },
-          messageId: "filenameCaseMismatchSuggestion",
-          node,
         });
       },
     };

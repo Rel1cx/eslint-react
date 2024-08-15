@@ -78,13 +78,13 @@ export function useComponentCollectorLegacy() {
         id,
         kind: "class",
         name: O.flatMapNullable(id, n => n.name),
+        node,
         // TODO: Get displayName of class component
         displayName: O.none(),
         flag,
         hint: 0n,
         // TODO: Get methods of class component
         methods: [],
-        node,
       },
     );
   };
@@ -94,8 +94,5 @@ export function useComponentCollectorLegacy() {
     "ClassExpression[type]": collect,
   } as const satisfies ESLintUtils.RuleListener;
 
-  return {
-    ctx,
-    listeners,
-  } as const;
+  return { ctx, listeners } as const;
 }

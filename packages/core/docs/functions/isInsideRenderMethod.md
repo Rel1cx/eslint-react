@@ -4,7 +4,7 @@
 
 [@eslint-react/core](../README.md) / isInsideRenderMethod
 
-# Function: ~~isInsideRenderMethod()~~
+# Function: isInsideRenderMethod()
 
 > **isInsideRenderMethod**(`node`): `boolean`
 
@@ -31,7 +31,3 @@ The AST node being checked
 `boolean`
 
 `true` if node is inside class component's render block, `false` if not
-
-## Deprecated
-
-It will be removed in the future

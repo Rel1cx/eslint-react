@@ -32,7 +32,7 @@ export default createRule<[], MessageID>({
       JSXAttribute(node) {
         if (node.name.type !== AST_NODE_TYPES.JSXIdentifier || !node.value) return;
         const isJavaScript = F.pipe(
-          getPropValue(node, context),
+          getPropValue(node, context.sourceCode.getScope(node)),
           O.flatMapNullable(v => v?.value),
           O.filter(isString),
           O.exists(v => RE_JAVASCRIPT_PROTOCOL.test(v)),

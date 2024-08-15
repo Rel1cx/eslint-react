@@ -31,11 +31,11 @@ export default createRule<[], MessageID>({
           && value.expression.value === true;
         if (!hasValueTrue) return;
         context.report({
+          messageId: "preferShorthandBoolean",
+          node,
           data: {
             propName,
           },
-          messageId: "preferShorthandBoolean",
-          node,
         });
       },
     };

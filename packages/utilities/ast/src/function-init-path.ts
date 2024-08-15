@@ -107,10 +107,7 @@ export type FunctionInitPath =
 export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionInitPath> {
   const { parent } = node;
   if (node.type === AST_NODE_TYPES.FunctionDeclaration) return O.some([node]);
-  if (
-    parent.type === AST_NODE_TYPES.VariableDeclarator
-    && parent.parent.type === AST_NODE_TYPES.VariableDeclaration
-  ) {
+  if (parent.type === AST_NODE_TYPES.VariableDeclarator) {
     return O.some([
       parent.parent,
       parent,
@@ -120,7 +117,6 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
   if (
     parent.type === AST_NODE_TYPES.CallExpression
     && parent.parent.type === AST_NODE_TYPES.VariableDeclarator
-    && parent.parent.parent.type === AST_NODE_TYPES.VariableDeclaration
   ) {
     return O.some([
       parent.parent.parent,
@@ -133,7 +129,6 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
     parent.type === AST_NODE_TYPES.CallExpression
     && parent.parent.type === AST_NODE_TYPES.CallExpression
     && parent.parent.parent.type === AST_NODE_TYPES.VariableDeclarator
-    && parent.parent.parent.parent.type === AST_NODE_TYPES.VariableDeclaration
   ) {
     return O.some([
       parent.parent.parent.parent,
@@ -147,7 +142,6 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
     parent.type === AST_NODE_TYPES.Property
     && parent.parent.type === AST_NODE_TYPES.ObjectExpression
     && parent.parent.parent.type === AST_NODE_TYPES.VariableDeclarator
-    && parent.parent.parent.parent.type === AST_NODE_TYPES.VariableDeclaration
   ) {
     return O.some([
       parent.parent.parent.parent,

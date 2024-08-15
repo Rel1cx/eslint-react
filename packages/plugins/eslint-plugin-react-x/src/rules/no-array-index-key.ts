@@ -1,5 +1,6 @@
 import { isOneOf } from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
+import { unsafeCastSettings } from "@eslint-react/shared";
 import { isNullable, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -10,15 +11,17 @@ import { isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";
 
+// #region Rule Metadata
+
 export const RULE_NAME = "no-array-index-key";
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-const reactChildrenMethod = ["forEach", "map"] as const;
+// #endregion
 
-function isReactChildrenMethod(name: string): name is typeof reactChildrenMethod[number] {
-  return reactChildrenMethod.some((method) => method === name);
-}
+// #region Constants
+
+const reactChildrenMethod = ["forEach", "map"] as const;
 
 const iteratorFunctionIndexParamPosition = new Map<string, number>([
   ["every", 1],
@@ -35,7 +38,16 @@ const iteratorFunctionIndexParamPosition = new Map<string, number>([
   ["some", 1],
 ]);
 
+// #endregion
+
+// #region Helpers
+
+function isReactChildrenMethod(name: string): name is typeof reactChildrenMethod[number] {
+  return reactChildrenMethod.some((method) => method === name);
+}
+
 function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContext) {
+  const settings = unsafeCastSettings(context.settings);
   const { callee } = node;
   if (!("property" in callee) || !("object" in callee) || !("name" in callee.property)) {
     return false;
@@ -44,7 +56,7 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
   const initialScope = context.sourceCode.getScope(node);
   if (callee.object.type === AST_NODE_TYPES.Identifier && callee.object.name === "Children") return true;
   if (callee.object.type === AST_NODE_TYPES.MemberExpression && "name" in callee.object.object) {
-    return isInitializedFromReact(callee.object.object.name, context, initialScope);
+    return isInitializedFromReact(callee.object.object.name, initialScope, settings);
   }
   return false;
 }
@@ -81,6 +93,10 @@ function getIdentifiersFromBinaryExpression(side: TSESTree.Node): TSESTree.Ident
   return [];
 }
 
+// #endregion
+
+// #region Rule Definition
+
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -94,37 +110,30 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const indexParamNames: string[] = [];
-
-    function pushIndexParamName(node: TSESTree.CallExpression) {
-      O.map(getMapIndexParamName(node, context), (name) => indexParamNames.push(name));
-    }
-
-    function popIndexParamName(node: TSESTree.CallExpression) {
-      O.map(getMapIndexParamName(node, context), () => indexParamNames.pop());
-    }
+    const indexParamNames: O.Option<string>[] = [];
 
     function isArrayIndex(node: TSESTree.Node): node is TSESTree.Identifier {
-      return node.type === AST_NODE_TYPES.Identifier && indexParamNames.some((name) => name === node.name);
+      return node.type === AST_NODE_TYPES.Identifier && indexParamNames.some(O.exists((name) => name === node.name));
     }
 
-    function checkPropValue(node: TSESTree.Node): ReportDescriptor<MessageID>[] {
+    function isCreateOrCloneElementCall(node: TSESTree.CallExpression) {
+      return isCreateElementCall(node, context) || isCloneElementCall(node, context);
+    }
+
+    function getReportDescriptor(node: TSESTree.Node): ReportDescriptor<MessageID>[] {
       // key={bar}
-      if (isArrayIndex(node)) {
-        return [{ messageId: "noArrayIndexKey", node }];
-      }
+      if (isArrayIndex(node)) return [{ messageId: "noArrayIndexKey", node }];
       // key={`foo-${bar}`} or key={'foo' + bar}
       if (isOneOf([AST_NODE_TYPES.TemplateLiteral, AST_NODE_TYPES.BinaryExpression])(node)) {
         const exps = AST_NODE_TYPES.TemplateLiteral === node.type
           ? node.expressions
           : getIdentifiersFromBinaryExpression(node);
-
         return exps.reduce<ReportDescriptor<MessageID>[]>((acc, exp) => {
           if (isArrayIndex(exp)) return [...acc, { messageId: "noArrayIndexKey", node: exp }];
-
           return acc;
         }, []);
       }
+
       const isToStringCall = isMatching({
         type: AST_NODE_TYPES.CallExpression,
         callee: {
@@ -159,32 +168,29 @@ export default createRule<[], MessageID>({
 
     return {
       CallExpression(node) {
-        if (
-          (isCreateElementCall(node, context) || isCloneElementCall(node, context))
-          && node.arguments.length > 1
-        ) {
-          if (indexParamNames.length === 0) return;
-          const props = node.arguments[1];
-          if (props?.type !== AST_NODE_TYPES.ObjectExpression) return;
-          for (const prop of props.properties) {
-            if (!isMatching({ key: { name: "key" } }, prop)) continue;
-            if (!("value" in prop)) continue;
-            const descriptors = checkPropValue(prop.value);
-            for (const descriptor of descriptors) {
-              context.report(descriptor);
-            }
+        indexParamNames.push(getMapIndexParamName(node, context));
+        if (node.arguments.length === 0) return;
+        if (!isCreateOrCloneElementCall(node)) return;
+        const [_, props] = node.arguments;
+        if (props?.type !== AST_NODE_TYPES.ObjectExpression) return;
+        for (const prop of props.properties) {
+          if (!isMatching({ key: { name: "key" } }, prop)) continue;
+          if (!("value" in prop)) continue;
+          const descriptors = getReportDescriptor(prop.value);
+          for (const descriptor of descriptors) {
+            context.report(descriptor);
           }
         }
-
-        pushIndexParamName(node);
       },
-      "CallExpression:exit": popIndexParamName,
+      "CallExpression:exit"() {
+        indexParamNames.pop();
+      },
       JSXAttribute(node) {
         if (node.name.name !== "key") return;
         if (indexParamNames.length === 0) return;
         const { value } = node;
         if (value?.type !== AST_NODE_TYPES.JSXExpressionContainer) return;
-        const descriptors = checkPropValue(value.expression);
+        const descriptors = getReportDescriptor(value.expression);
         for (const descriptor of descriptors) {
           context.report(descriptor);
         }

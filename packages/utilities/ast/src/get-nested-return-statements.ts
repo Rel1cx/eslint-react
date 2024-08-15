@@ -13,12 +13,12 @@ import { traverseUpGuard } from "./traverse-up-guard";
  */
 export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTree.ReturnStatement[] {
   const returnStatements: TSESTree.ReturnStatement[] = [];
-  const functionNode = O.getOrNull(traverseUpGuard(node, isFunction));
+  const functionNode = isFunction(node) ? node : O.getOrNull(traverseUpGuard(node, isFunction));
   simpleTraverse(node, {
     enter(node) {
       if (node.type !== AST_NODE_TYPES.ReturnStatement) return;
       const parentFunction = O.getOrNull(traverseUpGuard(node, isFunction));
-      if (parentFunction && parentFunction !== functionNode) return;
+      if (parentFunction !== functionNode) return;
       returnStatements.push(node);
     },
   });

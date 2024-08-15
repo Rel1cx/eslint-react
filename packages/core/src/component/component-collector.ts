@@ -63,20 +63,21 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
 }
 
 function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {
-  let flagRef = ERFunctionComponentFlag.None;
+  let flag = ERFunctionComponentFlag.None;
   if (hasCallInComponentInitPath("memo")(initPath)) {
-    flagRef |= ERFunctionComponentFlag.Memo;
+    flag |= ERFunctionComponentFlag.Memo;
   }
   if (hasCallInComponentInitPath("forwardRef")(initPath)) {
-    flagRef |= ERFunctionComponentFlag.ForwardRef;
+    flag |= ERFunctionComponentFlag.ForwardRef;
   }
-  return flagRef;
+  return flag;
 }
 
 export function useComponentCollector(
   context: RuleContext,
   hint: bigint = DEFAULT_COMPONENT_HINT,
 ) {
+  const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
   const components = new Map<string, ERFunctionComponent>();
   const functionStack: [
     key: string,
@@ -95,7 +96,7 @@ export function useComponentCollector(
       .some(r => {
         return context.sourceCode.getScope(r).block === fn
           && r.argument !== null
-          && !isJSXValue(r.argument, context, hint);
+          && !isJSXValue(r.argument, jsxCtx, hint);
       });
     if (shouldDrop) components.delete(key);
     return functionStack.pop();
@@ -123,7 +124,7 @@ export function useComponentCollector(
       const [_key, currentFn, _isComponent, hookCalls] = maybeCurrentFn.value;
       const { body } = currentFn;
       const isComponent = hasNoneOrValidComponentName(currentFn, context)
-        && isJSXValue(body, context, hint)
+        && isJSXValue(body, jsxCtx, hint)
         && hasValidHierarchy(currentFn, context, hint);
       if (!isComponent) return;
       const initPath = getComponentInitPath(currentFn);
@@ -135,12 +136,12 @@ export function useComponentCollector(
         id,
         kind: "function",
         name,
+        node: currentFn,
         displayName: O.none(),
         flag: getComponentFlag(initPath),
         hint,
         hookCalls,
         initPath,
-        node: currentFn,
       });
     },
     "AssignmentExpression[type][operator='='][left.type='MemberExpression'][left.property.name='displayName']"(
@@ -176,7 +177,7 @@ export function useComponentCollector(
       const [key, currentFn, isKnown, hookCalls] = maybeCurrentFn.value;
       if (isKnown) return;
       const isComponent = hasNoneOrValidComponentName(currentFn, context)
-        && isJSXValue(node.argument, context, hint)
+        && isJSXValue(node.argument, jsxCtx, hint)
         && hasValidHierarchy(currentFn, context, hint);
       if (!isComponent) return;
       functionStack.pop();
@@ -189,17 +190,14 @@ export function useComponentCollector(
         id,
         kind: "function",
         name,
+        node: currentFn,
         displayName: O.none(),
         flag: getComponentFlag(initPath),
         hint,
         hookCalls,
         initPath,
-        node: currentFn,
       });
     },
   } as const satisfies ESLintUtils.RuleListener;
-  return {
-    ctx,
-    listeners,
-  } as const;
+  return { ctx, listeners } as const;
 }

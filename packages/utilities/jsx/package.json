@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/jsx",
-  "version": "1.9.1",
+  "version": "1.10.2-next.0",
   "description": "ESLint React's TSESTree AST utility module for static analysis of JSX.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -45,10 +45,10 @@
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.0.1",
-    "@typescript-eslint/types": "^8.0.1",
-    "@typescript-eslint/utils": "^8.0.1",
-    "ts-pattern": "^5.2.0"
+    "@typescript-eslint/scope-manager": "^8.1.0",
+    "@typescript-eslint/types": "^8.1.0",
+    "@typescript-eslint/utils": "^8.1.0",
+    "ts-pattern": "^5.3.1"
   },
   "devDependencies": {
     "tsup": "^8.2.4"

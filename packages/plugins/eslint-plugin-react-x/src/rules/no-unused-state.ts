@@ -77,11 +77,11 @@ export default createRule<[], MessageID>({
       const [def, isUsed] = stateDefs.get(currentClass) ?? [O.none(), false];
       if (O.isNone(def) || isUsed) return;
       context.report({
+        messageId: "noUnusedState",
+        node: def.value,
         data: {
           className: O.getOrElse(className, () => "Component"),
         },
-        messageId: "noUnusedState",
-        node: def.value,
       });
     }
     function methodEnter(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {

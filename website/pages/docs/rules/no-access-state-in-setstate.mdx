@@ -34,7 +34,7 @@ class Example extends React.Component<ExampleProps, ExampleState> {
     return (
       <button onClick={() => this.setState({ foo: this.state.foo + 1 })} />
       //                                          ^^^^^^^^^^^^^^
-      //                                          - Do not access 'this.state' within 'setState', use 'setState' callback instead.
+      //                                          - Do not access 'this.state' within 'setState'. Use the update function instead.
     );
   }
 }

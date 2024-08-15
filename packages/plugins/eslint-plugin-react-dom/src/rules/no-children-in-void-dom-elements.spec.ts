@@ -7,8 +7,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<br>Foo</br>;`,
       errors: [
         {
-          data: { element: "br" },
           messageId: "noChildrenInVoidDomElements",
+          data: { element: "br" },
         },
       ],
     },
@@ -16,8 +16,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<br children="Foo" />;`,
       errors: [
         {
-          data: { element: "br" },
           messageId: "noChildrenInVoidDomElements",
+          data: { element: "br" },
         },
       ],
     },
@@ -25,8 +25,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<img {...props} children="Foo" />;`,
       errors: [
         {
-          data: { element: "img" },
           messageId: "noChildrenInVoidDomElements",
+          data: { element: "img" },
         },
       ],
     },
@@ -34,8 +34,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<br dangerouslySetInnerHTML={{ __html: "Foo" }} />;`,
       errors: [
         {
-          data: { element: "br" },
           messageId: "noChildrenInVoidDomElements",
+          data: { element: "br" },
         },
       ],
     },
@@ -43,8 +43,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<PolyComponent as="br">Foo</PolyComponent>;`,
       errors: [
         {
-          data: { element: "br" },
           messageId: "noChildrenInVoidDomElements",
+          data: { element: "br" },
         },
       ],
       settings: {
@@ -57,8 +57,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<PolyComponent as="br" children="Foo" />;`,
       errors: [
         {
-          data: { element: "br" },
           messageId: "noChildrenInVoidDomElements",
+          data: { element: "br" },
         },
       ],
       settings: {
@@ -71,8 +71,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<PolyComponent as="img" {...props} children="Foo" />;`,
       errors: [
         {
-          data: { element: "img" },
           messageId: "noChildrenInVoidDomElements",
+          data: { element: "img" },
         },
       ],
       settings: {
@@ -85,8 +85,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<PolyComponent as="br" dangerouslySetInnerHTML={{ __html: "Foo" }} />;`,
       errors: [
         {
-          data: { element: "br" },
           messageId: "noChildrenInVoidDomElements",
+          data: { element: "br" },
         },
       ],
       settings: {

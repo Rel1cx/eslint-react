@@ -18,7 +18,8 @@ function check(
   node: TSESTree.JSXElement | TSESTree.JSXFragment,
   context: RuleContext,
 ) {
-  if (isKeyedElement(node, context)) return;
+  const initialScope = context.sourceCode.getScope(node);
+  if (isKeyedElement(node, initialScope)) return;
   if (isBuiltInElement(node.parent)) context.report({ messageId: "noUselessFragmentInBuiltIn", node });
   if (node.children.length === 0) return context.report({ messageId: "noUselessFragment", node });
   const isChildren = isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(node.parent);

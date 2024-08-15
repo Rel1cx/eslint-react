@@ -28,7 +28,6 @@ export function getFunctionComponentIdentifier(
     && isComponentWrapperCall(parent, context)
     && parent.parent.type === AST_NODE_TYPES.VariableDeclarator
     && parent.parent.id.type === AST_NODE_TYPES.Identifier
-    && parent.parent.parent.type === AST_NODE_TYPES.VariableDeclaration
   ) {
     return O.some(parent.parent.id);
   }
@@ -40,7 +39,6 @@ export function getFunctionComponentIdentifier(
     && isComponentWrapperCall(parent.parent, context)
     && parent.parent.parent.type === AST_NODE_TYPES.VariableDeclarator
     && parent.parent.parent.id.type === AST_NODE_TYPES.Identifier
-    && parent.parent.parent.parent.type === AST_NODE_TYPES.VariableDeclaration
   ) {
     return O.some(parent.parent.parent.id);
   }

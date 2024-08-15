@@ -1,7 +1,9 @@
-import type { Construction, TSESTreeFunction } from "@eslint-react/ast";
-import { inspectConstruction, readableNodeType } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
+import { readableNodeType } from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
+import type { Construction } from "@eslint-react/var";
+import { inspectConstruction } from "@eslint-react/var";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
@@ -51,7 +53,8 @@ export default createRule<[], MessageID>({
         const valueNode = maybeJSXValueAttribute.value.value;
         if (valueNode?.type !== AST_NODE_TYPES.JSXExpressionContainer) return;
         const valueExpression = valueNode.expression;
-        const construction = inspectConstruction(valueExpression, context);
+        const initialScope = context.sourceCode.getScope(valueExpression);
+        const construction = inspectConstruction(valueExpression, initialScope);
         if (construction._tag === "None") return;
         O.map(
           ctx.getCurrentFunction(),
@@ -69,16 +72,16 @@ export default createRule<[], MessageID>({
           if (!constructions) continue;
           for (const construction of constructions) {
             if (construction._tag === "None") continue;
-            const { _tag, node: constructionNode } = construction;
+            const { node: constructionNode, _tag } = construction;
             const messageId = _tag.startsWith("Function")
               ? "noUnstableContextValueWithFunction"
               : "noUnstableContextValueWithIdentifier";
             context.report({
+              messageId,
+              node: constructionNode,
               data: {
                 type: readableNodeType(constructionNode),
               },
-              messageId,
-              node: constructionNode,
             });
           }
         }

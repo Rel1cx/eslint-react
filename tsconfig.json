@@ -7,6 +7,7 @@
     "module": "ESNext",
     "moduleDetection": "force",
     "moduleResolution": "bundler",
+    "skipLibCheck": true,
     "strict": true,
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
@@ -16,18 +17,19 @@
     "exactOptionalPropertyTypes": true,
     "noEmit": true,
     "types": [
-      "@types/bun"
+      "@types/node"
     ]
   },
   "include": [
     "*.d.ts",
     "*.config.ts",
     "*.config.mts",
+    "test/*.ts",
     "scripts/**/*.ts",
     "packages/**/*.config.ts",
     "packages/**/scripts/**/*.ts"
   ],
   "exclude": [
-    "test"
+    "eslint.config.mts"
   ]
 }

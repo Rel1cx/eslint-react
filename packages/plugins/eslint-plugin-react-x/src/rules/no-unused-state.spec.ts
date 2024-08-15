@@ -16,8 +16,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "ClassComputedTemplatePropertyTest" },
           messageId: "noUnusedState",
+          data: { className: "ClassComputedTemplatePropertyTest" },
         },
       ],
     },
@@ -33,8 +33,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo" },
           messageId: "noUnusedState",
+          data: { className: "Foo" },
         },
       ],
     },
@@ -51,8 +51,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo" },
           messageId: "noUnusedState",
+          data: { className: "Foo" },
         },
       ],
     },
@@ -68,8 +68,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo" },
           messageId: "noUnusedState",
+          data: { className: "Foo" },
         },
       ],
     },
@@ -85,8 +85,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo" },
           messageId: "noUnusedState",
+          data: { className: "Foo" },
         },
       ],
     },
@@ -104,8 +104,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo" },
           messageId: "noUnusedState",
+          data: { className: "Foo" },
         },
       ],
     },
@@ -123,8 +123,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo" },
           messageId: "noUnusedState",
+          data: { className: "Foo" },
         },
       ],
     },
@@ -142,8 +142,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo" },
           messageId: "noUnusedState",
+          data: { className: "Foo" },
         },
       ],
     },
@@ -159,8 +159,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo" },
           messageId: "noUnusedState",
+          data: { className: "Foo" },
         },
       ],
     },
@@ -178,8 +178,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo" },
           messageId: "noUnusedState",
+          data: { className: "Foo" },
         },
       ],
     },
@@ -195,8 +195,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "ClassAssignPropertyInMethodTest" },
           messageId: "noUnusedState",
+          data: { className: "ClassAssignPropertyInMethodTest" },
         },
       ],
     },
@@ -214,8 +214,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "ClassAssignPropertyInMethodTest" },
           messageId: "noUnusedState",
+          data: { className: "ClassAssignPropertyInMethodTest" },
         },
       ],
     },
@@ -231,8 +231,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo" },
           messageId: "noUnusedState",
+          data: { className: "Foo" },
         },
       ],
     },
@@ -248,8 +248,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo" },
           messageId: "noUnusedState",
+          data: { className: "Foo" },
         },
       ],
     },
@@ -265,8 +265,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo" },
           messageId: "noUnusedState",
+          data: { className: "Foo" },
         },
       ],
     },
@@ -282,8 +282,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo" },
           messageId: "noUnusedState",
+          data: { className: "Foo" },
         },
       ],
     },
@@ -299,8 +299,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo" },
           messageId: "noUnusedState",
+          data: { className: "Foo" },
         },
       ],
     },
@@ -316,8 +316,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo" },
           messageId: "noUnusedState",
+          data: { className: "Foo" },
         },
       ],
     },
@@ -333,8 +333,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo" },
           messageId: "noUnusedState",
+          data: { className: "Foo" },
         },
       ],
     },
@@ -350,8 +350,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { className: "Foo" },
           messageId: "noUnusedState",
+          data: { className: "Foo" },
         },
       ],
     },

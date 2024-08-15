@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/shared",
-  "version": "1.9.1",
+  "version": "1.10.2-next.0",
   "description": "ESLint React's Shared constants and functions.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -42,14 +42,16 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^8.0.1",
+    "@eslint-react/tools": "workspace:*",
+    "@typescript-eslint/utils": "^8.1.0",
     "picomatch": "^4.0.2"
   },
   "devDependencies": {
-    "@types/picomatch": "^3.0.0",
+    "@types/picomatch": "^3.0.1",
+    "fast-equals": "^5.0.1",
     "micro-memoize": "^4.1.2",
     "tsup": "^8.2.4",
-    "type-fest": "^4.23.0",
+    "type-fest": "^4.24.0",
     "valibot": "^0.37.0"
   }
 }

@@ -85,7 +85,7 @@ export default createRule<[], MessageID>({
     function getOptions(node: TSESTree.CallExpressionArgument) {
       const initialScope = context.sourceCode.getScope(node);
       const findProp = (properties: TSESTree.ObjectExpression["properties"], propName: string) => {
-        return findPropInProperties(properties, context, initialScope)(propName);
+        return findPropInProperties(properties, initialScope)(propName);
       };
       const getPropValue = (prop: TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement) => {
         if (prop.type !== AST_NODE_TYPES.Property) return O.none();
@@ -121,9 +121,9 @@ export default createRule<[], MessageID>({
             const options = opts ? getOptions(opts) : {};
             if (isFunction(listener) && !options) {
               context.report({
-                data: { eventMethodKind: callKind },
                 messageId: "symmetricEventListenerNoInlineFunction",
                 node,
+                data: { eventMethodKind: callKind },
               });
             }
             break;

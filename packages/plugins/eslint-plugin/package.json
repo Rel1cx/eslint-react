@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "1.9.1",
+  "version": "1.10.2-next.0",
   "description": "The main ESLint plugin of ESLint React. Contains all the rules and presets of ESLint React.",
   "keywords": [
     "eslint",
@@ -52,10 +52,10 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.0.1",
-    "@typescript-eslint/type-utils": "^8.0.1",
-    "@typescript-eslint/types": "^8.0.1",
-    "@typescript-eslint/utils": "^8.0.1",
+    "@typescript-eslint/scope-manager": "^8.1.0",
+    "@typescript-eslint/type-utils": "^8.1.0",
+    "@typescript-eslint/types": "^8.1.0",
+    "@typescript-eslint/utils": "^8.1.0",
     "eslint-plugin-react-debug": "workspace:*",
     "eslint-plugin-react-dom": "workspace:*",
     "eslint-plugin-react-hooks-extra": "workspace:*",

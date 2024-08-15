@@ -77,4 +77,5 @@ export default {
   "debug-class-component": "debug/class-component",
   "debug-function-component": "debug/function-component",
   "debug-react-hooks": "debug/react-hooks",
+  "debug-is-from-react": "debug/is-from-react",
 };

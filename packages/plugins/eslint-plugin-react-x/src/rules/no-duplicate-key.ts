@@ -35,16 +35,16 @@ export default createRule<[], MessageID>({
       const initialScope = context.sourceCode.getScope(node);
 
       return F.pipe(
-        findPropInAttributes(node.openingElement.attributes, context, initialScope)("key"),
+        findPropInAttributes(node.openingElement.attributes, initialScope)("key"),
         O.flatMap((k) => "value" in k ? O.fromNullable(k.value) : O.none()),
         O.flatMap((v) => {
           return isNodeEqual(v, v)
             ? O.some({
+              messageId: "noDuplicateKey",
+              node: v,
               data: {
                 value: context.sourceCode.getText(v),
               },
-              messageId: "noDuplicateKey",
-              node: v,
             })
             : O.none();
         }),
@@ -118,11 +118,11 @@ export default createRule<[], MessageID>({
         for (const [element, attr, value] of keys) {
           seen.add(element);
           context.report({
+            messageId: "noDuplicateKey",
+            node: attr,
             data: {
               value: context.sourceCode.getText(value),
             },
-            messageId: "noDuplicateKey",
-            node: attr,
           });
         }
       },

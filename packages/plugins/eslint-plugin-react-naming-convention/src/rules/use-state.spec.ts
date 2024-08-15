@@ -14,11 +14,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
+        messageId: "useState",
         data: {
           setterName: "setState",
           stateName: "state",
         },
-        messageId: "useState",
       }],
     },
     {
@@ -32,11 +32,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
+        messageId: "useState",
         data: {
           setterName: "setState",
           stateName: "state",
         },
-        messageId: "useState",
       }],
     },
     {
@@ -50,11 +50,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
+        messageId: "useState",
         data: {
           setterName: "setState",
           stateName: "state",
         },
-        messageId: "useState",
       }],
     },
     {
@@ -68,11 +68,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
+        messageId: "useState",
         data: {
           setterName: "setState",
           stateName: "state",
         },
-        messageId: "useState",
       }],
       settings: {
         "react-x": {

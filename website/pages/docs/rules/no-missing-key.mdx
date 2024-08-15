@@ -28,8 +28,8 @@ function Example({ items }: ExampleProps) {
     <ul>
       {items.map((todo) => (
         <Todo {...todo} />
-      // ^^^^^^^^^^^^^^^
-      // - Missing key, Each child in a list should have a unique 'key'.
+      {/* ^^^^^^^^^^^^^^^ */}
+      {/* - Missing 'key' for element when rendering list. */}
       ))}
     </ul>
   );

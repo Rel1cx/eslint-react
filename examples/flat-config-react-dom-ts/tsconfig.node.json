@@ -14,9 +14,7 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "*.config.ts",
-    "*.config.js",
-    "*.d.ts"
+    "."
   ],
   "exclude": [
     "node_modules",

@@ -1,7 +1,7 @@
 import { findPropInAttributes, getElementType, getPropValue } from "@eslint-react/jsx";
 import { decodeSettings, expandSettings } from "@eslint-react/shared";
 import { F, isString, O } from "@eslint-react/tools";
-import type { ESLintUtils } from "@typescript-eslint/utils";
+import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 import { match, P } from "ts-pattern";
 
@@ -33,14 +33,15 @@ export default createRule<[], MessageID>({
     const { components, polymorphicPropName } = expandSettings(decodeSettings(context.settings));
     return {
       JSXElement(node) {
-        const elementType = getElementType(context, components, polymorphicPropName)(node.openingElement);
+        const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
+        const elementType = getElementType(jsxCtx, components, polymorphicPropName)(node.openingElement);
         if (elementType !== "iframe") return;
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
-        const maybeSandboxAttribute = findPropInAttributes(attributes, context, initialScope)("sandbox");
+        const maybeSandboxAttribute = findPropInAttributes(attributes, initialScope)("sandbox");
         if (O.isNone(maybeSandboxAttribute)) return;
         const isSafeSandboxValue = !F.pipe(
-          getPropValue(maybeSandboxAttribute.value, context),
+          getPropValue(maybeSandboxAttribute.value, context.sourceCode.getScope(maybeSandboxAttribute.value)),
           O.flatMapNullable(v =>
             match(v?.value)
               .with(P.string, F.identity)

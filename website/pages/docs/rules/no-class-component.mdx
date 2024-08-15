@@ -26,7 +26,6 @@ import React from "react";
 interface ExampleProps {
   name: string;
 }
-// @warn: Do not use class components
 
 class Example extends React.Component<ExampleProps> {
   render() {
@@ -43,7 +42,6 @@ import React from "react";
 interface ExampleProps {
   name: string;
 }
-// @annotate: Use function components instead
 
 function Example({ name }: ExampleProps) {
   return <h1>Hello, {name}!</h1>;

@@ -11,6 +11,8 @@ export default [
     ignores: [
       "node_modules",
       "dist",
+      "eslint.config.js",
+      "eslint.config.d.ts",
     ],
   },
   // JavaScript rules
@@ -25,31 +27,15 @@ export default [
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    settings: {
-      "react-x": {
-        jsxPragma: "createElement",
-        jsxPragmaFrag: "Fragment",
-        version: "detect",
-        polymorphicPropName: "as",
-        additionalHooks: {
-          useLayoutEffect: ["useIsomorphicLayoutEffect"],
-        },
-        additionalComponents: [{
-          name: "Link",
-          as: "a",
-          attributes: [
-            { name: "to", as: "href" },
-          ],
-        }],
-      },
-    },
   },
   // TypeScript languageOptions for config files
   {
-    files: ["*.config.{js,ts}", "*.d.ts"],
+    files: ["*.config.{js,cjs,mjs,ts,cts,mts}", "*.d.ts"],
     languageOptions: {
       parserOptions: {
-        projectService: true,
+        project: "./tsconfig.node.json",
+        projectService: false,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
   },

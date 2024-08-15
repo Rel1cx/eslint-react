@@ -45,5 +45,5 @@ export const DEFAULT_ESLINT_REACT_SETTINGS = {
       ],
     },
   ],
-  skipImportCheck: true,
+  skipImportCheck: false,
 } as const satisfies ESLintReactSettings;

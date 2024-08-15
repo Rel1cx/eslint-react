@@ -1,3 +1,25 @@
+## v1.10.1 (Tue 13 Aug 2024)
+
+### 🐞 Fixes
+
+- Fixed `hooks-extra/prefer-use-state-lazy-initialization` false positive when using an initializer function.
+
+### 🪄 Improvements
+
+- Improve rule `no-implicit-key` error marker position and range.
+- Upgrade `@typescript-eslint`'s packages to `^8.1.0`.
+- Improve website and documentation.
+
+## v1.10.0 (Sun 11 Aug 2024)
+
+### ✨ New
+
+- Add `disable-type-checked` and `disable-type-checked-legacy` presets to disable all type-checked rules.
+
+### 🪄 Improvements
+
+- Rename `off-dom` and `off-dom-legacy` presets to `disable-dom` and `disable-dom-legacy` (the old names will still be available until the next major update to avoid breaking changes).
+
 ## v1.9.1 (Thu 08 Aug 2024)
 
 ### 🐞 Fixes

@@ -29,9 +29,6 @@ export default {
   packages: {
     title: "Packages",
   },
-  glossary: {
-    title: "Glossary",
-  },
   faq: {
     title: "FAQ",
   },

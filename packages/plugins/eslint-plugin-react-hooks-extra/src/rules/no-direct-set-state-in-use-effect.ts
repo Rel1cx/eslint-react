@@ -22,7 +22,7 @@ export const RULE_NAME = "no-direct-set-state-in-use-effect";
 
 type MessageID = CamelCase<typeof RULE_NAME>;
 type CallKind = "other" | "setState" | "then" | "useEffect" | "useState";
-type FunctionKind = "cleanup" | "deferred" | "effect" | "immediate" | "other";
+type FunctionKind = "cleanup" | "deferred" | "immediate" | "other" | "setup";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -46,8 +46,8 @@ export default createRule<[], MessageID>({
     const isSetStateCall = isSetFunctionCall(context, settings);
     const isIdFromUseStateCall = isFromUseStateCall(context, settings);
     const functionStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
-    const effectFunctionRef = MutRef.make<TSESTreeFunction | null>(null);
-    const effectFunctionIdentifiers: TSESTree.Identifier[] = [];
+    const setupFunctionRef = MutRef.make<TSESTreeFunction | null>(null);
+    const setupFunctionIdentifiers: TSESTree.Identifier[] = [];
     const indirectFunctionCalls: TSESTree.CallExpression[] = [];
     const indirectSetStateCalls = new WeakMap<TSESTreeFunction, TSESTree.CallExpression[]>();
     const indirectSetStateCallsAsEFs = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
@@ -56,13 +56,13 @@ export default createRule<[], MessageID>({
       TSESTree.VariableDeclarator["init"] & {},
       TSESTree.CallExpression[]
     >();
-    const onEffectFunctionEnter = (node: TSESTreeFunction) => {
-      MutRef.set(effectFunctionRef, node);
+    const onSetupFunctionEnter = (node: TSESTreeFunction) => {
+      MutRef.set(setupFunctionRef, node);
     };
-    const onEffectFunctionExit = (node: TSESTreeFunction) => {
-      MutRef.update(effectFunctionRef, (current) => current === node ? null : current);
+    const onSetupFunctionExit = (node: TSESTreeFunction) => {
+      MutRef.update(setupFunctionRef, (current) => current === node ? null : current);
     };
-    function isEffectFunction(node: TSESTree.Node) {
+    function isSetupFunction(node: TSESTree.Node) {
       return node.parent?.type === AST_NODE_TYPES.CallExpression
         && node.parent.callee !== node
         && isUseEffectCall(node.parent);
@@ -77,7 +77,7 @@ export default createRule<[], MessageID>({
     }
     function getFunctionKind(node: TSESTreeFunction) {
       return match<TSESTreeFunction, FunctionKind>(node)
-        .when(isEffectFunction, () => "effect")
+        .when(isSetupFunction, () => "setup")
         .when(isFunctionOfImmediatelyInvoked, () => "immediate")
         .otherwise(() => "other");
     }
@@ -85,15 +85,15 @@ export default createRule<[], MessageID>({
       ":function"(node: TSESTreeFunction) {
         const functionKind = getFunctionKind(node);
         functionStack.push([node, functionKind]);
-        if (functionKind === "effect") onEffectFunctionEnter(node);
+        if (functionKind === "setup") onSetupFunctionEnter(node);
       },
       ":function:exit"(node: TSESTreeFunction) {
         const [_, functionKind] = functionStack.at(-1) ?? [];
         functionStack.pop();
-        if (functionKind === "effect") onEffectFunctionExit(node);
+        if (functionKind === "setup") onSetupFunctionExit(node);
       },
       CallExpression(node) {
-        const effectFn = MutRef.get(effectFunctionRef);
+        const effectFn = MutRef.get(setupFunctionRef);
         const [parentFn, parentFnKind] = functionStack.at(-1) ?? [];
         if (parentFn?.async) return;
         match(getCallKind(node))
@@ -121,11 +121,11 @@ export default createRule<[], MessageID>({
             const [firstArg] = node.arguments;
             if (isFunction(firstArg)) return;
             const identifiers = getNestedIdentifiers(node);
-            effectFunctionIdentifiers.push(...identifiers);
+            setupFunctionIdentifiers.push(...identifiers);
           })
           .with("other", () => {
-            const isInEffectFunction = effectFn === parentFn;
-            if (!isInEffectFunction) return;
+            const isInSetupFunction = effectFn === parentFn;
+            if (!isInSetupFunction) return;
             indirectFunctionCalls.push(node);
           })
           .otherwise(F.constVoid);
@@ -189,9 +189,9 @@ export default createRule<[], MessageID>({
         for (const [_, calls] of indirectSetStateCallsAsEFs) {
           for (const call of calls) {
             context.report({
-              data: { name: call.name },
               messageId: "noDirectSetStateInUseEffect",
               node: call,
+              data: { name: call.name },
             });
           }
         }
@@ -201,19 +201,19 @@ export default createRule<[], MessageID>({
           const setStateCalls = getSetStateCalls(name, context.sourceCode.getScope(callee));
           for (const setStateCall of setStateCalls) {
             context.report({
-              data: { name },
               messageId: "noDirectSetStateInUseEffect",
               node: setStateCall,
+              data: { name },
             });
           }
         }
-        for (const id of effectFunctionIdentifiers) {
+        for (const id of setupFunctionIdentifiers) {
           const setStateCalls = getSetStateCalls(id.name, context.sourceCode.getScope(id));
           for (const setStateCall of setStateCalls) {
             context.report({
-              data: { name: id.name },
               messageId: "noDirectSetStateInUseEffect",
               node: setStateCall,
+              data: { name: id.name },
             });
           }
         }

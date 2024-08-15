@@ -1,12 +1,12 @@
-import type { RuleContext } from "@eslint-react/types";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 import { hasProp } from "./has-prop";
 
-export function isKeyedElement(node: TSESTree.Node, context: RuleContext) {
+export function isKeyedElement(node: TSESTree.Node, initialScope: Scope) {
   return node.type === AST_NODE_TYPES.JSXElement
-    && hasProp(node.openingElement.attributes, "key", context, context.sourceCode.getScope(node));
+    && hasProp(node.openingElement.attributes, "key", initialScope);
 }
 
 /**

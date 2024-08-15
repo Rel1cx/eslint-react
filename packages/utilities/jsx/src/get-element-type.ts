@@ -1,12 +1,12 @@
 import { F, isString, O } from "@eslint-react/tools";
-import type { RuleContext } from "@eslint-react/types";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { getElementName } from "./get-element-name";
 import { findPropInAttributes, getPropValue } from "./get-prop";
 
 export function getElementType(
-  context: RuleContext,
+  jsxCtx: { getScope: (node: TSESTree.Node) => Scope },
   components?: Map<string, string>,
   polymorphicPropName?: string,
 ) {
@@ -15,11 +15,11 @@ export function getElementType(
     if (elementName === elementName.toLowerCase()) return elementName;
     const asElementName = components?.get(elementName);
     if (isString(asElementName)) return asElementName;
-    const initialScope = context.sourceCode.getScope(node);
+    const initialScope = jsxCtx.getScope(node);
     return F.pipe(
       O.fromNullable(polymorphicPropName),
-      O.flatMap(findPropInAttributes(node.attributes, context, initialScope)),
-      O.flatMap(attr => getPropValue(attr, context)),
+      O.flatMap(findPropInAttributes(node.attributes, initialScope)),
+      O.flatMap(attr => getPropValue(attr, jsxCtx.getScope(attr))),
       O.flatMapNullable(v => v?.value),
       O.filter(isString),
       O.getOrElse(() => elementName),
