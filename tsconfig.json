@@ -13,7 +13,6 @@
     "strictFunctionTypes": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
-    "strictBuiltinIteratorReturn": false,
     "exactOptionalPropertyTypes": true,
     "noEmit": true,
     "types": [

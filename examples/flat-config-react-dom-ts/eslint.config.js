@@ -28,17 +28,6 @@ export default [
       },
     },
   },
-  // TypeScript languageOptions for config files
-  {
-    files: ["*.config.{js,cjs,mjs,ts,cts,mts}", "*.d.ts"],
-    languageOptions: {
-      parserOptions: {
-        project: "./tsconfig.node.json",
-        projectService: false,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-  },
   // React rules
   {
     files: ["src/**/*.{ts,tsx}"],
@@ -59,6 +48,17 @@ export default [
     },
     rules: {
       "react-refresh/only-export-components": "warn",
+    },
+  },
+  // TypeScript languageOptions for config files
+  {
+    files: ["*.config.{js,cjs,mjs,ts,cts,mts}", "*.d.ts"],
+    languageOptions: {
+      parserOptions: {
+        project: "./tsconfig.node.json",
+        projectService: false,
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
   },
   // Disable type checking for JavaScript files
