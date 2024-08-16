@@ -63,18 +63,66 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          data: { eventMethodKind: "addEventListener" },
           messageId: "symmetricEventListenerNoInlineFunction",
+          data: { eventMethodKind: "addEventListener" },
         },
         {
-          data: { eventMethodKind: "removeEventListener" },
           messageId: "symmetricEventListenerNoInlineFunction",
+          data: { eventMethodKind: "removeEventListener" },
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        function Example() {
+          useEffect(() => {
+            window.addEventListener("resize", () => {}, { once: true });
+            return () => {
+              window.removeEventListener("resize", () => {});
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "symmetricEventListenerNoInlineFunction",
+          data: { eventMethodKind: "addEventListener" },
+        },
+        {
+          messageId: "symmetricEventListenerNoInlineFunction",
+          data: { eventMethodKind: "removeEventListener" },
+        },
+      ],
+    },
+    { // Even if the event listener is added with an once, it may still be necessary to properly cancel untriggered listeners when the component is unmounted, so this case needs to be placed in invalid.
+      code: /* tsx */ `
+        function Example() {
+          useEffect(() => {
+            const handleResize1 = () => {};
+            window.addEventListener("resize", handleResize1, { once: true });
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "symmetricEventListenerInEffect",
         },
       ],
     },
   ],
   valid: [
     ...allValid,
+    /* tsx */ `
+      function Example() {
+        useEffect(() => {
+          window.addEventListener("resize", () => {}, { once: true });
+
+          return () => {
+            window.removeEventListener("resize", () => {}, { once: true });
+          };
+        }, []);
+      }
+    `,
     /* tsx */ `
       class Example extends React.Component {
         componentDidMount() {

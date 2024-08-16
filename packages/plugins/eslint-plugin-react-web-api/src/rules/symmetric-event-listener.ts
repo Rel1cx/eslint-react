@@ -61,6 +61,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    const defaultOptions = { capture: O.none(), once: O.none() } as const;
     const functionStack: [node: TSESTree.Node, kind: FunctionKind][] = [];
     /* eslint-disable perfectionist/sort-object-types */
     const addedEventListeners: Map<
@@ -82,7 +83,8 @@ export default createRule<[], MessageID>({
       }
     > = new Map();
     /* eslint-enable perfectionist/sort-object-types */
-    function getOptions(node: TSESTree.CallExpressionArgument) {
+    function getOptions(node?: TSESTree.CallExpressionArgument) {
+      if (!node) return defaultOptions;
       const initialScope = context.sourceCode.getScope(node);
       const findProp = (properties: TSESTree.ObjectExpression["properties"], propName: string) => {
         return findPropInProperties(properties, initialScope)(propName);
@@ -103,11 +105,8 @@ export default createRule<[], MessageID>({
           const vCapture = O.flatMap(pCapture, getPropValue).pipe(O.filter(isBoolean));
           return { capture: vCapture, once: vOnce };
         }
-        case AST_NODE_TYPES.Identifier: {
-          return {};
-        }
         default: {
-          return {};
+          return defaultOptions;
         }
       }
     }
@@ -117,9 +116,9 @@ export default createRule<[], MessageID>({
         switch (callKind) {
           case "addEventListener":
           case "removeEventListener": {
-            const [_, listener, opts] = node.arguments;
-            const options = opts ? getOptions(opts) : {};
-            if (isFunction(listener) && !options) {
+            const [_, listener, options] = node.arguments;
+            const opts = getOptions(options);
+            if (isFunction(listener)) {
               context.report({
                 messageId: "symmetricEventListenerNoInlineFunction",
                 node,

@@ -592,7 +592,7 @@ importers:
         version: 8.1.0
       '@typescript-eslint/utils':
         specifier: ^8.0.1
-        version: 8.1.0(eslint@9.9.0(jiti@1.21.6))(typescript@5.6.0-dev.20240814)
+        version: 8.1.0(eslint@9.9.0(jiti@1.21.6))(typescript@5.5.4)
       eslint:
         specifier: ^9.8.0
         version: 9.9.0(jiti@1.21.6)
@@ -603,8 +603,8 @@ importers:
         specifier: ^5.2.0
         version: 5.3.1
       typescript:
-        specifier: ^5.6.0-dev.20240814
-        version: 5.6.0-dev.20240814
+        specifier: ^5.5.4
+        version: 5.5.4
     devDependencies:
       '@types/react':
         specifier: ^18.3.3
@@ -617,7 +617,7 @@ importers:
         version: 2.2.0
       tsup:
         specifier: ^8.2.4
-        version: 8.2.4(@swc/core@1.7.11(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.41)(typescript@5.6.0-dev.20240814)(yaml@2.5.0)
+        version: 8.2.4(@swc/core@1.7.11(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.41)(typescript@5.5.4)(yaml@2.5.0)
 
   packages/plugins/eslint-plugin-react-x:
     dependencies:
