@@ -23,12 +23,10 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollectorLegacy();
-
     return {
       ...listeners,
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
-
         for (const { name, node: component } of components.values()) {
           context.report({
             messageId: "classComponent",
