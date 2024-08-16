@@ -26,14 +26,14 @@ export default [
   js.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
-    plugins: [
+    plugins: {
       "react-naming-convention": reactNamingConvention,
-      rules: {
-        // react-naming-convention recommended rules
-        "naming-convention/filename-extension": ["warn", "as-needed"],
-        "naming-convention/use-state": "warn",
-      }
-    ],
+    },
+    rules: {
+      // react-naming-convention recommended rules
+      "naming-convention/filename-extension": ["warn", "as-needed"],
+      "naming-convention/use-state": "warn",
+    },
   },
 ];
 ```
