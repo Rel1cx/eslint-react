@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import url from "node:url";
 
 import eslint from "@eslint/js";
@@ -45,7 +43,6 @@ const templateIndentAnnotations = [
 ];
 
 const sourceTsconfigArray = [
-  "tsconfig.json",
   "packages/*/tsconfig.json",
   "packages/*/*/tsconfig.json",
 ];
@@ -305,13 +302,6 @@ const config: Config[] = [
     files: GLOB_JS,
     rules: {
       ...disableSafeTypescript,
-    },
-  },
-  {
-    extends: [tseslint.configs.disableTypeChecked],
-    files: GLOB_JS,
-    rules: {
-      // turn off rules that don't apply to JS code
       "@typescript-eslint/no-var-requires": "off",
     },
   },
@@ -342,7 +332,7 @@ const config: Config[] = [
   },
   {
     extends: [tseslint.configs.disableTypeChecked],
-    files: [...GLOB_CONFIG, ...GLOB_SCRIPT],
+    files: GLOB_SCRIPT,
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -355,9 +345,14 @@ const config: Config[] = [
     },
   },
   {
-    extends: [
-      tseslint.configs.disableTypeChecked,
-    ],
+    extends: [tseslint.configs.disableTypeChecked],
+    files: GLOB_CONFIG,
+    rules: {
+      ...disableSafeTypescript,
+    },
+  },
+  {
+    extends: [tseslint.configs.disableTypeChecked],
     files: GLOB_YAML,
     ignores: [
       "pnpm-lock.yaml",

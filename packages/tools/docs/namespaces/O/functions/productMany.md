@@ -16,7 +16,7 @@
 
 • **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
 
-• **collection**: `Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>, `any`, `any`\>
+• **collection**: `Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>\>
 
 ## Returns
 
