@@ -26,14 +26,15 @@ export default [
   js.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
-    plugins: [
+    plugins: {
       "react-debug": reactDebug,
-      rules: {
-        "react-debug/class-component": "warn",
-        "react-debug/function-component": "warn",
-        "react-debug/react-hooks": "warn",
-      }
-    ],
+    },
+    rules: {
+      "react-debug/class-component": "warn",
+      "react-debug/function-component": "warn",
+      "react-debug/react-hooks": "warn",
+      "react-debug/is-from-react": "off",
+    },
   },
 ];
 ```

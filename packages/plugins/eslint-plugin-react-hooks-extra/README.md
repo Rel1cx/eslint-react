@@ -26,15 +26,15 @@ export default [
   js.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
-    plugins: [
+    plugins: {
       "react-hooks-extra": reactHooksExtra,
-      rules: {
-        // react-hooks-extra recommended rules
-        "react-hooks-extra/no-direct-set-state-in-use-effect": "warn",
-        "react-hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
-        "react-hooks-extra/prefer-use-state-lazy-initialization": "warn",
-      }
-    ],
+    },
+    rules: {
+      // react-hooks-extra recommended rules
+      "react-hooks-extra/no-direct-set-state-in-use-effect": "warn",
+      "react-hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
+      "react-hooks-extra/prefer-use-state-lazy-initialization": "warn",
+    },
   },
 ];
 ```

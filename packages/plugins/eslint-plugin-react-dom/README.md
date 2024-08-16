@@ -26,23 +26,23 @@ export default [
   js.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
-    plugins: [
+    plugins: {
       "react-dom": reactDOM,
-      rules: {
-        // react-dom recommended rules
-        "react-dom/no-children-in-void-dom-elements": "warn",
-        "react-dom/no-dangerously-set-innerhtml": "warn",
-        "react-dom/no-dangerously-set-innerhtml-with-children": "error",
-        "react-dom/no-find-dom-node": "error",
-        "react-dom/no-missing-button-type": "warn",
-        "react-dom/no-missing-iframe-sandbox": "warn",
-        "react-dom/no-namespace": "error",
-        "react-dom/no-render-return-value": "error",
-        "react-dom/no-script-url": "warn",
-        "react-dom/no-unsafe-iframe-sandbox": "warn",
-        "react-dom/no-unsafe-target-blank": "warn",
-      }
-    ],
+    },
+    rules: {
+      // react-dom recommended rules
+      "react-dom/no-children-in-void-dom-elements": "warn",
+      "react-dom/no-dangerously-set-innerhtml": "warn",
+      "react-dom/no-dangerously-set-innerhtml-with-children": "error",
+      "react-dom/no-find-dom-node": "error",
+      "react-dom/no-missing-button-type": "warn",
+      "react-dom/no-missing-iframe-sandbox": "warn",
+      "react-dom/no-namespace": "error",
+      "react-dom/no-render-return-value": "error",
+      "react-dom/no-script-url": "warn",
+      "react-dom/no-unsafe-iframe-sandbox": "warn",
+      "react-dom/no-unsafe-target-blank": "warn",
+    },
   },
 ];
 ```
