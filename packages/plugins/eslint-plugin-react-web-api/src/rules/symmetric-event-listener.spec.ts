@@ -144,6 +144,80 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: /* tsx */ `
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize, { capture: true });
+            return () => {
+              window.removeEventListener("resize", handleResize);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "symmetricEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize, { capture: true });
+            return () => {
+              window.removeEventListener("resize", handleResize, { capture: false });
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "symmetricEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        function Example() {
+          useEffect(() => {
+            const options = { capture: true };
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize, options);
+            return () => {
+              window.removeEventListener("resize", handleResize);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "symmetricEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        function Example() {
+          useEffect(() => {
+            const options = { capture: true };
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize, { capture: options.capture });
+            return () => {
+              window.removeEventListener("resize", handleResize);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "symmetricEventListenerInEffect",
+        },
+      ],
+    },
   ],
   valid: [
     ...allValid,
@@ -164,6 +238,65 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           window.addEventListener("resize", handleResize);
           return () => {
             window.removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize, { capture: true });
+          return () => {
+            window.removeEventListener("resize", handleResize, { capture: true });
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        useEffect(() => {
+          const options = { capture: true };
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize, options);
+          return () => {
+            window.removeEventListener("resize", handleResize, options);
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        useEffect(() => {
+          const options = { capture: true };
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize, { capture: options.capture });
+          return () => {
+            window.removeEventListener("resize", handleResize, { capture: options.capture });
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        useEffect(() => {
+          const options = { capture: true };
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize, { capture: options.capture });
+          return () => {
+            window.removeEventListener("resize", handleResize, { capture: true });
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        useEffect(() => {
+          const options = { capture: true };
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize, { capture: true });
+          return () => {
+            window.removeEventListener("resize", handleResize, { capture: options.capture });
           };
         }, []);
       }

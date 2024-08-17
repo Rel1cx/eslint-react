@@ -593,6 +593,9 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.0.1
         version: 8.1.0(eslint@9.9.0(jiti@1.21.6))(typescript@5.5.4)
+      birecord:
+        specifier: ^0.1.1
+        version: 0.1.1
       eslint:
         specifier: ^9.8.0
         version: 9.9.0(jiti@1.21.6)
