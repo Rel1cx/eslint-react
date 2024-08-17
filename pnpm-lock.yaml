@@ -11828,7 +11828,7 @@ snapshots:
 
   remeda@2.11.0:
     dependencies:
-      type-fest: 4.24.0
+      type-fest: 4.25.0
 
   repeat-string@1.6.1: {}
 
