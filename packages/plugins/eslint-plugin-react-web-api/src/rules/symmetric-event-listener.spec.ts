@@ -67,6 +67,10 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           data: { eventMethodKind: "addEventListener" },
         },
         {
+          messageId: "symmetricEventListenerInEffect",
+          data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
+        },
+        {
           messageId: "symmetricEventListenerNoInlineFunction",
           data: { eventMethodKind: "removeEventListener" },
         },
@@ -89,6 +93,10 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           data: { eventMethodKind: "addEventListener" },
         },
         {
+          messageId: "symmetricEventListenerInEffect",
+          data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
+        },
+        {
           messageId: "symmetricEventListenerNoInlineFunction",
           data: { eventMethodKind: "removeEventListener" },
         },
@@ -109,20 +117,36 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: /* tsx */ `
+        function Example() {
+          useEffect(() => {
+            window.addEventListener("resize", () => {}, { once: true });
+
+            return () => {
+              window.removeEventListener("resize", () => {}, { once: true });
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "symmetricEventListenerNoInlineFunction",
+          data: { eventMethodKind: "addEventListener" },
+        },
+        {
+          messageId: "symmetricEventListenerInEffect",
+          data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
+        },
+        {
+          messageId: "symmetricEventListenerNoInlineFunction",
+          data: { eventMethodKind: "removeEventListener" },
+        },
+      ],
+    },
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
-      function Example() {
-        useEffect(() => {
-          window.addEventListener("resize", () => {}, { once: true });
-
-          return () => {
-            window.removeEventListener("resize", () => {}, { once: true });
-          };
-        }, []);
-      }
-    `,
     /* tsx */ `
       class Example extends React.Component {
         componentDidMount() {

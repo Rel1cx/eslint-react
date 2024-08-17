@@ -253,13 +253,9 @@ export default {
     ["dom"]: createFlatConfig(domPreset, domPresetSettings),
     ["dom-legacy"]: createLegacyConfig(domPreset),
     ["off"]: createFlatConfig(offPreset),
-    /**
-     * @deprecated Use `disable-dom` instead
-     */
+    /** @deprecated Use `disable-dom` instead */
     ["off-dom"]: createFlatConfig(offDomPreset),
-    /**
-     * @deprecated Use `disable-dom-legacy` instead
-     */
+    /** @deprecated Use `disable-dom-legacy` instead */
     ["off-dom-legacy"]: createLegacyConfig(offDomPreset),
     ["off-legacy"]: createLegacyConfig(offPreset),
     ["recommended"]: createFlatConfig(recommendedPreset),
