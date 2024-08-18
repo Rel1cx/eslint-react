@@ -106,7 +106,9 @@
     "typedoc-plugin-markdown": "^4.2.5",
     "typedoc-plugin-rename-defaults": "^0.7.1",
     "typescript": "^5.5.4",
-    "vitest": "^2.0.5"
+    "typescript-eslint": "^8.1.0",
+    "vitest": "^2.0.5",
+    "yaml-eslint-parser": "^1.2.3"
   },
   "packageManager": "pnpm@9.7.1",
   "engines": {
