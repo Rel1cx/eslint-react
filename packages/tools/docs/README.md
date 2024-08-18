@@ -8,6 +8,7 @@
 
 - [Data](namespaces/Data/README.md)
 - [E](namespaces/E/README.md)
+- [Equal](namespaces/Equal/README.md)
 - [F](namespaces/F/README.md)
 - [MutRef](namespaces/MutRef/README.md)
 - [O](namespaces/O/README.md)
