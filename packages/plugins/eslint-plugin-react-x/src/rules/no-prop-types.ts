@@ -25,6 +25,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.text.includes("propTypes")) return {};
     return {
       AssignmentExpression(node) {
         if (node.operator !== "=" || node.left.type !== AST_NODE_TYPES.MemberExpression) return;

@@ -226,6 +226,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.text.includes("&&") && !context.sourceCode.text.includes("?")) return {};
     const services = ESLintUtils.getParserServices(context, false);
     function getReportDescriptor(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
       return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)

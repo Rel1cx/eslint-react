@@ -27,6 +27,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.text.includes("use")) return {};
     const alias = decodeSettings(context.settings).additionalHooks?.useCallback ?? [];
 
     return {

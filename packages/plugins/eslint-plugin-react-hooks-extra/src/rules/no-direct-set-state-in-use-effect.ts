@@ -37,6 +37,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.text.includes("use")) return {};
     const settings = decodeSettings(context.settings);
     const additionalHooks = settings.additionalHooks ?? {};
     const isUseEffectCall = isReactHookCallWithNameAlias("useEffect", context, additionalHooks.useEffect ?? []);

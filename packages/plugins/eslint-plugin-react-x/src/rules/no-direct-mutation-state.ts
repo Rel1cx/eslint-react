@@ -60,6 +60,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.text.includes("this.state")) return {};
     return {
       AssignmentExpression(node) {
         if (!isAssignmentToThisState(node)) return;
