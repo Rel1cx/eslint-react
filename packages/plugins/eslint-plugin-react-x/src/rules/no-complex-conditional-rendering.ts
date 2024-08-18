@@ -25,11 +25,6 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (
-      !context.sourceCode.text.includes("?")
-      && !context.sourceCode.text.includes("&&")
-      && !context.sourceCode.text.includes("||")
-    ) return {};
     function getReportDescriptor(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
       const jsxExpContainer = node.parent?.parent;
       if (!is(AST_NODE_TYPES.JSXExpressionContainer)(jsxExpContainer)) return O.none();

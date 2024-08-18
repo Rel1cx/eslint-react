@@ -34,7 +34,6 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes("ref=")) return {};
     return {
       JSXAttribute(node) {
         if (node.name.name !== "ref") return;

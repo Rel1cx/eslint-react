@@ -21,7 +21,6 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes("cloneElement")) return {};
     return {
       CallExpression(node) {
         if (!isCloneElementCall(node, context)) return;
