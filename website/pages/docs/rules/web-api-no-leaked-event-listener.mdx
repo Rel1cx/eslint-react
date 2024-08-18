@@ -1,0 +1,198 @@
+# no-leaked-event-listener
+
+## Rule category
+
+Correctness.
+
+## What it does
+
+Prevent adding event listeners without removing them in the cleanup function or lifecycle method.
+
+## Why is this bad?
+
+Adding event listeners without removing them can lead to memory leaks and unexpected behavior.
+
+## Examples
+
+### Failing
+
+{/* noLeakedEventListenerInEffect:
+  "A 'addEventListener' in '{{effectMethodKind}}' should have a corresponding 'removeEventListener' in its cleanup function.",
+noLeakedEventListenerInLifecycle:
+  "A 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in 'componentWillUnmount' method.",
+// TODO: After adding support for abort signal, perform additional checks on inline functions before reporting this message.
+noLeakedEventListenerOfInlineFunction: "A '{{eventMethodKind}}' should not have an inline listener function.", */}
+
+```tsx
+import React, { Component } from 'react';
+
+class Example extends Component {
+  componentDidMount() {
+    document.addEventListener('click', this.handleClick);
+    //                                 ^^^^^^^^^^^^^^^^
+    //                                 - A 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in 'componentWillUnmount' method.
+  }
+
+  handleClick() {
+    console.log('clicked');
+  }
+
+  render() {
+    return null;
+  }
+}
+```
+
+```tsx
+import React, { useEffect } from 'react';
+
+function Example() {
+  useEffect(() => {
+    const handleClick = () => {
+      console.log('clicked');
+    };
+
+    document.addEventListener('click', handleClick);
+    //                                 ^^^^^^^^^^^
+    //                                 - A 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
+  }, []);
+
+  return null;
+}
+```
+
+```tsx
+import React, { useEffect } from 'react';
+
+function Example() {
+  useEffect(() => {
+    document.addEventListener('click', () => console.log('clicked'));
+    //                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //                                - A 'addEventListener' should not have an inline listener function.
+  }, []);
+
+  return null;
+}
+```
+
+```tsx
+import React, { useEffect } from 'react';
+
+function Example() {
+  useEffect(() => {
+    const handleClick = () => {
+      console.log('clicked');
+    };
+
+    document.addEventListener('click', handleClick, { capture: true });
+    //                                 ^^^^^^^^^^^
+    //                                - A 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
+
+    return () => {
+      document.removeEventListener('click', handleClick, { capture: false });
+    };
+  }, []);
+
+  return null;
+}
+```
+
+```tsx
+function useCustomHook() {
+  useEffect(() => {
+    const handleClick = () => {
+      console.log('clicked');
+    };
+
+    document.addEventListener('click', handleClick);
+    //                                 ^^^^^^^^^^^^
+    //                                - A 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
+  }, []);
+}
+```
+
+### Passing
+
+```tsx
+import React, { Component } from 'react';
+
+class Example extends Component {
+  componentDidMount() {
+    document.addEventListener('click', this.handleClick);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClick);
+  }
+
+  handleClick() {
+    console.log('clicked');
+  }
+
+  render() {
+    return null;
+  }
+}
+```
+
+```tsx
+import React, { useEffect } from 'react';
+
+function Example() {
+  useEffect(() => {
+    const handleClick = () => {
+      console.log('clicked');
+    };
+
+    document.addEventListener('click', handleClick);
+
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, []);
+
+  return null;
+}
+```
+
+```tsx
+import React, { useEffect } from 'react';
+
+function Example() {
+  useEffect(() => {
+    const handleClick = () => {
+      console.log('clicked');
+    };
+
+    document.addEventListener('click', handleClick, { capture: true });
+
+    return () => {
+      document.removeEventListener('click', handleClick, { capture: true });
+    };
+  }, []);
+
+  return null;
+}
+```
+
+```tsx
+function useCustomHook() {
+  useEffect(() => {
+    const handleClick = () => {
+      console.log('clicked');
+    };
+
+    document.addEventListener('click', handleClick);
+
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, []);
+}
+```
+
+## Further Reading
+
+- [MDN: EventTarget.addEventListener()](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
+- [React: Subscribing to events](https://react.dev/learn/synchronizing-with-effects#subscribing-to-events)
+- [React: Connecting to an external system](https://react.dev/reference/react/useEffect#connecting-to-an-external-system)

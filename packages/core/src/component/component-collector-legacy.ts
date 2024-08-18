@@ -1,5 +1,5 @@
 import type { TSESTreeClass } from "@eslint-react/ast";
-import { getClassIdentifier } from "@eslint-react/ast";
+import { getClassIdentifier, isFunction, isOneOf } from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
@@ -50,6 +50,34 @@ export function isPureComponent(node: TSESTree.Node) {
       .otherwise(() => false);
   }
   return false;
+}
+
+export function isComponentDidMount(
+  node: TSESTree.Node,
+): node is TSESTree.MethodDefinition | TSESTree.PropertyDefinition {
+  return isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
+    && node.key.type === AST_NODE_TYPES.Identifier
+    && node.key.name === "componentDidMount";
+}
+
+export function isComponentWillUnmount(
+  node: TSESTree.Node,
+): node is TSESTree.MethodDefinition | TSESTree.PropertyDefinition {
+  return isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
+    && node.key.type === AST_NODE_TYPES.Identifier
+    && node.key.name === "componentWillUnmount";
+}
+
+export function isComponentDidMountFunction(node: TSESTree.Node) {
+  return isFunction(node)
+    && isComponentDidMount(node.parent)
+    && node.parent.value === node;
+}
+
+export function isComponentWillUnmountFunction(node: TSESTree.Node) {
+  return isFunction(node)
+    && isComponentWillUnmount(node.parent)
+    && node.parent.value === node;
 }
 
 export function useComponentCollectorLegacy() {

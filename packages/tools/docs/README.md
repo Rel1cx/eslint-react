@@ -17,7 +17,7 @@
 
 - [ArrayElement](type-aliases/ArrayElement.md)
 - [Cast](type-aliases/Cast.md)
-- [FromEntries](type-aliases/FromEntries.md)
+- [IterableContainer](type-aliases/IterableContainer.md)
 - [LooseRecord](type-aliases/LooseRecord.md)
 - [Narrow](type-aliases/Narrow.md)
 - [Pretty](type-aliases/Pretty.md)
@@ -53,8 +53,6 @@
 - [isUint8Array](functions/isUint8Array.md)
 - [isUndefined](functions/isUndefined.md)
 - [isUnknown](functions/isUnknown.md)
-- [keys](functions/keys.md)
 - [narrow](functions/narrow.md)
 - [typeOf](functions/typeOf.md)
-- [values](functions/values.md)
 - [zip](functions/zip.md)

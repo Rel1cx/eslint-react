@@ -17,6 +17,7 @@ Currently, it includes the following plugins:
 - `@eslint-react/eslint-plugin` - The main ESLint plugin package including all rules and config presets in this repository.
 - `eslint-plugin-react-x` - Core rules (renderer-agnostic, compatible with x-platform).
 - `eslint-plugin-react-dom` - DOM specific rules for React DOM.
+- `eslint-plugin-react-web-api` - Rules for interacting with Web APIs in React.
 - `eslint-plugin-react-debug` - Debugging rules.
 - `eslint-plugin-react-hooks-extra` - Extra React Hooks rules.
 - `eslint-plugin-react-naming-convention` - Naming convention rules.

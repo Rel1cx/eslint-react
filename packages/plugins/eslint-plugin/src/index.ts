@@ -6,6 +6,7 @@ import * as reactDebug from "eslint-plugin-react-debug";
 import * as reactDom from "eslint-plugin-react-dom";
 import * as reactHooksExtra from "eslint-plugin-react-hooks-extra";
 import * as reactNamingConvention from "eslint-plugin-react-naming-convention";
+import * as reactWebApi from "eslint-plugin-react-web-api";
 import * as react from "eslint-plugin-react-x";
 
 import { name, version } from "../package.json";
@@ -14,6 +15,7 @@ import { padKeysLeft } from "./utils";
 // #region Presets Rules
 
 const allPreset = {
+  // Part: Core
   "avoid-shorthand-boolean": "warn",
   "avoid-shorthand-fragment": "warn",
   "ensure-forward-ref-using-ref": "warn",
@@ -59,7 +61,8 @@ const allPreset = {
   // "prefer-read-only-props": "warn", // This rule requires type information
   "prefer-shorthand-boolean": "warn",
   "prefer-shorthand-fragment": "warn",
-  // eslint-disable-next-line perfectionist/sort-objects
+
+  // Part: DOM
   "dom/no-children-in-void-dom-elements": "warn",
   "dom/no-dangerously-set-innerhtml": "warn",
   "dom/no-dangerously-set-innerhtml-with-children": "error",
@@ -71,12 +74,18 @@ const allPreset = {
   "dom/no-script-url": "warn",
   "dom/no-unsafe-iframe-sandbox": "warn",
   "dom/no-unsafe-target-blank": "warn",
+
+  // Part: Web API
+  "web-api/no-leaked-event-listener": "error",
+
+  // Part: Hooks Extra
   "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
   "hooks-extra/ensure-use-callback-has-non-empty-deps": "warn",
   "hooks-extra/ensure-use-memo-has-non-empty-deps": "warn",
   "hooks-extra/no-direct-set-state-in-use-effect": "warn",
   "hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
   "hooks-extra/prefer-use-state-lazy-initialization": "warn",
+
   "naming-convention/component-name": "warn",
   "naming-convention/filename": "warn",
   "naming-convention/filename-extension": "warn",
@@ -145,9 +154,31 @@ const domPreset = {
   "dom/no-unsafe-target-blank": "warn",
 } as const satisfies RulePreset;
 
+const webApiPreset = {
+  "web-api/no-leaked-event-listener": "error",
+  // "web-api/no-leaked-timeout": "warn",
+  // "web-api/no-leaked-interval": "warn",
+  // "web-api/no-leaked-resize-observer": "warn",
+  // "web-api/no-leaked-intersection-observer": "warn",
+  // "web-api/no-leaked-mutation-observer": "warn",
+  // "web-api/no-leaked-performance-observer": "warn",
+  // "web-api/no-leaked-websocket": "warn",
+  // "web-api/no-leaked-broadcast-channel": "warn",
+  // "web-api/no-leaked-geolocation": "warn",
+  // "web-api/no-leaked-absolute-orientation-sensor": "warn",
+  // "web-api/no-leaked-relative-accelerometer": "warn",
+  // "web-api/no-leaked-ambient-light-sensor": "warn",
+  // "web-api/no-leaked-gravity-sensor": "warn",
+  // "web-api/no-leaked-gyroscope": "warn",
+  // "web-api/no-leaked-linear-acceleration-sensor": "warn",
+  // "web-api/no-leaked-magnetometer": "warn",
+  // "web-api/no-leaked-orientation-sensor": "warn",
+} as const satisfies RulePreset;
+
 const recommendedPreset = {
   ...corePreset,
   ...domPreset,
+  ...webApiPreset,
 } as const satisfies RulePreset;
 
 const recommendedTypeCheckedPreset = {
@@ -155,7 +186,7 @@ const recommendedTypeCheckedPreset = {
   "no-leaked-conditional-rendering": "warn",
 } as const satisfies RulePreset;
 
-const disableTypeCheckedPreset = {
+const disableTypeCheckedPreset: RulePreset = {
   "no-leaked-conditional-rendering": "off",
   "prefer-read-only-props": "off",
 } as const satisfies RulePreset;
@@ -166,9 +197,14 @@ const debugPreset = {
   "debug/react-hooks": "warn",
 } as const satisfies RulePreset;
 
+const disableDomPreset = fromEntries(entries(domPreset).map(([key]) => [key, "off"] as const));
+const disableWebApiPreset = fromEntries(entries(webApiPreset).map(([key]) => [key, "off"] as const));
+
 const allPresetEntries = entries(allPreset);
-const offPreset = fromEntries(allPresetEntries.map(([key]) => [key, "off"]));
-const offDomPreset = fromEntries(entries(domPreset).map(([key]) => [key, "off"]));
+const offPreset = {
+  ...fromEntries(allPresetEntries.map(([key]) => [key, "off"] as const)),
+  ...disableTypeCheckedPreset,
+} as const satisfies RulePreset;
 
 // #endregion
 
@@ -206,6 +242,7 @@ const flatConfigPlugins = {
   "@eslint-react/dom": reactDom,
   "@eslint-react/hooks-extra": reactHooksExtra,
   "@eslint-react/naming-convention": reactNamingConvention,
+  "@eslint-react/web-api": reactWebApi,
 } as const;
 
 function createLegacyConfig<T extends RulePreset>(
@@ -244,37 +281,40 @@ export default {
     version,
   },
   configs: {
-    ["all"]: createFlatConfig(allPreset),
-    ["all-legacy"]: createLegacyConfig(allPreset),
+    /* eslint-disable perfectionist/sort-objects */
     ["core"]: createFlatConfig(corePreset, corePresetSettings),
     ["core-legacy"]: createLegacyConfig(corePreset, corePresetSettings),
     ["debug"]: createFlatConfig(debugPreset),
     ["debug-legacy"]: createLegacyConfig(debugPreset),
     ["dom"]: createFlatConfig(domPreset, domPresetSettings),
     ["dom-legacy"]: createLegacyConfig(domPreset),
-    ["off"]: createFlatConfig(offPreset),
-    /**
-     * @deprecated Use `disable-dom` instead
-     */
-    ["off-dom"]: createFlatConfig(offDomPreset),
-    /**
-     * @deprecated Use `disable-dom-legacy` instead
-     */
-    ["off-dom-legacy"]: createLegacyConfig(offDomPreset),
-    ["off-legacy"]: createLegacyConfig(offPreset),
     ["recommended"]: createFlatConfig(recommendedPreset),
     ["recommended-legacy"]: createLegacyConfig(recommendedPreset),
     ["recommended-type-checked"]: createFlatConfig(recommendedTypeCheckedPreset),
     ["recommended-type-checked-legacy"]: createLegacyConfig(recommendedTypeCheckedPreset),
     // Part: disable presets
-    ["disable-dom"]: createFlatConfig(offDomPreset),
-    ["disable-dom-legacy"]: createLegacyConfig(offDomPreset),
+    ["disable-dom"]: createFlatConfig(disableDomPreset),
+    ["disable-dom-legacy"]: createLegacyConfig(disableDomPreset),
+    ["disable-web-api"]: createFlatConfig(disableWebApiPreset),
+    ["disable-web-api-legacy"]: createLegacyConfig(disableWebApiPreset),
     ["disable-type-checked"]: createFlatConfig(disableTypeCheckedPreset),
     ["disable-type-checked-legacy"]: createLegacyConfig(disableTypeCheckedPreset),
+    // Part: all or off presets
+    ["all"]: createFlatConfig(allPreset),
+    ["all-legacy"]: createLegacyConfig(allPreset),
+    ["off"]: createFlatConfig(offPreset),
+    ["off-legacy"]: createLegacyConfig(offPreset),
+    // Part: deprecated presets
+    /** @deprecated Use `disable-dom` instead */
+    ["off-dom"]: createFlatConfig(disableDomPreset),
+    /** @deprecated Use `disable-dom-legacy` instead */
+    ["off-dom-legacy"]: createLegacyConfig(disableDomPreset),
+    /* eslint-enable perfectionist/sort-objects */
   },
   rules: {
     ...react.rules,
     ...padKeysLeft(reactDom.rules, "dom/"),
+    ...padKeysLeft(reactWebApi.rules, "web-api/"),
     ...padKeysLeft(reactHooksExtra.rules, "hooks-extra/"),
     ...padKeysLeft(reactNamingConvention.rules, "naming-convention/"),
     ...padKeysLeft(reactDebug.rules, "debug/"),

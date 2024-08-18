@@ -333,6 +333,9 @@ importers:
       eslint-plugin-react-naming-convention:
         specifier: workspace:*
         version: link:../eslint-plugin-react-naming-convention
+      eslint-plugin-react-web-api:
+        specifier: workspace:*
+        version: link:../eslint-plugin-react-web-api
       eslint-plugin-react-x:
         specifier: workspace:*
         version: link:../eslint-plugin-react-x
@@ -552,6 +555,67 @@ importers:
         version: 9.9.0(jiti@1.21.6)
       ts-pattern:
         specifier: ^5.3.1
+        version: 5.3.1
+      typescript:
+        specifier: ^5.5.4
+        version: 5.5.4
+    devDependencies:
+      '@types/react':
+        specifier: ^18.3.3
+        version: 18.3.3
+      '@types/react-dom':
+        specifier: ^18.3.0
+        version: 18.3.0
+      string-ts:
+        specifier: ^2.2.0
+        version: 2.2.0
+      tsup:
+        specifier: ^8.2.4
+        version: 8.2.4(@swc/core@1.7.11(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.41)(typescript@5.5.4)(yaml@2.5.0)
+
+  packages/plugins/eslint-plugin-react-web-api:
+    dependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../../utilities/ast
+      '@eslint-react/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../../utilities/jsx
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      '@eslint-react/tools':
+        specifier: workspace:*
+        version: link:../../tools
+      '@eslint-react/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@eslint-react/var':
+        specifier: workspace:*
+        version: link:../../utilities/var
+      '@typescript-eslint/scope-manager':
+        specifier: ^8.0.1
+        version: 8.1.0
+      '@typescript-eslint/types':
+        specifier: ^8.0.1
+        version: 8.1.0
+      '@typescript-eslint/utils':
+        specifier: ^8.0.1
+        version: 8.1.0(eslint@9.9.0(jiti@1.21.6))(typescript@5.5.4)
+      birecord:
+        specifier: ^0.1.1
+        version: 0.1.1
+      eslint:
+        specifier: ^9.8.0
+        version: 9.9.0(jiti@1.21.6)
+      remeda:
+        specifier: ^2.9.1
+        version: 2.11.0
+      ts-pattern:
+        specifier: ^5.2.0
         version: 5.3.1
       typescript:
         specifier: ^5.5.4
@@ -5521,6 +5585,9 @@ packages:
 
   remark-stringify@11.0.0:
     resolution: {integrity: sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==}
+
+  remeda@2.11.0:
+    resolution: {integrity: sha512-rQO+zcuNvnTcB2vBctblBARZakY0+wMNtrFGqU1+h4jm5p2APcDKQxUZG2CmMPkSQxa2nauU55GBVS/3Fo83fA==}
 
   repeat-string@1.6.1:
     resolution: {integrity: sha512-PV0dzCYDNfRi1jCDbJzpW7jNNDRuCOG/jI5ctQcGKt/clZD+YcPS3yIlWuTJMmESC8aevCFmWJy5wjAFgNqN6w==}
@@ -11829,6 +11896,10 @@ snapshots:
       '@types/mdast': 4.0.4
       mdast-util-to-markdown: 2.1.0
       unified: 11.0.5
+
+  remeda@2.11.0:
+    dependencies:
+      type-fest: 4.25.0
 
   repeat-string@1.6.1: {}
 

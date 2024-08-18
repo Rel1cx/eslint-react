@@ -1,14 +1,13 @@
 {
-  "name": "@eslint-react/eslint-plugin",
+  "name": "eslint-plugin-react-web-api",
   "version": "1.10.2-beta.2",
-  "description": "The main ESLint plugin of ESLint React. Contains all the rules and presets of ESLint React.",
+  "description": "ESLint React's ESLint plugin for interacting with Web APIs in React",
   "keywords": [
     "eslint",
     "eslint-plugin",
-    "eslint-react",
+    "web-api",
     "react",
-    "tsx",
-    "typescript-react"
+    "dom"
   ],
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -17,7 +16,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Rel1cx/eslint-react",
-    "directory": "packages/plugins/eslint-plugin"
+    "directory": "packages/plugins/eslint-plugin-react-web-api"
   },
   "license": "MIT",
   "author": "Eva1ent<rel1cx@proton.me>",
@@ -44,26 +43,29 @@
   ],
   "scripts": {
     "build": "tsup --dts-resolve",
-    "lint:publish": "pnpm publint",
+    "lint:publish": "publint",
     "lint:type": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
+    "@eslint-react/ast": "workspace:*",
+    "@eslint-react/core": "workspace:*",
+    "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.1.0",
-    "@typescript-eslint/type-utils": "^8.1.0",
-    "@typescript-eslint/types": "^8.1.0",
-    "@typescript-eslint/utils": "^8.1.0",
-    "eslint-plugin-react-debug": "workspace:*",
-    "eslint-plugin-react-dom": "workspace:*",
-    "eslint-plugin-react-hooks-extra": "workspace:*",
-    "eslint-plugin-react-naming-convention": "workspace:*",
-    "eslint-plugin-react-web-api": "workspace:*",
-    "eslint-plugin-react-x": "workspace:*"
+    "@eslint-react/var": "workspace:*",
+    "@typescript-eslint/scope-manager": "^8.0.1",
+    "@typescript-eslint/types": "^8.0.1",
+    "@typescript-eslint/utils": "^8.0.1",
+    "birecord": "^0.1.1",
+    "remeda": "^2.9.1",
+    "ts-pattern": "^5.2.0"
   },
   "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "string-ts": "^2.2.0",
     "tsup": "^8.2.4"
   },
   "peerDependencies": {
