@@ -20,12 +20,11 @@ export function isNodeValueEqual(
   if (a.type === AST_NODE_TYPES.TemplateElement && b.type === AST_NODE_TYPES.TemplateElement) {
     return a.value.cooked === b.value.cooked;
   }
-  const [scopesA, scopesB] = initialScopes ?? [null, null];
+  const [scopesA, scopesB] = initialScopes;
   const sa = getStaticValue(a, scopesA);
   const sb = getStaticValue(b, scopesB);
   if (sa && sb && sa.value === sb.value) return true;
   if (a.type === AST_NODE_TYPES.Identifier && b.type === AST_NODE_TYPES.Identifier) {
-    if (!initialScopes) return false;
     const da = findVariable(scopesA, a)?.defs[0];
     const db = findVariable(scopesB, b)?.defs[0];
     if (!da || !db) return false;

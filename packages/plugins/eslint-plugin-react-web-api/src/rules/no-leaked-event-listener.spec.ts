@@ -678,7 +678,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    // TODO: Add support for the AbortController signal.
+    // TODO: Add support for detecting event listeners removed by abort signal.
     // /* tsx */ `
     //   const abortController = new AbortController();
     //   function Example() {

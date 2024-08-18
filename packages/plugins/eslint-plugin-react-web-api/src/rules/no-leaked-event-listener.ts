@@ -147,18 +147,19 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope) 
 
 // #region Rule Definition
 
+// TODO: Add support for detecting event listeners removed by abort signal.
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "ensure that every 'addEventListener' in a component or custom hook has a corresponding 'removeEventListener'",
+      description: "prevent adding event listeners without removing them in the cleanup function or lifecycle method.",
     },
     messages: {
       noLeakedEventListenerInEffect:
         "A 'addEventListener' in '{{effectMethodKind}}' should have a corresponding 'removeEventListener' in the cleanup function.",
       noLeakedEventListenerInLifecycle:
         "A 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in 'componentWillUnmount' method.",
+      // TODO: After adding support for abort signal, perform additional checks on inline functions before reporting this message.
       noLeakedEventListenerOfInlineFunction: "A '{{eventMethodKind}}' should not have an inline listener function.",
     },
     schema: [],
