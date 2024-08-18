@@ -41,15 +41,15 @@ type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "othe
 /* eslint-enable perfectionist/sort-union-types */
 
 interface AddedEntry {
+  id: TSESTree.Node;
   callee: TSESTree.Node;
   phase: PhaseKind;
-  timeoutId: TSESTree.Node;
 }
 
 interface RemovedEntry {
+  id: TSESTree.Node;
   callee: TSESTree.Node;
   phase: PhaseKind;
-  timeoutId: TSESTree.Node;
 }
 
 // #endregion
