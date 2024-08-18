@@ -1,16 +1,14 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { isFunctionOfImmediatelyInvoked, isOneOf, traverseUpGuard } from "@eslint-react/ast";
+import { isFunctionOfImmediatelyInvoked } from "@eslint-react/ast";
 import {
   isCleanupFunction,
   isComponentDidMountFunction,
   isComponentWillUnmountFunction,
   isSetupFunction,
 } from "@eslint-react/core";
-import type { O } from "@eslint-react/tools";
 import { F } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
-import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import birecord from "birecord";
 import { match, P } from "ts-pattern";
 
@@ -41,15 +39,15 @@ type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "othe
 /* eslint-enable perfectionist/sort-union-types */
 
 interface AddedEntry {
-  id: TSESTree.Node;
   callee: TSESTree.Node;
   phase: PhaseKind;
+  timeoutID: TSESTree.Node;
 }
 
 interface RemovedEntry {
-  id: TSESTree.Node;
   callee: TSESTree.Node;
   phase: PhaseKind;
+  timeoutID: TSESTree.Node;
 }
 
 // #endregion

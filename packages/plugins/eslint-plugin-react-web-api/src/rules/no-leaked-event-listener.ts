@@ -1,13 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import {
-  is,
-  isFunction,
-  isFunctionOfImmediatelyInvoked,
-  isNodeEqual,
-  isOneOf,
-  traverseUpGuard,
-} from "@eslint-react/ast";
+import { isFunction, isFunctionOfImmediatelyInvoked, isNodeEqual } from "@eslint-react/ast";
 import {
   isCleanupFunction,
   isComponentDidMountFunction,
@@ -20,7 +12,7 @@ import { isNodeValueEqual } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
-import { getStaticValue, getStringIfConstant } from "@typescript-eslint/utils/ast-utils";
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import birecord from "birecord";
 import { isMatching, match, P } from "ts-pattern";
@@ -52,20 +44,20 @@ type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "othe
 /* eslint-enable perfectionist/sort-union-types */
 
 interface AddedEntry {
+  type: TSESTree.Node;
   callee: TSESTree.Node;
   capture: O.Option<boolean>;
   listener: TSESTree.Node;
   phase: PhaseKind;
   signal: O.Option<unknown>;
-  type: TSESTree.Node;
 }
 
 interface RemovedEntry {
+  type: TSESTree.Node;
   callee: TSESTree.Node;
   capture: O.Option<boolean>;
   listener: TSESTree.Node;
   phase: PhaseKind;
-  type: TSESTree.Node;
 }
 
 // #endregion
@@ -205,7 +197,7 @@ export default createRule<[], MessageID>({
         const functionKind = getFunctionKind(node);
         functionStack.push([node, functionKind]);
       },
-      [":function:exit"](node: TSESTreeFunction) {
+      [":function:exit"]() {
         functionStack.pop();
       },
       ["CallExpression"](node) {
