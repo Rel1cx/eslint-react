@@ -185,10 +185,7 @@ export default createRule<[], MessageID>({
       return (removed: RemovedEntry) => {
         const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = added;
         const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = removed;
-        if (aPhase === "setup" && rPhase !== "cleanup") return false;
-        if (aPhase === "cleanup" && rPhase !== "setup") return false;
-        if (aPhase === "mount" && rPhase !== "unmount") return false;
-        if (aPhase === "unmount" && rPhase !== "mount") return false;
+        if (functionKindPairs.get(aPhase) !== rPhase) return false;
         const isSameObject = "object" in aCallee && "object" in rCallee && isNodeEqual(aCallee.object, rCallee.object);
         return isSameObject
           && isNodeEqual(aListener, rListener)
