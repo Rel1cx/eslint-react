@@ -23,6 +23,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.text.includes("forwardRef")) return {};
     return {
       CallExpression(node) {
         if (!isForwardRefCall(node, context)) return;

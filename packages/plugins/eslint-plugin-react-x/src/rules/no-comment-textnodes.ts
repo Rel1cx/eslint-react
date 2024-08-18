@@ -26,6 +26,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.text.includes("/*") && !context.sourceCode.text.includes("//")) return {};
     function hasCommentLike(node: TSESTree.JSXText | TSESTree.Literal) {
       if (isOneOf([AST_NODE_TYPES.JSXAttribute, AST_NODE_TYPES.JSXExpressionContainer])(node.parent)) return false;
       const rawValue = context.sourceCode.getText(node);

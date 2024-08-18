@@ -52,6 +52,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.text.includes("setState")) return {};
     const classStack: [
       node: TSESTree.ClassDeclaration | TSESTree.ClassExpression,
       isComponent: boolean,

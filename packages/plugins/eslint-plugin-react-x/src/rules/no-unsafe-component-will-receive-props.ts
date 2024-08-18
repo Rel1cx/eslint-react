@@ -29,6 +29,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.text.includes("UNSAFE_componentWillReceiveProps")) return {};
     const { ctx, listeners } = useComponentCollectorLegacy();
 
     return {

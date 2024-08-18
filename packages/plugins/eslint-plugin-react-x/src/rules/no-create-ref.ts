@@ -23,6 +23,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.text.includes("createRef")) return {};
     return {
       CallExpression(node) {
         if (!isCreateRefCall(node, context)) return;

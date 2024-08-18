@@ -31,6 +31,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.text.includes("shouldComponentUpdate")) return {};
     const { ctx, listeners } = useComponentCollectorLegacy();
 
     return {

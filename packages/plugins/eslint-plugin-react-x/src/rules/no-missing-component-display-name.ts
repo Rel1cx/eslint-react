@@ -23,6 +23,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.text.includes("memo") && !context.sourceCode.text.includes("forwardRef")) return {};
     const { ctx, listeners } = useComponentCollector(context);
 
     return {
