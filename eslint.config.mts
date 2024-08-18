@@ -12,6 +12,7 @@ import perfectionist from "eslint-plugin-perfectionist";
 import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import unicornPlugin from "eslint-plugin-unicorn";
 import vitest from "eslint-plugin-vitest";
+import regexpPlugin from "eslint-plugin-regexp";
 import eslintPluginYml from "eslint-plugin-yml";
 import { isCI } from "std-env";
 import tseslint from "typescript-eslint";
@@ -115,8 +116,9 @@ const config: Config[] = [
     ? tseslint.configs.strictTypeChecked
     : tseslint.configs.strict,
   // ...tseslint.configs.strictTypeChecked,
-  perfectionist.configs["recommended-natural"],
+  regexpPlugin.configs["flat/recommended"],
   jsdocPlugin.configs["flat/recommended-typescript-error"],
+  perfectionist.configs["recommended-natural"],
   eslintPluginPlugin.configs["flat/all-type-checked"],
   // base ts language options
   {

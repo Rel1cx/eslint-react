@@ -23,11 +23,11 @@ export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass {
     .with({
       type: AST_NODE_TYPES.Identifier,
       name: P.string,
-    }, ({ name }) => /^(Pure)?Component$/u.test(name))
+    }, ({ name }) => /^(?:Pure)?Component$/u.test(name))
     .with({
       type: AST_NODE_TYPES.MemberExpression,
       property: { name: P.string },
-    }, ({ property }) => /^(Pure)?Component$/u.test(property.name))
+    }, ({ property }) => /^(?:Pure)?Component$/u.test(property.name))
     .otherwise(() => false);
 }
 

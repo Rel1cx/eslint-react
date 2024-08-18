@@ -29,7 +29,7 @@ export default createRule<[], MessageID>({
     function hasCommentLike(node: TSESTree.JSXText | TSESTree.Literal) {
       if (isOneOf([AST_NODE_TYPES.JSXAttribute, AST_NODE_TYPES.JSXExpressionContainer])(node.parent)) return false;
       const rawValue = context.sourceCode.getText(node);
-      return /^\s*\/(\/|\*)/mu.test(rawValue);
+      return /^\s*\/(?:\/|\*)/mu.test(rawValue);
     }
     const getReportDescriptor = (node: TSESTree.JSXText | TSESTree.Literal): O.Option<ReportDescriptor<MessageID>> => {
       if (!isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(node.parent)) return O.none();
