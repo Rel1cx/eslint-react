@@ -346,5 +346,19 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }, []);
       }
     `,
+    // TODO: Add support for the AbortController signal.
+    /* tsx */ `
+      const abortController = new AbortController();
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          window.addEventListener("focus", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController.signal });
+          window.addEventListener("resize", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController.signal });
+          return () => {
+            abortController.abort();
+          };
+        }, []);
+      }
+    `,
   ],
 });
