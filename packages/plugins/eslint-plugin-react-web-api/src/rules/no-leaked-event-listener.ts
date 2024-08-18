@@ -40,7 +40,7 @@ type EffectFunctionKind = "setup" | "cleanup";
 type LifecycleFunctionKind = "mount" | "unmount";
 type FunctionKind = EffectFunctionKind | LifecycleFunctionKind | "immediate" | "other";
 type PhaseKind = EffectFunctionKind | LifecycleFunctionKind;
-type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "other";
+type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "abort" | "other";
 /* eslint-enable perfectionist/sort-union-types */
 
 interface AddedEntry {
@@ -72,7 +72,7 @@ const functionKindPairs = birecord({
 const defaultOptions = Data.struct({ capture: O.some(false), once: O.none(), signal: O.none() });
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
-  return match(node.callee)
+  return match<TSESTree.Expression, CallKind>(node.callee)
     .with({
       type: AST_NODE_TYPES.MemberExpression,
       property: {
@@ -84,6 +84,13 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
       type: AST_NODE_TYPES.Identifier,
       name: P.select(P.union("addEventListener", "removeEventListener")),
     }, F.identity)
+    .with({
+      type: AST_NODE_TYPES.MemberExpression,
+      property: {
+        type: AST_NODE_TYPES.Identifier,
+        name: "abort",
+      },
+    }, F.constant("abort"))
     .otherwise(F.constant("other"));
 }
 
