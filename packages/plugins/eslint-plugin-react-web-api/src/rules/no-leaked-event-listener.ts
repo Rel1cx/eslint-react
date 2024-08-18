@@ -8,6 +8,12 @@ import {
   isOneOf,
   traverseUpGuard,
 } from "@eslint-react/ast";
+import {
+  isCleanupFunction,
+  isComponentDidMountFunction,
+  isComponentWillUnmountFunction,
+  isSetupFunction,
+} from "@eslint-react/core";
 import { findPropInProperties } from "@eslint-react/jsx";
 import { F, isBoolean, isObject, O } from "@eslint-react/tools";
 import { isNodeValueEqual } from "@eslint-react/var";
@@ -72,60 +78,6 @@ const functionKindPairs = birecord({
 });
 
 const defaultOptions = { capture: O.some(false), once: O.none(), signal: O.none() };
-
-function isUseEffectCallLoose(node: TSESTree.Node) {
-  if (node.type !== AST_NODE_TYPES.CallExpression) return false;
-  switch (node.callee.type) {
-    case AST_NODE_TYPES.Identifier:
-      return /^use\w*Effect$/u.test(node.callee.name);
-    case AST_NODE_TYPES.MemberExpression:
-      return node.callee.property.type === AST_NODE_TYPES.Identifier
-        && /^use\w*Effect$/u.test(node.callee.property.name);
-    default:
-      return false;
-  }
-}
-
-function isSetupFunction(node: TSESTree.Node) {
-  return node.parent?.type === AST_NODE_TYPES.CallExpression
-    && node.parent.callee !== node
-    && node.parent.callee.type === AST_NODE_TYPES.Identifier
-    && node.parent.arguments.at(0) === node
-    && isUseEffectCallLoose(node.parent);
-}
-
-function isCleanupFunction(node: TSESTree.Node) {
-  const nearestRet = O.getOrNull(traverseUpGuard(node, is(AST_NODE_TYPES.ReturnStatement)));
-  if (!nearestRet) return false;
-  const nearestFunction = O.getOrNull(traverseUpGuard(node, isFunction));
-  const nearestFunctionOfRet = O.getOrNull(traverseUpGuard(nearestRet, isFunction));
-  if (!nearestFunction || !nearestFunctionOfRet) return false;
-  return nearestFunction === nearestFunctionOfRet && isSetupFunction(nearestFunction);
-}
-
-function isComponentDidMount(node: TSESTree.Node): node is TSESTree.MethodDefinition | TSESTree.PropertyDefinition {
-  return isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
-    && node.key.type === AST_NODE_TYPES.Identifier
-    && node.key.name === "componentDidMount";
-}
-
-function isComponentWillUnmount(node: TSESTree.Node): node is TSESTree.MethodDefinition | TSESTree.PropertyDefinition {
-  return isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
-    && node.key.type === AST_NODE_TYPES.Identifier
-    && node.key.name === "componentWillUnmount";
-}
-
-function isComponentDidMountFunction(node: TSESTree.Node) {
-  return isFunction(node)
-    && isComponentDidMount(node.parent)
-    && node.parent.value === node;
-}
-
-function isComponentWillUnmountFunction(node: TSESTree.Node) {
-  return isFunction(node)
-    && isComponentWillUnmount(node.parent)
-    && node.parent.value === node;
-}
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
   return match(node.callee)
@@ -198,7 +150,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description:
-        "ensure that every 'addEventListener' in a React component or custom hook has a corresponding 'removeEventListener'",
+        "ensure that every 'addEventListener' in a component or custom hook has a corresponding 'removeEventListener'",
     },
     messages: {
       noLeakedEventListenerInEffect:

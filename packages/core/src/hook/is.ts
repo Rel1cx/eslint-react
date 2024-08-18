@@ -81,6 +81,19 @@ export function isReactHookCallWithNameAlias(name: string, context: RuleContext,
   };
 }
 
+export function isUseEffectCallLoose(node: TSESTree.Node) {
+  if (node.type !== AST_NODE_TYPES.CallExpression) return false;
+  switch (node.callee.type) {
+    case AST_NODE_TYPES.Identifier:
+      return /^use\w*Effect$/u.test(node.callee.name);
+    case AST_NODE_TYPES.MemberExpression:
+      return node.callee.property.type === AST_NODE_TYPES.Identifier
+        && /^use\w*Effect$/u.test(node.callee.property.name);
+    default:
+      return false;
+  }
+}
+
 export const isUseCallbackCall = F.flip(isReactHookCallWithName)("useCallback");
 export const isUseContextCall = F.flip(isReactHookCallWithName)("useContext");
 export const isUseDebugValueCall = F.flip(isReactHookCallWithName)("useDebugValue");
