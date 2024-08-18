@@ -184,6 +184,45 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       code: /* tsx */ `
         function Example() {
           useEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize, { capture: true });
+            window.addEventListener("resize", handleResize, { capture: false });
+            return () => {
+              window.removeEventListener("resize", handleResize, { capture: false });
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize, { capture: true });
+            window.addEventListener("resize", handleResize, { capture: false });
+            window.addEventListener("resize", handleResize, { capture: false });
+            return () => {
+              window.removeEventListener("resize", handleResize, { capture: false });
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        function Example() {
+          useEffect(() => {
             const options = { capture: true };
             const handleResize = () => {};
             window.addEventListener("resize", handleResize, options);
@@ -232,6 +271,27 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     /* tsx */ `
+      class Example extends React.Component {
+        componentDidMount() {
+          window.removeEventListener("resize", this.handleResize);
+        }
+        componentWillUnmount() {
+          window.addEventListener("resize", this.handleResize);
+        }
+      }
+    `,
+    /* tsx */ `
+      class Example extends React.Component {
+        componentDidMount() {
+          window.addEventListener("resize", this.handleResize);
+          window.addEventListener("resize", this.handleResize);
+        }
+        componentWillUnmount() {
+          window.removeEventListener("resize", this.handleResize);
+        }
+      }
+    `,
+    /* tsx */ `
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -246,6 +306,30 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
+          window.addEventListener("resize", handleResize);
+          window.addEventListener("resize", handleResize);
+          return () => {
+            window.removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize, { capture: true });
+          return () => {
+            window.removeEventListener("resize", handleResize, { capture: true });
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize, { capture: true });
           window.addEventListener("resize", handleResize, { capture: true });
           return () => {
             window.removeEventListener("resize", handleResize, { capture: true });
@@ -331,6 +415,113 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return () => {
             window.removeEventListener("resize", rHandleResize.current);
           };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          window.addEventListener("resize", rHandleResize.current);
+          return () => {
+            window.removeEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+        useEffect(() => {
+          window.addEventListener("resize", rHandleResize.current);
+          return () => {
+            window.removeEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          window.addEventListener("resize", rHandleResize.current);
+        }, []);
+        useEffect(() => {
+          return () => {
+            window.removeEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          window.addEventListener("resize", rHandleResize.current);
+        }, []);
+        useEffect(() => {
+          window.addEventListener("resize", rHandleResize.current);
+          return () => {
+            window.removeEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          window.addEventListener("resize", rHandleResize.current);
+        }, []);
+        useLayoutEffect(() => {
+          return () => {
+            window.removeEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useLayoutEffect(() => {
+          return () => {
+            window.removeEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+        useEffect(() => {
+          window.addEventListener("resize", rHandleResize.current);
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          window.removeEventListener("resize", rHandleResize.current);
+          return () => {
+            window.addEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          window.removeEventListener("resize", rHandleResize.current);
+        }, []);
+        useEffect(() => {
+          return () => {
+            window.addEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useLayoutEffect(() => {
+          return () => {
+            window.addEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+        useEffect(() => {
+          window.removeEventListener("resize", rHandleResize.current);
         }, []);
       }
     `,
