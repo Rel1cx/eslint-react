@@ -10,7 +10,7 @@ export const RULE_NAME = "no-unsafe-component-will-update";
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-function isUnsafeComponentWillMount(node: TSESTree.ClassElement) {
+function isUnsafeComponentWillUpdate(node: TSESTree.ClassElement) {
   return isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
     && node.key.type === AST_NODE_TYPES.Identifier
     && node.key.name === "UNSAFE_componentWillUpdate";
@@ -41,7 +41,7 @@ export default createRule<[], MessageID>({
           const { body } = component.body;
 
           for (const member of body) {
-            if (isUnsafeComponentWillMount(member)) {
+            if (isUnsafeComponentWillUpdate(member)) {
               context.report({
                 messageId: "noUnsafeComponentWillUpdate",
                 node: member,
