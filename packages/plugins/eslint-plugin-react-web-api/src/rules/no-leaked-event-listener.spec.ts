@@ -149,6 +149,114 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
+            window.addEventListener("resize", handleResize, false);
+            return () => {
+              window.removeEventListener("resize", handleResize, true);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize, true);
+            return () => {
+              window.removeEventListener("resize", handleResize, false);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize);
+            return () => {
+              window.removeEventListener("resize", handleResize, true);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize);
+            return () => {
+              window.removeEventListener("resize", handleResize, { capture: true });
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize, true);
+            return () => {
+              window.removeEventListener("resize", handleResize, { capture: false });
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize, { capture: true });
+            return () => {
+              window.removeEventListener("resize", handleResize, false);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
             window.addEventListener("resize", handleResize, { capture: true });
             return () => {
               window.removeEventListener("resize", handleResize);
@@ -310,6 +418,39 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           window.addEventListener("resize", handleResize);
           return () => {
             window.removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize, true);
+          return () => {
+            window.removeEventListener("resize", handleResize, true);
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize, false);
+          return () => {
+            window.removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize);
+          return () => {
+            window.removeEventListener("resize", handleResize, false);
           };
         }, []);
       }

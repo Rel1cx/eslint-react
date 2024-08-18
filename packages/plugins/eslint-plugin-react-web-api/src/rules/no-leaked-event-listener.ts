@@ -116,6 +116,9 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope) 
       .otherwise(() => O.fromNullable(getStaticValue(value, initialScope)?.value));
   };
   switch (node.type) {
+    case AST_NODE_TYPES.Literal: {
+      return Data.struct({ ...defaultOptions, capture: O.some(!!node.value) });
+    }
     case AST_NODE_TYPES.ObjectExpression: {
       const pCapture = findProp(node.properties, "capture");
       const vCapture = O.flatMap(pCapture, getPropValue).pipe(O.filter(isBoolean));
