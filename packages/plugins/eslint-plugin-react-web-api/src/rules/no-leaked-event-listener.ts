@@ -23,12 +23,12 @@ import { createRule } from "../utils";
 
 // #region Rule Metadata
 
-export const RULE_NAME = "symmetric-event-listener";
+export const RULE_NAME = "no-leaked-event-listener";
 
 export type MessageID =
-  | "symmetricEventListenerInEffect"
-  | "symmetricEventListenerInLifecycle"
-  | "symmetricEventListenerNoInlineFunction";
+  | "noLeakedEventListenerInEffect"
+  | "noLeakedEventListenerInLifecycle"
+  | "noLeakedEventListenerOfInlineFunction";
 
 // #endregion
 
@@ -201,11 +201,11 @@ export default createRule<[], MessageID>({
         "ensure that every 'addEventListener' in a React component or custom hook has a corresponding 'removeEventListener'",
     },
     messages: {
-      symmetricEventListenerInEffect:
+      noLeakedEventListenerInEffect:
         "A 'addEventListener' in '{{effectMethodKind}}' should have a corresponding 'removeEventListener' in the cleanup function.",
-      symmetricEventListenerInLifecycle:
+      noLeakedEventListenerInLifecycle:
         "A 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in 'componentWillUnmount' method.",
-      symmetricEventListenerNoInlineFunction: "A '{{eventMethodKind}}' should not have an inline listener function.",
+      noLeakedEventListenerOfInlineFunction: "A '{{eventMethodKind}}' should not have an inline listener function.",
     },
     schema: [],
   },
@@ -224,7 +224,7 @@ export default createRule<[], MessageID>({
       if (!isFunction(listener)) return O.none();
       return O.some(
         {
-          messageId: "symmetricEventListenerNoInlineFunction",
+          messageId: "noLeakedEventListenerOfInlineFunction",
           node,
           data: { eventMethodKind: callKind },
         } as const,
@@ -282,7 +282,7 @@ export default createRule<[], MessageID>({
             case "setup":
             case "cleanup":
               context.report({
-                messageId: "symmetricEventListenerInEffect",
+                messageId: "noLeakedEventListenerInEffect",
                 node: added.listener,
                 data: {
                   effectMethodKind: "useEffect",
@@ -292,7 +292,7 @@ export default createRule<[], MessageID>({
             case "mount":
             case "unmount":
               context.report({
-                messageId: "symmetricEventListenerInLifecycle",
+                messageId: "noLeakedEventListenerInLifecycle",
                 node: added.listener,
               });
               continue;

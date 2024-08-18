@@ -1,7 +1,7 @@
 import type { ESLintReactSettings } from "@eslint-react/shared";
 
 import { name, version } from "../package.json";
-import symmetricEventListener from "./rules/symmetric-event-listener";
+import noLeakedEventListener from "./rules/no-leaked-event-listener";
 
 export const meta = {
   name,
@@ -9,7 +9,7 @@ export const meta = {
 } as const;
 
 export const rules = {
-  "symmetric-event-listener": symmetricEventListener,
+  "no-leaked-event-listener": noLeakedEventListener,
 } as const;
 
 export const DEFAULT_ESLINT_REACT_SETTINGS = {

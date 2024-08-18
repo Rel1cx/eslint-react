@@ -1,5 +1,5 @@
 import { allValid, ruleTesterWithTypes } from "../../../../../test";
-import rule, { RULE_NAME } from "./symmetric-event-listener";
+import rule, { RULE_NAME } from "./no-leaked-event-listener";
 
 ruleTesterWithTypes.run(RULE_NAME, rule, {
   invalid: [
@@ -13,7 +13,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "symmetricEventListenerInLifecycle",
+          messageId: "noLeakedEventListenerInLifecycle",
         },
       ],
     },
@@ -27,7 +27,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "symmetricEventListenerInEffect",
+          messageId: "noLeakedEventListenerInEffect",
         },
       ],
     },
@@ -46,7 +46,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "symmetricEventListenerInEffect",
+          messageId: "noLeakedEventListenerInEffect",
         },
       ],
     },
@@ -63,15 +63,15 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "symmetricEventListenerNoInlineFunction",
+          messageId: "noLeakedEventListenerOfInlineFunction",
           data: { eventMethodKind: "addEventListener" },
         },
         {
-          messageId: "symmetricEventListenerInEffect",
+          messageId: "noLeakedEventListenerInEffect",
           data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
         },
         {
-          messageId: "symmetricEventListenerNoInlineFunction",
+          messageId: "noLeakedEventListenerOfInlineFunction",
           data: { eventMethodKind: "removeEventListener" },
         },
       ],
@@ -89,15 +89,15 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "symmetricEventListenerNoInlineFunction",
+          messageId: "noLeakedEventListenerOfInlineFunction",
           data: { eventMethodKind: "addEventListener" },
         },
         {
-          messageId: "symmetricEventListenerInEffect",
+          messageId: "noLeakedEventListenerInEffect",
           data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
         },
         {
-          messageId: "symmetricEventListenerNoInlineFunction",
+          messageId: "noLeakedEventListenerOfInlineFunction",
           data: { eventMethodKind: "removeEventListener" },
         },
       ],
@@ -113,7 +113,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "symmetricEventListenerInEffect",
+          messageId: "noLeakedEventListenerInEffect",
         },
       ],
     },
@@ -131,15 +131,15 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "symmetricEventListenerNoInlineFunction",
+          messageId: "noLeakedEventListenerOfInlineFunction",
           data: { eventMethodKind: "addEventListener" },
         },
         {
-          messageId: "symmetricEventListenerInEffect",
+          messageId: "noLeakedEventListenerInEffect",
           data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
         },
         {
-          messageId: "symmetricEventListenerNoInlineFunction",
+          messageId: "noLeakedEventListenerOfInlineFunction",
           data: { eventMethodKind: "removeEventListener" },
         },
       ],
@@ -158,7 +158,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "symmetricEventListenerInEffect",
+          messageId: "noLeakedEventListenerInEffect",
         },
       ],
     },
@@ -176,7 +176,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "symmetricEventListenerInEffect",
+          messageId: "noLeakedEventListenerInEffect",
         },
       ],
     },
@@ -195,7 +195,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "symmetricEventListenerInEffect",
+          messageId: "noLeakedEventListenerInEffect",
         },
       ],
     },
@@ -214,7 +214,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "symmetricEventListenerInEffect",
+          messageId: "noLeakedEventListenerInEffect",
         },
       ],
     },

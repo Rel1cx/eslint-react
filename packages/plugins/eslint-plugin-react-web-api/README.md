@@ -27,7 +27,7 @@ export default [
       "react-web-api": reactWebAPI,
       rules: {
         // react-web-api recommended rules
-        "react-web-api/symmetric-event-listener": "error",
+        "react-web-api/no-leaked-event-listener": "error",
       }
     ],
   },
@@ -38,4 +38,4 @@ export default [
 
 | Rule                       | Description                                                                                                        | 💼  | 💭  |     |
 | :------------------------- | :----------------------------------------------------------------------------------------------------------------- | :-: | :-: | :-: |
-| `symmetric-event-listener` | Ensure that every 'addEventListener' in a React component or custom hook has a corresponding 'removeEventListener' |  ✔️  |     |     |
+| `no-leaked-event-listener` | Ensure that every 'addEventListener' in a React component or custom hook has a corresponding 'removeEventListener' |  ✔️  |     |     |
