@@ -6,18 +6,18 @@ import safeTsPlugin from "@susisu/eslint-plugin-safe-typescript";
 import gitignore from "eslint-config-flat-gitignore";
 import eslintCommentsPlugin from "eslint-plugin-eslint-comments";
 import eslintPluginPlugin from "eslint-plugin-eslint-plugin";
+import fileProgressPlugin from "eslint-plugin-file-progress";
 import importPlugin from "eslint-plugin-import-x";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 import perfectionist from "eslint-plugin-perfectionist";
+import regexpPlugin from "eslint-plugin-regexp";
 import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import unicornPlugin from "eslint-plugin-unicorn";
 import vitest from "eslint-plugin-vitest";
-import regexpPlugin from "eslint-plugin-regexp";
 import eslintPluginYml from "eslint-plugin-yml";
 import { isCI } from "std-env";
 import tseslint from "typescript-eslint";
 import YamlParser from "yaml-eslint-parser";
-import fileProgressPlugin from "eslint-plugin-file-progress";
 
 type Config = Parameters<typeof tseslint.config>[number];
 
@@ -89,8 +89,8 @@ const config: Config[] = [
       "docs",
       "examples",
       "website",
-      "eslint.config.*",
-      "eslint.config.d.ts",
+      // "eslint.config.*",
+      // "eslint.config.d.ts",
       "test",
     ],
   },
@@ -103,11 +103,11 @@ const config: Config[] = [
       ["@typescript-eslint"]: tseslint.plugin,
       ["eslint-comments"]: eslintCommentsPlugin,
       ["eslint-plugin"]: eslintPluginPlugin,
+      ["file-progress"]: fileProgressPlugin,
       ["import-x"]: importPlugin,
       ["jsdoc"]: jsdocPlugin,
       ["simple-import-sort"]: simpleImportSortPlugin,
       ["unicorn"]: unicornPlugin,
-      ["file-progress"]: fileProgressPlugin,
     },
   },
   // extends ...
@@ -248,6 +248,7 @@ const config: Config[] = [
       // Part: perfectionist rules
       "perfectionist/sort-exports": "off",
       "perfectionist/sort-imports": "off",
+      "perfectionist/sort-interfaces": ["warn", { ...p11tOptions, ...p11tGroups }],
       "perfectionist/sort-intersection-types": "off",
       "perfectionist/sort-named-exports": "off",
       "perfectionist/sort-named-imports": "off",
