@@ -7,7 +7,7 @@ import {
   isSetupFunction,
 } from "@eslint-react/core";
 import { findPropInProperties } from "@eslint-react/jsx";
-import { F, isBoolean, isObject, O } from "@eslint-react/tools";
+import { Data, F, isBoolean, isObject, O } from "@eslint-react/tools";
 import { isNodeValueEqual } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
@@ -69,7 +69,7 @@ const functionKindPairs = birecord({
   setup: "cleanup",
 });
 
-const defaultOptions = { capture: O.some(false), once: O.none(), signal: O.none() };
+const defaultOptions = Data.struct({ capture: O.some(false), once: O.none(), signal: O.none() });
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
   return match(node.callee)
@@ -114,7 +114,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope) 
       const vCapture = O.flatMap(pCapture, getPropValue).pipe(O.filter(isBoolean));
       const pSignal = findProp(node.properties, "signal");
       const vSignal = O.flatMap(pSignal, getPropValue);
-      return { capture: vCapture, signal: vSignal };
+      return Data.struct({ capture: vCapture, signal: vSignal });
     }
     case AST_NODE_TYPES.Identifier:
     case AST_NODE_TYPES.MemberExpression: {
@@ -125,7 +125,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope) 
       }
       const capture = O.fromNullable(options.value.capture).pipe(O.filter(isBoolean));
       const signal = O.fromNullable(options.value.signal);
-      return { capture, signal };
+      return Data.struct({ capture, signal });
     }
     default: {
       return defaultOptions;
