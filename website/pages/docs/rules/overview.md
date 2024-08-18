@@ -85,6 +85,12 @@
 | [`dom/no-unsafe-iframe-sandbox`](dom-no-unsafe-iframe-sandbox)                                     | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   | 🔒  |     |     |
 | [`dom/no-unsafe-target-blank`](dom-no-unsafe-target-blank)                                         | Prevents using `target="_blank"` without `rel="noreferrer noopener"`.                   | 🔒  |     |     |
 
+## Web API Rules
+
+| Rule                                                                   | Description                                                                                        | 💼  | 💭  |
+| :--------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------- | :-: | :-: |
+| [`web-api/no-leaked-event-listener`](web-api-no-leaked-event-listener) | Prevents adding event listeners without removing them in the cleanup function or lifecycle method. |  ✔️  |     |
+
 ## Hooks Extra Rules
 
 | Rule                                                                                                           | Description                                                                     | 💼  | 💭  |     |

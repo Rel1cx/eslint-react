@@ -156,7 +156,7 @@ export default createRule<[], MessageID>({
     },
     messages: {
       noLeakedEventListenerInEffect:
-        "A 'addEventListener' in '{{effectMethodKind}}' should have a corresponding 'removeEventListener' in the cleanup function.",
+        "A 'addEventListener' in '{{effectMethodKind}}' should have a corresponding 'removeEventListener' in its cleanup function.",
       noLeakedEventListenerInLifecycle:
         "A 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in 'componentWillUnmount' method.",
       // TODO: After adding support for abort signal, perform additional checks on inline functions before reporting this message.
