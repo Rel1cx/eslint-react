@@ -180,18 +180,27 @@ export default createRule<[], MessageID>({
       return O.some(
         {
           messageId: "noLeakedEventListenerOfInlineFunction",
-          node,
+          node: listener,
           data: { eventMethodKind: callKind },
         } as const,
       );
+    }
+    function isSameObject(a: TSESTree.Node, b: TSESTree.Node) {
+      switch (true) {
+        case a.type === AST_NODE_TYPES.ObjectExpression
+          && b.type === AST_NODE_TYPES.ObjectExpression:
+          return isNodeEqual(a, b);
+        // TODO: Maybe there other cases to consider here.
+        default:
+          return false;
+      }
     }
     function isMatchedAddAndRemove(added: AddedEntry) {
       return (removed: RemovedEntry) => {
         const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = added;
         const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = removed;
         if (functionKindPairs.get(aPhase) !== rPhase) return false;
-        const isSameObject = "object" in aCallee && "object" in rCallee && isNodeEqual(aCallee.object, rCallee.object);
-        return isSameObject
+        return isSameObject(aCallee, rCallee)
           && isNodeEqual(aListener, rListener)
           && isNodeValueEqual(aType, rType, [
             context.sourceCode.getScope(aType),
