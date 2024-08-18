@@ -185,11 +185,11 @@ export default createRule<[], MessageID>({
         } as const,
       );
     }
-    function isSameObject(a: TSESTree.Node, b: TSESTree.Node) {
+    function isSameEventTarget(a: TSESTree.Node, b: TSESTree.Node) {
       switch (true) {
-        case a.type === AST_NODE_TYPES.ObjectExpression
-          && b.type === AST_NODE_TYPES.ObjectExpression:
-          return isNodeEqual(a, b);
+        case a.type === AST_NODE_TYPES.MemberExpression
+          && b.type === AST_NODE_TYPES.MemberExpression:
+          return isNodeEqual(a.object, b.object);
         // TODO: Maybe there other cases to consider here.
         default:
           return false;
@@ -200,7 +200,7 @@ export default createRule<[], MessageID>({
         const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = added;
         const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = removed;
         if (functionKindPairs.get(aPhase) !== rPhase) return false;
-        return isSameObject(aCallee, rCallee)
+        return isSameEventTarget(aCallee, rCallee)
           && isNodeEqual(aListener, rListener)
           && isNodeValueEqual(aType, rType, [
             context.sourceCode.getScope(aType),
