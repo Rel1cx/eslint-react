@@ -278,22 +278,24 @@ export default createRule<[], MessageID>({
       ["Program:exit"]() {
         for (const added of addedEventListeners) {
           if (removedEventListeners.some(isMatchedAddAndRemove(added))) continue;
-          if (added.phase === "setup" || added.phase === "cleanup") {
-            context.report({
-              messageId: "symmetricEventListenerInEffect",
-              node: added.listener,
-              data: {
-                effectMethodKind: "useEffect",
-              },
-            });
-            return;
-          }
-          if (added.phase === "mount" || added.phase === "unmount") {
-            context.report({
-              messageId: "symmetricEventListenerInLifecycle",
-              node: added.listener,
-            });
-            return;
+          switch (added.phase) {
+            case "setup":
+            case "cleanup":
+              context.report({
+                messageId: "symmetricEventListenerInEffect",
+                node: added.listener,
+                data: {
+                  effectMethodKind: "useEffect",
+                },
+              });
+              continue;
+            case "mount":
+            case "unmount":
+              context.report({
+                messageId: "symmetricEventListenerInLifecycle",
+                node: added.listener,
+              });
+              continue;
           }
         }
       },
