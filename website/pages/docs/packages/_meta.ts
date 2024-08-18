@@ -14,6 +14,11 @@ export default {
     href: "https://www.npmjs.com/package/eslint-plugin-react-dom",
     newWindow: true,
   },
+  "eslint-plugin-react-web-api": {
+    title: "eslint-plugin-react-web-api",
+    href: "https://www.npmjs.com/package/eslint-plugin-react-web-api",
+    newWindow: true,
+  },
   "eslint-plugin-react-hooks-extra": {
     title: "eslint-plugin-react-hooks-extra",
     href: "https://www.npmjs.com/package/eslint-plugin-react-hooks-extra",

@@ -6,26 +6,38 @@
 
 # Function: entries()
 
-> **entries**\<`T`\>(`value`): \{ \[K in string \| number \| symbol\]-?: \[K, T\[K\]\] \}\[keyof `T`\][]
+## entries(data)
 
-type-safe version of Object.entries
+> **entries**\<`T`\>(`data`): `EntriesEntry`\<`T`\>[]
 
-## Type Parameters
+### Type Parameters
 
-• **T** *extends* [`LooseRecord`](../type-aliases/LooseRecord.md)\<`unknown`\>
+• **T** *extends* `object`
 
-## Parameters
+### Parameters
 
-• **value**: `T`
+• **data**: `T`
 
-The value to get the entries from.
+### Returns
 
-## Returns
+`EntriesEntry`\<`T`\>[]
 
-\{ \[K in string \| number \| symbol\]-?: \[K, T\[K\]\] \}\[keyof `T`\][]
+## entries()
 
-The entries of the value.
+> **entries**(): \<`T`\>(`data`) => `EntriesEntry`\<`T`\>[]
 
-## Since
+### Returns
 
-0.4.0
+`Function`
+
+#### Type Parameters
+
+• **T** *extends* `object`
+
+#### Parameters
+
+• **data**: `T`
+
+#### Returns
+
+`EntriesEntry`\<`T`\>[]

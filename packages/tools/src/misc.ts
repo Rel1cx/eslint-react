@@ -48,6 +48,18 @@ export type Pretty<T> =
   & {};
 
 /**
+ * This should only be used for defining generics which extend any kind of JS
+ * array under the hood, this includes arrays *AND* tuples (of the form [x, y],
+ * and of the form [x, ...y[]], etc...), and their readonly equivalent. This
+ * allows us to be more inclusive to what functions can process.
+ * @example map<T extends ArrayLike>(items: T) { ... }
+ *
+ * We would've named this `ArrayLike`, but that's already used by typescript...
+ * @see This was inspired by the type-definition of Promise.all (https://github.com/microsoft/TypeScript/blob/1df5717b120cddd325deab8b0f2b2c3eecaf2b01/src/lib/es2015.promise.d.ts#L21)
+ */
+export type IterableContainer<T = unknown> = ReadonlyArray<T> | readonly [];
+
+/**
  * Returns the element type of an array.
  * @since 0.4.0
  * @template T type of the array elements.
@@ -62,12 +74,6 @@ export type ArrayElement<A> = A extends readonly (infer T)[] ? T : never;
  * @since 0.4.0
  */
 export type LooseRecord<T> = Record<PropertyKey, T>;
-
-export type FromEntries<T> = T extends [infer Key, unknown][]
-  ? { [K in Cast<Key, string>]: Extract<ArrayElement<T>, [K, unknown]>[1] }
-  : { [key in string]: unknown };
-
-// fromEntries<T>(obj: T): FromEntriesWithReadOnly<T>
 
 /**
  * Infers embedded primitive type of any type
@@ -176,43 +182,57 @@ export const isIterable = (input: unknown): input is Iterable<unknown> => hasPro
 
 // #region Object Helpers
 
-/**
- * type-safe version of Object.fromEntries
- * @param entries The entries to create the object from.
- * @returns The object created from the entries.
- * @since 0.4.0
- */
-export const fromEntries = <T extends [PropertyKey, unknown][]>(entries: T) => {
-  return Object.fromEntries(entries) as FromEntries<T>;
+// Ported from: https://github.com/remeda/remeda/blob/9d742036f6c9cdc216e2c771805051855e7e7ac4/src/entries.ts
+type EntriesEntryForKey<T, Key extends keyof T> = Key extends number | string ? [key: `${Key}`, value: Required<T>[Key]]
+  : never;
+type EntriesEntry<T> = Pretty<{ [P in keyof T]-?: EntriesEntryForKey<T, P> }[keyof T]>;
+export function entries<T extends {}>(data: T): Array<EntriesEntry<T>>;
+export function entries(): <T extends {}>(data: T) => Array<EntriesEntry<T>>;
+export function entries(...args: ReadonlyArray<unknown>): unknown {
+  return Object.entries(args);
+}
+
+// Ported from: https://github.com/remeda/remeda/blob/9d742036f6c9cdc216e2c771805051855e7e7ac4/src/fromEntries.ts
+type FromEntriesEntry<Key extends PropertyKey = PropertyKey, Value = unknown> = readonly [
+  key: Key,
+  value: Value,
+];
+type FromEntries<Entries> = Entries extends readonly [
+  infer First,
+  ...infer Tail,
+] ? FromEntriesTuple<First, Tail>
+  : Entries extends readonly [...infer Head, infer Last] ? FromEntriesTuple<Last, Head>
+  : Entries extends IterableContainer<FromEntriesEntry> ? FromEntriesArray<Entries>
+  : "ERROR: Entries array-like could not be inferred";
+type FromEntriesTuple<E, Rest> = E extends FromEntriesEntry ? FromEntries<Rest> & Record<E[0], E[1]>
+  : "ERROR: Array-like contains a non-entry element";
+type FromEntriesArray<Entries extends IterableContainer<FromEntriesEntry>> = string extends AllKeys<Entries>
+  ? Record<string, Entries[number][1]>
+  : number extends AllKeys<Entries> ? Record<number, Entries[number][1]>
+  : symbol extends AllKeys<Entries> ? Record<symbol, Entries[number][1]>
+  : FromEntriesArrayWithLiteralKeys<Entries>;
+type FromEntriesArrayWithLiteralKeys<Entries extends IterableContainer<FromEntriesEntry>> = {
+  [P in AllKeys<Entries>]?: ValueForKey<Entries, P>;
 };
-
-/**
- * type-safe version of Object.entries
- * @param value The value to get the entries from.
- * @returns The entries of the value.
- * @since 0.4.0
- */
-export const entries = <T extends LooseRecord<unknown>>(value: T) => {
-  return Object.entries(value) as {
-    [K in keyof T]-?: [K, T[K]];
-  }[keyof T][];
-};
-
-/**
- * type-safe version of Object.keys
- * @param value The value to get the keys from.
- * @returns The keys of the value.
- * @since 0.4.0
- */
-export const keys = <T extends LooseRecord<unknown>>(value: T) => Object.keys(value) as (keyof T)[];
-
-/**
- * type-safe version of Object.values
- * @param value The value to get the values from.
- * @returns The values of the value.
- * @since 0.4.0
- */
-export const values = <T extends LooseRecord<unknown>>(value: T) => Object.values(value) as T[keyof T][];
+type AllKeys<Entries extends IterableContainer<FromEntriesEntry>> = Extract<
+  Entries[number],
+  FromEntriesEntry
+>[0];
+type ValueForKey<
+  Entries extends IterableContainer<FromEntriesEntry>,
+  K extends PropertyKey,
+> = (Extract<Entries[number], FromEntriesEntry<K>> extends never ? Entries[number]
+  : Extract<Entries[number], FromEntriesEntry<K>>)[1];
+export function fromEntries<Entries extends IterableContainer<FromEntriesEntry>>(
+  entries: Entries,
+): Pretty<FromEntries<Entries>>;
+export function fromEntries(): <Entries extends IterableContainer<FromEntriesEntry>>(
+  entries: Entries,
+) => Pretty<FromEntries<Entries>>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function fromEntries(...args: ReadonlyArray<any>): unknown {
+  return Object.fromEntries(args);
+}
 
 // #endregion
 

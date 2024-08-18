@@ -333,6 +333,9 @@ importers:
       eslint-plugin-react-naming-convention:
         specifier: workspace:*
         version: link:../eslint-plugin-react-naming-convention
+      eslint-plugin-react-web-api:
+        specifier: workspace:*
+        version: link:../eslint-plugin-react-web-api
       eslint-plugin-react-x:
         specifier: workspace:*
         version: link:../eslint-plugin-react-x

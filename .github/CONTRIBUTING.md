@@ -65,6 +65,7 @@ ESLint React does not accept contributions of a purely utilitarian nature.
 - `@eslint-react/core`: ESLint utility module for static analysis of React core APIs and Patterns.
 - `eslint-plugin-react-x`: The standalone ESLint plugin of React core rules.
 - `eslint-plugin-react-dom`: The standalone ESLint plugin of React DOM rules.
+- `eslint-plugin-react-web-api` - The standalone ESLint plugin of Web API rules.
 - `eslint-plugin-react-hooks-extra`: The standalone ESLint plugin of extra React Hooks rules.
 - `eslint-plugin-react-naming-convention`: The standalone ESLint plugin of React naming convention rules.
 - `@eslint-react/eslint-plugin`: The main ESLint plugin of ESLint React. Contains all the rules from the above plugins.

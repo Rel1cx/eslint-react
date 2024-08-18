@@ -60,6 +60,7 @@
     "eslint-plugin-react-dom": "workspace:*",
     "eslint-plugin-react-hooks-extra": "workspace:*",
     "eslint-plugin-react-naming-convention": "workspace:*",
+    "eslint-plugin-react-web-api": "workspace:*",
     "eslint-plugin-react-x": "workspace:*"
   },
   "devDependencies": {

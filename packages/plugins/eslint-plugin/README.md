@@ -24,6 +24,7 @@ A series of composable ESLint rules rewritten from scratch for libraries and fra
 
 - [`eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) - Core rules (renderer-agnostic, compatible with x-platform).
 - [`eslint-plugin-react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) - DOM specific rules for React DOM.
+- [`eslint-plugin-react-web-api`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api) - Rules for interacting with Web APIs in React.
 - [`eslint-plugin-react-hooks-extra`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra) - Extra React Hooks rules.
 - [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
 
@@ -120,16 +121,20 @@ Add the plugin to your `.eslintrc.json`:
 
 - **core**\
   Enable rules that are renderer-agnostic.
+- **dom**\
+  Enable rules that are specific to React DOM.
+- **web-api**\
+  Enable rules for interacting with Web APIs in React.
 - **recommended**\
   Enable rules that are recommended by ESLint React.\
-  _This preset includes the `core` preset._
+  _This preset includes the `core`, `dom`, and `web-api` presets._
 - **recommended-type-checked**\
   Enable rules that are recommended by ESLint React with additional rules that require type information.\
   _This preset includes the `recommended` preset._
-- **dom**\
-  Enable rules that are specific to React DOM.
 - **disable-dom**\
   Disable rules that are specific to React DOM.
+- **disable-web-api**\
+  Disable rules for interacting with Web APIs in React.
 - **disable-type-checked**\
   Disable rules that require type information.
 - **off**\
@@ -142,16 +147,20 @@ Add the plugin to your `.eslintrc.json`:
 
 - **core-legacy**\
   Enable rules that are renderer-agnostic.
+- **dom-legacy**\
+  Enable rules that are specific to React DOM.
+- **web-api-legacy**\
+  Enable rules for interacting with Web APIs in React.
 - **recommended-legacy**\
   Enable rules that are recommended by ESLint React.\
-  _This preset includes the `core-legacy` preset._
+  _This preset includes the `core-legacy`, `dom-legacy`, and `web-api-legacy` presets._
 - **recommended-type-checked-legacy**\
   Enable rules that are recommended by ESLint React with additional rules that require type information.\
   _This preset includes the `recommended-legacy` preset._
-- **dom-legacy**\
-  Enable rules that are specific to React DOM.
 - **disable-dom-legacy**\
   Disable rules that are specific to React DOM.
+- **disable-web-api-legacy**\
+  Disable rules for interacting with Web APIs in React.
 - **disable-type-checked-legacy**\
   Disable rules that require type information.
 - **off-legacy**\

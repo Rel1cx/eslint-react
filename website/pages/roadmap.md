@@ -76,6 +76,29 @@
 | `no-unsafe-iframe-sandbox`                   | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   |
 | `no-unsafe-target-blank`                     | Prevents the use of `target="_blank"` without `rel="noreferrer noopener"`.              |
 
+### Rules in `eslint-plugin-react-web-api`
+
+| Rule                                    | Description                                   |
+| :-------------------------------------- | :-------------------------------------------- |
+| `no-leaked-timeout`                     | Prevents leaked `setTimeout`                  |
+| `no-leaked-interval`                    | Prevents leaked `setInterval`                 |
+| `no-leaked-event-listener`              | Prevents leaked `addEventListener`            |
+| `no-leaked-resize-observer`             | Prevents leaked `ResizeObserver`              |
+| `no-leaked-intersection-observer`       | Prevents leaked `IntersectionObserver`        |
+| `no-leaked-mutation-observer`           | Prevents leaked `MutationObserver`            |
+| `no-leaked-performance-observer`        | Prevents leaked `PerformanceObserver`         |
+| `no-leaked-websocket`                   | Prevents leaked `WebSocket`                   |
+| `no-leaked-broadcast-channel`           | Prevents leaked `BroadcastChannel`            |
+| `no-leaked-geolocation`                 | Prevents leaked `Geolocation.watchPosition()` |
+| `no-leaked-absolute-orientation-sensor` | Prevents leaked `AbsoluteOrientationSensor`   |
+| `no-leaked-relative-accelerometer`      | Prevents leaked `Accelerometer`               |
+| `no-leaked-ambient-light-sensor`        | Prevents leaked `AmbientLightSensor`          |
+| `no-leaked-gravity-sensor`              | Prevents leaked `GravitySensor`               |
+| `no-leaked-gyroscope`                   | Prevents leaked `Gyroscope`                   |
+| `no-leaked-linear-acceleration-sensor`  | Prevents leaked `LinearAccelerationSensor`    |
+| `no-leaked-magnetometer`                | Prevents leaked `Magnetometer`                |
+| `no-leaked-orientation-sensor`          | Prevents leaked `OrientationSensor`           |
+
 ### Rules in `eslint-plugin-react-hooks-extra`
 
 | Rule                                       | Description                                                                 |
@@ -107,6 +130,7 @@
 - `eslint-plugin-react-x` - Core rules (renderer-agnostic, compatible with x-platform).
 - `eslint-plugin-react-dom` - DOM Specific rules for React DOM.
 - `eslint-plugin-react-dom-a11y` - Accessibility rules for React DOM.
+- `eslint-plugin-react-web-api` - Rules for interacting with Web APIs in React.
 - `eslint-plugin-react-hooks` - The official one from React.
 - `eslint-plugin-react-hooks-extra` - Extra rules for `eslint-plugin-react-hooks`.
 - `eslint-plugin-react-naming-convention` - Optional naming convention rules (can be replaced with other plugins depending on the project).

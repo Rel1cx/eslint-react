@@ -6,26 +6,38 @@
 
 # Function: fromEntries()
 
-> **fromEntries**\<`T`\>(`entries`): [`FromEntries`](../type-aliases/FromEntries.md)\<`T`\>
+## fromEntries(entries)
 
-type-safe version of Object.fromEntries
+> **fromEntries**\<`Entries`\>(`entries`): [`Pretty`](../type-aliases/Pretty.md)\<`FromEntries`\<`Entries`\>\>
 
-## Type Parameters
+### Type Parameters
 
-• **T** *extends* [`PropertyKey`, `unknown`][]
+• **Entries** *extends* [`IterableContainer`](../type-aliases/IterableContainer.md)\<`FromEntriesEntry`\<`PropertyKey`, `unknown`\>\>
 
-## Parameters
+### Parameters
 
-• **entries**: `T`
+• **entries**: `Entries`
 
-The entries to create the object from.
+### Returns
 
-## Returns
+[`Pretty`](../type-aliases/Pretty.md)\<`FromEntries`\<`Entries`\>\>
 
-[`FromEntries`](../type-aliases/FromEntries.md)\<`T`\>
+## fromEntries()
 
-The object created from the entries.
+> **fromEntries**(): \<`Entries`\>(`entries`) => [`Pretty`](../type-aliases/Pretty.md)\<`FromEntries`\<`Entries`\>\>
 
-## Since
+### Returns
 
-0.4.0
+`Function`
+
+#### Type Parameters
+
+• **Entries** *extends* [`IterableContainer`](../type-aliases/IterableContainer.md)\<`FromEntriesEntry`\>
+
+#### Parameters
+
+• **entries**: `Entries`
+
+#### Returns
+
+[`Pretty`](../type-aliases/Pretty.md)\<`FromEntries`\<`Entries`\>\>

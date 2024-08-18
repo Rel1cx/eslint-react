@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import { isFunctionOfImmediatelyInvoked } from "@eslint-react/ast";
 import {
@@ -89,6 +90,7 @@ function getFunctionKind(node: TSESTreeFunction) {
 
 // #region Rule Definition
 
+// TODO: Implement rule
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
