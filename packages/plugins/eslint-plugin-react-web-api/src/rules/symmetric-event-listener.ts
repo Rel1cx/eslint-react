@@ -77,10 +77,10 @@ function isUseEffectCallLoose(node: TSESTree.Node) {
   if (node.type !== AST_NODE_TYPES.CallExpression) return false;
   switch (node.callee.type) {
     case AST_NODE_TYPES.Identifier:
-      return /^(use(?:\w+)?Effect)$/u.test(node.callee.name);
+      return /^use\w*Effect$/u.test(node.callee.name);
     case AST_NODE_TYPES.MemberExpression:
       return node.callee.property.type === AST_NODE_TYPES.Identifier
-        && /^(use(?:\w+)?Effect)$/u.test(node.callee.property.name);
+        && /^use\w*Effect$/u.test(node.callee.property.name);
     default:
       return false;
   }
@@ -212,7 +212,7 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     if (!context.sourceCode.text.includes("addEventListener")) return {};
-    if (!/use(?:\w+)?Effect|componentDidMount|componentWillUnmount/u.test(context.sourceCode.text)) return {};
+    if (!/use\w*Effect|componentDidMount|componentWillUnmount/u.test(context.sourceCode.text)) return {};
     const functionStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
     const addedEventListeners: AddedEntry[] = [];
     const removedEventListeners: RemovedEntry[] = [];
