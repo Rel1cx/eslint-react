@@ -153,7 +153,8 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "prevent adding event listeners without removing them in the cleanup function or lifecycle method.",
+      description:
+        "prevent calling `addEventListener` without a corresponding `removeEventListener` in the same component or hook.",
     },
     messages: {
       noLeakedEventListenerInEffect:

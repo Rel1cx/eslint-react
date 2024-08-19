@@ -64,7 +64,10 @@ export default {
   "dom-no-script-url": "dom/no-script-url",
   "dom-no-unsafe-iframe-sandbox": "dom/no-unsafe-iframe-sandbox",
   "dom-no-unsafe-target-blank": "dom/no-unsafe-target-blank",
-  "web-api-no-leaked-event-listener": "web-api/no-leaked-event-listener",
+  "web-api-no-leaked-event-listener": {
+    title: "web-api/no-leaked-event-listener",
+    display: "hidden",
+  },
   "hooks-extra-ensure-custom-hooks-using-other-hooks": "hooks-extra/ensure-custom-hooks-using-other-hooks",
   "hooks-extra-ensure-use-callback-has-non-empty-deps": "hooks-extra/ensure-use-callback-has-non-empty-deps",
   "hooks-extra-ensure-use-memo-has-non-empty-deps": "hooks-extra/ensure-use-memo-has-non-empty-deps",

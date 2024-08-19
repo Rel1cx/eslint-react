@@ -87,9 +87,9 @@
 
 ## Web API Rules
 
-| Rule                                                                   | Description                                                                                        | 💼  | 💭  |
-| :--------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------- | :-: | :-: |
-| [`web-api/no-leaked-event-listener`](web-api-no-leaked-event-listener) | Prevents adding event listeners without removing them in the cleanup function or lifecycle method. |  ✔️  |     |
+| Rule                                                                   | Description                                                                                                      | 💼  | 💭  |     |
+| :--------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------- | :-: | :-: | :-: |
+| [`web-api/no-leaked-event-listener`](web-api-no-leaked-event-listener) | Prevents calling `addEventListener` without a corresponding `removeEventListener` in the same component or hook. |  ✔️  |     | 🚧  |
 
 ## Hooks Extra Rules
 
