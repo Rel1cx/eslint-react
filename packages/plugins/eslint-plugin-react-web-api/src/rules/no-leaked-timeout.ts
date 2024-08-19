@@ -38,13 +38,15 @@ type PhaseKind = EffectFunctionKind | LifecycleFunctionKind;
 type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "other";
 /* eslint-enable perfectionist/sort-union-types */
 
-interface AddedEntry {
+interface sEntry {
+  _: TSESTree.Node;
   callee: TSESTree.Node;
   phase: PhaseKind;
   timeoutID: TSESTree.Node;
 }
 
-interface RemovedEntry {
+interface rEntry {
+  _: TSESTree.Node;
   callee: TSESTree.Node;
   phase: PhaseKind;
   timeoutID: TSESTree.Node;
@@ -104,14 +106,16 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const functionStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
+    const fStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
+    const sEntries: sEntry[] = [];
+    const rEntries: rEntry[] = [];
     return {
       [":function"](node: TSESTreeFunction) {
-        const functionKind = getFunctionKind(node);
-        functionStack.push([node, functionKind]);
+        const fKind = getFunctionKind(node);
+        fStack.push([node, fKind]);
       },
       [":function:exit"](node: TSESTreeFunction) {
-        functionStack.pop();
+        fStack.pop();
       },
       ["CallExpression"](node) {
         const callKind = getCallKind(node);

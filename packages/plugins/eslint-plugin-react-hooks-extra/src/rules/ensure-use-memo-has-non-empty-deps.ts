@@ -29,7 +29,6 @@ export default createRule<[], MessageID>({
   create(context) {
     if (!context.sourceCode.text.includes("use")) return {};
     const alias = decodeSettings(context.settings).additionalHooks?.useMemo ?? [];
-
     return {
       CallExpression(node) {
         if (!isReactHookCall(node)) return;

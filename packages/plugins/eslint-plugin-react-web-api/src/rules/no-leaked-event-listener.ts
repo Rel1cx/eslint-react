@@ -43,7 +43,7 @@ type PhaseKind = EffectFunctionKind | LifecycleFunctionKind;
 type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "abort" | "other";
 /* eslint-enable perfectionist/sort-union-types */
 
-interface AddedEntry {
+interface AEntry {
   _: TSESTree.Node;
   type: TSESTree.Node;
   callee: TSESTree.Node;
@@ -53,7 +53,7 @@ interface AddedEntry {
   signal: O.Option<unknown>;
 }
 
-interface RemovedEntry {
+interface REntry {
   _: TSESTree.Node;
   type: TSESTree.Node;
   callee: TSESTree.Node;
@@ -169,9 +169,9 @@ export default createRule<[], MessageID>({
   create(context) {
     if (!context.sourceCode.text.includes("addEventListener")) return {};
     if (!/use\w*Effect|componentDidMount|componentWillUnmount/u.test(context.sourceCode.text)) return {};
-    const functionStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
-    const addedEventListeners: AddedEntry[] = [];
-    const removedEventListeners: RemovedEntry[] = [];
+    const fStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
+    const aEntries: AEntry[] = [];
+    const rEntries: REntry[] = [];
     function checkInlineFunction(
       node: TSESTree.CallExpression,
       callKind: EventMethodKind,
@@ -196,10 +196,10 @@ export default createRule<[], MessageID>({
           return false;
       }
     }
-    function isMatchedAddAndRemove(added: AddedEntry) {
-      return (removed: RemovedEntry) => {
-        const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = added;
-        const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = removed;
+    function isMatchedREntry(aEntry: AEntry) {
+      return (rEntry: REntry) => {
+        const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = aEntry;
+        const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = rEntry;
         if (functionKindPairs.get(aPhase) !== rPhase) return false;
         return isSameEventTarget(aCallee, rCallee)
           && isNodeEqual(aListener, rListener)
@@ -213,10 +213,10 @@ export default createRule<[], MessageID>({
     return {
       [":function"](node: TSESTreeFunction) {
         const functionKind = getFunctionKind(node);
-        functionStack.push([node, functionKind]);
+        fStack.push([node, functionKind]);
       },
       [":function:exit"]() {
-        functionStack.pop();
+        fStack.pop();
       },
       ["CallExpression"](node) {
         const callKind = getCallKind(node);
@@ -225,27 +225,27 @@ export default createRule<[], MessageID>({
           case "removeEventListener": {
             O.map(checkInlineFunction(node, callKind), context.report);
             const [type, listener, options] = node.arguments;
-            const [functionNode, functionKind] = functionStack.at(-1) ?? [];
-            if (!type || !listener || !functionNode || !functionKind) return;
-            if (functionKindPairs.has(functionKind)) {
+            const [fNode, fKind] = fStack.at(-1) ?? [];
+            if (!type || !listener || !fNode || !fKind) return;
+            if (functionKindPairs.has(fKind)) {
               const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
               const callee = node.callee;
-              const listeners = callKind === "addEventListener" ? addedEventListeners : removedEventListeners;
-              listeners.push({ ...opts, _: node, type, callee, listener, phase: functionKind });
+              const listeners = callKind === "addEventListener" ? aEntries : rEntries;
+              listeners.push({ ...opts, _: node, type, callee, listener, phase: fKind });
             }
             break;
           }
         }
       },
       ["Program:exit"]() {
-        for (const added of addedEventListeners) {
-          if (removedEventListeners.some(isMatchedAddAndRemove(added))) continue;
-          switch (added.phase) {
+        for (const aEntry of aEntries) {
+          if (rEntries.some(isMatchedREntry(aEntry))) continue;
+          switch (aEntry.phase) {
             case "setup":
             case "cleanup":
               context.report({
                 messageId: "noLeakedEventListenerInEffect",
-                node: added._,
+                node: aEntry._,
                 data: {
                   effectMethodKind: "useEffect",
                 },
@@ -255,7 +255,7 @@ export default createRule<[], MessageID>({
             case "unmount":
               context.report({
                 messageId: "noLeakedEventListenerInLifecycle",
-                node: added._,
+                node: aEntry._,
               });
               continue;
           }

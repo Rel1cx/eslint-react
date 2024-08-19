@@ -55,7 +55,7 @@ export default createRule<[], MessageID>({
     const setupFunctionIdentifiers: TSESTree.Identifier[] = [];
     const indirectFunctionCalls: TSESTree.CallExpression[] = [];
     const indirectSetStateCalls = new WeakMap<TSESTreeFunction, TSESTree.CallExpression[]>();
-    const indirectSetStateCallsAsEFs = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
+    const indirectSetStateCallsAsSetups = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
     const indirectSetStateCallsAsArgs = new WeakMap<TSESTree.CallExpression, TSESTree.Identifier[]>();
     const indirectSetStateCallsInHooks = new WeakMap<
       TSESTree.VariableDeclarator["init"] & {},
@@ -156,7 +156,7 @@ export default createRule<[], MessageID>({
             // useLayoutEffect(setState);
             if (isUseEffectCall(node.parent)) {
               const calls = indirectSetStateCallsAsArgs.get(node.parent) ?? [];
-              indirectSetStateCallsAsEFs.set(node.parent, [...calls, node]);
+              indirectSetStateCallsAsSetups.set(node.parent, [...calls, node]);
             }
             break;
           }
@@ -191,7 +191,7 @@ export default createRule<[], MessageID>({
           }
           return [];
         };
-        for (const [_, calls] of indirectSetStateCallsAsEFs) {
+        for (const [_, calls] of indirectSetStateCallsAsSetups) {
           for (const call of calls) {
             context.report({
               messageId: "noDirectSetStateInUseLayoutEffect",
