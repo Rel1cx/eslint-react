@@ -276,6 +276,6 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});
 
 // #endregion

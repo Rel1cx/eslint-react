@@ -1,5 +1,4 @@
 import { isObject, MutRef } from "@eslint-react/tools";
-import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import { createRule } from "../utils";
@@ -113,4 +112,4 @@ export default createRule<Options, MessageID>({
     };
   },
   defaultOptions,
-}) satisfies ESLintUtils.RuleModule<MessageID, Options>;
+});

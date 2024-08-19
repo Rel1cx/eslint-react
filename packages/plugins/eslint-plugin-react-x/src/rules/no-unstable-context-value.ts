@@ -5,7 +5,6 @@ import { O } from "@eslint-react/tools";
 import type { Construction } from "@eslint-react/var";
 import { inspectConstruction } from "@eslint-react/var";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils";
 
@@ -89,4 +88,4 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});

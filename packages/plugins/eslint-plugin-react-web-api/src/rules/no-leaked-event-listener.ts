@@ -10,7 +10,7 @@ import { findPropInProperties } from "@eslint-react/jsx";
 import { Data, F, isBoolean, isObject, O } from "@eslint-react/tools";
 import { isNodeValueEqual } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
-import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -145,7 +145,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description:
-        "prevent calling `addEventListener` without a corresponding `removeEventListener` in the same component or hook.",
+        "enforce that every 'addEventListener' in a component or custom hook has a corresponding 'removeEventListener'.",
     },
     messages: {
       noLeakedEventListenerInEffect:
@@ -256,6 +256,6 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});
 
 // #endregion

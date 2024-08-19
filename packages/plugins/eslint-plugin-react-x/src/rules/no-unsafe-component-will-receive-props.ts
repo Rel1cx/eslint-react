@@ -1,7 +1,7 @@
 import { isOneOf } from "@eslint-react/ast";
 import { useComponentCollectorLegacy } from "@eslint-react/core";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -53,4 +53,4 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});

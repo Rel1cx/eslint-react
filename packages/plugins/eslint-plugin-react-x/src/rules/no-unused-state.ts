@@ -3,7 +3,7 @@ import { getClassIdentifier, isKeyLiteralLike, isThisExpression } from "@eslint-
 import { isClassComponent } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 import { isMatching, P } from "ts-pattern";
 
@@ -57,7 +57,7 @@ export default createRule<[], MessageID>({
       description: "disallow unused state of class component",
     },
     messages: {
-      noUnusedState: "Unused class component state.",
+      noUnusedState: "Unused class component state in '{{className}}'",
     },
     schema: [],
   },
@@ -164,4 +164,4 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});

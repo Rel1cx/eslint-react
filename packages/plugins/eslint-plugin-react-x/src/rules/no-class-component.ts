@@ -1,7 +1,6 @@
 import { useComponentCollectorLegacy } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 import { isMatching, P } from "ts-pattern";
 
@@ -56,6 +55,7 @@ export default createRule<[], MessageID>({
             messageId: "noClassComponent",
             node: component,
             data: {
+              // eslint-disable-next-line eslint-plugin/no-unused-placeholders
               name: O.getOrElse(F.constant("anonymous"))(name),
             },
           });
@@ -64,4 +64,4 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});

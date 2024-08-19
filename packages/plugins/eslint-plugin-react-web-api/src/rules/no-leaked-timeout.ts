@@ -7,7 +7,7 @@ import {
   isSetupFunction,
 } from "@eslint-react/core";
 import { F } from "@eslint-react/tools";
-import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import birecord from "birecord";
 import { isMatching, match, P } from "ts-pattern";
@@ -93,7 +93,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "ensure that every 'setTimeout' in a component or custom hook has a corresponding 'clearTimeout'.",
+      description: "enforce that every 'setTimeout' in a component or custom hook has a corresponding 'clearTimeout'.",
     },
     messages: {
       noLeakedTimeoutInEffect: "'setTimeout' must be paired with 'clearTimeout' in {{kind}}",
@@ -122,6 +122,6 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});
 
 // #endregion

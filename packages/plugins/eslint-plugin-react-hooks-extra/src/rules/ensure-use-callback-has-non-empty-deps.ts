@@ -4,7 +4,6 @@ import { decodeSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import { findVariable, getVariableNode } from "@eslint-react/var";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 
@@ -98,4 +97,4 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});

@@ -1,3 +1,4 @@
+/* eslint-disable eslint-plugin/no-unused-placeholders */
 import type { TSESTreeClass, TSESTreeFunction } from "@eslint-react/ast";
 import { isClass, isFunction, traverseUp, traverseUpGuard } from "@eslint-react/ast";
 import {
@@ -13,7 +14,6 @@ import { traverseUpProp } from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils";
 
@@ -131,4 +131,4 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});

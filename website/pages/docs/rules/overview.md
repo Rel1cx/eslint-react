@@ -89,7 +89,7 @@
 
 | Rule                                                                   | Description                                                                                                      | 💼  | 💭  |     |
 | :--------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------- | :-: | :-: | :-: |
-| [`web-api/no-leaked-event-listener`](web-api-no-leaked-event-listener) | Prevents calling `addEventListener` without a corresponding `removeEventListener` in the same component or hook. |  ✔️  |     | 🚧  |
+| [`web-api/no-leaked-event-listener`](web-api-no-leaked-event-listener) | "Enforces that every `addEventListener` in a component or custom hook has a corresponding `removeEventListener`. |  ✔️  |     | 🚧  |
 
 ## Hooks Extra Rules
 

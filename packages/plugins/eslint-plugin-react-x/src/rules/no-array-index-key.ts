@@ -4,7 +4,7 @@ import { unsafeCastSettings } from "@eslint-react/shared";
 import { isNullable, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import { isMatching } from "ts-pattern";
@@ -198,4 +198,4 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});

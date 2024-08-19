@@ -2,7 +2,7 @@ import { isInitializedFromReact } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { Scope } from "@typescript-eslint/scope-manager";
-import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -17,6 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
+      // eslint-disable-next-line eslint-plugin/require-meta-docs-description
       description: "report all identifiers that are initialized from React.",
     },
     messages: {
@@ -73,4 +74,4 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});

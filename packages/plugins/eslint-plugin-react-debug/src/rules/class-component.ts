@@ -1,6 +1,5 @@
 import { useComponentCollectorLegacy } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
-import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -13,6 +12,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
+      // eslint-disable-next-line eslint-plugin/require-meta-docs-description
       description: "report all class components, including anonymous ones",
     },
     messages: {
@@ -40,4 +40,4 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});

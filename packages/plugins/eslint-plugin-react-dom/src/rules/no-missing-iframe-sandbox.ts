@@ -1,7 +1,7 @@
 import { findPropInAttributes, getElementType, getPropValue } from "@eslint-react/jsx";
 import { decodeSettings, expandSettings } from "@eslint-react/shared";
 import { F, isString, O } from "@eslint-react/tools";
-import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -76,4 +76,4 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});

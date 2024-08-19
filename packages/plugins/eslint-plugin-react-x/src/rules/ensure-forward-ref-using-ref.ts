@@ -1,7 +1,6 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3667
 import { isFunction } from "@eslint-react/ast";
 import { isForwardRefCall } from "@eslint-react/core";
-import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -39,4 +38,4 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});

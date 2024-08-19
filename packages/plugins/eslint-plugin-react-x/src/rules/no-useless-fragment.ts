@@ -3,7 +3,7 @@ import { isFragmentElement } from "@eslint-react/core";
 import { isBuiltInElement, isKeyedElement, isLiteral, isPaddingSpaces } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import { isMatching, P } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -61,4 +61,4 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});

@@ -89,8 +89,6 @@ const config: Config[] = [
       "docs",
       "examples",
       "website",
-      // "eslint.config.*",
-      // "eslint.config.d.ts",
       "test",
     ],
   },
@@ -290,7 +288,9 @@ const config: Config[] = [
         },
       ],
       // Part: eslint-plugin rules
+      "eslint-plugin/meta-property-ordering": "off",
       "eslint-plugin/no-property-in-node": "off",
+      "eslint-plugin/require-meta-docs-recommended": "off",
       "eslint-plugin/require-meta-docs-url": "off",
     },
     settings: {

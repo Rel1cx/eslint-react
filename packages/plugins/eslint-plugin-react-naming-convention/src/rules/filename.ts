@@ -2,7 +2,6 @@ import path from "node:path";
 
 import { RE_CAMEL_CASE, RE_KEBAB_CASE, RE_PASCAL_CASE, RE_SNAKE_CASE } from "@eslint-react/shared";
 import { isObject, isString } from "@eslint-react/tools";
-import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { camelCase, kebabCase, pascalCase, snakeCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -12,7 +11,7 @@ import { createRule } from "../utils";
 export const RULE_NAME = "filename";
 
 export type MessageID =
-  | "filenameCaseMismatch"
+  // | "filenameCaseMismatch"
   | "filenameCaseMismatchSuggestion"
   | "filenameEmpty";
 
@@ -81,7 +80,7 @@ export default createRule<Options, MessageID>({
       description: "enforce naming convention for JSX filenames",
     },
     messages: {
-      filenameCaseMismatch: "A file with name '{{name}}' does not match {{rule}}.",
+      // filenameCaseMismatch: "A file with name '{{name}}' does not match {{rule}}.",
       filenameCaseMismatchSuggestion:
         "A file with name '{{name}}' does not match {{rule}}. Should rename to '{{suggestion}}'.",
       filenameEmpty: "A file must have non-empty name.",
@@ -145,4 +144,4 @@ export default createRule<Options, MessageID>({
     };
   },
   defaultOptions,
-}) satisfies ESLintUtils.RuleModule<MessageID, Options>;
+});

@@ -1,7 +1,6 @@
 import { traverseUp } from "@eslint-react/ast";
 import { isClassComponent, isCreateRefCall } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
-import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -32,4 +31,4 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});

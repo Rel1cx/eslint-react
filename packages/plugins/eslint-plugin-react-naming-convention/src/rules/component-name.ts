@@ -3,7 +3,6 @@ import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-reac
 import { getElementName } from "@eslint-react/jsx";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
 import { isString, O } from "@eslint-react/tools";
-import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -148,4 +147,4 @@ export default createRule<Options, MessageID>({
     };
   },
   defaultOptions,
-}) satisfies ESLintUtils.RuleModule<MessageID, Options>;
+});

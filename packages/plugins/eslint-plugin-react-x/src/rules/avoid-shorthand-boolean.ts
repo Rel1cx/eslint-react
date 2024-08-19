@@ -1,5 +1,4 @@
 import { getPropName } from "@eslint-react/jsx";
-import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -12,7 +11,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "avoid using shorthand boolean attribute",
+      description: "disallow using shorthand boolean attributes",
     },
     messages: {
       avoidShorthandBoolean:
@@ -39,4 +38,4 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});

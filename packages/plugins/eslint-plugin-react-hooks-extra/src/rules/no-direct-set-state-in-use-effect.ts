@@ -5,7 +5,7 @@ import { decodeSettings } from "@eslint-react/shared";
 import { F, MutRef, O } from "@eslint-react/tools";
 import { findVariable, getVariableNode } from "@eslint-react/var";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
       description: "disallow direct calls to the 'set' function of 'useState' in 'useEffect'",
     },
     messages: {
-      noDirectSetStateInUseEffect: "Do not call the 'set' function of 'useState' directly in 'useEffect'.",
+      noDirectSetStateInUseEffect: "Do not call the 'set' function '{{name}}' of 'useState' directly in 'useEffect'.",
     },
     schema: [],
   },
@@ -115,6 +115,7 @@ export default createRule<[], MessageID>({
             context.report({
               messageId: "noDirectSetStateInUseEffect",
               node,
+              data: { name: context.sourceCode.getText(node.callee) },
             });
           })
           // .with(P.union("useMemo", "useCallback"), () => {})
@@ -222,4 +223,4 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});

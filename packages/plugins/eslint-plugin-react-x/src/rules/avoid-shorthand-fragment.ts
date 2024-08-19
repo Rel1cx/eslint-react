@@ -1,4 +1,3 @@
-import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -11,7 +10,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "avoid using shorthand fragment syntax",
+      description: "disallow using shorthand fragment syntax",
     },
     messages: {
       avoidShorthandFragment: "Avoid using shorthand fragment syntax. Use 'Fragment' component instead.",
@@ -30,4 +29,4 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});

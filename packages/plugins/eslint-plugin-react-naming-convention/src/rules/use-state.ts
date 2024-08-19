@@ -2,7 +2,6 @@ import { isReactHookCallWithNameLoose, isUseStateCall, useComponentCollector } f
 import { decodeSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import { capitalize } from "string-ts";
@@ -82,4 +81,4 @@ export default createRule<[], MessageID>({
     };
   },
   defaultOptions: [],
-}) satisfies ESLintUtils.RuleModule<MessageID>;
+});
