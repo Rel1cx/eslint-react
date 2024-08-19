@@ -6,22 +6,15 @@ Correctness.
 
 ## What it does
 
-Prevent adding event listeners without removing them in the cleanup function or lifecycle method.
+Prevent calling `addEventListener` without a corresponding `removeEventListener` in the same component or hook.
 
 ## Why is this bad?
 
-Adding event listeners without removing them can lead to memory leaks and unexpected behavior.
+Adding an event listener without removing it can lead to memory leaks and unexpected behavior. This is because the event listener will continue to exist even after the component or hook is unmounted.
 
 ## Examples
 
 ### Failing
-
-{/* noLeakedEventListenerInEffect:
-  "A 'addEventListener' in '{{effectMethodKind}}' should have a corresponding 'removeEventListener' in its cleanup function.",
-noLeakedEventListenerInLifecycle:
-  "A 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in 'componentWillUnmount' method.",
-// TODO: After adding support for abort signal, perform additional checks on inline functions before reporting this message.
-noLeakedEventListenerOfInlineFunction: "A '{{eventMethodKind}}' should not have an inline listener function.", */}
 
 ```tsx
 import React, { Component } from 'react';
