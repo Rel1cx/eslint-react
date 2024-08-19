@@ -1,14 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { TSESTreeFunction } from "@eslint-react/ast";
+import { isNodeEqual, toReadableNodeName, traverseUp, traverseUpGuard } from "@eslint-react/ast";
 import {
   isCleanupFunction,
   isComponentDidMountFunction,
   isComponentWillUnmountFunction,
   isSetupFunction,
 } from "@eslint-react/core";
-import { F } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/tools";
+import { findVariable, getVariableNode, isNodeValueEqual } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import birecord from "birecord";
 import { isMatching, match, P } from "ts-pattern";
 
@@ -88,7 +91,6 @@ function getFunctionKind(node: TSESTreeFunction) {
 
 // #region Rule Definition
 
-// TODO: Implement rule
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -107,6 +109,28 @@ export default createRule<[], MessageID>({
     const fStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
     const sEntries: sEntry[] = [];
     const rEntries: rEntry[] = [];
+    const isPairedEntry: {
+      (a: sEntry): (b: rEntry) => boolean;
+      (a: sEntry, b: rEntry): boolean;
+    } = F.dual(2, (a: sEntry, b: rEntry) => {
+      const aTimeoutID = a.timeoutID;
+      const bTimeoutID = b.timeoutID;
+      const aTimeoutIDScope = context.sourceCode.getScope(aTimeoutID);
+      const bTimeoutIDScope = context.sourceCode.getScope(bTimeoutID);
+      switch (true) {
+        case aTimeoutID.type === AST_NODE_TYPES.Identifier
+          && bTimeoutID.type === AST_NODE_TYPES.Identifier: {
+          return isNodeValueEqual(aTimeoutID, bTimeoutID, [aTimeoutIDScope, bTimeoutIDScope]);
+        }
+        case aTimeoutID.type === AST_NODE_TYPES.AssignmentExpression
+          && bTimeoutID.type === AST_NODE_TYPES.AssignmentExpression: {
+          return isNodeEqual(aTimeoutID.left, bTimeoutID.left);
+        }
+        default:
+          return isNodeEqual(aTimeoutID, bTimeoutID)
+            || isNodeValueEqual(aTimeoutID, bTimeoutID, [aTimeoutIDScope, bTimeoutIDScope]);
+      }
+    });
     return {
       [":function"](node: TSESTreeFunction) {
         const fKind = getFunctionKind(node);
@@ -117,8 +141,94 @@ export default createRule<[], MessageID>({
       },
       ["CallExpression"](node) {
         const callKind = getCallKind(node);
+        switch (callKind) {
+          case "setTimeout": {
+            const [fNode, fKind] = fStack.at(-1) ?? [];
+            const timeoutIdNode = F.pipe(
+              traverseUp(node, (n) => {
+                switch (true) {
+                  case n.type === AST_NODE_TYPES.VariableDeclarator
+                    && n.init === node:
+                    return true;
+                  case n.type === AST_NODE_TYPES.AssignmentExpression
+                    && n.right === node:
+                    return true;
+                  default:
+                    return false;
+                }
+              }),
+              O.flatMapNullable((n) => {
+                switch (n.type) {
+                  case AST_NODE_TYPES.VariableDeclarator:
+                    return n.id;
+                  case AST_NODE_TYPES.AssignmentExpression:
+                    return n.left;
+                  default:
+                    return null;
+                }
+              }),
+              O.getOrNull,
+            );
+            if (!fNode || !fKind) break;
+            if (!functionKindPairs.has(fKind)) break;
+            if (!timeoutIdNode) {
+              context.report({
+                messageId: "noLeakedTimeoutNoTimeoutId",
+                node,
+              });
+              break;
+            }
+            sEntries.push({
+              self: node,
+              callee: node.callee,
+              phase: fKind,
+              timeoutID: timeoutIdNode,
+            });
+            break;
+          }
+          case "clearTimeout": {
+            const [fNode, fKind] = fStack.at(-1) ?? [];
+            if (!fNode || !fKind) break;
+            if (!functionKindPairs.has(fKind)) break;
+            const [timeoutIdNode] = node.arguments;
+            if (!timeoutIdNode) break;
+            rEntries.push({
+              self: node,
+              callee: node.callee,
+              phase: fKind,
+              timeoutID: timeoutIdNode,
+            });
+            break;
+          }
+        }
       },
-      ["Program:exit"]() {},
+      ["Program:exit"]() {
+        for (const sEntry of sEntries) {
+          if (rEntries.some(isPairedEntry(sEntry))) continue;
+          switch (sEntry.phase) {
+            case "setup":
+            case "cleanup":
+              context.report({
+                messageId: "noLeakedTimeoutInEffect",
+                node: sEntry.self,
+                data: {
+                  kind: "useEffect",
+                },
+              });
+              continue;
+            case "mount":
+            case "unmount":
+              context.report({
+                messageId: "noLeakedTimeoutInLifecycle",
+                node: sEntry.self,
+                data: {
+                  kind: "componentDidMount",
+                },
+              });
+              continue;
+          }
+        }
+      },
     };
   },
   defaultOptions: [],

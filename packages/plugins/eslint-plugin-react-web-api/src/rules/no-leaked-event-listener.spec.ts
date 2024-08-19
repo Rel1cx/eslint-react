@@ -1,7 +1,7 @@
-import { allValid, ruleTesterWithTypes } from "../../../../../test";
+import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-leaked-event-listener";
 
-ruleTesterWithTypes.run(RULE_NAME, rule, {
+ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `
