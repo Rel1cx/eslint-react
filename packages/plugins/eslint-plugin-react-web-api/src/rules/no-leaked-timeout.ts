@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { isNodeEqual, toReadableNodeName, traverseUp, traverseUpGuard } from "@eslint-react/ast";
+import { isNodeEqual } from "@eslint-react/ast";
 import {
   isCleanupFunction,
   isComponentDidMountFunction,
@@ -8,10 +7,9 @@ import {
   isSetupFunction,
 } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
-import { findVariable, getVariableNode, isNodeValueEqual } from "@eslint-react/var";
+import { isNodeValueEqual } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
-import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import birecord from "birecord";
 import { isMatching, match, P } from "ts-pattern";
 
@@ -87,6 +85,23 @@ function getFunctionKind(node: TSESTreeFunction) {
     .otherwise(() => "other");
 }
 
+function getTimeoutID(node: TSESTree.Node, prev?: TSESTree.Node): O.Option<TSESTree.Node> {
+  switch (true) {
+    case node.type === AST_NODE_TYPES.VariableDeclarator
+      && node.init === prev:
+      return O.some(node.id);
+    case node.type === AST_NODE_TYPES.AssignmentExpression
+      && node.right === prev:
+      return O.some(node.left);
+    case node.type === AST_NODE_TYPES.BlockStatement
+      || node.type === AST_NODE_TYPES.Program
+      || node.parent === node:
+      return O.none();
+    default:
+      return getTimeoutID(node.parent, node);
+  }
+}
+
 // #endregion
 
 // #region Rule Definition
@@ -127,8 +142,7 @@ export default createRule<[], MessageID>({
           return isNodeEqual(aTimeoutID.left, bTimeoutID.left);
         }
         default:
-          return isNodeEqual(aTimeoutID, bTimeoutID)
-            || isNodeValueEqual(aTimeoutID, bTimeoutID, [aTimeoutIDScope, bTimeoutIDScope]);
+          return isNodeValueEqual(aTimeoutID, bTimeoutID, [aTimeoutIDScope, bTimeoutIDScope]);
       }
     });
     return {
@@ -136,7 +150,7 @@ export default createRule<[], MessageID>({
         const fKind = getFunctionKind(node);
         fStack.push([node, fKind]);
       },
-      [":function:exit"](node: TSESTreeFunction) {
+      [":function:exit"]() {
         fStack.pop();
       },
       ["CallExpression"](node) {
@@ -144,33 +158,9 @@ export default createRule<[], MessageID>({
         switch (callKind) {
           case "setTimeout": {
             const [fNode, fKind] = fStack.at(-1) ?? [];
-            const timeoutIdNode = F.pipe(
-              traverseUp(node, (n) => {
-                switch (true) {
-                  case n.type === AST_NODE_TYPES.VariableDeclarator
-                    && n.init === node:
-                    return true;
-                  case n.type === AST_NODE_TYPES.AssignmentExpression
-                    && n.right === node:
-                    return true;
-                  default:
-                    return false;
-                }
-              }),
-              O.flatMapNullable((n) => {
-                switch (n.type) {
-                  case AST_NODE_TYPES.VariableDeclarator:
-                    return n.id;
-                  case AST_NODE_TYPES.AssignmentExpression:
-                    return n.left;
-                  default:
-                    return null;
-                }
-              }),
-              O.getOrNull,
-            );
             if (!fNode || !fKind) break;
             if (!functionKindPairs.has(fKind)) break;
+            const timeoutIdNode = O.getOrNull(getTimeoutID(node));
             if (!timeoutIdNode) {
               context.report({
                 messageId: "noLeakedTimeoutNoTimeoutId",
