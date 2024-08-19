@@ -1,8 +1,19 @@
-import { isNodeEqual } from "@eslint-react/ast";
+import { isNodeEqual, isOneOf, traverseUp } from "@eslint-react/ast";
+import { O } from "@eslint-react/tools";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
+
+import { findVariable } from "./find-variable";
+import { getVariableNode } from "./get-variable-node";
+
+const thisBlockTypes = [
+  AST_NODE_TYPES.FunctionDeclaration,
+  AST_NODE_TYPES.FunctionExpression,
+  AST_NODE_TYPES.ClassBody,
+  AST_NODE_TYPES.Program,
+] as const;
 
 /**
  * Determines whether node value equals to another node value
@@ -20,19 +31,27 @@ export function isNodeValueEqual(
   if (a.type === AST_NODE_TYPES.TemplateElement && b.type === AST_NODE_TYPES.TemplateElement) {
     return a.value.cooked === b.value.cooked;
   }
-  const [scopesA, scopesB] = initialScopes;
-  const sa = getStaticValue(a, scopesA);
-  const sb = getStaticValue(b, scopesB);
-  if (sa && sb && sa.value === sb.value) return true;
+  const [aScope, bScope] = initialScopes;
+  const aStatic = getStaticValue(a, aScope);
+  const bStatic = getStaticValue(b, bScope);
+  if (aStatic && bStatic) return aStatic.value === bStatic.value;
   if (a.type === AST_NODE_TYPES.Identifier && b.type === AST_NODE_TYPES.Identifier) {
-    const da = findVariable(scopesA, a)?.defs[0];
-    const db = findVariable(scopesB, b)?.defs[0];
-    if (!da || !db) return false;
-    if (da.node === db.node) return true;
-    return isNodeEqual(da.node, db.node);
+    const va = findVariable(a, aScope);
+    const vb = findVariable(b, bScope);
+    const ia = O.flatMap(va, getVariableNode(0));
+    const ib = O.flatMap(vb, getVariableNode(0));
+    if (O.isNone(ia) || O.isNone(ib)) return false;
+    return ia.value === ib.value;
   }
   if (a.type === AST_NODE_TYPES.MemberExpression && b.type === AST_NODE_TYPES.MemberExpression) {
     return isNodeEqual(a.property, b.property) && isNodeValueEqual(a.object, b.object, initialScopes);
+  }
+  if (a.type === AST_NODE_TYPES.ThisExpression && b.type === AST_NODE_TYPES.ThisExpression) {
+    if (aScope.block === bScope.block) return true;
+    const fa = traverseUp(a, isOneOf(thisBlockTypes));
+    const fb = traverseUp(a, isOneOf(thisBlockTypes));
+    if (O.isSome(fa) && O.isSome(fb)) return fa.value === fb.value;
+    return false;
   }
   return false;
 }

@@ -1,0 +1,56 @@
+# no-leaked-timeout
+
+## Rule category
+
+Correctness.
+
+## What it does
+
+Enforce that every `setTimeout` in a component or custom hook has a corresponding `clearTimeout`.
+
+## Why is this bad?
+
+Scheduling a timeout within the setup function of `useEffect` without canceling it in the cleanup function can lead to unwanted `setTimeout` callback executions and may also result in using stale values captured by previous render's effects after each subsequent re-render.
+
+## Examples
+
+### Failing
+
+```tsx
+import React, { useEffect, useState } from 'react';
+
+function Example() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => console.log(count), 1000);
+    //                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //                - A 'setTimeout' in 'useEffect' should have a corresponding 'clearTimeout' in its cleanup function.
+  }, []);
+
+  return null;
+}
+```
+
+### Passing
+
+```tsx
+import React, { useEffect, useState } from 'react';
+
+function Example() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => console.log(count), 1000);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  return null;
+}
+```
+
+## Further Reading
+
+- [MDN: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)
+- [MDN: clearTimeout](https://developer.mozilla.org/en-US/docs/Web/API/clearTimeout)
+- [React: synchronizing with effects](https://react.dev/learn/synchronizing-with-effects#putting-it-all-together)

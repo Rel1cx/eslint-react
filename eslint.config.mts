@@ -110,10 +110,10 @@ const config: Config[] = [
   },
   // extends ...
   eslint.configs.recommended,
-  ...isCI
-    ? tseslint.configs.strictTypeChecked
-    : tseslint.configs.strict,
-  // ...tseslint.configs.strictTypeChecked,
+  // ...isCI
+  //   ? tseslint.configs.strictTypeChecked
+  //   : tseslint.configs.strict,
+  ...tseslint.configs.strictTypeChecked,
   regexpPlugin.configs["flat/recommended"],
   jsdocPlugin.configs["flat/recommended-typescript-error"],
   perfectionist.configs["recommended-natural"],

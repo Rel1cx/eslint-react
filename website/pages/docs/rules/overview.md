@@ -87,9 +87,10 @@
 
 ## Web API Rules
 
-| Rule                                                                   | Description                                                                                                      | 💼  | 💭  |     |
-| :--------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------- | :-: | :-: | :-: |
-| [`web-api/no-leaked-event-listener`](web-api-no-leaked-event-listener) | "Enforces that every `addEventListener` in a component or custom hook has a corresponding `removeEventListener`. |  ✔️  |     | 🚧  |
+| Rule                                                                   | Description                                                       | 💼  | 💭  |     |
+| :--------------------------------------------------------------------- | :---------------------------------------------------------------- | :-: | :-: | :-: |
+| [`web-api/no-leaked-timeout`](web-api-no-leaked-timeout)               | Prevents leaked `setTimeout` in a component or custom hook.       |  ✔️  |     | 🚧  |
+| [`web-api/no-leaked-event-listener`](web-api-no-leaked-event-listener) | Enforces leaked `addEventListener` in a component or custom hook. |  ✔️  |     | 🚧  |
 
 ## Hooks Extra Rules
 

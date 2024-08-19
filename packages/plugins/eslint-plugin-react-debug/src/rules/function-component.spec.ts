@@ -1,7 +1,7 @@
-import { allFunctions, ruleTesterWithTypes } from "../../../../../test";
+import { allFunctions, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./function-component";
 
-ruleTesterWithTypes.run(RULE_NAME, rule, {
+ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `
