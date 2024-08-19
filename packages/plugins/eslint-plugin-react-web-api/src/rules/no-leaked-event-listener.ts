@@ -1,5 +1,5 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { isFunction, isFunctionOfImmediatelyInvoked, isNodeEqual } from "@eslint-react/ast";
+import { isFunction, isNodeEqual } from "@eslint-react/ast";
 import {
   isCleanupFunction,
   isComponentDidMountFunction,
@@ -38,7 +38,7 @@ type EffectMethodKind = "useEffect" | "useLayoutEffect";
 type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
 type EffectFunctionKind = "setup" | "cleanup";
 type LifecycleFunctionKind = "mount" | "unmount";
-type FunctionKind = EffectFunctionKind | LifecycleFunctionKind | "immediate" | "other";
+type FunctionKind = EffectFunctionKind | LifecycleFunctionKind | "other";
 type PhaseKind = EffectFunctionKind | LifecycleFunctionKind;
 type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "abort" | "other";
 /* eslint-enable perfectionist/sort-union-types */
@@ -100,7 +100,6 @@ function getFunctionKind(node: TSESTreeFunction) {
     .when(isCleanupFunction, () => "cleanup")
     .when(isComponentDidMountFunction, () => "mount")
     .when(isComponentWillUnmountFunction, () => "unmount")
-    .when(isFunctionOfImmediatelyInvoked, () => "immediate")
     .otherwise(() => "other");
 }
 
