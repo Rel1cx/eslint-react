@@ -27,6 +27,7 @@
     "noUnusedParameters": true,
     "noPropertyAccessFromIndexSignature": false,
     "noFallthroughCasesInSwitch": true,
+    "incremental": false
   },
   "include": [
     "*.ts",
