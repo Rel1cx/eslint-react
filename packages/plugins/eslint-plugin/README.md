@@ -131,14 +131,6 @@ Add the plugin to your `.eslintrc.json`:
 - **recommended-type-checked**\
   Enable rules that are recommended by ESLint React with additional rules that require type information.\
   _This preset includes the `recommended` preset._
-- **disable-dom**\
-  Disable rules that are specific to React DOM.
-- **disable-web-api**\
-  Disable rules for interacting with Web APIs.
-- **disable-type-checked**\
-  Disable rules that require type information.
-- **off**\
-  Disable all rules in this plugin except for debug rules.
 
 ### Legacy Config
 
@@ -157,14 +149,6 @@ Add the plugin to your `.eslintrc.json`:
 - **recommended-type-checked-legacy**\
   Enable rules that are recommended by ESLint React with additional rules that require type information.\
   _This preset includes the `recommended-legacy` preset._
-- **disable-dom-legacy**\
-  Disable rules that are specific to React DOM.
-- **disable-web-api-legacy**\
-  Disable rules for interacting with Web APIs.
-- **disable-type-checked-legacy**\
-  Disable rules that require type information.
-- **off-legacy**\
-  Disable all rules in this plugin except for debug rules.
 
 </details>
 
@@ -214,21 +198,6 @@ Thank you to everyone contributing to ESLint React!
     <img alt="Active Contributors of Rel1cx/eslint-react - Last 28 days" src="https://next.ossinsight.io/widgets/official/compose-recent-active-contributors/thumbnail.png?limit=30&repo_id=680315614&image_size=auto&color_scheme=light" width="655" height="auto">
   </picture>
 </a>
-
-<!-- Made with [OSS Insight](https://ossinsight.io/) -->
-
-### All Contributors
-
-<!-- Copy-paste in your Readme.md file -->
-
-<a href="https://next.ossinsight.io/widgets/official/compose-contributors?repo_id=680315614&limit=50" target="_blank" style="display: block" align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://next.ossinsight.io/widgets/official/compose-contributors/thumbnail.png?repo_id=680315614&limit=50&image_size=auto&color_scheme=dark" width="655" height="auto">
-    <img alt="Contributors of Rel1cx/eslint-react" src="https://next.ossinsight.io/widgets/official/compose-contributors/thumbnail.png?repo_id=680315614&limit=50&image_size=auto&color_scheme=light" width="655" height="auto">
-  </picture>
-</a>
-
-<!-- Made with [OSS Insight](https://ossinsight.io/) -->
 
 ## License
 
