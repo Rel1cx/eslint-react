@@ -38,11 +38,10 @@ export function isNodeValueEqual(
   if (a.type === AST_NODE_TYPES.Identifier && b.type === AST_NODE_TYPES.Identifier) {
     const va = findVariable(a, aScope);
     const vb = findVariable(b, bScope);
-    if (!va || !vb) return false;
-    const inita = O.flatMap(va, getVariableNode(0));
-    const initb = O.flatMap(vb, getVariableNode(0));
-    if (O.isNone(inita) || O.isNone(initb)) return false;
-    return inita.value === initb.value;
+    const ia = O.flatMap(va, getVariableNode(0));
+    const ib = O.flatMap(vb, getVariableNode(0));
+    if (O.isNone(ia) || O.isNone(ib)) return false;
+    return ia.value === ib.value;
   }
   if (a.type === AST_NODE_TYPES.MemberExpression && b.type === AST_NODE_TYPES.MemberExpression) {
     return isNodeEqual(a.property, b.property) && isNodeValueEqual(a.object, b.object, initialScopes);
