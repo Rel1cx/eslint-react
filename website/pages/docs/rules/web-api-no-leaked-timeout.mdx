@@ -24,7 +24,7 @@ function Example() {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => console.log(count), 1000);
-    //                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //                - A 'setTimeout' in 'useEffect' should have a corresponding 'clearTimeout' in its cleanup function.
   }, []);
 
