@@ -60,7 +60,7 @@ const p11tOptions = {
 
 const p11tGroups = {
   customGroups: {
-    id: ["_", "id", "key"],
+    id: ["_", "id", "key", "self"],
     type: ["type", "kind"],
     meta: [
       "name",

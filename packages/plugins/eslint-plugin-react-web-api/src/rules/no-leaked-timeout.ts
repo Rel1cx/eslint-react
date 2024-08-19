@@ -10,7 +10,7 @@ import { F } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import birecord from "birecord";
-import { match, P } from "ts-pattern";
+import { isMatching, match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -39,14 +39,14 @@ type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "othe
 /* eslint-enable perfectionist/sort-union-types */
 
 interface sEntry {
-  _: TSESTree.Node;
+  self: TSESTree.Node;
   callee: TSESTree.Node;
   phase: PhaseKind;
   timeoutID: TSESTree.Node;
 }
 
 interface rEntry {
-  _: TSESTree.Node;
+  self: TSESTree.Node;
   callee: TSESTree.Node;
   phase: PhaseKind;
   timeoutID: TSESTree.Node;
@@ -62,19 +62,17 @@ const functionKindPairs = birecord({
 });
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
-  return match(node.callee)
-    .with({
-      type: AST_NODE_TYPES.MemberExpression,
-      property: {
-        type: AST_NODE_TYPES.Identifier,
-        name: P.select(P.union("setTimeout", "clearTimeout")),
-      },
-    }, F.identity)
-    .with({
-      type: AST_NODE_TYPES.Identifier,
-      name: P.select(P.union("setTimeout", "clearTimeout")),
-    }, F.identity)
-    .otherwise(F.constant("other"));
+  switch (true) {
+    case node.callee.type === AST_NODE_TYPES.Identifier
+      && isMatching(P.union("setTimeout", "clearTimeout"), node.callee.name):
+      return node.callee.name;
+    case node.callee.type === AST_NODE_TYPES.MemberExpression
+      && node.callee.property.type === AST_NODE_TYPES.Identifier
+      && isMatching(P.union("setTimeout", "clearTimeout"), node.callee.property.name):
+      return node.callee.property.name;
+    default:
+      return "other";
+  }
 }
 
 function getFunctionKind(node: TSESTreeFunction) {

@@ -44,7 +44,7 @@ type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "abor
 /* eslint-enable perfectionist/sort-union-types */
 
 interface AEntry {
-  _: TSESTree.Node;
+  self: TSESTree.Node;
   type: TSESTree.Node;
   callee: TSESTree.Node;
   capture: O.Option<boolean>;
@@ -54,7 +54,7 @@ interface AEntry {
 }
 
 interface REntry {
-  _: TSESTree.Node;
+  self: TSESTree.Node;
   type: TSESTree.Node;
   callee: TSESTree.Node;
   capture: O.Option<boolean>;
@@ -74,26 +74,17 @@ const functionKindPairs = birecord({
 const defaultOptions = Data.struct({ capture: O.some(false), once: O.none(), signal: O.none() });
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
-  return match<TSESTree.Expression, CallKind>(node.callee)
-    .with({
-      type: AST_NODE_TYPES.MemberExpression,
-      property: {
-        type: AST_NODE_TYPES.Identifier,
-        name: P.select(P.union("addEventListener", "removeEventListener")),
-      },
-    }, F.identity)
-    .with({
-      type: AST_NODE_TYPES.Identifier,
-      name: P.select(P.union("addEventListener", "removeEventListener")),
-    }, F.identity)
-    .with({
-      type: AST_NODE_TYPES.MemberExpression,
-      property: {
-        type: AST_NODE_TYPES.Identifier,
-        name: "abort",
-      },
-    }, F.constant("abort"))
-    .otherwise(F.constant("other"));
+  switch (true) {
+    case node.callee.type === AST_NODE_TYPES.Identifier
+      && isMatching(P.union("addEventListener", "removeEventListener"), node.callee.name):
+      return node.callee.name;
+    case node.callee.type === AST_NODE_TYPES.MemberExpression
+      && node.callee.property.type === AST_NODE_TYPES.Identifier
+      && isMatching(P.union("addEventListener", "removeEventListener"), node.callee.property.name):
+      return node.callee.property.name;
+    default:
+      return "other";
+  }
 }
 
 function getFunctionKind(node: TSESTreeFunction) {
@@ -232,7 +223,7 @@ export default createRule<[], MessageID>({
               const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
               const callee = node.callee;
               const listeners = callKind === "addEventListener" ? aEntries : rEntries;
-              listeners.push({ ...opts, _: node, type, callee, listener, phase: fKind });
+              listeners.push({ ...opts, self: node, type, callee, listener, phase: fKind });
             }
             break;
           }
@@ -246,7 +237,7 @@ export default createRule<[], MessageID>({
             case "cleanup":
               context.report({
                 messageId: "noLeakedEventListenerInEffect",
-                node: aEntry._,
+                node: aEntry.self,
                 data: {
                   effectMethodKind: "useEffect",
                 },
@@ -256,7 +247,7 @@ export default createRule<[], MessageID>({
             case "unmount":
               context.report({
                 messageId: "noLeakedEventListenerInLifecycle",
-                node: aEntry._,
+                node: aEntry.self,
               });
               continue;
           }
