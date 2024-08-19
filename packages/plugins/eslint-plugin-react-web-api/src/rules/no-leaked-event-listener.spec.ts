@@ -63,12 +63,12 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerOfInlineFunction",
-          data: { eventMethodKind: "addEventListener" },
-        },
-        {
           messageId: "noLeakedEventListenerInEffect",
           data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
+        },
+        {
+          messageId: "noLeakedEventListenerOfInlineFunction",
+          data: { eventMethodKind: "addEventListener" },
         },
         {
           messageId: "noLeakedEventListenerOfInlineFunction",
@@ -89,12 +89,12 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerOfInlineFunction",
-          data: { eventMethodKind: "addEventListener" },
-        },
-        {
           messageId: "noLeakedEventListenerInEffect",
           data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
+        },
+        {
+          messageId: "noLeakedEventListenerOfInlineFunction",
+          data: { eventMethodKind: "addEventListener" },
         },
         {
           messageId: "noLeakedEventListenerOfInlineFunction",
@@ -131,12 +131,12 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerOfInlineFunction",
-          data: { eventMethodKind: "addEventListener" },
-        },
-        {
           messageId: "noLeakedEventListenerInEffect",
           data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
+        },
+        {
+          messageId: "noLeakedEventListenerOfInlineFunction",
+          data: { eventMethodKind: "addEventListener" },
         },
         {
           messageId: "noLeakedEventListenerOfInlineFunction",
