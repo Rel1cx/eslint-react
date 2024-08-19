@@ -76,7 +76,7 @@ const allPreset = {
   "dom/no-unsafe-target-blank": "warn",
 
   // Part: Web API
-  "web-api/no-leaked-event-listener": "error",
+  "web-api/no-leaked-event-listener": "warn",
 
   // Part: Hooks Extra
   "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
@@ -155,24 +155,7 @@ const domPreset = {
 } as const satisfies RulePreset;
 
 const webApiPreset = {
-  "web-api/no-leaked-event-listener": "error",
-  // "web-api/no-leaked-timeout": "warn",
-  // "web-api/no-leaked-interval": "warn",
-  // "web-api/no-leaked-resize-observer": "warn",
-  // "web-api/no-leaked-intersection-observer": "warn",
-  // "web-api/no-leaked-mutation-observer": "warn",
-  // "web-api/no-leaked-performance-observer": "warn",
-  // "web-api/no-leaked-websocket": "warn",
-  // "web-api/no-leaked-broadcast-channel": "warn",
-  // "web-api/no-leaked-geolocation": "warn",
-  // "web-api/no-leaked-absolute-orientation-sensor": "warn",
-  // "web-api/no-leaked-relative-accelerometer": "warn",
-  // "web-api/no-leaked-ambient-light-sensor": "warn",
-  // "web-api/no-leaked-gravity-sensor": "warn",
-  // "web-api/no-leaked-gyroscope": "warn",
-  // "web-api/no-leaked-linear-acceleration-sensor": "warn",
-  // "web-api/no-leaked-magnetometer": "warn",
-  // "web-api/no-leaked-orientation-sensor": "warn",
+  "web-api/no-leaked-event-listener": "warn",
 } as const satisfies RulePreset;
 
 const recommendedPreset = {

@@ -44,6 +44,7 @@ type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "abor
 /* eslint-enable perfectionist/sort-union-types */
 
 interface AddedEntry {
+  _: TSESTree.Node;
   type: TSESTree.Node;
   callee: TSESTree.Node;
   capture: O.Option<boolean>;
@@ -53,6 +54,7 @@ interface AddedEntry {
 }
 
 interface RemovedEntry {
+  _: TSESTree.Node;
   type: TSESTree.Node;
   callee: TSESTree.Node;
   capture: O.Option<boolean>;
@@ -229,7 +231,7 @@ export default createRule<[], MessageID>({
               const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
               const callee = node.callee;
               const listeners = callKind === "addEventListener" ? addedEventListeners : removedEventListeners;
-              listeners.push({ ...opts, type, callee, listener, phase: functionKind });
+              listeners.push({ ...opts, _: node, type, callee, listener, phase: functionKind });
             }
             break;
           }
@@ -243,7 +245,7 @@ export default createRule<[], MessageID>({
             case "cleanup":
               context.report({
                 messageId: "noLeakedEventListenerInEffect",
-                node: added.listener,
+                node: added._,
                 data: {
                   effectMethodKind: "useEffect",
                 },
@@ -253,7 +255,7 @@ export default createRule<[], MessageID>({
             case "unmount":
               context.report({
                 messageId: "noLeakedEventListenerInLifecycle",
-                node: added.listener,
+                node: added._,
               });
               continue;
           }
