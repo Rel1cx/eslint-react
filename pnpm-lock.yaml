@@ -611,9 +611,6 @@ importers:
       eslint:
         specifier: ^9.8.0
         version: 9.9.0(jiti@1.21.6)
-      remeda:
-        specifier: ^2.11.0
-        version: 2.11.0
       ts-pattern:
         specifier: ^5.3.1
         version: 5.3.1
@@ -5588,9 +5585,6 @@ packages:
 
   remark-stringify@11.0.0:
     resolution: {integrity: sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==}
-
-  remeda@2.11.0:
-    resolution: {integrity: sha512-rQO+zcuNvnTcB2vBctblBARZakY0+wMNtrFGqU1+h4jm5p2APcDKQxUZG2CmMPkSQxa2nauU55GBVS/3Fo83fA==}
 
   repeat-string@1.6.1:
     resolution: {integrity: sha512-PV0dzCYDNfRi1jCDbJzpW7jNNDRuCOG/jI5ctQcGKt/clZD+YcPS3yIlWuTJMmESC8aevCFmWJy5wjAFgNqN6w==}
@@ -11914,10 +11908,6 @@ snapshots:
       '@types/mdast': 4.0.4
       mdast-util-to-markdown: 2.1.0
       unified: 11.0.5
-
-  remeda@2.11.0:
-    dependencies:
-      type-fest: 4.25.0
 
   repeat-string@1.6.1: {}
 

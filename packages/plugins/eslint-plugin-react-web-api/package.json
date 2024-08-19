@@ -59,7 +59,6 @@
     "@typescript-eslint/types": "^8.1.0",
     "@typescript-eslint/utils": "^8.1.0",
     "birecord": "^0.1.1",
-    "remeda": "^2.11.0",
     "ts-pattern": "^5.3.1"
   },
   "devDependencies": {
