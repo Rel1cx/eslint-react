@@ -12,7 +12,8 @@ const thisBlockTypes = [
   AST_NODE_TYPES.FunctionDeclaration,
   AST_NODE_TYPES.FunctionExpression,
   AST_NODE_TYPES.ClassBody,
-];
+  AST_NODE_TYPES.Program,
+] as const;
 
 /**
  * Determines whether node value equals to another node value
