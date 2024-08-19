@@ -10,7 +10,7 @@ import { isJSX } from "./is";
  * @param node AST node
  * @returns Human readable node type
  */
-export function readableNodeType(node: TSESTree.Node) {
+export function toReadableNodeType(node: TSESTree.Node) {
   if (node.type === AST_NODE_TYPES.Literal) {
     if ("regex" in node) return "RegExp literal";
     return `${getLiteralValueType(node.value)} literal` as const;
@@ -19,4 +19,4 @@ export function readableNodeType(node: TSESTree.Node) {
   return toLowerCase(delimiterCase(node.type, " "));
 }
 
-export type ReadableNodeType = ReturnType<typeof readableNodeType>;
+export type ReadableNodeType = ReturnType<typeof toReadableNodeType>;

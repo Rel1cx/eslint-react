@@ -1,5 +1,11 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { getNestedIdentifiers, isFunction, isFunctionOfImmediatelyInvoked, traverseUpGuard } from "@eslint-react/ast";
+import {
+  getNestedIdentifiers,
+  isFunction,
+  isFunctionOfImmediatelyInvoked,
+  toReadableNodeName,
+  traverseUpGuard,
+} from "@eslint-react/ast";
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
 import { F, MutRef, O } from "@eslint-react/tools";
@@ -212,7 +218,9 @@ export default createRule<[], MessageID>({
             context.report({
               messageId: "noDirectSetStateInUseLayoutEffect",
               node: setStateCall,
-              data: { name },
+              data: {
+                name: toReadableNodeName(setStateCall, (n) => context.sourceCode.getText(n)),
+              },
             });
           }
         }
@@ -222,7 +230,9 @@ export default createRule<[], MessageID>({
             context.report({
               messageId: "noDirectSetStateInUseLayoutEffect",
               node: setStateCall,
-              data: { name: id.name },
+              data: {
+                name: toReadableNodeName(setStateCall, (n) => context.sourceCode.getText(n)),
+              },
             });
           }
         }

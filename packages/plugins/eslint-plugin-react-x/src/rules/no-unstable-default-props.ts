@@ -1,5 +1,5 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { readableNodeType } from "@eslint-react/ast";
+import { toReadableNodeType } from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import { ConstructionHint, inspectConstruction } from "@eslint-react/var";
@@ -64,7 +64,7 @@ export default createRule<[], MessageID>({
             const initialScope = context.sourceCode.getScope(value);
             const construction = inspectConstruction(value, initialScope, ConstructionHint.StrictCallExpression);
             if (construction._tag === "None") continue;
-            const forbiddenType = readableNodeType(right);
+            const forbiddenType = toReadableNodeType(right);
             context.report({
               messageId: "noUnstableDefaultProps",
               node: right,

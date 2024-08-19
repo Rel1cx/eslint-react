@@ -1,5 +1,5 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { readableNodeType } from "@eslint-react/ast";
+import { toReadableNodeType } from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { Construction } from "@eslint-react/var";
@@ -79,7 +79,7 @@ export default createRule<[], MessageID>({
               messageId,
               node: constructionNode,
               data: {
-                type: readableNodeType(constructionNode),
+                type: toReadableNodeType(constructionNode),
               },
             });
           }
