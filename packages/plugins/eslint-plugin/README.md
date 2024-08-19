@@ -6,7 +6,7 @@
 [![Size](https://img.shields.io/bundlephobia/minzip/@eslint-react/eslint-plugin?label=gzip&style=flat&colorA=000000&colorB=000000)](https://bundlephobia.com/package/@eslint-react/eslint-plugin)
 [![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
 
-A series of composable ESLint rules rewritten from scratch for libraries and frameworks that use React as a UI runtime.
+A series of composable ESLint plugins for building robust and reliable React applications across all platforms.
 
 ## Features
 
@@ -24,7 +24,7 @@ A series of composable ESLint rules rewritten from scratch for libraries and fra
 
 - [`eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) - Core rules (renderer-agnostic, compatible with x-platform).
 - [`eslint-plugin-react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) - DOM specific rules for React DOM.
-- [`eslint-plugin-react-web-api`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api) - Rules for interacting with Web APIs in React.
+- [`eslint-plugin-react-web-api`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api) - Rules for interacting with Web APIs.
 - [`eslint-plugin-react-hooks-extra`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra) - Extra React Hooks rules.
 - [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
 
@@ -124,7 +124,7 @@ Add the plugin to your `.eslintrc.json`:
 - **dom**\
   Enable rules that are specific to React DOM.
 - **web-api**\
-  Enable rules for interacting with Web APIs in React.
+  Enable rules for interacting with Web APIs.
 - **recommended**\
   Enable rules that are recommended by ESLint React.\
   _This preset includes the `core`, `dom`, and `web-api` presets._
@@ -134,7 +134,7 @@ Add the plugin to your `.eslintrc.json`:
 - **disable-dom**\
   Disable rules that are specific to React DOM.
 - **disable-web-api**\
-  Disable rules for interacting with Web APIs in React.
+  Disable rules for interacting with Web APIs.
 - **disable-type-checked**\
   Disable rules that require type information.
 - **off**\
@@ -150,7 +150,7 @@ Add the plugin to your `.eslintrc.json`:
 - **dom-legacy**\
   Enable rules that are specific to React DOM.
 - **web-api-legacy**\
-  Enable rules for interacting with Web APIs in React.
+  Enable rules for interacting with Web APIs.
 - **recommended-legacy**\
   Enable rules that are recommended by ESLint React.\
   _This preset includes the `core-legacy`, `dom-legacy`, and `web-api-legacy` presets._
@@ -160,7 +160,7 @@ Add the plugin to your `.eslintrc.json`:
 - **disable-dom-legacy**\
   Disable rules that are specific to React DOM.
 - **disable-web-api-legacy**\
-  Disable rules for interacting with Web APIs in React.
+  Disable rules for interacting with Web APIs.
 - **disable-type-checked-legacy**\
   Disable rules that require type information.
 - **off-legacy**\

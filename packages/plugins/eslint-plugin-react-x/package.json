@@ -1,7 +1,7 @@
 {
   "name": "eslint-plugin-react-x",
   "version": "1.11.0-next.2",
-  "description": "ESLint React's ESLint plugin for React related rules.",
+  "description": "A set of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "eslint",
     "eslint-plugin",

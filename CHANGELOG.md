@@ -2,7 +2,7 @@
 
 ### ✨ New
 
-- Add `eslint-plugin-react-web-api` - a plugin that provides rules for interacting with Web APIs in React.
+- Add `eslint-plugin-react-web-api` - a plugin that provides rules for interacting with Web APIs.
 - Add `web-api` and `web-api-legacy` presets to enable all rules provided by `eslint-plugin-react-web-api`.
 - Add rule `react-web-api/no-leaked-event-listener` to `recommended` and `recommended-legacy` presets.
 
