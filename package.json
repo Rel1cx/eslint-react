@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.11.0-beta.8",
+  "version": "1.11.0-next.9",
   "private": true,
   "description": "A series of ESLint plugins for building robust and reliable React applications.",
   "keywords": [
