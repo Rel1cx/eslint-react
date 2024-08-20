@@ -2,7 +2,7 @@
   "name": "@eslint-react/monorepo",
   "version": "1.11.0",
   "private": true,
-  "description": "A series of ESLint plugins for building robust and reliable React applications.",
+  "description": "A series of ESLint plugins for writing robust and reliable React on all platforms.",
   "keywords": [
     "eslint",
     "eslint-plugin",

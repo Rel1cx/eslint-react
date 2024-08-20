@@ -25,7 +25,7 @@ export default {
   //     .with({ asPath: "/" }, () => ({
   //       title: "ESLint React",
   //       description:
-  //         "ESLint React - A series of ESLint plugins for building robust and reliable React applications.",
+  //         "ESLint React - A series of ESLint plugins for writing robust and reliable React on all platforms.",
   //     }))
   //     .with({ asPath: P.string.startsWith("/rules/") }, () => ({
   //       titleTemplate: "Rule: %s",
@@ -40,7 +40,7 @@ export default {
       <meta property="og:title" content="ESLint React" />
       <meta
         property="og:description"
-        content="ESLint React - A series of ESLint plugins for building robust and reliable React applications."
+        content="ESLint React - A series of ESLint plugins for writing robust and reliable React on all platforms."
       />
       <link
         rel="apple-touch-icon"
