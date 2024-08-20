@@ -2,6 +2,7 @@ import type { ESLintReactSettings } from "@eslint-react/shared";
 
 import { name, version } from "../package.json";
 import noLeakedEventListener from "./rules/no-leaked-event-listener";
+import noLeakedInterval from "./rules/no-leaked-interval";
 import noLeakedTimeout from "./rules/no-leaked-timeout";
 
 export const meta = {
@@ -11,6 +12,7 @@ export const meta = {
 
 export const rules = {
   "no-leaked-event-listener": noLeakedEventListener,
+  "no-leaked-interval": noLeakedInterval,
   "no-leaked-timeout": noLeakedTimeout,
 } as const;
 
