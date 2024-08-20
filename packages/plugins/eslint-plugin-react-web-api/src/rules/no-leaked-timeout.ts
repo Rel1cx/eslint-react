@@ -1,16 +1,17 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import { isNodeEqual } from "@eslint-react/ast";
+import type { ERSemanticEntry } from "@eslint-react/core";
 import {
   isCleanupFunction,
   isComponentDidMountFunction,
   isComponentWillUnmountFunction,
   isSetupFunction,
+  PHASE_RELEVANCE,
 } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import { isNodeValueEqual } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
-import birecord from "birecord";
 import { isMatching, match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -35,32 +36,18 @@ type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
 type EffectFunctionKind = "setup" | "cleanup";
 type LifecycleFunctionKind = "mount" | "unmount";
 type FunctionKind = EffectFunctionKind | LifecycleFunctionKind | "other";
-type PhaseKind = EffectFunctionKind | LifecycleFunctionKind;
 type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "other";
 /* eslint-enable perfectionist/sort-union-types */
 
-interface sEntry {
-  self: TSESTree.Node;
+interface Entry extends ERSemanticEntry {
+  node: TSESTree.CallExpression;
   callee: TSESTree.Node;
-  phase: PhaseKind;
-  timeoutID: TSESTree.Node;
-}
-
-interface rEntry {
-  self: TSESTree.Node;
-  callee: TSESTree.Node;
-  phase: PhaseKind;
   timeoutID: TSESTree.Node;
 }
 
 // #endregion
 
 // #region Helpers
-
-const functionKindPairs = birecord({
-  mount: "unmount",
-  setup: "cleanup",
-});
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
   switch (true) {
@@ -122,12 +109,12 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const fStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
-    const sEntries: sEntry[] = [];
-    const rEntries: rEntry[] = [];
+    const sEntries: Entry[] = [];
+    const rEntries: Entry[] = [];
     const isPairedEntry: {
-      (a: sEntry): (b: rEntry) => boolean;
-      (a: sEntry, b: rEntry): boolean;
-    } = F.dual(2, (a: sEntry, b: rEntry) => {
+      (a: Entry): (b: Entry) => boolean;
+      (a: Entry, b: Entry): boolean;
+    } = F.dual(2, (a: Entry, b: Entry) => {
       const aTimeoutID = a.timeoutID;
       const bTimeoutID = b.timeoutID;
       const aTimeoutIDScope = context.sourceCode.getScope(aTimeoutID);
@@ -159,7 +146,7 @@ export default createRule<[], MessageID>({
           case "setTimeout": {
             const [fNode, fKind] = fStack.at(-1) ?? [];
             if (!fNode || !fKind) break;
-            if (!functionKindPairs.has(fKind)) break;
+            if (!PHASE_RELEVANCE.has(fKind)) break;
             const timeoutIdNode = O.getOrNull(getTimeoutID(node));
             if (!timeoutIdNode) {
               context.report({
@@ -169,7 +156,8 @@ export default createRule<[], MessageID>({
               break;
             }
             sEntries.push({
-              self: node,
+              kind: callKind,
+              node,
               callee: node.callee,
               phase: fKind,
               timeoutID: timeoutIdNode,
@@ -179,11 +167,12 @@ export default createRule<[], MessageID>({
           case "clearTimeout": {
             const [fNode, fKind] = fStack.at(-1) ?? [];
             if (!fNode || !fKind) break;
-            if (!functionKindPairs.has(fKind)) break;
+            if (!PHASE_RELEVANCE.has(fKind)) break;
             const [timeoutIdNode] = node.arguments;
             if (!timeoutIdNode) break;
             rEntries.push({
-              self: node,
+              kind: callKind,
+              node,
               callee: node.callee,
               phase: fKind,
               timeoutID: timeoutIdNode,
@@ -200,7 +189,7 @@ export default createRule<[], MessageID>({
             case "cleanup":
               context.report({
                 messageId: "noLeakedTimeoutInEffect",
-                node: sEntry.self,
+                node: sEntry.node,
                 data: {
                   kind: "useEffect",
                 },
@@ -210,7 +199,7 @@ export default createRule<[], MessageID>({
             case "unmount":
               context.report({
                 messageId: "noLeakedTimeoutInLifecycle",
-                node: sEntry.self,
+                node: sEntry.node,
                 data: {
                   kind: "componentDidMount",
                 },

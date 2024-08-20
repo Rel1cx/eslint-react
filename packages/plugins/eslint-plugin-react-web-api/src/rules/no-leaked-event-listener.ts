@@ -1,10 +1,12 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import { isFunction, isNodeEqual } from "@eslint-react/ast";
+import type { ERSemanticEntry } from "@eslint-react/core";
 import {
   isCleanupFunction,
   isComponentDidMountFunction,
   isComponentWillUnmountFunction,
   isSetupFunction,
+  PHASE_RELEVANCE,
 } from "@eslint-react/core";
 import { findPropInProperties } from "@eslint-react/jsx";
 import { Data, F, isBoolean, isObject, O } from "@eslint-react/tools";
@@ -14,7 +16,6 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import birecord from "birecord";
 import { isMatching, match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -39,37 +40,29 @@ type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
 type EffectFunctionKind = "setup" | "cleanup";
 type LifecycleFunctionKind = "mount" | "unmount";
 type FunctionKind = EffectFunctionKind | LifecycleFunctionKind | "other";
-type PhaseKind = EffectFunctionKind | LifecycleFunctionKind;
 type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "abort" | "other";
 /* eslint-enable perfectionist/sort-union-types */
 
-interface AEntry {
-  self: TSESTree.Node;
+interface AEntry extends ERSemanticEntry {
   type: TSESTree.Node;
+  node: TSESTree.CallExpression | TSESTree.Identifier;
   callee: TSESTree.Node;
   capture: O.Option<boolean>;
   listener: TSESTree.Node;
-  phase: PhaseKind;
   signal: O.Option<unknown>;
 }
 
-interface REntry {
-  self: TSESTree.Node;
+interface REntry extends ERSemanticEntry {
   type: TSESTree.Node;
+  node: TSESTree.CallExpression | TSESTree.Identifier;
   callee: TSESTree.Node;
   capture: O.Option<boolean>;
   listener: TSESTree.Node;
-  phase: PhaseKind;
 }
 
 // #endregion
 
 // #region Helpers
-
-const functionKindPairs = birecord({
-  mount: "unmount",
-  setup: "cleanup",
-});
 
 const defaultOptions = Data.struct({ capture: O.some(false), once: O.none(), signal: O.none() });
 
@@ -192,7 +185,7 @@ export default createRule<[], MessageID>({
       return (rEntry: REntry) => {
         const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = aEntry;
         const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = rEntry;
-        if (functionKindPairs.get(aPhase) !== rPhase) return false;
+        if (PHASE_RELEVANCE.get(aPhase) !== rPhase) return false;
         return isSameEventTarget(aCallee, rCallee)
           && isNodeEqual(aListener, rListener)
           && isNodeValueEqual(aType, rType, [
@@ -219,11 +212,11 @@ export default createRule<[], MessageID>({
             const [type, listener, options] = node.arguments;
             const [fNode, fKind] = fStack.at(-1) ?? [];
             if (!type || !listener || !fNode || !fKind) return;
-            if (functionKindPairs.has(fKind)) {
+            if (PHASE_RELEVANCE.has(fKind)) {
               const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
               const callee = node.callee;
               const listeners = callKind === "addEventListener" ? aEntries : rEntries;
-              listeners.push({ ...opts, self: node, type, callee, listener, phase: fKind });
+              listeners.push({ ...opts, kind: callKind, type, node, callee, listener, phase: fKind });
             }
             break;
           }
@@ -237,7 +230,7 @@ export default createRule<[], MessageID>({
             case "cleanup":
               context.report({
                 messageId: "noLeakedEventListenerInEffect",
-                node: aEntry.self,
+                node: aEntry.node,
                 data: {
                   effectMethodKind: "useEffect",
                 },
@@ -247,7 +240,7 @@ export default createRule<[], MessageID>({
             case "unmount":
               context.report({
                 messageId: "noLeakedEventListenerInLifecycle",
-                node: aEntry.self,
+                node: aEntry.node,
               });
               continue;
           }

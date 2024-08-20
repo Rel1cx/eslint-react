@@ -9,6 +9,7 @@
 - [ERClassComponent](interfaces/ERClassComponent.md)
 - [ERFunctionComponent](interfaces/ERFunctionComponent.md)
 - [ERHook](interfaces/ERHook.md)
+- [ERSemanticEntry](interfaces/ERSemanticEntry.md)
 - [ERSemanticNode](interfaces/ERSemanticNode.md)
 
 ## Type Aliases
@@ -21,6 +22,8 @@
 - [EREffectKind](type-aliases/EREffectKind.md)
 - [ERFunctionComponentFlag](type-aliases/ERFunctionComponentFlag.md)
 - [ERHookKind](type-aliases/ERHookKind.md)
+- [ERStateKind](type-aliases/ERStateKind.md)
+- [PhaseKind](type-aliases/PhaseKind.md)
 
 ## Variables
 
@@ -28,6 +31,7 @@
 - [ERClassComponentFlag](variables/ERClassComponentFlag.md)
 - [ERComponentHint](variables/ERComponentHint.md)
 - [ERFunctionComponentFlag](variables/ERFunctionComponentFlag.md)
+- [PHASE\_RELEVANCE](variables/PHASE_RELEVANCE.md)
 - [RE\_COMPONENT\_NAME](variables/RE_COMPONENT_NAME.md)
 - [RE\_HOOK\_NAME](variables/RE_HOOK_NAME.md)
 
