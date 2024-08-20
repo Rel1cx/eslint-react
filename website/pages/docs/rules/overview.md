@@ -89,6 +89,7 @@
 
 | Rule                                                                   | Description                                                       | 💼  | 💭  |     |
 | :--------------------------------------------------------------------- | :---------------------------------------------------------------- | :-: | :-: | :-: |
+| [`web-api/no-leaked-interval`](web-api-no-leaked-interval)             | Prevents leaked `setInterval` in a component or custom hook.      |  ✔️  |     | 🚧  |
 | [`web-api/no-leaked-timeout`](web-api-no-leaked-timeout)               | Prevents leaked `setTimeout` in a component or custom hook.       |  ✔️  |     | 🚧  |
 | [`web-api/no-leaked-event-listener`](web-api-no-leaked-event-listener) | Enforces leaked `addEventListener` in a component or custom hook. |  ✔️  |     | 🚧  |
 
