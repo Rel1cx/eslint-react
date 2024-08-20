@@ -66,6 +66,12 @@ Find more on [GitHub Dependents](https://github.com/Rel1cx/eslint-react/network/
 ```sh
 # npm
 npm install --save-dev @eslint-react/eslint-plugin
+
+# yarn
+yarn add --dev @eslint-react/eslint-plugin
+
+# pnpm
+pnpm add --save-dev @eslint-react/eslint-plugin
 ```
 
 ## Setup
