@@ -5,6 +5,7 @@ import {
   isCleanupFunction,
   isComponentDidMountFunction,
   isComponentWillUnmountFunction,
+  isInversePhase,
   isSetupFunction,
   PHASE_RELEVANCE,
 } from "@eslint-react/core";
@@ -181,11 +182,11 @@ export default createRule<[], MessageID>({
           return false;
       }
     }
-    function isMatchedREntry(aEntry: AEntry) {
+    function isInverseEntry(aEntry: AEntry) {
       return (rEntry: REntry) => {
         const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = aEntry;
         const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = rEntry;
-        if (PHASE_RELEVANCE.get(aPhase) !== rPhase) return false;
+        if (!isInversePhase(aPhase, rPhase)) return false;
         return isSameEventTarget(aCallee, rCallee)
           && isNodeEqual(aListener, rListener)
           && isNodeValueEqual(aType, rType, [
@@ -224,7 +225,7 @@ export default createRule<[], MessageID>({
       },
       ["Program:exit"]() {
         for (const aEntry of aEntries) {
-          if (rEntries.some(isMatchedREntry(aEntry))) continue;
+          if (rEntries.some(isInverseEntry(aEntry))) continue;
           switch (aEntry.phase) {
             case "setup":
             case "cleanup":

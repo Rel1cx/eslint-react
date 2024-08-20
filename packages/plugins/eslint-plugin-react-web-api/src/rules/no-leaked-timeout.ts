@@ -111,7 +111,7 @@ export default createRule<[], MessageID>({
     const fStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
     const sEntries: Entry[] = [];
     const rEntries: Entry[] = [];
-    const isPairedEntry: {
+    const isInverseEntry: {
       (a: Entry): (b: Entry) => boolean;
       (a: Entry, b: Entry): boolean;
     } = F.dual(2, (a: Entry, b: Entry) => {
@@ -183,7 +183,7 @@ export default createRule<[], MessageID>({
       },
       ["Program:exit"]() {
         for (const sEntry of sEntries) {
-          if (rEntries.some(isPairedEntry(sEntry))) continue;
+          if (rEntries.some(isInverseEntry(sEntry))) continue;
           switch (sEntry.phase) {
             case "setup":
             case "cleanup":
