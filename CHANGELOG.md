@@ -1,6 +1,6 @@
 ## v1.11.0 (Tue 20 Aug 2024)
 
-### ✨ New Features
+### ✨ New
 
 - Added `eslint-plugin-react-web-api` - A plugin that provides rules for interacting with Web APIs in React applications.
 - Added `web-api/no-leaked-timeout` rule to prevent leaked `setTimeout`.
@@ -11,9 +11,10 @@
 ### 🪄 Improvements
 
 - Added `react-web-api/no-leaked-event-listener` to `recommended` and `recommended-legacy` presets.
-- Upgrade `@typescript-eslint`'s packages to `^8.2.0`.
+- Improve performance by skipping unnecessary checks when possible.
 - Improve dts generation of the `@eslint-react/eslint-plugin` package.
 - Improve website and documentation.
+- Upgrade `@typescript-eslint`'s packages to `^8.2.0`.
 
 ## v1.10.1 (Tue 13 Aug 2024)
 
