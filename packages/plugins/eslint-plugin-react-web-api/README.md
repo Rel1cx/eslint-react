@@ -38,8 +38,8 @@ export default [
 
 | Rule                                    | Description                                   | 💼  | 💭  |     |
 | :-------------------------------------- | :-------------------------------------------- | :-: | :-: | :-: |
-| `no-leaked-timeout`                     | Prevents leaked `setTimeout`                  |  ✔️  |     | 🚧  |
-| `no-leaked-interval`                    | Prevents leaked `setInterval`                 |  ✔️  |     | 🚧  |
+| `no-leaked-timeout`                     | Prevents leaked `setTimeout`                  |  ✔️  |     |     |
+| `no-leaked-interval`                    | Prevents leaked `setInterval`                 |  ✔️  |     |     |
 | `no-leaked-idle-callback`               | Prevents leaked `requestIdleCallback`         |  ✔️  |     | 🚧  |
 | `no-leaked-animation-frame`             | Prevents leaked `requestAnimationFrame`       |  ✔️  |     | 🚧  |
 | `no-leaked-event-source`                | Prevents leaked `EventSource`                 |  ✔️  |     | 🚧  |
