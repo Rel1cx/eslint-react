@@ -1,14 +1,17 @@
 ## v1.11.0 (Draft)
 
-### ✨ New
+### ✨ New Features
 
-- Add `eslint-plugin-react-web-api` - a plugin that provides rules for interacting with Web APIs.
-- Add `web-api` and `web-api-legacy` presets to enable all rules provided by `eslint-plugin-react-web-api`.
-- Add rule `react-web-api/no-leaked-event-listener` to `recommended` and `recommended-legacy` presets.
+- Added `eslint-plugin-react-web-api` - A plugin that provides rules for interacting with Web APIs in React applications.
+- Added `react-web-api/no-leaked-timeout` rule to prevent leaked `setTimeout`.
+- Added `react-web-api/no-leaked-interval` rule to prevent leaked `setInterval`.
+- Added `react-web-api/no-leaked-event-listener` rule to prevent leaked `addEventListener`.
+- Added `web-api` and `web-api-legacy` presets to enable all rules provided by `eslint-plugin-react-web-api`.
 
 ### 🪄 Improvements
 
-- Improve dts generation for `@eslint-react/eslint-plugin` package.
+- Added `react-web-api/no-leaked-event-listener` to `recommended` and `recommended-legacy` presets.
+- Improved dts generation for the `@eslint-react/eslint-plugin` package.
 
 ## v1.10.1 (Tue 13 Aug 2024)
 
@@ -26,7 +29,7 @@
 
 ### ✨ New
 
-- Add `disable-type-checked` and `disable-type-checked-legacy` presets to disable all type-checked rules.
+- Added `disable-type-checked` and `disable-type-checked-legacy` presets to disable all type-checked rules.
 
 ### 🪄 Improvements
 
