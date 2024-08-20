@@ -30,9 +30,6 @@ A series of ESLint plugins for writing robust and reliable React on all platform
 
 ## Who is using?
 
-<details>
-<summary>Click to toggle contents</summary>
-
 - [`AndreaPontrandolfo/sheriff`](https://github.com/AndreaPontrandolfo/sheriff) - A comprehensive and opinionated Typescript-first ESLint configuration.
 - [`antfu/​eslint-config`](https://github.com/antfu/eslint-config) - Anthony's ESLint config preset.
 - [`christopher-buss/roblox-ts-eslint-config`](https://github.com/christopher-buss/roblox-ts-eslint-config) - iSentinel's ESLint config preset for Roblox-TS.
@@ -54,8 +51,6 @@ A series of ESLint plugins for writing robust and reliable React on all platform
 - [`TanStack/​query`](https://github.com/TanStack/query) - 🤖 Powerful asynchronous state management, server-state utilities and data fetching for the web. TS/JS, React Query, Solid Query, Svelte Query and Vue Query.
 - [`TanStack/​router`](https://github.com/TanStack/router) - 🤖 Fully typesafe Router for React (and friends) w/ built-in caching, 1st class search-param APIs, client-side cache integration and isomorphic rendering.
 - [`TanStack/​store`](https://github.com/TanStack/store) - 🤖 Framework agnostic, type-safe store w/ reactive framework adapters.
-
-</details>
 
 _Data collected from GitHub dependents network, if there are any mismatch or outdated information, feel free to [open issue](https://github.com/Rel1cx/eslint-react/issues/new?assignees=&labels=type%3A+documentation&projects=&template=docs_report.md&title=%5Bdocs%5D+) or pull request._
 
