@@ -81,6 +81,7 @@
 - [isInsideReactHook](functions/isInsideReactHook.md)
 - [isInsideReactHookCall](functions/isInsideReactHookCall.md)
 - [isInsideRenderMethod](functions/isInsideRenderMethod.md)
+- [isInversePhase](functions/isInversePhase.md)
 - [isMemo](functions/isMemo.md)
 - [isMemoCall](functions/isMemoCall.md)
 - [isPureComponent](functions/isPureComponent.md)
