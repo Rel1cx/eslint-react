@@ -1,7 +1,8 @@
-import { getNestedReturnStatements, is, isMapCallLoose, isNodeEqual, isOneOf } from "@eslint-react/ast";
+import { getNestedReturnStatements, is, isMapCallLoose, isOneOf } from "@eslint-react/ast";
 import { isChildrenToArrayCall } from "@eslint-react/core";
 import { findPropInAttributes } from "@eslint-react/jsx";
 import { F, MutRef, O } from "@eslint-react/tools";
+import { isNodeValueEqual } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -28,7 +29,9 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const isWithinChildrenToArrayRef = MutRef.make(false);
-
+    function isKeyEqual(a: TSESTree.Node, b: TSESTree.Node) {
+      return isNodeValueEqual(a, b, [context.sourceCode.getScope(a), context.sourceCode.getScope(b)]);
+    }
     function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
       if (node.type !== AST_NODE_TYPES.JSXElement) return O.none();
       const initialScope = context.sourceCode.getScope(node);
@@ -37,7 +40,7 @@ export default createRule<[], MessageID>({
         findPropInAttributes(node.openingElement.attributes, initialScope)("key"),
         O.flatMap((k) => "value" in k ? O.fromNullable(k.value) : O.none()),
         O.flatMap((v) => {
-          return isNodeEqual(v, v)
+          return isKeyEqual(v, v)
             ? O.some({
               messageId: "noDuplicateKey",
               node: v,
@@ -97,16 +100,14 @@ export default createRule<[], MessageID>({
         ][]>(
           (acc, element) => {
             const attr = element.openingElement.attributes
-              .findLast(isMatching({
-                type: AST_NODE_TYPES.JSXAttribute,
-                name: {
-                  name: "key",
-                },
-              }));
+              .findLast(attr => {
+                if (attr.type !== AST_NODE_TYPES.JSXAttribute) return false;
+                return attr.name.name === "key";
+              });
             if (!attr || !("value" in attr) || attr.value === null) return acc;
             const { value } = attr;
             if (acc.length === 0) return [[element, attr, value]];
-            if (acc.some(([_, _1, v]) => isNodeEqual(v, value))) {
+            if (acc.some(([_, _1, v]) => isKeyEqual(v, value))) {
               return [...acc, [element, attr, value]];
             }
             return acc;
