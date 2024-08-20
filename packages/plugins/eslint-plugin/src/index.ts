@@ -77,6 +77,7 @@ const allPreset = {
 
   // Part: Web API
   "web-api/no-leaked-event-listener": "warn",
+  "web-api/no-leaked-interval": "warn",
   "web-api/no-leaked-timeout": "warn",
 
   // Part: Hooks Extra
@@ -157,6 +158,7 @@ const domPreset = {
 
 const webApiPreset = {
   "web-api/no-leaked-event-listener": "warn",
+  "web-api/no-leaked-interval": "warn",
   "web-api/no-leaked-timeout": "warn",
 } as const satisfies RulePreset;
 

@@ -64,6 +64,10 @@ export default {
   "dom-no-script-url": "dom/no-script-url",
   "dom-no-unsafe-iframe-sandbox": "dom/no-unsafe-iframe-sandbox",
   "dom-no-unsafe-target-blank": "dom/no-unsafe-target-blank",
+  "web-api-no-leaked-interval": {
+    title: "web-api/no-leaked-interval",
+    display: "hidden",
+  },
   "web-api-no-leaked-timeout": {
     title: "web-api/no-leaked-timeout",
     display: "hidden",
