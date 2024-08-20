@@ -109,6 +109,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.text.includes("setInterval")) return {};
     const fStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
     const sEntries: Entry[] = [];
     const rEntries: Entry[] = [];
