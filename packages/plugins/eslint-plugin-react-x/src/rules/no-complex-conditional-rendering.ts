@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
       if (!is(AST_NODE_TYPES.JSXExpressionContainer)(jsxExpContainer)) return O.none();
       if (!isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(jsxExpContainer.parent)) return O.none();
       if (!jsxExpContainer.parent.children.includes(jsxExpContainer)) return O.none();
-      return O.some({ messageId: "noComplexConditionalRendering", node: jsxExpContainer } as const);
+      return O.some({ messageId: "noComplexConditionalRendering", node: jsxExpContainer });
     }
     const ruleFunction = F.flow(getReportDescriptor, O.map(context.report), F.constVoid);
     return {

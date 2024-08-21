@@ -56,17 +56,15 @@ export default createRule<[], MessageID>({
       const name = node.name;
       const initialScope = context.sourceCode.getScope(node);
       if (!isFromReact(node, initialScope)) return O.none();
-      return O.some(
-        {
-          messageId: "isFromReact",
-          node,
-          data: {
-            type: node.type,
-            name,
-            importSource: settings.importSource ?? "react",
-          },
-        } as const,
-      );
+      return O.some({
+        messageId: "isFromReact",
+        node,
+        data: {
+          type: node.type,
+          name,
+          importSource: settings.importSource ?? "react",
+        },
+      });
     }
     return {
       Identifier: F.flow(getReportDescriptor, O.map(context.report)),

@@ -1,4 +1,7 @@
 import { getPropName } from "@eslint-react/jsx";
+import { F, O } from "@eslint-react/tools";
+import type { TSESTree } from "@typescript-eslint/types";
+import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -21,20 +24,19 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    function getReportDescriptor(node: TSESTree.JSXAttribute): O.Option<ReportDescriptor<MessageID>> {
+      return node.value
+        ? O.none()
+        : O.some({
+          messageId: "avoidShorthandBoolean",
+          node,
+          data: {
+            propName: getPropName(node),
+          },
+        });
+    }
     return {
-      JSXAttribute(node) {
-        const { value } = node;
-        const propName = getPropName(node);
-        if (value === null) {
-          context.report({
-            messageId: "avoidShorthandBoolean",
-            node,
-            data: {
-              propName,
-            },
-          });
-        }
-      },
+      JSXAttribute: F.flow(getReportDescriptor, O.map(context.report)),
     };
   },
   defaultOptions: [],

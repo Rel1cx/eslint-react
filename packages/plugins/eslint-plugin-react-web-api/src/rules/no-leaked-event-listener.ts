@@ -164,13 +164,11 @@ export default createRule<[], MessageID>({
     ): O.Option<ReportDescriptor<MessageID>> {
       const [_, listener] = node.arguments;
       if (!isFunction(listener)) return O.none();
-      return O.some(
-        {
-          messageId: "noLeakedEventListenerOfInlineFunction",
-          node: listener,
-          data: { eventMethodKind: callKind },
-        } as const,
-      );
+      return O.some({
+        messageId: "noLeakedEventListenerOfInlineFunction",
+        node: listener,
+        data: { eventMethodKind: callKind },
+      });
     }
     function isSameEventTarget(a: TSESTree.Node, b: TSESTree.Node) {
       switch (true) {

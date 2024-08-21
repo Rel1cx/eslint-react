@@ -109,15 +109,13 @@ export default createRule<[], MessageID>({
           O.filter(isString),
         );
       if (O.exists(relPropValue, isSafeRel)) return O.none();
-      return O.some(
-        {
-          messageId: "noUnsafeTargetBlank",
-          node,
-        } as const,
-      );
+      return O.some({
+        messageId: "noUnsafeTargetBlank",
+        node,
+      });
     }
     return {
-      JSXElement: F.flow(getReportDescriptor, O.map(context.report), F.constVoid),
+      JSXElement: F.flow(getReportDescriptor, O.map(context.report)),
     };
   },
   defaultOptions: [],

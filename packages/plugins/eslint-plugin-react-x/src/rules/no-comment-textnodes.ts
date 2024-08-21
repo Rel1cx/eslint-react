@@ -34,12 +34,10 @@ export default createRule<[], MessageID>({
       if (!isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(node.parent)) return O.none();
       if (!hasCommentLike(node)) return O.none();
       if (!node.parent.type.includes("JSX")) return O.none();
-      return O.some(
-        {
-          messageId: "noCommentTextnodes",
-          node,
-        } as const,
-      );
+      return O.some({
+        messageId: "noCommentTextnodes",
+        node,
+      });
     };
     const ruleFunction = F.flow(getReportDescriptor, O.map(context.report), F.constVoid);
     return {
