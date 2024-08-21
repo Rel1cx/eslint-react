@@ -12,7 +12,7 @@
 
 ### Parameters
 
-• **a**: [`PhaseKind`](../type-aliases/PhaseKind.md)
+• **a**: [`ERPhaseKind`](../type-aliases/ERPhaseKind.md)
 
 ### Returns
 
@@ -20,7 +20,7 @@
 
 #### Parameters
 
-• **b**: [`PhaseKind`](../type-aliases/PhaseKind.md)
+• **b**: [`ERPhaseKind`](../type-aliases/ERPhaseKind.md)
 
 #### Returns
 
@@ -32,9 +32,9 @@
 
 ### Parameters
 
-• **a**: [`PhaseKind`](../type-aliases/PhaseKind.md)
+• **a**: [`ERPhaseKind`](../type-aliases/ERPhaseKind.md)
 
-• **b**: [`PhaseKind`](../type-aliases/PhaseKind.md)
+• **b**: [`ERPhaseKind`](../type-aliases/ERPhaseKind.md)
 
 ### Returns
 

@@ -22,4 +22,4 @@
 
 ### phase
 
-> **phase**: [`PhaseKind`](../type-aliases/PhaseKind.md)
+> **phase**: [`ERPhaseKind`](../type-aliases/ERPhaseKind.md)

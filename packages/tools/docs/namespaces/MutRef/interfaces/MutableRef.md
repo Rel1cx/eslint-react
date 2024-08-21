@@ -42,6 +42,26 @@
 
 ### pipe()
 
+#### pipe(this)
+
+> **pipe**\<`A`\>(`this`): `A`
+
+##### Type Parameters
+
+• **A**
+
+##### Parameters
+
+• **this**: `A`
+
+##### Returns
+
+`A`
+
+##### Inherited from
+
+`Pipeable.pipe`
+
 #### pipe(this, ab)
 
 > **pipe**\<`A`, `B`\>(`this`, `ab`): `B`

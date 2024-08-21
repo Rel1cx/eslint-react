@@ -22,8 +22,8 @@
 - [EREffectKind](type-aliases/EREffectKind.md)
 - [ERFunctionComponentFlag](type-aliases/ERFunctionComponentFlag.md)
 - [ERHookKind](type-aliases/ERHookKind.md)
+- [ERPhaseKind](type-aliases/ERPhaseKind.md)
 - [ERStateKind](type-aliases/ERStateKind.md)
-- [PhaseKind](type-aliases/PhaseKind.md)
 
 ## Variables
 
