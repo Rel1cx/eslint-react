@@ -162,10 +162,18 @@ const webApiPreset = {
   "web-api/no-leaked-timeout": "warn",
 } as const satisfies RulePreset;
 
+const hooksExtraPreset = {
+  "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
+  "hooks-extra/no-direct-set-state-in-use-effect": "warn",
+  "hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
+  "hooks-extra/prefer-use-state-lazy-initialization": "warn",
+} as const satisfies RulePreset;
+
 const recommendedPreset = {
   ...corePreset,
   ...domPreset,
   ...webApiPreset,
+  ...hooksExtraPreset,
 } as const satisfies RulePreset;
 
 const recommendedTypeCheckedPreset = {
