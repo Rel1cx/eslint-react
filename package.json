@@ -67,7 +67,7 @@
     "@typescript-eslint/rule-tester": "^8.2.0",
     "@typescript-eslint/types": "^8.2.0",
     "@vitest/ui": "^2.0.5",
-    "bun": "^1.1.24",
+    "bun": "^1.1.25",
     "bundle-require": "^5.0.0",
     "cspell": "^8.14.2",
     "dprint": "^0.47.2",
