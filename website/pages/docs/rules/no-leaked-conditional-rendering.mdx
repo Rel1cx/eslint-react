@@ -12,11 +12,11 @@ Prevents problematic leaked values from being rendered.
 
 ## Why is this bad?
 
-Using the && operator to render some element conditionally in JSX can cause unexpected values being rendered, or even crashing the rendering.
+Using the `&&` operator to render some element conditionally in JSX can cause unexpected values being rendered, or even crashing the rendering.
 
 ## Examples
 
-In React, you might end up rendering unexpected values like 0 or NaN. In React Native, your render method will even crash if you render these values:
+In React, you might end up rendering unexpected values like `0` or `NaN`. In React Native, your render method will even crash if you render these values:
 
 ```tsx twoslash
 import React from "react";
@@ -60,27 +60,12 @@ import React from "react";
 
 interface ExampleProps {
   count: number;
-  title: string;
-}
-
-function Example({ count, title }: ExampleProps) {
-  return <div>{count && title}</div>;
-  //           ^^^^^
-  //           - Potential leaked value that might cause unintentionally rendered values or rendering crashes.
-}
-```
-
-```tsx twoslash
-import React from "react";
-
-interface ExampleProps {
-  count: number;
 }
 
 function Example({ count }: ExampleProps) {
   return <div>{count && <span>There are {count} results</span>}</div>;
   //           ^^^^^
-  //           - Potential leaked value that might cause unintentionally rendered values or rendering crashes.
+  //           - Potential leaked value 'count' that might cause unintentionally rendered values or rendering crashes.
 }
 ```
 
@@ -94,7 +79,7 @@ interface ExampleProps {
 function Example({ items }: ExampleProps) {
   return <div>{items.length && <List items={items} />}</div>;
   //           ^^^^^^^^^^^^
-  //           - Potential leaked value that might cause unintentionally rendered values or rendering crashes.
+  //           - Potential leaked value 'items.length' that might cause unintentionally rendered values or rendering crashes.
 }
 
 declare const List: React.ComponentType<{ items: string[] }>;
@@ -110,7 +95,7 @@ interface ExampleProps {
 function Example({ items }: ExampleProps) {
   return <div>{items[0] && <List items={items} />}</div>;
   //           ^^^^^^^^
-  //           - Potential leaked value that might cause unintentionally rendered values or rendering crashes.
+  //           - Potential leaked value 'items[0]' that might cause unintentionally rendered values or rendering crashes.
 }
 
 declare const List: React.ComponentType<{ items: string[] }>;
@@ -128,7 +113,7 @@ function Example({ numberA, numberB }: ExampleProps) {
   return (
     <div>{(numberA || numberB) && <Results>{numberA + numberB}</Results>}</div>
     //    ^^^^^^^^^^^^^^^^^^^^
-    //    - Potential leaked value that might cause unintentionally rendered values or rendering crashes.
+    //    - Potential leaked value '(numberA || numberB)' that might cause unintentionally rendered values or rendering crashes.
   );
 }
 
