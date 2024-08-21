@@ -13,42 +13,22 @@ Warns when conditional rendering is too complex.
 ### Failing
 
 ```tsx
-import React from "react";
-
-interface ExampleProps {
-  hideShapes: boolean;
-  debugSvg: boolean;
-}
-
-function Example({ hideShapes, debugSvg }: ExampleProps) {
-  return (
-    <div>
-      {hideShapes
-        ? null
-        : debugSvg
-        ? "<ShapesWithSVGs />"
-        : "<ShapesToDisplay />"}
-    </div>
-  );
+function Example({ condition1, condition2, condition3, condition4 }) {
+  return <div>{condition1 || condition2 ? <div>X</div> : condition3 || condition4 ? <div>Y</div> : null}</div>;
 }
 ```
 
 ### Passing
 
 ```tsx
-import React from "react";
-
-interface ExampleProps {
-  hideShapes: boolean;
-  debugSvg: boolean;
-}
-
-function Example({ hideShapes, debugSvg }: ExampleProps) {
-// @annotate: Early return if nothing to render
-  if (hideShapes) {
-    return null;
-  }
-
-  return debugSvg ? "<ShapesWithSVGs />" : "<ShapesToDisplay />";
+function Example({ condition1, condition2, condition3, condition4 }) {
+  const shouldDisplayX = condition1 || condition2;
+  const shouldDisplayY = condition3 || condition4;
+  return (
+    <div>
+      {shouldDisplayX && <div>X</div>}
+      {shouldDisplayY && <div>Y</div>}
+    </div>
+  );
 }
 ```

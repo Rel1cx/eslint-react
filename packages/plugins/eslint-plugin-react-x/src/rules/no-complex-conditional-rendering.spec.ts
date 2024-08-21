@@ -534,5 +534,22 @@ ruleTester.run(RULE_NAME, rule, {
         return <div title={0 && 1 && 2 || 3 && 4 && 5}>Hello</div>
         }
     `,
+    /* tsx */ `
+      function Example({ condition1, condition2, condition3, condition4 }) {
+        return (
+          <div>
+            {condition1 && condition2 && <div>1</div>}
+            {condition3 && condition4 && <div>2</div>}
+          </div>
+        );
+      }
+    `,
+    /* tsx */ `
+      function Example({ condition1, condition2, condition3, condition4 }) {
+        const shouldDisplay1 = condition1 && condition2;
+        const shouldDisplay2 = condition3 && condition4;
+        return <div>{shouldDisplay1 && <div>1</div>}{shouldDisplay2 && <div>2</div>}</div>;
+      }
+    `,
   ],
 });
