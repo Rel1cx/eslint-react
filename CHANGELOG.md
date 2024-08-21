@@ -1,3 +1,9 @@
+## v1.12.0 (Wed 21 Aug 2024)
+
+### ✨ New
+
+- Added `hooks-extra` rules to `recommended` and `recommended-legacy` presets.
+
 ## v1.11.0 (Tue 20 Aug 2024)
 
 ### ✨ New
