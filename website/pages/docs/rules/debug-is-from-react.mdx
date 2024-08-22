@@ -13,25 +13,25 @@ Reports all identifiers that are initialized from React. Useful for debugging. T
 ```tsx
 import { useState } from "react";
 //       ^^^^^^^^
-//       - [initialized from react] name: 'useState', importSource: 'react'.
+//       - [initialized from react] name: 'useState', import source: 'react'.
 ```
 
 ```tsx
 import React from "react";
 //     ^^^^^
-//     - [initialized from react] name: 'React', importSource: 'react'.
+//     - [initialized from react] name: 'React', import source: 'react'.
 
 const Children = React.Children;
 //    ^^^^^^^^   ^^^^^ ^^^^^^^^
-//    |          |     - [initialized from react] name: 'Children', importSource: 'react'.
-//    |          - [initialized from react] name: 'React', importSource: 'react'.
-//    - [initialized from react] name: 'Children', importSource: 'react'.
+//    |          |     - [initialized from react] name: 'Children', import source: 'react'.
+//    |          - [initialized from react] name: 'React', import source: 'react'.
+//    - [initialized from react] name: 'Children', import source: 'react'.
 
 const toArray = Children.toArray;
 //    ^^^^^^^   ^^^^^^^^ ^^^^^^^
-//    |         |        - [initialized from react] name: 'toArray', importSource: 'react'.
-//    |         - [initialized from react] name: 'Children', importSource: 'react'.
-//    - [initialized from react] name: 'Children', importSource: 'react'.
+//    |         |        - [initialized from react] name: 'toArray', import source: 'react'.
+//    |         - [initialized from react] name: 'Children', import source: 'react'.
+//    - [initialized from react] name: 'Children', import source: 'react'.
 ```
 
 ### When [`settings["react-x"].importSource`](https://eslint-react.xyz/docs/configuration#importsource) is set to `"@pika/react"`
@@ -39,23 +39,23 @@ const toArray = Children.toArray;
 ```tsx
 import { useState } from "@pika/react";
 //       ^^^^^^^^
-//       - [initialized from react] name: 'useState', importSource: '@pika/react'.
+//       - [initialized from react] name: 'useState', import source: '@pika/react'.
 ```
 
 ```tsx
 import React from "@pika/react";
 //     ^^^^^
-//     - [initialized from react] name: 'React', importSource: '@pika/react'.
+//     - [initialized from react] name: 'React', import source: '@pika/react'.
 
 const Children = React.Children;
 //    ^^^^^^^^   ^^^^^ ^^^^^^^^
-//    |          |     - [initialized from react] name: 'Children', importSource: '@pika/react'.
-//    |          - [initialized from react] name: 'React', importSource: '@pika/react'.
-//    - [initialized from react] name: 'Children', importSource: '@pika/react'.
+//    |          |     - [initialized from react] name: 'Children', import source: '@pika/react'.
+//    |          - [initialized from react] name: 'React', import source: '@pika/react'.
+//    - [initialized from react] name: 'Children', import source: '@pika/react'.
 
 const toArray = Children.toArray;
 //    ^^^^^^^   ^^^^^^^^ ^^^^^^^
-//    |         |        - [initialized from react] name: 'toArray', importSource: '@pika/react'.
-//    |         - [initialized from react] name: 'Children', importSource: '@pika/react'.
-//    - [initialized from react] name: 'Children', importSource: '@pika/react'.
+//    |         |        - [initialized from react] name: 'toArray', import source: '@pika/react'.
+//    |         - [initialized from react] name: 'Children', import source: '@pika/react'.
+//    - [initialized from react] name: 'Children', import source: '@pika/react'.
 ```

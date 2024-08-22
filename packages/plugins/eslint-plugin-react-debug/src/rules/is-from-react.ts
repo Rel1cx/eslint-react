@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
       description: "report all identifiers that are initialized from React.",
     },
     messages: {
-      isFromReact: "[initialized from react] name: '{{name}}', importSource: '{{importSource}}'.",
+      isFromReact: "[initialized from react] name: '{{name}}', import source: '{{importSource}}'.",
     },
     schema: [],
   },
