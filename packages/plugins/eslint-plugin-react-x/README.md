@@ -100,7 +100,7 @@ export default [
 | `no-missing-component-display-name`      | Enforces that all components have a `displayName` which can be used in devtools.                     | 🐞  |     |     |
 | `no-missing-key`                         | Prevents missing `key` on items in list rendering.                                                   |  ✔️  |     |     |
 | `no-nested-components`                   | Prevents nesting component definitions inside other components.                                      |  ✔️  |     |     |
-| `no-props-types`                         | Prevents using `propTypes` in favor of TypeScript or another type-checking solution.                 | ⛔  |     |     |
+| `no-prop-types`                          | Prevents using `propTypes` in favor of TypeScript or another type-checking solution.                 | ⛔  |     |     |
 | `no-redundant-should-component-update`   | Prevents using `shouldComponentUpdate` when extending `React.PureComponent`.                         |  ✔️  |     |     |
 | `no-set-state-in-component-did-mount`    | Prevents calling `this.setState` in `componentDidMount` outside of functions, such as callbacks.     | 🧐  |     |     |
 | `no-set-state-in-component-did-update`   | Prevents calling `this.setState` in `componentDidUpdate` outside of functions, such as callbacks.    | 🧐  |     |     |
