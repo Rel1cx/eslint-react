@@ -51,10 +51,14 @@ src/components/example-component.tsx
 ## Rule Options
 
 - `rule`: The rule to apply to the file name. Can be one of the following:
-  1. `PascalCase`: PascalCase
+  1. `PascalCase`: PascalCase (default)
   2. `camelCase`: camelCase
   3. `kebab-case`: kebab-case
   4. `snake_case`: snake_case
+- `excepts`: (optional) An array of component names that are allowed to not follow the rule.
+- `allowAllCaps`: (optional) If `true`, allows all caps file names. Default is `false`.
+- `allowNamespace`: (optional) If `true`, allows namespace in JSX elements. Default is `false`.
+- `allowLeadingUnderscore`: (optional) If `true`, allows leading underscore in file names. Default is `false`.
 
 ## Rule Options Examples
 

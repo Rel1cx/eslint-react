@@ -2,7 +2,7 @@ import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
 import { getElementName } from "@eslint-react/jsx";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
-import { isString, O } from "@eslint-react/tools";
+import { F, isString, O } from "@eslint-react/tools";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -18,6 +18,9 @@ type Case = "CONSTANT_CASE" | "PascalCase";
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [
   | {
+    allowAllCaps?: boolean;
+    allowLeadingUnderscore?: boolean;
+    allowNamespace?: boolean;
     excepts?: readonly string[];
     rule?: Case;
   }
@@ -28,6 +31,9 @@ type Options = readonly [
 
 const defaultOptions = [
   {
+    allowAllCaps: false,
+    allowLeadingUnderscore: false,
+    allowNamespace: false,
     excepts: [],
     rule: "PascalCase",
   },
@@ -44,6 +50,9 @@ const schema = [
         type: "object",
         additionalProperties: false,
         properties: {
+          allowAllCaps: { type: "boolean" },
+          allowLeadingUnderscore: { type: "boolean" },
+          allowNamespace: { type: "boolean" },
           excepts: {
             type: "array",
             items: { type: "string", format: "regex" },
@@ -58,6 +67,39 @@ const schema = [
   },
 ] satisfies [JSONSchema4];
 
+function normalizeOptions(options: Options) {
+  const [opts] = options;
+  if (!opts) return defaultOptions[0];
+  if (isString(opts)) return { ...defaultOptions[0], rule: opts } as const;
+  return {
+    ...opts,
+    excepts: opts.excepts?.map(pattern => new RegExp(pattern, "u")) ?? [],
+  } as const;
+}
+
+function validate(name: string, options: ReturnType<typeof normalizeOptions>) {
+  if (options.excepts.some((regex) => regex.test(name))) {
+    return true;
+  }
+  let normalized = name
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036F]/g, "");
+  normalized = normalized.split(".").at(-1) ?? normalized;
+  if (options.allowNamespace) {
+    normalized = normalized.replace(":", "");
+  }
+  if (options.allowLeadingUnderscore) {
+    normalized = normalized.replace(/^_/, "");
+  }
+  return match(options.rule)
+    .with("CONSTANT_CASE", () => RE_CONSTANT_CASE.test(normalized))
+    .with("PascalCase", () => {
+      if ([...normalized].length > 1 && /^[A-Z]+$/u.test(normalized)) return options.allowAllCaps;
+      return RE_PASCAL_CASE.test(normalized);
+    })
+    .otherwise(F.constFalse);
+}
+
 export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
@@ -71,20 +113,7 @@ export default createRule<Options, MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const options = context.options[0] ?? defaultOptions[0];
-    const excepts = isString(options) ? [] : options.excepts ?? [];
-    const rule = isString(options) ? options : options.rule ?? "PascalCase";
-
-    function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
-      if (ignores.map((pattern) => new RegExp(pattern, "u")).some((pattern) => pattern.test(name))) {
-        return true;
-      }
-
-      return match(casing)
-        .with("CONSTANT_CASE", () => RE_CONSTANT_CASE.test(name))
-        .with("PascalCase", () => RE_PASCAL_CASE.test(name))
-        .exhaustive();
-    }
+    const options = normalizeOptions(context.options);
 
     const collector = useComponentCollector(context);
     const collectorLegacy = useComponentCollectorLegacy();
@@ -94,21 +123,13 @@ export default createRule<Options, MessageID>({
       ...collectorLegacy.listeners,
       JSXOpeningElement(node) {
         const name = getElementName(node);
-        const shouldIgnore =
-          // Ignore built-in element names
-          /^[a-z]/u.test(name)
-          // Ignore non-Latin character names
-          || /\W/u.test(name)
-          // Ignore JSX member expression names
-          || name.includes(".")
-          // Ignore JSX namespace names
-          || name.includes(":");
-        if (shouldIgnore || validate(name.replace(/^_/u, ""))) return;
+        if (/^[a-z]/u.test(name)) return;
+        if (validate(name, options)) return;
         context.report({
           messageId: "componentName",
           node,
           data: {
-            case: rule,
+            case: options.rule,
           },
         });
       },
@@ -120,12 +141,12 @@ export default createRule<Options, MessageID>({
           if (O.isNone(maybeId)) continue;
           const id = maybeId.value;
           const { name } = id;
-          if (validate(name)) continue;
+          if (validate(name, options)) continue;
           context.report({
             messageId: "componentName",
             node: id,
             data: {
-              case: rule,
+              case: options.rule,
             },
           });
         }
@@ -134,12 +155,12 @@ export default createRule<Options, MessageID>({
           if (O.isNone(maybeId)) continue;
           const id = maybeId.value;
           const { name } = id;
-          if (validate(name)) continue;
+          if (validate(name, options)) continue;
           context.report({
             messageId: "componentName",
             node: id,
             data: {
-              case: rule,
+              case: options.rule,
             },
           });
         }

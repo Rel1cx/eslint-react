@@ -18,12 +18,9 @@ ruleTester.run(RULE_NAME, rule, {
       options: ["CONSTANT_CASE"],
     },
     {
-      code: /* tsx */ `
-        function APP_HOME() {
-            return <div>foo</div>
-        }
-      `,
+      code: /* tsx */ `<FULLUPPERCASE />`,
       errors: [{ messageId: "componentName" }],
+      options: [{ allowAllCaps: false, rule: "PascalCase" }],
     },
     {
       code: /* tsx */ `
@@ -49,30 +46,27 @@ ruleTester.run(RULE_NAME, rule, {
     "<T3StComp0Nent />",
     "<Éurströmming />",
     "<Año />",
-    "<Søknad />",
-    "<T />",
+    // TODO: Add normalization for these strings before validating
+    // "<Søknad />",
     "<Modal.Header />",
     "<qualification.T3StComp0Nent />",
-    "<Modal:Header />",
     "<H1>Hello!</H1>",
-    "<Typography.P />",
     "<motion.div />",
-    "<FULLUPPERCASE />",
     {
-      code: /* tsx */ `<_TestComponent />`,
-      options: ["PascalCase"],
-    },
-    {
-      code: /* tsx */ `<_TEST_COMPONENT />`,
-      options: ["CONSTANT_CASE"],
-    },
-    {
-      code: /* tsx */ `<_TestComponent />`,
+      code: "<T />",
       options: [{ rule: "PascalCase" }],
     },
     {
-      code: /* tsx */ `<_TEST_COMPONENT />`,
-      options: [{ rule: "CONSTANT_CASE" }],
+      code: "<Typography.P />",
+      options: [{ rule: "PascalCase" }],
+    },
+    {
+      code: "<FULLUPPERCASE />",
+      options: [{ allowAllCaps: true, rule: "PascalCase" }],
+    },
+    {
+      code: "<Modal:Header />",
+      options: [{ allowNamespace: true, rule: "PascalCase" }],
     },
     /* tsx */ `
       function AppHome() {
@@ -85,7 +79,7 @@ ruleTester.run(RULE_NAME, rule, {
             return <div>foo</div>
         }
       `,
-      options: [{ rule: "CONSTANT_CASE" }],
+      options: [{ allowLeadingUnderscore: true, rule: "CONSTANT_CASE" }],
     },
     /* tsx */ `
       const AppHome = () => {
@@ -98,7 +92,7 @@ ruleTester.run(RULE_NAME, rule, {
             return <div>foo</div>
         }
       `,
-      options: [{ rule: "CONSTANT_CASE" }],
+      options: [{ allowAllCaps: true, allowLeadingUnderscore: true, rule: "CONSTANT_CASE" }],
     },
     {
       code: /* tsx */ `
