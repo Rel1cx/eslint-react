@@ -95,7 +95,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "skott": "^0.35.2",
-    "sort-package-json": "^2.10.0",
+    "sort-package-json": "^2.10.1",
     "std-env": "^3.7.0",
     "tinyglobby": "^0.2.2",
     "ts-pattern": "^5.3.1",
