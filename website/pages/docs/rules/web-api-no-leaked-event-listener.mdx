@@ -61,7 +61,7 @@ function Example() {
   useEffect(() => {
     document.addEventListener('click', () => console.log('clicked'));
     //                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    //                                - A 'addEventListener' should not have an inline listener function.
+    //                                 - A 'addEventListener' should not have an inline listener function.
   }, []);
 
   return null;
@@ -79,7 +79,7 @@ function Example() {
 
     document.addEventListener('click', handleClick, { capture: true });
     //                                 ^^^^^^^^^^^
-    //                                - A 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
+    //                                 - A 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
 
     return () => {
       document.removeEventListener('click', handleClick, { capture: false });
@@ -99,7 +99,7 @@ function useCustomHook() {
 
     document.addEventListener('click', handleClick);
     //                                 ^^^^^^^^^^^^
-    //                                - A 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
+    //                                 - A 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
   }, []);
 }
 ```
