@@ -1,3 +1,13 @@
+## v1.12.1 (Thu 22 Aug 2024)
+
+### ✨ New
+
+- Add the options `allowAllCaps`, `allowNamespace`, `allowLeadingUnderscore` to `naming-convention/component-name` and set their default values to `false`.
+
+### 🪄 Improvements
+
+- Normalize the component name in rule `naming-convention/component-name` before checking it against the pattern.
+
 ## v1.12.0 (Wed 21 Aug 2024)
 
 ### ✨ New

@@ -162,10 +162,7 @@ export const ESLintReactSettingsSchema = object({
 export const ESLintSettingsSchema = optional(
   object({
     "react-x": optional(ESLintReactSettingsSchema),
-    /**
-     * @internal
-     * @deprecated
-     */
+    /** @deprecated Use `react-x` instead */
     reactOptions: optional(ESLintReactSettingsSchema),
   }),
   {},
