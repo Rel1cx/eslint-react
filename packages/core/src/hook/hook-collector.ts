@@ -10,13 +10,7 @@ import { isReactHookCall } from "./is";
 
 const uid = new ShortUniqueId({ length: 10 });
 
-export function useHookCollector(): {
-  ctx: {
-    getAllHooks(_: TSESTree.Program): Map<string, ERHook>;
-    getCurrentHooks(): Map<string, ERHook>;
-  };
-  listeners: ESLintUtils.RuleListener;
-} {
+export function useHookCollector() {
   const hooks = new Map<string, ERHook>();
   const functionStack: TSESTreeFunction[] = [];
   const onFunctionEnter = (node: TSESTreeFunction) => {
