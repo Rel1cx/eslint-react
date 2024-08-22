@@ -31,9 +31,10 @@ export default [
     },
     rules: {
       // react-hooks-extra recommended rules
-      "react-hooks-extra/no-direct-set-state-in-use-effect": "warn",
-      "react-hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
-      "react-hooks-extra/prefer-use-state-lazy-initialization": "warn",
+      "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
+      "hooks-extra/no-direct-set-state-in-use-effect": "warn",
+      "hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
+      "hooks-extra/prefer-use-state-lazy-initialization": "warn",
     },
   },
 ];
