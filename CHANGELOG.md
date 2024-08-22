@@ -13,10 +13,10 @@
 - Added `web-api/no-leaked-interval` rule to prevent leaked `setInterval`.
 - Added `web-api/no-leaked-event-listener` rule to prevent leaked `addEventListener`.
 - Added `web-api` and `web-api-legacy` presets to enable all rules provided by `eslint-plugin-react-web-api`.
+- Added `react-web-api/no-leaked-event-listener` to `recommended` and `recommended-legacy` presets.
 
 ### 🪄 Improvements
 
-- Added `react-web-api/no-leaked-event-listener` to `recommended` and `recommended-legacy` presets.
 - Improve performance by skipping unnecessary checks when possible.
 - Improve dts generation of the `@eslint-react/eslint-plugin` package.
 - Improve website and documentation.
