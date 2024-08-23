@@ -1,8 +1,6 @@
 import { Command, CommandExecutor } from "@effect/platform";
 import { NodeCommandExecutor, NodeFileSystem, NodeRuntime } from "@effect/platform-node";
-import { Effect } from "effect";
-
-import { LoggerLive } from "./services/LoggerLive";
+import { Effect, Logger } from "effect";
 
 const command = Command.make("git", "diff", "HEAD@{1}", "--stat", "--", "./pnpm-lock.yaml");
 const program = Effect.gen(function*() {
@@ -16,7 +14,7 @@ const program = Effect.gen(function*() {
 const runnable = program.pipe(
   Effect.provide(NodeCommandExecutor.layer),
   Effect.provide(NodeFileSystem.layer),
-  Effect.provide(LoggerLive),
+  Effect.provide(Logger.pretty),
 );
 
 NodeRuntime.runMain(runnable);

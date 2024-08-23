@@ -1,8 +1,6 @@
 import { FileSystem } from "@effect/platform";
 import { NodeFileSystem, NodeRuntime } from "@effect/platform-node";
-import { Effect } from "effect";
-
-import { LoggerLive } from "./services/LoggerLive";
+import { Effect, Logger } from "effect";
 
 const source = "README.md";
 
@@ -13,7 +11,7 @@ const program = Effect.gen(function*() {
 
 const runnable = program.pipe(
   Effect.provide(NodeFileSystem.layer),
-  Effect.provide(LoggerLive),
+  Effect.provide(Logger.pretty),
 );
 
 NodeRuntime.runMain(runnable);
