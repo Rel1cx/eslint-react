@@ -1,6 +1,5 @@
 import { FileSystem } from "@effect/platform";
-// import { NodeFileSystem, NodeRuntime } from "@effect/platform-node";
-import { BunFileSystem, BunRuntime } from "@effect/platform-bun";
+import { NodeFileSystem, NodeRuntime } from "@effect/platform-node";
 import { Effect } from "effect";
 
 import { LoggerLive } from "./services/LoggerLive";
@@ -13,9 +12,9 @@ const program = Effect.gen(function*() {
 });
 
 const runnable = program.pipe(
-  Effect.provide(BunFileSystem.layer),
+  Effect.provide(NodeFileSystem.layer),
   Effect.provide(LoggerLive),
 );
 
-BunRuntime.runMain(runnable);
-// NodeRuntime.runMain(runnable);
+NodeRuntime.runMain(runnable);
+// BunRuntime.runMain(runnable);

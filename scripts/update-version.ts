@@ -1,5 +1,4 @@
-// import { NodeFileSystem, NodeRuntime } from "@effect/platform-node";
-import { BunFileSystem, BunRuntime } from "@effect/platform-bun";
+import { NodeFileSystem, NodeRuntime } from "@effect/platform-node";
 import { Effect, Function as F, Predicate } from "effect";
 import { match, P } from "ts-pattern";
 
@@ -37,9 +36,9 @@ const program = Effect.gen(function*() {
 });
 
 const runnable = program.pipe(
-  Effect.provide(BunFileSystem.layer),
+  Effect.provide(NodeFileSystem.layer),
   Effect.provide(LoggerLive),
 );
 
-BunRuntime.runMain(runnable);
-// NodeRuntime.runMain(runnable);
+NodeRuntime.runMain(runnable);
+// BunRuntime.runMain(runnable);
