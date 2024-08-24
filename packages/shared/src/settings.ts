@@ -17,18 +17,6 @@ export const INITIAL_ESLINT_REACT_SETTINGS = {
   skipImportCheck: false,
 } as const satisfies ESLintReactSettings;
 
-/**
- * The default ESLint settings for "react-x".
- */
-export const DEFAULT_ESLINT_REACT_SETTINGS = {
-  additionalHooks: {
-    useLayoutEffect: ["useIsomorphicLayoutEffect"],
-  },
-  polymorphicPropName: "as",
-  skipImportCheck: false,
-  version: "detect",
-} as const satisfies ESLintReactSettings;
-
 // #endregion
 
 // #region Decoding Functions

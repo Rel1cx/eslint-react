@@ -16,7 +16,6 @@
 ## Variables
 
 - [CustomComponentNormalizedSchema](variables/CustomComponentNormalizedSchema.md)
-- [DEFAULT\_ESLINT\_REACT\_SETTINGS](variables/DEFAULT_ESLINT_REACT_SETTINGS.md)
 - [GITHUB\_URL](variables/GITHUB_URL.md)
 - [INITIAL\_ESLINT\_REACT\_SETTINGS](variables/INITIAL_ESLINT_REACT_SETTINGS.md)
 - [NPM\_SCOPE](variables/NPM_SCOPE.md)

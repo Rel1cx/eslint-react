@@ -1,5 +1,4 @@
 import type { ESLintReactSettings } from "@eslint-react/shared";
-import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 import { entries, fromEntries } from "@eslint-react/tools";
 import type { RulePreset } from "@eslint-react/types";
 import * as reactDebug from "eslint-plugin-react-debug";
@@ -42,7 +41,7 @@ const allPreset = {
   // "no-leaked-conditional-rendering": "warn", // This rule requires type information
   "no-missing-component-display-name": "warn",
   "no-missing-key": "error",
-  "no-nested-components": "warn",
+  "no-nested-components": "error",
   "no-prop-types": "error",
   "no-redundant-should-component-update": "error",
   "no-set-state-in-component-did-mount": "warn",
@@ -52,8 +51,8 @@ const allPreset = {
   "no-unsafe-component-will-mount": "warn",
   "no-unsafe-component-will-receive-props": "warn",
   "no-unsafe-component-will-update": "warn",
-  "no-unstable-context-value": "error",
-  "no-unstable-default-props": "error",
+  "no-unstable-context-value": "warn",
+  "no-unstable-default-props": "warn",
   "no-unused-class-component-members": "warn",
   "no-unused-state": "warn",
   "no-useless-fragment": "warn",
@@ -121,7 +120,7 @@ const corePreset = {
   // "no-leaked-conditional-rendering": "warn",
   // "no-missing-component-display-name": "warn",
   "no-missing-key": "error",
-  "no-nested-components": "warn",
+  "no-nested-components": "error",
   "no-prop-types": "error",
   "no-redundant-should-component-update": "error",
   "no-set-state-in-component-did-mount": "warn",
@@ -131,8 +130,8 @@ const corePreset = {
   "no-unsafe-component-will-mount": "warn",
   "no-unsafe-component-will-receive-props": "warn",
   "no-unsafe-component-will-update": "warn",
-  "no-unstable-context-value": "error",
-  "no-unstable-default-props": "error",
+  "no-unstable-context-value": "warn",
+  "no-unstable-default-props": "warn",
   "no-unused-class-component-members": "warn",
   "no-unused-state": "warn",
   // "no-useless-fragment": "warn",
@@ -206,23 +205,12 @@ const offPreset = {
 // #region  Presets Settings
 
 const corePresetSettings = {
-  ...DEFAULT_ESLINT_REACT_SETTINGS,
+  ...react.DEFAULT_ESLINT_REACT_SETTINGS,
 } satisfies ESLintReactSettings;
 
 const domPresetSettings = {
   ...corePresetSettings,
-  additionalComponents: [
-    {
-      name: "Link",
-      as: "a",
-      attributes: [
-        {
-          name: "to",
-          as: "href",
-        },
-      ],
-    },
-  ],
+  ...reactDom.DEFAULT_ESLINT_REACT_SETTINGS,
 } satisfies ESLintReactSettings;
 
 // #endregion
@@ -242,7 +230,7 @@ const flatConfigPlugins = {
 
 function createLegacyConfig<T extends RulePreset>(
   rules: T,
-  settings = DEFAULT_ESLINT_REACT_SETTINGS,
+  settings = react.DEFAULT_ESLINT_REACT_SETTINGS,
 ) {
   return {
     plugins: legacyConfigPlugins,
@@ -255,7 +243,7 @@ function createLegacyConfig<T extends RulePreset>(
 
 function createFlatConfig<T extends RulePreset>(
   rules: T,
-  settings = DEFAULT_ESLINT_REACT_SETTINGS,
+  settings = react.DEFAULT_ESLINT_REACT_SETTINGS,
 ) {
   return {
     plugins: flatConfigPlugins,

@@ -1,3 +1,5 @@
+import type { ESLintReactSettings } from "@eslint-react/shared";
+
 import { name, version } from "../package.json";
 import avoidShorthandBoolean from "./rules/avoid-shorthand-boolean";
 import avoidShorthandFragment from "./rules/avoid-shorthand-fragment";
@@ -99,3 +101,15 @@ export const rules = {
   "prefer-shorthand-boolean": preferShorthandBoolean,
   "prefer-shorthand-fragment": preferShorthandFragment,
 } as const;
+
+/**
+ * The default ESLint settings for "react-x".
+ */
+export const DEFAULT_ESLINT_REACT_SETTINGS = {
+  additionalHooks: {
+    useLayoutEffect: ["useIsomorphicLayoutEffect"],
+  },
+  polymorphicPropName: "as",
+  skipImportCheck: false,
+  version: "detect",
+} as const satisfies ESLintReactSettings;
