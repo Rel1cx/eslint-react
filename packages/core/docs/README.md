@@ -20,8 +20,10 @@
 - [ERComponentInitPath](type-aliases/ERComponentInitPath.md)
 - [ERComponentKind](type-aliases/ERComponentKind.md)
 - [EREffectKind](type-aliases/EREffectKind.md)
+- [EREffectPhaseKind](type-aliases/EREffectPhaseKind.md)
 - [ERFunctionComponentFlag](type-aliases/ERFunctionComponentFlag.md)
 - [ERHookKind](type-aliases/ERHookKind.md)
+- [ERLifecyclePhaseKind](type-aliases/ERLifecyclePhaseKind.md)
 - [ERPhaseKind](type-aliases/ERPhaseKind.md)
 - [ERStateKind](type-aliases/ERStateKind.md)
 
@@ -40,6 +42,7 @@
 - [getComponentInitPath](functions/getComponentInitPath.md)
 - [getComponentNameFromIdentifier](functions/getComponentNameFromIdentifier.md)
 - [getFunctionComponentIdentifier](functions/getFunctionComponentIdentifier.md)
+- [getPhaseKindOfFunction](functions/getPhaseKindOfFunction.md)
 - [hasCallInComponentInitPath](functions/hasCallInComponentInitPath.md)
 - [hasNoneOrValidComponentName](functions/hasNoneOrValidComponentName.md)
 - [isCallFromReact](functions/isCallFromReact.md)

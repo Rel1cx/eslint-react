@@ -1,14 +1,7 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import { isFunction, isNodeEqual } from "@eslint-react/ast";
-import type { ERSemanticEntry } from "@eslint-react/core";
-import {
-  isCleanupFunction,
-  isComponentDidMountFunction,
-  isComponentWillUnmountFunction,
-  isInversePhase,
-  isSetupFunction,
-  PHASE_RELEVANCE,
-} from "@eslint-react/core";
+import type { ERPhaseKind } from "@eslint-react/core";
+import { getPhaseKindOfFunction, isInversePhase, PHASE_RELEVANCE } from "@eslint-react/core";
 import { findPropInProperties } from "@eslint-react/jsx";
 import { Data, F, isBoolean, isObject, O } from "@eslint-react/tools";
 import { isNodeValueEqual } from "@eslint-react/var";
@@ -20,6 +13,7 @@ import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
+import type { AddEventListenerEntry, RemoveEventListenerEntry } from "./../models/entries";
 
 // #region Rule Metadata
 
@@ -35,31 +29,16 @@ export type MessageID =
 // #region Types
 
 /* eslint-disable perfectionist/sort-union-types */
+type FunctionKind = ERPhaseKind | "other";
 type EventMethodKind = "addEventListener" | "removeEventListener";
 type EffectMethodKind = "useEffect" | "useLayoutEffect";
 type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
-type EffectFunctionKind = "setup" | "cleanup";
-type LifecycleFunctionKind = "mount" | "unmount";
-type FunctionKind = EffectFunctionKind | LifecycleFunctionKind | "other";
 type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "abort" | "other";
 /* eslint-enable perfectionist/sort-union-types */
 
-interface AEntry extends ERSemanticEntry {
-  type: TSESTree.Node;
-  node: TSESTree.CallExpression | TSESTree.Identifier;
-  callee: TSESTree.Node;
-  capture: O.Option<boolean>;
-  listener: TSESTree.Node;
-  signal: O.Option<unknown>;
-}
+export type AEntry = AddEventListenerEntry;
 
-interface REntry extends ERSemanticEntry {
-  type: TSESTree.Node;
-  node: TSESTree.CallExpression | TSESTree.Identifier;
-  callee: TSESTree.Node;
-  capture: O.Option<boolean>;
-  listener: TSESTree.Node;
-}
+export type REntry = RemoveEventListenerEntry;
 
 // #endregion
 
@@ -81,13 +60,8 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
   }
 }
 
-function getFunctionKind(node: TSESTreeFunction) {
-  return match<TSESTreeFunction, FunctionKind>(node)
-    .when(isSetupFunction, () => "setup")
-    .when(isCleanupFunction, () => "cleanup")
-    .when(isComponentDidMountFunction, () => "mount")
-    .when(isComponentWillUnmountFunction, () => "unmount")
-    .otherwise(() => "other");
+function getFunctionKind(node: TSESTreeFunction): FunctionKind {
+  return O.getOrElse(getPhaseKindOfFunction(node), F.constant("other"));
 }
 
 function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope) {

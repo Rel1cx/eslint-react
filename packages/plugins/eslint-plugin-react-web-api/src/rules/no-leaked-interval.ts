@@ -1,20 +1,13 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { isNodeEqual } from "@eslint-react/ast";
-import type { ERSemanticEntry } from "@eslint-react/core";
-import {
-  isCleanupFunction,
-  isComponentDidMountFunction,
-  isComponentWillUnmountFunction,
-  isSetupFunction,
-  PHASE_RELEVANCE,
-} from "@eslint-react/core";
+import type { ERPhaseKind } from "@eslint-react/core";
+import { getPhaseKindOfFunction, PHASE_RELEVANCE } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
-import { isNodeValueEqual } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
-import { isMatching, match, P } from "ts-pattern";
+import { isMatching, P } from "ts-pattern";
 
-import { createRule } from "../utils";
+import type { TimerEntry } from "../models";
+import { createRule, getTimerID, isTimerIDEqual } from "../utils";
 
 // #region Rule Metadata
 
@@ -30,20 +23,12 @@ export type MessageID =
 // #region Types
 
 /* eslint-disable perfectionist/sort-union-types */
+type FunctionKind = ERPhaseKind | "other";
 type EventMethodKind = "setInterval" | "clearInterval";
 type EffectMethodKind = "useEffect" | "useLayoutEffect";
 type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
-type EffectFunctionKind = "setup" | "cleanup";
-type LifecycleFunctionKind = "mount" | "unmount";
-type FunctionKind = EffectFunctionKind | LifecycleFunctionKind | "other";
 type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "other";
 /* eslint-enable perfectionist/sort-union-types */
-
-interface Entry extends ERSemanticEntry {
-  node: TSESTree.CallExpression;
-  callee: TSESTree.Node;
-  intervalID: TSESTree.Node;
-}
 
 // #endregion
 
@@ -60,32 +45,6 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
       return node.callee.property.name;
     default:
       return "other";
-  }
-}
-
-function getFunctionKind(node: TSESTreeFunction) {
-  return match<TSESTreeFunction, FunctionKind>(node)
-    .when(isSetupFunction, () => "setup")
-    .when(isCleanupFunction, () => "cleanup")
-    .when(isComponentDidMountFunction, () => "mount")
-    .when(isComponentWillUnmountFunction, () => "unmount")
-    .otherwise(() => "other");
-}
-
-function getIntervalID(node: TSESTree.Node, prev?: TSESTree.Node): O.Option<TSESTree.Node> {
-  switch (true) {
-    case node.type === AST_NODE_TYPES.VariableDeclarator
-      && node.init === prev:
-      return O.some(node.id);
-    case node.type === AST_NODE_TYPES.AssignmentExpression
-      && node.right === prev:
-      return O.some(node.left);
-    case node.type === AST_NODE_TYPES.BlockStatement
-      || node.type === AST_NODE_TYPES.Program
-      || node.parent === node:
-      return O.none();
-    default:
-      return getIntervalID(node.parent, node);
   }
 }
 
@@ -111,32 +70,17 @@ export default createRule<[], MessageID>({
   create(context) {
     if (!context.sourceCode.text.includes("setInterval")) return {};
     const fStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
-    const sEntries: Entry[] = [];
-    const rEntries: Entry[] = [];
+    const sEntries: TimerEntry[] = [];
+    const cEntries: TimerEntry[] = [];
     const isInverseEntry: {
-      (a: Entry): (b: Entry) => boolean;
-      (a: Entry, b: Entry): boolean;
-    } = F.dual(2, (a: Entry, b: Entry) => {
-      const aIntervalID = a.intervalID;
-      const bIntervalID = b.intervalID;
-      const aIntervalIDScope = context.sourceCode.getScope(aIntervalID);
-      const bIntervalIDScope = context.sourceCode.getScope(bIntervalID);
-      switch (true) {
-        case aIntervalID.type === AST_NODE_TYPES.Identifier
-          && bIntervalID.type === AST_NODE_TYPES.Identifier: {
-          return isNodeValueEqual(aIntervalID, bIntervalID, [aIntervalIDScope, bIntervalIDScope]);
-        }
-        case aIntervalID.type === AST_NODE_TYPES.AssignmentExpression
-          && bIntervalID.type === AST_NODE_TYPES.AssignmentExpression: {
-          return isNodeEqual(aIntervalID.left, bIntervalID.left);
-        }
-        default:
-          return isNodeValueEqual(aIntervalID, bIntervalID, [aIntervalIDScope, bIntervalIDScope]);
-      }
+      (a: TimerEntry): (b: TimerEntry) => boolean;
+      (a: TimerEntry, b: TimerEntry): boolean;
+    } = F.dual(2, (a: TimerEntry, b: TimerEntry) => {
+      return isTimerIDEqual(a.timerID, b.timerID, context);
     });
     return {
       [":function"](node: TSESTreeFunction) {
-        const fKind = getFunctionKind(node);
+        const fKind = O.getOrElse(getPhaseKindOfFunction(node), () => "other" as const);
         fStack.push([node, fKind]);
       },
       [":function:exit"]() {
@@ -149,7 +93,7 @@ export default createRule<[], MessageID>({
             const [fNode, fKind] = fStack.at(-1) ?? [];
             if (!fNode || !fKind) break;
             if (!PHASE_RELEVANCE.has(fKind)) break;
-            const intervalIdNode = O.getOrNull(getIntervalID(node));
+            const intervalIdNode = O.getOrNull(getTimerID(node));
             if (!intervalIdNode) {
               context.report({
                 messageId: "noLeakedIntervalNoIntervalId",
@@ -161,8 +105,8 @@ export default createRule<[], MessageID>({
               kind: callKind,
               node,
               callee: node.callee,
-              intervalID: intervalIdNode,
               phase: fKind,
+              timerID: intervalIdNode,
             });
             break;
           }
@@ -172,12 +116,12 @@ export default createRule<[], MessageID>({
             if (!PHASE_RELEVANCE.has(fKind)) break;
             const [intervalIdNode] = node.arguments;
             if (!intervalIdNode) break;
-            rEntries.push({
+            cEntries.push({
               kind: callKind,
               node,
               callee: node.callee,
-              intervalID: intervalIdNode,
               phase: fKind,
+              timerID: intervalIdNode,
             });
             break;
           }
@@ -185,7 +129,7 @@ export default createRule<[], MessageID>({
       },
       ["Program:exit"]() {
         for (const sEntry of sEntries) {
-          if (rEntries.some(isInverseEntry(sEntry))) continue;
+          if (cEntries.some(isInverseEntry(sEntry))) continue;
           switch (sEntry.phase) {
             case "setup":
             case "cleanup":

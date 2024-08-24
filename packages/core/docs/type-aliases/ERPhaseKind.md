@@ -6,4 +6,4 @@
 
 # Type Alias: ERPhaseKind
 
-> **ERPhaseKind**: `"mount"` \| `"unmount"` \| `"setup"` \| `"cleanup"`
+> **ERPhaseKind**: [`EREffectPhaseKind`](EREffectPhaseKind.md) \| [`ERLifecyclePhaseKind`](ERLifecyclePhaseKind.md)

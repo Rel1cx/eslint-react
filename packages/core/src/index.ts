@@ -3,6 +3,7 @@ export * from "./effect";
 export * from "./element";
 export * from "./hook";
 export * from "./internal";
+export * from "./phase";
 export * from "./react-api";
 export * from "./render-prop";
 export * from "./state";
