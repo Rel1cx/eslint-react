@@ -8,12 +8,14 @@
 
 - [CustomAttribute](type-aliases/CustomAttribute.md)
 - [CustomComponent](type-aliases/CustomComponent.md)
+- [CustomComponentNormalized](type-aliases/CustomComponentNormalized.md)
 - [CustomHook](type-aliases/CustomHook.md)
 - [ESLintReactSettings](type-aliases/ESLintReactSettings.md)
 - [ESLintSettings](type-aliases/ESLintSettings.md)
 
 ## Variables
 
+- [CustomComponentNormalizedSchema](variables/CustomComponentNormalizedSchema.md)
 - [DEFAULT\_ESLINT\_REACT\_SETTINGS](variables/DEFAULT_ESLINT_REACT_SETTINGS.md)
 - [GITHUB\_URL](variables/GITHUB_URL.md)
 - [INITIAL\_ESLINT\_REACT\_SETTINGS](variables/INITIAL_ESLINT_REACT_SETTINGS.md)
@@ -30,3 +32,4 @@
 ## Functions
 
 - [defineSettings](functions/defineSettings.md)
+- [findAttrInCustomAttributes](functions/findAttrInCustomAttributes.md)

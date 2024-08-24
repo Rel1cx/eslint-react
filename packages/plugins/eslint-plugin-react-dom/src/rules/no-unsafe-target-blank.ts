@@ -1,12 +1,12 @@
 import { findPropInAttributes, getElementName, getElementType, getPropValue } from "@eslint-react/jsx";
-import { decodeSettings, expandSettings } from "@eslint-react/shared";
+import { decodeSettings, findAttrInCustomAttributes, normalizeSettings } from "@eslint-react/shared";
 import { F, isString, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import { match, P } from "ts-pattern";
 
-import { createRule, getPropFromUserDefined } from "../utils";
+import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unsafe-target-blank";
 
@@ -37,7 +37,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const settings = expandSettings(decodeSettings(context.settings));
+    const settings = normalizeSettings(decodeSettings(context.settings));
     const polymorphicPropName = settings.polymorphicPropName;
     const components = settings.components;
     const additionalComponents = settings.additionalComponents.filter(c => c.as === "a");
@@ -55,7 +55,7 @@ export default createRule<[], MessageID>({
       const [
         targetPropName,
         targetPropDefaultValue,
-      ] = getPropFromUserDefined("target", additionalAttributes);
+      ] = findAttrInCustomAttributes("target", additionalAttributes);
       const targetProp = findPropInAttributes(attributes, initialScope)(targetPropName);
       const targetPropValue = O.isNone(targetProp)
         ? O.fromNullable(targetPropDefaultValue)
@@ -74,7 +74,7 @@ export default createRule<[], MessageID>({
       const [
         hrefPropName,
         hrefPropDefaultValue,
-      ] = getPropFromUserDefined("href", additionalAttributes);
+      ] = findAttrInCustomAttributes("href", additionalAttributes);
       const hrefProp = findPropInAttributes(attributes, initialScope)(hrefPropName);
       const hrefPropValue = O.isNone(hrefProp)
         ? O.fromNullable(hrefPropDefaultValue)
@@ -93,7 +93,7 @@ export default createRule<[], MessageID>({
       const [
         relPropName,
         relPropDefaultValue,
-      ] = getPropFromUserDefined("rel", additionalAttributes);
+      ] = findAttrInCustomAttributes("rel", additionalAttributes);
       const relProp = findPropInAttributes(attributes, initialScope)(relPropName);
       const relPropValue = O.isNone(relProp)
         ? O.fromNullable(relPropDefaultValue)

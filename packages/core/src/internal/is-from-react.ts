@@ -1,5 +1,5 @@
 import { is, isOneOf } from "@eslint-react/ast";
-import { unsafeCastSettings } from "@eslint-react/shared";
+import { unsafeReadSettings } from "@eslint-react/shared";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -16,7 +16,7 @@ export function isFromReact(name: string) {
     node: TSESTree.Identifier | TSESTree.MemberExpression,
     context: RuleContext,
   ) => {
-    const settings = unsafeCastSettings(context.settings);
+    const settings = unsafeReadSettings(context.settings);
     const initialScope = context.sourceCode.getScope(node);
     if (node.type === AST_NODE_TYPES.MemberExpression) {
       return node.object.type === AST_NODE_TYPES.Identifier
@@ -43,7 +43,7 @@ export function isFromReactMember(
     node: TSESTree.MemberExpression,
     context: RuleContext,
   ) => {
-    const settings = unsafeCastSettings(context.settings);
+    const settings = unsafeReadSettings(context.settings);
     const initialScope = context.sourceCode.getScope(node);
     if (node.property.type !== AST_NODE_TYPES.Identifier || node.property.name !== name) return false;
     if (node.object.type === AST_NODE_TYPES.Identifier && node.object.name === memberName) {

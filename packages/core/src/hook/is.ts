@@ -1,6 +1,6 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import { getFunctionIdentifier } from "@eslint-react/ast";
-import { unsafeCastSettings } from "@eslint-react/shared";
+import { unsafeReadSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -31,7 +31,7 @@ export function isReactHookCall(node: TSESTree.CallExpression) {
 }
 
 export function isReactHookCallWithName(node: TSESTree.CallExpression, context: RuleContext) {
-  const settings = unsafeCastSettings(context.settings);
+  const settings = unsafeReadSettings(context.settings);
   return (name: string) => {
     const initialScope = context.sourceCode.getScope(node);
     switch (true) {
@@ -63,7 +63,7 @@ export function isReactHookCallWithNameLoose(node: TSESTree.CallExpression) {
 }
 
 export function isReactHookCallWithNameAlias(name: string, context: RuleContext, alias: string[]) {
-  const settings = unsafeCastSettings(context.settings);
+  const settings = unsafeReadSettings(context.settings);
   return (node: TSESTree.CallExpression) => {
     const initialScope = context.sourceCode.getScope(node);
     switch (true) {

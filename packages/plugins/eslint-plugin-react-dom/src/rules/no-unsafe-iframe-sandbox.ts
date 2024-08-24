@@ -1,5 +1,5 @@
 import { findPropInAttributes, getElementType, getPropValue } from "@eslint-react/jsx";
-import { decodeSettings, expandSettings } from "@eslint-react/shared";
+import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
 import { F, isString, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const { components, polymorphicPropName } = expandSettings(decodeSettings(context.settings));
+    const { components, polymorphicPropName } = normalizeSettings(decodeSettings(context.settings));
     return {
       JSXElement(node) {
         const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;

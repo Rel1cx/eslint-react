@@ -1,5 +1,5 @@
 import type { InferOutput } from "valibot";
-import { array, boolean, object, optional, string } from "valibot";
+import { array, boolean, instance, object, optional, string } from "valibot";
 
 /**
  * @internal
@@ -77,6 +77,14 @@ export const CustomComponentSchema = object({
   attributes: optional(array(CustomAttributeSchema), []),
 });
 /* eslint-enable perfectionist/sort-objects */
+
+export const CustomComponentNormalizedSchema = object({
+  name: string(),
+  as: optional(string()),
+  attributes: optional(array(CustomAttributeSchema), []),
+  re: instance(RegExp),
+  selector: optional(string()),
+});
 
 /* eslint-disable perfectionist/sort-objects */
 /**
@@ -174,6 +182,17 @@ export type CustomAttribute = InferOutput<typeof CustomAttributeSchema>;
 
 export type CustomComponent = InferOutput<typeof CustomComponentSchema>;
 
+export type CustomComponentNormalized = InferOutput<typeof CustomComponentNormalizedSchema>;
+
 export type ESLintReactSettings = InferOutput<typeof ESLintReactSettingsSchema>;
 
 export type ESLintSettings = InferOutput<typeof ESLintSettingsSchema>;
+
+/**
+ * This is an expanded version of `ESLintReactSettings` with all shorthand properties expanded.
+ * @internal
+ */
+export interface ESLintReactSettingsNormalized extends ESLintReactSettings {
+  additionalComponents: CustomComponentNormalized[];
+  components: Map<string, string>;
+}
