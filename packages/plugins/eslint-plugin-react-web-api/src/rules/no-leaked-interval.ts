@@ -1,5 +1,5 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import type { ERPhaseKind } from "@eslint-react/core";
+import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { getPhaseKindOfFunction, PHASE_RELEVANCE } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -25,9 +25,7 @@ export type MessageID =
 /* eslint-disable perfectionist/sort-union-types */
 type FunctionKind = ERPhaseKind | "other";
 type EventMethodKind = "setInterval" | "clearInterval";
-type EffectMethodKind = "useEffect" | "useLayoutEffect";
-type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
-type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "other";
+type CallKind = EventMethodKind | EREffectMethodKind | ERLifecycleMethodKind | "other";
 /* eslint-enable perfectionist/sort-union-types */
 
 // #endregion

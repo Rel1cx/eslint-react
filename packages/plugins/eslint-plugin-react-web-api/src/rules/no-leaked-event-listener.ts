@@ -1,6 +1,6 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import { isFunction, isNodeEqual } from "@eslint-react/ast";
-import type { ERPhaseKind } from "@eslint-react/core";
+import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { getPhaseKindOfFunction, isInversePhase, PHASE_RELEVANCE } from "@eslint-react/core";
 import { findPropInProperties } from "@eslint-react/jsx";
 import { Data, F, isBoolean, isObject, O } from "@eslint-react/tools";
@@ -31,9 +31,7 @@ export type MessageID =
 /* eslint-disable perfectionist/sort-union-types */
 type FunctionKind = ERPhaseKind | "other";
 type EventMethodKind = "addEventListener" | "removeEventListener";
-type EffectMethodKind = "useEffect" | "useLayoutEffect";
-type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
-type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "abort" | "other";
+type CallKind = EventMethodKind | EREffectMethodKind | ERLifecycleMethodKind | "abort" | "other";
 /* eslint-enable perfectionist/sort-union-types */
 
 export type AEntry = AddEventListenerEntry;
