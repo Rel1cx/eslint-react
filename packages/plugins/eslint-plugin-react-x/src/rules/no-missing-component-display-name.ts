@@ -29,7 +29,6 @@ export default createRule<[], MessageID>({
       ...listeners,
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
-
         for (const { node, displayName, flag } of components.values()) {
           const isMemoOrForwardRef = Boolean(flag & ERFunctionComponentFlag.ForwardRef)
             || Boolean(flag & ERFunctionComponentFlag.Memo);

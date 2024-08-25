@@ -1,7 +1,5 @@
-import { isCreateElementCall } from "@eslint-react/core";
-import { findPropInProperties, getProp } from "@eslint-react/jsx";
+import { getProp } from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -24,27 +22,11 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     return {
-      CallExpression(node) {
-        if (node.arguments.length === 0) return;
-        const initialScope = context.sourceCode.getScope(node);
-        if (!isCreateElementCall(node, context)) return;
-        const [_, props] = node.arguments;
-        if (!props || props.type !== AST_NODE_TYPES.ObjectExpression) return;
-        O.map(findPropInProperties(props.properties, initialScope)("children"), prop => {
-          context.report({
-            messageId: "noChildrenProp",
-            node: prop,
-          });
-        });
-      },
       JSXElement(node) {
         const initialScope = context.sourceCode.getScope(node);
-        O.map(getProp(node.openingElement.attributes, "children", initialScope), prop => {
-          context.report({
-            messageId: "noChildrenProp",
-            node: prop,
-          });
-        });
+        const prop = getProp(node.openingElement.attributes, "children", initialScope);
+        const reportDescriptor = O.map(prop, prop => ({ messageId: "noChildrenProp", node: prop } as const));
+        O.map(reportDescriptor, context.report);
       },
     };
   },

@@ -42,6 +42,17 @@ const iteratorFunctionIndexParamPosition = new Map<string, number>([
 
 // #region Helpers
 
+const isToStringCall = isMatching({
+  type: AST_NODE_TYPES.CallExpression,
+  callee: {
+    type: AST_NODE_TYPES.MemberExpression,
+    property: {
+      type: AST_NODE_TYPES.Identifier,
+      name: "toString",
+    },
+  },
+});
+
 function isReactChildrenMethod(name: string): name is typeof reactChildrenMethod[number] {
   return reactChildrenMethod.some((method) => method === name);
 }
@@ -134,18 +145,8 @@ export default createRule<[], MessageID>({
         }, []);
       }
 
-      const isToStringCall = isMatching({
-        type: AST_NODE_TYPES.CallExpression,
-        callee: {
-          type: AST_NODE_TYPES.MemberExpression,
-          property: {
-            type: AST_NODE_TYPES.Identifier,
-            name: "toString",
-          },
-        },
-      }, node);
       // key={bar.toString()}
-      if (isToStringCall) {
+      if (isToStringCall(node)) {
         if (!("object" in node.callee && isArrayIndex(node.callee.object))) return [];
 
         return [{ messageId: "noArrayIndexKey", node: node.callee.object }];

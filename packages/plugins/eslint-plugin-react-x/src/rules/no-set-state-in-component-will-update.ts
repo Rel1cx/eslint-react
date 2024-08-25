@@ -1,8 +1,9 @@
 import { isOneOf, traverseUp } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
-import { O } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
+import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -43,26 +44,27 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     if (!context.sourceCode.text.includes("componentWillUpdate")) return {};
+    function getReportDescriptor(node: TSESTree.CallExpression): O.Option<ReportDescriptor<MessageID>> {
+      if (!isThisSetState(node)) return O.none();
+      const maybeParentClass = traverseUp(
+        node,
+        isOneOf([AST_NODE_TYPES.ClassDeclaration, AST_NODE_TYPES.ClassExpression]),
+      );
+      if (O.isNone(maybeParentClass)) return O.none();
+      const parentClass = maybeParentClass.value;
+      if (!isClassComponent(parentClass)) return O.none();
+      const maybeParentMethod = traverseUp(node, isComponentWillUpdate);
+      if (O.isNone(maybeParentMethod)) return O.none();
+      const parentMethod = maybeParentMethod.value;
+      if (parentMethod.parent !== parentClass.body) return O.none();
+      if (context.sourceCode.getScope(node).upper !== context.sourceCode.getScope(parentMethod)) return O.none();
+      return O.some({
+        messageId: "noSetStateInComponentWillUpdate",
+        node,
+      });
+    }
     return {
-      CallExpression(node) {
-        if (!isThisSetState(node)) return;
-        const maybeParentClass = traverseUp(
-          node,
-          isOneOf([AST_NODE_TYPES.ClassDeclaration, AST_NODE_TYPES.ClassExpression]),
-        );
-        if (O.isNone(maybeParentClass)) return;
-        const parentClass = maybeParentClass.value;
-        if (!isClassComponent(parentClass)) return;
-        const maybeParentMethod = traverseUp(node, isComponentWillUpdate);
-        if (O.isNone(maybeParentMethod)) return;
-        const parentMethod = maybeParentMethod.value;
-        if (parentMethod.parent !== parentClass.body) return;
-        if (context.sourceCode.getScope(node).upper !== context.sourceCode.getScope(parentMethod)) return;
-        context.report({
-          messageId: "noSetStateInComponentWillUpdate",
-          node,
-        });
-      },
+      CallExpression: F.flow(getReportDescriptor, O.map(context.report)),
     };
   },
   defaultOptions: [],

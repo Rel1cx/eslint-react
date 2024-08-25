@@ -36,10 +36,8 @@ export default createRule<[], MessageID>({
       ...listeners,
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
-
         for (const { node: component } of components.values()) {
           const { body } = component.body;
-
           for (const member of body) {
             if (isComponentWillUpdate(member)) {
               context.report({

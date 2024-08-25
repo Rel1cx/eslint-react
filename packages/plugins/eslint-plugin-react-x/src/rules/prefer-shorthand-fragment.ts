@@ -1,4 +1,7 @@
 import { isFragmentElement } from "@eslint-react/core";
+import { F, O } from "@eslint-react/tools";
+import type { TSESTree } from "@typescript-eslint/types";
+import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -20,17 +23,17 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    function getReportDescriptor(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
+      if (!isFragmentElement(node, context)) return O.none();
+      const hasAttributes = node.openingElement.attributes.length > 0;
+      if (hasAttributes) return O.none();
+      return O.some({
+        messageId: "preferShorthandFragment",
+        node,
+      });
+    }
     return {
-      JSXElement(node) {
-        if (isFragmentElement(node, context)) {
-          const hasAttributes = node.openingElement.attributes.length > 0;
-          if (hasAttributes) return;
-          context.report({
-            messageId: "preferShorthandFragment",
-            node,
-          });
-        }
-      },
+      JSXElement: F.flow(getReportDescriptor, O.map(context.report)),
     };
   },
   defaultOptions: [],

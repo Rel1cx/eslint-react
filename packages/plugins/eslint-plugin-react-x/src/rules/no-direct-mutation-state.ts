@@ -1,8 +1,9 @@
 import { isOneOf, isThisExpression, traverseUpGuard } from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
-import { O } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
+import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -60,23 +61,24 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    function getReportDescriptor(node: TSESTree.AssignmentExpression): O.Option<ReportDescriptor<MessageID>> {
+      if (!isAssignmentToThisState(node)) return O.none();
+      const maybeParentClass = traverseUpGuard(
+        node,
+        isOneOf([AST_NODE_TYPES.ClassDeclaration, AST_NODE_TYPES.ClassExpression]),
+      );
+      if (O.isNone(maybeParentClass)) return O.none();
+      const parentClass = maybeParentClass.value;
+      if (!isClassComponent(parentClass)) return O.none();
+      const maybeParentConstructor = traverseUpGuard(node, isConstructorFunction);
+      if (O.exists(maybeParentConstructor, n => context.sourceCode.getScope(node).block === n)) return O.none();
+      return O.some({
+        messageId: "noDirectMutationState",
+        node,
+      });
+    }
     return {
-      AssignmentExpression(node) {
-        if (!isAssignmentToThisState(node)) return;
-        const maybeParentClass = traverseUpGuard(
-          node,
-          isOneOf([AST_NODE_TYPES.ClassDeclaration, AST_NODE_TYPES.ClassExpression]),
-        );
-        if (O.isNone(maybeParentClass)) return;
-        const parentClass = maybeParentClass.value;
-        if (!isClassComponent(parentClass)) return;
-        const maybeParentConstructor = traverseUpGuard(node, isConstructorFunction);
-        if (O.exists(maybeParentConstructor, n => context.sourceCode.getScope(node).block === n)) return;
-        context.report({
-          messageId: "noDirectMutationState",
-          node,
-        });
-      },
+      AssignmentExpression: F.flow(getReportDescriptor, O.map(context.report)),
     };
   },
   defaultOptions: [],

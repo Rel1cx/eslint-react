@@ -88,10 +88,10 @@ export default createRule<[], MessageID>({
       },
       MemberExpression(node) {
         if (!isThisExpression(node.object)) return;
-        const [currentClass, isComponent] = classStack.at(-1) ?? [];
-        if (!currentClass || !isComponent) return;
-        const [currentMethod, isStatic] = methodStack.at(-1) ?? [];
-        if (!currentMethod || isStatic) return;
+        const [currClass, isComponent] = classStack.at(-1) ?? [];
+        if (!currClass || !isComponent) return;
+        const [currMethod, isStatic] = methodStack.at(-1) ?? [];
+        if (!currMethod || isStatic) return;
         const [setState, hasThisState] = setStateStack.at(-1) ?? [];
         if (!setState || hasThisState) return;
         if (!O.exists(getName(node.property), name => name === "state")) return;
@@ -110,10 +110,10 @@ export default createRule<[], MessageID>({
         methodStack.pop();
       },
       VariableDeclarator(node) {
-        const [currentClass, isComponent] = classStack.at(-1) ?? [];
-        if (!currentClass || !isComponent) return;
-        const [currentMethod, isStatic] = methodStack.at(-1) ?? [];
-        if (!currentMethod || isStatic) return;
+        const [currClass, isComponent] = classStack.at(-1) ?? [];
+        if (!currClass || !isComponent) return;
+        const [currMethod, isStatic] = methodStack.at(-1) ?? [];
+        if (!currMethod || isStatic) return;
         const [setState, hasThisState] = setStateStack.at(-1) ?? [];
         if (!setState || hasThisState) return;
         // detect `{ foo, state: baz } = this`

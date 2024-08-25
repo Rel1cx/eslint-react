@@ -28,12 +28,11 @@ export default createRule<[], MessageID>({
         const [component] = node.arguments;
         if (!component || !isFunction(component)) return;
         const [_, ref] = component.params;
-        if (!ref) {
-          context.report({
-            messageId: "ensureForwardRefUsingRef",
-            node: component,
-          });
-        }
+        if (ref) return;
+        context.report({
+          messageId: "ensureForwardRefUsingRef",
+          node: component,
+        });
       },
     };
   },
