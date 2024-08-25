@@ -8,12 +8,6 @@
 
 ## Properties
 
-### kind
-
-> **kind**: `string`
-
-***
-
 ### node
 
 > **node**: `Node`

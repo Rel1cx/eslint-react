@@ -100,7 +100,7 @@ export default createRule<[], MessageID>({
               break;
             }
             sEntries.push({
-              kind: callKind,
+              kind: "interval",
               node,
               callee: node.callee,
               phase: fKind,
@@ -115,7 +115,7 @@ export default createRule<[], MessageID>({
             const [intervalIdNode] = node.arguments;
             if (!intervalIdNode) break;
             cEntries.push({
-              kind: callKind,
+              kind: "interval",
               node,
               callee: node.callee,
               phase: fKind,

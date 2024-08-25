@@ -13,7 +13,7 @@ import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
-import type { AddEventListenerEntry, RemoveEventListenerEntry } from "./../models/entries";
+import { EventListenerEntry } from "./../models/entries";
 
 // #region Rule Metadata
 
@@ -34,9 +34,9 @@ type EventMethodKind = "addEventListener" | "removeEventListener";
 type CallKind = EventMethodKind | EREffectMethodKind | ERLifecycleMethodKind | "abort" | "other";
 /* eslint-enable perfectionist/sort-union-types */
 
-export type AEntry = AddEventListenerEntry;
+export type AEntry = EventListenerEntry & { _tag: "addEventListener" };
 
-export type REntry = RemoveEventListenerEntry;
+export type REntry = EventListenerEntry & { _tag: "removeEventListener" };
 
 // #endregion
 
@@ -177,18 +177,40 @@ export default createRule<[], MessageID>({
       ["CallExpression"](node) {
         const callKind = getCallKind(node);
         switch (callKind) {
-          case "addEventListener":
+          case "addEventListener": {
+            O.map(checkInlineFunction(node, callKind), context.report);
+            const [type, listener, options] = node.arguments;
+            const [fNode, fKind] = fStack.at(-1) ?? [];
+            if (!type || !listener || !fNode || !fKind) return;
+            if (!PHASE_RELEVANCE.has(fKind)) break;
+            const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
+            const callee = node.callee;
+            aEntries.push(EventListenerEntry.addEventListener({
+              ...opts,
+              type,
+              node,
+              callee,
+              listener,
+              phase: fKind,
+            }));
+            break;
+          }
           case "removeEventListener": {
             O.map(checkInlineFunction(node, callKind), context.report);
             const [type, listener, options] = node.arguments;
             const [fNode, fKind] = fStack.at(-1) ?? [];
             if (!type || !listener || !fNode || !fKind) return;
-            if (PHASE_RELEVANCE.has(fKind)) {
-              const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
-              const callee = node.callee;
-              const listeners = callKind === "addEventListener" ? aEntries : rEntries;
-              listeners.push({ ...opts, kind: callKind, type, node, callee, listener, phase: fKind });
-            }
+            if (!PHASE_RELEVANCE.has(fKind)) break;
+            const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
+            const callee = node.callee;
+            rEntries.push(EventListenerEntry.removeEventListener({
+              ...opts,
+              type,
+              node,
+              callee,
+              listener,
+              phase: fKind,
+            }));
             break;
           }
         }

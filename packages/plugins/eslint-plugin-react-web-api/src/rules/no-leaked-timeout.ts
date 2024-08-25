@@ -99,7 +99,7 @@ export default createRule<[], MessageID>({
               break;
             }
             sEntries.push({
-              kind: callKind,
+              kind: "timeout",
               node,
               callee: node.callee,
               phase: fKind,
@@ -114,7 +114,7 @@ export default createRule<[], MessageID>({
             const [timeoutIdNode] = node.arguments;
             if (!timeoutIdNode) break;
             rEntries.push({
-              kind: callKind,
+              kind: "timeout",
               node,
               callee: node.callee,
               phase: fKind,
