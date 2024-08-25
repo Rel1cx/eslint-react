@@ -13,7 +13,7 @@ import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
-import { EventListenerEntry } from "./../models/entries";
+import { EventListenerEntry } from "./../models";
 
 // #region Rule Metadata
 

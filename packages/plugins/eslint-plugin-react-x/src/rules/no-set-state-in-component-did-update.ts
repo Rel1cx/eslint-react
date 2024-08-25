@@ -3,10 +3,10 @@ import { isClassComponent } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
+import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
-import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 
 export const RULE_NAME = "no-set-state-in-component-did-update";
 
