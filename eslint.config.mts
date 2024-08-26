@@ -107,6 +107,7 @@ const config: Config[] = [
       ["simple-import-sort"]: simpleImportSortPlugin,
       ["unicorn"]: unicornPlugin,
     },
+    settings: {},
   },
   // extends ...
   eslint.configs.recommended,
