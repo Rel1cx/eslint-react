@@ -34,9 +34,9 @@ type EventMethodKind = "addEventListener" | "removeEventListener";
 type CallKind = EventMethodKind | EREffectMethodKind | ERLifecycleMethodKind | "abort" | "other";
 /* eslint-enable perfectionist/sort-union-types */
 
-export type AEntry = EventListenerEntry & { _tag: "addEventListener" };
+export type AEntry = EventListenerEntry & { _tag: "AddEventListener" };
 
-export type REntry = EventListenerEntry & { _tag: "removeEventListener" };
+export type REntry = EventListenerEntry & { _tag: "RemoveEventListener" };
 
 // #endregion
 
@@ -185,7 +185,7 @@ export default createRule<[], MessageID>({
             if (!PHASE_RELEVANCE.has(fKind)) break;
             const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
             const callee = node.callee;
-            aEntries.push(EventListenerEntry.addEventListener({
+            aEntries.push(EventListenerEntry.AddEventListener({
               ...opts,
               type,
               node,
@@ -203,7 +203,7 @@ export default createRule<[], MessageID>({
             if (!PHASE_RELEVANCE.has(fKind)) break;
             const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
             const callee = node.callee;
-            rEntries.push(EventListenerEntry.removeEventListener({
+            rEntries.push(EventListenerEntry.RemoveEventListener({
               ...opts,
               type,
               node,
