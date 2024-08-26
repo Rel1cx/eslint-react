@@ -1,6 +1,7 @@
 export * from "./function-init-path";
 export * from "./get-class-identifier";
 export * from "./get-function-identifier";
+export * from "./get-identifiers-from-binary-expression";
 export * from "./get-literal-value-type";
 export * from "./get-nested-call-expressions";
 export * from "./get-nested-identifiers";

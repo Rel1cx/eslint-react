@@ -35,7 +35,6 @@ export default createRule<[], MessageID>({
     function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
       if (node.type !== AST_NODE_TYPES.JSXElement) return O.none();
       const initialScope = context.sourceCode.getScope(node);
-
       return F.pipe(
         findPropInAttributes(node.openingElement.attributes, initialScope)("key"),
         O.flatMap((k) => "value" in k ? O.fromNullable(k.value) : O.none()),

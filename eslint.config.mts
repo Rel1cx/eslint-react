@@ -247,11 +247,23 @@ const config: Config[] = [
       // Part: perfectionist rules
       "perfectionist/sort-exports": "off",
       "perfectionist/sort-imports": "off",
-      "perfectionist/sort-interfaces": ["warn", { ...p11tOptions, ...p11tGroups }],
+      "perfectionist/sort-interfaces": [
+        "warn",
+        {
+          ...p11tOptions,
+          ...p11tGroups,
+        },
+      ],
       "perfectionist/sort-intersection-types": "off",
       "perfectionist/sort-named-exports": "off",
       "perfectionist/sort-named-imports": "off",
-      "perfectionist/sort-object-types": ["warn", { ...p11tOptions, ...p11tGroups }],
+      "perfectionist/sort-object-types": [
+        "warn",
+        {
+          ...p11tOptions,
+          ...p11tGroups,
+        },
+      ],
       "perfectionist/sort-objects": [
         "warn",
         {

@@ -1,5 +1,5 @@
 import { isOneOf, traverseUp } from "@eslint-react/ast";
-import { isClassComponent } from "@eslint-react/core";
+import { isClassComponent, isThisSetState } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -11,17 +11,6 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-set-state-in-component-will-update";
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
-
-function isThisSetState(node: TSESTree.CallExpression) {
-  const { callee } = node;
-
-  return (
-    callee.type === AST_NODE_TYPES.MemberExpression
-    && callee.object.type === AST_NODE_TYPES.ThisExpression
-    && callee.property.type === AST_NODE_TYPES.Identifier
-    && callee.property.name === "setState"
-  );
-}
 
 function isComponentWillUpdate(node: TSESTree.Node) {
   return isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)

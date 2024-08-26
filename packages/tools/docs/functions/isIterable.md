@@ -6,7 +6,7 @@
 
 # Function: isIterable()
 
-> **isIterable**(`input`): `input is Iterable<unknown>`
+> **isIterable**(`input`): `input is Iterable<unknown, any, any>`
 
 ## Parameters
 
@@ -14,4 +14,4 @@
 
 ## Returns
 
-`input is Iterable<unknown>`
+`input is Iterable<unknown, any, any>`

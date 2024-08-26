@@ -101,6 +101,7 @@
 - [isRenderFunctionLoose](functions/isRenderFunctionLoose.md)
 - [isRenderPropLoose](functions/isRenderPropLoose.md)
 - [isSetupFunction](functions/isSetupFunction.md)
+- [isThisSetState](functions/isThisSetState.md)
 - [isUseCallbackCall](functions/isUseCallbackCall.md)
 - [isUseContextCall](functions/isUseContextCall.md)
 - [isUseDebugValueCall](functions/isUseDebugValueCall.md)

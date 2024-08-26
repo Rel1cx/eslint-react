@@ -1,4 +1,4 @@
-import { isOneOf } from "@eslint-react/ast";
+import { getIdentifiersFromBinaryExpression, isOneOf } from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
 import { unsafeReadSettings } from "@eslint-react/shared";
 import { isNullable, O } from "@eslint-react/tools";
@@ -90,18 +90,6 @@ function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContex
   const param = params.at(indexParamPosition);
 
   return param && "name" in param ? O.some(param.name) : O.none();
-}
-
-function getIdentifiersFromBinaryExpression(side: TSESTree.Node): TSESTree.Identifier[] {
-  if (side.type === AST_NODE_TYPES.Identifier) return [side];
-  if (side.type === AST_NODE_TYPES.BinaryExpression) {
-    return [
-      ...getIdentifiersFromBinaryExpression(side.left),
-      ...getIdentifiersFromBinaryExpression(side.right),
-    ].filter(Boolean);
-  }
-
-  return [];
 }
 
 // #endregion

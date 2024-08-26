@@ -6,7 +6,7 @@
 
 # Function: firstSomeOf()
 
-> **firstSomeOf**\<`T`, `C`\>(`collection`): [`C`] *extends* [`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>\>] ? [`Option`](../type-aliases/Option.md)\<`A`\> : `never`
+> **firstSomeOf**\<`T`, `C`\>(`collection`): [`C`] *extends* [`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>, `any`, `any`\>] ? [`Option`](../type-aliases/Option.md)\<`A`\> : `never`
 
 Given an `Iterable` collection of `Option`s, returns the first `Some` found in the collection.
 
@@ -14,7 +14,7 @@ Given an `Iterable` collection of `Option`s, returns the first `Some` found in t
 
 • **T**
 
-• **C** *extends* `Iterable`\<[`Option`](../type-aliases/Option.md)\<`T`\>\> = `Iterable`\<[`Option`](../type-aliases/Option.md)\<`T`\>\>
+• **C** *extends* `Iterable`\<[`Option`](../type-aliases/Option.md)\<`T`\>, `any`, `any`\> = `Iterable`\<[`Option`](../type-aliases/Option.md)\<`T`\>, `any`, `any`\>
 
 ## Parameters
 
@@ -24,7 +24,7 @@ An iterable collection of `Option` to be searched.
 
 ## Returns
 
-[`C`] *extends* [`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>\>] ? [`Option`](../type-aliases/Option.md)\<`A`\> : `never`
+[`C`] *extends* [`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>, `any`, `any`\>] ? [`Option`](../type-aliases/Option.md)\<`A`\> : `never`
 
 ## Example
 

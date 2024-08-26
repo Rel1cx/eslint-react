@@ -1,5 +1,5 @@
 import { isKeyLiteralLike, isThisExpression } from "@eslint-react/ast";
-import { isClassComponent } from "@eslint-react/core";
+import { isClassComponent, isThisSetState } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -10,17 +10,6 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-access-state-in-setstate";
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
-
-function isThisSetState(node: TSESTree.CallExpression) {
-  const { callee } = node;
-
-  return (
-    callee.type === AST_NODE_TYPES.MemberExpression
-    && isThisExpression(callee.object)
-    && callee.property.type === AST_NODE_TYPES.Identifier
-    && callee.property.name === "setState"
-  );
-}
 
 function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Option<string> {
   if (node.type === AST_NODE_TYPES.TSAsExpression) {
