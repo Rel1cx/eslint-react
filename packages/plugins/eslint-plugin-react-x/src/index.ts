@@ -113,3 +113,10 @@ export const DEFAULT_ESLINT_REACT_SETTINGS = {
   skipImportCheck: false,
   version: "detect",
 } as const satisfies ESLintReactSettings;
+
+declare module "@typescript-eslint/utils/ts-eslint" {
+  export interface SharedConfigurationSettings {
+    // eslint-disable-next-line no-restricted-syntax
+    "react-x"?: Partial<ESLintReactSettings>;
+  }
+}
