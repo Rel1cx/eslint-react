@@ -55,9 +55,9 @@
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.2.0",
-    "@typescript-eslint/types": "^8.2.0",
-    "@typescript-eslint/utils": "^8.2.0",
+    "@typescript-eslint/scope-manager": "^8.3.0",
+    "@typescript-eslint/types": "^8.3.0",
+    "@typescript-eslint/utils": "^8.3.0",
     "birecord": "^0.1.1",
     "ts-pattern": "^5.3.1"
   },
