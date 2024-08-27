@@ -5,7 +5,7 @@ import { MutRef, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { isMatching, match } from "ts-pattern";
+import { isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -31,40 +31,42 @@ export default createRule<[], MessageID>({
   create(context) {
     const isWithinChildrenToArrayRef = MutRef.make(false);
     function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
-      const initialScope = context.sourceCode.getScope(node);
-
-      if (
-        node.type === AST_NODE_TYPES.JSXElement
-        && !hasProp(node.openingElement.attributes, "key", initialScope)
-      ) {
-        return O.some({
-          messageId: "noMissingKey",
-          node,
-        });
+      switch (node.type) {
+        case AST_NODE_TYPES.JSXElement: {
+          const initialScope = context.sourceCode.getScope(node);
+          if (!hasProp(node.openingElement.attributes, "key", initialScope)) {
+            return O.some({
+              messageId: "noMissingKey",
+              node,
+            });
+          }
+          return O.none();
+        }
+        case AST_NODE_TYPES.JSXFragment: {
+          return O.some({
+            messageId: "noMissingKeyWithFragment",
+            node,
+          });
+        }
+        default:
+          return O.none();
       }
-      if (node.type === AST_NODE_TYPES.JSXFragment) {
-        return O.some({
-          messageId: "noMissingKeyWithFragment",
-          node,
-        });
-      }
-
-      return O.none();
     }
 
     function checkExpression(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
-      return match(node)
-        .with({ type: AST_NODE_TYPES.JSXElement }, checkIteratorElement)
-        .with({ type: AST_NODE_TYPES.JSXFragment }, checkIteratorElement)
-        .with({ type: AST_NODE_TYPES.ConditionalExpression }, (n) => {
-          if (!("consequent" in n)) return O.none();
-          return O.orElse(checkIteratorElement(n.consequent), () => checkIteratorElement(n.alternate));
-        })
-        .with({ type: AST_NODE_TYPES.LogicalExpression }, (n) => {
-          if (!("left" in n)) return O.none();
-          return O.orElse(checkIteratorElement(n.left), () => checkIteratorElement(n.right));
-        })
-        .otherwise(O.none);
+      switch (node.type) {
+        case AST_NODE_TYPES.JSXElement:
+        case AST_NODE_TYPES.JSXFragment:
+          return checkIteratorElement(node);
+        case AST_NODE_TYPES.ConditionalExpression:
+          if (!("consequent" in node)) return O.none();
+          return O.orElse(checkIteratorElement(node.consequent), () => checkIteratorElement(node.alternate));
+        case AST_NODE_TYPES.LogicalExpression:
+          if (!("left" in node)) return O.none();
+          return O.orElse(checkIteratorElement(node.left), () => checkIteratorElement(node.right));
+        default:
+          return O.none();
+      }
     }
 
     function checkBlockStatement(node: TSESTree.BlockStatement) {

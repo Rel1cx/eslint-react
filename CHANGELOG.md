@@ -2,11 +2,12 @@
 
 ### ✨ New
 
-- Add type declarations for `react-x` settings to the `@typescript-eslint/utils/ts-eslint` module via the `SharedConfigurationSettings` interface.
+- Added type declarations for `react-x` settings to the `@typescript-eslint/utils/ts-eslint` module via the `SharedConfigurationSettings` interface.
 
 ### 🪄 Improvements
 
-- Update `@typescript-eslint`'s packages to `^8.3.0`.
+- Improve the performance of the `no-missing-key` and `no-duplicate-key` rules.
+- Upgrade `@typescript-eslint`'s packages to `^8.3.0`.
 
 ## v1.12.1 (Thu 22 Aug 2024)
 

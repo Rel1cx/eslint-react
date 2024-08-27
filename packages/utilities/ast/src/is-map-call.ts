@@ -1,11 +1,10 @@
+import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import { isMatching, P } from "ts-pattern";
 
-export const isMapCallLoose = isMatching({
-  callee: {
-    type: AST_NODE_TYPES.MemberExpression,
-    property: {
-      name: P.union("map", P.string.endsWith("Map")),
-    },
-  },
-});
+export function isMapCallLoose(node: TSESTree.Node): node is TSESTree.CallExpression {
+  if (node.type !== AST_NODE_TYPES.CallExpression) return false;
+  if (node.callee.type !== AST_NODE_TYPES.MemberExpression) return false;
+  if (node.callee.property.type !== AST_NODE_TYPES.Identifier) return false;
+  const name = node.callee.property.name;
+  return name === "map" || name.endsWith("Map");
+}
