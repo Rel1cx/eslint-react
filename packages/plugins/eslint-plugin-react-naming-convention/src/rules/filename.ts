@@ -91,8 +91,10 @@ export default createRule<Options, MessageID>({
   create(context) {
     const options = context.options[0] ?? defaultOptions[0];
     const rule = isString(options) ? options : options.rule ?? "PascalCase";
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const excepts = isString(options) ? [] : options.excepts ?? [];
     const extensions = isObject(options) && "extensions" in options
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       ? options.extensions
       : defaultOptions[0].extensions;
 

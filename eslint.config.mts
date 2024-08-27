@@ -15,7 +15,7 @@ import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import unicornPlugin from "eslint-plugin-unicorn";
 import vitest from "eslint-plugin-vitest";
 import eslintPluginYml from "eslint-plugin-yml";
-import { isCI } from "std-env";
+// import { isCI } from "std-env";
 import tseslint from "typescript-eslint";
 import YamlParser from "yaml-eslint-parser";
 
@@ -111,10 +111,10 @@ const config: Config[] = [
   },
   // extends ...
   eslint.configs.recommended,
-  ...isCI
-    ? tseslint.configs.strictTypeChecked
-    : tseslint.configs.strict,
-  // ...tseslint.configs.strictTypeChecked,
+  // ...isCI
+  //   ? tseslint.configs.strictTypeChecked
+  //   : tseslint.configs.strict,
+  ...tseslint.configs.strictTypeChecked,
   regexpPlugin.configs["flat/recommended"],
   jsdocPlugin.configs["flat/recommended-typescript-error"],
   perfectionist.configs["recommended-natural"],
