@@ -68,7 +68,7 @@
     "bundle-require": "^5.0.0",
     "cspell": "^8.14.2",
     "dprint": "^0.47.2",
-    "effect": "^3.6.6",
+    "effect": "^3.6.7",
     "esbuild": "^0.23.1",
     "eslint": "^9.9.1",
     "eslint-config-flat-gitignore": "^0.1.8",

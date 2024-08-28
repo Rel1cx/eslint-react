@@ -21,16 +21,16 @@ importers:
         version: 2.27.7
       '@effect/platform':
         specifier: ^0.62.3
-        version: 0.62.3(@effect/schema@0.71.2(effect@3.6.6))(effect@3.6.6)
+        version: 0.62.3(@effect/schema@0.71.2(effect@3.6.7))(effect@3.6.7)
       '@effect/platform-bun':
         specifier: ^0.42.3
-        version: 0.42.3(@effect/platform@0.62.3(@effect/schema@0.71.2(effect@3.6.6))(effect@3.6.6))(effect@3.6.6)
+        version: 0.42.3(@effect/platform@0.62.3(@effect/schema@0.71.2(effect@3.6.7))(effect@3.6.7))(effect@3.6.7)
       '@effect/platform-node':
         specifier: ^0.57.3
-        version: 0.57.3(@effect/platform@0.62.3(@effect/schema@0.71.2(effect@3.6.6))(effect@3.6.6))(effect@3.6.6)
+        version: 0.57.3(@effect/platform@0.62.3(@effect/schema@0.71.2(effect@3.6.7))(effect@3.6.7))(effect@3.6.7)
       '@effect/schema':
         specifier: ^0.71.2
-        version: 0.71.2(effect@3.6.6)
+        version: 0.71.2(effect@3.6.7)
       '@eslint/js':
         specifier: ^10.0.0
         version: 10.0.0
@@ -83,8 +83,8 @@ importers:
         specifier: ^0.47.2
         version: 0.47.2
       effect:
-        specifier: ^3.6.6
-        version: 3.6.6
+        specifier: ^3.6.7
+        version: 3.6.7
       esbuild:
         specifier: ^0.23.1
         version: 0.23.1
@@ -905,8 +905,8 @@ importers:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.41)
       effect:
-        specifier: ^3.6.6
-        version: 3.6.6
+        specifier: ^3.6.7
+        version: 3.6.7
       eslint:
         specifier: ^9.9.1
         version: 9.9.1(jiti@1.21.6)
@@ -1565,6 +1565,7 @@ packages:
   '@eslint/js@10.0.0':
     resolution: {integrity: sha512-J2VKrn6YUBegZFzRQVOVA8jk7VViV/MXhQUvXuCUK1I2RGGT2E+bmNGOsgtdO9Wo25Kd3hfZFuCm8LcfsUFV7g==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    deprecated: This version should not be used.
 
   '@eslint/js@9.9.1':
     resolution: {integrity: sha512-xIDQRsfg5hNBqHz04H1R3scSVwmI+KUbqjsQKHKQ1DAUSaUjYPReZZmS/5PNiKu1fUvzDd6H7DEDKACSEhu+TQ==}
@@ -3283,6 +3284,9 @@ packages:
   effect@3.6.6:
     resolution: {integrity: sha512-j5wG72rPfoFdZluHc4M6/Zx0KvcZFd0Ky2wQ6xnW4eWlRDGbnRc13S/BSC+gIKG4kJGYYFLFiigG/2V8Ak+BAw==}
 
+  effect@3.6.7:
+    resolution: {integrity: sha512-txHuQLxiwOHw6SZfZeWVH6PySULva3dsaaA+BgrE61wj06nTe50rh471FYLPqBYKSE0y/JaOuC2FSDfsIo0Kww==}
+
   electron-to-chromium@1.5.13:
     resolution: {integrity: sha512-lbBcvtIJ4J6sS4tb5TLp1b4LyfCdMkwStzXPyAgVgTRAsep4bvrAGaBOP7ZJtQMNJpSQ9SqG4brWOroNaQtm7Q==}
 
@@ -3798,6 +3802,7 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -3974,6 +3979,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -6847,24 +6853,24 @@ snapshots:
   '@dprint/win32-x64@0.47.2':
     optional: true
 
-  '@effect/platform-bun@0.42.3(@effect/platform@0.62.3(@effect/schema@0.71.2(effect@3.6.6))(effect@3.6.6))(effect@3.6.6)':
+  '@effect/platform-bun@0.42.3(@effect/platform@0.62.3(@effect/schema@0.71.2(effect@3.6.7))(effect@3.6.7))(effect@3.6.7)':
     dependencies:
-      '@effect/platform': 0.62.3(@effect/schema@0.71.2(effect@3.6.6))(effect@3.6.6)
-      '@effect/platform-node-shared': 0.12.3(@effect/platform@0.62.3(@effect/schema@0.71.2(effect@3.6.6))(effect@3.6.6))(effect@3.6.6)
-      effect: 3.6.6
+      '@effect/platform': 0.62.3(@effect/schema@0.71.2(effect@3.6.7))(effect@3.6.7)
+      '@effect/platform-node-shared': 0.12.3(@effect/platform@0.62.3(@effect/schema@0.71.2(effect@3.6.7))(effect@3.6.7))(effect@3.6.7)
+      effect: 3.6.7
 
-  '@effect/platform-node-shared@0.12.3(@effect/platform@0.62.3(@effect/schema@0.71.2(effect@3.6.6))(effect@3.6.6))(effect@3.6.6)':
+  '@effect/platform-node-shared@0.12.3(@effect/platform@0.62.3(@effect/schema@0.71.2(effect@3.6.7))(effect@3.6.7))(effect@3.6.7)':
     dependencies:
-      '@effect/platform': 0.62.3(@effect/schema@0.71.2(effect@3.6.6))(effect@3.6.6)
+      '@effect/platform': 0.62.3(@effect/schema@0.71.2(effect@3.6.7))(effect@3.6.7)
       '@parcel/watcher': 2.4.1
-      effect: 3.6.6
+      effect: 3.6.7
       multipasta: 0.2.5
 
-  '@effect/platform-node@0.57.3(@effect/platform@0.62.3(@effect/schema@0.71.2(effect@3.6.6))(effect@3.6.6))(effect@3.6.6)':
+  '@effect/platform-node@0.57.3(@effect/platform@0.62.3(@effect/schema@0.71.2(effect@3.6.7))(effect@3.6.7))(effect@3.6.7)':
     dependencies:
-      '@effect/platform': 0.62.3(@effect/schema@0.71.2(effect@3.6.6))(effect@3.6.6)
-      '@effect/platform-node-shared': 0.12.3(@effect/platform@0.62.3(@effect/schema@0.71.2(effect@3.6.6))(effect@3.6.6))(effect@3.6.6)
-      effect: 3.6.6
+      '@effect/platform': 0.62.3(@effect/schema@0.71.2(effect@3.6.7))(effect@3.6.7)
+      '@effect/platform-node-shared': 0.12.3(@effect/platform@0.62.3(@effect/schema@0.71.2(effect@3.6.7))(effect@3.6.7))(effect@3.6.7)
+      effect: 3.6.7
       mime: 3.0.0
       undici: 6.19.8
       ws: 8.18.0
@@ -6872,16 +6878,16 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform@0.62.3(@effect/schema@0.71.2(effect@3.6.6))(effect@3.6.6)':
+  '@effect/platform@0.62.3(@effect/schema@0.71.2(effect@3.6.7))(effect@3.6.7)':
     dependencies:
-      '@effect/schema': 0.71.2(effect@3.6.6)
-      effect: 3.6.6
+      '@effect/schema': 0.71.2(effect@3.6.7)
+      effect: 3.6.7
       find-my-way-ts: 0.1.5
       multipasta: 0.2.5
 
-  '@effect/schema@0.71.2(effect@3.6.6)':
+  '@effect/schema@0.71.2(effect@3.6.7)':
     dependencies:
-      effect: 3.6.6
+      effect: 3.6.7
       fast-check: 3.22.0
 
   '@emnapi/core@1.2.0':
@@ -8865,6 +8871,8 @@ snapshots:
   effect@3.3.2: {}
 
   effect@3.6.6: {}
+
+  effect@3.6.7: {}
 
   electron-to-chromium@1.5.13: {}
 
