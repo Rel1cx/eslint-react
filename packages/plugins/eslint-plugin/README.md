@@ -9,8 +9,7 @@
 A series of composable ESLint plugins for libraries and frameworks that use React as a UI runtime.
 
 > [!IMPORTANT]\
-> `eslint-react` is not a fork of `eslint-plugin-react` and meanwhile `eslint-plugin-react` is not upstream of `eslint-react`.\
-> Therefore, the rules and features you see in `eslint-plugin-react` may not necessarily appear in `eslint-react`.
+> `eslint-react` is not a fork of `eslint-plugin-react` and meanwhile `eslint-plugin-react` is not upstream of `eslint-react`.
 
 ## Features
 
