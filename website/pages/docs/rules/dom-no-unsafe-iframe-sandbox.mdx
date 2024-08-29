@@ -31,18 +31,6 @@ function Example() {
 }
 ```
 
-```tsx
-import React from "react";
-
-function Example() {
-  return React.createElement("iframe", {
-    src: "https://example.com",
-    // @warn: Unsafe sandbox attribute
-    sandbox: "allow-scripts allow-same-origin",
-  });
-}
-```
-
 ### Passing
 
 ```tsx
@@ -50,17 +38,6 @@ import React from "react";
 
 function Example() {
   return <iframe src="https://example.com" sandbox="allow-popups" />;
-}
-```
-
-```tsx
-import React from "react";
-
-function Example() {
-  return React.createElement("iframe", {
-    src: "https://example.com",
-    sandbox: "allow-popups",
-  });
 }
 ```
 
