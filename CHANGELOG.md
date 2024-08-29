@@ -1,3 +1,13 @@
+## v1.12.3 (Draft)
+
+### ✨ New
+
+- Added support for detecting event listeners removed by abort signal in rule `web-api/no-leaked-event-listener`.
+
+### 🪄 Improvements
+
+- Allow component names to use uppercase letters when the name is less than 4 characters. e.g. `UI`, `CSS`, `SVG`.
+
 ## v1.12.2 (Tue 27 Aug 2024)
 
 ### ✨ New

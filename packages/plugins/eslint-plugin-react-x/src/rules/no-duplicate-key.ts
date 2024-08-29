@@ -1,7 +1,8 @@
 import { getNestedReturnStatements, is, isMapCallLoose, isOneOf } from "@eslint-react/ast";
-import { isChildrenToArrayCall, isReactHookCallWithNameLoose } from "@eslint-react/core";
+import { isChildrenToArrayCall } from "@eslint-react/core";
 import { findPropInAttributes } from "@eslint-react/jsx";
 import { F, MutRef, O } from "@eslint-react/tools";
+import { isNodeValueEqual } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -29,10 +30,7 @@ export default createRule<[], MessageID>({
   create(context) {
     const isWithinChildrenToArrayRef = MutRef.make(false);
     function isKeyEqual(a: TSESTree.Node, b: TSESTree.Node) {
-      if (a.type === AST_NODE_TYPES.CallExpression && b.type === AST_NODE_TYPES.CallExpression) {
-        return !(isReactHookCallWithNameLoose(a)("useId") && isReactHookCallWithNameLoose(b)("useId"));
-      }
-      return context.sourceCode.getText(a) === context.sourceCode.getText(b);
+      return isNodeValueEqual(a, b, [context.sourceCode.getScope(a), context.sourceCode.getScope(b)]);
     }
     function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
       if (node.type !== AST_NODE_TYPES.JSXElement) return O.none();
