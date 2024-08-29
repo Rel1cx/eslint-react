@@ -4,6 +4,11 @@
 
 - Added support for detecting event listeners removed by abort signal in rule `web-api/no-leaked-event-listener`.
 
+### 🐞 Fixes
+
+- Fixed `no-duplicate-key` rule false positives when the key is an variable.
+- Fixed `web-api/no-leaked-set-timeout` and `web-api/no-leaked-set-interval` false positives when a timer is assigned to a variable declared by `let` but not initialized.
+
 ### 🪄 Improvements
 
 - Allow component names to use uppercase letters when the name is less than 4 characters. e.g. `UI`, `CSS`, `SVG`.
