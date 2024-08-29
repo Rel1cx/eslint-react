@@ -4,10 +4,6 @@ Hi! We, the maintainers, are really excited that you are interested in contribut
 
 Before submitting your contribution though, please make sure to take a moment and read through the [Code of Conduct](CODE_OF_CONDUCT.md), as well as the appropriate section for the contribution you intend to make:
 
-Before adding your code to this project, please make sure you are passionate about what this project is doing and agree with the [design philosophy](../README.md#Philosophy) of this project.
-
-ESLint React does not accept contributions of a purely utilitarian nature.
-
 - [ESLint React Contributing Guide](#eslint-react-contributing-guide)
   - [Issue Reporting Guidelines](#issue-reporting-guidelines)
   - [Pull Request Guidelines](#pull-request-guidelines)
@@ -17,6 +13,8 @@ ESLint React does not accept contributions of a purely utilitarian nature.
     - [Developing Rules](#developing-rules)
     - [Developing Core and Related Components](#developing-core-and-related-components)
       - [Building the documentation locally](#building-the-documentation-locally)
+
+First of all, `eslint-react` is not a fork of `eslint-plugin-react`, and `eslint-plugin-react` is not upstream of `eslint-react`. Therefore, the rules and features you see in `eslint-plugin-react` may not necessarily appear in `eslint-react`. This is normal.
 
 ## Issue Reporting Guidelines
 

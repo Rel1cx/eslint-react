@@ -8,6 +8,10 @@
 
 A series of composable ESLint plugins for libraries and frameworks that use React as a UI runtime.
 
+> [!IMPORTANT]\
+> `eslint-react` is not a fork of `eslint-plugin-react`, nor is `eslint-plugin-react` upstream of `eslint-react`.\
+> Therefore, the rules and features you see in `eslint-plugin-react` may not necessarily appear in `eslint-react`.
+
 ## Features
 
 - **Universal** rules for libraries and frameworks that use React as a UI runtime.
@@ -212,7 +216,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [eslint-plugin-filenames-simple](https://github.com/epaew/eslint-plugin-filenames-simple)
 - [rome/tools](https://github.com/rome/tools)
 - [rust-clippy](https://github.com/rust-lang/rust-clippy)
-
-## Prior art
-
-- [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react)
