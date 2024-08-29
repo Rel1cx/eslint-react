@@ -11,7 +11,7 @@ export type EventListenerEntry = Data.TaggedEnum<{
       callee: TSESTree.Node;
       capture: O.Option<boolean>;
       listener: TSESTree.Node;
-      signal: O.Option<unknown>;
+      signal: O.Option<TSESTree.Node>;
     } & ERSemanticEntry
   >;
   RemoveEventListener: Pretty<

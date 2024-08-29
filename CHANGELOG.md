@@ -1,3 +1,18 @@
+## v1.12.3 (Thu 29 Aug 2024)
+
+### ✨ New
+
+- Added support for detecting event listeners removed by abort signal in rule `web-api/no-leaked-event-listener`.
+
+### 🐞 Fixes
+
+- Fixed `no-duplicate-key` rule false positives when the key is an variable.
+- Fixed `web-api/no-leaked-set-timeout` and `web-api/no-leaked-set-interval` false positives when a timer is assigned to a variable declared by `let` but not initialized.
+
+### 🪄 Improvements
+
+- Allow upper case letters in the rule `naming-convention/component-name` when the component name is less than 4 characters, e.g. `UI`, `CSS`, `SVG`.
+
 ## v1.12.2 (Tue 27 Aug 2024)
 
 ### ✨ New

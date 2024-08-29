@@ -80,21 +80,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    {
-      code: /* tsx */ `
-        const App = () => {
-            return [1, 2, 3].map((item) => <div key={Date.now()}>{item}</div>)
-        };
-      `,
-      errors: [
-        {
-          messageId: "noDuplicateKey",
-          data: {
-            value: "{Date.now()}",
-          },
-        },
-      ],
-    },
   ],
   valid: [
     ...allValid,
@@ -110,6 +95,11 @@ ruleTester.run(RULE_NAME, rule, {
                   <div key="2">2</div>,
                   <div key="3">3</div>,
                ]
+      };
+    `,
+    /* tsx */ `
+      const App = () => {
+          return [1, 2, 3].map((item) => { const key = item; return <div key={key}>{item}</div> })
       };
     `,
   ],

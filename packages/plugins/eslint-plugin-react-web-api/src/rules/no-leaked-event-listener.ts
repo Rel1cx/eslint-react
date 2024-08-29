@@ -1,16 +1,16 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { isFunction, isNodeEqual } from "@eslint-react/ast";
+import { is, isFunction, isNodeEqual } from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { getPhaseKindOfFunction, isInversePhase, PHASE_RELEVANCE } from "@eslint-react/core";
 import { findPropInProperties } from "@eslint-react/jsx";
-import { Data, F, isBoolean, isObject, O } from "@eslint-react/tools";
-import { isNodeValueEqual } from "@eslint-react/var";
+import { Data, F, isBoolean, O } from "@eslint-react/tools";
+import { findVariable, getVariableNode, isNodeValueEqual } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { isMatching, match, P } from "ts-pattern";
+import { isMatching, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 import { EventListenerEntry } from "./../models";
@@ -42,16 +42,20 @@ export type REntry = EventListenerEntry & { _tag: "RemoveEventListener" };
 
 // #region Helpers
 
-const defaultOptions = Data.struct({ capture: O.some(false), once: O.none(), signal: O.none() });
+const defaultOptions = Data.struct({
+  capture: O.some<boolean>(false),
+  once: O.some<boolean>(false),
+  signal: O.none<TSESTree.Node>(),
+});
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
   switch (true) {
     case node.callee.type === AST_NODE_TYPES.Identifier
-      && isMatching(P.union("addEventListener", "removeEventListener"), node.callee.name):
+      && isMatching(P.union("addEventListener", "removeEventListener", "abort"), node.callee.name):
       return node.callee.name;
     case node.callee.type === AST_NODE_TYPES.MemberExpression
       && node.callee.property.type === AST_NODE_TYPES.Identifier
-      && isMatching(P.union("addEventListener", "removeEventListener"), node.callee.property.name):
+      && isMatching(P.union("addEventListener", "removeEventListener", "abort"), node.callee.property.name):
       return node.callee.property.name;
     default:
       return "other";
@@ -62,43 +66,51 @@ function getFunctionKind(node: TSESTreeFunction): FunctionKind {
   return O.getOrElse(getPhaseKindOfFunction(node), F.constant("other"));
 }
 
-function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope) {
+function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope): typeof defaultOptions {
   const findProp = (properties: TSESTree.ObjectExpression["properties"], propName: string) => {
     return findPropInProperties(properties, initialScope)(propName);
   };
   const getPropValue = (prop: TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement) => {
     if (prop.type !== AST_NODE_TYPES.Property) return O.none();
     const { value } = prop;
-    return match(value)
-      .with({ type: AST_NODE_TYPES.Literal }, v => O.some(v.value))
-      .otherwise(() => O.fromNullable(getStaticValue(value, initialScope)?.value));
+    switch (value.type) {
+      case AST_NODE_TYPES.Literal: {
+        return O.some(value.value);
+      }
+      default: {
+        return O.fromNullable(getStaticValue(value, initialScope)?.value);
+      }
+    }
   };
-  switch (node.type) {
-    case AST_NODE_TYPES.Literal: {
-      return Data.struct({ ...defaultOptions, capture: O.some(!!node.value) });
-    }
-    case AST_NODE_TYPES.ObjectExpression: {
-      const pCapture = findProp(node.properties, "capture");
-      const vCapture = O.flatMap(pCapture, getPropValue).pipe(O.filter(isBoolean));
-      const pSignal = findProp(node.properties, "signal");
-      const vSignal = O.flatMap(pSignal, getPropValue);
-      return Data.struct({ capture: vCapture, signal: vSignal });
-    }
-    case AST_NODE_TYPES.Identifier:
-    case AST_NODE_TYPES.MemberExpression: {
-      const options = getStaticValue(node, initialScope);
-      if (!isObject(options?.value)) return defaultOptions;
-      if (!isMatching({ capture: P.optional(P.any), signal: P.optional(P.any) }, options.value)) {
+  function getOpts(node: TSESTree.Node): typeof defaultOptions {
+    switch (node.type) {
+      case AST_NODE_TYPES.Literal: {
+        return Data.struct({ ...defaultOptions, capture: O.some(!!node.value) });
+      }
+      case AST_NODE_TYPES.ObjectExpression: {
+        const pOnce = findProp(node.properties, "once");
+        const vOnce = O.flatMap(pOnce, getPropValue).pipe(O.filter(isBoolean));
+        const pCapture = findProp(node.properties, "capture");
+        const vCapture = O.flatMap(pCapture, getPropValue).pipe(O.filter(isBoolean));
+        const pSignal = findProp(node.properties, "signal");
+        const vSignal = O.flatMapNullable(pSignal, prop => prop.type === AST_NODE_TYPES.Property ? prop.value : null);
+        return Data.struct({ capture: vCapture, once: vOnce, signal: vSignal });
+      }
+      case AST_NODE_TYPES.Identifier: {
+        return F.pipe(
+          findVariable(node, initialScope),
+          O.flatMap(getVariableNode(0)),
+          O.filter(is(AST_NODE_TYPES.ObjectExpression)),
+          O.map(getOpts),
+          O.getOrElse(() => defaultOptions),
+        );
+      }
+      default: {
         return defaultOptions;
       }
-      const capture = O.fromNullable(options.value.capture).pipe(O.filter(isBoolean));
-      const signal = O.fromNullable(options.value.signal);
-      return Data.struct({ capture, signal });
-    }
-    default: {
-      return defaultOptions;
     }
   }
+  return getOpts(node);
 }
 
 // #endregion
@@ -130,19 +142,26 @@ export default createRule<[], MessageID>({
     const fStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
     const aEntries: AEntry[] = [];
     const rEntries: REntry[] = [];
+    const abortedSignals: TSESTree.Expression[] = [];
     function checkInlineFunction(
       node: TSESTree.CallExpression,
       callKind: EventMethodKind,
+      options: typeof defaultOptions,
     ): O.Option<ReportDescriptor<MessageID>> {
       const [_, listener] = node.arguments;
       if (!isFunction(listener)) return O.none();
+      if (O.isSome(options.signal)) return O.none();
+      // if (O.exists(options.once, F.identity)) return O.none();
       return O.some({
         messageId: "noLeakedEventListenerOfInlineFunction",
         node: listener,
         data: { eventMethodKind: callKind },
       });
     }
-    function isSameEventTarget(a: TSESTree.Node, b: TSESTree.Node) {
+    const isSameObject: {
+      (a: TSESTree.Node): (b: TSESTree.Node) => boolean;
+      (a: TSESTree.Node, b: TSESTree.Node): boolean;
+    } = F.dual(2, (a: TSESTree.Node, b: TSESTree.Node) => {
       switch (true) {
         case a.type === AST_NODE_TYPES.MemberExpression
           && b.type === AST_NODE_TYPES.MemberExpression:
@@ -151,21 +170,22 @@ export default createRule<[], MessageID>({
         default:
           return false;
       }
-    }
-    function isInverseEntry(aEntry: AEntry) {
-      return (rEntry: REntry) => {
-        const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = aEntry;
-        const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = rEntry;
-        if (!isInversePhase(aPhase, rPhase)) return false;
-        return isSameEventTarget(aCallee, rCallee)
-          && isNodeEqual(aListener, rListener)
-          && isNodeValueEqual(aType, rType, [
-            context.sourceCode.getScope(aType),
-            context.sourceCode.getScope(rType),
-          ])
-          && O.getOrElse(aCapture, F.constFalse) === O.getOrElse(rCapture, F.constFalse);
-      };
-    }
+    });
+    const isInverseEntry: {
+      (aEntry: AEntry): (rEntry: REntry) => boolean;
+      (aEntry: AEntry, rEntry: REntry): boolean;
+    } = F.dual(2, (aEntry: AEntry, rEntry: REntry) => {
+      const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = aEntry;
+      const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = rEntry;
+      if (!isInversePhase(aPhase, rPhase)) return false;
+      return isSameObject(aCallee, rCallee)
+        && isNodeEqual(aListener, rListener)
+        && isNodeValueEqual(aType, rType, [
+          context.sourceCode.getScope(aType),
+          context.sourceCode.getScope(rType),
+        ])
+        && O.getOrElse(aCapture, F.constFalse) === O.getOrElse(rCapture, F.constFalse);
+    });
     return {
       [":function"](node: TSESTreeFunction) {
         const functionKind = getFunctionKind(node);
@@ -178,13 +198,13 @@ export default createRule<[], MessageID>({
         const callKind = getCallKind(node);
         switch (callKind) {
           case "addEventListener": {
-            O.map(checkInlineFunction(node, callKind), context.report);
             const [type, listener, options] = node.arguments;
             const [fNode, fKind] = fStack.at(-1) ?? [];
             if (!type || !listener || !fNode || !fKind) return;
             if (!PHASE_RELEVANCE.has(fKind)) break;
             const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
             const callee = node.callee;
+            O.map(checkInlineFunction(node, callKind, opts), context.report);
             aEntries.push(EventListenerEntry.AddEventListener({
               ...opts,
               type,
@@ -196,13 +216,13 @@ export default createRule<[], MessageID>({
             break;
           }
           case "removeEventListener": {
-            O.map(checkInlineFunction(node, callKind), context.report);
             const [type, listener, options] = node.arguments;
             const [fNode, fKind] = fStack.at(-1) ?? [];
             if (!type || !listener || !fNode || !fKind) return;
             if (!PHASE_RELEVANCE.has(fKind)) break;
             const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
             const callee = node.callee;
+            O.map(checkInlineFunction(node, callKind, opts), context.report);
             rEntries.push(EventListenerEntry.RemoveEventListener({
               ...opts,
               type,
@@ -213,10 +233,15 @@ export default createRule<[], MessageID>({
             }));
             break;
           }
+          case "abort": {
+            abortedSignals.push(node.callee);
+            break;
+          }
         }
       },
       ["Program:exit"]() {
         for (const aEntry of aEntries) {
+          if (O.exists(aEntry.signal, signal => abortedSignals.some(isSameObject(signal)))) continue;
           if (rEntries.some(isInverseEntry(aEntry))) continue;
           switch (aEntry.phase) {
             case "setup":

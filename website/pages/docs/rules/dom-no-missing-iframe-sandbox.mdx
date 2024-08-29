@@ -28,16 +28,6 @@ function Example() {
 }
 ```
 
-```tsx {4}
-import React from "react";
-
-function Example() {
-  return React.createElement("iframe", { src: "https://example.com" });
-  //     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  //     - Missing 'sandbox' attribute on iframe component.
-}
-```
-
 ### Passing
 
 ```tsx
@@ -45,17 +35,6 @@ import React from "react";
 
 function Example() {
   return <iframe src="https://example.com" sandbox="allow-popups" />;
-}
-```
-
-```tsx
-import React from "react";
-
-function Example() {
-  return React.createElement("iframe", {
-    src: "https://example.com",
-    sandbox: "allow-popups",
-  });
 }
 ```
 

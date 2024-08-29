@@ -57,6 +57,14 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ rule: "PascalCase" }],
     },
     {
+      code: "<UI />",
+      options: [{ rule: "PascalCase" }],
+    },
+    {
+      code: "<CSS />",
+      options: [{ rule: "PascalCase" }],
+    },
+    {
       code: "<Typography.P />",
       options: [{ rule: "PascalCase" }],
     },

@@ -94,7 +94,8 @@ function validate(name: string, options: ReturnType<typeof normalizeOptions>) {
   return match(options.rule)
     .with("CONSTANT_CASE", () => RE_CONSTANT_CASE.test(normalized))
     .with("PascalCase", () => {
-      if ([...normalized].length > 1 && /^[A-Z]+$/u.test(normalized)) return options.allowAllCaps;
+      // Allow all caps if the string is shorter than 4 characters. e.g. UI, CSS, SVG, etc.
+      if ([...normalized].length > 3 && /^[A-Z]+$/u.test(normalized)) return options.allowAllCaps;
       return RE_PASCAL_CASE.test(normalized);
     })
     .otherwise(F.constFalse);

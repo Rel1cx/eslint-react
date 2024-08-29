@@ -164,5 +164,56 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
+    /* tsx */ `
+      import { useEffect, useRef } from "react";
+
+      function Example() {
+        useEffect(() => {
+          let timeoutId: number | null = null;
+          if (Math.random() > 0.5) {
+            timeoutId = setTimeout(() => {}, 1000);
+          }
+          return () => {
+            timeoutId && clearTimeout(timeoutId);
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      import { useEffect, useRef } from "react";
+
+      function Example() {
+        useEffect(() => {
+          let timeoutId1: number | null = null;
+          let timeoutId2: number | null = null;
+          if (Math.random() > 0.5) {
+            timeoutId1 = setTimeout(() => {}, 1000);
+            timeoutId2 = setTimeout(() => {}, 1000);
+          }
+          return () => {
+            timeoutId1 && clearTimeout(timeoutId1);
+            timeoutId2 && clearTimeout(timeoutId2);
+          };
+        }, []);
+      }
+    `,
+    /* tsx */ `
+      import { useEffect, useRef } from "react";
+
+      function Example() {
+        useEffect(() => {
+          let timeoutId1: number | null;
+          let timeoutId2: number | null;
+          if (Math.random() > 0.5) {
+            timeoutId1 = setTimeout(() => {}, 1000);
+            timeoutId2 = setTimeout(() => {}, 1000);
+          }
+          return () => {
+            timeoutId1 && clearTimeout(timeoutId1);
+            timeoutId2 && clearTimeout(timeoutId2);
+          };
+        }, []);
+      }
+    `,
   ],
 });

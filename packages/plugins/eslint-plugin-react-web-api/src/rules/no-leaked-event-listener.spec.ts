@@ -148,6 +148,24 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `
         function Example() {
           useEffect(() => {
+            const ab = new AbortController();
+            window.addEventListener("resize", () => {}, { signal: ab.signal });
+            return () => {
+              // ab.abort();
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        function Example() {
+          useEffect(() => {
             const handleResize = () => {};
             window.addEventListener("resize", handleResize, false);
             return () => {
@@ -355,6 +373,50 @@ ruleTester.run(RULE_NAME, rule, {
             window.addEventListener("resize", handleResize, { capture: options.capture });
             return () => {
               window.removeEventListener("resize", handleResize);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        const abortController = new AbortController();
+        function Example() {
+          const rHandleResize = useRef(() => {});
+          useEffect(() => {
+            window.addEventListener("focus", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController.signal });
+            window.addEventListener("resize", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController.signal });
+            return () => {
+              // abortController.abort();
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        const abortController1 = new AbortController();
+        const abortController2 = new AbortController();
+        function Example() {
+          const rHandleResize = useRef(() => {});
+          useEffect(() => {
+            window.addEventListener("focus", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController1.signal });
+            window.addEventListener("resize", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController2.signal });
+            return () => {
+              abortController1.abort();
             };
           }, []);
         }
@@ -678,19 +740,18 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    // TODO: Add support for detecting event listeners removed by abort signal.
-    // /* tsx */ `
-    //   const abortController = new AbortController();
-    //   function Example() {
-    //     const rHandleResize = useRef(() => {});
-    //     useEffect(() => {
-    //       window.addEventListener("focus", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController.signal });
-    //       window.addEventListener("resize", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController.signal });
-    //       return () => {
-    //         abortController.abort();
-    //       };
-    //     }, []);
-    //   }
-    // `,
+    /* tsx */ `
+      const abortController = new AbortController();
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          window.addEventListener("focus", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController.signal });
+          window.addEventListener("resize", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController.signal });
+          return () => {
+            abortController.abort();
+          };
+        }, []);
+      }
+    `,
   ],
 });
