@@ -146,9 +146,12 @@ export default createRule<[], MessageID>({
     function checkInlineFunction(
       node: TSESTree.CallExpression,
       callKind: EventMethodKind,
+      options: typeof defaultOptions,
     ): O.Option<ReportDescriptor<MessageID>> {
       const [_, listener] = node.arguments;
       if (!isFunction(listener)) return O.none();
+      if (O.isSome(options.signal)) return O.none();
+      // if (O.exists(options.once, F.identity)) return O.none();
       return O.some({
         messageId: "noLeakedEventListenerOfInlineFunction",
         node: listener,
@@ -195,13 +198,13 @@ export default createRule<[], MessageID>({
         const callKind = getCallKind(node);
         switch (callKind) {
           case "addEventListener": {
-            O.map(checkInlineFunction(node, callKind), context.report);
             const [type, listener, options] = node.arguments;
             const [fNode, fKind] = fStack.at(-1) ?? [];
             if (!type || !listener || !fNode || !fKind) return;
             if (!PHASE_RELEVANCE.has(fKind)) break;
             const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
             const callee = node.callee;
+            O.map(checkInlineFunction(node, callKind, opts), context.report);
             aEntries.push(EventListenerEntry.AddEventListener({
               ...opts,
               type,
@@ -213,13 +216,13 @@ export default createRule<[], MessageID>({
             break;
           }
           case "removeEventListener": {
-            O.map(checkInlineFunction(node, callKind), context.report);
             const [type, listener, options] = node.arguments;
             const [fNode, fKind] = fStack.at(-1) ?? [];
             if (!type || !listener || !fNode || !fKind) return;
             if (!PHASE_RELEVANCE.has(fKind)) break;
             const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
             const callee = node.callee;
+            O.map(checkInlineFunction(node, callKind, opts), context.report);
             rEntries.push(EventListenerEntry.RemoveEventListener({
               ...opts,
               type,

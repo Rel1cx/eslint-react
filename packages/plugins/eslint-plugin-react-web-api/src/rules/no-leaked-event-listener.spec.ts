@@ -148,6 +148,24 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `
         function Example() {
           useEffect(() => {
+            const ab = new AbortController();
+            window.addEventListener("resize", () => {}, { signal: ab.signal });
+            return () => {
+              // ab.abort();
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        function Example() {
+          useEffect(() => {
             const handleResize = () => {};
             window.addEventListener("resize", handleResize, false);
             return () => {
