@@ -11,7 +11,7 @@
 
 ### 🪄 Improvements
 
-- Allow component names to use uppercase letters when the name is less than 4 characters. e.g. `UI`, `CSS`, `SVG`.
+- Allow upper case letters in the rule `naming-convention/component-name` when the component name is less than 4 characters, e.g. `UI`, `CSS`, `SVG`.
 
 ## v1.12.2 (Tue 27 Aug 2024)
 
