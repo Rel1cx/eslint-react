@@ -138,30 +138,37 @@
 - `eslint-plugin-react-naming-convention` - Optional naming convention rules (can be replaced with other plugins depending on the project).
 - ... (Free to combine with other plugins from the community).
 
-### Rules in `eslint-plugin-react-dom-a11y` (port [open-wc's a11y rules](https://open-wc.org/docs/linting/eslint-plugin-lit-a11y/overview/#supported-rules))
+### Rules in `eslint-plugin-react-dom-a11y` (port [Svelte's Accessibility warnings](https://svelte.dev/docs/accessibility-warnings))
 
-| Rule                                 | Description                                                                                                                                                                                |
-| :----------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `alt-text`                           | Enforce that all elements that require alternative text have meaningful information to relay back to the end user.                                                                         |
-| `anchor-has-content`                 | Enforce that anchors have content and that the content is accessible to screen readers.                                                                                                    |
-| `anchor-is-valid`                    | Performs validity check on anchor hrefs. Warns when anchors are used as buttons.                                                                                                           |
-| `aria-activedescendant-has-tabindex` | Enforce that an element with `aria-activedescendant` has a `tabindex`.                                                                                                                     |
-| `aria-attr-valid-value`              | ARIA state and property values must be valid.                                                                                                                                              |
-| `aria-attrs`                         | Elements cannot use an invalid ARIA attribute. This will fail if it finds an aria-* property that is not listed in [WAI-ARIA States and Properties spec](https://www.w3.org/TR/wai-aria/). |
-| `aria-role`                          | Elements with ARIA roles must use a valid, non-abstract ARIA role. A reference to role definitions can be found at [WAI-ARIA](https://www.w3.org/TR/wai-aria/#role_definitions) site.      |
-| `aria-unsupported-elements`          | Enforce that elements that do not support ARIA roles, states, and properties do not have those attributes.                                                                                 |
-| `autocomplete-valid`                 | Ensure the autocomplete attribute is correct and suitable for the form field it is used with.                                                                                              |
-| `click-events-have-key-events`       | Enforce onClick is accompanied by at least one of the following: onKeyUp, onKeyDown, onKeyPress.                                                                                           |
-| `heading-has-content`                | Enforce that heading elements (h1, h2, etc.) have content and that the content is accessible to screen readers.                                                                            |
-| `iframe-title`                       | `<iframe>` elements must have a unique title property to indicate its content to the user.                                                                                                 |
-| `img-redundant-alt`                  | Enforce img alt attribute does not contain the words image, picture, or photo.                                                                                                             |
-| `mouse-events-have-key-events`       | Enforce onMouseover/onMouseout are accompanied by onFocus/onBlur.                                                                                                                          |
-| `no-access-key`                      | Enforce no accesskey attribute on element.                                                                                                                                                 |
-| `no-autofocus`                       | Enforce that autofocus attribute is not used on elements.                                                                                                                                  |
-| `no-distracting-elements`            | Enforces that no distracting `<marquee>` or `<blink>` elements are used.                                                                                                                   |
-| `no-redundant-role`                  | Enforce explicit role property is not the same as implicit/default role property on element.                                                                                               |
-| `role-has-required-aria-attrs`       | Enforce that elements with ARIA roles must have all required attributes for that role.                                                                                                     |
-| `role-supports-aria-attr`            | Enforce that elements with a defined role contain only supported ARIA attributes for that role.                                                                                            |
-| `scope`                              | Enforce scope attribute is only used on `<th>` elements.                                                                                                                                   |
-| `tabindex-no-positive`               | Enforce tabIndex value is not greater than zero.                                                                                                                                           |
-| `valid-lang`                         | Enforce the lang attribute on the html element. The lang attribute will only be populated with a value that's [BCP 47](https://www.ietf.org/rfc/bcp/bcp47.txt) compliant                   |
+| Rule                                            | Description                                                                                                                     |
+| :---------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ |
+| `accesskey`                                     | Enforce no `accesskey` on element.                                                                                              |
+| `aria-activedescendant-has-tabindex`            | Enforce `aria-activedescendant` has `tabindex`.                                                                                 |
+| `aria-props`                                    | Enforce valid `aria-*` props.                                                                                                   |
+| `autofocus`                                     | Enforce no `autofocus` on element.                                                                                              |
+| `click-events-have-key-events`                  | Enforce elements with click handlers must have key handlers.                                                                    |
+| `distracting-elements`                          | Enforce no distracting elements.                                                                                                |
+| `hidden`                                        | Enforce no `hidden` on element.                                                                                                 |
+| `img-redundant-alt`                             | Enforce `img` alt attribute does not contain the word image, picture, or photo.                                                 |
+| `incorrect-aria-attribute-type`                 | Enforce correct `aria-*` attribute type.                                                                                        |
+| `invalid-attribute`                             | Enforce no invalid attribute.                                                                                                   |
+| `interactive-supports-focus`                    | Enforce interactive elements support focus.                                                                                     |
+| `label-has-associated-control`                  | Enforce `label` has associated control.                                                                                         |
+| `media-has-caption`                             | Enforce media elements have captions.                                                                                           |
+| `misplaced-role`                                | Enforce no misplaced role.                                                                                                      |
+| `misplaced-scope`                               | Enforce no misplaced scope.                                                                                                     |
+| `missing-attribute`                             | Enforce that attributes required for accessibility are present on an element.                                                   |
+| `missing-content`                               | Enforce that heading elements (`h1`, `h2`, etc.) and anchors have content and that the content is accessible to screen readers. |
+| `mouse-events-have-key-events`                  | Enforce elements with mouse handlers must have key handlers.                                                                    |
+| `no-redundant-roles`                            | Enforce no redundant roles.                                                                                                     |
+| `no-interactive-element-to-noninteractive-role` | Enforce no interactive element to non-interactive role.                                                                         |
+| `no-noninteractive-element-interactions`        | Enforce no non-interactive element interactions.                                                                                |
+| `no-noninteractive-element-to-interactive-role` | Enforce no non-interactive element to interactive role.                                                                         |
+| `no-noninteractive-tabindex`                    | Enforce no non-interactive tabindex.                                                                                            |
+| `no-static-element-interactions`                | Enforce no static element interactions.                                                                                         |
+| `positive-tabindex`                             | Enforce no positive tabindex property values.                                                                                   |
+| `role-has-required-aria-props`                  | Enforce `role` has required `aria-*` props.                                                                                     |
+| `role-supports-aria-props`                      | Enforce `role` supports `aria-*` props.                                                                                         |
+| `structure`                                     | Enforce correct structure.                                                                                                      |
+| `unknown-aria-attribute`                        | Enforce no unknown `aria-*` attribute.                                                                                          |
+| `unknown-role`                                  | Enforce no unknown role.                                                                                                        |
