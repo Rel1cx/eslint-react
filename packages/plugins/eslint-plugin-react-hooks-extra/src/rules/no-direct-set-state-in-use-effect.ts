@@ -46,7 +46,17 @@ export default createRule<[], MessageID>({
     if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
     const settings = decodeSettings(context.settings);
     const additionalHooks = settings.additionalHooks ?? {};
-    const isUseEffectCall = isReactHookCallWithNameAlias("useEffect", context, additionalHooks.useEffect ?? []);
+    const isUseEffectLikeCall = isReactHookCallWithNameAlias(
+      "useEffect",
+      context,
+      [
+        "useLayoutEffect",
+        "useInsertionEffect",
+        ...additionalHooks.useEffect ?? [],
+        ...additionalHooks.useLayoutEffect ?? [],
+        ...additionalHooks.useInsertionEffect ?? [],
+      ],
+    );
     const isUseStateCall = isReactHookCallWithNameAlias("useState", context, additionalHooks.useState ?? []);
     const isUseMemoCall = isReactHookCallWithNameAlias("useMemo", context, additionalHooks.useMemo ?? []);
     const isUseCallbackCall = isReactHookCallWithNameAlias("useCallback", context, additionalHooks.useCallback ?? []);
@@ -72,12 +82,12 @@ export default createRule<[], MessageID>({
     function isSetupFunction(node: TSESTree.Node) {
       return node.parent?.type === AST_NODE_TYPES.CallExpression
         && node.parent.callee !== node
-        && isUseEffectCall(node.parent);
+        && isUseEffectLikeCall(node.parent);
     }
     function getCallKind(node: TSESTree.CallExpression) {
       return match<TSESTree.CallExpression, CallKind>(node)
         .when(isUseStateCall, () => "useState")
-        .when(isUseEffectCall, () => "useEffect")
+        .when(isUseEffectLikeCall, () => "useEffect")
         .when(isSetStateCall, () => "setState")
         .when(isThenCall, () => "then")
         .otherwise(() => "other");
@@ -157,7 +167,7 @@ export default createRule<[], MessageID>({
             }
             // const [state, setState] = useState();
             // useEffect(setState);
-            if (isUseEffectCall(node.parent)) {
+            if (isUseEffectLikeCall(node.parent)) {
               const calls = indirectSetStateCallsAsArgs.get(node.parent) ?? [];
               indirectSetStateCallsAsSetups.set(node.parent, [...calls, node]);
             }

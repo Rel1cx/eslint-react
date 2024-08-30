@@ -84,7 +84,6 @@ const allPreset = {
   "hooks-extra/ensure-use-callback-has-non-empty-deps": "warn",
   "hooks-extra/ensure-use-memo-has-non-empty-deps": "warn",
   "hooks-extra/no-direct-set-state-in-use-effect": "warn",
-  "hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
   "hooks-extra/prefer-use-state-lazy-initialization": "warn",
 
   "naming-convention/component-name": "warn",
@@ -164,7 +163,6 @@ const webApiPreset = {
 const hooksExtraPreset = {
   "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
   "hooks-extra/no-direct-set-state-in-use-effect": "warn",
-  "hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
   "hooks-extra/prefer-use-state-lazy-initialization": "warn",
 } as const satisfies RulePreset;
 

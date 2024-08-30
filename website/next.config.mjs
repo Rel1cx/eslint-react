@@ -53,6 +53,11 @@ const nextConfig = {
         destination: "/docs/rules/:wildcard",
         permanent: true,
       },
+      {
+        source: "/docs/rules/hooks-extra-no-direct-set-state-in-use-layout-effect",
+        destination: "/docs/rules/hooks-extra-no-direct-set-state-in-use-effect",
+        permanent: true,
+      },
     ];
   },
 };

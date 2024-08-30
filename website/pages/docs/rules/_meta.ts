@@ -71,7 +71,6 @@ export default {
   "hooks-extra-ensure-use-callback-has-non-empty-deps": "hooks-extra/ensure-use-callback-has-non-empty-deps",
   "hooks-extra-ensure-use-memo-has-non-empty-deps": "hooks-extra/ensure-use-memo-has-non-empty-deps",
   "hooks-extra-no-direct-set-state-in-use-effect": "hooks-extra/no-direct-set-state-in-use-effect",
-  "hooks-extra-no-direct-set-state-in-use-layout-effect": "hooks-extra/no-direct-set-state-in-use-layout-effect",
   "hooks-extra-prefer-use-state-lazy-initialization": "hooks-extra/prefer-use-state-lazy-initialization",
   "naming-convention-component-name": "naming-convention/component-name",
   "naming-convention-filename": "naming-convention/filename",
