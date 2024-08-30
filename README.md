@@ -46,6 +46,7 @@ A series of composable ESLint plugins for libraries and frameworks that use Reac
 - [`npmgraph/npmgraph`](https://github.com/npmgraph/npmgraph) - A tool for exploring NPM modules and dependencies.
 - [`react-navigation/​react-navigation`](https://github.com/react-navigation/react-navigation) - Routing and navigation for your React Native apps.
 - [`RebeccaStevens/eslint-config-rebeccastevens`](https://github.com/RebeccaStevens/eslint-config-rebeccastevens) - RebeccaStevens' ESLint config preset.
+- [`refined-github/refined-github`](https://github.com/refined-github/refined-github) - :octocat: Browser extension that simplifies the GitHub interface and adds useful features.
 - [`RSSNext/​follow`](https://github.com/RSSNext/follow) - 🧡 Next generation information browser.
 - [`satya164/PocketGear`](https://github.com/satya164/PocketGear) - A clean and simple Pokédex app for Pokémon GO.
 - [`SukkaW/eslint-config-sukka`](https://github.com/SukkaW/eslint-config-sukka) - ESLint configuration of Sukka.
@@ -54,6 +55,7 @@ A series of composable ESLint plugins for libraries and frameworks that use Reac
 - [`TanStack/​query`](https://github.com/TanStack/query) - 🤖 Powerful asynchronous state management, server-state utilities and data fetching for the web. TS/JS, React Query, Solid Query, Svelte Query and Vue Query.
 - [`TanStack/​router`](https://github.com/TanStack/router) - 🤖 Fully typesafe Router for React (and friends) w/ built-in caching, 1st class search-param APIs, client-side cache integration and isomorphic rendering.
 - [`TanStack/​store`](https://github.com/TanStack/store) - 🤖 Framework agnostic, type-safe store w/ reactive framework adapters.
+- [`toss/suspensive`](https://github.com/toss/suspensive) - Manage asynchronous operations, timing, error handling, detecting intersection of elements, and caching easily and declaratively (One of TanStack Query community resources).
 
 _Data collected from GitHub dependents network, if there are any mismatch or outdated information, feel free to [open issue](https://github.com/Rel1cx/eslint-react/issues/new?assignees=&labels=type%3A+documentation&projects=&template=docs_report.md&title=%5Bdocs%5D+) or pull request._
 
