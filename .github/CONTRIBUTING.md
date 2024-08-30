@@ -15,7 +15,7 @@ Before submitting your contribution though, please make sure to take a moment an
       - [Building the documentation locally](#building-the-documentation-locally)
 
 > [!IMPORTANT]\
-> `eslint-react` is not a fork of `eslint-plugin-react` and meanwhile `eslint-plugin-react` is not upstream of `eslint-react.\
+> `eslint-react` is not a fork of `eslint-plugin-react` and meanwhile `eslint-plugin-react` is not upstream of `eslint-react`.\
 > Therefore, the rules and features you see in`eslint-plugin-react`may not necessarily appear in`eslint-react`.
 
 ## Issue Reporting Guidelines
