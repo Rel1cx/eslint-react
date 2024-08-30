@@ -35,8 +35,8 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0
       '@stylistic/eslint-plugin-js':
-        specifier: ^2.6.5
-        version: 2.6.5(eslint@9.9.1(jiti@1.21.6))
+        specifier: ^2.7.1
+        version: 2.7.1(eslint@9.9.1(jiti@1.21.6))
       '@susisu/eslint-plugin-safe-typescript':
         specifier: ^0.9.0
         version: 0.9.0(@typescript-eslint/parser@8.3.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.7.0-dev.20240829))(eslint@9.9.1(jiti@1.21.6))(typescript-eslint@8.3.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.7.0-dev.20240829))(typescript@5.7.0-dev.20240829)
@@ -720,8 +720,8 @@ importers:
         specifier: ^4.26.0
         version: 4.26.0
       valibot:
-        specifier: ^0.39.0
-        version: 0.39.0(typescript@5.7.0-dev.20240829)
+        specifier: ^0.40.0
+        version: 0.40.0(typescript@5.7.0-dev.20240829)
 
   packages/tools:
     devDependencies:
@@ -2067,8 +2067,8 @@ packages:
     engines: {node: '>=8.10'}
     hasBin: true
 
-  '@stylistic/eslint-plugin-js@2.6.5':
-    resolution: {integrity: sha512-RSXHczNa9RO5aLKUB+3P3iLOtM52rfIt11zxnmp5qdXUs2ve7rPAWVoom9krdzYNSARnNpeKH5c5uQ3VuHoEaA==}
+  '@stylistic/eslint-plugin-js@2.7.1':
+    resolution: {integrity: sha512-4YgqaPhPV8nMAMWnRz+RB7S/CQh/ximISMj2QJ8HPveUzCqUBkeNV7iB4cggr4pkalcDCsIu0y4LhmrlS1yAgA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^9.9.1
@@ -6060,8 +6060,8 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
-  valibot@0.39.0:
-    resolution: {integrity: sha512-d+vE8SDRNy9zKg6No5MHz2tdz8H6CW8X3OdqYdmlhnoqQmEoM6Hu0hJUrZv3tPSVrzZkIIMCtdCQtMzcM6NCWw==}
+  valibot@0.40.0:
+    resolution: {integrity: sha512-XHKnaVtwHqxPwnGOsLrwka9CEaL7yNeLNp707OKv/bmT29GnPVdl6PxBOZ6BW7hF66/6QT6iVbOlnW7qVPmoKw==}
     peerDependencies:
       typescript: ^5.7.0-dev.20240829
     peerDependenciesMeta:
@@ -7453,10 +7453,9 @@ snapshots:
       ignore: 5.3.2
       p-map: 4.0.0
 
-  '@stylistic/eslint-plugin-js@2.6.5(eslint@9.9.1(jiti@1.21.6))':
+  '@stylistic/eslint-plugin-js@2.7.1(eslint@9.9.1(jiti@1.21.6))':
     dependencies:
       '@types/eslint': 9.6.1
-      acorn: 8.12.1
       eslint: 9.9.1(jiti@1.21.6)
       eslint-visitor-keys: 4.0.0
       espree: 10.1.0
@@ -12323,7 +12322,7 @@ snapshots:
       kleur: 4.1.5
       sade: 1.8.1
 
-  valibot@0.39.0(typescript@5.7.0-dev.20240829):
+  valibot@0.40.0(typescript@5.7.0-dev.20240829):
     optionalDependencies:
       typescript: 5.7.0-dev.20240829
 
