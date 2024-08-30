@@ -21,6 +21,61 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        import { useLayoutEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useLayoutEffect(() => {
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { messageId: "noDirectSetStateInUseEffect" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useInsertionEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useInsertionEffect(() => {
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { messageId: "noDirectSetStateInUseEffect" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useIsomorphicLayoutEffect(() => {
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { messageId: "noDirectSetStateInUseEffect" },
+      ],
+      settings: {
+        "react-x": {
+          additionalHooks: {
+            useLayoutEffect: ["useIsomorphicLayoutEffect"],
+          },
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
         import { useEffect, useState } from "react";
 
         function Component() {
