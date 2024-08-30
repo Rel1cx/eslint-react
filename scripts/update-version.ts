@@ -1,5 +1,5 @@
 import { NodeFileSystem, NodeRuntime } from "@effect/platform-node";
-import { Effect, Function as F, Logger, Predicate } from "effect";
+import { Effect, Function as F, Predicate } from "effect";
 import { match, P } from "ts-pattern";
 
 import { glob } from "./lib/glob";
@@ -36,7 +36,6 @@ const program = Effect.gen(function*() {
 
 const runnable = program.pipe(
   Effect.provide(NodeFileSystem.layer),
-  Effect.provide(Logger.pretty),
 );
 
 NodeRuntime.runMain(runnable);
