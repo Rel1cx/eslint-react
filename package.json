@@ -52,7 +52,7 @@
     "@effect/platform-node": "^0.57.4",
     "@effect/schema": "^0.71.3",
     "@eslint/js": "^10.0.0",
-    "@stylistic/eslint-plugin-js": "^2.6.5",
+    "@stylistic/eslint-plugin-js": "^2.7.1",
     "@susisu/eslint-plugin-safe-typescript": "^0.9.0",
     "@swc/core": "^1.7.21",
     "@tsconfig/node22": "^22.0.0",
