@@ -1,7 +1,7 @@
 /* eslint-disable @susisu/safe-typescript/no-type-assertion */
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 
-// #region Type Utilities
+// #region Types
 
 /**
  * @since 0.4.0
@@ -127,7 +127,7 @@ export function typeOf(t: unknown) {
 
 // #endregion
 
-// #region Type Guards
+// #region Type Predicates
 
 export const isTruthy = (input: unknown) => !!input;
 
