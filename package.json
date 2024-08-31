@@ -65,6 +65,7 @@
     "@typescript-eslint/rule-tester": "^8.3.0",
     "@typescript-eslint/types": "^8.3.0",
     "@vitest/ui": "^2.0.5",
+    "telejson": "^7.2.0",
     "bundle-require": "^5.0.0",
     "cspell": "^8.14.2",
     "dprint": "^0.47.2",

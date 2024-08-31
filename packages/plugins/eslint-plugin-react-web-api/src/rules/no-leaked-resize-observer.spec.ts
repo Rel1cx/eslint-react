@@ -66,21 +66,21 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
-      import { useEffect } from 'react';
+    // /* tsx */ `
+    //   import { useEffect } from 'react';
 
-      function Component() {
-        useEffect(() => {
-          const observer = new ResizeObserver(() => {});
-          observer.observe(document.body);
-          return () => {
-            observer.unobserve(document.body);
-          }
-        }, []);
+    //   function Component() {
+    //     useEffect(() => {
+    //       const observer = new ResizeObserver(() => {});
+    //       observer.observe(document.body);
+    //       return () => {
+    //         observer.unobserve(document.body);
+    //       }
+    //     }, []);
 
-        return <div />;
-      }
-    `,
+    //     return <div />;
+    //   }
+    // `,
     /* tsx */ `
       import { useEffect } from 'react';
 

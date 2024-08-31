@@ -79,6 +79,17 @@ function getFunctionKind(node: TSESTreeFunction): FunctionKind {
   return O.getOrElse(getPhaseKindOfFunction(node), F.constant("other"));
 }
 
+function getTopLevelIdentifier(node: TSESTree.Node): O.Option<TSESTree.Identifier> {
+  switch (node.type) {
+    case AST_NODE_TYPES.Identifier:
+      return O.some(node);
+    case AST_NODE_TYPES.MemberExpression:
+      return getTopLevelIdentifier(node.object);
+    default:
+      return O.none();
+  }
+}
+
 // #endregion
 
 // #region Rule Definition
@@ -102,6 +113,7 @@ export default createRule<[], MessageID>({
   create(context) {
     if (!context.sourceCode.text.includes("ResizeObserver")) return {};
     const fStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
+    const observers: TSESTree.NewExpression[] = [];
     const oEntries: OEntry[] = [];
     const uEntries: UEntry[] = [];
     const dEntries: DEntry[] = [];
@@ -161,14 +173,22 @@ export default createRule<[], MessageID>({
           .otherwise(F.constVoid);
       },
       ["NewExpression"](node) {
+        const [_, fKind] = fStack.at(-1) ?? [];
+        if (!PHASE_RELEVANCE.has(fKind)) return;
         if (!isNewResizeObserver(node)) return;
-        if (O.isSome(getVariableDeclaratorID(node))) return;
-        context.report({
-          messageId: "noLeakedResizeObserverNoFloatingInstance",
-          node,
-        });
+        if (O.isNone(getVariableDeclaratorID(node))) {
+          context.report({
+            messageId: "noLeakedResizeObserverNoFloatingInstance",
+            node,
+          });
+          return;
+        }
+        observers.push(node);
       },
-      ["Program:exit"]() {},
+      ["Program:exit"]() {
+        // eslint-disable-next-line perfectionist/sort-objects, no-console
+        console.log({ observers, oEntries, uEntries, dEntries });
+      },
     };
   },
   defaultOptions: [],
