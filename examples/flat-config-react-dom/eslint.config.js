@@ -1,4 +1,5 @@
 import js from "@eslint/js";
+import parser from "@babel/eslint-parser";
 import react from "@eslint-react/eslint-plugin";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
@@ -23,9 +24,13 @@ export default [
       globals: {
         ...globals.browser,
       },
+      parser,
       parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
+        requireConfigFile: false,
+        babelOptions: {
+          babelrc: false,
+          configFile: false,
+          presets: ["@babel/preset-env", "@babel/preset-react"],
         },
       },
     },
