@@ -1,8 +1,8 @@
-## v1.12.4 (Draft)
+## v1.12.4 (Sat 31 Aug 2024)
 
 ### ✨ New
 
-- Added `useInsertionEffect` support to `hooks-extra/no-direct-set-state-in-use-effect`.
+- Added `useLayoutEffect` and `useInsertionEffect` support to `hooks-extra/no-direct-set-state-in-use-effect`.
 
 ### 🪄 Improvements
 

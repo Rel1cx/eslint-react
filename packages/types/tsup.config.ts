@@ -9,7 +9,6 @@ export default {
   minify: false,
   outDir: "dist",
   platform: "node",
-  shims: false,
   sourcemap: false,
   splitting: false,
   target: "node18",
