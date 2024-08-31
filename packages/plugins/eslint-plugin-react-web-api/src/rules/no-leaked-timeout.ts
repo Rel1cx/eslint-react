@@ -2,12 +2,13 @@ import type { TSESTreeFunction } from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { getPhaseKindOfFunction, PHASE_RELEVANCE } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
+import { getVariableDeclaratorID } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { isMatching, P } from "ts-pattern";
 
 import type { TimerEntry } from "../models";
-import { createRule, getTimerID, isTimerIDEqual } from "../utils";
+import { createRule, isTimerIDEqual } from "../utils";
 
 // #region Rule Metadata
 
@@ -90,7 +91,7 @@ export default createRule<[], MessageID>({
             const [fNode, fKind] = fStack.at(-1) ?? [];
             if (!fNode || !fKind) break;
             if (!PHASE_RELEVANCE.has(fKind)) break;
-            const timeoutIdNode = O.getOrNull(getTimerID(node));
+            const timeoutIdNode = O.getOrNull(getVariableDeclaratorID(node));
             if (!timeoutIdNode) {
               context.report({
                 messageId: "noLeakedTimeoutNoTimeoutId",
