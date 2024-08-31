@@ -10,7 +10,7 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { isMatching, P } from "ts-pattern";
+import { isMatching, match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 import { EventListenerEntry } from "./../models";
@@ -195,13 +195,12 @@ export default createRule<[], MessageID>({
         fStack.pop();
       },
       ["CallExpression"](node) {
-        const callKind = getCallKind(node);
-        switch (callKind) {
-          case "addEventListener": {
+        match(getCallKind(node))
+          .with("addEventListener", (callKind) => {
             const [type, listener, options] = node.arguments;
             const [fNode, fKind] = fStack.at(-1) ?? [];
             if (!type || !listener || !fNode || !fKind) return;
-            if (!PHASE_RELEVANCE.has(fKind)) break;
+            if (!PHASE_RELEVANCE.has(fKind)) return;
             const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
             const callee = node.callee;
             O.map(checkInlineFunction(node, callKind, opts), context.report);
@@ -213,13 +212,12 @@ export default createRule<[], MessageID>({
               listener,
               phase: fKind,
             }));
-            break;
-          }
-          case "removeEventListener": {
+          })
+          .with("removeEventListener", (callKind) => {
             const [type, listener, options] = node.arguments;
             const [fNode, fKind] = fStack.at(-1) ?? [];
             if (!type || !listener || !fNode || !fKind) return;
-            if (!PHASE_RELEVANCE.has(fKind)) break;
+            if (!PHASE_RELEVANCE.has(fKind)) return;
             const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
             const callee = node.callee;
             O.map(checkInlineFunction(node, callKind, opts), context.report);
@@ -231,13 +229,11 @@ export default createRule<[], MessageID>({
               listener,
               phase: fKind,
             }));
-            break;
-          }
-          case "abort": {
+          })
+          .with("abort", () => {
             abortedSignals.push(node.callee);
-            break;
-          }
-        }
+          })
+          .otherwise(F.constVoid);
       },
       ["Program:exit"]() {
         for (const aEntry of aEntries) {

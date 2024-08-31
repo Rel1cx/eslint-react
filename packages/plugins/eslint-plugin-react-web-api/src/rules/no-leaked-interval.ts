@@ -86,8 +86,7 @@ export default createRule<[], MessageID>({
         fStack.pop();
       },
       ["CallExpression"](node) {
-        const callKind = getCallKind(node);
-        switch (callKind) {
+        switch (getCallKind(node)) {
           case "setInterval": {
             const [fNode, fKind] = fStack.at(-1) ?? [];
             if (!fNode || !fKind) break;

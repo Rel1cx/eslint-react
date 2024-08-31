@@ -114,14 +114,12 @@ export default createRule<[], MessageID>({
         fStack.pop();
       },
       ["CallExpression"](node) {
-        const [fNode, fKind] = fStack.at(-1) ?? [];
-        if (!fNode || !fKind) return;
+        const [_, fKind] = fStack.at(-1) ?? [];
         if (!PHASE_RELEVANCE.has(fKind)) return;
         if (node.callee.type !== AST_NODE_TYPES.MemberExpression) return;
         const object = node.callee.object;
-        if (object.type !== AST_NODE_TYPES.Identifier) return;
-        switch (getCallKind(node, context)) {
-          case "disconnect":
+        match(getCallKind(node, context))
+          .with("disconnect", () => {
             dEntries.push(
               ObserverEntry.Disconnect({
                 kind: "ResizeObserver",
@@ -131,40 +129,36 @@ export default createRule<[], MessageID>({
                 phase: fKind,
               }),
             );
-            break;
-          case "observe":
-            {
-              const [element] = node.arguments;
-              if (!element) return;
-              oEntries.push(
-                ObserverEntry.Observe({
-                  kind: "ResizeObserver",
-                  node,
-                  callee: node.callee,
-                  element,
-                  observer: object,
-                  phase: fKind,
-                }),
-              );
-            }
-            break;
-          case "unobserve":
-            {
-              const [element] = node.arguments;
-              if (!element) return;
-              uEntries.push(
-                ObserverEntry.Unobserve({
-                  kind: "ResizeObserver",
-                  node,
-                  callee: node.callee,
-                  element,
-                  observer: object,
-                  phase: fKind,
-                }),
-              );
-            }
-            break;
-        }
+          })
+          .with("observe", () => {
+            const [element] = node.arguments;
+            if (!element) return;
+            oEntries.push(
+              ObserverEntry.Observe({
+                kind: "ResizeObserver",
+                node,
+                callee: node.callee,
+                element,
+                observer: object,
+                phase: fKind,
+              }),
+            );
+          })
+          .with("unobserve", () => {
+            const [element] = node.arguments;
+            if (!element) return;
+            uEntries.push(
+              ObserverEntry.Unobserve({
+                kind: "ResizeObserver",
+                node,
+                callee: node.callee,
+                element,
+                observer: object,
+                phase: fKind,
+              }),
+            );
+          })
+          .otherwise(F.constVoid);
       },
       ["NewExpression"](node) {
         if (!isNewResizeObserver(node)) return;
