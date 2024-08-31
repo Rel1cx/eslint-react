@@ -1,3 +1,24 @@
+## v1.12.4 (Sat 31 Aug 2024)
+
+### ✨ New
+
+- Added `useLayoutEffect` and `useInsertionEffect` support to `hooks-extra/no-direct-set-state-in-use-effect`.
+
+### 🪄 Improvements
+
+- Deprecate rule `hooks-extra/no-direct-set-state-in-use-layout-effect` in favor of `hooks-extra/no-direct-set-state-in-use-effect` (the previous rule will still be available until the next major update to avoid breaking changes).
+
+## v1.12.3 (Thu 29 Aug 2024)
+
+### ✨ New
+
+- Added support for detecting event listeners removed by abort signal in rule `web-api/no-leaked-event-listener`.
+
+### 🐞 Fixes
+
+- Fixed `no-duplicate-key` rule false positives when the key is an variable.
+- Fixed `web-api/no-leaked-set-timeout` and `web-api/no-leaked-set-interval` false positives when a timer is assigned to a variable declared by `let` but not initialized.
+
 ## v1.12.3 (Thu 29 Aug 2024)
 
 ### ✨ New

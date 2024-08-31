@@ -62,14 +62,14 @@ export const normalizeSettings = memoize((settings: ESLintReactSettings) => {
     ...settings,
     additionalComponents: additionalComponents.map((component) => ({
       ...component,
-      attributes: component.attributes.map((attr) => ({
+      attributes: component.attributes?.map((attr) => ({
         ...attr,
         as: attr.as ?? attr.name,
-      })),
+      })) ?? [],
       re: pm.makeRe(component.name, { fastpaths: true }),
     })),
     components: additionalComponents.reduce((acc, component) => {
-      const { name, as, attributes, selector } = component;
+      const { name, as, attributes = [], selector } = component;
       if (!name || !as || selector || attributes.length > 0) return acc;
       if (!/^[\w-]+$/u.test(name)) return acc;
       return acc.set(name, as);
@@ -97,3 +97,10 @@ export function findAttrInCustomAttributes(name: string, attributes: CustomAttri
 export const defineSettings: (settings: ESLintReactSettings) => ESLintReactSettings = F.identity;
 
 // #endregion
+
+declare module "@typescript-eslint/utils/ts-eslint" {
+  export interface SharedConfigurationSettings {
+    // eslint-disable-next-line no-restricted-syntax
+    "react-x"?: Partial<ESLintReactSettings>;
+  }
+}

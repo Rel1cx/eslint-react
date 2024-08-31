@@ -33,7 +33,6 @@ export default [
       // react-hooks-extra recommended rules
       "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
       "hooks-extra/no-direct-set-state-in-use-effect": "warn",
-      "hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
       "hooks-extra/prefer-use-state-lazy-initialization": "warn",
     },
   },
@@ -42,11 +41,10 @@ export default [
 
 ## Rules
 
-| Rule                                       | Description                                                                     | 💼  | 💭  |     |
-| :----------------------------------------- | :------------------------------------------------------------------------------ | :-: | :-: | :-: |
-| `ensure-custom-hooks-using-other-hooks`    | Warns when custom Hooks that don't use other Hooks.                             |  ✔️  |     |     |
-| `ensure-use-callback-has-non-empty-deps`   | Warns when `useCallback` is called with empty dependencies array.               | 🧐  |     |     |
-| `ensure-use-memo-has-non-empty-deps`       | Warns when `useMemo` is called with empty dependencies array.                   | 🧐  |     |     |
-| `no-direct-set-state-in-use-effect`        | Disallow direct calls to the `set` function of `useState` in `useEffect`.       |  ✔️  |     |     |
-| `no-direct-set-state-in-use-layout-effect` | Disallow direct calls to the `set` function of `useState` in `useLayoutEffect`. |  ✔️  |     |     |
-| `prefer-use-state-lazy-initialization`     | Warns function calls made inside `useState` calls.                              | 🚀  |     |     |
+| Rule                                     | Description                                                               | 💼  | 💭  |     |
+| :--------------------------------------- | :------------------------------------------------------------------------ | :-: | :-: | :-: |
+| `ensure-custom-hooks-using-other-hooks`  | Warns when custom Hooks that don't use other Hooks.                       |  ✔️  |     |     |
+| `ensure-use-callback-has-non-empty-deps` | Warns when `useCallback` is called with empty dependencies array.         | 🧐  |     |     |
+| `ensure-use-memo-has-non-empty-deps`     | Warns when `useMemo` is called with empty dependencies array.             | 🧐  |     |     |
+| `no-direct-set-state-in-use-effect`      | Disallow direct calls to the `set` function of `useState` in `useEffect`. |  ✔️  |     |     |
+| `prefer-use-state-lazy-initialization`   | Warns function calls made inside `useState` calls.                        | 🚀  |     |     |

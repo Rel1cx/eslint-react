@@ -3,7 +3,6 @@ import ensureCustomHooksUsingOtherHooks from "./rules/ensure-custom-hooks-using-
 import ensureUseCallbackHasNonEmptyDeps from "./rules/ensure-use-callback-has-non-empty-deps";
 import ensureUseMemoHasNonEmptyDeps from "./rules/ensure-use-memo-has-non-empty-deps";
 import noDirectSetStateInUseEffect from "./rules/no-direct-set-state-in-use-effect";
-import noDirectSetStateInUseLayoutEffect from "./rules/no-direct-set-state-in-use-layout-effect";
 import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
 
 export const meta = {
@@ -16,6 +15,7 @@ export const rules = {
   "ensure-use-callback-has-non-empty-deps": ensureUseCallbackHasNonEmptyDeps,
   "ensure-use-memo-has-non-empty-deps": ensureUseMemoHasNonEmptyDeps,
   "no-direct-set-state-in-use-effect": noDirectSetStateInUseEffect,
-  "no-direct-set-state-in-use-layout-effect": noDirectSetStateInUseLayoutEffect,
+  /** @deprecated Use `no-direct-set-state-in-use-effect` instead */
+  "no-direct-set-state-in-use-layout-effect": noDirectSetStateInUseEffect,
   "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
 } as const;

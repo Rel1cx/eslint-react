@@ -74,7 +74,7 @@ export const CustomComponentSchema = object({
    * @example
    * `Link` component has a `to` attribute that represents the `href` attribute in the built-in `a` element with a default value of `"/"`.
    */
-  attributes: optional(array(CustomAttributeSchema), []),
+  attributes: optional(array(CustomAttributeSchema)),
 });
 /* eslint-enable perfectionist/sort-objects */
 
