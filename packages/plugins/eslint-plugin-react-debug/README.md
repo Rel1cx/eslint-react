@@ -46,4 +46,4 @@ export default [
 | `class-component`    | Report all class components.                            | 🐞  |     |     |
 | `function-component` | Report all function components.                         | 🐞  |     |     |
 | `react-hooks`        | Report all react hooks.                                 | 🐞  |     |     |
-| `is-from-react`      | Report all identifiers that are initialized from React. | 🐞  |     | 🚧  |
+| `is-from-react`      | Report all identifiers that are initialized from React. | 🐞  |     |     |
