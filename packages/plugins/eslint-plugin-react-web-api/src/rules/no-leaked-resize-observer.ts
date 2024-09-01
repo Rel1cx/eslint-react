@@ -1,16 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { isFunction, isNodeEqual } from "@eslint-react/ast";
+import { isNodeEqual } from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
-import { getPhaseKindOfFunction, isInversePhase, PHASE_RELEVANCE } from "@eslint-react/core";
-import { Data, F, isBoolean, isObject, O } from "@eslint-react/tools";
+import { getPhaseKindOfFunction, PHASE_RELEVANCE } from "@eslint-react/core";
+import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
-import { findVariable, getVariableDeclaratorID, getVariableNode, isNodeValueEqual } from "@eslint-react/var";
-import type { Scope } from "@typescript-eslint/scope-manager";
+import { findVariable, getVariableDeclaratorID, getVariableNode } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
-import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
-import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -79,17 +75,6 @@ function getFunctionKind(node: TSESTreeFunction): FunctionKind {
   return O.getOrElse(getPhaseKindOfFunction(node), F.constant("other"));
 }
 
-function getTopLevelIdentifier(node: TSESTree.Node): O.Option<TSESTree.Identifier> {
-  switch (node.type) {
-    case AST_NODE_TYPES.Identifier:
-      return O.some(node);
-    case AST_NODE_TYPES.MemberExpression:
-      return getTopLevelIdentifier(node.object);
-    default:
-      return O.none();
-  }
-}
-
 // #endregion
 
 // #region Rule Definition
@@ -101,11 +86,12 @@ export default createRule<[], MessageID>({
       description: "enforce cleanup of 'ResizeObserver' instances in components and custom hooks.",
     },
     messages: {
-      // eslint-disable-next-line eslint-plugin/no-unused-message-ids
-      noLeakedResizeObserverInEffect: "'ResizeObserver' instance must be disconnected in the cleanup function.",
-      // eslint-disable-next-line eslint-plugin/no-unused-message-ids
-      noLeakedResizeObserverInLifecycle: "'ResizeObserver' instance must be disconnected in the cleanup function.",
-      noLeakedResizeObserverNoFloatingInstance: "'ResizeObserver' instance must be assigned to a variable.",
+      noLeakedResizeObserverInEffect:
+        "A 'ResizeObserver' instance created in 'useEffect' must be disconnected in the cleanup function.",
+      noLeakedResizeObserverInLifecycle:
+        "A 'ResizeObserver' instance created in class component must be disconnected in 'componentWillUnmount'.",
+      noLeakedResizeObserverNoFloatingInstance:
+        "A 'ResizeObserver' instance created in component or custom hook must be assigned to a variable for proper cleanup.",
     },
     schema: [],
   },
@@ -113,7 +99,7 @@ export default createRule<[], MessageID>({
   create(context) {
     if (!context.sourceCode.text.includes("ResizeObserver")) return {};
     const fStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
-    const observers: TSESTree.NewExpression[] = [];
+    const observers: [node: TSESTree.NewExpression, id: TSESTree.Node, phase: ERPhaseKind][] = [];
     const oEntries: OEntry[] = [];
     const uEntries: UEntry[] = [];
     const dEntries: DEntry[] = [];
@@ -176,18 +162,25 @@ export default createRule<[], MessageID>({
         const [_, fKind] = fStack.at(-1) ?? [];
         if (!PHASE_RELEVANCE.has(fKind)) return;
         if (!isNewResizeObserver(node)) return;
-        if (O.isNone(getVariableDeclaratorID(node))) {
+        const id = getVariableDeclaratorID(node);
+        if (O.isNone(id)) {
           context.report({
             messageId: "noLeakedResizeObserverNoFloatingInstance",
             node,
           });
           return;
         }
-        observers.push(node);
+        observers.push([node, id.value, fKind]);
       },
       ["Program:exit"]() {
-        // eslint-disable-next-line perfectionist/sort-objects, no-console
-        console.log({ observers, oEntries, uEntries, dEntries });
+        for (const [node, id, phase] of observers) {
+          if (dEntries.some(e => isNodeEqual(e.observer, id))) continue;
+          const messageId = match<typeof phase, MessageID>(phase)
+            .with(P.union("setup", "cleanup"), () => "noLeakedResizeObserverInEffect")
+            .with(P.union("mount", "unmount"), () => "noLeakedResizeObserverInLifecycle")
+            .exhaustive();
+          context.report({ messageId, node });
+        }
       },
     };
   },
