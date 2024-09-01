@@ -101,6 +101,9 @@ export default [
 
 ### Legacy Config
 
+<details>
+<summary>Click to toggle contents</summary>
+
 Add the plugin to your `.eslintrc.json`:
 
 ```json
@@ -120,6 +123,8 @@ Add the plugin to your `.eslintrc.json`:
 ```
 
 [Full Installation Guide ↗](https://eslint-react.xyz/docs/installation)
+
+</details>
 
 ## Presets
 
