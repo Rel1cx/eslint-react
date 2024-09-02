@@ -23,6 +23,8 @@
 
 | Rule                                                                               | Description                                                                                          | 💼  | 💭  |     |
 | :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------- | :-: | :-: | :-: |
+| [`avoid-shorthand-boolean`](avoid-shorthand-boolean)                               | Prevents using shorthand syntax for boolean attributes.                                              | 🎨  |     |     |
+| [`avoid-shorthand-fragment`](avoid-shorthand-fragment)                             | Prevents using shorthand syntax for fragments.                                                       |     |     |     |
 | [`ensure-forward-ref-using-ref`](ensure-forward-ref-using-ref)                     | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                      |  ✔️  |     |     |
 | [`no-access-state-in-setstate`](no-access-state-in-setstate)                       | Prevents accessing `this.state` inside `setState` calls.                                             |  ✔️  |     |     |
 | [`no-array-index-key`](no-array-index-key)                                         | Prevents using array `index` as `key`.                                                               | 🧐  |     |     |
@@ -63,11 +65,9 @@
 | [`no-unused-state`](no-unused-state)                                               | Warns unused class component state.                                                                  |  ✔️  |     |     |
 | [`no-useless-fragment`](no-useless-fragment)                                       | Prevents using useless `fragment` components or `<>` syntax.                                         |  ✔️  |     |     |
 | [`prefer-destructuring-assignment`](prefer-destructuring-assignment)               | Enforces using destructuring assignment over property assignment.                                    | 🎨  |     |     |
-| [`prefer-read-only-props`](prefer-read-only-props)                                 | Enforce read-only props in components.                                                               |  ✔️  | 💭  |     |
+| [`prefer-read-only-props`](prefer-read-only-props)                                 | Enforces read-only props in components.                                                              |  ✔️  | 💭  |     |
 | [`prefer-shorthand-boolean`](prefer-shorthand-boolean)                             | Enforces using shorthand syntax for boolean attributes.                                              | 🎨  |     |     |
 | [`prefer-shorthand-fragment`](prefer-shorthand-fragment)                           | Enforces using shorthand syntax for fragments.                                                       | 🎨  |     |     |
-| [`avoid-shorthand-boolean`](avoid-shorthand-boolean)                               | Enforces using shorthand syntax for boolean attributes.                                              | 🎨  |     |     |
-| [`avoid-shorthand-fragment`](avoid-shorthand-fragment)                             | Enforces using shorthand syntax for fragments.                                                       | 🎨  |     |     |
 
 ## DOM Rules
 
