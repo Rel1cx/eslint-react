@@ -1,2 +1,3 @@
 export * from "./create-rule";
-export * from "./is-timer-id-equal";
+export * from "./get-instance-id";
+export * from "./is-instance-id-equal";

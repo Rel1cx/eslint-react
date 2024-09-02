@@ -83,27 +83,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    {
-      code: /* tsx */ `
-        import { Component } from 'react';
-
-        class MyComponent extends Component {
-          componentDidMount() {
-            const observer = new ResizeObserver(() => {});
-            observer.observe(document.body);
-          }
-
-          render() {
-            return <div />;
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "noLeakedResizeObserverInLifecycle",
-        },
-      ],
-    },
   ],
   valid: [
     ...allValid,
@@ -207,44 +186,6 @@ ruleTester.run(RULE_NAME, rule, {
     //     }, []);
 
     //     return <div />;
-    //   }
-    // `,
-    // TODO: Add support for `ResizeObserver` instance in class component properties
-    // /* tsx */ `
-    //   import { Component } from 'react';
-
-    //   class MyComponent extends Component {
-    //     ro: ResizeObserver | null = null;
-    //     componentDidMount() {
-    //       this.ro = new ResizeObserver(() => {});
-    //       this.ro.observe(document.body);
-    //     }
-
-    //     componentWillUnmount() {
-    //       this.ro?.disconnect();
-    //     }
-
-    //     render() {
-    //       return <div />;
-    //     }
-    //   }
-    // `,
-    // /* tsx */ `
-    //   import { Component } from 'react';
-
-    //   class MyComponent extends Component {
-    //     ro = new ResizeObserver(() => {});
-    //     componentDidMount() {
-    //       this.ro.observe(document.body);
-    //     }
-
-    //     componentWillUnmount() {
-    //       this.ro.disconnect();
-    //     }
-
-    //     render() {
-    //       return <div />;
-    //     }
     //   }
     // `,
   ],

@@ -1,15 +1,14 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
-import { isNodeEqual } from "@eslint-react/ast";
-import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
+import type { EREffectMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { getPhaseKindOfFunction, PHASE_RELEVANCE } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
-import { findVariable, getVariableDeclaratorID, getVariableNode } from "@eslint-react/var";
+import { findVariable, getVariableNode } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
 
-import { createRule } from "../utils";
+import { createRule, getInstanceID, isInstanceIDEqual } from "../utils";
 import type { ObserverMethod } from "./../models";
 import { ObserverEntry } from "./../models";
 
@@ -19,7 +18,6 @@ export const RULE_NAME = "no-leaked-resize-observer";
 
 export type MessageID =
   | "noLeakedResizeObserverInEffect"
-  | "noLeakedResizeObserverInLifecycle"
   | "noLeakedResizeObserverNoFloatingInstance";
 
 // #endregion
@@ -28,7 +26,7 @@ export type MessageID =
 
 /* eslint-disable perfectionist/sort-union-types */
 type FunctionKind = ERPhaseKind | "other";
-type CallKind = ObserverMethod | EREffectMethodKind | ERLifecycleMethodKind | "other";
+type CallKind = ObserverMethod | EREffectMethodKind | "other";
 /* eslint-enable perfectionist/sort-union-types */
 
 export type OEntry = ObserverEntry & { _tag: "Observe" };
@@ -45,14 +43,19 @@ function isNewResizeObserver(node: TSESTree.Node) {
     && node.callee.name === "ResizeObserver";
 }
 
-function isFromObserver(node: TSESTree.Identifier | TSESTree.MemberExpression, context: RuleContext): boolean {
-  const topLevelId = node.type === AST_NODE_TYPES.Identifier ? node : node.object;
-  if (topLevelId.type !== AST_NODE_TYPES.Identifier) return false;
-  return F.pipe(
-    findVariable(topLevelId, context.sourceCode.getScope(topLevelId)),
-    O.flatMap(getVariableNode(0)),
-    O.exists(isNewResizeObserver),
-  );
+function isFromObserver(node: TSESTree.Expression, context: RuleContext): boolean {
+  switch (true) {
+    case node.type === AST_NODE_TYPES.Identifier:
+      return F.pipe(
+        findVariable(node, context.sourceCode.getScope(node)),
+        O.flatMap(getVariableNode(0)),
+        O.exists(isNewResizeObserver),
+      );
+    case node.type === AST_NODE_TYPES.MemberExpression:
+      return isFromObserver(node.object, context);
+    default:
+      return false;
+  }
 }
 
 function getCallKind(node: TSESTree.CallExpression, context: RuleContext): CallKind {
@@ -88,8 +91,6 @@ export default createRule<[], MessageID>({
     messages: {
       noLeakedResizeObserverInEffect:
         "A 'ResizeObserver' instance created in 'useEffect' must be disconnected in the cleanup function.",
-      noLeakedResizeObserverInLifecycle:
-        "A 'ResizeObserver' instance created in class component must be disconnected in 'componentWillUnmount'.",
       noLeakedResizeObserverNoFloatingInstance:
         "A 'ResizeObserver' instance created in component or custom hook must be assigned to a variable for proper cleanup.",
     },
@@ -162,7 +163,7 @@ export default createRule<[], MessageID>({
         const [_, fKind] = fStack.at(-1) ?? [];
         if (!PHASE_RELEVANCE.has(fKind)) return;
         if (!isNewResizeObserver(node)) return;
-        const id = getVariableDeclaratorID(node);
+        const id = getInstanceID(node);
         if (O.isNone(id)) {
           context.report({
             messageId: "noLeakedResizeObserverNoFloatingInstance",
@@ -173,13 +174,9 @@ export default createRule<[], MessageID>({
         observers.push([node, id.value, fKind]);
       },
       ["Program:exit"]() {
-        for (const [node, id, phase] of observers) {
-          if (dEntries.some(e => isNodeEqual(e.observer, id))) continue;
-          const messageId = match<typeof phase, MessageID>(phase)
-            .with(P.union("setup", "cleanup"), () => "noLeakedResizeObserverInEffect")
-            .with(P.union("mount", "unmount"), () => "noLeakedResizeObserverInLifecycle")
-            .exhaustive();
-          context.report({ messageId, node });
+        for (const [node, id] of observers) {
+          if (dEntries.some(e => isInstanceIDEqual(e.observer, id, context))) continue;
+          context.report({ messageId: "noLeakedResizeObserverInEffect", node });
         }
       },
     };

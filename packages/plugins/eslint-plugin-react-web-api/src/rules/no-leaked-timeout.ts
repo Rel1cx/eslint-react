@@ -8,7 +8,7 @@ import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { isMatching, P } from "ts-pattern";
 
 import type { TimerEntry } from "../models";
-import { createRule, isTimerIDEqual } from "../utils";
+import { createRule, isInstanceIDEqual } from "../utils";
 
 // #region Rule Metadata
 
@@ -74,7 +74,7 @@ export default createRule<[], MessageID>({
       (a: TimerEntry): (b: TimerEntry) => boolean;
       (a: TimerEntry, b: TimerEntry): boolean;
     } = F.dual(2, (a: TimerEntry, b: TimerEntry) => {
-      return isTimerIDEqual(a.timerID, b.timerID, context);
+      return isInstanceIDEqual(a.timerID, b.timerID, context);
     });
     return {
       [":function"](node: TSESTreeFunction) {
