@@ -24,6 +24,28 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        import React, { useEffect, useRef } from 'react';
+
+        function Example() {
+          const ref = useRef<HTMLDivElement>(null);
+
+          useEffect(() => {
+            if (!ref.current) return;
+            const ro = new ResizeObserver(() => console.log('resize'));
+            ro.observe(ref.current);
+          }, []);
+
+          return <div ref={ref} />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "noLeakedResizeObserverInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
         import { useEffect } from 'react';
 
         function Component() {
@@ -99,6 +121,22 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
 
         return <div />;
+      }
+    `,
+    /* tsx */ `
+      import React, { useEffect, useRef } from 'react';
+
+      function Example() {
+        const ref = useRef<HTMLDivElement>(null);
+
+        useEffect(() => {
+          if (!ref.current) return;
+          const ro = new ResizeObserver(() => console.log('resize'));
+          ro.observe(ref.current);
+          return () => ro.disconnect();
+        }, []);
+
+        return <div ref={ref} />;
       }
     `,
     /* tsx */ `

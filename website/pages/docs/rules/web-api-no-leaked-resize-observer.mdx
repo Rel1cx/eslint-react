@@ -1,0 +1,59 @@
+# no-leaked-resize-observer
+
+## Rule category
+
+Correctness.
+
+## What it does
+
+Enforce that every `ResizeObserver` created in a component or custom hook has a corresponding `resizeObserver.disconnect()`.
+
+## Why is this bad?
+
+Creating a `ResizeObserver` without disconnecting it can lead to memory leaks and unexpected behavior.
+
+## Examples
+
+### Failing
+
+```tsx
+import React, { useEffect, useRef } from 'react';
+
+function Example() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const ro = new ResizeObserver(() => console.log('resize'));
+    //         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //         - A 'ResizeObserver' in 'useEffect' should have a corresponding 'resizeObserver.disconnect()' in its cleanup function.
+    ro.observe(ref.current);
+  }, []);
+
+  return <div ref={ref} />;
+}
+```
+
+### Passing
+
+```tsx
+import React, { useEffect, useRef } from 'react';
+
+function Example() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const ro = new ResizeObserver(() => console.log('resize'));
+    ro.observe(ref.current);
+    return () => ro.disconnect();
+  }, []);
+
+  return <div ref={ref} />;
+}
+```
+
+## Further Reading
+
+- [MDN: ResizeObserver](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver)
+- [React: Connecting to an external system](https://react.dev/reference/react/useEffect#connecting-to-an-external-system)

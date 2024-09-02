@@ -15,8 +15,6 @@ import { padKeysLeft } from "./utils";
 
 const allPreset = {
   // Part: Core
-  "avoid-shorthand-boolean": "warn",
-  "avoid-shorthand-fragment": "warn",
   "ensure-forward-ref-using-ref": "warn",
   "no-access-state-in-setstate": "error",
   "no-array-index-key": "warn",
@@ -60,6 +58,9 @@ const allPreset = {
   // "prefer-read-only-props": "warn", // This rule requires type information
   "prefer-shorthand-boolean": "warn",
   "prefer-shorthand-fragment": "warn",
+  // eslint-disable-next-line perfectionist/sort-objects
+  "avoid-shorthand-boolean": "warn",
+  "avoid-shorthand-fragment": "warn",
 
   // Part: DOM
   "dom/no-children-in-void-dom-elements": "warn",
@@ -77,6 +78,7 @@ const allPreset = {
   // Part: Web API
   "web-api/no-leaked-event-listener": "warn",
   "web-api/no-leaked-interval": "warn",
+  "web-api/no-leaked-resize-observer": "warn",
   "web-api/no-leaked-timeout": "warn",
 
   // Part: Hooks Extra
@@ -157,6 +159,7 @@ const domPreset = {
 const webApiPreset = {
   "web-api/no-leaked-event-listener": "warn",
   "web-api/no-leaked-interval": "warn",
+  "web-api/no-leaked-resize-observer": "warn",
   "web-api/no-leaked-timeout": "warn",
 } as const satisfies RulePreset;
 

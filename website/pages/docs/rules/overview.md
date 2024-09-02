@@ -23,8 +23,6 @@
 
 | Rule                                                                               | Description                                                                                          | 💼  | 💭  |     |
 | :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------- | :-: | :-: | :-: |
-| [`avoid-shorthand-boolean`](avoid-shorthand-boolean)                               | Enforces using shorthand syntax for boolean attributes.                                              | 🎨  |     |     |
-| [`avoid-shorthand-fragment`](avoid-shorthand-fragment)                             | Enforces using shorthand syntax for fragments.                                                       | 🎨  |     |     |
 | [`ensure-forward-ref-using-ref`](ensure-forward-ref-using-ref)                     | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                      |  ✔️  |     |     |
 | [`no-access-state-in-setstate`](no-access-state-in-setstate)                       | Prevents accessing `this.state` inside `setState` calls.                                             |  ✔️  |     |     |
 | [`no-array-index-key`](no-array-index-key)                                         | Prevents using array `index` as `key`.                                                               | 🧐  |     |     |
@@ -68,6 +66,8 @@
 | [`prefer-read-only-props`](prefer-read-only-props)                                 | Enforce read-only props in components.                                                               |  ✔️  | 💭  |     |
 | [`prefer-shorthand-boolean`](prefer-shorthand-boolean)                             | Enforces using shorthand syntax for boolean attributes.                                              | 🎨  |     |     |
 | [`prefer-shorthand-fragment`](prefer-shorthand-fragment)                           | Enforces using shorthand syntax for fragments.                                                       | 🎨  |     |     |
+| [`avoid-shorthand-boolean`](avoid-shorthand-boolean)                               | Enforces using shorthand syntax for boolean attributes.                                              | 🎨  |     |     |
+| [`avoid-shorthand-fragment`](avoid-shorthand-fragment)                             | Enforces using shorthand syntax for fragments.                                                       | 🎨  |     |     |
 
 ## DOM Rules
 
@@ -87,11 +87,12 @@
 
 ## Web API Rules
 
-| Rule                                                                   | Description                                                       | 💼  | 💭  |     |
-| :--------------------------------------------------------------------- | :---------------------------------------------------------------- | :-: | :-: | :-: |
-| [`web-api/no-leaked-timeout`](web-api-no-leaked-timeout)               | Prevents leaked `setTimeout` in a component or custom hook.       |  ✔️  |     | 🆕  |
-| [`web-api/no-leaked-interval`](web-api-no-leaked-interval)             | Prevents leaked `setInterval` in a component or custom hook.      |  ✔️  |     | 🆕  |
-| [`web-api/no-leaked-event-listener`](web-api-no-leaked-event-listener) | Prevents leaked `addEventListener` in a component or custom hook. |  ✔️  |     | 🆕  |
+| Rule                                                                     | Description                                                       | 💼  | 💭  |     |
+| :----------------------------------------------------------------------- | :---------------------------------------------------------------- | :-: | :-: | :-: |
+| [`web-api/no-leaked-event-listener`](web-api-no-leaked-event-listener)   | Prevents leaked `addEventListener` in a component or custom hook. |  ✔️  |     | 🆕  |
+| [`web-api/no-leaked-interval`](web-api-no-leaked-interval)               | Prevents leaked `setInterval` in a component or custom hook.      |  ✔️  |     | 🆕  |
+| [`web-api/no-leaked-resize-observer`](web-api-no-leaked-resize-observer) | Prevents leaked `ResizeObserver` in a component or custom hook.   |  ✔️  |     | 🆕  |
+| [`web-api/no-leaked-timeout`](web-api-no-leaked-timeout)                 | Prevents leaked `setTimeout` in a component or custom hook.       |  ✔️  |     | 🆕  |
 
 ## Hooks Extra Rules
 

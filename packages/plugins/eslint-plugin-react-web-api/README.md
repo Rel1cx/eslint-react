@@ -30,6 +30,7 @@ export default [
         "react-web-api/no-leaked-timeout": "error",
         "react-web-api/no-leaked-interval": "error",
         "react-web-api/no-leaked-event-listener": "error",
+        "react-web-api/no-leaked-resize-observer": "error",
       }
     ],
   },
@@ -46,7 +47,7 @@ export default [
 | `no-leaked-animation-frame`             | Prevents leaked `requestAnimationFrame`       |  ✔️  |     | 🚧  |
 | `no-leaked-event-source`                | Prevents leaked `EventSource`                 |  ✔️  |     | 🚧  |
 | `no-leaked-event-listener`              | Prevents leaked `addEventListener`            |  ✔️  |     |     |
-| `no-leaked-resize-observer`             | Prevents leaked `ResizeObserver`              |  ✔️  |     | 🚧  |
+| `no-leaked-resize-observer`             | Prevents leaked `ResizeObserver`              |  ✔️  |     |     |
 | `no-leaked-intersection-observer`       | Prevents leaked `IntersectionObserver`        |  ✔️  |     | 🚧  |
 | `no-leaked-mutation-observer`           | Prevents leaked `MutationObserver`            |  ✔️  |     | 🚧  |
 | `no-leaked-performance-observer`        | Prevents leaked `PerformanceObserver`         |  ✔️  |     | 🚧  |
