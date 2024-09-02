@@ -11,7 +11,6 @@ const withNextra = nextra({
   themeConfig: "./theme.config.tsx",
   defaultShowCopyCode: false,
   mdxOptions: {
-    // rehypePlugins: [[rehypeRaw, { passThrough: nodeTypes }]],
     remarkPlugins: [
       remarkGFM,
       codeImport,

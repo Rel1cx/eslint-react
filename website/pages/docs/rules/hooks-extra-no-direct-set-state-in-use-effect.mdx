@@ -1,3 +1,5 @@
+import { Info } from "#/components/callout"
+
 # no-direct-set-state-in-use-effect
 
 ## Rule category
@@ -6,7 +8,11 @@ Correctness.
 
 ## What it does
 
-Disallow direct calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useEffect`.
+<Info>
+This rule only checks for **direct** calls to the `set` function of `useState` in `useEffect`. It does not check for calls to `set` function in callbacks, event handlers, or `Promise.then` functions.
+</Info>
+
+Disallow **direct** calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useEffect`.
 
 ## Why is this bad?
 
@@ -20,6 +26,146 @@ Calling `setState` directly in `useEffect` can lead to infinite update loops and
 The limitation may be lifted in the future.
 
 ## Examples
+
+<Info>
+The first three cases are common valid use cases because they are not called the `set` function directly in `useEffect`.
+</Info>
+
+### Passing
+
+```tsx
+import { useState, useEffect } from "react";
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    window.addEventListener("click", () => setCount(c => c + 1));
+    return () => window.removeEventListener("click", () => setCount(c => c + 1));
+  }, []);
+
+  return <h1>{count}</h1>;
+}
+```
+
+### Passing
+
+```tsx
+import { useState, useEffect } from "react";
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCount(c => c + 1);
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
+
+  return <h1>{count}</h1>;
+}
+```
+
+### Passing
+
+```tsx
+import { useState, useEffect } from "react";
+
+export default function RemoteContent() {
+  const [content, setContent] = useState("");
+
+  useEffect(() => {
+    let discarded = false;
+    fetch("https://example.com/content")
+      .then(resp => resp.text())
+      .then(text => {
+        if (discarded) return;
+        setContent(text);
+      });
+    return () => {
+      discarded = true;
+    };
+  }, []);
+
+  return <h1>{count}</h1>;
+}
+```
+
+<Info>
+The following example is a case with three different depths of "Circular Effect" (aka. "Effect Loop") in the component, where the `useEffect` hooks in each component will trigger each other infinitely. This rule helps you catch this kind of problem by flagging the direct `set` calls in them.\
+(A more specific rule for this is under development: [`no-circular-effect`](https://github.com/Rel1cx/eslint-react/issues/755))
+</Info>
+
+### Failing
+
+```tsx
+import { useEffect, useState } from "react";
+
+/**
+ * @component
+ * @description CircularEffect1 has a circular effect with a depth of 1
+ */
+export function CircularEffect1() {
+  const [items, setItems] = useState([0, 1, 2, 3, 4]);
+
+  useEffect(() => {
+    setItems(x => [...x].reverse());
+  }, [items]);
+
+  return null;
+}
+
+/**
+ * @component
+ * @description CircularEffect2 has a circular effect with a depth of 2
+ */
+export function CircularEffect2() {
+  const [items, setItems] = useState([0, 1, 2, 3, 4]);
+  const [limit, setLimit] = useState(false);
+
+  useEffect(() => {
+    setItems(x => [...x].reverse());
+  }, [limit]);
+
+  // ...Many other hooks between the two `useEffect` calls
+
+  useEffect(() => {
+    setLimit(x => !x);
+  }, [items]);
+  // ...
+
+  return null;
+}
+
+/**
+ * @component
+ * @description CircularEffect3 has a circular effect with a depth of 3
+ */
+export function CircularEffect3() {
+  const [items, setItems] = useState([0, 1, 2, 3, 4]);
+  const [limit, setLimit] = useState(false);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setItems(x => [...x].reverse());
+  }, [limit]);
+
+  useEffect(() => {
+    setCount(x => x + 1);
+  }, [items]);
+
+  useEffect(() => {
+    setLimit(x => !x);
+  }, [count]);
+
+  return null;
+}
+```
+
+<Info>
+For the examples below, the error message of this rule is less obvious in pointing out the problem, but it may also be helpful in exposing the problem until there is a dedicated rule to detect it.
+</Info>
 
 ### Failing
 
