@@ -25,7 +25,7 @@ function Example() {
   useEffect(() => {
     const intervalId = setInterval(() => console.log(count), 1000);
     //                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    //                 - A 'setInterval' in 'useEffect' should have a corresponding 'clearInterval' in its cleanup function.
+    //                 - A 'setInterval' created in 'useEffect' must be cleared in the cleanup function.
   }, []);
 
   return null;

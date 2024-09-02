@@ -58,9 +58,11 @@ export default createRule<[], MessageID>({
       description: "enforce that every 'setTimeout' in a component or custom hook has a corresponding 'clearTimeout'.",
     },
     messages: {
-      noLeakedTimeoutInEffect: "'setTimeout' must be paired with 'clearTimeout' in {{kind}}",
-      noLeakedTimeoutInLifecycle: "'setTimeout' must be paired with 'clearTimeout' in {{kind}}",
-      noLeakedTimeoutNoTimeoutId: "'setTimeout' must have a timeout ID assigned to a variable",
+      noLeakedTimeoutInEffect:
+        "A 'setTimeout' created in '{{ kind }}' must be cleared with 'clearTimeout' in the cleanup function.",
+      noLeakedTimeoutInLifecycle:
+        "A 'setTimeout' created in '{{ kind }}' must be cleared with 'clearTimeout' in the 'componentWillUnmount' method.",
+      noLeakedTimeoutNoTimeoutId: "A 'setTimeout' must be assigned to a variable for proper cleanup.",
     },
     schema: [],
   },

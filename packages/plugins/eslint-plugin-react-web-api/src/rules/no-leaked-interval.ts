@@ -59,9 +59,11 @@ export default createRule<[], MessageID>({
         "enforce that every 'setInterval' in a component or custom hook has a corresponding 'clearInterval'.",
     },
     messages: {
-      noLeakedIntervalInEffect: "'setInterval' must be paired with 'clearInterval' in {{kind}}",
-      noLeakedIntervalInLifecycle: "'setInterval' must be paired with 'clearInterval' in {{kind}}",
-      noLeakedIntervalNoIntervalId: "'setInterval' must have a interval ID assigned to a variable",
+      noLeakedIntervalInEffect:
+        "A 'setInterval' created in '{{ kind }}' must be cleared with 'clearInterval' in the cleanup function.",
+      noLeakedIntervalInLifecycle:
+        "A 'setInterval' created in '{{ kind }}' must be cleared with 'clearInterval' in the 'componentWillUnmount' method.",
+      noLeakedIntervalNoIntervalId: "A 'setInterval' must be assigned to a variable for proper cleanup.",
     },
     schema: [],
   },
