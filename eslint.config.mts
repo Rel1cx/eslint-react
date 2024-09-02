@@ -15,7 +15,7 @@ import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import unicornPlugin from "eslint-plugin-unicorn";
 import vitest from "eslint-plugin-vitest";
 import eslintPluginYml from "eslint-plugin-yml";
-import { isCI } from "std-env";
+// import { isCI } from "std-env";
 import tseslint from "typescript-eslint";
 import YamlParser from "yaml-eslint-parser";
 
@@ -406,11 +406,11 @@ const config: Config[] = [
       "yml/spaced-comment": "error",
     },
   },
-  {
-    rules: {
-      "file-progress/activate": !isCI ? "warn" : "off",
-    },
-  },
+  // {
+  //   rules: {
+  //     "file-progress/activate": !isCI ? "warn" : "off",
+  //   },
+  // },
 ];
 
 export default tseslint.config(...config);
