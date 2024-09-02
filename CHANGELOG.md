@@ -1,3 +1,9 @@
+## v1.12.5 (Draft)
+
+### ✨ New
+
+- Added `web-api/no-leaked-resize-observer` rule to prevent leaked `ResizeObserver`.
+
 ## v1.12.4 (Sat 31 Aug 2024)
 
 ### ✨ New
