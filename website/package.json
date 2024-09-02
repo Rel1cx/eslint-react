@@ -26,7 +26,7 @@
     "@types/node": "^22.5.2",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "^8.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.4.0",
     "@vanilla-extract/css": "^1.15.5",
     "@vanilla-extract/next-plugin": "^2.4.5",
     "@vitejs/plugin-react": "^4.3.1",
