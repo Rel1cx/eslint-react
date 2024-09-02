@@ -61,7 +61,7 @@
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^8.3.0",
-    "@typescript-eslint/parser": "^8.3.0",
+    "@typescript-eslint/parser": "^8.4.0",
     "@typescript-eslint/rule-tester": "^8.3.0",
     "@typescript-eslint/types": "^8.3.0",
     "@vitest/ui": "^2.0.5",
