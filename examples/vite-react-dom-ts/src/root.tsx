@@ -1,6 +1,6 @@
 import React from "react";
 
-import App from "./App.tsx";
+import App from "./App";
 
 export const root = (
   <React.StrictMode>

@@ -14,13 +14,12 @@
   },
   "markdown": {},
   "excludes": [
-    "**/node_modules",
+    "**/.next",
     "**/*-lock.json",
     "**/*-lock.yaml",
-    "**/test/fixtures",
     "**/dist",
-    "bun.lockb",
-    "**/.next",
+    "**/node_modules",
+    "**/test/fixtures",
     "packages/**/docs"
   ],
   "plugins": [
