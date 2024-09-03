@@ -4,6 +4,10 @@
 
 - Added `web-api/no-leaked-resize-observer` rule to prevent leaked `ResizeObserver`.
 
+### 🪄 Improvements
+
+- Upgrade `@typescript-eslint`'s packages to `^8.4.0`.
+
 ## v1.12.4 (Sat 31 Aug 2024)
 
 ### ✨ New
