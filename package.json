@@ -85,7 +85,7 @@
     "eslint-plugin-unicorn": "^55.0.0",
     "eslint-plugin-vitest": "^0.5.4",
     "eslint-plugin-yml": "^1.14.0",
-    "knip": "^5.29.1",
+    "knip": "^5.29.2",
     "lefthook": "^1.7.15",
     "markdownlint": "^0.35.0",
     "publint": "^0.2.10",
