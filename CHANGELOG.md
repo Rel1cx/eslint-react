@@ -1,11 +1,17 @@
-## v1.12.5 (Draft)
+## v1.13.0 (Draft)
 
 ### ✨ New
 
+- Added `hooks-extra/no-redundant-custom-hook` rule to prevent custom Hooks that don't use other Hooks.
+- Added `hooks-extra/no-unnecessary-use-callback` rule to prevent unnecessary `useCallback`.
+- Added `hooks-extra/no-unnecessary-use-memo` rule to prevent unnecessary `useMemo`.
 - Added `web-api/no-leaked-resize-observer` rule to prevent leaked `ResizeObserver`.
 
 ### 🪄 Improvements
 
+- Deprecate `hooks-extra/ensure-custom-using-hooks` in favor of `hooks-extra/no-redundant-custom-hook`.
+- Deprecate `hooks-extra/ensure-use-memo-has-non-empty-deps` in favor of `hooks-extra/no-unnecessary-use-memo`.
+- Deprecate `hooks-extra/ensure-use-callback-has-non-empty-deps` in favor of `hooks-extra/no-unnecessary-use-callback`.
 - Upgrade `@typescript-eslint`'s packages to `^8.4.0`.
 
 ## v1.12.4 (Sat 31 Aug 2024)
@@ -252,7 +258,7 @@
 ### 🐞 Fixes
 
 - Fix false positives in rule `hooks-extra/ensure-use-memo-has-non-empty-deps` when referencing component block scope.
-- Fix false positives in rule `hooks-extra/ensure-use-callback-has-non-empty-deps` when referencing component block scope.
+- Fix false positives in rule `hooks-extra/no-unnecessary-use-callback` when referencing component block scope.
 
 ### 🪄 Improvements
 

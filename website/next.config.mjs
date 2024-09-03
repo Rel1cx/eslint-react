@@ -57,6 +57,11 @@ const nextConfig = {
         destination: "/docs/rules/hooks-extra-no-direct-set-state-in-use-effect",
         permanent: true,
       },
+      {
+        source: "/docs/rules/debug-react-hooks",
+        destination: "/docs/rules/debug-hook",
+        permanent: true,
+      },
     ];
   },
 };

@@ -1,8 +1,9 @@
+/* eslint-disable perfectionist/sort-objects */
 import { name, version } from "../package.json";
-import ensureCustomHooksUsingOtherHooks from "./rules/ensure-custom-hooks-using-other-hooks";
-import ensureUseCallbackHasNonEmptyDeps from "./rules/ensure-use-callback-has-non-empty-deps";
-import ensureUseMemoHasNonEmptyDeps from "./rules/ensure-use-memo-has-non-empty-deps";
 import noDirectSetStateInUseEffect from "./rules/no-direct-set-state-in-use-effect";
+import noRedundantCustomHook from "./rules/no-redundant-custom-hook";
+import ensureUseCallbackHasNonEmptyDeps from "./rules/no-unnecessary-use-callback";
+import noUnnecessaryUseMemo from "./rules/no-unnecessary-use-memo";
 import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
 
 export const meta = {
@@ -11,11 +12,16 @@ export const meta = {
 } as const;
 
 export const rules = {
-  "ensure-custom-hooks-using-other-hooks": ensureCustomHooksUsingOtherHooks,
-  "ensure-use-callback-has-non-empty-deps": ensureUseCallbackHasNonEmptyDeps,
-  "ensure-use-memo-has-non-empty-deps": ensureUseMemoHasNonEmptyDeps,
   "no-direct-set-state-in-use-effect": noDirectSetStateInUseEffect,
+  "no-redundant-custom-hook": noRedundantCustomHook,
+  "no-unnecessary-use-callback": ensureUseCallbackHasNonEmptyDeps,
+  "no-unnecessary-use-memo": noUnnecessaryUseMemo,
+  "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
+  // Deprecated Rules
+  /** @deprecated Use `no-redundant-custom-hook` instead */
+  "ensure-custom-hooks-using-other-hooks": noRedundantCustomHook,
+  /** @deprecated Use `no-unnecessary-use-memo` instead */
+  "ensure-use-memo-has-non-empty-deps": noUnnecessaryUseMemo,
   /** @deprecated Use `no-direct-set-state-in-use-effect` instead */
   "no-direct-set-state-in-use-layout-effect": noDirectSetStateInUseEffect,
-  "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
 } as const;

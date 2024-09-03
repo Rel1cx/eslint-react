@@ -1,12 +1,11 @@
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./ensure-custom-hooks-using-other-hooks";
+import rule, { RULE_NAME } from "./no-redundant-custom-hook";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `
         const useClassnames = (obj) => {
-            // Invalid, because useClassnames doesn't use any other React Hooks.
             var k, cls='';
             for (k in obj) {
               if (obj[k]) {
@@ -19,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureCustomHooksUsingOtherHooks",
+          messageId: "noRedundantCustomHook",
           data: {
             name: "useClassnames",
           },
@@ -29,7 +28,6 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: /* tsx */ `
         function useClassnames(obj) {
-            // Invalid, because useClassnames doesn't use any other React Hooks.
             var k, cls='';
             for (k in obj) {
                 if (obj[k]) {
@@ -42,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureCustomHooksUsingOtherHooks",
+          messageId: "noRedundantCustomHook",
           data: {
             name: "useClassnames",
           },
@@ -62,7 +60,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureCustomHooksUsingOtherHooks",
+          messageId: "noRedundantCustomHook",
           data: {
             name: "useInnerHook",
           },
@@ -82,7 +80,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureCustomHooksUsingOtherHooks",
+          messageId: "noRedundantCustomHook",
           data: {
             name: "useNestedHook",
           },
@@ -101,13 +99,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureCustomHooksUsingOtherHooks",
+          messageId: "noRedundantCustomHook",
           data: {
             name: "useNestedHook",
           },
         },
         {
-          messageId: "ensureCustomHooksUsingOtherHooks",
+          messageId: "noRedundantCustomHook",
           data: {
             name: "useInnerHook",
           },
@@ -127,7 +125,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureCustomHooksUsingOtherHooks",
+          messageId: "noRedundantCustomHook",
           data: {
             name: "useNestedHook",
           },

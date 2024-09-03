@@ -96,13 +96,13 @@
 
 ## Hooks Extra Rules
 
-| Rule                                                                                                       | Description                                                               | 💼  | 💭  |     |
-| :--------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------ | :-: | :-: | :-: |
-| [`hooks-extra/ensure-custom-hooks-using-other-hooks`](hooks-extra-ensure-custom-hooks-using-other-hooks)   | Warns when custom Hooks that don't use other Hooks.                       |  ✔️  |     |     |
-| [`hooks-extra/ensure-use-callback-has-non-empty-deps`](hooks-extra-ensure-use-callback-has-non-empty-deps) | Warns when `useCallback` is called with empty dependencies array.         | 🧐  |     | 📐  |
-| [`hooks-extra/ensure-use-memo-has-non-empty-deps`](hooks-extra-ensure-use-memo-has-non-empty-deps)         | Warns when `useMemo` is called with empty dependencies array.             | 🧐  |     | 📐  |
-| [`hooks-extra/no-direct-set-state-in-use-effect`](hooks-extra-no-direct-set-state-in-use-effect)           | Disallow direct calls to the `set` function of `useState` in `useEffect`. |  ✔️  |     | 🆕  |
-| [`hooks-extra/prefer-use-state-lazy-initialization`](hooks-extra-prefer-use-state-lazy-initialization)     | Warns function calls made inside `useState` calls.                        | 🚀  |     |     |
+| Rule                                                                                                   | Description                                                               | 💼  | 💭  |     |
+| :----------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------ | :-: | :-: | :-: |
+| [`hooks-extra/no-direct-set-state-in-use-effect`](hooks-extra-no-direct-set-state-in-use-effect)       | Disallow direct calls to the `set` function of `useState` in `useEffect`. |  ✔️  |     | 🆕  |
+| [`hooks-extra/no-redundant-custom-hook`](hooks-extra-no-redundant-custom-hook)                         | Warns when custom Hooks that don't use other Hooks.                       |  ✔️  |     |     |
+| [`hooks-extra/no-unnecessary-use-callback`](hooks-extra-no-unnecessary-use-callback)                   | Disallow unnecessary usage of `useCallback`.                              | 🧐  |     | 📐  |
+| [`hooks-extra/no-unnecessary-use-memo`](hooks-extra-no-unnecessary-use-memo)                           | Disallow unnecessary usage of `useMemo`.                                  | 🧐  |     | 📐  |
+| [`hooks-extra/prefer-use-state-lazy-initialization`](hooks-extra-prefer-use-state-lazy-initialization) | Warns function calls made inside `useState` calls.                        | 🚀  |     |     |
 
 ## Naming Convention Rules
 
@@ -119,5 +119,5 @@
 | :----------------------------------------------------- | :------------------------------------------------------- | :-: | :-: | :-: |
 | [`debug/class-component`](debug-class-component)       | Reports all class components.                            | 🐞  |     |     |
 | [`debug/function-component`](debug-function-component) | Reports all function components.                         | 🐞  |     |     |
-| [`debug/react-hooks`](debug-react-hooks)               | Reports all react hooks.                                 | 🐞  |     |     |
+| [`debug/hook`](debug-react-hooks)                      | Reports all react hooks.                                 | 🐞  |     |     |
 | [`debug/is-from-react`](debug-is-from-react)           | Reports all identifiers that are initialized from React. | 🐞  |     |     |

@@ -1,8 +1,8 @@
 import { name, version } from "../package.json";
 import classComponent from "./rules/class-component";
 import functionComponent from "./rules/function-component";
+import hook from "./rules/hook";
 import isFromReact from "./rules/is-from-react";
-import reactHooks from "./rules/react-hooks";
 
 export const meta = {
   name,
@@ -12,6 +12,9 @@ export const meta = {
 export const rules = {
   "class-component": classComponent,
   "function-component": functionComponent,
+  hook: hook,
   "is-from-react": isFromReact,
-  "react-hooks": reactHooks,
+  // Deprecated rules
+  /** @deprecated Use `hook` rule instead */
+  "react-hooks": hook,
 } as const;

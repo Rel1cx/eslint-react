@@ -1,5 +1,5 @@
 import { allFunctions, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./react-hooks";
+import rule, { RULE_NAME } from "./hook";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "reactHooks",
+          messageId: "hook",
           data: {
             name: "useToggle",
             hookCalls: 1,
@@ -29,7 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "reactHooks",
+          messageId: "hook",
           data: {
             name: "useSorted",
             hookCalls: 0,
@@ -51,14 +51,14 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "reactHooks",
+          messageId: "hook",
           data: {
             name: "useToggle",
             hookCalls: 1,
           },
         },
         {
-          messageId: "reactHooks",
+          messageId: "hook",
           data: {
             name: "useSorted",
             hookCalls: 0,
@@ -82,7 +82,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "reactHooks",
+          messageId: "hook",
           data: {
             name: "useClassnames",
             hookCalls: 0,
@@ -106,7 +106,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "reactHooks",
+          messageId: "hook",
           data: {
             name: "useClassnames",
             hookCalls: 0,
@@ -127,14 +127,14 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "reactHooks",
+          messageId: "hook",
           data: {
             name: "useNestedHook",
             hookCalls: 1,
           },
         },
         {
-          messageId: "reactHooks",
+          messageId: "hook",
           data: {
             name: "useInnerHook",
             hookCalls: 0,
@@ -155,14 +155,14 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "reactHooks",
+          messageId: "hook",
           data: {
             name: "useNestedHook",
             hookCalls: 0,
           },
         },
         {
-          messageId: "reactHooks",
+          messageId: "hook",
           data: {
             name: "useInnerHook",
             hookCalls: 1,
@@ -183,7 +183,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "reactHooks",
+          messageId: "hook",
           data: {
             name: "useNestedHook",
             hookCalls: 0,

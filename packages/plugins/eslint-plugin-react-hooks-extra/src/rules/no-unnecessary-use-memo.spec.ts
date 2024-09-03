@@ -1,5 +1,5 @@
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./ensure-use-memo-has-non-empty-deps";
+import rule, { RULE_NAME } from "./no-unnecessary-use-memo";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
     },
@@ -38,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
     },
@@ -58,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
     },
@@ -73,7 +73,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
     },
@@ -88,7 +88,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
     },
@@ -104,7 +104,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
     },
@@ -120,7 +120,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
       settings: {
@@ -141,7 +141,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
       settings: {
@@ -162,7 +162,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
       settings: {
@@ -183,7 +183,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
       settings: {
@@ -204,7 +204,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
       settings: {
@@ -225,7 +225,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
       settings: {
@@ -246,7 +246,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
       settings: {
@@ -267,7 +267,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
       settings: {
@@ -288,7 +288,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
       settings: {
@@ -309,7 +309,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
       settings: {
@@ -330,7 +330,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
       settings: {
@@ -351,7 +351,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
       settings: {
@@ -372,7 +372,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
       settings: {
@@ -395,7 +395,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
     },
@@ -411,7 +411,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseMemoHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
         },
       ],
     },

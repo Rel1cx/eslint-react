@@ -1,5 +1,5 @@
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./ensure-use-callback-has-non-empty-deps";
+import rule, { RULE_NAME } from "./no-unnecessary-use-callback";
 
 // TODO: Add more tests
 ruleTester.run(RULE_NAME, rule, {
@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
     },
@@ -37,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
     },
@@ -56,7 +56,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
     },
@@ -75,7 +75,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
     },
@@ -94,7 +94,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
     },
@@ -113,7 +113,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
     },
@@ -132,7 +132,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
     },
@@ -148,7 +148,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
       settings: {
@@ -169,7 +169,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
       settings: {
@@ -190,7 +190,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
       settings: {
@@ -211,7 +211,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
       settings: {
@@ -232,7 +232,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
       settings: {
@@ -253,7 +253,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
       settings: {
@@ -274,7 +274,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
       settings: {
@@ -295,7 +295,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
       settings: {
@@ -316,7 +316,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
       settings: {
@@ -337,7 +337,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
       settings: {
@@ -358,7 +358,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
       settings: {
@@ -379,7 +379,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
       settings: {
@@ -403,7 +403,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseCallback",
         },
       ],
       settings: {

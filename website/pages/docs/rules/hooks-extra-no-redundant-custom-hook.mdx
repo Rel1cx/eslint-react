@@ -1,4 +1,4 @@
-# ensure-custom-hooks-using-other-hooks
+# no-redundant-custom-hook
 
 ## Rule category
 
@@ -6,11 +6,11 @@ Correctness.
 
 ## What it does
 
-Warns when custom Hooks that don't use other Hooks.
+Enforce custom hooks to use at least one other hook inside.
 
-## Why is this good?
+## Why is this bad?
 
-Custom Hooks may call other Hooks (that’s their whole purpose). If a custom Hook is not calling other Hooks, it might be a sign that it's unnecessary or incorrectly implemented. This rule helps you catch those cases.
+If a custom Hook is not calling other Hooks, it might be a sign that it's unnecessary or incorrectly implemented.
 
 ## Examples
 
