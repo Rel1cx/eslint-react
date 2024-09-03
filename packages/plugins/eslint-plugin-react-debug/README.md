@@ -32,7 +32,7 @@ export default [
     rules: {
       "react-debug/class-component": "warn",
       "react-debug/function-component": "warn",
-      "react-debug/react-hooks": "warn",
+      "react-debug/hook": "warn",
       "react-debug/is-from-react": "off",
     },
   },
@@ -45,5 +45,5 @@ export default [
 | :------------------- | :------------------------------------------------------- | :-: | :-: | :-: |
 | `class-component`    | Reports all class components.                            | 🐞  |     |     |
 | `function-component` | Reports all function components.                         | 🐞  |     |     |
-| `react-hooks`        | Reports all react hooks.                                 | 🐞  |     |     |
+| `hook`               | Reports all react hooks.                                 | 🐞  |     |     |
 | `is-from-react`      | Reports all identifiers that are initialized from React. | 🐞  |     |     |

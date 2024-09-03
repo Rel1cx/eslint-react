@@ -1,4 +1,4 @@
-# ensure-use-memo-has-non-empty-deps
+# no-unnecessary-use-memo
 
 ## Rule category
 
@@ -6,7 +6,7 @@ Pedantic.
 
 ## What it does
 
-Warns when `useMemo` is called with empty dependencies array.
+Disallows unnecessary usage of `useMemo`.
 
 ## Why is this bad?
 
@@ -21,7 +21,6 @@ import React, { useMemo } from "react";
 import { Button, MantineTheme } from "@mantine/core";
 
 function Example() {
-  // useCallback has empty dependencies array
   const style = useMemo(
     (theme: MantineTheme) => ({
       input: {

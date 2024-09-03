@@ -31,7 +31,7 @@ export default [
     },
     rules: {
       // react-hooks-extra recommended rules
-      "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
+      "hooks-extra/no-redundant-custom-hook": "warn",
       "hooks-extra/no-direct-set-state-in-use-effect": "warn",
       "hooks-extra/prefer-use-state-lazy-initialization": "warn",
     },
@@ -41,10 +41,10 @@ export default [
 
 ## Rules
 
-| Rule                                     | Description                                                               | 💼  | 💭  |     |
-| :--------------------------------------- | :------------------------------------------------------------------------ | :-: | :-: | :-: |
-| `ensure-custom-hooks-using-other-hooks`  | Warns when custom Hooks that don't use other Hooks.                       |  ✔️  |     |     |
-| `ensure-use-callback-has-non-empty-deps` | Warns when `useCallback` is called with empty dependencies array.         | 🧐  |     |     |
-| `ensure-use-memo-has-non-empty-deps`     | Warns when `useMemo` is called with empty dependencies array.             | 🧐  |     |     |
-| `no-direct-set-state-in-use-effect`      | Disallow direct calls to the `set` function of `useState` in `useEffect`. |  ✔️  |     |     |
-| `prefer-use-state-lazy-initialization`   | Warns function calls made inside `useState` calls.                        | 🚀  |     |     |
+| Rule                                   | Description                                                               | 💼  | 💭  |     |
+| :------------------------------------- | :------------------------------------------------------------------------ | :-: | :-: | :-: |
+| `no-direct-set-state-in-use-effect`    | Disallow direct calls to the `set` function of `useState` in `useEffect`. |  ✔️  |     |     |
+| `no-redundant-custom-hook`             | Warns when custom Hooks that don't use other Hooks.                       |  ✔️  |     |     |
+| `no-unnecessary-use-callback`          | Disallow unnecessary usage of `useCallback`.                              |  ✔️  |     |     |
+| `no-unnecessary-use-memo`              | Disallow unnecessary usage of `useMemo`.                                  |  ✔️  |     |     |
+| `prefer-use-state-lazy-initialization` | Warns function calls made inside `useState` calls.                        | 🚀  |     |     |

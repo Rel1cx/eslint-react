@@ -82,10 +82,10 @@ const allPreset = {
   "web-api/no-leaked-timeout": "warn",
 
   // Part: Hooks Extra
-  "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
-  "hooks-extra/ensure-use-callback-has-non-empty-deps": "warn",
-  "hooks-extra/ensure-use-memo-has-non-empty-deps": "warn",
   "hooks-extra/no-direct-set-state-in-use-effect": "warn",
+  "hooks-extra/no-redundant-custom-hook": "warn",
+  "hooks-extra/no-unnecessary-use-callback": "warn",
+  "hooks-extra/no-unnecessary-use-memo": "warn",
   "hooks-extra/prefer-use-state-lazy-initialization": "warn",
 
   "naming-convention/component-name": "warn",
@@ -164,8 +164,8 @@ const webApiPreset = {
 } as const satisfies RulePreset;
 
 const hooksExtraPreset = {
-  "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
   "hooks-extra/no-direct-set-state-in-use-effect": "warn",
+  "hooks-extra/no-redundant-custom-hook": "warn",
   "hooks-extra/prefer-use-state-lazy-initialization": "warn",
 } as const satisfies RulePreset;
 
@@ -189,7 +189,7 @@ const disableTypeCheckedPreset: RulePreset = {
 const debugPreset = {
   "debug/class-component": "warn",
   "debug/function-component": "warn",
-  "debug/react-hooks": "warn",
+  "debug/hook": "warn",
 } as const satisfies RulePreset;
 
 const disableDomPreset = fromEntries(entries(domPreset).map(([key]) => [key, "off"] as const));

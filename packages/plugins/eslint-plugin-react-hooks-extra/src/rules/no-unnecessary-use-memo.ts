@@ -1,5 +1,5 @@
 import { is, isFunction } from "@eslint-react/ast";
-import { isReactHookCall, isReactHookCallWithNameLoose, isUseCallbackCall } from "@eslint-react/core";
+import { isReactHookCall, isReactHookCallWithNameLoose, isUseMemoCall } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import { findVariable, getVariableNode } from "@eslint-react/var";
@@ -9,7 +9,7 @@ import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "ensure-use-callback-has-non-empty-deps";
+export const RULE_NAME = "no-unnecessary-use-memo";
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
@@ -17,22 +17,22 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce 'useCallback' has non-empty dependencies array",
+      description: "disallow unnecessary usage of 'useMemo'",
     },
     messages: {
-      ensureUseCallbackHasNonEmptyDeps: "An 'useCallback' should have a non-empty dependencies array.",
+      noUnnecessaryUseMemo: "An 'useMemo' with empty deps and no references to the component scope may be unnecessary.",
     },
     schema: [],
   },
   name: RULE_NAME,
   create(context) {
     if (!context.sourceCode.text.includes("use")) return {};
-    const alias = decodeSettings(context.settings).additionalHooks?.useCallback ?? [];
+    const alias = decodeSettings(context.settings).additionalHooks?.useMemo ?? [];
     return {
       CallExpression(node) {
         if (!isReactHookCall(node)) return;
         const initialScope = context.sourceCode.getScope(node);
-        if (!isUseCallbackCall(node, context) && !alias.some(isReactHookCallWithNameLoose(node))) {
+        if (!isUseMemoCall(node, context) && !alias.some(isReactHookCallWithNameLoose(node))) {
           return;
         }
         const scope = context.sourceCode.getScope(node);
@@ -41,7 +41,7 @@ export default createRule<[], MessageID>({
         const [cb, deps] = node.arguments;
         if (!deps) {
           context.report({
-            messageId: "ensureUseCallbackHasNonEmptyDeps",
+            messageId: "noUnnecessaryUseMemo",
             node,
           });
           return;
@@ -62,7 +62,7 @@ export default createRule<[], MessageID>({
         if (!hasEmptyDeps) return;
         if (!cb) {
           context.report({
-            messageId: "ensureUseCallbackHasNonEmptyDeps",
+            messageId: "noUnnecessaryUseMemo",
             node,
           });
           return;
@@ -90,7 +90,7 @@ export default createRule<[], MessageID>({
         );
         if (isReferencedToComponentScope) return;
         context.report({
-          messageId: "ensureUseCallbackHasNonEmptyDeps",
+          messageId: "noUnnecessaryUseMemo",
           node,
         });
       },

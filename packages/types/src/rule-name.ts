@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-type PositiveModifier = "avoid" | "ensure" | "prefer" | "strict";
+type PositiveModifier = "avoid" | "prefer" | "strict";
 
 type NegativeModifier = "no";
 
