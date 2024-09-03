@@ -52,6 +52,17 @@ const nextConfig = {
         destination: "/docs/rules/:wildcard",
         permanent: true,
       },
+      // Redirects for renamed rules
+      {
+        source: "/docs/rules/hooks-extra-ensure-use-memo-has-non-empty-deps",
+        destination: "/docs/rules/hooks-extra-no-unnecessary-use-memo",
+        permanent: true,
+      },
+      {
+        source: "/docs/rules/hooks-extra-ensure-use-callback-has-non-empty-deps",
+        destination: "/docs/rules/hooks-extra-no-unnecessary-use-callback",
+        permanent: true,
+      },
       {
         source: "/docs/rules/hooks-extra-no-direct-set-state-in-use-layout-effect",
         destination: "/docs/rules/hooks-extra-no-direct-set-state-in-use-effect",

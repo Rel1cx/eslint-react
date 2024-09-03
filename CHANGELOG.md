@@ -9,9 +9,10 @@
 
 ### 🪄 Improvements
 
-- Deprecate `hooks-extra/ensure-custom-using-hooks` in favor of `hooks-extra/no-redundant-custom-hook`.
-- Deprecate `hooks-extra/ensure-use-memo-has-non-empty-deps` in favor of `hooks-extra/no-unnecessary-use-memo`.
-- Deprecate `hooks-extra/ensure-use-callback-has-non-empty-deps` in favor of `hooks-extra/no-unnecessary-use-callback`.
+- Rename `debug/react-hooks` to `debug/hook`.
+- Rename `hooks-extra/ensure-custom-using-hooks` to `hooks-extra/no-redundant-custom-hook`.
+- Rename `hooks-extra/ensure-use-memo-has-non-empty-deps` to `hooks-extra/no-unnecessary-use-memo`.
+- Rename `hooks-extra/ensure-use-callback-has-non-empty-deps` to `hooks-extra/no-unnecessary-use-callback`.
 - Upgrade `@typescript-eslint`'s packages to `^8.4.0`.
 
 ## v1.12.4 (Sat 31 Aug 2024)
