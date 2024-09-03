@@ -1,3 +1,4 @@
+import { isEmptyFunction } from "@eslint-react/ast";
 import { useHookCollector } from "@eslint-react/core";
 import type { CamelCase } from "string-ts";
 
@@ -7,7 +8,6 @@ export const RULE_NAME = "no-redundant-custom-hook";
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-// Detect the number of other hooks called inside the current hook
 // Hooks that are not call other hooks are redundant
 // In React, hooks are like colored functions, and defining a custom hook that doesn't call other hooks is like defining a generator function that doesn't yield or an async function that doesn't await.
 // "Custom Hooks may call other Hooks (that’s their whole purpose)." from https://react.dev/warnings/invalid-hook-call-warning
@@ -26,12 +26,13 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useHookCollector();
-
     return {
       ...listeners,
       "Program:exit"(node) {
         const allHooks = ctx.getAllHooks(node);
         for (const { name, node, hookCalls } of allHooks.values()) {
+          // Skip empty functions
+          if (isEmptyFunction(node)) continue;
           if (hookCalls.length > 0) continue;
           context.report({
             messageId: "noRedundantCustomHook",
