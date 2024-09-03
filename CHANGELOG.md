@@ -4,6 +4,10 @@
 
 - Added `web-api/no-leaked-resize-observer` rule to prevent leaked `ResizeObserver`.
 
+### 🐞 Fixes
+
+- `hooks-extra/no-redundant-custom-hook` should allow custom hooks with empty body.
+
 ### 🪄 Improvements
 
 - Rename `debug/react-hooks` to `debug/hook`.

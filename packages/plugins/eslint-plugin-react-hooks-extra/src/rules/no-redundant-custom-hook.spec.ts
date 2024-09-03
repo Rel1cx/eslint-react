@@ -136,6 +136,10 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     ...allValid,
     /* tsx */ `
+      // Allow empty functions.
+      const useNoop = () => {};
+    `,
+    /* tsx */ `
       import { useState } from "react";
 
       const Comp = () => {
