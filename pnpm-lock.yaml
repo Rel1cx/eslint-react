@@ -153,8 +153,8 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
       skott:
-        specifier: ^0.35.2
-        version: 0.35.2
+        specifier: ^0.35.3
+        version: 0.35.3
       sort-package-json:
         specifier: ^2.10.1
         version: 2.10.1
@@ -4983,6 +4983,7 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -5255,6 +5256,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.3:
     resolution: {integrity: sha512-x00IRNXNy63jwGkJmzPigoySHbaqpNuzKbBOmzK+g2OdZpQ9w+sxCN+VSB3ja7IAge2OP2qpfxTjeNcyjmW1uw==}
@@ -6997,8 +6999,8 @@ packages:
   skott-webapp@2.2.0:
     resolution: {integrity: sha512-pvqvbvc1ULZdBDjo/vtztcuGOHsDEFpiqThnkKelOtPQylZqr1WBTpsGCWztAtsDJ8lRF/UmaVOdm89y8ToBLA==}
 
-  skott@0.35.2:
-    resolution: {integrity: sha512-HDUWqsB4LBHi7qaXo3wtq926UpORd4ezU8FeKfKbTxY8i/Xas0U6+B6PkrLLRvcHIcp/iWUfXgGi8qh9RNBu0g==}
+  skott@0.35.3:
+    resolution: {integrity: sha512-pyHupNHBtmJJYvZu4tTwEQEOvoDSEnxoW9cdd1FXIoBiaDZkqHzD53DTNpOJYP5a8ceicoUjtzshFE2kspBzXA==}
     hasBin: true
 
   slash@3.0.0:
@@ -15013,7 +15015,7 @@ snapshots:
     dependencies:
       digraph-js: 2.2.3
 
-  skott@0.35.2:
+  skott@0.35.3:
     dependencies:
       '@parcel/watcher': 2.4.1
       '@typescript-eslint/typescript-estree': 7.13.1(typescript@5.6.1-rc)

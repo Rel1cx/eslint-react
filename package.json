@@ -91,7 +91,7 @@
     "publint": "^0.2.10",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "skott": "^0.35.2",
+    "skott": "^0.35.3",
     "sort-package-json": "^2.10.1",
     "std-env": "^3.7.0",
     "telejson": "^7.2.0",
