@@ -2,9 +2,6 @@
 
 ### ✨ New
 
-- Added `hooks-extra/no-redundant-custom-hook` rule to prevent custom Hooks that don't use other Hooks.
-- Added `hooks-extra/no-unnecessary-use-callback` rule to prevent unnecessary `useCallback`.
-- Added `hooks-extra/no-unnecessary-use-memo` rule to prevent unnecessary `useMemo`.
 - Added `web-api/no-leaked-resize-observer` rule to prevent leaked `ResizeObserver`.
 
 ### 🪄 Improvements
@@ -14,6 +11,8 @@
 - Rename `hooks-extra/ensure-use-memo-has-non-empty-deps` to `hooks-extra/no-unnecessary-use-memo`.
 - Rename `hooks-extra/ensure-use-callback-has-non-empty-deps` to `hooks-extra/no-unnecessary-use-callback`.
 - Upgrade `@typescript-eslint`'s packages to `^8.4.0`.
+
+(the previous rules will still be available until the next major update to avoid breaking changes).
 
 ## v1.12.4 (Sat 31 Aug 2024)
 
