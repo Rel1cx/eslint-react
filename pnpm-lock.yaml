@@ -6,11 +6,11 @@ settings:
 
 overrides:
   '@eslint/js': 9.9.1
+  is-core-module: npm:@nolyfill/is-core-module@^1.0.39
+  typedarray: npm:@nolyfill/typedarray@^1.0.29
   esbuild: ^0.23.1
   eslint: ^9.9.1
-  is-core-module: npm:@nolyfill/is-core-module@^1
   ts-api-utils: ^1.3.0
-  typedarray: npm:@nolyfill/typedarray@^1
   typescript: 5.6.1-rc
 
 importers:
@@ -100,7 +100,7 @@ importers:
         version: 0.3.0(eslint@9.9.1(jiti@1.21.6))
       eslint-import-resolver-oxc:
         specifier: ^0.3.0
-        version: 0.3.0(eslint-plugin-import-x@4.1.1(eslint@9.9.1(jiti@1.21.6))(typescript@5.6.1-rc))(eslint@9.9.1(jiti@1.21.6))
+        version: 0.3.0(eslint-plugin-import-x@4.2.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.6.1-rc))(eslint@9.9.1(jiti@1.21.6))
       eslint-plugin-eslint-comments:
         specifier: ^3.2.0
         version: 3.2.0(eslint@9.9.1(jiti@1.21.6))
@@ -111,8 +111,8 @@ importers:
         specifier: 1.5.0
         version: 1.5.0(eslint@9.9.1(jiti@1.21.6))
       eslint-plugin-import-x:
-        specifier: ^4.1.1
-        version: 4.1.1(eslint@9.9.1(jiti@1.21.6))(typescript@5.6.1-rc)
+        specifier: ^4.2.0
+        version: 4.2.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.6.1-rc)
       eslint-plugin-jsdoc:
         specifier: ^50.2.2
         version: 50.2.2(eslint@9.9.1(jiti@1.21.6))
@@ -4509,8 +4509,8 @@ packages:
     peerDependencies:
       eslint: ^9.9.1
 
-  eslint-plugin-import-x@4.1.1:
-    resolution: {integrity: sha512-dBEM8fACIFNt4H7GoOaRmnH6evJW6JSTJTYYgmRd3vI4geBTjgDM/JyUDKUwIw0HDSyI+u7Vs3vFRXUo/BOAtA==}
+  eslint-plugin-import-x@4.2.0:
+    resolution: {integrity: sha512-kEPB9oeuKSZ8U2LfH6DDoov5V4gTid5JHny9P0JyvKmB4LZNG8kGdqJyCq46QRimbp8FKTlOtsSIO5hdhoZS8A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^9.9.1
@@ -11839,12 +11839,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-oxc@0.3.0(eslint-plugin-import-x@4.1.1(eslint@9.9.1(jiti@1.21.6))(typescript@5.6.1-rc))(eslint@9.9.1(jiti@1.21.6)):
+  eslint-import-resolver-oxc@0.3.0(eslint-plugin-import-x@4.2.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.6.1-rc))(eslint@9.9.1(jiti@1.21.6)):
     dependencies:
       eslint: 9.9.1(jiti@1.21.6)
       oxc-resolver: 1.11.0
     optionalDependencies:
-      eslint-plugin-import-x: 4.1.1(eslint@9.9.1(jiti@1.21.6))(typescript@5.6.1-rc)
+      eslint-plugin-import-x: 4.2.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.6.1-rc)
 
   eslint-mdx@3.1.5(eslint@9.9.1(jiti@1.21.6)):
     dependencies:
@@ -11885,9 +11885,8 @@ snapshots:
       nanospinner: 1.1.0
       picocolors: 1.0.1
 
-  eslint-plugin-import-x@4.1.1(eslint@9.9.1(jiti@1.21.6))(typescript@5.6.1-rc):
+  eslint-plugin-import-x@4.2.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.6.1-rc):
     dependencies:
-      '@typescript-eslint/typescript-estree': 8.4.0(typescript@5.6.1-rc)
       '@typescript-eslint/utils': 8.4.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.6.1-rc)
       debug: 4.3.6
       doctrine: 3.0.0
