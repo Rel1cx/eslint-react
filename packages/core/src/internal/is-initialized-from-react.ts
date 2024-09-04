@@ -21,8 +21,7 @@ export function isInitializedFromReact(
   // Optimistic assertion when identifier is named react
   if (name.toLowerCase() === "react") return true;
   const { importSource = "react" } = settings;
-  const maybeVariable = findVariable(name, initialScope);
-  const maybeLatestDef = O.flatMapNullable(maybeVariable, (v) => v.defs.at(-1));
+  const maybeLatestDef = O.flatMapNullable(findVariable(name, initialScope), (v) => v.defs.at(-1));
   if (O.isNone(maybeLatestDef)) return false;
   const latestDef = maybeLatestDef.value;
   const { node, parent } = latestDef;
