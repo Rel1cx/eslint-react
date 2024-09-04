@@ -1,4 +1,4 @@
-## v1.13.0 (Draft)
+## v1.13.0 (Wed 04 Sep 2024)
 
 ### ✨ New
 
@@ -16,7 +16,7 @@
 - Rename `hooks-extra/ensure-use-callback-has-non-empty-deps` to `hooks-extra/no-unnecessary-use-callback`.
 - Upgrade `@typescript-eslint`'s packages to `^8.4.0`.
 
-(the previous rules will still be available until the next major update to avoid breaking changes).
+(The rules that were renamed in this release will still be available until the next major update to avoid breaking changes.)
 
 ## v1.12.4 (Sat 31 Aug 2024)
 
