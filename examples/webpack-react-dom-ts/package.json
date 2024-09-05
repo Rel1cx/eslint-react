@@ -30,7 +30,7 @@
     "dprint": "0.47.2",
     "esbuild-register": "3.6.0",
     "eslint": "^9.9.1",
-    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-hooks": "canary",
     "eslint-plugin-react-refresh": "^0.4.11",
     "eslint-webpack-plugin": "4.2.0",
     "file-loader": "^6.2.0",

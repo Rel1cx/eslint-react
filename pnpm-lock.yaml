@@ -6,11 +6,11 @@ settings:
 
 overrides:
   '@eslint/js': 9.9.1
-  is-core-module: npm:@nolyfill/is-core-module@^1.0.39
-  typedarray: npm:@nolyfill/typedarray@^1.0.29
   esbuild: ^0.23.1
   eslint: ^9.9.1
+  is-core-module: npm:@nolyfill/is-core-module@^1.0.39
   ts-api-utils: ^1.3.0
+  typedarray: npm:@nolyfill/typedarray@^1.0.29
   typescript: 5.6.1-rc
 
 importers:
@@ -244,8 +244,8 @@ importers:
         specifier: ^9.9.1
         version: 9.9.1(jiti@1.21.6)
       eslint-plugin-react-hooks:
-        specifier: ^4.6.2
-        version: 4.6.2(eslint@9.9.1(jiti@1.21.6))
+        specifier: canary
+        version: 5.1.0-rc-4c58fce7-20240904(eslint@9.9.1(jiti@1.21.6))
       eslint-plugin-react-refresh:
         specifier: ^0.4.11
         version: 0.4.11(eslint@9.9.1(jiti@1.21.6))
@@ -290,8 +290,8 @@ importers:
         specifier: ^9.9.1
         version: 9.9.1(jiti@1.21.6)
       eslint-plugin-react-hooks:
-        specifier: ^4.6.2
-        version: 4.6.2(eslint@9.9.1(jiti@1.21.6))
+        specifier: canary
+        version: 5.1.0-rc-4c58fce7-20240904(eslint@9.9.1(jiti@1.21.6))
       eslint-plugin-react-refresh:
         specifier: ^0.4.11
         version: 0.4.11(eslint@9.9.1(jiti@1.21.6))
@@ -354,8 +354,8 @@ importers:
         specifier: ^9.9.1
         version: 9.9.1(jiti@1.21.6)
       eslint-plugin-react-hooks:
-        specifier: ^4.6.2
-        version: 4.6.2(eslint@9.9.1(jiti@1.21.6))
+        specifier: canary
+        version: 5.1.0-rc-4c58fce7-20240904(eslint@9.9.1(jiti@1.21.6))
       eslint-plugin-react-refresh:
         specifier: ^0.4.11
         version: 0.4.11(eslint@9.9.1(jiti@1.21.6))
@@ -4554,6 +4554,12 @@ packages:
 
   eslint-plugin-react-hooks@4.6.2:
     resolution: {integrity: sha512-QzliNJq4GinDBcD8gPB5v0wh6g8q3SUi6EFF0x8N/BL9PoVs0atuGc47ozMRyOWAKdwaZ5OnbOEa3WR+dSGKuQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      eslint: ^9.9.1
+
+  eslint-plugin-react-hooks@5.1.0-rc-4c58fce7-20240904:
+    resolution: {integrity: sha512-PDoulHvydL8q8QhhyQx9y7c0Ot79D/o53+/6GG/9stROV2iBteNl/n8WNxwdcVtaSrFJ2BXd/M1U2fyjhelUzA==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^9.9.1
@@ -11953,6 +11959,10 @@ snapshots:
       - typescript
 
   eslint-plugin-react-hooks@4.6.2(eslint@9.9.1(jiti@1.21.6)):
+    dependencies:
+      eslint: 9.9.1(jiti@1.21.6)
+
+  eslint-plugin-react-hooks@5.1.0-rc-4c58fce7-20240904(eslint@9.9.1(jiti@1.21.6)):
     dependencies:
       eslint: 9.9.1(jiti@1.21.6)
 
