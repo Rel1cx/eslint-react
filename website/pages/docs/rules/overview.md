@@ -98,10 +98,10 @@
 
 | Rule                                                                                                   | Description                                                               | 💼  | 💭  |     |
 | :----------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------ | :-: | :-: | :-: |
-| [`hooks-extra/no-direct-set-state-in-use-effect`](hooks-extra-no-direct-set-state-in-use-effect)       | Disallow direct calls to the `set` function of `useState` in `useEffect`. |  ✔️  |     | 🆕  |
+| [`hooks-extra/no-direct-set-state-in-use-effect`](hooks-extra-no-direct-set-state-in-use-effect)       | Disallow direct calls to the `set` function of `useState` in `useEffect`. |  ✔️  |     | 📐  |
 | [`hooks-extra/no-redundant-custom-hook`](hooks-extra-no-redundant-custom-hook)                         | Warns when custom Hooks that don't use other Hooks.                       |  ✔️  |     |     |
-| [`hooks-extra/no-unnecessary-use-callback`](hooks-extra-no-unnecessary-use-callback)                   | Disallow unnecessary usage of `useCallback`.                              | 🧐  |     | 📐  |
-| [`hooks-extra/no-unnecessary-use-memo`](hooks-extra-no-unnecessary-use-memo)                           | Disallow unnecessary usage of `useMemo`.                                  | 🧐  |     | 📐  |
+| [`hooks-extra/no-unnecessary-use-callback`](hooks-extra-no-unnecessary-use-callback)                   | Disallow unnecessary usage of `useCallback`.                              |  ✔️  |     | 📐  |
+| [`hooks-extra/no-unnecessary-use-memo`](hooks-extra-no-unnecessary-use-memo)                           | Disallow unnecessary usage of `useMemo`.                                  |  ✔️  |     | 📐  |
 | [`hooks-extra/prefer-use-state-lazy-initialization`](hooks-extra-prefer-use-state-lazy-initialization) | Warns function calls made inside `useState` calls.                        | 🚀  |     |     |
 
 ## Naming Convention Rules
