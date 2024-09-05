@@ -17,7 +17,6 @@ type Property =
   | TSESTree.MemberExpression["property"];
 
 const LIFECYCLE_METHODS = new Set([
-  "constructor",
   "componentDidCatch",
   "componentDidMount",
   "componentDidUpdate",
@@ -25,13 +24,14 @@ const LIFECYCLE_METHODS = new Set([
   "componentWillReceiveProps",
   "componentWillUnmount",
   "componentWillUpdate",
+  "constructor",
   "getSnapshotBeforeUpdate",
+  "render",
   "shouldComponentUpdate",
+  "state",
   "UNSAFE_componentWillMount",
   "UNSAFE_componentWillReceiveProps",
   "UNSAFE_componentWillUpdate",
-  "state",
-  "render",
 ]);
 
 // Return the name of an identifier or the string value of a literal. Useful
