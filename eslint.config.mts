@@ -111,9 +111,9 @@ export default [
   },
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
+  perfectionist.configs["recommended-natural"],
   regexpPlugin.configs["flat/recommended"],
   jsdocPlugin.configs["flat/recommended-typescript-error"],
-  perfectionist.configs["recommended-natural"],
   eslintPluginPlugin.configs["flat/all-type-checked"],
   // base ts language options
   {
