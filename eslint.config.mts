@@ -93,7 +93,7 @@ const typeCheckedRules = {
   "@typescript-eslint/prefer-readonly-parameter-types": "off",
   "@typescript-eslint/strict-boolean-expressions": ["warn", { allowNullableBoolean: true, allowNullableString: true }],
   "@typescript-eslint/switch-exhaustiveness-check": "off",
-};
+} as const;
 
 export default [
   gitignore(),
