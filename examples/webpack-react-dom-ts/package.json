@@ -29,7 +29,7 @@
     "dotenv-webpack": "^8.1.0",
     "dprint": "0.47.2",
     "esbuild-register": "3.6.0",
-    "eslint": "^9.9.1",
+    "eslint": "^9.10.0",
     "eslint-plugin-react-hooks": "canary",
     "eslint-plugin-react-refresh": "^0.4.11",
     "eslint-webpack-plugin": "4.2.0",
