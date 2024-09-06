@@ -7,7 +7,7 @@ export const readJsonFile = (path: string): Effect.Effect<unknown, never, FileSy
     const content = yield* Effect.orDie(fs.readFileString(path));
     return yield* Effect.orDie(Effect.try({
       catch: (error) => `[FileSystem] Unable to read and parse JSON file from '${path}': ${String(error)}`,
-      try: () => JSON.parse(content),
+      try: () => JSON.parse(content) as unknown,
     }));
   });
 

@@ -3,6 +3,7 @@ import url from "node:url";
 import eslint from "@eslint/js";
 import stylisticJs from "@stylistic/eslint-plugin-js";
 import safeTsPlugin from "@susisu/eslint-plugin-safe-typescript";
+import type { Linter } from "eslint";
 import gitignore from "eslint-config-flat-gitignore";
 import eslintCommentsPlugin from "eslint-plugin-eslint-comments";
 import eslintPluginPlugin from "eslint-plugin-eslint-plugin";
@@ -15,11 +16,9 @@ import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import unicornPlugin from "eslint-plugin-unicorn";
 import vitest from "eslint-plugin-vitest";
 import eslintPluginYml from "eslint-plugin-yml";
-// import { isCI } from "std-env";
+import { isCI } from "std-env";
 import tseslint from "typescript-eslint";
 import YamlParser from "yaml-eslint-parser";
-
-type Config = Parameters<typeof tseslint.config>[number];
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -74,7 +73,8 @@ const p11tGroups = {
   groups: ["id", "type", "meta", "alias", "rules", "unknown"],
 } as const;
 
-const disableSafeTypescript = {
+const disableTypeCheckedRules = {
+  ...tseslint.configs.disableTypeChecked.rules,
   "@susisu/safe-typescript/no-object-assign": "off",
   "@susisu/safe-typescript/no-type-assertion": "off",
   "@susisu/safe-typescript/no-unsafe-object-enum-method": "off",
@@ -82,7 +82,7 @@ const disableSafeTypescript = {
   "@susisu/safe-typescript/no-unsafe-object-property-overwrite": "off",
 };
 
-const config: Config[] = [
+export default [
   gitignore(),
   {
     ignores: [
@@ -109,11 +109,7 @@ const config: Config[] = [
     },
     settings: {},
   },
-  // extends ...
   eslint.configs.recommended,
-  // ...isCI
-  //   ? tseslint.configs.strictTypeChecked
-  //   : tseslint.configs.strict,
   ...tseslint.configs.strictTypeChecked,
   regexpPlugin.configs["flat/recommended"],
   jsdocPlugin.configs["flat/recommended-typescript-error"],
@@ -315,15 +311,13 @@ const config: Config[] = [
     },
   },
   {
-    extends: [tseslint.configs.disableTypeChecked],
     files: GLOB_JS,
     rules: {
-      ...disableSafeTypescript,
+      ...disableTypeCheckedRules,
       "@typescript-eslint/no-var-requires": "off",
     },
   },
   {
-    extends: [tseslint.configs.disableTypeChecked],
     files: GLOB_TEST,
     languageOptions: {
       globals: {
@@ -342,13 +336,13 @@ const config: Config[] = [
       vitest,
     },
     rules: {
+      ...disableTypeCheckedRules,
       ...vitest.configs.recommended.rules,
       "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
       "import-x/no-extraneous-dependencies": "off",
     },
   },
   {
-    extends: [tseslint.configs.disableTypeChecked],
     files: GLOB_SCRIPT,
     languageOptions: {
       parser: tseslint.parser,
@@ -362,14 +356,20 @@ const config: Config[] = [
     },
   },
   {
-    extends: [tseslint.configs.disableTypeChecked],
     files: GLOB_CONFIG,
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        allowAutomaticSingleRunInference: true,
+        project: false,
+        projectService: false,
+      },
+    },
     rules: {
-      ...disableSafeTypescript,
+      ...disableTypeCheckedRules,
     },
   },
   {
-    extends: [tseslint.configs.disableTypeChecked],
     files: GLOB_YAML,
     ignores: [
       "pnpm-lock.yaml",
@@ -386,14 +386,13 @@ const config: Config[] = [
       "no-unused-vars": "off",
       "spaced-comment": "off",
       // Part: eslint-plugin-yml rules
+      ...disableTypeCheckedRules,
       ...eslintPluginYml.configs.recommended.rules,
     },
   },
-  // {
-  //   rules: {
-  //     "file-progress/activate": !isCI ? "warn" : "off",
-  //   },
-  // },
-];
-
-export default tseslint.config(...config);
+  {
+    rules: {
+      "file-progress/activate": !isCI ? "warn" : "off",
+    },
+  },
+] satisfies Linter.Config[];
