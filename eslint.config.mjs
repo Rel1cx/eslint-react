@@ -1,7 +1,9 @@
-// @ts-check
-import { bundleRequire } from "bundle-require";
-
 // eslint-disable-next-line no-restricted-syntax
-export default bundleRequire({
-  filepath: "./eslint.config.mts",
-}).then(require => require.mod.default);
+const mod = await import("importx").then(x =>
+  x.import("./eslint.config.mts", {
+    loader: "tsx",
+    parentURL: import.meta.url,
+  })
+);
+
+export default mod.default;
