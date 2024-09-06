@@ -27,6 +27,7 @@ const mkTask = (path: string) =>
     };
     yield* writeJsonFile(path, packageJsonUpdated);
     yield* Effect.log(`Updated ${path} to version ${packageJsonUpdated.version}`);
+    return Effect.void;
   });
 
 const program = Effect.gen(function*() {

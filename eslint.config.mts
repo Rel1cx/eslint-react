@@ -3,6 +3,7 @@ import url from "node:url";
 import eslint from "@eslint/js";
 import stylisticJs from "@stylistic/eslint-plugin-js";
 import safeTsPlugin from "@susisu/eslint-plugin-safe-typescript";
+import { Record } from "effect";
 import type { Linter } from "eslint";
 import gitignore from "eslint-config-flat-gitignore";
 import eslintCommentsPlugin from "eslint-plugin-eslint-comments";
@@ -16,7 +17,7 @@ import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import unicornPlugin from "eslint-plugin-unicorn";
 import vitest from "eslint-plugin-vitest";
 import eslintPluginYml from "eslint-plugin-yml";
-import { isCI } from "std-env";
+// import { isCI } from "std-env";
 import tseslint from "typescript-eslint";
 import YamlParser from "yaml-eslint-parser";
 
@@ -29,10 +30,10 @@ const GLOB_TEST = [
   "**/*.test.{ts,tsx,cts,mts}",
   "**/spec.{ts,tsx,cts,mts}",
   "**/test.{ts,tsx,cts,mts}",
-];
+] as const;
 const GLOB_YAML = ["*.{yaml,yml}", "**/*.{yaml,yml}"] as const;
 const GLOB_CONFIG = ["*.config.{ts,tsx,cts,mts}", "**/*.config.{ts,tsx,cts,mts}"] as const;
-const GLOB_SCRIPT = ["scripts/**/*.{ts,cts,mts}"];
+const GLOB_SCRIPT = ["scripts/**/*.{ts,cts,mts}"] as const;
 
 const templateIndentAnnotations = [
   "outdent",
@@ -40,16 +41,16 @@ const templateIndentAnnotations = [
   "html",
   "tsx",
   "ts",
-];
+] as const;
 
 const sourceTsconfigArray = [
   "packages/*/tsconfig.json",
   "packages/*/*/tsconfig.json",
-];
+] as const;
 
 const infraTsconfigArray = [
   "tsconfig.json",
-];
+] as const;
 
 const p11tOptions = {
   type: "natural",
@@ -80,6 +81,18 @@ const disableTypeCheckedRules = {
   "@susisu/safe-typescript/no-unsafe-object-enum-method": "off",
   "@susisu/safe-typescript/no-unsafe-object-property-check": "off",
   "@susisu/safe-typescript/no-unsafe-object-property-overwrite": "off",
+} as const;
+
+const typeCheckedRules = {
+  ...Record.map(disableTypeCheckedRules, () => "warn"),
+  "@susisu/safe-typescript/no-unsafe-object-property-check": "off",
+  "@susisu/safe-typescript/no-unsafe-object-property-overwrite": "off",
+  "@typescript-eslint/naming-convention": "off",
+  "@typescript-eslint/no-confusing-void-expression": "off",
+  "@typescript-eslint/prefer-destructuring": "off",
+  "@typescript-eslint/prefer-readonly-parameter-types": "off",
+  "@typescript-eslint/strict-boolean-expressions": ["warn", { allowNullableBoolean: true, allowNullableString: true }],
+  "@typescript-eslint/switch-exhaustiveness-check": "off",
 };
 
 export default [
@@ -110,7 +123,7 @@ export default [
     settings: {},
   },
   eslint.configs.recommended,
-  ...tseslint.configs.strictTypeChecked,
+  ...tseslint.configs.strict,
   perfectionist.configs["recommended-natural"],
   regexpPlugin.configs["flat/recommended"],
   jsdocPlugin.configs["flat/recommended-typescript-error"],
@@ -190,7 +203,6 @@ export default [
       "@typescript-eslint/ban-types": "off",
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/explicit-function-return-type": "off",
-      "@typescript-eslint/no-confusing-void-expression": "off",
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-misused-promises": "off",
@@ -205,13 +217,8 @@ export default [
           varsIgnorePattern: "^_",
         },
       ],
-      // "@typescript-eslint/prefer-nullish-coalescing": "warn",
-      // Part: safe-typescript rules
-      "@susisu/safe-typescript/no-object-assign": "error",
-      "@susisu/safe-typescript/no-type-assertion": "error",
-      "@susisu/safe-typescript/no-unsafe-object-enum-method": "error",
-      // "@susisu/safe-typescript/no-unsafe-object-property-check": "error",
-      // "@susisu/safe-typescript/no-unsafe-object-property-overwrite": "error",
+      // Part: type-checked rules
+      ...typeCheckedRules,
       // Part: functional rules
       "functional/no-return-void": "off",
       // Part: jsdoc rules
@@ -390,9 +397,9 @@ export default [
       ...eslintPluginYml.configs.recommended.rules,
     },
   },
-  {
-    rules: {
-      "file-progress/activate": !isCI ? "warn" : "off",
-    },
-  },
+  // {
+  //   rules: {
+  //     "file-progress/activate": !isCI ? "warn" : "off",
+  //   },
+  // },
 ] satisfies Linter.Config[];

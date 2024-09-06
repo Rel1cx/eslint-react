@@ -116,7 +116,7 @@ export default createRule<[], MessageID>({
         const [_, fKind] = fStack.at(-1) ?? [];
         if (node.callee.type !== AST_NODE_TYPES.MemberExpression) return;
         if (!PHASE_RELEVANCE.has(fKind)) return;
-        const object = node.callee.object;
+        const { object } = node.callee;
         match(getCallKind(node, context))
           .with("disconnect", () => {
             dEntries.push(

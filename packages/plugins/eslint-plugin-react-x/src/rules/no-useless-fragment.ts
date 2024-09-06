@@ -14,6 +14,7 @@ export type MessageID =
   | "noUselessFragment"
   | "noUselessFragmentInBuiltIn";
 
+// eslint-disable-next-line @typescript-eslint/consistent-return
 function check(
   node: TSESTree.JSXElement | TSESTree.JSXFragment,
   context: RuleContext,
@@ -23,13 +24,13 @@ function check(
   if (isBuiltInElement(node.parent)) context.report({ messageId: "noUselessFragmentInBuiltIn", node });
   if (node.children.length === 0) return context.report({ messageId: "noUselessFragment", node });
   const isChildren = isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(node.parent);
-  const firstChildren = node.children[0];
+  const [firstChildren] = node.children;
   // <Foo content={<>ee eeee eeee ...</>} />
   if (node.children.length === 1 && isLiteral(firstChildren) && !isChildren) return;
   const nonPaddingChildren = node.children.filter((child) => !isPaddingSpaces(child));
   if (nonPaddingChildren.length > 1) return;
   if (nonPaddingChildren.length === 0) return context.report({ messageId: "noUselessFragment", node });
-  const first = nonPaddingChildren[0];
+  const [first] = nonPaddingChildren;
   if (
     isMatching({ type: AST_NODE_TYPES.JSXExpressionContainer, expression: P.not(AST_NODE_TYPES.CallExpression) }, first)
   ) return;

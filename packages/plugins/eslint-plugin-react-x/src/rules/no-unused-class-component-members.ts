@@ -87,7 +87,7 @@ export default createRule<[], MessageID>({
       for (const def of defs) {
         const name = getName(def);
         if (O.isNone(name)) continue;
-        if (!!usages?.has(name.value) || LIFECYCLE_METHODS.has(name.value)) continue;
+        if (usages?.has(name.value) || LIFECYCLE_METHODS.has(name.value)) continue;
         context.report({
           messageId: "noUnusedClassComponentMembers",
           node: def,

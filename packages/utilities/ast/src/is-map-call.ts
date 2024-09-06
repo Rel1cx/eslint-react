@@ -5,6 +5,6 @@ export function isMapCallLoose(node: TSESTree.Node): node is TSESTree.CallExpres
   if (node.type !== AST_NODE_TYPES.CallExpression) return false;
   if (node.callee.type !== AST_NODE_TYPES.MemberExpression) return false;
   if (node.callee.property.type !== AST_NODE_TYPES.Identifier) return false;
-  const name = node.callee.property.name;
+  const { name } = node.callee.property;
   return name === "map" || name.endsWith("Map");
 }

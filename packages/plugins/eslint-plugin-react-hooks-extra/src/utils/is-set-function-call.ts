@@ -28,7 +28,7 @@ export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSet
       // const data = useState();
       // data.at(1)();
       case AST_NODE_TYPES.CallExpression: {
-        const callee = node.callee.callee;
+        const { callee } = node.callee;
         if (callee.type !== AST_NODE_TYPES.MemberExpression) return false;
         if (!("name" in callee.object)) return false;
         const isAt = isMatching({

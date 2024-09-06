@@ -11,6 +11,7 @@ import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
  * @param node The JSX attribute node
  * @returns string
  */
+// eslint-disable-next-line @typescript-eslint/consistent-return
 export function getPropName(node: TSESTree.JSXAttribute) {
   switch (node.name.type) {
     case AST_NODE_TYPES.JSXIdentifier:

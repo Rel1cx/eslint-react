@@ -85,6 +85,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
   function getOpts(node: TSESTree.Node): typeof defaultOptions {
     switch (node.type) {
       case AST_NODE_TYPES.Literal: {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         return Data.struct({ ...defaultOptions, capture: O.some(!!node.value) });
       }
       case AST_NODE_TYPES.ObjectExpression: {
@@ -202,7 +203,7 @@ export default createRule<[], MessageID>({
             if (!type || !listener || !fNode || !fKind) return;
             if (!PHASE_RELEVANCE.has(fKind)) return;
             const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
-            const callee = node.callee;
+            const { callee } = node;
             O.map(checkInlineFunction(node, callKind, opts), context.report);
             aEntries.push(EventListenerEntry.AddEventListener({
               ...opts,
@@ -219,7 +220,7 @@ export default createRule<[], MessageID>({
             if (!type || !listener || !fNode || !fKind) return;
             if (!PHASE_RELEVANCE.has(fKind)) return;
             const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
-            const callee = node.callee;
+            const { callee } = node;
             O.map(checkInlineFunction(node, callKind, opts), context.report);
             rEntries.push(EventListenerEntry.RemoveEventListener({
               ...opts,

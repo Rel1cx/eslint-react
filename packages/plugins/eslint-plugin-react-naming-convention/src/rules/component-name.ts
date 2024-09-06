@@ -2,7 +2,7 @@ import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
 import { getElementName } from "@eslint-react/jsx";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
-import { F, isString, O } from "@eslint-react/tools";
+import { F, isNullable, isString, O } from "@eslint-react/tools";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -69,7 +69,7 @@ const schema = [
 
 function normalizeOptions(options: Options) {
   const [opts] = options;
-  if (!opts) return defaultOptions[0];
+  if (isNullable(opts)) return defaultOptions[0];
   if (isString(opts)) return { ...defaultOptions[0], rule: opts } as const;
   return {
     ...opts,

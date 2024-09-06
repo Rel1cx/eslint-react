@@ -16,7 +16,7 @@ export function toReadableNodeName(node: TSESTree.Node, getText: (node: TSESTree
     case AST_NODE_TYPES.MemberExpression:
       return `${toReadableNodeName(node.object, getText)}.${toReadableNodeName(node.property, getText)}`;
     case AST_NODE_TYPES.CallExpression:
-      return `${toReadableNodeName(node.callee, getText)}`;
+      return toReadableNodeName(node.callee, getText);
     case AST_NODE_TYPES.JSXIdentifier:
       return `<${node.name}>`;
     case AST_NODE_TYPES.JSXMemberExpression:

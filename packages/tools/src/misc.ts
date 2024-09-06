@@ -129,6 +129,7 @@ export function typeOf(t: unknown) {
 
 // #region Type Predicates
 
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
 export const isTruthy = (input: unknown) => !!input;
 
 export const isSet = (input: unknown): input is Set<unknown> => input instanceof Set;
