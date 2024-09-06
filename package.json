@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.8",
+    "@effect/language-service": "^0.1.0",
     "@effect/platform": "^0.63.3",
     "@effect/platform-bun": "^0.43.3",
     "@effect/platform-node": "^0.58.3",

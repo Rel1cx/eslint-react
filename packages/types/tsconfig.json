@@ -1,6 +1,6 @@
 {
   "extends": [
-    "@tsconfig/strictest/tsconfig.json",
+    "../../tsconfig.base.json",
     "@tsconfig/node22/tsconfig.json"
   ],
   "compilerOptions": {
