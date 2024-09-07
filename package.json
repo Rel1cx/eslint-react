@@ -117,7 +117,7 @@
   },
   "pnpm": {
     "overrides": {
-      "@eslint/js": "9.9.1",
+      "@eslint/js": "9.10.0",
       "esbuild": "^0.23.1",
       "eslint": "^9.10.0",
       "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
