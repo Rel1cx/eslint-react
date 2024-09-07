@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "workspace:*",
-    "@eslint/js": "^9.9.1",
+    "@eslint/js": "^9.10.0",
     "@mdx-js/mdx": "^3.0.1",
     "@next/bundle-analyzer": "^14.2.8",
     "@tsconfig/node22": "^22.0.0",
@@ -32,7 +32,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
     "effect": "^3.7.2",
-    "eslint": "^9.9.1",
+    "eslint": "^9.10.0",
     "eslint-plugin-mdx": "^3.1.5",
     "eslint-plugin-react-hooks": "^5.1.0-rc-4c58fce7-20240904",
     "eslint-plugin-react-refresh": "^0.4.11",
