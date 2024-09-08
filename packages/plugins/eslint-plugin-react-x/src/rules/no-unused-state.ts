@@ -1,5 +1,4 @@
-import type { TSESTreeClass } from "@eslint-react/ast";
-import { getClassIdentifier, isKeyLiteralLike, isThisExpression } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -35,7 +34,7 @@ function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
 
   return (
     left.type === AST_NODE_TYPES.MemberExpression
-    && isThisExpression(left.object)
+    && AST.isThisExpression(left.object)
     && O.exists(getName(left.property), name => name === "state")
   );
 }
@@ -63,17 +62,17 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const classStack: TSESTreeClass[] = [];
+    const classStack: AST.TSESTreeClass[] = [];
     const methodStack: (TSESTree.MethodDefinition | TSESTree.PropertyDefinition)[] = [];
     const constructorStack: TSESTree.MethodDefinition[] = [];
-    const stateDefs = new WeakMap<TSESTreeClass, [node: O.Option<TSESTree.Node>, isUsed: boolean]>();
-    function classEnter(node: TSESTreeClass) {
+    const stateDefs = new WeakMap<AST.TSESTreeClass, [node: O.Option<TSESTree.Node>, isUsed: boolean]>();
+    function classEnter(node: AST.TSESTreeClass) {
       classStack.push(node);
     }
     function classExit() {
       const currentClass = classStack.pop();
       if (!currentClass || !isClassComponent(currentClass)) return;
-      const className = O.map(getClassIdentifier(currentClass), id => id.name);
+      const className = O.map(AST.getClassIdentifier(currentClass), id => id.name);
       const [def, isUsed] = stateDefs.get(currentClass) ?? [O.none(), false];
       if (O.isNone(def) || isUsed) return;
       context.report({
@@ -124,7 +123,7 @@ export default createRule<[], MessageID>({
       ClassExpression: classEnter,
       "ClassExpression:exit": classExit,
       MemberExpression(node) {
-        if (!isThisExpression(node.object)) return;
+        if (!AST.isThisExpression(node.object)) return;
         // detect `this.state`
         if (!O.exists(getName(node.property), name => name === "state")) return;
         const currentClass = classStack.at(-1);
@@ -150,9 +149,9 @@ export default createRule<[], MessageID>({
         if (currentMethod === constructorStack.at(-1)) return;
         if (!currentClass.body.body.includes(currentMethod)) return;
         // detect `{ foo, state: baz } = this`
-        if (!(node.init && isThisExpression(node.init) && node.id.type === AST_NODE_TYPES.ObjectPattern)) return;
+        if (!(node.init && AST.isThisExpression(node.init) && node.id.type === AST_NODE_TYPES.ObjectPattern)) return;
         const hasState = node.id.properties.some(prop => {
-          if (prop.type === AST_NODE_TYPES.Property && isKeyLiteralLike(prop, prop.key)) {
+          if (prop.type === AST_NODE_TYPES.Property && AST.isKeyLiteralLike(prop, prop.key)) {
             return O.exists(getName(prop.key), name => name === "state");
           }
           return false;

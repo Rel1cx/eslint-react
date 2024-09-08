@@ -1,4 +1,4 @@
-import { isEmptyFunction } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { useHookCollector } from "@eslint-react/core";
 import type { CamelCase } from "string-ts";
 
@@ -32,7 +32,7 @@ export default createRule<[], MessageID>({
         const allHooks = ctx.getAllHooks(node);
         for (const { name, node, hookCalls } of allHooks.values()) {
           // Skip empty functions
-          if (isEmptyFunction(node)) continue;
+          if (AST.isEmptyFunction(node)) continue;
           if (hookCalls.length > 0) continue;
           context.report({
             messageId: "noRedundantCustomHook",

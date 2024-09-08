@@ -1,4 +1,4 @@
-import { findPropInAttributes, getElementType } from "@eslint-react/jsx";
+import * as JSX from "@eslint-react/jsx";
 import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -28,11 +28,11 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
-        const elementType = getElementType(jsxCtx, components, polymorphicPropName)(node.openingElement);
+        const elementType = JSX.getElementType(jsxCtx, components, polymorphicPropName)(node.openingElement);
         if (elementType !== "button") return;
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
-        const maybeTypeAttribute = findPropInAttributes(attributes, initialScope)("type");
+        const maybeTypeAttribute = JSX.findPropInAttributes(attributes, initialScope)("type");
         if (O.isSome(maybeTypeAttribute)) return;
         context.report({
           messageId: "noMissingButtonType",

@@ -66,7 +66,7 @@
 
 ### initPath
 
-> **initPath**: `Option`\<[`ERComponentInitPath`](../type-aliases/ERComponentInitPath.md)\>
+> **initPath**: `Option`\<`FunctionInitPath`\>
 
 ***
 

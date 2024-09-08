@@ -1,4 +1,4 @@
-import { isOneOf } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 
@@ -40,7 +40,7 @@ export default createRule<[], MessageID>({
           objectName.toLowerCase() !== "reactdom"
           || callee.property.type !== AST_NODE_TYPES.Identifier
           || callee.property.name !== "render"
-          || !isOneOf(banParentTypes)(parent)
+          || !AST.isOneOf(banParentTypes)(parent)
         ) {
           return;
         }

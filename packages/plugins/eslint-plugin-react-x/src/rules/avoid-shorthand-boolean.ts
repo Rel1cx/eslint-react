@@ -1,4 +1,4 @@
-import { getPropName } from "@eslint-react/jsx";
+import * as JSX from "@eslint-react/jsx";
 import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
           messageId: "avoidShorthandBoolean",
           node,
           data: {
-            propName: getPropName(node),
+            propName: JSX.getPropName(node),
           },
         });
     }

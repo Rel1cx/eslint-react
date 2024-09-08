@@ -1,4 +1,4 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
+import type * as AST from "@eslint-react/ast";
 import type { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -9,7 +9,7 @@ export interface ERHook extends ERSemanticNode {
   // The identifier of the hook
   id: O.Some<TSESTree.Identifier>;
   // The AST node of the hook
-  node: TSESTreeFunction;
+  node: AST.TSESTreeFunction;
   // The name of the hook
   name: O.Some<string>;
   // The `HookFlag` of the hook, reserved for future use

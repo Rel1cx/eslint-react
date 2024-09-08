@@ -1,8 +1,8 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
+import type * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { getPhaseKindOfFunction, PHASE_RELEVANCE } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
-import { getVariableDeclaratorID } from "@eslint-react/var";
+import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { isMatching, P } from "ts-pattern";
@@ -70,7 +70,7 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     if (!context.sourceCode.text.includes("setInterval")) return {};
-    const fStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
+    const fStack: [node: AST.TSESTreeFunction, kind: FunctionKind][] = [];
     const sEntries: TimerEntry[] = [];
     const cEntries: TimerEntry[] = [];
     const isInverseEntry: {
@@ -80,7 +80,7 @@ export default createRule<[], MessageID>({
       return isInstanceIDEqual(a.timerID, b.timerID, context);
     });
     return {
-      [":function"](node: TSESTreeFunction) {
+      [":function"](node: AST.TSESTreeFunction) {
         const fKind = O.getOrElse(getPhaseKindOfFunction(node), () => "other" as const);
         fStack.push([node, fKind]);
       },
@@ -93,7 +93,7 @@ export default createRule<[], MessageID>({
             const [fNode, fKind] = fStack.at(-1) ?? [];
             if (!fNode || !fKind) break;
             if (!PHASE_RELEVANCE.has(fKind)) break;
-            const intervalIdNode = O.getOrNull(getVariableDeclaratorID(node));
+            const intervalIdNode = O.getOrNull(VAR.getVariableDeclaratorID(node));
             if (!intervalIdNode) {
               context.report({
                 messageId: "noLeakedIntervalNoIntervalId",

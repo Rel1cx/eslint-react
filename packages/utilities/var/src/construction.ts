@@ -1,4 +1,4 @@
-import { is, isOneOf } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { Data, isNullable, isObject, isString, O } from "@eslint-react/tools";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
@@ -86,20 +86,20 @@ export function inspectConstruction(
    */
   const detect = (node: TSESTree.Node): Construction => {
     return match(node)
-      .when(is(AST_NODE_TYPES.ArrayExpression), (node) => Construction.Array({ node, usage: O.none() }))
-      .when(is(AST_NODE_TYPES.ObjectExpression), (node) => Construction.ObjectExpression({ node, usage: O.none() }))
-      .when(is(AST_NODE_TYPES.ClassExpression), (node) => Construction.ClassExpression({ node, usage: O.none() }))
-      .when(is(AST_NODE_TYPES.JSXElement), (node) => Construction.JSXElement({ node, usage: O.none() }))
-      .when(is(AST_NODE_TYPES.JSXFragment), (node) => Construction.JSXFragment({ node, usage: O.none() }))
-      .when(is(AST_NODE_TYPES.CallExpression), (node) => {
+      .when(AST.is(AST_NODE_TYPES.ArrayExpression), (node) => Construction.Array({ node, usage: O.none() }))
+      .when(AST.is(AST_NODE_TYPES.ObjectExpression), (node) => Construction.ObjectExpression({ node, usage: O.none() }))
+      .when(AST.is(AST_NODE_TYPES.ClassExpression), (node) => Construction.ClassExpression({ node, usage: O.none() }))
+      .when(AST.is(AST_NODE_TYPES.JSXElement), (node) => Construction.JSXElement({ node, usage: O.none() }))
+      .when(AST.is(AST_NODE_TYPES.JSXFragment), (node) => Construction.JSXFragment({ node, usage: O.none() }))
+      .when(AST.is(AST_NODE_TYPES.CallExpression), (node) => {
         if (hint & ConstructionHint.StrictCallExpression) {
           return Construction.CallExpression({ node, usage: O.none() });
         }
         return Construction.None();
       })
-      .when(is(AST_NODE_TYPES.NewExpression), (node) => Construction.NewExpression({ node, usage: O.none() }))
+      .when(AST.is(AST_NODE_TYPES.NewExpression), (node) => Construction.NewExpression({ node, usage: O.none() }))
       .when(
-        isOneOf([
+        AST.isOneOf([
           AST_NODE_TYPES.FunctionExpression,
           AST_NODE_TYPES.ArrowFunctionExpression,
         ]),
@@ -107,7 +107,7 @@ export function inspectConstruction(
           return Construction.FunctionExpression({ node, usage: O.none() });
         },
       )
-      .when(is(AST_NODE_TYPES.MemberExpression), (node) => {
+      .when(AST.is(AST_NODE_TYPES.MemberExpression), (node) => {
         if (!("object" in node)) return Construction.None();
         const object = detect(node.object);
         if (object._tag === "None") return object;
@@ -116,7 +116,7 @@ export function inspectConstruction(
           usage: O.some(node.object),
         } as const satisfies Construction;
       })
-      .when(is(AST_NODE_TYPES.AssignmentExpression), (node) => {
+      .when(AST.is(AST_NODE_TYPES.AssignmentExpression), (node) => {
         if (!("right" in node)) return Construction.None();
         const right = detect(node.right);
         if (right._tag === "None") return right;
@@ -125,7 +125,7 @@ export function inspectConstruction(
           usage: O.some(node),
         });
       })
-      .when(is(AST_NODE_TYPES.AssignmentPattern), (node) => {
+      .when(AST.is(AST_NODE_TYPES.AssignmentPattern), (node) => {
         if (!("right" in node)) return Construction.None();
         const right = detect(node.right);
         if (right._tag === "None") return right;
@@ -134,13 +134,13 @@ export function inspectConstruction(
           usage: O.some(node),
         });
       })
-      .when(is(AST_NODE_TYPES.LogicalExpression), (node) => {
+      .when(AST.is(AST_NODE_TYPES.LogicalExpression), (node) => {
         if (!("left" in node && "right" in node)) return Construction.None();
         const left = detect(node.left);
         if (left._tag !== "None") return left;
         return detect(node.right);
       })
-      .when(is(AST_NODE_TYPES.ConditionalExpression), (node) => {
+      .when(AST.is(AST_NODE_TYPES.ConditionalExpression), (node) => {
         if (!("consequent" in node && "alternate" in node && !isNullable(node.alternate))) {
           return Construction.None();
         }
@@ -148,7 +148,7 @@ export function inspectConstruction(
         if (consequent._tag !== "None") return Construction.None();
         return detect(node.alternate);
       })
-      .when(is(AST_NODE_TYPES.Identifier), (node) => {
+      .when(AST.is(AST_NODE_TYPES.Identifier), (node) => {
         if (!("name" in node && isString(node.name))) return Construction.None();
         const maybeLatestDef = O.fromNullable(initialScope.set.get(node.name)?.defs.at(-1));
         if (O.isNone(maybeLatestDef)) return Construction.None();
@@ -170,14 +170,14 @@ export function inspectConstruction(
         }
         return detect(latestDef.node.init);
       })
-      .when(is(AST_NODE_TYPES.Literal), (node) => {
+      .when(AST.is(AST_NODE_TYPES.Literal), (node) => {
         if ("regex" in node) {
           return Construction.RegExpLiteral({ node, usage: O.none() });
         }
         return Construction.None();
       })
       .when(
-        isOneOf([
+        AST.isOneOf([
           AST_NODE_TYPES.TSAsExpression,
           AST_NODE_TYPES.TSTypeAssertion,
         ]),

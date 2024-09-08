@@ -1,4 +1,4 @@
-import { findPropInAttributes, getElementType, getPropValue } from "@eslint-react/jsx";
+import * as JSX from "@eslint-react/jsx";
 import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
 import { F, isString, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -34,14 +34,14 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
-        const elementType = getElementType(jsxCtx, components, polymorphicPropName)(node.openingElement);
+        const elementType = JSX.getElementType(jsxCtx, components, polymorphicPropName)(node.openingElement);
         if (elementType !== "iframe") return;
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
-        const maybeSandboxAttribute = findPropInAttributes(attributes, initialScope)("sandbox");
+        const maybeSandboxAttribute = JSX.findPropInAttributes(attributes, initialScope)("sandbox");
         if (O.isNone(maybeSandboxAttribute)) return;
         const isSafeSandboxValue = !F.pipe(
-          getPropValue(maybeSandboxAttribute.value, context.sourceCode.getScope(maybeSandboxAttribute.value)),
+          JSX.getPropValue(maybeSandboxAttribute.value, context.sourceCode.getScope(maybeSandboxAttribute.value)),
           O.flatMapNullable(v =>
             match(v?.value)
               .with(P.string, F.identity)

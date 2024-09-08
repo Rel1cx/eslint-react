@@ -1,6 +1,5 @@
 /* eslint-disable eslint-plugin/no-unused-placeholders */
-import type { TSESTreeClass, TSESTreeFunction } from "@eslint-react/ast";
-import { isClass, isFunction, traverseUp, traverseUpGuard } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import {
   ERComponentHint,
   isDeclaredInRenderPropLoose,
@@ -10,7 +9,7 @@ import {
   useComponentCollector,
   useComponentCollectorLegacy,
 } from "@eslint-react/core";
-import { traverseUpProp } from "@eslint-react/jsx";
+import * as JSX from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -55,11 +54,11 @@ export default createRule<[], MessageID>({
       "Program:exit"(node) {
         const functionComponents = Array.from(collector.ctx.getAllComponents(node).values());
         const classComponents = Array.from(collectorLegacy.ctx.getAllComponents(node).values());
-        const isFunctionComponent = (node: TSESTree.Node): node is TSESTreeFunction => {
-          return isFunction(node) && functionComponents.some(component => component.node === node);
+        const isFunctionComponent = (node: TSESTree.Node): node is AST.TSESTreeFunction => {
+          return AST.isFunction(node) && functionComponents.some(component => component.node === node);
         };
-        const isClassComponent = (node: TSESTree.Node): node is TSESTreeClass => {
-          return isClass(node) && classComponents.some(component => component.node === node);
+        const isClassComponent = (node: TSESTree.Node): node is AST.TSESTreeClass => {
+          return AST.isClass(node) && classComponents.some(component => component.node === node);
         };
         for (const { name: componentName, node: component } of functionComponents) {
           // Do not mark objects containing render methods
@@ -69,7 +68,7 @@ export default createRule<[], MessageID>({
           const name = componentName.value;
           const isInsideProperty = component.parent.type === AST_NODE_TYPES.Property;
           const isInsideJSXPropValue = component.parent.type === AST_NODE_TYPES.JSXAttribute
-            || O.isSome(traverseUpProp(node, n => n.value?.type === AST_NODE_TYPES.JSXExpressionContainer));
+            || O.isSome(JSX.traverseUpProp(node, n => n.value?.type === AST_NODE_TYPES.JSXExpressionContainer));
           if (isInsideJSXPropValue) {
             if (!isDeclaredInRenderPropLoose(component)) {
               context.report({
@@ -94,7 +93,7 @@ export default createRule<[], MessageID>({
 
             continue;
           }
-          const maybeParentComponent = traverseUpGuard(component, isFunctionComponent);
+          const maybeParentComponent = AST.traverseUpGuard(component, isFunctionComponent);
           if (O.isSome(maybeParentComponent) && !isDirectValueOfRenderPropertyLoose(maybeParentComponent.value)) {
             context.report({
               messageId: isInsideProperty ? "nestedComponentInProps" : "nestedComponent",
@@ -118,7 +117,9 @@ export default createRule<[], MessageID>({
           }
         }
         for (const { name, node: component } of classComponents) {
-          if (O.isNone(traverseUp(component, node => isClassComponent(node) || isFunctionComponent(node)))) continue;
+          if (O.isNone(AST.traverseUp(component, node => isClassComponent(node) || isFunctionComponent(node)))) {
+            continue;
+          }
           context.report({
             messageId: "nestedComponent",
             node: component,

@@ -1,4 +1,4 @@
-import { JSXValueHint } from "@eslint-react/jsx";
+import * as JSX from "@eslint-react/jsx";
 
 export type ERComponentHint = bigint;
 
@@ -7,7 +7,7 @@ export type ERComponentHint = bigint;
  * hints for component collector
  */
 export const ERComponentHint = {
-  ...JSXValueHint,
+  ...JSX.JSXValueHint,
   // 1n << 0n - 1n << 63n are reserved for JSXValueHint
   // Skip function component created by React.memo
   SkipMemo: 1n << 64n,

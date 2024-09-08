@@ -4,7 +4,6 @@ export * from "./component-collector-hint";
 export * from "./component-collector-legacy";
 export * from "./component-flag";
 export * from "./component-id";
-export * from "./component-init-path";
 export * from "./component-kind";
 export * from "./component-method-kind";
 export * from "./component-name";

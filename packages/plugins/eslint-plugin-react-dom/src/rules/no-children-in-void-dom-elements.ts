@@ -1,4 +1,4 @@
-import { findPropInAttributes, getElementType } from "@eslint-react/jsx";
+import * as JSX from "@eslint-react/jsx";
 import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -48,7 +48,7 @@ export default createRule<[], MessageID>({
       JSXElement(node) {
         const openingElementNameExpression = node.openingElement;
         const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
-        const elementType = getElementType(jsxCtx, components, polymorphicPropName)(openingElementNameExpression);
+        const elementType = JSX.getElementType(jsxCtx, components, polymorphicPropName)(openingElementNameExpression);
         if (!elementType || !voidElements.has(elementType)) return;
         if (node.children.length > 0) {
           context.report({
@@ -61,7 +61,7 @@ export default createRule<[], MessageID>({
         }
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
-        const hasAttr = (name: string) => O.isSome(findPropInAttributes(attributes, initialScope)(name));
+        const hasAttr = (name: string) => O.isSome(JSX.findPropInAttributes(attributes, initialScope)(name));
         const hasChildrenOrDangerAttr = hasAttr("children") || hasAttr("dangerouslySetInnerHTML");
         if (hasChildrenOrDangerAttr) {
           // e.g. <br children="Foo" />

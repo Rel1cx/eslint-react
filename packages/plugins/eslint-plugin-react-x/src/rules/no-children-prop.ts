@@ -1,4 +1,4 @@
-import { getProp } from "@eslint-react/jsx";
+import * as JSX from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
 import type { CamelCase } from "string-ts";
 
@@ -24,7 +24,7 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const initialScope = context.sourceCode.getScope(node);
-        const prop = getProp(node.openingElement.attributes, "children", initialScope);
+        const prop = JSX.getProp(node.openingElement.attributes, "children", initialScope);
         const reportDescriptor = O.map(prop, prop => ({ messageId: "noChildrenProp", node: prop } as const));
         O.map(reportDescriptor, context.report);
       },

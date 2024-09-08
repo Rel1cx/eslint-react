@@ -1,5 +1,4 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
-import { traverseUp } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -21,7 +20,7 @@ const isRenderMethodLike = isMatching({
   },
 });
 
-export function isFunctionOfRenderMethod(node: TSESTreeFunction) {
+export function isFunctionOfRenderMethod(node: AST.TSESTreeFunction) {
   if (!isRenderMethodLike(node.parent)) return false;
 
   return isClassComponent(node.parent.parent.parent);
@@ -47,5 +46,5 @@ export function isInsideRenderMethod(node: TSESTree.Node) {
     return isRenderMethodLike(node) && isClassComponent(node.parent.parent);
   };
 
-  return O.isSome(traverseUp(node, predicate));
+  return O.isSome(AST.traverseUp(node, predicate));
 }

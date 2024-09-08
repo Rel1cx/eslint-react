@@ -1,7 +1,7 @@
-import { isFunction } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { isClassComponent, isComponentName } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
-import { findVariable, getVariableNode } from "@eslint-react/var";
+import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 
@@ -33,9 +33,9 @@ export default createRule<[], MessageID>({
         if (property.type !== AST_NODE_TYPES.Identifier || property.name !== "defaultProps") return;
         if (!isComponentName(object.name)) return;
         const isComponent = F.pipe(
-          findVariable(object.name, context.sourceCode.getScope(node)),
-          O.flatMap(getVariableNode(0)),
-          O.exists(n => isFunction(n) || isClassComponent(n)),
+          VAR.findVariable(object.name, context.sourceCode.getScope(node)),
+          O.flatMap(VAR.getVariableNode(0)),
+          O.exists(n => AST.isFunction(n) || isClassComponent(n)),
         );
         if (!isComponent) return;
         context.report({ messageId: "noDefaultProps", node: property });

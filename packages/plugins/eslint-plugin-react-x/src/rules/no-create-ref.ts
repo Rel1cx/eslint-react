@@ -1,4 +1,4 @@
-import { traverseUp } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { isClassComponent, isCreateRefCall } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { CamelCase } from "string-ts";
@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         if (!isCreateRefCall(node, context)) return;
-        if (O.isSome(traverseUp(node, isClassComponent))) return;
+        if (O.isSome(AST.traverseUp(node, isClassComponent))) return;
         context.report({ messageId: "noCreateRef", node });
       },
     };

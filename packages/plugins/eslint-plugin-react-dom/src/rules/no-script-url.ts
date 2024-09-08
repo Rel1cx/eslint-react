@@ -1,4 +1,4 @@
-import { getPropValue } from "@eslint-react/jsx";
+import * as JSX from "@eslint-react/jsx";
 import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/shared";
 import { F, isString, O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
       JSXAttribute(node) {
         if (node.name.type !== AST_NODE_TYPES.JSXIdentifier || !node.value) return;
         const isJavaScript = F.pipe(
-          getPropValue(node, context.sourceCode.getScope(node)),
+          JSX.getPropValue(node, context.sourceCode.getScope(node)),
           O.flatMapNullable(v => v?.value),
           O.filter(isString),
           O.exists(v => RE_JAVASCRIPT_PROTOCOL.test(v)),

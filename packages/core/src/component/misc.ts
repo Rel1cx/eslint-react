@@ -1,11 +1,11 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
+import type * as AST from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 
 import { getFunctionComponentIdentifier } from "./component-id";
 import { isComponentName } from "./component-name";
 
-export function hasNoneOrValidComponentName(node: TSESTreeFunction, context: RuleContext) {
+export function hasNoneOrValidComponentName(node: AST.TSESTreeFunction, context: RuleContext) {
   return O.match(
     getFunctionComponentIdentifier(node, context),
     {

@@ -1,5 +1,4 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
-import { getFunctionIdentifier } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import ShortUniqueId from "short-unique-id";
@@ -12,9 +11,9 @@ const uid = new ShortUniqueId({ length: 10 });
 
 export function useHookCollector() {
   const hooks = new Map<string, ERHook>();
-  const fStack: [node: TSESTreeFunction, id: O.Option<string>][] = [];
-  const onFunctionEnter = (node: TSESTreeFunction) => {
-    const id = getFunctionIdentifier(node);
+  const fStack: [node: AST.TSESTreeFunction, id: O.Option<string>][] = [];
+  const onFunctionEnter = (node: AST.TSESTreeFunction) => {
+    const id = AST.getFunctionIdentifier(node);
     const name = O.flatMapNullable(id, (id) => id.name);
     const isHook = O.isSome(id) && O.isSome(name) && isReactHookName(name.value);
     if (!isHook) {

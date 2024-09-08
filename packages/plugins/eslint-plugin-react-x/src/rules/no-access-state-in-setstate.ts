@@ -1,4 +1,4 @@
-import { isKeyLiteralLike, isThisExpression } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { isClassComponent, isThisSetState } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -76,7 +76,7 @@ export default createRule<[], MessageID>({
         classStack.pop();
       },
       MemberExpression(node) {
-        if (!isThisExpression(node.object)) return;
+        if (!AST.isThisExpression(node.object)) return;
         const [currClass, isComponent] = classStack.at(-1) ?? [];
         if (!currClass || !isComponent) return;
         const [currMethod, isStatic] = methodStack.at(-1) ?? [];
@@ -106,9 +106,9 @@ export default createRule<[], MessageID>({
         const [setState, hasThisState] = setStateStack.at(-1) ?? [];
         if (!setState || hasThisState) return;
         // detect `{ foo, state: baz } = this`
-        if (!(node.init && isThisExpression(node.init) && node.id.type === AST_NODE_TYPES.ObjectPattern)) return;
+        if (!(node.init && AST.isThisExpression(node.init) && node.id.type === AST_NODE_TYPES.ObjectPattern)) return;
         const hasState = node.id.properties.some(prop => {
-          if (prop.type === AST_NODE_TYPES.Property && isKeyLiteralLike(prop, prop.key)) {
+          if (prop.type === AST_NODE_TYPES.Property && AST.isKeyLiteralLike(prop, prop.key)) {
             return O.exists(getName(prop.key), name => name === "state");
           }
           return false;

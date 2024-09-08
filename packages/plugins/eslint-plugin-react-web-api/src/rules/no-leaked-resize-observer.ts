@@ -1,9 +1,9 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
+import type * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { getPhaseKindOfFunction, PHASE_RELEVANCE } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
-import { findVariable, getVariableNode } from "@eslint-react/var";
+import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
@@ -47,8 +47,8 @@ function isFromObserver(node: TSESTree.Expression, context: RuleContext): boolea
   switch (true) {
     case node.type === AST_NODE_TYPES.Identifier:
       return F.pipe(
-        findVariable(node, context.sourceCode.getScope(node)),
-        O.flatMap(getVariableNode(0)),
+        VAR.findVariable(node, context.sourceCode.getScope(node)),
+        O.flatMap(VAR.getVariableNode(0)),
         O.exists(isNewResizeObserver),
       );
     case node.type === AST_NODE_TYPES.MemberExpression:
@@ -74,7 +74,7 @@ function getCallKind(node: TSESTree.CallExpression, context: RuleContext): CallK
   }
 }
 
-function getFunctionKind(node: TSESTreeFunction): FunctionKind {
+function getFunctionKind(node: AST.TSESTreeFunction): FunctionKind {
   return O.getOrElse(getPhaseKindOfFunction(node), F.constant("other"));
 }
 
@@ -99,13 +99,13 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     if (!context.sourceCode.text.includes("ResizeObserver")) return {};
-    const fStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
+    const fStack: [node: AST.TSESTreeFunction, kind: FunctionKind][] = [];
     const observers: [node: TSESTree.NewExpression, id: TSESTree.Node, phase: ERPhaseKind][] = [];
     const oEntries: OEntry[] = [];
     const uEntries: UEntry[] = [];
     const dEntries: DEntry[] = [];
     return {
-      [":function"](node: TSESTreeFunction) {
+      [":function"](node: AST.TSESTreeFunction) {
         const functionKind = getFunctionKind(node);
         fStack.push([node, functionKind]);
       },

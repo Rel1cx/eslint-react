@@ -6,18 +6,86 @@
 
 # Function: hasProperty()
 
-> **hasProperty**\<`P`\>(`self`, `property`): `self is { [K in PropertyKey]: unknown }`
+Checks whether a value is an `object` containing a specified property key.
 
-## Type Parameters
+## Param
+
+The field to check within the object.
+
+## Param
+
+The value to examine.
+
+## Since
+
+2.0.0
+
+## hasProperty(property)
+
+> **hasProperty**\<`P`\>(`property`): (`self`) => `self is { [K in PropertyKey]: unknown }`
+
+Checks whether a value is an `object` containing a specified property key.
+
+### Type Parameters
 
 • **P** *extends* `PropertyKey`
 
-## Parameters
+### Parameters
+
+• **property**: `P`
+
+### Returns
+
+`Function`
+
+#### Parameters
+
+• **self**: `unknown`
+
+#### Returns
+
+`self is { [K in PropertyKey]: unknown }`
+
+### Param
+
+The field to check within the object.
+
+### Param
+
+The value to examine.
+
+### Since
+
+2.0.0
+
+## hasProperty(self, property)
+
+> **hasProperty**\<`P`\>(`self`, `property`): `self is { [K in PropertyKey]: unknown }`
+
+Checks whether a value is an `object` containing a specified property key.
+
+### Type Parameters
+
+• **P** *extends* `PropertyKey`
+
+### Parameters
 
 • **self**: `unknown`
 
 • **property**: `P`
 
-## Returns
+### Returns
 
 `self is { [K in PropertyKey]: unknown }`
+
+### Param
+
+The field to check within the object.
+
+### Param
+
+The value to examine.
+
+### Since
+
+2.0.0

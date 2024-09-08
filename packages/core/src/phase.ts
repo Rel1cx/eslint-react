@@ -1,4 +1,4 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
+import type * as AST from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import birecord from "birecord";
 import { match } from "ts-pattern";
@@ -17,8 +17,8 @@ export const isInversePhase: {
   (a: ERPhaseKind, b: ERPhaseKind): boolean;
 } = F.dual(2, (a: ERPhaseKind, b: ERPhaseKind) => PHASE_RELEVANCE.get(a) === b);
 
-export function getPhaseKindOfFunction(node: TSESTreeFunction) {
-  return match<TSESTreeFunction, O.Option<ERPhaseKind>>(node)
+export function getPhaseKindOfFunction(node: AST.TSESTreeFunction) {
+  return match<AST.TSESTreeFunction, O.Option<ERPhaseKind>>(node)
     .when(isSetupFunction, () => O.some("setup"))
     .when(isCleanupFunction, () => O.some("cleanup"))
     .when(isComponentDidMountFunction, () => O.some("mount"))

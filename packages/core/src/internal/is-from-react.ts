@@ -1,4 +1,4 @@
-import { is, isOneOf } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { unsafeReadSettings } from "@eslint-react/shared";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -63,7 +63,7 @@ export function isFromReactMember(
 
 export function isCallFromReact(name: string) {
   return (node: TSESTree.CallExpression, context: RuleContext) => {
-    if (!isOneOf([AST_NODE_TYPES.Identifier, AST_NODE_TYPES.MemberExpression])(node.callee)) return false;
+    if (!AST.isOneOf([AST_NODE_TYPES.Identifier, AST_NODE_TYPES.MemberExpression])(node.callee)) return false;
     return isFromReact(name)(node.callee, context);
   };
 }
@@ -73,7 +73,7 @@ export function isCallFromReactMember(
   name: string,
 ) {
   return (node: TSESTree.CallExpression, context: RuleContext) => {
-    if (!is(AST_NODE_TYPES.MemberExpression)(node.callee)) return false;
+    if (!AST.is(AST_NODE_TYPES.MemberExpression)(node.callee)) return false;
     return isFromReactMember(pragmaMemberName, name)(node.callee, context);
   };
 }

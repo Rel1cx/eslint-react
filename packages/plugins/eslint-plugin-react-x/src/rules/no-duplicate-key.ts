@@ -1,8 +1,8 @@
-import { getNestedReturnStatements, is, isMapCallLoose, isOneOf } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { isChildrenToArrayCall } from "@eslint-react/core";
-import { findPropInAttributes } from "@eslint-react/jsx";
+import * as JSX from "@eslint-react/jsx";
 import { F, MutRef, O } from "@eslint-react/tools";
-import { isNodeValueEqual } from "@eslint-react/var";
+import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -30,13 +30,13 @@ export default createRule<[], MessageID>({
   create(context) {
     const isWithinChildrenToArrayRef = MutRef.make(false);
     function isKeyEqual(a: TSESTree.Node, b: TSESTree.Node) {
-      return isNodeValueEqual(a, b, [context.sourceCode.getScope(a), context.sourceCode.getScope(b)]);
+      return VAR.isNodeValueEqual(a, b, [context.sourceCode.getScope(a), context.sourceCode.getScope(b)]);
     }
     function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
       if (node.type !== AST_NODE_TYPES.JSXElement) return O.none();
       const initialScope = context.sourceCode.getScope(node);
       return F.pipe(
-        findPropInAttributes(node.openingElement.attributes, initialScope)("key"),
+        JSX.findPropInAttributes(node.openingElement.attributes, initialScope)("key"),
         O.flatMap((k) => "value" in k ? O.fromNullable(k.value) : O.none()),
         O.flatMap((v) => {
           return isKeyEqual(v, v)
@@ -75,7 +75,7 @@ export default createRule<[], MessageID>({
     }
 
     function checkBlockStatement(node: TSESTree.BlockStatement) {
-      return getNestedReturnStatements(node)
+      return AST.getNestedReturnStatements(node)
         .reduce<ReportDescriptor<MessageID>[]>((acc, statement) => {
           if (!statement.argument) return acc;
           const maybeDescriptor = checkIteratorElement(statement.argument);
@@ -95,7 +95,7 @@ export default createRule<[], MessageID>({
           .with({ type: AST_NODE_TYPES.ArrayExpression }, ({ elements }) => elements)
           .with({ type: AST_NODE_TYPES.JSXElement }, ({ parent }) => "children" in parent ? parent.children : [])
           .otherwise(() => [])
-          .filter(is(AST_NODE_TYPES.JSXElement))
+          .filter(AST.is(AST_NODE_TYPES.JSXElement))
           .filter((element) => !seen.has(element));
         const keys = elements.reduce<[
           TSESTree.JSXElement,
@@ -132,7 +132,7 @@ export default createRule<[], MessageID>({
       },
       CallExpression(node) {
         if (isChildrenToArrayCall(node, context)) MutRef.set(isWithinChildrenToArrayRef, true);
-        const isMapCall = isMapCallLoose(node);
+        const isMapCall = AST.isMapCallLoose(node);
         const isArrayFromCall = isMatching({
           type: AST_NODE_TYPES.CallExpression,
           callee: {
@@ -145,7 +145,7 @@ export default createRule<[], MessageID>({
         if (!isMapCall && !isArrayFromCall) return;
         if (MutRef.get(isWithinChildrenToArrayRef)) return;
         const fn = node.arguments[isMapCall ? 0 : 1];
-        if (!isOneOf([AST_NODE_TYPES.ArrowFunctionExpression, AST_NODE_TYPES.FunctionExpression])(fn)) return;
+        if (!AST.isOneOf([AST_NODE_TYPES.ArrowFunctionExpression, AST_NODE_TYPES.FunctionExpression])(fn)) return;
         if (fn.body.type === AST_NODE_TYPES.BlockStatement) {
           for (const descriptor of checkBlockStatement(fn.body)) {
             context.report(descriptor);

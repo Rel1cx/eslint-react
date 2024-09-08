@@ -127,60 +127,6 @@ export function typeOf(t: unknown) {
 
 // #endregion
 
-// #region Type Predicates
-
-// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-export const isTruthy = (input: unknown) => !!input;
-
-export const isSet = (input: unknown): input is Set<unknown> => input instanceof Set;
-
-export const isMap = (input: unknown): input is Map<unknown, unknown> => input instanceof Map;
-
-export const isString = (input: unknown): input is string => typeof input === "string";
-
-export const isNumber = (input: unknown): input is number => typeof input === "number";
-
-export const isBoolean = (input: unknown): input is boolean => typeof input === "boolean";
-
-export const isBigInt = (input: unknown): input is bigint => typeof input === "bigint";
-
-export const isSymbol = (input: unknown): input is symbol => typeof input === "symbol";
-
-export const isFunction = (input: unknown): input is Function => typeof input === "function";
-
-export const isUndefined = (input: unknown): input is undefined => input === undefined;
-
-export const isNotUndefined = <A>(input: A): input is Exclude<A, undefined> => input !== undefined;
-
-export const isNull = (input: unknown): input is null => input === null;
-
-export const isNotNull = <A>(input: A): input is Exclude<A, null> => input !== null;
-
-export const isNever: (input: unknown) => input is never = (_: unknown): _ is never => false;
-
-export const isUnknown: (input: unknown) => input is unknown = (_): _ is unknown => true;
-
-const isRecordOrArray = (input: unknown) => typeof input === "object" && input !== null;
-
-export const isObject = (input: unknown): input is object => isRecordOrArray(input) || isFunction(input);
-
-export const hasProperty = <P extends PropertyKey>(self: unknown, property: P): self is { [K in P]: unknown } =>
-  isObject(self) && property in self;
-
-export const isNullable = <A>(input: A): input is Extract<A, null | undefined> => input === null || input === undefined;
-
-export const isNotNullable = <A>(input: A): input is NonNullable<A> => input !== null && input !== undefined;
-
-export const isError = (input: unknown): input is Error => input instanceof Error;
-
-export const isUint8Array = (input: unknown): input is Uint8Array => input instanceof Uint8Array;
-
-export const isDate = (input: unknown): input is Date => input instanceof Date;
-
-export const isIterable = (input: unknown): input is Iterable<unknown> => hasProperty(input, Symbol.iterator);
-
-// #endregion
-
 // #region Object Helpers
 
 // Ported from: https://github.com/remeda/remeda/blob/9d742036f6c9cdc216e2c771805051855e7e7ac4/src/entries.ts

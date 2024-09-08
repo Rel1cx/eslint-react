@@ -1,5 +1,4 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
-import { getFunctionIdentifier, isFunction } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { isComponentName, useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { Scope } from "@typescript-eslint/scope-manager";
@@ -48,9 +47,9 @@ export default createRule<[], MessageID>({
 
       "Program:exit"(node) {
         const components = Array.from(ctx.getAllComponents(node).values());
-        function isFunctionComponent(block: TSESTree.Node): block is TSESTreeFunction {
-          if (!isFunction(block)) return false;
-          const maybeId = getFunctionIdentifier(block);
+        function isFunctionComponent(block: TSESTree.Node): block is AST.TSESTreeFunction {
+          if (!AST.isFunction(block)) return false;
+          const maybeId = AST.getFunctionIdentifier(block);
 
           return O.isSome(maybeId)
             && isComponentName(maybeId.value.name)
