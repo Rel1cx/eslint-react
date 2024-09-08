@@ -43,12 +43,12 @@ const templateIndentAnnotations = [
   "ts",
 ] as const;
 
-const sourceTsconfigArray = [
+const packagesTsConfigs = [
   "packages/*/tsconfig.json",
   "packages/*/*/tsconfig.json",
 ] as const;
 
-const infraTsconfigArray = [
+const rootTsConfigs = [
   "tsconfig.json",
 ] as const;
 
@@ -135,7 +135,7 @@ export default [
       parser: tseslint.parser,
       parserOptions: {
         allowAutomaticSingleRunInference: true,
-        project: sourceTsconfigArray,
+        project: packagesTsConfigs,
         projectService: true,
         tsconfigRootDir: dirname,
         warnOnUnsupportedTypeScriptVersion: false,
@@ -333,7 +333,7 @@ export default [
       parser: tseslint.parser,
       parserOptions: {
         allowAutomaticSingleRunInference: true,
-        project: infraTsconfigArray,
+        project: rootTsConfigs,
         projectService: true,
         tsconfigRootDir: dirname,
         warnOnUnsupportedTypeScriptVersion: false,
@@ -355,7 +355,7 @@ export default [
       parser: tseslint.parser,
       parserOptions: {
         allowAutomaticSingleRunInference: true,
-        project: infraTsconfigArray,
+        project: rootTsConfigs,
         projectService: true,
         tsconfigRootDir: dirname,
         warnOnUnsupportedTypeScriptVersion: false,
