@@ -1,4 +1,4 @@
-import { is, isOneOf } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -27,8 +27,10 @@ export default createRule<[], MessageID>({
   create(context) {
     function getReportDescriptor(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
       const jsxExpContainer = node.parent?.parent;
-      if (!is(AST_NODE_TYPES.JSXExpressionContainer)(jsxExpContainer)) return O.none();
-      if (!isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(jsxExpContainer.parent)) return O.none();
+      if (!AST.is(AST_NODE_TYPES.JSXExpressionContainer)(jsxExpContainer)) return O.none();
+      if (!AST.isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(jsxExpContainer.parent)) {
+        return O.none();
+      }
       if (!jsxExpContainer.parent.children.includes(jsxExpContainer)) return O.none();
       return O.some({ messageId: "noComplexConditionalRendering", node: jsxExpContainer });
     }

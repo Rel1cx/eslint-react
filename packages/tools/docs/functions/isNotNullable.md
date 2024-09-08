@@ -8,6 +8,8 @@
 
 > **isNotNullable**\<`A`\>(`input`): `input is NonNullable<A>`
 
+A guard that succeeds when the input is not `null` or `undefined`.
+
 ## Type Parameters
 
 • **A**
@@ -16,6 +18,24 @@
 
 • **input**: `A`
 
+The value to test.
+
 ## Returns
 
 `input is NonNullable<A>`
+
+## Example
+
+```ts
+import { isNotNullable } from "effect/Predicate"
+
+assert.deepStrictEqual(isNotNullable({}), true)
+assert.deepStrictEqual(isNotNullable([]), true)
+
+assert.deepStrictEqual(isNotNullable(null), false)
+assert.deepStrictEqual(isNotNullable(undefined), false)
+```
+
+## Since
+
+2.0.0

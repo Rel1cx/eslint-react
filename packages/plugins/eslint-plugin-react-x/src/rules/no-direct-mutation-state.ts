@@ -1,4 +1,4 @@
-import { isOneOf, isThisExpression, traverseUpGuard } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -34,7 +34,7 @@ function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
 
   return (
     left.type === AST_NODE_TYPES.MemberExpression
-    && isThisExpression(left.object)
+    && AST.isThisExpression(left.object)
     && O.exists(getName(left.property), name => name === "state")
   );
 }
@@ -42,8 +42,8 @@ function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
 function isConstructorFunction(
   node: TSESTree.Node,
 ): node is TSESTree.FunctionDeclaration | TSESTree.FunctionExpression {
-  return isOneOf([AST_NODE_TYPES.FunctionDeclaration, AST_NODE_TYPES.FunctionExpression])(node)
-    && isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node.parent)
+  return AST.isOneOf([AST_NODE_TYPES.FunctionDeclaration, AST_NODE_TYPES.FunctionExpression])(node)
+    && AST.isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node.parent)
     && node.parent.key.type === AST_NODE_TYPES.Identifier
     && node.parent.key.name === "constructor";
 }
@@ -63,14 +63,14 @@ export default createRule<[], MessageID>({
   create(context) {
     function getReportDescriptor(node: TSESTree.AssignmentExpression): O.Option<ReportDescriptor<MessageID>> {
       if (!isAssignmentToThisState(node)) return O.none();
-      const maybeParentClass = traverseUpGuard(
+      const maybeParentClass = AST.traverseUpGuard(
         node,
-        isOneOf([AST_NODE_TYPES.ClassDeclaration, AST_NODE_TYPES.ClassExpression]),
+        AST.isOneOf([AST_NODE_TYPES.ClassDeclaration, AST_NODE_TYPES.ClassExpression]),
       );
       if (O.isNone(maybeParentClass)) return O.none();
       const parentClass = maybeParentClass.value;
       if (!isClassComponent(parentClass)) return O.none();
-      const maybeParentConstructor = traverseUpGuard(node, isConstructorFunction);
+      const maybeParentConstructor = AST.traverseUpGuard(node, isConstructorFunction);
       if (O.exists(maybeParentConstructor, n => context.sourceCode.getScope(node).block === n)) return O.none();
       return O.some({
         messageId: "noDirectMutationState",

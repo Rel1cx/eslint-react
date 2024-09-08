@@ -1,5 +1,4 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
-import { getFunctionIdentifier } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { unsafeReadSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
@@ -9,9 +8,9 @@ import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { isInitializedFromReact } from "../internal";
 import { isReactHookName } from "./hook-name";
 
-export function isReactHook(node: TSESTreeFunction) {
+export function isReactHook(node: AST.TSESTreeFunction) {
   return F.pipe(
-    getFunctionIdentifier(node),
+    AST.getFunctionIdentifier(node),
     O.flatMapNullable((id) => id.name),
     O.exists(isReactHookName),
   );

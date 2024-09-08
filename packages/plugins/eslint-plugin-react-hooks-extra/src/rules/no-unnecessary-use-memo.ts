@@ -1,8 +1,8 @@
-import { is, isFunction } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { isReactHookCall, isReactHookCallWithNameLoose, isUseMemoCall } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
-import { findVariable, getVariableNode } from "@eslint-react/var";
+import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -37,7 +37,7 @@ export default createRule<[], MessageID>({
         }
         const scope = context.sourceCode.getScope(node);
         const component = scope.block;
-        if (!isFunction(component)) return;
+        if (!AST.isFunction(component)) return;
         const [cb, deps] = node.arguments;
         if (!deps) {
           context.report({
@@ -51,9 +51,9 @@ export default createRule<[], MessageID>({
             .with({ type: AST_NODE_TYPES.ArrayExpression }, O.some)
             .with({ type: AST_NODE_TYPES.Identifier }, n => {
               return F.pipe(
-                findVariable(n.name, initialScope),
-                O.flatMap(getVariableNode(0)),
-                O.filter(is(AST_NODE_TYPES.ArrayExpression)),
+                VAR.findVariable(n.name, initialScope),
+                O.flatMap(VAR.getVariableNode(0)),
+                O.filter(AST.is(AST_NODE_TYPES.ArrayExpression)),
               );
             })
             .otherwise(O.none),
@@ -78,9 +78,9 @@ export default createRule<[], MessageID>({
             .with({ type: AST_NODE_TYPES.FunctionExpression }, O.some)
             .with({ type: AST_NODE_TYPES.Identifier }, n => {
               return F.pipe(
-                findVariable(n.name, initialScope),
-                O.flatMap(getVariableNode(0)),
-                O.filter(isFunction),
+                VAR.findVariable(n.name, initialScope),
+                O.flatMap(VAR.getVariableNode(0)),
+                O.filter(AST.isFunction),
               );
             })
             .otherwise(O.none),

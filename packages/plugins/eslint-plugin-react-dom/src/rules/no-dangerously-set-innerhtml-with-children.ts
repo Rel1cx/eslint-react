@@ -1,4 +1,4 @@
-import { hasProp, isLineBreak } from "@eslint-react/jsx";
+import * as JSX from "@eslint-react/jsx";
 import { isNullable } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
@@ -13,7 +13,7 @@ function firstChildIsText(node: TSESTree.JSXElement) {
   const [firstChild] = node.children;
   return node.children.length > 0
     && !isNullable(firstChild)
-    && !isLineBreak(firstChild);
+    && !JSX.isLineBreak(firstChild);
 }
 
 // TODO: Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components that use different properties to receive HTML and set them internally.
@@ -35,9 +35,9 @@ export default createRule<[], MessageID>({
       JSXElement(node) {
         const initialScope = context.sourceCode.getScope(node);
         const hasChildrenWithIn = () => node.children.length > 0 && firstChildIsText(node);
-        const hasChildrenProp = () => hasProp(node.openingElement.attributes, "children", initialScope);
+        const hasChildrenProp = () => JSX.hasProp(node.openingElement.attributes, "children", initialScope);
         // dprint-ignore
-        const hasDanger = () => hasProp(node.openingElement.attributes, "dangerouslySetInnerHTML", initialScope);
+        const hasDanger = () => JSX.hasProp(node.openingElement.attributes, "dangerouslySetInnerHTML", initialScope);
         if (!(hasChildrenWithIn() || hasChildrenProp()) || !hasDanger()) return;
         context.report({
           messageId: "noDangerouslySetInnerhtmlWithChildren",

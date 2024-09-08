@@ -1,5 +1,4 @@
-import type { TSESTreeClass } from "@eslint-react/ast";
-import { getClassIdentifier, isFunction, isOneOf } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
@@ -16,7 +15,7 @@ const uid = new ShortUniqueId({ length: 10 });
  * @param node The AST node to check
  * @returns `true` if the node is a class component, `false` otherwise
  */
-export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass {
+export function isClassComponent(node: TSESTree.Node): node is AST.TSESTreeClass {
   if (!("superClass" in node && node.superClass)) return false;
   const { superClass } = node;
   return match(superClass)
@@ -55,7 +54,7 @@ export function isPureComponent(node: TSESTree.Node) {
 export function isComponentDidMount(
   node: TSESTree.Node,
 ): node is TSESTree.MethodDefinition | TSESTree.PropertyDefinition {
-  return isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
+  return AST.isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
     && node.key.type === AST_NODE_TYPES.Identifier
     && node.key.name === "componentDidMount";
 }
@@ -63,19 +62,19 @@ export function isComponentDidMount(
 export function isComponentWillUnmount(
   node: TSESTree.Node,
 ): node is TSESTree.MethodDefinition | TSESTree.PropertyDefinition {
-  return isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
+  return AST.isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
     && node.key.type === AST_NODE_TYPES.Identifier
     && node.key.name === "componentWillUnmount";
 }
 
 export function isComponentDidMountFunction(node: TSESTree.Node) {
-  return isFunction(node)
+  return AST.isFunction(node)
     && isComponentDidMount(node.parent)
     && node.parent.value === node;
 }
 
 export function isComponentWillUnmountFunction(node: TSESTree.Node) {
-  return isFunction(node)
+  return AST.isFunction(node)
     && isComponentWillUnmount(node.parent)
     && node.parent.value === node;
 }
@@ -92,9 +91,9 @@ export function useComponentCollectorLegacy() {
     },
   } as const;
 
-  const collect = (node: TSESTreeClass) => {
+  const collect = (node: AST.TSESTreeClass) => {
     if (!isClassComponent(node)) return;
-    const id = getClassIdentifier(node);
+    const id = AST.getClassIdentifier(node);
     const key = uid.rnd();
     const flag = isPureComponent(node)
       ? ERClassComponentFlag.PureComponent

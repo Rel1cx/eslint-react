@@ -1,4 +1,4 @@
-import { traverseUpGuard } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import type { O } from "@eslint-react/tools";
 import { F } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -18,5 +18,5 @@ export function traverseUpProp(
     return node.type === AST_NODE_TYPES.JSXAttribute && predicate(node);
   };
 
-  return traverseUpGuard(node, guard);
+  return AST.traverseUpGuard(node, guard);
 }

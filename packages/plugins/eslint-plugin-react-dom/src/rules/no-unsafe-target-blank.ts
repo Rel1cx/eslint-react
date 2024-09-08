@@ -1,4 +1,4 @@
-import { findPropInAttributes, getElementName, getElementType, getPropValue } from "@eslint-react/jsx";
+import * as JSX from "@eslint-react/jsx";
 import { decodeSettings, findAttrInCustomAttributes, normalizeSettings } from "@eslint-react/shared";
 import { F, isString, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -42,9 +42,9 @@ export default createRule<[], MessageID>({
     const components = settings.components;
     const additionalComponents = settings.additionalComponents.filter(c => c.as === "a");
     function getReportDescriptor(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
-      const name = getElementName(node.openingElement);
+      const name = JSX.getElementName(node.openingElement);
       const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) };
-      const elementType = getElementType(jsxCtx, components, polymorphicPropName)(node.openingElement);
+      const elementType = JSX.getElementType(jsxCtx, components, polymorphicPropName)(node.openingElement);
       if (elementType !== "a" && !additionalComponents.some(c => c.re.test(name))) return O.none();
       const { attributes } = node.openingElement;
       const initialScope = context.sourceCode.getScope(node);
@@ -56,12 +56,12 @@ export default createRule<[], MessageID>({
         targetPropName,
         targetPropDefaultValue,
       ] = findAttrInCustomAttributes("target", additionalAttributes);
-      const targetProp = findPropInAttributes(attributes, initialScope)(targetPropName);
+      const targetProp = JSX.findPropInAttributes(attributes, initialScope)(targetPropName);
       const targetPropValue = O.isNone(targetProp)
         ? O.fromNullable(targetPropDefaultValue)
         : F.pipe(
           targetProp,
-          O.flatMap(attr => getPropValue(attr, jsxCtx.getScope(attr))),
+          O.flatMap(attr => JSX.getPropValue(attr, jsxCtx.getScope(attr))),
           O.flatMapNullable(v =>
             match(v?.value)
               .with(P.string, F.identity)
@@ -75,12 +75,12 @@ export default createRule<[], MessageID>({
         hrefPropName,
         hrefPropDefaultValue,
       ] = findAttrInCustomAttributes("href", additionalAttributes);
-      const hrefProp = findPropInAttributes(attributes, initialScope)(hrefPropName);
+      const hrefProp = JSX.findPropInAttributes(attributes, initialScope)(hrefPropName);
       const hrefPropValue = O.isNone(hrefProp)
         ? O.fromNullable(hrefPropDefaultValue)
         : F.pipe(
           hrefProp,
-          O.flatMap(attr => getPropValue(attr, jsxCtx.getScope(attr))),
+          O.flatMap(attr => JSX.getPropValue(attr, jsxCtx.getScope(attr))),
           O.flatMapNullable(v =>
             match(v?.value)
               .with(P.string, F.identity)
@@ -94,12 +94,12 @@ export default createRule<[], MessageID>({
         relPropName,
         relPropDefaultValue,
       ] = findAttrInCustomAttributes("rel", additionalAttributes);
-      const relProp = findPropInAttributes(attributes, initialScope)(relPropName);
+      const relProp = JSX.findPropInAttributes(attributes, initialScope)(relPropName);
       const relPropValue = O.isNone(relProp)
         ? O.fromNullable(relPropDefaultValue)
         : F.pipe(
           relProp,
-          O.flatMap(attr => getPropValue(attr, jsxCtx.getScope(attr))),
+          O.flatMap(attr => JSX.getPropValue(attr, jsxCtx.getScope(attr))),
           O.flatMapNullable(v =>
             match(v?.value)
               .with(P.string, F.identity)

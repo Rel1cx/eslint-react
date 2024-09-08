@@ -1,4 +1,4 @@
-import { getFunctionIdentifier } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { ERFunctionComponentFlag, useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import type { CamelCase } from "string-ts";
@@ -32,7 +32,7 @@ export default createRule<[], MessageID>({
         for (const { node, displayName, flag } of components.values()) {
           const isMemoOrForwardRef = Boolean(flag & ERFunctionComponentFlag.ForwardRef)
             || Boolean(flag & ERFunctionComponentFlag.Memo);
-          if (O.isSome(getFunctionIdentifier(node))) continue;
+          if (O.isSome(AST.getFunctionIdentifier(node))) continue;
           if (!isMemoOrForwardRef) continue;
           if (O.isNone(displayName)) {
             context.report({

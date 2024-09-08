@@ -17,7 +17,6 @@
 - [ERClassComponentFlag](type-aliases/ERClassComponentFlag.md)
 - [ERComponent](type-aliases/ERComponent.md)
 - [ERComponentHint](type-aliases/ERComponentHint.md)
-- [ERComponentInitPath](type-aliases/ERComponentInitPath.md)
 - [ERComponentKind](type-aliases/ERComponentKind.md)
 - [EREffectKind](type-aliases/EREffectKind.md)
 - [EREffectMethodKind](type-aliases/EREffectMethodKind.md)
@@ -41,11 +40,9 @@
 
 ## Functions
 
-- [getComponentInitPath](functions/getComponentInitPath.md)
 - [getComponentNameFromIdentifier](functions/getComponentNameFromIdentifier.md)
 - [getFunctionComponentIdentifier](functions/getFunctionComponentIdentifier.md)
 - [getPhaseKindOfFunction](functions/getPhaseKindOfFunction.md)
-- [hasCallInComponentInitPath](functions/hasCallInComponentInitPath.md)
 - [hasNoneOrValidComponentName](functions/hasNoneOrValidComponentName.md)
 - [isCallFromReact](functions/isCallFromReact.md)
 - [isCallFromReactMember](functions/isCallFromReactMember.md)

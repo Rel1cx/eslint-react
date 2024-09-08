@@ -1,4 +1,4 @@
-import { is, traverseUpGuard } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -45,9 +45,9 @@ export function isDeclaredInRenderPropLoose(node: TSESTree.Node) {
   }
 
   return F.pipe(
-    traverseUpGuard(node, is(AST_NODE_TYPES.JSXExpressionContainer)),
+    AST.traverseUpGuard(node, AST.is(AST_NODE_TYPES.JSXExpressionContainer)),
     O.flatMapNullable(c => c.parent),
-    O.filter(is(AST_NODE_TYPES.JSXAttribute)),
+    O.filter(AST.is(AST_NODE_TYPES.JSXAttribute)),
     O.flatMapNullable(a => a.name),
     O.exists(isMatching({
       type: AST_NODE_TYPES.JSXIdentifier,

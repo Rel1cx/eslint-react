@@ -1,15 +1,8 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
-import {
-  getNestedIdentifiers,
-  isFunction,
-  isFunctionOfImmediatelyInvoked,
-  toReadableNodeName,
-  traverseUpGuard,
-} from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
 import { F, MutRef, O } from "@eslint-react/tools";
-import { findVariable, getVariableNode } from "@eslint-react/var";
+import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
@@ -62,21 +55,21 @@ export default createRule<[], MessageID>({
     const isUseCallbackCall = isReactHookCallWithNameAlias("useCallback", context, additionalHooks.useCallback ?? []);
     const isSetStateCall = isSetFunctionCall(context, settings);
     const isIdFromUseStateCall = isFromUseStateCall(context, settings);
-    const functionStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
-    const setupFunctionRef = MutRef.make<TSESTreeFunction | null>(null);
+    const functionStack: [node: AST.TSESTreeFunction, kind: FunctionKind][] = [];
+    const setupFunctionRef = MutRef.make<AST.TSESTreeFunction | null>(null);
     const setupFunctionIdentifiers: TSESTree.Identifier[] = [];
     const indirectFunctionCalls: TSESTree.CallExpression[] = [];
-    const indirectSetStateCalls = new WeakMap<TSESTreeFunction, TSESTree.CallExpression[]>();
+    const indirectSetStateCalls = new WeakMap<AST.TSESTreeFunction, TSESTree.CallExpression[]>();
     const indirectSetStateCallsAsArgs = new WeakMap<TSESTree.CallExpression, TSESTree.Identifier[]>();
     const indirectSetStateCallsAsSetups = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
     const indirectSetStateCallsInHooks = new WeakMap<
       TSESTree.VariableDeclarator["init"] & {},
       TSESTree.CallExpression[]
     >();
-    const onSetupFunctionEnter = (node: TSESTreeFunction) => {
+    const onSetupFunctionEnter = (node: AST.TSESTreeFunction) => {
       MutRef.set(setupFunctionRef, node);
     };
-    const onSetupFunctionExit = (node: TSESTreeFunction) => {
+    const onSetupFunctionExit = (node: AST.TSESTreeFunction) => {
       MutRef.update(setupFunctionRef, (current) => current === node ? null : current);
     };
     function isSetupFunction(node: TSESTree.Node) {
@@ -92,19 +85,19 @@ export default createRule<[], MessageID>({
         .when(isThenCall, () => "then")
         .otherwise(() => "other");
     }
-    function getFunctionKind(node: TSESTreeFunction) {
-      return match<TSESTreeFunction, FunctionKind>(node)
+    function getFunctionKind(node: AST.TSESTreeFunction) {
+      return match<AST.TSESTreeFunction, FunctionKind>(node)
         .when(isSetupFunction, () => "setup")
-        .when(isFunctionOfImmediatelyInvoked, () => "immediate")
+        .when(AST.isFunctionOfImmediatelyInvoked, () => "immediate")
         .otherwise(() => "other");
     }
     return {
-      ":function"(node: TSESTreeFunction) {
+      ":function"(node: AST.TSESTreeFunction) {
         const functionKind = getFunctionKind(node);
         functionStack.push([node, functionKind]);
         if (functionKind === "setup") onSetupFunctionEnter(node);
       },
-      ":function:exit"(node: TSESTreeFunction) {
+      ":function:exit"(node: AST.TSESTreeFunction) {
         const [_, functionKind] = functionStack.at(-1) ?? [];
         functionStack.pop();
         if (functionKind === "setup") onSetupFunctionExit(node);
@@ -117,7 +110,7 @@ export default createRule<[], MessageID>({
           .with("setState", () => {
             if (!parentFn) return;
             if (parentFn !== effectFn && parentFnKind !== "immediate") {
-              const maybeVd = traverseUpGuard(node, isVariableDeclaratorFromHookCall);
+              const maybeVd = AST.traverseUpGuard(node, isVariableDeclaratorFromHookCall);
               if (O.isSome(maybeVd)) {
                 const vd = maybeVd.value;
                 const calls = indirectSetStateCallsInHooks.get(vd.init) ?? [];
@@ -137,8 +130,8 @@ export default createRule<[], MessageID>({
           // .with(P.union("useMemo", "useCallback"), () => {})
           .with("useEffect", () => {
             const [firstArg] = node.arguments;
-            if (isFunction(firstArg)) return;
-            const identifiers = getNestedIdentifiers(node);
+            if (AST.isFunction(firstArg)) return;
+            const identifiers = AST.getNestedIdentifiers(node);
             setupFunctionIdentifiers.push(...identifiers);
           })
           .with("other", () => {
@@ -159,7 +152,7 @@ export default createRule<[], MessageID>({
             // const set = useCallback(setState, []);
             // useEffect(set, []);
             if (isUseCallbackCall(node.parent)) {
-              const maybeVd = traverseUpGuard(node.parent, isVariableDeclaratorFromHookCall);
+              const maybeVd = AST.traverseUpGuard(node.parent, isVariableDeclaratorFromHookCall);
               if (O.isNone(maybeVd)) break;
               const vd = maybeVd.value;
               const calls = indirectSetStateCallsAsArgs.get(vd.init) ?? [];
@@ -180,7 +173,7 @@ export default createRule<[], MessageID>({
             // const set = useMemo(() => setState, []);
             // useEffect(set, []);
             if (!isUseMemoCall(parent)) break;
-            const maybeVd = traverseUpGuard(parent, isVariableDeclaratorFromHookCall);
+            const maybeVd = AST.traverseUpGuard(parent, isVariableDeclaratorFromHookCall);
             if (O.isNone(maybeVd)) break;
             const vd = maybeVd.value;
             const calls = indirectSetStateCallsAsArgs.get(vd.init) ?? [];
@@ -193,7 +186,7 @@ export default createRule<[], MessageID>({
           id: TSESTree.Identifier | string,
           initialScope: Scope.Scope,
         ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
-          const node = O.flatMap(findVariable(id, initialScope), getVariableNode(0)).pipe(O.getOrNull);
+          const node = O.flatMap(VAR.findVariable(id, initialScope), VAR.getVariableNode(0)).pipe(O.getOrNull);
           switch (node?.type) {
             case AST_NODE_TYPES.FunctionDeclaration:
             case AST_NODE_TYPES.FunctionExpression:
@@ -222,7 +215,7 @@ export default createRule<[], MessageID>({
               messageId: "noDirectSetStateInUseEffect",
               node: setStateCall,
               data: {
-                name: toReadableNodeName(setStateCall, (n) => context.sourceCode.getText(n)),
+                name: AST.toReadableNodeName(setStateCall, (n) => context.sourceCode.getText(n)),
               },
             });
           }
@@ -234,7 +227,7 @@ export default createRule<[], MessageID>({
               messageId: "noDirectSetStateInUseEffect",
               node: setStateCall,
               data: {
-                name: toReadableNodeName(setStateCall, (n) => context.sourceCode.getText(n)),
+                name: AST.toReadableNodeName(setStateCall, (n) => context.sourceCode.getText(n)),
               },
             });
           }

@@ -1,4 +1,4 @@
-import { getElementName } from "@eslint-react/jsx";
+import * as JSX from "@eslint-react/jsx";
 import { isString } from "@eslint-react/tools";
 import type { CamelCase } from "string-ts";
 
@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXOpeningElement(node) {
-        const name = getElementName(node);
+        const name = JSX.getElementName(node);
         if (!isString(name) || !name.includes(":")) return;
         context.report({
           messageId: "noNamespace",

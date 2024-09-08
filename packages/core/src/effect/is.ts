@@ -1,4 +1,4 @@
-import { is, isFunction, traverseUpGuard } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -14,10 +14,10 @@ export function isSetupFunction(node: TSESTree.Node) {
 }
 
 export function isCleanupFunction(node: TSESTree.Node) {
-  const nearestRet = O.getOrNull(traverseUpGuard(node, is(AST_NODE_TYPES.ReturnStatement)));
+  const nearestRet = O.getOrNull(AST.traverseUpGuard(node, AST.is(AST_NODE_TYPES.ReturnStatement)));
   if (!nearestRet) return false;
-  const nearestFunction = O.getOrNull(traverseUpGuard(node, isFunction));
-  const nearestFunctionOfRet = O.getOrNull(traverseUpGuard(nearestRet, isFunction));
+  const nearestFunction = O.getOrNull(AST.traverseUpGuard(node, AST.isFunction));
+  const nearestFunctionOfRet = O.getOrNull(AST.traverseUpGuard(nearestRet, AST.isFunction));
   if (!nearestFunction || !nearestFunctionOfRet) return false;
   return nearestFunction === nearestFunctionOfRet && isSetupFunction(nearestFunction);
 }

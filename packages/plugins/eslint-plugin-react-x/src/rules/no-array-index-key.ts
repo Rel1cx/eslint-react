@@ -1,4 +1,4 @@
-import { getIdentifiersFromBinaryExpression, isOneOf } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
 import { unsafeReadSettings } from "@eslint-react/shared";
 import { isNullable, O } from "@eslint-react/tools";
@@ -80,7 +80,7 @@ function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContex
   if (!iteratorFunctionIndexParamPosition.has(name)) return O.none();
   const callbackArg = node.arguments[isUsingReactChildren(node, context) ? 1 : 0];
   if (!callbackArg) return O.none();
-  if (!isOneOf([AST_NODE_TYPES.ArrowFunctionExpression, AST_NODE_TYPES.FunctionExpression])(callbackArg)) {
+  if (!AST.isOneOf([AST_NODE_TYPES.ArrowFunctionExpression, AST_NODE_TYPES.FunctionExpression])(callbackArg)) {
     return O.none();
   }
   const { params } = callbackArg;
@@ -123,10 +123,10 @@ export default createRule<[], MessageID>({
       // key={bar}
       if (isArrayIndex(node)) return [{ messageId: "noArrayIndexKey", node }];
       // key={`foo-${bar}`} or key={'foo' + bar}
-      if (isOneOf([AST_NODE_TYPES.TemplateLiteral, AST_NODE_TYPES.BinaryExpression])(node)) {
+      if (AST.isOneOf([AST_NODE_TYPES.TemplateLiteral, AST_NODE_TYPES.BinaryExpression])(node)) {
         const exps = AST_NODE_TYPES.TemplateLiteral === node.type
           ? node.expressions
-          : getIdentifiersFromBinaryExpression(node);
+          : AST.getIdentifiersFromBinaryExpression(node);
         return exps.reduce<ReportDescriptor<MessageID>[]>((acc, exp) => {
           if (isArrayIndex(exp)) return [...acc, { messageId: "noArrayIndexKey", node: exp }];
           return acc;

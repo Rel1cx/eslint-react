@@ -1,9 +1,7 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
-import { toReadableNodeType } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
-import type { Construction } from "@eslint-react/var";
-import { inspectConstruction } from "@eslint-react/var";
+import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
@@ -34,7 +32,7 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollector(context);
-    const possibleValueConstructions = new Map<TSESTreeFunction, Construction[]>();
+    const possibleValueConstructions = new Map<AST.TSESTreeFunction, VAR.Construction[]>();
 
     return {
       ...listeners,
@@ -53,7 +51,7 @@ export default createRule<[], MessageID>({
         if (valueNode?.type !== AST_NODE_TYPES.JSXExpressionContainer) return;
         const valueExpression = valueNode.expression;
         const initialScope = context.sourceCode.getScope(valueExpression);
-        const construction = inspectConstruction(valueExpression, initialScope);
+        const construction = VAR.inspectConstruction(valueExpression, initialScope);
         if (construction._tag === "None") return;
         O.map(
           ctx.getCurrentFunction(),
@@ -79,7 +77,7 @@ export default createRule<[], MessageID>({
               messageId,
               node: constructionNode,
               data: {
-                type: toReadableNodeType(constructionNode),
+                type: AST.toReadableNodeType(constructionNode),
               },
             });
           }

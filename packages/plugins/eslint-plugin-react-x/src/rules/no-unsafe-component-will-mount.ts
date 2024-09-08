@@ -1,4 +1,4 @@
-import { isOneOf } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { useComponentCollectorLegacy } from "@eslint-react/core";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -11,7 +11,7 @@ export const RULE_NAME = "no-unsafe-component-will-mount";
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function isUnsafeComponentWillMount(node: TSESTree.ClassElement) {
-  return isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
+  return AST.isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
     && node.key.type === AST_NODE_TYPES.Identifier
     && node.key.name === "UNSAFE_componentWillMount";
 }

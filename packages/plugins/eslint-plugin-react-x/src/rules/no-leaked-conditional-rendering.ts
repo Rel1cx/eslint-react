@@ -1,6 +1,6 @@
-import { isJSX } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
-import { findVariable } from "@eslint-react/var";
+import * as VAR from "@eslint-react/var";
 import type { Variable } from "@typescript-eslint/scope-manager";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -227,7 +227,7 @@ export default createRule<[], MessageID>({
     const services = ESLintUtils.getParserServices(context, false);
     function getReportDescriptor(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
       return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
-        .when(isJSX, O.none)
+        .when(AST.isJSX, O.none)
         .with({ type: AST_NODE_TYPES.LogicalExpression, operator: "&&" }, ({ left, right }) => {
           const isLeftUnaryNot = isMatching({ type: AST_NODE_TYPES.UnaryExpression, operator: "!" }, left);
           if (isLeftUnaryNot) return getReportDescriptor(right);
@@ -259,7 +259,7 @@ export default createRule<[], MessageID>({
         .with({ type: AST_NODE_TYPES.Identifier }, (n) => {
           const initialScope = context.sourceCode.getScope(n);
           return F.pipe(
-            findVariable(n.name, initialScope),
+            VAR.findVariable(n.name, initialScope),
             O.flatMap(getVariableInitExpression(0)),
             O.flatMap(getReportDescriptor),
           );

@@ -1,5 +1,4 @@
-import type { TSESTreeClass } from "@eslint-react/ast";
-import { getClassIdentifier, isKeyLiteralLike, isThisExpression } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -67,11 +66,11 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const classStack: TSESTreeClass[] = [];
+    const classStack: AST.TSESTreeClass[] = [];
     const methodStack: (TSESTree.MethodDefinition | TSESTree.PropertyDefinition)[] = [];
-    const propertyDefs = new WeakMap<TSESTreeClass, Set<Property>>();
-    const propertyUsages = new WeakMap<TSESTreeClass, Set<string>>();
-    function classEnter(node: TSESTreeClass) {
+    const propertyDefs = new WeakMap<AST.TSESTreeClass, Set<Property>>();
+    const propertyUsages = new WeakMap<AST.TSESTreeClass, Set<string>>();
+    function classEnter(node: AST.TSESTreeClass) {
       classStack.push(node);
       if (!isClassComponent(node)) return;
       propertyDefs.set(node, new Set());
@@ -80,7 +79,7 @@ export default createRule<[], MessageID>({
     function classExit() {
       const currentClass = classStack.pop();
       if (!currentClass || !isClassComponent(currentClass)) return;
-      const className = O.map(getClassIdentifier(currentClass), id => id.name);
+      const className = O.map(AST.getClassIdentifier(currentClass), id => id.name);
       const defs = propertyDefs.get(currentClass);
       const usages = propertyUsages.get(currentClass);
       if (!defs) return;
@@ -103,7 +102,7 @@ export default createRule<[], MessageID>({
       const currentClass = classStack.at(-1);
       if (!currentClass || !isClassComponent(currentClass)) return;
       if (node.static) return;
-      if (isKeyLiteralLike(node, node.key)) {
+      if (AST.isKeyLiteralLike(node, node.key)) {
         propertyDefs.get(currentClass)?.add(node.key);
       }
     }
@@ -121,7 +120,7 @@ export default createRule<[], MessageID>({
         const currentMethod = methodStack.at(-1);
         if (!currentClass || !currentMethod) return;
         if (!isClassComponent(currentClass) || currentMethod.static) return;
-        if (!isThisExpression(node.object) || !isKeyLiteralLike(node, node.property)) return;
+        if (!AST.isThisExpression(node.object) || !AST.isKeyLiteralLike(node, node.property)) return;
         if (node.parent.type === AST_NODE_TYPES.AssignmentExpression && node.parent.left === node) {
           // detect `this.property = xxx`
           propertyDefs.get(currentClass)?.add(node.property);
@@ -140,9 +139,9 @@ export default createRule<[], MessageID>({
         if (!currentClass || !currentMethod) return;
         if (!isClassComponent(currentClass) || currentMethod.static) return;
         // detect `{ foo, bar: baz } = this`
-        if (node.init && isThisExpression(node.init) && node.id.type === AST_NODE_TYPES.ObjectPattern) {
+        if (node.init && AST.isThisExpression(node.init) && node.id.type === AST_NODE_TYPES.ObjectPattern) {
           for (const prop of node.id.properties) {
-            if (prop.type === AST_NODE_TYPES.Property && isKeyLiteralLike(prop, prop.key)) {
+            if (prop.type === AST_NODE_TYPES.Property && AST.isKeyLiteralLike(prop, prop.key)) {
               O.map(getName(prop.key), name => propertyUsages.get(currentClass)?.add(name));
             }
           }

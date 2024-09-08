@@ -1,5 +1,4 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
-import * as astUtils from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -16,10 +15,10 @@ function isComponentWrapperCall(node: TSESTree.Node, context: RuleContext) {
 }
 
 export function getFunctionComponentIdentifier(
-  node: TSESTreeFunction,
+  node: AST.TSESTreeFunction,
   context: RuleContext,
 ): O.Option<TSESTree.Identifier | TSESTree.Identifier[]> {
-  const functionId = astUtils.getFunctionIdentifier(node);
+  const functionId = AST.getFunctionIdentifier(node);
   if (O.isSome(functionId)) return functionId;
   const { parent } = node;
   // Get function component identifier from `const Component = memo(() => {});`

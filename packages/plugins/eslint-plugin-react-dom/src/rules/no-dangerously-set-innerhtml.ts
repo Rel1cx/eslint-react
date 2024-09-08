@@ -1,4 +1,4 @@
-import { findPropInAttributes } from "@eslint-react/jsx";
+import * as JSX from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
 import type { CamelCase } from "string-ts";
 
@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const initialScope = context.sourceCode.getScope(node);
-        const maybeDanger = findPropInAttributes(node.openingElement.attributes, initialScope)(
+        const maybeDanger = JSX.findPropInAttributes(node.openingElement.attributes, initialScope)(
           "dangerouslySetInnerHTML",
         );
         if (O.isSome(maybeDanger)) {

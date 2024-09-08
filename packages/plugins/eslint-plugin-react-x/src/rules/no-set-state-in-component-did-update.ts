@@ -1,4 +1,4 @@
-import { isOneOf, traverseUp } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { isClassComponent, isThisSetState } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -13,7 +13,7 @@ export const RULE_NAME = "no-set-state-in-component-did-update";
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function isComponentDidUpdate(node: TSESTree.Node) {
-  return isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
+  return AST.isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
     && node.key.type === AST_NODE_TYPES.Identifier
     && node.key.name === "componentDidUpdate";
 }
@@ -35,14 +35,14 @@ export default createRule<[], MessageID>({
     if (!context.sourceCode.text.includes("componentDidUpdate")) return {};
     function getReportDescriptor(node: TSESTree.CallExpression): O.Option<ReportDescriptor<MessageID>> {
       if (!isThisSetState(node)) return O.none();
-      const maybeParentClass = traverseUp(
+      const maybeParentClass = AST.traverseUp(
         node,
-        isOneOf([AST_NODE_TYPES.ClassDeclaration, AST_NODE_TYPES.ClassExpression]),
+        AST.isOneOf([AST_NODE_TYPES.ClassDeclaration, AST_NODE_TYPES.ClassExpression]),
       );
       if (O.isNone(maybeParentClass)) return O.none();
       const parentClass = maybeParentClass.value;
       if (!isClassComponent(parentClass)) return O.none();
-      const maybeParentMethod = traverseUp(node, isComponentDidUpdate);
+      const maybeParentMethod = AST.traverseUp(node, isComponentDidUpdate);
       if (O.isNone(maybeParentMethod)) return O.none();
       const parentMethod = maybeParentMethod.value;
       if (parentMethod.parent !== parentClass.body) return O.none();

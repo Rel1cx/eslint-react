@@ -1,8 +1,7 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
-import { toReadableNodeType } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
-import { ConstructionHint, inspectConstruction } from "@eslint-react/var";
+import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
@@ -35,7 +34,7 @@ export default createRule<[], MessageID>({
   create(context) {
     const { ctx, listeners } = useComponentCollector(context);
     const possibleDestructuringDeclarators = new WeakMap<
-      TSESTreeFunction,
+      AST.TSESTreeFunction,
       ObjectDestructuringDeclarator[]
     >();
 
@@ -62,9 +61,13 @@ export default createRule<[], MessageID>({
             const { value } = prop;
             const { right } = value;
             const initialScope = context.sourceCode.getScope(value);
-            const construction = inspectConstruction(value, initialScope, ConstructionHint.StrictCallExpression);
+            const construction = VAR.inspectConstruction(
+              value,
+              initialScope,
+              VAR.ConstructionHint.StrictCallExpression,
+            );
             if (construction._tag === "None") continue;
-            const forbiddenType = toReadableNodeType(right);
+            const forbiddenType = AST.toReadableNodeType(right);
             context.report({
               messageId: "noUnstableDefaultProps",
               node: right,

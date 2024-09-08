@@ -1,5 +1,5 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3667
-import { isFunction } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { isForwardRefCall } from "@eslint-react/core";
 import type { CamelCase } from "string-ts";
 
@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
       CallExpression(node) {
         if (!isForwardRefCall(node, context)) return;
         const [component] = node.arguments;
-        if (!component || !isFunction(component)) return;
+        if (!component || !AST.isFunction(component)) return;
         const [_, ref] = component.params;
         if (ref) return;
         context.report({

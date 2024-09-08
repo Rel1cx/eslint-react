@@ -1,4 +1,4 @@
-import { getPropName } from "@eslint-react/jsx";
+import * as JSX from "@eslint-react/jsx";
 import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
   create(context) {
     function getReportDescriptor(node: TSESTree.JSXAttribute): O.Option<ReportDescriptor<MessageID>> {
       const { value } = node;
-      const propName = getPropName(node);
+      const propName = JSX.getPropName(node);
       const hasValueTrue = value?.type === AST_NODE_TYPES.JSXExpressionContainer
         && value.expression.type === AST_NODE_TYPES.Literal
         && value.expression.value === true;

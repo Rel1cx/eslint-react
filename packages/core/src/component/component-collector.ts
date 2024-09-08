@@ -1,15 +1,5 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
-import {
-  getNestedReturnStatements,
-  is,
-  isFunctionOfClassMethod,
-  isFunctionOfClassProperty,
-  isFunctionOfObjectMethod,
-  isMapCallLoose,
-  isOneOf,
-  traverseUp,
-} from "@eslint-react/ast";
-import { isJSXValue } from "@eslint-react/jsx";
+import * as AST from "@eslint-react/ast";
+import * as JSX from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -24,33 +14,32 @@ import type { ERFunctionComponent } from "./component";
 import { DEFAULT_COMPONENT_HINT, ERComponentHint } from "./component-collector-hint";
 import { ERFunctionComponentFlag } from "./component-flag";
 import { getFunctionComponentIdentifier } from "./component-id";
-import { getComponentInitPath, hasCallInComponentInitPath } from "./component-init-path";
 import { getComponentNameFromIdentifier } from "./component-name";
 import { isFunctionOfRenderMethod } from "./component-render-method";
 import { hasNoneOrValidComponentName } from "./misc";
 
 const uid = new ShortUniqueId({ length: 10 });
 
-function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: bigint) {
+function hasValidHierarchy(node: AST.TSESTreeFunction, context: RuleContext, hint: bigint) {
   if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node)) {
     return false;
   }
-  if (hint & ERComponentHint.SkipMapCallback && isMapCallLoose(node.parent)) {
+  if (hint & ERComponentHint.SkipMapCallback && AST.isMapCallLoose(node.parent)) {
     return false;
   }
-  if (hint & ERComponentHint.SkipObjectMethod && isFunctionOfObjectMethod(node.parent)) {
+  if (hint & ERComponentHint.SkipObjectMethod && AST.isFunctionOfObjectMethod(node.parent)) {
     return false;
   }
-  if (hint & ERComponentHint.SkipClassMethod && isFunctionOfClassMethod(node.parent)) {
+  if (hint & ERComponentHint.SkipClassMethod && AST.isFunctionOfClassMethod(node.parent)) {
     return false;
   }
-  if (hint & ERComponentHint.SkipClassProperty && isFunctionOfClassProperty(node.parent)) {
+  if (hint & ERComponentHint.SkipClassProperty && AST.isFunctionOfClassProperty(node.parent)) {
     return false;
   }
   return !O.exists(
-    traverseUp(
+    AST.traverseUp(
       node,
-      isOneOf([
+      AST.isOneOf([
         AST_NODE_TYPES.JSXExpressionContainer,
         AST_NODE_TYPES.ArrowFunctionExpression,
         AST_NODE_TYPES.FunctionExpression,
@@ -58,16 +47,16 @@ function hasValidHierarchy(node: TSESTreeFunction, context: RuleContext, hint: b
         AST_NODE_TYPES.ClassBody,
       ]),
     ),
-    is(AST_NODE_TYPES.JSXExpressionContainer),
+    AST.is(AST_NODE_TYPES.JSXExpressionContainer),
   );
 }
 
 function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {
   let flag = ERFunctionComponentFlag.None;
-  if (hasCallInComponentInitPath("memo")(initPath)) {
+  if (AST.hasCallInFunctionInitPath("memo")(initPath)) {
     flag |= ERFunctionComponentFlag.Memo;
   }
-  if (hasCallInComponentInitPath("forwardRef")(initPath)) {
+  if (AST.hasCallInFunctionInitPath("forwardRef")(initPath)) {
     flag |= ERFunctionComponentFlag.ForwardRef;
   }
   return flag;
@@ -81,22 +70,22 @@ export function useComponentCollector(
   const components = new Map<string, ERFunctionComponent>();
   const functionStack: [
     key: string,
-    node: TSESTreeFunction,
+    node: AST.TSESTreeFunction,
     isComponent: boolean,
     hookCalls: TSESTree.CallExpression[],
   ][] = [];
   const getCurrentFunction = () => O.fromNullable(functionStack.at(-1));
-  const onFunctionEnter = (node: TSESTreeFunction) => functionStack.push([uid.rnd(), node, false, []]);
+  const onFunctionEnter = (node: AST.TSESTreeFunction) => functionStack.push([uid.rnd(), node, false, []]);
   const onFunctionExit = () => {
     const [key, fn, isComponent] = functionStack.at(-1) ?? [];
     if (!key || !fn || !isComponent) return functionStack.pop();
-    const shouldDrop = getNestedReturnStatements(fn.body)
+    const shouldDrop = AST.getNestedReturnStatements(fn.body)
       .slice()
       .reverse()
       .some(r => {
         return context.sourceCode.getScope(r).block === fn
           && r.argument !== null
-          && !isJSXValue(r.argument, jsxCtx, hint);
+          && !JSX.isJSXValue(r.argument, jsxCtx, hint);
       });
     if (shouldDrop) components.delete(key);
     return functionStack.pop();
@@ -124,10 +113,10 @@ export function useComponentCollector(
       const [_key, currentFn, _isComponent, hookCalls] = maybeCurrentFn.value;
       const { body } = currentFn;
       const isComponent = hasNoneOrValidComponentName(currentFn, context)
-        && isJSXValue(body, jsxCtx, hint)
+        && JSX.isJSXValue(body, jsxCtx, hint)
         && hasValidHierarchy(currentFn, context, hint);
       if (!isComponent) return;
-      const initPath = getComponentInitPath(currentFn);
+      const initPath = AST.getFunctionInitPath(currentFn);
       const id = getFunctionComponentIdentifier(currentFn, context);
       const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
       const key = uid.rnd();
@@ -177,12 +166,12 @@ export function useComponentCollector(
       const [key, currentFn, isKnown, hookCalls] = maybeCurrentFn.value;
       if (isKnown) return;
       const isComponent = hasNoneOrValidComponentName(currentFn, context)
-        && isJSXValue(node.argument, jsxCtx, hint)
+        && JSX.isJSXValue(node.argument, jsxCtx, hint)
         && hasValidHierarchy(currentFn, context, hint);
       if (!isComponent) return;
       functionStack.pop();
       functionStack.push([key, currentFn, true, []]);
-      const initPath = getComponentInitPath(currentFn);
+      const initPath = AST.getFunctionInitPath(currentFn);
       const id = getFunctionComponentIdentifier(currentFn, context);
       const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
       components.set(key, {

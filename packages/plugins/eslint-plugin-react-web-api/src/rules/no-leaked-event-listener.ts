@@ -1,10 +1,9 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
-import { is, isFunction, isNodeEqual } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { getPhaseKindOfFunction, isInversePhase, PHASE_RELEVANCE } from "@eslint-react/core";
-import { findPropInProperties } from "@eslint-react/jsx";
+import * as JSX from "@eslint-react/jsx";
 import { Data, F, isBoolean, O } from "@eslint-react/tools";
-import { findVariable, getVariableNode, isNodeValueEqual } from "@eslint-react/var";
+import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
@@ -62,13 +61,13 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
   }
 }
 
-function getFunctionKind(node: TSESTreeFunction): FunctionKind {
+function getFunctionKind(node: AST.TSESTreeFunction): FunctionKind {
   return O.getOrElse(getPhaseKindOfFunction(node), F.constant("other"));
 }
 
 function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope): typeof defaultOptions {
   const findProp = (properties: TSESTree.ObjectExpression["properties"], propName: string) => {
-    return findPropInProperties(properties, initialScope)(propName);
+    return JSX.findPropInProperties(properties, initialScope)(propName);
   };
   const getPropValue = (prop: TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement) => {
     if (prop.type !== AST_NODE_TYPES.Property) return O.none();
@@ -99,9 +98,9 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
       }
       case AST_NODE_TYPES.Identifier: {
         return F.pipe(
-          findVariable(node, initialScope),
-          O.flatMap(getVariableNode(0)),
-          O.filter(is(AST_NODE_TYPES.ObjectExpression)),
+          VAR.findVariable(node, initialScope),
+          O.flatMap(VAR.getVariableNode(0)),
+          O.filter(AST.is(AST_NODE_TYPES.ObjectExpression)),
           O.map(getOpts),
           O.getOrElse(() => defaultOptions),
         );
@@ -140,7 +139,7 @@ export default createRule<[], MessageID>({
   create(context) {
     if (!context.sourceCode.text.includes("addEventListener")) return {};
     if (!/use\w*Effect|componentDidMount|componentWillUnmount/u.test(context.sourceCode.text)) return {};
-    const fStack: [node: TSESTreeFunction, kind: FunctionKind][] = [];
+    const fStack: [node: AST.TSESTreeFunction, kind: FunctionKind][] = [];
     const aEntries: AEntry[] = [];
     const rEntries: REntry[] = [];
     const abortedSignals: TSESTree.Expression[] = [];
@@ -150,7 +149,7 @@ export default createRule<[], MessageID>({
       options: typeof defaultOptions,
     ): O.Option<ReportDescriptor<MessageID>> {
       const [_, listener] = node.arguments;
-      if (!isFunction(listener)) return O.none();
+      if (!AST.isFunction(listener)) return O.none();
       if (O.isSome(options.signal)) return O.none();
       // if (O.exists(options.once, F.identity)) return O.none();
       return O.some({
@@ -166,7 +165,7 @@ export default createRule<[], MessageID>({
       switch (true) {
         case a.type === AST_NODE_TYPES.MemberExpression
           && b.type === AST_NODE_TYPES.MemberExpression:
-          return isNodeEqual(a.object, b.object);
+          return AST.isNodeEqual(a.object, b.object);
         // TODO: Maybe there other cases to consider here.
         default:
           return false;
@@ -180,15 +179,15 @@ export default createRule<[], MessageID>({
       const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = rEntry;
       if (!isInversePhase(aPhase, rPhase)) return false;
       return isSameObject(aCallee, rCallee)
-        && isNodeEqual(aListener, rListener)
-        && isNodeValueEqual(aType, rType, [
+        && AST.isNodeEqual(aListener, rListener)
+        && VAR.isNodeValueEqual(aType, rType, [
           context.sourceCode.getScope(aType),
           context.sourceCode.getScope(rType),
         ])
         && O.getOrElse(aCapture, F.constFalse) === O.getOrElse(rCapture, F.constFalse);
     });
     return {
-      [":function"](node: TSESTreeFunction) {
+      [":function"](node: AST.TSESTreeFunction) {
         const functionKind = getFunctionKind(node);
         fStack.push([node, functionKind]);
       },

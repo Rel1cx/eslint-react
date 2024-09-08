@@ -1,4 +1,4 @@
-import { isNodeEqual, isOneOf, traverseUp } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -44,12 +44,12 @@ export function isNodeValueEqual(
     return ia.value === ib.value;
   }
   if (a.type === AST_NODE_TYPES.MemberExpression && b.type === AST_NODE_TYPES.MemberExpression) {
-    return isNodeEqual(a.property, b.property) && isNodeValueEqual(a.object, b.object, initialScopes);
+    return AST.isNodeEqual(a.property, b.property) && isNodeValueEqual(a.object, b.object, initialScopes);
   }
   if (a.type === AST_NODE_TYPES.ThisExpression && b.type === AST_NODE_TYPES.ThisExpression) {
     if (aScope.block === bScope.block) return true;
-    const fa = traverseUp(a, isOneOf(thisBlockTypes));
-    const fb = traverseUp(a, isOneOf(thisBlockTypes));
+    const fa = AST.traverseUp(a, AST.isOneOf(thisBlockTypes));
+    const fb = AST.traverseUp(a, AST.isOneOf(thisBlockTypes));
     if (O.isSome(fa) && O.isSome(fb)) return fa.value === fb.value;
     return false;
   }

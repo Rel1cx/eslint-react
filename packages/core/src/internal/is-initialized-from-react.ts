@@ -1,6 +1,6 @@
 import type { ESLintReactSettings } from "@eslint-react/shared";
 import { isString, O } from "@eslint-react/tools";
-import { findVariable } from "@eslint-react/var";
+import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { isMatching, match } from "ts-pattern";
@@ -21,7 +21,7 @@ export function isInitializedFromReact(
   // Optimistic assertion when identifier is named react
   if (name.toLowerCase() === "react") return true;
   const { importSource = "react" } = settings;
-  const maybeLatestDef = O.flatMapNullable(findVariable(name, initialScope), (v) => v.defs.at(-1));
+  const maybeLatestDef = O.flatMapNullable(VAR.findVariable(name, initialScope), (v) => v.defs.at(-1));
   if (O.isNone(maybeLatestDef)) return false;
   const latestDef = maybeLatestDef.value;
   const { node, parent } = latestDef;

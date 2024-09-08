@@ -1,6 +1,6 @@
-import { isJSXTagNameExpression } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
-import { findVariable, getVariableNode } from "@eslint-react/var";
+import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -110,11 +110,11 @@ export function isJSXValue(
     .with({ type: AST_NODE_TYPES.Identifier }, (node) => {
       const { name } = node;
       if (name === "undefined") return !(hint & JSXValueHint.SkipUndefinedLiteral);
-      if (isJSXTagNameExpression(node)) return true;
+      if (AST.isJSXTagNameExpression(node)) return true;
       const initialScope = jsxCtx.getScope(node);
       return F.pipe(
-        findVariable(name, initialScope),
-        O.flatMap(getVariableNode(0)),
+        VAR.findVariable(name, initialScope),
+        O.flatMap(VAR.getVariableNode(0)),
         O.exists(n => isJSXValue(n, jsxCtx, hint)),
       );
     })

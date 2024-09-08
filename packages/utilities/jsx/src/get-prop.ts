@@ -1,6 +1,6 @@
-import { is } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { O } from "@eslint-react/tools";
-import { findVariable, getVariableNode } from "@eslint-react/var";
+import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -81,12 +81,12 @@ export function findPropInProperties(
               case prop.argument.type === AST_NODE_TYPES.Identifier: {
                 const { name } = prop.argument;
                 const maybeInit = O.flatMap(
-                  findVariable(name, initialScope),
-                  getVariableNode(0),
+                  VAR.findVariable(name, initialScope),
+                  VAR.getVariableNode(0),
                 );
                 if (O.isNone(maybeInit)) return false;
                 const init = maybeInit.value;
-                if (!is(AST_NODE_TYPES.ObjectExpression)(init)) return false;
+                if (!AST.is(AST_NODE_TYPES.ObjectExpression)(init)) return false;
                 if (seenProps.includes(name)) return false;
                 return O.isSome(
                   findPropInProperties(init.properties, initialScope, [...seenProps, name])(propName),
@@ -136,12 +136,12 @@ export function findPropInAttributes(
               case AST_NODE_TYPES.Identifier: {
                 const { name } = attr.argument;
                 const maybeInit = O.flatMap(
-                  findVariable(name, initialScope),
-                  getVariableNode(0),
+                  VAR.findVariable(name, initialScope),
+                  VAR.getVariableNode(0),
                 );
                 if (O.isNone(maybeInit)) return false;
                 const init = maybeInit.value;
-                if (!is(AST_NODE_TYPES.ObjectExpression)(init)) return false;
+                if (!AST.is(AST_NODE_TYPES.ObjectExpression)(init)) return false;
                 return O.isSome(findPropInProperties(init.properties, initialScope)(propName));
               }
               case AST_NODE_TYPES.ObjectExpression:

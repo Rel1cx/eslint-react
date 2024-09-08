@@ -43,7 +43,7 @@ if the predicate returns `false`.
 
 ### Parameters
 
-• **refinement**: `Refinement`\<`A`, `B`\>
+• **refinement**: [`Refinement`](../../../interfaces/Refinement.md)\<`A`, `B`\>
 
 ### Returns
 
@@ -91,7 +91,7 @@ if the predicate returns `false`.
 
 ### Parameters
 
-• **predicate**: `Predicate`\<`A`\>
+• **predicate**: [`Predicate`](../../../interfaces/Predicate.md)\<`A`\>
 
 ### Returns
 
@@ -141,7 +141,7 @@ if the predicate returns `false`.
 
 • **self**: `A`
 
-• **refinement**: `Refinement`\<`A`, `B`\>
+• **refinement**: [`Refinement`](../../../interfaces/Refinement.md)\<`A`, `B`\>
 
 ### Returns
 
@@ -183,7 +183,7 @@ if the predicate returns `false`.
 
 • **self**: `B`
 
-• **predicate**: `Predicate`\<`A`\>
+• **predicate**: [`Predicate`](../../../interfaces/Predicate.md)\<`A`\>
 
 ### Returns
 

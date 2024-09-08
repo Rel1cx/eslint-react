@@ -1,6 +1,6 @@
-import { isOneOf } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { isFragmentElement } from "@eslint-react/core";
-import { isBuiltInElement, isKeyedElement, isLiteral, isPaddingSpaces } from "@eslint-react/jsx";
+import * as JSX from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -20,14 +20,14 @@ function check(
   context: RuleContext,
 ) {
   const initialScope = context.sourceCode.getScope(node);
-  if (isKeyedElement(node, initialScope)) return;
-  if (isBuiltInElement(node.parent)) context.report({ messageId: "noUselessFragmentInBuiltIn", node });
+  if (JSX.isKeyedElement(node, initialScope)) return;
+  if (JSX.isBuiltInElement(node.parent)) context.report({ messageId: "noUselessFragmentInBuiltIn", node });
   if (node.children.length === 0) return context.report({ messageId: "noUselessFragment", node });
-  const isChildren = isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(node.parent);
+  const isChildren = AST.isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(node.parent);
   const [firstChildren] = node.children;
   // <Foo content={<>ee eeee eeee ...</>} />
-  if (node.children.length === 1 && isLiteral(firstChildren) && !isChildren) return;
-  const nonPaddingChildren = node.children.filter((child) => !isPaddingSpaces(child));
+  if (node.children.length === 1 && JSX.isLiteral(firstChildren) && !isChildren) return;
+  const nonPaddingChildren = node.children.filter((child) => !JSX.isPaddingSpaces(child));
   if (nonPaddingChildren.length > 1) return;
   if (nonPaddingChildren.length === 0) return context.report({ messageId: "noUselessFragment", node });
   const [first] = nonPaddingChildren;

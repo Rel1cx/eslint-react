@@ -58,7 +58,7 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 ### Parameters
 
-• **refinement**: `Refinement`\<`NoInfer`\<`A`\>, `B`\>
+• **refinement**: [`Refinement`](../../../interfaces/Refinement.md)\<`NoInfer`\<`A`\>, `B`\>
 
 ### Returns
 
@@ -118,7 +118,7 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 ### Parameters
 
-• **predicate**: `Predicate`\<`NoInfer`\<`A`\>\>
+• **predicate**: [`Predicate`](../../../interfaces/Predicate.md)\<`NoInfer`\<`A`\>\>
 
 ### Returns
 
@@ -182,7 +182,7 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 • **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
 
-• **refinement**: `Refinement`\<`A`, `B`\>
+• **refinement**: [`Refinement`](../../../interfaces/Refinement.md)\<`A`, `B`\>
 
 ### Returns
 
@@ -236,7 +236,7 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 • **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
 
-• **predicate**: `Predicate`\<`A`\>
+• **predicate**: [`Predicate`](../../../interfaces/Predicate.md)\<`A`\>
 
 ### Returns
 

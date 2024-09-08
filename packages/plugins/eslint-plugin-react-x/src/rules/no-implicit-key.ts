@@ -1,5 +1,5 @@
-import { is } from "@eslint-react/ast";
-import { findPropInAttributes } from "@eslint-react/jsx";
+import * as AST from "@eslint-react/ast";
+import * as JSX from "@eslint-react/jsx";
 import { F, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -27,8 +27,10 @@ export default createRule<[], MessageID>({
   create(context) {
     function getReportDescriptor(node: TSESTree.JSXOpeningElement): O.Option<ReportDescriptor<MessageID>> {
       const initialScope = context.sourceCode.getScope(node);
-      const keyPropFound = findPropInAttributes(node.attributes, initialScope)("key");
-      const keyPropOnElement = node.attributes.some(n => is(AST_NODE_TYPES.JSXAttribute)(n) && n.name.name === "key");
+      const keyPropFound = JSX.findPropInAttributes(node.attributes, initialScope)("key");
+      const keyPropOnElement = node.attributes.some(n =>
+        AST.is(AST_NODE_TYPES.JSXAttribute)(n) && n.name.name === "key"
+      );
       if (O.isSome(keyPropFound) && !keyPropOnElement) {
         return O.some({ messageId: "noImplicitKey", node: keyPropFound.value });
       }

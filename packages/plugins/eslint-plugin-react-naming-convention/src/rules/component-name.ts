@@ -1,6 +1,6 @@
-import { getClassIdentifier, getFunctionIdentifier } from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
-import { getElementName } from "@eslint-react/jsx";
+import * as JSX from "@eslint-react/jsx";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
 import { F, isNullable, isString, O } from "@eslint-react/tools";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -123,7 +123,7 @@ export default createRule<Options, MessageID>({
       ...collector.listeners,
       ...collectorLegacy.listeners,
       JSXOpeningElement(node) {
-        const name = getElementName(node);
+        const name = JSX.getElementName(node);
         if (/^[a-z]/u.test(name)) return;
         if (validate(name, options)) return;
         context.report({
@@ -138,7 +138,7 @@ export default createRule<Options, MessageID>({
         const functionComponents = collector.ctx.getAllComponents(node);
         const classComponents = collectorLegacy.ctx.getAllComponents(node);
         for (const { node: component } of functionComponents.values()) {
-          const maybeId = getFunctionIdentifier(component);
+          const maybeId = AST.getFunctionIdentifier(component);
           if (O.isNone(maybeId)) continue;
           const id = maybeId.value;
           const { name } = id;
@@ -152,7 +152,7 @@ export default createRule<Options, MessageID>({
           });
         }
         for (const { node: component } of classComponents.values()) {
-          const maybeId = getClassIdentifier(component);
+          const maybeId = AST.getClassIdentifier(component);
           if (O.isNone(maybeId)) continue;
           const id = maybeId.value;
           const { name } = id;
