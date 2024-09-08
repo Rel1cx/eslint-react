@@ -85,7 +85,7 @@ export default createRule<[], MessageID>({
             })
             .otherwise(O.none),
           O.map(n => context.sourceCode.getScope(n)),
-          O.map(s => [...s.childScopes, s].flatMap(x => x.references)),
+          O.map(s => VAR.getChidScopes(s).flatMap(x => x.references)),
           O.exists(refs => refs.some(x => x.resolved?.scope.block === component)),
         );
         if (isReferencedToComponentScope) return;

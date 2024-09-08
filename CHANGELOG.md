@@ -1,3 +1,9 @@
+## v1.13.1 (Draft)
+
+### 🐞 Fixes
+
+- Fixed `hooks-extra/no-unnecessary-use-callback` and `hooks-extra/no-unnecessary-use-memo` false positives when there are references from nested scopes.
+
 ## v1.13.0 (Wed 04 Sep 2024)
 
 ### ✨ New
