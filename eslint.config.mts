@@ -8,7 +8,6 @@ import type { Linter } from "eslint";
 import gitignore from "eslint-config-flat-gitignore";
 import eslintCommentsPlugin from "eslint-plugin-eslint-comments";
 import eslintPluginPlugin from "eslint-plugin-eslint-plugin";
-import fileProgressPlugin from "eslint-plugin-file-progress";
 import importPlugin from "eslint-plugin-import-x";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 import perfectionist from "eslint-plugin-perfectionist";
@@ -114,7 +113,6 @@ export default [
       ["@typescript-eslint"]: tseslint.plugin,
       ["eslint-comments"]: eslintCommentsPlugin,
       ["eslint-plugin"]: eslintPluginPlugin,
-      ["file-progress"]: fileProgressPlugin,
       ["import-x"]: importPlugin,
       ["jsdoc"]: jsdocPlugin,
       ["simple-import-sort"]: simpleImportSortPlugin,
@@ -397,9 +395,4 @@ export default [
       ...eslintPluginYml.configs.recommended.rules,
     },
   },
-  // {
-  //   rules: {
-  //     "file-progress/activate": !isCI ? "warn" : "off",
-  //   },
-  // },
 ] satisfies Linter.Config[];
