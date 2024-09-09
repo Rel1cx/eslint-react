@@ -1,7 +1,8 @@
-## v1.13.2 (Mon 09 Sep 2024)
+## v1.13.2 (Draft)
 
 ### 🐞 Fixes
 
+- Fixed mono plugins missing default export.
 - Fixed component name detection when the component name starts with a underscore.
 
 ## v1.13.1 (Mon 09 Sep 2024)

@@ -1,12 +1,12 @@
 import type { ESLintReactSettings } from "@eslint-react/shared";
 import { entries, fromEntries } from "@eslint-react/tools";
 import type { RulePreset } from "@eslint-react/types";
-import * as reactDebug from "eslint-plugin-react-debug";
-import * as reactDom from "eslint-plugin-react-dom";
-import * as reactHooksExtra from "eslint-plugin-react-hooks-extra";
-import * as reactNamingConvention from "eslint-plugin-react-naming-convention";
-import * as reactWebApi from "eslint-plugin-react-web-api";
-import * as react from "eslint-plugin-react-x";
+import reactDebug from "eslint-plugin-react-debug";
+import reactDom from "eslint-plugin-react-dom";
+import reactHooksExtra from "eslint-plugin-react-hooks-extra";
+import reactNamingConvention from "eslint-plugin-react-naming-convention";
+import reactWebApi from "eslint-plugin-react-web-api";
+import react from "eslint-plugin-react-x";
 
 import { name, version } from "../package.json";
 import { padKeysLeft } from "./utils";

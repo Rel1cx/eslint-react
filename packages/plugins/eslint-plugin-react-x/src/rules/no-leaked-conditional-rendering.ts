@@ -257,9 +257,8 @@ export default createRule<[], MessageID>({
           return O.orElse(getReportDescriptor(consequent), () => getReportDescriptor(alternate));
         })
         .with({ type: AST_NODE_TYPES.Identifier }, (n) => {
-          const initialScope = context.sourceCode.getScope(n);
           return F.pipe(
-            VAR.findVariable(n.name, initialScope),
+            VAR.findVariable(n.name, context.sourceCode.getScope(n)),
             O.flatMap(getVariableInitExpression(0)),
             O.flatMap(getReportDescriptor),
           );

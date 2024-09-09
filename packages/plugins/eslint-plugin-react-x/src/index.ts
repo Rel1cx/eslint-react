@@ -1,3 +1,4 @@
+/* eslint-disable perfectionist/sort-objects */
 import type { ESLintReactSettings } from "@eslint-react/shared";
 
 import { name, version } from "../package.json";
@@ -47,65 +48,10 @@ import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferShorthandBoolean from "./rules/prefer-shorthand-boolean";
 import preferShorthandFragment from "./rules/prefer-shorthand-fragment";
 
-export const meta = {
-  name,
-  version,
-} as const;
-
-export const rules = {
-  "avoid-shorthand-boolean": avoidShorthandBoolean,
-  "avoid-shorthand-fragment": avoidShorthandFragment,
-  "ensure-forward-ref-using-ref": forwardRefUsingRef,
-  "no-access-state-in-setstate": noAccessStateInSetstate,
-  "no-array-index-key": noArrayIndexKey,
-  "no-children-count": noChildrenCount,
-  "no-children-for-each": noChildrenForEach,
-  "no-children-map": noChildrenMap,
-  "no-children-only": noChildrenOnly,
-  "no-children-prop": noChildrenProp,
-  "no-children-to-array": noChildrenToArray,
-  "no-class-component": noClassComponent,
-  "no-clone-element": noCloneElement,
-  "no-comment-textnodes": noCommentTextnodes,
-  "no-complex-conditional-rendering": noComplexConditionalRendering,
-  // TODO: Remove this alias in the next major version
-  "no-complicated-conditional-rendering": noComplexConditionalRendering,
-  "no-component-will-mount": noComponentWillMount,
-  "no-component-will-receive-props": noComponentWillReceiveProps,
-  "no-component-will-update": noComponentWillUpdate,
-  "no-create-ref": noCreateRef,
-  "no-default-props": noDefaultProps,
-  "no-direct-mutation-state": noDirectMutationState,
-  "no-duplicate-key": noDuplicateKey,
-  "no-implicit-key": noImplicitKey,
-  "no-leaked-conditional-rendering": noLeakedConditionalRendering,
-  "no-missing-component-display-name": noMissingComponentDisplayName,
-  "no-missing-key": noMissingKey,
-  "no-nested-components": noNestedComponents,
-  "no-prop-types": noPropTypes,
-  "no-redundant-should-component-update": noRedundantShouldComponentUpdate,
-  "no-set-state-in-component-did-mount": noSetStateInComponentDidMount,
-  "no-set-state-in-component-did-update": noSetStateInComponentDidUpdate,
-  "no-set-state-in-component-will-update": noSetStateInComponentWillUpdate,
-  "no-string-refs": noStringRefs,
-  "no-unsafe-component-will-mount": noUnsafeComponentWillMount,
-  "no-unsafe-component-will-receive-props": noUnsafeComponentWillReceiveProps,
-  "no-unsafe-component-will-update": noUnsafeComponentWillUpdate,
-  "no-unstable-context-value": noUnstableContextValue,
-  "no-unstable-default-props": noUnstableDefaultProps,
-  "no-unused-class-component-members": noUnusedClassComponentMembers,
-  "no-unused-state": noUnusedState,
-  "no-useless-fragment": noUselessFragment,
-  "prefer-destructuring-assignment": preferDestructuringAssignment,
-  "prefer-read-only-props": preferReadOnlyProps,
-  "prefer-shorthand-boolean": preferShorthandBoolean,
-  "prefer-shorthand-fragment": preferShorthandFragment,
-} as const;
-
 /**
  * The default ESLint settings for "react-x".
  */
-export const DEFAULT_ESLINT_REACT_SETTINGS = {
+const DEFAULT_ESLINT_REACT_SETTINGS = {
   additionalHooks: {
     useLayoutEffect: ["useIsomorphicLayoutEffect"],
   },
@@ -113,3 +59,61 @@ export const DEFAULT_ESLINT_REACT_SETTINGS = {
   skipImportCheck: false,
   version: "detect",
 } as const satisfies ESLintReactSettings;
+
+export default {
+  meta: {
+    name,
+    version,
+  },
+  rules: {
+    "avoid-shorthand-boolean": avoidShorthandBoolean,
+    "avoid-shorthand-fragment": avoidShorthandFragment,
+    "ensure-forward-ref-using-ref": forwardRefUsingRef,
+    "no-access-state-in-setstate": noAccessStateInSetstate,
+    "no-array-index-key": noArrayIndexKey,
+    "no-children-count": noChildrenCount,
+    "no-children-for-each": noChildrenForEach,
+    "no-children-map": noChildrenMap,
+    "no-children-only": noChildrenOnly,
+    "no-children-prop": noChildrenProp,
+    "no-children-to-array": noChildrenToArray,
+    "no-class-component": noClassComponent,
+    "no-clone-element": noCloneElement,
+    "no-comment-textnodes": noCommentTextnodes,
+    "no-complex-conditional-rendering": noComplexConditionalRendering,
+    "no-component-will-mount": noComponentWillMount,
+    "no-component-will-receive-props": noComponentWillReceiveProps,
+    "no-component-will-update": noComponentWillUpdate,
+    "no-create-ref": noCreateRef,
+    "no-default-props": noDefaultProps,
+    "no-direct-mutation-state": noDirectMutationState,
+    "no-duplicate-key": noDuplicateKey,
+    "no-implicit-key": noImplicitKey,
+    "no-leaked-conditional-rendering": noLeakedConditionalRendering,
+    "no-missing-component-display-name": noMissingComponentDisplayName,
+    "no-missing-key": noMissingKey,
+    "no-nested-components": noNestedComponents,
+    "no-prop-types": noPropTypes,
+    "no-redundant-should-component-update": noRedundantShouldComponentUpdate,
+    "no-set-state-in-component-did-mount": noSetStateInComponentDidMount,
+    "no-set-state-in-component-did-update": noSetStateInComponentDidUpdate,
+    "no-set-state-in-component-will-update": noSetStateInComponentWillUpdate,
+    "no-string-refs": noStringRefs,
+    "no-unsafe-component-will-mount": noUnsafeComponentWillMount,
+    "no-unsafe-component-will-receive-props": noUnsafeComponentWillReceiveProps,
+    "no-unsafe-component-will-update": noUnsafeComponentWillUpdate,
+    "no-unstable-context-value": noUnstableContextValue,
+    "no-unstable-default-props": noUnstableDefaultProps,
+    "no-unused-class-component-members": noUnusedClassComponentMembers,
+    "no-unused-state": noUnusedState,
+    "no-useless-fragment": noUselessFragment,
+    "prefer-destructuring-assignment": preferDestructuringAssignment,
+    "prefer-read-only-props": preferReadOnlyProps,
+    "prefer-shorthand-boolean": preferShorthandBoolean,
+    "prefer-shorthand-fragment": preferShorthandFragment,
+    // Deprecated Rules
+    /** @deprecated Use `no-complex-conditional-rendering` instead. */
+    "no-complicated-conditional-rendering": noComplexConditionalRendering,
+  },
+  DEFAULT_ESLINT_REACT_SETTINGS,
+};
