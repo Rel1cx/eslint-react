@@ -31,6 +31,17 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "componentName" }],
       options: [{ rule: "CONSTANT_CASE" }],
     },
+    {
+      code: /* tsx */ `
+        export function _Test() {
+         return (
+           <div />
+         )
+        }
+      `,
+      errors: [{ messageId: "componentName" }],
+      options: [{ allowLeadingUnderscore: false, rule: "CONSTANT_CASE" }],
+    },
   ],
   valid: [
     ...allFunctions,

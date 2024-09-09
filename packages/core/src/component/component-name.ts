@@ -1,6 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
-export const RE_COMPONENT_NAME = /^[A-Z]/u;
+export const RE_COMPONENT_NAME = /^_?[A-Z]/u;
 
 export function getComponentNameFromIdentifier(node: TSESTree.Identifier | TSESTree.Identifier[]) {
   return Array.isArray(node)

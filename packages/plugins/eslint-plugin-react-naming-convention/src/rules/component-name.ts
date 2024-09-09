@@ -78,9 +78,7 @@ function normalizeOptions(options: Options) {
 }
 
 function validate(name: string, options: ReturnType<typeof normalizeOptions>) {
-  if (options.excepts.some((regex) => regex.test(name))) {
-    return true;
-  }
+  if (options.excepts.some((regex) => regex.test(name))) return true;
   let normalized = name
     .normalize("NFKD")
     .replace(/[\u0300-\u036F]/g, "");

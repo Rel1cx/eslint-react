@@ -2,6 +2,12 @@
 
 ### 🐞 Fixes
 
+- Fixed component name detection when the component name starts with a underscore.
+
+## v1.13.1 (Mon 09 Sep 2024)
+
+### 🐞 Fixes
+
 - Fixed `hooks-extra/no-unnecessary-use-callback` and `hooks-extra/no-unnecessary-use-memo` false positives when there are references from nested scopes.
 
 ## v1.13.0 (Wed 04 Sep 2024)
